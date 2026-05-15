@@ -53,48 +53,22 @@ nav#mainNav {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-/* HERO */
-.careers-hero {
-  background: var(--blue);
-  padding: 80px 6% 70px;
-  text-align: center;
-}
-.ch-inner { max-width: 760px; margin: 0 auto; }
-.section-label {
-  font-family: var(--handwriting); font-size: 1.6rem; font-weight: 600;
-  color: rgba(255,255,255,0.75); font-style: italic;
+/* PAGE HEADER */
+.page-header { padding: 80px 6% 48px; max-width: 1280px; margin: 0 auto; }
+.page-label {
   display: inline-flex; align-items: center; gap: 10px;
-  margin-bottom: 0.8rem;
+  font-family: var(--handwriting); font-size: 1.5rem; font-weight: 600;
+  font-style: italic; color: var(--blue); margin-bottom: 0.8rem;
 }
-.careers-h1 {
-  font-family: var(--handwriting); font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5rem); color: #fff;
-  line-height: 1.1; margin-bottom: 1.2rem;
-}
-.careers-h1 .highlight {
-  position: relative; display: inline; z-index: 0;
-}
-.careers-h1 .highlight::after {
-  content: ''; position: absolute; bottom: 2px; left: -4px; right: -4px;
-  height: 14px; background: rgba(254,240,138,0.5); z-index: -1; border-radius: 3px;
-}
-.careers-sub { font-size: 1.05rem; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 2.2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-.hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
-.hero-stat { text-align: center; }
-.hero-stat-num { font-family: var(--handwriting); font-size: 2.2rem; font-weight: 700; color: var(--yellow-mid); line-height: 1; }
-.hero-stat-lbl { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px; }
+.page-label::before { content: ''; display: inline-block; width: 28px; height: 3px; background: var(--blue); border-radius: 1px; }
+.page-title { font-family: var(--handwriting); font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 1rem; }
+.page-title .highlight { position: relative; display: inline-block; z-index: 0; }
+.page-title .highlight::after { content: ''; position: absolute; left: 0; bottom: 4px; width: 100%; height: 10px; background: #fef08a; z-index: -1; border-radius: 3px; }
+.page-sub { font-size: 1rem; color: #475569; line-height: 1.75; max-width: 560px; }
 
-/* FILTER WRAP (country + dept unified) */
-.filter-wrap {
-  background: var(--white);
-  border-bottom: 2px solid var(--border);
-  position: sticky; top: 64px; z-index: 90;
-}
-.country-bar {
-  padding: 10px 6% 8px;
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
-}
+/* FILTERS */
+.careers-filters { padding: 0 6% 2.5rem; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .country-btn {
   display: flex; align-items: center; gap: 7px;
   background: var(--white); border: 1.5px solid var(--border); cursor: pointer;
@@ -105,12 +79,6 @@ nav#mainNav {
 .country-btn:hover { color: var(--blue); background: var(--blue-pale); border-color: var(--blue); }
 .country-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 .country-flag { font-size: 1rem; line-height: 1; }
-
-/* DEPT FILTER BAR */
-.filter-bar {
-  padding: 6px 6% 10px;
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-}
 .filter-btn {
   background: var(--white); border: 1.5px solid var(--border); cursor: pointer;
   font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
@@ -272,46 +240,35 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="careers-hero">
-  <div class="ch-inner">
-    <div class="section-label" data-k="ch_label">— Global Dev Hubs</div>
-    <h1 class="careers-h1"><span data-k="ch_h1a">Build AI That Runs</span><br><span class="highlight" data-k="ch_h1b">in Production.</span></h1>
-    <p class="careers-sub" data-k="ch_sub">TechNext is assembling elite engineering teams across Vietnam, Philippines, and Singapore to build enterprise AI for global clients. Remote-friendly, English-first, and growing fast.</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-lbl" data-k="ch_stat1">Open Roles</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">10+</div><div class="hero-stat-lbl" data-k="ch_stat2">Countries Served</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl" data-k="ch_stat3">Remote-Friendly</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">EN</div><div class="hero-stat-lbl" data-k="ch_stat4">English-First</div></div>
-    </div>
-  </div>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-label" data-k="ch_label">Careers</div>
+  <h1 class="page-title"><span data-k="ch_h1a">Build AI That Runs</span> <span class="highlight" data-k="ch_h1b">in Production.</span></h1>
+  <p class="page-sub" data-k="ch_sub">TechNext is assembling elite engineering teams across Vietnam, Philippines, and Singapore to build enterprise AI for global clients. Remote-friendly, English-first, and growing fast.</p>
 </div>
 
 <!-- FILTERS -->
-<div class="filter-wrap">
-
-<div class="country-bar">
-  <button class="country-btn active" data-country="all"><span class="country-flag">🌏</span> <span data-k="cf_all">All Countries</span></button>
-  <button class="country-btn" data-country="vietnam"><span class="country-flag">🇻🇳</span> <span data-k="cf_vn">Vietnam</span></button>
-  <button class="country-btn" data-country="philippines"><span class="country-flag">🇵🇭</span> <span data-k="cf_ph">Philippines</span></button>
-  <button class="country-btn" data-country="singapore"><span class="country-flag">🇸🇬</span> <span data-k="cf_sg">Singapore</span></button>
+<div class="careers-filters">
+  <div class="filter-row">
+    <button class="country-btn active" data-country="all"><span class="country-flag">🌏</span> <span data-k="cf_all">All Countries</span></button>
+    <button class="country-btn" data-country="vietnam"><span class="country-flag">🇻🇳</span> <span data-k="cf_vn">Vietnam</span></button>
+    <button class="country-btn" data-country="philippines"><span class="country-flag">🇵🇭</span> <span data-k="cf_ph">Philippines</span></button>
+    <button class="country-btn" data-country="singapore"><span class="country-flag">🇸🇬</span> <span data-k="cf_sg">Singapore</span></button>
+  </div>
+  <div class="filter-row" id="deptFilterBar">
+    <button class="filter-btn active" data-filter="all" data-k="df_all">All Roles</button>
+    <button class="filter-btn" data-filter="Engineering" data-k="df_eng">Engineering</button>
+    <button class="filter-btn" data-filter="AI Systems" data-k="df_ai">AI Systems</button>
+    <button class="filter-btn" data-filter="Infrastructure" data-k="df_infra">Infrastructure</button>
+    <button class="filter-btn" data-filter="Leadership" data-k="df_lead">Leadership</button>
+    <button class="filter-btn" data-filter="Quality" data-k="df_qa">Quality</button>
+    <button class="filter-btn" data-filter="Finance" data-k="df_fin">Finance</button>
+    <button class="filter-btn" data-filter="ERP" data-k="df_erp">ERP</button>
+    <button class="filter-btn" data-filter="Sales" data-k="df_sales">Sales</button>
+    <button class="filter-btn" data-filter="Client Success" data-k="df_cs">Client Success</button>
+    <button class="filter-btn" data-filter="Management" data-k="df_mgmt">Management</button>
+  </div>
 </div>
-
-<div class="filter-bar" id="deptFilterBar">
-  <button class="filter-btn active" data-filter="all" data-k="df_all">All Roles</button>
-  <button class="filter-btn" data-filter="Engineering" data-k="df_eng">Engineering</button>
-  <button class="filter-btn" data-filter="AI Systems" data-k="df_ai">AI Systems</button>
-  <button class="filter-btn" data-filter="Infrastructure" data-k="df_infra">Infrastructure</button>
-  <button class="filter-btn" data-filter="Leadership" data-k="df_lead">Leadership</button>
-  <button class="filter-btn" data-filter="Quality" data-k="df_qa">Quality</button>
-  <button class="filter-btn" data-filter="Finance" data-k="df_fin">Finance</button>
-  <button class="filter-btn" data-filter="ERP" data-k="df_erp">ERP</button>
-  <button class="filter-btn" data-filter="Sales" data-k="df_sales">Sales</button>
-  <button class="filter-btn" data-filter="Client Success" data-k="df_cs">Client Success</button>
-  <button class="filter-btn" data-filter="Management" data-k="df_mgmt">Management</button>
-</div>
-
-</div><!-- end .filter-wrap -->
 
 <!-- VIETNAM JOBS GRID -->
 <section class="jobs-section" id="jobsSection">
@@ -557,7 +514,7 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem
 const LANG = {
   en: {
     nav_about:'About', nav_gallery:'Gallery', nav_careers:'Careers', nav_contact:'Contact', nav_apply:'Book Now',
-    ch_label:'— Global Dev Hubs', ch_h1a:'Build AI That Runs', ch_h1b:'in Production.',
+    ch_label:'Careers', ch_h1a:'Build AI That Runs', ch_h1b:'in Production.',
     ch_sub:'TechNext is assembling elite engineering teams across Vietnam, Philippines, and Singapore to build enterprise AI for global clients. Remote-friendly, English-first, and growing fast.',
     ch_stat1:'Open Roles', ch_stat2:'Countries Served', ch_stat3:'Remote-Friendly', ch_stat4:'English-First',
     cf_all:'All Countries', cf_vn:'Vietnam', cf_ph:'Philippines', cf_sg:'Singapore',
@@ -609,7 +566,7 @@ const LANG = {
   },
   vn: {
     nav_about:'Về Chúng Tôi', nav_gallery:'Thư Viện', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_apply:'Đặt Lịch',
-    ch_label:'— Trung Tâm Dev Toàn Cầu', ch_h1a:'Làm Việc Với AI Thực Sự', ch_h1b:'Triển Khai Lên Production.',
+    ch_label:'Tuyển Dụng', ch_h1a:'Làm Việc Với AI Thực Sự', ch_h1b:'Triển Khai Lên Production.',
     ch_sub:'TechNext đang xây dựng đội ngũ kỹ sư xuất sắc tại Việt Nam, Philippines và Singapore để xây dựng AI doanh nghiệp cho khách hàng toàn cầu. Làm việc từ xa, tiếng Anh là ngôn ngữ chính.',
     ch_stat1:'Vị Trí Mở', ch_stat2:'Quốc Gia Phục Vụ', ch_stat3:'Làm Việc Từ Xa', ch_stat4:'Tiếng Anh Là Chính',
     cf_all:'Tất Cả Quốc Gia', cf_vn:'Việt Nam', cf_ph:'Philippines', cf_sg:'Singapore',
@@ -661,7 +618,7 @@ const LANG = {
   },
   ph: {
     nav_about:'Tungkol', nav_gallery:'Galeria', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_apply:'Mag-book',
-    ch_label:'— Global Dev Hubs', ch_h1a:'Gumawa ng AI na Talagang', ch_h1b:'Naka-deploy sa Production.',
+    ch_label:'Karera', ch_h1a:'Gumawa ng AI na Talagang', ch_h1b:'Naka-deploy sa Production.',
     ch_sub:'Nagtatayo ang TechNext ng mga elite na engineering team sa Vietnam, Philippines, at Singapore para bumuo ng enterprise AI para sa mga pandaigdigang kliyente. Remote-friendly, English-first.',
     ch_stat1:'Bukas na Posisyon', ch_stat2:'Mga Bansang Pinaglilingkuran', ch_stat3:'Remote-Friendly', ch_stat4:'English-First',
     cf_all:'Lahat ng Bansa', cf_vn:'Vietnam', cf_ph:'Philippines', cf_sg:'Singapore',
@@ -699,7 +656,7 @@ const LANG = {
   },
   de: {
     nav_about:'Über Uns', nav_gallery:'Galerie', nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Termin Buchen',
-    ch_label:'— Globale Dev Hubs', ch_h1a:'Arbeite an KI, die', ch_h1b:'Wirklich deployed wird.',
+    ch_label:'Karriere', ch_h1a:'Arbeite an KI, die', ch_h1b:'Wirklich deployed wird.',
     ch_sub:'TechNext baut hochkarätige Engineering-Teams in Vietnam, den Philippinen und Singapur auf, um Enterprise-KI für globale Kunden zu entwickeln. Remote-freundlich, Englisch als Arbeitssprache.',
     ch_stat1:'Offene Stellen', ch_stat2:'Betreute Länder', ch_stat3:'Remote-Freundlich', ch_stat4:'Englisch-Erst',
     cf_all:'Alle Länder', cf_vn:'Vietnam', cf_ph:'Philippinen', cf_sg:'Singapur',
