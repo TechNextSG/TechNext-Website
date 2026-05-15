@@ -1,7 +1,20 @@
 /* =============================================================
-   TechNext Blog — 3-Column Layout Enhancement
-   Adds: sticky share sidebar (left) + recommended articles (right)
+   TechNext Blog — 3-Column Layout + Lang Switcher + Book Now
    ============================================================= */
+
+const BLOG_LANG = {
+  en: { nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog', nav_careers:'Careers', nav_contact:'Contact', nav_book:'Book Now' },
+  vn: { nav_about:'Giới Thiệu', nav_gallery:'Thư Viện', nav_blog:'Blog', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_book:'Đặt Lịch' },
+  ph: { nav_about:'Tungkol', nav_gallery:'Galeria', nav_blog:'Blog', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_book:'Mag-book' },
+  de: { nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_book:'Termin Buchen' }
+};
+
+function applyBlogLang(lang) {
+  localStorage.setItem('tn_lang', lang);
+  const t = BLOG_LANG[lang] || BLOG_LANG.en;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
+  document.querySelectorAll('[data-k]').forEach(el => { const k = el.getAttribute('data-k'); if (t[k] !== undefined) el.innerHTML = t[k]; });
+}
 
 const ARTICLES = [
   { title: "GPT-5: OpenAI's Most Capable Agentic AI Model Yet",            url: "gpt5-openai-agentic-ai-2025.html",            img: "https://picsum.photos/seed/gpt5ai2026/400/225",    cat: "AI & Tech",   date: "May 2, 2026"  },
@@ -113,5 +126,48 @@ document.addEventListener('DOMContentLoaded', function () {
         copy();
       }
     });
+  }
+
+  // ── Inject lang switcher + Book Now into nav ───────────────────
+  const navRight = document.querySelector('#mainNav .nav-right');
+  const navApply = navRight && navRight.querySelector('.nav-apply');
+  if (navRight && navApply) {
+    // Update Book Now button
+    navApply.href = 'https://erp.technext.asia/odoo/appointments';
+    navApply.target = '_blank';
+    navApply.rel = 'noopener';
+    navApply.setAttribute('data-k', 'nav_book');
+    navApply.textContent = 'Book Now';
+
+    // Inject lang switcher before the button
+    const switcher = document.createElement('div');
+    switcher.className = 'lang-switcher';
+    switcher.setAttribute('role', 'group');
+    switcher.setAttribute('aria-label', 'Language');
+    switcher.innerHTML = `
+      <button class="lang-btn" onclick="applyBlogLang('en')">EN</button>
+      <button class="lang-btn" onclick="applyBlogLang('vn')">VN</button>
+      <button class="lang-btn" onclick="applyBlogLang('ph')">PH</button>
+      <button class="lang-btn" onclick="applyBlogLang('de')">DE</button>
+    `;
+    navRight.insertBefore(switcher, navApply);
+  }
+
+  // Add data-k to nav links
+  const navLinkMap = { 'About': 'nav_about', 'Gallery': 'nav_gallery', 'Blog': 'nav_blog', 'Careers': 'nav_careers', 'Contact': 'nav_contact' };
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    const key = navLinkMap[a.textContent.trim()];
+    if (key) a.setAttribute('data-k', key);
+  });
+
+  // Apply saved language
+  const savedLang = localStorage.getItem('tn_lang');
+  if (savedLang && BLOG_LANG[savedLang]) applyBlogLang(savedLang);
+  else {
+    const l = (navigator.language || '').toLowerCase();
+    if (l.startsWith('vi')) applyBlogLang('vn');
+    else if (l.startsWith('de')) applyBlogLang('de');
+    else if (l.startsWith('fil') || l.startsWith('tl')) applyBlogLang('ph');
+    else applyBlogLang('en');
   }
 });

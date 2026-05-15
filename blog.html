@@ -48,6 +48,10 @@ nav#mainNav {
 .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .nav-apply { padding: 9px 22px; background: var(--plum); color: #fff; border-radius: 100px; font-size: 0.82rem; font-weight: 600; transition: all 0.25s; white-space: nowrap; }
 .nav-apply:hover { background: #5a2568; transform: translateY(-1px); }
+.lang-switcher { display: flex; gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; padding: 3px; }
+.lang-btn { background: none; border: none; color: #94a3b8; font-size: 0.68rem; font-weight: 700; font-family: var(--sans); letter-spacing: 0.06em; padding: 4px 9px; border-radius: 5px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+.lang-btn.active { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(37,99,235,0.3); }
+.lang-btn:hover:not(.active) { color: var(--text); background: rgba(0,0,0,0.05); }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
 
@@ -117,7 +121,7 @@ footer.site-footer {
   justify-content: space-between; flex-wrap: wrap; gap: 1rem;
 }
 .footer-brand { display: flex; align-items: center; }
-.footer-logo-img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+.footer-logo-img { height: 56px; width: auto; filter: brightness(0) invert(1); }
 .footer-copy { font-size: 0.78rem; }
 .footer-links { display: flex; gap: 1.4rem; }
 .footer-links a { font-size: 0.78rem; transition: color 0.2s; }
@@ -149,14 +153,20 @@ footer.site-footer {
     <img src="images/Logo/technext%20logo.png" alt="TechNext" class="logo-img">
   </a>
   <ul class="nav-links" id="navMenu">
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="blog.html" class="active">Blog</a></li>
-    <li><a href="careers.html">Careers</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="index.html#about" data-k="nav_about">About</a></li>
+    <li><a href="gallery.html" data-k="nav_gallery">Gallery</a></li>
+    <li><a href="blog.html" class="active" data-k="nav_blog">Blog</a></li>
+    <li><a href="careers.html" data-k="nav_careers">Careers</a></li>
+    <li><a href="contact.html" data-k="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="careers.html" class="nav-apply">Apply Now →</a>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('vn')">VN</button>
+      <button class="lang-btn" onclick="setLang('ph')">PH</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+    </div>
+    <a href="https://erp.technext.asia/odoo/appointments" class="nav-apply" data-k="nav_book" target="_blank" rel="noopener">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -164,18 +174,18 @@ footer.site-footer {
 </nav>
 
 <div class="page-header">
-  <div class="page-label">Blog</div>
+  <div class="page-label" data-k="blog_label">Blog</div>
   <h1 class="page-title">Insights &amp; <span class="highlight">Intelligence</span></h1>
-  <p class="page-sub">The latest on AI, enterprise technology, and the digital economies shaping Southeast Asia.</p>
+  <p class="page-sub" data-k="blog_sub">The latest on AI, enterprise technology, and the digital economies shaping Southeast Asia.</p>
 </div>
 
 <div class="blog-filters">
-  <button class="filter-btn active" onclick="filterBlog('all', this)">All</button>
-  <button class="filter-btn" onclick="filterBlog('ai-tech', this)">AI &amp; Tech</button>
-  <button class="filter-btn" onclick="filterBlog('odoo-erp', this)">Odoo ERP</button>
-  <button class="filter-btn" onclick="filterBlog('vietnam', this)">Vietnam</button>
-  <button class="filter-btn" onclick="filterBlog('singapore', this)">Singapore</button>
-  <button class="filter-btn" onclick="filterBlog('philippines', this)">Philippines</button>
+  <button class="filter-btn active" onclick="filterBlog('all', this)" data-k="filter_all">All</button>
+  <button class="filter-btn" onclick="filterBlog('ai-tech', this)" data-k="filter_ai">AI &amp; Tech</button>
+  <button class="filter-btn" onclick="filterBlog('odoo-erp', this)" data-k="filter_odoo">Odoo ERP</button>
+  <button class="filter-btn" onclick="filterBlog('vietnam', this)" data-k="filter_vn">Vietnam</button>
+  <button class="filter-btn" onclick="filterBlog('singapore', this)" data-k="filter_sg">Singapore</button>
+  <button class="filter-btn" onclick="filterBlog('philippines', this)" data-k="filter_ph">Philippines</button>
 </div>
 
 <div class="blog-wrap">
@@ -398,6 +408,31 @@ footer.site-footer {
 </footer>
 
 <script>
+const LANG = {
+  en: { nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog', nav_careers:'Careers', nav_contact:'Contact', nav_book:'Book Now', blog_label:'Blog', blog_sub:'The latest on AI, enterprise technology, and the digital economies shaping Southeast Asia.', filter_all:'All', filter_ai:'AI & Tech', filter_odoo:'Odoo ERP', filter_vn:'Vietnam', filter_sg:'Singapore', filter_ph:'Philippines' },
+  vn: { nav_about:'Giới Thiệu', nav_gallery:'Thư Viện', nav_blog:'Blog', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_book:'Đặt Lịch', blog_label:'Blog', blog_sub:'Cập nhật mới nhất về AI, công nghệ doanh nghiệp và kinh tế số tại Đông Nam Á.', filter_all:'Tất Cả', filter_ai:'AI & Công Nghệ', filter_odoo:'Odoo ERP', filter_vn:'Việt Nam', filter_sg:'Singapore', filter_ph:'Philippines' },
+  ph: { nav_about:'Tungkol', nav_gallery:'Galeria', nav_blog:'Blog', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_book:'Mag-book', blog_label:'Blog', blog_sub:'Pinakabagong balita tungkol sa AI, enterprise technology, at digital economies sa Timog-silangang Asya.', filter_all:'Lahat', filter_ai:'AI & Tech', filter_odoo:'Odoo ERP', filter_vn:'Vietnam', filter_sg:'Singapore', filter_ph:'Pilipinas' },
+  de: { nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_book:'Termin Buchen', blog_label:'Blog', blog_sub:'Aktuelles zu KI, Unternehmenstechnologie und digitalen Wirtschaften in Südostasien.', filter_all:'Alle', filter_ai:'KI & Technik', filter_odoo:'Odoo ERP', filter_vn:'Vietnam', filter_sg:'Singapur', filter_ph:'Philippinen' }
+};
+
+function setLang(lang) {
+  localStorage.setItem('tn_lang', lang);
+  const t = LANG[lang] || LANG.en;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
+  document.querySelectorAll('[data-k]').forEach(el => { const k = el.getAttribute('data-k'); if (t[k] !== undefined) el.innerHTML = t[k]; });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('tn_lang');
+  if (saved && LANG[saved]) setLang(saved);
+  else {
+    const l = (navigator.language || '').toLowerCase();
+    if (l.startsWith('vi')) setLang('vn');
+    else if (l.startsWith('de')) setLang('de');
+    else if (l.startsWith('fil') || l.startsWith('tl')) setLang('ph');
+  }
+});
+
 function toggleMenu() {
   document.getElementById('navMenu').classList.toggle('open');
   document.getElementById('hamburger').classList.toggle('open');
