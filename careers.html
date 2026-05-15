@@ -91,34 +91,34 @@ nav#mainNav {
   position: sticky; top: 64px; z-index: 90;
 }
 .country-bar {
-  padding: 8px 6% 6px;
-  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  padding: 10px 6% 8px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   border-bottom: 1px solid var(--border);
 }
 .country-btn {
   display: flex; align-items: center; gap: 7px;
-  background: none; border: none; cursor: pointer;
-  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  background: var(--white); border: 1.5px solid var(--border); cursor: pointer;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
   color: var(--text-muted); padding: 7px 16px; border-radius: 100px;
   transition: all 0.2s;
 }
-.country-btn:hover { color: var(--blue); background: var(--blue-pale); }
-.country-btn.active { background: var(--blue); color: #fff; }
+.country-btn:hover { color: var(--blue); background: var(--blue-pale); border-color: var(--blue); }
+.country-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 .country-flag { font-size: 1rem; line-height: 1; }
 
 /* DEPT FILTER BAR */
 .filter-bar {
-  padding: 6px 6% 8px;
-  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  padding: 6px 6% 10px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
 .filter-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  background: var(--white); border: 1.5px solid var(--border); cursor: pointer;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
   color: var(--text-muted); padding: 7px 16px; border-radius: 100px;
   transition: all 0.2s;
 }
-.filter-btn:hover { color: var(--blue); background: var(--blue-pale); }
-.filter-btn.active { background: var(--blue); color: #fff; }
+.filter-btn:hover { color: var(--blue); background: var(--blue-pale); border-color: var(--blue); }
+.filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 
 /* JOBS SECTION */
 .jobs-section { padding: 70px 6% 100px; max-width: 1280px; margin: 0 auto; }
