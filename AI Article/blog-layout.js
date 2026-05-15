@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     onScroll();
   }
 
-  // ── Nav: Book Now (first) then lang switcher ───────────────────
+  // ── Nav: lang switcher (first) then Book Now ───────────────────
   const navRight = document.querySelector('#mainNav .nav-right');
   const navApply = navRight && navRight.querySelector('.nav-apply');
   if (navRight && navApply) {
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     switcher.setAttribute('role', 'group');
     switcher.setAttribute('aria-label', 'Language');
     switcher.innerHTML = '<button class="lang-btn" onclick="applyBlogLang(\'en\')">EN</button><button class="lang-btn" onclick="applyBlogLang(\'vn\')">VN</button><button class="lang-btn" onclick="applyBlogLang(\'ph\')">PH</button><button class="lang-btn" onclick="applyBlogLang(\'de\')">DE</button>';
-    navApply.insertAdjacentElement('afterend', switcher);
+    navApply.insertAdjacentElement('beforebegin', switcher);
   }
 
   const navLinkMap = { 'About':'nav_about', 'Gallery':'nav_gallery', 'Blog':'nav_blog', 'Careers':'nav_careers', 'Contact':'nav_contact' };
