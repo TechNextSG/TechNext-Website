@@ -1,0 +1,505 @@
+/* ============================================================
+   TechNext Asia — Blog Shared Stylesheet
+   Applies to all article pages in /AI Article/
+   ============================================================ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap');
+
+/* ============================================================
+   CSS Variables
+   ============================================================ */
+:root {
+  --bg: #f0ece3;
+  --white: #ffffff;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #dbeafe;
+  --blue-pale: #eff6ff;
+  --plum: #6d2d7a;
+  --text: #1a1a2e;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --handwriting: 'Caveat', cursive;
+  --sans: 'DM Sans', sans-serif;
+  --logo: 'Montserrat', sans-serif;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ============================================================
+   Navigation
+   ============================================================ */
+#mainNav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(240, 236, 227, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 88px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-apply {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 22px;
+  background: var(--plum);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.nav-apply:hover {
+  background: #5a2465;
+  transform: translateY(-1px);
+}
+
+/* Mobile Nav */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  #mainNav {
+    padding: 0 5%;
+  }
+}
+
+/* ============================================================
+   Article Hero
+   ============================================================ */
+.article-hero {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+}
+
+.article-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 46, 0.15) 0%,
+    rgba(26, 26, 46, 0.55) 100%
+  );
+}
+
+/* ============================================================
+   Article Wrap
+   ============================================================ */
+.article-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 6% 100px;
+}
+
+/* ============================================================
+   Back Link
+   ============================================================ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--blue);
+}
+
+/* ============================================================
+   Category Badge
+   ============================================================ */
+.cat-badge {
+  display: inline-block;
+  background: var(--blue-pale);
+  color: var(--blue-dark);
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Article Meta
+   ============================================================ */
+.article-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 1.25rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.article-meta .meta-sep {
+  opacity: 0.4;
+}
+
+/* ============================================================
+   Article Title
+   ============================================================ */
+.article-title {
+  font-family: var(--handwriting);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   Article Body
+   ============================================================ */
+.article-body {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #374151;
+}
+
+.article-body h2 {
+  font-family: var(--handwriting);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2.5rem 0 1rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--blue);
+  line-height: 1.3;
+}
+
+.article-body h3 {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.8rem 0 0.6rem;
+}
+
+.article-body p {
+  margin-bottom: 1.2rem;
+}
+
+.article-body ul,
+.article-body ol {
+  margin: 1rem 0 1.2rem;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article-body ul {
+  list-style: disc;
+}
+
+.article-body ol {
+  list-style: decimal;
+}
+
+.article-body li {
+  padding-left: 0.25rem;
+}
+
+.article-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.article-body a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.article-body a:hover {
+  color: var(--blue-dark);
+}
+
+/* ============================================================
+   Highlight Box
+   ============================================================ */
+.highlight-box {
+  background: var(--blue-pale);
+  border-left: 4px solid var(--blue);
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.highlight-box strong {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-dark);
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   Share Bar
+   ============================================================ */
+.share-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 2rem 0;
+  border-top: 1.5px solid var(--border);
+  margin-top: 3rem;
+}
+
+.share-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--sans);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.share-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.share-btn.linkedin {
+  background: #0a66c2;
+  color: #ffffff;
+}
+
+.share-btn.twitter {
+  background: #000000;
+  color: #ffffff;
+}
+
+.share-btn.facebook {
+  background: #1877f2;
+  color: #ffffff;
+}
+
+.share-btn.copy {
+  background: var(--border);
+  color: var(--text);
+}
+
+.share-btn.copy.copied {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer {
+  background: var(--text);
+  color: rgba(255, 255, 255, 0.65);
+  padding: 2.5rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-logo-img {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.footer-copy {
+  font-size: 0.82rem;
+  font-family: var(--sans);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ============================================================
+   Reveal Animation
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 600px) {
+  .article-hero {
+    height: 260px;
+  }
+
+  .article-title {
+    font-size: 2rem;
+  }
+
+  .article-wrap {
+    padding: 32px 5% 80px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .share-bar {
+    gap: 8px;
+  }
+
+  .share-btn {
+    padding: 8px 16px;
+  }
+}

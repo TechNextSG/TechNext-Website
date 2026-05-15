@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local LLM Deployment: Running AI On-Premise for Enterprise Security | TechNext Asia</title>
+  <meta name="description" content="Data sovereignty, compliance, and latency requirements are driving enterprises to run LLMs on their own infrastructure. A practical guide to local LLM deployment with vLLM and Ollama.">
+  <meta name="keywords" content="local LLM deployment, on-premise AI, enterprise AI security, vLLM, Ollama, data sovereignty, private LLM, self-hosted AI, Llama 3, Mistral enterprise, AI compliance, air-gapped AI">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Local LLM Deployment: Running AI On-Premise for Enterprise Security">
+  <meta property="og:description" content="Data sovereignty, compliance, and latency requirements are driving enterprises to run LLMs on their own infrastructure. A practical guide to local LLM deployment with vLLM and Ollama.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=480&fit=crop&auto=format">
+  <meta property="og:url" content="https://technext.asia/blog/local-llm-on-premise-enterprise.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TechNext Asia">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Local LLM Deployment: Running AI On-Premise for Enterprise Security">
+  <meta name="twitter:description" content="Data sovereignty, compliance, and latency requirements are driving enterprises to run LLMs on their own infrastructure. A practical guide to local LLM deployment with vLLM and Ollama.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=480&fit=crop&auto=format">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Local LLM Deployment: Running AI On-Premise for Enterprise Security",
+    "description": "Data sovereignty, compliance, and latency requirements are driving enterprises to run LLMs on their own infrastructure. A practical guide to local LLM deployment with vLLM and Ollama.",
+    "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=480&fit=crop&auto=format",
+    "author": { "@type": "Organization", "name": "TechNext Asia Team" },
+    "publisher": { "@type": "Organization", "name": "TechNext Asia", "url": "https://technext.asia" },
+    "datePublished": "2026-04-22",
+    "url": "https://technext.asia/blog/local-llm-on-premise-enterprise.html"
+  }
+  </script>
+
+  <link rel="stylesheet" href="blog-style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="mainNav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/Logo/technext%20logo.png" alt="TechNext" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../careers.html">Careers</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="../careers.html" class="nav-apply">Apply Now →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="article-hero">
+    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=480&fit=crop&auto=format" alt="Local LLM Deployment: Running AI On-Premise for Enterprise Security">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <!-- Article -->
+  <div class="article-wrap">
+    <a href="../blog.html" class="back-link">← Back to Blog</a>
+
+    <span class="cat-badge">AI &amp; Tech</span>
+
+    <h1 class="article-title reveal">Local LLM Deployment: Running AI On-Premise for Enterprise Security</h1>
+
+    <div class="article-meta reveal">
+      <span>TechNext Asia Team</span>
+      <span class="meta-sep">·</span>
+      <span>April 22, 2026</span>
+      <span class="meta-sep">·</span>
+      <span>7 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p class="reveal">The default assumption in enterprise AI adoption has been cloud-first: send your data to OpenAI, Anthropic, or Google, get a response back, integrate into your workflow. For many use cases, this works well. But a growing segment of enterprises — driven by data sovereignty requirements, regulatory compliance, latency constraints, or simply cost at scale — are moving to run large language models on their own infrastructure.</p>
+
+      <p class="reveal">The good news is that local LLM deployment has become dramatically more accessible in 2025–2026. Models like Meta's Llama 3.3 70B, Mistral Large 2, and Qwen 2.5 72B deliver performance within 15–20% of GPT-4o on most enterprise benchmarks — and they run on hardware that's now commercially available and reasonably priced. The bad news is that "running locally" is not the same as "running reliably at enterprise scale." This guide covers both dimensions.</p>
+
+      <h2 class="reveal">When On-Premise Makes Sense</h2>
+
+      <p class="reveal">Not every organisation needs local LLM deployment. Before investing in the infrastructure, the business case needs to be clear. On-premise deployment is the right choice when:</p>
+
+      <ul class="reveal">
+        <li><strong>Data sovereignty requirements prohibit cloud processing:</strong> Government contracts, defence sector, financial services under certain regulatory regimes, and healthcare all have data that may not legally leave on-premise infrastructure.</li>
+        <li><strong>Volume economics favour local:</strong> At above 50 million tokens per day, the TCO of owned hardware typically beats cloud API costs within 12–18 months, even accounting for GPU depreciation and operational overhead.</li>
+        <li><strong>Latency is mission-critical:</strong> Cloud API roundtrip adds 200–800ms of latency. For real-time applications (live translation, manufacturing quality control, real-time document processing), local inference eliminates this constraint.</li>
+        <li><strong>Air-gap requirements:</strong> Some deployments must operate without any internet connectivity — on factory floors, in secure facilities, or in locations with unreliable connectivity.</li>
+      </ul>
+
+      <h2 class="reveal">Hardware Requirements in 2026</h2>
+
+      <p class="reveal">The hardware landscape for local LLM deployment has improved dramatically. The current practical options for enterprise deployment:</p>
+
+      <ul class="reveal">
+        <li><strong>NVIDIA H100 80GB:</strong> The gold standard for production inference. Runs Llama 3.3 70B at ~80 tokens/second for single requests, higher throughput with batching. $25,000–30,000 per card. Recommended for high-traffic production deployments.</li>
+        <li><strong>NVIDIA RTX 4090 (24GB):</strong> Consumer grade but enterprise-capable for smaller models. Runs Mistral 7B at 80+ tokens/second, Llama 3.1 8B at similar performance. $1,500–1,800. Excellent entry point for teams testing local deployment.</li>
+        <li><strong>AMD Instinct MI300X:</strong> Increasingly competitive with NVIDIA at 20–30% lower cost. ROCm software stack is maturing. Worth evaluating for cost-sensitive deployments.</li>
+        <li><strong>Apple M4 Max (Mac Studio):</strong> Unified memory architecture makes 128GB available for model loading. Runs 70B parameter models in 4-bit quantisation. Excellent developer experience. Not for high-concurrency production but very useful for departmental deployments.</li>
+      </ul>
+
+      <div class="highlight-box reveal">
+        <strong>Key Takeaway</strong>
+        For most enterprise teams starting local LLM deployment, a 2-GPU H100 server running vLLM can serve a department of 50–100 users with good performance. Total hardware cost is $60–80K — compare this to $40–60K/year in cloud API costs at comparable usage volumes.
+      </div>
+
+      <h2 class="reveal">Serving Infrastructure: vLLM vs Ollama</h2>
+
+      <p class="reveal"><strong>vLLM</strong> is the production standard for enterprise local inference. It implements PagedAttention — an algorithm that manages KV cache memory far more efficiently than naive approaches — enabling 2–4x higher throughput on the same hardware versus a basic serving setup. vLLM exposes an OpenAI-compatible API, making it straightforward to swap local models into existing applications. It supports continuous batching, multi-GPU tensor parallelism, and quantised model serving (GPTQ, AWQ). For any deployment serving more than a handful of concurrent users, vLLM is the right choice.</p>
+
+      <p class="reveal"><strong>Ollama</strong> is excellent for developer machines and small team deployments. It handles model management (downloading, updating, switching between models) with a very simple CLI interface, and runs without GPU drivers configured (falling back to CPU or Metal on Mac). If you're testing local models or building a development environment, Ollama gets you running in under 10 minutes. It's not suitable for production-scale serving.</p>
+
+      <h2 class="reveal">Model Selection for Enterprise Use Cases</h2>
+
+      <p class="reveal">The model ecosystem for local deployment has matured to the point where there's a credible option for every enterprise tier:</p>
+
+      <ul class="reveal">
+        <li><strong>Llama 3.3 70B (Meta):</strong> Best overall local model for enterprise reasoning tasks. Instruction-tuned and RLHF-refined. Requires 40GB VRAM minimum (4-bit quantised).</li>
+        <li><strong>Mistral Large 2 (Mistral AI):</strong> Strong coding and function-calling performance. 128k context. European data residency option via Mistral's API. Good for organisations in EU regulatory environments.</li>
+        <li><strong>Qwen 2.5 72B (Alibaba):</strong> Exceptional multilingual performance, particularly for Chinese, Vietnamese, and other Asian languages. Best choice for Southeast Asian deployments with local language requirements.</li>
+        <li><strong>Phi-4 (Microsoft):</strong> 14B parameter model with surprisingly strong performance relative to size. Runs on a single H100 with headroom for high concurrency. Best for cost-constrained deployments where a 70B model is overkill.</li>
+      </ul>
+
+      <p class="reveal">For Vietnamese enterprises in particular, Qwen 2.5's multilingual capability is a significant advantage over Western models, which often underperform on Vietnamese-language tasks. This is a genuine differentiator for regional deployments.</p>
+
+    </div>
+
+    <!-- Share Bar -->
+    <div class="share-bar reveal">
+      <span class="share-label">Share:</span>
+      <a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Flocal-llm-on-premise-enterprise.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-btn twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Flocal-llm-on-premise-enterprise.html&text=Local%20LLM%20Deployment%3A%20Running%20AI%20On-Premise%20for%20Enterprise%20Security" target="_blank" rel="noopener">X (Twitter)</a>
+      <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftechnext.asia%2Fblog%2Flocal-llm-on-premise-enterprise.html" target="_blank" rel="noopener">Facebook</a>
+      <button class="share-btn copy" id="copyBtn">Copy Link</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <a href="../index.html" class="footer-brand">
+      <img src="../images/Logo/technext%20logo.png" alt="TechNext" class="footer-logo-img">
+    </a>
+    <span class="footer-copy">© 2025 TechNext Asia · technext.asia</span>
+    <nav class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../careers.html">Careers</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        this.textContent = 'Copied!';
+        this.classList.add('copied');
+        setTimeout(() => { this.textContent = 'Copy Link'; this.classList.remove('copied'); }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

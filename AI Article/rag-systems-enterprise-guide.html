@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Systems for Enterprise: The Complete Implementation Guide | TechNext Asia</title>
+  <meta name="description" content="Retrieval-Augmented Generation is the most deployed AI pattern in enterprise today. Here's how to architect, evaluate, and ship a production RAG system that actually works.">
+  <meta name="keywords" content="RAG systems, retrieval augmented generation, enterprise RAG, vector databases, RAG implementation, LLM enterprise, document AI, semantic search, enterprise AI architecture, RAG pipeline, knowledge base AI, production AI">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RAG Systems for Enterprise: The Complete Implementation Guide">
+  <meta property="og:description" content="Retrieval-Augmented Generation is the most deployed AI pattern in enterprise today. Here's how to architect, evaluate, and ship a production RAG system that actually works.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=480&fit=crop&auto=format">
+  <meta property="og:url" content="https://technext.asia/blog/rag-systems-enterprise-guide.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="TechNext Asia">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RAG Systems for Enterprise: The Complete Implementation Guide">
+  <meta name="twitter:description" content="Retrieval-Augmented Generation is the most deployed AI pattern in enterprise today. Here's how to architect, evaluate, and ship a production RAG system that actually works.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=480&fit=crop&auto=format">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "RAG Systems for Enterprise: The Complete Implementation Guide",
+    "description": "Retrieval-Augmented Generation is the most deployed AI pattern in enterprise today. Here's how to architect, evaluate, and ship a production RAG system that actually works.",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=480&fit=crop&auto=format",
+    "author": { "@type": "Organization", "name": "TechNext Asia Team" },
+    "publisher": { "@type": "Organization", "name": "TechNext Asia", "url": "https://technext.asia" },
+    "datePublished": "2026-04-25",
+    "url": "https://technext.asia/blog/rag-systems-enterprise-guide.html"
+  }
+  </script>
+
+  <link rel="stylesheet" href="blog-style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="mainNav">
+    <a href="../index.html" class="nav-logo">
+      <img src="../images/Logo/technext%20logo.png" alt="TechNext" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../blog.html" class="active">Blog</a></li>
+      <li><a href="../careers.html">Careers</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="../careers.html" class="nav-apply">Apply Now →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="article-hero">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=480&fit=crop&auto=format" alt="RAG Systems for Enterprise: The Complete Implementation Guide">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <!-- Article -->
+  <div class="article-wrap">
+    <a href="../blog.html" class="back-link">← Back to Blog</a>
+
+    <span class="cat-badge">AI &amp; Tech</span>
+
+    <h1 class="article-title reveal">RAG Systems for Enterprise: The Complete Implementation Guide</h1>
+
+    <div class="article-meta reveal">
+      <span>TechNext Asia Team</span>
+      <span class="meta-sep">·</span>
+      <span>April 25, 2026</span>
+      <span class="meta-sep">·</span>
+      <span>9 min read</span>
+    </div>
+
+    <div class="article-body">
+
+      <p class="reveal">Retrieval-Augmented Generation — RAG — has become the dominant enterprise AI architecture pattern for a simple reason: it solves the most critical limitation of large language models for business use. LLMs have a knowledge cutoff and no access to your proprietary data. RAG bridges that gap, giving models access to your documents, databases, and knowledge bases at inference time. Done well, it enables AI systems that are accurate, current, and auditable. Done poorly, it produces AI that confidently returns wrong answers.</p>
+
+      <p class="reveal">This guide covers what it actually takes to build a production RAG system — not a demo, not a notebook, but a system that handles real enterprise data at scale and returns reliably useful results.</p>
+
+      <h2 class="reveal">The RAG Architecture Stack</h2>
+
+      <p class="reveal">A production RAG system has five core components, each with real engineering decisions:</p>
+
+      <ul class="reveal">
+        <li><strong>Ingestion pipeline:</strong> How you get documents into the system. This includes parsing (PDF, Word, HTML, structured data), chunking strategy, and metadata extraction.</li>
+        <li><strong>Embedding model:</strong> Converts text chunks into vector representations. Your choice here significantly affects retrieval quality.</li>
+        <li><strong>Vector store:</strong> Stores and indexes the embeddings. Options range from hosted services (Pinecone, Weaviate Cloud) to self-hosted (Qdrant, pgvector).</li>
+        <li><strong>Retrieval layer:</strong> The query-time logic that finds relevant chunks. Naive cosine similarity works poorly at scale — hybrid search is the standard.</li>
+        <li><strong>Generation layer:</strong> The LLM that synthesises retrieved context into a response. With GPT-5 and Gemini Ultra 2, this layer is increasingly capable — but only if what you retrieve is high quality.</li>
+      </ul>
+
+      <h2 class="reveal">Where Most Enterprise RAG Systems Fail</h2>
+
+      <p class="reveal">The most common failure point in enterprise RAG is the <strong>chunking strategy</strong>. Most teams default to fixed-size chunking (splitting documents every 512 or 1024 tokens) because it's simple to implement. But fixed-size chunking frequently splits logical units — a paragraph, a step in a process, a product specification — in ways that destroy the semantic coherence needed for good retrieval.</p>
+
+      <p class="reveal">Better approaches include semantic chunking (splitting at natural linguistic boundaries), hierarchical chunking (creating both summary-level and detail-level chunks for the same content), and document-structure-aware chunking (treating headers, tables, and lists as their own semantic units). The difference in retrieval quality between naive fixed chunking and well-designed semantic chunking is typically 20–35% on standard benchmarks.</p>
+
+      <div class="highlight-box reveal">
+        <strong>Key Takeaway</strong>
+        Invest disproportionately in your ingestion and chunking pipeline. Poor chunking is responsible for more RAG failures than model quality issues. The "garbage in, garbage out" principle applies with full force — the LLM cannot recover coherence from incoherent chunks.
+      </div>
+
+      <h2 class="reveal">Embedding Model Selection</h2>
+
+      <p class="reveal">The embedding model market has matured significantly. For most enterprise use cases, the decision comes down to three options:</p>
+
+      <ul class="reveal">
+        <li><strong>OpenAI text-embedding-3-large:</strong> Strong general performance, 3072 dimensions, $0.13/million tokens. Good default for English-heavy enterprise content.</li>
+        <li><strong>Cohere Embed v4:</strong> Best-in-class for multilingual content and for datasets with mixed text and tabular data. Critical consideration for Southeast Asian enterprises with Vietnamese or Filipino language content.</li>
+        <li><strong>Local models (BGE-M3, E5-mistral-7b):</strong> Self-hosted options that eliminate per-token costs at scale and keep data on-premises. Worth evaluating for high-volume or data-sensitive deployments.</li>
+      </ul>
+
+      <h2 class="reveal">Hybrid Search: The Production Standard</h2>
+
+      <p class="reveal">Pure vector similarity search produces poor results for many enterprise queries — particularly precise lookups (product codes, contract numbers, names) where exact keyword matching outperforms semantic search. The production standard in 2026 is <strong>hybrid search</strong>: running both dense vector search and sparse BM25 keyword search in parallel, then combining results using Reciprocal Rank Fusion (RRF).</p>
+
+      <p class="reveal">Qdrant and Weaviate both support hybrid search natively. PostgreSQL with pgvector supports it via a combination of vector search and full-text search. Most enterprise teams see 15–25% retrieval quality improvement from hybrid search compared to vector-only approaches.</p>
+
+      <h2 class="reveal">Evaluation: The Piece Nobody Wants to Do</h2>
+
+      <p class="reveal">The most common reason enterprise RAG systems drift from "working in testing" to "unreliable in production" is the absence of a systematic evaluation framework. Before going to production, you need:</p>
+
+      <ul class="reveal">
+        <li>A golden dataset of at least 100 representative questions with validated correct answers</li>
+        <li>Automated retrieval evaluation metrics: recall@k (is the right document in the top-k retrieved?), precision@k, Mean Reciprocal Rank</li>
+        <li>Generation evaluation: faithfulness (does the answer reflect the retrieved context?), answer relevance, hallucination rate</li>
+        <li>Continuous monitoring: alerting when retrieval or generation quality drops below threshold in production</li>
+      </ul>
+
+      <p class="reveal">RAGAs (Retrieval Augmented Generation Assessment) is now the standard open-source framework for this evaluation layer. It integrates with LangChain and LlamaIndex, making it relatively low-friction to add to an existing pipeline.</p>
+
+      <p class="reveal">For enterprises integrating RAG with Odoo or other ERP systems — building knowledge bases from ERP documentation, product data sheets, or support ticket histories — the evaluation step is non-negotiable. The stakes of a wrong answer in a business context are real, and the only way to manage that risk is systematic measurement.</p>
+
+    </div>
+
+    <!-- Share Bar -->
+    <div class="share-bar reveal">
+      <span class="share-label">Share:</span>
+      <a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Frag-systems-enterprise-guide.html" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="share-btn twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Frag-systems-enterprise-guide.html&text=RAG%20Systems%20for%20Enterprise%3A%20The%20Complete%20Implementation%20Guide" target="_blank" rel="noopener">X (Twitter)</a>
+      <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftechnext.asia%2Fblog%2Frag-systems-enterprise-guide.html" target="_blank" rel="noopener">Facebook</a>
+      <button class="share-btn copy" id="copyBtn">Copy Link</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <a href="../index.html" class="footer-brand">
+      <img src="../images/Logo/technext%20logo.png" alt="TechNext" class="footer-logo-img">
+    </a>
+    <span class="footer-copy">© 2025 TechNext Asia · technext.asia</span>
+    <nav class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../careers.html">Careers</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        this.textContent = 'Copied!';
+        this.classList.add('copied');
+        setTimeout(() => { this.textContent = 'Copy Link'; this.classList.remove('copied'); }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

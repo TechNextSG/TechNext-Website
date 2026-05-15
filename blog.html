@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — AI, Odoo ERP & Digital Asia | TechNext Asia</title>
+<meta name="description" content="Insights on enterprise AI, Odoo ERP, and digital transformation in Vietnam, Singapore, and the Philippines from the TechNext Asia team.">
+<meta name="keywords" content="AI blog, Odoo ERP insights, Vietnam digital economy, Singapore AI strategy, Philippines digital transformation, enterprise AI, LLM, RAG systems">
+<meta property="og:title" content="TechNext Asia Blog — AI, Odoo ERP & Digital Asia">
+<meta property="og:description" content="Insights on enterprise AI, Odoo ERP, and digital transformation across Southeast Asia.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop&auto=format">
+<meta property="og:url" content="https://technext.asia/blog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TechNext Asia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TechNext Asia Blog">
+<meta name="twitter:description" content="Insights on enterprise AI, Odoo ERP, and digital transformation across Southeast Asia.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&h=630&fit=crop&auto=format">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #f0ece3; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+:root {
+  --bg: #f0ece3; --white: #ffffff; --blue: #2563eb; --blue-dark: #1d4ed8;
+  --blue-light: #dbeafe; --blue-pale: #eff6ff; --yellow-mid: #fef08a;
+  --plum: #6d2d7a; --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0;
+  --handwriting: 'Caveat', cursive; --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
+}
+
+/* NAV */
+nav#mainNav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(240,236,227,0.95); backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  padding: 0 6%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+.logo-img { height: 88px; width: auto; mix-blend-mode: multiply; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: #475569; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-apply { padding: 9px 22px; background: var(--plum); color: #fff; border-radius: 100px; font-size: 0.82rem; font-weight: 600; transition: all 0.25s; white-space: nowrap; }
+.nav-apply:hover { background: #5a2568; transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+/* PAGE HEADER */
+.page-header { padding: 80px 6% 56px; max-width: 1280px; margin: 0 auto; }
+.page-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--handwriting); font-size: 1.5rem; font-weight: 600;
+  font-style: italic; color: var(--blue); margin-bottom: 0.8rem;
+}
+.page-label::before { content: ''; display: inline-block; width: 28px; height: 3px; background: var(--blue); border-radius: 1px; }
+.page-title { font-family: var(--handwriting); font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 1rem; }
+.page-title .highlight { position: relative; display: inline-block; z-index: 0; }
+.page-title .highlight::after { content: ''; position: absolute; left: 0; bottom: 4px; width: 100%; height: 10px; background: #fef08a; z-index: -1; border-radius: 3px; }
+.page-sub { font-size: 1rem; color: #475569; line-height: 1.75; max-width: 560px; }
+
+/* FILTERS */
+.blog-filters { display: flex; gap: 10px; flex-wrap: wrap; padding: 0 6%; max-width: 1280px; margin: 0 auto 3rem; }
+.filter-btn {
+  padding: 8px 20px; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+  font-family: var(--sans); cursor: pointer; border: 1.5px solid var(--border);
+  background: var(--white); color: var(--text-muted); transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+.filter-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* BLOG GRID */
+.blog-wrap { padding: 0 6% 100px; max-width: 1280px; margin: 0 auto; }
+.blog-grid { columns: 3; column-gap: 1.4rem; }
+.blog-card {
+  break-inside: avoid; display: block; margin-bottom: 1.4rem;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+.blog-card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.blog-card-body { padding: 1.3rem 1.4rem 1.5rem; }
+.cat-badge {
+  display: inline-block; padding: 4px 13px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 0.7rem;
+}
+.cat-ai-tech { background: var(--blue-pale); color: var(--blue-dark); }
+.cat-odoo-erp { background: #ede9fe; color: #5b21b6; }
+.cat-vietnam { background: #dcfce7; color: #15803d; }
+.cat-singapore { background: #fff7ed; color: #c2410c; }
+.cat-philippines { background: #fce7f3; color: #be185d; }
+.blog-card-title {
+  font-family: var(--handwriting); font-size: 1.3rem; font-weight: 700;
+  color: var(--text); line-height: 1.3; margin-bottom: 0.6rem;
+  transition: color 0.2s;
+}
+.blog-card:hover .blog-card-title { color: var(--blue); }
+.blog-card-excerpt { font-size: 0.84rem; color: #475569; line-height: 1.65; margin-bottom: 1rem; }
+.blog-card-meta { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--text-muted); }
+.blog-card-meta .dot { width: 3px; height: 3px; background: var(--border); border-radius: 50%; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* FOOTER */
+footer.site-footer {
+  background: var(--text); color: rgba(255,255,255,0.65);
+  padding: 2.5rem 6%; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { display: flex; align-items: center; }
+.footer-logo-img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+.footer-copy { font-size: 0.78rem; }
+.footer-links { display: flex; gap: 1.4rem; }
+.footer-links a { font-size: 0.78rem; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+
+/* RESPONSIVE */
+@media (max-width: 960px) { .blog-grid { columns: 2; } }
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; }
+  .nav-apply { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(240,236,227,0.98); backdrop-filter: blur(16px);
+    padding: 1.5rem 5%; border-bottom: 1px solid rgba(0,0,0,0.07);
+    z-index: 99; gap: 0;
+  }
+  .nav-links.open li { border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .nav-links.open a { display: block; padding: 1rem 0; font-size: 1rem; }
+}
+@media (max-width: 560px) { .blog-grid { columns: 1; } }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/Logo/technext%20logo.png" alt="TechNext" class="logo-img">
+  </a>
+  <ul class="nav-links" id="navMenu">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="careers.html" class="nav-apply">Apply Now →</a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-label">Blog</div>
+  <h1 class="page-title">Insights &amp; <span class="highlight">Intelligence</span></h1>
+  <p class="page-sub">The latest on AI, enterprise technology, and the digital economies shaping Southeast Asia.</p>
+</div>
+
+<div class="blog-filters">
+  <button class="filter-btn active" onclick="filterBlog('all', this)">All</button>
+  <button class="filter-btn" onclick="filterBlog('ai-tech', this)">AI &amp; Tech</button>
+  <button class="filter-btn" onclick="filterBlog('odoo-erp', this)">Odoo ERP</button>
+  <button class="filter-btn" onclick="filterBlog('vietnam', this)">Vietnam</button>
+  <button class="filter-btn" onclick="filterBlog('singapore', this)">Singapore</button>
+  <button class="filter-btn" onclick="filterBlog('philippines', this)">Philippines</button>
+</div>
+
+<div class="blog-wrap">
+  <div class="blog-grid" id="blogGrid">
+
+    <a href="AI Article/gpt5-openai-agentic-ai-2025.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&h=450&fit=crop&auto=format" alt="GPT-5 OpenAI Agentic AI" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">GPT-5: OpenAI's Most Capable Agentic AI Model Yet</div>
+        <p class="blog-card-excerpt">OpenAI's GPT-5 marks a leap in autonomous task execution, outperforming prior models on complex reasoning benchmarks.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 2, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/big-tech-ai-infrastructure-2026.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=450&fit=crop&auto=format" alt="Big Tech AI Infrastructure Spending" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">Big Tech AI Infrastructure Spending: Q1 2026 Earnings Breakdown</div>
+        <p class="blog-card-excerpt">Microsoft, Google, Amazon, and Meta collectively committed $320B to AI infrastructure in Q1 2026. We break down who's spending what.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 2, 2026</span><span class="dot"></span><span>5 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/lg-nvidia-physical-ai-era.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=450&fit=crop&auto=format" alt="LG NVIDIA Physical AI Era" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">LG and NVIDIA: The Physical AI Era Has Officially Begun</div>
+        <p class="blog-card-excerpt">LG's partnership with NVIDIA signals the arrival of AI embedded in physical products — from appliances to industrial robots.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 2, 2026</span><span class="dot"></span><span>5 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/ai-agent-governance-2025.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&h=450&fit=crop&auto=format" alt="AI Agent Governance" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">AI Agent Governance: Regulators Are Finally Flagging Control Gaps</div>
+        <p class="blog-card-excerpt">As autonomous AI agents proliferate across enterprise workflows, regulators in the EU, US, and Singapore are raising red flags.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 2, 2026</span><span class="dot"></span><span>7 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/github-copilot-per-token-pricing.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=450&fit=crop&auto=format" alt="GitHub Copilot Per-Token Pricing" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">GitHub Copilot Moves to Per-Token Pricing — What It Means for Dev Teams</div>
+        <p class="blog-card-excerpt">GitHub's shift to per-token pricing changes the economics of AI-assisted development for teams of all sizes.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 2, 2026</span><span class="dot"></span><span>4 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/ai-agents-enterprise-automation.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=450&fit=crop&auto=format" alt="AI Agents Enterprise Automation" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">AI Agents in 2026: How Autonomous AI is Reshaping Enterprise Operations</div>
+        <p class="blog-card-excerpt">AI agents are no longer a future concept — they're running in production at Fortune 500 companies today.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 28, 2026</span><span class="dot"></span><span>8 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/rag-systems-enterprise-guide.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=450&fit=crop&auto=format" alt="RAG Systems Enterprise Guide" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">RAG Systems for Enterprise: The Complete Implementation Guide</div>
+        <p class="blog-card-excerpt">Retrieval-Augmented Generation is the most deployed AI pattern in enterprise today. Here's how to build one that works in production.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 25, 2026</span><span class="dot"></span><span>9 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/local-llm-on-premise-enterprise.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=450&fit=crop&auto=format" alt="Local LLM On-Premise Enterprise" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">Local LLM Deployment: Running AI On-Premise for Enterprise Security</div>
+        <p class="blog-card-excerpt">Data sovereignty and compliance requirements are driving enterprises to run LLMs on their own infrastructure.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 22, 2026</span><span class="dot"></span><span>7 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/context-engineering-new-discipline.html" class="blog-card reveal" data-cat="ai-tech">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1673875824513-a07bbbf0e8f7?w=800&h=450&fit=crop&auto=format" alt="Context Engineering New Discipline" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-ai-tech">AI &amp; Tech</div>
+        <div class="blog-card-title">Context Engineering: The New Discipline That Makes AI Systems Actually Work</div>
+        <p class="blog-card-excerpt">Prompt engineering is evolving into context engineering — a deeper discipline that's becoming a standalone engineering role.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 18, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/odoo-18-features-upgrade-guide.html" class="blog-card reveal" data-cat="odoo-erp">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop&auto=format" alt="Odoo 18 Features Upgrade Guide" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-odoo-erp">Odoo ERP</div>
+        <div class="blog-card-title">Odoo 18: New Features and the Enterprise Upgrade Decision</div>
+        <p class="blog-card-excerpt">Odoo 18 ships with AI-native inventory forecasting, a redesigned Studio, and major manufacturing improvements. Should you upgrade now?</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 15, 2026</span><span class="dot"></span><span>8 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/odoo-ai-integration-guide.html" class="blog-card reveal" data-cat="odoo-erp">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop&auto=format" alt="Odoo AI Integration Guide" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-odoo-erp">Odoo ERP</div>
+        <div class="blog-card-title">Integrating AI with Odoo ERP: A Step-by-Step Implementation Guide</div>
+        <p class="blog-card-excerpt">From AI-powered lead scoring to automated invoice processing — the top patterns for embedding AI into Odoo workflows.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 12, 2026</span><span class="dot"></span><span>10 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/odoo-vs-sap-enterprise-comparison.html" class="blog-card reveal" data-cat="odoo-erp">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=450&fit=crop&auto=format" alt="Odoo vs SAP Enterprise Comparison" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-odoo-erp">Odoo ERP</div>
+        <div class="blog-card-title">Odoo vs SAP in 2026: Which ERP Is Right for Your Business?</div>
+        <p class="blog-card-excerpt">SAP dominates enterprise but Odoo is closing the gap fast. A detailed comparison of pricing, modules, and AI capabilities.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 8, 2026</span><span class="dot"></span><span>9 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/odoo-erp-sme-southeast-asia.html" class="blog-card reveal" data-cat="odoo-erp">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&h=450&fit=crop&auto=format" alt="Odoo ERP SME Southeast Asia" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-odoo-erp">Odoo ERP</div>
+        <div class="blog-card-title">Why Southeast Asian SMEs Are Switching to Odoo ERP in 2026</div>
+        <p class="blog-card-excerpt">Cost efficiency, rapid deployment, and strong regional partners are making Odoo the default ERP for growing SEA businesses.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 5, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/vietnam-digital-economy-ai-2026.html" class="blog-card reveal" data-cat="vietnam">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=800&h=450&fit=crop&auto=format" alt="Vietnam Digital Economy AI 2026" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-vietnam">Vietnam</div>
+        <div class="blog-card-title">Vietnam's Digital Economy in 2026: AI Adoption Accelerates Across Industries</div>
+        <p class="blog-card-excerpt">Vietnam's tech sector grew 22% in 2025 and AI adoption is accelerating across manufacturing, logistics, and financial services.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 28, 2026</span><span class="dot"></span><span>7 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/vietnam-tech-talent-dev-hub.html" class="blog-card reveal" data-cat="vietnam">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=450&fit=crop&auto=format" alt="Vietnam Tech Talent Dev Hub" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-vietnam">Vietnam</div>
+        <div class="blog-card-title">Vietnam's Tech Talent: Why Global Companies Are Building Dev Hubs Here</div>
+        <p class="blog-card-excerpt">With 57,000 IT graduates per year and competitive salary structures, Vietnam is becoming the go-to destination for enterprise AI teams.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 20, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/vietnam-software-exports-2026.html" class="blog-card reveal" data-cat="vietnam">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=450&fit=crop&auto=format" alt="Vietnam Software Exports 2026" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-vietnam">Vietnam</div>
+        <div class="blog-card-title">Vietnam Software Exports Hit $8B: How the Country is Becoming an AI Powerhouse</div>
+        <p class="blog-card-excerpt">Vietnam's software export revenue crossed $8 billion in 2025, with AI-related services growing at 3x the rate of traditional outsourcing.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 10, 2026</span><span class="dot"></span><span>5 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/singapore-national-ai-strategy-2026.html" class="blog-card reveal" data-cat="singapore">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&h=450&fit=crop&auto=format" alt="Singapore National AI Strategy 2026" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-singapore">Singapore</div>
+        <div class="blog-card-title">Singapore's National AI Strategy 2.0: What Businesses Need to Know</div>
+        <p class="blog-card-excerpt">Singapore's updated AI strategy commits SGD 1 billion to AI infrastructure and introduces new enterprise incentives for AI adoption.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 5, 2026</span><span class="dot"></span><span>7 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/singapore-smart-nation-enterprise-ai.html" class="blog-card reveal" data-cat="singapore">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1570867765124-6a22e6631823?w=800&h=450&fit=crop&auto=format" alt="Singapore Smart Nation Enterprise AI" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-singapore">Singapore</div>
+        <div class="blog-card-title">Singapore Smart Nation: How AI is Transforming Government Services</div>
+        <p class="blog-card-excerpt">From AI-assisted citizen services to predictive infrastructure maintenance, Singapore's government is among the world's most advanced AI adopters.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>Apr 30, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/philippines-digital-transformation-2026.html" class="blog-card reveal" data-cat="philippines">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=450&fit=crop&auto=format" alt="Philippines Digital Transformation 2026" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-philippines">Philippines</div>
+        <div class="blog-card-title">Philippines Digital Transformation 2026: AI Moves Beyond the BPO Sector</div>
+        <p class="blog-card-excerpt">AI adoption in the Philippines is expanding from its BPO roots into manufacturing, agriculture, and financial services.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 8, 2026</span><span class="dot"></span><span>6 min read</span></div>
+      </div>
+    </a>
+
+    <a href="AI Article/philippines-bpo-ai-revolution.html" class="blog-card reveal" data-cat="philippines">
+      <img class="blog-card-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=450&fit=crop&auto=format" alt="Philippines BPO AI Revolution" loading="lazy">
+      <div class="blog-card-body">
+        <div class="cat-badge cat-philippines">Philippines</div>
+        <div class="blog-card-title">The Philippines BPO Industry's AI Revolution: Disruption or Opportunity?</div>
+        <p class="blog-card-excerpt">AI threatens 1.3 million BPO jobs in the Philippines by 2030 — but it's also creating higher-value roles. How the industry is navigating the shift.</p>
+        <div class="blog-card-meta"><span>TechNext Asia</span><span class="dot"></span><span>May 1, 2026</span><span class="dot"></span><span>7 min read</span></div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="index.html" class="footer-brand">
+    <img src="images/Logo/technext%20logo.png" alt="TechNext" class="footer-logo-img">
+  </a>
+  <span class="footer-copy">© 2025 TechNext Asia · technext.asia</span>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+
+function filterBlog(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.blog-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

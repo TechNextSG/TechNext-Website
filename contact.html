@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — TechNext Asia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #f0ece3;
+  color: #1a1a2e;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --bg: #f0ece3;
+  --white: #ffffff;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #dbeafe;
+  --blue-pale: #eff6ff;
+  --yellow-mid: #fef08a;
+  --plum: #6d2d7a;
+  --text: #1a1a2e;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --handwriting: 'Caveat', cursive;
+  --sans: 'DM Sans', sans-serif;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(240,236,227,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 0 6%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+.logo-img { height: 88px; width: auto; mix-blend-mode: multiply; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); font-weight: 600; }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.lang-switcher {
+  display: flex;
+  gap: 2px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 3px;
+}
+.lang-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-family: var(--sans);
+  letter-spacing: 0.06em;
+  padding: 4px 9px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.lang-btn.active { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(37,99,235,0.3); }
+.lang-btn:hover:not(.active) { color: var(--text); background: rgba(0,0,0,0.05); }
+.nav-apply {
+  padding: 9px 22px;
+  background: var(--plum);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--sans);
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.nav-apply:hover { background: #5a2568; transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+  padding: 80px 6% 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.page-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--handwriting);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--blue);
+  margin-bottom: 1rem;
+}
+.page-label::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 3px;
+  background: var(--blue);
+  border-radius: 1px;
+}
+.page-title {
+  font-family: var(--handwriting);
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.page-title .highlight {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+.page-title .highlight::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 4px;
+  width: 100%; height: 10px;
+  background: #fef08a;
+  z-index: -1;
+  border-radius: 3px;
+}
+.page-sub {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 3.5rem;
+}
+
+/* ===== CONTACT LAYOUT ===== */
+.contact-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 6% 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ===== DIRECT CONTACT ===== */
+.contact-section-title {
+  font-family: var(--handwriting);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 1.4rem;
+  background: var(--blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.contact-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: all 0.25s;
+  text-decoration: none;
+  color: var(--text);
+}
+.contact-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 6px 22px rgba(37,99,235,0.1);
+  transform: translateY(-2px);
+}
+.contact-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-card-icon svg { width: 22px; height: 22px; }
+.icon-blue { background: var(--blue-pale); color: var(--blue); }
+.icon-plum { background: #f3e8ff; color: var(--plum); }
+.contact-card-info { flex: 1; min-width: 0; }
+.contact-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.contact-card-value {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-all;
+}
+.contact-card-arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+.contact-card:hover .contact-card-arrow { transform: translateX(4px); color: var(--blue); }
+
+/* ===== SOCIAL MEDIA ===== */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+}
+.social-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 1.3rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.25s;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.social-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.social-icon {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.social-icon svg { width: 20px; height: 20px; }
+.si-linkedin { background: #e8f0fe; color: #0a66c2; }
+.si-facebook { background: #e8f0fe; color: #1877f2; }
+.si-instagram { background: #fce7f3; color: #e1306c; }
+.si-twitter { background: #f0f9ff; color: #000; }
+.si-youtube { background: #fee2e2; color: #ff0000; }
+.si-tiktok { background: #f0fdf4; color: #010101; }
+.si-github { background: #f1f5f9; color: #24292e; }
+.si-discord { background: #ede9fe; color: #5865f2; }
+.social-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.social-handle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+/* ===== REGION EMAIL CARDS ===== */
+.region-cards { display: flex; flex-direction: column; gap: 0.85rem; }
+.region-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.25s;
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.region-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.1); }
+.region-flag { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+.region-info { flex: 1; min-width: 0; }
+.region-name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+.region-email { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.region-map-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; background: #f1f5f9;
+  border-radius: 100px; font-size: 0.72rem; font-weight: 700;
+  color: #475569; white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
+  text-decoration: none;
+}
+.region-map-btn:hover { background: var(--blue); color: #fff; }
+
+/* ===== MAP CARDS ===== */
+.maps-section {
+  padding: 0 6% 90px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.maps-section-title {
+  font-family: var(--handwriting);
+  font-size: 2.2rem; font-weight: 700;
+  color: var(--text); margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.maps-section-title::before {
+  content: ''; display: inline-block;
+  width: 4px; height: 1.4rem;
+  background: var(--blue); border-radius: 2px; flex-shrink: 0;
+}
+.maps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.map-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: box-shadow 0.25s;
+}
+.map-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+.map-preview {
+  height: 200px;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 40%, #cffafe 70%, #d1fae5 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; position: relative; overflow: hidden;
+}
+.map-preview::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(100,116,139,0.08) 28px, rgba(100,116,139,0.08) 29px),
+                    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(100,116,139,0.08) 28px, rgba(100,116,139,0.08) 29px);
+}
+.map-pin { font-size: 2.8rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2)); position: relative; z-index: 1; }
+.map-preview-label { font-size: 0.8rem; font-weight: 700; color: #1e40af; background: rgba(255,255,255,0.85); padding: 4px 12px; border-radius: 100px; position: relative; z-index: 1; }
+.map-card-footer {
+  padding: 1.1rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.map-card-loc { font-weight: 700; font-size: 0.9rem; color: var(--text); }
+.map-card-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 1px; }
+.map-open-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px; background: var(--blue); color: #fff;
+  border-radius: 100px; font-size: 0.78rem; font-weight: 700;
+  font-family: var(--sans); transition: all 0.2s; white-space: nowrap;
+  text-decoration: none; flex-shrink: 0;
+}
+.map-open-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,0.3); }
+@media (max-width: 640px) { .maps-grid { grid-template-columns: 1fr; } }
+
+/* ===== REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.08s; }
+.rd2 { transition-delay: 0.16s; }
+.rd3 { transition-delay: 0.24s; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.65);
+  padding: 2.5rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-brand { display: flex; align-items: center; }
+.footer-logo-img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+.footer-copy { font-size: 0.78rem; }
+.footer-links { display: flex; gap: 1.4rem; }
+.footer-links a { font-size: 0.78rem; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 860px) {
+  .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; }
+  .nav-apply { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(240,236,227,0.98); backdrop-filter: blur(16px);
+    padding: 1.5rem 5%; border-bottom: 1px solid rgba(0,0,0,0.07);
+    z-index: 99; gap: 0;
+  }
+  .nav-links.open li { border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .nav-links.open a { display: block; padding: 1rem 0; font-size: 1rem; }
+}
+@media (max-width: 560px) {
+  .social-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/Logo/technext%20logo.png" alt="TechNext" class="logo-img">
+  </a>
+  <ul class="nav-links" id="navMenu">
+    <li><a href="index.html#about" data-k="nav_about">About</a></li>
+    <li><a href="gallery.html" data-k="nav_gallery">Gallery</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="careers.html" data-k="nav_careers">Careers</a></li>
+    <li><a href="contact.html" class="active" data-k="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('vn')">VN</button>
+      <button class="lang-btn" onclick="setLang('ph')">PH</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+    </div>
+    <a href="careers.html" class="nav-apply" data-k="nav_apply">Apply Now →</a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header reveal">
+  <div class="page-label" data-k="contact_label">Contact</div>
+  <h1 class="page-title"><span data-k="contact_title_1">Get in</span> <span class="highlight" data-k="contact_title_2">Touch</span></h1>
+  <p class="page-sub" data-k="contact_sub">We're always open to hearing from talented developers, partners, and curious minds. Reach out — we'd love to connect.</p>
+</div>
+
+<!-- CONTACT BODY -->
+<div class="contact-wrap">
+
+  <!-- LEFT: Direct contact -->
+  <div>
+    <h2 class="contact-section-title reveal" data-k="contact_direct_title">Contact by Region</h2>
+    <div class="contact-cards">
+
+      <!-- Region email cards -->
+      <div class="region-cards reveal rd1">
+
+        <div class="region-card">
+          <div class="region-flag">🇻🇳</div>
+          <div class="region-info">
+            <div class="region-name" data-k="region_vn">Vietnam</div>
+            <a href="mailto:anthony@technext.asia" class="region-email">anthony@technext.asia</a>
+          </div>
+        </div>
+
+        <div class="region-card">
+          <div class="region-flag">🇵🇭</div>
+          <div class="region-info">
+            <div class="region-name" data-k="region_ph">Philippines</div>
+            <a href="mailto:admin@technext.asia" class="region-email">admin@technext.asia</a>
+          </div>
+          <a href="https://maps.app.goo.gl/9e8SvYZTK4yXYXrW8" target="_blank" rel="noopener" class="region-map-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-k="map_btn">Map</span>
+          </a>
+        </div>
+
+        <div class="region-card">
+          <div class="region-flag">🇸🇬</div>
+          <div class="region-info">
+            <div class="region-name" data-k="region_sg">Singapore</div>
+            <a href="mailto:sales@technext.asia" class="region-email">sales@technext.asia</a>
+          </div>
+          <a href="https://maps.app.goo.gl/UahiiRdDnMZue8YC9" target="_blank" rel="noopener" class="region-map-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-k="map_btn">Map</span>
+          </a>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <!-- Offices info -->
+    <div style="margin-top:2.5rem" class="reveal rd3">
+      <h2 class="contact-section-title" data-k="contact_offices_title">Where We Are</h2>
+      <p style="font-size:0.95rem;color:#475569;line-height:1.85;margin-bottom:1.3rem;" data-k="contact_offices_desc">
+        TechNext's engineering heart is in Vietnam. Our Dev Hubs span three countries — with the Vietnam Dev Hub driving the core of our AI &amp; engineering output.
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <!-- 3 Office locations -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="padding:6px 16px;background:var(--blue-pale);border:1.5px solid var(--blue-light);border-radius:100px;font-size:0.8rem;font-weight:700;color:var(--blue-dark);">🇻🇳 Vietnam Dev Hub ★</span>
+          <span style="padding:6px 16px;background:var(--blue-pale);border:1.5px solid var(--blue-light);border-radius:100px;font-size:0.8rem;font-weight:700;color:var(--blue-dark);">🇵🇭 Philippines</span>
+          <span style="padding:6px 16px;background:var(--blue-pale);border:1.5px solid var(--blue-light);border-radius:100px;font-size:0.8rem;font-weight:700;color:var(--blue-dark);">🇸🇬 Singapore</span>
+        </div>
+
+        <!-- Global clients -->
+        <div>
+          <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;" data-k="clients_worldwide_label">Clients Worldwide</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇨🇭 Switzerland</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇦🇹 Austria</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇬🇧 UK</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇺🇸 USA</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇯🇵 Japan</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇭🇰 Hong Kong</span>
+            <span style="padding:5px 13px;background:var(--white);border:1.5px solid var(--border);border-radius:100px;font-size:0.76rem;font-weight:500;color:#64748b;">🇨🇳 Shenzhen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Social media -->
+  <div>
+    <h2 class="contact-section-title reveal" data-k="contact_social_title">Find Us Online</h2>
+    <div class="social-grid">
+
+      <a href="https://www.linkedin.com/company/technextasia/" target="_blank" rel="noopener" class="social-card reveal rd1">
+        <div class="social-icon si-linkedin">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <div class="social-name">LinkedIn</div>
+          <div class="social-handle">TechNext Asia</div>
+        </div>
+      </a>
+
+      <a href="https://web.facebook.com/technextasia" target="_blank" rel="noopener" class="social-card reveal rd1">
+        <div class="social-icon si-facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </div>
+        <div>
+          <div class="social-name">Facebook</div>
+          <div class="social-handle">TechNext Asia</div>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/technextasia/" target="_blank" rel="noopener" class="social-card reveal rd2">
+        <div class="social-icon si-instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div>
+          <div class="social-name">Instagram</div>
+          <div class="social-handle">@technextasia</div>
+        </div>
+      </a>
+
+      <a href="https://x.com/technextasia" target="_blank" rel="noopener" class="social-card reveal rd2">
+        <div class="social-icon si-twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div>
+          <div class="social-name">X (Twitter)</div>
+          <div class="social-handle">@technextasia</div>
+        </div>
+      </a>
+
+      <a href="https://www.youtube.com/@technextasia" target="_blank" rel="noopener" class="social-card reveal rd3">
+        <div class="social-icon si-youtube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="social-name">YouTube</div>
+          <div class="social-handle">TechNext Asia</div>
+        </div>
+      </a>
+
+      <a href="https://www.tiktok.com/@technextasia" target="_blank" rel="noopener" class="social-card reveal rd3">
+        <div class="social-icon si-tiktok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.2 8.2 0 0 0 4.79 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+        </div>
+        <div>
+          <div class="social-name">TikTok</div>
+          <div class="social-handle">@technextasia</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- OUR OFFICES / MAPS -->
+<div class="maps-section reveal">
+  <h2 class="maps-section-title" data-k="contact_offices_map_title">Our Offices</h2>
+  <div class="maps-grid">
+
+    <div class="map-card">
+      <div class="map-preview">
+        <div class="map-pin">📍</div>
+        <div class="map-preview-label">🇵🇭 Philippines</div>
+      </div>
+      <div class="map-card-footer">
+        <div>
+          <div class="map-card-loc" data-k="map_ph_loc">Philippines Office</div>
+          <div class="map-card-sub" data-k="map_ph_sub">TechNext Asia — PH Dev Hub</div>
+        </div>
+        <a href="https://maps.app.goo.gl/9e8SvYZTK4yXYXrW8" target="_blank" rel="noopener" class="map-open-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-k="map_open_btn">Open in Maps</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="map-card">
+      <div class="map-preview" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 40%, #d1fae5 70%, #a7f3d0 100%);">
+        <div class="map-pin">📍</div>
+        <div class="map-preview-label">🇸🇬 Singapore</div>
+      </div>
+      <div class="map-card-footer">
+        <div>
+          <div class="map-card-loc" data-k="map_sg_loc">Singapore Office</div>
+          <div class="map-card-sub" data-k="map_sg_sub">TechNext Asia — SEA HQ</div>
+        </div>
+        <a href="https://maps.app.goo.gl/UahiiRdDnMZue8YC9" target="_blank" rel="noopener" class="map-open-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-k="map_open_btn">Open in Maps</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-brand">
+    <img src="images/Logo/technext%20logo.png" alt="TechNext" class="footer-logo-img">
+  </a>
+  <span class="footer-copy" data-k="footer_copy">© 2025 TechNext Asia · technext.asia</span>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+
+/* ===== TRANSLATIONS ===== */
+const LANG = {
+  en: {
+    nav_about: 'About', nav_gallery: 'Gallery', nav_careers: 'Careers', nav_contact: 'Contact', nav_apply: 'Apply Now →',
+    contact_label: 'Contact',
+    contact_title_1: 'Get in', contact_title_2: 'Touch',
+    contact_sub: "We're always open to hearing from talented developers, partners, and curious minds. Reach out — we'd love to connect.",
+    contact_direct_title: 'Contact by Region',
+    contact_web_label: 'Website',
+    contact_offices_title: 'Where We Are',
+    contact_offices_desc: "TechNext's engineering heart is in Vietnam. Our Dev Hubs span three countries — with the Vietnam Dev Hub driving the core of our AI & engineering output.",
+    clients_worldwide_label: 'Clients Worldwide',
+    contact_social_title: 'Find Us Online',
+    region_vn: 'Vietnam', region_ph: 'Philippines', region_sg: 'Singapore',
+    map_btn: 'Map', map_open_btn: 'Open in Maps',
+    contact_offices_map_title: 'Our Offices',
+    map_ph_loc: 'Philippines Office', map_ph_sub: 'TechNext Asia — PH Dev Hub',
+    map_sg_loc: 'Singapore Office', map_sg_sub: 'TechNext Asia — SEA HQ',
+    footer_copy: '© 2025 TechNext Asia · technext.asia',
+  },
+  vn: {
+    nav_about: 'Giới Thiệu', nav_gallery: 'Thư Viện', nav_careers: 'Tuyển Dụng', nav_contact: 'Liên Hệ', nav_apply: 'Ứng Tuyển →',
+    contact_label: 'Liên Hệ',
+    contact_title_1: 'Kết Nối', contact_title_2: 'Với Chúng Tôi',
+    contact_sub: 'Chúng tôi luôn mở cửa đón nhận các nhà phát triển tài năng, đối tác và những tâm hồn tò mò. Hãy liên hệ — chúng tôi rất vui được kết nối.',
+    contact_direct_title: 'Liên Hệ Theo Khu Vực',
+    contact_web_label: 'Website',
+    contact_offices_title: 'Chúng Tôi Ở Đâu',
+    contact_offices_desc: 'Trái tim kỹ thuật của TechNext là tại Việt Nam. Dev Hub của chúng tôi trải dài ba quốc gia — với Vietnam Dev Hub là trung tâm chính của toàn bộ hoạt động AI & kỹ thuật.',
+    clients_worldwide_label: 'Khách Hàng Toàn Cầu',
+    contact_social_title: 'Tìm Chúng Tôi Online',
+    region_vn: 'Việt Nam', region_ph: 'Philippines', region_sg: 'Singapore',
+    map_btn: 'Bản đồ', map_open_btn: 'Mở Maps',
+    contact_offices_map_title: 'Văn Phòng Của Chúng Tôi',
+    map_ph_loc: 'Văn phòng Philippines', map_ph_sub: 'TechNext Asia — PH Dev Hub',
+    map_sg_loc: 'Văn phòng Singapore', map_sg_sub: 'TechNext Asia — SEA HQ',
+    footer_copy: '© 2025 TechNext Asia · technext.asia',
+  },
+  ph: {
+    nav_about: 'About', nav_gallery: 'Gallery', nav_careers: 'Careers', nav_contact: 'Contact', nav_apply: 'Mag-apply →',
+    contact_label: 'Contact',
+    contact_title_1: 'Kumusta,', contact_title_2: "Kausap Tayo!",
+    contact_sub: 'Lagi kaming bukas para sa mga talented developers, partners, at mga curious minds. Huwag mag-alinlangan — reach out tayo!',
+    contact_direct_title: 'Makipag-ugnayan',
+    contact_web_label: 'Website',
+    contact_offices_title: 'Nasaan Kami',
+    contact_offices_desc: 'Ang puso ng engineering ng TechNext ay nasa Vietnam. Ang aming mga Dev Hub ay nasa tatlong bansa — ang Vietnam Dev Hub ang sentro ng aming AI at engineering.',
+    clients_worldwide_label: 'Mga Kliyente sa Buong Mundo',
+    contact_social_title: 'Hanapin Kami Online',
+    region_vn: 'Vietnam', region_ph: 'Pilipinas', region_sg: 'Singapore',
+    map_btn: 'Mapa', map_open_btn: 'Buksan sa Maps',
+    contact_offices_map_title: 'Aming mga Opisina',
+    map_ph_loc: 'Opisina sa Pilipinas', map_ph_sub: 'TechNext Asia — PH Dev Hub',
+    map_sg_loc: 'Opisina sa Singapore', map_sg_sub: 'TechNext Asia — SEA HQ',
+    footer_copy: '© 2025 TechNext Asia · technext.asia',
+  },
+  de: {
+    nav_about: 'Über Uns', nav_gallery: 'Galerie', nav_careers: 'Karriere', nav_contact: 'Kontakt', nav_apply: 'Jetzt bewerben →',
+    contact_label: 'Kontakt',
+    contact_title_1: 'Sprechen wir', contact_title_2: 'Miteinander',
+    contact_sub: 'Wir freuen uns über Kontakte mit talentierten Entwicklern, Partnern und neugierigen Köpfen. Meld dich — wir freuen uns auf das Gespräch.',
+    contact_direct_title: 'Kontakt nach Region',
+    contact_web_label: 'Website',
+    contact_offices_title: 'Wo Wir Sind',
+    contact_offices_desc: 'Das technische Herzstück von TechNext ist Vietnam. Unsere Dev Hubs erstrecken sich über drei Länder — der Vietnam Dev Hub ist das Zentrum unserer KI- und Engineering-Aktivitäten.',
+    clients_worldwide_label: 'Kunden weltweit',
+    contact_social_title: 'Finde Uns Online',
+    region_vn: 'Vietnam', region_ph: 'Philippinen', region_sg: 'Singapur',
+    map_btn: 'Karte', map_open_btn: 'In Maps öffnen',
+    contact_offices_map_title: 'Unsere Büros',
+    map_ph_loc: 'Büro Philippinen', map_ph_sub: 'TechNext Asia — PH Dev Hub',
+    map_sg_loc: 'Büro Singapur', map_sg_sub: 'TechNext Asia — SEA HQ',
+    footer_copy: '© 2025 TechNext Asia · technext.asia',
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('tn_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+  const t = LANG[lang];
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const key = el.dataset.k;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+}
+const _savedLang = localStorage.getItem('tn_lang');
+if (_savedLang && LANG[_savedLang]) setLang(_savedLang);
+
+/* ===== SCROLL REVEAL ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

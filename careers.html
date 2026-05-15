@@ -1,0 +1,812 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers — TechNext Asia | Vietnam · Philippines · Singapore</title>
+<meta name="description" content="Join TechNext's Dev Hubs across Vietnam, Philippines, and Singapore. Open roles in AI engineering, DevOps, IoT, and more. Remote-friendly, English-first, international clients.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #f0ece3; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --bg: #f0ece3; --white: #fff; --blue: #2563eb; --blue-dark: #1d4ed8;
+  --blue-light: #dbeafe; --blue-pale: #eff6ff; --yellow: #fef9c3;
+  --yellow-mid: #fef08a; --pink: #fce7f3; --green: #dcfce7;
+  --lavender: #ede9fe; --peach: #ffedd5; --plum: #6d2d7a;
+  --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0;
+  --handwriting: 'Caveat', cursive; --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
+}
+
+/* NAV */
+nav#mainNav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(240,236,227,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  padding: 0 6%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+.logo-img { height: 88px; width: auto; mix-blend-mode: multiply; }
+.footer-brand { display: flex; align-items: center; }
+.footer-logo-img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: #475569; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--blue); font-weight: 600; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-apply { padding: 9px 22px; background: var(--plum); color: #fff; border-radius: 100px; font-size: 0.82rem; font-weight: 600; font-family: var(--sans); transition: all 0.25s; }
+.nav-apply:hover { background: #5a2568; transform: translateY(-1px); }
+.lang-switcher { display: flex; gap: 2px; background: rgba(0,0,0,0.06); border-radius: 8px; padding: 3px; }
+.lang-btn { background: none; border: none; color: #94a3b8; font-size: 0.68rem; font-weight: 700; font-family: var(--sans); letter-spacing: 0.06em; padding: 4px 9px; border-radius: 5px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
+.lang-btn.active { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(37,99,235,0.3); }
+.lang-btn:hover:not(.active) { color: var(--text); background: rgba(0,0,0,0.05); }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* HERO */
+.careers-hero {
+  background: var(--blue);
+  padding: 80px 6% 70px;
+  text-align: center;
+}
+.ch-inner { max-width: 760px; margin: 0 auto; }
+.section-label {
+  font-family: var(--handwriting); font-size: 1.6rem; font-weight: 600;
+  color: rgba(255,255,255,0.75); font-style: italic;
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 0.8rem;
+}
+.careers-h1 {
+  font-family: var(--handwriting); font-weight: 700;
+  font-size: clamp(3rem, 6vw, 5rem); color: #fff;
+  line-height: 1.1; margin-bottom: 1.2rem;
+}
+.careers-h1 .highlight {
+  position: relative; display: inline; z-index: 0;
+}
+.careers-h1 .highlight::after {
+  content: ''; position: absolute; bottom: 2px; left: -4px; right: -4px;
+  height: 14px; background: rgba(254,240,138,0.5); z-index: -1; border-radius: 3px;
+}
+.careers-sub { font-size: 1.05rem; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 2.2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-stats { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: var(--handwriting); font-size: 2.2rem; font-weight: 700; color: var(--yellow-mid); line-height: 1; }
+.hero-stat-lbl { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px; }
+
+/* FILTER WRAP (country + dept unified) */
+.filter-wrap {
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  position: sticky; top: 64px; z-index: 90;
+}
+.country-bar {
+  padding: 8px 6% 6px;
+  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.country-btn {
+  display: flex; align-items: center; gap: 7px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  color: var(--text-muted); padding: 7px 16px; border-radius: 100px;
+  transition: all 0.2s;
+}
+.country-btn:hover { color: var(--blue); background: var(--blue-pale); }
+.country-btn.active { background: var(--blue); color: #fff; }
+.country-flag { font-size: 1rem; line-height: 1; }
+
+/* DEPT FILTER BAR */
+.filter-bar {
+  padding: 6px 6% 8px;
+  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+}
+.filter-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  color: var(--text-muted); padding: 7px 16px; border-radius: 100px;
+  transition: all 0.2s;
+}
+.filter-btn:hover { color: var(--blue); background: var(--blue-pale); }
+.filter-btn.active { background: var(--blue); color: #fff; }
+
+/* JOBS SECTION */
+.jobs-section { padding: 70px 6% 100px; max-width: 1280px; margin: 0 auto; }
+.jobs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+
+/* ROLE CARD */
+.role-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 22px;
+  padding: 1.8rem;
+  display: flex; flex-direction: column;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.role-card::before {
+  content: ''; position: absolute; top: 0; left: 20px;
+  width: 40px; height: 6px; border-radius: 0 0 5px 5px;
+}
+.role-card.rc-yellow::before { background: #eab308; }
+.role-card.rc-blue::before { background: var(--blue); }
+.role-card.rc-pink::before { background: #ec4899; }
+.role-card.rc-green::before { background: #16a34a; }
+.role-card.rc-lavender::before { background: #8b5cf6; }
+.role-card.rc-peach::before { background: #f97316; }
+.role-card.rc-teal::before { background: #0d9488; }
+.role-card.rc-rose::before { background: #e11d48; }
+.role-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,0.1); }
+.role-dept {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--blue); margin: 1.2rem 0 0.5rem;
+}
+.role-name { font-family: var(--handwriting); font-size: 1.55rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; line-height: 1.25; }
+.role-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.8rem; font-style: italic; }
+.role-desc { font-size: 0.84rem; color: #475569; line-height: 1.65; flex: 1; margin-bottom: 1.2rem; }
+.role-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.4rem; }
+.role-tag { font-size: 0.7rem; font-weight: 600; padding: 3px 10px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 100px; color: #475569; }
+.role-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.role-meta-pill { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; }
+.role-meta-pill svg { width: 12px; height: 12px; }
+
+
+/* COMING SOON SECTION */
+.coming-soon-section {
+  display: none;
+  padding: 70px 6% 100px;
+  text-align: center;
+}
+.coming-soon-box {
+  max-width: 520px; margin: 0 auto;
+  background: var(--white); border: 2px dashed var(--border);
+  border-radius: 28px; padding: 3.5rem 3rem;
+}
+.coming-soon-emoji { font-size: 3.5rem; margin-bottom: 1.2rem; }
+.coming-soon-title { font-family: var(--handwriting); font-size: 2.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+.coming-soon-text { color: var(--text-muted); font-size: 0.9rem; line-height: 1.75; }
+.coming-soon-text a { color: var(--blue); font-weight: 600; }
+.coming-soon-text a:hover { text-decoration: underline; }
+
+/* WHY SECTION */
+.why-section {
+  background: var(--white);
+  padding: 80px 6%;
+  text-align: center;
+}
+.why-inner { max-width: 900px; margin: 0 auto; }
+.why-h2 { font-family: var(--handwriting); font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--text); margin-bottom: 0.7rem; }
+.why-sub { font-size: 0.97rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 3rem; line-height: 1.75; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; text-align: left; }
+.why-card { background: var(--bg); border-radius: 18px; padding: 1.6rem; }
+.why-card-icon { width: 2.2rem; height: 2.2rem; margin-bottom: 1rem; }
+.why-card-icon svg { width: 100%; height: 100%; }
+.why-card h3 { font-family: var(--handwriting); font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+.why-card p { font-size: 0.84rem; color: #475569; line-height: 1.65; }
+
+/* CONTACT CTA */
+.contact-section { padding: 80px 6%; max-width: 760px; margin: 0 auto; text-align: center; }
+.contact-card { background: var(--plum); border-radius: 28px; padding: 3rem 2.5rem; }
+.contact-card h2 { font-family: var(--handwriting); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #fff; margin-bottom: 0.8rem; }
+.contact-card p { font-size: 0.97rem; color: rgba(255,255,255,0.78); line-height: 1.75; margin-bottom: 2rem; }
+.btn-contact {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 36px; background: #fff; color: var(--plum);
+  border-radius: 100px; font-size: 0.95rem; font-weight: 700; font-family: var(--sans);
+  transition: all 0.25s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.btn-contact:hover { background: var(--yellow-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.05s; } .rd2 { transition-delay: 0.1s; }
+.rd3 { transition-delay: 0.15s; } .rd4 { transition-delay: 0.2s; }
+.rd5 { transition-delay: 0.25s; } .rd6 { transition-delay: 0.3s; }
+
+/* FOOTER */
+footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy { font-size: 0.78rem; }
+.footer-links { display: flex; gap: 1.4rem; }
+.footer-links a { font-size: 0.78rem; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+
+
+/* RESPONSIVE */
+@media (max-width: 1024px) { .jobs-grid { grid-template-columns: 1fr 1fr; } .why-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; }
+  .nav-apply { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(240,236,227,0.98); backdrop-filter: blur(16px);
+    padding: 1.5rem 5%; border-bottom: 1px solid rgba(0,0,0,0.07);
+    z-index: 99; gap: 0;
+  }
+  .nav-links.open li { border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .nav-links.open a { display: block; padding: 1rem 0; font-size: 1rem; }
+}
+@media (max-width: 640px) {
+  .jobs-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .careers-hero { padding: 60px 5% 56px; }
+  .jobs-section { padding: 50px 5% 70px; }
+  footer { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><img src="images/Logo/technext%20logo.png" alt="TechNext" class="logo-img"></a>
+  <ul class="nav-links" id="navMenu">
+    <li><a href="index.html#about" data-k="nav_about">About</a></li>
+    <li><a href="gallery.html" data-k="nav_gallery">Gallery</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="careers.html" class="active" data-k="nav_careers">Careers</a></li>
+    <li><a href="contact.html" data-k="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('vn')">VN</button>
+      <button class="lang-btn" onclick="setLang('ph')">PH</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+    </div>
+    <a href="#jobsSection" class="nav-apply" data-k="nav_apply">Apply Now →</a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="careers-hero">
+  <div class="ch-inner">
+    <div class="section-label" data-k="ch_label">— Global Dev Hubs</div>
+    <h1 class="careers-h1"><span data-k="ch_h1a">Build AI That Runs</span><br><span class="highlight" data-k="ch_h1b">in Production.</span></h1>
+    <p class="careers-sub" data-k="ch_sub">TechNext is assembling elite engineering teams across Vietnam, Philippines, and Singapore to build enterprise AI for global clients. Remote-friendly, English-first, and growing fast.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-lbl" data-k="ch_stat1">Open Roles</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">10+</div><div class="hero-stat-lbl" data-k="ch_stat2">Countries Served</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl" data-k="ch_stat3">Remote-Friendly</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">EN</div><div class="hero-stat-lbl" data-k="ch_stat4">English-First</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-wrap">
+
+<div class="country-bar">
+  <button class="country-btn active" data-country="all"><span class="country-flag">🌏</span> <span data-k="cf_all">All Countries</span></button>
+  <button class="country-btn" data-country="vietnam"><span class="country-flag">🇻🇳</span> <span data-k="cf_vn">Vietnam</span></button>
+  <button class="country-btn" data-country="philippines"><span class="country-flag">🇵🇭</span> <span data-k="cf_ph">Philippines</span></button>
+  <button class="country-btn" data-country="singapore"><span class="country-flag">🇸🇬</span> <span data-k="cf_sg">Singapore</span></button>
+</div>
+
+<div class="filter-bar" id="deptFilterBar">
+  <button class="filter-btn active" data-filter="all" data-k="df_all">All Roles</button>
+  <button class="filter-btn" data-filter="Engineering" data-k="df_eng">Engineering</button>
+  <button class="filter-btn" data-filter="AI Systems" data-k="df_ai">AI Systems</button>
+  <button class="filter-btn" data-filter="Infrastructure" data-k="df_infra">Infrastructure</button>
+  <button class="filter-btn" data-filter="Leadership" data-k="df_lead">Leadership</button>
+  <button class="filter-btn" data-filter="Quality" data-k="df_qa">Quality</button>
+  <button class="filter-btn" data-filter="Finance" data-k="df_fin">Finance</button>
+  <button class="filter-btn" data-filter="ERP" data-k="df_erp">ERP</button>
+  <button class="filter-btn" data-filter="Sales" data-k="df_sales">Sales</button>
+  <button class="filter-btn" data-filter="Client Success" data-k="df_cs">Client Success</button>
+  <button class="filter-btn" data-filter="Management" data-k="df_mgmt">Management</button>
+</div>
+
+</div><!-- end .filter-wrap -->
+
+<!-- VIETNAM JOBS GRID -->
+<section class="jobs-section" id="jobsSection">
+  <div class="jobs-grid" id="jobsGrid">
+
+    <div class="role-card rc-yellow reveal rd1" data-dept="Engineering" data-country="vietnam">
+      <div class="role-dept" data-k="df_eng">Engineering</div>
+      <div class="role-name" data-k="r1_name">AI Engineer</div>
+      <div class="role-desc" data-k="r1_desc">Design, build, and deploy production AI systems — agents, fine-tuned models, and inference pipelines serving enterprise clients globally. You'll work across the full AI delivery lifecycle, from architecture and prototyping through to production monitoring and iteration.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Python</span><span class="role-tag">LangChain</span><span class="role-tag">Claude API</span><span class="role-tag">RAG</span></div>
+    </div>
+
+    <div class="role-card rc-blue reveal rd2" data-dept="Infrastructure" data-country="vietnam">
+      <div class="role-dept" data-k="df_infra">Infrastructure</div>
+      <div class="role-name" data-k="r2_name">DevOps Engineer</div>
+      <div class="role-sub" data-k="r2_sub">Local LLM Focus</div>
+      <div class="role-desc" data-k="r2_desc">Own the infrastructure for running local LLMs at scale — GPU clusters, inference servers, and AI-optimized deployment pipelines. You'll ensure our self-hosted AI systems are fast, reliable, and cost-efficient across multiple client environments.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Kubernetes</span><span class="role-tag">Docker</span><span class="role-tag">vLLM</span><span class="role-tag">GPU</span></div>
+    </div>
+
+    <div class="role-card rc-green reveal rd3" data-dept="Engineering" data-country="vietnam">
+      <div class="role-dept" data-k="df_eng">Engineering</div>
+      <div class="role-name" data-k="r3_name">IT Manager</div>
+      <div class="role-desc" data-k="r3_desc">Lead IT operations across TechNext's global dev hub network — systems security, infrastructure management, and ISO 27001 compliance. You'll be the person who keeps our internal systems secure and our engineering teams unblocked across multiple time zones.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">ISO 27001</span><span class="role-tag">Security</span><span class="role-tag">IT Ops</span></div>
+    </div>
+
+    <div class="role-card rc-peach reveal rd4" data-dept="Engineering" data-country="vietnam">
+      <div class="role-dept" data-k="df_eng">Engineering</div>
+      <div class="role-name" data-k="r4_name">IoT Engineer</div>
+      <div class="role-desc" data-k="r4_desc">Connect physical devices and sensors to our AI platform — building edge intelligence and IoT-to-cloud pipelines for enterprise environments. Your work bridges the physical and digital worlds, delivering real-time data to AI systems that drive business decisions.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">IoT</span><span class="role-tag">MQTT</span><span class="role-tag">Edge AI</span><span class="role-tag">Python</span></div>
+    </div>
+
+    <div class="role-card rc-pink reveal rd5" data-dept="AI Systems" data-country="vietnam">
+      <div class="role-dept" data-k="df_ai">AI Systems</div>
+      <div class="role-name" data-k="r5_name">Context Engineer</div>
+      <div class="role-desc" data-k="r5_desc">Design and optimize prompts, RAG architectures, and AI context systems that make enterprise AI applications reliable and accurate at scale. You own the space between the model and the product — from retrieval strategy to evaluation frameworks that prove quality objectively.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Prompt Eng</span><span class="role-tag">RAG</span><span class="role-tag">Embeddings</span></div>
+    </div>
+
+    <div class="role-card rc-lavender reveal rd6" data-dept="Leadership" data-country="vietnam">
+      <div class="role-dept" data-k="df_lead">Leadership</div>
+      <div class="role-name" data-k="r6_name">CAITO</div>
+      <div class="role-sub" data-k="r6_sub">Chief AI &amp; Technology Officer</div>
+      <div class="role-desc" data-k="r6_desc">Lead TechNext's overall AI strategy, technology roadmap, and engineering culture. Define how we build and scale AI systems across global clients, partnering with the CEO and COO to shape TechNext's technical identity at an inflection point in its growth.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_hybrid">Remote / Hybrid</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">AI Strategy</span><span class="role-tag">Architecture</span><span class="role-tag">Leadership</span></div>
+    </div>
+
+    <div class="role-card rc-teal reveal rd1" data-dept="Engineering" data-country="vietnam">
+      <div class="role-dept" data-k="df_eng">Engineering</div>
+      <div class="role-name" data-k="r7_name">Automation Engineer</div>
+      <div class="role-desc" data-k="r7_desc">Build intelligent workflow automations using AI, Odoo, and integration platforms — connecting the systems that power enterprise operations. You'll eliminate manual processes at scale, turning business workflows into automated pipelines that deliver measurable ROI for global clients.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Odoo</span><span class="role-tag">n8n</span><span class="role-tag">Python</span><span class="role-tag">APIs</span></div>
+    </div>
+
+    <div class="role-card rc-rose reveal rd2" data-dept="Quality" data-country="vietnam">
+      <div class="role-dept" data-k="df_qa">Quality</div>
+      <div class="role-name" data-k="r8_name">AI Reliability &amp; QA Engineer</div>
+      <div class="role-desc" data-k="r8_desc">Ensure AI systems behave reliably in production — designing evaluation frameworks and monitoring AI output quality at scale. Traditional QA doesn't map to probabilistic AI systems, so you'll build the testing tooling, metrics, and processes that give TechNext and its clients real confidence in every deployment.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_vn">Remote · Vietnam</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">LLM Eval</span><span class="role-tag">Testing</span><span class="role-tag">QA</span></div>
+    </div>
+
+    <!-- ===== PHILIPPINES ROLES ===== -->
+    <div class="role-card rc-green reveal rd1" data-dept="Finance" data-country="philippines">
+      <div class="role-dept" data-k="df_fin">Finance</div>
+      <div class="role-name" data-k="r9_name">Accountant</div>
+      <div class="role-desc" data-k="r9_desc">Manage financial records, reporting, and compliance for TechNext's Philippines operations — supporting regional growth with accurate, timely financial insights.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Accounting</span><span class="role-tag">Reporting</span><span class="role-tag">Compliance</span></div>
+    </div>
+
+    <div class="role-card rc-blue reveal rd2" data-dept="ERP" data-country="philippines">
+      <div class="role-dept" data-k="df_erp">ERP</div>
+      <div class="role-name" data-k="r10_name">Functional ERP / Odoo Consultant</div>
+      <div class="role-desc" data-k="r10_desc">Implement, configure, and customize Odoo ERP solutions for enterprise clients — bridging business requirements and technical delivery across sales, inventory, accounting, and HR modules.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Odoo</span><span class="role-tag">ERP</span><span class="role-tag">Business Analysis</span></div>
+    </div>
+
+    <div class="role-card rc-peach reveal rd3" data-dept="Sales" data-country="philippines">
+      <div class="role-dept" data-k="df_sales">Sales</div>
+      <div class="role-name" data-k="r11_name">Senior B2B Sales Consultant</div>
+      <div class="role-desc" data-k="r11_desc">Drive enterprise sales across TechNext's AI and ERP solutions — owning the full B2B sales cycle from prospecting through close, with a focus on mid-market and enterprise clients across the Asia-Pacific region.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">B2B Sales</span><span class="role-tag">Enterprise</span><span class="role-tag">APAC</span></div>
+    </div>
+
+    <div class="role-card rc-yellow reveal rd4" data-dept="Client Success" data-country="philippines">
+      <div class="role-dept" data-k="df_cs">Client Success</div>
+      <div class="role-name" data-k="r12_name">Client Success Manager</div>
+      <div class="role-desc" data-k="r12_desc">Own the post-sale relationship with TechNext's ERP and AI clients — driving adoption, retention, and expansion through proactive support, onboarding, and ongoing strategic guidance.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Account Mgmt</span><span class="role-tag">Onboarding</span><span class="role-tag">Retention</span></div>
+    </div>
+
+    <div class="role-card rc-lavender reveal rd5" data-dept="Management" data-country="philippines">
+      <div class="role-dept" data-k="df_mgmt">Management</div>
+      <div class="role-name" data-k="r13_name">Project Manager</div>
+      <div class="role-sub" data-k="r13_sub">ERP / Odoo Focus</div>
+      <div class="role-desc" data-k="r13_desc">Lead end-to-end Odoo ERP implementation projects — coordinating between clients, developers, and functional consultants to deliver on scope, timeline, and budget for enterprise rollouts.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Project Mgmt</span><span class="role-tag">Odoo</span><span class="role-tag">Stakeholders</span></div>
+    </div>
+
+    <div class="role-card rc-pink reveal rd6" data-dept="Sales" data-country="philippines">
+      <div class="role-dept" data-k="df_sales">Sales</div>
+      <div class="role-name" data-k="r14_name">Sales Associate</div>
+      <div class="role-desc" data-k="r14_desc">Support the sales team in lead generation, outreach, and pipeline management — building relationships with potential clients and helping qualify opportunities for TechNext's ERP and AI solutions.</div>
+      <div class="role-meta">
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span data-k="meta_fulltime">Full-time</span></span>
+        <span class="role-meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-k="meta_ph">Remote · Philippines</span></span>
+      </div>
+      <div class="role-tags"><span class="role-tag">Lead Gen</span><span class="role-tag">CRM</span><span class="role-tag">Outreach</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SINGAPORE COMING SOON -->
+<div class="coming-soon-section" id="sgSection">
+  <div class="coming-soon-box">
+    <div class="coming-soon-emoji">🇸🇬</div>
+    <div class="coming-soon-title" data-k="sg_title">Singapore Hub — Coming Soon</div>
+    <div class="coming-soon-text" data-k="sg_text">We're expanding to Singapore. Roles will be posted here soon. Send your CV to <a href="mailto:anthony@technext.asia">anthony@technext.asia</a> to be among the first considered.</div>
+  </div>
+</div>
+
+<!-- WHY JOIN -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="reveal">
+      <h2 class="why-h2" data-k="why_h2">Why Engineers Choose TechNext</h2>
+      <p class="why-sub" data-k="why_sub">Real enterprise AI shipped to real clients. No toy projects, no bureaucracy — just hard problems and meaningful impact.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal rd1">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3 data-k="why1_h">Cutting-Edge AI Stack</h3>
+        <p data-k="why1_p">Work with AI agents, local LLMs, RAG pipelines, Claude, GPT-4, and Llama — not yesterday's tech.</p>
+      </div>
+      <div class="why-card reveal rd2">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h3 data-k="why2_h">Global Exposure</h3>
+        <p data-k="why2_p">Clients across Switzerland, Singapore, Japan, UK, and USA. English-first environment with real international collaboration.</p>
+      </div>
+      <div class="why-card reveal rd3">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
+        <h3 data-k="why3_h">Ship Real AI</h3>
+        <p data-k="why3_p">Your systems run in production at companies like Qualcomm and Singapore Government — not in a demo environment.</p>
+      </div>
+      <div class="why-card reveal rd4">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3 data-k="why4_h">Remote-Friendly</h3>
+        <p data-k="why4_p">Work from anywhere in your country. Our Dev Hubs are distributed and async-friendly — results matter, not location.</p>
+      </div>
+      <div class="why-card reveal rd5">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <h3 data-k="why5_h">Fast-Growing Company</h3>
+        <p data-k="why5_p">We're growing with the AI wave. Your impact, title, and compensation grow with us — no glacial promotion cycles.</p>
+      </div>
+      <div class="why-card reveal rd6">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 data-k="why6_h">Learn from Peers</h3>
+        <p data-k="why6_p">A team that builds real enterprise AI every day. Knowledge sharing, code reviews, and mentorship are part of the culture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<div class="contact-section reveal">
+  <div class="contact-card">
+    <h2 data-k="cta_h2">Don't see the right role?</h2>
+    <p data-k="cta_p">We're always looking for exceptional talent. Send us your CV and a short note about what you'd like to build — we read every message.</p>
+    <a href="mailto:anthony@technext.asia?subject=Open Application — TechNext Dev Hub" class="btn-contact" id="contactEmailBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span id="contactEmailText">anthony@technext.asia</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-brand"><img src="images/Logo/technext%20logo.png" alt="TechNext" class="footer-logo-img"></a>
+  <span class="footer-copy" data-k="footer_copy">© 2025 TechNext Asia · technext.asia · All rights reserved</span>
+  <nav class="footer-links">
+    <a href="contact.html">Contact</a>
+    <a href="https://linkedin.com/company/technextasia" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://technext.asia" target="_blank" rel="noopener">technext.asia</a>
+  </nav>
+</footer>
+
+<script>
+/* ===== TRANSLATIONS ===== */
+const LANG = {
+  en: {
+    nav_about:'About', nav_gallery:'Gallery', nav_careers:'Careers', nav_contact:'Contact', nav_apply:'Apply Now →',
+    ch_label:'— Global Dev Hubs', ch_h1a:'Build AI That Runs', ch_h1b:'in Production.',
+    ch_sub:'TechNext is assembling elite engineering teams across Vietnam, Philippines, and Singapore to build enterprise AI for global clients. Remote-friendly, English-first, and growing fast.',
+    ch_stat1:'Open Roles', ch_stat2:'Countries Served', ch_stat3:'Remote-Friendly', ch_stat4:'English-First',
+    cf_all:'All Countries', cf_vn:'Vietnam', cf_ph:'Philippines', cf_sg:'Singapore',
+    df_all:'All Roles', df_eng:'Engineering', df_ai:'AI Systems', df_infra:'Infrastructure',
+    df_lead:'Leadership', df_qa:'Quality', df_fin:'Finance', df_erp:'ERP',
+    df_sales:'Sales', df_cs:'Client Success', df_mgmt:'Management',
+    sg_title:'Singapore Hub — Coming Soon',
+    sg_text:"We're expanding to Singapore. Roles will be posted here soon. Send your CV to anthony@technext.asia to be among the first considered.",
+    why_h2:'Why Engineers Choose TechNext',
+    why_sub:'Real enterprise AI shipped to real clients. No toy projects, no bureaucracy — just hard problems and meaningful impact.',
+    why1_h:'Cutting-Edge AI Stack', why1_p:"Work with AI agents, local LLMs, RAG pipelines, Claude, GPT-4, and Llama — not yesterday's tech.",
+    why2_h:'Global Exposure', why2_p:'Clients across Switzerland, Singapore, Japan, UK, and USA. English-first environment with real international collaboration.',
+    why3_h:'Ship Real AI', why3_p:'Your systems run in production at companies like Qualcomm and Singapore Government — not in a demo environment.',
+    why4_h:'Remote-Friendly', why4_p:'Work from anywhere in your country. Our Dev Hubs are distributed and async-friendly — results matter, not location.',
+    why5_h:'Fast-Growing Company', why5_p:"We're growing with the AI wave. Your impact, title, and compensation grow with us — no glacial promotion cycles.",
+    why6_h:'Learn from Peers', why6_p:'A team that builds real enterprise AI every day. Knowledge sharing, code reviews, and mentorship are part of the culture.',
+    meta_fulltime:'Full-time', meta_vn:'Remote · Vietnam', meta_ph:'Remote · Philippines', meta_hybrid:'Remote / Hybrid',
+    r1_name:'AI Engineer',
+    r1_desc:"Design, build, and deploy production AI systems — agents, fine-tuned models, and inference pipelines serving enterprise clients globally. You'll work across the full AI delivery lifecycle, from architecture and prototyping through to production monitoring and iteration.",
+    r2_name:'DevOps Engineer', r2_sub:'Local LLM Focus',
+    r2_desc:"Own the infrastructure for running local LLMs at scale — GPU clusters, inference servers, and AI-optimized deployment pipelines. You'll ensure our self-hosted AI systems are fast, reliable, and cost-efficient across multiple client environments.",
+    r3_name:'IT Manager',
+    r3_desc:"Lead IT operations across TechNext's global dev hub network — systems security, infrastructure management, and ISO 27001 compliance. You'll be the person who keeps our internal systems secure and our engineering teams unblocked across multiple time zones.",
+    r4_name:'IoT Engineer',
+    r4_desc:'Connect physical devices and sensors to our AI platform — building edge intelligence and IoT-to-cloud pipelines for enterprise environments. Your work bridges the physical and digital worlds, delivering real-time data to AI systems that drive business decisions.',
+    r5_name:'Context Engineer',
+    r5_desc:'Design and optimize prompts, RAG architectures, and AI context systems that make enterprise AI applications reliable and accurate at scale. You own the space between the model and the product — from retrieval strategy to evaluation frameworks that prove quality objectively.',
+    r6_name:'CAITO', r6_sub:'Chief AI & Technology Officer',
+    r6_desc:"Lead TechNext's overall AI strategy, technology roadmap, and engineering culture. Define how we build and scale AI systems across global clients, partnering with the CEO and COO to shape TechNext's technical identity at an inflection point in its growth.",
+    r7_name:'Automation Engineer',
+    r7_desc:"Build intelligent workflow automations using AI, Odoo, and integration platforms — connecting the systems that power enterprise operations. You'll eliminate manual processes at scale, turning business workflows into automated pipelines that deliver measurable ROI for global clients.",
+    r8_name:'AI Reliability & QA Engineer',
+    r8_desc:"Ensure AI systems behave reliably in production — designing evaluation frameworks and monitoring AI output quality at scale. Traditional QA doesn't map to probabilistic AI systems, so you'll build the testing tooling, metrics, and processes that give TechNext and its clients real confidence in every deployment.",
+    r9_name:'Accountant',
+    r9_desc:"Manage financial records, reporting, and compliance for TechNext's Philippines operations — supporting regional growth with accurate, timely financial insights.",
+    r10_name:'Functional ERP / Odoo Consultant',
+    r10_desc:'Implement, configure, and customize Odoo ERP solutions for enterprise clients — bridging business requirements and technical delivery across sales, inventory, accounting, and HR modules.',
+    r11_name:'Senior B2B Sales Consultant',
+    r11_desc:"Drive enterprise sales across TechNext's AI and ERP solutions — owning the full B2B sales cycle from prospecting through close, with a focus on mid-market and enterprise clients across the Asia-Pacific region.",
+    r12_name:'Client Success Manager',
+    r12_desc:"Own the post-sale relationship with TechNext's ERP and AI clients — driving adoption, retention, and expansion through proactive support, onboarding, and ongoing strategic guidance.",
+    r13_name:'Project Manager', r13_sub:'ERP / Odoo Focus',
+    r13_desc:'Lead end-to-end Odoo ERP implementation projects — coordinating between clients, developers, and functional consultants to deliver on scope, timeline, and budget for enterprise rollouts.',
+    r14_name:'Sales Associate',
+    r14_desc:"Support the sales team in lead generation, outreach, and pipeline management — building relationships with potential clients and helping qualify opportunities for TechNext's ERP and AI solutions.",
+    cta_h2:"Don't see the right role?",
+    cta_p:"We're always looking for exceptional talent. Send us your CV and a short note about what you'd like to build — we read every message.",
+    footer_copy:'© 2025 TechNext Asia · technext.asia · All rights reserved'
+  },
+  vn: {
+    nav_about:'Về Chúng Tôi', nav_gallery:'Thư Viện', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_apply:'Ứng Tuyển →',
+    ch_label:'— Trung Tâm Dev Toàn Cầu', ch_h1a:'Làm Việc Với AI Thực Sự', ch_h1b:'Triển Khai Lên Production.',
+    ch_sub:'TechNext đang xây dựng đội ngũ kỹ sư xuất sắc tại Việt Nam, Philippines và Singapore để xây dựng AI doanh nghiệp cho khách hàng toàn cầu. Làm việc từ xa, tiếng Anh là ngôn ngữ chính.',
+    ch_stat1:'Vị Trí Mở', ch_stat2:'Quốc Gia Phục Vụ', ch_stat3:'Làm Việc Từ Xa', ch_stat4:'Tiếng Anh Là Chính',
+    cf_all:'Tất Cả Quốc Gia', cf_vn:'Việt Nam', cf_ph:'Philippines', cf_sg:'Singapore',
+    df_all:'Tất Cả Vị Trí', df_eng:'Kỹ Thuật', df_ai:'Hệ Thống AI', df_infra:'Hạ Tầng',
+    df_lead:'Lãnh Đạo', df_qa:'Chất Lượng', df_fin:'Tài Chính', df_erp:'ERP',
+    df_sales:'Kinh Doanh', df_cs:'Chăm Sóc Khách Hàng', df_mgmt:'Quản Lý',
+    sg_title:'Singapore Hub — Sắp Ra Mắt',
+    sg_text:'Chúng tôi đang mở rộng đến Singapore. Các vị trí sẽ được đăng sớm. Gửi CV đến anthony@technext.asia để là người đầu tiên được xem xét.',
+    why_h2:'Vì Sao Kỹ Sư Chọn TechNext',
+    why_sub:'AI doanh nghiệp thực sự được triển khai cho khách hàng thực. Không có dự án thử nghiệm, không có quan liêu — chỉ có bài toán khó và tác động thực sự.',
+    why1_h:'Stack AI Tiên Tiến', why1_p:'Làm việc với AI agents, local LLMs, RAG pipelines, Claude, GPT-4 và Llama — không phải công nghệ lỗi thời.',
+    why2_h:'Tiếp Xúc Toàn Cầu', why2_p:'Khách hàng tại Thụy Sĩ, Singapore, Nhật Bản, Anh và Mỹ. Môi trường tiếng Anh với cộng tác quốc tế thực sự.',
+    why3_h:'Ship AI Thực', why3_p:'Hệ thống của bạn chạy trong production tại các công ty như Qualcomm và Singapore Government — không phải môi trường demo.',
+    why4_h:'Làm Việc Từ Xa', why4_p:'Làm việc từ bất kỳ đâu tại Việt Nam. Dev Hub của chúng tôi phân tán và thân thiện với async.',
+    why5_h:'Công Ty Tăng Trưởng Nhanh', why5_p:'Chúng tôi tăng trưởng cùng làn sóng AI. Tác động, chức vụ và thu nhập của bạn tăng cùng chúng tôi.',
+    why6_h:'Học Hỏi Từ Đồng Nghiệp', why6_p:'Đội ngũ xây dựng AI doanh nghiệp thực sự mỗi ngày. Chia sẻ kiến thức, code review và mentorship là một phần của văn hóa.',
+    meta_fulltime:'Toàn thời gian', meta_vn:'Từ xa · Việt Nam', meta_ph:'Từ xa · Philippines', meta_hybrid:'Từ xa / Hybrid',
+    r1_name:'Kỹ Sư AI',
+    r1_desc:'Thiết kế, xây dựng và triển khai các hệ thống AI production — agents, mô hình fine-tuned và inference pipelines phục vụ khách hàng doanh nghiệp toàn cầu. Bạn sẽ làm việc xuyên suốt vòng đời AI, từ kiến trúc và prototyping đến giám sát production.',
+    r2_name:'Kỹ Sư DevOps', r2_sub:'Tập trung Local LLM',
+    r2_desc:'Quản lý hạ tầng để chạy local LLM ở quy mô lớn — cụm GPU, inference server và deployment pipeline tối ưu AI. Đảm bảo các hệ thống AI self-hosted của chúng tôi nhanh, ổn định và tiết kiệm chi phí trên nhiều môi trường khách hàng.',
+    r3_name:'Quản Lý IT',
+    r3_desc:'Dẫn dắt hoạt động IT trên toàn mạng lưới dev hub của TechNext — bảo mật hệ thống, quản lý hạ tầng và tuân thủ ISO 27001. Bạn là người giữ cho hệ thống nội bộ an toàn và đội kỹ thuật không bị gián đoạn xuyên múi giờ.',
+    r4_name:'Kỹ Sư IoT',
+    r4_desc:'Kết nối thiết bị vật lý và cảm biến với nền tảng AI — xây dựng edge intelligence và IoT-to-cloud pipelines cho môi trường doanh nghiệp. Công việc của bạn kết nối thế giới vật lý và kỹ thuật số, cung cấp dữ liệu thời gian thực cho hệ thống AI.',
+    r5_name:'Kỹ Sư Context',
+    r5_desc:'Thiết kế và tối ưu prompts, kiến trúc RAG và hệ thống AI context để các ứng dụng AI doanh nghiệp đáng tin cậy và chính xác. Bạn sở hữu không gian giữa mô hình và sản phẩm — từ chiến lược retrieval đến framework đánh giá chất lượng.',
+    r6_name:'CAITO', r6_sub:'Giám đốc AI & Công nghệ',
+    r6_desc:'Dẫn dắt chiến lược AI tổng thể, lộ trình công nghệ và văn hóa kỹ thuật của TechNext. Định hình cách chúng tôi xây dựng và mở rộng hệ thống AI, phối hợp với CEO và COO để tạo nên bản sắc kỹ thuật của TechNext.',
+    r7_name:'Kỹ Sư Tự Động Hóa',
+    r7_desc:'Xây dựng workflow automation thông minh sử dụng AI, Odoo và các nền tảng tích hợp — kết nối các hệ thống vận hành doanh nghiệp. Bạn sẽ loại bỏ quy trình thủ công ở quy mô lớn, biến workflow thành pipeline tự động mang lại ROI rõ ràng.',
+    r8_name:'Kỹ Sư AI Reliability & QA',
+    r8_desc:'Đảm bảo hệ thống AI hoạt động đáng tin cậy trong production — thiết kế evaluation framework và giám sát chất lượng AI đầu ra. QA truyền thống không áp dụng được cho hệ thống AI xác suất, vì vậy bạn sẽ xây dựng công cụ và quy trình kiểm thử mới.',
+    r9_name:'Kế Toán Viên',
+    r9_desc:'Quản lý hồ sơ tài chính, báo cáo và tuân thủ cho hoạt động Philippines của TechNext — hỗ trợ tăng trưởng khu vực với thông tin tài chính chính xác, kịp thời.',
+    r10_name:'Tư Vấn ERP / Odoo',
+    r10_desc:'Triển khai, cấu hình và tùy chỉnh giải pháp Odoo ERP cho khách hàng doanh nghiệp — kết nối yêu cầu kinh doanh và triển khai kỹ thuật trên các module bán hàng, kho hàng, kế toán và HR.',
+    r11_name:'Tư Vấn Bán Hàng B2B Cấp Cao',
+    r11_desc:'Thúc đẩy doanh số doanh nghiệp cho các giải pháp AI và ERP của TechNext — sở hữu toàn bộ chu trình bán hàng B2B từ prospecting đến chốt deal, tập trung vào khách hàng mid-market và enterprise khu vực APAC.',
+    r12_name:'Quản Lý Client Success',
+    r12_desc:'Quản lý mối quan hệ hậu bán với khách hàng ERP và AI của TechNext — thúc đẩy adoption, retention và mở rộng thông qua hỗ trợ chủ động và hướng dẫn chiến lược.',
+    r13_name:'Quản Lý Dự Án', r13_sub:'Tập trung ERP / Odoo',
+    r13_desc:'Dẫn dắt dự án triển khai Odoo ERP từ đầu đến cuối — phối hợp giữa khách hàng, developer và tư vấn để bàn giao đúng phạm vi, tiến độ và ngân sách.',
+    r14_name:'Nhân Viên Kinh Doanh',
+    r14_desc:'Hỗ trợ đội sales trong lead generation, outreach và quản lý pipeline — xây dựng quan hệ với khách hàng tiềm năng và qualify cơ hội cho giải pháp ERP và AI của TechNext.',
+    cta_h2:'Không thấy vị trí phù hợp?',
+    cta_p:'Chúng tôi luôn tìm kiếm nhân tài xuất sắc. Gửi CV và một ghi chú ngắn về điều bạn muốn xây dựng — chúng tôi đọc mọi tin nhắn.',
+    footer_copy:'© 2025 TechNext Asia · technext.asia · Bảo lưu mọi quyền'
+  },
+  ph: {
+    nav_about:'Tungkol', nav_gallery:'Galeria', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_apply:'Mag-apply →',
+    ch_label:'— Global Dev Hubs', ch_h1a:'Gumawa ng AI na Talagang', ch_h1b:'Naka-deploy sa Production.',
+    ch_sub:'Nagtatayo ang TechNext ng mga elite na engineering team sa Vietnam, Philippines, at Singapore para bumuo ng enterprise AI para sa mga pandaigdigang kliyente. Remote-friendly, English-first.',
+    ch_stat1:'Bukas na Posisyon', ch_stat2:'Mga Bansang Pinaglilingkuran', ch_stat3:'Remote-Friendly', ch_stat4:'English-First',
+    cf_all:'Lahat ng Bansa', cf_vn:'Vietnam', cf_ph:'Philippines', cf_sg:'Singapore',
+    df_all:'Lahat ng Posisyon', df_eng:'Engineering', df_ai:'AI Systems', df_infra:'Infrastructure',
+    df_lead:'Pamumuno', df_qa:'Kalidad', df_fin:'Pananalapi', df_erp:'ERP',
+    df_sales:'Benta', df_cs:'Client Success', df_mgmt:'Pamamahala',
+    sg_title:'Singapore Hub — Malapit Na',
+    sg_text:'Lumalawak kami sa Singapore. Mga posisyon ay ilalagay dito sa lalong madaling panahon. Ipadala ang iyong CV sa anthony@technext.asia.',
+    why_h2:'Bakit Pinipili ng mga Engineer ang TechNext',
+    why_sub:'Tunay na enterprise AI na ipinapadala sa tunay na mga kliyente. Walang toy projects, walang burukrasya — mahihirap na problema at tunay na epekto.',
+    why1_h:'Pinakabagong AI Stack', why1_p:'Magtrabaho kasama ang AI agents, local LLMs, RAG pipelines, Claude, GPT-4, at Llama.',
+    why2_h:'Pandaigdigang Exposure', why2_p:'Mga kliyente sa Switzerland, Singapore, Japan, UK, at USA. English-first na kapaligiran.',
+    why3_h:'Mag-ship ng Tunay na AI', why3_p:'Ang iyong mga sistema ay tumatakbo sa produksyon sa mga kumpanya tulad ng Qualcomm at Singapore Government.',
+    why4_h:'Remote-Friendly', why4_p:'Magtrabaho mula sa kahit saan sa iyong bansa. Distributed at async-friendly ang aming Dev Hubs.',
+    why5_h:'Mabilis na Lumalagong Kumpanya', why5_p:'Lumalago kami kasama ang AI wave. Ang iyong epekto at kabayaran ay lumalago kasama namin.',
+    why6_h:'Matuto sa mga Kapwa', why6_p:'Isang team na nagtatayo ng tunay na enterprise AI araw-araw. Bahagi ng kultura ang pagbabahagi ng kaalaman at mentorship.',
+    meta_fulltime:'Full-time', meta_vn:'Remote · Vietnam', meta_ph:'Remote · Philippines', meta_hybrid:'Remote / Hybrid',
+    r1_name:'AI Engineer', r1_desc:"Design, build, and deploy production AI systems — agents, fine-tuned models, and inference pipelines serving enterprise clients globally. You'll work across the full AI delivery lifecycle, from architecture and prototyping through to production monitoring and iteration.",
+    r2_name:'DevOps Engineer', r2_sub:'Local LLM Focus', r2_desc:"Own the infrastructure for running local LLMs at scale — GPU clusters, inference servers, and AI-optimized deployment pipelines. You'll ensure our self-hosted AI systems are fast, reliable, and cost-efficient across multiple client environments.",
+    r3_name:'IT Manager', r3_desc:"Lead IT operations across TechNext's global dev hub network — systems security, infrastructure management, and ISO 27001 compliance. You'll be the person who keeps our internal systems secure and our engineering teams unblocked across multiple time zones.",
+    r4_name:'IoT Engineer', r4_desc:'Connect physical devices and sensors to our AI platform — building edge intelligence and IoT-to-cloud pipelines for enterprise environments. Your work bridges the physical and digital worlds, delivering real-time data to AI systems that drive business decisions.',
+    r5_name:'Context Engineer', r5_desc:'Design and optimize prompts, RAG architectures, and AI context systems that make enterprise AI applications reliable and accurate at scale. You own the space between the model and the product — from retrieval strategy to evaluation frameworks that prove quality objectively.',
+    r6_name:'CAITO', r6_sub:'Chief AI & Technology Officer', r6_desc:"Lead TechNext's overall AI strategy, technology roadmap, and engineering culture. Define how we build and scale AI systems across global clients, partnering with the CEO and COO to shape TechNext's technical identity at an inflection point in its growth.",
+    r7_name:'Automation Engineer', r7_desc:"Build intelligent workflow automations using AI, Odoo, and integration platforms — connecting the systems that power enterprise operations. You'll eliminate manual processes at scale, turning business workflows into automated pipelines that deliver measurable ROI for global clients.",
+    r8_name:'AI Reliability & QA Engineer', r8_desc:"Ensure AI systems behave reliably in production — designing evaluation frameworks and monitoring AI output quality at scale. Traditional QA doesn't map to probabilistic AI systems, so you'll build the testing tooling, metrics, and processes that give TechNext and its clients real confidence in every deployment.",
+    r9_name:'Accountant', r9_desc:"Manage financial records, reporting, and compliance for TechNext's Philippines operations — supporting regional growth with accurate, timely financial insights.",
+    r10_name:'Functional ERP / Odoo Consultant', r10_desc:'Implement, configure, and customize Odoo ERP solutions for enterprise clients — bridging business requirements and technical delivery across sales, inventory, accounting, and HR modules.',
+    r11_name:'Senior B2B Sales Consultant', r11_desc:"Drive enterprise sales across TechNext's AI and ERP solutions — owning the full B2B sales cycle from prospecting through close, with a focus on mid-market and enterprise clients across the Asia-Pacific region.",
+    r12_name:'Client Success Manager', r12_desc:"Own the post-sale relationship with TechNext's ERP and AI clients — driving adoption, retention, and expansion through proactive support, onboarding, and ongoing strategic guidance.",
+    r13_name:'Project Manager', r13_sub:'ERP / Odoo Focus', r13_desc:'Lead end-to-end Odoo ERP implementation projects — coordinating between clients, developers, and functional consultants to deliver on scope, timeline, and budget for enterprise rollouts.',
+    r14_name:'Sales Associate', r14_desc:"Support the sales team in lead generation, outreach, and pipeline management — building relationships with potential clients and helping qualify opportunities for TechNext's ERP and AI solutions.",
+    cta_h2:'Hindi nakita ang tamang posisyon?',
+    cta_p:'Palagi kaming naghahanap ng pambihirang talento. Ipadala ang iyong CV at isang maikling tala — binabasa namin ang bawat mensahe.',
+    footer_copy:'© 2025 TechNext Asia · technext.asia · Lahat ng karapatan ay nakalaan'
+  },
+  de: {
+    nav_about:'Über Uns', nav_gallery:'Galerie', nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Jetzt bewerben →',
+    ch_label:'— Globale Dev Hubs', ch_h1a:'Arbeite an KI, die', ch_h1b:'Wirklich deployed wird.',
+    ch_sub:'TechNext baut hochkarätige Engineering-Teams in Vietnam, den Philippinen und Singapur auf, um Enterprise-KI für globale Kunden zu entwickeln. Remote-freundlich, Englisch als Arbeitssprache.',
+    ch_stat1:'Offene Stellen', ch_stat2:'Betreute Länder', ch_stat3:'Remote-Freundlich', ch_stat4:'Englisch-Erst',
+    cf_all:'Alle Länder', cf_vn:'Vietnam', cf_ph:'Philippinen', cf_sg:'Singapur',
+    df_all:'Alle Stellen', df_eng:'Engineering', df_ai:'KI-Systeme', df_infra:'Infrastruktur',
+    df_lead:'Führung', df_qa:'Qualität', df_fin:'Finanzen', df_erp:'ERP',
+    df_sales:'Vertrieb', df_cs:'Kundenerfolg', df_mgmt:'Management',
+    sg_title:'Singapore Hub — Demnächst',
+    sg_text:'Wir expandieren nach Singapur. Stellen werden bald hier veröffentlicht. Sende deinen Lebenslauf an anthony@technext.asia.',
+    why_h2:'Warum Ingenieure TechNext wählen',
+    why_sub:'Echte Enterprise-KI für echte Kunden. Keine Spielzeugprojekte, keine Bürokratie — nur schwere Probleme und echter Einfluss.',
+    why1_h:'Modernster KI-Stack', why1_p:'Arbeite mit KI-Agents, lokalen LLMs, RAG-Pipelines, Claude, GPT-4 und Llama — keine veralteten Tools.',
+    why2_h:'Globale Exposition', why2_p:'Kunden in der Schweiz, Singapur, Japan, UK und USA. Englischsprachiges Umfeld mit echter internationaler Zusammenarbeit.',
+    why3_h:'Echte KI in Produktion', why3_p:'Deine Systeme laufen in Produktion bei Unternehmen wie Qualcomm und der Regierung Singapurs — nicht in einer Demo.',
+    why4_h:'Remote-Freundlich', why4_p:'Arbeite von überall in deinem Land. Unsere Dev Hubs sind verteilt und asynchron-freundlich.',
+    why5_h:'Schnell wachsendes Unternehmen', why5_p:'Wir wachsen mit der KI-Welle. Dein Einfluss, Titel und Vergütung wachsen mit uns.',
+    why6_h:'Von Kollegen lernen', why6_p:'Ein Team, das täglich echte Enterprise-KI aufbaut. Wissensaustausch, Code-Reviews und Mentoring gehören zur Kultur.',
+    meta_fulltime:'Vollzeit', meta_vn:'Remote · Vietnam', meta_ph:'Remote · Philippinen', meta_hybrid:'Remote / Hybrid',
+    r1_name:'KI-Ingenieur', r1_desc:'Entwerfe, baue und deploye KI-Systeme für Produktionsumgebungen — Agents, fein abgestimmte Modelle und Inferenz-Pipelines für globale Unternehmenskunden. Du arbeitest über den gesamten KI-Lieferzyklus hinweg, von Architektur und Prototyping bis zu Production-Monitoring.',
+    r2_name:'DevOps Ingenieur', r2_sub:'Fokus: Lokale LLMs', r2_desc:'Verantworte die Infrastruktur für lokale LLMs im großen Maßstab — GPU-Cluster, Inferenz-Server und KI-optimierte Deployment-Pipelines. Stelle sicher, dass unsere selbst gehosteten KI-Systeme schnell, zuverlässig und kosteneffizient sind.',
+    r3_name:'IT-Manager', r3_desc:"Leite den IT-Betrieb über TechNexts globales Dev-Hub-Netzwerk — Systemsicherheit, Infrastrukturmanagement und ISO 27001-Konformität. Du sorgst dafür, dass unsere internen Systeme sicher und unsere Engineering-Teams ungehindert arbeiten können.",
+    r4_name:'IoT-Ingenieur', r4_desc:'Verbinde physische Geräte und Sensoren mit unserer KI-Plattform — baue Edge Intelligence und IoT-to-Cloud-Pipelines für Unternehmensumgebungen. Deine Arbeit überbrückt die physische und digitale Welt mit Echtzeit-Daten für KI-Systeme.',
+    r5_name:'Context Engineer', r5_desc:'Entwerfe und optimiere Prompts, RAG-Architekturen und KI-Kontextsysteme, die Unternehmens-KI-Anwendungen zuverlässig und präzise machen. Du besitzt den Raum zwischen Modell und Produkt — von der Retrieval-Strategie bis zu Evaluierungsframeworks.',
+    r6_name:'CAITO', r6_sub:'Chief AI & Technology Officer', r6_desc:"Leite TechNexts KI-Gesamtstrategie, Technologie-Roadmap und Engineering-Kultur. Definiere, wie wir KI-Systeme aufbauen und skalieren, in Partnerschaft mit CEO und COO an einem Wendepunkt des Wachstums.",
+    r7_name:'Automatisierungsingenieur', r7_desc:'Baue intelligente Workflow-Automatisierungen mit KI, Odoo und Integrationsplattformen — verbinde die Systeme, die Unternehmensabläufe antreiben. Du eliminierst manuelle Prozesse im großen Maßstab und lieferst messbaren ROI für globale Kunden.',
+    r8_name:'KI Reliability & QA Ingenieur', r8_desc:'Stelle sicher, dass KI-Systeme in der Produktion zuverlässig funktionieren — entwerfe Evaluierungsframeworks und überwache die KI-Ausgabequalität. Traditionelles QA passt nicht zu probabilistischen KI-Systemen, also baust du neue Testwerkzeuge und Prozesse.',
+    r9_name:'Buchhalter', r9_desc:'Verwalte Finanzdaten, Berichte und Compliance für TechNexts Philippinen-Betrieb — unterstütze regionales Wachstum mit genauen, zeitnahen Finanzeinblicken.',
+    r10_name:'Funktionaler ERP / Odoo-Berater', r10_desc:'Implementiere, konfiguriere und passe Odoo-ERP-Lösungen für Unternehmenskunden an — überbrücke Geschäftsanforderungen und technische Lieferung über Vertriebs-, Lager-, Buchhaltungs- und HR-Module.',
+    r11_name:'Senior B2B-Vertriebsberater', r11_desc:"Treibe den Unternehmensverkauf für TechNexts KI- und ERP-Lösungen voran — verantworte den vollständigen B2B-Verkaufszyklus von der Akquise bis zum Abschluss, mit Fokus auf Mid-Market- und Enterprise-Kunden in der APAC-Region.",
+    r12_name:'Client Success Manager', r12_desc:"Verantworte die Kundenbeziehung nach dem Verkauf für TechNexts ERP- und KI-Kunden — fördere Adoption, Retention und Wachstum durch proaktiven Support und strategische Begleitung.",
+    r13_name:'Projektmanager', r13_sub:'ERP / Odoo Fokus', r13_desc:'Leite End-to-End-Odoo-ERP-Implementierungsprojekte — koordiniere zwischen Kunden, Entwicklern und Fachberatern für Lieferung in Umfang, Zeitplan und Budget.',
+    r14_name:'Vertriebsmitarbeiter', r14_desc:"Unterstütze das Vertriebsteam bei Lead-Generierung, Outreach und Pipeline-Management — baue Beziehungen zu potenziellen Kunden auf und qualifiziere Chancen für TechNexts ERP- und KI-Lösungen.",
+    cta_h2:'Keine passende Stelle gefunden?',
+    cta_p:'Wir suchen immer außergewöhnliche Talente. Schick uns deinen Lebenslauf und eine kurze Notiz — wir lesen jede Nachricht.',
+    footer_copy:'© 2025 TechNext Asia · technext.asia · Alle Rechte vorbehalten'
+  }
+};
+function setLang(lang) {
+  localStorage.setItem('tn_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
+  const t = LANG[lang];
+  document.querySelectorAll('[data-k]').forEach(el => { if (t[el.dataset.k] !== undefined) el.textContent = t[el.dataset.k]; });
+}
+const _savedLang = localStorage.getItem('tn_lang');
+if (_savedLang && LANG[_savedLang]) setLang(_savedLang);
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+
+// ── Country + Department filter ──
+let activeCountry = 'all';
+let activeDept = 'all';
+
+document.querySelectorAll('.country-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCountry = btn.dataset.country;
+    applyFilters();
+    const emailMap = {
+      philippines: { email: 'admin@technext.asia',   subject: 'Open Application — TechNext Philippines' },
+      singapore:   { email: 'sales@technext.asia',   subject: 'Open Application — TechNext Singapore' },
+    };
+    const { email, subject } = emailMap[activeCountry] || { email: 'anthony@technext.asia', subject: 'Open Application — TechNext Dev Hub' };
+    document.getElementById('contactEmailBtn').href = `mailto:${email}?subject=${subject}`;
+    document.getElementById('contactEmailText').textContent = email;
+  });
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeDept = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  const jobsSection = document.getElementById('jobsSection');
+  const deptBar = document.getElementById('deptFilterBar');
+  const sgSection = document.getElementById('sgSection');
+
+  if (activeCountry === 'singapore') {
+    jobsSection.style.display = 'none';
+    deptBar.style.display = 'none';
+    sgSection.style.display = '';
+    return;
+  }
+
+  jobsSection.style.display = '';
+  deptBar.style.display = '';
+  sgSection.style.display = 'none';
+
+  document.querySelectorAll('.role-card').forEach(card => {
+    const countryMatch = activeCountry === 'all' || card.dataset.country === activeCountry;
+    const deptMatch = activeDept === 'all' || card.dataset.dept === activeDept;
+    card.style.display = (countryMatch && deptMatch) ? '' : 'none';
+  });
+}
+
+// ── Reveal on scroll ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
+
