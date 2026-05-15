@@ -115,6 +115,8 @@ ul, ol {
 .nav-right {
   display: flex;
   align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .nav-apply {
