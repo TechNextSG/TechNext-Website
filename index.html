@@ -1346,7 +1346,7 @@ footer {
       <button class="lang-btn" onclick="setLang('ph')">PH</button>
       <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
-    <a href="https://erp.technext.asia/odoo/appointments" class="nav-apply" target="_blank" rel="noopener" data-k="nav_apply">Book Now</a>
+    <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -2329,8 +2329,9 @@ window.addEventListener('scroll', function() {
   </div>
 </div>
 
+<script src="booking-modal.js"></script>
 <script>
-/* ===== BOOKING MODAL ===== */
+/* ===== BOOKING MODAL — legacy vars kept for safety ===== */
 let _bkService='', _calY, _calM, _selDate=null, _selTime=null;
 const _TODAY = new Date();
 const _MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];

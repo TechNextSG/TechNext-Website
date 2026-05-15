@@ -314,7 +314,7 @@ footer {
       <button class="lang-btn" onclick="setLang('ph')">PH</button>
       <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
-    <a href="https://erp.technext.asia/odoo/appointments" class="nav-apply" target="_blank" rel="noopener" data-k="nav_apply">Book Now</a>
+    <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -449,5 +449,6 @@ function closeLightbox() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
+<script src="booking-modal.js"></script>
 </body>
 </html>

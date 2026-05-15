@@ -157,14 +157,22 @@ document.addEventListener('DOMContentLoaded', function () {
     onScroll();
   }
 
+  // ── Load shared booking modal ──────────────────────────────────
+  if (!document.getElementById('bookingModal')) {
+    const bkScript = document.createElement('script');
+    bkScript.src = '../booking-modal.js';
+    document.head.appendChild(bkScript);
+  }
+
   // ── Nav: lang switcher (first) then Book Now ───────────────────
   const navRight = document.querySelector('#mainNav .nav-right');
   const navApply = navRight && navRight.querySelector('.nav-apply');
   if (navRight && navApply) {
-    navApply.href = 'https://erp.technext.asia/odoo/appointments';
-    navApply.target = '_blank';
-    navApply.rel = 'noopener';
+    navApply.href = '#';
+    navApply.removeAttribute('target');
+    navApply.removeAttribute('rel');
     navApply.setAttribute('data-k', 'nav_book');
+    navApply.setAttribute('onclick', 'openBooking();return false;');
     navApply.textContent = 'Book Now';
 
     const switcher = document.createElement('div');

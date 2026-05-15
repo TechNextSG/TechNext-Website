@@ -265,7 +265,7 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 2.5rem
       <button class="lang-btn" onclick="setLang('ph')">PH</button>
       <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
-    <a href="https://erp.technext.asia/odoo/appointments" class="nav-apply" target="_blank" rel="noopener" data-k="nav_apply">Book Now</a>
+    <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -807,6 +807,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+<script src="booking-modal.js"></script>
 </body>
 </html>
 
