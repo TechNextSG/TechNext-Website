@@ -310,6 +310,10 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 #waSendBtn:hover { background: #20b858; transform: scale(1.06); }
 #waSendBtn svg { width: 20px; height: 20px; margin-left: 2px; }
+@media (max-width: 380px) {
+  #waChatWidget { width: calc(100vw - 20px); right: 10px; bottom: 84px; }
+  #waFloat { right: 10px; bottom: 16px; }
+}
 `;
     document.head.appendChild(waStyle);
 
