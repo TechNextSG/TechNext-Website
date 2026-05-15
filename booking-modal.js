@@ -220,7 +220,7 @@ textarea.booking-input { resize: none; height: 76px; }
   modal.addEventListener('click', function (e) { if (e.target === this) closeBooking(); });
   } // end !_alreadyHasModal
 
-  /* ── WhatsApp Floating Button (always injected) ──────────── */
+  /* ── WhatsApp Floating Button + Chat Widget (always injected) ── */
   if (!document.getElementById('waFloat')) {
     const waStyle = document.createElement('style');
     waStyle.textContent = `
@@ -230,7 +230,8 @@ textarea.booking-input { resize: none; height: 76px; }
   background: #25d366; color: #fff;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 20px rgba(37,211,102,0.45);
-  text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+  border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 #waFloat:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
 #waFloat svg { width: 30px; height: 30px; }
@@ -239,21 +240,143 @@ textarea.booking-input { resize: none; height: 76px; }
   50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.75), 0 0 0 8px rgba(37,211,102,0.12); }
 }
 #waFloat { animation: waPulse 2.8s ease-in-out infinite; }
-#waFloat:hover { animation: none; }
+#waFloat:hover, #waFloat.wa-active { animation: none; }
+#waChatWidget {
+  position: fixed; bottom: 96px; right: 28px; z-index: 1901;
+  width: 320px; border-radius: 18px; overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.1);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  opacity: 0; pointer-events: none;
+  transform: translateY(16px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+#waChatWidget.wa-open { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); }
+.wa-wgt-header {
+  background: #128C7E; padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wa-wgt-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background: #075E54;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 800; color: #fff; flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+.wa-wgt-info { flex: 1; min-width: 0; }
+.wa-wgt-name { font-size: 0.9rem; font-weight: 700; color: #fff; }
+.wa-wgt-status { font-size: 0.71rem; color: rgba(255,255,255,0.82); margin-top: 2px; }
+.wa-wgt-close {
+  width: 28px; height: 28px; background: rgba(255,255,255,0.15);
+  border: none; border-radius: 50%; cursor: pointer; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; transition: background 0.18s; flex-shrink: 0;
+}
+.wa-wgt-close:hover { background: rgba(255,255,255,0.3); }
+.wa-wgt-body { background: #ece5dd; padding: 16px 14px 14px; }
+.wa-chat-time {
+  font-size: 0.68rem; color: #667781;
+  background: rgba(255,255,255,0.7); border-radius: 100px;
+  padding: 3px 10px; display: table; margin: 0 auto 12px;
+}
+.wa-chat-bubble {
+  background: #fff; border-radius: 0 10px 10px 10px;
+  padding: 10px 13px 8px; max-width: 88%; position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.13);
+  font-size: 0.83rem; line-height: 1.5; color: #111;
+}
+.wa-chat-bubble::before {
+  content: ''; position: absolute; top: 0; left: -6px;
+  width: 0; height: 0;
+  border-right: 6px solid #fff; border-bottom: 6px solid transparent;
+}
+.wa-chat-bubble p { margin: 0 0 4px; }
+.wa-chat-bubble p:last-child { margin-bottom: 0; }
+.wa-chat-meta { font-size: 0.65rem; color: #667781; text-align: right; margin-top: 5px; }
+.wa-wgt-footer {
+  background: #f0f0f0; padding: 8px 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+#waMsg {
+  flex: 1; border: none; border-radius: 22px;
+  padding: 9px 14px; font-size: 0.82rem;
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  resize: none; height: 38px; outline: none; color: #111;
+  background: #fff; line-height: 1.4; overflow: hidden;
+}
+#waSendBtn {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
+  background: #25d366; border: none; cursor: pointer; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.18s, transform 0.15s;
+}
+#waSendBtn:hover { background: #20b858; transform: scale(1.06); }
+#waSendBtn svg { width: 20px; height: 20px; margin-left: 2px; }
 `;
     document.head.appendChild(waStyle);
 
-    const wa = document.createElement('a');
+    // Build chat widget
+    const widget = document.createElement('div');
+    widget.id = 'waChatWidget';
+    const _waNow = new Date();
+    const _waTime = _waNow.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    widget.innerHTML = '<div class="wa-wgt-header">'
+      + '<div class="wa-wgt-avatar">TN</div>'
+      + '<div class="wa-wgt-info">'
+      + '<div class="wa-wgt-name">TechNext Asia</div>'
+      + '<div class="wa-wgt-status">&#9679; Typically replies instantly</div>'
+      + '</div>'
+      + '<button class="wa-wgt-close" id="waChatClose" aria-label="Close">&#x2715;</button>'
+      + '</div>'
+      + '<div class="wa-wgt-body">'
+      + '<div class="wa-chat-time">Today, ' + _waTime + '</div>'
+      + '<div class="wa-chat-bubble">'
+      + '<p>&#128075; Hi there!</p>'
+      + '<p>How can we help you? Drop us a message and we\'ll get back to you right away.</p>'
+      + '<div class="wa-chat-meta">' + _waTime + ' ✓✓</div>'
+      + '</div></div>'
+      + '<div class="wa-wgt-footer">'
+      + '<textarea id="waMsg" placeholder="Type a message...">Hi TechNext! I\'d like to know more about your services.</textarea>'
+      + '<button id="waSendBtn" aria-label="Send on WhatsApp">'
+      + '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>'
+      + '</button></div>';
+    document.body.appendChild(widget);
+
+    // Float button (button, not anchor)
+    const wa = document.createElement('button');
     wa.id = 'waFloat';
-    wa.href = 'https://wa.me/6588396998';
-    wa.target = '_blank';
-    wa.rel = 'noopener noreferrer';
     wa.setAttribute('aria-label', 'Chat on WhatsApp');
-    wa.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-      <path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/>
-    </svg>`;
+    wa.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+      + '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>'
+      + '<path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/>'
+      + '</svg>';
     document.body.appendChild(wa);
+
+    // Toggle widget on button click
+    wa.addEventListener('click', function () {
+      const open = widget.classList.toggle('wa-open');
+      wa.classList.toggle('wa-active', open);
+    });
+
+    // Close button inside widget
+    document.getElementById('waChatClose').addEventListener('click', function (e) {
+      e.stopPropagation();
+      widget.classList.remove('wa-open');
+      wa.classList.remove('wa-active');
+    });
+
+    // Send button — open WhatsApp with pre-filled message
+    document.getElementById('waSendBtn').addEventListener('click', function () {
+      const msg = (document.getElementById('waMsg').value || '').trim()
+        || 'Hi TechNext! I\'d like to know more about your services.';
+      window.open('https://wa.me/6588396998?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+    });
+
+    // Also send on Enter (Shift+Enter = new line)
+    document.getElementById('waMsg').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('waSendBtn').click();
+      }
+    });
   }
 
   /* ── JS (always registered) ──────────────────────────────── */
