@@ -357,6 +357,30 @@ document.addEventListener('DOMContentLoaded', function () {
     navApply.insertAdjacentElement('beforebegin', switcher);
   }
 
+  // ── Nav: hamburger button (mobile) ────────────────────────────
+  const navMenu = document.querySelector('#mainNav .nav-links');
+  if (navMenu) navMenu.id = 'navMenu';
+  if (navRight) {
+    const hbtn = document.createElement('button');
+    hbtn.className = 'hamburger';
+    hbtn.id = 'hamburger';
+    hbtn.setAttribute('aria-label', 'Menu');
+    hbtn.innerHTML = '<span></span><span></span><span></span>';
+    hbtn.addEventListener('click', function() {
+      hbtn.classList.toggle('open');
+      const nm = document.getElementById('navMenu');
+      if (nm) nm.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#mainNav')) {
+        hbtn.classList.remove('open');
+        const nm = document.getElementById('navMenu');
+        if (nm) nm.classList.remove('open');
+      }
+    });
+    navRight.appendChild(hbtn);
+  }
+
   const navLinkMap = { 'About':'nav_about', 'Gallery':'nav_gallery', 'Blog':'nav_blog', 'Careers':'nav_careers', 'Contact':'nav_contact' };
   document.querySelectorAll('.nav-links a').forEach(a => {
     const k = navLinkMap[a.textContent.trim()];
