@@ -26,23 +26,193 @@ const ARTICLES = [
   { title: "The Philippines BPO Industry's AI Revolution",                  url: "philippines-bpo-ai-revolution.html",           img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=225&fit=crop&q=80", cat: "Philippines", date: "May 1, 2026"  },
 ];
 
+/* ── filename → translation key (add new articles here) ── */
+const FILE_KEY_MAP = {
+  'gpt5-openai-agentic-ai-2025.html':            'c1_t',
+  'big-tech-ai-infrastructure-2026.html':         'c2_t',
+  'lg-nvidia-physical-ai-era.html':               'c3_t',
+  'ai-agent-governance-2025.html':                'c4_t',
+  'github-copilot-per-token-pricing.html':        'c5_t',
+  'ai-agents-enterprise-automation.html':         'c6_t',
+  'rag-systems-enterprise-guide.html':            'c7_t',
+  'local-llm-on-premise-enterprise.html':         'c8_t',
+  'context-engineering-new-discipline.html':      'c9_t',
+  'odoo-18-features-upgrade-guide.html':          'c10_t',
+  'odoo-ai-integration-guide.html':               'c11_t',
+  'odoo-vs-sap-enterprise-comparison.html':       'c12_t',
+  'odoo-erp-sme-southeast-asia.html':             'c13_t',
+  'vietnam-digital-economy-ai-2026.html':         'c14_t',
+  'vietnam-tech-talent-dev-hub.html':             'c15_t',
+  'vietnam-software-exports-2026.html':           'c16_t',
+  'singapore-national-ai-strategy-2026.html':     'c17_t',
+  'singapore-smart-nation-enterprise-ai.html':    'c18_t',
+  'philippines-digital-transformation-2026.html': 'c19_t',
+  'philippines-bpo-ai-revolution.html':           'c20_t',
+};
+
+/* ── badge text → translation key ── */
+const CAT_KEY_MAP = {
+  'AI & Tech':   'cat_ai',
+  'Odoo ERP':    'cat_odoo',
+  'Vietnam':     'cat_vn',
+  'Singapore':   'cat_sg',
+  'Philippines': 'cat_ph',
+};
+
 const BLOG_LANG = {
-  en: { nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog', nav_careers:'Careers', nav_contact:'Contact', nav_book:'Book Now' },
-  vn: { nav_about:'Giới Thiệu', nav_gallery:'Thư Viện', nav_blog:'Blog', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_book:'Đặt Lịch' },
-  ph: { nav_about:'Tungkol', nav_gallery:'Galeria', nav_blog:'Blog', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_book:'Mag-book' },
-  de: { nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_book:'Termin Buchen' }
+  en: {
+    nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog', nav_careers:'Careers', nav_contact:'Contact', nav_book:'Book Now',
+    back_blog:'← Back to Blog',
+    toc_label:'In This Article',
+    share_label:'Share This Article',
+    more_articles:'More Articles',
+    copy_link:'Copy Link',
+    copied:'Copied!',
+    cat_ai:'AI &amp; Tech', cat_odoo:'Odoo ERP', cat_vn:'Vietnam', cat_sg:'Singapore', cat_ph:'Philippines',
+    c1_t:"GPT-5: OpenAI's Most Capable Agentic AI Model Yet",
+    c2_t:"Big Tech AI Infrastructure Spending: Q1 2026 Earnings Breakdown",
+    c3_t:"LG and NVIDIA: The Physical AI Era Has Officially Begun",
+    c4_t:"AI Agent Governance: Regulators Are Finally Flagging Control Gaps",
+    c5_t:"GitHub Copilot Moves to Per-Token Pricing — What It Means for Dev Teams",
+    c6_t:"AI Agents in 2026: How Autonomous AI is Reshaping Enterprise Operations",
+    c7_t:"RAG Systems for Enterprise: The Complete Implementation Guide",
+    c8_t:"Local LLM Deployment: Running AI On-Premise for Enterprise Security",
+    c9_t:"Context Engineering: The New Discipline That Makes AI Systems Actually Work",
+    c10_t:"Odoo 18: New Features and the Enterprise Upgrade Decision",
+    c11_t:"Integrating AI with Odoo ERP: A Step-by-Step Implementation Guide",
+    c12_t:"Odoo vs SAP in 2026: Which ERP Is Right for Your Business?",
+    c13_t:"Why Southeast Asian SMEs Are Switching to Odoo ERP in 2026",
+    c14_t:"Vietnam's Digital Economy in 2026: AI Adoption Accelerates Across Industries",
+    c15_t:"Vietnam's Tech Talent: Why Global Companies Are Building Dev Hubs Here",
+    c16_t:"Vietnam Software Exports Hit $8B: How the Country is Becoming an AI Powerhouse",
+    c17_t:"Singapore's National AI Strategy 2.0: What Every Enterprise Needs to Know",
+    c18_t:"Singapore Smart Nation: How AI is Transforming Government and Enterprise Services",
+    c19_t:"Philippines Digital Transformation 2026: AI Adoption Beyond BPO",
+    c20_t:"The Philippines BPO Industry's AI Revolution: From Headcount to Intelligence",
+  },
+  vn: {
+    nav_about:'Giới Thiệu', nav_gallery:'Thư Viện', nav_blog:'Blog', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_book:'Đặt Lịch',
+    back_blog:'← Về Blog',
+    toc_label:'Trong Bài Viết Này',
+    share_label:'Chia Sẻ Bài Viết',
+    more_articles:'Bài Viết Khác',
+    copy_link:'Sao Chép Liên Kết',
+    copied:'Đã Sao Chép!',
+    cat_ai:'AI &amp; Công Nghệ', cat_odoo:'Odoo ERP', cat_vn:'Việt Nam', cat_sg:'Singapore', cat_ph:'Philippines',
+    c1_t:'GPT-5: Mô Hình AI Tác Nhân Mạnh Nhất của OpenAI Từ Trước Đến Nay',
+    c2_t:'Chi Tiêu Hạ Tầng AI của Big Tech: Phân Tích Kết Quả Q1 2026',
+    c3_t:'LG và NVIDIA: Kỷ Nguyên AI Vật Lý Đã Chính Thức Bắt Đầu',
+    c4_t:'Quản Trị AI Tác Nhân: Cơ Quan Quản Lý Chỉ Ra Lỗ Hổng Kiểm Soát',
+    c5_t:'GitHub Copilot Chuyển Sang Tính Phí Theo Token — Ý Nghĩa Với Các Nhóm Dev',
+    c6_t:'AI Tác Nhân Năm 2026: Cách AI Tự Động Định Hình Lại Hoạt Động Doanh Nghiệp',
+    c7_t:'Hệ Thống RAG Cho Doanh Nghiệp: Hướng Dẫn Triển Khai Toàn Diện',
+    c8_t:'Triển Khai LLM Cục Bộ: Chạy AI On-Premise Để Bảo Mật Doanh Nghiệp',
+    c9_t:'Kỹ Thuật Ngữ Cảnh: Kỷ Luật Mới Giúp Hệ Thống AI Thực Sự Hoạt Động',
+    c10_t:'Odoo 18: Tính Năng Mới Và Quyết Định Nâng Cấp Cho Doanh Nghiệp',
+    c11_t:'Tích Hợp AI Với Odoo ERP: Hướng Dẫn Triển Khai Từng Bước',
+    c12_t:'Odoo vs SAP Năm 2026: Phần Mềm ERP Nào Phù Hợp Với Doanh Nghiệp Của Bạn?',
+    c13_t:'Tại Sao Doanh Nghiệp Vừa Và Nhỏ Đông Nam Á Chuyển Sang Odoo ERP Năm 2026',
+    c14_t:'Kinh Tế Số Việt Nam Năm 2026: Ứng Dụng AI Tăng Tốc Trên Các Ngành',
+    c15_t:'Nhân Tài Công Nghệ Việt Nam: Lý Do Các Công Ty Toàn Cầu Xây Dev Hub Tại Đây',
+    c16_t:'Xuất Khẩu Phần Mềm Việt Nam Đạt 8 Tỷ USD: Hành Trình Trở Thành Cường Quốc AI',
+    c17_t:'Chiến Lược AI Quốc Gia Singapore 2.0: Điều Mỗi Doanh Nghiệp Cần Biết',
+    c18_t:'Singapore Smart Nation: AI Chuyển Đổi Dịch Vụ Chính Phủ Và Doanh Nghiệp',
+    c19_t:'Chuyển Đổi Số Philippines 2026: Ứng Dụng AI Vượt Ra Ngoài BPO',
+    c20_t:'Cuộc Cách Mạng AI Trong Ngành BPO Philippines: Từ Nhân Lực Đến Trí Tuệ',
+  },
+  ph: {
+    nav_about:'Tungkol', nav_gallery:'Galeria', nav_blog:'Blog', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_book:'Mag-book',
+    back_blog:'← Bumalik sa Blog',
+    toc_label:'Sa Artikulong Ito',
+    share_label:'Ibahagi ang Artikulo',
+    more_articles:'Higit pang Artikulo',
+    copy_link:'Kopyahin ang Link',
+    copied:'Nakopya!',
+    cat_ai:'AI &amp; Tech', cat_odoo:'Odoo ERP', cat_vn:'Vietnam', cat_sg:'Singapore', cat_ph:'Pilipinas',
+    c1_t:"GPT-5: Pinaka-Capable na Agentic AI Model ng OpenAI",
+    c2_t:"Paggastos ng Big Tech sa AI Infrastructure: Q1 2026 Earnings Breakdown",
+    c3_t:"LG at NVIDIA: Opisyal Nang Nagsimula ang Physical AI Era",
+    c4_t:"AI Agent Governance: Tinutukoy ng mga Regulator ang mga Control Gap",
+    c5_t:"GitHub Copilot Lumipat sa Per-Token Pricing — Ano ang Ibig Sabihin Para sa Dev Teams",
+    c6_t:"AI Agents sa 2026: Paano Binabago ng Autonomous AI ang Enterprise Operations",
+    c7_t:"RAG Systems para sa Enterprise: Ang Kumpletong Implementation Guide",
+    c8_t:"Local LLM Deployment: Pagpapatakbo ng AI On-Premise para sa Enterprise Security",
+    c9_t:"Context Engineering: Ang Bagong Disiplina na Nagpapatakbo ng AI Systems",
+    c10_t:"Odoo 18: Mga Bagong Feature at ang Enterprise Upgrade Decision",
+    c11_t:"Pag-integrate ng AI sa Odoo ERP: Step-by-Step Implementation Guide",
+    c12_t:"Odoo vs SAP sa 2026: Alin ang Tamang ERP para sa Inyong Negosyo?",
+    c13_t:"Bakit Lumalipat ang mga SME sa Southeast Asia sa Odoo ERP sa 2026",
+    c14_t:"Digital Economy ng Vietnam sa 2026: Nagbibilis ang AI Adoption sa Lahat ng Industriya",
+    c15_t:"Tech Talent ng Vietnam: Bakit Nagtatayo ang mga Global na Kumpanya ng Dev Hubs Dito",
+    c16_t:"Vietnam Software Exports Umabot sa $8B: Pagiging AI Powerhouse ng Bansa",
+    c17_t:"National AI Strategy 2.0 ng Singapore: Ano ang Kailangan Malaman ng Bawat Enterprise",
+    c18_t:"Singapore Smart Nation: Paano Binabago ng AI ang Mga Serbisyo ng Gobyerno at Negosyo",
+    c19_t:"Digital Transformation ng Pilipinas 2026: AI Adoption Higit Pa sa BPO",
+    c20_t:"AI Revolution ng BPO Industry ng Pilipinas: Mula sa Headcount Patungong Intelligence",
+  },
+  de: {
+    nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_book:'Termin Buchen',
+    back_blog:'← Zurück zum Blog',
+    toc_label:'In diesem Artikel',
+    share_label:'Artikel teilen',
+    more_articles:'Weitere Artikel',
+    copy_link:'Link kopieren',
+    copied:'Kopiert!',
+    cat_ai:'KI &amp; Technologie', cat_odoo:'Odoo ERP', cat_vn:'Vietnam', cat_sg:'Singapur', cat_ph:'Philippinen',
+    c1_t:'GPT-5: OpenAIs fähigstes agentisches KI-Modell bisher',
+    c2_t:'KI-Infrastrukturausgaben der Tech-Giganten: Q1 2026 Ergebnisanalyse',
+    c3_t:'LG und NVIDIA: Das Zeitalter der Physischen KI Hat Offiziell Begonnen',
+    c4_t:'KI-Agenten-Governance: Regulatoren Weisen auf Kontrollmängel Hin',
+    c5_t:'GitHub Copilot Wechselt zur Pro-Token-Preisgestaltung — Was Das für Dev-Teams Bedeutet',
+    c6_t:'KI-Agenten 2026: Wie Autonome KI Enterprise-Abläufe Neu Gestaltet',
+    c7_t:'RAG-Systeme für Unternehmen: Der Vollständige Implementierungsleitfaden',
+    c8_t:'Lokales LLM-Deployment: KI On-Premise für Enterprise-Sicherheit Betreiben',
+    c9_t:'Context Engineering: Die Neue Disziplin, die KI-Systeme Tatsächlich Zum Laufen Bringt',
+    c10_t:'Odoo 18: Neue Funktionen und die Unternehmens-Upgrade-Entscheidung',
+    c11_t:'KI in Odoo ERP Integrieren: Ein Schrittweiser Implementierungsleitfaden',
+    c12_t:'Odoo vs SAP 2026: Welches ERP Ist das Richtige für Ihr Unternehmen?',
+    c13_t:'Warum Südostasiatische KMU 2026 zu Odoo ERP Wechseln',
+    c14_t:'Vietnams Digitale Wirtschaft 2026: KI-Adoption Beschleunigt Sich Branchenübergreifend',
+    c15_t:'Vietnams Tech-Talente: Warum Globale Unternehmen Dev-Hubs Hier Aufbauen',
+    c16_t:'Vietnam Software-Exporte Erreichen 8 Mrd. $: Aufstieg zur KI-Supermacht',
+    c17_t:'Singapurs Nationale KI-Strategie 2.0: Was Jedes Unternehmen Wissen Muss',
+    c18_t:'Singapur Smart Nation: Wie KI Regierungs- und Unternehmensservices Transformiert',
+    c19_t:'Digitale Transformation der Philippinen 2026: KI-Adoption Jenseits von BPO',
+    c20_t:'Die KI-Revolution der Philippinischen BPO-Industrie: Von Headcount zu Intelligenz',
+  },
 };
 
 function applyBlogLang(lang) {
   localStorage.setItem('tn_lang', lang);
   const t = BLOG_LANG[lang] || BLOG_LANG.en;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
-  document.querySelectorAll('[data-k]').forEach(el => { const k = el.getAttribute('data-k'); if (t[k] !== undefined) el.innerHTML = t[k]; });
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const k = el.getAttribute('data-k');
+    if (t[k] !== undefined) el.innerHTML = t[k];
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   const articleWrap = document.querySelector('.article-wrap');
   if (!articleWrap) return;
+
+  // ── Auto-tag translatable elements in the static HTML ─────────
+  const fname = window.location.pathname.split('/').pop();
+
+  // Article title h1
+  const h1 = articleWrap.querySelector('h1.article-title');
+  if (h1 && FILE_KEY_MAP[fname]) h1.setAttribute('data-k', FILE_KEY_MAP[fname]);
+
+  // Category badge
+  const catBadge = articleWrap.querySelector('.cat-badge');
+  if (catBadge) {
+    const ck = CAT_KEY_MAP[catBadge.textContent.trim()];
+    if (ck) catBadge.setAttribute('data-k', ck);
+  }
+
+  // Back-to-blog link
+  const backLink = articleWrap.querySelector('.back-link');
+  if (backLink) backLink.setAttribute('data-k', 'back_blog');
 
   // Remove old share bar
   const oldShareBar = articleWrap.querySelector('.share-bar');
@@ -70,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const toc = document.createElement('div');
     toc.className = 'toc-card';
     toc.innerHTML = `
-      <p class="sidebar-card-label">In This Article</p>
+      <p class="sidebar-card-label" data-k="toc_label">In This Article</p>
       <nav class="toc-nav">
         ${headings.map(h => `<a href="#${h.id}" class="toc-link">${h.textContent.trim()}</a>`).join('')}
       </nav>`;
@@ -82,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const shareCard = document.createElement('div');
   shareCard.className = 'share-card';
   shareCard.innerHTML = `
-    <p class="sidebar-card-label">Share This Article</p>
+    <p class="sidebar-card-label" data-k="share_label">Share This Article</p>
     <div class="share-card-btns">
       <a class="share-card-btn s-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" rel="noopener">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -98,21 +268,21 @@ document.addEventListener('DOMContentLoaded', function () {
       </a>
       <button class="share-card-btn s-copy" id="shareCopyBtn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copy Link
+        <span data-k="copy_link">Copy Link</span>
       </button>
     </div>`;
   sidebar.appendChild(shareCard);
   pageLayout.appendChild(sidebar);
 
   // ── Recommended section below article ─────────────────────────
-  const currentFile = window.location.pathname.split('/').pop() || window.location.href.split('/').pop().split('?')[0];
+  const currentFile = fname || window.location.href.split('/').pop().split('?')[0];
   const recommended = ARTICLES.filter(a => a.url !== currentFile).slice(0, 6);
 
   const recSection = document.createElement('section');
   recSection.className = 'rec-section';
   recSection.innerHTML = `
     <div class="rec-section-inner">
-      <h3 class="rec-section-heading">More Articles</h3>
+      <h3 class="rec-section-heading" data-k="more_articles">More Articles</h3>
       <div class="rec-grid">
         ${recommended.map(a => `
           <a href="${a.url}" class="rec-article-card">
@@ -132,13 +302,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ── Copy link handler ──────────────────────────────────────────
   const copyBtn = document.getElementById('shareCopyBtn');
-  if (copyBtn) {
-    const origHTML = copyBtn.innerHTML;
+  const copySpan = copyBtn && copyBtn.querySelector('span[data-k]');
+  if (copyBtn && copySpan) {
     copyBtn.addEventListener('click', function () {
+      const t = BLOG_LANG[localStorage.getItem('tn_lang')] || BLOG_LANG.en;
       const done = () => {
-        copyBtn.innerHTML = copyBtn.innerHTML.replace('Copy Link', 'Copied!');
+        copySpan.textContent = t.copied;
         copyBtn.classList.add('copied');
-        setTimeout(() => { copyBtn.innerHTML = origHTML; copyBtn.classList.remove('copied'); }, 2000);
+        setTimeout(() => {
+          copySpan.textContent = t.copy_link;
+          copyBtn.classList.remove('copied');
+        }, 2000);
       };
       if (navigator.clipboard) navigator.clipboard.writeText(window.location.href).then(done).catch(done);
       else { const ta = document.createElement('textarea'); ta.value = window.location.href; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); }
@@ -172,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navApply.removeAttribute('target');
     navApply.removeAttribute('rel');
     navApply.setAttribute('data-k', 'nav_book');
-    navApply.setAttribute('onclick', 'openBooking();return false;');
+    navApply.setAttribute('onclick', 'applyBlogLang && openBooking();return false;');
     navApply.textContent = 'Book Now';
 
     const switcher = document.createElement('div');
@@ -189,6 +363,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (k) a.setAttribute('data-k', k);
   });
 
+  // ── Apply saved/detected language ─────────────────────────────
   const savedLang = localStorage.getItem('tn_lang');
   if (savedLang && BLOG_LANG[savedLang]) applyBlogLang(savedLang);
   else {
