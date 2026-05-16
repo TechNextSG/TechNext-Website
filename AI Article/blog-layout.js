@@ -363,6 +363,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (k) a.setAttribute('data-k', k);
   });
 
+  // ── Mobile lang dropdown ───────────────────────────────────────
+  (function(){var sw=document.querySelector('.lang-switcher');if(!sw)return;sw.addEventListener('click',function(e){if(window.innerWidth>768)return;if(!sw.classList.contains('open')){e.stopPropagation();sw.classList.add('open');}});document.addEventListener('click',function(){sw.classList.remove('open');});window.addEventListener('resize',function(){if(window.innerWidth>768)sw.classList.remove('open');});})();
+
   // ── Apply saved/detected language ─────────────────────────────
   const savedLang = localStorage.getItem('tn_lang');
   if (savedLang && BLOG_LANG[savedLang]) applyBlogLang(savedLang);
