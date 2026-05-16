@@ -223,16 +223,6 @@ nav#mainNav.scrolled {
   overflow: hidden;
   z-index: 1;
 }
-/* Layering: left gradient blends image into text */
-.hero-img-col::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 38%;
-  background: linear-gradient(to right, #f0ece3 8%, rgba(240,236,227,0.6) 55%, transparent 100%);
-  z-index: 3;
-  pointer-events: none;
-}
 .hero-img-col img {
   position: absolute;
   inset: 0;
