@@ -1197,25 +1197,35 @@ footer {
 @media (max-width: 700px) {
   .stat-col:nth-child(2) { border-right: none; }
 }
+@media (min-width: 769px) and (max-width: 1100px) {
+  .hero-img-col { width: 72%; }
+}
 @media (max-width: 768px) {
   nav { padding: 0 5%; }
+  nav#mainNav, nav#mainNav.scrolled { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
   .nav-links { display: none; }
   .nav-apply { display: none; }
-  .hamburger { display: flex; }
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 64px; left: 0; right: 0;
-    background: rgba(240,236,227,0.98);
-    backdrop-filter: blur(16px);
-    padding: 1.5rem 5%;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    z-index: 99;
-    gap: 0;
+  .hamburger { display: flex; background: rgba(0,0,0,0.07); border-radius: 10px; padding: 8px; transition: background 0.2s; }
+  .hamburger.open { background: rgba(37,99,235,0.12); }
+  .hamburger.open span { background: var(--blue); }
+  @keyframes navMenuIn {
+    from { opacity: 0; transform: scale(0.82) translateY(-8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
   }
-  .nav-links.open li { border-bottom: 1px solid rgba(0,0,0,0.05); }
-  .nav-links.open a { display: block; padding: 1rem 0; font-size: 1rem; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: fixed;
+    top: 72px; right: 16px; left: auto; min-width: 180px;
+    background: #fff; border-radius: 18px;
+    padding: 6px; gap: 2px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    z-index: 200; transform-origin: top right;
+    animation: navMenuIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  .nav-links.open li { border-bottom: none; }
+  .nav-links.open a { display: block; padding: 0.75rem 1.1rem; font-size: 0.92rem; border-radius: 12px; color: var(--text); font-weight: 500; transition: background 0.15s; }
+  .nav-links.open a:hover { background: rgba(0,0,0,0.05); }
+  .nav-links.open a.active { color: var(--blue); font-weight: 600; }
   .section-wrap { padding: 40px 5%; }
   .services-inner { padding: 40px 5%; }
   .svc-grid { grid-template-columns: 1fr; }
@@ -1230,7 +1240,7 @@ footer {
   .stat-sub { font-size: 0.9rem; }
 
   .about-stats { grid-template-columns: 1fr 1fr; }
-  footer { flex-direction: column; align-items: center; text-align: center; gap: 0.4rem; padding: 1rem 5%; }
+  footer { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.8rem; padding: 1.5rem 5%; }
 
   /* Logo: smaller on mobile */
   .logo-img { height: 44px; }
@@ -1723,8 +1733,10 @@ footer {
   </a>
   <span class="footer-copy" data-k="footer_copy">© 2025 TechNext Asia · technext.asia · All rights reserved</span>
   <nav class="footer-links" aria-label="Footer">
-    <a href="mailto:hello@technext.asia" data-k="footer_contact">Contact</a>
-    <a href="https://technext.asia" target="_blank" rel="noopener">technext.asia</a>
+    <a href="#hero">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact</a>
   </nav>
 </footer>
 
