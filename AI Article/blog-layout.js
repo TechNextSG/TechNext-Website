@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ── Mobile lang dropdown ───────────────────────────────────────
-  (function(){var sw=document.querySelector('.lang-switcher');if(!sw)return;sw.addEventListener('click',function(e){if(window.innerWidth>768)return;if(!sw.classList.contains('open')){e.stopPropagation();sw.classList.add('open');}});document.addEventListener('click',function(){sw.classList.remove('open');});window.addEventListener('resize',function(){if(window.innerWidth>768)sw.classList.remove('open');});})();
+  (function(){var sw=document.querySelector('.lang-switcher');if(!sw)return;function o(){var r=sw.getBoundingClientRect();sw.classList.add('open');sw.style.cssText='position:fixed;top:'+(r.bottom+8)+'px;right:'+(window.innerWidth-r.right)+'px;left:auto;z-index:200;';}function c(){sw.classList.remove('open');sw.style.cssText='';}sw.addEventListener('click',function(e){if(window.innerWidth>768)return;if(!sw.classList.contains('open')){e.stopPropagation();o();}});document.addEventListener('click',function(){c();});window.addEventListener('resize',function(){if(window.innerWidth>768)c();});})();
 
   // ── Apply saved/detected language ─────────────────────────────
   const savedLang = localStorage.getItem('tn_lang');
