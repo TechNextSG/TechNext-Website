@@ -1558,18 +1558,18 @@ footer {
         <div class="culture-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
-        <h3>Global from Day One</h3>
-        <p>English-first. Work directly with clients in Switzerland, USA, Singapore, and Japan.</p>
+        <h3 data-k="cult1_h">Global from Day One</h3>
+        <p data-k="cult1_p">English-first. Work directly with clients in Switzerland, USA, Singapore, and Japan.</p>
       </div>
       <div class="culture-card reveal rd2">
         <div class="culture-icon"></div>
-        <h3>Ship to Production Fast</h3>
-        <p>No sandbox projects. Your code goes live to enterprise clients within weeks.</p>
+        <h3 data-k="cult2_h">Ship to Production Fast</h3>
+        <p data-k="cult2_p">No sandbox projects. Your code goes live to enterprise clients within weeks.</p>
       </div>
       <div class="culture-card reveal rd3">
         <div class="culture-icon"></div>
-        <h3>Remote-Friendly &amp; Focused</h3>
-        <p>Work from anywhere in Vietnam. Async culture, zero micromanagement.</p>
+        <h3 data-k="cult3_h">Remote-Friendly &amp; Focused</h3>
+        <p data-k="cult3_p">Work from anywhere in Vietnam. Async culture, zero micromanagement.</p>
       </div>
     </div>
     <div class="team-carousel reveal" id="teamCarousel">
@@ -1804,6 +1804,9 @@ const LANG = {
     stat4_lbl:'Failed Deployments', stat4_sub:'100% success rate',
     about_tag:'Life at TechNext', about_h2:'The Team Building AI for Real Enterprise',
     about_p1:"We're a tight-knit team of engineers, AI researchers, and builders creating enterprise intelligence for global clients across 10 countries. Here your code runs in production — not in a demo.",
+    cult1_h:'Global from Day One', cult1_p:'English-first. Work directly with clients in Switzerland, USA, Singapore, and Japan.',
+    cult2_h:'Ship to Production Fast', cult2_p:'No sandbox projects. Your code goes live to enterprise clients within weeks.',
+    cult3_h:'Remote-Friendly & Focused', cult3_p:'Work from anywhere in Vietnam. Async culture, zero micromanagement.',
     about_p2:'We serve global clients across <strong>10 countries</strong> — from Switzerland and Austria to Japan and Singapore — building enterprise-grade AI systems that run in production.',
     about_p3:"When you join TechNext, you're not joining a company that uses AI tools. You're joining one that <strong>builds them</strong>.",
     certs_label:'Certifications & Partnerships',
@@ -1875,6 +1878,9 @@ const LANG = {
     stat4_lbl:'Triển Khai Thất Bại', stat4_sub:'tỷ lệ thành công 100%',
     about_tag:'Cuộc Sống Tại TechNext', about_h2:'Nơi Bạn Ship AI Thực Sự Có Giá Trị',
     about_p1:'Chúng tôi là đội ngũ kỹ sư, nhà nghiên cứu AI và người xây dựng tạo ra trí tuệ doanh nghiệp cho khách hàng toàn cầu tại 10 quốc gia. Code của bạn chạy trong production — không phải trong demo.',
+    cult1_h:'Quốc Tế Từ Ngày Đầu', cult1_p:'Môi trường tiếng Anh. Làm việc trực tiếp với khách hàng tại Thụy Sĩ, Mỹ, Singapore và Nhật Bản.',
+    cult2_h:'Ship Production Nhanh', cult2_p:'Không có dự án thử nghiệm. Code của bạn đi vào production cho khách hàng doanh nghiệp trong vài tuần.',
+    cult3_h:'Làm Việc Từ Xa & Tập Trung', cult3_p:'Làm việc từ bất kỳ đâu tại Việt Nam. Văn hóa async, không micromanagement.',
     about_p2:'Chúng tôi phục vụ khách hàng tại <strong>10 quốc gia</strong> — từ Thụy Sĩ, Áo đến Nhật Bản và Singapore — xây dựng hệ thống AI cấp doanh nghiệp thực sự.',
     about_p3:'Khi gia nhập TechNext, bạn không chỉ dùng công cụ AI. Bạn <strong>xây dựng chúng</strong>.',
     certs_label:'Chứng Chỉ & Đối Tác',
@@ -1946,6 +1952,9 @@ const LANG = {
     stat4_lbl:'Mga Bagsak na Deployment', stat4_sub:'100% tagumpay',
     about_tag:'Tungkol sa Amin', about_h2:'Internasyonal na Kumpanyang AI.<br>Puso ng Vietnam.',
     about_p1:'Ang TechNext ay isang <strong>AI-native na kumpanya</strong> na tumutulong sa mga negosyo sa buong mundo na gamitin ang AI agents, RAG systems, at Odoo ERP.',
+    cult1_h:'Global Mula sa Simula', cult1_p:'English-first. Direktang makipagtrabaho sa mga kliyente sa Switzerland, USA, Singapore, at Japan.',
+    cult2_h:'Mabilis na Ship sa Production', cult2_p:'Walang sandbox na proyekto. Ang iyong code ay napupunta sa produksyon para sa mga enterprise client sa loob ng ilang linggo.',
+    cult3_h:'Remote-Friendly at Nakatuon', cult3_p:'Magtrabaho mula sa kahit saan sa Vietnam. Async na kultura, zero micromanagement.',
     about_p2:'Naglilingkod kami sa mga kliyente sa <strong>10 bansa</strong> — mula Switzerland at Austria hanggang Japan at Singapore.',
     about_p3:'Sa pagsali sa TechNext, hindi ka lang gumagamit ng mga AI tool. <strong>Itinatatayo mo ang mga ito</strong>.',
     certs_label:'Mga Sertipiko at Pakikipagtulungan',
@@ -2017,6 +2026,9 @@ const LANG = {
     stat4_lbl:'Fehlgeschlagene Deployments', stat4_sub:'100% Erfolgsquote',
     about_tag:'Über Uns', about_h2:'Internationales KI-Unternehmen.<br>Vietnamesisches Herz.',
     about_p1:'TechNext ist ein <strong>KI-natives Unternehmen</strong>, das Unternehmen weltweit bei der Nutzung von KI-Agenten, RAG-Systemen und Odoo ERP unterstützt.',
+    cult1_h:'Global von Anfang an', cult1_p:'English-first. Direkte Zusammenarbeit mit Kunden in der Schweiz, USA, Singapur und Japan.',
+    cult2_h:'Schnell in Produktion', cult2_p:'Keine Sandbox-Projekte. Dein Code geht innerhalb von Wochen bei Enterprise-Kunden live.',
+    cult3_h:'Remote-freundlich & Fokussiert', cult3_p:'Arbeite von überall in Vietnam. Async-Kultur, kein Mikromanagement.',
     about_p2:'Wir betreuen globale Kunden in <strong>10 Ländern</strong> — von der Schweiz und Österreich bis Japan und Singapur.',
     about_p3:'Bei TechNext nutzt du nicht nur KI-Tools. Du <strong>baust sie</strong>.',
     certs_label:'Zertifizierungen & Partnerschaften',
