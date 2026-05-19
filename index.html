@@ -1292,23 +1292,25 @@ footer {
   #hero {
     flex-direction: column;
     align-items: stretch;
-    min-height: auto;
+    min-height: 100svh;
+    position: relative;
   }
   .hero-left {
     width: 100%;
-    padding: 100px 5% 8px;
+    padding: 100px 5% 340px;
     position: relative;
     z-index: 2;
   }
   .hero-img-col {
-    position: relative;
-    width: 100%;
-    height: 520px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    height: 560px;
     right: auto;
     top: auto;
-    bottom: auto;
-    flex-shrink: 0;
-    margin-top: -80px;
+    margin-top: 0;
     z-index: 1;
   }
   .hero-img-col::before { display: none; }
@@ -1317,7 +1319,8 @@ footer {
     top: 0;
     height: 100%;
     transform: none;
-    object-position: center 35%;
+    object-fit: cover;
+    object-position: center center;
   }
   #heroCanvas { display: none; }
 }
@@ -1326,7 +1329,7 @@ footer {
   .hero-ctas { flex-direction: column; }
   #trust { gap: 1.2rem; }
   .trust-sep { display: none; }
-  .hero-img-col { height: 440px; }
+  .hero-img-col { height: 500px; width: 96%; }
 }
 
 /* Culture Cards */
