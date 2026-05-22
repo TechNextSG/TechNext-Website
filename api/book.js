@@ -5,7 +5,7 @@
  * Always returns HTTP 200 so the modal can always show a result.
  */
 
-const ODOO_API_KEY          = 'fda2a8c698a24217de6158cb644bd85a147ae62c';
+const ODOO_API_KEY          = process.env.ODOO_API_KEY || '';
 const APPOINTMENT_SHORT_CODE = 'c82cf8a9';
 const ODOO_HOSTS = [
   'https://technext.odoo.com',
@@ -46,7 +46,7 @@ function sgtToUtc(dateStr, time24) {
 
 /* ── main handler ──────────────────────────────────────────── */
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS — allow same-site requests from Vercel preview URLs too
   res.setHeader('Access-Control-Allow-Origin',  '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
