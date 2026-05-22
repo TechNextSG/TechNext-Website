@@ -394,28 +394,29 @@ textarea.booking-input { resize: none; height: 76px; }
   const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
   const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
   const ODOO_URL  = 'https://erp.technext.asia';
+  const ODOO_KEY  = 'fda2a8c698a24217de6158cb644bd85a147ae62c';
+  const ODOO_HDR  = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ODOO_KEY };
   const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true (locally marked)
   let _bkService = '', _calY, _calM, _selDate = null, _bkBusy = false, _odooTypeId = null;
 
-  // Discover Odoo appointment type ID once (public read on published types)
+  // Discover Odoo appointment type ID once (authenticated via API key)
   async function _getOdooTypeId() {
     if (_odooTypeId) return _odooTypeId;
     try {
       const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
-        method: 'POST', credentials: 'include',
-        headers: {'Content-Type': 'application/json'},
+        method: 'POST', headers: ODOO_HDR,
         body: JSON.stringify({
           jsonrpc: '2.0', method: 'call', id: 1,
           params: {
             model: 'appointment.type', method: 'search_read',
-            args: [[['website_published', '=', true]]],
+            args: [[]],
             kwargs: { fields: ['id', 'name'], limit: 1, context: {} }
           }
         })
       });
       const d = await r.json();
       if (d.result && d.result[0]) _odooTypeId = d.result[0].id;
-    } catch(e) { /* silent — CORS or auth may block, handled later */ }
+    } catch(e) { /* CORS may block — handled in bookSlot */ }
     return _odooTypeId;
   }
 
@@ -571,8 +572,7 @@ textarea.booking-input { resize: none; height: 76px; }
           const sgtMs  = new Date(+y, +m-1, +d, +h, +mi).getTime();
           const toUTC  = ms => new Date(ms - 8*3600*1000).toISOString().slice(0,19).replace('T',' ');
           const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
-            method: 'POST', credentials: 'include',
-            headers: {'Content-Type': 'application/json'},
+            method: 'POST', headers: ODOO_HDR,
             body: JSON.stringify({
               jsonrpc: '2.0', method: 'call', id: Date.now(),
               params: {
