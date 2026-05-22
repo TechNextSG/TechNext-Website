@@ -19,6 +19,7 @@ const ODOO_HOST     = 'https://technext.odoo.com';
 const ODOO_DB       = 'technext';
 const ODOO_USER     = 'hello@technext.asia';
 const APPT_TYPE_ID  = 2;   // "Initial Demo" appointment type
+const ATTENDEES     = [3];  // sky@technext.asia (Sky Nex, partner id=3) — always added
 
 /* ── XML-RPC encoding ──────────────────────────────────────── */
 
@@ -189,6 +190,7 @@ module.exports = async function handler(req, res) {
         stop,
         appointment_type_id : APPT_TYPE_ID,
         description,
+        partner_ids         : ATTENDEES.map(id => [4, id, false]),
       }]],
       {},
     ]);
