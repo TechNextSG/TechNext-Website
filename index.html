@@ -123,11 +123,15 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  background: var(--bg, #f0ece3);
+  border-radius: 10px;
+  padding: 0 6px;
 }
 .logo-img {
-  height: 88px;
+  height: 52px;
   width: auto;
   mix-blend-mode: multiply;
+  display: block;
 }
 .logo-t { color: #2563eb; font-size: 1.55rem; font-weight: 800; }
 .logo-n { color: var(--plum); font-size: 1.55rem; font-weight: 800; }
@@ -1302,7 +1306,12 @@ footer {
   footer { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.8rem; padding: 1.5rem 5%; }
 
   /* Logo: smaller on mobile */
-  .logo-img { height: 44px; }
+  .logo-img {
+  height: 52px;
+  width: auto;
+  mix-blend-mode: multiply;
+  display: block;
+}
 
   /* Lang switcher: compact single-button dropdown */
   .lang-switcher {
