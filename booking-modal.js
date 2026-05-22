@@ -379,15 +379,7 @@ textarea.booking-input { resize: none; height: 76px; }
   let _bkService = '';
 
   window.openBooking = function () {
-    _bkService = '';
-    document.querySelectorAll('.service-opt').forEach(function(o) { o.classList.remove('selected'); });
-    document.getElementById('s1Next').disabled = true;
-    ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(function(id) {
-      const el = document.getElementById(id); if (el) el.value = '';
-    });
-    document.getElementById('bookingModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    goStep(1);
+    window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
   };
 
   window.closeBooking = function () {
@@ -542,7 +534,7 @@ textarea.booking-input { resize: none; height: 76px; }
   window.eiClose = function () { el.classList.remove('ei-open'); };
   window.eiBook  = function () {
     el.classList.remove('ei-open');
-    if (typeof openBooking === 'function') openBooking();
+    window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
   };
 
   let _eiMouseReady = false;

@@ -2692,18 +2692,7 @@ const _DDAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 const _TIMES = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
 
 function openBooking() {
-  _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
-  _selDate = null; _selTime = null; _bkService = '';
-  document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
-  document.getElementById('s1Next').disabled = true;
-  document.getElementById('bName').value = '';
-  document.getElementById('bEmail').value = '';
-  document.getElementById('bPhone').value = '';
-  document.getElementById('bCompany').value = '';
-  document.getElementById('bChallenge').value = '';
-  document.getElementById('bookingModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  goStep(1);
+  window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
 }
 function closeBooking() {
   document.getElementById('bookingModal').classList.remove('open');
