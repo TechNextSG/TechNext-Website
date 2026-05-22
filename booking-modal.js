@@ -57,6 +57,10 @@ textarea.booking-input{resize:none;height:76px}
 .time-slot{padding:7px 15px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .14s;color:#1a1a2e}
 .time-slot:hover:not(:disabled){border-color:#6d2d7a;color:#6d2d7a;background:#faf5ff}
 .time-slot.ts-loading{background:#6d2d7a;color:#fff;border-color:#6d2d7a;cursor:wait}
+.time-slot.ts-booked{background:#f8fafc;color:#cbd5e1;border-color:#e2e8f0;cursor:not-allowed;text-decoration:line-through}
+.ts-avail-loading{color:#94a3b8;font-size:.82rem;padding:6px 2px;display:flex;align-items:center;gap:6px}
+.ts-avail-loading::before{content:'';display:inline-block;width:14px;height:14px;border:2px solid #e2e8f0;border-top-color:#6d2d7a;border-radius:50%;animation:tspin .7s linear infinite;flex-shrink:0}
+@keyframes tspin{to{transform:rotate(360deg)}}
 .bk-nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.2rem}
 .bk-back{background:none;border:1.5px solid #e2e8f0;border-radius:100px;padding:9px 20px;font-size:.83rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;color:#64748b;transition:all .18s}
 .bk-back:hover{border-color:#94a3b8;color:#1a1a2e}
@@ -327,17 +331,43 @@ textarea.booking-input{resize:none;height:76px}
     }
   }
 
-  function selectDate(el, ds) {
-    _selDate=ds;
+  var _avFetchId = 0; // incremented each call so stale responses are discarded
+
+  async function selectDate(el, ds) {
+    _selDate = ds;
     document.querySelectorAll('.cal-day').forEach(function(d){d.classList.remove('cd-sel');});
     el.classList.add('cd-sel');
-    var wrap=document.getElementById('timeSlots');
-    document.getElementById('tsTitle').style.display='block';
-    wrap.innerHTML='';
-    _TIMES_12.forEach(function(t,i){
-      var btn=document.createElement('button');
-      btn.className='time-slot'; btn.textContent=t;
-      (function(t12,t24,b){ b.addEventListener('click',function(){ if(!_bkBusy) bookSlot(ds,t12,t24,b); }); })(t,_TIMES_24[i],btn);
+
+    var wrap = document.getElementById('timeSlots');
+    document.getElementById('tsTitle').style.display = 'block';
+
+    // Show spinner while fetching
+    wrap.innerHTML = '<div class="ts-avail-loading">Checking availability…</div>';
+
+    var myId = ++_avFetchId;
+    var bookedSlots = [];
+    try {
+      var r    = await fetch('/api/availability?date=' + ds);
+      var data = await r.json();
+      if (_avFetchId !== myId) return; // another date was clicked — discard
+      if (data.ok && Array.isArray(data.bookedSlots)) bookedSlots = data.bookedSlots;
+    } catch(e) { if (_avFetchId !== myId) return; /* fail open */ }
+
+    wrap.innerHTML = '';
+    _TIMES_12.forEach(function(t, i) {
+      var btn = document.createElement('button');
+      btn.className = 'time-slot';
+      var t24 = _TIMES_24[i];
+      if (bookedSlots.indexOf(t24) !== -1) {
+        btn.textContent = t + ' · Full';
+        btn.disabled = true;
+        btn.classList.add('ts-booked');
+      } else {
+        btn.textContent = t;
+        (function(t12, t24_, b) {
+          b.addEventListener('click', function(){ if(!_bkBusy) bookSlot(ds, t12, t24_, b); });
+        })(t, t24, btn);
+      }
       wrap.appendChild(btn);
     });
   }
