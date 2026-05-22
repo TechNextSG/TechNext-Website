@@ -190,7 +190,7 @@ textarea.booking-input { resize: none; height: 76px; }
     </div>
     <div class="booking-step" id="bStep3">
       <div class="bk-h">Pick a time</div>
-      <div class="bk-sub">1 hour · Asia / Singapore (UTC+8)</div>
+      <div class="bk-sub">1 hour · Asia / Singapore (UTC+8) · Tap a slot to book instantly</div>
       <div class="cal-wrap">
         <div class="cal-hdr">
           <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
@@ -203,7 +203,6 @@ textarea.booking-input { resize: none; height: 76px; }
       </div>
       <div class="bk-nav">
         <button class="bk-back" onclick="goStep(2)">← Back</button>
-        <button class="bk-btn" id="s3Confirm" onclick="confirmBooking()" disabled>Confirm Booking →</button>
       </div>
     </div>
     <div class="booking-step" id="bStep4">
@@ -394,11 +393,31 @@ textarea.booking-input { resize: none; height: 76px; }
   const _DDAYS  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
   const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
   const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
-  const BK_API = 'https://landing.technextasia.com';
-  const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true
-  const BK_SLOTS_DONE = {}; // 'YYYY-M' → true (fetched)
-  const BK_SLOTS_BUSY = {}; // 'YYYY-M' → true (in-flight)
-  let _bkService = '', _calY, _calM, _selDate = null, _selTime = null, _selTime24 = null;
+  const ODOO_URL  = 'https://erp.technext.asia';
+  const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true (locally marked)
+  let _bkService = '', _calY, _calM, _selDate = null, _bkBusy = false, _odooTypeId = null;
+
+  // Discover Odoo appointment type ID once (public read on published types)
+  async function _getOdooTypeId() {
+    if (_odooTypeId) return _odooTypeId;
+    try {
+      const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
+        method: 'POST', credentials: 'include',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          jsonrpc: '2.0', method: 'call', id: 1,
+          params: {
+            model: 'appointment.type', method: 'search_read',
+            args: [[['website_published', '=', true]]],
+            kwargs: { fields: ['id', 'name'], limit: 1, context: {} }
+          }
+        })
+      });
+      const d = await r.json();
+      if (d.result && d.result[0]) _odooTypeId = d.result[0].id;
+    } catch(e) { /* silent — CORS or auth may block, handled later */ }
+    return _odooTypeId;
+  }
 
   window.openBooking = function () {
     _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
@@ -452,35 +471,21 @@ textarea.booking-input { resize: none; height: 76px; }
   };
 
   window.calNav = function (dir) {
+    if (_bkBusy) return;
     _calM += dir;
     if (_calM > 11) { _calM = 0; _calY++; }
     if (_calM < 0)  { _calM = 11; _calY--; }
-    _selDate = null; _selTime = null;
-    document.getElementById('s3Confirm').disabled = true;
+    _selDate = null;
     document.getElementById('timeSlots').innerHTML = '';
     document.getElementById('tsTitle').style.display = 'none';
+    const priorErr = document.getElementById('bkInlineErr');
+    if (priorErr) priorErr.remove();
     renderCalendar();
   };
 
-  async function bkLoadSlots(year, month) {
-    const key = year + '-' + month;
-    if (BK_SLOTS_DONE[key] || BK_SLOTS_BUSY[key]) return;
-    BK_SLOTS_BUSY[key] = true;
-    try {
-      const r = await fetch(BK_API + '/api/odoo-slots?year=' + year + '&month=' + (month + 1));
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const d = await r.json();
-      (d.booked || []).forEach(s => { BK_BOOKED_MAP[s] = true; });
-      BK_SLOTS_DONE[key] = true;
-    } catch(e) {
-      console.warn('Slot fetch failed:', e);
-    } finally {
-      BK_SLOTS_BUSY[key] = false;
-    }
-  }
-
   function renderCalendar() {
-    bkLoadSlots(_calY, _calM);
+    // Kick off Odoo type ID discovery in the background (no blocking)
+    _getOdooTypeId();
     document.getElementById('calLabel').textContent = _MONTHS[_calM] + ' ' + _calY;
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
@@ -504,7 +509,7 @@ textarea.booking-input { resize: none; height: 76px; }
       } else {
         const ds = _calY+'-'+String(_calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
         if (_selDate === ds) cell.classList.add('cd-sel');
-        cell.addEventListener('click', () => selectDate(cell, ds));
+        cell.addEventListener('click', () => { if (!_bkBusy) selectDate(cell, ds); });
       }
       if (d === _TODAY.getDate() && _calM === _TODAY.getMonth() && _calY === _TODAY.getFullYear())
         cell.classList.add('cd-today');
@@ -512,122 +517,122 @@ textarea.booking-input { resize: none; height: 76px; }
     }
   }
 
-  async function selectDate(el, ds) {
-    _selDate = ds; _selTime = null; _selTime24 = null;
+  function selectDate(el, ds) {
+    _selDate = ds;
     document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cd-sel'));
     el.classList.add('cd-sel');
-    document.getElementById('s3Confirm').disabled = true;
+    const priorErr = document.getElementById('bkInlineErr');
+    if (priorErr) priorErr.remove();
+    // Show time slots instantly — no loading state
     const wrap = document.getElementById('timeSlots');
-    wrap.innerHTML = '<span style="font-size:0.8rem;color:#94a3b8">Loading available times…</span>';
     document.getElementById('tsTitle').style.display = 'block';
-    // Ensure slots are loaded for this month before rendering
-    await bkLoadSlots(_calY, _calM);
     wrap.innerHTML = '';
-    let hasAvail = false;
     _TIMES_12.forEach((t, i) => {
       const t24  = _TIMES_24[i];
-      const key  = ds + '_' + t24;
-      const busy = !!BK_BOOKED_MAP[key];
+      const busy = !!BK_BOOKED_MAP[ds + '_' + t24];
       const btn  = document.createElement('button');
       btn.className = 'time-slot' + (busy ? ' ts-booked' : '');
       btn.textContent = t + (busy ? ' ✗' : '');
       btn.disabled = busy;
       if (busy) { btn.style.opacity = '0.38'; btn.style.cursor = 'not-allowed'; }
       else {
-        hasAvail = true;
-        btn.addEventListener('click', () => {
-          _selTime = t; _selTime24 = t24;
-          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('ts-sel'));
-          btn.classList.add('ts-sel');
-          document.getElementById('s3Confirm').disabled = false;
-        });
+        btn.addEventListener('click', () => { if (!_bkBusy) bookSlot(ds, t, t24, btn); });
       }
       wrap.appendChild(btn);
     });
-    if (!hasAvail) {
-      wrap.innerHTML = '<span style="font-size:0.8rem;color:#94a3b8">No available times — try another day.</span>';
-    }
   }
 
-  window.confirmBooking = async function () {
-    const btn = document.getElementById('s3Confirm');
-    btn.disabled = true;
-    btn.textContent = 'Booking…';
-    // Remove any prior inline error
-    const _priorErr = document.getElementById('bkInlineErr');
-    if (_priorErr) _priorErr.remove();
+  // Called immediately when user taps a time slot — no separate confirm button
+  async function bookSlot(ds, time12, time24, slotBtn) {
+    if (_bkBusy) return;
+    _bkBusy = true;
+    // Lock all slots and show spinner on the tapped one
+    document.querySelectorAll('.time-slot').forEach(s => { s.disabled = true; s.style.opacity = '0.4'; });
+    slotBtn.textContent = '⏳ Booking…';
+    slotBtn.style.cssText = 'opacity:1;background:#6d2d7a;color:#fff;border-color:#6d2d7a;';
 
-    const name    = document.getElementById('bName').value.trim();
-    const email   = document.getElementById('bEmail').value.trim();
-    const phone   = document.getElementById('bPhone').value.trim();
-    const company = document.getElementById('bCompany').value.trim();
+    const name      = document.getElementById('bName').value.trim();
+    const email     = document.getElementById('bEmail').value.trim();
+    const phone     = document.getElementById('bPhone').value.trim();
+    const company   = document.getElementById('bCompany').value.trim();
     const challenge = document.getElementById('bChallenge').value.trim();
-    const [y,m,d] = _selDate.split('-');
+    const [y,m,d]   = ds.split('-');
     const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    const waMsg = encodeURIComponent('Hi TechNext! I\'d like to book a demo.\nService: '+_bkService+'\nName: '+name+'\nEmail: '+email+(phone?'\nPhone: '+phone:'')+(company?'\nCompany: '+company:'')+'\nPreferred: '+formatted+' at '+time12+' SGT');
 
-    // Build WhatsApp fallback message
-    const waMsg = encodeURIComponent(
-      'Hi TechNext! I\'d like to book a demo.\n'
-      + 'Service: ' + _bkService + '\n'
-      + 'Name: ' + name + '\n'
-      + 'Email: ' + email + '\n'
-      + (phone   ? 'Phone: '   + phone   + '\n' : '')
-      + (company ? 'Company: ' + company + '\n' : '')
-      + 'Preferred slot: ' + formatted + ' at ' + _selTime + ' SGT'
-    );
+    let booked = false;
 
-    try {
-      const r = await fetch(BK_API + '/api/book-appointment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, email, phone, company,
-          service: _bkService,
-          slotISO: _selDate,
-          slotTime24: _selTime24,
-          message: challenge
-        })
-      });
-      const data = await r.json();
-      if (!r.ok || data.error) throw new Error(data.error || 'HTTP ' + r.status);
-      // Also capture lead
-      fetch(BK_API + '/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, service: _bkService, source: 'website-booking' })
-      }).catch(() => {});
-      // Mark slot locally as booked so calendar updates immediately
-      if (_selDate && _selTime24) { BK_BOOKED_MAP[_selDate + '_' + _selTime24] = true; }
-    } catch(err) {
-      console.error('Booking error:', err);
-      btn.disabled = false;
-      btn.textContent = 'Confirm Booking →';
-      // Show inline error with actionable fallbacks — no ugly browser alert
-      const errDiv = document.createElement('div');
-      errDiv.id = 'bkInlineErr';
-      errDiv.style.cssText = 'margin-top:1rem;padding:0.9rem 1rem;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;font-size:0.82rem;color:#7f1d1d;line-height:1.6;';
-      errDiv.innerHTML = '<strong>Couldn\'t confirm online.</strong> Please use one of the options below:'
-        + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:0.65rem;">'
-        + '<a href="https://erp.technext.asia/odoo/appointments" target="_blank" rel="noopener" '
-        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#6d2d7a;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
-        +   '📅 Book via Odoo</a>'
-        + '<a href="https://wa.me/6588396998?text=' + waMsg + '" target="_blank" rel="noopener" '
-        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#22c55e;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
-        +   '💬 WhatsApp Us</a>'
-        + '<a href="mailto:hello@technext.asia?subject=Demo%20Booking%20Request&body=' + encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nService: '+_bkService+'\nPreferred slot: '+formatted+' at '+_selTime+' SGT') + '" '
-        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#e2e8f0;color:#1a1a2e;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
-        +   '✉️ Email Us</a>'
-        + '</div>';
-      btn.parentElement.after(errDiv);
+    // ── Attempt 1: Odoo JSON-RPC directly ──────────────────────
+    if (!booked) {
+      try {
+        const typeId = await _getOdooTypeId();
+        if (typeId) {
+          const [h, mi] = time24.split(':');
+          const sgtMs  = new Date(+y, +m-1, +d, +h, +mi).getTime();
+          const toUTC  = ms => new Date(ms - 8*3600*1000).toISOString().slice(0,19).replace('T',' ');
+          const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
+            method: 'POST', credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              jsonrpc: '2.0', method: 'call', id: Date.now(),
+              params: {
+                model: 'calendar.event', method: 'create',
+                args: [{
+                  name: 'TechNext Demo — ' + name,
+                  start: toUTC(sgtMs), stop: toUTC(sgtMs + 3600*1000),
+                  appointment_type_id: typeId,
+                  description: 'Service: '+_bkService+'\nPhone: '+(phone||'—')+'\nCompany: '+(company||'—')+'\nMessage: '+(challenge||'—'),
+                  partner_email: email
+                }],
+                kwargs: {}
+              }
+            })
+          });
+          const data = await r.json();
+          if (!data.error && data.result) booked = true;
+        }
+      } catch(e) { /* CORS / auth blocked — try next */ }
+    }
+
+    // ── Attempt 2: Legacy proxy ─────────────────────────────────
+    if (!booked) {
+      try {
+        const r = await fetch('https://landing.technextasia.com/api/book-appointment', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ name, email, phone, company, service: _bkService, slotISO: ds, slotTime24: time24, message: challenge })
+        });
+        const data = await r.json();
+        if (r.ok && !data.error) booked = true;
+      } catch(e) { /* proxy down */ }
+    }
+
+    if (booked) {
+      BK_BOOKED_MAP[ds + '_' + time24] = true;
+      document.getElementById('bkConfirmDetails').innerHTML =
+        '<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">'+_bkService+'</span></div>'+
+        '<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">'+name+'</span></div>'+
+        '<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">'+email+'</span></div>'+
+        '<div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">'+formatted+'</span></div>'+
+        '<div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">'+time12+' · SGT</span></div>'+
+        '<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>';
+      _bkBusy = false;
+      goStep(4);
       return;
     }
-    document.getElementById('bkConfirmDetails').innerHTML =
-      '<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">' + _bkService + '</span></div>' +
-      '<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">' + name + '</span></div>' +
-      '<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">' + email + '</span></div>' +
-      '<div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">' + formatted + '</span></div>' +
-      '<div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">' + _selTime + ' · SGT</span></div>' +
-      '<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>';
-    goStep(4);
-  };
+
+    // ── All attempts failed → restore UI + show inline fallback ─
+    _bkBusy = false;
+    document.querySelectorAll('.time-slot').forEach(s => { s.disabled = false; s.style.opacity = ''; s.style.cssText = ''; });
+    slotBtn.textContent = time12;
+    const errDiv = document.createElement('div');
+    errDiv.id = 'bkInlineErr';
+    errDiv.style.cssText = 'margin-top:1rem;padding:0.9rem 1rem;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;font-size:0.82rem;color:#7f1d1d;line-height:1.6;';
+    errDiv.innerHTML = '<strong>Couldn\'t book online.</strong> Use one of these instead:'
+      + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:0.65rem;">'
+      + '<a href="https://erp.technext.asia/odoo/appointments" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#6d2d7a;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">📅 Book via Odoo</a>'
+      + '<a href="https://wa.me/6588396998?text='+waMsg+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#22c55e;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">💬 WhatsApp</a>'
+      + '<a href="mailto:hello@technext.asia?subject=Demo%20Booking%20Request&body='+encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nService: '+_bkService+'\nPreferred: '+formatted+' at '+time12+' SGT')+'" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#e2e8f0;color:#1a1a2e;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">✉️ Email</a>'
+      + '</div>';
+    document.getElementById('timeSlots').after(errDiv);
+  }
 })();
