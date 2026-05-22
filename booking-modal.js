@@ -392,8 +392,13 @@ textarea.booking-input { resize: none; height: 76px; }
   const _TODAY = new Date();
   const _MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const _DDAYS  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  const _TIMES  = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
-  let _bkService = '', _calY, _calM, _selDate = null, _selTime = null;
+  const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
+  const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
+  const BK_API = 'https://tech-next-landing-page.vercel.app';
+  const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true
+  const BK_SLOTS_DONE = {}; // 'YYYY-M' → true (fetched)
+  const BK_SLOTS_BUSY = {}; // 'YYYY-M' → true (in-flight)
+  let _bkService = '', _calY, _calM, _selDate = null, _selTime = null, _selTime24 = null;
 
   window.openBooking = function () {
     _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
@@ -457,7 +462,25 @@ textarea.booking-input { resize: none; height: 76px; }
     renderCalendar();
   };
 
+  async function bkLoadSlots(year, month) {
+    const key = year + '-' + month;
+    if (BK_SLOTS_DONE[key] || BK_SLOTS_BUSY[key]) return;
+    BK_SLOTS_BUSY[key] = true;
+    try {
+      const r = await fetch(BK_API + '/api/odoo-slots?year=' + year + '&month=' + (month + 1));
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+      (d.booked || []).forEach(s => { BK_BOOKED_MAP[s] = true; });
+      BK_SLOTS_DONE[key] = true;
+    } catch(e) {
+      console.warn('Slot fetch failed:', e);
+    } finally {
+      BK_SLOTS_BUSY[key] = false;
+    }
+  }
+
   function renderCalendar() {
+    bkLoadSlots(_calY, _calM);
     document.getElementById('calLabel').textContent = _MONTHS[_calM] + ' ' + _calY;
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
@@ -489,39 +512,90 @@ textarea.booking-input { resize: none; height: 76px; }
     }
   }
 
-  function selectDate(el, ds) {
-    _selDate = ds; _selTime = null;
+  async function selectDate(el, ds) {
+    _selDate = ds; _selTime = null; _selTime24 = null;
     document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cd-sel'));
     el.classList.add('cd-sel');
     document.getElementById('s3Confirm').disabled = true;
     const wrap = document.getElementById('timeSlots');
-    wrap.innerHTML = '';
+    wrap.innerHTML = '<span style="font-size:0.8rem;color:#94a3b8">Loading available times…</span>';
     document.getElementById('tsTitle').style.display = 'block';
-    _TIMES.forEach(t => {
-      const btn = document.createElement('button');
-      btn.className = 'time-slot'; btn.textContent = t;
-      btn.addEventListener('click', () => {
-        _selTime = t;
-        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('ts-sel'));
-        btn.classList.add('ts-sel');
-        document.getElementById('s3Confirm').disabled = false;
-      });
+    // Ensure slots are loaded for this month before rendering
+    await bkLoadSlots(_calY, _calM);
+    wrap.innerHTML = '';
+    let hasAvail = false;
+    _TIMES_12.forEach((t, i) => {
+      const t24  = _TIMES_24[i];
+      const key  = ds + '_' + t24;
+      const busy = !!BK_BOOKED_MAP[key];
+      const btn  = document.createElement('button');
+      btn.className = 'time-slot' + (busy ? ' ts-booked' : '');
+      btn.textContent = t + (busy ? ' ✗' : '');
+      btn.disabled = busy;
+      if (busy) { btn.style.opacity = '0.38'; btn.style.cursor = 'not-allowed'; }
+      else {
+        hasAvail = true;
+        btn.addEventListener('click', () => {
+          _selTime = t; _selTime24 = t24;
+          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('ts-sel'));
+          btn.classList.add('ts-sel');
+          document.getElementById('s3Confirm').disabled = false;
+        });
+      }
       wrap.appendChild(btn);
     });
+    if (!hasAvail) {
+      wrap.innerHTML = '<span style="font-size:0.8rem;color:#94a3b8">No available times — try another day.</span>';
+    }
   }
 
-  window.confirmBooking = function () {
-    const name  = document.getElementById('bName').value.trim();
-    const email = document.getElementById('bEmail').value.trim();
+  window.confirmBooking = async function () {
+    const btn = document.getElementById('s3Confirm');
+    btn.disabled = true;
+    btn.textContent = 'Booking…';
+    const name    = document.getElementById('bName').value.trim();
+    const email   = document.getElementById('bEmail').value.trim();
+    const phone   = document.getElementById('bPhone').value.trim();
+    const company = document.getElementById('bCompany').value.trim();
+    const challenge = document.getElementById('bChallenge').value.trim();
     const [y,m,d] = _selDate.split('-');
     const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    document.getElementById('bkConfirmDetails').innerHTML = `
-      <div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">${_bkService}</span></div>
-      <div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">${name}</span></div>
-      <div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">${email}</span></div>
-      <div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">${formatted}</span></div>
-      <div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">${_selTime} · SGT</span></div>
-      <div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>`;
+    try {
+      const r = await fetch(BK_API + '/api/book-appointment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email, phone, company,
+          service: _bkService,
+          slotISO: _selDate,
+          slotTime24: _selTime24,
+          message: challenge
+        })
+      });
+      const data = await r.json();
+      if (!r.ok || data.error) throw new Error(data.error || 'HTTP ' + r.status);
+      // Also capture lead
+      fetch(BK_API + '/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, company, service: _bkService, source: 'website-booking' })
+      }).catch(() => {});
+      // Mark slot locally as booked so calendar updates immediately
+      if (_selDate && _selTime24) { BK_BOOKED_MAP[_selDate + '_' + _selTime24] = true; }
+    } catch(err) {
+      console.error('Booking error:', err);
+      btn.disabled = false;
+      btn.textContent = 'Confirm Booking →';
+      alert('Something went wrong — please try again or contact us at hello@technext.asia');
+      return;
+    }
+    document.getElementById('bkConfirmDetails').innerHTML =
+      '<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">' + _bkService + '</span></div>' +
+      '<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">' + name + '</span></div>' +
+      '<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">' + email + '</span></div>' +
+      '<div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">' + formatted + '</span></div>' +
+      '<div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">' + _selTime + ' · SGT</span></div>' +
+      '<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>';
     goStep(4);
   };
 })();
