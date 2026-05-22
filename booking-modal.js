@@ -11,7 +11,11 @@
   style.textContent = `
 .booking-modal{position:fixed;inset:0;z-index:2000;background:rgba(10,12,28,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .booking-modal.open{opacity:1;pointer-events:all}
-.booking-box{background:#fff;border-radius:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.28);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1);font-family:'DM Sans',sans-serif}
+.booking-box{background:#fff;border-radius:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.28);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1);font-family:'DM Sans',sans-serif;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.1) transparent}
+.booking-box::-webkit-scrollbar{width:4px}
+.booking-box::-webkit-scrollbar-track{background:transparent}
+.booking-box::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:4px}
+.booking-box::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.2)}
 .booking-modal.open .booking-box{transform:translateY(0) scale(1)}
 .booking-header{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.6rem 0}
 .booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:800;color:#6d2d7a;letter-spacing:-.02em}
