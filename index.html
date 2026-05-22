@@ -1310,10 +1310,10 @@ footer {
   .nav-links.open a { display: block; padding: 0.75rem 1.1rem; font-size: 0.92rem; border-radius: 12px; color: var(--text); font-weight: 500; transition: background 0.15s; }
   .nav-links.open a:hover { background: rgba(0,0,0,0.05); }
   .nav-links.open a.active { color: var(--blue); font-weight: 600; }
-  .section-wrap { padding: 40px 5%; }
-  .services-inner { padding: 40px 5%; }
-  .svc-grid { grid-template-columns: 1fr; }
-  .careers-grid { grid-template-columns: 1fr; }
+  .section-wrap { padding: 44px 5%; }
+  .services-inner { padding: 44px 5%; }
+  .svc-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .careers-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
   /* Stats: keep all 3 in one row, shrink content */
   .stats-inner { grid-template-columns: repeat(3, 1fr); align-items: center; }
   #stats { padding: 20px 3%; }
@@ -1391,7 +1391,7 @@ footer {
   }
   .hero-left {
     width: 100%;
-    padding: 100px 5% 380px;
+    padding: 90px 5% 300px;
     position: relative;
     z-index: 2;
   }
@@ -1402,7 +1402,7 @@ footer {
     right: 0;
     transform: none;
     width: 100%;
-    height: 560px;
+    height: 480px;
     top: auto;
     margin-top: 0;
     z-index: 1;
@@ -1417,13 +1417,59 @@ footer {
     object-position: center center;
   }
   #heroCanvas { display: none; }
+
+  /* ── Section titles & spacing ── */
+  .section-title { font-size: clamp(2rem, 7vw, 2.6rem); line-height: 1.1; }
+  .section-sub { font-size: 0.88rem; margin-bottom: 1.2rem; }
+  .section-label { font-size: 1.5rem; }
+  .section-cta-row { margin-top: 1.6rem; }
+  .cta-primary { padding: 13px 26px; font-size: 0.88rem; }
+  .btn-plum, .btn-outline { padding: 12px 22px; font-size: 0.86rem; }
+
+  /* ── Hero ── */
+  .hero-title { font-size: clamp(2rem, 8vw, 2.6rem); }
+  .hero-sub { font-size: 0.88rem; margin-bottom: 1.1rem; max-width: 100%; }
+  .hero-badges { gap: 6px; margin-bottom: 0.8rem; }
+  .badge { padding: 6px 11px; font-size: 0.73rem; }
+
+  /* ── Service cards ── */
+  .svc-card { padding: 1.3rem 1.1rem; border-radius: 16px; }
+  .svc-name { font-size: 1.3rem; }
+  .svc-desc { font-size: 0.8rem; line-height: 1.6; }
+
+  /* ── Culture / About ── */
+  .culture-grid { grid-template-columns: 1fr; gap: 0.7rem; margin-top: 1.4rem; }
+  .culture-card { padding: 1.2rem 1.3rem; border-radius: 16px; }
+  .culture-card h3 { font-size: 1.45rem; margin-bottom: 0.35rem; }
+  .culture-card p { font-size: 0.82rem; line-height: 1.65; }
+  .team-carousel { height: 260px; margin-top: 1.4rem; }
+  .about-grid { gap: 2rem; }
+
+  /* ── Join / perks panel ── */
+  .join-panel { padding: 1.3rem; border-radius: 18px; }
+  .join-panel-title { font-size: 1.45rem; }
+
+  /* ── Careers ── */
+  #careers .section-wrap { padding-bottom: 40px; }
+
+  /* ── FAQ ── */
+  .faq-q { padding: 1rem 1.4rem 1rem 1.5rem; font-size: 0.95rem; }
+  .faq-a { font-size: 0.85rem; }
+  .faq-item { border-radius: 14px; margin-bottom: 8px; }
+
+  /* ── Latest Insights ── */
+  #insights { padding: 44px 0 !important; }
+  .insights-grid { grid-template-columns: 1fr !important; gap: 0.9rem !important; }
 }
 @media (max-width: 520px) {
-  .hero-title { font-size: 2.4rem; }
-  .hero-ctas { flex-direction: column; }
-  #trust { gap: 1.2rem; }
+  .hero-title { font-size: 2rem; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .hero-img-col { height: 420px; width: 100%; left: 0; right: 0; transform: none; }
+  #trust { gap: 0.8rem; }
   .trust-sep { display: none; }
-  .hero-img-col { height: 500px; width: 100%; left: 0; right: 0; transform: none; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .careers-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 1.9rem; }
 }
 
 /* Culture Cards */
@@ -1552,7 +1598,10 @@ footer {
 .tc-dot.active { background: #fff; width: 24px; border-radius: 4px; }
 
 @media (max-width: 900px) {
-  .culture-grid { grid-template-columns: 1fr; }
+  .culture-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+}
+@media (max-width: 600px) {
+  .culture-grid { grid-template-columns: 1fr; gap: 0.7rem; }
 }
 </style>
 </head>
