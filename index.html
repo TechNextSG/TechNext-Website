@@ -487,15 +487,8 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   padding: 1rem;
   position: relative;
 }
-.stat-col:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 60%;
-  background: rgba(255,255,255,0.25);
+.stat-col:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.3);
 }
 .stat-num {
   font-family: var(--handwriting);
