@@ -35,121 +35,130 @@
 
   <!-- Blog articles -->
   <url>
-    <loc>https://technextasia.com/AI%20Article/ai-agents-enterprise-automation.html</loc>
+    <loc>https://technextasia.com/blog/ai-agents-enterprise-automation</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/ai-agent-governance-2025.html</loc>
+    <loc>https://technextasia.com/blog/ai-agent-governance-2025</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/big-tech-ai-infrastructure-2026.html</loc>
+    <loc>https://technextasia.com/blog/big-tech-ai-infrastructure-2026</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/context-engineering-new-discipline.html</loc>
+    <loc>https://technextasia.com/blog/context-engineering-new-discipline</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/github-copilot-per-token-pricing.html</loc>
+    <loc>https://technextasia.com/blog/github-copilot-per-token-pricing</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/gpt5-openai-agentic-ai-2025.html</loc>
+    <loc>https://technextasia.com/blog/gpt5-openai-agentic-ai-2025</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/lg-nvidia-physical-ai-era.html</loc>
+    <loc>https://technextasia.com/blog/lg-nvidia-physical-ai-era</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/local-llm-on-premise-enterprise.html</loc>
+    <loc>https://technextasia.com/blog/local-llm-on-premise-enterprise</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/odoo-18-features-upgrade-guide.html</loc>
+    <loc>https://technextasia.com/blog/odoo-18-features-upgrade-guide</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/odoo-ai-integration-guide.html</loc>
+    <loc>https://technextasia.com/blog/odoo-ai-integration-guide</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/odoo-erp-sme-southeast-asia.html</loc>
+    <loc>https://technextasia.com/blog/odoo-erp-sme-southeast-asia</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/odoo-vs-sap-enterprise-comparison.html</loc>
+    <loc>https://technextasia.com/blog/odoo-vs-sap-enterprise-comparison</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/philippines-bpo-ai-revolution.html</loc>
+    <loc>https://technextasia.com/blog/philippines-bpo-ai-revolution</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/philippines-digital-transformation-2026.html</loc>
+    <loc>https://technextasia.com/blog/philippines-digital-transformation-2026</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/rag-systems-enterprise-guide.html</loc>
+    <loc>https://technextasia.com/blog/rag-systems-enterprise-guide</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/singapore-national-ai-strategy-2026.html</loc>
+    <loc>https://technextasia.com/blog/singapore-national-ai-strategy-2026</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/singapore-smart-nation-enterprise-ai.html</loc>
+    <loc>https://technextasia.com/blog/singapore-smart-nation-enterprise-ai</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/vietnam-digital-economy-ai-2026.html</loc>
+    <loc>https://technextasia.com/blog/vietnam-digital-economy-ai-2026</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/vietnam-software-exports-2026.html</loc>
+    <loc>https://technextasia.com/blog/vietnam-software-exports-2026</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://technextasia.com/AI%20Article/vietnam-tech-talent-dev-hub.html</loc>
+    <loc>https://technextasia.com/blog/vietnam-tech-talent-dev-hub</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <!-- Landing page -->
+  <url>
+    <loc>https://technextasia.com/lp/</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
