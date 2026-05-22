@@ -11,7 +11,7 @@
   style.textContent = `
 .booking-modal{position:fixed;inset:0;z-index:2000;background:rgba(10,12,28,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .booking-modal.open{opacity:1;pointer-events:all}
-.booking-box{background:#fff;border-radius:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.28);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1);font-family:'DM Sans',sans-serif}
+.booking-box{background:#fff;border-radius:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.28);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1);font-family:'DM Sans',sans-serif}
 .booking-modal.open .booking-box{transform:translateY(0) scale(1)}
 .booking-header{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.6rem 0}
 .booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:800;color:#6d2d7a;letter-spacing:-.02em}
@@ -23,7 +23,7 @@
 .bp-step.done{background:#dcfce7;color:#16a34a}
 .bp-line{flex:1;height:2px;background:#e2e8f0;margin:0 4px;transition:background .3s}
 .bp-line.done{background:#86efac}
-.booking-step{padding:1.4rem 1.6rem 1.6rem;display:none}
+.booking-step{padding:1.2rem 1.2rem 1.4rem;display:none}
 .booking-step.active{display:block}
 .bk-h{font-family:'Caveat',cursive;font-size:1.75rem;font-weight:700;color:#1a1a2e;margin-bottom:.25rem}
 .bk-sub{font-size:.85rem;color:#64748b;margin-bottom:1.3rem}
@@ -41,13 +41,13 @@
 .booking-input.err{border-color:#ef4444}
 textarea.booking-input{resize:none;height:76px}
 .cal-wrap{margin-bottom:.5rem}
-.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
-.cal-nav-btn{width:30px;height:30px;border:1.5px solid #e2e8f0;border-radius:8px;background:none;cursor:pointer;font-size:1rem;transition:all .18s;display:flex;align-items:center;justify-content:center;color:#64748b}
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.cal-nav-btn{width:28px;height:28px;border:1.5px solid #e2e8f0;border-radius:7px;background:none;cursor:pointer;font-size:1rem;transition:all .18s;display:flex;align-items:center;justify-content:center;color:#64748b;flex-shrink:0}
 .cal-nav-btn:hover{border-color:#6d2d7a;color:#6d2d7a}
-.cal-month-lbl{font-size:.9rem;font-weight:700;color:#1a1a2e}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:1rem}
-.cal-dlbl{font-size:.62rem;font-weight:700;color:#64748b;text-align:center;padding:3px 0}
-.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.79rem;border-radius:7px;cursor:pointer;transition:all .14s;color:#1a1a2e;border:1.5px solid transparent}
+.cal-month-lbl{font-size:.88rem;font-weight:700;color:#1a1a2e}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:.8rem}
+.cal-dlbl{font-size:.6rem;font-weight:700;color:#64748b;text-align:center;padding:2px 0}
+.cal-day{height:34px;display:flex;align-items:center;justify-content:center;font-size:.78rem;border-radius:6px;cursor:pointer;transition:all .14s;color:#1a1a2e;border:1.5px solid transparent;min-width:0}
 .cal-day:hover:not(.cd-dis):not(.cd-emp){background:#faf5ff;border-color:#6d2d7a;color:#6d2d7a}
 .cal-day.cd-sel{background:#6d2d7a;color:#fff;border-color:#6d2d7a}
 .cal-day.cd-dis,.cal-day.cd-emp{color:#cbd5e1;cursor:default;pointer-events:none}
@@ -248,7 +248,7 @@ textarea.booking-input{resize:none;height:76px}
   const ODOO_URL  = 'https://technext.odoo.com/book/c82cf8a9';
   const _TODAY    = new Date();
   const _MONTHS   = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const _DDAYS    = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const _DDAYS    = ['S','M','T','W','T','F','S'];
   const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
   const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
   let _bkService = '', _calY, _calM, _selDate = null, _bkBusy = false;

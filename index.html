@@ -584,7 +584,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .booking-modal.open { opacity: 1; pointer-events: all; }
 .booking-box {
   background: #fff; border-radius: 28px; max-width: 500px; width: 100%;
-  max-height: 90vh; overflow-y: auto; position: relative;
+  max-height: 90vh; overflow-y: auto; overflow-x: hidden; position: relative;
   box-shadow: 0 32px 80px rgba(0,0,0,0.28);
   transform: translateY(28px) scale(0.97);
   transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
@@ -616,7 +616,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .bp-step.done { background: #dcfce7; color: #16a34a; }
 .bp-line { flex: 1; height: 2px; background: #e2e8f0; margin: 0 4px; transition: background 0.3s; }
 .bp-line.done { background: #86efac; }
-.booking-step { padding: 1.4rem 1.6rem 1.6rem; display: none; }
+.booking-step { padding: 1.2rem 1.2rem 1.4rem; display: none; }
 .booking-step.active { display: block; }
 .bk-h { font-family: var(--handwriting); font-size: 1.75rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
 .bk-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.3rem; }
@@ -643,20 +643,21 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .booking-input.err { border-color: #ef4444; }
 textarea.booking-input { resize: none; height: 76px; }
 .cal-wrap { margin-bottom: 0.5rem; }
-.cal-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+.cal-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
 .cal-nav-btn {
-  width: 30px; height: 30px; border: 1.5px solid var(--border); border-radius: 8px;
+  width: 28px; height: 28px; border: 1.5px solid var(--border); border-radius: 7px;
   background: none; cursor: pointer; font-size: 1rem; transition: all 0.18s;
   display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+  flex-shrink: 0;
 }
 .cal-nav-btn:hover { border-color: var(--plum); color: var(--plum); }
-.cal-month-lbl { font-size: 0.9rem; font-weight: 700; color: var(--text); }
-.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 1rem; }
-.cal-dlbl { font-size: 0.62rem; font-weight: 700; color: var(--text-muted); text-align: center; padding: 3px 0; }
+.cal-month-lbl { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; margin-bottom: 0.8rem; }
+.cal-dlbl { font-size: 0.6rem; font-weight: 700; color: var(--text-muted); text-align: center; padding: 2px 0; }
 .cal-day {
-  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  font-size: 0.79rem; border-radius: 7px; cursor: pointer; transition: all 0.14s;
-  color: var(--text); border: 1.5px solid transparent;
+  height: 34px; display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; border-radius: 6px; cursor: pointer; transition: all 0.14s;
+  color: var(--text); border: 1.5px solid transparent; min-width: 0;
 }
 .cal-day:hover:not(.cd-dis):not(.cd-emp) { background: #faf5ff; border-color: var(--plum); color: var(--plum); }
 .cal-day.cd-sel { background: var(--plum); color: #fff; border-color: var(--plum); }
@@ -2697,7 +2698,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let _bkService='', _calY, _calM, _selDate=null, _selTime=null;
 const _TODAY = new Date();
 const _MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const _DDAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+const _DDAYS = ['S','M','T','W','T','F','S'];
 const _TIMES = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
 
 function openBooking() {
