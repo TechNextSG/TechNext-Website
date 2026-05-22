@@ -411,6 +411,9 @@ footer {
 @media (max-width: 560px) {
   .gallery-grid { columns: 1; }
 }
+
+.skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#6d2d7a;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
+.skip-link:focus{top:0;}
 </style>
 </head>
 <body>
@@ -445,7 +448,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
 <!-- PAGE HEADER -->
-<div class="page-header">
+<a class="skip-link" href="#main-content">Skip to content</a><div class="page-header"><span id="main-content" style="display:none" aria-hidden="true"></span>
   <div class="page-label" data-k="page_label">Gallery</div>
   <h1 class="page-title"><span data-k="page_h1a">Life at</span> <span class="highlight" data-k="page_h1b">TechNext</span></h1>
   <p class="page-sub" data-k="page_sub">A look inside our team, our workspace, and the moments that make TechNext a great place to build.</p>
