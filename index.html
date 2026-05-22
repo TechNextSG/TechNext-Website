@@ -687,7 +687,11 @@ textarea.booking-input { resize: none; height: 76px; }
 .bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
 .bk-success { text-align: center; padding: 1.5rem 0 0.5rem; }
-.bk-check { width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-size: 1.7rem; color: #16a34a; }
+.bk-check { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-size: 1.7rem; }
+.bk-check.ok { background: #dcfce7; color: #16a34a; }
+.bk-check.pending { background: #fef9c3; color: #854d0e; }
+.bk-fallback-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; background: #6d2d7a; color: #fff; border-radius: 100px; font-size: .83rem; font-weight: 700; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all .2s; margin-bottom: .75rem; }
+.bk-fallback-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-confirm-details { background: #f8fafc; border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.2rem; text-align: left; }
 .bcd-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.83rem; }
 .bcd-row:last-child { border-bottom: none; }
@@ -2668,13 +2672,14 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
 
-    <!-- Step 4: Confirmed -->
+    <!-- Step 4: Confirmed (dynamically updated by confirmBooking) -->
     <div class="booking-step" id="bStep4">
       <div class="bk-success">
-        <div class="bk-check"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="bk-h" style="margin-bottom:0.4rem">You're booked!</div>
-        <p style="font-size:0.88rem;color:#475569;margin-bottom:0">Your demo is confirmed. We'll send a calendar invite to your email shortly.</p>
+        <div class="bk-check ok" id="bkCheckIcon"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="bk-h" id="bkStep4Title" style="margin-bottom:0.4rem">You're booked!</div>
+        <p id="bkStep4Msg" style="font-size:0.88rem;color:#475569;margin-bottom:0">Your session is confirmed and added to our calendar. A calendar invite is on its way to your email.</p>
         <div class="bk-confirm-details" id="bkConfirmDetails"></div>
+        <a id="bkFallbackBtn" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" class="bk-fallback-btn" style="display:none">📅 Complete booking in calendar</a>
         <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg> Message us on WhatsApp</a>
       </div>
     </div>
@@ -2810,20 +2815,60 @@ function selectDate(el, ds) {
   });
 }
 
-function confirmBooking() {
-  const name = document.getElementById('bName').value.trim();
-  const email = document.getElementById('bEmail').value.trim();
+async function confirmBooking() {
+  const btn = document.getElementById('s3Confirm');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Booking…'; }
+
+  const name    = document.getElementById('bName').value.trim();
+  const email   = document.getElementById('bEmail').value.trim();
+  const phone   = document.getElementById('bPhone').value.trim();
+  const company = document.getElementById('bCompany').value.trim();
+  const message = document.getElementById('bChallenge').value.trim();
   const [y,m,d] = _selDate.split('-');
   const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('bkConfirmDetails').innerHTML = `
-    <div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">${_bkService}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">${name}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">${email}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Preferred date</span><span class="bcd-val">${formatted}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Preferred time</span><span class="bcd-val">${_selTime} · SGT</span></div>
-    <div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>
-  `;
-  window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
+
+  // Map display time → 24h
+  const timeMap = {'9:00 AM':'09:00','10:00 AM':'10:00','11:00 AM':'11:00','2:00 PM':'14:00','3:00 PM':'15:00','4:00 PM':'16:00'};
+  const time24  = timeMap[_selTime] || '09:00';
+
+  let booked = false;
+  try {
+    const r = await fetch('/api/book', {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body   : JSON.stringify({ name, email, phone, company, service: _bkService,
+                                date: _selDate, time12: _selTime, time24, message })
+    });
+    const data = await r.json();
+    booked = !!(data.ok && data.booked);
+  } catch(e) { /* network error */ }
+
+  // Populate details card
+  document.getElementById('bkConfirmDetails').innerHTML =
+    `<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">${_bkService}</span></div>`+
+    `<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">${name}</span></div>`+
+    `<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">${email}</span></div>`+
+    (phone   ? `<div class="bcd-row"><span class="bcd-label">Phone</span><span class="bcd-val">${phone}</span></div>` : '')+
+    (company ? `<div class="bcd-row"><span class="bcd-label">Company</span><span class="bcd-val">${company}</span></div>` : '')+
+    `<div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">${formatted}</span></div>`+
+    `<div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">${_selTime} · SGT</span></div>`+
+    `<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>`;
+
+  // Update step-4 message dynamically
+  const titleEl = document.getElementById('bkStep4Title');
+  const msgEl   = document.getElementById('bkStep4Msg');
+  const fbBtn   = document.getElementById('bkFallbackBtn');
+  if (booked) {
+    if (titleEl) titleEl.textContent = "You're booked!";
+    if (msgEl)   msgEl.textContent   = `Your session is confirmed and added to our calendar. A calendar invite is on its way to ${email}.`;
+    if (fbBtn)   fbBtn.style.display = 'none';
+  } else {
+    if (titleEl) titleEl.textContent = "Almost there!";
+    if (msgEl)   msgEl.textContent   = "We've noted your details. Tap the button below to pick your slot and confirm in our live calendar.";
+    if (fbBtn)   fbBtn.style.display = 'inline-flex';
+  }
+
+  if (btn) { btn.disabled = false; btn.textContent = 'Confirm Booking →'; }
   goStep(4);
 }
 </script>
