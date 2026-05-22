@@ -774,12 +774,35 @@ function applyFilters() {
   deptBar.style.display = '';
   sgSection.style.display = 'none';
 
+  // Collect which departments have cards for the active country
+  const availableDepts = new Set();
+  document.querySelectorAll('.role-card').forEach(card => {
+    if (activeCountry === 'all' || card.dataset.country === activeCountry) {
+      availableDepts.add(card.dataset.dept);
+    }
+  });
+
+  // Show dept filter buttons only if they have matching content
+  document.querySelectorAll('#deptFilterBar .filter-btn').forEach(btn => {
+    const dept = btn.dataset.filter;
+    btn.style.display = (dept === 'all' || availableDepts.has(dept)) ? '' : 'none';
+  });
+
+  // If the active dept filter no longer has content, reset to 'all'
+  if (activeDept !== 'all' && !availableDepts.has(activeDept)) {
+    activeDept = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+  }
+
+  // Show/hide cards
   document.querySelectorAll('.role-card').forEach(card => {
     const countryMatch = activeCountry === 'all' || card.dataset.country === activeCountry;
     const deptMatch = activeDept === 'all' || card.dataset.dept === activeDept;
     card.style.display = (countryMatch && deptMatch) ? '' : 'none';
   });
 }
+applyFilters(); // run on page load to set correct initial state
 
 // ── Reveal on scroll ──
 const obs = new IntersectionObserver(entries => {
