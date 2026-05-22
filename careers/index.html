@@ -73,13 +73,15 @@ a { color: inherit; text-decoration: none; }
 
 /* NAV */
 nav#mainNav {
-  position: sticky; top: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: transparent;
   backdrop-filter: none; -webkit-backdrop-filter: none;
   border-bottom: none;
   padding: 0 6%; height: 64px;
   display: flex; align-items: center; justify-content: space-between;
+  transition: transform 0.35s ease, background 0.3s, border-color 0.3s;
 }
+nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
 .logo-img { height: 88px; width: auto; mix-blend-mode: multiply; }
 .footer-brand { display: flex; align-items: center; }
@@ -241,7 +243,8 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 1rem 6
 /* RESPONSIVE */
 @media (max-width: 1024px) { .jobs-grid { grid-template-columns: 1fr 1fr; } .why-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 768px) {
-  nav#mainNav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid transparent; }
+  nav#mainNav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid transparent;   transition: transform 0.35s ease, background 0.3s, border-color 0.3s;
+}
   .hamburger { display: flex; background: rgba(0,0,0,0.07); border-radius: 10px; padding: 8px; transition: background 0.2s; }
   .hamburger.open { background: rgba(37,99,235,0.12); }
   .hamburger.open span { background: var(--blue); }
@@ -864,6 +867,29 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 (function(){var sw=document.querySelector('.lang-switcher');if(!sw)return;function o(){var r=sw.getBoundingClientRect();sw.classList.add('open');sw.style.cssText='position:fixed;top:'+(r.bottom+8)+'px;right:'+(window.innerWidth-r.right)+'px;left:auto;z-index:200;';}function c(){sw.classList.remove('open');sw.style.cssText='';}sw.addEventListener('click',function(e){if(window.innerWidth>768)return;if(!sw.classList.contains('open')){e.stopPropagation();o();}});document.addEventListener('click',function(){c();});window.addEventListener('resize',function(){if(window.innerWidth>768)c();});})();
 </script>
 <script src="/booking-modal.js"></script>
+
+<script>
+/* ── Nav hide-on-scroll-down / show-on-scroll-up ── */
+(function(){
+  var nav = document.getElementById('mainNav');
+  if (!nav) return;
+  var lastY = 0, ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || window.pageYOffset;
+      if (y > lastY && y > 80) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+      lastY = y < 0 ? 0 : y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
 
