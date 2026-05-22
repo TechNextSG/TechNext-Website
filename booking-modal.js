@@ -636,3 +636,162 @@ textarea.booking-input { resize: none; height: 76px; }
     document.getElementById('timeSlots').after(errDiv);
   }
 })();
+
+/* =============================================================
+   TechNext — Exit-Intent Notification
+   Shows once per session when cursor leaves viewport (top edge)
+   or on mobile after 40 s of scroll activity.
+   ============================================================= */
+(function () {
+  const EI_KEY = 'tn_exit_shown';
+  if (sessionStorage.getItem(EI_KEY)) return; // already shown this session
+
+  /* ── CSS ── */
+  const s = document.createElement('style');
+  s.textContent = `
+#eiOverlay {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(10,12,28,0.68); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+#eiOverlay.ei-open { opacity: 1; pointer-events: all; }
+#eiBox {
+  background: #fff; border-radius: 28px; max-width: 460px; width: 100%;
+  padding: 2.2rem 2rem 1.8rem; position: relative; text-align: center;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.26);
+  transform: translateY(32px) scale(0.96);
+  transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1);
+  font-family: 'DM Sans', sans-serif;
+}
+#eiOverlay.ei-open #eiBox { transform: translateY(0) scale(1); }
+#eiClose {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #f1f5f9; border: none; cursor: pointer;
+  font-size: 1rem; color: #64748b; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+}
+#eiClose:hover { background: #e2e8f0; color: #1a1a2e; transform: rotate(90deg); }
+.ei-badge {
+  display: inline-block; background: #fef9c3; color: #854d0e;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+  margin-bottom: 1rem;
+}
+.ei-headline {
+  font-family: 'Caveat', cursive; font-size: 2.4rem; font-weight: 700;
+  color: #1a1a2e; line-height: 1.1; margin-bottom: 0.6rem;
+}
+.ei-headline span { color: #6d2d7a; }
+.ei-sub {
+  font-size: 0.9rem; color: #64748b; line-height: 1.7;
+  margin-bottom: 1.6rem; max-width: 340px; margin-left: auto; margin-right: auto;
+}
+.ei-perks {
+  display: flex; justify-content: center; gap: 1.4rem;
+  margin-bottom: 1.6rem; flex-wrap: wrap;
+}
+.ei-perk {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; font-weight: 600; color: #475569;
+}
+.ei-perk-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #6d2d7a; flex-shrink: 0;
+}
+.ei-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px; background: #6d2d7a; color: #fff;
+  border-radius: 100px; font-size: 0.95rem; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; border: none; cursor: pointer;
+  transition: all 0.22s; box-shadow: 0 4px 18px rgba(109,45,122,0.28);
+  width: 100%; justify-content: center;
+}
+.ei-cta:hover { background: #5a2568; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(109,45,122,0.32); }
+.ei-dismiss {
+  display: block; margin-top: 0.9rem; font-size: 0.8rem;
+  color: #94a3b8; cursor: pointer; background: none; border: none;
+  font-family: 'DM Sans', sans-serif; transition: color 0.18s;
+}
+.ei-dismiss:hover { color: #64748b; }
+@media (max-width: 480px) {
+  #eiBox { padding: 1.8rem 1.4rem 1.5rem; border-radius: 22px; }
+  .ei-headline { font-size: 2rem; }
+  .ei-perks { gap: 0.8rem; }
+}
+`;
+  document.head.appendChild(s);
+
+  /* ── HTML ── */
+  const el = document.createElement('div');
+  el.id = 'eiOverlay';
+  el.innerHTML = `
+<div id="eiBox">
+  <button id="eiClose" onclick="eiClose()" aria-label="Close">✕</button>
+  <div class="ei-badge">🎁 Free Offer</div>
+  <div class="ei-headline">Wait — before<br>you <span>leave!</span></div>
+  <p class="ei-sub">Get a free 1-hour AI strategy session. We'll map out exactly how AI automation can save your team 10+ hours a week.</p>
+  <div class="ei-perks">
+    <div class="ei-perk"><div class="ei-perk-dot"></div>No commitment</div>
+    <div class="ei-perk"><div class="ei-perk-dot"></div>1 hour · Free</div>
+    <div class="ei-perk"><div class="ei-perk-dot"></div>Real actionable plan</div>
+  </div>
+  <button class="ei-cta" onclick="eiBook()">Book My Free Session →</button>
+  <button class="ei-dismiss" onclick="eiClose()">No thanks, I don't need this</button>
+</div>`;
+  document.body.appendChild(el);
+  el.addEventListener('click', function (e) { if (e.target === this) eiClose(); });
+
+  function eiShow() {
+    if (sessionStorage.getItem(EI_KEY)) return;
+    // Don't show if booking modal is already open
+    const bm = document.getElementById('bookingModal');
+    if (bm && bm.classList.contains('open')) return;
+    sessionStorage.setItem(EI_KEY, '1');
+    el.classList.add('ei-open');
+  }
+
+  window.eiClose = function () {
+    el.classList.remove('ei-open');
+  };
+
+  window.eiBook = function () {
+    el.classList.remove('ei-open');
+    if (typeof openBooking === 'function') openBooking();
+  };
+
+  /* ── Desktop: cursor leaves viewport through top edge ── */
+  let _eiMouseReady = false;
+  setTimeout(function () { _eiMouseReady = true; }, 3000); // min 3 s on page
+  document.addEventListener('mouseleave', function (e) {
+    if (!_eiMouseReady) return;
+    if (e.clientY <= 0) eiShow(); // only top edge (closing tab / back button)
+  }, { passive: true });
+
+  /* ── Mobile: rapid scroll-up after significant scroll-down ── */
+  (function () {
+    var lastY = 0, maxY = 0, _fired = false;
+    window.addEventListener('scroll', function () {
+      if (_fired) return;
+      var y = window.scrollY || window.pageYOffset;
+      if (y > maxY) maxY = y;
+      // Trigger if: scrolled down > 40% of page height, then quickly scrolled back up > 200px
+      if (maxY > window.innerHeight * 0.4 && lastY - y > 200) {
+        _fired = true;
+        setTimeout(eiShow, 300);
+      }
+      lastY = y;
+    }, { passive: true });
+  })();
+
+  /* ── Fallback: show after 60 s of inactivity (tab still open) ── */
+  var _eiTimer = setTimeout(function () {
+    eiShow();
+  }, 60000);
+  document.addEventListener('click',    function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+  document.addEventListener('keydown',  function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+  document.addEventListener('touchstart', function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+})();
