@@ -393,6 +393,18 @@ footer {
   .lang-switcher.open .lang-btn.active::after { display: none; }
   .lang-switcher.open .lang-btn:hover:not(.active) { background: rgba(0,0,0,0.05); color: var(--text); }
   footer { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.8rem; padding: 1.5rem 5%; }
+
+  /* ── Section spacing ── */
+  .page-header { padding: 56px 5% 32px !important; }
+  .section-title, .page-title { font-size: clamp(2rem, 7vw, 2.6rem) !important; line-height: 1.1; }
+  .page-label { font-size: 1.3rem; }
+  .section-sub, .page-sub { font-size: 0.88rem; }
+  .cta-primary { padding: 13px 26px; font-size: 0.88rem; }
+
+  /* ── Gallery grid ── */
+  .gallery-grid { columns: 1 !important; gap: 0.7rem; }
+  .gallery-item { margin-bottom: 0.7rem; break-inside: avoid; }
+  .gallery-item img { border-radius: 12px; }
 }
 @media (max-width: 560px) {
   .gallery-grid { columns: 1; }
