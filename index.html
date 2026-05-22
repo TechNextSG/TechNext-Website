@@ -2714,10 +2714,6 @@ function closeBooking() {
   document.getElementById('bookingModal').classList.remove('open');
   document.body.style.overflow = '';
 }
-document.getElementById('bookingModal').addEventListener('click', function(e) {
-  if (e.target === this) closeBooking();
-});
-
 function goStep(n) {
   [1,2,3,4].forEach(i => {
     document.getElementById('bStep'+i).classList.toggle('active', i===n);

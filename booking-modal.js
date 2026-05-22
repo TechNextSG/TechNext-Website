@@ -179,7 +179,6 @@ textarea.booking-input{resize:none;height:76px}
   </div>
 </div>`;
   document.body.appendChild(modal);
-  modal.addEventListener('click', function(e) { if (e.target === this) closeBooking(); });
   } // end !_alreadyHasModal
 
   /* ── WhatsApp float + chat widget ── */
@@ -239,8 +238,7 @@ textarea.booking-input{resize:none;height:76px}
 
   /* ── Booking JS ── */
   if (_alreadyHasModal) {
-    const m = document.getElementById('bookingModal');
-    if (m) m.addEventListener('click', function(e) { if(e.target===this) closeBooking(); });
+    // modal already exists (index.html inline) — no extra listeners needed
   }
 
   const ODOO_URL  = 'https://technext.odoo.com/book/c82cf8a9';
