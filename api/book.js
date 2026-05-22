@@ -189,7 +189,6 @@ module.exports = async function handler(req, res) {
         stop,
         appointment_type_id : APPT_TYPE_ID,
         description,
-        partner_email       : email,
       }]],
       {},
     ]);
