@@ -1,15 +1,13 @@
 /**
  * Vercel Serverless Function — /api/book
  * Receives booking form data, creates a calendar.event in Odoo.
- * Authenticates via /web/session/authenticate (API key used as password),
- * then calls /web/dataset/call_kw with the session cookie.
+ *
+ * Uses the Odoo 17+ REST API (/api/{model}) with Bearer token auth.
  * Tries technext.odoo.com first, then erp.technext.asia as fallback.
  * Always returns HTTP 200 so the modal can always show a result.
  */
 
 const ODOO_API_KEY           = process.env.ODOO_API_KEY || '';
-const ODOO_USER              = process.env.ODOO_USER    || 'hello@technext.asia';
-const ODOO_DB                = process.env.ODOO_DB      || 'technext';
 const APPOINTMENT_SHORT_CODE = 'c82cf8a9';
 const ODOO_HOSTS = [
   'https://technext.odoo.com',
@@ -18,58 +16,51 @@ const ODOO_HOSTS = [
 
 /* ── helpers ───────────────────────────────────────────────── */
 
-/**
- * Authenticate with Odoo and return a session cookie string.
- * The API key is used as the password (Odoo 14+ API key auth).
- */
-async function getSessionCookie(host) {
-  const res = await fetch(`${host}/web/session/authenticate`, {
-    method : 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body   : JSON.stringify({
-      jsonrpc: '2.0', method: 'call', id: Date.now(),
-      params : { db: ODOO_DB, login: ODOO_USER, password: ODOO_API_KEY },
-    }),
-    signal: AbortSignal.timeout(10000),
-  });
-  const data = await res.json();
-  if (data.error) throw new Error('Auth error: ' + JSON.stringify(data.error));
-  if (!data.result || !data.result.uid) {
-    throw new Error('Auth failed — uid missing. Check ODOO_USER / ODOO_DB / ODOO_API_KEY.');
-  }
-  const raw = res.headers.get('set-cookie') || '';
-  if (!raw) throw new Error('Auth OK but no session cookie in response');
-  // Collect all name=value pairs, strip Path/Expires/etc. attributes
-  const cookies = raw.split(/,(?=[^ ])/).map(c => c.split(';')[0].trim()).join('; ');
-  return cookies;
+function odooHeaders() {
+  return {
+    'Authorization': `Bearer ${ODOO_API_KEY}`,
+    'Content-Type' : 'application/json',
+  };
 }
 
-async function rpc(host, cookie, model, method, args, kwargs = {}) {
-  const res = await fetch(`${host}/web/dataset/call_kw`, {
-    method : 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Cookie'      : cookie,
-    },
-    body  : JSON.stringify({
-      jsonrpc: '2.0', method: 'call', id: Date.now(),
-      params : { model, method, args, kwargs: { context: {}, ...kwargs } },
-    }),
-    signal: AbortSignal.timeout(10000),
+/** GET /api/{model}?{params} */
+async function odooGet(host, model, params = '') {
+  const url = `${host}/api/${model}${params ? '?' + params : ''}`;
+  const res = await fetch(url, {
+    headers: odooHeaders(),
+    signal : AbortSignal.timeout(10000),
   });
-  const data = await res.json();
-  if (data.error) throw new Error(JSON.stringify(data.error));
-  return data.result;
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`GET ${url} → ${res.status}: ${body.slice(0, 400)}`);
+  }
+  return res.json();
+}
+
+/** POST /api/{model} */
+async function odooCreate(host, model, data) {
+  const url = `${host}/api/${model}`;
+  const res = await fetch(url, {
+    method : 'POST',
+    headers: odooHeaders(),
+    body   : JSON.stringify(data),
+    signal : AbortSignal.timeout(10000),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`POST ${url} → ${res.status}: ${body.slice(0, 400)}`);
+  }
+  return res.json();
 }
 
 function sgtToUtc(dateStr, time24) {
   /* dateStr = 'YYYY-MM-DD', time24 = 'HH:MM'
      SGT is UTC+8, so UTC = SGT - 8 hours */
-  const [y, m, d]   = dateStr.split('-').map(Number);
-  const [h, mi]     = time24.split(':').map(Number);
-  const sgtMs       = Date.UTC(y, m - 1, d, h, mi, 0);
-  const utcStartMs  = sgtMs - 8 * 3600 * 1000;
-  const utcStopMs   = utcStartMs + 3600 * 1000; // 1-hour session
+  const [y, m, d]  = dateStr.split('-').map(Number);
+  const [h, mi]    = time24.split(':').map(Number);
+  const sgtMs      = Date.UTC(y, m - 1, d, h, mi, 0);
+  const utcStartMs = sgtMs - 8 * 3600 * 1000;
+  const utcStopMs  = utcStartMs + 3600 * 1000; // 1-hour session
   const fmt = ms => new Date(ms).toISOString().slice(0, 19).replace('T', ' ');
   return { start: fmt(utcStartMs), stop: fmt(utcStopMs) };
 }
@@ -77,7 +68,6 @@ function sgtToUtc(dateStr, time24) {
 /* ── main handler ──────────────────────────────────────────── */
 
 module.exports = async function handler(req, res) {
-  // CORS — allow same-site requests from Vercel preview URLs too
   res.setHeader('Access-Control-Allow-Origin',  '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -120,18 +110,20 @@ module.exports = async function handler(req, res) {
     try {
       console.log(`[book] trying ${host}`);
 
-      /* 0. Authenticate — get session cookie */
-      const cookie = await getSessionCookie(host);
-      console.log(`[book] ${host}: session ok`);
+      /* 1. Find appointment type ID via REST API */
+      const typesResp = await odooGet(
+        host,
+        'appointment.type',
+        'fields=["id","name","short_code"]&limit=20'
+      );
 
-      /* 1. Discover appointment type ID */
-      const types = await rpc(host, cookie, 'appointment.type', 'search_read', [[]], {
-        fields: ['id', 'name', 'short_code'],
-        limit : 20,
-      });
+      // REST API returns an array directly or { records: [...] }
+      const typeList = Array.isArray(typesResp)
+        ? typesResp
+        : (typesResp.records || typesResp.data || []);
 
-      let typeId = types.length ? types[0].id : null; // fallback: first type
-      for (const t of types) {
+      let typeId = typeList.length ? typeList[0].id : null;
+      for (const t of typeList) {
         if (t.short_code === APPOINTMENT_SHORT_CODE) { typeId = t.id; break; }
       }
 
@@ -142,15 +134,18 @@ module.exports = async function handler(req, res) {
 
       console.log(`[book] ${host}: appointment type id=${typeId}`);
 
-      /* 2. Create calendar event */
-      eventId = await rpc(host, cookie, 'calendar.event', 'create', [{
+      /* 2. Create calendar event via REST API */
+      const created = await odooCreate(host, 'calendar.event', {
         name                : `TechNext Demo — ${name}`,
         start,
         stop,
         appointment_type_id : typeId,
         description,
         partner_email       : email,
-      }]);
+      });
+
+      // REST API returns the created record or { id: N }
+      eventId = created.id || (Array.isArray(created) ? created[0] : null);
 
       if (eventId) {
         booked   = true;
