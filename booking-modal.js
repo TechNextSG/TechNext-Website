@@ -553,6 +553,10 @@ textarea.booking-input { resize: none; height: 76px; }
     const btn = document.getElementById('s3Confirm');
     btn.disabled = true;
     btn.textContent = 'Booking…';
+    // Remove any prior inline error
+    const _priorErr = document.getElementById('bkInlineErr');
+    if (_priorErr) _priorErr.remove();
+
     const name    = document.getElementById('bName').value.trim();
     const email   = document.getElementById('bEmail').value.trim();
     const phone   = document.getElementById('bPhone').value.trim();
@@ -560,6 +564,18 @@ textarea.booking-input { resize: none; height: 76px; }
     const challenge = document.getElementById('bChallenge').value.trim();
     const [y,m,d] = _selDate.split('-');
     const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    // Build WhatsApp fallback message
+    const waMsg = encodeURIComponent(
+      'Hi TechNext! I\'d like to book a demo.\n'
+      + 'Service: ' + _bkService + '\n'
+      + 'Name: ' + name + '\n'
+      + 'Email: ' + email + '\n'
+      + (phone   ? 'Phone: '   + phone   + '\n' : '')
+      + (company ? 'Company: ' + company + '\n' : '')
+      + 'Preferred slot: ' + formatted + ' at ' + _selTime + ' SGT'
+    );
+
     try {
       const r = await fetch(BK_API + '/api/book-appointment', {
         method: 'POST',
@@ -586,7 +602,23 @@ textarea.booking-input { resize: none; height: 76px; }
       console.error('Booking error:', err);
       btn.disabled = false;
       btn.textContent = 'Confirm Booking →';
-      alert('Something went wrong — please try again or contact us at hello@technext.asia');
+      // Show inline error with actionable fallbacks — no ugly browser alert
+      const errDiv = document.createElement('div');
+      errDiv.id = 'bkInlineErr';
+      errDiv.style.cssText = 'margin-top:1rem;padding:0.9rem 1rem;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;font-size:0.82rem;color:#7f1d1d;line-height:1.6;';
+      errDiv.innerHTML = '<strong>Couldn\'t confirm online.</strong> Please use one of the options below:'
+        + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:0.65rem;">'
+        + '<a href="https://erp.technext.asia/odoo/appointments" target="_blank" rel="noopener" '
+        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#6d2d7a;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
+        +   '📅 Book via Odoo</a>'
+        + '<a href="https://wa.me/6588396998?text=' + waMsg + '" target="_blank" rel="noopener" '
+        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#22c55e;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
+        +   '💬 WhatsApp Us</a>'
+        + '<a href="mailto:hello@technext.asia?subject=Demo%20Booking%20Request&body=' + encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nService: '+_bkService+'\nPreferred slot: '+formatted+' at '+_selTime+' SGT') + '" '
+        +   'style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#e2e8f0;color:#1a1a2e;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">'
+        +   '✉️ Email Us</a>'
+        + '</div>';
+      btn.parentElement.after(errDiv);
       return;
     }
     document.getElementById('bkConfirmDetails').innerHTML =
