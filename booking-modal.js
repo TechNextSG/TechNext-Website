@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
    TechNext — Booking Modal (shared across all pages)
    ============================================================= */
 (function () {
@@ -394,7 +394,7 @@ textarea.booking-input { resize: none; height: 76px; }
   const _DDAYS  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
   const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
   const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
-  const BK_API = 'https://tech-next-landing-page.vercel.app';
+  const BK_API = 'https://landing.technextasia.com';
   const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true
   const BK_SLOTS_DONE = {}; // 'YYYY-M' → true (fetched)
   const BK_SLOTS_BUSY = {}; // 'YYYY-M' → true (in-flight)
