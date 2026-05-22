@@ -20,12 +20,10 @@
   max-height: 90vh; overflow-y: auto; position: relative;
   box-shadow: 0 32px 80px rgba(0,0,0,0.28);
   transform: translateY(28px) scale(0.97);
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), max-width 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   font-family: 'DM Sans', sans-serif;
 }
 .booking-modal.open .booking-box { transform: translateY(0) scale(1); }
-.booking-modal.bk-s3 .booking-box { max-width: 700px; }
-@media (max-width: 740px) { .booking-modal.bk-s3 .booking-box { max-width: 100%; } }
 .booking-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.4rem 1.6rem 0;
@@ -76,11 +74,6 @@
 .booking-input:focus { border-color: #6d2d7a; }
 .booking-input.err { border-color: #ef4444; }
 textarea.booking-input { resize: none; height: 76px; }
-.bk-odoo-frame {
-  width: 100%; height: 560px; border: none; border-radius: 14px;
-  display: block; background: #f8fafc; overflow: hidden;
-}
-@media (max-width: 520px) { .bk-odoo-frame { height: 480px; } }
 .bk-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; }
 .bk-back {
   background: none; border: 1.5px solid #e2e8f0; border-radius: 100px;
@@ -96,6 +89,37 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 .bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
+/* Step 3 — calendar redirect */
+.bk-cal-card {
+  background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 100%);
+  border: 1.5px solid #e9d5ff; border-radius: 18px;
+  padding: 1.6rem 1.4rem; text-align: center; margin-bottom: 1.2rem;
+}
+.bk-cal-icon {
+  width: 64px; height: 64px; background: #6d2d7a; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; box-shadow: 0 8px 24px rgba(109,45,122,0.3);
+}
+.bk-cal-icon svg { width: 32px; height: 32px; color: #fff; }
+.bk-cal-title { font-family: 'Caveat', cursive; font-size: 1.5rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.3rem; }
+.bk-cal-desc { font-size: 0.83rem; color: #64748b; line-height: 1.6; margin-bottom: 1.2rem; }
+.bk-open-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px 24px; background: #6d2d7a; color: #fff;
+  border: none; border-radius: 100px; font-size: 0.92rem; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none;
+  transition: all 0.22s; box-shadow: 0 4px 16px rgba(109,45,122,0.28);
+}
+.bk-open-btn:hover { background: #5a2568; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(109,45,122,0.36); }
+.bk-open-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.bk-slots-hint {
+  display: flex; align-items: center; gap: 6px; justify-content: center;
+  font-size: 0.75rem; color: #6d2d7a; margin-top: 0.8rem; font-weight: 600;
+}
+.bk-slots-hint::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+/* Step 4 — success */
+.bk-success { text-align: center; padding: 1.5rem 0 0.5rem; }
+.bk-check { width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; }
 .wa-btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px;
   background: #22c55e; color: #fff; border-radius: 100px;
@@ -123,6 +147,8 @@ textarea.booking-input { resize: none; height: 76px; }
       <div class="bp-line" id="bl2"></div>
       <div class="bp-step" id="bp3">3</div>
     </div>
+
+    <!-- Step 1: Service -->
     <div class="booking-step active" id="bStep1">
       <div class="bk-h">What can we help with?</div>
       <div class="bk-sub">Choose the service you're interested in</div>
@@ -144,9 +170,11 @@ textarea.booking-input { resize: none; height: 76px; }
         <button class="bk-btn" id="s1Next" onclick="goStep(2)" disabled>Continue →</button>
       </div>
     </div>
+
+    <!-- Step 2: Details -->
     <div class="booking-step" id="bStep2">
       <div class="bk-h">Your details</div>
-      <div class="bk-sub">We'll note your info — then pick your time slot</div>
+      <div class="bk-sub">Quick intro — then we'll open the booking calendar</div>
       <div class="booking-fields">
         <input class="booking-input" type="text" id="bName" placeholder="Full Name *">
         <input class="booking-input" type="email" id="bEmail" placeholder="Email Address *">
@@ -159,20 +187,26 @@ textarea.booking-input { resize: none; height: 76px; }
         <button class="bk-btn" onclick="validateStep2()">Pick a Time →</button>
       </div>
     </div>
+
+    <!-- Step 3: Open Odoo calendar -->
     <div class="booking-step" id="bStep3">
-      <div class="bk-h">Pick a time</div>
-      <div class="bk-sub">Select any available slot — your booking goes straight into our calendar</div>
-      <iframe
-        id="odooBookFrame"
-        class="bk-odoo-frame"
-        src="about:blank"
-        title="Select a booking slot"
-        allow="payment"
-      ></iframe>
-      <div class="bk-nav" style="margin-top:0.8rem">
+      <div class="bk-cal-card">
+        <div class="bk-cal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="bk-cal-title">Choose your slot</div>
+        <div class="bk-cal-desc">Our live calendar shows real availability.<br>Pick a time and you're confirmed instantly.</div>
+        <a id="bkOdooLink" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" class="bk-open-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Open Booking Calendar →
+        </a>
+        <div class="bk-slots-hint">Slots available this week</div>
+      </div>
+      <div class="bk-nav">
         <button class="bk-back" onclick="goStep(2)">← Back</button>
       </div>
     </div>
+
   </div>`;
   document.body.appendChild(modal);
   modal.addEventListener('click', function (e) { if (e.target === this) closeBooking(); });
@@ -275,7 +309,6 @@ textarea.booking-input { resize: none; height: 76px; }
 `;
     document.head.appendChild(waStyle);
 
-    // Build chat widget
     const widget = document.createElement('div');
     widget.id = 'waChatWidget';
     const _waNow = new Date();
@@ -302,37 +335,32 @@ textarea.booking-input { resize: none; height: 76px; }
       + '</button></div>';
     document.body.appendChild(widget);
 
-    // Float button (button, not anchor)
     const wa = document.createElement('button');
     wa.id = 'waFloat';
     wa.setAttribute('aria-label', 'Chat on WhatsApp');
-    wa.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'
+    wa.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor">'
       + '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>'
       + '<path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/>'
       + '</svg>';
     document.body.appendChild(wa);
 
-    // Toggle widget on button click
     wa.addEventListener('click', function () {
       const open = widget.classList.toggle('wa-open');
       wa.classList.toggle('wa-active', open);
     });
 
-    // Close button inside widget
     document.getElementById('waChatClose').addEventListener('click', function (e) {
       e.stopPropagation();
       widget.classList.remove('wa-open');
       wa.classList.remove('wa-active');
     });
 
-    // Send button — open WhatsApp with pre-filled message
     document.getElementById('waSendBtn').addEventListener('click', function () {
       const msg = (document.getElementById('waMsg').value || '').trim()
         || 'Hi TechNext! I\'d like to know more about your services.';
       window.open('https://wa.me/6588396998?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
     });
 
-    // Also send on Enter (Shift+Enter = new line)
     document.getElementById('waMsg').addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -342,7 +370,6 @@ textarea.booking-input { resize: none; height: 76px; }
   }
 
   /* ── JS (always registered) ──────────────────────────────── */
-  // Attach close-on-backdrop for pages with pre-existing modal HTML
   if (_alreadyHasModal) {
     const m = document.getElementById('bookingModal');
     if (m) m.addEventListener('click', function(e) { if (e.target === this) closeBooking(); });
@@ -353,22 +380,18 @@ textarea.booking-input { resize: none; height: 76px; }
 
   window.openBooking = function () {
     _bkService = '';
-    document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.service-opt').forEach(function(o) { o.classList.remove('selected'); });
     document.getElementById('s1Next').disabled = true;
     ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(function(id) {
       const el = document.getElementById(id); if (el) el.value = '';
     });
-    // Reset iframe to blank so it reloads fresh each time
-    const frame = document.getElementById('odooBookFrame');
-    if (frame) frame.src = 'about:blank';
-    document.getElementById('bookingModal').classList.remove('bk-s3');
     document.getElementById('bookingModal').classList.add('open');
     document.body.style.overflow = 'hidden';
     goStep(1);
   };
 
   window.closeBooking = function () {
-    document.getElementById('bookingModal').classList.remove('open', 'bk-s3');
+    document.getElementById('bookingModal').classList.remove('open');
     document.body.style.overflow = '';
   };
 
@@ -387,18 +410,6 @@ textarea.booking-input { resize: none; height: 76px; }
         if (bl) bl.classList.toggle('done', i < n);
       }
     });
-
-    const modal = document.getElementById('bookingModal');
-    if (n === 3) {
-      // Widen modal + load the Odoo booking iframe
-      modal.classList.add('bk-s3');
-      const frame = document.getElementById('odooBookFrame');
-      if (frame && frame.src === 'about:blank') {
-        frame.src = ODOO_BOOKING_URL;
-      }
-    } else {
-      modal.classList.remove('bk-s3');
-    }
   };
 
   window.selectService = function (el, svc) {
@@ -420,14 +431,11 @@ textarea.booking-input { resize: none; height: 76px; }
 
 /* =============================================================
    TechNext — Exit-Intent Notification
-   Shows once per session when cursor leaves viewport (top edge)
-   or on mobile after significant scroll activity.
    ============================================================= */
 (function () {
   const EI_KEY = 'tn_exit_shown';
-  if (sessionStorage.getItem(EI_KEY)) return; // already shown this session
+  if (sessionStorage.getItem(EI_KEY)) return;
 
-  /* ── CSS ── */
   const s = document.createElement('style');
   s.textContent = `
 #eiOverlay {
@@ -480,9 +488,7 @@ textarea.booking-input { resize: none; height: 76px; }
   display: flex; align-items: center; gap: 6px;
   font-size: 0.8rem; font-weight: 600; color: #475569;
 }
-.ei-perk-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: #6d2d7a; flex-shrink: 0;
-}
+.ei-perk-dot { width: 8px; height: 8px; border-radius: 50%; background: #6d2d7a; flex-shrink: 0; }
 .ei-cta {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 14px 36px; background: #6d2d7a; color: #fff;
@@ -506,7 +512,6 @@ textarea.booking-input { resize: none; height: 76px; }
 `;
   document.head.appendChild(s);
 
-  /* ── HTML ── */
   const el = document.createElement('div');
   el.id = 'eiOverlay';
   el.innerHTML = `
@@ -514,52 +519,45 @@ textarea.booking-input { resize: none; height: 76px; }
   <button id="eiClose" onclick="eiClose()" aria-label="Close">✕</button>
   <div class="ei-badge">🎁 Free Offer</div>
   <div class="ei-headline">Wait — before<br>you <span>leave!</span></div>
-  <p class="ei-sub">Get a free 1-hour AI strategy session. We'll map out exactly how AI automation can save your team 10+ hours a week.</p>
+  <p class="ei-sub">Get a free 1-hour AI strategy session. We’ll map out exactly how AI automation can save your team 10+ hours a week.</p>
   <div class="ei-perks">
     <div class="ei-perk"><div class="ei-perk-dot"></div>No commitment</div>
     <div class="ei-perk"><div class="ei-perk-dot"></div>1 hour · Free</div>
     <div class="ei-perk"><div class="ei-perk-dot"></div>Real actionable plan</div>
   </div>
   <button class="ei-cta" onclick="eiBook()">Book My Free Session →</button>
-  <button class="ei-dismiss" onclick="eiClose()">No thanks, I don't need this</button>
+  <button class="ei-dismiss" onclick="eiClose()">No thanks, I don’t need this</button>
 </div>`;
   document.body.appendChild(el);
   el.addEventListener('click', function (e) { if (e.target === this) eiClose(); });
 
   function eiShow() {
     if (sessionStorage.getItem(EI_KEY)) return;
-    // Don't show if booking modal is already open
     const bm = document.getElementById('bookingModal');
     if (bm && bm.classList.contains('open')) return;
     sessionStorage.setItem(EI_KEY, '1');
     el.classList.add('ei-open');
   }
 
-  window.eiClose = function () {
-    el.classList.remove('ei-open');
-  };
-
-  window.eiBook = function () {
+  window.eiClose = function () { el.classList.remove('ei-open'); };
+  window.eiBook  = function () {
     el.classList.remove('ei-open');
     if (typeof openBooking === 'function') openBooking();
   };
 
-  /* ── Desktop: cursor leaves viewport through top edge ── */
   let _eiMouseReady = false;
-  setTimeout(function () { _eiMouseReady = true; }, 3000); // min 3 s on page
+  setTimeout(function () { _eiMouseReady = true; }, 3000);
   document.addEventListener('mouseleave', function (e) {
     if (!_eiMouseReady) return;
-    if (e.clientY <= 0) eiShow(); // only top edge (closing tab / back button)
+    if (e.clientY <= 0) eiShow();
   }, { passive: true });
 
-  /* ── Mobile: rapid scroll-up after significant scroll-down ── */
   (function () {
     var lastY = 0, maxY = 0, _fired = false;
     window.addEventListener('scroll', function () {
       if (_fired) return;
       var y = window.scrollY || window.pageYOffset;
       if (y > maxY) maxY = y;
-      // Trigger if: scrolled down > 40% of page height, then quickly scrolled back up > 200px
       if (maxY > window.innerHeight * 0.4 && lastY - y > 200) {
         _fired = true;
         setTimeout(eiShow, 300);
@@ -568,11 +566,8 @@ textarea.booking-input { resize: none; height: 76px; }
     }, { passive: true });
   })();
 
-  /* ── Fallback: show after 60 s of inactivity (tab still open) ── */
-  var _eiTimer = setTimeout(function () {
-    eiShow();
-  }, 60000);
-  document.addEventListener('click',    function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
-  document.addEventListener('keydown',  function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
-  document.addEventListener('touchstart', function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+  var _eiTimer = setTimeout(function () { eiShow(); }, 60000);
+  document.addEventListener('click',     function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+  document.addEventListener('keydown',   function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
+  document.addEventListener('touchstart',function () { clearTimeout(_eiTimer); }, { once: true, passive: true });
 })();
