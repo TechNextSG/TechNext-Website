@@ -2692,7 +2692,18 @@ const _DDAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 const _TIMES = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
 
 function openBooking() {
-  window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
+  _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
+  _selDate = null; _selTime = null; _bkService = '';
+  document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+  document.getElementById('s1Next').disabled = true;
+  document.getElementById('bName').value = '';
+  document.getElementById('bEmail').value = '';
+  document.getElementById('bPhone').value = '';
+  document.getElementById('bCompany').value = '';
+  document.getElementById('bChallenge').value = '';
+  document.getElementById('bookingModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  goStep(1);
 }
 function closeBooking() {
   document.getElementById('bookingModal').classList.remove('open');
@@ -2808,10 +2819,11 @@ function confirmBooking() {
     <div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">${_bkService}</span></div>
     <div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">${name}</span></div>
     <div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">${email}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">${formatted}</span></div>
-    <div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">${_selTime} · SGT</span></div>
+    <div class="bcd-row"><span class="bcd-label">Preferred date</span><span class="bcd-val">${formatted}</span></div>
+    <div class="bcd-row"><span class="bcd-label">Preferred time</span><span class="bcd-val">${_selTime} · SGT</span></div>
     <div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>
   `;
+  window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
   goStep(4);
 }
 </script>

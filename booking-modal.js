@@ -74,6 +74,35 @@
 .booking-input:focus { border-color: #6d2d7a; }
 .booking-input.err { border-color: #ef4444; }
 textarea.booking-input { resize: none; height: 76px; }
+.cal-wrap { margin-bottom: 0.5rem; }
+.cal-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+.cal-nav-btn {
+  width: 30px; height: 30px; border: 1.5px solid #e2e8f0; border-radius: 8px;
+  background: none; cursor: pointer; font-size: 1rem; transition: all 0.18s;
+  display: flex; align-items: center; justify-content: center; color: #64748b;
+}
+.cal-nav-btn:hover { border-color: #6d2d7a; color: #6d2d7a; }
+.cal-month-lbl { font-size: 0.9rem; font-weight: 700; color: #1a1a2e; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 1rem; }
+.cal-dlbl { font-size: 0.62rem; font-weight: 700; color: #64748b; text-align: center; padding: 3px 0; }
+.cal-day {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 0.79rem; border-radius: 7px; cursor: pointer; transition: all 0.14s;
+  color: #1a1a2e; border: 1.5px solid transparent;
+}
+.cal-day:hover:not(.cd-dis):not(.cd-emp) { background: #faf5ff; border-color: #6d2d7a; color: #6d2d7a; }
+.cal-day.cd-sel { background: #6d2d7a; color: #fff; border-color: #6d2d7a; }
+.cal-day.cd-dis, .cal-day.cd-emp { color: #cbd5e1; cursor: default; pointer-events: none; }
+.cal-day.cd-today { font-weight: 700; }
+.ts-title { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+.time-slots { display: flex; flex-wrap: wrap; gap: 0.45rem; min-height: 36px; }
+.time-slot {
+  padding: 7px 15px; background: #f8fafc; border: 1.5px solid #e2e8f0;
+  border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: all 0.14s; color: #1a1a2e;
+}
+.time-slot:hover { border-color: #6d2d7a; color: #6d2d7a; background: #faf5ff; }
+.time-slot.ts-sel { background: #6d2d7a; color: #fff; border-color: #6d2d7a; }
 .bk-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; }
 .bk-back {
   background: none; border: 1.5px solid #e2e8f0; border-radius: 100px;
@@ -89,37 +118,14 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 .bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
-/* Step 3 — calendar redirect */
-.bk-cal-card {
-  background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 100%);
-  border: 1.5px solid #e9d5ff; border-radius: 18px;
-  padding: 1.6rem 1.4rem; text-align: center; margin-bottom: 1.2rem;
-}
-.bk-cal-icon {
-  width: 64px; height: 64px; background: #6d2d7a; border-radius: 18px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1rem; box-shadow: 0 8px 24px rgba(109,45,122,0.3);
-}
-.bk-cal-icon svg { width: 32px; height: 32px; color: #fff; }
-.bk-cal-title { font-family: 'Caveat', cursive; font-size: 1.5rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.3rem; }
-.bk-cal-desc { font-size: 0.83rem; color: #64748b; line-height: 1.6; margin-bottom: 1.2rem; }
-.bk-open-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 14px 24px; background: #6d2d7a; color: #fff;
-  border: none; border-radius: 100px; font-size: 0.92rem; font-weight: 700;
-  font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none;
-  transition: all 0.22s; box-shadow: 0 4px 16px rgba(109,45,122,0.28);
-}
-.bk-open-btn:hover { background: #5a2568; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(109,45,122,0.36); }
-.bk-open-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-.bk-slots-hint {
-  display: flex; align-items: center; gap: 6px; justify-content: center;
-  font-size: 0.75rem; color: #6d2d7a; margin-top: 0.8rem; font-weight: 600;
-}
-.bk-slots-hint::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
-/* Step 4 — success */
 .bk-success { text-align: center; padding: 1.5rem 0 0.5rem; }
 .bk-check { width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; }
+.bk-confirm-details { background: #f8fafc; border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.2rem; text-align: left; }
+.bcd-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.83rem; }
+.bcd-row:last-child { border-bottom: none; }
+.bcd-label { color: #64748b; flex-shrink: 0; }
+.bcd-val { font-weight: 600; color: #1a1a2e; text-align: right; }
+.bk-odoo-note { font-size: 0.8rem; color: #6d2d7a; background: #faf5ff; border: 1.5px solid #e9d5ff; border-radius: 10px; padding: 0.7rem 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
 .wa-btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px;
   background: #22c55e; color: #fff; border-radius: 100px;
@@ -147,8 +153,6 @@ textarea.booking-input { resize: none; height: 76px; }
       <div class="bp-line" id="bl2"></div>
       <div class="bp-step" id="bp3">3</div>
     </div>
-
-    <!-- Step 1: Service -->
     <div class="booking-step active" id="bStep1">
       <div class="bk-h">What can we help with?</div>
       <div class="bk-sub">Choose the service you're interested in</div>
@@ -170,11 +174,9 @@ textarea.booking-input { resize: none; height: 76px; }
         <button class="bk-btn" id="s1Next" onclick="goStep(2)" disabled>Continue →</button>
       </div>
     </div>
-
-    <!-- Step 2: Details -->
     <div class="booking-step" id="bStep2">
       <div class="bk-h">Your details</div>
-      <div class="bk-sub">Quick intro — then we'll open the booking calendar</div>
+      <div class="bk-sub">We'll send you a confirmed calendar invite</div>
       <div class="booking-fields">
         <input class="booking-input" type="text" id="bName" placeholder="Full Name *">
         <input class="booking-input" type="email" id="bEmail" placeholder="Email Address *">
@@ -184,29 +186,36 @@ textarea.booking-input { resize: none; height: 76px; }
       </div>
       <div class="bk-nav">
         <button class="bk-back" onclick="goStep(1)">← Back</button>
-        <button class="bk-btn" onclick="validateStep2()">Pick a Time →</button>
+        <button class="bk-btn" onclick="validateStep2()">Continue →</button>
       </div>
     </div>
-
-    <!-- Step 3: Open Odoo calendar -->
     <div class="booking-step" id="bStep3">
-      <div class="bk-cal-card">
-        <div class="bk-cal-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div class="bk-h">Pick a time</div>
+      <div class="bk-sub">1 hour · Asia/Singapore (UTC+8) · Tap a slot to book</div>
+      <div class="cal-wrap">
+        <div class="cal-hdr">
+          <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+          <span class="cal-month-lbl" id="calLabel"></span>
+          <button class="cal-nav-btn" onclick="calNav(1)">›</button>
         </div>
-        <div class="bk-cal-title">Choose your slot</div>
-        <div class="bk-cal-desc">Our live calendar shows real availability.<br>Pick a time and you're confirmed instantly.</div>
-        <a id="bkOdooLink" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" class="bk-open-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Open Booking Calendar →
-        </a>
-        <div class="bk-slots-hint">Slots available this week</div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="ts-title" id="tsTitle" style="display:none">Available times</div>
+        <div class="time-slots" id="timeSlots"></div>
       </div>
       <div class="bk-nav">
         <button class="bk-back" onclick="goStep(2)">← Back</button>
       </div>
     </div>
-
+    <div class="booking-step" id="bStep4">
+      <div class="bk-success">
+        <div class="bk-check"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="bk-h" style="margin-bottom:0.4rem">Almost there!</div>
+        <div class="bk-odoo-note" id="bkOdooNote">Your preferred slot has been noted. The booking calendar has opened in a new tab — select your time there to confirm.</div>
+        <div class="bk-confirm-details" id="bkConfirmDetails"></div>
+        <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" id="bkOdooBtn" style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:#6d2d7a;color:#fff;border-radius:100px;font-size:0.85rem;font-weight:700;font-family:'DM Sans',sans-serif;text-decoration:none;margin-bottom:0.8rem;transition:all 0.2s;">📅 Open Booking Calendar</a><br>
+        <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg> Message us on WhatsApp</a>
+      </div>
+    </div>
   </div>`;
   document.body.appendChild(modal);
   modal.addEventListener('click', function (e) { if (e.target === this) closeBooking(); });
@@ -348,38 +357,45 @@ textarea.booking-input { resize: none; height: 76px; }
       const open = widget.classList.toggle('wa-open');
       wa.classList.toggle('wa-active', open);
     });
-
     document.getElementById('waChatClose').addEventListener('click', function (e) {
       e.stopPropagation();
       widget.classList.remove('wa-open');
       wa.classList.remove('wa-active');
     });
-
     document.getElementById('waSendBtn').addEventListener('click', function () {
       const msg = (document.getElementById('waMsg').value || '').trim()
         || 'Hi TechNext! I\'d like to know more about your services.';
       window.open('https://wa.me/6588396998?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
     });
-
     document.getElementById('waMsg').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        document.getElementById('waSendBtn').click();
-      }
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('waSendBtn').click(); }
     });
   }
 
-  /* ── JS (always registered) ──────────────────────────────── */
+  /* ── JS ──────────────────────────────────────────────────── */
   if (_alreadyHasModal) {
     const m = document.getElementById('bookingModal');
     if (m) m.addEventListener('click', function(e) { if (e.target === this) closeBooking(); });
   }
 
   const ODOO_BOOKING_URL = 'https://technext.odoo.com/book/c82cf8a9';
-  let _bkService = '';
+  const _TODAY  = new Date();
+  const _MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const _DDAYS  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
+  let _bkService = '', _calY, _calM, _selDate = null;
 
   window.openBooking = function () {
-    window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
+    _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
+    _selDate = null; _bkService = '';
+    document.querySelectorAll('.service-opt').forEach(function(o) { o.classList.remove('selected'); });
+    document.getElementById('s1Next').disabled = true;
+    ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(function(id) {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    document.getElementById('bookingModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    goStep(1);
   };
 
   window.closeBooking = function () {
@@ -388,7 +404,7 @@ textarea.booking-input { resize: none; height: 76px; }
   };
 
   window.goStep = function (n) {
-    [1,2,3].forEach(function(i) {
+    [1,2,3,4].forEach(function(i) {
       document.getElementById('bStep'+i).classList.toggle('active', i===n);
       const bp = document.getElementById('bp'+i);
       if (bp) {
@@ -402,6 +418,7 @@ textarea.booking-input { resize: none; height: 76px; }
         if (bl) bl.classList.toggle('done', i < n);
       }
     });
+    if (n === 3) renderCalendar();
   };
 
   window.selectService = function (el, svc) {
@@ -419,6 +436,95 @@ textarea.booking-input { resize: none; height: 76px; }
     if (name && email) goStep(3);
   };
 
+  window.calNav = function (dir) {
+    _calM += dir;
+    if (_calM > 11) { _calM = 0; _calY++; }
+    if (_calM < 0)  { _calM = 11; _calY--; }
+    _selDate = null;
+    document.getElementById('timeSlots').innerHTML = '';
+    document.getElementById('tsTitle').style.display = 'none';
+    renderCalendar();
+  };
+
+  function renderCalendar() {
+    document.getElementById('calLabel').textContent = _MONTHS[_calM] + ' ' + _calY;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    _DDAYS.forEach(function(d) {
+      const lbl = document.createElement('div');
+      lbl.className = 'cal-dlbl'; lbl.textContent = d; grid.appendChild(lbl);
+    });
+    const firstDay = new Date(_calY, _calM, 1).getDay();
+    const total    = new Date(_calY, _calM+1, 0).getDate();
+    for (var i = 0; i < firstDay; i++) {
+      const e = document.createElement('div'); e.className = 'cal-day cd-emp'; grid.appendChild(e);
+    }
+    const todayMidnight = new Date(_TODAY.getFullYear(), _TODAY.getMonth(), _TODAY.getDate());
+    for (var d = 1; d <= total; d++) {
+      const cell = document.createElement('div'); cell.className = 'cal-day';
+      cell.textContent = d;
+      const dt = new Date(_calY, _calM, d);
+      const dow = dt.getDay();
+      if (dow === 0 || dow === 6 || dt < todayMidnight) {
+        cell.classList.add('cd-dis');
+      } else {
+        const ds = _calY + '-' + String(_calM+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+        if (_selDate === ds) cell.classList.add('cd-sel');
+        (function(ds_, cell_) {
+          cell_.addEventListener('click', function() { selectDate(cell_, ds_); });
+        })(ds, cell);
+      }
+      if (d === _TODAY.getDate() && _calM === _TODAY.getMonth() && _calY === _TODAY.getFullYear())
+        cell.classList.add('cd-today');
+      grid.appendChild(cell);
+    }
+  }
+
+  function selectDate(el, ds) {
+    _selDate = ds;
+    document.querySelectorAll('.cal-day').forEach(function(d) { d.classList.remove('cd-sel'); });
+    el.classList.add('cd-sel');
+    const wrap = document.getElementById('timeSlots');
+    document.getElementById('tsTitle').style.display = 'block';
+    wrap.innerHTML = '';
+    _TIMES_12.forEach(function(t) {
+      const btn = document.createElement('button');
+      btn.className = 'time-slot';
+      btn.textContent = t;
+      btn.addEventListener('click', function() { bookSlot(ds, t, btn); });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function bookSlot(ds, time12, slotBtn) {
+    // Highlight selected slot
+    document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('ts-sel'); });
+    slotBtn.classList.add('ts-sel');
+
+    const name      = document.getElementById('bName').value.trim();
+    const email     = document.getElementById('bEmail').value.trim();
+    const phone     = document.getElementById('bPhone').value.trim();
+    const company   = document.getElementById('bCompany').value.trim();
+    const [y,m,d]   = ds.split('-');
+    const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    // Populate confirmation details
+    document.getElementById('bkConfirmDetails').innerHTML =
+      '<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">'+_bkService+'</span></div>'+
+      '<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">'+name+'</span></div>'+
+      '<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">'+email+'</span></div>'+
+      (phone ? '<div class="bcd-row"><span class="bcd-label">Phone</span><span class="bcd-val">'+phone+'</span></div>' : '')+
+      (company ? '<div class="bcd-row"><span class="bcd-label">Company</span><span class="bcd-val">'+company+'</span></div>' : '')+
+      '<div class="bcd-row"><span class="bcd-label">Preferred date</span><span class="bcd-val">'+formatted+'</span></div>'+
+      '<div class="bcd-row"><span class="bcd-label">Preferred time</span><span class="bcd-val">'+time12+' · SGT</span></div>'+
+      '<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>';
+
+    // Open Odoo booking page to finalise — this is where the real calendar event is created
+    window.open(ODOO_BOOKING_URL, '_blank', 'noopener,noreferrer');
+
+    goStep(4);
+  }
+
 })();
 
 /* =============================================================
@@ -434,9 +540,7 @@ textarea.booking-input { resize: none; height: 76px; }
   position: fixed; inset: 0; z-index: 3000;
   background: rgba(10,12,28,0.68); backdrop-filter: blur(6px);
   display: flex; align-items: center; justify-content: center;
-  padding: 1.5rem;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.32s ease;
+  padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.32s ease;
 }
 #eiOverlay.ei-open { opacity: 1; pointer-events: all; }
 #eiBox {
@@ -449,58 +553,23 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 #eiOverlay.ei-open #eiBox { transform: translateY(0) scale(1); }
 #eiClose {
-  position: absolute; top: 14px; right: 14px;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: #f1f5f9; border: none; cursor: pointer;
-  font-size: 1rem; color: #64748b; line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.18s;
+  position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%;
+  background: #f1f5f9; border: none; cursor: pointer; font-size: 1rem; color: #64748b; line-height: 1;
+  display: flex; align-items: center; justify-content: center; transition: all 0.18s;
 }
 #eiClose:hover { background: #e2e8f0; color: #1a1a2e; transform: rotate(90deg); }
-.ei-badge {
-  display: inline-block; background: #fef9c3; color: #854d0e;
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
-  margin-bottom: 1rem;
-}
-.ei-headline {
-  font-family: 'Caveat', cursive; font-size: 2.4rem; font-weight: 700;
-  color: #1a1a2e; line-height: 1.1; margin-bottom: 0.6rem;
-}
+.ei-badge { display: inline-block; background: #fef9c3; color: #854d0e; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 1rem; }
+.ei-headline { font-family: 'Caveat', cursive; font-size: 2.4rem; font-weight: 700; color: #1a1a2e; line-height: 1.1; margin-bottom: 0.6rem; }
 .ei-headline span { color: #6d2d7a; }
-.ei-sub {
-  font-size: 0.9rem; color: #64748b; line-height: 1.7;
-  margin-bottom: 1.6rem; max-width: 340px; margin-left: auto; margin-right: auto;
-}
-.ei-perks {
-  display: flex; justify-content: center; gap: 1.4rem;
-  margin-bottom: 1.6rem; flex-wrap: wrap;
-}
-.ei-perk {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 0.8rem; font-weight: 600; color: #475569;
-}
+.ei-sub { font-size: 0.9rem; color: #64748b; line-height: 1.7; margin-bottom: 1.6rem; max-width: 340px; margin-left: auto; margin-right: auto; }
+.ei-perks { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
+.ei-perk { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; color: #475569; }
 .ei-perk-dot { width: 8px; height: 8px; border-radius: 50%; background: #6d2d7a; flex-shrink: 0; }
-.ei-cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 36px; background: #6d2d7a; color: #fff;
-  border-radius: 100px; font-size: 0.95rem; font-weight: 700;
-  font-family: 'DM Sans', sans-serif; border: none; cursor: pointer;
-  transition: all 0.22s; box-shadow: 0 4px 18px rgba(109,45,122,0.28);
-  width: 100%; justify-content: center;
-}
+.ei-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 36px; background: #6d2d7a; color: #fff; border-radius: 100px; font-size: 0.95rem; font-weight: 700; font-family: 'DM Sans', sans-serif; border: none; cursor: pointer; transition: all 0.22s; box-shadow: 0 4px 18px rgba(109,45,122,0.28); width: 100%; justify-content: center; }
 .ei-cta:hover { background: #5a2568; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(109,45,122,0.32); }
-.ei-dismiss {
-  display: block; margin-top: 0.9rem; font-size: 0.8rem;
-  color: #94a3b8; cursor: pointer; background: none; border: none;
-  font-family: 'DM Sans', sans-serif; transition: color 0.18s;
-}
+.ei-dismiss { display: block; margin-top: 0.9rem; font-size: 0.8rem; color: #94a3b8; cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; transition: color 0.18s; }
 .ei-dismiss:hover { color: #64748b; }
-@media (max-width: 480px) {
-  #eiBox { padding: 1.8rem 1.4rem 1.5rem; border-radius: 22px; }
-  .ei-headline { font-size: 2rem; }
-  .ei-perks { gap: 0.8rem; }
-}
+@media (max-width: 480px) { #eiBox { padding: 1.8rem 1.4rem 1.5rem; border-radius: 22px; } .ei-headline { font-size: 2rem; } .ei-perks { gap: 0.8rem; } }
 `;
   document.head.appendChild(s);
 
@@ -511,14 +580,14 @@ textarea.booking-input { resize: none; height: 76px; }
   <button id="eiClose" onclick="eiClose()" aria-label="Close">✕</button>
   <div class="ei-badge">🎁 Free Offer</div>
   <div class="ei-headline">Wait — before<br>you <span>leave!</span></div>
-  <p class="ei-sub">Get a free 1-hour AI strategy session. We’ll map out exactly how AI automation can save your team 10+ hours a week.</p>
+  <p class="ei-sub">Get a free 1-hour AI strategy session. We'll map out exactly how AI automation can save your team 10+ hours a week.</p>
   <div class="ei-perks">
     <div class="ei-perk"><div class="ei-perk-dot"></div>No commitment</div>
     <div class="ei-perk"><div class="ei-perk-dot"></div>1 hour · Free</div>
     <div class="ei-perk"><div class="ei-perk-dot"></div>Real actionable plan</div>
   </div>
   <button class="ei-cta" onclick="eiBook()">Book My Free Session →</button>
-  <button class="ei-dismiss" onclick="eiClose()">No thanks, I don’t need this</button>
+  <button class="ei-dismiss" onclick="eiClose()">No thanks, I don't need this</button>
 </div>`;
   document.body.appendChild(el);
   el.addEventListener('click', function (e) { if (e.target === this) eiClose(); });
@@ -534,7 +603,7 @@ textarea.booking-input { resize: none; height: 76px; }
   window.eiClose = function () { el.classList.remove('ei-open'); };
   window.eiBook  = function () {
     el.classList.remove('ei-open');
-    window.open('https://technext.odoo.com/book/c82cf8a9', '_blank', 'noopener,noreferrer');
+    if (typeof openBooking === 'function') openBooking();
   };
 
   let _eiMouseReady = false;
@@ -550,10 +619,7 @@ textarea.booking-input { resize: none; height: 76px; }
       if (_fired) return;
       var y = window.scrollY || window.pageYOffset;
       if (y > maxY) maxY = y;
-      if (maxY > window.innerHeight * 0.4 && lastY - y > 200) {
-        _fired = true;
-        setTimeout(eiShow, 300);
-      }
+      if (maxY > window.innerHeight * 0.4 && lastY - y > 200) { _fired = true; setTimeout(eiShow, 300); }
       lastY = y;
     }, { passive: true });
   })();
