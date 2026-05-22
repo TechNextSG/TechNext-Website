@@ -82,6 +82,8 @@ nav#mainNav {
   align-items: center;
   justify-content: space-between;
 }
+nav#mainNav { transition: transform 0.35s ease; }
+nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .nav-logo {
   display: flex;
   align-items: center;
@@ -590,6 +592,28 @@ window.addEventListener('pageshow', function (e) {
     if (typeof observeReveal === 'function') observeReveal();
   }
 });
+</script>
+<script>
+/* ── Nav hide-on-scroll-down / show-on-scroll-up ── */
+(function(){
+  var nav = document.getElementById('mainNav');
+  if (!nav) return;
+  var lastY = 0, ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || window.pageYOffset;
+      if (y > lastY && y > 80) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+      lastY = y < 0 ? 0 : y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
 </script>
 <script src="/cookie-consent.js"></script>
 </body>
