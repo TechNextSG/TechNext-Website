@@ -1582,11 +1582,11 @@ footer {
     </div>
     <div class="team-carousel reveal" id="teamCarousel">
       <div class="tc-track" id="tcTrack">
-        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.36 PM.jpeg" alt="TechNext team" loading="lazy"></div>
-        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.39 PM.jpeg" alt="TechNext team" loading="lazy"></div>
-        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.43 PM1.jpeg" alt="TechNext team" loading="lazy"></div>
-        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.46 PM1.jpeg" alt="TechNext team" loading="lazy"></div>
-        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-05-08 at 7.21.22 PM.jpeg" alt="TechNext team" loading="lazy"></div>
+        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.36 PM.jpeg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.39 PM.jpeg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.43 PM1.jpeg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-04-28 at 7.05.46 PM1.jpeg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="images/Gallery/WhatsApp Image 2026-05-08 at 7.21.22 PM.jpeg" alt="TechNext team" loading="eager"></div>
       </div>
       <button class="tc-btn tc-prev" onclick="tcMove(-1)" aria-label="Previous">&#8249;</button>
       <button class="tc-btn tc-next" onclick="tcMove(1)" aria-label="Next">&#8250;</button>
@@ -2120,7 +2120,7 @@ function renderCountries() {
 /* ===== RENDER MARQUEE ===== */
 function renderMarquee() {
   const cards = CLIENTS_DATA.map(c =>
-    `<div class="m-card"><img src="${c.img}" alt="${c.name}" loading="lazy"></div>`
+    `<div class="m-card"><img src="${c.img}" alt="${c.name}" loading="eager"></div>`
   ).join('');
   document.getElementById('marqueeTrack').innerHTML = cards + cards;
 }
@@ -2640,3 +2640,4 @@ function confirmBooking() {
 </script>
 </body>
 </html>
+
