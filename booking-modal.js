@@ -1,4 +1,4 @@
-﻿/* =============================================================
+/* =============================================================
    TechNext — Booking Modal (shared across all pages)
    ============================================================= */
 (function () {
@@ -20,10 +20,12 @@
   max-height: 90vh; overflow-y: auto; position: relative;
   box-shadow: 0 32px 80px rgba(0,0,0,0.28);
   transform: translateY(28px) scale(0.97);
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), max-width 0.3s ease;
   font-family: 'DM Sans', sans-serif;
 }
 .booking-modal.open .booking-box { transform: translateY(0) scale(1); }
+.booking-modal.bk-s3 .booking-box { max-width: 700px; }
+@media (max-width: 740px) { .booking-modal.bk-s3 .booking-box { max-width: 100%; } }
 .booking-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.4rem 1.6rem 0;
@@ -74,35 +76,11 @@
 .booking-input:focus { border-color: #6d2d7a; }
 .booking-input.err { border-color: #ef4444; }
 textarea.booking-input { resize: none; height: 76px; }
-.cal-wrap { margin-bottom: 0.5rem; }
-.cal-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
-.cal-nav-btn {
-  width: 30px; height: 30px; border: 1.5px solid #e2e8f0; border-radius: 8px;
-  background: none; cursor: pointer; font-size: 1rem; transition: all 0.18s;
-  display: flex; align-items: center; justify-content: center; color: #64748b;
+.bk-odoo-frame {
+  width: 100%; height: 560px; border: none; border-radius: 14px;
+  display: block; background: #f8fafc; overflow: hidden;
 }
-.cal-nav-btn:hover { border-color: #6d2d7a; color: #6d2d7a; }
-.cal-month-lbl { font-size: 0.9rem; font-weight: 700; color: #1a1a2e; }
-.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-bottom: 1rem; }
-.cal-dlbl { font-size: 0.62rem; font-weight: 700; color: #64748b; text-align: center; padding: 3px 0; }
-.cal-day {
-  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  font-size: 0.79rem; border-radius: 7px; cursor: pointer; transition: all 0.14s;
-  color: #1a1a2e; border: 1.5px solid transparent;
-}
-.cal-day:hover:not(.cd-dis):not(.cd-emp) { background: #faf5ff; border-color: #6d2d7a; color: #6d2d7a; }
-.cal-day.cd-sel { background: #6d2d7a; color: #fff; border-color: #6d2d7a; }
-.cal-day.cd-dis, .cal-day.cd-emp { color: #cbd5e1; cursor: default; pointer-events: none; }
-.cal-day.cd-today { font-weight: 700; }
-.ts-title { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
-.time-slots { display: flex; flex-wrap: wrap; gap: 0.45rem; min-height: 36px; }
-.time-slot {
-  padding: 7px 15px; background: #f8fafc; border: 1.5px solid #e2e8f0;
-  border-radius: 100px; font-size: 0.8rem; font-weight: 600;
-  cursor: pointer; transition: all 0.14s; color: #1a1a2e;
-}
-.time-slot:hover { border-color: #6d2d7a; color: #6d2d7a; background: #faf5ff; }
-.time-slot.ts-sel { background: #6d2d7a; color: #fff; border-color: #6d2d7a; }
+@media (max-width: 520px) { .bk-odoo-frame { height: 480px; } }
 .bk-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; }
 .bk-back {
   background: none; border: 1.5px solid #e2e8f0; border-radius: 100px;
@@ -118,13 +96,6 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 .bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
-.bk-success { text-align: center; padding: 1.5rem 0 0.5rem; }
-.bk-check { width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; }
-.bk-confirm-details { background: #f8fafc; border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.2rem; text-align: left; }
-.bcd-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.83rem; }
-.bcd-row:last-child { border-bottom: none; }
-.bcd-label { color: #64748b; flex-shrink: 0; }
-.bcd-val { font-weight: 600; color: #1a1a2e; text-align: right; }
 .wa-btn {
   display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px;
   background: #22c55e; color: #fff; border-radius: 100px;
@@ -175,7 +146,7 @@ textarea.booking-input { resize: none; height: 76px; }
     </div>
     <div class="booking-step" id="bStep2">
       <div class="bk-h">Your details</div>
-      <div class="bk-sub">We'll send you a confirmed calendar invite</div>
+      <div class="bk-sub">We'll note your info — then pick your time slot</div>
       <div class="booking-fields">
         <input class="booking-input" type="text" id="bName" placeholder="Full Name *">
         <input class="booking-input" type="email" id="bEmail" placeholder="Email Address *">
@@ -185,33 +156,21 @@ textarea.booking-input { resize: none; height: 76px; }
       </div>
       <div class="bk-nav">
         <button class="bk-back" onclick="goStep(1)">← Back</button>
-        <button class="bk-btn" onclick="validateStep2()">Continue →</button>
+        <button class="bk-btn" onclick="validateStep2()">Pick a Time →</button>
       </div>
     </div>
     <div class="booking-step" id="bStep3">
       <div class="bk-h">Pick a time</div>
-      <div class="bk-sub">1 hour · Asia / Singapore (UTC+8) · Tap a slot to book instantly</div>
-      <div class="cal-wrap">
-        <div class="cal-hdr">
-          <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
-          <span class="cal-month-lbl" id="calLabel"></span>
-          <button class="cal-nav-btn" onclick="calNav(1)">›</button>
-        </div>
-        <div class="cal-grid" id="calGrid"></div>
-        <div class="ts-title" id="tsTitle" style="display:none">Available times</div>
-        <div class="time-slots" id="timeSlots"></div>
-      </div>
-      <div class="bk-nav">
+      <div class="bk-sub">Select any available slot — your booking goes straight into our calendar</div>
+      <iframe
+        id="odooBookFrame"
+        class="bk-odoo-frame"
+        src="about:blank"
+        title="Select a booking slot"
+        allow="payment"
+      ></iframe>
+      <div class="bk-nav" style="margin-top:0.8rem">
         <button class="bk-back" onclick="goStep(2)">← Back</button>
-      </div>
-    </div>
-    <div class="booking-step" id="bStep4">
-      <div class="bk-success">
-        <div class="bk-check"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="bk-h" style="margin-bottom:0.4rem">You're booked!</div>
-        <p style="font-size:0.88rem;color:#475569;margin-bottom:0">Your demo is confirmed. We'll send a calendar invite to your email shortly.</p>
-        <div class="bk-confirm-details" id="bkConfirmDetails"></div>
-        <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg> Message us on WhatsApp</a>
       </div>
     </div>
   </div>`;
@@ -388,58 +347,33 @@ textarea.booking-input { resize: none; height: 76px; }
     const m = document.getElementById('bookingModal');
     if (m) m.addEventListener('click', function(e) { if (e.target === this) closeBooking(); });
   }
-  const _TODAY = new Date();
-  const _MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const _DDAYS  = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
-  const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
-  const ODOO_URL  = 'https://erp.technext.asia';
-  const ODOO_KEY  = 'fda2a8c698a24217de6158cb644bd85a147ae62c';
-  const ODOO_HDR  = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ODOO_KEY };
-  const BK_BOOKED_MAP = {}; // 'YYYY-MM-DD_HH:MM' → true (locally marked)
-  let _bkService = '', _calY, _calM, _selDate = null, _bkBusy = false, _odooTypeId = null;
 
-  // Discover Odoo appointment type ID once (authenticated via API key)
-  async function _getOdooTypeId() {
-    if (_odooTypeId) return _odooTypeId;
-    try {
-      const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
-        method: 'POST', headers: ODOO_HDR,
-        body: JSON.stringify({
-          jsonrpc: '2.0', method: 'call', id: 1,
-          params: {
-            model: 'appointment.type', method: 'search_read',
-            args: [[]],
-            kwargs: { fields: ['id', 'name'], limit: 1, context: {} }
-          }
-        })
-      });
-      const d = await r.json();
-      if (d.result && d.result[0]) _odooTypeId = d.result[0].id;
-    } catch(e) { /* CORS may block — handled in bookSlot */ }
-    return _odooTypeId;
-  }
+  const ODOO_BOOKING_URL = 'https://technext.odoo.com/book/c82cf8a9';
+  let _bkService = '';
 
   window.openBooking = function () {
-    _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
-    _selDate = null; _selTime = null; _bkService = '';
+    _bkService = '';
     document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
     document.getElementById('s1Next').disabled = true;
-    ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(id => {
+    ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(function(id) {
       const el = document.getElementById(id); if (el) el.value = '';
     });
+    // Reset iframe to blank so it reloads fresh each time
+    const frame = document.getElementById('odooBookFrame');
+    if (frame) frame.src = 'about:blank';
+    document.getElementById('bookingModal').classList.remove('bk-s3');
     document.getElementById('bookingModal').classList.add('open');
     document.body.style.overflow = 'hidden';
     goStep(1);
   };
 
   window.closeBooking = function () {
-    document.getElementById('bookingModal').classList.remove('open');
+    document.getElementById('bookingModal').classList.remove('open', 'bk-s3');
     document.body.style.overflow = '';
   };
 
   window.goStep = function (n) {
-    [1,2,3,4].forEach(i => {
+    [1,2,3].forEach(function(i) {
       document.getElementById('bStep'+i).classList.toggle('active', i===n);
       const bp = document.getElementById('bp'+i);
       if (bp) {
@@ -453,12 +387,23 @@ textarea.booking-input { resize: none; height: 76px; }
         if (bl) bl.classList.toggle('done', i < n);
       }
     });
-    if (n === 3) renderCalendar();
+
+    const modal = document.getElementById('bookingModal');
+    if (n === 3) {
+      // Widen modal + load the Odoo booking iframe
+      modal.classList.add('bk-s3');
+      const frame = document.getElementById('odooBookFrame');
+      if (frame && frame.src === 'about:blank') {
+        frame.src = ODOO_BOOKING_URL;
+      }
+    } else {
+      modal.classList.remove('bk-s3');
+    }
   };
 
   window.selectService = function (el, svc) {
     _bkService = svc;
-    document.querySelectorAll('.service-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.service-opt').forEach(function(o) { o.classList.remove('selected'); });
     el.classList.add('selected');
     document.getElementById('s1Next').disabled = false;
   };
@@ -471,176 +416,12 @@ textarea.booking-input { resize: none; height: 76px; }
     if (name && email) goStep(3);
   };
 
-  window.calNav = function (dir) {
-    if (_bkBusy) return;
-    _calM += dir;
-    if (_calM > 11) { _calM = 0; _calY++; }
-    if (_calM < 0)  { _calM = 11; _calY--; }
-    _selDate = null;
-    document.getElementById('timeSlots').innerHTML = '';
-    document.getElementById('tsTitle').style.display = 'none';
-    const priorErr = document.getElementById('bkInlineErr');
-    if (priorErr) priorErr.remove();
-    renderCalendar();
-  };
-
-  function renderCalendar() {
-    // Kick off Odoo type ID discovery in the background (no blocking)
-    _getOdooTypeId();
-    document.getElementById('calLabel').textContent = _MONTHS[_calM] + ' ' + _calY;
-    const grid = document.getElementById('calGrid');
-    grid.innerHTML = '';
-    _DDAYS.forEach(d => {
-      const lbl = document.createElement('div');
-      lbl.className = 'cal-dlbl'; lbl.textContent = d; grid.appendChild(lbl);
-    });
-    const firstDay = new Date(_calY, _calM, 1).getDay();
-    const total    = new Date(_calY, _calM+1, 0).getDate();
-    for (let i = 0; i < firstDay; i++) {
-      const e = document.createElement('div'); e.className = 'cal-day cd-emp'; grid.appendChild(e);
-    }
-    const todayMidnight = new Date(_TODAY.getFullYear(), _TODAY.getMonth(), _TODAY.getDate());
-    for (let d = 1; d <= total; d++) {
-      const cell = document.createElement('div'); cell.className = 'cal-day';
-      cell.textContent = d;
-      const dt = new Date(_calY, _calM, d);
-      const dow = dt.getDay();
-      if (dow === 0 || dow === 6 || dt < todayMidnight) {
-        cell.classList.add('cd-dis');
-      } else {
-        const ds = _calY+'-'+String(_calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-        if (_selDate === ds) cell.classList.add('cd-sel');
-        cell.addEventListener('click', () => { if (!_bkBusy) selectDate(cell, ds); });
-      }
-      if (d === _TODAY.getDate() && _calM === _TODAY.getMonth() && _calY === _TODAY.getFullYear())
-        cell.classList.add('cd-today');
-      grid.appendChild(cell);
-    }
-  }
-
-  function selectDate(el, ds) {
-    _selDate = ds;
-    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cd-sel'));
-    el.classList.add('cd-sel');
-    const priorErr = document.getElementById('bkInlineErr');
-    if (priorErr) priorErr.remove();
-    // Show time slots instantly — no loading state
-    const wrap = document.getElementById('timeSlots');
-    document.getElementById('tsTitle').style.display = 'block';
-    wrap.innerHTML = '';
-    _TIMES_12.forEach((t, i) => {
-      const t24  = _TIMES_24[i];
-      const busy = !!BK_BOOKED_MAP[ds + '_' + t24];
-      const btn  = document.createElement('button');
-      btn.className = 'time-slot' + (busy ? ' ts-booked' : '');
-      btn.textContent = t + (busy ? ' ✗' : '');
-      btn.disabled = busy;
-      if (busy) { btn.style.opacity = '0.38'; btn.style.cursor = 'not-allowed'; }
-      else {
-        btn.addEventListener('click', () => { if (!_bkBusy) bookSlot(ds, t, t24, btn); });
-      }
-      wrap.appendChild(btn);
-    });
-  }
-
-  // Called immediately when user taps a time slot — no separate confirm button
-  async function bookSlot(ds, time12, time24, slotBtn) {
-    if (_bkBusy) return;
-    _bkBusy = true;
-    // Lock all slots and show spinner on the tapped one
-    document.querySelectorAll('.time-slot').forEach(s => { s.disabled = true; s.style.opacity = '0.4'; });
-    slotBtn.textContent = '⏳ Booking…';
-    slotBtn.style.cssText = 'opacity:1;background:#6d2d7a;color:#fff;border-color:#6d2d7a;';
-
-    const name      = document.getElementById('bName').value.trim();
-    const email     = document.getElementById('bEmail').value.trim();
-    const phone     = document.getElementById('bPhone').value.trim();
-    const company   = document.getElementById('bCompany').value.trim();
-    const challenge = document.getElementById('bChallenge').value.trim();
-    const [y,m,d]   = ds.split('-');
-    const formatted = new Date(+y,+m-1,+d).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-    const waMsg = encodeURIComponent('Hi TechNext! I\'d like to book a demo.\nService: '+_bkService+'\nName: '+name+'\nEmail: '+email+(phone?'\nPhone: '+phone:'')+(company?'\nCompany: '+company:'')+'\nPreferred: '+formatted+' at '+time12+' SGT');
-
-    let booked = false;
-
-    // ── Attempt 1: Odoo JSON-RPC directly ──────────────────────
-    if (!booked) {
-      try {
-        const typeId = await _getOdooTypeId();
-        if (typeId) {
-          const [h, mi] = time24.split(':');
-          const sgtMs  = new Date(+y, +m-1, +d, +h, +mi).getTime();
-          const toUTC  = ms => new Date(ms - 8*3600*1000).toISOString().slice(0,19).replace('T',' ');
-          const r = await fetch(ODOO_URL + '/web/dataset/call_kw', {
-            method: 'POST', headers: ODOO_HDR,
-            body: JSON.stringify({
-              jsonrpc: '2.0', method: 'call', id: Date.now(),
-              params: {
-                model: 'calendar.event', method: 'create',
-                args: [{
-                  name: 'TechNext Demo — ' + name,
-                  start: toUTC(sgtMs), stop: toUTC(sgtMs + 3600*1000),
-                  appointment_type_id: typeId,
-                  description: 'Service: '+_bkService+'\nPhone: '+(phone||'—')+'\nCompany: '+(company||'—')+'\nMessage: '+(challenge||'—'),
-                  partner_email: email
-                }],
-                kwargs: {}
-              }
-            })
-          });
-          const data = await r.json();
-          if (!data.error && data.result) booked = true;
-        }
-      } catch(e) { /* CORS / auth blocked — try next */ }
-    }
-
-    // ── Attempt 2: Legacy proxy ─────────────────────────────────
-    if (!booked) {
-      try {
-        const r = await fetch('https://landing.technextasia.com/api/book-appointment', {
-          method: 'POST', headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ name, email, phone, company, service: _bkService, slotISO: ds, slotTime24: time24, message: challenge })
-        });
-        const data = await r.json();
-        if (r.ok && !data.error) booked = true;
-      } catch(e) { /* proxy down */ }
-    }
-
-    if (booked) {
-      BK_BOOKED_MAP[ds + '_' + time24] = true;
-      document.getElementById('bkConfirmDetails').innerHTML =
-        '<div class="bcd-row"><span class="bcd-label">Service</span><span class="bcd-val">'+_bkService+'</span></div>'+
-        '<div class="bcd-row"><span class="bcd-label">Name</span><span class="bcd-val">'+name+'</span></div>'+
-        '<div class="bcd-row"><span class="bcd-label">Email</span><span class="bcd-val">'+email+'</span></div>'+
-        '<div class="bcd-row"><span class="bcd-label">Date</span><span class="bcd-val">'+formatted+'</span></div>'+
-        '<div class="bcd-row"><span class="bcd-label">Time</span><span class="bcd-val">'+time12+' · SGT</span></div>'+
-        '<div class="bcd-row"><span class="bcd-label">Duration</span><span class="bcd-val">1 hour</span></div>';
-      _bkBusy = false;
-      goStep(4);
-      return;
-    }
-
-    // ── All attempts failed → restore UI + show inline fallback ─
-    _bkBusy = false;
-    document.querySelectorAll('.time-slot').forEach(s => { s.disabled = false; s.style.opacity = ''; s.style.cssText = ''; });
-    slotBtn.textContent = time12;
-    const errDiv = document.createElement('div');
-    errDiv.id = 'bkInlineErr';
-    errDiv.style.cssText = 'margin-top:1rem;padding:0.9rem 1rem;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;font-size:0.82rem;color:#7f1d1d;line-height:1.6;';
-    errDiv.innerHTML = '<strong>Couldn\'t book online.</strong> Use one of these instead:'
-      + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:0.65rem;">'
-      + '<a href="https://erp.technext.asia/odoo/appointments" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#6d2d7a;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">📅 Book via Odoo</a>'
-      + '<a href="https://wa.me/6588396998?text='+waMsg+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#22c55e;color:#fff;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">💬 WhatsApp</a>'
-      + '<a href="mailto:hello@technext.asia?subject=Demo%20Booking%20Request&body='+encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nService: '+_bkService+'\nPreferred: '+formatted+' at '+time12+' SGT')+'" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#e2e8f0;color:#1a1a2e;border-radius:100px;font-weight:700;font-size:0.8rem;text-decoration:none;">✉️ Email</a>'
-      + '</div>';
-    document.getElementById('timeSlots').after(errDiv);
-  }
 })();
 
 /* =============================================================
    TechNext — Exit-Intent Notification
    Shows once per session when cursor leaves viewport (top edge)
-   or on mobile after 40 s of scroll activity.
+   or on mobile after significant scroll activity.
    ============================================================= */
 (function () {
   const EI_KEY = 'tn_exit_shown';
