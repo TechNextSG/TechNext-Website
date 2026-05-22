@@ -1,11 +1,15 @@
 /**
  * Vercel Serverless Function — /api/book
  * Receives booking form data, creates a calendar.event in Odoo.
+ * Authenticates via /web/session/authenticate (API key used as password),
+ * then calls /web/dataset/call_kw with the session cookie.
  * Tries technext.odoo.com first, then erp.technext.asia as fallback.
  * Always returns HTTP 200 so the modal can always show a result.
  */
 
-const ODOO_API_KEY          = process.env.ODOO_API_KEY || '';
+const ODOO_API_KEY           = process.env.ODOO_API_KEY || '';
+const ODOO_USER              = process.env.ODOO_USER    || 'hello@technext.asia';
+const ODOO_DB                = process.env.ODOO_DB      || 'technext';
 const APPOINTMENT_SHORT_CODE = 'c82cf8a9';
 const ODOO_HOSTS = [
   'https://technext.odoo.com',
@@ -14,12 +18,38 @@ const ODOO_HOSTS = [
 
 /* ── helpers ───────────────────────────────────────────────── */
 
-async function rpc(host, model, method, args, kwargs = {}) {
+/**
+ * Authenticate with Odoo and return a session cookie string.
+ * The API key is used as the password (Odoo 14+ API key auth).
+ */
+async function getSessionCookie(host) {
+  const res = await fetch(`${host}/web/session/authenticate`, {
+    method : 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body   : JSON.stringify({
+      jsonrpc: '2.0', method: 'call', id: Date.now(),
+      params : { db: ODOO_DB, login: ODOO_USER, password: ODOO_API_KEY },
+    }),
+    signal: AbortSignal.timeout(10000),
+  });
+  const data = await res.json();
+  if (data.error) throw new Error('Auth error: ' + JSON.stringify(data.error));
+  if (!data.result || !data.result.uid) {
+    throw new Error('Auth failed — uid missing. Check ODOO_USER / ODOO_DB / ODOO_API_KEY.');
+  }
+  const raw = res.headers.get('set-cookie') || '';
+  if (!raw) throw new Error('Auth OK but no session cookie in response');
+  // Collect all name=value pairs, strip Path/Expires/etc. attributes
+  const cookies = raw.split(/,(?=[^ ])/).map(c => c.split(';')[0].trim()).join('; ');
+  return cookies;
+}
+
+async function rpc(host, cookie, model, method, args, kwargs = {}) {
   const res = await fetch(`${host}/web/dataset/call_kw`, {
     method : 'POST',
     headers: {
-      'Content-Type' : 'application/json',
-      'Authorization': `Bearer ${ODOO_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Cookie'      : cookie,
     },
     body  : JSON.stringify({
       jsonrpc: '2.0', method: 'call', id: Date.now(),
@@ -61,8 +91,8 @@ module.exports = async function handler(req, res) {
     phone   = '',
     company = '',
     service = '',
-    date    = '',   // YYYY-MM-DD  (SGT)
-    time12  = '',   // display label e.g. "9:00 AM"
+    date    = '',      // YYYY-MM-DD  (SGT)
+    time12  = '',      // display label e.g. "9:00 AM"
     time24  = '09:00', // HH:MM (SGT)
     message = '',
   } = req.body || {};
@@ -82,16 +112,20 @@ module.exports = async function handler(req, res) {
     `Message : ${message  || '—'}`,
   ].join('\n');
 
-  let booked  = false;
-  let eventId = null;
+  let booked   = false;
+  let eventId  = null;
   let usedHost = null;
 
   for (const host of ODOO_HOSTS) {
     try {
       console.log(`[book] trying ${host}`);
 
+      /* 0. Authenticate — get session cookie */
+      const cookie = await getSessionCookie(host);
+      console.log(`[book] ${host}: session ok`);
+
       /* 1. Discover appointment type ID */
-      const types = await rpc(host, 'appointment.type', 'search_read', [[]], {
+      const types = await rpc(host, cookie, 'appointment.type', 'search_read', [[]], {
         fields: ['id', 'name', 'short_code'],
         limit : 20,
       });
@@ -109,7 +143,7 @@ module.exports = async function handler(req, res) {
       console.log(`[book] ${host}: appointment type id=${typeId}`);
 
       /* 2. Create calendar event */
-      eventId = await rpc(host, 'calendar.event', 'create', [{
+      eventId = await rpc(host, cookie, 'calendar.event', 'create', [{
         name                : `TechNext Demo — ${name}`,
         start,
         stop,
@@ -130,4 +164,4 @@ module.exports = async function handler(req, res) {
   }
 
   return res.status(200).json({ ok: true, booked, id: eventId, host: usedHost });
-}
+};
