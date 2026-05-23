@@ -38,7 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script><link rel="preload" as="image" href="/images/Logo/technext%20logo.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.22) transparent; }
@@ -69,6 +69,7 @@ a { color: inherit; text-decoration: none; }
   --handwriting: 'Caveat', cursive;
   --sans: 'DM Sans', sans-serif;
 }
+html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Caveat', cursive; }
 
 /* ===== NAV ===== */
 nav#mainNav {
@@ -550,6 +551,7 @@ const LANG = {
 };
 function setLang(lang) {
   localStorage.setItem('tn_lang', lang);
+  document.documentElement.classList.toggle('lang-vn', lang === 'vn');
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
   const t = LANG[lang];
   document.querySelectorAll('[data-k]').forEach(el => { if (t[el.dataset.k] !== undefined) el.textContent = t[el.dataset.k]; });
