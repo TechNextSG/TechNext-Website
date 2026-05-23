@@ -45,6 +45,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 64px; /* offset for fixed nav */
 }
 
 a {
@@ -65,8 +66,10 @@ ul, ol {
    Navigation
    ============================================================ */
 #mainNav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   height: 64px;
   display: flex;
@@ -77,7 +80,9 @@ ul, ol {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border-bottom: none;
+  transition: transform 0.35s ease;
 }
+#mainNav.nav-hidden { transform: translateY(-100%); }
 
 .nav-logo {
   display: flex;
@@ -182,7 +187,7 @@ ul, ol {
     from { opacity: 0; transform: scale(0.82) translateY(-8px); }
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
-  .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 72px; right: 16px; left: auto; min-width: 180px; background: #fff; border-radius: 18px; padding: 6px; gap: 2px; box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.06); z-index: 200; transform-origin: top right; animation: navMenuIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; right: 16px; left: auto; min-width: 180px; background: #fff; border-radius: 18px; padding: 6px; gap: 2px; box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.06); z-index: 200; transform-origin: top right; animation: navMenuIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both; }
   .nav-links.open li { border-bottom: none; }
   .nav-links.open a { display: block; padding: 0.75rem 1.1rem; font-size: 0.92rem; border-radius: 12px; color: var(--text); font-weight: 500; transition: background 0.15s; }
   .nav-links.open a:hover { background: rgba(0,0,0,0.05); }

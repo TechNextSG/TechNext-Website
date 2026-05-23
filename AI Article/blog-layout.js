@@ -401,3 +401,24 @@ document.addEventListener('DOMContentLoaded', function () {
     else applyBlogLang('en');
   }
 });
+
+/* ── Nav hide-on-scroll-down / show-on-scroll-up ── */
+(function(){
+  var nav = document.getElementById('mainNav');
+  if (!nav) return;
+  var lastY = 0, ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || window.pageYOffset;
+      if (y > lastY && y > 80) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+      lastY = y < 0 ? 0 : y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
