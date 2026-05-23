@@ -639,10 +639,13 @@
     .bk-day-dot-low{background:#f59e0b;}
     .bk-day-dot-full{background:#ef4444;}
     .bk-cal-day.bk-full-day{opacity:.55;}
+    .bk-loading-slots{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;padding:14px 4px;grid-column:1/-1}
+    .bk-loading-slots::before{content:'';display:inline-block;width:14px;height:14px;border:2px solid #e5e7eb;border-top-color:var(--purple);border-radius:50%;animation:bk-spin .7s linear infinite;flex-shrink:0}
+    @keyframes bk-spin{to{transform:rotate(360deg)}}
     .bk-mid-foot-wrap{display:flex;flex-direction:column;}
     @media(max-width:860px){
       .bk-overlay{align-items:flex-end;padding:0;}
-      .bk-modal{display:flex;flex-direction:column;width:100%;max-width:100%;max-height:90vh;overflow-y:auto;border-radius:20px 20px 0 0;margin:0;}
+      .bk-modal{display:flex;flex-direction:column;width:100%;max-width:100%;max-height:90vh;overflow-y:auto;overflow-x:hidden;border-radius:20px 20px 0 0;margin:0;}
       .bk-left{width:100%;padding:14px 16px;flex-direction:row;align-items:center;justify-content:center;gap:12px;flex-shrink:0;}
       .bk-left-desc,.bk-left-meta,.bk-left-tag,.bk-left-logo{display:none;}
       .bk-left-title{font-size:22px;margin:0;text-align:center;width:100%;}
@@ -1561,7 +1564,7 @@
 
 
   <!-- Booking Modal -->
-  <div class="bk-overlay" id="bkOverlay" onclick="bkOverlayClick(event)">
+  <div class="bk-overlay" id="bkOverlay">
     <div class="bk-modal">
 
       <!-- LEFT: Brand panel -->
@@ -1676,34 +1679,44 @@
     const BK_MONTHS      = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const BK_MONTHS_S    = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const BK_DAYS_S      = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    // Matches Odoo availability: 09:00–12:00 and 14:00–17:00 (1-hr duration, 30-min step)
+    // Matches Odoo availability: 09:00–12:00 and 14:00–17:00 (1-hr slots)
     const BK_TIMES_12    = ['9:00 am','10:00 am','11:00 am','2:00 pm','3:00 pm','4:00 pm'];
     const BK_TIMES_24    = ['09:00','10:00','11:00','14:00','15:00','16:00'];
     let bkViewYear, bkViewMonth, bkSelDate = null, bkSelTime = null, bkFmt = 12;
 
-    /* ── Booked slots from Odoo ── */
-    const BK_BOOKED_MAP  = {};  // 'YYYY-MM-DD_HH:MM' → true
-    const BK_SLOTS_DONE  = {};  // 'YYYY-M' → true (fetched)
-    const BK_SLOTS_BUSY  = {};  // 'YYYY-M' → true (in-flight)
-    const BK_API = 'https://tech-next-landing-page.vercel.app';
+    /* ── Real-time availability from /api/availability ── */
+    const BK_BOOKED_MAP = {};  // 'YYYY-MM-DD_HH:MM' → true
+    const BK_SLOTS_DONE = {};  // 'YYYY-MM-DD' → true
+    const BK_SLOTS_BUSY = {};  // 'YYYY-MM-DD' → true
 
-    async function bkLoadSlots(year, month) {
-      const key = year + '-' + month;
-      if (BK_SLOTS_DONE[key] || BK_SLOTS_BUSY[key]) return;
-      BK_SLOTS_BUSY[key] = true;
+    function bkDateStr(dateObj) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const d = String(dateObj.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    async function bkLoadSlotsForDate(dateObj) {
+      const ds = bkDateStr(dateObj);
+      if (BK_SLOTS_DONE[ds] || BK_SLOTS_BUSY[ds]) return;
+      BK_SLOTS_BUSY[ds] = true;
       try {
-        const r = await fetch(`${BK_API}/api/odoo-slots?year=${year}&month=${month + 1}`);
+        const r = await fetch(`/api/availability?date=${ds}`);
         if (!r.ok) throw new Error('HTTP ' + r.status);
         const d = await r.json();
-        (d.booked || []).forEach(s => { BK_BOOKED_MAP[s] = true; });
-        BK_SLOTS_DONE[key] = true;
-        bkRenderCal();
-        if (bkSelDate) bkRenderSlots();
-      } catch (e) {
-        console.warn('bkLoadSlots:', e.message);
+        (d.bookedSlots || []).forEach(t => { BK_BOOKED_MAP[`${ds}_${t}`] = true; });
+        BK_SLOTS_DONE[ds] = true;
+      } catch(e) {
+        console.warn('bkLoadSlotsForDate:', e.message);
       } finally {
-        BK_SLOTS_BUSY[key] = false;
+        BK_SLOTS_BUSY[ds] = false;
       }
+    }
+
+    /* Convert HH:MM → "H:MM am/pm" */
+    function bk24to12(t) {
+      const [h, m] = t.split(':').map(Number);
+      return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${h < 12 ? 'am' : 'pm'}`;
     }
 
     function openBkModal() {
@@ -1729,7 +1742,6 @@
       document.getElementById('bkEmailInput').value   = formEmail;
       document.getElementById('bkCompanyInput').value = formCompany;
       bkCheckConfirm();   // enable Confirm button immediately if all fields pre-filled
-      bkLoadSlots(bkViewYear, bkViewMonth);
       bkRenderSlots();
       bkRenderCal();
     }
@@ -1763,7 +1775,6 @@
       bkViewMonth += dir;
       if (bkViewMonth > 11) { bkViewMonth = 0; bkViewYear++; }
       if (bkViewMonth < 0)  { bkViewMonth = 11; bkViewYear--; }
-      bkLoadSlots(bkViewYear, bkViewMonth);
       bkRenderCal();
     }
 
@@ -1779,7 +1790,7 @@
 
       const grid = document.getElementById('bkGrid');
       grid.innerHTML = '';
-      ['MON','TUE','WED','THU','FRI','SAT','SUN'].forEach(d => {
+      ['M','T','W','T','F','S','S'].forEach(d => {
         const h = document.createElement('div');
         h.className = 'bk-cal-dow'; h.textContent = d; grid.appendChild(h);
       });
@@ -1849,11 +1860,13 @@
       return null;
     }
 
-    function bkPickDate(date) {
+    async function bkPickDate(date) {
       bkSelDate = date; bkSelTime = null;
       bkRenderCal();
       document.getElementById('bkRight').classList.add('visible');
       document.getElementById('bkRightDate').textContent = BK_DAYS_S[date.getDay()] + ' ' + String(date.getDate()).padStart(2,'0');
+      document.getElementById('bkSlots').innerHTML = '<div class="bk-loading-slots">Checking availability…</div>';
+      await bkLoadSlotsForDate(date);
       bkRenderSlots();
       bkUpdateFooter();
     }
@@ -1992,14 +2005,13 @@
                          String(bkSelDate.getMonth()+1).padStart(2,'0') + '-' +
                          String(bkSelDate.getDate()).padStart(2,'0');
 
-      fetch('/api/book-appointment', {
+      fetch('/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, service, slotISO, slotTime24 })
+        body: JSON.stringify({ name, email, phone, company, service, date: slotISO, time24: slotTime24, time12: bk24to12(slotTime24), message: '' })
       })
       .then(r => r.json())
       .then(data => {
-        if (data.error) throw new Error(data.error);
         // Show success screen
         document.getElementById('bkSuccessSlot').textContent = slot;
         document.querySelector('.bk-mid').style.display = 'none';
