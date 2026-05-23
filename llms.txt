@@ -1,0 +1,57 @@
+# TechNext Asia
+
+> AI-native technology company building enterprise AI and Odoo ERP solutions for global clients across Southeast Asia. Headquartered in Singapore with development hubs in Vietnam and the Philippines.
+
+## About
+
+TechNext Asia is an AI-native software company specializing in:
+- Enterprise AI systems (agents, RAG pipelines, local LLMs, workflow automation)
+- Odoo ERP implementation and customization for mid-market and enterprise clients
+- Digital transformation consulting across Vietnam, Philippines, Singapore, and Germany
+
+Founded to bring production-grade AI to businesses in Southeast Asia and globally. Clients span 10+ countries across manufacturing, logistics, professional services, and retail.
+
+## Services
+
+- **Enterprise AI**: Agentic AI, LLM fine-tuning, RAG systems, AI workflow automation
+- **Odoo ERP**: Full-cycle implementation, customization, migration, support
+- **AI + ERP Integration**: Connecting AI capabilities directly into Odoo business processes
+- **Local LLM Deployment**: On-premise AI for data-sensitive enterprise environments
+
+## Key Pages
+
+- Homepage: https://technextasia.com/
+- Blog (AI & ERP insights): https://technextasia.com/blog/
+- Careers: https://technextasia.com/careers/
+- Contact: https://technextasia.com/contact/
+- Gallery: https://technextasia.com/gallery/
+
+## Blog Articles
+
+- https://technextasia.com/AI%20Article/gpt5-openai-agentic-ai-2025.html
+- https://technextasia.com/AI%20Article/big-tech-ai-infrastructure-2026.html
+- https://technextasia.com/AI%20Article/ai-agents-enterprise-automation.html
+- https://technextasia.com/AI%20Article/rag-systems-enterprise-guide.html
+- https://technextasia.com/AI%20Article/local-llm-on-premise-enterprise.html
+- https://technextasia.com/AI%20Article/context-engineering-new-discipline.html
+- https://technextasia.com/AI%20Article/odoo-18-features-upgrade-guide.html
+- https://technextasia.com/AI%20Article/odoo-ai-integration-guide.html
+- https://technextasia.com/AI%20Article/odoo-vs-sap-enterprise-comparison.html
+- https://technextasia.com/AI%20Article/odoo-erp-sme-southeast-asia.html
+- https://technextasia.com/AI%20Article/vietnam-digital-economy-ai-2026.html
+- https://technextasia.com/AI%20Article/vietnam-tech-talent-dev-hub.html
+- https://technextasia.com/AI%20Article/vietnam-software-exports-2026.html
+- https://technextasia.com/AI%20Article/singapore-national-ai-strategy-2026.html
+- https://technextasia.com/AI%20Article/singapore-smart-nation-enterprise-ai.html
+- https://technextasia.com/AI%20Article/philippines-digital-transformation-2026.html
+- https://technextasia.com/AI%20Article/philippines-bpo-ai-revolution.html
+- https://technextasia.com/AI%20Article/ai-agent-governance-2025.html
+- https://technextasia.com/AI%20Article/github-copilot-per-token-pricing.html
+- https://technextasia.com/AI%20Article/lg-nvidia-physical-ai-era.html
+
+## Contact
+
+- Website: https://technextasia.com
+- Email: hello@technextasia.com
+- LinkedIn: https://www.linkedin.com/company/technext-asia
+- Location: Singapore (HQ) · Vietnam · Philippines
