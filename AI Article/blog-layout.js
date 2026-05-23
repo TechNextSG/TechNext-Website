@@ -182,37 +182,84 @@ const BLOG_LANG = {
   },
 };
 
+/* ── TOC scroll-handler ref so we can remove it on language switch ── */
+let _tocScrollHandler = null;
+
 function applyBlogLang(lang) {
   localStorage.setItem('tn_lang', lang);
   const t = BLOG_LANG[lang] || BLOG_LANG.en;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
+
+  /* Drive CSS-based body-content switching (.lang-content[lang=...]) */
+  document.documentElement.setAttribute('data-lang', lang);
+  /* Be Vietnam Pro font for VN diacritics */
+  document.documentElement.classList.toggle('lang-vn', lang === 'vn');
+
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang)
+  );
   document.querySelectorAll('[data-k]').forEach(el => {
     const k = el.getAttribute('data-k');
-    if (t[k] !== undefined) el.innerHTML = t[k];
+    /* Fall back to English for any key not yet in this language */
+    const v = (t[k] !== undefined) ? t[k] : BLOG_LANG.en[k];
+    if (v !== undefined) el.innerHTML = v;
   });
 
-  // Show/hide "Article in English only" notice for non-EN languages (articles are always in English)
-  const articleBody = document.querySelector('.article-body');
-  if (articleBody) {
-    let notice = document.getElementById('article-lang-notice');
-    if (lang !== 'en') {
-      const msgs = {
-        vn: '🌐 Bài viết này chỉ có bằng tiếng Anh.',
-        ph: '🌐 Ang artikulong ito ay available sa Ingles lamang.',
-        de: '🌐 Dieser Artikel ist nur auf Englisch verfügbar.',
-      };
-      if (!notice) {
-        notice = document.createElement('div');
-        notice.id = 'article-lang-notice';
-        notice.style.cssText = 'display:flex;align-items:center;gap:10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;font-size:0.875rem;color:#1e40af;margin-bottom:1.5rem;';
-        articleBody.insertAdjacentElement('beforebegin', notice);
-      }
-      notice.textContent = msgs[lang] || '🌐 This article is available in English only.';
-      notice.style.display = 'flex';
-    } else if (notice) {
-      notice.style.display = 'none';
+  /* Remove old "English only" notice if article now has real translations */
+  const oldNotice = document.getElementById('article-lang-notice');
+  const hasLangContent = !!document.querySelector('.lang-content');
+  if (hasLangContent) {
+    if (oldNotice) oldNotice.remove();
+  } else if (lang !== 'en') {
+    /* Legacy article (not yet wrapped in lang-content): show notice */
+    const msgs = {
+      vn: '🌐 Bài viết này chỉ có bằng tiếng Anh.',
+      ph: '🌐 Ang artikulong ito ay available sa Ingles lamang.',
+      de: '🌐 Dieser Artikel ist nur auf Englisch verfügbar.',
+    };
+    let notice = oldNotice;
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.id = 'article-lang-notice';
+      notice.style.cssText = 'display:flex;align-items:center;gap:10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;font-size:0.875rem;color:#1e40af;margin-bottom:1.5rem;';
+      const ab = document.querySelector('.article-body');
+      if (ab) ab.insertAdjacentElement('beforebegin', notice);
     }
+    notice.textContent = msgs[lang] || '🌐 This article is available in English only.';
+    notice.style.display = 'flex';
+  } else if (oldNotice) {
+    oldNotice.style.display = 'none';
   }
+
+  /* Rebuild TOC headings/links to match the active language */
+  rebuildTOC(lang);
+}
+
+/* Rebuild the sidebar TOC based on h2s inside the active lang-content block */
+function rebuildTOC(lang) {
+  const articleWrap = document.querySelector('.article-wrap');
+  if (!articleWrap) return;
+  /* Prefer active lang-content; fall back to full article-body for legacy articles */
+  const activeContent =
+    articleWrap.querySelector(`.lang-content[lang="${lang}"]`) ||
+    articleWrap.querySelector('.lang-content[lang="en"]') ||
+    articleWrap.querySelector('.article-body');
+  if (!activeContent) return;
+  const headings = Array.from(activeContent.querySelectorAll('h2'));
+  headings.forEach((h, i) => { h.id = `s-${lang}-${i}`; });
+  const tocNav = document.querySelector('.toc-nav');
+  if (!tocNav || headings.length === 0) return;
+  tocNav.innerHTML = headings.map(h =>
+    `<a href="#${h.id}" class="toc-link">${h.textContent.trim()}</a>`
+  ).join('');
+  const tocLinks = tocNav.querySelectorAll('.toc-link');
+  if (_tocScrollHandler) window.removeEventListener('scroll', _tocScrollHandler, true);
+  _tocScrollHandler = function () {
+    let idx = 0;
+    headings.forEach((h, i) => { if (h.getBoundingClientRect().top < 120) idx = i; });
+    tocLinks.forEach((l, i) => l.classList.toggle('active', i === idx));
+  };
+  window.addEventListener('scroll', _tocScrollHandler, { passive: true });
+  _tocScrollHandler();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -241,8 +288,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const oldShareBar = articleWrap.querySelector('.share-bar');
   if (oldShareBar) oldShareBar.remove();
 
-  // ── Build TOC from h2 headings ─────────────────────────────────
-  const headings = Array.from(articleWrap.querySelectorAll('.article-body h2'));
+  // ── Initial h2 collection from English block (or full body for legacy articles) ──
+  const enBlock = articleWrap.querySelector('.lang-content[lang="en"]') || articleWrap;
+  const headings = Array.from(enBlock.querySelectorAll('h2'));
   headings.forEach((h, i) => { if (!h.id) h.id = 'section-' + i; });
 
   // ── Page layout: article | sidebar ────────────────────────────
@@ -307,15 +355,19 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="rec-section-inner">
       <h3 class="rec-section-heading" data-k="more_articles">More Articles</h3>
       <div class="rec-grid">
-        ${recommended.map(a => `
+        ${recommended.map(a => {
+          const titleKey = FILE_KEY_MAP[a.url] || '';
+          const catKey   = CAT_KEY_MAP[a.cat]  || '';
+          return `
           <a href="${a.url}" class="rec-article-card">
             <img src="${a.img}" alt="${a.title}" class="rec-article-img" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${a.url.replace('.html','')}/400/225'">
             <div class="rec-article-body">
-              <span class="rec-article-cat">${a.cat}</span>
-              <p class="rec-article-title">${a.title}</p>
+              <span class="rec-article-cat"${catKey   ? ` data-k="${catKey}"`   : ''}>${a.cat}</span>
+              <p class="rec-article-title"${titleKey ? ` data-k="${titleKey}"` : ''}>${a.title}</p>
               <span class="rec-article-date">${a.date}</span>
             </div>
-          </a>`).join('')}
+          </a>`;
+        }).join('')}
       </div>
     </div>`;
 
@@ -342,17 +394,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ── TOC active section tracking ────────────────────────────────
-  if (headings.length > 0) {
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const onScroll = () => {
-      let idx = 0;
-      headings.forEach((h, i) => { if (h.getBoundingClientRect().top < 120) idx = i; });
-      tocLinks.forEach((l, i) => l.classList.toggle('active', i === idx));
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
+  /* TOC scroll tracking is handled by rebuildTOC(), called inside applyBlogLang() */
 
   // ── Load shared booking modal ──────────────────────────────────
   if (!document.getElementById('bookingModal')) {
