@@ -29,9 +29,8 @@
   <!-- Preload the two Caveat weights actually used (600 = badges/labels, 700 = headings) -->
   <link rel="preload" href="fonts/Caveat-SemiBold.ttf" as="font" type="font/truetype" crossorigin/>
   <link rel="preload" href="fonts/Caveat-Bold.ttf" as="font" type="font/truetype" crossorigin/>
-  <!-- Non-blocking Google Fonts — won't delay first paint -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"/></noscript>
+  <!-- Google Fonts: synchronous so body text never flashes on first paint -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"/>
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
   {
@@ -60,8 +59,8 @@
   </script>
   <style>
     /* Only the two weights actually used — Regular(400) and Medium(500) removed */
-    @font-face{font-family:'Caveat';src:url('fonts/Caveat-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap;}
-    @font-face{font-family:'Caveat';src:url('fonts/Caveat-Bold.ttf') format('truetype');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Caveat';src:url('fonts/Caveat-SemiBold.ttf') format('truetype');font-weight:600;font-display:block;}
+    @font-face{font-family:'Caveat';src:url('fonts/Caveat-Bold.ttf') format('truetype');font-weight:700;font-display:block;}
 
     /* ── TOKENS ───────────────────────────────────────────── */
     :root{
