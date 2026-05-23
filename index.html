@@ -68,20 +68,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
-/* ── Minimal transparent scrollbar (page + modal) ── */
-html, .booking-box {
+/* ── Scrollbar — visible on light background ── */
+html {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.18) transparent;
+  scrollbar-color: rgba(0,0,0,0.22) transparent;
 }
-html::-webkit-scrollbar,
-.booking-box::-webkit-scrollbar { width: 4px; }
-html::-webkit-scrollbar-track,
-.booking-box::-webkit-scrollbar-track { background: transparent; }
-html::-webkit-scrollbar-thumb,
-.booking-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 4px; }
-html::-webkit-scrollbar-thumb:hover,
-.booking-box::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.22); border-radius: 3px; }
+html::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
 html::-webkit-scrollbar-corner { background: transparent; }
+.booking-box {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.18) transparent;
+}
+.booking-box::-webkit-scrollbar { width: 4px; }
+.booking-box::-webkit-scrollbar-track { background: transparent; }
+.booking-box::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 4px; }
+.booking-box::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
 body {
   background: #f0ece3;
   color: #1a1a2e;

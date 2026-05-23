@@ -36,7 +36,14 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.22) transparent;
 }
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.22); border-radius: 3px; }
+html::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
+html::-webkit-scrollbar-corner { background: transparent; }
 
 body {
   font-family: var(--sans);
