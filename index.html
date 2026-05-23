@@ -338,7 +338,9 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
+  will-change: opacity;
 }
+.hero-img-col { will-change: transform, opacity; }
 .hero-img-col img.active { opacity: 1; }
 .hero-img-protect {
   position: absolute;
@@ -1667,7 +1669,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="hero-img-col">
-    <img src="/images/hero%20image/2.png" alt="TechNext AI team" class="active" loading="eager" fetchpriority="high">
+    <img src="/images/hero%20image/2.png" alt="TechNext AI team" id="heroImg0" loading="eager" fetchpriority="high">
     <img src="/images/hero%20image/1.png" alt="TechNext at work" loading="lazy">
     <div class="hero-img-protect" oncontextmenu="return false;" ondragstart="return false;"></div>
   </div>
@@ -2588,13 +2590,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (function() {
   const imgs = document.querySelectorAll('.hero-img-col img');
-  if (imgs.length < 2) return;
+  if (!imgs.length) return;
   let i = 0;
-  setInterval(() => {
-    imgs[i].classList.remove('active');
-    i = (i + 1) % imgs.length;
-    imgs[i].classList.add('active');
-  }, 4000);
+  // Activate first image only after it has fully decoded, so the browser
+  // never renders a partially-composited frame that looks stretched.
+  const first = imgs[0];
+  function startRotation() {
+    first.classList.add('active');
+    if (imgs.length < 2) return;
+    setInterval(() => {
+      imgs[i].classList.remove('active');
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add('active');
+    }, 4000);
+  }
+  if (first.complete && first.naturalWidth) {
+    // Already in cache — wait one rAF so the container animation layer is ready
+    requestAnimationFrame(() => requestAnimationFrame(startRotation));
+  } else {
+    first.addEventListener('load', () => {
+      requestAnimationFrame(() => requestAnimationFrame(startRotation));
+    }, { once: true });
+  }
 })();
 
 // Prevent image copying/saving from hero
