@@ -30,7 +30,8 @@
   <link rel="preload" href="fonts/Caveat-SemiBold.ttf" as="font" type="font/truetype" crossorigin/>
   <link rel="preload" href="fonts/Caveat-Bold.ttf" as="font" type="font/truetype" crossorigin/>
   <!-- Google Fonts: synchronous so body text never flashes on first paint -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"/>
+  <!-- Be Vietnam Pro added as Caveat fallback for Vietnamese diacritics (BUG-5) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@600;700&display=swap"/>
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
   {
@@ -61,6 +62,8 @@
     /* Only the two weights actually used — Regular(400) and Medium(500) removed */
     @font-face{font-family:'Caveat';src:url('fonts/Caveat-SemiBold.ttf') format('truetype');font-weight:600;font-display:block;}
     @font-face{font-family:'Caveat';src:url('fonts/Caveat-Bold.ttf') format('truetype');font-weight:700;font-display:block;}
+    /* BUG-5: Vietnamese diacritic fallback — Caveat doesn't support Vietnamese; Be Vietnam Pro does */
+    html.lang-vn { --fh: 'Be Vietnam Pro', 'Caveat', cursive; }
 
     /* ── TOKENS ───────────────────────────────────────────── */
     :root{
@@ -120,7 +123,7 @@
     .rd1{transition-delay:.1s;} .rd2{transition-delay:.2s;} .rd3{transition-delay:.3s;} .rd4{transition-delay:.4s;}
 
     /* ── NAVBAR ───────────────────────────────────────────── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background .3s,border-color .3s,box-shadow .3s,transform .35s ease,opacity .8s ease;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:transparent;border-bottom:1px solid transparent;transition:background .3s,border-color .3s,box-shadow .3s,transform .35s ease,opacity .8s ease;}
     nav.scrolled{background:transparent;border-color:transparent;box-shadow:none;}
     nav.nav-hidden{transform:translateY(-100%);}
     nav.nav-faded{opacity:0;pointer-events:none;}
@@ -431,7 +434,7 @@
     .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     .hamburger.open span:nth-child(2){opacity:0;}
     .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    .mobile-nav{position:fixed;top:76px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);z-index:99;transform:translateY(-200%);transition:transform .35s ease;box-shadow:0 8px 24px rgba(0,0,0,.08);}
+    .mobile-nav{position:fixed;top:76px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--border);z-index:1100;transform:translateY(-200%);transition:transform .35s ease;box-shadow:0 8px 24px rgba(0,0,0,.08);}
     .mobile-nav.open{transform:translateY(0);}
     .mobile-nav a{display:block;font-size:16px;font-weight:500;color:var(--text);padding:14px 24px;border-bottom:1px solid var(--border);transition:background .2s,color .2s;}
     .mobile-nav a:hover{background:var(--purple-xl);color:var(--purple);}
@@ -1987,6 +1990,28 @@
       if (!bkSelDate || !bkSelTime) return;
 
       const btn = document.getElementById('bkConfirmBtn');
+
+      // Phone validation — clear previous error
+      const phoneInput = document.getElementById('bkPhoneInput');
+      let phoneErrEl = document.getElementById('bkPhoneErr');
+      if (!phoneErrEl) {
+        phoneErrEl = document.createElement('div');
+        phoneErrEl.id = 'bkPhoneErr';
+        phoneErrEl.style.cssText = 'color:#EF4444;font-size:11px;margin-top:3px;display:none;';
+        phoneInput.insertAdjacentElement('afterend', phoneErrEl);
+      }
+      phoneInput.style.borderColor = '';
+      phoneErrEl.style.display = 'none';
+
+      const phone = phoneInput.value.trim();
+      if (phone && !/^[\d\s\+\-\(\)\.]{6,25}$/.test(phone)) {
+        phoneInput.style.borderColor = '#EF4444';
+        phoneErrEl.textContent = 'Please enter a valid phone number (digits, +, -, spaces only).';
+        phoneErrEl.style.display = 'block';
+        phoneInput.focus();
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'Booking…';
 
@@ -1996,7 +2021,6 @@
       const slot = day + ', ' + mon + ' ' + date + ' · ' + bkSelTime + ' SGT';
 
       const name    = document.getElementById('bkNameInput').value.trim();
-      const phone   = document.getElementById('bkPhoneInput').value.trim();
       const email   = document.getElementById('bkEmailInput').value.trim();
       const company = document.getElementById('bkCompanyInput').value.trim() ||
                        (document.getElementById('f-company') || {}).value?.trim() || '';
@@ -2145,6 +2169,11 @@
       const femail = document.getElementById('f-email').value.trim();
       if (!femail) { alert('Please enter your email address so we can send your booking confirmation.'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(femail)) { alert('Please enter a valid email address.'); return; }
+      const fphone = document.getElementById('f-phone').value.trim();
+      if (fphone && !/^[\d\s\+\-\(\)\.]{6,25}$/.test(fphone)) {
+        alert('Please enter a valid contact number (e.g. +65 9123 4567). Use only digits, spaces, +, -, and parentheses.');
+        return;
+      }
 
       const btn = document.querySelector('#fstep2 .btn-primary');
       btn.disabled = true;

@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script><link rel="preload" as="image" href="/images/Logo/technext%20logo.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -70,6 +70,7 @@ a { color: inherit; text-decoration: none; }
   --handwriting: 'Caveat', cursive;
   --sans: 'DM Sans', sans-serif;
 }
+html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Caveat', cursive; }
 
 /* ===== NAV ===== */
 nav#mainNav {
@@ -77,7 +78,7 @@ nav#mainNav {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -523,7 +524,7 @@ footer {
     padding: 6px; gap: 2px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
     border: 1px solid rgba(0,0,0,0.06);
-    z-index: 200; transform-origin: top right;
+    z-index: 1200; transform-origin: top right;
     animation: navMenuIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
   }
   .nav-links.open li { border-bottom: none; }
@@ -617,7 +618,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="region-info">
             <div class="region-name" data-k="region_vn">Vietnam</div>
             <a href="mailto:career@technext.asia" class="region-email">career@technext.asia</a>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:3px;line-height:1.4;">62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM</div>
           </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+HCMC" target="_blank" rel="noopener" class="region-map-btn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-k="map_btn">Map</span>
+          </a>
         </div>
 
         <div class="region-card">
@@ -625,6 +631,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="region-info">
             <div class="region-name" data-k="region_ph">Philippines</div>
             <a href="mailto:admin@technext.asia" class="region-email">admin@technext.asia</a>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:3px;line-height:1.4;">Level 9, IP Center, Taguig, Metro Manila</div>
           </div>
           <a href="https://maps.app.goo.gl/9e8SvYZTK4yXYXrW8" target="_blank" rel="noopener" class="region-map-btn">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -637,6 +644,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="region-info">
             <div class="region-name" data-k="region_sg">Singapore</div>
             <a href="mailto:sales@technext.asia" class="region-email">sales@technext.asia</a>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:3px;line-height:1.4;">261 Waterloo St, #03-36, Singapore</div>
           </div>
           <a href="https://maps.app.goo.gl/UahiiRdDnMZue8YC9" target="_blank" rel="noopener" class="region-map-btn">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -757,6 +765,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="maps-grid">
 
     <div class="map-card">
+      <div class="map-preview" style="background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 40%, #fde68a 70%, #fef3c7 100%);">
+        <div class="map-pin">📍</div>
+        <div class="map-preview-label">🇻🇳 Vietnam ★</div>
+      </div>
+      <div class="map-card-footer">
+        <div>
+          <div class="map-card-loc" data-k="map_vn_loc">Vietnam Dev Hub</div>
+          <div class="map-card-sub" data-k="map_vn_sub">62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM</div>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+HCMC" target="_blank" rel="noopener" class="map-open-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-k="map_open_btn">Open in Maps</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="map-card">
       <div class="map-preview">
         <div class="map-pin">📍</div>
         <div class="map-preview-label">🇵🇭 Philippines</div>
@@ -764,7 +789,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="map-card-footer">
         <div>
           <div class="map-card-loc" data-k="map_ph_loc">Philippines Office</div>
-          <div class="map-card-sub" data-k="map_ph_sub">TechNext Asia — PH Dev Hub</div>
+          <div class="map-card-sub" data-k="map_ph_sub">Level 9, IP Center, Taguig, Metro Manila</div>
         </div>
         <a href="https://maps.app.goo.gl/9e8SvYZTK4yXYXrW8" target="_blank" rel="noopener" class="map-open-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -781,7 +806,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="map-card-footer">
         <div>
           <div class="map-card-loc" data-k="map_sg_loc">Singapore Office</div>
-          <div class="map-card-sub" data-k="map_sg_sub">TechNext Asia — SEA HQ</div>
+          <div class="map-card-sub" data-k="map_sg_sub">261 Waterloo St, #03-36, Singapore</div>
         </div>
         <a href="https://maps.app.goo.gl/UahiiRdDnMZue8YC9" target="_blank" rel="noopener" class="map-open-btn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -828,8 +853,9 @@ const LANG = {
     region_vn: 'Vietnam', region_ph: 'Philippines', region_sg: 'Singapore',
     map_btn: 'Map', map_open_btn: 'Open in Maps',
     contact_offices_map_title: 'Our Offices',
-    map_ph_loc: 'Philippines Office', map_ph_sub: 'TechNext Asia — PH Dev Hub',
-    map_sg_loc: 'Singapore Office', map_sg_sub: 'TechNext Asia — SEA HQ',
+    map_vn_loc: 'Vietnam Dev Hub', map_vn_sub: '62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM',
+    map_ph_loc: 'Philippines Office', map_ph_sub: 'Level 9, IP Center, Taguig, Metro Manila',
+    map_sg_loc: 'Singapore Office', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
     footer_copy: '© 2026 TechNext Asia · technext.asia',
   },
   vn: {
@@ -846,8 +872,9 @@ const LANG = {
     region_vn: 'Việt Nam', region_ph: 'Philippines', region_sg: 'Singapore',
     map_btn: 'Bản đồ', map_open_btn: 'Mở Maps',
     contact_offices_map_title: 'Văn Phòng Của Chúng Tôi',
-    map_ph_loc: 'Văn phòng Philippines', map_ph_sub: 'TechNext Asia — PH Dev Hub',
-    map_sg_loc: 'Văn phòng Singapore', map_sg_sub: 'TechNext Asia — SEA HQ',
+    map_vn_loc: 'Vietnam Dev Hub', map_vn_sub: '62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM',
+    map_ph_loc: 'Văn phòng Philippines', map_ph_sub: 'Tầng 9, IP Center, Taguig, Metro Manila',
+    map_sg_loc: 'Văn phòng Singapore', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
     footer_copy: '© 2026 TechNext Asia · technext.asia',
   },
   ph: {
@@ -864,8 +891,9 @@ const LANG = {
     region_vn: 'Vietnam', region_ph: 'Pilipinas', region_sg: 'Singapore',
     map_btn: 'Mapa', map_open_btn: 'Buksan sa Maps',
     contact_offices_map_title: 'Aming mga Opisina',
-    map_ph_loc: 'Opisina sa Pilipinas', map_ph_sub: 'TechNext Asia — PH Dev Hub',
-    map_sg_loc: 'Opisina sa Singapore', map_sg_sub: 'TechNext Asia — SEA HQ',
+    map_vn_loc: 'Vietnam Dev Hub', map_vn_sub: '62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM',
+    map_ph_loc: 'Opisina sa Pilipinas', map_ph_sub: 'Level 9, IP Center, Taguig, Metro Manila',
+    map_sg_loc: 'Opisina sa Singapore', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
     footer_copy: '© 2026 TechNext Asia · technext.asia',
   },
   de: {
@@ -882,8 +910,9 @@ const LANG = {
     region_vn: 'Vietnam', region_ph: 'Philippinen', region_sg: 'Singapur',
     map_btn: 'Karte', map_open_btn: 'In Maps öffnen',
     contact_offices_map_title: 'Unsere Büros',
-    map_ph_loc: 'Büro Philippinen', map_ph_sub: 'TechNext Asia — PH Dev Hub',
-    map_sg_loc: 'Büro Singapur', map_sg_sub: 'TechNext Asia — SEA HQ',
+    map_vn_loc: 'Vietnam Dev Hub', map_vn_sub: '62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM',
+    map_ph_loc: 'Büro Philippinen', map_ph_sub: 'Level 9, IP Center, Taguig, Metro Manila',
+    map_sg_loc: 'Büro Singapur', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
     footer_copy: '© 2026 TechNext Asia · technext.asia',
   }
 };
@@ -901,6 +930,7 @@ function setLang(lang) {
     const key = el.dataset.k;
     if (t[key] !== undefined) el.textContent = t[key];
   });
+  document.documentElement.classList.toggle('lang-vn', lang === 'vn');
 }
 const _savedLang = localStorage.getItem('tn_lang');
 if (_savedLang && LANG[_savedLang]) setLang(_savedLang);

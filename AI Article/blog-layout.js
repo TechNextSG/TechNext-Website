@@ -190,6 +190,29 @@ function applyBlogLang(lang) {
     const k = el.getAttribute('data-k');
     if (t[k] !== undefined) el.innerHTML = t[k];
   });
+
+  // Show/hide "Article in English only" notice for non-EN languages (articles are always in English)
+  const articleBody = document.querySelector('.article-body');
+  if (articleBody) {
+    let notice = document.getElementById('article-lang-notice');
+    if (lang !== 'en') {
+      const msgs = {
+        vn: '🌐 Bài viết này chỉ có bằng tiếng Anh.',
+        ph: '🌐 Ang artikulong ito ay available sa Ingles lamang.',
+        de: '🌐 Dieser Artikel ist nur auf Englisch verfügbar.',
+      };
+      if (!notice) {
+        notice = document.createElement('div');
+        notice.id = 'article-lang-notice';
+        notice.style.cssText = 'display:flex;align-items:center;gap:10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;font-size:0.875rem;color:#1e40af;margin-bottom:1.5rem;';
+        articleBody.insertAdjacentElement('beforebegin', notice);
+      }
+      notice.textContent = msgs[lang] || '🌐 This article is available in English only.';
+      notice.style.display = 'flex';
+    } else if (notice) {
+      notice.style.display = 'none';
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -56,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script><link rel="preload" as="image" href="/images/Logo/technext%20logo.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -71,6 +71,7 @@ a { color: inherit; text-decoration: none; }
   --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0;
   --handwriting: 'Caveat', cursive; --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
 }
+html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Caveat', cursive; }
 
 /* NAV */
 nav#mainNav {
@@ -78,7 +79,7 @@ nav#mainNav {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -305,7 +306,7 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 1rem 6
     padding: 6px; gap: 2px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
     border: 1px solid rgba(0,0,0,0.06);
-    z-index: 200; transform-origin: top right;
+    z-index: 1200; transform-origin: top right;
     animation: navMenuIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
   }
   .nav-links.open li { border-bottom: none; }
@@ -708,8 +709,8 @@ const LANG = {
   vn: {
     nav_about:'Về Chúng Tôi', nav_gallery:'Thư Viện', nav_blog:'Blog', nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_apply:'Đặt Lịch',
     ch_label:'Tuyển Dụng', ch_h1a:'Làm Việc Với AI Thực Sự', ch_h1b:'Triển Khai Lên Production.',
-    ch_sub:'TechNext đang xây dựng đội ngũ kỹ sư xuất sắc tại Việt Nam, Philippines và Singapore để xây dựng AI doanh nghiệp cho khách hàng toàn cầu. Làm việc từ xa, tiếng Anh là ngôn ngữ chính.',
-    ch_stat1:'Vị Trí Mở', ch_stat2:'Quốc Gia Phục Vụ', ch_stat3:'Làm Việc Từ Xa', ch_stat4:'Tiếng Anh Là Chính',
+    ch_sub:'TechNext đang xây dựng đội ngũ kỹ sư xuất sắc tại Việt Nam, Philippines và Singapore để xây dựng AI doanh nghiệp cho khách hàng toàn cầu. Làm việc tại văn phòng, tiếng Anh là ngôn ngữ chính.',
+    ch_stat1:'Vị Trí Mở', ch_stat2:'Quốc Gia Phục Vụ', ch_stat3:'Tại Văn Phòng', ch_stat4:'Tiếng Anh Là Chính',
     cf_all:'Tất Cả Quốc Gia', cf_vn:'Việt Nam', cf_ph:'Philippines', cf_sg:'Singapore',
     df_all:'Tất Cả Vị Trí', df_eng:'Kỹ Thuật', df_ai:'Hệ Thống AI', df_infra:'Hạ Tầng',
     df_lead:'Lãnh Đạo', df_qa:'Chất Lượng', df_fin:'Tài Chính', df_erp:'ERP',
@@ -721,7 +722,7 @@ const LANG = {
     why1_h:'Stack AI Tiên Tiến', why1_p:'Làm việc với AI agents, local LLMs, RAG pipelines, Claude, GPT-4 và Llama — không phải công nghệ lỗi thời.',
     why2_h:'Tiếp Xúc Toàn Cầu', why2_p:'Khách hàng tại Thụy Sĩ, Singapore, Nhật Bản, Anh và Mỹ. Môi trường tiếng Anh với cộng tác quốc tế thực sự.',
     why3_h:'Ship AI Thực', why3_p:'Hệ thống của bạn chạy trong production tại các công ty như Qualcomm và Singapore Government — không phải môi trường demo.',
-    why4_h:'Làm Việc Từ Xa', why4_p:'Làm việc từ bất kỳ đâu tại Việt Nam. Dev Hub của chúng tôi phân tán và thân thiện với async.',
+    why4_h:'Làm Việc Tại Chỗ', why4_p:'Dev Hub Việt Nam của TechNext tọa lạc tại TP.HCM — văn phòng hiện đại, thiết bị tốt và đồng đội đẳng cấp quốc tế.',
     why5_h:'Công Ty Tăng Trưởng Nhanh', why5_p:'Chúng tôi tăng trưởng cùng làn sóng AI. Tác động, chức vụ và thu nhập của bạn tăng cùng chúng tôi.',
     why6_h:'Học Hỏi Từ Đồng Nghiệp', why6_p:'Đội ngũ xây dựng AI doanh nghiệp thực sự mỗi ngày. Chia sẻ kiến thức, code review và mentorship là một phần của văn hóa.',
     meta_fulltime:'Toàn thời gian', meta_vn:'Tại chỗ · Việt Nam', meta_ph:'Hybrid · Philippines', meta_hybrid:'Tại chỗ / Hybrid',
@@ -839,6 +840,7 @@ function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === lang));
   const t = LANG[lang];
   document.querySelectorAll('[data-k]').forEach(el => { if (t[el.dataset.k] !== undefined) el.textContent = t[el.dataset.k]; });
+  document.documentElement.classList.toggle('lang-vn', lang === 'vn');
 }
 const _savedLang = localStorage.getItem('tn_lang');
 if (_savedLang && LANG[_savedLang]) setLang(_savedLang);
