@@ -23,11 +23,15 @@
   <meta name="twitter:title" content="TechNext Asia — Odoo ERP & AI Automations"/>
   <meta name="twitter:description" content="Certified Odoo Partner. ERP + AI automations for growing businesses worldwide. Go live in 4–8 weeks."/>
   <meta name="twitter:image" content="https://technextasia.com/landing_page/images/TechNext-Logo.png"/>
-  <!-- Performance: preconnect + preload critical font -->
+  <!-- Performance: preconnect + preload critical fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <!-- Preload the two Caveat weights actually used (600 = badges/labels, 700 = headings) -->
+  <link rel="preload" href="fonts/Caveat-SemiBold.ttf" as="font" type="font/truetype" crossorigin/>
   <link rel="preload" href="fonts/Caveat-Bold.ttf" as="font" type="font/truetype" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <!-- Non-blocking Google Fonts — won't delay first paint -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"/></noscript>
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
   {
@@ -55,8 +59,7 @@
   }
   </script>
   <style>
-    @font-face{font-family:'Caveat';src:url('fonts/Caveat-Regular.ttf') format('truetype');font-weight:400;font-display:swap;}
-    @font-face{font-family:'Caveat';src:url('fonts/Caveat-Medium.ttf') format('truetype');font-weight:500;font-display:swap;}
+    /* Only the two weights actually used — Regular(400) and Medium(500) removed */
     @font-face{font-family:'Caveat';src:url('fonts/Caveat-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap;}
     @font-face{font-family:'Caveat';src:url('fonts/Caveat-Bold.ttf') format('truetype');font-weight:700;font-display:swap;}
 
