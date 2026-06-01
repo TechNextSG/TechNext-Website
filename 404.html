@@ -1,36 +1,33 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Page Not Found — TechNext Asia</title>
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#f0ece3;color:#1a1a2e;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px}
-.wrap{max-width:480px}
-.code{font-family:'Caveat',cursive;font-size:7rem;font-weight:700;color:#2563eb;line-height:1}
-h1{font-size:1.5rem;font-weight:700;margin:12px 0 8px}
-p{color:#64748b;font-size:0.95rem;line-height:1.7;margin-bottom:28px}
-a.btn{display:inline-block;background:#2563eb;color:#fff;padding:12px 28px;border-radius:50px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:background .2s}
-a.btn:hover{background:#1d4ed8}
-.links{margin-top:20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.links a{color:#2563eb;font-size:0.85rem;font-weight:600;text-decoration:none}
-.links a:hover{text-decoration:underline}
-</style>
+<title>Redirecting… | TechNext Asia</title>
+<script>
+(function() {
+  var path = window.location.pathname;
+  var search = window.location.search;
+
+  // Redirect old /AI Article/ and /AI%20Article/ paths to /ai-article/
+  var newPath = path
+    .replace(/\/AI%20Article\//gi, '/ai-article/')
+    .replace(/\/AI Article\//gi, '/ai-article/')
+    .replace(/\/images\/hero%20image\//gi, '/images/hero-image/')
+    .replace(/\/images\/hero image\//gi, '/images/hero-image/');
+
+  if (newPath !== path) {
+    window.location.replace(newPath + search);
+  } else {
+    // Generic 404 — redirect to homepage after 3s
+    setTimeout(function() {
+      window.location.replace('https://technextasia.com/');
+    }, 3000);
+  }
+})();
+</script>
 </head>
 <body>
-<div class="wrap">
-  <div class="code">404</div>
-  <h1>Page not found</h1>
-  <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
-  <a href="/" class="btn">Back to Home</a>
-  <div class="links">
-    <a href="/blog/">Blog</a>
-    <a href="/careers/">Careers</a>
-    <a href="/contact/">Contact</a>
-  </div>
-</div>
+<p style="font-family:sans-serif;padding:2rem;">Redirecting…</p>
 </body>
 </html>

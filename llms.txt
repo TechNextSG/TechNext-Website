@@ -1,4 +1,4 @@
-# TechNext Asia
+﻿# TechNext Asia
 
 > AI-native technology company building enterprise AI and Odoo ERP solutions for global clients across Southeast Asia. Headquartered in Singapore with development hubs in Vietnam and the Philippines.
 
@@ -28,26 +28,26 @@ Founded to bring production-grade AI to businesses in Southeast Asia and globall
 
 ## Blog Articles
 
-- https://technextasia.com/AI%20Article/gpt5-openai-agentic-ai-2025.html
-- https://technextasia.com/AI%20Article/big-tech-ai-infrastructure-2026.html
-- https://technextasia.com/AI%20Article/ai-agents-enterprise-automation.html
-- https://technextasia.com/AI%20Article/rag-systems-enterprise-guide.html
-- https://technextasia.com/AI%20Article/local-llm-on-premise-enterprise.html
-- https://technextasia.com/AI%20Article/context-engineering-new-discipline.html
-- https://technextasia.com/AI%20Article/odoo-18-features-upgrade-guide.html
-- https://technextasia.com/AI%20Article/odoo-ai-integration-guide.html
-- https://technextasia.com/AI%20Article/odoo-vs-sap-enterprise-comparison.html
-- https://technextasia.com/AI%20Article/odoo-erp-sme-southeast-asia.html
-- https://technextasia.com/AI%20Article/vietnam-digital-economy-ai-2026.html
-- https://technextasia.com/AI%20Article/vietnam-tech-talent-dev-hub.html
-- https://technextasia.com/AI%20Article/vietnam-software-exports-2026.html
-- https://technextasia.com/AI%20Article/singapore-national-ai-strategy-2026.html
-- https://technextasia.com/AI%20Article/singapore-smart-nation-enterprise-ai.html
-- https://technextasia.com/AI%20Article/philippines-digital-transformation-2026.html
-- https://technextasia.com/AI%20Article/philippines-bpo-ai-revolution.html
-- https://technextasia.com/AI%20Article/ai-agent-governance-2025.html
-- https://technextasia.com/AI%20Article/github-copilot-per-token-pricing.html
-- https://technextasia.com/AI%20Article/lg-nvidia-physical-ai-era.html
+- https://technextasia.com/ai-article/gpt5-openai-agentic-ai-2025.html
+- https://technextasia.com/ai-article/big-tech-ai-infrastructure-2026.html
+- https://technextasia.com/ai-article/ai-agents-enterprise-automation.html
+- https://technextasia.com/ai-article/rag-systems-enterprise-guide.html
+- https://technextasia.com/ai-article/local-llm-on-premise-enterprise.html
+- https://technextasia.com/ai-article/context-engineering-new-discipline.html
+- https://technextasia.com/ai-article/odoo-18-features-upgrade-guide.html
+- https://technextasia.com/ai-article/odoo-ai-integration-guide.html
+- https://technextasia.com/ai-article/odoo-vs-sap-enterprise-comparison.html
+- https://technextasia.com/ai-article/odoo-erp-sme-southeast-asia.html
+- https://technextasia.com/ai-article/vietnam-digital-economy-ai-2026.html
+- https://technextasia.com/ai-article/vietnam-tech-talent-dev-hub.html
+- https://technextasia.com/ai-article/vietnam-software-exports-2026.html
+- https://technextasia.com/ai-article/singapore-national-ai-strategy-2026.html
+- https://technextasia.com/ai-article/singapore-smart-nation-enterprise-ai.html
+- https://technextasia.com/ai-article/philippines-digital-transformation-2026.html
+- https://technextasia.com/ai-article/philippines-bpo-ai-revolution.html
+- https://technextasia.com/ai-article/ai-agent-governance-2025.html
+- https://technextasia.com/ai-article/github-copilot-per-token-pricing.html
+- https://technextasia.com/ai-article/lg-nvidia-physical-ai-era.html
 
 ## Contact
 
