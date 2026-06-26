@@ -324,6 +324,21 @@
   </div>
 </div>
 
+<!-- Animated Logo Card -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">Animated Logo <span class="sig-card-badge">GIF</span></div>
+      <div class="sig-card-role">TechNext animated logo for emails &amp; presentations</div>
+    </div>
+    <button class="copy-btn" id="btn-gif" onclick="downloadGif()">Download GIF</button>
+  </div>
+  <div class="sig-card-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+    <img src="https://technextsg.github.io/TechNext-Website/sig/logo-animation.gif" alt="TechNext animated logo" width="200" height="200" style="border:1px solid #eee;border-radius:12px;background:#fff;display:block;">
+    <div style="font-size:11px;color:#999;">1000 &times; 1000 px &middot; GIF</div>
+  </div>
+</div>
+
 <script>
   function copySignature(sigId, btnId) {
     const sig = document.getElementById(sigId);
@@ -357,6 +372,19 @@
     if (el('t-email'))      el('t-email').textContent    = email  || 'email@technext.asia';
     if (el('t-phone-link')) el('t-phone-link').href      = 'tel:' + (phone || '+630000000000').replace(/[^0-9+]/g, '');
     if (el('t-email-link')) el('t-email-link').href      = 'mailto:' + (email || 'email@technext.asia');
+  }
+
+  function downloadGif() {
+    const btn = document.getElementById('btn-gif');
+    const a = document.createElement('a');
+    a.href = 'https://technextsg.github.io/TechNext-Website/sig/logo-animation.gif';
+    a.download = 'TechNext-Logo-Animation.gif';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    btn.textContent = 'Downloaded!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Download GIF'; btn.classList.remove('copied'); }, 2000);
   }
 </script>
 
