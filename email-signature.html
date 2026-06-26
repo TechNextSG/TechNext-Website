@@ -98,7 +98,50 @@
       background: #eff6ff; color: #0062CC; border: 1px solid #bfdbfe;
       border-radius: 4px; padding: 2px 7px; margin-left: 8px; vertical-align: middle;
     }
-  </style>
+    .tut-steps { list-style: none; counter-reset: step; margin: 0; padding: 6px 0; }
+    .tut-steps li {
+      position: relative;
+      padding: 13px 24px 13px 62px;
+      border-bottom: 1px solid #f4f4f4;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.55;
+    }
+    .tut-steps li:last-child { border-bottom: none; }
+    .tut-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 22px;
+      top: 12px;
+      width: 26px;
+      height: 26px;
+      background: #0062CC;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 26px;
+    }
+    .tut-steps b { color: #111; font-weight: 700; }
+    .tut-steps kbd {
+      background: #f0f2f5;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+      color: #333;
+      white-space: nowrap;
+    }
+    .tut-note {
+      font-size: 11px;
+      color: #8a6d00;
+      padding: 12px 24px;
+      background: #fff8e6;
+      line-height: 1.5;
+    }  </style>
 </head>
 <body>
 
@@ -337,6 +380,44 @@
     <img src="https://technextsg.github.io/TechNext-Website/sig/logo-animation.gif" alt="TechNext animated logo" width="200" height="200" style="border:1px solid #eee;border-radius:12px;background:#fff;display:block;">
     <div style="font-size:11px;color:#999;">1000 &times; 1000 px &middot; GIF</div>
   </div>
+</div>
+
+<!-- Tutorial: Gmail Signature -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">How to Add Your Signature in Gmail <span class="sig-card-badge">Guide</span></div>
+      <div class="sig-card-role">Takes about 1 minute</div>
+    </div>
+  </div>
+  <ol class="tut-steps">
+    <li>Click <b>Copy Signature</b> on your signature card above.</li>
+    <li>Open <b>Gmail</b>, then click the <b>&#9881; gear icon</b> at the top right and choose <b>See all settings</b>.</li>
+    <li>In the <b>General</b> tab, scroll down to the <b>Signature</b> section.</li>
+    <li>Click <b>+ Create new</b>, type a name (e.g. <b>TechNext</b>), then click <b>Create</b>.</li>
+    <li>Click inside the signature box and paste with <kbd>Ctrl</kbd> + <kbd>V</kbd> (<kbd>&#8984; Cmd</kbd> + <kbd>V</kbd> on Mac).</li>
+    <li>Under <b>Signature defaults</b>, select your new signature for <b>For new emails</b> and <b>On reply/forward</b>.</li>
+    <li>Scroll to the very bottom and click <b>Save Changes</b>.</li>
+  </ol>
+  <div class="tut-note">&#128161; The logo and icons load from the web automatically &mdash; just paste, don't re-upload any images.</div>
+</div>
+
+<!-- Tutorial: Profile Picture -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">How to Change Your Profile Picture <span class="sig-card-badge">Guide</span></div>
+      <div class="sig-card-role">Your photo shows on every email you send</div>
+    </div>
+  </div>
+  <ol class="tut-steps">
+    <li>Open <b>Gmail</b> and click your <b>profile photo</b> in the top-right circle.</li>
+    <li>Click the <b>camera icon</b> on your photo, or click <b>Manage your Google Account</b>.</li>
+    <li>Go to the <b>Personal info</b> tab, then click your <b>photo</b> under "Profile picture".</li>
+    <li>Click <b>Add profile picture</b> (or <b>Change</b>) and upload your image from your computer.</li>
+    <li>Crop or reposition the image, then click <b>Save as profile picture</b>.</li>
+  </ol>
+  <div class="tut-note">&#128161; Profile pictures display as a still image &mdash; animated GIFs won't move. It can take a few minutes to update everywhere.</div>
 </div>
 
 <script>
