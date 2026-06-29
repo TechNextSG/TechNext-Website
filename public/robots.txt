@@ -1,0 +1,21 @@
+# robots.txt for Tech Next Solutions
+# https://technext.asia
+
+User-agent: *
+Allow: /
+
+# Dynamic sitemap (auto-includes blog posts from DB)
+Sitemap: https://technext.asia/api/sitemap.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 1
+
+# Allow search engines to access important API endpoints
+Allow: /api/sitemap.xml
+Allow: /api/posts
+Allow: /api/img
+
+# Disallow internal/admin paths
+Disallow: /api/admin/
+Disallow: /api/contact
+Disallow: /_/

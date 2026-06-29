@@ -1,5 +1,9 @@
-{
-  "rewrites": [
-    { "source": "/blog/:slug", "destination": "/AI Article/:slug.html" }
-  ]
+﻿{
+    "rewrites":  [
+                     {
+                         "destination":  "/api/sitemap.xml",
+                         "source":  "/sitemap.xml"
+                     }
+                 ],
+    "buildCommand":  "npm run build"
 }
