@@ -6,7 +6,7 @@ const About = lazy(() => import('../../src/components/About'))
 const Impact = lazy(() => import('../../src/components/Impact'))
 const Services = lazy(() => import('../../src/components/Services'))
 const WhyTechNext = lazy(() => import('../../src/components/WhyTechNext'))
-const Faq = lazy(() => import('../../src/components/Faq'))
+const Faq = lazy(() => import('../../src/components/FAQ'))
 
 export default function Page() {
   return (
