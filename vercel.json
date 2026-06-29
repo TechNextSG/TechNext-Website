@@ -1,9 +1,6 @@
-﻿{
-    "rewrites":  [
-                     {
-                         "destination":  "/api/sitemap.xml",
-                         "source":  "/sitemap.xml"
-                     }
-                 ],
-    "buildCommand":  "npm run build"
+{
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" }
+  ],
+  "buildCommand": "npm run build"
 }
