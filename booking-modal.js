@@ -277,9 +277,6 @@ textarea.booking-input{resize:none;height:76px}
 .bot-bubble b{font-weight:700}
 .bot-bubble ul{margin:6px 0 2px 0;padding-left:16px}
 .bot-bubble ul li{margin-bottom:3px}
-.bot-rel-btns{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-.bot-rel-btn{background:rgba(37,99,235,.08);border:1.5px solid rgba(37,99,235,.2);color:#2563eb;border-radius:100px;padding:4px 11px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit}
-.bot-rel-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
 .bot-typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:#fff;border-radius:4px 16px 16px 16px;box-shadow:0 1px 4px rgba(0,0,0,.09);width:fit-content}
 .bot-typing span{width:7px;height:7px;border-radius:50%;background:#94a3b8;display:inline-block;animation:botDot 1.2s ease-in-out infinite}
 .bot-typing span:nth-child(2){animation-delay:.2s}
@@ -533,16 +530,7 @@ textarea.booking-input{resize:none;height:76px}
         msgs.removeChild(typRow);
         // Build answer with related buttons
         let html = qa.a;
-        if (qa.rel && qa.rel.length) {
-          html += '<div class="bot-rel-btns">';
-          qa.rel.forEach(function(id) {
-            const relQa = BOT_QA.find(function(q){ return q.id===id; });
-            if (relQa && !_asked.has(id)) {
-              html += '<button class="bot-rel-btn" onclick="window._tnBotAnswer(\'' + id + '\')">' + relQa.q + '</button>';
-            }
-          });
-          html += '</div>';
-        }
+
         _addMsg(html, false);
         _showSugs(qa.rel);
       }, 900 + Math.random() * 400);
@@ -598,7 +586,7 @@ textarea.booking-input{resize:none;height:76px}
         msgs.scrollTop = msgs.scrollHeight;
         setTimeout(function() {
           msgs.removeChild(typRow);
-          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#2563eb;font-weight:600">contact our team directly</a> for a detailed answer.<div class="bot-rel-btns"><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'services\')">Our Services</button><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'book_call\')">Book a Call</button><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'pricing\')">Pricing</button></div>', false);
+          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#2563eb;font-weight:600">contact our team directly</a> for a detailed answer.', false);
           _showSugs();
         }, 800);
       }
