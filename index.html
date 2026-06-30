@@ -1717,7 +1717,7 @@ footer {
 .sol-text strong{display:block;font-size:1.1rem;}
 .sol-cta-row{margin-top:.5rem;}
 #industries{background:#f8faff;}
-.section-sub{font-size:.95rem;color:#64748b;max-width:580px;margin:0 auto 2.5rem;text-align:center;line-height:1.7;}
+.ind-sub{font-size:.95rem;color:#64748b;max-width:580px;margin:0 auto 2.5rem;text-align:center;line-height:1.7;}
 .ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;}
 .ind-card{background:#fff;border:1.5px solid rgba(37,99,235,.1);border-radius:18px;padding:1.6rem 1.2rem;text-align:center;transition:transform .2s,box-shadow .2s;}
 .ind-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(37,99,235,.12);}
@@ -1783,7 +1783,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span data-k="hero_h1b" id="heroH1b">to Manual Work.</span><br>
       <span class="blue" data-k="hero_h1c" id="heroH1c">We automate it with <span class="highlight">AI.</span></span>
     </h1>
-    <p class="hero-sub" data-k="hero_sub">
+    <p class="hero-sub" id="heroSub" data-k="hero_sub">
       Every manual task, disconnected system, and slow process is costing your business money. TechNext replaces that with AI agents, automated workflows, and connected ERP — so your team focuses on growth.
     </p>
     <div class="hero-ctas">
@@ -1792,7 +1792,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="hero-img-col">
-    <img src="/images/hero/2.png" alt="TechNext AI team" id="heroImg0" loading="eager" fetchpriority="high">
+    <img src="/images/hero/2.png" alt="TechNext AI team" id="heroImg0" class="active" loading="eager" fetchpriority="high">
     <img src="/images/hero/1.png" alt="TechNext at work" loading="lazy">
     <div class="hero-img-protect" oncontextmenu="return false;" ondragstart="return false;"></div>
   </div>
@@ -1829,62 +1829,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
-
-<!-- ===== LIFE AT TECHNEXT ===== -->
-<section id="about">
-  <div class="section-wrap">
-    <div class="reveal">
-      <div class="section-label" data-k="about_tag">Life at TechNext</div>
-      <h2 class="section-title" data-k="about_h2">The Team Building<br>AI <span class="highlight">for Real Enterprise</span></h2>
-      <p class="section-sub" data-k="about_p1">We're engineers, AI researchers, and builders delivering enterprise-grade AI for global clients across 10+ countries. No prototypes, no demos — your code runs in production.</p>
-    </div>
-    <div class="culture-grid">
-      <div class="culture-card reveal rd1">
-        <div class="culture-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </div>
-        <h3 data-k="cult1_h">Global from Day One</h3>
-        <p data-k="cult1_p">English-first. Work directly with clients in Switzerland, USA, Singapore, and Japan.</p>
-      </div>
-      <div class="culture-card reveal rd2">
-        <div class="culture-icon"></div>
-        <h3 data-k="cult2_h">Ship to Production Fast</h3>
-        <p data-k="cult2_p">No sandbox projects. Your code goes live to enterprise clients within weeks.</p>
-      </div>
-      <div class="culture-card reveal rd3">
-        <div class="culture-icon"></div>
-        <h3 data-k="cult3_h">Remote-Friendly &amp; Focused</h3>
-        <p data-k="cult3_p">Work from anywhere in Vietnam. Async culture, zero micromanagement.</p>
-      </div>
-    </div>
-    <div class="team-carousel reveal" id="teamCarousel">
-      <div class="tc-track" id="tcTrack">
-        <div class="tc-slide"><img src="/images/gallery/team-01.jpg" alt="TechNext team" loading="eager"></div>
-        <div class="tc-slide"><img src="/images/gallery/team-16.jpg" alt="TechNext team" loading="eager"></div>
-        <div class="tc-slide"><img src="/images/gallery/team-18.jpg" alt="TechNext team" loading="eager"></div>
-        <div class="tc-slide"><img src="/images/gallery/team-19.jpg" alt="TechNext team" loading="eager"></div>
-        <div class="tc-slide"><img src="/images/gallery/team-22.jpg" alt="TechNext team" loading="eager"></div>
-      </div>
-      <button class="tc-btn tc-prev" onclick="tcMove(-1)" aria-label="Previous">&#8249;</button>
-      <button class="tc-btn tc-next" onclick="tcMove(1)" aria-label="Next">&#8250;</button>
-      <div class="tc-dots" id="tcDots"></div>
-    </div>
-    <div class="section-cta-row"><a href="/gallery/" class="cta-primary" data-k="about_cta">See the Gallery →</a></div>
-  </div>
-</section>
-
-<!-- ===== CAREERS ===== -->
-<section id="careers">
-  <div class="section-wrap">
-    <div class="reveal">
-      <div class="section-label" data-k="careers_tag">Open Roles</div>
-      <h2 class="section-title" data-k="careers_h2">Join Our<br><span class="highlight">Vietnam Dev Hub</span></h2>
-      <p class="section-sub" data-k="careers_sub">We're assembling the team that will define enterprise AI. If you're exceptional and ready to do the best work of your career — this is your place.</p>
-    </div>
-    <div class="careers-grid" id="careersGrid"></div>
-    <div class="section-cta-row"><a href="/careers/" class="cta-primary" data-k="careers_cta">Apply Now →</a></div>
-  </div>
-</section>
 
 <!-- ===== OUR IMPACT ===== -->
 <!-- ===== PAIN POINTS ===== -->
@@ -1942,7 +1886,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="section-wrap">
     <div class="section-label" data-k="ind_tag">Industries We Serve</div>
     <h2 class="section-title" data-k="ind_h2">Built for your <span class="highlight">sector.</span></h2>
-    <p class="section-sub" data-k="ind_sub">We've implemented AI and ERP solutions across high-demand industries — each with unique workflows, compliance needs, and growth challenges.</p>
+    <p class="ind-sub" data-k="ind_sub">We've implemented AI and ERP solutions across high-demand industries — each with unique workflows, compliance needs, and growth challenges.</p>
     <div class="ind-grid">
       <div class="ind-card reveal">
         <div class="ind-icon">🍽️</div>
@@ -1970,6 +1914,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p data-k="ind5_d">Booking engines, activity scheduling, POS integration, and guest experience automation.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===== LIFE AT TECHNEXT ===== -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label" data-k="about_tag">Life at TechNext</div>
+      <h2 class="section-title" data-k="about_h2">The Team Building<br>AI <span class="highlight">for Real Enterprise</span></h2>
+      <p class="section-sub" data-k="about_p1">We're engineers, AI researchers, and builders delivering enterprise-grade AI for global clients across 10+ countries. No prototypes, no demos — your code runs in production.</p>
+    </div>
+    <div class="culture-grid">
+      <div class="culture-card reveal rd1">
+        <div class="culture-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3 data-k="cult1_h">Global from Day One</h3>
+        <p data-k="cult1_p">English-first. Work directly with clients in Switzerland, USA, Singapore, and Japan.</p>
+      </div>
+      <div class="culture-card reveal rd2">
+        <div class="culture-icon"></div>
+        <h3 data-k="cult2_h">Ship to Production Fast</h3>
+        <p data-k="cult2_p">No sandbox projects. Your code goes live to enterprise clients within weeks.</p>
+      </div>
+      <div class="culture-card reveal rd3">
+        <div class="culture-icon"></div>
+        <h3 data-k="cult3_h">Remote-Friendly &amp; Focused</h3>
+        <p data-k="cult3_p">Work from anywhere in Vietnam. Async culture, zero micromanagement.</p>
+      </div>
+    </div>
+    <div class="team-carousel reveal" id="teamCarousel">
+      <div class="tc-track" id="tcTrack">
+        <div class="tc-slide"><img src="/images/gallery/team-01.jpg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="/images/gallery/team-16.jpg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="/images/gallery/team-18.jpg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="/images/gallery/team-19.jpg" alt="TechNext team" loading="eager"></div>
+        <div class="tc-slide"><img src="/images/gallery/team-22.jpg" alt="TechNext team" loading="eager"></div>
+      </div>
+      <button class="tc-btn tc-prev" onclick="tcMove(-1)" aria-label="Previous">&#8249;</button>
+      <button class="tc-btn tc-next" onclick="tcMove(1)" aria-label="Next">&#8250;</button>
+      <div class="tc-dots" id="tcDots"></div>
+    </div>
+    <div class="section-cta-row"><a href="/gallery/" class="cta-primary" data-k="about_cta">See the Gallery →</a></div>
+  </div>
+</section>
+
+<!-- ===== CAREERS ===== -->
+<section id="careers">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label" data-k="careers_tag">Open Roles</div>
+      <h2 class="section-title" data-k="careers_h2">Join Our<br><span class="highlight">Vietnam Dev Hub</span></h2>
+      <p class="section-sub" data-k="careers_sub">We're assembling the team that will define enterprise AI. If you're exceptional and ready to do the best work of your career — this is your place.</p>
+    </div>
+    <div class="careers-grid" id="careersGrid"></div>
+    <div class="section-cta-row"><a href="/careers/" class="cta-primary" data-k="careers_cta">Apply Now →</a></div>
   </div>
 </section>
 
@@ -2832,20 +2832,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Step 1: Service -->
     <div class="booking-step active" id="bStep1">
-      <div class="bk-h">What can we help with?</div>
-      <div class="bk-sub">Choose the service you're interested in</div>
+      <div class="bk-h" id="bkS1H">What can we help with?</div>
+      <div class="bk-sub" id="bkS1Sub">Choose the service you're interested in</div>
       <div class="service-opts">
         <button class="service-opt" onclick="selectService(this,'AI Automations & Agents')">
           <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="4" x2="9" y2="2"/><line x1="15" y1="4" x2="15" y2="2"/><line x1="9" y1="22" x2="9" y2="20"/><line x1="15" y1="22" x2="15" y2="20"/><line x1="4" y1="9" x2="2" y2="9"/><line x1="4" y1="15" x2="2" y2="15"/><line x1="22" y1="9" x2="20" y2="9"/><line x1="22" y1="15" x2="20" y2="15"/></svg></span>
-          <div><div class="service-opt-name">AI Automations &amp; Agents</div><div class="service-opt-desc">AI agents, chatbots, RAG systems &amp; local LLMs</div></div>
+          <div><div class="service-opt-name" id="bkSvc1N">AI Automations &amp; Agents</div><div class="service-opt-desc" id="bkSvc1D">AI agents, chatbots, RAG systems &amp; local LLMs</div></div>
         </button>
         <button class="service-opt" onclick="selectService(this,'Odoo ERP Implementation')">
           <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-          <div><div class="service-opt-name">Odoo ERP Implementation</div><div class="service-opt-desc">End-to-end ERP for your business operations</div></div>
+          <div><div class="service-opt-name" id="bkSvc2N">Odoo ERP Implementation</div><div class="service-opt-desc" id="bkSvc2D">End-to-end ERP for your business operations</div></div>
         </button>
         <button class="service-opt" onclick="selectService(this,'Both — Full Package')">
           <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-          <div><div class="service-opt-name">Both — Full Package</div><div class="service-opt-desc">Complete digital transformation: AI + ERP</div></div>
+          <div><div class="service-opt-name" id="bkSvc3N">Both — Full Package</div><div class="service-opt-desc" id="bkSvc3D">Complete digital transformation: AI + ERP</div></div>
         </button>
       </div>
       <div style="display:flex;justify-content:flex-end">
@@ -2855,8 +2855,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- Step 2: Contact info -->
     <div class="booking-step" id="bStep2">
-      <div class="bk-h">Your details</div>
-      <div class="bk-sub">We'll send you a confirmed calendar invite</div>
+      <div class="bk-h" id="bkS2H">Your details</div>
+      <div class="bk-sub" id="bkS2Sub">We'll send you a confirmed calendar invite</div>
       <div class="booking-fields">
         <input class="booking-input" type="text" id="bName" placeholder="Full Name *">
         <input class="booking-input" type="email" id="bEmail" placeholder="Email Address *">
@@ -2865,15 +2865,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <textarea class="booking-input" id="bChallenge" placeholder="What's your biggest challenge right now? (optional)"></textarea>
       </div>
       <div class="bk-nav">
-        <button class="bk-back" onclick="goStep(1)">← Back</button>
+        <button class="bk-back" id="bkS2Back" onclick="goStep(1)">← Back</button>
         <button class="bk-btn" onclick="validateStep2()">Continue →</button>
       </div>
     </div>
 
     <!-- Step 3: Calendar -->
     <div class="booking-step" id="bStep3">
-      <div class="bk-h">Pick a time</div>
-      <div class="bk-sub">1 hour · Asia / Singapore (UTC+8)</div>
+      <div class="bk-h" id="bkS3H">Pick a time</div>
+      <div class="bk-sub" id="bkS3Sub">1 hour · Asia / Singapore (UTC+8)</div>
       <div class="cal-wrap">
         <div class="cal-hdr">
           <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
@@ -2885,7 +2885,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="time-slots" id="timeSlots"></div>
       </div>
       <div class="bk-nav">
-        <button class="bk-back" onclick="goStep(2)">← Back</button>
+        <button class="bk-back" id="bkS3Back" onclick="goStep(2)">← Back</button>
         <button class="bk-btn" id="s3Confirm" onclick="confirmBooking()" disabled>Confirm Booking →</button>
       </div>
     </div>
@@ -2898,7 +2898,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p id="bkStep4Msg" style="font-size:0.88rem;color:#475569;margin-bottom:0">Your session is confirmed and added to our calendar. A calendar invite is on its way to your email.</p>
         <div class="bk-confirm-details" id="bkConfirmDetails"></div>
         <a id="bkFallbackBtn" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" class="bk-fallback-btn" style="display:none">📅 Complete booking in calendar</a>
-        <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg> Message us on WhatsApp</a>
+        <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg> <span id="bkWaText">Message us on WhatsApp</span></a>
       </div>
     </div>
 
