@@ -13,8 +13,9 @@
   var newPath = path
     .replace(/\/AI%20Article\//gi, '/ai-article/')
     .replace(/\/AI Article\//gi, '/ai-article/')
-    .replace(/\/images\/hero%20image\//gi, '/images/hero-image/')
-    .replace(/\/images\/hero image\//gi, '/images/hero-image/');
+    .replace(/\/images\/hero%20image\//gi, '/images/hero/')
+    .replace(/\/images\/hero image\//gi, '/images/hero/')
+    .replace(/\/images\/hero-image\//gi, '/images/hero/');
 
   if (newPath !== path) {
     window.location.replace(newPath + search);
