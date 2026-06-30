@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/blog/:slug", "destination": "/AI Article/:slug.html" }
+    { "source": "/blog/:slug", "destination": "/ai-article/:slug.html" }
   ]
 }
