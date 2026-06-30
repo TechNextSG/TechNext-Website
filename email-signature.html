@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TechNext Email Signatures</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+      gap: 20px;
+    }
+    .page-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111;
+      width: 100%;
+      max-width: 620px;
+    }
+    .page-title span {
+      font-size: 13px;
+      font-weight: 400;
+      color: #888;
+      margin-left: 10px;
+    }
+    .sig-card {
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-radius: 14px;
+      max-width: 620px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .sig-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .sig-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+    }
+    .sig-card-role {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .copy-btn {
+      background: #0062CC;
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: #004fa3; }
+    .copy-btn.copied { background: #16a34a; }
+    .sig-card-body {
+      padding: 24px 24px;
+    }
+    .sig-form {
+      padding: 16px 20px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sig-form-row { display: flex; gap: 12px; }
+    .sig-form-field { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .sig-form-field label { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .sig-form-field input {
+      padding: 8px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+      color: #111;
+      transition: border-color 0.15s;
+    }
+    .sig-form-field input:focus { outline: none; border-color: #0062CC; box-shadow: 0 0 0 3px rgba(0,98,204,0.12); }
+    .sig-form-field input::placeholder { color: #bbb; }
+    .sig-card-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+      background: #eff6ff; color: #0062CC; border: 1px solid #bfdbfe;
+      border-radius: 4px; padding: 2px 7px; margin-left: 8px; vertical-align: middle;
+    }
+    .tut-steps { list-style: none; counter-reset: step; margin: 0; padding: 6px 0; }
+    .tut-steps li {
+      position: relative;
+      padding: 13px 24px 13px 62px;
+      border-bottom: 1px solid #f4f4f4;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.55;
+    }
+    .tut-steps li:last-child { border-bottom: none; }
+    .tut-steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 22px;
+      top: 12px;
+      width: 26px;
+      height: 26px;
+      background: #0062CC;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 26px;
+    }
+    .tut-steps b { color: #111; font-weight: 700; }
+    .tut-steps kbd {
+      background: #f0f2f5;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: Consolas, monospace;
+      font-size: 11px;
+      color: #333;
+      white-space: nowrap;
+    }
+    .tut-note {
+      font-size: 11px;
+      color: #8a6d00;
+      padding: 12px 24px;
+      background: #fff8e6;
+      line-height: 1.5;
+    }  </style>
+</head>
+<body>
+
+<div class="page-title">Email Signatures <span>TechNext Pte Ltd.</span></div>
+
+<!-- Editable Signature Card -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">Create Your Signature <span class="sig-card-badge">New</span></div>
+      <div class="sig-card-role">Fill in your details to preview and copy</div>
+    </div>
+    <button class="copy-btn" id="btn-custom" onclick="copySignature('sig-template', 'btn-custom')">Copy Signature</button>
+  </div>
+  <div class="sig-form">
+    <div class="sig-form-row">
+      <div class="sig-form-field"><label for="f-name">Full Name</label><input type="text" id="f-name" placeholder="e.g. John del Monte" oninput="updateSigTemplate()"></div>
+      <div class="sig-form-field"><label for="f-role">Job Title</label><input type="text" id="f-role" placeholder="e.g. Sales Executive" oninput="updateSigTemplate()"></div>
+    </div>
+    <div class="sig-form-row">
+      <div class="sig-form-field"><label for="f-phone">Phone</label><input type="text" id="f-phone" placeholder="+63 000 000 0000" oninput="updateSigTemplate()"></div>
+      <div class="sig-form-field"><label for="f-email">Email</label><input type="email" id="f-email" placeholder="name@technext.asia" oninput="updateSigTemplate()"></div>
+    </div>
+  </div>
+  <div class="sig-card-body">
+    <div id="sig-template"><table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;border-collapse:collapse;">
+  <tr>
+    <!-- Info -->
+    <td style="vertical-align:top;">
+      <!-- Name -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:2px;">
+        <tr>
+          <td style="font-size:20px;font-weight:900;color:#111111;font-family:Arial,sans-serif;padding-right:14px;line-height:1;vertical-align:middle;"><span id="t-name">FULL NAME</span></td>
+          <td style="padding:0 14px;vertical-align:middle;border-left:1px solid #cccccc;">
+            <img src="https://technextsg.github.io/TechNext-Website/sig/logo-h.png" width="110" height="22" alt="TechNext" style="display:block;border:0;">
+          </td>
+        </tr>
+      </table>
+
+      <!-- Title / Company -->
+      <div style="margin:0 0 4px 0;font-size:11px;color:#888888;font-family:Arial,sans-serif;letter-spacing:1.2px;font-weight:500;"><span id="t-role">JOB TITLE</span> &bull; TECHNEXT PTE LTD.</div>
+
+      <!-- Contact -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
+        <tr>
+          <td style="padding-right:10px;padding-bottom:2px;vertical-align:middle;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIqSURBVEhL7ZUxaNtAFIb/J9lYBxkyZOjQoUOHFFpISseWBuyOhRQ6pGO2rl7MycKIg4DtyUOXdgtkyNgWDFlsunhPhwweOnTI4CFDhmKpYOl1sBROZ6e2FY/5QEj//574udPdCbhnzZAufN8vOI5zAODxTQNRGEVR1/O8C703L5YuhBD7RHRCRH56AWhalnWm992FTCAzb+g6hYgedjqdTdPPQyYQwKWhbwjDcP2BcRyPdK1jWdaO6eUhE1gsFq90bfDaNPKQCazVaiMAP3Vv3ZjfEMz8fY43mkwmX0w/DzOBtm1/M6whM7/yPG9o+LnIbPyUVqt1DmCHma9s236WTPVamBkhpvtOJfetKIq2zfpdmDtCTEf5A8AegGEQBLtKqdDsycPcEWK6UFTyuC2E+GSUc2ObRkq/3/9dLpeJiPYAPK9UKn97vd7A7FuVW6c0pdlsnhLRQSKPgiBQSqmJ3uP7fqFUKn0kopCILkql0rBarV7rPSkLA33f33Ac54yIXmI61QMi+iClvEzqBcdxTonovf4eM48ADOI4buhbamEgklAhxAmA/cS6JqLD8XjcnRemw8wN13WPUn3rotFRSv2RUr4DkL64ycxfhRDn/wtLKOhiqcAUKWUjjuO32nn71GhZyEqBAFCv17tSyl1mPgTwy6wvYuXAFNd1j4MgeMLMbwB8Zua5P28iyhwYSy2aZWm32y+iKNoiogcAHhFRaFnW8TrP4ntm+Ad/cbYlb8jwrwAAAABJRU5ErkJggg==" width="14" height="14" alt="" style="display:block;border:0;"></td>
+          <td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;padding-bottom:2px;vertical-align:middle;">
+            <a href="tel:+630000000000" id="t-phone-link" style="color:#444444;text-decoration:none;"><span id="t-phone">+63 000 000 0000</span></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-right:10px;padding-bottom:2px;vertical-align:middle;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIRSURBVEhL7Za/axRBFMe/M3fFHqSwSHlFirMIGIiQxkKIEAvBP8AUgo1FKm08ZmaV5dDbGc+FFCJYBGKRQrCxTBFICsGAgsUFtEhhmeIKC2FzsDvP4m7Xub0Tz7sTFO5T7bz39n1mf8zOAnP+d1gxEIZhjTFWLcYnwVrb8X3/xI3lwiiKFpMkeQNg3S2YFiL6SESbSqlTAOBZIkmSe7OWAQBjbI1zHmTjXAigit6MjonIAEic3CTsAHjbP84fkSsEejM6l1LKNE0vE9FxMT8GXwBcFULcBfCtmBwSElGt2Wxe8n3/REp5xVq7NerEEZwT0aM4jleEEO+01ksAVotFQ0LGWLVUKn0yxjwOgsBTSr3knC8T0etircOBtXZFSvkEAIwx9xlj7bGEfcoAHlYqlbbWer1er59JKTettTcAfM2KiKhDRLeFENeVUqetVmvV87z3ALYBLAy27PErYUaNMXZojNmNomhRKbUfx/Fy/6Xa8TzvopRyLwiCBa31M2vtB8bYWrGJS74OjTG7AO4Mpn9CRB0AD6SUr9x4GIY3OefPASy58QJHQohr+BOhw4G1dqtcLn9P03SbMXarWDCCXPi7WzqKDc5521r7eUzZAJMIAcADcKEYHIdJhRMzF86cXNhfZ38Ft7d7hS/cz9asIKIzzvnTbDz0i6G13nD3r2kgok63291vNBrT7q1z/iF+AJBAzBYTIPeiAAAAAElFTkSuQmCC" width="14" height="14" alt="" style="display:block;border:0;"></td>
+          <td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;padding-bottom:2px;vertical-align:middle;">
+            <a href="mailto:email@technext.asia" id="t-email-link" style="color:#444444;text-decoration:none;"><span id="t-email">email@technext.asia</span></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-right:10px;vertical-align:middle;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANTSURBVEhL5ZUxaBRBFIb/t7twu4tFCsEUghYnKAaxUOsoayFYWChoIdgKFl5hdi9HGLa53UuKs7RTUUHQUlBwgxYpLCwiCJ4gaBEkYpPCZHPB3WdxM8veZO9OLfVrbub9M/PvzLx7A/zrkB4YhRDCrtVqnmEYM0S0D4CV5/k3IuqlafoiDMMf+pwqJhq22+06EUVEdB6AreuSnwASIlrwff+tLpYZaSiEsFzXXWLmGwAsXR/DwzRNr4/acaVht9ud6vf7TwB4ulYFM78BUCeivTK0ahjGubm5uXVtKAw9IISw/sQMA8NHtm0fIqLbMnQ8z/OXQog92tDdhq7rLv2h2Zt+v3+v0Whs+L7fANCQ0ozjOA+04cNH2m6364ZhfBh3Z8y8DuAKAJimubG5ufk+DMOf5TGdTqfLzDfl+NPNZvO10oYWJqJIj+kQ0XYQBMUCVWxtbTVt275MRNMAlgCcVFpxpEIIW6b+JLb1gE4YhttE1MHgA09EUXRQaYVhrVbzxvzPegBeA0jyPL+li1WkaXpHtZm52EhhaBjGjGxulLINGEzoBEFwOgiCs/Pz88/K2ijCMNwG8AmDtY+qeGEoyxUAfPF9v6Gb/iU9+TutAuUEUW0LAHzfb3Q6HTDzTSK6G8fx3dLYAmZeA3C1nIkVFD7FDvM8/yabh4UQNqTppJ0S0X4As3ocg485LptFxSkfqdq+5bquus/fMq2i2+1OyY8BgI8qXhimafpCVn0w89AX+77fYObH5dgkdnZ2ijWyLCsSrTCU1T2R3dbi4mJx0RicwLtyvwwRHYiiaFbVTiGEzcyRlHutVkud3nAtJaIF2ZzKsqxb1uSLMIprRPTKcZzvcRxfdBynBeCw1NSaAACz3EmS5KvneXUAx4hoxvO8fpIkKwCwvLz8xfM8C8CpMeXPYuYzROQBMJh5pdlsDhWKXa9FmqbXAazKbhTH8QN1VEEQLDDzkeEZw8g30WLmNdM0L+3S9QAAxHG8H8BzACpbVwHcB/CUmS0i+qxNGYKZ1/I8P1u+O0WlIQYXv0e+Zxc06ROAuhYrYOYV0zQvVb32GGeoiKJoFsASEZ3QNY0egIUgCJ7qQpmJhoooig4y83lZiKdl4qwD+Jhl2bOq4/s/+QXdjkAM+D6j5AAAAABJRU5ErkJggg==" width="14" height="14" alt="" style="display:block;border:0;"></td>
+          <td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;vertical-align:middle;">
+            <a href="https://technext.asia" style="color:#444444;text-decoration:none;">technext.asia</a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- CTA -->
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:7px;">
+        <tr>
+          <td style="padding-right:10px;vertical-align:middle;">
+            <a href="https://technext.asia" style="font-size:12px;font-weight:700;color:#0062CC;text-decoration:none;font-family:Arial,sans-serif;">Odoo ERP Solution and AI Automation</a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Social Icons -->
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://www.facebook.com/technextasia" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAYAAADFeBvrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATdSURBVGhD3ZpfaFNXHMc/v5OiVSpzECSbdSusW1+EVYxTmdtanxzUtQMFx4SYdvggMvY0FRlaxvBxDwob/qkW9maFaJUJezCDiUZTLFixQietiBYWN6edFhfvbw9tYu5pWpPb2zbZBwK53++hzZdz7jm5v18EP9nRV8XTJy0gtQhLgRAQBAkBoKQQHUZNCpwhRAap4CyHwyn7T3lFbKFotieDpGlCtRmRDUClPWRKlDRCHPQU5vlZjq65aw8pBu+B2npqcdgLuhWhwrY9oxrDcdrpXN1rW4VQfKBIIkSgYheqO30NYqNyAsN3HFs5YFtTUVygaHI3ortAFtvWDDGKyCGqH+2hvTFtm/koLNCOviqejh5B2GJbs0ScCjYXsnm8PFAkEcIEuhHCtjWrqA7gyEY6w/22lcvUgVqvLAfzy/j2O/eojoB8zPHwb7aVYfJAkUSIQOBayYTJoDqC6Fo63uuzLQBjCzB+z5hAd8mFARCpAtNNJJH3s+UPNLYBzO09MzU1BMxJ9l2YcGxMDBRN7p7D3awIZB13Fh2coLquIokQAXNzFs+Z6aGkEWdF7v3kDtTa8z3oVy7NR6rmG+rfWEi4ZiGLF75YLb13nhC79tA1tmBUYxxf9Wnm8kWgtp5aHL05U19ndq5fwoFNS6maP3GVn7j4gGjHoC0Xjmgjx1bFcd1DDntnKkz3l7Uc/HxZ3jC+oLIv83bsP2xPBkG35o7xi53rl9D07iu27DcNRBL1ZAOlaZqJ2akwwoFNS215ZjCmhWwg1Wbb94Pl1QsmLLO0o/x06U/az9zPvk573RByEWkGEHb0VTE6+kfRT5oF8MWHQY5E3nRpXcm/2PzDbZfmGyJvm7EagP9hAKpfnWdL3Lg3akv+4egmA1Jr6+WL1Jnx6sz/A9FqofVqN0iT7XmhJjiPbe8Hs9cf1VXRULfINSZ+6zG/3hpxaZd/H+F83yOX5pFeofXqJZA1tuOFhrpFXPj6HVt+KdGOQU5cfGDLXhg22SLgHBK/9diWvBIyqP8HajEMpp4xmHpmy54xwLAtziY+zg6opoRo8meEDbbnBS+bwvnrf3P59j+uMZ5R+oRoz3FEt9meH+xvfp19n7zm0trP3Gf/6XsuzUfiBpwhWy1bVAYNyrSq/aWFM2SYJzGUgurGJY/jxAyHw6mx/kyZozpA5+re8YcVPWX7ZYfQRfYBzzw/a/tlh8o5soGOrrmLasweU0b0Zgr4OVUfpz13RJmR/ezuQqPPh2zLisU0r3AXYU9fe+i9qJifOB3hxsyFO1BbTy2q12fqkXxGUD7I7Re5SzLHVg4gcsillTZddvNrYimz+tEeKIdzSfuprIzaav4O3vZkkH/1ElKiBRTVFMaszdfynzhDAIfDKRzZONbTLDGUNIbN+cIwaSCAznA/htIKpaRBP8t0GvKRf8nlMtYJ7wZqbGtWUU2NzczkYSgoENnO3kmQdbY1O2g/YjZOtsxymXzJ5dK5ephlI40oP87Bo0YXlQtWFRKGgmcol9Yry1H5FpEW2/KZOMo39jnzMooPlKHtasN456zBtqZJL9BOR9jTl2XvgTJEEvUY0zLen6m37YJQHUDoQuVcsTNiM/1AubT11PLc2YKYtxCtRgkhBLO/SFFNgQwjpFAZBGcIx4l5/bFfPv4DpZWRKWon5mQAAAAASUVORK5CYII=" width="26" height="26" alt="Facebook" style="display:block;border:0;border-radius:13px;"></a></td>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://www.instagram.com/technextasia/" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,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" width="26" height="26" alt="Instagram" style="display:block;border:0;border-radius:13px;"></a></td>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://www.linkedin.com/company/technextasia/" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAYAAADFeBvrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAVhSURBVGhD3ZpdaFNnGMd/z5vO1q5uFTOJWGthFd3mWMQ4FWVU2cUGig4mKCixVWSIN2MMdc45EXc12MWEbX4XvJBZWUG9GDrWC0WjlfWi08DK5id2W0SnzmazPc8u0sScN2l6Em2a7geBvM//OeH8ec/7cZ43wtNkfWcVPQ+XgtQjTAQCgB8kAIASQ7QbNTFwriJyhTKOszsUs3+qUMQO5M26dj+9LEJ1CSJvARV2Sk6UXoQ20KOYvuPsnXPDTsmHwg2tuViPwxbQlQhltlwwqq04znaaZ3fYkhfyNxSOBPCVbUR1w1M1YqNyEMNO9s3ssqVc5GeosX0TohtBqm1piIgjsouae5vZvqDXFrPhzdD6zip64nsQlttSkWijjGVeJo/BDYUjAYzvGELIloqKaheOLKY5FLWldHIbajo/HczJ/ul3+FF9API2B0KnbSnJwIbCkQA+308lYyaJ6gNE57L/9U5bAjB2APrHjPEdKzkzACJVYI4RjmS9t+yGEhPA8I6Z3NThM0fY9mPGspFpqLF90zDOZnkg87k25suMqKsVjgTwmctFXGeeDKUXcWakjyd3D/nKPC+a1ZU+Niwcz4aF46mu9NlycRDKUNnhDiVZc7EeRy972c5UV/o4+9E0pk1I7EOjt+LM/SzK3Yd9dmpxEF3AvlltuHrIYYsXMwAr54xLmQGYNqGClXPGuXKKisq25NeEoXXtftCV6TkjjAbCkSApQ70s8to7AIfO3SZ6K55qR2/FOXTutiun6BizlNQYarzwHSJL7ZxcVFf6Uo/ZoXO3h2/8PKaD/aEZwvrOKuLxP/N+0yxFRKaYRA3gf2AGwNF3hcYLnyKPZ4mhpLrSx+p545g5+VmCtaMpM0LnzR4iv/7N4fN3uHHnX/uS/FA5KDRd2AOy1tZysXreOMLz3NN085nbHDwz8MTw5svPcaBpMjVjR9kSAHcf9vH+4es5f8MDp0whO+o6fzkNU8e4PnX+cjstxdo3/Jz8YMqAZujvvQNNdXy1qtaW8sFvEnWzoWPahAq+WD7JDg/Iew0vsOi15+2wVwImVQQcIr5aVUtVeeamPheFXNNPwKDeF9R8qSo3NEwdY4dpab/Dq59c4qWPf+bz73+3ZWrGjiJYW2mHPWGAbjv4tMh2U503e1jxzW903uwheivOh9/eoKX9jp1GcFLmtYOiGjPAoKWhQgnVZd7UqUv36XXUFfvh8n1XG+CViYUsjdJtQIash6orM5/mv3oyt0jxR44douKZAsaQEDPgXLXjIxaVKwbliar9pYVz1TBKWlE81Y1LHsdpNewOxRLnMyMc1S6aZ3f0jzw9ausjDqGF1Bur6Ttu6yMOlROkDO2dcwPVVjtnBNGRLOA/LmOFI8H+4vygBGsrCU4a7Yp1XO+h49pDV8xrXv34cuZPqXLFuv74h9O/PHDFcvAO+0OtZFROGy8eQHS1K1b6tLE/tCDZcC/Hhp3A43LOSEDZmt50G9o3swuRXa5YadNiH35lbphq7m2GkbAuaZSKikY7mv0Eb127n0d6FpF6WyoJVGMYMzfbkX9mDwHsDsVwZHHiTLPEUHoxLMtmhgENATSHohhKy5TSC7oiedKQjeyPXDqJk/BjQJ0tFRXVWKJnBjaDJ0OkTvaOgMy3peKgUcQsHugxS2fgRy6d5tndTHqwAOXrYXjVaKFi9CwvZvDcQ+k0nZ+Oyo58TysKoA1lq73ODEb+hpKsudDQf3LWYEtPSAewPbk3y5fCDSUJR4IYsxSRJUDQlj2h2oXQgsqJfHvE5skNpbPmYj19znLEvIhoDUoAwZ+qn6vGQLoRYqhcAecqjtNa6J/9svEf/yWk9US/x8EAAAAASUVORK5CYII=" width="26" height="26" alt="LinkedIn" style="display:block;border:0;border-radius:13px;"></a></td>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://x.com/technextasia" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,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" width="26" height="26" alt="X" style="display:block;border:0;border-radius:13px;"></a></td>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://www.youtube.com/@technextasia" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,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" width="26" height="26" alt="YouTube" style="display:block;border:0;border-radius:13px;"></a></td>
+          <td style="padding-right:6px;vertical-align:middle;"><a href="https://www.tiktok.com/@technextasia" target="_blank" style="text-decoration:none;"><img src="data:image/png;base64,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" width="26" height="26" alt="TikTok" style="display:block;border:0;border-radius:13px;"></a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+  
+  
+
+
+  
+  <!-- Banner -->
+  <table cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+    <tr>
+      <td>
+        <a href="https://technext.asia" target="_blank" style="text-decoration:none;"><img src="https://technextsg.github.io/TechNext-Website/sig/banner.png" width="520" height="104" alt="Your business in good hands" style="display:block;border:0;border-radius:12px;"></a>
+      </td>
+    </tr>
+  </table>
+  <!-- Confidentiality -->
+  <table cellpadding="0" cellspacing="0" border="0" width="520" style="margin-top:10px;">
+    <tr>
+      <td>
+        <div style="font-size:10px;color:#999999;font-family:Arial,sans-serif;line-height:1.6;margin:0;">The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</div>
+      </td>
+    </tr>
+  </table>
+  </div>
+  </div>
+</div>
+
+<!-- Animated Logo Card -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">Animated Logo <span class="sig-card-badge">GIF</span></div>
+      <div class="sig-card-role">TechNext animated logo for emails &amp; presentations</div>
+    </div>
+    <button class="copy-btn" id="btn-gif" onclick="downloadGif()">Download GIF</button>
+  </div>
+  <div class="sig-card-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+    <img src="https://technextsg.github.io/TechNext-Website/sig/logo-animation.gif" alt="TechNext animated logo" width="200" height="200" style="border:1px solid #eee;border-radius:12px;background:#fff;display:block;">
+    <div style="font-size:11px;color:#999;">1000 &times; 1000 px &middot; GIF</div>
+  </div>
+</div>
+
+<!-- Tutorial: Gmail Signature -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">How to Add Your Signature in Gmail <span class="sig-card-badge">Guide</span></div>
+      <div class="sig-card-role">Takes about 1 minute</div>
+    </div>
+  </div>
+  <ol class="tut-steps">
+    <li>Click <b>Copy Signature</b> on your signature card above.</li>
+    <li>Open <b>Gmail</b>, then click the <b>&#9881; gear icon</b> at the top right and choose <b>See all settings</b>.</li>
+    <li>In the <b>General</b> tab, scroll down to the <b>Signature</b> section.</li>
+    <li>Click <b>+ Create new</b>, type a name (e.g. <b>TechNext</b>), then click <b>Create</b>.</li>
+    <li>Click inside the signature box and paste with <kbd>Ctrl</kbd> + <kbd>V</kbd> (<kbd>&#8984; Cmd</kbd> + <kbd>V</kbd> on Mac).</li>
+    <li>Under <b>Signature defaults</b>, select your new signature for <b>For new emails</b> and <b>On reply/forward</b>.</li>
+    <li>Scroll to the very bottom and click <b>Save Changes</b>.</li>
+  </ol>
+  <div class="tut-note">&#128161; The logo and icons load from the web automatically &mdash; just paste, don't re-upload any images.</div>
+</div>
+
+<!-- Tutorial: Profile Picture -->
+<div class="sig-card">
+  <div class="sig-card-header">
+    <div>
+      <div class="sig-card-name">How to Change Your Profile Picture <span class="sig-card-badge">Guide</span></div>
+      <div class="sig-card-role">Your photo shows on every email you send</div>
+    </div>
+  </div>
+  <ol class="tut-steps">
+    <li>Open <b>Gmail</b> and click your <b>profile photo</b> in the top-right circle.</li>
+    <li>Click the <b>camera icon</b> on your photo, or click <b>Manage your Google Account</b>.</li>
+    <li>Go to the <b>Personal info</b> tab, then click your <b>photo</b> under "Profile picture".</li>
+    <li>Click <b>Add profile picture</b> (or <b>Change</b>) and upload your image from your computer.</li>
+    <li>Crop or reposition the image, then click <b>Save as profile picture</b>.</li>
+  </ol>
+  <div class="tut-note">&#128161; Profile pictures display as a still image &mdash; animated GIFs won't move. It can take a few minutes to update everywhere.</div>
+</div>
+
+<script>
+  function copySignature(sigId, btnId) {
+    const sig = document.getElementById(sigId);
+    const btn = document.getElementById(btnId);
+    const range = document.createRange();
+    range.selectNode(sig);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Signature';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  function updateSigTemplate() {
+    const rawName = document.getElementById('f-name').value;
+    const rawRole = document.getElementById('f-role').value;
+    const phone   = document.getElementById('f-phone').value;
+    const email   = document.getElementById('f-email').value;
+    const name = rawName ? rawName.toUpperCase() : 'FULL NAME';
+    const role = rawRole ? rawRole.toUpperCase() : 'JOB TITLE';
+    const el = (id) => document.getElementById(id);
+    if (el('t-name'))       el('t-name').textContent     = name;
+    if (el('t-role'))       el('t-role').textContent     = role;
+    if (el('t-phone'))      el('t-phone').textContent    = phone  || '+63 000 000 0000';
+    if (el('t-email'))      el('t-email').textContent    = email  || 'email@technext.asia';
+    if (el('t-phone-link')) el('t-phone-link').href      = 'tel:' + (phone || '+630000000000').replace(/[^0-9+]/g, '');
+    if (el('t-email-link')) el('t-email-link').href      = 'mailto:' + (email || 'email@technext.asia');
+  }
+
+  function downloadGif() {
+    const btn = document.getElementById('btn-gif');
+    const a = document.createElement('a');
+    a.href = 'https://technextsg.github.io/TechNext-Website/sig/logo-animation.gif';
+    a.download = 'TechNext-Logo-Animation.gif';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    btn.textContent = 'Downloaded!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Download GIF'; btn.classList.remove('copied'); }, 2000);
+  }
+</script>
+
+</body>
+</html>
