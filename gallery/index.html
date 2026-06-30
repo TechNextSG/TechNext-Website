@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — TechNext</title>
+  <meta name="description" content="Photos from the TechNext team — our people, offices, and culture." />
+  <link rel="icon" href="/public/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/careers/">Careers</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/contact/" class="nav-book">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="page-label">Gallery</div>
+    <h1 class="page-title">Our Team &amp; Culture</h1>
+    <p class="page-sub">A look inside TechNext — the people building enterprise AI across 10 countries.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="gallery-grid" id="galleryGrid"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbMove(-1)">&#8249;</button>
+  <img class="lb-img" id="lbImg" src="" alt="" />
+  <button class="lb-nav lb-next" onclick="lbMove(1)">&#8250;</button>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a>
+        <p class="footer-tagline">AI-native company building enterprise intelligence for global clients across 10 countries.</p>
+      </div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="/#about">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/careers/">Careers</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="/services/">AI Agents</a></li><li><a href="/services/">RAG Systems</a></li><li><a href="/services/">Odoo ERP</a></li><li><a href="/services/">Web & Mobile</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/legal/privacy.html">Privacy Policy</a></li><li><a href="/legal/terms.html">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 TechNext Solutions Pte Ltd · Singapore</span><span>hello@technext.asia</span></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+  const photos = [
+    { src: '/public/gallery/team-01.png', caption: 'The TechNext core team' },
+    { src: '/public/gallery/team-02.png', caption: 'Team at work' },
+    { src: '/public/gallery/team-03.png', caption: 'TechNext team' },
+    { src: '/public/gallery/team-04.png', caption: 'TechNext team' },
+    { src: '/public/gallery/gallery-01.jpeg', caption: 'Working session on a client AI rollout' },
+    { src: '/public/gallery/gallery-02.jpeg', caption: 'Engineering offsite' },
+    { src: '/public/gallery/gallery-03.jpeg', caption: 'AI workshop in the Vietnam dev hub' },
+    { src: '/public/gallery/gallery-04.jpeg', caption: 'Pairing on an Odoo deployment' },
+    { src: '/public/gallery/gallery-05.jpeg', caption: 'Team building session' },
+    { src: '/public/gallery/gallery-06.jpeg', caption: 'Client delivery day' },
+    { src: '/public/gallery/gallery-07.jpeg', caption: 'TechNext Singapore office' },
+    { src: '/public/gallery/gallery-08.jpeg', caption: 'Sprint kickoff' },
+    { src: '/public/gallery/gallery-09.jpeg', caption: 'AI demo day' },
+    { src: '/public/gallery/gallery-10.jpeg', caption: 'Engineering meetup' },
+    { src: '/public/gallery/gallery-11.jpeg', caption: 'Product launch' },
+    { src: '/public/gallery/gallery-12.jpeg', caption: 'Team lunch' },
+    { src: '/public/gallery/gallery-13.jpeg', caption: 'Code review session' },
+    { src: '/public/gallery/gallery-14.jpeg', caption: 'Client workshop' },
+    { src: '/public/gallery/gallery-15.jpeg', caption: 'Dev hub Vietnam' },
+    { src: '/public/gallery/gallery-16.jpeg', caption: 'Quarterly planning' },
+    { src: '/public/gallery/gallery-17.jpeg', caption: 'Team dinner' },
+    { src: '/public/gallery/gallery-18.jpeg', caption: 'Office day' },
+    { src: '/public/gallery/gallery-19.jpeg', caption: 'Hackathon' },
+    { src: '/public/gallery/gallery-20.jpeg', caption: 'Demo presentation' },
+    { src: '/public/gallery/gallery-21.jpeg', caption: 'Team retreat' },
+    { src: '/public/gallery/gallery-22.jpeg', caption: 'Product review' },
+    { src: '/public/gallery/gallery-23.jpeg', caption: 'Engineering session' },
+    { src: '/public/gallery/gallery-24.jpeg', caption: 'Team event' },
+    { src: '/public/gallery/gallery-25.jpeg', caption: 'TechNext meetup' },
+    { src: '/public/gallery/gallery-26.jpeg', caption: 'Team collaboration' },
+  ];
+
+  const grid = document.getElementById('galleryGrid');
+  photos.forEach((p, i) => {
+    grid.innerHTML += `<div class="gallery-item" onclick="openLightbox(${i})"><img src="${p.src}" alt="${p.caption}" loading="lazy" /><span class="gallery-cap">${p.caption}</span></div>`;
+  });
+
+  let lbIdx = 0;
+  function openLightbox(i) { lbIdx = i; document.getElementById('lbImg').src = photos[i].src; document.getElementById('lightbox').classList.add('open'); }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  function lbMove(dir) { lbIdx = (lbIdx + dir + photos.length) % photos.length; document.getElementById('lbImg').src = photos[lbIdx].src; }
+  document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+</script>
+</body>
+</html>

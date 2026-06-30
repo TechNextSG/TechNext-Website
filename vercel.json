@@ -1,6 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" }
-  ],
-  "buildCommand": "npm run build"
+  "cleanUrls": true,
+  "trailingSlash": false
 }

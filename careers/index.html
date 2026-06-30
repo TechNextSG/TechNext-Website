@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers — TechNext</title>
+  <meta name="description" content="Join TechNext — build production AI for enterprise clients across 10 countries." />
+  <link rel="icon" href="/public/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .jobs-list { display: flex; flex-direction: column; gap: 16px; padding: 48px 0 96px; }
+    .job-card { background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: box-shadow 0.2s, transform 0.2s; }
+    .job-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .job-info { flex: 1; }
+    .job-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .job-tag { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; background: #EFF6FF; color: var(--color-primary); }
+    .job-tag-loc { background: #F0FDF4; color: #166534; }
+    .job-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .job-desc { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.6; max-width: 560px; }
+    .perks-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 0 0 64px; }
+    .perk-card { background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 24px; }
+    .perk-card h3 { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .perk-card p { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.6; }
+    @media (max-width: 768px) { .job-card { flex-direction: column; align-items: flex-start; } .perks-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/careers/">Careers</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/contact/" class="nav-book">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="page-label">Careers</div>
+    <h1 class="page-title">Build AI that ships to production</h1>
+    <p class="page-sub">Join a team of engineers, AI researchers, and builders working on real enterprise systems — not demos.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="section-label" style="margin-bottom:8px;">Open Roles</div>
+  <div class="jobs-list">
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-tags"><span class="job-tag">Full-time</span><span class="job-tag job-tag-loc">Vietnam · Remote</span></div>
+        <div class="job-title">AI Engineer — LLM & Agents</div>
+        <p class="job-desc">Build multi-agent systems, RAG pipelines, and LLM integrations for enterprise clients. Strong Python required.</p>
+      </div>
+      <a href="/contact/" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+    </div>
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-tags"><span class="job-tag">Full-time</span><span class="job-tag job-tag-loc">Vietnam · Remote</span></div>
+        <div class="job-title">Odoo Developer</div>
+        <p class="job-desc">Customise and implement Odoo ERP for clients across manufacturing, logistics, and professional services.</p>
+      </div>
+      <a href="/contact/" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+    </div>
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-tags"><span class="job-tag">Full-time</span><span class="job-tag job-tag-loc">Singapore · Hybrid</span></div>
+        <div class="job-title">Full-Stack Engineer (React / Node)</div>
+        <p class="job-desc">Build enterprise web and mobile applications. React, Node.js, TypeScript, and a strong product mindset required.</p>
+      </div>
+      <a href="/contact/" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+    </div>
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-tags"><span class="job-tag">Full-time</span><span class="job-tag job-tag-loc">Singapore · On-site</span></div>
+        <div class="job-title">Business Development Manager</div>
+        <p class="job-desc">Drive new enterprise partnerships across Southeast Asia and ANZ. Tech background and B2B sales experience required.</p>
+      </div>
+      <a href="/contact/" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:24px;">Why Work Here</div>
+  <div class="perks-grid">
+    <div class="perk-card"><h3>Real Production AI</h3><p>Ship systems used by thousands of people in enterprise environments — no sandbox, no demos.</p></div>
+    <div class="perk-card"><h3>English-First Culture</h3><p>Work directly with international clients across Singapore, Australia, Europe, and the US.</p></div>
+    <div class="perk-card"><h3>Fast Career Growth</h3><p>Small team, big scope. Own entire features and systems from day one.</p></div>
+    <div class="perk-card"><h3>Cutting-Edge Stack</h3><p>LangChain, CrewAI, Claude, Odoo 17, React — always working on what's current.</p></div>
+    <div class="perk-card"><h3>Remote-Friendly</h3><p>Most engineering roles are remote-first from Vietnam, with optional Singapore office access.</p></div>
+    <div class="perk-card"><h3>Competitive Pay</h3><p>Market-rate salaries benchmarked against Singapore tech companies, paid in USD or SGD.</p></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a><p class="footer-tagline">AI-native company building enterprise intelligence for global clients across 10 countries.</p></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="/#about">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/careers/">Careers</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="/services/">AI Agents</a></li><li><a href="/services/">RAG Systems</a></li><li><a href="/services/">Odoo ERP</a></li><li><a href="/services/">Web & Mobile</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/legal/privacy.html">Privacy Policy</a></li><li><a href="/legal/terms.html">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 TechNext Solutions Pte Ltd · Singapore</span><span>hello@technext.asia</span></div>
+  </div>
+</footer>
+<script>document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — TechNext</title>
+  <meta name="description" content="Insights on enterprise AI, Odoo ERP, and software engineering from the TechNext team." />
+  <link rel="icon" href="/public/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; padding: 48px 0 96px; }
+    .blog-card { background: #fff; border: 1.5px solid var(--color-border); border-radius: 20px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .blog-cover { aspect-ratio: 16/9; overflow: hidden; background: var(--color-bg-tertiary); }
+    .blog-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .blog-card:hover .blog-cover img { transform: scale(1.04); }
+    .blog-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .blog-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; background: #EFF6FF; color: var(--color-primary); }
+    .blog-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--color-text-primary); }
+    .blog-excerpt { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.65; flex: 1; }
+    .blog-meta { font-size: 0.78rem; color: var(--color-text-muted); padding-top: 8px; border-top: 1px solid var(--color-border); }
+    @media (max-width: 1024px) { .blog-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .blog-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/careers/">Careers</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/contact/" class="nav-book">Book Now</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="page-label">Blog</div>
+    <h1 class="page-title">Insights from the TechNext team</h1>
+    <p class="page-sub">Enterprise AI, Odoo ERP, and software engineering — written by the engineers who ship it.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-cover"><img src="/public/blog-featured.png" alt="Blog post" /></div>
+      <div class="blog-body">
+        <span class="blog-tag">AI Agents</span>
+        <div class="blog-title">Building Multi-Agent Systems for Enterprise: What Actually Works in Production</div>
+        <p class="blog-excerpt">Most tutorials show you how to build a toy agent. We shipped one to a logistics company with 50k daily transactions. Here's what we learned.</p>
+        <div class="blog-meta">TechNext Team · June 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cover" style="background:linear-gradient(135deg,#EFF6FF,#EDE9FE);"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Odoo ERP</span>
+        <div class="blog-title">Odoo 17 vs SAP: Why Mid-Market Companies Are Making the Switch</div>
+        <p class="blog-excerpt">After implementing both systems for enterprise clients, here's our honest comparison on cost, implementation time, and long-term flexibility.</p>
+        <div class="blog-meta">TechNext Team · May 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cover" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);"></div>
+      <div class="blog-body">
+        <span class="blog-tag">RAG Systems</span>
+        <div class="blog-title">RAG Architecture Patterns We Use for Enterprise Knowledge Bases</div>
+        <p class="blog-excerpt">Naive RAG breaks at scale. Here are the chunking strategies, reranking techniques, and retrieval architectures that actually hold up in production.</p>
+        <div class="blog-meta">TechNext Team · May 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cover" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Engineering</span>
+        <div class="blog-title">Why We Switched from Next.js to Vite + React for Our Client Projects</div>
+        <p class="blog-excerpt">Next.js is great, but for many enterprise internal tools it's overkill. Here's our decision framework and what we use instead.</p>
+        <div class="blog-meta">TechNext Team · April 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cover" style="background:linear-gradient(135deg,#FCE7F3,#FDE68A);"></div>
+      <div class="blog-body">
+        <span class="blog-tag">AI Strategy</span>
+        <div class="blog-title">The AI Readiness Checklist We Use Before Starting Any Enterprise Project</div>
+        <p class="blog-excerpt">Before writing a single line of code, we run through 12 questions with every client. This checklist has saved us (and them) months of rework.</p>
+        <div class="blog-meta">TechNext Team · April 2026</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cover" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);"></div>
+      <div class="blog-body">
+        <span class="blog-tag">Culture</span>
+        <div class="blog-title">How We Run an English-First Engineering Team Across 5 Time Zones</div>
+        <p class="blog-excerpt">Singapore, Vietnam, Australia, Germany, the US — here's the async-first culture, tools, and rituals that keep us shipping fast.</p>
+        <div class="blog-meta">TechNext Team · March 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="logo"><img src="/public/technext-logo.png" alt="TechNext" /></a><p class="footer-tagline">AI-native company building enterprise intelligence for global clients across 10 countries.</p></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="/#about">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/careers/">Careers</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="/services/">AI Agents</a></li><li><a href="/services/">RAG Systems</a></li><li><a href="/services/">Odoo ERP</a></li><li><a href="/services/">Web & Mobile</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="/legal/privacy.html">Privacy</a></li><li><a href="/legal/terms.html">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 TechNext Solutions Pte Ltd · Singapore</span><span>hello@technext.asia</span></div>
+  </div>
+</footer>
+<script>document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));</script>
+</body>
+</html>
