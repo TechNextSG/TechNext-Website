@@ -244,6 +244,379 @@ textarea.booking-input{resize:none;height:76px}
     document.getElementById('waMsg').addEventListener('keydown', function(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('waSendBtn').click();} });
   }
 
+
+  /* ── TechNext Chatbot ── */
+  if (!document.getElementById('tnBot')) {
+    const _bs = document.createElement('style');
+    _bs.textContent = `
+#tnBotBtn{position:fixed;bottom:100px;right:28px;z-index:1900;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,99,235,.45);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+#tnBotBtn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,99,235,.6)}
+#tnBotBtn svg{width:26px;height:26px}
+@keyframes botPulse{0%,100%{box-shadow:0 4px 20px rgba(37,99,235,.45)}50%{box-shadow:0 4px 32px rgba(37,99,235,.75),0 0 0 8px rgba(37,99,235,.12)}}
+#tnBotBtn{animation:botPulse 3s ease-in-out infinite}
+#tnBotBtn:hover,#tnBotBtn.bot-active{animation:none}
+#tnBotBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none}
+#tnBotPanel{position:fixed;bottom:168px;right:28px;z-index:1902;width:350px;max-height:520px;border-radius:20px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1);font-family:'DM Sans',-apple-system,sans-serif;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(18px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
+#tnBotPanel.bot-open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
+.bot-header{background:linear-gradient(135deg,#1d4ed8,#6d28d9);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.bot-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.bot-hinfo{flex:1;min-width:0}
+.bot-hname{font-size:.88rem;font-weight:700;color:#fff;letter-spacing:-.01em}
+.bot-hstatus{font-size:.68rem;color:rgba(255,255,255,.8);margin-top:1px}
+.bot-hclose{width:28px;height:28px;background:rgba(255,255,255,.15);border:none;border-radius:50%;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:background .18s;flex-shrink:0}
+.bot-hclose:hover{background:rgba(255,255,255,.3)}
+.bot-messages{flex:1;overflow-y:auto;padding:14px 14px 8px;background:#f8faff;display:flex;flex-direction:column;gap:10px;min-height:0;scroll-behavior:smooth}
+.bot-messages::-webkit-scrollbar{width:3px}
+.bot-messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
+.bot-msg-row{display:flex;align-items:flex-end;gap:8px}
+.bot-msg-row.user{flex-direction:row-reverse}
+.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#fff;flex-shrink:0}
+.bot-bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:.82rem;line-height:1.55;position:relative}
+.bot-bubble.bot{background:#fff;border-radius:4px 16px 16px 16px;color:#1e293b;box-shadow:0 1px 4px rgba(0,0,0,.09)}
+.bot-bubble.user{background:linear-gradient(135deg,#2563eb,#6d28d9);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.bot-bubble b{font-weight:700}
+.bot-bubble ul{margin:6px 0 2px 0;padding-left:16px}
+.bot-bubble ul li{margin-bottom:3px}
+.bot-rel-btns{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.bot-rel-btn{background:rgba(37,99,235,.08);border:1.5px solid rgba(37,99,235,.2);color:#2563eb;border-radius:100px;padding:4px 11px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit}
+.bot-rel-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
+.bot-typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:#fff;border-radius:4px 16px 16px 16px;box-shadow:0 1px 4px rgba(0,0,0,.09);width:fit-content}
+.bot-typing span{width:7px;height:7px;border-radius:50%;background:#94a3b8;display:inline-block;animation:botDot 1.2s ease-in-out infinite}
+.bot-typing span:nth-child(2){animation-delay:.2s}
+.bot-typing span:nth-child(3){animation-delay:.4s}
+@keyframes botDot{0%,80%,100%{transform:scale(.7);opacity:.5}40%{transform:scale(1);opacity:1}}
+.bot-suggestions{padding:10px 14px;background:#f8faff;border-top:1px solid rgba(0,0,0,.06);flex-shrink:0}
+.bot-sug-label{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.bot-chips{display:flex;flex-wrap:wrap;gap:5px}
+.bot-chip{background:#fff;border:1.5px solid rgba(37,99,235,.22);color:#2563eb;border-radius:100px;padding:5px 13px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:left}
+.bot-chip:hover{background:#2563eb;color:#fff;border-color:#2563eb;transform:translateY(-1px);box-shadow:0 3px 10px rgba(37,99,235,.3)}
+.bot-input-row{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid rgba(0,0,0,.07);flex-shrink:0}
+#tnBotInput{flex:1;border:1.5px solid rgba(0,0,0,.1);border-radius:22px;padding:8px 14px;font-size:.8rem;font-family:inherit;outline:none;color:#1e293b;transition:border-color .2s;background:#f8faff}
+#tnBotInput:focus{border-color:#2563eb;background:#fff}
+#tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+#tnBotSend:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(37,99,235,.4)}
+#tnBotSend svg{width:16px;height:16px;margin-left:2px}
+@media(max-width:400px){#tnBotPanel{width:calc(100vw - 20px);right:10px;bottom:152px}#tnBotBtn{right:10px;bottom:88px}}
+`;
+    document.head.appendChild(_bs);
+
+    /* ── Q&A Database ── */
+    const BOT_QA = [
+      { id:'what_is', q:'What is TechNext Asia?', kw:['what','who','technext','about','company','tell','explain','introduce','overview'],
+        a:'<b>TechNext Asia</b> is an AI-native company that helps businesses worldwide adopt AI agents, RAG systems, and Odoo ERP. We operate across Vietnam 🇻🇳, Philippines 🇵🇭, Singapore 🇸🇬 and serve clients in 10+ countries.',
+        rel:['services','locations','how_start'] },
+
+      { id:'services', q:'What services do you offer?', kw:['service','offer','provide','solution','what do you do','help with','specialize','work'],
+        a:'We offer 4 core services:<ul><li><b>AI Agent Development</b> — LLM agents, RAG, pipelines</li><li><b>Odoo ERP Implementation</b> — full setup & support</li><li><b>Conversational AI</b> — chatbots, WhatsApp bots</li><li><b>AI Automation</b> — n8n workflows, integrations</li></ul>',
+        rel:['ai_agents','odoo','pricing'] },
+
+      { id:'ai_agents', q:'What is AI Agent development?', kw:['ai agent','llm','rag','pipeline','agent','artificial intelligence','machine learning','neural','gpt','claude'],
+        a:'We build <b>custom AI agents</b> tailored to your business — think of them as smart employees that can reason, retrieve knowledge, and take actions. We use Claude (Anthropic), GPT-4, Llama, and more, deployed on your infrastructure or cloud.',
+        rel:['tech_stack','rag','how_start'] },
+
+      { id:'odoo', q:'What is Odoo ERP?', kw:['odoo','erp','enterprise resource','crm','inventory','accounting','manufacturing','hrm','ecommerce','modules'],
+        a:'<b>Odoo</b> is the world\'s most popular open-source ERP. TechNext is a <b>Certified Odoo Ready Partner</b> — we implement, customize, and support Odoo for sales, inventory, accounting, HR, manufacturing, and more. Go live in <b>4–8 weeks</b>.',
+        rel:['odoo_pricing','industries','timeline'] },
+
+      { id:'rag', q:'What is RAG and how does it work?', kw:['rag','retrieval','augmented','generation','knowledge base','document','search','vector','embedding'],
+        a:'<b>RAG (Retrieval-Augmented Generation)</b> lets AI answer questions using <i>your own data</i> — documents, PDFs, databases. Instead of hallucinating, the AI retrieves the right info first, then generates an accurate answer. We build RAG systems with Qdrant, Chroma, and Pinecone.',
+        rel:['ai_agents','tech_stack','use_cases'] },
+
+      { id:'pricing', q:'How much does it cost?', kw:['price','cost','how much','rate','fee','budget','pricing','expensive','cheap','affordable','quote','estimate','invoice'],
+        a:'Pricing depends on scope and complexity. Rough ranges:<ul><li><b>AI Agent MVP</b> — from $3,000</li><li><b>Odoo Implementation</b> — from $5,000</li><li><b>Chatbot / WhatsApp Bot</b> — from $2,000</li><li><b>Monthly retainer</b> — from $800/mo</li></ul>Book a free call for an accurate quote.',
+        rel:['how_start','odoo_pricing','timeline'] },
+
+      { id:'odoo_pricing', q:'How much does Odoo cost with TechNext?', kw:['odoo price','odoo cost','odoo fee','erp price','erp cost','odoo budget','odoo quote'],
+        a:'Odoo implementation with TechNext typically ranges <b>$5,000–$25,000</b> depending on modules and business size. This includes setup, data migration, training, and 3 months of support. Odoo Community is free to use; Odoo Enterprise starts at ~$20/user/mo.',
+        rel:['odoo','timeline','how_start'] },
+
+      { id:'how_start', q:'How do I get started?', kw:['start','begin','get started','first step','next step','how to','process','onboard','sign up','hire','engage'],
+        a:'Getting started is easy:<ol style="margin:6px 0 2px;padding-left:16px"><li>Book a <b>free 30-min discovery call</b></li><li>We assess your needs & propose a solution</li><li>You approve the scope & we kick off</li></ol>No commitment on the first call.',
+        rel:['book_call','timeline','pricing'] },
+
+      { id:'book_call', q:'How do I book a call?', kw:['book','call','meeting','schedule','appointment','demo','consultation','talk','discuss','contact'],
+        a:'Click the <b>"Book Now"</b> button in the top nav, or message us on WhatsApp. We typically respond within a few hours and can set up a call as early as tomorrow.',
+        rel:['how_start','whatsapp','contact_info'] },
+
+      { id:'timeline', q:'How long does a project take?', kw:['how long','timeline','duration','time','weeks','months','deadline','fast','quick','delivery','eta'],
+        a:'Typical timelines:<ul><li><b>AI Chatbot</b> — 2–4 weeks</li><li><b>AI Agent system</b> — 4–8 weeks</li><li><b>Odoo basic setup</b> — 4–6 weeks</li><li><b>Full Odoo ERP</b> — 8–16 weeks</li></ul>We can fast-track with dedicated resources.',
+        rel:['how_start','pricing','tech_stack'] },
+
+      { id:'locations', q:'Where is TechNext located?', kw:['where','location','office','country','based','vietnam','philippines','singapore','address','city'],
+        a:'Our offices are in:<ul><li>🇻🇳 <b>Vietnam</b> — 62 Nguyễn Thị Nhung, TP.HCM (Dev Hub)</li><li>🇵🇭 <b>Philippines</b> — Level 9, IP Center, Taguig</li><li>🇸🇬 <b>Singapore</b> — 261 Waterloo St, #03-36</li></ul>We work with clients globally — 100% remote-friendly.',
+        rel:['contact_info','careers','whatsapp'] },
+
+      { id:'tech_stack', q:'What technologies do you use?', kw:['tech','stack','technology','language','framework','python','tool','platform','infrastructure','software'],
+        a:'Our core stack includes: <b>Python, LangChain, CrewAI, Claude (Anthropic), GPT-4, Llama, Mistral</b> for AI — <b>Qdrant/Chroma/Pinecone</b> for vector storage — <b>n8n</b> for automation — <b>Odoo</b> for ERP — <b>Docker & Kubernetes</b> for infrastructure.',
+        rel:['ai_agents','rag','use_cases'] },
+
+      { id:'use_cases', q:'What kinds of businesses do you help?', kw:['business','industry','type','sector','sme','enterprise','startup','manufacturing','retail','healthcare','finance','logistics','use case','example','case study'],
+        a:'We\'ve worked with clients across: <b>Manufacturing, Logistics, Healthcare, Retail, Finance, BPO, and Government</b>. From 10-person SMEs to large enterprises. Our clients are in Switzerland 🇨🇭, USA 🇺🇸, Singapore 🇸🇬, Japan 🇯🇵, Philippines 🇵🇭, and more.',
+        rel:['clients','services','how_start'] },
+
+      { id:'clients', q:'Who are your clients?', kw:['client','customer','partner','who have you worked','portfolio','case','project','reference','qualcomm','tsmc'],
+        a:'Our clients include <b>Qualcomm, TSMC, Singapore Government agencies</b>, and several regional SMEs. We also partner with <b>Anthropic (Claude AI)</b> and are a <b>Certified Odoo Ready Partner</b>. Most client details are under NDA.',
+        rel:['use_cases','services','how_start'] },
+
+      { id:'whatsapp', q:'Can I message on WhatsApp?', kw:['whatsapp','wa','message','chat','text','instant','quick','reach','phone'],
+        a:'Absolutely! Click the <b>green WhatsApp button</b> at the bottom-right of the page. Our team is active and typically replies within minutes during business hours (GMT+7/+8).',
+        rel:['contact_info','book_call','locations'] },
+
+      { id:'contact_info', q:'What is your contact information?', kw:['contact','email','phone','number','reach','get in touch','info','address','detail'],
+        a:'You can reach us via:<ul><li>📧 <b>Sales:</b> sales@technextasia.com</li><li>📧 <b>Admin:</b> admin@technextasia.com</li><li>💬 <b>WhatsApp:</b> +65 8839 6998</li></ul>Or visit our <a href="/contact/" style="color:#2563eb;font-weight:600">Contact page</a> for the full form.',
+        rel:['whatsapp','book_call','locations'] },
+
+      { id:'careers', q:'Are you hiring?', kw:['job','hire','hiring','career','work','join','position','opening','vacancy','apply','role','team','internship','remote'],
+        a:'<b>Yes! We\'re actively hiring.</b> Current openings include AI Engineers, DevOps (Local LLM), Context Engineers, Odoo Consultants, and Sales roles. Most positions are remote-friendly and English-first.',
+        rel:['career_roles','locations','tech_stack'] },
+
+      { id:'career_roles', q:'What roles are open?', kw:['role','position','vacancy','opening','ai engineer','devops','sales','consultant','context','manager','accountant'],
+        a:'Open roles include:<ul><li>🤖 AI Engineer (Agents, RAG, LLM)</li><li>⚙️ DevOps Engineer (Local LLM / GPU infra)</li><li>📝 Context Engineer (Prompt, RAG arch)</li><li>📊 Odoo/ERP Consultant</li><li>💼 Senior B2B Sales Consultant</li><li>🧑‍💼 Project Manager (ERP focus)</li></ul>',
+        rel:['careers','how_apply','locations'] },
+
+      { id:'how_apply', q:'How do I apply for a job?', kw:['apply','application','cv','resume','submit','send','linkedin','interview'],
+        a:'Visit our <a href="/careers/" style="color:#2563eb;font-weight:600">Careers page</a> to see all open roles and apply via LinkedIn. You can also email your CV to <b>career@technextasia.com</b> with the role in the subject line.',
+        rel:['career_roles','careers','contact_info'] },
+
+      { id:'remote_work', q:'Are roles remote or on-site?', kw:['remote','onsite','work from home','wfh','office','hybrid','location','flexible'],
+        a:'Most roles are <b>remote-friendly</b> with an English-first culture. Some client-facing roles may require occasional on-site presence in Vietnam, Philippines, or Singapore. We\'re flexible for the right candidate.',
+        rel:['careers','locations','career_roles'] },
+
+      { id:'iso', q:'Are you ISO certified?', kw:['iso','certified','certification','security','compliance','27001','standard','audit','trust'],
+        a:'We are currently pursuing <b>ISO 27001</b> certification (in progress). We follow enterprise-grade security practices for all client data — encryption at rest, access control, audit trails, and NDA-protected engagements.',
+        rel:['clients','tech_stack','services'] },
+
+      { id:'odoo_partner', q:'Are you an official Odoo partner?', kw:['odoo partner','certified','official','ready partner','official partner','authorized'],
+        a:'Yes! TechNext is a <b>Certified Odoo Ready Partner</b>. This means we\'ve passed Odoo\'s technical and business certification, giving us access to direct Odoo support, partner pricing, and advanced training resources.',
+        rel:['odoo','odoo_pricing','how_start'] },
+
+      { id:'claude_partner', q:'Are you an Anthropic / Claude partner?', kw:['anthropic','claude','ai partner','llm partner','openai','gpt'],
+        a:'Yes — TechNext is a <b>Claude (Anthropic) Partner</b>. We use Claude as our primary LLM for enterprise deployments due to its safety, accuracy, and long-context capabilities. We also work with GPT-4, Llama, and Mistral depending on the project.',
+        rel:['tech_stack','ai_agents','use_cases'] },
+
+      { id:'local_llm', q:'Can you run AI on our own servers?', kw:['local','on premise','on-prem','private','server','gpu','self hosted','data privacy','llama','mistral','vllm','own infrastructure'],
+        a:'Absolutely. We specialize in <b>on-premise / local LLM deployments</b> using Llama, Mistral, and Phi models via <b>vLLM</b> on GPU infrastructure. Your data never leaves your servers — ideal for regulated industries and data-sensitive clients.',
+        rel:['tech_stack','rag','pricing'] },
+
+      { id:'n8n', q:'What is n8n and how do you use it?', kw:['n8n','automation','workflow','zapier','make','integromat','automate','trigger','webhook'],
+        a:'<b>n8n</b> is a powerful open-source automation platform (like Zapier but self-hosted). TechNext uses it to connect your apps, trigger AI workflows, sync data between systems, and automate repetitive business processes — all without vendor lock-in.',
+        rel:['services','tech_stack','pricing'] },
+
+      { id:'support', q:'What kind of support do you provide?', kw:['support','maintenance','help','bug','issue','after','post','ongoing','retainer','sla','update'],
+        a:'All projects include <b>3 months of free support</b> after go-live. After that, we offer:<ul><li>Monthly retainer (from $800/mo)</li><li>On-demand hourly support</li><li>Priority SLA packages</li></ul>We\'re also available on WhatsApp for quick questions.',
+        rel:['pricing','how_start','contact_info'] },
+
+      { id:'why_technext', q:'Why choose TechNext over others?', kw:['why','different','unique','better','advantage','vs','compare','competitor','choose','reason'],
+        a:'A few reasons clients choose us:<ul><li>🤖 <b>AI-native</b> — we eat our own cooking, AI is our core</li><li>🌏 <b>Multilingual</b> — EN/VN/PH/DE teams, global reach</li><li>⚡ <b>Fast</b> — MVPs in 2–4 weeks, not months</li><li>💰 <b>Cost-effective</b> — Vietnam dev hub = enterprise quality, startup rates</li></ul>',
+        rel:['clients','tech_stack','pricing'] },
+
+      { id:'ai_chatbot', q:'Can you build a chatbot for my website?', kw:['chatbot','bot','website chat','livechat','customer service','automate chat','support bot','ai assistant'],
+        a:'Yes! We build AI-powered chatbots for websites, WhatsApp, Telegram, and enterprise portals. They can answer FAQs, qualify leads, book appointments, and escalate to a human. Typical delivery: <b>2–4 weeks</b>.',
+        rel:['services','pricing','how_start'] },
+
+      { id:'whatsapp_bot', q:'Can you automate WhatsApp for my business?', kw:['whatsapp automation','whatsapp bot','wa bot','automate whatsapp','business api','wa api','messaging'],
+        a:'Definitely! We build <b>WhatsApp Business API</b> automations — lead capture, order tracking, appointment reminders, customer support, and AI-powered Q&A — all through WhatsApp. Works with existing phone numbers.',
+        rel:['ai_chatbot','n8n','pricing'] },
+
+      { id:'data_privacy', q:'Is my data safe with TechNext?', kw:['data','privacy','secure','safe','confidential','nda','gdpr','personal','protect','leak'],
+        a:'Data security is our priority. All clients sign an <b>NDA</b> before any project discussion. We offer on-premise deployments so data never leaves your environment. We follow GDPR-aligned practices and are pursuing ISO 27001.',
+        rel:['iso','local_llm','contact_info'] },
+
+      { id:'vietnam_hub', q:'Tell me about the Vietnam Dev Hub', kw:['vietnam','ho chi minh','hcmc','dev hub','offshore','talent','developer','vn','southeast asia'],
+        a:'Our <b>Vietnam Dev Hub</b> in Ho Chi Minh City is our engineering engine — a growing team of AI engineers, DevOps specialists, and ERP consultants. This lets us offer <b>enterprise-quality AI at 40–60% lower cost</b> than Singapore or Western rates.',
+        rel:['careers','locations','why_technext'] },
+
+      { id:'blog', q:'Where can I read your articles?', kw:['blog','article','read','learn','news','insight','content','post','latest'],
+        a:'Check out our <a href="/blog/" style="color:#2563eb;font-weight:600">Blog</a> for articles on AI trends, Odoo ERP, Vietnam tech, and enterprise automation. New articles posted regularly.',
+        rel:['use_cases','tech_stack','what_is'] },
+    ];
+
+    /* ── State ── */
+    const _asked = new Set();
+    let _open = false;
+
+    /* ── Fuzzy match ── */
+    function _match(input) {
+      const words = input.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
+      if (!words.length) return null;
+      let best = null, bestScore = 0;
+      BOT_QA.forEach(function(qa) {
+        let score = 0;
+        qa.kw.forEach(function(kw) {
+          const kwWords = kw.split(' ');
+          kwWords.forEach(function(kw1) {
+            words.forEach(function(w) {
+              if (w === kw1) score += 3;
+              else if (kw1.length > 3 && w.startsWith(kw1.slice(0,4))) score += 1;
+              else if (w.length > 3 && kw1.startsWith(w.slice(0,4))) score += 1;
+            });
+          });
+        });
+        if (score > bestScore) { bestScore = score; best = qa; }
+      });
+      return bestScore >= 2 ? best : null;
+    }
+
+    /* ── Get suggestions ── */
+    function _getSuggestions(relIds, count) {
+      count = count || 3;
+      const out = [];
+      // First try related
+      if (relIds) {
+        relIds.forEach(function(id) {
+          if (!_asked.has(id)) {
+            const qa = BOT_QA.find(function(q){ return q.id===id; });
+            if (qa && out.length < count) out.push(qa);
+          }
+        });
+      }
+      // Fill with random unasked
+      const pool = BOT_QA.filter(function(q){ return !_asked.has(q.id) && !out.find(function(o){ return o.id===q.id; }); });
+      pool.sort(function(){ return Math.random()-.5; });
+      pool.forEach(function(qa) { if (out.length < count) out.push(qa); });
+      return out.slice(0, count);
+    }
+
+    /* ── Build panel HTML ── */
+    const panel = document.createElement('div');
+    panel.id = 'tnBotPanel';
+    panel.innerHTML = '<div class="bot-header"><div class="bot-avatar">🤖</div><div class="bot-hinfo"><div class="bot-hname">TechNext Assistant</div><div class="bot-hstatus">● Usually replies instantly</div></div><button class="bot-hclose" id="tnBotClose">✕</button></div><div class="bot-messages" id="tnBotMsgs"></div><div class="bot-suggestions" id="tnBotSugs"></div><div class="bot-input-row"><input type="text" id="tnBotInput" placeholder="Ask anything..." autocomplete="off"><button id="tnBotSend"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button></div>';
+    document.body.appendChild(panel);
+
+    const btn = document.createElement('button');
+    btn.id = 'tnBotBtn';
+    btn.setAttribute('aria-label','Chat with TechNext Assistant');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span id="tnBotBadge" style="position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff">1</span>';
+    document.body.appendChild(btn);
+
+    const msgs = document.getElementById('tnBotMsgs');
+    const sugsArea = document.getElementById('tnBotSugs');
+
+    function _addMsg(html, isUser) {
+      const row = document.createElement('div');
+      row.className = 'bot-msg-row' + (isUser ? ' user' : '');
+      if (!isUser) row.innerHTML = '<div class="bot-msg-avatar">TN</div><div class="bot-bubble bot">' + html + '</div>';
+      else row.innerHTML = '<div class="bot-bubble user">' + html + '</div>';
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+      return row;
+    }
+
+    function _showSugs(relIds) {
+      const suggestions = _getSuggestions(relIds);
+      if (!suggestions.length) {
+        sugsArea.innerHTML = '<div class="bot-sug-label">You\'ve explored everything! 🎉</div>';
+        return;
+      }
+      sugsArea.innerHTML = '<div class="bot-sug-label">Suggested questions</div><div class="bot-chips"></div>';
+      const chips = sugsArea.querySelector('.bot-chips');
+      suggestions.forEach(function(qa) {
+        const c = document.createElement('button');
+        c.className = 'bot-chip';
+        c.textContent = qa.q;
+        c.onclick = function() { _answer(qa, qa.q); };
+        chips.appendChild(c);
+      });
+    }
+
+    function _answer(qa, displayQ) {
+      _asked.add(qa.id);
+      sugsArea.innerHTML = '';
+      _addMsg(displayQ, true);
+      // Typing indicator
+      const typRow = document.createElement('div');
+      typRow.className = 'bot-msg-row';
+      typRow.innerHTML = '<div class="bot-msg-avatar">TN</div><div class="bot-typing"><span></span><span></span><span></span></div>';
+      msgs.appendChild(typRow);
+      msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(function() {
+        msgs.removeChild(typRow);
+        // Build answer with related buttons
+        let html = qa.a;
+        if (qa.rel && qa.rel.length) {
+          html += '<div class="bot-rel-btns">';
+          qa.rel.forEach(function(id) {
+            const relQa = BOT_QA.find(function(q){ return q.id===id; });
+            if (relQa && !_asked.has(id)) {
+              html += '<button class="bot-rel-btn" onclick="window._tnBotAnswer(\'' + id + '\')">' + relQa.q + '</button>';
+            }
+          });
+          html += '</div>';
+        }
+        _addMsg(html, false);
+        _showSugs(qa.rel);
+      }, 900 + Math.random() * 400);
+    }
+
+    window._tnBotAnswer = function(id) {
+      const qa = BOT_QA.find(function(q){ return q.id===id; });
+      if (qa) _answer(qa, qa.q);
+    };
+
+    function _open_panel() {
+      _open = true;
+      panel.classList.add('bot-open');
+      btn.classList.add('bot-active');
+      document.getElementById('tnBotBadge').style.display = 'none';
+      // Close WA widget if open
+      const waPanel = document.getElementById('waChatWidget');
+      const waBtn = document.getElementById('waFloat');
+      if (waPanel && waPanel.classList.contains('wa-open')) {
+        waPanel.classList.remove('wa-open');
+        if (waBtn) waBtn.classList.remove('wa-active');
+      }
+      if (!msgs.children.length) {
+        _addMsg('👋 Hi! I\'m TechNext\'s AI assistant. Ask me anything about our services, pricing, team, or careers.', false);
+        setTimeout(function() { _showSugs(); }, 400);
+      }
+    }
+
+    function _close_panel() {
+      _open = false;
+      panel.classList.remove('bot-open');
+      btn.classList.remove('bot-active');
+    }
+
+    btn.addEventListener('click', function() { _open ? _close_panel() : _open_panel(); });
+    document.getElementById('tnBotClose').addEventListener('click', function(e) { e.stopPropagation(); _close_panel(); });
+
+    document.getElementById('tnBotSend').addEventListener('click', function() {
+      const input = document.getElementById('tnBotInput');
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+      const qa = _match(val);
+      if (qa) {
+        _answer(qa, val);
+      } else {
+        _asked.add('__custom__' + Date.now());
+        _addMsg(val, true);
+        const typRow = document.createElement('div');
+        typRow.className = 'bot-msg-row';
+        typRow.innerHTML = '<div class="bot-msg-avatar">TN</div><div class="bot-typing"><span></span><span></span><span></span></div>';
+        msgs.appendChild(typRow);
+        msgs.scrollTop = msgs.scrollHeight;
+        setTimeout(function() {
+          msgs.removeChild(typRow);
+          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#2563eb;font-weight:600">contact our team directly</a> for a detailed answer.<div class="bot-rel-btns"><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'services\')">Our Services</button><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'book_call\')">Book a Call</button><button class="bot-rel-btn" onclick="window._tnBotAnswer(\'pricing\')">Pricing</button></div>', false);
+          _showSugs();
+        }, 800);
+      }
+    });
+
+    document.getElementById('tnBotInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('tnBotSend').click(); }
+    });
+
+    // Auto-open greeting after 8 seconds on first visit
+    if (!sessionStorage.getItem('tnBotShown')) {
+      setTimeout(function() {
+        sessionStorage.setItem('tnBotShown','1');
+        if (!_open) _open_panel();
+      }, 8000);
+    }
+  }
+
   /* ── Booking JS ── */
   if (_alreadyHasModal) {
     // modal already exists (index.html inline) — no extra listeners needed
