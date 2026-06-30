@@ -1,3 +1,47 @@
+
+      { id:'fnb', q:'Can you help Food & Beverage businesses?', kw:['food','beverage','restaurant','cafe','fnb','menu','kitchen','dining','hospitality','catering'],
+        a:'Yes! We specialize in F&B AI and ERP solutions — inventory that auto-reorders when stock runs low, POS integration, supplier management, delivery tracking, and customer loyalty automation. We have helped restaurants and food chains cut waste by 30% and save hours of manual admin daily.',
+        rel:['hotel','odoo','how_start'] },
+
+      { id:'hotel', q:'Can you help hotels and hospitality businesses?', kw:['hotel','hospitality','accommodation','room','guest','booking','check in','check out','housekeeping','property'],
+        a:'Absolutely. We build hotel management systems with: automated reservation sync, housekeeping workflow management, guest communication bots (WhatsApp/email), billing and invoicing, and multi-property dashboards. Everything connected in one platform.',
+        rel:['resort','fnb','odoo'] },
+
+      { id:'resort', q:'Do you work with resorts?', kw:['resort','villa','spa','leisure','pool','activity','tour','beach','island'],
+        a:'Yes — resorts are one of our core verticals. We handle booking engines, activity and tour scheduling, spa management, POS integration, and AI-powered guest experience automation. Guests get faster service, your team gets less manual work.',
+        rel:['hotel','fnb','how_start'] },
+
+      { id:'medical', q:'Do you build systems for clinics and hospitals?', kw:['medical','clinic','hospital','doctor','patient','healthcare','appointment','ehr','emr','pharmacy','diagnosis'],
+        a:'We build healthcare automation with full data privacy compliance: patient appointment scheduling, clinic records management, inventory and pharmacy tracking, insurance billing automation, and patient communication bots. All data stays on your infrastructure.',
+        rel:['local_llm','data_privacy','how_start'] },
+
+      { id:'construction', q:'Can AI help construction companies?', kw:['construction','contractor','build','project','site','procurement','subcontractor','material','blueprint','engineering'],
+        a:'Construction is a great fit for AI and ERP. We implement: project tracking dashboards, material procurement automation, subcontractor management, site inspection reporting bots, and budget vs actuals forecasting. Reduce delays and cost overruns significantly.',
+        rel:['odoo','use_cases','how_start'] },
+
+      { id:'roi', q:'What ROI can I expect?', kw:['roi','return','investment','profit','save','saving','benefit','result','outcome','worth','value','payback'],
+        a:'Typical results our clients see within 3–6 months:<ul><li>📉 <b>30–60% less time</b> on manual tasks</li><li>📈 <b>20–40% faster</b> order and invoice processing</li><li>🧾 <b>–,000/mo saved</b> in labor costs</li><li>💬 <b>50% faster</b> customer response times</li></ul>ROI varies by business size and scope. Book a free call for a custom estimate.',
+        rel:['pricing','how_start','why_technext'] },
+
+      { id:'trial', q:'Can I try before committing?', kw:['trial','test','pilot','proof of concept','poc','demo','sample','try','free','prototype'],
+        a:'Yes! We offer a <b>free discovery call</b> with no commitment. For larger projects, we recommend a <b>paid pilot/POC</b> (proof of concept) in 2–3 weeks so you can see real results before a full engagement. This reduces risk for both sides.',
+        rel:['how_start','pricing','timeline'] },
+
+      { id:'erp_vs_ai', q:'Do I need ERP or AI — or both?', kw:['erp or ai','difference','which one','need both','choose','recommend','erp vs','ai vs'],
+        a:'Great question. <b>ERP</b> organizes your data and processes (inventory, HR, finance). <b>AI</b> makes those processes smarter and automated (forecasting, chatbots, automation). Many clients start with one and add the other. We can assess your situation on a free call.',
+        rel:['odoo','ai_agents','how_start'] },
+
+      { id:'team_size', q:'We are a small business — is this for us?', kw:['small','sme','startup','size','team','employee','people','micro'],
+        a:'Yes! Many of our clients are small businesses with 5–50 employees. AI and ERP can have even more impact at this size — your team is stretched thin, and automating even 20% of manual work frees up significant capacity. We have affordable packages for SMEs.',
+        rel:['pricing','roi','how_start'] },
+
+      { id:'migrate', q:'Can you migrate our existing data?', kw:['migrate','migration','existing','data','import','transfer','move','old system','legacy','excel','spreadsheet'],
+        a:'Yes — data migration is part of every ERP implementation we do. We handle: Excel/CSV imports, migration from legacy systems, cleaning and normalizing data, and validating accuracy post-migration. No data gets left behind.',
+        rel:['odoo','timeline','support'] },
+
+      { id:'training', q:'Do you provide training?', kw:['training','teach','learn','onboard','guide','tutorial','documentation','manual','how to use'],
+        a:'Every project includes <b>full training</b> for your team: live sessions, video walkthroughs, and written documentation. We ensure your staff is confident using the system before we hand it over. Ongoing training is also available as part of retainer packages.',
+        rel:['support','timeline','how_start'] },
 /* =============================================================
    TechNext — Booking Modal  (shared: gallery / blog / careers / contact)
    Step 3 time-slot tap → POST /api/book → Odoo calendar event
@@ -107,20 +151,20 @@ textarea.booking-input{resize:none;height:76px}
 
   <!-- Step 1: Service -->
   <div class="booking-step active" id="bStep1">
-    <div class="bk-h">What can we help with?</div>
-    <div class="bk-sub">Choose the service you're interested in</div>
+    <div class="bk-h" id="bkS1H">What can we help with?</div>
+    <div class="bk-sub" id="bkS1Sub">Choose the service you're interested in</div>
     <div class="service-opts">
       <button class="service-opt" onclick="selectService(this,'AI Automations & Agents')">
         <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="4" x2="9" y2="2"/><line x1="15" y1="4" x2="15" y2="2"/><line x1="9" y1="22" x2="9" y2="20"/><line x1="15" y1="22" x2="15" y2="20"/><line x1="4" y1="9" x2="2" y2="9"/><line x1="4" y1="15" x2="2" y2="15"/><line x1="22" y1="9" x2="20" y2="9"/><line x1="22" y1="15" x2="20" y2="15"/></svg></span>
-        <div><div class="service-opt-name">AI Automations &amp; Agents</div><div class="service-opt-desc">AI agents, chatbots, RAG systems &amp; local LLMs</div></div>
+        <div><div class="service-opt-name" id="bkSvc1N">AI Automations &amp; Agents</div><div class="service-opt-desc" id="bkSvc1D">AI agents, chatbots, RAG systems &amp; local LLMs</div></div>
       </button>
       <button class="service-opt" onclick="selectService(this,'Odoo ERP Implementation')">
         <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-        <div><div class="service-opt-name">Odoo ERP Implementation</div><div class="service-opt-desc">End-to-end ERP for your business operations</div></div>
+        <div><div class="service-opt-name" id="bkSvc2N">Odoo ERP Implementation</div><div class="service-opt-desc" id="bkSvc2D">End-to-end ERP for your business operations</div></div>
       </button>
       <button class="service-opt" onclick="selectService(this,'Both — Full Package')">
         <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-        <div><div class="service-opt-name">Both — Full Package</div><div class="service-opt-desc">Complete digital transformation: AI + ERP</div></div>
+        <div><div class="service-opt-name" id="bkSvc3N">Both — Full Package</div><div class="service-opt-desc" id="bkSvc3D">Complete digital transformation: AI + ERP</div></div>
       </button>
     </div>
     <div style="display:flex;justify-content:flex-end">
@@ -130,8 +174,8 @@ textarea.booking-input{resize:none;height:76px}
 
   <!-- Step 2: Details -->
   <div class="booking-step" id="bStep2">
-    <div class="bk-h">Your details</div>
-    <div class="bk-sub">We'll send a confirmed calendar invite to your email</div>
+    <div class="bk-h" id="bkS2H">Your details</div>
+    <div class="bk-sub" id="bkS2Sub">We'll send a confirmed calendar invite to your email</div>
     <div class="booking-fields">
       <input class="booking-input" type="text"  id="bName"      placeholder="Full Name *">
       <input class="booking-input" type="email" id="bEmail"     placeholder="Email Address *">
@@ -140,15 +184,15 @@ textarea.booking-input{resize:none;height:76px}
       <textarea class="booking-input"           id="bChallenge" placeholder="What's your biggest challenge right now? (optional)"></textarea>
     </div>
     <div class="bk-nav">
-      <button class="bk-back" onclick="goStep(1)">← Back</button>
-      <button class="bk-btn"  onclick="validateStep2()">Continue →</button>
+      <button class="bk-back" id="bkS2Back" onclick="goStep(1)">← Back</button>
+      <button class="bk-btn" id="bkS2Next" onclick="validateStep2()">Continue →</button>
     </div>
   </div>
 
   <!-- Step 3: Calendar -->
   <div class="booking-step" id="bStep3">
-    <div class="bk-h">Pick a time</div>
-    <div class="bk-sub">1 hour · Asia/Singapore (UTC+8) · Tap a slot to book instantly</div>
+    <div class="bk-h" id="bkS3H">Pick a time</div>
+    <div class="bk-sub" id="bkS3Sub">1 hour · Asia/Singapore (UTC+8) · Tap a slot to book instantly</div>
     <div class="cal-wrap">
       <div class="cal-hdr">
         <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
@@ -160,7 +204,7 @@ textarea.booking-input{resize:none;height:76px}
       <div class="time-slots" id="timeSlots"></div>
     </div>
     <div class="bk-nav">
-      <button class="bk-back" onclick="goStep(2)">← Back</button>
+      <button class="bk-back" id="bkS3Back" onclick="goStep(2)">← Back</button>
     </div>
   </div>
 
@@ -181,7 +225,7 @@ textarea.booking-input{resize:none;height:76px}
       </a>
       <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg>
-        Message us on WhatsApp
+        <span id="bkWaText">Message us on WhatsApp</span>
       </a>
     </div>
   </div>
@@ -800,32 +844,65 @@ textarea.booking-input{resize:none;height:76px}
 
 })();
 
-/* =============================================================
-   TechNext — Exit-Intent Notification
-   ============================================================= */
-(function(){
-  var EI_KEY='tn_exit_shown';
-  if(sessionStorage.getItem(EI_KEY)) return;
-  var s=document.createElement('style');
-  s.textContent='#eiOverlay{position:fixed;inset:0;z-index:3000;background:rgba(10,12,28,.68);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .32s ease}#eiOverlay.ei-open{opacity:1;pointer-events:all}#eiBox{background:#fff;border-radius:28px;max-width:460px;width:100%;padding:2.2rem 2rem 1.8rem;position:relative;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,.26);transform:translateY(32px) scale(.96);transition:transform .38s cubic-bezier(.34,1.56,.64,1);font-family:"DM Sans",sans-serif}#eiOverlay.ei-open #eiBox{transform:translateY(0) scale(1)}#eiClose{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f1f5f9;border:none;cursor:pointer;font-size:1rem;color:#64748b;line-height:1;display:flex;align-items:center;justify-content:center;transition:all .18s}#eiClose:hover{background:#e2e8f0;color:#1a1a2e;transform:rotate(90deg)}.ei-badge{display:inline-block;background:#fef9c3;color:#854d0e;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:1rem}.ei-headline{font-family:"Caveat",cursive;font-size:2.4rem;font-weight:700;color:#1a1a2e;line-height:1.1;margin-bottom:.6rem}.ei-headline span{color:#6d2d7a}.ei-sub{font-size:.9rem;color:#64748b;line-height:1.7;margin-bottom:1.6rem;max-width:340px;margin-left:auto;margin-right:auto}.ei-perks{display:flex;justify-content:center;gap:1.4rem;margin-bottom:1.6rem;flex-wrap:wrap}.ei-perk{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;color:#475569}.ei-perk-dot{width:8px;height:8px;border-radius:50%;background:#6d2d7a;flex-shrink:0}.ei-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#6d2d7a;color:#fff;border-radius:100px;font-size:.95rem;font-weight:700;font-family:"DM Sans",sans-serif;border:none;cursor:pointer;transition:all .22s;box-shadow:0 4px 18px rgba(109,45,122,.28);width:100%;justify-content:center}.ei-cta:hover{background:#5a2568;transform:translateY(-2px)}.ei-dismiss{display:block;margin-top:.9rem;font-size:.8rem;color:#94a3b8;cursor:pointer;background:none;border:none;font-family:"DM Sans",sans-serif;transition:color .18s}.ei-dismiss:hover{color:#64748b}@media(max-width:480px){#eiBox{padding:1.8rem 1.4rem 1.5rem;border-radius:22px}.ei-headline{font-size:2rem}.ei-perks{gap:.8rem}}';
-  document.head.appendChild(s);
-  var el=document.createElement('div'); el.id='eiOverlay';
-  el.innerHTML='<div id="eiBox"><button id="eiClose" onclick="eiClose()" aria-label="Close">✕</button><div class="ei-badge">🎁 Free Offer</div><div class="ei-headline">Wait — before<br>you <span>leave!</span></div><p class="ei-sub">Get a free 1-hour AI strategy session. We\'ll map out exactly how AI automation can save your team 10+ hours a week.</p><div class="ei-perks"><div class="ei-perk"><div class="ei-perk-dot"></div>No commitment</div><div class="ei-perk"><div class="ei-perk-dot"></div>1 hour · Free</div><div class="ei-perk"><div class="ei-perk-dot"></div>Real actionable plan</div></div><button class="ei-cta" onclick="eiBook()">Book My Free Session →</button><button class="ei-dismiss" onclick="eiClose()">No thanks, I don\'t need this</button></div>';
-  document.body.appendChild(el);
-  el.addEventListener('click',function(e){if(e.target===this)eiClose();});
-  function eiShow(){
-    if(sessionStorage.getItem(EI_KEY)) return;
-    var bm=document.getElementById('bookingModal');
-    if(bm&&bm.classList.contains('open')) return;
-    sessionStorage.setItem(EI_KEY,'1'); el.classList.add('ei-open');
-  }
-  window.eiClose=function(){el.classList.remove('ei-open');};
-  window.eiBook=function(){el.classList.remove('ei-open');if(typeof openBooking==='function')openBooking();};
-  var _r=false; setTimeout(function(){_r=true;},3000);
-  document.addEventListener('mouseleave',function(e){if(_r&&e.clientY<=0)eiShow();},{passive:true});
-  (function(){var ly=0,my=0,f=false;window.addEventListener('scroll',function(){if(f)return;var y=window.scrollY||window.pageYOffset;if(y>my)my=y;if(my>window.innerHeight*.4&&ly-y>200){f=true;setTimeout(eiShow,300);}ly=y;},{passive:true});})();
-  var _et=setTimeout(function(){eiShow();},60000);
-  document.addEventListener('click',    function(){clearTimeout(_et);},{once:true,passive:true});
-  document.addEventListener('keydown',  function(){clearTimeout(_et);},{once:true,passive:true});
-  document.addEventListener('touchstart',function(){clearTimeout(_et);},{once:true,passive:true});
-})();
+
+/* ===== BOOKING FORM TRANSLATION ===== */
+window.applyBkLang = function(lang) {
+  var t = {
+    en: {
+      s1h:'What can we help with?', s1sub:"Choose the service you're interested in",
+      svc1:'AI Automations & Agents', svc1d:'AI agents, chatbots, RAG systems & local LLMs',
+      svc2:'Odoo ERP Implementation', svc2d:'End-to-end ERP for your business operations',
+      svc3:'Both — Full Package', svc3d:'Complete digital transformation: AI + ERP',
+      s1next:'Continue →',
+      s2h:'Your details', s2sub:"We'll send a confirmed calendar invite to your email",
+      ph_name:'Full Name *', ph_email:'Email Address *', ph_phone:'Phone / WhatsApp',
+      ph_company:'Company Name', ph_challenge:"What's your biggest challenge right now? (optional)",
+      back:'← Back', cont:'Continue →',
+      s3h:'Pick a time', s3sub:'1 hour · Asia/Singapore (UTC+8) · Tap a slot to book instantly',
+      ts:'Available times', wa:'Message us on WhatsApp'
+    },
+    vn: {
+      s1h:'Chúng tôi có thể giúp gì cho bạn?', s1sub:'Chọn dịch vụ bạn quan tâm',
+      svc1:'AI Tự Động & Đại Lý', svc1d:'Đại lý AI, chatbot, hệ thống RAG & LLM cục bộ',
+      svc2:'Triển Khai Odoo ERP', svc2d:'ERP toàn diện cho hoạt động kinh doanh của bạn',
+      svc3:'Cả Hai — Gói Đầy Đủ', svc3d:'Chuyển đổi số toàn diện: AI + ERP',
+      s1next:'Tiếp Tục →',
+      s2h:'Thông tin của bạn', s2sub:'Chúng tôi sẽ gửi lịch xác nhận đến email của bạn',
+      ph_name:'Họ và Tên *', ph_email:'Địa Chỉ Email *', ph_phone:'Điện Thoại / WhatsApp',
+      ph_company:'Tên Công Ty', ph_challenge:'Thách thức lớn nhất của bạn hiện tại là gì? (tuỳ chọn)',
+      back:'← Quầy Lại', cont:'Tiếp Tục →',
+      s3h:'Chọn Thời Gian', s3sub:'1 giờ · Asia/Singapore (UTC+8) · Nhấn vào ô để đặt ngay',
+      ts:'Các khung giờ có sẵn', wa:'Nhắn tin qua WhatsApp'
+    },
+    de: {
+      s1h:'Wie können wir helfen?', s1sub:'Wählen Sie den gewünschten Service',
+      svc1:'KI-Automatisierung & Agenten', svc1d:'KI-Agenten, Chatbots, RAG-Systeme & lokale LLMs',
+      svc2:'Odoo ERP-Implementierung', svc2d:'End-to-End ERP für Ihren Geschäftsbetrieb',
+      svc3:'Beides — Komplettpaket', svc3d:'Vollständige digitale Transformation: KI + ERP',
+      s1next:'Weiter →',
+      s2h:'Ihre Angaben', s2sub:'Wir senden Ihnen eine Kalendereinladung per E-Mail',
+      ph_name:'Vollständiger Name *', ph_email:'E-Mail-Adresse *', ph_phone:'Telefon / WhatsApp',
+      ph_company:'Firmenname', ph_challenge:'Was ist Ihre größte Herausforderung? (optional)',
+      back:'← Zurück', cont:'Weiter →',
+      s3h:'Zeit wählen', s3sub:'1 Stunde · Asien/Singapur (UTC+8) · Klicken Sie auf einen Slot',
+      ts:'Verfügbare Zeiten', wa:'WhatsApp-Nachricht senden'
+    }
+  };
+  var d = t[lang] || t.en;
+  function st(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+  function sp(id, v) { var e = document.getElementById(id); if (e) e.placeholder = v; }
+  st('bkS1H', d.s1h); st('bkS1Sub', d.s1sub);
+  st('bkSvc1N', d.svc1); st('bkSvc1D', d.svc1d);
+  st('bkSvc2N', d.svc2); st('bkSvc2D', d.svc2d);
+  st('bkSvc3N', d.svc3); st('bkSvc3D', d.svc3d);
+  st('s1Next', d.s1next);
+  st('bkS2H', d.s2h); st('bkS2Sub', d.s2sub);
+  sp('bName', d.ph_name); sp('bEmail', d.ph_email); sp('bPhone', d.ph_phone);
+  sp('bCompany', d.ph_company); sp('bChallenge', d.ph_challenge);
+  st('bkS2Back', d.back); st('bkS2Next', d.cont);
+  st('bkS3H', d.s3h); st('bkS3Sub', d.s3sub);
+  var tsEl = document.getElementById('tsTitle');
+  if (tsEl) tsEl.textContent = d.ts;
+  st('bkS3Back', d.back);
+  st('bkWaText', d.wa);
+};

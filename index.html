@@ -1696,6 +1696,36 @@ footer {
 
 .skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#6d2d7a;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
 .skip-link:focus{top:0;}
+/* ===== PAIN POINTS =====
+#pain-points{background:#fff;}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.pain-card{background:#f8faff;border:1.5px solid rgba(37,99,235,.1);border-radius:20px;padding:2rem 1.8rem;transition:transform .2s,box-shadow .2s;}
+.pain-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(37,99,235,.12);}
+.pain-icon{font-size:2rem;margin-bottom:1rem;}
+.pain-card h3{font-size:1rem;font-weight:700;color:#1e293b;margin-bottom:.6rem;}
+.pain-card p{font-size:.88rem;color:#64748b;line-height:1.7;margin:0;}
+#solutions{background:linear-gradient(135deg,#1d4ed8 0%,#6d28d9 100%);}
+.solutions-wrap{text-align:center;}
+.sol-title{color:#fff!important;}
+.sol-title .highlight{color:#fbbf24!important;}
+.sol-title .highlight::after{background:#fbbf24!important;}
+#solutions .section-label{color:rgba(255,255,255,.75);}
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.5rem 0 2rem;}
+.sol-card{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:2rem 1.5rem;backdrop-filter:blur(8px);}
+.sol-num{font-family:'Montserrat',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,.25);line-height:1;margin-bottom:.8rem;}
+.sol-text{font-size:1.05rem;color:#fff;line-height:1.6;margin:0;}
+.sol-text strong{display:block;font-size:1.1rem;}
+.sol-cta-row{margin-top:.5rem;}
+#industries{background:#f8faff;}
+.section-sub{font-size:.95rem;color:#64748b;max-width:580px;margin:0 auto 2.5rem;text-align:center;line-height:1.7;}
+.ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;}
+.ind-card{background:#fff;border:1.5px solid rgba(37,99,235,.1);border-radius:18px;padding:1.6rem 1.2rem;text-align:center;transition:transform .2s,box-shadow .2s;}
+.ind-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(37,99,235,.12);}
+.ind-icon{font-size:2.2rem;margin-bottom:.8rem;}
+.ind-card h3{font-size:.85rem;font-weight:700;color:#1e293b;margin-bottom:.4rem;}
+.ind-card p{font-size:.78rem;color:#64748b;line-height:1.6;margin:0;}
+@media(max-width:900px){.pain-grid,.sol-grid{grid-template-columns:1fr 1fr;}.ind-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.pain-grid,.sol-grid,.ind-grid{grid-template-columns:1fr;}}
 </style>
 
 <!-- Google Ads Tag -->
@@ -1745,19 +1775,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="badge badge-yellow"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <span data-k="badge1">AI-Native Company</span></span>
       <span class="badge badge-blue">
         <span class="badge-pulse"></span>
-        <span data-k="badge2">Vietnam Dev Hub — Hiring</span>
+        <span data-k="badge2">Trusted by 11+ Enterprises Globally</span>
       </span>
     </div>
     <h1 class="hero-title">
-      <span data-k="hero_h1a">Build the Future</span><br>
-      <span data-k="hero_h1b">with AI.</span><br>
-      <span class="blue" data-k="hero_h1c">Join <span class="highlight">TechNext.</span></span>
+      <span data-k="hero_h1a" id="heroH1a">Stop Losing Revenue</span><br>
+      <span data-k="hero_h1b" id="heroH1b">to Manual Work.</span><br>
+      <span class="blue" data-k="hero_h1c" id="heroH1c">We automate it with <span class="highlight">AI.</span></span>
     </h1>
     <p class="hero-sub" data-k="hero_sub">
-      We're an AI-native company building enterprise intelligence for global clients across 10 countries. Join our Vietnam Dev Hub — where you'll ship real AI systems that transform businesses worldwide.
+      Every manual task, disconnected system, and slow process is costing your business money. TechNext replaces that with AI agents, automated workflows, and connected ERP — so your team focuses on growth.
     </p>
     <div class="hero-ctas">
-      <a href="#careers" class="btn-plum" data-k="hero_cta1">See Open Roles →</a>
+      <a href="#" class="btn-plum" data-k="hero_cta1" onclick="openBooking();return false;" id="heroCta1">Book Free Demo →</a>
       <a href="#about" class="btn-outline" data-k="hero_cta2">Learn More</a>
     </div>
   </div>
@@ -1857,6 +1887,92 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- ===== OUR IMPACT ===== -->
+<!-- ===== PAIN POINTS ===== -->
+<section id="pain-points">
+  <div class="section-wrap">
+    <div class="section-label" data-k="pain_tag">Why Businesses Come to Us</div>
+    <h2 class="section-title" data-k="pain_h2">Sound <span class="highlight">familiar?</span></h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <div class="pain-icon">⏰</div>
+        <h3 data-k="pain1_t">Manual Work Killing Productivity</h3>
+        <p data-k="pain1_d">Your team spends hours on data entry, copy-pasting reports, and tasks that should take seconds. Every manual step is a chance for error — and wasted payroll.</p>
+      </div>
+      <div class="pain-card reveal rd1">
+        <div class="pain-icon">🔗</div>
+        <h3 data-k="pain2_t">Disconnected Systems, Blind Decisions</h3>
+        <p data-k="pain2_d">Your CRM doesn't sync with inventory. Orders live in spreadsheets. You make critical decisions based on yesterday's data — or guesswork.</p>
+      </div>
+      <div class="pain-card reveal rd2">
+        <div class="pain-icon">💸</div>
+        <h3 data-k="pain3_t">Revenue Slipping Through the Cracks</h3>
+        <p data-k="pain3_d">Slow follow-ups, missed quotes, delayed invoicing. Every broken process has a price tag — and it compounds every day you don't fix it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 SOLUTIONS ===== -->
+<section id="solutions">
+  <div class="section-wrap solutions-wrap">
+    <div class="section-label" data-k="sol_tag">How We Fix It</div>
+    <h2 class="section-title sol-title" data-k="sol_h2">Three things. <span class="highlight">Massive impact.</span></h2>
+    <div class="sol-grid">
+      <div class="sol-card reveal">
+        <div class="sol-num">01</div>
+        <p class="sol-text" data-k="sol1">Automate the work.<br><strong>Focus on growth.</strong></p>
+      </div>
+      <div class="sol-card reveal rd1">
+        <div class="sol-num">02</div>
+        <p class="sol-text" data-k="sol2">Connect your tools.<br><strong>Decide with confidence.</strong></p>
+      </div>
+      <div class="sol-card reveal rd2">
+        <div class="sol-num">03</div>
+        <p class="sol-text" data-k="sol3">Ship AI in weeks.<br><strong>Not months.</strong></p>
+      </div>
+    </div>
+    <div class="sol-cta-row">
+      <a href="#" class="cta-primary" data-k="sol_cta" onclick="openBooking();return false;">Book a Free Strategy Call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INDUSTRIES ===== -->
+<section id="industries">
+  <div class="section-wrap">
+    <div class="section-label" data-k="ind_tag">Industries We Serve</div>
+    <h2 class="section-title" data-k="ind_h2">Built for your <span class="highlight">sector.</span></h2>
+    <p class="section-sub" data-k="ind_sub">We've implemented AI and ERP solutions across high-demand industries — each with unique workflows, compliance needs, and growth challenges.</p>
+    <div class="ind-grid">
+      <div class="ind-card reveal">
+        <div class="ind-icon">🍽️</div>
+        <h3 data-k="ind1_t">Food & Beverage</h3>
+        <p data-k="ind1_d">Order management, inventory tracking, supplier automation, and customer loyalty — all connected.</p>
+      </div>
+      <div class="ind-card reveal rd1">
+        <div class="ind-icon">🏨</div>
+        <h3 data-k="ind2_t">Hotel Management</h3>
+        <p data-k="ind2_d">Reservations, housekeeping workflows, guest communication, and billing — streamlined end-to-end.</p>
+      </div>
+      <div class="ind-card reveal rd2">
+        <div class="ind-icon">🏥</div>
+        <h3 data-k="ind3_t">Medical & Healthcare</h3>
+        <p data-k="ind3_d">Patient scheduling, clinic records, inventory, and billing automation with full data privacy.</p>
+      </div>
+      <div class="ind-card reveal rd3">
+        <div class="ind-icon">🏗️</div>
+        <h3 data-k="ind4_t">Construction</h3>
+        <p data-k="ind4_d">Project tracking, procurement, subcontractor management, and site reporting — one platform.</p>
+      </div>
+      <div class="ind-card reveal rd4">
+        <div class="ind-icon">🌴</div>
+        <h3 data-k="ind5_t">Resort & Hospitality</h3>
+        <p data-k="ind5_d">Booking engines, activity scheduling, POS integration, and guest experience automation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="impact">
   <div class="section-wrap">
     <div class="reveal">
@@ -2038,6 +2154,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script>
+/* ===== HERO ROTATION =====
+   5 client-focused variants — random each visit
+=====*/
+(function(){
+  var v=[
+    {a:'Stop Losing Revenue',b:'to Manual Work.',c:'We automate it with <span class="highlight">AI.</span>',sub:'Every manual task, disconnected system, and slow process is costing your business money. TechNext replaces that with AI agents, automated workflows, and connected ERP.',cta:'Book Free Demo →'},
+    {a:'Your Workflows Are',b:'Disconnected.',c:'We <span class="highlight">Connect Everything.</span>',sub:'Your CRM, ERP, inventory, and finance tools don’t talk to each other. We build the intelligent bridge — with Odoo ERP and AI automation — that connects your entire business.',cta:'Fix My Workflows →'},
+    {a:'Your Competitors',b:'Are Using AI.',c:'Don’t Get <span class="highlight">Left Behind.</span>',sub:'Businesses using AI report 30–60% faster operations, fewer errors, and happier customers. TechNext has helped companies in 10+ countries make the shift — in weeks, not months.',cta:'Get Started Today →'},
+    {a:'Drowning in',b:'Spreadsheets?',c:'One Platform. <span class="highlight">Zero Chaos.</span>',sub:'If your team is copy-pasting data, manually tracking orders, or running your business on scattered files — there’s a better way. Odoo ERP + AI, implemented in weeks.',cta:'Book Free Demo →'},
+    {a:'Every Slow Process',b:'Is Revenue Lost.',c:'Let AI <span class="highlight">Handle It.</span>',sub:'Delayed quotes, missed follow-ups, manual invoicing, slow customer service — each chips away at your bottom line. We build systems that handle these automatically.',cta:'Book Free Strategy Call →'}
+  ];
+  var pick=v[Math.floor(Math.random()*v.length)];
+  function set(id,html){var el=document.getElementById(id);if(el)el.innerHTML=html;}
+  document.addEventListener('DOMContentLoaded',function(){
+    set('heroH1a',pick.a);set('heroH1b',pick.b);set('heroH1c',pick.c);
+    var sub=document.getElementById('heroSub');if(sub)sub.textContent=pick.sub;
+    var cta=document.getElementById('heroCta1');if(cta)cta.textContent=pick.cta;
+  });
+})();
+
 /* ===== DATA ===== */
 const CLIENTS_DATA = [
   { name: 'Qualcomm',      img: '/images/clients/Qualcomm-Logo.svg.png' },
@@ -2090,10 +2226,10 @@ const LANG = {
   en: {
     nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog',
     nav_careers:'Careers', nav_contact:'Contact', nav_apply:'Book Now',
-    badge1:'AI-Native Company', badge2:'Vietnam Dev Hub — Hiring',
-    hero_h1a:'Build the Future', hero_h1b:'with AI.', hero_h1c:'Join TechNext.',
-    hero_sub:"We're an AI-native company building enterprise intelligence for global clients across 10 countries. Join our Vietnam Dev Hub — where you'll ship real AI systems that transform businesses worldwide.",
-    hero_cta1:'See Open Roles →', hero_cta2:'Learn More',
+    badge1:'AI-Native Company', badge2:'Trusted by 11+ Enterprises Globally',
+    hero_h1a:'Stop Losing Revenue', hero_h1b:'to Manual Work.', hero_h1c:'We automate it with AI.',
+    hero_sub:"Every manual task, disconnected system, and slow process is costing your business money. TechNext replaces that with AI agents, automated workflows, and connected ERP — so your team focuses on growth.",
+    hero_cta1:'Book Free Demo →', hero_cta2:'Learn More',
     card_title:"We're Hiring!", card_sub:'8 open roles · Remote-friendly · English-first',
     ro1_title:'AI Engineer', ro1_sub:'Agents, RAG, LLM pipelines',
     ro2_title:'Context Engineer', ro2_sub:'Prompts, RAG architecture, AI systems',
@@ -2244,7 +2380,22 @@ const LANG = {
     ins_c3_cat:'AI &amp; Công Nghệ', ins_c3_t:'RAG Systems: Hướng Dẫn AI Doanh Nghiệp', ins_c3_e:'Hướng dẫn thực tế để xây dựng hệ thống Retrieval-Augmented Generation hoạt động đáng tin cậy trong môi trường doanh nghiệp.',
     ins_cta:'Xem Tất Cả Bài Viết →',
     footer_copy:'© 2026 TechNext Asia · technext.asia · Bảo lưu mọi quyền', footer_contact:'Liên Hệ'
-  },
+  
+    badge2:'Được Tin Tưởng Bởi 11+ Doanh Nghiệp Toàn Cầu',
+    hero_h1a:'Ngừng Để Mất Doanh Thu', hero_h1b:'vào Công Việc Thủ Công.', hero_h1c:'Chúng Tôi Tự Động Hóa Bằng AI.',
+    hero_sub:'Mỗi tác vụ thủ công, hệ thống rời rạc và quy trình chậm đang tiêu tốn tiền của bạn. TechNext thay thế bằng AI agents, workflow tự động và ERP kết nối.',
+    hero_cta1:'Đặt Lịch Demo Miễn Phí →',
+    pain_tag:'Tại Sao Doanh Nghiệp Tìm Đến Chúng Tôi', pain_h2:'Nghe quen không?',
+    pain1_t:'Công Việc Thủ Công Giết Chết Năng Suất', pain1_d:'Nhóm của bạn tốn hàng giờ nhập liệu và các tác vụ lẽ ra chỉ mất vài giây. Mỗi bước thủ công là một cơ hội xảy ra lỗi.',
+    pain2_t:'Hệ Thống Rời Rạc, Quyết Định Mù Quáng', pain2_d:'CRM không đồng bộ với kho hàng. Bạn đưa ra quyết định dựa trên dữ liệu của ngày hôm qua — hoặc phỏng đoán.',
+    pain3_t:'Doanh Thu Rơi Vãi', pain3_d:'Follow-up chậm, báo giá bị bỏ lỡ, hóa đơn trễ. Mỗi quy trình bị gãy đều có giá phải trả.',
+    sol_tag:'Cách Chúng Tôi Giải Quyết', sol_h2:'Ba điều. Tác động khổng lồ.', sol1:'Tự động hóa công việc. Tập trung tăng trưởng.', sol2:'Kết nối công cụ. Quyết định tự tin.', sol3:'Triển khai AI trong vài tuần. Không phải vài tháng.', sol_cta:'Đặt Lịch Tư Vấn Miễn Phí →',
+    ind_tag:'Ngành Nghề Chúng Tôi Phục Vụ', ind_h2:'Xây dựng cho lĩnh vực của bạn.', ind_sub:'Chúng tôi đã triển khai AI và ERP cho nhiều ngành có nhu cầu cao.',
+    ind1_t:'Thực Phẩm & Đồ Uống', ind1_d:'Quản lý đơn hàng, kho hàng, nhà cung cấp và khách hàng thân thiết — tất cả kết nối.',
+    ind2_t:'Quản Lý Khách Sạn', ind2_d:'Đặt phòng, dọn phòng, giao tiếp khách và thanh toán — tối ưu từ đầu đến cuối.',
+    ind3_t:'Y Tế & Sức Khỏe', ind3_d:'Lịch hẹn bệnh nhân, hồ sơ phòng khám, kho và thanh toán tự động với bảo mật dữ liệu đầy đủ.',
+    ind4_t:'Xây Dựng', ind4_d:'Theo dõi dự án, mua hàng, quản lý thầu phụ và báo cáo công trường — một nền tảng.',
+    ind5_t:'Resort & Khách Sạn', ind5_d:'Hệ thống đặt phòng, lịch hoạt động, tích hợp POS và tự động hóa trải nghiệm khách.',},
   de: {
     nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog',
     nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Termin Buchen',
@@ -2323,7 +2474,22 @@ const LANG = {
     ins_c3_cat:'KI &amp; Technik', ins_c3_t:'RAG-Systeme: Enterprise-KI-Leitfaden', ins_c3_e:'Ein praktischer Leitfaden zum Aufbau von Retrieval-Augmented-Generation-Systemen, die in Enterprise-Umgebungen zuverlässig funktionieren.',
     ins_cta:'Alle Artikel ansehen →',
     footer_copy:'© 2026 TechNext Asia · technext.asia · Alle Rechte vorbehalten', footer_contact:'Kontakt'
-  }
+  
+    badge2:'Vertraut von 11+ Unternehmen Weltweit',
+    hero_h1a:'Hören Sie auf, Umsatz', hero_h1b:'durch manuelle Arbeit zu verlieren.', hero_h1c:'Wir automatisieren es mit KI.',
+    hero_sub:'Jede manuelle Aufgabe und jeder langsame Prozess kostet Ihr Unternehmen Geld. TechNext ersetzt das durch KI-Agenten, automatisierte Workflows und verbundenes ERP.',
+    hero_cta1:'Kostenloses Demo buchen →',
+    pain_tag:'Warum Unternehmen zu uns kommen', pain_h2:'Kommt Ihnen das bekannt vor?',
+    pain1_t:'Manuelle Arbeit tötet die Produktivität', pain1_d:'Ihr Team verbringt Stunden mit Dateneingabe und Aufgaben, die Sekunden dauern sollten.',
+    pain2_t:'Getrennte Systeme, blinde Entscheidungen', pain2_d:'Ihr CRM synchronisiert nicht mit dem Lager. Sie treffen Entscheidungen auf Basis veralteter Daten.',
+    pain3_t:'Umsatz fällt durch die Ritzen', pain3_d:'Langsame Follow-ups, verpasste Angebote, verzögerte Rechnungen. Jeder kaputte Prozess hat seinen Preis.',
+    sol_tag:'Wie wir es lösen', sol_h2:'Drei Dinge. Massiver Impact.', sol1:'Automatisieren Sie die Arbeit. Fokus auf Wachstum.', sol2:'Verbinden Sie Ihre Tools. Entscheiden Sie sicher.', sol3:'KI in Wochen liefern. Nicht Monaten.', sol_cta:'Kostenloses Strategiegespräch →',
+    ind_tag:'Branchen, die wir bedienen', ind_h2:'Gebaut für Ihren Sektor.', ind_sub:'Wir haben KI- und ERP-Lösungen in nachfragestarken Branchen implementiert.',
+    ind1_t:'Gastronomie & Getränke', ind1_d:'Auftragsmanagement, Inventar, Lieferantenautomatisierung und Kundenbindung — alles verbunden.',
+    ind2_t:'Hotelmanagement', ind2_d:'Reservierungen, Housekeeping, Gästekommunikation und Abrechnung — von Ende zu Ende optimiert.',
+    ind3_t:'Medizin & Gesundheit', ind3_d:'Patientenplanung, Klinikakten, Inventar und Abrechnungsautomatisierung mit vollem Datenschutz.',
+    ind4_t:'Bauwesen', ind4_d:'Projektverfolgung, Beschaffung, Nachunternehmer-Management und Standortberichte — eine Plattform.',
+    ind5_t:'Resort & Gastgewerbe', ind5_d:'Buchungsmaschinen, Aktivitätsplanung, POS-Integration und Automatisierung des Gästeerlebnisses.',}
 };
 
 let currentLang = 'en';
@@ -2345,6 +2511,7 @@ function setLang(lang) {
   renderJoin();
   renderCareers();
   renderFaq();
+  if (window.applyBkLang) window.applyBkLang(lang);
 }
 
 /* ===== RENDER MARQUEE ===== */
