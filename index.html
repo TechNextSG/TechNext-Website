@@ -2235,17 +2235,17 @@ const LANG = {
     svc4_c1:'Full Odoo implementation', svc4_c2:'Custom module development', svc4_c3:'AI-integrated workflows',
     impact_tag:'Our Impact', impact_h2:"Companies We've Transformed", impact_sub:"Trusted by Qualcomm, TSMC, Singapore Government, and enterprises across manufacturing, logistics, and professional services — across 10+ countries.",
     join_tag:'Why TechNext', join_h2:'What You Get<br>With TechNext',
-    join_sub:'We don't just implement software. We partner with your business to build systems that scale, perform, and deliver real ROI.',
+    join_sub:"We don't just implement software. We partner with your business to build systems that scale, perform, and deliver real ROI.",
     why1_t:'Proven ROI', why1_d:'30–60% reduction in manual work, typically within 3–6 months of go-live.',
     why2_t:'Built for Your Industry', why2_d:'F&B, Hotel, Medical, Construction, Resort — we know your industry workflows.',
     why3_t:'Fast Go-Live', why3_d:'From discovery call to go-live in weeks, not quarters.',
     why4_t:'Data Privacy First', why4_d:'On-premise deployment available. Your data stays in your infrastructure.',
-    why5_t:'Ongoing Support', why5_d:'We don't disappear after launch. Dedicated support and continuous improvements post go-live.',
+    why5_t:'Ongoing Support', why5_d:"We don't disappear after launch. Dedicated support and continuous improvements post go-live.",
     jp_title:'What You Get', jp_sub:'End-to-end implementation — from discovery to go-live and beyond.',
     jp1_t:'Dedicated Implementation Team', jp1_d:'A focused team that understands your industry and business goals.',
     jp2_t:'Full Data Migration', jp2_d:'We migrate all your existing data — from Excel, legacy systems, or databases.',
     jp3_t:'Staff Training & Onboarding', jp3_d:'Every system we build includes documentation and hands-on staff training.',
-    jp4_t:'Post-Launch Monitoring', jp4_d:'We monitor performance and fix issues proactively — you're never left alone after go-live.',
+    jp4_t:'Post-Launch Monitoring', jp4_d:"We monitor performance and fix issues proactively — you're never left alone after go-live.",
     jp_cta:'Book a Free Demo →',
     careers_tag:'Open Roles', careers_h2:'Join Our Vietnam Dev Hub',
     careers_sub:"We're assembling the team that will define enterprise AI. If you're exceptional and ready to do the best work of your career — this is your place.",
@@ -2277,12 +2277,12 @@ const LANG = {
     footer_copy:'© 2026 TechNext Asia · technext.asia · All rights reserved', footer_contact:'Contact',
     pain_tag:'Why Businesses Come to Us', pain_h2:'Sound familiar?',
     pain1_t:'Manual Work Killing Productivity', pain1_d:'Your team spends hours on data entry and tasks that should take seconds. Every manual step is a chance for error.',
-    pain2_t:'Disconnected Systems, Blind Decisions', pain2_d:'Your CRM doesn't sync with inventory. You make critical decisions based on yesterday's data — or guesswork.',
+    pain2_t:'Disconnected Systems, Blind Decisions', pain2_d:"Your CRM doesn't sync with inventory. You make critical decisions based on yesterday's data — or guesswork.",
     pain3_t:'Revenue Slipping Through the Cracks', pain3_d:'Slow follow-ups, missed quotes, delayed invoicing. Every broken process has a price tag that compounds every day.',
     sol_tag:'How We Fix It', sol_h2:'Three things. Massive impact.',
     sol1:'Automate the work.<br><strong>Focus on growth.</strong>', sol2:'Connect your tools.<br><strong>Decide with confidence.</strong>', sol3:'Ship AI in weeks.<br><strong>Not months.</strong>',
     sol_cta:'Book a Free Strategy Call →',
-    ind_tag:'Industries We Serve', ind_h2:'Built for your sector.', ind_sub:'We've implemented AI and ERP across high-demand industries — each with unique workflows.',
+    ind_tag:'Industries We Serve', ind_h2:'Built for your sector.', ind_sub:"We've implemented AI and ERP across high-demand industries — each with unique workflows.",
     ind1_t:'Food & Beverage', ind1_d:'Order management, inventory tracking, supplier automation, and customer loyalty — all connected.',
     ind2_t:'Hotel Management', ind2_d:'Reservations, housekeeping, guest communication, and billing — streamlined end-to-end.',
     ind3_t:'Medical & Healthcare', ind3_d:'Patient scheduling, clinic records, inventory, and billing automation with full data privacy.',
@@ -2656,6 +2656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const l = (navigator.language||'').toLowerCase();
     if (l.startsWith('vi')) setLang('vn');
     else if (l.startsWith('de')) setLang('de');
+    else setLang('en');
   }
 });
 
