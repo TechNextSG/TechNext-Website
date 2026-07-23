@@ -1,4 +1,5 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://technextasia.com/sitemap.xml
+Sitemap: https://technext.asia/sitemap.xml
+
