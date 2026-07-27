@@ -154,7 +154,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" as="image" href="/images/logo/technext-logo.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -238,8 +238,8 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   flex-shrink: 0;
 }
 .logo-img { height: 88px; width: auto; mix-blend-mode: multiply; }
-.logo-t { color: #3167ca; font-size: 1.55rem; font-weight: 800; }
-.logo-n { color: var(--plum); font-size: 1.55rem; font-weight: 800; }
+.logo-t { color: #3167ca; font-size: 1.55rem; font-weight: 700; }
+.logo-n { color: var(--plum); font-size: 1.55rem; font-weight: 700; }
 
 .nav-links {
   display: flex;
@@ -464,9 +464,10 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 
 .hero-title {
   font-family: var(--handwriting);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(2.8rem, 5.2vw, 4.6rem);
-  line-height: 1.08;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   color: var(--text);
   margin-bottom: 1rem;
   -webkit-box-reflect: below -6px linear-gradient(transparent 52%, rgba(49,103,202,0.07));
@@ -591,7 +592,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .stat-num {
   font-family: var(--handwriting);
   font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   line-height: 1;
   margin-bottom: 0.5rem;
@@ -638,10 +639,11 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 }
 .section-title {
   font-family: var(--handwriting);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(2rem, 3.5vw, 3rem);
   color: var(--text);
-  line-height: 1.05;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
   -webkit-box-reflect: below -5px linear-gradient(transparent 55%, rgba(49,103,202,0.06));
 }
@@ -699,7 +701,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.4rem 1.6rem 0;
 }
-.booking-brand { font-family: var(--logo); font-size: 0.95rem; font-weight: 800; color: var(--plum); letter-spacing: -0.02em; }
+.booking-brand { font-family: var(--logo); font-size: 0.95rem; font-weight: 700; color: var(--plum); letter-spacing: -0.02em; }
 .booking-close {
   width: 30px; height: 30px; border-radius: 50%;
   background: #f1f5f9; border: none; cursor: pointer;
@@ -723,7 +725,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .bp-line.done { background: #86efac; }
 .booking-step { padding: 1.2rem 1.2rem 1.4rem; display: none; }
 .booking-step.active { display: block; }
-.bk-h { font-family: var(--handwriting); font-size: 1.75rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.bk-h { font-family: var(--handwriting); font-size: 1.4rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
 .bk-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.3rem; }
 .service-opts { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.3rem; }
 .service-opt {
@@ -891,8 +893,8 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
 }
 .astat-num {
   font-family: var(--handwriting);
-  font-size: 2.8rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 700;
   background: linear-gradient(135deg, #3167ca, #6c93dc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -943,7 +945,7 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
 .svc-name {
   font-family: var(--handwriting);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 0.7rem;
   line-height: 1.2;
@@ -1074,7 +1076,7 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
 .join-item-title {
   font-family: var(--handwriting);
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 0.4rem;
   display: flex;
@@ -1102,7 +1104,7 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
 .join-panel-title {
   font-family: var(--handwriting);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 0.5rem;
 }
@@ -1185,7 +1187,7 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
 .role-name {
   font-family: var(--handwriting);
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 0.3rem;
   line-height: 1.25;
@@ -1485,7 +1487,7 @@ footer {
   #heroCanvas { display: none; }
 
   /* ── Section titles & spacing ── */
-  .section-title { font-size: clamp(1.8rem, 7vw, 2.4rem); line-height: 1.08; -webkit-box-reflect: none; }
+  .section-title { font-size: clamp(1.8rem, 7vw, 2.4rem); line-height: 1.08; -webkit-box-reflect: unset; }
   .section-sub { font-size: 0.88rem; margin-bottom: 1.2rem; }
   .section-label { font-size: 0.68rem; letter-spacing: 0.1em; }
   .section-cta-row { margin-top: 1.6rem; }
@@ -1493,7 +1495,7 @@ footer {
   .btn-plum, .btn-outline { padding: 12px 22px; font-size: 0.86rem; }
 
   /* ── Hero ── */
-  .hero-title { font-size: clamp(2.8rem, 9.5vw, 3.6rem); -webkit-box-reflect: none; }
+  .hero-title { font-size: clamp(2.8rem, 9.5vw, 3.6rem); -webkit-box-reflect: unset; }
   .hero-sub { font-size: 0.88rem; margin-bottom: 1.1rem; max-width: 100%; }
   .hero-badges { gap: 6px; margin-bottom: 0.8rem; }
   .badge { padding: 6px 11px; font-size: 0.73rem; }
@@ -1559,7 +1561,7 @@ footer {
 .culture-card h3 {
   font-family: var(--handwriting);
   font-size: 1.9rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 0.6rem;
 }
@@ -1694,7 +1696,7 @@ footer {
 .sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin:2.5rem 0 2rem;}
 .sol-card{background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.22);border-radius:24px;padding:2.2rem 1.8rem;backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s;}
 .sol-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.18);}
-.sol-num{font-family:'Montserrat',sans-serif;font-size:3rem;font-weight:800;color:rgba(255,255,255,.2);line-height:1;margin-bottom:.8rem;}
+.sol-num{font-family:'Montserrat',sans-serif;font-size:3rem;font-weight: 700;color:rgba(255,255,255,.2);line-height:1;margin-bottom:.8rem;}
 .sol-text{font-size:1.05rem;color:rgba(255,255,255,.9);line-height:1.65;margin:0;}
 .sol-text strong{display:block;font-size:1.1rem;color:#fff;margin-top:.4rem;}
 .sol-cta-row{margin-top:.5rem;}
@@ -2066,7 +2068,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&h=300&fit=crop&q=75" alt="AI agents automating enterprise workflows" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;">
         <div style="padding:1.2rem 1.4rem;">
           <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:0.5rem;" data-k="ins_c1_cat">AI &amp; Tech</div>
-          <div style="font-family:var(--handwriting);font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c1_t">AI Agents in Enterprise Automation</div>
+          <div style="font-family:var(--handwriting);font-size:1.12rem;font-weight:600;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c1_t">AI Agents in Enterprise Automation</div>
           <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin:0;" data-k="ins_c1_e">How autonomous AI agents are reshaping business workflows and cutting operational costs across Southeast Asia.</p>
         </div>
       </a>
@@ -2074,7 +2076,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop&q=75" alt="Odoo ERP for SMEs in Southeast Asia" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;">
         <div style="padding:1.2rem 1.4rem;">
           <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:0.5rem;" data-k="ins_c2_cat">Odoo ERP</div>
-          <div style="font-family:var(--handwriting);font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c2_t">Odoo ERP for SMEs in Southeast Asia</div>
+          <div style="font-family:var(--handwriting);font-size:1.12rem;font-weight:600;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c2_t">Odoo ERP for SMEs in Southeast Asia</div>
           <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin:0;" data-k="ins_c2_e">Why growing businesses across Vietnam, Philippines, and Singapore are choosing Odoo over legacy ERP platforms.</p>
         </div>
       </a>
@@ -2082,7 +2084,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop&q=75" alt="RAG systems enterprise AI guide" loading="lazy" style="width:100%;height:180px;object-fit:cover;display:block;">
         <div style="padding:1.2rem 1.4rem;">
           <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:0.5rem;" data-k="ins_c3_cat">AI &amp; Tech</div>
-          <div style="font-family:var(--handwriting);font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c3_t">RAG Systems: Enterprise AI Guide</div>
+          <div style="font-family:var(--handwriting);font-size:1.12rem;font-weight:600;line-height:1.25;margin-bottom:0.5rem;" data-k="ins_c3_t">RAG Systems: Enterprise AI Guide</div>
           <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin:0;" data-k="ins_c3_e">A practical guide to building Retrieval-Augmented Generation systems that work reliably in production enterprise environments.</p>
         </div>
       </a>
@@ -2459,7 +2461,7 @@ function setLang(lang) {
     const k = el.getAttribute('data-k');
     if (t[k] !== undefined) el.innerHTML = t[k];
   });
-  // BUG-5: toggle VN font class so CSS can swap Caveat → Be Vietnam Pro for diacritic support
+  // BUG-5: toggle VN font class so CSS can swap Montserrat → Be Vietnam Pro for diacritic support
   document.documentElement.classList.toggle('lang-vn', lang === 'vn');
   renderJoin();
   renderCareers();

@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script><link rel="preload" as="image" href="/images/logo/technext-logo.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.22) transparent; }
@@ -72,10 +72,10 @@ a { color: inherit; text-decoration: none; }
   --text: #1a1a2e;
   --text-muted: #64748b;
   --border: #e2e8f0;
-  --handwriting: 'Caveat', cursive;
+  --handwriting: 'Montserrat', var(--sans);
   --sans: 'DM Sans', sans-serif;
 }
-html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Caveat', cursive; }
+html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans); }
 
 /* ===== NAV ===== */
 nav#mainNav {
@@ -193,10 +193,12 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--handwriting);
-  font-size: 1.6rem;
-  font-weight: 600;
-  font-style: italic;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   color: var(--blue);
   margin-bottom: 1rem;
 }
@@ -209,8 +211,9 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 }
 .page-title {
   font-family: var(--handwriting);
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
-  font-weight: 700;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text);
   line-height: 1.1;
   margin-bottom: 1rem;
@@ -225,7 +228,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   position: absolute;
   left: 0; bottom: 4px;
   width: 100%; height: 10px;
-  background: #fef08a;
+  background: linear-gradient(90deg, rgba(49,103,202,0.28), rgba(108,147,220,0.14));
   z-index: -1;
   border-radius: 3px;
 }
@@ -251,8 +254,8 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 /* ===== DIRECT CONTACT ===== */
 .contact-section-title {
   font-family: var(--handwriting);
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 1.4rem;
   display: flex;
@@ -411,7 +414,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 }
 .maps-section-title {
   font-family: var(--handwriting);
-  font-size: 2.2rem; font-weight: 700;
+  font-size: 1.7rem; font-weight: 600;
   color: var(--text); margin-bottom: 1.4rem;
   display: flex; align-items: center; gap: 10px;
 }

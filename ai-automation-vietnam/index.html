@@ -21,7 +21,7 @@
 <link rel="icon" href="/images/logo/technext-logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -33,7 +33,7 @@
 body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--logo);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+.nav-logo{font-family:var(--logo);font-size:1.1rem;font-weight: 700;color:#fff;letter-spacing:-.02em}
 .nav-logo span{color:#60a5fa}
 .nav-cta{background:var(--blue);color:#fff;padding:.5rem 1.2rem;border-radius:100px;font-size:.85rem;font-weight:600;transition:background .2s}
 .nav-cta:hover{background:var(--blue-d)}
@@ -42,7 +42,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;paddi
 .hero::after{content:'';position:absolute;bottom:-80px;left:10%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.08) 0%,transparent 70%)}
 .hero-inner{max-width:700px;position:relative}
 .hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:#86efac;border-radius:20px;padding:.3rem .9rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem}
-.hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.15;margin-bottom:1.2rem;font-family:var(--logo)}
+.hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-bottom:1.2rem;font-family:var(--logo)}
 .hero h1 span{color:#60a5fa}
 .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:580px;line-height:1.75;margin-bottom:2rem}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
@@ -55,7 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;paddi
 .trust-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
 .section{padding:5rem 5%;max-width:1100px;margin:0 auto}
 .section-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:.6rem}
-.section-title{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;line-height:1.2;color:var(--navy);margin-bottom:1rem;font-family:var(--logo)}
+.section-title{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--navy);margin-bottom:1rem;font-family:var(--logo)}
 .section-title .hl{color:var(--blue)}
 .section-sub{font-size:1rem;color:var(--text2);max-width:620px;line-height:1.75;margin-bottom:2.5rem}
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-bottom:2rem}
@@ -73,7 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;paddi
 .svc-tag{background:var(--blue-l);color:var(--blue-d);font-size:.7rem;font-weight:600;padding:.2rem .6rem;border-radius:20px}
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
 .stat-box{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.4rem;text-align:center}
-.stat-num{font-size:2.2rem;font-weight:800;color:var(--blue);line-height:1;margin-bottom:.3rem}
+.stat-num{font-size:2.2rem;font-weight: 700;color:var(--blue);line-height:1;margin-bottom:.3rem}
 .stat-label{font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:.2rem}
 .stat-sub{font-size:.72rem;color:var(--text2)}
 .talent-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
@@ -90,7 +90,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;paddi
 .faq-a{display:none;padding:0 1.4rem 1rem;font-size:.85rem;color:var(--text2);line-height:1.75}
 .faq-item.open .faq-a{display:block}
 .cta-section{background:linear-gradient(135deg,var(--navy) 0%,#0f1f4a 100%);color:#fff;padding:5rem 5%;text-align:center}
-.cta-section h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:1rem;font-family:var(--logo)}
+.cta-section h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;letter-spacing:-.02em;margin-bottom:1rem;font-family:var(--logo)}
 .cta-section h2 span{color:#60a5fa}
 .cta-section p{color:rgba(255,255,255,.65);max-width:520px;margin:0 auto 2rem;font-size:.95rem;line-height:1.75}
 .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}

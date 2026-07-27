@@ -62,7 +62,7 @@
 .booking-box::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.2)}
 .booking-modal.open .booking-box{transform:translateY(0) scale(1)}
 .booking-header{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.6rem 0}
-.booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:800;color:#6d2d7a;letter-spacing:-.02em}
+.booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight: 700;color:#6d2d7a;letter-spacing:-.02em}
 .booking-close{width:30px;height:30px;border-radius:50%;background:#f1f5f9;border:none;cursor:pointer;font-size:1rem;color:#64748b;display:flex;align-items:center;justify-content:center;transition:all .18s;line-height:1}
 .booking-close:hover{background:#e2e8f0;color:#1a1a2e;transform:rotate(90deg)}
 .booking-progress{display:flex;align-items:center;padding:1.1rem 1.6rem 0}
@@ -73,7 +73,7 @@
 .bp-line.done{background:#86efac}
 .booking-step{padding:1.2rem 1.2rem 1.4rem;display:none}
 .booking-step.active{display:block}
-.bk-h{font-family:'Caveat',cursive;font-size:1.75rem;font-weight:700;color:#1a1a2e;margin-bottom:.25rem}
+.bk-h{font-family:'Montserrat','DM Sans',sans-serif;font-size:1.4rem;font-weight:600;letter-spacing:-.02em;color:#1a1a2e;margin-bottom:.25rem}
 .bk-sub{font-size:.85rem;color:#64748b;margin-bottom:1.3rem}
 .service-opts{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.3rem}
 .service-opt{display:flex;align-items:center;gap:.9rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:.9rem 1.1rem;cursor:pointer;text-align:left;width:100%;transition:all .18s;font-family:'DM Sans',sans-serif}
@@ -246,7 +246,7 @@ textarea.booking-input{resize:none;height:76px}
 #waChatWidget{position:fixed;bottom:96px;right:28px;z-index:1901;width:320px;border-radius:18px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.1);font-family:'DM Sans',-apple-system,sans-serif;opacity:0;pointer-events:none;transform:translateY(16px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
 #waChatWidget.wa-open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
 .wa-wgt-header{background:#128C7E;padding:14px 16px;display:flex;align-items:center;gap:10px}
-.wa-wgt-avatar{width:40px;height:40px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#fff;flex-shrink:0}
+.wa-wgt-avatar{width:40px;height:40px;border-radius:50%;background:#075E54;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight: 700;color:#fff;flex-shrink:0}
 .wa-wgt-info{flex:1;min-width:0}
 .wa-wgt-name{font-size:.9rem;font-weight:700;color:#fff}
 .wa-wgt-status{font-size:.71rem;color:rgba(255,255,255,.82);margin-top:2px}
@@ -299,7 +299,7 @@ textarea.booking-input{resize:none;height:76px}
 @keyframes botPulse{0%,100%{box-shadow:0 4px 20px rgba(37,99,235,.45)}50%{box-shadow:0 4px 32px rgba(37,99,235,.75),0 0 0 8px rgba(37,99,235,.12)}}
 #tnBotBtn{animation:botPulse 3s ease-in-out infinite}
 #tnBotBtn:hover,#tnBotBtn.bot-active{animation:none}
-#tnBotBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none}
+#tnBotBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight: 700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none}
 #tnBotPanel{position:fixed;bottom:168px;right:28px;z-index:1902;width:350px;max-height:520px;border-radius:20px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1);font-family:'DM Sans',-apple-system,sans-serif;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(18px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
 #tnBotPanel.bot-open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
 .bot-header{background:linear-gradient(135deg,#1d4ed8,#6d28d9);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -314,7 +314,7 @@ textarea.booking-input{resize:none;height:76px}
 .bot-messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
 .bot-msg-row{display:flex;align-items:flex-end;gap:8px}
 .bot-msg-row.user{flex-direction:row-reverse}
-.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#fff;flex-shrink:0}
+.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight: 700;color:#fff;flex-shrink:0}
 .bot-bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:.82rem;line-height:1.55;position:relative}
 .bot-bubble.bot{background:#fff;border-radius:4px 16px 16px 16px;color:#1e293b;box-shadow:0 1px 4px rgba(0,0,0,.09)}
 .bot-bubble.user{background:linear-gradient(135deg,#2563eb,#6d28d9);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
@@ -527,7 +527,7 @@ textarea.booking-input{resize:none;height:76px}
     const btn = document.createElement('button');
     btn.id = 'tnBotBtn';
     btn.setAttribute('aria-label','Chat with TechNext Assistant');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span id="tnBotBadge" style="position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff">1</span>';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span id="tnBotBadge" style="position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight: 700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff">1</span>';
     document.body.appendChild(btn);
 
     const msgs = document.getElementById('tnBotMsgs');
