@@ -293,6 +293,18 @@ textarea.booking-input{resize:none;height:76px}
 #tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#6c93dc,#425eae);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
 #tnBotSend:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(49,103,202,.4)}
 #tnBotSend svg{width:16px;height:16px;margin-left:2px}
+.bot-cta-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:9px;border-top:1px dashed rgba(49,103,202,.22)}
+.bot-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6c93dc,#425eae);color:#fff;border:none;border-radius:100px;padding:7px 14px;font-size:.74rem;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;transition:transform .18s,box-shadow .18s,background .18s;box-shadow:0 2px 8px rgba(49,103,202,.28)}
+.bot-cta:hover{background:linear-gradient(135deg,#425eae,#6c93dc);transform:translateY(-2px);box-shadow:0 6px 16px rgba(49,103,202,.4)}
+.bot-cta:active{transform:translateY(0) scale(.97)}
+.bot-cta.ghost{background:#fff;color:#3167ca;border:1.5px solid rgba(49,103,202,.28);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.bot-cta.ghost:hover{background:#f0f6ff;border-color:#3167ca;color:#2558b8}
+.bot-cta.wa{background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 2px 8px rgba(37,211,102,.3)}
+.bot-cta.wa:hover{background:linear-gradient(135deg,#128c7e,#25d366);box-shadow:0 6px 16px rgba(37,211,102,.42)}
+.bot-cta svg{width:12px;height:12px;flex-shrink:0}
+.bot-clarify{font-size:.72rem;color:#5a6572;margin-top:2px}
+.bot-bubble a{color:#3167ca;font-weight:600;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px}
+.bot-bubble a:hover{color:#2558b8}
 @media(max-width:400px){#tnBotPanel{width:calc(100vw - 20px);right:10px;bottom:152px}#tnBotBtn{right:10px;bottom:88px}}
 `;
     document.head.appendChild(_bs);
@@ -301,11 +313,11 @@ textarea.booking-input{resize:none;height:76px}
     const BOT_QA = [
       { id:'what_is', q:'What is TechNext Asia?', kw:['what','who','technext','about','company','tell','explain','introduce','overview'],
         a:'<b>TechNext Asia</b> is an AI-native company that helps businesses worldwide adopt AI agents, RAG systems, and Odoo ERP. We operate across Vietnam 🇻🇳, Philippines 🇵🇭, Singapore 🇸🇬 and serve clients in 10+ countries.',
-        rel:['services','locations','how_start'] },
+        rel:['services','locations','how_start'], cta:[{label:'Our services',href:'/#services',style:'ghost'},{label:'Book a free call',act:'booking'}] },
 
       { id:'services', q:'What services do you offer?', kw:['service','offer','provide','solution','what do you do','help with','specialize','work'],
         a:'We offer 4 core services:<ul><li><b>AI Agent Development</b> — LLM agents, RAG, pipelines</li><li><b>Odoo ERP Implementation</b> — full setup & support</li><li><b>Conversational AI</b> — chatbots, WhatsApp bots</li><li><b>AI Automation</b> — n8n workflows, integrations</li></ul>',
-        rel:['ai_agents','odoo','pricing'] },
+        rel:['ai_agents','odoo','pricing'], cta:[{label:'See all services',href:'/#services',style:'ghost'},{label:'Book a free call',act:'booking'}] },
 
       { id:'ai_agents', q:'What is AI Agent development?', kw:['ai agent','llm','rag','pipeline','agent','artificial intelligence','machine learning','neural','gpt','claude'],
         a:'We build <b>custom AI agents</b> tailored to your business — think of them as smart employees that can reason, retrieve knowledge, and take actions. We use Claude (Anthropic), GPT-4, Llama, and more, deployed on your infrastructure or cloud.',
@@ -313,7 +325,7 @@ textarea.booking-input{resize:none;height:76px}
 
       { id:'odoo', q:'What is Odoo ERP?', kw:['odoo','erp','enterprise resource','crm','inventory','accounting','manufacturing','hrm','ecommerce','modules'],
         a:'<b>Odoo</b> is the world\'s most popular open-source ERP. TechNext is a <b>Certified Odoo Ready Partner</b> — we implement, customize, and support Odoo for sales, inventory, accounting, HR, manufacturing, and more. Go live in <b>4–8 weeks</b>.',
-        rel:['odoo_pricing','industries','timeline'] },
+        rel:['odoo_pricing','industries','timeline'], cta:[{label:'Odoo in Singapore',href:'/odoo-erp-singapore/',style:'ghost'},{label:'Book a free call',act:'booking'}] },
 
       { id:'rag', q:'What is RAG and how does it work?', kw:['rag','retrieval','augmented','generation','knowledge base','document','search','vector','embedding'],
         a:'<b>RAG (Retrieval-Augmented Generation)</b> lets AI answer questions using <i>your own data</i> — documents, PDFs, databases. Instead of hallucinating, the AI retrieves the right info first, then generates an accurate answer. We build RAG systems with Qdrant, Chroma, and Pinecone.',
@@ -321,7 +333,7 @@ textarea.booking-input{resize:none;height:76px}
 
       { id:'pricing', q:'How much does it cost?', kw:['price','cost','how much','rate','fee','budget','pricing','expensive','cheap','affordable','quote','estimate','invoice'],
         a:'Pricing depends on scope and complexity. Rough ranges:<ul><li><b>AI Agent MVP</b> — from $3,000</li><li><b>Odoo Implementation</b> — from $5,000</li><li><b>Chatbot / WhatsApp Bot</b> — from $2,000</li><li><b>Monthly retainer</b> — from $800/mo</li></ul>Book a free call for an accurate quote.',
-        rel:['how_start','odoo_pricing','timeline'] },
+        rel:['how_start','odoo_pricing','timeline'], cta:[{label:'Get an exact quote',act:'booking'},{label:'WhatsApp us',act:'whatsapp',style:'wa'}] },
 
       { id:'odoo_pricing', q:'How much does Odoo cost with TechNext?', kw:['odoo price','odoo cost','odoo fee','erp price','erp cost','odoo budget','odoo quote'],
         a:'Odoo implementation with TechNext typically ranges <b>$5,000–$25,000</b> depending on modules and business size. This includes setup, data migration, training, and 3 months of support. Odoo Community is free to use; Odoo Enterprise starts at ~$20/user/mo.',
@@ -425,7 +437,7 @@ textarea.booking-input{resize:none;height:76px}
 
       { id:'blog', q:'Where can I read your articles?', kw:['blog','article','read','learn','news','insight','content','post','latest'],
         a:'Check out our <a href="/blog/" style="color:#3167ca;font-weight:600">Blog</a> for articles on AI trends, Odoo ERP, Vietnam tech, and enterprise automation. New articles posted regularly.',
-        rel:['use_cases','tech_stack','what_is'] },
+        rel:['use_cases','tech_stack','what_is'], cta:[{label:'Read the blog',href:'/blog/',style:'ghost'}] },
 
       /* --- recovered: these 11 entries were orphaned outside the array --- */
       { id:'fnb', q:'Can you help Food & Beverage businesses?', kw:['food','beverage','restaurant','cafe','fnb','menu','kitchen','dining','hospitality','catering'],
@@ -471,32 +483,199 @@ textarea.booking-input{resize:none;height:76px}
       { id:'training', q:'Do you provide training?', kw:['training','teach','learn','onboard','guide','tutorial','documentation','manual','how to use'],
         a:'Every project includes <b>full training</b> for your team: live sessions, video walkthroughs, and written documentation. We ensure your staff is confident using the system before we hand it over. Ongoing training is also available as part of retainer packages.',
         rel:['support','timeline','how_start'] },
+
+      /* --- website, company and service coverage --- */
+
+      { id:'industries', q:'Which industries do you work with?', kw:['industry','industries','sector','vertical','niche','who do you serve','type of business'],
+        a:'We have shipped AI and ERP into <b>F&amp;B, hospitality, medical, construction, manufacturing, logistics, retail and professional services</b>. Each gets a different workflow &mdash; a restaurant needs auto-reordering, a clinic needs records compliance.',
+        rel:['fnb','hotel','medical'], cta:[{label:'See sector work',href:'/#industries',style:'ghost'},{label:'Discuss your sector',act:'booking'}] },
+
+      { id:'site_map', q:'What can I find on this website?', kw:['website','site','page','navigate','find','where','menu','section','look for'],
+        a:'Quick tour:<ul><li><b>Services</b> &mdash; what we build</li><li><b>Industries</b> &mdash; sector-specific work</li><li><b>Gallery</b> &mdash; our team and events</li><li><b>Blog</b> &mdash; 20+ AI and ERP articles</li><li><b>Careers</b> &mdash; open roles</li><li><b>Contact</b> &mdash; reach us directly</li></ul>',
+        rel:['services','blog','gallery_page'], cta:[{label:'Services',href:'/#services',style:'ghost'},{label:'Blog',href:'/blog/',style:'ghost'},{label:'Careers',href:'/careers/',style:'ghost'}] },
+
+      { id:'gallery_page', q:'Can I see your team and office?', kw:['gallery','photo','picture','image','office','team photo','culture','event','see you'],
+        a:'Yes &mdash; our <b>Gallery</b> has team photos, office shots and event coverage including Odoo Partner Day.',
+        rel:['team_size','locations','careers'], cta:[{label:'Open the gallery',href:'/gallery/',style:'ghost'}] },
+
+      { id:'case_results', q:'What results have clients seen?', kw:['result','outcome','case study','proof','success','roi','impact','benefit','achieve','improve'],
+        a:'Typical outcomes: <b>40% less manual work</b>, reporting that used to take days down to minutes, and go-live in <b>4&ndash;8 weeks</b>. We work with Qualcomm, TSMC and the Singapore Government among 11+ enterprise clients.',
+        rel:['clients','roi','industries'], cta:[{label:'See our impact',href:'/#impact',style:'ghost'},{label:'Talk about your numbers',act:'booking'}] },
+
+      { id:'sme_fit', q:'Do you work with small businesses?', kw:['small','sme','startup','smb','tiny','solo','little','budget','scale down','affordable'],
+        a:'Absolutely. We scope to fit &mdash; a focused AI agent or a single Odoo module starts far smaller than a full transformation. Many clients begin with one workflow and expand once it pays off.',
+        rel:['pricing','trial','how_start'], cta:[{label:'Get a right-sized quote',act:'booking'}] },
+
+      { id:'integrations', q:'What tools can you integrate with?', kw:['integrate','integration','connect','api','sync','existing','shopify','stripe','xero','quickbooks','salesforce','hubspot','sheets','slack'],
+        a:'If it has an API, we can connect it. Common ones: <b>Shopify, WooCommerce, Stripe, Xero, QuickBooks, Salesforce, HubSpot, Google Workspace, Slack, WhatsApp Business</b> and any SQL database. We use n8n for the glue.',
+        rel:['n8n','odoo','tech_stack'], cta:[{label:'Check your stack',act:'booking'}] },
+
+      { id:'odoo_modules', q:'Which Odoo modules do you implement?', kw:['module','modules','which odoo','odoo feature','sales','inventory','accounting','hr','payroll','pos','purchase','project'],
+        a:'All the core ones: <b>Sales, CRM, Inventory, Purchase, Accounting, Manufacturing, HR and Payroll, POS, Project, Field Service and eCommerce</b>. We start with what moves the needle and phase the rest.',
+        rel:['odoo','odoo_pricing','timeline'], cta:[{label:'Odoo for Singapore',href:'/odoo-erp-singapore/',style:'ghost'},{label:'Scope my modules',act:'booking'}] },
+
+      { id:'data_hosting', q:'Where is my data hosted?', kw:['host','hosting','server','cloud','on premise','onprem','where data','datacentre','datacenter','aws','azure','local'],
+        a:'Your choice. We deploy to <b>your own cloud</b> (AWS, Azure, GCP), <b>Odoo Online</b>, or fully <b>on-premise</b> if data cannot leave your building. For sensitive work we run <b>local LLMs</b> so nothing is sent to a third party.',
+        rel:['local_llm','data_privacy','iso'], cta:[{label:'Discuss deployment',act:'booking'}] },
+
+      { id:'nda', q:'Will you sign an NDA?', kw:['nda','confidential','non disclosure','secret','privacy agreement','contract','legal','ip','intellectual property'],
+        a:'Yes &mdash; we sign your NDA before any discovery call if you prefer. You own all deliverables, source code and prompts outright once the project completes.',
+        rel:['data_privacy','payment_terms','how_start'], cta:[{label:'Start with an NDA',act:'booking'}] },
+
+      { id:'payment_terms', q:'How does payment work?', kw:['payment','pay','invoice','deposit','milestone','installment','terms','billing','wire','transfer'],
+        a:'Standard structure is <b>40% to start, 40% at delivery, 20% after handover</b>. Retainers bill monthly. We invoice in SGD or USD by bank transfer.',
+        rel:['pricing','contract_length','how_start'], cta:[{label:'Ask about terms',act:'booking'}] },
+
+      { id:'contract_length', q:'Am I locked into a long contract?', hidden:false, kw:['lock','locked','contract length','commitment','cancel','exit','month to month','terminate','subscription'],
+        a:'No lock-in. Projects are <b>fixed-scope</b> and end when they ship. Retainers run <b>month to month</b> with 30 days notice. You keep everything either way.',
+        rel:['payment_terms','support','trial'], cta:[{label:'Talk it through',act:'booking'}] },
+
+      { id:'support_hours', q:'What are your support hours?', kw:['hours','support hour','response time','sla','availability','timezone','weekend','urgent','downtime','emergency'],
+        a:'Business hours are <b>9am&ndash;6pm Singapore time (UTC+8)</b>, Monday to Friday. Retainer clients get priority response and an agreed SLA. Critical outages are handled outside hours.',
+        rel:['support','locations','contact_info'], cta:[{label:'WhatsApp us now',act:'whatsapp',style:'wa'}] },
+
+      { id:'ai_vs_staff', q:'Will AI replace my staff?', kw:['replace','job loss','redundant','fire','staff','layoff','human','lose job','worry','afraid'],
+        a:'That is not the goal. AI takes the repetitive work &mdash; data entry, reconciliation, first-line replies &mdash; so your team spends time on judgement and customers. Every project includes training so your people run the system.',
+        rel:['training','use_cases','roi'], cta:[{label:'See real use cases',href:'/#services',style:'ghost'}] },
+
+      { id:'languages', q:'What languages do you support?', kw:['language','english','vietnamese','multilingual','translate','tagalog','chinese','bahasa','local language'],
+        a:'We work in <b>English</b> and <b>Vietnamese</b>, and build bots that handle multilingual conversations. This site itself has an EN / VN switch in the header.',
+        rel:['ai_chatbot','vietnam_hub','locations'] },
+
+      { id:'why_us_vs_others', q:'Why pick TechNext over a bigger agency?', kw:['why you','versus','compare','competitor','alternative','instead','better than','difference','vs agency','big firm'],
+        a:'Three reasons: we are <b>AI-native</b> so agents and RAG are core work not an add-on; we are a <b>Certified Odoo Partner</b> so AI and ERP come from one team; and our regional footprint keeps cost sane without offshoring quality.',
+        rel:['why_technext','odoo_partner','clients'], cta:[{label:'Compare on a call',act:'booking'}] },
+
+      { id:'first_call', q:'What happens on the first call?', kw:['first call','discovery','what to expect','prepare','agenda','free call','consultation','initial','meeting'],
+        a:'30&ndash;60 minutes, no pitch deck. We ask what is slow or manual today, sketch what automating it looks like, and tell you honestly if we are the wrong fit. You leave with a rough scope and price range.',
+        rel:['how_start','pricing','book_call'], cta:[{label:'Book that call',act:'booking'},{label:'Prefer WhatsApp?',act:'whatsapp',style:'wa'}] },
     ];
 
     /* ── State ── */
     const _asked = new Set();
     let _open = false;
 
-    /* ── Fuzzy match ── */
-    function _match(input) {
-      const words = input.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(Boolean);
-      if (!words.length) return null;
-      let best = null, bestScore = 0;
-      BOT_QA.forEach(function(qa) {
-        let score = 0;
-        qa.kw.forEach(function(kw) {
-          const kwWords = kw.split(' ');
-          kwWords.forEach(function(kw1) {
-            words.forEach(function(w) {
-              if (w === kw1) score += 3;
-              else if (kw1.length > 3 && w.startsWith(kw1.slice(0,4))) score += 1;
-              else if (w.length > 3 && kw1.startsWith(w.slice(0,4))) score += 1;
-            });
+    /* ── Matching ──────────────────────────────────────────────
+       Tolerant of typos, plurals, synonyms and filler words.
+       Returns { qa, score, runners } so a weak hit can offer
+       "did you mean" instead of dead-ending.
+    ------------------------------------------------------------ */
+    const _STOP = ('a an the is are was were be been being do does did doing have has had ' +
+      'i you we they it he she me my your our their of to in on at for with about from by as ' +
+      'and or but if then than so that this these those there here what which who whom whose ' +
+      'how why when where can could will would shall should may might must please tell show ' +
+      'give get let s t re ve ll d m o y').split(' ');
+
+    // one-way synonym expansion: user phrasing -> our keyword vocabulary
+    const _SYN = {
+      cost:['price','pricing','fee','rate','budget','quote','charge','expensive','cheap','afford'],
+      price:['cost','pricing','fee','rate','budget','quote'],
+      bot:['chatbot','chat','assistant','agent'],
+      chatbot:['bot','chat','assistant'],
+      ai:['artificial','intelligence','llm','gpt','claude','ml'],
+      erp:['odoo','system','software','platform'],
+      odoo:['erp'],
+      job:['career','hiring','vacancy','role','position','recruit','apply','work'],
+      career:['job','hiring','vacancy','role','position','recruit'],
+      hire:['job','career','recruit','apply','engage'],
+      call:['meeting','demo','consult','consultation','appointment','book','schedule'],
+      book:['schedule','appointment','meeting','demo','call','reserve'],
+      demo:['call','meeting','trial','consult'],
+      contact:['reach','email','phone','call','message','talk','speak'],
+      time:['long','duration','timeline','weeks','fast','quick','when'],
+      timeline:['time','long','duration','weeks','schedule'],
+      where:['location','office','based','address','country'],
+      location:['where','office','based','address','country','city'],
+      team:['staff','people','employee','headcount','size','who'],
+      support:['maintenance','help','sla','after','warranty'],
+      integrate:['integration','connect','api','sync','link'],
+      secure:['security','safe','privacy','data','gdpr','compliance'],
+      whatsapp:['wa','message','chat'],
+      blog:['article','post','read','insight','news'],
+      start:['begin','onboard','process','step','engage','kickoff']
+    };
+
+    function _stem(w) {
+      if (w.length > 4 && /ies$/.test(w)) return w.slice(0, -3) + 'y';
+      if (w.length > 4 && /(ses|xes|zes|ches|shes)$/.test(w)) return w.slice(0, -2);
+      if (w.length > 3 && /s$/.test(w) && !/ss$/.test(w)) return w.slice(0, -1);
+      if (w.length > 5 && /ing$/.test(w)) return w.slice(0, -3);
+      if (w.length > 4 && /ed$/.test(w)) return w.slice(0, -2);
+      return w;
+    }
+
+    // bounded Levenshtein: bails out as soon as it exceeds max
+    function _lev(a, b, max) {
+      if (a === b) return 0;
+      if (Math.abs(a.length - b.length) > max) return max + 1;
+      let prev = [], cur = [];
+      for (let j = 0; j <= b.length; j++) prev[j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        cur[0] = i;
+        let rowMin = cur[0];
+        for (let j = 1; j <= b.length; j++) {
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i-1] === b[j-1] ? 0 : 1));
+          if (cur[j] < rowMin) rowMin = cur[j];
+        }
+        if (rowMin > max) return max + 1;
+        prev = cur.slice();
+      }
+      return prev[b.length];
+    }
+
+    function _tokens(str) {
+      const raw = str.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+      const kept = raw.filter(function(w) { return _STOP.indexOf(w) === -1; });
+      // if the user typed only filler ("how are you"), keep the raw words
+      const base = kept.length ? kept : raw;
+      const out = [];
+      base.forEach(function(w) {
+        const s = _stem(w);
+        if (out.indexOf(s) === -1) out.push(s);
+        (_SYN[s] || []).forEach(function(x) { const xs = _stem(x); if (out.indexOf(xs) === -1) out.push(xs); });
+      });
+      return { words: out, raw: raw };
+    }
+
+    function _score(qa, tk, lowerInput) {
+      let score = 0;
+      qa.kw.forEach(function(kw) {
+        const k = kw.toLowerCase();
+        // whole multi-word phrase present verbatim -> strong signal
+        if (k.indexOf(' ') > -1 && lowerInput.indexOf(k) > -1) { score += 7; return; }
+        k.split(' ').forEach(function(part) {
+          const ks = _stem(part);
+          if (!ks) return;
+          tk.words.forEach(function(w) {
+            if (w === ks) { score += 4; return; }
+            if (ks.length > 3 && w.length > 3) {
+              if (w.indexOf(ks) === 0 || ks.indexOf(w) === 0) { score += 2; return; }
+              const budget = (ks.length >= 7 && w.length >= 7) ? 2 : 1;
+              if (_lev(w, ks, budget) <= budget) score += 2;
+            }
           });
         });
-        if (score > bestScore) { bestScore = score; best = qa; }
       });
-      return bestScore >= 2 ? best : null;
+      // a hit on the question text itself counts too
+      const qWords = _tokens(qa.q).words;
+      tk.words.forEach(function(w) { if (qWords.indexOf(w) > -1) score += 1; });
+      return score;
+    }
+
+    function _match(input) {
+      const lower = input.toLowerCase();
+      const tk = _tokens(input);
+      if (!tk.words.length) return { qa: null, score: 0, runners: [] };
+      const ranked = BOT_QA.map(function(qa) { return { qa: qa, score: _score(qa, tk, lower) }; })
+                           .filter(function(x) { return x.score > 0; })
+                           .sort(function(a, b) { return b.score - a.score; });
+      if (!ranked.length) return { qa: null, score: 0, runners: [] };
+      const top = ranked[0];
+      return {
+        qa: top.score >= 4 ? top.qa : null,
+        score: top.score,
+        runners: ranked.slice(0, 3).map(function(x) { return x.qa; })
+      };
     }
 
     /* ── Get suggestions ── */
@@ -561,24 +740,68 @@ textarea.booking-input{resize:none;height:76px}
       });
     }
 
-    function _answer(qa, displayQ) {
-      _asked.add(qa.id);
-      sugsArea.innerHTML = '';
-      _addMsg(displayQ, true);
-      // Typing indicator
+    /* ── Action buttons under an answer ──────────────────────────
+       cta: [{ label, href }]            -> link to a page / anchor
+            [{ label, act:'booking' }]   -> open the booking modal
+            [{ label, act:'whatsapp' }]  -> open WhatsApp
+       'ghost' or 'wa' in style for the quieter / green variants.
+    ------------------------------------------------------------ */
+    const _ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+    function _renderCtas(bubble, ctas) {
+      if (!ctas || !ctas.length) return;
+      const row = document.createElement('div');
+      row.className = 'bot-cta-row';
+      ctas.forEach(function(c) {
+        let el;
+        if (c.href) {
+          el = document.createElement('a');
+          el.href = c.href;
+          if (/^https?:/.test(c.href)) { el.target = '_blank'; el.rel = 'noopener'; }
+        } else {
+          el = document.createElement('button');
+          el.type = 'button';
+        }
+        el.className = 'bot-cta' + (c.style ? ' ' + c.style : '');
+        el.innerHTML = c.label + (c.style === 'wa' ? '' : ' ' + _ARROW);
+        if (c.act === 'booking') {
+          el.addEventListener('click', function() {
+            _close_panel();
+            if (typeof window.openBooking === 'function') window.openBooking();
+          });
+        } else if (c.act === 'whatsapp') {
+          el.addEventListener('click', function() {
+            const wf = document.getElementById('waFloat');
+            _close_panel();
+            if (wf) wf.click();
+          });
+        }
+        row.appendChild(el);
+      });
+      bubble.appendChild(row);
+    }
+
+    function _typing() {
       const typRow = document.createElement('div');
       typRow.className = 'bot-msg-row';
       typRow.innerHTML = '<div class="bot-msg-avatar">TN</div><div class="bot-typing"><span></span><span></span><span></span></div>';
       msgs.appendChild(typRow);
       msgs.scrollTop = msgs.scrollHeight;
+      return typRow;
+    }
+
+    function _answer(qa, displayQ) {
+      _asked.add(qa.id);
+      sugsArea.innerHTML = '';
+      _addMsg(displayQ, true);
+      const typRow = _typing();
       setTimeout(function() {
         msgs.removeChild(typRow);
-        // Build answer with related buttons
-        let html = qa.a;
-
-        _addMsg(html, false);
+        const row = _addMsg(qa.a, false);
+        _renderCtas(row.querySelector('.bot-bubble'), qa.cta);
+        msgs.scrollTop = msgs.scrollHeight;
         _showSugs(qa.rel);
-      }, 900 + Math.random() * 400);
+      }, 700 + Math.random() * 350);
     }
 
     window._tnBotAnswer = function(id) {
@@ -618,23 +841,44 @@ textarea.booking-input{resize:none;height:76px}
       const val = input.value.trim();
       if (!val) return;
       input.value = '';
-      const qa = _match(val);
-      if (qa) {
-        _answer(qa, val);
-      } else {
-        _asked.add('__custom__' + Date.now());
-        _addMsg(val, true);
-        const typRow = document.createElement('div');
-        typRow.className = 'bot-msg-row';
-        typRow.innerHTML = '<div class="bot-msg-avatar">TN</div><div class="bot-typing"><span></span><span></span><span></span></div>';
-        msgs.appendChild(typRow);
-        msgs.scrollTop = msgs.scrollHeight;
-        setTimeout(function() {
-          msgs.removeChild(typRow);
-          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#3167ca;font-weight:600">contact our team directly</a> for a detailed answer.', false);
+      const res = _match(val);
+
+      if (res.qa) { _answer(res.qa, val); return; }
+
+      // Weak but non-zero signal: offer the closest questions rather than
+      // dead-ending. Only a truly empty match falls through to contact.
+      sugsArea.innerHTML = '';
+      _addMsg(val, true);
+      const typRow = _typing();
+      setTimeout(function() {
+        msgs.removeChild(typRow);
+        if (res.runners.length) {
+          const row = _addMsg('I\'m not certain I got that. Did you mean one of these?<div class="bot-clarify">Pick the closest, or rephrase your question.</div>', false);
+          const bubble = row.querySelector('.bot-bubble');
+          const wrap = document.createElement('div');
+          wrap.className = 'bot-cta-row';
+          res.runners.forEach(function(qa) {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'bot-cta ghost';
+            b.textContent = qa.q;
+            b.addEventListener('click', function() { _answer(qa, qa.q); });
+            wrap.appendChild(b);
+          });
+          bubble.appendChild(wrap);
+          msgs.scrollTop = msgs.scrollHeight;
           _showSugs();
-        }, 800);
-      }
+        } else {
+          const row = _addMsg('I don\'t have an answer for that one yet — but a human will. Reach the team and we\'ll get straight back to you.', false);
+          _renderCtas(row.querySelector('.bot-bubble'), [
+            { label: 'Book a free call', act: 'booking' },
+            { label: 'WhatsApp us', act: 'whatsapp', style: 'wa' },
+            { label: 'Contact page', href: '/contact/', style: 'ghost' }
+          ]);
+          msgs.scrollTop = msgs.scrollHeight;
+          _showSugs();
+        }
+      }, 650);
     });
 
     document.getElementById('tnBotInput').addEventListener('keydown', function(e) {
