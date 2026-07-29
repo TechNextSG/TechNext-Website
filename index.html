@@ -431,35 +431,6 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   width: 48%;
   padding: 124px 3% 60px 6%;
 }
-.hero-badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 1.2rem;
-}
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 16px;
-  border-radius: 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  font-family: var(--sans);
-}
-.badge-yellow { background: var(--yellow-mid); color: #78350f; }
-.badge-blue { background: var(--blue-light); color: #1e40af; }
-.badge-pulse {
-  width: 8px; height: 8px;
-  background: #16a34a;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(22,163,74,0.4);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.4); }
-  50% { box-shadow: 0 0 0 6px rgba(22,163,74,0); }
-}
 
 .hero-title {
   font-family: var(--handwriting);
@@ -700,7 +671,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.4rem 1.6rem 0;
 }
-.booking-brand { font-family: var(--logo); font-size: 0.95rem; font-weight: 700; color: var(--plum); letter-spacing: -0.02em; }
+.booking-brand { font-family: var(--logo); font-size: 0.95rem; font-weight: 700; color: var(--blue); letter-spacing: -0.02em; }
 .booking-close {
   width: 30px; height: 30px; border-radius: 50%;
   background: #f1f5f9; border: none; cursor: pointer;
@@ -718,7 +689,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   font-size: 0.72rem; font-weight: 700;
   background: #f1f5f9; color: var(--text-muted); transition: all 0.3s;
 }
-.bp-step.active { background: var(--plum); color: #fff; }
+.bp-step.active { background: var(--blue); color: #fff; }
 .bp-step.done { background: #dcfce7; color: #16a34a; }
 .bp-line { flex: 1; height: 2px; background: #e2e8f0; margin: 0 4px; transition: background 0.3s; }
 .bp-line.done { background: #86efac; }
@@ -733,9 +704,9 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   padding: 0.9rem 1.1rem; cursor: pointer; text-align: left; width: 100%;
   transition: all 0.18s; font-family: var(--sans);
 }
-.service-opt:hover { border-color: var(--plum); background: #faf5ff; }
-.service-opt.selected { border-color: var(--plum); background: #faf5ff; box-shadow: 0 0 0 3px rgba(109,45,122,0.08); }
-.service-opt-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--plum); }
+.service-opt:hover { border-color: var(--blue); background: #f0f6ff; }
+.service-opt.selected { border-color: var(--blue); background: #f0f6ff; box-shadow: 0 0 0 3px rgba(49,103,202,0.08); }
+.service-opt-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--blue); }
 .service-opt-icon svg { width: 22px; height: 22px; }
 .service-opt-name { font-size: 0.9rem; font-weight: 700; color: var(--text); }
 .service-opt-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 1px; }
@@ -745,7 +716,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   border-radius: 11px; font-size: 0.88rem; font-family: var(--sans);
   color: var(--text); background: #fff; transition: border-color 0.2s; outline: none;
 }
-.booking-input:focus { border-color: var(--plum); }
+.booking-input:focus { border-color: var(--blue); }
 .booking-input.err { border-color: #ef4444; }
 textarea.booking-input { resize: none; height: 76px; }
 .cal-wrap { margin-bottom: 0.5rem; }
@@ -756,7 +727,7 @@ textarea.booking-input { resize: none; height: 76px; }
   display: flex; align-items: center; justify-content: center; color: var(--text-muted);
   flex-shrink: 0;
 }
-.cal-nav-btn:hover { border-color: var(--plum); color: var(--plum); }
+.cal-nav-btn:hover { border-color: var(--blue); color: var(--blue); }
 .cal-month-lbl { font-size: 0.88rem; font-weight: 700; color: var(--text); }
 .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; margin-bottom: 0.8rem; }
 .cal-dlbl { font-size: 0.6rem; font-weight: 700; color: var(--text-muted); text-align: center; padding: 2px 0; }
@@ -765,8 +736,8 @@ textarea.booking-input { resize: none; height: 76px; }
   font-size: 0.78rem; border-radius: 6px; cursor: pointer; transition: all 0.14s;
   color: var(--text); border: 1.5px solid transparent; min-width: 0;
 }
-.cal-day:hover:not(.cd-dis):not(.cd-emp) { background: #faf5ff; border-color: var(--plum); color: var(--plum); }
-.cal-day.cd-sel { background: var(--plum); color: #fff; border-color: var(--plum); }
+.cal-day:hover:not(.cd-dis):not(.cd-emp) { background: #f0f6ff; border-color: var(--blue); color: var(--blue); }
+.cal-day.cd-sel { background: var(--blue); color: #fff; border-color: var(--blue); }
 .cal-day.cd-dis, .cal-day.cd-emp { color: #cbd5e1; cursor: default; pointer-events: none; }
 .cal-day.cd-today { font-weight: 700; }
 .ts-title { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
@@ -776,11 +747,11 @@ textarea.booking-input { resize: none; height: 76px; }
   border-radius: 100px; font-size: 0.8rem; font-weight: 600;
   cursor: pointer; transition: all 0.14s; color: var(--text);
 }
-.time-slot:hover:not(:disabled) { border-color: var(--plum); color: var(--plum); background: #faf5ff; }
-.time-slot.ts-sel { background: var(--plum); color: #fff; border-color: var(--plum); }
+.time-slot:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); background: #f0f6ff; }
+.time-slot.ts-sel { background: var(--blue); color: #fff; border-color: var(--blue); }
 .time-slot.ts-booked { background: #f8fafc; color: #cbd5e1; border-color: #e2e8f0; cursor: not-allowed; text-decoration: line-through; }
 .ts-avail-loading { color: #94a3b8; font-size: .82rem; padding: 6px 2px; display: flex; align-items: center; gap: 6px; }
-.ts-avail-loading::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 2px solid #e2e8f0; border-top-color: var(--plum); border-radius: 50%; animation: tspin .7s linear infinite; flex-shrink: 0; }
+.ts-avail-loading::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 2px solid #e2e8f0; border-top-color: var(--blue); border-radius: 50%; animation: tspin .7s linear infinite; flex-shrink: 0; }
 @keyframes tspin { to { transform: rotate(360deg); } }
 .bk-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; }
 .bk-back {
@@ -790,10 +761,10 @@ textarea.booking-input { resize: none; height: 76px; }
 }
 .bk-back:hover { border-color: #94a3b8; color: var(--text); }
 .bk-btn {
-  background: var(--plum); color: #fff; border: none; border-radius: 100px;
+  background: var(--blue); color: #fff; border: none; border-radius: 100px;
   padding: 11px 26px; font-size: 0.88rem; font-weight: 700;
   font-family: var(--sans); cursor: pointer; transition: all 0.22s;
-  box-shadow: 0 4px 14px rgba(109,45,122,0.25);
+  box-shadow: 0 4px 14px rgba(49,103,202,0.25);
 }
 .bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -801,7 +772,7 @@ textarea.booking-input { resize: none; height: 76px; }
 .bk-check { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-size: 1.7rem; }
 .bk-check.ok { background: #dcfce7; color: #16a34a; }
 .bk-check.pending { background: #fef9c3; color: #854d0e; }
-.bk-fallback-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; background: #6d2d7a; color: #fff; border-radius: 100px; font-size: .83rem; font-weight: 700; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all .2s; margin-bottom: .75rem; }
+.bk-fallback-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; background: #3167ca; color: #fff; border-radius: 100px; font-size: .83rem; font-weight: 700; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all .2s; margin-bottom: .75rem; }
 .bk-fallback-btn:hover { background: #5a2568; transform: translateY(-1px); }
 .bk-confirm-details { background: #f8fafc; border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.2rem; text-align: left; }
 .bcd-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.83rem; }
@@ -1235,10 +1206,10 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
   font-family: var(--sans);
 }
 .btn-apply:hover {
-  background: var(--plum);
-  border-color: var(--plum);
+  background: linear-gradient(135deg, #3167ca, #425eae);
+  border-color: #3167ca;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(109,45,122,0.25);
+  box-shadow: 0 4px 12px rgba(49,103,202,0.25);
 }
 
 /* ===== FAQ ===== */
@@ -1496,7 +1467,6 @@ footer {
   /* ── Hero ── */
   .hero-title { font-size: clamp(2.8rem, 9.5vw, 3.6rem); -webkit-box-reflect: unset; }
   .hero-sub { font-size: 0.88rem; margin-bottom: 1.1rem; max-width: 100%; }
-  .hero-badges { gap: 6px; margin-bottom: 0.8rem; }
   .badge { padding: 6px 11px; font-size: 0.73rem; }
   .hero-ctas { margin-bottom: 32px; }
 
@@ -1673,7 +1643,7 @@ footer {
   .culture-grid { grid-template-columns: 1fr; gap: 0.7rem; }
 }
 
-.skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#6d2d7a;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
+.skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#3167ca;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
 .skip-link:focus{top:0;}
 /* ===== PAIN POINTS ===== */
 #pain{background:#f0f4ff;}
@@ -1727,40 +1697,36 @@ footer {
   --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
 }
 
-/* ---------- BUTTONS: solid / primary ---------- */
+/* ---------- BUTTON GROUPS ----------
+   solid  = filled / gradient buttons  -> white reflection
+   quiet  = outline, ghost, filter, chip -> blue reflection
+------------------------------------------------------------------ */
+
+/* transitions */
 .btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
 .filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
 .cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
-.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,
+.bk-fallback-btn,.wa-btn{
   transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
              background .26s var(--tn-ease),filter .26s var(--tn-ease);
-  will-change:transform;
 }
-.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
-.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
-.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
-.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 30px rgba(49,103,202,.34);
-  filter:saturate(1.06);
-}
-/* press feedback - was missing everywhere */
-.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
-.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
-.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
-.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
-.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
-.lang-btn:active,.hamburger:active{
-  transform:translateY(0) scale(.975);
-  box-shadow:0 3px 10px rgba(49,103,202,.24);
-  transition-duration:.08s;
-}
-
-/* ---------- BUTTONS: outline / ghost / filter ---------- */
-.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,
+.btn-back,.bot-chip,.service-opt,.time-slot{
   transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
              background .22s var(--tn-ease),color .22s var(--tn-ease),
              box-shadow .22s var(--tn-ease);
+}
+
+/* hover lift */
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,
+.btn-cta:hover,.bk-btn:hover,.bk-fallback-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
 }
 .btn-outline:hover,.btn-ghost:hover{
   transform:translateY(-2px);
@@ -1774,6 +1740,74 @@ footer {
 }
 .lang-btn:hover:not(.active){transform:translateY(-1px);}
 
+/* press feedback */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.bk-btn:active,.bk-fallback-btn:active,.btn-outline:active,
+.filter-btn:active,.country-btn:active,.lang-btn:active,.hamburger:active,
+.bot-chip:active,.service-opt:active,.time-slot:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- REFLECTION SWEEP ----------
+   A specular highlight travels across the face on hover.
+   Uses ::after only; none of these selectors had one.
+------------------------------------------------------------------ */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.bcc-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,.bk-next-btn,
+.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,.bk-fallback-btn,
+.wa-btn,.btn-outline,.btn-ghost,.filter-btn,.country-btn,.lang-btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-apply::after,
+.btn-contact::after,.btn-primary::after,.bcc-btn::after,.hero-email-btn::after,
+.svc-cta-submit::after,.bk-confirm-btn::after,.bk-next-btn::after,
+.bk-done-btn::after,.exit-cta-btn::after,.nav-cta::after,.btn-cta::after,
+.bk-btn::after,.bk-fallback-btn::after,.wa-btn::after,.btn-outline::after,
+.btn-ghost::after,.filter-btn::after,.country-btn::after,.lang-btn::after{
+  content:'';
+  position:absolute;
+  top:0; bottom:0; left:-160%;
+  width:58%;
+  transform:skewX(-20deg);
+  pointer-events:none;
+  z-index:2;
+  background:linear-gradient(100deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.50) 50%,
+    rgba(255,255,255,0) 100%);
+}
+/* quiet buttons sit on white, so a white sheen would be invisible - tint it blue */
+.btn-outline::after,.btn-ghost::after,.filter-btn::after,
+.country-btn::after,.lang-btn::after{
+  background:linear-gradient(100deg,
+    rgba(49,103,202,0) 0%,
+    rgba(49,103,202,.20) 50%,
+    rgba(49,103,202,0) 100%);
+}
+.btn-plum:hover::after,.cta-primary:hover::after,.nav-apply:hover::after,
+.btn-apply:hover::after,.btn-contact:hover::after,.btn-primary:hover::after,
+.bcc-btn:hover::after,.hero-email-btn:hover::after,.svc-cta-submit:hover::after,
+.bk-confirm-btn:hover::after,.bk-next-btn:hover::after,.bk-done-btn:hover::after,
+.exit-cta-btn:hover::after,.nav-cta:hover::after,.btn-cta:hover::after,
+.bk-btn:hover::after,.bk-fallback-btn:hover::after,.wa-btn:hover::after,
+.btn-outline:hover::after,.btn-ghost:hover::after,.filter-btn:hover::after,
+.country-btn:hover::after,.lang-btn:hover::after,
+.btn-plum:focus-visible::after,.cta-primary:focus-visible::after,
+.nav-apply:focus-visible::after{
+  animation:tn-sheen .85s var(--tn-ease);
+}
+@keyframes tn-sheen{
+  from{left:-160%;}
+  to  {left:165%;}
+}
+
 /* ---------- CARDS ---------- */
 .svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
@@ -1781,7 +1815,6 @@ footer {
 .talent-card,.faq-item{
   transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
              border-color .32s var(--tn-ease);
-  will-change:transform;
 }
 .svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
 .join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
@@ -1795,12 +1828,11 @@ footer {
 .gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
 .gallery-item img{transition:transform .5s var(--tn-ease);}
 .faq-item:hover{border-color:rgba(49,103,202,.42);}
-/* clickable cards get a press state too */
 a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
   transform:translateY(-1px) scale(.994);transition-duration:.08s;
 }
 
-/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+/* ---------- FOCUS ---------- */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline:3px solid var(--tn-blue);
@@ -1813,7 +1845,7 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline-offset:3px;
 }
 
-/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+/* ---------- REDUCED MOTION ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto !important;}
   *,*::before,*::after{
@@ -1823,6 +1855,10 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
     scroll-behavior:auto !important;
   }
   .reveal{opacity:1 !important;transform:none !important;}
+  /* no sheen sweep at all */
+  .btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-primary::after,
+  .nav-cta::after,.bk-btn::after,.btn-outline::after,.filter-btn::after,
+  .lang-btn::after{display:none !important;}
 }
 </style>
 </head>
@@ -1864,13 +1900,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="skip-link" href="#main-content">Skip to content</a><section id="hero"><span id="main-content" style="display:none" aria-hidden="true"></span>
   <canvas id="heroCanvas"></canvas>
   <div class="hero-left">
-    <div class="hero-badges">
-      <span class="badge badge-yellow"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <span data-k="badge1">AI-Native Company</span></span>
-      <span class="badge badge-blue">
-        <span class="badge-pulse"></span>
-        <span data-k="badge2">Trusted by 11+ Enterprises Globally</span>
-      </span>
-    </div>
     <h1 class="hero-title">
       <span data-k="hero_h1a" id="heroH1a">Stop Losing Revenue</span><br>
       <span data-k="hero_h1b" id="heroH1b">to Manual Work.</span><br>
@@ -2292,7 +2321,6 @@ const LANG = {
   en: {
     nav_about:'About', nav_gallery:'Gallery', nav_blog:'Blog',
     nav_careers:'Careers', nav_contact:'Contact', nav_apply:'Book Now',
-    badge1:'AI-Native Company', badge2:'Trusted by 11+ Enterprises Globally',
     hero_h1a:'Stop Losing Revenue', hero_h1b:'to Manual Work.', hero_h1c:'We automate it with AI.',
     hero_sub:"Every manual task, disconnected system, and slow process is costing your business money. TechNext replaces that with AI agents, automated workflows, and connected ERP — so your team focuses on growth.",
     hero_cta1:'Book Free Demo →', hero_cta2:'Learn More',
@@ -2384,7 +2412,6 @@ const LANG = {
   vn: {
     nav_about:'Về Chúng Tôi', nav_gallery:'Thư Viện', nav_blog:'Blog',
     nav_careers:'Tuyển Dụng', nav_contact:'Liên Hệ', nav_apply:'Đặt Lịch',
-    badge1:'Công Ty AI-Native', badge2:'Được Tin Bởi 11+ Doanh Nghiệp Toàn Cầu',
     hero_h1a:'Ngừng Mất Doanh Thu', hero_h1b:'vào Công Việc Thủ Công.', hero_h1c:'Chúng Tôi Tự Động Hóa Bằng AI.',
     hero_sub:'Mỗi công việc thủ công, hệ thống rời rạc và quy trình chậm đang làm mất tiền của bạn. TechNext thay thế bằng AI agents, quy trình tự động và ERP kết nối — để nhóm bạn tập trung vào tăng trưởng.',
     hero_cta1:'Đặt Demo Miễn Phí →', hero_cta2:'Tìm Hiểu Thêm',

@@ -46,9 +46,9 @@ nav{transition:background .3s ease,border-color .3s ease;}
 
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--navy) 0%,#0f1f4a 60%,#1e3a8a 100%);color:#fff;padding:120px 5% 80px;min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 70%)}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(49,103,202,.18) 0%,transparent 70%)}
 .hero-inner{max-width:700px;position:relative}
-.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(37,99,235,.2);border:1px solid rgba(96,165,250,.3);color:#93c5fd;border-radius:20px;padding:.3rem .9rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(49,103,202,.2);border:1px solid rgba(96,165,250,.3);color:#93c5fd;border-radius:20px;padding:.3rem .9rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem}
 .hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-bottom:1.2rem;font-family:var(--logo)}
 .hero h1 span{color:#60a5fa}
 .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:560px;line-height:1.75;margin-bottom:2rem}
@@ -147,40 +147,36 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}
   --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
 }
 
-/* ---------- BUTTONS: solid / primary ---------- */
+/* ---------- BUTTON GROUPS ----------
+   solid  = filled / gradient buttons  -> white reflection
+   quiet  = outline, ghost, filter, chip -> blue reflection
+------------------------------------------------------------------ */
+
+/* transitions */
 .btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
 .filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
 .cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
-.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,
+.bk-fallback-btn,.wa-btn{
   transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
              background .26s var(--tn-ease),filter .26s var(--tn-ease);
-  will-change:transform;
 }
-.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
-.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
-.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
-.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 30px rgba(49,103,202,.34);
-  filter:saturate(1.06);
-}
-/* press feedback - was missing everywhere */
-.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
-.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
-.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
-.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
-.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
-.lang-btn:active,.hamburger:active{
-  transform:translateY(0) scale(.975);
-  box-shadow:0 3px 10px rgba(49,103,202,.24);
-  transition-duration:.08s;
-}
-
-/* ---------- BUTTONS: outline / ghost / filter ---------- */
-.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,
+.btn-back,.bot-chip,.service-opt,.time-slot{
   transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
              background .22s var(--tn-ease),color .22s var(--tn-ease),
              box-shadow .22s var(--tn-ease);
+}
+
+/* hover lift */
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,
+.btn-cta:hover,.bk-btn:hover,.bk-fallback-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
 }
 .btn-outline:hover,.btn-ghost:hover{
   transform:translateY(-2px);
@@ -194,6 +190,74 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}
 }
 .lang-btn:hover:not(.active){transform:translateY(-1px);}
 
+/* press feedback */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.bk-btn:active,.bk-fallback-btn:active,.btn-outline:active,
+.filter-btn:active,.country-btn:active,.lang-btn:active,.hamburger:active,
+.bot-chip:active,.service-opt:active,.time-slot:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- REFLECTION SWEEP ----------
+   A specular highlight travels across the face on hover.
+   Uses ::after only; none of these selectors had one.
+------------------------------------------------------------------ */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.bcc-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,.bk-next-btn,
+.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,.bk-fallback-btn,
+.wa-btn,.btn-outline,.btn-ghost,.filter-btn,.country-btn,.lang-btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-apply::after,
+.btn-contact::after,.btn-primary::after,.bcc-btn::after,.hero-email-btn::after,
+.svc-cta-submit::after,.bk-confirm-btn::after,.bk-next-btn::after,
+.bk-done-btn::after,.exit-cta-btn::after,.nav-cta::after,.btn-cta::after,
+.bk-btn::after,.bk-fallback-btn::after,.wa-btn::after,.btn-outline::after,
+.btn-ghost::after,.filter-btn::after,.country-btn::after,.lang-btn::after{
+  content:'';
+  position:absolute;
+  top:0; bottom:0; left:-160%;
+  width:58%;
+  transform:skewX(-20deg);
+  pointer-events:none;
+  z-index:2;
+  background:linear-gradient(100deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.50) 50%,
+    rgba(255,255,255,0) 100%);
+}
+/* quiet buttons sit on white, so a white sheen would be invisible - tint it blue */
+.btn-outline::after,.btn-ghost::after,.filter-btn::after,
+.country-btn::after,.lang-btn::after{
+  background:linear-gradient(100deg,
+    rgba(49,103,202,0) 0%,
+    rgba(49,103,202,.20) 50%,
+    rgba(49,103,202,0) 100%);
+}
+.btn-plum:hover::after,.cta-primary:hover::after,.nav-apply:hover::after,
+.btn-apply:hover::after,.btn-contact:hover::after,.btn-primary:hover::after,
+.bcc-btn:hover::after,.hero-email-btn:hover::after,.svc-cta-submit:hover::after,
+.bk-confirm-btn:hover::after,.bk-next-btn:hover::after,.bk-done-btn:hover::after,
+.exit-cta-btn:hover::after,.nav-cta:hover::after,.btn-cta:hover::after,
+.bk-btn:hover::after,.bk-fallback-btn:hover::after,.wa-btn:hover::after,
+.btn-outline:hover::after,.btn-ghost:hover::after,.filter-btn:hover::after,
+.country-btn:hover::after,.lang-btn:hover::after,
+.btn-plum:focus-visible::after,.cta-primary:focus-visible::after,
+.nav-apply:focus-visible::after{
+  animation:tn-sheen .85s var(--tn-ease);
+}
+@keyframes tn-sheen{
+  from{left:-160%;}
+  to  {left:165%;}
+}
+
 /* ---------- CARDS ---------- */
 .svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
@@ -201,7 +265,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}
 .talent-card,.faq-item{
   transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
              border-color .32s var(--tn-ease);
-  will-change:transform;
 }
 .svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
 .join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
@@ -215,12 +278,11 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}
 .gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
 .gallery-item img{transition:transform .5s var(--tn-ease);}
 .faq-item:hover{border-color:rgba(49,103,202,.42);}
-/* clickable cards get a press state too */
 a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
   transform:translateY(-1px) scale(.994);transition-duration:.08s;
 }
 
-/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+/* ---------- FOCUS ---------- */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline:3px solid var(--tn-blue);
@@ -233,7 +295,7 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline-offset:3px;
 }
 
-/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+/* ---------- REDUCED MOTION ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto !important;}
   *,*::before,*::after{
@@ -243,6 +305,10 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
     scroll-behavior:auto !important;
   }
   .reveal{opacity:1 !important;transform:none !important;}
+  /* no sheen sweep at all */
+  .btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-primary::after,
+  .nav-cta::after,.bk-btn::after,.btn-outline::after,.filter-btn::after,
+  .lang-btn::after{display:none !important;}
 }
 </style>
 </head>

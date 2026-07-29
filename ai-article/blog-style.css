@@ -135,7 +135,7 @@ ul, ol {
   display: inline-flex;
   align-items: center;
   padding: 9px 22px;
-  background: var(--plum);
+  background: linear-gradient(135deg, #3167ca, #425eae);
   color: var(--white);
   font-family: var(--sans);
   font-size: 0.82rem;
@@ -146,7 +146,7 @@ ul, ol {
 }
 
 .nav-apply:hover {
-  background: #5a2465;
+  background: linear-gradient(135deg, #2558b8, #3167ca);
   transform: translateY(-1px);
 }
 
@@ -172,7 +172,7 @@ ul, ol {
   transition: all 0.2s;
   text-transform: uppercase;
 }
-.lang-btn.active { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(37,99,235,0.3); }
+.lang-btn.active { background: var(--blue); color: #fff; box-shadow: 0 1px 4px rgba(49,103,202,0.3); }
 .lang-btn:hover:not(.active) { color: var(--text); background: rgba(0,0,0,0.05); }
 
 /* Hamburger */
@@ -187,7 +187,7 @@ ul, ol {
   #mainNav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid transparent; }
   .nav-links { display: none; }
   .hamburger { display: flex; background: rgba(0,0,0,0.07); border-radius: 10px; padding: 8px; transition: background 0.2s; }
-  .hamburger.open { background: rgba(37,99,235,0.12); }
+  .hamburger.open { background: rgba(49,103,202,0.12); }
   .hamburger.open span { background: var(--blue); }
   .nav-apply { display: none; }
   @keyframes navMenuIn {
@@ -203,7 +203,7 @@ ul, ol {
   .logo-img { height: 44px; }
   .lang-switcher { position: relative; background: none; padding: 0; gap: 0; border-radius: 0; }
   .lang-btn { display: none; }
-  .lang-btn.active { display: inline-flex; align-items: center; gap: 3px; background: var(--blue); color: #fff; padding: 5px 10px; border-radius: 7px; font-size: 0.7rem; box-shadow: 0 1px 4px rgba(37,99,235,0.3); }
+  .lang-btn.active { display: inline-flex; align-items: center; gap: 3px; background: var(--blue); color: #fff; padding: 5px 10px; border-radius: 7px; font-size: 0.7rem; box-shadow: 0 1px 4px rgba(49,103,202,0.3); }
   .lang-btn.active::after { content: ' ▾'; font-size: 0.55rem; opacity: 0.85; }
   .lang-switcher.open { flex-direction: column; align-items: stretch; background: #fff; border-radius: 10px; padding: 4px; gap: 2px; box-shadow: 0 4px 20px rgba(0,0,0,0.14); min-width: 60px; }
   .lang-switcher.open .lang-btn { display: block; text-align: center; padding: 6px 10px; border-radius: 6px; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.05em; }
@@ -802,7 +802,7 @@ ul, ol {
 }
 
 /* skip-to-content */
-.skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#6d2d7a;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
+.skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;background:#3167ca;color:#fff;font-size:0.9rem;font-weight:700;border-radius:0 0 8px 8px;text-decoration:none;transition:top 0.2s;}
 .skip-link:focus{top:0;}
 
 /* ============================================================
@@ -825,40 +825,36 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
   --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
 }
 
-/* ---------- BUTTONS: solid / primary ---------- */
+/* ---------- BUTTON GROUPS ----------
+   solid  = filled / gradient buttons  -> white reflection
+   quiet  = outline, ghost, filter, chip -> blue reflection
+------------------------------------------------------------------ */
+
+/* transitions */
 .btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
 .filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
 .cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
-.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,
+.bk-fallback-btn,.wa-btn{
   transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
              background .26s var(--tn-ease),filter .26s var(--tn-ease);
-  will-change:transform;
 }
-.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
-.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
-.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
-.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 30px rgba(49,103,202,.34);
-  filter:saturate(1.06);
-}
-/* press feedback - was missing everywhere */
-.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
-.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
-.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
-.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
-.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
-.lang-btn:active,.hamburger:active{
-  transform:translateY(0) scale(.975);
-  box-shadow:0 3px 10px rgba(49,103,202,.24);
-  transition-duration:.08s;
-}
-
-/* ---------- BUTTONS: outline / ghost / filter ---------- */
-.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,
+.btn-back,.bot-chip,.service-opt,.time-slot{
   transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
              background .22s var(--tn-ease),color .22s var(--tn-ease),
              box-shadow .22s var(--tn-ease);
+}
+
+/* hover lift */
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,
+.btn-cta:hover,.bk-btn:hover,.bk-fallback-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
 }
 .btn-outline:hover,.btn-ghost:hover{
   transform:translateY(-2px);
@@ -872,6 +868,74 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
 }
 .lang-btn:hover:not(.active){transform:translateY(-1px);}
 
+/* press feedback */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.bk-btn:active,.bk-fallback-btn:active,.btn-outline:active,
+.filter-btn:active,.country-btn:active,.lang-btn:active,.hamburger:active,
+.bot-chip:active,.service-opt:active,.time-slot:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- REFLECTION SWEEP ----------
+   A specular highlight travels across the face on hover.
+   Uses ::after only; none of these selectors had one.
+------------------------------------------------------------------ */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.bcc-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,.bk-next-btn,
+.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta,.bk-btn,.bk-fallback-btn,
+.wa-btn,.btn-outline,.btn-ghost,.filter-btn,.country-btn,.lang-btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-apply::after,
+.btn-contact::after,.btn-primary::after,.bcc-btn::after,.hero-email-btn::after,
+.svc-cta-submit::after,.bk-confirm-btn::after,.bk-next-btn::after,
+.bk-done-btn::after,.exit-cta-btn::after,.nav-cta::after,.btn-cta::after,
+.bk-btn::after,.bk-fallback-btn::after,.wa-btn::after,.btn-outline::after,
+.btn-ghost::after,.filter-btn::after,.country-btn::after,.lang-btn::after{
+  content:'';
+  position:absolute;
+  top:0; bottom:0; left:-160%;
+  width:58%;
+  transform:skewX(-20deg);
+  pointer-events:none;
+  z-index:2;
+  background:linear-gradient(100deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.50) 50%,
+    rgba(255,255,255,0) 100%);
+}
+/* quiet buttons sit on white, so a white sheen would be invisible - tint it blue */
+.btn-outline::after,.btn-ghost::after,.filter-btn::after,
+.country-btn::after,.lang-btn::after{
+  background:linear-gradient(100deg,
+    rgba(49,103,202,0) 0%,
+    rgba(49,103,202,.20) 50%,
+    rgba(49,103,202,0) 100%);
+}
+.btn-plum:hover::after,.cta-primary:hover::after,.nav-apply:hover::after,
+.btn-apply:hover::after,.btn-contact:hover::after,.btn-primary:hover::after,
+.bcc-btn:hover::after,.hero-email-btn:hover::after,.svc-cta-submit:hover::after,
+.bk-confirm-btn:hover::after,.bk-next-btn:hover::after,.bk-done-btn:hover::after,
+.exit-cta-btn:hover::after,.nav-cta:hover::after,.btn-cta:hover::after,
+.bk-btn:hover::after,.bk-fallback-btn:hover::after,.wa-btn:hover::after,
+.btn-outline:hover::after,.btn-ghost:hover::after,.filter-btn:hover::after,
+.country-btn:hover::after,.lang-btn:hover::after,
+.btn-plum:focus-visible::after,.cta-primary:focus-visible::after,
+.nav-apply:focus-visible::after{
+  animation:tn-sheen .85s var(--tn-ease);
+}
+@keyframes tn-sheen{
+  from{left:-160%;}
+  to  {left:165%;}
+}
+
 /* ---------- CARDS ---------- */
 .svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
@@ -879,7 +943,6 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
 .talent-card,.faq-item{
   transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
              border-color .32s var(--tn-ease);
-  will-change:transform;
 }
 .svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
 .join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
@@ -893,12 +956,11 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
 .gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
 .gallery-item img{transition:transform .5s var(--tn-ease);}
 .faq-item:hover{border-color:rgba(49,103,202,.42);}
-/* clickable cards get a press state too */
 a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
   transform:translateY(-1px) scale(.994);transition-duration:.08s;
 }
 
-/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+/* ---------- FOCUS ---------- */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline:3px solid var(--tn-blue);
@@ -911,7 +973,7 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
   outline-offset:3px;
 }
 
-/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+/* ---------- REDUCED MOTION ---------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto !important;}
   *,*::before,*::after{
@@ -921,4 +983,8 @@ select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
     scroll-behavior:auto !important;
   }
   .reveal{opacity:1 !important;transform:none !important;}
+  /* no sheen sweep at all */
+  .btn-plum::after,.cta-primary::after,.nav-apply::after,.btn-primary::after,
+  .nav-cta::after,.bk-btn::after,.btn-outline::after,.filter-btn::after,
+  .lang-btn::after{display:none !important;}
 }

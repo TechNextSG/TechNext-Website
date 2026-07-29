@@ -62,12 +62,12 @@
 .booking-box::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.2)}
 .booking-modal.open .booking-box{transform:translateY(0) scale(1)}
 .booking-header{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.6rem 0}
-.booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight: 700;color:#6d2d7a;letter-spacing:-.02em}
+.booking-brand{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight: 700;color:#3167ca;letter-spacing:-.02em}
 .booking-close{width:30px;height:30px;border-radius:50%;background:#f1f5f9;border:none;cursor:pointer;font-size:1rem;color:#64748b;display:flex;align-items:center;justify-content:center;transition:all .18s;line-height:1}
 .booking-close:hover{background:#e2e8f0;color:#1a1a2e;transform:rotate(90deg)}
 .booking-progress{display:flex;align-items:center;padding:1.1rem 1.6rem 0}
 .bp-step{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;background:#f1f5f9;color:#64748b;transition:all .3s}
-.bp-step.active{background:#6d2d7a;color:#fff}
+.bp-step.active{background:#3167ca;color:#fff}
 .bp-step.done{background:#dcfce7;color:#16a34a}
 .bp-line{flex:1;height:2px;background:#e2e8f0;margin:0 4px;transition:background .3s}
 .bp-line.done{background:#86efac}
@@ -77,43 +77,43 @@
 .bk-sub{font-size:.85rem;color:#64748b;margin-bottom:1.3rem}
 .service-opts{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.3rem}
 .service-opt{display:flex;align-items:center;gap:.9rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:.9rem 1.1rem;cursor:pointer;text-align:left;width:100%;transition:all .18s;font-family:'DM Sans',sans-serif}
-.service-opt:hover{border-color:#6d2d7a;background:#faf5ff}
-.service-opt.selected{border-color:#6d2d7a;background:#faf5ff;box-shadow:0 0 0 3px rgba(109,45,122,.08)}
-.service-opt-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#6d2d7a}
+.service-opt:hover{border-color:#3167ca;background:#f0f6ff}
+.service-opt.selected{border-color:#3167ca;background:#f0f6ff;box-shadow:0 0 0 3px rgba(49,103,202,.08)}
+.service-opt-icon{width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#3167ca}
 .service-opt-icon svg{width:22px;height:22px}
 .service-opt-name{font-size:.9rem;font-weight:700;color:#1a1a2e}
 .service-opt-desc{font-size:.75rem;color:#64748b;margin-top:1px}
 .booking-fields{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.3rem}
 .booking-input{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:11px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:#1a1a2e;background:#fff;transition:border-color .2s;outline:none}
-.booking-input:focus{border-color:#6d2d7a}
+.booking-input:focus{border-color:#3167ca}
 .booking-input.err{border-color:#ef4444}
 textarea.booking-input{resize:none;height:76px}
 .cal-wrap{margin-bottom:.5rem}
 .cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
 .cal-nav-btn{width:28px;height:28px;border:1.5px solid #e2e8f0;border-radius:7px;background:none;cursor:pointer;font-size:1rem;transition:all .18s;display:flex;align-items:center;justify-content:center;color:#64748b;flex-shrink:0}
-.cal-nav-btn:hover{border-color:#6d2d7a;color:#6d2d7a}
+.cal-nav-btn:hover{border-color:#3167ca;color:#3167ca}
 .cal-month-lbl{font-size:.88rem;font-weight:700;color:#1a1a2e}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:.8rem}
 .cal-dlbl{font-size:.6rem;font-weight:700;color:#64748b;text-align:center;padding:2px 0}
 .cal-day{height:34px;display:flex;align-items:center;justify-content:center;font-size:.78rem;border-radius:6px;cursor:pointer;transition:all .14s;color:#1a1a2e;border:1.5px solid transparent;min-width:0}
-.cal-day:hover:not(.cd-dis):not(.cd-emp){background:#faf5ff;border-color:#6d2d7a;color:#6d2d7a}
-.cal-day.cd-sel{background:#6d2d7a;color:#fff;border-color:#6d2d7a}
+.cal-day:hover:not(.cd-dis):not(.cd-emp){background:#f0f6ff;border-color:#3167ca;color:#3167ca}
+.cal-day.cd-sel{background:#3167ca;color:#fff;border-color:#3167ca}
 .cal-day.cd-dis,.cal-day.cd-emp{color:#cbd5e1;cursor:default;pointer-events:none}
 .cal-day.cd-today{font-weight:700}
 .ts-title{font-size:.75rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
 .time-slots{display:flex;flex-wrap:wrap;gap:.45rem;min-height:36px}
 .time-slot{padding:7px 15px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .14s;color:#1a1a2e}
-.time-slot:hover:not(:disabled){border-color:#6d2d7a;color:#6d2d7a;background:#faf5ff}
-.time-slot.ts-loading{background:#6d2d7a;color:#fff;border-color:#6d2d7a;cursor:wait}
+.time-slot:hover:not(:disabled){border-color:#3167ca;color:#3167ca;background:#f0f6ff}
+.time-slot.ts-loading{background:#3167ca;color:#fff;border-color:#3167ca;cursor:wait}
 .time-slot.ts-booked{background:#f8fafc;color:#cbd5e1;border-color:#e2e8f0;cursor:not-allowed;text-decoration:line-through}
 .ts-avail-loading{color:#94a3b8;font-size:.82rem;padding:6px 2px;display:flex;align-items:center;gap:6px}
-.ts-avail-loading::before{content:'';display:inline-block;width:14px;height:14px;border:2px solid #e2e8f0;border-top-color:#6d2d7a;border-radius:50%;animation:tspin .7s linear infinite;flex-shrink:0}
+.ts-avail-loading::before{content:'';display:inline-block;width:14px;height:14px;border:2px solid #e2e8f0;border-top-color:#3167ca;border-radius:50%;animation:tspin .7s linear infinite;flex-shrink:0}
 @keyframes tspin{to{transform:rotate(360deg)}}
 .bk-nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.2rem}
 .bk-back{background:none;border:1.5px solid #e2e8f0;border-radius:100px;padding:9px 20px;font-size:.83rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;color:#64748b;transition:all .18s}
 .bk-back:hover{border-color:#94a3b8;color:#1a1a2e}
-.bk-btn{background:#6d2d7a;color:#fff;border:none;border-radius:100px;padding:11px 26px;font-size:.88rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .22s;box-shadow:0 4px 14px rgba(109,45,122,.25)}
-.bk-btn:hover{background:#5a2568;transform:translateY(-1px)}
+.bk-btn{background:#3167ca;color:#fff;border:none;border-radius:100px;padding:11px 26px;font-size:.88rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .22s;box-shadow:0 4px 14px rgba(49,103,202,.25)}
+.bk-btn:hover{background:#2558b8;transform:translateY(-1px)}
 .bk-btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
 .bk-success{text-align:center;padding:1.5rem 0 .5rem}
 .bk-check{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem}
@@ -124,8 +124,8 @@ textarea.booking-input{resize:none;height:76px}
 .bcd-row:last-child{border-bottom:none}
 .bcd-label{color:#64748b;flex-shrink:0}
 .bcd-val{font-weight:600;color:#1a1a2e;text-align:right}
-.bk-fallback-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;background:#6d2d7a;color:#fff;border-radius:100px;font-size:.83rem;font-weight:700;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .2s;margin-bottom:.75rem}
-.bk-fallback-btn:hover{background:#5a2568;transform:translateY(-1px)}
+.bk-fallback-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;background:#3167ca;color:#fff;border-radius:100px;font-size:.83rem;font-weight:700;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .2s;margin-bottom:.75rem}
+.bk-fallback-btn:hover{background:#2558b8;transform:translateY(-1px)}
 .wa-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:#22c55e;color:#fff;border-radius:100px;font-size:.85rem;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none}
 .wa-btn:hover{background:#16a34a;transform:translateY(-1px)}
 `;
@@ -293,16 +293,16 @@ textarea.booking-input{resize:none;height:76px}
   if (!document.getElementById('tnBot')) {
     const _bs = document.createElement('style');
     _bs.textContent = `
-#tnBotBtn{position:fixed;bottom:100px;right:28px;z-index:1900;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,99,235,.45);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
-#tnBotBtn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,99,235,.6)}
+#tnBotBtn{position:fixed;bottom:100px;right:28px;z-index:1900;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(49,103,202,.45);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+#tnBotBtn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(49,103,202,.6)}
 #tnBotBtn svg{width:26px;height:26px}
-@keyframes botPulse{0%,100%{box-shadow:0 4px 20px rgba(37,99,235,.45)}50%{box-shadow:0 4px 32px rgba(37,99,235,.75),0 0 0 8px rgba(37,99,235,.12)}}
+@keyframes botPulse{0%,100%{box-shadow:0 4px 20px rgba(49,103,202,.45)}50%{box-shadow:0 4px 32px rgba(49,103,202,.75),0 0 0 8px rgba(49,103,202,.12)}}
 #tnBotBtn{animation:botPulse 3s ease-in-out infinite}
 #tnBotBtn:hover,#tnBotBtn.bot-active{animation:none}
 #tnBotBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight: 700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none}
 #tnBotPanel{position:fixed;bottom:168px;right:28px;z-index:1902;width:350px;max-height:520px;border-radius:20px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1);font-family:'DM Sans',-apple-system,sans-serif;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(18px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
 #tnBotPanel.bot-open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
-.bot-header{background:linear-gradient(135deg,#1d4ed8,#6d28d9);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.bot-header{background:linear-gradient(135deg,#2558b8,#6d28d9);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .bot-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
 .bot-hinfo{flex:1;min-width:0}
 .bot-hname{font-size:.88rem;font-weight:700;color:#fff;letter-spacing:-.01em}
@@ -314,10 +314,10 @@ textarea.booking-input{resize:none;height:76px}
 .bot-messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
 .bot-msg-row{display:flex;align-items:flex-end;gap:8px}
 .bot-msg-row.user{flex-direction:row-reverse}
-.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight: 700;color:#fff;flex-shrink:0}
+.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight: 700;color:#fff;flex-shrink:0}
 .bot-bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:.82rem;line-height:1.55;position:relative}
 .bot-bubble.bot{background:#fff;border-radius:4px 16px 16px 16px;color:#1e293b;box-shadow:0 1px 4px rgba(0,0,0,.09)}
-.bot-bubble.user{background:linear-gradient(135deg,#2563eb,#6d28d9);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.bot-bubble.user{background:linear-gradient(135deg,#3167ca,#6d28d9);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(49,103,202,.3)}
 .bot-bubble b{font-weight:700}
 .bot-bubble ul{margin:6px 0 2px 0;padding-left:16px}
 .bot-bubble ul li{margin-bottom:3px}
@@ -329,13 +329,13 @@ textarea.booking-input{resize:none;height:76px}
 .bot-suggestions{padding:10px 14px;background:#f8faff;border-top:1px solid rgba(0,0,0,.06);flex-shrink:0}
 .bot-sug-label{font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
 .bot-chips{display:flex;flex-wrap:wrap;gap:5px}
-.bot-chip{background:#fff;border:1.5px solid rgba(37,99,235,.22);color:#2563eb;border-radius:100px;padding:5px 13px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:left}
-.bot-chip:hover{background:#2563eb;color:#fff;border-color:#2563eb;transform:translateY(-1px);box-shadow:0 3px 10px rgba(37,99,235,.3)}
+.bot-chip{background:#fff;border:1.5px solid rgba(49,103,202,.22);color:#3167ca;border-radius:100px;padding:5px 13px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:left}
+.bot-chip:hover{background:#3167ca;color:#fff;border-color:#3167ca;transform:translateY(-1px);box-shadow:0 3px 10px rgba(49,103,202,.3)}
 .bot-input-row{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid rgba(0,0,0,.07);flex-shrink:0}
 #tnBotInput{flex:1;border:1.5px solid rgba(0,0,0,.1);border-radius:22px;padding:8px 14px;font-size:.8rem;font-family:inherit;outline:none;color:#1e293b;transition:border-color .2s;background:#f8faff}
-#tnBotInput:focus{border-color:#2563eb;background:#fff}
-#tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
-#tnBotSend:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(37,99,235,.4)}
+#tnBotInput:focus{border-color:#3167ca;background:#fff}
+#tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+#tnBotSend:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(49,103,202,.4)}
 #tnBotSend svg{width:16px;height:16px;margin-left:2px}
 @media(max-width:400px){#tnBotPanel{width:calc(100vw - 20px);right:10px;bottom:152px}#tnBotBtn{right:10px;bottom:88px}}
 `;
@@ -404,7 +404,7 @@ textarea.booking-input{resize:none;height:76px}
         rel:['contact_info','book_call','locations'] },
 
       { id:'contact_info', q:'What is your contact information?', kw:['contact','email','phone','number','reach','get in touch','info','address','detail'],
-        a:'You can reach us via:<ul><li>📧 <b>Sales:</b> sales@technextasia.com</li><li>📧 <b>Admin:</b> admin@technextasia.com</li><li>💬 <b>WhatsApp:</b> +65 8839 6998</li></ul>Or visit our <a href="/contact/" style="color:#2563eb;font-weight:600">Contact page</a> for the full form.',
+        a:'You can reach us via:<ul><li>📧 <b>Sales:</b> sales@technextasia.com</li><li>📧 <b>Admin:</b> admin@technextasia.com</li><li>💬 <b>WhatsApp:</b> +65 8839 6998</li></ul>Or visit our <a href="/contact/" style="color:#3167ca;font-weight:600">Contact page</a> for the full form.',
         rel:['whatsapp','book_call','locations'] },
 
       { id:'careers', q:'Are you hiring?', kw:['job','hire','hiring','career','work','join','position','opening','vacancy','apply','role','team','internship','remote'],
@@ -416,7 +416,7 @@ textarea.booking-input{resize:none;height:76px}
         rel:['careers','how_apply','locations'] },
 
       { id:'how_apply', q:'How do I apply for a job?', kw:['apply','application','cv','resume','submit','send','linkedin','interview'],
-        a:'Visit our <a href="/careers/" style="color:#2563eb;font-weight:600">Careers page</a> to see all open roles and apply via LinkedIn. You can also email your CV to <b>career@technextasia.com</b> with the role in the subject line.',
+        a:'Visit our <a href="/careers/" style="color:#3167ca;font-weight:600">Careers page</a> to see all open roles and apply via LinkedIn. You can also email your CV to <b>career@technextasia.com</b> with the role in the subject line.',
         rel:['career_roles','careers','contact_info'] },
 
       { id:'remote_work', q:'Are roles remote or on-site?', kw:['remote','onsite','work from home','wfh','office','hybrid','location','flexible'],
@@ -468,7 +468,7 @@ textarea.booking-input{resize:none;height:76px}
         rel:['careers','locations','why_technext'] },
 
       { id:'blog', q:'Where can I read your articles?', kw:['blog','article','read','learn','news','insight','content','post','latest'],
-        a:'Check out our <a href="/blog/" style="color:#2563eb;font-weight:600">Blog</a> for articles on AI trends, Odoo ERP, Vietnam tech, and enterprise automation. New articles posted regularly.',
+        a:'Check out our <a href="/blog/" style="color:#3167ca;font-weight:600">Blog</a> for articles on AI trends, Odoo ERP, Vietnam tech, and enterprise automation. New articles posted regularly.',
         rel:['use_cases','tech_stack','what_is'] },
     ];
 
@@ -630,7 +630,7 @@ textarea.booking-input{resize:none;height:76px}
         msgs.scrollTop = msgs.scrollHeight;
         setTimeout(function() {
           msgs.removeChild(typRow);
-          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#2563eb;font-weight:600">contact our team directly</a> for a detailed answer.', false);
+          _addMsg('Thanks for your question! I\'m not sure I caught that — try rephrasing, or <a href="/contact/" style="color:#3167ca;font-weight:600">contact our team directly</a> for a detailed answer.', false);
           _showSugs();
         }, 800);
       }

@@ -146,11 +146,11 @@
       '</div>' +
       '<div style="display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;">' +
         '<button id="tn-cookie-accept" style="' +
-          'padding:9px 20px;background:#2563eb;color:#fff;border:none;border-radius:50px;' +
+          'padding:9px 20px;background:#3167ca;color:#fff;border:none;border-radius:50px;' +
           'font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;' +
           'transition:background 0.2s;"' +
-          ' onmouseover="this.style.background=\'#1d4ed8\'"' +
-          ' onmouseout="this.style.background=\'#2563eb\'">' +
+          ' onmouseover="this.style.background=\'#2558b8\'"' +
+          ' onmouseout="this.style.background=\'#3167ca\'">' +
           'Accept' +
         '</button>' +
         '<button id="tn-cookie-decline" style="' +
