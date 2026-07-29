@@ -53,7 +53,7 @@ a { color: inherit; text-decoration: none; }
 :root {
   --bg: #f0f6ff; --white: #ffffff; --blue: #3167ca; --blue-dark: #2558b8;
   --blue-light: #dce9f9; --blue-pale: #f0f6ff; --yellow-mid: #fef08a;
-  --plum: #6d2d7a; --text: #1a1a2e; --text-muted: #5a6572; --border: #e2e8f0;
+  --plum: #2558b8; --text: #1a1a2e; --text-muted: #5a6572; --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans); --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
 }
 html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans); }
@@ -140,10 +140,10 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   text-transform: uppercase; margin-bottom: 0.7rem;
 }
 .cat-ai-tech { background: var(--blue-pale); color: var(--blue-dark); }
-.cat-odoo-erp { background: #ede9fe; color: #5b21b6; }
+.cat-odoo-erp { background: #ccfbf1; color: #0f766e; }
 .cat-vietnam { background: #dcfce7; color: #15803d; }
-.cat-singapore { background: #fff7ed; color: #c2410c; }
-.cat-philippines { background: #fce7f3; color: #be185d; }
+.cat-singapore { background: #ffedd5; color: #9a3412; }
+.cat-philippines { background: #e2e8f0; color: #334155; }
 .blog-card-title {
   font-family: var(--handwriting); font-size: 1.1rem; font-weight: 600;
   color: var(--text); line-height: 1.3; margin-bottom: 0.6rem;
@@ -373,7 +373,7 @@ footer.site-footer {
    that already use ::before (accent bar) or ::after are never clobbered.
    The sheen is applied only to cards whose ::after is free.
 ---------------------------------------------------------------- */
-.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
 .insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
 .talent-card,.faq-item,.pain-card,.ind-card,.role-panel,.join-panel{
@@ -410,7 +410,6 @@ footer.site-footer {
   box-shadow:0 0 0 1px rgba(49,103,202,.30),
              0 22px 52px -12px rgba(26,26,46,.34);
 }
-.m-card:hover{transform:translateY(-5px) scale(1.04);}
 .faq-item:hover{border-color:rgba(49,103,202,.45);box-shadow:0 6px 22px -8px rgba(49,103,202,.28);}
 
 /* diagonal sheen - contained by inset:0 + inherited radius, so no overflow

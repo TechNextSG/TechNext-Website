@@ -16,7 +16,7 @@
   --blue-dark: #2558b8;
   --blue-light: #dbeafe;
   --blue-pale: #eff6ff;
-  --plum: #6d2d7a;
+  --plum: #2558b8;
   --text: #1a1a2e;
   --text-muted: #5a6572;
   --border: #e2e8f0;
@@ -939,7 +939,7 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
    that already use ::before (accent bar) or ::after are never clobbered.
    The sheen is applied only to cards whose ::after is free.
 ---------------------------------------------------------------- */
-.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
 .insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
 .talent-card,.faq-item,.pain-card,.ind-card,.role-panel,.join-panel{
@@ -976,7 +976,6 @@ html[data-lang="vn"] { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans
   box-shadow:0 0 0 1px rgba(49,103,202,.30),
              0 22px 52px -12px rgba(26,26,46,.34);
 }
-.m-card:hover{transform:translateY(-5px) scale(1.04);}
 .faq-item:hover{border-color:rgba(49,103,202,.45);box-shadow:0 6px 22px -8px rgba(49,103,202,.28);}
 
 /* diagonal sheen - contained by inset:0 + inherited radius, so no overflow

@@ -197,11 +197,11 @@ a { color: inherit; text-decoration: none; }
   --blue-pale: #f0f6ff;
   --yellow: #fef9c3;
   --yellow-mid: #fef08a;
-  --pink: #fce7f3;
+  --pink: #dce9f9;
   --green: #dcfce7;
-  --lavender: #ede9fe;
+  --lavender: #dce9f9;
   --peach: #ffedd5;
-  --plum: #6d2d7a;
+  --plum: #2558b8;
   --text: #1a1a2e;
   --text-muted: #5a6572;
   --border: #e2e8f0;
@@ -766,14 +766,14 @@ textarea.booking-input { resize: none; height: 76px; }
   font-family: var(--sans); cursor: pointer; transition: all 0.22s;
   box-shadow: 0 4px 14px rgba(49,103,202,0.25);
 }
-.bk-btn:hover { background: #5a2568; transform: translateY(-1px); }
+.bk-btn:hover { background: #1e4488; transform: translateY(-1px); }
 .bk-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; box-shadow: none; }
 .bk-success { text-align: center; padding: 1.5rem 0 0.5rem; }
 .bk-check { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-size: 1.7rem; }
 .bk-check.ok { background: #dcfce7; color: #16a34a; }
 .bk-check.pending { background: #fef9c3; color: #854d0e; }
 .bk-fallback-btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; background: #3167ca; color: #fff; border-radius: 100px; font-size: .83rem; font-weight: 700; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all .2s; margin-bottom: .75rem; }
-.bk-fallback-btn:hover { background: #5a2568; transform: translateY(-1px); }
+.bk-fallback-btn:hover { background: #1e4488; transform: translateY(-1px); }
 .bk-confirm-details { background: #f8fafc; border-radius: 14px; padding: 0.9rem 1.1rem; margin: 1rem 0 1.2rem; text-align: left; }
 .bcd-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; font-size: 0.83rem; }
 .bcd-row:last-child { border-bottom: none; }
@@ -986,21 +986,21 @@ html.js-ready .rd5 { transition-delay: 0.25s; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
+  background: none;
+  border: none;
+  border-radius: 0;
   padding: 20px 32px;
   height: 96px;
   width: 220px;
   flex-shrink: 0;
   cursor: default;
-  transition: all 0.25s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: none;
+  transition: opacity 0.25s, filter 0.25s;
+  opacity: 0.78;
 }
 .m-card:hover {
-  border-color: var(--blue);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  opacity: 1;
+  filter: saturate(1.1);
 }
 .m-card img {
   max-height: 48px;
@@ -1670,7 +1670,7 @@ footer {
 .sol-cta-row{margin-top:.5rem;}
 /* ===== INDUSTRIES ===== */
 #industries{background:#fff;}
-.ind-sub{font-size:.95rem;color:#64748b;max-width:580px;margin:0 auto 2.5rem;text-align:center;line-height:1.7;}
+.ind-sub{font-size:.95rem;color:var(--text-muted);max-width:580px;margin:0 0 2.5rem;text-align:left;line-height:1.7;}
 .ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.4rem;}
 .ind-card{background:#f8faff;border:1.5px solid rgba(49,103,202,.1);border-radius:20px;padding:1.8rem 1.2rem;text-align:center;transition:transform .25s,box-shadow .25s;}
 .ind-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(49,103,202,.13);background:#fff;}
@@ -1812,7 +1812,7 @@ footer {
    that already use ::before (accent bar) or ::after are never clobbered.
    The sheen is applied only to cards whose ::after is free.
 ---------------------------------------------------------------- */
-.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
 .insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
 .talent-card,.faq-item,.pain-card,.ind-card,.role-panel,.join-panel{
@@ -1849,7 +1849,6 @@ footer {
   box-shadow:0 0 0 1px rgba(49,103,202,.30),
              0 22px 52px -12px rgba(26,26,46,.34);
 }
-.m-card:hover{transform:translateY(-5px) scale(1.04);}
 .faq-item:hover{border-color:rgba(49,103,202,.45);box-shadow:0 6px 22px -8px rgba(49,103,202,.28);}
 
 /* diagonal sheen - contained by inset:0 + inherited radius, so no overflow
@@ -2229,7 +2228,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="jp-feature">
-          <div class="jp-dot" style="background:#ec4899"></div>
+          <div class="jp-dot" style="background:#3167ca"></div>
           <div>
             <div class="jp-feature-title" data-k="jp3_t">RAG & Knowledge Systems</div>
             <div class="jp-feature-desc" data-k="jp3_d">Vector databases, semantic search, and enterprise knowledge retrieval at scale.</div>

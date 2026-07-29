@@ -71,8 +71,8 @@ a { color: inherit; text-decoration: none; }
 :root {
   --bg: #f0f6ff; --white: #fff; --blue: #3167ca; --blue-dark: #2558b8;
   --blue-light: #dce9f9; --blue-pale: #f0f6ff; --yellow: #fef9c3;
-  --yellow-mid: #fef08a; --pink: #fce7f3; --green: #dcfce7;
-  --lavender: #ede9fe; --peach: #ffedd5; --plum: #6d2d7a;
+  --yellow-mid: #fef08a; --pink: #dce9f9; --green: #dcfce7;
+  --lavender: #dce9f9; --peach: #ffedd5; --plum: #2558b8;
   --text: #1a1a2e; --text-muted: #5a6572; --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans); --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
 }
@@ -180,7 +180,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 }
 .role-card.rc-yellow::before { background: #eab308; }
 .role-card.rc-blue::before { background: var(--blue); }
-.role-card.rc-pink::before { background: #ec4899; }
+.role-card.rc-pink::before { background: #3167ca; }
 .role-card.rc-green::before { background: #16a34a; }
 .role-card.rc-lavender::before { background: #6c93dc; }
 .role-card.rc-peach::before { background: #f97316; }
@@ -482,7 +482,7 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 1rem 6
    that already use ::before (accent bar) or ::after are never clobbered.
    The sheen is applied only to cards whose ::after is free.
 ---------------------------------------------------------------- */
-.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
 .insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
 .talent-card,.faq-item,.pain-card,.ind-card,.role-panel,.join-panel{
@@ -519,7 +519,6 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 1rem 6
   box-shadow:0 0 0 1px rgba(49,103,202,.30),
              0 22px 52px -12px rgba(26,26,46,.34);
 }
-.m-card:hover{transform:translateY(-5px) scale(1.04);}
 .faq-item:hover{border-color:rgba(49,103,202,.45);box-shadow:0 6px 22px -8px rgba(49,103,202,.28);}
 
 /* diagonal sheen - contained by inset:0 + inherited radius, so no overflow
@@ -952,7 +951,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p data-k="why2_p">Clients across Switzerland, Singapore, Japan, UK, and USA. English-first environment with real international collaboration.</p>
       </div>
       <div class="why-card reveal rd3">
-        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3167ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>
         <h3 data-k="why3_h">Ship Real AI</h3>
         <p data-k="why3_p">Your systems run in production at companies like Qualcomm and Singapore Government — not in a demo environment.</p>
       </div>
