@@ -1,47 +1,3 @@
-
-      { id:'fnb', q:'Can you help Food & Beverage businesses?', kw:['food','beverage','restaurant','cafe','fnb','menu','kitchen','dining','hospitality','catering'],
-        a:'Yes! We specialize in F&B AI and ERP solutions — inventory that auto-reorders when stock runs low, POS integration, supplier management, delivery tracking, and customer loyalty automation. We have helped restaurants and food chains cut waste by 30% and save hours of manual admin daily.',
-        rel:['hotel','odoo','how_start'] },
-
-      { id:'hotel', q:'Can you help hotels and hospitality businesses?', kw:['hotel','hospitality','accommodation','room','guest','booking','check in','check out','housekeeping','property'],
-        a:'Absolutely. We build hotel management systems with: automated reservation sync, housekeeping workflow management, guest communication bots (WhatsApp/email), billing and invoicing, and multi-property dashboards. Everything connected in one platform.',
-        rel:['resort','fnb','odoo'] },
-
-      { id:'resort', q:'Do you work with resorts?', kw:['resort','villa','spa','leisure','pool','activity','tour','beach','island'],
-        a:'Yes — resorts are one of our core verticals. We handle booking engines, activity and tour scheduling, spa management, POS integration, and AI-powered guest experience automation. Guests get faster service, your team gets less manual work.',
-        rel:['hotel','fnb','how_start'] },
-
-      { id:'medical', q:'Do you build systems for clinics and hospitals?', kw:['medical','clinic','hospital','doctor','patient','healthcare','appointment','ehr','emr','pharmacy','diagnosis'],
-        a:'We build healthcare automation with full data privacy compliance: patient appointment scheduling, clinic records management, inventory and pharmacy tracking, insurance billing automation, and patient communication bots. All data stays on your infrastructure.',
-        rel:['local_llm','data_privacy','how_start'] },
-
-      { id:'construction', q:'Can AI help construction companies?', kw:['construction','contractor','build','project','site','procurement','subcontractor','material','blueprint','engineering'],
-        a:'Construction is a great fit for AI and ERP. We implement: project tracking dashboards, material procurement automation, subcontractor management, site inspection reporting bots, and budget vs actuals forecasting. Reduce delays and cost overruns significantly.',
-        rel:['odoo','use_cases','how_start'] },
-
-      { id:'roi', q:'What ROI can I expect?', kw:['roi','return','investment','profit','save','saving','benefit','result','outcome','worth','value','payback'],
-        a:'Typical results our clients see within 3–6 months:<ul><li>📉 <b>30–60% less time</b> on manual tasks</li><li>📈 <b>20–40% faster</b> order and invoice processing</li><li>🧾 <b>–,000/mo saved</b> in labor costs</li><li>💬 <b>50% faster</b> customer response times</li></ul>ROI varies by business size and scope. Book a free call for a custom estimate.',
-        rel:['pricing','how_start','why_technext'] },
-
-      { id:'trial', q:'Can I try before committing?', kw:['trial','test','pilot','proof of concept','poc','demo','sample','try','free','prototype'],
-        a:'Yes! We offer a <b>free discovery call</b> with no commitment. For larger projects, we recommend a <b>paid pilot/POC</b> (proof of concept) in 2–3 weeks so you can see real results before a full engagement. This reduces risk for both sides.',
-        rel:['how_start','pricing','timeline'] },
-
-      { id:'erp_vs_ai', q:'Do I need ERP or AI — or both?', kw:['erp or ai','difference','which one','need both','choose','recommend','erp vs','ai vs'],
-        a:'Great question. <b>ERP</b> organizes your data and processes (inventory, HR, finance). <b>AI</b> makes those processes smarter and automated (forecasting, chatbots, automation). Many clients start with one and add the other. We can assess your situation on a free call.',
-        rel:['odoo','ai_agents','how_start'] },
-
-      { id:'team_size', q:'We are a small business — is this for us?', kw:['small','sme','startup','size','team','employee','people','micro'],
-        a:'Yes! Many of our clients are small businesses with 5–50 employees. AI and ERP can have even more impact at this size — your team is stretched thin, and automating even 20% of manual work frees up significant capacity. We have affordable packages for SMEs.',
-        rel:['pricing','roi','how_start'] },
-
-      { id:'migrate', q:'Can you migrate our existing data?', kw:['migrate','migration','existing','data','import','transfer','move','old system','legacy','excel','spreadsheet'],
-        a:'Yes — data migration is part of every ERP implementation we do. We handle: Excel/CSV imports, migration from legacy systems, cleaning and normalizing data, and validating accuracy post-migration. No data gets left behind.',
-        rel:['odoo','timeline','support'] },
-
-      { id:'training', q:'Do you provide training?', kw:['training','teach','learn','onboard','guide','tutorial','documentation','manual','how to use'],
-        a:'Every project includes <b>full training</b> for your team: live sessions, video walkthroughs, and written documentation. We ensure your staff is confident using the system before we hand it over. Ongoing training is also available as part of retainer packages.',
-        rel:['support','timeline','how_start'] },
 /* =============================================================
    TechNext — Booking Modal  (shared: gallery / blog / careers / contact)
    Step 3 time-slot tap → POST /api/book → Odoo calendar event
@@ -470,6 +426,51 @@ textarea.booking-input{resize:none;height:76px}
       { id:'blog', q:'Where can I read your articles?', kw:['blog','article','read','learn','news','insight','content','post','latest'],
         a:'Check out our <a href="/blog/" style="color:#3167ca;font-weight:600">Blog</a> for articles on AI trends, Odoo ERP, Vietnam tech, and enterprise automation. New articles posted regularly.',
         rel:['use_cases','tech_stack','what_is'] },
+
+      /* --- recovered: these 11 entries were orphaned outside the array --- */
+      { id:'fnb', q:'Can you help Food & Beverage businesses?', kw:['food','beverage','restaurant','cafe','fnb','menu','kitchen','dining','hospitality','catering'],
+        a:'Yes! We specialize in F&B AI and ERP solutions — inventory that auto-reorders when stock runs low, POS integration, supplier management, delivery tracking, and customer loyalty automation. We have helped restaurants and food chains cut waste by 30% and save hours of manual admin daily.',
+        rel:['hotel','odoo','how_start'] },
+
+      { id:'hotel', q:'Can you help hotels and hospitality businesses?', kw:['hotel','hospitality','accommodation','room','guest','booking','check in','check out','housekeeping','property'],
+        a:'Absolutely. We build hotel management systems with: automated reservation sync, housekeeping workflow management, guest communication bots (WhatsApp/email), billing and invoicing, and multi-property dashboards. Everything connected in one platform.',
+        rel:['resort','fnb','odoo'] },
+
+      { id:'resort', q:'Do you work with resorts?', kw:['resort','villa','spa','leisure','pool','activity','tour','beach','island'],
+        a:'Yes — resorts are one of our core verticals. We handle booking engines, activity and tour scheduling, spa management, POS integration, and AI-powered guest experience automation. Guests get faster service, your team gets less manual work.',
+        rel:['hotel','fnb','how_start'] },
+
+      { id:'medical', q:'Do you build systems for clinics and hospitals?', kw:['medical','clinic','hospital','doctor','patient','healthcare','appointment','ehr','emr','pharmacy','diagnosis'],
+        a:'We build healthcare automation with full data privacy compliance: patient appointment scheduling, clinic records management, inventory and pharmacy tracking, insurance billing automation, and patient communication bots. All data stays on your infrastructure.',
+        rel:['local_llm','data_privacy','how_start'] },
+
+      { id:'construction', q:'Can AI help construction companies?', kw:['construction','contractor','build','project','site','procurement','subcontractor','material','blueprint','engineering'],
+        a:'Construction is a great fit for AI and ERP. We implement: project tracking dashboards, material procurement automation, subcontractor management, site inspection reporting bots, and budget vs actuals forecasting. Reduce delays and cost overruns significantly.',
+        rel:['odoo','use_cases','how_start'] },
+
+      { id:'roi', q:'What ROI can I expect?', kw:['roi','return','investment','profit','save','saving','benefit','result','outcome','worth','value','payback'],
+        a:'Typical results our clients see within 3–6 months:<ul><li>📉 <b>30–60% less time</b> on manual tasks</li><li>📈 <b>20–40% faster</b> order and invoice processing</li><li>🧾 <b>–,000/mo saved</b> in labor costs</li><li>💬 <b>50% faster</b> customer response times</li></ul>ROI varies by business size and scope. Book a free call for a custom estimate.',
+        rel:['pricing','how_start','why_technext'] },
+
+      { id:'trial', q:'Can I try before committing?', kw:['trial','test','pilot','proof of concept','poc','demo','sample','try','free','prototype'],
+        a:'Yes! We offer a <b>free discovery call</b> with no commitment. For larger projects, we recommend a <b>paid pilot/POC</b> (proof of concept) in 2–3 weeks so you can see real results before a full engagement. This reduces risk for both sides.',
+        rel:['how_start','pricing','timeline'] },
+
+      { id:'erp_vs_ai', q:'Do I need ERP or AI — or both?', kw:['erp or ai','difference','which one','need both','choose','recommend','erp vs','ai vs'],
+        a:'Great question. <b>ERP</b> organizes your data and processes (inventory, HR, finance). <b>AI</b> makes those processes smarter and automated (forecasting, chatbots, automation). Many clients start with one and add the other. We can assess your situation on a free call.',
+        rel:['odoo','ai_agents','how_start'] },
+
+      { id:'team_size', q:'We are a small business — is this for us?', kw:['small','sme','startup','size','team','employee','people','micro'],
+        a:'Yes! Many of our clients are small businesses with 5–50 employees. AI and ERP can have even more impact at this size — your team is stretched thin, and automating even 20% of manual work frees up significant capacity. We have affordable packages for SMEs.',
+        rel:['pricing','roi','how_start'] },
+
+      { id:'migrate', q:'Can you migrate our existing data?', kw:['migrate','migration','existing','data','import','transfer','move','old system','legacy','excel','spreadsheet'],
+        a:'Yes — data migration is part of every ERP implementation we do. We handle: Excel/CSV imports, migration from legacy systems, cleaning and normalizing data, and validating accuracy post-migration. No data gets left behind.',
+        rel:['odoo','timeline','support'] },
+
+      { id:'training', q:'Do you provide training?', kw:['training','teach','learn','onboard','guide','tutorial','documentation','manual','how to use'],
+        a:'Every project includes <b>full training</b> for your team: live sessions, video walkthroughs, and written documentation. We ensure your staff is confident using the system before we hand it over. Ongoing training is also available as part of retainer packages.',
+        rel:['support','timeline','how_start'] },
     ];
 
     /* ── State ── */
