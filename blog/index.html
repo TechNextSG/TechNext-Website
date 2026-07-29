@@ -96,22 +96,6 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
 
-/* ===== ENTRANCE ANIMATIONS ===== */
-@keyframes tn-logo-in {
-  from { opacity: 0; transform: translateY(-22px) scale(0.92); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
-}
-@keyframes tn-navlinks-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-@keyframes tn-navright-in {
-  from { opacity: 0; transform: translateY(-16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.nav-logo  { animation: tn-logo-in     0.72s cubic-bezier(0.34,1.56,0.64,1) 0.05s both; }
-.nav-links { animation: tn-navlinks-in 0.60s cubic-bezier(0.25,0.46,0.45,0.94) 0.20s both; }
-.nav-right { animation: tn-navright-in 0.60s cubic-bezier(0.25,0.46,0.45,0.94) 0.30s both; }
 
 /* PAGE HEADER */
 .page-header { padding: 80px 6% 56px; max-width: 1280px; margin: 0 auto; }
