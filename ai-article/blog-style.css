@@ -98,9 +98,8 @@ ul, ol {
 }
 
 .logo-img {
-  height: 88px;
+  height: 40px;
   width: auto;
-  mix-blend-mode: multiply;
 }
 
 .nav-links {
@@ -200,7 +199,7 @@ ul, ol {
   .nav-links.open a:hover { background: rgba(0,0,0,0.05); }
   .nav-links.open a.active { color: var(--blue); font-weight: 600; }
   #mainNav { padding: 0 5%; }
-  .logo-img { height: 44px; }
+  .logo-img { height: 28px; }
   .lang-switcher { position: relative; background: none; padding: 0; gap: 0; border-radius: 0; }
   .lang-btn { display: none; }
   .lang-btn.active { display: inline-flex; align-items: center; gap: 3px; background: var(--blue); color: #fff; padding: 5px 10px; border-radius: 7px; font-size: 0.7rem; box-shadow: 0 1px 4px rgba(49,103,202,0.3); }
@@ -492,9 +491,8 @@ ul, ol {
 }
 
 .footer-logo-img {
-  height: 36px;
+  height: 28px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 
 .footer-copy {
