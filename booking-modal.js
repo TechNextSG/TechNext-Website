@@ -874,19 +874,6 @@ window.applyBkLang = function(lang) {
       s3h:'Chọn Thời Gian', s3sub:'1 giờ · Asia/Singapore (UTC+8) · Nhấn vào ô để đặt ngay',
       ts:'Các khung giờ có sẵn', wa:'Nhắn tin qua WhatsApp'
     },
-    de: {
-      s1h:'Wie können wir helfen?', s1sub:'Wählen Sie den gewünschten Service',
-      svc1:'KI-Automatisierung & Agenten', svc1d:'KI-Agenten, Chatbots, RAG-Systeme & lokale LLMs',
-      svc2:'Odoo ERP-Implementierung', svc2d:'End-to-End ERP für Ihren Geschäftsbetrieb',
-      svc3:'Beides — Komplettpaket', svc3d:'Vollständige digitale Transformation: KI + ERP',
-      s1next:'Weiter →',
-      s2h:'Ihre Angaben', s2sub:'Wir senden Ihnen eine Kalendereinladung per E-Mail',
-      ph_name:'Vollständiger Name *', ph_email:'E-Mail-Adresse *', ph_phone:'Telefon / WhatsApp',
-      ph_company:'Firmenname', ph_challenge:'Was ist Ihre größte Herausforderung? (optional)',
-      back:'← Zurück', cont:'Weiter →',
-      s3h:'Zeit wählen', s3sub:'1 Stunde · Asien/Singapur (UTC+8) · Klicken Sie auf einen Slot',
-      ts:'Verfügbare Zeiten', wa:'WhatsApp-Nachricht senden'
-    }
   };
   var d = t[lang] || t.en;
   function st(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }

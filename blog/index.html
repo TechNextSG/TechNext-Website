@@ -48,12 +48,12 @@ html::-webkit-scrollbar-track { background: transparent; }
 html::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.22); border-radius: 3px; }
 html::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
 html::-webkit-scrollbar-corner { background: transparent; }
-body { background: #f0ece3; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+body { background: #ffffff; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 :root {
-  --bg: #f0ece3; --white: #ffffff; --blue: #2563eb; --blue-dark: #1d4ed8;
-  --blue-light: #dbeafe; --blue-pale: #eff6ff; --yellow-mid: #fef08a;
-  --plum: #6d2d7a; --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0;
+  --bg: #f0f6ff; --white: #ffffff; --blue: #3167ca; --blue-dark: #2558b8;
+  --blue-light: #dce9f9; --blue-pale: #f0f6ff; --yellow-mid: #fef08a;
+  --plum: #6d2d7a; --text: #1a1a2e; --text-muted: #5a6572; --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans); --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
 }
 html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans); }
@@ -266,7 +266,112 @@ footer.site-footer {
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18068724830');
-</script></head>
+</script><style id="tn-ux">
+/* ===== TechNext shared interaction layer - buttons, cards, focus ===== */
+:root{
+  --tn-ease:cubic-bezier(0.22,1,0.36,1);
+  --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
+}
+
+/* ---------- BUTTONS: solid / primary ---------- */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
+.cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+  transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
+             background .26s var(--tn-ease),filter .26s var(--tn-ease);
+  will-change:transform;
+}
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
+}
+/* press feedback - was missing everywhere */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
+.lang-btn:active,.hamburger:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- BUTTONS: outline / ghost / filter ---------- */
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+  transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
+             background .22s var(--tn-ease),color .22s var(--tn-ease),
+             box-shadow .22s var(--tn-ease);
+}
+.btn-outline:hover,.btn-ghost:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.filter-btn:hover:not(.active),.country-btn:hover:not(.active){
+  transform:translateY(-2px);
+  border-color:var(--tn-blue);
+  color:var(--tn-blue);
+  box-shadow:0 6px 16px rgba(49,103,202,.16);
+}
+.lang-btn:hover:not(.active){transform:translateY(-1px);}
+
+/* ---------- CARDS ---------- */
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
+.insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
+.talent-card,.faq-item{
+  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
+             border-color .32s var(--tn-ease);
+  will-change:transform;
+}
+.svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
+.join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
+.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
+.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(49,103,202,.16);
+  border-color:rgba(49,103,202,.42);
+}
+.m-card:hover{transform:translateY(-4px) scale(1.03);}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
+.gallery-item img{transition:transform .5s var(--tn-ease);}
+.faq-item:hover{border-color:rgba(49,103,202,.42);}
+/* clickable cards get a press state too */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
+  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+}
+
+/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
+  outline:3px solid var(--tn-blue);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.btn-plum:focus-visible,.cta-primary:focus-visible,.nav-apply:focus-visible,
+.btn-outline:focus-visible,.filter-btn:focus-visible,.lang-btn:focus-visible{
+  outline:3px solid var(--tn-blue-dk);
+  outline-offset:3px;
+}
+
+/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important;}
+}
+</style>
+</head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB9CDFGG"
@@ -288,7 +393,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('vn')">VN</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
     <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -583,31 +687,6 @@ const LANG = {
     c19_t:'Chuyển Đổi Số Philippines 2026: AI Vượt Ra Ngoài Lĩnh Vực BPO', c19_e:'Ứng dụng AI tại Philippines đang mở rộng từ gốc rễ BPO sang sản xuất, nông nghiệp và dịch vụ tài chính.',
     c20_t:'Cuộc Cách Mạng AI trong Ngành BPO Philippines: Gián Đoạn Hay Cơ Hội?', c20_e:'AI đe dọa 1,3 triệu việc làm BPO tại Philippines vào năm 2030 — nhưng cũng đang tạo ra các vai trò có giá trị cao hơn. Ngành này điều hướng sự thay đổi như thế nào.'
   },
-  de: {
-    nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Termin Buchen',
-    blog_label:'Blog', blog_h1:'Einblicke &amp; <span class="highlight">Analysen</span>', blog_sub:'Aktuelles zu KI, Unternehmenstechnologie und digitalen Wirtschaften in Südostasien.',
-    filter_all:'Alle', filter_ai:'KI & Technik', filter_odoo:'Odoo ERP', filter_vn:'Vietnam', filter_sg:'Singapur', filter_ph:'Philippinen',
-    c1_t:'GPT-5: OpenAIs fähigstes agentisches KI-Modell bisher', c1_e:'GPT-5 von OpenAI markiert einen Sprung bei der autonomen Aufgabenausführung und übertrifft frühere Modelle bei komplexen Reasoning-Benchmarks.',
-    c2_t:'KI-Infrastrukturausgaben der Tech-Riesen: Q1 2026 Earnings-Analyse', c2_e:'Microsoft, Google, Amazon und Meta haben im Q1 2026 gemeinsam 320 Milliarden Dollar in KI-Infrastruktur investiert. Wer gibt was aus.',
-    c3_t:'LG und NVIDIA: Das Zeitalter der physischen KI hat offiziell begonnen', c3_e:'Die Partnerschaft von LG und NVIDIA signalisiert die Ankunft von KI in physischen Produkten — von Haushaltsgeräten bis hin zu Industrierobotern.',
-    c4_t:'KI-Agent-Governance: Regulatoren melden endlich Kontrollücken', c4_e:'Da autonome KI-Agenten in Enterprise-Workflows zunehmen, schlagen Regulatoren in der EU, den USA und Singapur Alarm.',
-    c5_t:'GitHub Copilot wechselt zu Token-basierter Preisgestaltung — Was bedeutet das für Dev-Teams', c5_e:"GitHubs Wechsel zur token-basierten Preisgestaltung verändert die Wirtschaftlichkeit der KI-unterstützten Entwicklung für Teams jeder Größe.",
-    c6_t:'KI-Agenten 2026: Wie autonome KI Enterprise-Abläufe umgestaltet', c6_e:'KI-Agenten sind kein Zukunftskonzept mehr — sie laufen heute in der Produktion bei Fortune-500-Unternehmen.',
-    c7_t:'RAG-Systeme für Unternehmen: Der vollständige Implementierungsleitfaden', c7_e:'Retrieval-Augmented Generation ist das am häufigsten eingesetzte KI-Muster im Enterprise-Bereich. So baut man eines, das in der Produktion funktioniert.',
-    c8_t:'Lokale LLM-Bereitstellung: KI On-Premise für Unternehmenssicherheit betreiben', c8_e:'Anforderungen an Datensouveränität und Compliance treiben Unternehmen dazu an, LLMs auf ihrer eigenen Infrastruktur zu betreiben.',
-    c9_t:'Context Engineering: Die neue Disziplin, die KI-Systeme tatsächlich zum Laufen bringt', c9_e:'Prompt Engineering entwickelt sich zum Context Engineering — einer tieferen Disziplin, die zu einer eigenständigen Engineering-Rolle wird.',
-    c10_t:'Odoo 18: Neue Funktionen und die Enterprise-Upgrade-Entscheidung', c10_e:'Odoo 18 liefert KI-native Bestandsprognosen, ein überarbeitetes Studio und wichtige Fertigungsverbesserungen. Sollten Sie jetzt upgraden?',
-    c11_t:'KI mit Odoo ERP integrieren: Eine Schritt-für-Schritt-Implementierungsanleitung', c11_e:'Von KI-gestütztem Lead-Scoring bis zur automatischen Rechnungsverarbeitung — die wichtigsten Muster für die Integration von KI in Odoo-Workflows.',
-    c12_t:'Odoo vs. SAP im Jahr 2026: Welches ERP passt zu Ihrem Unternehmen?', c12_e:'SAP dominiert den Enterprise-Bereich, aber Odoo holt schnell auf. Ein detaillierter Vergleich von Preisen, Modulen und KI-Fähigkeiten.',
-    c13_t:'Warum südostasiatische KMU 2026 zu Odoo ERP wechseln', c13_e:'Kosteneffizienz, schnelle Bereitstellung und starke Regionalpartner machen Odoo zum Standard-ERP für wachsende SEA-Unternehmen.',
-    c14_t:'Vietnams digitale Wirtschaft 2026: KI-Adoption beschleunigt sich branchenübergreifend', c14_e:"Vietnams Tech-Sektor wuchs 2025 um 22%, und die KI-Adoption beschleunigt sich in Fertigung, Logistik und Finanzdienstleistungen.",
-    c15_t:'Vietnams Tech-Talente: Warum globale Unternehmen hier Dev Hubs aufbauen', c15_e:'Mit 57.000 IT-Absolventen pro Jahr und wettbewerbsfähigen Gehaltsstrukturen wird Vietnam zum bevorzugten Ziel für Enterprise-KI-Teams.',
-    c16_t:'Vietnams Software-Exporte erreichen 8 Mrd. USD: Wie das Land zur KI-Supermacht wird', c16_e:'Vietnams Software-Exporterlöse überschritten 2025 8 Milliarden USD, wobei KI-bezogene Dienste dreimal schneller wachsen als traditionelles Outsourcing.',
-    c17_t:'Singapurs Nationale KI-Strategie 2.0: Was Unternehmen wissen müssen', c17_e:'Singapurs aktualisierte KI-Strategie verpflichtet 1 Milliarde SGD für KI-Infrastruktur und führt neue Unternehmensanreize für KI-Adoption ein.',
-    c18_t:'Singapore Smart Nation: Wie KI Regierungsdienstleistungen transformiert', c18_e:'Von KI-gestützten Bürgerdiensten bis zur prädiktiven Infrastrukturwartung — Singapurs Regierung gehört zu den weltweit fortschrittlichsten KI-Anwendern.',
-    c19_t:'Digitale Transformation auf den Philippinen 2026: KI geht über den BPO-Sektor hinaus', c19_e:'Die KI-Adoption auf den Philippinen weitet sich von ihren BPO-Wurzeln auf Fertigung, Landwirtschaft und Finanzdienstleistungen aus.',
-    c20_t:'Die KI-Revolution in der philippinischen BPO-Branche: Disruption oder Chance?', c20_e:'KI bedroht bis 2030 1,3 Millionen BPO-Arbeitsplätze auf den Philippinen — schafft aber auch höherwertige Stellen. Wie die Branche den Wandel navigiert.'
-  }
 };
 
 function setLang(lang) {
@@ -629,7 +708,6 @@ document.addEventListener('DOMContentLoaded', () => {
   else {
     const l = (navigator.language || '').toLowerCase();
     if (l.startsWith('vi')) setLang('vn');
-    else if (l.startsWith('de')) setLang('de');
   }
 });
 

@@ -25,14 +25,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f0ece3;--white:#fff;--blue:#2563eb;--blue-d:#1d4ed8;--blue-l:#dbeafe;
-  --navy:#1a1a2e;--text:#1a1a2e;--text2:#64748b;--border:#e2e8f0;
-  --green:#22c55e;--yellow:#fef9c3;--peach:#ffedd5;--pink:#fce7f3;--lavender:#ede9fe;
+  --bg: #f0f6ff;--white:#fff;--blue: #3167ca;--blue-d:#2558b8;--blue-l:#dce9f9;
+  --navy:#1a1a2e;--text:#1a1a2e;--text2:#5a6572;--border:#e2e8f0;
+  --green:#15803d;--yellow:#fef9c3;--peach:#ffedd5;--pink:#fce7f3;--lavender:#ede9fe;
   --sans:'DM Sans',sans-serif;--logo:'Montserrat',sans-serif;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between}
+nav.tn-scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+nav.tn-scrolled .nav-logo{color:var(--text);}
+nav.tn-scrolled .nav-logo span{color:var(--blue);}
+nav{transition:background .3s ease,border-color .3s ease;}
 .nav-logo{font-family:var(--logo);font-size:1.1rem;font-weight: 700;color:#fff;letter-spacing:-.02em}
 .nav-logo span{color:#60a5fa}
 .nav-cta{background:var(--blue);color:#fff;padding:.5rem 1.2rem;border-radius:100px;font-size:.85rem;font-weight:600;transition:background .2s}
@@ -113,7 +117,112 @@ footer a{color:rgba(255,255,255,.55)}
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18068724830');
-</script></head>
+</script><style id="tn-ux">
+/* ===== TechNext shared interaction layer - buttons, cards, focus ===== */
+:root{
+  --tn-ease:cubic-bezier(0.22,1,0.36,1);
+  --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
+}
+
+/* ---------- BUTTONS: solid / primary ---------- */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
+.cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+  transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
+             background .26s var(--tn-ease),filter .26s var(--tn-ease);
+  will-change:transform;
+}
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
+}
+/* press feedback - was missing everywhere */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
+.lang-btn:active,.hamburger:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- BUTTONS: outline / ghost / filter ---------- */
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+  transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
+             background .22s var(--tn-ease),color .22s var(--tn-ease),
+             box-shadow .22s var(--tn-ease);
+}
+.btn-outline:hover,.btn-ghost:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.filter-btn:hover:not(.active),.country-btn:hover:not(.active){
+  transform:translateY(-2px);
+  border-color:var(--tn-blue);
+  color:var(--tn-blue);
+  box-shadow:0 6px 16px rgba(49,103,202,.16);
+}
+.lang-btn:hover:not(.active){transform:translateY(-1px);}
+
+/* ---------- CARDS ---------- */
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
+.insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
+.talent-card,.faq-item{
+  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
+             border-color .32s var(--tn-ease);
+  will-change:transform;
+}
+.svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
+.join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
+.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
+.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(49,103,202,.16);
+  border-color:rgba(49,103,202,.42);
+}
+.m-card:hover{transform:translateY(-4px) scale(1.03);}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
+.gallery-item img{transition:transform .5s var(--tn-ease);}
+.faq-item:hover{border-color:rgba(49,103,202,.42);}
+/* clickable cards get a press state too */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
+  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+}
+
+/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
+  outline:3px solid var(--tn-blue);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.btn-plum:focus-visible,.cta-primary:focus-visible,.nav-apply:focus-visible,
+.btn-outline:focus-visible,.filter-btn:focus-visible,.lang-btn:focus-visible{
+  outline:3px solid var(--tn-blue-dk);
+  outline-offset:3px;
+}
+
+/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important;}
+}
+</style>
+</head>
 <body>
 
 <nav>
@@ -277,5 +386,13 @@ footer a{color:rgba(255,255,255,.55)}
   <span style="font-size:.68rem;margin-top:.3rem;display:block">© 2026 TechNext Asia · technextasia.com · All rights reserved</span>
 </footer>
 
+<script>
+(function(){
+  var n=document.querySelector('nav');
+  if(!n)return;
+  function s(){ n.classList.toggle('tn-scrolled', window.scrollY>60); }
+  window.addEventListener('scroll',s,{passive:true}); s();
+})();
+</script>
 </body>
 </html>

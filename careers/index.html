@@ -65,15 +65,15 @@ html::-webkit-scrollbar-track { background: transparent; }
 html::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.22); border-radius: 3px; }
 html::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
 html::-webkit-scrollbar-corner { background: transparent; }
-body { background: #f0ece3; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+body { background: #ffffff; color: #1a1a2e; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 
 :root {
-  --bg: #f0ece3; --white: #fff; --blue: #2563eb; --blue-dark: #1d4ed8;
-  --blue-light: #dbeafe; --blue-pale: #eff6ff; --yellow: #fef9c3;
+  --bg: #f0f6ff; --white: #fff; --blue: #3167ca; --blue-dark: #2558b8;
+  --blue-light: #dce9f9; --blue-pale: #f0f6ff; --yellow: #fef9c3;
   --yellow-mid: #fef08a; --pink: #fce7f3; --green: #dcfce7;
   --lavender: #ede9fe; --peach: #ffedd5; --plum: #6d2d7a;
-  --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0;
+  --text: #1a1a2e; --text-muted: #5a6572; --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans); --sans: 'DM Sans', sans-serif; --logo: 'Montserrat', sans-serif;
 }
 html.lang-vn { --handwriting: 'Be Vietnam Pro', 'Montserrat', var(--sans); }
@@ -375,7 +375,112 @@ footer { background: var(--text); color: rgba(255,255,255,0.65); padding: 1rem 6
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18068724830');
-</script></head>
+</script><style id="tn-ux">
+/* ===== TechNext shared interaction layer - buttons, cards, focus ===== */
+:root{
+  --tn-ease:cubic-bezier(0.22,1,0.36,1);
+  --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
+}
+
+/* ---------- BUTTONS: solid / primary ---------- */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
+.cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+  transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
+             background .26s var(--tn-ease),filter .26s var(--tn-ease);
+  will-change:transform;
+}
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
+}
+/* press feedback - was missing everywhere */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
+.lang-btn:active,.hamburger:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- BUTTONS: outline / ghost / filter ---------- */
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+  transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
+             background .22s var(--tn-ease),color .22s var(--tn-ease),
+             box-shadow .22s var(--tn-ease);
+}
+.btn-outline:hover,.btn-ghost:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.filter-btn:hover:not(.active),.country-btn:hover:not(.active){
+  transform:translateY(-2px);
+  border-color:var(--tn-blue);
+  color:var(--tn-blue);
+  box-shadow:0 6px 16px rgba(49,103,202,.16);
+}
+.lang-btn:hover:not(.active){transform:translateY(-1px);}
+
+/* ---------- CARDS ---------- */
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
+.insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
+.talent-card,.faq-item{
+  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
+             border-color .32s var(--tn-ease);
+  will-change:transform;
+}
+.svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
+.join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
+.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
+.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(49,103,202,.16);
+  border-color:rgba(49,103,202,.42);
+}
+.m-card:hover{transform:translateY(-4px) scale(1.03);}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
+.gallery-item img{transition:transform .5s var(--tn-ease);}
+.faq-item:hover{border-color:rgba(49,103,202,.42);}
+/* clickable cards get a press state too */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
+  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+}
+
+/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
+  outline:3px solid var(--tn-blue);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.btn-plum:focus-visible,.cta-primary:focus-visible,.nav-apply:focus-visible,
+.btn-outline:focus-visible,.filter-btn:focus-visible,.lang-btn:focus-visible{
+  outline:3px solid var(--tn-blue-dk);
+  outline-offset:3px;
+}
+
+/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important;}
+}
+</style>
+</head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB9CDFGG"
@@ -397,7 +502,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('vn')">VN</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
     <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -699,7 +803,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="why-grid">
       <div class="why-card reveal rd1">
-        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3167ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <h3 data-k="why1_h">Cutting-Edge AI Stack</h3>
         <p data-k="why1_p">Work with AI agents, local LLMs, RAG pipelines, Claude, GPT-4, and Llama — not yesterday's tech.</p>
       </div>
@@ -885,55 +989,6 @@ const LANG = {
     cta_p:'Chúng tôi luôn tìm kiếm nhân tài xuất sắc. Gửi CV và một ghi chú ngắn về điều bạn muốn xây dựng — chúng tôi đọc mọi tin nhắn.',
     footer_copy:'© 2026 TechNext Asia · technext.asia · Bảo lưu mọi quyền'
   },
-  de: {
-    nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Termin Buchen',
-    ch_label:'Karriere', ch_h1a:'Arbeite an KI, die', ch_h1b:'Wirklich deployed wird.',
-    ch_sub:'TechNext baut hochkarätige Engineering-Teams in Vietnam, den Philippinen und Singapur auf, um Enterprise-KI für globale Kunden zu entwickeln. Remote-freundlich, Englisch als Arbeitssprache.',
-    ch_stat1:'Offene Stellen', ch_stat2:'Betreute Länder', ch_stat3:'Remote-Freundlich', ch_stat4:'Englisch-Erst',
-    cf_all:'Alle Länder', cf_vn:'Vietnam', cf_ph:'Philippinen', cf_sg:'Singapur',
-    df_all:'Alle Stellen', df_eng:'Engineering', df_ai:'KI-Systeme', df_infra:'Infrastruktur',
-    df_lead:'Führung', df_qa:'Qualität', df_fin:'Finanzen', df_erp:'ERP',
-    df_sales:'Vertrieb', df_cs:'Kundenerfolg', df_mgmt:'Management',
-    sg_title:'Singapore Hub — Demnächst',
-    sg_text:'Wir expandieren nach Singapur. Stellen werden bald hier veröffentlicht. Sende deinen Lebenslauf an career@technext.asia.',
-    why_h2:'Warum Ingenieure TechNext wählen',
-    why_sub:'Echte Enterprise-KI für echte Kunden. Keine Spielzeugprojekte, keine Bürokratie — nur schwere Probleme und echter Einfluss.',
-    why1_h:'Modernster KI-Stack', why1_p:'Arbeite mit KI-Agents, lokalen LLMs, RAG-Pipelines, Claude, GPT-4 und Llama — keine veralteten Tools.',
-    why2_h:'Globale Exposition', why2_p:'Kunden in der Schweiz, Singapur, Japan, UK und USA. Englischsprachiges Umfeld mit echter internationaler Zusammenarbeit.',
-    why3_h:'Echte KI in Produktion', why3_p:'Deine Systeme laufen in Produktion bei Unternehmen wie Qualcomm und der Regierung Singapurs — nicht in einer Demo.',
-    why4_h:'Remote-Freundlich', why4_p:'Arbeite von überall in deinem Land. Unsere Dev Hubs sind verteilt und asynchron-freundlich.',
-    why5_h:'Schnell wachsendes Unternehmen', why5_p:'Wir wachsen mit der KI-Welle. Dein Einfluss, Titel und Vergütung wachsen mit uns.',
-    why6_h:'Von Kollegen lernen', why6_p:'Ein Team, das täglich echte Enterprise-KI aufbaut. Wissensaustausch, Code-Reviews und Mentoring gehören zur Kultur.',
-    meta_fulltime:'Vollzeit', meta_vn:'Vor Ort · Vietnam', meta_ph:'Hybrid · Philippinen', meta_hybrid:'Vor Ort / Hybrid',
-    r1_name:'KI-Ingenieur', r1_desc:'Entwerfe, baue und deploye KI-Systeme für Produktionsumgebungen — Agents, fein abgestimmte Modelle und Inferenz-Pipelines für globale Unternehmenskunden. Du arbeitest über den gesamten KI-Lieferzyklus hinweg, von Architektur und Prototyping bis zu Production-Monitoring.',
-    r2_name:'DevOps Ingenieur', r2_sub:'Fokus: Lokale LLMs', r2_desc:'Verantworte die Infrastruktur für lokale LLMs im großen Maßstab — GPU-Cluster, Inferenz-Server und KI-optimierte Deployment-Pipelines. Stelle sicher, dass unsere selbst gehosteten KI-Systeme schnell, zuverlässig und kosteneffizient sind.',
-    r3_name:'IT-Manager', r3_desc:"Leite den IT-Betrieb über TechNexts globales Dev-Hub-Netzwerk — Systemsicherheit, Infrastrukturmanagement und ISO 27001-Konformität. Du sorgst dafür, dass unsere internen Systeme sicher und unsere Engineering-Teams ungehindert arbeiten können.",
-    r4_name:'IoT-Ingenieur', r4_desc:'Verbinde physische Geräte und Sensoren mit unserer KI-Plattform — baue Edge Intelligence und IoT-to-Cloud-Pipelines für Unternehmensumgebungen. Deine Arbeit überbrückt die physische und digitale Welt mit Echtzeit-Daten für KI-Systeme.',
-    r5_name:'Context Engineer', r5_desc:'Entwerfe und optimiere Prompts, RAG-Architekturen und KI-Kontextsysteme, die Unternehmens-KI-Anwendungen zuverlässig und präzise machen. Du besitzt den Raum zwischen Modell und Produkt — von der Retrieval-Strategie bis zu Evaluierungsframeworks.',
-    r6_name:'CAITO', r6_sub:'Chief AI & Technology Officer', r6_desc:"Leite TechNexts KI-Gesamtstrategie, Technologie-Roadmap und Engineering-Kultur. Definiere, wie wir KI-Systeme aufbauen und skalieren, in Partnerschaft mit CEO und COO an einem Wendepunkt des Wachstums.",
-    r7_name:'Automatisierungsingenieur', r7_desc:'Baue intelligente Workflow-Automatisierungen mit KI, Odoo und Integrationsplattformen — verbinde die Systeme, die Unternehmensabläufe antreiben. Du eliminierst manuelle Prozesse im großen Maßstab und lieferst messbaren ROI für globale Kunden.',
-    r8_name:'KI Reliability & QA Ingenieur', r8_desc:'Stelle sicher, dass KI-Systeme in der Produktion zuverlässig funktionieren — entwerfe Evaluierungsframeworks und überwache die KI-Ausgabequalität. Traditionelles QA passt nicht zu probabilistischen KI-Systemen, also baust du neue Testwerkzeuge und Prozesse.',
-    r9_name:'Buchhalter', r9_desc:'Verwalte Finanzdaten, Berichte und Compliance für TechNexts Philippinen-Betrieb — unterstütze regionales Wachstum mit genauen, zeitnahen Finanzeinblicken.',
-    r10_name:'Funktionaler ERP / Odoo-Berater', r10_desc:'Implementiere, konfiguriere und passe Odoo-ERP-Lösungen für Unternehmenskunden an — überbrücke Geschäftsanforderungen und technische Lieferung über Vertriebs-, Lager-, Buchhaltungs- und HR-Module.',
-    r11_name:'Senior B2B-Vertriebsberater', r11_desc:"Treibe den Unternehmensverkauf für TechNexts KI- und ERP-Lösungen voran — verantworte den vollständigen B2B-Verkaufszyklus von der Akquise bis zum Abschluss, mit Fokus auf Mid-Market- und Enterprise-Kunden in der APAC-Region.",
-    r12_name:'Client Success Manager', r12_desc:"Verantworte die Kundenbeziehung nach dem Verkauf für TechNexts ERP- und KI-Kunden — fördere Adoption, Retention und Wachstum durch proaktiven Support und strategische Begleitung.",
-    r13_name:'Projektmanager', r13_sub:'ERP / Odoo Fokus', r13_desc:'Leite End-to-End-Odoo-ERP-Implementierungsprojekte — koordiniere zwischen Kunden, Entwicklern und Fachberatern für Lieferung in Umfang, Zeitplan und Budget.',
-    r14_name:'Vertriebsmitarbeiter', r14_desc:"Unterstütze das Vertriebsteam bei Lead-Generierung, Outreach und Pipeline-Management — baue Beziehungen zu potenziellen Kunden auf und qualifiziere Chancen für TechNexts ERP- und KI-Lösungen.",
-    r15_name:'Customer Success / IT Sales Admin', r15_sub:'Middle / Senior',
-    r15_desc:'Verantworte Kundenbeziehungen nach dem Verkauf und unterstütze die Sales-Pipeline durch CRM-Management, Angebotsvorbereitung und Follow-ups. Du verbindest Support und Vertrieb — stellst sicher, dass Kunden mit TechNexts ERP- und KI-Lösungen erfolgreich sind. Bis zu 35M VND/Monat.',
-    r16_name:'Business Analyst', r16_sub:'Middle / Senior',
-    r16_desc:'Übersetze Geschäftsanforderungen in funktionale ERP-Spezifikationen — arbeite eng mit Kunden und Entwicklern zusammen, um Odoo-Implementierungen zu entwerfen, zu dokumentieren und zu validieren. Du verantwortest die Discovery- und Anforderungsphasen, die komplexe ERP-Rollouts erfolgreich machen. Bis zu 35M VND/Monat.',
-    r17_name:'Fullstack Developer', r17_sub:'Mid-Senior · 3–5 Jahre Erfahrung',
-    r17_desc:'Entwickle und pflege Full-Stack-Webanwendungen, die TechNexts ERP- und KI-Plattformen antreiben. Du arbeitest über den gesamten Stack — Python/Node-Backends, JavaScript-Frontends und Integrationen mit Odoo und externen APIs — und lieferst Funktionen, auf die Enterprise-Kunden täglich angewiesen sind.',
-    r18_name:'Backend Developer', r18_sub:'1–2+ Jahre Erfahrung · 2 Stellen',
-    r18_desc:'Entwickle und pflege Backend-Services für TechNexts ERP- und KI-Lösungen — mit Python, Node.js und PostgreSQL zum Aufbau zuverlässiger APIs, Datenpipelines und Odoo-Anpassungen. Großartige Möglichkeit für Entwickler, die in einem schnellen KI-fokussierten Team wachsen möchten. Bis zu 15M VND/Monat.',
-    r19_name:'Senior / Tech Lead ERP & AI', r19_sub:'3–5+ Jahre Erfahrung',
-    r19_desc:'Leite die technische Umsetzung von TechNexts ERP- und KI-Projekten — setze Architekturstandards, mentore Entwickler und stelle hochwertige Odoo-Implementierungen sicher. Du bist die technische Brücke zwischen Geschäftsanforderungen und Engineering-Ausführung. Bis zu 30M+ VND/Monat.',
-    r_apply_li:'Auf LinkedIn bewerben',
-    cta_h2:'Keine passende Stelle gefunden?',
-    cta_p:'Wir suchen immer außergewöhnliche Talente. Schick uns deinen Lebenslauf und eine kurze Notiz — wir lesen jede Nachricht.',
-    footer_copy:'© 2026 TechNext Asia · technext.asia · Alle Rechte vorbehalten'
-  }
 };
 function setLang(lang) {
   localStorage.setItem('tn_lang', lang);

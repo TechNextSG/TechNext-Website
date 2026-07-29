@@ -120,66 +120,6 @@ const BLOG_LANG = {
     c19_t:'Chuyển Đổi Số Philippines 2026: Ứng Dụng AI Vượt Ra Ngoài BPO',
     c20_t:'Cuộc Cách Mạng AI Trong Ngành BPO Philippines: Từ Nhân Lực Đến Trí Tuệ',
   },
-  ph: {
-    nav_about:'Tungkol', nav_gallery:'Galeria', nav_blog:'Blog', nav_careers:'Karera', nav_contact:'Makipag-ugnayan', nav_book:'Mag-book',
-    back_blog:'← Bumalik sa Blog',
-    toc_label:'Sa Artikulong Ito',
-    share_label:'Ibahagi ang Artikulo',
-    more_articles:'Higit pang Artikulo',
-    copy_link:'Kopyahin ang Link',
-    copied:'Nakopya!',
-    cat_ai:'AI &amp; Tech', cat_odoo:'Odoo ERP', cat_vn:'Vietnam', cat_sg:'Singapore', cat_ph:'Pilipinas',
-    c1_t:"GPT-5: Pinaka-Capable na Agentic AI Model ng OpenAI",
-    c2_t:"Paggastos ng Big Tech sa AI Infrastructure: Q1 2026 Earnings Breakdown",
-    c3_t:"LG at NVIDIA: Opisyal Nang Nagsimula ang Physical AI Era",
-    c4_t:"AI Agent Governance: Tinutukoy ng mga Regulator ang mga Control Gap",
-    c5_t:"GitHub Copilot Lumipat sa Per-Token Pricing — Ano ang Ibig Sabihin Para sa Dev Teams",
-    c6_t:"AI Agents sa 2026: Paano Binabago ng Autonomous AI ang Enterprise Operations",
-    c7_t:"RAG Systems para sa Enterprise: Ang Kumpletong Implementation Guide",
-    c8_t:"Local LLM Deployment: Pagpapatakbo ng AI On-Premise para sa Enterprise Security",
-    c9_t:"Context Engineering: Ang Bagong Disiplina na Nagpapatakbo ng AI Systems",
-    c10_t:"Odoo 18: Mga Bagong Feature at ang Enterprise Upgrade Decision",
-    c11_t:"Pag-integrate ng AI sa Odoo ERP: Step-by-Step Implementation Guide",
-    c12_t:"Odoo vs SAP sa 2026: Alin ang Tamang ERP para sa Inyong Negosyo?",
-    c13_t:"Bakit Lumalipat ang mga SME sa Southeast Asia sa Odoo ERP sa 2026",
-    c14_t:"Digital Economy ng Vietnam sa 2026: Nagbibilis ang AI Adoption sa Lahat ng Industriya",
-    c15_t:"Tech Talent ng Vietnam: Bakit Nagtatayo ang mga Global na Kumpanya ng Dev Hubs Dito",
-    c16_t:"Vietnam Software Exports Umabot sa $8B: Pagiging AI Powerhouse ng Bansa",
-    c17_t:"National AI Strategy 2.0 ng Singapore: Ano ang Kailangan Malaman ng Bawat Enterprise",
-    c18_t:"Singapore Smart Nation: Paano Binabago ng AI ang Mga Serbisyo ng Gobyerno at Negosyo",
-    c19_t:"Digital Transformation ng Pilipinas 2026: AI Adoption Higit Pa sa BPO",
-    c20_t:"AI Revolution ng BPO Industry ng Pilipinas: Mula sa Headcount Patungong Intelligence",
-  },
-  de: {
-    nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog', nav_careers:'Karriere', nav_contact:'Kontakt', nav_book:'Termin Buchen',
-    back_blog:'← Zurück zum Blog',
-    toc_label:'In diesem Artikel',
-    share_label:'Artikel teilen',
-    more_articles:'Weitere Artikel',
-    copy_link:'Link kopieren',
-    copied:'Kopiert!',
-    cat_ai:'KI &amp; Technologie', cat_odoo:'Odoo ERP', cat_vn:'Vietnam', cat_sg:'Singapur', cat_ph:'Philippinen',
-    c1_t:'GPT-5: OpenAIs fähigstes agentisches KI-Modell bisher',
-    c2_t:'KI-Infrastrukturausgaben der Tech-Giganten: Q1 2026 Ergebnisanalyse',
-    c3_t:'LG und NVIDIA: Das Zeitalter der Physischen KI Hat Offiziell Begonnen',
-    c4_t:'KI-Agenten-Governance: Regulatoren Weisen auf Kontrollmängel Hin',
-    c5_t:'GitHub Copilot Wechselt zur Pro-Token-Preisgestaltung — Was Das für Dev-Teams Bedeutet',
-    c6_t:'KI-Agenten 2026: Wie Autonome KI Enterprise-Abläufe Neu Gestaltet',
-    c7_t:'RAG-Systeme für Unternehmen: Der Vollständige Implementierungsleitfaden',
-    c8_t:'Lokales LLM-Deployment: KI On-Premise für Enterprise-Sicherheit Betreiben',
-    c9_t:'Context Engineering: Die Neue Disziplin, die KI-Systeme Tatsächlich Zum Laufen Bringt',
-    c10_t:'Odoo 18: Neue Funktionen und die Unternehmens-Upgrade-Entscheidung',
-    c11_t:'KI in Odoo ERP Integrieren: Ein Schrittweiser Implementierungsleitfaden',
-    c12_t:'Odoo vs SAP 2026: Welches ERP Ist das Richtige für Ihr Unternehmen?',
-    c13_t:'Warum Südostasiatische KMU 2026 zu Odoo ERP Wechseln',
-    c14_t:'Vietnams Digitale Wirtschaft 2026: KI-Adoption Beschleunigt Sich Branchenübergreifend',
-    c15_t:'Vietnams Tech-Talente: Warum Globale Unternehmen Dev-Hubs Hier Aufbauen',
-    c16_t:'Vietnam Software-Exporte Erreichen 8 Mrd. $: Aufstieg zur KI-Supermacht',
-    c17_t:'Singapurs Nationale KI-Strategie 2.0: Was Jedes Unternehmen Wissen Muss',
-    c18_t:'Singapur Smart Nation: Wie KI Regierungs- und Unternehmensservices Transformiert',
-    c19_t:'Digitale Transformation der Philippinen 2026: KI-Adoption Jenseits von BPO',
-    c20_t:'Die KI-Revolution der Philippinischen BPO-Industrie: Von Headcount zu Intelligenz',
-  },
 };
 
 /* ── TOC scroll-handler ref so we can remove it on language switch ── */
@@ -418,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function () {
     switcher.className = 'lang-switcher';
     switcher.setAttribute('role', 'group');
     switcher.setAttribute('aria-label', 'Language');
-    switcher.innerHTML = '<button class="lang-btn" onclick="applyBlogLang(\'en\')">EN</button><button class="lang-btn" onclick="applyBlogLang(\'vn\')">VN</button><button class="lang-btn" onclick="applyBlogLang(\'ph\')">PH</button><button class="lang-btn" onclick="applyBlogLang(\'de\')">DE</button>';
+    switcher.innerHTML = '<button class="lang-btn" onclick="applyBlogLang(\'en\')">EN</button><button class="lang-btn" onclick="applyBlogLang(\'vn\')">VN</button>';
     navApply.insertAdjacentElement('beforebegin', switcher);
   }
 
@@ -461,8 +401,6 @@ document.addEventListener('DOMContentLoaded', function () {
   else {
     const l = (navigator.language || '').toLowerCase();
     if (l.startsWith('vi')) applyBlogLang('vn');
-    else if (l.startsWith('de')) applyBlogLang('de');
-    else if (l.startsWith('fil') || l.startsWith('tl')) applyBlogLang('ph');
     else applyBlogLang('en');
   }
 });

@@ -51,7 +51,7 @@ html::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.22); border-radius: 3px
 html::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
 html::-webkit-scrollbar-corner { background: transparent; }
 body {
-  background: #f0ece3;
+  background: #ffffff;
   color: #1a1a2e;
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
@@ -61,16 +61,16 @@ body {
 a { color: inherit; text-decoration: none; }
 
 :root {
-  --bg: #f0ece3;
+  --bg: #f0f6ff;
   --white: #ffffff;
-  --blue: #2563eb;
-  --blue-dark: #1d4ed8;
-  --blue-light: #dbeafe;
-  --blue-pale: #eff6ff;
+  --blue: #3167ca;
+  --blue-dark: #2558b8;
+  --blue-light: #dce9f9;
+  --blue-pale: #f0f6ff;
   --yellow-mid: #fef08a;
   --plum: #6d2d7a;
   --text: #1a1a2e;
-  --text-muted: #64748b;
+  --text-muted: #5a6572;
   --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans);
   --sans: 'DM Sans', sans-serif;
@@ -461,7 +461,7 @@ nav#mainNav.nav-hidden { transform: translateY(-100%); }
   font-family: var(--sans); transition: all 0.2s; white-space: nowrap;
   text-decoration: none; flex-shrink: 0;
 }
-.map-open-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,0.3); }
+.map-open-btn:hover { background: #2558b8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,0.3); }
 @media (max-width: 640px) { .maps-grid { grid-template-columns: 1fr; } }
 
 /* ===== REVEAL ===== */
@@ -583,6 +583,111 @@ footer {
 <script>
   gtag('event', 'conversion', {'send_to': 'AW-18068724830/dBpuCLul3bQcEN6466dD'});
 </script>
+<style id="tn-ux">
+/* ===== TechNext shared interaction layer - buttons, cards, focus ===== */
+:root{
+  --tn-ease:cubic-bezier(0.22,1,0.36,1);
+  --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
+}
+
+/* ---------- BUTTONS: solid / primary ---------- */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
+.cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+  transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
+             background .26s var(--tn-ease),filter .26s var(--tn-ease);
+  will-change:transform;
+}
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
+}
+/* press feedback - was missing everywhere */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
+.lang-btn:active,.hamburger:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- BUTTONS: outline / ghost / filter ---------- */
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+  transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
+             background .22s var(--tn-ease),color .22s var(--tn-ease),
+             box-shadow .22s var(--tn-ease);
+}
+.btn-outline:hover,.btn-ghost:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.filter-btn:hover:not(.active),.country-btn:hover:not(.active){
+  transform:translateY(-2px);
+  border-color:var(--tn-blue);
+  color:var(--tn-blue);
+  box-shadow:0 6px 16px rgba(49,103,202,.16);
+}
+.lang-btn:hover:not(.active){transform:translateY(-1px);}
+
+/* ---------- CARDS ---------- */
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
+.insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
+.talent-card,.faq-item{
+  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
+             border-color .32s var(--tn-ease);
+  will-change:transform;
+}
+.svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
+.join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
+.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
+.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(49,103,202,.16);
+  border-color:rgba(49,103,202,.42);
+}
+.m-card:hover{transform:translateY(-4px) scale(1.03);}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
+.gallery-item img{transition:transform .5s var(--tn-ease);}
+.faq-item:hover{border-color:rgba(49,103,202,.42);}
+/* clickable cards get a press state too */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
+  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+}
+
+/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
+  outline:3px solid var(--tn-blue);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.btn-plum:focus-visible,.cta-primary:focus-visible,.nav-apply:focus-visible,
+.btn-outline:focus-visible,.filter-btn:focus-visible,.lang-btn:focus-visible{
+  outline:3px solid var(--tn-blue-dk);
+  outline-offset:3px;
+}
+
+/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important;}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -606,7 +711,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('vn')">VN</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
     <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -897,25 +1001,6 @@ const LANG = {
     map_sg_loc: 'Văn phòng Singapore', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
     footer_copy: '© 2026 TechNext Asia · technext.asia',
   },
-  de: {
-    nav_about: 'Über Uns', nav_gallery: 'Galerie', nav_blog: 'Blog', nav_careers: 'Karriere', nav_contact: 'Kontakt', nav_apply: 'Termin Buchen',
-    contact_label: 'Kontakt',
-    contact_title_1: 'Sprechen wir', contact_title_2: 'Miteinander',
-    contact_sub: 'Wir freuen uns über Kontakte mit talentierten Entwicklern, Partnern und neugierigen Köpfen. Meld dich — wir freuen uns auf das Gespräch.',
-    contact_direct_title: 'Kontakt nach Region',
-    contact_web_label: 'Website',
-    contact_offices_title: 'Wo Wir Sind',
-    contact_offices_desc: 'Das technische Herzstück von TechNext ist Vietnam. Unsere Dev Hubs erstrecken sich über drei Länder — der Vietnam Dev Hub ist das Zentrum unserer KI- und Engineering-Aktivitäten.',
-    clients_worldwide_label: 'Kunden weltweit',
-    contact_social_title: 'Finde Uns Online',
-    region_vn: 'Vietnam', region_ph: 'Philippinen', region_sg: 'Singapur',
-    map_btn: 'Karte', map_open_btn: 'In Maps öffnen',
-    contact_offices_map_title: 'Unsere Büros',
-    map_vn_loc: 'Vietnam Dev Hub', map_vn_sub: '62 Nguyễn Thị Nhung, P. Hiệp Bình, TP.HCM',
-    map_ph_loc: 'Büro Philippinen', map_ph_sub: 'Level 9, IP Center, Taguig, Metro Manila',
-    map_sg_loc: 'Büro Singapur', map_sg_sub: '261 Waterloo St, #03-36, Singapore',
-    footer_copy: '© 2026 TechNext Asia · technext.asia',
-  }
 };
 
 let currentLang = 'en';

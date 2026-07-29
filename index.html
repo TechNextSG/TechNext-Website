@@ -37,7 +37,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preload" as="image" href="/images/hero/2.webp" fetchpriority="high">
 <link rel="alternate" hreflang="en" href="https://technext.asia/">
 <link rel="alternate" hreflang="vi" href="https://technext.asia/">
-<link rel="alternate" hreflang="de" href="https://technext.asia/">
 <link rel="alternate" hreflang="x-default" href="https://technext.asia/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="TechNext Asia">
@@ -102,7 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "url": "https://technext.asia",
   "name": "TechNext Asia",
   "description": "Enterprise AI and Odoo ERP solutions for businesses across Southeast Asia and globally.",
-  "inLanguage": ["en", "vi", "de"],
+  "inLanguage": ["en", "vi"],
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://technext.asia/blog/?q={search_term_string}",
@@ -204,7 +203,7 @@ a { color: inherit; text-decoration: none; }
   --peach: #ffedd5;
   --plum: #6d2d7a;
   --text: #1a1a2e;
-  --text-muted: #64748b;
+  --text-muted: #5a6572;
   --border: #e2e8f0;
   --handwriting: 'Montserrat', var(--sans);
   --sans: 'DM Sans', sans-serif;
@@ -1721,7 +1720,112 @@ footer {
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18068724830');
-</script></head>
+</script><style id="tn-ux">
+/* ===== TechNext shared interaction layer - buttons, cards, focus ===== */
+:root{
+  --tn-ease:cubic-bezier(0.22,1,0.36,1);
+  --tn-blue:#3167ca; --tn-blue-2:#425eae; --tn-blue-dk:#2558b8;
+}
+
+/* ---------- BUTTONS: solid / primary ---------- */
+.btn-plum,.cta-primary,.nav-apply,.btn-apply,.btn-contact,.btn-primary,
+.filter-btn.active,.country-btn.active,.lang-btn.active,.bcc-btn,
+.cta-email-btn,.hero-email-btn,.svc-cta-submit,.bk-confirm-btn,
+.bk-next-btn,.bk-done-btn,.exit-cta-btn,.nav-cta,.btn-cta{
+  transition:transform .26s var(--tn-ease),box-shadow .26s var(--tn-ease),
+             background .26s var(--tn-ease),filter .26s var(--tn-ease);
+  will-change:transform;
+}
+.btn-plum:hover,.cta-primary:hover,.nav-apply:hover,.btn-apply:hover,
+.btn-contact:hover,.btn-primary:hover,.bcc-btn:hover,.cta-email-btn:hover,
+.hero-email-btn:hover,.svc-cta-submit:hover,.bk-confirm-btn:hover,
+.bk-next-btn:hover,.bk-done-btn:hover,.exit-cta-btn:hover,.nav-cta:hover,.btn-cta:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(49,103,202,.34);
+  filter:saturate(1.06);
+}
+/* press feedback - was missing everywhere */
+.btn-plum:active,.cta-primary:active,.nav-apply:active,.btn-apply:active,
+.btn-contact:active,.btn-primary:active,.bcc-btn:active,.cta-email-btn:active,
+.hero-email-btn:active,.svc-cta-submit:active,.bk-confirm-btn:active,
+.bk-next-btn:active,.bk-done-btn:active,.exit-cta-btn:active,.nav-cta:active,
+.btn-cta:active,.btn-outline:active,.filter-btn:active,.country-btn:active,
+.lang-btn:active,.hamburger:active{
+  transform:translateY(0) scale(.975);
+  box-shadow:0 3px 10px rgba(49,103,202,.24);
+  transition-duration:.08s;
+}
+
+/* ---------- BUTTONS: outline / ghost / filter ---------- */
+.btn-outline,.filter-btn,.country-btn,.lang-btn,.btn-ghost,.bk-fmt-btn,.btn-back{
+  transition:transform .22s var(--tn-ease),border-color .22s var(--tn-ease),
+             background .22s var(--tn-ease),color .22s var(--tn-ease),
+             box-shadow .22s var(--tn-ease);
+}
+.btn-outline:hover,.btn-ghost:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.filter-btn:hover:not(.active),.country-btn:hover:not(.active){
+  transform:translateY(-2px);
+  border-color:var(--tn-blue);
+  color:var(--tn-blue);
+  box-shadow:0 6px 16px rgba(49,103,202,.16);
+}
+.lang-btn:hover:not(.active){transform:translateY(-1px);}
+
+/* ---------- CARDS ---------- */
+.svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
+.gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
+.insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
+.talent-card,.faq-item{
+  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
+             border-color .32s var(--tn-ease);
+  will-change:transform;
+}
+.svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
+.join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
+.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
+.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(49,103,202,.16);
+  border-color:rgba(49,103,202,.42);
+}
+.m-card:hover{transform:translateY(-4px) scale(1.03);}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
+.gallery-item img{transition:transform .5s var(--tn-ease);}
+.faq-item:hover{border-color:rgba(49,103,202,.42);}
+/* clickable cards get a press state too */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
+  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+}
+
+/* ---------- FOCUS: visible ring everywhere (audit: missing sitewide) ---------- */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible,.gallery-item:focus-visible{
+  outline:3px solid var(--tn-blue);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.btn-plum:focus-visible,.cta-primary:focus-visible,.nav-apply:focus-visible,
+.btn-outline:focus-visible,.filter-btn:focus-visible,.lang-btn:focus-visible{
+  outline:3px solid var(--tn-blue-dk);
+  outline-offset:3px;
+}
+
+/* ---------- REDUCED MOTION (audit: zero support sitewide) ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important;}
+}
+</style>
+</head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB9CDFGG"
@@ -1748,7 +1852,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('vn')">VN</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
     <a href="#" class="nav-apply" data-k="nav_apply" onclick="openBooking();return false;">Book Now</a>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -2368,83 +2471,6 @@ const LANG = {
     ind3_t:'Y Tế & Sức Khỏe', ind3_d:'Lịch hẹn bệnh nhân, hồ sơ phòng khám, kho và thanh toán tự động với bảo mật dữ liệu đầy đủ.',
     ind4_t:'Xây Dựng', ind4_d:'Theo dõi dự án, mua hàng, quản lý thầu phụ và báo cáo công trường — một nền tảng.',
     ind5_t:'Resort & Khách Sạn', ind5_d:'Hệ thống đặt phòng, lịch hoạt động, tích hợp POS và tự động hóa trải nghiệm khách.',},
-  de: {
-    nav_about:'Über Uns', nav_gallery:'Galerie', nav_blog:'Blog',
-    nav_careers:'Karriere', nav_contact:'Kontakt', nav_apply:'Termin Buchen',
-    badge1:'KI-natives Unternehmen', pain_tag:'Warum Unternehmen zu uns kommen', pain_h2:'Kommt Ihnen das bekannt vor?',
-    pain1_t:'Manuelle Arbeit tötet die Produktivität', pain1_d:'Ihr Team verbringt Stunden mit Dateneingabe und Aufgaben, die Sekunden dauern sollten.',
-    pain2_t:'Getrennte Systeme, blinde Entscheidungen', pain2_d:'Ihr CRM synchronisiert nicht mit dem Lager. Sie treffen Entscheidungen auf Basis veralteter Daten.',
-    pain3_t:'Umsatz fällt durch die Ritzen', pain3_d:'Langsame Follow-ups, verpasste Angebote, verzögerte Rechnungen. Jeder kaputte Prozess hat seinen Preis.',
-    sol_tag:'Wie wir es lösen', sol_h2:'Drei Dinge. Massiver Impact.', sol1:'Automatisieren Sie die Arbeit. Fokus auf Wachstum.', sol2:'Verbinden Sie Ihre Tools. Entscheiden Sie sicher.', sol3:'KI in Wochen liefern. Nicht Monaten.', sol_cta:'Kostenloses Strategiegespräch →',
-    ind_tag:'Branchen, die wir bedienen', ind_h2:'Gebaut für Ihren Sektor.', ind_sub:'Wir haben KI- und ERP-Lösungen in nachfragestarken Branchen implementiert.',
-    ind1_t:'Gastronomie & Getränke', ind1_d:'Auftragsmanagement, Inventar, Lieferantenautomatisierung und Kundenbindung — alles verbunden.',
-    ind2_t:'Hotelmanagement', ind2_d:'Reservierungen, Housekeeping, Gästekommunikation und Abrechnung — von Ende zu Ende optimiert.',
-    ind3_t:'Medizin & Gesundheit', ind3_d:'Patientenplanung, Klinikakten, Inventar und Abrechnungsautomatisierung mit vollem Datenschutz.',
-    ind4_t:'Bauwesen', ind4_d:'Projektverfolgung, Beschaffung, Nachunternehmer-Management und Standortberichte — eine Plattform.',
-    ind5_t:'Resort & Gastgewerbe', ind5_d:'Buchungsmaschinen, Aktivitätsplanung, POS-Integration und Automatisierung des Gästeerlebnisses.',
-    badge2:'Von 11+ Unternehmen weltweit vertraut',
-    hero_h1a:'Hören Sie auf, Umsatz zu verlieren', hero_h1b:'durch manuelle Arbeit.', hero_h1c:'Wir automatisieren es mit KI.',
-    hero_sub:'Jede manuelle Aufgabe, jedes getrennte System und jeder langsame Prozess kostet Ihr Unternehmen Geld. TechNext ersetzt das durch KI.',
-    hero_cta1:'Kostenlose Demo buchen →', hero_cta2:'Mehr erfahren',
-    trust1:'Zertifizierter Odoo-Partner', trust2:'ISO 27001 (in Bearbeitung)', trust3:'Claude Partner', trust4:'Weltweit',
-    stat1_lbl:'Bediente Länder', stat1_sub:'weltweit',
-    stat2_lbl:'Unternehmenskunden', stat2_sub:'transformiert',
-    stat3_lbl:'KI-Kerndisziplinen', stat3_sub:'Agents, RAG, Chatbots, ERP',
-    about_tag:'Wer Wir Sind', about_h2:'KI-nativ. Enterprise-bereit.',
-    about_p1:'TechNext ist eine globale KI- und ERP-Beratung. Wir entwerfen, bauen und implementieren unternehmenstaugliche Automatisierung für Unternehmen in Asien, Europa und Amerika.',
-    about_cta:'Kostenlose Beratung buchen →',
-    impact_tag:'Unsere Wirkung', impact_h2:'Unternehmen, die wir transformiert haben',
-    impact_sub:'Vertraut von Qualcomm, TSMC, der Singapur-Regierung und Unternehmen aus Fertigung, Logistik und Dienstleistungen.',
-    impact_cta:'Mit uns arbeiten →',
-    svc_tag:'Was wir bauen', svc_h2:'Enterprise-KI & ERP-Lösungen',
-    svc_sub:'Vier Kernkompetenzen — jeweils end-to-end implementiert, produktiv deployed und auf Ihre Branche zugeschnitten.',
-    svc_cta:'Kostenlose Demo buchen →',
-    svc1_name:'KI-Agents & Automatisierung', svc1_desc:'Entwerfen und deployen Sie autonome Multi-Agent-Systeme mit LangChain, CrewAI und Claude API.',
-    svc2_name:'Wissens- & RAG-Systeme', svc2_desc:'Bauen Sie intelligente Wissensabrufsysteme, mit denen Unternehmen über Millionen von Dokumenten schlussfolgern können.',
-    svc3_name:'KI-Chatbots & Assistenten', svc3_desc:'Erstellen Sie mehrsprachige KI-Chatbots für Unternehmensportale, WhatsApp und Web-Apps.',
-    svc4_name:'Odoo ERP-Implementierung', svc4_desc:'Integrieren Sie KI-Workflows direkt in ERP-Systeme und verbinden Sie Geschäftsprozessautomatisierung mit Echtzeit-Betriebsdaten.',
-    join_tag:'Warum TechNext', join_h2:'Was Sie Erhalten<br>Mit <span class="highlight">TechNext</span>',
-    join_sub:'Wir implementieren nicht nur Software. Wir arbeiten mit Ihrem Unternehmen zusammen, um Systeme zu bauen, die skalieren, performen und echten ROI liefern.',
-    why1_t:'Nachgewiesener ROI', why1_d:'30–60% Reduzierung manueller Arbeit, typischerweise innerhalb von 3–6 Monaten nach dem Go-Live.',
-    why2_t:'Passend für Ihre Branche', why2_d:'F&B, Hotel, Medizin, Bauwesen, Resort — wir kennen Ihre Branchenabläufe.',
-    why3_t:'Schneller Go-Live', why3_d:'Vom Erstgespräch bis zum Go-Live in Wochen, nicht Quartalen.',
-    why4_t:'Datenschutz an Erster Stelle', why4_d:'On-Premise-Bereitstellung möglich. Ihre Daten bleiben in Ihrer Infrastruktur.',
-    why5_t:'Laufender Support', why5_d:'Wir verschwinden nicht nach dem Launch. Dedizierter Support und kontinuierliche Verbesserungen nach dem Go-Live.',
-    jp_title:'Was Sie Erhalten', jp_sub:'Umfassende Implementierung — von der Entdeckung bis zum Go-Live und darüber hinaus.',
-    jp1_t:'Dediziertes Implementierungsteam', jp1_d:'Ein fokussiertes Team, das Ihre Branche und Geschäftsziele versteht.',
-    jp2_t:'Vollständige Datenmigration', jp2_d:'Wir migrieren alle Ihre bestehenden Daten — aus Excel, Altsystemen oder Datenbanken.',
-    jp3_t:'Mitarbeiterschulung & Onboarding', jp3_d:'Jedes System, das wir bauen, enthält Dokumentation und praktisches Mitarbeiterschulung.',
-    jp4_t:'Post-Launch-Überwachung', jp4_d:'Wir überwachen die Performance proaktiv — Sie sind nach dem Go-Live nie allein.',
-    jp_cta:'Kostenlose Demo buchen →',
-    join_cta:'Kostenloses Strategiegespräch buchen →',
-    faq_tag:'FAQ', faq_h2:'Häufige Fragen<br><span class="highlight">Beantwortet</span>', faq_cta:'Kontakt aufnehmen →',
-    faq1_q:'Wie lange dauert die Implementierung?', faq1_a:'KI-Automatisierungsprojekte gehen in der Regel innerhalb von 4–8 Wochen live. Vollständige Odoo ERP-Implementierungen dauern 6–12 Wochen je nach Umfang und Datenkomplexität. Wir geben Ihnen einen klaren Zeitplan vor Beginn.',
-    faq2_q:'Gibt es eine kostenlose Testphase?', faq2_a:'Ja — wir bieten ein kostenloses 1-stündiges Discovery-Gespräch ohne Verpflichtung an. Für größere Projekte empfehlen wir eine bezahlte 2–3-wöchige POC-Phase, damit Sie echte Ergebnisse sehen, bevor Sie sich voll engagieren.',
-    faq3_q:'Können Sie mit unseren bestehenden Systemen integrieren?', faq3_a:'Ja — wir sind spezialisiert auf die Verbindung bestehender Tools. Ob CRM, Buchhaltungssoftware, Lagerverwaltung oder Legacy-Datenbank — wir migrieren Ihre Daten und bauen Integrationen, die alles zusammenarbeiten lassen.',
-    faq4_q:'Wie viel kostet es?', faq4_a:'Die Kosten hängen vom Umfang ab. KI-Automatisierungsprojekte beginnen in der Regel ab 3.000–8.000 USD. Odoo ERP ab 5.000 USD. Buchen Sie ein kostenloses Discovery-Gespräch für ein individuelles Angebot.',
-    careers_tag:'Offene Stellen', careers_h2:'Unserem Vietnam Dev Hub beitreten',
-    careers_sub:'Wir stellen das Team zusammen, das die Unternehmens-KI definieren wird. Wenn Sie außergewöhnlich sind und die beste Arbeit Ihrer Karriere leisten möchten — das ist Ihr Ort.',
-    careers_cta:'Jetzt bewerben →',
-    apply_btn:'Jetzt bewerben →',
-    dept_eng:'Technik', dept_infra:'Infrastruktur', dept_mgmt:'Management',
-    dept_hw:'Hardware', dept_ai:'KI-Systeme', dept_lead:'Führung', dept_qa:'Qualität',
-    role1_n:'KI-Ingenieur', role1_d:'Entwickeln und deployen Sie produktive KI-Systeme — Agents, Fine-tuned Models und Inference-Pipelines für Enterprise-Kunden weltweit.',
-    role2_n:'DevOps-Ingenieur', role2_d:'Verwalten Sie die Infrastruktur für den Betrieb lokaler LLMs in großem Maßstab — GPU-Cluster, Inference-Server und KI-optimierte Deployment-Pipelines.',
-    role3_n:'IT-Manager', role3_d:'Leiten Sie den IT-Betrieb im globalen Dev-Hub-Netzwerk von TechNext — Systemsicherheit, Infrastrukturmanagement und Compliance.',
-    role4_n:'IoT-Ingenieur', role4_d:'Verbinden Sie physische Geräte und Sensoren mit unserer KI-Plattform — Edge Intelligence und IoT-to-Cloud-Pipelines für Enterprise-Umgebungen.',
-    role5_n:'Context Engineer', role5_d:'Entwerfen und optimieren Sie Prompts, RAG-Architekturen und KI-Kontextsysteme für zuverlässige Enterprise-KI-Anwendungen.',
-    role6_n:'CAITO', role6_d:'Leiten Sie die gesamte KI-Strategie, Technologie-Roadmap und Engineering-Kultur von TechNext. Definieren Sie, wie wir KI-Systeme für globale Kunden aufbauen.',
-    role7_n:'Automatisierungsingenieur', role7_d:'Bauen Sie intelligente Workflow-Automatisierungen mit KI, Odoo und Integrationsplattformen — für Enterprise-Operationen weltweit.',
-    role8_n:'KI-Reliability & QA Engineer', role8_d:'Stellen Sie sicher, dass KI-Systeme in der Produktion zuverlässig funktionieren — Evaluation-Frameworks und Monitoring der KI-Ausgabequalität.',
-    cult1_h:'Globale Lieferung', cult1_p:'Wir bedienen Kunden in Singapur, Vietnam, Europa, USA und Japan — Englisch-first, null Sprachbarrieren.',
-    cult2_h:'Produktionsbereit, schnell', cult2_p:'Von der Entdeckung bis zum Go-Live in Wochen, nicht Monaten. Wir sind schnell, ohne Abstriche bei Sicherheit oder Skalierbarkeit.',
-    cult3_h:'Ihre Daten, Ihre Kontrolle', cult3_p:'On-Premise-Bereitstellungsoptionen und Datenschutz by Design — Ihre Daten bleiben in Ihrer Infrastruktur.',
-    ins_label:'Aus dem Blog', ins_h2:'Neueste <span class="highlight">Einblicke</span>', ins_sub:'KI, Odoo ERP und digitale Transformation in Südostasien.',
-    ins_cta:'Alle Artikel anzeigen →',
-    ins_c1_cat:'KI &amp; Tech', ins_c1_t:'KI-Agents in der Unternehmensautomatisierung', ins_c1_e:'Wie autonome KI-Agents Geschäftsworkflows umgestalten und Betriebskosten senken.',
-    ins_c2_cat:'Odoo ERP', ins_c2_t:'Odoo ERP für KMU in Südostasien', ins_c2_e:'Warum wachsende Unternehmen Odoo gegenüber Legacy-ERP-Plattformen wählen.',
-    ins_c3_cat:'KI &amp; Tech', ins_c3_t:'RAG-Systeme: Enterprise-KI-Leitfaden', ins_c3_e:'Ein praktischer Leitfaden zum Aufbau von Retrieval-Augmented-Generation-Systemen, die in Produktionsumgebungen zuverlässig funktionieren.',
-    footer_copy:'© 2026 TechNext Asia · technext.asia · Alle Rechte vorbehalten',}
 };
 
 let currentLang = 'en';
@@ -2644,7 +2670,6 @@ document.addEventListener('DOMContentLoaded', () => {
   else {
     const l = (navigator.language||'').toLowerCase();
     if (l.startsWith('vi')) setLang('vn');
-    else if (l.startsWith('de')) setLang('de');
     else setLang('en');
   }
 });
