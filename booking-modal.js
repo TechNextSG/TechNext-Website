@@ -293,7 +293,7 @@ textarea.booking-input{resize:none;height:76px}
   if (!document.getElementById('tnBot')) {
     const _bs = document.createElement('style');
     _bs.textContent = `
-#tnBotBtn{position:fixed;bottom:100px;right:28px;z-index:1900;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(49,103,202,.45);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+#tnBotBtn{position:fixed;bottom:100px;right:28px;z-index:1900;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#425eae);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(49,103,202,.45);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
 #tnBotBtn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(49,103,202,.6)}
 #tnBotBtn svg{width:26px;height:26px}
 @keyframes botPulse{0%,100%{box-shadow:0 4px 20px rgba(49,103,202,.45)}50%{box-shadow:0 4px 32px rgba(49,103,202,.75),0 0 0 8px rgba(49,103,202,.12)}}
@@ -302,7 +302,7 @@ textarea.booking-input{resize:none;height:76px}
 #tnBotBadge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:#ef4444;border-radius:50%;font-size:.62rem;font-weight: 700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff;pointer-events:none}
 #tnBotPanel{position:fixed;bottom:168px;right:28px;z-index:1902;width:350px;max-height:520px;border-radius:20px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,.22),0 2px 8px rgba(0,0,0,.1);font-family:'DM Sans',-apple-system,sans-serif;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(18px) scale(.96);transition:opacity .25s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
 #tnBotPanel.bot-open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
-.bot-header{background:linear-gradient(135deg,#2558b8,#6d28d9);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.bot-header{background:linear-gradient(135deg,#2558b8,#1e4488);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .bot-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
 .bot-hinfo{flex:1;min-width:0}
 .bot-hname{font-size:.88rem;font-weight:700;color:#fff;letter-spacing:-.01em}
@@ -314,10 +314,10 @@ textarea.booking-input{resize:none;height:76px}
 .bot-messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
 .bot-msg-row{display:flex;align-items:flex-end;gap:8px}
 .bot-msg-row.user{flex-direction:row-reverse}
-.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight: 700;color:#fff;flex-shrink:0}
+.bot-msg-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3167ca,#425eae);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight: 700;color:#fff;flex-shrink:0}
 .bot-bubble{max-width:82%;padding:10px 13px;border-radius:16px;font-size:.82rem;line-height:1.55;position:relative}
 .bot-bubble.bot{background:#fff;border-radius:4px 16px 16px 16px;color:#1e293b;box-shadow:0 1px 4px rgba(0,0,0,.09)}
-.bot-bubble.user{background:linear-gradient(135deg,#3167ca,#6d28d9);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(49,103,202,.3)}
+.bot-bubble.user{background:linear-gradient(135deg,#3167ca,#2558b8);color:#fff;border-radius:16px 16px 4px 16px;box-shadow:0 2px 8px rgba(49,103,202,.3)}
 .bot-bubble b{font-weight:700}
 .bot-bubble ul{margin:6px 0 2px 0;padding-left:16px}
 .bot-bubble ul li{margin-bottom:3px}
@@ -334,7 +334,7 @@ textarea.booking-input{resize:none;height:76px}
 .bot-input-row{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid rgba(0,0,0,.07);flex-shrink:0}
 #tnBotInput{flex:1;border:1.5px solid rgba(0,0,0,.1);border-radius:22px;padding:8px 14px;font-size:.8rem;font-family:inherit;outline:none;color:#1e293b;transition:border-color .2s;background:#f8faff}
 #tnBotInput:focus{border-color:#3167ca;background:#fff}
-#tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#3167ca,#7c3aed);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+#tnBotSend{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#3167ca,#425eae);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
 #tnBotSend:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(49,103,202,.4)}
 #tnBotSend svg{width:16px;height:16px;margin-left:2px}
 @media(max-width:400px){#tnBotPanel{width:calc(100vw - 20px);right:10px;bottom:152px}#tnBotBtn{right:10px;bottom:88px}}

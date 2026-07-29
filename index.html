@@ -1326,7 +1326,7 @@ footer {
   .hero-img-col { width: 72%; }
 }
 @media (max-width: 768px) {
-  nav { padding: 0 4%; height: 56px; }
+  nav { padding: 0 6%; height: 56px; }
   nav#mainNav { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: none; }
   .nav-links { display: none; }
   .nav-apply { display: inline-flex; padding: 6px 13px; font-size: 0.72rem; letter-spacing: 0.01em; }
@@ -1648,14 +1648,14 @@ footer {
 #pain{background:#f0f4ff;}
 .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:2.5rem;}
 .pain-card{background:#fff;border:none;border-radius:24px;padding:2rem 1.8rem;transition:transform .25s,box-shadow .25s;box-shadow:0 4px 24px rgba(49,103,202,.09);position:relative;overflow:hidden;}
-.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#3167ca,#7c3aed);}
+.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6c93dc,#425eae);}
 .pain-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(49,103,202,.15);}
-.pain-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#dce9f9,#ede9fe);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.pain-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#dce9f9,#eaf1fd);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
 .pain-icon svg{width:24px;height:24px;stroke:#3167ca;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .pain-card h3{font-size:1rem;font-weight:700;color:#1e293b;margin-bottom:.65rem;}
 .pain-card p{font-size:.875rem;color:#64748b;line-height:1.75;margin:0;}
 /* ===== SOLUTIONS ===== */
-#solutions{background:linear-gradient(135deg,#2558b8 0%,#6d28d9 100%);}
+#solutions{background:linear-gradient(135deg,#3167ca 0%,#1e4488 100%);}
 .solutions-wrap{text-align:center;}
 .sol-title{color:#fff!important;}
 .sol-title .highlight{color:#fbbf24!important;}
@@ -1674,7 +1674,7 @@ footer {
 .ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.4rem;}
 .ind-card{background:#f8faff;border:1.5px solid rgba(49,103,202,.1);border-radius:20px;padding:1.8rem 1.2rem;text-align:center;transition:transform .25s,box-shadow .25s;}
 .ind-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(49,103,202,.13);background:#fff;}
-.ind-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#dce9f9,#ede9fe);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.ind-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#dce9f9,#eaf1fd);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
 .ind-icon svg{width:24px;height:24px;stroke:#3167ca;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .ind-card h3{font-size:.875rem;font-weight:700;color:#1e293b;margin-bottom:.5rem;}
 .ind-card p{font-size:.8rem;color:#64748b;line-height:1.6;margin:0;}
@@ -1807,28 +1807,117 @@ footer {
   to  {left:165%;}
 }
 
-/* ---------- CARDS ---------- */
+/* ===== FUTURISTIC CARD LAYER =====
+   Glow ring + deep lift are driven purely by box-shadow/transform, so cards
+   that already use ::before (accent bar) or ::after are never clobbered.
+   The sheen is applied only to cards whose ::after is free.
+---------------------------------------------------------------- */
 .svc-card,.blog-card,.role-card,.why-card,.join-item,.m-card,.culture-card,
 .gallery-item,.stat-box,.wp-card,.testi-card,.i-card,.sol-card,.spick,
 .insight-card,.contact-region-card,.rec-article,.share-card,.svc-item,
-.talent-card,.faq-item{
-  transition:transform .32s var(--tn-ease),box-shadow .32s var(--tn-ease),
-             border-color .32s var(--tn-ease);
+.talent-card,.faq-item,.pain-card,.ind-card,.role-panel,.join-panel{
+  position:relative;
+  isolation:isolate;
+  transition:transform .40s var(--tn-ease),
+             box-shadow .40s var(--tn-ease),
+             border-color .40s var(--tn-ease);
+  will-change:transform;
 }
+
+/* lift + layered glow ring */
 .svc-card:hover,.blog-card:hover,.role-card:hover,.why-card:hover,
 .join-item:hover,.culture-card:hover,.stat-box:hover,.wp-card:hover,
-.testi-card:hover,.i-card:hover,.sol-card:hover,.insight-card:hover,
-.contact-region-card:hover,.rec-article:hover,.svc-item:hover,.talent-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 18px 44px rgba(49,103,202,.16);
-  border-color:rgba(49,103,202,.42);
+.testi-card:hover,.i-card:hover,.insight-card:hover,.contact-region-card:hover,
+.rec-article:hover,.svc-item:hover,.talent-card:hover,.pain-card:hover,
+.ind-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(49,103,202,.45);
+  box-shadow:0 0 0 1px rgba(49,103,202,.32),
+             0 0 24px -6px rgba(49,103,202,.42),
+             0 28px 60px -14px rgba(49,103,202,.36);
 }
-.m-card:hover{transform:translateY(-4px) scale(1.03);}
-.gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,26,46,.22);}
-.gallery-item img{transition:transform .5s var(--tn-ease);}
-.faq-item:hover{border-color:rgba(49,103,202,.42);}
-a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active{
-  transform:translateY(-1px) scale(.994);transition-duration:.08s;
+/* cards on dark grounds glow white instead */
+.sol-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.42);
+  box-shadow:0 0 0 1px rgba(255,255,255,.28),
+             0 0 26px -6px rgba(255,255,255,.30),
+             0 28px 60px -14px rgba(0,0,0,.34);
+}
+.gallery-item:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 0 1px rgba(49,103,202,.30),
+             0 22px 52px -12px rgba(26,26,46,.34);
+}
+.m-card:hover{transform:translateY(-5px) scale(1.04);}
+.faq-item:hover{border-color:rgba(49,103,202,.45);box-shadow:0 6px 22px -8px rgba(49,103,202,.28);}
+
+/* diagonal sheen - contained by inset:0 + inherited radius, so no overflow
+   change is needed and nothing spills outside the card */
+.blog-card::after,.role-card::after,.why-card::after,.join-item::after,
+.culture-card::after,.stat-box::after,.wp-card::after,.testi-card::after,
+.i-card::after,.insight-card::after,.contact-region-card::after,
+.rec-article::after,.svc-item::after,.talent-card::after,.pain-card::after,
+.ind-card::after,.sol-card::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  z-index:3;
+  opacity:0;
+  background:linear-gradient(105deg,
+    transparent 34%,
+    rgba(49,103,202,.14) 50%,
+    transparent 66%);
+  background-size:250% 100%;
+  background-position:200% 0;
+  transition:opacity .3s var(--tn-ease);
+}
+.sol-card::after{
+  background:linear-gradient(105deg,
+    transparent 34%,
+    rgba(255,255,255,.20) 50%,
+    transparent 66%);
+  background-size:250% 100%;
+  background-position:200% 0;
+}
+.blog-card:hover::after,.role-card:hover::after,.why-card:hover::after,
+.join-item:hover::after,.culture-card:hover::after,.stat-box:hover::after,
+.wp-card:hover::after,.testi-card:hover::after,.i-card:hover::after,
+.insight-card:hover::after,.contact-region-card:hover::after,
+.rec-article:hover::after,.svc-item:hover::after,.talent-card:hover::after,
+.pain-card:hover::after,.ind-card:hover::after,.sol-card:hover::after{
+  opacity:1;
+  animation:tn-card-sheen 1.05s var(--tn-ease);
+}
+@keyframes tn-card-sheen{
+  from{background-position:200% 0;}
+  to  {background-position:-90% 0;}
+}
+
+/* icon tiles react to the parent card */
+.svc-card:hover .svc-icon,.pain-card:hover .pain-icon,.ind-card:hover .ind-icon,
+.why-card:hover .why-card-icon,.join-item:hover .join-icon,
+.culture-card:hover .culture-icon,.talent-card:hover .talent-icon{
+  transform:translateY(-2px) scale(1.08);
+  filter:saturate(1.15) brightness(1.04);
+}
+.svc-icon,.pain-icon,.ind-icon,.why-card-icon,.join-icon,.culture-icon,.talent-icon{
+  transition:transform .38s var(--tn-ease),filter .38s var(--tn-ease);
+}
+
+/* card titles pick up the accent on hover */
+.blog-card:hover .blog-card-title,.role-card:hover .role-name,
+.insight-card:hover .insight-title,.rec-article:hover .rec-article-title{
+  color:var(--tn-blue);
+}
+
+/* press state */
+a.blog-card:active,.gallery-item:active,.role-card:active,.spick:active,
+.ind-card:active,.svc-card:active{
+  transform:translateY(-2px) scale(.993);
+  transition-duration:.08s;
 }
 
 /* ---------- FOCUS ---------- */
