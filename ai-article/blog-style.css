@@ -134,7 +134,7 @@ ul, ol {
   display: inline-flex;
   align-items: center;
   padding: 9px 22px;
-  background: linear-gradient(135deg, #3167ca, #425eae);
+  background: linear-gradient(135deg, #6c93dc, #425eae);
   color: var(--white);
   font-family: var(--sans);
   font-size: 0.82rem;
@@ -145,7 +145,7 @@ ul, ol {
 }
 
 .nav-apply:hover {
-  background: linear-gradient(135deg, #2558b8, #3167ca);
+  background: linear-gradient(135deg, #425eae, #6c93dc);
   transform: translateY(-1px);
 }
 
