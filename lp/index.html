@@ -158,7 +158,7 @@
     @keyframes spick-pop{0%{transform:scale(1);}40%{transform:scale(1.03);}100%{transform:scale(1);}}
     @keyframes chk-bounce{0%{transform:scale(0);}60%{transform:scale(1.3);}100%{transform:scale(1);}}
     @keyframes btn-pulse{0%,100%{box-shadow:0 4px 16px rgba(135,90,123,.35);}50%{box-shadow:0 4px 28px rgba(135,90,123,.6);}}
-    .hero-form-wrap{background:var(--white);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.05);padding:36px 36px 32px;border:1px solid var(--border);animation:card-breathe 4s ease-in-out infinite;position:relative;transition:box-shadow .3s;}
+    .hero-form-wrap{background:var(--white);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.05);padding:36px 36px 32px;border:1px solid var(--border);position:relative;transition:box-shadow .3s;}
     .hero-form-wrap:focus-within{animation:none;box-shadow:0 16px 56px rgba(37,99,235,.18),0 2px 8px rgba(0,0,0,.05);}
     .form-tape-top{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:60px;height:20px;background:rgba(253,224,71,.7);border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.1);}
 
@@ -188,7 +188,7 @@
     .spick-desc{font-size:12px;color:var(--muted);}
     .spick-chk{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;font-size:12px;}
     .spick.sel .spick-chk{background:var(--purple);border-color:var(--purple);color:#fff;animation:chk-bounce .35s ease;}
-    .btn-primary:not(:disabled){animation:btn-pulse 2.5s ease-in-out infinite;}
+    .btn-primary:not(:disabled){}
 
     .ff{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
     .ff label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
@@ -278,13 +278,13 @@
     .why-inner .section-title{font-size:clamp(44px,4.8vw,68px);line-height:1.1;}
     .wp-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:20px;box-shadow:0 8px 32px rgba(37,99,235,.08);transition:transform .3s ease,box-shadow .3s ease,border-color .3s;}
     .wp-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(37,99,235,.15);border-color:var(--purple-mid);}
-    .wp-hd{display:flex;flex-direction:row;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--border);}
-    .wp-hd-body{flex:1;}
+    .wp-hd{display:flex;flex-direction:row;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border);}
+    .wp-hd-body{flex:1 1 210px;min-width:0;}
     .wp-hd-icon{width:52px;height:52px;background:var(--purple);border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;transition:transform .3s;}
     .wp-card:hover .wp-hd-icon{transform:scale(1.08);}
     .wp-hd-icon svg{width:26px;height:26px;}
     .wp-hd-title{font-family:var(--fh);font-size:38px;font-weight:700;color:var(--text);line-height:1.2;}
-    .wp-hd-badge{font-size:12px;font-weight:700;background:var(--green-light);color:var(--green);padding:5px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-top:5px;}
+    .wp-hd-badge{font-size:12px;white-space:nowrap;font-weight:700;background:var(--green-light);color:var(--green);padding:5px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-top:5px;}
     .wp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
     .wp-stat{text-align:center;padding:16px 8px;background:var(--purple-xl);border-radius:12px;}
     .wp-stat-num{font-family:var(--fh);font-size:32px;font-weight:700;color:var(--purple);line-height:1;}
@@ -372,7 +372,7 @@
     .hero-email-btn:hover{background:var(--cta-hover);}
     /* CTA email form */
     @keyframes form-glow{0%,100%{box-shadow:0 4px 24px rgba(135,90,123,.22);}50%{box-shadow:0 4px 36px rgba(135,90,123,.42);}}
-    .cta-email-form{display:flex;gap:0;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(135,90,123,.22);max-width:500px;margin:28px auto 0;animation:form-glow 3s ease-in-out infinite;transition:transform .2s,box-shadow .2s;}
+    .cta-email-form{display:flex;gap:0;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(135,90,123,.22);max-width:500px;margin:28px auto 0;transition:transform .2s,box-shadow .2s;}
     .cta-email-form:focus-within{transform:translateY(-2px);box-shadow:0 8px 40px rgba(135,90,123,.38);animation:none;}
     .cta-email-input{flex:1;border:none;padding:20px 26px;font-size:17px;font-family:var(--fb);outline:none;background:var(--white);color:var(--text);}
     .cta-email-input::placeholder{color:#9CA3AF;}
@@ -540,7 +540,7 @@
     .faq-item.open .faq-a{display:block;}
     /* ── SCARCITY ── */
     .scarcity{display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.25);border-radius:24px;padding:8px 18px;margin-bottom:24px;font-size:14px;font-weight:600;color:#DC2626;}
-    .scarcity-dot{width:8px;height:8px;border-radius:50%;background:#DC2626;animation:pulse-red 1.5s ease-in-out infinite;flex-shrink:0;}
+    .scarcity-dot{width:8px;height:8px;border-radius:50%;background:#DC2626;flex-shrink:0;}
     @keyframes pulse-red{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
     @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
     /* ── BOOKING MODAL ── */
@@ -682,7 +682,7 @@
       .section-title{font-size:clamp(30px,6vw,52px);}
       .section-sub{font-size:17px;max-width:100%;}
       .hero-h1{font-size:clamp(34px,6.5vw,52px);}
-      .badge-sticky,.badge-region{font-size:17px;padding:9px 16px;}
+      .badge-sticky,.badge-region{font-size:16px;padding:7px 14px;}
       .hero-eyebrow{gap:10px;margin-bottom:18px;}
       .form-heading{font-size:32px;}
       .form-subhead{white-space:normal;font-size:13px;}
@@ -730,7 +730,7 @@
 
       /* Hero */
       .hero-h1{font-size:clamp(28px,8.5vw,40px);line-height:1.0;}
-      .badge-sticky,.badge-region{font-size:22px;padding:12px 22px;}
+      .badge-sticky,.badge-region{font-size:13px;padding:5px 11px;}
       .hero-eyebrow{gap:8px;flex-wrap:wrap;}
       .hero-desc{font-size:14px;}
       .hero-trust{flex-direction:column;align-items:center;gap:8px;text-align:center;}
@@ -794,6 +794,22 @@
       .social-btn{width:46px;height:46px;font-size:17px;border-radius:12px;}
       .footer-socials{gap:8px;}
       .footer-copy{font-size:11px;}
+    }
+    /* ---- trim: sections hidden on request (delete these 2 lines to restore) ---- */
+    #testimonials, #faq { display: none !important; }
+
+    /* the CTA is now the terminal section */
+    #cta { padding-bottom: 96px; }
+    #cta .cta-inner { max-width: 780px; margin: 0 auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
@@ -1064,7 +1080,7 @@
         <p class="section-sub" style="text-align:center;max-width:600px;margin:14px auto 0;">Odoo ERP + AI automations — one platform to run your entire business. Watch how it works.</p>
       </div>
       <div class="vid-wrap reveal">
-        <video class="vid-player" id="mainVid" autoplay muted playsinline>
+        <video class="vid-player" id="mainVid" muted playsinline preload="metadata">
           <source src="https://technextsg.github.io/TechNext-Landing-Page/video/video_ai_homepage.webm" type="video/webm"/>
         </video>
         <div class="vid-controls">
@@ -1335,63 +1351,6 @@
   </section>
 
   <!-- ── ROI CALCULATOR ────────────────────────────────────────── -->
-  <section id="roi">
-    <div class="container">
-      <div class="roi-inner">
-        <div class="reveal">
-          <div class="section-label">See Your ROI</div>
-          <h2 class="section-title">How Much Could You <span class="hl-green">Save</span>?</h2>
-          <p class="section-sub">Manual processes bleed time — and time is money. Adjust the sliders to estimate your monthly savings with TechNext automations.</p>
-          <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px;">
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <div style="width:56px;height:56px;background:var(--green-light);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--green);flex-shrink:0;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-              </div>
-              <div>
-                <div style="font-family:var(--fh);font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;">Based on real client data</div>
-                <div style="font-size:16px;color:var(--muted);line-height:1.6;">Average client saves 12–20 hrs/week in manual tasks within 90 days of go-live.</div>
-              </div>
-            </div>
-            <div style="display:flex;gap:16px;align-items:flex-start;">
-              <div style="width:56px;height:56px;background:var(--purple-light);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--purple);flex-shrink:0;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
-              </div>
-              <div>
-                <div style="font-family:var(--fh);font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;">Conservative estimate</div>
-                <div style="font-size:16px;color:var(--muted);line-height:1.6;">This calculator uses conservative figures. Many clients report much higher gains.</div>
-              </div>
-            </div>
-          </div>
-          <form class="cta-email-form" style="margin:32px 0 0;" onsubmit="ctaEmailGo(event)">
-            <input type="email" class="cta-email-input" placeholder="Enter your work email" required/>
-            <button type="submit" class="cta-email-btn">Get My Free ROI Demo →</button>
-          </form>
-        </div>
-        <div class="roi-calc-card reveal rd2">
-          <div style="font-family:var(--fh);font-size:30px;font-weight:700;color:var(--text);margin-bottom:24px;text-align:center;">💡 Your Savings Estimator</div>
-          <div class="roi-field">
-            <div class="roi-lbl"><span>Team members affected</span><span class="roi-val" id="roiTeam">10</span></div>
-            <input type="range" min="1" max="50" value="10" id="roiTeamRange" oninput="calcROI()">
-          </div>
-          <div class="roi-field">
-            <div class="roi-lbl"><span>Hours saved per person/week</span><span class="roi-val" id="roiHours">5 hrs</span></div>
-            <input type="range" min="1" max="20" value="5" id="roiHoursRange" oninput="calcROI()">
-          </div>
-          <div class="roi-field">
-            <div class="roi-lbl"><span>Avg. hourly cost (USD)</span><span class="roi-val" id="roiRate">$20</span></div>
-            <input type="range" min="10" max="80" value="20" id="roiRateRange" oninput="calcROI()">
-          </div>
-          <div class="roi-result">
-            <div class="roi-res-lbl">Estimated Monthly Savings</div>
-            <div class="roi-res-val" id="roiResult">$4,000</div>
-            <div class="roi-res-sub">per month → $48,000/year reclaimed</div>
-          </div>
-          <p class="roi-note">* Estimate only. Book a free demo for a tailored ROI analysis.</p>
-        </div>
-      </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ── TESTIMONIALS ────────────────────────────────────────── -->
   <section id="testimonials">
@@ -1525,11 +1484,6 @@
     <div class="container">
       <div class="footer-center">
         <div class="footer-copy">© 2026 TechNext Pte. Ltd. All rights reserved.</div>
-        <div class="footer-socials">
-          <a href="https://www.linkedin.com/company/technextasia/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">in</a>
-          <a href="https://www.facebook.com/technextasia" target="_blank" rel="noopener" class="social-btn" title="Facebook">f</a>
-          <a href="https://www.instagram.com/technextasia" target="_blank" rel="noopener" class="social-btn" title="Instagram">ig</a>
-        </div>
         <div class="footer-legal">
           <a href="privacy-policy.html">Privacy</a>
           <span>·</span>
@@ -1747,28 +1701,6 @@
       document.querySelectorAll('.why-panel').forEach((el, i) => el.classList.toggle('active', i === idx));
     }
 
-    /* ── Why tabs auto-rotate ── */
-    (function(){
-      const TABS  = 3;
-      const DELAY = 3000;
-      let timer   = null;
-
-      function advance() {
-        _whyCur = (_whyCur + 1) % TABS;
-        switchWhy(_whyCur);
-      }
-      function startTimer() {
-        clearInterval(timer);
-        timer = setInterval(advance, DELAY);
-      }
-
-      const zone = document.querySelector('.why-inner');
-      if (zone) {
-        zone.addEventListener('mouseenter', () => clearInterval(timer));
-        zone.addEventListener('mouseleave', startTimer);
-      }
-      startTimer();
-    })();
 
     /* ── Hero email CTA ── */
     function heroEmailGo(e){
@@ -1937,6 +1869,7 @@
 
     /* ── ROI Calculator ── */
     function calcROI() {
+      if (!document.getElementById('roiTeamRange')) return;   /* ROI section removed */
       const team = parseInt(document.getElementById('roiTeamRange').value);
       const hours = parseInt(document.getElementById('roiHoursRange').value);
       const rate = parseInt(document.getElementById('roiRateRange').value);
@@ -1949,19 +1882,106 @@
       document.querySelector('.roi-res-sub').textContent = 'per month → $' + yearly.toLocaleString() + '/year reclaimed';
     }
 
-    /* ── IP Geolocation — auto-update region badge ── */
+    /* ── Region badge: show the visitor's own country ───────────────
+       Two stages, so the badge is never wrong and never blank:
+       1. Timezone lookup — instant, offline, no third party, no rate
+          limit. Covers the markets we actually sell into.
+       2. ipapi.co — only as a refinement, and only if stage 1 missed.
+          It is rate-limited on the free tier and can be blocked, so it
+          must never be the only thing standing between the visitor and
+          a sensible badge.
+    ---------------------------------------------------------------- */
     (function(){
-      fetch('https://ipapi.co/json/')
-        .then(r=>r.json())
-        .then(d=>{
-          if(!d.country_code) return;
-          const code = d.country_code;
-          const name = d.country_name || code;
-          const flag = [...code].map(c=>String.fromCodePoint(c.charCodeAt(0)+127397)).join('');
-          const badge = document.getElementById('regionBadge');
-          if(badge) badge.textContent = flag+' '+name;
-        })
-        .catch(()=>{});
+      var badge = document.getElementById('regionBadge');
+      if (!badge) return;
+
+      function flagOf(cc){
+        return cc.toUpperCase().replace(/./g, function(ch){
+          return String.fromCodePoint(ch.charCodeAt(0) + 127397);
+        });
+      }
+      function paint(cc, name){
+        badge.textContent = flagOf(cc) + ' ' + name;
+        badge.setAttribute('data-cc', cc.toUpperCase());
+      }
+
+      var TZ = {
+        'Asia/Manila':['PH','Philippines'],
+        'Asia/Singapore':['SG','Singapore'],
+        'Asia/Ho_Chi_Minh':['VN','Vietnam'], 'Asia/Saigon':['VN','Vietnam'],
+        'Asia/Bangkok':['TH','Thailand'],
+        'Asia/Jakarta':['ID','Indonesia'], 'Asia/Pontianak':['ID','Indonesia'],
+        'Asia/Kuala_Lumpur':['MY','Malaysia'], 'Asia/Kuching':['MY','Malaysia'],
+        'Asia/Hong_Kong':['HK','Hong Kong'],
+        'Asia/Taipei':['TW','Taiwan'],
+        'Asia/Tokyo':['JP','Japan'],
+        'Asia/Seoul':['KR','South Korea'],
+        'Asia/Shanghai':['CN','China'], 'Asia/Urumqi':['CN','China'],
+        'Asia/Kolkata':['IN','India'], 'Asia/Calcutta':['IN','India'],
+        'Asia/Dhaka':['BD','Bangladesh'],
+        'Asia/Karachi':['PK','Pakistan'],
+        'Asia/Colombo':['LK','Sri Lanka'],
+        'Asia/Dubai':['AE','UAE'],
+        'Asia/Riyadh':['SA','Saudi Arabia'],
+        'Asia/Qatar':['QA','Qatar'],
+        'Asia/Jerusalem':['IL','Israel'],
+        'Australia/Sydney':['AU','Australia'], 'Australia/Melbourne':['AU','Australia'],
+        'Australia/Brisbane':['AU','Australia'], 'Australia/Perth':['AU','Australia'],
+        'Australia/Adelaide':['AU','Australia'],
+        'Pacific/Auckland':['NZ','New Zealand'],
+        'Europe/London':['GB','United Kingdom'],
+        'Europe/Dublin':['IE','Ireland'],
+        'Europe/Berlin':['DE','Germany'],
+        'Europe/Zurich':['CH','Switzerland'],
+        'Europe/Vienna':['AT','Austria'],
+        'Europe/Paris':['FR','France'],
+        'Europe/Amsterdam':['NL','Netherlands'],
+        'Europe/Brussels':['BE','Belgium'],
+        'Europe/Madrid':['ES','Spain'],
+        'Europe/Lisbon':['PT','Portugal'],
+        'Europe/Rome':['IT','Italy'],
+        'Europe/Stockholm':['SE','Sweden'],
+        'Europe/Oslo':['NO','Norway'],
+        'Europe/Copenhagen':['DK','Denmark'],
+        'Europe/Helsinki':['FI','Finland'],
+        'Europe/Warsaw':['PL','Poland'],
+        'Europe/Prague':['CZ','Czechia'],
+        'Europe/Bucharest':['RO','Romania'],
+        'Europe/Istanbul':['TR','Turkey'],
+        'Europe/Moscow':['RU','Russia'],
+        'America/New_York':['US','United States'], 'America/Chicago':['US','United States'],
+        'America/Denver':['US','United States'], 'America/Phoenix':['US','United States'],
+        'America/Los_Angeles':['US','United States'], 'America/Anchorage':['US','United States'],
+        'Pacific/Honolulu':['US','United States'],
+        'America/Toronto':['CA','Canada'], 'America/Vancouver':['CA','Canada'],
+        'America/Edmonton':['CA','Canada'], 'America/Winnipeg':['CA','Canada'],
+        'America/Mexico_City':['MX','Mexico'],
+        'America/Sao_Paulo':['BR','Brazil'],
+        'America/Argentina/Buenos_Aires':['AR','Argentina'],
+        'America/Santiago':['CL','Chile'],
+        'America/Bogota':['CO','Colombia'],
+        'America/Lima':['PE','Peru'],
+        'Africa/Johannesburg':['ZA','South Africa'],
+        'Africa/Lagos':['NG','Nigeria'],
+        'Africa/Nairobi':['KE','Kenya'],
+        'Africa/Cairo':['EG','Egypt']
+      };
+
+      var matched = false;
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz && TZ[tz]) { paint(TZ[tz][0], TZ[tz][1]); matched = true; }
+      } catch (e) { /* Intl unavailable - fall through */ }
+
+      /* Stage 2: only bother the API if the timezone was not in the table. */
+      if (!matched && window.fetch) {
+        fetch('https://ipapi.co/json/')
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(d){
+            if (d && d.country_code) paint(d.country_code, d.country_name || d.country_code);
+          })
+          .catch(function(){ /* leave the default badge in place */ });
+      }
     })();
 
 
@@ -1993,191 +2013,8 @@
       });
     })();
 
-    /* ── EXIT INTENT POPUP JS ── */
-    (function(){
-      let exitShown = false;
-      let userInteracted = false;
-
-      // Track interaction (required for beforeunload to fire in browsers)
-      document.addEventListener('click',     function(){ userInteracted = true; }, {once:true});
-      document.addEventListener('keydown',   function(){ userInteracted = true; }, {once:true});
-      document.addEventListener('scroll',    function(){ userInteracted = true; }, {once:true, passive:true});
-      document.addEventListener('touchstart',function(){ userInteracted = true; }, {once:true, passive:true});
-
-      function isBkOpen(){
-        var o = document.getElementById('bkOverlay');
-        return o && o.classList.contains('open');
-      }
-
-      // stubborn = true → ignore session flags, fire every time (used when calendar is open)
-      function showExitPopup(stubborn){
-        if(!stubborn && (exitShown || sessionStorage.getItem('exitSeen'))) return;
-
-        // Only set session flags in normal (non-stubborn) mode
-        if(!stubborn){
-          exitShown = true;
-          sessionStorage.setItem('exitSeen','1');
-        }
-
-        // Swap messaging based on context
-        if(stubborn){
-          var msgs = [
-            {
-              emoji: '⏰',
-              headline: "Don't lose your slot!",
-              sub: "Slots fill up fast. You're seconds away from locking in your free 1-hour demo — don't leave now.",
-              cta: '✅ Complete My Booking →'
-            },
-            {
-              emoji: '🔥',
-              headline: "Someone else might grab this slot!",
-              sub: "Our calendar fills up every week. The slot you just viewed could be gone in minutes — lock it in now.",
-              cta: '🔒 Lock In My Slot →'
-            },
-            {
-              emoji: '🎯',
-              headline: "You're this close — don't quit now.",
-              sub: "You've already done the hard part. Just finish booking and we'll take care of everything else.",
-              cta: '✅ Finish My Booking →'
-            },
-            {
-              emoji: '🚨',
-              headline: "Your slot isn't saved yet!",
-              sub: "You haven't confirmed your booking. Leave now and you'll have to start over — and the slot may be gone.",
-              cta: '📅 Go Back & Confirm →'
-            },
-            {
-              emoji: '💰',
-              headline: "Every day without ERP costs you money.",
-              sub: "Businesses using Odoo ERP cut operational costs by up to 40%. Your free 1-hour demo is one click away.",
-              cta: '💡 Claim My Free Demo →'
-            },
-            {
-              emoji: '⚡',
-              headline: "It only takes 1 hour to change everything.",
-              sub: "We'll show you exactly how Odoo + AI works for your business — no fluff, no guessing, no commitment.",
-              cta: '✅ Complete My Booking →'
-            },
-            {
-              emoji: '🛡️',
-              headline: "No pressure. No sales pitch. Just results.",
-              sub: "Our demos are 100% free, zero-commitment, and built around your actual business challenges. Don't miss it.",
-              cta: '📅 Secure My Free Demo →'
-            },
-            {
-              emoji: '📉',
-              headline: "Still managing things manually?",
-              sub: "Every manual process you run today is costing time and money. One 1-hour session could fix that — for free.",
-              cta: '🚀 Book & Fix This Now →'
-            },
-            {
-              emoji: '🤝',
-              headline: "We've helped businesses just like yours.",
-              sub: "From SMEs to mid-market companies — we've helped dozens go live in 4–8 weeks. You're next. Don't leave.",
-              cta: '✅ Complete My Booking →'
-            },
-            {
-              emoji: '💡',
-              headline: "Most businesses discover savings they didn't expect.",
-              sub: "After just one demo, our clients find workflow gaps they never knew existed. Yours are probably worth fixing.",
-              cta: '📅 Find Out What I\'m Missing →'
-            }
-          ];
-          var pick = msgs[Math.floor(Math.random() * msgs.length)];
-          document.querySelector('.exit-emoji').textContent    = pick.emoji;
-          document.querySelector('.exit-headline').textContent = pick.headline;
-          document.querySelector('.exit-sub').textContent      = pick.sub;
-          document.querySelector('.exit-cta-btn').textContent  = pick.cta;
-        } else {
-          document.querySelector('.exit-emoji').textContent      = '🚀';
-          document.querySelector('.exit-headline').textContent   = "Wait — don't go just yet.";
-          document.querySelector('.exit-sub').textContent        = "You're one free demo away from cutting your operational costs by up to 40%.";
-          document.querySelector('.exit-cta-btn').textContent    = '📅 Book My Free Demo Now →';
-        }
-
-        document.getElementById('exitOverlay').classList.add('show');
-        document.body.style.overflow = 'hidden';
-      }
-
-      window.closeExitPopup = function(){
-        document.getElementById('exitOverlay').classList.remove('show');
-        // Keep scroll locked if booking modal is still behind it
-        if(!isBkOpen()) document.body.style.overflow = '';
-        // Always reset in-memory flag so stubborn fires again next time
-        exitShown = false;
-      };
-
-      // CTA: if calendar already open just close popup and stay there; else open modal
-      window.exitPopupBook = function(){
-        sessionStorage.setItem('exitConverted','1');
-        closeExitPopup();
-        if(!isBkOpen() && typeof openBkModal === 'function') openBkModal();
-      };
-
-      // ── Desktop: mouse leaves top of viewport ──
-      document.addEventListener('mouseleave', function(e){
-        if(e.clientY <= 0){
-          if(isBkOpen()){
-            showExitPopup(true);   // stubborn — always fires while calendar is open
-          } else {
-            showExitPopup(false);  // normal — once per session
-          }
-        }
-      });
-
-      // Click backdrop to close
-      document.addEventListener('click', function(e){
-        if(e.target && e.target.id === 'exitOverlay') closeExitPopup();
-      });
-
-      // ── beforeunload: fires on EVERY close / refresh / navigate away ──
-      // Only stops after user books (exitConverted flag)
-      window.addEventListener('beforeunload', function(e){
-        if(!sessionStorage.getItem('exitConverted') && userInteracted){
-          e.preventDefault();
-          e.returnValue = '';
-        }
-      });
-
-      // ── Mobile: show after 30 s of inactivity when calendar is open, 45 s otherwise ──
-      let mobileTimer;
-      function resetMobileTimer(){
-        clearTimeout(mobileTimer);
-        var delay = isBkOpen() ? 30000 : 45000;
-        mobileTimer = setTimeout(function(){
-          showExitPopup(isBkOpen());
-        }, delay);
-      }
-      if('ontouchstart' in window){
-        ['touchstart','scroll'].forEach(function(ev){
-          document.addEventListener(ev, resetMobileTimer, {passive:true});
-        });
-        resetMobileTimer();
-      }
-    })();
 
   </script>
-
-  <!-- EXIT INTENT POPUP -->
-  <div class="exit-overlay" id="exitOverlay">
-    <div class="exit-box">
-      <div class="exit-top">
-        <button class="exit-close" onclick="closeExitPopup()" aria-label="Close">&#x2715;</button>
-        <span class="exit-emoji">🚀</span>
-        <div class="exit-headline">Wait — don't go just yet.</div>
-        <div class="exit-sub">You're one free demo away from cutting your operational costs by up to 40%.</div>
-      </div>
-      <div class="exit-body">
-        <div class="exit-proof">
-          <div class="exit-proof-item"><span class="exit-proof-num">4–8</span><span class="exit-proof-lbl">Weeks to Go-Live</span></div>
-          <div class="exit-proof-item"><span class="exit-proof-num">40%</span><span class="exit-proof-lbl">Cost Reduction</span></div>
-          <div class="exit-proof-item"><span class="exit-proof-num">Free</span><span class="exit-proof-lbl">1-Hour Demo</span></div>
-        </div>
-        <button class="exit-cta-btn" onclick="exitPopupBook()">📅 Book My Free Demo Now →</button>
-        <button class="exit-dismiss" onclick="closeExitPopup()">No thanks, I'll figure it out myself</button>
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>
