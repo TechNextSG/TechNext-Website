@@ -808,143 +808,6 @@
       }
       .reveal { opacity: 1 !important; transform: none !important; }
     }
-
-    /* ================= SECTION CTAs =================
-       Shared static metallic finish, one distinct shape per section.
-       Deliberately no keyframes and no transforms.
-    ================================================== */
-
-    /* metallic finish: specular sheen layered over the brand gradient,
-       bright top lip, dark bottom lip */
-    .mtl{
-      background-image:
-        linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.07) 45%,
-                                rgba(0,0,0,.04) 55%, rgba(0,0,0,.12) 100%),
-        linear-gradient(135deg,#6c93dc 0%,#425eae 100%);
-      background-color:#425eae;
-      color:#fff; border:none;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.52),
-                 inset 0 -1px 0 rgba(0,0,0,.24),
-                 0 5px 16px rgba(49,103,202,.28);
-      transition:box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .mtl:hover{
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.62),
-                 inset 0 -1px 0 rgba(0,0,0,.26),
-                 0 8px 24px rgba(49,103,202,.38);
-    }
-    .mtl:focus-visible{ outline:3px solid #2558b8; outline-offset:3px; }
-
-    /* light metallic, for CTAs sitting on white */
-    .mtl-lite{
-      background-image:
-        linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.5) 50%, rgba(49,103,202,.08) 100%);
-      background-color:#fff; color:#2558b8;
-      border:1.5px solid rgba(49,103,202,.30);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
-                 inset 0 -1px 0 rgba(49,103,202,.10),
-                 0 3px 12px rgba(49,103,202,.13);
-      transition:box-shadow .2s ease, border-color .2s ease, background-color .2s ease, color .2s ease;
-    }
-    .mtl-lite:hover{ border-color:#3167ca; box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 7px 20px rgba(49,103,202,.22); }
-    .mtl-lite:focus-visible{ outline:3px solid #2558b8; outline-offset:3px; }
-
-    .cta-wrap{ display:flex; justify-content:center; margin-top:40px; }
-
-    /* 1 - HERO : wide gradient pill */
-    .cta-hero{
-      border-radius:100px; padding:16px 36px; font-size:15px; font-weight:700;
-      font-family:var(--fb); cursor:pointer; text-decoration:none;
-      display:inline-flex; align-items:center; gap:10px;
-    }
-
-    /* 2 - STATS : glass ghost on the dark band */
-    .cta-stats{
-      background-image:linear-gradient(180deg, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 100%);
-      background-color:rgba(255,255,255,.10); color:#fff;
-      border:1.6px solid rgba(255,255,255,.6); border-radius:100px;
-      padding:15px 32px; font-size:15px; font-weight:700; font-family:var(--fb);
-      cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
-      transition:background-color .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .cta-stats:hover{ background-color:#fff; background-image:none; color:#2558b8; border-color:#fff; }
-    .cta-stats:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
-
-    /* 3 - SERVICES : rounded-right cap on its form */
-    #services .cta-email-btn{ border-radius:0 100px 100px 0 !important; letter-spacing:.02em; }
-
-    /* 4 - BEFORE/AFTER : squared industrial slab, uppercase */
-    #before-after .cta-email-btn{
-      border-radius:0 10px 10px 0 !important; text-transform:uppercase;
-      letter-spacing:.10em; font-size:13px !important;
-    }
-
-    /* 5 - WHY : light chip with a solid pip */
-    .cta-why{
-      border-radius:100px; padding:11px 13px 11px 22px; font-size:14.5px; font-weight:700;
-      font-family:var(--fb); cursor:pointer; text-decoration:none;
-      display:inline-flex; align-items:center; gap:14px;
-    }
-    .cta-why .pip{
-      width:30px; height:30px; border-radius:50%; flex-shrink:0;
-      background-image:linear-gradient(180deg, rgba(255,255,255,.3), rgba(0,0,0,.12)),
-                       linear-gradient(135deg,#6c93dc,#425eae);
-      background-color:#425eae; color:#fff;
-      display:inline-flex; align-items:center; justify-content:center; font-size:13px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.5);
-    }
-
-    /* 6 - PROCESS : tight square slab on its form */
-    #process .cta-email-btn{ border-radius:0 6px 6px 0 !important; font-weight:800 !important; }
-
-    /* 7 - TESTIMONIALS : soft-cornered tinted card */
-    .cta-testi{
-      border-radius:14px; padding:15px 30px; font-size:15px; font-weight:700;
-      font-family:var(--fb); cursor:pointer; text-decoration:none;
-      display:inline-flex; align-items:center; gap:10px;
-    }
-
-    /* 8 - FAQ : full-width two-line bar */
-    .cta-faq{
-      width:100%; max-width:720px; border-radius:16px; padding:20px 28px; cursor:pointer;
-      font-family:var(--fb); text-decoration:none;
-      display:flex; align-items:center; justify-content:space-between; gap:18px; text-align:left;
-    }
-    .cta-faq .lbl{ display:block; font-size:16px; font-weight:800; line-height:1.3; }
-    .cta-faq .sub{ display:block; font-size:12.5px; font-weight:500; opacity:.86; margin-top:3px; }
-    .cta-faq .go{
-      flex-shrink:0; width:38px; height:38px; border-radius:50%;
-      background:rgba(255,255,255,.22); display:inline-flex; align-items:center; justify-content:center;
-      font-size:16px; box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
-      transition:background .2s ease, color .2s ease;
-    }
-    .cta-faq:hover .go{ background:#fff; color:#2558b8; }
-
-    /* 9 - FINAL : oversized pill, deepest metallic */
-    .cta-final{
-      border-radius:100px; padding:22px 54px; font-size:18px; font-weight:800;
-      font-family:var(--fb); cursor:pointer; text-decoration:none; letter-spacing:.01em;
-      display:inline-flex; align-items:center; gap:12px;
-      box-shadow:inset 0 2px 0 rgba(255,255,255,.55),
-                 inset 0 -2px 0 rgba(0,0,0,.26),
-                 0 12px 32px rgba(49,103,202,.40);
-    }
-    .cta-final:hover{
-      box-shadow:inset 0 2px 0 rgba(255,255,255,.65),
-                 inset 0 -2px 0 rgba(0,0,0,.28),
-                 0 16px 40px rgba(49,103,202,.48);
-    }
-
-    @media(max-width:600px){
-      .cta-wrap{ margin-top:28px; }
-      .cta-hero,.cta-stats,.cta-testi{ padding:13px 24px; font-size:14px; }
-      .cta-why{ padding:9px 11px 9px 18px; font-size:13.5px; }
-      .cta-final{ padding:17px 34px; font-size:16px; }
-      .cta-faq{ padding:16px 18px; }
-      .cta-faq .lbl{ font-size:14.5px; }
-      .cta-faq .go{ width:32px; height:32px; }
-    }
   </style>
 </head>
 <body>
@@ -954,7 +817,7 @@
     <div class="nav-inner">
       <a href="#hero" class="logo"><img src="images/technext-logo-blue.png" alt="TechNext"/></a>
       <div class="nav-cta">
-        <a href="#" onclick="event.preventDefault();openBkModal();" class="btn-primary mtl cta-hero" style="padding:10px 22px;font-size:13px;">Book Free Demo</a>
+        <a href="#" onclick="event.preventDefault();openBkModal();" class="btn-primary" style="padding:10px 22px;font-size:13px;">Book Free Demo</a>
       </div>
     </div>
   </nav>
@@ -1027,7 +890,7 @@
               </div>
             </div>
             <div class="btn-next-wrap">
-              <button class="btn-primary btn-block mtl" onclick="goStep2()" id="btnNext" disabled>
+              <button class="btn-primary btn-block" onclick="goStep2()" id="btnNext" disabled>
                 Continue →
               </button>
               <div class="next-note">Select one option to continue</div>
@@ -1057,7 +920,7 @@
               <label for="f-msg">Biggest challenge right now? <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
               <textarea id="f-msg" placeholder="e.g. Too many spreadsheets, manual invoicing takes hours…"></textarea>
             </div>
-            <button class="btn-primary btn-block mtl" onclick="submitForm()">
+            <button class="btn-primary btn-block" onclick="submitForm()">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/></svg>
               Send My Request
             </button>
@@ -1073,7 +936,7 @@
               </div>
               <div class="fs-title" style="color:var(--purple);">Pick your slot</div>
               <p class="fs-sub" style="margin-bottom:18px;">Select a date and time for your free 1-hour demo.</p>
-              <button class="btn-primary mtl cta-hero" onclick="openBkModal()" style="margin:0 auto;display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-size:14px;">
+              <button class="btn-primary" onclick="openBkModal()" style="margin:0 auto;display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-size:14px;">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
                 Open Booking Calendar
               </button>
@@ -1141,7 +1004,6 @@
         </div>
       </div>
     </div>
-      <div class="container"><div class="cta-wrap"><a href="#book" class="cta-stats" onclick="event.preventDefault();openBkModal();">See these numbers for your business &#8594;</a></div></div>
   </section>
 
   <!-- ── SERVICES ────────────────────────────────────────────── -->
@@ -1199,7 +1061,7 @@
         <div class="svc-cta-sub">We'll show you exactly how Odoo + AI would work for your business.</div>
         <form class="cta-email-form" onsubmit="ctaEmailGo(event)">
           <input type="email" class="cta-email-input" placeholder="Enter your work email" required/>
-          <button type="submit" class="cta-email-btn mtl">Book Free Demo →</button>
+          <button type="submit" class="cta-email-btn">Book Free Demo →</button>
         </form>
       </div>
 
@@ -1254,7 +1116,7 @@
         <p style="font-size:20px;color:var(--muted);margin-bottom:0;">Book a free 1-hour demo — no commitment required.</p>
         <form class="cta-email-form" style="margin:24px auto 0;" onsubmit="ctaEmailGo(event)">
           <input type="email" class="cta-email-input" placeholder="Enter your work email" required/>
-          <button type="submit" class="cta-email-btn mtl">Book Free Demo →</button>
+          <button type="submit" class="cta-email-btn">Book Free Demo →</button>
         </form>
       </div>
     </div>
@@ -1408,7 +1270,6 @@
         </div>
       </div>
     </div>
-      <div class="container"><div class="cta-wrap"><a href="#book" class="cta-why mtl-lite" onclick="event.preventDefault();openBkModal();">Show me what changes <span class="pip">&#8599;</span></a></div></div>
   </section>
 
   <!-- ── PROCESS ─────────────────────────────────────────────── -->
@@ -1480,7 +1341,7 @@
       <div style="text-align:center;margin-top:48px;" class="reveal">
         <form class="cta-email-form" style="margin:0 auto;" onsubmit="ctaEmailGo(event)">
           <input type="email" class="cta-email-input" placeholder="Enter your work email to get started" required/>
-          <button type="submit" class="cta-email-btn mtl">Book Free Demo →</button>
+          <button type="submit" class="cta-email-btn">Book Free Demo →</button>
         </form>
       </div>
     </div>
@@ -1537,7 +1398,6 @@
         </div>
       </div>
     </div>
-      <div class="container"><div class="cta-wrap"><a href="#book" class="cta-testi mtl-lite" onclick="event.preventDefault();openBkModal();">Talk to a client reference &#8594;</a></div></div>
   </section>
 
   <!-- ── FAQ ───────────────────────────────────────────────────── -->
@@ -1598,7 +1458,6 @@
         </div>
       </div>
     </div>
-      <div class="container"><div class="cta-wrap"><a href="#book" class="cta-faq mtl" onclick="event.preventDefault();openBkModal();"><span><span class="lbl">Still have a question?</span><span class="sub">Ask it live on a free 1-hour demo &mdash; no commitment.</span></span><span class="go">&#8594;</span></a></div></div>
   </section>
 
   <!-- ── CTA ─────────────────────────────────────────────────── -->
@@ -1611,7 +1470,6 @@
         <p class="section-sub" style="max-width:720px;margin:0 auto;">Book a free 1-hour live demo. We'll show you exactly how Odoo + AI would work for your specific business — no commitment required.</p>
       </div>
     </div>
-      <div class="container"><div class="cta-wrap"><a href="#book" class="cta-final mtl" onclick="event.preventDefault();openBkModal();">Book my free demo &#8594;</a></div></div>
   </section>
 
   <!-- ── FOOTER ──────────────────────────────────────────────── -->
