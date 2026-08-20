@@ -1689,9 +1689,14 @@
       e.preventDefault();
       const src = e.target;
       const emailInput = src.querySelector('input[type="email"]') || document.getElementById('ctaEmailInput');
-      const email = emailInput ? emailInput.value : '';
+      const email = emailInput ? emailInput.value.trim() : '';
       const fEmail = document.getElementById('f-email');
       if(fEmail && email) fEmail.value = email;
+      // Carry the address into Odoo's own booking form so the visitor never
+      // retypes it. odooBookingUrl() reads lastFormDetails, which used to be
+      // filled in only by the full hero form — an email typed into one of these
+      // quick bars reached the calendar but was dropped on the way.
+      if(email) lastFormDetails = Object.assign({}, lastFormDetails, {email: email});
       openBkModal();
     }
 
