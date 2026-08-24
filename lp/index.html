@@ -655,6 +655,12 @@
     @media(max-width:900px){
       /* Grid layouts */
       .hero-inner{grid-template-columns:1fr;}
+      /* Stacked hero: promote the copy blocks to grid items so the Odoo
+         trust row can slot in AFTER the form card (order:1). Element margins
+         take over spacing, so the 64px grid gap is dropped. */
+      .hero-content{display:contents;}
+      .hero-inner{gap:0;}
+      .hero-trust{order:1;justify-content:center;margin-top:30px;}
       .services-grid{grid-template-columns:1fr;}
       .why-inner{grid-template-columns:1fr;gap:40px;}
       #why::after{display:none;}
