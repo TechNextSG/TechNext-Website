@@ -1483,6 +1483,8 @@
       if (lastFormDetails.name)  p.set('name',  lastFormDetails.name);
       if (lastFormDetails.email) p.set('email', lastFormDetails.email);
       if (lastFormDetails.phone) p.set('phone', lastFormDetails.phone);
+      if (lastFormDetails.company) p.set('company', lastFormDetails.company);
+      if (lastFormDetails.message) p.set('message', String(lastFormDetails.message).slice(0, 300));
       const q = p.toString();
       return q ? `${ODOO_BOOKING_URL}?${q}` : ODOO_BOOKING_URL;
     }
