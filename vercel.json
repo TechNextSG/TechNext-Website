@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/landing_page", "destination": "/lp/", "permanent": true },
+    { "source": "/landing_page/:path*", "destination": "/lp/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/blog/:slug", "destination": "/ai-article/:slug.html" }
   ]

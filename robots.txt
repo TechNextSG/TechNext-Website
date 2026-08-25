@@ -1,8 +1,5 @@
 User-agent: *
 Allow: /
 
-# Internal-only pages — not for search
-Disallow: /lp/
-Disallow: /landing_page/
 
 Sitemap: https://technext.asia/sitemap.xml
