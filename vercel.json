@@ -1,6 +1,7 @@
 {
   "redirects": [
     { "source": "/landing_page", "destination": "/lp/", "permanent": true },
+    { "source": "/landing_page/", "destination": "/lp/", "permanent": true },
     { "source": "/landing_page/:path*", "destination": "/lp/", "permanent": true }
   ],
   "rewrites": [
