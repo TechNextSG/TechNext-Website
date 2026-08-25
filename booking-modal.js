@@ -1,6 +1,6 @@
 /* =============================================================
    TechNext — Booking Modal  (shared: gallery / blog / careers / contact)
-   Step 3 time-slot tap → POST /api/book → Odoo calendar event
+   details → live Odoo scheduler embed (same system as /lp/)
    ============================================================= */
 (function () {
   const _alreadyHasModal = !!document.getElementById('bookingModal');
@@ -86,6 +86,19 @@ textarea.booking-input{resize:none;height:76px}
 .wa-btn:hover{background:#16a34a;transform:translateY(-1px)}
 `;
   document.head.appendChild(style);
+  const style2 = document.createElement("style");
+  style2.textContent = `
+.bk-iframe-wrap{position:relative;height:min(64vh,600px);border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;background:#f8fafc}
+.bk-iframe{width:100%;height:100%;border:none;display:block;background:#fff}
+.bk-iframe-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.55rem;font-size:.85rem;color:#64748b;background:#f8fafc;z-index:1}
+.bk-spinner{width:16px;height:16px;border:2px solid #cbd5e1;border-top-color:#3167ca;border-radius:50%;animation:bkspin .8s linear infinite}
+@keyframes bkspin{to{transform:rotate(360deg)}}
+.booking-box.bk-wide{max-width:960px}
+.bk-newtab{font-size:.78rem;color:#3167ca;text-decoration:none;font-weight:600}
+.bk-newtab:hover{text-decoration:underline}
+@media(max-width:640px){.bk-iframe-wrap{height:70vh}}
+`;
+  document.head.appendChild(style2);
 
   /* ── HTML ── */
   const modal = document.createElement('div');
@@ -101,37 +114,12 @@ textarea.booking-input{resize:none;height:76px}
     <div class="bp-step active" id="bp1">1</div>
     <div class="bp-line"        id="bl1"></div>
     <div class="bp-step"        id="bp2">2</div>
-    <div class="bp-line"        id="bl2"></div>
-    <div class="bp-step"        id="bp3">3</div>
   </div>
 
-  <!-- Step 1: Service -->
+  <!-- Step 1: Details -->
   <div class="booking-step active" id="bStep1">
-    <div class="bk-h" id="bkS1H">What can we help with?</div>
-    <div class="bk-sub" id="bkS1Sub">Choose the service you're interested in</div>
-    <div class="service-opts">
-      <button class="service-opt" onclick="selectService(this,'AI Automations & Agents')">
-        <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="4" x2="9" y2="2"/><line x1="15" y1="4" x2="15" y2="2"/><line x1="9" y1="22" x2="9" y2="20"/><line x1="15" y1="22" x2="15" y2="20"/><line x1="4" y1="9" x2="2" y2="9"/><line x1="4" y1="15" x2="2" y2="15"/><line x1="22" y1="9" x2="20" y2="9"/><line x1="22" y1="15" x2="20" y2="15"/></svg></span>
-        <div><div class="service-opt-name" id="bkSvc1N">AI Automations &amp; Agents</div><div class="service-opt-desc" id="bkSvc1D">AI agents, chatbots, RAG systems &amp; local LLMs</div></div>
-      </button>
-      <button class="service-opt" onclick="selectService(this,'Odoo ERP Implementation')">
-        <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-        <div><div class="service-opt-name" id="bkSvc2N">Odoo ERP Implementation</div><div class="service-opt-desc" id="bkSvc2D">End-to-end ERP for your business operations</div></div>
-      </button>
-      <button class="service-opt" onclick="selectService(this,'Both — Full Package')">
-        <span class="service-opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
-        <div><div class="service-opt-name" id="bkSvc3N">Both — Full Package</div><div class="service-opt-desc" id="bkSvc3D">Complete digital transformation: AI + ERP</div></div>
-      </button>
-    </div>
-    <div style="display:flex;justify-content:flex-end">
-      <button class="bk-btn" id="s1Next" onclick="goStep(2)" disabled>Continue →</button>
-    </div>
-  </div>
-
-  <!-- Step 2: Details -->
-  <div class="booking-step" id="bStep2">
-    <div class="bk-h" id="bkS2H">Your details</div>
-    <div class="bk-sub" id="bkS2Sub">We'll send a confirmed calendar invite to your email</div>
+    <div class="bk-h" id="bkS1H">Your details</div>
+    <div class="bk-sub" id="bkS1Sub">Free 30-min online session — we'll tailor it to your business</div>
     <div class="booking-fields">
       <input class="booking-input" type="text"  id="bName"      placeholder="Full Name *">
       <input class="booking-input" type="email" id="bEmail"     placeholder="Email Address *">
@@ -139,50 +127,23 @@ textarea.booking-input{resize:none;height:76px}
       <input class="booking-input" type="text"  id="bCompany"   placeholder="Company Name">
       <textarea class="booking-input"           id="bChallenge" placeholder="What's your biggest challenge right now? (optional)"></textarea>
     </div>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="bk-btn" id="s1Next" onclick="validateStep1()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: live Odoo calendar — same system as /lp/ -->
+  <div class="booking-step" id="bStep2">
+    <div class="bk-h" id="bkS2H">Pick a time</div>
+    <div class="bk-sub" id="bkS2Sub">30 min · online · Free, no commitment · Asia/Singapore</div>
+    <div class="bk-iframe-wrap">
+      <div class="bk-iframe-loading" id="bkIframeLoading"><span class="bk-spinner"></span>Loading live calendar…</div>
+      <iframe id="bkIframe" class="bk-iframe" title="Book a free session with TechNext — live Odoo calendar"
+              onload="var l=document.getElementById('bkIframeLoading'); if(l) l.style.display='none';"></iframe>
+    </div>
     <div class="bk-nav">
       <button class="bk-back" id="bkS2Back" onclick="goStep(1)">← Back</button>
-      <button class="bk-btn" id="bkS2Next" onclick="validateStep2()">Continue →</button>
-    </div>
-  </div>
-
-  <!-- Step 3: Calendar -->
-  <div class="booking-step" id="bStep3">
-    <div class="bk-h" id="bkS3H">Pick a time</div>
-    <div class="bk-sub" id="bkS3Sub">1 hour · Asia/Singapore (UTC+8) · Tap a slot to book instantly</div>
-    <div class="cal-wrap">
-      <div class="cal-hdr">
-        <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
-        <span class="cal-month-lbl" id="calLabel"></span>
-        <button class="cal-nav-btn" onclick="calNav(1)">›</button>
-      </div>
-      <div class="cal-grid" id="calGrid"></div>
-      <div class="ts-title" id="tsTitle" style="display:none">Available times</div>
-      <div class="time-slots" id="timeSlots"></div>
-    </div>
-    <div class="bk-nav">
-      <button class="bk-back" id="bkS3Back" onclick="goStep(2)">← Back</button>
-    </div>
-  </div>
-
-  <!-- Step 4: Result (populated by JS) -->
-  <div class="booking-step" id="bStep4">
-    <div class="bk-success">
-      <div class="bk-check ok" id="bkCheckIcon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="bk-h" id="bkStep4Title" style="margin-bottom:.4rem">You're booked!</div>
-      <p id="bkStep4Msg" style="font-size:.88rem;color:#475569;margin-bottom:0">
-        Your session is confirmed and added to our calendar. A calendar invite is on its way to your email.
-      </p>
-      <div class="bk-confirm-details" id="bkConfirmDetails"></div>
-      <a id="bkFallbackBtn" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener"
-         class="bk-fallback-btn" style="display:none">
-        📅 Complete booking in calendar
-      </a>
-      <a href="https://wa.me/6588396998" target="_blank" rel="noopener" class="wa-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 0C5.373 0 0 5.373 0 12c0 2.121.554 4.11 1.523 5.837L.057 23.885l6.225-1.634A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.624 0 11.997 0zm.003 21.818a9.818 9.818 0 0 1-5.007-1.369l-.359-.213-3.697.97.988-3.606-.234-.371A9.818 9.818 0 0 1 2.182 12c0-5.414 4.404-9.818 9.818-9.818 5.414 0 9.818 4.404 9.818 9.818 0 5.414-4.404 9.818-9.818 9.818z"/></svg>
-        <span id="bkWaText">Message us on WhatsApp</span>
-      </a>
+      <a id="bkNewTab" class="bk-newtab" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Calendar not loading? Open in a new tab ↗</a>
     </div>
   </div>
 </div>`;
@@ -894,27 +855,31 @@ textarea.booking-input{resize:none;height:76px}
     }
   }
 
-  /* ── Booking JS ── */
-  if (_alreadyHasModal) {
-    // modal already exists (index.html inline) — no extra listeners needed
+  /* ── Booking JS — same system as /lp/: details → live Odoo scheduler ──
+     The iframe shows Odoo's real-time availability
+     (technext.odoo.com/book/c82cf8a9); a confirmed slot lands directly in
+     the Odoo calendar, and the lp-prefill snippet on the Odoo side fills
+     its form from these URL params — the visitor never retypes. */
+  const ODOO_URL = 'https://technext.odoo.com/book/c82cf8a9';
+
+  function _bkVal(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+
+  function odooBookingUrl(){
+    var p=new URLSearchParams();
+    if(_bkVal('bName'))      p.set('name',    _bkVal('bName'));
+    if(_bkVal('bEmail'))     p.set('email',   _bkVal('bEmail'));
+    if(_bkVal('bPhone'))     p.set('phone',   _bkVal('bPhone'));
+    if(_bkVal('bCompany'))   p.set('company', _bkVal('bCompany'));
+    if(_bkVal('bChallenge')) p.set('message', _bkVal('bChallenge').slice(0,300));
+    var q=p.toString();
+    return q ? ODOO_URL+'?'+q : ODOO_URL;
   }
 
-  const ODOO_URL  = 'https://technext.odoo.com/book/c82cf8a9';
-  const _TODAY    = new Date();
-  const _MONTHS   = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const _DDAYS    = ['S','M','T','W','T','F','S'];
-  const _TIMES_12 = ['9:00 AM','10:00 AM','11:00 AM','2:00 PM','3:00 PM','4:00 PM'];
-  const _TIMES_24 = ['09:00','10:00','11:00','14:00','15:00','16:00'];
-  let _bkService = '', _calY, _calM, _selDate = null, _bkBusy = false;
-
   window.openBooking = function() {
-    _calY = _TODAY.getFullYear(); _calM = _TODAY.getMonth();
-    _selDate = null; _bkService = ''; _bkBusy = false;
-    document.querySelectorAll('.service-opt').forEach(function(o){o.classList.remove('selected');});
-    document.getElementById('s1Next').disabled = true;
     ['bName','bEmail','bPhone','bCompany','bChallenge'].forEach(function(id){
       var el=document.getElementById(id); if(el) el.value='';
     });
+    var ifr=document.getElementById('bkIframe'); if(ifr) ifr.removeAttribute('src');
     document.getElementById('bookingModal').classList.add('open');
     document.body.style.overflow = 'hidden';
     goStep(1);
@@ -926,215 +891,64 @@ textarea.booking-input{resize:none;height:76px}
   };
 
   window.goStep = function(n) {
-    [1,2,3,4].forEach(function(i){
+    [1,2].forEach(function(i){
       document.getElementById('bStep'+i).classList.toggle('active', i===n);
       var bp=document.getElementById('bp'+i);
-      if(bp){ bp.classList.remove('active','done');
-        if(i<n){bp.classList.add('done');bp.textContent='✓';}
-        else if(i===n){bp.classList.add('active');bp.textContent=i;}
-        else bp.textContent=i; }
-      if(i<=2){ var bl=document.getElementById('bl'+i); if(bl) bl.classList.toggle('done',i<n); }
-    });
-    if(n===3) renderCalendar();
-  };
-
-  window.selectService = function(el, svc) {
-    _bkService = svc;
-    document.querySelectorAll('.service-opt').forEach(function(o){o.classList.remove('selected');});
-    el.classList.add('selected');
-    document.getElementById('s1Next').disabled = false;
-  };
-
-  window.validateStep2 = function() {
-    var name=document.getElementById('bName').value.trim();
-    var email=document.getElementById('bEmail').value.trim();
-    document.getElementById('bName').classList.toggle('err',!name);
-    document.getElementById('bEmail').classList.toggle('err',!email);
-    if(name&&email) goStep(3);
-  };
-
-  window.calNav = function(dir) {
-    if(_bkBusy) return;
-    _calM+=dir;
-    if(_calM>11){_calM=0;_calY++;} if(_calM<0){_calM=11;_calY--;}
-    _selDate=null;
-    document.getElementById('timeSlots').innerHTML='';
-    document.getElementById('tsTitle').style.display='none';
-    renderCalendar();
-  };
-
-  function renderCalendar() {
-    document.getElementById('calLabel').textContent = _MONTHS[_calM]+' '+_calY;
-    var grid=document.getElementById('calGrid'); grid.innerHTML='';
-    _DDAYS.forEach(function(d){ var l=document.createElement('div'); l.className='cal-dlbl'; l.textContent=d; grid.appendChild(l); });
-    var firstDay=new Date(_calY,_calM,1).getDay();
-    var total=new Date(_calY,_calM+1,0).getDate();
-    for(var i=0;i<firstDay;i++){ var e=document.createElement('div'); e.className='cal-day cd-emp'; grid.appendChild(e); }
-    var todayMid=new Date(_TODAY.getFullYear(),_TODAY.getMonth(),_TODAY.getDate());
-    for(var d=1;d<=total;d++){
-      var cell=document.createElement('div'); cell.className='cal-day'; cell.textContent=d;
-      var dt=new Date(_calY,_calM,d); var dow=dt.getDay();
-      if(dow===0||dow===6||dt<todayMid){ cell.classList.add('cd-dis'); }
-      else {
-        var ds=_calY+'-'+String(_calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-        if(_selDate===ds) cell.classList.add('cd-sel');
-        (function(ds_,cell_){ cell_.addEventListener('click',function(){ if(!_bkBusy) selectDate(cell_,ds_); }); })(ds,cell);
+      if(bp){
+        bp.classList.remove('active','done');
+        if(i<n){ bp.classList.add('done'); bp.textContent='✓'; }
+        else if(i===n){ bp.classList.add('active'); bp.textContent=i; }
+        else bp.textContent=i;
       }
-      if(d===_TODAY.getDate()&&_calM===_TODAY.getMonth()&&_calY===_TODAY.getFullYear()) cell.classList.add('cd-today');
-      grid.appendChild(cell);
-    }
-  }
-
-  var _avFetchId = 0; // incremented each call so stale responses are discarded
-
-  async function selectDate(el, ds) {
-    _selDate = ds;
-    document.querySelectorAll('.cal-day').forEach(function(d){d.classList.remove('cd-sel');});
-    el.classList.add('cd-sel');
-
-    var wrap = document.getElementById('timeSlots');
-    document.getElementById('tsTitle').style.display = 'block';
-
-    // Show spinner while fetching
-    wrap.innerHTML = '<div class="ts-avail-loading">Checking availability…</div>';
-
-    var myId = ++_avFetchId;
-    var bookedSlots = [];
-    try {
-      var r    = await fetch('/api/availability?date=' + ds);
-      var data = await r.json();
-      if (_avFetchId !== myId) return; // another date was clicked — discard
-      if (data.ok && Array.isArray(data.bookedSlots)) bookedSlots = data.bookedSlots;
-    } catch(e) { if (_avFetchId !== myId) return; /* fail open */ }
-
-    wrap.innerHTML = '';
-    _TIMES_12.forEach(function(t, i) {
-      var btn = document.createElement('button');
-      btn.className = 'time-slot';
-      var t24 = _TIMES_24[i];
-      if (bookedSlots.indexOf(t24) !== -1) {
-        btn.textContent = t + ' · Full';
-        btn.disabled = true;
-        btn.classList.add('ts-booked');
-      } else {
-        btn.textContent = t;
-        (function(t12, t24_, b) {
-          b.addEventListener('click', function(){ if(!_bkBusy) bookSlot(ds, t12, t24_, b); });
-        })(t, t24, btn);
-      }
-      wrap.appendChild(btn);
     });
-  }
-
-  async function bookSlot(ds, time12, time24, slotBtn) {
-    _bkBusy = true;
-    // Lock all slots, show spinner on tapped one
-    document.querySelectorAll('.time-slot').forEach(function(s){ s.disabled=true; s.style.opacity='0.45'; });
-    slotBtn.classList.add('ts-loading');
-    slotBtn.textContent = '⏳ Booking…';
-    slotBtn.style.opacity = '1';
-
-    var name      = document.getElementById('bName').value.trim();
-    var email     = document.getElementById('bEmail').value.trim();
-    var phone     = document.getElementById('bPhone').value.trim();
-    var company   = document.getElementById('bCompany').value.trim();
-    var challenge = document.getElementById('bChallenge').value.trim();
-    var ymd       = ds.split('-');
-    var formatted = new Date(+ymd[0],+ymd[1]-1,+ymd[2]).toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-    var booked = false;
-    try {
-      var r = await fetch('/api/book', {
-        method : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({ name, email, phone, company, service: _bkService,
-                                  date: ds, time12, time24, message: challenge })
-      });
-      var data = await r.json();
-      booked = !!(data.ok && data.booked);
-    } catch(e) { /* network error — handled below */ }
-
-    // Populate confirmation card
-    document.getElementById('bkConfirmDetails').innerHTML =
-      row('Service', _bkService) + row('Name', name) + row('Email', email) +
-      (phone   ? row('Phone',   phone)   : '') +
-      (company ? row('Company', company) : '') +
-      row('Date', formatted) + row('Time', time12+' · SGT') + row('Duration','1 hour');
-
-    // Update step-4 messaging based on whether Odoo write succeeded
-    var iconEl  = document.getElementById('bkCheckIcon');
-    var titleEl = document.getElementById('bkStep4Title');
-    var msgEl   = document.getElementById('bkStep4Msg');
-    var fbBtn   = document.getElementById('bkFallbackBtn');
-
-    if (booked) {
-      if(iconEl)  { iconEl.className='bk-check ok'; iconEl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg>'; }
-      if(titleEl) titleEl.textContent = "You're booked!";
-      if(msgEl)   msgEl.textContent   = "Your session is confirmed and added to our calendar. A calendar invite is on its way to "+email+".";
-      if(fbBtn)   fbBtn.style.display = 'none';
-    } else {
-      if(iconEl)  { iconEl.className='bk-check pending'; iconEl.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#854d0e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="20 6 9 17 4 12"/></svg>'; }
-      if(titleEl) titleEl.textContent = "Almost there!";
-      if(msgEl)   msgEl.textContent   = "We've noted your details. Tap the button below to pick your slot and confirm in our live calendar.";
-      if(fbBtn)   fbBtn.style.display = 'inline-flex';
+    var bl=document.getElementById('bl1'); if(bl) bl.classList.toggle('done', n>1);
+    var box=document.getElementById('bookingBox'); if(box) box.classList.toggle('bk-wide', n===2);
+    if(n===2){
+      var url=odooBookingUrl();
+      var load=document.getElementById('bkIframeLoading'); if(load) load.style.display='flex';
+      var ifr=document.getElementById('bkIframe'); if(ifr && ifr.getAttribute('src')!==url) ifr.src=url;
+      var nt=document.getElementById('bkNewTab'); if(nt) nt.href=url;
     }
+  };
 
-    _bkBusy = false;
-    goStep(4);
-  }
-
-  function row(label, val) {
-    return '<div class="bcd-row"><span class="bcd-label">'+label+'</span><span class="bcd-val">'+val+'</span></div>';
-  }
+  window.validateStep1 = function() {
+    var name=_bkVal('bName'), email=_bkVal('bEmail');
+    var okEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    document.getElementById('bName').classList.toggle('err', !name);
+    document.getElementById('bEmail').classList.toggle('err', !okEmail);
+    if(name && okEmail) goStep(2);
+  };
 
 })();
-
 
 /* ===== BOOKING FORM TRANSLATION ===== */
 window.applyBkLang = function(lang) {
   var t = {
     en: {
-      s1h:'What can we help with?', s1sub:"Choose the service you're interested in",
-      svc1:'AI Automations & Agents', svc1d:'AI agents, chatbots, RAG systems & local LLMs',
-      svc2:'Odoo ERP Implementation', svc2d:'End-to-end ERP for your business operations',
-      svc3:'Both — Full Package', svc3d:'Complete digital transformation: AI + ERP',
-      s1next:'Continue →',
-      s2h:'Your details', s2sub:"We'll send a confirmed calendar invite to your email",
+      s1h:'Your details', s1sub:"Free 30-min online session — we'll tailor it to your business",
       ph_name:'Full Name *', ph_email:'Email Address *', ph_phone:'Phone / WhatsApp',
       ph_company:'Company Name', ph_challenge:"What's your biggest challenge right now? (optional)",
-      back:'← Back', cont:'Continue →',
-      s3h:'Pick a time', s3sub:'1 hour · Asia/Singapore (UTC+8) · Tap a slot to book instantly',
-      ts:'Available times', wa:'Message us on WhatsApp'
+      s1next:'Continue →', back:'← Back',
+      s2h:'Pick a time', s2sub:'30 min · online · Free, no commitment · Asia/Singapore',
+      newtab:'Calendar not loading? Open in a new tab ↗'
     },
     vn: {
-      s1h:'Chúng tôi có thể giúp gì cho bạn?', s1sub:'Chọn dịch vụ bạn quan tâm',
-      svc1:'AI Tự Động & Đại Lý', svc1d:'Đại lý AI, chatbot, hệ thống RAG & LLM cục bộ',
-      svc2:'Triển Khai Odoo ERP', svc2d:'ERP toàn diện cho hoạt động kinh doanh của bạn',
-      svc3:'Cả Hai — Gói Đầy Đủ', svc3d:'Chuyển đổi số toàn diện: AI + ERP',
-      s1next:'Tiếp Tục →',
-      s2h:'Thông tin của bạn', s2sub:'Chúng tôi sẽ gửi lịch xác nhận đến email của bạn',
+      s1h:'Thông tin của bạn', s1sub:'Phiên tư vấn trực tuyến 30 phút miễn phí — thiết kế riêng cho doanh nghiệp của bạn',
       ph_name:'Họ và Tên *', ph_email:'Địa Chỉ Email *', ph_phone:'Điện Thoại / WhatsApp',
       ph_company:'Tên Công Ty', ph_challenge:'Thách thức lớn nhất của bạn hiện tại là gì? (tuỳ chọn)',
-      back:'← Quầy Lại', cont:'Tiếp Tục →',
-      s3h:'Chọn Thời Gian', s3sub:'1 giờ · Asia/Singapore (UTC+8) · Nhấn vào ô để đặt ngay',
-      ts:'Các khung giờ có sẵn', wa:'Nhắn tin qua WhatsApp'
-    },
+      s1next:'Tiếp Tục →', back:'← Quay Lại',
+      s2h:'Chọn Thời Gian', s2sub:'30 phút · trực tuyến · Miễn phí, không ràng buộc · Asia/Singapore',
+      newtab:'Lịch không hiển thị? Mở trong thẻ mới ↗'
+    }
   };
   var d = t[lang] || t.en;
-  function st(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
-  function sp(id, v) { var e = document.getElementById(id); if (e) e.placeholder = v; }
+  function st(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+  function sp(id,v){ var e=document.getElementById(id); if(e) e.placeholder=v; }
   st('bkS1H', d.s1h); st('bkS1Sub', d.s1sub);
-  st('bkSvc1N', d.svc1); st('bkSvc1D', d.svc1d);
-  st('bkSvc2N', d.svc2); st('bkSvc2D', d.svc2d);
-  st('bkSvc3N', d.svc3); st('bkSvc3D', d.svc3d);
-  st('s1Next', d.s1next);
-  st('bkS2H', d.s2h); st('bkS2Sub', d.s2sub);
   sp('bName', d.ph_name); sp('bEmail', d.ph_email); sp('bPhone', d.ph_phone);
   sp('bCompany', d.ph_company); sp('bChallenge', d.ph_challenge);
-  st('bkS2Back', d.back); st('bkS2Next', d.cont);
-  st('bkS3H', d.s3h); st('bkS3Sub', d.s3sub);
-  var tsEl = document.getElementById('tsTitle');
-  if (tsEl) tsEl.textContent = d.ts;
-  st('bkS3Back', d.back);
-  st('bkWaText', d.wa);
+  st('s1Next', d.s1next); st('bkS2Back', d.back);
+  st('bkS2H', d.s2h); st('bkS2Sub', d.s2sub);
+  var nt = document.getElementById('bkNewTab'); if (nt) nt.textContent = d.newtab;
 };
+if (window.currentLang) window.applyBkLang(window.currentLang);
