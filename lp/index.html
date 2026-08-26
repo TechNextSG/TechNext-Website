@@ -15,14 +15,19 @@
   <meta property="og:title" content="TechNext Asia — Odoo ERP & AI Automations for Growing Businesses"/>
   <meta property="og:description" content="Certified Odoo Partner delivering ERP implementation and AI automations for growing businesses worldwide. Go live in 4–8 weeks."/>
   <meta property="og:url" content="https://technext.asia/lp/"/>
-  <meta property="og:image" content="images/technext-logo-blue.png"/>
+  <!-- Absolute URL is required here: crawlers resolve og:image against their own
+       host, not this page, so a relative path yields no preview image at all. -->
+  <meta property="og:image" content="https://technext.asia/lp/images/og-card.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="TechNext Asia — Odoo ERP &amp; AI Automations"/>
   <meta property="og:site_name" content="TechNext Asia"/>
   <meta property="og:locale" content="en_US"/>
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="TechNext Asia — Odoo ERP & AI Automations"/>
   <meta name="twitter:description" content="Certified Odoo Partner. ERP + AI automations for growing businesses worldwide. Go live in 4–8 weeks."/>
-  <meta name="twitter:image" content="images/technext-logo-blue.png"/>
+  <meta name="twitter:image" content="https://technext.asia/lp/images/og-card.png"/>
   <!-- Performance: preconnect + preload critical font -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -35,7 +40,7 @@
     "@type":"Organization",
     "name":"TechNext Asia",
     "url":"https://technext.asia",
-    "logo":"images/technext-logo-blue.png",
+    "logo":"https://technext.asia/lp/images/technext-logo-blue.png",
     "description":"Certified Odoo Partner delivering ERP implementation and AI automations for growing businesses worldwide.",
     "email":"hello@technext.asia",
     "areaServed":"Worldwide",
