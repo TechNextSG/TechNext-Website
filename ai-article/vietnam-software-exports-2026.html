@@ -1,6 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Consent Mode v2 defaults - must run before any Google tag -->
+<script id="tn-consent-default">
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+try{if(document.cookie.indexOf('tn_consent=yes')>-1){gtag('consent','update',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});}}catch(e){}
+</script>
+<!-- End Consent Mode v2 defaults -->
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -52,7 +59,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   </script>
 
-  <link rel="stylesheet" href="blog-style.css">
+  <link rel="stylesheet" href="/ai-article/blog-style.css">
 
 <!-- Google Ads Tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18068724830"></script>
@@ -79,7 +86,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><a href="/gallery/">Gallery</a></li>
     <li><a href="/blog/" class="active">Blog</a></li>
       <li><a href="/careers/">Careers</a></li>
-      <li><a href="/contact/">Contact</a></li>
+      <li><a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a></li>
     </ul>
     <div class="nav-right">
       <a href="#" class="nav-apply" onclick="openBooking();return false;">Book Now</a>
@@ -205,6 +214,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="/blog/">Blog</a>
       <a href="/careers/">Careers</a>
       <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
     </nav>
   </footer>
 
@@ -223,7 +234,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
   </script>
-  <script src="blog-layout.js"></script>
+  <script src="/ai-article/blog-layout.js"></script>
 </body>
 </html>
 

@@ -1,7 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Consent Mode v2 defaults - must run before any Google tag -->
+<script id="tn-consent-default">
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});
+try{if(document.cookie.indexOf('tn_consent=yes')>-1){gtag('consent','update',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});}}catch(e){}
+</script>
+<!-- End Consent Mode v2 defaults -->
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>Redirecting… | TechNext Asia</title>
 <script>
@@ -22,7 +30,7 @@
   } else {
     // Generic 404 — redirect to homepage after 3s
     setTimeout(function() {
-      window.location.replace('https://technextasia.com/');
+      window.location.replace('/');
     }, 3000);
   }
 })();

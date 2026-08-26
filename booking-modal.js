@@ -333,7 +333,7 @@ textarea.booking-input{resize:none;height:76px}
         rel:['contact_info','book_call','locations'] },
 
       { id:'contact_info', q:'What is your contact information?', kw:['contact','email','phone','number','reach','get in touch','info','address','detail'],
-        a:'You can reach us via:<ul><li>📧 <b>Sales:</b> sales@technextasia.com</li><li>📧 <b>Admin:</b> admin@technextasia.com</li><li>💬 <b>WhatsApp:</b> +65 8839 6998</li></ul>Or visit our <a href="/contact/" style="color:#3167ca;font-weight:600">Contact page</a> for the full form.',
+        a:'You can reach us via:<ul><li>📧 <b>Sales:</b> sales@technext.asia</li><li>📧 <b>Admin:</b> admin@technext.asia</li><li>💬 <b>WhatsApp:</b> +65 8839 6998</li></ul>Or visit our <a href="/contact/" style="color:#3167ca;font-weight:600">Contact page</a> for the full form.',
         rel:['whatsapp','book_call','locations'] },
 
       { id:'careers', q:'Are you hiring?', kw:['job','hire','hiring','career','work','join','position','opening','vacancy','apply','role','team','internship','remote'],
@@ -345,7 +345,7 @@ textarea.booking-input{resize:none;height:76px}
         rel:['careers','how_apply','locations'] },
 
       { id:'how_apply', q:'How do I apply for a job?', kw:['apply','application','cv','resume','submit','send','linkedin','interview'],
-        a:'Visit our <a href="/careers/" style="color:#3167ca;font-weight:600">Careers page</a> to see all open roles and apply via LinkedIn. You can also email your CV to <b>career@technextasia.com</b> with the role in the subject line.',
+        a:'Visit our <a href="/careers/" style="color:#3167ca;font-weight:600">Careers page</a> to see all open roles and apply via LinkedIn. You can also email your CV to <b>career@technext.asia</b> with the role in the subject line.',
         rel:['career_roles','careers','contact_info'] },
 
       { id:'remote_work', q:'Are roles remote or on-site?', kw:['remote','onsite','work from home','wfh','office','hybrid','location','flexible'],

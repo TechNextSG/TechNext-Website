@@ -109,14 +109,32 @@
     }
   }
 
+  /* Google Consent Mode v2. The consent defaults are set in the page <head>
+     BEFORE any Google tag loads (see the tn-consent-default snippet), so tags
+     boot in a denied state and only start storing once this fires. */
+  function setConsent(granted) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      function g() { window.dataLayer.push(arguments); }
+      g('consent', 'update', {
+        ad_storage:         granted ? 'granted' : 'denied',
+        ad_user_data:       granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+        analytics_storage:  granted ? 'granted' : 'denied'
+      });
+    } catch (e) { /* never let consent plumbing break the page */ }
+  }
+
   function accept() {
     setCookie('tn_consent', 'yes', 365);
+    setConsent(true);
     removeBanner();
     trackVisit();
   }
 
   function decline() {
     setCookie('tn_consent', 'no', 90);
+    setConsent(false);
     removeBanner();
   }
 
@@ -140,8 +158,9 @@
       '<div style="flex:1;min-width:200px;">' +
         '<strong style="font-size:13px;color:#fff;">🍪 Cookie Notice</strong>' +
         '<p style="margin:4px 0 0;color:#94a3b8;font-size:12px;">' +
-          'We use cookies to understand how visitors use our site and improve your experience. ' +
-          'No data is shared with third parties.' +
+          'We use cookies to understand how visitors use our site. Analytics and advertising ' +
+          'cookies are set by Google (Analytics and Ads) and only load if you accept. ' +
+          'See our <a href="/privacy/" style="color:#93b4ea;font-weight:600;text-decoration:underline">Privacy Policy</a>.' +
         '</p>' +
       '</div>' +
       '<div style="display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;">' +
