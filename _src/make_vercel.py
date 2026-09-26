@@ -13,7 +13,9 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-INLINE_SCRIPT = re.compile(r"<script(?![^>]*\bsrc=)([^>]*)>(.*?)</script>", re.S)
+# Case-insensitive and tolerant of whitespace/attributes in the closing tag: a missed
+# inline script would not get a hash and the CSP would silently block it.
+INLINE_SCRIPT = re.compile(r"<script\b(?![^>]*\bsrc\s*=)([^>]*)>(.*?)</script\b[^>]*>", re.S | re.I)
 
 # Google's regional domains used by Ads for visitors in our markets (CSP cannot wildcard a TLD).
 GOOGLE_REGIONAL = ["https://www.google.com.sg", "https://www.google.com.vn",
@@ -53,7 +55,7 @@ def inline_script_hashes():
             continue
         html = page.read_text(encoding="utf-8")
         for attrs, body in INLINE_SCRIPT.findall(html):
-            if "application/ld+json" in attrs:
+            if "application/ld+json" in attrs.lower():
                 continue            # data, never executed
             digest = hashlib.sha256(body.encode("utf-8")).digest()
             hashes.add("'sha256-" + base64.b64encode(digest).decode() + "'")
