@@ -1,33 +1,32 @@
 <!--meta {"title": "Web Design & Development in Singapore", "desc": "TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.", "out": "solutions/website.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span><a href="{{ROOT}}solutions/marketing.html">Marketing</a></span><span>Web Design &amp; Development</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">clear beats clever</span>
         <h1>Websites that explain what you do.</h1>
         <p class="lead">Short copy, real information, fast pages. Built to be edited without us, and wired so every inquiry reaches the right person. Company sites, campaign landing pages and online stores — on platforms your team can keep running.</p>
         <div class="actions"><a class="btn btn-primary btn-lg" href="#talk">Discuss a website</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+        <div class="pill-row"><span class="tag">{{icon:layout}} Company site</span><span class="tag">{{icon:target}} Landing page</span><span class="tag">{{icon:cart}} Online store</span><span class="tag">{{icon:search}} SEO basics</span><span class="tag">{{icon:pulse}} Analytics</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Types</span><span>Company sites · Landing pages · Stores</span></div>
-          <div><span>Built for</span><span>Speed · Mobile · Easy editing</span></div>
-          <div><span>Includes</span><span>SEO basics · Analytics · Accessibility</span></div>
-          <div><span>Delivery</span><span>Brief → Design → Build → Launch</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--web" aria-hidden="true">
+        <ol class="st-rail wb-rail"><li style="--k:0"><b>1</b>Brief</li><li style="--k:1"><b>2</b>Design</li><li style="--k:2"><b>3</b>Build</li><li style="--k:3"><b>4</b>Launch</li></ol>
+        <div class="st-card wb-br dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span class="wb-url">{{icon:lock}}yourcompany.com</span></div>
+          <div class="wb-page">
+            <div class="wb-nav"><i class="logo"></i><i></i><i></i><i></i><em></em></div>
+            <div class="wb-hero"><div><i class="h1"></i><i class="h2"></i><i class="p1"></i><i class="p2"></i><em></em></div><div class="wb-img"></div></div>
+            <div class="wb-cards"><i></i><i></i><i></i></div>
+          </div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">{{icon:layout}} Company site</span>
-          <span class="tag">{{icon:target}} Landing page</span>
-          <span class="tag">{{icon:cart}} Online store</span>
-          <span class="tag">{{icon:search}} SEO basics</span>
-          <span class="tag">{{icon:pulse}} Analytics</span>
-        </div>
-      </aside>
+        <div class="st-card wb-ph dp" style="--d:14"><div class="wb-m"><i class="h"></i><i></i><i class="s"></i><em></em><b></b><i></i><i class="s"></i><u></u><u></u><u></u></div></div>
+        <div class="wb-checks"><span class="st-chip" style="--k:0">{{icon:zap}}Fast</span><span class="st-chip" style="--k:1">{{icon:layout}}Mobile-first</span><span class="st-chip" style="--k:2">{{icon:check}}Accessible</span><span class="st-chip" style="--k:3">{{icon:search}}SEO basics</span><span class="st-chip" style="--k:4">{{icon:bars}}Analytics</span></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Types</dt><dd>Company sites · Landing pages · Stores</dd></div><div><dt>Built for</dt><dd>Speed · Mobile · Easy editing</dd></div><div><dt>Includes</dt><dd>SEO basics · Analytics · Accessibility</dd></div><div><dt>Delivery</dt><dd>Brief → Design → Build → Launch</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

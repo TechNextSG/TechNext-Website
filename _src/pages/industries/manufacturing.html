@@ -1,12 +1,31 @@
 <!--meta {"title": "Odoo for Manufacturing — BoMs & costing", "desc": "Odoo for manufacturers: bills of materials, work orders, component stock, purchasing and product costing in one database — by TechNext, Odoo Partner.", "out": "industries/manufacturing.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Manufacturing</span></nav>
-    <span class="hand">make-to-order, make-to-stock, assembly</span>
-    <h1>Know what it costs to make, before you quote it.</h1>
-    <p class="lead">Bills of materials drive component demand, work orders track the floor, and every finished unit carries its real cost into stock and the ledger.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">make-to-order, make-to-stock, assembly</span>
+        <h1>Know what it costs to make, before you quote it.</h1>
+        <p class="lead">Bills of materials drive component demand, work orders track the floor, and every finished unit carries its real cost into stock and the ledger.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--mfg" aria-hidden="true">
+        <div class="st-card mf-bom dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:mrp:16}}<span>Bill of materials</span></div>
+          <div class="mf-tree"><svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path class="mf-ln" style="--k:0" pathLength="1" d="M50,24 C50,44 14,40 14,61"/><path class="mf-ln" style="--k:1" pathLength="1" d="M50,24 L50,61"/><path class="mf-ln" style="--k:2" pathLength="1" d="M50,24 C50,44 86,40 86,61"/></svg>
+            <span class="mf-n root">Office desk<small>1 unit</small></span>
+            <span class="mf-n c1">Steel frame<small>× 1</small></span><span class="mf-n c2">Desk top<small>× 1</small></span><span class="mf-n c3">Fixing kit<small>× 1</small></span>
+          </div>
+        </div>
+        <div class="st-card mf-wo dp" style="--d:12"><b>Work order WO/0031</b><ol><li>Cut</li><li>Weld</li><li>Assemble</li><li>QC</li></ol></div>
+        <div class="st-card mf-cost dp" style="--d:14"><b>Cost per unit</b>
+          <p style="--k:0"><span>Steel frame</span><b>S$ 38.40</b></p><p style="--k:1"><span>Desk top</span><b>S$ 52.10</b></p><p style="--k:2"><span>Fixing kit</span><b>S$ 4.30</b></p><p style="--k:3"><span>Labour · 1.2 h</span><b>S$ 21.60</b></p><p class="t" style="--k:4"><span>Unit cost</span><b>S$ 116.40</b></p>
+        </div>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/mrp.html">Manufacturing</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/quality_control.html">Quality</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a></dd></div><div><dt>First phase</dt><dd>Send us one product's BoM</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

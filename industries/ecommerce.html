@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,13 +124,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Industries</span><span>Ecommerce</span></nav>
-    <span class="hand">online stores and marketplace sellers</span>
-    <h1>Orders in, stock out, payouts reconciled.</h1>
-    <p class="lead">Whether orders come from your own store or a marketplace, they should reserve real stock, print the right labels and land in the books with fees and payouts matched.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">online stores and marketplace sellers</span>
+        <h1>Orders in, stock out, payouts reconciled.</h1>
+        <p class="lead">Whether orders come from your own store or a marketplace, they should reserve real stock, print the right labels and land in the books with fees and payouts matched.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--ecom" aria-hidden="true">
+        <div class="ec-orders">
+          <div class="st-card ec-o" style="--k:0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h17l-1.6 8.4a2 2 0 0 1-2 1.6H9.7a2 2 0 0 1-2-1.6z" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><b>Order #1042</b><span>Your store · 2 items</span><em>Stock reserved</em></div>
+          <div class="st-card ec-o" style="--k:1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><b>Order #1043</b><span>Marketplace · 1 item</span><em>Stock reserved</em></div>
+        </div>
+        <div class="st-card ec-label dp" style="--d:10"><b>Shipping label · #1042</b><div class="ec-bc"></div><small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tracking sent to the customer</small></div>
+        <div class="st-card ec-pay dp" style="--d:14"><b>Payout matched</b>
+          <p style="--k:0"><span>Sales</span><b>S$ 1,240.00</b></p><p style="--k:1"><span>Fees</span><b>− S$ 62.00</b></p><p style="--k:2"><span>Refunds</span><b>− S$ 40.00</b></p><p class="t" style="--k:3"><span>Payout</span><b>S$ 1,138.00</b></p>
+          <span class="ec-ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Reconciled in Accounting</span>
+        </div>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="../odoo/apps/website_sale">eCommerce</a> · <a href="../odoo/apps/stock">Inventory</a> · <a href="../odoo/apps/accountant">Accounting</a> · <a href="../odoo/apps/purchase">Purchase</a> · <a href="../odoo/apps/helpdesk">Helpdesk</a></dd></div><div><dt>First phase</dt><dd>Tell us where orders come from today</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -255,10 +273,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
-<script src="../assets/js/showcase.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
+<script src="../assets/js/showcase.js?v=c726268f" defer></script>
 </body>
 </html>

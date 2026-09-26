@@ -1,12 +1,32 @@
 <!--meta {"title": "Odoo for Retail — POS, stock and accounting", "desc": "Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/retail.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Retail</span></nav>
-    <span class="hand">stores, chains, showrooms</span>
-    <h1>Tills, stock and accounts that agree with each other.</h1>
-    <p class="lead">Point of Sale that works offline, stock shared across stores and online, and daily takings posted to Accounting without a spreadsheet in between.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">stores, chains, showrooms</span>
+        <h1>Tills, stock and accounts that agree with each other.</h1>
+        <p class="lead">Point of Sale that works offline, stock shared across stores and online, and daily takings posted to Accounting without a spreadsheet in between.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--retail" aria-hidden="true">
+        <div class="st-card rt-pos dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:point_of_sale:16}}<span>Point of Sale · Store A</span></div>
+          <div class="rt-lines"><p style="--k:0"><span>Linen shirt</span><b>S$ 59.00</b></p><p style="--k:1"><span>Canvas tote</span><b>S$ 24.00</b></p><p class="t" style="--k:2"><span>Total</span><b>S$ 83.00</b></p></div>
+          <div class="rt-pay">Pay S$ 83.00<span class="ok">{{icon:check}}Paid by card</span></div>
+        </div>
+        <div class="rt-receipt"><i></i><i class="s"></i><i></i><i class="s"></i><i class="b"></i></div>
+        <div class="st-card rt-stock dp" style="--d:14"><b>Stock, live</b>
+          <p><span>Store A</span><em class="rt-n"><i>24</i><i>23</i></em></p>
+          <p><span>Store B</span><em>31</em></p>
+          <p><span>Online</span><em class="rt-n"><i>24</i><i>23</i></em></p>
+        </div>
+        <span class="st-chip rt-post dp" style="--d:10">{{icon:calculator}}Takings posted to Accounting</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/point_of_sale.html">Point of Sale</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/website_sale.html">eCommerce</a></dd></div><div><dt>First phase</dt><dd>Start with one store</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

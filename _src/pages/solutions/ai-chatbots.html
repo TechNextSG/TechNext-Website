@@ -1,9 +1,10 @@
 <!--meta {"title": "AI Chatbots — web, WhatsApp and in-app assistants", "desc": "AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.", "out": "solutions/ai-chatbots.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>AI Solution</span><span>AI Chatbots</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">web · whatsapp · in-app</span>
         <h1>A chatbot that knows your business and knows when to hand over.</h1>
@@ -13,23 +14,25 @@
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
           <a class="btn btn-ghost btn-lg" href="#chat">Try ours {{icon:chat}}</a>
         </div>
+        <div class="pill-row"><span class="tag">Claude Partner</span><span class="tag">{{icon:whatsapp}} WhatsApp · Live Chat</span><span class="tag">{{icon:globe}} Multilingual</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Discipline</span><span>AI chatbot</span></div>
-          <div><span>Channels</span><span>Web · WhatsApp · in-app</span></div>
-          <div><span>Grounding</span><span>Your knowledge base and records</span></div>
-          <div><span>Hand-off</span><span>Clean pass to a person, with context</span></div>
-          <div><span>Also does</span><span>Lead capture and lookups</span></div>
+      <div class="stage stage--bot" aria-hidden="true">
+        <div class="bt-ch"><span class="st-chip">{{icon:globe}}Web</span><span class="st-chip">{{icon:whatsapp}}WhatsApp</span><span class="st-chip">{{icon:layout}}In-app</span></div>
+        <div class="st-card bt-win dp" style="--d:6">
+          <div class="bt-head"><span class="bt-av">{{icon:bot}}</span><b>Assistant</b><small><span class="on">Answers from your knowledge base</span><span class="typ">typing…</span></small></div>
+          <div class="bt-msgs">
+            <p class="bt-m you m1">Do you deliver on Saturdays?</p>
+            <p class="bt-m bot m2">Yes, Saturday slots run from 9am to 1pm. Shall I book one?</p>
+            <p class="bt-m you m3">Can I talk to someone about a bulk order?</p>
+            <p class="bt-m bot m4">Of course. I'm passing you to our sales team with this chat.</p>
+          </div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Claude Partner</span>
-          <span class="tag">{{icon:whatsapp}} WhatsApp · Live Chat</span>
-          <span class="tag">{{icon:globe}} Multilingual</span>
-        </div>
-      </aside>
+        <div class="st-card bt-hand dp" style="--d:14">{{icon:users}}<div><b>Handed to Sales</b><span>With the full conversation</span></div></div>
+        <span class="st-chip bt-lead dp" style="--d:10">{{icon:usercheck}}Lead saved with the chat</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>AI chatbot</dd></div><div><dt>Channels</dt><dd>Web · WhatsApp · in-app</dd></div><div><dt>Grounding</dt><dd>Your knowledge base and records</dd></div><div><dt>Hand-off</dt><dd>Clean pass to a person, with context</dd></div><div><dt>Also does</dt><dd>Lead capture and lookups</dd></div></dl>
   </div>
 </section>
 

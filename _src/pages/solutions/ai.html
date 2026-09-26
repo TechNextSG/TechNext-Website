@@ -1,9 +1,10 @@
 <!--meta {"title": "Enterprise AI Solutions in Singapore", "desc": "TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters.", "out": "solutions/ai.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>AI Solution</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">practical ai, in production</span>
         <h1>AI that does the repetitive work, and asks before it matters.</h1>
@@ -12,25 +13,26 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Claude Partner</span><span class="tag tag--odoo">Odoo Partner</span><a class="tag" href="{{ROOT}}solutions/ai-knowledge.html">{{icon:database}} Knowledge</a><a class="tag" href="{{ROOT}}solutions/ai-automation.html">{{icon:zap}} Automation</a><a class="tag" href="{{ROOT}}solutions/ai-chatbots.html">{{icon:bot}} Chatbots</a></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Disciplines</span><span>4 AI disciplines</span></div>
-          <div><span>Grounding</span><span>Your own data, with sources</span></div>
-          <div><span>Control</span><span>Human approval where it matters</span></div>
-          <div><span>Deploy</span><span>Web · WhatsApp · in-app · Odoo</span></div>
-          <div><span>Reach</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--aihub" data-cycle="know,auto,chat,odoo" aria-hidden="true">
+        <svg class="ah-svg" viewBox="0 0 600 330" preserveAspectRatio="none" focusable="false"><path class="ah-ln l-know" d="M140,31 L300,160"/><path class="ah-ln l-auto" d="M460,31 L300,160"/><path class="ah-ln l-chat" d="M140,265 L300,160"/><path class="ah-ln l-odoo" d="M460,265 L300,160"/></svg>
+        <span class="ah-t t-know" data-role-tab="know">{{icon:database}}<b>Knowledge assistants</b><small>Answers with sources</small></span>
+        <span class="ah-t t-auto" data-role-tab="auto">{{icon:zap}}<b>Workflow agents</b><small>Steps run, you decide</small></span>
+        <span class="ah-t t-chat" data-role-tab="chat">{{icon:bot}}<b>AI chatbots</b><small>Web · WhatsApp · in-app</small></span>
+        <span class="ah-t t-odoo" data-role-tab="odoo">{{odoo:ai_app:24}}<b>AI inside Odoo</b><small>Works in your records</small></span>
+        <div class="st-card ah-core">{{icon:shield}}<b>Your data</b><small>Documents · records · policies</small></div>
+        <div class="st-card ah-cap dp" style="--d:10">
+          <p data-role="know">Answers from your own documents, each with its source.</p>
+          <p data-role="auto">An agent runs the steps; a person approves the decision.</p>
+          <p data-role="chat">Customers get answers on the web and WhatsApp, and a person when it matters.</p>
+          <p data-role="odoo">Bills read, replies drafted and lookups done inside your Odoo.</p>
+          <small>{{icon:usercheck}}A person approves anything that moves money or commitments</small>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Claude Partner</span>
-          <span class="tag tag--odoo">Odoo Partner</span>
-          <a class="tag" href="{{ROOT}}solutions/ai-knowledge.html">{{icon:database}} Knowledge</a>
-          <a class="tag" href="{{ROOT}}solutions/ai-automation.html">{{icon:zap}} Automation</a>
-          <a class="tag" href="{{ROOT}}solutions/ai-chatbots.html">{{icon:bot}} Chatbots</a>
-        </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Disciplines</dt><dd>4 AI disciplines</dd></div><div><dt>Grounding</dt><dd>Your own data, with sources</dd></div><div><dt>Control</dt><dd>Human approval where it matters</dd></div><div><dt>Deploy</dt><dd>Web · WhatsApp · in-app · Odoo</dd></div><div><dt>Reach</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

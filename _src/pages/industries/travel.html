@@ -1,12 +1,39 @@
 <!--meta {"title": "Odoo for Travel & Tours", "desc": "Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.", "out": "industries/travel.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Travel</span></nav>
-    <span class="hand">agencies, tour operators, hospitality</span>
-    <h1>Know the margin on every booking.</h1>
-    <p class="lead">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">agencies, tour operators, hospitality</span>
+        <h1>Know the margin on every booking.</h1>
+        <p class="lead">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--travel" aria-hidden="true">
+        <svg class="tv-svg st-anim" viewBox="0 0 600 110" focusable="false">
+          <path id="tvarc" class="tv-arc" d="M30,100 Q300,-26 570,100"/>
+          <circle class="tv-dot" cx="30" cy="100" r="6"/><circle class="tv-dot" cx="570" cy="100" r="6"/>
+          <path class="tv-plane" d="M-10,-7 L11,0 L-10,7 L-6,0 Z" opacity="0"><animateMotion dur="5s" begin="1.2s" repeatCount="indefinite" rotate="auto"><mpath href="#tvarc" xlink:href="#tvarc"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="5s" begin="1.2s" repeatCount="indefinite"/></path>
+        </svg>
+        <div class="st-card tv-book dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:sale:16}}<span>Booking · 5 days · 2 travellers</span></div>
+          <div class="tv-legs">
+            <p style="--k:0">{{icon:plane}}Flights<b>S$ 1,180</b></p>
+            <p style="--k:1">{{icon:briefcase}}Hotel · 4 nights<b class="tv-fx"><i>IDR 7,800,000</i><i>S$ 660</i></b></p>
+            <p style="--k:2">{{icon:truck}}Transfers<b>S$ 180</b></p>
+            <p style="--k:3">{{icon:users}}Guide<b>S$ 540</b></p>
+          </div>
+        </div>
+        <div class="st-card tv-margin dp" style="--d:14"><b>Margin on this booking</b>
+          <div class="tv-row"><span>Sell</span><b>S$ 3,200</b></div><div class="tv-row"><span>Cost</span><b>S$ 2,560</b></div>
+          <div class="tv-meter"><i></i></div><div class="tv-row t"><span>Margin</span><b>20%</b></div>
+        </div>
+        <span class="st-chip tv-cur dp" style="--d:10">{{icon:globe}}Invoiced in the customer's currency</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/sale.html">Sales</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/crm.html">CRM</a> · <a href="{{ROOT}}odoo/apps/event.html">Events &amp; Rental</a></dd></div><div><dt>First phase</dt><dd>Show us one recent booking end to end</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

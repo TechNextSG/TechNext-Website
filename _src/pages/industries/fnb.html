@@ -1,12 +1,31 @@
 <!--meta {"title": "Odoo for F&B — restaurants & central kitchens", "desc": "Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.", "out": "industries/fnb.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>F&amp;B</span></nav>
-    <span class="hand">restaurants, cafés, central kitchens</span>
-    <h1>From the order to the kitchen to the books, in one system.</h1>
-    <p class="lead">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">restaurants, cafés, central kitchens</span>
+        <h1>From the order to the kitchen to the books, in one system.</h1>
+        <p class="lead">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--fnb" aria-hidden="true">
+        <div class="st-card fb-floor dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:pos_restaurant:16}}<span>Floor plan · Outlet 1</span></div>
+          <div class="fb-tables"><span class="busy">T1</span><span>T2</span><span class="sq busy">T3</span><span class="on">T4</span><span class="sq">T5</span><span class="busy">T6</span></div>
+        </div>
+        <div class="st-card fb-kds dp" style="--d:12"><b>Kitchen · T4</b><p>2 × Laksa</p><p>1 × Teh tarik</p><span class="fb-time"><i></i></span><em class="fb-ready">{{icon:check}}Ready to serve</em></div>
+        <div class="st-card fb-stock dp" style="--d:14"><b>Ingredients · par levels</b>
+          <div class="fb-bar"><span>Noodles</span><u><i style="--w:56%;--w0:74%"></i></u></div>
+          <div class="fb-bar low"><span>Prawns</span><u><i style="--w:24%;--w0:38%"></i></u><em>Below par · PO raised</em></div>
+          <div class="fb-bar"><span>Coconut milk</span><u><i style="--w:46%;--w0:60%"></i></u></div>
+        </div>
+        <span class="st-chip fb-night dp" style="--d:10">{{icon:calculator}}Outlet takings posted each night</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/pos_restaurant.html">POS Restaurant</a> · <a href="{{ROOT}}odoo/apps/mrp.html">Manufacturing</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a></dd></div><div><dt>First phase</dt><dd>Start with one outlet</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

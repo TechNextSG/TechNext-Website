@@ -1,12 +1,29 @@
 <!--meta {"title": "Odoo for Medical & Healthcare", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Medical</span></nav>
-    <span class="hand">clinics and healthcare groups</span>
-    <h1>Stock, purchasing and books — per branch, in one system.</h1>
-    <p class="lead">Consumables and medicines tracked by lot and expiry, purchasing centralised, and each clinic's accounts kept clean without a separate spreadsheet per site.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">clinics and healthcare groups</span>
+        <h1>Stock, purchasing and books — per branch, in one system.</h1>
+        <p class="lead">Consumables and medicines tracked by lot and expiry, purchasing centralised, and each clinic's accounts kept clean without a separate spreadsheet per site.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--med" aria-hidden="true">
+        <div class="md-branches">
+          <div class="st-card md-b" style="--i:0"><b>Clinic A</b><p>Gauze · Lot 24B</p><em>Expires 03/2027</em></div>
+          <div class="st-card md-b alert" style="--i:1"><b>Clinic B</b><p>Saline · Lot 17A</p><em>Expires in 30 days</em></div>
+          <div class="st-card md-b" style="--i:2"><b>Clinic C</b><p>Syringes · Lot 09C</p><em>Expires 11/2027</em></div>
+        </div>
+        <svg class="md-svg" viewBox="0 0 600 90" preserveAspectRatio="none" focusable="false"><path class="md-ln" d="M100,0 C100,50 300,40 300,90"/><path class="md-ln" d="M300,0 L300,90"/><path class="md-ln" d="M500,0 C500,50 300,40 300,90"/></svg>
+        <div class="st-card md-rfq dp" style="--d:10">{{odoo:purchase:28}}<b>Central purchasing</b><span>One RFQ from three branches' demand</span><small>{{icon:check}}Bills matched to receipts</small></div>
+        <span class="st-chip md-books">{{icon:calculator}}Books per branch · one consolidated report</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/point_of_sale.html">Point of Sale</a> · <a href="{{ROOT}}odoo/apps/appointment.html">Appointments</a></dd></div><div><dt>First phase</dt><dd>Bring one branch's numbers</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

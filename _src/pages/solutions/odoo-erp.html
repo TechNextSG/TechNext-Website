@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo ERP Implementation in Singapore", "desc": "Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.", "out": "solutions/odoo-erp.html", "nav": "solution", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>ERP</span><span>Odoo ERP Development</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">the core of what we do</span>
         <h1>Odoo ERP, implemented properly.</h1>
@@ -12,25 +13,28 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Book a discovery call</a>
         </div>
+        <div class="pill-row"><a class="tag" href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:16}} Accounting</a><a class="tag" href="{{ROOT}}odoo/apps/sale.html">{{odoo:sale:16}} Sales</a><a class="tag" href="{{ROOT}}odoo/apps/stock.html">{{odoo:stock:16}} Inventory</a><a class="tag" href="{{ROOT}}odoo/apps/purchase.html">{{odoo:purchase:16}} Purchase</a><a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM</a></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Partner status</span><span>Odoo Partner</span></div>
-          <div><span>First focus</span><span>Accounting · Sales · Inventory</span></div>
-          <div><span>Hosting</span><span>Odoo Online · Odoo.sh · On-premise</span></div>
-          <div><span>Delivery</span><span>Discovery → Training → Integration → Support</span></div>
-          <div><span>Teams</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--oerp" aria-hidden="true">
+        <div class="oe-apps">
+          <div class="oe-app" style="--i:0">{{odoo:sale:40}}<b>Sales</b><small>Quote · confirm</small></div>
+          <div class="oe-app" style="--i:1">{{odoo:stock:40}}<b>Inventory</b><small>Pick · deliver</small></div>
+          <div class="oe-app" style="--i:2">{{odoo:accountant:40}}<b>Accounting</b><small>Invoice · reconcile</small></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <a class="tag" href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:16}} Accounting</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/sale.html">{{odoo:sale:16}} Sales</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/stock.html">{{odoo:stock:16}} Inventory</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/purchase.html">{{odoo:purchase:16}} Purchase</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM</a>
-        </div>
-      </aside>
+        <div class="oe-lane"><div class="st-card oe-doc">
+          <span class="oe-s s1"><b>S00128</b><em>Sales order · confirmed</em></span>
+          <span class="oe-s s2"><b>WH/OUT/0042</b><em>Delivery · done</em></span>
+          <span class="oe-s s3"><b>INV/2026/0107</b><em>Invoice · paid</em></span>
+          <span class="oe-bar"><i></i></span>
+        </div></div>
+        <span class="st-chip oe-one dp" style="--d:10">{{icon:database}}One record from quote to cash</span>
+        <div class="st-card oe-how dp" style="--d:14"><b>How we deliver it</b><ol class="oe-steps">
+          <li style="--k:0">{{icon:search}}Discovery</li><li style="--k:1">{{icon:graduation}}Training</li><li style="--k:2">{{icon:plug}}Integration</li><li style="--k:3">{{icon:lifebuoy}}Support</li>
+        </ol></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Partner status</dt><dd>Odoo Partner</dd></div><div><dt>First focus</dt><dd>Accounting · Sales · Inventory</dd></div><div><dt>Hosting</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>Delivery</dt><dd>Discovery → Training → Integration → Support</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

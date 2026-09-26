@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,13 +124,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Industries</span><span>F&amp;B</span></nav>
-    <span class="hand">restaurants, cafés, central kitchens</span>
-    <h1>From the order to the kitchen to the books, in one system.</h1>
-    <p class="lead">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">restaurants, cafés, central kitchens</span>
+        <h1>From the order to the kitchen to the books, in one system.</h1>
+        <p class="lead">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--fnb" aria-hidden="true">
+        <div class="st-card fb-floor dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><img class="oi" src="../assets/img/odoo/pos_restaurant.svg" alt="" width="16" height="16" loading="lazy" decoding="async"><span>Floor plan · Outlet 1</span></div>
+          <div class="fb-tables"><span class="busy">T1</span><span>T2</span><span class="sq busy">T3</span><span class="on">T4</span><span class="sq">T5</span><span class="busy">T6</span></div>
+        </div>
+        <div class="st-card fb-kds dp" style="--d:12"><b>Kitchen · T4</b><p>2 × Laksa</p><p>1 × Teh tarik</p><span class="fb-time"><i></i></span><em class="fb-ready"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ready to serve</em></div>
+        <div class="st-card fb-stock dp" style="--d:14"><b>Ingredients · par levels</b>
+          <div class="fb-bar"><span>Noodles</span><u><i style="--w:56%;--w0:74%"></i></u></div>
+          <div class="fb-bar low"><span>Prawns</span><u><i style="--w:24%;--w0:38%"></i></u><em>Below par · PO raised</em></div>
+          <div class="fb-bar"><span>Coconut milk</span><u><i style="--w:46%;--w0:60%"></i></u></div>
+        </div>
+        <span class="st-chip fb-night dp" style="--d:10"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2" fill="currentColor" fill-opacity=".2" stroke="none"/><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01M16 19h.01"/></svg>Outlet takings posted each night</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="../odoo/apps/pos_restaurant">POS Restaurant</a> · <a href="../odoo/apps/mrp">Manufacturing</a> · <a href="../odoo/apps/stock">Inventory</a> · <a href="../odoo/apps/purchase">Purchase</a> · <a href="../odoo/apps/accountant">Accounting</a></dd></div><div><dt>First phase</dt><dd>Start with one outlet</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -255,10 +274,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
-<script src="../assets/js/showcase.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
+<script src="../assets/js/showcase.js?v=c726268f" defer></script>
 </body>
 </html>

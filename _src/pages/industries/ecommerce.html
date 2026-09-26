@@ -1,12 +1,30 @@
 <!--meta {"title": "Odoo for Ecommerce — orders, stock and payouts", "desc": "Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/ecommerce.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Ecommerce</span></nav>
-    <span class="hand">online stores and marketplace sellers</span>
-    <h1>Orders in, stock out, payouts reconciled.</h1>
-    <p class="lead">Whether orders come from your own store or a marketplace, they should reserve real stock, print the right labels and land in the books with fees and payouts matched.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">online stores and marketplace sellers</span>
+        <h1>Orders in, stock out, payouts reconciled.</h1>
+        <p class="lead">Whether orders come from your own store or a marketplace, they should reserve real stock, print the right labels and land in the books with fees and payouts matched.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--ecom" aria-hidden="true">
+        <div class="ec-orders">
+          <div class="st-card ec-o" style="--k:0">{{icon:cart}}<b>Order #1042</b><span>Your store · 2 items</span><em>Stock reserved</em></div>
+          <div class="st-card ec-o" style="--k:1">{{icon:bag}}<b>Order #1043</b><span>Marketplace · 1 item</span><em>Stock reserved</em></div>
+        </div>
+        <div class="st-card ec-label dp" style="--d:10"><b>Shipping label · #1042</b><div class="ec-bc"></div><small>{{icon:check}}Tracking sent to the customer</small></div>
+        <div class="st-card ec-pay dp" style="--d:14"><b>Payout matched</b>
+          <p style="--k:0"><span>Sales</span><b>S$ 1,240.00</b></p><p style="--k:1"><span>Fees</span><b>− S$ 62.00</b></p><p style="--k:2"><span>Refunds</span><b>− S$ 40.00</b></p><p class="t" style="--k:3"><span>Payout</span><b>S$ 1,138.00</b></p>
+          <span class="ec-ok">{{icon:check}}Reconciled in Accounting</span>
+        </div>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/website_sale.html">eCommerce</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/helpdesk.html">Helpdesk</a></dd></div><div><dt>First phase</dt><dd>Tell us where orders come from today</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

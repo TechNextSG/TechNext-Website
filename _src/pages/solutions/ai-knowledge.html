@@ -1,9 +1,10 @@
 <!--meta {"title": "Enterprise RAG Knowledge Assistants", "desc": "Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited.", "out": "solutions/ai-knowledge.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>AI Solution</span><span>RAG Knowledge Assistants</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">retrieval-augmented generation</span>
         <h1>Ask in plain language. Get the answer, with the source.</h1>
@@ -12,23 +13,22 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Claude Partner</span><span class="tag tag--ok">{{icon:check}} Sources cited</span><span class="tag">{{icon:lock}} Permission-aware</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Discipline</span><span>RAG knowledge assistant</span></div>
-          <div><span>Grounding</span><span>Your documents, policies, records</span></div>
-          <div><span>Every answer</span><span>Cites its sources</span></div>
-          <div><span>Scope</span><span>Approved content only</span></div>
-          <div><span>Deploy</span><span>Web · WhatsApp · in-app · Odoo</span></div>
+      <div class="stage stage--rag" aria-hidden="true">
+        <div class="st-card rg-win dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Knowledge assistant · approved content only</span></div>
+          <div class="rg-body">
+            <p class="rg-q">How do I claim travel expenses?</p>
+            <div class="rg-search"><span>Searching approved documents</span><em style="--k:0">{{icon:file}}Staff handbook</em><em class="hit" style="--k:1">{{icon:file}}Expense policy</em><em style="--k:2">{{icon:file}}Finance FAQ</em></div>
+            <p class="rg-a">Submit the receipt in Expenses within 30 days. Your manager approves it, and Finance reimburses you with the next payroll.<sup>1</sup></p>
+            <span class="rg-src">{{icon:check}}[1] Expense policy, section 4.2</span>
+          </div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Claude Partner</span>
-          <span class="tag tag--ok">{{icon:check}} Sources cited</span>
-          <span class="tag">{{icon:lock}} Permission-aware</span>
-        </div>
-      </aside>
+        <span class="st-chip rg-lock dp" style="--d:12">{{icon:lock}}Nothing outside the approved library</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>RAG knowledge assistant</dd></div><div><dt>Grounding</dt><dd>Your documents, policies, records</dd></div><div><dt>Every answer</dt><dd>Cites its sources</dd></div><div><dt>Scope</dt><dd>Approved content only</dd></div><div><dt>Deploy</dt><dd>Web · WhatsApp · in-app · Odoo</dd></div></dl>
   </div>
 </section>
 
