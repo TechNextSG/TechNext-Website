@@ -10,7 +10,9 @@ Tokens available inside partials and the layout:
     {{odoo:module}}     official Odoo app icon <img>, default 44px; {{odoo:module:28}} for 28px
     {{YEAR}}            current year
 """
+import html as html_mod
 import json
+import subprocess
 import os
 import re
 import sys
@@ -312,25 +314,116 @@ LAYOUT = '''<!doctype html>
 '''
 
 
-def jsonld(canonical: str) -> str:
+SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html", "odoo/training.html",
+                 "odoo/integration.html", "odoo/support.html", "odoo/erp-system.html",
+                 "odoo/crm-development.html", "odoo/ai-integration.html")
+AREA_SERVED = ["Singapore", "Southeast Asia", "Worldwide"]
+_CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
+_CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
+_FAQ = re.compile(r'<details>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)
+
+
+def _text(fragment: str) -> str:
+    fragment = re.sub(r"\{\{[^{}]*\}\}", "", fragment)          # template tokens, e.g. {{icon:chevron}}
+    fragment = re.sub(r"<[^>]+>", " ", fragment)
+    return re.sub(r"\s+", " ", html_mod.unescape(fragment)).strip()
+
+
+def _abs_url(href: str) -> str:
+    href = href.replace("{{ROOT}}", "").replace("{ROOT}", "")
+    href = re.sub(r"^(\.\./)+", "", href).split("#")[0]
+    return S.SITE_URL + clean_url(href)
+
+
+def _base_title(title: str) -> str:
+    """'Odoo for F&B — restaurants & central kitchens' -> 'Odoo for F&B'."""
+    return re.split(r"\s+[—·|]\s+", title)[0].strip()
+
+
+def _breadcrumb(canonical: str, content: str):
+    m = _CRUMBS.search(content)
+    if not m:
+        return None
+    items, seen = [], set()
+    for href, a_text, span in _CRUMB.findall(m.group(1)):
+        if not href and span:                                     # <span><a href=..>..</a></span>
+            inner = re.search(r'href="([^"]+)"[^>]*>(.*?)</a>', span, re.S)
+            if inner:
+                href, a_text = inner.group(1), inner.group(2)
+        name = _text(a_text or span)
+        if not name:
+            continue
+        if href:
+            if "#" in href:                                       # same-page anchors are not pages
+                continue
+            url = _abs_url(href)
+        else:
+            url = None
+        items.append((name, url))
+    if not items:
+        return None
+    # the last crumb is the page itself
+    items[-1] = (items[-1][0], canonical)
+    out = []
+    for name, url in items:
+        if not url or url in seen:                                # unlinked middle crumbs are labels
+            continue
+        seen.add(url)
+        out.append({"@type": "ListItem", "position": len(out) + 1, "name": name, "item": url})
+    if len(out) < 2:
+        return None
+    return {"@type": "BreadcrumbList", "@id": canonical + "#breadcrumb", "itemListElement": out}
+
+
+def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
+    """One linked graph per page: the company, the site, this page, its breadcrumb, and -
+    only when the page visibly shows them - its FAQs and the service it describes."""
     c = S.COMPANY
-    data = {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": c["legal"],
-        "alternateName": "TechNext",
-        "url": S.SITE_URL,
-        "email": c["sales_email"],
-        "telephone": c["whatsapp"],
-        "address": {"@type": "PostalAddress", "streetAddress": c["address"][0],
-                    "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
-        "sameAs": [c["linkedin"]],
-        "description": S.DEFAULT_DESC,
-        "slogan": "Impressive website development, world-class business consultation, all-in-one Odoo ERP.",
-        "knowsAbout": ["Odoo ERP", "Enterprise Resource Planning", "Business consultation", "Website development",
-                       "Odoo Accounting", "Odoo Sales", "Odoo Inventory", "Odoo implementation", "AI solutions"],
-    }
-    return json.dumps(data, ensure_ascii=False)
+    org_id, site_id, page_id = S.SITE_URL + "#organization", S.SITE_URL + "#website", canonical + "#webpage"
+    graph = [
+        {
+            "@type": "ProfessionalService", "@id": org_id,
+            "name": c["legal"], "alternateName": c["short"], "url": S.SITE_URL,
+            "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
+            "image": S.SITE_URL + "assets/img/og-image.png",
+            "email": c["sales_email"], "telephone": c["whatsapp"],
+            "address": {"@type": "PostalAddress", "streetAddress": c["address"][0],
+                        "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
+            "identifier": {"@type": "PropertyValue", "propertyID": "UEN", "value": c["uen"]},
+            "areaServed": AREA_SERVED,
+            "sameAs": [c["linkedin"]],
+            "description": S.DEFAULT_DESC,
+            "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
+                           "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
+                           "AI workflow automation", "AI chatbots", "Website development", "Business consultation"],
+        },
+        {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
+         "publisher": {"@id": org_id}, "inLanguage": "en"},
+    ]
+    page = {"@type": "WebPage", "@id": page_id, "url": canonical, "name": meta["title"],
+            "description": meta.get("desc", S.DEFAULT_DESC).strip(), "isPartOf": {"@id": site_id},
+            "inLanguage": "en"}
+    if out_rel in ("index.html", "company.html"):
+        page["about"] = {"@id": org_id}
+    crumb = _breadcrumb(canonical, content)
+    if crumb:
+        page["breadcrumb"] = {"@id": crumb["@id"]}
+    graph.append(page)
+    if crumb:
+        graph.append(crumb)
+    faqs = [(_text(q), _text(a)) for q, a in _FAQ.findall(content)]
+    faqs = [(q, a) for q, a in faqs if q and a]
+    if len(faqs) >= 2:
+        graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
+                      "mainEntity": [{"@type": "Question", "name": q,
+                                      "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
+    if out_rel.startswith(SERVICE_PAGES):
+        name = _base_title(meta["title"])
+        graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
+                      "description": meta.get("desc", "").strip(), "url": canonical,
+                      "provider": {"@id": org_id}, "areaServed": AREA_SERVED})
+    # a "</" inside a JSON string would end the <script> element early
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
 
 # ---------------------------------------------------------------- generated blocks
@@ -492,12 +585,17 @@ def app_page(mod: str) -> tuple:
             rel_mods.append(extra)
     related = "".join(f'<a class="app" href="{m}.html">{{{{odoo:{m}:40}}}}<div><b>{APP_BY_MOD[m]["name"]}</b><small>{APP_BY_MOD[m]["desc"]}</small></div>{{{{icon:arrow}}}}</a>' for m in rel_mods)
     impl = "".join(f'<li>{{{{icon:check}}}}{p}</li>' for p in IMPLEMENT.get(mod, DEFAULT_IMPLEMENT))
-    desc_meta = (c.get("description") or "").strip()
-    if len(desc_meta) < 60:
-        desc_meta = f"Odoo {name}: {app['desc']} What it does, official screens and video, and how TechNext configures it for your company."
+    # Original copy only: the old description was odoo.com's own marketing text, which made
+    # these pages near-duplicates of Odoo's.
+    short = app["desc"].rstrip(".")
+    desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}. Setup, data migration, training and support."
+    if len(desc_meta) > 160:
+        desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}."
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
-    meta = {"title": f"Odoo {name} — features and implementation | TechNext", "desc": desc_meta,
+    if len(desc_meta) < 110:
+        desc_meta += " Book a free discovery call."
+    meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
     content = f'''
 <section class="page-hero page-hero--split">
@@ -506,7 +604,7 @@ def app_page(mod: str) -> tuple:
     <div class="{hero_grid}">
       <div>
         <div class="app-hero-head">{{{{odoo:{mod}:56}}}}<span class="hand">odoo · {cat["title"].lower()}</span></div>
-        <h1>{name}<span class="app-sub">{headline}</span></h1>
+        <h1>{name} <span class="app-sub">{headline}</span></h1>
         <p class="lead">{lead}</p>
         <div class="pill-row"><span class="tag tag--odoo">Odoo Partner</span>{focus}</div>
         <div class="actions">
@@ -652,7 +750,10 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     canonical = S.SITE_URL + clean_url(out_rel)
     if out_rel not in INDEX_SKIP:
         INDEX.append({"u": clean_url(out_rel), "t": meta["title"], "d": meta.get("desc", "").strip()})
-    title = meta["title"] if meta["title"].endswith("TechNext") else f'{meta["title"]} · TechNext'
+    # Google shows ~60 characters. The page's own keywords come first; the brand suffix is
+    # added only when it still fits (Google usually shows the site name separately anyway).
+    base_title = meta["title"]
+    title = base_title if base_title.endswith("TechNext") or len(base_title) + 11 > 60 else base_title + " · TechNext"
     scripts = "".join(f'<script src="{{ROOT}}{s}?v={ASSET_V}" defer></script>' for s in meta.get("scripts", []))
 
     letters, lw, lh = letters_html()
@@ -667,7 +768,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{HEAD_EXTRA}", meta.get("head", ""))
                 .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html"))
                 .replace("{TAGS_BODY}", tags_body(out_rel == "index.html"))
-                .replace("{JSONLD}", jsonld(canonical))
+                .replace("{JSONLD}", jsonld(canonical, meta, content, out_rel))
                 .replace("{CONTENT}", content)
                 .replace("{LEGAL}", S.COMPANY["legal"])
                 .replace("{WA_MSG}", S.COMPANY["whatsapp_msg_link"])
@@ -684,16 +785,84 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     return out_rel
 
 
+_GIT_DATES = {}
+
+
+def git_date(paths) -> str:
+    """Date of the last commit touching a page's source; today if it is new/uncommitted."""
+    key = tuple(paths)
+    if key not in _GIT_DATES:
+        try:
+            out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", *paths], cwd=ROOT,
+                                 capture_output=True, text=True, timeout=20).stdout.strip()
+        except Exception:
+            out = ""
+        _GIT_DATES[key] = out or date.today().isoformat()
+    return _GIT_DATES[key]
+
+
+def page_source(out_rel: str):
+    if out_rel.startswith("odoo/apps/"):
+        return ["_src/apps_content.json"]
+    return ["_src/pages/" + out_rel]
+
+
 def write_sitemap(pages):
     urls = []
     for p in sorted(pages):
         if p in ("404.html", "case-studies.html"):
             continue
         loc = S.SITE_URL + clean_url(p)
-        urls.append(f"  <url><loc>{loc}</loc><lastmod>{date.today().isoformat()}</lastmod></url>")
+        urls.append(f"  <url><loc>{loc}</loc><lastmod>{git_date(page_source(p))}</lastmod></url>")
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
+
+
+LLMS_GROUPS = [
+    ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
+                                    or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
+    ("AI solutions", lambda u: u.startswith("solutions/ai")),
+    ("Websites and marketing", lambda u: u in ("solutions/marketing", "solutions/website",
+                                                "solutions/social-media", "solutions/brand-assets")),
+    ("Odoo by industry", lambda u: u.startswith("industries/")),
+    ("Odoo apps we implement", lambda u: u.startswith("odoo/apps")),
+    ("Company", lambda u: u in ("", "company", "quotation")),
+]
+
+
+def write_llms():
+    """llms.txt (llmstxt.org): a plain-text map of the site for AI assistants and agents.
+    Built from the same page index as the chat assistant, so it never goes stale."""
+    c = S.COMPANY
+    strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
+    lines = [
+        "# TechNext", "",
+        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end "
+        "(accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, "
+        "AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.",
+        "",
+        f"- Registered name: {c['legal']} (UEN {c['uen']})",
+        f"- Address: {', '.join(c['address'])}",
+        f"- Contact: {c['sales_email']} · WhatsApp {c['whatsapp']}",
+        "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
+        f"- Written quotation: {S.SITE_URL}quotation",
+    ]
+    entries = sorted(INDEX, key=lambda e: e["u"])
+    used = set()
+    for title, test in LLMS_GROUPS:
+        group = [e for e in entries if e["u"] not in used and test(e["u"])]
+        if not group:
+            continue
+        lines += ["", f"## {title}", ""]
+        for e in group:
+            used.add(e["u"])
+            lines.append(f"- [{strip(e['t'])}]({S.SITE_URL}{e['u']}): {e['d']}")
+    lines += ["", "## Optional", "",
+              f"- [Privacy Policy]({S.SITE_URL}privacy): how personal data and cookies are handled",
+              f"- [Terms of Service]({S.SITE_URL}terms): website terms and how engagements are agreed", ""]
+    (ROOT / "llms.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    return len(used)
 
 
 def write_chat_index():
@@ -715,6 +884,7 @@ def main():
         built.append(render(meta, content, nav_cache))
     write_sitemap(built)
     write_chat_index()
+    print(f"llms.txt: {write_llms()} pages")
     # security headers: hashes every inline script of the pages just built
     from make_vercel import write_vercel
     print(f"vercel.json: {write_vercel()} inline script hashes")
