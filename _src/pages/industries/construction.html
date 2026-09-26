@@ -1,12 +1,31 @@
 <!--meta {"title": "Odoo for Construction — site costs & billing", "desc": "Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.", "out": "industries/construction.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Construction</span></nav>
-    <span class="hand">contractors, fit-out, M&amp;E</span>
-    <h1>Every project's cost and margin, while it is still running.</h1>
-    <p class="lead">Purchase orders, subcontractor claims, site materials and labour hours land on the project they belong to — so the margin is visible before hand-over, not after the final account.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">contractors, fit-out, M&amp;E</span>
+        <h1>Every project's cost and margin, while it is still running.</h1>
+        <p class="lead">Purchase orders, subcontractor claims, site materials and labour hours land on the project they belong to — so the margin is visible before hand-over, not after the final account.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--build" aria-hidden="true">
+        <div class="st-card cn-proj dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:project:16}}<span>Project · office fit-out</span></div>
+          <div class="cn-body">
+            <div class="cn-row"><span>Budget</span><b>S$ 480,000</b></div>
+            <div class="cn-meter"><i></i></div>
+            <div class="cn-row"><span>Cost to date</span><b class="ok">Within budget</b></div>
+            <div class="cn-feed"><p class="f1">{{icon:receipt}}PO · site materials<b>S$ 18,200</b></p><p class="f2">{{icon:file}}Subcontractor claim<b>S$ 42,500</b></p><p class="f3">{{icon:clock}}Labour · 320 h<b>S$ 11,800</b></p></div>
+          </div>
+        </div>
+        <div class="st-card cn-claim dp" style="--d:14"><b>Progress claim #3</b><p><span>Certified</span><b>40%</b></p><p><span>Retention</span><b>5%</b></p><em>{{icon:check}}Invoice drafted from the project</em></div>
+        <span class="st-chip cn-margin dp" style="--d:10">{{icon:trend}}Margin visible while the job runs</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/project.html">Project</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/hr_timesheet.html">Timesheets</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a></dd></div><div><dt>First phase</dt><dd>Bring one live project</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

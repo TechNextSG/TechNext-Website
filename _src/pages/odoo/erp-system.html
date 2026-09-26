@@ -18,7 +18,7 @@
       <div class="stage stage--erp" aria-hidden="true">
         <div class="st-card er-code dp" style="--d:6">
           <div class="st-bar"><i></i><i></i><i></i><span>custom_approvals / models / sale_order.py</span></div>
-          <pre class="er-pre"><span class="ln" style="--k:0"><i class="kw">class</i> <i class="fn">SaleOrder</i>(models.Model):</span><span class="ln" style="--k:1">    _inherit = <i class="st">"sale.order"</i></span><span class="ln" style="--k:2">    approval_required = fields.Boolean()</span><span class="ln" style="--k:3"> </span><span class="ln" style="--k:4">    <i class="kw">def</i> <i class="fn">action_confirm</i>(self):</span><span class="ln" style="--k:5">        self._check_approval()</span><span class="ln" style="--k:6">        <i class="kw">return</i> super().action_confirm()</span></pre>
+          <pre class="er-pre"><span class="ln" style="--k:0"><i class="tk-k">class</i> <i class="tk-f">SaleOrder</i>(models.Model):</span><span class="ln" style="--k:1">    _inherit = <i class="tk-s">"sale.order"</i></span><span class="ln" style="--k:2">    approval_required = fields.Boolean()</span><span class="ln" style="--k:3"> </span><span class="ln" style="--k:4">    <i class="tk-k">def</i> <i class="tk-f">action_confirm</i>(self):</span><span class="ln" style="--k:5">        self._check_approval()</span><span class="ln" style="--k:6">        <i class="tk-k">return</i> super().action_confirm()</span></pre>
         </div>
         <div class="er-stack dp" style="--d:12">
           <div class="er-slab s1"><b>Odoo core</b><span class="er-ver grow"><em class="v1">This version</em><em class="v2">Next version</em></span></div>

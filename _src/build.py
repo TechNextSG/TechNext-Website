@@ -484,7 +484,7 @@ def apps_stage_html() -> str:
     return ('<div class="stage stage--apps" aria-hidden="true">'
             '<div class="st-card ap-win dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Odoo · Apps</span></div>'
             f'<div class="ap-rows">{"".join(rows)}</div></div>'
-            '<span class="st-chip ap-legend dp" style="--d:12"><span class="dot"></span>Our focus areas</span></div>')
+            '<span class="st-chip ap-legend dp" style="--d:12"><span class="lg-dot"></span>Our focus areas</span></div>')
 
 
 def marquee_html() -> str:

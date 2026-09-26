@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,34 +124,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Solution</span><span>Marketing</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">three services, one purpose</span>
         <h1>Be easy to find. Be easy to contact. Look like one company.</h1>
         <p class="lead">A website that explains what you do, and social channels that stay active — planned, produced and reported by TechNext as a service, so your team stays on their own work. Take one part or all three; the branding stays consistent across everything.</p>
         <div class="actions"><a class="btn btn-primary btn-lg" href="#talk">Discuss your marketing</a><a class="btn btn-ghost btn-lg" href="../quotation">Get a quotation</a></div>
+        <div class="pill-row"><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Websites</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 13z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg> Social media</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6l1.8 4.2L18 12l-4.2 1.8L12 18l-1.8-4.2L6 12l4.2-1.8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg> Brand assets</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6a6 6 0 1 0 0 12 6 6 0 1 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 1 1 0-4z" fill-rule="evenodd" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Landing pages</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8v10H3z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg> Reporting</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Services</span><span>Websites · Social · Brand assets</span></div>
-          <div><span>Model</span><span>Monthly retainer or one-off project</span></div>
-          <div><span>Reporting</span><span>One-page monthly report</span></div>
-          <div><span>Reach</span><span>10+ countries · 11+ enterprise clients</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--mkt" data-cycle="web,social,brand" aria-hidden="true">
+        <div class="mk-fan">
+          <div class="st-card mk-c c-web" data-role-tab="web"><div class="st-bar"><i></i><i></i><i></i><span>Website</span></div><div class="mk-web"><i class="h"></i><i></i><i class="s"></i><span>Contact us</span></div></div>
+          <div class="st-card mk-c c-social" data-role-tab="social"><div class="mk-post"><div class="mk-who"><i></i>Your company</div><div class="mk-img"></div><small>Scheduled · approved by you</small></div></div>
+          <div class="st-card mk-c c-brand" data-role-tab="brand"><div class="mk-brand"><div class="mk-sw"><i style="background:#3167CA"></i><i style="background:#1F1F3D"></i><i style="background:#D69A00"></i><i style="background:#EAF0FB"></i></div><b>Aa</b><small>Logo · colours · type</small></div></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Websites</span>
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 13z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg> Social media</span>
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6l1.8 4.2L18 12l-4.2 1.8L12 18l-1.8-4.2L6 12l4.2-1.8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg> Brand assets</span>
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6a6 6 0 1 0 0 12 6 6 0 1 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 1 1 0-4z" fill-rule="evenodd" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Landing pages</span>
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8v10H3z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg> Reporting</span>
+        <p class="mk-cap"><span data-role="web">Websites<small>Fast, clear sites that explain what you do.</small></span><span data-role="social">Social media<small>Steady posting with a plan behind it.</small></span><span data-role="brand">Brand assets<small>Logos, decks and templates your team can edit.</small></span></p>
+        <div class="st-card mk-rep dp" style="--d:14"><b>Monthly report · one page</b>
+          <div class="mk-bar"><span>Website visits</span><i style="--w:78%;--k:0"></i></div>
+          <div class="mk-bar"><span>Enquiries</span><i style="--w:46%;--k:1"></i></div>
+          <div class="mk-bar"><span>Followers</span><i style="--w:62%;--k:2"></i></div>
+          <small><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4H3z" fill="currentColor" fill-opacity=".2" stroke="none"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Plus next month's plan</small>
         </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Services</dt><dd>Websites · Social · Brand assets</dd></div><div><dt>Model</dt><dd>Monthly retainer or one-off project</dd></div><div><dt>Reporting</dt><dd>One-page monthly report</dd></div><div><dt>Reach</dt><dd>10+ countries · 11+ enterprise clients</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -360,10 +361,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
 
 </body>
 </html>

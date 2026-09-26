@@ -1,33 +1,38 @@
 <!--meta {"title": "Graphic & Brand Assets — logos, decks, collateral", "desc": "Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own.", "out": "solutions/brand-assets.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>Marketing</span><span>Graphic &amp; Brand Assets</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">consistent, editable, yours</span>
         <h1>Everything your brand needs to show up consistently.</h1>
         <p class="lead">Logo and guidelines, sales decks, brochures, social templates, document templates. Designed once, built as editable files your team can use without a designer — and handed over completely, files, fonts and rights.</p>
         <div class="actions"><a class="btn btn-primary btn-lg" href="#talk">Discuss brand assets</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+        <div class="pill-row"><span class="tag">{{icon:sparkle}} Logo</span><span class="tag">{{icon:layout}} Sales decks</span><span class="tag">{{icon:file}} Brochures</span><span class="tag">{{icon:camera}} Social templates</span><span class="tag">{{icon:receipt}} Document templates</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Assets</span><span>Logo · Guidelines · Decks · Collateral</span></div>
-          <div><span>Formats</span><span>PowerPoint · Canva · Figma · InDesign</span></div>
-          <div><span>You get</span><span>Editable master files</span></div>
-          <div><span>Ownership</span><span>Files, fonts and rights are yours</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--brand" aria-hidden="true">
+        <div class="st-card br-board dp" style="--d:6">
+          <div class="br-logo"><svg viewBox="0 0 120 120" focusable="false">
+            <path class="br-g" pathLength="1" d="M0,30 H120 M0,60 H120 M0,90 H120 M30,0 V120 M60,0 V120 M90,0 V120"/>
+            <path class="br-g c" pathLength="1" d="M60,20 A40,40 0 1 1 59.9,20"/>
+            <path class="br-mark" d="M60 20a40 40 0 1 1 -40 40h40z"/>
+            <circle class="br-dot" cx="84" cy="36" r="10"/>
+          </svg><small>Logo · construction</small></div>
+          <div class="br-sw"><span style="--c:#3167CA;--k:0">#3167CA</span><span style="--c:#1F1F3D;--k:1">#1F1F3D</span><span style="--c:#D69A00;--k:2">#D69A00</span><span style="--c:#EAF0FB;--k:3">#EAF0FB</span></div>
+          <div class="br-type"><b>Aa</b><span>Plus Jakarta Sans<small>Headings · 800 and 600</small></span></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">{{icon:sparkle}} Logo</span>
-          <span class="tag">{{icon:layout}} Sales decks</span>
-          <span class="tag">{{icon:file}} Brochures</span>
-          <span class="tag">{{icon:camera}} Social templates</span>
-          <span class="tag">{{icon:receipt}} Document templates</span>
+        <div class="br-assets">
+          <div class="st-card br-a x1"><div class="br-slide"></div><small>Presentation deck</small></div>
+          <div class="st-card br-a x2"><div class="br-cardv"></div><small>Business card</small></div>
+          <div class="st-card br-a x3"><div class="br-soc"></div><small>Social template</small></div>
         </div>
-      </aside>
+        <div class="br-fmt"><span class="st-chip" style="--k:0">PowerPoint</span><span class="st-chip" style="--k:1">Canva</span><span class="st-chip" style="--k:2">Figma</span><span class="st-chip" style="--k:3">InDesign</span><span class="st-chip own" style="--k:4">{{icon:check}}Master files are yours</span></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Assets</dt><dd>Logo · Guidelines · Decks · Collateral</dd></div><div><dt>Formats</dt><dd>PowerPoint · Canva · Figma · InDesign</dd></div><div><dt>You get</dt><dd>Editable master files</dd></div><div><dt>Ownership</dt><dd>Files, fonts and rights are yours</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

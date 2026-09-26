@@ -1,12 +1,32 @@
 <!--meta {"title": "Odoo for Health & Wellness — studios & spas", "desc": "Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.", "out": "industries/health-wellness.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Health &amp; Wellness</span></nav>
-    <span class="hand">studios, spas, gyms, therapists</span>
-    <h1>Bookings, memberships and retail on one client record.</h1>
-    <p class="lead">Every client has one record — appointments, packages, membership status, retail purchases and invoices — so the front desk sees the whole picture and finance gets clean numbers.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">studios, spas, gyms, therapists</span>
+        <h1>Bookings, memberships and retail on one client record.</h1>
+        <p class="lead">Every client has one record — appointments, packages, membership status, retail purchases and invoices — so the front desk sees the whole picture and finance gets clean numbers.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--well" aria-hidden="true">
+        <div class="st-card wl-client dp" style="--d:6">
+          <div class="wl-top"><span class="wl-av">JL</span><div><b>Jamie Lim</b><span>Gold membership · renews 12 Oct</span></div></div>
+          <div class="wl-sess"><span>Sessions left</span><span class="wl-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></span><b>6 of 10</b></div>
+          <ul class="wl-feed"><li class="f1">{{icon:calendar}}Booked · Yoga, Tue 7:00 pm</li><li class="f2">{{icon:bag}}Retail · mat towel · S$ 28</li><li class="f3">{{icon:receipt}}Invoice paid · same record</li></ul>
+        </div>
+        <div class="st-card wl-cal dp" style="--d:14"><b>This week</b>
+          <div class="wl-days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span></div>
+          <div class="wl-grid"><span class="b"></span><span></span><span class="b"></span><span></span><span></span><span class="b"></span><span></span><span class="b"></span><span class="b"></span><span class="new"></span><span></span><span></span></div>
+          <small>Online booking with reminders</small>
+        </div>
+        <span class="st-chip wl-def dp" style="--d:10">{{icon:calculator}}Packages recognised as they are used</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/appointment.html">Appointments</a> · <a href="{{ROOT}}odoo/apps/sale_subscription.html">Subscriptions</a> · <a href="{{ROOT}}odoo/apps/point_of_sale.html">Point of Sale</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a></dd></div><div><dt>First phase</dt><dd>Show us one week of bookings</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

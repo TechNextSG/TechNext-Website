@@ -1,9 +1,10 @@
 <!--meta {"title": "AI Workflow Automation — multi-step agents", "desc": "AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.", "out": "solutions/ai-automation.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>AI Solution</span><span>Workflow Automation</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">agents with approval steps</span>
         <h1>Let an agent do the steps. Keep the decision.</h1>
@@ -12,23 +13,25 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Claude Partner</span><span class="tag tag--ok">{{icon:check}} Human approval where money moves</span><span class="tag">{{icon:file}} Audit trail</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Discipline</span><span>Workflow automation agent</span></div>
-          <div><span>Trigger</span><span>Runs on an event you choose</span></div>
-          <div><span>Control</span><span>Human approval and guardrails</span></div>
-          <div><span>Every step</span><span>Logged for audit</span></div>
-          <div><span>Connects</span><span>The tools you already use</span></div>
+      <div class="stage stage--agent" aria-hidden="true">
+        <div class="st-card ag-flow dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Agent · new purchase request</span></div>
+          <ol class="ag-steps">
+            <li class="k0"><span class="ag-ic">{{icon:zap}}</span><b>New purchase request</b><small>Trigger</small></li>
+            <li class="k1"><span class="ag-ic">{{icon:search}}</span><b>Check budget and vendor</b><small>Done by the agent</small></li>
+            <li class="k2"><span class="ag-ic">{{icon:file}}</span><b>Draft the purchase order</b><small>Done by the agent</small></li>
+            <li class="k3 ag-gate"><span class="ag-ic">{{icon:usercheck}}</span><b>Finance approves</b><small class="w">Waiting for a person</small><small class="ok">Approved</small></li>
+            <li class="k4"><span class="ag-ic">{{icon:send}}</span><b>Send to the vendor</b><small>Done by the agent</small></li>
+          </ol>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Claude Partner</span>
-          <span class="tag tag--ok">{{icon:check}} Human approval where money moves</span>
-          <span class="tag">{{icon:file}} Audit trail</span>
+        <div class="st-card ag-log dp" style="--d:14"><b>Every step logged</b>
+          <p class="k1"><i>09:14</i>Budget checked</p><p class="k2"><i>09:15</i>PO drafted</p><p class="k3"><i>09:31</i>Approved by Finance</p><p class="k4"><i>09:31</i>Sent to the vendor</p>
         </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>Workflow automation agent</dd></div><div><dt>Trigger</dt><dd>Runs on an event you choose</dd></div><div><dt>Control</dt><dd>Human approval and guardrails</dd></div><div><dt>Every step</dt><dd>Logged for audit</dd></div><div><dt>Connects</dt><dd>The tools you already use</dd></div></dl>
   </div>
 </section>
 

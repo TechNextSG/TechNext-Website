@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,10 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Solution</span><span>ERP</span><span>Enterprise Solution</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">groups, holdings, regional operations</span>
         <h1>One Odoo for the whole group, one set of numbers at the top.</h1>
@@ -136,23 +137,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><a class="tag" href="../solutions/odoo-erp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg> Odoo ERP</a><a class="tag" href="../odoo/integration"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8H6v4a6 6 0 0 0 12 0z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8H6v4a6 6 0 0 0 12 0V8z"/></svg> Integrations</a><span class="tag tag--ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> 11+ enterprise clients transformed</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Partner status</span><span>Odoo Partner</span></div>
-          <div><span>Built for</span><span>Multi-company · multi-country · multi-currency</span></div>
-          <div><span>Hosting</span><span>Odoo.sh · your own cloud</span></div>
-          <div><span>Rollout</span><span>Pilot → template → country by country</span></div>
-          <div><span>Delivered in</span><span>10+ countries · Singapore HQ · Global</span></div>
+      <div class="stage stage--ent" aria-hidden="true">
+        <div class="st-card en-top dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Group · consolidated view</span></div>
+          <div class="en-rows">
+            <div><span>Revenue</span><i style="--w:86%;--k:0"></i></div>
+            <div><span>Costs</span><i style="--w:58%;--k:1"></i></div>
+            <div><span>Margin</span><i style="--w:28%;--k:2"></i></div>
+          </div>
+          <span class="en-cur">One set of numbers, in the group currency</span>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <a class="tag" href="../solutions/odoo-erp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg> Odoo ERP</a>
-          <a class="tag" href="../odoo/integration"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8H6v4a6 6 0 0 0 12 0z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8H6v4a6 6 0 0 0 12 0V8z"/></svg> Integrations</a>
-          <span class="tag tag--ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> 11+ enterprise clients transformed</span>
+        <svg class="en-svg" viewBox="0 0 600 86" preserveAspectRatio="none" focusable="false"><path class="en-ln" d="M100,86 C100,40 300,52 300,0"/><path class="en-ln" d="M300,86 L300,0"/><path class="en-ln" d="M500,86 C500,40 300,52 300,0"/></svg>
+        <div class="en-cos">
+          <div class="st-card en-co" style="--i:0"><b>Company A</b><span>SGD</span><small>Own books and taxes</small></div>
+          <div class="st-card en-co" style="--i:1"><b>Company B</b><span>MYR</span><small>Own books and taxes</small></div>
+          <div class="st-card en-co" style="--i:2"><b>Company C</b><span>EUR</span><small>Own books and taxes</small></div>
         </div>
-      </aside>
+        <ol class="en-roll"><li class="k0"><b>Pilot</b>One company first</li><li class="k1"><b>Template</b>Settings reused</li><li class="k2"><b>Roll-out</b>Country by country</li></ol>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Partner status</dt><dd>Odoo Partner</dd></div><div><dt>Built for</dt><dd>Multi-company · multi-country · multi-currency</dd></div><div><dt>Hosting</dt><dd>Odoo.sh · your own cloud</dd></div><div><dt>Rollout</dt><dd>Pilot → template → country by country</dd></div><div><dt>Delivered in</dt><dd>10+ countries · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -348,10 +354,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
 
 </body>
 </html>

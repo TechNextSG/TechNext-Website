@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,10 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Solution</span><span>AI Solution</span><span>Workflow Automation</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">agents with approval steps</span>
         <h1>Let an agent do the steps. Keep the decision.</h1>
@@ -136,23 +137,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Claude Partner</span><span class="tag tag--ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Human approval where money moves</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Audit trail</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Discipline</span><span>Workflow automation agent</span></div>
-          <div><span>Trigger</span><span>Runs on an event you choose</span></div>
-          <div><span>Control</span><span>Human approval and guardrails</span></div>
-          <div><span>Every step</span><span>Logged for audit</span></div>
-          <div><span>Connects</span><span>The tools you already use</span></div>
+      <div class="stage stage--agent" aria-hidden="true">
+        <div class="st-card ag-flow dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Agent · new purchase request</span></div>
+          <ol class="ag-steps">
+            <li class="k0"><span class="ag-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><b>New purchase request</b><small>Trigger</small></li>
+            <li class="k1"><span class="ag-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span><b>Check budget and vendor</b><small>Done by the agent</small></li>
+            <li class="k2"><span class="ag-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span><b>Draft the purchase order</b><small>Done by the agent</small></li>
+            <li class="k3 ag-gate"><span class="ag-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg></span><b>Finance approves</b><small class="w">Waiting for a person</small><small class="ok">Approved</small></li>
+            <li class="k4"><span class="ag-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><b>Send to the vendor</b><small>Done by the agent</small></li>
+          </ol>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Claude Partner</span>
-          <span class="tag tag--ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Human approval where money moves</span>
-          <span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Audit trail</span>
+        <div class="st-card ag-log dp" style="--d:14"><b>Every step logged</b>
+          <p class="k1"><i>09:14</i>Budget checked</p><p class="k2"><i>09:15</i>PO drafted</p><p class="k3"><i>09:31</i>Approved by Finance</p><p class="k4"><i>09:31</i>Sent to the vendor</p>
         </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>Workflow automation agent</dd></div><div><dt>Trigger</dt><dd>Runs on an event you choose</dd></div><div><dt>Control</dt><dd>Human approval and guardrails</dd></div><div><dt>Every step</dt><dd>Logged for audit</dd></div><div><dt>Connects</dt><dd>The tools you already use</dd></div></dl>
   </div>
 </section>
 
@@ -346,10 +349,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
 
 </body>
 </html>

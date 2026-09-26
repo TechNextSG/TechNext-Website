@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
-<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/site.css?v=c726268f">
+<link rel="stylesheet" href="../assets/css/stage.css?v=c726268f">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,13 +124,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Industries</span><span>Travel</span></nav>
-    <span class="hand">agencies, tour operators, hospitality</span>
-    <h1>Know the margin on every booking.</h1>
-    <p class="lead">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">agencies, tour operators, hospitality</span>
+        <h1>Know the margin on every booking.</h1>
+        <p class="lead">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+      </div>
+      <div class="stage stage--travel" aria-hidden="true">
+        <svg class="tv-svg st-anim" viewBox="0 0 600 110" focusable="false">
+          <path id="tvarc" class="tv-arc" d="M30,100 Q300,-26 570,100"/>
+          <circle class="tv-dot" cx="30" cy="100" r="6"/><circle class="tv-dot" cx="570" cy="100" r="6"/>
+          <path class="tv-plane" d="M-10,-7 L11,0 L-10,7 L-6,0 Z" opacity="0"><animateMotion dur="5s" begin="1.2s" repeatCount="indefinite" rotate="auto"><mpath href="#tvarc" xlink:href="#tvarc"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="5s" begin="1.2s" repeatCount="indefinite"/></path>
+        </svg>
+        <div class="st-card tv-book dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><img class="oi" src="../assets/img/odoo/sale.svg" alt="" width="16" height="16" loading="lazy" decoding="async"><span>Booking · 5 days · 2 travellers</span></div>
+          <div class="tv-legs">
+            <p style="--k:0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>Flights<b>S$ 1,180</b></p>
+            <p style="--k:1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" fill="currentColor" fill-opacity=".2" stroke="none"/><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Hotel · 4 nights<b class="tv-fx"><i>IDR 7,800,000</i><i>S$ 660</i></b></p>
+            <p style="--k:2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1" fill="currentColor" fill-opacity=".2" stroke="none"/><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Transfers<b>S$ 180</b></p>
+            <p style="--k:3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M1 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guide<b>S$ 540</b></p>
+          </div>
+        </div>
+        <div class="st-card tv-margin dp" style="--d:14"><b>Margin on this booking</b>
+          <div class="tv-row"><span>Sell</span><b>S$ 3,200</b></div><div class="tv-row"><span>Cost</span><b>S$ 2,560</b></div>
+          <div class="tv-meter"><i></i></div><div class="tv-row t"><span>Margin</span><b>20%</b></div>
+        </div>
+        <span class="st-chip tv-cur dp" style="--d:10"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Invoiced in the customer's currency</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="../odoo/apps/sale">Sales</a> · <a href="../odoo/apps/purchase">Purchase</a> · <a href="../odoo/apps/accountant">Accounting</a> · <a href="../odoo/apps/crm">CRM</a> · <a href="../odoo/apps/event">Events &amp; Rental</a></dd></div><div><dt>First phase</dt><dd>Show us one recent booking end to end</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -255,10 +282,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=7b249d53" defer></script>
-<script src="../assets/js/chat.js?v=7b249d53" defer></script>
-<script src="../assets/js/consent.js?v=7b249d53" defer></script>
-<script src="../assets/js/stage.js?v=7b249d53" defer></script>
-<script src="../assets/js/showcase.js?v=7b249d53" defer></script>
+<script src="../assets/js/site.js?v=c726268f" defer></script>
+<script src="../assets/js/chat.js?v=c726268f" defer></script>
+<script src="../assets/js/consent.js?v=c726268f" defer></script>
+<script src="../assets/js/stage.js?v=c726268f" defer></script>
+<script src="../assets/js/showcase.js?v=c726268f" defer></script>
 </body>
 </html>

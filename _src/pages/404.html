@@ -1,7 +1,10 @@
 <!--meta {"title": "Page not found — back to TechNext", "desc": "That page is not here. Jump back to the TechNext home page, Odoo ERP, the app catalogue or the quotation builder.", "out": "404.html", "nav": "", "head": "<meta name=\"robots\" content=\"noindex\">"} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
+    <div class="two two--stage">
+    <div>
     <span class="hand">404</span>
     <h1>That page isn't here.</h1>
     <p class="lead">The link may be old, or the address mistyped. Here's where most people were heading.</p>
@@ -10,6 +13,16 @@
       <a class="btn btn-ghost" href="{{ROOT}}solutions/odoo-erp.html">Odoo ERP</a>
       <a class="btn btn-ghost" href="{{ROOT}}odoo/apps.html">Odoo apps</a>
       <a class="btn btn-ghost" href="{{ROOT}}quotation.html">Get a quotation</a>
+    </div>
+    </div>
+    <div class="stage stage--404" aria-hidden="true">
+      <svg class="nf-svg st-anim" viewBox="0 0 440 300" focusable="false">
+        <path id="nfp" class="nf-path" d="M30,240 C110,40 230,260 290,130 S430,40 400,170 C372,290 220,250 250,150 S160,70 120,120"/>
+        <circle class="nf-dot" cx="30" cy="240" r="6"/>
+        <path class="co-plane" d="M-13,-9 L14,0 L-13,9 L-8,0 Z" opacity="0"><animateMotion dur="7s" begin=".6s" repeatCount="indefinite" rotate="auto"><mpath href="#nfp" xlink:href="#nfp"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.06;.92;1" dur="7s" begin=".6s" repeatCount="indefinite"/></path>
+      </svg>
+      <span class="st-chip nf-chip dp" style="--d:12">{{icon:search}}Taking the scenic route</span>
+    </div>
     </div>
   </div>
 </section>

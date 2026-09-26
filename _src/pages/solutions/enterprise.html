@@ -1,9 +1,10 @@
 <!--meta {"title": "Enterprise Odoo — multi-company, multi-country", "desc": "Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.", "out": "solutions/enterprise.html", "nav": "solution"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>ERP</span><span>Enterprise Solution</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">groups, holdings, regional operations</span>
         <h1>One Odoo for the whole group, one set of numbers at the top.</h1>
@@ -12,23 +13,28 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><a class="tag" href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}} Odoo ERP</a><a class="tag" href="{{ROOT}}odoo/integration.html">{{icon:plug}} Integrations</a><span class="tag tag--ok">{{icon:check}} 11+ enterprise clients transformed</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Partner status</span><span>Odoo Partner</span></div>
-          <div><span>Built for</span><span>Multi-company · multi-country · multi-currency</span></div>
-          <div><span>Hosting</span><span>Odoo.sh · your own cloud</span></div>
-          <div><span>Rollout</span><span>Pilot → template → country by country</span></div>
-          <div><span>Delivered in</span><span>10+ countries · Singapore HQ · Global</span></div>
+      <div class="stage stage--ent" aria-hidden="true">
+        <div class="st-card en-top dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Group · consolidated view</span></div>
+          <div class="en-rows">
+            <div><span>Revenue</span><i style="--w:86%;--k:0"></i></div>
+            <div><span>Costs</span><i style="--w:58%;--k:1"></i></div>
+            <div><span>Margin</span><i style="--w:28%;--k:2"></i></div>
+          </div>
+          <span class="en-cur">One set of numbers, in the group currency</span>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <a class="tag" href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}} Odoo ERP</a>
-          <a class="tag" href="{{ROOT}}odoo/integration.html">{{icon:plug}} Integrations</a>
-          <span class="tag tag--ok">{{icon:check}} 11+ enterprise clients transformed</span>
+        <svg class="en-svg" viewBox="0 0 600 86" preserveAspectRatio="none" focusable="false"><path class="en-ln" d="M100,86 C100,40 300,52 300,0"/><path class="en-ln" d="M300,86 L300,0"/><path class="en-ln" d="M500,86 C500,40 300,52 300,0"/></svg>
+        <div class="en-cos">
+          <div class="st-card en-co" style="--i:0"><b>Company A</b><span>SGD</span><small>Own books and taxes</small></div>
+          <div class="st-card en-co" style="--i:1"><b>Company B</b><span>MYR</span><small>Own books and taxes</small></div>
+          <div class="st-card en-co" style="--i:2"><b>Company C</b><span>EUR</span><small>Own books and taxes</small></div>
         </div>
-      </aside>
+        <ol class="en-roll"><li class="k0"><b>Pilot</b>One company first</li><li class="k1"><b>Template</b>Settings reused</li><li class="k2"><b>Roll-out</b>Country by country</li></ol>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Partner status</dt><dd>Odoo Partner</dd></div><div><dt>Built for</dt><dd>Multi-company · multi-country · multi-currency</dd></div><div><dt>Hosting</dt><dd>Odoo.sh · your own cloud</dd></div><div><dt>Rollout</dt><dd>Pilot → template → country by country</dd></div><div><dt>Delivered in</dt><dd>10+ countries · Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
