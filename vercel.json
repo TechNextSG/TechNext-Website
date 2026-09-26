@@ -2,38 +2,468 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/ai-article/:slug.html",
-      "destination": "/blog/:slug",
+      "source": "/blog/rag-systems-enterprise-guide",
+      "destination": "/solutions/ai-knowledge",
       "permanent": true
     },
     {
-      "source": "/ai-article/:slug",
-      "destination": "/blog/:slug",
+      "source": "/blog/rag-systems-enterprise-guide.html",
+      "destination": "/solutions/ai-knowledge",
       "permanent": true
     },
     {
-      "source": "/ai-article",
-      "destination": "/blog",
+      "source": "/ai-article/rag-systems-enterprise-guide",
+      "destination": "/solutions/ai-knowledge",
       "permanent": true
     },
     {
-      "source": "/ai-article/",
-      "destination": "/blog",
+      "source": "/ai-article/rag-systems-enterprise-guide.html",
+      "destination": "/solutions/ai-knowledge",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agents-enterprise-automation",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agents-enterprise-automation.html",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-agents-enterprise-automation",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-agents-enterprise-automation.html",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agent-governance-2025",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agent-governance-2025.html",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-agent-governance-2025",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-agent-governance-2025.html",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-ai-integration-guide",
+      "destination": "/odoo/ai-integration",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-ai-integration-guide.html",
+      "destination": "/odoo/ai-integration",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-ai-integration-guide",
+      "destination": "/odoo/ai-integration",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-ai-integration-guide.html",
+      "destination": "/odoo/ai-integration",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-18-features-upgrade-guide",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-18-features-upgrade-guide.html",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-18-features-upgrade-guide",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-18-features-upgrade-guide.html",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-erp-sme-southeast-asia",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-erp-sme-southeast-asia.html",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-erp-sme-southeast-asia",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-erp-sme-southeast-asia.html",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-vs-sap-enterprise-comparison",
+      "destination": "/solutions/enterprise",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-vs-sap-enterprise-comparison.html",
+      "destination": "/solutions/enterprise",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-vs-sap-enterprise-comparison",
+      "destination": "/solutions/enterprise",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/odoo-vs-sap-enterprise-comparison.html",
+      "destination": "/solutions/enterprise",
+      "permanent": true
+    },
+    {
+      "source": "/blog/big-tech-ai-infrastructure-2026",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/big-tech-ai-infrastructure-2026.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/big-tech-ai-infrastructure-2026",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/big-tech-ai-infrastructure-2026.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/context-engineering-new-discipline",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/context-engineering-new-discipline.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/context-engineering-new-discipline",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/context-engineering-new-discipline.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/github-copilot-per-token-pricing",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/github-copilot-per-token-pricing.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/github-copilot-per-token-pricing",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/github-copilot-per-token-pricing.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/gpt5-openai-agentic-ai-2025",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/gpt5-openai-agentic-ai-2025.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/gpt5-openai-agentic-ai-2025",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/gpt5-openai-agentic-ai-2025.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lg-nvidia-physical-ai-era",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/lg-nvidia-physical-ai-era.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/lg-nvidia-physical-ai-era",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/lg-nvidia-physical-ai-era.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/local-llm-on-premise-enterprise",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/local-llm-on-premise-enterprise.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/local-llm-on-premise-enterprise",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/local-llm-on-premise-enterprise.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/philippines-bpo-ai-revolution",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/philippines-bpo-ai-revolution.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/philippines-bpo-ai-revolution",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/philippines-bpo-ai-revolution.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/singapore-national-ai-strategy-2026",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/singapore-national-ai-strategy-2026.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/singapore-national-ai-strategy-2026",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/singapore-national-ai-strategy-2026.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/singapore-smart-nation-enterprise-ai",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/singapore-smart-nation-enterprise-ai.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/singapore-smart-nation-enterprise-ai",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/singapore-smart-nation-enterprise-ai.html",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/philippines-digital-transformation-2026",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/philippines-digital-transformation-2026.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/philippines-digital-transformation-2026",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/philippines-digital-transformation-2026.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-digital-economy-ai-2026",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-digital-economy-ai-2026.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-digital-economy-ai-2026",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-digital-economy-ai-2026.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-software-exports-2026",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-software-exports-2026.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-software-exports-2026",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-software-exports-2026.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-tech-talent-dev-hub",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/blog/vietnam-tech-talent-dev-hub.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-tech-talent-dev-hub",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/vietnam-tech-talent-dev-hub.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/",
-      "destination": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/careers",
+      "destination": "/company",
       "permanent": true
     },
     {
       "source": "/careers/",
-      "destination": "/careers",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/careers.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/company",
       "permanent": true
     },
     {
       "source": "/gallery/",
-      "destination": "/gallery",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/gallery.html",
+      "destination": "/company",
       "permanent": true
     },
     {
