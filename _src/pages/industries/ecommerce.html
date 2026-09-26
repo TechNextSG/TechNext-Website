@@ -1,0 +1,47 @@
+<!--meta {"title": "Odoo for Ecommerce — orders, stock and payouts", "desc": "Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/ecommerce.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Ecommerce</span></nav>
+    <span class="hand">online stores and marketplace sellers</span>
+    <h1>Orders in, stock out, payouts reconciled.</h1>
+    <p class="lead">Whether orders come from your own store or a marketplace, they should reserve real stock, print the right labels and land in the books with fees and payouts matched.</p>
+    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:cart}}</div><h3>Overselling</h3><p>Stock shown online doesn't match the shelf; orders get cancelled after payment.</p></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:truck}}</div><h3>Picking from printouts</h3><p>Orders exported to a sheet, picked by memory, tracking numbers pasted back by hand.</p></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:bank}}</div><h3>Payouts that don't add up</h3><p>Gateway and marketplace payouts net of fees; sales, fees and refunds reconciled line by line.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head sec-head--row reveal"><div><span class="hand">how odoo maps to it</span><h2 style="margin:0">The apps we switch on.</h2></div><a class="btn-link" href="{{ROOT}}odoo/integration.html">About integrations {{icon:arrow}}</a></div>
+    <div class="showcase reveal" data-showcase data-interval="6000">
+      <div class="sc-list" role="tablist" aria-label="Odoo apps for online sellers">
+        <button class="sc-tab" role="tab" type="button" data-app="website_sale" data-kicker="eCommerce · Websites" data-title="eCommerce" data-href="{{ROOT}}odoo/apps/website_sale.html" data-desc="Odoo's own store with live stock, or a connector to Shopify, WooCommerce and marketplaces — either way orders reach Inventory and Accounting on their own." data-points="Odoo store with live stock, or a connector to your platform|Payment gateways and shipping rates|Orders reserve stock on payment">{{odoo:website_sale:36}}<span><b>eCommerce</b><small>Own store or connector to yours.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="stock" data-kicker="Inventory · Supply Chain" data-title="Inventory" data-href="{{ROOT}}odoo/apps/stock.html" data-desc="Pick by barcode, print the carrier label and send tracking back to the customer without a spreadsheet in between." data-points="Barcode picking and packing|Carrier labels and tracking to the customer|Backorders and returns handled">{{odoo:stock:36}}<span><b>Inventory</b><small>Picking, labels, tracking, returns.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="accountant" data-kicker="Accounting · Finance" data-title="Accounting" data-href="{{ROOT}}odoo/apps/accountant.html" data-desc="Gateway and marketplace payouts matched to orders, fees and refunds; tax applied by destination." data-points="Payouts matched to orders, fees and refunds|Tax by destination|Marketplace statements reconciled">{{odoo:accountant:36}}<span><b>Accounting</b><small>Payouts and fees reconciled.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="purchase" data-kicker="Purchase · Supply Chain" data-title="Purchase" data-href="{{ROOT}}odoo/apps/purchase.html" data-desc="Replenishment driven by sales velocity and minimum stock, with vendor lead times built in." data-points="Replenishment from sales velocity|Minimum-stock rules|Vendor lead times and pricelists">{{odoo:purchase:36}}<span><b>Purchase</b><small>Replenishment from sales velocity.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="helpdesk" data-kicker="Helpdesk · Services" data-title="Helpdesk" data-href="{{ROOT}}odoo/apps/helpdesk.html" data-desc="Order questions, returns and refunds in one queue with SLAs — refunds and return pickings created from the ticket." data-points="Order questions in one queue|Returns and refunds from the ticket|SLAs and a knowledge base">{{odoo:helpdesk:36}}<span><b>Helpdesk</b><small>Questions, returns, refunds.</small></span></button>
+      </div>
+      <div class="sc-panel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Tell us where orders come from today.</h2><p>Store platform, marketplaces, carriers, payment gateways — we'll map the connections.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    </div>
+  </div>
+</section>

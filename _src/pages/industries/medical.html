@@ -1,0 +1,47 @@
+<!--meta {"title": "Odoo for Medical & Healthcare", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Medical</span></nav>
+    <span class="hand">clinics and healthcare groups</span>
+    <h1>Stock, purchasing and books — per branch, in one system.</h1>
+    <p class="lead">Consumables and medicines tracked by lot and expiry, purchasing centralised, and each clinic's accounts kept clean without a separate spreadsheet per site.</p>
+    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:box}}</div><h3>Stock nobody trusts</h3><p>Consumables counted by hand, expiries missed, each branch ordering on its own.</p></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:receipt}}</div><h3>Supplier bills out of step</h3><p>Deliveries received, bills arriving later, nobody sure what's been paid for.</p></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:calculator}}</div><h3>Month-end by spreadsheet</h3><p>Branch figures consolidated manually; management sees numbers weeks late.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head sec-head--row reveal"><div><span class="hand">how odoo maps to it</span><h2 style="margin:0">The apps we switch on.</h2></div><a class="btn-link" href="{{ROOT}}odoo/apps.html">All Odoo apps {{icon:arrow}}</a></div>
+    <div class="showcase reveal" data-showcase data-interval="6000">
+      <div class="sc-list" role="tablist" aria-label="Odoo apps for clinics and healthcare groups">
+        <button class="sc-tab" role="tab" type="button" data-app="stock" data-kicker="Inventory · Supply Chain" data-title="Inventory" data-href="{{ROOT}}odoo/apps/stock.html" data-desc="Consumables and medicines tracked by lot and expiry, with one stock location per branch and replenishment that runs itself." data-points="Lots and expiry dates on every consumable|One location per branch, transfers between branches|Minimum-stock rules that raise purchase orders">{{odoo:stock:36}}<span><b>Inventory</b><small>Lots, expiry, one location per branch.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="purchase" data-kicker="Purchase · Supply Chain" data-title="Purchase" data-href="{{ROOT}}odoo/apps/purchase.html" data-desc="Central purchasing for the whole group, with bills matched to what each branch actually received." data-points="Central RFQs across branches|Vendor pricelists and lead times|Bills matched to receipts, three-way">{{odoo:purchase:36}}<span><b>Purchase</b><small>Central RFQs, bills matched to receipts.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="accountant" data-kicker="Accounting · Finance" data-title="Accounting" data-href="{{ROOT}}odoo/apps/accountant.html" data-desc="Clean books per entity or analytic accounts per branch — and a consolidated view without a spreadsheet." data-points="One company per entity or analytic accounts per branch|Consolidated P&amp;L across the group|Bank feeds reconciled daily">{{odoo:accountant:36}}<span><b>Accounting</b><small>Books per branch, consolidated reports.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="point_of_sale" data-kicker="Point of Sale · Sales" data-title="Point of Sale" data-href="{{ROOT}}odoo/apps/point_of_sale.html" data-desc="Front-desk billing that posts straight to Accounting, with card terminals and e-receipts." data-points="Front-desk billing with card terminals|Sessions posted straight to Accounting|Receipts by email or print">{{odoo:point_of_sale:36}}<span><b>Point of Sale</b><small>Front-desk billing to Accounting.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="appointment" data-kicker="Appointments · Services" data-title="Appointments" data-href="{{ROOT}}odoo/apps/appointment.html" data-desc="Optional online booking per clinic or doctor, with reminders — each booking creates or updates the patient contact." data-points="Booking pages per clinic or doctor|Email or SMS reminders|Booking creates the patient contact">{{odoo:appointment:36}}<span><b>Appointments</b><small>Online booking linked to contacts.</small></span></button>
+      </div>
+      <div class="sc-panel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Bring one branch's numbers.</h2><p>A discovery call with one month of real data is enough to scope the first phase.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    </div>
+  </div>
+</section>

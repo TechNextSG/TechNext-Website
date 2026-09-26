@@ -1,0 +1,138 @@
+<!--meta {"title": "Local LLM Deployment: Running AI On-Premise for Enterprise Security | TechNext", "desc": "Data shouldn't leave your network. How we deploy LLMs on-premise for compliance-sensitive enterprises — hardware specs, vLLM config, real gotchas.", "out": "blog/local-llm-on-premise-enterprise.html", "nav": "blog", "scripts": ["assets/js/blog.js"]} -->
+
+<section class="page-hero page-hero--split post-hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><a href="{{ROOT}}blog.html">Blog</a><span>Local LLM Deployment: Running AI On-Premise for Enterprise Security</span></nav>
+    <div class="two">
+      <div>
+        <span class="hand">AI &amp; Tech</span>
+        <h1>Local LLM Deployment: Running AI On-Premise for Enterprise Security</h1>
+        <p class="lead">Data shouldn&#x27;t leave your network. How we deploy LLMs on-premise for compliance-sensitive enterprises — hardware specs, vLLM config, real gotchas.</p>
+        <p class="post-meta">22 Apr 2026 &middot; 4 min read</p>
+      </div>
+      <aside class="post-cover reveal">
+        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&amp;h=450&amp;fit=crop&amp;q=80" alt="" width="800" height="450" loading="eager" decoding="async">
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container post-wrap">
+    <div class="langbar" role="group" aria-label="Article language">
+      <button type="button" class="langbtn is-on" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" class="langbtn" data-lang="vi" aria-pressed="false">Ti&#7871;ng Vi&#7879;t</button>
+    </div>
+
+    <article class="prose post-body" data-lang="en">
+<p class="reveal">The default assumption in enterprise AI adoption has been cloud-first: send your data to OpenAI, Anthropic, or Google, get a response back, integrate into your workflow. For many use cases, this works well. But a growing segment of enterprises — driven by data sovereignty requirements, regulatory compliance, latency constraints, or simply cost at scale — are moving to run large language models on their own infrastructure.</p>
+
+      <p class="reveal">The good news is that local LLM deployment has become dramatically more accessible in 2025–2026. Models like Meta's Llama 3.3 70B, Mistral Large 2, and Qwen 2.5 72B deliver performance within 15–20% of GPT-4o on most enterprise benchmarks — and they run on hardware that's now commercially available and reasonably priced. The bad news is that "running locally" is not the same as "running reliably at enterprise scale." This guide covers both dimensions.</p>
+
+      <h2 class="reveal">When On-Premise Makes Sense</h2>
+
+      <p class="reveal">Not every organisation needs local LLM deployment. Before investing in the infrastructure, the business case needs to be clear. On-premise deployment is the right choice when:</p>
+
+      <ul class="reveal">
+        <li><strong>Data sovereignty requirements prohibit cloud processing:</strong> Government contracts, defence sector, financial services under certain regulatory regimes, and healthcare all have data that may not legally leave on-premise infrastructure.</li>
+        <li><strong>Volume economics favour local:</strong> At above 50 million tokens per day, the TCO of owned hardware typically beats cloud API costs within 12–18 months, even accounting for GPU depreciation and operational overhead.</li>
+        <li><strong>Latency is mission-critical:</strong> Cloud API roundtrip adds 200–800ms of latency. For real-time applications (live translation, manufacturing quality control, real-time document processing), local inference eliminates this constraint.</li>
+        <li><strong>Air-gap requirements:</strong> Some deployments must operate without any internet connectivity — on factory floors, in secure facilities, or in locations with unreliable connectivity.</li>
+      </ul>
+
+      <h2 class="reveal">Hardware Requirements in 2026</h2>
+
+      <p class="reveal">The hardware landscape for local LLM deployment has improved dramatically. The current practical options for enterprise deployment:</p>
+
+      <ul class="reveal">
+        <li><strong>NVIDIA H100 80GB:</strong> The gold standard for production inference. Runs Llama 3.3 70B at ~80 tokens/second for single requests, higher throughput with batching. $25,000–30,000 per card. Recommended for high-traffic production deployments.</li>
+        <li><strong>NVIDIA RTX 4090 (24GB):</strong> Consumer grade but enterprise-capable for smaller models. Runs Mistral 7B at 80+ tokens/second, Llama 3.1 8B at similar performance. $1,500–1,800. Excellent entry point for teams testing local deployment.</li>
+        <li><strong>AMD Instinct MI300X:</strong> Increasingly competitive with NVIDIA at 20–30% lower cost. ROCm software stack is maturing. Worth evaluating for cost-sensitive deployments.</li>
+        <li><strong>Apple M4 Max (Mac Studio):</strong> Unified memory architecture makes 128GB available for model loading. Runs 70B parameter models in 4-bit quantisation. Excellent developer experience. Not for high-concurrency production but very useful for departmental deployments.</li>
+      </ul>
+
+      <div class="highlight-box reveal">
+        <strong>Key Takeaway</strong>
+        For most enterprise teams starting local LLM deployment, a 2-GPU H100 server running vLLM can serve a department of 50–100 users with good performance. Total hardware cost is $60–80K — compare this to $40–60K/year in cloud API costs at comparable usage volumes.
+      </div>
+
+      <h2 class="reveal">Serving Infrastructure: vLLM vs Ollama</h2>
+
+      <p class="reveal"><strong>vLLM</strong> is the production standard for enterprise local inference. It implements PagedAttention — an algorithm that manages KV cache memory far more efficiently than naive approaches — enabling 2–4x higher throughput on the same hardware versus a basic serving setup. vLLM exposes an OpenAI-compatible API, making it straightforward to swap local models into existing applications. It supports continuous batching, multi-GPU tensor parallelism, and quantised model serving (GPTQ, AWQ). For any deployment serving more than a handful of concurrent users, vLLM is the right choice.</p>
+
+      <p class="reveal"><strong>Ollama</strong> is excellent for developer machines and small team deployments. It handles model management (downloading, updating, switching between models) with a very simple CLI interface, and runs without GPU drivers configured (falling back to CPU or Metal on Mac). If you're testing local models or building a development environment, Ollama gets you running in under 10 minutes. It's not suitable for production-scale serving.</p>
+
+      <h2 class="reveal">Model Selection for Enterprise Use Cases</h2>
+
+      <p class="reveal">The model ecosystem for local deployment has matured to the point where there's a credible option for every enterprise tier:</p>
+
+      <ul class="reveal">
+        <li><strong>Llama 3.3 70B (Meta):</strong> Best overall local model for enterprise reasoning tasks. Instruction-tuned and RLHF-refined. Requires 40GB VRAM minimum (4-bit quantised).</li>
+        <li><strong>Mistral Large 2 (Mistral AI):</strong> Strong coding and function-calling performance. 128k context. European data residency option via Mistral's API. Good for organisations in EU regulatory environments.</li>
+        <li><strong>Qwen 2.5 72B (Alibaba):</strong> Exceptional multilingual performance, particularly for Chinese, Vietnamese, and other Asian languages. Best choice for Southeast Asian deployments with local language requirements.</li>
+        <li><strong>Phi-4 (Microsoft):</strong> 14B parameter model with surprisingly strong performance relative to size. Runs on a single H100 with headroom for high concurrency. Best for cost-constrained deployments where a 70B model is overkill.</li>
+      </ul>
+
+      <p class="reveal">For Vietnamese enterprises in particular, Qwen 2.5's multilingual capability is a significant advantage over Western models, which often underperform on Vietnamese-language tasks. This is a genuine differentiator for regional deployments.</p>
+    </article>
+
+    <article class="prose post-body" data-lang="vi" hidden>
+<p class="reveal">Giả định mặc định trong việc áp dụng AI doanh nghiệp là cloud-first: gửi dữ liệu của bạn đến OpenAI, Anthropic hoặc Google, nhận phản hồi, tích hợp vào quy trình làm việc của bạn. Đối với nhiều trường hợp sử dụng, điều này hoạt động tốt. Nhưng một phân khúc ngày càng tăng của các doanh nghiệp — được thúc đẩy bởi các yêu cầu về chủ quyền dữ liệu, tuân thủ quy định, ràng buộc về độ trễ, hoặc đơn giản là chi phí ở quy mô lớn — đang chuyển sang chạy các mô hình ngôn ngữ lớn trên cơ sở hạ tầng riêng của họ.</p>
+
+      <p class="reveal">Tin tốt là việc triển khai LLM cục bộ đã trở nên dễ tiếp cận hơn đáng kể trong giai đoạn 2025–2026. Các mô hình như Llama 3.3 70B của Meta, Mistral Large 2 và Qwen 2.5 72B mang lại hiệu suất trong khoảng 15–20% so với GPT-4o trên hầu hết các benchmark doanh nghiệp — và chúng chạy trên phần cứng hiện đã có sẵn trên thị trường với giá hợp lý. Tin xấu là "chạy cục bộ" không giống với "chạy đáng tin cậy ở quy mô doanh nghiệp." Hướng dẫn này đề cập đến cả hai chiều.</p>
+
+      <h2 class="reveal">Khi Nào On-Premise Có Ý Nghĩa</h2>
+
+      <p class="reveal">Không phải mọi tổ chức đều cần triển khai LLM cục bộ. Trước khi đầu tư vào cơ sở hạ tầng, cần phải làm rõ lý do kinh doanh. Triển khai on-premise là lựa chọn đúng khi:</p>
+
+      <ul class="reveal">
+        <li><strong>Yêu cầu về chủ quyền dữ liệu cấm xử lý đám mây:</strong> Các hợp đồng chính phủ, lĩnh vực quốc phòng, dịch vụ tài chính theo một số chế độ quy định nhất định và chăm sóc sức khỏe đều có dữ liệu có thể không được phép rời khỏi cơ sở hạ tầng on-premise về mặt pháp lý.</li>
+        <li><strong>Kinh tế học khối lượng ủng hộ local:</strong> Ở mức trên 50 triệu token mỗi ngày, TCO của phần cứng sở hữu thường đánh bại chi phí cloud API trong vòng 12–18 tháng, ngay cả khi tính đến khấu hao GPU và chi phí vận hành.</li>
+        <li><strong>Độ trễ là yếu tố then chốt:</strong> Roundtrip cloud API thêm 200–800ms độ trễ. Đối với các ứng dụng thời gian thực (dịch thuật trực tiếp, kiểm soát chất lượng sản xuất, xử lý tài liệu thời gian thực), suy luận cục bộ loại bỏ ràng buộc này.</li>
+        <li><strong>Yêu cầu air-gap:</strong> Một số triển khai phải hoạt động mà không có bất kỳ kết nối internet nào — trên sàn nhà máy, trong các cơ sở an ninh, hoặc ở những địa điểm có kết nối không ổn định.</li>
+      </ul>
+
+      <h2 class="reveal">Yêu Cầu Phần Cứng Năm 2026</h2>
+
+      <p class="reveal">Cảnh quan phần cứng cho triển khai LLM cục bộ đã được cải thiện đáng kể. Các tùy chọn thực tế hiện tại cho triển khai doanh nghiệp:</p>
+
+      <ul class="reveal">
+        <li><strong>NVIDIA H100 80GB:</strong> Tiêu chuẩn vàng cho suy luận production. Chạy Llama 3.3 70B ở ~80 token/giây cho các yêu cầu đơn lẻ, throughput cao hơn với batching. $25.000–30.000 mỗi card. Được khuyến nghị cho các triển khai production có lưu lượng cao.</li>
+        <li><strong>NVIDIA RTX 4090 (24GB):</strong> Cấp tiêu dùng nhưng có khả năng doanh nghiệp cho các mô hình nhỏ hơn. Chạy Mistral 7B ở 80+ token/giây, Llama 3.1 8B với hiệu suất tương tự. $1.500–1.800. Điểm khởi đầu xuất sắc cho các nhóm đang kiểm thử triển khai cục bộ.</li>
+        <li><strong>AMD Instinct MI300X:</strong> Ngày càng cạnh tranh với NVIDIA với chi phí thấp hơn 20–30%. Stack phần mềm ROCm đang trưởng thành. Đáng đánh giá cho các triển khai nhạy cảm với chi phí.</li>
+        <li><strong>Apple M4 Max (Mac Studio):</strong> Kiến trúc bộ nhớ thống nhất cho phép 128GB có sẵn để tải mô hình. Chạy các mô hình tham số 70B với lượng tử hóa 4-bit. Trải nghiệm lập trình viên xuất sắc. Không phù hợp cho production đồng thời cao nhưng rất hữu ích cho các triển khai theo phòng ban.</li>
+      </ul>
+
+      <div class="highlight-box reveal">
+        <strong>Điểm Mấu Chốt</strong>
+        Đối với hầu hết các nhóm doanh nghiệp bắt đầu triển khai LLM cục bộ, một máy chủ 2 GPU H100 chạy vLLM có thể phục vụ một phòng ban 50–100 người dùng với hiệu suất tốt. Tổng chi phí phần cứng là $60–80K — so sánh điều này với $40–60K/năm trong chi phí cloud API ở khối lượng sử dụng tương đương.
+      </div>
+
+      <h2 class="reveal">Cơ Sở Hạ Tầng Serving: vLLM vs Ollama</h2>
+
+      <p class="reveal"><strong>vLLM</strong> là tiêu chuẩn production cho suy luận cục bộ doanh nghiệp. Nó triển khai PagedAttention — một thuật toán quản lý bộ nhớ KV cache hiệu quả hơn nhiều so với các phương pháp đơn giản — cho phép throughput cao hơn 2–4 lần trên cùng phần cứng so với một thiết lập serving cơ bản. vLLM cung cấp API tương thích OpenAI, giúp dễ dàng trao đổi các mô hình cục bộ vào các ứng dụng hiện có. Nó hỗ trợ continuous batching, tensor parallelism đa GPU và phục vụ mô hình được lượng tử hóa (GPTQ, AWQ). Đối với bất kỳ triển khai nào phục vụ nhiều hơn một vài người dùng đồng thời, vLLM là lựa chọn đúng.</p>
+
+      <p class="reveal"><strong>Ollama</strong> xuất sắc cho máy lập trình viên và các triển khai nhóm nhỏ. Nó xử lý quản lý mô hình (tải xuống, cập nhật, chuyển đổi giữa các mô hình) với giao diện CLI rất đơn giản, và chạy mà không cần cấu hình driver GPU (chuyển sang CPU hoặc Metal trên Mac). Nếu bạn đang kiểm thử các mô hình cục bộ hoặc xây dựng môi trường phát triển, Ollama giúp bạn chạy trong vòng 10 phút. Nó không phù hợp để phục vụ ở quy mô production.</p>
+
+      <h2 class="reveal">Lựa Chọn Mô Hình Cho Các Trường Hợp Sử Dụng Doanh Nghiệp</h2>
+
+      <p class="reveal">Hệ sinh thái mô hình cho triển khai cục bộ đã trưởng thành đến mức có một lựa chọn đáng tin cậy cho mọi cấp độ doanh nghiệp:</p>
+
+      <ul class="reveal">
+        <li><strong>Llama 3.3 70B (Meta):</strong> Mô hình cục bộ tốt nhất tổng thể cho các nhiệm vụ suy luận doanh nghiệp. Đã được tinh chỉnh theo hướng dẫn và RLHF. Yêu cầu tối thiểu 40GB VRAM (lượng tử hóa 4-bit).</li>
+        <li><strong>Mistral Large 2 (Mistral AI):</strong> Hiệu suất coding và function-calling mạnh. Ngữ cảnh 128k. Tùy chọn lưu trú dữ liệu châu Âu qua API của Mistral. Tốt cho các tổ chức trong môi trường quy định EU.</li>
+        <li><strong>Qwen 2.5 72B (Alibaba):</strong> Hiệu suất đa ngôn ngữ đặc biệt xuất sắc, đặc biệt cho tiếng Trung, tiếng Việt và các ngôn ngữ châu Á khác. Lựa chọn tốt nhất cho các triển khai Đông Nam Á có yêu cầu ngôn ngữ địa phương.</li>
+        <li><strong>Phi-4 (Microsoft):</strong> Mô hình tham số 14B với hiệu suất đáng ngạc nhiên so với kích thước. Chạy trên một H100 đơn lẻ với không gian cho đồng thời cao. Tốt nhất cho các triển khai bị hạn chế chi phí nơi mô hình 70B là quá mức cần thiết.</li>
+      </ul>
+
+      <p class="reveal">Đối với các doanh nghiệp Việt Nam nói riêng, khả năng đa ngôn ngữ của Qwen 2.5 là một lợi thế đáng kể so với các mô hình phương Tây, thường hoạt động kém hơn trên các nhiệm vụ ngôn ngữ tiếng Việt. Đây là điểm khác biệt thực sự cho các triển khai khu vực.</p>
+    </article>
+
+    <div class="share-bar reveal">
+      <span class="share-label">Share</span>
+      <a class="share-btn" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Flocal-llm-on-premise-enterprise" rel="nofollow noopener" target="_blank" aria-label="Share on LinkedIn">{{icon:linkedin}}</a>
+      <a class="share-btn" data-share="x" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftechnext.asia%2Fblog%2Flocal-llm-on-premise-enterprise&text=Local%20LLM%20Deployment%3A%20Running%20AI%20On-Premise%20for%20Enterprise%20Security" rel="nofollow noopener" target="_blank" aria-label="Share on X">{{icon:xlogo}}</a>
+      <button type="button" class="share-btn" data-share="copy" aria-label="Copy link">{{icon:link}}</button>
+    </div>
+  </div>
+</section>

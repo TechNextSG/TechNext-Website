@@ -1,10 +1,159 @@
 {
+  "cleanUrls": true,
   "redirects": [
-    { "source": "/landing_page", "destination": "/lp/", "permanent": true },
-    { "source": "/landing_page/", "destination": "/lp/", "permanent": true },
-    { "source": "/landing_page/:path*", "destination": "/lp/", "permanent": true }
+    {
+      "source": "/ai-article/:slug.html",
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/:slug",
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/careers/",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/terms/",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/odoo-erp-singapore",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/odoo-erp-singapore/",
+      "destination": "/solutions/odoo-erp",
+      "permanent": true
+    },
+    {
+      "source": "/ai-automation-vietnam",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-automation-vietnam/",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/lp",
+      "destination": "/lp/",
+      "permanent": false
+    },
+    {
+      "source": "/landing_page",
+      "destination": "/lp/",
+      "permanent": true
+    },
+    {
+      "source": "/landing_page/:path*",
+      "destination": "/lp/",
+      "permanent": true
+    }
   ],
-  "rewrites": [
-    { "source": "/blog/:slug", "destination": "/ai-article/:slug.html" }
+  "headers": [
+    {
+      "source": "/((?!lp/).*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-ZuLuPqc4soZbT2i6/k9eIatMKf26vsg9/omRxdHRYNg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://odoocdn.com https://i.ytimg.com; connect-src 'self' https://formsubmit.co; frame-src https://www.youtube-nocookie.com; media-src 'self' https://download.odoocdn.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        }
+      ]
+    },
+    {
+      "source": "/lp/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://ipapi.co https://formsubmit.co; media-src 'self' https://technextsg.github.io; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(css|js|img)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }
