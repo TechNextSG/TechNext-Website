@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo + AI integrations — AI inside your ERP", "desc": "AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo.", "out": "odoo/ai-integration.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>AI Integration</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">customization</span>
         <h1>AI that works inside Odoo, on your data.</h1>
@@ -12,25 +13,32 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag tag--odoo">Odoo Partner</span><span class="tag">Claude Partner</span><a class="tag" href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:16}} Accounting</a><a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM</a><a class="tag" href="{{ROOT}}odoo/apps/helpdesk.html">{{odoo:helpdesk:16}} Helpdesk</a></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Works in</span><span>Your Odoo records</span></div>
-          <div><span>Discipline</span><span>AI inside Odoo</span></div>
-          <div><span>Every action</span><span>Logged on the record</span></div>
-          <div><span>Control</span><span>People approve; the AI prepares</span></div>
-          <div><span>Built by</span><span>A team that also implements Odoo</span></div>
+      <div class="stage stage--ai" aria-hidden="true">
+        <div class="st-card ai-rec dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i>{{odoo:accountant:16}}<span>Accounting · Vendor bill · Draft</span></div>
+          <div class="ai-body">
+            <div class="ai-doc"><i class="w1"></i><i class="w2"></i><i class="w3"></i><i class="w4"></i><i class="w5"></i><i class="w2"></i><i class="w6"></i><span class="ai-scan"></span></div>
+            <dl class="ai-fields">
+              <div><dt>Vendor</dt><dd style="--k:0">Harbourline Supplies</dd></div>
+              <div><dt>Bill date</dt><dd style="--k:1">12 Sep 2026</dd></div>
+              <div><dt>Total</dt><dd style="--k:2">S$ 1,284.00</dd></div>
+              <div><dt>PO match</dt><dd style="--k:3">PO00123 <span class="st-tick">{{icon:check}}</span></dd></div>
+            </dl>
+          </div>
+          <div class="ai-foot"><span class="ai-badge">{{icon:sparkle}}<span>Prepared by AI · a person approves</span></span><span class="ai-approve">Approve<span class="ok">{{icon:check}}Posted</span></span></div>
+          <svg class="ai-cursor" viewBox="0 0 24 24" focusable="false"><path d="M5 3l14 7.2-6.2 1.9L10.6 19z" fill="#1F1F3D" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag tag--odoo">Odoo Partner</span>
-          <span class="tag">Claude Partner</span>
-          <a class="tag" href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:16}} Accounting</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/helpdesk.html">{{odoo:helpdesk:16}} Helpdesk</a>
+        <div class="st-card ai-log dp" style="--d:14"><b>Logged on the record</b>
+          <p class="l1">{{icon:sparkle}}AI read the bill and filled four fields</p>
+          <p class="l2">{{icon:search}}Matched to purchase order PO00123</p>
+          <p class="l3"><span class="st-tick">{{icon:check}}</span>Approved and posted by Finance</p>
         </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Works in</dt><dd>Your Odoo records</dd></div><div><dt>Discipline</dt><dd>AI inside Odoo</dd></div><div><dt>Every action</dt><dd>Logged on the record</dd></div><div><dt>Control</dt><dd>People approve; the AI prepares</dd></div><div><dt>Built by</dt><dd>A team that also implements Odoo</dd></div></dl>
   </div>
 </section>
 

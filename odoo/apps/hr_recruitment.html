@@ -46,7 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../assets/css/site.css?v=51c0fdd2">
+<link rel="stylesheet" href="../../assets/css/site.css?v=7b249d53">
+<link rel="stylesheet" href="../../assets/css/stage.css?v=7b249d53">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -124,10 +125,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <main id="main">
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Home</a><span>Odoo</span><span><a href="../../odoo/apps">Apps</a></span><span><a href="../../odoo/apps#hr">Human Resources</a></span><span>Recruitment</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <div class="app-hero-head"><img class="oi" src="../../assets/img/odoo/hr_recruitment.svg" alt="" width="56" height="56" loading="lazy" decoding="async"><span class="hand">odoo · human resources</span></div>
         <h1>Recruitment <span class="app-sub">Next-Gen ATS</span></h1>
@@ -138,7 +140,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
       </div>
-      <div class="app-media reveal"><img class="app-shot" src="https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/hero_image.webp" alt="Odoo Recruitment" loading="eager" decoding="async" data-onerror="closest:.app-media"></div>
+      <div class="stage stage--app" aria-hidden="true">
+        <div class="st-card aw dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><img class="oi" src="../../assets/img/odoo/hr_recruitment.svg" alt="" width="16" height="16" loading="lazy" decoding="async"><span>Odoo · Recruitment</span></div>
+          <div class="aw-body"><div class="aw-fallback"><img class="oi" src="../../assets/img/odoo/hr_recruitment.svg" alt="" width="64" height="64" loading="lazy" decoding="async">Recruitment<span>Job posts, applicants and interviews.</span></div><img class="aw-shot" src="https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/hero_image.webp" alt="Odoo Recruitment" loading="eager" decoding="async" data-onerror="remove"></div>
+        </div>
+        <span class="aw-launch dp" style="--d:16"><img class="oi" src="../../assets/img/odoo/hr_recruitment.svg" alt="" width="52" height="52" loading="lazy" decoding="async"></span>
+        <span class="st-chip aw-c1 dp" style="--d:12"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Configured on a staging copy first</span>
+        <span class="st-chip aw-c2 dp" style="--d:9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>Shares data with Employees &amp; Time Off</span>
+        <div class="aw-rel dp" style="--d:10">Works with <img class="oi" src="../../assets/img/odoo/hr.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><img class="oi" src="../../assets/img/odoo/hr_holidays.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><img class="oi" src="../../assets/img/odoo/hr_appraisal.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -290,9 +301,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../../assets/js/site.js?v=51c0fdd2" defer></script>
-<script src="../../assets/js/chat.js?v=51c0fdd2" defer></script>
-<script src="../../assets/js/consent.js?v=51c0fdd2" defer></script>
+<script src="../../assets/js/site.js?v=7b249d53" defer></script>
+<script src="../../assets/js/chat.js?v=7b249d53" defer></script>
+<script src="../../assets/js/consent.js?v=7b249d53" defer></script>
+<script src="../../assets/js/stage.js?v=7b249d53" defer></script>
 
 </body>
 </html>

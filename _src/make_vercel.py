@@ -158,16 +158,16 @@ def csp(hashes):
         # is styled inline, so inline styles stay allowed
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com",
-        # unsplash: blog covers; odoocdn: official app screenshots on the Odoo pages;
+        # odoocdn: official app screenshots on the Odoo pages;
         # i.ytimg: YouTube facade thumbnails; the rest: Google Analytics / Ads pixels
-        "img-src 'self' data: https://images.unsplash.com https://odoocdn.com https://i.ytimg.com "
+        "img-src 'self' data: https://odoocdn.com https://i.ytimg.com "
         + " ".join(google_img),
         "connect-src 'self' https://formsubmit.co https://*.google-analytics.com "
         "https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com "
         "https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net "
         "https://pagead2.googlesyndication.com https://www.googleadservices.com "
         + " ".join(GOOGLE_REGIONAL),
-        "frame-src https://www.youtube-nocookie.com https://www.googletagmanager.com https://td.doubleclick.net",
+        "frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net",
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",

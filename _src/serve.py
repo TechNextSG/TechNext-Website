@@ -71,8 +71,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    socketserver.TCPServer.allow_reuse_address = True
+    # threaded: a browser holds keep-alive connections open, which stalls a single-threaded server
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    socketserver.ThreadingTCPServer.daemon_threads = True
     h = functools.partial(Handler, directory=str(ROOT))
-    with socketserver.TCPServer(("127.0.0.1", PORT), h) as httpd:
+    with socketserver.ThreadingTCPServer(("127.0.0.1", PORT), h) as httpd:
         print(f"serving {ROOT} at http://127.0.0.1:{PORT} (cleanUrls)")
         httpd.serve_forever()

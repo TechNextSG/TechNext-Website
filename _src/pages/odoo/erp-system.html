@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo Customization — upgrade-safe modules", "desc": "Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.", "out": "odoo/erp-system.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>ERP System</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">customization</span>
         <h1>Tailor Odoo without breaking the next upgrade.</h1>
@@ -12,24 +13,24 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:accountant:16}} Accounting</a><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:sale:16}} Sales</a><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:stock:16}} Inventory</a></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>What it is</span><span>One Odoo database, all departments</span></div>
-          <div><span>Modules</span><span>Switched on as you need them</span></div>
-          <div><span>Editions</span><span>Odoo Online · Odoo.sh · On-premise</span></div>
-          <div><span>Approach</span><span>Standard first, custom where it earns its place</span></div>
-          <div><span>Delivered</span><span>11+ enterprise clients · 10+ countries</span></div>
+      <div class="stage stage--erp" aria-hidden="true">
+        <div class="st-card er-code dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><span>custom_approvals / models / sale_order.py</span></div>
+          <pre class="er-pre"><span class="ln" style="--k:0"><i class="kw">class</i> <i class="fn">SaleOrder</i>(models.Model):</span><span class="ln" style="--k:1">    _inherit = <i class="st">"sale.order"</i></span><span class="ln" style="--k:2">    approval_required = fields.Boolean()</span><span class="ln" style="--k:3"> </span><span class="ln" style="--k:4">    <i class="kw">def</i> <i class="fn">action_confirm</i>(self):</span><span class="ln" style="--k:5">        self._check_approval()</span><span class="ln" style="--k:6">        <i class="kw">return</i> super().action_confirm()</span></pre>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:accountant:16}} Accounting</a>
-          <a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:sale:16}} Sales</a>
-          <a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:stock:16}} Inventory</a>
+        <div class="er-stack dp" style="--d:12">
+          <div class="er-slab s1"><b>Odoo core</b><span class="er-ver grow"><em class="v1">This version</em><em class="v2">Next version</em></span></div>
+          <div class="er-slab s2"><b>Standard apps</b>{{odoo:accountant:18}}{{odoo:sale:18}}{{odoo:stock:18}}</div>
+          <div class="er-slab s3"><b>Your module</b><span class="er-mod">custom_approvals</span><span class="er-ok grow">{{icon:check}}Upgrade-safe</span></div>
+          <span class="er-scan"></span>
         </div>
-      </aside>
+        <div class="er-eds"><span class="st-chip">{{icon:globe}}Odoo Online</span><span class="st-chip">{{icon:layers}}Odoo.sh</span><span class="st-chip">{{icon:database}}On-premise</span></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>What it is</dt><dd>One Odoo database, all departments</dd></div><div><dt>Modules</dt><dd>Switched on as you need them</dd></div><div><dt>Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>Approach</dt><dd>Standard first, custom where it earns its place</dd></div><div><dt>Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div></dl>
   </div>
 </section>
 

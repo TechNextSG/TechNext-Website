@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo CRM development — pipelines built for you", "desc": "Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells.", "out": "odoo/crm-development.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>CRM Development</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">built around your pipeline</span>
         <h1>A CRM shaped around how you sell.</h1>
@@ -12,23 +13,20 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM app</a><a class="tag" href="{{ROOT}}odoo/apps/sale.html">{{odoo:sale:16}} Sales app</a><span class="tag tag--ok">{{icon:check}} Odoo Partner</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Built on</span><span>Odoo CRM</span></div>
-          <div><span>Hands off to</span><span>Sales — quotation, no re-entry</span></div>
-          <div><span>Lead sources</span><span>Web · email · WhatsApp · social</span></div>
-          <div><span>Delivery</span><span>Discovery → Build → Train → Support</span></div>
-          <div><span>Teams</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--crm" aria-hidden="true">
+        <div class="cr-sources"><span class="st-chip">{{icon:globe}}Web</span><span class="st-chip">{{icon:mail}}Email</span><span class="st-chip">{{icon:whatsapp}}WhatsApp</span><span class="st-chip">{{icon:users}}Social</span></div>
+        <div class="st-card cr-board dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i>{{odoo:crm:16}}<span>CRM · Pipeline</span></div>
+          <div class="cr-cols"><b>New</b><b>Qualified</b><b>Proposition</b><b>Won</b></div>
+          <div class="cr-lane"><div class="cr-c c1"><div><span class="cr-top"><span class="cr-src">{{icon:globe}}</span><span class="cr-stars"><i class="on">{{icon:star}}</i><i class="on">{{icon:star}}</i><i>{{icon:star}}</i></span></span><b>Scanners for 3 outlets</b></div></div><div class="cr-c c2"><div><span class="cr-top"><span class="cr-src">{{icon:whatsapp}}</span><span class="cr-stars"><i class="on">{{icon:star}}</i><i class="on">{{icon:star}}</i><i class="on">{{icon:star}}</i></span></span><b>Support renewal</b></div></div><div class="cr-c c3"><div><span class="cr-top"><span class="cr-src">{{icon:mail}}</span><span class="cr-stars"><i class="on">{{icon:star}}</i><i>{{icon:star}}</i><i>{{icon:star}}</i></span></span><b>Warehouse roll-out</b></div></div></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <a class="tag" href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:16}} CRM app</a>
-          <a class="tag" href="{{ROOT}}odoo/apps/sale.html">{{odoo:sale:16}} Sales app</a>
-          <span class="tag tag--ok">{{icon:check}} Odoo Partner</span>
-        </div>
-      </aside>
+        <div class="st-card cr-quote dp" style="--d:14">{{odoo:sale:32}}<div><b>Quotation created</b><span>From the won deal · nothing re-typed</span></div></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Built on</dt><dd>Odoo CRM</dd></div><div><dt>Hands off to</dt><dd>Sales — quotation, no re-entry</dd></div><div><dt>Lead sources</dt><dd>Web · email · WhatsApp · social</dd></div><div><dt>Delivery</dt><dd>Discovery → Build → Train → Support</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

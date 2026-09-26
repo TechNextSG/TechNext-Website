@@ -234,6 +234,7 @@ LAYOUT = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
+<link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 {HEAD_EXTRA}
@@ -308,6 +309,7 @@ LAYOUT = '''<!doctype html>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/chat.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/consent.js?v={ASSET_V}" defer></script>
+<script src="{ROOT}assets/js/stage.js?v={ASSET_V}" defer></script>
 {SCRIPTS}
 </body>
 </html>
@@ -456,6 +458,35 @@ def apps_cats_html() -> str:
     return "\n".join(out)
 
 
+STAGE_BG = ('<div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div>'
+            '<div class="ph-grid"></div><div class="ph-spot"></div></div>')
+
+
+def _scatter(key: str) -> tuple:
+    """Stable pseudo-random start offset for an icon flying into the apps launcher."""
+    import hashlib
+    h = hashlib.md5(key.encode()).digest()
+    return round((h[0] / 255 - .5) * 320), round((h[1] / 255 - .5) * 220), round((h[2] / 255 - .5) * 80)
+
+
+def apps_stage_html() -> str:
+    """Odoo apps catalogue hero: every app flies into its category row; rows light up in turn."""
+    rows = []
+    for ci, c in enumerate(S.APP_CATEGORIES):
+        icons = []
+        for i, app in enumerate(c["apps"]):
+            dx, dy, rot = _scatter(app["mod"])
+            icons.append(f'<a class="ap-i" href="apps/{app["mod"]}.html" tabindex="-1" data-name="{app["name"]}" '
+                         f'style="--i:{i};--dx:{dx}px;--dy:{dy}px;--rot:{rot}deg">{{{{odoo:{app["mod"]}:24}}}}</a>')
+        focus = " is-focus" if c.get("focus") else ""
+        rows.append(f'<div class="ap-row{focus}" style="--c:{ci}"><span class="ap-label">{{{{icon:{c["icon"]}}}}}{c["title"]}</span>'
+                    f'<span class="ap-icons">{"".join(icons)}</span></div>')
+    return ('<div class="stage stage--apps" aria-hidden="true">'
+            '<div class="st-card ap-win dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Odoo · Apps</span></div>'
+            f'<div class="ap-rows">{"".join(rows)}</div></div>'
+            '<span class="st-chip ap-legend dp" style="--d:12"><span class="dot"></span>Our focus areas</span></div>')
+
+
 def marquee_html() -> str:
     names = {a["mod"]: a["name"] for c in S.APP_CATEGORIES for a in c["apps"]}
     items = "".join(f'<span class="mq-item">{{{{odoo:{m}:26}}}}{names.get(m, m)}</span>' for m in S.MARQUEE)
@@ -526,15 +557,11 @@ def app_page(mod: str) -> tuple:
     sections = c.get("sections", [])
     used = {s["img"] for s in sections if s.get("img")}
 
-    # hero: the odoo.com hero image on the right when there is one; otherwise a single column — never a placeholder
+    # hero: the odoo.com hero image inside an app window; when there is none (or it fails to load)
+    # the window shows the app's own icon, name and summary instead — never an empty placeholder
     hero_img = next((i for i in images if i not in used), "")
     if hero_img:
         used.add(hero_img)
-        hero_media = (f'<div class="app-media reveal"><img class="app-shot" src="{hero_img}" alt="Odoo {name}" '
-                      f'loading="eager" decoding="async" data-onerror="closest:.app-media"></div>')
-        hero_grid = "two"
-    else:
-        hero_media, hero_grid = "", "app-hero-single"
 
     # videos: every official YouTube video plus the odoocdn hero clip, in their own section right after the hero
     vids = [yt_facade(v, f"Odoo {name} video {k + 1}") for k, v in enumerate(c.get("youtube", []))]
@@ -583,6 +610,20 @@ def app_page(mod: str) -> tuple:
     for extra in ("accountant", "sale", "stock"):
         if extra != mod and extra not in rel_mods and len(rel_mods) < 6:
             rel_mods.append(extra)
+    shot = (f'<img class="aw-shot" src="{hero_img}" alt="Odoo {name}" loading="eager" decoding="async" data-onerror="remove">'
+            if hero_img else "")
+    works = " &amp; ".join(APP_BY_MOD[m]["name"] for m in rel_mods[:2])
+    rel_icons = "".join(f'{{{{odoo:{m}:24}}}}' for m in rel_mods[:3])
+    hero_stage = f'''<div class="stage stage--app" aria-hidden="true">
+        <div class="st-card aw dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i>{{{{odoo:{mod}:16}}}}<span>Odoo · {name}</span></div>
+          <div class="aw-body"><div class="aw-fallback">{{{{odoo:{mod}:64}}}}{name}<span>{app["desc"]}</span></div>{shot}</div>
+        </div>
+        <span class="aw-launch dp" style="--d:16">{{{{odoo:{mod}:52}}}}</span>
+        <span class="st-chip aw-c1 dp" style="--d:12">{{{{icon:check}}}}Configured on a staging copy first</span>
+        <span class="st-chip aw-c2 dp" style="--d:9">{{{{icon:layers}}}}Shares data with {works}</span>
+        <div class="aw-rel dp" style="--d:10">Works with {rel_icons}</div>
+      </div>'''
     related = "".join(f'<a class="app" href="{m}.html">{{{{odoo:{m}:40}}}}<div><b>{APP_BY_MOD[m]["name"]}</b><small>{APP_BY_MOD[m]["desc"]}</small></div>{{{{icon:arrow}}}}</a>' for m in rel_mods)
     impl = "".join(f'<li>{{{{icon:check}}}}{p}</li>' for p in IMPLEMENT.get(mod, DEFAULT_IMPLEMENT))
     # Original copy only: the old description was odoo.com's own marketing text, which made
@@ -598,10 +639,11 @@ def app_page(mod: str) -> tuple:
     meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
     content = f'''
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{{{STAGE_BG}}}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span>Odoo</span><span><a href="{{{{ROOT}}}}odoo/apps.html">Apps</a></span><span><a href="{{{{ROOT}}}}odoo/apps.html#{cat["id"]}">{cat["title"]}</a></span><span>{name}</span></nav>
-    <div class="{hero_grid}">
+    <div class="two two--stage">
       <div>
         <div class="app-hero-head">{{{{odoo:{mod}:56}}}}<span class="hand">odoo · {cat["title"].lower()}</span></div>
         <h1>{name} <span class="app-sub">{headline}</span></h1>
@@ -612,7 +654,7 @@ def app_page(mod: str) -> tuple:
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
       </div>
-      {hero_media}
+      {hero_stage}
     </div>
   </div>
 </section>
@@ -735,6 +777,10 @@ def clean_links(html: str) -> str:
 def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{APPS_NAV}}" in content:
         content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html())
+    if "{{APPS_STAGE}}" in content:
+        content = content.replace("{{APPS_STAGE}}", apps_stage_html())
+    if "{{STAGE_BG}}" in content:
+        content = content.replace("{{STAGE_BG}}", STAGE_BG)
     if "{{MARQUEE}}" in content:
         content = content.replace("{{MARQUEE}}", marquee_html())
     if "{{PILLARS}}" in content:

@@ -1,13 +1,19 @@
 <!--meta {"title": "Odoo Apps by Category — Finance to HR", "desc": "The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.", "out": "odoo/apps.html", "nav": "odoo"} -->
 
-<section class="page-hero">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}solutions/odoo-erp.html">Odoo</a></span><span>Apps</span></nav>
-    <span class="hand">one database, every app</span>
-    <h1>All Odoo apps.</h1>
-    <p class="lead">Every app shares the same customers, products and accounts. Start with Finance, Sales and Supply Chain — our focus areas — and add the rest as the business needs them.</p>
-    <div class="apps-nav mt-40">
+    <div class="two two--stage">
+      <div>
+        <span class="hand">one database, every app</span>
+        <h1>All Odoo apps.</h1>
+        <p class="lead">Every app shares the same customers, products and accounts. Start with Finance, Sales and Supply Chain — our focus areas — and add the rest as the business needs them.</p>
+        <div class="apps-nav mt-40">
 {{APPS_NAV}}
+        </div>
+      </div>
+      {{APPS_STAGE}}
     </div>
   </div>
 </section>

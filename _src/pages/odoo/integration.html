@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo Integration — banks, payments, stores", "desc": "Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.", "out": "odoo/integration.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Integration</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 3 of 4</span>
         <h1>Integration: connect what you keep.</h1>
@@ -12,24 +13,20 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Shopify</span><span class="tag">WooCommerce</span><span class="tag">Bank feeds</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 3 of 4</span></div>
-          <div><span>Connects</span><span>Stores · payments · banks · email</span></div>
-          <div><span>Method</span><span>Standard connectors first, API where needed</span></div>
-          <div><span>Goal</span><span>No re-keying between systems</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--integ" aria-hidden="true">
+        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-done"><b>2</b>Training</li><li class="is-on"><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
+        <div class="ig-field">
+          <svg class="ig-svg st-anim" viewBox="0 0 560 360" focusable="false"><path id="igp1" class="ig-ln l1" pathLength="1" d="M80,60 C180,60 190,180 280,180"/><path id="igp2" class="ig-ln l2" pathLength="1" d="M480,60 C380,60 370,180 280,180"/><path id="igp3" class="ig-ln l3" pathLength="1" d="M59,180 L280,180"/><path id="igp4" class="ig-ln l4" pathLength="1" d="M501,180 L280,180"/><path id="igp5" class="ig-ln l5" pathLength="1" d="M80,300 C180,300 190,180 280,180"/><path id="igp6" class="ig-ln l6" pathLength="1" d="M480,300 C380,300 370,180 280,180"/><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite"><mpath href="#igp1" xlink:href="#igp1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.8s" begin="1.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.2s" begin="2.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp2" xlink:href="#igp2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.2s" begin="2.0s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.6s" begin="2.4s" repeatCount="indefinite"><mpath href="#igp3" xlink:href="#igp3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.6s" begin="2.4s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="3.0s" begin="1.8s" repeatCount="indefinite"><mpath href="#igp4" xlink:href="#igp4"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.0s" begin="1.8s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.4s" begin="2.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp5" xlink:href="#igp5"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.4s" begin="2.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="2.9s" begin="2.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="2.2s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.9s" begin="3.65s" repeatCount="indefinite"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="3.65s" repeatCount="indefinite"/></circle></svg>
+          <span class="ig-node n1" data-node="1">{{icon:cart}}<b>Online store</b></span><span class="ig-node n2" data-node="2">{{icon:bag}}<b>Marketplaces</b></span><span class="ig-node n3" data-node="3">{{icon:receipt}}<b>Payments</b></span><span class="ig-node n4" data-node="4">{{icon:bank}}<b>Bank feeds</b></span><span class="ig-node n5" data-node="5">{{icon:mail}}<b>Email &amp; calendar</b></span><span class="ig-node n6" data-node="6">{{icon:code}}<b>Your systems</b></span>
+          <div class="st-card ig-core"><b>Your Odoo</b><small>One database</small><span class="ig-apps">{{odoo:sale:22}}{{odoo:stock:22}}{{odoo:accountant:22}}</span></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">Shopify</span>
-          <span class="tag">WooCommerce</span>
-          <span class="tag">Bank feeds</span>
-        </div>
-      </aside>
+        <div class="st-card ig-log"><div class="ig-log-rows"><p><span class="st-tick">{{icon:check}}</span><b>Web order</b> became a sales order</p><p><span class="st-tick">{{icon:check}}</span><b>Gateway payout</b> matched in Accounting</p><p><span class="st-tick">{{icon:check}}</span><b>Stock level</b> synced to the store</p><p><span class="st-tick">{{icon:check}}</span><b>Bank statement</b> imported and matched</p><p><span class="st-tick">{{icon:check}}</span><b>Web order</b> became a sales order</p></div></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 3 of 4</dd></div><div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>Goal</dt><dd>No re-keying between systems</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

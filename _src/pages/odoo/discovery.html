@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo Discovery — scope before we configure", "desc": "Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope.", "out": "odoo/discovery.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Discovery</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 1 of 4</span>
         <h1>Discovery: understand before we configure.</h1>
@@ -12,24 +13,27 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Order-to-cash</span><span class="tag">Procure-to-pay</span><span class="tag">Record-to-report</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 1 of 4</span></div>
-          <div><span>We map</span><span>Order-to-cash · Procure-to-pay · Record-to-report</span></div>
-          <div><span>You leave with</span><span>Process map · App map · Scope · Quotation</span></div>
-          <div><span>Track record</span><span>11+ enterprise clients · 10+ countries</span></div>
-          <div><span>Teams</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--disco" aria-hidden="true">
+        <ol class="st-rail"><li class="is-on"><b>1</b>Discovery</li><li><b>2</b>Training</li><li><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
+        <div class="st-card dc-map dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><span>Process map · how work moves today</span></div>
+          <div class="dc-lanes">
+            <div class="dc-lane" style="--l:0"><span class="dc-name">Order-to-cash</span><span class="dc-track"><span class="dc-node" style="--n:0">Quote</span><span class="dc-node" style="--n:1">Order</span><span class="dc-node" style="--n:2">Deliver</span><span class="dc-node" style="--n:3">Invoice</span><span class="dc-node" style="--n:4">Paid</span><span class="dc-pulse"></span></span><span class="dc-apps">{{odoo:sale:22}}{{odoo:stock:22}}{{odoo:accountant:22}}</span></div>
+            <div class="dc-lane" style="--l:1"><span class="dc-name">Procure-to-pay</span><span class="dc-track"><span class="dc-node" style="--n:0">Request</span><span class="dc-node" style="--n:1">PO</span><span class="dc-node" style="--n:2">Receive</span><span class="dc-node" style="--n:3">Bill</span><span class="dc-node" style="--n:4">Pay</span><span class="dc-pulse"></span></span><span class="dc-apps">{{odoo:purchase:22}}{{odoo:stock:22}}{{odoo:accountant:22}}</span></div>
+            <div class="dc-lane" style="--l:2"><span class="dc-name">Record-to-report</span><span class="dc-track"><span class="dc-node" style="--n:0">Journal</span><span class="dc-node" style="--n:1">Reconcile</span><span class="dc-node" style="--n:2">Close</span><span class="dc-node" style="--n:3">Report</span><span class="dc-pulse"></span></span><span class="dc-apps">{{odoo:accountant:22}}{{odoo:spreadsheet_dashboard:22}}</span></div>
+          </div>
+          <p class="dc-foot">Walked through with finance, sales and the warehouse</p>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">Order-to-cash</span>
-          <span class="tag">Procure-to-pay</span>
-          <span class="tag">Record-to-report</span>
-        </div>
-      </aside>
+        <div class="st-card dc-scope dp" style="--d:14"><b>You leave with</b><ul>
+          <li style="--k:0"><span class="st-tick">{{icon:check}}</span>Process map</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>App map</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Written scope</li><li style="--k:3"><span class="st-tick">{{icon:check}}</span>Quotation</li>
+        </ul></div>
+        <span class="st-chip dc-gap dp" style="--d:10">{{icon:search}}Gaps noted before anything is built</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 1 of 4</dd></div><div><dt>We map</dt><dd>Order-to-cash · Procure-to-pay · Record-to-report</dd></div><div><dt>You leave with</dt><dd>Process map · App map · Scope · Quotation</dd></div><div><dt>Track record</dt><dd>11+ enterprise clients · 10+ countries</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
