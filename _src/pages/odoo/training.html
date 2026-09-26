@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo Training in Singapore — on your data", "desc": "Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.", "out": "odoo/training.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Training</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 2 of 4</span>
         <h1>Training: each team learns its own screens.</h1>
@@ -12,24 +13,46 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">{{odoo:accountant:16}} Finance</span><span class="tag">{{odoo:sale:16}} Sales</span><span class="tag">{{odoo:stock:16}} Warehouse</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 2 of 4</span></div>
-          <div><span>Format</span><span>Role-based · hands-on · on your data</span></div>
-          <div><span>Audiences</span><span>Administrators and end-users</span></div>
-          <div><span>Delivery</span><span>On-site in Singapore · remote elsewhere</span></div>
-          <div><span>You keep</span><span>Quick-reference guides per task</span></div>
+      <div class="stage stage--train" data-cycle="finance,sales,warehouse" aria-hidden="true">
+        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-on"><b>2</b>Training</li><li><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
+        <div class="st-card tr-win dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><span>Training database · a copy of your own data</span></div>
+          <div class="tr-tabs"><span data-role-tab="finance">{{odoo:accountant:16}}Finance</span><span data-role-tab="sales">{{odoo:sale:16}}Sales</span><span data-role-tab="warehouse">{{odoo:stock:16}}Warehouse</span></div>
+          <div class="tr-screens">
+            <div class="tr-screen" data-role="finance">
+              <div class="tr-h">Bank reconciliation</div>
+              <div class="tr-row"><span>Harbourline Supplies</span><span class="tag tag--ok">Matched</span><span>S$ 4,280.00</span></div>
+              <div class="tr-row"><span>Card settlement</span><span class="tag tag--ok">Matched</span><span>S$ 1,962.40</span></div>
+              <div class="tr-row"><span>Transfer, no reference</span><span class="tag">To review</span><span>S$ 350.00</span></div>
+              <span class="tr-btn">Validate</span><div class="tr-veil"></div>
+              <div class="tr-tip">Check the suggested match, then validate.</div>
+            </div>
+            <div class="tr-screen" data-role="sales">
+              <div class="tr-h">Quotation S00042</div>
+              <div class="tr-row"><span>Barcode scanner</span><span class="tag">&times; 6</span><span>S$ 1,080.00</span></div>
+              <div class="tr-row"><span>Label printer</span><span class="tag">&times; 2</span><span>S$ 460.00</span></div>
+              <div class="tr-row"><span>Set-up service</span><span class="tag">&times; 1</span><span>S$ 300.00</span></div>
+              <span class="tr-btn">Confirm</span><div class="tr-veil"></div>
+              <div class="tr-tip">Confirm it, and the quotation becomes a sales order.</div>
+            </div>
+            <div class="tr-screen" data-role="warehouse">
+              <div class="tr-h">Receipt WH/IN/00017</div>
+              <div class="tr-row"><span>Barcode scanner</span><span class="tag tag--ok">Scanned</span><span>6 / 6</span></div>
+              <div class="tr-row"><span>Label printer</span><span class="tag tag--ok">Scanned</span><span>2 / 2</span></div>
+              <div class="tr-row"><span>Thermal labels</span><span class="tag">Waiting</span><span>0 / 40</span></div>
+              <span class="tr-btn">Validate</span><div class="tr-veil"></div>
+              <div class="tr-tip">Scan each product in, then validate the receipt.</div>
+            </div>
+          </div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">{{odoo:accountant:16}} Finance</span>
-          <span class="tag">{{odoo:sale:16}} Sales</span>
-          <span class="tag">{{odoo:stock:16}} Warehouse</span>
-        </div>
-      </aside>
+        <div class="st-card tr-guide dp" style="--d:14"><b>Quick-reference guide</b><ol class="tr-steps" data-role="finance"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Open the bank statement</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Check the suggested matches</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Validate the lines</li></ol><ol class="tr-steps" data-role="sales"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Pick the customer and products</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Send the quotation</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Confirm it into an order</li></ol><ol class="tr-steps" data-role="warehouse"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Open the incoming receipt</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Scan each product in</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Validate the receipt</li></ol></div>
+        <span class="st-chip tr-data dp" style="--d:10">{{icon:database}}Your products, your customers</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 2 of 4</dd></div><div><dt>Format</dt><dd>Role-based · hands-on · on your data</dd></div><div><dt>Audiences</dt><dd>Administrators and end-users</dd></div><div><dt>Delivery</dt><dd>On-site in Singapore · remote elsewhere</dd></div><div><dt>You keep</dt><dd>Quick-reference guides per task</dd></div></dl>
   </div>
 </section>
 

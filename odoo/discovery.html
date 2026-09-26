@@ -46,7 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=51c0fdd2">
+<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -123,10 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Odoo</span><span>Walkthrough</span><span>Discovery</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 1 of 4</span>
         <h1>Discovery: understand before we configure.</h1>
@@ -135,24 +137,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Order-to-cash</span><span class="tag">Procure-to-pay</span><span class="tag">Record-to-report</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 1 of 4</span></div>
-          <div><span>We map</span><span>Order-to-cash · Procure-to-pay · Record-to-report</span></div>
-          <div><span>You leave with</span><span>Process map · App map · Scope · Quotation</span></div>
-          <div><span>Track record</span><span>11+ enterprise clients · 10+ countries</span></div>
-          <div><span>Teams</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--disco" aria-hidden="true">
+        <ol class="st-rail"><li class="is-on"><b>1</b>Discovery</li><li><b>2</b>Training</li><li><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
+        <div class="st-card dc-map dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><span>Process map · how work moves today</span></div>
+          <div class="dc-lanes">
+            <div class="dc-lane" style="--l:0"><span class="dc-name">Order-to-cash</span><span class="dc-track"><span class="dc-node" style="--n:0">Quote</span><span class="dc-node" style="--n:1">Order</span><span class="dc-node" style="--n:2">Deliver</span><span class="dc-node" style="--n:3">Invoice</span><span class="dc-node" style="--n:4">Paid</span><span class="dc-pulse"></span></span><span class="dc-apps"><img class="oi" src="../assets/img/odoo/sale.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/stock.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="22" height="22" loading="lazy" decoding="async"></span></div>
+            <div class="dc-lane" style="--l:1"><span class="dc-name">Procure-to-pay</span><span class="dc-track"><span class="dc-node" style="--n:0">Request</span><span class="dc-node" style="--n:1">PO</span><span class="dc-node" style="--n:2">Receive</span><span class="dc-node" style="--n:3">Bill</span><span class="dc-node" style="--n:4">Pay</span><span class="dc-pulse"></span></span><span class="dc-apps"><img class="oi" src="../assets/img/odoo/purchase.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/stock.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="22" height="22" loading="lazy" decoding="async"></span></div>
+            <div class="dc-lane" style="--l:2"><span class="dc-name">Record-to-report</span><span class="dc-track"><span class="dc-node" style="--n:0">Journal</span><span class="dc-node" style="--n:1">Reconcile</span><span class="dc-node" style="--n:2">Close</span><span class="dc-node" style="--n:3">Report</span><span class="dc-pulse"></span></span><span class="dc-apps"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/spreadsheet_dashboard.svg" alt="" width="22" height="22" loading="lazy" decoding="async"></span></div>
+          </div>
+          <p class="dc-foot">Walked through with finance, sales and the warehouse</p>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">Order-to-cash</span>
-          <span class="tag">Procure-to-pay</span>
-          <span class="tag">Record-to-report</span>
-        </div>
-      </aside>
+        <div class="st-card dc-scope dp" style="--d:14"><b>You leave with</b><ul>
+          <li style="--k:0"><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Process map</li><li style="--k:1"><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>App map</li><li style="--k:2"><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Written scope</li><li style="--k:3"><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Quotation</li>
+        </ul></div>
+        <span class="st-chip dc-gap dp" style="--d:10"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Gaps noted before anything is built</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 1 of 4</dd></div><div><dt>We map</dt><dd>Order-to-cash · Procure-to-pay · Record-to-report</dd></div><div><dt>You leave with</dt><dd>Process map · App map · Scope · Quotation</dd></div><div><dt>Track record</dt><dd>11+ enterprise clients · 10+ countries</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -323,9 +328,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/chat.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/consent.js?v=51c0fdd2" defer></script>
+<script src="../assets/js/site.js?v=7b249d53" defer></script>
+<script src="../assets/js/chat.js?v=7b249d53" defer></script>
+<script src="../assets/js/consent.js?v=7b249d53" defer></script>
+<script src="../assets/js/stage.js?v=7b249d53" defer></script>
 
 </body>
 </html>

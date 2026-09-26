@@ -1,9 +1,10 @@
 <!--meta {"title": "Odoo Support in Singapore — fixes & upgrades", "desc": "Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.", "out": "odoo/support.html", "nav": "odoo"} -->
 
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Support</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 4 of 4</span>
         <h1>Support: the same team, after go-live.</h1>
@@ -12,24 +13,26 @@
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Fixes</span><span class="tag">Month-end</span><span class="tag">Upgrades</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 4 of 4</span></div>
-          <div><span>Covers</span><span>Fixes · month-end · upgrades · changes</span></div>
-          <div><span>Response</span><span>Targets agreed in your plan</span></div>
-          <div><span>Channel</span><span>Single tracked channel, named team</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--support" aria-hidden="true">
+        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-done"><b>2</b>Training</li><li class="is-done"><b>3</b>Integration</li><li class="is-on"><b>4</b>Support</li></ol>
+        <div class="st-card sp-board dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><span>Support · one tracked channel</span></div>
+          <div class="sp-cols"><b>Triage</b><b>Fix</b><b class="done">Done</b></div>
+          <div class="sp-lane">
+            <div class="sp-t t1"><div><b>Bank feed sync</b><small>Fix {{icon:check}}</small></div></div>
+            <div class="sp-t t2"><div><b>Month-end close</b><small>Month-end {{icon:check}}</small></div></div>
+            <div class="sp-t t3"><div><b>Version upgrade</b><small>Upgrade {{icon:check}}</small></div></div>
+            <div class="sp-t t4"><div><b>PO approval step</b><small>Change {{icon:check}}</small></div></div>
+          </div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">Fixes</span>
-          <span class="tag">Month-end</span>
-          <span class="tag">Upgrades</span>
-        </div>
-      </aside>
+        <div class="st-card sp-sum dp" style="--d:14"><b>A named team</b><span>The people who configured your system answer the ticket.</span></div>
+        <span class="st-chip sp-month dp" style="--d:10">{{icon:clock}}Response targets agreed in your plan</span>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 4 of 4</dd></div><div><dt>Covers</dt><dd>Fixes · month-end · upgrades · changes</dd></div><div><dt>Response</dt><dd>Targets agreed in your plan</dd></div><div><dt>Channel</dt><dd>Single tracked channel, named team</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 

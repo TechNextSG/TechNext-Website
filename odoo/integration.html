@@ -46,7 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=51c0fdd2">
+<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -123,10 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Odoo</span><span>Walkthrough</span><span>Integration</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">step 3 of 4</span>
         <h1>Integration: connect what you keep.</h1>
@@ -135,24 +137,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Shopify</span><span class="tag">WooCommerce</span><span class="tag">Bank feeds</span></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Phase</span><span>Step 3 of 4</span></div>
-          <div><span>Connects</span><span>Stores · payments · banks · email</span></div>
-          <div><span>Method</span><span>Standard connectors first, API where needed</span></div>
-          <div><span>Goal</span><span>No re-keying between systems</span></div>
-          <div><span>Team</span><span>Singapore HQ · Global</span></div>
+      <div class="stage stage--integ" aria-hidden="true">
+        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-done"><b>2</b>Training</li><li class="is-on"><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
+        <div class="ig-field">
+          <svg class="ig-svg st-anim" viewBox="0 0 560 360" focusable="false"><path id="igp1" class="ig-ln l1" pathLength="1" d="M80,60 C180,60 190,180 280,180"/><path id="igp2" class="ig-ln l2" pathLength="1" d="M480,60 C380,60 370,180 280,180"/><path id="igp3" class="ig-ln l3" pathLength="1" d="M59,180 L280,180"/><path id="igp4" class="ig-ln l4" pathLength="1" d="M501,180 L280,180"/><path id="igp5" class="ig-ln l5" pathLength="1" d="M80,300 C180,300 190,180 280,180"/><path id="igp6" class="ig-ln l6" pathLength="1" d="M480,300 C380,300 370,180 280,180"/><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite"><mpath href="#igp1" xlink:href="#igp1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.8s" begin="1.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.2s" begin="2.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp2" xlink:href="#igp2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.2s" begin="2.0s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.6s" begin="2.4s" repeatCount="indefinite"><mpath href="#igp3" xlink:href="#igp3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.6s" begin="2.4s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="3.0s" begin="1.8s" repeatCount="indefinite"><mpath href="#igp4" xlink:href="#igp4"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.0s" begin="1.8s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.4s" begin="2.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp5" xlink:href="#igp5"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.4s" begin="2.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="2.9s" begin="2.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="2.2s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.9s" begin="3.65s" repeatCount="indefinite"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="3.65s" repeatCount="indefinite"/></circle></svg>
+          <span class="ig-node n1" data-node="1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h17l-1.6 8.4a2 2 0 0 1-2 1.6H9.7a2 2 0 0 1-2-1.6z" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><b>Online store</b></span><span class="ig-node n2" data-node="2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><b>Marketplaces</b></span><span class="ig-node n3" data-node="3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 3 2V2l-3 2-3-2-3 2-3-2-3 2z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 3 2V2l-3 2-3-2-3 2-3-2-3 2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><b>Payments</b></span><span class="ig-node n4" data-node="4"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 6H2z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M3 10h18"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9"/><path d="M2 21h20"/><path d="m12 3 10 6H2z"/></svg><b>Bank feeds</b></span><span class="ig-node n5" data-node="5"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" fill="currentColor" fill-opacity=".2" stroke="none"/><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><b>Email &amp; calendar</b></span><span class="ig-node n6" data-node="6"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg><b>Your systems</b></span>
+          <div class="st-card ig-core"><b>Your Odoo</b><small>One database</small><span class="ig-apps"><img class="oi" src="../assets/img/odoo/sale.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/stock.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="22" height="22" loading="lazy" decoding="async"></span></div>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag">Odoo Partner</span>
-          <span class="tag">Shopify</span>
-          <span class="tag">WooCommerce</span>
-          <span class="tag">Bank feeds</span>
-        </div>
-      </aside>
+        <div class="st-card ig-log"><div class="ig-log-rows"><p><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Web order</b> became a sales order</p><p><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Gateway payout</b> matched in Accounting</p><p><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Stock level</b> synced to the store</p><p><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Bank statement</b> imported and matched</p><p><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><b>Web order</b> became a sales order</p></div></div>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Phase</dt><dd>Step 3 of 4</dd></div><div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>Goal</dt><dd>No re-keying between systems</dd></div><div><dt>Team</dt><dd>Singapore HQ · Global</dd></div></dl>
   </div>
 </section>
 
@@ -323,9 +321,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/chat.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/consent.js?v=51c0fdd2" defer></script>
+<script src="../assets/js/site.js?v=7b249d53" defer></script>
+<script src="../assets/js/chat.js?v=7b249d53" defer></script>
+<script src="../assets/js/consent.js?v=7b249d53" defer></script>
+<script src="../assets/js/stage.js?v=7b249d53" defer></script>
 
 </body>
 </html>

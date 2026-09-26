@@ -46,7 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=51c0fdd2">
+<link rel="stylesheet" href="../assets/css/site.css?v=7b249d53">
+<link rel="stylesheet" href="../assets/css/stage.css?v=7b249d53">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -123,10 +124,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 
 <main id="main">
-<section class="page-hero page-hero--split">
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  <div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div><div class="ph-grid"></div><div class="ph-spot"></div></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Home</a><span>Odoo</span><span>Customization</span><span>AI Integration</span></nav>
-    <div class="two">
+    <div class="two two--stage">
       <div>
         <span class="hand">customization</span>
         <h1>AI that works inside Odoo, on your data.</h1>
@@ -135,25 +137,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a class="btn btn-primary btn-lg" href="../quotation">Get a quotation <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
+        <div class="pill-row"><span class="tag tag--odoo">Odoo Partner</span><span class="tag">Claude Partner</span><a class="tag" href="../odoo/apps/accountant"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> Accounting</a><a class="tag" href="../odoo/apps/crm"><img class="oi" src="../assets/img/odoo/crm.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> CRM</a><a class="tag" href="../odoo/apps/helpdesk"><img class="oi" src="../assets/img/odoo/helpdesk.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> Helpdesk</a></div>
       </div>
-      <aside class="hero-aside reveal">
-        <h2 class="aside-title">At a glance</h2>
-        <div class="kv">
-          <div><span>Works in</span><span>Your Odoo records</span></div>
-          <div><span>Discipline</span><span>AI inside Odoo</span></div>
-          <div><span>Every action</span><span>Logged on the record</span></div>
-          <div><span>Control</span><span>People approve; the AI prepares</span></div>
-          <div><span>Built by</span><span>A team that also implements Odoo</span></div>
+      <div class="stage stage--ai" aria-hidden="true">
+        <div class="st-card ai-rec dp" style="--d:6">
+          <div class="st-bar"><i></i><i></i><i></i><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="16" height="16" loading="lazy" decoding="async"><span>Accounting · Vendor bill · Draft</span></div>
+          <div class="ai-body">
+            <div class="ai-doc"><i class="w1"></i><i class="w2"></i><i class="w3"></i><i class="w4"></i><i class="w5"></i><i class="w2"></i><i class="w6"></i><span class="ai-scan"></span></div>
+            <dl class="ai-fields">
+              <div><dt>Vendor</dt><dd style="--k:0">Harbourline Supplies</dd></div>
+              <div><dt>Bill date</dt><dd style="--k:1">12 Sep 2026</dd></div>
+              <div><dt>Total</dt><dd style="--k:2">S$ 1,284.00</dd></div>
+              <div><dt>PO match</dt><dd style="--k:3">PO00123 <span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span></dd></div>
+            </dl>
+          </div>
+          <div class="ai-foot"><span class="ai-badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6l1.8 4.2L18 12l-4.2 1.8L12 18l-1.8-4.2L6 12l4.2-1.8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg><span>Prepared by AI · a person approves</span></span><span class="ai-approve">Approve<span class="ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Posted</span></span></div>
+          <svg class="ai-cursor" viewBox="0 0 24 24" focusable="false"><path d="M5 3l14 7.2-6.2 1.9L10.6 19z" fill="#1F1F3D" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </div>
-        <div class="pill-row" style="margin-top:18px">
-          <span class="tag tag--odoo">Odoo Partner</span>
-          <span class="tag">Claude Partner</span>
-          <a class="tag" href="../odoo/apps/accountant"><img class="oi" src="../assets/img/odoo/accountant.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> Accounting</a>
-          <a class="tag" href="../odoo/apps/crm"><img class="oi" src="../assets/img/odoo/crm.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> CRM</a>
-          <a class="tag" href="../odoo/apps/helpdesk"><img class="oi" src="../assets/img/odoo/helpdesk.svg" alt="" width="16" height="16" loading="lazy" decoding="async"> Helpdesk</a>
+        <div class="st-card ai-log dp" style="--d:14"><b>Logged on the record</b>
+          <p class="l1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6l1.8 4.2L18 12l-4.2 1.8L12 18l-1.8-4.2L6 12l4.2-1.8z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>AI read the bill and filled four fields</p>
+          <p class="l2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="currentColor" fill-opacity=".2" stroke="none"/><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>Matched to purchase order PO00123</p>
+          <p class="l3"><span class="st-tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Approved and posted by Finance</p>
         </div>
-      </aside>
+      </div>
     </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Works in</dt><dd>Your Odoo records</dd></div><div><dt>Discipline</dt><dd>AI inside Odoo</dd></div><div><dt>Every action</dt><dd>Logged on the record</dd></div><div><dt>Control</dt><dd>People approve; the AI prepares</dd></div><div><dt>Built by</dt><dd>A team that also implements Odoo</dd></div></dl>
   </div>
 </section>
 
@@ -347,9 +356,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="../assets/js/site.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/chat.js?v=51c0fdd2" defer></script>
-<script src="../assets/js/consent.js?v=51c0fdd2" defer></script>
+<script src="../assets/js/site.js?v=7b249d53" defer></script>
+<script src="../assets/js/chat.js?v=7b249d53" defer></script>
+<script src="../assets/js/consent.js?v=7b249d53" defer></script>
+<script src="../assets/js/stage.js?v=7b249d53" defer></script>
 
 </body>
 </html>
