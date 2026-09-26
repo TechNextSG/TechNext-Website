@@ -1,0 +1,47 @@
+<!--meta {"title": "Odoo for Retail — POS, stock and accounting", "desc": "Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/retail.html", "nav": "industries", "scripts": ["assets/js/showcase.js"]} -->
+
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Retail</span></nav>
+    <span class="hand">stores, chains, showrooms</span>
+    <h1>Tills, stock and accounts that agree with each other.</h1>
+    <p class="lead">Point of Sale that works offline, stock shared across stores and online, and daily takings posted to Accounting without a spreadsheet in between.</p>
+    <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:bag}}</div><h3>Separate POS, separate stock</h3><p>The till knows what sold; the stock system finds out later, if at all.</p></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:truck}}</div><h3>Transfers by message</h3><p>Stores move stock between each other on WhatsApp; counts drift.</p></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:calculator}}</div><h3>Takings keyed in daily</h3><p>Z-reports typed into accounting each evening; card settlements reconciled by hand.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head sec-head--row reveal"><div><span class="hand">how odoo maps to it</span><h2 style="margin:0">The apps we switch on.</h2></div><a class="btn-link" href="{{ROOT}}odoo/apps.html">All Odoo apps {{icon:arrow}}</a></div>
+    <div class="showcase reveal" data-showcase data-interval="6000">
+      <div class="sc-list" role="tablist" aria-label="Odoo apps for retail">
+        <button class="sc-tab" role="tab" type="button" data-app="point_of_sale" data-kicker="Point of Sale · Sales" data-title="Point of Sale" data-href="{{ROOT}}odoo/apps/point_of_sale.html" data-desc="A till that keeps selling when the internet drops, with barcodes, promotions and loyalty — every sale moves stock and posts a journal entry." data-points="Works offline, syncs when back|Barcode, promotions and loyalty|Card terminals and e-receipts">{{odoo:point_of_sale:36}}<span><b>Point of Sale</b><small>Offline-capable, promotions, loyalty.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="stock" data-kicker="Inventory · Supply Chain" data-title="Inventory" data-href="{{ROOT}}odoo/apps/stock.html" data-desc="One location per store, transfers between stores and counts that keep the shelf and the system in agreement." data-points="One location per store|Inter-store transfers and cycle counts|Reordering rules per store">{{odoo:stock:36}}<span><b>Inventory</b><small>Per-store stock, transfers, counts.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="accountant" data-kicker="Accounting · Finance" data-title="Accounting" data-href="{{ROOT}}odoo/apps/accountant.html" data-desc="POS sessions close straight to journals and card settlements reconcile from the bank feed — no Z-report typing." data-points="Sessions closed to journals automatically|Card settlements reconciled from the bank feed|Daily takings visible without spreadsheets">{{odoo:accountant:36}}<span><b>Accounting</b><small>Takings posted, settlements reconciled.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="purchase" data-kicker="Purchase · Supply Chain" data-title="Purchase" data-href="{{ROOT}}odoo/apps/purchase.html" data-desc="Supplier orders raised from minimum-stock rules; receipts update store stock the moment they are scanned." data-points="Supplier orders from minimum-stock rules|Vendor pricelists and lead times|Receipts update store stock">{{odoo:purchase:36}}<span><b>Purchase</b><small>Supplier orders from stock rules.</small></span></button>
+        <button class="sc-tab" role="tab" type="button" data-app="website_sale" data-kicker="eCommerce · Websites" data-title="eCommerce" data-href="{{ROOT}}odoo/apps/website_sale.html" data-desc="Sell the same products online with live stock from the stores, including click-and-collect." data-points="Same products and stock online|Click-and-collect|Online orders reserve store stock">{{odoo:website_sale:36}}<span><b>eCommerce</b><small>Same products and stock online.</small></span></button>
+      </div>
+      <div class="sc-panel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Start with one store.</h2><p>We scope POS + stock + accounting for a single location first, then roll out.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    </div>
+  </div>
+</section>
