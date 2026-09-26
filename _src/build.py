@@ -213,6 +213,7 @@ LAYOUT = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{TAGS_HEAD}
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
 <link rel="canonical" href="{CANONICAL}">
@@ -237,6 +238,7 @@ LAYOUT = '''<!doctype html>
 <script type="application/ld+json">{JSONLD}</script>
 </head>
 <body class="{BODY_CLASS}">
+{TAGS_BODY}
 <div class="intro" id="intro" aria-hidden="true" data-tagline="Odoo Partner · Singapore">
   <div class="intro-bg"></div>
   <div class="intro-bloom"></div>
@@ -303,6 +305,7 @@ LAYOUT = '''<!doctype html>
 
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/chat.js?v={ASSET_V}" defer></script>
+<script src="{ROOT}assets/js/consent.js?v={ASSET_V}" defer></script>
 {SCRIPTS}
 </body>
 </html>
@@ -564,6 +567,48 @@ def build_page(path: Path, nav_cache: dict) -> str:
     return render(meta, content, nav_cache)
 
 
+# ---------------------------------------------------------------- Google tags
+# Consent Mode v2 defaults run FIRST (everything denied until the visitor accepts in
+# assets/js/consent.js), then the Tag Manager and gtag.js snippets in Google's standard
+# form. Keep them byte-stable: _src/make_vercel.py hashes every inline script for the CSP.
+CONSENT_DEFAULT = ("<script id=\"tn-consent-default\">\n"
+    "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}\n"
+    "gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied',"
+    "'analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});\n"
+    "try{if(document.cookie.indexOf('tn_consent=yes')>-1){gtag('consent','update',{'ad_storage':'granted',"
+    "'ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});}}catch(e){}\n"
+    "</script>")
+
+
+def _gtm_head(cid):
+    return ("<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n"
+            "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n"
+            "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n"
+            "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n"
+            "})(window,document,'script','dataLayer','" + cid + "');</script>")
+
+
+def _gtag(tid):
+    return ("<script async src=\"https://www.googletagmanager.com/gtag/js?id=" + tid + "\"></script>\n"
+            "<script>\n  window.dataLayer = window.dataLayer || [];\n"
+            "  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n"
+            "  gtag('config', '" + tid + "');\n</script>")
+
+
+def tags_head(is_home: bool) -> str:
+    t = S.TRACKING
+    ids = t["gtm"] + (t["gtm_home"] if is_home else [])
+    return "\n".join([CONSENT_DEFAULT] + [_gtm_head(c) for c in ids] + [_gtag(t["ga4"]), _gtag(t["ads"])])
+
+
+def tags_body(is_home: bool) -> str:
+    t = S.TRACKING
+    ids = t["gtm"] + (t["gtm_home"] if is_home else [])
+    return "\n".join('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' + c +
+                     '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
+                     for c in ids)
+
+
 def clean_url(rel: str) -> str:
     """Public URL for a built file. The site is served with Vercel `cleanUrls`, so the
     canonical form of every page is extensionless; index.html collapses to its directory."""
@@ -620,6 +665,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
                 .replace("{HEAD_EXTRA}", meta.get("head", ""))
+                .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html"))
+                .replace("{TAGS_BODY}", tags_body(out_rel == "index.html"))
                 .replace("{JSONLD}", jsonld(canonical))
                 .replace("{CONTENT}", content)
                 .replace("{LEGAL}", S.COMPANY["legal"])
@@ -668,6 +715,9 @@ def main():
         built.append(render(meta, content, nav_cache))
     write_sitemap(built)
     write_chat_index()
+    # security headers: hashes every inline script of the pages just built
+    from make_vercel import write_vercel
+    print(f"vercel.json: {write_vercel()} inline script hashes")
     print(f"built {len(built)} pages -> {ROOT}")
     for b in built:
         print("  ", b)

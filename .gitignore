@@ -1,4 +1,8 @@
 .vercel
 node_modules
-00. trash
-preview_check.png
+__pycache__/
+*.pyc
+.claude/
+*.tmp.html
+.DS_Store
+Thumbs.db

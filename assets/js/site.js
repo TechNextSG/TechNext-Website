@@ -255,6 +255,14 @@
       .then(function (res) {
         var ok = res.ok && (res.j.success === 'true' || res.j.success === true);
         if (!ok) throw new Error((res.j && res.j.message) || 'The form service did not accept the message.');
+        // Lead conversions fire only on a submission the form service accepted. The
+        // previous site fired the Ads conversion on every contact-page view.
+        try {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'conversion', { send_to: 'AW-18068724830/dBpuCLul3bQcEN6466dD' });
+            window.gtag('event', 'generate_lead', { form: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
+          }
+        } catch (e) { /* analytics must never break a submission */ }
         return res.j;
       });
   };

@@ -307,3 +307,18 @@ ICONS.update({
     "xlogo": _B % ('<path d="M17.53 3h3.04l-6.64 7.59L21.75 21h-6.12l-4.79-6.26L5.35 21H2.3l7.1-8.11L1.9 3h6.28l4.33 5.72L17.53 3zm-1.07 16.17h1.69L7.6 4.73H5.79l10.67 14.44z"/>'),
     "link": _S % ('<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'),
 })
+
+
+# ---------------------------------------------------------------- tracking
+# Restored 2026-09-26 exactly as the previous site ran them. Search Console verifies site
+# ownership through the GA4 and Tag Manager snippets, so they must stay in the <head> of
+# the homepage in their standard form. Both containers were checked on 2026-09-26: they
+# hold no tags of their own (the site CSP relies on that - no Custom HTML tags).
+TRACKING = {
+    "gtm": ["GTM-PB9CDFGG"],            # every page
+    "gtm_home": ["GTM-5BZBR57D"],       # homepage only, as before
+    "ga4": "G-E7P849N9JY",
+    "ads": "AW-18068724830",
+    # Google Ads "lead" conversion - fired on an accepted form submission (site.js)
+    "ads_lead": "AW-18068724830/dBpuCLul3bQcEN6466dD",
+}
