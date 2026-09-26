@@ -18,7 +18,7 @@ python _src/audit.py
 # 5. commit the partial AND the generated files, open a PR, merge -> Vercel deploys
 ```
 
-Never edit the generated `.html` files at the repo root or in `blog/ solutions/ industries/ odoo/`
+Never edit the generated `.html` files at the repo root or in `solutions/ industries/ odoo/`
 directly — the next build overwrites them. Edit the partial in `_src/pages/`.
 
 | What | Where |
@@ -29,7 +29,6 @@ directly — the next build overwrites them. Edit the partial in `_src/pages/`.
 | Redirects + security headers (**generated**) | `_src/make_vercel.py` → `vercel.json` |
 | Design tokens and all styles | `assets/css/site.css` |
 | Menus, forms, reveals, image fallbacks | `assets/js/site.js` |
-| Blog EN/VI toggle, share, topic filter | `assets/js/blog.js` |
 | Cookie consent + first-party visitor context | `assets/js/consent.js` |
 | Chat assistant knowledge base | `assets/js/chat.js` |
 | Odoo module pages content | `python _src/fetch_odoo.py` → `_src/apps_content.json` |
@@ -48,9 +47,10 @@ icon from `sitedata.ICONS` (an unknown name fails the build on purpose).
   rewriting them can cost you ownership of the Search Console property.
 - **New third-party resources need a CSP entry** in `_src/make_vercel.py`, or the browser blocks
   them. Test with `python _src/serve.py` — it applies the real headers.
-- **Clean URLs.** Links are extensionless (`/blog/foo`), canonicals too. `build.py` strips `.html`
+- **Clean URLs.** Links are extensionless (`/solutions/ai`), canonicals too. `build.py` strips `.html`
   from internal links; Vercel's `cleanUrls` resolves them.
-- **Retired URLs** (the old `/ai-article/…`, `/contact`, `/lp/`, …) redirect via `make_vercel.py`.
+- **Retired URLs** (the previous site's blog, careers, gallery, `/ai-article/…`, `/contact`, `/lp/`, …)
+  redirect to the closest v2 page via `make_vercel.py`.
   Never delete a redirect: those URLs are indexed and linked.
 - `CNAME` is a leftover from GitHub Pages hosting and is kept deliberately; it is not deployed.
 

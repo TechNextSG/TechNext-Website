@@ -124,20 +124,7 @@ NAV = [
             ]},
         ],
     },
-    {"label": "Blog", "id": "blog", "href": "blog.html"},
-    {
-        "label": "Company", "id": "company",
-        "columns": [
-            {"title": "TechNext", "href": "company.html", "links": [
-                {"label": "About TechNext", "href": "company.html", "icon": "users",
-                 "desc": "Who we are, how we work, company details."},
-                {"label": "Careers", "href": "careers.html", "icon": "briefcase",
-                 "desc": "Open roles across AI, ERP and delivery."},
-                {"label": "Gallery", "href": "gallery.html", "icon": "camera",
-                 "desc": "The team, client events and go-lives."},
-            ]},
-        ],
-    },
+    {"label": "Company", "id": "company", "href": "company.html"},
 ]
 
 # ---------------------------------------------------------------- Odoo apps
@@ -297,16 +284,6 @@ ICONS = {
     "expand": _S % '<path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/>',
     "play": ('<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'),
 }
-
-# ---------------------------------------------------------------- blog additions
-# Brand marks are solid glyphs, so they use fill instead of the outline template _S.
-_B = ('<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">%s</svg>')
-
-ICONS.update({
-    "linkedin": _B % ('<path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45z"/>'),
-    "xlogo": _B % ('<path d="M17.53 3h3.04l-6.64 7.59L21.75 21h-6.12l-4.79-6.26L5.35 21H2.3l7.1-8.11L1.9 3h6.28l4.33 5.72L17.53 3zm-1.07 16.17h1.69L7.6 4.73H5.79l10.67 14.44z"/>'),
-    "link": _S % ('<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'),
-})
 
 
 # ---------------------------------------------------------------- tracking
