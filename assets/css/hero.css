@@ -2,7 +2,7 @@
 /* Home hero scenes (hero-scenes.js). Desktop only: below 960px the hero is one static slide.
    1 · .cine  tilted double orbit of Odoo apps around the dashboard
    2 · .pmap  lead-to-cash process map in five lanes
-   3 · .jp    illustrative implementation plan */
+   3 · .lj    the launch path: raised phases, the project gliding up them, deliverables and offices */
 
 :root{
   --tok-stock:#3167CA; --tok-buy:#D97B12; --tok-make:#7447D6; --tok-late:#D2433B; --tok-pay:#0E9384;
@@ -204,75 +204,120 @@
 .pm-hint{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin:8px 4px 0;font:500 11.5px/1 var(--font-body);color:var(--muted)}
 .pm-hint .ic{width:13px;height:13px}
 
-/* ================================================================ 3 · implementation plan */
-.jp{--nw:116px;--span:12;position:relative;z-index:1;padding:16px 18px 14px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.9);box-shadow:0 30px 60px -34px rgba(31,31,61,.42);backdrop-filter:blur(6px)}
-.jp-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.jp-head img{height:30px;width:auto;flex:none}
-.jp-title{display:grid;gap:2px;min-width:0}
-.jp-title b{font:700 13.5px/1.2 var(--font-display);color:var(--ink)}
-.jp-title small{font:500 11px/1.3 var(--font-body);color:var(--muted)}
-.jp-legend{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 10px;margin:0 0 0 auto;padding:0;list-style:none;font:600 10px/1 var(--font-body);color:var(--muted)}
-.jp-legend li{display:inline-flex;align-items:center;gap:5px}
-.jp-key{width:14px;height:7px;border-radius:3px}
-.jp-key--tn{background:#D7E3F8;box-shadow:inset 0 -2px 0 var(--blue)}
-.jp-key--you{background:#FDEBD0;box-shadow:inset 0 -2px 0 var(--tok-buy)}
-.jp-key--both{background:#D4EFEA;box-shadow:inset 0 -2px 0 var(--tok-pay)}
-.jp-key--ms{width:8px;height:8px;border-radius:2px;transform:rotate(45deg);background:#fff;border:1.5px solid #9FB4DD}
-.jp-board{position:relative;padding:20px 0 20px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.jp.is-scrub .jp-board{cursor:ew-resize}
-.jp-phases{position:absolute;top:0;left:var(--nw);right:0;height:16px}
-.jp-phases span{position:absolute;top:0;left:calc(var(--s) / var(--span) * 100%);width:calc((var(--e) - var(--s)) / var(--span) * 100%);padding-left:6px;border-left:1px dashed rgba(49,103,202,.3);font:700 9px/16px var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
-.jp-rows{position:relative;z-index:2;display:grid;gap:5px}
-.jp-row{display:grid;grid-template-columns:var(--nw) minmax(0,1fr);align-items:center}
-.jp-name{display:flex;align-items:center;gap:7px;min-width:0;padding-right:8px;font:700 11.5px/1.2 var(--font-display);color:var(--ink);text-decoration:none}
-.jp-name .ic{width:15px;height:15px;color:var(--blue);flex:none}
-.jp-name span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.jp-name:hover{color:var(--blue)}
-.jp-track{position:relative;height:32px;border-radius:8px;background:repeating-linear-gradient(90deg,transparent 0 calc(100% / var(--span) - 1px),rgba(49,103,202,.07) calc(100% / var(--span) - 1px) calc(100% / var(--span))),rgba(49,103,202,.025)}
-.jp-bar{--c:var(--blue);--bg:#E6EEFB;--bd:#C9D8F4;position:absolute;top:4px;bottom:4px;left:calc(var(--s) / var(--span) * 100%);width:calc((var(--e) - var(--s)) / var(--span) * 100% - 2px);display:flex;align-items:center;padding:0 3px 0 4px;border-radius:7px;background:var(--bg);border:1px solid var(--bd);overflow:hidden;font:600 9.5px/1 var(--font-body);letter-spacing:-.005em;color:var(--ink);white-space:nowrap;cursor:default;transition:box-shadow .3s ease,border-color .3s ease}
-.jp-bar--you{--c:var(--tok-buy);--bg:#FFF3E2;--bd:#F5D6A6}
-.jp-bar--both{--c:var(--tok-pay);--bg:#E6F5F2;--bd:#BCE3DA}
-.jp-bar--arrow{clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%);border-right:0;padding-right:0}
-.jp-fill{position:absolute;left:0;top:0;bottom:0;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 22%,transparent),color-mix(in srgb,var(--c) 34%,transparent));box-shadow:inset 0 -2px 0 var(--c)}
-.jp-bar em{position:relative;font-style:normal;overflow:hidden;text-overflow:ellipsis}
-.jp-bar.is-tight{padding:0 2px 0 3px;font-size:8.5px;letter-spacing:-.02em}
-.jp-bar.is-bare em{opacity:0}
-.jp-bar.is-now{border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 18%,transparent)}
-.jp-bar.is-done{border-color:color-mix(in srgb,var(--c) 45%,var(--bd))}
-.jp-bar:hover{border-color:var(--c)}
-.jp-ms{position:absolute;top:50%;left:calc(var(--s) / var(--span) * 100%);width:18px;height:18px;margin:-9px 0 0 -9px;z-index:3;cursor:default}
-.jp-ms i{position:absolute;inset:3px;border-radius:2px;background:#fff;border:1.8px solid #9FB4DD;transform:rotate(45deg);transition:background-color .3s ease,border-color .3s ease}
-.jp-ms em{position:absolute;left:50%;bottom:calc(100% + 1px);transform:translateX(-50%);padding:1px 6px;border-radius:999px;background:var(--ink);color:#fff;font:700 9px/14px var(--font-body);font-style:normal;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease}
-.jp-ms:hover em,.jp-ms.is-pop em{opacity:1}
-.jp-ms.is-done i{background:var(--ok);border-color:var(--ok)}
-.jp-ms.is-pop i{animation:jpPop .7s var(--spring)}
-@keyframes jpPop{40%{transform:rotate(45deg) scale(1.6)}100%{transform:rotate(45deg)}}
-.jp-ms--big{width:20px;height:20px;margin:-10px 0 0 -10px}
-.jp-ms--big i{inset:2px;border-width:2px;border-color:var(--blue)}
-.jp-ms--big em{left:auto;right:calc(100% + 4px);bottom:auto;top:50%;transform:translateY(-50%);background:var(--blue);opacity:1}
-.jp-ms--big.is-done i{background:var(--blue)}
-.jp-deps{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;pointer-events:none}
-.jp-dep{fill:none;stroke:#C9D5EC;stroke-width:1.3;transition:stroke .3s ease}
-.jp-dep--crit{stroke:var(--blue-300);stroke-width:1.8}
-.jp-dep.is-done{stroke:var(--blue)}
-.jp-deps marker path{fill:#9FB4DD}
-.jp-play{position:absolute;top:16px;bottom:12px;left:0;width:2px;margin-left:-1px;z-index:5;background:var(--blue);border-radius:2px;cursor:ew-resize;box-shadow:0 0 0 4px rgba(49,103,202,.1)}
-.jp-play::before{content:"";position:absolute;left:50%;top:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px #fff}
-.jp-play::after{content:"";position:absolute;inset:0 -10px}
-.jp-play:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
-.jp-now{position:absolute;left:50%;bottom:0;transform:translate(-50%,100%);padding:3px 8px;border-radius:999px;background:var(--blue);color:#fff;font:700 9.5px/1.2 var(--font-body);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(49,103,202,.8)}
-.jp-now b{font-weight:700}
-.jp-tip{position:absolute;z-index:8;width:max-content;max-width:250px;transform:translate(-50%,-100%);display:grid;gap:3px;padding:8px 11px;border-radius:10px;background:var(--ink);color:#fff;font:500 11px/1.4 var(--font-body);pointer-events:none;box-shadow:0 14px 28px -14px rgba(31,31,61,.65)}
-.jp-tip b{font:700 12px/1.25 var(--font-display);color:#fff}
-.jp-tip small{font-size:10.5px;color:#B9C6E4}
-.jp-tip[hidden]{display:none}
-.jp-status{display:flex;align-items:center;gap:8px;margin:12px 0 0;padding-top:10px;border-top:1px solid var(--line);font:500 12px/1.3 var(--font-body);color:var(--body);min-width:0}
-.jp-status b{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.jp-live{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;box-shadow:0 0 0 0 rgba(31,169,113,.5);animation:jpLive 1.8s ease-out infinite}
-@keyframes jpLive{to{box-shadow:0 0 0 8px rgba(31,169,113,0)}}
-.jp-teams{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:var(--muted);white-space:nowrap}
-.jp-teams i{display:inline-grid;place-items:center;height:18px;padding:0 5px;border-radius:5px;background:var(--alt);border:1px solid var(--line);font:700 9px/1 var(--font-body);font-style:normal;color:var(--ink)}
-.jp-teams i:last-of-type{margin-right:3px}
+/* ================================================================ 3 · launch path */
+/* five raised platforms on an isometric floor, the orb that runs the project along a lit path, the
+   deliverables that rise and tick off, and beams from the offices working on the phase */
+.lj{position:relative;z-index:1;padding:16px 18px 14px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.92);box-shadow:0 30px 60px -34px rgba(31,31,61,.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.lj-c0{--pc:#3167CA}.lj-c1{--pc:#7447D6}.lj-c2{--pc:#D97B12}.lj-c3{--pc:#12806A}.lj-c4{--pc:#1F1F3D}
+.lj-head{display:flex;align-items:center;gap:12px}
+.lj-head img{height:30px;width:auto;flex:none}
+.lj-title{display:grid;gap:2px;min-width:0;margin-right:auto}
+.lj-title b{font:700 14px/1.2 var(--font-display);color:var(--ink)}
+.lj-title small{font:500 11px/1.3 var(--font-body);color:var(--muted)}
+.lj-week{display:flex;align-items:center;gap:8px;flex:none}
+.lj-week svg{width:40px;height:40px;transform:rotate(-90deg);max-width:none}
+.lj-ring{fill:none;stroke:#EDF0F6;stroke-width:4}
+.lj-ring-fg{fill:none;stroke:var(--blue);stroke-width:4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
+.lj-week span{display:grid;gap:2px}
+.lj-week b{font:800 20px/1 var(--font-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.lj-week small{font:600 9px/1 var(--font-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.lj-stage{position:relative;aspect-ratio:640/340;margin:0 -8px}
+.lj-svg{position:absolute;inset:0;width:100%;height:100%;max-width:none;overflow:visible}
+.lj-grid line{stroke:#DCE2EE;stroke-width:.7}
+.lj-track{fill:none;stroke:#E6EAF3;stroke-width:9;stroke-linecap:round}
+.lj-prog{fill:none;stroke:url(#lj-grad);stroke-width:5;stroke-linecap:round;transition:opacity .45s ease}
+.lj-flowmask{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round}
+.lj-flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 12;opacity:.9;animation:ljFlow 1.1s linear infinite;transition:opacity .45s ease}
+@keyframes ljFlow{to{stroke-dashoffset:-14}}
+.lj-shade{fill:rgba(31,31,61,.09);transform-box:fill-box;transform-origin:center;transition:transform .7s var(--ease-out),opacity .7s ease}
+.lj-shade.is-on{transform:scale(.84);opacity:.65}
+.lj-plat{transition:transform .7s var(--ease-out)}
+.lj-plat.is-on{transform:translateY(-7px)}
+.lj-face{stroke:#fff;stroke-width:1;stroke-linejoin:round;transition:fill .5s ease}
+.lj-face--t{fill:color-mix(in srgb,var(--pc) 9%,#fff)}
+.lj-face--l{fill:color-mix(in srgb,var(--pc) 22%,#fff)}
+.lj-face--r{fill:color-mix(in srgb,var(--pc) 34%,#fff)}
+.lj-rim{fill:none;stroke:color-mix(in srgb,var(--pc) 28%,#fff);stroke-width:1;stroke-dasharray:3 4}
+.lj-plat.is-done .lj-face--t{fill:color-mix(in srgb,var(--ok) 10%,#fff)}
+.lj-plat.is-on .lj-face--t,.lj-plat.is-peek .lj-face--t{fill:color-mix(in srgb,var(--pc) 20%,#fff)}
+.lj-plat.is-on .lj-face--l{fill:color-mix(in srgb,var(--pc) 58%,#fff)}
+.lj-plat.is-on .lj-face--r{fill:color-mix(in srgb,var(--pc) 80%,#fff)}
+.lj-plat.is-on .lj-rim{stroke:var(--pc);stroke-dasharray:none;animation:ljGlow 2.8s ease-in-out infinite}
+@keyframes ljGlow{50%{stroke-opacity:.3}}
+.lj-beam{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:3 7;opacity:0;transition:opacity .32s ease;animation:ljBeam 1s linear infinite}
+.lj-beam--you{stroke:#D97B12}
+.lj-beam.is-on{opacity:.7}
+@keyframes ljBeam{to{stroke-dashoffset:-10}}
+.lj-trail{fill:var(--blue);opacity:.12}
+.lj-puck{transition:opacity .45s ease}
+.lj-halo{fill:var(--blue);opacity:.13;transform-box:fill-box;transform-origin:center;animation:ljHalo 2.6s ease-in-out infinite}
+@keyframes ljHalo{50%{transform:scale(1.22);opacity:.06}}
+.lj-core{fill:var(--blue);stroke:#fff;stroke-width:2.6}
+.lj-dot{fill:#fff}
+.lj-ptag{left:0;top:0;padding:3px 9px;border-radius:999px;background:var(--ink);color:#fff;font:700 10px/1.2 var(--font-body);letter-spacing:.02em;white-space:nowrap;box-shadow:0 8px 16px -10px rgba(31,31,61,.6);will-change:transform;transition:opacity .45s ease}
+.lj.is-reset .lj-ptag{opacity:0}
+.lj.is-reset .lj-puck,.lj.is-reset .lj-prog,.lj.is-reset .lj-flow,.lj.is-reset .lj-trail{opacity:0}
+.lj-over{position:absolute;inset:0;pointer-events:none}
+.lj-over>*{position:absolute}
+.lj-badge{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff;color:color-mix(in srgb,var(--pc) 70%,#8888A0);box-shadow:0 0 0 1px var(--line),0 8px 18px -10px rgba(31,31,61,.55);transform:translate(-50%,-50%);transition:transform .7s var(--ease-out),background-color .4s ease,color .4s ease,box-shadow .4s ease}
+.lj-badge .ic{width:16px;height:16px}
+.lj-badge.is-on{background:var(--pc);color:#fff;transform:translate(-50%,calc(-50% - 7px));box-shadow:0 12px 24px -10px color-mix(in srgb,var(--pc) 75%,transparent)}
+.lj-badge.is-on .ic{animation:ljBob 3.2s ease-in-out infinite}
+@keyframes ljBob{50%{transform:translateY(-2px)}}
+.lj-badge.is-peek{box-shadow:0 0 0 3px color-mix(in srgb,var(--pc) 25%,transparent),0 12px 24px -10px rgba(31,31,61,.5)}
+.lj-tick{position:absolute;right:-4px;top:-4px;display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 2px #fff;opacity:0;transition:opacity .35s ease}
+.lj-tick svg{width:9px;height:9px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.lj-badge.is-done .lj-tick{opacity:1}
+.lj-lab{display:grid;justify-items:center;gap:2px;transform:translateX(-50%);white-space:nowrap;text-align:center}
+.lj-lab b{font:700 11px/1.1 var(--font-display);color:var(--ink);transition:color .3s ease}
+.lj-lab small{font:600 8.5px/1.2 var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.lj-lab.is-on b{color:var(--pc)}
+.lj-hit{transform:translate(-50%,-50%);padding:0;border:0;border-radius:16px;background:none;cursor:pointer;pointer-events:auto}
+.lj-hit:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.lj-off{display:grid;justify-items:center;gap:3px;transform:translate(-50%,-50%);opacity:.4;transition:opacity .35s ease}
+.lj-off b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px var(--line),0 6px 14px -8px rgba(31,31,61,.5);font:800 10px/1 var(--font-display);color:var(--blue-700);transition:box-shadow .35s ease}
+.lj-off small{font:600 8.5px/1 var(--font-body);color:var(--muted);white-space:nowrap}
+.lj-off--you b{color:#A45A00}
+.lj-off.is-on{opacity:1}
+.lj-off.is-on b{box-shadow:0 0 0 2px var(--blue-300),0 8px 16px -8px rgba(49,103,202,.55)}
+.lj-off--you.is-on b{box-shadow:0 0 0 2px #EFC48C,0 8px 16px -8px rgba(217,123,18,.5)}
+.lj-chips{display:flex;flex-direction:column-reverse;align-items:center;gap:4px;transform:translate(-50%,-100%);transition:opacity .4s ease}
+.lj-chips.is-gone{opacity:0}
+.lj-chip{position:relative;display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 5px;overflow:hidden;border-radius:999px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 16px -12px rgba(31,31,61,.5);font:600 10.5px/1.2 var(--font-body);color:var(--ink);white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .6s var(--ease-out),border-color .35s ease}
+.lj-chip.is-in{opacity:1;transform:none}
+.lj-chip i{display:grid;place-items:center;flex:none;width:15px;height:15px;border-radius:50%;box-shadow:inset 0 0 0 2px currentColor;color:var(--blue);transition:background-color .35s ease}
+.lj-chip i svg{width:9px;height:9px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s ease}
+.lj-chip--you i{color:#D97B12}.lj-chip--both i{color:#12806A}.lj-chip--ms i{color:var(--ink);border-radius:3px;transform:rotate(45deg) scale(.82)}
+.lj-chip--ms i svg{transform:rotate(-45deg)}
+.lj-chip.is-done i{background:currentColor}
+.lj-chip.is-done i svg{opacity:1}
+.lj-chip.is-done{border-color:#CDEBD9}
+.lj-chip u{position:absolute;left:0;right:0;bottom:0;height:2px;background:currentColor;color:var(--blue);transform:scaleX(0);transform-origin:left}
+.lj-chip--you u{color:#D97B12}.lj-chip--both u{color:#12806A}
+.lj-chip.is-done u{opacity:0;transition:opacity .3s ease}
+.lj-tip{position:absolute;z-index:8;width:max-content;max-width:260px;display:grid;gap:3px;padding:9px 12px;border-radius:12px;background:var(--ink);color:#fff;font:500 11.5px/1.4 var(--font-body);box-shadow:0 18px 30px -16px rgba(31,31,61,.6);transform:translate(-50%,-100%);pointer-events:none}
+.lj-tip b{font:700 12.5px/1.25 var(--font-display);color:#fff}
+.lj-tip small{font-size:10.5px;color:#B9C6E4}
+.lj-tip[hidden]{display:none}
+.lj-foot{padding-top:10px;border-top:1px solid var(--line)}
+.lj-scrub{position:relative;height:32px;cursor:pointer;touch-action:none;outline:none}
+.lj-segs{position:absolute;left:0;right:0;top:8px;display:flex;gap:3px;height:6px}
+.lj-segs span{position:relative;min-width:0;border-radius:999px;background:#EDF0F6}
+.lj-segs span b{position:absolute;left:1px;top:11px;font:600 8.5px/1 var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.lj-fill{position:absolute;left:0;top:8px;height:6px;width:0;border-radius:999px;background:linear-gradient(90deg,#6FA0F5,var(--blue));pointer-events:none}
+.lj-knob{position:absolute;top:11px;left:0;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--blue),0 6px 14px -6px rgba(31,31,61,.6);transform:translate(-50%,-50%);pointer-events:none}
+.lj-scrub:focus-visible .lj-knob{box-shadow:0 0 0 3px var(--blue),0 0 0 7px var(--blue-100)}
+.lj-status{display:flex;align-items:center;gap:8px;margin:6px 0 0;font:500 12px/1.3 var(--font-body);color:var(--body);min-width:0}
+.lj-status b{font-weight:700;color:var(--ink);white-space:nowrap}
+.lj-who{min-width:0;overflow:hidden;color:var(--muted);text-overflow:ellipsis;white-space:nowrap}
+.lj-more{display:inline-flex;align-items:center;gap:4px;flex:none;margin-left:auto;font-weight:700;color:var(--blue-700);text-decoration:none;white-space:nowrap}
+.lj-more .ic{width:13px;height:13px}
+.lj-more:hover{text-decoration:underline}
+.lj-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ljLive 2.2s ease-in-out infinite}
+@keyframes ljLive{50%{opacity:.35}}
+/* no script: the plan reads as a list */
+.lj:not(.is-js) .lj-stage,.lj:not(.is-js) .lj-foot,.lj:not(.is-js) .lj-week{display:none}
+.lj:not(.is-js) .lj-plan{position:static;width:auto;height:auto;margin:10px 0 0;overflow:visible;clip:auto;white-space:normal}
 
 /* ================================================================ fit + motion */
 @media (max-width:1180px){
@@ -280,8 +325,6 @@
   .pm-lname{font-size:8.5px;letter-spacing:.06em}
   .pm-node b{font-size:9.5px;max-width:76px}
   .pm-scen button{padding:0 9px;font-size:11.5px}
-  .jp{--nw:112px}
-  .jp-legend{display:none}
 }
 @media (max-height:820px) and (min-width:961px){
   .pm-ic{width:30px;height:30px;border-radius:10px}
@@ -289,7 +332,6 @@
   .pm-dia{width:20px;height:20px}
   .pm-node{gap:3px}
   .slide-inner.si-stack{gap:22px;padding-top:30px}
-  .jp-track{height:28px}
 }
 @media (max-width:960px){.slide-inner.si-stack{padding-top:28px}}
 @media (prefers-reduced-motion:reduce){
@@ -299,7 +341,7 @@
   .pm-e{stroke-dashoffset:0;stroke-dasharray:none}
   .pm-e--dash{stroke-dasharray:4 5;opacity:1}
   .pm-el{opacity:1}
-  .jp-live{animation:none}
+  .lj-flow,.lj-beam,.lj-halo,.lj-badge.is-on .ic,.lj-plat.is-on .lj-rim,.lj-live{animation:none}
 }
 
 /* ================================================================ phones and small tablets: the same three scenes */
@@ -346,18 +388,20 @@
   .pm-view{height:340px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
   .pm-cam{position:relative;inset:auto;width:900px;height:100%}
   .pm-hint{justify-content:flex-start}
-  /* slide 3: the plan keeps a readable width and scrolls sideways inside its card; the playhead still scrubs */
-  .jp{--nw:112px;padding:12px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-  .jp>*{min-width:640px}
-  .jp-board{touch-action:pan-x pan-y}
-  .jp-play{touch-action:none}
-  .jp-play::after{inset:0 -16px}
-  .jp-head img{height:24px}
-  .jp-title b{font-size:12.5px}
-  .jp-name{font-size:10.5px;gap:5px}
-  .jp-name .ic{width:13px;height:13px}
-  .jp-track{height:28px}
-  .jp-teams{display:none}
 }
+@media (max-width:960px){
+  /* slide 3: the launch path turns into a switchback that climbs the phone screen */
+  .lj{padding:12px}
+  .lj-head img{height:24px}
+  .lj-title b{font-size:12.5px}
+  .lj-title small{font-size:10.5px}
+  .lj-week svg{width:34px;height:34px}
+  .lj-week b{font-size:17px}
+  .lj-stage{margin:0 -4px}
+  .lj--tall .lj-chips{left:8px!important;right:8px;top:6px!important;flex-direction:row;flex-wrap:wrap;justify-content:center;transform:none}
+  .lj-who{display:none}
+  .lj--tall .lj-off small{display:none}              /* four offices in one row: the initials say enough */
+}
+@media (max-width:640px){.lj-segs span b{display:none}.lj-scrub{height:22px}.lj-title small{display:none}}
 @media (max-width:640px){.slide-inner.si-stack{padding-right:18px}}
 @media (max-width:960px) and (prefers-reduced-motion:reduce){.hero .kw>span,.hero .up{opacity:1;transform:none;animation:none}}
