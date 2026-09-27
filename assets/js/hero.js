@@ -257,7 +257,9 @@
     if (viaUser && dots[idx]) dots[idx].focus({ preventScroll: true });
   }
   function clear() { if (timer) { clearTimeout(timer); timer = null; } }
-  function restart() { clear(); remaining = DUR; if (!autoplay) return; if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); } }
+  // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
+  function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
+  function restart() { clear(); remaining = durOf(idx); if (dots[idx]) dots[idx].style.setProperty('--dur', remaining + 'ms'); if (!autoplay) return; if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); } }
   function pause() { if (paused || !autoplay) return; paused = true; hero.classList.add('is-paused'); if (timer) { remaining = Math.max(200, remaining - (performance.now() - startedAt)); clear(); } }
   function resume() { if (!paused || !autoplay) return; if (pop && !pop.hidden) return; paused = false; hero.classList.remove('is-paused'); startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
 
@@ -279,7 +281,7 @@
   // process map sideways, scrubbing the plan. A touch pauses autoplay for a while.
   var tx = null, ty = null, touchT = 0;
   hero.addEventListener('touchstart', function (e) {
-    var own = e.target.closest('.cine,.pm-view,.pm-scen,.jp');
+    var own = e.target.closest('.cine,.pm-view,.pm-scen,.lj');
     tx = own ? null : e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
     pause(); clearTimeout(touchT); touchT = setTimeout(resume, 9000);
   }, { passive: true });
@@ -353,7 +355,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.cine,.pmap,.jp,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.lj,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;

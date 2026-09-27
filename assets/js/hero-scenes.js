@@ -4,8 +4,8 @@
              dashboard. Pointer tilts the orbit plane, drag spins it, hover stops it, apps send data in.
    2 · pmap  lead-to-cash across five departments: 17 steps, four decisions, loops and forks, live
              tokens, a scenario switch and a camera that flies the map before pulling back.
-   3 · plan  an illustrative implementation plan: workstreams, dependencies, sign-offs and a
-             playhead that runs the project (drag it, or use the arrow keys).
+   3 · path  the launch path: five raised phases climb to go-live, the project glides up them, each
+             phase's deliverables tick off and beams show the offices on it (drag the timeline, or click).
    A scene runs only while its slide is active, the hero is on screen and the tab is visible. */
 (function () {
   'use strict';
@@ -678,136 +678,302 @@
     };
   }
 
-  /* ================================================================== 3 · implementation plan */
-  function Plan(root) {
-    var board = $('.jp-board', root), svg = $('.jp-deps', root), play = $('.jp-play', root), now = $('.jp-now b', root);
-    var tip = $('.jp-tip', root), status = $('[data-jp-status]', root);
-    var items = $$('[data-b]', root).map(function (el) { return { el: el, id: el.dataset.b, s: +el.dataset.s, e: +el.dataset.e, t: el.dataset.t, d: el.dataset.d, w: el.dataset.w || '', ms: el.classList.contains('jp-ms'), fill: $('.jp-fill', el) }; });
-    var byId = {}; items.forEach(function (it) { byId[it.id] = it; });
-    var SPAN = +root.dataset.span || 12;
-    var PHASES = [['Discover', 0, 2.35], ['Build', 2.35, 6.5], ['Test &amp; train', 6.5, 9.65], ['Go live', 9.65, 11.05], ['Run', 11.05, SPAN + .01]];
-    var DEPS = [['b02', 'b10', 1], ['b02', 'b20'], ['b02', 'b30'], ['b20', 'b21'], ['b21', 'b22'], ['b15', 'b40', 1], ['b31', 'b40'],
-                ['b22', 'b23'], ['b41', 'b50', 1], ['b42', 'b50'], ['b23', 'b50'], ['b50', 'b51', 1]];
-    var T = 0, raf = 0, last = 0, on = false, auto = true, t0 = 0, hold = 0, dragging = false, tx0 = 0, tw = 1;
-    function track() { var tr = $('.jp-track', root), b = box(tr, board); tx0 = b.x; tw = b.w; return b; }
-    function xOf(v) { return tx0 + v / SPAN * tw; }
-    function anchor(it, side) {
-      var b = box(it.el, board);
-      if (it.ms) return { x: b.cx, y: b.cy };
-      return { x: side === 'out' ? b.r : b.x, y: b.cy };
+  /* ================================================================== 3 · launch path */
+  function Journey(root) {
+    // Five raised platforms climb to go-live along a lit path. The project (the orb) glides from phase to
+    // phase, each phase's deliverables rise and tick off, and light beams show which offices (SG · PH · VN)
+    // and your team are on it. Drag the timeline, click a platform, or let it run. The phases, deliverables
+    // and owners come from the screen-reader list in the markup (.lj-plan), which search engines read too.
+    var stage = $('.lj-stage', root), svg = $('.lj-svg', root), over = $('.lj-over', root), tip = $('.lj-tip', root);
+    var scrub = $('.lj-scrub', root), segsEl = $('.lj-segs', root), fillEl = $('.lj-fill', root), knob = $('.lj-knob', root);
+    var weekEl = $('[data-lj-week]', root), ringEl = $('.lj-ring-fg', root), statusEl = $('[data-lj-status]', root);
+    var whoEl = $('.lj-who', root), moreEl = $('.lj-more', root), moreTx = $('.lj-more span', root);
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var SPAN = 12, RATE = .9, TRAVEL = .7;                    // weeks per second; weeks the orb takes between platforms
+    var OFF = { sg: ['SG', 'Singapore'], ph: ['PH', 'Taguig'], vn: ['VN', 'Ho Chi Minh'], you: ['You', 'your team'] };
+    var PH = $$('.lj-plan > li', root).map(function (li, i) {
+      var desc = $('span', li).textContent;
+      return { i: i, s: +li.dataset.s, e: +li.dataset.e, name: $('b', li).textContent, desc: desc, when: desc.split('.')[0],
+               who: (li.dataset.who || '').split(' ').filter(Boolean), whoText: li.dataset.w || '', href: li.dataset.href || '',
+               more: li.dataset.more || '', icon: $('.lj-ic svg', li),
+               items: $$('li', li).map(function (d) { return { s: +d.dataset.s, e: +d.dataset.e, o: d.dataset.o || 'tn', t: d.textContent.trim() }; }) };
+    });
+    if (!PH.length) return { root: root, enter: function () {}, leave: function () {}, wake: function () {} };
+    // two stagings of the same path: a rising staircase for the wide card, a switchback for phones
+    var GEO = {
+      wide: { w: 640, h: 340, rx: 46, ry: 23, band: false,
+              p: [[82, 262, 12], [200, 236, 20], [318, 212, 28], [436, 186, 36], [554, 160, 44]],
+              off: { sg: [52, 58], ph: [112, 42], vn: [172, 58], you: [598, 302] } },
+      tall: { w: 360, h: 470, rx: 40, ry: 20, band: true,
+              p: [[88, 414, 10], [262, 352, 16], [98, 280, 22], [262, 208, 28], [104, 138, 34]],
+              off: { you: [40, 98], sg: [226, 98], ph: [270, 98], vn: [314, 98] } }
+    };
+    var G = null, K = 1, P = [], L = [], total = 1, base, prog, flowMask, puck, world, gridG, trail = [], hist = [];
+    var plats = [], shades = [], beams = {}, offs = {}, nodes = [], chips = [], chipsWrap = null, beamT = 0;
+    var T = 0, shown = 0, on = false, raf = 0, last = 0, holdUntil = 0, doneAt = 0, active = -1, dragging = false, hoverI = -1, resetting = false;
+    var tilt = { x: 0, y: 0, tx: 0, ty: 0 }, cache = {};
+    root.classList.add('is-js');
+
+    function pathD(pts) { return 'M' + pts.map(function (q) { return q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join('L') + 'Z'; }
+    function spline(pts) {                                    // Catmull-Rom through the platform tops, as cubic Béziers
+      var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+      for (var i = 0; i < pts.length - 1; i++) {
+        var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+        d += 'C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) + ' ' +
+             (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) + ' ' + p2[0] + ' ' + p2[1];
+      }
+      return d;
     }
-    function drawDeps() {
-      var W = board.offsetWidth, H = board.offsetHeight; track();
-      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-      var html = '<defs><marker id="jp-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker></defs>';
-      DEPS.forEach(function (dp) {
-        var A = byId[dp[0]], B = byId[dp[1]]; if (!A || !B) return;
-        var a = anchor(A, 'out'), b = anchor(B, 'in'), d;
-        if (A.ms) a.x += 8;
-        if (Math.abs(a.y - b.y) < 2) d = rounded([[a.x, a.y], [b.x - (B.ms ? 9 : 3), b.y]], 0);
-        else {
-          // Gantt elbow: out of the finished task, down (or up) to the next row, into the next task
-          var mx = Math.min(a.x + 8, b.x - 10), down = b.y > a.y;
-          if (B.ms && b.x - mx < 12) d = rounded([[a.x, a.y], [b.x, a.y], [b.x, b.y + (down ? -10 : 10)]], 5);
-          else d = rounded([[a.x, a.y], [mx, a.y], [mx, b.y], [b.x - (B.ms ? 9 : 3), b.y]], 5);
+    function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+    function at(n, x, y, w, h) { n.dataset.x = x; n.dataset.y = y; if (w) { n.dataset.w = w; n.dataset.h = h; } return n; }
+    function tick() {
+      var s = svgEl('svg', { viewBox: '0 0 24 24', 'aria-hidden': 'true' });
+      s.appendChild(svgEl('path', { d: 'M5 12.5l4.5 4.5L19 7.5' }));
+      return s;
+    }
+    function beamD(o, q) {
+      var mx = (o[0] + q[0]) / 2, my = o[1] < q[1] ? Math.min(o[1], q[1]) - 34 : Math.max(o[1], q[1]) + 30;
+      return 'M' + o[0] + ' ' + o[1] + 'Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + q[0] + ' ' + q[1];
+    }
+
+    function build() {
+      G = phone.matches ? GEO.tall : GEO.wide;
+      root.classList.toggle('lj--tall', G.band);
+      stage.style.aspectRatio = G.w + ' / ' + G.h;
+      svg.setAttribute('viewBox', '0 0 ' + G.w + ' ' + G.h);
+      svg.textContent = ''; over.textContent = '';
+      plats = []; shades = []; beams = {}; offs = {}; nodes = []; trail = []; hist = []; chips = []; chipsWrap = null; cache = {}; active = -1;
+      P = G.p.map(function (q) { return { x: q[0], y: q[1], h: q[2] }; });
+      var defs = svgEl('defs', {});
+      var lg = svgEl('linearGradient', { id: 'lj-grad', x1: '0', y1: '1', x2: '1', y2: '0' });
+      lg.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#6FA0F5' })); lg.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#3167CA' }));
+      var rg = svgEl('radialGradient', { id: 'lj-fade', cx: '50%', cy: '58%', r: '60%' });
+      rg.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#fff' })); rg.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#000' }));
+      var gm = svgEl('mask', { id: 'lj-gridmask' }); gm.appendChild(svgEl('rect', { x: 0, y: 0, width: G.w, height: G.h, fill: 'url(#lj-fade)' }));
+      defs.appendChild(lg); defs.appendChild(rg); defs.appendChild(gm); svg.appendChild(defs);
+      // an isometric floor that fades out towards the edges
+      gridG = svgEl('g', { 'class': 'lj-grid', mask: 'url(#lj-gridmask)' });
+      for (var k = -G.h * 2; k < G.w + G.h * 2; k += 26) {
+        gridG.appendChild(svgEl('line', { x1: k, y1: 0, x2: k + G.h * 2, y2: G.h }));
+        gridG.appendChild(svgEl('line', { x1: k, y1: 0, x2: k - G.h * 2, y2: G.h }));
+      }
+      svg.appendChild(gridG);
+      world = svgEl('g', { 'class': 'lj-world' }); svg.appendChild(world);
+      var sg = svgEl('g', {}); world.appendChild(sg);
+      P.forEach(function (q) { var e = svgEl('ellipse', { 'class': 'lj-shade', cx: q.x, cy: q.y + G.ry + q.h + 5, rx: G.rx * 1.02, ry: G.ry * .5 }); sg.appendChild(e); shades.push(e); });
+      var bg = svgEl('g', {}); world.appendChild(bg);
+      Object.keys(G.off).forEach(function (k) { beams[k] = svgEl('path', { 'class': 'lj-beam lj-beam--' + k }); bg.appendChild(beams[k]); });
+      var d = spline(P.map(function (q) { return [q.x, q.y]; }));
+      base = svgEl('path', { 'class': 'lj-track', d: d }); world.appendChild(base);
+      total = base.getTotalLength() || 1;
+      prog = svgEl('path', { 'class': 'lj-prog', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total }); world.appendChild(prog);
+      var fm = svgEl('mask', { id: 'lj-flowmask', maskUnits: 'userSpaceOnUse' });
+      flowMask = svgEl('path', { 'class': 'lj-flowmask', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total });
+      fm.appendChild(flowMask); defs.appendChild(fm);
+      world.appendChild(svgEl('path', { 'class': 'lj-flow', d: d, mask: 'url(#lj-flowmask)' }));
+      // where along the path each platform sits
+      L = P.map(function (q, i) {
+        if (!i) return 0;
+        if (i === P.length - 1) return total;
+        var best = 0, bd = 1e12;
+        for (var s = 0; s <= 300; s++) {
+          var len = total * s / 300, pt = base.getPointAtLength(len), dd = (pt.x - q.x) * (pt.x - q.x) + (pt.y - q.y) * (pt.y - q.y);
+          if (dd < bd) { bd = dd; best = len; }
         }
-        html += '<path class="jp-dep' + (dp[2] ? ' jp-dep--crit' : '') + '" data-from="' + dp[0] + '" d="' + d + '" marker-end="url(#jp-arrow)"/>';
+        return best;
       });
-      svg.innerHTML = html;
-      fit();
-      set(T, true);
-    }
-    // narrow screens: a label that does not fit is set tighter, and if it still does not, the bar
-    // keeps only its colour (the tooltip and the status line still name it)
-    function fit() {
-      items.forEach(function (it) {
-        if (it.ms) return;
-        var em = $('em', it.el); it.el.classList.remove('is-tight', 'is-bare');
-        if (em.scrollWidth > em.clientWidth + .5) {
-          it.el.classList.add('is-tight');
-          if (em.scrollWidth > em.clientWidth + .5) it.el.classList.add('is-bare');
-        }
+      // the platforms: raised isometric prisms, each a step higher than the last
+      P.forEach(function (q, i) {
+        var x = q.x, y = q.y, rx = G.rx, ry = G.ry, h = q.h, g = svgEl('g', { 'class': 'lj-plat lj-c' + i });
+        g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--l', d: pathD([[x - rx, y], [x, y + ry], [x, y + ry + h], [x - rx, y + h]]) }));
+        g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--r', d: pathD([[x, y + ry], [x + rx, y], [x + rx, y + h], [x, y + ry + h]]) }));
+        g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--t', d: pathD([[x, y - ry], [x + rx, y], [x, y + ry], [x - rx, y]]) }));
+        g.appendChild(svgEl('path', { 'class': 'lj-rim', d: pathD([[x, y - ry + 6], [x + rx - 12, y], [x, y + ry - 6], [x - rx + 12, y]]) }));
+        world.appendChild(g); plats.push(g);
       });
-    }
-    function phaseAt(v) { for (var i = 0; i < PHASES.length; i++) if (v < PHASES[i][2]) return PHASES[i][0]; return 'Run'; }
-    function set(v, quiet) {
-      T = clamp(v, 0, SPAN);
-      play.style.transform = 'translateX(' + xOf(T).toFixed(1) + 'px)';
-      var ph = phaseAt(T);
-      if (now.innerHTML !== ph) now.innerHTML = ph;
-      play.setAttribute('aria-valuenow', T.toFixed(1)); play.setAttribute('aria-valuetext', ph.replace('&amp;', 'and'));
-      var active = [];
-      items.forEach(function (it) {
-        if (it.ms) {
-          var done = T >= it.s;
-          if (done && !it.el.classList.contains('is-done') && !quiet && !reduce) { it.el.classList.add('is-pop'); setTimeout(function () { it.el.classList.remove('is-pop'); }, 700); }
-          it.el.classList.toggle('is-done', done);
-          if (done && T - it.s < .35) active.unshift(it.t);
-          return;
-        }
-        var p = clamp((T - it.s) / (it.e - it.s), 0, 1);
-        it.fill.style.transform = 'scaleX(' + p.toFixed(3) + ')';
-        it.el.classList.toggle('is-now', p > 0 && p < 1);
-        it.el.classList.toggle('is-done', p >= 1);
-        if (p > 0 && p < 1) active.push(it.t);
+      // the project: a soft comet trail and the orb
+      for (var t = 0; t < 7; t++) { var c = svgEl('circle', { 'class': 'lj-trail', r: (5.2 - t * .6).toFixed(1), cx: -99, cy: -99 }); world.appendChild(c); trail.push(c); }
+      puck = svgEl('g', { 'class': 'lj-puck' });
+      puck.appendChild(svgEl('circle', { 'class': 'lj-halo', r: 17 }));
+      puck.appendChild(svgEl('circle', { 'class': 'lj-core', r: 8.5 }));
+      puck.appendChild(svgEl('circle', { 'class': 'lj-dot', r: 2.6 }));
+      // its name rides beside it, clear of the icon floating over each platform
+      var tag = svgEl('g', { 'class': 'lj-ptag', transform: 'translate(13 4)' }), rect = svgEl('rect', { x: 0, y: -8.5, width: 60, height: 17, rx: 8.5 });
+      var txt = svgEl('text', { x: 8, y: 3.4 }); txt.textContent = 'Your Odoo';
+      tag.appendChild(rect); tag.appendChild(txt); puck.appendChild(tag); world.appendChild(puck);
+      var tw = txt.getComputedTextLength ? txt.getComputedTextLength() : 0;
+      if (tw) rect.setAttribute('width', (tw + 16).toFixed(1));
+      // upright labels, icons, hit areas and the offices, laid over the drawing
+      P.forEach(function (q, i) {
+        var ph = PH[i], hit = el('button', 'lj-hit'), badge = el('span', 'lj-badge lj-c' + i), lab = el('span', 'lj-lab lj-c' + i);
+        hit.type = 'button'; hit.setAttribute('aria-label', ph.name + ', ' + ph.desc);
+        at(hit, q.x, q.y + q.h / 2, G.rx * 2, G.ry * 2 + q.h + 30);
+        if (ph.icon) badge.appendChild(ph.icon.cloneNode(true));
+        var tk = el('i', 'lj-tick'); tk.appendChild(tick()); badge.appendChild(tk);
+        at(badge, q.x, q.y - G.ry - 15);                      // floats over the platform's back corner
+        lab.appendChild(el('b', null, ph.name)); lab.appendChild(el('small', null, ph.when));
+        at(lab, q.x, q.y + G.ry + q.h + 9);
+        over.appendChild(lab); over.appendChild(badge); over.appendChild(hit);
+        nodes.push({ hit: hit, badge: badge, lab: lab });
+        hit.addEventListener('pointerenter', function () { if (fine.matches) peek(i); });
+        hit.addEventListener('pointerleave', function () { if (hoverI === i) unpeek(); });
+        hit.addEventListener('focus', function () { peek(i); });
+        hit.addEventListener('blur', unpeek);
+        hit.addEventListener('click', function () { jump(PH[i].s + .02, 7000); if (!fine.matches) { peek(i); setTimeout(unpeek, 2600); } });
       });
-      $$('.jp-dep', svg).forEach(function (d) { var f = byId[d.getAttribute('data-from')]; d.classList.toggle('is-done', !!f && T >= (f.ms ? f.s : f.e)); });
-      var txt = active.length ? active.slice(0, 3).join(' · ') : T >= 11.07 ? 'Support, from the team that set it up' : ph;
-      txt = txt.replace(/&amp;/g, '&');
-      if (status.textContent !== txt) status.textContent = txt;
+      Object.keys(G.off).forEach(function (k) {
+        var o = el('span', 'lj-off lj-off--' + k); o.appendChild(el('b', null, OFF[k][0])); o.appendChild(el('small', null, OFF[k][1]));
+        at(o, G.off[k][0], G.off[k][1]); over.appendChild(o); offs[k] = o;
+      });
+      // the timeline under the stage: one segment per phase, sized by its weeks
+      segsEl.textContent = '';
+      PH.forEach(function (ph) { var s = el('span'); s.style.flex = String(ph.e - ph.s); s.appendChild(el('b', null, ph.name)); segsEl.appendChild(s); });
+      place();
     }
-    function frame() {
-      var ts = performance.now();
+    function place() {
+      if (!G) return;
+      var w = stage.clientWidth; if (!w) return;
+      K = w / G.w;
+      $$('[data-x]', over).forEach(function (n) {
+        n.style.left = (+n.dataset.x * K).toFixed(1) + 'px'; n.style.top = (+n.dataset.y * K).toFixed(1) + 'px';
+        if (n.dataset.w) { n.style.width = (+n.dataset.w * K).toFixed(1) + 'px'; n.style.height = (+n.dataset.h * K).toFixed(1) + 'px'; }
+      });
+      if (chipsWrap && !G.band && active >= 0) { chipsWrap.style.left = (P[active].x * K).toFixed(1) + 'px'; chipsWrap.style.top = ((P[active].y - G.ry - 44) * K).toFixed(1) + 'px'; }
+    }
+
+    function phaseAt(t) { for (var i = PH.length - 1; i > 0; i--) if (t >= PH[i].s) return i; return 0; }
+    function puckLen(t) {
+      var i = phaseAt(t), ph = PH[i];
+      if (i === PH.length - 1) return total;
+      var left = ph.e - t;
+      if (left > TRAVEL) {                                    // on its platform: a slow drift across the top
+        var u = clamp((t - ph.s) / Math.max(.01, ph.e - ph.s - TRAVEL), 0, 1);
+        return clamp(L[i] - 5 + u * 10, 0, total);
+      }
+      return lerp(L[i] + 5, L[i + 1] - 5, easeInOut(1 - left / TRAVEL));
+    }
+    function setActive(i) {
+      active = i; var ph = PH[i];
+      plats.forEach(function (g, j) { g.classList.toggle('is-on', j === i); });
+      shades.forEach(function (e, j) { e.classList.toggle('is-on', j === i); });
+      nodes.forEach(function (n, j) { n.badge.classList.toggle('is-on', j === i); n.lab.classList.toggle('is-on', j === i); });
+      Object.keys(beams).forEach(function (k) { beams[k].classList.remove('is-on'); offs[k].classList.toggle('is-on', ph.who.indexOf(k) >= 0); });
+      clearTimeout(beamT);
+      beamT = setTimeout(function () {                        // re-aim the beams while they are faded out
+        if (active !== i) return;
+        var q = P[i];
+        Object.keys(beams).forEach(function (k) {
+          beams[k].setAttribute('d', beamD(G.off[k], [q.x, q.y - G.ry - 15]));   // into the phase's icon
+          if (ph.who.indexOf(k) >= 0) beams[k].classList.add('is-on');
+        });
+      }, 330);
+      if (chipsWrap) { var old = chipsWrap; old.classList.add('is-gone'); setTimeout(function () { old.remove(); }, 450); }
+      chipsWrap = el('div', 'lj-chips lj-c' + i);
+      chips = ph.items.map(function (it) {
+        var c = el('span', 'lj-chip lj-chip--' + (it.e <= it.s ? 'ms' : it.o)), ic = el('i');
+        ic.appendChild(tick()); c.appendChild(ic); c.appendChild(el('b', null, it.t));
+        var u = el('u'); c.appendChild(u); chipsWrap.appendChild(c);
+        return { el: c, u: u, it: it, st: null };
+      });
+      over.appendChild(chipsWrap); place();
+      moreEl.setAttribute('href', ph.href); moreTx.textContent = ph.more; whoEl.textContent = ph.whoText;
+    }
+    function set(key, v, fn) { if (cache[key] !== v) { cache[key] = v; fn(v); } }
+    function render(dt) {
+      var t = T, i = phaseAt(t);
+      if (i !== active) setActive(i);
+      var target = puckLen(t);
+      shown = dt ? shown + (target - shown) * Math.min(1, dt * 9) : target;
+      var len = clamp(shown, 0, total), pt = base.getPointAtLength(len);
+      puck.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
+      var off = (total - len).toFixed(1);
+      prog.setAttribute('stroke-dashoffset', off); flowMask.setAttribute('stroke-dashoffset', off);
+      hist.unshift(pt.x, pt.y); if (hist.length > 64) hist.length = 64;
+      trail.forEach(function (c, k) { var j = (k + 1) * 6; if (hist[j + 1] != null) { c.setAttribute('cx', hist[j].toFixed(1)); c.setAttribute('cy', hist[j + 1].toFixed(1)); } });
+      // the active phase's deliverables: hidden, in progress (with a bar), then done
+      chips.forEach(function (c) {
+        var it = c.it, ms = it.e <= it.s, st = t < it.s - .02 ? '' : (ms ? t >= it.s : t >= it.e) ? 'done' : 'doing';
+        if (st !== c.st) { c.st = st; c.el.classList.toggle('is-in', !!st); c.el.classList.toggle('is-done', st === 'done'); }
+        if (st === 'doing') c.u.style.transform = 'scaleX(' + clamp((t - it.s) / (it.e - it.s), 0, 1).toFixed(3) + ')';
+      });
+      nodes.forEach(function (n, j) { var dn = t >= SPAN - .001 || j < i; if (n.dn !== dn) { n.dn = dn; n.badge.classList.toggle('is-done', dn); plats[j].classList.toggle('is-done', dn); } });
+      var cur = null;
+      chips.forEach(function (c) { if (!cur && c.st === 'doing') cur = c; });
+      if (!cur) for (var k = chips.length - 1; k >= 0; k--) if (chips[k].st === 'done') { cur = chips[k]; break; }
+      set('status', cur ? cur.it.t + (cur.st === 'done' ? ' ✓' : '') : PH[i].name, function (v) { statusEl.textContent = v; });
+      var wk = Math.min(SPAN, Math.floor(t) + 1);
+      set('week', wk, function (v) { weekEl.textContent = String(v); scrub.setAttribute('aria-valuetext', 'Week ' + v + ' · ' + PH[i].name); });
+      ringEl.style.strokeDashoffset = (100 - t / SPAN * 100).toFixed(2);
+      var pc = (t / SPAN * 100).toFixed(2) + '%';
+      fillEl.style.width = pc; knob.style.left = pc; scrub.setAttribute('aria-valuenow', t.toFixed(1));
+      // parallax: the floor, the path and the labels drift by different amounts under the pointer
+      tilt.x += (tilt.tx - tilt.x) * Math.min(1, (dt || 1) * 4); tilt.y += (tilt.ty - tilt.y) * Math.min(1, (dt || 1) * 4);
+      gridG.setAttribute('transform', 'translate(' + (-tilt.x * 5).toFixed(2) + ' ' + (-tilt.y * 3).toFixed(2) + ')');
+      world.setAttribute('transform', 'translate(' + (tilt.x * 3).toFixed(2) + ' ' + (tilt.y * 2).toFixed(2) + ')');
+      over.style.transform = 'translate(' + (tilt.x * 5 * K).toFixed(2) + 'px,' + (tilt.y * 3.5 * K).toFixed(2) + 'px)';
+    }
+    function frame(now) {
       raf = 0;
       if (!on || !live()) return;
-      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts;
-      if (auto && !dragging && ts > t0) {
-        if (T >= SPAN) { hold += dt; if (hold > 1.6) { hold = 0; set(0, true); } }
-        else set(T + dt * SPAN / 9);
+      var dt = last ? Math.min(.05, (now - last) / 1000) : 0; last = now;
+      if (!reduce && !dragging && hoverI < 0 && now > holdUntil && !resetting) {
+        if (T >= SPAN) {
+          if (!doneAt) doneAt = now;
+          else if (now - doneAt > 2400) {                     // all five done: fade the run out and start again
+            resetting = true; root.classList.add('is-reset');
+            setTimeout(function () { T = 0; shown = 0; hist = []; doneAt = 0; resetting = false; root.classList.remove('is-reset'); }, 500);
+          }
+        } else T = Math.min(SPAN, T + RATE * dt);
       }
-      raf = requestAnimationFrame(frame);
+      render(dt);
+      if (!reduce) raf = requestAnimationFrame(frame);
     }
-    function wake() { if (on && !raf && !reduce && live()) { last = 0; raf = requestAnimationFrame(frame); } }
-    function fromX(clientX) { var r = board.getBoundingClientRect(), sx = r.width / (board.offsetWidth || 1); return ((clientX - r.left) / sx - tx0) / tw * SPAN; }
-    board.addEventListener('pointerdown', function (e) {
-      if (e.button || e.target.closest('a')) return;
-      // on touch the plan scrolls sideways in its card; only the playhead itself scrubs
-      if (e.pointerType === 'touch' && !e.target.closest('.jp-play')) return;
-      dragging = true; auto = false; root.classList.add('is-scrub');
-      try { board.setPointerCapture(e.pointerId); } catch (err) { /* optional */ }
-      set(fromX(e.clientX));
+    function wake() { if (!raf && on && live()) { last = 0; raf = requestAnimationFrame(frame); } }
+    function hold(ms) { holdUntil = performance.now() + ms; }
+    function jump(v, ms) { T = clamp(v, 0, SPAN); doneAt = 0; hold(ms); wake(); }
+    function peek(i) {
+      hoverI = i; var ph = PH[i], q = P[i];
+      tip.textContent = '';
+      tip.appendChild(el('b', null, ph.name + ' · ' + ph.when)); tip.appendChild(el('span', null, ph.desc.split('. ').slice(1).join('. ') || ph.desc));
+      tip.appendChild(el('small', null, ph.whoText));
+      tip.hidden = false;
+      tip.style.left = clamp(q.x * K, 130, stage.clientWidth - 130).toFixed(1) + 'px';
+      tip.style.top = ((q.y - G.ry - (G.band ? 36 : 40)) * K).toFixed(1) + 'px';
+      nodes[i].badge.classList.add('is-peek'); plats[i].classList.add('is-peek');
+    }
+    function unpeek() {
+      if (hoverI >= 0) { nodes[hoverI].badge.classList.remove('is-peek'); plats[hoverI].classList.remove('is-peek'); }
+      hoverI = -1; tip.hidden = true; hold(1200); wake();
+    }
+    function tFromX(x) { var r = scrub.getBoundingClientRect(); return clamp((x - r.left) / r.width, 0, 1) * SPAN; }
+    scrub.addEventListener('pointerdown', function (e) {
+      if (e.button) return;
+      dragging = true; if (scrub.setPointerCapture) scrub.setPointerCapture(e.pointerId);
+      jump(tFromX(e.clientX), 6000); e.preventDefault();
     });
-    board.addEventListener('pointermove', function (e) { if (dragging) set(fromX(e.clientX)); });
-    function up() { if (!dragging) return; dragging = false; root.classList.remove('is-scrub'); }
-    board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
-    root.addEventListener('pointerenter', function () { auto = false; });
-    root.addEventListener('pointerleave', function () { if (!dragging) { auto = true; t0 = performance.now() + 600; } });
-    play.addEventListener('keydown', function (e) {
+    scrub.addEventListener('pointermove', function (e) { if (dragging) jump(tFromX(e.clientX), 6000); });
+    scrub.addEventListener('pointerup', function () { dragging = false; hold(6000); });
+    scrub.addEventListener('pointercancel', function () { dragging = false; });
+    scrub.addEventListener('keydown', function (e) {
       var k = e.key, v = T;
-      if (k === 'ArrowRight' || k === 'ArrowUp') v += .25; else if (k === 'ArrowLeft' || k === 'ArrowDown') v -= .25;
-      else if (k === 'Home') v = 0; else if (k === 'End') v = SPAN; else return;
-      e.preventDefault(); e.stopPropagation(); auto = false; set(v);
+      if (k === 'ArrowRight' || k === 'ArrowUp') v += .5; else if (k === 'ArrowLeft' || k === 'ArrowDown') v -= .5;
+      else if (k === 'PageUp') v += 2; else if (k === 'PageDown') v -= 2; else if (k === 'Home') v = 0; else if (k === 'End') v = SPAN; else return;
+      e.preventDefault(); e.stopPropagation(); jump(v, 8000); if (reduce) render(0);
     });
-    function tipLine(tag, text) { var n = document.createElement(tag); n.textContent = text; return n; }
-    items.forEach(function (it) {
-      it.el.addEventListener('pointerenter', function () {
-        var b = box(it.el, board);
-        tip.textContent = '';
-        tip.appendChild(tipLine('b', it.t)); tip.appendChild(tipLine('span', it.d));
-        if (it.w) tip.appendChild(tipLine('small', it.w));
-        tip.hidden = false;
-        tip.style.left = clamp(b.cx, 120, board.offsetWidth - 120).toFixed(1) + 'px';
-        tip.style.top = (b.y - 8).toFixed(1) + 'px';
-      });
-      it.el.addEventListener('pointerleave', function () { tip.hidden = true; });
+    stage.addEventListener('pointermove', function (e) {
+      if (!fine.matches || reduce) return;
+      var r = stage.getBoundingClientRect(); tilt.tx = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1); tilt.ty = clamp((e.clientY - r.top) / r.height * 2 - 1, -1, 1);
     });
-    window.addEventListener('resize', function () { if (on) drawDeps(); });
+    stage.addEventListener('pointerleave', function () { tilt.tx = 0; tilt.ty = 0; });
+    if ('ResizeObserver' in window) new ResizeObserver(function () { if (!G || G.band !== phone.matches) { build(); if (on) render(0); } else place(); }).observe(stage);
+    else window.addEventListener('resize', function () { build(); if (on) render(0); });
+    build();
     return {
       root: root,
       enter: function (first) {
-        on = true; auto = true; hold = 0; drawDeps(); set(reduce ? 6.1 : 0, true);
-        t0 = performance.now() + (first ? 600 : 1500);
-        wake();
+        on = true; if (!G || G.band !== phone.matches || !stage.clientWidth) build(); else place();
+        T = reduce ? 10.7 : 0; shown = puckLen(T); doneAt = 0; hoverI = -1; resetting = false; root.classList.remove('is-reset');
+        hold(first ? 900 : 1400); render(0); wake();
       },
       leave: function () { on = false; tip.hidden = true; },
       wake: wake
@@ -818,7 +984,7 @@
   var scenes = [];
   var c = $('[data-cine]', hero); if (c) scenes.push(Cine(c));
   var m = $('[data-pmap]', hero); if (m) scenes.push(PMap(m));
-  var p = $('[data-plan]', hero); if (p) scenes.push(Plan(p));
+  var j = $('[data-journey]', hero); if (j) scenes.push(Journey(j));
   var current = null, first = true;
   function sceneOf(slide) { for (var i = 0; i < scenes.length; i++) if (slide.contains(scenes[i].root)) return scenes[i]; return null; }
   function activate(slide) {
