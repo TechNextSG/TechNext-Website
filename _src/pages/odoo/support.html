@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Support in Singapore — fixes & upgrades", "desc": "Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.", "out": "odoo/support.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Support in Singapore — fixes & upgrades", "desc": "Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.", "out": "odoo/support.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-sla.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-sla.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -34,6 +34,68 @@
     <dl class="glance"><div><dt>Phase</dt><dd>Step 4 of 4</dd></div><div><dt>Covers</dt><dd>Fixes · month-end · upgrades · changes</dd></div><div><dt>Response</dt><dd>Targets agreed in your plan</dd></div><div><dt>Channel</dt><dd>Single tracked channel, named team</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="support-desk">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch the queue</span><h2>Every Odoo support ticket, tracked from new to closed.</h2><p class="lead">Bugs, how-to questions, change requests and upgrade tasks each take their own path through TechNext's support desk: triage, a fix on a staging copy, your test, then a batched release to production on Odoo.sh or your own hosting. Timers run against an example plan's response targets and pause while a ticket waits on you. Filter by priority, or report an urgent issue and watch it jump the queue.</p></div>
+    <div class="dm dm-sla reveal" data-demo="sla">
+      <div class="dm-head">
+        <div class="dm-title"><b>Support desk</b><small>Example plan · sample tickets · business hours</small></div>
+        <div class="dm-seg" role="group" aria-label="Filter tickets by priority">
+          <button type="button" data-f="0" aria-pressed="true">All</button>
+          <button type="button" data-f="1" aria-pressed="false"><i class="dm-sw" style="--c:#D2433B"></i>Urgent</button>
+          <button type="button" data-f="2" aria-pressed="false"><i class="dm-sw" style="--c:#D97B12"></i>High</button>
+          <button type="button" data-f="3" aria-pressed="false"><i class="dm-sw" style="--c:#56709E"></i>Normal</button>
+          <button type="button" data-f="4" aria-pressed="false"><i class="dm-sw" style="--c:#A3A3B8"></i>Low</button>
+        </div>
+        <button class="dm-btn dm-btn--primary" type="button" data-urgent>{{icon:zap}}Report an urgent issue</button>
+      </div>
+      <div class="sla-top">
+        <p class="sla-clock"><span class="sla-live" aria-hidden="true"></span><b data-k="clock">Tue 10:00</b><small>simulated business hours</small></p>
+        <ul class="sla-team" aria-label="The named support team"></ul>
+      </div>
+      <div class="sla-boardw"><div class="sla-board" role="group" aria-label="Tickets by state: select one for its timer and history"></div></div>
+      <div class="sla-rail">
+        <div class="sla-railh">
+          <p class="sla-h">{{icon:send}} Release train <small>fixes are batched: staging first, then production</small></p>
+          <div class="dm-seg" role="group" aria-label="Where Odoo is hosted">
+            <button type="button" data-host="sh" aria-pressed="true">Odoo.sh</button>
+            <button type="button" data-host="own" aria-pressed="false">Your hosting</button>
+          </div>
+        </div>
+        <div class="sla-track">
+          <i class="sla-line" aria-hidden="true"></i>
+          <div class="sla-stn" data-stn="0"><b>Fix ready</b><small data-sub="0">Development branch</small><em data-q="0"></em></div>
+          <div class="sla-stn" data-stn="1"><b>Staging</b><small data-sub="1">Staging branch, a copy of your database</small><em data-q="1"></em></div>
+          <div class="sla-stn" data-stn="2"><b>Production</b><small data-sub="2">Merged to the production branch</small><em data-q="2"></em></div>
+        </div>
+      </div>
+      <div class="sla-foot">
+        <div class="sla-card">
+          <p class="sla-h">{{icon:clock}} Response targets <small>example plan</small></p>
+          <table class="sla-tbl"><thead><tr><th>Priority</th><th>Respond</th><th>Resolve</th><th>Open</th><th>At risk</th></tr></thead><tbody></tbody></table>
+          <p class="sla-rule">The clock pauses while a ticket waits on you or is being tested by you. At 75% of a target the ticket escalates to the lead consultant.</p>
+        </div>
+        <div class="sla-card">
+          <p class="sla-h">{{icon:bars}} Monthly report <small>sample</small></p>
+          <svg class="sla-chart" viewBox="0 0 360 170" role="img" aria-label="Tickets closed per month by type, sample data"></svg>
+          <ul class="dm-legend sla-leg"><li><i class="dm-sw" style="--c:#7447D6"></i>Bug</li><li><i class="dm-sw" style="--c:#0E9384"></i>How-to</li><li><i class="dm-sw" style="--c:#714B67"></i>Change</li><li><i class="dm-sw" style="--c:#3167CA"></i>Upgrade</li></ul>
+        </div>
+        <div class="sla-card">
+          <p class="sla-h">{{icon:pulse}} Desk log</p>
+          <ol class="dm-log sla-log" aria-label="Latest support events"></ol>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>States:</b> new, triage, in progress, waiting on you, testing on staging, deployed, closed.</p>
+        <p><b>Paths:</b> a bug is reproduced and fixed on staging, tested by you, then released to production; a how-to is answered and confirmed; a change request is sized and approved before it is built; an upgrade task is migrated and tested on a staging copy, then released on a date you choose.</p>
+        <p><b>Timers:</b> each priority has a response and a resolution target in the support plan. The clock pauses while a ticket waits on you, and a ticket close to its target escalates to the lead consultant. Fixes are batched into deploys: staging first, then production, on Odoo.sh or your own hosting. A monthly summary shows what was closed and what is pending.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Example plan and sample tickets. The targets shown are for illustration, not TechNext commitments: your response targets are agreed in your support plan.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
