@@ -1,4 +1,4 @@
-<!--meta {"title": "Website & Social Media Marketing in Singapore", "desc": "TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.", "out": "solutions/marketing.html", "nav": "solution"} -->
+<!--meta {"title": "Website & Social Media Marketing in Singapore", "desc": "TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.", "out": "solutions/marketing.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-sankey.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-sankey.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -30,6 +30,77 @@
     <dl class="glance"><div><dt>Services</dt><dd>Websites · Social · Brand assets</dd></div><div><dt>Model</dt><dd>Monthly retainer or one-off project</dd></div><div><dt>Reporting</dt><dd>One-page monthly report</dd></div><div><dt>Reach</dt><dd>10+ countries · 11+ enterprise clients</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="attribution">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">credit where it's due</span><h2>Website and social media marketing, measured from first visit to won deal.</h2><p class="lead">TechNext's monthly report ties each channel to results, not just to clicks. This sample funnel follows visits from Search, Social, Email, Referral and Events through leads, MQLs and SQLs to won deals in the CRM (Odoo CRM in this example). Move the budget and conversion sliders, then switch the attribution model to see how credit for the same deals moves between channels.</p></div>
+    <div class="dm dm-sankey reveal" data-demo="sankey">
+      <div class="dm-head">
+        <div class="dm-title"><b>Attribution and funnel</b><small>Sample month · SGD · every figure is illustrative</small></div>
+        <div class="dm-seg" role="group" aria-label="Attribution model">
+          <button type="button" data-m="first" aria-pressed="true">First touch</button>
+          <button type="button" data-m="last" aria-pressed="false">Last touch</button>
+          <button type="button" data-m="linear" aria-pressed="false">Linear</button>
+        </div>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="snk-wrap">
+        <div class="snk-main">
+          <div class="snk-stage">
+            <svg class="snk-svg" role="group" aria-label="Sankey diagram: channels flowing into visits, leads, MQLs, SQLs and won deals"></svg>
+            <canvas class="snk-fx" aria-hidden="true"></canvas>
+          </div>
+          <p class="snk-cap" aria-live="polite"></p>
+        </div>
+        <div class="snk-calc">
+          <p class="snk-h">Funnel calculator</p>
+          <div class="snk-sls">
+          <div class="snk-sl">
+            <label for="snk-budget">Monthly paid budget<output data-o="budget"></output></label>
+            <input type="range" id="snk-budget" min="2000" max="40000" step="500" value="10000">
+          </div>
+          <div class="snk-sl">
+            <label for="snk-r1">Visit to lead<output data-o="r1"></output></label>
+            <input type="range" id="snk-r1" min="0.5" max="6" step="0.1" value="2.5">
+          </div>
+          <div class="snk-sl">
+            <label for="snk-r2">Lead to MQL<output data-o="r2"></output></label>
+            <input type="range" id="snk-r2" min="15" max="70" step="1" value="40">
+          </div>
+          <div class="snk-sl">
+            <label for="snk-r3">MQL to SQL<output data-o="r3"></output></label>
+            <input type="range" id="snk-r3" min="15" max="70" step="1" value="45">
+          </div>
+          <div class="snk-sl">
+            <label for="snk-r4">SQL to won<output data-o="r4"></output></label>
+            <input type="range" id="snk-r4" min="10" max="50" step="1" value="25">
+          </div>
+          </div>
+          <dl class="dm-kpis snk-kpis">
+            <div><dt>Visits</dt><dd data-k="v">0</dd></div>
+            <div><dt>Leads</dt><dd data-k="l">0</dd></div>
+            <div><dt>Won deals</dt><dd data-k="w">0</dd></div>
+            <div><dt>Cost per lead</dt><dd data-k="cpl">0</dd></div>
+            <div class="dm-ok"><dt>Cost per won deal</dt><dd data-k="cpw">0</dd></div>
+            <div><dt>MQL · SQL</dt><dd data-k="ms">0</dd></div>
+          </dl>
+          <table class="snk-tab">
+            <caption>Credit by channel, <span data-t="model">first touch</span></caption>
+            <thead><tr><th scope="col">Channel</th><th scope="col">Spend</th><th scope="col">Leads</th><th scope="col">Won</th><th scope="col">Per won</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Channels to stages:</b> Search, Social, Email, Referral and Events bring visits; visits become leads, leads become marketing-qualified (MQL), then sales-qualified (SQL), then won deals.</p>
+        <p><b>Calculator:</b> the monthly paid budget sets paid visits on top of organic and referral traffic; the four conversion rates set how many move to each stage; cost per lead and cost per won deal follow.</p>
+        <p><b>Attribution:</b> first touch credits the channel that brought the first visit, last touch credits the final touch before each stage, and linear shares the credit across every touch. The same deals, credited three ways.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data. Rates, costs and journeys are illustrative, not benchmarks: your own figures come from your analytics and CRM. Leads onward are drawn at a larger scale than visits so the later stages stay visible.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

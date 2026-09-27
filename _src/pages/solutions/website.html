@@ -1,4 +1,4 @@
-<!--meta {"title": "Web Design & Development in Singapore", "desc": "TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.", "out": "solutions/website.html", "nav": "solution"} -->
+<!--meta {"title": "Web Design & Development in Singapore", "desc": "TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.", "out": "solutions/website.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-sitebuild.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-sitebuild.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -28,6 +28,93 @@
     <dl class="glance"><div><dt>Types</dt><dd>Company sites · Landing pages · Stores</dd></div><div><dt>Built for</dt><dd>Speed · Mobile · Easy editing</dd></div><div><dt>Includes</dt><dd>SEO basics · Analytics · Accessibility</dd></div><div><dt>Delivery</dt><dd>Brief → Design → Build → Launch</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="site-build">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">build it live</span><h2>Web design and development, from sitemap to CRM lead.</h2><p class="lead">A TechNext website build starts with the sitemap, assembles each page from sections, checks speed and SEO before launch, then wires the contact form into your CRM (Odoo CRM in this example). Add or remove pages and change the build choices: the wireframe, the Core Web Vitals and the SEO checks react. Then follow an enquiry from its UTM source to a salesperson's follow-up call.</p></div>
+    <div class="dm dm-sitebuild reveal" data-demo="sitebuild">
+      <div class="dm-head">
+        <div class="dm-title"><b>Site build pipeline</b><small>Sample company site · every number is illustrative</small></div>
+        <div class="dm-seg" role="group" aria-label="Preview the wireframe on">
+          <button type="button" data-dev="desk" aria-pressed="true">{{icon:layout}}Desktop</button>
+          <button type="button" data-dev="mob" aria-pressed="false">{{icon:menu}}Mobile</button>
+        </div>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="sbd-wrap">
+        <div class="sbd-plan">
+          <p class="sbd-h"><b>1</b>Sitemap<small>click to add or remove</small></p>
+          <ul class="sbd-tree" role="group" aria-label="Sitemap: add or remove pages"></ul>
+          <p class="sbd-h"><b>2</b>Build choices</p>
+          <div class="sbd-opts" role="group" aria-label="Build choices">
+            <div class="sbd-herosel"><span>Hero</span><div class="dm-seg" role="group" aria-label="Hero media"><button type="button" data-hero="text" aria-pressed="false">Text</button><button type="button" data-hero="image" aria-pressed="true">Image</button><button type="button" data-hero="video" aria-pressed="false">Video</button></div></div>
+            <button class="sbd-sw" type="button" role="switch" aria-checked="true" data-opt="lazy"><i></i>Lazy-load images below the fold</button>
+            <button class="sbd-sw" type="button" role="switch" aria-checked="true" data-opt="dims"><i></i>Reserve image sizes</button>
+            <button class="sbd-sw" type="button" role="switch" aria-checked="false" data-opt="defer"><i></i>Defer third-party scripts</button>
+            <button class="sbd-sw" type="button" role="switch" aria-checked="false" data-opt="faq"><i></i>FAQ section on Home</button>
+          </div>
+        </div>
+        <div class="sbd-view">
+          <div class="sbd-frame"><div class="sbd-bar"><i></i><i></i><i></i><span>{{icon:lock}}yourcompany.com</span></div><div class="sbd-scroll"><div class="sbd-page" aria-label="Live wireframe of the home page" role="img"></div></div></div>
+        </div>
+        <div class="sbd-qa">
+          <div class="sbd-vit">
+            <p class="sbd-h"><b>3</b>Core Web Vitals<small>illustrative estimate</small></p>
+            <div class="sbd-gauges" role="group" aria-label="Core Web Vitals, illustrative"></div>
+            <ol class="sbd-why" aria-live="polite"></ol>
+          </div>
+          <div class="sbd-chk">
+            <p class="sbd-h"><b>4</b>SEO checks</p>
+            <ul class="sbd-seo"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="sbd-leads">
+        <div class="sbd-lhead">
+          <p class="sbd-h"><b>5</b>Enquiry to follow-up, in Odoo CRM</p>
+          <div class="dm-seg" role="group" aria-label="The next test visitor arrives from">
+            <button type="button" data-from="g" aria-pressed="true"><i class="dm-sw" style="--c:var(--tok-stock)"></i>Google Ads</button>
+            <button type="button" data-from="l" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-make)"></i>LinkedIn</button>
+            <button type="button" data-from="n" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-pay)"></i>Newsletter</button>
+            <button type="button" data-from="d" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-buy)"></i>Direct</button>
+          </div>
+          <button class="dm-btn dm-btn--primary" type="button" data-send>{{icon:send}}Send a test enquiry</button>
+        </div>
+        <div class="sbd-rail">
+          <svg class="sbd-wire" aria-hidden="true"></svg>
+          <div class="sbd-st" data-st="0" data-tip="The landing URL carries utm_source, utm_medium and utm_campaign; hidden form fields keep them."><span class="sbd-dot">{{icon:globe}}</span><b>Visit</b><small>UTM tags on the landing URL</small></div>
+          <div class="sbd-st" data-st="1" data-tip="The form posts to Odoo CRM, and analytics records a generate_lead event."><span class="sbd-dot">{{icon:layout}}</span><b>Contact form</b><small>Name, company, email, interest</small></div>
+          <div class="sbd-st" data-st="2" data-tip="Bots fill the hidden field or fail the CAPTCHA and never reach the CRM."><span class="sbd-dot">{{icon:shield}}</span><b>Spam check</b><small>Hidden field and CAPTCHA</small></div>
+          <div class="sbd-st" data-st="3" data-tip="Odoo stores the UTM source, medium and campaign on the lead and shows similar leads with the same email."><span class="sbd-dot">{{odoo:crm:22}}</span><b>Lead in Odoo CRM</b><small>Source, medium and campaign kept</small></div>
+          <div class="sbd-st" data-st="4" data-tip="Rule-based assignment runs on a schedule: team by country, then the member with the most spare capacity."><span class="sbd-dot">{{icon:users}}<svg class="sbd-ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18"/></svg><em class="sbd-q"></em></span><b>Rule-based assignment</b><small>Team by country, then capacity</small></div>
+          <div class="sbd-st" data-st="5" data-tip="An automation rule schedules a Call activity for the salesperson as soon as the lead is assigned."><span class="sbd-dot">{{icon:calendar}}</span><b>Follow-up activity</b><small>Automation rule: schedule a call</small></div>
+          <div class="sbd-toks" aria-hidden="true"></div>
+        </div>
+        <div class="sbd-crm">
+          <div class="sbd-box"><p>Unassigned leads<small data-run>next run in 7 s</small></p><ul class="sbd-queue" aria-live="polite"></ul></div>
+          <div class="sbd-box"><p>Sales teams<small>capacity per 30 days</small></p><ul class="sbd-team"></ul></div>
+          <div class="sbd-box"><p>Leads by UTM source</p><ul class="sbd-src"></ul></div>
+          <div class="sbd-box"><p>Follow-up activities</p><ol class="sbd-acts"></ol></div>
+        </div>
+        <dl class="dm-kpis sbd-kpis">
+          <div><dt>Enquiries</dt><dd data-k="enq">0</dd></div>
+          <div><dt>Leads in CRM</dt><dd data-k="lead">0</dd></div>
+          <div><dt>Spam blocked</dt><dd data-k="spam">0</dd></div>
+          <div><dt>Similar leads flagged</dt><dd data-k="dup">0</dd></div>
+          <div class="dm-ok"><dt>Calls scheduled</dt><dd data-k="act">0</dd></div>
+        </dl>
+      </div>
+      <div class="dm-static">
+        <p><b>Sitemap:</b> Home, Services with its service pages, Industries, About, Blog and Contact. Each page added puts a section on the home page and a link in the menu.</p>
+        <p><b>Build choices:</b> the hero media, lazy-loading, reserved image sizes and deferred scripts change the illustrative Largest Contentful Paint, Cumulative Layout Shift and Interaction to Next Paint estimates.</p>
+        <p><b>SEO checks:</b> titles and descriptions, one H1 per page, an XML sitemap, internal links with no orphan pages, structured data, image sizes and alt text, and a working enquiry path.</p>
+        <p><b>Enquiry to follow-up:</b> a visit with UTM tags, the contact form, a spam check, a lead in Odoo CRM with its source, a similar-lead check, rule-based assignment by team and capacity, and an automation rule that schedules the follow-up call.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data. Speed figures are illustrative estimates, not measurements: real scores come from lab and field tests of the finished site. Forms can go to the inbox or CRM you name; Odoo CRM is shown here.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
