@@ -12,7 +12,7 @@ handoff: (state, app module, text)   -> fires when a record reaches that state
 """
 
 LAYOUT = {"finance": "ladder", "sales": "rail", "websites": "journey", "supply-chain": "rail",
-          "hr": "ring", "marketing": "funnel", "services": "board", "productivity": "hub"}
+          "hr": "ring", "marketing": "funnel", "services": "lanes", "productivity": "hub"}
 
 FLOWS = {
     # ------------------------------------------------------------------ finance

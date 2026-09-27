@@ -1,7 +1,7 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Odoo app pages: how a record moves through the app. The states, branches, hand-offs and
    automations are in the page (built from _src/app_flows.py); this script lays them out in the
-   family's own form (rail, ladder, ring, funnel, board, hub, journey), then runs sample records
+   family's own form (rail, ladder, ring, funnel, lanes, hub, journey), then runs sample records
    through them: branches and loops taken at random, hand-offs into other apps lit and logged.
    Phones get the ladder. */
 TN.demo('life', function (root, K) {
@@ -19,13 +19,14 @@ TN.demo('life', function (root, K) {
   var mq = window.matchMedia('(max-width: 640px)');
   var W = 1, H = 1, P = {}, edges = {}, tokens = [], nextSpawn = 0, speed = 1, forceExc = false, serial = 1000 + (Math.random() * 400 | 0);
   var nFlow = 0, nDone = 0, nExc = 0, nHand = 0, on = false;
-  var CARD_Y = 50;                                   // board: first card slot, just under the column header
+  // lanes (services): one row per record under the stage headers, a bar that grows along the stages
+  var LANES = 6, HEAD = 46, ROW = 27, X0 = 10, laneFree = [];
   var LADDER_HALF = 58;                              // ladder: half a card's width (wider on desktop, set in place())
 
   // ---------------------------------------------------------------- layouts: a position per state
   function place() {
     layout = mq.matches ? 'ladder' : wantLayout;
-    root.classList.remove('lf--rail', 'lf--ladder', 'lf--ring', 'lf--funnel', 'lf--board', 'lf--hub', 'lf--journey');
+    root.classList.remove('lf--rail', 'lf--ladder', 'lf--ring', 'lf--funnel', 'lf--lanes', 'lf--hub', 'lf--journey');
     root.classList.add('lf--' + layout);
     W = stage.offsetWidth || 1; H = stage.offsetHeight || 1;
     var fc = states[0] && states[0].el; LADDER_HALF = layout === 'ladder' && fc ? Math.round(fc.offsetWidth / 2) + 4 : 58;
@@ -37,7 +38,7 @@ TN.demo('life', function (root, K) {
         case 'ring': var a = -Math.PI / 2 + i / n * Math.PI * 2, r = Math.min(W * .34, H * .38); x = W * .5 + Math.cos(a) * r * 1.25; y = H * .5 + Math.sin(a) * r; break;
         case 'hub': var b = -Math.PI / 2 + i / n * Math.PI * 2, rr = Math.min(W * .36, H * .4); x = W * .5 + Math.cos(b) * rr * 1.35; y = H * .52 + Math.sin(b) * rr; break;
         case 'funnel': x = W * .5; y = padY - 10 + t * (H - 2 * padY + 20); break;
-        case 'board': x = W * (i + .5) / n; y = 30; break;
+        case 'lanes': x = W * (i + .5) / n; y = 24; break;
         case 'journey': x = padX + t * (W - 2 * padX); y = H * (i % 2 ? .7 : .3); break;
         default: x = padX + t * (W - 2 * padX); y = H * .46;
       }
@@ -50,12 +51,7 @@ TN.demo('life', function (root, K) {
   // ---------------------------------------------------------------- edges: the main path, then branches
   function edgeD(a, b, kind) {
     var A = P[a], B = P[b];
-    if (layout === 'board') {
-      var y0 = 44;
-      if (a === b) return 'M' + (A.x - 14) + ' ' + y0 + 'c-6 -26 34 -26 28 0';
-      var up = kind === 'branch' ? -18 : 0;
-      return 'M' + A.x + ' ' + (y0 + up) + 'C' + ((A.x + B.x) / 2) + ' ' + (y0 + up - 26) + ' ' + ((A.x + B.x) / 2) + ' ' + (y0 + up - 26) + ' ' + B.x + ' ' + (y0 + up);
-    }
+    if (layout === 'lanes') return 'M' + A.x + ' 0L' + B.x + ' 0';
     if (a === b) {                                    // self loop: a small ring above the state
       var s = layout === 'ladder' || layout === 'funnel' ? 1 : -1;
       if (layout === 'ladder') return 'M' + (A.x + LADDER_HALF) + ' ' + (A.y - 8) + 'c34 -8 34 24 0 16';
@@ -98,15 +94,16 @@ TN.demo('life', function (root, K) {
     edges = {};
     var mk = 'url(#' + markId + ')';
     if (layout === 'hub') svg.appendChild(K.svg('circle', { cx: W * .5, cy: H * .52, r: 38, 'class': 'lf-core' }));
+    var hide = layout === 'lanes' ? { 'class': 'lf-e', style: 'visibility:hidden' } : null;
     for (var i = 0; i < path.length - 1; i++) {
       var id = path[i] + '>' + path[i + 1];
       if (edges[id]) continue;
-      var e = K.svg('path', { d: edgeD(path[i], path[i + 1], 'path'), 'class': 'lf-e', 'marker-end': mk });
+      var e = K.svg('path', hide ? Object.assign({ d: edgeD(path[i], path[i + 1], 'path') }, hide) : { d: edgeD(path[i], path[i + 1], 'path'), 'class': 'lf-e', 'marker-end': mk });
       svg.appendChild(e); edges[id] = { p: e, len: e.getTotalLength() };
     }
     branches.forEach(function (b) {
       var id = b.from + '>' + b.to + '>b';
-      var e = K.svg('path', { d: edgeD(b.from, b.to, 'branch'), 'class': 'lf-e lf-e--b', 'marker-end': mk });
+      var e = K.svg('path', hide ? Object.assign({ d: edgeD(b.from, b.to, 'branch') }, hide) : { d: edgeD(b.from, b.to, 'branch'), 'class': 'lf-e lf-e--b', 'marker-end': mk });
       svg.appendChild(e); edges[id] = { p: e, len: e.getTotalLength(), b: b };
     });
     var g = K.svg('g', { 'class': 'lf-toks' }); svg.appendChild(g);
@@ -115,19 +112,41 @@ TN.demo('life', function (root, K) {
   // ---------------------------------------------------------------- records
   // log lines are built from text nodes: labels come from the page, never re-read as HTML
   function say(parts, c) {
+    var was = K.$$('li', log).map(function (el) { return [el, el.offsetTop]; });
     var li = K.el('li'), sp = K.el('span'); li.appendChild(K.el('i'));
     parts.forEach(function (p) { sp.appendChild(typeof p === 'string' ? document.createTextNode(p) : K.el('b', null, p.b)); });
     li.appendChild(sp); if (c) li.style.setProperty('--c', c);
     log.insertBefore(li, log.firstChild);
     var rows = K.$$('li', log); while (rows.length > 6) rows.pop().remove();
+    if (!K.reduce && li.animate) {
+      li.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      was.forEach(function (p) { var dy = p[1] - p[0].offsetTop; if (dy && p[0].isConnected) p[0].animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' }); });
+    }
   }
   function lower(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
   function num(t) { return '#' + t.id; }
-  function spawn() {
-    var t = { id: ++serial, i: 0, s: 0, edge: null, wait: 0, loops: 0, v: K.rnd(95, 130) };
-    if (layout === 'board') { t.card = K.el('span', 'lf-card'); t.card.textContent = num(t); toksLayer.appendChild(t.card); }
+  function freeLane() {
+    var now = performance.now();
+    for (var ln = 0; ln < LANES; ln++) if (!tokens.some(function (o) { return o.lane === ln; }) && !(laneFree[ln] > now)) return ln;
+    return -1;
+  }
+  function spawn(at) {                               // at: start part-way along the path (lanes open with records under way)
+    var k = at || 0, ln = layout === 'lanes' ? freeLane() : 0;
+    if (ln < 0) return;                             // every lane is busy: the next record waits
+    var t = { id: ++serial, i: k, s: 0, edge: null, wait: 0, loops: 0, v: K.rnd(95, 130) };
+    if (layout === 'lanes') {
+      t.lane = ln; t.el = K.el('div', 'lf-lane'); t.el.style.top = (HEAD + ln * ROW) + 'px';
+      t.bar = K.el('i', 'lf-bar'); t.tag = K.el('span', 'lf-tag', num(t));
+      t.el.appendChild(t.bar); t.el.appendChild(t.tag); toksLayer.appendChild(t.el); head(t, X0);
+      var x1 = P[path[k]].x, ms = 450 + k * 250;     // the bar grows in to its stage instead of appearing there
+      if (!K.reduce && t.bar.animate) {
+        t.bar.animate([{ width: '0px' }, { width: (x1 - X0) + 'px' }], { duration: ms, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        t.tag.animate([{ transform: 'translateX(' + (X0 + 9) + 'px)', opacity: 0 }, { transform: 'translateX(' + (x1 + 9) + 'px)', opacity: 1 }], { duration: ms, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      }
+    }
     else { t.g = K.svg('g', { 'class': 'lf-tok' }); t.g.appendChild(K.svg('circle', { r: 9, 'class': 'lf-th' })); t.g.appendChild(K.svg('circle', { r: 4.2, 'class': 'lf-td' })); K.$('.lf-toks', svg).appendChild(t.g); }
-    tokens.push(t); nFlow++; arrive(t, path[0]);
+    tokens.push(t); nFlow++; arrive(t, path[k]);
+    if (k) t.wait += .4 + k * .5;                   // let the grow-in finish before it moves on
   }
   function arrive(t, key) {
     var s = byKey[key]; t.at = key; t.wait = .55 / speed;
@@ -140,12 +159,12 @@ TN.demo('life', function (root, K) {
     });
   }
   function place1(t, x, y) {
-    if (t.card) { var col = byKey[t.at].i, stack = colStack(col, t); t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (CARD_Y + stack * 25).toFixed(1) + 'px)'; }
+    if (t.el) head(t, x);
     else if (t.g) t.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')');
   }
-  function colStack(col, me) {
-    var k = 0; for (var i = 0; i < tokens.length && tokens[i] !== me; i++) if (tokens[i].at && byKey[tokens[i].at].i === col && !tokens[i].edge) k++;
-    return Math.min(k, Math.max(0, Math.floor((H - CARD_Y - 26) / 25)));
+  function head(t, x) {                              // lanes: the bar reaches x, the record number rides just after it
+    t.bar.style.width = Math.max(0, x - X0).toFixed(1) + 'px';
+    t.tag.style.transform = 'translateX(' + (x + 9).toFixed(1) + 'px)';
   }
   function choose(t) {
     // at a state: take a branch now and then (once per record), else follow the main path
@@ -168,14 +187,14 @@ TN.demo('life', function (root, K) {
         var go = choose(t);
         if (!go) { nDone++; kDone.textContent = String(nDone); fade(t); return false; }
         t.edge = go; t.s = 0;
-        if (t.card) t.card.classList.add('is-moving');
+        if (t.el && go.branch && byKey[go.to].i < byKey[t.at].i) t.el.classList.add('is-back');
       }
       var e = edges[t.edge.id]; if (!e) { t.edge = null; return true; }
       t.s += t.v * speed * dt;
-      if (layout === 'board') {
-        var A = P[t.at], B = P[t.edge.to], q = K.clamp(t.s / Math.max(60, Math.abs(B.x - A.x)), 0, 1), x = K.lerp(A.x, B.x, K.ease.inOut(q));
-        t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (CARD_Y - Math.sin(q * Math.PI) * 6).toFixed(1) + 'px)';
-        if (q >= 1) { finishEdge(t); }
+      if (layout === 'lanes') {                      // the bar grows (or, on a loop back, shrinks) smoothly
+        var A = P[t.at], B = P[t.edge.to], q = K.clamp(t.s / Math.max(60, Math.abs(B.x - A.x)), 0, 1);
+        head(t, K.lerp(A.x, B.x, K.ease.inOut(q)));
+        if (q >= 1) finishEdge(t);
         return true;
       }
       var pt = e.p.getPointAtLength(Math.min(t.s, e.len));
@@ -187,13 +206,17 @@ TN.demo('life', function (root, K) {
   }
   function finishEdge(t) {
     var go = t.edge; t.edge = null;
-    if (t.card) t.card.classList.remove('is-moving');
+    if (t.el) t.el.classList.remove('is-back');
     if (go.branch) { t.i = Math.max(0, path.indexOf(go.to)); if (t.i < 0) t.i = 0; }
     else t.i = go.next;
     arrive(t, go.to);
   }
   function fade(t) {
-    var n = t.card || t.g; if (!n) return;
+    var n = t.el || t.g; if (!n) return;
+    if (t.el) {                                      // lanes: the finished bar turns green where it is, then fades
+      t.el.classList.add('is-done'); laneFree[t.lane] = performance.now() + 1100;
+      setTimeout(function () { n.classList.add('is-out'); }, 450); setTimeout(function () { n.remove(); }, 1050); return;
+    }
     n.classList.add('is-out'); setTimeout(function () { n.remove(); }, 450);
   }
   var loop = K.loop(step);
@@ -221,14 +244,24 @@ TN.demo('life', function (root, K) {
     s.el.addEventListener('focus', onT); s.el.addEventListener('blur', offT);
   });
   var rt = 0;
-  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { tokens.forEach(function (t) { (t.card || t.g) && (t.card || t.g).remove(); }); tokens = []; place(); }, 120); });
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { tokens.forEach(function (t) { (t.el || t.g) && (t.el || t.g).remove(); }); tokens = []; laneFree = []; place(); }, 120); });
   place();
   if (K.reduce) {
     // a still picture: every state shows the sample count it would have after a busy morning
     states.forEach(function (s, i) { s.count = Math.max(1, 12 - i * 2); s.n.textContent = String(s.count); s.el.classList.add('has-n'); });
+    if (layout === 'lanes') [3, 1, 4, 0, 2].forEach(function (si, ln) {   // a still timeline: records at different stages
+      if (!states[si] || ln >= LANES) return;
+      var t = { el: K.el('div', 'lf-lane'), bar: K.el('i', 'lf-bar'), tag: K.el('span', 'lf-tag', '#' + (++serial)) };
+      t.el.style.top = (HEAD + ln * ROW) + 'px'; t.el.appendChild(t.bar); t.el.appendChild(t.tag); toksLayer.appendChild(t.el);
+      head(t, P[states[si].key].x);
+    });
   }
   return {
-    start: function () { if (on) return; on = true; place(); nextSpawn = performance.now() + 250; loop.on(); },
+    start: function () {
+      if (on) return; on = true; place(); nextSpawn = performance.now() + 250;
+      if (layout === 'lanes' && !tokens.length && !K.reduce) [2, 1, 0].forEach(function (k) { if (k < path.length) spawn(k); });
+      loop.on();
+    },
     stop: function () { on = false; loop.off(); }
   };
 });

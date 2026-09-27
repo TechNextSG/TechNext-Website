@@ -891,7 +891,7 @@ def yt_facade(vid: str, title: str) -> str:
 
 
 LIFE_KICKER = {"rail": "follow a record", "ladder": "step by step", "ring": "the whole cycle", "funnel": "from first touch",
-               "board": "on the board", "hub": "around the record", "journey": "the visitor's path"}
+               "lanes": "on the timeline", "hub": "around the record", "journey": "the visitor's path"}
 
 
 def lifecycle_html(mod: str, name: str, cat: dict) -> str:
