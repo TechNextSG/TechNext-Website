@@ -901,6 +901,7 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
         return ""
     layout = AF.LAYOUT.get(cat["id"], "rail")
     rec, art = f["record"], f.get("article", "a")
+    name = name.replace(" — ", " (") + ")" if " — " in name else name     # "Point of Sale (Shop)", as in the H1
     label = dict((k, l) for k, l, _ in f["states"])
     states = "".join(f'<li data-s="{k}" data-note="{attr(note)}"><b>{l}</b><small>{note}</small><i class="lf-n" aria-hidden="true"></i></li>'
                      for k, l, note in f["states"])
