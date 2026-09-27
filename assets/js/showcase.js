@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* App showcase: a list of Odoo apps (tabs) with a detail panel that swaps content with a small
    spring animation. Auto-advances every 6 s until the visitor interacts. Used on industry pages and
    the Odoo ERP page. Each tab carries its content in data attributes. */

@@ -53,6 +53,29 @@ OFFICES = [
      "directions": "https://www.google.com/maps/dir/?api=1&destination=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City"},
 ]
 
+# ---------------------------------------------------------------- automated access
+# Search engines and AI answer engines may read the site (so TechNext can be found and cited);
+# crawlers that collect content to TRAIN AI models may not. robots.txt is generated from these
+# lists, and vercel.json redirects the listed user agents to /denied at the edge for crawlers
+# that ignore robots.txt. Robots-only tokens never appear in a user agent, so they are not in
+# the edge list.
+AI_ALLOW = ["Googlebot", "Bingbot", "Applebot", "DuckDuckBot", "OAI-SearchBot", "ChatGPT-User",
+            "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User", "DuckAssistBot",
+            "MistralAI-User", "meta-externalfetcher"]
+AI_TRAINING = ["GPTBot", "ClaudeBot", "anthropic-ai", "Claude-Web", "CCBot", "Google-Extended",
+               "Applebot-Extended", "Bytespider", "meta-externalagent", "FacebookBot", "Amazonbot",
+               "cohere-ai", "cohere-training-data-crawler", "Diffbot", "Omgilibot", "omgili",
+               "img2dataset", "AI2Bot", "PanguBot", "Timpibot", "ImagesiftBot", "Kangaroo Bot",
+               "webzio-extended", "FirecrawlAgent"]
+ROBOTS_ONLY = {"Google-Extended", "Applebot-Extended", "Claude-Web"}
+# Website copiers, headless browsers and scripting libraries: they don't read robots.txt, so
+# they are only handled at the edge. Social link previews (facebookexternalhit, LinkedInBot,
+# Twitterbot, WhatsApp, Slackbot, TelegramBot, Discordbot) are deliberately NOT listed.
+SCRAPERS = ["HTTrack", "SiteSucker", "WebCopier", "Offline Explorer", "Teleport Pro", "WebZIP",
+            "WebReaper", "HeadlessChrome", "PhantomJS", "python-requests", "Python-urllib",
+            "python-httpx", "aiohttp", "Go-http-client", "Scrapy", "node-fetch", "axios",
+            "libwww-perl", "Wget/", "curl/"]
+
 # FormSubmit — no account needed. The first real submission triggers a one-time
 # activation email to sales@technext.asia; after that every inquiry lands there.
 FORM_ENDPOINT = "https://formsubmit.co/ajax/sales@technext.asia"

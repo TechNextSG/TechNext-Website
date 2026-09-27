@@ -11,7 +11,7 @@ _src/odoo_image_dims.json, which this script keeps up to date:
 Only the first few KB of each file are fetched: PNG, GIF, JPEG and WebP all carry their
 size in the header.
 """
-import json, struct, sys, urllib.request
+import json, re, struct, sys, urllib.request
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parent
@@ -20,12 +20,20 @@ OUT = SRC / "odoo_image_dims.json"
 UA = "Mozilla/5.0 (TechNext site build; +https://technext.asia/)"
 
 
+ODOOCDN = re.compile(r"https://odoocdn\.com/[^\s\"'<>)|]+?\.(?:webp|png|jpe?g|gif)(?:\?[^\s\"'<>)|]*)?")
+
+
 def image_urls() -> list:
+    """Every odoo.com screenshot the site uses: the app pages' content plus any odoocdn image
+    referenced from the industry data or a page source (blog media, covers)."""
     data = json.loads(CONTENT.read_text(encoding="utf-8"))
     urls = set()
     for app in data.values():
         urls.update(u for u in app.get("images", []) if not u.endswith(".svg"))
         urls.update(s["img"] for s in app.get("sections", []) if s.get("img") and not s["img"].endswith(".svg"))
+    for f in [SRC / "industries.py", *sorted((SRC / "pages").rglob("*.html"))]:
+        if f.exists():
+            urls.update(ODOOCDN.findall(f.read_text(encoding="utf-8")))
     return sorted(urls)
 
 

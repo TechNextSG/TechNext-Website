@@ -7,12 +7,15 @@ inline snippet (the intro gate, the consent defaults, the Google tag loaders) is
 up on the next build. Never hand-edit the hashes in vercel.json.
 """
 import base64
+import sys
 import hashlib
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import sitedata as S  # noqa: E402
 # Case-insensitive and tolerant of whitespace/attributes in the closing tag: a missed
 # inline script would not get a hash and the CSP would silently block it.
 INLINE_SCRIPT = re.compile(r"<script\b(?![^>]*\bsrc\s*=)([^>]*)>(.*?)</script\b[^>]*>", re.S | re.I)
@@ -179,6 +182,15 @@ def csp(hashes):
     ])
 
 
+def bot_block():
+    """Edge redirect for AI-training crawlers that ignore robots.txt, website copiers and scraping
+    libraries. robots.txt, /.well-known and /denied stay reachable so the policy can be read."""
+    agents = [a for a in S.AI_TRAINING if a not in S.ROBOTS_ONLY] + S.SCRAPERS
+    pattern = ".*(" + "|".join(re.escape(a).replace("\\ ", " ").replace("\\-", "-").replace("\\/", "/") for a in agents) + ").*"
+    return {"source": "/((?!denied|robots\\.txt|\\.well-known).*)", "destination": "/denied", "permanent": False,
+            "has": [{"type": "header", "key": "user-agent", "value": pattern}]}
+
+
 def write_vercel():
     hashes = inline_script_hashes()
     common = [
@@ -191,17 +203,31 @@ def write_vercel():
         {"key": "X-Frame-Options", "value": "SAMEORIGIN"},
         {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
         {"key": "Permissions-Policy",
-         "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"},
+         "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), serial=(), hid=(), "
+                  "midi=(), display-capture=(), idle-detection=(), browsing-topics=(), xr-spatial-tracking=()"},
+        # the page gets its own browsing context group: no other window can script it
+        {"key": "Cross-Origin-Opener-Policy", "value": "same-origin"},
+        {"key": "X-Permitted-Cross-Domain-Policies", "value": "none"},
+        # TDMRep: text and data mining rights reserved (see /.well-known/tdmrep.json)
+        {"key": "tdm-reservation", "value": "1"},
     ]
     config = {
         "cleanUrls": True,
-        "redirects": [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
+        "redirects": [bot_block()] + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
         "headers": [
             {"source": "/(.*)", "headers": common},
             # css/js/img are versioned by ?v=<content hash>, so they can be cached forever;
             # assets/data/chat-index.json is not, so it is deliberately left out
             {"source": "/assets/(css|js|img)/(.*)",
              "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+            # other sites may not embed or hotlink the stylesheets, scripts and images (browsers enforce it;
+            # social previews and search engines fetch server-side and are unaffected)
+            {"source": "/assets/(.*)",
+             "headers": [{"key": "Cross-Origin-Resource-Policy", "value": "same-site"}]},
+            {"source": "/denied",
+             "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
+            {"source": "/.well-known/tdmrep.json",
+             "headers": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}]},
         ],
     }
     (ROOT / "vercel.json").write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")

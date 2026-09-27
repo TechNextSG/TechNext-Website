@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* TechNext assistant — guided chat with a built-in knowledge base. No backend: answers are matched
    locally, and leads are emailed to sales@technext.asia through FormSubmit with the transcript.
    Hands off to the Let's Talk panel, WhatsApp or the quotation page. */

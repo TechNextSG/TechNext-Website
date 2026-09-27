@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Home hero engine: carousel (3 formats, 10 s, desktop only), animated background (aurora CSS +
    particles canvas + cursor spotlight), parallax floaters, rotating word, KPI counters, toast cycle,
    flow chart with live pulse + zooming pop-ups, orbit tiles. Pauses on hover / hidden tab; honours

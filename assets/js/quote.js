@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Quotation builder: keeps the summary panel in sync with the choices and folds a plain-text
    scope summary into the submission so sales@technext.asia gets one readable block. */
 (function () {

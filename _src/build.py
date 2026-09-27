@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
+import industries as IX  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -219,12 +220,15 @@ LAYOUT = '''<!doctype html>
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
 <link rel="canonical" href="{CANONICAL}">
-<meta property="og:type" content="website">
+<meta name="copyright" content="© {YEAR} TechNext Pte. Ltd. All rights reserved.">
+<meta name="tdm-reservation" content="1">
+<meta name="tdm-policy" content="{SITE_URL}terms#content-use">
+<meta property="og:type" content="{OG_TYPE}">
 <meta property="og:site_name" content="TechNext">
 <meta property="og:title" content="{TITLE}">
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{CANONICAL}">
-<meta property="og:image" content="{SITE_URL}assets/img/og-image.png">
+<meta property="og:image" content="{OG_IMAGE}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3167CA">
 <link rel="icon" type="image/png" sizes="32x32" href="{ROOT}assets/img/favicon-32.png">
@@ -299,7 +303,7 @@ LAYOUT = '''<!doctype html>
 
 <footer class="footer">
   <div class="container footer-inner">
-    <span>© {YEAR} {LEGAL}</span>
+    <span>© {YEAR} {LEGAL} All rights reserved.</span>
     <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}careers.html">Careers</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
@@ -405,6 +409,9 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                         "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
             "identifier": {"@type": "PropertyValue", "propertyID": "UEN", "value": c["uen"]},
             "hasMap": S.OFFICES[0]["maps"],
+            "contactPoint": [{"@type": "ContactPoint", "contactType": "sales", "email": c["sales_email"],
+                              "telephone": c["whatsapp"], "areaServed": ["SG", "PH", "VN"],
+                              "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
             "sameAs": [c["linkedin"]],
@@ -440,7 +447,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "dateModified": art.get("updated", art["date"]), "inLanguage": "en",
                       "articleSection": BLOG_CATS[art["cat"]], "wordCount": art.get("words"),
                       "author": {"@id": org_id}, "publisher": {"@id": org_id},
-                      "image": S.SITE_URL + "assets/img/og-image.png",
+                      "image": cover_url(art) or S.SITE_URL + "assets/img/og-image.png",
                       "mainEntityOfPage": {"@id": page_id}, "isPartOf": {"@id": S.SITE_URL + "blog#blog"}})
     if out_rel == "blog.html":
         graph.append({"@type": "Blog", "@id": S.SITE_URL + "blog#blog", "url": canonical,
@@ -609,6 +616,7 @@ APP_BY_MOD = {a["mod"]: a for c in S.APP_CATEGORIES for a in c["apps"]}
 # Every built page is recorded here (url, title, description) so the chat assistant can recognise and
 # route to any content on the site, not just its scripted topics. Written to assets/data/chat-index.json.
 INDEX = []
+FAQ_INDEX = []          # (url, question, answer) for llms-full.txt
 INDEX_SKIP = {"404.html", "privacy.html", "terms.html", "case-studies.html"}
 
 # How TechNext implements each focus app (our own words; everything from odoo.com is attributed).
@@ -621,6 +629,246 @@ IMPLEMENT = {
     "crm": ["Pipeline stages per team with required fields", "Lead capture from web forms, email and WhatsApp", "Assignment rules and scheduled activities", "Won opportunity → quotation without re-entry"],
 }
 DEFAULT_IMPLEMENT = ["Discovery: we map how the process runs today and match it to the app", "Configuration on a staging database, checked against real records", "Training for the people who will use it, on your own data", "Support after go-live: fixes, changes and upgrades"]
+
+
+# ---------------------------------------------------------------- odoo.com media by reference
+_SHOT_INDEX = {}
+
+
+def odoo_shot(ref: str) -> str:
+    """Full odoocdn URL for "pos/interface.webp" (an odoo.com app image) or "O20:mrp" (Odoo 20 launch)."""
+    if ref.startswith("O20:"):
+        return IX.O20[ref[4:]]
+    if not _SHOT_INDEX:
+        for app in APP_CONTENT.values():
+            for u in app.get("images", []) + [x["img"] for x in app.get("sections", []) if x.get("img")]:
+                _SHOT_INDEX.setdefault(u.split("/static/src/img/apps/")[-1], u)
+    if ref not in _SHOT_INDEX:
+        raise KeyError(f"unknown odoo.com screenshot {ref!r}")
+    return _SHOT_INDEX[ref]
+
+
+def shot_figure(ref: str, caption: str, cls: str = "shot") -> str:
+    """A screenshot framed by its own shape, opening full size in zoom.js."""
+    url = odoo_shot(ref)
+    doc = " shot--doc" if img_ratio(url) < 0.3 else ""
+    alt = attr(caption)
+    return (f'<figure class="{cls}{doc}"><a class="zoom" href="{url}" target="_blank" rel="noopener" data-zoom '
+            f'aria-label="Enlarge screenshot: {alt}"><img src="{url}" alt="{alt}" loading="lazy" decoding="async" '
+            f'data-onerror="closest:figure">{{{{icon:expand}}}}</a><figcaption>{caption}</figcaption></figure>')
+
+
+_VIDEO_TOKEN = re.compile(r"\{\{VIDEO:([A-Za-z0-9_-]{11})\|([^{}]+)\}\}")
+_SHOT_TOKEN = re.compile(r"\{\{SHOT:([^|{}]+)\|([^{}]+)\}\}")
+
+
+_PHOTO_TOKEN = re.compile(r"\{\{PHOTO:([^|{}]+)\|([^{}]+)\}\}")
+
+
+def photo_figure(ref: str, caption: str) -> str:
+    """A photograph at its natural shape (event photos), opening full size in zoom.js."""
+    url = ref if ref.startswith("https://") else odoo_shot(ref)
+    alt = attr(caption)
+    return (f'<figure class="post-media post-media--photo"><a class="zoom" href="{url}" target="_blank" rel="noopener" data-zoom '
+            f'aria-label="Enlarge photo: {alt}"><img src="{url}" alt="{alt}" loading="lazy" decoding="async" '
+            f'data-onerror="closest:figure">{{{{icon:expand}}}}</a><figcaption>{caption}</figcaption></figure>')
+
+
+def media_tokens(content: str) -> str:
+    content = _PHOTO_TOKEN.sub(lambda m: photo_figure(m.group(1).strip(), m.group(2).strip()), content)
+    content = _VIDEO_TOKEN.sub(lambda m: (f'<figure class="post-media post-media--video">{yt_facade(m.group(1), m.group(2))}'
+                                          f'<figcaption>{m.group(2)} · official Odoo video</figcaption></figure>'), content)
+    return _SHOT_TOKEN.sub(lambda m: shot_figure(m.group(1).strip(), m.group(2).strip(), "shot post-media"), content)
+
+
+def _nice_top(v: float) -> float:
+    import math
+    if v <= 0:
+        return 1
+    e = 10 ** math.floor(math.log10(v))
+    for m in (1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10):
+        if v <= m * e:
+            return m * e
+    return 10 * e
+
+
+def _fmt(v: float, unit: str) -> str:
+    if unit == "S$k":
+        return f"S${v:g}k"
+    if unit == "%":
+        return f"{v:g}%"
+    return f"{v:,.0f}"
+
+
+def chart_html(ch: dict) -> str:
+    """Bars as plain HTML (no chart library): one block per view, switched by buttons in
+    industry.js; a visually hidden table carries the same numbers for screen readers."""
+    views = ch["views"]
+
+    def vmax(v):
+        vals = [b[1] for b in v.get("bars", [])] + [x for p in v.get("pairs", []) for x in p[1:3]]
+        return max(vals) if vals else 1
+    shared = _nice_top(max(vmax(v) for v in views)) if ch.get("shared") else None
+    btns = "".join(f'<button type="button" data-view="{k}" aria-pressed="{"true" if k == 0 else "false"}">{v["label"]}</button>'
+                   for k, v in enumerate(views))
+    blocks, tables = [], []
+    for k, v in enumerate(views):
+        top, unit = shared or _nice_top(vmax(v)), v["unit"]
+        grid = "".join(f'<span style="--y:{f:.2f}"><em>{_fmt(top * f, unit)}</em></span>' for f in (1, .5, 0))
+        if "pairs" in v:
+            cols = "".join(
+                f'<div class="ix-col"><div class="ix-pair"><span class="ix-bar s1" style="--h:{a / top:.3f};--i:{j}"><i>{_fmt(a, unit)}</i></span>'
+                f'<span class="ix-bar s2" style="--h:{b / top:.3f};--i:{j}"><i>{_fmt(b, unit)}</i></span></div><small>{lab}</small></div>'
+                for j, (lab, a, b) in enumerate(v["pairs"]))
+            legend = (f'<div class="ix-legend"><span class="s1">{v["legend"][0]}</span><span class="s2">{v["legend"][1]}</span></div>')
+            rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(a, unit)}</td><td>{_fmt(b, unit)}</td></tr>" for lab, a, b in v["pairs"])
+            head = f'<tr><th scope="col">{ch["title"]}</th><th scope="col">{v["legend"][0]}</th><th scope="col">{v["legend"][1]}</th></tr>'
+            n = len(v["pairs"])
+        else:
+            cols = "".join(f'<div class="ix-col"><span class="ix-bar" style="--h:{val / top:.3f};--i:{j}"><i>{_fmt(val, unit)}</i></span><small>{lab}</small></div>'
+                           for j, (lab, val) in enumerate(v["bars"]))
+            legend = ""
+            rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(val, unit)}</td></tr>" for lab, val in v["bars"])
+            head = f'<tr><th scope="col">{ch["title"]}</th><th scope="col">{v["label"]}</th></tr>'
+            n = len(v["bars"])
+        blocks.append(f'<div class="ix-plot" data-plot="{k}"{"" if k == 0 else " hidden"}><div class="ix-grid" aria-hidden="true">{grid}</div>'
+                      f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div>{legend}</div>')
+        tables.append(f'<table class="sr-only"><caption>{ch["title"]}, {v["label"].lower()} (sample data)</caption>{head}{rows}</table>')
+    kpis = "".join(f'<div class="ix-kpi"><small>{lab}</small><b>{val}</b></div>' for lab, val in ch["kpis"])
+    return (f'<div class="ix-kpis">{kpis}</div>'
+            f'<div class="ix-chart-head"><b>{ch["title"]}</b><div class="ix-views" role="group" aria-label="Chart view">{btns}</div></div>'
+            f'<div class="ix-chart">{"".join(blocks)}</div>{"".join(tables)}')
+
+
+def _app_ic(step: dict, size: int) -> str:
+    return f'{{{{odoo:{step["app"]}:{size}}}}}' if step.get("app") else f'<span class="ix-ic">{{{{icon:{step["icon"]}}}}}</span>'
+
+
+def industry_intro_html(key: str) -> str:
+    d = IX.IND[key]
+    return (f'<section class="section section--tight ix-intro-sec"><div class="container">'
+            f'<div class="ix-intro reveal"><p class="ix-intro-h">In one paragraph</p><p>{d["intro"]}</p></div></div></section>')
+
+
+def industry_html(key: str) -> str:
+    d = IX.IND[key]
+    name, low = d["name"], d["noun"]
+    steps = d["flow"]
+    tabs = "".join(
+        f'<button class="ix-step{" is-on" if k == 0 else ""}" type="button" role="tab" id="ixs-{k}" aria-selected="{"true" if k == 0 else "false"}" '
+        f'aria-controls="ixp-{k}" tabindex="{"0" if k == 0 else "-1"}" style="--i:{k}"><span class="ix-node">{_app_ic(st, 28)}</span>'
+        f'<span class="ix-t"><small>{k + 1:02d}</small>{st["t"]}</span></button>' for k, st in enumerate(steps))
+    panels = "".join(
+        f'<article class="ix-panel{" is-on" if k == 0 else ""}" role="tabpanel" id="ixp-{k}" aria-labelledby="ixs-{k}">'
+        f'<div class="ix-p-head">{_app_ic(st, 44)}<div><span class="ix-kick">Step {k + 1} of {len(steps)} · {st["odoo"]}</span><h3>{st["h"]}</h3></div></div>'
+        f'<p>{st["p"]}</p><dl class="ix-p-meta"><div><dt>In Odoo</dt><dd>{st["odoo"]}</dd></div><div><dt>What it replaces</dt><dd>{st["was"]}</dd></div></dl></article>'
+        for k, st in enumerate(steps))
+    ba = "".join(
+        f'<li class="ix-row" style="--i:{k}"><b class="ix-task">{t}</b><span class="ix-faces">'
+        f'<span class="ix-face ix-before">{{{{icon:x}}}}<span><span class="sr-only">Today: </span>{b}</span></span>'
+        f'<span class="ix-face ix-after">{{{{icon:check}}}}<span><span class="sr-only">With Odoo: </span>{a}</span></span></span></li>'
+        for k, (t, b, a) in enumerate(d["ba"]))
+    reports = "".join(f'<li>{{{{icon:check}}}}{r}</li>' for r in d["chart"]["reports"])
+    vid, vtitle = d["video"]
+    shots = "".join(shot_figure(ref, cap, "shot ix-shot reveal") for ref, cap in d["shots"])
+    new20 = "".join(f'<li>{{{{icon:check}}}}{x}</li>' for x in d["new20"])
+    phases = "".join(
+        f'<li class="ix-phase reveal" style="--i:{k}"><span class="ix-ph-n">Phase {k + 1}</span><h3>{p["h"]}</h3>'
+        f'<div class="ix-ph-apps">{"".join(f"{{{{odoo:{a}:28}}}}" for a in p["apps"])}</div>'
+        f'<ul class="checks">{"".join(f"<li>{{{{icon:check}}}}{i}</li>" for i in p["items"])}</ul></li>' for k, p in enumerate(d["phases"]))
+    ints = "".join(f'<span class="ix-chip">{{{{icon:{ic}}}}}{lab}</span>' for ic, lab in d["integrations"])
+    faqs = "".join(f'<details><summary>{q} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{a}</p></div></details>' for q, a in d["faqs"])
+    by_out = {a["out"]: a for a in ARTICLES}
+    reads = "".join(blog_card(by_out[r], k) for k, r in enumerate(d["reading"]) if r in by_out)
+    others = "".join(f'<a href="{{{{ROOT}}}}industries/{k2}.html">{{{{icon:{ic}}}}}{IX.IND[k2]["name"]}</a>'
+                     for k2, ic in (("medical", "pulse"), ("travel", "plane"), ("retail", "bag"), ("ecommerce", "cart"),
+                                    ("construction", "hardhat"), ("fnb", "utensils"), ("manufacturing", "gear"), ("health-wellness", "heart"))
+                     if k2 != key)
+    return f'''<section class="section" id="flow">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">how it flows</span><h2>{d["flow_title"]}</h2><p class="lead">{d["flow_lead"]}</p></div>
+    <div class="ix-flow reveal" data-ixflow>
+      <div class="ix-track" role="tablist" aria-label="{attr(name)} workflow in Odoo, step by step"><span class="ix-rail" aria-hidden="true"><i></i></span>{tabs}</div>
+      <div class="ix-panels">{panels}</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="two two--top ix-ba-wrap">
+      <div class="reveal">
+        <span class="hand">before and after</span>
+        <h2>What changes on day one.</h2>
+        <p class="lead">The same six jobs, done today and done in Odoo. Switch between them.</p>
+        <div class="ix-switch" role="group" aria-label="Compare"><button type="button" data-ba="before" aria-pressed="false">Today</button><button type="button" data-ba="after" aria-pressed="true">With Odoo</button></div>
+      </div>
+      <ul class="ix-ba reveal" data-ixba data-state="after">{ba}</ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="two two--top ix-dash-wrap">
+      <div class="reveal">
+        <span class="hand">the numbers you'll see</span>
+        <h2>{d["chart"]["title"]}, on one screen.</h2>
+        <p class="lead">Every figure comes from the transactions your team already records in Odoo. These are the reports we set up first for {low}.</p>
+        <ul class="checks">{reports}</ul>
+      </div>
+      <figure class="ix-dash reveal" data-ixchart>
+        <div class="st-bar"><i></i><i></i><i></i>{{{{odoo:spreadsheet_dashboard:16}}}}<span>Odoo · {name} dashboard</span><span class="ix-sample">Sample data</span></div>
+        {chart_html(d["chart"])}
+        <figcaption>Illustrative sample figures. In your Odoo, this dashboard runs on your own live data.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">see it in odoo</span><h2>What your team will use.</h2><p class="lead">An official Odoo video and screenshots of the apps in this setup. Press a screenshot to see it full size.</p></div>
+    <div class="ix-media">
+      <div class="ix-video reveal">{yt_facade(vid, vtitle)}<p class="ix-cap">{vtitle} · official Odoo video</p></div>
+      <div class="ix-shots">{shots}</div>
+    </div>
+    <p class="small muted mt-24">Screenshots and video © Odoo S.A., from odoo.com and Odoo's YouTube channel. TechNext is an Odoo Partner.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="ix-new reveal">
+      <div class="ix-new-head">{{{{odoo:ai_app:44}}}}<div><span class="hand">new in odoo 20</span><h2>What Odoo 20 adds for {low}.</h2></div></div>
+      <ul class="checks">{new20}</ul>
+      <a class="btn-link" href="{{{{ROOT}}}}blog/odoo-20-whats-new.html">Odoo 20, explained {{{{icon:arrow}}}}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">how we roll it out</span><h2>Three phases, one database.</h2><p class="lead">Each phase goes live before the next one starts, so your team learns Odoo on work that already matters.</p></div>
+    <ol class="ix-phases">{phases}</ol>
+    <div class="ix-int reveal"><b>Connects to</b><div>{ints}</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">common questions</span><h2>Odoo for {low}, answered.</h2></div>
+    <div class="faq reveal">{faqs}</div>
+  </div>
+</section>
+
+<section class="section section--alt section--tight">
+  <div class="container">
+    <div class="sec-head sec-head--row reveal"><div><span class="hand">keep reading</span><h2 style="margin:0">Guides for this decision.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
+    <div class="post-cards post-cards--two">{reads}</div>
+    <div class="ix-others reveal"><b>Other industries</b><div>{others}</div></div>
+  </div>
+</section>'''
 
 
 def yt_facade(vid: str, title: str) -> str:
@@ -832,10 +1080,37 @@ def load_articles():
     ARTICLES.sort(key=lambda a: (a["date"], a.get("order", 0)), reverse=True)
 
 
+PHOTO_COVERS = {"O20:oe_photo"}
+
+
+def cover_url(a: dict) -> str:
+    """Absolute image URL of an article's cover, or "" for generated (icon) covers."""
+    c = a.get("cover", "")
+    if not c or c.startswith("icons:"):
+        return ""
+    return c if c.startswith("https://") else odoo_shot(c)
+
+
+def cover_html(a: dict) -> str:
+    c = a.get("cover", "")
+    if not c:
+        return ""
+    if c.startswith("icons:"):
+        ics = []
+        for k, ref in enumerate(c[6:].split(",")):
+            kind, _, name = ref.partition(":")
+            inner = f"{{{{odoo:{name}:34}}}}" if kind == "odoo" else f"{{{{icon:{name}}}}}"
+            ics.append(f'<span style="--i:{k}">{inner}</span>')
+        return f'<div class="post-cover post-cover--gen post-cover--{a["cat"]}" aria-hidden="true"><div class="pc-ics">{"".join(ics)}</div></div>'
+    fit = "photo" if (c in PHOTO_COVERS or a.get("cover_fit") == "photo") else "shot"
+    return (f'<div class="post-cover post-cover--{fit}" aria-hidden="true"><img src="{cover_url(a)}" alt="" loading="lazy" '
+            f'decoding="async" data-onerror="closest:.post-cover"></div>')
+
+
 def blog_card(a: dict, k: int, heading: str = "h3") -> str:
     icon = BLOG_ICON[a["cat"]]
     ic = f"{{{{odoo:{icon[5:]}:22}}}}" if icon.startswith("odoo:") else f"{{{{icon:{icon}}}}}"
-    return (f'<article class="post-card reveal" data-tags="{a["cat"]}" style="--i:{k % 6}">'
+    return (f'<article class="post-card reveal" data-tags="{a["cat"]}" style="--i:{k % 6}">{cover_html(a)}'
             f'<div class="post-card-top"><span class="post-cat post-cat--{a["cat"]}">{ic}{BLOG_CATS[a["cat"]]}</span>'
             f'<span class="post-read">{a["read"]} min read</span></div>'
             f'<{heading}><a href="{{{{ROOT}}}}{a["out"]}">{a["h1"]}</a></{heading}>'
@@ -878,6 +1153,8 @@ def article_html(meta: dict, body: str) -> str:
         updated = f' · Updated <time datetime="{art["updated"]}">{_nice_date(art["updated"])}</time>'
     icon = BLOG_ICON[art["cat"]]
     ic = f"{{{{odoo:{icon[5:]}:22}}}}" if icon.startswith("odoo:") else f"{{{{icon:{icon}}}}}"
+    if cover_url(art):
+        meta["og_image"] = cover_url(art)
     meta["head"] = (meta.get("head", "") + f'<meta property="article:published_time" content="{art["date"]}">'
                     f'<meta property="article:section" content="{BLOG_CATS[art["cat"]]}">')
     return f'''<section class="page-hero page-hero--stage page-hero--post" data-stage-hero>
@@ -997,6 +1274,10 @@ def clean_links(html: str) -> str:
     return _INTERNAL_HTML.sub(r"\1", html)
 
 
+_IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")
+_IX_BODY = re.compile(r"\{\{INDUSTRY:([a-z-]+)\}\}")
+
+
 def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{APPS_NAV}}" in content:
         content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html())
@@ -1010,6 +1291,12 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{MARQUEE}}", marquee_html())
     if "{{PILLARS}}" in content:
         content = content.replace("{{PILLARS}}", pillars_html())
+    content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
+    content = _IX_BODY.sub(lambda m: industry_html(m.group(1)), content)
+    if "{{VIDEO:" in content or "{{SHOT:" in content or "{{PHOTO:" in content:
+        content = media_tokens(content)
+    if "data-zoom" in content and "assets/js/zoom.js" not in meta.get("scripts", []):
+        meta["scripts"] = meta.get("scripts", []) + ["assets/js/zoom.js"]
     if "{{BLOG_" in content:
         content = (content.replace("{{BLOG_CARDS}}", "".join(blog_card(a, k, "h2") for k, a in enumerate(ARTICLES)))
                           .replace("{{BLOG_LATEST}}", "".join(blog_card(a, k) for k, a in enumerate(ARTICLES[:3])))
@@ -1026,6 +1313,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     canonical = S.SITE_URL + clean_url(out_rel)
     if out_rel not in INDEX_SKIP:
         INDEX.append({"u": clean_url(out_rel), "t": meta["title"], "d": meta.get("desc", "").strip()})
+        for q, a in _FAQ.findall(content):
+            FAQ_INDEX.append((canonical, _text(q), _text(a)))
     # Google shows ~60 characters. The page's own keywords come first; the brand suffix is
     # added only when it still fits (Google usually shows the site name separately anyway).
     base_title = meta["title"]
@@ -1038,10 +1327,12 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     html = (html.replace("{TITLE}", title)
                 .replace("{DESC}", meta.get("desc", S.DEFAULT_DESC).replace('"', "&quot;"))
                 .replace("{CANONICAL}", canonical)
+                .replace("{OG_TYPE}", "article" if meta.get("article") else "website")
+                .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + "assets/img/og-image.png")
                 .replace("{SITE_URL}", S.SITE_URL)
+                .replace("{HEAD_EXTRA}", meta.get("head", ""))
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
-                .replace("{HEAD_EXTRA}", meta.get("head", ""))
                 .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html"))
                 .replace("{TAGS_BODY}", tags_body(out_rel == "index.html"))
                 .replace("{JSONLD}", jsonld(canonical, meta, content, out_rel))
@@ -1137,10 +1428,81 @@ def write_llms():
             used.add(e["u"])
             lines.append(f"- [{strip(e['t'])}]({S.SITE_URL}{e['u']}): {e['d']}")
     lines += ["", "## Optional", "",
+              f"- [Full text for AI assistants]({S.SITE_URL}llms-full.txt): every page summary and every FAQ answer on the site",
               f"- [Privacy Policy]({S.SITE_URL}privacy): how personal data and cookies are handled",
               f"- [Terms of Service]({S.SITE_URL}terms): website terms and how engagements are agreed", ""]
     (ROOT / "llms.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
     return len(used)
+
+
+def write_robots():
+    """robots.txt: search and answer engines in, AI-training crawlers out (lists in sitedata)."""
+    lines = ["# technext.asia — © TechNext Pte. Ltd. Content, design and code are not licensed for AI training",
+             "# or reuse. Text and data mining rights are reserved: see /.well-known/tdmrep.json and",
+             f"# {S.SITE_URL}terms#content-use", ""]
+    for ua in S.AI_TRAINING:
+        lines += [f"User-agent: {ua}", "Disallow: /", ""]
+    for ua in S.AI_ALLOW:
+        lines += [f"User-agent: {ua}", "Allow: /", "Disallow: /denied", ""]
+    lines += ["User-agent: *", "Allow: /", "Disallow: /denied", "", f"Sitemap: {S.SITE_URL}sitemap.xml", ""]
+    (ROOT / "robots.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+
+
+def write_well_known():
+    """TDMRep (W3C community spec): text and data mining rights reserved, plus security.txt."""
+    wk = ROOT / ".well-known"
+    wk.mkdir(exist_ok=True)
+    (wk / "tdmrep.json").write_text(json.dumps([{"location": "/*", "tdm-reservation": 1,
+                                                 "tdm-policy": S.SITE_URL + "terms#content-use"}], indent=2) + "\n",
+                                    encoding="utf-8", newline="\n")
+    expires = date.today().replace(year=date.today().year + 1).isoformat()
+    (wk / "security.txt").write_text("\n".join([
+        f"Contact: mailto:{S.COMPANY['sales_email']}",
+        f"Expires: {expires}T00:00:00.000Z",
+        "Preferred-Languages: en",
+        f"Canonical: {S.SITE_URL}.well-known/security.txt", ""]), encoding="utf-8", newline="\n")
+
+
+DENIED = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Automated access not permitted · TechNext</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.6 system-ui,sans-serif;color:#1F1F3D;background:#fff}main{max-width:560px;padding:32px}h1{font-size:1.4rem;margin:0 0 .5em}a{color:#3167CA}</style>
+</head><body><main><h1>Automated access to this site is not permitted.</h1>
+<p>This site does not allow automated copying, scraping or collection of its content, design or code, including for AI training. See <a href="/terms#content-use">our terms</a>.</p>
+<p>If you are a person and landed here by mistake, go to <a href="/">technext.asia</a>. For permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
+</main></body></html>
+"""
+
+
+def write_denied():
+    (ROOT / "denied.html").write_text(DENIED, encoding="utf-8", newline="\n")
+
+
+def write_llms_full():
+    """llms-full.txt: the facts, offices, pages and every FAQ answer, in plain text, so answer engines
+    can quote TechNext accurately without parsing the design."""
+    c = S.COMPANY
+    out = ["# TechNext — full reference", "",
+           "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with an office in "
+           "Taguig City, Metro Manila and a development hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
+           "enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.", "",
+           "## Contact", "", f"- Sales: {c['sales_email']}", f"- WhatsApp: {c['whatsapp']}", f"- LinkedIn: {c['linkedin']}", "",
+           "## Offices", ""]
+    for o in S.OFFICES:
+        out.append(f"- {o['name']}: {', '.join(o['lines'])} — {o['role']}")
+    out += ["", "## Pages", ""]
+    for e in sorted(INDEX, key=lambda e: e["u"]):
+        out.append(f"- {S.SITE_URL}{e['u']} — {re.sub(r'\s*[|·]\s*TechNext$', '', e['t'])}: {e['d']}")
+    out += ["", "## Questions and answers", ""]
+    seen = set()
+    for url, q, a in FAQ_INDEX:
+        if (q, a) in seen:
+            continue
+        seen.add((q, a))
+        out += [f"### {q}", "", a, "", f"Source: {url}", ""]
+    out += ["---", "© TechNext Pte. Ltd. Quote with attribution and a link. Not licensed for AI training or bulk reuse.", ""]
+    (ROOT / "llms-full.txt").write_text("\n".join(out), encoding="utf-8", newline="\n")
+    return len(seen)
 
 
 def write_chat_index():
@@ -1155,6 +1517,7 @@ def main():
     nav_cache = {}
     built = []
     INDEX.clear()
+    FAQ_INDEX.clear()
     load_articles()
     for path in sorted(PAGES.rglob("*.html")):
         built.append(build_page(path, nav_cache))
@@ -1165,8 +1528,12 @@ def main():
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"
               " run: python -B _src/measure_images.py")
     write_sitemap(built)
+    write_robots()
+    write_well_known()
+    write_denied()
     write_chat_index()
     print(f"llms.txt: {write_llms()} pages")
+    print(f"llms-full.txt: {write_llms_full()} answers")
     # security headers: hashes every inline script of the pages just built
     from make_vercel import write_vercel
     print(f"vercel.json: {write_vercel()} inline script hashes")

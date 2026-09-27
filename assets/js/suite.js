@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Home "Every Odoo app, one database" — a system you build.
    Every app sits on the rings; press one to plug it into (or out of) the one database. Spokes
    carry a pulse from the core, lines join apps that already work together, the core lights the

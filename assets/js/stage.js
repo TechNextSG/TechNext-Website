@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Hero stages (assets/css/stage.css): start after the first-visit intro, pause when
    offscreen or in a hidden tab, add pointer depth, cycle the Training roles, and load
    the Google Map only on request (or once the visitor has accepted cookies). */

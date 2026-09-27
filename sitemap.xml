@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://technext.asia/blog</loc><lastmod>2026-09-26</lastmod></url>
+  <url><loc>https://technext.asia/blog</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/how-an-odoo-implementation-works</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/invoicenow-singapore-gst-timeline</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/odoo-20-singapore-philippines-vietnam</loc><lastmod>2026-09-27</lastmod></url>
@@ -9,8 +9,9 @@
   <url><loc>https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/signs-you-have-outgrown-spreadsheets</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/standard-first-odoo-customisation</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/blog/upcoming-odoo-events-singapore-philippines-vietnam</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/blog/what-is-erp</loc><lastmod>2026-09-27</lastmod></url>
-  <url><loc>https://technext.asia/careers</loc><lastmod>2026-09-26</lastmod></url>
+  <url><loc>https://technext.asia/careers</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/company</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/industries/construction</loc><lastmod>2026-09-27</lastmod></url>
@@ -23,61 +24,61 @@
   <url><loc>https://technext.asia/industries/travel</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/odoo/ai-integration</loc><lastmod>2026-09-26</lastmod></url>
   <url><loc>https://technext.asia/odoo/apps</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/account</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/accountant</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/ai_app</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/appointment</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/approvals</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/crm</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/documents</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/event</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/fleet</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/helpdesk</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_appraisal</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_expense</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_holidays</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_payroll</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_recruitment</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_referral</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/hr_timesheet</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/im_livechat</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/industry_fsm</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/iot</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/knowledge</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/mail</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/maintenance</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/marketing_automation</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/mass_mailing</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/mass_mailing_sms</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/mrp</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/mrp_plm</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/planning</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/point_of_sale</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/pos_restaurant</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/project</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/purchase</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/quality_control</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/sale</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/sale_renting</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/sale_subscription</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/sign</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/social</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/spreadsheet_dashboard</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/stock</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/survey</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/voip</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/website</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/website_blog</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/website_forum</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/website_sale</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/website_slides</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/apps/whatsapp</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/crm-development</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/discovery</loc><lastmod>2026-09-26</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/account</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/accountant</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/ai_app</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/appointment</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/approvals</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/crm</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/documents</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/event</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/fleet</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/helpdesk</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_appraisal</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_expense</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_holidays</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_payroll</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_recruitment</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_referral</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/hr_timesheet</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/im_livechat</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/industry_fsm</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/iot</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/knowledge</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/mail</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/maintenance</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/marketing_automation</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/mass_mailing</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/mass_mailing_sms</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/mrp</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/mrp_plm</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/planning</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/point_of_sale</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/pos_restaurant</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/project</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/purchase</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/quality_control</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/sale</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/sale_renting</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/sale_subscription</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/sign</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/social</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/spreadsheet_dashboard</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/stock</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/survey</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/voip</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/website</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/website_blog</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/website_forum</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/website_sale</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/website_slides</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/apps/whatsapp</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/crm-development</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/discovery</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/odoo/erp-system</loc><lastmod>2026-09-27</lastmod></url>
-  <url><loc>https://technext.asia/odoo/integration</loc><lastmod>2026-09-26</lastmod></url>
-  <url><loc>https://technext.asia/odoo/support</loc><lastmod>2026-09-26</lastmod></url>
+  <url><loc>https://technext.asia/odoo/integration</loc><lastmod>2026-09-27</lastmod></url>
+  <url><loc>https://technext.asia/odoo/support</loc><lastmod>2026-09-27</lastmod></url>
   <url><loc>https://technext.asia/odoo/training</loc><lastmod>2026-09-26</lastmod></url>
   <url><loc>https://technext.asia/privacy</loc><lastmod>2026-09-26</lastmod></url>
   <url><loc>https://technext.asia/quotation</loc><lastmod>2026-09-27</lastmod></url>

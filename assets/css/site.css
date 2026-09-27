@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
 /* TechNext Website v2 — design system
    Brand blue #3167CA (typed, never sampled). Bright surfaces, one accent, Inter for reading,
    Plus Jakarta Sans for headings, Caveat for the handwritten annotation (Odoo-style).
@@ -5,6 +6,7 @@
    Motion: hover lift 2px · press scale .96 · reveals 380ms, 70ms apart, ease-out · spring for pops. */
 
 :root{
+  --tn-mark:"© TechNext Pte. Ltd. · technext.asia";
   --blue:#3167CA; --blue-700:#1E4691; --blue-300:#6FA0F5; --blue-100:#DDE7F8; --blue-050:#EAF0FB;
   --ink:#1F1F3D; --body:#4C4C63; --muted:#8888A0; --line:#E7E4E9; --paper:#FFFFFF; --alt:#FAF9FB;
   --ok:#137A4A; --ok-050:#E8F5EE; --amber:#A96B00; --amber-050:#FDF6E9; --red:#D93A30;

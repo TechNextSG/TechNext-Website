@@ -119,9 +119,11 @@
 - [Odoo Online vs Odoo.sh vs on-premise: which fits?](https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise): Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
 - [Seven signs your business has outgrown spreadsheets](https://technext.asia/blog/signs-you-have-outgrown-spreadsheets): Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - [Standard first: when to customise Odoo, and when not](https://technext.asia/blog/standard-first-odoo-customisation): When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
+- [Odoo events Oct–Nov 2026: Singapore, Philippines, Vietnam](https://technext.asia/blog/upcoming-odoo-events-singapore-philippines-vietnam): Upcoming Odoo events in Singapore, the Philippines and Vietnam for October and November 2026, plus free online webinars: dates, venues and links, by TechNext.
 - [What is ERP? A plain-language guide for growing companies](https://technext.asia/blog/what-is-erp): What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.
 
 ## Optional
 
+- [Full text for AI assistants](https://technext.asia/llms-full.txt): every page summary and every FAQ answer on the site
 - [Privacy Policy](https://technext.asia/privacy): how personal data and cookies are handled
 - [Terms of Service](https://technext.asia/terms): website terms and how engagements are agreed
