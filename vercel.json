@@ -402,53 +402,33 @@
       "permanent": true
     },
     {
-      "source": "/blog",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog/",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/blog.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/ai-article",
-      "destination": "/",
+      "destination": "/blog",
       "permanent": true
     },
     {
       "source": "/ai-article/",
-      "destination": "/",
+      "destination": "/blog",
       "permanent": true
     },
     {
       "source": "/ai-article/:path*",
-      "destination": "/",
+      "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/careers",
-      "destination": "/company",
+      "source": "/blog/",
+      "destination": "/blog",
       "permanent": true
     },
     {
       "source": "/careers/",
-      "destination": "/company",
+      "destination": "/careers",
       "permanent": true
     },
     {
-      "source": "/careers.html",
-      "destination": "/company",
+      "source": "/careers/:path+",
+      "destination": "/careers",
       "permanent": true
     },
     {

@@ -106,9 +106,11 @@ REDIRECTS = [
     ("/blog/vietnam-tech-talent-dev-hub.html", "/company"),
     ("/ai-article/vietnam-tech-talent-dev-hub", "/company"),
     ("/ai-article/vietnam-tech-talent-dev-hub.html", "/company"),
-    ("/blog", "/"), ("/blog/", "/"), ("/blog/:path*", "/"), ("/blog.html", "/"),
-    ("/ai-article", "/"), ("/ai-article/", "/"), ("/ai-article/:path*", "/"),
-    ("/careers", "/company"), ("/careers/", "/company"), ("/careers.html", "/company"),
+    ("/ai-article", "/blog"), ("/ai-article/", "/blog"), ("/ai-article/:path*", "/blog"),
+    # --- the blog and careers came back on 2026-09-27 as /blog and /careers ------------
+    # Old article URLs keep their redirects above; any other old /blog/ URL simply 404s
+    # now, because a catch-all here would also swallow the new articles.
+    ("/blog/", "/blog"), ("/careers/", "/careers"), ("/careers/:path+", "/careers"),
     ("/gallery", "/company"), ("/gallery/", "/company"), ("/gallery.html", "/company"),
     # --- the old site served these as directories; v2 serves files -----------------
     ("/privacy/", "/privacy"),

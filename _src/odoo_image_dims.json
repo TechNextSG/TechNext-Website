@@ -1,0 +1,986 @@
+{
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-bill-pdf.webp": [
+451,
+641
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-bill.webp": [
+1324,
+972
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-hero-image.webp": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-mobile-01.webp": [
+780,
+1460
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-mobile-02.webp": [
+920,
+1630
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-vendor-bill.webp": [
+1000,
+591
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/agent-configuration.webp": [
+1256,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/agent-creation.webp": [
+816,
+220
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/agent-tailored-responses.webp": [
+816,
+1318
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/business-insights-agent.webp": [
+816,
+1318
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/new-task.webp": [
+816,
+400
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/notification-customer-invoice.webp": [
+815,
+140
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/task-assignation.webp": [
+816,
+148
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/task-prioritization.webp": [
+816,
+148
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ai/task-tags.webp": [
+816,
+144
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-calendar.webp": [
+976,
+852
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-confirmation.webp": [
+1039,
+793
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-hero-image.webp": [
+1440,
+720
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-meet.webp": [
+1046,
+774
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-meetings.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-mobile.webp": [
+390,
+725
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-reporting.webp": [
+1046,
+564
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-ressources.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-video-conference.webp": [
+1046,
+630
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/appraisals/hero-banner.png": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/blog/banner.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/blog/command.webp": [
+750,
+1025
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/blog/convert.webp": [
+1000,
+721
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/blog/editor.webp": [
+1046,
+581
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/blog/seo.webp": [
+1010,
+720
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/business_intelligence/copy_paste.webp": [
+1046,
+655
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/business_intelligence/dashboard.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/business_intelligence/features_formating.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/business_intelligence/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/business_intelligence/pivot_02.webp": [
+1046,
+655
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/crm/effortless_communication.webp": [
+1046,
+521
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/crm/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/crm/quotation.webp": [
+1046,
+564
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/crm/reporting.webp": [
+1046,
+559
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/crm/sample_quote.webp": [
+540,
+5268
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/discuss/agents.webp": [
+596,
+326
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/discuss/chat.webp": [
+750,
+774
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/discuss/hero.webp": [
+1058,
+611
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/discuss/inbox.webp": [
+1665,
+1010
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/discuss/search.webp": [
+1036,
+732
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/ask_for_signature.webp": [
+300,
+145
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/create_task.webp": [
+300,
+145
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/hub.webp": [
+409,
+534
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/organization.webp": [
+1046,
+531
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/process_bills.webp": [
+300,
+145
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/request_file.webp": [
+300,
+145
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/documents/sign_online.webp": [
+393,
+851
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/adaptive-product.webp": [
+1046,
+534
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/bump_up.webp": [
+830,
+956
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/maximise.webp": [
+783,
+1046
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/products-grid.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/reporting.webp": [
+1046,
+616
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/elearning/ease_to_use.webp": [
+1046,
+621
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/elearning/front-screen.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/elearning/learning-journey.webp": [
+1046,
+578
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/elearning/train-people.webp": [
+1046,
+540
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/all_in_one_place.webp": [
+1046,
+526
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/all_of_your_people.webp": [
+1046,
+45
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/performance_appraisals.webp": [
+725,
+723
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/show_off_those_skills.webp": [
+1046,
+578
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/stuff_private.webp": [
+1003,
+647
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/employees/take_control_of_time_off.webp": [
+1046,
+565
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/events/hero-banner.png": [
+1440,
+930
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/expense_tracking.webp": [
+277,
+458
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/less_typing.webp": [
+1046,
+515
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/more_scanning.webp": [
+284,
+308
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/one_report.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/ready_set_expense.webp": [
+1046,
+312
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/reimburse.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/robust_reporting.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/expenses/submit_on_the_go.webp": [
+393,
+851
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-hero-image-mobile.webp": [
+390,
+760
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-hero-image.webp": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-invoice.webp": [
+1039,
+1046
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-invoicing.webp": [
+531,
+453
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-planning.webp": [
+1046,
+572
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-tasks.webp": [
+704,
+899
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-timesheet.webp": [
+792,
+680
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/field-service/field-service-worksheet.webp": [
+539,
+1046
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/fleet/hero-banner.png": [
+1440,
+785
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/forum/best_brushes.webp": [
+846,
+940
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/forum/customize_01.webp": [
+719,
+534
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/forum/customize_02.webp": [
+391,
+336
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/forum/gamification.webp": [
+1046,
+613
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/forum/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/helpdesk/helpdesk-dashboard.webp": [
+1440,
+780
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/helpdesk/helpdesk-tickets-overview.webp": [
+1360,
+559
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/automate_vendor.webp": [
+850,
+226
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/device.png": [
+346,
+380
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/hero_image.webp": [
+1440,
+800
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/optimize_warehouse.webp": [
+1046,
+623
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/reservation_mechanism.webp": [
+1046,
+786
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/smarts_routes.webp": [
+1046,
+424
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/traceability.webp": [
+1046,
+399
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/inventory/truck.webp": [
+1046,
+516
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/invoicing-customer-portal-payments.webp": [
+660,
+750
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/invoicing-hero-image.webp": [
+1920,
+1200
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/invoicing-payments-list.webp": [
+2639,
+849
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/invoicing_mobile_01.webp": [
+393,
+851
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/invoicing_recurring_invoices.webp": [
+1046,
+352
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/invoicing/your_invoice_your_style.webp": [
+856,
+467
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/build.webp": [
+1046,
+616
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/build_2.webp": [
+370,
+360
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/fingertips.webp": [
+885,
+560
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/get_acces.webp": [
+628,
+514
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/knowledge/shape.webp": [
+1046,
+615
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/answer_questions.webp": [
+1046,
+680
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/help_is_just_a_click_away.webp": [
+1046,
+738
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/meet_chatbot_your_new_teammate.webp": [
+1046,
+655
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/never_miss_a_question.webp": [
+1046,
+651
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/live-chat/turn_visitor_into_customer.webp": [
+1046,
+911
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/maintenance/hero-banner.png": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/barcode.webp": [
+600,
+1005
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/become_paperless_01.webp": [
+488,
+772
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/become_paperless_02.webp": [
+1046,
+642
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/become_paperless_03.webp": [
+374,
+496
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/operations.webp": [
+1046,
+537
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/schedule.webp": [
+1046,
+559
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/manufacturing/sigma_6.webp": [
+1046,
+585
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/planning/planning-ressource-equipment.webp": [
+1088,
+930
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/planning/planning-ressource-staff.webp": [
+870,
+932
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/planning/planning-shift-template.webp": [
+1932,
+683
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/planning/planning-shifts-overview.webp": [
+1600,
+957
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/planning/planning-shifts-scheduling.webp": [
+1864,
+699
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/avatar-01.webp": [
+268,
+268
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/avatar-02.webp": [
+268,
+268
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/avatar-03.webp": [
+268,
+268
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/avatar-04.webp": [
+268,
+268
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/cross_channel_selling_1.webp": [
+920,
+782
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/cross_channel_selling_2.webp": [
+1046,
+785
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/integrated_payments.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/interface.webp": [
+1046,
+760
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/payment_terminal.webp": [
+674,
+670
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-ai-chat.webp": [
+816,
+1366
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-booking-details.webp": [
+810,
+423
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-delivery-apps.webp": [
+324,
+274
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-kitchen-toolbar.webp": [
+1920,
+99
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-orders-list.webp": [
+1920,
+377
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/pos-register.webp": [
+1068,
+618
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/self-order-kiosk.webp": [
+816,
+1132
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/self_service_for_the_win_kiosk.webp": [
+592,
+861
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/pos/self_service_for_the_win_mobile.webp": [
+393,
+851
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-chatter.webp": [
+670,
+664
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-dashboard.webp": [
+1331,
+890
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-hero-image.webp": [
+2880,
+1429
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-overview-budgets.webp": [
+630,
+315
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-overview-milestones.webp": [
+630,
+371
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-overview-profitability.webp": [
+630,
+450
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-timer.webp": [
+800,
+161
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/project/project-timesheets.webp": [
+1046,
+503
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/all_the_small_things_1.webp": [
+831,
+353
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/automated_rfq_1.webp": [
+599,
+179
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/automated_rfq_2.webp": [
+330,
+448
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/automated_rfq_3.webp": [
+599,
+179
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/automated_rfq_4.webp": [
+330,
+448
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/charge_vendors_1.webp": [
+476,
+598
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/flexible_1.webp": [
+1046,
+755
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/flexible_2.webp": [
+1046,
+301
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/purchase/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/quality_inspections_1.webp": [
+1046,
+47
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/quality_inspections_2.webp": [
+810,
+405
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/quality_teams.webp": [
+1046,
+524
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/unchecked.webp": [
+1046,
+604
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/worksheets.webp": [
+1046,
+424
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/zero_1.webp": [
+536,
+567
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/quality/zero_2.webp": [
+1046,
+787
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/don_t_waste_time_typing.webp": [
+1046,
+655
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/less_scheduling_more_interviewing.webp": [
+1046,
+619
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/never_wonder_about_a_job_status.webp": [
+1046,
+465
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/reporting_that_makes_sense.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/tailor_made_pipelines_rectangle.webp": [
+1046,
+421
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/visualize_pipeline_to_crop.webp": [
+1046,
+636
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/recruitment/you_re_hired.webp": [
+683,
+556
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/referral/hero-banner.png": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/automate.webp": [
+1046,
+279
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/hero_image.webp": [
+1046,
+498
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/rental-days.webp": [
+1046,
+551
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/rental_agreement.webp": [
+1046,
+678
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/rental_meeting_room.webp": [
+1046,
+602
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/rental_product.webp": [
+1046,
+657
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/rental/rental_sign.webp": [
+1046,
+46
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/ai_powered.webp": [
+1046,
+465
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/customer_portal_01.webp": [
+790,
+797
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/customer_portal_02.webp": [
+883,
+827
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/manage_01.webp": [
+1046,
+679
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/manage_02.webp": [
+1046,
+380
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/qualified_leads.webp": [
+984,
+705
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sales/quote_template.webp": [
+1046,
+655
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/control.webp": [
+1334,
+747
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/features_adopt.webp": [
+972,
+867
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/features_reminders.webp": [
+1046,
+736
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/hero_image.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/sign_online.webp": [
+393,
+851
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/sign/simplify-signing.webp": [
+1465,
+872
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/subscription/hero-image.webp": [
+1440,
+786
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/survey/hero-banner.png": [
+1440,
+900
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/accrual.webp": [
+754,
+549
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/allocated-time.webp": [
+1046,
+548
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/approval.webp": [
+1046,
+393
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/dashboard.webp": [
+1046,
+641
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/leave-request.webp": [
+1046,
+674
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/request-01.webp": [
+612,
+870
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/time-off/request-02.webp": [
+924,
+1140
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-ai-insights.webp": [
+816,
+1366
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-assistant.webp": [
+1255,
+1042
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-billable-filter.webp": [
+232,
+59
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-billable.webp": [
+690,
+198
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-hero-banner.webp": [
+1600,
+873
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-overview.webp": [
+1642,
+594
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-reporting-pivot.webp": [
+2264,
+1384
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/timesheet/timesheet-time-tracking.webp": [
+1540,
+1169
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-customer-01.webp": [
+1800,
+1000
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-edit-text.webp": [
+738,
+329
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-01.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-02.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-03.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-04.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-05.webp": [
+596,
+514
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-06.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-07.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-builder-showcase-08.webp": [
+800,
+690
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/website/website-configurator-business.webp": [
+2390,
+738
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/efficient_1.webp": [
+1046,
+897
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/efficient_2.webp": [
+440,
+954
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/fully_integrated.webp": [
+1046,
+654
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/groupe_templates.webp": [
+1046,
+736
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/multi-channel.webp": [
+1046,
+479
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/publish_1.webp": [
+448,
+598
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/publish_2.webp": [
+448,
+598
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/templates.webp": [
+500,
+872
+],
+"https://odoocdn.com/openerp_website/static/src/img/apps/whatsapp/video_cover.webp": [
+1046,
+559
+]
+}

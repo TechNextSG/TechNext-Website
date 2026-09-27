@@ -1,0 +1,62 @@
+<!--meta {"title": "Blog: Odoo news, Odoo 20 and ERP guides | TechNext", "desc": "Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.", "out": "blog.html", "nav": "company", "scripts": ["assets/js/filter.js"]} -->
+
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Blog</span></nav>
+    <div class="two two--stage">
+      <div>
+        <span class="hand">the technext blog</span>
+        <h1>Odoo news and ERP, explained plainly.</h1>
+        <p class="lead">What changes in each Odoo release, what it means for companies in Singapore, the Philippines and Vietnam, and how ERP projects actually run. Written by the TechNext team.</p>
+        <div class="actions"><a class="btn btn-primary btn-lg" href="#articles">Read the latest {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+      </div>
+      <div class="stage stage--blog" aria-hidden="true">
+        <div class="bl-deck">
+          <div class="st-card bl-card bl-c1"><span class="post-cat">{{odoo:ai_app:18}}Odoo news</span><b>Odoo 20: what's new, in plain language</b><i></i><i></i><i></i><span class="bl-meta">By TechNext · Odoo 20 release</span></div>
+          <div class="st-card bl-card bl-c2"><span class="post-cat post-cat--technext-odoo">{{odoo:accountant:18}}TechNext &amp; Odoo</span><b>How an Odoo implementation works, step by step</b><i></i><i></i><i></i><span class="bl-meta">By TechNext · Implementation</span></div>
+          <div class="st-card bl-card bl-c3"><span class="post-cat post-cat--erp">{{icon:database}}ERP essentials</span><b>What is ERP? A plain-language guide</b><i></i><i></i><i></i><span class="bl-meta">By TechNext · ERP basics</span></div>
+        </div>
+        <span class="st-chip bl-chip1 dp" style="--d:14">{{odoo:ai_app:16}}Odoo 20, explained</span>
+        <span class="st-chip bl-chip2 dp" style="--d:10">{{icon:file}}{{BLOG_COUNT}} articles</span>
+        <span class="st-chip bl-chip3 dp" style="--d:8">{{icon:pin}}Singapore · Philippines · Vietnam</span>
+      </div>
+    </div>
+    <h2 class="sr-only">About this blog</h2>
+    <dl class="glance">
+      <div><dt>Topics</dt><dd>Odoo news · TechNext &amp; Odoo · ERP essentials</dd></div>
+      <div><dt>Articles</dt><dd>{{BLOG_COUNT}}</dd></div>
+      <div><dt>Written by</dt><dd>The TechNext team</dd></div>
+      <div><dt>Markets we write for</dt><dd>Singapore · Philippines · Vietnam</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="articles">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">all articles</span><h2>Latest from TechNext.</h2></div>
+    <div class="filter-bar reveal" data-filter role="group" aria-label="Filter articles by topic" aria-controls="post-list" data-noun="article|articles">{{BLOG_FILTERS}}</div>
+    <p class="sr-only" data-filter-say aria-live="polite"></p>
+    <div class="post-cards" id="post-list">{{BLOG_CARDS}}</div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">what we write about</span><h2>Three kinds of articles.</h2></div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{odoo:ai_app:36}}</div><h3>Odoo news</h3><p>Each Odoo release and announcement, read by consultants who implement it: what changed, and what it means for your setup.</p><a class="btn-link" href="#odoo-news">Odoo news {{icon:arrow}}</a></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{odoo:accountant:36}}</div><h3>TechNext &amp; Odoo</h3><p>How we run Odoo projects: discovery, hosting, customisation and support. The decisions you'll face, and how we approach them.</p><a class="btn-link" href="#technext-odoo">TechNext &amp; Odoo {{icon:arrow}}</a></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:database}}</div><h3>ERP essentials</h3><p>Plain-language guides: what ERP is, when a business needs one, and the compliance rules that shape it in Singapore, the Philippines and Vietnam.</p><a class="btn-link" href="#erp">ERP essentials {{icon:arrow}}</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Have a question the blog doesn't answer?</h2><p>Ask TechNext directly. We'll answer from how Odoo works in practice, not from a brochure.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="#talk">Ask us</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+    </div>
+  </div>
+</section>

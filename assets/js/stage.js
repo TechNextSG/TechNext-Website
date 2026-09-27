@@ -81,26 +81,56 @@
     }, 5200);
   });
 
-  /* ---------------- Google Map: nothing loads from Google until asked ---------------- */
+  /* ---------------- Google Map: nothing loads from Google until asked ----------------
+     One map shows one office at a time; the office cards' "Show on map" buttons switch it.
+     Every URL and label is a constant here: the DOM only ever supplies a key, which is
+     matched against MAP_KEYS before use. */
   var MAPS = {
     hq: {
       src: 'https://www.google.com/maps?q=261%20Waterloo%20Street%20%2303-36%2C%20Singapore%20180261&z=17&output=embed',
-      title: 'Map: TechNext, 261 Waterloo Street #03-36, Singapore 180261'
+      title: 'Map: TechNext Singapore HQ, 261 Waterloo Street #03-36, Singapore 180261',
+      label: ['261 Waterloo Street #03-36', 'Singapore 180261']
+    },
+    ph: {
+      src: 'https://www.google.com/maps?q=TechNext%20Philippines&ll=14.5349862,121.0513368&z=17&output=embed',
+      title: 'Map: TechNext Philippines, Level 9, IP Center, Taguig City, Metro Manila',
+      label: ['Level 9, IP Center', 'Taguig City, Metro Manila']
+    },
+    vn: {
+      src: 'https://www.google.com/maps?q=62%20Nguy%E1%BB%85n%20Th%E1%BB%8B%20Nhung%2C%20Hi%E1%BB%87p%20B%C3%ACnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh&z=16&output=embed',
+      title: 'Map: TechNext Vietnam development hub, 62 Nguyen Thi Nhung, Hiep Binh, Ho Chi Minh City',
+      label: ['62 Nguyễn Thị Nhung, P. Hiệp Bình', 'Ho Chi Minh City, Vietnam']
     }
   };
+  var MAP_KEYS = Object.keys(MAPS);
+  function mapKey(v) { var i = MAP_KEYS.indexOf(v); return i > -1 ? MAP_KEYS[i] : null; }
   function consented() {
     try { return document.cookie.indexOf('tn_consent=yes') > -1; } catch (e) { return false; }
   }
   function loadMap(box) {
-    var m = MAPS[box.getAttribute('data-map')];
-    if (!m || box.classList.contains('is-loaded')) return;
+    var k = mapKey(box.getAttribute('data-map'));
+    if (!k || box.classList.contains('is-loaded')) return;
     var f = document.createElement('iframe');
-    f.src = m.src;
-    f.title = m.title;
+    f.src = MAPS[k].src;
+    f.title = MAPS[k].title;
     f.loading = 'lazy';
     f.allowFullscreen = true;
+    f.referrerPolicy = 'no-referrer-when-downgrade';
     box.appendChild(f);
     box.classList.add('is-loaded');
+  }
+  function pointMap(box, key) {
+    var k = mapKey(key);
+    if (!k) return;
+    box.setAttribute('data-map', k);
+    var label = box.querySelector('[data-map-label]');
+    if (label) {
+      label.textContent = MAPS[k].label[0];
+      label.appendChild(document.createElement('br'));
+      label.appendChild(document.createTextNode(MAPS[k].label[1]));
+    }
+    var f = box.querySelector('iframe');
+    if (f) { f.src = MAPS[k].src; f.title = MAPS[k].title; }
   }
   [].forEach.call(document.querySelectorAll('.map[data-map]'), function (box) {
     var btn = box.querySelector('[data-map-load]');
@@ -113,4 +143,28 @@
     }, { rootMargin: '200px 0px' });
     mio.observe(box);
   });
+  var showBtns = [].slice.call(document.querySelectorAll('[data-office-show]'));
+  function showOffice(btn, load) {
+    var box = document.getElementById(btn.getAttribute('aria-controls') || '');
+    if (!box) return;
+    pointMap(box, btn.getAttribute('data-office-show'));
+    showBtns.forEach(function (b) {
+      var on = b === btn;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var card = b.closest('[data-office]');
+      if (card) card.classList.toggle('is-on', on);
+    });
+    if (load) {
+      loadMap(box);                                   // pressing "Show on map" is the request to load it
+      var r = box.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) box.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+    }
+  }
+  showBtns.forEach(function (b) { b.addEventListener('click', function () { showOffice(b, true); }); });
+  // company#office-ph (from the Company menu) opens with that office on the map
+  function fromHash() {
+    var k = mapKey((window.location.hash || '').replace('#office-', ''));
+    if (k) showBtns.forEach(function (b) { if (b.getAttribute('data-office-show') === k) showOffice(b, false); });
+  }
+  if (showBtns.length) { fromHash(); window.addEventListener('hashchange', fromHash); }
 })();
