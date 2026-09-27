@@ -1,8 +1,9 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Home hero engine: carousel (3 formats, 10 s, desktop only), animated background (aurora CSS +
-   particles canvas + cursor spotlight), parallax floaters, rotating word, KPI counters, toast cycle,
-   flow chart with live pulse + zooming pop-ups, orbit tiles. Pauses on hover / hidden tab; honours
-   reduced motion; below 960px the carousel is replaced by one clean static hero. */
+   particles canvas + cursor spotlight), stage tilt, rotating word, KPI counters and the zooming
+   pop-ups for apps and process steps. The scenes themselves (orbit, process map, plan) live in
+   hero-scenes.js and follow the tn:slide event. Pauses on hover / hidden tab; honours reduced
+   motion; below 960px the carousel is replaced by one clean static hero. */
 (function () {
   'use strict';
   var hero = document.querySelector('[data-hero]');
@@ -49,22 +50,46 @@
     planning: { name: 'Planning', cat: 'services', eyebrow: 'Odoo app · Services', lead: 'Shift and resource scheduling with open-shift publishing.', points: ['Gantt by employee or role', 'Templates and recurrence', 'Publish to employees', 'Links to Project and Field Service'], related: ['project', 'hr'] },
     appointment: { name: 'Appointments', cat: 'services', eyebrow: 'Odoo app · Services', lead: 'Online booking calendars for consultations, demos and service slots.', points: ['Public booking pages', 'Staff availability', 'Reminders and video links', 'Creates CRM leads'], related: ['crm'] },
     knowledge: { name: 'Knowledge', cat: 'productivity', eyebrow: 'Odoo app · Productivity', lead: 'Wiki pages linked to records — procedures next to the work.', points: ['Nested articles', 'Templates and embeds', 'Shared with customers', 'Linked from any record'], related: ['helpdesk'] },
+    quality_control: { name: 'Quality', cat: 'supply-chain', eyebrow: 'Odoo app · Supply Chain', lead: 'Control points on receipts and work orders, with quality alerts when a check fails.', points: ['Pass/fail, measurement and photo checks', 'Control points by product or operation', 'Quality alerts with follow-up', 'Statistics by product and work centre'], related: ['mrp', 'stock'] },
+    spreadsheet_dashboard: { name: 'Dashboards', cat: 'productivity', eyebrow: 'Odoo app · Productivity', lead: 'Live dashboards on your Odoo data, in spreadsheet form.', points: ['Ready-made dashboards per app', 'Spreadsheet formulas on live data', 'Shared with each team', 'Filters by period, company and team'], related: ['accountant', 'sale'] },
     mail: { name: 'Discuss', cat: 'productivity', eyebrow: 'Odoo app · Productivity', lead: 'Chat, channels and notifications on every record.', points: ['Channels and direct messages', 'Chatter on every record', 'Email integration', 'Mentions and follow-ups'], related: ['crm'] }
   };
 
   var FLOW = [
-    { id: 'quote', app: 'sale', title: 'Quotation', sub: 'Sales', eyebrow: 'Step 1 of 5 · Sales', lead: 'A quotation goes out from a template with your pricelist applied. The customer accepts online — e-signature or a click.',
-      points: ['Quotation templates and optional lines', 'Pricelists, discounts and margins visible', 'Online acceptance with e-signature', 'Acceptance confirms the order automatically'], trigger: 'Customer accepts → order confirmed' },
-    { id: 'order', app: 'sale', title: 'Sales order', sub: 'Sales', eyebrow: 'Step 2 of 5 · Sales', lead: 'Confirming the order reserves stock and schedules the delivery. If stock falls below minimum, Inventory raises a purchase order on its own.',
-      points: ['Stock reserved per line', 'Delivery order created with expected date', 'Reordering rule → Purchase (dashed branch)', 'Invoicing policy: on order or on delivery'], trigger: 'Confirm → reserves stock' },
-    { id: 'delivery', app: 'stock', title: 'Delivery', sub: 'Inventory', eyebrow: 'Step 3 of 5 · Inventory', lead: 'The warehouse picks by barcode, packs and ships. Validating the delivery moves stock out and makes the order invoiceable.',
-      points: ['Pick, pack, ship in one or three steps', 'Barcode scanning and carrier labels', 'Lots and serials tracked to the customer', 'Backorders handled automatically'], trigger: 'Validate → ready to invoice' },
-    { id: 'invoice', app: 'account', title: 'Invoice', sub: 'Accounting', eyebrow: 'Step 4 of 5 · Accounting', lead: 'The invoice is generated from what was delivered — quantities, prices and taxes already correct — and sent with a payment link.',
-      points: ['Created from delivered quantities', 'Taxes and fiscal positions applied', 'Payment link and automatic reminders', 'Posted to receivables immediately'], trigger: 'Send → payment link' },
-    { id: 'payment', app: 'accountant', title: 'Payment reconciled', sub: 'Accounting', eyebrow: 'Step 5 of 5 · Accounting', lead: 'The bank feed brings in the payment; Odoo matches it to the invoice. Receivables, cash and the P&L are current the same day.',
-      points: ['Bank synchronisation daily', 'Automatic matching rules', 'Aged receivables always current', 'Cash forecast updates itself'], trigger: 'Bank match → books closed' },
-    { id: 'purchase', app: 'purchase', title: 'Purchase order', sub: 'Purchase · reorder rule', eyebrow: 'Branch · Supply Chain', lead: 'When a confirmed order takes stock below its minimum, Inventory creates an RFQ for the preferred vendor — no one has to notice first.',
-      points: ['Min/max rules per product and warehouse', 'Vendor pricelist and lead time used', 'Receipt updates stock; bill matched to receipt', 'Posts to payables in Accounting'], trigger: 'Below minimum → RFQ created' }
+    { id: 'lead', app: 'crm', title: 'Lead', lane: 'Sales', lead: 'Leads arrive from your website forms, email aliases, live chat and WhatsApp, and assignment rules route each one to a salesperson.',
+      points: ['Web forms and email aliases create leads automatically', 'Assignment rules by territory, team or product', 'Scheduled activities so no lead goes quiet', 'A won lead becomes a quotation without re-typing'], trigger: 'Qualified → quotation' },
+    { id: 'quote', app: 'sale', title: 'Quotation', lane: 'Sales', lead: 'The quotation is built from a template with your pricelist, optional products and terms, and sent with a link to sign and pay online.',
+      points: ['Quotation templates and optional products', 'Pricelists, discounts and margins visible', 'Online signature and payment from the portal', 'Validity dates on every quotation'], trigger: 'Sent → waiting for a signature' },
+    { id: 'g_sign', app: 'sign', title: 'Signed?', lane: 'Decision · Sales', lead: 'If the customer signs online, the order confirms itself. If not, a follow-up activity lands on the salesperson’s list and the quotation is revised and resent.',
+      points: ['Signed online → order confirmed automatically', 'No reply → follow-up activity for the salesperson', 'Expiry dates close stale quotations', 'Every version kept in the record’s history'], trigger: 'Yes → order · No → revise' },
+    { id: 'order', app: 'sale', title: 'Sales order', lane: 'Sales', lead: 'Confirming the order creates the delivery, checks stock and applies the invoicing policy you chose: on order or on delivery.',
+      points: ['Delivery order created with the expected date', 'Stock reserved per line where available', 'Invoicing policy per product', 'Down payments and deposit invoices'], trigger: 'Confirmed → stock check' },
+    { id: 'g_stock', app: 'stock', title: 'In stock?', lane: 'Decision · Warehouse', lead: 'Odoo checks the forecasted quantity, and each product’s routes decide what happens next: reserve from stock, buy from a vendor, or manufacture.',
+      points: ['Enough stock → reserved for this order', 'Buy route or reordering rule → request for quotation', 'Manufacture route → manufacturing order from the bill of materials', 'Forecasts count incoming receipts and other orders'], trigger: 'Stock → pick · Buy → PO · Make → MO' },
+    { id: 'mo', app: 'mrp', title: 'Manufacturing order', lane: 'Production', lead: 'The manufacturing order follows the bill of materials: components are reserved, work orders run at each work centre, and shortages raise purchase orders.',
+      points: ['Multi-level bills of materials', 'Work orders by work centre, with times recorded', 'Component shortages trigger purchasing (dashed line)', 'Actual costs roll up to Accounting'], trigger: 'Finished → quality check' },
+    { id: 'g_qc', app: 'quality_control', title: 'Quality OK?', lane: 'Decision · Production', lead: 'A quality control point holds the work order until the check is recorded. A failed check raises a quality alert, so the team reworks or scraps before goods reach stock.',
+      points: ['Pass/fail, measurement and photo checks', 'Control points by product, operation or work centre', 'Fail → quality alert for rework or scrap', 'Pass → finished goods to stock for the order'], trigger: 'Pass → pick · Fail → rework' },
+    { id: 'po', app: 'purchase', title: 'Purchase order', lane: 'Purchasing', lead: 'A reordering rule or the buy route creates a request for quotation to the preferred vendor, with their price and lead time. Confirming it schedules the receipt.',
+      points: ['Min/max reordering rules per warehouse', 'Vendor pricelists and lead times applied', 'RFQs to several vendors, compared side by side', 'Approvals above an amount you set'], trigger: 'Confirmed → receipt expected' },
+    { id: 'receipt', app: 'stock', title: 'Receipt', lane: 'Purchasing · Warehouse', lead: 'The warehouse receives by barcode. Validating the receipt updates stock, frees the waiting order to be picked, and sets what the vendor may bill.',
+      points: ['Barcode receiving with lots and serial numbers', 'Quality checks on receipt where needed', 'Backorders for partial deliveries', 'Bill control on received quantities'], trigger: 'Validated → stock in, bill allowed' },
+    { id: 'vbill', app: 'account', title: 'Vendor bill', lane: 'Finance', lead: 'The vendor’s bill is digitised from the PDF and matched to the purchase order and the receipt, so you pay only for what arrived.',
+      points: ['Bill digitisation from email or upload', 'Three-way match: order, receipt, bill', 'Differences flagged before approval', 'Posted to payables with the right taxes'], trigger: 'Matched → ready to pay' },
+    { id: 'vpay', app: 'accountant', title: 'Pay vendor', lane: 'Finance', lead: 'Bills that are due are paid together in a batch payment, and the bank feed matches the payment back to each bill.',
+      points: ['Batch payments by due date', 'Payment approvals where you need them', 'Bank feed matching closes each bill', 'Aged payables always current'], trigger: 'Paid → bank reconciliation' },
+    { id: 'pick', app: 'stock', title: 'Pick & pack', lane: 'Warehouse', lead: 'Stock is picked by barcode from the right location, packed and labelled for the carrier, in one, two or three steps, the way your warehouse works.',
+      points: ['Pick, pack and ship in one to three steps', 'Barcode app on phones or scanners', 'Batch and wave picking', 'Carrier labels and tracking numbers'], trigger: 'Packed → delivery' },
+    { id: 'ship', app: 'stock', title: 'Delivery', lane: 'Warehouse', lead: 'Validating the delivery moves stock out, records lots and serial numbers against the customer, and makes the delivered quantities invoiceable.',
+      points: ['Delivery slips and carrier tracking', 'Lots and serials traced to the customer', 'Backorders handled automatically', 'Returns from the same record'], trigger: 'Delivered → invoice' },
+    { id: 'inv', app: 'account', title: 'Invoice', lane: 'Finance', lead: 'The invoice is created from what was delivered, with prices and taxes already right, and sent with a payment link.',
+      points: ['Invoices from delivered quantities', 'Taxes and fiscal positions applied', 'Online payment links', 'Posted to receivables immediately'], trigger: 'Sent → waiting for payment' },
+    { id: 'g_paid', app: 'accountant', title: 'Paid?', lane: 'Decision · Finance', lead: 'When the payment arrives in the bank feed, Odoo matches it to the invoice. Overdue invoices move through follow-up levels: a reminder email, then a letter or a call.',
+      points: ['Bank feed payments matched to invoices', 'Follow-up levels with email reminders', 'Letters or call activities at later levels', 'Customer statements on demand'], trigger: 'Paid → reconcile · Overdue → reminder' },
+    { id: 'recon', app: 'accountant', title: 'Bank reconciliation', lane: 'Finance', lead: 'Statement lines from the bank feed are matched by reconciliation rules, so receivables, payables and cash agree every day.',
+      points: ['Bank synchronisation where your bank supports it', 'Reconciliation models match most lines', 'Partial and grouped payments handled', 'Cash position current the same day'], trigger: 'Reconciled → reports current' },
+    { id: 'reports', app: 'spreadsheet_dashboard', title: 'P&L, GST and cash', lane: 'Finance', lead: 'Every step posted as it happened, so the P&L, balance sheet, GST report and cash forecast are ready without a spreadsheet export.',
+      points: ['P&L and balance sheet at any date', 'GST report from posted entries', 'Aged receivables and payables', 'Cash forecast from open invoices and bills'], trigger: 'Month-end without re-keying' }
   ];
   var CAT_LABEL = { finance: 'Finance', sales: 'Sales', 'supply-chain': 'Supply Chain', websites: 'Websites', hr: 'Human Resources', marketing: 'Marketing', services: 'Services', productivity: 'Productivity' };
 
@@ -96,7 +121,7 @@
     var nav = '<div class="pop-nav">' +
       '<button class="icon-btn icon-btn--sm icon-btn--prev" type="button" data-pop-step="' + (i - 1) + '" aria-label="Previous step"' + (i === 0 ? ' disabled' : '') + '>' + icon('arrow') + '</button>' +
       '<button class="icon-btn icon-btn--sm icon-btn--next" type="button" data-pop-step="' + (i + 1) + '" aria-label="Next step"' + (i >= FLOW.length - 1 ? ' disabled' : '') + '>' + icon('arrow') + '</button></div>';
-    return '<div class="pop-head">' + oi(s.app, 56) + '<div><div class="pop-eyebrow">' + s.eyebrow + '</div><h3>' + s.title + '</h3></div>' +
+    return '<div class="pop-head">' + oi(s.app, 56) + '<div><div class="pop-eyebrow">' + s.lane + ' · step ' + (i + 1) + ' of ' + FLOW.length + '</div><h3>' + s.title + '</h3></div>' +
       '<button class="icon-btn icon-btn--sm" type="button" data-pop-close aria-label="Close">' + icon('x') + '</button></div>' +
       '<div class="pop-body"><p class="lead">' + s.lead + '</p><ul class="checks">' + s.points.map(function (p, k) { return '<li style="--i:' + k + '">' + icon('check') + p + '</li>'; }).join('') + '</ul>' +
       '<div class="pop-meta"><span class="tag tag--ok">' + icon('check') + s.trigger + '</span><button class="tag" type="button" data-pop-app="' + s.app + '">' + oi(s.app, 16) + 'About ' + APPS[s.app].name + '</button></div></div>' +
@@ -125,7 +150,7 @@
   function closePop() {
     if (!pop || pop.hidden) return;
     var from = popFrom;
-    var finish = function () { pop.hidden = true; backdrop.hidden = true; document.body.style.overflow = ''; resume(); if (from && from.focus) from.focus({ preventScroll: true }); };
+    var finish = function () { pop.hidden = true; backdrop.hidden = true; document.body.style.overflow = ''; litNode(-1); resume(); if (from && from.focus) from.focus({ preventScroll: true }); };
     if (reduce || !from) { finish(); return; }
     var r = from.getBoundingClientRect(), p = pop.getBoundingClientRect();
     var dx = (r.left + r.width / 2) - (p.left + p.width / 2), dy = (r.top + r.height / 2) - (p.top + p.height / 2);
@@ -133,7 +158,7 @@
     backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260 });
     a.onfinish = finish;
   }
-  function openFlow(i, fromEl) { popIndex = i; openPop(fromEl, renderFlow(i)); }
+  function openFlow(i, fromEl) { if (!FLOW[i]) return; popIndex = i; openPop(fromEl, renderFlow(i)); litNode(i); }
   function openApp(mod, fromEl) { popIndex = -1; openPop(fromEl, renderApp(mod)); }
   window.tnOpenApp = openApp;
   if (pop) {
@@ -149,8 +174,8 @@
     document.addEventListener('keydown', function (e) {
       if (pop.hidden) return;
       if (e.key === 'Escape') closePop();
-      if (popIndex >= 0 && e.key === 'ArrowRight' && popIndex < FLOW.length - 1) { popIndex++; openPop(null, renderFlow(popIndex)); }
-      if (popIndex >= 0 && e.key === 'ArrowLeft' && popIndex > 0) { popIndex--; openPop(null, renderFlow(popIndex)); }
+      if (popIndex >= 0 && e.key === 'ArrowRight' && popIndex < FLOW.length - 1) { popIndex++; openPop(null, renderFlow(popIndex)); litNode(popIndex); }
+      if (popIndex >= 0 && e.key === 'ArrowLeft' && popIndex > 0) { popIndex--; openPop(null, renderFlow(popIndex)); litNode(popIndex); }
     });
   }
   // Any element with data-app / data-flow opens its pop-up.
@@ -172,6 +197,13 @@
   if (autoplay && slides.length > 1) {
     var r0 = Math.floor(Math.random() * slides.length);
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
+  }
+  // ?slide=2 opens that slide and holds it (deep links and QA); the arrows and dots still work
+  var want = /[?&]slide=([1-9])(?:&|$)/.exec(location.search);
+  if (want && slides[+want[1] - 1]) {
+    var wi = +want[1] - 1;
+    if (wi !== idx) { slides[idx].classList.remove('is-active'); slides[wi].classList.add('is-active'); idx = wi; }
+    autoplay = false;
   }
   function nextIdx() {
     if (slides.length < 2) return idx;
@@ -314,7 +346,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.flow,.orbit,.spec-strip,.actions,.pill-row,.mono-list,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.jp,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;
@@ -374,66 +406,17 @@
     toastTimer = setInterval(tick, 3200);
   }
 
-  /* ================================================================ flow chart (slide 2) */
-  var flow = $('.flow', hero), flowSvg = flow && $('.flow-svg', flow), flowRaf = null, flowOn = false, flowPath = null, flowLen = 0, flowT = 0, lastLit = -1;
-  var EDGES = [['quote', 'order', 'confirm'], ['order', 'delivery', 'reserves stock'], ['delivery', 'invoice', 'on delivery'], ['invoice', 'payment', 'bank match'], ['order', 'purchase', 'reorder rule', true]];
-  var MAIN = ['quote', 'order', 'delivery', 'invoice', 'payment'];
-  // Layout (offset) geometry, not getBoundingClientRect: the camera transitions transform the slide,
-  // and the connectors must be drawn for the resting layout. `part` measures a child (the icon tile)
-  // so the rail runs through the tiles, not through the captions and labels.
-  function nodeRect(id, part) {
-    var n = $('[data-node="' + id + '"]', flow), t = (part && $(part, n)) || n, x = 0, y = 0, el = t;
-    while (el && el !== flow) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; }
-    return { x: x, y: y, w: t.offsetWidth, h: t.offsetHeight, cx: x + t.offsetWidth / 2, cy: y + t.offsetHeight / 2, el: n };
-  }
-  function edgePath(a, b) {
-    var A = nodeRect(a, '.fn-ic'), B = nodeRect(b, '.fn-ic');
-    if (Math.abs(A.cy - B.cy) < 4) return { d: 'M' + (A.x + A.w + 3) + ' ' + A.cy + ' L' + (B.x - 3) + ' ' + B.cy };
-    // branch: drop from under the source node's label to the top of the target's caption
-    var An = nodeRect(a), Bn = nodeRect(b);
-    return { d: 'M' + An.cx + ' ' + (An.y + An.h + 2) + ' L' + Bn.cx + ' ' + (Bn.y - 2) };
-  }
-  function drawFlow() {
-    if (!flow) return;
-    var f = { width: flow.offsetWidth, height: flow.offsetHeight };
-    flowSvg.setAttribute('viewBox', '0 0 ' + f.width + ' ' + f.height);
-    var html = '<defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="flow-arrow" d="M1 1 9 5 1 9z"/></marker></defs>';
-    EDGES.forEach(function (e) {
-      var p = edgePath(e[0], e[1]);
-      html += '<path class="edge' + (e[3] ? ' edge--dash' : '') + '" d="' + p.d + '"/>';
-    });
-    // the lit rail and its pulse run through the icon tile centres
-    var pts = MAIN.map(function (id) { var r = nodeRect(id, '.fn-ic'); return r.cx + ' ' + r.cy; });
-    html += '<path class="edge-lit" d="M' + pts.join(' L') + '" stroke-dasharray="0 9999" data-lit/>';
-    html += '<circle class="pulse-halo" r="12" data-halo/><circle class="pulse" r="5" data-dot/>';
-    flowSvg.innerHTML = html;
-    flowPath = $('[data-lit]', flowSvg); flowLen = flowPath.getTotalLength(); flowT = 0;
-  }
+  /* ================================================================ map nodes (slide 2, drawn by hero-scenes.js) */
   function litNode(i) {
-    $$('.fnode', flow).forEach(function (n) { n.classList.remove('is-lit'); });
-    var id = MAIN[i] || (i === 5 ? 'purchase' : null);
-    if (id) { var n = $('[data-node="' + id + '"]', flow); if (n) n.classList.add('is-lit'); }
+    $$('[data-flow]', hero).forEach(function (n) { n.classList.toggle('is-lit', +n.getAttribute('data-flow') === i); });
   }
-  function stepFlow(t) {
-    if (!flowOn || !flowPath) { flowRaf = null; return; }
-    flowT = (flowT + 0.0022) % 1.08; // ~7.5 s per lap with a short pause
-    var tt = Math.min(1, flowT), L = tt * flowLen, pt = flowPath.getPointAtLength(L);
-    $('[data-dot]', flowSvg).setAttribute('cx', pt.x); $('[data-dot]', flowSvg).setAttribute('cy', pt.y);
-    $('[data-halo]', flowSvg).setAttribute('cx', pt.x); $('[data-halo]', flowSvg).setAttribute('cy', pt.y);
-    flowPath.setAttribute('stroke-dasharray', L + ' 9999');
-    var seg = Math.min(MAIN.length - 1, Math.floor(tt * (MAIN.length - 1) + 0.15));
-    if (seg !== lastLit && (pop.hidden || popIndex < 0)) { lastLit = seg; $$('.fnode', flow).forEach(function (n) { n.classList.remove('is-lit'); }); var n = $('[data-node="' + MAIN[seg] + '"]', flow); if (n) n.classList.add('is-lit'); if (seg === 1) { var pn = $('[data-node="purchase"]', flow); if (pn) pn.classList.add('is-lit'); } }
-    flowRaf = requestAnimationFrame(stepFlow);
-  }
-  function flowStart() { if (!flow) return; drawFlow(); flowOn = true; if (!reduce && !flowRaf) flowRaf = requestAnimationFrame(stepFlow); if (reduce) { flowPath.setAttribute('stroke-dasharray', flowLen + ' 9999'); } }
-  function flowStop() { flowOn = false; }
-  window.addEventListener('resize', function () { if (flowOn) drawFlow(); });
 
   /* ================================================================ per-slide hooks */
   function onSlide(i) {
     var s = slides[i];
     if (s.hasAttribute('data-slide-dash')) { counters(s); toasts(s, true); startRot(); } else { toasts(slides[0], false); clearInterval(rotTimer); }
-    if (s.hasAttribute('data-slide-flow')) flowStart(); else flowStop();
+    // the scenes (orbit, process map, plan) start and stop themselves on this event
+    hero.dispatchEvent(new CustomEvent('tn:slide', { detail: { index: i, slide: s } }));
   }
 
   // init — the first slide also arrives with a camera move, once the one-time intro (if any) has finished
