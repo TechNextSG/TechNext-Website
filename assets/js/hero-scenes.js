@@ -10,7 +10,8 @@
 (function () {
   'use strict';
   var hero = document.querySelector('[data-hero]');
-  if (!hero || window.matchMedia('(max-width: 960px)').matches) return;
+  if (!hero) return;
+  var phone = window.matchMedia('(max-width: 960px)');   // phones get the same scenes, laid out for a narrow screen
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ROOT = hero.dataset.root || '';
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -57,6 +58,8 @@
     // inner ring: steep, it circles the dashboard; outer ring: wide and flat, crossing the other way
     var RINGS = [{ rx: .455, ry: .285, roll: -13, cy: .5, lap: 40, dir: 1, size: 46 },
                  { rx: .6, ry: .175, roll: 9, cy: .52, lap: 64, dir: -1, size: 36 }];
+    // on a phone the stage is the screen's width: keep the outer ring's apps inside it
+    if (phone.matches) { RINGS[0].rx = .42; RINGS[0].ry = .31; RINGS[1].rx = .49; RINGS[1].ry = .2; }
     var apps = $$('.cine-app', root).map(function (el) { return { el: el, ring: +el.dataset.ring, mod: el.dataset.app, hist: [] }; });
     [0, 1].forEach(function (r) {
       var list = apps.filter(function (a) { return a.ring === r; });
@@ -66,7 +69,7 @@
     var rot = [0, .9], spd = 1, spdT = 1, dragV = 0, dragging = false, lastX = 0, lastT = 0;
     var tilt = { tx: 0, ty: 0, x: 0, y: 0 };
     var hot = null, leaveT = 0, rush = null, packets = [], nextPacket = 0, landed = 0;
-    var ringG = [], backP = [], frontP = [], glint = [], beamG, hoverBeam;
+    var ringG = [], backP = [], frontP = [], glint = [], halo = [], beamG, hoverBeam;
     var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147, T: 218 };
     var EVENTS = {
       accountant: function () { return '<b>' + (30 + (Math.random() * 20 | 0)) + '</b> bank lines matched'; },
@@ -96,15 +99,16 @@
       [backSvg, frontSvg].forEach(function (s) { s.innerHTML = ''; });
       var defs = svgEl('defs', {});
       // the near side of each ring is brightest in front of the dashboard and fades toward its ends
-      defs.innerHTML = '<linearGradient id="cine-arc" x1="0" x2="1"><stop offset="0" stop-color="#3167CA" stop-opacity=".05"/><stop offset=".5" stop-color="#3167CA" stop-opacity=".6"/><stop offset="1" stop-color="#3167CA" stop-opacity=".05"/></linearGradient>';
+      defs.innerHTML = '<linearGradient id="cine-arc" x1="0" x2="1"><stop offset="0" stop-color="#3167CA" stop-opacity=".28"/><stop offset=".5" stop-color="#3167CA" stop-opacity=".8"/><stop offset="1" stop-color="#3167CA" stop-opacity=".28"/></linearGradient>';
       frontSvg.appendChild(defs);
-      ringG = []; backP = []; frontP = []; glint = [];
+      ringG = []; backP = []; frontP = []; glint = []; halo = [];
       RINGS.forEach(function (R, r) {
         var gb = svgEl('g', {}), gf = svgEl('g', {});
         backP[r] = svgEl('path', { 'class': 'cr-back cr-back--' + r });
         frontP[r] = svgEl('path', { 'class': 'cr-front cr-front--' + r });
+        halo[r] = svgEl('path', { 'class': 'cr-halo cr-halo--' + r });
         glint[r] = svgEl('path', { 'class': 'cr-glint', pathLength: '1000' });
-        gb.appendChild(backP[r]); gf.appendChild(frontP[r]); gf.appendChild(glint[r]);
+        gb.appendChild(backP[r]); gf.appendChild(halo[r]); gf.appendChild(frontP[r]); gf.appendChild(glint[r]);
         backSvg.appendChild(gb); frontSvg.appendChild(gf);
         ringG[r] = [gb, gf];
       });
@@ -116,10 +120,11 @@
       dpr = Math.min(1.5, window.devicePixelRatio || 1);
       fx.width = Math.round(W * 2 * dpr); fx.height = Math.round(H * 2 * dpr);
       [backSvg, frontSvg].forEach(function (s) { s.setAttribute('viewBox', '0 0 ' + W + ' ' + H); });
+      apps.forEach(function (a) { a.sz = a.el.offsetWidth || RINGS[a.ring].size; });   // CSS sets smaller apps on phones
     }
     function geo(r) {
       var R = RINGS[r], roll = (R.roll + tilt.x * 14) * Math.PI / 180;
-      return { rx: R.rx * W, ry: R.ry * W * (1 + tilt.y * 1.1), c: Math.cos(roll), s: Math.sin(roll), roll: roll, cx: W * .5, cy: H * R.cy };
+      return { rx: R.rx * W, ry: R.ry * W * (1 + tilt.y * .45), c: Math.cos(roll), s: Math.sin(roll), roll: roll, cx: W * .5, cy: H * R.cy };
     }
     function at(g, th) {
       var x = g.rx * Math.cos(th), y = g.ry * Math.sin(th);
@@ -159,6 +164,7 @@
         var rx = g.rx.toFixed(1), ry = g.ry.toFixed(1);
         backP[r].setAttribute('d', 'M-' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 ' + rx + ' 0');
         frontP[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+        halo[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
         glint[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
         // a highlight sweeps the near side of each ring in the direction its apps travel, then rests
         var u = (now / (r ? 4.6 : 3.6)) % 1500, head = R.dir > 0 ? u - 200 : 1200 - u;
@@ -187,7 +193,7 @@
         }
         if (a === hot) { sc *= 1.22; op = 1; blur = 0; }
         else if (hot) op *= .55;
-        var s = R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 9) : 1 + Math.round(p.d * 16);
+        var s = a.sz || R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 9) : 1 + Math.round(p.d * 16);
         if (a === hot) z = 60;
         a.x = x; a.y = y; a.d = p.d;
         a.el.style.transform = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
@@ -223,7 +229,7 @@
       apps.forEach(function (a) {
         var h = a.hist; if (a.landed || h.length < 6) return;
         var x0 = h[0], y0 = h[1], x1 = h[h.length - 2], y1 = h[h.length - 1];
-        var sz = RINGS[a.ring].size;
+        var sz = a.sz || RINGS[a.ring].size;
         [[sz * .62, 'rgba(111,160,245,0)', 'rgba(111,160,245,.30)'], [sz * .16, 'rgba(49,103,202,0)', 'rgba(49,103,202,.75)']].forEach(function (L) {
           var gr = ctx.createLinearGradient(x0, y0, x1, y1);
           gr.addColorStop(0, L[1]); gr.addColorStop(1, L[2]);
@@ -338,9 +344,9 @@
         on = true; size();
         var now = performance.now();
         if (reduce) { startRush(now); layout(now, 0); return; }
-        // hold the apps off-stage until the camera has nearly settled, then rush them in
+        // hold the apps off-stage until the camera has nearly settled, then rush them in (phones have no camera move)
         apps.forEach(function (a) { a.fly = null; a.landed = false; a.el.style.opacity = '0'; });
-        startRush(now + (first ? 900 : 1250));
+        startRush(now + (first ? 900 : phone.matches ? 260 : 1250));
         wake();
       },
       leave: function () { on = false; hot = null; root.classList.remove('is-focus', 'is-drag'); dragging = false; },
@@ -409,7 +415,8 @@
       g_paid: 'Bank feed match · overdue → follow-up level', recon: 'Reconciliation rules match the statement',
       reports: 'P&L, GST and cash forecast, no exports'
     };
-    var W = 1, H = 1, geoE = {}, tokens = [], raf = 0, last = 0, on = false, scen = 'all', nextSpawn = 0, hand = 0, revealing = null, hotNode = null, leaveT = 0;
+    var W = 1, H = 1, geoE = {}, tokens = [], raf = 0, last = 0, on = false, scen = 'all', nextSpawn = 0, hand = 0, revealing = null, panning = null, hotNode = null, leaveT = 0;
+    ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { view.addEventListener(ev, function () { panning = null; }, { passive: true }); });
     var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147 };
 
     function nb(id) { return box(nodes[id].el, cam); }
@@ -571,6 +578,8 @@
       void svg.getBoundingClientRect();
       Object.keys(geoE).forEach(function (id) { geoE[id].p.style.transition = ''; });
       if (reduce) { showAll(); return; }
+      // phones: the map scrolls sideways in its panel, so instead of a zoom the view pans across it once
+      if (phone.matches) { showAll(); panning = { t0: now + delay, dur: 5200 }; view.scrollLeft = 0; return; }
       var L = ib('lead'), O = ib('order'), S = ib('g_stock'), P = ib('receipt');
       root.classList.add('is-reveal'); root.classList.remove('is-ready');
       revealing = { t0: now + delay, keys: [
@@ -584,6 +593,11 @@
       if (!on || !live()) return;
       var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
       if (revealing) reveal(now);
+      if (panning) {
+        var pq = clamp((now - panning.t0) / panning.dur, 0, 1), room = view.scrollWidth - view.clientWidth;
+        if (pq > 0 && room > 0) view.scrollLeft = room * (pq < .72 ? easeInOut(pq / .72) : 1 - easeInOut((pq - .72) / .28) * .92);
+        if (pq >= 1) panning = null;
+      }
       if (!revealing) {
         if (!popOpen()) {
           stepTokens(dt);
@@ -757,6 +771,8 @@
     function fromX(clientX) { var r = board.getBoundingClientRect(), sx = r.width / (board.offsetWidth || 1); return ((clientX - r.left) / sx - tx0) / tw * SPAN; }
     board.addEventListener('pointerdown', function (e) {
       if (e.button || e.target.closest('a')) return;
+      // on touch the plan scrolls sideways in its card; only the playhead itself scrubs
+      if (e.pointerType === 'touch' && !e.target.closest('.jp-play')) return;
       dragging = true; auto = false; root.classList.add('is-scrub');
       try { board.setPointerCapture(e.pointerId); } catch (err) { /* optional */ }
       set(fromX(e.clientX));

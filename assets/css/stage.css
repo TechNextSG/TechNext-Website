@@ -1688,15 +1688,15 @@ h1 .h1-hand{display:block;margin:0 0 10px;letter-spacing:0;text-wrap:wrap;max-wi
 p.app-sub{margin:-2px 0 14px}
 
 /* ---------- "In one paragraph" answer boxes ---------- */
-.answer-sec{padding-top:36px;padding-bottom:4px}
-.answer-box{position:relative;max-width:880px;padding:22px 26px 22px 30px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.answer-box::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--blue)}
-.answer-h{margin:0 0 8px;font:700 11.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--blue-700)}
-.answer-box p:not(.answer-h){margin:0;font-size:1.06rem;line-height:1.65;color:var(--ink)}
-.answer-box .answer-note{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:.96rem;color:var(--body)}
-.answer-note .ic{flex:none;width:18px;height:18px;margin-top:3px;color:var(--blue)}
+/* the one-paragraph answer: a compact summary strip (label chip + small text), not a card */
+.answer-sec{padding-top:14px;padding-bottom:0}
+.answer-box{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;gap:6px 12px;max-width:940px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:none}
+.answer-h{margin:0;padding:3px 8px;border-radius:999px;background:var(--blue-050);font:700 9.5px/1.3 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--blue-700);white-space:nowrap}
+.answer-box p:not(.answer-h){margin:0;font-size:13.5px;line-height:1.55;color:var(--body)}
+.answer-box .answer-note{grid-column:2;display:flex;gap:8px;margin:0;font-size:12.5px;color:var(--muted)}
+.answer-note .ic{flex:none;width:14px;height:14px;margin-top:2px;color:var(--blue)}
 .answer-note a{color:var(--blue-700)}
-@media (max-width:640px){.answer-box{padding:18px 18px 18px 22px}.answer-box p:not(.answer-h){font-size:1rem}}
+@media (max-width:640px){.answer-box{grid-template-columns:minmax(0,1fr);gap:6px}.answer-h{justify-self:start}.answer-box .answer-note{grid-column:1}.answer-box p:not(.answer-h){font-size:13px}}
 
 /* ---------- Odoo in the Philippines: the BIR forms board ---------- */
 .stage--ph{min-height:470px}
