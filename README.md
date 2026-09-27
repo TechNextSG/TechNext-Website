@@ -53,6 +53,12 @@ icon from `sitedata.ICONS` (an unknown name fails the build on purpose).
   redirect to the closest v2 page via `make_vercel.py`.
   Never delete a redirect: those URLs are indexed and linked.
 - `CNAME` is a leftover from GitHub Pages hosting and is kept deliberately; it is not deployed.
+- **App page URLs use Odoo's app names** (`/odoo/apps/inventory`, not the module `stock`): the map is
+  `APP_SLUG` in `_src/sitedata.py`. The build rewrites every internal link, `make_vercel.py` 308-redirects the
+  old module-name URLs, and `assets/js/app-slugs.js` (generated) gives the scripts the same map. A new app
+  whose Odoo name differs from its module needs an entry there.
+- **The intro plays on the home page only** (`INTRO_HEAD` / `INTRO_BODY` in `_src/build.py`), so visitors who
+  land on any other page from search see it straight away.
 
 ## Forms → sales@technext.asia
 

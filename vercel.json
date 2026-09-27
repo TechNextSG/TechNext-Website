@@ -15,6 +15,366 @@
       ]
     },
     {
+      "source": "/odoo/apps/account",
+      "destination": "/odoo/apps/invoicing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/account.html",
+      "destination": "/odoo/apps/invoicing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/accountant",
+      "destination": "/odoo/apps/accounting",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/accountant.html",
+      "destination": "/odoo/apps/accounting",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/ai_app",
+      "destination": "/odoo/apps/ai",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/ai_app.html",
+      "destination": "/odoo/apps/ai",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/appointment",
+      "destination": "/odoo/apps/appointments",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/appointment.html",
+      "destination": "/odoo/apps/appointments",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/event",
+      "destination": "/odoo/apps/events",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/event.html",
+      "destination": "/odoo/apps/events",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr",
+      "destination": "/odoo/apps/employees",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr.html",
+      "destination": "/odoo/apps/employees",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_appraisal",
+      "destination": "/odoo/apps/appraisals",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_appraisal.html",
+      "destination": "/odoo/apps/appraisals",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_expense",
+      "destination": "/odoo/apps/expenses",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_expense.html",
+      "destination": "/odoo/apps/expenses",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_holidays",
+      "destination": "/odoo/apps/time-off",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_holidays.html",
+      "destination": "/odoo/apps/time-off",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_payroll",
+      "destination": "/odoo/apps/payroll",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_payroll.html",
+      "destination": "/odoo/apps/payroll",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_recruitment",
+      "destination": "/odoo/apps/recruitment",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_recruitment.html",
+      "destination": "/odoo/apps/recruitment",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_referral",
+      "destination": "/odoo/apps/referrals",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_referral.html",
+      "destination": "/odoo/apps/referrals",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_timesheet",
+      "destination": "/odoo/apps/timesheets",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/hr_timesheet.html",
+      "destination": "/odoo/apps/timesheets",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/im_livechat",
+      "destination": "/odoo/apps/live-chat",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/im_livechat.html",
+      "destination": "/odoo/apps/live-chat",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/industry_fsm",
+      "destination": "/odoo/apps/field-service",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/industry_fsm.html",
+      "destination": "/odoo/apps/field-service",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mail",
+      "destination": "/odoo/apps/discuss",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mail.html",
+      "destination": "/odoo/apps/discuss",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/marketing_automation",
+      "destination": "/odoo/apps/marketing-automation",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/marketing_automation.html",
+      "destination": "/odoo/apps/marketing-automation",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mass_mailing",
+      "destination": "/odoo/apps/email-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mass_mailing.html",
+      "destination": "/odoo/apps/email-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mass_mailing_sms",
+      "destination": "/odoo/apps/sms-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mass_mailing_sms.html",
+      "destination": "/odoo/apps/sms-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mrp",
+      "destination": "/odoo/apps/manufacturing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mrp.html",
+      "destination": "/odoo/apps/manufacturing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mrp_plm",
+      "destination": "/odoo/apps/plm",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/mrp_plm.html",
+      "destination": "/odoo/apps/plm",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/point_of_sale",
+      "destination": "/odoo/apps/point-of-sale",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/point_of_sale.html",
+      "destination": "/odoo/apps/point-of-sale",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/pos_restaurant",
+      "destination": "/odoo/apps/restaurant-pos",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/pos_restaurant.html",
+      "destination": "/odoo/apps/restaurant-pos",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/quality_control",
+      "destination": "/odoo/apps/quality",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/quality_control.html",
+      "destination": "/odoo/apps/quality",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale",
+      "destination": "/odoo/apps/sales",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale.html",
+      "destination": "/odoo/apps/sales",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale_renting",
+      "destination": "/odoo/apps/rental",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale_renting.html",
+      "destination": "/odoo/apps/rental",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale_subscription",
+      "destination": "/odoo/apps/subscriptions",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/sale_subscription.html",
+      "destination": "/odoo/apps/subscriptions",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/social",
+      "destination": "/odoo/apps/social-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/social.html",
+      "destination": "/odoo/apps/social-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/spreadsheet_dashboard",
+      "destination": "/odoo/apps/spreadsheet",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/spreadsheet_dashboard.html",
+      "destination": "/odoo/apps/spreadsheet",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/stock",
+      "destination": "/odoo/apps/inventory",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/stock.html",
+      "destination": "/odoo/apps/inventory",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/survey",
+      "destination": "/odoo/apps/surveys",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/survey.html",
+      "destination": "/odoo/apps/surveys",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website",
+      "destination": "/odoo/apps/website-builder",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website.html",
+      "destination": "/odoo/apps/website-builder",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_blog",
+      "destination": "/odoo/apps/blog",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_blog.html",
+      "destination": "/odoo/apps/blog",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_forum",
+      "destination": "/odoo/apps/forum",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_forum.html",
+      "destination": "/odoo/apps/forum",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_sale",
+      "destination": "/odoo/apps/ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_sale.html",
+      "destination": "/odoo/apps/ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_slides",
+      "destination": "/odoo/apps/elearning",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/apps/website_slides.html",
+      "destination": "/odoo/apps/elearning",
+      "permanent": true
+    },
+    {
       "source": "/blog/rag-systems-enterprise-guide",
       "destination": "/solutions/ai-knowledge",
       "permanent": true

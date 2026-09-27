@@ -249,7 +249,7 @@ TN.demo('appgraph', function (root, K) {
     li.appendChild(b); return li;
   }
   function openLink(n) {
-    var a = K.el('a', 'btn-link agr-open'); a.href = K.root + 'odoo/apps/' + n.id;
+    var a = K.el('a', 'btn-link agr-open'); a.href = K.root + 'odoo/apps/' + ((window.TN_APP_SLUG || {})[n.id] || n.id);
     a.appendChild(document.createTextNode('Open the ' + n.name + ' app page '));
     var ar = K.el('span'); ar.innerHTML = ARROW; a.appendChild(ar.firstChild);
     return a;

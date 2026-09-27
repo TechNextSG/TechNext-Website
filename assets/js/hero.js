@@ -113,7 +113,7 @@
       '<button class="icon-btn icon-btn--sm" type="button" data-pop-close aria-label="Close">' + icon('x') + '</button></div>' +
       '<div class="pop-body"><p class="lead">' + a.lead + '</p><ul class="checks">' + a.points.map(function (p, i) { return '<li style="--i:' + i + '">' + icon('check') + p + '</li>'; }).join('') + '</ul>' +
       (rel ? '<div class="pop-meta"><span class="small muted" style="align-self:center">Works with</span>' + rel + '</div>' : '') + '</div>' +
-      '<div class="pop-foot"><a class="btn btn-ghost" href="' + ROOT + 'odoo/apps/' + mod + '">About Odoo ' + a.name + ' ' + icon('arrow') + '</a>' +
+      '<div class="pop-foot"><a class="btn btn-ghost" href="' + ROOT + 'odoo/apps/' + ((window.TN_APP_SLUG || {})[mod] || mod) + '">About Odoo ' + a.name + ' ' + icon('arrow') + '</a>' +
       '<a class="btn btn-primary" href="' + ROOT + 'quotation">Get a quotation ' + icon('arrow') + '</a></div>';
   }
   function renderFlow(i) {

@@ -25,6 +25,8 @@ GOOGLE_REGIONAL = ["https://www.google.com.sg", "https://www.google.com.vn",
                    "https://www.google.com.ph", "https://www.google.de"]
 
 REDIRECTS = [
+    # --- app pages moved to the names Odoo uses on 2026-09-27 (/odoo/apps/stock -> /odoo/apps/inventory) ---
+    *[(f"/odoo/apps/{m}{ext}", f"/odoo/apps/{s}") for m, s in sorted(S.APP_SLUG.items()) for ext in ("", ".html")],
     # --- retired on 2026-09-26 when the site became pure v2 -----------------------
     # The old blog (20 articles, English + Vietnamese), careers and gallery were removed.
     # Each old article URL - in both its /ai-article/ and /blog/ forms - goes to the
