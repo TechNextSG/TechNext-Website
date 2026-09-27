@@ -11,14 +11,22 @@
 .dm-life[data-cat="marketing"]{--c:#D25A2C}
 .dm-life[data-cat="services"]{--c:#12806A}
 .dm-life[data-cat="productivity"]{--c:#5B4FD1}
-.lf-body{display:grid;grid-template-columns:minmax(0,1fr) 300px}
-.lf-main{min-width:0;padding:10px 14px 14px}
-.lf-stage{position:relative;height:250px;margin:0 0 6px}
-.lf--ladder .lf-stage{height:calc(var(--n,5) * 66px + 20px)}
-.lf--ring .lf-stage,.lf--hub .lf-stage{height:380px}
-.lf--funnel .lf-stage{height:calc(var(--n,5) * 62px + 30px)}
-.lf--board .lf-stage{height:300px}
-.lf--journey .lf-stage{height:280px}
+/* compact form: counters in one strip under the header, the stage sized to its own content, the
+   exceptions and configured automations in one footer row, and a side column (hand-offs + live log)
+   that fills the height the stage sets instead of stretching the panel */
+.lf-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid var(--line);background:#fff}
+.lf-kpis>div{flex-direction:row-reverse;justify-content:flex-end;align-items:baseline;gap:8px;padding:9px 16px;border:0;border-radius:0;border-right:1px solid var(--line);background:none}
+.lf-kpis>div:last-child{border-right:0}
+.lf-kpis dd{font-size:1.05rem}
+.lf-kpis .dm-ok{background:var(--ok-050)}
+.lf-body{display:grid;grid-template-columns:minmax(0,1fr) 272px}
+.lf-main{min-width:0;padding:12px 14px;min-height:calc(var(--hn,3) * 42px + 150px)}
+.lf-stage{position:relative;height:190px;margin:0 0 8px}
+.lf--ladder .lf-stage{height:calc(var(--n,5) * 56px + 16px)}
+.lf--ring .lf-stage,.lf--hub .lf-stage{height:330px}
+.lf--funnel .lf-stage{height:calc(var(--n,5) * 52px + 24px)}
+.lf--board .lf-stage{height:200px}
+.lf--journey .lf-stage{height:230px}
 .lf-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
 .lf-e{fill:none;stroke:var(--edge);stroke-width:1.7;stroke-linecap:round}
 .lf-e--b{stroke:#E4C9C6;stroke-dasharray:4 5}
@@ -40,7 +48,8 @@
 .lf-states>li.has-n .lf-n{opacity:1;transform:none}
 .dm-life.is-peek .lf-states>li:not(.is-hot){opacity:.45}
 /* ladder (finance): a vertical close; cards left, branches loop out to the right */
-.lf--ladder .lf-states>li{width:150px;text-align:left;padding-left:12px;border-left:3px solid color-mix(in srgb,var(--c) 55%,var(--line))}
+.lf--ladder .lf-states>li{width:220px;text-align:left;padding-left:12px;border-left:3px solid color-mix(in srgb,var(--c) 55%,var(--line))}
+.lf--ladder .lf-states>li small{-webkit-line-clamp:1}
 /* ring (HR) and hub (productivity) */
 .lf--ring .lf-states>li,.lf--hub .lf-states>li{width:118px}
 .lf-center{display:none}
@@ -50,7 +59,7 @@
 .lf--funnel .lf-states>li{width:calc(var(--w,100%) * .62);border-radius:10px;padding:7px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 7%,#fff),#fff 60%);display:flex;align-items:baseline;gap:10px;justify-content:center}
 .lf--funnel .lf-states>li small{-webkit-line-clamp:1;margin:0}
 /* board (services): columns with record cards */
-.lf--board .lf-states>li{top:0!important;transform:translateX(-50%);height:100%;width:calc(100% / var(--n,5) - 8px);border-radius:12px;background:var(--alt);box-shadow:none;padding-top:8px}
+.lf--board .lf-states>li{top:0!important;transform:translateX(-50%);height:100%;width:calc(100% / var(--n,5) - 8px);border-radius:12px;background:var(--alt);box-shadow:none;padding-top:8px;background-image:linear-gradient(var(--line),var(--line));background-size:calc(100% - 20px) 1px;background-position:10px 40px;background-repeat:no-repeat}
 .lf--board .lf-states>li b{font-size:11px}
 .lf--board .lf-states>li small{-webkit-line-clamp:1}
 .lf-cards{position:absolute;inset:0;z-index:3;pointer-events:none}
@@ -65,12 +74,13 @@
 .lf-branch i{width:7px;height:7px;border-radius:50%;background:var(--tok-late);flex:none}
 .lf-branch.is-take{animation:lfTake 1s ease-out}
 @keyframes lfTake{0%{background:#FDECEA;border-color:var(--tok-late);color:var(--ink)}100%{background:#fff}}
-.lf-bh{margin:6px 0 6px;font:700 10px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lf-bh{margin:0 0 7px;font:700 10px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lf-foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 20px;padding-top:10px;border-top:1px dashed var(--line)}
+.lf-fg{min-width:0}
 /* side panel */
-.lf-side{display:flex;flex-direction:column;gap:8px;min-width:0;padding:14px;border-left:1px solid var(--line);background:rgba(250,249,251,.75)}
-.lf-side .dm-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-.lf-side .dm-kpis dd{font-size:1.05rem}
-.lf-h{margin:4px 0 0;font:700 10px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lf-side{position:relative;min-width:0;border-left:1px solid var(--line);background:rgba(250,249,251,.75)}
+.lf-side-in{position:absolute;inset:0;display:flex;flex-direction:column;gap:7px;padding:12px 14px;overflow:hidden}
+.lf-h{margin:2px 0 0;font:700 10px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .lf-hand,.lf-auto{display:grid;gap:5px;margin:0;padding:0;list-style:none}
 .lf-hand li{display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:10px;background:#fff;border:1px solid var(--line)}
 .lf-hand li .oi{width:22px;height:22px;flex:none}
@@ -79,18 +89,30 @@
 .lf-hand li small{font:500 10.5px/1.3 var(--font-body);color:var(--muted)}
 .lf-hand li.is-fire{animation:lfFire .9s ease-out}
 @keyframes lfFire{0%{border-color:var(--tok-pay);box-shadow:0 0 0 3px color-mix(in srgb,var(--tok-pay) 18%,transparent)}100%{border-color:var(--line);box-shadow:none}}
-.lf-auto li{display:flex;align-items:flex-start;gap:7px;font:500 11.5px/1.4 var(--font-body);color:var(--body)}
+.lf-auto{gap:4px}
+.lf-auto li{display:flex;align-items:flex-start;gap:7px;font:500 11.5px/1.35 var(--font-body);color:var(--body)}
 .lf-auto li .ic{width:14px;height:14px;color:var(--c);flex:none;margin-top:2px}
-.lf-log{min-height:92px;align-content:start}
+.lf-log{flex:1;min-height:0;overflow:hidden;align-content:start}
 .dm-life [data-exc].is-armed{border-color:var(--tok-late);color:var(--tok-late)}
 /* before the script runs (or without it) the states read as a plain ordered list */
 .dm-life:not(.is-js) .lf-stage{height:auto}
 .dm-life:not(.is-js) .lf-states{position:static;display:flex;flex-wrap:wrap;gap:8px}
 .dm-life:not(.is-js) .lf-states>li{position:static;transform:none}
-@media (max-width:1100px){.lf-body{grid-template-columns:minmax(0,1fr) 260px}}
-@media (max-width:860px){.lf-body{grid-template-columns:minmax(0,1fr)}.lf-side{border-left:0;border-top:1px solid var(--line)}}
+@media (max-width:1100px){.lf-body{grid-template-columns:minmax(0,1fr) 250px}}
+@media (max-width:860px){
+  .lf-body{grid-template-columns:minmax(0,1fr)}
+  .lf-main{min-height:0}
+  .lf-side{border-left:0;border-top:1px solid var(--line)}
+  .lf-side-in{position:static}
+  .lf-log{flex:none;max-height:124px}
+}
 @media (max-width:640px){
-  .lf-stage{height:calc(var(--n,5) * 66px + 20px)!important}
-  .lf-states>li{width:150px;text-align:left}
+  .lf-stage{height:calc(var(--n,5) * 58px + 16px)!important}
+  .lf-states>li,.lf--ladder .lf-states>li{width:150px;text-align:left}
+  .lf-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lf-kpis>div{padding:8px 12px}
+  .lf-kpis>div:nth-child(2){border-right:0}
+  .lf-kpis>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .lf-foot{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.lf-states>li.is-pulse,.lf-branch.is-take,.lf-hand li.is-fire{animation:none}}

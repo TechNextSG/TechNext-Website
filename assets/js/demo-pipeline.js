@@ -119,7 +119,7 @@ TN.demo('pipeline', function (root, K) {
     var mine = function (c) { return view === 'all' || c.t === view; };
     cards.forEach(function (c) { c.el.hidden = !mine(c) || c.lost; });
     lists.forEach(function (list, s) {
-      var shown = 0, extra = 0, cap = s === 3 ? 3 : 5;
+      var shown = 0, extra = 0, cap = s === 3 ? 2 : 3;
       K.$$('.ppl-card', list).forEach(function (el) { if (el.hidden) return; if (shown < cap) shown++; else { el.hidden = true; extra++; } });
       mores[s].textContent = extra ? '+' + extra + ' more' : '';
       var tot = cards.filter(function (c) { return c.s === s && !c.lost && mine(c); }).reduce(function (a, c) { return a + c.v; }, 0);

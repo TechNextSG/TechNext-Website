@@ -112,7 +112,7 @@ TN.demo('sla', function (root, K) {
   }
 
   // ---------------------------------------------------------------- moving cards between states (FLIP)
-  var MAXV = 4;
+  var MAXV = 3;
   function order(list) {
     return list.sort(function (a, b) { return a.st === 'done' ? b.closed - a.closed : (b.esc - a.esc) || (a.pri - b.pri) || (a.id - b.id); });
   }
