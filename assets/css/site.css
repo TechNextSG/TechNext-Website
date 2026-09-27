@@ -739,7 +739,9 @@ body.chat-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
    · 1.8–3.9 wordmark rises letter by letter under the plane · 3.6/3.9 landing ripples · 3.7 glow blooms
    · 4.6 tagline types on · 6.4 shine · 7.1 focus pills · 8.7 second shine · 10.0 fade into the hero's camera
    entrance. site.js builds the path and owns the JS-timed beats (particles, trail draw, typewriter, finish). */
-.intro{position:fixed;inset:0;z-index:300;background:#fff;place-items:center;overflow:hidden;cursor:pointer}
+/* #intro, not .intro: <html> carries class "intro" while the overlay plays, and must keep its normal layout */
+#intro{position:fixed;inset:0;z-index:300;background:#fff;place-items:center;overflow:hidden;cursor:pointer}
+html.intro{overflow:hidden}
 .intro-bg{position:absolute;inset:0;background-image:linear-gradient(var(--blue-050) 1px,transparent 1px),linear-gradient(90deg,var(--blue-050) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,#000 10%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,#000 10%,transparent 100%);opacity:0}
 .intro.is-go .intro-bg{animation:introFade 2s ease .4s forwards}
 @keyframes introFade{to{opacity:1}}

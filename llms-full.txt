@@ -6,7 +6,7 @@
 
 - Sales: sales@technext.asia
 - WhatsApp: +65 8839 6998
-- LinkedIn: https://www.linkedin.com/company/technext-asia
+- LinkedIn: https://www.linkedin.com/company/technextasia
 
 ## Offices
 
@@ -36,13 +36,13 @@
 - https://technext.asia/industries/health-wellness — Odoo for Wellness Studios, Spas & Gyms in Singapore: Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.
 - https://technext.asia/industries/manufacturing — Odoo for Manufacturing in Singapore — BoM & costing: Odoo for manufacturers: bills of materials, work orders, component stock, purchasing and product costing in one database — by TechNext, Odoo Partner.
 - https://technext.asia/industries/medical — Odoo for Clinics & Healthcare Groups in Singapore: Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.
-- https://technext.asia/industries/retail — Odoo POS for Retail in Singapore — stock & accounts: Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.
+- https://technext.asia/industries/retail — Odoo for Retail in Singapore — POS, stock & accounts: Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/travel — Odoo for Travel Agencies & Tour Operators in Singapore: Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.
 - https://technext.asia/odoo/ai-integration — Odoo + AI integrations — AI inside your ERP: AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo.
 - https://technext.asia/odoo/apps — Odoo Apps List — every module, by category: The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.
 - https://technext.asia/odoo/apps/account — Odoo Invoicing implementation in Singapore: Odoo Invoicing implemented by TechNext, an Odoo Partner in Singapore. Send invoices and collect payments online. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/accountant — Odoo Accounting implementation in Singapore: Odoo Accounting implemented by TechNext, an Odoo Partner in Singapore. Journals, bank sync, tax reports and closing.
-- https://technext.asia/odoo/apps/ai_app — Odoo AI implementation in Singapore: Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Setup, data migration, training and support.
+- https://technext.asia/odoo/apps/ai_app — Odoo AI app (built-in AI agents) in Singapore: Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/appointment — Odoo Appointments implementation in Singapore: Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/approvals — Odoo Approvals implementation in Singapore: Odoo Approvals implemented by TechNext, an Odoo Partner in Singapore. Request and approve anything. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/crm — Odoo CRM implementation in Singapore: Odoo CRM implemented by TechNext, an Odoo Partner in Singapore. Leads, pipeline and activities. Setup, data migration, training and support.
@@ -70,8 +70,8 @@
 - https://technext.asia/odoo/apps/mrp — Odoo Manufacturing implementation in Singapore: Odoo Manufacturing implemented by TechNext, an Odoo Partner in Singapore. Bills of materials and work orders. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/mrp_plm — Odoo PLM implementation in Singapore: Odoo PLM implemented by TechNext, an Odoo Partner in Singapore. Engineering changes and versions. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/planning — Odoo Planning implementation in Singapore: Odoo Planning implemented by TechNext, an Odoo Partner in Singapore. Shift and resource scheduling. Setup, data migration, training and support.
-- https://technext.asia/odoo/apps/point_of_sale — Odoo Point of Sale — Shop implementation in Singapore: Odoo Point of Sale — Shop implemented by TechNext, an Odoo Partner in Singapore. Offline-ready retail checkout. Setup, data migration, training and support.
-- https://technext.asia/odoo/apps/pos_restaurant — Odoo Point of Sale — Restaurant implementation in Singapore: Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore. Tables, kitchen printing, bills.
+- https://technext.asia/odoo/apps/point_of_sale — Odoo POS (Point of Sale) for shops in Singapore: Odoo Point of Sale — Shop implemented by TechNext, an Odoo Partner in Singapore. Offline-ready retail checkout. Setup, data migration, training and support.
+- https://technext.asia/odoo/apps/pos_restaurant — Odoo Restaurant POS implementation in Singapore: Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore. Tables, kitchen printing, bills.
 - https://technext.asia/odoo/apps/project — Odoo Project implementation in Singapore: Odoo Project implemented by TechNext, an Odoo Partner in Singapore. Tasks, stages and milestones. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/purchase — Odoo Purchase implementation in Singapore: Odoo Purchase implemented by TechNext, an Odoo Partner in Singapore. RFQs, vendor pricelists, receipts. Setup, data migration, training and support.
 - https://technext.asia/odoo/apps/quality_control — Odoo Quality implementation in Singapore: Odoo Quality implemented by TechNext, an Odoo Partner in Singapore. Control points and quality alerts. Setup, data migration, training and support.
