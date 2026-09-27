@@ -405,3 +405,33 @@
 @media (max-width:640px){.lj-segs span b{display:none}.lj-scrub{height:22px}.lj-title small{display:none}}
 @media (max-width:640px){.slide-inner.si-stack{padding-right:18px}}
 @media (max-width:960px) and (prefers-reduced-motion:reduce){.hero .kw>span,.hero .up{opacity:1;transform:none;animation:none}}
+
+/* ---------------- Nexi, TechNext's AI companion (assets/js/nexi.js) ----------------
+   Desktop only. A transparent WebGL layer over the hero; only the moving hit area and the
+   intro card take the pointer. While Nexi is on screen it replaces the "Chat with us" tab. */
+.nexi{position:absolute;inset:0;z-index:3;pointer-events:none}
+.nexi-cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nexi-hit{position:absolute;left:0;top:0;padding:0;border:0;border-radius:48% 48% 42% 42%;background:transparent;cursor:pointer;pointer-events:auto;will-change:transform}
+.nexi-hit:focus-visible{outline:3px solid var(--blue-300);outline-offset:4px}
+.nexi-fx{position:absolute;inset:0;overflow:hidden}
+.nexi-fx i{position:absolute;left:0;top:0;font:800 22px/1 var(--font-display);font-style:normal;color:var(--blue);text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.95);animation:nexiUp 1.6s var(--ease-out) forwards}
+.nexi-fx b{position:absolute;left:0;top:0;padding:6px 12px;border-radius:14px;background:#fff;color:var(--blue);font:800 16px/1 var(--font-display);white-space:nowrap;box-shadow:0 10px 22px -12px rgba(30,70,145,.6),0 0 0 3px rgba(111,160,245,.3);animation:nexiWord 1.8s var(--ease-out) forwards}
+.nexi-fx u{position:absolute;border-radius:14px;box-shadow:0 0 0 2px rgba(49,103,202,.7),0 0 18px 4px rgba(111,160,245,.45);animation:nexiRing 1.4s var(--ease-out) forwards}
+@keyframes nexiUp{0%{opacity:0;transform:translate(var(--x0),var(--y0)) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x1),var(--y1)) scale(1.1) rotate(var(--r))}}
+@keyframes nexiWord{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3) rotate(-12deg)}15%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.12) rotate(-5deg)}25%{transform:translate(var(--x),var(--y)) scale(1) rotate(-4deg)}78%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) - 28px)) rotate(-4deg)}}
+@keyframes nexiRing{0%{opacity:0;transform:scale(1.25)}25%{opacity:1}100%{opacity:0;transform:scale(1)}}
+.nexi-card{position:absolute;left:0;top:0;z-index:8;width:320px;padding:16px 16px 14px;border-radius:18px;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line);box-shadow:0 2px 6px rgba(31,31,61,.06),0 24px 48px -24px rgba(30,70,145,.45);color:var(--body);font-size:14.5px;line-height:1.55;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .25s ease,transform .3s var(--ease-out)}
+.nexi-card.is-on{opacity:1;transform:none}
+.nexi-card p{margin:8px 0 0}
+.nexi-card-head{display:flex;align-items:center;gap:10px}
+.nexi-card-head b{display:block;font:800 17px/1.2 var(--font-display);color:var(--ink)}
+.nexi-card-head span{font-size:12.5px;color:var(--body)}
+.nexi-ava{position:relative;width:40px;height:40px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe6f3 72%);box-shadow:inset 0 -2px 4px rgba(31,31,61,.12),0 3px 10px rgba(30,70,145,.25)}
+.nexi-ava::before{content:"";position:absolute;left:7px;right:7px;top:11px;height:18px;border-radius:9px;background:#0b0f1e}
+.nexi-ava::after{content:"";position:absolute;top:15px;left:14px;width:4.5px;height:10px;border-radius:2.5px;background:#9ccbff;box-shadow:8px 0 0 #9ccbff,0 0 6px #6fa0f5}
+.nexi-x{margin-left:auto;align-self:flex-start;width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.nexi-x:hover{color:var(--ink);border-color:var(--blue-100)}
+.nexi-x svg{width:14px;height:14px}
+.nexi-card-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+body.nexi-on .side-tab.chat-tab{display:none}
+@media (max-width:960px),(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.nexi,.nexi-card{display:none!important}}
