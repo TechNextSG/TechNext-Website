@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Filter chips for card lists (open roles on /careers, articles on /blog).
    <div data-filter role="group" aria-controls="LIST_ID" data-noun="role|roles">
      <button type="button" data-filter-tag="all" aria-pressed="true">All</button>

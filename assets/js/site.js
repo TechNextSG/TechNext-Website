@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* TechNext Website v2 — shared behaviour: one-time intro, header menus, mobile nav, Let's Talk
    panel, FormSubmit forms, scroll reveals, button ripple + magnetic hover. No dependencies. */
 (function () {
@@ -275,10 +276,15 @@
       sent.innerHTML = '<h3>Thanks — we have it.</h3><p>Your message is on its way to sales@technext.asia. We reply from that address.</p>';
       form.appendChild(sent);
     }
+    // time trap: a person needs a few seconds between first touching the form and sending it;
+    // scripts post instantly (or never focus a field). They see the normal thank-you, nothing is sent.
+    var startedAt = 0;
+    form.addEventListener('focusin', function () { if (!startedAt) startedAt = Date.now(); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if ($('input[name=_honey]', form) && $('input[name=_honey]', form).value) return;
       if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
       if (form.dataset.beforeSend) { try { window[form.dataset.beforeSend](form); } catch (_) {} }
       var payload = serialize(form);
       btn.classList.add('is-busy'); btn.disabled = true;

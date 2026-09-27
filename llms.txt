@@ -1,61 +1,94 @@
-# TechNext
+# TechNext (TechNext Pte. Ltd., Singapore)
 
 > TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.
 
 - Registered name: TechNext Pte. Ltd. (UEN 202699888G)
 - Headquarters: 261 Waterloo Street #03-36, Singapore 180261
 - Philippines office: Level 9, IP Center, Taguig City, Metro Manila
-- Vietnam development hub: 62 Nguyễn Thị Nhung, P. Hiệp Bình, Ho Chi Minh City
+- Vietnam development hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City
 - Contact: sales@technext.asia · WhatsApp +65 8839 6998
 - Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines
+- Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
+- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it
+- Method: discovery, configuration on a staging copy, data migration, training, integration, support
+- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery
+- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing
 - Written quotation: https://technext.asia/quotation
 
 ## Odoo ERP services
 
 - [Odoo + AI integrations — AI inside your ERP](https://technext.asia/odoo/ai-integration): AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo.
-- [Odoo CRM development — pipelines built for you](https://technext.asia/odoo/crm-development): Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells.
-- [Odoo Discovery — scope before we configure](https://technext.asia/odoo/discovery): Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope.
-- [Odoo Customization — upgrade-safe modules](https://technext.asia/odoo/erp-system): Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.
+- [Odoo CRM Customization — pipelines & lead routing](https://technext.asia/odoo/crm-development): Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells.
+- [Odoo Consultation & Discovery in Singapore](https://technext.asia/odoo/discovery): Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope.
+- [Odoo Customization in Singapore — upgrade-safe modules](https://technext.asia/odoo/erp-system): Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.
 - [Odoo Integration — banks, payments, stores](https://technext.asia/odoo/integration): Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.
+- [Odoo Partner in the Philippines — Taguig City](https://technext.asia/odoo/philippines): TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila: Odoo implementation with BIR localisation, payroll, training and support.
 - [Odoo Support in Singapore — fixes & upgrades](https://technext.asia/odoo/support): Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.
 - [Odoo Training in Singapore — on your data](https://technext.asia/odoo/training): Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.
-- [Enterprise Odoo — multi-company, multi-country](https://technext.asia/solutions/enterprise): Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.
+- [Odoo Multi-Company ERP for Groups & Consolidation](https://technext.asia/solutions/enterprise): Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.
 - [Odoo ERP Implementation in Singapore](https://technext.asia/solutions/odoo-erp): Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.
 
 ## AI solutions
 
 - [Enterprise AI Solutions in Singapore](https://technext.asia/solutions/ai): TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters.
-- [AI Workflow Automation — multi-step agents](https://technext.asia/solutions/ai-automation): AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.
-- [AI Chatbots — web, WhatsApp and in-app assistants](https://technext.asia/solutions/ai-chatbots): AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.
-- [Enterprise RAG Knowledge Assistants](https://technext.asia/solutions/ai-knowledge): Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited.
+- [AI Workflow Automation in Singapore — AI agents](https://technext.asia/solutions/ai-automation): AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.
+- [AI Chatbot Development in Singapore — web & WhatsApp](https://technext.asia/solutions/ai-chatbots): AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.
+- [Enterprise RAG Knowledge Assistants in Singapore](https://technext.asia/solutions/ai-knowledge): Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited.
 
 ## Websites and marketing
 
-- [Graphic & Brand Assets — logos, decks, collateral](https://technext.asia/solutions/brand-assets): Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own.
-- [Marketing — websites and social media](https://technext.asia/solutions/marketing): TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.
+- [Graphic Design & Brand Assets in Singapore](https://technext.asia/solutions/brand-assets): Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own.
+- [Website & Social Media Marketing in Singapore](https://technext.asia/solutions/marketing): TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.
 - [Social Media Management in Singapore](https://technext.asia/solutions/social-media): TechNext runs your LinkedIn, Facebook and Instagram on a monthly plan — content, scheduling, replies and a one-page report — while you run the business.
 - [Web Design & Development in Singapore](https://technext.asia/solutions/website): TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.
 
 ## Odoo by industry
 
-- [Odoo for Construction — site costs & billing](https://technext.asia/industries/construction): Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
-- [Odoo for Ecommerce — orders, stock and payouts](https://technext.asia/industries/ecommerce): Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.
-- [Odoo for F&B — restaurants & central kitchens](https://technext.asia/industries/fnb): Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.
-- [Odoo for Health & Wellness — studios & spas](https://technext.asia/industries/health-wellness): Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.
-- [Odoo for Manufacturing — BoMs & costing](https://technext.asia/industries/manufacturing): Odoo for manufacturers: bills of materials, work orders, component stock, purchasing and product costing in one database — by TechNext, Odoo Partner.
-- [Odoo for Medical & Healthcare](https://technext.asia/industries/medical): Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.
-- [Odoo for Retail — POS, stock and accounting](https://technext.asia/industries/retail): Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.
-- [Odoo for Travel & Tours](https://technext.asia/industries/travel): Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.
+- [Odoo for Construction in Singapore — job costing](https://technext.asia/industries/construction): Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
+- [Odoo for Ecommerce in Singapore — stores & marketplaces](https://technext.asia/industries/ecommerce): Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.
+- [Odoo for F&B in Singapore — restaurants & kitchens](https://technext.asia/industries/fnb): Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.
+- [Odoo for Wellness Studios, Spas & Gyms in Singapore](https://technext.asia/industries/health-wellness): Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.
+- [Odoo for Manufacturing in Singapore — BoM & costing](https://technext.asia/industries/manufacturing): Odoo for manufacturers: bills of materials, work orders, component stock, purchasing and product costing in one database — by TechNext, Odoo Partner.
+- [Odoo for Clinics & Healthcare Groups in Singapore](https://technext.asia/industries/medical): Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.
+- [Odoo POS for Retail in Singapore — stock & accounts](https://technext.asia/industries/retail): Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.
+- [Odoo for Travel Agencies & Tour Operators in Singapore](https://technext.asia/industries/travel): Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.
 
 ## Odoo apps we implement
 
-- [Odoo Apps by Category — Finance to HR](https://technext.asia/odoo/apps): The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.
 - [Odoo Invoicing implementation in Singapore](https://technext.asia/odoo/apps/account): Odoo Invoicing implemented by TechNext, an Odoo Partner in Singapore. Send invoices and collect payments online. Setup, data migration, training and support.
 - [Odoo Accounting implementation in Singapore](https://technext.asia/odoo/apps/accountant): Odoo Accounting implemented by TechNext, an Odoo Partner in Singapore. Journals, bank sync, tax reports and closing.
+- [Odoo CRM implementation in Singapore](https://technext.asia/odoo/apps/crm): Odoo CRM implemented by TechNext, an Odoo Partner in Singapore. Leads, pipeline and activities. Setup, data migration, training and support.
+- [Odoo Purchase implementation in Singapore](https://technext.asia/odoo/apps/purchase): Odoo Purchase implemented by TechNext, an Odoo Partner in Singapore. RFQs, vendor pricelists, receipts. Setup, data migration, training and support.
+- [Odoo Sales implementation in Singapore](https://technext.asia/odoo/apps/sale): Odoo Sales implemented by TechNext, an Odoo Partner in Singapore. Quotations, orders and upsells. Setup, data migration, training and support.
+- [Odoo Inventory implementation in Singapore](https://technext.asia/odoo/apps/stock): Odoo Inventory implemented by TechNext, an Odoo Partner in Singapore. Multi-warehouse stock, barcodes, replenishment.
+
+## Company
+
+- [Odoo Partner in Singapore — Odoo ERP & AI](https://technext.asia/): TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.
+- [Careers: Odoo, ERP and finance jobs in Taguig](https://technext.asia/careers): Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.
+- [About TechNext Pte. Ltd. — Odoo Ready Partner, Singapore](https://technext.asia/company): TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.
+- [Odoo Implementation Cost — get a written quote](https://technext.asia/quotation): Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.
+
+## Blog
+
+- [Blog: Odoo news, Odoo 20 and ERP guides](https://technext.asia/blog): Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
+- [Odoo implementation process, step by step](https://technext.asia/blog/how-an-odoo-implementation-works): How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
+- [Singapore GST InvoiceNow requirement: all dates to 2031](https://technext.asia/blog/invoicenow-singapore-gst-timeline): Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
+- [Odoo 20 in Singapore, the Philippines and Vietnam](https://technext.asia/blog/odoo-20-singapore-philippines-vietnam): The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
+- [Odoo 20 new features, in plain language](https://technext.asia/blog/odoo-20-whats-new): Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.
+- [Odoo Experience 2026: five takeaways for Odoo users](https://technext.asia/blog/odoo-experience-2026-takeaways): Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
+- [Odoo Online vs Odoo.sh vs on-premise: which fits?](https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise): Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
+- [Seven signs your business has outgrown spreadsheets](https://technext.asia/blog/signs-you-have-outgrown-spreadsheets): Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
+- [Odoo customisation vs configuration: when to build](https://technext.asia/blog/standard-first-odoo-customisation): When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
+- [Odoo events Oct–Nov 2026: Singapore, Philippines, Vietnam](https://technext.asia/blog/upcoming-odoo-events-singapore-philippines-vietnam): Upcoming Odoo events in Singapore, the Philippines and Vietnam for October and November 2026, plus free online webinars: dates, venues and links, by TechNext.
+- [What is ERP? A plain-language guide for growing companies](https://technext.asia/blog/what-is-erp): What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.
+
+## Optional
+
+- [Odoo Apps List — every module, by category](https://technext.asia/odoo/apps): The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.
 - [Odoo AI implementation in Singapore](https://technext.asia/odoo/apps/ai_app): Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Setup, data migration, training and support.
 - [Odoo Appointments implementation in Singapore](https://technext.asia/odoo/apps/appointment): Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Setup, data migration, training and support.
 - [Odoo Approvals implementation in Singapore](https://technext.asia/odoo/apps/approvals): Odoo Approvals implemented by TechNext, an Odoo Partner in Singapore. Request and approve anything. Setup, data migration, training and support.
-- [Odoo CRM implementation in Singapore](https://technext.asia/odoo/apps/crm): Odoo CRM implemented by TechNext, an Odoo Partner in Singapore. Leads, pipeline and activities. Setup, data migration, training and support.
 - [Odoo Documents implementation in Singapore](https://technext.asia/odoo/apps/documents): Odoo Documents implemented by TechNext, an Odoo Partner in Singapore. File storage with workflows and OCR. Setup, data migration, training and support.
 - [Odoo Events implementation in Singapore](https://technext.asia/odoo/apps/event): Odoo Events implemented by TechNext, an Odoo Partner in Singapore. Registrations, tickets and badges. Setup, data migration, training and support.
 - [Odoo Fleet implementation in Singapore](https://technext.asia/odoo/apps/fleet): Odoo Fleet implemented by TechNext, an Odoo Partner in Singapore. Vehicles, contracts and costs. Setup, data migration, training and support.
@@ -83,15 +116,12 @@
 - [Odoo Point of Sale — Shop implementation in Singapore](https://technext.asia/odoo/apps/point_of_sale): Odoo Point of Sale — Shop implemented by TechNext, an Odoo Partner in Singapore. Offline-ready retail checkout. Setup, data migration, training and support.
 - [Odoo Point of Sale — Restaurant implementation in Singapore](https://technext.asia/odoo/apps/pos_restaurant): Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore. Tables, kitchen printing, bills.
 - [Odoo Project implementation in Singapore](https://technext.asia/odoo/apps/project): Odoo Project implemented by TechNext, an Odoo Partner in Singapore. Tasks, stages and milestones. Setup, data migration, training and support.
-- [Odoo Purchase implementation in Singapore](https://technext.asia/odoo/apps/purchase): Odoo Purchase implemented by TechNext, an Odoo Partner in Singapore. RFQs, vendor pricelists, receipts. Setup, data migration, training and support.
 - [Odoo Quality implementation in Singapore](https://technext.asia/odoo/apps/quality_control): Odoo Quality implemented by TechNext, an Odoo Partner in Singapore. Control points and quality alerts. Setup, data migration, training and support.
-- [Odoo Sales implementation in Singapore](https://technext.asia/odoo/apps/sale): Odoo Sales implemented by TechNext, an Odoo Partner in Singapore. Quotations, orders and upsells. Setup, data migration, training and support.
 - [Odoo Rental implementation in Singapore](https://technext.asia/odoo/apps/sale_renting): Odoo Rental implemented by TechNext, an Odoo Partner in Singapore. Book, pick up and return assets. Setup, data migration, training and support.
 - [Odoo Subscriptions implementation in Singapore](https://technext.asia/odoo/apps/sale_subscription): Odoo Subscriptions implemented by TechNext, an Odoo Partner in Singapore. Recurring billing and renewals. Setup, data migration, training and support.
 - [Odoo Sign implementation in Singapore](https://technext.asia/odoo/apps/sign): Odoo Sign implemented by TechNext, an Odoo Partner in Singapore. Legally binding e-signatures. Setup, data migration, training and support.
 - [Odoo Social Marketing implementation in Singapore](https://technext.asia/odoo/apps/social): Odoo Social Marketing implemented by TechNext, an Odoo Partner in Singapore. Schedule and track posts. Setup, data migration, training and support.
 - [Odoo Spreadsheet (BI) implementation in Singapore](https://technext.asia/odoo/apps/spreadsheet_dashboard): Odoo Spreadsheet (BI) implemented by TechNext, an Odoo Partner in Singapore. Live pivots and dashboards on Odoo data.
-- [Odoo Inventory implementation in Singapore](https://technext.asia/odoo/apps/stock): Odoo Inventory implemented by TechNext, an Odoo Partner in Singapore. Multi-warehouse stock, barcodes, replenishment.
 - [Odoo Surveys implementation in Singapore](https://technext.asia/odoo/apps/survey): Odoo Surveys implemented by TechNext, an Odoo Partner in Singapore. Forms, quizzes and feedback. Setup, data migration, training and support.
 - [Odoo VoIP implementation in Singapore](https://technext.asia/odoo/apps/voip): Odoo VoIP implemented by TechNext, an Odoo Partner in Singapore. Calls from inside Odoo. Setup, data migration, training and support.
 - [Odoo Website Builder implementation in Singapore](https://technext.asia/odoo/apps/website): Odoo Website Builder implemented by TechNext, an Odoo Partner in Singapore. Drag-and-drop pages with SEO tools. Setup, data migration, training and support.
@@ -100,28 +130,6 @@
 - [Odoo eCommerce implementation in Singapore](https://technext.asia/odoo/apps/website_sale): Odoo eCommerce implemented by TechNext, an Odoo Partner in Singapore. Online store tied to stock and accounting. Setup, data migration, training and support.
 - [Odoo eLearning implementation in Singapore](https://technext.asia/odoo/apps/website_slides): Odoo eLearning implemented by TechNext, an Odoo Partner in Singapore. Courses, quizzes and certifications. Setup, data migration, training and support.
 - [Odoo WhatsApp implementation in Singapore](https://technext.asia/odoo/apps/whatsapp): Odoo WhatsApp implemented by TechNext, an Odoo Partner in Singapore. Templates and conversations. Setup, data migration, training and support.
-
-## Company
-
-- [Odoo Partner in Singapore — Odoo ERP & AI](https://technext.asia/): TechNext is an Odoo Partner in Singapore: all-in-one Odoo ERP, holistic business consultation and fast website development for growing companies.
-- [Careers: Odoo, ERP and finance jobs in Taguig](https://technext.asia/careers): Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.
-- [About TechNext — Odoo Partner, Singapore](https://technext.asia/company): TechNext Pte. Ltd. is an Odoo Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.
-- [Get a written Odoo quotation in two minutes](https://technext.asia/quotation): Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.
-
-## Blog
-
-- [Blog: Odoo news, Odoo 20 and ERP guides](https://technext.asia/blog): Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
-- [How an Odoo implementation works, step by step](https://technext.asia/blog/how-an-odoo-implementation-works): How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
-- [GST InvoiceNow requirement: every date, 2025 to 2031](https://technext.asia/blog/invoicenow-singapore-gst-timeline): Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
-- [Odoo 20 in Singapore, the Philippines and Vietnam](https://technext.asia/blog/odoo-20-singapore-philippines-vietnam): The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
-- [Odoo 20: what's new, in plain language](https://technext.asia/blog/odoo-20-whats-new): Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.
-- [Odoo Experience 2026: five takeaways for Odoo users](https://technext.asia/blog/odoo-experience-2026-takeaways): Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
-- [Odoo Online vs Odoo.sh vs on-premise: which fits?](https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise): Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
-- [Seven signs your business has outgrown spreadsheets](https://technext.asia/blog/signs-you-have-outgrown-spreadsheets): Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
-- [Standard first: when to customise Odoo, and when not](https://technext.asia/blog/standard-first-odoo-customisation): When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
-- [What is ERP? A plain-language guide for growing companies](https://technext.asia/blog/what-is-erp): What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.
-
-## Optional
-
+- [Full text for AI assistants](https://technext.asia/llms-full.txt): every page summary and every FAQ answer on the site
 - [Privacy Policy](https://technext.asia/privacy): how personal data and cookies are handled
 - [Terms of Service](https://technext.asia/terms): website terms and how engagements are agreed

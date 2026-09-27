@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Cookie consent + first-party visitor context. Ported from the previous site's
    cookie-consent.js. Google Consent Mode v2 defaults (everything denied) are set by the
    inline snippet at the top of <head>, BEFORE any Google tag loads; this file only asks

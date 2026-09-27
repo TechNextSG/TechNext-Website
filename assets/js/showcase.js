@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* App showcase: a list of Odoo apps (tabs) with a detail panel that swaps content with a small
    spring animation. Auto-advances every 6 s until the visitor interacts. Used on industry pages and
    the Odoo ERP page. Each tab carries its content in data attributes. */
@@ -26,7 +27,7 @@
         (points.length ? '<ul class="checks">' + points.map(function (p, k) { return '<li style="--i:' + k + '">' + icon('check') + p + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="sc-actions">' +
         (t.dataset.href ? '<a class="btn btn-ghost" href="' + esc(t.dataset.href) + '">About Odoo ' + esc(t.dataset.title) + ' ' + icon('arrow') + '</a>' : '') +
-        '<a class="btn btn-primary" href="' + ROOT + 'quotation.html">Get a quotation ' + icon('arrow') + '</a></div>';
+        '<a class="btn btn-primary" href="' + ROOT + 'quotation">Get a quotation ' + icon('arrow') + '</a></div>';
       var inner = document.createElement('div');
       inner.className = 'sc-panel-inner' + (animate && !reduce ? ' is-in' : '');
       inner.innerHTML = html;

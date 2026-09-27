@@ -4,6 +4,10 @@
 
 SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
+# Plain, factual description for structured data and AI answer engines (the same words everywhere).
+ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with an office in Taguig City and a "
+            "development hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
+            "and Inventory, and build enterprise AI and websites for growing companies in 10+ countries.")
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
 
@@ -27,6 +31,8 @@ COMPANY = {
     "whatsapp_msg_link": "https://wa.me/6588396998?text=Hello%20TechNext%2C%20I%27d%20like%20to%20ask%20about%20Odoo%20for%20my%20company.",
     "linkedin": "https://www.linkedin.com/company/technext-asia",
     "hubs": "Singapore HQ · Philippines · Vietnam",
+    # Odoo's own partner directory (tier: Ready) — the independent proof of the partner claim
+    "odoo_listing": "https://www.odoo.com/partners/technext-pte-ltd-28073844",
     "careers_email": "career@technext.asia",
 }
 
@@ -37,21 +43,45 @@ OFFICES = [
      "role": "Headquarters. Sales, discovery and on-site work in Singapore.",
      "lines": ["261 Waterloo Street #03-36", "Singapore 180261"],
      "street": "261 Waterloo Street #03-36", "locality": "Singapore", "region": "", "postal": "180261",
-     "maps": "https://maps.google.com/?cid=3474088819422984887",
+     "maps": "https://maps.google.com/?cid=3474088819422984887", "geo": (1.2989163, 103.8519697),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
     {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines office",
      "role": "Odoo consulting, finance, sales and marketing. Our open roles are here.",
+     "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines",
      "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
-     "maps": "https://maps.google.com/?cid=12500824038992408388",
+     "maps": "https://maps.google.com/?cid=12500824038992408388", "geo": (14.5350092, 121.0509849),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
     {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam development hub",
      "role": "Engineering. Odoo modules, integrations and AI.",
-     "lines": ["62 Nguyễn Thị Nhung, P. Hiệp Bình", "Ho Chi Minh City"], "lang": "vi",
+     "lines": ["62 Nguyễn Thị Nhung, Phường Hiệp Bình", "Ho Chi Minh City"], "lang": "vi", "geo": (10.8440075, 106.7121703),
      "street": "62 Nguyễn Thị Nhung, Phường Hiệp Bình", "locality": "Ho Chi Minh City", "region": "", "postal": "",
      "maps": "https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City",
      "directions": "https://www.google.com/maps/dir/?api=1&destination=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City"},
 ]
+
+# ---------------------------------------------------------------- automated access
+# Search engines and AI answer engines may read the site (so TechNext can be found and cited);
+# crawlers that collect content to TRAIN AI models may not. robots.txt is generated from these
+# lists, and vercel.json redirects the listed user agents to /denied at the edge for crawlers
+# that ignore robots.txt. Robots-only tokens never appear in a user agent, so they are not in
+# the edge list.
+AI_ALLOW = ["Googlebot", "Bingbot", "Applebot", "DuckDuckBot", "OAI-SearchBot", "ChatGPT-User",
+            "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User", "DuckAssistBot",
+            "MistralAI-User", "meta-externalfetcher"]
+AI_TRAINING = ["GPTBot", "ClaudeBot", "anthropic-ai", "Claude-Web", "CCBot", "Google-Extended",
+               "Applebot-Extended", "Bytespider", "meta-externalagent", "FacebookBot", "Amazonbot",
+               "cohere-ai", "cohere-training-data-crawler", "Diffbot", "Omgilibot", "omgili",
+               "img2dataset", "AI2Bot", "PanguBot", "Timpibot", "ImagesiftBot", "Kangaroo Bot",
+               "webzio-extended", "FirecrawlAgent"]
+ROBOTS_ONLY = {"Google-Extended", "Applebot-Extended", "Claude-Web"}
+# Website copiers, headless browsers and scripting libraries: they don't read robots.txt, so
+# they are only handled at the edge. Social link previews (facebookexternalhit, LinkedInBot,
+# Twitterbot, WhatsApp, Slackbot, TelegramBot, Discordbot) are deliberately NOT listed.
+SCRAPERS = ["HTTrack", "SiteSucker", "WebCopier", "Offline Explorer", "Teleport Pro", "WebZIP",
+            "WebReaper", "HeadlessChrome", "PhantomJS", "python-requests", "Python-urllib",
+            "python-httpx", "aiohttp", "Go-http-client", "Scrapy", "node-fetch", "axios",
+            "libwww-perl", "Wget/", "curl/"]
 
 # FormSubmit — no account needed. The first real submission triggers a one-time
 # activation email to sales@technext.asia; after that every inquiry lands there.
@@ -65,7 +95,7 @@ NAV = [
         "label": "Solution", "id": "solution",
         "columns": [
             {"title": "ERP", "href": "solutions/odoo-erp.html", "links": [
-                {"label": "Odoo ERP Development", "href": "solutions/odoo-erp.html", "odoo": "accountant",
+                {"label": "Odoo ERP Implementation", "href": "solutions/odoo-erp.html", "odoo": "accountant",
                  "desc": "Implementation, configuration and custom modules."},
                 {"label": "CRM Development", "href": "odoo/crm-development.html", "odoo": "crm",
                  "desc": "Pipelines built around how you sell."},
@@ -131,15 +161,15 @@ NAV = [
             {"title": "Odoo Apps", "href": "odoo/apps.html", "links": [
                 {"label": "All Odoo apps", "href": "odoo/apps.html", "icon": "grid",
                  "desc": "The full catalogue, by category."},
-                {"label": "Accounting", "href": "odoo/apps.html#finance", "odoo": "accountant",
+                {"label": "Accounting", "href": "odoo/apps/accountant.html", "odoo": "accountant",
                  "desc": "Our first focus area."},
-                {"label": "Sales", "href": "odoo/apps.html#sales", "odoo": "sale",
+                {"label": "Sales", "href": "odoo/apps/sale.html", "odoo": "sale",
                  "desc": "Quotes to orders to invoices."},
-                {"label": "Inventory", "href": "odoo/apps.html#supply-chain", "odoo": "stock",
+                {"label": "Inventory", "href": "odoo/apps/stock.html", "odoo": "stock",
                  "desc": "Stock, warehouses and deliveries."},
             ]},
             {"title": "Customization", "links": [
-                {"label": "ERP System", "href": "odoo/erp-system.html", "odoo": "web_studio",
+                {"label": "Odoo Customization", "href": "odoo/erp-system.html", "odoo": "web_studio",
                  "desc": "Tailored modules and workflows."},
                 {"label": "AI Integration", "href": "odoo/ai-integration.html", "odoo": "ai_app",
                  "desc": "AI assistants inside Odoo."},
@@ -162,8 +192,8 @@ NAV = [
             {"title": "Offices", "links": [
                 {"label": "Singapore HQ", "href": "company.html#office-hq", "icon": "pin",
                  "desc": "261 Waterloo Street #03-36."},
-                {"label": "Philippines", "href": "company.html#office-ph", "icon": "pin",
-                 "desc": "Level 9, IP Center, Taguig City."},
+                {"label": "Philippines", "href": "odoo/philippines.html", "icon": "pin",
+                 "desc": "Odoo in the Philippines · Taguig City."},
                 {"label": "Vietnam", "href": "company.html#office-vn", "icon": "pin",
                  "desc": "Development hub, Ho Chi Minh City."},
             ]},

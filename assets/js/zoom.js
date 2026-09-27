@@ -1,3 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Screenshot viewer for the Odoo app pages. Every screenshot is a link to the full-size file
    (so it still works without JavaScript); this opens it in a dialog instead, with previous /
    next, a counter and the caption. The picture shown is a clone of the page's own <img>, so

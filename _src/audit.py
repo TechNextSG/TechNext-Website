@@ -10,7 +10,8 @@ import urllib.parse
 from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sorted(p for p in ROOT.rglob("*.html") if "_src" not in p.parts and "_screens" not in p.parts)
+PAGES = sorted(p for p in ROOT.rglob("*.html") if "_src" not in p.parts and "_screens" not in p.parts
+               and not p.name.startswith("google") and p.name != "denied.html")
 DISALLOWED = ["Certified Odoo Partner", "ISO 27001 certified", "ISO 27001 compliant", "Odoo Gold", "Odoo Silver"]
 
 
