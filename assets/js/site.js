@@ -144,9 +144,17 @@
   var header = $('[data-header]');
   var megas = $$('.has-mega');
 
-  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 4); }
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if ('IntersectionObserver' in window) {
+    var mark = document.createElement('div');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:5px;pointer-events:none';
+    document.body.prepend(mark);
+    new IntersectionObserver(function (es) { header.classList.toggle('is-scrolled', !es[es.length - 1].isIntersecting); }).observe(mark);
+  } else {
+    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 4); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 
   function closeMegas(except) {
     megas.forEach(function (li) {
@@ -186,7 +194,7 @@
   mBtn.addEventListener('click', openMnav);
   $$('[data-mnav-close]').forEach(function (el) { el.addEventListener('click', closeMnav); });
   // Tapping a link or an action button inside the drawer closes it (in-page anchors included).
-  mnav.addEventListener('click', function (e) { if (e.target.closest('a,[data-chat-open]')) closeMnav(); });
+  mnav.addEventListener('click', function (e) { if (e.target.closest('a')) closeMnav(); });
   window.tnCloseMnav = closeMnav;
 
   /* ---------------- Let's Talk panel ---------------- */
@@ -195,7 +203,6 @@
   function openTalk() {
     lastFocus = document.activeElement;
     closeMnav();
-    if (window.tnChat) window.tnChat.close();
     // exit animation on the tab: the plane flies off, then both tabs slide out behind the panel
     var tab = $('.talk-tab');
     if (tab) { tab.classList.add('is-exiting'); setTimeout(function () { tab.classList.remove('is-exiting'); }, 700); }
@@ -217,6 +224,41 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   window.tnOpenTalk = openTalk;
+  /* /nexi: Full screen. The stage covers the window at once (body.nx-max), then asks for real full screen on
+     top. Some browsers (in-app browsers, embedded webviews) never answer that request, so the cover mode
+     must not wait for it. */
+  var nxStage = $('[data-nx-stage]'), nxBtn = $('[data-nx-full]');
+  if (nxStage && nxBtn) {
+    var fsEl = function () { return document.fullscreenElement || document.webkitFullscreenElement; };
+    var nxOn = function () { return document.body.classList.contains('nx-max'); };
+    var nxSet = function (on) {
+      document.body.classList.toggle('nx-max', on);
+      nxBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      nxBtn.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen');
+    };
+    var nxExit = function () {
+      nxSet(false);
+      if (fsEl()) { try { var x = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (x && x.catch) x.catch(function () {}); } catch (e) { /* already out */ } }
+    };
+    nxBtn.setAttribute('aria-label', 'Full screen');
+    nxBtn.addEventListener('click', function () {
+      if (nxOn()) { nxExit(); return; }
+      nxSet(true);
+      var req = nxStage.requestFullscreen || nxStage.webkitRequestFullscreen;
+      if (req) { try { var pr = req.call(nxStage); if (pr && pr.catch) pr.catch(function () {}); } catch (e) { /* the cover mode stays */ } }
+    });
+    /* leaving real full screen with the browser's own Esc also ends the cover mode */
+    var nxFs = function () { if (!fsEl() && nxOn()) nxSet(false); };
+    document.addEventListener('fullscreenchange', nxFs);
+    document.addEventListener('webkitfullscreenchange', nxFs);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nxOn()) nxExit(); });
+  }
+  /* Nexi on /nexi runs in a same-origin frame and asks for the Let's Talk form from there */
+  window.addEventListener('message', function (e) {
+    if (e.origin !== location.origin || !e.data) return;
+    if (e.data.tn === 'nexi-talk') { if (document.body.classList.contains('nx-max') && nxBtn) nxBtn.click(); openTalk(); }
+    if (e.data.tn === 'nexi-esc' && document.body.classList.contains('nx-max') && nxBtn) nxBtn.click();
+  });
   $$('[data-talk-open]').forEach(function (el) { el.addEventListener('click', function (e) { e.preventDefault(); openTalk(); }); });
   $$('[data-talk-close]').forEach(function (el) { el.addEventListener('click', closeTalk); });
   document.addEventListener('click', function (e) {
@@ -315,7 +357,7 @@
     fr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
     fr.title = title;
     fr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-    fr.setAttribute('allowfullscreen', ''); fr.setAttribute('loading', 'lazy');
+    fr.setAttribute('allowfullscreen', '');
     f.textContent = ''; f.appendChild(fr);
   });
 

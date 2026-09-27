@@ -49,6 +49,64 @@
   }
   function svgEl(tag, attrs) { var n = document.createElementNS('http://www.w3.org/2000/svg', tag); for (var k in attrs) n.setAttribute(k, attrs[k]); return n; }
 
+  /* ---- frame-budget helpers: nothing below reads layout inside an animation frame ---- */
+  var hasRO = 'ResizeObserver' in window;
+  // Measure where layout is already clean: a ResizeObserver callback runs after layout, before paint.
+  // fn runs when the boxes are first observed, whenever one changes size, and once more after the web
+  // fonts load (text metrics can move things inside a box without changing its size).
+  function watchSize(els, fn) {
+    if (!hasRO) return;
+    var ro = new ResizeObserver(function () { fn(); });
+    els.forEach(function (e) { if (e) ro.observe(e); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { els.forEach(function (e) { if (e) { ro.unobserve(e); ro.observe(e); } }); });
+  }
+  // Restart a class-driven CSS animation (keyframes in hero.css) without the remove / reflow / add
+  // round trip, which forced a full layout in the middle of a frame. The first time, the class is just
+  // added, exactly as before, and the element's own CSSAnimation objects are kept; later restarts rewind
+  // and replay them. Falls back to the old restart if the Web Animations API is missing or they were dropped.
+  function replay(el, cls, names) {
+    if (!el) return;
+    var key = '__tn_' + cls, list = el[key], on = el.classList.contains(cls);
+    if (on && list && list.length && list.every(function (x) { return x.playState !== 'idle'; })) {
+      list.forEach(function (x) { x.currentTime = 0; x.play(); });
+      return;
+    }
+    if (on) { el.classList.remove(cls); void el.offsetWidth; }
+    el.classList.add(cls);
+    el[key] = typeof el.getAnimations === 'function' ?
+      el.getAnimations({ subtree: true }).filter(function (x) { return names.indexOf(x.animationName) > -1; }) : null;
+  }
+  // Arc-length table of an SVG path, sampled once with getPointAtLength so a frame can place a point by
+  // distance along the path without a layout read; between samples (`step` px apart) it interpolates.
+  function pathTable(p, step) {
+    var len = p.getTotalLength(), n = Math.max(1, Math.ceil(len / step)), xy = new Float64Array(n * 2 + 2);
+    for (var i = 0; i <= n; i++) { var q = p.getPointAtLength(len * i / n); xy[i * 2] = q.x; xy[i * 2 + 1] = q.y; }
+    return { len: len, n: n, xy: xy };
+  }
+  function tableAt(T, s, out) {
+    var u = T.len > 0 ? clamp(s / T.len, 0, 1) * T.n : 0, i = Math.min(T.n - 1, Math.floor(u)), f = u - i, k = i * 2, xy = T.xy;
+    out.x = xy[k] + (xy[k + 2] - xy[k]) * f; out.y = xy[k + 1] + (xy[k + 3] - xy[k + 1]) * f;
+    return out;
+  }
+  // A quadratic Bézier evaluated in script, with a 24-point arc-length table so a point moves along it
+  // at the same even speed getPointAtLength gave, without creating layout work.
+  function quadCurve(x0, y0, x1, y1, x2, y2) {
+    var N = 24, L = new Float64Array(N + 1), px = x0, py = y0;
+    for (var i = 1; i <= N; i++) {
+      var u = i / N, v = 1 - u, x = v * v * x0 + 2 * v * u * x1 + u * u * x2, y = v * v * y0 + 2 * v * u * y1 + u * u * y2;
+      L[i] = L[i - 1] + Math.hypot(x - px, y - py); px = x; py = y;
+    }
+    return { x0: x0, y0: y0, x1: x1, y1: y1, x2: x2, y2: y2, L: L, len: L[N] };
+  }
+  function quadAt(c, s, out) {
+    var L = c.L, N = 24, i = 0;
+    s = clamp(s, 0, c.len);
+    while (i < N - 1 && L[i + 1] < s) i++;
+    var seg = L[i + 1] - L[i], u = (i + (seg > 0 ? (s - L[i]) / seg : 0)) / N, v = 1 - u;
+    out.x = v * v * c.x0 + 2 * v * u * c.x1 + u * u * c.x2; out.y = v * v * c.y0 + 2 * v * u * c.y1 + u * u * c.y2;
+    return out;
+  }
+
   /* ================================================================== 1 · cinematic orbit */
   function Cine(root) {
     var fx = $('.cine-fx', root), ctx = fx.getContext('2d');
@@ -66,6 +124,7 @@
       list.forEach(function (a, k) { a.slot = k / list.length * TAU + (r ? .21 : 0); });
     });
     var W = 1, H = 1, dpr = 1, raf = 0, last = 0, on = false;
+    var measured = false, viewBox = '', coreT = { x: 0, y: 0 }, ringTr = [], ringRR = [], hbD = '', PT = { x: 0, y: 0 };
     var rot = [0, .9], spd = 1, spdT = 1, dragV = 0, dragging = false, lastX = 0, lastT = 0;
     var tilt = { tx: 0, ty: 0, x: 0, y: 0 };
     var hot = null, leaveT = 0, rush = null, packets = [], nextPacket = 0, landed = 0;
@@ -114,13 +173,25 @@
       });
       beamG = svgEl('g', { 'class': 'cine-beams' }); frontSvg.appendChild(beamG);
       hoverBeam = svgEl('path', { 'class': 'cine-hbeam' }); frontSvg.appendChild(hoverBeam);
+      ringTr = []; ringRR = []; hbD = '';
     }
+    // Every layout read of the scene happens here (on enter only if nothing has measured yet, otherwise
+    // from the ResizeObserver or a window resize), never inside a frame.
     function size() {
       W = root.offsetWidth || 1; H = root.offsetHeight || 1;
       dpr = Math.min(1.5, window.devicePixelRatio || 1);
-      fx.width = Math.round(W * 2 * dpr); fx.height = Math.round(H * 2 * dpr);
-      [backSvg, frontSvg].forEach(function (s) { s.setAttribute('viewBox', '0 0 ' + W + ' ' + H); });
       apps.forEach(function (a) { a.sz = a.el.offsetWidth || RINGS[a.ring].size; });   // CSS sets smaller apps on phones
+      // Where beams and packets land: the live feed on the dashboard. Offset geometry ignores CSS transforms,
+      // and the core is centred with translate(-50%,-50%), so take half its size back off.
+      var f = box(feed, root);
+      coreT = { x: f.cx - core.offsetWidth / 2, y: f.y + 10 - core.offsetHeight / 2 };
+      // resizing a canvas clears and reallocates it, so only when the size really changes
+      var fw = Math.round(W * 2 * dpr), fh = Math.round(H * 2 * dpr);
+      if (fx.width !== fw) fx.width = fw;
+      if (fx.height !== fh) fx.height = fh;
+      var vb = '0 0 ' + W + ' ' + H;
+      if (vb !== viewBox) { viewBox = vb; [backSvg, frontSvg].forEach(function (s) { s.setAttribute('viewBox', vb); }); }
+      measured = true;
     }
     function geo(r) {
       var R = RINGS[r], roll = (R.roll + tilt.x * 14) * Math.PI / 180;
@@ -130,12 +201,7 @@
       var x = g.rx * Math.cos(th), y = g.ry * Math.sin(th);
       return { x: g.cx + x * g.c - y * g.s, y: g.cy + x * g.s + y * g.c, d: (Math.sin(th) + 1) / 2 };
     }
-    // Where beams and packets land: the live feed on the dashboard. Offset geometry ignores CSS transforms,
-    // and the core is centred with translate(-50%,-50%), so take half its size back off.
-    function coreTarget() {
-      var f = box(feed, root);
-      return { x: f.cx - core.offsetWidth / 2, y: f.y + 10 - core.offsetHeight / 2 };
-    }
+    function coreTarget() { return coreT; }          // measured in size()
     function startRush(now) {
       landed = 0; root.classList.remove('is-live'); packets.forEach(function (p) { p.g.remove(); }); packets = [];
       if (reduce) { rush = null; landed = apps.length; root.classList.add('is-live'); return; }
@@ -160,12 +226,15 @@
       var g0 = geo(0), g1 = geo(1), G = [g0, g1];
       RINGS.forEach(function (R, r) {
         var g = G[r], tr = 'translate(' + g.cx.toFixed(1) + ' ' + g.cy.toFixed(1) + ') rotate(' + (g.roll * 180 / Math.PI).toFixed(2) + ')';
-        ringG[r][0].setAttribute('transform', tr); ringG[r][1].setAttribute('transform', tr);
+        if (ringTr[r] !== tr) { ringTr[r] = tr; ringG[r][0].setAttribute('transform', tr); ringG[r][1].setAttribute('transform', tr); }
         var rx = g.rx.toFixed(1), ry = g.ry.toFixed(1);
-        backP[r].setAttribute('d', 'M-' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 ' + rx + ' 0');
-        frontP[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
-        halo[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
-        glint[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+        if (ringRR[r] !== rx + ' ' + ry) {                     // the ring paths only change when the tilt does
+          ringRR[r] = rx + ' ' + ry;
+          backP[r].setAttribute('d', 'M-' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 ' + rx + ' 0');
+          frontP[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+          halo[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+          glint[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+        }
         // a highlight sweeps the near side of each ring in the direction its apps travel, then rests
         var u = (now / (r ? 4.6 : 3.6)) % 1500, head = R.dir > 0 ? u - 200 : 1200 - u;
         glint[r].style.strokeDashoffset = String(-head);
@@ -177,7 +246,7 @@
         var x = p.x, y = p.y, spin = 0;
         if (a.fly && !a.landed) {
           var f = a.fly, q = clamp((t - f.delay) / f.dur, 0, 1), e = easeOut(q);
-          if (q <= 0) { a.el.style.opacity = '0'; a.x = p.x; a.y = p.y; a.d = p.d; return; }
+          if (q <= 0) { setOp(a, '0'); a.x = p.x; a.y = p.y; a.d = p.d; return; }
           if (q >= 1) {
             a.landed = true; landed++; a.el.classList.add('is-landed');
             if (landed === apps.length) { root.classList.add('is-live'); nextPacket = now + 700; }
@@ -196,22 +265,29 @@
         var s = a.sz || R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 9) : 1 + Math.round(p.d * 16);
         if (a === hot) z = 60;
         a.x = x; a.y = y; a.d = p.d;
-        a.el.style.transform = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
-        a.el.style.opacity = op.toFixed(3);
-        a.el.style.filter = blur > .15 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+        var tf = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
+        if (a.tf !== tf) { a.tf = tf; a.el.style.transform = tf; }
+        setOp(a, op.toFixed(3));
+        // depth-of-field blur in 0.25 px steps (at most 1.6 px at rest): the filter is rewritten a few
+        // times a second instead of on every app in every frame
+        var fl = blur > .15 ? 'blur(' + Math.max(.25, Math.round(blur * 4) / 4).toFixed(2) + 'px)' : '';
+        if (a.fl !== fl) { a.fl = fl; a.el.style.filter = fl; }
         if (a.z !== z) { a.z = z; a.el.style.zIndex = z; }
       });
       drawFx(t, flying);
       if (hot) {
         var ct = coreTarget(), hx = hot.x, hy = hot.y;
-        hoverBeam.setAttribute('d', 'M' + hx.toFixed(1) + ' ' + hy.toFixed(1) + 'Q' + ((hx + ct.x) / 2).toFixed(1) + ' ' + (Math.min(hy, ct.y) - 40).toFixed(1) + ' ' + ct.x.toFixed(1) + ' ' + ct.y.toFixed(1));
+        var hd = 'M' + hx.toFixed(1) + ' ' + hy.toFixed(1) + 'Q' + ((hx + ct.x) / 2).toFixed(1) + ' ' + (Math.min(hy, ct.y) - 40).toFixed(1) + ' ' + ct.x.toFixed(1) + ' ' + ct.y.toFixed(1);
+        if (hd !== hbD) { hbD = hd; hoverBeam.setAttribute('d', hd); }
       }
       stepPackets(now, dt);
     }
+    function setOp(a, v) { if (a.op !== v) { a.op = v; a.el.style.opacity = v; } }
+    var fxDirty = false;                               // a flag in script, not a data- attribute written every frame
     function drawFx(t, flying) {
       var warpOn = rush && t >= 0 && t < 1100;
-      if (!flying && !warpOn) { if (fx.dataset.dirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); delete fx.dataset.dirty; } return; }
-      fx.dataset.dirty = '1';
+      if (!flying && !warpOn) { if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; } return; }
+      fxDirty = true;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W * 2, H * 2);
       ctx.save(); ctx.translate(W / 2, H / 2); ctx.lineCap = 'round';
       if (warpOn) {
@@ -246,23 +322,28 @@
       if (!cands.length) return;
       var a = cands[Math.random() * cands.length | 0], ct = coreTarget();
       var g = svgEl('g', { 'class': 'cine-pkt' });
-      var d = 'M' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + 'Q' + ((a.x + ct.x) / 2 + rnd(-60, 60)).toFixed(1) + ' ' + (Math.min(a.y, ct.y) - rnd(30, 90)).toFixed(1) + ' ' + ct.x.toFixed(1) + ' ' + ct.y.toFixed(1);
-      var path = svgEl('path', { d: d, 'class': 'cine-beam' });
+      // the same curve as before (same rounding, same random draws in the same order), kept as numbers too
+      var P0 = [a.x.toFixed(1), a.y.toFixed(1)], P1 = [((a.x + ct.x) / 2 + rnd(-60, 60)).toFixed(1), (Math.min(a.y, ct.y) - rnd(30, 90)).toFixed(1)], P2 = [ct.x.toFixed(1), ct.y.toFixed(1)];
+      var d = 'M' + P0[0] + ' ' + P0[1] + 'Q' + P1[0] + ' ' + P1[1] + ' ' + P2[0] + ' ' + P2[1];
+      var c = quadCurve(+P0[0], +P0[1], +P1[0], +P1[1], +P2[0], +P2[1]), len = c.len;
+      // pathLength makes the browser measure the beam in the same units as the script, so the drawn
+      // beam and the dot stay together exactly as with getTotalLength()
+      var path = svgEl('path', { d: d, 'class': 'cine-beam', pathLength: String(len) });
       var halo = svgEl('circle', { r: 9, 'class': 'cine-dot-h' }), dot = svgEl('circle', { r: 3.6, 'class': 'cine-dot' });
       g.appendChild(path); g.appendChild(halo); g.appendChild(dot); beamG.appendChild(g);
-      var len = path.getTotalLength();
       path.style.strokeDasharray = len + ' ' + len; path.style.strokeDashoffset = len;
-      a.el.classList.remove('is-send'); void a.el.offsetWidth; a.el.classList.add('is-send');
+      replay(a.el, 'is-send', ['cineSend']);
       var key = EVENT_KEYS[EVENT_KEYS.indexOf(a.mod)];
-      packets.push({ g: g, path: path, dot: dot, halo: halo, len: len, t0: now, dur: 820, key: key });
+      packets.push({ g: g, path: path, dot: dot, halo: halo, c: c, len: len, t0: now, dur: 820, key: key, op: '' });
     }
     function stepPackets(now) {
       if (!reduce && landed === apps.length && !popOpen() && now > nextPacket && packets.length < 3) { spawnPacket(now); nextPacket = now + rnd(1300, 2300); }
       packets = packets.filter(function (p) {
-        var q = clamp((now - p.t0) / p.dur, 0, 1), e = easeInOut(q), pt = p.path.getPointAtLength(p.len * e);
+        var q = clamp((now - p.t0) / p.dur, 0, 1), e = easeInOut(q), pt = quadAt(p.c, p.len * e, PT);
         p.dot.setAttribute('cx', pt.x); p.dot.setAttribute('cy', pt.y); p.halo.setAttribute('cx', pt.x); p.halo.setAttribute('cy', pt.y);
         p.path.style.strokeDashoffset = String(p.len * (1 - e));
-        p.g.style.opacity = q > .9 ? String((1 - q) * 10) : '1';
+        var o = q > .9 ? String((1 - q) * 10) : '1';
+        if (p.op !== o) { p.op = o; p.g.style.opacity = o; }
         if (q >= 1) { p.g.remove(); arrive(p.key); return false; }
         return true;
       });
@@ -277,7 +358,7 @@
       rows.forEach(function (r, i) { var tm = $('time', r); if (tm && i) tm.textContent = ['now', '1 min', '3 min', '6 min'][i] || ''; });
       while (rows.length > 3) { var old = rows.pop(); old.remove(); }
       if (hand && /^\d[\d,]*$/.test(hand.textContent)) hand.textContent = (parseInt(hand.textContent.replace(/,/g, ''), 10) + 1 + (Math.random() * 2 | 0)).toLocaleString();
-      core.classList.remove('is-ping'); void core.offsetWidth; core.classList.add('is-ping');
+      replay(core, 'is-ping', ['cinePing']);
     }
     function frame() {
       // one clock for everything (rAF stamps and performance.now() can differ)
@@ -336,16 +417,24 @@
       a.el.addEventListener('focus', function () { hotOn(a); });
       a.el.addEventListener('blur', function () { hotOff(a); });
     });
-    window.addEventListener('resize', function () { if (on) { size(); layout(performance.now(), 0); } });
+    window.addEventListener('resize', function () { if (on) { size(); layout(performance.now(), 0); } else measured = false; });
+    // the stage and the dashboard are measured when they are first laid out and whenever they change size
+    watchSize([root, core], function () {
+      var changed = (root.offsetWidth || 1) !== W || (root.offsetHeight || 1) !== H;
+      size();
+      if (on && changed) layout(performance.now(), 0);
+    });
     build();
     return {
       root: root,
       enter: function (first) {
-        on = true; size();
+        on = true;
+        if (!measured || !hasRO) size();               // normally already measured: no layout read on a slide change
+        if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; }   // size() used to clear it
         var now = performance.now();
         if (reduce) { startRush(now); layout(now, 0); return; }
         // hold the apps off-stage until the camera has nearly settled, then rush them in (phones have no camera move)
-        apps.forEach(function (a) { a.fly = null; a.landed = false; a.el.style.opacity = '0'; });
+        apps.forEach(function (a) { a.fly = null; a.landed = false; setOp(a, '0'); });
         startRush(now + (first ? 900 : phone.matches ? 260 : 1250));
         wake();
       },
@@ -418,9 +507,24 @@
     var W = 1, H = 1, geoE = {}, tokens = [], raf = 0, last = 0, on = false, scen = 'all', nextSpawn = 0, hand = 0, revealing = null, panning = null, hotNode = null, leaveT = 0;
     ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { view.addEventListener(ev, function () { panning = null; }, { passive: true }); });
     var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147 };
+    // measured geometry (offsets inside the camera, so camera moves never change it), the edge label
+    // elements and the last in-flight count, so frames read nothing from layout
+    var NB = {}, IB = {}, VW = 1, VH = 1, room = 0, drawn = false, labelOf = {}, flightN = -1, PT = { x: 0, y: 0 };
 
-    function nb(id) { return box(nodes[id].el, cam); }
-    function ib(id) { return box(nodes[id].ic, cam); }
+    function nb(id) { return NB[id] || box(nodes[id].el, cam); }
+    function ib(id) { return IB[id] || box(nodes[id].ic, cam); }
+    function measure() {                               // every read draw() needs, before it writes anything
+      var m = { W: cam.offsetWidth || 1, H: cam.offsetHeight || 1, VW: view.offsetWidth, VH: view.offsetHeight, room: view.scrollWidth - view.clientWidth, NB: {}, IB: {} };
+      Object.keys(nodes).forEach(function (id) { m.NB[id] = box(nodes[id].el, cam); m.IB[id] = box(nodes[id].ic, cam); });
+      return m;
+    }
+    function sameGeo(m) {
+      if (m.W !== W || m.H !== H || m.VW !== VW || m.VH !== VH || m.room !== room) return false;
+      return Object.keys(nodes).every(function (id) {
+        var a = m.NB[id], b = NB[id], c = m.IB[id], d = IB[id];
+        return b && d && a.x === b.x && a.y === b.y && a.w === b.w && a.h === b.h && c.x === d.x && c.y === d.y && c.w === d.w && c.h === d.h;
+      });
+    }
     function edgeD(e) {
       var A = ib(e.a), B = ib(e.b), An = nb(e.a), Bn = nb(e.b), g = 4, o = e.o || 0;
       switch (e.r) {
@@ -436,23 +540,30 @@
       }
       return '';
     }
-    function draw() {
-      W = cam.offsetWidth || 1; H = cam.offsetHeight || 1;
+    // Builds the edges from measured geometry. Runs when the map is first laid out and when it changes
+    // (ResizeObserver, window resize, web fonts), not on every slide change as before: the result is the same.
+    function draw(m) {
+      m = m || measure();
+      W = m.W; H = m.H; VW = m.VW; VH = m.VH; room = m.room; NB = m.NB; IB = m.IB;
       svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       var html = '<defs><marker id="pm-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker>' +
         '<marker id="pm-arrow-hot" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker></defs><g class="pm-edges"></g><g class="pm-toks"></g>';
       svg.innerHTML = html;
-      var ge = $('.pm-edges', svg), lab = '';
-      Object.keys(EDGES).forEach(function (id) {
+      var ge = $('.pm-edges', svg), lab = '', made = [];
+      Object.keys(EDGES).forEach(function (id) {       // all the writes first ...
         var e = EDGES[id], p = svgEl('path', { d: edgeD(e), 'class': 'pm-e' + (e.dash ? ' pm-e--dash' : ''), 'data-e': id, 'marker-end': 'url(#pm-arrow)' });
-        ge.appendChild(p);
-        var len = p.getTotalLength();
-        geoE[id] = { p: p, len: len };
-        if (e.l) { var pt = p.getPointAtLength(len * (e.lt || .5)); lab += '<span class="pm-el' + (e.dash ? ' pm-el--dash' : '') + '" data-e="' + id + '" style="left:' + pt.x.toFixed(1) + 'px;top:' + pt.y.toFixed(1) + 'px">' + e.l + '</span>'; }
+        ge.appendChild(p); made.push([id, e, p]);
+      });
+      made.forEach(function (x) {                      // ... then the path reads, 2 px apart along each edge
+        var id = x[0], e = x[1], p = x[2], T = pathTable(p, 2);
+        geoE[id] = { p: p, len: T.len, T: T };
+        if (e.l) { var pt = p.getPointAtLength(T.len * (e.lt || .5)); lab += '<span class="pm-el' + (e.dash ? ' pm-el--dash' : '') + '" data-e="' + id + '" style="left:' + pt.x.toFixed(1) + 'px;top:' + pt.y.toFixed(1) + 'px">' + e.l + '</span>'; }
       });
       labels.innerHTML = lab;
+      labelOf = {}; $$('.pm-el', labels).forEach(function (n) { labelOf[n.getAttribute('data-e')] = n; });
       tokens.forEach(function (t) { $('.pm-toks', svg).appendChild(t.g); });
       markScen();
+      drawn = true;
     }
     function markScen() {
       var np = scen === 'all' ? null : PATHS[scen], ep = scen === 'all' ? null : EPATHS[scen];
@@ -468,7 +579,7 @@
       var t = { g: g, steps: steps, i: 0, s: 0, wait: 0, state: 'move', kind: kind, doc: doc, v: rnd(150, 185) };
       if (at) { t.i = Math.min(steps.length - 1, at); while (t.i < steps.length && typeof steps[t.i] !== 'string') t.i++; }
       var first = geoE[steps[t.i]];
-      if (first) { var p0 = first.p.getPointAtLength(0); g.setAttribute('transform', 'translate(' + p0.x.toFixed(1) + ' ' + p0.y.toFixed(1) + ')'); }
+      if (first) { var p0 = tableAt(first.T, 0, PT); g.setAttribute('transform', 'translate(' + p0.x.toFixed(1) + ' ' + p0.y.toFixed(1) + ')'); }
       if (!detached) tokens.push(t);
       return t;
     }
@@ -490,11 +601,11 @@
     function hit(id, t, nextId) {
       var n = nodes[id]; if (!n) return;
       n.count++; n.n.textContent = n.count > 99 ? '99+' : String(n.count); n.el.classList.add('has-n');
-      n.el.classList.remove('is-pulse'); void n.el.offsetWidth; n.el.classList.add('is-pulse');
+      replay(n.el, 'is-pulse', ['pmPulse', 'pmGate']);
       hand++; kHand.textContent = hand.toLocaleString();
       if (nextId) {
-        var lb = $('.pm-el[data-e="' + nextId + '"]', labels), pe = geoE[nextId] && geoE[nextId].p;
-        [lb, pe].forEach(function (el) { if (!el) return; el.classList.remove('is-take'); void el.getBoundingClientRect(); el.classList.add('is-take'); });
+        replay(labelOf[nextId], 'is-take', ['pmLab']);
+        replay(geoE[nextId] && geoE[nextId].p, 'is-take', ['pmTake']);
       }
       var d = t.doc, k = t.kind;
       switch (id) {
@@ -529,7 +640,7 @@
             hit(e.b, t, nxt);
             t.g.classList.add('is-in');
           }
-          var pt = ge.p.getPointAtLength(t.s);
+          var pt = tableAt(ge.T, t.s, PT);
           t.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
         } else {
           t.wait -= dt;
@@ -541,11 +652,11 @@
         return true;
       });
       if (born.length) tokens = tokens.concat(born);
-      kFlight.textContent = String(tokens.length);
+      if (flightN !== tokens.length) { flightN = tokens.length; kFlight.textContent = String(flightN); }
     }
     // cinematic reveal: the camera starts close on the first lead, flies the sales lane, then pulls back
     function camAt(fx, fy, s) {
-      var vw = view.offsetWidth, vh = view.offsetHeight;
+      var vw = VW, vh = VH;                            // the panel's size, measured in draw()
       var tx = clamp(vw * .42 - fx * s, vw - W * s, 0), ty = clamp(vh * .5 - fy * s, vh - H * s, 0);
       cam.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
     }
@@ -558,7 +669,7 @@
       var a = K[i], b = K[i + 1], q = easeInOut(clamp((t - a.t) / (b.t - a.t), 0, 1));
       camAt(lerp(a.x, b.x, q), lerp(a.y, b.y, q), lerp(a.s, b.s, q));
       // draw edges and pop nodes as the camera passes them
-      var edgeX = lerp(a.x, b.x, q) + view.offsetWidth * .45 / lerp(a.s, b.s, q);
+      var edgeX = lerp(a.x, b.x, q) + VW * .45 / lerp(a.s, b.s, q);
       Object.keys(nodes).forEach(function (id) { var n = nodes[id]; if (!n.in && n.cx < edgeX) { n.in = true; n.el.classList.add('is-in'); } });
       Object.keys(geoE).forEach(function (id) { var g = geoE[id]; if (!g.in && g.x0 < edgeX) { g.in = true; g.p.classList.add('is-in'); } });
     }
@@ -571,11 +682,12 @@
       $$('.pm-node', root).forEach(function (el) { el.classList.remove('is-in'); });
       Object.keys(nodes).forEach(function (id) { var b = ib(id); nodes[id].in = false; nodes[id].cx = b.cx; });
       Object.keys(geoE).forEach(function (id) {
-        var g = geoE[id], p0 = g.p.getPointAtLength(0); g.in = false; g.x0 = p0.x;
+        var g = geoE[id]; g.in = false; g.x0 = g.T.xy[0];   // the edge's first point (getPointAtLength(0))
         // hide without animating the un-draw, then let the reveal draw it in
         g.p.style.transition = 'none'; g.p.style.setProperty('--len', g.len.toFixed(1)); g.p.classList.remove('is-in');
       });
-      void svg.getBoundingClientRect();
+      // commit the no-transition style with a style-only read (computed stroke-dashoffset needs no layout)
+      Object.keys(geoE).forEach(function (id) { void getComputedStyle(geoE[id].p).strokeDashoffset; });
       Object.keys(geoE).forEach(function (id) { geoE[id].p.style.transition = ''; });
       if (reduce) { showAll(); return; }
       // phones: the map scrolls sideways in its panel, so instead of a zoom the view pans across it once
@@ -594,7 +706,7 @@
       var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
       if (revealing) reveal(now);
       if (panning) {
-        var pq = clamp((now - panning.t0) / panning.dur, 0, 1), room = view.scrollWidth - view.clientWidth;
+        var pq = clamp((now - panning.t0) / panning.dur, 0, 1);   // room: measured in draw()
         if (pq > 0 && room > 0) view.scrollLeft = room * (pq < .72 ? easeInOut(pq / .72) : 1 - easeInOut((pq - .72) / .28) * .92);
         if (pq >= 1) panning = null;
       }
@@ -663,11 +775,19 @@
       var now = performance.now(), cur = revealing.keys, total = cur[cur.length - 1].t;
       if (now - revealing.t0 < total - 450) revealing.t0 = now - (total - 450);
     });
-    window.addEventListener('resize', function () { if (on) { cam.style.transform = ''; draw(); showAll(); } });
+    window.addEventListener('resize', function () { if (on) { cam.style.transform = ''; draw(); showAll(); } else drawn = false; });
+    watchSize([view, cam], function () {
+      var m = measure();                               // layout is clean inside a ResizeObserver callback
+      if (drawn && sameGeo(m)) return;
+      if (!on) { draw(m); return; }                    // off-stage: redraw now, invisibly
+      if (m.W !== W || m.H !== H || m.VW !== VW || m.VH !== VH) { cam.style.transform = ''; draw(m); showAll(); }   // a real resize
+      else drawn = false;                              // text moved inside (web fonts): redraw on the next entry
+    });
     return {
       root: root,
       enter: function (first) {
-        on = true; cam.style.transform = ''; draw();
+        on = true; cam.style.transform = '';
+        if (!drawn || !hasRO) draw();                  // normally drawn already: no layout read on a slide change
         startReveal(performance.now(), first ? 700 : 1150);
         if (!reduce) seed();
         nextSpawn = performance.now() + 4000;
@@ -709,6 +829,8 @@
               off: { you: [40, 98], sg: [226, 98], ph: [270, 98], vn: [314, 98] } }
     };
     var G = null, K = 1, P = [], L = [], total = 1, base, prog, flowMask, puck, ptag, world, gridG, trail = [], hist = [];
+    // the path's arc-length table and the measured widths (from the ResizeObserver), so frames read no layout
+    var LUT = null, PTJ = { x: 0, y: 0 }, stageW = 0, scrubW = 0, placedK = 0, lastPc = null;
     var plats = [], shades = [], beams = {}, offs = {}, nodes = [], chips = [], chipsWrap = null, beamT = 0;
     var T = 0, shown = 0, on = false, raf = 0, last = 0, holdUntil = 0, doneAt = 0, active = -1, dragging = false, hoverI = -1, resetting = false;
     var tilt = { x: 0, y: 0, tx: 0, ty: 0 }, cache = {};
@@ -766,6 +888,7 @@
       var d = spline(P.map(function (q) { return [q.x, q.y]; }));
       base = svgEl('path', { 'class': 'lj-track', d: d }); world.appendChild(base);
       total = base.getTotalLength() || 1;
+      LUT = pathTable(base, 1);                          // the orb's positions, 1 px apart along the path
       prog = svgEl('path', { 'class': 'lj-prog', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total }); world.appendChild(prog);
       var fm = svgEl('mask', { id: 'lj-flowmask', maskUnits: 'userSpaceOnUse' });
       flowMask = svgEl('path', { 'class': 'lj-flowmask', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total });
@@ -825,17 +948,35 @@
       // the timeline under the stage: one segment per phase, sized by its weeks
       segsEl.textContent = '';
       PH.forEach(function (ph) { var s = el('span'); s.style.flex = String(ph.e - ph.s); s.appendChild(el('b', null, ph.name)); segsEl.appendChild(s); });
-      place();
+      // the fill spans the whole timeline and is clipped to the progress (see render), so it never relays out
+      fillEl.style.width = '100%'; fillPc('0.00');
+      placedK = 0; place();
     }
+    // Positions the overlay in stage pixels. The stage width comes from the ResizeObserver; the nodes are
+    // rewritten only when the scale changes (a phase change used to re-measure and rewrite all of them).
     function place() {
       if (!G) return;
-      var w = stage.clientWidth; if (!w) return;
+      var w = stageW || (stageW = stage.clientWidth); if (!w) return;
       K = w / G.w;
-      $$('[data-x]', over).forEach(function (n) {
-        n.style.left = (+n.dataset.x * K).toFixed(1) + 'px'; n.style.top = (+n.dataset.y * K).toFixed(1) + 'px';
-        if (n.dataset.w) { n.style.width = (+n.dataset.w * K).toFixed(1) + 'px'; n.style.height = (+n.dataset.h * K).toFixed(1) + 'px'; }
-      });
+      if (K !== placedK) {
+        placedK = K;
+        $$('[data-x]', over).forEach(function (n) {
+          n.style.left = (+n.dataset.x * K).toFixed(1) + 'px'; n.style.top = (+n.dataset.y * K).toFixed(1) + 'px';
+          if (n.dataset.w) { n.style.width = (+n.dataset.w * K).toFixed(1) + 'px'; n.style.height = (+n.dataset.h * K).toFixed(1) + 'px'; }
+        });
+      }
       if (chipsWrap && !G.band && active >= 0) { chipsWrap.style.left = (P[active].x * K).toFixed(1) + 'px'; chipsWrap.style.top = ((P[active].y - G.ry - 44) * K).toFixed(1) + 'px'; }
+    }
+    // Timeline progress without layout: the fill (a rounded bar with its gradient spread over the filled
+    // part, as when its width was set) is clipped to the same rounded box, and the knob is translated.
+    function fillPc(pc) {
+      fillEl.style.clipPath = 'inset(0 ' + (100 - +pc).toFixed(2) + '% 0 0 round 999px)';
+      fillEl.style.backgroundSize = pc + '% 100%';
+    }
+    function knobAt(pc) {
+      lastPc = pc;
+      var w = scrubW || (scrubW = scrub.clientWidth);
+      knob.style.translate = (+pc / 100 * w).toFixed(2) + 'px 0';
     }
 
     function phaseAt(t) { for (var i = PH.length - 1; i > 0; i--) if (t >= PH[i].s) return i; return 0; }
@@ -881,12 +1022,14 @@
       if (i !== active) setActive(i);
       var target = puckLen(t);
       shown = dt ? shown + (target - shown) * Math.min(1, dt * 9) : target;
-      var len = clamp(shown, 0, total), pt = base.getPointAtLength(len);
-      puck.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
-      var off = (total - len).toFixed(1);
-      prog.setAttribute('stroke-dashoffset', off); flowMask.setAttribute('stroke-dashoffset', off);
+      var len = clamp(shown, 0, total), pt = tableAt(LUT, len, PTJ);
+      set('puck', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')', function (v) { puck.setAttribute('transform', v); });
+      set('off', (total - len).toFixed(1), function (v) { prog.setAttribute('stroke-dashoffset', v); flowMask.setAttribute('stroke-dashoffset', v); });
       hist.unshift(pt.x, pt.y); if (hist.length > 64) hist.length = 64;
-      trail.forEach(function (c, k) { var j = (k + 1) * 6; if (hist[j + 1] != null) { c.setAttribute('cx', hist[j].toFixed(1)); c.setAttribute('cy', hist[j + 1].toFixed(1)); } });
+      trail.forEach(function (c, k) {
+        var j = (k + 1) * 6;
+        if (hist[j + 1] != null) set('t' + k, hist[j].toFixed(1) + ' ' + hist[j + 1].toFixed(1), function () { c.setAttribute('cx', hist[j].toFixed(1)); c.setAttribute('cy', hist[j + 1].toFixed(1)); });
+      });
       // the active phase's deliverables: hidden, in progress (with a bar), then done
       chips.forEach(function (c) {
         var it = c.it, ms = it.e <= it.s, st = t < it.s - .02 ? '' : (ms ? t >= it.s : t >= it.e) ? 'done' : 'doing';
@@ -900,16 +1043,18 @@
       set('status', cur ? cur.it.t + (cur.st === 'done' ? ' ✓' : '') : PH[i].name, function (v) { statusEl.textContent = v; });
       var wk = Math.min(SPAN, Math.floor(t) + 1);
       set('week', wk, function (v) { weekEl.textContent = String(v); scrub.setAttribute('aria-valuetext', 'Week ' + v + ' · ' + PH[i].name); });
-      ringEl.style.strokeDashoffset = (100 - t / SPAN * 100).toFixed(2);
-      var pc = (t / SPAN * 100).toFixed(2) + '%';
-      fillEl.style.width = pc; knob.style.left = pc; scrub.setAttribute('aria-valuenow', t.toFixed(1));
+      set('ring', (100 - t / SPAN * 100).toFixed(2), function (v) { ringEl.style.strokeDashoffset = v; });
+      var pc = (t / SPAN * 100).toFixed(2);
+      set('fill', pc, fillPc);
+      set('knob', pc, knobAt);
+      set('now', t.toFixed(1), function (v) { scrub.setAttribute('aria-valuenow', v); });
       // parallax: the floor, the path and the labels drift by different amounts under the pointer
       tilt.x += (tilt.tx - tilt.x) * Math.min(1, (dt || 1) * 4); tilt.y += (tilt.ty - tilt.y) * Math.min(1, (dt || 1) * 4);
-      gridG.setAttribute('transform', 'translate(' + (-tilt.x * 5).toFixed(2) + ' ' + (-tilt.y * 3).toFixed(2) + ')');
-      world.setAttribute('transform', 'translate(' + (tilt.x * 3).toFixed(2) + ' ' + (tilt.y * 2).toFixed(2) + ')');
-      over.style.transform = 'translate(' + (tilt.x * 5 * K).toFixed(2) + 'px,' + (tilt.y * 3.5 * K).toFixed(2) + 'px)';
+      set('grid', 'translate(' + (-tilt.x * 5).toFixed(2) + ' ' + (-tilt.y * 3).toFixed(2) + ')', function (v) { gridG.setAttribute('transform', v); });
+      set('world', 'translate(' + (tilt.x * 3).toFixed(2) + ' ' + (tilt.y * 2).toFixed(2) + ')', function (v) { world.setAttribute('transform', v); });
+      set('over', 'translate(' + (tilt.x * 5 * K).toFixed(2) + 'px,' + (tilt.y * 3.5 * K).toFixed(2) + 'px)', function (v) { over.style.transform = v; });
       // the tag follows the orb in the drawing's own parallax layer, not the overlay's
-      ptag.style.transform = 'translate(' + ((pt.x + 13 + tilt.x * 3 - tilt.x * 5) * K).toFixed(1) + 'px,' + ((pt.y + tilt.y * 2 - tilt.y * 3.5) * K).toFixed(1) + 'px) translateY(-50%)';
+      set('ptag', 'translate(' + ((pt.x + 13 + tilt.x * 3 - tilt.x * 5) * K).toFixed(1) + 'px,' + ((pt.y + tilt.y * 2 - tilt.y * 3.5) * K).toFixed(1) + 'px) translateY(-50%)', function (v) { ptag.style.transform = v; });
     }
     function frame(now) {
       raf = 0;
@@ -936,7 +1081,7 @@
       tip.appendChild(el('b', null, ph.name + ' · ' + ph.when)); tip.appendChild(el('span', null, ph.desc.split('. ').slice(1).join('. ') || ph.desc));
       tip.appendChild(el('small', null, ph.whoText));
       tip.hidden = false;
-      tip.style.left = clamp(q.x * K, 130, stage.clientWidth - 130).toFixed(1) + 'px';
+      tip.style.left = clamp(q.x * K, 130, (stageW || stage.clientWidth) - 130).toFixed(1) + 'px';
       tip.style.top = ((q.y - G.ry - (G.band ? 36 : 40)) * K).toFixed(1) + 'px';
       nodes[i].badge.classList.add('is-peek'); plats[i].classList.add('is-peek');
     }
@@ -964,13 +1109,19 @@
       var r = stage.getBoundingClientRect(); tilt.tx = clamp((e.clientX - r.left) / r.width * 2 - 1, -1, 1); tilt.ty = clamp((e.clientY - r.top) / r.height * 2 - 1, -1, 1);
     });
     stage.addEventListener('pointerleave', function () { tilt.tx = 0; tilt.ty = 0; });
-    if ('ResizeObserver' in window) new ResizeObserver(function () { if (!G || G.band !== phone.matches) { build(); if (on) render(0); } else place(); }).observe(stage);
-    else window.addEventListener('resize', function () { build(); if (on) render(0); });
+    if (hasRO) {
+      var jro = new ResizeObserver(function () {
+        stageW = stage.clientWidth; scrubW = scrub.clientWidth;          // clean reads: layout is already done here
+        if (!G || G.band !== phone.matches) { build(); if (on) render(0); } else { place(); if (lastPc != null) knobAt(lastPc); }
+      });
+      jro.observe(stage); jro.observe(scrub);
+    } else window.addEventListener('resize', function () { stageW = stage.clientWidth; scrubW = scrub.clientWidth; build(); if (on) render(0); });
     build();
     return {
       root: root,
       enter: function (first) {
-        on = true; if (!G || G.band !== phone.matches || !stage.clientWidth) build(); else place();
+        on = true; if (!stageW) stageW = stage.clientWidth;             // normally measured already by the observer
+        if (!G || G.band !== phone.matches || !stageW) build(); else place();
         T = reduce ? 10.7 : 0; shown = puckLen(T); doneAt = 0; hoverI = -1; resetting = false; root.classList.remove('is-reset');
         hold(first ? 900 : 1400); render(0); wake();
       },

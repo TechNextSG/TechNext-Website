@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Nexi, TechNext's AI companion</title>
+<link rel="canonical" href="https://technext.asia/nexi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --blue:#3167CA; --blue-700:#1E4691; --blue-300:#6FA0F5; --blue-100:#DDE7F8; --blue-050:#EAF0FB;
+  --ink:#1F1F3D; --body:#4C4C63; --label:#5C5C73; --line:#E7E4E9; --paper:#FFFFFF;
+  --sky-1:#E4EDFD; --sky-2:#C7D8F6; --sky-3:#9FBBEC;
+  --violet:#6A5AE0; --teal:#15866F; --odoo:#714B67; --ok:#137A4A; --ok-050:#E8F5EE;
+  --shadow:0 2px 6px rgba(31,31,61,.06),0 30px 60px -30px rgba(30,70,145,.5);
+  --font-display:"Plus Jakarta Sans",Inter,system-ui,sans-serif;
+  --font-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --panel:396px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--sky-2);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+button,input{font:inherit}
+:focus-visible{outline:3px solid var(--blue-300);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.ic{width:18px;height:18px;flex:none}
+.oi{display:inline-grid;place-items:center;flex:none;width:18px;height:18px}
+.oi svg{width:100%;height:100%;display:block}
+
+.app{position:relative;height:100%;min-height:560px;overflow:hidden;--sheet:52%}
+.stage{position:absolute;inset:0;background:
+  radial-gradient(46% 38% at 36% 42%,rgba(240,246,255,.85) 0%,rgba(240,246,255,0) 70%),
+  radial-gradient(120% 95% at 38% 36%,var(--sky-1) 0%,var(--sky-2) 48%,var(--sky-3) 100%)}
+#scene{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:pointer}
+.loading{position:absolute;left:0;right:calc(var(--panel) + 40px);top:44%;margin:0;text-align:center;color:var(--blue-700);font-weight:600;transition:opacity .4s}
+.nowebgl{position:absolute;left:24px;right:calc(var(--panel) + 48px);top:45%;text-align:center;color:var(--label);font-weight:500}
+
+/* cinematic letterbox for camera shots */
+.bars{position:absolute;inset:0;z-index:3;pointer-events:none}
+.bars i{position:absolute;left:0;right:0;height:0;background:linear-gradient(#0d1a3d,#16295c);transition:height .7s var(--ease)}
+.bars i:first-child{top:0}.bars i:last-child{bottom:0}
+.bars.on i{height:7.5%}
+
+/* TechNext logo: the paper plane can fly off to visit Nexi */
+.brand{position:absolute;left:22px;top:18px;z-index:5;display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;border:0;border-radius:14px;background:transparent;cursor:pointer;transition:background .2s}
+.brand:hover{background:rgba(255,255,255,.45)}
+.brand .b-plane{height:24px;width:auto;display:block;transition:transform .35s var(--ease),opacity .25s}
+.brand .b-text{height:22px;width:auto;display:block}
+.brand:hover .b-plane{transform:translate(3px,-3px) rotate(-6deg)}
+.brand.away .b-plane{opacity:0;transform:translate(26px,-18px) scale(.6) rotate(-20deg)}
+.brand.back .b-plane{animation:planeBack .5s var(--ease)}
+@keyframes planeBack{0%{opacity:0;transform:translate(-18px,10px) scale(.6)}60%{opacity:1;transform:translate(2px,-2px) scale(1.15)}100%{transform:none}}
+.brand .tip{position:absolute;left:100%;top:50%;margin-left:6px;transform:translateY(-50%);white-space:nowrap;font:600 11.5px/1 var(--font-body);color:var(--blue-700);background:rgba(255,255,255,.85);padding:6px 9px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none}
+.brand:hover .tip{opacity:1}
+
+/* labels pinned to 3D points */
+.tags{position:absolute;inset:0;z-index:4;pointer-events:none}
+.tag3{position:absolute;left:0;top:0;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:7px 12px 7px 9px;border-radius:999px;background:rgba(255,255,255,.95);border:1px solid #fff;box-shadow:0 8px 20px -12px rgba(30,70,145,.6);color:var(--ink);font:600 13.5px/1.1 var(--font-body);opacity:0;transition:opacity .3s var(--ease),background .2s,color .2s;will-change:transform}
+.tag3.on{opacity:1}
+.tag3.on.far{opacity:.4}
+.tag3 .oi,.tag3 .ic{width:18px;height:18px}
+.tag3 .icons{display:inline-flex;gap:2px}
+.tag3 small{font-weight:500;color:var(--label);font-size:12px}
+button.tag3{cursor:pointer;pointer-events:none}
+button.tag3.on{pointer-events:auto}
+button.tag3.on:hover{background:#fff;border-color:var(--blue-100)}
+.tag3.now{background:var(--blue);border-color:var(--blue);color:#fff}
+.tag3.now small{color:rgba(255,255,255,.85)}
+div.tag3:not(.now) small{display:none}
+.tag3 .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--blue-050);color:var(--blue);font:800 11.5px/1 var(--font-display)}
+.tag3.now .n{background:#fff}
+
+/* floating hearts, notes and word pops */
+.fx{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.fx i{position:absolute;left:0;top:0;font:800 24px/1 var(--font-display);font-style:normal;color:var(--blue);text-shadow:0 2px 0 #fff,0 0 14px rgba(255,255,255,.95);animation:fxUp 1.7s var(--ease) forwards}
+.fx i.heart{color:#ff5f9e}
+.fx i.z{color:var(--blue-700);font-size:20px}
+.fx b{position:absolute;left:0;top:0;padding:7px 14px;border-radius:16px;background:#fff;color:var(--blue);font:800 19px/1 var(--font-display);letter-spacing:.01em;white-space:nowrap;box-shadow:0 12px 26px -12px rgba(30,70,145,.65),0 0 0 3px rgba(111,160,245,.35);animation:wordPop 1.9s var(--ease) forwards}
+@keyframes fxUp{0%{opacity:0;transform:translate(var(--x0),var(--y0)) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x1),var(--y1)) scale(1.15) rotate(var(--r))}}
+@keyframes wordPop{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3) rotate(-14deg)}14%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.18) rotate(-5deg)}24%{transform:translate(var(--x),var(--y)) scale(1) rotate(-4deg)}78%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) - 34px)) scale(.94) rotate(-4deg)}}
+
+.hint{position:absolute;left:26px;bottom:22px;z-index:4;margin:0;font-size:12.5px;color:var(--blue-700);display:flex;gap:6px;align-items:center;pointer-events:none;transition:opacity .3s}
+.hint b{font-weight:700}
+body.tut-open .hint,body.shot .hint{opacity:0}
+
+/* ---------------- chat panel ---------------- */
+.chat{position:absolute;right:20px;top:20px;bottom:20px;width:var(--panel);z-index:6;display:flex;flex-direction:column;background:#fff;border:1px solid rgba(255,255,255,.95);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+.chat-head{position:relative;display:flex;align-items:center;gap:12px;padding:16px 16px 16px 18px;color:#fff;background:
+  radial-gradient(120% 140% at 100% 0%,rgba(111,160,245,.55) 0%,rgba(111,160,245,0) 55%),
+  linear-gradient(135deg,#3a72d6 0%,#3167CA 45%,#1E4691 100%);overflow:hidden}
+.chat-head::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:18px 18px;mask-image:linear-gradient(90deg,transparent,#000 70%);pointer-events:none}
+.ava{position:relative;width:46px;height:46px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe6f3 72%);box-shadow:inset 0 -2px 4px rgba(31,31,61,.12),0 4px 12px rgba(10,30,80,.35)}
+.ava::before{content:"";position:absolute;left:8px;right:8px;top:13px;height:20px;border-radius:10px;background:#0b0f1e}
+.ava::after{content:"";position:absolute;top:17.5px;left:16px;width:5px;height:11px;border-radius:2.5px;background:#9ccbff;box-shadow:9px 0 0 #9ccbff,0 0 6px #6fa0f5;animation:avaBlink 4.5s infinite}
+@keyframes avaBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.15)}}
+.ava i{position:absolute;right:-1px;bottom:1px;width:12px;height:12px;border-radius:50%;background:#2fd07f;border:2.5px solid #2c63c6}
+.who{position:relative;z-index:1;display:grid;gap:2px;min-width:0}
+.who b{font:800 18px/1.15 var(--font-display);letter-spacing:.005em}
+.who span{font-size:12.5px;color:rgba(255,255,255,.82)}
+.snd{position:relative;z-index:1;margin-left:auto;width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.14);color:#fff;cursor:pointer;transition:background .15s}
+.snd:hover{background:rgba(255,255,255,.24)}
+.snd svg{width:19px;height:19px}
+.snd .off{display:none}
+.snd[aria-pressed="false"] .on{display:none}
+.snd[aria-pressed="false"] .off{display:block}
+
+.log{flex:1;min-height:120px;overflow-y:auto;padding:18px 16px 12px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(#f5f8fe,#fff 40%)}
+.day{align-self:center;font:600 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--label);background:#fff;border:1px solid var(--line);padding:5px 10px;border-radius:999px}
+.row{display:flex;gap:8px;align-items:flex-end;animation:msgIn .34s var(--ease) both}
+.row.user{justify-content:flex-end}
+.row .mini{width:26px;height:26px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe6f3 72%);box-shadow:0 2px 6px rgba(31,31,61,.15);position:relative}
+.row .mini::before{content:"";position:absolute;left:4px;right:4px;top:7px;height:11px;border-radius:6px;background:#0b0f1e}
+.row .mini::after{content:"";position:absolute;top:9.5px;left:8.5px;width:3px;height:6px;border-radius:2px;background:#9ccbff;box-shadow:6px 0 0 #9ccbff}
+.msg{max-width:84%;padding:10px 14px;font-size:14.5px;line-height:1.55;border-radius:18px;overflow-wrap:anywhere}
+.row.bot .msg{background:#fff;border:1px solid #e3e8f2;border-bottom-left-radius:6px;color:var(--ink);box-shadow:0 6px 16px -14px rgba(30,70,145,.5)}
+.row.user .msg{background:var(--blue);color:#fff;border-bottom-right-radius:6px}
+.msg b{font-weight:700}
+.msg ul{list-style:none;margin:8px 0 6px;padding:0;display:grid;gap:5px}
+.msg li{display:flex;align-items:center;gap:8px}
+.msg .oi{width:18px;height:18px}
+.msg a{color:var(--blue);font-weight:600}
+.msg .mail{font-weight:600;-webkit-user-select:all;user-select:all}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.dots{display:inline-flex;gap:4px;padding:4px 2px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--blue-300);animation:dot 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.55}30%{transform:translateY(-4px);opacity:1}}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0 34px;animation:msgIn .3s var(--ease) both}
+.act{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--blue-100);background:#fff;color:var(--blue-700);font-weight:600;font-size:12.5px;line-height:1.2;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s}
+.act:hover{background:var(--blue-050);border-color:var(--blue-300)}
+.act .ic,.act .oi{width:15px;height:15px}
+.act.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.act.primary:hover{background:var(--blue-700)}
+
+.quick{display:grid;gap:8px;padding:10px 14px 4px;border-top:1px solid var(--line);background:#fff}
+.follow{display:flex;flex-wrap:wrap;gap:6px}
+.tours{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tours::-webkit-scrollbar{display:none}
+.tours .lbl{flex:none;font:700 10.5px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--label);margin-right:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid var(--blue-100);background:var(--blue-050);color:var(--blue-700);font-weight:600;font-size:13px;line-height:1.25;cursor:pointer;text-align:left;transition:background .18s,border-color .18s,box-shadow .18s,transform .18s var(--ease)}
+.chip:hover:not(:disabled){background:var(--blue-100)}
+.chip:active:not(:disabled){transform:scale(.97)}
+.chip:disabled{opacity:.5;cursor:default}
+.chip .ic,.chip .oi{width:15px;height:15px}
+.chip.goal{background:var(--blue);border-color:var(--blue);color:#fff}
+.chip.goal:hover:not(:disabled){background:var(--blue-700)}
+.chip.goal .ic{color:#fff}
+.chip.tour{flex:none;padding:5px 10px;font-size:12.5px;background:#fff;border:1.5px solid var(--blue-300);color:var(--blue);white-space:nowrap}
+.chip.tour:hover:not(:disabled){background:var(--blue-050)}
+.chip .tick{display:none;color:var(--ok)}
+.chip.asked .tick{display:inline-flex}
+.chip.suggest{box-shadow:0 0 0 3px rgba(111,160,245,.35);border-color:var(--blue)}
+.composer{display:flex;gap:8px;padding:8px 14px 12px;background:#fff}
+.composer input{flex:1;min-width:0;height:46px;padding:0 16px;border-radius:15px;border:1.5px solid #dfe5f0;background:#f6f8fd;color:var(--ink);font-size:15px;transition:border-color .15s,background .15s,box-shadow .15s}
+.composer input::placeholder{color:#8b90a8}
+.composer input:focus{outline:none;border-color:var(--blue-300);background:#fff;box-shadow:0 0 0 4px rgba(111,160,245,.2)}
+.send{width:46px;height:46px;flex:none;display:grid;place-items:center;border-radius:15px;border:0;background:var(--blue);color:#fff;cursor:pointer;box-shadow:0 10px 20px -10px rgba(49,103,202,.8);transition:background .15s,transform .15s var(--ease),opacity .15s}
+.send:hover:not(:disabled){background:var(--blue-700)}
+.send:active:not(:disabled){transform:scale(.94)}
+.send:disabled{opacity:.4;cursor:default;box-shadow:none}
+.send svg{width:20px;height:20px}
+.foot{margin:0;padding:0 16px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-size:12px;color:var(--label);background:#fff}
+.foot a,.foot span{display:inline-flex;align-items:center;gap:5px}
+.foot a{color:var(--blue);font-weight:600;text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .ic{width:14px;height:14px}
+.foot .mail{-webkit-user-select:all;user-select:all;color:var(--ink);font-weight:500}
+
+/* ---------------- tutorial card ---------------- */
+.tut{position:absolute;z-index:5;bottom:22px;left:calc((100% - var(--panel) - 40px) / 2);width:min(470px,calc(100% - var(--panel) - 88px));padding:16px 18px 18px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.95);border-radius:20px;box-shadow:var(--shadow);opacity:0;transform:translate(-50%,16px) scale(.98);transition:opacity .32s var(--ease),transform .38s var(--ease)}
+.tut.show{opacity:1;transform:translate(-50%,0)}
+.tut-in{animation:swap .34s var(--ease) both}
+@keyframes swap{from{opacity:.25;transform:translateY(5px)}to{opacity:1;transform:none}}
+.tut-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.kicker{font:700 11px/1 var(--font-body);letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
+.tut-x{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--label);cursor:pointer}
+.tut-x:hover{color:var(--ink);border-color:var(--blue-100)}
+.tut-x .ic{width:15px;height:15px}
+.tut h3{margin:8px 0 4px;font:700 20px/1.25 var(--font-display);text-wrap:balance}
+.tut .lead{margin:0 0 12px;color:var(--body);font-size:14.5px;line-height:1.55}
+.tut-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:0;background:var(--blue);color:#fff;font-weight:600;font-size:14.5px;line-height:1.2;cursor:pointer;box-shadow:0 10px 22px -12px rgba(49,103,202,.75);transition:background .18s,transform .18s var(--ease)}
+.btn:hover:not(:disabled){background:var(--blue-700)}
+.btn:active:not(:disabled){transform:scale(.97)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover:not(:disabled){background:var(--blue-050)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn .ic{width:17px;height:17px}
+.svc-row{display:flex;flex-wrap:wrap;gap:8px}
+.svc{display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 9px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;transition:border-color .18s,box-shadow .18s}
+.svc .icons{display:inline-flex;gap:2px}
+.svc .icons .ic{color:var(--c)}
+.svc .tick{width:15px;height:15px;color:var(--ok)}
+.svc:hover{border-color:color-mix(in srgb,var(--c) 45%,#fff)}
+.svc.on{border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 18%,transparent)}
+.svc-info{margin-top:12px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 7%,#fff);border:1px solid color-mix(in srgb,var(--c) 22%,#fff)}
+.svc-info b{font:700 15px/1.3 var(--font-display);color:var(--c)}
+.svc-info p{margin:3px 0 0;color:var(--body);font-size:14px}
+.tags-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tags-list li{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#fff;border:1px solid color-mix(in srgb,var(--c,var(--blue)) 25%,#fff);color:var(--ink);font-weight:600;font-size:12.5px}
+.tags-list li:has(.oi,.ic){padding-left:7px}
+.tags-list .oi,.tags-list .ic{width:16px;height:16px}
+.tags-list .ic{color:var(--c,var(--blue))}
+.step-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.app-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border-radius:999px;background:#F6F0F4;color:var(--odoo);font-weight:600;font-size:12.5px}
+.steps{display:flex;gap:6px;align-items:center}
+.steps i{width:22px;height:6px;border-radius:3px;background:var(--blue-100);transition:background .25s,width .3s var(--ease)}
+.steps i.on{background:var(--blue)}
+.steps i.now{width:34px}
+.mini-bill{display:grid;gap:8px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 6px 18px -14px rgba(31,31,61,.4)}
+.mb-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mb-top b{display:inline-flex;align-items:center;gap:8px;font:700 14.5px/1.3 var(--font-display)}
+.mb-top .ic{color:var(--blue)}
+.ex{padding:3px 8px;border-radius:999px;background:#FDF6E9;color:#8A5A00;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.mb-row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--label);font-variant-numeric:tabular-nums}
+.mb-total{display:flex;justify-content:space-between;font-size:14px;font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:8px}
+.mb-total b{font-weight:700}
+.fields{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fields li{display:grid;grid-template-columns:86px minmax(0,1fr) 18px;gap:10px;align-items:center;padding:8px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:14px;animation:fieldIn .4s var(--ease) both;animation-delay:var(--d,0s)}
+.fields li span{color:var(--label);font-size:12.5px}
+.fields li b{font-weight:600;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.fields li .ic{width:16px;height:16px;color:var(--ok)}
+.fields li.match{grid-template-columns:18px minmax(0,1fr);background:var(--ok-050);border-color:#CDE9D9;color:var(--ok);font-weight:600}
+@keyframes fieldIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.done-note{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--ok-050);color:var(--ok);font-weight:600;font-size:14px}
+.done-note .ic{width:18px;height:18px}
+
+@media (max-width:820px){
+  body.tut-open .app{--sheet:36%}
+  .chat{left:0;right:0;bottom:0;top:auto;width:auto;height:var(--sheet);border-radius:24px 24px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px);transition:height .35s var(--ease)}
+  .chat-head{padding:11px 14px}
+  .ava{width:36px;height:36px}
+  .ava::before{left:6px;right:6px;top:10px;height:16px}
+  .ava::after{top:13.5px;left:12px;width:4px;height:9px;box-shadow:7.5px 0 0 #9ccbff,0 0 6px #6fa0f5}
+  .who b{font-size:16px}
+  .log{padding:12px 12px 8px;min-height:60px}
+  .quick{padding:8px 12px 2px;gap:6px}
+  .follow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .follow::-webkit-scrollbar{display:none}
+  .follow .chip{flex:none;white-space:nowrap}
+  .composer{padding:6px 12px 10px}
+  .composer input,.send{height:42px}
+  .send{width:42px}
+  .foot{display:none}
+  .brand{left:10px;top:8px}
+  .brand .b-plane{height:20px}.brand .b-text{height:18px}
+  .brand .tip{display:none}
+  .hint{display:none}
+  .loading,.nowebgl{right:0;left:0;top:22%}
+  .tag3{font-size:12px;padding:5px 9px 5px 7px}
+  /* compact tour card so Nexi stays in view */
+  .tut{left:10px;right:10px;width:auto;bottom:calc(var(--sheet) + 8px);transform:translateY(16px);padding:10px 12px 12px;border-radius:16px}
+  .tut.show{transform:none}
+  .kicker{font-size:10px}
+  .tut-x{width:26px;height:26px}
+  .tut h3{font-size:16px;margin:4px 0 2px}
+  .tut .lead{font-size:13px;line-height:1.45;margin-bottom:8px}
+  .tut-actions{margin-top:8px;gap:8px}
+  .btn{padding:8px 12px;font-size:13.5px}
+  .svc{padding:5px 9px 5px 7px;font-size:12.5px;gap:6px}
+  .svc-info{margin-top:8px;padding:8px 10px}
+  .svc-info p{font-size:12.5px}
+  .tags-list{margin-top:6px;gap:4px}
+  .tags-list li{font-size:11.5px;padding:3px 8px}
+  .mini-bill{padding:8px 10px;gap:5px}
+  .mb-row{font-size:12px}
+  .fields{gap:4px}
+  .fields li{grid-template-columns:66px minmax(0,1fr) 14px;padding:5px 8px;font-size:12.5px}
+  .done-note{padding:7px 10px;font-size:12.5px}
+  .steps i{width:16px}.steps i.now{width:24px}
+}
+@media (max-height:640px) and (min-width:821px){ .tut .lead{margin-bottom:8px} }
+@media (prefers-reduced-motion:reduce){
+  .dots i,.fields li,.row,.acts,.tut-in,.ava::after,.brand.back .b-plane{animation:none}
+  .fx i,.fx b{animation-duration:.01s}
+  .tut,.chat,.tag3,.bars i{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="stage" id="stage">
+    <canvas id="scene" aria-label="3D view of Nexi, the TechNext robot, standing on a pedestal"></canvas>
+    <p class="loading" id="loading">Waking <span data-name>Nexi</span> up…</p>
+  </div>
+  <div class="bars" id="bars" aria-hidden="true"><i></i><i></i></div>
+
+  <button class="brand" id="brand" type="button" aria-label="TechNext. Send the paper plane to Nexi">
+    <img class="b-plane" src="assets/img/logo-plane.png" alt="">
+    <img class="b-text" src="assets/img/logo-text.png" alt="TechNext">
+    <span class="tip">Throw the plane to <span data-name>Nexi</span></span>
+  </button>
+
+  <div class="tags" id="tags"></div>
+  <div class="fx" id="fx" aria-hidden="true"></div>
+
+  <p class="hint"><b>Tap</b> <span data-name>Nexi</span> for a surprise · <b>Tap the logo</b> to play catch · <b>Drag</b> to turn</p>
+
+  <div class="tut" id="tut" hidden></div>
+
+  <aside class="chat" aria-label="Chat with Nexi">
+    <div class="chat-head">
+      <div class="ava" aria-hidden="true"><i></i></div>
+      <div class="who"><b data-name>Nexi</b><span>TechNext’s AI companion · replies instantly</span></div>
+      <button class="snd" id="snd" type="button" aria-pressed="true" aria-label="Mute robot sounds">
+        <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 6 6"/><path d="m22 9-6 6"/></svg>
+      </button>
+    </div>
+    <div class="log" id="log" role="log" aria-live="polite"><span class="day">Today</span></div>
+    <div class="quick" id="quick">
+      <div class="follow" id="follow" aria-label="Suggested questions"></div>
+      <div class="tours" id="tours" aria-label="Mini tours"></div>
+    </div>
+    <form class="composer" id="composer" autocomplete="off">
+      <label class="sr" for="q">Ask Nexi a question</label>
+      <input id="q" name="q" type="text" maxlength="200" placeholder="Ask Nexi anything…" enterkeyhint="send">
+      <button class="send" id="send" type="submit" aria-label="Send" disabled></button>
+    </form>
+    <p class="foot">Talk to the team: <a id="wa" href="https://wa.me/6588396998" target="_blank" rel="noopener">WhatsApp +65 8839 6998</a> <span class="mail" id="mail">sales@technext.asia</span></p>
+  </aside>
+</div>
+<script type="application/json" id="nexi-site">[{"u":"","t":"Odoo Partner in Singapore — Odoo ERP & AI | TechNext","d":"TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites."},{"u":"blog","t":"Blog: Odoo news, Odoo 20 and ERP guides | TechNext","d":"Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam."},{"u":"blog/how-an-odoo-implementation-works","t":"Odoo implementation process, step by step","d":"How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step."},{"u":"blog/invoicenow-singapore-gst-timeline","t":"Singapore GST InvoiceNow requirement: all dates to 2031","d":"Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare."},{"u":"blog/odoo-20-singapore-philippines-vietnam","t":"Odoo 20 in Singapore, the Philippines and Vietnam","d":"The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice)."},{"u":"blog/odoo-20-whats-new","t":"Odoo 20 new features, in plain language","d":"Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes."},{"u":"blog/odoo-experience-2026-takeaways","t":"Odoo Experience 2026: five takeaways for Odoo users","d":"Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20."},{"u":"blog/odoo-online-vs-odoo-sh-vs-on-premise","t":"Odoo Online vs Odoo.sh vs on-premise: which fits?","d":"Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company."},{"u":"blog/signs-you-have-outgrown-spreadsheets","t":"Seven signs your business has outgrown spreadsheets","d":"Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner."},{"u":"blog/standard-first-odoo-customisation","t":"Odoo customisation vs configuration: when to build","d":"When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide."},{"u":"blog/upcoming-odoo-events-singapore-philippines-vietnam","t":"Odoo events Oct–Nov 2026: Singapore, Philippines, Vietnam","d":"Upcoming Odoo events in Singapore, the Philippines and Vietnam for October and November 2026, plus free online webinars: dates, venues and links, by TechNext."},{"u":"blog/what-is-erp","t":"What is ERP? A plain-language guide for growing companies","d":"What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner."},{"u":"careers","t":"Careers: Odoo, ERP and finance jobs in Taguig | TechNext","d":"Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing."},{"u":"company","t":"About TechNext Pte. Ltd. — Odoo Ready Partner, Singapore","d":"TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites."},{"u":"industries/construction","t":"Odoo for Construction in Singapore — job costing","d":"Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner."},{"u":"industries/ecommerce","t":"Odoo for Ecommerce in Singapore — stores & marketplaces","d":"Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner."},{"u":"industries/fnb","t":"Odoo for F&B in Singapore — restaurants & kitchens","d":"Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner."},{"u":"industries/health-wellness","t":"Odoo for Wellness Studios, Spas & Gyms in Singapore","d":"Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext."},{"u":"industries/manufacturing","t":"Odoo for Manufacturing in Singapore — BoM & costing","d":"Odoo for manufacturers: bills of materials, work orders, component stock, purchasing and product costing in one database — by TechNext, Odoo Partner."},{"u":"industries/medical","t":"Odoo for Clinics & Healthcare Groups in Singapore","d":"Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner."},{"u":"industries/retail","t":"Odoo for Retail in Singapore — POS, stock & accounts","d":"Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner."},{"u":"industries/travel","t":"Odoo for Travel Agencies & Tour Operators in Singapore","d":"Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext."},{"u":"nexi","t":"Nexi, TechNext's AI companion for Odoo, AI and websites","d":"Meet Nexi, TechNext's AI companion. Ask about Odoo, AI and websites, take a short 3D tour, and get to a quotation, a meeting or the team in a few taps."},{"u":"odoo/ai-integration","t":"Odoo + AI integrations — AI inside your ERP","d":"AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo."},{"u":"odoo/apps","t":"Odoo Apps List — every module, by category","d":"The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked."},{"u":"odoo/apps/accounting","t":"Odoo Accounting implementation in Singapore","d":"Odoo Accounting implemented by TechNext, an Odoo Partner in Singapore. Journals, bank sync, tax reports and closing."},{"u":"odoo/apps/ai","t":"Odoo AI app (built-in AI agents) in Singapore","d":"Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Setup, data migration, training and support."},{"u":"odoo/apps/appointments","t":"Odoo Appointments implementation in Singapore","d":"Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Setup, data migration, training and support."},{"u":"odoo/apps/appraisals","t":"Odoo Appraisals implementation in Singapore","d":"Odoo Appraisals implemented by TechNext, an Odoo Partner in Singapore. Reviews and goals. Setup, data migration, training and support."},{"u":"odoo/apps/approvals","t":"Odoo Approvals implementation in Singapore","d":"Odoo Approvals implemented by TechNext, an Odoo Partner in Singapore. Request and approve anything. Setup, data migration, training and support."},{"u":"odoo/apps/blog","t":"Odoo Blog implementation in Singapore","d":"Odoo Blog implemented by TechNext, an Odoo Partner in Singapore. Articles with scheduling and SEO. Setup, data migration, training and support."},{"u":"odoo/apps/crm","t":"Odoo CRM implementation in Singapore","d":"Odoo CRM implemented by TechNext, an Odoo Partner in Singapore. Leads, pipeline and activities. Setup, data migration, training and support."},{"u":"odoo/apps/discuss","t":"Odoo Discuss implementation in Singapore","d":"Odoo Discuss implemented by TechNext, an Odoo Partner in Singapore. Chat, channels and notifications. Setup, data migration, training and support."},{"u":"odoo/apps/documents","t":"Odoo Documents implementation in Singapore","d":"Odoo Documents implemented by TechNext, an Odoo Partner in Singapore. File storage with workflows and OCR. Setup, data migration, training and support."},{"u":"odoo/apps/ecommerce","t":"Odoo eCommerce implementation in Singapore","d":"Odoo eCommerce implemented by TechNext, an Odoo Partner in Singapore. Online store tied to stock and accounting. Setup, data migration, training and support."},{"u":"odoo/apps/elearning","t":"Odoo eLearning implementation in Singapore","d":"Odoo eLearning implemented by TechNext, an Odoo Partner in Singapore. Courses, quizzes and certifications. Setup, data migration, training and support."},{"u":"odoo/apps/email-marketing","t":"Odoo Email Marketing implementation in Singapore","d":"Odoo Email Marketing implemented by TechNext, an Odoo Partner in Singapore. Campaigns, lists and A/B tests. Setup, data migration, training and support."},{"u":"odoo/apps/employees","t":"Odoo Employees implementation in Singapore","d":"Odoo Employees implemented by TechNext, an Odoo Partner in Singapore. Directory, contracts and org chart. Setup, data migration, training and support."},{"u":"odoo/apps/events","t":"Odoo Events implementation in Singapore","d":"Odoo Events implemented by TechNext, an Odoo Partner in Singapore. Registrations, tickets and badges. Setup, data migration, training and support."},{"u":"odoo/apps/expenses","t":"Odoo Expenses implementation in Singapore","d":"Odoo Expenses implemented by TechNext, an Odoo Partner in Singapore. Capture receipts and approve claims. Setup, data migration, training and support."},{"u":"odoo/apps/field-service","t":"Odoo Field Service implementation in Singapore","d":"Odoo Field Service implemented by TechNext, an Odoo Partner in Singapore. On-site jobs with worksheets. Setup, data migration, training and support."},{"u":"odoo/apps/fleet","t":"Odoo Fleet implementation in Singapore","d":"Odoo Fleet implemented by TechNext, an Odoo Partner in Singapore. Vehicles, contracts and costs. Setup, data migration, training and support."},{"u":"odoo/apps/forum","t":"Odoo Forum implementation in Singapore","d":"Odoo Forum implemented by TechNext, an Odoo Partner in Singapore. Community Q&A. Setup, data migration, training and support."},{"u":"odoo/apps/helpdesk","t":"Odoo Helpdesk implementation in Singapore","d":"Odoo Helpdesk implemented by TechNext, an Odoo Partner in Singapore. Tickets, SLAs and knowledge base. Setup, data migration, training and support."},{"u":"odoo/apps/inventory","t":"Odoo Inventory implementation in Singapore","d":"Odoo Inventory implemented by TechNext, an Odoo Partner in Singapore. Multi-warehouse stock, barcodes, replenishment."},{"u":"odoo/apps/invoicing","t":"Odoo Invoicing implementation in Singapore","d":"Odoo Invoicing implemented by TechNext, an Odoo Partner in Singapore. Send invoices and collect payments online. Setup, data migration, training and support."},{"u":"odoo/apps/iot","t":"Odoo IoT implementation in Singapore","d":"Odoo IoT implemented by TechNext, an Odoo Partner in Singapore. Connect scales, printers and devices. Setup, data migration, training and support."},{"u":"odoo/apps/knowledge","t":"Odoo Knowledge implementation in Singapore","d":"Odoo Knowledge implemented by TechNext, an Odoo Partner in Singapore. Wiki pages linked to records. Setup, data migration, training and support."},{"u":"odoo/apps/live-chat","t":"Odoo Live Chat implementation in Singapore","d":"Odoo Live Chat implemented by TechNext, an Odoo Partner in Singapore. Chat with visitors from Discuss. Setup, data migration, training and support."},{"u":"odoo/apps/maintenance","t":"Odoo Maintenance implementation in Singapore","d":"Odoo Maintenance implemented by TechNext, an Odoo Partner in Singapore. Preventive and corrective requests. Setup, data migration, training and support."},{"u":"odoo/apps/manufacturing","t":"Odoo Manufacturing implementation in Singapore","d":"Odoo Manufacturing implemented by TechNext, an Odoo Partner in Singapore. Bills of materials and work orders. Setup, data migration, training and support."},{"u":"odoo/apps/marketing-automation","t":"Odoo Marketing Automation implementation in Singapore","d":"Odoo Marketing Automation implemented by TechNext, an Odoo Partner in Singapore. Multi-step flows on triggers. Setup, data migration, training and support."},{"u":"odoo/apps/payroll","t":"Odoo Payroll implementation in Singapore","d":"Odoo Payroll implemented by TechNext, an Odoo Partner in Singapore. Salary rules and payslips. Setup, data migration, training and support."},{"u":"odoo/apps/planning","t":"Odoo Planning implementation in Singapore","d":"Odoo Planning implemented by TechNext, an Odoo Partner in Singapore. Shift and resource scheduling. Setup, data migration, training and support."},{"u":"odoo/apps/plm","t":"Odoo PLM implementation in Singapore","d":"Odoo PLM implemented by TechNext, an Odoo Partner in Singapore. Engineering changes and versions. Setup, data migration, training and support."},{"u":"odoo/apps/point-of-sale","t":"Odoo POS (Point of Sale) for shops in Singapore","d":"Odoo Point of Sale — Shop implemented by TechNext, an Odoo Partner in Singapore. Offline-ready retail checkout. Setup, data migration, training and support."},{"u":"odoo/apps/project","t":"Odoo Project implementation in Singapore","d":"Odoo Project implemented by TechNext, an Odoo Partner in Singapore. Tasks, stages and milestones. Setup, data migration, training and support."},{"u":"odoo/apps/purchase","t":"Odoo Purchase implementation in Singapore","d":"Odoo Purchase implemented by TechNext, an Odoo Partner in Singapore. RFQs, vendor pricelists, receipts. Setup, data migration, training and support."},{"u":"odoo/apps/quality","t":"Odoo Quality implementation in Singapore","d":"Odoo Quality implemented by TechNext, an Odoo Partner in Singapore. Control points and quality alerts. Setup, data migration, training and support."},{"u":"odoo/apps/recruitment","t":"Odoo Recruitment implementation in Singapore","d":"Odoo Recruitment implemented by TechNext, an Odoo Partner in Singapore. Job posts, applicants and interviews. Setup, data migration, training and support."},{"u":"odoo/apps/referrals","t":"Odoo Referrals implementation in Singapore","d":"Odoo Referrals implemented by TechNext, an Odoo Partner in Singapore. Employee referral programme. Setup, data migration, training and support."},{"u":"odoo/apps/rental","t":"Odoo Rental implementation in Singapore","d":"Odoo Rental implemented by TechNext, an Odoo Partner in Singapore. Book, pick up and return assets. Setup, data migration, training and support."},{"u":"odoo/apps/restaurant-pos","t":"Odoo Restaurant POS implementation in Singapore","d":"Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore. Tables, kitchen printing, bills."},{"u":"odoo/apps/sales","t":"Odoo Sales implementation in Singapore","d":"Odoo Sales implemented by TechNext, an Odoo Partner in Singapore. Quotations, orders and upsells. Setup, data migration, training and support."},{"u":"odoo/apps/sign","t":"Odoo Sign implementation in Singapore","d":"Odoo Sign implemented by TechNext, an Odoo Partner in Singapore. Legally binding e-signatures. Setup, data migration, training and support."},{"u":"odoo/apps/sms-marketing","t":"Odoo SMS Marketing implementation in Singapore","d":"Odoo SMS Marketing implemented by TechNext, an Odoo Partner in Singapore. Text campaigns with tracking. Setup, data migration, training and support."},{"u":"odoo/apps/social-marketing","t":"Odoo Social Marketing implementation in Singapore","d":"Odoo Social Marketing implemented by TechNext, an Odoo Partner in Singapore. Schedule and track posts. Setup, data migration, training and support."},{"u":"odoo/apps/spreadsheet","t":"Odoo Spreadsheet (BI) implementation in Singapore","d":"Odoo Spreadsheet (BI) implemented by TechNext, an Odoo Partner in Singapore. Live pivots and dashboards on Odoo data."},{"u":"odoo/apps/subscriptions","t":"Odoo Subscriptions implementation in Singapore","d":"Odoo Subscriptions implemented by TechNext, an Odoo Partner in Singapore. Recurring billing and renewals. Setup, data migration, training and support."},{"u":"odoo/apps/surveys","t":"Odoo Surveys implementation in Singapore","d":"Odoo Surveys implemented by TechNext, an Odoo Partner in Singapore. Forms, quizzes and feedback. Setup, data migration, training and support."},{"u":"odoo/apps/time-off","t":"Odoo Time Off implementation in Singapore","d":"Odoo Time Off implemented by TechNext, an Odoo Partner in Singapore. Leave requests and allocations. Setup, data migration, training and support."},{"u":"odoo/apps/timesheets","t":"Odoo Timesheets implementation in Singapore","d":"Odoo Timesheets implemented by TechNext, an Odoo Partner in Singapore. Time tracking billed to projects. Setup, data migration, training and support."},{"u":"odoo/apps/voip","t":"Odoo VoIP implementation in Singapore","d":"Odoo VoIP implemented by TechNext, an Odoo Partner in Singapore. Calls from inside Odoo. Setup, data migration, training and support."},{"u":"odoo/apps/website-builder","t":"Odoo Website Builder implementation in Singapore","d":"Odoo Website Builder implemented by TechNext, an Odoo Partner in Singapore. Drag-and-drop pages with SEO tools. Setup, data migration, training and support."},{"u":"odoo/apps/whatsapp","t":"Odoo WhatsApp implementation in Singapore","d":"Odoo WhatsApp implemented by TechNext, an Odoo Partner in Singapore. Templates and conversations. Setup, data migration, training and support."},{"u":"odoo/crm-development","t":"Odoo CRM Customization — pipelines & lead routing","d":"Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells."},{"u":"odoo/discovery","t":"Odoo Consultation & Discovery in Singapore","d":"Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope."},{"u":"odoo/erp-system","t":"Odoo Customization in Singapore — upgrade-safe modules","d":"Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place."},{"u":"odoo/integration","t":"Odoo Integration — banks, payments, stores","d":"Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced."},{"u":"odoo/philippines","t":"Odoo Partner in the Philippines — Taguig City","d":"TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila: Odoo implementation with BIR localisation, payroll, training and support."},{"u":"odoo/support","t":"Odoo Support in Singapore — fixes & upgrades","d":"Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team."},{"u":"odoo/training","t":"Odoo Training in Singapore — on your data","d":"Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over."},{"u":"quotation","t":"Odoo Implementation Cost — get a written quote","d":"Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia."},{"u":"solutions/ai","t":"Enterprise AI Solutions in Singapore","d":"TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters."},{"u":"solutions/ai-automation","t":"AI Workflow Automation in Singapore — AI agents","d":"AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves."},{"u":"solutions/ai-chatbots","t":"AI Chatbot Development in Singapore — web & WhatsApp","d":"AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team."},{"u":"solutions/ai-knowledge","t":"Enterprise RAG Knowledge Assistants in Singapore","d":"Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited."},{"u":"solutions/brand-assets","t":"Graphic Design & Brand Assets in Singapore","d":"Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own."},{"u":"solutions/enterprise","t":"Odoo Multi-Company ERP for Groups & Consolidation","d":"Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner."},{"u":"solutions/marketing","t":"Website & Social Media Marketing in Singapore","d":"TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report."},{"u":"solutions/odoo-erp","t":"Odoo ERP Implementation in Singapore","d":"Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported."},{"u":"solutions/social-media","t":"Social Media Management in Singapore","d":"TechNext runs your LinkedIn, Facebook and Instagram on a monthly plan — content, scheduling, replies and a one-page report — while you run the business."},{"u":"solutions/website","t":"Web Design & Development in Singapore","d":"TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team."}]</script>
+<script src="assets/js/vendor/three-r128.min.js"></script>
+<script src="assets/js/nexi-app.js?v=1133dd00"></script>
+</body>
+</html>

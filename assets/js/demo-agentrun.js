@@ -115,8 +115,9 @@ TN.demo('agentrun', function (root, K) {
       var p = paths[id];
       if (!p) { p = paths[id] = { el: K.svg('path', { 'class': 'arn-e arn-' + id }) }; svg.appendChild(p.el); }
       p.el.setAttribute('d', dd);
-      var L = p.el.getTotalLength(), pts = [];
-      for (var i = 0; i <= 40; i++) { var q = p.el.getPointAtLength(L * i / 40); pts.push([q.x, q.y]); }
+      // the 41 stops along the edge, worked out from its d rather than read back from the SVG
+      var t = K.track(dd), L = t.len, pts = [];
+      for (var i = 0; i <= 40; i++) { var q = K.trackAt(t, L * i / 40); pts.push([q.x, q.y]); }
       p.len = L; p.pts = pts;
     });
     edgeLabels(); placeQueue();

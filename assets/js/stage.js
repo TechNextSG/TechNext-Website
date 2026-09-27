@@ -35,22 +35,27 @@
   /* ---------------- pointer depth + backdrop spotlight ---------------- */
   if (!reduce && fine) {
     [].forEach.call(document.querySelectorAll('[data-stage-hero]'), function (hero) {
-      var st = hero.querySelector('.stage');
-      var raf = 0, x = 0, y = 0;
+      var st = hero.querySelector('.stage'), spot = hero.querySelector('.ph-spot');
+      var raf = 0, x = 0, y = 0, box = null;
+      function measure() { var r = hero.getBoundingClientRect(); box = { l: r.left, t: r.top + window.scrollY, w: r.width, h: r.height }; }
       function paint() {
         raf = 0;
-        hero.style.setProperty('--mx', ((x + 0.5) * 100).toFixed(1) + '%');
-        hero.style.setProperty('--my', ((y + 0.5) * 100).toFixed(1) + '%');
+        if (spot && box) { spot.style.setProperty('--sx', ((x + 0.5) * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', ((y + 0.5) * box.h).toFixed(1) + 'px'); }
         if (st) { st.style.setProperty('--px', (x * 2).toFixed(3)); st.style.setProperty('--py', (y * 2).toFixed(3)); }
       }
+      window.addEventListener('resize', function () { box = null; }, { passive: true });
+      hero.addEventListener('pointerenter', function () { box = null; });
       hero.addEventListener('pointermove', function (e) {
-        var r = hero.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        x = (e.clientX - r.left) / r.width - 0.5;
-        y = (e.clientY - r.top) / r.height - 0.5;
+        if (!box) measure();
+        if (!box.w || !box.h) return;
+        x = (e.clientX - box.l) / box.w - 0.5;
+        y = (e.clientY + window.scrollY - box.t) / box.h - 0.5;
         if (!raf) raf = requestAnimationFrame(paint);
-      });
+      }, { passive: true });
       hero.addEventListener('pointerleave', function () { x = 0; y = 0; if (!raf) raf = requestAnimationFrame(paint); });
+      /* the spotlight starts where it always sat (72% / 34%); the stage layers stay at rest */
+      measure(); if (spot) { spot.style.setProperty('--sx', (0.72 * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', (0.34 * box.h).toFixed(1) + 'px'); }
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { hero.classList.toggle('is-still', !es[es.length - 1].isIntersecting); }).observe(hero);
     });
   }
 
@@ -114,7 +119,6 @@
     var f = document.createElement('iframe');
     f.src = MAPS[k].src;
     f.title = MAPS[k].title;
-    f.loading = 'lazy';
     f.allowFullscreen = true;
     f.referrerPolicy = 'no-referrer-when-downgrade';
     box.appendChild(f);

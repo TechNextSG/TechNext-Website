@@ -69,8 +69,9 @@ TN.demo('router', function (root, K) {
       var e = L.e[k], sync = k[0] === 's' && k.length === 2;
       var p = K.svg('path', { d: pathD(anchor(BOX[e[0]], e[1], e[2]), anchor(BOX[e[3]], e[4], e[5]), e[6]), 'class': 'omr-e' + (sync ? ' omr-e--sync' + (k === 'sW' ? ' omr-e--sw' : '') : k === 'hX' ? ' omr-e--x' : k === 'DR' || k === 'RE' ? ' omr-e--ret' : '') });
       edgeG.appendChild(p);
-      var len = p.getTotalLength() || 1, pts = [];
-      for (var i = 0; i <= 24; i++) { var q = p.getPointAtLength(len * i / 24); pts.push([q.x, q.y]); }
+      // the 25 stops along the edge, worked out from its d rather than read back from the SVG
+      var t = K.track(p), len = t.len || 1, pts = [];
+      for (var i = 0; i <= 24; i++) { var q = K.trackAt(t, len * i / 24); pts.push([q.x, q.y]); }
       EDGES[k] = { p: p, len: len, pts: pts };
     });
   }

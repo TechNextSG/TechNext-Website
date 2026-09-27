@@ -18,11 +18,14 @@ input,textarea{caret-color:var(--blue)}
 /* ---------- hero shell ---------- */
 .page-hero--stage{padding:56px 0 40px;isolation:isolate;overflow:hidden}
 .ph-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.ph-aurora{position:absolute;border-radius:50%;filter:blur(70px);opacity:.6}
-.ph-aurora.au1{width:540px;height:540px;right:-140px;top:-190px;background:radial-gradient(circle,#BFD3FA 0%,transparent 70%);animation:phDrift 19s ease-in-out infinite alternate}
-.ph-aurora.au2{width:460px;height:460px;left:34%;bottom:-260px;background:radial-gradient(circle,#DDE7F8 0%,transparent 70%);animation:phDrift 23s ease-in-out infinite alternate-reverse}
+/* the old blur(70px) is baked into a wider, softer gradient: no filter, so the drift is a plain composited move */
+.ph-aurora{position:absolute;border-radius:50%;opacity:.6;will-change:transform}
+.ph-aurora.au1{width:820px;height:820px;right:-280px;top:-330px;background:radial-gradient(closest-side,#BFD3FA 0%,rgba(191,211,250,.82) 22%,rgba(191,211,250,.5) 45%,rgba(191,211,250,.2) 68%,rgba(191,211,250,0) 100%);animation:phDrift 19s ease-in-out infinite alternate}
+.ph-aurora.au2{width:740px;height:740px;left:calc(34% - 140px);bottom:-400px;background:radial-gradient(closest-side,#DDE7F8 0%,rgba(221,231,248,.82) 22%,rgba(221,231,248,.5) 45%,rgba(221,231,248,.2) 68%,rgba(221,231,248,0) 100%);animation:phDrift 23s ease-in-out infinite alternate-reverse}
 .ph-grid{position:absolute;inset:0;background-image:linear-gradient(var(--blue-050) 1px,transparent 1px),linear-gradient(90deg,var(--blue-050) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 55% 70% at 78% 42%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse 55% 70% at 78% 42%,#000 25%,transparent 75%)}
-.ph-spot{position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx,72%) var(--my,34%),rgba(111,160,245,.14),transparent 62%)}
+/* a fixed-size gradient moved by transform (stage.js), so following the pointer never repaints the hero */
+.ph-spot{position:absolute;left:0;top:0;width:1040px;height:1040px;margin:-520px 0 0 -520px;background:radial-gradient(520px circle at 50% 50%,rgba(111,160,245,.14),transparent 62%);transform:translate3d(var(--sx,72vw),var(--sy,180px),0);will-change:transform}
+.page-hero--stage.is-still .ph-aurora{animation-play-state:paused}
 @keyframes phDrift{to{transform:translate3d(-46px,34px,0) scale(1.08)}}
 
 .page-hero--stage .two--stage{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:48px;align-items:center}

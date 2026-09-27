@@ -99,15 +99,17 @@ TN.demo('life', function (root, K) {
       var id = path[i] + '>' + path[i + 1];
       if (edges[id]) continue;
       var e = K.svg('path', hide ? Object.assign({ d: edgeD(path[i], path[i + 1], 'path') }, hide) : { d: edgeD(path[i], path[i + 1], 'path'), 'class': 'lf-e', 'marker-end': mk });
-      svg.appendChild(e); edges[id] = { p: e, len: e.getTotalLength() };
+      svg.appendChild(e); edges[id] = { p: e };
     }
     branches.forEach(function (b) {
       var id = b.from + '>' + b.to + '>b';
       var e = K.svg('path', hide ? Object.assign({ d: edgeD(b.from, b.to, 'branch') }, hide) : { d: edgeD(b.from, b.to, 'branch'), 'class': 'lf-e lf-e--b', 'marker-end': mk });
-      svg.appendChild(e); edges[id] = { p: e, len: e.getTotalLength(), b: b };
+      svg.appendChild(e); edges[id] = { p: e, b: b };
     });
     var g = K.svg('g', { 'class': 'lf-toks' }); svg.appendChild(g);
     tokens.forEach(function (t) { if (t.g) g.appendChild(t.g); });
+    // each edge as a track worked out from its d: nothing is read back from the SVG, here or per frame
+    Object.keys(edges).forEach(function (id) { var E = edges[id]; E.t = K.track(E.p); E.len = E.t.len; });
   }
   // ---------------------------------------------------------------- records
   // log lines are built from text nodes: labels come from the page, never re-read as HTML
@@ -197,7 +199,7 @@ TN.demo('life', function (root, K) {
         if (q >= 1) finishEdge(t);
         return true;
       }
-      var pt = e.p.getPointAtLength(Math.min(t.s, e.len));
+      var pt = K.trackAt(e.t, Math.min(t.s, e.len));
       t.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
       if (t.s >= e.len) finishEdge(t);
       return true;

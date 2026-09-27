@@ -15,14 +15,18 @@ TN.demo('offices', function (root, K) {
     { on: ['ph', 'sg'], flow: [['ph', 'client', 'Training on your data'], ['sg', 'client', 'Quick-reference guides']] },
     { on: ['sg', 'ph', 'vn'], flow: [['client', 'ph', 'Support request'], ['ph', 'vn', 'Fix'], ['vn', 'ph', 'Tested fix'], ['sg', 'client', 'Upgrade plan']] }
   ];
-  var client = K.$('.dof-client', root);
+  var client = K.$('.dof-client', root), clientAt = null;
   function pos(k) {
-    if (k === 'client') { var b = K.box(client, stage); return { x: b.r - 6, y: b.cy - b.h / 2 }; }   // it sits at top:50% with translateY(-50%)
+    if (k === 'client') {                                                // it sits at top:50% with translateY(-50%)
+      if (!clientAt) { var b = K.box(client, stage); clientAt = { x: b.r - 6, y: b.cy - b.h / 2 }; }
+      return clientAt;
+    }
     var o = offices[k]; return { x: o.x * W, y: o.y * H };
   }
   function layout() {
     W = stage.offsetWidth || 1; H = stage.offsetHeight || 1;
     Object.keys(offices).forEach(function (k) { var o = offices[k]; o.el.style.left = (o.x * 100) + '%'; o.el.style.top = (o.y * 100) + '%'; });
+    clientAt = null; pos('client');                                      // read once, before the SVG is rebuilt
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     var html = '';
     // a faint dot field suggests the region without drawing coastlines
@@ -31,14 +35,12 @@ TN.demo('offices', function (root, K) {
     }
     svg.innerHTML = html;
     arcs = {};
-    var pairs = [['sg', 'ph'], ['sg', 'vn'], ['ph', 'vn'], ['client', 'sg'], ['client', 'ph'], ['client', 'vn']];
+    var pairs = [['sg', 'ph'], ['sg', 'vn'], ['ph', 'vn'], ['client', 'sg'], ['client', 'ph'], ['client', 'vn']], made = [];
     pairs.forEach(function (p) {
       var a = pos(p[0]), b = pos(p[1]), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 - Math.hypot(b.x - a.x, b.y - a.y) * .22;
       var d = 'M' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + 'Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + b.x.toFixed(1) + ' ' + b.y.toFixed(1);
       var el = K.svg('path', { d: d, 'class': 'dof-arc' + (p[0] === 'client' ? ' dof-arc--c' : '') });
-      svg.appendChild(el);
-      arcs[p[0] + '>' + p[1]] = { el: el, len: el.getTotalLength(), rev: false };
-      arcs[p[1] + '>' + p[0]] = { el: el, len: el.getTotalLength(), rev: true };
+      svg.appendChild(el); made.push([p, el]);
     });
     // the 10+ countries TechNext delivers to, as rays from the client node (no names on purpose)
     var c = pos('client');
@@ -47,6 +49,12 @@ TN.demo('offices', function (root, K) {
       svg.appendChild(K.svg('line', { x1: c.x, y1: c.y, x2: c.x + Math.cos(a2) * r * .5, y2: c.y + Math.sin(a2) * r, 'class': 'dof-ray' }));
     }
     var g = K.svg('g', { 'class': 'dof-pk' }); svg.appendChild(g);
+    // each arc as a track worked out from its d: nothing is read back from the SVG, here or per frame
+    made.forEach(function (m) {
+      var p = m[0], el = m[1], t = K.track(el);
+      arcs[p[0] + '>' + p[1]] = { el: el, len: t.len, t: t, rev: false };
+      arcs[p[1] + '>' + p[0]] = { el: el, len: t.len, t: t, rev: true };
+    });
   }
   function go(i, user) {
     cur = (i + PLAN.length) % PLAN.length;
@@ -73,7 +81,7 @@ TN.demo('offices', function (root, K) {
     if (now > nextPkt) { var fl = PLAN[cur].flow; packet(fl[Math.random() * fl.length | 0]); nextPkt = now + 700 + Math.random() * 500; }
     packets = packets.filter(function (p) {
       var q = K.clamp((now - p.t0) / p.dur, 0, 1), e = K.ease.inOut(q), L = p.a.rev ? (1 - e) * p.a.len : e * p.a.len;
-      var pt = p.a.el.getPointAtLength(L);
+      var pt = K.trackAt(p.a.t, L);
       p.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
       if (q >= 1) { p.g.remove(); var o = offices[p.to]; if (o) K.restart(o.el, 'is-ping'); return false; }
       return true;

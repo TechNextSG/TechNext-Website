@@ -189,7 +189,7 @@ a.card:hover{text-decoration:none}
 .strip-badge{height:40px;width:auto}
 
 /* ---------- header ---------- */
-.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s ease,box-shadow .2s ease}
+.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);border-bottom:1px solid transparent;transition:border-color .2s ease,box-shadow .2s ease}
 .header.is-scrolled,.header.is-open{border-bottom-color:var(--line)}
 .header-inner{height:var(--header-h);display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:16px}
 .brand img{height:34px;width:auto;transition:transform .3s var(--spring)}
@@ -255,19 +255,20 @@ a.card:hover{text-decoration:none}
 .side-tab:hover{background:var(--blue-700);box-shadow:0 14px 32px -12px rgba(49,103,202,.7)}
 .side-tab:hover .ic{transform:rotate(90deg) translateY(-3px)}
 .side-tab:active{background:var(--blue-700);box-shadow:0 4px 12px -8px rgba(49,103,202,.6)}
-.chat-tab{background:var(--ink)}
+.nexi-tab{background:linear-gradient(0deg,#3167CA,#6B5BFF);text-decoration:none;box-shadow:0 8px 24px -12px rgba(88,86,230,.65)}
 .meet-tab{background:var(--ok);text-decoration:none;box-shadow:0 8px 24px -12px rgba(19,122,74,.6)}
 .meet-tab:hover,.meet-tab:active{background:#0F633C;box-shadow:0 14px 32px -12px rgba(19,122,74,.6)}
 .meet-tab .ic{transform:rotate(180deg)}                       /* the tab is turned 180deg: keep the calendar upright */
 .meet-tab:hover .ic{transform:rotate(180deg) translateY(2px)}
-.chat-tab:hover,.chat-tab:active{background:#2c2c55}
+body.is-nexi .nexi-tab{display:none}
+.nexi-tab:hover,.nexi-tab:active{background:linear-gradient(0deg,#2A58AE,#5A48F0);box-shadow:0 14px 32px -12px rgba(88,86,230,.7)}
 /* exit: the plane flies off the Let's Talk tab, then both tabs slide out while a panel is open */
 .talk-tab.is-exiting .ic{animation:planeOff .5s cubic-bezier(.4,0,.8,.6) forwards}
 @keyframes planeOff{30%{transform:rotate(90deg) translate(0,-6px);opacity:1}100%{transform:rotate(90deg) translate(-40px,-90px) scale(.6);opacity:0}}
 body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50%) translateX(110%);transition:opacity .25s ease .15s,transform .35s var(--ease-out) .15s}
 
 /* ---------- Let's Talk panel ---------- */
-.talk-overlay{position:fixed;inset:0;background:rgba(31,31,61,.4);backdrop-filter:blur(2px);z-index:70;opacity:0;transition:opacity .3s ease}
+.talk-overlay{position:fixed;inset:0;background:rgba(31,31,61,.44);z-index:70;opacity:0;transition:opacity .3s ease}
 .talk-overlay.is-open{opacity:1}
 .talk-panel{position:fixed;top:0;right:0;bottom:0;width:min(500px,100%);background:var(--paper);z-index:80;display:flex;flex-direction:column;overflow:auto;transform:translateX(100%);transition:transform .34s var(--ease-out);box-shadow:-30px 0 60px -40px rgba(31,31,61,.4)}
 .talk-panel.is-open{transform:none}
@@ -346,14 +347,16 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .hero{position:relative;overflow:hidden;background:var(--paper);--mx:50%;--my:30%}
 .hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--blue-050) 1px,transparent 1px),linear-gradient(90deg,var(--blue-050) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 80% at 50% 40%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 70% 80% at 50% 40%,#000 30%,transparent 100%)}
-.aurora{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;will-change:transform}
-.a1{width:620px;height:620px;left:-160px;top:-200px;background:#DDE7F8;animation:drift1 22s ease-in-out infinite alternate}
-.a2{width:520px;height:520px;right:-140px;top:10%;background:#E3F3F0;animation:drift2 26s ease-in-out infinite alternate}
-.a3{width:420px;height:420px;left:35%;bottom:-220px;background:#F1E9F3;animation:drift3 30s ease-in-out infinite alternate}
+/* each blob is its old blurred disc drawn as a gradient: 140px wider on every side, solid to r-140,
+   half at r, clear at r+140 (a 70px gaussian edge) - no filter, so drifting costs nothing */
+.aurora{position:absolute;border-radius:50%;opacity:.75;will-change:transform;background:radial-gradient(closest-side,var(--au) 0,var(--au) calc(100% - 280px),color-mix(in srgb,var(--au) 84%,transparent) calc(100% - 210px),color-mix(in srgb,var(--au) 50%,transparent) calc(100% - 140px),color-mix(in srgb,var(--au) 16%,transparent) calc(100% - 70px),transparent 100%)}
+.a1{--au:#DDE7F8;width:900px;height:900px;left:-300px;top:-340px;animation:drift1 22s ease-in-out infinite alternate}
+.a2{--au:#E3F3F0;width:800px;height:800px;right:-280px;top:calc(10% - 140px);animation:drift2 26s ease-in-out infinite alternate}
+.a3{--au:#F1E9F3;width:700px;height:700px;left:calc(35% - 140px);bottom:-360px;animation:drift3 30s ease-in-out infinite alternate}
 @keyframes drift1{to{transform:translate(120px,80px) scale(1.15)}}
 @keyframes drift2{to{transform:translate(-100px,120px) scale(1.1)}}
 @keyframes drift3{to{transform:translate(-140px,-60px) scale(1.2)}}
-.spotlight{position:absolute;inset:0;background:radial-gradient(640px circle at var(--mx) var(--my),rgba(111,160,245,.16),transparent 62%);transition:background .12s linear}
+.spotlight{position:absolute;left:0;top:0;width:1280px;height:1280px;margin:-640px 0 0 -640px;background:radial-gradient(640px circle at 50% 50%,rgba(111,160,245,.16),transparent 62%);transform:translate3d(var(--sx,50vw),var(--sy,260px),0);transition:transform .12s linear;will-change:transform}
 .particles{position:absolute;inset:0;width:100%;height:100%}
 .hero-track{position:relative;z-index:1}
 .slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s;pointer-events:none}
@@ -377,7 +380,7 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .rot>b{grid-area:1/1;color:var(--blue);font-weight:inherit;transform:translateY(110%);opacity:0;transition:transform .55s var(--spring),opacity .35s ease;white-space:nowrap}
 .rot>b.is-on{transform:none;opacity:1}
 .rot>b.is-out{transform:translateY(-110%);opacity:0}
-.slide-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);font:600 13px/1 var(--font-body);color:var(--ink)}
+.slide-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:6px 12px 6px 6px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--line);font:600 13px/1 var(--font-body);color:var(--ink)}
 .slide-tag img{height:22px;width:auto}
 .slide-tag .sep{width:1px;height:14px;background:var(--line)}
 .slide-tag .ic{width:15px;height:15px;color:var(--blue)}
@@ -385,7 +388,7 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 /* carousel controls: one glass pill — arrow · three tracks · arrow — everything centred on one 36px axis.
    The active track widens and fills left-to-right over the slide's 10 s; is-static = autoplay off. */
 .hero-ctl{position:absolute;left:0;right:0;bottom:70px;z-index:5;display:flex;justify-content:center}
-.hero-ctl-inner{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid var(--line);box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);pointer-events:auto}
+.hero-ctl-inner{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 8px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:var(--shadow-sm);pointer-events:auto}
 .dots{display:flex;align-items:center;gap:8px;height:36px;padding:0 4px}
 .dot{position:relative;width:28px;height:36px;padding:0;border:0;background:transparent;cursor:pointer;transition:width .35s var(--spring)}
 .dot::before,.dot::after{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;border-radius:999px}
@@ -404,9 +407,12 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .hero-arrow--prev .ic{transform:rotate(180deg)}
 .hero-arrow--prev:hover .ic{transform:rotate(180deg) translateX(3px)}
 /* marquee of Odoo apps */
-.hero-marquee{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;overflow:hidden;border-top:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.hero-marquee{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;overflow:hidden;border-top:1px solid var(--line);background:rgba(255,255,255,.8);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .mq-track{display:flex;gap:40px;padding:12px 20px;flex:none;animation:mq 46s linear infinite;will-change:transform}
 .hero-marquee:hover .mq-track{animation-play-state:paused}
+html.intro .mq-track{animation:none}
+/* nothing in the hero animates while it is scrolled out of view (hero.js sets .is-off) */
+.hero.is-off *,.hero.is-off *::before,.hero.is-off *::after{animation-play-state:paused!important}
 @keyframes mq{to{transform:translateX(-100%)}}
 .mq-item{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--font-body);color:var(--body);white-space:nowrap}
 .mq-item .oi{width:26px;height:26px}
@@ -452,7 +458,7 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .m-visual{display:none}
 
 /* ---------- pop-up (zooms out of the clicked node) ---------- */
-.pop-backdrop{position:fixed;inset:0;background:rgba(31,31,61,.42);backdrop-filter:blur(4px);z-index:95}
+.pop-backdrop{position:fixed;inset:0;background:rgba(31,31,61,.48);z-index:95}
 .pop{position:fixed;inset:0;margin:auto;width:min(560px,calc(100% - 32px));max-height:min(86vh,720px);height:fit-content;background:var(--paper);border-radius:22px;box-shadow:0 40px 80px -30px rgba(31,31,61,.5);z-index:96;overflow:auto;transform-origin:center}
 .pop-head{display:flex;gap:16px;align-items:center;padding:24px 24px 0}
 .pop-head .oi{width:56px;height:56px;flex:none}
@@ -473,57 +479,11 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .pop-nav .icon-btn--next:hover .ic{transform:translateX(2px)}
 .pop-body .checks li{opacity:0;transform:translateY(8px);animation:fadeUp .4s ease-out forwards;animation-delay:calc(var(--i)*60ms + 120ms)}
 
-/* ---------- chat window ---------- */
-.chat{position:fixed;right:24px;bottom:24px;width:min(400px,calc(100% - 32px));height:min(620px,calc(100vh - 48px));background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 80px -30px rgba(31,31,61,.45);z-index:82;display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;animation:chatIn .4s var(--spring)}
-@keyframes chatIn{from{transform:scale(.6) translateY(30px);opacity:0}to{transform:none;opacity:1}}
-.chat.is-closing{animation:chatOut .25s ease forwards}
-@keyframes chatOut{to{transform:scale(.7) translateY(30px);opacity:0}}
-.chat-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--glass);flex:none}
-.chat-avatar{width:40px;height:40px;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center;flex:none}
-.chat-avatar .ic{width:22px;height:22px}
-.chat-head b{display:block;font:700 15px/1.2 var(--font-display);color:var(--ink)}
-.chat-head small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.chat-head .icon-btn{margin-left:auto}
-.chat-log{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;background:linear-gradient(180deg,var(--alt),#fff 60px)}
-.msg{max-width:86%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.5;animation:msgIn .35s var(--spring);word-wrap:break-word}
-@keyframes msgIn{from{transform:translateY(10px) scale(.96);opacity:0}to{transform:none;opacity:1}}
-.msg--bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px;color:var(--body)}
-.msg--user{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:6px}
-.msg b{color:inherit}
-.msg--bot b{color:var(--ink)}
-.msg ul{margin:6px 0 0;padding-left:0;display:grid;gap:4px}
-.msg li{display:flex;gap:8px;align-items:flex-start}
-.msg li .oi{width:18px;height:18px;margin-top:2px}
-.msg a{color:var(--blue);font-weight:600}
-.msg-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.msg-actions .btn{height:34px;padding:0 12px;font-size:13px;border-radius:9px}
-.msg .msg-actions a.btn-primary{color:#fff}
-.msg .msg-actions a.btn-ghost{color:var(--ink)}
-.msg .msg-actions a.btn-ghost:hover{color:var(--blue-700)}
-body.chat-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50%) translateX(110%);transition:opacity .25s ease,transform .3s var(--ease-out)}
 .side-tabs{transition:opacity .25s ease,transform .3s var(--ease-out)}
-.msg-actions .btn .ic{width:14px;height:14px}
-.typing{display:inline-flex;gap:4px;align-items:center;height:16px}
-.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:tdot 1.1s ease-in-out infinite}
-.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes tdot{30%{transform:translateY(-4px);opacity:1}60%{opacity:.4}}
-.chat-chips{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;flex:none;scrollbar-width:none;background:#fff;border-top:1px solid var(--line);position:relative;z-index:1}
-.chat-chips:empty{display:none}
-.chat-chips::-webkit-scrollbar{display:none}
-.chat-log{padding-bottom:20px}
 .chip{flex:none;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font:600 12.5px var(--font-body);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .2s var(--spring),border-color .15s ease,background-color .15s ease}
 .chip .oi{width:16px;height:16px}
 .chip:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
 .chip:active{transform:scale(.95)}
-.chat-input{display:flex;gap:8px;padding:6px 12px 12px;flex:none;background:#fff}
-.chat-input input{flex:1;min-height:42px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font:400 14.5px var(--font-body);color:var(--ink);transition:border-color .15s,box-shadow .15s}
-.chat-input input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100)}
-.chat-send{width:42px;height:42px;padding:0;border-radius:12px}
-.chat-send .ic{width:18px;height:18px}
-.chat-send:hover .ic{transform:translate(2px,-2px)}
-.chat-lead{display:grid;gap:8px;margin-top:10px}
-.chat-lead input{min-height:38px;border:1px solid var(--line);border-radius:10px;padding:0 12px;font:400 14px var(--font-body);width:100%}
-.chat-lead input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100)}
 
 /* ---------- apps ---------- */
 .apps-nav{display:flex;flex-wrap:wrap;gap:8px}
@@ -673,7 +633,7 @@ body.chat-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
   .m-visual small{display:block;font-size:12.5px;color:var(--muted);line-height:1.3;margin-top:2px}
   .m-visual .ic{width:18px;height:18px;color:var(--muted);margin-left:auto;flex:none}
   .side-tabs{top:auto;bottom:16px;right:16px;transform:none;gap:10px;align-items:flex-end}
-  body.chat-open .side-tabs,body.talk-open .side-tabs{transform:translateY(120%)}
+  body.talk-open .side-tabs{transform:translateY(120%)}
   .side-tab{writing-mode:horizontal-tb;transform:none;width:50px;height:50px;padding:0;border-radius:50%;justify-content:center;box-shadow:0 10px 24px -10px rgba(31,31,61,.5)}
   .side-tab::after{inset:-6px}
   .side-tab span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
@@ -681,7 +641,6 @@ body.chat-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
   .side-tab:hover .ic{transform:translateY(-2px)}
   .talk-tab.is-exiting .ic{animation:planeOffM .5s cubic-bezier(.4,0,.8,.6) forwards}
   @keyframes planeOffM{100%{transform:translate(40px,-60px) scale(.6);opacity:0}}
-  .chat{right:0;bottom:0;width:100%;height:100%;border-radius:0;border:0;transform-origin:bottom center}
   .pop{max-height:88vh}
 }
 @media (max-width:640px){
@@ -822,44 +781,53 @@ html.intro{overflow:hidden}
    Every slide change is a ~3 s camera move: the leaving slide exits with its own style while the
    arriving slide comes in with a 360° orbit-zoom, spiral or tumble. --cam delays the inner reveals. */
 @media (min-width:961px){
-  .hero-track{perspective:1600px;perspective-origin:50% 45%}
+  .hero-track>.slide{perspective:1600px;perspective-origin:50% 45%}
   .slide.is-leaving{position:absolute;inset:0;opacity:1;visibility:visible;pointer-events:none;z-index:1}
   .slide.is-entering{z-index:2}
   .is-leaving .kw>span,.is-leaving .up{opacity:1;transform:none;animation:none}
   .is-leaving .chart i{transform:none;animation:none}
   .slide-inner{transform-style:flat}
-  .is-leaving .slide-inner,.is-entering .slide-inner{will-change:transform,opacity,filter}
+  .is-leaving .slide-inner,.is-entering .slide-inner{will-change:transform,opacity}
   .cam-in-orbit .slide-inner{animation:camOrbitIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
   .cam-in-spiral .slide-inner{animation:camSpiralIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
   .cam-in-tumble .slide-inner{animation:camTumbleIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
-  .cam-first .slide-inner{animation-delay:.05s}
+  .hero-track>.cam-in-orbit{animation:camBlurOrbit 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
+  .hero-track>.cam-in-spiral{animation:camBlurSpiral 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
+  .hero-track>.cam-in-tumble{animation:camBlurTumble 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
+  .cam-first .slide-inner,.hero-track>.cam-first{animation-delay:.05s}
   .cam-out-spin .slide-inner{animation:camOutSpin 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .cam-out-fly .slide-inner{animation:camOutFly 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .cam-out-tilt .slide-inner{animation:camOutTilt 1.15s cubic-bezier(.5,0,.8,.4) forwards}
+  .hero-track>.cam-out-spin{animation:camBlurOutSpin 1.15s cubic-bezier(.5,0,.8,.4) forwards}
+  .hero-track>.cam-out-fly{animation:camBlurOutFly 1.15s cubic-bezier(.5,0,.8,.4) forwards}
+  .hero-track>.cam-out-tilt{animation:camBlurOutTilt 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .hero.is-cam .hero-bg{animation:bgBreathe 3s cubic-bezier(.2,.8,.2,1)}
   .hero.is-cam .hero-ctl{pointer-events:none}
 }
 @keyframes camOrbitIn{
-  0%{transform:translateZ(-1400px) rotateY(-360deg) rotateX(10deg) scale(.5);opacity:0;filter:blur(16px)}
+  0%{transform:translateZ(-1400px) rotateY(-360deg) rotateX(10deg) scale(.5);opacity:0}
   16%{opacity:1}
-  70%{filter:blur(2px)}
-  100%{transform:none;opacity:1;filter:blur(0)}
+  100%{transform:none;opacity:1}
 }
+@keyframes camBlurOrbit{0%{filter:blur(16px)}70%{filter:blur(2px)}100%{filter:blur(0)}}
 @keyframes camSpiralIn{
-  0%{transform:translateZ(-900px) rotate(-360deg) rotateX(-25deg) scale(.15);opacity:0;filter:blur(14px)}
+  0%{transform:translateZ(-900px) rotate(-360deg) rotateX(-25deg) scale(.15);opacity:0}
   18%{opacity:1}
-  75%{filter:blur(1px)}
-  100%{transform:none;opacity:1;filter:blur(0)}
+  100%{transform:none;opacity:1}
 }
+@keyframes camBlurSpiral{0%{filter:blur(14px)}75%{filter:blur(1px)}100%{filter:blur(0)}}
 @keyframes camTumbleIn{
-  0%{transform:translateZ(-1200px) rotateX(-360deg) rotateY(-18deg) translateY(-30%) scale(.6);opacity:0;filter:blur(14px)}
+  0%{transform:translateZ(-1200px) rotateX(-360deg) rotateY(-18deg) translateY(-30%) scale(.6);opacity:0}
   18%{opacity:1}
-  72%{filter:blur(1.5px)}
-  100%{transform:none;opacity:1;filter:blur(0)}
+  100%{transform:none;opacity:1}
 }
-@keyframes camOutSpin{to{transform:translateZ(-900px) rotateY(95deg) translateX(-30%) scale(.7);opacity:0;filter:blur(12px)}}
-@keyframes camOutFly{to{transform:translateZ(900px) translateY(6%) scale(1.35);opacity:0;filter:blur(14px)}}
-@keyframes camOutTilt{to{transform:rotateX(82deg) translateY(-35%) translateZ(-300px) scale(.85);opacity:0;filter:blur(10px)}}
+@keyframes camBlurTumble{0%{filter:blur(14px)}72%{filter:blur(1.5px)}100%{filter:blur(0)}}
+@keyframes camOutSpin{to{transform:translateZ(-900px) rotateY(95deg) translateX(-30%) scale(.7);opacity:0}}
+@keyframes camOutFly{to{transform:translateZ(900px) translateY(6%) scale(1.35);opacity:0}}
+@keyframes camOutTilt{to{transform:rotateX(82deg) translateY(-35%) translateZ(-300px) scale(.85);opacity:0}}
+@keyframes camBlurOutSpin{to{filter:blur(12px)}}
+@keyframes camBlurOutFly{to{filter:blur(14px)}}
+@keyframes camBlurOutTilt{to{filter:blur(10px)}}
 @keyframes bgBreathe{0%{transform:scale(1.08)}100%{transform:none}}
 
 /* ---------- hero 3D tilt stage (desktop, fine pointer) ----------
@@ -870,7 +838,7 @@ html.intro{overflow:hidden}
   /* The tilted slide is ONE flat composited plane (transform-style: flat). Hit-testing a flat plane under a
      perspective rotation is an exact inverse transform in every browser; preserve-3d child layers are what
      made hover targets jitter. Depth is expressed by the plane's rotation and the floaters' lateral parallax. */
-  .hero-track{perspective:1300px}
+  .hero-track>.slide{perspective:1300px}
   .slide-inner{transform-style:flat;will-change:transform}
   .dash-wrap{perspective:none}
 }
@@ -1082,3 +1050,37 @@ a.app:hover>.ic{transform:translateX(3px);color:var(--blue)}
 .step-title{font-size:1.2rem;line-height:1.3;margin-bottom:4px}
 .qb-summary .step-title{display:flex;justify-content:space-between;align-items:center}
 @media (max-width:960px){.slide-copy .as-h1{font-size:clamp(2.1rem,9vw,3rem)}}
+
+/* ---------- /nexi: the full Nexi companion in a frame ---------- */
+.nx-page{padding:clamp(20px,3vw,36px) 0 clamp(40px,5vw,72px)}
+.nx-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+.nx-head h1{margin:0;font-size:clamp(28px,3.4vw,44px)}
+.nx-head p{margin:6px 0 0;max-width:58ch;color:var(--muted)}
+.nx-stage{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:#dfe9fb;box-shadow:0 30px 70px -40px rgba(31,31,61,.45)}
+.nx-stage iframe{display:block;width:100%;height:clamp(540px,calc(100svh - var(--header-h) - 205px),860px);border:0}
+/* full screen: the stage itself goes full screen (Fullscreen API); where that is not available
+   (iPhone Safari) it covers the window instead (body.nx-max) */
+.nx-full{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:2;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:999px;border:1px solid rgba(49,103,202,.18);background:rgba(255,255,255,.92);color:var(--ink);font:600 13px/1 var(--font-display);cursor:pointer;box-shadow:0 8px 20px -12px rgba(31,31,61,.45);transition:background-color .2s ease,border-color .2s ease}
+.nx-full:hover{background:#fff;border-color:var(--blue)}
+.nx-full:focus-visible{outline:3px solid var(--blue-300);outline-offset:2px}
+.nx-full .ic{width:16px;height:16px}
+.nx-full-on,.nx-full-off{display:inline-flex;align-items:center;gap:8px}
+.nx-full-off,.nx-full[aria-pressed="true"] .nx-full-on{display:none}
+.nx-full[aria-pressed="true"] .nx-full-off{display:inline-flex}
+.nx-stage:fullscreen{border:0;border-radius:0;background:#dfe9fb}
+.nx-stage:fullscreen iframe{height:100vh;height:100dvh;min-height:0}
+.nx-stage:-webkit-full-screen{width:100%;height:100%;border:0;border-radius:0}
+.nx-stage:-webkit-full-screen iframe{height:100vh;min-height:0}
+body.nx-max{overflow:hidden}
+body.nx-max .nx-stage{position:fixed;inset:0;z-index:120;border:0;border-radius:0;margin:0}
+body.nx-max .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
+@media (max-width:960px){
+  .nx-full{top:10px;left:auto;right:10px;transform:none;width:38px;padding:0;justify-content:center}
+  .nx-full-on>span,.nx-full-off>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .nx-page{padding-top:12px}
+  .nx-head{margin-bottom:12px}
+  .nx-head p{display:none}
+  .nx-stage{border-radius:20px;margin-inline:-8px}
+  .nx-stage iframe{height:calc(100svh - var(--header-h) - 96px);min-height:520px}
+  body.is-nexi .side-tabs{display:none}   /* the round tabs would sit on Nexi's message box; Nexi offers the form itself */
+}

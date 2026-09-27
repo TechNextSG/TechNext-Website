@@ -126,11 +126,16 @@ TN.demo('sla', function (root, K) {
       c.more.textContent = list.length > MAXV ? '+' + (list.length - MAXV) + ' more' : '';
     });
     if (!first) return;
+    var moves = [];                                              // every new position first, then the writes: one layout, not one per card
     els.forEach(function (e, i) {
       var a = first[i]; if (!a || e.hidden) return;
       var z = e.getBoundingClientRect(), dx = a.left - z.left, dy = a.top - z.top;
       if (Math.abs(dx) + Math.abs(dy) < 1) return;
-      e.style.transition = 'none'; e.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
+      moves.push([e, dx, dy]);
+    });
+    moves.forEach(function (m) {
+      var e = m[0];
+      e.style.transition = 'none'; e.style.transform = 'translate(' + m[1].toFixed(1) + 'px,' + m[2].toFixed(1) + 'px)';
       e.classList.add('is-moving');
     });
     requestAnimationFrame(function () { requestAnimationFrame(function () {

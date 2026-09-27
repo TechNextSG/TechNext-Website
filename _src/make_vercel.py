@@ -141,7 +141,7 @@ def inline_script_hashes():
             continue
         html = page.read_text(encoding="utf-8")
         for attrs, body in INLINE_SCRIPT.findall(html):
-            if "application/ld+json" in attrs.lower():
+            if "application/ld+json" in attrs.lower() or "application/json" in attrs.lower():
                 continue            # data, never executed
             digest = hashlib.sha256(body.encode("utf-8")).digest()
             hashes.add("'sha256-" + base64.b64encode(digest).decode() + "'")
@@ -176,7 +176,8 @@ def csp(hashes):
         "https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net "
         "https://pagead2.googlesyndication.com https://www.googleadservices.com "
         + " ".join(GOOGLE_REGIONAL),
-        "frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net",
+        # 'self': /nexi shows the Nexi companion (nexi-app.html) in a same-origin frame
+        "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net",
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",
@@ -222,8 +223,8 @@ def write_vercel():
         "redirects": [bot_block()] + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
         "headers": [
             {"source": "/(.*)", "headers": common},
-            # css/js/img are versioned by ?v=<content hash>, so they can be cached forever;
-            # assets/data/chat-index.json is not, so it is deliberately left out
+            # css/js/img are versioned by ?v=<content hash> (the vendor Three.js file never changes),
+            # so they can be cached forever
             {"source": "/assets/(css|js|img)/(.*)",
              "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
             # other sites may not embed or hotlink the stylesheets, scripts and images (browsers enforce it;
