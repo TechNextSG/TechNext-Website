@@ -191,22 +191,20 @@ TN.demo('pipeline', function (root, K) {
     if (cards.filter(function (c) { return c.s < 3; }).length >= 18 && !manual) return;
     chN[chk]++; var n = K.$('[data-n="' + chk + '"]', root); if (n) n.textContent = String(chN[chk]);
     var r = make(chk), c = r.c;
-    var src = K.$('[data-ch="' + chk + '"]', root), rulesEl = K.$('.ppl-rules', root), team = teamEl[c.t], col = lists[0];
+    var src = K.$('[data-ch="' + chk + '"]', root), team = teamEl[c.t], col = lists[0];
     if (K.reduce || !src.offsetWidth || !visible) { showWhy(r.why); enter(c, 0, true); announce(c); return; }
     var chip = K.el('span', 'ppl-chip', c.id); chip.style.setProperty('--c', TEAM[c.t].c); fly.appendChild(chip);
-    var a = K.box(src, wrap), b = K.box(rulesEl, wrap), t = K.box(team, wrap), d = K.box(col, wrap);
+    // one calm glide from the channel into New; the rules that fire and the team they pick light up in place
+    var a = K.box(src, wrap), d = K.box(col, wrap);
     function at(x, y) { return 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)'; }
     var anim = chip.animate([
-      { transform: at(a.cx - 24, a.cy - 10) + ' scale(.6)', opacity: 0 },
-      { transform: at(a.cx - 24, a.cy - 10), opacity: 1, offset: .1 },
-      { transform: at(b.x + b.w * .72, b.y + 14), offset: .38 },
-      { transform: at(b.x + b.w * .72, b.b - 26), offset: .56 },
-      { transform: at(t.cx - 24, t.cy - 10), offset: .76 },
-      { transform: at(d.x + 10, d.y + 6), opacity: 1, offset: .96 },
-      { transform: at(d.x + 10, d.y + 6) + ' scale(.8)', opacity: 0 }
-    ], { duration: 1900, easing: 'cubic-bezier(.45,.05,.35,1)' });
-    setTimeout(function () { showWhy(r.why); }, 700);
-    setTimeout(function () { K.restart(team, 'is-ping'); }, 1400);
+      { transform: at(a.cx - 24, a.cy - 10), opacity: 0 },
+      { transform: at(a.cx - 24, a.cy - 10), opacity: 1, offset: .15 },
+      { transform: at(d.x + 10, d.y + 6), opacity: 1, offset: .88 },
+      { transform: at(d.x + 10, d.y + 6), opacity: 0 }
+    ], { duration: 1300, easing: 'cubic-bezier(.4,0,.2,1)' });
+    setTimeout(function () { showWhy(r.why); }, 250);
+    setTimeout(function () { K.restart(team, 'is-ping'); }, 650);
     anim.onfinish = function () { chip.remove(); enter(c, 0, true); K.restart(c.el, 'is-in'); announce(c); };
   }
   function announce(c) { log(CH[c.ch] + ' → ' + c.id + ' · ' + Math.round(c.p * 100) + '% · ' + TEAM[c.t].name + (c.owner ? ' · ' + c.owner : ' · unassigned'), TEAM[c.t].c); }
