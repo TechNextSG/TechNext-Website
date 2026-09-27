@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Partner in Singapore: all-in-one Odoo ERP, holistic business consultation and fast website development for growing companies.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/hero.js", "assets/js/showcase.js"]} -->
+<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Partner in Singapore: all-in-one Odoo ERP, holistic business consultation and fast website development for growing companies.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/hero.js", "assets/js/showcase.js", "assets/js/suite.js"]} -->
 
 <!-- ============================================================ HERO CAROUSEL -->
 <section class="hero" data-hero data-root="{{ROOT}}" aria-roledescription="carousel" aria-label="TechNext highlights">
@@ -327,47 +327,62 @@
   </div>
 </section>
 
-<!-- ============================================================ APPS PREVIEW -->
-<section class="section" id="apps">
+<!-- ============================================================ APPS: build your Odoo -->
+<section class="section section--suite" id="apps">
   <div class="container">
-    <div class="two two--top">
-      <div class="reveal">
+    <div class="two two--top su-wrap">
+      <div class="su-copy reveal">
         <span class="hand">the full suite</span>
         <h2>Every Odoo app, one database.</h2>
         <p class="lead">Start with the three that matter most, then add apps without another integration project — they already share customers, products and accounts.</p>
-        <div class="const-legend" aria-hidden="true">
-          <span><i style="background:var(--blue)"></i>Focus apps — where we start</span>
-          <span><i style="background:var(--blue-100)"></i>Added when you need them</span>
+        <div class="su-presets" role="group" aria-label="Load a typical setup">
+          <span class="su-label">Try a setup</span>
+          <button type="button" data-preset="core" aria-pressed="true">The three we start with</button>
+          <button type="button" data-preset="retail" aria-pressed="false">Retail</button>
+          <button type="button" data-preset="mfg" aria-pressed="false">Manufacturing</button>
+          <button type="button" data-preset="services" aria-pressed="false">Services</button>
+          <button type="button" data-preset="all" aria-pressed="false">Everything</button>
         </div>
-        <div class="actions"><a class="btn btn-primary" href="{{ROOT}}odoo/apps.html">Browse all apps {{icon:arrow}}</a></div>
+        <p class="su-readout"><b data-n="apps">3</b> apps <span class="su-dot">·</span> <b data-n="links">2</b> connections built in <span class="su-dot">·</span> <b class="su-zero">0</b> integrations to build</p>
+        <div class="actions">
+          <a class="btn btn-primary" data-quote href="{{ROOT}}quotation.html?apps=accountant,sale,stock"><span data-cta>Get a quotation for these 3 apps</span> {{icon:arrow}}</a>
+          <a class="btn btn-ghost" href="{{ROOT}}odoo/apps.html">Browse all apps</a>
+        </div>
       </div>
-      <div class="const reveal" data-const aria-label="Odoo apps sharing one database">
-        <svg class="const-lines" aria-hidden="true"></svg>
-        <div class="const-core">
-          <span class="const-pulse"></span>
-          {{icon:database}}
-          <b>One database</b>
-          <small>customers · products · accounts</small>
+      <div class="su-stage reveal">
+        <p class="su-hint" aria-hidden="true">{{icon:plug}}Tap an app to plug it in</p>
+        <div class="su-field" data-suite role="group" aria-label="Odoo apps. Press an app to plug it into, or out of, the one database. Arrow keys move between apps.">
+          <svg class="su-svg" aria-hidden="true" focusable="false"><g class="su-rings"></g><g class="su-links"></g><g class="su-spokes"></g></svg>
+          <div class="su-core" aria-hidden="true">
+            <span class="su-halo"></span>
+            <div class="su-core-top"><span class="su-core-def">{{icon:database}}<b>One database</b></span><span class="su-core-app"><span class="su-core-ic"></span><b></b></span></div>
+            <div class="su-recs"><span data-rec="c" class="is-lit">Customers</span><span data-rec="p" class="is-lit">Products</span><span data-rec="a" class="is-lit">Accounts</span></div>
+          </div>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Accounting" tabindex="0" data-mod="accountant" data-r="1" style="--a:-90deg;--o:0">{{odoo:accountant:34}}<span class="su-name" aria-hidden="true">Accounting</span></button>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Sales" tabindex="-1" data-mod="sale" data-r="1" style="--a:30deg;--o:1">{{odoo:sale:34}}<span class="su-name" aria-hidden="true">Sales</span></button>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Inventory" tabindex="-1" data-mod="stock" data-r="1" style="--a:150deg;--o:2">{{odoo:stock:34}}<span class="su-name" aria-hidden="true">Inventory</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="CRM" tabindex="-1" data-mod="crm" data-r="2" style="--a:-45deg;--am:-54deg;--o:3">{{odoo:crm:28}}<span class="su-name" aria-hidden="true">CRM</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Purchase" tabindex="-1" data-mod="purchase" data-r="2" style="--a:6.4deg;--am:-6deg;--o:4">{{odoo:purchase:28}}<span class="su-name" aria-hidden="true">Purchase</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Point of Sale — Shop" tabindex="-1" data-mod="point_of_sale" data-r="2" style="--a:57.9deg;--am:42deg;--o:5">{{odoo:point_of_sale:28}}<span class="su-name" aria-hidden="true">Point of Sale — Shop</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="eCommerce" tabindex="-1" data-mod="website_sale" data-r="2" style="--a:109.3deg;--am:90deg;--o:6">{{odoo:website_sale:28}}<span class="su-name" aria-hidden="true">eCommerce</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Manufacturing" tabindex="-1" data-mod="mrp" data-r="2" style="--a:160.7deg;--am:162deg;--o:7">{{odoo:mrp:28}}<span class="su-name" aria-hidden="true">Manufacturing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Project" tabindex="-1" data-mod="project" data-r="2" style="--a:212.1deg;--am:210deg;--o:8">{{odoo:project:28}}<span class="su-name" aria-hidden="true">Project</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Invoicing" tabindex="-1" data-mod="account" data-r="2" style="--a:263.6deg;--am:258deg;--o:9">{{odoo:account:28}}<span class="su-name" aria-hidden="true">Invoicing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="AI" tabindex="-1" data-mod="ai_app" data-r="3" style="--a:-65deg;--am:-78deg;--o:10">{{odoo:ai_app:24}}<span class="su-name" aria-hidden="true">AI</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Employees" tabindex="-1" data-mod="hr" data-r="3" style="--a:-20deg;--am:-30deg;--o:11">{{odoo:hr:24}}<span class="su-name" aria-hidden="true">Employees</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Helpdesk" tabindex="-1" data-mod="helpdesk" data-r="3" style="--a:25deg;--am:18deg;--o:12">{{odoo:helpdesk:24}}<span class="su-name" aria-hidden="true">Helpdesk</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Email Marketing" tabindex="-1" data-mod="mass_mailing" data-r="3" style="--a:70deg;--am:66deg;--o:13">{{odoo:mass_mailing:24}}<span class="su-name" aria-hidden="true">Email Marketing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Documents" tabindex="-1" data-mod="documents" data-r="3" style="--a:121deg;--am:114deg;--o:14">{{odoo:documents:24}}<span class="su-name" aria-hidden="true">Documents</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Sign" tabindex="-1" data-mod="sign" data-r="3" style="--a:160deg;--am:138deg;--o:15">{{odoo:sign:24}}<span class="su-name" aria-hidden="true">Sign</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Planning" tabindex="-1" data-mod="planning" data-r="3" style="--a:205deg;--am:186deg;--o:16">{{odoo:planning:24}}<span class="su-name" aria-hidden="true">Planning</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Website" tabindex="-1" data-mod="website" data-r="3" style="--a:250deg;--am:234deg;--o:17">{{odoo:website:24}}<span class="su-name" aria-hidden="true">Website</span></button>
         </div>
-        <a class="const-node is-focus" href="{{ROOT}}odoo/apps/accountant.html" style="--a:-90deg;--r:1" data-name="Accounting">{{odoo:accountant:30}}</a>
-        <a class="const-node is-focus" href="{{ROOT}}odoo/apps/sale.html" style="--a:30deg;--r:1" data-name="Sales">{{odoo:sale:30}}</a>
-        <a class="const-node is-focus" href="{{ROOT}}odoo/apps/stock.html" style="--a:150deg;--r:1" data-name="Inventory">{{odoo:stock:30}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/crm.html" style="--a:-45deg;--r:2" data-name="CRM">{{odoo:crm:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/purchase.html" style="--a:0deg;--r:2" data-name="Purchase">{{odoo:purchase:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/account.html" style="--a:-135deg;--r:2" data-name="Invoicing">{{odoo:account:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/point_of_sale.html" style="--a:60deg;--r:2" data-name="Point of Sale">{{odoo:point_of_sale:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/website_sale.html" style="--a:105deg;--r:2" data-name="eCommerce">{{odoo:website_sale:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/mrp.html" style="--a:180deg;--r:2" data-name="Manufacturing">{{odoo:mrp:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/project.html" style="--a:225deg;--r:2" data-name="Project">{{odoo:project:26}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/hr.html" style="--a:-20deg;--r:3" data-name="Employees">{{odoo:hr:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/helpdesk.html" style="--a:25deg;--r:3" data-name="Helpdesk">{{odoo:helpdesk:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/mass_mailing.html" style="--a:80deg;--r:3" data-name="Email Marketing">{{odoo:mass_mailing:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/documents.html" style="--a:130deg;--r:3" data-name="Documents">{{odoo:documents:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/sign.html" style="--a:165deg;--r:3" data-name="Sign">{{odoo:sign:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/planning.html" style="--a:205deg;--r:3" data-name="Planning">{{odoo:planning:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/knowledge.html" style="--a:250deg;--r:3" data-name="Knowledge">{{odoo:knowledge:24}}</a>
-        <a class="const-node" href="{{ROOT}}odoo/apps/ai_app.html" style="--a:-65deg;--r:3" data-name="AI">{{odoo:ai_app:24}}</a>
-        <span class="const-count">50+ apps</span>
+        <div class="su-detail">
+          <span class="su-detail-ic">{{icon:database}}</span>
+          <p class="su-detail-t"><b>Accounting, Sales and Inventory</b> are where most companies start: quote, deliver and invoice on one set of records.</p>
+          <a class="btn-link su-detail-a" href="{{ROOT}}solutions/odoo-erp.html"><span>How we implement Odoo ERP</span> {{icon:arrow}}</a>
+        </div>
+        <p class="sr-only" aria-live="polite" data-say></p>
       </div>
     </div>
   </div>
