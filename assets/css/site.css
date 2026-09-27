@@ -1071,9 +1071,9 @@ a.app:hover>.ic{transform:translateX(3px);color:var(--blue)}
 .nx-stage:fullscreen iframe{height:100vh;height:100dvh;min-height:0}
 .nx-stage:-webkit-full-screen{width:100%;height:100%;border:0;border-radius:0}
 .nx-stage:-webkit-full-screen iframe{height:100vh;min-height:0}
-body.nx-max{overflow:hidden}
-body.nx-max .nx-stage{position:fixed;inset:0;z-index:120;border:0;border-radius:0;margin:0}
-body.nx-max .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
+html.nx-full-start body,body.nx-max{overflow:hidden}
+html.nx-full-start .nx-stage,body.nx-max .nx-stage{position:fixed;inset:0;z-index:120;border:0;border-radius:0;margin:0}
+html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
 @media (max-width:960px){
   .nx-full{top:10px;left:auto;right:10px;transform:none;width:38px;padding:0;justify-content:center}
   .nx-full-on>span,.nx-full-off>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

@@ -141,7 +141,7 @@ def mobile_nav_html() -> str:
 <div class="mnav-cta">
   <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
   <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi">{{{{icon:bot}}}} Ask Nexi</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
 <div class="mnav-contact">
   <a href="mailto:{c["sales_email"]}">{{{{icon:mail}}}} {c["sales_email"]}</a>
@@ -161,7 +161,7 @@ def talk_panel_html() -> str:
   <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
     {{{{icon:send}}}}<span>Let's Talk</span>
   </button>
-  <a class="side-tab nexi-tab" href="{{{{ROOT}}}}nexi" aria-label="Ask Nexi, TechNext's AI companion">
+  <a class="side-tab nexi-tab" href="{{{{ROOT}}}}nexi#full" aria-label="Ask Nexi, TechNext's AI companion">
     {{{{icon:bot}}}}<span>Ask Nexi</span>
   </a>
 </div>

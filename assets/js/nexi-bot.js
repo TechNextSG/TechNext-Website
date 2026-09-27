@@ -22,7 +22,7 @@
       '<button class="nexi-x" type="button" data-nexi-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
       '<p>I fly around this page and keep an eye on things. I circle the Odoo apps, chase orders through the flow and cheer every launch.</p>' +
       '<p>I’m a small preview of the AI chatbots TechNext builds for websites, WhatsApp and apps. My full self answers questions on my own page.</p>' +
-      '<div class="nexi-card-act"><a class="btn btn-primary btn-sm" href="' + ROOT + 'nexi" data-nexi-chat>Chat with me</a>' +
+      '<div class="nexi-card-act"><a class="btn btn-primary btn-sm" href="' + ROOT + 'nexi#full" data-nexi-chat>Chat with me</a>' +
       '<button class="btn btn-ghost btn-sm" type="button" data-nexi-close>Bye, Nexi!</button></div>';
     hero.appendChild(layer);
     hero.appendChild(card);
