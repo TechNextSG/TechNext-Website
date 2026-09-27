@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Apps List — every module, by category", "desc": "The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.", "out": "odoo/apps.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Apps List — every module, by category", "desc": "The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.", "out": "odoo/apps.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-appgraph.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-appgraph.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -20,6 +20,44 @@
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo is a suite of business apps that share one database: accounting, sales, inventory, manufacturing, HR, websites and more. TechNext, an Odoo Ready Partner in Singapore, implements the apps you need, usually starting with Accounting, Sales and Inventory and adding others as the business grows.</p></div></div>
 </section>
+
+<section class="section demo-sec" id="app-map">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">follow the data</span><h2>How the Odoo apps share data on one database.</h2><p class="lead">Every line in this map is a native link between two Odoo apps: no connector and no re-keying. Select an app to light up what it talks to and read the data that moves on each link, drag apps to untangle a corner, or filter by category. TechNext switches apps on in phases, so each new app plugs into the records you already have.</p></div>
+    <div class="dm dm-appgraph reveal" data-demo="appgraph">
+      <div class="dm-head">
+        <div class="dm-title"><b>Odoo app map</b><small data-k="count">Native links between Odoo apps</small></div>
+        <div class="dm-seg" role="group" aria-label="Highlight a category of apps">
+          <button type="button" data-cat="all" aria-pressed="true">All</button>
+          <button type="button" data-cat="fin" aria-pressed="false"><i class="dm-sw" style="--c:#0E9384"></i>Finance</button>
+          <button type="button" data-cat="sal" aria-pressed="false"><i class="dm-sw" style="--c:#3167CA"></i>Sales</button>
+          <button type="button" data-cat="sup" aria-pressed="false"><i class="dm-sw" style="--c:#D97B12"></i>Supply Chain</button>
+          <button type="button" data-cat="hr" aria-pressed="false"><i class="dm-sw" style="--c:#C0267A"></i>HR</button>
+          <button type="button" data-cat="srv" aria-pressed="false"><i class="dm-sw" style="--c:#4D7C0F"></i>Services</button>
+          <button type="button" data-cat="mkt" aria-pressed="false"><i class="dm-sw" style="--c:#E0533D"></i>Marketing</button>
+          <button type="button" data-cat="web" aria-pressed="false"><i class="dm-sw" style="--c:#7447D6"></i>Websites</button>
+          <button type="button" data-cat="pro" aria-pressed="false"><i class="dm-sw" style="--c:#56709E"></i>Productivity</button>
+        </div>
+        <button class="dm-btn" type="button" data-relayout>{{icon:refresh}}Re-arrange</button>
+      </div>
+      <div class="agr-wrap">
+        <div class="agr-stage" role="group" aria-label="App map: select an app to see the data on each of its links">
+          <svg class="agr-edges" aria-hidden="true"></svg>
+          <div class="agr-nodes"></div>
+          <p class="agr-hint" aria-hidden="true">{{icon:target}}Select an app · drag to move</p>
+        </div>
+        <aside class="agr-side" aria-live="polite" aria-label="Links of the selected app"></aside>
+      </div>
+      <div class="dm-static">
+        <p><b>Sales, Inventory and Accounting:</b> confirmed orders create deliveries, delivered quantities are invoiced, stock moves post valuation entries, and CRM opportunities become quotations.</p>
+        <p><b>Supply chain:</b> Manufacturing consumes and produces stock, buys missing components through Purchase, and works with Quality, PLM and Maintenance. Point of Sale updates stock and posts each session to accounting.</p>
+        <p><b>People and services:</b> Employees feeds Payroll, Time Off, Expenses, Recruitment and Appraisals; Project works with Timesheets, Planning and Field Service; Website runs eCommerce, Blog, Forum and eLearning; Email Marketing, Social Marketing and Marketing Automation bring leads into CRM.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Standard links between Odoo apps (Odoo 17 to 20). What moves on each link depends on the apps and settings you switch on.</p>
+  </div>
+</section>
+
 
 
 {{APPS_CATS}}
