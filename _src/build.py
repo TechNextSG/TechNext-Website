@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
 import industries as IX  # noqa: E402
+import app_flows as AF  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -888,6 +889,75 @@ def yt_facade(vid: str, title: str) -> str:
             f'<span class="yt-play">{{{{icon:play}}}}</span><span class="yt-cap">Official Odoo video · YouTube</span></button>')
 
 
+LIFE_KICKER = {"rail": "follow a record", "ladder": "step by step", "ring": "the whole cycle", "funnel": "from first touch",
+               "board": "on the board", "hub": "around the record", "journey": "the visitor's path"}
+
+
+def lifecycle_html(mod: str, name: str, cat: dict) -> str:
+    """The app page's own workflow demo: how its main record moves through Odoo, with the
+    exceptions, loops and hand-offs into other apps (data in _src/app_flows.py, engine demo-life.js)."""
+    f = AF.FLOWS.get(mod)
+    if not f:
+        return ""
+    layout = AF.LAYOUT.get(cat["id"], "rail")
+    rec, art = f["record"], f.get("article", "a")
+    label = dict((k, l) for k, l, _ in f["states"])
+    states = "".join(f'<li data-s="{k}" data-note="{attr(note)}"><b>{l}</b><small>{note}</small><i class="lf-n" aria-hidden="true"></i></li>'
+                     for k, l, note in f["states"])
+    branches = "".join(f'<li class="lf-branch" data-from="{a}" data-to="{b}"><i></i><span>{t}</span></li>' for a, b, t in f["branches"])
+    hands = "".join(f'<li data-at="{st}">{{{{odoo:{m}:22}}}}<span><b>{APP_BY_MOD[m]["name"] if m in APP_BY_MOD else m}</b><small>{t}</small></span></li>'
+                    for st, m, t in f["handoffs"])
+    autos = "".join(f'<li>{{{{icon:zap}}}}<span>{a}</span></li>' for a in f["auto"])
+    others = [APP_BY_MOD[m]["name"] for _, m, _ in f["handoffs"] if m in APP_BY_MOD and m != mod]
+    seen = []
+    for o in others:
+        if o not in seen:
+            seen.append(o)
+    joined = ", ".join(seen[:-1]) + (" and " + seen[-1] if len(seen) > 1 else (seen[0] if seen else ""))
+    path_txt = " → ".join(label[k] for k in f["path"])
+    n = len(f["states"])
+    return f'''<section class="section demo-sec" id="lifecycle">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">{LIFE_KICKER[layout]}</span><h2>How {art} {rec} moves through Odoo {name}.</h2>
+      <p class="lead">Sample {rec}s run through Odoo {name} the way TechNext sets it up: {n} states, the exceptions and loops that really happen, and the hand-offs into {joined or "the rest of Odoo"}. Hover a state to see what happens there.</p></div>
+    <div class="dm dm-life lf--{layout} reveal" data-demo="life" data-layout="{layout}" data-cat="{cat["id"]}" data-mod="{mod}" data-record="{attr(rec)}" data-path="{",".join(f["path"])}" style="--n:{n}">
+      <div class="dm-head">
+        <div class="dm-title"><b>Odoo {name} · {rec} lifecycle</b><small>Sample records · {n} states · {len(f["handoffs"])} hand-offs</small></div>
+        <div class="dm-seg" role="group" aria-label="Pace"><button type="button" data-speed="1" aria-pressed="true">Normal day</button><button type="button" data-speed="2.6" aria-pressed="false">Busy day</button></div>
+        <button class="dm-btn" type="button" data-exc>{{{{icon:zap}}}}Send the next one off-path</button>
+      </div>
+      <div class="lf-body">
+        <div class="lf-main">
+          <div class="lf-stage">
+            <svg class="lf-svg" aria-hidden="true"></svg>
+            <div class="lf-center" aria-hidden="true">{{{{odoo:{mod}:26}}}}<span>{rec.capitalize()}</span></div>
+            <ol class="lf-states" aria-label="{attr(rec.capitalize())} states in Odoo {attr(name)}">{states}</ol>
+            <div class="lf-cards" aria-hidden="true"></div>
+          </div>
+          <p class="lf-bh">Exceptions and loops</p>
+          <ul class="lf-branches">{branches}</ul>
+        </div>
+        <aside class="lf-side" aria-label="Hand-offs, automations and activity">
+          <dl class="dm-kpis">
+            <div><dt>In progress</dt><dd data-k="flow">0</dd></div>
+            <div><dt>Completed</dt><dd data-k="done">0</dd></div>
+            <div><dt>Exceptions</dt><dd data-k="exc">0</dd></div>
+            <div class="dm-ok"><dt>Hand-offs</dt><dd data-k="hand">0</dd></div>
+          </dl>
+          <p class="lf-h">Hand-offs to other apps</p>
+          <ul class="lf-hand">{hands}</ul>
+          <p class="lf-h">What TechNext configures</p>
+          <ul class="lf-auto">{autos}</ul>
+          <ol class="dm-log lf-log" aria-hidden="true"></ol>
+        </aside>
+      </div>
+      <div class="dm-static"><p><b>Main path:</b> {path_txt}.</p></div>
+    </div>
+    <p class="dm-note">{{{{icon:check}}}} Sample records. Your stages, rules and hand-offs are configured in discovery.</p>
+  </div>
+</section>'''
+
+
 def app_page(mod: str) -> tuple:
     app, cat = APP_BY_MOD[mod], CAT_BY_MOD[mod]
     c = APP_CONTENT.get(mod, {})
@@ -1000,8 +1070,11 @@ def app_page(mod: str) -> tuple:
               + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
     meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
-    if rows or gallery:
-        meta["scripts"] = ["assets/js/zoom.js"]
+    life = lifecycle_html(mod, name, cat)
+    meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
+    if life:
+        meta["head"] = ('<link rel="stylesheet" href="{ROOT}assets/css/demo-kit.css?v={ASSET_V}">'
+                        '<link rel="stylesheet" href="{ROOT}assets/css/demo-life.css?v={ASSET_V}">')
     content = f'''
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{{{STAGE_BG}}}}
@@ -1025,6 +1098,8 @@ def app_page(mod: str) -> tuple:
 </section>
 
 {answer}
+
+{life}
 
 {videos}
 
