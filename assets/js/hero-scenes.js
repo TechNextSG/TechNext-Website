@@ -703,12 +703,12 @@
     var GEO = {
       wide: { w: 640, h: 340, rx: 46, ry: 23, band: false,
               p: [[82, 262, 12], [200, 236, 20], [318, 212, 28], [436, 186, 36], [554, 160, 44]],
-              off: { sg: [52, 58], ph: [112, 42], vn: [172, 58], you: [598, 302] } },
+              off: { sg: [52, 34], ph: [112, 22], vn: [172, 34], you: [598, 302] } },
       tall: { w: 360, h: 470, rx: 40, ry: 20, band: true,
               p: [[88, 414, 10], [262, 352, 16], [98, 280, 22], [262, 208, 28], [104, 138, 34]],
               off: { you: [40, 98], sg: [226, 98], ph: [270, 98], vn: [314, 98] } }
     };
-    var G = null, K = 1, P = [], L = [], total = 1, base, prog, flowMask, puck, world, gridG, trail = [], hist = [];
+    var G = null, K = 1, P = [], L = [], total = 1, base, prog, flowMask, puck, ptag, world, gridG, trail = [], hist = [];
     var plats = [], shades = [], beams = {}, offs = {}, nodes = [], chips = [], chipsWrap = null, beamT = 0;
     var T = 0, shown = 0, on = false, raf = 0, last = 0, holdUntil = 0, doneAt = 0, active = -1, dragging = false, hoverI = -1, resetting = false;
     var tilt = { x: 0, y: 0, tx: 0, ty: 0 }, cache = {};
@@ -797,12 +797,7 @@
       puck.appendChild(svgEl('circle', { 'class': 'lj-halo', r: 17 }));
       puck.appendChild(svgEl('circle', { 'class': 'lj-core', r: 8.5 }));
       puck.appendChild(svgEl('circle', { 'class': 'lj-dot', r: 2.6 }));
-      // its name rides beside it, clear of the icon floating over each platform
-      var tag = svgEl('g', { 'class': 'lj-ptag', transform: 'translate(13 4)' }), rect = svgEl('rect', { x: 0, y: -8.5, width: 60, height: 17, rx: 8.5 });
-      var txt = svgEl('text', { x: 8, y: 3.4 }); txt.textContent = 'Your Odoo';
-      tag.appendChild(rect); tag.appendChild(txt); puck.appendChild(tag); world.appendChild(puck);
-      var tw = txt.getComputedTextLength ? txt.getComputedTextLength() : 0;
-      if (tw) rect.setAttribute('width', (tw + 16).toFixed(1));
+      world.appendChild(puck);
       // upright labels, icons, hit areas and the offices, laid over the drawing
       P.forEach(function (q, i) {
         var ph = PH[i], hit = el('button', 'lj-hit'), badge = el('span', 'lj-badge lj-c' + i), lab = el('span', 'lj-lab lj-c' + i);
@@ -821,6 +816,8 @@
         hit.addEventListener('blur', unpeek);
         hit.addEventListener('click', function () { jump(PH[i].s + .02, 7000); if (!fine.matches) { peek(i); setTimeout(unpeek, 2600); } });
       });
+      // the orb's name rides beside it (HTML, so the pill always fits its text)
+      ptag = el('span', 'lj-ptag', 'Your Odoo'); over.appendChild(ptag);
       Object.keys(G.off).forEach(function (k) {
         var o = el('span', 'lj-off lj-off--' + k); o.appendChild(el('b', null, OFF[k][0])); o.appendChild(el('small', null, OFF[k][1]));
         at(o, G.off[k][0], G.off[k][1]); over.appendChild(o); offs[k] = o;
@@ -911,6 +908,8 @@
       gridG.setAttribute('transform', 'translate(' + (-tilt.x * 5).toFixed(2) + ' ' + (-tilt.y * 3).toFixed(2) + ')');
       world.setAttribute('transform', 'translate(' + (tilt.x * 3).toFixed(2) + ' ' + (tilt.y * 2).toFixed(2) + ')');
       over.style.transform = 'translate(' + (tilt.x * 5 * K).toFixed(2) + 'px,' + (tilt.y * 3.5 * K).toFixed(2) + 'px)';
+      // the tag follows the orb in the drawing's own parallax layer, not the overlay's
+      ptag.style.transform = 'translate(' + ((pt.x + 13 + tilt.x * 3 - tilt.x * 5) * K).toFixed(1) + 'px,' + ((pt.y + tilt.y * 2 - tilt.y * 3.5) * K).toFixed(1) + 'px) translateY(-50%)';
     }
     function frame(now) {
       raf = 0;
