@@ -6,3 +6,6 @@ __pycache__/
 *.tmp.html
 .DS_Store
 Thumbs.db
+
+# local QA harness pages
+_qa_*.html

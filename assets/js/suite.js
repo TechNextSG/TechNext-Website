@@ -48,7 +48,7 @@
     services: ['project', 'helpdesk', 'planning', 'crm', 'sale', 'accountant'],
     all: KEYS.slice()
   };
-  var PRESET_NAME = { core: 'The three we start with', retail: 'Retail', mfg: 'Manufacturing', services: 'Services', all: 'Everything' };
+  var PRESET_NAME = { core: 'The core three', retail: 'Retail', mfg: 'Manufacturing', services: 'Services', all: 'Everything' };
   var QUOTABLE = { accountant: 1, sale: 1, stock: 1, account: 1, crm: 1, purchase: 1, point_of_sale: 1, website_sale: 1,
     mrp: 1, project: 1, hr: 1, helpdesk: 1, website: 1 };
 
@@ -246,8 +246,10 @@
       if (!L.burst) L.pulse.classList.remove('is-on');
     });
   }
+  var leaveT = 0;
   function hotOn(m) {
-    if (hot && hot !== m) hotOff(hot);
+    if (leaveT) { window.clearTimeout(leaveT); leaveT = 0; }
+    if (hot && hot !== m) clearHot(hot);            // switch tiles without clearing the peek state
     hot = m;
     field.classList.add('is-peek');
     paintHot(m); peek(m); detail({ m: m, mode: 'preview' }, false);
@@ -294,7 +296,10 @@
     var b = btn[m];
     b.addEventListener('click', function () { toggle(m); });
     b.addEventListener('pointerenter', function () { hotOn(m); });
-    b.addEventListener('pointerleave', function () { hotOff(m); });
+    b.addEventListener('pointerleave', function () {
+      if (leaveT) window.clearTimeout(leaveT);
+      leaveT = window.setTimeout(function () { leaveT = 0; hotOff(m); }, 300);
+    });
     b.addEventListener('focus', function () {
       order.forEach(function (x) { btn[x].tabIndex = x === m ? 0 : -1; });
       hotOn(m);

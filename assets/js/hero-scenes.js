@@ -1,0 +1,818 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
+/* Home hero scenes (desktop only; the phone hero is static by design).
+   1 · cine  every Odoo app streaks in from off-stage and settles into two tilted orbits around the
+             dashboard. Pointer tilts the orbit plane, drag spins it, hover stops it, apps send data in.
+   2 · pmap  lead-to-cash across five departments: 17 steps, four decisions, loops and forks, live
+             tokens, a scenario switch and a camera that flies the map before pulling back.
+   3 · plan  an illustrative implementation plan: workstreams, dependencies, sign-offs and a
+             playhead that runs the project (drag it, or use the arrow keys).
+   A scene runs only while its slide is active, the hero is on screen and the tab is visible. */
+(function () {
+  'use strict';
+  var hero = document.querySelector('[data-hero]');
+  if (!hero || window.matchMedia('(max-width: 960px)').matches) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ROOT = hero.dataset.root || '';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var pop = $('.pop');
+  var popOpen = function () { return !!pop && !pop.hidden; };
+  var onScreen = true;
+  var TAU = Math.PI * 2;
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+  function easeInOut(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function live() { return onScreen && !document.hidden; }
+  // offset geometry relative to `host`: unaffected by the camera transitions that transform the slide
+  function box(el, host) {
+    var x = 0, y = 0, e = el;
+    while (e && e !== host) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight, cx: x + el.offsetWidth / 2, cy: y + el.offsetHeight / 2, r: x + el.offsetWidth, b: y + el.offsetHeight };
+  }
+  function oiImg(mod, size) { return '<img class="oi" src="' + ROOT + 'assets/img/odoo/' + mod + '.svg" alt="" width="' + size + '" height="' + size + '">'; }
+  function rounded(pts, rad) {
+    // drop repeated points: a zero-length leg has no direction to round the corner with
+    pts = pts.filter(function (q, i) { return !i || Math.abs(q[0] - pts[i - 1][0]) + Math.abs(q[1] - pts[i - 1][1]) > .5; });
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (var i = 1; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1];
+      var l1 = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]), l2 = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+      var r = Math.min(rad, l1 / 2, l2 / 2);
+      var a = [p1[0] + (p0[0] - p1[0]) / l1 * r, p1[1] + (p0[1] - p1[1]) / l1 * r], b = [p1[0] + (p2[0] - p1[0]) / l2 * r, p1[1] + (p2[1] - p1[1]) / l2 * r];
+      d += 'L' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + 'Q' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + ' ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1);
+    }
+    var z = pts[pts.length - 1];
+    return d + 'L' + z[0].toFixed(1) + ' ' + z[1].toFixed(1);
+  }
+  function svgEl(tag, attrs) { var n = document.createElementNS('http://www.w3.org/2000/svg', tag); for (var k in attrs) n.setAttribute(k, attrs[k]); return n; }
+
+  /* ================================================================== 1 · cinematic orbit */
+  function Cine(root) {
+    var fx = $('.cine-fx', root), ctx = fx.getContext('2d');
+    var backSvg = $('.cine-rings--back', root), frontSvg = $('.cine-rings--front', root);
+    var core = $('.cine-core', root), feed = $('.cine-feed', root), hand = $('[data-cine-hand]', root);
+    // two orbit planes: x/y radii as a share of the stage width, roll in degrees, seconds per lap
+    // inner ring: steep, it circles the dashboard; outer ring: wide and flat, crossing the other way
+    var RINGS = [{ rx: .455, ry: .285, roll: -13, cy: .5, lap: 40, dir: 1, size: 46 },
+                 { rx: .6, ry: .175, roll: 9, cy: .52, lap: 64, dir: -1, size: 36 }];
+    var apps = $$('.cine-app', root).map(function (el) { return { el: el, ring: +el.dataset.ring, mod: el.dataset.app, hist: [] }; });
+    [0, 1].forEach(function (r) {
+      var list = apps.filter(function (a) { return a.ring === r; });
+      list.forEach(function (a, k) { a.slot = k / list.length * TAU + (r ? .21 : 0); });
+    });
+    var W = 1, H = 1, dpr = 1, raf = 0, last = 0, on = false;
+    var rot = [0, .9], spd = 1, spdT = 1, dragV = 0, dragging = false, lastX = 0, lastT = 0;
+    var tilt = { tx: 0, ty: 0, x: 0, y: 0 };
+    var hot = null, leaveT = 0, rush = null, packets = [], nextPacket = 0, landed = 0;
+    var ringG = [], backP = [], frontP = [], glint = [], beamG, hoverBeam;
+    var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147, T: 218 };
+    var EVENTS = {
+      accountant: function () { return '<b>' + (30 + (Math.random() * 20 | 0)) + '</b> bank lines matched'; },
+      sale: function () { return '<b>S00' + (++DOC.S) + '</b> signed, order confirmed'; },
+      stock: function () { return '<b>WH/OUT/00' + (++DOC.OUT) + '</b> delivered'; },
+      crm: function () { return 'New lead from the <b>website form</b>'; },
+      purchase: function () { return '<b>PO000' + (++DOC.PO) + '</b> raised by a reorder rule'; },
+      mrp: function () { return '<b>MO/000' + (++DOC.MO) + '</b> done, stock updated'; },
+      point_of_sale: function () { return 'POS session <b>closed and posted</b>'; },
+      website_sale: function () { return 'Web order <b>paid, stock reserved</b>'; },
+      project: function () { return 'Milestone reached, <b>invoice ready</b>'; },
+      helpdesk: function () { return 'Ticket <b>#' + (++DOC.T) + '</b> solved'; },
+      hr: function () { return 'New hire <b>onboarded</b>'; },
+      ai_app: function () { return 'AI drafted a <b>reply</b> for review'; },
+      mass_mailing: function () { return 'Campaign sent to a <b>CRM list</b>'; },
+      documents: function () { return 'Vendor bill <b>digitised</b>'; },
+      sign: function () { return 'Contract <b>signed</b>'; },
+      hr_expense: function () { return 'Expense <b>approved, posted</b>'; },
+      planning: function () { return 'Next week’s shifts <b>published</b>'; },
+      knowledge: function () { return 'Procedure <b>linked</b> to the task'; },
+      social: function () { return 'Post <b>scheduled</b>'; },
+      web_studio: function () { return 'Field added, <b>upgrade-safe</b>'; }
+    };
+    var EVENT_KEYS = Object.keys(EVENTS);
+
+    function build() {
+      [backSvg, frontSvg].forEach(function (s) { s.innerHTML = ''; });
+      var defs = svgEl('defs', {});
+      // the near side of each ring is brightest in front of the dashboard and fades toward its ends
+      defs.innerHTML = '<linearGradient id="cine-arc" x1="0" x2="1"><stop offset="0" stop-color="#3167CA" stop-opacity=".05"/><stop offset=".5" stop-color="#3167CA" stop-opacity=".6"/><stop offset="1" stop-color="#3167CA" stop-opacity=".05"/></linearGradient>';
+      frontSvg.appendChild(defs);
+      ringG = []; backP = []; frontP = []; glint = [];
+      RINGS.forEach(function (R, r) {
+        var gb = svgEl('g', {}), gf = svgEl('g', {});
+        backP[r] = svgEl('path', { 'class': 'cr-back cr-back--' + r });
+        frontP[r] = svgEl('path', { 'class': 'cr-front cr-front--' + r });
+        glint[r] = svgEl('path', { 'class': 'cr-glint', pathLength: '1000' });
+        gb.appendChild(backP[r]); gf.appendChild(frontP[r]); gf.appendChild(glint[r]);
+        backSvg.appendChild(gb); frontSvg.appendChild(gf);
+        ringG[r] = [gb, gf];
+      });
+      beamG = svgEl('g', { 'class': 'cine-beams' }); frontSvg.appendChild(beamG);
+      hoverBeam = svgEl('path', { 'class': 'cine-hbeam' }); frontSvg.appendChild(hoverBeam);
+    }
+    function size() {
+      W = root.offsetWidth || 1; H = root.offsetHeight || 1;
+      dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      fx.width = Math.round(W * 2 * dpr); fx.height = Math.round(H * 2 * dpr);
+      [backSvg, frontSvg].forEach(function (s) { s.setAttribute('viewBox', '0 0 ' + W + ' ' + H); });
+    }
+    function geo(r) {
+      var R = RINGS[r], roll = (R.roll + tilt.x * 14) * Math.PI / 180;
+      return { rx: R.rx * W, ry: R.ry * W * (1 + tilt.y * 1.1), c: Math.cos(roll), s: Math.sin(roll), roll: roll, cx: W * .5, cy: H * R.cy };
+    }
+    function at(g, th) {
+      var x = g.rx * Math.cos(th), y = g.ry * Math.sin(th);
+      return { x: g.cx + x * g.c - y * g.s, y: g.cy + x * g.s + y * g.c, d: (Math.sin(th) + 1) / 2 };
+    }
+    function coreTarget() { var f = box(feed, root); return { x: f.cx, y: f.y + 8 }; }
+    function startRush(now) {
+      landed = 0; root.classList.remove('is-live'); packets.forEach(function (p) { p.g.remove(); }); packets = [];
+      if (reduce) { rush = null; landed = apps.length; root.classList.add('is-live'); return; }
+      var order = apps.slice().sort(function () { return Math.random() - .5; });
+      var warp = [];
+      for (var i = 0; i < 46; i++) warp.push({ a: rnd(0, TAU), r: rnd(.75, 1.25) * W, v: rnd(1.2, 2.1) * W, len: rnd(40, 120), w: rnd(.6, 1.8) });
+      order.forEach(function (a, k) {
+        var g = geo(a.ring), p = at(g, a.slot + rot[a.ring]);
+        var dx = p.x - W / 2, dy = p.y - H / 2, dl = Math.hypot(dx, dy) || 1, far = rnd(1.05, 1.5) * W;
+        var camera = k % 4 === 3;                       // every fourth app drops from the camera instead
+        a.fly = {
+          delay: 90 + k * 62 + rnd(0, 120), dur: rnd(1050, 1500), camera: camera,
+          x0: camera ? W / 2 + dx * .25 : W / 2 + dx / dl * far + rnd(-.2, .2) * W,
+          y0: camera ? H / 2 + dy * .25 : H / 2 + dy / dl * far * .8 + rnd(-.2, .2) * H,
+          s0: camera ? 3.4 : rnd(1.5, 2.1), bend: rnd(-.35, .35)
+        };
+        a.hist = []; a.landed = false; a.el.classList.remove('is-landed');
+      });
+      rush = { t0: now, warp: warp };
+    }
+    function layout(now, dt) {
+      var g0 = geo(0), g1 = geo(1), G = [g0, g1];
+      RINGS.forEach(function (R, r) {
+        var g = G[r], tr = 'translate(' + g.cx.toFixed(1) + ' ' + g.cy.toFixed(1) + ') rotate(' + (g.roll * 180 / Math.PI).toFixed(2) + ')';
+        ringG[r][0].setAttribute('transform', tr); ringG[r][1].setAttribute('transform', tr);
+        var rx = g.rx.toFixed(1), ry = g.ry.toFixed(1);
+        backP[r].setAttribute('d', 'M-' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 ' + rx + ' 0');
+        frontP[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+        glint[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+        // a highlight sweeps the near side of each ring in the direction its apps travel, then rests
+        var u = (now / (r ? 4.6 : 3.6)) % 1500, head = R.dir > 0 ? u - 200 : 1200 - u;
+        glint[r].style.strokeDashoffset = String(-head);
+      });
+      var t = rush ? now - rush.t0 : 1e9, flying = 0;
+      apps.forEach(function (a) {
+        var R = RINGS[a.ring], p = at(G[a.ring], a.slot + rot[a.ring]);
+        var sc = .8 + .34 * p.d, op = .42 + .58 * p.d, blur = p.d < .5 ? (.5 - p.d) * 3.2 : 0;
+        var x = p.x, y = p.y, spin = 0;
+        if (a.fly && !a.landed) {
+          var f = a.fly, q = clamp((t - f.delay) / f.dur, 0, 1), e = easeOut(q);
+          if (q <= 0) { a.el.style.opacity = '0'; a.x = p.x; a.y = p.y; a.d = p.d; return; }
+          if (q >= 1) {
+            a.landed = true; landed++; a.el.classList.add('is-landed');
+            if (landed === apps.length) { root.classList.add('is-live'); nextPacket = now + 700; }
+          } else {
+            flying++;
+            var mx = (f.x0 + x) / 2 - (y - f.y0) * f.bend, my = (f.y0 + y) / 2 + (x - f.x0) * f.bend;
+            var u = 1 - e;
+            x = u * u * f.x0 + 2 * u * e * mx + e * e * p.x; y = u * u * f.y0 + 2 * u * e * my + e * e * p.y;
+            sc = lerp(f.s0, sc, e); blur = lerp(f.camera ? 10 : 7, blur, e); op = op * clamp(q * 3.2, 0, 1);
+            spin = (1 - e) * (f.camera ? 0 : 38 * (f.bend > 0 ? 1 : -1));
+            a.hist.push(x, y); if (a.hist.length > 20) a.hist.splice(0, 2);
+          }
+        }
+        if (a === hot) { sc *= 1.22; op = 1; blur = 0; }
+        else if (hot) op *= .55;
+        var s = R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 9) : 1 + Math.round(p.d * 16);
+        if (a === hot) z = 60;
+        a.x = x; a.y = y; a.d = p.d;
+        a.el.style.transform = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
+        a.el.style.opacity = op.toFixed(3);
+        a.el.style.filter = blur > .15 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+        if (a.z !== z) { a.z = z; a.el.style.zIndex = z; }
+      });
+      drawFx(t, flying);
+      if (hot) {
+        var ct = coreTarget(), hx = hot.x, hy = hot.y;
+        hoverBeam.setAttribute('d', 'M' + hx.toFixed(1) + ' ' + hy.toFixed(1) + 'Q' + ((hx + ct.x) / 2).toFixed(1) + ' ' + (Math.min(hy, ct.y) - 40).toFixed(1) + ' ' + ct.x.toFixed(1) + ' ' + ct.y.toFixed(1));
+      }
+      stepPackets(now, dt);
+    }
+    function drawFx(t, flying) {
+      var warpOn = rush && t >= 0 && t < 1100;
+      if (!flying && !warpOn) { if (fx.dataset.dirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); delete fx.dataset.dirty; } return; }
+      fx.dataset.dirty = '1';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W * 2, H * 2);
+      ctx.save(); ctx.translate(W / 2, H / 2); ctx.lineCap = 'round';
+      if (warpOn) {
+        var k = t / 1100, cx = W / 2, cy = H / 2;
+        rush.warp.forEach(function (w) {
+          var r = w.r - w.v * k; if (r < W * .18) return;
+          var a0 = Math.cos(w.a), b0 = Math.sin(w.a) * .8;
+          var al = Math.sin(Math.PI * k) * .55;
+          var gr = ctx.createLinearGradient(cx + a0 * r, cy + b0 * r, cx + a0 * (r + w.len), cy + b0 * (r + w.len));
+          gr.addColorStop(0, 'rgba(49,103,202,' + al.toFixed(3) + ')'); gr.addColorStop(1, 'rgba(111,160,245,0)');
+          ctx.strokeStyle = gr; ctx.lineWidth = w.w;
+          ctx.beginPath(); ctx.moveTo(cx + a0 * r, cy + b0 * r); ctx.lineTo(cx + a0 * (r + w.len), cy + b0 * (r + w.len)); ctx.stroke();
+        });
+      }
+      apps.forEach(function (a) {
+        var h = a.hist; if (a.landed || h.length < 6) return;
+        var x0 = h[0], y0 = h[1], x1 = h[h.length - 2], y1 = h[h.length - 1];
+        var sz = RINGS[a.ring].size;
+        [[sz * .62, 'rgba(111,160,245,0)', 'rgba(111,160,245,.30)'], [sz * .16, 'rgba(49,103,202,0)', 'rgba(49,103,202,.75)']].forEach(function (L) {
+          var gr = ctx.createLinearGradient(x0, y0, x1, y1);
+          gr.addColorStop(0, L[1]); gr.addColorStop(1, L[2]);
+          ctx.strokeStyle = gr; ctx.lineWidth = L[0];
+          ctx.beginPath(); ctx.moveTo(x0, y0);
+          for (var i = 2; i < h.length; i += 2) ctx.lineTo(h[i], h[i + 1]);
+          ctx.stroke();
+        });
+      });
+      ctx.restore();
+    }
+    function spawnPacket(now) {
+      var cands = apps.filter(function (a) { return a.landed && a !== hot && a.d > .56 && EVENTS[a.mod]; });
+      if (!cands.length) return;
+      var a = cands[Math.random() * cands.length | 0], ct = coreTarget();
+      var g = svgEl('g', { 'class': 'cine-pkt' });
+      var d = 'M' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + 'Q' + ((a.x + ct.x) / 2 + rnd(-60, 60)).toFixed(1) + ' ' + (Math.min(a.y, ct.y) - rnd(30, 90)).toFixed(1) + ' ' + ct.x.toFixed(1) + ' ' + ct.y.toFixed(1);
+      var path = svgEl('path', { d: d, 'class': 'cine-beam' });
+      var halo = svgEl('circle', { r: 9, 'class': 'cine-dot-h' }), dot = svgEl('circle', { r: 3.6, 'class': 'cine-dot' });
+      g.appendChild(path); g.appendChild(halo); g.appendChild(dot); beamG.appendChild(g);
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len + ' ' + len; path.style.strokeDashoffset = len;
+      a.el.classList.remove('is-send'); void a.el.offsetWidth; a.el.classList.add('is-send');
+      var key = EVENT_KEYS[EVENT_KEYS.indexOf(a.mod)];
+      packets.push({ g: g, path: path, dot: dot, halo: halo, len: len, t0: now, dur: 820, key: key });
+    }
+    function stepPackets(now) {
+      if (!reduce && landed === apps.length && !popOpen() && now > nextPacket && packets.length < 3) { spawnPacket(now); nextPacket = now + rnd(1300, 2300); }
+      packets = packets.filter(function (p) {
+        var q = clamp((now - p.t0) / p.dur, 0, 1), e = easeInOut(q), pt = p.path.getPointAtLength(p.len * e);
+        p.dot.setAttribute('cx', pt.x); p.dot.setAttribute('cy', pt.y); p.halo.setAttribute('cx', pt.x); p.halo.setAttribute('cy', pt.y);
+        p.path.style.strokeDashoffset = String(p.len * (1 - e));
+        p.g.style.opacity = q > .9 ? String((1 - q) * 10) : '1';
+        if (q >= 1) { p.g.remove(); arrive(p.key); return false; }
+        return true;
+      });
+    }
+    function arrive(key) {
+      if (!key) return;
+      var li = document.createElement('li');
+      li.className = 'is-new';
+      li.innerHTML = oiImg(key, 18) + '<span>' + EVENTS[key]() + '</span><time>now</time>';
+      feed.insertBefore(li, feed.firstChild);
+      var rows = $$('li', feed);
+      rows.forEach(function (r, i) { var tm = $('time', r); if (tm && i) tm.textContent = ['now', '1 min', '3 min', '6 min'][i] || ''; });
+      while (rows.length > 3) { var old = rows.pop(); old.remove(); }
+      if (hand && /^\d[\d,]*$/.test(hand.textContent)) hand.textContent = (parseInt(hand.textContent.replace(/,/g, ''), 10) + 1 + (Math.random() * 2 | 0)).toLocaleString();
+      core.classList.remove('is-ping'); void core.offsetWidth; core.classList.add('is-ping');
+    }
+    function frame() {
+      // one clock for everything (rAF stamps and performance.now() can differ)
+      var now = performance.now();
+      raf = 0;
+      if (!on || !live()) return;
+      var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+      var target = popOpen() || hot ? 0 : spdT;
+      spd += (target - spd) * Math.min(1, dt * (hot ? 14 : target < spd ? 6 : 2.2));
+      if (!dragging) dragV *= Math.pow(.18, dt);
+      RINGS.forEach(function (R, r) { rot[r] += (R.dir * TAU / R.lap * spd + dragV * (r ? .8 : 1)) * dt; });
+      if (!hot) { tilt.x += (tilt.tx - tilt.x) * Math.min(1, dt * 3.2); tilt.y += (tilt.ty - tilt.y) * Math.min(1, dt * 3.2); }
+      layout(now, dt);
+      raf = requestAnimationFrame(frame);
+    }
+    function wake() { if (on && !raf && !reduce && live()) { last = 0; raf = requestAnimationFrame(frame); } }
+    // pointer: tilt the plane, slow down to aim, drag to spin, hover to stop
+    root.addEventListener('pointermove', function (e) {
+      var r = root.getBoundingClientRect();
+      if (dragging) {
+        var now = performance.now(), dx = e.clientX - lastX, dts = Math.max(8, now - lastT) / 1000;
+        dragV = clamp(dragV * .5 + (dx / W) * 5.2 / dts * .5, -9, 9); lastX = e.clientX; lastT = now;
+      }
+      if (hot) return;                              // a hovered app stays exactly under the pointer
+      tilt.tx = clamp((e.clientX - r.left) / r.width - .5, -.5, .5);
+      tilt.ty = clamp((e.clientY - r.top) / r.height - .5, -.5, .5);
+    });
+    root.addEventListener('pointerenter', function () { spdT = .32; });
+    root.addEventListener('pointerleave', function () { spdT = 1; tilt.tx = tilt.ty = 0; });
+    root.addEventListener('pointerdown', function (e) {
+      if (reduce || e.target.closest('.cine-app') || e.button) return;
+      dragging = true; lastX = e.clientX; lastT = performance.now(); root.classList.add('is-drag');
+      try { root.setPointerCapture(e.pointerId); } catch (err) { /* capture is optional */ }
+    });
+    function endDrag() { dragging = false; root.classList.remove('is-drag'); }
+    root.addEventListener('pointerup', endDrag); root.addEventListener('pointercancel', endDrag);
+    // keep a drag on the stage from being read as a carousel swipe
+    root.addEventListener('touchend', function (e) { e.stopPropagation(); }, { passive: true });
+    function hotOn(a) {
+      if (leaveT) { clearTimeout(leaveT); leaveT = 0; }
+      if (hot && hot !== a) hot.el.classList.remove('is-hover');
+      hot = a; a.el.classList.add('is-hover'); root.classList.add('is-focus');
+      if (reduce) layout(performance.now(), 0);
+    }
+    function hotOff(a) {
+      if (leaveT) clearTimeout(leaveT);
+      leaveT = setTimeout(function () {
+        leaveT = 0; if (hot !== a) return;
+        a.el.classList.remove('is-hover'); hot = null; root.classList.remove('is-focus');
+        if (reduce) layout(performance.now(), 0);
+      }, 160);
+    }
+    apps.forEach(function (a) {
+      a.el.addEventListener('pointerenter', function () { hotOn(a); });
+      a.el.addEventListener('pointerleave', function () { hotOff(a); });
+      a.el.addEventListener('focus', function () { hotOn(a); });
+      a.el.addEventListener('blur', function () { hotOff(a); });
+    });
+    window.addEventListener('resize', function () { if (on) { size(); layout(performance.now(), 0); } });
+    build();
+    return {
+      root: root,
+      enter: function (first) {
+        on = true; size();
+        var now = performance.now();
+        if (reduce) { startRush(now); layout(now, 0); return; }
+        // hold the apps off-stage until the camera has nearly settled, then rush them in
+        apps.forEach(function (a) { a.fly = null; a.landed = false; a.el.style.opacity = '0'; });
+        startRush(now + (first ? 900 : 1250));
+        wake();
+      },
+      leave: function () { on = false; hot = null; root.classList.remove('is-focus', 'is-drag'); dragging = false; },
+      wake: wake
+    };
+  }
+
+  /* ================================================================== 2 · process map */
+  function PMap(root) {
+    var view = $('.pm-view', root), cam = $('.pm-cam', root), svg = $('.pm-svg', root), labels = $('.pm-elabels', root);
+    var log = $('.pm-log', root), kFlight = $('[data-k="flight"]', root), kHand = $('[data-k="hand"]', root);
+    var nodes = {};
+    $$('.pm-node', root).forEach(function (el) { nodes[el.dataset.pn] = { el: el, ic: $('.pm-ic', el), n: $('.pm-n', el), count: 0, gate: el.classList.contains('pm-gate') }; });
+    // route kinds: h straight · v vertical (node bottom → icon top) · vh down-then-across · hv across-then-up/down
+    //              loop back above two nodes · self loop above a gateway · bus under a lane
+    var EDGES = {
+      e1: { a: 'lead', b: 'quote', r: 'h' }, e2: { a: 'quote', b: 'g_sign', r: 'h' },
+      e3: { a: 'g_sign', b: 'order', r: 'h', l: 'signed' }, e4: { a: 'g_sign', b: 'quote', r: 'loop', l: 'no · revise', dash: 1 },
+      e5: { a: 'order', b: 'g_stock', r: 'v' }, e6: { a: 'g_stock', b: 'pick', r: 'h', l: 'in stock', lt: .3 },
+      e7: { a: 'g_stock', b: 'mo', r: 'vh', l: 'make', lt: .8 }, e8: { a: 'g_stock', b: 'po', r: 'vh', l: 'buy', lt: .86 },
+      e9: { a: 'mo', b: 'po', r: 'v', l: 'components', dash: 1 }, e10: { a: 'mo', b: 'g_qc', r: 'h' },
+      e11: { a: 'g_qc', b: 'pick', r: 'hv', o: 7, l: 'pass', lt: .22 }, e12: { a: 'g_qc', b: 'mo', r: 'loop', l: 'fail · rework', dash: 1 },
+      e13: { a: 'po', b: 'receipt', r: 'h' }, e14: { a: 'receipt', b: 'pick', r: 'hv', o: -7, l: 'received', lt: .2 },
+      e15: { a: 'receipt', b: 'vbill', r: 'v', l: '3-way match' }, e16: { a: 'vbill', b: 'vpay', r: 'h' },
+      e17: { a: 'pick', b: 'ship', r: 'h' }, e18: { a: 'ship', b: 'inv', r: 'v', l: 'on delivery', lt: .45 },
+      e19: { a: 'inv', b: 'g_paid', r: 'h' }, e20: { a: 'g_paid', b: 'recon', r: 'h', l: 'paid' },
+      e21: { a: 'g_paid', b: 'g_paid', r: 'self', l: 'overdue · reminder', dash: 1 }, e22: { a: 'vpay', b: 'recon', r: 'bus', l: 'bank feed' },
+      e23: { a: 'recon', b: 'reports', r: 'h' }
+    };
+    var HEAD = ['e1', 'e2'], SIGN = ['e3', 'e5'], SIGN_NO = ['e4', 'e2', 'e3', 'e5'];
+    var SHIP = ['e17', 'e18', 'e19'], PAID = ['e20', 'e23'], LATE = ['e21', 'e20', 'e23'];
+    var PAY = { fork: ['e15', 'e16', 'e22'], c: 'pay' }, MAKE_PAY = { fork: ['e9', 'e13', 'e15', 'e16', 'e22'], c: 'pay' };
+    function route(kind, o) {
+      o = o || {};
+      var r = HEAD.concat(o.noSign ? SIGN_NO : SIGN);
+      if (kind === 'stock' || kind === 'late') r = r.concat(['e6']);
+      if (kind === 'buy') r = r.concat(['e8', 'e13', PAY, 'e14']);
+      if (kind === 'make') r = r.concat(['e7', MAKE_PAY, 'e10'], o.qcFail ? ['e12', 'e10'] : [], ['e11']);
+      r = r.concat(SHIP, kind === 'late' || o.late ? (o.late2 ? ['e21'].concat(LATE) : LATE) : PAID);
+      return r;
+    }
+    var SCEN = {
+      all: function () { var k = Math.random(); return k < .42 ? 'stock' : k < .66 ? 'buy' : k < .88 ? 'make' : 'late'; },
+      stock: function () { return 'stock'; }, buy: function () { return 'buy'; }, make: function () { return 'make'; }, late: function () { return 'late'; }
+    };
+    var PATHS = {
+      stock: ['lead', 'quote', 'g_sign', 'order', 'g_stock', 'pick', 'ship', 'inv', 'g_paid', 'recon', 'reports'],
+      buy: ['lead', 'quote', 'g_sign', 'order', 'g_stock', 'po', 'receipt', 'vbill', 'vpay', 'pick', 'ship', 'inv', 'g_paid', 'recon', 'reports'],
+      make: ['lead', 'quote', 'g_sign', 'order', 'g_stock', 'mo', 'g_qc', 'po', 'receipt', 'vbill', 'vpay', 'pick', 'ship', 'inv', 'g_paid', 'recon', 'reports'],
+      late: ['lead', 'quote', 'g_sign', 'order', 'g_stock', 'pick', 'ship', 'inv', 'g_paid', 'recon', 'reports']
+    };
+    var EPATHS = {
+      stock: ['e1', 'e2', 'e3', 'e5', 'e6', 'e17', 'e18', 'e19', 'e20', 'e23'],
+      buy: ['e1', 'e2', 'e3', 'e5', 'e8', 'e13', 'e14', 'e15', 'e16', 'e22', 'e17', 'e18', 'e19', 'e20', 'e23'],
+      make: ['e1', 'e2', 'e3', 'e5', 'e7', 'e9', 'e10', 'e11', 'e12', 'e13', 'e15', 'e16', 'e22', 'e17', 'e18', 'e19', 'e20', 'e23'],
+      late: ['e1', 'e2', 'e3', 'e5', 'e6', 'e17', 'e18', 'e19', 'e21', 'e20', 'e23']
+    };
+    var TIPS = {
+      lead: 'Web form, email or WhatsApp → lead assigned', quote: 'Template + pricelist → sent to sign online',
+      g_sign: 'Signed → order · no reply → revise and resend', order: 'Confirm → delivery created, stock checked',
+      g_stock: 'Routes decide: reserve, buy or manufacture', mo: 'Bill of materials → work orders, components used',
+      g_qc: 'Control point: pass → stock · fail → quality alert', po: 'Reorder rule → RFQ with vendor price and lead time',
+      receipt: 'Barcode receipt → stock in, bill allowed', vbill: 'Digitised bill matched to order and receipt',
+      vpay: 'Batch payment of bills due', pick: 'Barcode picking, packing, carrier label',
+      ship: 'Validate → stock out, invoice ready', inv: 'From delivered quantities, with a payment link',
+      g_paid: 'Bank feed match · overdue → follow-up level', recon: 'Reconciliation rules match the statement',
+      reports: 'P&L, GST and cash forecast, no exports'
+    };
+    var W = 1, H = 1, geoE = {}, tokens = [], raf = 0, last = 0, on = false, scen = 'all', nextSpawn = 0, hand = 0, revealing = null, hotNode = null, leaveT = 0;
+    var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147 };
+
+    function nb(id) { return box(nodes[id].el, cam); }
+    function ib(id) { return box(nodes[id].ic, cam); }
+    function edgeD(e) {
+      var A = ib(e.a), B = ib(e.b), An = nb(e.a), Bn = nb(e.b), g = 4, o = e.o || 0;
+      switch (e.r) {
+        case 'h': return rounded([[A.r + g, A.cy], [B.x - g - 3, B.cy]], 0);
+        case 'v': return rounded([[An.cx, An.b + 1], [B.cx, B.y - g - 3]], 0);
+        case 'vh': return rounded([[An.cx, An.b + 1], [An.cx, B.cy], [B.x - g - 3, B.cy]], 10);
+        case 'hv': return rounded([[A.r + g, A.cy], [B.cx + o, A.cy], [B.cx + o, Bn.b + g + 3]], 10);
+        case 'loop': var top = Math.min(A.y, B.y) - 17;
+          return rounded([[A.cx, A.y - g], [A.cx, top], [B.cx + 6, top], [B.cx + 6, B.y - g - 3]], 9);
+        case 'self': return 'M' + (A.cx - 7) + ' ' + (A.y - 2) + 'C' + (A.cx - 30) + ' ' + (A.y - 38) + ' ' + (A.cx + 30) + ' ' + (A.y - 38) + ' ' + (A.cx + 7) + ' ' + (A.y - 5);
+        case 'bus': var y = Math.max(An.b, Bn.b) + 9;
+          return rounded([[An.cx, An.b + 1], [An.cx, y], [Bn.cx, y], [Bn.cx, Bn.b + 4]], 7);
+      }
+      return '';
+    }
+    function draw() {
+      W = cam.offsetWidth || 1; H = cam.offsetHeight || 1;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      var html = '<defs><marker id="pm-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker>' +
+        '<marker id="pm-arrow-hot" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker></defs><g class="pm-edges"></g><g class="pm-toks"></g>';
+      svg.innerHTML = html;
+      var ge = $('.pm-edges', svg), lab = '';
+      Object.keys(EDGES).forEach(function (id) {
+        var e = EDGES[id], p = svgEl('path', { d: edgeD(e), 'class': 'pm-e' + (e.dash ? ' pm-e--dash' : ''), 'data-e': id, 'marker-end': 'url(#pm-arrow)' });
+        ge.appendChild(p);
+        var len = p.getTotalLength();
+        geoE[id] = { p: p, len: len };
+        if (e.l) { var pt = p.getPointAtLength(len * (e.lt || .5)); lab += '<span class="pm-el' + (e.dash ? ' pm-el--dash' : '') + '" data-e="' + id + '" style="left:' + pt.x.toFixed(1) + 'px;top:' + pt.y.toFixed(1) + 'px">' + e.l + '</span>'; }
+      });
+      labels.innerHTML = lab;
+      tokens.forEach(function (t) { $('.pm-toks', svg).appendChild(t.g); });
+      markScen();
+    }
+    function markScen() {
+      var np = scen === 'all' ? null : PATHS[scen], ep = scen === 'all' ? null : EPATHS[scen];
+      root.classList.toggle('is-scen', !!np);
+      Object.keys(nodes).forEach(function (id) { nodes[id].el.classList.toggle('is-path', !!np && np.indexOf(id) >= 0); });
+      $$('[data-e]', root).forEach(function (el) { el.classList.toggle('is-path', !!ep && ep.indexOf(el.getAttribute('data-e')) >= 0); });
+    }
+    function color(kind) { return kind === 'buy' ? 'buy' : kind === 'make' ? 'make' : kind === 'late' ? 'late' : kind === 'pay' ? 'pay' : 'stock'; }
+    function makeToken(steps, kind, doc, at, detached) {
+      var g = svgEl('g', { 'class': 'pm-tok pm-tok--' + color(kind) });
+      g.appendChild(svgEl('circle', { r: 10, 'class': 'pm-th' })); g.appendChild(svgEl('circle', { r: 4.6, 'class': 'pm-td' }));
+      $('.pm-toks', svg).appendChild(g);
+      var t = { g: g, steps: steps, i: 0, s: 0, wait: 0, state: 'move', kind: kind, doc: doc, v: rnd(150, 185) };
+      if (at) { t.i = Math.min(steps.length - 1, at); while (t.i < steps.length && typeof steps[t.i] !== 'string') t.i++; }
+      var first = geoE[steps[t.i]];
+      if (first) { var p0 = first.p.getPointAtLength(0); g.setAttribute('transform', 'translate(' + p0.x.toFixed(1) + ' ' + p0.y.toFixed(1) + ')'); }
+      if (!detached) tokens.push(t);
+      return t;
+    }
+    function spawn(kindOverride, at) {
+      var kind = kindOverride || SCEN[scen]();
+      var o = { noSign: Math.random() < .18, qcFail: Math.random() < .35, late: kind === 'late', late2: kind === 'late' && Math.random() < .3 };
+      var doc = { S: ++DOC.S, OUT: ++DOC.OUT, INV: ++DOC.INV };
+      if (kind === 'buy' || kind === 'make') doc.PO = ++DOC.PO;
+      if (kind === 'make') doc.MO = ++DOC.MO;
+      makeToken(route(kind, o), kind, doc, at);
+    }
+    function say(kind, html) {
+      var li = document.createElement('li');
+      li.className = 'pm-l--' + color(kind);
+      li.innerHTML = '<i></i><span>' + html + '</span>';
+      log.insertBefore(li, log.firstChild);
+      var rows = $$('li', log); while (rows.length > 4) rows.pop().remove();
+    }
+    function hit(id, t, nextId) {
+      var n = nodes[id]; if (!n) return;
+      n.count++; n.n.textContent = n.count > 99 ? '99+' : String(n.count); n.el.classList.add('has-n');
+      n.el.classList.remove('is-pulse'); void n.el.offsetWidth; n.el.classList.add('is-pulse');
+      hand++; kHand.textContent = hand.toLocaleString();
+      if (nextId) {
+        var lb = $('.pm-el[data-e="' + nextId + '"]', labels), pe = geoE[nextId] && geoE[nextId].p;
+        [lb, pe].forEach(function (el) { if (!el) return; el.classList.remove('is-take'); void el.getBoundingClientRect(); el.classList.add('is-take'); });
+      }
+      var d = t.doc, k = t.kind;
+      switch (id) {
+        case 'lead': if (Math.random() < .5) say(k, 'New lead from the <b>website form</b>'); break;
+        case 'g_sign': say(k, nextId === 'e4' ? 'No signature yet: quotation <b>revised</b>' : '<b>S00' + d.S + '</b> signed online, order confirmed'); break;
+        case 'g_stock': say(k, nextId === 'e6' ? 'Stock reserved for <b>S00' + d.S + '</b>' : nextId === 'e8' ? 'Reorder rule raised <b>PO000' + d.PO + '</b>' : '<b>MO/000' + d.MO + '</b> created from the bill of materials'); break;
+        case 'g_qc': say(k, nextId === 'e12' ? 'Quality alert on <b>MO/000' + d.MO + '</b>: rework' : 'Quality check passed on <b>MO/000' + d.MO + '</b>'); break;
+        case 'receipt': if (!t.fork) say(k, '<b>WH/IN/00' + (++DOC.IN) + '</b> received by barcode'); break;
+        case 'vbill': say('pay', 'Vendor bill matched to <b>PO000' + d.PO + '</b> and receipt'); break;
+        case 'ship': say(k, '<b>WH/OUT/00' + d.OUT + '</b> delivered, invoice ready'); break;
+        case 'g_paid': if (nextId === 'e21') say('late', '<b>INV/2026/0' + d.INV + '</b> overdue: reminder sent');
+                       else if (nextId === 'e20') say(k, 'Payment matched from the <b>bank feed</b>'); break;
+        case 'reports': if (Math.random() < .5) say(k, 'P&amp;L and cash forecast <b>updated</b>'); break;
+      }
+    }
+    function stepTokens(dt) {
+      var born = [];
+      tokens = tokens.filter(function (t) {
+        var step = t.steps[t.i];
+        if (step && typeof step !== 'string') {                   // fork: a payables token splits off here
+          var child = makeToken(step.fork, step.c, t.doc, 0, true); child.fork = true; born.push(child);
+          if (step === MAKE_PAY) say('pay', 'Components short: <b>PO000' + t.doc.PO + '</b> to the vendor');
+          t.i++; step = t.steps[t.i];
+        }
+        if (!step) { t.g.remove(); return false; }
+        var e = EDGES[step], ge = geoE[step];
+        if (t.state === 'move') {
+          t.s += t.v * dt;
+          if (t.s >= ge.len) {
+            t.s = ge.len; t.state = 'node'; t.wait = nodes[e.b].gate ? .42 : .26;
+            var nxt = t.steps[t.i + 1]; if (nxt && typeof nxt !== 'string') nxt = t.steps[t.i + 2];
+            hit(e.b, t, nxt);
+            t.g.classList.add('is-in');
+          }
+          var pt = ge.p.getPointAtLength(t.s);
+          t.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
+        } else {
+          t.wait -= dt;
+          if (t.wait <= 0) {
+            t.i++; t.s = 0; t.state = 'move'; t.g.classList.remove('is-in');
+            if (t.i >= t.steps.length) { t.g.remove(); return false; }
+          }
+        }
+        return true;
+      });
+      if (born.length) tokens = tokens.concat(born);
+      kFlight.textContent = String(tokens.length);
+    }
+    // cinematic reveal: the camera starts close on the first lead, flies the sales lane, then pulls back
+    function camAt(fx, fy, s) {
+      var vw = view.offsetWidth, vh = view.offsetHeight;
+      var tx = clamp(vw * .42 - fx * s, vw - W * s, 0), ty = clamp(vh * .5 - fy * s, vh - H * s, 0);
+      cam.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
+    }
+    function reveal(now) {
+      var r = revealing, t = now - r.t0;
+      if (t < 0) { camAt(r.keys[0].x, r.keys[0].y, r.keys[0].s); return; }
+      var K = r.keys, total = K[K.length - 1].t;
+      if (t >= total) { cam.style.transform = ''; showAll(); return; }
+      var i = 0; while (i < K.length - 2 && t > K[i + 1].t) i++;
+      var a = K[i], b = K[i + 1], q = easeInOut(clamp((t - a.t) / (b.t - a.t), 0, 1));
+      camAt(lerp(a.x, b.x, q), lerp(a.y, b.y, q), lerp(a.s, b.s, q));
+      // draw edges and pop nodes as the camera passes them
+      var edgeX = lerp(a.x, b.x, q) + view.offsetWidth * .45 / lerp(a.s, b.s, q);
+      Object.keys(nodes).forEach(function (id) { var n = nodes[id]; if (!n.in && n.cx < edgeX) { n.in = true; n.el.classList.add('is-in'); } });
+      Object.keys(geoE).forEach(function (id) { var g = geoE[id]; if (!g.in && g.x0 < edgeX) { g.in = true; g.p.classList.add('is-in'); } });
+    }
+    function showAll() {
+      revealing = null; root.classList.remove('is-reveal'); root.classList.add('is-ready');
+      Object.keys(nodes).forEach(function (id) { nodes[id].in = true; nodes[id].el.classList.add('is-in'); });
+      Object.keys(geoE).forEach(function (id) { geoE[id].in = true; geoE[id].p.classList.add('is-in'); });
+    }
+    function startReveal(now, delay) {
+      $$('.pm-node', root).forEach(function (el) { el.classList.remove('is-in'); });
+      Object.keys(nodes).forEach(function (id) { var b = ib(id); nodes[id].in = false; nodes[id].cx = b.cx; });
+      Object.keys(geoE).forEach(function (id) {
+        var g = geoE[id], p0 = g.p.getPointAtLength(0); g.in = false; g.x0 = p0.x;
+        // hide without animating the un-draw, then let the reveal draw it in
+        g.p.style.transition = 'none'; g.p.style.setProperty('--len', g.len.toFixed(1)); g.p.classList.remove('is-in');
+      });
+      void svg.getBoundingClientRect();
+      Object.keys(geoE).forEach(function (id) { geoE[id].p.style.transition = ''; });
+      if (reduce) { showAll(); return; }
+      var L = ib('lead'), O = ib('order'), S = ib('g_stock'), P = ib('receipt');
+      root.classList.add('is-reveal'); root.classList.remove('is-ready');
+      revealing = { t0: now + delay, keys: [
+        { t: 0, x: L.cx, y: L.cy, s: 2.35 }, { t: 1000, x: O.cx, y: O.cy + 10, s: 2.05 },
+        { t: 1750, x: (S.cx + P.cx) / 2, y: (S.cy + P.cy) / 2, s: 1.55 }, { t: 2750, x: W / 2, y: H / 2, s: 1 }] };
+    }
+    function frame() {
+      // one clock for everything (rAF stamps and performance.now() can differ)
+      var now = performance.now();
+      raf = 0;
+      if (!on || !live()) return;
+      var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+      if (revealing) reveal(now);
+      if (!revealing) {
+        if (!popOpen()) {
+          stepTokens(dt);
+          if (now > nextSpawn && tokens.length < 8) { spawn(); nextSpawn = now + rnd(1100, 1900); }
+        }
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function wake() { if (on && !raf && !reduce && live()) { last = 0; raf = requestAnimationFrame(frame); } }
+    function seed() {
+      // the business is already running when the camera pulls back: a few orders mid-way
+      tokens.forEach(function (t) { t.g.remove(); }); tokens = [];
+      spawn('stock', 6); spawn('buy', 4); spawn('make', 5); spawn('late', 9); spawn(null, 1);
+    }
+    // scenario switch
+    $$('[data-scen]', root).forEach(function (b) {
+      b.addEventListener('click', function () {
+        scen = b.dataset.scen;
+        $$('[data-scen]', root).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        markScen();
+        if (scen !== 'all') {
+          tokens.forEach(function (t) { if (t.kind !== scen && !(t.fork && scen !== 'stock' && scen !== 'late')) t.g.remove(); });
+          tokens = tokens.filter(function (t) { return t.g.isConnected; });
+          spawn(null, 0); spawn(null, 5);
+        }
+        nextSpawn = performance.now() + 900;
+      });
+    });
+    // hover a step: light its hand-offs in and out
+    function hotOn(id) {
+      if (leaveT) { clearTimeout(leaveT); leaveT = 0; }
+      hotNode = id; root.classList.add('is-peek');
+      Object.keys(nodes).forEach(function (k) { nodes[k].el.classList.toggle('is-hot', k === id); });
+      Object.keys(EDGES).forEach(function (eid) {
+        var e = EDGES[eid], on2 = e.a === id || e.b === id;
+        $$('[data-e="' + eid + '"]', root).forEach(function (el) { el.classList.toggle('is-hot', on2); });
+        if (on2) { nodes[e.a].el.classList.add('is-near'); nodes[e.b].el.classList.add('is-near'); }
+      });
+      var tip = $('.pm-tip', root) || (function () { var d = document.createElement('div'); d.className = 'pm-tip'; cam.appendChild(d); return d; })();
+      var b = nb(id);
+      tip.textContent = TIPS[id] || '';
+      tip.style.left = b.cx.toFixed(1) + 'px'; tip.style.top = (b.y - 6).toFixed(1) + 'px';
+      tip.classList.toggle('pm-tip--low', b.y < 60);
+      if (b.y < 60) tip.style.top = (b.b + 6).toFixed(1) + 'px';
+      tip.classList.add('is-on');
+    }
+    function hotOff() {
+      if (leaveT) clearTimeout(leaveT);
+      leaveT = setTimeout(function () {
+        leaveT = 0; hotNode = null; root.classList.remove('is-peek');
+        $$('.is-hot,.is-near', root).forEach(function (el) { el.classList.remove('is-hot', 'is-near'); });
+        var tip = $('.pm-tip', root); if (tip) tip.classList.remove('is-on');
+      }, 140);
+    }
+    Object.keys(nodes).forEach(function (id) {
+      var el = nodes[id].el;
+      el.addEventListener('pointerenter', function () { hotOn(id); }); el.addEventListener('pointerleave', hotOff);
+      el.addEventListener('focus', function () { hotOn(id); }); el.addEventListener('blur', hotOff);
+    });
+    // moving over the map during the fly-through hands control back at once
+    view.addEventListener('pointermove', function () {
+      if (!revealing) return;
+      var now = performance.now(), cur = revealing.keys, total = cur[cur.length - 1].t;
+      if (now - revealing.t0 < total - 450) revealing.t0 = now - (total - 450);
+    });
+    window.addEventListener('resize', function () { if (on) { cam.style.transform = ''; draw(); showAll(); } });
+    return {
+      root: root,
+      enter: function (first) {
+        on = true; cam.style.transform = ''; draw();
+        startReveal(performance.now(), first ? 700 : 1150);
+        if (!reduce) seed();
+        nextSpawn = performance.now() + 4000;
+        wake();
+      },
+      leave: function () { on = false; revealing = null; root.classList.remove('is-reveal'); cam.style.transform = ''; },
+      wake: wake
+    };
+  }
+
+  /* ================================================================== 3 · implementation plan */
+  function Plan(root) {
+    var board = $('.jp-board', root), svg = $('.jp-deps', root), play = $('.jp-play', root), now = $('.jp-now b', root);
+    var tip = $('.jp-tip', root), status = $('[data-jp-status]', root);
+    var items = $$('[data-b]', root).map(function (el) { return { el: el, id: el.dataset.b, s: +el.dataset.s, e: +el.dataset.e, t: el.dataset.t, d: el.dataset.d, w: el.dataset.w || '', ms: el.classList.contains('jp-ms'), fill: $('.jp-fill', el) }; });
+    var byId = {}; items.forEach(function (it) { byId[it.id] = it; });
+    var SPAN = +root.dataset.span || 12;
+    var PHASES = [['Discover', 0, 2.35], ['Build', 2.35, 6.5], ['Test &amp; train', 6.5, 9.65], ['Go live', 9.65, 11.05], ['Run', 11.05, SPAN + .01]];
+    var DEPS = [['b02', 'b10', 1], ['b02', 'b20'], ['b02', 'b30'], ['b20', 'b21'], ['b21', 'b22'], ['b15', 'b40', 1], ['b31', 'b40'],
+                ['b22', 'b23'], ['b41', 'b50', 1], ['b42', 'b50'], ['b23', 'b50'], ['b50', 'b51', 1]];
+    var T = 0, raf = 0, last = 0, on = false, auto = true, t0 = 0, hold = 0, dragging = false, tx0 = 0, tw = 1;
+    function track() { var tr = $('.jp-track', root), b = box(tr, board); tx0 = b.x; tw = b.w; return b; }
+    function xOf(v) { return tx0 + v / SPAN * tw; }
+    function anchor(it, side) {
+      var b = box(it.el, board);
+      if (it.ms) return { x: b.cx, y: b.cy };
+      return { x: side === 'out' ? b.r : b.x, y: b.cy };
+    }
+    function drawDeps() {
+      var W = board.offsetWidth, H = board.offsetHeight; track();
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      var html = '<defs><marker id="jp-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker></defs>';
+      DEPS.forEach(function (dp) {
+        var A = byId[dp[0]], B = byId[dp[1]]; if (!A || !B) return;
+        var a = anchor(A, 'out'), b = anchor(B, 'in'), d;
+        if (A.ms) a.x += 8;
+        if (Math.abs(a.y - b.y) < 2) d = rounded([[a.x, a.y], [b.x - (B.ms ? 9 : 3), b.y]], 0);
+        else {
+          // Gantt elbow: out of the finished task, down (or up) to the next row, into the next task
+          var mx = Math.min(a.x + 8, b.x - 10), down = b.y > a.y;
+          if (B.ms && b.x - mx < 12) d = rounded([[a.x, a.y], [b.x, a.y], [b.x, b.y + (down ? -10 : 10)]], 5);
+          else d = rounded([[a.x, a.y], [mx, a.y], [mx, b.y], [b.x - (B.ms ? 9 : 3), b.y]], 5);
+        }
+        html += '<path class="jp-dep' + (dp[2] ? ' jp-dep--crit' : '') + '" data-from="' + dp[0] + '" d="' + d + '" marker-end="url(#jp-arrow)"/>';
+      });
+      svg.innerHTML = html;
+      fit();
+      set(T, true);
+    }
+    // narrow screens: a label that does not fit is set tighter, and if it still does not, the bar
+    // keeps only its colour (the tooltip and the status line still name it)
+    function fit() {
+      items.forEach(function (it) {
+        if (it.ms) return;
+        var em = $('em', it.el); it.el.classList.remove('is-tight', 'is-bare');
+        if (em.scrollWidth > em.clientWidth + .5) {
+          it.el.classList.add('is-tight');
+          if (em.scrollWidth > em.clientWidth + .5) it.el.classList.add('is-bare');
+        }
+      });
+    }
+    function phaseAt(v) { for (var i = 0; i < PHASES.length; i++) if (v < PHASES[i][2]) return PHASES[i][0]; return 'Run'; }
+    function set(v, quiet) {
+      T = clamp(v, 0, SPAN);
+      play.style.transform = 'translateX(' + xOf(T).toFixed(1) + 'px)';
+      var ph = phaseAt(T);
+      if (now.innerHTML !== ph) now.innerHTML = ph;
+      play.setAttribute('aria-valuenow', T.toFixed(1)); play.setAttribute('aria-valuetext', ph.replace('&amp;', 'and'));
+      var active = [];
+      items.forEach(function (it) {
+        if (it.ms) {
+          var done = T >= it.s;
+          if (done && !it.el.classList.contains('is-done') && !quiet && !reduce) { it.el.classList.add('is-pop'); setTimeout(function () { it.el.classList.remove('is-pop'); }, 700); }
+          it.el.classList.toggle('is-done', done);
+          if (done && T - it.s < .35) active.unshift(it.t);
+          return;
+        }
+        var p = clamp((T - it.s) / (it.e - it.s), 0, 1);
+        it.fill.style.transform = 'scaleX(' + p.toFixed(3) + ')';
+        it.el.classList.toggle('is-now', p > 0 && p < 1);
+        it.el.classList.toggle('is-done', p >= 1);
+        if (p > 0 && p < 1) active.push(it.t);
+      });
+      $$('.jp-dep', svg).forEach(function (d) { var f = byId[d.getAttribute('data-from')]; d.classList.toggle('is-done', !!f && T >= (f.ms ? f.s : f.e)); });
+      var txt = active.length ? active.slice(0, 3).join(' · ') : T >= 11.07 ? 'Support, from the team that set it up' : ph;
+      txt = txt.replace(/&amp;/g, '&');
+      if (status.textContent !== txt) status.textContent = txt;
+    }
+    function frame() {
+      var ts = performance.now();
+      raf = 0;
+      if (!on || !live()) return;
+      var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts;
+      if (auto && !dragging && ts > t0) {
+        if (T >= SPAN) { hold += dt; if (hold > 1.6) { hold = 0; set(0, true); } }
+        else set(T + dt * SPAN / 9);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function wake() { if (on && !raf && !reduce && live()) { last = 0; raf = requestAnimationFrame(frame); } }
+    function fromX(clientX) { var r = board.getBoundingClientRect(), sx = r.width / (board.offsetWidth || 1); return ((clientX - r.left) / sx - tx0) / tw * SPAN; }
+    board.addEventListener('pointerdown', function (e) {
+      if (e.button || e.target.closest('a')) return;
+      dragging = true; auto = false; root.classList.add('is-scrub');
+      try { board.setPointerCapture(e.pointerId); } catch (err) { /* optional */ }
+      set(fromX(e.clientX));
+    });
+    board.addEventListener('pointermove', function (e) { if (dragging) set(fromX(e.clientX)); });
+    function up() { if (!dragging) return; dragging = false; root.classList.remove('is-scrub'); }
+    board.addEventListener('pointerup', up); board.addEventListener('pointercancel', up);
+    root.addEventListener('pointerenter', function () { auto = false; });
+    root.addEventListener('pointerleave', function () { if (!dragging) { auto = true; t0 = performance.now() + 600; } });
+    play.addEventListener('keydown', function (e) {
+      var k = e.key, v = T;
+      if (k === 'ArrowRight' || k === 'ArrowUp') v += .25; else if (k === 'ArrowLeft' || k === 'ArrowDown') v -= .25;
+      else if (k === 'Home') v = 0; else if (k === 'End') v = SPAN; else return;
+      e.preventDefault(); e.stopPropagation(); auto = false; set(v);
+    });
+    function tipLine(tag, text) { var n = document.createElement(tag); n.textContent = text; return n; }
+    items.forEach(function (it) {
+      it.el.addEventListener('pointerenter', function () {
+        var b = box(it.el, board);
+        tip.textContent = '';
+        tip.appendChild(tipLine('b', it.t)); tip.appendChild(tipLine('span', it.d));
+        if (it.w) tip.appendChild(tipLine('small', it.w));
+        tip.hidden = false;
+        tip.style.left = clamp(b.cx, 120, board.offsetWidth - 120).toFixed(1) + 'px';
+        tip.style.top = (b.y - 8).toFixed(1) + 'px';
+      });
+      it.el.addEventListener('pointerleave', function () { tip.hidden = true; });
+    });
+    window.addEventListener('resize', function () { if (on) drawDeps(); });
+    return {
+      root: root,
+      enter: function (first) {
+        on = true; auto = true; hold = 0; drawDeps(); set(reduce ? 6.1 : 0, true);
+        t0 = performance.now() + (first ? 600 : 1500);
+        wake();
+      },
+      leave: function () { on = false; tip.hidden = true; },
+      wake: wake
+    };
+  }
+
+  /* ================================================================== wiring */
+  var scenes = [];
+  var c = $('[data-cine]', hero); if (c) scenes.push(Cine(c));
+  var m = $('[data-pmap]', hero); if (m) scenes.push(PMap(m));
+  var p = $('[data-plan]', hero); if (p) scenes.push(Plan(p));
+  var current = null, first = true;
+  function sceneOf(slide) { for (var i = 0; i < scenes.length; i++) if (slide.contains(scenes[i].root)) return scenes[i]; return null; }
+  function activate(slide) {
+    var s = slide ? sceneOf(slide) : null;
+    if (current && current !== s) current.leave();
+    current = s;
+    if (s) { s.enter(first); first = false; }
+  }
+  function wakeAll() { if (current) current.wake(); }
+  hero.addEventListener('tn:slide', function (e) { activate(e.detail && e.detail.slide); });
+  document.addEventListener('visibilitychange', wakeAll);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { onScreen = es[es.length - 1].isIntersecting; wakeAll(); }, { threshold: .05 }).observe(hero);
+  }
+  function boot() { activate($('.slide.is-active', hero)); }
+  if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', boot, { once: true });
+  else boot();
+})();
