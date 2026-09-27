@@ -400,6 +400,7 @@
   .lj-stage{margin:0 -4px}
   .lj--tall .lj-chips{left:8px!important;right:8px;top:6px!important;flex-direction:row;flex-wrap:wrap;justify-content:center;transform:none}
   .lj-who{display:none}
+  .lj--tall .lj-off small{display:none}              /* four offices in one row: the initials say enough */
 }
 @media (max-width:640px){.lj-segs span b{display:none}.lj-scrub{height:22px}.lj-title small{display:none}}
 @media (max-width:640px){.slide-inner.si-stack{padding-right:18px}}
