@@ -1,4 +1,4 @@
-<!--meta {"title": "Careers: Odoo, ERP and finance jobs in Taguig | TechNext", "desc": "Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.", "out": "careers.html", "nav": "company", "scripts": ["assets/js/filter.js"]} -->
+<!--meta {"title": "Careers: Odoo, ERP and finance jobs in Taguig | TechNext", "desc": "Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.", "out": "careers.html", "nav": "company", "scripts": ["assets/js/filter.js", "assets/js/demo-kit.js", "assets/js/demo-rolematch.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-rolematch.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -38,6 +38,47 @@
     </dl>
   </div>
 </section>
+
+<section class="section section--tight demo-sec" id="find-your-role">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">find your role</span>
+      <h2>Which TechNext job in Taguig fits the work you enjoy?</h2>
+      <p class="lead">Pick what you like doing. The six open roles in Taguig City re-rank as you choose, and the best match shows how its work runs, from its JobStreet listing.</p>
+    </div>
+    <div class="dm dm-rolematch reveal" data-demo="rolematch">
+      <div class="drm-wrap">
+        <div class="drm-left">
+          <p class="drm-h">I like…</p>
+          <div class="drm-chips" role="group" aria-label="What you like doing">
+            <button type="button" data-i="proc" aria-pressed="false">{{icon:search}}Running workshops and mapping processes</button>
+            <button type="button" data-i="dev" aria-pressed="false">{{icon:code}}Python and Odoo development</button>
+            <button type="button" data-i="acct" aria-pressed="false">{{icon:calculator}}Accounting, tax and BIR</button>
+            <button type="button" data-i="sales" aria-pressed="false">{{icon:briefcase}}Selling to international B2B buyers</button>
+            <button type="button" data-i="content" aria-pressed="false">{{icon:megaphone}}Content, campaigns and websites</button>
+            <button type="button" data-i="people" aria-pressed="false">{{icon:users}}Recruiting and building a people team</button>
+          </div>
+          <p class="drm-h">Open roles, best match first</p>
+          <ol class="drm-rank" aria-live="polite">
+            <li class="drm-row" data-r="arch"><span><b>Senior Solutions Architect</b><small>Odoo &amp; ERP</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+            <li class="drm-row" data-r="fin"><span><b>Functional ERP/Odoo Consultant</b><small>Finance &amp; accounting</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+            <li class="drm-row" data-r="sales"><span><b>B2B Sales Consultant</b><small>Odoo/ERP software</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+            <li class="drm-row" data-r="mkt"><span><b>Marketing Officer</b><small>Web design &amp; AI content</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+            <li class="drm-row" data-r="cpa"><span><b>Senior Accountant (CPA)</b><small>Tax &amp; financial operations</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+            <li class="drm-row" data-r="hr"><span><b>HR Generalist</b><small>First dedicated HR hire</small></span><span class="drm-pc"></span><button type="button" data-go>See the listing</button></li>
+          </ol>
+        </div>
+        <div class="drm-right">
+          <p class="drm-ft">Pick what you like doing</p>
+          <div class="drm-empty">Choose one or more on the left. The best-matching role shows how its work runs here.</div>
+          <ol class="drm-flow" aria-live="polite"></ol>
+        </div>
+      </div>
+      <div class="dm-static"><p>The six open roles: Senior Solutions Architect, Functional ERP/Odoo Consultant (finance and accounting), B2B Sales Consultant, Marketing Officer, Senior Accountant (CPA) and HR Generalist, all in Taguig City.</p></div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section" id="roles">
   <div class="container">
