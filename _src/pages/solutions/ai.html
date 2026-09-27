@@ -1,4 +1,4 @@
-<!--meta {"title": "Enterprise AI Solutions in Singapore", "desc": "TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters.", "out": "solutions/ai.html", "nav": "solution"} -->
+<!--meta {"title": "Enterprise AI Solutions in Singapore", "desc": "TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters.", "out": "solutions/ai.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-aimap.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-aimap.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -34,6 +34,68 @@
     <dl class="glance"><div><dt>Disciplines</dt><dd>4 AI disciplines</dd></div><div><dt>Grounding</dt><dd>Your own data, with sources</dd></div><div><dt>Control</dt><dd>Human approval where it matters</dd></div><div><dt>Deploy</dt><dd>Web · WhatsApp · in-app · Odoo</dd></div><div><dt>Reach</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="ai-use-cases">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">where ai pays back first</span><h2>Enterprise AI use cases, mapped by value and effort.</h2><p class="lead">TechNext scores each candidate use case on business value, the effort to build and run it, and how many items it handles a month, then sequences them: quick wins first, then the shared data and knowledge they build on, then scale. Filter by department, switch to the roadmap, or open a bubble to see how it runs in Odoo, from trigger to human checkpoint to write-back.</p></div>
+    <div class="dm dm-aimap reveal" data-demo="aimap">
+      <div class="dm-head">
+        <div class="dm-title"><b>AI use-case matrix</b><small>16 sample use cases · bubble size = items a month</small></div>
+        <div class="dm-seg" role="group" aria-label="Filter by department">
+          <button type="button" data-dept="all" aria-pressed="true">All</button>
+          <button type="button" data-dept="fin" aria-pressed="false"><i class="dm-sw" style="--c:#0E9384"></i>Finance</button>
+          <button type="button" data-dept="sal" aria-pressed="false"><i class="dm-sw" style="--c:#3167CA"></i>Sales</button>
+          <button type="button" data-dept="svc" aria-pressed="false"><i class="dm-sw" style="--c:#7447D6"></i>Service</button>
+          <button type="button" data-dept="ops" aria-pressed="false"><i class="dm-sw" style="--c:#D97B12"></i>Operations</button>
+          <button type="button" data-dept="hr" aria-pressed="false"><i class="dm-sw" style="--c:#C2417A"></i>HR</button>
+        </div>
+        <div class="dm-seg" role="group" aria-label="Choose a view">
+          <button type="button" data-view="matrix" aria-pressed="true">{{icon:grid}}Matrix</button>
+          <button type="button" data-view="road" aria-pressed="false">{{icon:layers}}Roadmap</button>
+        </div>
+      </div>
+      <div class="umx-wrap">
+        <div class="umx-plot" role="group" aria-label="AI use cases by business value and effort. Select one to open its workflow.">
+          <svg class="umx-grid" aria-hidden="true" focusable="false"></svg>
+          <div class="umx-lanes" aria-hidden="true"></div>
+          <svg class="umx-deps" aria-hidden="true" focusable="false"><defs><marker id="umx-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0.8 7 4 0 7.2z" fill="#6F8FD6"/></marker></defs></svg>
+          <span class="umx-q" data-q="0">Quick wins</span><span class="umx-q" data-q="1">Strategic bets</span><span class="umx-q" data-q="2">Fill-ins</span><span class="umx-q" data-q="3">Rethink</span>
+          <span class="umx-ax umx-ax--x">Effort to build and run</span><span class="umx-ax umx-ax--y">Business value</span>
+          <span class="umx-tick" data-t="x0">Low</span><span class="umx-tick" data-t="x1">High</span><span class="umx-tick" data-t="y0">Low</span><span class="umx-tick" data-t="y1">High</span>
+        </div>
+        <div class="umx-side">
+          <div class="umx-intro">
+            <p class="umx-h">{{icon:target}}How to read it</p>
+            <p class="umx-p">Higher means more business value; further right means more effort to build and run. Bigger bubbles handle more items a month. Colour is the department, the icon is the AI discipline.</p>
+            <dl class="dm-kpis umx-kpis">
+              <div><dt>Use cases</dt><dd data-k="n">16</dd></div>
+              <div><dt>Items a month</dt><dd data-k="vol">0</dd></div>
+              <div><dt>Quick wins</dt><dd data-k="qw">0</dd></div>
+              <div class="dm-ok"><dt>Human checkpoint</dt><dd data-k="hu">16 of 16</dd></div>
+            </dl>
+            <p class="umx-h">Roadmap mix</p>
+            <div class="umx-mix" aria-hidden="true"><span><b>8</b>Quick wins</span><span><b>5</b>Foundations</span><span><b>3</b>Scale</span></div>
+            <p class="umx-h">Items a month (sample)</p>
+            <div class="umx-sizes" aria-hidden="true"><span data-v="100"><i></i>100</span><span data-v="1000"><i></i>1,000</span><span data-v="10000"><i></i>10,000</span></div>
+            <p class="umx-h">AI disciplines</p>
+            <ul class="umx-discs"><li>{{icon:database}}Knowledge assistant</li><li>{{icon:cpu}}AI inside Odoo</li><li>{{icon:zap}}Workflow agent</li><li>{{icon:bot}}AI chatbot</li></ul>
+            <p class="umx-hint">{{icon:arrow}}Select a bubble to open its workflow.</p>
+          </div>
+          <aside class="umx-drawer" id="umx-drawer" aria-label="Use-case workflow" tabindex="-1"></aside>
+        </div>
+      </div>
+      <template class="umx-ico"><span data-i="database">{{icon:database}}</span><span data-i="cpu">{{icon:cpu}}</span><span data-i="zap">{{icon:zap}}</span><span data-i="bot">{{icon:bot}}</span><span data-i="sparkle">{{icon:sparkle}}</span><span data-i="usercheck">{{icon:usercheck}}</span><span data-i="file">{{icon:file}}</span><span data-i="mail">{{icon:mail}}</span><span data-i="shield">{{icon:shield}}</span><span data-i="check">{{icon:check}}</span><span data-i="x">{{icon:x}}</span><span data-i="clock">{{icon:clock}}</span></template>
+      <div class="dm-static">
+        <p><b>Finance:</b> vendor bill capture, collections reminders, expense receipt coding, month-end variance notes.</p>
+        <p><b>Sales:</b> lead scoring, quote drafting, meeting summaries. <b>Service:</b> ticket triage, knowledge answers for agents, WhatsApp order status.</p>
+        <p><b>Operations:</b> demand forecast, stock anomaly alerts, supplier date updates. <b>HR:</b> CV screening, policy Q&amp;A, onboarding plans.</p>
+        <p>Every use case runs the same way: a trigger, the Odoo records, documents and emails it reads, an AI step, a human checkpoint, and a write-back into Odoo. The roadmap puts quick wins first, then foundations (clean CRM history, a knowledge index, trusted stock data), then the use cases that scale on them.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data. Scores and volumes are illustrative: in discovery we score your own use cases with the people who run them.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

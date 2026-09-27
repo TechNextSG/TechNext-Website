@@ -1,4 +1,4 @@
-<!--meta {"title": "AI Workflow Automation in Singapore — AI agents", "desc": "AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.", "out": "solutions/ai-automation.html", "nav": "solution"} -->
+<!--meta {"title": "AI Workflow Automation in Singapore — AI agents", "desc": "AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.", "out": "solutions/ai-automation.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-agentrun.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-agentrun.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -33,6 +33,69 @@
     <dl class="glance"><div><dt>Discipline</dt><dd>Workflow automation agent</dd></div><div><dt>Trigger</dt><dd>Runs on an event you choose</dd></div><div><dt>Control</dt><dd>Human approval and guardrails</dd></div><div><dt>Every step</dt><dd>Logged for audit</dd></div><div><dt>Connects</dt><dd>The tools you already use</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="bill-agent">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch an agent run</span><h2>AI workflow automation for vendor bills, from inbox to payment run.</h2><p class="lead">A TechNext agent reads each bill, checks it against the purchase order and receipt in Odoo, and posts it or hands it to a person depending on how sure it is. Drag the confidence threshold and watch the split between straight-through and review change, switch the day, and click any bill in the trace to follow it.</p></div>
+    <div class="dm dm-agentrun reveal" data-demo="agentrun">
+      <div class="dm-head">
+        <div class="dm-title"><b>Agent run · vendor bill intake</b><small>Sample bills · SGD · GST 9%</small></div>
+        <div class="dm-seg" role="group" aria-label="Choose the day">
+          <button type="button" data-sc="normal" aria-pressed="true">{{icon:mail}}Normal day</button>
+          <button type="button" data-sc="rush" aria-pressed="false">{{icon:zap}}Month-end rush</button>
+          <button type="button" data-sc="newsup" aria-pressed="false">{{icon:users}}New suppliers</button>
+        </div>
+        <button class="dm-btn" type="button" data-play><i class="arn-pz" aria-hidden="true"></i>{{icon:play}}<span>Pause</span></button>
+      </div>
+      <div class="arn-dag" role="group" aria-label="The agent's run: hover or focus a step for details">
+        <svg class="arn-edges" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="arn-n" data-n="in"><span class="arn-ic">{{icon:mail}}</span><span class="arn-t"><b>Bills in</b><small>Email · PDF · scan</small></span><i class="arn-cnt" data-c="in"></i></button>
+        <button type="button" class="arn-n" data-n="ocr"><span class="arn-ic">{{icon:sparkle}}</span><span class="arn-t"><b>Read the bill</b><small>OCR · fields + confidence</small></span></button>
+        <button type="button" class="arn-n" data-n="rules"><span class="arn-ic">{{icon:shield}}</span><span class="arn-t"><b>Validation rules</b><span class="arn-lamps"><i data-r="po">PO</i><i data-r="tol">±2%</i><i data-r="dup">Dup</i><i data-r="gst">GST</i></span></span></button>
+        <button type="button" class="arn-n arn-n--gate" data-n="gate"><span class="arn-dia"></span><span class="arn-t"><b>≥ <span data-th>90</span>%</b><small>confidence</small></span></button>
+        <button type="button" class="arn-n" data-n="rev"><span class="arn-ic">{{icon:usercheck}}</span><span class="arn-t"><b>Review queue</b><small data-q>AP clerk checks fields</small></span></button>
+        <button type="button" class="arn-n" data-n="apr"><span class="arn-ic">{{icon:check}}</span><span class="arn-t"><b>Approval</b><small>Budget owner</small></span></button>
+        <button type="button" class="arn-n arn-n--odoo" data-n="post"><span class="arn-ic">{{odoo:account:22}}</span><span class="arn-t"><b>Post to Odoo</b><small>Accounting · journal entry</small></span><i class="arn-cnt" data-c="post"></i></button>
+        <button type="button" class="arn-n" data-n="pay"><span class="arn-ic">{{icon:bank}}</span><span class="arn-t"><b>Schedule payment</b><small>Due date · payment batch</small></span><i class="arn-cnt" data-c="pay"></i></button>
+        <button type="button" class="arn-n arn-n--exc" data-n="exc"><span class="arn-ic">{{icon:search}}</span><span class="arn-t"><b>Exceptions</b><small>Buyer or AP resolves</small></span><i class="arn-cnt" data-c="exc"></i></button>
+        <button type="button" class="arn-n arn-n--rej" data-n="rej"><span class="arn-ic">{{icon:x}}</span><span class="arn-t"><b>Rejected</b><small>Duplicate · not a bill</small></span><i class="arn-cnt" data-c="rej"></i></button>
+        <div class="arn-toks" aria-hidden="true"></div>
+      </div>
+      <div class="arn-cards">
+        <div class="arn-card arn-bill" aria-label="The bill being read">
+          <p class="arn-ch">{{icon:file}}<b>Bill on the desk</b><small data-b="follow">latest read</small></p>
+          <div class="arn-bh"><b data-b="ref">–</b><span data-b="vendor"></span><em data-b="state"></em></div>
+          <ul class="arn-fields"></ul>
+          <p class="arn-verdict" data-b="verdict"></p>
+          <div class="arn-je" data-b="je" hidden></div>
+        </div>
+        <div class="arn-card arn-hist">
+          <p class="arn-ch">{{icon:bars}}<b>Confidence, 240 sample bills</b><small>lowest field on each bill</small></p>
+          <svg class="arn-hsvg" role="img" aria-label="Histogram of confidence scores with the auto-post threshold"></svg>
+          <div class="arn-th"><label for="arn-th">Auto-post threshold</label><input type="range" id="arn-th" min="70" max="99" step="1" value="90"><output for="arn-th" data-thv>90%</output></div>
+          <ul class="arn-split" aria-live="polite"><li data-s="auto"><i></i><b>0</b>post straight through</li><li data-s="rev"><i></i><b>0</b>go to review</li><li data-s="exc"><i></i><b>0</b>fail a rule</li></ul>
+        </div>
+        <div class="arn-card arn-trace">
+          <dl class="dm-kpis arn-kpis">
+            <div class="dm-ok"><dt>Auto-posted</dt><dd data-k="auto">0</dd></div>
+            <div><dt>In review</dt><dd data-k="rev">0</dd></div>
+            <div><dt>Exceptions</dt><dd data-k="exc">0</dd></div>
+            <div><dt>Rejected</dt><dd data-k="rej">0</dd></div>
+          </dl>
+          <p class="arn-ch">{{icon:layers}}<b>Trace log</b><small>click a bill to follow it</small></p>
+          <ol class="arn-log"></ol>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Bills in:</b> the bills inbox, supplier uploads and scans. <b>Read the bill:</b> OCR extracts vendor, bill number, dates, PO reference, subtotal, GST and total, each with a confidence score.</p>
+        <p><b>Validation rules:</b> PO match, amount within tolerance of the PO and receipt, duplicate check, GST 9% check. A failed rule sends the bill to exceptions, where the buyer confirms it or AP rejects it.</p>
+        <p><b>Confidence gate:</b> at or above the threshold the bill posts straight to Odoo Accounting; below it, an AP clerk reviews the fields and the budget owner approves. Posted bills are scheduled for payment by their terms, and Finance releases the payment batch.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data, sped up. Straight-through posting is a rule you switch on per vendor or amount after testing on your own bills; payments always wait for a person.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
