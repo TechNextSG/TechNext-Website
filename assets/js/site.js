@@ -362,6 +362,13 @@
   }
 })();
 
+/* ---------------- "Set up meeting" (Odoo Appointments): a GA4 event, not an Ads conversion ----------------
+   A click opens the booking page; the meeting itself is booked in Odoo. */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('[data-meet]');
+  if (a && typeof window.gtag === 'function') window.gtag('event', 'book_meeting_click', { link: 'odoo_appointment' });
+});
+
 /* ---------------- image fallbacks (replaces the generated inline onerror= handlers) ----------------
    `error` does not bubble, so listen in the capture phase. Images that failed before this
    script ran (eager ones above the fold) are swept on DOMContentLoaded. */

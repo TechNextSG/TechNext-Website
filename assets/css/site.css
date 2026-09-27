@@ -256,6 +256,10 @@ a.card:hover{text-decoration:none}
 .side-tab:hover .ic{transform:rotate(90deg) translateY(-3px)}
 .side-tab:active{background:var(--blue-700);box-shadow:0 4px 12px -8px rgba(49,103,202,.6)}
 .chat-tab{background:var(--ink)}
+.meet-tab{background:var(--ok);text-decoration:none;box-shadow:0 8px 24px -12px rgba(19,122,74,.6)}
+.meet-tab:hover,.meet-tab:active{background:#0F633C;box-shadow:0 14px 32px -12px rgba(19,122,74,.6)}
+.meet-tab .ic{transform:rotate(180deg)}                       /* the tab is turned 180deg: keep the calendar upright */
+.meet-tab:hover .ic{transform:rotate(180deg) translateY(2px)}
 .chat-tab:hover,.chat-tab:active{background:#2c2c55}
 /* exit: the plane flies off the Let's Talk tab, then both tabs slide out while a panel is open */
 .talk-tab.is-exiting .ic{animation:planeOff .5s cubic-bezier(.4,0,.8,.6) forwards}

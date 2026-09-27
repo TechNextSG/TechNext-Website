@@ -31,7 +31,7 @@
 .ppl-rules button[aria-checked="false"] em{background:var(--alt);color:var(--muted)}
 .ppl-rules button:hover{border-color:var(--blue-300)}
 .ppl-rules button.is-ping em{animation:pplPing .7s ease-out}
-@keyframes pplPing{0%{box-shadow:0 0 0 0 rgba(49,103,202,.45);background:#D5E2FA}100%{box-shadow:0 0 0 7px rgba(49,103,202,0)}}
+@keyframes pplPing{0%{background:#D5E2FA}100%{}}
 .ppl-ch button:focus-visible,.ppl-rules button:focus-visible,.ppl-card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .ppl-teams{display:grid;gap:5px}
 .ppl-team{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 9px;border-radius:10px;border:1px solid var(--line);background:#fff;transition:opacity .25s ease,border-color .25s ease}
@@ -40,8 +40,8 @@
 .ppl-team b::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
 .ppl-mem{display:flex;gap:3px}
 .ppl-mem i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c);font:800 10px/1 var(--font-display);font-style:normal;letter-spacing:.02em}
-.ppl-team.is-ping{animation:pplTeam .6s ease-out}
-@keyframes pplTeam{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 45%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+.ppl-team.is-ping{animation:pplTeam .9s ease-out}
+@keyframes pplTeam{0%{background:color-mix(in srgb,var(--c) 12%,#fff);border-color:color-mix(in srgb,var(--c) 40%,var(--line))}100%{}}
 .ppl-team.is-dim{opacity:.4}
 /* the kanban */
 .ppl-board{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:stretch;gap:9px;min-width:0;padding:12px 14px}
@@ -70,10 +70,10 @@
 .ppl-card.is-won{border-left-color:var(--ok)}
 .ppl-card.is-won .ppl-act{background:var(--ok-050);color:var(--ok)}
 .ppl-card:hover{border-color:var(--blue-300)}
-.ppl-card.is-in{animation:pplIn .5s var(--spring)}
+.ppl-card.is-in{animation:pplIn .45s ease-out}
 .ppl-card.is-move{animation:pplMove .8s ease-out}
-@keyframes pplIn{from{opacity:0;transform:scale(.85) translateY(-6px)}to{opacity:1;transform:none}}
-@keyframes pplMove{0%{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,transparent)}100%{box-shadow:0 6px 14px -12px rgba(31,31,61,.55)}}
+@keyframes pplIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes pplMove{0%{border-color:color-mix(in srgb,var(--c) 45%,var(--line))}100%{}}
 .ppl-lost{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:7px 10px;border-radius:10px;border:1px dashed #D5D9E2;background:#fff;font:500 10.5px/1.3 var(--font-body);color:var(--muted)}
 .ppl-lost>b{font:700 11px/1 var(--font-display);color:var(--ink)}
 .ppl-lostl{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 0 auto;padding:0;list-style:none}
@@ -85,7 +85,7 @@
 .ppl-quote b{font:700 12px/1.2 var(--font-display);color:var(--ink)}
 .ppl-quote small{font:500 11px/1.35 var(--font-body);color:var(--body)}
 .ppl-quote.is-new{animation:pplQuote .9s var(--ease-out)}
-@keyframes pplQuote{0%{transform:translateY(8px);opacity:.3;box-shadow:0 0 0 0 rgba(19,122,74,.4)}40%{transform:none;opacity:1}100%{box-shadow:0 0 0 10px rgba(19,122,74,0)}}
+@keyframes pplQuote{0%{transform:translateY(6px);opacity:.3}100%{transform:none;opacity:1}}
 .ppl-fly{position:absolute;inset:0;pointer-events:none;z-index:20;overflow:hidden}
 .ppl-chip{--c:var(--blue);position:absolute;left:0;top:0;padding:4px 9px;border-radius:999px;background:var(--c);color:#fff;font:700 10.5px/1 var(--font-body);box-shadow:0 8px 16px -8px rgba(31,31,61,.6);white-space:nowrap}
 /* numbers and charts */

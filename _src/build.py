@@ -153,6 +153,9 @@ def talk_panel_html() -> str:
     c = S.COMPANY
     return f'''
 <div class="side-tabs">
+  <a class="side-tab meet-tab" href="{c["meeting_link"]}" target="_blank" rel="noopener" data-meet>
+    {{{{icon:calendar}}}}<span>Set up meeting</span>
+  </a>
   <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
     {{{{icon:send}}}}<span>Let's Talk</span>
   </button>
@@ -250,7 +253,9 @@ LAYOUT = '''<!doctype html>
 <meta property="og:image:alt" content="{TITLE}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3167CA">
-<link rel="icon" type="image/png" sizes="32x32" href="{ROOT}assets/img/favicon-32.png">
+<link rel="icon" href="{ROOT}favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="48x48" href="{ROOT}assets/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="{ROOT}assets/img/favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{ROOT}assets/img/favicon-192.png">
 <link rel="apple-touch-icon" href="{ROOT}assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
