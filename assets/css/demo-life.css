@@ -92,7 +92,7 @@
 .lf-auto{gap:4px}
 .lf-auto li{display:flex;align-items:flex-start;gap:7px;font:500 11.5px/1.35 var(--font-body);color:var(--body)}
 .lf-auto li .ic{width:14px;height:14px;color:var(--c);flex:none;margin-top:2px}
-.lf-log{flex:1;min-height:0;overflow:hidden;align-content:start}
+.lf-log{flex:1;min-height:0;overflow:hidden;align-content:start;-webkit-mask-image:linear-gradient(#000 calc(100% - 30px),transparent);mask-image:linear-gradient(#000 calc(100% - 30px),transparent)}
 .dm-life [data-exc].is-armed{border-color:var(--tok-late);color:var(--tok-late)}
 /* before the script runs (or without it) the states read as a plain ordered list */
 .dm-life:not(.is-js) .lf-stage{height:auto}
