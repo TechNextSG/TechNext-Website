@@ -29,7 +29,11 @@ COMPANY = {
     "whatsapp_link": "https://wa.me/6588396998",
     # header "Contact Us" opens WhatsApp with a ready-to-send opener
     "whatsapp_msg_link": "https://wa.me/6588396998?text=Hello%20TechNext%2C%20I%27d%20like%20to%20ask%20about%20Odoo%20for%20my%20company.",
-    "linkedin": "https://www.linkedin.com/company/technext-asia",
+    "linkedin": "https://www.linkedin.com/company/technextasia",
+    # official profiles (same handle everywhere, as in the email signature): schema.org sameAs
+    "socials": ["https://www.youtube.com/@technextasia", "https://x.com/technextasia",
+                "https://www.instagram.com/technextasia/", "https://www.facebook.com/technextasia",
+                "https://www.tiktok.com/@technextasia"],
     "hubs": "Singapore HQ · Philippines · Vietnam",
     # Odoo's own partner directory (tier: Ready) — the independent proof of the partner claim
     "odoo_listing": "https://www.odoo.com/partners/technext-pte-ltd-28073844",

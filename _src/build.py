@@ -418,7 +418,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                               "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
-            "sameAs": [c["linkedin"], c["odoo_listing"]],
+            "sameAs": [c["linkedin"], c["odoo_listing"]] + c.get("socials", []),
             "description": S.ORG_DESC,
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
@@ -960,6 +960,14 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
 </section>'''
 
 
+# titles that would otherwise compete with a sibling page for the same search
+APP_TITLES = {
+    "ai_app": "Odoo AI app (built-in AI agents) in Singapore",       # vs /odoo/ai-integration (custom AI)
+    "point_of_sale": "Odoo POS (Point of Sale) for shops in Singapore",  # vs /industries/retail
+    "pos_restaurant": "Odoo Restaurant POS implementation in Singapore",  # vs /industries/fnb
+}
+
+
 def app_page(mod: str) -> tuple:
     app, cat = APP_BY_MOD[mod], CAT_BY_MOD[mod]
     c = APP_CONTENT.get(mod, {})
@@ -1070,7 +1078,7 @@ def app_page(mod: str) -> tuple:
               f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
               + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
-    meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
+    meta = {"title": APP_TITLES.get(mod, f"Odoo {name} implementation in Singapore"), "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
     life = lifecycle_html(mod, name, cat)
     meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
@@ -1381,6 +1389,9 @@ _IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")
 _IX_BODY = re.compile(r"\{\{INDUSTRY:([a-z-]+)\}\}")
 
 
+_H1_SEAM = re.compile(r'(<span class="hand h1-hand">.*?</span>)(?!\s|<span class="sr-only">)')
+
+
 def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{APPS_NAV}}" in content:
         content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html())
@@ -1448,6 +1459,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     html = html.replace("{{ROOT}}", root).replace("{ROOT}", root)
     html = icons(html)
     html = clean_links(html)
+    html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
 
     target = ROOT / out_rel
     target.parent.mkdir(parents=True, exist_ok=True)
