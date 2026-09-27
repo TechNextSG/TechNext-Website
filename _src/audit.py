@@ -11,7 +11,7 @@ from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = sorted(p for p in ROOT.rglob("*.html") if "_src" not in p.parts and "_screens" not in p.parts
-               and not p.name.startswith("google") and p.name != "denied.html")
+               and not p.name.startswith("google") and p.name not in ("denied.html", "nexi-app.html"))  # nexi-app: the noindex frame inside /nexi
 DISALLOWED = ["Certified Odoo Partner", "ISO 27001 certified", "ISO 27001 compliant", "Odoo Gold", "Odoo Silver"]
 
 
@@ -99,7 +99,7 @@ def main():
         for x in v: print("   -", x)
     if not issues: print("no structural / SEO / accessibility issues found")
     print("--- asset weights ---")
-    for f in ["assets/css/site.css", "assets/js/site.js", "assets/js/hero.js", "assets/js/chat.js", "assets/js/quote.js", "index.html", "odoo/apps.html", "quotation.html"]:
+    for f in ["assets/css/site.css", "assets/js/site.js", "assets/js/hero.js", "assets/js/quote.js", "index.html", "odoo/apps.html", "quotation.html"]:
         print(f"{f:26} {(ROOT / f).stat().st_size // 1024:4d} KB")
     svgs = list((ROOT / "assets/img/odoo").glob("*.svg"))
     print(f"{'assets/img/odoo (' + str(len(svgs)) + ' svg)':26} {sum(f.stat().st_size for f in svgs) // 1024:4d} KB")

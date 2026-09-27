@@ -280,8 +280,14 @@ TN.demo('sankey', function (root, K) {
   });
 
   /* ------------------------------------------------------------ controls */
-  var touched = false, cyc = [];
-  function user() { touched = true; cyc.forEach(clearTimeout); cyc = []; }
+  // the first-view tour through the models: [model, due time]; it pauses while the demo is stopped,
+  // so its timers never restart the particle loop off-screen
+  var touched = false, cyc = [], tour = [], tourPause = 0;
+  function user() { touched = true; cyc.forEach(clearTimeout); cyc = []; tour = []; }
+  function arm(now) {
+    cyc.forEach(clearTimeout);
+    cyc = tour.map(function (s) { return setTimeout(function () { tour.splice(tour.indexOf(s), 1); setModel(s[0], 1100); }, Math.max(0, s[1] - now)); });
+  }
   function setModel(m, dur) { model = m; K.$$('[data-m]', root).forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.m === m)); }); refresh(dur); }
   K.$$('[data-m]', root).forEach(function (b) { b.addEventListener('click', function () { user(); setModel(b.dataset.m, 900); }); });
   var sliders = K.$$('input[type="range"]', root);
@@ -304,9 +310,12 @@ TN.demo('sankey', function (root, K) {
   return {
     start: function (first) {
       if (stage.clientWidth !== W) size();
-      if (first && !touched && !K.reduce) ['last', 'linear', 'first'].forEach(function (m, i) { cyc.push(setTimeout(function () { setModel(m, 1100); }, 3200 + i * 4200)); });
+      var now = performance.now();
+      if (first && !touched && !K.reduce) tour = ['last', 'linear', 'first'].map(function (m, i) { return [m, now + 3200 + i * 4200]; });
+      else if (tourPause) tour.forEach(function (s) { s[1] += now - tourPause; });
+      tourPause = 0; arm(now);
       lp.on();
     },
-    stop: function () { lp.off(); }
+    stop: function () { lp.off(); cyc.forEach(clearTimeout); cyc = []; if (tour.length && !tourPause) tourPause = performance.now(); }
   };
 });

@@ -51,6 +51,9 @@
 /* without JS (or before it runs) the demo shows its static description instead */
 .dm-static{margin:0;padding:16px;display:grid;gap:8px;font-size:14.5px;color:var(--body)}
 .dm.is-js .dm-static{display:none}
+/* demo-kit.js sets .is-offscreen while a demo is stopped (off-screen, tab hidden, or not started yet):
+   its CSS animations hold their frame instead of running unseen */
+[data-demo].is-offscreen,[data-demo].is-offscreen::before,[data-demo].is-offscreen::after,[data-demo].is-offscreen *,[data-demo].is-offscreen ::before,[data-demo].is-offscreen ::after{animation-play-state:paused!important}
 @media (max-width:640px){
   .dm-head{padding:10px 12px}
   .dm-body{padding:12px}

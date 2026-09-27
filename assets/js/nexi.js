@@ -4,9 +4,9 @@
    self-introduction. No chat logic lives here.
 
    This file is only the loader, so phones and tablets pay for a few hundred bytes and nothing
-   else. On desktop (min-width:961px, a fine pointer, no reduced motion) it waits for the intro and
-   an idle moment, then fetches Three.js (r128, MIT, self-hosted in assets/js/vendor/ because the
-   CSP only allows same-origin scripts) and the robot in assets/js/nexi-bot.js. While Nexi is on
+   else. On desktop (min-width:961px, a fine pointer, no reduced motion) it downloads Three.js (r128,
+   MIT, self-hosted in assets/js/vendor/ because the CSP only allows same-origin scripts) and the
+   robot in assets/js/nexi-bot.js while the intro plays, and starts Nexi as the intro ends. While Nexi is on
    screen it stands in for the "Chat with us" side tab; the tab comes back when the hero scrolls
    away or the window drops to mobile width. */
 (function () {
@@ -39,9 +39,17 @@
     var bot = function () { if (window.tnNexi) start(); else script(BOT_URL, start); };
     if (window.THREE) bot(); else script(THREE_URL, bot);
   }
+  /* fetch both files into the cache now (network only, nothing runs), so nothing waits later */
+  var preloaded = false;
+  function preload() {
+    if (preloaded || !allowed()) return; preloaded = true;
+    [THREE_URL, BOT_URL].forEach(function (u) { var l = document.createElement('link'); l.rel = 'prefetch'; l.as = 'script'; l.href = u; document.head.appendChild(l); });
+  }
   function whenSettled(fn) {
     var html = document.documentElement;
-    var go = function () { setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 300); })(fn, { timeout: 3000 }); }, 2600); };
+    preload();
+    /* start right after the hero's entrance settles, in a quiet frame */
+    var go = function () { setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(fn, { timeout: 600 }); }, 900); };
     if (html.classList.contains('intro')) document.addEventListener('tn:intro-done', go, { once: true }); else go();
   }
   function sync() {

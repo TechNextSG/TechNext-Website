@@ -21,8 +21,8 @@
       '<div><b id="nexi-card-t">Hi, I’m Nexi!</b><span>TechNext’s AI companion</span></div>' +
       '<button class="nexi-x" type="button" data-nexi-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>' +
       '<p>I fly around this page and keep an eye on things. I circle the Odoo apps, chase orders through the flow and cheer every launch.</p>' +
-      '<p>I’m a small preview of the AI chatbots TechNext builds for websites, WhatsApp and apps.</p>' +
-      '<div class="nexi-card-act"><button class="btn btn-primary btn-sm" type="button" data-nexi-chat>Chat with the team</button>' +
+      '<p>I’m a small preview of the AI chatbots TechNext builds for websites, WhatsApp and apps. My full self answers questions on my own page.</p>' +
+      '<div class="nexi-card-act"><a class="btn btn-primary btn-sm" href="' + ROOT + 'nexi" data-nexi-chat>Chat with me</a>' +
       '<button class="btn btn-ghost btn-sm" type="button" data-nexi-close>Bye, Nexi!</button></div>';
     hero.appendChild(layer);
     hero.appendChild(card);
@@ -32,7 +32,9 @@
     var renderer;
     try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'low-power' }); }
     catch (e) { layer.remove(); card.remove(); return null; }
-    var PR = Math.min(window.devicePixelRatio || 1, 1.5);
+    /* no synchronous shader status checks: the GPU process compiles in parallel instead of the page waiting */
+    renderer.debug.checkShaderErrors = false;
+    var PR = Math.min(window.devicePixelRatio || 1, 2);
     renderer.setPixelRatio(PR);
     renderer.setClearColor(0x000000, 0);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -45,7 +47,7 @@
     camera.position.set(0, 0, CAMZ);
     var clock = new THREE.Clock(), time = 0;
     var tmp = new THREE.Vector3(), tmp2 = new THREE.Vector3(), tmp3 = new THREE.Vector3();
-    var W = 1, H = 1, S = 1, SIZE = 150;
+    var W = 1, H = 1, S = 1, SIZE = 150, VIEW = 450;
 
     /* studio reflections, blue bounce for the white shell */
     (function () {
@@ -125,11 +127,14 @@
         fragmentShader: 'uniform sampler2D tMap; uniform vec2 uDir; varying vec2 vUv; void main(){ vec4 s=texture2D(tMap,vUv)*0.227027; s+=texture2D(tMap,vUv+uDir*1.384615)*0.316216; s+=texture2D(tMap,vUv-uDir*1.384615)*0.316216; s+=texture2D(tMap,vUv+uDir*3.230769)*0.070270; s+=texture2D(tMap,vUv-uDir*3.230769)*0.070270; gl_FragColor=s; }' });
       var comp = new THREE.ShaderMaterial({ uniforms: { tB: { value: null }, tA: { value: null } }, vertexShader: vs, depthTest: false, depthWrite: false, transparent: true,
         blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneFactor, blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneFactor,
-        fragmentShader: 'uniform sampler2D tB; uniform sampler2D tA; varying vec2 vUv; void main(){ vec3 c=texture2D(tB,vUv).rgb*0.95+texture2D(tA,vUv).rgb*0.2; c=clamp(c,0.0,1.0); gl_FragColor=vec4(c,max(c.r,max(c.g,c.b))); }' });
+        fragmentShader: 'uniform sampler2D tB; uniform sampler2D tA; varying vec2 vUv; void main(){ vec3 c=texture2D(tB,vUv).rgb*0.55+texture2D(tA,vUv).rgb*0.12; c=clamp(c,0.0,1.0); gl_FragColor=vec4(c,max(c.r,max(c.g,c.b))); }' });
       var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blur); quad.frustumCulled = false; qs.add(quad);
       var saved = [];
       function pass(m, t) { quad.material = m; renderer.setRenderTarget(t); renderer.render(qs, qc); }
       return {
+        /* compile the glow pass's materials up front (with the scene's, see the end of create) */
+        /* the pass's own materials, compiled one at a time by warmUp() */
+        warmSteps: [M.black, blur, comp].map(function (m) { return function () { var ws = new THREE.Scene(); ws.add(new THREE.Mesh(quad.geometry, m)); renderer.compile(ws, qc); }; }),
         size: function (w, h) { A.setSize(Math.max(2, w / 2 | 0), Math.max(2, h / 2 | 0)); B.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); C.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); },
         render: function () {
           saved.length = 0;
@@ -250,12 +255,11 @@
     var mouthO = glowMesh(new THREE.TorusGeometry(0.03, 0.011, 8, 20), M.eye); mouth.add(mouthO);
     var eq = []; for (var qi = 0; qi < 5; qi++) { var bar = glowMesh(new THREE.BoxGeometry(0.017, 0.06, 0.006), M.eye); bar.position.x = (qi - 2) * 0.03; mouth.add(bar); eq.push(bar); }
 
-    /* a soft blue aura behind Nexi and a hover shadow under it, so the white shell reads on the white hero */
+    /* a faint blue aura so the white shell reads on the white hero. It lives in world space, not in the
+       robot, so spins and flips never swing it in front: it always sits behind Nexi. No shadow: Nexi floats. */
     function softTex(inner, mid) { return canvasTex(128, 128, function (g) { var gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, inner); gr.addColorStop(0.55, mid); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }); }
-    var aura = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 4.6), new THREE.MeshBasicMaterial({ map: softTex('rgba(111,160,245,.42)', 'rgba(111,160,245,.14)'), transparent: true, depthWrite: false, toneMapped: false }));
-    aura.position.set(0, 0.1, -1.2); aura.userData.noGlow = true; bot.add(aura);
-    var shade = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.55), new THREE.MeshBasicMaterial({ map: softTex('rgba(24,40,90,.34)', 'rgba(24,40,90,.12)'), transparent: true, depthWrite: false, toneMapped: false }));
-    shade.position.set(0, -1.72, -0.6); shade.userData.noGlow = true; bot.add(shade);
+    var aura = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 4.6), new THREE.MeshBasicMaterial({ map: softTex('rgba(111,160,245,.2)', 'rgba(111,160,245,.06)'), transparent: true, depthWrite: false, toneMapped: false }));
+    aura.userData.noGlow = true; aura.renderOrder = -1; scene.add(aura);
 
     /* sparkle trail from the thruster while flying */
     var SPK = 40, spkPos = new Float32Array(SPK * 3), spk = [];
@@ -266,7 +270,7 @@
     scene.add(sparkles); var spkNext = 0, spkAt = 0;
 
     /* ---------- state ---------- */
-    var Sp = { x: new Spring(0.5, 0.9), y: new Spring(0.5, 0.9), z: new Spring(0.45, 0.95), ly: new Spring(1.5, 0.95), lp: new Spring(1.5, 0.95),
+    var Sp = { x: new Spring(0.68, 0.9), y: new Spring(0.68, 0.9), z: new Spring(0.45, 0.95), ly: new Spring(1.5, 0.95), lp: new Spring(1.5, 0.95),
       nod: new Spring(2.4, 0.8), tilt: new Spring(2, 0.8), yb: new Spring(2.2, 0.75), sq: new Spring(3, 0.55), bank: new Spring(1.3, 0.8), yaw: new Spring(1, 0.95),
       hLx: new Spring(2.4, 0.75), hLy: new Spring(2.4, 0.75), hLz: new Spring(2.4, 0.75), hRx: new Spring(2.6, 0.72), hRy: new Spring(2.6, 0.72), hRz: new Spring(2.6, 0.72), hRr: new Spring(3, 0.7),
       talk: new Spring(6, 1), boost: new Spring(3, 0.9) };
@@ -298,19 +302,89 @@
     function resize() {
       heroRect = hero.getBoundingClientRect();
       W = Math.max(1, hero.clientWidth); H = Math.max(1, hero.clientHeight);
-      renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix();
-      Glow.size(W * PR, H * PR);
+
       S = H / (2 * CAMZ * Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
-      SIZE = clamp(H * 0.2, 118, 170);
+      SIZE = clamp(H * 0.17, 108, 150);
       bot.scale.setScalar(SIZE / (2.65 * S));
+      /* the canvas is only a window around Nexi (3x its size) that travels with it, not the whole
+         hero: about a fifth of the pixels to render and composite every frame */
+      VIEW = Math.round(SIZE * 3);
+      renderer.setSize(VIEW, VIEW, false); cv.style.width = cv.style.height = VIEW + 'px';
+      camera.aspect = W / H; camera.updateProjectionMatrix();
+      Glow.size(VIEW * PR, VIEW * PR);
       hit.style.width = (SIZE * 0.72) + 'px'; hit.style.height = SIZE + 'px';
     }
     function rectOf(el) { var r = el.getBoundingClientRect(); heroRect = hero.getBoundingClientRect(); return { x: r.left - heroRect.left, y: r.top - heroRect.top, w: r.width, h: r.height, cx: r.left - heroRect.left + r.width / 2, cy: r.top - heroRect.top + r.height / 2 }; }
     function visible(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
     var TABS = 72; /* the fixed side tabs cover the right edge of the hero */
-    function goTo(x, y, z) {
-      var m = SIZE * 0.55;
-      R.tx = clamp(x, m, W - TABS - m); R.ty = clamp(y, SIZE * 0.62, H - SIZE * 0.55 - 8); R.tz = z == null ? 0 : z;
+
+    /* Nexi never parks on text or buttons. obstacles() lists the text runs, links, buttons and controls
+       of the visible slide (refreshed every 0.35 s); goTo() moves each target to the nearest spot
+       where Nexi's box touches none of them. */
+    var OBS = [], obsAt = -9, OBS_SEL = 'a,button,input,select,textarea,label,.btn,[role="button"],[tabindex]';
+    var rg = document.createRange();
+    function shown(el) { return !el.checkVisibility || el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); }
+    function obstacles() {
+      if (time - obsAt < 0.35) return OBS;
+      obsAt = time; OBS = [];
+      var hr = hero.getBoundingClientRect();
+      function add(r, pad) {
+        if (r.width < 2 || r.height < 2) return;
+        var x = r.left - hr.left, y = r.top - hr.top;
+        if (x > W || y > H || x + r.width < 0 || y + r.height < 0) return;
+        OBS.push([x - pad, y - pad, x + r.width + pad, y + r.height + pad]);
+      }
+      var slide = active();
+      [slide, hero.querySelector('.hero-ctl')].forEach(function (root) {
+        if (!root) return;
+        root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(r, 8); });
+        var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), n;
+        while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(rg.getBoundingClientRect(), 6); }
+      });
+      var mq = hero.querySelector('.hero-marquee'); if (mq) add(mq.getBoundingClientRect(), 4);
+      var hd = document.querySelector('[data-header]'); if (hd) add(hd.getBoundingClientRect(), 4);
+      buildFree();
+      return OBS;
+    }
+    /* every spot (on a 24 px grid) where Nexi's box touches no text or button */
+    var FREE = [], GRID = 24;
+    function buildFree() {
+      FREE = [];
+      var x0 = SIZE * 0.42, x1 = W - TABS - SIZE * 0.45, y0 = SIZE * 0.62, y1 = H - SIZE * 0.55 - 8;
+      for (var y = y0; y <= y1; y += GRID) for (var x = x0; x <= x1; x += GRID) if (!hits(box(x, y, 2.2))) FREE.push(x, y);
+    }
+    function hits(b) {
+      for (var i = 0; i < OBS.length; i++) { var r = OBS[i]; if (b[0] < r[2] && b[2] > r[0] && b[1] < r[3] && b[3] > r[1]) return true; }
+      return false;
+    }
+    function box(x, y, z) { var k = CAMZ / Math.max(4, CAMZ - (z || 0)), hw = SIZE * 0.4 * k, hh = SIZE * 0.52 * k; return [x - hw, y - hh, x + hw, y + hh]; }
+    function overlap(b) {
+      var o = obstacles(), a = 0;
+      for (var i = 0; i < o.length; i++) { var r = o[i], ix = Math.min(b[2], r[2]) - Math.max(b[0], r[0]), iy = Math.min(b[3], r[3]) - Math.max(b[1], r[1]); if (ix > 0 && iy > 0) a += ix * iy; }
+      return a;
+    }
+    var lastSpot = null;
+    function free(x, y, z) {
+      obstacles();
+      if (!overlap(box(x, y, z))) return (lastSpot = [x, y]);
+      var best = null, bd = Infinity;
+      for (var i = 0; i < FREE.length; i += 2) { var dx = FREE[i] - x, dy = (FREE[i + 1] - y) * 1.3, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
+      if (best == null) return [x, y];
+      if (lastSpot && !overlap(box(lastSpot[0], lastSpot[1], z))) {
+        var lx = lastSpot[0] - x, ly = (lastSpot[1] - y) * 1.3;
+        if (Math.sqrt(lx * lx + ly * ly) < Math.sqrt(bd) + 80) return lastSpot;
+      }
+      return (lastSpot = [FREE[best], FREE[best + 1]]);
+    }
+    /* targets are screen spots; Nexi flies in the z=0 plane, so a spot at depth z projects by k */
+    function depthK(z) { return CAMZ / Math.max(4, CAMZ - (z || 0)); }
+    function toScreen(px, py, z) { var k = depthK(z); return [W / 2 + (px - W / 2) * k, H / 2 + (py - H / 2) * k]; }
+    /* loose: allowed to peek past the left edge of the hero */
+    function goTo(x, y, z, loose) {
+      R.tz = z == null ? 0 : z;
+      var k = depthK(R.tz), m = SIZE * 0.55 * k, x0 = loose ? SIZE * 0.15 : m, x1 = W - TABS - m, y0 = SIZE * 0.62 * k, y1 = H - SIZE * 0.55 * k - 8;
+      var f = free(clamp(x, x0, x1), clamp(y, y0, y1), R.tz);
+      R.tx = W / 2 + (f[0] - W / 2) / k; R.ty = H / 2 + (f[1] - H / 2) / k;
     }
     var ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
     function worldAt(px, py, z, out) {
@@ -354,7 +428,7 @@
       orbitApps: { w: function () { return visible(q('[data-cine]')) ? 3 : 0; }, run: function (T) {
         var el = q('.dash-wrap') || q('[data-cine]'), r = rectOf(el), a0 = rand(0, 6.28), dir = Math.random() < 0.5 ? 1 : -1;
         T.dur = 6; expr('happy', 2); play('surf');
-        T.tick = function (p) { var a = a0 + dir * p * Math.PI * 2 * 0.9; goTo(r.cx + Math.cos(a) * r.w * 0.56, r.cy + Math.sin(a) * r.h * 0.34, Math.sin(a) * 3); lookAtPx(r.cx, r.cy, 0.5); };
+        T.tick = function (p) { var a = a0 + dir * p * Math.PI * 2 * 0.9; goTo(r.cx + Math.cos(a) * (r.w * 0.5 + SIZE * 0.45), r.cy + Math.sin(a) * (r.h * 0.5 + SIZE * 0.3), Math.sin(a) * 3); lookAtPx(r.cx, r.cy, 0.5); };
       } },
       inspectApp: { w: function () { return qa('.cine-app').length ? 2 : 0; }, run: function (T) {
         var apps = qa('.cine-app').filter(visible), el = pick(apps); if (!el) return T.end();
@@ -392,14 +466,14 @@
       } },
       surfMarquee: { w: function () { return visible(hero.querySelector('.hero-marquee')) ? 0.9 : 0; }, run: function (T) {
         var m = rectOf(hero.querySelector('.hero-marquee')), dir = Math.random() < 0.5 ? 1 : -1; T.dur = 5; play('surf'); expr('happy', 4);
-        T.tick = function (p) { goTo(dir > 0 ? lerp(SIZE, W - SIZE, p) : lerp(W - SIZE, SIZE, p), m.y - SIZE * 0.42, 1.5); };
+        T.tick = function (p) { goTo(dir > 0 ? lerp(SIZE, W - SIZE, p) : lerp(W - SIZE, SIZE, p), m.y - SIZE * 0.6, 1.5); };
       } },
       rest: { w: function () { return 1; }, run: function (T) {
         var spots = [[0.9, 0.3], [0.06, 0.76], [0.5, 0.86], [0.93, 0.8]], s = pick(spots); goTo(W * s[0], H * s[1], -1);
         T.dur = 5; T.at(1.8, function () { var c = pick(['stretch', 'hum', 'wave']); play(c); if (c === 'hum') { R.humUntil = time + 3; emote(['♪', '♫'], 3); } expr(c === 'wave' ? 'happy' : 'content', 2.2); });
       } },
       peek: { w: function () { return 0.6; }, run: function (T) {
-        var right = Math.random() < 0.5; goTo(right ? W - SIZE * 0.2 : SIZE * 0.2, H * rand(0.35, 0.7), 2); R.tx = right ? W - TABS - SIZE * 0.3 : SIZE * 0.2;
+        var right = Math.random() < 0.5; goTo(right ? W : SIZE * 0.15, H * rand(0.35, 0.7), 2, !right);
         T.dur = 4; T.at(1.8, function () { play('peek'); expr('happy', 1.6); });
       } },
       trick: { w: function () { return 0.5; }, run: function (T) { T.dur = 2.4; play(Math.random() < 0.5 ? 'flip' : 'spin'); expr('happy', 2); T.at(1.2, function () { emote(['✦', '✧'], 3); }); } }
@@ -480,7 +554,6 @@
     card.addEventListener('click', function (e) {
       e.stopPropagation();
       if (e.target.closest('[data-nexi-close]')) closeCard(true);
-      if (e.target.closest('[data-nexi-chat]')) { closeCard(); if (window.tnChat) window.tnChat.open(); }
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && R.cardOpen) closeCard(true); });
     document.addEventListener('click', function (e) { if (R.cardOpen && !e.target.closest('.nexi-card,.nexi-hit')) closeCard(); });
@@ -505,6 +578,13 @@
       if (R.cardOpen) placeCard();
       if (time > R.exprUntil) expr('idle');
 
+      /* the page moved under Nexi (a reveal, a slide change): re-pick a clear spot */
+      obstacles();
+      if (R.obsSeen !== obsAt) {
+        R.obsSeen = obsAt;
+        var ts = toScreen(R.tx, R.ty, R.tz);
+        if (!R.cardOpen && overlap(box(ts[0], ts[1], R.tz))) { var kk = depthK(R.tz), fr = free(ts[0], ts[1], R.tz); R.tx = W / 2 + (fr[0] - W / 2) / kk; R.ty = H / 2 + (fr[1] - H / 2) / kk; }
+      }
       /* movement */
       var px = Sp.x.step(R.tx, dt), py = Sp.y.step(R.ty, dt), pz = Sp.z.step(R.tz, dt);
       var vx = Sp.x.v, vy = Sp.y.v, speed = Math.hypot(vx, vy) / S;
@@ -514,7 +594,7 @@
       var sq = Sp.sq.step(O.sq, dt);
       var yb = Sp.yb.step(O.yb, dt), bob = Math.sin(time * 1.5) * 0.06;
       hover.position.y = BASE + bob + yb;
-      shade.scale.setScalar(clamp(1 - (yb + bob) * 0.5, 0.55, 1.1)); shade.material.opacity = clamp(1 - (yb + bob) * 0.7, 0.3, 1);
+      aura.scale.setScalar(bot.scale.x); aura.position.set(bot.position.x, bot.position.y + 0.1 * bot.scale.x, bot.position.z - 1.2 * bot.scale.x);
       hover.scale.set(1 - sq * 0.5, 1 + sq, 1 - sq * 0.5);
       spinner.rotation.x = O.flip + clamp(-vy / S * 0.02, -0.2, 0.2);
       spinner.rotation.z = Sp.bank.step(clamp(-vx / S * 0.06, -0.35, 0.35), dt);
@@ -555,20 +635,54 @@
       var boost = Sp.boost.step(speed > 0.9 ? 1 : 0, dt);
       flame.scale.set(1 + boost * 0.3, Math.max(0.001, boost * (1 + Math.sin(time * 40) * 0.12)), 1 + boost * 0.3); flame.material.opacity = clamp(boost, 0, 1) * 0.85; thr.scale.setScalar(1 + boost * 0.6);
       if (boost > 0.3 && time > spkAt) { spkAt = time + 0.05; var si2 = spkNext, sp1 = spk[si2]; spkNext = (spkNext + 1) % SPK; thr.getWorldPosition(tmp3); sp1.life = 1; sp1.i = si2; sp1.v.set(rand(-0.4, 0.4), rand(-1.4, -0.6), rand(-0.2, 0.2)); spkPos[si2 * 3] = tmp3.x; spkPos[si2 * 3 + 1] = tmp3.y; spkPos[si2 * 3 + 2] = tmp3.z; }
-      for (var k2 = 0; k2 < SPK; k2++) { var s2 = spk[k2]; if (s2.life <= 0) continue; s2.life -= dt * 1.4; var ii = s2.i * 3; spkPos[ii] += s2.v.x * dt; spkPos[ii + 1] += s2.v.y * dt; spkPos[ii + 2] += s2.v.z * dt; if (s2.life <= 0) spkPos[ii + 1] = -999; }
+      for (var k2 = 0; k2 < SPK; k2++) { var s2 = spk[k2]; if (s2.life <= 0) continue; s2.life -= dt * 2; var ii = s2.i * 3; spkPos[ii] += s2.v.x * dt; spkPos[ii + 1] += s2.v.y * dt; spkPos[ii + 2] += s2.v.z * dt; if (s2.life <= 0) spkPos[ii + 1] = -999; }
       spkGeo.attributes.position.needsUpdate = true;
 
       /* click target follows the robot */
       var h = botPx(); hit.style.transform = 'translate(' + (h.x - SIZE * 0.36).toFixed(1) + 'px,' + (h.y - SIZE * 0.5).toFixed(1) + 'px)';
 
+      /* passing over text or a button on the way somewhere: fade out of the way, never block a click */
+      var bb = box(h.x, h.y, pz), over = !R.cardOpen && overlap(bb) > (bb[2] - bb[0]) * (bb[3] - bb[1]) * 0.03;
+      R.alpha = lerp(R.alpha == null ? 1 : R.alpha, over ? 0.28 : 1, 1 - Math.exp(-dt * (over ? 10 : 4)));
+      var ao = R.alpha.toFixed(2); if (ao !== R.alphaSet) { cv.style.opacity = ao; R.alphaSet = ao; }
+      if (over !== R.passThru) { R.passThru = over; hit.style.pointerEvents = over ? 'none' : ''; }
+
+      var vx0 = Math.round(h.x - VIEW / 2), vy0 = Math.round(h.y - VIEW / 2);
+      camera.setViewOffset(W, H, vx0, vy0, VIEW, VIEW);
       renderer.setRenderTarget(null); renderer.render(scene, camera); Glow.render();
+      camera.clearViewOffset();
+      cv.style.transform = 'translate3d(' + vx0 + 'px,' + vy0 + 'px,0)';
       raf = requestAnimationFrame(tick);
     }
     for (var z0 = 0; z0 < SPK; z0++) spkPos[z0 * 3 + 1] = -999;
 
     function resume() { if (running) return; running = true; layer.style.display = ''; resize(); clock.getDelta(); setOn(); if (!raf) raf = requestAnimationFrame(tick); }
     function pause() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; layer.style.display = 'none'; closeCard(); setOn(); }
-    resume();
+    /* Compile the shaders one per frame slot before Nexi's first frame. All at once they cost one long
+       frame (a visible hitch on the hero); spread out, no single frame waits long. */
+    function warmUp(done) {
+      /* renderer.compile() walks the whole scene it is given, so each material gets a stand-in scene
+         with the same lights and environment (same shader variant) and a proxy of one mesh that uses it */
+      var steps = [], seen = new Set(), lights = [];
+      scene.traverse(function (o) { if (o.isLight) lights.push(o); });
+      scene.traverse(function (o) {
+        if (!(o.isMesh || o.isPoints) || seen.has(o.material)) return; seen.add(o.material);
+        steps.push(function () {
+          var ws = new THREE.Scene(); ws.environment = scene.environment; ws.fog = scene.fog;
+          lights.forEach(function (l) { ws.add(l.clone()); });
+          ws.add(o.isPoints ? new THREE.Points(o.geometry, o.material) : new THREE.Mesh(o.geometry, o.material));
+          renderer.compile(ws, camera);
+        });
+      });
+      steps = steps.concat(Glow.warmSteps);
+      var i = 0;
+      (function next() {
+        if (i >= steps.length) { done(); return; }
+        try { steps[i++](); } catch (err) { /* compiled on first use instead */ }
+        setTimeout(next, 24);
+      })();
+    }
+    setTimeout(function () { warmUp(resume); }, 30);
     return { pause: pause, resume: resume };
   }
 })();

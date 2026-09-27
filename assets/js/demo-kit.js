@@ -2,8 +2,10 @@
 /* Page demos. Every service and industry page has its own signature demo of the workflow it sells;
    each registers here with TN.demo(name, init). init(root, K) returns { start, stop } (both
    optional): the kit calls start when the demo scrolls into view and stop when it leaves or the tab
-   is hidden, so nothing animates off-screen. K is a small shared toolkit (geometry, SVG, a frame
-   loop, a tooltip, counters, a log). Reduced motion is honoured: K.reduce, and K.loop never runs. */
+   is hidden, so nothing animates off-screen. init runs ahead of time, in an idle moment after load,
+   so it builds and lays out only: motion (loops, timers, entrances) belongs in start. K is a small
+   shared toolkit (geometry, SVG, a frame loop, a tooltip, counters, a log, path tracks). Reduced
+   motion is honoured: K.reduce, and K.loop never runs. */
 (function () {
   'use strict';
   var TN = window.TN = window.TN || {};
@@ -63,16 +65,89 @@
   function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
   function restart(node, cls) { if (!node) return; node.classList.remove(cls); void node.offsetWidth; node.classList.add(cls); }
   function money(v, cur) { return (cur || 'S$') + ' ' + Math.round(v).toLocaleString('en-SG'); }
+  function num(v) { return Math.round(v).toLocaleString('en-SG'); }
   function count(node, to, dur, fmt) {
-    fmt = fmt || function (v) { return Math.round(v).toLocaleString('en-SG'); };
+    fmt = fmt || num;
     var from = parseFloat(String(node.dataset.v || 0)) || 0; node.dataset.v = to;
     if (reduce || !dur) { node.textContent = fmt(to); return; }
+    tween(node, from, to, dur, fmt);
+  }
+  function tween(node, from, to, dur, fmt) {
     var t0 = performance.now();
     (function step() {
       var q = clamp((performance.now() - t0) / dur, 0, 1);
       node.textContent = fmt(lerp(from, to, ease.out(q)));
       if (q < 1) requestAnimationFrame(step);
     })();
+  }
+  // an SVG path as arc-length samples, worked out from its d (M L H V C Q A Z, absolute or relative)
+  // instead of read back from the DOM: getTotalLength and getPointAtLength cost ~10 µs a call, and
+  // force a layout once the frame has written styles. Agrees with getPointAtLength to within a few
+  // hundredths of a pixel. d: a path element or its d string; step: sample spacing in px.
+  function track(d, step) {
+    if (typeof d !== 'string') d = d.getAttribute('d') || '';
+    var tk = d.match(/[a-zA-Z]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g) || [], i = 0, c = '', x = 0, y = 0, x0 = 0, y0 = 0;
+    var P = [], S = [];
+    function num() { return parseFloat(tk[i++]); }
+    function add(px, py) {
+      if (!P.length) { P.push([px, py]); S.push(0); return; }
+      var q = P[P.length - 1], l = Math.hypot(px - q[0], py - q[1]);
+      if (l > 0) { P.push([px, py]); S.push(S[S.length - 1] + l); }
+    }
+    function curve(f, est) { var k = Math.max(8, Math.ceil(est)); for (var j = 1; j <= k; j++) { var p = f(j / k); add(p[0], p[1]); } }
+    function cubic(x1, y1, x2, y2, x3, y3) {
+      var ax = x, ay = y; x = x3; y = y3;
+      curve(function (t) { var u = 1 - t; return [u * u * u * ax + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3, u * u * u * ay + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3]; },
+        Math.hypot(x1 - ax, y1 - ay) + Math.hypot(x2 - x1, y2 - y1) + Math.hypot(x3 - x2, y3 - y2));
+    }
+    function quad(x1, y1, x2, y2) {
+      var ax = x, ay = y; x = x2; y = y2;
+      curve(function (t) { var u = 1 - t; return [u * u * ax + 2 * u * t * x1 + t * t * x2, u * u * ay + 2 * u * t * y1 + t * t * y2]; }, Math.hypot(x1 - ax, y1 - ay) + Math.hypot(x2 - x1, y2 - y1));
+    }
+    function arc(rx, ry, phi, fa, fs, x2, y2) {           // endpoint arc to centre form, as in the SVG implementation notes
+      var x1 = x, y1 = y; x = x2; y = y2;
+      if (x1 === x2 && y1 === y2) return;
+      rx = Math.abs(rx); ry = Math.abs(ry);
+      if (!rx || !ry) { add(x2, y2); return; }
+      var a = phi * Math.PI / 180, co = Math.cos(a), si = Math.sin(a), dx = (x1 - x2) / 2, dy = (y1 - y2) / 2;
+      var xp = co * dx + si * dy, yp = -si * dx + co * dy, lam = xp * xp / (rx * rx) + yp * yp / (ry * ry);
+      if (lam > 1) { rx *= Math.sqrt(lam); ry *= Math.sqrt(lam); }
+      var nu = rx * rx * ry * ry - rx * rx * yp * yp - ry * ry * xp * xp, de = rx * rx * yp * yp + ry * ry * xp * xp;
+      var k = Math.sqrt(Math.max(0, nu / de)) * (fa === fs ? -1 : 1), cxp = k * rx * yp / ry, cyp = -k * ry * xp / rx;
+      var cx = co * cxp - si * cyp + (x1 + x2) / 2, cy = si * cxp + co * cyp + (y1 + y2) / 2;
+      var ux = (xp - cxp) / rx, uy = (yp - cyp) / ry, vx = (-xp - cxp) / rx, vy = (-yp - cyp) / ry;
+      var t1 = Math.atan2(uy, ux), dt = Math.atan2(ux * vy - uy * vx, ux * vx + uy * vy);
+      if (!fs && dt > 0) dt -= 2 * Math.PI; else if (fs && dt < 0) dt += 2 * Math.PI;
+      curve(function (t) { var th = t1 + dt * t, ex = rx * Math.cos(th), ey = ry * Math.sin(th); return [cx + co * ex - si * ey, cy + si * ex + co * ey]; }, Math.abs(dt) * Math.max(rx, ry));
+    }
+    while (i < tk.length) {
+      if (/[a-zA-Z]/.test(tk[i])) c = tk[i++];
+      var rel = c === c.toLowerCase(), ox = rel ? x : 0, oy = rel ? y : 0;
+      switch (c.toUpperCase()) {
+        case 'M': x = ox + num(); y = oy + num(); x0 = x; y0 = y; add(x, y); c = rel ? 'l' : 'L'; break;
+        case 'L': x = ox + num(); y = oy + num(); add(x, y); break;
+        case 'H': x = ox + num(); add(x, y); break;
+        case 'V': y = oy + num(); add(x, y); break;
+        case 'C': cubic(ox + num(), oy + num(), ox + num(), oy + num(), ox + num(), oy + num()); break;
+        case 'Q': quad(ox + num(), oy + num(), ox + num(), oy + num()); break;
+        case 'A': arc(num(), num(), num(), num(), num(), ox + num(), oy + num()); break;
+        case 'Z': x = x0; y = y0; add(x, y); break;
+        default: i++;
+      }
+    }
+    if (!P.length) P.push([0, 0]), S.push(0);
+    var len = S[S.length - 1], n = Math.max(1, Math.ceil(len / (step || 1))), X = new Float64Array(n + 1), Y = new Float64Array(n + 1), j = 1;
+    for (var q = 0; q <= n; q++) {                         // resampled at an even spacing, so a lookup is O(1)
+      var s = len * q / n; while (j < S.length - 1 && S[j] < s) j++;
+      var A = P[j - 1] || P[0], B = P[j] || A, f = B === A ? 0 : (s - S[j - 1]) / ((S[j] - S[j - 1]) || 1);
+      X[q] = A[0] + (B[0] - A[0]) * f; Y[q] = A[1] + (B[1] - A[1]) * f;
+    }
+    return { len: len, n: n, x: X, y: Y };
+  }
+  // the point at distance s along a track, clamped to its ends like getPointAtLength
+  function trackAt(t, s) {
+    var f = clamp(t.len ? s / t.len : 0, 0, 1) * t.n, i = Math.min(t.n - 1, f | 0), r = f - i;
+    return { x: t.x[i] + (t.x[i + 1] - t.x[i]) * r, y: t.y[i] + (t.y[i + 1] - t.y[i]) * r };
   }
   // a frame loop that only runs while switched on (the kit switches demos off when off-screen)
   function loop(fn) {
@@ -111,23 +186,69 @@
     return li;
   }
   var K = { reduce: reduce, root: ROOT, $: $, $$: $$, clamp: clamp, lerp: lerp, ease: ease, rnd: rnd, pick: pick, box: box, svg: svg,
-            path: path, curve: curve, oi: oi, el: el, restart: restart, money: money, count: count, loop: loop, tip: tip, log: log };
+            path: path, curve: curve, oi: oi, el: el, restart: restart, money: money, count: count, loop: loop, tip: tip, log: log,
+            track: track, trackAt: trackAt };
 
-  var defs = {}, live = [];
+  // Every demo is built ahead of time (after load, one per idle slice) so scrolling one into view only
+  // starts it; a demo reached before its turn is built on the spot. Until its first start a demo shows
+  // what it would have shown the moment it was built: its CSS animations wait under .is-offscreen (the
+  // same class holds them whenever it is stopped, see demo-kit.css) and its counters wait too.
+  var defs = {}, live = [], pending = [], loaded = false, idleOn = false, waitSince = 0;
   function mount(name, root) {
     if (root.__dm) return;
-    var inst = null, seen = false, visible = false;
-    root.__dm = true; root.classList.add('is-js');
-    function go() { if (!inst) inst = defs[name](root, K) || {}; if (inst.start) inst.start(!seen); seen = true; }
-    function halt() { if (inst && inst.stop) inst.stop(); }
-    var rec = { root: root, wake: function () { if (visible && !document.hidden) go(); else halt(); } };
-    live.push(rec);
+    var inst = null, seen = false, visible = false, held = [];
+    root.__dm = true; root.classList.add('is-js', 'is-offscreen');
+    var kit = Object.create(K);                          // this demo's kit: counters wait for its first start
+    kit.count = function (node, to, dur, fmt) {
+      if (seen || reduce || !dur) { count(node, to, dur, fmt); return; }
+      fmt = fmt || num;
+      var from = parseFloat(String(node.dataset.v || 0)) || 0; node.dataset.v = to;
+      node.textContent = fmt(from);
+      held.push(function () { tween(node, from, to, dur, fmt); });
+    };
+    function build() { if (!inst) inst = defs[name](root, kit) || {}; }
+    // the class goes after start: a start that measures then does not pay for restyling the whole demo
+    function go() {
+      build();
+      var first = !seen; seen = true;
+      if (first) { var h = held; held = []; h.forEach(function (f) { f(); }); }
+      if (inst.start) inst.start(first);
+      root.classList.remove('is-offscreen');
+    }
+    function halt() { if (inst && seen && inst.stop) inst.stop(); root.classList.add('is-offscreen'); }
+    var rec = {
+      root: root, wake: function () { if (visible && !document.hidden) go(); else halt(); },
+      done: function () { return !!inst; },
+      // a demo that is not rendered (display:none) waits to be seen, so it never measures a zero-size box
+      build: function () { if (!inst && root.isConnected && root.getClientRects().length) build(); }
+    };
+    live.push(rec); pending.push(rec); schedule();
     if (!('IntersectionObserver' in window)) { visible = true; go(); return; }
     new IntersectionObserver(function (es) {
       visible = es[es.length - 1].isIntersecting;
       rec.wake();
     }, { rootMargin: '120px 0px', threshold: .08 }).observe(root);
   }
+  var idle = window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 2000 }); } : function (f) { setTimeout(f, 60); };
+  function schedule() {
+    while (pending.length && pending[0].done()) pending.shift();
+    if (!loaded || idleOn || !pending.length) return;
+    idleOn = true; if (!waitSince) waitSince = performance.now();
+    idle(drain);
+  }
+  function drain(dl) {
+    idleOn = false;
+    // a slice that is nearly over waits for a longer one, for two seconds at most
+    if (dl && !dl.didTimeout && dl.timeRemaining() < 10 && performance.now() - waitSince < 2000) { schedule(); return; }
+    waitSince = 0;
+    while (pending.length && pending[0].done()) pending.shift();
+    var rec = pending.shift();
+    if (rec) rec.build();
+    schedule();
+  }
+  function ready() { loaded = true; schedule(); }
+  function onLoad() { if (document.fonts && document.fonts.ready) document.fonts.ready.then(ready, ready); else ready(); }
+  if (document.readyState === 'complete') onLoad(); else window.addEventListener('load', onLoad);
   TN.demo = function (name, init) {
     defs[name] = init;
     $$('[data-demo="' + name + '"]').forEach(function (r) { mount(name, r); });

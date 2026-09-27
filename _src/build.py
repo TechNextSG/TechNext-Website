@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
+import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
 
@@ -57,6 +58,7 @@ def write_app_slugs():
 
 
 write_app_slugs()
+make_nexi.write_js()
 ASSET_V = asset_version()
 
 ICON_RE = re.compile(r"\{\{icon:([a-z0-9_-]+)\}\}")
@@ -81,7 +83,7 @@ def odoo_icons(html: str) -> str:
         if not (ODOO_DIR / f"{mod}.svg").exists():
             raise KeyError(f"missing Odoo icon assets/img/odoo/{mod}.svg")
         return (f'<img class="oi" src="{{{{ROOT}}}}assets/img/odoo/{mod}.svg" alt="" '
-                f'width="{size}" height="{size}" loading="lazy" decoding="async">')
+                f'width="{size}" height="{size}" decoding="async">')
     return ODOO_RE.sub(rep, html)
 
 
@@ -139,7 +141,7 @@ def mobile_nav_html() -> str:
 <div class="mnav-cta">
   <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
   <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
-  <button class="btn btn-ghost btn-lg" type="button" data-chat-open>{{{{icon:chat}}}} Chat with us</button>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
 <div class="mnav-contact">
   <a href="mailto:{c["sales_email"]}">{{{{icon:mail}}}} {c["sales_email"]}</a>
@@ -159,9 +161,9 @@ def talk_panel_html() -> str:
   <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
     {{{{icon:send}}}}<span>Let's Talk</span>
   </button>
-  <button class="side-tab chat-tab" type="button" data-chat-open aria-haspopup="dialog" aria-controls="chat-win">
-    {{{{icon:chat}}}}<span>Chat with us</span>
-  </button>
+  <a class="side-tab nexi-tab" href="{{{{ROOT}}}}nexi" aria-label="Ask Nexi, TechNext's AI companion">
+    {{{{icon:bot}}}}<span>Ask Nexi</span>
+  </a>
 </div>
 <div class="talk-overlay" data-talk-close hidden></div>
 <aside class="talk-panel" id="talk-panel" role="dialog" aria-modal="true" aria-labelledby="talk-title" hidden>
@@ -214,22 +216,7 @@ def talk_panel_html() -> str:
   <div class="talk-foot">
     <span>{{{{icon:pin}}}} {c["hubs"]}</span>
   </div>
-</aside>
-
-<section class="chat" id="chat-win" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
-  <header class="chat-head">
-    <span class="chat-avatar">{{{{icon:bot}}}}</span>
-    <div><b id="chat-title">TechNext assistant</b><small>Answers instantly · hands off to sales@technext.asia</small></div>
-    <button class="icon-btn icon-btn--sm" type="button" data-chat-close aria-label="Close chat">{{{{icon:x}}}}</button>
-  </header>
-  <div class="chat-log" data-chat-log aria-live="polite" aria-relevant="additions"></div>
-  <div class="chat-chips" data-chat-chips></div>
-  <form class="chat-input" data-chat-form>
-    <label class="skip" for="chat-text">Type your question</label>
-    <input id="chat-text" type="text" autocomplete="off" placeholder="Ask about Accounting, Sales, Inventory…" maxlength="300">
-    <button class="btn btn-primary chat-send" type="submit" aria-label="Send">{{{{icon:send}}}}</button>
-  </form>
-</section>'''
+</aside>'''
 
 
 LAYOUT = '''<!doctype html>
@@ -309,7 +296,6 @@ LAYOUT = '''<!doctype html>
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
-<script src="{ROOT}assets/js/chat.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/consent.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/stage.js?v={ASSET_V}" defer></script>
 {SCRIPTS}
@@ -614,8 +600,8 @@ def attr(text: str) -> str:
     return html_mod.escape(html_mod.unescape(text), quote=True)
 APP_BY_MOD = {a["mod"]: a for c in S.APP_CATEGORIES for a in c["apps"]}
 
-# Every built page is recorded here (url, title, description) so the chat assistant can recognise and
-# route to any content on the site, not just its scripted topics. Written to assets/data/chat-index.json.
+# Every built page is recorded here (url, title, description) so Nexi (/nexi) can point visitors to any
+# page, not just its scripted topics. make_nexi.write_page() writes it into nexi-app.html.
 INDEX = []
 FAQ_INDEX = []          # (url, question, answer) for llms-full.txt
 INDEX_SKIP = {"404.html", "privacy.html", "terms.html", "case-studies.html"}
@@ -662,7 +648,7 @@ def shot_figure(ref: str, caption: str, cls: str = "shot") -> str:
     doc = " shot--doc" if img_ratio(url) < 0.3 else ""
     alt = attr(caption)
     return (f'<figure class="{cls}{doc}"><a class="zoom" href="{url}" target="_blank" rel="noopener" data-zoom '
-            f'aria-label="Enlarge screenshot: {alt}"><img src="{url}" alt="{alt}" loading="lazy" decoding="async" '
+            f'aria-label="Enlarge screenshot: {alt}"><img src="{url}" alt="{alt}" decoding="async" fetchpriority="low" '
             f'data-onerror="closest:figure">{{{{icon:expand}}}}</a><figcaption>{caption}</figcaption></figure>')
 
 
@@ -678,7 +664,7 @@ def photo_figure(ref: str, caption: str) -> str:
     url = ref if ref.startswith("https://") else odoo_shot(ref)
     alt = attr(caption)
     return (f'<figure class="post-media post-media--photo"><a class="zoom" href="{url}" target="_blank" rel="noopener" data-zoom '
-            f'aria-label="Enlarge photo: {alt}"><img src="{url}" alt="{alt}" loading="lazy" decoding="async" '
+            f'aria-label="Enlarge photo: {alt}"><img src="{url}" alt="{alt}" decoding="async" fetchpriority="low" '
             f'data-onerror="closest:figure">{{{{icon:expand}}}}</a><figcaption>{caption}</figcaption></figure>')
 
 
@@ -882,7 +868,7 @@ def industry_html(key: str) -> str:
 
 def yt_facade(vid: str, title: str) -> str:
     return (f'<button class="yt" type="button" data-yt="{vid}" aria-label="Play video: {title}">'
-            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy" decoding="async" data-onerror="remove">'
+            f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" decoding="async" fetchpriority="low" data-onerror="remove">'
             f'<span class="yt-play">{{{{icon:play}}}}</span><span class="yt-cap">Official Odoo video · YouTube</span></button>')
 
 
@@ -1011,7 +997,7 @@ def app_page(mod: str) -> tuple:
             fr, ar = frame(s["img"])
             label = attr(f"Odoo {name} — {s['h']}")
             rows.append(f'''<div class="feat reveal{flip}">
-      <div class="feat-media {fr}" style="--ar:{ar}"><a class="zoom" href="{s["img"]}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot: {label}"><img src="{s["img"]}" alt="{label}" loading="lazy" decoding="async" data-onerror="feat">{{{{icon:expand}}}}</a></div>
+      <div class="feat-media {fr}" style="--ar:{ar}"><a class="zoom" href="{s["img"]}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot: {label}"><img src="{s["img"]}" alt="{label}" decoding="async" fetchpriority="low" data-onerror="feat">{{{{icon:expand}}}}</a></div>
       <div class="feat-copy"><span class="card-kicker">{k + 1:02d} · {name}</span><h3>{s["h"]}</h3><p>{s["p"]}</p>{feats_html}</div>
     </div>''')
         else:
@@ -1026,7 +1012,7 @@ def app_page(mod: str) -> tuple:
     gallery = "".join(
         f'<figure class="shot reveal{" shot--doc" if img_ratio(u) < 0.3 else ""}" style="--i:{k}">'
         f'<a class="zoom" href="{u}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot {k + 1} of Odoo {attr(name)}">'
-        f'<img src="{u}" alt="Odoo {attr(name)} screenshot {k + 1}" loading="lazy" decoding="async" data-onerror="closest:figure">{{{{icon:expand}}}}</a>'
+        f'<img src="{u}" alt="Odoo {attr(name)} screenshot {k + 1}" decoding="async" fetchpriority="low" data-onerror="closest:figure">{{{{icon:expand}}}}</a>'
         f'<figcaption>Odoo {name} · screenshot from odoo.com</figcaption></figure>' for k, u in enumerate(shots))
     screens = f'''<section class="section section--alt section--tight">
   <div class="container">
@@ -1213,7 +1199,7 @@ def cover_html(a: dict) -> str:
             ics.append(f'<span style="--i:{k}">{inner}</span>')
         return f'<div class="post-cover post-cover--gen post-cover--{a["cat"]}" aria-hidden="true"><div class="pc-ics">{"".join(ics)}</div></div>'
     fit = "photo" if (c in PHOTO_COVERS or a.get("cover_fit") == "photo") else "shot"
-    return (f'<div class="post-cover post-cover--{fit}" aria-hidden="true"><img src="{cover_url(a)}" alt="" loading="lazy" '
+    return (f'<div class="post-cover post-cover--{fit}" aria-hidden="true"><img src="{cover_url(a)}" alt="" '
             f'decoding="async" data-onerror="closest:.post-cover"></div>')
 
 
@@ -1519,7 +1505,7 @@ LLMS_GROUPS = [
 
 def write_llms():
     """llms.txt (llmstxt.org): a plain-text map of the site for AI assistants and agents.
-    Built from the same page index as the chat assistant, so it never goes stale."""
+    Built from the same page index as Nexi, so it never goes stale."""
     c = S.COMPANY
     strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
     lines = [
@@ -1633,14 +1619,6 @@ def write_llms_full():
     return len(seen)
 
 
-def write_chat_index():
-    """Search index for the chat assistant: one entry per built page (url, title, description)."""
-    out = ROOT / "assets" / "data" / "chat-index.json"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(sorted(INDEX, key=lambda e: e["u"]), ensure_ascii=False, separators=(",", ":")),
-                   encoding="utf-8", newline="\n")
-
-
 def main():
     nav_cache = {}
     built = []
@@ -1659,7 +1637,7 @@ def main():
     write_robots()
     write_well_known()
     write_denied()
-    write_chat_index()
+    make_nexi.write_page(ASSET_V, INDEX, S.SITE_URL)
     print(f"llms.txt: {write_llms()} pages")
     print(f"llms-full.txt: {write_llms_full()} answers")
     # security headers: hashes every inline script of the pages just built

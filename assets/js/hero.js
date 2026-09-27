@@ -297,44 +297,69 @@
     if (!canvas || reduce || mobile.matches) return { on: function () {}, off: function () {} };
     var ctx = canvas.getContext('2d'), W = 0, H = 0, dpr = 1, raf = null, pts = [], mx = .5, my = .4, on = false;
     function size() {
-      var r = hero.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1);
+      var r = hero.getBoundingClientRect(); dpr = Math.min(1.5, window.devicePixelRatio || 1);
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     function seed() {
       pts = [];
       var n = Math.round(W / 26);
-      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, r: 1.2 + Math.random() * 2.4, v: .12 + Math.random() * .3, ph: Math.random() * 6.28, d: .3 + Math.random() * .7 });
+      for (var i = 0; i < n; i++) { var d = .3 + Math.random() * .7; pts.push({ x: Math.random() * W, y: Math.random() * H, r: 1.2 + Math.random() * 2.4, v: .12 + Math.random() * .3, ph: Math.random() * 6.28, d: d, fs: 'rgba(49,103,202,' + (0.10 + d * 0.16).toFixed(3) + ')' }); }
     }
+    // links are batched into 8 alpha bands (one stroke per band instead of one per pair) and every
+    // colour string is built once: same picture, a fraction of the canvas calls and no per-frame garbage
+    var BANDS = 8, bandStyle = [], bandSeg = [];
+    for (var bi = 0; bi < BANDS; bi++) { bandStyle.push('rgba(111,160,245,' + (0.10 * (bi + 0.5) / BANDS).toFixed(4) + ')'); bandSeg.push([]); }
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
-      var px = (mx - .5) * 30, py = (my - .5) * 20;
-      for (var i = 0; i < pts.length; i++) {
-        var p = pts[i];
+      var px = (mx - .5) * 30, py = (my - .5) * 20, i, j, b, p, q;
+      for (i = 0; i < pts.length; i++) {
+        p = pts[i];
         p.y -= p.v; p.ph += .01;
         if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
-        var x = p.x + Math.sin(p.ph) * 14 + px * p.d, y = p.y + py * p.d;
-        ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.283);
-        ctx.fillStyle = 'rgba(49,103,202,' + (0.10 + p.d * 0.16).toFixed(3) + ')'; ctx.fill();
-        // faint links between close particles
-        for (var j = i + 1; j < pts.length; j++) {
-          var q = pts[j], ddx = q.x - p.x, ddy = q.y - p.y, dist = ddx * ddx + ddy * ddy;
-          if (dist < 8100) { ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(q.x + Math.sin(q.ph) * 14 + px * q.d, q.y + py * q.d); ctx.strokeStyle = 'rgba(111,160,245,' + (0.10 * (1 - dist / 8100)).toFixed(3) + ')'; ctx.lineWidth = 1; ctx.stroke(); }
+        p.sx = p.x + Math.sin(p.ph) * 14 + px * p.d; p.sy = p.y + py * p.d;
+      }
+      for (b = 0; b < BANDS; b++) bandSeg[b].length = 0;
+      for (i = 0; i < pts.length; i++) {
+        p = pts[i];
+        for (j = i + 1; j < pts.length; j++) {
+          q = pts[j]; var ddx = q.x - p.x, ddy = q.y - p.y, dist = ddx * ddx + ddy * ddy;
+          if (dist < 8100) bandSeg[Math.min(BANDS - 1, ((1 - dist / 8100) * BANDS) | 0)].push(p.sx, p.sy, q.sx, q.sy);
         }
       }
+      ctx.lineWidth = 1;
+      for (b = 0; b < BANDS; b++) {
+        var sg = bandSeg[b]; if (!sg.length) continue;
+        ctx.beginPath(); for (var k = 0; k < sg.length; k += 4) { ctx.moveTo(sg[k], sg[k + 1]); ctx.lineTo(sg[k + 2], sg[k + 3]); }
+        ctx.strokeStyle = bandStyle[b]; ctx.stroke();
+      }
+      for (i = 0; i < pts.length; i++) { p = pts[i]; ctx.beginPath(); ctx.arc(p.sx, p.sy, p.r, 0, 6.283); ctx.fillStyle = p.fs; ctx.fill(); }
       raf = (on && !document.hidden) ? requestAnimationFrame(draw) : null;
     }
+    var spot = $('.spotlight', hero), box = null, pmRaf = 0;
+    function heroBox() { var r = hero.getBoundingClientRect(); box = { l: r.left, t: r.top + window.scrollY, w: r.width || 1, h: r.height || 1 }; }
+    function placeSpot() { if (spot) { spot.style.setProperty('--sx', (mx * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', (my * box.h).toFixed(1) + 'px'); } }
+    heroBox(); mx = .5; my = .3; placeSpot(); mx = .5; my = .4;
+    window.addEventListener('resize', function () { box = null; }, { passive: true });
+    hero.addEventListener('pointerenter', function () { box = null; });
     hero.addEventListener('pointermove', function (e) {
-      var r = hero.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width; my = (e.clientY - r.top) / r.height;
-      hero.style.setProperty('--mx', (mx * 100).toFixed(1) + '%'); hero.style.setProperty('--my', (my * 100).toFixed(1) + '%');
-      parallax(mx - .5, my - .5);
-    });
+      if (!box) heroBox();
+      mx = (e.clientX - box.l) / box.w; my = (e.clientY + window.scrollY - box.t) / box.h;
+      if (!pmRaf) pmRaf = requestAnimationFrame(function () { pmRaf = 0; placeSpot(); parallax(mx - .5, my - .5); });
+    }, { passive: true });
     hero.addEventListener('pointerleave', function () { hoverLock = false; parallax(0, 0); });
     window.addEventListener('resize', function () { if (on) { size(); seed(); } });
     document.addEventListener('visibilitychange', function () { if (!document.hidden && on && !raf) raf = requestAnimationFrame(draw); });
     return { on: function () { on = true; if (!raf) { size(); if (!pts.length) seed(); raf = requestAnimationFrame(draw); } }, off: function () { on = false; } };
   })();
   bg.on();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      var vis = es[es.length - 1].isIntersecting;
+      hero.classList.toggle('is-off', !vis);
+      if (vis) { bg.on(); resume(); } else { bg.off(); pause(); }
+    }, { threshold: 0 }).observe(hero);
+  }
 
   /* ================================================================ 3D tilt stage + parallax layers
      The active slide's .slide-inner rotates toward the cursor (max ±6° X, ±9° Y) with eased follow-through;
@@ -388,6 +413,7 @@
     words.forEach(function (w, i) { w.classList.toggle('is-on', i === 0); w.classList.remove('is-out'); });
     clearInterval(rotTimer);
     rotTimer = setInterval(function () {
+      if (hero.classList.contains('is-off')) return;
       var cur = words[k]; k = (k + 1) % words.length; var nxt = words[k];
       cur.classList.remove('is-on'); cur.classList.add('is-out');
       nxt.classList.remove('is-out'); nxt.classList.add('is-on');
@@ -410,7 +436,7 @@
     list.forEach(function (t) { t.classList.remove('is-on'); });
     if (!on || !list.length || reduce) { if (list[0] && reduce) list[0].classList.add('is-on'); return; }
     var k = 0;
-    var tick = function () { list.forEach(function (t, i) { t.classList.toggle('is-on', i === k); }); k = (k + 1) % list.length; };
+    var tick = function () { if (hero.classList.contains('is-off')) return; list.forEach(function (t, i) { t.classList.toggle('is-on', i === k); }); k = (k + 1) % list.length; };
     setTimeout(tick, 900);
     toastTimer = setInterval(tick, 3200);
   }
