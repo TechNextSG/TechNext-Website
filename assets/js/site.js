@@ -238,9 +238,13 @@
     };
     var nxExit = function () {
       nxSet(false);
+      /* came in on /nexi#full: drop the hash so a reload shows the normal page */
+      if (location.hash === '#full' && history.replaceState) history.replaceState(null, '', location.pathname + location.search);
       if (fsEl()) { try { var x = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (x && x.catch) x.catch(function () {}); } catch (e) { /* already out */ } }
     };
     nxBtn.setAttribute('aria-label', 'Full screen');
+    /* "Ask Nexi" and "Chat with me" link to /nexi#full: open straight into full-window mode */
+    if (document.documentElement.classList.contains('nx-full-start')) { nxSet(true); document.documentElement.classList.remove('nx-full-start'); }
     nxBtn.addEventListener('click', function () {
       if (nxOn()) { nxExit(); return; }
       nxSet(true);
