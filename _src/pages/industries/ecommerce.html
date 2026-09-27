@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for Ecommerce in Singapore — stores & marketplaces", "desc": "Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/ecommerce.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Ecommerce in Singapore — stores & marketplaces", "desc": "Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting — implemented by TechNext, Odoo Partner.", "out": "industries/ecommerce.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-router.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-router.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -28,6 +28,61 @@
 </section>
 
 {{INDUSTRY_INTRO:ecommerce}}
+
+<section class="section section--alt demo-sec" id="order-router">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch the orders flow</span><h2>Odoo for ecommerce: route every channel's orders from one stock.</h2><p class="lead">A sample shop selling on its Odoo website and two marketplaces, set up the way TechNext connects Odoo eCommerce, Inventory and Accounting. Each order becomes a sales order, reserves stock in its warehouse, gets a courier label and a tracking number, and every stock change goes back to all channels. Run a flash sale, pause a channel or switch to spreadsheet updates to see overselling happen, then follow each payout as it is matched, fees and refunds included.</p></div>
+    <div class="dm dm-router reveal" data-demo="router">
+      <div class="dm-head">
+        <div class="dm-title"><b>One stock, three channels</b><small>Sample shop · ceramic mug at S$ 24.90</small></div>
+        <div class="dm-seg" role="group" aria-label="Sales channels, on or off"><button type="button" data-ch="web" aria-pressed="true"><i class="dm-sw" style="--c:#3167CA"></i>Website</button><button type="button" data-ch="mka" aria-pressed="true"><i class="dm-sw" style="--c:#7447D6"></i>Marketplace A</button><button type="button" data-ch="mkb" aria-pressed="true"><i class="dm-sw" style="--c:#0E9384"></i>Marketplace B</button></div>
+        <div class="dm-seg" role="group" aria-label="How the marketplaces get the stock level"><button type="button" data-sync="live" aria-pressed="true">Synced by Odoo</button><button type="button" data-sync="sheet" aria-pressed="false">Spreadsheet</button></div>
+        <button class="dm-btn dm-btn--primary" type="button" data-flash>{{icon:zap}}<span>Flash sale</span></button>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="omr-stage" role="group" aria-label="Order routing: channels, marketplace connector, Odoo, warehouses, couriers, delivery and returns">
+        <svg class="omr-svg" aria-hidden="true" focusable="false"></svg>
+        <div class="omr-nd omr-ch" data-n="web" style="--c:#3167CA"><p class="omr-nh">{{odoo:website_sale:16}}<b>Website</b></p><small>Odoo eCommerce</small><p class="omr-li"><i class="omr-mug"></i><span>Ceramic mug</span><em class="omr-st">60 in stock</em></p></div>
+        <div class="omr-nd omr-ch" data-n="mka" style="--c:#7447D6"><p class="omr-nh">{{icon:bag}}<b>Marketplace A</b></p><small>through the connector</small><p class="omr-li"><i class="omr-mug"></i><span>Ceramic mug</span><em class="omr-st">60 in stock</em></p></div>
+        <div class="omr-nd omr-ch" data-n="mkb" style="--c:#0E9384"><p class="omr-nh">{{icon:bag}}<b>Marketplace B</b></p><small>through the connector</small><p class="omr-li"><i class="omr-mug"></i><span>Ceramic mug</span><em class="omr-st">60 in stock</em></p></div>
+        <div class="omr-nd omr-conn" data-n="conn"><p class="omr-nh">{{icon:refresh}}<b>Marketplace connector</b></p><small>orders in · stock and tracking out</small></div>
+        <div class="omr-nd omr-hub" data-n="hub"><p class="omr-nh">{{odoo:sale:18}}<b>Odoo</b></p><small>Sales order · stock reserved</small><strong class="omr-v">S01041</strong><span class="omr-av">60 available</span></div>
+        <div class="omr-nd omr-wh" data-n="W"><p class="omr-nh">{{odoo:stock:16}}<b>Warehouse West</b></p><p class="omr-wr"><strong class="omr-v">36</strong><span class="omr-s">0 shipped</span></p><i class="omr-bar"><i></i></i><span class="omr-inc"></span></div>
+        <div class="omr-nd omr-wh" data-n="E"><p class="omr-nh">{{odoo:stock:16}}<b>Warehouse East</b></p><p class="omr-wr"><strong class="omr-v">24</strong><span class="omr-s">0 shipped</span></p><i class="omr-bar"><i></i></i><span class="omr-inc"></span></div>
+        <div class="omr-nd omr-co" data-n="CA"><p class="omr-nh">{{icon:truck}}<b>Courier A</b></p><small>carrier label</small><strong class="omr-v">0</strong></div>
+        <div class="omr-nd omr-co" data-n="ML"><p class="omr-nh">{{icon:truck}}<b>Marketplace logistics</b></p><small>label via connector</small><strong class="omr-v">0</strong></div>
+        <div class="omr-nd omr-co" data-n="TR"><p class="omr-nh">{{icon:send}}<b>In transit</b></p><small>tracking sent</small><strong class="omr-v">0</strong></div>
+        <div class="omr-nd omr-co" data-n="DL"><p class="omr-nh">{{icon:check}}<b>Delivered</b></p><small>to the customer</small><strong class="omr-v">0</strong></div>
+        <div class="omr-nd omr-rt" data-n="RT">{{odoo:helpdesk:16}}<b>Returns</b><strong class="omr-v">0</strong></div>
+        <div class="omr-nd omr-xx" data-n="XX">{{icon:x}}<b>Oversold</b><strong class="omr-v">0</strong></div>
+      </div>
+      <div class="omr-mid">
+        <dl class="dm-kpis omr-kpis">
+          <div><dt>Orders</dt><dd data-k="orders">0</dd></div>
+          <div><dt>Shipped</dt><dd data-k="shipped">0</dd></div>
+          <div><dt>Delivered</dt><dd data-k="deliv">0</dd></div>
+          <div><dt>Returns</dt><dd data-k="ret">0</dd></div>
+          <div class="omr-good"><dt>Oversold</dt><dd data-k="over">0</dd></div>
+          <div><dt>Payouts matched</dt><dd data-k="paid">0</dd></div>
+        </dl>
+        <ol class="dm-log omr-log"></ol>
+      </div>
+      <div class="omr-pay">
+        <div class="omr-stm" data-st="web" style="--c:#3167CA"><p class="omr-sh"><i></i><b>Website</b><small>payment provider</small></p><dl><div><dt>Delivered</dt><dd class="omr-sg">S$ 0.00 · 0</dd></div><div><dt>Fees</dt><dd class="omr-sf">− S$ 0.00</dd></div><div><dt>Refunds</dt><dd class="omr-sr">− S$ 0.00</dd></div><div class="omr-tot"><dt>Next payout</dt><dd class="omr-snet">S$ 0.00</dd></div></dl><i class="omr-pb"><i></i></i><p class="omr-last">No payout yet</p></div>
+        <div class="omr-stm" data-st="mka" style="--c:#7447D6"><p class="omr-sh"><i></i><b>Marketplace A</b><small>marketplace payout</small></p><dl><div><dt>Delivered</dt><dd class="omr-sg">S$ 0.00 · 0</dd></div><div><dt>Fees</dt><dd class="omr-sf">− S$ 0.00</dd></div><div><dt>Refunds</dt><dd class="omr-sr">− S$ 0.00</dd></div><div class="omr-tot"><dt>Next payout</dt><dd class="omr-snet">S$ 0.00</dd></div></dl><i class="omr-pb"><i></i></i><p class="omr-last">No payout yet</p></div>
+        <div class="omr-stm" data-st="mkb" style="--c:#0E9384"><p class="omr-sh"><i></i><b>Marketplace B</b><small>marketplace payout</small></p><dl><div><dt>Delivered</dt><dd class="omr-sg">S$ 0.00 · 0</dd></div><div><dt>Fees</dt><dd class="omr-sf">− S$ 0.00</dd></div><div><dt>Refunds</dt><dd class="omr-sr">− S$ 0.00</dd></div><div class="omr-tot"><dt>Next payout</dt><dd class="omr-snet">S$ 0.00</dd></div></dl><i class="omr-pb"><i></i></i><p class="omr-last">No payout yet</p></div>
+        <div class="omr-bk"><p class="omr-cap">{{odoo:accountant:16}}Bank feed and reconciliation</p><ol class="omr-bank"></ol><p class="omr-bankd">Payouts are matched here as they arrive.</p></div>
+      </div>
+      <div class="dm-static">
+        <p><b>Orders in:</b> the website runs on Odoo eCommerce; two marketplaces send orders and delivery slips through a marketplace connector. Every order becomes a sales order in Odoo and reserves stock.</p>
+        <p><b>Fulfilment:</b> each channel ships from its warehouse, or from the other one when it is short; website orders get a carrier label, marketplace orders a label from the connector; tracking goes to the customer and the channel. Returns are refunded, then restocked or scrapped.</p>
+        <p><b>Stock sync:</b> every stock change goes back to all channels, so a listing shows sold out before it can be oversold. With spreadsheet updates, marketplaces keep selling stock that is gone.</p>
+        <p><b>Payouts:</b> providers and marketplaces pay out net of fees and refunds; each bank line is matched to its orders in Accounting, with the fees booked to their own account.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample shop, fees and timings: a day of orders runs in a couple of minutes. Marketplace connectors differ by marketplace, so TechNext confirms what each one syncs and sets up the warehouse rules, reconciliation models and fee accounts with you.</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">

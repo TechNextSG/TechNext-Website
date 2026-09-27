@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for Wellness Studios, Spas & Gyms in Singapore", "desc": "Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.", "out": "industries/health-wellness.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Wellness Studios, Spas & Gyms in Singapore", "desc": "Odoo for wellness studios, spas and gyms: online booking, memberships and packages, retail POS and stock, and clean books, implemented by TechNext.", "out": "industries/health-wellness.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-studio.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-studio.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -30,6 +30,62 @@
 </section>
 
 {{INDUSTRY_INTRO:health-wellness}}
+
+<section class="section section--alt demo-sec" id="studio-week">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">one week at the studio</span><h2>Odoo for wellness studios: classes, memberships and recurring revenue.</h2><p class="lead">A sample studio week, set up the way TechNext runs Odoo Appointments, Subscriptions and Point of Sale for studios, spas and gyms. Book classes for a sample client, join a waitlist when a class is full, add a 1:1 session paid up front or a retail sale at the front desk, and watch it all land on one client record. Memberships renew, upgrade and churn as the week runs, and the monthly recurring revenue chart shows what a new members campaign would change.</p></div>
+    <div class="dm dm-studio reveal" data-demo="studio">
+      <div class="dm-head">
+        <div class="dm-title"><b>Studio week · 12 to 18 Oct 2026</b><small>Sample studio · booking as Jamie Lim, Unlimited monthly</small></div>
+        <div class="dm-seg" role="group" aria-label="Show classes"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="yoga" aria-pressed="false"><i class="dm-sw" style="--c:#7447D6"></i>Yoga</button><button type="button" data-f="pil" aria-pressed="false"><i class="dm-sw" style="--c:#0E9384"></i>Pilates</button><button type="button" data-f="hiit" aria-pressed="false"><i class="dm-sw" style="--c:#D2433B"></i>HIIT</button><button type="button" data-f="spin" aria-pressed="false"><i class="dm-sw" style="--c:#D97B12"></i>Spin</button></div>
+        <button class="dm-btn" type="button" data-camp aria-pressed="false">{{icon:megaphone}}New members campaign</button>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="wsd-body">
+        <div class="wsd-top">
+          <div class="wsd-ttw">
+            <p class="wsd-cap">{{odoo:appointment:16}}Class timetable<small>Press a class to book, cancel or join its waitlist</small></p>
+            <div class="wsd-scroll"><div class="wsd-tt" role="group" aria-label="Weekly class timetable"></div></div>
+          </div>
+          <aside class="wsd-rec" aria-label="Client record for Jamie Lim, sample client">
+            <div class="wsd-who"><span class="wsd-av">JL</span><div><b>Jamie Lim</b><small>Unlimited monthly · S$ 199 · renewed 12 Oct</small></div></div>
+            <p class="wsd-cap">Classes this week</p>
+            <ul class="wsd-bk"></ul>
+            <p class="wsd-cap">{{odoo:appointment:16}}1:1 sessions<small>paid when booked</small></p>
+            <div class="wsd-ap" role="group" aria-label="1:1 appointment slots"></div>
+            <p class="wsd-cap">{{odoo:point_of_sale:16}}Front desk retail</p>
+            <div class="wsd-pos" role="group" aria-label="Retail products at the front desk"></div>
+            <p class="wsd-cap">On Jamie's record<small data-k="spent">S$ 0.00</small></p>
+            <ul class="wsd-docs"></ul>
+          </aside>
+        </div>
+        <div class="wsd-bot">
+          <div class="wsd-chart">
+            <p class="wsd-cap">{{odoo:sale_subscription:16}}Monthly recurring revenue<small>new, upgrades and churn by month</small></p>
+            <svg class="wsd-mrr" role="img" aria-label="Monthly recurring revenue for the last twelve months and three months ahead, with new, upgrade and churn amounts"></svg>
+            <ul class="dm-legend wsd-lg"><li><i class="dm-sw" style="--c:#137A4A"></i>new</li><li><i class="dm-sw" style="--c:#3167CA"></i>upgrades</li><li><i class="dm-sw" style="--c:#D2433B"></i>churn</li><li><i class="wsd-lgl"></i>MRR</li><li><i class="wsd-lgf"></i>next three months, scenario</li></ul>
+          </div>
+          <div class="wsd-subs">
+            <dl class="dm-kpis wsd-kpis">
+              <div><dt>Active members</dt><dd data-k="mem">312</dd></div>
+              <div><dt>MRR</dt><dd data-k="mrr">S$ 53.3k</dd></div>
+              <div><dt>Renewals in Oct</dt><dd data-k="ren">94</dd></div>
+              <div><dt>Churn in Oct</dt><dd data-k="churn">2.2%</dd></div>
+            </dl>
+            <p class="wsd-cap">Subscriptions and bookings</p>
+            <ol class="dm-log wsd-log"></ol>
+          </div>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Timetable:</b> a week of yoga, Pilates, HIIT and spin classes, each with a capacity; a full class takes a waitlist, and a cancellation moves the next client up.</p>
+        <p><b>Client record:</b> the sample client's class bookings, 1:1 sessions paid when booked, front-desk retail sales and membership invoices, all on one record.</p>
+        <p><b>Memberships:</b> subscriptions renew and bill a saved card, upgrade or close with a reason; monthly recurring revenue is broken down into new, upgrades and churn, with a new members campaign as a scenario for the next three months.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample studio, prices and figures; the campaign months are a scenario, not a forecast. Class capacity is standard in Odoo Appointments; a waitlist like this one is a small customisation we scope with you.</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
