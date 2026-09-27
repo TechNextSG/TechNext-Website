@@ -246,7 +246,7 @@ TN.demo('studio', function (root, K) {
     buildGrid(); buildSide(); paintRec(); paintK(); drawMRR();
   }
   K.$('[data-reset]', root).addEventListener('click', function () { reset(); });
-  function size() { var w = chart.parentNode.clientWidth; if (w) cW = Math.max(300, Math.round(w)); }
+  function size() { var w = chart.getBoundingClientRect().width; if (w) cW = Math.round(w); }   // the svg's own width, 1:1
   var rz = 0;
   window.addEventListener('resize', function () { if (rz) return; rz = requestAnimationFrame(function () { rz = 0; size(); drawMRR(); }); });
   size(); reset();

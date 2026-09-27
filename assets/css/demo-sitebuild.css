@@ -173,7 +173,7 @@
 .sbd-st.is-bad small{color:var(--red)}
 .sbd-st.is-bad .sbd-dot{border-color:#F0A39C}
 .is-noform [data-st="1"] .sbd-dot{border-style:dashed;border-color:var(--red);color:var(--red)}
-.sbd-ring{position:absolute;left:-5px;top:-5px;width:48px;height:48px;transform:rotate(-90deg);pointer-events:none}
+.sbd-ring{position:absolute;left:50%;top:50%;width:48px;height:48px;max-width:none;margin:-24px 0 0 -24px;transform:rotate(-90deg);pointer-events:none}
 .sbd-ring circle{fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:113.1}
 .sbd-q{position:absolute;top:-7px;right:-10px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:var(--tok-buy);color:#fff;font:700 10px/18px var(--font-body);font-style:normal;text-align:center;box-shadow:0 0 0 2px #fff}
 .sbd-q:empty{display:none}

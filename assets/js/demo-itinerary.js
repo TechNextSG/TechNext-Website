@@ -361,7 +361,7 @@ TN.demo('itinerary', function (root, K) {
   });
   function size() {
     plotH = WF.cost.stk.offsetHeight || plotH;
-    var w = cash.parentNode.clientWidth; if (w) cashW = Math.max(240, Math.round(w));
+    var w = cash.getBoundingClientRect().width; if (w) cashW = Math.round(w);   // the svg's own width, so the drawing is 1:1
   }
   var rz = 0;
   window.addEventListener('resize', function () { if (rz) return; rz = requestAnimationFrame(function () { rz = 0; size(); update(); }); });
