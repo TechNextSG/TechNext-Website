@@ -32,6 +32,28 @@
     if (usersOut) usersOut.value = usersRange.value + (usersRange.value === usersRange.max ? '+' : '');
     if (out.count) out.count.textContent = apps.length + ' app' + (apps.length === 1 ? '' : 's');
   }
+  // Pre-select apps handed over from the homepage builder: ?apps=accountant,sale&more=sign,planning.
+  // Only known module keys are honoured; anything else in the URL is ignored.
+  (function prefill() {
+    var q;
+    try { q = new URLSearchParams(window.location.search); } catch (e) { return; }
+    var boxes = $$('input[name="apps"][data-mod]'), known = {};
+    boxes.forEach(function (b) { known[b.getAttribute('data-mod')] = b; });
+    var picks = (q.get('apps') || '').split(',').filter(function (m) { return Object.prototype.hasOwnProperty.call(known, m); });
+    if (picks.length) {
+      boxes.forEach(function (b) { b.checked = false; });
+      picks.forEach(function (m) { known[m].checked = true; });
+    }
+    var MORE = { mass_mailing: 'Email Marketing', documents: 'Documents', sign: 'Sign', planning: 'Planning', ai_app: 'AI' };
+    var extra = (q.get('more') || '').split(',').filter(function (m) { return Object.prototype.hasOwnProperty.call(MORE, m); })
+      .map(function (m) { return MORE[m]; });
+    if (extra.length) {
+      var other = $('input[name="apps"][value="Other / not sure"]');
+      if (other) other.checked = true;
+      var msg = document.getElementById('q-msg');
+      if (msg && !msg.value) msg.value = 'Also interested in: ' + extra.join(', ') + '.';
+    }
+  })();
   form.addEventListener('change', update);
   usersRange.addEventListener('input', update);
   update();

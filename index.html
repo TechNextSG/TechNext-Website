@@ -51,8 +51,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v=c726268f">
-<link rel="stylesheet" href="assets/css/stage.css?v=c726268f">
+<link rel="stylesheet" href="assets/css/site.css?v=8e718b70">
+<link rel="stylesheet" href="assets/css/stage.css?v=8e718b70">
 <style>#intro{display:none}html.intro #intro{display:grid}</style>
 <script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>
 
@@ -457,47 +457,62 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
-<!-- ============================================================ APPS PREVIEW -->
-<section class="section" id="apps">
+<!-- ============================================================ APPS: build your Odoo -->
+<section class="section section--suite" id="apps">
   <div class="container">
-    <div class="two two--top">
-      <div class="reveal">
+    <div class="two two--top su-wrap">
+      <div class="su-copy reveal">
         <span class="hand">the full suite</span>
         <h2>Every Odoo app, one database.</h2>
         <p class="lead">Start with the three that matter most, then add apps without another integration project — they already share customers, products and accounts.</p>
-        <div class="const-legend" aria-hidden="true">
-          <span><i style="background:var(--blue)"></i>Focus apps — where we start</span>
-          <span><i style="background:var(--blue-100)"></i>Added when you need them</span>
+        <div class="su-presets" role="group" aria-label="Load a typical setup">
+          <span class="su-label">Try a setup</span>
+          <button type="button" data-preset="core" aria-pressed="true">The three we start with</button>
+          <button type="button" data-preset="retail" aria-pressed="false">Retail</button>
+          <button type="button" data-preset="mfg" aria-pressed="false">Manufacturing</button>
+          <button type="button" data-preset="services" aria-pressed="false">Services</button>
+          <button type="button" data-preset="all" aria-pressed="false">Everything</button>
         </div>
-        <div class="actions"><a class="btn btn-primary" href="odoo/apps">Browse all apps <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+        <p class="su-readout"><b data-n="apps">3</b> apps <span class="su-dot">·</span> <b data-n="links">2</b> connections built in <span class="su-dot">·</span> <b class="su-zero">0</b> integrations to build</p>
+        <div class="actions">
+          <a class="btn btn-primary" data-quote href="quotation?apps=accountant,sale,stock"><span data-cta>Get a quotation for these 3 apps</span> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a class="btn btn-ghost" href="odoo/apps">Browse all apps</a>
+        </div>
       </div>
-      <div class="const reveal" data-const aria-label="Odoo apps sharing one database">
-        <svg class="const-lines" aria-hidden="true"></svg>
-        <div class="const-core">
-          <span class="const-pulse"></span>
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c0-1.66 4-3 9-3s9 1.34 9 3v14c0 1.66-4 3-9 3s-9-1.34-9-3z" fill="currentColor" fill-opacity=".2" stroke="none"/><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
-          <b>One database</b>
-          <small>customers · products · accounts</small>
+      <div class="su-stage reveal">
+        <p class="su-hint" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8H6v4a6 6 0 0 0 12 0z" fill="currentColor" fill-opacity=".2" stroke="none"/><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8H6v4a6 6 0 0 0 12 0V8z"/></svg>Tap an app to plug it in</p>
+        <div class="su-field" data-suite role="group" aria-label="Odoo apps. Press an app to plug it into, or out of, the one database. Arrow keys move between apps.">
+          <svg class="su-svg" aria-hidden="true" focusable="false"><g class="su-rings"></g><g class="su-links"></g><g class="su-spokes"></g></svg>
+          <div class="su-core" aria-hidden="true">
+            <span class="su-halo"></span>
+            <div class="su-core-top"><span class="su-core-def"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c0-1.66 4-3 9-3s9 1.34 9 3v14c0 1.66-4 3-9 3s-9-1.34-9-3z" fill="currentColor" fill-opacity=".2" stroke="none"/><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg><b>One database</b></span><span class="su-core-app"><span class="su-core-ic"></span><b></b></span></div>
+            <div class="su-recs"><span data-rec="c" class="is-lit">Customers</span><span data-rec="p" class="is-lit">Products</span><span data-rec="a" class="is-lit">Accounts</span></div>
+          </div>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Accounting" tabindex="0" data-mod="accountant" data-r="1" style="--a:-90deg;--o:0"><img class="oi" src="assets/img/odoo/accountant.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Accounting</span></button>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Sales" tabindex="-1" data-mod="sale" data-r="1" style="--a:30deg;--o:1"><img class="oi" src="assets/img/odoo/sale.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Sales</span></button>
+          <button class="su-app is-on" type="button" aria-pressed="true" aria-label="Inventory" tabindex="-1" data-mod="stock" data-r="1" style="--a:150deg;--o:2"><img class="oi" src="assets/img/odoo/stock.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Inventory</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="CRM" tabindex="-1" data-mod="crm" data-r="2" style="--a:-45deg;--am:-54deg;--o:3"><img class="oi" src="assets/img/odoo/crm.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">CRM</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Purchase" tabindex="-1" data-mod="purchase" data-r="2" style="--a:6.4deg;--am:-6deg;--o:4"><img class="oi" src="assets/img/odoo/purchase.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Purchase</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Point of Sale — Shop" tabindex="-1" data-mod="point_of_sale" data-r="2" style="--a:57.9deg;--am:42deg;--o:5"><img class="oi" src="assets/img/odoo/point_of_sale.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Point of Sale — Shop</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="eCommerce" tabindex="-1" data-mod="website_sale" data-r="2" style="--a:109.3deg;--am:90deg;--o:6"><img class="oi" src="assets/img/odoo/website_sale.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">eCommerce</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Manufacturing" tabindex="-1" data-mod="mrp" data-r="2" style="--a:160.7deg;--am:162deg;--o:7"><img class="oi" src="assets/img/odoo/mrp.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Manufacturing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Project" tabindex="-1" data-mod="project" data-r="2" style="--a:212.1deg;--am:210deg;--o:8"><img class="oi" src="assets/img/odoo/project.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Project</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Invoicing" tabindex="-1" data-mod="account" data-r="2" style="--a:263.6deg;--am:258deg;--o:9"><img class="oi" src="assets/img/odoo/account.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Invoicing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="AI" tabindex="-1" data-mod="ai_app" data-r="3" style="--a:-65deg;--am:-78deg;--o:10"><img class="oi" src="assets/img/odoo/ai_app.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">AI</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Employees" tabindex="-1" data-mod="hr" data-r="3" style="--a:-20deg;--am:-30deg;--o:11"><img class="oi" src="assets/img/odoo/hr.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Employees</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Helpdesk" tabindex="-1" data-mod="helpdesk" data-r="3" style="--a:25deg;--am:18deg;--o:12"><img class="oi" src="assets/img/odoo/helpdesk.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Helpdesk</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Email Marketing" tabindex="-1" data-mod="mass_mailing" data-r="3" style="--a:70deg;--am:66deg;--o:13"><img class="oi" src="assets/img/odoo/mass_mailing.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Email Marketing</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Documents" tabindex="-1" data-mod="documents" data-r="3" style="--a:121deg;--am:114deg;--o:14"><img class="oi" src="assets/img/odoo/documents.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Documents</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Sign" tabindex="-1" data-mod="sign" data-r="3" style="--a:160deg;--am:138deg;--o:15"><img class="oi" src="assets/img/odoo/sign.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Sign</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Planning" tabindex="-1" data-mod="planning" data-r="3" style="--a:205deg;--am:186deg;--o:16"><img class="oi" src="assets/img/odoo/planning.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Planning</span></button>
+          <button class="su-app" type="button" aria-pressed="false" aria-label="Website" tabindex="-1" data-mod="website" data-r="3" style="--a:250deg;--am:234deg;--o:17"><img class="oi" src="assets/img/odoo/website.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span class="su-name" aria-hidden="true">Website</span></button>
         </div>
-        <a class="const-node is-focus" href="odoo/apps/accountant" style="--a:-90deg;--r:1" data-name="Accounting"><img class="oi" src="assets/img/odoo/accountant.svg" alt="" width="30" height="30" loading="lazy" decoding="async"></a>
-        <a class="const-node is-focus" href="odoo/apps/sale" style="--a:30deg;--r:1" data-name="Sales"><img class="oi" src="assets/img/odoo/sale.svg" alt="" width="30" height="30" loading="lazy" decoding="async"></a>
-        <a class="const-node is-focus" href="odoo/apps/stock" style="--a:150deg;--r:1" data-name="Inventory"><img class="oi" src="assets/img/odoo/stock.svg" alt="" width="30" height="30" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/crm" style="--a:-45deg;--r:2" data-name="CRM"><img class="oi" src="assets/img/odoo/crm.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/purchase" style="--a:0deg;--r:2" data-name="Purchase"><img class="oi" src="assets/img/odoo/purchase.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/account" style="--a:-135deg;--r:2" data-name="Invoicing"><img class="oi" src="assets/img/odoo/account.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/point_of_sale" style="--a:60deg;--r:2" data-name="Point of Sale"><img class="oi" src="assets/img/odoo/point_of_sale.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/website_sale" style="--a:105deg;--r:2" data-name="eCommerce"><img class="oi" src="assets/img/odoo/website_sale.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/mrp" style="--a:180deg;--r:2" data-name="Manufacturing"><img class="oi" src="assets/img/odoo/mrp.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/project" style="--a:225deg;--r:2" data-name="Project"><img class="oi" src="assets/img/odoo/project.svg" alt="" width="26" height="26" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/hr" style="--a:-20deg;--r:3" data-name="Employees"><img class="oi" src="assets/img/odoo/hr.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/helpdesk" style="--a:25deg;--r:3" data-name="Helpdesk"><img class="oi" src="assets/img/odoo/helpdesk.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/mass_mailing" style="--a:80deg;--r:3" data-name="Email Marketing"><img class="oi" src="assets/img/odoo/mass_mailing.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/documents" style="--a:130deg;--r:3" data-name="Documents"><img class="oi" src="assets/img/odoo/documents.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/sign" style="--a:165deg;--r:3" data-name="Sign"><img class="oi" src="assets/img/odoo/sign.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/planning" style="--a:205deg;--r:3" data-name="Planning"><img class="oi" src="assets/img/odoo/planning.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/knowledge" style="--a:250deg;--r:3" data-name="Knowledge"><img class="oi" src="assets/img/odoo/knowledge.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <a class="const-node" href="odoo/apps/ai_app" style="--a:-65deg;--r:3" data-name="AI"><img class="oi" src="assets/img/odoo/ai_app.svg" alt="" width="24" height="24" loading="lazy" decoding="async"></a>
-        <span class="const-count">50+ apps</span>
+        <div class="su-detail">
+          <span class="su-detail-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c0-1.66 4-3 9-3s9 1.34 9 3v14c0 1.66-4 3-9 3s-9-1.34-9-3z" fill="currentColor" fill-opacity=".2" stroke="none"/><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg></span>
+          <p class="su-detail-t"><b>Accounting, Sales and Inventory</b> are where most companies start: quote, deliver and invoice on one set of records.</p>
+          <a class="btn-link su-detail-a" href="solutions/odoo-erp"><span>How we implement Odoo ERP</span> <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+        <p class="sr-only" aria-live="polite" data-say></p>
       </div>
     </div>
   </div>
@@ -605,10 +620,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </form>
 </section>
 
-<script src="assets/js/site.js?v=c726268f" defer></script>
-<script src="assets/js/chat.js?v=c726268f" defer></script>
-<script src="assets/js/consent.js?v=c726268f" defer></script>
-<script src="assets/js/stage.js?v=c726268f" defer></script>
-<script src="assets/js/hero.js?v=c726268f" defer></script><script src="assets/js/showcase.js?v=c726268f" defer></script>
+<script src="assets/js/site.js?v=8e718b70" defer></script>
+<script src="assets/js/chat.js?v=8e718b70" defer></script>
+<script src="assets/js/consent.js?v=8e718b70" defer></script>
+<script src="assets/js/stage.js?v=8e718b70" defer></script>
+<script src="assets/js/hero.js?v=8e718b70" defer></script><script src="assets/js/showcase.js?v=8e718b70" defer></script><script src="assets/js/suite.js?v=8e718b70" defer></script>
 </body>
 </html>

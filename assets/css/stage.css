@@ -945,6 +945,153 @@ input,textarea{caret-color:var(--blue)}
 .nf-chip{right:6%;bottom:4%;animation:stRise .7s var(--ease-expo) both .8s}
 
 /* ==========================================================================
+   Home — "Every Odoo app, one database": a system you build
+   Every app sits on the rings; press one to plug it into the one database.
+   Spokes carry a pulse from the core, lines join apps that already work
+   together, the core lights the shared records each app uses.
+   ========================================================================== */
+.su-wrap{align-items:center}
+.su-presets{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:24px 0 0}
+.su-label{flex-basis:100%;margin-bottom:2px;font:600 12.5px/1.2 var(--font-body);color:var(--muted)}
+.su-presets button{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font:600 13px/1 var(--font-body);color:var(--body);cursor:pointer;transition:border-color .2s ease,color .2s ease,background-color .2s ease,translate .25s var(--spring)}
+.su-presets button:hover{border-color:var(--blue-300);color:var(--ink);translate:0 -1px}
+.su-presets button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.su-presets button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.su-readout{margin:18px 0 0;font:500 14.5px/1.7 var(--font-body);color:var(--body)}
+.su-readout b{display:inline-block;min-width:.7em;font:800 16px/1 var(--font-display);color:var(--ink);font-variant-numeric:tabular-nums;text-align:center}
+.su-readout b.is-tick{animation:suTick .55s var(--spring)}
+.su-readout .su-zero{color:var(--ok)}
+.su-readout .su-zero.is-tick{animation:suZero .9s var(--ease-expo)}
+.su-dot{margin:0 3px;color:var(--muted)}
+.su-copy .actions{margin-top:22px}
+@keyframes suTick{0%{scale:1}35%{scale:1.35;color:var(--blue)}100%{scale:1}}
+@keyframes suZero{0%,100%{scale:1}30%{scale:1.3;text-shadow:0 0 12px rgba(19,122,74,.35)}}
+
+/* hint above the field, gone after the first interaction */
+.su-hint{display:flex;justify-content:center;align-items:center;gap:7px;width:max-content;margin:0 auto 6px;padding:7px 13px;border-radius:999px;background:var(--ink);color:#fff;font:600 12px/1 var(--font-body);box-shadow:0 14px 28px -16px rgba(31,31,61,.6);animation:suHint 2.8s ease-in-out infinite;transition:opacity .4s ease,visibility 0s linear .4s}
+.su-hint .ic{width:14px;height:14px}
+.is-used .su-hint{opacity:0;visibility:hidden}
+@keyframes suHint{50%{translate:0 -3px}}
+
+/* the field */
+.su-field{position:relative;width:100%;max-width:540px;aspect-ratio:1;margin:0 auto;container-type:inline-size}
+.su-field::before{content:"";position:absolute;inset:5%;border-radius:50%;background:radial-gradient(circle,var(--blue-050) 0%,rgba(234,240,251,.45) 46%,transparent 70%);pointer-events:none}
+.su-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.su-ring{fill:none;stroke:#D6E0F2;stroke-width:1.2;stroke-dasharray:2 7;stroke-linecap:round}
+.su-spoke,.su-link{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .75s var(--ease-expo),stroke .25s ease,stroke-width .25s ease,opacity .3s ease;transition-delay:calc(var(--i,0) * 55ms)}
+.su-field.is-settled .su-spoke,.su-field.is-settled .su-link{transition-delay:0s}
+.su-spoke{stroke:var(--blue-300);stroke-width:2}
+.su-link{stroke:#C4D3EE;stroke-width:1.5}
+.su-spoke.is-on,.su-link.is-on{stroke-dashoffset:0}
+.su-spoke.is-ghost,.su-link.is-ghost{stroke-dashoffset:0;opacity:.45}
+.su-spoke.is-hot{stroke:var(--blue);stroke-width:2.6}
+.su-link.is-hot{stroke:var(--blue-300);stroke-width:2.2}
+.su-pulse{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-dasharray:.06 .94;stroke-dashoffset:1;opacity:0;transition:opacity .3s ease}
+.su-pulse.link{stroke:var(--blue-300);stroke-width:2.6}
+.su-pulse.is-on{opacity:1;animation:suPulse 3.2s linear infinite;animation-delay:var(--dl,0s)}
+.su-pulse.link.is-on{animation-duration:1.8s}
+.su-field.is-peek .su-spoke:not(.is-hot),.su-field.is-peek .su-link:not(.is-hot){opacity:.35}
+@keyframes suPulse{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+
+/* the core: one database, and the shared records each app uses */
+.su-core{position:absolute;left:50%;top:50%;width:28cqw;height:28cqw;min-width:104px;min-height:104px;max-width:156px;max-height:156px;translate:-50% -50%;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 24px 48px -26px rgba(31,31,61,.42),inset 0 0 0 5px var(--blue-050);display:grid;place-content:center;justify-items:center;gap:7px;text-align:center;z-index:3}
+.su-halo{position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--blue-100);animation:suBreathe 4.5s ease-in-out infinite;pointer-events:none}
+.su-core-top{display:grid}
+.su-core-top>span{grid-area:1 / 1;display:grid;justify-items:center;gap:3px;transition:opacity .25s ease,scale .4s var(--ease-expo)}
+.su-core-def .ic{width:24px;height:24px;color:var(--blue)}
+.su-core-top b{max-width:12ch;font:700 13px/1.2 var(--font-display);color:var(--ink)}
+.su-core-app{opacity:0;scale:.9}
+.su-core-ic img{display:block;width:26px;height:26px}
+.su-field.is-peek .su-core-app{opacity:1;scale:1}
+.su-field.is-peek .su-core-def{opacity:0;scale:.9}
+.su-recs{display:grid;gap:3px;justify-items:center}
+.su-recs span{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:999px;background:var(--alt);font:600 10px/1.45 var(--font-body);color:var(--muted);transition:background-color .25s ease,color .25s ease}
+.su-recs span::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.75}
+.su-recs span.is-lit{background:var(--blue-050);color:var(--blue-700)}
+.su-recs span.is-flash{animation:suRec .9s var(--ease-expo)}
+@keyframes suRec{30%{background:var(--blue);color:#fff}}
+@keyframes suBreathe{50%{scale:1.05;opacity:.6}}
+
+/* apps: ghosts until plugged in */
+.su-app{--s:50px;--rad:36.5cqw;--ang:var(--a);position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);margin:calc(var(--s) / -2);display:grid;place-items:center;padding:0;border-radius:15px;border:1.5px dashed #C4D3EE;background:rgba(255,255,255,.78);color:inherit;font:inherit;cursor:pointer;transform:rotate(var(--ang)) translate(var(--rad)) rotate(calc(-1 * var(--ang)));transition:border-color .25s ease,background-color .25s ease,box-shadow .3s ease,opacity .3s ease,scale .35s var(--spring);z-index:1;-webkit-tap-highlight-color:transparent}
+.su-app[data-r="1"]{--s:60px;--rad:23cqw;border-radius:17px}
+.su-app[data-r="3"]{--s:44px;--rad:47.5cqw;border-radius:13px}
+.su-app .oi{width:56%;height:56%;filter:grayscale(1);opacity:.45;transition:filter .3s ease,opacity .3s ease}
+.su-app:hover,.su-app:focus-visible,.su-app.is-hot{border-color:var(--blue-300);background:#fff;scale:1.07;z-index:2}
+.su-app:hover .oi,.su-app:focus-visible .oi,.su-app.is-hot .oi{filter:none;opacity:.95}
+.su-app:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.su-app.is-on{border:1.5px solid var(--blue-300);background:#fff;box-shadow:0 0 0 4px var(--blue-050),0 14px 26px -16px rgba(31,31,61,.5)}
+.su-app.is-on .oi{filter:none;opacity:1}
+.su-field.is-peek .su-app:not(.is-hot):not(.is-on){opacity:.55}
+/* badge: + to plug in, a tick when in, a minus on hover to take it out */
+.su-app::before{content:"+";position:absolute;right:-6px;top:-6px;width:19px;height:19px;border-radius:50%;background:var(--blue);color:#fff;font:700 14px/19px var(--font-body);text-align:center;box-shadow:0 0 0 2px #fff;opacity:0;scale:.5;transition:opacity .2s ease,scale .3s var(--spring),background-color .2s ease}
+.su-app:hover::before,.su-app:focus-visible::before{opacity:1;scale:1}
+.su-app.is-on::before{content:"";background:var(--ok);opacity:1;scale:1}
+.su-app.is-on::after{content:"";position:absolute;right:1.5px;top:-2px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;rotate:45deg;pointer-events:none;transition:opacity .15s ease}
+.su-app.is-on:hover::before,.su-app.is-on:focus-visible::before{content:"\2212";background:var(--ink)}
+.su-app.is-on:hover::after,.su-app.is-on:focus-visible::after{opacity:0}
+/* names: below the app; the inner ring puts them radially outside so they never cover the core */
+.su-name{position:absolute;left:50%;top:calc(100% + 7px);translate:-50% 0;padding:4px 9px;border-radius:7px;background:var(--ink);color:#fff;font:600 11.5px/1.2 var(--font-body);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s ease;z-index:4}
+.su-app[data-r="1"] .su-name{top:50%;translate:-50% calc(var(--s) / 2 + 8px);translate:calc(-50% + cos(var(--ang)) * (var(--s) / 2 + 42px)) calc(-50% + sin(var(--ang)) * (var(--s) / 2 + 16px))}
+.su-app:hover .su-name,.su-app:focus-visible .su-name,.su-app.is-hot .su-name{opacity:1}
+/* plug / unplug feedback */
+.su-app.is-new{animation:suPlug .7s var(--spring),suRipple .9s ease-out}
+.su-app.is-out{animation:suUnplug .45s ease}
+@keyframes suPlug{0%{scale:.7}55%{scale:1.14}100%{scale:1}}
+@keyframes suRipple{from{outline:2px solid var(--blue-300);outline-offset:0}to{outline:2px solid transparent;outline-offset:16px}}
+@keyframes suUnplug{40%{scale:.86}}
+
+/* the detail card under the field */
+.su-detail{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;row-gap:4px;align-items:center;max-width:540px;min-height:84px;margin:16px auto 0;padding:14px 18px 14px 14px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 36px -26px rgba(31,31,61,.35)}
+.su-detail-ic{grid-row:1 / span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--blue-050);color:var(--blue)}
+.su-detail-ic .ic{width:22px;height:22px}
+.su-detail-ic img{display:block;width:28px;height:28px}
+.su-detail-t{margin:0;font:500 14px/1.5 var(--font-body);color:var(--body)}
+.su-detail-t b{color:var(--ink);font-weight:700}
+.su-detail-a{justify-self:start;font-size:13.5px}
+.su-detail.is-swap{animation:suSwap .35s var(--ease-expo)}
+@keyframes suSwap{from{opacity:.35;translate:0 4px}}
+
+/* arrival: rings, core, then the apps pop in when the section comes into view */
+.su-stage.reveal.is-in .su-ring{animation:suFade 1s ease-out backwards}
+.su-stage.reveal.is-in .su-core{animation:suCoreIn .8s var(--ease-expo) backwards .1s}
+.su-stage.reveal.is-in .su-app{animation:suIn .7s var(--spring) backwards;animation-delay:calc(var(--o,0) * 32ms + 250ms)}
+.su-field.is-off .su-pulse,.su-field.is-off .su-halo,.section--suite.is-off .su-hint{animation-play-state:paused}
+@keyframes suFade{from{opacity:0}}
+@keyframes suCoreIn{from{opacity:0;scale:.8}}
+@keyframes suIn{from{opacity:0;scale:.4}}
+
+@media (max-width:960px){
+  .su-field{max-width:460px}
+  .su-app{--s:46px}
+  .su-app[data-r="1"]{--s:56px}
+  .su-app[data-r="3"]{--s:40px}
+}
+@media (max-width:640px){
+  /* phones: the three core apps inside, the other fifteen evenly on one outer ring */
+  .su-field{max-width:340px}
+  .su-app{--s:36px;border-radius:11px}
+  .su-app[data-r="1"]{--s:46px;--rad:26cqw;border-radius:14px}
+  .su-app[data-r="2"],.su-app[data-r="3"]{--s:36px;--rad:46cqw;--ang:var(--am);border-radius:11px}
+  .su-app::before{width:16px;height:16px;right:-5px;top:-5px;font-size:12px;line-height:16px}
+  .su-app.is-on::after{right:.5px;top:-1.5px;width:3.5px;height:7px}
+  .su-name{display:none}
+  .su-halo{inset:-8px}
+  .su-core{min-width:100px;min-height:100px}
+  .su-core-top b{font-size:11.5px}
+  .su-recs span{padding:1px 6px;font-size:9px}
+  .su-presets button{height:34px;padding:0 12px;font-size:12.5px}
+  .su-detail{padding:12px 14px 12px 12px}
+  .su-detail-t{font-size:13.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .su-hint,.su-halo,.su-pulse,.su-stage.reveal.is-in .su-ring,.su-stage.reveal.is-in .su-core,.su-stage.reveal.is-in .su-app,
+  .su-app.is-new,.su-app.is-out,.su-readout b.is-tick,.su-detail.is-swap,.su-recs span.is-flash{animation:none!important}
+  .su-spoke,.su-link,.su-app,.su-core-top>span{transition:none}
+  .su-pulse{display:none}
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width:1100px){
