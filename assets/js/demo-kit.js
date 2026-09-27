@@ -97,7 +97,9 @@
         t.textContent = '';
         (Array.isArray(lines) ? lines : [lines]).forEach(function (l, i) { if (l) t.appendChild(el(i ? 'span' : 'b', null, l)); });
         t.hidden = false; t.classList.toggle('dm-tip--below', !!below);
-        t.style.left = clamp(x, 110, host.offsetWidth - 110).toFixed(1) + 'px'; t.style.top = y.toFixed(1) + 'px';
+        // clamp by the tooltip's real width, so it never pokes out of a narrow panel
+        var hw = Math.min(t.offsetWidth, host.offsetWidth - 12) / 2 + 6;
+        t.style.left = clamp(x, hw, Math.max(hw, host.offsetWidth - hw)).toFixed(1) + 'px'; t.style.top = y.toFixed(1) + 'px';
       },
       hide: function () { t.hidden = true; }
     };
