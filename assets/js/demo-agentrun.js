@@ -1,7 +1,7 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* AI workflow automation page: an agent run for vendor-bill intake, drawn as a DAG. Bills arrive,
    are read by OCR (each field with a confidence score), pass four validation rules (PO match, amount
-   tolerance, duplicate, GST 9%), then branch: straight-through posting when the lowest field
+   tolerance, duplicate, GST 9%), then branch: a fast track to one-click batch approval when the lowest field
    confidence clears the threshold, otherwise a review queue and an approval; failed rules go to
    exceptions, duplicates are rejected. Posted bills are scheduled for payment. Bills move as tokens;
    the threshold slider changes the split live against a histogram of 240 sample bills. */
@@ -126,7 +126,7 @@ TN.demo('agentrun', function (root, K) {
     var s = split(), n = batch.length || 1, raw = [s.auto, s.rev, s.exc + s.rej].map(function (v) { return v / n * 100; });
     var pc = raw.map(Math.floor), left = 100 - pc.reduce(function (a, b) { return a + b; }, 0);
     raw.map(function (v, i) { return [v - pc[i], i]; }).sort(function (a, b) { return b[0] - a[0]; }).slice(0, left).forEach(function (q) { pc[q[1]]++; });
-    [['e5', 'auto-post ', pc[0]], ['e6', 'review ', pc[1]], ['e4', 'rule failed ', pc[2]]].forEach(function (q) {
+    [['e5', 'fast track ', pc[0]], ['e6', 'review ', pc[1]], ['e4', 'rule failed ', pc[2]]].forEach(function (q) {
       var p = paths[q[0]]; if (!p) return;
       var l = labs[q[0]]; if (!l) { l = labs[q[0]] = K.el('span', 'arn-el arn-el--' + q[0]); l.appendChild(K.el('b')); l.appendChild(document.createTextNode('')); dag.appendChild(l); }
       var m = at(p, q[0] === 'e5' ? .5 : q[0] === 'e6' ? .42 : .55); l.hidden = phone && q[0] !== 'e5';
@@ -185,7 +185,7 @@ TN.demo('agentrun', function (root, K) {
     else if (n === 'rules') { if (b.fail) go(b, 'e4', now); else { step(b, 'Rules 4/4'); go(b, 'e3', now); } }
     else if (n === 'gate') {
       b.route = b.conf >= T ? 'auto' : 'rev'; b.human = b.route === 'rev';
-      step(b, b.route === 'auto' ? 'Auto-post (≥ ' + T + '%)' : 'Below ' + T + '%'); go(b, b.route === 'auto' ? 'e5' : 'e6', now);
+      step(b, b.route === 'auto' ? 'Fast track (≥ ' + T + '%)' : 'Below ' + T + '%'); go(b, b.route === 'auto' ? 'e5' : 'e6', now);
       if (b === shown) verdict(b);
     }
     else if (n === 'exc') { if (b.human) { b.route = 'rev'; step(b, b.fail === 'po' ? 'Buyer confirmed the PO' : 'Buyer confirmed the change'); go(b, 'e7', now); } else go(b, 'e8', now); }
@@ -334,7 +334,7 @@ TN.demo('agentrun', function (root, K) {
     picks.forEach(function (b) {
       if (!b) return; b.row = row(b); step(b, 'Read ' + b.conf + '%');
       if (b.fail) { step(b, FAIL[b.fail], 'bad'); step(b, b.fail === 'dup' ? 'Rejected, not posted' : 'Buyer confirmed the PO', b.fail === 'dup' ? 'bad' : null); if (b.fail !== 'dup') { step(b, 'Approved'); step(b, 'Posted', 'ok'); } }
-      else if (b.conf >= T) { b.route = 'auto'; step(b, 'Rules 4/4'); step(b, 'Auto-post'); step(b, 'Posted', 'ok'); step(b, 'Payment ' + day(b.due), 'ok'); }
+      else if (b.conf >= T) { b.route = 'auto'; step(b, 'Rules 4/4'); step(b, 'Batch approved by Finance'); step(b, 'Posted', 'ok'); step(b, 'Payment ' + day(b.due), 'ok'); }
       else { b.route = 'rev'; step(b, 'Rules 4/4'); step(b, 'Review'); step(b, 'Approved'); step(b, 'Posted', 'ok'); }
       b.row.className = cls(b);
     });

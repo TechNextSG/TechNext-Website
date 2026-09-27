@@ -36,7 +36,7 @@
 
 <section class="section demo-sec" id="bill-agent">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">watch an agent run</span><h2>AI workflow automation for vendor bills, from inbox to payment run.</h2><p class="lead">A TechNext agent reads each bill, checks it against the purchase order and receipt in Odoo, and posts it or hands it to a person depending on how sure it is. Drag the confidence threshold and watch the split between straight-through and review change, switch the day, and click any bill in the trace to follow it.</p></div>
+    <div class="sec-head reveal"><span class="hand">watch an agent run</span><h2>AI workflow automation for vendor bills, from inbox to payment run.</h2><p class="lead">A TechNext agent reads each bill, checks it against the purchase order and receipt in Odoo, and routes it by how sure it is: sure bills go to a one-click batch approval, the rest to a person who checks the fields. Nothing posts or pays without a person. Drag the confidence threshold and watch the split between the fast track and review change, switch the day, and click any bill in the trace to follow it.</p></div>
     <div class="dm dm-agentrun reveal" data-demo="agentrun">
       <div class="dm-head">
         <div class="dm-title"><b>Agent run · vendor bill intake</b><small>Sample bills · SGD · GST 9%</small></div>
@@ -71,13 +71,13 @@
         </div>
         <div class="arn-card arn-hist">
           <p class="arn-ch">{{icon:bars}}<b>Confidence, 240 sample bills</b><small>lowest field on each bill</small></p>
-          <svg class="arn-hsvg" role="img" aria-label="Histogram of confidence scores with the auto-post threshold"></svg>
-          <div class="arn-th"><label for="arn-th">Auto-post threshold</label><input type="range" id="arn-th" min="70" max="99" step="1" value="90"><output for="arn-th" data-thv>90%</output></div>
-          <ul class="arn-split" aria-live="polite"><li data-s="auto"><i></i><b>0</b>post straight through</li><li data-s="rev"><i></i><b>0</b>go to review</li><li data-s="exc"><i></i><b>0</b>fail a rule</li></ul>
+          <svg class="arn-hsvg" role="img" aria-label="Histogram of confidence scores with the fast-track threshold"></svg>
+          <div class="arn-th"><label for="arn-th">Fast-track threshold</label><input type="range" id="arn-th" min="70" max="99" step="1" value="90"><output for="arn-th" data-thv>90%</output></div>
+          <ul class="arn-split" aria-live="polite"><li data-s="auto"><i></i><b>0</b>fast track, batch approval</li><li data-s="rev"><i></i><b>0</b>go to review</li><li data-s="exc"><i></i><b>0</b>fail a rule</li></ul>
         </div>
         <div class="arn-card arn-trace">
           <dl class="dm-kpis arn-kpis">
-            <div class="dm-ok"><dt>Auto-posted</dt><dd data-k="auto">0</dd></div>
+            <div class="dm-ok"><dt>Fast-tracked</dt><dd data-k="auto">0</dd></div>
             <div><dt>In review</dt><dd data-k="rev">0</dd></div>
             <div><dt>Exceptions</dt><dd data-k="exc">0</dd></div>
             <div><dt>Rejected</dt><dd data-k="rej">0</dd></div>
@@ -89,10 +89,10 @@
       <div class="dm-static">
         <p><b>Bills in:</b> the bills inbox, supplier uploads and scans. <b>Read the bill:</b> OCR extracts vendor, bill number, dates, PO reference, subtotal, GST and total, each with a confidence score.</p>
         <p><b>Validation rules:</b> PO match, amount within tolerance of the PO and receipt, duplicate check, GST 9% check. A failed rule sends the bill to exceptions, where the buyer confirms it or AP rejects it.</p>
-        <p><b>Confidence gate:</b> at or above the threshold the bill posts straight to Odoo Accounting; below it, an AP clerk reviews the fields and the budget owner approves. Posted bills are scheduled for payment by their terms, and Finance releases the payment batch.</p>
+        <p><b>Confidence gate:</b> at or above the threshold the bill joins a one-click batch approval, then posts to Odoo Accounting; below it, an AP clerk reviews the fields and the budget owner approves. Posted bills are scheduled for payment by their terms, and Finance releases the payment batch.</p>
       </div>
     </div>
-    <p class="dm-note">{{icon:check}} Sample data, sped up. Straight-through posting is a rule you switch on per vendor or amount after testing on your own bills; payments always wait for a person.</p>
+    <p class="dm-note">{{icon:check}} Sample data, sped up. The fast track still has a person in it: a one-click batch approval before anything posts, and Finance releases every payment batch.</p>
   </div>
 </section>
 
