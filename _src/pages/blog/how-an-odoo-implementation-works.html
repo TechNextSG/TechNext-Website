@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo implementation process, step by step", "desc": "How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.", "out": "blog/how-an-odoo-implementation-works.html", "nav": "company", "article": {"h1": "How an Odoo implementation works, step by step", "cat": "technext-odoo", "date": "2026-09-27", "order": 8, "lede": "What actually happens between signing and go-live, and what your team needs to bring. This is how TechNext runs Odoo projects, from the first process map to support after launch.", "card": "Discovery, staging, data migration, training, integration and support: what happens at each step, and what your team brings.", "cover": "icons:icon:search,icon:gear,icon:graduation,icon:plug,icon:lifebuoy"}} -->
+<!--meta {"title": "Odoo implementation process, step by step", "desc": "How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.", "out": "blog/how-an-odoo-implementation-works.html", "nav": "company", "article": {"h1": "How an Odoo implementation works, step by step", "cat": "technext-odoo", "date": "2026-09-27", "order": 8, "lede": "What actually happens between signing and go-live, and what your team needs to bring. This is how TechNext runs Odoo projects, from the first process map to support after launch.", "card": "Discovery, staging, data migration, training, integration and support: what happens at each step, and what your team brings.", "cover": "icons:icon:search,icon:gear,icon:graduation,icon:plug,icon:lifebuoy"}, "scripts": ["assets/js/demo-kit.js", "assets/js/demo-phases.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-phases.css?v={ASSET_V}\">"} -->
 
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
@@ -46,6 +46,39 @@
 
 <h2>Step 4: Support</h2>
 <p>After go-live, <a href="{{ROOT}}odoo/support.html">support</a> covers fixes, month-end help, small changes and version upgrades, through one tracked channel with a named team. This is also when phase two gets planned: the next apps to add, now that the core is running.</p>
+
+<figure class="phz-fig" aria-label="Interactive: the Odoo implementation, stage by stage">
+  <div class="dm dm-phases reveal" data-demo="phases">
+    <div class="dm-head">
+      <div class="dm-title"><b>From discovery to support</b><small>Seven stages, four named steps</small></div>
+      <button class="dm-btn" type="button" data-prev aria-label="Previous stage">{{icon:chevron}}</button>
+      <button class="dm-btn" type="button" data-next aria-label="Next stage">{{icon:chevron}}</button>
+      <button class="dm-btn dm-btn--primary" type="button" data-play>{{icon:play}}<span>Play</span></button>
+    </div>
+    <div class="phz-rail">
+      <div class="phz-stops" role="tablist" aria-label="Implementation stages"></div>
+      <div class="phz-lanes" aria-hidden="true">
+        <span class="phz-lane phz-lane--old"><b>Old system</b><em>read-only</em></span>
+        <span class="phz-lane phz-lane--stg"><b>Staging copy</b></span>
+        <span class="phz-lane phz-lane--live"><b>Live database</b></span>
+      </div>
+    </div>
+    <div class="phz-panel" role="tabpanel" aria-live="polite"></div>
+    <div class="phz-gate" role="group" aria-label="The go-live gate">
+      <span class="phz-lock" aria-hidden="true">{{icon:lock}}</span>
+      <span class="phz-gt"><b>Go-live gate</b><small data-gate-msg></small></span>
+      <button type="button" class="phz-chk" data-g="bal" aria-pressed="true"><i aria-hidden="true"></i>Balances reconcile</button>
+      <button type="button" class="phz-chk" data-g="trn" aria-pressed="true"><i aria-hidden="true"></i>Team practised on its own data</button>
+    </div>
+    <div class="phz-icons" hidden>{{icon:search}}{{icon:gear}}{{icon:database}}{{icon:graduation}}{{icon:plug}}{{icon:zap}}{{icon:lifebuoy}}</div>
+    <div class="dm-static">
+      <p>Discovery maps order-to-cash, procure-to-pay and record-to-report. Configuration and data migration happen on a staging copy, then role-based training on your own data, integration with banks, payments, stores and email, a planned go-live at a period boundary, and support through one tracked channel.</p>
+      <p>Nothing goes live until balances reconcile and the people who will use it have practised on their own data.</p>
+    </div>
+  </div>
+  <figcaption class="dm-note">{{icon:check}} Every stage, input and deliverable comes from this article; timelines are agreed in the written scope.</figcaption>
+</figure>
+
 
 <h2>What your team needs to bring</h2>
 <div class="table-wrap"><table>

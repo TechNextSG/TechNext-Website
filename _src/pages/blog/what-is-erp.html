@@ -1,4 +1,4 @@
-<!--meta {"title": "What is ERP? A plain-language guide for growing companies", "desc": "What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.", "out": "blog/what-is-erp.html", "nav": "company", "article": {"h1": "What is ERP? A plain-language guide for growing companies", "cat": "erp", "date": "2026-09-27", "order": 4, "lede": "ERP is the software a company runs on: one system, one set of records, for sales, stock, purchasing and money. This guide explains what that means in practice, without the jargon.", "card": "What ERP software does, how it differs from accounting software, and how to tell when your company needs one.", "cover": "icons:odoo:sale,odoo:stock,odoo:account,odoo:accountant"}} -->
+<!--meta {"title": "What is ERP? A plain-language guide for growing companies", "desc": "What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.", "out": "blog/what-is-erp.html", "nav": "company", "article": {"h1": "What is ERP? A plain-language guide for growing companies", "cat": "erp", "date": "2026-09-27", "order": 4, "lede": "ERP is the software a company runs on: one system, one set of records, for sales, stock, purchasing and money. This guide explains what that means in practice, without the jargon.", "card": "What ERP software does, how it differs from accounting software, and how to tell when your company needs one.", "cover": "icons:odoo:sale,odoo:stock,odoo:account,odoo:accountant"}, "scripts": ["assets/js/demo-kit.js", "assets/js/demo-erpweb.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-erpweb.css?v={ASSET_V}\">"} -->
 
 <div class="post-key">
   <p class="post-key-h">In one paragraph</p>
@@ -17,6 +17,52 @@
 </ol>
 <div class="post-flow" aria-hidden="true"><span>{{odoo:sale:30}}<b>Quotation</b></span><i></i><span>{{odoo:sale:30}}<b>Sales order</b></span><i></i><span>{{odoo:stock:30}}<b>Delivery</b></span><i></i><span>{{odoo:account:30}}<b>Invoice</b></span><i></i><span>{{odoo:accountant:30}}<b>Payment &amp; books</b></span></div>
 <p>Nobody re-keys anything, and anyone can see where the order is. That is the whole point of ERP.</p>
+
+<figure class="ew-fig" aria-label="Interactive: one order run on spreadsheets, then on one ERP database">
+  <div class="dm dm-erpweb reveal" data-demo="erpweb">
+    <div class="dm-head">
+      <div class="dm-title"><b>Spreadsheets vs one ERP database</b><small>One sample order, five teams</small></div>
+      <div class="dm-seg" role="group" aria-label="How the company runs">
+        <button type="button" data-mode="sheets" aria-pressed="true">{{icon:grid}}Spreadsheets</button>
+        <button type="button" data-mode="erp" aria-pressed="false">{{icon:database}}One ERP database</button>
+      </div>
+      <button class="dm-btn dm-btn--primary" type="button" data-run>{{icon:play}}Run an order</button>
+    </div>
+    <div class="ew-stage" data-mode="sheets">
+      <svg class="ew-wires" aria-hidden="true"><defs><marker id="ew-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1 9 5 0 9z"/></marker></defs><g class="ew-wg"></g></svg>
+      <button class="ew-short" type="button" data-short aria-pressed="false"><i aria-hidden="true"></i>Stock is short</button>
+      <div class="ew-void" aria-hidden="true"><b>No single record</b><small>Five files, five versions</small></div>
+      <div class="ew-hub" aria-hidden="true">
+        <span class="ew-db">{{icon:database}}</span>
+        <b>One database</b>
+        <span class="ew-recs"><em>Customers</em><em>Products</em><em>Accounts</em></span>
+      </div>
+      <div class="ew-nodes" role="group" aria-label="Teams: hover or focus one for details">
+        <button type="button" class="ew-node" data-d="sales"><span class="ew-ic"><i class="ew-sheet"></i>{{odoo:sale:26}}</span><span class="ew-tx"><b>Sales</b><small class="ew-sub"></small></span><em class="ew-n"></em><span class="ew-st"></span></button>
+        <button type="button" class="ew-node" data-d="wh"><span class="ew-ic"><i class="ew-sheet"></i>{{odoo:stock:26}}</span><span class="ew-tx"><b>Warehouse</b><small class="ew-sub"></small></span><em class="ew-n"></em><span class="ew-st"></span></button>
+        <button type="button" class="ew-node" data-d="buy"><span class="ew-ic"><i class="ew-sheet"></i>{{odoo:purchase:26}}</span><span class="ew-tx"><b>Purchasing</b><small class="ew-sub"></small></span><em class="ew-n"></em><span class="ew-st"></span></button>
+        <button type="button" class="ew-node" data-d="fin"><span class="ew-ic"><i class="ew-sheet"></i>{{odoo:accountant:26}}</span><span class="ew-tx"><b>Finance</b><small class="ew-sub"></small></span><em class="ew-n"></em><span class="ew-st"></span></button>
+        <button type="button" class="ew-node" data-d="hr"><span class="ew-ic"><i class="ew-sheet"></i>{{odoo:hr:26}}</span><span class="ew-tx"><b>HR</b><small class="ew-sub"></small></span><em class="ew-n"></em><span class="ew-st"></span></button>
+      </div>
+    </div>
+    <div class="ew-foot">
+      <dl class="dm-kpis ew-kpis">
+        <div><dt>Orders run</dt><dd data-k="orders">0</dd></div>
+        <div><dt>Times one order is typed</dt><dd data-k="typed">0</dd></div>
+        <div><dt>Re-typed entries</dt><dd data-k="re">0</dd></div>
+        <div><dt>Version conflicts</dt><dd data-k="conf">0</dd></div>
+        <div class="ew-where"><dt>Where is the order?</dt><dd data-k="where">Ask around</dd></div>
+      </dl>
+      <ol class="dm-log ew-log" aria-live="polite" aria-label="What just happened"></ol>
+    </div>
+    <div class="dm-static">
+      <p><b>Spreadsheets:</b> sales, the warehouse, purchasing, finance and HR each keep their own file or tool, so one order is typed again at every step and the copies drift apart.</p>
+      <p><b>One ERP database:</b> the order is entered once. It reserves stock (or triggers a purchase when stock is short), the delivery updates stock, the invoice and its entries post themselves, and the payment reconciles, all on the same record.</p>
+    </div>
+  </div>
+  <figcaption class="dm-note">{{icon:check}} Illustrative sample order and counts, to show where re-keying happens.</figcaption>
+</figure>
+
 
 <h2>What an ERP system usually covers</h2>
 <ul>

@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo customisation vs configuration: when to build", "desc": "When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.", "out": "blog/standard-first-odoo-customisation.html", "nav": "company", "article": {"h1": "Standard first: when to customise Odoo, and when not to", "cat": "technext-odoo", "date": "2026-09-27", "order": 1, "lede": "Every customisation is paid for twice: once when it is built, and again at every upgrade. This is how TechNext decides what to configure, what to build in Studio, and what deserves custom code.", "card": "Configuration, Studio or custom code: what each costs at upgrade time, and five questions to ask before building anything.", "cover": "icons:icon:gear,odoo:web_studio,icon:code"}} -->
+<!--meta {"title": "Odoo customisation vs configuration: when to build", "desc": "When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.", "out": "blog/standard-first-odoo-customisation.html", "nav": "company", "article": {"h1": "Standard first: when to customise Odoo, and when not to", "cat": "technext-odoo", "date": "2026-09-27", "order": 1, "lede": "Every customisation is paid for twice: once when it is built, and again at every upgrade. This is how TechNext decides what to configure, what to build in Studio, and what deserves custom code.", "card": "Configuration, Studio or custom code: what each costs at upgrade time, and five questions to ask before building anything.", "cover": "icons:icon:gear,odoo:web_studio,icon:code"}, "scripts": ["assets/js/demo-kit.js", "assets/js/demo-gate.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-gate.css?v={ASSET_V}\">"} -->
 
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
@@ -47,6 +47,31 @@
   <li>Who owns it: who will notice if it breaks, and who will fix it?</li>
 </ol>
 <p>If a request survives all five, it is worth building, and worth building properly: as a clean module in version control, tested on staging and documented, rather than as a quick patch.</p>
+
+<figure class="gt-fig" aria-label="Interactive: the five questions before approving a customisation">
+  <div class="dm dm-gate reveal" data-demo="gate">
+    <div class="dm-head">
+      <div class="dm-title"><b>Should we build it?</b><small>Five questions, three levels of change</small></div>
+      <div class="dm-seg" role="group" aria-label="Try a request from this article">
+        <button type="button" data-ex="0" aria-pressed="false">New screen</button>
+        <button type="button" data-ex="1" aria-pressed="false">Old screens</button>
+        <button type="button" data-ex="2" aria-pressed="false">Twice a year</button>
+        <button type="button" data-ex="3" aria-pressed="false">Bank link</button>
+      </div>
+      <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Start over</button>
+    </div>
+    <div class="gt-body">
+      <svg class="gt-svg" aria-hidden="true"></svg>
+      <div class="gt-grid" role="group" aria-label="Answer each question yes or no"></div>
+    </div>
+    <div class="gt-verdict" aria-live="polite"></div>
+    <div class="dm-static">
+      <p>Five questions before approving any customisation: does standard Odoo do it; could the process change instead; can Studio do it without code; what does it cost to maintain through the next three upgrades; and who owns it. Configuration costs least at upgrade, Studio needs checking after each upgrade, and custom modules must be ported and tested every version.</p>
+    </div>
+  </div>
+  <figcaption class="dm-note">{{icon:check}} The questions, levels and upgrade costs are this article's; the example requests are its own "when it isn't" cases and its integration case.</figcaption>
+</figure>
+
 
 <h2>How this plays out on a TechNext project</h2>
 <p>During <a href="{{ROOT}}odoo/discovery.html">discovery</a>, every gap between your process and standard Odoo is written down with a proposed answer: configuration, Studio, a process change or a custom module. You see the trade-off before anything is built. Custom modules are built on staging, kept in version control and included in upgrade testing, which is part of our <a href="{{ROOT}}odoo/support.html">support plans</a>. When a client asks for tailored modules and workflows, that work sits under our <a href="{{ROOT}}odoo/erp-system.html">ERP customisation</a> service, with the same rules.</p>
