@@ -236,11 +236,24 @@
       nxBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       nxBtn.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen');
     };
-    var nxExit = function () {
-      nxSet(false);
-      /* came in on /nexi#full: drop the hash so a reload shows the normal page */
-      if (location.hash === '#full' && history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+    /* Opened from another page of the site (Ask Nexi, Chat with me -> /nexi#full): leaving full screen goes back
+       to that page, where the visitor was. Opened on /nexi itself, leaving just shows the normal /nexi page. */
+    var nxFrom = '';
+    if (document.documentElement.classList.contains('nx-full-start')) {
+      try { var ref = new URL(document.referrer); if (ref.origin === location.origin && ref.pathname !== location.pathname) nxFrom = ref.href; } catch (e) { /* typed in or from another site */ }
+    }
+    var nxExit = function (back) {
       if (fsEl()) { try { var x = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (x && x.catch) x.catch(function () {}); } catch (e) { /* already out */ } }
+      if (back !== false && nxFrom) {
+        var to = nxFrom; nxFrom = '';
+        /* history.back() restores the page as it was (scroll position included); a new tab has no history */
+        if (history.length > 1) history.back(); else location.href = to;
+        return;
+      }
+      nxFrom = '';
+      nxSet(false);
+      /* drop #full so a reload shows the normal page */
+      if (location.hash === '#full' && history.replaceState) history.replaceState(null, '', location.pathname + location.search);
     };
     nxBtn.setAttribute('aria-label', 'Full screen');
     /* "Ask Nexi" and "Chat with me" link to /nexi#full: open straight into full-window mode */
@@ -256,11 +269,13 @@
     document.addEventListener('fullscreenchange', nxFs);
     document.addEventListener('webkitfullscreenchange', nxFs);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nxOn()) nxExit(); });
+    window.tnNexiFull = nxExit;
+    window.addEventListener('pageshow', function (e) { if (e.persisted && nxOn() && !nxFrom) { nxSet(false); if (location.hash === '#full' && history.replaceState) history.replaceState(null, '', location.pathname + location.search); } });
   }
   /* Nexi on /nexi runs in a same-origin frame and asks for the Let's Talk form from there */
   window.addEventListener('message', function (e) {
     if (e.origin !== location.origin || !e.data) return;
-    if (e.data.tn === 'nexi-talk') { if (document.body.classList.contains('nx-max') && nxBtn) nxBtn.click(); openTalk(); }
+    if (e.data.tn === 'nexi-talk') { if (document.body.classList.contains('nx-max') && window.tnNexiFull) window.tnNexiFull(false); openTalk(); }
     if (e.data.tn === 'nexi-esc' && document.body.classList.contains('nx-max') && nxBtn) nxBtn.click();
   });
   $$('[data-talk-open]').forEach(function (el) { el.addEventListener('click', function (e) { e.preventDefault(); openTalk(); }); });
