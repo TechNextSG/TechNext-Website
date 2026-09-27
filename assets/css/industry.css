@@ -3,11 +3,11 @@
    media, phases and integrations. Loaded only on /industries/* (see the page meta). */
 
 /* ---------- answer box ---------- */
-.ix-intro-sec{padding-top:40px;padding-bottom:8px}
-.ix-intro{position:relative;max-width:880px;padding:22px 26px 22px 30px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.ix-intro::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--blue)}
-.ix-intro-h{margin:0 0 8px;font:700 11.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--blue-700)}
-.ix-intro p:last-child{margin:0;font-size:1.06rem;line-height:1.65;color:var(--ink)}
+/* the one-paragraph answer: the same compact summary strip as the app pages (label chip + small text) */
+.ix-intro-sec{padding-top:14px;padding-bottom:0}
+.ix-intro{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:baseline;gap:6px 12px;max-width:940px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ix-intro-h{margin:0;padding:3px 8px;border-radius:999px;background:var(--blue-050);font:700 9.5px/1.3 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--blue-700);white-space:nowrap}
+.ix-intro p:last-child{margin:0;font-size:13.5px;line-height:1.55;color:var(--body)}
 
 /* ---------- workflow: six steps on a rail, one detail panel ---------- */
 .ix-flow{margin-top:8px}
@@ -161,8 +161,6 @@
   .ix-phases::before{left:38px;right:auto;top:24px;bottom:24px;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--blue-300) 0 8px,transparent 8px 14px)}
 }
 @media (max-width:640px){
-  .ix-intro{padding:18px 18px 18px 22px}
-  .ix-intro p:last-child{font-size:1rem}
   .ix-node{width:50px;height:50px;border-radius:15px}
   .ix-node .oi{width:26px;height:26px}
   .ix-panel{padding:20px}
@@ -184,3 +182,4 @@
   .ix-bar,.ix-bar i,.ix-rail i,.ix-node,.ix-ba.is-js .ix-face,.ix-ba.is-js .ix-row{transition:none!important}
   .ix-flow.is-js .ix-panel.is-on{animation:none}
 }
+@media (max-width:640px){.ix-intro{grid-template-columns:minmax(0,1fr);gap:6px}.ix-intro-h{justify-self:start}.ix-intro p:last-child{font-size:13px}}

@@ -191,10 +191,10 @@
   /* ================================================================ carousel */
   var slides = $$('.slide', hero), dots = $$('.dot', hero), live = $('[data-hero-live]', hero);
   var idx = Math.max(0, slides.findIndex(function (s) { return s.classList.contains('is-active'); }));
-  var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = !reduce && !mobile.matches;
-  // Random play: a random slide opens the page, and autoplay jumps to a random *different* slide each time.
-  // Arrows, dots and keys still step in order. Mobile keeps slide 1 (the others are hidden by CSS).
-  if (autoplay && slides.length > 1) {
+  var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = !reduce;
+  // Random play on desktop: a random slide opens the page, and autoplay jumps to a random *different* slide.
+  // Phones open on slide 1 (the headline) and then play in order. Arrows, dots, keys and swipes step in order.
+  if (autoplay && slides.length > 1 && !mobile.matches) {
     var r0 = Math.floor(Math.random() * slides.length);
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
   }
@@ -207,6 +207,7 @@
   }
   function nextIdx() {
     if (slides.length < 2) return idx;
+    if (mobile.matches) return (idx + 1) % slides.length;
     var n; do { n = Math.floor(Math.random() * slides.length); } while (n === idx);
     return n;
   }
@@ -274,12 +275,18 @@
     if (e.key === 'ArrowRight' && (!pop || pop.hidden)) show(idx + 1, true);
     if (e.key === 'ArrowLeft' && (!pop || pop.hidden)) show(idx - 1, true);
   });
-  var tx = null;
-  hero.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].clientX; }, { passive: true });
+  // Swipe to change slide, except where a swipe already means something: spinning the orbit, scrolling the
+  // process map sideways, scrubbing the plan. A touch pauses autoplay for a while.
+  var tx = null, ty = null, touchT = 0;
+  hero.addEventListener('touchstart', function (e) {
+    var own = e.target.closest('.cine,.pm-view,.pm-scen,.jp');
+    tx = own ? null : e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+    pause(); clearTimeout(touchT); touchT = setTimeout(resume, 9000);
+  }, { passive: true });
   hero.addEventListener('touchend', function (e) {
-    if (tx === null || mobile.matches) return;
-    var dx = e.changedTouches[0].clientX - tx; tx = null;
-    if (Math.abs(dx) > 48) show(idx + (dx < 0 ? 1 : -1), true);
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) show(idx + (dx < 0 ? 1 : -1), true);
   }, { passive: true });
 
   /* ================================================================ background: particles + spotlight */
@@ -422,7 +429,6 @@
   // init — the first slide also arrives with a camera move, once the one-time intro (if any) has finished
   if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
   announce(); onSlide(idx); restart();
-  if (mobile.matches) { counters(slides[0]); clearInterval(rotTimer); var rw = $$('.rot b', hero); rw.forEach(function (w, i) { w.classList.toggle('is-on', i === 0); w.classList.remove('is-out'); }); }
   if (camOn) {
     var firstEnter = function () { camClear(); camEnter(slides[idx], idx, true); };
     if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', firstEnter, { once: true });
