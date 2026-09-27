@@ -17,7 +17,7 @@ TN.demo('offices', function (root, K) {
   ];
   var client = K.$('.dof-client', root);
   function pos(k) {
-    if (k === 'client') { var b = K.box(client, stage); return { x: b.r - 6, y: b.cy }; }
+    if (k === 'client') { var b = K.box(client, stage); return { x: b.r - 6, y: b.cy - b.h / 2 }; }   // it sits at top:50% with translateY(-50%)
     var o = offices[k]; return { x: o.x * W, y: o.y * H };
   }
   function layout() {
