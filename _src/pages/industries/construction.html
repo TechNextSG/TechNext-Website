@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for Construction in Singapore — job costing", "desc": "Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.", "out": "industries/construction.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Construction in Singapore — job costing", "desc": "Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.", "out": "industries/construction.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-scurve.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-scurve.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -29,6 +29,74 @@
 </section>
 
 {{INDUSTRY_INTRO:construction}}
+
+<section class="section demo-sec" id="project-s-curve">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">drag the month</span><h2>Odoo for construction: the S-curve, earned value and progress claims with retention.</h2><p class="lead">One contract as TechNext sets it up in Odoo: a project with its own analytic account for job costing, a budget, monthly progress claims from the contract, variation orders, subcontractor claims and retention held on both sides. Drag the "as of" marker to read earned value at any month end, and switch the retention rate to see the claims and the ledger change.</p></div>
+    <div class="dm dm-scurve reveal" data-demo="scurve">
+      <div class="dm-head">
+        <div class="dm-title"><b>Factory extension · Jan to Dec 2026</b><small>Sample project · contract S$ 1,480,000 · budget S$ 1,250,000 · actuals to 31 Aug</small></div>
+        <div class="dm-seg" role="group" aria-label="Retention rate on claims">
+          <button type="button" data-ret="5" aria-pressed="true">Retention 5%</button>
+          <button type="button" data-ret="10" aria-pressed="false">Retention 10%</button>
+        </div>
+      </div>
+      <div class="scv-wrap">
+        <div class="scv-chartcol">
+          <div class="scv-chart"><svg class="scv-svg" aria-hidden="true" focusable="false"></svg>
+            <div class="scv-handle" role="slider" tabindex="0" aria-label="As of month end" aria-valuemin="1" aria-valuemax="8" aria-valuenow="8" aria-valuetext="31 August 2026"><b>Aug</b></div>
+          </div>
+          <ul class="dm-legend scv-legend">
+            <li><i class="scv-lg" style="--c:var(--tok-stock)"></i>Planned value (PV)</li>
+            <li><i class="scv-lg" style="--c:var(--ok)"></i>Earned value (EV)</li>
+            <li><i class="scv-lg" style="--c:var(--tok-late)"></i>Actual cost (AC)</li>
+            <li><i class="scv-lg scv-lg--dash" style="--c:var(--tok-late)"></i>Forecast to EAC</li>
+            <li><i class="scv-lg scv-lg--bar"></i>Claim, net · retention</li>
+            <li><i class="scv-lg scv-lg--vo"></i>Variation order</li>
+          </ul>
+        </div>
+        <aside class="scv-read" aria-label="Earned value at the selected month">
+          <p class="scv-h">As of <b data-r="date"></b></p>
+          <dl class="scv-evm">
+            <div><dt>PV</dt><dd data-r="pv"></dd><small>Planned value: budget of the work scheduled by now</small></div>
+            <div><dt>EV</dt><dd data-r="ev"></dd><small>Earned value: budget of the work actually done</small></div>
+            <div><dt>AC</dt><dd data-r="ac"></dd><small>Actual cost: from the project's analytic account</small></div>
+            <div data-r="cpib"><dt>CPI = EV ÷ AC</dt><dd data-r="cpi"></dd><small data-r="cpit"></small></div>
+            <div data-r="spib"><dt>SPI = EV ÷ PV</dt><dd data-r="spi"></dd><small data-r="spit"></small></div>
+            <div><dt>EAC = BAC ÷ CPI</dt><dd data-r="eac"></dd><small data-r="eact"></small></div>
+          </dl>
+          <p class="scv-prog"><span>Progress</span><b data-r="prog"></b></p>
+          <p class="scv-h">Job cost to date <small>by source, one analytic account</small></p>
+          <span class="scv-stack" data-r="stack"></span>
+          <ul class="scv-costs" data-r="costs"></ul>
+        </aside>
+      </div>
+      <div class="scv-bottom">
+        <div class="scv-panel">
+          <p class="scv-ph">{{odoo:sale:16}}<span data-r="claimh">Progress claim</span><em data-r="inv"></em></p>
+          <dl class="scv-claim" data-r="claim"></dl>
+          <ul class="scv-vos" data-r="vos"></ul>
+        </div>
+        <div class="scv-panel">
+          <p class="scv-ph">{{odoo:purchase:16}}<span>Subcontractor claims</span><em>vendor bills to the project</em></p>
+          <table class="scv-tbl"><thead><tr><th scope="col">Subcontract</th><th scope="col">Certified</th><th scope="col">Retention</th><th scope="col">This month</th></tr></thead><tbody data-r="subs"></tbody></table>
+        </div>
+        <div class="scv-panel">
+          <p class="scv-ph">{{odoo:accountant:16}}<span>Retention ledger</span><em data-r="rate"></em></p>
+          <table class="scv-tbl scv-ledger"><thead><tr><th scope="col">Month</th><th scope="col">Receivable</th><th scope="col">Payable</th></tr></thead><tbody data-r="ledger"></tbody></table>
+          <ul class="scv-rel" data-r="rel"></ul>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Budget and plan:</b> the budget of S$ 1,250,000 is spread over twelve months as the planned value (PV) S-curve; approved variation orders add to the contract and the budget.</p>
+        <p><b>Earned value:</b> each month, the percentage of work done times the budget gives the earned value (EV); actual cost (AC) comes from the purchases, subcontractor bills and timesheets on the project's analytic account. CPI is EV divided by AC, SPI is EV divided by PV, and the estimate at completion is the budget divided by CPI.</p>
+        <p><b>Progress claims:</b> each month the certified work done to date, less retention (5% or 10%, limited to 5% of the contract sum) and less previous claims, is invoiced with GST at 9%.</p>
+        <p><b>Subcontractors and retention:</b> subcontractor claims are certified and billed to the project, with retention held from them; the retention ledger shows what the client holds from us and what we hold from subcontractors, and when each is released.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample project and figures. Odoo records the budget, costs, progress and invoices per project; earned value is a report we build on that data (for example an Odoo spreadsheet dashboard), and how retention is set up (a retention line and account, or payment terms) is agreed in discovery.</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">

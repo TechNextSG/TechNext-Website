@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Customization in Singapore — upgrade-safe modules", "desc": "Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.", "out": "odoo/erp-system.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Customization in Singapore — upgrade-safe modules", "desc": "Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -32,6 +32,70 @@
     <dl class="glance"><div><dt>What it is</dt><dd>One Odoo database, all departments</dd></div><div><dt>Modules</dt><dd>Switched on as you need them</dd></div><div><dt>Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>Approach</dt><dd>Standard first, custom where it earns its place</dd></div><div><dt>Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="customisation-layers">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">standard first</span><h2>Upgrade-safe Odoo customisation: start at standard, climb only when you must.</h2><p class="lead">Every change TechNext makes to Odoo lives on the lowest layer that can carry it: standard features, then configuration, then Studio, and only then a custom module on Odoo.sh or an integration. Drag a requirement onto a layer, or press Suggest to run the decision tree, and watch the upgrade risk, effort and maintenance move.</p></div>
+    <div class="dm dm-layers reveal" data-demo="layers">
+      <div class="dm-head">
+        <div class="dm-title"><b>Where should each change live?</b><small>8 sample requirements · drag one onto a layer, or select it and choose</small></div>
+        <button class="dm-btn dm-btn--primary" type="button" data-all>{{icon:sparkle}}Suggest all</button>
+        <button class="dm-btn" type="button" data-up>{{icon:refresh}}Upgrade test</button>
+        <button class="dm-btn" type="button" data-reset>{{icon:x}}Reset</button>
+      </div>
+      <div class="lyr-wrap">
+        <div class="lyr-main">
+          <div class="lyr-tray" role="group" aria-label="Requirements not placed yet">
+            <div class="lyr-req" data-r="appr"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:usercheck}}<span><b>Purchase approval above S$5,000</b><small>A manager signs off big orders</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="inv"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:receipt}}<span><b>Custom invoice layout</b><small>Your columns and a payment block</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="comm"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:calculator}}<span><b>Sales commission</b><small>Tiered by margin, split, clawed back</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="sync"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:database}}<span><b>Legacy system sync</b><small>Orders and stock, every night</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="slip"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:truck}}<span><b>New field on the delivery slip</b><small>Gate code, printed for the driver</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="matrix"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:users}}<span><b>Multi-level approval matrix</b><small>Amount by department, with delegation</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="price"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:cart}}<span><b>Custom pricing rule</b><small>Trade customers: 12% off from 50 units</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <div class="lyr-req" data-r="portal"><button class="lyr-pick" type="button" aria-pressed="false">{{icon:globe}}<span><b>Customer portal report</b><small>Customers download orders and invoices</small></span></button><button class="lyr-sug" type="button">Suggest</button></div>
+            <p class="lyr-done">{{icon:check}}<span>All eight placed. Run the upgrade test to see what each layer costs at the next version.</span></p>
+          </div>
+          <div class="lyr-stack" role="group" aria-label="Customisation layers, top to bottom">
+            <div class="lyr-spine" aria-hidden="true"><i class="lyr-tok"></i></div>
+            <div class="lyr-layer" data-l="int"><div class="lyr-lh">{{icon:plug}}<span><b>Integrations</b><small>Connectors and APIs to the systems you keep</small></span></div><div class="lyr-slot"></div><button class="lyr-put" type="button"><kbd>5</kbd>Place here</button><div class="lyr-gate"><em>Q4</em><span>Yes: integrate</span></div></div>
+            <div class="lyr-layer" data-l="mod"><div class="lyr-lh">{{icon:code}}<span><b>Custom module · Odoo.sh</b><small>Separate module, tested on a staging branch</small></span></div><div class="lyr-slot"></div><button class="lyr-put" type="button"><kbd>4</kbd>Place here</button><div class="lyr-gate"><em>Q4</em><span>Another system?</span></div></div>
+            <div class="lyr-layer" data-l="stu"><div class="lyr-lh">{{odoo:web_studio:22}}<span><b>Studio</b><small>Fields, views, reports and rules, no code</small></span></div><div class="lyr-slot"></div><button class="lyr-put" type="button"><kbd>3</kbd>Place here</button><div class="lyr-gate"><em>Q3</em><span>Studio can?</span></div></div>
+            <div class="lyr-layer" data-l="cfg"><div class="lyr-lh">{{icon:gear}}<span><b>Configuration</b><small>Settings, pricelists, limits and templates</small></span></div><div class="lyr-slot"></div><button class="lyr-put" type="button"><kbd>2</kbd>Place here</button><div class="lyr-gate"><em>Q2</em><span>Settings can?</span></div></div>
+            <div class="lyr-layer" data-l="std"><div class="lyr-lh">{{icon:grid}}<span><b>Odoo standard</b><small>The apps as Odoo ships them</small></span></div><div class="lyr-slot"></div><button class="lyr-put" type="button"><kbd>1</kbd>Place here</button><div class="lyr-gate"><em>Q1</em><span>Standard does it?</span></div></div>
+          </div>
+        </div>
+        <aside class="lyr-side" aria-label="Meters and decision path">
+          <div class="lyr-sa">
+          <div class="lyr-meters">
+            <div class="lyr-m" data-m="risk"><p><b>Upgrade risk</b><em>none yet</em></p><span class="lyr-bar"><i></i><u></u></span></div>
+            <div class="lyr-m" data-m="effort"><p><b>Effort</b><em>none yet</em></p><span class="lyr-bar"><i></i><u></u></span></div>
+            <div class="lyr-m" data-m="maint"><p><b>Maintenance</b><em>none yet</em></p><span class="lyr-bar"><i></i><u></u></span></div>
+            <p class="lyr-key"><i></i>Lowest possible for what is placed</p>
+          </div>
+          <p class="lyr-sh">Decision path</p>
+          <ol class="lyr-path" aria-live="polite"></ol>
+          <p class="lyr-verdict" aria-live="polite">Pick a requirement to start.</p>
+          </div>
+          <div class="lyr-sb">
+          <p class="lyr-sh">Next version</p>
+          <ul class="lyr-up"></ul>
+          </div>
+        </aside>
+      </div>
+      <div class="dm-static">
+        <p><b>Odoo standard:</b> a customer portal where customers download their orders and invoices is standard Odoo.</p>
+        <p><b>Configuration:</b> a purchase approval above S$5,000 is a Purchase setting; a trade price of 12% off from 50 units is a pricelist rule.</p>
+        <p><b>Studio:</b> a new field on the delivery slip and an invoice layout with your own columns are Studio work, with no code.</p>
+        <p><b>Custom module on Odoo.sh:</b> a tiered, split sales commission with clawback and a multi-level approval matrix with delegation need a separate, tested module.</p>
+        <p><b>Integrations:</b> a nightly sync with a legacy system is an integration, with mapping, scheduling and error handling.</p>
+        <p>Each step up the stack adds upgrade risk, effort and maintenance, so the decision tree asks in order: does standard do it, can configuration, can Studio, and does it involve another system.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample requirements. The meters are relative, not estimates; the right layer for your case is confirmed in discovery, for your version and edition.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

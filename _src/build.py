@@ -745,7 +745,8 @@ def chart_html(ch: dict) -> str:
             n = len(v["bars"])
         blocks.append(f'<div class="ix-plot" data-plot="{k}"{"" if k == 0 else " hidden"}><div class="ix-grid" aria-hidden="true">{grid}</div>'
                       f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div>{legend}</div>')
-        tables.append(f'<table class="sr-only"><caption>{ch["title"]}, {v["label"].lower()} (sample data)</caption>{head}{rows}</table>')
+        # a table ignores width:1px, so the sr-only box is a wrapper div (else phones scroll sideways)
+        tables.append(f'<div class="sr-only"><table><caption>{ch["title"]}, {v["label"].lower()} (sample data)</caption>{head}{rows}</table></div>')
     kpis = "".join(f'<div class="ix-kpi"><small>{lab}</small><b>{val}</b></div>' for lab, val in ch["kpis"])
     return (f'<div class="ix-kpis">{kpis}</div>'
             f'<div class="ix-chart-head"><b>{ch["title"]}</b><div class="ix-views" role="group" aria-label="Chart view">{btns}</div></div>'

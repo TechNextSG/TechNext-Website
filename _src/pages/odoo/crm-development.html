@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo CRM Customization — pipelines & lead routing", "desc": "Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells.", "out": "odoo/crm-development.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo CRM Customization — pipelines & lead routing", "desc": "Odoo CRM tailored by TechNext: pipelines, lead routing, scoring, quotation hand-off and reporting built around how your sales team actually sells.", "out": "odoo/crm-development.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-pipeline.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-pipeline.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -28,6 +28,81 @@
     <dl class="glance"><div><dt>Built on</dt><dd>Odoo CRM</dd></div><div><dt>Hands off to</dt><dd>Sales — quotation, no re-entry</dd></div><div><dt>Lead sources</dt><dd>Web · email · WhatsApp · social</dd></div><div><dt>Delivery</dt><dd>Discovery → Build → Train → Support</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="lead-routing">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch the pipeline</span><h2>Odoo CRM customisation, live: lead routing, the pipeline and the forecast.</h2><p class="lead">Leads arrive from five channels. The scoring and assignment rules TechNext configures in Odoo CRM route each one to a team and a salesperson; the pipeline moves them from New to Won, schedules the next activity and flags anything going stale; a won deal opens its quotation in Sales. Switch rules off, change the team view, or add a lead from any channel.</p></div>
+    <div class="dm dm-pipeline reveal" data-demo="pipeline">
+      <div class="dm-head">
+        <div class="dm-title"><b>Lead routing and pipeline</b><small>Sample sales teams · SGD · day <span data-k="day">1</span></small></div>
+        <div class="dm-seg" role="group" aria-label="Team view">
+          <button type="button" data-team="all" aria-pressed="true">All teams</button>
+          <button type="button" data-team="sg" aria-pressed="false"><i class="dm-sw" style="--c:var(--blue)"></i>Singapore</button>
+          <button type="button" data-team="ph" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-pay)"></i>Philippines</button>
+          <button type="button" data-team="pj" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-make)"></i>Projects</button>
+        </div>
+        <button class="dm-btn ppl-play" type="button" data-play aria-pressed="true"><i class="ppl-pz" aria-hidden="true"></i>{{icon:play}}<span>Pause</span></button>
+        <button class="dm-btn" type="button" data-day>{{icon:calendar}}Next day</button>
+      </div>
+      <div class="ppl-wrap">
+        <div class="ppl-route">
+          <p class="ppl-h"><i>1</i>Leads arrive <small>click a channel to add one</small></p>
+          <div class="ppl-ch" role="group" aria-label="Add a lead from a channel">
+            <button type="button" data-ch="web">{{icon:globe}}<span><b>Web form</b><small data-n="web">0</small></span></button>
+            <button type="button" data-ch="mail">{{icon:mail}}<span><b>Email alias</b><small data-n="mail">0</small></span></button>
+            <button type="button" data-ch="wa">{{icon:whatsapp}}<span><b>WhatsApp</b><small data-n="wa">0</small></span></button>
+            <button type="button" data-ch="evt">{{icon:calendar}}<span><b>Event list</b><small data-n="evt">0</small></span></button>
+            <button type="button" data-ch="li">{{icon:briefcase}}<span><b>LinkedIn</b><small data-n="li">0</small></span></button>
+          </div>
+          <p class="ppl-h"><i>2</i>Rules score and route them</p>
+          <div class="ppl-rules" role="group" aria-label="Scoring and assignment rules: switch each on or off">
+            <button type="button" role="switch" aria-checked="true" data-rule="score"><span><b>Lead scoring</b><small>Probability and priority from fit</small></span><em data-o="score"></em></button>
+            <button type="button" role="switch" aria-checked="true" data-rule="terr"><span><b>Territory</b><small>SG, MY, ID to Singapore · PH to Philippines</small></span><em data-o="terr"></em></button>
+            <button type="button" role="switch" aria-checked="true" data-rule="line"><span><b>Product line</b><small>Warehouse systems to Projects</small></span><em data-o="line"></em></button>
+            <button type="button" role="switch" aria-checked="true" data-rule="rr"><span><b>Round-robin</b><small>Next salesperson with capacity</small></span><em data-o="rr"></em></button>
+          </div>
+          <p class="ppl-h"><i>3</i>Teams and salespeople</p>
+          <div class="ppl-teams">
+            <div class="ppl-team" data-t="sg"><b>Singapore</b><span class="ppl-mem"><i data-m="Alex">AL</i><i data-m="Rina">RI</i></span></div>
+            <div class="ppl-team" data-t="ph"><b>Philippines</b><span class="ppl-mem"><i data-m="Jo">JO</i><i data-m="Mara">MA</i></span></div>
+            <div class="ppl-team" data-t="pj"><b>Projects</b><span class="ppl-mem"><i data-m="Ken">KE</i></span></div>
+          </div>
+        </div>
+        <div class="ppl-board">
+          <div class="ppl-cols" role="group" aria-label="Pipeline stages">
+            <div class="ppl-col" data-s="0"><p class="ppl-ct"><b>New</b><span data-sum="0">S$ 0</span></p><div class="ppl-list"></div><p class="ppl-more"></p></div>
+            <div class="ppl-col" data-s="1"><p class="ppl-ct"><b>Qualified</b><span data-sum="1">S$ 0</span></p><div class="ppl-list"></div><p class="ppl-more"></p></div>
+            <div class="ppl-col" data-s="2"><p class="ppl-ct"><b>Proposition</b><span data-sum="2">S$ 0</span></p><div class="ppl-list"></div><p class="ppl-more"></p></div>
+            <div class="ppl-col ppl-col--won" data-s="3"><p class="ppl-ct"><b>Won</b><span data-sum="3">S$ 0</span></p><div class="ppl-list"></div><p class="ppl-more"></p></div>
+          </div>
+          <div class="ppl-lost"><b>Lost</b><span>archived with a reason</span><ol class="ppl-lostl"></ol></div>
+          <div class="ppl-quote" aria-live="polite">{{odoo:sale:26}}<span><b data-q="no">Quotation</b><small data-q="txt">A won deal opens its quotation here.</small></span></div>
+        </div>
+      </div>
+      <div class="ppl-foot">
+        <div class="ppl-kl">
+          <dl class="dm-kpis">
+            <div><dt>Open pipeline</dt><dd data-k="open">S$ 0</dd></div>
+            <div><dt>Weighted forecast</dt><dd data-k="wf">S$ 0</dd></div>
+            <div class="dm-ok"><dt>Won</dt><dd data-k="won">S$ 0</dd></div>
+            <div><dt>Stale leads</dt><dd data-k="stale">0</dd></div>
+          </dl>
+          <ol class="dm-log ppl-log" aria-label="Pipeline activity"></ol>
+        </div>
+        <div class="ppl-chart ppl-conv"><p class="ppl-cht">Stage conversion <small>since day 1</small></p><div class="ppl-fun"></div></div>
+        <div class="ppl-chart ppl-fc"><p class="ppl-cht">Weighted forecast <small>expected revenue × probability</small></p><div class="ppl-bars"></div></div>
+      </div>
+      <div class="dm-static">
+        <p><b>Leads arrive</b> from a website form, an email alias, WhatsApp, an event attendee list and LinkedIn, and become leads in Odoo CRM.</p>
+        <p><b>Rules route them:</b> scoring sets a probability and a priority; a territory rule sends Singapore, Malaysia and Indonesia leads to the Singapore team and Philippine leads to the Philippines team; a product-line rule sends warehouse projects to the Projects team; round-robin gives each lead to the next salesperson with capacity.</p>
+        <p><b>The pipeline</b> runs New, Qualified, Proposition, Won, with lost deals archived with a reason. Each stage schedules the next activity; a lead with no owner or no progress is flagged as stale and the team lead is alerted. A won deal opens a quotation in Sales with the customer and products carried over.</p>
+        <p><b>Reports:</b> conversion from stage to stage, and a weighted forecast of expected revenue times probability.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample leads, values and odds. Real routing rules, stages and scoring are set up with your team in discovery.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

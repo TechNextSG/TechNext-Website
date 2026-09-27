@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for Clinics & Healthcare Groups in Singapore", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Clinics & Healthcare Groups in Singapore", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-fefo.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-fefo.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -27,6 +27,62 @@
 </section>
 
 {{INDUSTRY_INTRO:medical}}
+
+<section class="section section--alt demo-sec" id="lot-trace">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">follow one lot</span><h2>Odoo lot and expiry tracking for clinics, from shelf to recall.</h2><p class="lead">Thirty sample days in a clinic group's central store, set up the way TechNext configures Odoo Inventory. Orders are reserved lot by lot by the FEFO removal strategy, alert dates raise activities before stock expires, and lots that reach their removal date move to quarantine. Switch to FIFO to compare, or click any lot to trace it from the supplier receipt to every transfer, delivery and customer, then run a recall.</p></div>
+    <div class="dm dm-fefo reveal" data-demo="fefo">
+      <div class="dm-head">
+        <div class="dm-title"><b>Central store · lots and expiry dates</b><small>Sample clinic group · 1 to 30 Oct 2026</small></div>
+        <div class="dm-seg" role="group" aria-label="Removal strategy">
+          <button type="button" data-s="fefo" aria-pressed="true">FEFO · first expiry, first out</button>
+          <button type="button" data-s="fifo" aria-pressed="false">FIFO · first in, first out</button>
+        </div>
+        <button class="dm-btn dm-btn--primary" type="button" data-play>{{icon:play}}<i class="fefo-pz" aria-hidden="true"></i><span>Play</span></button>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="fefo-body">
+        <div class="fefo-main">
+          <div class="fefo-racks">
+            <div class="fefo-rackw"><p class="fefo-cap">{{icon:box}}WH/Stock · shelves A to C<small>Click a lot to trace it</small></p><div class="fefo-rack" role="group" aria-label="Central store shelves, one button per lot"></div></div>
+            <div class="fefo-quar"><p class="fefo-cap">{{icon:lock}}WH/Quarantine<small>Never reserved for picking</small></p><div class="fefo-qbins" role="group" aria-label="Lots in quarantine"></div></div>
+          </div>
+          <div class="fefo-tl"><p class="fefo-cap">{{icon:calendar}}Expiry calendar<span class="fefo-key"><i class="fefo-mk"></i>alert date<i class="fefo-mk fefo-mk--rm"></i>removal date</span></p><div class="fefo-lanes" aria-hidden="true"></div></div>
+          <div class="fefo-cmp" hidden>
+            <p>{{icon:target}}<span><b>Result of this sample run</b>Units that reached their removal date on the shelf, same 30 days and same orders</span></p>
+            <div class="fefo-crs"><div class="fefo-cr" data-c="fefo"><b>FEFO</b><i><i></i></i><em></em></div>
+            <div class="fefo-cr" data-c="fifo"><b>FIFO</b><i><i></i></i><em></em></div></div>
+          </div>
+        </div>
+        <aside class="fefo-side" aria-label="Picking, alerts and results">
+          <dl class="dm-kpis fefo-kpis">
+            <div><dt>Sample date</dt><dd data-k="day">1 Oct</dd></div>
+            <div><dt>Units picked</dt><dd data-k="pick">0</dd></div>
+            <div><dt>Open alerts</dt><dd data-k="al">0</dd></div>
+            <div><dt>In quarantine</dt><dd data-k="q">0</dd></div>
+          </dl>
+          <p class="fefo-cap">Today's picks<small>lot chosen by the strategy</small></p>
+          <ol class="fefo-picks"></ol>
+          <p class="fefo-cap">Activity</p>
+          <ol class="dm-log fefo-log"></ol>
+        </aside>
+      </div>
+      <div class="fefo-trace">
+        <div class="fefo-th"><div class="fefo-gt"><b>{{icon:search}}Lot traceability and recall</b><small>Click a lot on the shelves</small></div><button class="dm-btn dm-btn--primary" type="button" data-recall>{{icon:shield}}<span>Run a recall</span></button></div>
+        <dl class="fefo-sum"></dl>
+        <div class="fefo-gs"><div class="fefo-g"><svg class="fefo-gsvg" aria-hidden="true" focusable="false"></svg><div class="fefo-gn"></div></div></div>
+      </div>
+      <template class="fefo-ic"><i data-i="truck">{{icon:truck}}</i><i data-i="receipt">{{icon:receipt}}</i><i data-i="layers">{{icon:layers}}</i><i data-i="pulse">{{icon:pulse}}</i><i data-i="users">{{icon:users}}</i><i data-i="lock">{{icon:lock}}</i><i data-i="box">{{icon:box}}</i><i data-i="clock">{{icon:clock}}</i></template>
+      <div class="dm-static">
+        <p><b>Shelves:</b> saline, gauze and hand sanitiser held in lots, each with an expiry date, an alert date 30 days before it and a removal date 7 days before it.</p>
+        <p><b>Picking:</b> FEFO reserves the lot with the earliest removal date first. FIFO reserves the lot received first, so a short-dated lot received later can reach its removal date on the shelf.</p>
+        <p><b>Alerts and quarantine:</b> the alert date raises an activity for the stock controller; at the removal date the lot moves to a quarantine location that is never reserved for picking.</p>
+        <p><b>Recall:</b> the traceability report follows one lot back to its supplier receipt and forward to every transfer, delivery and customer, so the remaining stock can be blocked, customers contacted and the lot returned to the supplier.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data and product settings. Odoo records the lots and dates, applies the removal strategy and raises the alert; quarantine moves, customer contact and returns are steps your team confirms. Clinical records stay in your medical record system.</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">

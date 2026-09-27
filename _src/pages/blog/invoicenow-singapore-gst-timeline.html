@@ -1,4 +1,4 @@
-<!--meta {"title": "Singapore GST InvoiceNow requirement: all dates to 2031", "desc": "Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.", "out": "blog/invoicenow-singapore-gst-timeline.html", "nav": "company", "article": {"h1": "InvoiceNow for GST-registered businesses: the dates, and what to do now", "cat": "erp", "date": "2026-09-27", "order": 7, "lede": "Singapore is making InvoiceNow mandatory for every GST-registered business, in phases that run to April 2031. Here is when your business is due, who is exempt, and how to get your accounting system ready.", "card": "Who must send invoice data to IRAS through InvoiceNow, and when: every phase from November 2025 to April 2031.", "cover": "invoicing/invoicing-hero-image.webp"}} -->
+<!--meta {"title": "Singapore GST InvoiceNow requirement: all dates to 2031", "desc": "Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.", "out": "blog/invoicenow-singapore-gst-timeline.html", "nav": "company", "article": {"h1": "InvoiceNow for GST-registered businesses: the dates, and what to do now", "cat": "erp", "date": "2026-09-27", "order": 7, "lede": "Singapore is making InvoiceNow mandatory for every GST-registered business, in phases that run to April 2031. Here is when your business is due, who is exempt, and how to get your accounting system ready.", "card": "Who must send invoice data to IRAS through InvoiceNow, and when: every phase from November 2025 to April 2031.", "cover": "invoicing/invoicing-hero-image.webp"}, "scripts": ["assets/js/demo-kit.js", "assets/js/demo-peppol.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-peppol.css?v={ASSET_V}\">"} -->
 
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
@@ -12,7 +12,7 @@
 <p><strong>InvoiceNow</strong> is Singapore's nationwide e-invoicing network, based on the international Peppol standard and introduced by the Infocomm Media Development Authority (IMDA) in 2019. Under the <strong>GST InvoiceNow Requirement</strong>, GST-registered businesses must send their invoice data to the Inland Revenue Authority of Singapore (IRAS) through InvoiceNow-Ready Solutions. It is mandatory, and it is being rolled out in phases. TechNext implements Odoo Accounting for Singapore companies, so these dates shape our project plans. This guide sets them out as IRAS publishes them on its <a href="https://www.iras.gov.sg/taxes/goods-services-tax-(gst)/gst-invoicenow-requirement" target="_blank" rel="noopener">GST InvoiceNow Requirement page</a>.</p>
 
 <h2>When your business must comply</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap" data-pp-table><table>
   <thead><tr><th>From</th><th>Who it applies to</th></tr></thead>
   <tbody>
     <tr><td><strong>1 Nov 2025</strong></td><td>Companies that register for GST voluntarily within six months of incorporation.</td></tr>
@@ -34,6 +34,46 @@
 
 <h2>How InvoiceNow works</h2>
 <p>Invoices travel over the InvoiceNow network through IMDA-accredited <strong>Access Point Providers</strong>. Once a business switches on invoice data submission in its InvoiceNow-Ready Solution, IRAS receives a copy of the invoice data through those access points. Businesses on off-the-shelf accounting software use a solution from an accredited InvoiceNow-Ready Solution Provider; businesses with in-house enterprise systems connect through an access point themselves. IRAS publishes the lists of accredited providers, and grants and free-of-charge solution packages are available.</p>
+
+<figure class="pp-fig" aria-label="Interactive: how an invoice travels on InvoiceNow, and when your business must comply">
+  <div class="dm dm-peppol reveal" data-demo="peppol">
+    <div class="dm-head">
+      <div class="dm-title"><b>How an invoice travels on InvoiceNow</b><small>Sample documents</small></div>
+      <div class="dm-seg" role="group" aria-label="Document">
+        <button type="button" data-doc="inv" aria-pressed="true">Tax invoice</button>
+        <button type="button" data-doc="cn" aria-pressed="false">Credit note</button>
+      </div>
+      <button class="pp-sw" type="button" data-sub aria-pressed="true"><i aria-hidden="true"></i>Invoice data submission</button>
+    </div>
+    <div class="pp-stage">
+      <svg class="pp-wires" aria-hidden="true"></svg>
+      <div class="pp-nodes" role="group" aria-label="Who the invoice passes through: hover or focus for details">
+        <button type="button" class="pp-node" data-n="c1"><em>1</em>{{odoo:accountant:24}}<span><b>Seller's Odoo</b><small>Issues the invoice</small></span></button>
+        <button type="button" class="pp-node" data-n="c2"><em>2</em>{{icon:send}}<span><b>Seller's access point</b><small>IMDA-accredited</small></span></button>
+        <button type="button" class="pp-node pp-net" data-n="net">{{icon:globe}}<span><b>InvoiceNow network</b><small>Peppol standard</small></span></button>
+        <button type="button" class="pp-node" data-n="c3"><em>3</em>{{icon:send}}<span><b>Buyer's access point</b><small>IMDA-accredited</small></span></button>
+        <button type="button" class="pp-node" data-n="c4"><em>4</em>{{icon:file}}<span><b>Buyer's system</b><small>Receives the invoice</small></span></button>
+        <button type="button" class="pp-node pp-iras" data-n="iras">{{icon:bank}}<span><b>IRAS</b><small>Copy of the invoice data</small></span></button>
+      </div>
+      <dl class="pp-count"><div><dt>Sent</dt><dd data-c="sent">0</dd></div><div><dt>Delivered</dt><dd data-c="got">0</dd></div><div><dt>Copies to IRAS</dt><dd data-c="iras">0</dd></div></dl>
+    </div>
+    <ol class="dm-log pp-log" aria-live="polite" aria-label="What just happened"></ol>
+    <div class="pp-find">
+      <p class="pp-fh">{{icon:calendar}}When must my business comply?</p>
+      <div class="pp-fq" data-step="ex"></div>
+      <div class="pp-fq" data-step="reg"></div>
+      <div class="pp-fq" data-step="sup" hidden></div>
+      <div class="pp-res" aria-live="polite"></div>
+      <div class="pp-tl" aria-hidden="true"><span class="pp-tl-bar"></span></div>
+    </div>
+    <div class="dm-static">
+      <p>The seller's system sends the invoice to its IMDA-accredited access point, over the InvoiceNow network (based on Peppol) to the buyer's access point and on to the buyer. Once invoice data submission is switched on, IRAS receives a copy of the invoice data through the access points.</p>
+      <p>Dates run from 1 November 2025 (voluntary registration within six months of incorporation) to 1 April 2031 (existing registrants with total annual supplies above S$4,000,000). Overseas entities and businesses registered wholly because of the reverse charge regime are excluded.</p>
+    </div>
+  </div>
+  <figcaption class="dm-note">{{icon:check}} Dates and exclusions are IRAS's, as listed in this article (September 2026); always check the IRAS notification or date calculator.</figcaption>
+</figure>
+
 
 <h2>What it means if you run Odoo</h2>
 <p>The <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> say Singapore's GST taxes were refined to prepare for future GST InvoiceNow document compliance, and add IRAS-compliant tax invoice and credit note reports. That is groundwork. Before your date, you need a confirmed path for sending invoice data from your Odoo database to IRAS through an accredited access point, tested on your real documents.</p>

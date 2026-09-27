@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner in the Philippines — Taguig City", "desc": "TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila: Odoo implementation with BIR localisation, payroll, training and support.", "out": "odoo/philippines.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Partner in the Philippines — Taguig City", "desc": "TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila: Odoo implementation with BIR localisation, payroll, training and support.", "out": "odoo/philippines.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-bir.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-bir.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -40,6 +40,49 @@
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila. We implement Odoo for Philippine companies with the BIR localisation set up and checked against your filings: CAS-compliant invoices, BIR 2306 and 2307 certificates, 2551Q and 1600-VT reports, and payroll with the 1601-C, 2316 and 1604-C.</p></div></div>
 </section>
+
+<section class="section demo-sec" id="bir-year">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">a year of BIR filings</span><h2>BIR compliance in Odoo for Philippine companies, month by month.</h2><p class="lead">How often each BIR form comes round, and where Odoo produces it: 2307 and 2306 certificates from vendor bills, the 1600-VT report, the monthly 1601-C payroll items, the 2551Q for non-VAT companies each quarter, and the yearly 2316 and 1604-C with its Alphalist DAT file. Switch the company type, drag through the months, and follow each document from the bill or payroll run to the form. TechNext's Taguig team sets this up and checks it against your last filings.</p></div>
+    <div class="dm dm-bir reveal" data-demo="bir">
+      <div class="dm-head">
+        <div class="dm-title"><b>BIR year in Odoo 20</b><small>Sample company in Taguig City · cadence only, no deadline dates</small></div>
+        <div class="dm-seg" role="group" aria-label="Company type">
+          <button type="button" data-vat="0" aria-pressed="true">Non-VAT</button>
+          <button type="button" data-vat="1" aria-pressed="false">VAT-registered</button>
+        </div>
+        <button class="dm-btn dm-btn--primary" type="button" data-play aria-pressed="false">{{icon:play}}<span>Play the year</span></button>
+      </div>
+      <div class="bir-wrap">
+        <div class="bir-cal">
+          <p class="bir-h">{{icon:calendar}} Filing cadence <small>period covered, not due dates</small></p>
+          <div class="bir-scroll"><div class="bir-in">
+            <div class="bir-grid" role="table" aria-label="BIR forms by month of the period covered"></div>
+            <div class="bir-scrub"><span class="bir-mo" aria-hidden="true">January</span><input type="range" min="1" max="13" step="1" value="1" aria-label="Month of the year"></div>
+          </div></div>
+          <ul class="dm-legend bir-leg"><li><i class="dm-sw" style="--c:#DDE7F8"></i>Fewer items</li><li><i class="dm-sw" style="--c:#1E4691"></i>More items</li><li><i class="dm-sw bir-sw-q"></i>Quarterly</li><li><i class="dm-sw bir-sw-y"></i>Yearly</li></ul>
+        </div>
+        <div class="bir-flow">
+          <p class="bir-h">{{icon:layers}} Document flow <small data-k="month">January</small></p>
+          <div class="bir-lanes">
+            <svg class="bir-links" aria-hidden="true"></svg>
+            <div class="bir-lane" data-lane="0"><p class="bir-lh">{{odoo:purchase:18}}Vendor bills</p></div>
+            <div class="bir-lane" data-lane="1"><p class="bir-lh">{{odoo:accountant:18}}Reports</p></div>
+            <div class="bir-lane" data-lane="2"><p class="bir-lh">{{odoo:hr_payroll:18}}Payroll</p></div>
+          </div>
+          <ol class="dm-log bir-log" aria-label="This month in Odoo"></ol>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Per vendor payment:</b> a vendor bill carries its withholding; Odoo generates the BIR 2307 (expanded withholding) or 2306 (final withholding) certificate on the bill and can send it to the vendor when the bill is paid.</p>
+        <p><b>Monthly:</b> the 1601-C items from each payroll run, and the 1600-VT report for final withholding VAT.</p>
+        <p><b>Quarterly:</b> the 2551Q report for non-VAT registered companies. <b>Yearly:</b> the BIR Form 2316 for each employee, and the 1604-C summary worksheets with the Alphalist DAT file for eSubmission.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample company and volumes. Cadence only: deadlines, rates and which forms apply to you are confirmed with your accountant during discovery.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

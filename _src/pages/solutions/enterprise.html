@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Multi-Company ERP for Groups & Consolidation", "desc": "Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.", "out": "solutions/enterprise.html", "nav": "solution"} -->
+<!--meta {"title": "Odoo Multi-Company ERP for Groups & Consolidation", "desc": "Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.", "out": "solutions/enterprise.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-consol.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-consol.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -36,6 +36,39 @@
     <dl class="glance"><div><dt>Partner status</dt><dd><a href="https://www.odoo.com/partners/technext-pte-ltd-28073844" target="_blank" rel="noopener">Odoo Ready Partner</a></dd></div><div><dt>Built for</dt><dd>Multi-company · multi-country · multi-currency</dd></div><div><dt>Hosting</dt><dd>Odoo.sh · your own cloud</dd></div><div><dt>Rollout</dt><dd>Pilot → template → country by country</dd></div><div><dt>Delivered in</dt><dd>10+ countries, from Singapore, the Philippines and Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="group-consolidation">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">close the month</span><h2>Odoo multi-company consolidation, from local books to one group P&amp;L.</h2><p class="lead">A sample group on one Odoo database: a Singapore holding with companies in the Philippines, Vietnam and Malaysia, each keeping its own books and currency. An intercompany invoice creates the mirror bill in the other company, a group loan accrues interest, and at month-end the figures are translated into SGD and the intercompany lines are eliminated. Switch companies in and out of the group view or move the exchange rate, and the consolidated P&amp;L TechNext sets up for you updates line by line.</p></div>
+    <div class="dm dm-consol reveal" data-demo="consol">
+      <div class="dm-head">
+        <div class="dm-title"><b>Group consolidation</b><small>Illustrative group · one month · reported in SGD</small></div>
+        <button class="dm-btn dm-btn--primary" type="button" data-run>{{icon:play}}Run month-end</button>
+      </div>
+      <div class="cns-bar">
+        <ol class="cns-steps" aria-label="Month-end steps"><li>Local books closed</li><li>Intercompany mirrored</li><li>Translated to SGD</li><li>Eliminations posted</li><li>Group P&amp;L</li></ol>
+        <div class="cns-rate"><label for="cns-fx">SGD against PHP, VND and MYR <b data-k="pct">0%</b></label><input id="cns-fx" type="range" min="-10" max="10" step="1" value="0"><small data-k="rates">1 SGD = 43.50 PHP · 20,200 VND · 3.30 MYR</small></div>
+      </div>
+      <div class="cns-wrap">
+        <div class="cns-tree" role="group" aria-label="Group companies: switch each one in or out of the group view">
+          <svg class="cns-svg" aria-hidden="true"></svg>
+        </div>
+        <div class="cns-ws">
+          <div class="cns-scroll"><table class="cns-tbl"><caption>Consolidation worksheet · SGD thousands</caption><thead><tr><th scope="col">P&amp;L</th><th scope="col">SG</th><th scope="col">PH</th><th scope="col">VN</th><th scope="col">MY</th><th scope="col">Elim.</th><th scope="col">Group</th></tr></thead><tbody></tbody></table></div>
+          <p class="cns-check" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="cns-elims" aria-label="Elimination entries"></div>
+      <div class="dm-static">
+        <p><b>The group:</b> a holding company in Singapore (SGD) owning companies in the Philippines (PHP), Vietnam (VND) and Malaysia (MYR), each with its own books on one Odoo database.</p>
+        <p><b>Intercompany:</b> Vietnam sells goods to the Philippines, and the invoice creates the matching vendor bill in the Philippine company; Singapore lends to Vietnam and charges Malaysia a management fee.</p>
+        <p><b>Month-end:</b> each company closes its books, figures are translated into SGD, intercompany revenue and cost, receivables and payables, the loan and its interest are eliminated, together with the profit still sitting in the buyer's stock, and the group P&amp;L is produced.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Illustrative figures for a fictional group, wholly owned, one rate per currency. Your consolidation rules, rates and eliminations are set up with your accountants.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

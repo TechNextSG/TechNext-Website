@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for F&B in Singapore — restaurants & kitchens", "desc": "Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.", "out": "industries/fnb.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for F&B in Singapore — restaurants & kitchens", "desc": "Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.", "out": "industries/fnb.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-kitchen.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kitchen.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -29,6 +29,82 @@
 </section>
 
 {{INDUSTRY_INTRO:fnb}}
+
+<section class="section demo-sec" id="floor-to-kitchen">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">one night of service</span><h2>Odoo for F&amp;B: from the floor plan to the kitchen display to the books.</h2><p class="lead">A dinner service on Odoo Point of Sale for restaurants, set up the way TechNext runs outlets: tables are seated and ordered, each order splits into tickets for the grill, the fryer and the drinks station, recipes deduct ingredients when the bill is paid, and closing the session posts the night into Accounting. Turn on the dinner rush, press a table to see its order, then close the session.</p></div>
+    <div class="dm dm-kitchen reveal" data-demo="kitchen">
+      <div class="dm-head">
+        <div class="dm-title"><b>Outlet 1 · dinner service</b><small>Sample menu and prices · GST 9% · time compressed</small></div>
+        <button class="dm-btn ktn-rush" type="button" data-rush aria-pressed="false">{{icon:zap}}Dinner rush</button>
+        <button class="dm-btn" type="button" data-pause aria-pressed="false"><i class="ktn-pz" aria-hidden="true"></i><span>Pause</span></button>
+        <button class="dm-btn dm-btn--primary" type="button" data-close>{{icon:calculator}}Close session</button>
+      </div>
+      <div class="ktn-wrap">
+        <div class="ktn-floorcol">
+          <div class="ktn-floor" role="group" aria-label="Floor plan: press a table to see its order">
+            <span class="ktn-zone ktn-zone--main">Main room</span>
+            <span class="ktn-zone ktn-zone--terr">Terrace</span>
+            <span class="ktn-pass">{{icon:utensils}}Kitchen pass</span>
+            <span class="ktn-bar">Bar</span>
+            <span class="ktn-door">Entrance<b data-queue></b></span>
+            <span class="ktn-clock"><b data-clock>18:00</b><small data-tag>Normal service</small></span>
+          </div>
+          <dl class="dm-kpis ktn-kpis">
+            <div><dt>Covers</dt><dd data-k="covers">0</dd></div>
+            <div><dt>Bills paid</dt><dd data-k="bills">0</dd></div>
+            <div><dt>Net sales</dt><dd data-k="sales">S$ 0</dd></div>
+            <div><dt>Avg ticket time</dt><dd data-k="tt">0 min</dd></div>
+            <div><dt>Food cost</dt><dd data-k="fc">0%</dd></div>
+          </dl>
+        </div>
+        <div class="ktn-kds" aria-label="Kitchen display, one column per station">
+          <div class="ktn-kh">{{odoo:pos_restaurant:18}}<b>Kitchen display</b><small>one screen per station · alert at 12 min</small></div>
+          <div class="ktn-cols">
+            <div class="ktn-col" data-st="grill"><p class="ktn-ch"><b>Grill</b><small></small></p><ol class="ktn-tix"></ol></div>
+            <div class="ktn-col" data-st="fryer"><p class="ktn-ch"><b>Fryer</b><small></small></p><ol class="ktn-tix"></ol></div>
+            <div class="ktn-col" data-st="drinks"><p class="ktn-ch"><b>Drinks</b><small></small></p><ol class="ktn-tix"></ol></div>
+          </div>
+          <ol class="dm-log ktn-log" aria-label="Latest events"></ol>
+        </div>
+      </div>
+      <div class="ktn-bottom">
+        <div class="ktn-panel ktn-order" aria-live="off">
+          <p class="ktn-ph">{{icon:receipt}}<span data-o="title">Table</span><em data-o="state"></em></p>
+          <p class="ktn-osub" data-o="sub"></p>
+          <ul class="ktn-lines" data-o="lines"></ul>
+          <dl class="ktn-tot" data-o="tot"></dl>
+        </div>
+        <div class="ktn-panel ktn-stock">
+          <p class="ktn-ph">{{icon:box}}<span>Ingredients · par levels</span></p>
+          <p class="ktn-osub">Deducted through each dish's recipe when its bill is paid</p>
+          <ul class="ktn-ings"></ul>
+        </div>
+        <div class="ktn-panel ktn-menu">
+          <p class="ktn-ph">{{odoo:mrp:16}}<span>Menu · food cost per dish</span></p>
+          <p class="ktn-osub">Recipe cost ÷ price before GST · press a dish for its recipe</p>
+          <ul class="ktn-dishes"></ul>
+        </div>
+      </div>
+      <div class="ktn-close" hidden>
+        <div class="ktn-cl-h"><span class="ktn-cl-ic">{{odoo:accountant:28}}</span><div><b data-c="title">Session closed and posted</b><small data-c="sub"></small></div><button class="dm-btn dm-btn--primary" type="button" data-next>{{icon:refresh}}Open next session</button></div>
+        <div class="ktn-cl-body">
+          <dl class="ktn-cl-sum" data-c="sum"></dl>
+          <div class="ktn-cl-je"><p class="ktn-ph">{{icon:bank}}<span>Journal entries</span><em class="ktn-ok">Dr = Cr</em></p><table><thead><tr><th scope="col">Account</th><th scope="col">Debit</th><th scope="col">Credit</th></tr></thead><tbody data-c="je"></tbody><tfoot><tr><td>Total</td><td data-c="dr"></td><td data-c="cr"></td></tr></tfoot></table></div>
+          <ul class="ktn-cl-po" data-c="po"></ul>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Seat and order:</b> guests are seated at a table on the floor plan and their order is taken on the restaurant Point of Sale.</p>
+        <p><b>Kitchen:</b> the order is split by product category into tickets for the grill, the fryer and the drinks station on the kitchen display, each with a timer that turns red when it runs late.</p>
+        <p><b>Serve and pay:</b> when every ticket is ready the table is served; the guest pays by card or cash.</p>
+        <p><b>Recipes:</b> each dish has a recipe (a bill of materials), so the paid order deducts its ingredients from stock and the food cost of each dish is known. Ingredients below their par level raise purchase orders to the supplier.</p>
+        <p><b>Close:</b> closing the POS session posts sales by category, GST, card and cash payments, and the cost of the ingredients used into Accounting.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample menu, prices and recipes, time compressed. Stock can move when each order is paid or when the session closes, depending on your Point of Sale settings; stations, alert times and journals are set up per outlet in discovery.</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">

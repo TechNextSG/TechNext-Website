@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Training in Singapore — on your data", "desc": "Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.", "out": "odoo/training.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Training in Singapore — on your data", "desc": "Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.", "out": "odoo/training.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-curriculum.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-curriculum.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -54,6 +54,71 @@
     <dl class="glance"><div><dt>Phase</dt><dd>Step 2 of 4</dd></div><div><dt>Format</dt><dd>Role-based · hands-on · on your data</dd></div><div><dt>Audiences</dt><dd>Administrators and end-users</dd></div><div><dt>Delivery</dt><dd>On-site in Singapore · remote elsewhere</dd></div><div><dt>You keep</dt><dd>Quick-reference guides per task</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="training-plan">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">build a plan</span><h2>A role-based Odoo training plan, session by session.</h2><p class="lead">Pick the roles going live. TechNext assembles the Odoo modules each role needs, a sandbox exercise for each one on a staging copy of your data, and a sign-off check that proves it. Key users go first, end users next, then train-the-trainer and UAT. Run the plan, drag the timeline, or open a module to see what gets practised.</p></div>
+    <div class="dm dm-curriculum reveal" data-demo="curriculum">
+      <div class="dm-head">
+        <div class="dm-title"><b>Training plan builder</b><small>Sample plan · six weeks to go-live · staging copy of your data</small></div>
+        <button class="dm-btn dm-btn--primary" type="button" data-run aria-pressed="false">{{icon:play}}<span>Run the plan</span></button>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="cur-roles">
+        <p class="cur-rolesh">Roles going live</p>
+        <div class="cur-chips" role="group" aria-label="Roles in the training plan">
+          <button type="button" data-role="acc" aria-pressed="true" style="--c:#0E9384">{{odoo:accountant:18}}<span>Accountant</span></button>
+          <button type="button" data-role="sal" aria-pressed="true" style="--c:#3167CA">{{odoo:sale:18}}<span>Sales</span></button>
+          <button type="button" data-role="wh" aria-pressed="true" style="--c:#D97B12">{{odoo:stock:18}}<span>Warehouse</span></button>
+          <button type="button" data-role="buy" aria-pressed="false" style="--c:#7447D6">{{odoo:purchase:18}}<span>Buyer</span></button>
+          <button type="button" data-role="mgr" aria-pressed="false" style="--c:#714B67">{{odoo:approvals:18}}<span>Manager</span></button>
+          <button type="button" data-role="adm" aria-pressed="false" style="--c:#475569">{{icon:gear}}<span>Admin</span></button>
+        </div>
+        <p class="cur-sum" aria-live="polite"></p>
+      </div>
+      <div class="cur-main">
+        <div class="cur-left">
+          <div class="cur-board" role="group" aria-label="Training path: modules per Odoo app. Select a module for its exercise and sign-off check"></div>
+          <div class="cur-detail" aria-live="polite"></div>
+          <ol class="dm-log cur-log" aria-label="Latest training events"></ol>
+        </div>
+        <aside class="cur-side" aria-label="Competency and go-live readiness">
+          <div class="cur-card">
+            <p class="cur-h">{{icon:target}} Competency by role</p>
+            <div class="cur-tabs" role="group" aria-label="Show the competency radar for a role"></div>
+            <svg class="cur-radar" viewBox="0 0 330 244" role="img" aria-label="Competency radar for the selected role"></svg>
+          </div>
+          <div class="cur-card cur-ready">
+            <p class="cur-h">{{icon:shield}} Go-live readiness</p>
+            <div class="cur-gauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="cur-gt" cx="50" cy="50" r="42"/><circle class="cur-gv" cx="50" cy="50" r="42"/></svg><span><b data-k="ready">0</b><small>%</small></span></div>
+            <p class="cur-verdict"></p>
+            <ul class="cur-gates"></ul>
+          </div>
+        </aside>
+      </div>
+      <div class="cur-tl">
+        <div class="cur-tlh"><p class="cur-h">{{icon:calendar}} Session timeline</p><ul class="dm-legend"><li><i class="dm-sw cur-sw-ku"></i>Key users</li><li><i class="dm-sw cur-sw-eu"></i>End users</li><li><i class="dm-sw cur-sw-rt"></i>Retake</li><li><i class="dm-sw cur-sw-sh"></i>Whole team</li></ul></div>
+        <div class="cur-tlw">
+          <div class="cur-tlin">
+            <div class="cur-weeks" aria-hidden="true"></div>
+            <div class="cur-grid">
+              <div class="cur-labels"></div>
+              <div class="cur-lane"><div class="cur-rows"></div><div class="cur-bands"></div><i class="cur-golive" aria-hidden="true"><b>Go-live</b></i><i class="cur-head" aria-hidden="true"></i></div>
+            </div>
+            <div class="cur-scrub"><span class="cur-day" aria-hidden="true">Week 1 &middot; day 1</span><input type="range" min="0" max="1000" step="1" value="0" aria-label="Plan timeline: drag to any day of the plan"></div>
+          </div>
+        </div>
+      </div>
+      <div class="dm-static">
+        <p><b>How the plan is built:</b> each role (accountant, sales, warehouse, buyer, manager, administrator) brings its Odoo modules: invoices, vendor bills, bank reconciliation and month-end for finance; pipeline, quotations, order to invoice and the portal for sales; receipts, picking, adjustments, cycle counts and reordering for the warehouse.</p>
+        <p><b>Each module has three steps:</b> a session, a sandbox exercise on a staging copy of your own data, and a sign-off check the user must pass alone.</p>
+        <p><b>The order of sessions:</b> key users first, then end users, then train-the-trainer so key users can onboard new staff, then UAT and a go-live readiness check. A refresher follows the first month-end.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample plan. Durations, exercises and the readiness score are illustrative; your plan is sized to your teams and agreed before the first session.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

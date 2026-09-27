@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo 20 new features, in plain language", "desc": "Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.", "out": "blog/odoo-20-whats-new.html", "nav": "company", "article": {"h1": "Odoo 20: what's new, in plain language", "cat": "odoo-news", "date": "2026-09-27", "order": 9, "lede": "Odoo unveiled version 20 at Odoo Experience 2026 in Brussels. Here is what actually changes for the people who use it every day, and what to check before you upgrade.", "card": "AI agents that run processes, an MCP connector for outside AI tools, offline mode, and the changes to check before upgrading.", "cover": "O20:acct_assistant"}} -->
+<!--meta {"title": "Odoo 20 new features, in plain language", "desc": "Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.", "out": "blog/odoo-20-whats-new.html", "nav": "company", "article": {"h1": "Odoo 20: what's new, in plain language", "cat": "odoo-news", "date": "2026-09-27", "order": 9, "lede": "Odoo unveiled version 20 at Odoo Experience 2026 in Brussels. Here is what actually changes for the people who use it every day, and what to check before you upgrade.", "card": "AI agents that run processes, an MCP connector for outside AI tools, offline mode, and the changes to check before upgrading.", "cover": "O20:acct_assistant"}, "scripts": ["assets/js/demo-kit.js", "assets/js/demo-o20.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-o20.css?v={ASSET_V}\">"} -->
 
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
@@ -15,6 +15,32 @@
 <p>Odoo's own summary of the release is short: a refreshed look, processes that run themselves through AI agents, websites built from a single sentence, and an AI accounting assistant. Below is what each of those means in practice, plus the smaller changes that matter just as much when you plan an upgrade.</p>
 
 {{VIDEO:YlmN5QcAdLs|Meet Odoo 20's best features}}
+
+<figure class="ox-fig" aria-label="Interactive: Odoo 20 by area, and what to check before upgrading">
+  <div class="dm dm-o20 reveal" data-demo="o20">
+    <div class="dm-head">
+      <div class="dm-title"><b>Odoo 20, area by area</b><small>Everything below is from this article</small></div>
+      <ul class="dm-legend ox-legend" aria-label="Card tags"><li><i class="dm-sw" style="--c:var(--tok-stock)"></i>New</li><li><i class="dm-sw" style="--c:var(--tok-make)"></i>Changed</li><li><i class="dm-sw" style="--c:var(--tok-buy)"></i>Moved</li><li><i class="dm-sw" style="--c:var(--tok-late)"></i>Removed</li><li><i class="dm-sw" style="--c:var(--tok-pay)"></i>Cost</li></ul>
+    </div>
+    <div class="ox-chips" role="tablist" aria-label="Areas of Odoo 20"></div>
+    <div class="ox-cards" role="tabpanel" aria-live="polite"></div>
+    <div class="ox-up">
+      <div class="ox-in">
+        <p class="ox-h">{{icon:refresh}}Should you upgrade to Odoo 20 now?</p>
+        <p class="ox-l">Where does Odoo run?</p>
+        <div class="dm-seg ox-host" role="group" aria-label="Where Odoo runs"><button type="button" data-host="online" aria-pressed="true">Odoo Online</button><button type="button" data-host="sh" aria-pressed="false">Odoo.sh</button><button type="button" data-host="prem" aria-pressed="false">On-premise</button></div>
+        <p class="ox-l">What do you use today?</p>
+        <div class="ox-uses" role="group" aria-label="What you use today"></div>
+      </div>
+      <div class="ox-out" aria-live="polite"></div>
+    </div>
+    <div class="dm-static">
+      <p>Odoo 20 adds AI agents that automated actions can call, an MCP connector for outside AI tools, offline mode, bill payments from Odoo and an Accounting Assistant. Field Service moves into Planning, payroll work entries are removed and account groups become parent accounts. Before upgrading: check removed or moved features, custom modules and Studio changes, AI usage and credits, and do a dry run on a copy.</p>
+    </div>
+  </div>
+  <figcaption class="dm-note">{{icon:check}} Summarised from Odoo's release notes as covered in this article; test every change on a copy of your own database.</figcaption>
+</figure>
+
 
 <h2>AI agents that do the work, not just answer questions</h2>
 <p>The biggest shift in Odoo 20 is that AI stops being a chat box on the side. Automated and scheduled actions can now call an <strong>AI agent</strong>, so you can describe a process in plain language and let the agent carry it out. Agents in Odoo 20 can:</p>

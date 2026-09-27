@@ -1,4 +1,4 @@
-<!--meta {"title": "AI Chatbot Development in Singapore — web & WhatsApp", "desc": "AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.", "out": "solutions/ai-chatbots.html", "nav": "solution"} -->
+<!--meta {"title": "AI Chatbot Development in Singapore — web & WhatsApp", "desc": "AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.", "out": "solutions/ai-chatbots.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-inbox.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-inbox.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -34,6 +34,73 @@
     <dl class="glance"><div><dt>Discipline</dt><dd>AI chatbot</dd></div><div><dt>Channels</dt><dd>Web · WhatsApp · in-app</dd></div><div><dt>Grounding</dt><dd>Your knowledge base and records</dd></div><div><dt>Hand-off</dt><dd>Clean pass to a person, with context</dd></div><div><dt>Also does</dt><dd>Lead capture and lookups</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="omnichannel-inbox">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">one inbox, three channels</span><h2>An AI chatbot on WhatsApp, web chat and email, in one inbox.</h2><p class="lead">Watch a TechNext chatbot work a shared inbox: it reads each message, routes it by intent, answers from Odoo records such as the sales order, and hands the conversation to a person, with everything attached, when it should. Filter by channel, start a conversation from any intent, or make the customer ask for a human.</p></div>
+    <div class="dm dm-inbox reveal" data-demo="inbox">
+      <div class="dm-head">
+        <div class="dm-title"><b>Omnichannel inbox</b><small>Sample conversations · answers read from Odoo</small></div>
+        <div class="dm-seg" role="group" aria-label="Filter by channel">
+          <button type="button" data-ch="all" aria-pressed="true">All</button>
+          <button type="button" data-ch="wa" aria-pressed="false">{{icon:whatsapp}}WhatsApp</button>
+          <button type="button" data-ch="web" aria-pressed="false">{{icon:globe}}Website chat</button>
+          <button type="button" data-ch="mail" aria-pressed="false">{{icon:mail}}Email</button>
+        </div>
+        <button class="dm-btn dm-btn--primary" type="button" data-human>{{icon:users}}Customer asks for a human</button>
+      </div>
+      <div class="obx-wrap">
+        <div class="obx-list">
+          <p class="obx-h">{{icon:layers}}<b>Inbox</b><small data-k="open">0 open</small></p>
+          <div class="obx-items" role="group" aria-label="Conversations"></div>
+        </div>
+        <div class="obx-mid">
+          <div class="obx-phone" data-ch="wa">
+            <div class="obx-ph">
+              <span class="obx-pav" data-p="av">DL</span>
+              <span class="obx-pn"><b data-p="name">Daniel Lim</b><small data-p="sub">WhatsApp</small></span>
+              <span class="obx-pch" data-p="ch"></span>
+            </div>
+            <div class="obx-msgs" role="log" aria-live="off" aria-label="Conversation"></div>
+            <div class="obx-comp" aria-hidden="true"><span data-p="comp">Message</span><i>{{icon:send}}</i></div>
+          </div>
+        </div>
+        <div class="obx-side">
+          <p class="obx-h">{{icon:target}}<b>Intent routing</b><small>pick one to start a chat</small></p>
+          <div class="obx-tree">
+            <div class="obx-root"><span>{{icon:chat}}Incoming message</span><i></i><span>{{icon:sparkle}}Understand intent and details</span></div>
+            <ol class="obx-br" aria-label="Intents">
+              <li data-in="order"><button type="button" class="obx-leaf" data-start="order">Order status</button><span>Look up the sales order, answer</span><em class="is-bot">Bot</em><i class="obx-n"></i></li>
+              <li data-in="quote"><button type="button" class="obx-leaf" data-start="quote">Quotation request</button><span>Qualify, create the CRM lead</span><em>To Sales</em><i class="obx-n"></i></li>
+              <li data-in="support"><button type="button" class="obx-leaf" data-start="support">Support issue</button><span>Knowledge answer, else a ticket</span><em class="is-bot">Bot, then ticket</em><i class="obx-n"></i></li>
+              <li data-in="booking"><button type="button" class="obx-leaf" data-start="booking">Booking</button><span>Read free slots, book, remind</span><em class="is-bot">Bot</em><i class="obx-n"></i></li>
+              <li data-in="other"><button type="button" class="obx-leaf" data-start="other">Other</button><span>No approved answer: a person</span><em>To a person</em><i class="obx-n"></i></li>
+              <li data-in="human" class="obx-br--h"><span class="obx-leaf">Asks for a person</span><span>Hand-off at any point, with context</span><em>To a person</em><i class="obx-n"></i></li>
+            </ol>
+          </div>
+          <div class="obx-meter" aria-label="Containment against hand-off">
+            <p class="obx-h">{{icon:pulse}}<b>Containment</b><small data-k="pct">0%</small></p>
+            <div class="obx-bar"><i class="is-bot"></i><i class="is-hand"></i></div>
+            <ul class="obx-leg"><li><i class="is-bot"></i><b data-k="bot">0</b>answered by the bot</li><li><i class="is-hand"></i><b data-k="hand">0</b>handed to a person</li></ul>
+          </div>
+          <dl class="dm-kpis obx-kpis">
+            <div><dt>With the bot now</dt><dd data-k="live">0</dd></div>
+            <div><dt>Waiting for a person</dt><dd data-k="wait">0</dd></div>
+            <div class="dm-ok"><dt>Bot first reply</dt><dd data-k="fbot">–</dd></div>
+            <div><dt>Agent first reply</dt><dd data-k="fag">–</dd></div>
+          </dl>
+        </div>
+      </div>
+      <template class="obx-ico"><span data-i="wa">{{icon:whatsapp}}</span><span data-i="web">{{icon:globe}}</span><span data-i="mail">{{icon:mail}}</span><span data-i="bot">{{icon:bot}}</span><span data-i="users">{{icon:users}}</span><span data-i="check">{{icon:check}}</span><span data-i="search">{{icon:search}}</span><span data-i="clock">{{icon:clock}}</span><span data-i="file">{{icon:file}}</span></template>
+      <div class="dm-static">
+        <p>WhatsApp, website chat and email arrive in one inbox. The bot understands the intent and details of each message and routes it: order status (answered from the sales order and its delivery in Odoo), quotation request (qualified, then a CRM lead for Sales), support issue (an approved knowledge answer, else a Helpdesk ticket), booking (free slots read and booked) or other (passed to a person).</p>
+        <p>When a customer asks for a person, or the bot has no approved answer, the conversation is handed to an agent with the transcript, intent, order and customer record attached, and a reply-time target starts. The meter shows how many conversations the bot answered against how many went to a person.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample conversations and names, sped up. Channels, hand-off rules and reply-time targets are set with your team.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
