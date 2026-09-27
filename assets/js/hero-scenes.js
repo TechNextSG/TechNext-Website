@@ -125,7 +125,12 @@
       var x = g.rx * Math.cos(th), y = g.ry * Math.sin(th);
       return { x: g.cx + x * g.c - y * g.s, y: g.cy + x * g.s + y * g.c, d: (Math.sin(th) + 1) / 2 };
     }
-    function coreTarget() { var f = box(feed, root); return { x: f.cx, y: f.y + 8 }; }
+    // Where beams and packets land: the live feed on the dashboard. Offset geometry ignores CSS transforms,
+    // and the core is centred with translate(-50%,-50%), so take half its size back off.
+    function coreTarget() {
+      var f = box(feed, root);
+      return { x: f.cx - core.offsetWidth / 2, y: f.y + 10 - core.offsetHeight / 2 };
+    }
     function startRush(now) {
       landed = 0; root.classList.remove('is-live'); packets.forEach(function (p) { p.g.remove(); }); packets = [];
       if (reduce) { rush = null; landed = apps.length; root.classList.add('is-live'); return; }

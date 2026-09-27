@@ -1,4 +1,4 @@
-<!--meta {"title": "About TechNext Pte. Ltd. — Odoo Ready Partner, Singapore", "desc": "TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.", "out": "company.html", "nav": "company"} -->
+<!--meta {"title": "About TechNext Pte. Ltd. — Odoo Ready Partner, Singapore", "desc": "TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.", "out": "company.html", "nav": "company", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-offices.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-offices.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -122,6 +122,54 @@
     </div>
   </div>
 </section>
+
+<section class="section demo-sec" id="one-team">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">follow the work</span>
+      <h2>One Odoo team across Singapore, Metro Manila and Ho Chi Minh City.</h2>
+      <p class="lead">Step through a TechNext engagement and watch the work move between the three offices: discovery with you, configuration and custom modules with the development hub, then training and support from the same people who set Odoo up.</p>
+    </div>
+    <div class="dm dm-offices reveal" data-demo="offices">
+      <div class="dm-head">
+        <div class="dm-title"><b>How an engagement moves between the offices</b><small>Illustrative · the team is set per project</small></div>
+        <div class="dm-seg dof-steps" role="group" aria-label="Engagement step">
+          <button type="button" data-step aria-pressed="true">Discovery</button>
+          <button type="button" data-step aria-pressed="false">Configuration</button>
+          <button type="button" data-step aria-pressed="false">Integration</button>
+          <button type="button" data-step aria-pressed="false">Training</button>
+          <button type="button" data-step aria-pressed="false">Support</button>
+        </div>
+        <button class="dm-btn" type="button" data-prev aria-label="Previous step">{{icon:arrow}}</button>
+        <button class="dm-btn" type="button" data-next aria-label="Next step">{{icon:arrow}}</button>
+      </div>
+      <div class="dof-wrap">
+        <div class="dof-stage">
+          <svg class="dof-svg" aria-hidden="true"></svg>
+          <div class="dof-client">{{icon:briefcase}}<b>Your company</b><small>On-site in Singapore, remote in 10+ countries</small></div>
+          <div class="dof-office" data-o="sg" data-x=".36" data-y=".8"><i></i><b>Singapore</b><small>Headquarters</small></div>
+          <div class="dof-office" data-o="vn" data-x=".47" data-y=".36"><i></i><b>Ho Chi Minh City</b><small>Development hub</small></div>
+          <div class="dof-office" data-o="ph" data-x=".82" data-y=".2"><i></i><b>Taguig City</b><small>Metro Manila office</small></div>
+        </div>
+        <aside class="dof-side" aria-live="polite">
+          <div class="dof-card"><b><span>1</span>Discovery</b><p>We map how orders, stock and money move today, match each step to an Odoo app and write the scope down.</p><p class="dof-who">{{icon:users}}On-site with you in Singapore, with consultants from Taguig City</p></div>
+          <div class="dof-card" hidden><b><span>2</span>Configuration</b><p>Standard Odoo first, set up on a staging copy of your database. Custom modules only where the process genuinely differs, built to survive upgrades.</p><p class="dof-who">{{icon:users}}Consultants in Taguig City with the development hub in Ho Chi Minh City</p></div>
+          <div class="dof-card" hidden><b><span>3</span>Integration</b><p>Banks, payment gateways, online stores and the tools you keep are connected, so nobody re-types between systems.</p><p class="dof-who">{{icon:users}}The development hub, with the consultants who know your process</p></div>
+          <div class="dof-card" hidden><b><span>4</span>Training</b><p>Each team learns its own screens on a copy of your data, with a quick-reference guide for every task.</p><p class="dof-who">{{icon:users}}The consultants who configured it, in person in Singapore or online</p></div>
+          <div class="dof-card" hidden><b><span>5</span>Support</b><p>Fixes, month-end help, upgrades and small changes, handled by the team that configured your system.</p><p class="dof-who">{{icon:users}}All three offices, one support channel</p></div>
+          <p class="dof-h">Who is where</p>
+          <ul class="dof-roster">
+            <li data-o="sg"><b>Singapore HQ</b><span>Headquarters, on-site work with clients in Singapore</span></li>
+            <li data-o="ph"><b>Taguig City, Metro Manila</b><span>Odoo consultants and architects, finance, HR, sales and marketing</span></li>
+            <li data-o="vn"><b>Ho Chi Minh City</b><span>Development hub: developers on the same projects</span></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="dm-static"><p>Discovery on-site in Singapore and from Taguig City; configuration and custom modules with the Ho Chi Minh City development hub; integration by the hub; training and support by the same consultants who set Odoo up.</p></div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

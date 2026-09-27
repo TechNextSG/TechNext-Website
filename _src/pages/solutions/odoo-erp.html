@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo ERP Implementation in Singapore", "desc": "Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.", "out": "solutions/odoo-erp.html", "nav": "solution", "scripts": ["assets/js/showcase.js"]} -->
+<!--meta {"title": "Odoo ERP Implementation in Singapore", "desc": "Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.", "out": "solutions/odoo-erp.html", "nav": "solution", "scripts": ["assets/js/showcase.js", "assets/js/demo-kit.js", "assets/js/demo-chains.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-chains.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -40,6 +40,71 @@
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>An Odoo ERP implementation with TechNext covers discovery, configuration on a staging copy of your database, data migration, training, integrations and support after go-live. Most companies start with Accounting, Sales and Inventory, then add apps on the same database. Scope and price come in a written quotation after discovery.</p></div></div>
 </section>
+
+<section class="section demo-sec" id="five-processes">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">see it run</span>
+      <h2>Odoo ERP: five end-to-end processes on one database.</h2>
+      <p class="lead">Order to cash, procure to pay, plan to produce, record to report and hire to reimburse all run on the same customers, vendors, products, employees and chart of accounts. Every step posts to one ledger that always balances. Pick a process, run all five, or hover a master record to see every document that uses it.</p>
+    </div>
+    <div class="dm dm-chains reveal" data-demo="chains">
+      <div class="dm-head">
+        <div class="dm-title"><b>One database, five processes</b><small>Sample company · SGD · GST 9%</small></div>
+        <div class="dm-seg" role="group" aria-label="Choose a process">
+          <button type="button" data-p="o2c" aria-pressed="true"><i class="dm-sw" style="--c:var(--tok-stock)"></i>Order to cash</button>
+          <button type="button" data-p="p2p" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-buy)"></i>Procure to pay</button>
+          <button type="button" data-p="mfg" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-make)"></i>Plan to produce</button>
+          <button type="button" data-p="r2r" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-pay)"></i>Record to report</button>
+          <button type="button" data-p="h2r" aria-pressed="false"><i class="dm-sw" style="--c:var(--tok-late)"></i>Hire to reimburse</button>
+        </div>
+        <button class="dm-btn dm-btn--primary" type="button" data-run>{{icon:play}}Run all five</button>
+        <button class="dm-btn" type="button" data-reset>{{icon:refresh}}Reset</button>
+      </div>
+      <div class="dch-wrap">
+        <div class="dch-stage">
+          <svg class="dch-links" aria-hidden="true"></svg>
+          <div class="dch-rails"></div>
+          <div class="dch-hub" role="group" aria-label="Shared master records: hover one to see every document that uses it">
+            <p class="dch-hubh">{{icon:database}} One set of master records</p>
+            <button type="button" data-m="cust">{{icon:users}}<span><b>Lim &amp; Co Pte Ltd</b><small>Customer</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="vend">{{icon:truck}}<span><b>Apex Supplies</b><small>Vendor</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="lamp">{{icon:box}}<span><b>Desk lamp</b><small>Product · finished</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="base">{{icon:box}}<span><b>Lamp base</b><small>Product · component</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="bom">{{icon:layers}}<span><b>Bill of materials</b><small>Base + shade + assembly</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="emp">{{icon:usercheck}}<span><b>A. Tan</b><small>Employee</small></span><i class="dch-n"></i></button>
+            <button type="button" data-m="coa">{{icon:bank}}<span><b>Chart of accounts</b><small>Ledger, taxes, fiscal year</small></span><i class="dch-n"></i></button>
+          </div>
+          <div class="dch-reports" aria-label="Reports, read live from the same ledger">
+            <div class="dch-rep"><p>{{icon:trend}}P&amp;L</p><dl><div><dt>Sales</dt><dd data-r="sales">0</dd></div><div><dt>Cost of goods sold</dt><dd data-r="cogs">0</dd></div><div class="dch-sum"><dt>Gross profit</dt><dd data-r="gp">0</dd></div><div><dt>Expenses</dt><dd data-r="opex">0</dd></div><div class="dch-sum"><dt>Net profit</dt><dd data-r="net">0</dd></div></dl></div>
+            <div class="dch-rep"><p>{{icon:receipt}}GST</p><dl><div><dt>Output tax</dt><dd data-r="out">0</dd></div><div><dt>Input tax</dt><dd data-r="inp">0</dd></div><div class="dch-sum"><dt>Net payable</dt><dd data-r="gst">0</dd></div></dl></div>
+            <div class="dch-rep"><p>{{icon:bank}}Cash</p><dl><div><dt>Bank</dt><dd data-r="bank">0</dd></div><div><dt>Receivables</dt><dd data-r="ar">0</dd></div><div><dt>Payables</dt><dd data-r="ap">0</dd></div></dl></div>
+          </div>
+        </div>
+        <aside class="dch-ledger" aria-label="Journal and trial balance">
+          <dl class="dm-kpis">
+            <div><dt>Documents</dt><dd data-k="docs">0</dd></div>
+            <div><dt>Journal entries</dt><dd data-k="je">0</dd></div>
+            <div class="dm-ok"><dt>Ledger</dt><dd data-k="bal">Dr = Cr</dd></div>
+          </dl>
+          <p class="dch-lh">Latest postings</p>
+          <ol class="dch-journal"></ol>
+          <p class="dch-lh">Trial balance <small>opening balances included</small></p>
+          <div class="dch-tbw"><table class="dch-tb"><thead><tr><th>Acct</th><th>Account</th><th>Dr</th><th>Cr</th></tr></thead><tbody></tbody><tfoot><tr><td></td><td>Total</td><td data-t="dr"></td><td data-t="cr"></td></tr></tfoot></table></div>
+        </aside>
+      </div>
+      <div class="dm-static">
+        <p><b>Order to cash:</b> quotation, sales order, delivery, invoice, payment matched from the bank feed.</p>
+        <p><b>Procure to pay:</b> reorder rule, request for quotation, purchase order, receipt, vendor bill with a 3-way match, batch payment.</p>
+        <p><b>Plan to produce:</b> manufacturing order from the bill of materials, work order, quality check, finished goods valued in stock.</p>
+        <p><b>Record to report:</b> bank statement lines, reconciliation, accruals, the GST report and the P&amp;L.</p>
+        <p><b>Hire to reimburse:</b> employee record, time off, expense claim, reimbursement.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data. The postings are illustrative: your chart of accounts, taxes and stock valuation are set up in discovery.</p>
+  </div>
+</section>
+
 
 
 <section class="section">
