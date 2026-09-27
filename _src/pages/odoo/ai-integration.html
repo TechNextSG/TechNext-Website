@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo + AI integrations — AI inside your ERP", "desc": "AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo.", "out": "odoo/ai-integration.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo + AI integrations — AI inside your ERP", "desc": "AI inside Odoo by TechNext: document capture, drafting, lookups and assistants connected to your ERP data — built by a team that also implements Odoo.", "out": "odoo/ai-integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-recordai.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-recordai.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -40,6 +40,46 @@
     <dl class="glance"><div><dt>Works in</dt><dd>Your Odoo records</dd></div><div><dt>Discipline</dt><dd>AI inside Odoo</dd></div><div><dt>Every action</dt><dd>Logged on the record</dd></div><div><dt>Control</dt><dd>People approve; the AI prepares</dd></div><div><dt>Built by</dt><dd>A team that also implements Odoo</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="ai-in-a-record">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">try it on a record</span>
+      <h2>Odoo AI integration, one record at a time.</h2>
+      <p class="lead">Pick a record and run its AI actions in order. Each one lights up the fields it reads and writes its result. Anything that posts, sends or commits stops at a gate until a person approves, and every step is logged on the record. This is how TechNext builds AI inside the Odoo we implement.</p>
+    </div>
+    <div class="dm dm-recordai reveal" data-demo="recordai">
+      <div class="dm-head">
+        <div class="dm-title"><b>AI inside an Odoo record</b><small>Sample records · the AI prepares, people approve</small></div>
+        <div class="dm-seg" role="group" aria-label="Choose a record">
+          <button type="button" data-rec="bill" aria-pressed="true">{{odoo:accountant:16}}Vendor bill</button>
+          <button type="button" data-rec="ticket" aria-pressed="false">{{odoo:helpdesk:16}}Helpdesk ticket</button>
+          <button type="button" data-rec="lead" aria-pressed="false">{{odoo:crm:16}}CRM opportunity</button>
+        </div>
+      </div>
+      <div class="dra-wrap">
+        <div class="dra-rec">
+          <p class="dra-rh">{{odoo:ai_app:26}}<span class="dra-rt">Vendor bill · Draft</span></p>
+          <p class="dra-scope">{{icon:lock}}<span>Can read: vendor bills, purchase orders, receipts</span></p>
+          <div class="dra-form" aria-live="polite"></div>
+        </div>
+        <div class="dra-side">
+          <p class="dra-h">AI actions, in order</p>
+          <div class="dra-acts"></div>
+          <div class="dra-gate" hidden role="group" aria-label="Approval">
+            <p>{{icon:shield}}<span class="dra-gq">Needs a person</span></p>
+            <div><button type="button" data-yes>Approve</button><button type="button" data-no>Send back</button></div>
+          </div>
+          <p class="dra-h">Logged on the record</p>
+          <ol class="dra-log" aria-live="polite"></ol>
+        </div>
+      </div>
+      <div class="dm-static"><p>Vendor bill: the AI reads the PDF, matches the purchase order, codes the lines, and a person approves the posting. Helpdesk ticket: it summarises the thread, routes it, drafts a reply, and a person sends it. CRM opportunity: it looks up last year's quotation with the source shown, suggests the next step, drafts a follow-up, and a person sends the quotation.</p></div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample records. Access is scoped to the records each task needs, and accuracy is measured on your own data before anything runs unattended.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
