@@ -1,6 +1,6 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Odoo app pages: record lifecycle demo (demo-life.js). One engine, seven forms by app family:
-   rail (sales, supply chain) · ladder (finance) · ring (HR) · funnel (marketing) · board (services)
+   rail (sales, supply chain) · ladder (finance) · ring (HR) · funnel (marketing) · lanes (services)
    · hub (productivity) · journey (websites). */
 .dm-life{--c:var(--blue)}
 .dm-life[data-cat="finance"]{--c:var(--tok-pay)}
@@ -25,7 +25,7 @@
 .lf--ladder .lf-stage{height:calc(var(--n,5) * 56px + 16px)}
 .lf--ring .lf-stage,.lf--hub .lf-stage{height:330px}
 .lf--funnel .lf-stage{height:calc(var(--n,5) * 52px + 24px)}
-.lf--board .lf-stage{height:200px}
+.lf--lanes .lf-stage{height:calc(46px + 6 * 27px + 4px)}
 .lf--journey .lf-stage{height:230px}
 .lf-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
 .lf-e{fill:none;stroke:var(--edge);stroke-width:1.7;stroke-linecap:round}
@@ -35,17 +35,17 @@
 .lf-tok .lf-td{fill:var(--c);stroke:#fff;stroke-width:1.5}
 .lf-tok .lf-th{fill:var(--c);opacity:.18}
 .lf-tok{transition:opacity .4s ease}
-.lf-tok.is-out,.lf-card.is-out{opacity:0}
+.lf-tok.is-out{opacity:0}
 .lf-states{position:absolute;inset:0;margin:0;padding:0;list-style:none;z-index:2}
 .lf-states>li{position:absolute;transform:translate(-50%,-50%);width:112px;padding:8px 9px 7px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 22px -16px rgba(31,31,61,.5);text-align:center;cursor:default;transition:border-color .25s ease,box-shadow .25s ease,opacity .25s ease;outline:none}
 .lf-states>li b{display:block;font:700 11.5px/1.2 var(--font-display);color:var(--ink)}
 .lf-states>li small{display:block;margin-top:2px;font:500 9.5px/1.3 var(--font-body);color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .lf-states>li:first-child{border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
 .lf-states>li:hover,.lf-states>li.is-hot,.lf-states>li:focus-visible{border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 16%,transparent),0 12px 24px -14px rgba(31,31,61,.5)}
-.lf-states>li.is-pulse{animation:lfPulse .6s ease-out}
-@keyframes lfPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 45%,transparent)}100%{box-shadow:0 0 0 12px color-mix(in srgb,var(--c) 0%,transparent)}}
-.lf-n{position:absolute;top:-8px;right:-8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--c);color:#fff;font:700 9.5px/18px var(--font-body);font-style:normal;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .35s var(--spring);box-shadow:0 0 0 2px #fff}
-.lf-states>li.has-n .lf-n{opacity:1;transform:none}
+.lf-states>li.is-pulse{animation:lfPulse .9s ease-out}
+@keyframes lfPulse{0%{border-color:color-mix(in srgb,var(--c) 55%,var(--line))}100%{border-color:var(--line)}}
+.lf-n{position:absolute;top:-8px;right:-8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--c);color:#fff;font:700 9.5px/18px var(--font-body);font-style:normal;opacity:0;transition:opacity .3s ease;box-shadow:0 0 0 2px #fff}
+.lf-states>li.has-n .lf-n{opacity:1}
 .dm-life.is-peek .lf-states>li:not(.is-hot){opacity:.45}
 /* ladder (finance): a vertical close; cards left, branches loop out to the right */
 .lf--ladder .lf-states>li{width:220px;text-align:left;padding-left:12px;border-left:3px solid color-mix(in srgb,var(--c) 55%,var(--line))}
@@ -58,13 +58,29 @@
 /* funnel (marketing): bands that narrow as records move down */
 .lf--funnel .lf-states>li{width:calc(var(--w,100%) * .62);border-radius:10px;padding:7px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 7%,#fff),#fff 60%);display:flex;align-items:baseline;gap:10px;justify-content:center}
 .lf--funnel .lf-states>li small{-webkit-line-clamp:1;margin:0}
-/* board (services): columns with record cards */
-.lf--board .lf-states>li{top:0!important;transform:translateX(-50%);height:100%;width:calc(100% / var(--n,5) - 8px);border-radius:12px;background:var(--alt);box-shadow:none;padding-top:8px;background-image:linear-gradient(var(--line),var(--line));background-size:calc(100% - 20px) 1px;background-position:10px 40px;background-repeat:no-repeat}
-.lf--board .lf-states>li b{font-size:11px}
-.lf--board .lf-states>li small{-webkit-line-clamp:1}
+/* lanes (services): a timeline in the spirit of Odoo's Gantt view. Stages are bands with their header on
+   top; every record owns a lane, and its bar grows along the stages (red while a loop pulls it back) */
+.lf--lanes .lf-states>li{top:0!important;transform:translateX(-50%);height:100%;width:calc(100% / var(--n,5));padding:7px 24px 0 8px;border:0;border-left:1px dashed #DCDFE8;border-radius:0;background:none;box-shadow:none}
+.lf--lanes .lf-states>li:first-child{border-left:0}
+.lf--lanes .lf-states>li:nth-child(odd){background:linear-gradient(180deg,color-mix(in srgb,var(--c) 5%,#fff),transparent 70%)}
+.lf--lanes .lf-states>li b{font-size:11px}
+.lf--lanes .lf-states>li small{-webkit-line-clamp:1}
+.lf--lanes .lf-states>li:hover,.lf--lanes .lf-states>li.is-hot{box-shadow:none;background:color-mix(in srgb,var(--c) 7%,#fff)}
+.lf--lanes .lf-states>li.is-pulse{animation:lfBand .9s ease-out}
+@keyframes lfBand{0%{background-color:color-mix(in srgb,var(--c) 9%,#fff)}100%{background-color:transparent}}
+.lf--lanes .lf-n{top:6px;right:6px}
 .lf-cards{position:absolute;inset:0;z-index:3;pointer-events:none}
-.lf-card{position:absolute;left:0;top:0;width:68px;padding:4px 6px;border-radius:7px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--c);font:700 9.5px/1.2 var(--font-body);color:var(--ink);box-shadow:0 6px 14px -10px rgba(31,31,61,.5);transition:transform .35s var(--spring),opacity .4s ease}
-.lf-card.is-moving{transition:opacity .4s ease;box-shadow:0 12px 22px -12px rgba(31,31,61,.55);z-index:2}
+.lf-lane{position:absolute;left:0;right:0;height:18px;transition:opacity .5s ease}
+.lf-lane::before{content:"";position:absolute;left:10px;right:10px;top:8px;height:2px;border-radius:2px;background:rgba(31,31,61,.05)}
+.lf-bar{position:absolute;left:10px;top:4px;height:10px;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 22%,#fff),var(--c));transition:background-color .4s ease}
+.lf-bar::after{content:"";position:absolute;right:-3px;top:-2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px var(--c)}
+.lf-tag{position:absolute;left:0;top:1px;padding:2px 6px;border-radius:6px;background:#fff;border:1px solid var(--line);font:700 9.5px/1.2 var(--font-body);color:var(--ink);white-space:nowrap;will-change:transform}
+.lf-lane.is-back .lf-bar{background:linear-gradient(90deg,#F4D5D1,var(--tok-late))}
+.lf-lane.is-back .lf-bar::after{box-shadow:inset 0 0 0 3px var(--tok-late)}
+.lf-lane.is-back .lf-tag{border-color:#F1C6C1;color:#B02E25}
+.lf-lane.is-done .lf-bar{background:linear-gradient(90deg,#CDEBD9,var(--ok))}
+.lf-lane.is-done .lf-bar::after{box-shadow:inset 0 0 0 3px var(--ok)}
+.lf-lane.is-out{opacity:0}
 /* journey (websites): a winding path */
 .lf--journey .lf-states>li{width:120px;border-radius:999px;padding:7px 12px}
 .lf--journey .lf-states>li small{-webkit-line-clamp:1}
