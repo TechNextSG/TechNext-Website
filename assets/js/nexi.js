@@ -14,8 +14,12 @@
   var hero = document.querySelector('[data-hero]');
   if (!hero) return;
   var ROOT = hero.getAttribute('data-root') || '';
-  var me = document.currentScript && document.currentScript.src || '';
-  var V = (me.match(/[?&]v=([^&#]+)/) || [])[1];
+  /* both scripts resolve next to this file's own URL (never from page markup) */
+  var me = document.currentScript && document.currentScript.src;
+  if (!me) return;
+  var V = new URL(me).searchParams.get('v');
+  var THREE_URL = new URL('vendor/three-r128.min.js', me).href;
+  var BOT_URL = new URL('nexi-bot.js' + (V ? '?v=' + encodeURIComponent(V) : ''), me).href;
   var desk = matchMedia('(min-width: 961px) and (hover: hover) and (pointer: fine)');
   var calm = matchMedia('(prefers-reduced-motion: reduce)');
   var app = null, loading = false;
@@ -32,8 +36,8 @@
   function load() {
     if (app || loading || !allowed() || !webgl()) return;
     loading = true;
-    var bot = function () { if (window.tnNexi) start(); else script(ROOT + 'assets/js/nexi-bot.js' + (V ? '?v=' + V : ''), start); };
-    if (window.THREE) bot(); else script(ROOT + 'assets/js/vendor/three-r128.min.js', bot);
+    var bot = function () { if (window.tnNexi) start(); else script(BOT_URL, start); };
+    if (window.THREE) bot(); else script(THREE_URL, bot);
   }
   function whenSettled(fn) {
     var html = document.documentElement;
