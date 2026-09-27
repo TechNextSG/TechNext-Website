@@ -86,9 +86,13 @@ TN.demo('life', function (root, K) {
   }
   function draw() {
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    svg.innerHTML = '<defs><marker id="lf-arrow-' + root.dataset.mod + '" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1.5 8.5 5 1 8.5z"/></marker></defs>';
+    // the arrow marker is built with the DOM API: its id comes from a data attribute
+    svg.textContent = '';
+    var markId = 'lf-arrow-' + (root.dataset.mod || 'x'), defs = K.svg('defs', {});
+    var mkr = K.svg('marker', { id: markId, viewBox: '0 0 10 10', refX: 7, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse' });
+    mkr.appendChild(K.svg('path', { d: 'M1 1.5 8.5 5 1 8.5z' })); defs.appendChild(mkr); svg.appendChild(defs);
     edges = {};
-    var mk = 'url(#lf-arrow-' + root.dataset.mod + ')';
+    var mk = 'url(#' + markId + ')';
     if (layout === 'hub') svg.appendChild(K.svg('circle', { cx: W * .5, cy: H * .52, r: 38, 'class': 'lf-core' }));
     for (var i = 0; i < path.length - 1; i++) {
       var id = path[i] + '>' + path[i + 1];
@@ -105,7 +109,15 @@ TN.demo('life', function (root, K) {
     tokens.forEach(function (t) { if (t.g) g.appendChild(t.g); });
   }
   // ---------------------------------------------------------------- records
-  function say(html, c) { var li = K.log(log, '<i></i><span>' + html + '</span>', null, 4); if (c) li.style.setProperty('--c', c); }
+  // log lines are built from text nodes: labels come from the page, never re-read as HTML
+  function say(parts, c) {
+    var li = K.el('li'), sp = K.el('span'); li.appendChild(K.el('i'));
+    parts.forEach(function (p) { sp.appendChild(typeof p === 'string' ? document.createTextNode(p) : K.el('b', null, p.b)); });
+    li.appendChild(sp); if (c) li.style.setProperty('--c', c);
+    log.insertBefore(li, log.firstChild);
+    var rows = K.$$('li', log); while (rows.length > 4) rows.pop().remove();
+  }
+  function lower(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
   function num(t) { return '#' + t.id; }
   function spawn() {
     var t = { id: ++serial, i: 0, s: 0, edge: null, wait: 0, loops: 0, v: K.rnd(95, 130) };
@@ -120,7 +132,7 @@ TN.demo('life', function (root, K) {
     hands.forEach(function (h) {
       if (h.at !== key) return;
       nHand++; kHand.textContent = String(nHand); K.restart(h.el, 'is-fire');
-      if (Math.random() < .5) say('<b>' + record + ' ' + num(t) + '</b> ' + h.text.charAt(0).toLowerCase() + h.text.slice(1) + ' (' + h.app + ')', 'var(--tok-pay)');
+      if (Math.random() < .5) say([{ b: record + ' ' + num(t) }, ' ' + lower(h.text) + ' (' + h.app + ')'], 'var(--tok-pay)');
     });
   }
   function place1(t, x, y) {
@@ -137,7 +149,7 @@ TN.demo('life', function (root, K) {
     if (out.length && t.loops < 1 && (forceExc || Math.random() < .2)) {
       var b = K.pick(out); t.loops++; forceExc = false;
       nExc++; kExc.textContent = String(nExc); K.restart(b.el, 'is-take');
-      say('<b>' + record + ' ' + num(t) + '</b>: ' + b.label.charAt(0).toLowerCase() + b.label.slice(1), 'var(--tok-late)');
+      say([{ b: record + ' ' + num(t) }, ': ' + lower(b.label)], 'var(--tok-late)');
       return { id: b.from + '>' + b.to + '>b', to: b.to, branch: true };
     }
     var pi = t.i + 1;
