@@ -1670,3 +1670,45 @@ a.post-cat:hover{text-decoration:none;filter:brightness(.97)}
 .ev-tags .ev-full{background:#FDECEA;border-color:#F6C9C4;color:#9E2B20}
 .prose .ev .btn-link{font-size:14px;text-decoration:none}
 @media (max-width:640px){.prose .ev{grid-template-columns:52px minmax(0,1fr);gap:12px;padding:16px}.ev-date{width:52px;height:56px}.ev-date b{font-size:1.25rem}}
+
+/* ==========================================================================
+   SEO structure without visual change
+   ========================================================================== */
+/* home: the partner pill is the H1 (keyword), the kinetic line is an h2.as-h1 */
+.slide-copy h1.slide-tag{font:600 13px/1.3 var(--font-body);letter-spacing:0;text-wrap:wrap;margin:0 0 22px;max-width:none;color:var(--ink)}
+.slide-copy h1.slide-tag img{flex:none}
+@media (max-width:960px){.slide-copy h1.slide-tag{font-size:13px;margin-bottom:16px}}
+@media (max-width:640px){
+  .slide-copy h1.slide-tag{font-size:12px;margin-bottom:14px;flex-wrap:nowrap;text-align:left}
+  .slide-copy .as-h1{font-size:clamp(1.85rem,8.4vw,2.35rem);line-height:1.08;margin-bottom:12px}
+}
+/* the handwritten eyebrow now sits inside each page's H1 and carries its keyword */
+h1 .h1-hand{display:block;margin:0 0 10px;letter-spacing:0;text-wrap:wrap;max-width:none}
+/* app pages: "Odoo X in Singapore" is the H1, Odoo's tagline sits under it */
+p.app-sub{margin:-2px 0 14px}
+
+/* ---------- "In one paragraph" answer boxes ---------- */
+.answer-sec{padding-top:36px;padding-bottom:4px}
+.answer-box{position:relative;max-width:880px;padding:22px 26px 22px 30px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.answer-box::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--blue)}
+.answer-h{margin:0 0 8px;font:700 11.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--blue-700)}
+.answer-box p:not(.answer-h){margin:0;font-size:1.06rem;line-height:1.65;color:var(--ink)}
+.answer-box .answer-note{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:.96rem;color:var(--body)}
+.answer-note .ic{flex:none;width:18px;height:18px;margin-top:3px;color:var(--blue)}
+.answer-note a{color:var(--blue-700)}
+@media (max-width:640px){.answer-box{padding:18px 18px 18px 22px}.answer-box p:not(.answer-h){font-size:1rem}}
+
+/* ---------- Odoo in the Philippines: the BIR forms board ---------- */
+.stage--ph{min-height:470px}
+.ph-board{left:0;right:8%;top:24px;overflow:hidden;animation:stRise .8s var(--ease-expo) both .2s}
+.ph-forms{list-style:none;margin:0;padding:8px}
+.ph-forms li{display:grid;grid-template-columns:78px minmax(0,1fr) 24px;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;animation:stRise .6s var(--ease-expo) both calc(.5s + var(--i) * .12s)}
+.ph-forms li:nth-child(odd){background:var(--alt)}
+.ph-forms b{font:800 13px/1 var(--font-display);color:var(--blue-700)}
+.ph-forms span{font:500 12.5px/1.3 var(--font-body);color:var(--body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-forms em{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ok-050);color:var(--ok);font-style:normal;animation:stPop .45s var(--ease-expo) both calc(1.1s + var(--i) * .12s)}
+.ph-forms em .ic{width:13px;height:13px}
+.ph-c1{right:0;top:388px;animation:stRise .7s var(--ease-expo) both 1.5s}
+.ph-c2{left:4%;top:432px;animation:stRise .7s var(--ease-expo) both 1.7s}
+@media (max-width:640px){.stage--ph{min-height:450px}.ph-board{right:0}.ph-forms li{grid-template-columns:64px minmax(0,1fr) 22px;padding:9px 10px}.ph-c1{top:auto;bottom:40px}.ph-c2{top:auto;bottom:0;left:0}}
+@media (prefers-reduced-motion:reduce){.ph-forms li,.ph-forms em{animation:none!important}}

@@ -45,8 +45,8 @@ REDIRECTS = [
     ("/blog/odoo-ai-integration-guide.html", "/odoo/ai-integration"),
     ("/ai-article/odoo-ai-integration-guide", "/odoo/ai-integration"),
     ("/ai-article/odoo-ai-integration-guide.html", "/odoo/ai-integration"),
-    ("/blog/odoo-18-features-upgrade-guide", "/solutions/odoo-erp"),
-    ("/blog/odoo-18-features-upgrade-guide.html", "/solutions/odoo-erp"),
+    ("/blog/odoo-18-features-upgrade-guide", "/blog/odoo-20-whats-new"),
+    ("/blog/odoo-18-features-upgrade-guide.html", "/blog/odoo-20-whats-new"),
     ("/ai-article/odoo-18-features-upgrade-guide", "/solutions/odoo-erp"),
     ("/ai-article/odoo-18-features-upgrade-guide.html", "/solutions/odoo-erp"),
     ("/blog/odoo-erp-sme-southeast-asia", "/solutions/odoo-erp"),
@@ -93,12 +93,12 @@ REDIRECTS = [
     ("/blog/singapore-smart-nation-enterprise-ai.html", "/solutions/ai"),
     ("/ai-article/singapore-smart-nation-enterprise-ai", "/solutions/ai"),
     ("/ai-article/singapore-smart-nation-enterprise-ai.html", "/solutions/ai"),
-    ("/blog/philippines-digital-transformation-2026", "/"),
-    ("/blog/philippines-digital-transformation-2026.html", "/"),
+    ("/blog/philippines-digital-transformation-2026", "/blog/odoo-20-singapore-philippines-vietnam"),
+    ("/blog/philippines-digital-transformation-2026.html", "/blog/odoo-20-singapore-philippines-vietnam"),
     ("/ai-article/philippines-digital-transformation-2026", "/"),
     ("/ai-article/philippines-digital-transformation-2026.html", "/"),
-    ("/blog/vietnam-digital-economy-ai-2026", "/"),
-    ("/blog/vietnam-digital-economy-ai-2026.html", "/"),
+    ("/blog/vietnam-digital-economy-ai-2026", "/blog/odoo-20-singapore-philippines-vietnam"),
+    ("/blog/vietnam-digital-economy-ai-2026.html", "/blog/odoo-20-singapore-philippines-vietnam"),
     ("/ai-article/vietnam-digital-economy-ai-2026", "/"),
     ("/ai-article/vietnam-digital-economy-ai-2026.html", "/"),
     ("/blog/vietnam-software-exports-2026", "/company"),
@@ -115,6 +115,8 @@ REDIRECTS = [
     # now, because a catch-all here would also swallow the new articles.
     ("/blog/", "/blog"), ("/careers/", "/careers"), ("/careers/:path+", "/careers"),
     ("/gallery", "/company"), ("/gallery/", "/company"), ("/gallery.html", "/company"),
+    # --- section roots named in breadcrumbs --------------------------------------------
+    ("/odoo", "/odoo/apps"), ("/solutions", "/#solutions"), ("/industries", "/#industries"),
     # --- the old site served these as directories; v2 serves files -----------------
     ("/privacy/", "/privacy"),
     ("/terms/", "/terms"),
@@ -213,6 +215,8 @@ def write_vercel():
     ]
     config = {
         "cleanUrls": True,
+        # /company/ and /company are one page: the slash form redirects
+        "trailingSlash": False,
         "redirects": [bot_block()] + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
         "headers": [
             {"source": "/(.*)", "headers": common},

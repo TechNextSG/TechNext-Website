@@ -229,6 +229,7 @@ LAYOUT = '''<!doctype html>
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{CANONICAL}">
 <meta property="og:image" content="{OG_IMAGE}">
+<meta property="og:image:alt" content="{TITLE}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3167CA">
 <link rel="icon" type="image/png" sizes="32x32" href="{ROOT}assets/img/favicon-32.png">
@@ -322,7 +323,7 @@ LAYOUT = '''<!doctype html>
 
 SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html", "odoo/training.html",
                  "odoo/integration.html", "odoo/support.html", "odoo/erp-system.html",
-                 "odoo/crm-development.html", "odoo/ai-integration.html")
+                 "odoo/crm-development.html", "odoo/ai-integration.html", "odoo/philippines.html")
 AREA_SERVED = ["Singapore", "Philippines", "Vietnam", "Southeast Asia", "Worldwide"]
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
@@ -390,7 +391,8 @@ def _office_ld(o: dict, org_id: str) -> dict:
         addr["postalCode"] = o["postal"]
     return {"@type": "ProfessionalService", "@id": S.SITE_URL + "#office-" + o["key"],
             "name": "TechNext " + o["country"], "description": o["role"], "address": addr,
-            "hasMap": o["maps"], "parentOrganization": {"@id": org_id}}
+            "hasMap": o["maps"], "parentOrganization": {"@id": org_id},
+            "geo": {"@type": "GeoCoordinates", "latitude": o["geo"][0], "longitude": o["geo"][1]}}
 
 
 def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
@@ -401,7 +403,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     graph = [
         {
             "@type": "ProfessionalService", "@id": org_id,
-            "name": c["legal"], "alternateName": c["short"], "url": S.SITE_URL,
+            "name": c["short"], "legalName": c["legal"], "alternateName": ["TechNext Asia", "TechNext Pte Ltd"], "url": S.SITE_URL,
             "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
             "image": S.SITE_URL + "assets/img/og-image.png",
             "email": c["sales_email"], "telephone": c["whatsapp"],
@@ -409,13 +411,14 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                         "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
             "identifier": {"@type": "PropertyValue", "propertyID": "UEN", "value": c["uen"]},
             "hasMap": S.OFFICES[0]["maps"],
+            "geo": {"@type": "GeoCoordinates", "latitude": S.OFFICES[0]["geo"][0], "longitude": S.OFFICES[0]["geo"][1]},
             "contactPoint": [{"@type": "ContactPoint", "contactType": "sales", "email": c["sales_email"],
                               "telephone": c["whatsapp"], "areaServed": ["SG", "PH", "VN"],
                               "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
-            "sameAs": [c["linkedin"]],
-            "description": S.DEFAULT_DESC,
+            "sameAs": [c["linkedin"], c["odoo_listing"]],
+            "description": S.ORG_DESC,
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
                            "AI workflow automation", "AI chatbots", "Website development", "Business consultation"],
@@ -486,8 +489,8 @@ def apps_cats_html() -> str:
         out.append(f'''<section class="apps-cat" id="{c["id"]}">
   <div class="container">
     <div class="apps-cat-head">
-      <h2><span class="card-ic">{{{{icon:{c["icon"]}}}}}</span>{c["title"]}{focus_note}</h2>
-      <p>{len(c["apps"])} apps</p>
+      <h2><span class="card-ic">{{{{icon:{c["icon"]}}}}}</span>{c["title"]}</h2>
+      <p>{len(c["apps"])} apps{focus_note}</p>
     </div>
     <div class="apps-grid">{"".join(cards)}</div>
   </div>
@@ -533,10 +536,11 @@ def offices_html() -> str:
         if o.get("lang"):
             lines = f'<span lang="{o["lang"]}">{o["lines"][0]}</span><br>{o["lines"][1]}'
         on = k == 0
+        page = (f'<a class="btn-link" href="{{{{ROOT}}}}{o["page"]}">{o["page_label"]} {{{{icon:arrow}}}}</a>' if o.get("page") else "")
         out.append(f'''<article class="office{" is-on" if on else ""} reveal" id="office-{o["key"]}" data-office="{o["key"]}" style="--i:{k}">
           <div class="office-top"><span class="office-cc" aria-hidden="true">{o["cc"]}</span><div><h3>{o["name"]}</h3><p>{o["role"]}</p></div></div>
           <address>{lines}</address>
-          <div class="office-actions"><button class="office-show" type="button" data-office-show="{o["key"]}" aria-controls="office-map" aria-pressed="{"true" if on else "false"}">{{{{icon:pin}}}}<span>Show on map</span></button><a class="btn-link" href="{o["directions"].replace("&", "&amp;")}" target="_blank" rel="noopener">Directions <span class="sr-only">to {o["name"]}</span>{{{{icon:arrow}}}}</a></div>
+          <div class="office-actions"><button class="office-show" type="button" data-office-show="{o["key"]}" aria-controls="office-map" aria-pressed="{"true" if on else "false"}">{{{{icon:pin}}}}<span>Show on map</span></button><a class="btn-link" href="{o["directions"].replace("&", "&amp;")}" target="_blank" rel="noopener">Directions <span class="sr-only">to {o["name"]}</span>{{{{icon:arrow}}}}</a>{page}</div>
         </article>''')
     return "\n        ".join(out)
 
@@ -628,6 +632,13 @@ IMPLEMENT = {
     "purchase": ["Vendor pricelists and lead times loaded", "RFQ → order → receipt → bill matching configured", "Approval thresholds for purchase orders", "Buyers trained on RFQs and vendor bills"],
     "crm": ["Pipeline stages per team with required fields", "Lead capture from web forms, email and WhatsApp", "Assignment rules and scheduled activities", "Won opportunity → quotation without re-entry"],
 }
+# Odoo 20 changes that affect an app page (from the Odoo 20 release notes).
+APP_NOTES = {
+    "industry_fsm": "In Odoo 20 the Field Service app is discontinued: its live map, routing, travel fees, website form and worksheets now live in the <a href=\"{{ROOT}}odoo/apps/planning.html\">Planning</a> app. <a href=\"{{ROOT}}blog/odoo-20-whats-new.html\">What changed in Odoo 20</a>.",
+    "planning": "In Odoo 20, Planning also runs field service: a live map of technicians, a map view of shifts, product barcodes and worksheets. <a href=\"{{ROOT}}blog/odoo-20-whats-new.html\">What changed in Odoo 20</a>.",
+    "hr_payroll": "Odoo 20 rebuilds the payroll dashboard around warnings, adds test print of pay runs, net-to-gross simulation and working schedules in hours per day, and removes work entries. <a href=\"{{ROOT}}blog/odoo-20-singapore-philippines-vietnam.html\">Payroll by country in Odoo 20</a>.",
+}
+
 DEFAULT_IMPLEMENT = ["Discovery: we map how the process runs today and match it to the app", "Configuration on a staging database, checked against real records", "Training for the people who will use it, on your own data", "Support after go-live: fixes, changes and upgrades"]
 
 
@@ -945,7 +956,10 @@ def app_page(mod: str) -> tuple:
   </div>
 </section>''' if gallery else ""
 
-    rel_mods = [a["mod"] for a in cat["apps"] if a["mod"] != mod][:4]
+    # siblings rotate from this app's position, so every app in a category gets linked from others
+    sibs = [a["mod"] for a in cat["apps"]]
+    i = sibs.index(mod)
+    rel_mods = [sibs[(i + k) % len(sibs)] for k in range(1, min(5, len(sibs)))]
     for extra in ("accountant", "sale", "stock"):
         if extra != mod and extra not in rel_mods and len(rel_mods) < 6:
             rel_mods.append(extra)
@@ -975,6 +989,15 @@ def app_page(mod: str) -> tuple:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
         desc_meta += " Book a free discovery call."
+    h1name = name.replace(" — ", " (") + ")" if " — " in name else name
+    note = APP_NOTES.get(mod, "")
+    d0 = app["desc"]
+    d0 = d0[0].lower() + d0[1:] if len(d0) > 1 and d0[1].islower() else d0
+    answer = (f'<section class="section section--tight answer-sec"><div class="container"><div class="answer-box reveal">'
+              f'<p class="answer-h">In one paragraph</p><p>Odoo {name}: {d0} TechNext, an Odoo Ready Partner '
+              f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
+              f'migrates your data, trains the people who use it and supports it after go-live.</p>'
+              + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
     meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
     if rows or gallery:
@@ -987,9 +1010,10 @@ def app_page(mod: str) -> tuple:
     <div class="two two--stage">
       <div>
         <div class="app-hero-head">{{{{odoo:{mod}:56}}}}<span class="hand">odoo · {cat["title"].lower()}</span></div>
-        <h1>{name} <span class="app-sub">{headline}</span></h1>
+        <h1>Odoo {h1name} in Singapore</h1>
+        <p class="app-sub">{headline}</p>
         <p class="lead">{lead}</p>
-        <div class="pill-row"><span class="tag tag--odoo">Odoo Partner</span>{focus}</div>
+        <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
@@ -999,6 +1023,8 @@ def app_page(mod: str) -> tuple:
     </div>
   </div>
 </section>
+
+{answer}
 
 {videos}
 
@@ -1318,7 +1344,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     # Google shows ~60 characters. The page's own keywords come first; the brand suffix is
     # added only when it still fits (Google usually shows the site name separately anyway).
     base_title = meta["title"]
-    title = base_title if base_title.endswith("TechNext") or len(base_title) + 11 > 60 else base_title + " · TechNext"
+    title = base_title if "TechNext" in base_title or len(base_title) + 11 > 60 else base_title + " · TechNext"
     scripts = "".join(f'<script src="{{ROOT}}{s}?v={ASSET_V}" defer></script>' for s in meta.get("scripts", []))
 
     letters, lw, lh = letters_html()
@@ -1393,7 +1419,7 @@ LLMS_GROUPS = [
     ("Websites and marketing", lambda u: u in ("solutions/marketing", "solutions/website",
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
-    ("Odoo apps we implement", lambda u: u.startswith("odoo/apps")),
+    ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(u[10:], {}).get("focus")),
     ("Company", lambda u: u in ("", "company", "careers", "quotation")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
@@ -1405,7 +1431,7 @@ def write_llms():
     c = S.COMPANY
     strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
     lines = [
-        "# TechNext", "",
+        "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end "
         "(accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, "
         "AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.",
@@ -1415,6 +1441,11 @@ def write_llms():
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']} · WhatsApp {c['whatsapp']}",
         "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
+        f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
+        "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
+        "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
+        "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
+        "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
         f"- Written quotation: {S.SITE_URL}quotation",
     ]
     entries = sorted(INDEX, key=lambda e: e["u"])
@@ -1427,7 +1458,12 @@ def write_llms():
         for e in group:
             used.add(e["u"])
             lines.append(f"- [{strip(e['t'])}]({S.SITE_URL}{e['u']}): {e['d']}")
-    lines += ["", "## Optional", "",
+    rest = [e for e in entries if e["u"] not in used and e["u"].startswith("odoo/apps")]
+    lines += ["", "## Optional", ""]
+    for e in rest:
+        used.add(e["u"])
+        lines.append(f"- [{strip(e['t'])}]({S.SITE_URL}{e['u']}): {e['d']}")
+    lines += [
               f"- [Full text for AI assistants]({S.SITE_URL}llms-full.txt): every page summary and every FAQ answer on the site",
               f"- [Privacy Policy]({S.SITE_URL}privacy): how personal data and cookies are handled",
               f"- [Terms of Service]({S.SITE_URL}terms): website terms and how engagements are agreed", ""]

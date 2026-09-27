@@ -1,5 +1,6 @@
 {
   "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
@@ -95,12 +96,12 @@
     },
     {
       "source": "/blog/odoo-18-features-upgrade-guide",
-      "destination": "/solutions/odoo-erp",
+      "destination": "/blog/odoo-20-whats-new",
       "permanent": true
     },
     {
       "source": "/blog/odoo-18-features-upgrade-guide.html",
-      "destination": "/solutions/odoo-erp",
+      "destination": "/blog/odoo-20-whats-new",
       "permanent": true
     },
     {
@@ -335,12 +336,12 @@
     },
     {
       "source": "/blog/philippines-digital-transformation-2026",
-      "destination": "/",
+      "destination": "/blog/odoo-20-singapore-philippines-vietnam",
       "permanent": true
     },
     {
       "source": "/blog/philippines-digital-transformation-2026.html",
-      "destination": "/",
+      "destination": "/blog/odoo-20-singapore-philippines-vietnam",
       "permanent": true
     },
     {
@@ -355,12 +356,12 @@
     },
     {
       "source": "/blog/vietnam-digital-economy-ai-2026",
-      "destination": "/",
+      "destination": "/blog/odoo-20-singapore-philippines-vietnam",
       "permanent": true
     },
     {
       "source": "/blog/vietnam-digital-economy-ai-2026.html",
-      "destination": "/",
+      "destination": "/blog/odoo-20-singapore-philippines-vietnam",
       "permanent": true
     },
     {
@@ -456,6 +457,21 @@
     {
       "source": "/gallery.html",
       "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/odoo",
+      "destination": "/odoo/apps",
+      "permanent": true
+    },
+    {
+      "source": "/solutions",
+      "destination": "/#solutions",
+      "permanent": true
+    },
+    {
+      "source": "/industries",
+      "destination": "/#industries",
       "permanent": true
     },
     {

@@ -100,7 +100,7 @@
     vn: {
       src: 'https://www.google.com/maps?q=62%20Nguy%E1%BB%85n%20Th%E1%BB%8B%20Nhung%2C%20Hi%E1%BB%87p%20B%C3%ACnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh&z=16&output=embed',
       title: 'Map: TechNext Vietnam development hub, 62 Nguyen Thi Nhung, Hiep Binh, Ho Chi Minh City',
-      label: ['62 Nguyễn Thị Nhung, P. Hiệp Bình', 'Ho Chi Minh City, Vietnam']
+      label: ['62 Nguyễn Thị Nhung, Phường Hiệp Bình', 'Ho Chi Minh City, Vietnam']
     }
   };
   var MAP_KEYS = Object.keys(MAPS);

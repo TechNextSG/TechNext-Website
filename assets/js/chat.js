@@ -28,7 +28,8 @@
   })();
 
   function oi(mod) { return '<img class="oi" src="' + ROOT + 'assets/img/odoo/' + mod + '.svg" alt="" width="18" height="18">'; }
-  function link(href, label) { return '<a href="' + ROOT + href + '">' + label + '</a>'; }
+  function clean(h) { return String(h).replace(/\.html(?=$|[#?])/, ''); }
+  function link(href, label) { return '<a href="' + ROOT + clean(href) + '">' + label + '</a>'; }
 
   /* ---------------- knowledge base ----------------
      Each topic carries a rich answer plus a wide keyword net (synonyms, plurals and common
@@ -80,7 +81,7 @@
       a: 'Happy to show you Odoo on real scenarios. The quickest path is a short <b>discovery call</b> — we walk through the apps that fit your business and answer pricing. Leave your details or reach us on WhatsApp and we\'ll set it up.',
       actions: [['lead', 'Book a demo'], ['talk'], ['wa']], next: ['how', 'price'] },
     { id: 'contact', kw: ['contact', 'contact you', 'get in touch', 'reach', 'reach you', 'email', 'email address', 'phone', 'phone number', 'number', 'telephone', 'mobile', 'whatsapp', 'wa', 'address', 'location', 'located', 'where', 'where are you', 'office', 'offices', 'branch', 'branches', 'singapore', 'philippines', 'manila', 'taguig', 'vietnam', 'ho chi minh', 'hcmc', 'saigon', 'map', 'directions', 'call', 'call you', 'hours'],
-      a: 'Email <a href="mailto:sales@technext.asia">sales@technext.asia</a> · WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">+65 8839 6998</a>.<ul><li><b>Singapore HQ</b>: 261 Waterloo Street #03-36, Singapore 180261</li><li><b>Philippines</b>: Level 9, IP Center, Taguig City, Metro Manila</li><li><b>Vietnam</b> development hub: 62 Nguyễn Thị Nhung, Hiệp Bình, Ho Chi Minh City</li></ul>We serve clients in 10+ countries.',
+      a: 'Email <a href="mailto:sales@technext.asia">sales@technext.asia</a> · WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">+65 8839 6998</a>.<ul><li><b>Singapore HQ</b>: 261 Waterloo Street #03-36, Singapore 180261</li><li><b>Philippines</b>: Level 9, IP Center, Taguig City, Metro Manila</li><li><b>Vietnam</b> development hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City</li></ul>We serve clients in 10+ countries.',
       actions: [['link', 'company.html#find-us', 'Offices & map'], ['talk'], ['wa']], next: ['price', 'how'] },
     { id: 'careers', kw: ['job', 'jobs', 'career', 'careers', 'hiring', 'are you hiring', 'vacancy', 'vacancies', 'opening', 'openings', 'open role', 'open roles', 'position', 'positions', 'apply', 'application', 'resume', 'cv', 'intern', 'internship', 'work for you', 'work at technext', 'join', 'join your team', 'employment', 'salary', 'jobstreet', 'recruit', 'recruitment'],
       a: 'We’re hiring in <b>Taguig City, Metro Manila</b>: Senior Solutions Architect (ERP), Functional Odoo Consultant (Finance), B2B Sales Consultant, Marketing Officer, Senior Accountant (CPA) and HR Generalist. Each role links to its JobStreet listing, where you apply. No matching role? Email <a href="mailto:career@technext.asia">career@technext.asia</a>.',
@@ -238,7 +239,7 @@
   function actionsHtml(list) {
     if (!list || !list.length) return '';
     return '<div class="msg-actions">' + list.map(function (a) {
-      if (a[0] === 'link') return '<a class="btn btn-ghost" href="' + ROOT + a[1] + '">' + a[2] + '</a>';
+      if (a[0] === 'link') return '<a class="btn btn-ghost" href="' + ROOT + clean(a[1]) + '">' + a[2] + '</a>';
       if (a[0] === 'quote') return '<a class="btn btn-primary" href="' + ROOT + 'quotation.html">Get a quotation</a>';
       if (a[0] === 'talk') return '<button class="btn btn-ghost" type="button" data-act="talk">Open inquiry form</button>';
       if (a[0] === 'wa') return '<a class="btn btn-ghost" href="https://wa.me/6588396998" target="_blank" rel="noopener">WhatsApp</a>';
