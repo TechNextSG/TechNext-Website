@@ -262,6 +262,12 @@ TN.demo('bir', function (root, K) {
     });
   });
   window.addEventListener('resize', function () { layoutLinks(); });
+  // the lanes grow as documents appear; keep the links' viewBox equal to the lanes' size
+  var lastWH = '', rzq = 0;
+  if ('ResizeObserver' in window) new ResizeObserver(function () {
+    if (rzq) return;
+    rzq = requestAnimationFrame(function () { rzq = 0; var wh = lanes.offsetWidth + 'x' + lanes.offsetHeight; if (wh !== lastWH) { lastWH = wh; layoutLinks(); } });
+  }).observe(lanes);
 
   buildGrid();
   if (K.reduce) m = 11;                                           // a still: December, with Q4
