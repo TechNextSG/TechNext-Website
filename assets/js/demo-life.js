@@ -19,6 +19,8 @@ TN.demo('life', function (root, K) {
   var mq = window.matchMedia('(max-width: 640px)');
   var W = 1, H = 1, P = {}, edges = {}, tokens = [], nextSpawn = 0, speed = 1, forceExc = false, serial = 1000 + (Math.random() * 400 | 0);
   var nFlow = 0, nDone = 0, nExc = 0, nHand = 0, on = false;
+  var CARD_Y = 50;                                   // board: first card slot, just under the column header
+  var LADDER_HALF = 58;                              // ladder: half a card's width (wider on desktop, set in place())
 
   // ---------------------------------------------------------------- layouts: a position per state
   function place() {
@@ -26,11 +28,12 @@ TN.demo('life', function (root, K) {
     root.classList.remove('lf--rail', 'lf--ladder', 'lf--ring', 'lf--funnel', 'lf--board', 'lf--hub', 'lf--journey');
     root.classList.add('lf--' + layout);
     W = stage.offsetWidth || 1; H = stage.offsetHeight || 1;
+    var fc = states[0] && states[0].el; LADDER_HALF = layout === 'ladder' && fc ? Math.round(fc.offsetWidth / 2) + 4 : 58;
     var n = states.length, padX = Math.min(90, W * .1), padY = 46;
     states.forEach(function (s, i) {
       var t = n > 1 ? i / (n - 1) : .5, x, y;
       switch (layout) {
-        case 'ladder': x = W * .3; y = padY - 12 + t * (H - 2 * padY + 24); break;
+        case 'ladder': x = mq.matches ? W * .3 : Math.min(W * .4, W - 330); y = padY - 12 + t * (H - 2 * padY + 24); break;
         case 'ring': var a = -Math.PI / 2 + i / n * Math.PI * 2, r = Math.min(W * .34, H * .38); x = W * .5 + Math.cos(a) * r * 1.25; y = H * .5 + Math.sin(a) * r; break;
         case 'hub': var b = -Math.PI / 2 + i / n * Math.PI * 2, rr = Math.min(W * .36, H * .4); x = W * .5 + Math.cos(b) * rr * 1.35; y = H * .52 + Math.sin(b) * rr; break;
         case 'funnel': x = W * .5; y = padY - 10 + t * (H - 2 * padY + 20); break;
@@ -55,7 +58,7 @@ TN.demo('life', function (root, K) {
     }
     if (a === b) {                                    // self loop: a small ring above the state
       var s = layout === 'ladder' || layout === 'funnel' ? 1 : -1;
-      if (layout === 'ladder') return 'M' + (A.x + 58) + ' ' + (A.y - 8) + 'c34 -8 34 24 0 16';
+      if (layout === 'ladder') return 'M' + (A.x + LADDER_HALF) + ' ' + (A.y - 8) + 'c34 -8 34 24 0 16';
       if (layout === 'funnel') return 'M' + (A.x + W * .2) + ' ' + (A.y - 8) + 'c34 -8 34 24 0 16';
       return 'M' + (A.x - 10) + ' ' + (A.y + s * 22) + 'c-8 ' + (s * 34) + ' 28 ' + (s * 34) + ' 20 0';
     }
@@ -70,7 +73,7 @@ TN.demo('life', function (root, K) {
       return 'M' + A.x + ' ' + A.y + 'A' + (r1 * 1.1) + ' ' + (r1 * .9) + ' 0 0 1 ' + B.x + ' ' + B.y;
     }
     if (layout === 'ladder' || layout === 'funnel') {
-      if (kind === 'branch') { var off = (layout === 'funnel' ? W * .26 : 96) + 14 * Math.abs(byKey[a].i - byKey[b].i); var sx = layout === 'funnel' ? A.x + W * .2 : A.x + 58; return 'M' + sx + ' ' + A.y + 'C' + (sx + off * .6) + ' ' + A.y + ' ' + (sx + off * .6) + ' ' + B.y + ' ' + sx + ' ' + B.y; }
+      if (kind === 'branch') { var off = (layout === 'funnel' ? W * .26 : 96) + 14 * Math.abs(byKey[a].i - byKey[b].i); var sx = layout === 'funnel' ? A.x + W * .2 : A.x + LADDER_HALF; return 'M' + sx + ' ' + A.y + 'C' + (sx + off * .6) + ' ' + A.y + ' ' + (sx + off * .6) + ' ' + B.y + ' ' + sx + ' ' + B.y; }
       return 'M' + A.x + ' ' + (A.y + 16) + 'L' + B.x + ' ' + (B.y - 16);
     }
     if (layout === 'journey') {
@@ -79,7 +82,8 @@ TN.demo('life', function (root, K) {
     }
     // rail: forward along the line, back and skip edges arc away from it
     if (kind === 'branch') {
-      var back = byKey[b].i < byKey[a].i, h = 46 + 12 * Math.abs(byKey[a].i - byKey[b].i), yy = back ? A.y - h : A.y + h;
+      var back = byKey[b].i < byKey[a].i, room = back ? A.y - 8 : H - A.y - 8;
+      var h = Math.min(46 + 12 * Math.abs(byKey[a].i - byKey[b].i), room), yy = back ? A.y - h : A.y + h;
       return 'M' + A.x + ' ' + (A.y + (back ? -20 : 20)) + 'C' + A.x + ' ' + yy + ' ' + B.x + ' ' + yy + ' ' + B.x + ' ' + (B.y + (back ? -20 : 20));
     }
     return 'M' + (A.x + 50) + ' ' + A.y + 'L' + (B.x - 50) + ' ' + B.y;
@@ -115,7 +119,7 @@ TN.demo('life', function (root, K) {
     parts.forEach(function (p) { sp.appendChild(typeof p === 'string' ? document.createTextNode(p) : K.el('b', null, p.b)); });
     li.appendChild(sp); if (c) li.style.setProperty('--c', c);
     log.insertBefore(li, log.firstChild);
-    var rows = K.$$('li', log); while (rows.length > 4) rows.pop().remove();
+    var rows = K.$$('li', log); while (rows.length > 6) rows.pop().remove();
   }
   function lower(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
   function num(t) { return '#' + t.id; }
@@ -136,12 +140,12 @@ TN.demo('life', function (root, K) {
     });
   }
   function place1(t, x, y) {
-    if (t.card) { var col = byKey[t.at].i, stack = colStack(col, t); t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (58 + stack * 26).toFixed(1) + 'px)'; }
+    if (t.card) { var col = byKey[t.at].i, stack = colStack(col, t); t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (CARD_Y + stack * 25).toFixed(1) + 'px)'; }
     else if (t.g) t.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')');
   }
   function colStack(col, me) {
     var k = 0; for (var i = 0; i < tokens.length && tokens[i] !== me; i++) if (tokens[i].at && byKey[tokens[i].at].i === col && !tokens[i].edge) k++;
-    return Math.min(k, 7);
+    return Math.min(k, Math.max(0, Math.floor((H - CARD_Y - 26) / 25)));
   }
   function choose(t) {
     // at a state: take a branch now and then (once per record), else follow the main path
@@ -170,7 +174,7 @@ TN.demo('life', function (root, K) {
       t.s += t.v * speed * dt;
       if (layout === 'board') {
         var A = P[t.at], B = P[t.edge.to], q = K.clamp(t.s / Math.max(60, Math.abs(B.x - A.x)), 0, 1), x = K.lerp(A.x, B.x, K.ease.inOut(q));
-        t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (58 - Math.sin(q * Math.PI) * 30).toFixed(1) + 'px)';
+        t.card.style.transform = 'translate(' + (x - 34).toFixed(1) + 'px,' + (CARD_Y - Math.sin(q * Math.PI) * 6).toFixed(1) + 'px)';
         if (q >= 1) { finishEdge(t); }
         return true;
       }

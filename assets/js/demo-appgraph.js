@@ -368,7 +368,10 @@ TN.demo('appgraph', function (root, K) {
   return {
     start: function (first) {
       measure();
-      if (first && !started) { started = true; }
+      if (first && !started) {
+        started = true;
+        if (!sel) { var acc = nodes.filter(function (n) { return n.id === 'accountant'; })[0]; if (acc) select(acc); }
+      }
       if (!K.reduce) loop.on(); else render();
     },
     stop: function () { loop.off(); }

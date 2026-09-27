@@ -922,12 +922,18 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
   <div class="container">
     <div class="sec-head reveal"><span class="hand">{LIFE_KICKER[layout]}</span><h2>How {art} {rec} moves through Odoo {name}.</h2>
       <p class="lead">Sample {rec}s run through Odoo {name} the way TechNext sets it up: {n} states, the exceptions and loops that really happen, and the hand-offs into {joined or "the rest of Odoo"}. Hover a state to see what happens there.</p></div>
-    <div class="dm dm-life lf--{layout} reveal" data-demo="life" data-layout="{layout}" data-cat="{cat["id"]}" data-mod="{mod}" data-record="{attr(rec)}" data-path="{",".join(f["path"])}" style="--n:{n}">
+    <div class="dm dm-life lf--{layout} reveal" data-demo="life" data-layout="{layout}" data-cat="{cat["id"]}" data-mod="{mod}" data-record="{attr(rec)}" data-path="{",".join(f["path"])}" style="--n:{n};--hn:{len(f["handoffs"])}">
       <div class="dm-head">
         <div class="dm-title"><b>Odoo {name} · {rec} lifecycle</b><small>Sample records · {n} states · {len(f["handoffs"])} hand-offs</small></div>
         <div class="dm-seg" role="group" aria-label="Pace"><button type="button" data-speed="1" aria-pressed="true">Normal day</button><button type="button" data-speed="2.6" aria-pressed="false">Busy day</button></div>
         <button class="dm-btn" type="button" data-exc>{{{{icon:zap}}}}Send the next one off-path</button>
       </div>
+      <dl class="dm-kpis lf-kpis">
+        <div><dt>In progress</dt><dd data-k="flow">0</dd></div>
+        <div><dt>Completed</dt><dd data-k="done">0</dd></div>
+        <div><dt>Exceptions</dt><dd data-k="exc">0</dd></div>
+        <div class="dm-ok"><dt>Hand-offs</dt><dd data-k="hand">0</dd></div>
+      </dl>
       <div class="lf-body">
         <div class="lf-main">
           <div class="lf-stage">
@@ -936,21 +942,18 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
             <ol class="lf-states" aria-label="{attr(rec.capitalize())} states in Odoo {attr(name)}">{states}</ol>
             <div class="lf-cards" aria-hidden="true"></div>
           </div>
-          <p class="lf-bh">Exceptions and loops</p>
-          <ul class="lf-branches">{branches}</ul>
+          <div class="lf-foot">
+            <div class="lf-fg"><p class="lf-bh">Exceptions and loops</p><ul class="lf-branches">{branches}</ul></div>
+            <div class="lf-fg"><p class="lf-bh">What TechNext configures</p><ul class="lf-auto">{autos}</ul></div>
+          </div>
         </div>
-        <aside class="lf-side" aria-label="Hand-offs, automations and activity">
-          <dl class="dm-kpis">
-            <div><dt>In progress</dt><dd data-k="flow">0</dd></div>
-            <div><dt>Completed</dt><dd data-k="done">0</dd></div>
-            <div><dt>Exceptions</dt><dd data-k="exc">0</dd></div>
-            <div class="dm-ok"><dt>Hand-offs</dt><dd data-k="hand">0</dd></div>
-          </dl>
-          <p class="lf-h">Hand-offs to other apps</p>
-          <ul class="lf-hand">{hands}</ul>
-          <p class="lf-h">What TechNext configures</p>
-          <ul class="lf-auto">{autos}</ul>
-          <ol class="dm-log lf-log" aria-hidden="true"></ol>
+        <aside class="lf-side" aria-label="Hand-offs and activity">
+          <div class="lf-side-in">
+            <p class="lf-h">Hand-offs to other apps</p>
+            <ul class="lf-hand">{hands}</ul>
+            <p class="lf-h">Live activity</p>
+            <ol class="dm-log lf-log" aria-hidden="true"></ol>
+          </div>
         </aside>
       </div>
       <div class="dm-static"><p><b>Main path:</b> {path_txt}.</p></div>

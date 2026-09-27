@@ -2,9 +2,12 @@
 /* Odoo CRM page demo: channels, routing rules and teams feeding a live kanban (New, Qualified,
    Proposition, Won, lost archived), stage conversion and a weighted forecast (demo-pipeline.js) */
 .dm-pipeline:not(.is-js) .ppl-wrap,.dm-pipeline:not(.is-js) .ppl-foot{display:none}
-.ppl-wrap{position:relative;display:grid;grid-template-columns:288px minmax(0,1fr)}
-.ppl-route{display:flex;flex-direction:column;gap:7px;min-width:0;padding:14px;border-right:1px solid var(--line);background:rgba(250,249,251,.8)}
-.ppl-h{display:flex;align-items:center;gap:7px;margin:4px 0 0;font:700 11.5px/1.2 var(--font-display);color:var(--ink)}
+/* compact form: channels, rules and teams in one band above a full-width kanban, so no column
+   stretches to match a tall sidebar */
+.ppl-wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr)}
+.ppl-route{display:grid;grid-auto-flow:column;grid-template-rows:auto auto;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr) minmax(0,.8fr);align-items:start;gap:8px 18px;min-width:0;padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(250,249,251,.8)}
+.ppl-route .ppl-rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ppl-h{display:flex;align-items:center;gap:7px;margin:0;font:700 11.5px/1.2 var(--font-display);color:var(--ink)}
 .ppl-h:first-child{margin-top:0}
 .ppl-h i{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font:800 10px/1 var(--font-display);font-style:normal}
 .ppl-h small{margin-left:auto;font:500 10px/1.2 var(--font-body);color:var(--muted)}
@@ -41,10 +44,10 @@
 @keyframes pplTeam{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 45%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
 .ppl-team.is-dim{opacity:.4}
 /* the kanban */
-.ppl-board{display:flex;flex-direction:column;gap:9px;min-width:0;padding:14px}
-.ppl-cols{flex:1 1 auto}
+.ppl-board{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:stretch;gap:9px;min-width:0;padding:12px 14px}
+.ppl-cols{grid-column:1/-1}
 .ppl-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.ppl-col{display:flex;flex-direction:column;gap:6px;min-width:0;min-height:372px;padding:8px;border-radius:12px;background:var(--alt);border:1px solid var(--line)}
+.ppl-col{display:flex;flex-direction:column;gap:6px;min-width:0;min-height:236px;padding:8px;border-radius:12px;background:var(--alt);border:1px solid var(--line)}
 .ppl-col--won{background:#F3FAF6;border-color:#D6EEDF}
 .ppl-ct{display:flex;align-items:baseline;justify-content:space-between;gap:6px;margin:0 2px 2px;font:700 11.5px/1.2 var(--font-display);color:var(--ink)}
 .ppl-ct span{font:700 10.5px/1.2 var(--font-body);color:var(--muted);font-variant-numeric:tabular-nums}
@@ -124,11 +127,13 @@
 }
 @media (max-width:900px){
   .ppl-wrap{grid-template-columns:minmax(0,1fr)}
-  .ppl-route{border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:7px 14px}
+  .ppl-route{grid-auto-flow:row;grid-template-rows:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px 14px}
+  .ppl-route .ppl-rules{grid-template-columns:minmax(0,1fr)}
   .ppl-route>.ppl-h:nth-of-type(1),.ppl-ch{grid-column:1/-1}
   .ppl-ch{grid-template-columns:repeat(3,minmax(0,1fr))}
   .ppl-cols{grid-template-columns:repeat(4,minmax(176px,1fr));overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
-  .ppl-col{min-height:330px}
+  .ppl-col{min-height:236px}
+  .ppl-board{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:640px){
   .ppl-route{grid-template-columns:minmax(0,1fr)}

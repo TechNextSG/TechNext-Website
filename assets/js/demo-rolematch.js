@@ -59,6 +59,8 @@ TN.demo('rolematch', function (root, K) {
       K.restart(card, 'is-matched');
     });
   });
+  // open with the first interest picked: the panel shows a matched role straight away (one click undoes it)
+  if (chips[0]) { picked[chips[0].dataset.i] = 1; chips[0].setAttribute('aria-pressed', 'true'); }
   render();
   return {};
 });
