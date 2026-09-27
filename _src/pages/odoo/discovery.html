@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Consultation & Discovery in Singapore", "desc": "Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope.", "out": "odoo/discovery.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Consultation & Discovery in Singapore", "desc": "Odoo discovery with TechNext: we map how orders, stock and money move today, match each step to an Odoo app, and hand you a written scope.", "out": "odoo/discovery.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-asis.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-asis.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -35,6 +35,83 @@
     <dl class="glance"><div><dt>Phase</dt><dd>Step 1 of 4</dd></div><div><dt>We map</dt><dd>Order-to-cash · Procure-to-pay · Record-to-report</dd></div><div><dt>You leave with</dt><dd>Process map · App map · Scope · Quotation</dd></div><div><dt>Track record</dt><dd>11+ enterprise clients · 10+ countries</dd></div><div><dt>Teams</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="process-map">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">before and after</span><h2>Odoo discovery as a process map: one order today, and in Odoo.</h2><p class="lead">Discovery is business process mapping done with the people who do the work. TechNext maps how an order really moves today, through WhatsApp, spreadsheets, paper delivery orders and re-typing, then how the same order runs on one Odoo database. Switch between the two, hover a numbered pain point to see its fix, or play the walk-through of the method.</p></div>
+    <div class="dm dm-asis reveal" data-demo="asis">
+      <div class="dm-head">
+        <div class="dm-title"><b>One order through a sample distributor</b><small>Illustrative map · order to cash, with restocking</small></div>
+        <div class="dm-seg" role="group" aria-label="Show the process">
+          <button type="button" data-state="0" aria-pressed="true"><i class="dm-sw" style="--c:var(--tok-late)"></i>Today</button>
+          <button type="button" data-state="1" aria-pressed="false"><i class="dm-sw" style="--c:var(--blue)"></i>With Odoo</button>
+        </div>
+        <button class="dm-btn dm-btn--primary asis-go" type="button" data-walk aria-pressed="false">{{icon:play}}<i class="asis-pz" aria-hidden="true"></i><span>Walk-through</span></button>
+      </div>
+      <div class="asis-wrap">
+        <div class="asis-stage" role="group" aria-label="Process map of one order">
+          <svg class="asis-svg" aria-hidden="true"></svg>
+          <div class="asis-nodes" aria-hidden="true">
+            <div class="asis-node" data-n="cust"><div class="asis-card"><div class="asis-fa">{{icon:users}}<span><b>Customer</b><small>WhatsApp, email, phone</small></span></div><div class="asis-fb">{{odoo:website_sale:22}}<span><b>Customer portal</b><small>Orders, signs quotes online</small></span></div></div></div>
+            <div class="asis-node" data-n="chat"><div class="asis-card"><div class="asis-fa">{{icon:whatsapp}}<span><b>Team chat</b><small>Orders as screenshots</small></span></div><div class="asis-fb">{{odoo:crm:22}}<span><b>CRM</b><small>Every request, one record</small></span></div></div></div>
+            <div class="asis-node" data-n="price"><div class="asis-card"><div class="asis-fa">{{icon:grid}}<span><b>Prices.xlsx</b><small>Copied into each quote</small></span></div></div></div>
+            <div class="asis-node" data-n="quote"><div class="asis-card"><div class="asis-fa">{{icon:file}}<span><b>Quote.docx</b><small>Typed, saved as PDF</small></span></div><div class="asis-fb">{{odoo:sale:22}}<span><b>Sales</b><small>Pricelist and stock on the line</small></span></div></div></div>
+            <div class="asis-node" data-n="boss"><div class="asis-card"><div class="asis-fa">{{icon:mail}}<span><b>Manager's inbox</b><small>Discount approvals</small></span></div><div class="asis-fb">{{odoo:approvals:22}}<span><b>Approval</b><small>Over the limit, in Odoo</small></span></div></div></div>
+            <div class="asis-node" data-n="log"><div class="asis-card"><div class="asis-fa">{{icon:grid}}<span><b>Order log.xlsx</b><small>Re-typed for the warehouse</small></span></div></div></div>
+            <div class="asis-node" data-n="dockt"><div class="asis-card"><div class="asis-fa">{{icon:file}}<span><b>Paper DO</b><small>Handwritten, signed</small></span></div></div></div>
+            <div class="asis-node" data-n="stock"><div class="asis-card"><div class="asis-fa">{{icon:grid}}<span><b>Stock.xlsx</b><small>Updated at day end</small></span></div><div class="asis-fb">{{odoo:stock:22}}<span><b>Inventory</b><small>Barcode, stock live</small></span></div></div></div>
+            <div class="asis-node" data-n="po"><div class="asis-card"><div class="asis-fa">{{icon:mail}}<span><b>PO by email</b><small>When a shelf looks empty</small></span></div><div class="asis-fb">{{odoo:purchase:22}}<span><b>Purchase</b><small>RFQ from a reorder rule</small></span></div></div></div>
+            <div class="asis-node" data-n="sup"><div class="asis-card"><div class="asis-fa">{{icon:truck}}<span><b>Supplier</b><small>Bill sent on paper</small></span></div><div class="asis-fb">{{icon:truck}}<span><b>Supplier</b><small>PO from Odoo, bill digitised</small></span></div></div></div>
+            <div class="asis-node" data-n="acc"><div class="asis-card"><div class="asis-fa">{{icon:calculator}}<span><b>Accounts package</b><small>Invoices keyed by hand</small></span></div><div class="asis-fb">{{odoo:accountant:22}}<span><b>Accounting</b><small>Invoice, bills, GST 9%</small></span></div></div></div>
+            <div class="asis-node" data-n="bank"><div class="asis-card"><div class="asis-fa">{{icon:bank}}<span><b>Bank PDF</b><small>Ticked off by hand</small></span></div><div class="asis-fb">{{icon:bank}}<span><b>Bank feed</b><small>Matched by rules</small></span></div></div></div>
+            <div class="asis-node" data-n="rep"><div class="asis-card"><div class="asis-fa">{{icon:bars}}<span><b>Month-end.xlsx</b><small>Rebuilt from exports</small></span></div></div></div>
+            <div class="asis-db">{{icon:database}}<span><b>One database</b><small>Entered once, used by every app</small></span></div>
+          </div>
+          <div class="asis-pills" aria-hidden="true"></div>
+          <div class="asis-badges" role="group" aria-label="Numbered pain points on the map"></div>
+        </div>
+        <aside class="asis-side" aria-label="Counts and pain points">
+          <dl class="dm-kpis">
+            <div><dt>Manual hand-offs</dt><dd data-k="h">0</dd></div>
+            <div><dt>Fields re-keyed</dt><dd data-k="k">0</dd></div>
+            <div><dt>Days waiting</dt><dd data-k="w">0</dd></div>
+          </dl>
+          <p class="asis-sh asis-sh--k">Illustrative, counted on this map · <span data-k="lbl">today</span></p>
+          <ol class="asis-pains" aria-label="Pain points and their fixes"></ol>
+          <div class="asis-scope">
+            <p class="asis-sh">{{icon:file}}Written scope · sample</p>
+            <ol>
+              <li style="--i:0"><b>Apps, in order</b><span class="asis-apps">{{odoo:crm:16}}{{odoo:sale:16}}{{odoo:stock:16}}{{odoo:purchase:16}}{{odoo:accountant:16}}</span><span>CRM, Sales, Inventory, Purchase, Accounting</span></li>
+              <li style="--i:1"><b>Configuration</b><span>Customer pricelists, approval limit, reordering rules</span></li>
+              <li style="--i:2"><b>Integration</b><span>Bank feed</span></li>
+              <li style="--i:3"><b>Custom</b><span>Quarterly volume rebates, sized separately</span></li>
+              <li style="--i:4"><b>Data</b><span>Customers, products, opening stock, open invoices</span></li>
+              <li style="--i:5"><b>Training</b><span>Sales, warehouse and finance, on your own data</span></li>
+            </ol>
+            <p class="asis-sf" style="--i:6">{{icon:check}}Then a quotation, priced against this scope.</p>
+          </div>
+        </aside>
+      </div>
+      <div class="asis-foot">
+      <p class="asis-cap"><b></b><span></span></p>
+      <div class="asis-walk" role="group" aria-label="Discovery method: jump to a step">
+        <button type="button" class="asis-ws" data-s="0"><i>1</i><span>Interviews</span></button>
+        <button type="button" class="asis-ws" data-s="1"><i>2</i><span>Process map</span></button>
+        <button type="button" class="asis-ws" data-s="2"><i>3</i><span>App mapping</span></button>
+        <button type="button" class="asis-ws" data-s="3"><i>4</i><span>Gaps</span></button>
+        <button type="button" class="asis-ws" data-s="4"><i>5</i><span>Written scope</span></button>
+      </div>
+      </div>
+      <div class="dm-static">
+        <p><b>Today, at a sample distributor:</b> orders arrive on WhatsApp, by email and by phone; prices are copied from a spreadsheet into a quote document; discount approvals wait in the manager's inbox; the confirmed order is re-typed into an order log for the warehouse; delivery orders are handwritten and the signed copy comes back days later; invoices and supplier bills are keyed by hand into a separate accounting package; bank lines are ticked off a PDF; month-end reports are rebuilt in Excel.</p>
+        <p><b>With Odoo:</b> requests land in CRM; the quotation takes the customer's pricelist and shows stock on each line; an approval rule routes over-limit discounts to the manager; confirming the order creates the delivery; deliveries are validated by barcode; the invoice comes from delivered quantities with GST 9%; reordering rules raise purchase requests; bills are matched to the order and the receipt; the bank feed is reconciled by rules and reports read live.</p>
+        <p><b>The method:</b> interviews, process maps, app mapping, gaps flagged as configuration, integration, custom work or data, and a written scope with a quotation.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Illustrative sample distributor. The counts are read off this map for one order and its restock, not measured at a client.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">

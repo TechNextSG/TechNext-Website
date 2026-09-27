@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Integration — banks, payments, stores", "desc": "Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.", "out": "odoo/integration.html", "nav": "odoo"} -->
+<!--meta {"title": "Odoo Integration — banks, payments, stores", "desc": "Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -28,6 +28,62 @@
     <dl class="glance"><div><dt>Phase</dt><dd>Step 3 of 4</dd></div><div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>Goal</dt><dd>No re-keying between systems</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
   </div>
 </section>
+
+<section class="section demo-sec" id="sync-map">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">under the hood</span><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div>
+    <div class="dm dm-syncmap reveal" data-demo="syncmap">
+      <div class="dm-head">
+        <div class="dm-title"><b>Integration sync map</b><small>Sample connectors · <span data-k="clock">09:00:00</span> · timings sped up</small></div>
+        <div class="dm-seg" role="group" aria-label="Simulate a connector outage">
+          <button type="button" data-out="" aria-pressed="true">No outage</button>
+          <button type="button" data-out="cour" aria-pressed="false">Courier down</button>
+          <button type="button" data-out="mkt" aria-pressed="false">Marketplace down</button>
+          <button type="button" data-out="wms" aria-pressed="false">Legacy WMS down</button>
+        </div>
+        <button class="dm-btn" type="button" data-keys aria-pressed="true">{{icon:lock}}<span>Idempotency keys on</span></button>
+        <button class="dm-btn" type="button" data-replay disabled>{{icon:refresh}}<span>Replay dead letters</span></button>
+      </div>
+      <div class="smap-wrap">
+        <div class="smap-stage" role="group" aria-label="Odoo and the systems connected to it">
+          <svg class="smap-svg" aria-hidden="true"></svg>
+          <div class="smap-hub">{{odoo:sale:20}}{{odoo:stock:20}}{{odoo:accountant:20}}<b>Your Odoo</b><small>One database · <span data-k="keys">0</span> keys seen</small></div>
+          <div class="smap-n" data-s="bank">{{icon:bank}}<span><b>Bank feeds</b><small>Statement lines in</small></span><em></em></div>
+          <div class="smap-n" data-s="pay">{{icon:receipt}}<span><b>Payment gateway</b><small>Payment events in</small></span><em></em></div>
+          <div class="smap-n" data-s="mkt">{{icon:bag}}<span><b>Marketplace connector</b><small>Orders in, stock out</small></span><em></em></div>
+          <div class="smap-n" data-s="cour">{{icon:truck}}<span><b>Courier</b><small>Labels out, tracking in</small></span><em></em></div>
+          <div class="smap-n" data-s="inv">{{icon:file}}<span><b>InvoiceNow</b><small>Peppol access point</small></span><em></em></div>
+          <div class="smap-n" data-s="bi">{{icon:bars}}<span><b>BI / data warehouse</b><small>Extracts out</small></span><em></em></div>
+          <div class="smap-n" data-s="wms">{{icon:database}}<span><b>Legacy WMS</b><small>Picks out, confirmations in</small></span><em></em></div>
+          <ul class="dm-legend smap-leg"><li><i class="smap-lw"></i>Webhook: pushed in seconds</li><li><i class="smap-ls"></i>Scheduled job: batch on a timer</li><li><i class="smap-lx"></i>Failing, retrying</li></ul>
+        </div>
+        <aside class="smap-side" aria-label="Queues, counters and sync log">
+          <dl class="dm-kpis">
+            <div><dt>Processed / min</dt><dd data-k="tp">0</dd></div>
+            <div><dt>Backlog</dt><dd data-k="bl">0</dd></div>
+            <div><dt>Retries</dt><dd data-k="rt">0</dd></div>
+            <div><dt>Dead letters</dt><dd data-k="dl">0</dd></div>
+            <div class="dm-ok"><dt data-k="dupl">Duplicates blocked</dt><dd data-k="dup">0</dd></div>
+          </dl>
+          <div class="smap-lanes">
+            <div class="smap-lane" data-l="hook"><p><b>Webhooks</b><span data-c="hook">0</span></p><div class="smap-q"></div></div>
+            <div class="smap-lane" data-l="job"><p><b>Scheduled jobs</b><span data-c="job">0</span></p><div class="smap-q"></div></div>
+            <div class="smap-lane smap-lane--retry" data-l="retry"><p><b>Retry · backoff 1, 2, 4, 8 s</b><span data-c="retry">0</span></p><div class="smap-q"></div></div>
+            <div class="smap-lane smap-lane--dead" data-l="dead"><p><b>Dead letters · a person is alerted</b><span data-c="dead">0</span></p><div class="smap-q"></div></div>
+          </div>
+          <p class="smap-sh">Sync log</p>
+          <ol class="dm-log smap-log" aria-label="Sync status log"></ol>
+        </aside>
+      </div>
+      <div class="dm-static">
+        <p><b>Connected to Odoo:</b> bank feeds (statement lines, on a schedule), a payment gateway (payment events by webhook), a marketplace connector (orders by webhook, stock levels on a schedule), a courier (labels out, tracking by webhook), InvoiceNow through a Peppol access point (e-invoices out, delivery status polled), a BI or data warehouse (scheduled extracts) and a legacy WMS (polled for picks and confirmations).</p>
+        <p><b>Reliability:</b> each message carries an idempotency key, so a re-delivered event is recognised and ignored instead of creating a second order or payment. A failed call is retried with exponential backoff, 1, 2, 4 then 8 seconds in this demo; after the last try it moves to a dead-letter queue and a person is alerted. When the connector recovers, the backlog drains and dead letters can be replayed safely.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample traffic with timings sped up. Real schedules, retry limits and alerting are agreed per connector when the data is mapped.</p>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="container">
