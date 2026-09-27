@@ -208,6 +208,30 @@ NAV = [
 # ---------------------------------------------------------------- Odoo apps
 # Official Odoo app catalogue, grouped the way odoo.com groups it. `mod` is the
 # module name used by Odoo's icon CDN; the SVGs live in assets/img/odoo/<mod>.svg.
+# App pages live at the name Odoo gives the app (/odoo/apps/inventory), not the module's technical
+# name (stock). Only apps whose name differs are listed; make_vercel.py 308-redirects the old
+# module-name URLs, build.py rewrites every internal link, and assets/js/app-slugs.js (generated)
+# gives the same map to the scripts that link to app pages.
+APP_SLUG = {
+    "account": "invoicing", "accountant": "accounting", "ai_app": "ai", "appointment": "appointments",
+    "event": "events", "hr": "employees", "hr_appraisal": "appraisals", "hr_expense": "expenses",
+    "hr_holidays": "time-off", "hr_payroll": "payroll", "hr_recruitment": "recruitment",
+    "hr_referral": "referrals", "hr_timesheet": "timesheets", "im_livechat": "live-chat",
+    "industry_fsm": "field-service", "mail": "discuss", "marketing_automation": "marketing-automation",
+    "mass_mailing": "email-marketing", "mass_mailing_sms": "sms-marketing", "mrp": "manufacturing",
+    "mrp_plm": "plm", "point_of_sale": "point-of-sale", "pos_restaurant": "restaurant-pos",
+    "quality_control": "quality", "sale": "sales", "sale_renting": "rental",
+    "sale_subscription": "subscriptions", "social": "social-marketing", "spreadsheet_dashboard": "spreadsheet",
+    "stock": "inventory", "survey": "surveys", "website": "website-builder", "website_blog": "blog",
+    "website_forum": "forum", "website_sale": "ecommerce", "website_slides": "elearning",
+}
+APP_MOD = {v: k for k, v in APP_SLUG.items()}
+
+
+def app_slug(mod):
+    return APP_SLUG.get(mod, mod)
+
+
 def _a(name, desc, mod, focus=False):
     return {"name": name, "desc": desc, "mod": mod, "focus": focus}
 

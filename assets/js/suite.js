@@ -203,7 +203,7 @@
       if (st.mode === 'preview') { lead = name; text = ' — ' + does + (on[m] ? ' Press to take it out.' : ' Press to plug it in.'); }
       if (st.mode === 'added') { lead = name + ' is in.'; text = ' ' + does + ' Still one database, and no integration to build.'; }
       if (st.mode === 'removed') { lead = name + ' is out.'; text = ' The other apps keep working on the same records.'; }
-      linkText = 'About Odoo ' + name; href = 'odoo/apps/' + m;
+      linkText = 'About Odoo ' + name; href = 'odoo/apps/' + ((window.TN_APP_SLUG || {})[m] || m);
     } else {
       if (DB_ICON) detIc.appendChild(DB_ICON.cloneNode(true));
       if (st.mode === 'preset') {
