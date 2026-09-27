@@ -3,7 +3,9 @@
 > TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.
 
 - Registered name: TechNext Pte. Ltd. (UEN 202699888G)
-- Address: 261 Waterloo Street #03-36, Singapore 180261
+- Headquarters: 261 Waterloo Street #03-36, Singapore 180261
+- Philippines office: Level 9, IP Center, Taguig City, Metro Manila
+- Vietnam development hub: 62 Nguyễn Thị Nhung, P. Hiệp Bình, Ho Chi Minh City
 - Contact: sales@technext.asia · WhatsApp +65 8839 6998
 - Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines
 - Written quotation: https://technext.asia/quotation
@@ -102,8 +104,22 @@
 ## Company
 
 - [Odoo Partner in Singapore — Odoo ERP & AI](https://technext.asia/): TechNext is an Odoo Partner in Singapore: all-in-one Odoo ERP, holistic business consultation and fast website development for growing companies.
-- [About TechNext — Odoo Partner, Singapore](https://technext.asia/company): TechNext Pte. Ltd. is a Singapore-based Odoo Partner serving clients globally: Odoo ERP implementation, enterprise AI, websites and social media.
+- [Careers: Odoo, ERP and finance jobs in Taguig](https://technext.asia/careers): Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.
+- [About TechNext — Odoo Partner, Singapore](https://technext.asia/company): TechNext Pte. Ltd. is an Odoo Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.
 - [Get a written Odoo quotation in two minutes](https://technext.asia/quotation): Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.
+
+## Blog
+
+- [Blog: Odoo news, Odoo 20 and ERP guides](https://technext.asia/blog): Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
+- [How an Odoo implementation works, step by step](https://technext.asia/blog/how-an-odoo-implementation-works): How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
+- [GST InvoiceNow requirement: every date, 2025 to 2031](https://technext.asia/blog/invoicenow-singapore-gst-timeline): Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
+- [Odoo 20 in Singapore, the Philippines and Vietnam](https://technext.asia/blog/odoo-20-singapore-philippines-vietnam): The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
+- [Odoo 20: what's new, in plain language](https://technext.asia/blog/odoo-20-whats-new): Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.
+- [Odoo Experience 2026: five takeaways for Odoo users](https://technext.asia/blog/odoo-experience-2026-takeaways): Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
+- [Odoo Online vs Odoo.sh vs on-premise: which fits?](https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise): Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
+- [Seven signs your business has outgrown spreadsheets](https://technext.asia/blog/signs-you-have-outgrown-spreadsheets): Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
+- [Standard first: when to customise Odoo, and when not](https://technext.asia/blog/standard-first-odoo-customisation): When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
+- [What is ERP? A plain-language guide for growing companies](https://technext.asia/blog/what-is-erp): What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.
 
 ## Optional
 

@@ -26,8 +26,32 @@ COMPANY = {
     # header "Contact Us" opens WhatsApp with a ready-to-send opener
     "whatsapp_msg_link": "https://wa.me/6588396998?text=Hello%20TechNext%2C%20I%27d%20like%20to%20ask%20about%20Odoo%20for%20my%20company.",
     "linkedin": "https://www.linkedin.com/company/technext-asia",
-    "hubs": "Singapore HQ · Global",
+    "hubs": "Singapore HQ · Philippines · Vietnam",
+    "careers_email": "career@technext.asia",
 }
+
+# Offices, as TechNext lists them (and on Google Maps). `key` matches the map entries in
+# assets/js/stage.js; `maps` opens the office's Google Maps listing or address.
+OFFICES = [
+    {"key": "hq", "cc": "SG", "country": "Singapore", "name": "Singapore HQ",
+     "role": "Headquarters. Sales, discovery and on-site work in Singapore.",
+     "lines": ["261 Waterloo Street #03-36", "Singapore 180261"],
+     "street": "261 Waterloo Street #03-36", "locality": "Singapore", "region": "", "postal": "180261",
+     "maps": "https://maps.google.com/?cid=3474088819422984887",
+     "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
+    {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines office",
+     "role": "Odoo consulting, finance, sales and marketing. Our open roles are here.",
+     "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
+     "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
+     "maps": "https://maps.google.com/?cid=12500824038992408388",
+     "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
+    {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam development hub",
+     "role": "Engineering. Odoo modules, integrations and AI.",
+     "lines": ["62 Nguyễn Thị Nhung, P. Hiệp Bình", "Ho Chi Minh City"], "lang": "vi",
+     "street": "62 Nguyễn Thị Nhung, Phường Hiệp Bình", "locality": "Ho Chi Minh City", "region": "", "postal": "",
+     "maps": "https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City",
+     "directions": "https://www.google.com/maps/dir/?api=1&destination=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City"},
+]
 
 # FormSubmit — no account needed. The first real submission triggers a one-time
 # activation email to sales@technext.asia; after that every inquiry lands there.
@@ -124,7 +148,27 @@ NAV = [
             ]},
         ],
     },
-    {"label": "Company", "id": "company", "href": "company.html"},
+    {
+        "label": "Company", "id": "company",
+        "columns": [
+            {"title": "Company", "links": [
+                {"label": "About TechNext", "href": "company.html", "icon": "users",
+                 "desc": "Who we are, how we work, where to find us."},
+                {"label": "Careers", "href": "careers.html", "icon": "briefcase",
+                 "desc": "Open roles in Taguig City, Metro Manila."},
+                {"label": "Blog", "href": "blog.html", "icon": "file",
+                 "desc": "Odoo news, ERP guides and how we work."},
+            ]},
+            {"title": "Offices", "links": [
+                {"label": "Singapore HQ", "href": "company.html#office-hq", "icon": "pin",
+                 "desc": "261 Waterloo Street #03-36."},
+                {"label": "Philippines", "href": "company.html#office-ph", "icon": "pin",
+                 "desc": "Level 9, IP Center, Taguig City."},
+                {"label": "Vietnam", "href": "company.html#office-vn", "icon": "pin",
+                 "desc": "Development hub, Ho Chi Minh City."},
+            ]},
+        ],
+    },
 ]
 
 # ---------------------------------------------------------------- Odoo apps

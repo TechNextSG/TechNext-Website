@@ -300,7 +300,7 @@ LAYOUT = '''<!doctype html>
 <footer class="footer">
   <div class="container footer-inner">
     <span>© {YEAR} {LEGAL}</span>
-    <nav aria-label="Legal"><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
+    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}careers.html">Careers</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
 
@@ -319,7 +319,7 @@ LAYOUT = '''<!doctype html>
 SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html", "odoo/training.html",
                  "odoo/integration.html", "odoo/support.html", "odoo/erp-system.html",
                  "odoo/crm-development.html", "odoo/ai-integration.html")
-AREA_SERVED = ["Singapore", "Southeast Asia", "Worldwide"]
+AREA_SERVED = ["Singapore", "Philippines", "Vietnam", "Southeast Asia", "Worldwide"]
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
 _FAQ = re.compile(r'<details>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)
@@ -377,6 +377,18 @@ def _breadcrumb(canonical: str, content: str):
     return {"@type": "BreadcrumbList", "@id": canonical + "#breadcrumb", "itemListElement": out}
 
 
+def _office_ld(o: dict, org_id: str) -> dict:
+    addr = {"@type": "PostalAddress", "streetAddress": o["street"], "addressLocality": o["locality"],
+            "addressCountry": o["cc"]}
+    if o.get("region"):
+        addr["addressRegion"] = o["region"]
+    if o.get("postal"):
+        addr["postalCode"] = o["postal"]
+    return {"@type": "ProfessionalService", "@id": S.SITE_URL + "#office-" + o["key"],
+            "name": "TechNext " + o["country"], "description": o["role"], "address": addr,
+            "hasMap": o["maps"], "parentOrganization": {"@id": org_id}}
+
+
 def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     """One linked graph per page: the company, the site, this page, its breadcrumb, and -
     only when the page visibly shows them - its FAQs and the service it describes."""
@@ -392,6 +404,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "address": {"@type": "PostalAddress", "streetAddress": c["address"][0],
                         "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
             "identifier": {"@type": "PropertyValue", "propertyID": "UEN", "value": c["uen"]},
+            "hasMap": S.OFFICES[0]["maps"],
+            "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
             "sameAs": [c["linkedin"]],
             "description": S.DEFAULT_DESC,
@@ -419,6 +433,22 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
                       "mainEntity": [{"@type": "Question", "name": q,
                                       "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
+    art = meta.get("article")
+    if art:
+        graph.append({"@type": "BlogPosting", "@id": canonical + "#article", "headline": art["h1"],
+                      "description": meta.get("desc", "").strip(), "datePublished": art["date"],
+                      "dateModified": art.get("updated", art["date"]), "inLanguage": "en",
+                      "articleSection": BLOG_CATS[art["cat"]], "wordCount": art.get("words"),
+                      "author": {"@id": org_id}, "publisher": {"@id": org_id},
+                      "image": S.SITE_URL + "assets/img/og-image.png",
+                      "mainEntityOfPage": {"@id": page_id}, "isPartOf": {"@id": S.SITE_URL + "blog#blog"}})
+    if out_rel == "blog.html":
+        graph.append({"@type": "Blog", "@id": S.SITE_URL + "blog#blog", "url": canonical,
+                      "name": "TechNext blog", "description": meta.get("desc", "").strip(),
+                      "publisher": {"@id": org_id}, "inLanguage": "en",
+                      "blogPost": [{"@type": "BlogPosting", "@id": S.SITE_URL + clean_url(a["out"]) + "#article",
+                                    "headline": a["h1"], "url": S.SITE_URL + clean_url(a["out"]),
+                                    "datePublished": a["date"]} for a in ARTICLES]})
     if out_rel.startswith(SERVICE_PAGES):
         name = _base_title(meta["title"])
         graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
@@ -487,6 +517,23 @@ def apps_stage_html() -> str:
             '<span class="st-chip ap-legend dp" style="--d:12"><span class="lg-dot"></span>Our focus areas</span></div>')
 
 
+def offices_html() -> str:
+    """The three office cards on the company page. Each one points the shared map
+    (#office-map, assets/js/stage.js) at its office."""
+    out = []
+    for k, o in enumerate(S.OFFICES):
+        lines = "<br>".join(o["lines"])
+        if o.get("lang"):
+            lines = f'<span lang="{o["lang"]}">{o["lines"][0]}</span><br>{o["lines"][1]}'
+        on = k == 0
+        out.append(f'''<article class="office{" is-on" if on else ""} reveal" id="office-{o["key"]}" data-office="{o["key"]}" style="--i:{k}">
+          <div class="office-top"><span class="office-cc" aria-hidden="true">{o["cc"]}</span><div><h3>{o["name"]}</h3><p>{o["role"]}</p></div></div>
+          <address>{lines}</address>
+          <div class="office-actions"><button class="office-show" type="button" data-office-show="{o["key"]}" aria-controls="office-map" aria-pressed="{"true" if on else "false"}">{{{{icon:pin}}}}<span>Show on map</span></button><a class="btn-link" href="{o["directions"].replace("&", "&amp;")}" target="_blank" rel="noopener">Directions <span class="sr-only">to {o["name"]}</span>{{{{icon:arrow}}}}</a></div>
+        </article>''')
+    return "\n        ".join(out)
+
+
 def marquee_html() -> str:
     names = {a["mod"]: a["name"] for c in S.APP_CATEGORIES for a in c["apps"]}
     items = "".join(f'<span class="mq-item">{{{{odoo:{m}:26}}}}{names.get(m, m)}</span>' for m in S.MARQUEE)
@@ -520,6 +567,43 @@ def letters_html() -> tuple:
 APP_CONTENT_PATH = SRC / "apps_content.json"
 APP_CONTENT = json.loads(APP_CONTENT_PATH.read_text(encoding="utf-8")) if APP_CONTENT_PATH.exists() else {}
 CAT_BY_MOD = {a["mod"]: c for c in S.APP_CATEGORIES for a in c["apps"]}
+
+# Pixel sizes of the odoo.com screenshots (kept current by _src/measure_images.py). Each
+# screenshot is framed by its own shape instead of being cropped to one fixed ratio.
+IMG_DIMS_PATH = SRC / "odoo_image_dims.json"
+IMG_DIMS = json.loads(IMG_DIMS_PATH.read_text(encoding="utf-8")) if IMG_DIMS_PATH.exists() else {}
+UNMEASURED = set()
+
+
+def img_ratio(url: str) -> float:
+    d = IMG_DIMS.get(url)
+    if not d or not d[1]:
+        UNMEASURED.add(url)
+        return 1.6
+    return d[0] / d[1]
+
+
+def is_strip(url: str) -> bool:
+    """A toolbar or header strip (20+ times wider than tall) that means nothing on its own."""
+    return img_ratio(url) >= 6
+
+
+def frame(url: str) -> tuple:
+    """(class, aspect ratio) of the frame a screenshot sits in: its natural shape where that
+    reads well, a neutral mat around phone shots and wide strips, and the top of a long page."""
+    r = img_ratio(url)
+    if r < 0.3:
+        return "fr-doc", 1.0
+    if r < 1.0:
+        return "fr-tall", 1.0
+    if r > 2.4:
+        return "fr-wide", 2.4
+    return "fr-fit", round(r, 3)
+
+
+def attr(text: str) -> str:
+    """Plain text (which may already hold entities) made safe for a double-quoted attribute."""
+    return html_mod.escape(html_mod.unescape(text), quote=True)
 APP_BY_MOD = {a["mod"]: a for c in S.APP_CATEGORIES for a in c["apps"]}
 
 # Every built page is recorded here (url, title, description) so the chat assistant can recognise and
@@ -553,13 +637,14 @@ def app_page(mod: str) -> tuple:
     headline = c.get("headline") or f"{name} in Odoo"
     odoo_url = c.get("url", "https://www.odoo.com/")
     focus = ' <span class="tag tag--ok">{{icon:check}} TechNext focus app</span>' if app["focus"] else ""
-    images = [i for i in c.get("images", []) if not i.endswith(".svg")]
+    images = [i for i in c.get("images", []) if not i.endswith(".svg") and not is_strip(i)]
     sections = c.get("sections", [])
     used = {s["img"] for s in sections if s.get("img")}
 
-    # hero: the odoo.com hero image inside an app window; when there is none (or it fails to load)
-    # the window shows the app's own icon, name and summary instead — never an empty placeholder
-    hero_img = next((i for i in images if i not in used), "")
+    # hero: a landscape odoo.com screen inside the app window (shown whole, never cropped); when
+    # there is none (or it fails to load) the window shows the app's own icon, name and summary
+    # (odoo.com lists its hero image first, so page order is kept)
+    hero_img = next((i for i in images if i not in used and 1.1 <= img_ratio(i) <= 2.2), "")
     if hero_img:
         used.add(hero_img)
 
@@ -583,10 +668,12 @@ def app_page(mod: str) -> tuple:
     for k, s in enumerate(sections[:8]):
         feats = "".join(f'<li>{{{{icon:check}}}}{f}</li>' for f in s.get("feats", [])[:5])
         feats_html = f'<ul class="checks">{feats}</ul>' if feats else ""
-        if s.get("img"):
+        if s.get("img") and not is_strip(s["img"]):
             flip = " feat--flip" if len(rows) % 2 else ""
+            fr, ar = frame(s["img"])
+            label = attr(f"Odoo {name} — {s['h']}")
             rows.append(f'''<div class="feat reveal{flip}">
-      <div class="feat-media"><img src="{s["img"]}" alt="Odoo {name} — {s["h"]}" loading="lazy" decoding="async" data-onerror="feat"></div>
+      <div class="feat-media {fr}" style="--ar:{ar}"><a class="zoom" href="{s["img"]}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot: {label}"><img src="{s["img"]}" alt="{label}" loading="lazy" decoding="async" data-onerror="feat">{{{{icon:expand}}}}</a></div>
       <div class="feat-copy"><span class="card-kicker">{k + 1:02d} · {name}</span><h3>{s["h"]}</h3><p>{s["p"]}</p>{feats_html}</div>
     </div>''')
         else:
@@ -598,7 +685,11 @@ def app_page(mod: str) -> tuple:
 
     # remaining screenshots not already shown
     shots = [i for i in images if i not in used][:6]
-    gallery = "".join(f'<figure class="shot reveal" style="--i:{k}"><img src="{u}" alt="Odoo {name} screenshot {k + 1}" loading="lazy" decoding="async" data-onerror="closest:figure"><figcaption>Odoo {name} · screenshot from odoo.com</figcaption></figure>' for k, u in enumerate(shots))
+    gallery = "".join(
+        f'<figure class="shot reveal{" shot--doc" if img_ratio(u) < 0.3 else ""}" style="--i:{k}">'
+        f'<a class="zoom" href="{u}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot {k + 1} of Odoo {attr(name)}">'
+        f'<img src="{u}" alt="Odoo {attr(name)} screenshot {k + 1}" loading="lazy" decoding="async" data-onerror="closest:figure">{{{{icon:expand}}}}</a>'
+        f'<figcaption>Odoo {name} · screenshot from odoo.com</figcaption></figure>' for k, u in enumerate(shots))
     screens = f'''<section class="section section--alt section--tight">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">screens</span><h2>Inside the app.</h2></div>
@@ -638,6 +729,8 @@ def app_page(mod: str) -> tuple:
         desc_meta += " Book a free discovery call."
     meta = {"title": f"Odoo {name} implementation in Singapore", "desc": desc_meta,
             "out": f"odoo/apps/{mod}.html", "nav": "odoo"}
+    if rows or gallery:
+        meta["scripts"] = ["assets/js/zoom.js"]
     content = f'''
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{{{STAGE_BG}}}}
@@ -697,13 +790,143 @@ def app_page(mod: str) -> tuple:
 </section>'''
     return meta, content
 
-def build_page(path: Path, nav_cache: dict) -> str:
+# ---------------------------------------------------------------- blog
+# Articles are _src/pages/blog/<slug>.html: a meta header with an "article" block, then the body.
+# build.py adds the article header, contents list, author box, related posts and CTA, and the
+# BlogPosting structured data; blog.html lists them all ({{BLOG_CARDS}}) and the home page shows
+# the newest three ({{BLOG_LATEST}}).
+BLOG_CATS = {"odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
+BLOG_ICON = {"odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
+ARTICLES = []
+_H2 = re.compile(r"<h2(\s[^>]*)?>(.*?)</h2>", re.S)
+
+
+def _slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", _text(text).lower()).strip("-")[:60] or "section"
+
+
+def _nice_date(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d.day} {d.strftime('%B %Y')}"
+
+
+def read_meta(path: Path) -> tuple:
     raw = path.read_text(encoding="utf-8")
     m = META_RE.match(raw)
     if not m:
         raise ValueError(f"{path}: missing <!--meta {{...}} --> header")
-    meta = json.loads(m.group(1))
-    content = raw[m.end():].strip("\n")
+    return json.loads(m.group(1)), raw[m.end():].strip("\n")
+
+
+def load_articles():
+    ARTICLES.clear()
+    for path in sorted((PAGES / "blog").glob("*.html")):
+        meta, body = read_meta(path)
+        art = meta["article"]
+        if art["cat"] not in BLOG_CATS:
+            raise KeyError(f"{path.name}: unknown blog category {art['cat']!r}")
+        words = len(_text(body).split())
+        art["words"] = words
+        art["read"] = max(3, round(words / 220))
+        ARTICLES.append({**art, "title": meta["title"], "desc": meta["desc"], "out": meta["out"]})
+    ARTICLES.sort(key=lambda a: (a["date"], a.get("order", 0)), reverse=True)
+
+
+def blog_card(a: dict, k: int, heading: str = "h3") -> str:
+    icon = BLOG_ICON[a["cat"]]
+    ic = f"{{{{odoo:{icon[5:]}:22}}}}" if icon.startswith("odoo:") else f"{{{{icon:{icon}}}}}"
+    return (f'<article class="post-card reveal" data-tags="{a["cat"]}" style="--i:{k % 6}">'
+            f'<div class="post-card-top"><span class="post-cat post-cat--{a["cat"]}">{ic}{BLOG_CATS[a["cat"]]}</span>'
+            f'<span class="post-read">{a["read"]} min read</span></div>'
+            f'<{heading}><a href="{{{{ROOT}}}}{a["out"]}">{a["h1"]}</a></{heading}>'
+            f'<p>{a["card"]}</p>'
+            f'<div class="post-card-foot"><time datetime="{a["date"]}">{_nice_date(a["date"])}</time>'
+            f'<span class="post-more" aria-hidden="true">Read {{{{icon:arrow}}}}</span></div></article>')
+
+
+def blog_filters() -> str:
+    btns = [f'<button type="button" data-filter-tag="all" aria-pressed="true">All <span>{len(ARTICLES)}</span></button>']
+    for key, label in BLOG_CATS.items():
+        n = sum(1 for a in ARTICLES if a["cat"] == key)
+        if n:
+            btns.append(f'<button type="button" data-filter-tag="{key}" aria-pressed="false">{label} <span>{n}</span></button>')
+    return "".join(btns)
+
+
+def article_html(meta: dict, body: str) -> str:
+    art = meta["article"]
+    ids = set()
+
+    def anchor(m):
+        attrs, inner = m.group(1) or "", m.group(2)
+        found = re.search(r'\bid="([^"]+)"', attrs)
+        hid = found.group(1) if found else _slug(inner)
+        while hid in ids:
+            hid += "-2"
+        ids.add(hid)
+        toc.append((hid, _text(inner)))
+        return f'<h2 id="{hid}"{re.sub(r" id=\"[^\"]+\"", "", attrs)}>{inner}</h2>'
+
+    toc = []
+    body = _H2.sub(anchor, body)
+    toc_html = "".join(f'<li><a href="#{h}">{t}</a></li>' for h, t in toc)
+    related = [a for a in ARTICLES if a["out"] != meta["out"] and a["cat"] == art["cat"]]
+    related += [a for a in ARTICLES if a["out"] != meta["out"] and a not in related]
+    cards = "".join(blog_card(a, k) for k, a in enumerate(related[:3]))
+    updated = ""
+    if art.get("updated") and art["updated"] != art["date"]:
+        updated = f' · Updated <time datetime="{art["updated"]}">{_nice_date(art["updated"])}</time>'
+    icon = BLOG_ICON[art["cat"]]
+    ic = f"{{{{odoo:{icon[5:]}:22}}}}" if icon.startswith("odoo:") else f"{{{{icon:{icon}}}}}"
+    meta["head"] = (meta.get("head", "") + f'<meta property="article:published_time" content="{art["date"]}">'
+                    f'<meta property="article:section" content="{BLOG_CATS[art["cat"]]}">')
+    return f'''<section class="page-hero page-hero--stage page-hero--post" data-stage-hero>
+  {{{{STAGE_BG}}}}
+  <div class="container post-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span><a href="{{{{ROOT}}}}blog.html">Blog</a></span><span>{art["h1"]}</span></nav>
+    <a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a>
+    <h1>{art["h1"]}</h1>
+    <p class="lead">{art["lede"]}</p>
+    <p class="post-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span></p>
+  </div>
+</section>
+
+<section class="section section--post">
+  <div class="container post-grid">
+    <aside class="post-toc" aria-label="On this page"><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
+    <div class="prose">
+{body}
+      <div class="post-about">
+        <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with an office in Taguig City, Metro Manila and a development hub in Ho Chi Minh City. We implement Odoo end to end (discovery, configuration, data migration, training and support) for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt section--tight">
+  <div class="container">
+    <div class="sec-head sec-head--row reveal"><div><span class="hand">keep reading</span><h2 style="margin:0">More from the blog.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
+    <div class="post-cards">{cards}</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Planning an Odoo project?</h2><p>Tell TechNext how the process runs today. We'll say which apps to start with, what to leave for later, and what it takes.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    </div>
+  </div>
+</section>'''
+
+
+def build_page(path: Path, nav_cache: dict) -> str:
+    meta, content = read_meta(path)
+    if meta.get("article"):
+        art = next(a for a in ARTICLES if a["out"] == meta["out"])
+        meta["article"].update(words=art["words"], read=art["read"])
+        content = article_html(meta, content)
     return render(meta, content, nav_cache)
 
 
@@ -781,10 +1004,17 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{APPS_STAGE}}", apps_stage_html())
     if "{{STAGE_BG}}" in content:
         content = content.replace("{{STAGE_BG}}", STAGE_BG)
+    if "{{OFFICES}}" in content:
+        content = content.replace("{{OFFICES}}", offices_html())
     if "{{MARQUEE}}" in content:
         content = content.replace("{{MARQUEE}}", marquee_html())
     if "{{PILLARS}}" in content:
         content = content.replace("{{PILLARS}}", pillars_html())
+    if "{{BLOG_" in content:
+        content = (content.replace("{{BLOG_CARDS}}", "".join(blog_card(a, k, "h2") for k, a in enumerate(ARTICLES)))
+                          .replace("{{BLOG_LATEST}}", "".join(blog_card(a, k) for k, a in enumerate(ARTICLES[:3])))
+                          .replace("{{BLOG_FILTERS}}", blog_filters())
+                          .replace("{{BLOG_COUNT}}", str(len(ARTICLES))))
 
     out_rel = meta["out"]
     depth = out_rel.count("/")
@@ -873,7 +1103,8 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps")),
-    ("Company", lambda u: u in ("", "company", "quotation")),
+    ("Company", lambda u: u in ("", "company", "careers", "quotation")),
+    ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 
 
@@ -889,7 +1120,8 @@ def write_llms():
         "AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
-        f"- Address: {', '.join(c['address'])}",
+        f"- Headquarters: {', '.join(c['address'])}",
+        *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']} · WhatsApp {c['whatsapp']}",
         "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
         f"- Written quotation: {S.SITE_URL}quotation",
@@ -923,11 +1155,15 @@ def main():
     nav_cache = {}
     built = []
     INDEX.clear()
+    load_articles()
     for path in sorted(PAGES.rglob("*.html")):
         built.append(build_page(path, nav_cache))
     for mod in APP_BY_MOD:
         meta, content = app_page(mod)
         built.append(render(meta, content, nav_cache))
+    if UNMEASURED:
+        print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"
+              " run: python -B _src/measure_images.py")
     write_sitemap(built)
     write_chat_index()
     print(f"llms.txt: {write_llms()} pages")
