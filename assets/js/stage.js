@@ -36,12 +36,23 @@
   if (!reduce && fine) {
     [].forEach.call(document.querySelectorAll('[data-stage-hero]'), function (hero) {
       var st = hero.querySelector('.stage'), spot = hero.querySelector('.ph-spot');
-      var raf = 0, x = 0, y = 0, box = null;
+      /* Each depth layer gets its own translate. Setting --px/--py on the stage made every element in it
+         inherit a new value, so the whole stage restyled on every pointer frame. The cards ease over .9 s
+         (a CSS transition), so 20 target updates a second look the same as 60; the spotlight stays per frame. */
+      var deps = st ? [].map.call(st.querySelectorAll('.dp'), function (el) { return { el: el, d: parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0, v: '' }; }) : [];
+      var raf = 0, x = 0, y = 0, box = null, depT = 0, depAt = 0;
       function measure() { var r = hero.getBoundingClientRect(); box = { l: r.left, t: r.top + window.scrollY, w: r.width, h: r.height }; }
+      function depth() {
+        depT = 0; depAt = performance.now();
+        deps.forEach(function (p) {
+          var v = (x * 2 * p.d).toFixed(1) + 'px ' + (y * 2 * p.d).toFixed(1) + 'px';
+          if (v !== p.v) { p.v = v; p.el.style.translate = v; }
+        });
+      }
       function paint() {
         raf = 0;
         if (spot && box) { spot.style.setProperty('--sx', ((x + 0.5) * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', ((y + 0.5) * box.h).toFixed(1) + 'px'); }
-        if (st) { st.style.setProperty('--px', (x * 2).toFixed(3)); st.style.setProperty('--py', (y * 2).toFixed(3)); }
+        if (deps.length && !depT) { var wait = 50 - (performance.now() - depAt); if (wait <= 0) depth(); else depT = setTimeout(depth, wait); }
       }
       window.addEventListener('resize', function () { box = null; }, { passive: true });
       hero.addEventListener('pointerenter', function () { box = null; });
