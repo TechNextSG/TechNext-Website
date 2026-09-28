@@ -419,6 +419,12 @@
 .nexi-fx u{position:absolute;border-radius:14px;box-shadow:0 0 0 2px rgba(49,103,202,.7),0 0 18px 4px rgba(111,160,245,.45);animation:nexiRing 1.4s var(--ease-out) forwards}
 @keyframes nexiUp{0%{opacity:0;transform:translate(var(--x0),var(--y0)) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x1),var(--y1)) scale(1.1) rotate(var(--r))}}
 @keyframes nexiWord{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3) rotate(-12deg)}15%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.12) rotate(-5deg)}25%{transform:translate(var(--x),var(--y)) scale(1) rotate(-4deg)}78%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) - 28px)) rotate(-4deg)}}
+/* Nexi calls out the Ask Nexi tab: a soft glow pulse, and while Nexi tugs, the tab gives a little
+   (the translate property composes with the tab's own rotate, and it only runs for these two seconds) */
+.side-tab.nexi-tab.is-called{animation:nxCall 1.1s ease-in-out 5}
+.side-tab.nexi-tab.is-called.is-tugged{animation:nxCall 1.1s ease-in-out 5,nxTug .733s ease-in-out 3}
+@keyframes nxCall{0%,100%{box-shadow:0 8px 24px -12px rgba(88,86,230,.65)}50%{box-shadow:0 0 0 6px rgba(107,91,255,.26),0 14px 32px -10px rgba(88,86,230,.85)}}
+@keyframes nxTug{0%,100%{translate:0 0}45%{translate:-12px 0}}
 .nexi-fx b.is-narrow{white-space:normal;max-width:100px;padding:6px 9px;font-size:13.5px;line-height:1.15;text-align:center}
 .nexi-fx u.is-boop{border-radius:50%;box-shadow:0 0 0 3px rgba(49,103,202,.55),0 0 24px 6px rgba(111,160,245,.5),inset 0 0 18px rgba(111,160,245,.45)}
 @keyframes nexiRing{0%{opacity:0;transform:scale(1.25)}25%{opacity:1}100%{opacity:0;transform:scale(1)}}

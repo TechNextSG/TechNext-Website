@@ -293,6 +293,7 @@
       hum: { dur: 3.4, fn: function (p, O) { var e = env(p, 0.1, 0.15), s = Math.sin(p * Math.PI * 6); O.tilt += s * 0.12 * e; O.hLy += Math.max(0, s) * 0.28 * e; O.hRy += Math.max(0, -s) * 0.28 * e; } },
       stretch: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.3, 0.3); O.hLy += 2.1 * e; O.hRy += 2.1 * e; O.hLx += 0.42 * e; O.hRx -= 0.42 * e; O.sq += 0.08 * e; O.nod -= 0.25 * e; } },
       surf: { dur: 4.2, fn: function (p, O) { var e = env(p, 0.15, 0.15); O.hLx -= 0.25 * e; O.hRx += 0.25 * e; O.hLy += 0.5 * e; O.hRy += 0.5 * e; O.tilt += Math.sin(p * Math.PI * 4) * 0.12 * e; } },
+      tug: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.12, 0.18), c = (1 - Math.cos(p * Math.PI * 6)) / 2; O.hRx += (0.5 - c * 0.18) * e; O.hLx += (0.62 - c * 0.18) * e; O.hRy += 0.12 * e; O.hLy += 0.1 * e; O.tilt -= (0.08 + c * 0.1) * e; O.sq += c * 0.05 * e; } },
       peek: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.25, 0.3); O.nod += 0.1 * e; O.hRy += 0.6 * e; O.hRz += 0.25 * e; O.hRr += Math.sin(p * Math.PI * 7) * 0.35 * e; O.tilt -= 0.15 * e; } }
     };
     function play(n) { var c = CLIPS[n]; if (c) R.clips.push({ t0: time, dur: c.dur, fn: c.fn }); }
@@ -381,6 +382,40 @@
     function toScreen(px, py, z) { var k = depthK(z); return [W / 2 + (px - W / 2) * k, H / 2 + (py - H / 2) * k]; }
     /* place(): hold a screen spot while the depth changes. The plane target is re-solved every frame from the
        current depth, so zooming toward the screen never drifts Nexi sideways over the content. */
+    /* the nearest free spot (to the given screen point) with a clear bubble area above it on either side */
+    function roomySpot(x, y) {
+      obstacles();
+      var bw = 250, bh = 56, best = null, bd = Infinity;
+      for (var i = 0; i < FREE.length; i += 2) {
+        var fx = FREE[i], fy = FREE[i + 1], top = fy - SIZE * 0.6 - bh;
+        if (top < 8) continue;
+        var right = [fx + SIZE * 0.2, top, fx + SIZE * 0.2 + bw, top + bh], left = [fx - SIZE * 0.2 - bw, top, fx - SIZE * 0.2, top + bh];
+        var okR = right[2] < W - TABS && !hits(right), okL = left[0] > 8 && !hits(left);
+        if (!okR && !okL) continue;
+        var d = (fx - x) * (fx - x) + (fy - y) * (fy - y) * 1.3;
+        if (d < bd) { bd = d; best = [fx, fy]; }
+      }
+      return best;
+    }
+    /* a little trail of arrows from Nexi to an element (points the way when Nexi cannot get close) */
+    function arrowsTo(el) {
+      var h = botPx(), r = rectOf(el), k = depthK(R.tz);
+      for (var i = 0; i < 4; i++) (function (n) {
+        setTimeout(function () {
+          var e = document.createElement('i'); e.textContent = '→';
+          e.style.setProperty('--x0', (h.x + SIZE * 0.4 * k) + 'px'); e.style.setProperty('--y0', (h.y - SIZE * 0.15) + 'px');
+          e.style.setProperty('--x1', (r.x - 18) + 'px'); e.style.setProperty('--y1', (r.cy - 14) + 'px'); e.style.setProperty('--r', '0deg');
+          fxEl.appendChild(e); setTimeout(function () { e.remove(); }, 1700);
+        }, n * 260);
+      })(i);
+    }
+    function askTab() {
+      var t = document.querySelector('.side-tab.nexi-tab');
+      if (!t || document.body.classList.contains('talk-open')) return null;
+      var r = t.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+      if (!r.width || r.top < hr.top + SIZE * 0.3 || r.bottom > hr.bottom - SIZE * 0.3) return null;
+      return t;
+    }
     function place(sx, sy, z) { R.tz = z; R.lock = { sx: sx, sy: sy }; }
     /* The fourth-wall corner: Nexi comes right up to the screen at the left edge, half of it past the edge.
        Only where its close-up box (the visible part) covers no text or button; the right edge belongs to the
@@ -433,7 +468,9 @@
     /* speech bubbles: Nexi introduces itself, reacts to the hero and chatters. A bubble takes the first spot
        around Nexi that covers no text or button; if none is clear it tries a narrow two-line bubble (it fits
        the page margin), and failing that the spot that covers the least. */
-    function word(text, life) {
+    function word(text, life, optional) {
+      /* one speech bubble at a time: a new line replaces the one still showing */
+      [].forEach.call(fxEl.querySelectorAll('b'), function (old) { old.remove(); });
       var h = botPx(), k = depthK(R.tz), e = document.createElement('b'); e.textContent = text; fxEl.appendChild(e);
       obstacles();
       function fit() {
@@ -449,10 +486,12 @@
       }
       var f = fit();
       if (f.a > 0) { e.classList.add('is-narrow'); var g = fit(); if (g.a <= f.a) f = g; else e.classList.remove('is-narrow'); }
+      if (optional && f.a > 0) { e.remove(); return null; }
       e.style.setProperty('--x', f.at[0].toFixed(0) + 'px'); e.style.setProperty('--y', f.at[1].toFixed(0) + 'px');
       if (life) e.style.animationDuration = life + 's';
       R.lastWord = time;
       setTimeout(function () { e.remove(); }, (life || 1.9) * 1000);
+      return e;
     }
     var SAY = {
       hello: ['Hi, I’m Nexi!', 'Hello there!', 'Beep boop, hi!', 'Welcome to TechNext!'],
@@ -474,13 +513,54 @@
       wall2: ['Hi, I’m Nexi 👋', 'I see you!', 'hello, human!'],
       wall3: ['boop!', '*taps the glass*', 'is this thing on?'],
       wall4: ['you’re awesome!', 'need help? click me', 'I’m TechNext’s AI buddy'],
-      bye: ['bye for now!', 'see you!', 'back to work!']
+      bye: ['bye for now!', 'see you!', 'back to work!'],
+      cheer: ['yay!', 'done ✓', 'woohoo!', 'next one!'],
+      tab1: ['psst… see this tab?', 'look, Ask Nexi!', 'this one →'],
+      tab2: ['come on… *pull*', 'hnngh! *tug*', 'heave-ho!'],
+      tab3: ['tap Ask Nexi to chat!', 'ask me anything there →', 'I answer there, promise!']
     };
+    /* talking: short three-line chats about Nexi, TechNext and Odoo (wording the site already uses), plus
+       lines built from what the active slide is showing right now */
+    var TALK = {
+      self: [['Hi, I’m Nexi!', 'TechNext’s AI companion', 'tap me anytime 👋'],
+             ['I’m a tiny AI robot', 'I fly around this page', 'and keep an eye on things'],
+             ['want to chat with me?', 'my full self lives in Ask Nexi', 'the tab on the right →']],
+      technext: [['TechNext is an Odoo Ready Partner', 'we set up Odoo for growing companies', 'Accounting, Sales, Inventory first'],
+                 ['TechNext does Odoo, AI and websites', 'one team, discovery to support', 'pretty neat, huh?'],
+                 ['clients in 10+ countries', 'teams in Singapore, the Philippines and Vietnam', 'hello from all of us!']],
+      odoo: [['Odoo runs your whole business', 'on one database', 'no more spreadsheets!'],
+             ['start with the apps you need', 'add the rest when you’re ready', 'it all stays connected'],
+             ['with Odoo, nothing is typed twice', 'an order flows into the books', 'all by itself ✓']]
+    };
+    function txt(el) { return el ? el.textContent.replace(/\s+/g, ' ').replace(/[,.]\s*$/, '').trim() : ''; }
+    function ctxTalk() {
+      var sl = active(); if (!sl) return null;
+      var opts = [];
+      if (sl.querySelector('[data-cine]')) {
+        var w = txt(sl.querySelector('.rot b.is-on')), hand = txt(sl.querySelector('[data-cine-hand]')), feed = txt(sl.querySelector('.cine-feed li span'));
+        if (w) opts.push(['Run your ' + w + ' on one system!', 'that’s what Odoo does', 'and TechNext sets it up ✓']);
+        if (+hand > 0) opts.push([hand + ' automatic hand-offs!', 'nobody typed them twice', 'that’s the Odoo magic ✨']);
+        if (feed) opts.push(['“' + feed + '”', 'see? it just happens', 'one database ✓']);
+        opts.push(['these apps share one database', 'spin the orbit, try it!', 'or click any app']);
+      } else if (sl.querySelector('[data-pmap]')) {
+        var fl = txt(sl.querySelector('[data-k="flight"]')), hd = txt(sl.querySelector('[data-k="hand"]')), sc = txt(sl.querySelector('.pm-scen [aria-pressed="true"]'));
+        if (+fl > 0) opts.push([fl + ' orders in flight!', 'from lead to reconciled cash', 'across five departments']);
+        if (+hd > 0) opts.push([hd + ' automatic hand-offs', 'zero typed twice ✓', 'Sales → Warehouse → Finance']);
+        if (sc) opts.push(['showing: ' + sc, 'try another flow up top', 'every hand-off is live']);
+        opts.push(['a quote becomes an order', 'the order reserves stock', 'then the invoice, then the cash!']);
+      } else if (sl.querySelector('[data-journey]')) {
+        var wk = txt(sl.querySelector('[data-lj-week]')), st = txt(sl.querySelector('[data-lj-status]'));
+        if (wk) opts.push(['week ' + wk + ' of 12', st ? 'now: ' + st : 'right on plan', 'go-live lands in week 10 ✓']);
+        opts.push(['discovery, build, test, go live', 'then we stay for support', 'one team the whole way']);
+        opts.push(['drag the timeline, try it!', 'watch each phase light up', 'real dates come from discovery']);
+      }
+      return opts.length ? pick(opts) : null;
+    }
     /* say(kind): a bubble from that pool, at most one every 3.2 s unless forced */
     function say(kind, force, life) {
       var list = SAY[kind]; if (!list || R.cardOpen) return;
       if (!force && time - (R.lastWord || -9) < 3.2) return;
-      word(pick(list), life);
+      word(pick(list), life, !force);
     }
     /* a ripple on the "glass" where Nexi's hand touches it */
     function boop() {
@@ -551,6 +631,42 @@
         T.dur = 4; T.at(1.8, function () { play('peek'); expr('happy', 1.6); say('peek', true); });
       } },
       trick: { w: function () { return 0.5; }, run: function (T) { T.dur = 2.4; play(Math.random() < 0.5 ? 'flip' : 'spin'); expr('happy', 2); T.at(1.2, function () { emote(['✦', '✧'], 3); say('trick'); }); } },
+      /* a little chat: three lines, face to the visitor, the mouth moving while it talks */
+      talk: { w: function () { return 2.2; }, run: function (T) {
+        var r = Math.random(), seq = r < 0.45 ? ctxTalk() : null;
+        if (!seq) seq = pick(TALK[r < 0.65 ? 'self' : r < 0.85 ? 'technext' : 'odoo']);
+        if (seq.join() === R.lastTalk) seq = pick(TALK.odoo);
+        R.lastTalk = seq.join();
+        var h = botPx(), room = roomySpot(h.x, h.y);
+        if (room) goTo(room[0], room[1], 0.5);
+        T.dur = 1.2 + seq.length * 2.05;
+        R.look = camera.position; R.lookUntil = time + T.dur;
+        var cur = null;
+        seq.forEach(function (line, i) {
+          T.at(1 + i * 2.05, function () {
+            if (cur && cur.isConnected) cur.remove();
+            cur = word(line, 2.15); R.humUntil = time + Math.min(1.6, 0.35 + line.length * 0.045);
+            play(i === 0 ? 'wave' : pick(['nod', 'curious', 'hop'])); expr(pick(['happy', 'content', 'happy', 'star']), 1.6);
+          });
+        });
+      } },
+      /* points at the Ask Nexi tab, grabs it and tugs it a little, then tells the visitor to tap it */
+      callTab: { w: function () { var t = askTab(); return t ? 1.3 : 0; }, run: function (T) {
+        var t = askTab(); if (!t) return T.end();
+        var r = rectOf(t), want = [W - TABS - SIZE * 0.5, clamp(r.cy, SIZE * 0.7, H - SIZE * 0.6)];
+        goTo(want[0], want[1], 0.5);
+        var at = toScreen(R.tx, R.ty, R.tz), near = Math.abs(at[0] - want[0]) < SIZE * 0.8 && Math.abs(at[1] - want[1]) < SIZE * 1.1;
+        T.dur = near ? 8 : 5.4;
+        T.at(1.6, function () { lookAtEl(t, 6); play('point'); expr('happy', 2); t.classList.add('is-called'); say('tab1', true, 2.1); });
+        if (near) {
+          T.at(3.4, function () { play('tug'); expr('content', 2); if (!t.matches(':hover')) t.classList.add('is-tugged'); say('tab2', true, 2.1); });
+          T.at(5.8, function () { t.classList.remove('is-tugged'); play('wave'); play('hop'); expr('star', 1.6); emote(['✦', '→'], 2); say('tab3', true, 2.1); });
+        } else {
+          T.at(2.4, function () { arrowsTo(t); });
+          T.at(3.6, function () { play('point'); expr('star', 1.4); arrowsTo(t); say('tab3', true, 2.1); });
+        }
+        T.at(T.dur - 0.2, function () { t.classList.remove('is-called', 'is-tugged'); });
+      } },
       /* breaks the fourth wall: ducks behind the left edge, pops back in close to the screen looking at the
          visitor, waves, boops the glass, blushes, and ducks out again */
       fourthWall: { w: function () { return cornerSpot() ? 1.8 : 0; }, run: function (T) {
@@ -602,7 +718,7 @@
     /* the launch path finished a phase: cheer */
     var ljWatch = new MutationObserver(function (list) {
       if (!running || R.cardOpen) return;
-      for (var i = 0; i < list.length; i++) { var t = list[i].target; if (t.classList && t.classList.contains('is-done') && (list[i].oldValue || '').indexOf('is-done') < 0 && /lj-(badge|plat)/.test(t.getAttribute('class') || '')) { play('celebrate'); expr('happy', 1.6); emote(['✦', '✧', '♪'], 3); if (Math.random() < 0.4) word('yay!'); return; } }
+      for (var i = 0; i < list.length; i++) { var t = list[i].target; if (t.classList && t.classList.contains('is-done') && (list[i].oldValue || '').indexOf('is-done') < 0 && /lj-(badge|plat)/.test(t.getAttribute('class') || '')) { play('celebrate'); expr('happy', 1.6); emote(['✦', '✧', '♪'], 3); if (Math.random() < 0.5) say('cheer'); return; } }
     });
     var lj = hero.querySelector('[data-journey]'); if (lj) ljWatch.observe(lj, { subtree: true, attributes: true, attributeFilter: ['class'], attributeOldValue: true });
 
@@ -662,7 +778,13 @@
       var T = R.task;
       if (T) { var p = (time - T.t0) / Math.max(0.001, T.dur); if (T.tick) T.tick(clamp(p, 0, 1)); if (p >= 1) { R.task = null; } }
       if (!R.task && !R.cardOpen) nextTask();
-      if (!R.cardOpen && time > (R.chatAt || 0)) { R.chatAt = time + rand(6, 9); if (time - (R.lastWord || -9) > 5) say('idle'); }
+      if (!R.cardOpen && time > (R.chatAt || 0)) {
+        R.chatAt = time + rand(6, 9);
+        if (time - (R.lastWord || -9) > 5 && !(R.task && (R.task.name === 'talk' || R.task.name === 'fourthWall' || R.task.name === 'callTab'))) {
+          var cl = Math.random() < 0.5 ? ctxTalk() : null;
+          if (cl) { word(cl[0]); R.humUntil = time + 1; } else say('idle');
+        }
+      }
       if (R.cardOpen) placeCard();
       if (time > R.exprUntil) expr('idle');
 
