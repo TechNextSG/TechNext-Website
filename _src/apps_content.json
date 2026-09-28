@@ -47,7 +47,7 @@
    "QGcpONNTdYM"
   ],
   "mp4": "https://download.odoocdn.com/videos/odoo_com/video_accounting.mp4",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "account": {
   "url": "https://www.odoo.com/app/invoicing",
@@ -93,7 +93,7 @@
    "QAKwr48Fhvc"
   ],
   "mp4": "https://download.odoocdn.com/videos/odoo_com/video_invoicing.mp4",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_expense": {
   "url": "https://www.odoo.com/app/expenses",
@@ -164,7 +164,7 @@
    "VNgdv71rJo0"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "spreadsheet_dashboard": {
   "url": "https://www.odoo.com/app/spreadsheet",
@@ -203,7 +203,7 @@
    "oDeBf03YZ8o"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "documents": {
   "url": "https://www.odoo.com/app/documents",
@@ -262,7 +262,7 @@
    "Jc2skZufE0I"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "sign": {
   "url": "https://www.odoo.com/app/sign",
@@ -302,7 +302,7 @@
    "dGe7HrivSU8"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "crm": {
   "url": "https://www.odoo.com/app/crm",
@@ -358,7 +358,7 @@
    "xbyPsjIfylk"
   ],
   "mp4": "https://download.odoocdn.com/videos/odoo_com/video_CRM.mp4",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "sale": {
   "url": "https://www.odoo.com/app/sales",
@@ -406,13 +406,13 @@
    "N4zw-2t6spk"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "point_of_sale": {
   "url": "https://www.odoo.com/app/point-of-sale-shop",
   "title": "POS software for retail stores | Odoo",
   "description": "Run your retail business with Odoo’s point of sale system. Set it up, start selling quicker, and manage payments effortlessly. Try it now!",
-  "headline": "PoS made for retail",
+  "headline": "POS made for retail",
   "lead": "A reliable Point of Sale built for modern retailers. Inventory, RFID, promotions, loyalty, B2C & B2B, multi-store, accounting, and eCommerce - all in one platform.",
   "sections": [
    {
@@ -460,7 +460,7 @@
    "5Bl60GkEa50"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "pos_restaurant": {
   "url": "https://www.odoo.com/app/point-of-sale-restaurant",
@@ -516,7 +516,7 @@
    "tWW6jfrEIlY"
   ],
   "mp4": "",
-  "fetched": "2026-09-27"
+  "fetched": "2026-09-28"
  },
  "sale_subscription": {
   "url": "https://www.odoo.com/app/subscriptions",
@@ -571,7 +571,7 @@
    "I4Cjqi97JS0"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "sale_renting": {
   "url": "https://www.odoo.com/app/rental",
@@ -618,7 +618,7 @@
    "0RPeGbyp3vM"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "website": {
   "url": "https://www.odoo.com/app/website",
@@ -672,7 +672,7 @@
    "FEFqdQBMEbA"
   ],
   "mp4": "",
-  "fetched": "2026-09-27"
+  "fetched": "2026-09-28"
  },
  "website_sale": {
   "url": "https://www.odoo.com/app/ecommerce",
@@ -716,10 +716,10 @@
    "https://odoocdn.com/openerp_website/static/src/img/apps/ecommerce/reporting.webp"
   ],
   "youtube": [
-   "_rs-laXy0a0"
+   "kmkpORbyWJc"
   ],
   "mp4": "https://download.odoocdn.com/videos/odoo_com/video_ecommerce.mp4",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "website_blog": {
   "url": "https://www.odoo.com/app/blog",
@@ -750,7 +750,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "website_forum": {
   "url": "https://www.odoo.com/app/forum",
@@ -787,7 +787,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "im_livechat": {
   "url": "https://www.odoo.com/app/live-chat",
@@ -837,7 +837,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "website_slides": {
   "url": "https://www.odoo.com/app/elearning",
@@ -875,7 +875,7 @@
    "k-CnKXxVezo"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "stock": {
   "url": "https://www.odoo.com/app/inventory",
@@ -937,7 +937,7 @@
    "SjW6NUIiHug"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "mrp": {
   "url": "https://www.odoo.com/app/manufacturing",
@@ -993,7 +993,7 @@
    "UVCXPNwFMyY"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "mrp_plm": {
   "url": "https://www.odoo.com/app/plm",
@@ -1036,7 +1036,7 @@
    "2m4ZoUEeTgU"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "purchase": {
   "url": "https://www.odoo.com/app/purchase",
@@ -1082,7 +1082,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "maintenance": {
   "url": "https://www.odoo.com/app/maintenance",
@@ -1134,7 +1134,7 @@
    "olXqMdjUMzQ"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "quality_control": {
   "url": "https://www.odoo.com/app/quality",
@@ -1188,7 +1188,7 @@
    "tKepIG603x8"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr": {
   "url": "https://www.odoo.com/app/employees",
@@ -1242,9 +1242,11 @@
    "https://odoocdn.com/openerp_website/static/src/img/apps/employees/take_control_of_time_off.webp",
    "https://odoocdn.com/openerp_website/static/src/img/apps/employees/performance_appraisals.webp"
   ],
-  "youtube": [],
+  "youtube": [
+   "ZRFT2A_ghog"
+  ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_recruitment": {
   "url": "https://www.odoo.com/app/recruitment",
@@ -1304,7 +1306,7 @@
    "wQDfhnQM_zM"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_holidays": {
   "url": "https://www.odoo.com/app/time-off",
@@ -1351,7 +1353,7 @@
    "KIi7rSuhi_w"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_appraisal": {
   "url": "https://www.odoo.com/app/appraisals",
@@ -1404,7 +1406,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_referral": {
   "url": "https://www.odoo.com/app/referrals",
@@ -1458,7 +1460,7 @@
    "2gw4ffg_lh4"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "fleet": {
   "url": "https://www.odoo.com/app/fleet",
@@ -1503,7 +1505,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "social": {
   "url": "https://www.odoo.com/app/social-marketing",
@@ -1542,7 +1544,7 @@
    "EK9FBjxjLUQ"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "mass_mailing": {
   "url": "https://www.odoo.com/app/email-marketing",
@@ -1600,7 +1602,7 @@
    "pBX9t7L0PuA"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "mass_mailing_sms": {
   "url": "https://www.odoo.com/app/sms-marketing",
@@ -1646,7 +1648,7 @@
    "Q0JKvwPcjIY"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "event": {
   "url": "https://www.odoo.com/app/events",
@@ -1713,7 +1715,7 @@
    "6fXCQisTjEI"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "marketing_automation": {
   "url": "https://www.odoo.com/app/marketing-automation",
@@ -1769,7 +1771,7 @@
    "BJXmLEUoXZA"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "survey": {
   "url": "https://www.odoo.com/app/surveys",
@@ -1812,7 +1814,7 @@
    "7BrebDXKn2g"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "project": {
   "url": "https://www.odoo.com/app/project",
@@ -1860,7 +1862,7 @@
    "T45Jo3s_Pt4"
   ],
   "mp4": "https://download.odoocdn.com/videos/odoo_com/video_project.mp4",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "hr_timesheet": {
   "url": "https://www.odoo.com/app/timesheet",
@@ -1914,7 +1916,7 @@
    "F5qZBZzt1-Q"
   ],
   "mp4": "",
-  "fetched": "2026-09-27"
+  "fetched": "2026-09-28"
  },
  "industry_fsm": {
   "url": "https://www.odoo.com/app/field-service",
@@ -1956,7 +1958,7 @@
    "yZdcmAApq-0"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "helpdesk": {
   "url": "https://www.odoo.com/app/helpdesk",
@@ -2015,7 +2017,7 @@
    "LWAmieWpOTw"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "planning": {
   "url": "https://www.odoo.com/app/planning",
@@ -2060,7 +2062,7 @@
    "z3oLCl1eFhA"
   ],
   "mp4": "",
-  "fetched": "2026-09-27"
+  "fetched": "2026-09-28"
  },
  "appointment": {
   "url": "https://www.odoo.com/app/appointments",
@@ -2124,7 +2126,7 @@
   ],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "mail": {
   "url": "https://www.odoo.com/app/discuss",
@@ -2171,7 +2173,7 @@
    "_XPYg4JE1mQ"
   ],
   "mp4": "",
-  "fetched": "2026-09-27"
+  "fetched": "2026-09-28"
  },
  "approvals": {
   "url": "https://www.odoo.com/app/approvals",
@@ -2213,7 +2215,7 @@
   "images": [],
   "youtube": [],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "iot": {
   "url": "https://www.odoo.com/app/iot",
@@ -2247,42 +2249,53 @@
    "ivT31w3MwH8"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "voip": {
   "url": "https://www.odoo.com/app/voip",
-  "title": "VoIP | Overview | Odoo",
+  "title": "Phone | Overview | Odoo",
   "description": "",
-  "headline": "Your business line on the go",
-  "lead": "Odoo VoIP seamlessly integrates with Odoo apps for maximum productivity at an affordable price.",
+  "headline": "Calls that live where you work",
+  "lead": "Odoo Phone connects your calls to Odoo's call flow designer, so the right person picks up. Every call can be logged to the customer's record. No context lost, no separate phone system to pay for.",
   "sections": [
    {
-    "h": "Use any of your devices to make calls anywhere",
-    "p": "Choose whatever option is easiest for you - your computer, smartphone, tablet, or VoIP phone. You only need an internet connection.",
+    "h": "Cut business phone costs",
+    "p": "Lower your phone bill with plans starting at $2/month.",
     "img": "",
     "feats": []
    },
    {
-    "h": "Schedule your calls to stay on track",
-    "p": "Odoo VoIP is fully integrated with Odoo, so you can schedule actions from any app to keep track of everything.",
-    "img": "",
-    "feats": [
-     "Create an activity from the chatter in any Odoo app."
-    ]
+    "h": "All the context, built into every call",
+    "p": "Launch calls directly from CRM, Helpdesk, Contacts, and more, with instant access to the related records and documents. Calls are automatically logged, so you'll easily have the details where you need them.",
+    "img": "https://odoocdn.com/openerp_website/static/src/img/apps/phone/crm/btn-go-to.webp",
+    "feats": []
    },
    {
-    "h": "Create a call queue with one click in the CRM app to quickly organize your day",
-    "p": "With one click from the kanban view in the CRM pipeline, you can schedule a call in your phone queue for yourself or for others. Simply hover on your contact's card and click to add to your list of next activities.",
+    "h": "Design call flows",
+    "p": "Drag, drop, and connect call actions (e.g., menus, queues, voicemail, time conditions) around how your business actually runs. Route callers to the right person automatically, and update the whole thing yourself in minutes.",
     "img": "",
+    "feats": []
+   },
+   {
+    "h": "Let AI take the notes",
+    "p": "Log the call once, and Odoo's integrated artificial intelligence puts the recording, transcript, and one-line summary right where you need them.",
+    "img": "https://odoocdn.com/openerp_website/static/src/img/apps/phone/ai/avatar-mitchell.png",
     "feats": []
    }
   ],
-  "images": [],
+  "images": [
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/hero.webp",
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/hero-call.png",
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/crm/btn-go-to.webp",
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/crm/menu-create.webp",
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/crm/sales-order-call.webp",
+   "https://odoocdn.com/openerp_website/static/src/img/apps/phone/ai/avatar-mitchell.png"
+  ],
   "youtube": [
-   "SD0pGhd6J4s"
+   "sDZErem-PME"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "knowledge": {
   "url": "https://www.odoo.com/app/knowledge",
@@ -2328,7 +2341,7 @@
    "bSn6GLVxrfM"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "whatsapp": {
   "url": "https://www.odoo.com/app/whatsapp",
@@ -2388,7 +2401,7 @@
    "jg5PVqgC1AM"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
  },
  "ai_app": {
   "url": "https://www.odoo.com/app/artificial-intelligence",
@@ -2433,9 +2446,56 @@
    "https://odoocdn.com/openerp_website/static/src/img/apps/ai/business-insights-agent.webp"
   ],
   "youtube": [
-   "j1ppPSXMW1Y"
+   "vLDOltq9z20"
   ],
   "mp4": "",
-  "fetched": "2026-09-12"
+  "fetched": "2026-09-28"
+ },
+ "hr_payroll": {
+  "url": "https://www.odoo.com/app/payroll",
+  "title": "Payroll | Overview | Odoo",
+  "description": "",
+  "headline": "One payroll. No reconciliation.",
+  "lead": "Odoo Payroll syncs attendance, expenses, and time off across all your apps to deliver flawless paychecks automatically.",
+  "sections": [
+   {
+    "h": "Instant local rules. Zero setup.",
+    "p": "Choose your country and Odoo automatically applies the right tax rules and regulations, giving you a fully compliant system in seconds.",
+    "img": "",
+    "feats": []
+   },
+   {
+    "h": "No hidden payroll surprises",
+    "p": "From gross pay to benefits to employer contributions, instantly see the full cost of any salary plan, so you never go over budget.",
+    "img": "",
+    "feats": []
+   },
+   {
+    "h": "Effortless reporting",
+    "p": "Generate clear, organized reports for any period, so sending payroll data to accountants or tax authorities is fast, accurate, and stress-free.",
+    "img": "",
+    "feats": []
+   },
+   {
+    "h": "Countless wage allocations in one place",
+    "p": "Keep deductions organized in a dedicated dashboard. What is our average salary cost per employee across each department?",
+    "img": "",
+    "feats": []
+   },
+   {
+    "h": "Artificial intelligence. Actual payroll control .",
+    "p": "Ask Odoo's AI anything about your payroll. From total labor costs to pay anomalies. Skip the tedious spreadsheets and get rich insights to make better, faster decisions.",
+    "img": "",
+    "feats": []
+   }
+  ],
+  "images": [
+   "https://odoocdn.com/openerp_website/static/src/img/apps/payroll/payroll-dashboard.webp"
+  ],
+  "youtube": [
+   "q9dmuj9huFk"
+  ],
+  "mp4": "",
+  "fetched": "2026-09-28"
  }
 }

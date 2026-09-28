@@ -23,7 +23,7 @@ TN.demo('appgraph', function (root, K) {
     ['hr_payroll', 'Payroll', 'hr', 'Salary rules and payslips.'], ['hr_holidays', 'Time Off', 'hr', 'Leave requests and allocations.'],
     ['hr_recruitment', 'Recruitment', 'hr', 'Job posts, applicants and interviews.'], ['hr_appraisal', 'Appraisals', 'hr', 'Reviews and goals.'],
     ['project', 'Project', 'srv', 'Tasks, stages and milestones.'], ['hr_timesheet', 'Timesheets', 'srv', 'Time tracking billed to projects.'],
-    ['planning', 'Planning', 'srv', 'Shift and resource scheduling.'], ['industry_fsm', 'Field Service', 'srv', 'On-site jobs with worksheets.'],
+    ['planning', 'Planning', 'srv', 'Shifts, resources and field service.'], ['industry_fsm', 'Field Service', 'srv', 'On-site jobs, run in Planning from Odoo 20.'],
     ['helpdesk', 'Helpdesk', 'srv', 'Tickets, SLAs and knowledge base.'], ['mass_mailing', 'Email Marketing', 'mkt', 'Campaigns, lists and A/B tests.'],
     ['social', 'Social Marketing', 'mkt', 'Schedule and track posts.'], ['marketing_automation', 'Marketing Automation', 'mkt', 'Multi-step flows on triggers.'],
     ['approvals', 'Approvals', 'pro', 'Request and approve anything.'], ['knowledge', 'Knowledge', 'pro', 'Wiki pages linked to records.']
