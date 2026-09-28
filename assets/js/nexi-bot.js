@@ -379,8 +379,29 @@
     /* targets are screen spots; Nexi flies in the z=0 plane, so a spot at depth z projects by k */
     function depthK(z) { return CAMZ / Math.max(4, CAMZ - (z || 0)); }
     function toScreen(px, py, z) { var k = depthK(z); return [W / 2 + (px - W / 2) * k, H / 2 + (py - H / 2) * k]; }
+    /* place(): hold a screen spot while the depth changes. The plane target is re-solved every frame from the
+       current depth, so zooming toward the screen never drifts Nexi sideways over the content. */
+    function place(sx, sy, z) { R.tz = z; R.lock = { sx: sx, sy: sy }; }
+    /* The fourth-wall corner: Nexi comes right up to the screen at the left edge, half of it past the edge.
+       Only where its close-up box (the visible part) covers no text or button; the right edge belongs to the
+       side tabs. */
+    var WALL_Z = 8;
+    function cornerSpot() {
+      obstacles();
+      /* as far into view as the free space allows, but always at least about a third of Nexi showing */
+      var k = depthK(WALL_Z), ys = [H * 0.74, H * 0.58, H * 0.42];
+      for (var i = 0; i < ys.length; i++) {
+        var y = clamp(ys[i], SIZE * 0.7 * k, H - SIZE * 0.6 * k - 8);
+        for (var x = SIZE * 0.35; x >= -SIZE * 0.12 * k; x -= SIZE * 0.05) {
+          var bx = box(x, y, WALL_Z);
+          if (!hits([Math.max(0, bx[0]), bx[1], bx[2], bx[3]])) return { x: x, y: y };
+        }
+      }
+      return null;
+    }
     /* loose: allowed to peek past the left edge of the hero */
     function goTo(x, y, z, loose) {
+      R.lock = null;
       R.tz = z == null ? 0 : z;
       var k = depthK(R.tz), m = SIZE * 0.55 * k, x0 = loose ? SIZE * 0.15 : m, x1 = W - TABS - m, y0 = SIZE * 0.62 * k, y1 = H - SIZE * 0.55 * k - 8;
       var f = free(clamp(x, x0, x1), clamp(y, y0, y1), R.tz);
@@ -409,10 +430,63 @@
         }, k * 140);
       })(i);
     }
-    function word(text) {
-      var h = botPx(), e = document.createElement('b'); e.textContent = text; fxEl.appendChild(e);
-      e.style.setProperty('--x', clamp(h.x + SIZE * 0.3, 8, W - e.offsetWidth - 8) + 'px'); e.style.setProperty('--y', Math.max(8, h.y - SIZE * 0.7) + 'px');
-      setTimeout(function () { e.remove(); }, 1900);
+    /* speech bubbles: Nexi introduces itself, reacts to the hero and chatters. A bubble takes the first spot
+       around Nexi that covers no text or button; if none is clear it tries a narrow two-line bubble (it fits
+       the page margin), and failing that the spot that covers the least. */
+    function word(text, life) {
+      var h = botPx(), k = depthK(R.tz), e = document.createElement('b'); e.textContent = text; fxEl.appendChild(e);
+      obstacles();
+      function fit() {
+        var w = e.offsetWidth || 96, hh = e.offsetHeight || 30, top = h.y - SIZE * 0.6 * k - hh, pad = 4 + w * 0.06;
+        var spots = [[h.x + SIZE * 0.22 * k, top], [h.x - SIZE * 0.22 * k - w, top], [h.x - w / 2, top - 6], [h.x - w / 2, top - hh - 14],
+                     [h.x + SIZE * 0.46 * k, h.y - hh], [h.x - SIZE * 0.46 * k - w, h.y - hh], [h.x - w / 2, h.y + SIZE * 0.55 * k]];
+        var best = null, bestA = Infinity;
+        for (var i = 0; i < spots.length; i++) {
+          var x = clamp(spots[i][0], 8, W - TABS - w), y = clamp(spots[i][1], 8, H - hh - 8), a = overlap([x - pad, y - pad, x + w + pad, y + hh + pad]);
+          if (a < bestA) { bestA = a; best = [x, y]; if (!a) break; }
+        }
+        return { at: best, a: bestA };
+      }
+      var f = fit();
+      if (f.a > 0) { e.classList.add('is-narrow'); var g = fit(); if (g.a <= f.a) f = g; else e.classList.remove('is-narrow'); }
+      e.style.setProperty('--x', f.at[0].toFixed(0) + 'px'); e.style.setProperty('--y', f.at[1].toFixed(0) + 'px');
+      if (life) e.style.animationDuration = life + 's';
+      R.lastWord = time;
+      setTimeout(function () { e.remove(); }, (life || 1.9) * 1000);
+    }
+    var SAY = {
+      hello: ['Hi, I’m Nexi!', 'Hello there!', 'Beep boop, hi!', 'Welcome to TechNext!'],
+      idle: ['need a hand?', 'click me!', 'la la la ♪', 'so many apps…', 'one database ✓', 'just floating by', 'I’m TechNext’s AI buddy'],
+      orbit: ['round and round!', 'all the apps!', 'one system ✓', 'wheee!'],
+      inspect: ['ooh, this one!', 'nice app!', 'what does it do?'],
+      token: ['an order! go go!', 'catch that order!', 'zoom zoom!'],
+      gate: ['hmm… approved?', 'checking…', 'looks good!'],
+      orb: ['go-live soon!', 'next phase!', 'almost there!'],
+      headline: ['read this!', 'good point!', 'that’s us!'],
+      cta: ['psst, try this!', 'click here!', 'this one →'],
+      marquee: ['surf’s up!', 'so many apps!', 'wheee!'],
+      rest: ['*stretch*', 'break time ♪', 'hmm hm hm ♪'],
+      peek: ['peekaboo!', 'boo!', 'who’s there?'],
+      trick: ['ta-da!', 'did you see?', 'one more?'],
+      slide: ['ooh, new one!', 'next slide!', 'wheee!'],
+      react: ['oh, hi!', 'what’s that?', 'I saw that!'],
+      wall1: ['psst!', 'hey, you!', 'pssst… over here!'],
+      wall2: ['Hi, I’m Nexi 👋', 'I see you!', 'hello, human!'],
+      wall3: ['boop!', '*taps the glass*', 'is this thing on?'],
+      wall4: ['you’re awesome!', 'need help? click me', 'I’m TechNext’s AI buddy'],
+      bye: ['bye for now!', 'see you!', 'back to work!']
+    };
+    /* say(kind): a bubble from that pool, at most one every 3.2 s unless forced */
+    function say(kind, force, life) {
+      var list = SAY[kind]; if (!list || R.cardOpen) return;
+      if (!force && time - (R.lastWord || -9) < 3.2) return;
+      word(pick(list), life);
+    }
+    /* a ripple on the "glass" where Nexi's hand touches it */
+    function boop() {
+      var h = botPx(), k = depthK(R.tz), e = document.createElement('u'), d = SIZE * 0.42 * k;
+      e.className = 'is-boop'; e.style.left = (h.x + SIZE * 0.3 * k - d / 2) + 'px'; e.style.top = (h.y - SIZE * 0.05 * k - d / 2) + 'px';
+      e.style.width = e.style.height = d + 'px'; fxEl.appendChild(e); setTimeout(function () { e.remove(); }, 1500);
     }
     function ringAt(el) {
       if (!visible(el)) return; var r = rectOf(el), e = document.createElement('u');
@@ -427,17 +501,17 @@
     var TASKS = {
       orbitApps: { w: function () { return visible(q('[data-cine]')) ? 3 : 0; }, run: function (T) {
         var el = q('.dash-wrap') || q('[data-cine]'), r = rectOf(el), a0 = rand(0, 6.28), dir = Math.random() < 0.5 ? 1 : -1;
-        T.dur = 6; expr('happy', 2); play('surf');
+        T.dur = 6; expr('happy', 2); play('surf'); T.at(1.2, function () { say('orbit'); });
         T.tick = function (p) { var a = a0 + dir * p * Math.PI * 2 * 0.9; goTo(r.cx + Math.cos(a) * (r.w * 0.5 + SIZE * 0.45), r.cy + Math.sin(a) * (r.h * 0.5 + SIZE * 0.3), Math.sin(a) * 3); lookAtPx(r.cx, r.cy, 0.5); };
       } },
       inspectApp: { w: function () { return qa('.cine-app').length ? 2 : 0; }, run: function (T) {
         var apps = qa('.cine-app').filter(visible), el = pick(apps); if (!el) return T.end();
         var r = rectOf(el), side = r.cx > W / 2 ? -1 : 1; goTo(r.cx + side * SIZE * 0.7, r.cy - SIZE * 0.1, 1.5);
         T.dur = 4.5; T.at(1.6, function () { lookAtEl(el, 2.6); play('curious'); expr('wow', 0.9); emote('?'); });
-        T.at(2.7, function () { play(side > 0 ? 'pointL' : 'point'); expr('star', 1.4); emote(['✦', '✧'], 3); ringAt(el); });
+        T.at(2.7, function () { play(side > 0 ? 'pointL' : 'point'); expr('star', 1.4); emote(['✦', '✧'], 3); ringAt(el); say('inspect'); });
       } },
       chaseToken: { w: function () { return visible(q('[data-pmap]')) ? 3 : 0; }, run: function (T) {
-        var map = q('[data-pmap]'), lock = null; T.dur = 7; expr('happy', 3); play('hum'); R.humUntil = time + 3.2; emote(['♪', '♫'], 2);
+        var map = q('[data-pmap]'), lock = null; T.dur = 7; expr('happy', 3); play('hum'); R.humUntil = time + 3.2; emote(['♪', '♫'], 2); T.at(1.4, function () { say('token'); });
         T.tick = function () {
           if (!lock || !lock.isConnected || !visible(lock)) { var toks = qa('.pm-tok').filter(visible); lock = toks.length ? pick(toks) : null; }
           if (lock) { var r = rectOf(lock); goTo(r.cx, r.cy - SIZE * 0.62, 1); lookAtPx(r.cx, r.cy, 0.5); }
@@ -448,35 +522,47 @@
         var el = pick(qa('.pm-gate').filter(visible)); if (!el) return T.end();
         var r = rectOf(el); goTo(r.cx + SIZE * 0.65, r.cy - SIZE * 0.3, 1); T.dur = 4.2;
         T.at(1.5, function () { lookAtEl(el, 2.4); play('think'); expr('content', 1.6); });
-        T.at(3.2, function () { play('nod'); expr('happy', 1); ringAt(el); });
+        T.at(3.2, function () { play('nod'); expr('happy', 1); ringAt(el); say('gate'); });
       } },
       cheerOrb: { w: function () { return visible(q('[data-journey]')) ? 3 : 0; }, run: function (T) {
         T.dur = 7; expr('happy', 2);
         T.tick = function () { var orb = q('.lj-puck') || q('.lj-ptag'); if (!orb) return; var r = rectOf(orb); goTo(r.cx - SIZE * 0.8, r.cy - SIZE * 0.35, 1); lookAtPx(r.cx, r.cy, 0.5); };
-        T.at(2.2, function () { play('clap'); emote(['✦', '♪'], 2); });
+        T.at(2.2, function () { play('clap'); emote(['✦', '♪'], 2); say('orb'); });
       } },
       readHeadline: { w: function () { return q('.as-h1') ? 1 : 0; }, run: function (T) {
         var el = q('.as-h1'), r = rectOf(el), left = r.x > W * 0.45; goTo(left ? r.x - SIZE * 0.55 : r.x + r.w + SIZE * 0.5, r.y + SIZE * 0.3, 0.5);
         T.dur = 4.6; T.at(1.6, function () { lookAtEl(el, 2.8); play('think'); expr('content', 2); });
-        T.at(3.4, function () { play('nod'); expr('happy', 1.2); var hl = q('.hl') || q('.rot b.is-on'); if (hl) { ringAt(hl); emote('✦'); } });
+        T.at(3.4, function () { play('nod'); expr('happy', 1.2); var hl = q('.hl') || q('.rot b.is-on'); if (hl) { ringAt(hl); emote('✦'); } say('headline'); });
       } },
       pointCTA: { w: function () { return q('.actions .btn') ? 1.3 : 0; }, run: function (T) {
         var el = q('.actions .btn'), r = rectOf(el); goTo(r.x + r.w + SIZE * 0.55, r.y - SIZE * 0.2, 1.5);
-        T.dur = 4.2; T.at(1.6, function () { lookAtEl(el, 2.4); play('pointL'); expr('happy', 2); ringAt(el); emote('!'); });
+        T.dur = 4.2; T.at(1.6, function () { lookAtEl(el, 2.4); play('pointL'); expr('happy', 2); ringAt(el); emote('!'); say('cta'); });
       } },
       surfMarquee: { w: function () { return visible(hero.querySelector('.hero-marquee')) ? 0.9 : 0; }, run: function (T) {
-        var m = rectOf(hero.querySelector('.hero-marquee')), dir = Math.random() < 0.5 ? 1 : -1; T.dur = 5; play('surf'); expr('happy', 4);
+        var m = rectOf(hero.querySelector('.hero-marquee')), dir = Math.random() < 0.5 ? 1 : -1; T.dur = 5; play('surf'); expr('happy', 4); T.at(1, function () { say('marquee'); });
         T.tick = function (p) { goTo(dir > 0 ? lerp(SIZE, W - SIZE, p) : lerp(W - SIZE, SIZE, p), m.y - SIZE * 0.6, 1.5); };
       } },
       rest: { w: function () { return 1; }, run: function (T) {
         var spots = [[0.9, 0.3], [0.06, 0.76], [0.5, 0.86], [0.93, 0.8]], s = pick(spots); goTo(W * s[0], H * s[1], -1);
-        T.dur = 5; T.at(1.8, function () { var c = pick(['stretch', 'hum', 'wave']); play(c); if (c === 'hum') { R.humUntil = time + 3; emote(['♪', '♫'], 3); } expr(c === 'wave' ? 'happy' : 'content', 2.2); });
+        T.dur = 5; T.at(1.8, function () { var c = pick(['stretch', 'hum', 'wave']); play(c); if (c === 'hum') { R.humUntil = time + 3; emote(['♪', '♫'], 3); } expr(c === 'wave' ? 'happy' : 'content', 2.2); say(c === 'wave' ? 'hello' : 'rest'); });
       } },
       peek: { w: function () { return 0.6; }, run: function (T) {
         var right = Math.random() < 0.5; goTo(right ? W : SIZE * 0.15, H * rand(0.35, 0.7), 2, !right);
-        T.dur = 4; T.at(1.8, function () { play('peek'); expr('happy', 1.6); });
+        T.dur = 4; T.at(1.8, function () { play('peek'); expr('happy', 1.6); say('peek', true); });
       } },
-      trick: { w: function () { return 0.5; }, run: function (T) { T.dur = 2.4; play(Math.random() < 0.5 ? 'flip' : 'spin'); expr('happy', 2); T.at(1.2, function () { emote(['✦', '✧'], 3); }); } }
+      trick: { w: function () { return 0.5; }, run: function (T) { T.dur = 2.4; play(Math.random() < 0.5 ? 'flip' : 'spin'); expr('happy', 2); T.at(1.2, function () { emote(['✦', '✧'], 3); say('trick'); }); } },
+      /* breaks the fourth wall: ducks behind the left edge, pops back in close to the screen looking at the
+         visitor, waves, boops the glass, blushes, and ducks out again */
+      fourthWall: { w: function () { return cornerSpot() ? 1.8 : 0; }, run: function (T) {
+        var c = cornerSpot(); if (!c) return T.end();
+        T.dur = 8.4;
+        place(-SIZE * 0.9, c.y, 0); expr('content', 1.2);
+        T.at(1.4, function () { place(c.x, c.y, WALL_Z); R.look = camera.position; R.lookUntil = time + 6.6; expr('wow', 0.9); say('wall1', true); });
+        T.at(2.9, function () { play('wave'); expr('happy', 2.2); say('wall2', true, 2.2); });
+        T.at(4.5, function () { play('point'); play('hop'); boop(); say('wall3', true); });
+        T.at(5.9, function () { expr('happy', 2); R.blushUntil = time + 2.2; emote(['♥', '✦', '♥'], 3); say('wall4', true, 2.2); });
+        T.at(7.4, function () { place(-SIZE * 0.9, c.y, 0); say('bye', true); });
+      } }
     };
     var timersT = [];
     function startTask(name, extra) {
@@ -488,6 +574,7 @@
       (extra || TASKS[name].run)(T);
     }
     function nextTask() {
+      if (R.wallNext) { R.wallNext = false; if (TASKS.fourthWall.w()) { startTask('fourthWall'); return; } }
       var names = Object.keys(TASKS).filter(function (n) { return n !== R.lastTask; }), tot = 0, ws = {};
       names.forEach(function (n) { ws[n] = TASKS[n].w(); tot += ws[n]; });
       var r = Math.random() * tot, n = names[0];
@@ -501,7 +588,7 @@
       setTimeout(function () {
         startTask('swoop', function (T) {
           var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
-          if (v) { var r = rectOf(v); goTo(r.x + r.w * rand(0.2, 0.8), r.y + SIZE * 0.4, 2); T.at(1.4, function () { lookAtEl(v, 1.6); expr('happy', 1.5); word(pick(['ooh!', 'new one!', 'wheee!'])); }); }
+          if (v) { var r = rectOf(v); goTo(r.x + r.w * rand(0.2, 0.8), r.y + SIZE * 0.4, 2); T.at(1.4, function () { lookAtEl(v, 1.6); expr('happy', 1.5); say('slide', true); }); }
         });
       }, 900);
     });
@@ -510,7 +597,7 @@
       if (!running || R.cardOpen || e.target.closest('.nexi-hit,.nexi-card')) return;
       var el = e.target.closest('[data-app],[data-flow],.lj-hit,.pm-scen button,.dot,.hero-arrow');
       if (el) { startTask('visit', function (T) { var r = rectOf(el); goTo(r.cx + (r.cx > W / 2 ? -1 : 1) * SIZE * 0.75, r.cy - SIZE * 0.2, 1.5); lookAtEl(el, 3); T.dur = 3.4; expr('wow', 0.7); T.at(1.3, function () { play('clap'); expr('happy', 1.4); emote('✦', 2); }); }); }
-      else { var hr = hero.getBoundingClientRect(); lookAtPx(e.clientX - hr.left, e.clientY - hr.top, 2); play('curious'); }
+      else { var hr = hero.getBoundingClientRect(); lookAtPx(e.clientX - hr.left, e.clientY - hr.top, 2); play('curious'); say('react'); }
     }, true);
     /* the launch path finished a phase: cheer */
     var ljWatch = new MutationObserver(function (list) {
@@ -571,16 +658,18 @@
       if (!running || !inView || document.hidden) return;
       var dt = Math.min(0.05, clock.getDelta()); time += dt;
       for (var ti = timersT.length - 1; ti >= 0; ti--) if (time >= timersT[ti].at) { var f = timersT[ti].fn; timersT.splice(ti, 1); f(); }
-      if (!R.entered) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); word('hi!'); }); }); }
+      if (!R.entered) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
       var T = R.task;
       if (T) { var p = (time - T.t0) / Math.max(0.001, T.dur); if (T.tick) T.tick(clamp(p, 0, 1)); if (p >= 1) { R.task = null; } }
       if (!R.task && !R.cardOpen) nextTask();
+      if (!R.cardOpen && time > (R.chatAt || 0)) { R.chatAt = time + rand(6, 9); if (time - (R.lastWord || -9) > 5) say('idle'); }
       if (R.cardOpen) placeCard();
       if (time > R.exprUntil) expr('idle');
 
       /* the page moved under Nexi (a reveal, a slide change): re-pick a clear spot */
       obstacles();
-      if (R.obsSeen !== obsAt) {
+      if (R.lock) { var kl = depthK(Sp.z.x); R.tx = W / 2 + (R.lock.sx - W / 2) / kl; R.ty = H / 2 + (R.lock.sy - H / 2) / kl; }
+      else if (R.obsSeen !== obsAt) {
         R.obsSeen = obsAt;
         var ts = toScreen(R.tx, R.ty, R.tz);
         if (!R.cardOpen && overlap(box(ts[0], ts[1], R.tz))) { var kk = depthK(R.tz), fr = free(ts[0], ts[1], R.tz); R.tx = W / 2 + (fr[0] - W / 2) / kk; R.ty = H / 2 + (fr[1] - H / 2) / kk; }
@@ -639,7 +728,7 @@
       spkGeo.attributes.position.needsUpdate = true;
 
       /* click target follows the robot */
-      var h = botPx(); hit.style.transform = 'translate(' + (h.x - SIZE * 0.36).toFixed(1) + 'px,' + (h.y - SIZE * 0.5).toFixed(1) + 'px)';
+      var h = botPx(); hit.style.transform = 'translate(' + (h.x - SIZE * 0.36).toFixed(1) + 'px,' + (h.y - SIZE * 0.5).toFixed(1) + 'px) scale(' + depthK(pz).toFixed(3) + ')';
 
       /* passing over text or a button on the way somewhere: fade out of the way, never block a click */
       var bb = box(h.x, h.y, pz), over = !R.cardOpen && overlap(bb) > (bb[2] - bb[0]) * (bb[3] - bb[1]) * 0.03;
