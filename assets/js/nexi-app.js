@@ -12,12 +12,9 @@ if (window.top === window.self) { location.replace("/nexi"); return; }
    site's page index, which build.py writes into the page.
    FOLLOW decides which related questions appear after each answer; every
    chain ends at one of the goals: schedule, quote or talk.
-   MODEL_URL: leave null to use the built-in geometry. After exporting
-   _src/cad/nexi_model.py (build123d) set it to "nexi.glb".
    ===================================================================== */
 var BOT_NAME = "Nexi";
 var GREETING = "Hi there! I'm " + BOT_NAME + ", TechNext's little helper robot. Pick a question below, take a mini tour, or type anything about Odoo, AI, websites or pricing!";
-var MODEL_URL = null;
 var SITE_URL = "/";
 var WA = "https://wa.me/6588396998";
 var MEET = "https://technext.odoo.com/book/c82cf8a9";
@@ -626,31 +623,7 @@ function buildWorld(){
       ear:ear, torso:ellipsoid(.58,.609,.545,112), neck:neck, hand:[ellipsoid(.13,.165,.125,56),thumb], pedestal:ped, fin:finGeo
     };
   }
-  function loadParts(){
-    if(!MODEL_URL) return Promise.resolve(proceduralParts());
-    return new Promise(function(res){
-      var s=document.createElement("script"); s.src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js";
-      s.onerror=function(){ res(proceduralParts()); };
-      s.onload=function(){
-        new THREE.GLTFLoader().load(MODEL_URL,function(gltf){
-          var out=proceduralParts(), found=0;
-          gltf.scene.updateMatrixWorld(true);
-          gltf.scene.traverse(function(o){
-            if(!o.isMesh) return;
-            var n=((o.name||"")+" "+((o.parent&&o.parent.name)||"")).toLowerCase();
-            ["helmet","bezel","ear","torso","neck","hand","pedestal"].forEach(function(k){
-              if(n.indexOf(k)>-1 && !out["_"+k]){ var g=o.geometry.clone(); g.applyMatrix4(o.matrixWorld); out[k]=g; out["_"+k]=1; found++; }
-            });
-          });
-          if(!found){ res(proceduralParts()); return; }
-          out.pedestal.computeBoundingBox(); var bb=out.pedestal.boundingBox;
-          if((bb.max.y-bb.min.y)>(bb.max.z-bb.min.z)){ var fix=new THREE.Matrix4().makeRotationX(-Math.PI/2); ["helmet","bezel","ear","torso","neck","hand","pedestal"].forEach(function(k){ if(out["_"+k]) out[k].applyMatrix4(fix); }); }
-          res(out);
-        },undefined,function(){ res(proceduralParts()); });
-      };
-      document.head.appendChild(s);
-    });
-  }
+  function loadParts(){ return Promise.resolve(proceduralParts()); }
   function addUV(geo,mode){
     if(geo.attributes.uv) return geo;
     var p=geo.attributes.position, n=p.count, uv=new Float32Array(n*2);

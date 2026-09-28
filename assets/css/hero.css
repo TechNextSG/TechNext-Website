@@ -435,6 +435,13 @@
 .nexi-card-act{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 @media (max-width:960px),(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.nexi,.nexi-card{display:none!important}}
 
-/* hidden slides keep their looping animations still (they run again the moment the slide shows) */
-.hero-track>.slide:not(.is-active):not(.is-leaving) :is(.cine-hbeam,.lj-flow,.lj-beam,.lj-halo,.lj-live,.lj-rim,.lj-badge .ic),
-.hero-track>.slide:not(.is-active):not(.is-leaving) .cine-core::before{animation-play-state:paused}
+/* hidden slides keep their looping animations still (they run again the moment the slide shows). Plain
+   class-ending selectors, not :is(): see the note on .hero.is-off in site.css */
+.hero-track>.slide:not(.is-active):not(.is-leaving) .cine-hbeam,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .cine-core::before,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-flow,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-rim,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-beam,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-halo,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-badge .ic,
+.hero-track>.slide:not(.is-active):not(.is-leaving) .lj-live{animation-play-state:paused}

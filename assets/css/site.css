@@ -411,8 +411,10 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .mq-track{display:flex;gap:40px;padding:12px 20px;flex:none;animation:mq 46s linear infinite;will-change:transform}
 .hero-marquee:hover .mq-track{animation-play-state:paused}
 html.intro .mq-track{animation:none}
-/* nothing in the hero animates while it is scrolled out of view (hero.js sets .is-off) */
-.hero.is-off *,.hero.is-off *::before,.hero.is-off *::after{animation-play-state:paused!important}
+/* nothing in the hero loops while it is scrolled out of view (hero.js sets .is-off). Every selector ends in a
+   class on purpose: a rule ending in * or :is() is matched against every element on every restyle, and the
+   orbit restyles its tiles every frame. Add new looping hero animations to this list. */
+.hero.is-off .a1,.hero.is-off .a2,.hero.is-off .a3,.hero.is-off .mq-track,.hero.is-off .cine-hbeam,.hero.is-off .cine-core::before,.hero.is-off .lj-flow,.hero.is-off .lj-rim,.hero.is-off .lj-beam,.hero.is-off .lj-halo,.hero.is-off .lj-badge .ic,.hero.is-off .lj-live{animation-play-state:paused!important}
 @keyframes mq{to{transform:translateX(-100%)}}
 .mq-item{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--font-body);color:var(--body);white-space:nowrap}
 .mq-item .oi{width:26px;height:26px}
