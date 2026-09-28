@@ -134,7 +134,7 @@
     pop.innerHTML = html;
     pop.hidden = false; backdrop.hidden = false;
     document.body.style.overflow = 'hidden';
-    pause();
+    hold('pop');
     if (!wasOpen && popFrom && !reduce) {
       var r = popFrom.getBoundingClientRect(), p = pop.getBoundingClientRect();
       var dx = (r.left + r.width / 2) - (p.left + p.width / 2), dy = (r.top + r.height / 2) - (p.top + p.height / 2);
@@ -150,7 +150,7 @@
   function closePop() {
     if (!pop || pop.hidden) return;
     var from = popFrom;
-    var finish = function () { pop.hidden = true; backdrop.hidden = true; document.body.style.overflow = ''; litNode(-1); resume(); if (from && from.focus) from.focus({ preventScroll: true }); };
+    var finish = function () { pop.hidden = true; backdrop.hidden = true; document.body.style.overflow = ''; litNode(-1); release('pop'); if (from && from.focus) from.focus({ preventScroll: true }); };
     if (reduce || !from) { finish(); return; }
     var r = from.getBoundingClientRect(), p = pop.getBoundingClientRect();
     var dx = (r.left + r.width / 2) - (p.left + p.width / 2), dy = (r.top + r.height / 2) - (p.top + p.height / 2);
@@ -254,28 +254,59 @@
     if (camOn) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
     announce(); onSlide(idx); restart();
-    if (viaUser && dots[idx]) dots[idx].focus({ preventScroll: true });
+    if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
   }
   function clear() { if (timer) { clearTimeout(timer); timer = null; } }
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
+  function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
   function restart() { clear(); remaining = durOf(idx); if (dots[idx]) dots[idx].style.setProperty('--dur', remaining + 'ms'); if (!autoplay) return; if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); } }
   function pause() { if (paused || !autoplay) return; paused = true; hero.classList.add('is-paused'); if (timer) { remaining = Math.max(200, remaining - (performance.now() - startedAt)); clear(); } }
-  function resume() { if (!paused || !autoplay) return; if (pop && !pop.hidden) return; paused = false; hero.classList.remove('is-paused'); startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
+  function resume() { if (!paused || !autoplay) return; paused = false; hero.classList.remove('is-paused'); startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
+  // Autoplay stops while anything holds it: the pause button, a hand on the interactive visual, keyboard
+  // focus, an open pop-up, a touch, the intro, a hidden tab or the hero off screen. It runs again only when
+  // no hold is left. The progress bar pauses with the timer (.is-paused), so the two always agree.
+  var holds = {};
+  function hold(why) { holds[why] = 1; pause(); }
+  function release(why) { delete holds[why]; for (var k in holds) if (holds[k]) return; resume(); }
 
   dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i, true); }); });
   var prev = $('[data-hero-prev]', hero), next = $('[data-hero-next]', hero);
-  if (prev) prev.addEventListener('click', function () { show(idx - 1, true); });
-  if (next) next.addEventListener('click', function () { show(idx + 1, true); });
-  hero.addEventListener('mouseenter', pause);
-  hero.addEventListener('mouseleave', resume);
-  hero.addEventListener('focusin', pause);
-  hero.addEventListener('focusout', function (e) { if (!hero.contains(e.relatedTarget)) resume(); });
-  document.addEventListener('visibilitychange', function () { document.hidden ? pause() : resume(); });
+  if (prev) prev.addEventListener('click', function () { show(idx - 1, 'click'); });
+  if (next) next.addEventListener('click', function () { show(idx + 1, 'click'); });
+  // the pause button: the visitor's own hold, shown as pause / play
+  var pp = $('[data-hero-pp]', hero);
+  if (pp) {
+    if (!autoplay) pp.hidden = true;
+    pp.addEventListener('click', function () {
+      var stop = pp.getAttribute('aria-pressed') !== 'true';
+      pp.setAttribute('aria-pressed', stop ? 'true' : 'false');
+      pp.setAttribute('aria-label', stop ? 'Play the slides' : 'Pause the slides');
+      stop ? hold('user') : release('user');
+    });
+  }
+  // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
+  // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  hero.addEventListener('pointerover', function (e) {
+    if (e.pointerType === 'touch' || !e.target.closest(HOLD)) return;
+    clearTimeout(holdT); hold('hover');
+  });
+  hero.addEventListener('pointerout', function (e) {
+    if (e.pointerType === 'touch' || !e.target.closest(HOLD)) return;
+    var to = e.relatedTarget;
+    if (to && to.closest && to.closest(HOLD)) return;
+    clearTimeout(holdT); holdT = setTimeout(function () { release('hover'); }, 400);
+  });
+  hero.addEventListener('pointerleave', function () { clearTimeout(holdT); release('hover'); });
+  // keyboard focus holds it too; a mouse click on an arrow or a dot does not (that used to freeze the bar)
+  hero.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches(':focus-visible')) hold('focus'); });
+  hero.addEventListener('focusout', function (e) { if (!hero.contains(e.relatedTarget)) release('focus'); });
+  document.addEventListener('visibilitychange', function () { document.hidden ? hold('tab') : release('tab'); });
   hero.addEventListener('keydown', function (e) {
     if (e.target.closest('input,textarea')) return;
-    if (e.key === 'ArrowRight' && (!pop || pop.hidden)) show(idx + 1, true);
-    if (e.key === 'ArrowLeft' && (!pop || pop.hidden)) show(idx - 1, true);
+    if (e.key === 'ArrowRight' && (!pop || pop.hidden)) show(idx + 1, 'key');
+    if (e.key === 'ArrowLeft' && (!pop || pop.hidden)) show(idx - 1, 'key');
   });
   // Swipe to change slide, except where a swipe already means something: spinning the orbit, scrolling the
   // process map sideways, scrubbing the plan. A touch pauses autoplay for a while.
@@ -283,7 +314,7 @@
   hero.addEventListener('touchstart', function (e) {
     var own = e.target.closest('.cine,.pm-view,.pm-scen,.lj');
     tx = own ? null : e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
-    pause(); clearTimeout(touchT); touchT = setTimeout(resume, 9000);
+    hold('touch'); clearTimeout(touchT); touchT = setTimeout(function () { release('touch'); }, 9000);
   }, { passive: true });
   hero.addEventListener('touchend', function (e) {
     if (tx === null) return;
@@ -357,7 +388,7 @@
     new IntersectionObserver(function (es) {
       var vis = es[es.length - 1].isIntersecting;
       hero.classList.toggle('is-off', !vis);
-      if (vis) { bg.on(); resume(); } else { bg.off(); pause(); }
+      if (vis) { bg.on(); release('off'); } else { bg.off(); hold('off'); }
     }, { threshold: 0 }).observe(hero);
   }
 
@@ -457,6 +488,10 @@
   // init — the first slide also arrives with a camera move, once the one-time intro (if any) has finished
   if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
   announce(); onSlide(idx); restart();
+  if (document.documentElement.classList.contains('intro')) {
+    hold('intro');
+    document.addEventListener('tn:intro-done', function () { remaining = durOf(idx); release('intro'); restartBar(); }, { once: true });
+  }
   if (camOn) {
     var firstEnter = function () { camClear(); camEnter(slides[idx], idx, true); };
     if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', firstEnter, { once: true });

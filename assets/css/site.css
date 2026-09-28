@@ -399,7 +399,13 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .dot.is-active::before{background:var(--blue-100)}
 .dot.is-active::after{animation:prog var(--dur,10s) linear forwards}
 .dot.is-active.is-static::after{animation:none;transform:scaleX(1)}
-.hero.is-paused .dot.is-active::after,.hero.is-cam .dot.is-active::after{animation-play-state:paused}
+.hero.is-paused .dot.is-active::after{animation-play-state:paused}
+.dot.is-active.is-restart::after{animation:none}
+.hero-arrow.hero-pp .ic{width:14px;height:14px}
+.hero-arrow.hero-pp .ic + .ic,.hero-arrow.hero-pp[aria-pressed="true"] .ic:first-child{display:none}
+.hero-arrow.hero-pp[aria-pressed="true"] .ic + .ic{display:block}
+.hero-arrow.hero-pp:hover .ic{transform:none}
+.hero-arrow.hero-pp[hidden]{display:none}
 .hero-arrow{width:36px;height:36px;border-radius:50%;border-color:transparent;background:transparent;box-shadow:none}
 .hero-arrow:hover{background:var(--blue-050);border-color:transparent;box-shadow:none;transform:none}
 .hero-arrow .ic{width:16px;height:16px}
@@ -804,7 +810,6 @@ html.intro{overflow:hidden}
   .hero-track>.cam-out-fly{animation:camBlurOutFly 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .hero-track>.cam-out-tilt{animation:camBlurOutTilt 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .hero.is-cam .hero-bg{animation:bgBreathe 3s cubic-bezier(.2,.8,.2,1)}
-  .hero.is-cam .hero-ctl{pointer-events:none}
 }
 @keyframes camOrbitIn{
   0%{transform:translateZ(-1400px) rotateY(-360deg) rotateX(10deg) scale(.5);opacity:0}
