@@ -419,6 +419,8 @@
 .nexi-fx u{position:absolute;border-radius:14px;box-shadow:0 0 0 2px rgba(49,103,202,.7),0 0 18px 4px rgba(111,160,245,.45);animation:nexiRing 1.4s var(--ease-out) forwards}
 @keyframes nexiUp{0%{opacity:0;transform:translate(var(--x0),var(--y0)) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x1),var(--y1)) scale(1.1) rotate(var(--r))}}
 @keyframes nexiWord{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3) rotate(-12deg)}15%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.12) rotate(-5deg)}25%{transform:translate(var(--x),var(--y)) scale(1) rotate(-4deg)}78%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) - 28px)) rotate(-4deg)}}
+.nexi-fx b.is-narrow{white-space:normal;max-width:100px;padding:6px 9px;font-size:13.5px;line-height:1.15;text-align:center}
+.nexi-fx u.is-boop{border-radius:50%;box-shadow:0 0 0 3px rgba(49,103,202,.55),0 0 24px 6px rgba(111,160,245,.5),inset 0 0 18px rgba(111,160,245,.45)}
 @keyframes nexiRing{0%{opacity:0;transform:scale(1.25)}25%{opacity:1}100%{opacity:0;transform:scale(1)}}
 .nexi-card{position:absolute;left:0;top:0;z-index:8;width:320px;padding:16px 16px 14px;border-radius:18px;background:rgba(255,255,255,.98);border:1px solid var(--line);box-shadow:0 2px 6px rgba(31,31,61,.06),0 24px 48px -24px rgba(30,70,145,.45);color:var(--body);font-size:14.5px;line-height:1.55;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .25s ease,transform .3s var(--ease-out)}
 .nexi-card.is-on{opacity:1;transform:none}
