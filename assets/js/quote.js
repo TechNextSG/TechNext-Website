@@ -38,12 +38,12 @@
   (function prefill() {
     var q;
     try { q = new URLSearchParams(window.location.search); } catch (e) { return; }
-    var boxes = $$('input[name="apps"][data-mod]'), known = {};
-    boxes.forEach(function (b) { known[b.getAttribute('data-mod')] = b; });
-    var picks = (q.get('apps') || '').split(',').filter(function (m) { return Object.prototype.hasOwnProperty.call(known, m); });
+    var boxes = $$('input[name="apps"][data-mod]'), known = new Map();
+    boxes.forEach(function (b) { known.set(b.getAttribute('data-mod'), b); });
+    var picks = (q.get('apps') || '').split(',').filter(function (m) { return known.has(m); });
     if (picks.length) {
       boxes.forEach(function (b) { b.checked = false; });
-      picks.forEach(function (m) { known[m].checked = true; });
+      picks.forEach(function (m) { known.get(m).checked = true; });
     }
     var MORE = { mass_mailing: 'Email Marketing', documents: 'Documents', sign: 'Sign', planning: 'Planning', ai_app: 'AI' };
     var extra = (q.get('more') || '').split(',').filter(function (m) { return Object.prototype.hasOwnProperty.call(MORE, m); })

@@ -73,7 +73,7 @@ TN.demo('life', function (root, K) {
       return 'M' + A.x + ' ' + (A.y + 16) + 'L' + B.x + ' ' + (B.y - 16);
     }
     if (layout === 'journey') {
-      if (kind === 'branch') return K.curve([A.x, A.y], [B.x, B.y], .4).replace(/C/, 'C');
+      if (kind === 'branch') return K.curve([A.x, A.y], [B.x, B.y], .4);
       return K.curve([A.x, A.y], [B.x, B.y], .5);
     }
     // rail: forward along the line, back and skip edges arc away from it

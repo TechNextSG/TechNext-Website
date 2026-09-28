@@ -18,15 +18,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(__file__).resolve().parent / "nexi"
-THREE_CDN = '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>'
+THREE_TAG = '<script src="assets/js/vendor/three-r128.min.js"></script>'   # splits the page: markup above, app script below
 FONTS = re.compile(r'<link rel="preconnect"[^>]*>\s*<link rel="preconnect"[^>]*>\s*<link rel="stylesheet" href="https://fonts\.googleapis\.com[^"]*">')
 
 
 def _parts():
     html = (SRC / "app.html").read_text(encoding="utf-8")
     style = re.search(r"<style>.*?</style>", html, re.S).group(0)
-    markup = html[html.index("</style>") + len("</style>"):html.index(THREE_CDN)].strip()
-    script = html[html.index(THREE_CDN) + len(THREE_CDN):]
+    markup = html[html.index("</style>") + len("</style>"):html.index(THREE_TAG)].strip()
+    script = html[html.index(THREE_TAG) + len(THREE_TAG):]
     script = script[script.index("<script>") + len("<script>"):script.rindex("</script>")].strip()
     fonts = FONTS.search(html).group(0)
     return fonts, style, markup, script
