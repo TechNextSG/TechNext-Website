@@ -775,6 +775,116 @@
       "permanent": true
     },
     {
+      "source": "/blog/agentic-ai-workflows-and-enterprise-operations",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/agentic-ai-workflows-and-enterprise-operations",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/agentic-workflows-patterns-and-best-practices-for-enterprise-teams",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/agentic-workflows-patterns-and-best-practices-for-enterprise-teams",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-agents-workflow-automation-enterprise-apac-playbook",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-agents-workflow-automation-enterprise-apac-playbook",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-workflow-automation-case-study",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/ai-workflow-automation-case-study",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/the-ultimate-guide-to-enterprise-agentic-ai",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/the-ultimate-guide-to-enterprise-agentic-ai",
+      "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/strategic-ai-in-2026-unlocking-enterprise-value-in-southeast-asia",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/strategic-ai-in-2026-unlocking-enterprise-value-in-southeast-asia",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/will-the-corporate-investment-in-ai-pay-off",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/will-the-corporate-investment-in-ai-pay-off",
+      "destination": "/solutions/ai",
+      "permanent": true
+    },
+    {
+      "source": "/blog/data-sovereignty-laws-southeast-asia-compliance-guide-2026",
+      "destination": "/blog/odoo-online-vs-odoo-sh-vs-on-premise",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/data-sovereignty-laws-southeast-asia-compliance-guide-2026",
+      "destination": "/blog/odoo-online-vs-odoo-sh-vs-on-premise",
+      "permanent": true
+    },
+    {
+      "source": "/blog/software-development-guide-2026-process-architecture-best-practices",
+      "destination": "/odoo/erp-system",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/software-development-guide-2026-process-architecture-best-practices",
+      "destination": "/odoo/erp-system",
+      "permanent": true
+    },
+    {
+      "source": "/blog/enterprise-software-requirements-the-2026-evaluation-checklist",
+      "destination": "/odoo/discovery",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/enterprise-software-requirements-the-2026-evaluation-checklist",
+      "destination": "/odoo/discovery",
+      "permanent": true
+    },
+    {
+      "source": "/blog/eurocham-interview-eric-lou-on-simplifying-digital-systems-for-cambodian-businesses",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/eurocham-interview-eric-lou-on-simplifying-digital-systems-for-cambodian-businesses",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
       "source": "/ai-article",
       "destination": "/blog",
       "permanent": true
@@ -872,6 +982,46 @@
     {
       "source": "/ai-automation-vietnam/",
       "destination": "/solutions/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/#solutions",
+      "permanent": true
+    },
+    {
+      "source": "/services/",
+      "destination": "/#solutions",
+      "permanent": true
+    },
+    {
+      "source": "/:line(What\\+if\\+your\\+hotel.*)",
+      "destination": "/solutions/ai-chatbots",
+      "permanent": true
+    },
+    {
+      "source": "/technext-logo.jpg",
+      "destination": "/assets/img/logo-horizontal.png",
+      "permanent": true
+    },
+    {
+      "source": "/images/logo/technext-logo.png",
+      "destination": "/assets/img/logo-horizontal.png",
+      "permanent": true
+    },
+    {
+      "source": "/images/logo/technext-logo.webp",
+      "destination": "/assets/img/logo-horizontal.png",
       "permanent": true
     },
     {

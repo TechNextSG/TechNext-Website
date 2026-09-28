@@ -111,6 +111,21 @@ REDIRECTS = [
     ("/blog/vietnam-tech-talent-dev-hub.html", "/company"),
     ("/ai-article/vietnam-tech-talent-dev-hub", "/company"),
     ("/ai-article/vietnam-tech-talent-dev-hub.html", "/company"),
+    # Old articles Search Console still reported as 404 or "crawled - not indexed" on
+    # 2026-09-28, in both forms. Listed before the /ai-article catch-all: the first match wins.
+    *[(f"/{d}/{slug}", to) for slug, to in (
+        ("agentic-ai-workflows-and-enterprise-operations", "/solutions/ai-automation"),
+        ("agentic-workflows-patterns-and-best-practices-for-enterprise-teams", "/solutions/ai-automation"),
+        ("ai-agents-workflow-automation-enterprise-apac-playbook", "/solutions/ai-automation"),
+        ("ai-workflow-automation-case-study", "/solutions/ai-automation"),
+        ("the-ultimate-guide-to-enterprise-agentic-ai", "/solutions/ai-automation"),
+        ("strategic-ai-in-2026-unlocking-enterprise-value-in-southeast-asia", "/solutions/ai"),
+        ("will-the-corporate-investment-in-ai-pay-off", "/solutions/ai"),
+        ("data-sovereignty-laws-southeast-asia-compliance-guide-2026", "/blog/odoo-online-vs-odoo-sh-vs-on-premise"),
+        ("software-development-guide-2026-process-architecture-best-practices", "/odoo/erp-system"),
+        ("enterprise-software-requirements-the-2026-evaluation-checklist", "/odoo/discovery"),
+        ("eurocham-interview-eric-lou-on-simplifying-digital-systems-for-cambodian-businesses", "/company"),
+    ) for d in ("blog", "ai-article")],
     ("/ai-article", "/blog"), ("/ai-article/", "/blog"), ("/ai-article/:path*", "/blog"),
     # --- the blog and careers came back on 2026-09-27 as /blog and /careers ------------
     # Old article URLs keep their redirects above; any other old /blog/ URL simply 404s
@@ -126,6 +141,15 @@ REDIRECTS = [
     ("/contact", "/company"), ("/contact/", "/company"),
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),
     ("/ai-automation-vietnam", "/solutions/ai-automation"), ("/ai-automation-vietnam/", "/solutions/ai-automation"),
+    ("/about", "/company"), ("/about/", "/company"),
+    ("/services", "/#solutions"), ("/services/", "/#solutions"),
+    # --- more retired URLs Google still crawled (Search Console crawl stats, 2026-09-28): a
+    # broken inbound link made of a sentence, and the old logo files. The old articles it
+    # found are listed above the /ai-article catch-all.
+    (r"/:line(What\+if\+your\+hotel.*)", "/solutions/ai-chatbots"),
+    ("/technext-logo.jpg", "/assets/img/logo-horizontal.png"),
+    ("/images/logo/technext-logo.png", "/assets/img/logo-horizontal.png"),
+    ("/images/logo/technext-logo.webp", "/assets/img/logo-horizontal.png"),
     # --- the internal landing page and its predecessor, removed 2026-09-26 ----------
     # (":path*" does not match a bare trailing slash on Vercel, so each form is listed)
     ("/lp", "/"), ("/lp/", "/"), ("/lp/:path*", "/"),
