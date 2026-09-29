@@ -195,7 +195,9 @@
   // Random play on every device: a random slide opens the page, then autoplay deals the others in a shuffled
   // order, each once before any repeats (a new deal never starts with the slide just shown). Arrows, dots, keys
   // and swipes step in order. Crawlers and page-speed tools always get slide 1, the one with the page's H1.
-  var crawler = /bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent || '');
+  // named crawlers, anything with "bot/" in its UA (Googlebot/2.1, AhrefsBot/7.0), audits and headless browsers;
+  // not a bare "bot", which would catch phone brands such as CUBOT
+  var crawler = /googlebot|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent || '');
   if (autoplay && slides.length > 1 && !crawler) {
     var r0 = Math.floor(Math.random() * slides.length);
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }

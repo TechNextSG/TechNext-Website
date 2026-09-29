@@ -1274,7 +1274,7 @@
       var b = BEATS[i], id = ++run;
       clearSoon(); apply(b);
       // a line said on the way somewhere waits until she gets there, so the bubble appears beside her
-      var spoken = null, wait = b.cue === 'home' ? 850 : b.cue === 'zoomin' ? 700 : b.asset != null ? 420 : 0;
+      var spoken = null, wait = b.cue === 'home' ? 1250 : b.cue === 'zoomin' ? 700 : b.asset != null ? 420 : 0;
       var speakNow = function () { if (b.say) spoken = say(b.say, Math.max(0.8, b.d - wait / 1000)); };
       if (wait && mode === '3d') later(wait, speakNow); else speakNow();
       after(b.d * 1000, function () {
