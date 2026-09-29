@@ -128,7 +128,14 @@
   var nApps = sec.querySelector('[data-n="apps"]'), nLinks = sec.querySelector('[data-n="links"]'), zero = sec.querySelector('.su-zero');
   var cta = sec.querySelector('[data-cta]'), quote = sec.querySelector('[data-quote]');
   var presetBtns = Array.prototype.slice.call(sec.querySelectorAll('[data-preset]'));
-  function tick(el) { if (reduce || !el) return; el.classList.remove('is-tick'); void el.offsetWidth; el.classList.add('is-tick'); }
+  // replays the tick without a forced reflow: the class returns two frames later (a newer tick supersedes it)
+  function tick(el) {
+    if (reduce || !el) return;
+    if (!el.classList.contains('is-tick')) { el.classList.add('is-tick'); return; }
+    el.classList.remove('is-tick');
+    var tok = el.__tnTk = (el.__tnTk || 0) + 1;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (el.__tnTk === tok) el.classList.add('is-tick'); }); });
+  }
   function setNum(el, v) { if (!el || el.textContent === String(v)) return; el.textContent = String(v); tick(el); }
   function picks() { return order.filter(function (m) { return on[m]; }); }
   function countLinks() { var n = 0; links.forEach(function (L) { if (on[L.a] && on[L.b]) n++; }); return n; }

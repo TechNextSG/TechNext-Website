@@ -163,7 +163,7 @@ TN.demo('syncmap', function (root, K) {
     IDS.forEach(function (id) { var n = node[id]; n.em.textContent = down === id ? 'down · ' + (pend[id] ? pend[id] + (narrow ? ' held' : ' held at source') : 'retrying') : HOOKS[id] ? 'webhook' : 'every ' + n.every + ' s'; });
   }
   var loop = K.loop(function (now, dt) {
-    t += dt; clockK.textContent = hhmmss(t);
+    t += dt; var clk = hhmmss(t); if (clk !== clockK._v) { clockK._v = clk; clockK.textContent = clk; }
     if (down && t >= downUntil) setDown('');
     IDS.forEach(function (id) {
       SP[id].t.forEach(function (tr, j) {
@@ -175,7 +175,7 @@ TN.demo('syncmap', function (root, K) {
           if (tr[1] === 'job') pulse(node[id].el, 'rgba(49,103,202,.3)');
         }
       });
-      if (node[id].job && !HOOKS[id]) { var jt = SP[id].t.filter(function (x) { return x[1] === 'job'; })[0], nk = id + SP[id].t.indexOf(jt); node[id].el.style.setProperty('--p', (1 - K.clamp((nextAt[nk] - t) / jt[2], 0, 1)).toFixed(3)); }
+      if (node[id].job && !HOOKS[id]) { var jt = SP[id].t.filter(function (x) { return x[1] === 'job'; })[0], nk = id + SP[id].t.indexOf(jt); var ring = node[id].ring || (node[id].ring = node[id].el.querySelector('em') || node[id].el), pv = (1 - K.clamp((nextAt[nk] - t) / jt[2], 0, 1)).toFixed(2); if (ring._p !== pv) { ring._p = pv; ring.style.setProperty('--p', pv); } }
     });
     msgs = msgs.filter(function (m) {
       if (m.st === 'fi' || m.st === 'fo') {

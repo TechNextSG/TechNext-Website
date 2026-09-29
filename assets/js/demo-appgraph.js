@@ -164,12 +164,20 @@ TN.demo('appgraph', function (root, K) {
     nodes.forEach(function (n) { if (n.fx != null) return; n.x = K.clamp(n.x, px0, W - px0); n.y = K.clamp(n.y, top, H - bot); });
     alpha *= .982; if (alpha < .004) alpha = 0;
   }
-  function render() {
-    nodes.forEach(function (n) { n.el.style.transform = 'translate(' + (n.x - NW / 2).toFixed(1) + 'px,' + (n.y - IC / 2).toFixed(1) + 'px)'; });
+  // written only when a value changes: once the layout settles, rewriting every node and both lines of
+  // every edge each frame re-laid out the whole SVG 60 times a second for nothing
+  var hitStale = false;
+  function render(full) {
+    full = full !== false || !!drag;
+    nodes.forEach(function (n) {
+      var tf = 'translate(' + (n.x - NW / 2).toFixed(1) + 'px,' + (n.y - IC / 2).toFixed(1) + 'px)';
+      if (n.tf !== tf) { n.tf = tf; n.el.style.transform = tf; }
+    });
     edges.forEach(function (e) {
-      var x1 = e.a.x.toFixed(1), y1 = e.a.y.toFixed(1), x2 = e.b.x.toFixed(1), y2 = e.b.y.toFixed(1);
-      e.ln.setAttribute('x1', x1); e.ln.setAttribute('y1', y1); e.ln.setAttribute('x2', x2); e.ln.setAttribute('y2', y2);
-      e.hit.setAttribute('x1', x1); e.hit.setAttribute('y1', y1); e.hit.setAttribute('x2', x2); e.hit.setAttribute('y2', y2);
+      var x1 = e.a.x.toFixed(1), y1 = e.a.y.toFixed(1), x2 = e.b.x.toFixed(1), y2 = e.b.y.toFixed(1), k = x1 + ' ' + y1 + ' ' + x2 + ' ' + y2;
+      if (e.k !== k) { e.k = k; e.ln.setAttribute('x1', x1); e.ln.setAttribute('y1', y1); e.ln.setAttribute('x2', x2); e.ln.setAttribute('y2', y2); }
+      if (!full) { if (e.hk !== k) hitStale = true; return; }
+      if (e.hk !== k) { e.hk = k; e.hit.setAttribute('x1', x1); e.hit.setAttribute('y1', y1); e.hit.setAttribute('x2', x2); e.hit.setAttribute('y2', y2); }
     });
   }
 
@@ -352,7 +360,8 @@ TN.demo('appgraph', function (root, K) {
   function settle() { for (var i = 0; i < 420 && alpha > 0; i++) tick(); alpha = 0; }
   var loop = K.loop(function (now) {
     if (alpha > 0) tick();
-    if (alpha > 0 || drag) render();
+    if (alpha > 0 || drag) render(false);
+    else if (hitStale) { hitStale = false; render(true); }
     if (now - lastAmb > 1100 && !sel && !drag) {                 // a little ambient traffic between apps
       lastAmb = now;
       var pool = cat === 'all' ? edges : edges.filter(function (e) { return e.a.cat === cat || e.b.cat === cat; });

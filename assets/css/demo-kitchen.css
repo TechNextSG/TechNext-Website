@@ -70,7 +70,7 @@
 .ktn-tk ul{display:grid;gap:1px;margin:0;padding:0;list-style:none}
 .ktn-tk ul li{font:500 10.5px/1.3 var(--font-body);color:var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ktn-tkb{display:block;height:3px;border-radius:2px;background:#EEF1F7;overflow:hidden}
-.ktn-tkb i{display:block;height:100%;background:var(--c);transform-origin:left;transform:scaleX(0)}
+.ktn-tkb i{display:block;height:100%;background:var(--c);transform-origin:left;transform:scaleX(0);will-change:transform}
 .ktn-tks{font:700 9px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .ktn-tk[data-s="queue"]{opacity:.72}
 .ktn-tk[data-s="cook"] .ktn-tks{color:var(--c)}

@@ -133,7 +133,7 @@ TN.demo('scurve', function (root, K) {
     g.mk.setAttribute('x1', f(X)); g.mk.setAttribute('x2', f(X));
     g.clip.setAttribute('width', f(X + 1));
     [pv, ev, ac].forEach(function (arr, i) { g.dots[i].setAttribute('cx', f(X)); g.dots[i].setAttribute('cy', f(y(valAt(arr, t)))); });
-    handle.style.left = X.toFixed(1) + 'px';
+    handle.style.transform = 'translateX(' + X.toFixed(1) + 'px) translateX(-50%)';
     g.bars && g.bars.forEach(function (b, i) { b.g.classList.toggle('is-fut', i + 1 > Math.round(t)); b.g.classList.toggle('is-on', i + 1 === Math.round(t)); });
   }
   function bars() {

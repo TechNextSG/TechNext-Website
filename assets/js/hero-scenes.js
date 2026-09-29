@@ -106,11 +106,35 @@
     out.x = v * v * c.x0 + 2 * v * u * c.x1 + u * u * c.x2; out.y = v * v * c.y0 + 2 * v * u * c.y1 + u * u * c.y2;
     return out;
   }
+  // CSS cubic-bezier() timing, for the fades a canvas draws itself
+  function bezier(x1, y1, x2, y2) {
+    function c(p1, p2, t) { return ((1 - 3 * p2 + 3 * p1) * t + (3 * p2 - 6 * p1)) * t * t + 3 * p1 * t; }
+    return function (x) {
+      if (x <= 0) return 0;
+      if (x >= 1) return 1;
+      var lo = 0, hi = 1, t = x;
+      for (var i = 0; i < 20; i++) { var v = c(x1, x2, t); if (Math.abs(v - x) < 1e-5) break; if (v < x) lo = t; else hi = t; t = (lo + hi) / 2; }
+      return c(y1, y2, t);
+    };
+  }
+  var EASE = bezier(.25, .1, .25, 1);
+  // the length of half an ellipse (the front arc of an orbit ring), for dashes measured along it
+  function halfEllipse(a, b) {
+    var n = 96, s = 0, px = a, py = 0;
+    for (var i = 1; i <= n; i++) { var t = Math.PI * i / n, x = a * Math.cos(t), y = b * Math.sin(t); s += Math.hypot(x - px, y - py); px = x; py = y; }
+    return s;
+  }
 
   /* ================================================================== 1 · cinematic orbit */
   function Cine(root) {
     var fx = $('.cine-fx', root), ctx = fx.getContext('2d');
     var backSvg = $('.cine-rings--back', root), frontSvg = $('.cine-rings--front', root);
+    // The glints sweeping the rings and the packets flying to the dashboard change every frame, so they are
+    // drawn on a canvas over the front rings: in the SVG, any change restyled and repainted the whole drawing.
+    // The canvas overhangs the stage (the outer ring reaches past its sides) by 15% a side, 4% top and bottom.
+    var gl = document.createElement('canvas'); gl.className = 'cine-gl'; gl.setAttribute('aria-hidden', 'true');
+    frontSvg.parentNode.insertBefore(gl, frontSvg.nextSibling);
+    var gx = gl.getContext('2d'), gdpr = 1, glDirty = false, gHead = [0, 0], gRing = [null, null];
     var core = $('.cine-core', root), feed = $('.cine-feed', root), hand = $('[data-cine-hand]', root);
     // two orbit planes: x/y radii as a share of the stage width, roll in degrees, seconds per lap
     // inner ring: steep, it circles the dashboard; outer ring: wide and flat, crossing the other way
@@ -118,7 +142,13 @@
                  { rx: .6, ry: .175, roll: 9, cy: .52, lap: 64, dir: -1, size: 36 }];
     // on a phone the stage is the screen's width: keep the outer ring's apps inside it
     if (phone.matches) { RINGS[0].rx = .42; RINGS[0].ry = .31; RINGS[1].rx = .49; RINGS[1].ry = .2; }
-    var apps = $$('.cine-app', root).map(function (el) { return { el: el, ring: +el.dataset.ring, mod: el.dataset.app, hist: [] }; });
+    // Each app rides in a bare wrapper (.cine-pos) that takes the per-frame transform, opacity, blur and z-index.
+    // Restyling the styled button itself every frame cost ~0.3 ms an app (6 ms a frame for 20); the wrapper ~4 us.
+    var apps = $$('.cine-app', root).map(function (el) {
+      var pos = el.parentNode.classList.contains('cine-pos') ? el.parentNode : document.createElement('span');
+      if (pos !== el.parentNode) { pos.className = 'cine-pos'; el.parentNode.insertBefore(pos, el); pos.appendChild(el); }
+      return { el: el, pos: pos, ring: +el.dataset.ring, mod: el.dataset.app, hist: [] };
+    });
     [0, 1].forEach(function (r) {
       var list = apps.filter(function (a) { return a.ring === r; });
       list.forEach(function (a, k) { a.slot = k / list.length * TAU + (r ? .21 : 0); });
@@ -128,7 +158,7 @@
     var rot = [0, .9], spd = 1, spdT = 1, dragV = 0, dragging = false, lastX = 0, lastT = 0;
     var tilt = { tx: 0, ty: 0, x: 0, y: 0 };
     var hot = null, leaveT = 0, rush = null, packets = [], nextPacket = 0, landed = 0;
-    var ringG = [], backP = [], frontP = [], glint = [], halo = [], beamG, hoverBeam;
+    var ringG = [], backP = [], frontP = [], halo = [], hoverBeam;
     var DOC = { S: 419, PO: 88, MO: 31, IN: 231, OUT: 412, INV: 147, T: 218 };
     var EVENTS = {
       accountant: function () { return '<b>' + (30 + (Math.random() * 20 | 0)) + '</b> bank lines matched'; },
@@ -160,18 +190,16 @@
       // the near side of each ring is brightest in front of the dashboard and fades toward its ends
       defs.innerHTML = '<linearGradient id="cine-arc" x1="0" x2="1"><stop offset="0" stop-color="#3167CA" stop-opacity=".28"/><stop offset=".5" stop-color="#3167CA" stop-opacity=".8"/><stop offset="1" stop-color="#3167CA" stop-opacity=".28"/></linearGradient>';
       frontSvg.appendChild(defs);
-      ringG = []; backP = []; frontP = []; glint = []; halo = [];
+      ringG = []; backP = []; frontP = []; halo = []; gRing = [null, null];
       RINGS.forEach(function (R, r) {
         var gb = svgEl('g', {}), gf = svgEl('g', {});
         backP[r] = svgEl('path', { 'class': 'cr-back cr-back--' + r });
         frontP[r] = svgEl('path', { 'class': 'cr-front cr-front--' + r });
         halo[r] = svgEl('path', { 'class': 'cr-halo cr-halo--' + r });
-        glint[r] = svgEl('path', { 'class': 'cr-glint', pathLength: '1000' });
-        gb.appendChild(backP[r]); gf.appendChild(halo[r]); gf.appendChild(frontP[r]); gf.appendChild(glint[r]);
+        gb.appendChild(backP[r]); gf.appendChild(halo[r]); gf.appendChild(frontP[r]);
         backSvg.appendChild(gb); frontSvg.appendChild(gf);
         ringG[r] = [gb, gf];
       });
-      beamG = svgEl('g', { 'class': 'cine-beams' }); frontSvg.appendChild(beamG);
       hoverBeam = svgEl('path', { 'class': 'cine-hbeam' }); frontSvg.appendChild(hoverBeam);
       ringTr = []; ringRR = []; hbD = '';
     }
@@ -189,6 +217,11 @@
       var fw = Math.round(W * 2 * dpr), fh = Math.round(H * 2 * dpr);
       if (fx.width !== fw) fx.width = fw;
       if (fx.height !== fh) fx.height = fh;
+      gdpr = Math.min(2, window.devicePixelRatio || 1);
+      var gw = Math.round(W * 1.3 * gdpr), gh = Math.round(H * 1.08 * gdpr);
+      if (gl.width !== gw) gl.width = gw;
+      if (gl.height !== gh) gl.height = gh;
+      glDirty = true;
       var vb = '0 0 ' + W + ' ' + H;
       if (vb !== viewBox) { viewBox = vb; [backSvg, frontSvg].forEach(function (s) { s.setAttribute('viewBox', vb); }); }
       measured = true;
@@ -203,7 +236,7 @@
     }
     function coreTarget() { return coreT; }          // measured in size()
     function startRush(now) {
-      landed = 0; root.classList.remove('is-live'); packets.forEach(function (p) { p.g.remove(); }); packets = [];
+      landed = 0; root.classList.remove('is-live'); packets = [];
       if (reduce) { rush = null; landed = apps.length; root.classList.add('is-live'); return; }
       var order = apps.slice().sort(function () { return Math.random() - .5; });
       var warp = [];
@@ -225,19 +258,20 @@
     function layout(now, dt) {
       var g0 = geo(0), g1 = geo(1), G = [g0, g1];
       RINGS.forEach(function (R, r) {
-        var g = G[r], tr = 'translate(' + g.cx.toFixed(1) + ' ' + g.cy.toFixed(1) + ') rotate(' + (g.roll * 180 / Math.PI).toFixed(2) + ')';
+        var g = G[r], cxs = g.cx.toFixed(1), cys = g.cy.toFixed(1), rot = (g.roll * 180 / Math.PI).toFixed(2), tr = 'translate(' + cxs + ' ' + cys + ') rotate(' + rot + ')';
         if (ringTr[r] !== tr) { ringTr[r] = tr; ringG[r][0].setAttribute('transform', tr); ringG[r][1].setAttribute('transform', tr); }
-        var rx = g.rx.toFixed(1), ry = g.ry.toFixed(1);
+        var rx = g.rx.toFixed(1), ry = g.ry.toFixed(1), q = gRing[r] || (gRing[r] = {});
         if (ringRR[r] !== rx + ' ' + ry) {                     // the ring paths only change when the tilt does
           ringRR[r] = rx + ' ' + ry;
           backP[r].setAttribute('d', 'M-' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 ' + rx + ' 0');
           frontP[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
           halo[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
-          glint[r].setAttribute('d', 'M' + rx + ' 0A' + rx + ' ' + ry + ' 0 0 1 -' + rx + ' 0');
+          q.rx = +rx; q.ry = +ry; q.len = halfEllipse(q.rx, q.ry);
         }
+        q.cx = +cxs; q.cy = +cys; q.roll = +rot;               // the glint rides the front arc with exactly these numbers
         // a highlight sweeps the near side of each ring in the direction its apps travel, then rests
-        var u = (now / (r ? 4.6 : 3.6)) % 1500, head = R.dir > 0 ? u - 200 : 1200 - u;
-        glint[r].style.strokeDashoffset = String(-head);
+        var u = (now / (r ? 4.6 : 3.6)) % 1500;
+        gHead[r] = R.dir > 0 ? u - 200 : 1200 - u;
       });
       var t = rush ? now - rush.t0 : 1e9, flying = 0;
       apps.forEach(function (a) {
@@ -266,13 +300,13 @@
         if (a === hot) z = 60;
         a.x = x; a.y = y; a.d = p.d;
         var tf = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
-        if (a.tf !== tf) { a.tf = tf; a.el.style.transform = tf; }
+        if (a.tf !== tf) { a.tf = tf; a.pos.style.transform = tf; }
         setOp(a, op.toFixed(3));
         // depth-of-field blur in 0.25 px steps (at most 1.6 px at rest): the filter is rewritten a few
         // times a second instead of on every app in every frame
         var fl = blur > .15 ? 'blur(' + Math.max(.25, Math.round(blur * 4) / 4).toFixed(2) + 'px)' : '';
-        if (a.fl !== fl) { a.fl = fl; a.el.style.filter = fl; }
-        if (a.z !== z) { a.z = z; a.el.style.zIndex = z; }
+        if (a.fl !== fl) { a.fl = fl; a.pos.style.filter = fl; }
+        if (a.z !== z) { a.z = z; a.pos.style.zIndex = z; }
       });
       drawFx(t, flying);
       if (hot) {
@@ -281,12 +315,48 @@
         if (hd !== hbD) { hbD = hd; hoverBeam.setAttribute('d', hd); }
       }
       stepPackets(now, dt);
+      drawGl();
     }
-    function setOp(a, v) { if (a.op !== v) { a.op = v; a.el.style.opacity = v; } }
+    // The glint was a 55-unit dash on the front arc (pathLength 1000) with its offset animated, and each packet
+    // a beam drawn along its curve behind a dot and its halo: the same dashes, curves and colours, on the canvas.
+    function drawGl() {
+      if (!gx || !gl.width) return;
+      var any = packets.length > 0, r, q;
+      for (r = 0; r < 2; r++) if (gRing[r] && gHead[r] > -55 && gHead[r] < 1000) any = true;
+      if (!any) { if (glDirty) { gx.setTransform(1, 0, 0, 1, 0, 0); gx.clearRect(0, 0, gl.width, gl.height); glDirty = false; } return; }
+      glDirty = true;
+      gx.setTransform(1, 0, 0, 1, 0, 0); gx.clearRect(0, 0, gl.width, gl.height);
+      var sx = gl.width / (W * 1.3), sy = gl.height / (H * 1.08), ox = W * .15 * sx, oy = H * .04 * sy;
+      gx.lineCap = 'round'; gx.globalAlpha = 1;
+      for (r = 0; r < 2; r++) {
+        q = gRing[r]; var hd = gHead[r];
+        if (!q || !q.len || hd <= -55 || hd >= 1000) continue;
+        var k = q.len / 1000;
+        gx.setTransform(sx, 0, 0, sy, ox, oy); gx.translate(q.cx, q.cy); gx.rotate(q.roll * Math.PI / 180);
+        gx.beginPath(); gx.ellipse(0, 0, q.rx, q.ry, 0, 0, Math.PI);
+        gx.setLineDash([55 * k, 2400 * k]); gx.lineDashOffset = -hd * k;
+        gx.lineWidth = 3; gx.strokeStyle = '#3167CA'; gx.stroke();
+      }
+      gx.setTransform(sx, 0, 0, sy, ox, oy);
+      packets.forEach(function (p) {
+        var c = p.c;
+        gx.globalAlpha = p.a;
+        gx.beginPath(); gx.moveTo(c.x0, c.y0); gx.quadraticCurveTo(c.x1, c.y1, c.x2, c.y2);
+        gx.setLineDash([p.len, p.len]); gx.lineDashOffset = p.len * (1 - p.e);
+        gx.lineWidth = 1.4; gx.strokeStyle = 'rgba(49,103,202,.36)'; gx.stroke();
+        gx.setLineDash([]);
+        gx.beginPath(); gx.arc(p.x, p.y, 9, 0, TAU); gx.fillStyle = 'rgba(49,103,202,.2)'; gx.fill();
+        gx.beginPath(); gx.arc(p.x, p.y, 3.6, 0, TAU); gx.fillStyle = '#3167CA'; gx.fill();
+      });
+      gx.globalAlpha = 1; gx.setLineDash([]);
+    }
+    function setOp(a, v) { if (a.op !== v) { a.op = v; a.pos.style.opacity = v; } }
     var fxDirty = false;                               // a flag in script, not a data- attribute written every frame
     function drawFx(t, flying) {
       var warpOn = rush && t >= 0 && t < 1100;
-      if (!flying && !warpOn) { if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; } return; }
+      // the canvas is twice the stage in each direction: hidden while empty, so the compositor skips it
+      if (!flying && !warpOn) { if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; fx.style.visibility = 'hidden'; } return; }
+      if (!fxDirty) fx.style.visibility = '';
       fxDirty = true;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W * 2, H * 2);
       ctx.save(); ctx.translate(W / 2, H / 2); ctx.lineCap = 'round';
@@ -321,30 +391,19 @@
       var cands = apps.filter(function (a) { return a.landed && a !== hot && a.d > .56 && EVENTS[a.mod]; });
       if (!cands.length) return;
       var a = cands[Math.random() * cands.length | 0], ct = coreTarget();
-      var g = svgEl('g', { 'class': 'cine-pkt' });
-      // the same curve as before (same rounding, same random draws in the same order), kept as numbers too
+      // the same curve as before (same rounding, same random draws in the same order), drawn by drawGl()
       var P0 = [a.x.toFixed(1), a.y.toFixed(1)], P1 = [((a.x + ct.x) / 2 + rnd(-60, 60)).toFixed(1), (Math.min(a.y, ct.y) - rnd(30, 90)).toFixed(1)], P2 = [ct.x.toFixed(1), ct.y.toFixed(1)];
-      var d = 'M' + P0[0] + ' ' + P0[1] + 'Q' + P1[0] + ' ' + P1[1] + ' ' + P2[0] + ' ' + P2[1];
-      var c = quadCurve(+P0[0], +P0[1], +P1[0], +P1[1], +P2[0], +P2[1]), len = c.len;
-      // pathLength makes the browser measure the beam in the same units as the script, so the drawn
-      // beam and the dot stay together exactly as with getTotalLength()
-      var path = svgEl('path', { d: d, 'class': 'cine-beam', pathLength: String(len) });
-      var halo = svgEl('circle', { r: 9, 'class': 'cine-dot-h' }), dot = svgEl('circle', { r: 3.6, 'class': 'cine-dot' });
-      g.appendChild(path); g.appendChild(halo); g.appendChild(dot); beamG.appendChild(g);
-      path.style.strokeDasharray = len + ' ' + len; path.style.strokeDashoffset = len;
+      var c = quadCurve(+P0[0], +P0[1], +P1[0], +P1[1], +P2[0], +P2[1]);
       replay(a.el, 'is-send', ['cineSend']);
       var key = EVENT_KEYS[EVENT_KEYS.indexOf(a.mod)];
-      packets.push({ g: g, path: path, dot: dot, halo: halo, c: c, len: len, t0: now, dur: 820, key: key, op: '' });
+      packets.push({ c: c, len: c.len, t0: now, dur: 820, key: key, e: 0, a: 1, x: c.x0, y: c.y0 });
     }
     function stepPackets(now) {
       if (!reduce && landed === apps.length && !popOpen() && now > nextPacket && packets.length < 3) { spawnPacket(now); nextPacket = now + rnd(1300, 2300); }
       packets = packets.filter(function (p) {
         var q = clamp((now - p.t0) / p.dur, 0, 1), e = easeInOut(q), pt = quadAt(p.c, p.len * e, PT);
-        p.dot.setAttribute('cx', pt.x); p.dot.setAttribute('cy', pt.y); p.halo.setAttribute('cx', pt.x); p.halo.setAttribute('cy', pt.y);
-        p.path.style.strokeDashoffset = String(p.len * (1 - e));
-        var o = q > .9 ? String((1 - q) * 10) : '1';
-        if (p.op !== o) { p.op = o; p.g.style.opacity = o; }
-        if (q >= 1) { p.g.remove(); arrive(p.key); return false; }
+        p.e = e; p.x = pt.x; p.y = pt.y; p.a = q > .9 ? (1 - q) * 10 : 1;
+        if (q >= 1) { arrive(p.key); return false; }
         return true;
       });
     }
@@ -448,7 +507,15 @@
     var view = $('.pm-view', root), cam = $('.pm-cam', root), svg = $('.pm-svg', root), labels = $('.pm-elabels', root);
     var log = $('.pm-log', root), kFlight = $('[data-k="flight"]', root), kHand = $('[data-k="hand"]', root);
     var nodes = {};
-    $$('.pm-node', root).forEach(function (el) { nodes[el.dataset.pn] = { el: el, ic: $('.pm-ic', el), n: $('.pm-n', el), count: 0, gate: el.classList.contains('pm-gate') }; });
+    $$('.pm-node', root).forEach(function (el) {
+      // the arrival ping: a ring grown and faded on the compositor (it was an animated box-shadow, repainted
+      // every frame). A static mask keeps the icon's own box clear, as the shadow did; first in the icon, so
+      // the count badge stays on top of it.
+      var ic = $('.pm-ic', el), ping = document.createElement('i');
+      ping.className = 'pm-ping'; ping.setAttribute('aria-hidden', 'true'); ping.appendChild(document.createElement('i'));
+      ic.insertBefore(ping, ic.firstChild);
+      nodes[el.dataset.pn] = { el: el, ic: ic, n: $('.pm-n', el), count: 0, gate: el.classList.contains('pm-gate') };
+    });
     // route kinds: h straight · v vertical (node bottom → icon top) · vh down-then-across · hv across-then-up/down
     //              loop back above two nodes · self loop above a gateway · bus under a lane
     var EDGES = {
@@ -557,11 +624,12 @@
       made.forEach(function (x) {                      // ... then the path reads, 2 px apart along each edge
         var id = x[0], e = x[1], p = x[2], T = pathTable(p, 2);
         geoE[id] = { p: p, len: T.len, T: T };
-        if (e.l) { var pt = p.getPointAtLength(T.len * (e.lt || .5)); lab += '<span class="pm-el' + (e.dash ? ' pm-el--dash' : '') + '" data-e="' + id + '" style="left:' + pt.x.toFixed(1) + 'px;top:' + pt.y.toFixed(1) + 'px">' + e.l + '</span>'; }
+        if (e.l) { var pt = p.getPointAtLength(T.len * (e.lt || .5)); lab += '<span class="pm-el' + (e.dash ? ' pm-el--dash' : '') + '" data-e="' + id + '" data-l="' + e.l + '" style="left:' + pt.x.toFixed(1) + 'px;top:' + pt.y.toFixed(1) + 'px">' + e.l + '</span>'; }
       });
       labels.innerHTML = lab;
+      if (flashL) flashL.textContent = '';
+      flashOf = {};
       labelOf = {}; $$('.pm-el', labels).forEach(function (n) { labelOf[n.getAttribute('data-e')] = n; });
-      tokens.forEach(function (t) { $('.pm-toks', svg).appendChild(t.g); });
       markScen();
       drawn = true;
     }
@@ -572,14 +640,41 @@
       $$('[data-e]', root).forEach(function (el) { el.classList.toggle('is-path', !!ep && ep.indexOf(el.getAttribute('data-e')) >= 0); });
     }
     function color(kind) { return kind === 'buy' ? 'buy' : kind === 'make' ? 'make' : kind === 'late' ? 'late' : kind === 'pay' ? 'pay' : 'stock'; }
+    // Tokens are HTML over the map (the SVG's units are CSS pixels), each in a bare wrapper that takes the
+    // per-frame transform on the compositor. As SVG groups, every move re-laid out and repainted the map.
+    function tokLayer() {
+      var L = $('.pm-toksh', cam);
+      if (!L) { L = document.createElement('div'); L.className = 'pm-toks pm-toksh'; L.setAttribute('aria-hidden', 'true'); svg.parentNode.insertBefore(L, svg.nextSibling); }
+      return L;
+    }
+    // An edge that takes a token flashes: a blue copy of it over the map, faded out on the compositor. (The
+    // edge's own stroke colour and width were animated, which re-laid out and repainted the map every frame.)
+    var flashL = null, flashOf = {};
+    function flash(id) {
+      var ge = geoE[id]; if (!ge) return;
+      var f = flashOf[id];
+      if (!f) {
+        if (!flashL) { flashL = document.createElement('div'); flashL.className = 'pm-flash'; flashL.setAttribute('aria-hidden', 'true'); cam.insertBefore(flashL, tokLayer()); }
+        var xy = ge.T.xy, x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+        for (var i = 0; i < xy.length; i += 2) { x0 = Math.min(x0, xy[i]); x1 = Math.max(x1, xy[i]); y0 = Math.min(y0, xy[i + 1]); y1 = Math.max(y1, xy[i + 1]); }
+        x0 = Math.floor(x0 - 14); y0 = Math.floor(y0 - 14); x1 = Math.ceil(x1 + 14); y1 = Math.ceil(y1 + 14);   // room for the stroke and arrowhead
+        f = svgEl('svg', { 'class': 'pm-fl' + (EDGES[id].dash ? ' pm-fl--dash' : ''), 'data-e': id, viewBox: x0 + ' ' + y0 + ' ' + (x1 - x0) + ' ' + (y1 - y0) });
+        f.style.cssText = 'left:' + x0 + 'px;top:' + y0 + 'px;width:' + (x1 - x0) + 'px;height:' + (y1 - y0) + 'px';
+        f.appendChild(svgEl('path', { d: ge.p.getAttribute('d'), 'marker-end': 'url(#pm-arrow)' }));
+        ['is-path', 'is-hot'].forEach(function (c) { if (ge.p.classList.contains(c)) f.classList.add(c); });   // markScen / hotOn keep it in step
+        flashL.appendChild(f); flashOf[id] = f;
+      }
+      replay(f, 'is-take', ['pmTake']);
+    }
     function makeToken(steps, kind, doc, at, detached) {
-      var g = svgEl('g', { 'class': 'pm-tok pm-tok--' + color(kind) });
-      g.appendChild(svgEl('circle', { r: 10, 'class': 'pm-th' })); g.appendChild(svgEl('circle', { r: 4.6, 'class': 'pm-td' }));
-      $('.pm-toks', svg).appendChild(g);
-      var t = { g: g, steps: steps, i: 0, s: 0, wait: 0, state: 'move', kind: kind, doc: doc, v: rnd(150, 185) };
+      var pos = document.createElement('span'); pos.style.cssText = 'position:absolute;left:0;top:0;will-change:transform';
+      var g = document.createElement('span'); g.className = 'pm-tok pm-tok--' + color(kind);
+      g.innerHTML = '<i class="pm-th"></i><i class="pm-td"></i>';
+      pos.appendChild(g); tokLayer().appendChild(pos);
+      var t = { g: g, pos: pos, steps: steps, i: 0, s: 0, wait: 0, state: 'move', kind: kind, doc: doc, v: rnd(150, 185) };
       if (at) { t.i = Math.min(steps.length - 1, at); while (t.i < steps.length && typeof steps[t.i] !== 'string') t.i++; }
       var first = geoE[steps[t.i]];
-      if (first) { var p0 = tableAt(first.T, 0, PT); g.setAttribute('transform', 'translate(' + p0.x.toFixed(1) + ' ' + p0.y.toFixed(1) + ')'); }
+      if (first) { var p0 = tableAt(first.T, 0, PT); pos.style.transform = 'translate(' + p0.x.toFixed(1) + 'px,' + p0.y.toFixed(1) + 'px)'; }
       if (!detached) tokens.push(t);
       return t;
     }
@@ -601,11 +696,11 @@
     function hit(id, t, nextId) {
       var n = nodes[id]; if (!n) return;
       n.count++; n.n.textContent = n.count > 99 ? '99+' : String(n.count); n.el.classList.add('has-n');
-      replay(n.el, 'is-pulse', ['pmPulse', 'pmGate']);
+      replay(n.el, 'is-pulse', ['pmPulse', 'pmPulseS', 'pmGate', 'pmGateTint']);
       hand++; kHand.textContent = hand.toLocaleString();
       if (nextId) {
-        replay(labelOf[nextId], 'is-take', ['pmLab']);
-        replay(geoE[nextId] && geoE[nextId].p, 'is-take', ['pmTake']);
+        replay(labelOf[nextId], 'is-take', ['pmLab', 'pmLabInk']);
+        flash(nextId);
       }
       var d = t.doc, k = t.kind;
       switch (id) {
@@ -630,7 +725,7 @@
           if (step === MAKE_PAY) say('pay', 'Components short: <b>PO000' + t.doc.PO + '</b> to the vendor');
           t.i++; step = t.steps[t.i];
         }
-        if (!step) { t.g.remove(); return false; }
+        if (!step) { t.pos.remove(); return false; }
         var e = EDGES[step], ge = geoE[step];
         if (t.state === 'move') {
           t.s += t.v * dt;
@@ -641,12 +736,12 @@
             t.g.classList.add('is-in');
           }
           var pt = tableAt(ge.T, t.s, PT);
-          t.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
+          t.pos.style.transform = 'translate(' + pt.x.toFixed(1) + 'px,' + pt.y.toFixed(1) + 'px)';
         } else {
           t.wait -= dt;
           if (t.wait <= 0) {
             t.i++; t.s = 0; t.state = 'move'; t.g.classList.remove('is-in');
-            if (t.i >= t.steps.length) { t.g.remove(); return false; }
+            if (t.i >= t.steps.length) { t.pos.remove(); return false; }
           }
         }
         return true;
@@ -721,7 +816,7 @@
     function wake() { if (on && !raf && !reduce && live()) { last = 0; raf = requestAnimationFrame(frame); } }
     function seed() {
       // the business is already running when the camera pulls back: a few orders mid-way
-      tokens.forEach(function (t) { t.g.remove(); }); tokens = [];
+      tokens.forEach(function (t) { t.pos.remove(); }); tokens = [];
       spawn('stock', 6); spawn('buy', 4); spawn('make', 5); spawn('late', 9); spawn(null, 1);
     }
     // scenario switch
@@ -731,8 +826,8 @@
         $$('[data-scen]', root).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
         markScen();
         if (scen !== 'all') {
-          tokens.forEach(function (t) { if (t.kind !== scen && !(t.fork && scen !== 'stock' && scen !== 'late')) t.g.remove(); });
-          tokens = tokens.filter(function (t) { return t.g.isConnected; });
+          tokens.forEach(function (t) { if (t.kind !== scen && !(t.fork && scen !== 'stock' && scen !== 'late')) t.pos.remove(); });
+          tokens = tokens.filter(function (t) { return t.pos.isConnected; });
           spawn(null, 0); spawn(null, 5);
         }
         nextSpawn = performance.now() + 900;
@@ -804,9 +899,25 @@
     // phase, each phase's deliverables rise and tick off, and light beams show which offices (SG · PH · VN)
     // and your team are on it. Drag the timeline, click a platform, or let it run. The phases, deliverables
     // and owners come from the screen-reader list in the markup (.lj-plan), which search engines read too.
+    // Layers, back to front: the floor grid (an SVG that moves only with the pointer tilt), the platforms'
+    // shadows, one canvas with everything under the platforms that changes every frame (the offices' beams,
+    // the track, the progress line and the light flowing along it), then the platforms, the lit rim, the
+    // trail and the orb as separate composited pieces, and the HTML labels on top. Nothing that changes
+    // every frame is SVG: SVG content can't have layers of its own, so a moving orb or dash used to restyle,
+    // re-lay out and repaint the whole drawing, and re-render its mask, on every frame.
     var stage = $('.lj-stage', root), svg = $('.lj-svg', root), over = $('.lj-over', root), tip = $('.lj-tip', root);
+    function mk(tag, cls, parent, before) {
+      var n = tag === 'svg' ? document.createElementNS('http://www.w3.org/2000/svg', 'svg') : document.createElement(tag);
+      n.setAttribute('class', cls); n.setAttribute('aria-hidden', 'true'); parent.insertBefore(n, before || null); return n;
+    }
+    var svgG = mk('svg', 'lj-svg lj-svg--grid', stage, svg), worldEl = mk('div', 'lj-world', stage, svg);
+    var shadesL = mk('div', 'lj-shades', worldEl), cv = mk('canvas', 'lj-cv', worldEl), fxL = mk('div', 'lj-fx', worldEl), cx = cv.getContext('2d');
     var scrub = $('.lj-scrub', root), segsEl = $('.lj-segs', root), fillEl = $('.lj-fill', root), knob = $('.lj-knob', root);
-    var weekEl = $('[data-lj-week]', root), ringEl = $('.lj-ring-fg', root), statusEl = $('[data-lj-status]', root);
+    var weekEl = $('[data-lj-week]', root), statusEl = $('[data-lj-status]', root), weekBox = $('.lj-week', root);
+    // the week ring's progress arc is drawn on a canvas over the ring's track (it grew every frame)
+    var ringC = weekBox ? mk('canvas', 'lj-ringc', weekBox, weekBox.firstChild) : null, rcx = ringC && ringC.getContext('2d');
+    if (ringC) ringC.width = ringC.height = Math.round((phone.matches ? 34 : 40) * Math.min(2, window.devicePixelRatio || 1));
+    mk('i', 'lj-fcap', fillEl.parentNode, fillEl);
     var whoEl = $('.lj-who', root), moreEl = $('.lj-more', root), moreTx = $('.lj-more span', root);
     var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
     var SPAN = 12, RATE = .9, TRAVEL = .7;                    // weeks per second; weeks the orb takes between platforms
@@ -828,10 +939,13 @@
               p: [[88, 414, 10], [262, 352, 16], [98, 280, 22], [262, 208, 28], [104, 138, 34]],
               off: { you: [40, 98], sg: [226, 98], ph: [270, 98], vn: [314, 98] } }
     };
-    var G = null, K = 1, P = [], L = [], total = 1, base, prog, flowMask, puck, ptag, world, gridG, trail = [], hist = [];
+    var G = null, K = 1, P = [], L = [], total = 1, base, puck, ptag, gridG, trail = [], hist = [];
     // the path's arc-length table and the measured widths (from the ResizeObserver), so frames read no layout
-    var LUT = null, PTJ = { x: 0, y: 0 }, stageW = 0, scrubW = 0, placedK = 0, lastPc = null;
-    var plats = [], shades = [], beams = {}, offs = {}, nodes = [], chips = [], chipsWrap = null, beamT = 0;
+    var LUT = null, PTJ = { x: 0, y: 0 }, PTF = { x: 0, y: 0 }, stageW = 0, scrubW = 0, placedK = 0, lastPc = null, ringP = -1;
+    var plats = [], rims = [], shades = [], beams = {}, offs = {}, nodes = [], chips = [], chipsWrap = null, beamT = 0;
+    // what the canvas draws from: the track as a Path2D, the progress gradient, how far the orb is, and the
+    // fade the progress line and its flow get while a finished run resets (their CSS transition, 0.45 s ease)
+    var trackP = null, grad = null, curLen = 0, progFade = { a: 1, b: 1, t0: 0, d: 450 };
     var T = 0, shown = 0, on = false, raf = 0, last = 0, holdUntil = 0, doneAt = 0, active = -1, dragging = false, hoverI = -1, resetting = false;
     var tilt = { x: 0, y: 0, tx: 0, ty: 0 }, cache = {};
     root.classList.add('is-js');
@@ -857,43 +971,46 @@
       var mx = (o[0] + q[0]) / 2, my = o[1] < q[1] ? Math.min(o[1], q[1]) - 34 : Math.max(o[1], q[1]) + 30;
       return 'M' + o[0] + ' ' + o[1] + 'Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + q[0] + ' ' + q[1];
     }
+    // the fades the canvas draws itself, timed like the CSS transitions they replace (a new target restarts
+    // from wherever the fade has got to; reduced motion snaps, as the stylesheet does)
+    function fadeAt(f, now) { if (reduce) return f.b; var q = (now - f.t0) / f.d; return q >= 1 ? f.b : q <= 0 ? f.a : f.a + (f.b - f.a) * EASE(q); }
+    function fadeTo(f, v, now) { if (f.b === v) return; f.a = fadeAt(f, now); f.b = v; f.t0 = now; }
 
     function build() {
       G = phone.matches ? GEO.tall : GEO.wide;
       root.classList.toggle('lj--tall', G.band);
       stage.style.aspectRatio = G.w + ' / ' + G.h;
-      svg.setAttribute('viewBox', '0 0 ' + G.w + ' ' + G.h);
-      svg.textContent = ''; over.textContent = '';
-      plats = []; shades = []; beams = {}; offs = {}; nodes = []; trail = []; hist = []; chips = []; chipsWrap = null; cache = {}; active = -1;
+      svg.setAttribute('viewBox', '0 0 ' + G.w + ' ' + G.h); svgG.setAttribute('viewBox', '0 0 ' + G.w + ' ' + G.h);
+      svg.textContent = ''; svgG.textContent = ''; over.textContent = ''; shadesL.textContent = ''; fxL.textContent = '';
+      plats = []; rims = []; shades = []; beams = {}; offs = {}; nodes = []; trail = []; hist = []; chips = []; chipsWrap = null; cache = {}; active = -1;
       P = G.p.map(function (q) { return { x: q[0], y: q[1], h: q[2] }; });
-      var defs = svgEl('defs', {});
-      var lg = svgEl('linearGradient', { id: 'lj-grad', x1: '0', y1: '1', x2: '1', y2: '0' });
-      lg.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#6FA0F5' })); lg.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#3167CA' }));
+      // an isometric floor that fades out towards the edges
       var rg = svgEl('radialGradient', { id: 'lj-fade', cx: '50%', cy: '58%', r: '60%' });
       rg.appendChild(svgEl('stop', { offset: '0', 'stop-color': '#fff' })); rg.appendChild(svgEl('stop', { offset: '1', 'stop-color': '#000' }));
       var gm = svgEl('mask', { id: 'lj-gridmask' }); gm.appendChild(svgEl('rect', { x: 0, y: 0, width: G.w, height: G.h, fill: 'url(#lj-fade)' }));
-      defs.appendChild(lg); defs.appendChild(rg); defs.appendChild(gm); svg.appendChild(defs);
-      // an isometric floor that fades out towards the edges
+      var gdefs = svgEl('defs', {}); gdefs.appendChild(rg); gdefs.appendChild(gm); svgG.appendChild(gdefs);
       gridG = svgEl('g', { 'class': 'lj-grid', mask: 'url(#lj-gridmask)' });
       for (var k = -G.h * 2; k < G.w + G.h * 2; k += 26) {
         gridG.appendChild(svgEl('line', { x1: k, y1: 0, x2: k + G.h * 2, y2: G.h }));
         gridG.appendChild(svgEl('line', { x1: k, y1: 0, x2: k - G.h * 2, y2: G.h }));
       }
-      svg.appendChild(gridG);
-      world = svgEl('g', { 'class': 'lj-world' }); svg.appendChild(world);
-      var sg = svgEl('g', {}); world.appendChild(sg);
-      P.forEach(function (q) { var e = svgEl('ellipse', { 'class': 'lj-shade', cx: q.x, cy: q.y + G.ry + q.h + 5, rx: G.rx * 1.02, ry: G.ry * .5 }); sg.appendChild(e); shades.push(e); });
-      var bg = svgEl('g', {}); world.appendChild(bg);
-      Object.keys(G.off).forEach(function (k) { beams[k] = svgEl('path', { 'class': 'lj-beam lj-beam--' + k }); bg.appendChild(beams[k]); });
+      svgG.appendChild(gridG);
+      // the platforms' shadows (ellipses under each prism)
+      P.forEach(function (q) { var e = el('i', 'lj-shade'); at(e, q.x - G.rx * 1.02, q.y + G.ry + q.h + 5 - G.ry * .5, G.rx * 2.04, G.ry); shadesL.appendChild(e); shades.push(e); });
+      // the path: measured once here, drawn by the canvas; the offices' beams are aimed in setActive
       var d = spline(P.map(function (q) { return [q.x, q.y]; }));
-      base = svgEl('path', { 'class': 'lj-track', d: d }); world.appendChild(base);
+      var defs = svgEl('defs', {}); base = svgEl('path', { d: d }); defs.appendChild(base); svg.appendChild(defs);
       total = base.getTotalLength() || 1;
       LUT = pathTable(base, 1);                          // the orb's positions, 1 px apart along the path
-      prog = svgEl('path', { 'class': 'lj-prog', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total }); world.appendChild(prog);
-      var fm = svgEl('mask', { id: 'lj-flowmask', maskUnits: 'userSpaceOnUse' });
-      flowMask = svgEl('path', { 'class': 'lj-flowmask', d: d, 'stroke-dasharray': total + ' ' + total, 'stroke-dashoffset': total });
-      fm.appendChild(flowMask); defs.appendChild(fm);
-      world.appendChild(svgEl('path', { 'class': 'lj-flow', d: d, mask: 'url(#lj-flowmask)' }));
+      trackP = new Path2D(d);
+      Object.keys(G.off).forEach(function (k) { beams[k] = { col: k === 'you' ? '#D97B12' : '#3167CA', p: null, fade: { a: 0, b: 0, t0: 0, d: 320 } }; });
+      // the progress line's gradient was an objectBoundingBox one from the path box's bottom-left corner to its
+      // top-right: the same colours, as a gradient in user space
+      var bx = 1e9, by = 1e9, bX = -1e9, bY = -1e9, xy = LUT.xy;
+      for (var n = 0; n < xy.length; n += 2) { bx = Math.min(bx, xy[n]); bX = Math.max(bX, xy[n]); by = Math.min(by, xy[n + 1]); bY = Math.max(bY, xy[n + 1]); }
+      var gx = .5 / Math.max(1, bX - bx), gy = -.5 / Math.max(1, bY - by), g2 = gx * gx + gy * gy;
+      grad = cx ? cx.createLinearGradient(bx, bY, bx + gx / g2, bY + gy / g2) : null;
+      if (grad) { grad.addColorStop(0, '#6FA0F5'); grad.addColorStop(1, '#3167CA'); }
       // where along the path each platform sits
       L = P.map(function (q, i) {
         if (!i) return 0;
@@ -905,22 +1022,26 @@
         }
         return best;
       });
-      // the platforms: raised isometric prisms, each a step higher than the last
+      // the platforms: raised isometric prisms, each a step higher than the last, each in its own small SVG
+      // so the lift is a composited transition; the lit rim is a copy on top that pulses on the compositor
       P.forEach(function (q, i) {
-        var x = q.x, y = q.y, rx = G.rx, ry = G.ry, h = q.h, g = svgEl('g', { 'class': 'lj-plat lj-c' + i });
+        var x = q.x, y = q.y, rx = G.rx, ry = G.ry, h = q.h, vx = x - rx - 2, vy = y - ry - 2, vw = rx * 2 + 4, vh = ry * 2 + h + 4, vb = vx + ' ' + vy + ' ' + vw + ' ' + vh;
+        var rimD = pathD([[x, y - ry + 6], [x + rx - 12, y], [x, y + ry - 6], [x - rx + 12, y]]);
+        var g = svgEl('svg', { 'class': 'lj-plat lj-c' + i, viewBox: vb, 'aria-hidden': 'true' });
         g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--l', d: pathD([[x - rx, y], [x, y + ry], [x, y + ry + h], [x - rx, y + h]]) }));
         g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--r', d: pathD([[x, y + ry], [x + rx, y], [x + rx, y + h], [x, y + ry + h]]) }));
         g.appendChild(svgEl('path', { 'class': 'lj-face lj-face--t', d: pathD([[x, y - ry], [x + rx, y], [x, y + ry], [x - rx, y]]) }));
-        g.appendChild(svgEl('path', { 'class': 'lj-rim', d: pathD([[x, y - ry + 6], [x + rx - 12, y], [x, y + ry - 6], [x - rx + 12, y]]) }));
-        world.appendChild(g); plats.push(g);
+        g.appendChild(svgEl('path', { 'class': 'lj-rim', d: rimD }));
+        var ro = svgEl('svg', { 'class': 'lj-rimo lj-c' + i, viewBox: vb, 'aria-hidden': 'true' });
+        ro.appendChild(svgEl('path', { d: rimD }));
+        at(g, vx, vy, vw, vh); at(ro, vx, vy, vw, vh);
+        fxL.appendChild(g); fxL.appendChild(ro); plats.push(g); rims.push(ro);
       });
       // the project: a soft comet trail and the orb
-      for (var t = 0; t < 7; t++) { var c = svgEl('circle', { 'class': 'lj-trail', r: (5.2 - t * .6).toFixed(1), cx: -99, cy: -99 }); world.appendChild(c); trail.push(c); }
-      puck = svgEl('g', { 'class': 'lj-puck' });
-      puck.appendChild(svgEl('circle', { 'class': 'lj-halo', r: 17 }));
-      puck.appendChild(svgEl('circle', { 'class': 'lj-core', r: 8.5 }));
-      puck.appendChild(svgEl('circle', { 'class': 'lj-dot', r: 2.6 }));
-      world.appendChild(puck);
+      for (var t = 0; t < 7; t++) { var c = el('i', 'lj-trail'); c.style.setProperty('--r', (5.2 - t * .6).toFixed(1)); c.style.transform = 'translate(-9999px,0)'; fxL.appendChild(c); trail.push(c); }
+      puck = el('span', 'lj-puck');
+      puck.appendChild(el('i', 'lj-halo')); puck.appendChild(el('i', 'lj-core')); puck.appendChild(el('i', 'lj-dot'));
+      fxL.appendChild(puck);
       // upright labels, icons, hit areas and the offices, laid over the drawing
       P.forEach(function (q, i) {
         var ph = PH[i], hit = el('button', 'lj-hit'), badge = el('span', 'lj-badge lj-c' + i), lab = el('span', 'lj-lab lj-c' + i);
@@ -948,30 +1069,80 @@
       // the timeline under the stage: one segment per phase, sized by its weeks
       segsEl.textContent = '';
       PH.forEach(function (ph) { var s = el('span'); s.style.flex = String(ph.e - ph.s); s.appendChild(el('b', null, ph.name)); segsEl.appendChild(s); });
-      // the fill spans the whole timeline and is clipped to the progress (see render), so it never relays out
-      fillEl.style.width = '100%'; fillPc('0.00');
+      fillPc('0.00');
       placedK = 0; place();
     }
-    // Positions the overlay in stage pixels. The stage width comes from the ResizeObserver; the nodes are
-    // rewritten only when the scale changes (a phase change used to re-measure and rewrite all of them).
+    // Positions the drawing's HTML and SVG pieces in stage pixels. The stage width comes from the
+    // ResizeObserver; the pieces are rewritten only when the scale changes, and the canvas resized with them.
     function place() {
       if (!G) return;
       var w = stageW || (stageW = stage.clientWidth); if (!w) return;
       K = w / G.w;
       if (K !== placedK) {
         placedK = K;
-        $$('[data-x]', over).forEach(function (n) {
+        $$('[data-x]', stage).forEach(function (n) {
           n.style.left = (+n.dataset.x * K).toFixed(1) + 'px'; n.style.top = (+n.dataset.y * K).toFixed(1) + 'px';
           if (n.dataset.w) { n.style.width = (+n.dataset.w * K).toFixed(1) + 'px'; n.style.height = (+n.dataset.h * K).toFixed(1) + 'px'; }
         });
+        fxL.style.setProperty('--k', K.toFixed(4));
+        var dp = Math.min(2, window.devicePixelRatio || 1), cw = Math.max(1, Math.round(w * dp)), ch = Math.max(1, Math.round(w * G.h / G.w * dp));
+        if (cv.width !== cw) cv.width = cw;
+        if (cv.height !== ch) cv.height = ch;
+        drawCv(performance.now());
       }
       if (chipsWrap && !G.band && active >= 0) { chipsWrap.style.left = (P[active].x * K).toFixed(1) + 'px'; chipsWrap.style.top = ((P[active].y - G.ry - 44) * K).toFixed(1) + 'px'; }
     }
-    // Timeline progress without layout: the fill (a rounded bar with its gradient spread over the filled
-    // part, as when its width was set) is clipped to the same rounded box, and the knob is translated.
+    // Everything under the platforms that moves: the beams, the track, the progress line up to the orb and
+    // the light flowing along it. One canvas, cleared and redrawn each frame (the SVG had a mask for the flow).
+    function drawCv(now) {
+      if (!cx || !trackP || !cv.width) return;
+      cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, cv.width, cv.height);
+      cx.setTransform(cv.width / G.w, 0, 0, cv.height / G.h, 0, 0);
+      cx.lineCap = 'round'; cx.lineJoin = 'round';
+      // the offices' beams (under the track, as before): dashes marching 10 units a second, faded in and out
+      cx.lineWidth = 1.6; cx.setLineDash([3, 7]); cx.lineDashOffset = reduce ? 0 : -10 * (now % 1000) / 1000;
+      Object.keys(beams).forEach(function (k) {
+        var b = beams[k], a = fadeAt(b.fade, now) * .7;
+        if (b.p && a > .004) { cx.globalAlpha = a; cx.strokeStyle = b.col; cx.stroke(b.p); }
+      });
+      cx.globalAlpha = 1; cx.setLineDash([]); cx.lineWidth = 9; cx.strokeStyle = '#E6EAF3'; cx.stroke(trackP);
+      var fa = fadeAt(progFade, now), len = curLen;
+      if (fa > .004 && len > .05 && grad) {
+        cx.globalAlpha = fa; cx.lineWidth = 5; cx.strokeStyle = grad; cx.setLineDash([total, total]); cx.lineDashOffset = total - len; cx.stroke(trackP);
+        cx.globalAlpha = fa * .9; cx.lineWidth = 2; cx.strokeStyle = '#fff'; cx.setLineDash([2, 12]); cx.lineDashOffset = reduce ? 0 : -14 * (now % 1100) / 1100;
+        cx.stroke(flowTo(len + 3));
+      }
+      cx.globalAlpha = 1;
+    }
+    // the flow runs from the path's start to just past the orb, dashed from the start like the masked
+    // full-length flow was, so its dashes sit exactly where they did
+    function flowTo(Lm) {
+      var xy = LUT.xy, n = LUT.n, step = LUT.len / n, p = new Path2D(), m = Math.min(n, Math.floor(Lm / step));
+      p.moveTo(xy[0], xy[1]);
+      for (var i = 1; i <= m; i++) p.lineTo(xy[i * 2], xy[i * 2 + 1]);
+      if (m < n) { tableAt(LUT, Lm, PTF); p.lineTo(PTF.x, PTF.y); }
+      return p;
+    }
+    function drawRing(p) {
+      ringP = p;
+      var W = ringC && ringC.width; if (!W || !rcx) return;
+      rcx.setTransform(1, 0, 0, 1, 0, 0); rcx.clearRect(0, 0, W, W);
+      if (p <= 0) return;
+      rcx.setTransform(W / 40, 0, 0, W / 40, 0, 0);          // the ring SVG's 40-unit box: r 16, 4 wide, from 12 o'clock
+      rcx.beginPath(); rcx.arc(20, 20, 16, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, p));
+      rcx.lineWidth = 4; rcx.lineCap = 'round'; rcx.strokeStyle = '#3167CA'; rcx.stroke();
+    }
+    function sizeRing() {                              // from the ResizeObserver: layout is clean there
+      if (!ringC) return;
+      var s = Math.max(1, Math.round((ringC.clientWidth || 40) * Math.min(2, window.devicePixelRatio || 1)));
+      if (ringC.width !== s) { ringC.width = s; ringC.height = s; }
+      if (ringP >= 0) drawRing(ringP);
+    }
+    // The timeline fill is a rounded bar scaled from its left end (a transform, so on the compositor). The round
+    // start is a separate dot and the far end sits under the knob, so the scale never squashes a visible curve.
     function fillPc(pc) {
-      fillEl.style.clipPath = 'inset(0 ' + (100 - +pc).toFixed(2) + '% 0 0 round 999px)';
-      fillEl.style.backgroundSize = pc + '% 100%';
+      var w = scrubW || (scrubW = scrub.clientWidth);
+      fillEl.style.transform = 'scaleX(' + (w > 3 ? clamp((+pc / 100 * w - 3) / (w - 3), 0, 1) : 0).toFixed(4) + ')';
     }
     function knobAt(pc) {
       lastPc = pc;
@@ -991,19 +1162,21 @@
       return lerp(L[i] + 5, L[i + 1] - 5, easeInOut(1 - left / TRAVEL));
     }
     function setActive(i) {
-      active = i; var ph = PH[i];
+      active = i; var ph = PH[i], now = performance.now();
       plats.forEach(function (g, j) { g.classList.toggle('is-on', j === i); });
+      rims.forEach(function (g, j) { g.classList.toggle('is-on', j === i); });
       shades.forEach(function (e, j) { e.classList.toggle('is-on', j === i); });
       nodes.forEach(function (n, j) { n.badge.classList.toggle('is-on', j === i); n.lab.classList.toggle('is-on', j === i); });
-      Object.keys(beams).forEach(function (k) { beams[k].classList.remove('is-on'); offs[k].classList.toggle('is-on', ph.who.indexOf(k) >= 0); });
+      Object.keys(beams).forEach(function (k) { fadeTo(beams[k].fade, 0, now); offs[k].classList.toggle('is-on', ph.who.indexOf(k) >= 0); });
       clearTimeout(beamT);
       beamT = setTimeout(function () {                        // re-aim the beams while they are faded out
         if (active !== i) return;
-        var q = P[i];
+        var q = P[i], t0 = performance.now();
         Object.keys(beams).forEach(function (k) {
-          beams[k].setAttribute('d', beamD(G.off[k], [q.x, q.y - G.ry - 15]));   // into the phase's icon
-          if (ph.who.indexOf(k) >= 0) beams[k].classList.add('is-on');
+          beams[k].p = new Path2D(beamD(G.off[k], [q.x, q.y - G.ry - 15]));   // into the phase's icon
+          if (ph.who.indexOf(k) >= 0) fadeTo(beams[k].fade, 1, t0);
         });
+        if (!raf) drawCv(t0);                                 // no frame loop running (reduced motion): draw them now
       }, 330);
       if (chipsWrap) { var old = chipsWrap; old.classList.add('is-gone'); setTimeout(function () { old.remove(); }, 450); }
       chipsWrap = el('div', 'lj-chips lj-c' + i);
@@ -1023,12 +1196,12 @@
       var target = puckLen(t);
       shown = dt ? shown + (target - shown) * Math.min(1, dt * 9) : target;
       var len = clamp(shown, 0, total), pt = tableAt(LUT, len, PTJ);
-      set('puck', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')', function (v) { puck.setAttribute('transform', v); });
-      set('off', (total - len).toFixed(1), function (v) { prog.setAttribute('stroke-dashoffset', v); flowMask.setAttribute('stroke-dashoffset', v); });
+      curLen = len;
+      set('puck', 'translate(' + (pt.x * K).toFixed(1) + 'px,' + (pt.y * K).toFixed(1) + 'px)', function (v) { puck.style.transform = v; });
       hist.unshift(pt.x, pt.y); if (hist.length > 64) hist.length = 64;
       trail.forEach(function (c, k) {
         var j = (k + 1) * 6;
-        if (hist[j + 1] != null) set('t' + k, hist[j].toFixed(1) + ' ' + hist[j + 1].toFixed(1), function () { c.setAttribute('cx', hist[j].toFixed(1)); c.setAttribute('cy', hist[j + 1].toFixed(1)); });
+        if (hist[j + 1] != null) set('t' + k, 'translate(' + (hist[j] * K).toFixed(1) + 'px,' + (hist[j + 1] * K).toFixed(1) + 'px)', function (v) { c.style.transform = v; });
       });
       // the active phase's deliverables: hidden, in progress (with a bar), then done
       chips.forEach(function (c) {
@@ -1043,18 +1216,19 @@
       set('status', cur ? cur.it.t + (cur.st === 'done' ? ' ✓' : '') : PH[i].name, function (v) { statusEl.textContent = v; });
       var wk = Math.min(SPAN, Math.floor(t) + 1);
       set('week', wk, function (v) { weekEl.textContent = String(v); scrub.setAttribute('aria-valuetext', 'Week ' + v + ' · ' + PH[i].name); });
-      set('ring', (100 - t / SPAN * 100).toFixed(2), function (v) { ringEl.style.strokeDashoffset = v; });
+      set('ring', (t / SPAN).toFixed(4), function (v) { drawRing(+v); });
       var pc = (t / SPAN * 100).toFixed(2);
       set('fill', pc, fillPc);
       set('knob', pc, knobAt);
       set('now', t.toFixed(1), function (v) { scrub.setAttribute('aria-valuenow', v); });
       // parallax: the floor, the path and the labels drift by different amounts under the pointer
       tilt.x += (tilt.tx - tilt.x) * Math.min(1, (dt || 1) * 4); tilt.y += (tilt.ty - tilt.y) * Math.min(1, (dt || 1) * 4);
-      set('grid', 'translate(' + (-tilt.x * 5).toFixed(2) + ' ' + (-tilt.y * 3).toFixed(2) + ')', function (v) { gridG.setAttribute('transform', v); });
-      set('world', 'translate(' + (tilt.x * 3).toFixed(2) + ' ' + (tilt.y * 2).toFixed(2) + ')', function (v) { world.setAttribute('transform', v); });
+      set('grid', 'translate(' + (-tilt.x * 5 * K).toFixed(2) + 'px,' + (-tilt.y * 3 * K).toFixed(2) + 'px)', function (v) { svgG.style.transform = v; });
+      set('world', 'translate(' + (tilt.x * 3 * K).toFixed(2) + 'px,' + (tilt.y * 2 * K).toFixed(2) + 'px)', function (v) { worldEl.style.transform = v; });
       set('over', 'translate(' + (tilt.x * 5 * K).toFixed(2) + 'px,' + (tilt.y * 3.5 * K).toFixed(2) + 'px)', function (v) { over.style.transform = v; });
       // the tag follows the orb in the drawing's own parallax layer, not the overlay's
       set('ptag', 'translate(' + ((pt.x + 13 + tilt.x * 3 - tilt.x * 5) * K).toFixed(1) + 'px,' + ((pt.y + tilt.y * 2 - tilt.y * 3.5) * K).toFixed(1) + 'px) translateY(-50%)', function (v) { ptag.style.transform = v; });
+      drawCv(performance.now());
     }
     function frame(now) {
       raf = 0;
@@ -1064,8 +1238,8 @@
         if (T >= SPAN) {
           if (!doneAt) doneAt = now;
           else if (now - doneAt > 2400) {                     // all five done: fade the run out and start again
-            resetting = true; root.classList.add('is-reset');
-            setTimeout(function () { T = 0; shown = 0; hist = []; doneAt = 0; resetting = false; root.classList.remove('is-reset'); }, 500);
+            resetting = true; root.classList.add('is-reset'); fadeTo(progFade, 0, performance.now());
+            setTimeout(function () { T = 0; shown = 0; hist = []; doneAt = 0; resetting = false; root.classList.remove('is-reset'); fadeTo(progFade, 1, performance.now()); }, 500);
           }
         } else T = Math.min(SPAN, T + RATE * dt);
       }
@@ -1112,10 +1286,11 @@
     if (hasRO) {
       var jro = new ResizeObserver(function () {
         stageW = stage.clientWidth; scrubW = scrub.clientWidth;          // clean reads: layout is already done here
-        if (!G || G.band !== phone.matches) { build(); if (on) render(0); } else { place(); if (lastPc != null) knobAt(lastPc); }
+        sizeRing();
+        if (!G || G.band !== phone.matches) { build(); if (on) render(0); } else { place(); if (lastPc != null) { knobAt(lastPc); fillPc(lastPc); } }
       });
-      jro.observe(stage); jro.observe(scrub);
-    } else window.addEventListener('resize', function () { stageW = stage.clientWidth; scrubW = scrub.clientWidth; build(); if (on) render(0); });
+      jro.observe(stage); jro.observe(scrub); if (ringC) jro.observe(ringC);
+    } else window.addEventListener('resize', function () { stageW = stage.clientWidth; scrubW = scrub.clientWidth; sizeRing(); build(); if (on) render(0); });
     build();
     return {
       root: root,
@@ -1123,6 +1298,7 @@
         on = true; if (!stageW) stageW = stage.clientWidth;             // normally measured already by the observer
         if (!G || G.band !== phone.matches || !stageW) build(); else place();
         T = reduce ? 10.7 : 0; shown = puckLen(T); doneAt = 0; hoverI = -1; resetting = false; root.classList.remove('is-reset');
+        progFade.a = progFade.b = 1;
         hold(first ? 900 : 1400); render(0); wake();
       },
       leave: function () { on = false; tip.hidden = true; },

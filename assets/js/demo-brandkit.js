@@ -50,8 +50,16 @@ TN.demo('brandkit', function (root, K) {
 
   /* ------------------------------------------------------------ the wires between tokens and components */
   var edges = [], dots = [];
-  Object.keys(TOK).forEach(function (t) { TOK[t].forEach(function (c) { edges.push({ t: t, c: c, p: K.svg('path', { 'class': 'bkt-w' }), d: K.svg('circle', { r: 3.2, 'class': 'bkt-dot' }) }); }); });
-  edges.forEach(function (e) { wires.appendChild(e.p); wires.appendChild(e.d); });
+  // the travelling dots are HTML over the wires (the SVG's units are CSS pixels): each moves in a bare wrapper
+  // on the compositor with a box-shadow glow. As SVG circles with a drop-shadow filter, all 17 re-ran their
+  // filter and repainted the panel on every frame of a pulse.
+  var dotsEl = document.createElement('div'); dotsEl.className = 'bkt-dots'; dotsEl.setAttribute('aria-hidden', 'true'); wires.parentNode.insertBefore(dotsEl, wires.nextSibling);
+  Object.keys(TOK).forEach(function (t) { TOK[t].forEach(function (c) {
+    var w = document.createElement('span'); w.style.cssText = 'position:absolute;left:0;top:0;opacity:0;will-change:transform,opacity';
+    w.appendChild(K.el('i', 'bkt-dot')); dotsEl.appendChild(w);
+    edges.push({ t: t, c: c, p: K.svg('path', { 'class': 'bkt-w' }), d: w, op: '0' });
+  }); });
+  edges.forEach(function (e) { wires.appendChild(e.p); });
   function measure() {
     wires.setAttribute('viewBox', '0 0 ' + wrap.offsetWidth + ' ' + wrap.offsetHeight);
     edges.forEach(function (e) {
@@ -66,7 +74,8 @@ TN.demo('brandkit', function (root, K) {
     var t = (now - pulse) / 650;
     edges.forEach(function (e, i) {
       var u = K.clamp(t - (i % 5) * .06, 0, 1), pt = bez(e, K.ease.inOut(u));
-      e.d.setAttribute('cx', pt[0].toFixed(1)); e.d.setAttribute('cy', pt[1].toFixed(1)); e.d.style.opacity = u > 0 && u < 1 ? 1 : 0;
+      e.d.style.transform = 'translate(' + (pt[0] - 3.2).toFixed(1) + 'px,' + (pt[1] - 3.2).toFixed(1) + 'px)';
+      var op = u > 0 && u < 1 ? '1' : '0'; if (op !== e.op) { e.op = op; e.d.style.opacity = op; }
     });
     if (t > 1.4) lp.off();
   });

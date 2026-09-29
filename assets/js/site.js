@@ -404,10 +404,19 @@
   if (reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   } else {
+    // A section that scrolls in switches its reveals on over a few frames, six at a time, instead of
+    // restyling every card in one frame (the reveals stagger with their own delays anyway).
+    var rq = [], rqRaf = 0;
+    var rqFlush = function () {
+      rqRaf = 0;
+      for (var n = 0; rq.length && n < 6; n++) rq.shift().classList.add('is-in');
+      if (rq.length) rqRaf = requestAnimationFrame(rqFlush);
+    };
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        if (en.isIntersecting) { rq.push(en.target); io.unobserve(en.target); }
       });
+      if (rq.length && !rqRaf) rqRaf = requestAnimationFrame(rqFlush);
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     reveals.forEach(function (el) { io.observe(el); });
   }
