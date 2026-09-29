@@ -192,9 +192,11 @@
   var slides = $$('.slide', hero), dots = $$('.dot', hero), live = $('[data-hero-live]', hero);
   var idx = Math.max(0, slides.findIndex(function (s) { return s.classList.contains('is-active'); }));
   var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = !reduce;
-  // Random play on desktop: a random slide opens the page, and autoplay jumps to a random *different* slide.
-  // Phones open on slide 1 (the headline) and then play in order. Arrows, dots, keys and swipes step in order.
-  if (autoplay && slides.length > 1 && !mobile.matches) {
+  // Random play on every device: a random slide opens the page, then autoplay deals the others in a shuffled
+  // order, each once before any repeats (a new deal never starts with the slide just shown). Arrows, dots, keys
+  // and swipes step in order. Crawlers and page-speed tools always get slide 1, the one with the page's H1.
+  var crawler = /bot|crawl|spider|slurp|lighthouse|pagespeed|headless/i.test(navigator.userAgent || '');
+  if (autoplay && slides.length > 1 && !crawler) {
     var r0 = Math.floor(Math.random() * slides.length);
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
   }
@@ -205,11 +207,17 @@
     if (wi !== idx) { slides[idx].classList.remove('is-active'); slides[wi].classList.add('is-active'); idx = wi; }
     autoplay = false;
   }
+  var deck = [];
+  function deal() {
+    deck = slides.map(function (s, i) { return i; }).filter(function (i) { return i !== idx; });
+    for (var i = deck.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = deck[i]; deck[i] = deck[j]; deck[j] = t; }
+  }
   function nextIdx() {
     if (slides.length < 2) return idx;
-    if (mobile.matches) return (idx + 1) % slides.length;
-    var n; do { n = Math.floor(Math.random() * slides.length); } while (n === idx);
-    return n;
+    if (crawler) return (idx + 1) % slides.length;
+    deck = deck.filter(function (i) { return i !== idx; });
+    if (!deck.length) deal();
+    return deck.shift();
   }
 
   function announce() { if (live) live.textContent = 'Slide ' + (idx + 1) + ' of ' + slides.length + ': ' + (slides[idx].dataset.title || ''); }
@@ -287,7 +295,9 @@
   }
   // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
   // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
-  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  // the Nexi stage holds the slide while Nexi finishes a spoken line (hero-scenes.js, tn:hero-hold)
+  hero.addEventListener('tn:hero-hold', function (e) { var d = e.detail || {}; if (!d.why) return; d.on ? hold(d.why) : release(d.why); });
   hero.addEventListener('pointerover', function (e) {
     if (e.pointerType === 'touch' || !e.target.closest(HOLD)) return;
     clearTimeout(holdT); hold('hover');
@@ -411,7 +421,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.cine,.pmap,.lj,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;

@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\">"} -->
 
 <!-- ============================================================ HERO CAROUSEL -->
 <section class="hero" data-hero data-root="{{ROOT}}" aria-roledescription="carousel" aria-label="TechNext highlights">
@@ -222,6 +222,112 @@
         </div>
       </div>
     </article>
+
+    <!-- Slide 4 · Meet Nexi: she comes right up to the glass, knocks, lands on her own platform and builds a
+         website step by step (the stage script lives in hero-scenes.js, Nexi herself in nexi-bot.js) -->
+    <article class="slide slide--nexi" data-slide-nexi="meet" data-dur="31400" data-title="Meet Nexi, TechNext’s AI companion" aria-roledescription="slide">
+      <div class="container slide-inner si-nexi">
+        <div class="slide-copy">
+          <span class="slide-tag up" style="--d:0ms">{{icon:bot}} Meet Nexi · TechNext’s AI companion</span>
+          <h2 class="as-h1">
+            <span class="kw" style="--i:0"><span>Websites</span></span>
+            <span class="kw" style="--i:1"><span>that</span></span><br>
+            <span class="kw" style="--i:2"><span class="hl">talk</span></span>
+            <span class="kw" style="--i:3"><span class="hl">back.</span></span>
+          </h2>
+          <p class="lead up" style="--d:480ms">TechNext designs and builds your company website, then adds an AI assistant like Nexi that answers your visitors from your own content.</p>
+          <div class="actions up" style="--d:580ms">
+            <a class="btn btn-primary btn-lg" href="{{ROOT}}solutions/website.html">Plan my website {{icon:arrow}}</a>
+            <a class="btn btn-ghost btn-lg" href="{{ROOT}}solutions/ai-chatbots.html">AI chatbots</a>
+          </div>
+          <button class="nxh-hear up" style="--d:680ms" type="button" data-nexi-voice aria-pressed="false">{{icon:mute}}{{icon:volume}}<span data-voice-label data-on="Nexi’s voice is on" data-off="Hear Nexi talk">Hear Nexi talk</span></button>
+        </div>
+
+        <div class="nxh-stage up" style="--d:160ms" data-nxh="meet">
+          <div class="nxh-site" aria-hidden="true">
+            <div class="nxh-bar"><i></i><i></i><i></i><span class="nxh-url">{{icon:lock}}<b>your-site.com</b></span><span class="nxh-live">Live</span></div>
+            <div class="nxh-page">
+              <div class="nxh-brief">
+                <span class="nxh-note" style="--n:0">{{icon:target}}Goals</span>
+                <span class="nxh-note" style="--n:1">{{icon:users}}Audience</span>
+                <span class="nxh-note" style="--n:2">{{icon:layers}}Pages</span>
+                <span class="nxh-note" style="--n:3">{{icon:send}}Enquiries</span>
+              </div>
+              <div class="nxh-wire">
+                <div class="nxh-w-nav"><i class="nxh-w-logo"></i><i></i><i></i><i></i><i class="nxh-w-btn"></i></div>
+                <div class="nxh-w-hero"><div class="nxh-w-txt"><b class="nxh-w-h">Your brand,<br>online.</b><i class="nxh-w-p"></i><i class="nxh-w-p nxh-w-p2"></i><i class="nxh-w-cta"></i></div><i class="nxh-w-img"></i></div>
+                <div class="nxh-w-cards"><i></i><i></i><i></i></div>
+              </div>
+              <div class="nxh-code"><i style="--w:62%"></i><i style="--w:44%;--x:14px"></i><i style="--w:70%;--x:14px"></i><i style="--w:38%;--x:28px"></i><i style="--w:56%"></i></div>
+              <div class="nxh-phone"><i></i><i></i><i></i></div>
+              <div class="nxh-checks"><span>{{icon:check}}Mobile</span><span>{{icon:check}}Speed</span><span>{{icon:check}}SEO</span></div>
+              <div class="nxh-chat">
+                <div class="nxh-chat-h"><i class="nxh-mini"></i><b>Assistant</b><small>online</small></div>
+                <p class="nxh-chat-q">Do you deliver on Saturdays?</p>
+                <p class="nxh-chat-a">Yes, 9am to 1pm. Shall I book a slot?</p>
+                <span class="nxh-typing"><i></i><i></i><i></i></span>
+              </div>
+              <div class="nxh-launch">{{icon:plane}}<b>Live!</b></div>
+            </div>
+          </div>
+          <div class="nxh-plat" aria-hidden="true">
+            <i class="nxh-beam"></i>
+            <div class="nxh-pad"><i class="nxh-ring nxh-ring--a"></i><i class="nxh-ring nxh-ring--b"></i><i class="nxh-ring nxh-ring--c"></i></div>
+            <div class="nxh-base"><span><b>NEXI</b><small>AI companion</small></span></div>
+            <span class="nxh-ava"><i></i></span>
+          </div>
+          <ol class="nxh-steps" aria-label="How TechNext builds your website: select a step">
+            <li><button type="button" data-nxh-step="0"><b>1</b><span>Brief</span></button></li>
+            <li><button type="button" data-nxh-step="1"><b>2</b><span>Design</span></button></li>
+            <li><button type="button" data-nxh-step="2"><b>3</b><span>Build</span></button></li>
+            <li><button type="button" data-nxh-step="3"><b>4</b><span>AI<em> assistant</em></span></button></li>
+            <li><button type="button" data-nxh-step="4"><b>5</b><span>Launch</span></button></li>
+          </ol>
+          <p class="nxh-cap" aria-hidden="true"></p>
+          <div class="nxh-fx" aria-hidden="true"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Slide 5 · marketing and brand assets: a sample brand kit builds itself while Nexi over-reacts to each piece -->
+    <article class="slide slide--nexi" data-slide-nexi="brand" data-dur="24500" data-title="Graphic design and brand assets by TechNext" aria-roledescription="slide">
+      <div class="container slide-inner si-nexi">
+        <div class="slide-copy">
+          <span class="slide-tag up" style="--d:0ms">{{icon:palette}} Marketing · Graphic design &amp; brand assets</span>
+          <h2 class="as-h1">
+            <span class="kw" style="--i:0"><span>A</span></span>
+            <span class="kw" style="--i:1"><span>brand</span></span>
+            <span class="kw" style="--i:2"><span>kit</span></span><br>
+            <span class="kw" style="--i:3"><span class="hl">worth</span></span>
+            <span class="kw" style="--i:4"><span class="hl">a</span></span>
+            <span class="kw" style="--i:5"><span class="hl">wow.</span></span>
+          </h2>
+          <p class="lead up" style="--d:480ms">Logo, colours, type, social posts and print, designed as one system and handed over as editable files your team can use without a designer.</p>
+          <div class="actions up" style="--d:580ms">
+            <a class="btn btn-primary btn-lg" href="{{ROOT}}solutions/brand-assets.html">See brand assets {{icon:arrow}}</a>
+            <a class="btn btn-ghost btn-lg" href="{{ROOT}}solutions/marketing.html">Marketing services</a>
+          </div>
+          <button class="nxh-hear up" style="--d:680ms" type="button" data-nexi-voice aria-pressed="false">{{icon:mute}}{{icon:volume}}<span data-voice-label data-on="Nexi’s voice is on" data-off="Hear Nexi react">Hear Nexi react</span></button>
+        </div>
+
+        <div class="nxh-stage nxh-stage--brand up" style="--d:160ms" data-nxh="brand">
+          <div class="nxh-kit">
+            <div class="nxh-kit-head"><b>Sample brand kit</b><small>Lintel &amp; Co. is a fictional client</small></div>
+            <div class="nxh-kit-grid" role="group" aria-label="Sample brand kit: select a piece">
+              <button class="nxh-a nxh-a--logo" type="button" data-nxh-asset="0"><span class="nxh-art"><svg class="nxh-mk" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 29V15.5a11 11 0 0 1 22 0V29h-6.2V15.5a4.8 4.8 0 0 0-9.6 0V29z" fill="currentColor"/><rect x="3" y="26.5" width="26" height="2.5" rx="1" fill="#9E5230"/></svg><b>Lintel &amp; Co.</b></span><small>Logo</small></button>
+              <button class="nxh-a nxh-a--pal" type="button" data-nxh-asset="1"><span class="nxh-art"><i style="--c:#1F4E5A;--n:0"></i><i style="--c:#9E5230;--n:1"></i><i style="--c:#F3EEE6;--n:2"></i><i style="--c:#1C2326;--n:3"></i></span><small>Colours</small></button>
+              <button class="nxh-a nxh-a--type" type="button" data-nxh-asset="2"><span class="nxh-art"><b class="nxh-aa">Aa</b><span>Georgia <em>headings</em><br>Inter <em>body</em></span></span><small>Type pair</small></button>
+              <button class="nxh-a nxh-a--social" type="button" data-nxh-asset="3"><span class="nxh-art"><i class="nxh-post" style="--n:0"><b>Fit-out, finished properly.</b></i><i class="nxh-post" style="--n:1"></i><i class="nxh-post" style="--n:2"></i></span><small>Social posts</small></button>
+              <button class="nxh-a nxh-a--card" type="button" data-nxh-asset="4"><span class="nxh-art"><span class="nxh-bc"><span class="nxh-bc-f"><svg class="nxh-mk" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 29V15.5a11 11 0 0 1 22 0V29h-6.2V15.5a4.8 4.8 0 0 0-9.6 0V29z" fill="currentColor"/><rect x="3" y="26.5" width="26" height="2.5" rx="1" fill="#9E5230"/></svg></span><span class="nxh-bc-b"><b>Studio Director</b><i></i><i></i></span></span></span><small>Business card</small></button>
+              <button class="nxh-a nxh-a--guide" type="button" data-nxh-asset="5"><span class="nxh-art"><span class="nxh-book"><i></i><i></i><b>Brand guideline</b></span></span><small>Guideline</small></button>
+            </div>
+          </div>
+          <span class="nxh-ava nxh-ava--float" aria-hidden="true"><i></i></span>
+          <p class="nxh-cap" aria-hidden="true"></p>
+          <div class="nxh-fx" aria-hidden="true"></div>
+        </div>
+      </div>
+    </article>
   </div>
 
   <div class="hero-ctl">
@@ -231,9 +337,12 @@
       <button class="dot" type="button" role="tab" aria-selected="true" aria-label="Slide 1: Odoo ERP, implemented"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: One flow from quotation to cash"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Odoo Partner"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: Meet Nexi"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 5: Brand assets"></button>
     </div>
     <button class="icon-btn hero-arrow" type="button" data-hero-next aria-label="Next slide">{{icon:arrow}}</button>
     <button class="icon-btn hero-arrow hero-pp" type="button" data-hero-pp aria-pressed="false" aria-label="Pause the slides">{{icon:pause}}{{icon:play}}</button>
+    <button class="icon-btn hero-arrow hero-voice" type="button" data-nexi-voice aria-pressed="false" aria-label="Turn Nexi’s voice on">{{icon:mute}}{{icon:volume}}</button>
    </div>
   </div>
 
