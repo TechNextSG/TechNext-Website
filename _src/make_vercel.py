@@ -192,8 +192,13 @@ def bot_block():
     libraries. robots.txt, /.well-known and /denied stay reachable so the policy can be read."""
     agents = [a for a in S.AI_TRAINING if a not in S.ROBOTS_ONLY] + S.SCRAPERS
     pattern = ".*(" + "|".join(re.escape(a).replace("\\ ", " ").replace("\\-", "-").replace("\\/", "/") for a in agents) + ").*"
-    return {"source": "/((?!denied|robots\\.txt|\\.well-known).*)", "destination": "/denied", "permanent": False,
-            "has": [{"type": "header", "key": "user-agent", "value": pattern}]}
+    rule = {"source": "/((?!denied|robots\\.txt|\\.well-known).*)", "destination": "/denied", "permanent": False}
+    return [
+        {**rule, "has": [{"type": "header", "key": "user-agent", "value": pattern}]},
+        # every browser, search engine and link-preview fetcher sends a user agent; only scripts omit or blank it
+        {**rule, "missing": [{"type": "header", "key": "user-agent"}]},
+        {**rule, "has": [{"type": "header", "key": "user-agent", "value": "^\\s*$"}]},
+    ]
 
 
 def write_vercel():
@@ -220,7 +225,7 @@ def write_vercel():
         "cleanUrls": True,
         # /company/ and /company are one page: the slash form redirects
         "trailingSlash": False,
-        "redirects": [bot_block()] + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
+        "redirects": bot_block() + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
         "headers": [
             {"source": "/(.*)", "headers": common},
             # css/js/img are versioned by ?v=<content hash> (the vendor Three.js file never changes),

@@ -15,6 +15,29 @@
       ]
     },
     {
+      "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
+      "destination": "/denied",
+      "permanent": false,
+      "missing": [
+        {
+          "type": "header",
+          "key": "user-agent"
+        }
+      ]
+    },
+    {
+      "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
+      "destination": "/denied",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "^\\s*$"
+        }
+      ]
+    },
+    {
       "source": "/odoo/apps/account",
       "destination": "/odoo/apps/invoicing",
       "permanent": true
