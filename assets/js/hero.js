@@ -198,9 +198,14 @@
   // named crawlers, anything with "bot/" in its UA (Googlebot/2.1, AhrefsBot/7.0), audits and headless browsers;
   // not a bare "bot", which would catch phone brands such as CUBOT
   var crawler = /googlebot|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent || '');
+  // every visit opens on a different slide than the last one (remembered in this browser)
+  var LAST = 'tn_hero_first', last = -1;
+  try { last = parseInt(localStorage.getItem(LAST), 10); } catch (e) { /* storage may be blocked */ }
   if (autoplay && slides.length > 1 && !crawler) {
-    var r0 = Math.floor(Math.random() * slides.length);
+    var pool = slides.map(function (s0, k) { return k; }).filter(function (k) { return k !== last; });
+    var r0 = pool[Math.floor(Math.random() * pool.length)];
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
+    try { localStorage.setItem(LAST, String(idx)); } catch (e) { /* storage may be blocked */ }
   }
   // ?slide=2 opens that slide and holds it (deep links and QA); the arrows and dots still work
   var want = /[?&]slide=([1-9])(?:&|$)/.exec(location.search);
@@ -261,12 +266,14 @@
     if (dots[old]) { dots[old].classList.remove('is-active'); dots[old].setAttribute('aria-selected', 'false'); }
     idx = n;
     slides[idx].classList.add('is-active');
-    if (camOn) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
+    if (camOn && !isNexi(idx)) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
     announce(); onSlide(idx); restart();
     if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
   }
   function clear() { if (timer) { clearTimeout(timer); timer = null; } }
+  // Nexi's slides: no camera move (she performs the entrance) and a still hero background while she presents
+  function isNexi(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-nexi')); }
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
   function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
@@ -297,9 +304,16 @@
   }
   // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
   // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
-  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
   // the Nexi stage holds the slide while Nexi finishes a spoken line (hero-scenes.js, tn:hero-hold)
   hero.addEventListener('tn:hero-hold', function (e) { var d = e.detail || {}; if (!d.why) return; d.on ? hold(d.why) : release(d.why); });
+  // ...and asks for a new turn when the visitor jumps within its script, so it never changes mid-explanation
+  hero.addEventListener('tn:hero-dur', function (e) {
+    var ms = e.detail && +e.detail.ms; if (!ms || !autoplay) return;
+    clear(); remaining = ms;
+    if (dots[idx]) { dots[idx].style.setProperty('--dur', ms + 'ms'); restartBar(); }
+    if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
+  });
   hero.addEventListener('pointerover', function (e) {
     if (e.pointerType === 'touch' || !e.target.closest(HOLD)) return;
     clearTimeout(holdT); hold('hover');
@@ -400,7 +414,7 @@
     new IntersectionObserver(function (es) {
       var vis = es[es.length - 1].isIntersecting;
       hero.classList.toggle('is-off', !vis);
-      if (vis) { bg.on(); release('off'); } else { bg.off(); hold('off'); }
+      if (vis) { if (!isNexi(idx)) bg.on(); release('off'); } else { bg.off(); hold('off'); }
     }, { threshold: 0 }).observe(hero);
   }
 
@@ -492,6 +506,8 @@
   /* ================================================================ per-slide hooks */
   function onSlide(i) {
     var s = slides[i];
+    hero.classList.toggle('is-nexi-slide', isNexi(i));
+    if (isNexi(i)) bg.off(); else if (!hero.classList.contains('is-off')) bg.on();
     if (s.hasAttribute('data-slide-dash')) { counters(s); toasts(s, true); startRot(); } else { toasts(slides[0], false); clearInterval(rotTimer); }
     // the scenes (orbit, process map, plan) start and stop themselves on this event
     hero.dispatchEvent(new CustomEvent('tn:slide', { detail: { index: i, slide: s } }));
@@ -505,7 +521,7 @@
     document.addEventListener('tn:intro-done', function () { remaining = durOf(idx); release('intro'); restartBar(); }, { once: true });
   }
   if (camOn) {
-    var firstEnter = function () { camClear(); camEnter(slides[idx], idx, true); };
+    var firstEnter = function () { camClear(); if (!isNexi(idx)) camEnter(slides[idx], idx, true); };
     if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', firstEnter, { once: true });
     else firstEnter();
   }

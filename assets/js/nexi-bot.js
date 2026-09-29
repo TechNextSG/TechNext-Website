@@ -539,8 +539,15 @@
             while ((tn = tw0.nextNode())) { if (!tn.parentElement || !shown(tn.parentElement)) continue; rg.selectNodeContents(tn); pushR(rg.getBoundingClientRect(), 6, 1000); }
           }
           addR(sl0.querySelector('.nxh-steps'), 4, 1000);
-          addR(sl0.querySelector('.nxh-web'), 0, 1); addR(sl0.querySelector('.nxh-desk'), 0, 1);
-          addR(sl0.querySelector('.nxh-tools'), 2, 1000); addR(sl0.querySelector('.nxh-bar'), 2, 1000); addR(sl0.querySelector('.nxd-head'), 2, 1000);
+          addR(sl0.querySelector('.nxh-desk'), 0, 1);
+          addR(sl0.querySelector('.nxh-tools'), 2, 1000); addR(sl0.querySelector('.nxh-bar'), 2, 1000); addR(sl0.querySelector('.nxh-ctx'), 2, 1000); addR(sl0.querySelector('.nxd-head'), 2, 1000);
+          var web0 = sl0.querySelector('.nxh-web');
+          if (web0) {
+            web0.querySelectorAll(OBS_SEL).forEach(function (el) { if (shown(el)) addR(el, 4, 1000); });
+            var tw1 = document.createTreeWalker(web0, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), tn1;
+            while ((tn1 = tw1.nextNode())) { if (!tn1.parentElement || !shown(tn1.parentElement)) continue; rg.selectNodeContents(tn1); pushR(rg.getBoundingClientRect(), 4, 1000); }
+            addR(sl0.querySelector('.nxh-chat'), 4, 1000);
+          }
         }
         addR(hero.querySelector('.hero-ctl-inner'), 4, 1000); addR(document.querySelector('[data-header]'), 4, 1000);
         var nb = box(h.x, h.y, Sp.z.x); SO.push([nb[0], nb[1], nb[2], nb[3], 3]);
@@ -808,12 +815,12 @@
     }
     /* home: floating at the left edge of the website (meet), or at the left edge of the brand desk (brand).
        No platform: she roams, and on these slides she may overlap the design */
-    function homeZ() { return ST.kind === 'brand' ? (LITE ? 3 : 7) : STAGE_Z; }
+    function homeZ() { return ST.kind === 'brand' ? (LITE ? 3 : 7) : (LITE ? 1 : 1); }
     function inHero(x, y, k) { return { x: clamp(x, SIZE * 0.4 * k, W - TABS - SIZE * 0.4 * k), y: clamp(y, SIZE * 0.55 * k + 24, H - SIZE * 0.55 * k) }; }
     function homeSpot() {
       if (!ST.root) return null;
       var k = depthK(homeZ()), web = ST.root.querySelector('.nxh-web'), desk = ST.root.querySelector('.nxh-desk');
-      if (web) { var r = rectOf(web); return inHero(r.x + SIZE * k * 0.12, r.y + r.h * 0.56, k); }
+      if (web) { var view = ST.root.querySelector('.nxh-view') || web; return presenterSpot(view); }
       if (desk) { var q2 = rectOf(desk); return inHero(q2.x - SIZE * k * 0.02, q2.y + q2.h * 0.3, k); }
       return null;
     }
@@ -822,6 +829,47 @@
     function assetSpot(el) {
       var r = rectOf(el), k = depthK(homeZ());
       return inHero(r.x - SIZE * k * 0.12, r.y + r.h * 0.34, k);
+    }
+    /* where she presents a part of the website from: the nearest spot where her box covers no text, no button
+       and not the part itself (rings around it, plus the free spots inside it). She points at it from there. */
+    function clearSpot(el) {
+      obstacles();
+      var r = rectOf(el), z = homeZ(), k = depthK(z), hw = SIZE * 0.4 * k, hh = SIZE * 0.52 * k, cands = [];
+      [0.12, 0.4, 0.75].forEach(function (g0) {
+        var g = g0 * SIZE * k;
+        [r.y + r.h * 0.3, r.cy, r.y + r.h * 0.7].forEach(function (yy) { cands.push([r.x - g - hw, yy], [r.x + r.w + g + hw, yy]); });
+        [r.x + r.w * 0.2, r.cx, r.x + r.w * 0.8].forEach(function (xx) { cands.push([xx, r.y - g - hh], [xx, r.y + r.h + g + hh]); });
+      });
+      for (var f = 0; f < FREE.length; f += 2) {
+        var fx = FREE[f], fy = FREE[f + 1];
+        if (fx > r.x - SIZE * k * 2 && fx < r.x + r.w + SIZE * k * 2 && fy > r.y - SIZE * k * 2 && fy < r.y + r.h + SIZE * k * 2) cands.push([fx, fy]);
+      }
+      var best = null, bestS = Infinity, self = [r.x, r.y, r.x + r.w, r.y + r.h];
+      for (var i = 0; i < cands.length; i++) {
+        var c = inHero(cands[i][0], cands[i][1], k), b = box(c.x, c.y, z);
+        var own = Math.max(0, Math.min(b[2], self[2]) - Math.max(b[0], self[0])) * Math.max(0, Math.min(b[3], self[3]) - Math.max(b[1], self[1]));
+        var dx = Math.max(0, Math.abs(c.x - r.cx) - r.w / 2), dy = Math.max(0, Math.abs(c.y - r.cy) - r.h / 2);
+        var sc = overlap(b) * 12 + own * 6 + Math.hypot(dx, dy) * 1.2;
+        if (sc < bestS) { bestS = sc; best = c; }
+      }
+      return best || inHero(r.x - hw, r.cy, k);
+    }
+    /* desktop: the presenter's spot at the website's left edge, level with the part she explains, where her box
+       covers the least text and no button (she points across at the part from there) */
+    function presenterSpot(el) {
+      obstacles();
+      var web = ST.root && ST.root.querySelector('.nxh-web'); if (!web) return clearSpot(el);
+      var w = rectOf(web), r = rectOf(el), z = homeZ(), k = depthK(z), hw = SIZE * 0.4 * k, hh = SIZE * 0.52 * k, best = null, bestS = Infinity;
+      /* phones: the lane the layout keeps under the website (hero.css), left of centre, her lines beside her */
+      if (LITE) { var st = rectOf(ST.root); return inHero(w.x + SIZE * k * 0.55, (w.y + w.h + st.y + st.h) / 2 + SIZE * 0.04, k); }
+      [-0.2, -0.32, -0.08].forEach(function (fx) {
+        for (var y = w.y + hh * 0.6; y <= w.y + w.h - hh * 0.4; y += 12) {
+          var c = inHero(w.x + SIZE * k * fx, y, k), b = box(c.x, c.y, z);
+          var sc = overlap(b) * 12 + Math.abs(c.y - r.cy) * 1.2 + Math.abs(fx + 0.2) * 300;
+          if (sc < bestS) { bestS = sc; best = c; }
+        }
+      });
+      return best || clearSpot(el);
     }
     /* beside a part of the website: a small control gets her right hand on it (she presses it with 'tap');
        a big area gets her at its left edge */
@@ -884,8 +932,12 @@
           ST.spot = 'home'; go(homeSpot(), homeZ(), homeSpot); play('spin'); expr('wow', 1.4); sfx('whoosh');
           T.at(1.2, function () { play('hop'); expr('star', 1.2); emote(['!', '✦'], 2); });
         }); break;
-        case 'visit': if (el) { var spotFn = ST.kind === 'meet' ? nearSpot : assetSpot; ST.spot = 'asset'; go(spotFn(el), homeZ(), function () { return spotFn(el); }); lookAtEl(el, 3); } break;
-        case 'tap': play('tap'); if (el) lookAtEl(el, 1.2); expr('content', 0.9); sfx('boop'); break;
+        case 'visit': if (el) {
+          var spotFn = ST.kind === 'meet' ? presenterSpot : assetSpot; ST.spot = 'asset';
+          var at0 = spotFn(el); go(at0, homeZ(), null); lookAtEl(el, 4);
+          if (ST.kind === 'meet') later(0.8, function () { var r = rectOf(el), hp = botPx(); ST.pointAt = time; play(r.cx > hp.x ? 'point' : 'pointL'); });
+        } break;
+        case 'tap': if (el) { var rt = rectOf(el), ht = botPx(); if (!(ST.pointAt && time - ST.pointAt < 1.6)) play(rt.cx > ht.x ? 'point' : 'pointL'); lookAtEl(el, 1.6); } else play('tap'); expr('content', 0.9); sfx('boop'); break;
         case 'present': play('present'); if (el) lookAtEl(el, 2.4); expr('happy', 1.8); break;
         case 'point': if (el) { var r = rectOf(el), hp = botPx(); lookAtEl(el, 2.6); play(r.cx > hp.x ? 'point' : 'pointL'); } else play('point'); expr('happy', 1.6); break;
         case 'wave': play('wave'); expr('happy', 1.8); R.look = el ? null : camera.position; R.lookUntil = time + 2.2; if (el) lookAtEl(el, 2.4); break;

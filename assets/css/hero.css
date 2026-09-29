@@ -489,7 +489,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
    .nxh-web[data-step] is the current step (-1 before the brief), .is-s0 to .is-s4 the steps reached so far,
    [data-pal] / [data-font] / [data-dev] the visitor's (or Nexi's) choices, .is-painted the design filled in,
    .is-live published. */
-.nxh-web{--p:#3167CA;--a:#8C7BFF;--pf:var(--font-display);position:relative;display:grid;grid-template-rows:auto auto minmax(0,1fr);width:100%;aspect-ratio:16/10.6;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 36px 64px -34px rgba(31,31,61,.45),0 0 0 6px rgba(255,255,255,.6);overflow:hidden}
+.nxh-web{--p:#3167CA;--a:#8C7BFF;--pf:var(--font-display);position:relative;display:grid;grid-template-rows:auto auto auto minmax(0,1fr);width:100%;aspect-ratio:16/10.9;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 36px 64px -34px rgba(31,31,61,.45),0 0 0 6px rgba(255,255,255,.6);overflow:hidden}
 .nxh-web[data-pal="1"]{--p:#0E7C74;--a:#F2A541}
 .nxh-web[data-pal="2"]{--p:#7A3E8F;--a:#F07A5A}
 .nxh-web[data-font="serif"]{--pf:Georgia,"Times New Roman",serif}
@@ -510,8 +510,8 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-devs button{display:grid;place-items:center;width:28px;height:22px;padding:0;border:0;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer;transition:background-color .2s ease,color .2s ease}
 .nxh-devs .ic{width:14px;height:14px}
 .nxh-devs button:hover{color:var(--ink)}
-.nxh-devs button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.nxh-devs button:focus-visible,.nxh-steps button:focus-visible,.nxh-publish:focus-visible,.nxh-brand-pn button:focus-visible,.nxh-chat-qs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nxh-devs button[aria-pressed="true"]{background:var(--blue-050);color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue-100)}
+.nxh-devs button:focus-visible,.nxh-steps button:focus-visible,.nxh-publish:focus-visible,.nxh-ctx button:focus-visible,.nxh-chat-qs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 /* the builder's toolbar: five steps and Publish */
 .nxh-tools{display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;border-bottom:1px solid var(--line);background:#fff}
 .nxh-steps{display:flex;align-items:center;gap:4px;flex:1;min-width:0;margin:0;padding:0;list-style:none;counter-reset:none}
@@ -523,7 +523,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-steps button:hover{color:var(--ink);border-color:var(--line)}
 .nxh-steps .is-done button{color:var(--body)}
 .nxh-steps .is-done button b{background:var(--ok-050);box-shadow:inset 0 0 0 1px #CDEBD9;color:var(--ok)}
-.nxh-steps .is-on button{background:var(--ink);color:#fff}
+.nxh-steps .is-on button{background:var(--blue-050);border-color:var(--blue-100);color:var(--blue-700)}
 .nxh-steps .is-on button b{background:var(--blue);box-shadow:none;color:#fff}
 .nxh-publish{display:inline-flex;align-items:center;gap:6px;flex:none;height:30px;padding:0 12px 0 10px;border-radius:9px;border:0;background:var(--blue);color:#fff;font:700 12.5px/1 var(--font-body);cursor:pointer;box-shadow:0 8px 16px -10px rgba(49,103,202,.8);transition:background-color .25s ease,box-shadow .25s ease}
 .nxh-publish .ic{width:14px;height:14px}
@@ -559,7 +559,9 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-web.is-s1 .nxh-pg{opacity:1}
 .nxh-pg i,.nxh-pg b,.nxh-pg span,.nxh-pg p,.nxh-pg u,.nxh-pg s{transition:background-color .5s ease,border-color .5s ease,color .5s ease,opacity .4s ease}
 .nxh-pg-nav{display:flex;align-items:center;gap:14px;height:26px}
-.nxh-pg-logo{width:74px;height:18px;margin-right:auto;border-radius:6px;border:1.5px dashed #C3CEE3}
+.nxh-pg-logo{display:inline-flex;align-items:center;gap:6px;margin-right:auto;padding:2px 6px 2px 2px;border-radius:7px;border:1.5px dashed #C3CEE3}
+.nxh-pg-logo i{width:16px;height:16px;border-radius:5px;background:#E4E9F3}
+.nxh-pg-logo b{font:800 12.5px/1 var(--pf);color:transparent}
 .nxh-pg-nav span{font:600 11.5px/1 var(--font-body);color:transparent;border-radius:4px;background:#E4E9F3}
 .nxh-pg-burger{display:none;width:18px;height:12px;border-top:2px solid #C3CEE3;border-bottom:2px solid #C3CEE3}
 .nxh-pg-btn{padding:6px 11px;border-radius:7px;border:1.5px dashed #C3CEE3;font:700 11px/1 var(--font-body);font-style:normal;color:transparent}
@@ -574,12 +576,16 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-pg-art i:nth-child(2){width:70%;aspect-ratio:1;left:-12%;bottom:-38%;background:rgba(255,255,255,.22)}
 .nxh-pg-art i:nth-child(3){width:18%;aspect-ratio:1;left:22%;top:18%;background:rgba(255,255,255,.55)}
 .nxh-pg-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-content:start}
+.nxh-pg-cards b{font:700 12.5px/1.2 var(--pf);color:transparent;border-radius:4px;background:#E4E9F3;justify-self:start}
 .nxh-pg-cards>i{display:grid;gap:7px;padding:12px;border-radius:10px;border:1.5px dashed #C3CEE3}
 .nxh-pg-cards u{width:26px;height:26px;border-radius:8px;background:#E4E9F3}
 .nxh-pg-cards s{height:6px;border-radius:3px;background:#E4E9F3}
 .nxh-pg-cards s+s{width:64%}
 /* painted: the brand arrives */
-.nxh-web.is-painted .nxh-pg-logo{border:0;background:var(--p)}
+.nxh-web.is-painted .nxh-pg-logo{border-color:transparent}
+.nxh-web.is-painted .nxh-pg-logo i{background:var(--p)}
+.nxh-web.is-painted .nxh-pg-logo b{color:var(--ink)}
+.nxh-web.is-painted .nxh-pg-cards b{color:var(--ink);background:transparent}
 .nxh-web.is-painted .nxh-pg-nav span{color:var(--body);background:transparent}
 .nxh-web.is-painted .nxh-pg-btn,.nxh-web.is-painted .nxh-pg-cta{border-color:transparent;background:var(--p);color:#fff;box-shadow:0 8px 14px -8px var(--p)}
 .nxh-web.is-painted .nxh-pg-hero{border-color:transparent;background:linear-gradient(120deg,color-mix(in srgb,var(--p) 9%,#fff),#fff 72%)}
@@ -590,8 +596,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-web.is-painted .nxh-pg-cards>i{border:1px solid var(--line);background:#fff;box-shadow:0 10px 18px -14px rgba(31,31,61,.45)}
 .nxh-web.is-painted .nxh-pg-cards u{background:color-mix(in srgb,var(--a) 30%,#fff)}
 /* the phone view: the same page reflowed in a phone frame */
-.nxh-web[data-step="2"][data-dev="phone"] .nxh-pg{left:64%}
-.nxh-web[data-dev="phone"] .nxh-pg{width:min(38%,230px);top:12px;bottom:12px;border-radius:22px;padding:12px 12px 0;gap:10px;box-shadow:0 0 0 5px var(--ink),0 22px 40px -18px rgba(31,31,61,.6)}
+.nxh-web[data-dev="phone"] .nxh-pg{width:min(38%,230px);top:12px;bottom:12px;border-radius:22px;padding:12px 12px 0;gap:10px;box-shadow:0 0 0 5px #DCE3F0,0 0 0 6px #C9D4E8,0 22px 40px -20px rgba(31,31,61,.35)}
 .nxh-web[data-dev="phone"] .nxh-pg-nav span,.nxh-web[data-dev="phone"] .nxh-pg-btn{display:none}
 .nxh-web[data-dev="phone"] .nxh-pg-burger{display:block}
 .nxh-web[data-dev="phone"] .nxh-pg-logo{width:54px;height:14px}
@@ -600,27 +605,32 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-web[data-dev="phone"] .nxh-pg-copy p{font-size:11px}
 .nxh-web[data-dev="phone"] .nxh-pg-art{min-height:64px}
 .nxh-web[data-dev="phone"] .nxh-pg-cards{grid-template-columns:minmax(0,1fr)}
-.nxh-web[data-dev="phone"] .nxh-pg-cards>i:nth-child(n+3){display:none}
-/* step 2 · the brand panel: palettes and a type choice */
-.nxh-brand-pn{position:absolute;right:14px;top:24px;z-index:3;display:grid;gap:9px;padding:11px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(31,31,61,.55);opacity:0;visibility:hidden;transform:translateX(12px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
-.nxh-web[data-step="1"] .nxh-brand-pn{opacity:1;visibility:visible;transform:none}
-.nxh-brand-pn>b{font:800 11px/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+/* the context bar: whatever the current step needs, above the page, so nothing covers the website */
+.nxh-ctx{position:relative;display:grid;height:40px;border-bottom:1px solid var(--line);background:#FAFBFE}
+.nxh-ctx-s{grid-area:1/1;display:flex;align-items:center;gap:8px;min-width:0;margin:0;padding:0 14px;font:600 12.5px/1.2 var(--font-body);color:var(--body);white-space:nowrap;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s}
+.nxh-ctx-s>span{overflow:hidden;text-overflow:ellipsis}
+.nxh-ctx-s .ic{width:15px;height:15px;flex:none;color:var(--blue)}
+.nxh-web[data-step="-1"] .nxh-ctx-s[data-for="-1"],.nxh-web[data-step="0"] .nxh-ctx-s[data-for="0"],.nxh-web[data-step="1"] .nxh-ctx-s[data-for="1"],.nxh-web[data-step="2"] .nxh-ctx-s[data-for="2"],.nxh-web[data-step="3"] .nxh-ctx-s[data-for="3"],.nxh-web[data-step="4"] .nxh-ctx-s[data-for="4"]{opacity:1;visibility:visible}
+.nxh-ctx-s>b{font:800 10.5px/1 var(--font-display);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.nxh-ctx-s>b+span{margin-right:10px}
 .nxh-pals,.nxh-fonts{display:flex;gap:6px}
-.nxh-pals button{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid #fff;background:conic-gradient(var(--c1) 0 62%,var(--c2) 62% 100%);box-shadow:0 0 0 1px var(--line);cursor:pointer;transition:box-shadow .2s ease}
+.nxh-pals button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid #fff;background:conic-gradient(var(--c1) 0 62%,var(--c2) 62% 100%);box-shadow:0 0 0 1px var(--line);cursor:pointer;transition:box-shadow .2s ease}
 .nxh-pals button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
-.nxh-fonts button{width:40px;height:30px;padding:0;border-radius:8px;border:1px solid var(--line);background:#fff;font:700 15px/1 var(--font-display);color:var(--ink);cursor:pointer}
+.nxh-fonts button{width:38px;height:26px;padding:0;border-radius:7px;border:1px solid var(--line);background:#fff;font:700 14px/1 var(--font-display);color:var(--ink);cursor:pointer}
 .nxh-fonts button[data-nxh-font="serif"]{font-family:Georgia,"Times New Roman",serif}
 .nxh-fonts button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-/* step 3 · the build log */
-.nxh-console{position:absolute;left:14px;bottom:14px;z-index:3;display:grid;gap:7px;margin:0;padding:12px 14px;border-radius:12px;background:#1B1F33;list-style:none;box-shadow:0 18px 30px -16px rgba(31,31,61,.7);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
-.nxh-web[data-step="2"] .nxh-console{opacity:1;visibility:visible;transform:none}
-.nxh-console li{display:flex;align-items:center;gap:7px;font:600 11.5px/1.2 ui-monospace,"SF Mono",Consolas,monospace;color:#C9D6F5;opacity:0;transition:opacity .25s ease}
-.nxh-console .ic{width:13px;height:13px;color:#7FD1AE}
-.nxh-web[data-step="2"] .nxh-console li{opacity:1}
-.nxh-web[data-step="2"] .nxh-console li:nth-child(1){transition-delay:.35s}.nxh-web[data-step="2"] .nxh-console li:nth-child(2){transition-delay:.75s}.nxh-web[data-step="2"] .nxh-console li:nth-child(3){transition-delay:1.15s}.nxh-web[data-step="2"] .nxh-console li:nth-child(4){transition-delay:1.55s}
+.nxh-ctx-checks span{display:inline-flex;align-items:center;gap:4px;padding:4px 9px 4px 6px;border-radius:999px;background:var(--ok-050);color:var(--ok);font-size:11.5px}
+.nxh-ctx-checks .ic{width:13px;height:13px;color:var(--ok)}
+.nxh-ctx-checks em{margin-left:auto;font-style:normal;font-weight:600;color:var(--muted)}
+.nxh-ctx-live{justify-content:space-between}
+.nxh-ok{display:inline-flex;align-items:center;gap:6px;color:var(--ok)}
+.nxh-ok .ic{color:var(--ok)}
+.nxh-inq{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9px;background:#fff;border:1px solid var(--line);color:var(--ink)}
 /* step 4 · the assistant: ask it one of three questions */
-.nxh-chat{position:absolute;right:14px;bottom:14px;z-index:4;display:grid;gap:8px;width:min(46%,290px);padding:10px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 38px -18px rgba(31,31,61,.55);opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
+.nxh-chat{position:absolute;right:14px;bottom:14px;z-index:4;display:grid;gap:8px;width:min(34%,270px);transform-origin:100% 100%;padding:10px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 38px -18px rgba(31,31,61,.55);opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
 .nxh-web.is-s3 .nxh-chat{opacity:1;visibility:visible;transform:none}
+.nxh-web.is-live .nxh-chat{opacity:0;visibility:hidden;transform:scale(.3)}
+.nxh-web.is-live .nxh-view::after{content:"";position:absolute;right:18px;bottom:18px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 36% 50%,#fff 0 3px,transparent 3.5px),radial-gradient(circle at 50% 50%,#fff 0 3px,transparent 3.5px),radial-gradient(circle at 64% 50%,#fff 0 3px,transparent 3.5px),var(--blue);box-shadow:0 10px 20px -10px rgba(49,103,202,.7),0 0 0 3px #fff}
 .nxh-chat-h{display:flex;align-items:center;gap:7px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 .nxh-chat-h b{font:700 12px/1 var(--font-display);color:var(--ink)}
 .nxh-chat-h small{display:inline-flex;align-items:center;gap:4px;margin-left:auto;font:600 10px/1 var(--font-body);color:var(--ok)}
@@ -630,8 +640,8 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-mini::after{content:"";position:absolute;top:9px;left:8px;width:2px;height:4px;border-radius:1px;background:#9ccbff;box-shadow:4px 0 0 #9ccbff}
 .nxh-chat-log{display:grid;gap:6px;max-height:112px;overflow:hidden;align-content:end}
 .nxh-chat-log p{margin:0;max-width:92%;padding:6px 9px;border-radius:10px;font:500 11.5px/1.35 var(--font-body)}
-.nxh-chat-a{justify-self:start;background:var(--blue-050);color:var(--ink)}
-.nxh-chat-u{justify-self:end;background:var(--ink);color:#fff}
+.nxh-chat-a{justify-self:start;background:var(--alt);border:1px solid var(--line);color:var(--ink)}
+.nxh-chat-u{justify-self:end;background:var(--blue);color:#fff}
 .nxh-chat-t{justify-self:start;display:inline-flex;gap:3px;background:var(--blue-050)}
 .nxh-chat-t i{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:nxhDot .9s ease-in-out infinite}
 .nxh-chat-t i+i{animation-delay:.15s}.nxh-chat-t i+i+i{animation-delay:.3s}
@@ -642,16 +652,6 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxh-chat-qs button{padding:5px 9px;border-radius:999px;border:1px solid var(--blue-100);background:#fff;font:600 11px/1.2 var(--font-body);color:var(--blue-700);cursor:pointer;transition:background-color .2s ease,border-color .2s ease}
 .nxh-chat-qs button:hover{background:var(--blue-050);border-color:var(--blue-300)}
 .nxh-chat-qs button[aria-pressed="true"]{background:var(--blue-050);border-color:var(--blue)}
-/* step 5 · published: a toast, and the first enquiry arrives */
-.nxh-toast,.nxh-lead{position:absolute;z-index:5;display:flex;align-items:center;gap:8px;margin:0;padding:9px 13px;border-radius:12px;font:600 12px/1.25 var(--font-body);box-shadow:0 18px 30px -16px rgba(31,31,61,.6);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
-.nxh-toast{left:50%;top:14px;margin-left:-86px;background:var(--ink);color:#fff}
-.nxh-toast b,.nxh-lead b{font-weight:700;color:inherit}
-.nxh-toast .ic{width:15px;height:15px;color:#7FD1AE}
-.nxh-lead{left:14px;bottom:14px;display:grid;grid-template-columns:auto auto;column-gap:8px;background:#fff;color:var(--ink);border:1px solid var(--line)}
-.nxh-lead .ic{grid-row:1/3;width:16px;height:16px;color:var(--blue)}
-.nxh-lead span{font-weight:500;color:var(--muted)}
-.nxh-web.is-live .nxh-toast{opacity:1;visibility:visible;transform:none}
-.nxh-web.is-live .nxh-lead{opacity:1;visibility:visible;transform:none;transition-delay:1.1s}
 /* a ring where Nexi (or the script) presses a control */
 .nxh-tap{position:absolute;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;box-shadow:0 0 0 3px rgba(49,103,202,.55),0 0 18px 4px rgba(111,160,245,.45);pointer-events:none;animation:nxhTap .7s ease-out forwards}
 @keyframes nxhTap{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.3)}}
@@ -698,7 +698,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxd-dirs{display:flex;gap:2px;padding:3px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(28,35,38,.08),0 8px 16px -12px rgba(28,35,38,.4)}
 .nxd-dirs button{height:26px;padding:0 11px;border:0;border-radius:999px;background:transparent;font:600 11.5px/1 var(--font-body);color:var(--body);cursor:pointer;transition:background-color .25s ease,color .25s ease}
 .nxd-dirs button:hover{color:var(--ink)}
-.nxd-dirs button[aria-pressed="true"]{background:var(--dp);color:#fff}
+.nxd-dirs button[aria-pressed="true"]{background:var(--blue);color:#fff}
 .nxd-dirs button:focus-visible,.nxd:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 /* every piece is a button that lands on the desk (translate / rotate / scale are separate properties, so the
    landing, the hover lift and the switch's wave never fight over one transform) */
@@ -725,7 +725,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .nxd-fan.is-in .c-p{transform:rotate(-21deg)}.nxd-fan.is-in .c-a{transform:rotate(-7deg)}.nxd-fan.is-in .c-s{transform:rotate(7deg)}.nxd-fan.is-in .c-i{transform:rotate(21deg)}
 .nxd-fan::after{content:"";position:absolute;left:50%;bottom:7%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#C9C1B4;box-shadow:inset 0 0 0 2px #fff;z-index:5}
 /* a phone with the latest post */
-.nxd-phone{--k:2;--r0:12deg;--r:4deg;left:72%;top:10%;width:23%;aspect-ratio:9/17.5;padding:1.2cqw;border-radius:22px;background:#15181F;box-shadow:inset 0 0 0 2px #2A2F3A}
+.nxd-phone{--k:2;--r0:12deg;--r:4deg;left:72%;top:10%;width:23%;aspect-ratio:9/17.5;padding:1.2cqw;border-radius:22px;background:linear-gradient(160deg,#F7F9FC,#E3E8F0);box-shadow:inset 0 0 0 1.5px #CFD7E4,inset 0 0 0 4px #fff}
 .nxd-post{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:6px;height:100%;padding:7% 6%;border-radius:15px;background:#fff;overflow:hidden}
 .nxd-post-h{display:flex;align-items:center;gap:5px}
 .nxd-av{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ds);box-shadow:inset 0 0 0 1px rgba(28,35,38,.08)}
@@ -783,7 +783,8 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .slide-inner.si-nexi{gap:16px;padding-top:16px;align-content:start}
   .si-nexi .nxh-stage{order:-1;width:100%;max-width:460px;aspect-ratio:1/1.12}
   .si-nexi .nxh-stage--brand{aspect-ratio:1/.95}
-  .si-web .nxh-stage--web{max-width:560px;aspect-ratio:auto}
+  /* phones: a lane under the website where Nexi presents from, so she never covers the site or the copy */
+  .si-web .nxh-stage--web{max-width:560px;aspect-ratio:auto;padding-bottom:128px}
   .nxh-web{aspect-ratio:1/1.08;border-radius:14px}
   .nxh-bar{height:32px;padding:0 8px 0 10px}
   .nxh-bar>i{width:8px;height:8px}
@@ -809,20 +810,21 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .nxh-pg-hero{grid-template-columns:minmax(0,1fr);padding:12px;gap:10px}
   .nxh-pg-copy b{font-size:19px}
   .nxh-pg-art{min-height:58px}
-  .nxh-pg-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .nxh-pg-cards>i:nth-child(3){display:none}
+  .nxh-pg-cards{gap:8px}
   .nxh-web[data-dev="phone"] .nxh-pg{width:54%}
-  .nxh-web[data-step="2"][data-dev="phone"] .nxh-pg{left:50%;bottom:104px}
-  .nxh-brand-pn{right:10px;top:12px;padding:9px}
-  .nxh-pals button{width:26px;height:26px}
-  .nxh-fonts button{width:34px;height:26px}
-  .nxh-console{left:10px;right:10px;bottom:10px;padding:10px 12px}
-  .nxh-console li{font-size:10.5px}
-  .nxh-chat{right:10px;bottom:10px;width:min(76%,270px)}
-  .nxh-toast{top:10px}
-  .nxh-lead{left:10px;bottom:10px}
-  .nxh-stage--web .nxh-ava--float{left:6%;bottom:2%;width:16%}
-  .nxh-stage--web .nxh-cap{left:14%;bottom:18%;max-width:62%;font-size:13px}
+  .nxh-chat{right:10px;bottom:10px;width:min(64%,250px)}
+  .nxh-ctx{height:36px}
+  .nxh-ctx-s{gap:6px;padding:0 10px;font-size:11.5px}
+  .nxh-ctx-s>b{display:none}
+  .nxh-pals button{width:24px;height:24px}
+  .nxh-fonts button{width:32px;height:24px}
+  .nxh-ctx-checks span{padding:3px 6px 3px 4px;font-size:10.5px}
+  .nxh-ctx-checks em{display:none}
+  .nxh-inq{padding:4px 7px;font-size:10.5px}
+  .nxh-inq .ic{display:none}
+  .nxh-pg-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nxh-stage--web .nxh-ava--float{left:13%;bottom:8px;width:21%}
+  .nxh-stage--web .nxh-cap{left:30%;bottom:34px;max-width:66%;font-size:13px}
   .nxh-desk{left:0;top:9%;border-radius:18px}
   .nxd-head{top:2.5%}
   .nxd-title small{display:none}
@@ -852,6 +854,9 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .nxd-pg-r{transform:none}
   .slide--nexi::after{display:none}
 }
+
+/* on Nexi's slides the hero's own background holds still while she presents */
+.hero.is-nexi-slide .a1,.hero.is-nexi-slide .a2,.hero.is-nexi-slide .a3,.hero.is-nexi-slide .mq-track{animation-play-state:paused}
 
 /* hidden slides keep their looping animations still (they run again the moment the slide shows). Plain
    class-ending selectors, not :is(): see the note on .hero.is-off in site.css */

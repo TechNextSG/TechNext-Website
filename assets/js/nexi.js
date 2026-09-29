@@ -30,8 +30,9 @@
   function webgl() { try { var c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } }
   function onNexiSlide() { var s = hero.querySelector('.slide.is-active'); return !!(s && s.hasAttribute('data-slide-nexi')); }
   function hasNexiSlides() { return !!hero.querySelector('[data-slide-nexi]'); }
-  /* may Nexi draw right now? */
-  function allowed() { return !calm.matches && (desk.matches || onNexiSlide()); }
+  /* may Nexi draw right now? Never under the first-visit intro: she warms up there and starts as it ends */
+  function introOn() { return document.documentElement.classList.contains('intro'); }
+  function allowed() { return !calm.matches && !introOn() && (desk.matches || onNexiSlide()); }
   /* may Nexi exist on this device at all? */
   function possible() { return !calm.matches && (desk.matches || hasNexiSlides()); }
   function script(src, ok) {
@@ -76,9 +77,10 @@
   hero.addEventListener('tn:slide', function () { if (!desk.matches) sync(); });
 
   var saveData = navigator.connection && navigator.connection.saveData;
-  if (desk.matches) { preload(); whenSettled(load); }
-  else if (possible()) {
-    /* a Nexi slide opening the page loads Nexi at once; otherwise the files wait in the cache for one */
-    whenSettled(function () { if (onNexiSlide()) load(); else if (!saveData) preload(); }, onNexiSlide() ? 0 : 2500);
-  }
+  document.addEventListener('tn:intro-done', sync);
+  /* a Nexi slide opening the page loads Nexi at once (during the intro, so her slide's timer never waits for
+     her); otherwise desktop loads her after the hero settles, and phones keep the files in the cache for one */
+  if (onNexiSlide() && possible()) load();
+  else if (desk.matches) { preload(); whenSettled(load); }
+  else if (possible() && !saveData) whenSettled(preload, 2500);
 })();

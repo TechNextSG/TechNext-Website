@@ -265,6 +265,26 @@
               </ol>
               <button class="nxh-publish" type="button" data-nxh-publish>{{icon:send}}<span class="p-off">Publish</span><span class="p-on">Published</span></button>
             </div>
+            <div class="nxh-ctx">
+              <p class="nxh-ctx-s" data-for="-1">{{icon:sparkle}}<span>Nexi builds this website step by step. Try any step yourself.</span></p>
+              <p class="nxh-ctx-s" data-for="0">{{icon:target}}<span>Goals, visitors and pages, agreed before any design starts</span></p>
+              <div class="nxh-ctx-s" data-for="1" role="group" aria-label="Brand colours and type">
+                <b>Brand</b>
+                <span class="nxh-pals">
+                  <button type="button" data-nxh-pal="0" aria-pressed="true" aria-label="Blue palette" style="--c1:#3167CA;--c2:#8C7BFF"></button>
+                  <button type="button" data-nxh-pal="1" aria-pressed="false" aria-label="Teal palette" style="--c1:#0E7C74;--c2:#F2A541"></button>
+                  <button type="button" data-nxh-pal="2" aria-pressed="false" aria-label="Plum palette" style="--c1:#7A3E8F;--c2:#F07A5A"></button>
+                </span>
+                <b>Type</b>
+                <span class="nxh-fonts">
+                  <button type="button" data-nxh-font="sans" aria-pressed="true" aria-label="Sans-serif headings">Aa</button>
+                  <button type="button" data-nxh-font="serif" aria-pressed="false" aria-label="Serif headings">Aa</button>
+                </span>
+              </div>
+              <p class="nxh-ctx-s nxh-ctx-checks" data-for="2"><span>{{icon:check}}Pages</span><span>{{icon:check}}Images</span><span>{{icon:check}}SEO</span><span>{{icon:check}}Contact form</span><em>Try the phone view</em></p>
+              <p class="nxh-ctx-s" data-for="3">{{icon:bot}}<span>Assistant on: it answers from your own content</span></p>
+              <p class="nxh-ctx-s nxh-ctx-live" data-for="4"><span class="nxh-ok">{{icon:check}}Live on your-site.com</span><span class="nxh-inq">{{icon:mail}}New enquiry from the contact form</span></p>
+            </div>
             <div class="nxh-view">
               <p class="nxh-empty" aria-hidden="true">Your new website</p>
               <div class="nxh-board" aria-hidden="true">
@@ -274,31 +294,13 @@
                 <div class="nxh-map" style="--n:3"><b>{{icon:layers}}Pages</b><span class="nxh-map-home">Home</span><span class="nxh-map-kids"><i>Services</i><i>About</i><i>Contact</i></span></div>
               </div>
               <div class="nxh-pg" aria-hidden="true">
-                <div class="nxh-pg-nav"><i class="nxh-pg-logo"></i><span>Services</span><span>About</span><span>Contact</span><i class="nxh-pg-burger"></i><i class="nxh-pg-btn">Get a quote</i></div>
+                <div class="nxh-pg-nav"><span class="nxh-pg-logo"><i></i><b>Your brand</b></span><span>Services</span><span>About</span><span>Contact</span><i class="nxh-pg-burger"></i><i class="nxh-pg-btn">Get a quote</i></div>
                 <div class="nxh-pg-hero">
                   <div class="nxh-pg-copy"><b>Your brand, online.</b><p>Short copy, real information and fast pages.</p><i class="nxh-pg-cta">Book a call</i></div>
                   <i class="nxh-pg-art"><i></i><i></i><i></i></i>
                 </div>
-                <div class="nxh-pg-cards"><i><u></u><s></s><s></s></i><i><u></u><s></s><s></s></i><i><u></u><s></s><s></s></i></div>
+                <div class="nxh-pg-cards"><i><u></u><b>Services</b><s></s></i><i><u></u><b>Our work</b><s></s></i></div>
               </div>
-              <div class="nxh-brand-pn" role="group" aria-label="Brand colours and type">
-                <b aria-hidden="true">Brand</b>
-                <span class="nxh-pals">
-                  <button type="button" data-nxh-pal="0" aria-pressed="true" aria-label="Blue palette" style="--c1:#3167CA;--c2:#8C7BFF"></button>
-                  <button type="button" data-nxh-pal="1" aria-pressed="false" aria-label="Teal palette" style="--c1:#0E7C74;--c2:#F2A541"></button>
-                  <button type="button" data-nxh-pal="2" aria-pressed="false" aria-label="Plum palette" style="--c1:#7A3E8F;--c2:#F07A5A"></button>
-                </span>
-                <span class="nxh-fonts">
-                  <button type="button" data-nxh-font="sans" aria-pressed="true" aria-label="Sans-serif headings">Aa</button>
-                  <button type="button" data-nxh-font="serif" aria-pressed="false" aria-label="Serif headings">Aa</button>
-                </span>
-              </div>
-              <ol class="nxh-console" aria-hidden="true">
-                <li>{{icon:check}}Pages built from sections</li>
-                <li>{{icon:check}}Images sized for every screen</li>
-                <li>{{icon:check}}Titles, sitemap and analytics</li>
-                <li>{{icon:check}}Contact form wired to your inbox</li>
-              </ol>
               <div class="nxh-chat">
                 <div class="nxh-chat-h" aria-hidden="true"><i class="nxh-mini"></i><b>Assistant</b><small>online</small></div>
                 <div class="nxh-chat-log" aria-live="polite"><p class="nxh-chat-a">Hi! Ask me anything.</p></div>
@@ -308,8 +310,6 @@
                   <button type="button" data-nxh-q="2">Can I talk to a person?</button>
                 </div>
               </div>
-              <p class="nxh-toast" aria-live="polite">{{icon:check}}<b>Your site is live</b></p>
-              <p class="nxh-lead" aria-hidden="true">{{icon:mail}}<b>New enquiry</b><span>from the contact form</span></p>
             </div>
           </div>
           <span class="nxh-ava nxh-ava--float" aria-hidden="true"><i></i></span>

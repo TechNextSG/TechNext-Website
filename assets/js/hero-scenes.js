@@ -1138,35 +1138,36 @@
   // Slide 4 is a website that builds itself: Nexi flies to each part and presses its controls (tap), and the
   // visitor can press every one of them too. While it presents nothing decorative moves: only the website changes.
   // Slide 5 is the brand kit, where Nexi over-reacts to every piece.
+  // speakAt: when her line starts (ms into the beat). Whatever the beat changes on the stage happens before it,
+  // so while she talks nothing else moves.
   var MEET = [
     { d: 1.5, cue: 'closeup', veil: 1 },
-    { d: 1.8, cue: 'knock', say: 'Knock knock!' },
-    { d: 2.4, cue: 'cute', say: 'Hi! It’s me, Nexi!' },
-    { d: 2.4, cue: 'home', veil: 0, say: 'I’m TechNext’s AI companion.' },
-    { d: 2.6, cue: 'present', at: 'web', say: 'TechNext builds websites like this one…' },
-    { d: 2.6, cue: 'wave', say: '…and puts AI assistants like me on them!' },
-    { d: 3.2, step: 0, cue: 'visit', at: 'board', say: 'Step 1: the brief. Your goals, your visitors, your pages.' },
-    { d: 3.4, step: 1, cue: 'visit', at: 'brand', tap: 'pal', say: 'Step 2: design. Your brand on every page.' },
-    { d: 3.4, step: 2, cue: 'visit', at: 'dev', tap: 'phone', say: 'Step 3: build. Fast, and made for phones.' },
-    { d: 3.6, step: 3, cue: 'visit', at: 'chat', tap: 'ask', say: 'Step 4: an assistant like me, answering from your content.' },
-    { d: 3.2, step: 4, cue: 'visit', at: 'publish', tap: 'publish', say: 'Step 5: publish! Your site is live.' },
-    { d: 2.8, cue: 'point', at: 'cta', home: 900, say: 'Want a website that talks back? Let’s build it!' }
+    { d: 1.9, cue: 'knock', say: 'Knock knock!', speakAt: 250 },
+    { d: 2.5, cue: 'cute', say: 'Hi! It’s me, Nexi!', speakAt: 250 },
+    { d: 2.9, cue: 'home', veil: 0, say: 'I’m TechNext’s AI companion.', speakAt: 1300 },
+    { d: 3.6, cue: 'point', at: 'web', say: 'TechNext builds websites like this one, and puts AI like me on them!', speakAt: 700 },
+    { d: 4.0, step: 0, cue: 'visit', at: 'board', say: 'Step 1: the brief. Your goals, your visitors, your pages.', speakAt: 1100 },
+    { d: 4.3, step: 1, cue: 'visit', at: 'pals', tap: 'pal', say: 'Step 2: design. Your brand on every page.', speakAt: 1800 },
+    { d: 4.3, step: 2, cue: 'visit', at: 'dev', tap: 'phone', say: 'Step 3: build. Fast, and made for phones.', speakAt: 1900 },
+    { d: 4.6, step: 3, cue: 'visit', at: 'chat', tap: 'ask', say: 'Step 4: an assistant like me, answering from your content.', speakAt: 1900 },
+    { d: 4.1, step: 4, cue: 'visit', at: 'publish', tap: 'publish', say: 'Step 5: publish! Your site is live.', speakAt: 1800 },
+    { d: 3.2, cue: 'point', at: 'cta', home: 900, say: 'Want a website that talks back? Let’s build it!', speakAt: 1500 }
   ];
   var BRAND = [
-    { d: 1.9, cue: 'zoomin', say: 'Ooh! Brand time!' },
-    { d: 2.5, cue: 'gasp', item: 'logo', pow: 'WOW!', say: 'A logo?! Gasp!' },
-    { d: 2.5, cue: 'star', item: 'fan', pow: 'OOH!', say: 'Look at these colours!' },
-    { d: 2.5, cue: 'love', item: 'type', pow: '♥', say: 'I love this type pair!' },
-    { d: 2.4, cue: 'bigjump', item: 'phone', pow: 'YES!', say: 'Posts for every channel!' },
-    { d: 2.4, cue: 'wiggle', item: 'cards', pow: 'FANCY!', say: 'Business cards too?!' },
-    { d: 2.8, cue: 'faint', item: 'book', say: 'A whole brand guideline… too good…' },
-    { d: 2.8, cue: 'gasp', dir: 'b', pow: 'BOLD!', say: 'Now watch. One switch…' },
-    { d: 2.6, cue: 'celebrate', dir: 'c', fx: 'confetti', say: '…and every piece changes together!' },
-    { d: 2.8, cue: 'point', at: 'cta', home: 520, say: 'Want a brand kit like this? Let’s talk!' }
+    { d: 2.2, cue: 'zoomin', say: 'Ooh! Brand time!', speakAt: 900 },
+    { d: 2.7, cue: 'gasp', item: 'logo', pow: 'WOW!', say: 'A logo?! Gasp!', speakAt: 800 },
+    { d: 2.7, cue: 'star', item: 'fan', pow: 'OOH!', say: 'Look at these colours!', speakAt: 800 },
+    { d: 2.7, cue: 'love', item: 'type', pow: '♥', say: 'I love this type pair!', speakAt: 800 },
+    { d: 2.7, cue: 'bigjump', item: 'phone', pow: 'YES!', say: 'Posts for every channel!', speakAt: 800 },
+    { d: 2.7, cue: 'wiggle', item: 'cards', pow: 'FANCY!', say: 'Business cards too?!', speakAt: 800 },
+    { d: 3.1, cue: 'faint', item: 'book', say: 'A whole brand guideline… too good…', speakAt: 800 },
+    { d: 4.0, cue: 'gasp', dir: 'b', pow: 'BOLD!', say: 'Now watch. One switch…', speakAt: 2000 },
+    { d: 3.8, cue: 'celebrate', dir: 'c', say: '…and every piece changes together!', speakAt: 2000 },
+    { d: 3.2, cue: 'point', at: 'cta', home: 520, say: 'Want a brand kit like this? Let’s talk!', speakAt: 1100 }
   ];
   // the assistant's sample answers (the same sample shop as /solutions/ai-chatbots)
   var ANSWERS = ['Yes, 9am to 1pm. Shall I book a slot?', 'Order S00419 left the warehouse today. It arrives tomorrow.', 'Of course. I’m passing you to our team with this chat.'];
-  var POW_C = { 'WOW!': '#E4572E', 'OOH!': '#7447D6', '♥': '#F0508C', 'YES!': '#0E9384', 'FANCY!': '#D97B12', 'BOLD!': '#1A1D29' };
+  var POW_C = { 'WOW!': '#E4572E', 'OOH!': '#7447D6', '♥': '#F0508C', 'YES!': '#0E9384', 'FANCY!': '#D97B12', 'BOLD!': '#3167CA' };
   var CONF_C = ['#3167CA', '#6FA0F5', '#8C7BFF', '#FF7EB6', '#F3D28B', '#7FD1AE', '#1F4E5A', '#9E5230'];
   var NTAP = ['Hee hee, that tickles!', 'Boop! Hi again!', 'You found me!', 'Hello, friend!'];
   function NexiStage(root) {
@@ -1220,12 +1221,12 @@
       add('nxh-chat-u', btn ? btn.textContent : '');
       var t = add('nxh-chat-t', ''); t.innerHTML = '<i></i><i></i><i></i>';
       var done = function () { typing = null; t.remove(); add('nxh-chat-a', ANSWERS[k]); };
-      typing = { fn: done, t: setTimeout(done, 950) };
+      typing = { fn: done, t: setTimeout(done, 600) };
     }
     function publish() {
       if (!web || web.classList.contains('is-live') || web.classList.contains('is-publishing')) return;
       web.classList.add('is-publishing');
-      setTimeout(function () { web.classList.remove('is-publishing'); web.classList.add('is-live'); sfx('sparkle'); }, 950);
+      setTimeout(function () { web.classList.remove('is-publishing'); web.classList.add('is-live'); sfx('sparkle'); }, 600);
     }
     function showStep(n) {
       if (!web) return;
@@ -1233,7 +1234,7 @@
       for (var k = 0; k <= 4; k++) web.classList.toggle('is-s' + k, k <= n);
       if (n < 1) web.classList.remove('is-painted');
       else if (n > 1) paint();
-      else if (!web.classList.contains('is-painted')) later(750, paint);
+      else if (!web.classList.contains('is-painted')) later(450, paint);
       if (n < 4) web.classList.remove('is-live', 'is-publishing');
       if (n !== 2 && phoneByScript && web.dataset.dev === 'phone') { setDev('desk'); phoneByScript = false; }
       chips.forEach(function (c, k) { var li = c.parentNode; li.classList.toggle('is-on', k === n); li.classList.toggle('is-done', k < n); c.setAttribute('aria-pressed', k === n ? 'true' : 'false'); });
@@ -1317,7 +1318,7 @@
       switch (b.at) {
         case 'web': return web;
         case 'board': return q('.nxh-board') || web;
-        case 'brand': return q('.nxh-brand-pn') || web;
+        case 'pals': return q('.nxh-pals') || web;
         case 'dev': return q('.nxh-devs') || web;
         case 'chat': return q('.nxh-chat') || web;
         case 'publish': return q('[data-nxh-publish]') || web;
@@ -1335,27 +1336,27 @@
         var el = items[b.item];
         cueBot('visit', el);
         later(260, function () { drop(b.item); });
-        later(620, function () { cueBot(b.cue, el); if (b.pow) pow(el, b.pow); });
+        later(760, function () { cueBot(b.cue, el); if (b.pow) pow(el, b.pow); });
         return;
       }
       if (b.dir) {
         var dirs = q('.nxd-dirs'), btn = q('[data-nxd-dir="' + b.dir + '"]');
         cueBot('visit', dirs);
         later(mode === '3d' ? 800 : 300, function () { cueBot('tap', btn); press(btn); setDir(b.dir); });
-        later(mode === '3d' ? 1250 : 600, function () { cueBot(b.cue, desk); if (b.pow) pow(dirs, b.pow); });
+        later(mode === '3d' ? 1950 : 700, function () { cueBot(b.cue, desk); if (b.pow) pow(dirs, b.pow); });
         return;
       }
       if (b.home) { cueBot('home'); later(b.home, function () { cueBot(b.cue, target(b)); }); return; }
       cueBot(b.cue, target(b));
-      if (b.tap) later(mode === '3d' ? 1150 : 450, function () { tapIt(b.tap); });
+      if (b.tap) later(mode === '3d' ? 1000 : 400, function () { tapIt(b.tap); });
     }
     function beat() {
       if (!on) return;
       if (i >= BEATS.length) { root.classList.add('is-over'); return; }
       var b = BEATS[i], id = ++run;
       clearSoon(); apply(b);
-      // a line said on the way somewhere waits until she gets there, so the bubble appears beside her
-      var spoken = null, wait = b.cue === 'home' ? 1250 : b.cue === 'zoomin' ? 700 : b.cue === 'visit' ? 650 : (b.item || b.dir) ? 420 : 0;
+      // her line waits until she has arrived and the stage has changed: while she speaks nothing else moves
+      var spoken = null, wait = mode === '3d' ? (b.speakAt || 0) : Math.min(b.speakAt || 0, 600);
       var speakNow = function () { if (b.say) spoken = say(b.say, Math.max(0.8, b.d - wait / 1000)); };
       if (wait && mode === '3d') later(wait, speakNow); else speakNow();
       after(b.d * 1000, function () {
@@ -1369,7 +1370,10 @@
       if (!on || k < 0) return;
       heroHold('nexi-talk', false); if (window.TNVoice) window.TNVoice.stop();
       if (slide.classList.contains('is-nxh-close')) { veil(false); cueBot('home'); }
-      root.classList.remove('is-over'); i = k; beat();
+      root.classList.remove('is-over'); i = k;
+      var rest = 1.5; for (var r = k; r < BEATS.length; r++) rest += BEATS[r].d;
+      hero.dispatchEvent(new CustomEvent('tn:hero-dur', { detail: { ms: Math.round(rest * 1000) } }));
+      beat();
     }
     function findBeat(key, n) { for (var k = 0; k < BEATS.length; k++) if (BEATS[k][key] === n) return k; return -1; }
     root.addEventListener('click', function (e) {
