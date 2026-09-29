@@ -3,13 +3,14 @@
    small robot sounds (chirp, knock, pop, sparkle...) made with Web Audio, so there are no sound files.
    Off until the visitor turns it on with a speaker button ([data-nexi-voice]); the choice is remembered.
    Browsers allow sound only after a tap, so a remembered "on" waits for the first tap on the page.
-   window.TNVoice: on (read-only), set(on), say(text) -> Promise (resolves when the line has been spoken,
-   false if it was not), stop(), sfx(name). */
+   window.TNVoice: on, live, speaking (read-only), set(on), say(text) -> Promise (true when the line has been
+   spoken, 'cut' when a newer line interrupted it, 'stop' when stopped, false if it was not spoken), stop(), sfx(name).
+   Turning the voice on fires a cancelable tn:voice; a listener that reads out its own line cancels the greeting. */
 (function () {
   'use strict';
   var KEY = 'tn_nexi_voice';
   var synth = window.speechSynthesis || null;
-  var on = false, unlocked = false, ctx = null, voice = null;
+  var on = false, unlocked = false, ctx = null, voice = null, current = null;
   try { on = localStorage.getItem(KEY) === '1'; } catch (e) { /* storage may be blocked */ }
 
   /* a clear, bright English voice where the device has one (the exact voice differs by device) */
@@ -21,6 +22,8 @@
     for (var i = 0; i < prefer.length; i++) for (var j = 0; j < en.length; j++) if (prefer[i].test(en[j].name)) return en[j];
     return en[0] || all[0] || null;
   }
+  // no speech engine on this device: the voice buttons have nothing to do
+  if (!synth) document.documentElement.classList.add('no-voice');
   if (synth && 'onvoiceschanged' in synth) synth.addEventListener('voiceschanged', function () { voice = pickVoice(); });
 
   /* what the speech engine should not read: stage directions (*taps the glass*), emoji and symbols */
@@ -34,19 +37,21 @@
       var t = clean(text);
       if (!on || !unlocked || !synth || !/[a-z0-9]/i.test(t)) return res(false);
       try {
+        if (current) current('cut');                            // the line playing now was interrupted, not spoken
         synth.cancel();
         var u = new SpeechSynthesisUtterance(t), done = false, tm = 0;
         voice = voice || pickVoice();
         if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = 'en-US';
         u.pitch = 1.5; u.rate = 1.04; u.volume = 1;
-        var fin = function () { if (!done) { done = true; clearTimeout(tm); res(true); } };
-        u.onend = fin; u.onerror = fin;
-        tm = setTimeout(fin, 1600 + t.length * 95);             // some engines never fire onend
+        var fin = function (why) { if (done) return; done = true; clearTimeout(tm); if (current === fin) current = null; res(why || true); };
+        current = fin;
+        u.onend = function () { fin(true); }; u.onerror = function () { fin(true); };
+        tm = setTimeout(function () { fin(true); }, 1600 + t.length * 95);   // some engines never fire onend
         synth.speak(u);
-      } catch (e) { res(false); }
+      } catch (e) { current = null; res(false); }
     });
   }
-  function stop() { if (synth) try { synth.cancel(); } catch (e) { /* ignore */ } }
+  function stop() { if (current) current('stop'); if (synth) try { synth.cancel(); } catch (e) { /* ignore */ } }
 
   /* ---------- sounds ---------- */
   function ac() {
@@ -97,22 +102,28 @@
   function paint() {
     [].forEach.call(document.querySelectorAll('[data-nexi-voice]'), function (b) {
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      b.setAttribute('aria-label', on ? 'Turn Nexi’s voice off' : 'Turn Nexi’s voice on');
-      var l = b.querySelector('[data-voice-label]'); if (l) l.textContent = on ? l.getAttribute('data-on') : l.getAttribute('data-off');
+      // a button with visible text is named by it; the icon-only one by a fixed name (its state is aria-pressed)
+      var l = b.querySelector('[data-voice-label]');
+      if (l) { l.textContent = on ? l.getAttribute('data-on') : l.getAttribute('data-off'); b.removeAttribute('aria-label'); }
+      else b.setAttribute('aria-label', 'Nexi’s voice');
     });
     document.documentElement.classList.toggle('nexi-voice', on);
   }
+  // returns true when a listener took the moment (it reads out its own line instead of the greeting)
   function set(v) {
     on = !!v;
     try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) { /* storage may be blocked */ }
-    if (!on) stop();
+    if (!on) { stop(); if (ctx && ctx.state === 'running') try { ctx.suspend(); } catch (e) { /* ignore */ } }
     paint();
-    document.dispatchEvent(new CustomEvent('tn:voice', { detail: { on: on } }));
+    var ev = new CustomEvent('tn:voice', { detail: { on: on }, cancelable: true });
+    document.dispatchEvent(ev);
+    return ev.defaultPrevented;
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-nexi-voice]'); if (!b) return;
-    e.preventDefault(); unlock(); set(!on);
-    if (on) { sfx('chirp'); say('Hi! I’m Nexi. Now you can hear me!'); }
+    e.preventDefault(); unlock();
+    var taken = set(!on);
+    if (on) { sfx('chirp'); if (!taken) say('Hi! I’m Nexi. Now you can hear me!'); }
   });
   // a remembered "on" needs one tap somewhere before any sound
   ['pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (on) unlock(); }, { capture: true, passive: true }); });
@@ -121,4 +132,5 @@
   window.TNVoice = { say: say, stop: stop, sfx: sfx, set: set };
   Object.defineProperty(window.TNVoice, 'on', { get: function () { return on; } });
   Object.defineProperty(window.TNVoice, 'live', { get: function () { return on && unlocked; } });
+  Object.defineProperty(window.TNVoice, 'speaking', { get: function () { return !!current; } });
 })();

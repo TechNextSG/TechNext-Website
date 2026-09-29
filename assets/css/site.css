@@ -715,6 +715,8 @@ html.intro .mq-track{animation:none}
 /* #intro, not .intro: <html> carries class "intro" while the overlay plays, and must keep its normal layout */
 #intro{position:fixed;inset:0;z-index:300;place-items:center;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent}
 html.intro{overflow:hidden}
+/* the scrollbar's room is kept while the intro hides it, so ending the intro never changes the page's width */
+html{scrollbar-gutter:stable}
 /* (a) 0–0.9 s, from the first paint: a soft bloom opens and the grid's lines unfold from the centre */
 .intro-sheet{position:absolute;inset:0;background:#fff}
 .intro-grid{position:absolute;inset:0;-webkit-mask-image:radial-gradient(ellipse 64% 58% at 50% 50%,#000 25%,transparent 100%);mask-image:radial-gradient(ellipse 64% 58% at 50% 50%,#000 25%,transparent 100%)}
@@ -803,7 +805,8 @@ html.intro{overflow:hidden}
 
 /* ---------- hero camera transitions (desktop only) ----------
    Every slide change is a ~3 s camera move: the leaving slide exits with its own style while the
-   arriving slide comes in with a 360° orbit-zoom, spiral or tumble. --cam delays the inner reveals. */
+   arriving slide comes in with a 360° orbit-zoom, spiral or tumble. --cam delays the inner reveals.
+   Transform and opacity only: a blur on the whole slide re-rendered two full slides every frame of the move. */
 @media (min-width:961px){
   .hero-track>.slide{perspective:1600px;perspective-origin:50% 45%}
   .slide.is-leaving{position:absolute;inset:0;opacity:1;visibility:visible;pointer-events:none;z-index:1}
@@ -815,16 +818,10 @@ html.intro{overflow:hidden}
   .cam-in-orbit .slide-inner{animation:camOrbitIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
   .cam-in-spiral .slide-inner{animation:camSpiralIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
   .cam-in-tumble .slide-inner{animation:camTumbleIn 2.1s cubic-bezier(.2,.8,.2,1) .75s both}
-  .hero-track>.cam-in-orbit{animation:camBlurOrbit 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
-  .hero-track>.cam-in-spiral{animation:camBlurSpiral 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
-  .hero-track>.cam-in-tumble{animation:camBlurTumble 2.1s cubic-bezier(.2,.8,.2,1) .75s backwards}
-  .cam-first .slide-inner,.hero-track>.cam-first{animation-delay:.05s}
+  .cam-first .slide-inner{animation-delay:.05s}
   .cam-out-spin .slide-inner{animation:camOutSpin 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .cam-out-fly .slide-inner{animation:camOutFly 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .cam-out-tilt .slide-inner{animation:camOutTilt 1.15s cubic-bezier(.5,0,.8,.4) forwards}
-  .hero-track>.cam-out-spin{animation:camBlurOutSpin 1.15s cubic-bezier(.5,0,.8,.4) forwards}
-  .hero-track>.cam-out-fly{animation:camBlurOutFly 1.15s cubic-bezier(.5,0,.8,.4) forwards}
-  .hero-track>.cam-out-tilt{animation:camBlurOutTilt 1.15s cubic-bezier(.5,0,.8,.4) forwards}
   .hero.is-cam .hero-bg{animation:bgBreathe 3s cubic-bezier(.2,.8,.2,1)}
 }
 @keyframes camOrbitIn{
@@ -832,25 +829,19 @@ html.intro{overflow:hidden}
   16%{opacity:1}
   100%{transform:none;opacity:1}
 }
-@keyframes camBlurOrbit{0%{filter:blur(16px)}70%{filter:blur(2px)}100%{filter:blur(0)}}
 @keyframes camSpiralIn{
   0%{transform:translateZ(-900px) rotate(-360deg) rotateX(-25deg) scale(.15);opacity:0}
   18%{opacity:1}
   100%{transform:none;opacity:1}
 }
-@keyframes camBlurSpiral{0%{filter:blur(14px)}75%{filter:blur(1px)}100%{filter:blur(0)}}
 @keyframes camTumbleIn{
   0%{transform:translateZ(-1200px) rotateX(-360deg) rotateY(-18deg) translateY(-30%) scale(.6);opacity:0}
   18%{opacity:1}
   100%{transform:none;opacity:1}
 }
-@keyframes camBlurTumble{0%{filter:blur(14px)}72%{filter:blur(1.5px)}100%{filter:blur(0)}}
 @keyframes camOutSpin{to{transform:translateZ(-900px) rotateY(95deg) translateX(-30%) scale(.7);opacity:0}}
 @keyframes camOutFly{to{transform:translateZ(900px) translateY(6%) scale(1.35);opacity:0}}
 @keyframes camOutTilt{to{transform:rotateX(82deg) translateY(-35%) translateZ(-300px) scale(.85);opacity:0}}
-@keyframes camBlurOutSpin{to{filter:blur(12px)}}
-@keyframes camBlurOutFly{to{filter:blur(14px)}}
-@keyframes camBlurOutTilt{to{filter:blur(10px)}}
 @keyframes bgBreathe{0%{transform:scale(1.08)}100%{transform:none}}
 
 /* ---------- hero 3D tilt stage (desktop, fine pointer) ----------

@@ -58,7 +58,10 @@
       }
       document.documentElement.classList.remove('intro');
       document.body.style.overflow = '';
-      document.dispatchEvent(new CustomEvent('tn:intro-done'));
+      // the hero, its scenes and Nexi start on the next frame, after the iris's first one (a timer covers a tab
+      // where frames are paused)
+      var told = false, tell = function () { if (told) return; told = true; document.dispatchEvent(new CustomEvent('tn:intro-done')); };
+      requestAnimationFrame(tell); setTimeout(tell, 120);
       setTimeout(function () { el.remove(); }, IRIS_MS + 60);
     }
 
@@ -156,7 +159,8 @@
       if (Math.abs(W - lastW) > 100 && !done) { lastW = W; restart(); }
     });
     el.addEventListener('click', finish); // let impatient visitors skip (the Skip button is inside)
-    document.addEventListener('keydown', function onKey(e) { if (e.key === 'Escape' || e.key === 'Enter') { finish(); document.removeEventListener('keydown', onKey); } });
+    // Escape, Enter or Tab ends it (Tab: keyboard focus would otherwise move behind the overlay)
+    document.addEventListener('keydown', function onKey(e) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === 'Tab') { finish(); document.removeEventListener('keydown', onKey); } });
   })();
 
   /* ---------------- header: scrolled state + click-to-open mega menus ---------------- */

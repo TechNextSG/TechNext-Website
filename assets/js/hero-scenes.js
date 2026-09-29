@@ -217,7 +217,7 @@
       var fw = Math.round(W * 2 * dpr), fh = Math.round(H * 2 * dpr);
       if (fx.width !== fw) fx.width = fw;
       if (fx.height !== fh) fx.height = fh;
-      gdpr = Math.min(2, window.devicePixelRatio || 1);
+      gdpr = Math.min(1.5, window.devicePixelRatio || 1);
       var gw = Math.round(W * 1.3 * gdpr), gh = Math.round(H * 1.08 * gdpr);
       if (gl.width !== gw) gl.width = gw;
       if (gl.height !== gh) gl.height = gh;
@@ -277,7 +277,7 @@
       apps.forEach(function (a) {
         var R = RINGS[a.ring], p = at(G[a.ring], a.slot + rot[a.ring]);
         var sc = .8 + .34 * p.d, op = .42 + .58 * p.d, blur = p.d < .5 ? (.5 - p.d) * 3.2 : 0;
-        var x = p.x, y = p.y, spin = 0;
+        var x = p.x, y = p.y, spin = 0, fly = false;
         if (a.fly && !a.landed) {
           var f = a.fly, q = clamp((t - f.delay) / f.dur, 0, 1), e = easeOut(q);
           if (q <= 0) { setOp(a, '0'); a.x = p.x; a.y = p.y; a.d = p.d; return; }
@@ -285,7 +285,7 @@
             a.landed = true; landed++; a.el.classList.add('is-landed');
             if (landed === apps.length) { root.classList.add('is-live'); nextPacket = now + 700; }
           } else {
-            flying++;
+            flying++; fly = true;
             var mx = (f.x0 + x) / 2 - (y - f.y0) * f.bend, my = (f.y0 + y) / 2 + (x - f.x0) * f.bend;
             var u = 1 - e;
             x = u * u * f.x0 + 2 * u * e * mx + e * e * p.x; y = u * u * f.y0 + 2 * u * e * my + e * e * p.y;
@@ -296,15 +296,17 @@
         }
         if (a === hot) { sc *= 1.22; op = 1; blur = 0; }
         else if (hot) op *= .55;
-        var s = a.sz || R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 9) : 1 + Math.round(p.d * 16);
+        // stacking in a few bands (behind or in front of the dashboard, near or far): every change of z-index
+        // re-layers the hero, so it changes a few times a lap, not every few frames
+        var s = a.sz || R.size, z = p.d >= .5 ? 30 + Math.round(p.d * 4) : 1 + Math.round(p.d * 6);
         if (a === hot) z = 60;
         a.x = x; a.y = y; a.d = p.d;
         var tf = 'translate(' + (x - s / 2).toFixed(1) + 'px,' + (y - s / 2).toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')' + (spin ? ' rotate(' + spin.toFixed(1) + 'deg)' : '');
         if (a.tf !== tf) { a.tf = tf; a.pos.style.transform = tf; }
         setOp(a, op.toFixed(3));
-        // depth-of-field blur in 0.25 px steps (at most 1.6 px at rest): the filter is rewritten a few
-        // times a second instead of on every app in every frame
-        var fl = blur > .15 ? 'blur(' + Math.max(.25, Math.round(blur * 4) / 4).toFixed(2) + 'px)' : '';
+        // depth-of-field blur: at rest two steps on the far side of the orbit (a change re-layers the hero, so
+        // an app changes it about four times a lap); while it flies in, whole pixels
+        var fl = a === hot ? '' : fly ? (blur > .5 ? 'blur(' + Math.round(blur) + 'px)' : '') : (p.d < .2 ? 'blur(1.4px)' : p.d < .36 ? 'blur(.7px)' : '');
         if (a.fl !== fl) { a.fl = fl; a.pos.style.filter = fl; }
         if (a.z !== z) { a.z = z; a.pos.style.zIndex = z; }
       });
@@ -781,9 +783,9 @@
         // hide without animating the un-draw, then let the reveal draw it in
         g.p.style.transition = 'none'; g.p.style.setProperty('--len', g.len.toFixed(1)); g.p.classList.remove('is-in');
       });
-      // commit the no-transition style with a style-only read (computed stroke-dashoffset needs no layout)
-      Object.keys(geoE).forEach(function (id) { void getComputedStyle(geoE[id].p).strokeDashoffset; });
-      Object.keys(geoE).forEach(function (id) { geoE[id].p.style.transition = ''; });
+      // re-arm the transitions two frames later, once the hidden state has been drawn (reading a computed style
+      // here forced a style pass over the whole page in the click that changed the slide)
+      requestAnimationFrame(function () { requestAnimationFrame(function () { Object.keys(geoE).forEach(function (id) { geoE[id].p.style.transition = ''; }); }); });
       if (reduce) { showAll(); return; }
       // phones: the map scrolls sideways in its panel, so instead of a zoom the view pans across it once
       if (phone.matches) { showAll(); panning = { t0: now + delay, dur: 5200 }; view.scrollLeft = 0; return; }
@@ -1323,10 +1325,10 @@
     { d: 2.9, cue: 'home', veil: 0, say: 'I’m TechNext’s AI companion.', speakAt: 1300 },
     { d: 3.6, cue: 'point', at: 'web', say: 'TechNext builds websites like this one, and puts AI like me on them!', speakAt: 700 },
     { d: 4.0, step: 0, cue: 'visit', at: 'board', say: 'Step 1: the brief. Your goals, your visitors, your pages.', speakAt: 1100 },
-    { d: 4.3, step: 1, cue: 'visit', at: 'pals', tap: 'pal', say: 'Step 2: design. Your brand on every page.', speakAt: 1800 },
-    { d: 4.3, step: 2, cue: 'visit', at: 'dev', tap: 'phone', say: 'Step 3: build. Fast, and made for phones.', speakAt: 1900 },
+    { d: 5.0, step: 1, cue: 'visit', at: 'pals', tap: 'pal', say: 'Step 2: design. Your brand on every page.', speakAt: 2600 },
+    { d: 5.0, step: 2, cue: 'visit', at: 'dev', tap: 'views', say: 'Step 3: build. Every page works on desktop, tablet and phone.', speakAt: 2700 },
     { d: 4.6, step: 3, cue: 'visit', at: 'chat', tap: 'ask', say: 'Step 4: an assistant like me, answering from your content.', speakAt: 1900 },
-    { d: 4.1, step: 4, cue: 'visit', at: 'publish', tap: 'publish', say: 'Step 5: publish! Your site is live.', speakAt: 1800 },
+    { d: 6.2, step: 4, cue: 'visit', at: 'publish', tap: 'publish', say: 'Step 5: publish! Your site is live, and the first enquiry is in.', alt: 'Step 5: publish! Your site is live.', speakAt: 4100 },
     { d: 3.2, cue: 'point', at: 'cta', home: 900, say: 'Want a website that talks back? Let’s build it!', speakAt: 1500 }
   ];
   var BRAND = [
@@ -1341,10 +1343,10 @@
     { d: 3.8, cue: 'celebrate', dir: 'c', say: '…and every piece changes together!', speakAt: 2000 },
     { d: 3.2, cue: 'point', at: 'cta', home: 520, say: 'Want a brand kit like this? Let’s talk!', speakAt: 1100 }
   ];
-  // the assistant's sample answers (the same sample shop as /solutions/ai-chatbots)
-  var ANSWERS = ['Yes, 9am to 1pm. Shall I book a slot?', 'Order S00419 left the warehouse today. It arrives tomorrow.', 'Of course. I’m passing you to our team with this chat.'];
-  var POW_C = { 'WOW!': '#E4572E', 'OOH!': '#7447D6', '♥': '#F0508C', 'YES!': '#0E9384', 'FANCY!': '#D97B12', 'BOLD!': '#3167CA' };
-  var CONF_C = ['#3167CA', '#6FA0F5', '#8C7BFF', '#FF7EB6', '#F3D28B', '#7FD1AE', '#1F4E5A', '#9E5230'];
+  // the assistant's sample answers, for the sample interiors company on the page
+  var ANSWERS = ['Yes! Offices, clinics and cafes. Shall I book a site visit?', 'Thursday at 10am. I’ll send you a reminder the day before.', 'Of course. I’m passing you to our team with this chat.'];
+  // Nexi's comic bursts, in TechNext blues (the heart stays pink)
+  var POW_C = { 'WOW!': '#3167CA', 'OOH!': '#2A5DBF', '♥': '#E0457F', 'YES!': '#1F4E9E', 'FANCY!': '#3A72D8', 'BOLD!': '#1B4189' };
   var NTAP = ['Hee hee, that tickles!', 'Boop! Hi again!', 'You found me!', 'Hello, friend!'];
   function NexiStage(root) {
     var slide = root.closest('.slide'), kind = root.getAttribute('data-nxh') === 'brand' ? 'brand' : 'meet';
@@ -1354,6 +1356,9 @@
     var items = {}; $$('[data-nxd-item]', root).forEach(function (b) { items[b.getAttribute('data-nxd-item')] = b; });
     var TOTAL = BEATS.reduce(function (s, b) { return s + b.d; }, 0);
     var on = false, i = 0, run = 0, mode = '', tm = 0, due = 0, left = -1, pending = null, waitT = 0, holds = {}, soon = [], phoneByScript = false;
+    // her line: shown = the line on screen, line = its voice while it plays, deferSpeak = a line waiting for the
+    // visitor to scroll back, startAt = a beat picked while she was still warming up
+    var shown = null, line = null, deferSpeak = null, talkTok = 0, startAt = -1, pubT = 0, taken = -1;
     function nexi() { return window.TNNexi || null; }
     function live3d() { var a = nexi(); return !!(a && a.live); }
     function cueBot(name, arg) { var a = nexi(); if (mode === '3d' && a) a.cue(name, arg); }
@@ -1363,7 +1368,10 @@
     function after(ms, fn) { clearTimeout(tm); pending = fn; left = -1; due = performance.now() + ms; if (live()) tm = setTimeout(fire, ms); else left = ms; }
     function fire() { var f = pending; pending = null; tm = 0; if (f) f(); }
     function wake() {
-      if (!on || !pending) return;
+      if (!on) return;
+      if (!live()) { if (line && window.TNVoice) window.TNVoice.stop(); }         // scrolled away: she stops mid-line
+      else if (deferSpeak) { var ds = deferSpeak; deferSpeak = null; ds(); }        // back: the line she was about to say
+      if (!pending) return;
       if (live() && left >= 0) { due = performance.now() + left; tm = setTimeout(fire, left); left = -1; }
       else if (!live() && left < 0) { left = Math.max(0, due - performance.now()); clearTimeout(tm); tm = 0; }
     }
@@ -1376,14 +1384,73 @@
     function press(el) {
       // a ring where the control is pressed
       if (!fx || !el) return;
-      var b = box(el, root), e = document.createElement('i');
-      e.className = 'nxh-tap'; e.style.setProperty('--x', b.cx + 'px'); e.style.setProperty('--y', b.cy + 'px');
+      var rr = root.getBoundingClientRect(), r = el.getBoundingClientRect(), e = document.createElement('i');
+      var sx = root.offsetWidth / (rr.width || 1), sy = root.offsetHeight / (rr.height || 1);
+      e.className = 'nxh-tap';
+      e.style.setProperty('--x', ((r.left - rr.left + r.width / 2) * sx).toFixed(1) + 'px'); e.style.setProperty('--y', ((r.top - rr.top + r.height / 2) * sy).toFixed(1) + 'px');
       fx.appendChild(e); setTimeout(function () { e.remove(); }, 750);
     }
     function pressed(sel, attr, val) { $$(sel, root).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute(attr) === String(val) ? 'true' : 'false'); }); }
     function setPal(k) { if (!web) return; web.dataset.pal = String(k); pressed('[data-nxh-pal]', 'data-nxh-pal', k); }
     function setFont(f) { if (!web) return; web.dataset.font = f; pressed('[data-nxh-font]', 'data-nxh-font', f); }
-    function setDev(d) { if (!web) return; web.dataset.dev = d; pressed('[data-nxh-dev]', 'data-nxh-dev', d); }
+    /* the page is laid out at a real device width (960 / 640 / 360 px) and scaled into its frame (CSS zoom),
+       so it reflows and scrolls like the real thing. The frame's size changes with the view; the observer keeps
+       the scale, so a slide change never measures anything. */
+    var DW = { desk: 960, tablet: 640, phone: 360 }, scroller = q('.nxh-scroll'), pg = q('.nxh-pg'), devT = 0, scrolled = false;
+    function fitPage() { if (!scroller || !pg || !web) return; var w = scroller.clientWidth; if (w) pg.style.setProperty('--z', (w / DW[web.dataset.dev || 'desk']).toFixed(4)); }
+    if (scroller) {
+      if (hasRO) new ResizeObserver(function () { fitPage(); }).observe(scroller);
+      scroller.addEventListener('scroll', function () { scrolled = scroller.scrollTop > 0; }, { passive: true });
+      scroller.addEventListener('wheel', function () { visitor(); }, { passive: true });
+    }
+    // a view change is a short cross-fade: the frame fades out, changes size and reflows while hidden, fades back
+    function setDev(d) {
+      if (!web || !DW[d]) return;
+      pressed('[data-nxh-dev]', 'data-nxh-dev', d);
+      if (web.dataset.dev === d) return;
+      clearTimeout(devT); menu(false);
+      if (reduce || !web.classList.contains('is-s1')) { web.dataset.dev = d; fitPage(); return; }
+      web.classList.add('is-swapping');
+      devT = setTimeout(function () { web.dataset.dev = d; fitPage(); if (scroller && scrolled) { scroller.scrollTop = 0; scrolled = false; } web.classList.remove('is-swapping'); }, 160);
+    }
+    function section(name) { var sc = name && q('[data-sec="' + name + '"]'); return sc && sc.getClientRects().length ? sc : null; }
+    function scrollTo(name) {
+      if (!scroller) return;
+      var sc = section(name); if (name && !sc) return;           // a page dropped in the brief is not there to scroll to
+      // the section's title lands just under the page's sticky header
+      var nav = q('.nxh-pg-nav'), nh = nav ? nav.getBoundingClientRect().height : 0;
+      var top = sc ? sc.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - nh - 8 : 0;
+      scroller.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
+    }
+    function menu(open) {
+      var nav = q('.nxh-pg-nav'), bg = q('.nxh-pg-burger'); if (!nav) return;
+      nav.classList.toggle('is-menu', !!open); if (bg) bg.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    // the contact form types a sample enquiry in and sends it (at launch, or when the visitor presses Send)
+    var fgen = 0, formBusy = false;
+    function typeForm() {
+      var send = q('.nxh-pg-send');
+      if (!web || !send || formBusy || web.classList.contains('is-sent')) return;
+      formBusy = true;
+      var fields = $$('.nxh-f i', root), k = 0, g = fgen;
+      (function next() {
+        if (g !== fgen) return;
+        if (k >= fields.length) { press(send); send.textContent = 'Sent'; web.classList.add('is-sent'); formBusy = false; return; }
+        var f = fields[k++], text = f.getAttribute('data-type') || '', n = 0, step = Math.max(1, Math.ceil(text.length / 9));
+        f.classList.add('is-typing');
+        (function tick() {
+          if (g !== fgen) return;
+          n = Math.min(text.length, n + step); f.textContent = text.slice(0, n);
+          if (n < text.length) setTimeout(tick, 30); else { f.classList.remove('is-typing'); setTimeout(next, 80); }
+        })();
+      })();
+    }
+    function clearForm() {
+      fgen++; formBusy = false;
+      $$('.nxh-f i', root).forEach(function (f) { f.textContent = ''; f.classList.remove('is-typing'); });
+      var send = q('.nxh-pg-send'); if (send) send.textContent = 'Send';
+      if (web) web.classList.remove('is-sent');
+    }
     function paint() { if (web) web.classList.add('is-painted'); }
     // the assistant answers every question, in order: a new question first finishes the answer being typed
     var typing = null, asked = false;
@@ -1392,7 +1459,8 @@
       if (byVisitor) asked = true;
       if (typing) { clearTimeout(typing.t); typing.fn(); }
       var btn = q('[data-nxh-q="' + k + '"]');
-      pressed('[data-nxh-q]', 'data-nxh-q', k);
+      log.setAttribute('aria-live', byVisitor ? 'polite' : 'off');
+      $$('[data-nxh-q]', root).forEach(function (b0) { b0.classList.toggle('is-asked', b0 === btn); });
       function add(cls, text) { var p = document.createElement('p'); p.className = cls + ' is-new'; p.textContent = text; log.appendChild(p); while (log.children.length > 4) log.firstChild.remove(); return p; }
       add('nxh-chat-u', btn ? btn.textContent : '');
       var t = add('nxh-chat-t', ''); t.innerHTML = '<i></i><i></i><i></i>';
@@ -1402,7 +1470,7 @@
     function publish() {
       if (!web || web.classList.contains('is-live') || web.classList.contains('is-publishing')) return;
       web.classList.add('is-publishing');
-      setTimeout(function () { web.classList.remove('is-publishing'); web.classList.add('is-live'); sfx('sparkle'); }, 600);
+      clearTimeout(pubT); pubT = setTimeout(function () { if (!on) return; web.classList.remove('is-publishing'); web.classList.add('is-live'); sfx('sparkle'); }, 600);
     }
     function showStep(n) {
       if (!web) return;
@@ -1412,17 +1480,27 @@
       else if (n > 1) paint();
       else if (!web.classList.contains('is-painted')) later(450, paint);
       if (n < 4) web.classList.remove('is-live', 'is-publishing');
-      if (n !== 2 && phoneByScript && web.dataset.dev === 'phone') { setDev('desk'); phoneByScript = false; }
+      if (n !== 2 && phoneByScript && web.dataset.dev !== 'desk') { setDev('desk'); phoneByScript = false; }
       chips.forEach(function (c, k) { var li = c.parentNode; li.classList.toggle('is-on', k === n); li.classList.toggle('is-done', k < n); c.setAttribute('aria-pressed', k === n ? 'true' : 'false'); });
     }
     function tapIt(kind2) {
-      var el = kind2 === 'pal' ? q('[data-nxh-pal="1"]') : kind2 === 'phone' ? q('[data-nxh-dev="phone"]') : kind2 === 'ask' ? q('[data-nxh-q="0"]') : kind2 === 'publish' ? q('[data-nxh-publish]') : null;
+      if (kind2 === 'views' && web && web.dataset.dev !== 'desk') return;      // the visitor picked a view already: keep it
+      var el = kind2 === 'pal' ? q('[data-nxh-pal="1"]') : kind2 === 'views' ? q('[data-nxh-dev="tablet"]') : kind2 === 'ask' ? q('[data-nxh-q="0"]') : kind2 === 'publish' ? q('[data-nxh-publish]') : null;
       if (!el) return;
       cueBot('tap', el); press(el);
-      if (kind2 === 'pal') setPal(1);
-      else if (kind2 === 'phone') { setDev('phone'); phoneByScript = true; }
+      // design: the new colours, then down the page to show them on every part
+      if (kind2 === 'pal') { setPal(1); later(600, function () { if (taken !== run) scrollTo(section('work') ? 'work' : 'services'); }); }
+      // build: the tablet view, then the phone view
+      else if (kind2 === 'views') {
+        setDev('tablet'); phoneByScript = true;
+        later(1000, function () { if (taken === run) return; var ph = q('[data-nxh-dev="phone"]'); cueBot('tap', ph); press(ph); setDev('phone'); });
+      }
       else if (kind2 === 'ask') { if (!asked) ask(0); }
-      else if (kind2 === 'publish') publish();
+      // launch: publish, then down to the contact form, where the first enquiry is typed in and sent
+      else if (kind2 === 'publish') {
+        publish();
+        if (web && !web.hasAttribute('data-no-contact')) { later(700, function () { if (taken !== run) scrollTo('contact'); }); later(1400, function () { if (taken !== run) typeForm(); }); }
+      }
     }
 
     /* ---- slide 5: the brand desk ---- */
@@ -1450,21 +1528,6 @@
       e.style.setProperty('--r', rnd(-14, 14).toFixed(0) + 'deg'); e.style.setProperty('--c', POW_C[text] || '#E4572E');
       fx.appendChild(e); setTimeout(function () { e.remove(); }, 1450);
     }
-    function confetti() {
-      if (!fx || reduce) return;
-      var src = desk || web, b = src ? box(src, root) : { cx: root.offsetWidth / 2, y: 40 };
-      for (var n = 0; n < 28; n++) {
-        var e = document.createElement('i'), x0 = b.cx + rnd(-30, 30), y0 = b.y + 30, dx = rnd(-1, 1);
-        e.className = 'nxh-conf';
-        e.style.setProperty('--x0', x0 + 'px'); e.style.setProperty('--y0', y0 + 'px');
-        e.style.setProperty('--xm', (x0 + dx * 120) + 'px'); e.style.setProperty('--ym', (y0 - rnd(60, 150)) + 'px');
-        e.style.setProperty('--x1', (x0 + dx * 210) + 'px'); e.style.setProperty('--y1', (y0 + rnd(90, 240)) + 'px');
-        e.style.setProperty('--r', rnd(-540, 540).toFixed(0) + 'deg'); e.style.setProperty('--c', CONF_C[n % CONF_C.length]);
-        e.style.animationDelay = (n * 14) + 'ms';
-        fx.appendChild(e); setTimeout(function (x) { return function () { x.remove(); }; }(e), 2100);
-      }
-    }
-
     /* ---- both ---- */
     function veil(v) {
       if (v && mode === '3d') {
@@ -1480,16 +1543,35 @@
       cap.classList.remove('is-on'); cap.textContent = text; void cap.offsetWidth; cap.classList.add('is-on');
       if (ava && !reduce) { ava.classList.remove('is-hop'); void ava.offsetWidth; ava.classList.add('is-hop'); }
     }
-    // her line: a bubble (3D) or the caption (drawn Nexi); spoken when the voice is on. Returns a promise
-    // that settles when the spoken line ends, or null when nothing is spoken.
-    function say(text, d) {
+    // her line: a bubble (3D) or the caption (drawn Nexi), and her voice when it is on
+    function say(text, d, id) {
       var voice = window.TNVoice && window.TNVoice.live;
       var est = voice ? 0.8 + text.length * 0.068 : 0, life = Math.max(d, est) + 0.9;   // the next line replaces it
       if (mode === '3d') cueBot('say', { text: text, life: life }); else capSay(text);
-      if (!voice) return null;
-      var html = document.documentElement; html.classList.add('nxh-talking');
-      return window.TNVoice.say(text).then(function () { html.classList.remove('nxh-talking'); });
+      shown = { text: text, id: id };
+      voiceLine(text, id);
     }
+    // the voice of a line: `line` settles when it has been spoken (or stopped); cut short by another line (a tap
+    // on Nexi), it settles once the voice is quiet again, so the script never talks over itself
+    function voiceLine(text, id) {
+      var v = window.TNVoice; if (!v || !v.live) return;
+      var html = document.documentElement, tok = ++talkTok; html.classList.add('nxh-talking');
+      var p = v.say(text).then(function (r) {
+        if (tok === talkTok) html.classList.remove('nxh-talking');
+        return r === 'cut' ? quiet() : r;
+      });
+      line = { id: id, p: p };
+    }
+    function quiet() {
+      return new Promise(function (res) { var n = 0; (function chk() { if (!window.TNVoice || !window.TNVoice.speaking || ++n > 40) res(true); else setTimeout(chk, 200); })(); });
+    }
+    // the voice turned on while a line shows: she says that line (it is her hello), not the generic greeting
+    document.addEventListener('tn:voice', function (e) {
+      var d0 = e.detail || {};
+      if (!on || !d0.on || !shown || shown.id !== run || line || !live()) return;
+      if (e.cancelable) e.preventDefault();
+      voiceLine(shown.text, run);
+    });
     function target(b) {
       switch (b.at) {
         case 'web': return web;
@@ -1507,7 +1589,6 @@
     function apply(b) {
       if ('veil' in b) veil(b.veil);
       if (b.step != null) showStep(b.step);
-      if (b.fx === 'confetti') later(b.home ? 450 : 150, confetti);
       if (b.item) {
         var el = items[b.item];
         cueBot('visit', el);
@@ -1518,32 +1599,40 @@
       if (b.dir) {
         var dirs = q('.nxd-dirs'), btn = q('[data-nxd-dir="' + b.dir + '"]');
         cueBot('visit', dirs);
-        later(mode === '3d' ? 800 : 300, function () { cueBot('tap', btn); press(btn); setDir(b.dir); });
+        later(mode === '3d' ? 800 : 300, function () { if (taken === run) return; cueBot('tap', btn); press(btn); setDir(b.dir); });
         later(mode === '3d' ? 1950 : 700, function () { cueBot(b.cue, desk); if (b.pow) pow(dirs, b.pow); });
         return;
       }
       if (b.home) { cueBot('home'); later(b.home, function () { cueBot(b.cue, target(b)); }); return; }
       cueBot(b.cue, target(b));
-      if (b.tap) later(mode === '3d' ? 1000 : 400, function () { tapIt(b.tap); });
+      if (b.tap) later(mode === '3d' ? 1000 : 400, function () { if (taken !== run) tapIt(b.tap); });
     }
     function beat() {
       if (!on) return;
       if (i >= BEATS.length) { root.classList.add('is-over'); return; }
       var b = BEATS[i], id = ++run;
-      clearSoon(); apply(b);
+      clearSoon(); deferSpeak = null; line = null; apply(b);
       // her line waits until she has arrived and the stage has changed: while she speaks nothing else moves
-      var spoken = null, wait = mode === '3d' ? (b.speakAt || 0) : Math.min(b.speakAt || 0, 600);
-      var speakNow = function () { if (b.say) spoken = say(b.say, Math.max(0.8, b.d - wait / 1000)); };
+      var wait = mode === '3d' ? (b.speakAt || 0) : Math.min(b.speakAt || 0, 600);
+      var speakNow = function () {
+        if (id !== run) return;
+        if (!live()) { deferSpeak = speakNow; return; }          // off screen: she says it when the visitor is back
+        var text = b.alt && web && web.hasAttribute('data-no-contact') ? b.alt : b.say;
+        if (text) say(text, Math.max(0.8, b.d - wait / 1000), id);
+      };
       if (wait && mode === '3d') later(wait, speakNow); else speakNow();
       after(b.d * 1000, function () {
         if (id !== run) return;
         var next = function () { if (id !== run) return; heroHold('nexi-talk', false); i++; beat(); };
-        if (spoken) { heroHold('nexi-talk', true); spoken.then(next); } else next();
+        // her voice still playing: the carousel waits for it, and the next beat starts when it ends (on screen)
+        if (line && line.id === id) { heroHold('nexi-talk', true); line.p.then(function () { if (id !== run) return; if (live()) next(); else after(0, next); }); }
+        else next();
       });
     }
     // select a step or a kit piece: the script goes on from that beat
     function jump(k) {
       if (!on || k < 0) return;
+      if (!mode) { startAt = k; return; }                        // still warming up: the script starts there
       heroHold('nexi-talk', false); if (window.TNVoice) window.TNVoice.stop();
       if (slide.classList.contains('is-nxh-close')) { veil(false); cueBot('home'); }
       root.classList.remove('is-over'); i = k;
@@ -1551,39 +1640,76 @@
       hero.dispatchEvent(new CustomEvent('tn:hero-dur', { detail: { ms: Math.round(rest * 1000) } }));
       beat();
     }
+    // the visitor is trying the site: the tour waits for them, so nothing changes under their hand
+    function restMs() { return !pending ? 0 : tm ? Math.max(0, due - performance.now()) : Math.max(0, left); }
+    var lastV = 0;
+    function visitor() {
+      if (!on || !mode || mode === 'static') return;
+      var now = performance.now(); if (taken === run && now - lastV < 400) return; lastV = now;   // a burst (a wheel) counts once
+      taken = run;                                              // this beat's scripted taps give way
+      if (!pending) return;
+      var f = pending, wait = Math.max(restMs(), 6000);
+      after(wait, f);
+      var rest = wait / 1000 + 1.5; for (var r = i + 1; r < BEATS.length; r++) rest += BEATS[r].d;
+      hero.dispatchEvent(new CustomEvent('tn:hero-dur', { detail: { ms: Math.round(rest * 1000) } }));
+    }
     function findBeat(key, n) { for (var k = 0; k < BEATS.length; k++) if (BEATS[k][key] === n) return k; return -1; }
     root.addEventListener('click', function (e) {
       if (!on) return;
       var t = e.target.closest('button'); if (!t || !root.contains(t)) { if (mode !== '3d' && e.target.closest('.nxh-ava')) capSay(NTAP[Math.floor(Math.random() * NTAP.length)]); return; }
       if (t.hasAttribute('data-nxh-step')) {
         var n = +t.getAttribute('data-nxh-step');
-        if (mode === 'static') { showStep(n); if (n > 1) paint(); if (n === 4) web.classList.add('is-live'); capSay(BEATS[findBeat('step', n)].say); } else jump(findBeat('step', n));
+        if (mode === 'static') { showStep(n); if (n > 1) paint(); if (n === 4) web.classList.add('is-live'); capSay(BEATS[findBeat('step', n)].say); voiceLine(BEATS[findBeat('step', n)].say, run); } else jump(findBeat('step', n));
       } else if (t.hasAttribute('data-nxd-item')) {
         var nm = t.getAttribute('data-nxd-item');
-        if (mode === 'static') { drop(nm); capSay(BEATS[findBeat('item', nm)].say); } else jump(findBeat('item', nm));
+        if (mode === 'static') { drop(nm); capSay(BEATS[findBeat('item', nm)].say); voiceLine(BEATS[findBeat('item', nm)].say, run); } else jump(findBeat('item', nm));
       } else if (t.hasAttribute('data-nxd-dir')) {
-        press(t); setDir(t.getAttribute('data-nxd-dir'));
+        press(t); setDir(t.getAttribute('data-nxd-dir')); visitor();
         if (mode === '3d') { cueBot('star', desk); pow(q('.nxd-dirs'), 'WOW!'); }
       } else if (t.hasAttribute('data-nxh-publish')) {
         press(t);
         if (mode === 'static') { showStep(4); paint(); web.classList.add('is-live'); }
         else { var k4 = findBeat('step', 4); if (+(web.dataset.step) !== 4) jump(k4); publish(); }
-      } else if (t.hasAttribute('data-nxh-pal')) { press(t); setPal(+t.getAttribute('data-nxh-pal')); }
-      else if (t.hasAttribute('data-nxh-font')) { press(t); setFont(t.getAttribute('data-nxh-font')); }
-      else if (t.hasAttribute('data-nxh-dev')) { press(t); setDev(t.getAttribute('data-nxh-dev')); phoneByScript = false; if (web.dataset.step === '-1' || web.dataset.step === '0') { showStep(2); } }
-      else if (t.hasAttribute('data-nxh-q')) { press(t); ask(+t.getAttribute('data-nxh-q'), true); }
+      } else if (t.hasAttribute('data-nxh-pal')) { press(t); setPal(+t.getAttribute('data-nxh-pal')); visitor(); }
+      else if (t.hasAttribute('data-nxh-font')) { press(t); setFont(t.getAttribute('data-nxh-font')); visitor(); }
+      else if (t.hasAttribute('data-nxh-dev')) {
+        // a view before there is a page to show: on to the build step, in the view chosen
+        press(t); setDev(t.getAttribute('data-nxh-dev')); phoneByScript = false;
+        if (web.dataset.step === '-1' || web.dataset.step === '0') { if (mode === 'static') { showStep(2); paint(); } else jump(findBeat('step', 2)); }
+        else visitor();
+      }
+      else if (t.hasAttribute('data-nxh-q')) { press(t); ask(+t.getAttribute('data-nxh-q'), true); visitor(); }
+      else if (t.hasAttribute('data-pl')) { press(t); menu(false); scrollTo(t.getAttribute('data-pl')); visitor(); }
+      else if (t.classList.contains('nxh-pg-burger')) { press(t); menu(t.getAttribute('aria-expanded') !== 'true'); visitor(); }
+      else if (t.classList.contains('nxh-pg-send')) { press(t); typeForm(); visitor(); }
+      else if (t.hasAttribute('data-nxh-page')) {
+        // the brief's page map: a page added or dropped leaves (or rejoins) the menu and the page
+        var pgName = t.getAttribute('data-nxh-page'), keep = t.getAttribute('aria-pressed') !== 'true';
+        press(t);
+        if (!keep && $$('[data-nxh-page][aria-pressed="true"]', root).length <= 1) return;   // one page besides Home stays
+        t.setAttribute('aria-pressed', keep ? 'true' : 'false');
+        if (keep) web.removeAttribute('data-no-' + pgName); else web.setAttribute('data-no-' + pgName, '');
+        visitor();
+      }
     });
 
     /* ---- modes: 3D Nexi, the drawn Nexi, or the still stage for reduced motion ---- */
     function reset() {
       clearSoon(); clearTimeout(tm); pending = null; clearTimeout(waitT); phoneByScript = false;
+      mode = ''; shown = null; line = null; deferSpeak = null; startAt = -1; clearTimeout(pubT);
       if (web) {
         for (var k = 0; k <= 4; k++) web.classList.remove('is-s' + k);
         web.classList.remove('is-painted', 'is-live', 'is-publishing'); web.dataset.step = '-1';
-        setPal(0); setFont('sans'); setDev('desk');
+        setPal(0); setFont('sans');
+        clearTimeout(devT); web.classList.remove('is-swapping'); web.dataset.dev = 'desk'; pressed('[data-nxh-dev]', 'data-nxh-dev', 'desk'); menu(false);
+        ['services', 'work', 'contact'].forEach(function (n2) { web.removeAttribute('data-no-' + n2); });
+        $$('[data-nxh-page]', root).forEach(function (b2) { b2.setAttribute('aria-pressed', 'true'); });
+        clearForm();
+        if (scroller && scrolled) { scroller.scrollTop = 0; scrolled = false; }
+        if (!hasRO) fitPage();
         if (typing) { clearTimeout(typing.t); typing = null; } asked = false;
         var log = q('.nxh-chat-log'); if (log) log.innerHTML = '<p class="nxh-chat-a">Hi! Ask me anything.</p>';
-        pressed('[data-nxh-q]', 'data-nxh-q', -1);
+        $$('[data-nxh-q]', root).forEach(function (b0) { b0.classList.remove('is-asked'); });
       }
       chips.forEach(function (c2) { c2.parentNode.classList.remove('is-on', 'is-done'); c2.setAttribute('aria-pressed', 'false'); });
       Object.keys(items).forEach(function (k2) { items[k2].classList.remove('is-in', 'is-hot'); });
@@ -1596,12 +1722,28 @@
     function start(m3) {
       mode = m3; heroHold('nexi-wake', false);
       root.classList.toggle('is-2d', m3 !== '3d');
-      i = 0; beat();
+      i = 0;
+      if (startAt > 0) { var k0 = startAt; startAt = -1; jump(k0); return; }   // the visitor picked a step while she warmed up
+      startAt = -1; beat();
+    }
+    // she was late (slow network, a busy tab): the drawn Nexi started; when she is ready she takes over from the
+    // next beat, so there is never a second Nexi roaming over the slide
+    function handover() {
+      (function poll() {
+        if (!on || mode !== '2d') return;
+        var b = nexi();
+        if (b && b.live) { b.stage(kind, root); mode = '3d'; root.classList.remove('is-2d'); if (cap) cap.classList.remove('is-on'); return; }
+        waitT = setTimeout(poll, 400);
+      })();
     }
     function still() {
       // reduced motion: the finished stage, and a line from the drawn Nexi; the buttons switch states instantly
       mode = 'static'; root.classList.add('is-2d');
-      if (web) { showStep(4); paint(); web.classList.add('is-live'); ask(0); }
+      if (web) {
+        showStep(4); paint(); web.classList.add('is-live', 'is-sent'); ask(0);
+        $$('.nxh-f i', root).forEach(function (f) { f.textContent = f.getAttribute('data-type') || ''; });
+        var sd = q('.nxh-pg-send'); if (sd) sd.textContent = 'Sent';
+      }
       Object.keys(items).forEach(function (k2) { items[k2].classList.add('is-in'); });
       capSay(kind === 'brand' ? 'A brand kit, designed as one system!' : 'Hi, I’m Nexi! TechNext builds websites and puts AI like me on them.');
     }
@@ -1617,7 +1759,7 @@
         var now = performance.now(); if (live()) waited += now - last; last = now;
         var b = nexi(); if (b && !staged) { b.stage(kind, root); staged = true; }
         if (live3d()) start('3d');
-        else if (waited > 4000 || document.documentElement.classList.contains('nexi-fail')) start('2d');
+        else if (waited > 4000 || document.documentElement.classList.contains('nexi-fail')) { start('2d'); if (!document.documentElement.classList.contains('nexi-fail')) handover(); }
         else waitT = setTimeout(check, 120);
       })();
     }
@@ -1628,12 +1770,16 @@
       enter: function () {
         on = true; run++; reset();
         // hero.js reads the slide's turn right after this event: the script's length plus a moment to read
-        slide.dataset.dur = String(Math.round((TOTAL + 1.5) * 1000));
+        // (index.html carries the same number; if they ever differ, the carousel is told)
+        var dur = String(Math.round((TOTAL + 1.5) * 1000));
+        if (slide.dataset.dur !== dur) { slide.dataset.dur = dur; hero.dispatchEvent(new CustomEvent('tn:hero-dur', { detail: { ms: +dur } })); }
         if (reduce) { still(); return; }
         begin();
       },
       leave: function () {
         on = false; run++; clearSoon(); clearTimeout(tm); pending = null; clearTimeout(waitT);
+        clearTimeout(pubT); clearTimeout(devT); fgen++; deferSpeak = null; line = null; shown = null;
+        if (typing) { clearTimeout(typing.t); typing = null; }
         heroHold('nexi-talk', false); heroHold('nexi-wake', false);
         if (window.TNVoice) window.TNVoice.stop();
         document.documentElement.classList.remove('nxh-talking');

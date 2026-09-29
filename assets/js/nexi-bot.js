@@ -135,26 +135,51 @@
         blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneFactor, blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneFactor,
         fragmentShader: 'uniform sampler2D tB; uniform sampler2D tA; varying vec2 vUv; void main(){ vec3 c=texture2D(tB,vUv).rgb*0.55+texture2D(tA,vUv).rgb*0.12; c=clamp(c,0.0,1.0); gl_FragColor=vec4(c,max(c.r,max(c.g,c.b))); }' });
       var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blur); quad.frustumCulled = false; qs.add(quad);
-      var saved = [];
+      /* the meshes that do not glow are dimmed to black (or hidden) for the glow render: kept in a list, rebuilt
+         now and then, so a frame walks no scene graph and allocates nothing */
+      var list = null, glist = null, listAt = 0, hid = [], swp = [], mats = [], gsw = [], gmat = [], twins = new Map();
+      function lists() {
+        if (!list || ++listAt > 240) { listAt = 0; list = []; glist = []; scene.traverse(function (o2) { if (o2.isMesh) (o2.userData.glow ? glist : list).push(o2); }); }
+      }
+      /* the lights render with a twin of their material here: a material rendered both to the canvas (sRGB) and to
+         the glow target (linear) switched shader programs twice a frame; each twin always renders to the target */
+      function twin(m) { var t = twins.get(m); if (!t) { t = m.clone(); if (m.color) t.color = m.color; twins.set(m, t); } t.opacity = m.opacity; return t; }
       function pass(m, t) { quad.material = m; renderer.setRenderTarget(t); renderer.render(qs, qc); }
       return {
         /* compile the glow pass's materials up front (with the scene's, see the end of create) */
         /* the pass's own materials, compiled one at a time by warmUp() */
-        warmSteps: [M.black, blur, comp].map(function (m) { return function () { var ws = new THREE.Scene(); ws.add(new THREE.Mesh(quad.geometry, m)); renderer.compile(ws, qc); }; }),
-        size: function (w, h) { A.setSize(Math.max(2, w / 2 | 0), Math.max(2, h / 2 | 0)); B.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); C.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); },
+        /* ...each for the target it really renders to (the output encoding is part of a program) */
+        warmSteps: [[M.black, A], [blur, B], [comp, null]].map(function (mt) { return function () { var ws = new THREE.Scene(); ws.add(new THREE.Mesh(quad.geometry, mt[0])); renderer.setRenderTarget(mt[1]); renderer.compile(ws, qc); renderer.setRenderTarget(null); }; }),
+        /* the lights' twins, compiled for the glow target before the first frame */
+        warmTwins: function () {
+          lists(); var ws = new THREE.Scene(), seen = new Set(); ws.environment = scene.environment;
+          glist.forEach(function (o2) { if (seen.has(o2.material)) return; seen.add(o2.material); ws.add(new THREE.Mesh(o2.geometry, twin(o2.material))); });
+          renderer.setRenderTarget(A); renderer.compile(ws, camera); renderer.setRenderTarget(null);
+        },
+        /* big: the close-up, where the glow is drawn at a quarter of the render size (it is blurred anyway) */
+        size: function (w, h, big) { var d = big ? 4 : 2; A.setSize(Math.max(2, w / d | 0), Math.max(2, h / d | 0)); B.setSize(Math.max(2, w / (d * 2) | 0), Math.max(2, h / (d * 2) | 0)); C.setSize(Math.max(2, w / (d * 2) | 0), Math.max(2, h / (d * 2) | 0)); },
         render: function () {
-          saved.length = 0;
-          scene.traverse(function (o2) {
-            if (!o2.visible) return;
-            if (o2.isMesh && !o2.userData.glow) { if (o2.userData.noGlow || o2.material.transparent) { saved.push([o2, 'v']); o2.visible = false; } else { saved.push([o2, o2.material]); o2.material = M.black; } }
-          });
+          lists();
+          var L = list, nh = 0, ns = 0, ng = 0, i, o2;
+          for (i = 0; i < L.length; i++) {
+            o2 = L[i]; if (!o2.visible) continue;
+            if (o2.userData.noGlow || o2.material.transparent) { hid[nh++] = o2; o2.visible = false; }
+            else { swp[ns] = o2; mats[ns++] = o2.material; o2.material = M.black; }
+          }
+          for (i = 0; i < glist.length; i++) { o2 = glist[i]; if (!o2.visible) continue; gsw[ng] = o2; gmat[ng++] = o2.material; o2.material = twin(o2.material); }
           renderer.setClearColor(0, 1); renderer.setRenderTarget(A); renderer.clear(); renderer.render(scene, camera);
-          for (var i = 0; i < saved.length; i++) { if (saved[i][1] === 'v') saved[i][0].visible = true; else saved[i][0].material = saved[i][1]; }
+          for (i = 0; i < nh; i++) hid[i].visible = true;
+          for (i = 0; i < ns; i++) { swp[i].material = mats[i]; mats[i] = null; }
+          for (i = 0; i < ng; i++) { gsw[i].material = gmat[i]; gmat[i] = null; }
           renderer.setClearColor(0, 0);
           blur.uniforms.tMap.value = A.texture; blur.uniforms.uDir.value.set(1.5 / B.width, 0); pass(blur, B);
           blur.uniforms.tMap.value = B.texture; blur.uniforms.uDir.value.set(0, 1.5 / C.height); pass(blur, C);
           blur.uniforms.tMap.value = C.texture; blur.uniforms.uDir.value.set(3 / B.width, 0); pass(blur, B);
           blur.uniforms.tMap.value = B.texture; blur.uniforms.uDir.value.set(0, 3 / C.height); pass(blur, C);
+          this.again();
+        },
+        /* last frame's glow added to this frame (no glow render) */
+        again: function () {
           comp.uniforms.tB.value = C.texture; comp.uniforms.tA.value = A.texture;
           renderer.autoClear = false; pass(comp, null); renderer.autoClear = true;
         }
@@ -351,9 +376,9 @@
     function setView(big, force) {
       if (big === VBIG && !force) return;
       VBIG = big; VIEW = big ? VIEW_B : VIEW_S;
-      var pr = big ? Math.min(PR, LITE ? 1.25 : 1.5) : PR;
+      var pr = big ? Math.min(PR, LITE ? 1 : 1.25) : PR;
       renderer.setPixelRatio(pr); renderer.setSize(VIEW, VIEW, false); cv.style.width = cv.style.height = VIEW + 'px';
-      Glow.size(VIEW * pr, VIEW * pr);
+      Glow.size(VIEW * pr, VIEW * pr, big); glowFresh = false;
     }
     function rectOf(el) { var r = el.getBoundingClientRect(); heroRect = hero.getBoundingClientRect(); return { x: r.left - heroRect.left, y: r.top - heroRect.top, w: r.width, h: r.height, cx: r.left - heroRect.left + r.width / 2, cy: r.top - heroRect.top + r.height / 2 }; }
     function visible(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
@@ -365,9 +390,27 @@
     var OBS = [], obsAt = -9, OBS_SEL = 'a,button,input,select,textarea,label,.btn,[role="button"],[tabindex]';
     var rg = document.createRange();
     function shown(el) { return !el.checkVisibility || el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); }
+    /* a box inside a scrolling frame (the sample website on slide 4) counts only where it shows */
+    function clipIn(r, el, scr, sr) {
+      if (!sr || !el || !scr.contains(el)) return r;
+      var L = Math.max(r.left, sr.left), T = Math.max(r.top, sr.top), Rr = Math.min(r.right, sr.right), B = Math.min(r.bottom, sr.bottom);
+      return { left: L, top: T, right: Rr, bottom: B, width: Rr - L, height: B - T };
+    }
+    /* roaming, the list is refreshed about three times a second; on a Nexi stage her spots come from the script
+       and are placed when cued (cue() asks for a fresh list), so once a second is plenty there */
+    var freeDirty = true, scanQ = false;
+    function obsEvery() { return ST && ST.on ? 1 : 0.35; }
+    /* the list is refreshed by a task queued right after the frame that found it due (the layout is clean then,
+       so reading boxes costs no extra layout); a caller inside a frame gets the list as it is. Only a missing or a
+       very stale list (a cue asks for a fresh one) is scanned on the spot. */
     function obstacles() {
-      if (time - obsAt < 0.35) return OBS;
-      obsAt = time; OBS = [];
+      var age = time - obsAt, every = obsEvery();
+      if (age < every) return OBS;
+      if (age < every * 4) { if (!scanQ) { scanQ = true; setTimeout(function () { scanQ = false; if (time - obsAt >= obsEvery()) scan(); }, 0); } return OBS; }
+      scan(); return OBS;
+    }
+    function scan() {
+      obsAt = time; OBS = []; freeDirty = true;
       var hr = hero.getBoundingClientRect();
       function add(r, pad) {
         if (r.width < 2 || r.height < 2) return;
@@ -375,18 +418,19 @@
         if (x > W || y > H || x + r.width < 0 || y + r.height < 0) return;
         OBS.push([x - pad, y - pad, x + r.width + pad, y + r.height + pad]);
       }
-      var slide = active();
+      var slide = active(), scr = slide && slide.querySelector('.nxh-scroll'), sr = scr && scr.getBoundingClientRect();
       [slide, hero.querySelector('.hero-ctl')].forEach(function (root) {
         if (!root) return;
-        root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(r, 8); });
+        root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(clipIn(r, el, scr, sr), 8); });
         var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), n;
-        while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(rg.getBoundingClientRect(), 6); }
+        while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(clipIn(rg.getBoundingClientRect(), el, scr, sr), 6); }
       });
       var mq = hero.querySelector('.hero-marquee'); if (mq) add(mq.getBoundingClientRect(), 4);
       var hd = document.querySelector('[data-header]'); if (hd) add(hd.getBoundingClientRect(), 4);
-      buildFree();
       return OBS;
     }
+    /* the free spots, built from the current list only when something asks for them */
+    function freeSpots() { if (freeDirty) { freeDirty = false; buildFree(); } return FREE; }
     /* every spot (on a 24 px grid) where Nexi's box touches no text or button */
     var FREE = [], GRID = 24;
     function buildFree() {
@@ -408,7 +452,7 @@
     function free(x, y, z) {
       obstacles();
       if (!overlap(box(x, y, z))) return (lastSpot = [x, y]);
-      var best = null, bd = Infinity;
+      var best = null, bd = Infinity; freeSpots();
       for (var i = 0; i < FREE.length; i += 2) { var dx = FREE[i] - x, dy = (FREE[i + 1] - y) * 1.3, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
       if (best == null) return [x, y];
       if (lastSpot && !overlap(box(lastSpot[0], lastSpot[1], z))) {
@@ -425,7 +469,7 @@
     /* the nearest free spot (to the given screen point) with a clear bubble area above it on either side */
     function roomySpot(x, y) {
       obstacles();
-      var bw = 250, bh = 56, best = null, bd = Infinity;
+      var bw = 250, bh = 56, best = null, bd = Infinity; freeSpots();
       for (var i = 0; i < FREE.length; i += 2) {
         var fx = FREE[i], fy = FREE[i + 1], top = fy - SIZE * 0.6 - bh;
         if (top < 8) continue;
@@ -528,9 +572,9 @@
       if (o.stage || ST.on) {
         /* [x0, y0, x1, y1, weight]: the copy's text and buttons, the step chips, the controls and the header are
            off limits (weight 1000); the stage's own pictures and Nexi herself are light (covered when nothing is free) */
-        SO = []; var hr0 = hero.getBoundingClientRect(), sl0 = active();
+        SO = []; var hr0 = hero.getBoundingClientRect(), sl0 = active(), scr0 = sl0 && sl0.querySelector('.nxh-scroll'), sr0 = scr0 && scr0.getBoundingClientRect();
         var pushR = function (q3, pad, wt) { if (q3.width > 2 && q3.height > 2) SO.push([q3.left - hr0.left - pad, q3.top - hr0.top - pad, q3.right - hr0.left + pad, q3.bottom - hr0.top + pad, wt]); };
-        var addR = function (el, pad, wt) { if (el) pushR(el.getBoundingClientRect(), pad, wt); };
+        var addR = function (el, pad, wt) { if (el) pushR(clipIn(el.getBoundingClientRect(), el, scr0, sr0), pad, wt); };
         if (ST.spot !== 'close' && sl0) {
           var cp = sl0.querySelector('.slide-copy');
           if (cp) {
@@ -545,12 +589,12 @@
           if (web0) {
             web0.querySelectorAll(OBS_SEL).forEach(function (el) { if (shown(el)) addR(el, 4, 1000); });
             var tw1 = document.createTreeWalker(web0, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), tn1;
-            while ((tn1 = tw1.nextNode())) { if (!tn1.parentElement || !shown(tn1.parentElement)) continue; rg.selectNodeContents(tn1); pushR(rg.getBoundingClientRect(), 4, 1000); }
+            while ((tn1 = tw1.nextNode())) { if (!tn1.parentElement || !shown(tn1.parentElement)) continue; rg.selectNodeContents(tn1); pushR(clipIn(rg.getBoundingClientRect(), tn1.parentElement, scr0, sr0), 4, 1000); }
             addR(sl0.querySelector('.nxh-chat'), 4, 1000);
           }
         }
         addR(hero.querySelector('.hero-ctl-inner'), 4, 1000); addR(document.querySelector('[data-header]'), 4, 1000);
-        var nb = box(h.x, h.y, Sp.z.x); SO.push([nb[0], nb[1], nb[2], nb[3], 3]);
+        var nb = box(h.x, h.y, Sp.z.x); SO.push([nb[0], nb[1], nb[2], nb[3], 30]);
       }
       function ov(b) {
         if (!SO) return overlap(b);
@@ -560,7 +604,7 @@
       /* on the stage: scan rows above and beside her head for the freest spot, the nearest one winning a tie */
       function fitStage() {
         var w = e.offsetWidth || 96, hh = e.offsetHeight || 30, top = h.y - SIZE * 0.58 * k - hh, best = null, bestA = Infinity;
-        var rows = [top, top - hh - 12, h.y - SIZE * 0.3 * k - hh, h.y - hh * 0.5, top - 2 * hh - 24];
+        var rows = [top, top - hh - 12, h.y - SIZE * 0.3 * k - hh, h.y - hh * 0.5, top - 2 * hh - 24, h.y + SIZE * 0.56 * k, h.y + SIZE * 0.56 * k + hh + 10];
         for (var ri = 0; ri < rows.length; ri++) {
           for (var x = h.x - w - SIZE * 0.3 * k; x <= h.x + SIZE * 0.5 * k; x += 16) {
             var cx = clamp(x, 8, W - TABS - w - 8), cy = clamp(rows[ri], YMIN, H - hh - 8);
@@ -690,10 +734,15 @@
       } },
       chaseToken: { w: function () { return visible(q('[data-pmap]')) ? 3 : 0; }, run: function (T) {
         var map = q('[data-pmap]'), lock = null; T.dur = 7; expr('happy', 3); play('hum'); R.humUntil = time + 3.2; emote(['♪', '♫'], 2); T.at(1.4, function () { say('token'); });
+        /* the token's box is read about five times a second (every frame forced a style pass after the scene
+           had moved things); Nexi's springs smooth the steps */
+        var rAt = -9, rr = null, mr = null;
         T.tick = function () {
+          if (time - rAt < 0.2 && (rr || mr)) { if (rr) goTo(rr.cx, rr.cy - SIZE * 0.62, 1); else goTo(mr.cx + Math.sin(time) * mr.w * 0.3, mr.y + SIZE * 0.5, 0.5); return; }
+          rAt = time; rr = mr = null;
           if (!lock || !lock.isConnected || !visible(lock)) { var toks = qa('.pm-tok').filter(visible); lock = toks.length ? pick(toks) : null; }
-          if (lock) { var r = rectOf(lock); goTo(r.cx, r.cy - SIZE * 0.62, 1); lookAtPx(r.cx, r.cy, 0.5); }
-          else { var m = rectOf(map); goTo(m.cx + Math.sin(time) * m.w * 0.3, m.y + SIZE * 0.5, 0.5); }
+          if (lock) { rr = rectOf(lock); goTo(rr.cx, rr.cy - SIZE * 0.62, 1); lookAtPx(rr.cx, rr.cy, 0.5); }
+          else { mr = rectOf(map); goTo(mr.cx + Math.sin(time) * mr.w * 0.3, mr.y + SIZE * 0.5, 0.5); }
         };
       } },
       watchGate: { w: function () { return qa('.pm-gate').length ? 1.4 : 0; }, run: function (T) {
@@ -704,7 +753,11 @@
       } },
       cheerOrb: { w: function () { return visible(q('[data-journey]')) ? 3 : 0; }, run: function (T) {
         T.dur = 7; expr('happy', 2);
-        T.tick = function () { var orb = q('.lj-puck') || q('.lj-ptag'); if (!orb) return; var r = rectOf(orb); goTo(r.cx - SIZE * 0.8, r.cy - SIZE * 0.35, 1); lookAtPx(r.cx, r.cy, 0.5); };
+        var oAt = -9, orr = null;
+        T.tick = function () {
+          if (time - oAt >= 0.2 || !orr) { oAt = time; var orb = q('.lj-puck') || q('.lj-ptag'); if (!orb) return; orr = rectOf(orb); lookAtPx(orr.cx, orr.cy, 0.5); }
+          goTo(orr.cx - SIZE * 0.8, orr.cy - SIZE * 0.35, 1);
+        };
         T.at(2.2, function () { play('clap'); emote(['✦', '♪'], 2); say('orb'); });
       } },
       readHeadline: { w: function () { return q('.as-h1') ? 1 : 0; }, run: function (T) {
@@ -840,6 +893,7 @@
         [r.y + r.h * 0.3, r.cy, r.y + r.h * 0.7].forEach(function (yy) { cands.push([r.x - g - hw, yy], [r.x + r.w + g + hw, yy]); });
         [r.x + r.w * 0.2, r.cx, r.x + r.w * 0.8].forEach(function (xx) { cands.push([xx, r.y - g - hh], [xx, r.y + r.h + g + hh]); });
       });
+      freeSpots();
       for (var f = 0; f < FREE.length; f += 2) {
         var fx = FREE[f], fy = FREE[f + 1];
         if (fx > r.x - SIZE * k * 2 && fx < r.x + r.w + SIZE * k * 2 && fy > r.y - SIZE * k * 2 && fy < r.y + r.h + SIZE * k * 2) cands.push([fx, fy]);
@@ -889,11 +943,14 @@
         if (!ST.on) return;
         ST.on = false; ST.root = null; ST.follow = null; ST.spot = '';
         R.task = null; timersT.length = 0; R.lock = null; R.look = null;
-        hero.classList.remove('is-knock');
+        hit.setAttribute('aria-haspopup', 'dialog'); hit.setAttribute('aria-expanded', 'false');
         [].forEach.call(fxEl.querySelectorAll('b'), function (old) { old.remove(); });   // her last line stays with its slide
         return;
       }
       if (R.cardOpen) closeCard();
+      /* not run yet (still paused after its warm-up): the scene has no size, and every spot below needs one */
+      if (W < 2) resize();
+      hit.removeAttribute('aria-haspopup'); hit.removeAttribute('aria-expanded');
       var first = !running || !ST.seen; ST.seen = true;
       ST.on = true; ST.kind = kind; ST.root = root; ST.spot = 'enter'; ST.follow = null; ST.idleAt = time + 99;
       R.task = null; timersT.length = 0; R.entered = true;
@@ -908,6 +965,7 @@
     function face(s) { R.look = camera.position; R.lookUntil = time + s; }
     function cue(name, a) {
       if (!ST.on) return;
+      obsAt = -9;
       var el = a && a.nodeType === 1 ? a : null;
       ST.idleAt = time + 5.5;
       /* the over-reactions play to the visitor: a quick look at the piece, then the face turns to them */
@@ -920,8 +978,7 @@
         }); break;
         case 'knock': stageTask(name, function (T) {
           play('knock'); expr('content', 1.6); R.look = camera.position; R.lookUntil = time + 30;
-          [0.36, 0.72, 1.08].forEach(function (s) { T.at(s, function () { boop(0.26, 0.02); sfx('knock'); hero.classList.remove('is-knock'); void hero.offsetWidth; hero.classList.add('is-knock'); }); });
-          T.at(1.35, function () { hero.classList.remove('is-knock'); });
+          [0.36, 0.72, 1.08].forEach(function (s) { T.at(s, function () { boop(0.26, 0.02); sfx('knock'); shake(); }); });
         }); break;
         case 'cute': play('cute'); expr('happy', 2.4); R.blushUntil = time + 2.6; emote(['♥', '✦', '♥'], 3); sfx('heart'); break;
         case 'home': stageTask(name, function (T) {
@@ -953,6 +1010,12 @@
         case 'celebrate': play('celebrate'); expr('happy', 2); emote(['✦', '✧', '♪'], 4); sfx('tada'); break;
         case 'say': if (typeof a === 'object' && a && a.text) { word(a.text, a.life || 2.4, false, { wide: true, silent: true, stage: true }); R.humUntil = time + Math.min(a.life || 2.4, 0.5 + a.text.length * 0.055); } break;
       }
+    }
+    /* the glass shakes a little with each knock: the active slide's inner, translate only (it composes with the
+       tilt's transform), one animation on the compositor */
+    function shake() {
+      var sl = active(), el = sl && sl.querySelector('.slide-inner'); if (!el || !el.animate) return;
+      el.animate([{ translate: '0 0' }, { translate: '2px -1px', offset: 0.3 }, { translate: '-2px 1px', offset: 0.65 }, { translate: '0 0' }], { duration: 180, easing: 'ease-out' });
     }
     /* a quick jump back and in again (the gasp) */
     function jolt(dz) { if (!R.lock) return; var z0 = ST.z; R.tz = z0 + dz; later(0.32, function () { if (R.lock) R.tz = z0; }); }
@@ -1146,12 +1209,15 @@
       var kNow = depthK(pz); if (VBIG ? kNow < 1.5 : kNow > 1.7) setView(!VBIG);
       var vx0 = Math.round(h.x - VIEW / 2), vy0 = Math.round(h.y - VIEW / 2);
       camera.setViewOffset(W, H, vx0, vy0, VIEW, VIEW);
-      renderer.setRenderTarget(null); renderer.render(scene, camera); if (!LITE) Glow.render();
+      renderer.setRenderTarget(null); renderer.render(scene, camera);
+      if (!LITE) { if (speed < 0.2 && !glowReuse && glowFresh) { Glow.again(); glowReuse = true; } else { Glow.render(); glowReuse = false; glowFresh = true; } }
       camera.clearViewOffset();
       cv.style.transform = 'translate3d(' + vx0 + 'px,' + vy0 + 'px,0)';
       raf = requestAnimationFrame(tick);
     }
     for (var z0 = 0; z0 < SPK; z0++) spkPos[z0 * 3 + 1] = -999;
+    /* the glow is reused for one frame at a time while she is nearly still (glowFresh: rendered since the last resize) */
+    var glowReuse = false, glowFresh = false;
 
     var warmed = false;
     function resume() {
@@ -1175,7 +1241,7 @@
           renderer.compile(ws, camera);
         });
       });
-      if (!LITE) steps = steps.concat(Glow.warmSteps);
+      if (!LITE) steps = steps.concat(Glow.warmSteps, [Glow.warmTwins]);
       var i = 0;
       (function next() {
         if (i >= steps.length) { done(); return; }

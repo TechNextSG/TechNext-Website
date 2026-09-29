@@ -32,7 +32,12 @@
   function hasNexiSlides() { return !!hero.querySelector('[data-slide-nexi]'); }
   /* may Nexi draw right now? Never under the first-visit intro: she warms up there and starts as it ends */
   function introOn() { return document.documentElement.classList.contains('intro'); }
-  function allowed() { return !calm.matches && !introOn() && (desk.matches || onNexiSlide()); }
+  function allowed() {
+    if (calm.matches || introOn()) return false;
+    // the desktop build is hidden below 961 px (hero.css): it runs only where it shows
+    if (app && !app.lite) return desk.matches;
+    return desk.matches || onNexiSlide();
+  }
   /* may Nexi exist on this device at all? */
   function possible() { return !calm.matches && (desk.matches || hasNexiSlides()); }
   function script(src, ok) {
@@ -78,9 +83,10 @@
 
   var saveData = navigator.connection && navigator.connection.saveData;
   document.addEventListener('tn:intro-done', sync);
-  /* a Nexi slide opening the page loads Nexi at once (during the intro, so her slide's timer never waits for
-     her); otherwise desktop loads her after the hero settles, and phones keep the files in the cache for one */
-  if (onNexiSlide() && possible()) load();
+  /* a Nexi slide opening the page loads Nexi during the intro, once its flight is over (so her slide's timer
+     never waits for her, and her set-up never lands on the flight); otherwise desktop loads her after the hero
+     settles, and phones keep the files in the cache for one */
+  if (onNexiSlide() && possible()) { if (introOn()) setTimeout(load, 1600); else load(); }
   else if (desk.matches) { preload(); whenSettled(load); }
   else if (possible() && !saveData) whenSettled(preload, 2500);
 })();
