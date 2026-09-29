@@ -223,10 +223,12 @@
       </div>
     </article>
 
-    <!-- Slide 4 · Meet Nexi: she comes right up to the glass, knocks, lands on her own platform and builds a
-         website step by step (the stage script lives in hero-scenes.js, Nexi herself in nexi-bot.js) -->
-    <article class="slide slide--nexi" data-slide-nexi="meet" data-dur="31400" data-title="Meet Nexi, TechNext’s AI companion" aria-roledescription="slide">
-      <div class="container slide-inner si-nexi">
+    <!-- Slide 4 · Meet Nexi: she comes right up to the glass and knocks, then roams freely over a big website that
+         builds itself step by step while she works its controls (the script lives in hero-scenes.js, Nexi in nexi-bot.js).
+         Every control is a real button: visitors can switch steps, colours, fonts and the phone view, ask the assistant
+         and publish. -->
+    <article class="slide slide--nexi" data-slide-nexi="meet" data-dur="34400" data-title="Meet Nexi, TechNext’s AI companion" aria-roledescription="slide">
+      <div class="container slide-inner si-nexi si-web">
         <div class="slide-copy">
           <span class="slide-tag up" style="--d:0ms">{{icon:bot}} Meet Nexi · TechNext’s AI companion</span>
           <h2 class="as-h1">
@@ -243,46 +245,74 @@
           <button class="nxh-hear up" style="--d:680ms" type="button" data-nexi-voice aria-pressed="false">{{icon:mute}}{{icon:volume}}<span data-voice-label data-on="Nexi’s voice is on" data-off="Hear Nexi talk">Hear Nexi talk</span></button>
         </div>
 
-        <div class="nxh-stage up" style="--d:160ms" data-nxh="meet">
-          <div class="nxh-site" aria-hidden="true">
-            <div class="nxh-bar"><i></i><i></i><i></i><span class="nxh-url">{{icon:lock}}<b>your-site.com</b></span><span class="nxh-live">Live</span></div>
-            <div class="nxh-page">
-              <div class="nxh-brief">
-                <span class="nxh-note" style="--n:0">{{icon:target}}Goals</span>
-                <span class="nxh-note" style="--n:1">{{icon:users}}Audience</span>
-                <span class="nxh-note" style="--n:2">{{icon:layers}}Pages</span>
-                <span class="nxh-note" style="--n:3">{{icon:send}}Enquiries</span>
+        <div class="nxh-stage nxh-stage--web up" style="--d:160ms" data-nxh="meet" role="group" aria-label="A website built step by step: try every control">
+          <div class="nxh-web" data-step="-1" data-dev="desk" data-pal="0" data-font="sans">
+            <div class="nxh-bar">
+              <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+              <span class="nxh-url" aria-hidden="true"><span class="nxh-url-fill"></span>{{icon:lock}}<b>your-site.com</b><span class="nxh-live">Live</span></span>
+              <span class="nxh-devs" role="group" aria-label="Preview size">
+                <button type="button" data-nxh-dev="desk" aria-pressed="true" aria-label="Desktop view">{{icon:monitor}}</button>
+                <button type="button" data-nxh-dev="phone" aria-pressed="false" aria-label="Phone view">{{icon:phone}}</button>
+              </span>
+            </div>
+            <div class="nxh-tools">
+              <ol class="nxh-steps" aria-label="How TechNext builds your website: select a step">
+                <li><button type="button" data-nxh-step="0" aria-pressed="false"><b>1</b><span>Brief</span></button></li>
+                <li><button type="button" data-nxh-step="1" aria-pressed="false"><b>2</b><span>Design</span></button></li>
+                <li><button type="button" data-nxh-step="2" aria-pressed="false"><b>3</b><span>Build</span></button></li>
+                <li><button type="button" data-nxh-step="3" aria-pressed="false"><b>4</b><span>AI assistant</span></button></li>
+                <li><button type="button" data-nxh-step="4" aria-pressed="false"><b>5</b><span>Launch</span></button></li>
+              </ol>
+              <button class="nxh-publish" type="button" data-nxh-publish>{{icon:send}}<span class="p-off">Publish</span><span class="p-on">Published</span></button>
+            </div>
+            <div class="nxh-view">
+              <p class="nxh-empty" aria-hidden="true">Your new website</p>
+              <div class="nxh-board" aria-hidden="true">
+                <div class="nxh-note" style="--n:0"><b>{{icon:target}}Goal</b><span>More enquiries from the website</span></div>
+                <div class="nxh-note" style="--n:1"><b>{{icon:users}}Visitors</b><span>Owners and managers of growing companies</span></div>
+                <div class="nxh-note" style="--n:2"><b>{{icon:mail}}Enquiries</b><span>Every form reaches the right person</span></div>
+                <div class="nxh-map" style="--n:3"><b>{{icon:layers}}Pages</b><span class="nxh-map-home">Home</span><span class="nxh-map-kids"><i>Services</i><i>About</i><i>Contact</i></span></div>
               </div>
-              <div class="nxh-wire">
-                <div class="nxh-w-nav"><i class="nxh-w-logo"></i><i></i><i></i><i></i><i class="nxh-w-btn"></i></div>
-                <div class="nxh-w-hero"><div class="nxh-w-txt"><b class="nxh-w-h">Your brand,<br>online.</b><i class="nxh-w-p"></i><i class="nxh-w-p nxh-w-p2"></i><i class="nxh-w-cta"></i></div><i class="nxh-w-img"></i></div>
-                <div class="nxh-w-cards"><i></i><i></i><i></i></div>
+              <div class="nxh-pg" aria-hidden="true">
+                <div class="nxh-pg-nav"><i class="nxh-pg-logo"></i><span>Services</span><span>About</span><span>Contact</span><i class="nxh-pg-burger"></i><i class="nxh-pg-btn">Get a quote</i></div>
+                <div class="nxh-pg-hero">
+                  <div class="nxh-pg-copy"><b>Your brand, online.</b><p>Short copy, real information and fast pages.</p><i class="nxh-pg-cta">Book a call</i></div>
+                  <i class="nxh-pg-art"><i></i><i></i><i></i></i>
+                </div>
+                <div class="nxh-pg-cards"><i><u></u><s></s><s></s></i><i><u></u><s></s><s></s></i><i><u></u><s></s><s></s></i></div>
               </div>
-              <div class="nxh-code"><i style="--w:62%"></i><i style="--w:44%;--x:14px"></i><i style="--w:70%;--x:14px"></i><i style="--w:38%;--x:28px"></i><i style="--w:56%"></i></div>
-              <div class="nxh-phone"><i></i><i></i><i></i></div>
-              <div class="nxh-checks"><span>{{icon:check}}Mobile</span><span>{{icon:check}}Speed</span><span>{{icon:check}}SEO</span></div>
+              <div class="nxh-brand-pn" role="group" aria-label="Brand colours and type">
+                <b aria-hidden="true">Brand</b>
+                <span class="nxh-pals">
+                  <button type="button" data-nxh-pal="0" aria-pressed="true" aria-label="Blue palette" style="--c1:#3167CA;--c2:#8C7BFF"></button>
+                  <button type="button" data-nxh-pal="1" aria-pressed="false" aria-label="Teal palette" style="--c1:#0E7C74;--c2:#F2A541"></button>
+                  <button type="button" data-nxh-pal="2" aria-pressed="false" aria-label="Plum palette" style="--c1:#7A3E8F;--c2:#F07A5A"></button>
+                </span>
+                <span class="nxh-fonts">
+                  <button type="button" data-nxh-font="sans" aria-pressed="true" aria-label="Sans-serif headings">Aa</button>
+                  <button type="button" data-nxh-font="serif" aria-pressed="false" aria-label="Serif headings">Aa</button>
+                </span>
+              </div>
+              <ol class="nxh-console" aria-hidden="true">
+                <li>{{icon:check}}Pages built from sections</li>
+                <li>{{icon:check}}Images sized for every screen</li>
+                <li>{{icon:check}}Titles, sitemap and analytics</li>
+                <li>{{icon:check}}Contact form wired to your inbox</li>
+              </ol>
               <div class="nxh-chat">
-                <div class="nxh-chat-h"><i class="nxh-mini"></i><b>Assistant</b><small>online</small></div>
-                <p class="nxh-chat-q">Do you deliver on Saturdays?</p>
-                <p class="nxh-chat-a">Yes, 9am to 1pm. Shall I book a slot?</p>
-                <span class="nxh-typing"><i></i><i></i><i></i></span>
+                <div class="nxh-chat-h" aria-hidden="true"><i class="nxh-mini"></i><b>Assistant</b><small>online</small></div>
+                <div class="nxh-chat-log" aria-live="polite"><p class="nxh-chat-a">Hi! Ask me anything.</p></div>
+                <div class="nxh-chat-qs" role="group" aria-label="Ask the assistant">
+                  <button type="button" data-nxh-q="0">Do you deliver on Saturdays?</button>
+                  <button type="button" data-nxh-q="1">Where is my order?</button>
+                  <button type="button" data-nxh-q="2">Can I talk to a person?</button>
+                </div>
               </div>
-              <div class="nxh-launch">{{icon:plane}}<b>Live!</b></div>
+              <p class="nxh-toast" aria-live="polite">{{icon:check}}<b>Your site is live</b></p>
+              <p class="nxh-lead" aria-hidden="true">{{icon:mail}}<b>New enquiry</b><span>from the contact form</span></p>
             </div>
           </div>
-          <div class="nxh-plat" aria-hidden="true">
-            <i class="nxh-beam"></i>
-            <div class="nxh-pad"><i class="nxh-ring nxh-ring--a"></i><i class="nxh-ring nxh-ring--b"></i><i class="nxh-ring nxh-ring--c"></i></div>
-            <div class="nxh-base"><span><b>NEXI</b><small>AI companion</small></span></div>
-            <span class="nxh-ava"><i></i></span>
-          </div>
-          <ol class="nxh-steps" aria-label="How TechNext builds your website: select a step">
-            <li><button type="button" data-nxh-step="0"><b>1</b><span>Brief</span></button></li>
-            <li><button type="button" data-nxh-step="1"><b>2</b><span>Design</span></button></li>
-            <li><button type="button" data-nxh-step="2"><b>3</b><span>Build</span></button></li>
-            <li><button type="button" data-nxh-step="3"><b>4</b><span>AI<em> assistant</em></span></button></li>
-            <li><button type="button" data-nxh-step="4"><b>5</b><span>Launch</span></button></li>
-          </ol>
+          <span class="nxh-ava nxh-ava--float" aria-hidden="true"><i></i></span>
           <p class="nxh-cap" aria-hidden="true"></p>
           <div class="nxh-fx" aria-hidden="true"></div>
         </div>
@@ -290,7 +320,7 @@
     </article>
 
     <!-- Slide 5 · marketing and brand assets: a sample brand kit builds itself while Nexi over-reacts to each piece -->
-    <article class="slide slide--nexi" data-slide-nexi="brand" data-dur="24500" data-title="Graphic design and brand assets by TechNext" aria-roledescription="slide">
+    <article class="slide slide--nexi" data-slide-nexi="brand" data-dur="26700" data-title="Graphic design and brand assets by TechNext" aria-roledescription="slide">
       <div class="container slide-inner si-nexi">
         <div class="slide-copy">
           <span class="slide-tag up" style="--d:0ms">{{icon:palette}} Marketing · Graphic design &amp; brand assets</span>
@@ -310,17 +340,27 @@
           <button class="nxh-hear up" style="--d:680ms" type="button" data-nexi-voice aria-pressed="false">{{icon:mute}}{{icon:volume}}<span data-voice-label data-on="Nexi’s voice is on" data-off="Hear Nexi react">Hear Nexi react</span></button>
         </div>
 
-        <div class="nxh-stage nxh-stage--brand up" style="--d:160ms" data-nxh="brand">
-          <div class="nxh-kit">
-            <div class="nxh-kit-head"><b>Sample brand kit</b><small>Lintel &amp; Co. is a fictional client</small></div>
-            <div class="nxh-kit-grid" role="group" aria-label="Sample brand kit: select a piece">
-              <button class="nxh-a nxh-a--logo" type="button" data-nxh-asset="0"><span class="nxh-art"><svg class="nxh-mk" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 29V15.5a11 11 0 0 1 22 0V29h-6.2V15.5a4.8 4.8 0 0 0-9.6 0V29z" fill="currentColor"/><rect x="3" y="26.5" width="26" height="2.5" rx="1" fill="#9E5230"/></svg><b>Lintel &amp; Co.</b></span><small>Logo</small></button>
-              <button class="nxh-a nxh-a--pal" type="button" data-nxh-asset="1"><span class="nxh-art"><i style="--c:#1F4E5A;--n:0"></i><i style="--c:#9E5230;--n:1"></i><i style="--c:#F3EEE6;--n:2"></i><i style="--c:#1C2326;--n:3"></i></span><small>Colours</small></button>
-              <button class="nxh-a nxh-a--type" type="button" data-nxh-asset="2"><span class="nxh-art"><b class="nxh-aa">Aa</b><span>Georgia <em>headings</em><br>Inter <em>body</em></span></span><small>Type pair</small></button>
-              <button class="nxh-a nxh-a--social" type="button" data-nxh-asset="3"><span class="nxh-art"><i class="nxh-post" style="--n:0"><b>Fit-out, finished properly.</b></i><i class="nxh-post" style="--n:1"></i><i class="nxh-post" style="--n:2"></i></span><small>Social posts</small></button>
-              <button class="nxh-a nxh-a--card" type="button" data-nxh-asset="4"><span class="nxh-art"><span class="nxh-bc"><span class="nxh-bc-f"><svg class="nxh-mk" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 29V15.5a11 11 0 0 1 22 0V29h-6.2V15.5a4.8 4.8 0 0 0-9.6 0V29z" fill="currentColor"/><rect x="3" y="26.5" width="26" height="2.5" rx="1" fill="#9E5230"/></svg></span><span class="nxh-bc-b"><b>Studio Director</b><i></i><i></i></span></span></span><small>Business card</small></button>
-              <button class="nxh-a nxh-a--guide" type="button" data-nxh-asset="5"><span class="nxh-art"><span class="nxh-book"><i></i><i></i><b>Brand guideline</b></span></span><small>Guideline</small></button>
+        <div class="nxh-stage nxh-stage--brand up" style="--d:160ms" data-nxh="brand" role="group" aria-label="A sample brand kit: select a piece, or switch the direction">
+          <svg class="nxd-defs" aria-hidden="true" width="0" height="0" focusable="false">
+            <symbol id="nxd-m-a" viewBox="0 0 32 32"><path d="M5 29V15.5a11 11 0 0 1 22 0V29h-6.2V15.5a4.8 4.8 0 0 0-9.6 0V29z" fill="currentColor"/><rect x="3" y="26.5" width="26" height="2.5" rx="1" style="fill:var(--da)"/></symbol>
+            <symbol id="nxd-m-b" viewBox="0 0 32 32"><rect x="3" y="3" width="12" height="12" fill="currentColor"/><rect x="17" y="3" width="12" height="12" style="fill:var(--da)"/><rect x="3" y="17" width="12" height="12" style="fill:var(--da)"/><rect x="17" y="17" width="12" height="12" fill="currentColor"/></symbol>
+            <symbol id="nxd-m-c" viewBox="0 0 32 32"><path d="M4 21a12 12 0 0 1 24 0z" style="fill:var(--da)"/><rect x="3" y="23" width="26" height="3" rx="1.5" fill="currentColor"/><circle cx="16" cy="9" r="2.4" fill="currentColor"/></symbol>
+          </svg>
+          <div class="nxh-desk" data-dir="a">
+            <div class="nxd-head">
+              <span class="nxd-title"><b>Sample brand kit</b><small>Lintel &amp; Co. is a fictional client</small></span>
+              <span class="nxd-dirs" role="group" aria-label="Brand direction">
+                <button type="button" data-nxd-dir="a" aria-pressed="true">Calm</button>
+                <button type="button" data-nxd-dir="b" aria-pressed="false">Bold</button>
+                <button type="button" data-nxd-dir="c" aria-pressed="false">Warm</button>
+              </span>
             </div>
+            <button class="nxd nxd-logo" type="button" data-nxd-item="logo" aria-label="Logo"><svg class="nxd-mk" aria-hidden="true"><use href="#nxd-m-a" class="m-a"/><use href="#nxd-m-b" class="m-b"/><use href="#nxd-m-c" class="m-c"/></svg><b>Lintel &amp; Co.</b><small>Interiors · Singapore</small></button>
+            <button class="nxd nxd-fan" type="button" data-nxd-item="fan" aria-label="Colours"><i class="c-p" style="--n:0"><small>Primary</small></i><i class="c-a" style="--n:1"><small>Accent</small></i><i class="c-s" style="--n:2"><small>Surface</small></i><i class="c-i" style="--n:3"><small>Ink</small></i></button>
+            <button class="nxd nxd-phone" type="button" data-nxd-item="phone" aria-label="Social posts"><span class="nxd-post"><span class="nxd-post-h"><span class="nxd-av"><svg class="nxd-mk" aria-hidden="true"><use href="#nxd-m-a" class="m-a"/><use href="#nxd-m-b" class="m-b"/><use href="#nxd-m-c" class="m-c"/></svg></span><b>lintel.co</b></span><span class="nxd-post-img"><b>Fit-out, finished properly.</b></span><span class="nxd-post-f"><i></i><i></i><i></i></span><span class="nxd-post-s"><i></i><i></i></span></span></button>
+            <button class="nxd nxd-type" type="button" data-nxd-item="type" aria-label="Type pair"><b class="nxd-aa">Aa</b><span class="nxd-tn"><b class="t-a">Georgia</b><b class="t-b">Jakarta</b><b class="t-c">Caveat</b> headings<br><b>Inter</b> body</span><span class="nxd-pang">Rooms that work as hard as you do.</span></button>
+            <button class="nxd nxd-cards" type="button" data-nxd-item="cards" aria-label="Business cards"><span class="nxd-bc nxd-bc-back"><b>Studio Director</b><i></i><i></i></span><span class="nxd-bc nxd-bc-front"><svg class="nxd-mk" aria-hidden="true"><use href="#nxd-m-a" class="m-a"/><use href="#nxd-m-b" class="m-b"/><use href="#nxd-m-c" class="m-c"/></svg></span></button>
+            <button class="nxd nxd-book" type="button" data-nxd-item="book" aria-label="Brand guideline"><span class="nxd-pg nxd-pg-l"><span class="nxd-clear"><svg class="nxd-mk" aria-hidden="true"><use href="#nxd-m-a" class="m-a"/><use href="#nxd-m-b" class="m-b"/><use href="#nxd-m-c" class="m-c"/></svg></span><small>Clear space</small></span><span class="nxd-pg nxd-pg-r"><span class="nxd-chips"><i class="c-p"></i><i class="c-a"></i><i class="c-i"></i></span><small>Colour</small></span></button>
           </div>
           <span class="nxh-ava nxh-ava--float" aria-hidden="true"><i></i></span>
           <p class="nxh-cap" aria-hidden="true"></p>

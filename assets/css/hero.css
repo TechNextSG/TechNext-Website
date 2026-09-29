@@ -448,13 +448,19 @@
 
 /* ================================================================ 4 · Meet Nexi · 5 · the brand kit
    Two stages Nexi performs on: hero-scenes.js runs each script (NexiStage), nexi-bot.js moves the robot.
-   Loops are transform or opacity only; step and asset states are classes set once per beat. */
+   The website on slide 4 is the presentation itself: its steps, colours, fonts, phone view, assistant and
+   Publish are real buttons. While it presents, nothing decorative moves; only the website changes. */
 @media (min-width:961px){
   .slide-inner.si-nexi{grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:40px;padding-right:24px}
   .si-nexi .as-h1{font-size:clamp(2.3rem,4.2vw,3.8rem)}
+  /* slide 4: a narrow column of copy and a big website */
+  .slide-inner.si-web{grid-template-columns:minmax(0,.66fr) minmax(0,1.34fr);gap:36px;padding-right:20px}
+  .si-web .as-h1{font-size:clamp(2.1rem,3.3vw,3rem)}
+  .si-web .slide-copy .lead{font-size:1.02rem}
 }
 .nxh-stage{position:relative;z-index:1;width:min(100%,calc((min(760px,100vh - var(--header-h)) - 180px) * 1.22));max-width:640px;aspect-ratio:1.22/1;margin-inline:auto;touch-action:pan-y}
 .nxh-stage--brand{aspect-ratio:1.16/1;width:min(100%,calc((min(760px,100vh - var(--header-h)) - 180px) * 1.16))}
+.nxh-stage--web{aspect-ratio:auto;max-width:none;width:min(100%,calc((min(760px,100vh - var(--header-h)) - 170px) * 1.51))}
 
 /* "Hear Nexi talk" in the copy, and the speaker in the carousel controls ([data-nexi-voice], nexi-voice.js) */
 .nxh-hear{display:inline-flex;align-items:center;gap:8px;margin-top:18px;height:38px;padding:0 15px 0 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.92);font:600 13.5px/1 var(--font-body);color:var(--ink);cursor:pointer;transition:border-color .2s ease,background-color .2s ease,color .2s ease,box-shadow .2s ease}
@@ -479,212 +485,291 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .hero.is-knock .hero-track{animation:nxhKnock .18s ease-out}
 @keyframes nxhKnock{30%{transform:translate(2px,-1px)}65%{transform:translate(-2px,1px)}}
 
-/* ---- 4 · the website Nexi builds, one step at a time (.is-s0 brief · s1 design · s2 build · s3 AI · s4 launch) */
-.nxh-site{position:absolute;right:0;top:2%;width:80%;aspect-ratio:16/10.6;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 34px 60px -30px rgba(31,31,61,.45),0 0 0 6px rgba(255,255,255,.6);overflow:hidden;animation:nxhFloat 7s ease-in-out infinite}
-@keyframes nxhFloat{50%{transform:translateY(-9px)}}
-.nxh-bar{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-bottom:1px solid var(--line);background:var(--alt)}
-.nxh-bar>i{width:8px;height:8px;flex:none;border-radius:50%;background:#F1A7A1}
+/* ---- 4 · the website: browser bar, the builder's steps and Publish, and the page it builds.
+   .nxh-web[data-step] is the current step (-1 before the brief), .is-s0 to .is-s4 the steps reached so far,
+   [data-pal] / [data-font] / [data-dev] the visitor's (or Nexi's) choices, .is-painted the design filled in,
+   .is-live published. */
+.nxh-web{--p:#3167CA;--a:#8C7BFF;--pf:var(--font-display);position:relative;display:grid;grid-template-rows:auto auto minmax(0,1fr);width:100%;aspect-ratio:16/10.6;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 36px 64px -34px rgba(31,31,61,.45),0 0 0 6px rgba(255,255,255,.6);overflow:hidden}
+.nxh-web[data-pal="1"]{--p:#0E7C74;--a:#F2A541}
+.nxh-web[data-pal="2"]{--p:#7A3E8F;--a:#F07A5A}
+.nxh-web[data-font="serif"]{--pf:Georgia,"Times New Roman",serif}
+.nxh-bar{display:flex;align-items:center;gap:6px;height:36px;padding:0 10px 0 12px;border-bottom:1px solid var(--line);background:var(--alt)}
+.nxh-bar>i{width:9px;height:9px;flex:none;border-radius:50%;background:#F1A7A1}
 .nxh-bar>i+i{background:#F3D28B}.nxh-bar>i+i+i{background:#A6DDB8}
-.nxh-url{display:inline-flex;align-items:center;gap:5px;flex:1;min-width:0;height:18px;margin:0 4px 0 8px;padding:0 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font:500 10.5px/1 var(--font-body);color:var(--muted);white-space:nowrap;overflow:hidden}
-.nxh-url b{font-weight:600;color:var(--body)}
-.nxh-url .ic{width:10px;height:10px;flex:none;transition:color .3s ease}
-.nxh-live{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 8px;border-radius:999px;background:var(--ok-050);color:var(--ok);font:700 9px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;opacity:0;transform:scale(.5);transition:opacity .3s ease,transform .5s var(--spring)}
+.nxh-url{position:relative;display:flex;align-items:center;gap:6px;flex:1;min-width:0;height:22px;margin:0 8px;padding:0 10px;border-radius:999px;background:#fff;border:1px solid var(--line);overflow:hidden;font:500 11.5px/1 var(--font-body);color:var(--muted);white-space:nowrap}
+.nxh-url b{position:relative;font-weight:600;color:var(--body)}
+.nxh-url .ic{position:relative;width:11px;height:11px;flex:none;transition:color .3s ease}
+.nxh-url-fill{position:absolute;inset:0;background:linear-gradient(90deg,var(--blue-050),var(--blue-100));transform:scaleX(0);transform-origin:left;opacity:0}
+.nxh-web.is-publishing .nxh-url-fill{opacity:1;transform:scaleX(1);transition:transform .9s var(--ease-out)}
+.nxh-web.is-live .nxh-url-fill{opacity:0;transition:opacity .3s ease}
+.nxh-live{position:relative;display:inline-flex;align-items:center;gap:4px;margin-left:auto;height:16px;padding:0 7px;border-radius:999px;background:var(--ok-050);color:var(--ok);font:700 9px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;opacity:0;transition:opacity .3s ease}
 .nxh-live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok)}
-.nxh-site.is-s4 .nxh-live{opacity:1;transform:none}
-.nxh-site.is-s4 .nxh-url .ic{color:var(--ok)}
-.nxh-page{position:absolute;left:0;right:0;top:30px;bottom:0;overflow:hidden;background-image:radial-gradient(rgba(49,103,202,.13) 1px,transparent 1.2px);background-size:14px 14px}
-.nxh-site.is-s1 .nxh-page{background-image:none}
-.nxh-page::before{content:"Your new website";position:absolute;left:50%;top:50%;padding:7px 14px;border-radius:999px;border:1.5px dashed #C3CEE3;background:rgba(255,255,255,.85);font:600 12px/1 var(--font-body);color:var(--muted);white-space:nowrap;transform:translate(-50%,-50%);transition:opacity .3s ease,transform .4s var(--ease-out)}
-.nxh-site.is-s0 .nxh-page::before{opacity:0;transform:translate(-50%,-50%) scale(.8)}
-/* brief: four notes */
-.nxh-brief{position:absolute;inset:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:center;padding:14px 18px;transition:opacity .35s ease,transform .5s var(--ease-out)}
-.nxh-note{display:flex;align-items:center;gap:7px;height:40px;padding:0 12px;border-radius:10px;background:#FFF7DA;border:1px solid #F1E3A8;box-shadow:0 10px 18px -14px rgba(31,31,61,.5);font:700 12.5px/1 var(--font-display);color:var(--ink);opacity:0;transform:translateY(12px) scale(.7) rotate(calc(var(--n) * 2deg - 3deg));transition:opacity .3s ease calc(var(--n) * .14s),transform .55s var(--spring) calc(var(--n) * .14s)}
-.nxh-note:nth-child(even){background:#E9F1FE;border-color:#CFDDF7}
-.nxh-note .ic{width:15px;height:15px;flex:none;color:var(--blue)}
-.nxh-site.is-s0 .nxh-note{opacity:1;transform:rotate(calc(var(--n) * 2deg - 3deg))}
-.nxh-site.is-s1 .nxh-brief{opacity:0;transform:translateY(-24px) scale(.85)}
-/* design: the wireframe draws, then the brand fills it in */
-.nxh-wire{position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:9px;padding:10px 14px 12px;opacity:0;transition:opacity .35s ease}
-.nxh-site.is-s1 .nxh-wire{opacity:1}
-.nxh-wire i,.nxh-w-hero{border:1.5px dashed #C3CEE3;border-radius:6px;transition:background-color .5s ease .9s,border-color .5s ease .9s,box-shadow .5s ease .9s}
-.nxh-w-nav{display:flex;align-items:center;gap:7px;height:18px}
-.nxh-w-nav i{width:26px;height:7px}
-.nxh-w-nav .nxh-w-logo{width:38px;height:13px;margin-right:auto}
-.nxh-w-nav .nxh-w-btn{width:42px;height:15px;border-radius:5px}
-.nxh-w-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:10px;align-items:center;padding:10px;border-radius:10px}
-.nxh-w-txt{display:grid;gap:6px;align-content:center;min-width:0}
-.nxh-w-h{font:800 clamp(12px,1.35vw,17px)/1.1 var(--font-display);color:var(--ink);letter-spacing:-.01em;opacity:0;transform:translateY(6px);transition:opacity .45s ease 1.1s,transform .55s var(--ease-out) 1.1s}
-.nxh-w-p{display:block;height:6px;width:92%}
-.nxh-w-p2{width:66%}
-.nxh-w-cta{display:block;width:62px;height:18px;margin-top:3px;border-radius:6px}
-.nxh-w-img{display:block;align-self:stretch;min-height:44px;border-radius:9px}
-.nxh-w-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.nxh-w-cards i{height:30px;border-radius:8px}
-.nxh-site.is-s1 .nxh-w-h{opacity:1;transform:none}
-.nxh-site.is-s1 .nxh-wire i{border-color:transparent;border-style:solid;background:#E4E9F3}
-.nxh-site.is-s1 .nxh-w-nav .nxh-w-logo{background:var(--blue)}
-.nxh-site.is-s1 .nxh-w-nav .nxh-w-btn,.nxh-site.is-s1 .nxh-wire .nxh-w-cta{background:var(--blue);box-shadow:0 6px 12px -6px rgba(49,103,202,.7)}
-.nxh-site.is-s1 .nxh-w-hero{border-color:transparent;background:linear-gradient(120deg,var(--blue-050),#fff 70%)}
-.nxh-site.is-s1 .nxh-wire .nxh-w-img{background:radial-gradient(circle at 70% 30%,#8C7BFF 0 18%,transparent 19%),linear-gradient(135deg,#6FA0F5,#3167CA)}
-.nxh-site.is-s1 .nxh-w-cards i{background:#fff;box-shadow:0 0 0 1px var(--line),inset 0 3px 0 var(--blue-100)}
-/* build: code, a phone check and the basics */
-.nxh-code{position:absolute;left:10px;top:10px;bottom:10px;width:46%;display:grid;align-content:start;gap:8px;padding:14px 12px;border-radius:10px;background:#1B1F33;box-shadow:0 18px 30px -16px rgba(31,31,61,.7);transform:translateX(-118%);transition:transform .6s var(--ease-out)}
-.nxh-code i{display:block;height:6px;width:var(--w);margin-left:var(--x,0);border-radius:3px;background:linear-gradient(90deg,#6FA0F5,#8C7BFF);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-.nxh-code i:nth-child(2){background:linear-gradient(90deg,#7FD1AE,#6FA0F5)}.nxh-code i:nth-child(4){background:#F3D28B}
-.nxh-site.is-s2 .nxh-code{transform:none}
-.nxh-site.is-s2 .nxh-code i{transform:none}
-.nxh-site.is-s2 .nxh-code i:nth-child(1){transition-delay:.45s}.nxh-site.is-s2 .nxh-code i:nth-child(2){transition-delay:.62s}.nxh-site.is-s2 .nxh-code i:nth-child(3){transition-delay:.79s}.nxh-site.is-s2 .nxh-code i:nth-child(4){transition-delay:.96s}.nxh-site.is-s2 .nxh-code i:nth-child(5){transition-delay:1.13s}
-.nxh-phone{position:absolute;right:12px;bottom:10px;display:grid;align-content:start;gap:5px;width:19%;aspect-ratio:9/16;padding:12px 6px 6px;border-radius:11px;border:3px solid var(--ink);background:#fff;box-shadow:0 16px 26px -14px rgba(31,31,61,.6);opacity:0;transform:translateY(20px) rotate(8deg) scale(.7);transition:opacity .3s ease .5s,transform .6s var(--spring) .5s}
-.nxh-phone i{display:block;height:5px;border-radius:3px;background:#E4E9F3}
-.nxh-phone i:first-child{height:18px;border-radius:5px;background:linear-gradient(135deg,#6FA0F5,#3167CA)}
-.nxh-checks{position:absolute;left:calc(46% + 22px);top:14px;display:grid;gap:6px}
-.nxh-checks span{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px 0 5px;border-radius:999px;background:var(--ok-050);border:1px solid #CDEBD9;font:700 10.5px/1 var(--font-body);color:var(--ok);opacity:0;transform:translateX(-10px);transition:opacity .3s ease,transform .45s var(--spring)}
-.nxh-checks .ic{width:12px;height:12px}
-.nxh-checks span:nth-child(1){transition-delay:1.1s}.nxh-checks span:nth-child(2){transition-delay:1.35s}.nxh-checks span:nth-child(3){transition-delay:1.6s}
-.nxh-site.is-s2 .nxh-phone{opacity:1;transform:rotate(4deg)}
-.nxh-site.is-s2 .nxh-checks span{opacity:1;transform:none}
-/* AI assistant: a chat widget like Nexi joins the page */
-.nxh-site.is-s3 .nxh-code{transform:translateX(-118%);transition-delay:0s}
-.nxh-site.is-s3 .nxh-phone,.nxh-site.is-s3 .nxh-checks span{opacity:0;transition-delay:0s}
-.nxh-chat{position:absolute;right:12px;bottom:10px;width:54%;display:grid;gap:6px;padding:8px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 20px 34px -16px rgba(31,31,61,.55);opacity:0;transform:translateY(24px) scale(.6);transform-origin:100% 100%;transition:opacity .3s ease .25s,transform .55s var(--spring) .25s}
-.nxh-chat-h{display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-.nxh-chat-h b{font:700 11px/1 var(--font-display);color:var(--ink)}
-.nxh-chat-h small{display:inline-flex;align-items:center;gap:3px;margin-left:auto;font:600 9px/1 var(--font-body);color:var(--ok)}
-.nxh-chat-h small::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ok)}
-.nxh-mini{position:relative;width:20px;height:20px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe6f3 72%);box-shadow:inset 0 -1px 2px rgba(31,31,61,.15),0 2px 5px rgba(30,70,145,.25)}
-.nxh-mini::before{content:"";position:absolute;left:4px;right:4px;top:6px;height:8px;border-radius:4px;background:#0b0f1e}
-.nxh-mini::after{content:"";position:absolute;top:8px;left:7px;width:2px;height:4px;border-radius:1px;background:#9ccbff;box-shadow:4px 0 0 #9ccbff}
-.nxh-chat p{margin:0;padding:5px 8px;border-radius:9px;font:500 10px/1.3 var(--font-body);opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .4s var(--ease-out)}
-.nxh-chat-q{justify-self:end;max-width:90%;background:var(--alt);border:1px solid var(--line);color:var(--ink)}
-.nxh-chat-a{justify-self:start;max-width:92%;background:var(--blue);color:#fff}
-.nxh-typing{display:inline-flex;gap:3px;justify-self:start;padding:6px 8px;border-radius:9px;background:var(--blue-050);opacity:0;transition:opacity .2s ease}
-.nxh-typing i{width:4px;height:4px;border-radius:50%;background:var(--blue);animation:nxhDot .9s ease-in-out infinite}
-.nxh-typing i+i{animation-delay:.15s}.nxh-typing i+i+i{animation-delay:.3s}
+.nxh-web.is-live .nxh-live{opacity:1}
+.nxh-web.is-live .nxh-url .ic{color:var(--ok)}
+.nxh-devs{display:flex;gap:2px;padding:2px;border-radius:9px;background:#fff;border:1px solid var(--line)}
+.nxh-devs button{display:grid;place-items:center;width:28px;height:22px;padding:0;border:0;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer;transition:background-color .2s ease,color .2s ease}
+.nxh-devs .ic{width:14px;height:14px}
+.nxh-devs button:hover{color:var(--ink)}
+.nxh-devs button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.nxh-devs button:focus-visible,.nxh-steps button:focus-visible,.nxh-publish:focus-visible,.nxh-brand-pn button:focus-visible,.nxh-chat-qs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+/* the builder's toolbar: five steps and Publish */
+.nxh-tools{display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;border-bottom:1px solid var(--line);background:#fff}
+.nxh-steps{display:flex;align-items:center;gap:4px;flex:1;min-width:0;margin:0;padding:0;list-style:none;counter-reset:none}
+.nxh-steps li{position:relative;display:flex;align-items:center;flex:none}
+.nxh-steps li+li::before{content:"";width:14px;height:2px;margin-right:4px;border-radius:2px;background:var(--line);transition:background-color .3s ease}
+.nxh-steps li.is-done+li::before,.nxh-steps li.is-on::before{background:var(--blue-300)}
+.nxh-steps button{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px 0 4px;border-radius:999px;border:1px solid transparent;background:transparent;font:600 12.5px/1 var(--font-body);color:var(--muted);cursor:pointer;white-space:nowrap;transition:background-color .25s ease,color .25s ease,border-color .25s ease}
+.nxh-steps button b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--alt);box-shadow:inset 0 0 0 1px var(--line);color:var(--muted);font:800 11px/1 var(--font-display);transition:background-color .25s ease,color .25s ease,box-shadow .25s ease}
+.nxh-steps button:hover{color:var(--ink);border-color:var(--line)}
+.nxh-steps .is-done button{color:var(--body)}
+.nxh-steps .is-done button b{background:var(--ok-050);box-shadow:inset 0 0 0 1px #CDEBD9;color:var(--ok)}
+.nxh-steps .is-on button{background:var(--ink);color:#fff}
+.nxh-steps .is-on button b{background:var(--blue);box-shadow:none;color:#fff}
+.nxh-publish{display:inline-flex;align-items:center;gap:6px;flex:none;height:30px;padding:0 12px 0 10px;border-radius:9px;border:0;background:var(--blue);color:#fff;font:700 12.5px/1 var(--font-body);cursor:pointer;box-shadow:0 8px 16px -10px rgba(49,103,202,.8);transition:background-color .25s ease,box-shadow .25s ease}
+.nxh-publish .ic{width:14px;height:14px}
+.nxh-publish:hover{background:var(--blue-700)}
+.nxh-web.is-live .nxh-publish{background:var(--ok);box-shadow:0 8px 16px -10px rgba(19,122,74,.8)}
+.nxh-publish .p-on,.nxh-web.is-live .nxh-publish .p-off{display:none}
+.nxh-web.is-live .nxh-publish .p-on{display:inline}
+/* the view: the canvas the page is built on */
+.nxh-view{position:relative;overflow:hidden;background:#EEF1F7;background-image:radial-gradient(rgba(49,103,202,.12) 1px,transparent 1.3px);background-size:16px 16px}
+.nxh-empty{position:absolute;left:50%;top:50%;margin:0;padding:9px 16px;border-radius:999px;border:1.5px dashed #BFCBE2;background:rgba(255,255,255,.9);font:600 13px/1 var(--font-body);color:var(--muted);white-space:nowrap;transform:translate(-50%,-50%);transition:opacity .3s ease}
+.nxh-web.is-s0 .nxh-empty{opacity:0}
+/* step 1 · the brief: three notes and the page map on a board */
+.nxh-board{position:absolute;inset:16px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr);gap:12px;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.nxh-web[data-step="0"] .nxh-board{opacity:1}
+.nxh-note,.nxh-map{display:grid;align-content:start;gap:7px;padding:12px 13px;border-radius:12px;background:#FFF8DD;border:1px solid #EFE2AE;box-shadow:0 12px 22px -16px rgba(31,31,61,.45);opacity:0;transform:translateY(10px);transition:opacity .35s ease calc(var(--n) * .35s),transform .45s var(--ease-out) calc(var(--n) * .35s)}
+.nxh-note:nth-child(2){background:#EAF1FE;border-color:#CFDDF7}
+.nxh-note:nth-child(3){background:#E9F6EF;border-color:#CDEBD9}
+.nxh-note b,.nxh-map b{display:flex;align-items:center;gap:6px;font:800 13px/1 var(--font-display);color:var(--ink)}
+.nxh-note b .ic,.nxh-map b .ic{width:15px;height:15px;color:var(--blue)}
+.nxh-note span{font:500 12px/1.4 var(--font-body);color:var(--body)}
+.nxh-web[data-step="0"] .nxh-note,.nxh-web[data-step="0"] .nxh-map{opacity:1;transform:none}
+.nxh-map{position:relative;grid-column:1/-1;justify-items:center;align-content:center;gap:0;background:#fff;border-color:var(--line)}
+.nxh-map b{position:absolute;left:13px;top:12px}
+.nxh-map-home,.nxh-map-kids i{display:inline-block;padding:6px 14px;border-radius:8px;background:var(--blue-050);border:1px solid var(--blue-100);font:700 12px/1 var(--font-body);font-style:normal;color:var(--blue-700)}
+.nxh-map-home{position:relative;margin-bottom:22px;background:var(--blue);border-color:var(--blue);color:#fff}
+.nxh-map-home::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:11px;background:var(--blue-300)}
+.nxh-map-kids{position:relative;display:flex;gap:18px}
+.nxh-map-kids::before{content:"";position:absolute;left:12%;right:12%;top:-11px;height:2px;background:var(--blue-300)}
+.nxh-map-kids i{position:relative}
+.nxh-map-kids i::before{content:"";position:absolute;left:50%;bottom:100%;width:2px;height:11px;background:var(--blue-300)}
+/* steps 2 to 5 · the page. Drawn as a wireframe first, then the brand fills it in (.is-painted) */
+.nxh-pg{position:absolute;left:50%;top:14px;bottom:0;width:calc(100% - 28px);display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:14px;padding:14px 18px 0;border-radius:12px 12px 0 0;background:#fff;box-shadow:0 -1px 0 var(--line),0 18px 36px -24px rgba(31,31,61,.4);transform:translateX(-50%);opacity:0;overflow:hidden;transition:opacity .35s ease,width .6s var(--ease-out),top .6s var(--ease-out),bottom .6s var(--ease-out),border-radius .6s var(--ease-out),box-shadow .6s ease}
+.nxh-web.is-s1 .nxh-pg{opacity:1}
+.nxh-pg i,.nxh-pg b,.nxh-pg span,.nxh-pg p,.nxh-pg u,.nxh-pg s{transition:background-color .5s ease,border-color .5s ease,color .5s ease,opacity .4s ease}
+.nxh-pg-nav{display:flex;align-items:center;gap:14px;height:26px}
+.nxh-pg-logo{width:74px;height:18px;margin-right:auto;border-radius:6px;border:1.5px dashed #C3CEE3}
+.nxh-pg-nav span{font:600 11.5px/1 var(--font-body);color:transparent;border-radius:4px;background:#E4E9F3}
+.nxh-pg-burger{display:none;width:18px;height:12px;border-top:2px solid #C3CEE3;border-bottom:2px solid #C3CEE3}
+.nxh-pg-btn{padding:6px 11px;border-radius:7px;border:1.5px dashed #C3CEE3;font:700 11px/1 var(--font-body);font-style:normal;color:transparent}
+.nxh-pg-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:16px;align-items:center;padding:16px;border-radius:12px;border:1.5px dashed #C3CEE3}
+.nxh-pg-copy{display:grid;gap:9px;justify-items:start;min-width:0}
+.nxh-pg-copy b{font:800 clamp(17px,2vw,27px)/1.08 var(--pf);letter-spacing:-.015em;color:#C7CFDD}
+.nxh-pg-copy p{margin:0;font:500 12.5px/1.45 var(--font-body);color:transparent;border-radius:4px;background:#E4E9F3}
+.nxh-pg-cta{padding:8px 14px;border-radius:8px;border:1.5px dashed #C3CEE3;font:700 12px/1 var(--font-body);font-style:normal;color:transparent}
+.nxh-pg-art{position:relative;display:block;align-self:stretch;min-height:90px;border-radius:10px;border:1.5px dashed #C3CEE3;overflow:hidden}
+.nxh-pg-art i{position:absolute;border-radius:50%;opacity:0}
+.nxh-pg-art i:nth-child(1){width:46%;aspect-ratio:1;right:10%;top:12%;background:var(--a)}
+.nxh-pg-art i:nth-child(2){width:70%;aspect-ratio:1;left:-12%;bottom:-38%;background:rgba(255,255,255,.22)}
+.nxh-pg-art i:nth-child(3){width:18%;aspect-ratio:1;left:22%;top:18%;background:rgba(255,255,255,.55)}
+.nxh-pg-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-content:start}
+.nxh-pg-cards>i{display:grid;gap:7px;padding:12px;border-radius:10px;border:1.5px dashed #C3CEE3}
+.nxh-pg-cards u{width:26px;height:26px;border-radius:8px;background:#E4E9F3}
+.nxh-pg-cards s{height:6px;border-radius:3px;background:#E4E9F3}
+.nxh-pg-cards s+s{width:64%}
+/* painted: the brand arrives */
+.nxh-web.is-painted .nxh-pg-logo{border:0;background:var(--p)}
+.nxh-web.is-painted .nxh-pg-nav span{color:var(--body);background:transparent}
+.nxh-web.is-painted .nxh-pg-btn,.nxh-web.is-painted .nxh-pg-cta{border-color:transparent;background:var(--p);color:#fff;box-shadow:0 8px 14px -8px var(--p)}
+.nxh-web.is-painted .nxh-pg-hero{border-color:transparent;background:linear-gradient(120deg,color-mix(in srgb,var(--p) 9%,#fff),#fff 72%)}
+.nxh-web.is-painted .nxh-pg-copy b{color:var(--ink)}
+.nxh-web.is-painted .nxh-pg-copy p{color:var(--body);background:transparent}
+.nxh-web.is-painted .nxh-pg-art{border:0;background:linear-gradient(135deg,color-mix(in srgb,var(--p) 55%,#fff),var(--p))}
+.nxh-web.is-painted .nxh-pg-art i{opacity:1}
+.nxh-web.is-painted .nxh-pg-cards>i{border:1px solid var(--line);background:#fff;box-shadow:0 10px 18px -14px rgba(31,31,61,.45)}
+.nxh-web.is-painted .nxh-pg-cards u{background:color-mix(in srgb,var(--a) 30%,#fff)}
+/* the phone view: the same page reflowed in a phone frame */
+.nxh-web[data-step="2"][data-dev="phone"] .nxh-pg{left:64%}
+.nxh-web[data-dev="phone"] .nxh-pg{width:min(38%,230px);top:12px;bottom:12px;border-radius:22px;padding:12px 12px 0;gap:10px;box-shadow:0 0 0 5px var(--ink),0 22px 40px -18px rgba(31,31,61,.6)}
+.nxh-web[data-dev="phone"] .nxh-pg-nav span,.nxh-web[data-dev="phone"] .nxh-pg-btn{display:none}
+.nxh-web[data-dev="phone"] .nxh-pg-burger{display:block}
+.nxh-web[data-dev="phone"] .nxh-pg-logo{width:54px;height:14px}
+.nxh-web[data-dev="phone"] .nxh-pg-hero{grid-template-columns:minmax(0,1fr);padding:12px;gap:12px}
+.nxh-web[data-dev="phone"] .nxh-pg-copy b{font-size:18px}
+.nxh-web[data-dev="phone"] .nxh-pg-copy p{font-size:11px}
+.nxh-web[data-dev="phone"] .nxh-pg-art{min-height:64px}
+.nxh-web[data-dev="phone"] .nxh-pg-cards{grid-template-columns:minmax(0,1fr)}
+.nxh-web[data-dev="phone"] .nxh-pg-cards>i:nth-child(n+3){display:none}
+/* step 2 · the brand panel: palettes and a type choice */
+.nxh-brand-pn{position:absolute;right:14px;top:24px;z-index:3;display:grid;gap:9px;padding:11px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(31,31,61,.55);opacity:0;visibility:hidden;transform:translateX(12px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
+.nxh-web[data-step="1"] .nxh-brand-pn{opacity:1;visibility:visible;transform:none}
+.nxh-brand-pn>b{font:800 11px/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.nxh-pals,.nxh-fonts{display:flex;gap:6px}
+.nxh-pals button{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid #fff;background:conic-gradient(var(--c1) 0 62%,var(--c2) 62% 100%);box-shadow:0 0 0 1px var(--line);cursor:pointer;transition:box-shadow .2s ease}
+.nxh-pals button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
+.nxh-fonts button{width:40px;height:30px;padding:0;border-radius:8px;border:1px solid var(--line);background:#fff;font:700 15px/1 var(--font-display);color:var(--ink);cursor:pointer}
+.nxh-fonts button[data-nxh-font="serif"]{font-family:Georgia,"Times New Roman",serif}
+.nxh-fonts button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+/* step 3 · the build log */
+.nxh-console{position:absolute;left:14px;bottom:14px;z-index:3;display:grid;gap:7px;margin:0;padding:12px 14px;border-radius:12px;background:#1B1F33;list-style:none;box-shadow:0 18px 30px -16px rgba(31,31,61,.7);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
+.nxh-web[data-step="2"] .nxh-console{opacity:1;visibility:visible;transform:none}
+.nxh-console li{display:flex;align-items:center;gap:7px;font:600 11.5px/1.2 ui-monospace,"SF Mono",Consolas,monospace;color:#C9D6F5;opacity:0;transition:opacity .25s ease}
+.nxh-console .ic{width:13px;height:13px;color:#7FD1AE}
+.nxh-web[data-step="2"] .nxh-console li{opacity:1}
+.nxh-web[data-step="2"] .nxh-console li:nth-child(1){transition-delay:.35s}.nxh-web[data-step="2"] .nxh-console li:nth-child(2){transition-delay:.75s}.nxh-web[data-step="2"] .nxh-console li:nth-child(3){transition-delay:1.15s}.nxh-web[data-step="2"] .nxh-console li:nth-child(4){transition-delay:1.55s}
+/* step 4 · the assistant: ask it one of three questions */
+.nxh-chat{position:absolute;right:14px;bottom:14px;z-index:4;display:grid;gap:8px;width:min(46%,290px);padding:10px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 22px 38px -18px rgba(31,31,61,.55);opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
+.nxh-web.is-s3 .nxh-chat{opacity:1;visibility:visible;transform:none}
+.nxh-chat-h{display:flex;align-items:center;gap:7px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.nxh-chat-h b{font:700 12px/1 var(--font-display);color:var(--ink)}
+.nxh-chat-h small{display:inline-flex;align-items:center;gap:4px;margin-left:auto;font:600 10px/1 var(--font-body);color:var(--ok)}
+.nxh-chat-h small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.nxh-mini{position:relative;width:22px;height:22px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe6f3 72%);box-shadow:inset 0 -1px 2px rgba(31,31,61,.15),0 2px 5px rgba(30,70,145,.25)}
+.nxh-mini::before{content:"";position:absolute;left:4px;right:4px;top:7px;height:8px;border-radius:4px;background:#0b0f1e}
+.nxh-mini::after{content:"";position:absolute;top:9px;left:8px;width:2px;height:4px;border-radius:1px;background:#9ccbff;box-shadow:4px 0 0 #9ccbff}
+.nxh-chat-log{display:grid;gap:6px;max-height:112px;overflow:hidden;align-content:end}
+.nxh-chat-log p{margin:0;max-width:92%;padding:6px 9px;border-radius:10px;font:500 11.5px/1.35 var(--font-body)}
+.nxh-chat-a{justify-self:start;background:var(--blue-050);color:var(--ink)}
+.nxh-chat-u{justify-self:end;background:var(--ink);color:#fff}
+.nxh-chat-t{justify-self:start;display:inline-flex;gap:3px;background:var(--blue-050)}
+.nxh-chat-t i{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:nxhDot .9s ease-in-out infinite}
+.nxh-chat-t i+i{animation-delay:.15s}.nxh-chat-t i+i+i{animation-delay:.3s}
 @keyframes nxhDot{50%{transform:translateY(-3px);opacity:.4}}
-.nxh-site.is-s3 .nxh-chat{opacity:1;transform:none}
-.nxh-site.is-s3 .nxh-chat-q{opacity:1;transform:none;transition-delay:.75s}
-.nxh-site.is-s3 .nxh-typing{opacity:1;transition-delay:1.15s}
-.nxh-site.is-s3.is-answered .nxh-typing{display:none}
-.nxh-site.is-s3.is-answered .nxh-chat-a{opacity:1;transform:none}
-/* launch */
-.nxh-launch{position:absolute;left:14px;bottom:12px;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 9px;border-radius:999px;background:var(--ink);color:#fff;font:800 13px/1 var(--font-display);box-shadow:0 14px 24px -12px rgba(31,31,61,.7);opacity:0;transform:scale(.4) rotate(-8deg);transition:opacity .3s ease .2s,transform .6s var(--spring) .2s}
-.nxh-launch b{color:#fff;font:inherit}
-.nxh-launch .ic{width:16px;height:16px;color:#9CC0FF}
-.nxh-site.is-s4 .nxh-launch{opacity:1;transform:rotate(-4deg)}
-.nxh-site.is-s4 .nxh-launch .ic{animation:nxhFly 1.4s var(--ease-out) .3s both}
-@keyframes nxhFly{0%{transform:translate(-40px,20px) scale(.6);opacity:0}60%{opacity:1}100%{transform:none}}
-
-/* Nexi's own platform: a lit pad (flat discs squashed into ellipses so the rings turn in perspective), a
-   beam when she is on it, and her name on the front */
-.nxh-plat{position:absolute;left:-1%;bottom:12%;z-index:3;width:30%;aspect-ratio:1/1.05;pointer-events:none}
-.nxh-beam{position:absolute;left:16%;right:16%;bottom:23%;height:118%;background:linear-gradient(0deg,rgba(111,160,245,.38),rgba(111,160,245,.08) 70%,rgba(111,160,245,0));clip-path:polygon(14% 100%,86% 100%,100% 0,0 0);opacity:.25;transition:opacity .6s ease}
-.nxh-stage.is-plat .nxh-beam{opacity:1;animation:nxhBeam 3.4s ease-in-out infinite}
-@keyframes nxhBeam{50%{opacity:.62}}
-.nxh-pad{position:absolute;left:0;right:0;bottom:23%;height:0}
-.nxh-pad::before{content:"";position:absolute;left:0;top:0;width:100%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,#FFFFFF,#EEF3FC 58%,#D2DEF4 90%,#BCCDEE);box-shadow:0 0 0 3px #fff,0 0 30px 6px rgba(111,160,245,.45);transform:translateY(-50%) scaleY(.3)}
-.nxh-ring{position:absolute;left:50%;top:0;width:86%;aspect-ratio:1;border-radius:50%;border:3px dashed rgba(49,103,202,.55);transform:translate(-50%,-50%) scaleY(.3);animation:nxhRing 14s linear infinite}
-.nxh-ring--b{width:64%;border:2.5px dotted rgba(108,91,255,.6);animation-duration:9s;animation-direction:reverse}
-.nxh-ring--c{width:104%;border:2px solid rgba(111,160,245,.7);animation:none;opacity:0}
-@keyframes nxhRing{from{transform:translate(-50%,-50%) scaleY(.3) rotate(0)}to{transform:translate(-50%,-50%) scaleY(.3) rotate(360deg)}}
-.nxh-stage.is-land .nxh-ring--c{animation:nxhLand .9s var(--ease-out)}
-@keyframes nxhLand{0%{opacity:1;transform:translate(-50%,-50%) scaleY(.3) scale(.55)}100%{opacity:0;transform:translate(-50%,-50%) scaleY(.3) scale(1.5)}}
-.nxh-base{position:absolute;left:0;right:0;bottom:8%;height:15%;display:grid;place-items:center;border-radius:0 0 50% 50%/0 0 58% 58%;background:linear-gradient(180deg,#F4F7FD,#D5E0F4);box-shadow:0 18px 24px -14px rgba(31,31,61,.4),inset 0 -3px 6px rgba(49,103,202,.12)}
-.nxh-base span{display:inline-flex;align-items:baseline;gap:6px;margin-top:1%;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.85);box-shadow:0 0 0 1px rgba(49,103,202,.18)}
-.nxh-base b{font:800 11px/1 var(--font-display);letter-spacing:.14em;color:var(--blue)}
-.nxh-base small{font:600 9px/1 var(--font-body);color:var(--muted);white-space:nowrap}
-.nxh-stage.is-plat .nxh-base span{animation:nxhPlate 2.6s ease-in-out infinite}
-@keyframes nxhPlate{50%{box-shadow:0 0 0 1px rgba(49,103,202,.35),0 0 14px rgba(111,160,245,.55)}}
-.nxh-plat::after{content:"";position:absolute;left:8%;right:8%;bottom:2%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(31,31,61,.22),rgba(31,31,61,0));z-index:-1}
-
-/* the steps: floating chips; select one and Nexi explains it */
-.nxh-steps{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;flex-wrap:nowrap;justify-content:center;gap:8px;margin:0;padding:0;list-style:none}
-.nxh-steps li{animation:nxhBob 4.2s ease-in-out infinite}
-.nxh-steps li:nth-child(2){animation-delay:-.8s}.nxh-steps li:nth-child(3){animation-delay:-1.6s}.nxh-steps li:nth-child(4){animation-delay:-2.4s}.nxh-steps li:nth-child(5){animation-delay:-3.2s}
-@keyframes nxhBob{50%{transform:translateY(-4px)}}
-.nxh-steps button{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px 0 5px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.96);font:600 12.5px/1 var(--font-body);color:var(--body);cursor:pointer;white-space:nowrap;box-shadow:0 10px 20px -16px rgba(31,31,61,.55);transition:border-color .2s ease,background-color .25s ease,color .25s ease,transform .4s var(--spring)}
-.nxh-steps button b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue-050);color:var(--blue);font:800 11px/1 var(--font-display);transition:background-color .25s ease,color .25s ease}
-.nxh-steps em{font-style:normal}
-.nxh-steps button:hover{border-color:var(--blue-300);color:var(--ink)}
-.nxh-steps button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.nxh-steps button.is-done b{background:var(--ok-050);color:var(--ok)}
-.nxh-steps button.is-on{background:var(--ink);border-color:var(--ink);color:#fff;transform:translateY(-3px) scale(1.04)}
-.nxh-steps button.is-on b{background:var(--blue);color:#fff}
+.nxh-chat-log .is-new{animation:nxhMsg .3s var(--ease-out)}
+@keyframes nxhMsg{from{opacity:0;transform:translateY(6px)}}
+.nxh-chat-qs{display:flex;flex-wrap:wrap;gap:5px}
+.nxh-chat-qs button{padding:5px 9px;border-radius:999px;border:1px solid var(--blue-100);background:#fff;font:600 11px/1.2 var(--font-body);color:var(--blue-700);cursor:pointer;transition:background-color .2s ease,border-color .2s ease}
+.nxh-chat-qs button:hover{background:var(--blue-050);border-color:var(--blue-300)}
+.nxh-chat-qs button[aria-pressed="true"]{background:var(--blue-050);border-color:var(--blue)}
+/* step 5 · published: a toast, and the first enquiry arrives */
+.nxh-toast,.nxh-lead{position:absolute;z-index:5;display:flex;align-items:center;gap:8px;margin:0;padding:9px 13px;border-radius:12px;font:600 12px/1.25 var(--font-body);box-shadow:0 18px 30px -16px rgba(31,31,61,.6);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .3s ease,transform .4s var(--ease-out),visibility .3s}
+.nxh-toast{left:50%;top:14px;margin-left:-86px;background:var(--ink);color:#fff}
+.nxh-toast b,.nxh-lead b{font-weight:700;color:inherit}
+.nxh-toast .ic{width:15px;height:15px;color:#7FD1AE}
+.nxh-lead{left:14px;bottom:14px;display:grid;grid-template-columns:auto auto;column-gap:8px;background:#fff;color:var(--ink);border:1px solid var(--line)}
+.nxh-lead .ic{grid-row:1/3;width:16px;height:16px;color:var(--blue)}
+.nxh-lead span{font-weight:500;color:var(--muted)}
+.nxh-web.is-live .nxh-toast{opacity:1;visibility:visible;transform:none}
+.nxh-web.is-live .nxh-lead{opacity:1;visibility:visible;transform:none;transition-delay:1.1s}
+/* a ring where Nexi (or the script) presses a control */
+.nxh-tap{position:absolute;left:0;top:0;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;box-shadow:0 0 0 3px rgba(49,103,202,.55),0 0 18px 4px rgba(111,160,245,.45);pointer-events:none;animation:nxhTap .7s ease-out forwards}
+@keyframes nxhTap{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.3)}}
 
 /* when the 3D Nexi cannot run (no WebGL, reduced motion, still loading) a drawn Nexi stands in with a bubble */
-.nxh-ava{position:absolute;left:50%;bottom:35%;display:none;width:44%;aspect-ratio:1/1.25;transform:translateX(-50%)}
+.nxh-ava{position:absolute;display:none;aspect-ratio:1/1.25;transform:translateX(-50%)}
 .nxh-ava::before{content:"";position:absolute;left:4%;right:4%;top:0;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff,#E3E9F5 72%);box-shadow:inset 0 -4px 8px rgba(31,31,61,.12),0 8px 18px -8px rgba(30,70,145,.4)}
 .nxh-ava::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:38%;border-radius:48% 48% 44% 44%;background:radial-gradient(circle at 40% 30%,#fff,#DDE5F3 78%);box-shadow:inset 0 -3px 6px rgba(31,31,61,.12)}
 .nxh-ava i{position:absolute;z-index:1;left:15%;right:15%;top:20%;height:30%;border-radius:40%;background:#0B0F1E}
 .nxh-ava i::before,.nxh-ava i::after{content:"";position:absolute;top:24%;width:12%;height:52%;border-radius:40%;background:#9CCBFF;box-shadow:0 0 8px #6FA0F5;animation:nxhBlink 4.6s infinite}
 .nxh-ava i::before{left:30%}.nxh-ava i::after{right:30%}
 @keyframes nxhBlink{0%,92%,100%{transform:none}95%{transform:scaleY(.15)}}
-.nxh-stage.is-2d .nxh-ava{display:block;animation:nxhAvaBob 3s ease-in-out infinite}
+.nxh-stage.is-2d .nxh-ava{display:block;pointer-events:auto;cursor:pointer;animation:nxhAvaBob 3s ease-in-out infinite}
 @keyframes nxhAvaBob{50%{transform:translateX(-50%) translateY(-5%)}}
-.nxh-stage.is-2d .nxh-ava{pointer-events:auto;cursor:pointer}
 .nxh-stage.is-2d .nxh-ava.is-hop{animation:nxhHop .6s var(--spring)}
 @keyframes nxhHop{40%{transform:translateX(-50%) translateY(-18%) scale(1.05,.95)}}
-.nxh-cap{position:absolute;left:0;bottom:calc(12% + 30% * 1.05 * 1.22 + 4px);z-index:5;max-width:52%;margin:0;padding:8px 13px;border-radius:14px;background:#fff;color:var(--blue);font:800 14px/1.3 var(--font-display);box-shadow:0 10px 22px -12px rgba(30,70,145,.6),0 0 0 3px rgba(111,160,245,.3);opacity:0;transform:translateY(8px) scale(.85);transform-origin:20% 100%;transition:opacity .25s ease,transform .4s var(--spring);pointer-events:none}
+.nxh-cap{position:absolute;z-index:6;max-width:52%;margin:0;padding:8px 13px;border-radius:14px;background:#fff;color:var(--blue);font:800 14px/1.3 var(--font-display);box-shadow:0 10px 22px -12px rgba(30,70,145,.6),0 0 0 3px rgba(111,160,245,.3);opacity:0;transform:translateY(8px) scale(.85);transition:opacity .25s ease,transform .4s var(--spring);pointer-events:none}
 .nxh-stage.is-2d .nxh-cap.is-on{opacity:1;transform:rotate(-2deg)}
-.nxh-stage--brand .nxh-ava--float{left:12%;bottom:auto;top:-2%;width:17%}
-.nxh-stage--brand .nxh-cap{left:24%;bottom:auto;top:-4%;transform-origin:0 50%}
+.nxh-stage--web .nxh-ava--float{left:-2%;bottom:-3%;width:12%}
+.nxh-stage--web .nxh-cap{left:7%;bottom:24%;transform-origin:0 100%}
+.nxh-stage--brand .nxh-ava--float{left:12%;top:-2%;width:17%}
+.nxh-stage--brand .nxh-cap{left:24%;top:-4%;transform-origin:0 50%}
 
-/* bubbles on the stage wrap to two lines (nexi-bot.js word(..., 'wide')) */
-.nexi-fx b.is-wide{white-space:normal;max-width:250px;line-height:1.2;text-align:left}
+/* stage bubbles wrap to two lines and fade where they are, so a line near the top edge is never cut
+   (nexi-bot.js word(..., {wide})) */
+.nexi-fx b.is-wide{white-space:normal;max-width:250px;line-height:1.2;text-align:left;animation-name:nexiWordStay}
+@keyframes nexiWordStay{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.6) rotate(-6deg)}14%{opacity:1;transform:translate(var(--x),var(--y)) scale(1.05) rotate(-4deg)}24%{transform:translate(var(--x),var(--y)) scale(1) rotate(-3deg)}86%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.98) rotate(-3deg)}}
 
-/* ---- 5 · the brand kit (Lintel & Co. sample direction A, the same fictional client as /solutions/brand-assets) */
-.nxh-kit{position:absolute;left:7%;right:0;top:7%;bottom:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:10px;padding:14px;border-radius:22px;background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:0 30px 60px -34px rgba(31,31,61,.42)}
-.nxh-kit-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 2px}
-.nxh-kit-head b{font:700 13.5px/1.2 var(--font-display);color:var(--ink)}
-.nxh-kit-head small{font:500 11px/1.2 var(--font-body);color:var(--muted)}
-.nxh-kit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:10px;min-height:0}
-.nxh-a{position:relative;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:7px;min-width:0;min-height:0;padding:9px;border-radius:14px;border:1.5px dashed #D9D0C2;background:rgba(243,238,230,.35);cursor:pointer;text-align:left;color:#1C2326;transition:background-color .3s ease,border-color .2s ease,box-shadow .25s ease}
-.nxh-a>*{opacity:0;transform:translateY(14px) scale(.85);transition:opacity .35s ease,transform .6s var(--spring)}
-.nxh-a.is-in{border-style:solid;border-color:#E6DED2;background:#F3EEE6}
-.nxh-a.is-in>*{opacity:1;transform:none}
-.nxh-a:hover{border-color:#1F4E5A;box-shadow:0 0 0 3px rgba(31,78,90,.12)}
-.nxh-a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.nxh-a.is-in.is-hot{animation:nxhPop .7s var(--spring)}
-@keyframes nxhPop{30%{transform:scale(1.07) rotate(-1.5deg)}}
-.nxh-a>small{font:700 9.5px/1 var(--font-body);letter-spacing:.07em;text-transform:uppercase;color:#6A6F70}
-.nxh-art{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden;border-radius:10px;background:#fff}
-.nxh-mk{width:36px;height:36px;color:#1F4E5A}
-.nxh-a--logo .nxh-art{align-content:center;gap:6px}
-.nxh-a--logo .nxh-art b{font:700 15px/1 Georgia,"Times New Roman",serif;color:#1F4E5A;letter-spacing:.01em}
-.nxh-a--logo .nxh-mk{transform:scale(.3) rotate(-30deg);opacity:0;transition:transform .8s var(--spring) .2s,opacity .3s ease .2s}
-.nxh-a--logo.is-in .nxh-mk{transform:none;opacity:1}
-.nxh-a--pal .nxh-art{display:flex;align-items:stretch;padding:0;background:#fff}
-.nxh-a--pal i{flex:1;background:var(--c);transform:translateY(102%);transition:transform .55s var(--spring) calc(.15s + var(--n) * .1s)}
-.nxh-a--pal i:nth-child(3){box-shadow:inset 1px 0 0 #E6DED2,inset -1px 0 0 #E6DED2}
-.nxh-a--pal.is-in i{transform:none}
-.nxh-a--type .nxh-art{grid-template-columns:auto auto;gap:10px;justify-content:center}
-.nxh-aa{font:700 40px/1 Georgia,"Times New Roman",serif;color:#1F4E5A}
-.nxh-a--type .nxh-art span{font:600 11px/1.5 var(--font-body);color:#1C2326}
-.nxh-a--type em{font-style:normal;color:#6A6F70;font-weight:500}
-.nxh-a--social .nxh-art{background:transparent;overflow:visible}
-.nxh-post{position:absolute;width:62%;aspect-ratio:1;border-radius:9px;display:grid;place-items:end start;padding:8px;background:#9E5230;box-shadow:0 10px 18px -10px rgba(28,35,38,.55);transform:rotate(calc(var(--n) * 9deg - 9deg)) translateX(calc(var(--n) * 14% - 14%));transition:transform .6s var(--spring) calc(.2s + var(--n) * .1s)}
-.nxh-post:nth-child(1){z-index:3;background:#1F4E5A}
-.nxh-post:nth-child(3){background:#E7DCCB}
-.nxh-post b{font:700 9.5px/1.2 Georgia,"Times New Roman",serif;color:#fff}
-.nxh-a--social:not(.is-in) .nxh-post{transform:none}
-.nxh-a--card .nxh-art{background:transparent;perspective:500px;overflow:visible}
-.nxh-bc{position:relative;width:84%;aspect-ratio:1.75;transform-style:preserve-3d;transition:transform .9s var(--ease-out) .5s}
-.nxh-bc-f,.nxh-bc-b{position:absolute;inset:0;display:grid;border-radius:6px;box-shadow:0 10px 18px -10px rgba(28,35,38,.55);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.nxh-bc-f{place-items:center;background:#1F4E5A}
-.nxh-bc-f .nxh-mk{width:28px;height:28px;color:#F3EEE6}
-.nxh-bc-b{align-content:center;gap:4px;padding:0 10px;background:#fff;transform:rotateY(180deg)}
-.nxh-bc-b b{font:700 9.5px/1 Georgia,"Times New Roman",serif;color:#1F4E5A}
-.nxh-bc-b i{display:block;height:3px;width:70%;border-radius:2px;background:#E6DED2}
-.nxh-bc-b i+i{width:48%;background:#9E5230}
-.nxh-a--card.is-in .nxh-bc{transform:rotateY(180deg)}
-.nxh-a--card.is-in.is-hot .nxh-bc{transform:rotateY(360deg);transition-delay:0s}
-.nxh-a--guide .nxh-art{background:transparent;perspective:600px;overflow:visible}
-.nxh-book{position:relative;width:54%;aspect-ratio:.78;border-radius:3px 7px 7px 3px;background:#fff;box-shadow:0 12px 20px -10px rgba(28,35,38,.5);display:grid;align-content:center;gap:5px;padding:0 12%}
-.nxh-book i{display:block;height:4px;border-radius:2px;background:#E6DED2}
-.nxh-book i+i{width:60%;background:#9E5230}
-.nxh-book b{position:absolute;inset:0;display:grid;place-items:end start;padding:10%;border-radius:3px 7px 7px 3px;background:#1F4E5A;color:#F3EEE6;font:700 9px/1.2 Georgia,"Times New Roman",serif;transform-origin:0 50%;transition:transform .9s var(--ease-out) .45s,color .2s ease .6s}
-.nxh-a--guide.is-in .nxh-book b{transform:rotateY(-155deg);color:transparent}
+/* ---- 5 · the brand desk: six pieces of the Lintel & Co. kit drop onto a designer's desk, and one switch
+   restyles all of them (Calm / Bold / Warm: the fictional client and directions of /solutions/brand-assets).
+   Sizes follow the desk's width (container units), so phones get the same composition, smaller. */
+.nxh-desk{--dp:#1F4E5A;--da:#9E5230;--ds:#F3EEE6;--di:#1C2326;--df:Georgia,"Times New Roman",serif;--dw:700;--dt:none;--dls:0;--dr:6px;
+  position:absolute;left:5%;right:0;top:4%;bottom:0;border-radius:24px;background-color:var(--ds);background-image:radial-gradient(rgba(28,35,38,.05) 1px,transparent 1.3px);background-size:11px 11px;
+  box-shadow:0 34px 64px -36px rgba(31,31,61,.5),inset 0 0 0 1px rgba(28,35,38,.06);container-type:inline-size;transition:background-color .6s ease}
+.nxh-desk[data-dir="b"]{--dp:#1A1D29;--da:#E4572E;--ds:#F4F4F1;--di:#0F1115;--df:var(--font-display);--dw:800;--dt:uppercase;--dls:.02em;--dr:0px}
+.nxh-desk[data-dir="c"]{--dp:#5B3A4A;--da:#E0A43A;--ds:#F7EFE2;--di:#2A1E24;--df:var(--font-hand);--dw:700;--dt:none;--dls:0;--dr:18px}
+.nxd-defs{position:absolute;width:0;height:0;overflow:hidden}
+.nxd-mk{display:block;width:40px;height:40px;color:var(--dp);transition:color .6s ease}
+.nxh-desk[data-dir="a"] .nxd-mk .m-b,.nxh-desk[data-dir="a"] .nxd-mk .m-c,.nxh-desk[data-dir="b"] .nxd-mk .m-a,.nxh-desk[data-dir="b"] .nxd-mk .m-c,.nxh-desk[data-dir="c"] .nxd-mk .m-a,.nxh-desk[data-dir="c"] .nxd-mk .m-b{display:none}
+.nxd-head{position:absolute;left:4.5%;right:4%;top:3.2%;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:8}
+.nxd-title{display:grid;gap:2px}
+.nxd-title b{font:700 13.5px/1.2 var(--font-display);color:var(--ink)}
+.nxd-title small{font:500 11px/1.2 var(--font-body);color:var(--muted)}
+.nxd-dirs{display:flex;gap:2px;padding:3px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(28,35,38,.08),0 8px 16px -12px rgba(28,35,38,.4)}
+.nxd-dirs button{height:26px;padding:0 11px;border:0;border-radius:999px;background:transparent;font:600 11.5px/1 var(--font-body);color:var(--body);cursor:pointer;transition:background-color .25s ease,color .25s ease}
+.nxd-dirs button:hover{color:var(--ink)}
+.nxd-dirs button[aria-pressed="true"]{background:var(--dp);color:#fff}
+.nxd-dirs button:focus-visible,.nxd:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+/* every piece is a button that lands on the desk (translate / rotate / scale are separate properties, so the
+   landing, the hover lift and the switch's wave never fight over one transform) */
+.nxd{position:absolute;padding:0;border:0;background:none;color:var(--di);cursor:pointer;text-align:left;opacity:0;translate:0 -46px;scale:1.14;rotate:var(--r0,0deg);filter:drop-shadow(0 22px 18px rgba(28,35,38,.28));transition:opacity .3s ease,translate .7s var(--spring),scale .7s var(--spring),rotate .7s var(--ease-out),filter .5s ease}
+.nxd.is-in{opacity:1;translate:0 0;scale:1;rotate:var(--r);filter:drop-shadow(0 12px 12px rgba(28,35,38,.2))}
+.nxd.is-in:hover{translate:0 -4px;filter:drop-shadow(0 18px 16px rgba(28,35,38,.24))}
+.nxd.is-in.is-hot{animation:nxdHot .7s var(--spring)}
+@keyframes nxdHot{35%{scale:1.06}}
+/* the switch: the change travels through the kit, one piece after another */
+.nxh-desk.is-swap .nxd.is-in{animation:nxdSwap .75s var(--ease-out) both;animation-delay:calc(var(--k) * 90ms)}
+@keyframes nxdSwap{30%{scale:.9;opacity:.55}}
+.nxd b,.nxd small,.nxd i,.nxd span{transition:background-color .6s ease,color .6s ease,border-radius .6s ease}
+/* logo tile */
+.nxd-logo{--k:0;--r0:-9deg;--r:-3deg;left:5%;top:15%;width:32%;aspect-ratio:1/1.02;display:grid;place-items:center;align-content:center;gap:8px;border-radius:var(--dr);background:#fff}
+.nxd-logo .nxd-mk{width:34%;height:auto;aspect-ratio:1}
+.nxd-logo b{font-family:var(--df);font-weight:var(--dw);text-transform:var(--dt);letter-spacing:var(--dls);font-size:17px;font-size:clamp(11px,3.3cqw,19px);line-height:1;color:var(--dp)}
+.nxd-logo small{font:600 10px/1 var(--font-body);font-size:clamp(7px,1.6cqw,10px);letter-spacing:.12em;text-transform:uppercase;color:#7A7F80}
+/* colour fan deck: four swatches spread out from one pin */
+.nxd-fan{--k:1;--r0:14deg;--r:0deg;left:41%;top:12%;width:21%;height:44%}
+.nxd-fan i{position:absolute;left:18%;bottom:4%;width:64%;height:88%;display:grid;align-items:end;padding:8% 9%;border-radius:calc(var(--dr) + 4px);box-shadow:0 6px 12px -8px rgba(28,35,38,.5),inset 0 0 0 1px rgba(28,35,38,.06);transform-origin:50% 94%;transform:rotate(0deg);transition:transform .8s var(--spring),background-color .6s ease,border-radius .6s ease;transition-delay:calc(.25s + var(--n) * .07s),0s,0s}
+.nxd-fan small{font:700 9px/1 var(--font-body);font-size:clamp(6.5px,1.5cqw,9.5px);letter-spacing:.05em;text-transform:uppercase;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg)}
+.nxd-fan .c-p{background:var(--dp)}.nxd-fan .c-a{background:var(--da)}.nxd-fan .c-s{background:#fff}.nxd-fan .c-i{background:var(--di)}
+.nxd-fan .c-s small{color:#7A7F80}
+.nxd-fan.is-in .c-p{transform:rotate(-21deg)}.nxd-fan.is-in .c-a{transform:rotate(-7deg)}.nxd-fan.is-in .c-s{transform:rotate(7deg)}.nxd-fan.is-in .c-i{transform:rotate(21deg)}
+.nxd-fan::after{content:"";position:absolute;left:50%;bottom:7%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#C9C1B4;box-shadow:inset 0 0 0 2px #fff;z-index:5}
+/* a phone with the latest post */
+.nxd-phone{--k:2;--r0:12deg;--r:4deg;left:72%;top:10%;width:23%;aspect-ratio:9/17.5;padding:1.2cqw;border-radius:22px;background:#15181F;box-shadow:inset 0 0 0 2px #2A2F3A}
+.nxd-post{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:6px;height:100%;padding:7% 6%;border-radius:15px;background:#fff;overflow:hidden}
+.nxd-post-h{display:flex;align-items:center;gap:5px}
+.nxd-av{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ds);box-shadow:inset 0 0 0 1px rgba(28,35,38,.08)}
+.nxd-av .nxd-mk{width:12px;height:12px}
+.nxd-post-h b{font:700 9px/1 var(--font-body);font-size:clamp(6.5px,1.5cqw,9.5px);color:var(--ink)}
+.nxd-post-img{display:grid;align-items:end;padding:10%;border-radius:calc(var(--dr) + 2px);background:var(--dp);background-image:radial-gradient(circle at 78% 22%,var(--da) 0 16%,transparent 17%)}
+.nxd-post-img b{font-family:var(--df);font-weight:var(--dw);text-transform:var(--dt);letter-spacing:var(--dls);font-size:13px;font-size:clamp(8px,2.3cqw,14px);line-height:1.08;color:#fff}
+.nxd-post-f{display:flex;gap:6px}
+.nxd-post-f i{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 2px #C9CFD9}
+.nxd-post-f i:first-child{background:var(--da);box-shadow:none}
+.nxd-post-s{display:grid;gap:3px}
+.nxd-post-s i{height:4px;border-radius:2px;background:#E4E7EC}
+.nxd-post-s i+i{width:60%}
+/* type specimen poster */
+.nxd-type{--k:3;--r0:-7deg;--r:2deg;left:4%;top:58%;width:33%;aspect-ratio:1.28;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;align-items:center;gap:4px 10px;padding:2.2cqw 2.4cqw;border-radius:var(--dr);background:#fff}
+.nxd-aa{font-family:var(--df);font-weight:var(--dw);font-size:44px;font-size:clamp(26px,9cqw,52px);line-height:1;color:var(--dp)}
+.nxd-tn{font:500 10.5px/1.5 var(--font-body);font-size:clamp(7px,1.75cqw,11px);color:#6A6F70}
+.nxd-tn b{font-weight:700;color:var(--di)}
+.nxh-desk[data-dir="a"] .nxd-tn .t-b,.nxh-desk[data-dir="a"] .nxd-tn .t-c,.nxh-desk[data-dir="b"] .nxd-tn .t-a,.nxh-desk[data-dir="b"] .nxd-tn .t-c,.nxh-desk[data-dir="c"] .nxd-tn .t-a,.nxh-desk[data-dir="c"] .nxd-tn .t-b{display:none}
+.nxd-pang{grid-column:1/-1;font-family:var(--df);font-weight:var(--dw);text-transform:var(--dt);letter-spacing:var(--dls);font-size:13px;font-size:clamp(8px,2.2cqw,14px);line-height:1.15;color:var(--di)}
+/* business cards: the back, and the front slid across it */
+.nxd-cards{--k:4;--r0:6deg;--r:-5deg;left:39%;top:61%;width:28%;aspect-ratio:1.45}
+.nxd-bc{position:absolute;width:86%;aspect-ratio:1.75;border-radius:calc(var(--dr) / 2 + 3px);box-shadow:0 8px 14px -8px rgba(28,35,38,.5)}
+.nxd-bc-back{left:16%;top:-8%;display:grid;align-content:start;gap:5px;padding:9% 9% 0;background:#fff;rotate:8deg}
+.nxd-bc-back b{font-family:var(--df);font-weight:var(--dw);text-transform:var(--dt);font-size:10px;font-size:clamp(7px,1.9cqw,11px);color:var(--dp)}
+.nxd-bc-back i{display:block;height:3px;width:72%;border-radius:2px;background:#E4DED3}
+.nxd-bc-back i+i{width:46%;background:var(--da)}
+.nxd-bc-front{left:-3%;bottom:-6%;display:grid;place-items:center;background:var(--dp);translate:14% -30%;transition:translate .8s var(--spring) .35s,background-color .6s ease,border-radius .6s ease}
+.nxd-bc-front .nxd-mk{width:26%;height:auto;aspect-ratio:1;color:var(--ds)}
+.nxd-cards.is-in .nxd-bc-front{translate:0 0}
+/* the guideline: a booklet that opens on the desk */
+.nxd-book{--k:5;--r0:-8deg;--r:3deg;left:66%;top:62%;width:30%;aspect-ratio:1.5;display:grid;grid-template-columns:1fr 1fr;perspective:700px}
+.nxd-pg{position:relative;display:grid;align-content:center;justify-items:center;gap:6px;padding:10% 8%;background:#fff;box-shadow:inset 0 0 0 1px rgba(28,35,38,.06)}
+.nxd-pg small{font:700 8.5px/1 var(--font-body);font-size:clamp(6px,1.4cqw,9px);letter-spacing:.07em;text-transform:uppercase;color:#7A7F80}
+.nxd-pg-l{border-radius:calc(var(--dr) / 2 + 2px) 0 0 calc(var(--dr) / 2 + 2px);background:linear-gradient(90deg,#fff 80%,#F1EEE8)}
+.nxd-pg-r{border-radius:0 calc(var(--dr) / 2 + 2px) calc(var(--dr) / 2 + 2px) 0;background:linear-gradient(90deg,#F1EEE8,#fff 20%);transform-origin:0 50%;transform:rotateY(-178deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform 1s var(--ease-out) .4s}
+.nxd-book.is-in .nxd-pg-r{transform:none}
+.nxd-clear{display:grid;place-items:center;padding:12%;border:1.5px dashed var(--da);border-radius:4px;transition:border-color .6s ease}
+.nxd-clear .nxd-mk{width:26px;height:26px}
+.nxd-chips{display:flex;gap:5px}
+.nxd-chips i{width:18px;height:18px;border-radius:calc(var(--dr) / 3 + 2px);box-shadow:inset 0 0 0 1px rgba(28,35,38,.08)}
+.nxd-chips .c-p{background:var(--dp)}.nxd-chips .c-a{background:var(--da)}.nxd-chips .c-i{background:var(--di)}
 
-/* over-reactions: comic bursts, floating hearts and confetti (hero-scenes.js puts them in .nxh-fx) */
+/* over-reactions on the brand kit: comic bursts and confetti (hero-scenes.js puts them in .nxh-fx) */
 .nxh-fx{position:absolute;inset:0;z-index:6;pointer-events:none}
 .nxh-pow{position:absolute;left:0;top:0;display:grid;place-items:center;width:86px;height:86px;font:900 16px/1 var(--font-display);color:#fff;letter-spacing:-.01em;text-shadow:0 2px 0 rgba(0,0,0,.18);animation:nxhPow 1.35s var(--spring) forwards}
 .nxh-pow::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c,#E4572E);clip-path:polygon(50% 0,61% 25%,89% 11%,76% 39%,100% 50%,76% 61%,89% 89%,61% 75%,50% 100%,39% 75%,11% 89%,24% 61%,0 50%,24% 39%,11% 11%,39% 25%)}
@@ -698,32 +783,59 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .slide-inner.si-nexi{gap:16px;padding-top:16px;align-content:start}
   .si-nexi .nxh-stage{order:-1;width:100%;max-width:460px;aspect-ratio:1/1.12}
   .si-nexi .nxh-stage--brand{aspect-ratio:1/.95}
-  /* phones: the website across the top, Nexi's platform in front of its lower-left corner, her lines beside her */
-  .nxh-site{width:100%;top:0;animation-duration:8s}
-  .nxh-plat{width:40%;bottom:12%;left:0}
-  .nxh-cap{left:42%;bottom:calc(12% + 40% * 1.05 / 1.12 * .55);max-width:56%;font-size:13px;transform-origin:0 100%}
-  .nxh-steps{left:0;right:0;bottom:0;flex-wrap:nowrap;justify-content:space-between;gap:4px}
-  .nxh-steps li{animation:none}
-  .nxh-steps button{height:30px;padding:0 8px 0 4px;gap:5px;font-size:11.5px}
-  .nxh-steps button b{width:20px;height:20px;font-size:10px}
-  .nxh-steps em{display:none}
-  .nxh-kit{left:0;top:9%;padding:10px;gap:8px;border-radius:18px}
-  .nxh-kit-grid{gap:7px}
-  .nxh-a{padding:6px;gap:5px;border-radius:11px}
-  .nxh-a>small{font-size:8.5px}
-  .nxh-mk{width:28px;height:28px}
-  .nxh-a--logo .nxh-art b{font-size:11.5px}
-  .nxh-aa{font-size:28px}
-  .nxh-a--type .nxh-art{grid-template-columns:auto;gap:2px;justify-items:center}
-  .nxh-a--type .nxh-art span{font-size:8.5px;text-align:center}
+  .si-web .nxh-stage--web{max-width:560px;aspect-ratio:auto}
+  .nxh-web{aspect-ratio:1/1.08;border-radius:14px}
+  .nxh-bar{height:32px;padding:0 8px 0 10px}
+  .nxh-bar>i{width:8px;height:8px}
+  .nxh-url{margin:0 4px;font-size:10.5px}
+  .nxh-tools{height:42px;gap:6px;padding:0 6px}
+  .nxh-steps{gap:2px}
+  .nxh-steps li+li::before{width:6px;margin-right:2px}
+  .nxh-steps button{height:28px;padding:0 4px;gap:5px;font-size:11.5px}
+  .nxh-steps button span{display:none}
+  .nxh-steps .is-on button{padding-right:9px}
+  .nxh-steps .is-on button span{display:inline}
+  .nxh-publish{height:28px;padding:0 9px}
+  .nxh-publish span,.nxh-web.is-live .nxh-publish .p-on{display:none}
+  .nxh-board{inset:10px;gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .nxh-note,.nxh-map{padding:9px 10px;gap:5px}
+  .nxh-note:nth-child(3){display:none}
+  .nxh-note span{font-size:11px}
+  .nxh-map-home,.nxh-map-kids i{padding:5px 9px;font-size:11px}
+  .nxh-map-kids{gap:10px}
+  .nxh-pg{top:10px;width:calc(100% - 20px);padding:10px 12px 0;gap:10px}
+  .nxh-pg-nav span{display:none}
+  .nxh-pg-burger{display:block}
+  .nxh-pg-hero{grid-template-columns:minmax(0,1fr);padding:12px;gap:10px}
+  .nxh-pg-copy b{font-size:19px}
+  .nxh-pg-art{min-height:58px}
+  .nxh-pg-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .nxh-pg-cards>i:nth-child(3){display:none}
+  .nxh-web[data-dev="phone"] .nxh-pg{width:54%}
+  .nxh-web[data-step="2"][data-dev="phone"] .nxh-pg{left:50%;bottom:104px}
+  .nxh-brand-pn{right:10px;top:12px;padding:9px}
+  .nxh-pals button{width:26px;height:26px}
+  .nxh-fonts button{width:34px;height:26px}
+  .nxh-console{left:10px;right:10px;bottom:10px;padding:10px 12px}
+  .nxh-console li{font-size:10.5px}
+  .nxh-chat{right:10px;bottom:10px;width:min(76%,270px)}
+  .nxh-toast{top:10px}
+  .nxh-lead{left:10px;bottom:10px}
+  .nxh-stage--web .nxh-ava--float{left:6%;bottom:2%;width:16%}
+  .nxh-stage--web .nxh-cap{left:14%;bottom:18%;max-width:62%;font-size:13px}
+  .nxh-desk{left:0;top:9%;border-radius:18px}
+  .nxd-head{top:2.5%}
+  .nxd-title small{display:none}
+  .nxd-dirs button{height:24px;padding:0 9px;font-size:10.5px}
+  .nxd-phone{border-radius:14px}
+  .nxd-post{border-radius:9px;gap:4px}
   .nxh-stage--brand .nxh-ava--float{left:11%;top:-4%;width:20%}
   .nxh-stage--brand .nxh-cap{left:22%;top:-5%}
   .nxh-hear{margin-top:14px}
   .nexi-fx b.is-wide{max-width:210px;font-size:14px}
 }
 @media (max-width:420px){
-  .nxh-steps button{padding:0 7px 0 3px;font-size:11px;gap:4px}
-  .nxh-kit-head small{display:none}
+  .nxh-devs button{width:24px}
 }
 /* phones: each Nexi slide has its own voice button, and five dots plus the speaker would run under the round
    side tabs, so the strip keeps its dots slimmer and drops the speaker */
@@ -733,20 +845,19 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .hero-arrow.hero-voice{display:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .nxh-site,.nxh-steps li,.nxh-ring,.nxh-stage.is-plat .nxh-beam,.nxh-stage.is-2d .nxh-ava,.nxh-typing i,.nxh-ava i::before,.nxh-ava i::after{animation:none}
-  .nxh-a>*{opacity:1;transform:none}
+  .nxh-stage.is-2d .nxh-ava,.nxh-chat-t i,.nxh-ava i::before,.nxh-ava i::after{animation:none}
+  .nxd{opacity:1;translate:none;scale:none;rotate:var(--r)}
+  .nxd-fan.is-in i,.nxd-fan i{transition:none}
+  .nxd-bc-front{translate:none}
+  .nxd-pg-r{transform:none}
   .slide--nexi::after{display:none}
 }
 
 /* hidden slides keep their looping animations still (they run again the moment the slide shows). Plain
    class-ending selectors, not :is(): see the note on .hero.is-off in site.css */
-.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-site,
-.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-ring,
-.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-beam,
-.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-typing i,
 .hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-ava,
-.hero.is-off .nxh-site,.hero.is-off .nxh-ring,.hero.is-off .nxh-beam,.hero.is-off .nxh-typing i,.hero.is-off .nxh-ava,.hero.is-off .nxh-base span{animation-play-state:paused}
-.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-steps li,.hero.is-off .nxh-steps li{animation-play-state:paused}
+.hero-track>.slide:not(.is-active):not(.is-leaving) .nxh-chat-t i,
+.hero.is-off .nxh-ava,.hero.is-off .nxh-chat-t i{animation-play-state:paused}
 .hero-track>.slide:not(.is-active):not(.is-leaving) .cine-hbeam,
 .hero-track>.slide:not(.is-active):not(.is-leaving) .cine-core::before,
 .hero-track>.slide:not(.is-active):not(.is-leaving) .lj-flow,

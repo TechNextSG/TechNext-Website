@@ -318,6 +318,7 @@
       tug: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.12, 0.18), c = (1 - Math.cos(p * Math.PI * 6)) / 2; O.hRx += (0.5 - c * 0.18) * e; O.hLx += (0.62 - c * 0.18) * e; O.hRy += 0.12 * e; O.hLy += 0.1 * e; O.tilt -= (0.08 + c * 0.1) * e; O.sq += c * 0.05 * e; } },
       peek: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.25, 0.3); O.nod += 0.1 * e; O.hRy += 0.6 * e; O.hRz += 0.25 * e; O.hRr += Math.sin(p * Math.PI * 7) * 0.35 * e; O.tilt -= 0.15 * e; } },
       /* the stage clips: knocking on the glass, acting cute, presenting, and the over-reactions */
+      tap: { dur: 0.9, fn: function (p, O) { var e = env(p, 0.22, 0.3), t = bell(clamp((p - 0.28) / 0.4, 0, 1)); O.hRy += 0.5 * e; O.hRx -= 0.18 * e; O.hRz += (0.14 + 0.3 * t) * e; O.hRr -= 0.25 * e; O.nod -= 0.06 * e; } },
       knock: { dur: 1.4, fn: function (p, O) { var e = env(p, 0.14, 0.2), t = Math.max(0, Math.sin(clamp((p - 0.12) / 0.76, 0, 1) * Math.PI * 3)); O.hRy += 0.62 * e; O.hRx -= 0.28 * e; O.hRz += (0.22 + 0.34 * t) * e; O.hRr -= 0.3 * e; O.nod -= 0.05 * e; O.tilt += 0.06 * e; O.sq -= t * 0.015 * e; } },
       cute: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.15, 0.2), s = Math.sin(p * Math.PI * 4); O.tilt += (0.22 + s * 0.07) * e; O.hLx += 0.3 * e; O.hRx -= 0.3 * e; O.hLy += 0.6 * e; O.hRy += 0.6 * e; O.hLz += 0.3 * e; O.hRz += 0.3 * e; O.sq += s * 0.03 * e; O.nod += 0.08 * e; } },
       present: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.2, 0.25); O.hLx -= 0.34 * e; O.hLy += 0.44 * e; O.hRx += 0.34 * e; O.hRy += 0.44 * e; O.hLz += 0.2 * e; O.hRz += 0.2 * e; O.tilt += 0.06 * e; O.nod -= 0.05 * e; } },
@@ -507,6 +508,9 @@
     /* speech bubbles: Nexi introduces itself, reacts to the hero and chatters. A bubble takes the first spot
        around Nexi that covers no text or button; if none is clear it tries a narrow two-line bubble (it fits
        the page margin), and failing that the spot that covers the least. */
+    /* a bubble pops a little larger and (roaming) drifts 28 px up as it fades: never place one closer to the
+       hero's top edge than that, or the hero clips it */
+    var YMIN = 36;
     function word(text, life, optional, o) {
       o = o || {};
       /* one speech bubble at a time: a new line replaces the one still showing */
@@ -535,7 +539,8 @@
             while ((tn = tw0.nextNode())) { if (!tn.parentElement || !shown(tn.parentElement)) continue; rg.selectNodeContents(tn); pushR(rg.getBoundingClientRect(), 6, 1000); }
           }
           addR(sl0.querySelector('.nxh-steps'), 4, 1000);
-          addR(sl0.querySelector('.nxh-site'), 0, 1); addR(sl0.querySelector('.nxh-kit-grid'), 0, 1);
+          addR(sl0.querySelector('.nxh-web'), 0, 1); addR(sl0.querySelector('.nxh-desk'), 0, 1);
+          addR(sl0.querySelector('.nxh-tools'), 2, 1000); addR(sl0.querySelector('.nxh-bar'), 2, 1000); addR(sl0.querySelector('.nxd-head'), 2, 1000);
         }
         addR(hero.querySelector('.hero-ctl-inner'), 4, 1000); addR(document.querySelector('[data-header]'), 4, 1000);
         var nb = box(h.x, h.y, Sp.z.x); SO.push([nb[0], nb[1], nb[2], nb[3], 3]);
@@ -551,7 +556,7 @@
         var rows = [top, top - hh - 12, h.y - SIZE * 0.3 * k - hh, h.y - hh * 0.5, top - 2 * hh - 24];
         for (var ri = 0; ri < rows.length; ri++) {
           for (var x = h.x - w - SIZE * 0.3 * k; x <= h.x + SIZE * 0.5 * k; x += 16) {
-            var cx = clamp(x, 8, W - TABS - w - 8), cy = clamp(rows[ri], 8, H - hh - 8);
+            var cx = clamp(x, 8, W - TABS - w - 8), cy = clamp(rows[ri], YMIN, H - hh - 8);
             var a = ov([cx - 4, cy - 4, cx + w + 4, cy + hh + 4]) + Math.abs(cx + w / 2 - h.x) * 1.5 + Math.abs(cy - top) * 2 + ri * 40;
             if (a < bestA) { bestA = a; best = [cx, cy]; }
           }
@@ -564,7 +569,7 @@
                      [h.x + SIZE * 0.46 * k, h.y - hh], [h.x - SIZE * 0.46 * k - w, h.y - hh], [h.x - w / 2, h.y + SIZE * 0.55 * k]];
         var best = null, bestA = Infinity;
         for (var i = 0; i < spots.length; i++) {
-          var x = clamp(spots[i][0], 8, W - TABS - w), y = clamp(spots[i][1], 8, H - hh - 8), a = ov([x - pad, y - pad, x + w + pad, y + hh + pad]);
+          var x = clamp(spots[i][0], 8, W - TABS - w), y = clamp(spots[i][1], YMIN, H - hh - 8), a = ov([x - pad, y - pad, x + w + pad, y + hh + pad]);
           if (a < bestA) { bestA = a; best = [x, y]; if (!a) break; }
         }
         return { at: best, a: bestA };
@@ -801,20 +806,29 @@
       var b = visibleBand(), vh = b.y1 - b.y0, k = clamp(Math.min(vh * (LITE ? 0.6 : 0.8), (W - TABS) * (LITE ? 0.86 : 0.56)) / SIZE, 1.6, 4.4);
       return { x: (W - TABS) / 2, y: b.y0 + vh * 0.48, z: CAMZ * (1 - 1 / k) };
     }
-    /* home: above her platform (meet), or at the top-left corner of the brand kit (brand) */
+    /* home: floating at the left edge of the website (meet), or at the left edge of the brand desk (brand).
+       No platform: she roams, and on these slides she may overlap the design */
     function homeZ() { return ST.kind === 'brand' ? (LITE ? 3 : 7) : STAGE_Z; }
+    function inHero(x, y, k) { return { x: clamp(x, SIZE * 0.4 * k, W - TABS - SIZE * 0.4 * k), y: clamp(y, SIZE * 0.55 * k + 24, H - SIZE * 0.55 * k) }; }
     function homeSpot() {
       if (!ST.root) return null;
-      var k = depthK(homeZ()), pad = ST.root.querySelector('.nxh-pad');
-      if (pad) { var r = rectOf(pad); return { x: r.cx, y: r.y - SIZE * k * 0.5 - SIZE * 0.07 }; }
-      var kit = ST.root.querySelector('.nxh-kit'); if (!kit) return null;
-      var q2 = rectOf(kit); return { x: clamp(q2.x - SIZE * k * 0.02, SIZE * 0.4 * k, W - SIZE * 0.4 * k), y: clamp(q2.y + q2.h * 0.28, SIZE * 0.55 * k, H - SIZE * 0.55 * k) };
+      var k = depthK(homeZ()), web = ST.root.querySelector('.nxh-web'), desk = ST.root.querySelector('.nxh-desk');
+      if (web) { var r = rectOf(web); return inHero(r.x + SIZE * k * 0.12, r.y + r.h * 0.56, k); }
+      if (desk) { var q2 = rectOf(desk); return inHero(q2.x - SIZE * k * 0.02, q2.y + q2.h * 0.3, k); }
+      return null;
     }
-    /* beside a piece of the brand kit: at its left edge, a third of the way down, looking at it (her body
+    /* beside a piece of the brand desk: at its left edge, a third of the way down, looking at it (her body
        covers only a sliver of the piece she is excited about) */
     function assetSpot(el) {
       var r = rectOf(el), k = depthK(homeZ());
-      return { x: clamp(r.x - SIZE * k * 0.12, SIZE * 0.4 * k, W - TABS - SIZE * 0.4 * k), y: clamp(r.y + r.h * 0.34, SIZE * 0.55 * k, H - SIZE * 0.55 * k) };
+      return inHero(r.x - SIZE * k * 0.12, r.y + r.h * 0.34, k);
+    }
+    /* beside a part of the website: a small control gets her right hand on it (she presses it with 'tap');
+       a big area gets her at its left edge */
+    function nearSpot(el) {
+      var r = rectOf(el), k = depthK(homeZ());
+      if (r.w < SIZE * k * 1.3 && r.h < SIZE * k * 0.9) return inHero(r.cx - SIZE * k * 0.3, r.cy + SIZE * k * 0.1, k);
+      return inHero(r.x + SIZE * k * 0.05, r.y + Math.min(r.h * 0.45, SIZE * k * 0.7), k);
     }
     function go(spot, z, follow) {
       if (!spot) return;
@@ -864,14 +878,14 @@
         case 'cute': play('cute'); expr('happy', 2.4); R.blushUntil = time + 2.6; emote(['♥', '✦', '♥'], 3); sfx('heart'); break;
         case 'home': stageTask(name, function (T) {
           var was = ST.spot; ST.spot = 'home'; go(homeSpot(), homeZ(), homeSpot);
-          R.look = camera.position; R.lookUntil = time + 3; if (was === 'close') { play('spin'); sfx('whoosh'); }
-          if (ST.kind === 'meet') T.at(1.05, function () { landFx(); play('hop'); expr('happy', 1.4); sfx('pop'); });
+          R.look = camera.position; R.lookUntil = time + 3; if (was === 'close') sfx('whoosh');
         }); break;
         case 'zoomin': stageTask(name, function (T) {
           ST.spot = 'home'; go(homeSpot(), homeZ(), homeSpot); play('spin'); expr('wow', 1.4); sfx('whoosh');
           T.at(1.2, function () { play('hop'); expr('star', 1.2); emote(['!', '✦'], 2); });
         }); break;
-        case 'visit': if (el) { ST.spot = 'asset'; go(assetSpot(el), homeZ(), function () { return assetSpot(el); }); lookAtEl(el, 3); } break;
+        case 'visit': if (el) { var spotFn = ST.kind === 'meet' ? nearSpot : assetSpot; ST.spot = 'asset'; go(spotFn(el), homeZ(), function () { return spotFn(el); }); lookAtEl(el, 3); } break;
+        case 'tap': play('tap'); if (el) lookAtEl(el, 1.2); expr('content', 0.9); sfx('boop'); break;
         case 'present': play('present'); if (el) lookAtEl(el, 2.4); expr('happy', 1.8); break;
         case 'point': if (el) { var r = rectOf(el), hp = botPx(); lookAtEl(el, 2.6); play(r.cx > hp.x ? 'point' : 'pointL'); } else play('point'); expr('happy', 1.6); break;
         case 'wave': play('wave'); expr('happy', 1.8); R.look = el ? null : camera.position; R.lookUntil = time + 2.2; if (el) lookAtEl(el, 2.4); break;
@@ -891,11 +905,10 @@
     /* a quick jump back and in again (the gasp) */
     function jolt(dz) { if (!R.lock) return; var z0 = ST.z; R.tz = z0 + dz; later(0.32, function () { if (R.lock) R.tz = z0; }); }
     function later(s, fn) { timersT.push({ at: time + s, fn: fn }); }
-    function landFx() { if (!ST.root) return; ST.root.classList.add('is-plat', 'is-land'); setTimeout(function () { if (ST.root) ST.root.classList.remove('is-land'); }, 950); }
     /* the script is between cues or over: small things, never a roaming task */
     function stageIdle() {
       ST.idleAt = time + rand(4, 6.5);
-      var c = pick(['nod', 'hop', 'curious', 'look', 'look']);
+      var c = pick(ST.kind === 'meet' ? ['look', 'look', 'nod'] : ['nod', 'hop', 'curious', 'look', 'look']);
       if (c === 'look' && ST.root) { var r = rectOf(ST.root); lookAtPx(r.x + rand(0.1, 0.9) * r.w, r.y + rand(0.1, 0.9) * r.h, 1.6); }
       else if (c !== 'look') play(c);
     }
