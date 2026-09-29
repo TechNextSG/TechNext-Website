@@ -22,121 +22,140 @@
       var clean = location.search.replace(/([?&])intro=1(&|$)/, function (m, a, b) { return b === '&' ? a : ''; });
       history.replaceState(null, '', location.pathname + clean + location.hash);
     }
-    var done = false, timers = [], raf = null;
+    // ~4 s, the beats are in site.css: flight 0.15–1.45 s (same delay, duration and curve as the CSS `introFly`),
+    // finish() at 3.35 s, then a 0.7 s iris. Every beat is clocked from the real start, which fires on the next
+    // frame or after 120 ms at the latest (requestAnimationFrame can stall in a throttled tab).
+    var FLY_AT = 150, FLY_MS = 1300, FLY_EASE = 'cubic-bezier(.5,0,.25,1)', END_AT = 3350, IRIS_MS = 700;
+    var NOSE = -30;                                              // the logo plane points 30° above the horizontal
+    var lockup = $('.intro-lockup', el), stage = $('.intro-stage', el), ring = $('.intro-ring', el);
+    var wrap = $('.intro-plane-wrap', el), plane = $('.intro-plane', el), sub = $('.intro-sub', el);
+    var trails = $$('.intro-trail path', el), pills = $$('.intro-pill', el);
+    var done = false, started = false, timers = [], anims = [], lastW = window.innerWidth, L = 0;
+    sub.textContent = el.dataset.tagline || '';
+
+    /* (f) exit, the iris: the whole overlay gets a round hole that grows from the middle of the logo to the farthest
+       corner, so the page shows through it and never through a half-faded logo. The hole is the viewport minus a
+       circle as one even-odd polygon; both ends have the same points, so the browser interpolates it. The ring
+       rides its edge (same curve and duration) while the lock-up rushes forward into it (CSS). */
+    function hole(x, y, r, W, H) {
+      var p = ['0 0', W + 'px 0', W + 'px ' + H + 'px', '0 ' + H + 'px', '0 0'];
+      for (var i = 0; i <= 48; i++) p.push((x + r * Math.cos(i / 24 * Math.PI)).toFixed(1) + 'px ' + (y + r * Math.sin(i / 24 * Math.PI)).toFixed(1) + 'px');
+      return 'polygon(evenodd,' + p.join(',') + ',0 0)';
+    }
     function finish() {
       if (done) return; done = true;
-      timers.forEach(clearTimeout); if (raf) cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+      var s = stage.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+      var x = s.left + s.width / 2, y = s.top + s.height / 2;
+      var R = Math.ceil(Math.sqrt(Math.pow(Math.max(x, W - x), 2) + Math.pow(Math.max(y, H - y), 2))) + 4;
+      lockup.style.transformOrigin = '50% ' + (y - lockup.getBoundingClientRect().top).toFixed(1) + 'px';
       el.classList.add('is-out');
+      if (el.animate) {
+        var o = { duration: IRIS_MS, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' };
+        el.animate([{ clipPath: hole(x, y, 0, W, H) }, { clipPath: hole(x, y, R, W, H) }], o);
+        ring.style.cssText = 'left:' + (x - R) + 'px;top:' + (y - R) + 'px;width:' + 2 * R + 'px;height:' + 2 * R + 'px';
+        ring.animate([{ opacity: 1, transform: 'scale(0)' }, { opacity: 0.9, offset: 0.6 }, { opacity: 0, transform: 'scale(1)' }], o);
+      }
       document.documentElement.classList.remove('intro');
       document.body.style.overflow = '';
       document.dispatchEvent(new CustomEvent('tn:intro-done'));
-      setTimeout(function () { el.remove(); }, 750);
+      setTimeout(function () { el.remove(); }, IRIS_MS + 60);
     }
 
-    /* flight path: one smooth cubic Bézier sweep from off-screen bottom-left, up and over the lock-up,
-       around its right, back underneath and into the plane's slot on a gentle climb. The loop is built
-       around the stage's box with a clearance (`pad`), so on a phone or a tablet it still encircles the
-       wordmark instead of cutting through the letters, and it stays below the tagline that types on later.
-       Built in viewport pixels, then expressed relative to the plane's box for offset-path and drawn as
-       the SVG trail. */
-    var wrap = $('.intro-plane-wrap', el), stage = $('.intro-stage', el), trail = $('.intro-trail-svg path', el);
-    var lockup = $('.intro-lockup', el), sub = $('.intro-sub', el);
     // Centre the lock-up once, in pixels: a later viewport-height change (mobile URL bar) then leaves it
     // exactly where the flight path expects it.
     function place() {
-      if (!lockup) return;
       lockup.style.top = '50%'; lockup.style.transform = 'translate(-50%,-50%)';
       var lh = lockup.offsetHeight, H = window.innerHeight;
       lockup.style.top = Math.max(8, Math.round((H - lh) / 2)) + 'px'; lockup.style.transform = 'translateX(-50%)';
     }
+
+    /* (b) the flight: one clockwise loop round the lock-up, spiralling in from the upper left, over the top, round
+       the right, back underneath and up into the plane's slot, which sits 15° past the loop's leftmost point (so the
+       plane climbs into it). Built in viewport pixels from the stage's box and kept inside the viewport minus the
+       plane's own reach, so it never leaves the screen, even at 320 px wide; sampled, joined as a Catmull-Rom
+       spline, then expressed relative to the plane's box for offset-path and drawn as the SVG trail. The plane
+       flies nose first (offset-rotate); --flare turns it from its heading into the slot to the logo's attitude. */
     function buildPath() {
+      wrap.style.offsetPath = 'none';                            // measure the slot, not a point on an old path
       var r = wrap.getBoundingClientRect(), s = stage.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
-      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      var sx = s.left, sy = s.top, sw = s.width, sh = s.height, scx = sx + sw / 2;
-      var pad = Math.max(44, Math.min(120, Math.min(W, H) * 0.12));           // clearance around the lock-up
-      // The loop's right extreme must clear the last letter. A cubic with both middle controls at X only
-      // reaches about 0.75*X + (ends)/8, so solve X for the extreme we want, kept inside the viewport.
-      var reachX = Math.min(sx + sw + pad * 0.9, W - 8);
-      var rightX = (reachX - (scx + (scx + sw * 0.12)) / 8) / 0.75;
-      var subBottom = sub ? sub.getBoundingClientRect().bottom : sy + sh;     // the tagline's real box
-      var bottomY = Math.max(sy + sh + pad * 0.95, subBottom + 18);          // pass under the tagline's line
-      var P = function (x, y) { return x.toFixed(1) + ',' + y.toFixed(1); };
-      var ex = cx - pad * 1.3, ey = cy + pad * 0.9;                           // last control point: a wide approach from the lower-left
-      // Junctions are C1-continuous: each segment's first control point mirrors the previous segment's
-      // last one, so the sweep has no kinks at the top or under the lock-up.
-      var topY = sy - pad * 1.15, kx = scx + sw * 0.12;
-      var d = 'M' + P(-0.12 * W, 1.06 * H) +
-        ' C' + P(sx - pad * 1.6, sy + sh + pad * 1.4) + ' ' + P(2 * scx - rightX, 2 * topY - (sy - pad * 0.7)) + ' ' + P(scx, topY) +
-        ' C' + P(rightX, sy - pad * 0.7) + ' ' + P(rightX, bottomY - pad * 0.25) + ' ' + P(kx, bottomY) +
-        ' C' + P(2 * kx - rightX, bottomY + pad * 0.25) + ' ' + P(ex, ey) + ' ' + P(cx, cy);
-      var theta = Math.atan2(cy - ey, cx - ex) * 180 / Math.PI;                // end tangent (negative = climbing)
-      trail.setAttribute('d', d);
-      var L = trail.getTotalLength();
-      trail.style.strokeDasharray = L + ' ' + L; trail.style.strokeDashoffset = L;
-      var local = d.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, function (m, x, y) { return (x - r.left).toFixed(1) + ',' + (y - r.top).toFixed(1); });
-      wrap.style.offsetPath = 'path("' + local + '")';
-      wrap.style.offsetRotate = 'auto ' + (-theta).toFixed(1) + 'deg';        // lands level, nose up-right like the logo
-      return L;
-    }
-
-    /* particles converge on the stage while the plane is inbound */
-    function particles() {
-      var c = $('.intro-particles', el); if (!c) return;
-      var ctx = c.getContext('2d'), W = c.width = window.innerWidth, H = c.height = window.innerHeight;
-      var cx = W / 2, cy = H / 2, t0 = null, pts = [];
-      for (var i = 0; i < 90; i++) { var a = Math.random() * 6.283, rr = Math.max(W, H) * (0.35 + Math.random() * 0.45); pts.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr, r: 1.5 + Math.random() * 2.5, k: 0.6 + Math.random() * 0.4, ph: Math.random() * 6.283 }); }
-      function step(t) {
-        if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 2200), e = 1 - Math.pow(1 - p, 3);
-        ctx.clearRect(0, 0, W, H);
-        for (var i = 0; i < pts.length; i++) {
-          var q = pts[i], tx = cx + Math.cos(q.ph) * 150 * (1 - e) , ty = cy + Math.sin(q.ph) * 90 * (1 - e);
-          var x = q.x + (tx - q.x) * e * q.k, y = q.y + (ty - q.y) * e * q.k;
-          ctx.beginPath(); ctx.arc(x, y, q.r * (1 - p * 0.6), 0, 6.283);
-          ctx.fillStyle = 'rgba(49,103,202,' + (0.35 * (1 - p) + 0.05).toFixed(3) + ')'; ctx.fill();
-        }
-        if (p < 1 && !done) raf = requestAnimationFrame(step); else { ctx.clearRect(0, 0, W, H); raf = null; }
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2, m = Math.sqrt(r.width * r.width + r.height * r.height) / 2 + 6;
+      var D = 0.26, rx = (Math.min(W - m, s.right + Math.min(110, s.width * 0.16)) - cx) / (1 + Math.cos(D));
+      var ry = Math.min(s.width * 0.3 + s.height / 2, (cy - m) / (1 - Math.sin(D)), (H - m - cy) / (1 + Math.sin(D)));
+      var ex = cx + rx * Math.cos(D), ey = cy + ry * Math.sin(D), a0 = -2.3, a1 = Math.PI + D, n = 16, q = [];
+      var fit = function (x, y) { return [Math.max(m, Math.min(W - m, x)), Math.max(m, Math.min(H - m, y))]; };
+      for (var i = -1; i <= n + 1; i++) {                        // one extra sample past each end sets the end tangents
+        var u = i / n, a = a0 + (a1 - a0) * u, f = 1 + 0.22 * Math.pow(Math.max(0, 1 - u / 0.45), 2);
+        q.push(i === n ? [cx, cy] : fit(ex + rx * f * Math.cos(a), ey + ry * f * Math.sin(a)));
       }
-      raf = requestAnimationFrame(step);
+      var P = function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); };
+      var d = 'M' + P(q[1]);
+      for (var j = 1; j <= n; j++) {
+        d += ' C' + P(fit(q[j][0] + (q[j + 1][0] - q[j - 1][0]) / 6, q[j][1] + (q[j + 1][1] - q[j - 1][1]) / 6)) +
+          ' ' + P(fit(q[j + 1][0] - (q[j + 2][0] - q[j][0]) / 6, q[j + 1][1] - (q[j + 2][1] - q[j][1]) / 6)) + ' ' + P(q[j + 1]);
+      }
+      var end = Math.atan2(q[n + 2][1] - q[n][1], q[n + 2][0] - q[n][0]) * 180 / Math.PI;   // heading into the slot
+      trails.forEach(function (t) { t.setAttribute('d', d); });
+      var local = d.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, function (z, x, y) { return (x - r.left).toFixed(1) + ',' + (y - r.top).toFixed(1); });
+      wrap.style.offsetPath = 'path("' + local + '")';
+      wrap.style.offsetRotate = 'auto ' + (-NOSE) + 'deg';
+      el.style.setProperty('--pw', r.width.toFixed(1) + 'px');        // the plane's size: spark reach, trail weight
+      plane.style.setProperty('--flare', (NOSE - end).toFixed(1) + 'deg');
+      return trails[0].getTotalLength();
+    }
+    // the comet trail: three dashes of falling length share one head that rides with the plane, then their tails
+    // catch up and vanish into the landed plane
+    function trail() {
+      var tot = FLY_MS + 320;
+      trails.forEach(function (t, k) {
+        var s = L * [0.34, 0.2, 0.09][k];
+        t.style.strokeDasharray = s.toFixed(1) + 'px ' + (L + s + 10).toFixed(1) + 'px';
+        t.style.strokeDashoffset = s.toFixed(1) + 'px';          // hidden before the path's start
+        if (t.animate) anims.push(t.animate([
+          { strokeDashoffset: s + 'px', easing: FLY_EASE },
+          { strokeDashoffset: (s - L) + 'px', offset: FLY_MS / tot, easing: 'cubic-bezier(.3,.6,.35,1)' },
+          { strokeDashoffset: -L + 'px' }], { duration: tot, delay: FLY_AT, fill: 'both' }));
+      });
     }
 
-    /* tagline types on */
-    function typewriter() {
-      var sub = $('.intro-sub', el), text = el.dataset.tagline || '', i = 0;
-      sub.textContent = ''; sub.classList.add('is-typing');
-      (function tick() { if (done) return; sub.textContent = text.slice(0, ++i); if (i < text.length) timers.push(setTimeout(tick, 52)); else timers.push(setTimeout(function () { sub.classList.remove('is-typing'); }, 900)); })();
+    /* (e) each app's burst: from the middle of the logo (behind it) out and down into its place, the outer pills
+       bowed outward; an offset-path in the pill's own box */
+    function pillPaths() {
+      var s = stage.getBoundingClientRect(), ox = s.left + s.width / 2, oy = s.top + s.height / 2;
+      pills.forEach(function (p, i) {
+        p.style.offsetPath = 'none';
+        var b = p.getBoundingClientRect(), w = p.offsetWidth, h = p.offsetHeight, side = i - (pills.length - 1) / 2;
+        var sx = ox - (b.left + b.width / 2 - w / 2), sy = oy - (b.top + b.height / 2 - h / 2);   // the unscaled box
+        var qx = w / 2 + side * Math.max(36, s.width * 0.2), qy = sy + (h / 2 - sy) * 0.2;
+        p.style.offsetPath = 'path("M' + sx.toFixed(1) + ',' + sy.toFixed(1) + ' Q' + qx.toFixed(1) + ',' + qy.toFixed(1) + ' ' + w / 2 + ',' + h / 2 + '")';
+      });
     }
 
-    // 10 s: flight 0.3–3.6 s (same curve as the CSS `fly` keyframes), tagline at 4.6 s, fade at 10.0 s.
-    // Every beat is clocked from the real start, which fires on the next frame or after 120 ms at the latest
-    // (requestAnimationFrame can stall in a throttled tab).
-    place();
-    var L = buildPath(), started = false, lastW = window.innerWidth, trailAnim = null;
     function start() {
       if (started || done) return; started = true;
       el.classList.add('is-go');
-      trailAnim = trail.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 3300, delay: 300, easing: 'cubic-bezier(.3,.55,.15,1)', fill: 'forwards' });
-      particles();
-      timers.push(setTimeout(typewriter, 4600));
-      timers.push(setTimeout(finish, 10000));
+      trail();
+      timers.push(setTimeout(function () { wrap.style.willChange = 'auto'; }, FLY_AT + FLY_MS + 60));   // landed
+      timers.push(setTimeout(finish, END_AT));
     }
+    place(); L = buildPath(); pillPaths();
     requestAnimationFrame(start);
     timers.push(setTimeout(start, 120));
     function restart() {
-      timers.forEach(clearTimeout); timers = []; if (raf) { cancelAnimationFrame(raf); raf = null; }
-      if (trailAnim) { trailAnim.cancel(); trailAnim = null; }
-      el.classList.remove('is-go'); started = false;
-      if (sub) { sub.textContent = ''; sub.classList.remove('is-typing'); }
+      timers.forEach(clearTimeout); timers = [];
+      anims.forEach(function (a) { a.cancel(); }); anims = [];
+      el.classList.remove('is-go'); started = false; wrap.style.willChange = '';
       void el.offsetWidth;                       // reflow so every CSS animation restarts from frame 0
-      place(); L = buildPath(); start();
+      place(); L = buildPath(); pillPaths(); start();
     }
     window.addEventListener('resize', function () {
       var W = window.innerWidth;
-      if (!started) { place(); L = buildPath(); lastW = W; return; }
+      if (!started) { place(); L = buildPath(); pillPaths(); lastW = W; return; }
       // Rotation or a real resize re-runs the sequence on the new layout. Height-only changes (mobile URL
       // bar) are ignored: the lock-up is pinned in pixels, so nothing moves under the plane.
       if (Math.abs(W - lastW) > 100 && !done) { lastW = W; restart(); }
     });
-    el.addEventListener('click', finish); // let impatient visitors skip
+    el.addEventListener('click', finish); // let impatient visitors skip (the Skip button is inside)
     document.addEventListener('keydown', function onKey(e) { if (e.key === 'Escape' || e.key === 'Enter') { finish(); document.removeEventListener('keydown', onKey); } });
   })();
 

@@ -126,7 +126,13 @@
   function init() {
     var c = getCookie('tn_consent');
     if (c === 'yes') trackVisit();
-    else if (!c) setTimeout(createBanner, 1200);
+    else if (!c) {
+      // the home page's first-visit intro (html.intro) plays first: the notice comes 1.2 s after it ends,
+      // never on top of it
+      var show = function () { setTimeout(createBanner, 1200); };
+      if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', show, { once: true });
+      else show();
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

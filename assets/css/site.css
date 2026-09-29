@@ -706,74 +706,90 @@ html.intro .mq-track{animation:none}
 }
 
 /* ---------- one-time intro (display is controlled by the inline head style) ---------- */
-/* 10 s sequence · 0.0–2.2 particles converge · 0.3–3.6 plane flies a Bézier motion path, trail draws behind it
-   · 1.8–3.9 wordmark rises letter by letter under the plane · 3.6/3.9 landing ripples · 3.7 glow blooms
-   · 4.6 tagline types on · 6.4 shine · 7.1 focus pills · 8.7 second shine · 10.0 fade into the hero's camera
-   entrance. site.js builds the path and owns the JS-timed beats (particles, trail draw, typewriter, finish). */
+/* ~4 s, phone-first · 0–0.9 bloom + grid unfold (from the first paint) · 0.15–1.45 the plane loops the lock-up on a
+   path site.js computes from the viewport, a comet trail behind it; it banks, flares and lands (ripples + sparks)
+   · 1.15–2.2 the letters flip up one by one · 1.85–2.35 the tagline wipes in · 1.95–2.6 a light sweep
+   · 2.2–3.05 the three apps burst out from behind the logo into the pill row · 3.35 finish(): the iris opens out of
+   the logo onto the page (0.7 s) while the hero plays its own entrance on tn:intro-done. site.js owns the flight
+   path, the trail, the pill arcs, the iris and finish(); every other beat is CSS on .is-go. */
 /* #intro, not .intro: <html> carries class "intro" while the overlay plays, and must keep its normal layout */
-#intro{position:fixed;inset:0;z-index:300;background:#fff;place-items:center;overflow:hidden;cursor:pointer}
+#intro{position:fixed;inset:0;z-index:300;place-items:center;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent}
 html.intro{overflow:hidden}
-.intro-bg{position:absolute;inset:0;background-image:linear-gradient(var(--blue-050) 1px,transparent 1px),linear-gradient(90deg,var(--blue-050) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,#000 10%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,#000 10%,transparent 100%);opacity:0}
-.intro.is-go .intro-bg{animation:introFade 2s ease .4s forwards}
-@keyframes introFade{to{opacity:1}}
-.intro-bloom{position:absolute;left:50%;top:50%;width:min(980px,130vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(221,231,248,.95) 0%,rgba(227,243,240,.6) 35%,rgba(221,231,248,0) 68%);transform:translate(-50%,-50%) scale(.45);opacity:0;pointer-events:none}
-.intro.is-go .intro-bloom{animation:bloom 2.2s cubic-bezier(.2,.8,.2,1) 3.7s forwards,bloomBreathe 4s ease-in-out 6s infinite}
-@keyframes bloom{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@keyframes bloomBreathe{0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.06)}}
-.intro-particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.intro-trail-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.intro-trail-svg path{fill:none;stroke:url(#introGrad);stroke-width:2.5;stroke-linecap:round;opacity:0}
-.intro.is-go .intro-trail-svg path{animation:trailFade 5.6s ease .3s forwards}
-@keyframes trailFade{0%{opacity:0}6%{opacity:.95}66%{opacity:.95}100%{opacity:0}}
-/* The lock-up (stage + tagline + pills + shine) is one block. CSS centres it; site.js then pins its top in
-   pixels so a mobile URL-bar collapse cannot move it under the plane's pre-computed flight path. */
-.intro-lockup{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2.4vh,20px);width:min(640px,88vw,140vh);z-index:2}
-.intro-stage{position:relative;display:flex;align-items:center;gap:3.5%;width:100%}
-/* phones: a slightly smaller lock-up leaves the trail room to loop around the wordmark inside the viewport */
-@media (max-width:480px){.intro-lockup{width:min(640px,80vw,140vh)}}
-.intro-plane-wrap{width:16%;flex:none;position:relative;opacity:0;offset-distance:0%;will-change:offset-distance}
-.intro.is-go .intro-plane-wrap{animation:fly 3.3s cubic-bezier(.3,.55,.15,1) .3s forwards}
-@keyframes fly{0%{opacity:0;offset-distance:0%}5%{opacity:1}100%{opacity:1;offset-distance:100%}}
-.intro-plane{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 22px rgba(49,103,202,.28));position:relative;z-index:2}
-.intro.is-go .intro-plane{animation:planeFloat 3.6s ease-in-out 3.9s infinite}
-@keyframes planeFloat{50%{transform:translateY(-5%) rotate(2deg)}}
-.intro-ripple{position:absolute;left:50%;top:50%;width:110%;aspect-ratio:1;border:2px solid var(--blue-300);border-radius:50%;transform:translate(-50%,-50%) scale(.3);opacity:0;pointer-events:none}
-.intro.is-go .intro-ripple{animation:rippleOut 1.3s cubic-bezier(.2,.8,.2,1) 3.6s forwards}
-.intro.is-go .intro-ripple:nth-child(2){animation-delay:3.9s}
-@keyframes rippleOut{0%{opacity:.75;transform:translate(-50%,-50%) scale(.3)}100%{opacity:0;transform:translate(-50%,-50%) scale(3.6)}}
-.intro-word{position:relative;display:block;flex:1;min-width:0}
-.intro-letter{position:absolute;top:0;height:100%;opacity:0;transform:translateY(75%) rotate(10deg) scale(.7);transform-origin:50% 100%;filter:blur(6px);will-change:transform,opacity,filter}
-.intro.is-go .intro-letter{animation:letterUp .9s cubic-bezier(.3,1.45,.55,1) forwards;animation-delay:calc(1.8s + var(--i)*.32s)}
-@keyframes letterUp{60%{filter:blur(0)}to{opacity:1;transform:none;filter:blur(0)}}
-.intro-sub{position:relative;font:600 clamp(1.15rem,2.7vw,1.6rem) var(--font-hand);color:var(--blue);white-space:nowrap;min-height:1.4em;z-index:2;max-width:92vw;text-align:center}
-.intro-sub.is-typing::after{content:"";display:inline-block;width:2px;height:1em;background:var(--blue);margin-left:3px;vertical-align:-0.15em;animation:caret .7s steps(1) infinite}
-@keyframes caret{50%{opacity:0}}
-.intro-pills{position:relative;min-height:34px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;z-index:2;white-space:nowrap;width:max-content;max-width:92vw}
-/* landscape phones: the stage is short, keep the plane flight inside the viewport and tighten the stack */
+/* (a) 0–0.9 s, from the first paint: a soft bloom opens and the grid's lines unfold from the centre */
+.intro-sheet{position:absolute;inset:0;background:#fff}
+.intro-grid{position:absolute;inset:0;-webkit-mask-image:radial-gradient(ellipse 64% 58% at 50% 50%,#000 25%,transparent 100%);mask-image:radial-gradient(ellipse 64% 58% at 50% 50%,#000 25%,transparent 100%)}
+.intro-grid i{position:absolute;inset:0;background:linear-gradient(var(--blue-100) 1px,transparent 1px) 50% 50%/44px 44px;scale:0 1;animation:gridOpen .9s var(--ease-out) .05s forwards}
+.intro-grid i+i{background-image:linear-gradient(90deg,var(--blue-100) 1px,transparent 1px);scale:1 0}
+@keyframes gridOpen{to{scale:1 1}}
+.intro-bloom{position:absolute;left:50%;top:50%;width:min(1100px,150vmax);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(212,225,248,.95) 0,rgba(221,231,248,.75) 18%,rgba(227,243,240,.5) 38%,rgba(221,231,248,0) 66%);opacity:0;scale:.3;pointer-events:none;animation:bloomOpen .9s var(--ease-out) forwards}
+@keyframes bloomOpen{to{opacity:1;scale:1}}
+/* (b) 0.15–1.45 s: the plane flies the loop (offset-path), banks through it, flares to the logo's attitude and lands;
+   the comet trail is three dashes of falling length whose heads ride with it (site.js) */
+.intro-trail{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.intro-trail path{fill:none;stroke:var(--blue-300);stroke-linecap:round;stroke-width:calc(.8px + var(--pw,60px) * .012);opacity:.3}
+.intro-trail path+path{stroke-width:calc(1.2px + var(--pw,60px) * .02);opacity:.55}
+.intro-trail path+path+path{stroke:var(--blue);stroke-width:calc(1.6px + var(--pw,60px) * .026);opacity:.85}
+/* The lock-up (stage + tagline + pills) is one block. CSS centres it; site.js then pins its top in pixels so a
+   mobile URL-bar collapse cannot move it under the plane's pre-computed flight path. */
+.intro-lockup{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.9vh,16px);width:min(86vw,720px,125vh);z-index:2}
+.intro-stage{position:relative;z-index:2;display:flex;align-items:center;gap:3.5%;width:100%}
+.intro-plane-wrap{position:relative;width:16%;flex:none;opacity:0}
+.intro.is-go .intro-plane-wrap{will-change:transform;animation:introFly 1.3s cubic-bezier(.5,0,.25,1) .15s both}
+@keyframes introFly{0%{opacity:0;offset-distance:0%}8%{opacity:1}100%{opacity:1;offset-distance:100%}}
+.intro-plane{position:relative;z-index:2;display:block;width:100%;height:auto;filter:drop-shadow(0 8px 14px rgba(49,103,202,.3));scale:.45}
+.intro.is-go .intro-plane{animation:planeBank 1.3s ease-in-out .15s both,planeLand .45s var(--spring) 1.45s,planeFloat 2.4s ease-in-out 1.95s infinite}
+/* it grows in from the distance, rolls about its nose (30° above the horizontal) into the loop and out of it, then
+   flares: --flare (site.js) turns it from its approach heading to the logo's attitude */
+@keyframes planeBank{0%{scale:.45;transform:perspective(260px) rotate3d(.87,-.5,0,0deg);rotate:0deg}18%{transform:perspective(260px) rotate3d(.87,-.5,0,0deg)}40%{transform:perspective(260px) rotate3d(.87,-.5,0,40deg)}50%{scale:1}66%{transform:perspective(260px) rotate3d(.87,-.5,0,32deg)}84%{transform:perspective(260px) rotate3d(.87,-.5,0,-8deg);rotate:0deg}100%{scale:1;transform:perspective(260px) rotate3d(.87,-.5,0,0deg);rotate:var(--flare,0deg)}}
+@keyframes planeLand{40%{scale:1.14}}
+@keyframes planeFloat{50%{translate:0 -7%}}
+/* landing, 1.4 s: two ripples and a burst of sparks from the slot; then the plane bobs gently until the exit */
+.intro-ripple{position:absolute;left:50%;top:50%;width:110%;aspect-ratio:1;translate:-50% -50%;border:2px solid var(--blue-300);border-radius:50%;opacity:0;scale:.3;pointer-events:none}
+.intro.is-go .intro-ripple{animation:rippleOut .9s cubic-bezier(.2,.8,.2,1) 1.36s}
+.intro.is-go .intro-ripple+.intro-ripple{animation-delay:1.5s}
+@keyframes rippleOut{0%{opacity:.8;scale:.3}100%{opacity:0;scale:2.4}}
+.intro-spark{position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:var(--blue-300);opacity:0;pointer-events:none}
+.intro-spark:nth-of-type(odd){background:var(--blue)}
+.intro.is-go .intro-spark{animation:sparkOut .7s cubic-bezier(.15,.85,.3,1) 1.4s}
+@keyframes sparkOut{0%{opacity:1;transform:rotate(var(--a)) translateX(calc(var(--pw,60px) * .35)) scale(1.2)}100%{opacity:0;transform:rotate(var(--a)) translateX(calc(var(--pw,60px) * var(--d))) scale(.3)}}
+/* (c) 1.15–2.2 s: the letters flip up one by one from where the plane landed, then a light sweeps the wordmark
+   (masked to the letters, so it never tints the background) */
+.intro-word{position:relative;display:block;flex:1;min-width:0;perspective:560px}
+.intro-letter{position:absolute;top:0;height:100%;opacity:0;transform-origin:50% 95%;transform:translateY(34%) rotateX(-96deg) scale(.9)}
+.intro.is-go .intro-letter{animation:letterFlip .6s cubic-bezier(.22,.9,.3,1.22) calc(1.15s + var(--i) * .065s) forwards}
+@keyframes letterFlip{0%{opacity:0;transform:translateY(34%) rotateX(-96deg) scale(.9)}30%{opacity:1}100%{opacity:1;transform:none}}
+.intro-glint{position:absolute;inset:0;overflow:hidden;pointer-events:none;-webkit-mask:url(../img/logo-text.png) 0 0/100% 100% no-repeat;mask:url(../img/logo-text.png) 0 0/100% 100% no-repeat}
+.intro-glint::before{content:"";position:absolute;top:-10%;bottom:-10%;left:0;width:34%;background:linear-gradient(100deg,rgba(255,255,255,0) 10%,rgba(255,255,255,.6) 50%,rgba(255,255,255,0) 90%);transform:translateX(-120%) skewX(-18deg)}
+.intro.is-go .intro-glint::before{animation:glint .65s cubic-bezier(.45,.05,.3,1) 1.95s forwards}
+@keyframes glint{to{transform:translateX(320%) skewX(-18deg)}}
+/* (d) 1.85–2.35 s: the tagline wipes in left to right, like a pen stroke */
+.intro-sub{position:relative;z-index:2;font:600 clamp(1.1rem,4.9vw,1.8rem)/1.25 var(--font-hand);color:var(--blue);white-space:nowrap;clip-path:inset(-25% 104% -25% -4%);translate:0 5px}
+.intro.is-go .intro-sub{animation:subWipe .5s cubic-bezier(.3,.7,.2,1) 1.85s forwards}
+@keyframes subWipe{to{clip-path:inset(-25% -4% -25% -4%);translate:0 0}}
+/* (e) 2.2–3.05 s: the three apps burst out from behind the logo on arcs (offset-path, site.js) and settle in the row */
+.intro-pills{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(6px,2vw,10px);width:max-content;max-width:calc(100vw - 24px)}
+.intro-pill{display:inline-flex;align-items:center;gap:clamp(5px,1.6vw,8px);height:clamp(30px,8.8vw,36px);padding:0 clamp(10px,3.4vw,15px) 0 clamp(7px,2.3vw,10px);border-radius:999px;background:#fff;border:1px solid var(--line);font:600 clamp(11.5px,3.4vw,14px)/1 var(--font-body);color:var(--ink);white-space:nowrap;box-shadow:var(--shadow-sm);opacity:0;scale:.35;offset-rotate:0deg}
+.intro-pill .oi{width:clamp(15px,4.6vw,19px);height:clamp(15px,4.6vw,19px)}
+.intro.is-go .intro-pill{animation:pillBurst .75s cubic-bezier(.2,.75,.25,1) calc(2.2s + var(--i) * .08s) both}
+@keyframes pillBurst{0%{opacity:0;scale:.35;offset-distance:0%;rotate:calc(var(--side) * 16deg)}28%{opacity:1}72%{scale:1.07}100%{opacity:1;scale:1;offset-distance:100%;rotate:0deg}}
+.intro-progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--blue);opacity:.6;transform:scaleX(0);transform-origin:left}
+.intro.is-go .intro-progress{animation:prog 3.35s linear forwards}
+.intro-skip{position:absolute;z-index:4;right:max(16px,env(safe-area-inset-right));bottom:max(16px,calc(env(safe-area-inset-bottom) + 10px));min-width:64px;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.88);font:600 13px/1 var(--font-body);letter-spacing:.03em;color:var(--body);cursor:pointer;opacity:0;animation:fadeUp .4s var(--ease-out) .3s forwards}
+.intro-skip:hover{color:var(--ink);border-color:var(--blue-300)}
+/* landscape phones: a short stage; a tighter stack keeps the loop inside the viewport */
 @media (max-height:480px) and (orientation:landscape){
-  .intro-lockup{width:min(520px,62vw);gap:8px}
+  .intro-lockup{gap:6px}
   .intro-sub{font-size:1.05rem}
-  .intro-pills{min-height:30px}
-  .intro-pill{height:30px;font-size:12px}
-  .intro-skip{bottom:12px;right:14px}
+  .intro-pill{height:28px;font-size:11.5px}
+  .intro-skip{bottom:max(10px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right))}
 }
-.intro-pill{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font:600 13px/1 var(--font-body);color:var(--ink);box-shadow:var(--shadow-sm);opacity:0;transform:translateY(16px) scale(.9)}
-.intro-pill .oi{width:18px;height:18px}
-.intro.is-go .intro-pill{animation:pillIn .75s cubic-bezier(.3,1.4,.55,1) forwards;animation-delay:calc(7.1s + var(--i)*.24s)}
-@keyframes pillIn{to{opacity:1;transform:none}}
-.intro-shine{position:absolute;left:50%;top:50%;width:118%;height:150%;transform:translate(-50%,-50%);pointer-events:none;overflow:hidden;opacity:0;z-index:3}
-.intro-shine::before{content:"";position:absolute;top:-40%;bottom:-40%;width:22%;left:-30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.95) 50%,transparent);transform:skewX(-14deg)}
-.intro.is-go .intro-shine{animation:shineOn 1.2s ease-out 6.4s forwards}
-.intro.is-go .intro-shine::before{animation:shineSweep 1.2s cubic-bezier(.2,.8,.2,1) 6.4s forwards}
-.intro.is-go .intro-shine--2{animation-delay:8.7s}
-.intro.is-go .intro-shine--2::before{animation-delay:8.7s;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7) 50%,transparent)}
-@keyframes shineOn{0%{opacity:0}15%{opacity:1}85%{opacity:1}100%{opacity:0}}
-@keyframes shineSweep{to{left:110%}}
-.intro-progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left}
-.intro.is-go .intro-progress{animation:prog 10s linear forwards}
-.intro-skip{position:absolute;right:20px;bottom:20px;font:600 12px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:0;cursor:pointer;opacity:0;animation:fadeUp .4s ease-out 1.5s forwards;z-index:4}
-.intro.is-out{animation:introOut .7s cubic-bezier(.4,0,.6,1) forwards;pointer-events:none}
-@keyframes introOut{to{opacity:0;transform:scale(1.08);filter:blur(6px)}}
+/* (f) 3.35 s, finish(): the iris opens out of the logo (site.js clips a growing hole through the whole overlay and rides
+   the ring on its edge) while the lock-up rushes forward into it */
+#intro.is-out{pointer-events:none;cursor:auto}
+.intro-ring{position:absolute;left:0;top:0;z-index:1;border-radius:50%;border:2px solid rgba(111,160,245,.8);box-shadow:0 0 30px 4px rgba(111,160,245,.4);opacity:0;pointer-events:none}
+.intro.is-out .intro-lockup{animation:lockupOut .7s cubic-bezier(.55,0,.8,.3) forwards}
+@keyframes lockupOut{to{opacity:0;scale:1.35}}
+.intro.is-out .intro-skip,.intro.is-out .intro-progress{visibility:hidden}
 .kw>.rot{display:inline-grid}
 .card-ic[data-app-pop]{border:0;background:none;padding:0;cursor:zoom-in}
 
