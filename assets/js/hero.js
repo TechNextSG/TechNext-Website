@@ -192,11 +192,22 @@
   var slides = $$('.slide', hero), dots = $$('.dot', hero), live = $('[data-hero-live]', hero);
   var idx = Math.max(0, slides.findIndex(function (s) { return s.classList.contains('is-active'); }));
   var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = !reduce;
-  // Random play on desktop: a random slide opens the page, and autoplay jumps to a random *different* slide.
-  // Phones open on slide 1 (the headline) and then play in order. Arrows, dots, keys and swipes step in order.
-  if (autoplay && slides.length > 1 && !mobile.matches) {
-    var r0 = Math.floor(Math.random() * slides.length);
+  // Random play on every device: a random slide opens the page, then autoplay deals the others in a shuffled
+  // order, each once before any repeats (a new deal never starts with the slide just shown). Arrows, dots, keys
+  // and swipes step in order. Crawlers and page-speed tools always get slide 1, the one with the page's H1.
+  // named crawlers, anything with "bot/" in its UA (Googlebot/2.1, AhrefsBot/7.0), audits and headless browsers;
+  // not a bare "bot", which would catch phone brands such as CUBOT
+  var crawler = /googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent || '');
+  // a crawler's renderer may fast-forward timers: it gets slide 1 (the H1) and keeps it
+  if (crawler) autoplay = false;
+  // every visit opens on a different slide than the last one (remembered in this browser)
+  var LAST = 'tn_hero_first', last = -1;
+  try { last = parseInt(localStorage.getItem(LAST), 10); } catch (e) { /* storage may be blocked */ }
+  if (autoplay && slides.length > 1 && !crawler) {
+    var pool = slides.map(function (s0, k) { return k; }).filter(function (k) { return k !== last; });
+    var r0 = pool[Math.floor(Math.random() * pool.length)];
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
+    try { localStorage.setItem(LAST, String(idx)); } catch (e) { /* storage may be blocked */ }
   }
   // ?slide=2 opens that slide and holds it (deep links and QA); the arrows and dots still work
   var want = /[?&]slide=([1-9])(?:&|$)/.exec(location.search);
@@ -205,14 +216,24 @@
     if (wi !== idx) { slides[idx].classList.remove('is-active'); slides[wi].classList.add('is-active'); idx = wi; }
     autoplay = false;
   }
+  var deck = [];
+  function deal() {
+    deck = slides.map(function (s, i) { return i; }).filter(function (i) { return i !== idx; });
+    for (var i = deck.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = deck[i]; deck[i] = deck[j]; deck[j] = t; }
+  }
   function nextIdx() {
     if (slides.length < 2) return idx;
-    if (mobile.matches) return (idx + 1) % slides.length;
-    var n; do { n = Math.floor(Math.random() * slides.length); } while (n === idx);
-    return n;
+    if (crawler) return (idx + 1) % slides.length;
+    deck = deck.filter(function (i) { return i !== idx; });
+    if (!deck.length) deal();
+    return deck.shift();
   }
 
-  function announce() { if (live) live.textContent = 'Slide ' + (idx + 1) + ' of ' + slides.length + ': ' + (slides[idx].dataset.title || ''); }
+  function announce(viaUser) {
+    if (!live) return;
+    live.setAttribute('aria-live', viaUser || !autoplay ? 'polite' : 'off');
+    live.textContent = 'Slide ' + (idx + 1) + ' of ' + slides.length + ': ' + (slides[idx].dataset.title || '');
+  }
 
   /* ---- camera transitions: a different enter + exit style per slide, ~3 s in total ---- */
   var CAM_IN = ['cam-in-orbit', 'cam-in-spiral', 'cam-in-tumble'];
@@ -222,17 +243,19 @@
   function camClear() {
     camTimers.forEach(clearTimeout); camTimers = [];
     slides.forEach(function (s) { CAM_CLASSES.forEach(function (c) { s.classList.remove(c); }); });
-    hero.classList.remove('is-cam'); hero.style.removeProperty('--cam');
+    hero.classList.remove('is-cam'); slides.forEach(function (s) { s.style.removeProperty('--cam'); });
   }
   function camEnter(slide, n, first) {
     slide.classList.add('is-entering', CAM_IN[n % CAM_IN.length]);
     if (first) slide.classList.add('cam-first');
     hero.classList.add('is-cam');
-    hero.style.setProperty('--cam', first ? '700ms' : '900ms');
+    // the delay of the slide's own reveals, on the slide (on the hero it restyled everything when the move ended);
+    // it stays until the next change clears it
+    slide.style.setProperty('--cam', first ? '700ms' : '900ms');
     tiltReset();
     camTimers.push(setTimeout(function () {
       slide.classList.remove('is-entering', 'cam-first'); CAM_IN.forEach(function (c) { slide.classList.remove(c); });
-      hero.classList.remove('is-cam'); hero.style.removeProperty('--cam');
+      hero.classList.remove('is-cam');
       // ease from flat into the current cursor tilt instead of snapping
       tilt.cx = tilt.cy = 0; if (!tilt.raf) tilt.raf = requestAnimationFrame(tiltStep);
     }, first ? 2000 : 3000));
@@ -251,12 +274,14 @@
     if (dots[old]) { dots[old].classList.remove('is-active'); dots[old].setAttribute('aria-selected', 'false'); }
     idx = n;
     slides[idx].classList.add('is-active');
-    if (camOn) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
+    if (camOn && !isNexi(idx)) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
-    announce(); onSlide(idx); restart();
+    announce(viaUser); onSlide(idx); restart();
     if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
   }
   function clear() { if (timer) { clearTimeout(timer); timer = null; } }
+  // Nexi's slides: no camera move (she performs the entrance) and a still hero background while she presents
+  function isNexi(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-nexi')); }
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
   function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
@@ -287,7 +312,16 @@
   }
   // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
   // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
-  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  // the Nexi stage holds the slide while Nexi finishes a spoken line (hero-scenes.js, tn:hero-hold)
+  hero.addEventListener('tn:hero-hold', function (e) { var d = e.detail || {}; if (!d.why) return; d.on ? hold(d.why) : release(d.why); });
+  // ...and asks for a new turn when the visitor jumps within its script, so it never changes mid-explanation
+  hero.addEventListener('tn:hero-dur', function (e) {
+    var ms = e.detail && +e.detail.ms; if (!ms || !autoplay) return;
+    clear(); remaining = ms;
+    if (dots[idx]) { dots[idx].style.setProperty('--dur', ms + 'ms'); restartBar(); }
+    if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
+  });
   hero.addEventListener('pointerover', function (e) {
     if (e.pointerType === 'touch' || !e.target.closest(HOLD)) return;
     clearTimeout(holdT); hold('hover');
@@ -327,10 +361,14 @@
     var canvas = $('canvas.particles', hero);
     if (!canvas || reduce || mobile.matches) return { on: function () {}, off: function () {} };
     var ctx = canvas.getContext('2d'), W = 0, H = 0, dpr = 1, raf = null, pts = [], mx = .5, my = .4, on = false;
+    var sized = false;
     function size() {
       var r = hero.getBoundingClientRect(); dpr = Math.min(1.5, window.devicePixelRatio || 1);
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
-      canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var cw = Math.round(W * dpr), ch = Math.round(H * dpr);
+      if (canvas.width !== cw) canvas.width = cw;
+      if (canvas.height !== ch) canvas.height = ch;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); sized = true;
     }
     function seed() {
       pts = [];
@@ -379,16 +417,18 @@
       if (!pmRaf) pmRaf = requestAnimationFrame(function () { pmRaf = 0; placeSpot(); parallax(mx - .5, my - .5); });
     }, { passive: true });
     hero.addEventListener('pointerleave', function () { hoverLock = false; parallax(0, 0); });
-    window.addEventListener('resize', function () { if (on) { size(); seed(); } });
+    window.addEventListener('resize', function () { if (on) { size(); seed(); } else sized = false; });
+    // the hero's own height can change without a window resize (web fonts arriving): measured then, after layout
+    if ('ResizeObserver' in window) new ResizeObserver(function () { if (!sized) return; if (on) size(); else sized = false; }).observe(hero);
     document.addEventListener('visibilitychange', function () { if (!document.hidden && on && !raf) raf = requestAnimationFrame(draw); });
-    return { on: function () { on = true; if (!raf) { size(); if (!pts.length) seed(); raf = requestAnimationFrame(draw); } }, off: function () { on = false; } };
+    return { on: function () { on = true; if (!raf) { if (!sized) size(); if (!pts.length) seed(); raf = requestAnimationFrame(draw); } }, off: function () { on = false; } };
   })();
   bg.on();
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (es) {
       var vis = es[es.length - 1].isIntersecting;
       hero.classList.toggle('is-off', !vis);
-      if (vis) { bg.on(); release('off'); } else { bg.off(); hold('off'); }
+      if (vis) { if (!isNexi(idx)) bg.on(); release('off'); } else { bg.off(); hold('off'); }
     }, { threshold: 0 }).observe(hero);
   }
 
@@ -411,7 +451,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.cine,.pmap,.lj,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;
@@ -453,11 +493,13 @@
   }
 
   /* ================================================================ counters + toasts (slide 1) */
+  function grp(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   function counters(slide) {
     $$('[data-count]', slide).forEach(function (el) {
       var end = +el.dataset.count, suf = el.dataset.suffix || '', t0 = null, dur = 1100;
-      if (reduce) { el.textContent = end.toLocaleString() + suf; return; }
-      function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur); p = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(end * p).toLocaleString() + suf; if (p < 1) requestAnimationFrame(step); }
+      if (reduce) { el.textContent = grp(end) + suf; return; }
+      var shown = '';
+      function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / dur); p = 1 - Math.pow(1 - p, 3); var v = grp(Math.round(end * p)) + suf; if (v !== shown) { shown = v; el.textContent = v; } if (p < 1) requestAnimationFrame(step); }
       requestAnimationFrame(step);
     });
   }
@@ -480,6 +522,8 @@
   /* ================================================================ per-slide hooks */
   function onSlide(i) {
     var s = slides[i];
+    hero.classList.toggle('is-nexi-slide', isNexi(i));
+    if (isNexi(i)) bg.off(); else if (!hero.classList.contains('is-off')) bg.on();
     if (s.hasAttribute('data-slide-dash')) { counters(s); toasts(s, true); startRot(); } else { toasts(slides[0], false); clearInterval(rotTimer); }
     // the scenes (orbit, process map, plan) start and stop themselves on this event
     hero.dispatchEvent(new CustomEvent('tn:slide', { detail: { index: i, slide: s } }));
@@ -493,7 +537,7 @@
     document.addEventListener('tn:intro-done', function () { remaining = durOf(idx); release('intro'); restartBar(); }, { once: true });
   }
   if (camOn) {
-    var firstEnter = function () { camClear(); camEnter(slides[idx], idx, true); };
+    var firstEnter = function () { camClear(); if (!isNexi(idx)) camEnter(slides[idx], idx, true); };
     if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', firstEnter, { once: true });
     else firstEnter();
   }

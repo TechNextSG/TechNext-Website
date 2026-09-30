@@ -33,8 +33,8 @@ YEAR = str(date.today().year)
 
 # The first-visit intro plays on the home page only: visitors who land on any other page from search
 # see that page's content straight away (the intro plane was their largest paint, ~3.5 s on a phone).
-INTRO_HEAD = "<style>#intro{display:none}html.intro #intro{display:grid}</style>\n<script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';if((force||!skip)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>\n"
-INTRO_BODY = '<div class="intro" id="intro" aria-hidden="true" data-tagline="Odoo Partner · Singapore">\n  <div class="intro-bg"></div>\n  <div class="intro-bloom"></div>\n  <canvas class="intro-particles"></canvas>\n  <svg class="intro-trail-svg" aria-hidden="true"><defs><linearGradient id="introGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6FA0F5" stop-opacity="0"/><stop offset=".6" stop-color="#6FA0F5"/><stop offset="1" stop-color="#3167CA"/></linearGradient></defs><path d=""/></svg>\n  <div class="intro-lockup">\n  <div class="intro-stage">\n    <div class="intro-plane-wrap">\n      <span class="intro-ripple"></span><span class="intro-ripple"></span>\n      <img class="intro-plane" src="{ROOT}assets/img/logo-plane.png" alt="" width="160" height="136" decoding="sync">\n    </div>\n    <span class="intro-word" style="aspect-ratio:{LETTERS_W}/{LETTERS_H}">{LETTERS}</span>\n  </div>\n  <span class="intro-sub" aria-hidden="true"></span>\n  <span class="intro-pills" aria-hidden="true">\n    <span class="intro-pill" style="--i:0">{{odoo:accountant:18}}Accounting</span>\n    <span class="intro-pill" style="--i:1">{{odoo:sale:18}}Sales</span>\n    <span class="intro-pill" style="--i:2">{{odoo:stock:18}}Inventory</span>\n  </span>\n  <span class="intro-shine" aria-hidden="true"></span>\n  <span class="intro-shine intro-shine--2" aria-hidden="true"></span>\n  </div>\n  <span class="intro-progress" aria-hidden="true"></span>\n  <button class="intro-skip" type="button">Skip</button>\n</div>\n'
+INTRO_HEAD = "<style>#intro{display:none}html.intro #intro,#intro.is-out{display:grid}</style>\n<script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';var bot=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider/i.test(navigator.userAgent||'');if((force||!skip)&&!bot&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>\n"
+INTRO_BODY = '<div class="intro" id="intro" aria-hidden="true" data-tagline="Odoo Partner · Singapore">\n  <div class="intro-sheet">\n    <div class="intro-grid"><i></i><i></i></div>\n    <div class="intro-bloom"></div>\n    <svg class="intro-trail"><path d=""/><path d=""/><path d=""/></svg>\n  </div>\n  <span class="intro-ring"></span>\n  <div class="intro-lockup">\n  <div class="intro-stage">\n    <div class="intro-plane-wrap">\n      <span class="intro-ripple"></span><span class="intro-ripple"></span>\n      <i class="intro-spark" style="--a:8deg;--d:1.15"></i><i class="intro-spark" style="--a:52deg;--d:1.6"></i><i class="intro-spark" style="--a:97deg;--d:1.25"></i><i class="intro-spark" style="--a:141deg;--d:1.7"></i><i class="intro-spark" style="--a:188deg;--d:1.2"></i><i class="intro-spark" style="--a:232deg;--d:1.65"></i><i class="intro-spark" style="--a:279deg;--d:1.3"></i><i class="intro-spark" style="--a:323deg;--d:1.55"></i>\n      <img class="intro-plane" src="{ROOT}assets/img/logo-plane.png" alt="" width="160" height="136" decoding="sync">\n    </div>\n    <span class="intro-word" style="aspect-ratio:{LETTERS_W}/{LETTERS_H}">{LETTERS}<span class="intro-glint"></span></span>\n  </div>\n  <span class="intro-sub"></span>\n  <span class="intro-pills">\n    <span class="intro-pill" style="--i:0;--side:-1">{{odoo:accountant:18}}Accounting</span>\n    <span class="intro-pill" style="--i:1;--side:0">{{odoo:sale:18}}Sales</span>\n    <span class="intro-pill" style="--i:2;--side:1">{{odoo:stock:18}}Inventory</span>\n  </span>\n  </div>\n  <span class="intro-progress"></span>\n  <button class="intro-skip" type="button" tabindex="-1">Skip</button>\n</div>\n'
 
 
 def asset_version() -> str:
@@ -545,14 +545,17 @@ def pillars_html() -> str:
 
 
 def letters_html() -> tuple:
-    """Wordmark slices for the intro (see make_assets.split_letters)."""
+    """Wordmark letters for the intro (see make_assets.split_letters). /assets/img is cached as immutable, so
+    each letter's URL carries a hash of its bytes: re-cut letters never meet a stale copy in a browser cache."""
+    import hashlib
     meta_path = SRC / "letters.json"
     if not meta_path.exists():
         return ('<img class="intro-letter" style="left:0;width:100%;--i:0" src="{ROOT}assets/img/logo-text.png" alt="" decoding="sync">', 763, 132)
     meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    ver = lambda i: hashlib.sha1((ROOT / f"assets/img/letters/l{i}.png").read_bytes()).hexdigest()[:8]
     imgs = "".join(
         f'<img class="intro-letter" style="left:{l["x"]*100:.2f}%;width:{l["w"]*100:.2f}%;--i:{i}" '
-        f'src="{{ROOT}}assets/img/letters/l{i}.png" alt="" decoding="sync">'
+        f'src="{{ROOT}}assets/img/letters/l{i}.png?v={ver(i)}" alt="" decoding="sync">'
         for i, l in enumerate(meta["letters"]))
     return imgs, meta["w"], meta["h"]
 

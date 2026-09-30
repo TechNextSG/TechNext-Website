@@ -34,7 +34,7 @@
 .scv-mk{stroke:var(--ink);stroke-width:1.5}
 .scv-dot{fill:#fff;stroke-width:2.5}
 .scv-dot--pv{stroke:var(--tok-stock)}.scv-dot--ev{stroke:var(--ok)}.scv-dot--ac{stroke:var(--tok-late)}
-.scv-handle{position:absolute;top:6px;left:0;z-index:3;transform:translateX(-50%);display:grid;place-items:center;min-width:44px;height:22px;padding:0 9px;border-radius:999px;background:var(--ink);color:#fff;cursor:grab;box-shadow:0 8px 16px -10px rgba(31,31,61,.7);touch-action:none}
+.scv-handle{position:absolute;top:6px;left:0;z-index:3;transform:translateX(-50%);will-change:transform;display:grid;place-items:center;min-width:44px;height:22px;padding:0 9px;border-radius:999px;background:var(--ink);color:#fff;cursor:grab;box-shadow:0 8px 16px -10px rgba(31,31,61,.7);touch-action:none}
 .scv-handle b{font:700 10.5px/1 var(--font-body);color:#fff}
 .scv-handle::after{content:"";position:absolute;left:50%;bottom:-4px;width:8px;height:8px;margin-left:-4px;background:var(--ink);transform:rotate(45deg);z-index:-1}
 .scv-handle:focus-visible{outline:2px solid var(--blue);outline-offset:3px}

@@ -63,41 +63,101 @@ def split_logo():
 
 
 def split_letters():
-    """Cut the wordmark into glyph groups (alpha-gap detection) for the letter-by-letter intro.
-    Writes assets/img/letters/l<i>.png (full height, so vertical alignment is trivial) and
-    _src/letters.json with each slice's x / width as fractions of the wordmark."""
+    """Cut the wordmark into its letters for the letter-by-letter intro. A letter is a connected region
+    of the alpha channel, so a kerned pair whose boxes overlap ("Te") still splits; two glyphs that touch
+    ("xt") are cut at the thinnest column of the joint, and faint anti-aliasing pixels go to the nearest
+    letter. Each image keeps the wordmark's full height (vertical alignment is trivial) and holds
+    only its own letter's pixels, so the letters recompose the wordmark exactly.
+    Writes assets/img/letters/l<i>.png and _src/letters.json with each letter's x / width as fractions."""
     import json
+    from collections import deque
     im = Image.open(IMG / "logo-text.png").convert("RGBA")
-    a = im.getchannel("A")
     W, H = im.size
-    px = a.load()
-    cols = [any(px[x, y] > 8 for y in range(H)) for x in range(W)]
-    groups, x = [], 0
-    while x < W:
-        if cols[x]:
-            s = x
-            while x < W and cols[x]:
-                x += 1
-            groups.append([s, x])
-        else:
-            x += 1
-    # merge slivers (e.g. a detached dot) into the nearest neighbour
-    merged = []
-    for g in groups:
-        if merged and (g[1] - g[0] < 12 or g[0] - merged[-1][1] < 3):
-            merged[-1][1] = g[1]
-        else:
-            merged.append(g)
+    px = im.getchannel("A").load()
+    lab = [[0] * W for _ in range(H)]
+    near = [(dx, dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1) if dx or dy]
+
+    def region(x, y, ok):
+        """the 8-connected pixels around (x, y) that pass ok()"""
+        seen, q = {(x, y)}, deque([(x, y)])
+        while q:
+            cx, cy = q.popleft()
+            for dx, dy in near:
+                p = (cx + dx, cy + dy)
+                if 0 <= p[0] < W and 0 <= p[1] < H and p not in seen and ok(*p):
+                    seen.add(p)
+                    q.append(p)
+        return seen
+
+    # 1. solid glyph bodies (alpha >= 16); specks are left for step 3
+    glyphs, done = [], set()
+    for y in range(H):
+        for x in range(W):
+            if px[x, y] >= 16 and (x, y) not in done:
+                g = region(x, y, lambda a, b: px[a, b] >= 16)
+                done |= g
+                if len(g) >= 40:
+                    glyphs.append(g)
+    # 2. a body much wider than the typical letter is two touching glyphs: cut it at its thinnest
+    #    column, then hand any piece left stranded on the wrong side back to the other half
+    widths = sorted(max(p[0] for p in g) - min(p[0] for p in g) for g in glyphs)
+    typical = widths[len(widths) // 2]
+    for g in list(glyphs):
+        x0, x1 = min(p[0] for p in g), max(p[0] for p in g)
+        if x1 - x0 < typical * 1.6:
+            continue
+        count = {}
+        for p in g:
+            count[p[0]] = count.get(p[0], 0) + 1
+        cut = min(range(x0 + (x1 - x0) * 3 // 10, x1 - (x1 - x0) * 3 // 10), key=lambda c: count.get(c, 0))
+        halves = [{p for p in g if p[0] <= cut}, {p for p in g if p[0] > cut}]
+        for i in (0, 1):
+            h = halves[i]
+            pieces = []
+            while h:
+                s = next(iter(h))
+                piece = region(s[0], s[1], lambda a, b: (a, b) in h) | {s}
+                pieces.append(piece)
+                h = h - piece
+            pieces.sort(key=len)
+            halves[i] = pieces.pop()
+            for piece in pieces:
+                halves[1 - i] |= piece
+        glyphs.remove(g)
+        glyphs += halves
+    glyphs.sort(key=lambda g: min(p[0] for p in g))
+    for n, g in enumerate(glyphs, 1):
+        for x, y in g:
+            lab[y][x] = n
+    # 3. every other pixel joins the nearest letter (breadth-first from the bodies), so no faint
+    #    anti-aliasing pixel is lost
+    q = deque((x, y) for y in range(H) for x in range(W) if lab[y][x])
+    while q:
+        x, y = q.popleft()
+        for dx, dy in near:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < W and 0 <= ny < H and not lab[ny][nx]:
+                lab[ny][nx] = lab[y][x]
+                q.append((nx, ny))
     out = IMG / "letters"
     out.mkdir(exist_ok=True)
     for old in out.glob("*.png"):
         old.unlink()
     meta = {"w": W, "h": H, "letters": []}
-    for i, (s, e) in enumerate(merged):
-        im.crop((s, 0, e, H)).save(out / f"l{i}.png", optimize=True)
+    src = im.load()
+    for n in range(1, len(glyphs) + 1):
+        cols = [x for x in range(W) if any(lab[y][x] == n and px[x, y] for y in range(H))]
+        s, e = cols[0], cols[-1] + 1
+        letter = Image.new("RGBA", (e - s, H), (0, 0, 0, 0))
+        dst = letter.load()
+        for y in range(H):
+            for x in range(s, e):
+                if lab[y][x] == n and px[x, y]:
+                    dst[x - s, y] = src[x, y]
+        letter.save(out / f"l{n - 1}.png", optimize=True)
         meta["letters"].append({"x": round(s / W, 4), "w": round((e - s) / W, 4)})
     (Path(__file__).resolve().parent / "letters.json").write_text(json.dumps(meta), encoding="utf-8")
-    return len(merged), [(e - s) for s, e in merged]
+    return len(glyphs), [round(m["w"] * W) for m in meta["letters"]]
 
 
 def font(size: int, bold=False):

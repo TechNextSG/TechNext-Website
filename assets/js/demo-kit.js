@@ -63,7 +63,16 @@
     return '<img class="oi" src="' + ROOT + 'assets/img/odoo/' + mod + '.svg" alt="" width="' + size + '" height="' + size + '">';
   }
   function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
-  function restart(node, cls) { if (!node) return; node.classList.remove(cls); void node.offsetWidth; node.classList.add(cls); }
+  // Replays a class-driven CSS animation. The class comes back two frames later instead of after a forced
+  // reflow (void offsetWidth), which made the browser lay out the whole page inside the animation frame each
+  // time a flash fired; a newer call supersedes a pending one.
+  function restart(node, cls) {
+    if (!node) return;
+    if (!node.classList.contains(cls)) { node.classList.add(cls); return; }
+    node.classList.remove(cls);
+    var tok = node.__tnRs = (node.__tnRs || 0) + 1;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (node.__tnRs === tok) node.classList.add(cls); }); });
+  }
   function money(v, cur) { return (cur || 'S$') + ' ' + Math.round(v).toLocaleString('en-SG'); }
   function num(v) { return Math.round(v).toLocaleString('en-SG'); }
   function count(node, to, dur, fmt) {

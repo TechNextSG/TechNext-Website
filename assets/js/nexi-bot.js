@@ -1,21 +1,26 @@
 /* Nexi, TechNext's AI companion: the 3D robot and its roaming brain for the home hero.
-   Loaded by assets/js/nexi.js on desktop only, after Three.js (assets/js/vendor/three-r128.min.js).
-   Exposes window.tnNexi(hero, ROOT), which builds the robot and returns { pause, resume }. */
+   Loaded by assets/js/nexi.js after Three.js (assets/js/vendor/three-r128.min.js).
+   Exposes window.tnNexi(hero, ROOT, opts), which builds the robot and returns
+   { pause, resume, stage, cue, live }. On desktop Nexi roams every slide; on the two Nexi slides the stage
+   script in hero-scenes.js takes over (stage(kind, root), then cue(name, arg) per beat). opts.lite is the
+   phone build: lower pixel ratio, no glow pass, and it runs only while a Nexi slide shows. */
 (function () {
   'use strict';
   window.tnNexi = create;
 
-  function create(hero, ROOT) {
+  function create(hero, ROOT, opts) {
     var THREE = window.THREE;
+    opts = opts || {};
+    var LITE = !!opts.lite;
 
     /* ---------- DOM: canvas + hit area + effects inside the hero, intro card on top ---------- */
     var layer = document.createElement('div');
-    layer.className = 'nexi';
+    layer.className = 'nexi' + (LITE ? ' nexi--lite' : '');
     layer.innerHTML = '<canvas class="nexi-cv" aria-hidden="true"></canvas>' +
       '<button class="nexi-hit" type="button" aria-label="Meet Nexi, TechNext’s AI companion" aria-haspopup="dialog" aria-controls="nexi-card" aria-expanded="false"></button>' +
       '<div class="nexi-fx" aria-hidden="true"></div>';
     var card = document.createElement('div');
-    card.className = 'nexi-card'; card.id = 'nexi-card'; card.setAttribute('role', 'dialog'); card.setAttribute('aria-labelledby', 'nexi-card-t'); card.hidden = true;
+    card.className = 'nexi-card' + (LITE ? ' nexi-card--lite' : ''); card.id = 'nexi-card'; card.setAttribute('role', 'dialog'); card.setAttribute('aria-labelledby', 'nexi-card-t'); card.hidden = true;
     card.innerHTML =
       '<div class="nexi-card-head"><span class="nexi-ava" aria-hidden="true"></span>' +
       '<div><b id="nexi-card-t">Hi, I’m Nexi!</b><span>TechNext’s AI companion</span></div>' +
@@ -34,7 +39,7 @@
     catch (e) { layer.remove(); card.remove(); return null; }
     /* no synchronous shader status checks: the GPU process compiles in parallel instead of the page waiting */
     renderer.debug.checkShaderErrors = false;
-    var PR = Math.min(window.devicePixelRatio || 1, 2);
+    var PR = Math.min(window.devicePixelRatio || 1, LITE ? 1.5 : 2);
     renderer.setPixelRatio(PR);
     renderer.setClearColor(0x000000, 0);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -113,6 +118,7 @@
       black: new THREE.MeshBasicMaterial({ color: 0x000000 })
     };
     M.torso = M.shell.clone(); M.torso.emissive = new THREE.Color(0x6fa4ff); M.torso.emissiveMap = circuitTex; M.torso.emissiveIntensity = 0.85;
+    M.heart = new THREE.MeshBasicMaterial({ color: 0xff7eb6, toneMapped: false, side: THREE.DoubleSide });
     M.visor.emissiveMap = canvasTex(256, 256, function (g) { var gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#000'); gr.addColorStop(0.62, '#000'); gr.addColorStop(0.8, '#0b1d44'); gr.addColorStop(1, '#1c3f86'); g.fillStyle = gr; g.fillRect(0, 0, 256, 256); });
     function glowMesh(geo, mat) { var m = new THREE.Mesh(geo, mat); m.userData.glow = true; return m; }
     function mesh(geo, mat) { return new THREE.Mesh(geo, mat); }
@@ -129,26 +135,51 @@
         blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.OneFactor, blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneFactor,
         fragmentShader: 'uniform sampler2D tB; uniform sampler2D tA; varying vec2 vUv; void main(){ vec3 c=texture2D(tB,vUv).rgb*0.55+texture2D(tA,vUv).rgb*0.12; c=clamp(c,0.0,1.0); gl_FragColor=vec4(c,max(c.r,max(c.g,c.b))); }' });
       var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blur); quad.frustumCulled = false; qs.add(quad);
-      var saved = [];
+      /* the meshes that do not glow are dimmed to black (or hidden) for the glow render: kept in a list, rebuilt
+         now and then, so a frame walks no scene graph and allocates nothing */
+      var list = null, glist = null, listAt = 0, hid = [], swp = [], mats = [], gsw = [], gmat = [], twins = new Map();
+      function lists() {
+        if (!list || ++listAt > 240) { listAt = 0; list = []; glist = []; scene.traverse(function (o2) { if (o2.isMesh) (o2.userData.glow ? glist : list).push(o2); }); }
+      }
+      /* the lights render with a twin of their material here: a material rendered both to the canvas (sRGB) and to
+         the glow target (linear) switched shader programs twice a frame; each twin always renders to the target */
+      function twin(m) { var t = twins.get(m); if (!t) { t = m.clone(); if (m.color) t.color = m.color; twins.set(m, t); } t.opacity = m.opacity; return t; }
       function pass(m, t) { quad.material = m; renderer.setRenderTarget(t); renderer.render(qs, qc); }
       return {
         /* compile the glow pass's materials up front (with the scene's, see the end of create) */
         /* the pass's own materials, compiled one at a time by warmUp() */
-        warmSteps: [M.black, blur, comp].map(function (m) { return function () { var ws = new THREE.Scene(); ws.add(new THREE.Mesh(quad.geometry, m)); renderer.compile(ws, qc); }; }),
-        size: function (w, h) { A.setSize(Math.max(2, w / 2 | 0), Math.max(2, h / 2 | 0)); B.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); C.setSize(Math.max(2, w / 4 | 0), Math.max(2, h / 4 | 0)); },
+        /* ...each for the target it really renders to (the output encoding is part of a program) */
+        warmSteps: [[M.black, A], [blur, B], [comp, null]].map(function (mt) { return function () { var ws = new THREE.Scene(); ws.add(new THREE.Mesh(quad.geometry, mt[0])); renderer.setRenderTarget(mt[1]); renderer.compile(ws, qc); renderer.setRenderTarget(null); }; }),
+        /* the lights' twins, compiled for the glow target before the first frame */
+        warmTwins: function () {
+          lists(); var ws = new THREE.Scene(), seen = new Set(); ws.environment = scene.environment;
+          glist.forEach(function (o2) { if (seen.has(o2.material)) return; seen.add(o2.material); ws.add(new THREE.Mesh(o2.geometry, twin(o2.material))); });
+          renderer.setRenderTarget(A); renderer.compile(ws, camera); renderer.setRenderTarget(null);
+        },
+        /* big: the close-up, where the glow is drawn at a quarter of the render size (it is blurred anyway) */
+        size: function (w, h, big) { var d = big ? 4 : 2; A.setSize(Math.max(2, w / d | 0), Math.max(2, h / d | 0)); B.setSize(Math.max(2, w / (d * 2) | 0), Math.max(2, h / (d * 2) | 0)); C.setSize(Math.max(2, w / (d * 2) | 0), Math.max(2, h / (d * 2) | 0)); },
         render: function () {
-          saved.length = 0;
-          scene.traverse(function (o2) {
-            if (!o2.visible) return;
-            if (o2.isMesh && !o2.userData.glow) { if (o2.userData.noGlow || o2.material.transparent) { saved.push([o2, 'v']); o2.visible = false; } else { saved.push([o2, o2.material]); o2.material = M.black; } }
-          });
+          lists();
+          var L = list, nh = 0, ns = 0, ng = 0, i, o2;
+          for (i = 0; i < L.length; i++) {
+            o2 = L[i]; if (!o2.visible) continue;
+            if (o2.userData.noGlow || o2.material.transparent) { hid[nh++] = o2; o2.visible = false; }
+            else { swp[ns] = o2; mats[ns++] = o2.material; o2.material = M.black; }
+          }
+          for (i = 0; i < glist.length; i++) { o2 = glist[i]; if (!o2.visible) continue; gsw[ng] = o2; gmat[ng++] = o2.material; o2.material = twin(o2.material); }
           renderer.setClearColor(0, 1); renderer.setRenderTarget(A); renderer.clear(); renderer.render(scene, camera);
-          for (var i = 0; i < saved.length; i++) { if (saved[i][1] === 'v') saved[i][0].visible = true; else saved[i][0].material = saved[i][1]; }
+          for (i = 0; i < nh; i++) hid[i].visible = true;
+          for (i = 0; i < ns; i++) { swp[i].material = mats[i]; mats[i] = null; }
+          for (i = 0; i < ng; i++) { gsw[i].material = gmat[i]; gmat[i] = null; }
           renderer.setClearColor(0, 0);
           blur.uniforms.tMap.value = A.texture; blur.uniforms.uDir.value.set(1.5 / B.width, 0); pass(blur, B);
           blur.uniforms.tMap.value = B.texture; blur.uniforms.uDir.value.set(0, 1.5 / C.height); pass(blur, C);
           blur.uniforms.tMap.value = C.texture; blur.uniforms.uDir.value.set(3 / B.width, 0); pass(blur, B);
           blur.uniforms.tMap.value = B.texture; blur.uniforms.uDir.value.set(0, 3 / C.height); pass(blur, C);
+          this.again();
+        },
+        /* last frame's glow added to this frame (no glow render) */
+        again: function () {
           comp.uniforms.tB.value = C.texture; comp.uniforms.tA.value = A.texture;
           renderer.autoClear = false; pass(comp, null); renderer.autoClear = true;
         }
@@ -184,6 +215,20 @@
       s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s;
     }
     function star(R, r, n) { var s = new THREE.Shape(); for (var i = 0; i < n * 2; i++) { var a = Math.PI / 2 + i * Math.PI / n, rad = i % 2 ? r : R; if (i) s.lineTo(Math.cos(a) * rad, Math.sin(a) * rad); else s.moveTo(Math.cos(a) * rad, Math.sin(a) * rad); } s.closePath(); return s; }
+    /* heart eyes (in love with a brand kit) and x eyes (fainting) */
+    function heartShape(r) {
+      var s = new THREE.Shape(); s.moveTo(0, -r);
+      s.bezierCurveTo(r * 0.2, -r * 0.62, r * 1.05, -r * 0.2, r * 0.92, r * 0.38);
+      s.bezierCurveTo(r * 0.82, r * 0.86, r * 0.2, r * 0.95, 0, r * 0.45);
+      s.bezierCurveTo(-r * 0.2, r * 0.95, -r * 0.82, r * 0.86, -r * 0.92, r * 0.38);
+      s.bezierCurveTo(-r * 1.05, -r * 0.2, -r * 0.2, -r * 0.62, 0, -r); return s;
+    }
+    function crossGeo(w, t) {
+      var s = new THREE.Shape(), a = w / 2, b = t / 2;
+      s.moveTo(-b, a); s.lineTo(b, a); s.lineTo(b, b); s.lineTo(a, b); s.lineTo(a, -b); s.lineTo(b, -b); s.lineTo(b, -a);
+      s.lineTo(-b, -a); s.lineTo(-b, -b); s.lineTo(-a, -b); s.lineTo(-a, b); s.lineTo(-b, b); s.closePath();
+      var g = new THREE.ShapeGeometry(s); g.rotateZ(Math.PI / 4); return g;
+    }
     function bezelCurve() {
       var a = 0.52, b = 0.405, c = 0.385, cz = 0.39, R0 = 0.7, pts = [];
       for (var i = 0; i < 100; i++) {
@@ -238,14 +283,15 @@
     head.add(mesh(new THREE.TubeGeometry(mic, 48, 0.016, 8, false), M.metal));
     var micTip = glowMesh(new THREE.SphereGeometry(0.04, 16, 12), M.ring); micTip.position.copy(mic.getPoint(1)); head.add(micTip);
     /* face */
-    var SHAPES = ['open', 'happy', 'star', 'line', 'big'];
+    var SHAPES = ['open', 'happy', 'star', 'line', 'big', 'heart', 'x'];
     var G = { open: new THREE.ShapeGeometry(roundRect(0.125, 0.235, 0.062), 12), happy: new THREE.TorusGeometry(0.068, 0.024, 10, 28, Math.PI),
-      star: new THREE.ShapeGeometry(star(0.115, 0.036, 4)), line: new THREE.ShapeGeometry(roundRect(0.16, 0.04, 0.02), 8), big: new THREE.RingGeometry(0.058, 0.104, 40) };
+      star: new THREE.ShapeGeometry(star(0.115, 0.036, 4)), line: new THREE.ShapeGeometry(roundRect(0.16, 0.04, 0.02), 8), big: new THREE.RingGeometry(0.058, 0.104, 40),
+      heart: new THREE.ShapeGeometry(heartShape(0.1), 12), x: crossGeo(0.2, 0.045) };
     var eyes = [];
     [-1, 1].forEach(function (s) {
       var g = new THREE.Group(); g.position.set(s * 0.19, 0.045, 0.756); g.rotation.y = s * 0.29; head.add(g);
       var p = { g: g, bx: s * 0.19 };
-      SHAPES.forEach(function (k) { var m = glowMesh(G[k], M.eye); m.visible = false; g.add(m); p[k] = m; });
+      SHAPES.forEach(function (k) { var m = glowMesh(G[k], k === 'heart' ? M.heart : M.eye); m.visible = false; g.add(m); p[k] = m; });
       p.happy.position.y = -0.03; eyes.push(p);
     });
     var blushMat = new THREE.MeshBasicMaterial({ color: 0xff8fb8, transparent: true, opacity: 0, toneMapped: false, depthWrite: false });
@@ -273,10 +319,11 @@
     var Sp = { x: new Spring(0.68, 0.9), y: new Spring(0.68, 0.9), z: new Spring(0.45, 0.95), ly: new Spring(1.5, 0.95), lp: new Spring(1.5, 0.95),
       nod: new Spring(2.4, 0.8), tilt: new Spring(2, 0.8), yb: new Spring(2.2, 0.75), sq: new Spring(3, 0.55), bank: new Spring(1.3, 0.8), yaw: new Spring(1, 0.95),
       hLx: new Spring(2.4, 0.75), hLy: new Spring(2.4, 0.75), hLz: new Spring(2.4, 0.75), hRx: new Spring(2.6, 0.72), hRy: new Spring(2.6, 0.72), hRz: new Spring(2.6, 0.72), hRr: new Spring(3, 0.7),
-      talk: new Spring(6, 1), boost: new Spring(3, 0.9) };
+      talk: new Spring(6, 1), boost: new Spring(3, 0.9), roll: new Spring(1.6, 0.85) };
     var R = { tx: 0, ty: 0, tz: 0, look: null, lookUntil: -1, eyes: 'open', eyeFrom: 'open', eyeT0: -9, mouth: 'smile', exprUntil: Infinity, clips: [], blinkAt: 2, blinkT0: -9,
       humUntil: -1, blushUntil: -1, task: null, lastTask: '', cardOpen: false, entered: false };
-    var EXPR = { idle: ['open', 'smile'], happy: ['happy', 'smile'], star: ['star', 'smile'], content: ['line', 'smile'], wow: ['big', 'o'] };
+    var EXPR = { idle: ['open', 'smile'], happy: ['happy', 'smile'], star: ['star', 'smile'], content: ['line', 'smile'], wow: ['big', 'o'],
+      love: ['heart', 'smile'], dizzy: ['x', 'o'] };
     function expr(n, dur) { var e = EXPR[n] || EXPR.idle; if (e[0] !== R.eyes) { R.eyeFrom = R.eyes; R.eyes = e[0]; R.eyeT0 = time; } R.mouth = e[1]; R.exprUntil = dur ? time + dur : Infinity; }
     var CLIPS = {
       wave: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.18, 0.22); O.hRy += 0.78 * e; O.hRx += 0.1 * e; O.hRz += 0.24 * e; O.hRr += Math.sin(p * Math.PI * 8) * 0.5 * e; O.tilt += 0.1 * e; } },
@@ -294,7 +341,16 @@
       stretch: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.3, 0.3); O.hLy += 2.1 * e; O.hRy += 2.1 * e; O.hLx += 0.42 * e; O.hRx -= 0.42 * e; O.sq += 0.08 * e; O.nod -= 0.25 * e; } },
       surf: { dur: 4.2, fn: function (p, O) { var e = env(p, 0.15, 0.15); O.hLx -= 0.25 * e; O.hRx += 0.25 * e; O.hLy += 0.5 * e; O.hRy += 0.5 * e; O.tilt += Math.sin(p * Math.PI * 4) * 0.12 * e; } },
       tug: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.12, 0.18), c = (1 - Math.cos(p * Math.PI * 6)) / 2; O.hRx += (0.5 - c * 0.18) * e; O.hLx += (0.62 - c * 0.18) * e; O.hRy += 0.12 * e; O.hLy += 0.1 * e; O.tilt -= (0.08 + c * 0.1) * e; O.sq += c * 0.05 * e; } },
-      peek: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.25, 0.3); O.nod += 0.1 * e; O.hRy += 0.6 * e; O.hRz += 0.25 * e; O.hRr += Math.sin(p * Math.PI * 7) * 0.35 * e; O.tilt -= 0.15 * e; } }
+      peek: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.25, 0.3); O.nod += 0.1 * e; O.hRy += 0.6 * e; O.hRz += 0.25 * e; O.hRr += Math.sin(p * Math.PI * 7) * 0.35 * e; O.tilt -= 0.15 * e; } },
+      /* the stage clips: knocking on the glass, acting cute, presenting, and the over-reactions */
+      tap: { dur: 0.9, fn: function (p, O) { var e = env(p, 0.22, 0.3), t = bell(clamp((p - 0.28) / 0.4, 0, 1)); O.hRy += 0.5 * e; O.hRx -= 0.18 * e; O.hRz += (0.14 + 0.3 * t) * e; O.hRr -= 0.25 * e; O.nod -= 0.06 * e; } },
+      knock: { dur: 1.4, fn: function (p, O) { var e = env(p, 0.14, 0.2), t = Math.max(0, Math.sin(clamp((p - 0.12) / 0.76, 0, 1) * Math.PI * 3)); O.hRy += 0.62 * e; O.hRx -= 0.28 * e; O.hRz += (0.22 + 0.34 * t) * e; O.hRr -= 0.3 * e; O.nod -= 0.05 * e; O.tilt += 0.06 * e; O.sq -= t * 0.015 * e; } },
+      cute: { dur: 2.4, fn: function (p, O) { var e = env(p, 0.15, 0.2), s = Math.sin(p * Math.PI * 4); O.tilt += (0.22 + s * 0.07) * e; O.hLx += 0.3 * e; O.hRx -= 0.3 * e; O.hLy += 0.6 * e; O.hRy += 0.6 * e; O.hLz += 0.3 * e; O.hRz += 0.3 * e; O.sq += s * 0.03 * e; O.nod += 0.08 * e; } },
+      present: { dur: 2.2, fn: function (p, O) { var e = env(p, 0.2, 0.25); O.hLx -= 0.34 * e; O.hLy += 0.44 * e; O.hRx += 0.34 * e; O.hRy += 0.44 * e; O.hLz += 0.2 * e; O.hRz += 0.2 * e; O.tilt += 0.06 * e; O.nod -= 0.05 * e; } },
+      gasp: { dur: 1.4, fn: function (p, O) { var e = env(p, 0.07, 0.35); O.sq -= 0.12 * bell(clamp(p / 0.14, 0, 1)); O.yb += 0.34 * e; O.nod -= 0.22 * e; O.hLy += 0.8 * e; O.hRy += 0.8 * e; O.hLx += 0.34 * e; O.hRx -= 0.34 * e; O.hLz += 0.36 * e; O.hRz += 0.36 * e; } },
+      wiggle: { dur: 1.4, fn: function (p, O) { var e = env(p, 0.1, 0.2), s = Math.sin(p * Math.PI * 12); O.tilt += s * 0.22 * e; O.spin += s * 0.18 * e; O.hLy += (0.5 + s * 0.2) * e; O.hRy += (0.5 - s * 0.2) * e; O.sq += Math.abs(s) * 0.04 * e; } },
+      bigjump: { dur: 1.25, fn: function (p, O) { if (p < 0.2) O.sq -= 0.2 * ease(p / 0.2); else if (p < 0.85) { var q = (p - 0.2) / 0.65, b = bell(q); O.yb += b * 1.3; O.sq += 0.1 * b; O.hLy += 1.1 * b; O.hRy += 1.1 * b; O.hLx -= 0.2 * b; O.hRx += 0.2 * b; O.spin += ease(q) * Math.PI * 2; } else O.sq -= 0.18 * bell((p - 0.85) / 0.15); } },
+      faint: { dur: 2.6, fn: function (p, O) { var f = p < 0.3 ? ease(p / 0.3) : p < 0.68 ? 1 : 1 - ease((p - 0.68) / 0.32); O.roll += 1.05 * f; O.flip -= 0.22 * f; O.yb -= 0.3 * f; O.hLy += 0.95 * f; O.hRy += 0.95 * f; O.hLx -= 0.32 * f; O.hRx += 0.32 * f; O.tilt += 0.18 * f + Math.sin(p * Math.PI * 6) * 0.07 * f; if (p > 0.68) O.sq += 0.09 * bell((p - 0.68) / 0.32); } }
     };
     function play(n) { var c = CLIPS[n]; if (c) R.clips.push({ t0: time, dur: c.dur, fn: c.fn }); }
 
@@ -305,19 +361,28 @@
       W = Math.max(1, hero.clientWidth); H = Math.max(1, hero.clientHeight);
 
       S = H / (2 * CAMZ * Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
-      SIZE = clamp(H * 0.17, 108, 150);
+      SIZE = LITE ? clamp(W * 0.28, 88, 124) : clamp(H * 0.17, 108, 150);
       bot.scale.setScalar(SIZE / (2.65 * S));
       /* the canvas is only a window around Nexi (3x its size) that travels with it, not the whole
-         hero: about a fifth of the pixels to render and composite every frame */
-      VIEW = Math.round(SIZE * 3);
-      renderer.setSize(VIEW, VIEW, false); cv.style.width = cv.style.height = VIEW + 'px';
+         hero: about a fifth of the pixels to render and composite every frame. The close-up on the
+         Nexi slide needs a bigger window, used only while Nexi is that near (setView) */
+      VIEW_S = Math.round(SIZE * 3);
+      VIEW_B = Math.min(Math.round(SIZE * 6.4), Math.round(Math.max(W, H) * 1.2));
       camera.aspect = W / H; camera.updateProjectionMatrix();
-      Glow.size(VIEW * PR, VIEW * PR);
+      setView(VBIG, true);
       hit.style.width = (SIZE * 0.72) + 'px'; hit.style.height = SIZE + 'px';
+    }
+    var VIEW_S = 450, VIEW_B = 780, VBIG = false;
+    function setView(big, force) {
+      if (big === VBIG && !force) return;
+      VBIG = big; VIEW = big ? VIEW_B : VIEW_S;
+      var pr = big ? Math.min(PR, LITE ? 1 : 1.25) : PR;
+      renderer.setPixelRatio(pr); renderer.setSize(VIEW, VIEW, false); cv.style.width = cv.style.height = VIEW + 'px';
+      Glow.size(VIEW * pr, VIEW * pr, big); glowFresh = false;
     }
     function rectOf(el) { var r = el.getBoundingClientRect(); heroRect = hero.getBoundingClientRect(); return { x: r.left - heroRect.left, y: r.top - heroRect.top, w: r.width, h: r.height, cx: r.left - heroRect.left + r.width / 2, cy: r.top - heroRect.top + r.height / 2 }; }
     function visible(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 4 && r.height > 4; }
-    var TABS = 72; /* the fixed side tabs cover the right edge of the hero */
+    var TABS = LITE ? 0 : 72; /* the fixed side tabs cover the right edge of the hero (on phones they are round buttons at the bottom) */
 
     /* Nexi never parks on text or buttons. obstacles() lists the text runs, links, buttons and controls
        of the visible slide (refreshed every 0.35 s); goTo() moves each target to the nearest spot
@@ -325,9 +390,27 @@
     var OBS = [], obsAt = -9, OBS_SEL = 'a,button,input,select,textarea,label,.btn,[role="button"],[tabindex]';
     var rg = document.createRange();
     function shown(el) { return !el.checkVisibility || el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); }
+    /* a box inside a scrolling frame (the sample website on slide 4) counts only where it shows */
+    function clipIn(r, el, scr, sr) {
+      if (!sr || !el || !scr.contains(el)) return r;
+      var L = Math.max(r.left, sr.left), T = Math.max(r.top, sr.top), Rr = Math.min(r.right, sr.right), B = Math.min(r.bottom, sr.bottom);
+      return { left: L, top: T, right: Rr, bottom: B, width: Rr - L, height: B - T };
+    }
+    /* roaming, the list is refreshed about three times a second; on a Nexi stage her spots come from the script
+       and are placed when cued (cue() asks for a fresh list), so once a second is plenty there */
+    var freeDirty = true, scanQ = false;
+    function obsEvery() { return ST && ST.on ? 1 : 0.35; }
+    /* the list is refreshed by a task queued right after the frame that found it due (the layout is clean then,
+       so reading boxes costs no extra layout); a caller inside a frame gets the list as it is. Only a missing or a
+       very stale list (a cue asks for a fresh one) is scanned on the spot. */
     function obstacles() {
-      if (time - obsAt < 0.35) return OBS;
-      obsAt = time; OBS = [];
+      var age = time - obsAt, every = obsEvery();
+      if (age < every) return OBS;
+      if (age < every * 4) { if (!scanQ) { scanQ = true; setTimeout(function () { scanQ = false; if (time - obsAt >= obsEvery()) scan(); }, 0); } return OBS; }
+      scan(); return OBS;
+    }
+    function scan() {
+      obsAt = time; OBS = []; freeDirty = true;
       var hr = hero.getBoundingClientRect();
       function add(r, pad) {
         if (r.width < 2 || r.height < 2) return;
@@ -335,18 +418,19 @@
         if (x > W || y > H || x + r.width < 0 || y + r.height < 0) return;
         OBS.push([x - pad, y - pad, x + r.width + pad, y + r.height + pad]);
       }
-      var slide = active();
+      var slide = active(), scr = slide && slide.querySelector('.nxh-scroll'), sr = scr && scr.getBoundingClientRect();
       [slide, hero.querySelector('.hero-ctl')].forEach(function (root) {
         if (!root) return;
-        root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(r, 8); });
+        root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(clipIn(r, el, scr, sr), 8); });
         var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), n;
-        while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(rg.getBoundingClientRect(), 6); }
+        while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(clipIn(rg.getBoundingClientRect(), el, scr, sr), 6); }
       });
       var mq = hero.querySelector('.hero-marquee'); if (mq) add(mq.getBoundingClientRect(), 4);
       var hd = document.querySelector('[data-header]'); if (hd) add(hd.getBoundingClientRect(), 4);
-      buildFree();
       return OBS;
     }
+    /* the free spots, built from the current list only when something asks for them */
+    function freeSpots() { if (freeDirty) { freeDirty = false; buildFree(); } return FREE; }
     /* every spot (on a 24 px grid) where Nexi's box touches no text or button */
     var FREE = [], GRID = 24;
     function buildFree() {
@@ -368,7 +452,7 @@
     function free(x, y, z) {
       obstacles();
       if (!overlap(box(x, y, z))) return (lastSpot = [x, y]);
-      var best = null, bd = Infinity;
+      var best = null, bd = Infinity; freeSpots();
       for (var i = 0; i < FREE.length; i += 2) { var dx = FREE[i] - x, dy = (FREE[i + 1] - y) * 1.3, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
       if (best == null) return [x, y];
       if (lastSpot && !overlap(box(lastSpot[0], lastSpot[1], z))) {
@@ -385,7 +469,7 @@
     /* the nearest free spot (to the given screen point) with a clear bubble area above it on either side */
     function roomySpot(x, y) {
       obstacles();
-      var bw = 250, bh = 56, best = null, bd = Infinity;
+      var bw = 250, bh = 56, best = null, bd = Infinity; freeSpots();
       for (var i = 0; i < FREE.length; i += 2) {
         var fx = FREE[i], fy = FREE[i + 1], top = fy - SIZE * 0.6 - bh;
         if (top < 8) continue;
@@ -468,24 +552,81 @@
     /* speech bubbles: Nexi introduces itself, reacts to the hero and chatters. A bubble takes the first spot
        around Nexi that covers no text or button; if none is clear it tries a narrow two-line bubble (it fits
        the page margin), and failing that the spot that covers the least. */
-    function word(text, life, optional) {
+    /* a bubble pops a little larger and (roaming) drifts 28 px up as it fades: never place one closer to the
+       hero's top edge than that, or the hero clips it */
+    var YMIN = 36;
+    function word(text, life, optional, o) {
+      o = o || {};
       /* one speech bubble at a time: a new line replaces the one still showing */
       [].forEach.call(fxEl.querySelectorAll('b'), function (old) { old.remove(); });
-      var h = botPx(), k = depthK(R.tz), e = document.createElement('b'); e.textContent = text; fxEl.appendChild(e);
+      var h = botPx(), k = depthK(Sp.z.x), e = document.createElement('b'); e.textContent = text;
+      if (o.wide) e.classList.add('is-wide');
+      fxEl.appendChild(e);
+      /* Nexi's voice (nexi-voice.js, off until the visitor turns it on): lines she chooses to say out loud.
+         The stage script speaks its own lines, so it passes silent */
+      if (!optional && !o.silent && window.TNVoice && window.TNVoice.live) window.TNVoice.say(text);
       obstacles();
+      /* on the stage a bubble may sit over the stage's own pictures, never over the copy, the step chips or
+         the controls (in the close-up the copy is behind the veil, so only the header and controls count) */
+      var SO = null;
+      if (o.stage || ST.on) {
+        /* [x0, y0, x1, y1, weight]: the copy's text and buttons, the step chips, the controls and the header are
+           off limits (weight 1000); the stage's own pictures and Nexi herself are light (covered when nothing is free) */
+        SO = []; var hr0 = hero.getBoundingClientRect(), sl0 = active(), scr0 = sl0 && sl0.querySelector('.nxh-scroll'), sr0 = scr0 && scr0.getBoundingClientRect();
+        var pushR = function (q3, pad, wt) { if (q3.width > 2 && q3.height > 2) SO.push([q3.left - hr0.left - pad, q3.top - hr0.top - pad, q3.right - hr0.left + pad, q3.bottom - hr0.top + pad, wt]); };
+        var addR = function (el, pad, wt) { if (el) pushR(clipIn(el.getBoundingClientRect(), el, scr0, sr0), pad, wt); };
+        if (ST.spot !== 'close' && sl0) {
+          var cp = sl0.querySelector('.slide-copy');
+          if (cp) {
+            cp.querySelectorAll(OBS_SEL).forEach(function (el) { if (shown(el)) addR(el, 6, 1000); });
+            var tw0 = document.createTreeWalker(cp, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), tn;
+            while ((tn = tw0.nextNode())) { if (!tn.parentElement || !shown(tn.parentElement)) continue; rg.selectNodeContents(tn); pushR(rg.getBoundingClientRect(), 6, 1000); }
+          }
+          addR(sl0.querySelector('.nxh-steps'), 4, 1000);
+          addR(sl0.querySelector('.nxh-desk'), 0, 1);
+          addR(sl0.querySelector('.nxh-tools'), 2, 1000); addR(sl0.querySelector('.nxh-bar'), 2, 1000); addR(sl0.querySelector('.nxh-ctx'), 2, 1000); addR(sl0.querySelector('.nxd-head'), 2, 1000);
+          var web0 = sl0.querySelector('.nxh-web');
+          if (web0) {
+            web0.querySelectorAll(OBS_SEL).forEach(function (el) { if (shown(el)) addR(el, 4, 1000); });
+            var tw1 = document.createTreeWalker(web0, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), tn1;
+            while ((tn1 = tw1.nextNode())) { if (!tn1.parentElement || !shown(tn1.parentElement)) continue; rg.selectNodeContents(tn1); pushR(clipIn(rg.getBoundingClientRect(), tn1.parentElement, scr0, sr0), 4, 1000); }
+            addR(sl0.querySelector('.nxh-chat'), 4, 1000);
+          }
+        }
+        addR(hero.querySelector('.hero-ctl-inner'), 4, 1000); addR(document.querySelector('[data-header]'), 4, 1000);
+        var nb = box(h.x, h.y, Sp.z.x); SO.push([nb[0], nb[1], nb[2], nb[3], 30]);
+      }
+      function ov(b) {
+        if (!SO) return overlap(b);
+        var a = 0; for (var n = 0; n < SO.length; n++) { var r0 = SO[n], ix = Math.min(b[2], r0[2]) - Math.max(b[0], r0[0]), iy = Math.min(b[3], r0[3]) - Math.max(b[1], r0[1]); if (ix > 0 && iy > 0) a += ix * iy * r0[4]; }
+        return a;
+      }
+      /* on the stage: scan rows above and beside her head for the freest spot, the nearest one winning a tie */
+      function fitStage() {
+        var w = e.offsetWidth || 96, hh = e.offsetHeight || 30, top = h.y - SIZE * 0.58 * k - hh, best = null, bestA = Infinity;
+        var rows = [top, top - hh - 12, h.y - SIZE * 0.3 * k - hh, h.y - hh * 0.5, top - 2 * hh - 24, h.y + SIZE * 0.56 * k, h.y + SIZE * 0.56 * k + hh + 10];
+        for (var ri = 0; ri < rows.length; ri++) {
+          for (var x = h.x - w - SIZE * 0.3 * k; x <= h.x + SIZE * 0.5 * k; x += 16) {
+            var cx = clamp(x, 8, W - TABS - w - 8), cy = clamp(rows[ri], YMIN, H - hh - 8);
+            var a = ov([cx - 4, cy - 4, cx + w + 4, cy + hh + 4]) + Math.abs(cx + w / 2 - h.x) * 1.5 + Math.abs(cy - top) * 2 + ri * 40;
+            if (a < bestA) { bestA = a; best = [cx, cy]; }
+          }
+        }
+        return { at: best, a: 0 };
+      }
       function fit() {
         var w = e.offsetWidth || 96, hh = e.offsetHeight || 30, top = h.y - SIZE * 0.6 * k - hh, pad = 4 + w * 0.06;
         var spots = [[h.x + SIZE * 0.22 * k, top], [h.x - SIZE * 0.22 * k - w, top], [h.x - w / 2, top - 6], [h.x - w / 2, top - hh - 14],
                      [h.x + SIZE * 0.46 * k, h.y - hh], [h.x - SIZE * 0.46 * k - w, h.y - hh], [h.x - w / 2, h.y + SIZE * 0.55 * k]];
         var best = null, bestA = Infinity;
         for (var i = 0; i < spots.length; i++) {
-          var x = clamp(spots[i][0], 8, W - TABS - w), y = clamp(spots[i][1], 8, H - hh - 8), a = overlap([x - pad, y - pad, x + w + pad, y + hh + pad]);
+          var x = clamp(spots[i][0], 8, W - TABS - w), y = clamp(spots[i][1], YMIN, H - hh - 8), a = ov([x - pad, y - pad, x + w + pad, y + hh + pad]);
           if (a < bestA) { bestA = a; best = [x, y]; if (!a) break; }
         }
         return { at: best, a: bestA };
       }
-      var f = fit();
-      if (f.a > 0) { e.classList.add('is-narrow'); var g = fit(); if (g.a <= f.a) f = g; else e.classList.remove('is-narrow'); }
+      var f = SO ? fitStage() : fit();
+      if (!SO && f.a > 0) { e.classList.add('is-narrow'); var g = fit(); if (g.a <= f.a) f = g; else e.classList.remove('is-narrow'); }
       if (optional && f.a > 0) { e.remove(); return null; }
       e.style.setProperty('--x', f.at[0].toFixed(0) + 'px'); e.style.setProperty('--y', f.at[1].toFixed(0) + 'px');
       if (life) e.style.animationDuration = life + 's';
@@ -563,9 +704,10 @@
       word(pick(list), life, !force);
     }
     /* a ripple on the "glass" where Nexi's hand touches it */
-    function boop() {
-      var h = botPx(), k = depthK(R.tz), e = document.createElement('u'), d = SIZE * 0.42 * k;
-      e.className = 'is-boop'; e.style.left = (h.x + SIZE * 0.3 * k - d / 2) + 'px'; e.style.top = (h.y - SIZE * 0.05 * k - d / 2) + 'px';
+    function boop(ox, oy) {
+      var h = botPx(), k = depthK(Sp.z.x), e = document.createElement('u'), d = SIZE * 0.42 * k;
+      ox = ox == null ? 0.3 : ox; oy = oy == null ? -0.05 : oy;
+      e.className = 'is-boop'; e.style.left = (h.x + SIZE * ox * k - d / 2) + 'px'; e.style.top = (h.y + SIZE * oy * k - d / 2) + 'px';
       e.style.width = e.style.height = d + 'px'; fxEl.appendChild(e); setTimeout(function () { e.remove(); }, 1500);
     }
     function ringAt(el) {
@@ -592,10 +734,15 @@
       } },
       chaseToken: { w: function () { return visible(q('[data-pmap]')) ? 3 : 0; }, run: function (T) {
         var map = q('[data-pmap]'), lock = null; T.dur = 7; expr('happy', 3); play('hum'); R.humUntil = time + 3.2; emote(['♪', '♫'], 2); T.at(1.4, function () { say('token'); });
+        /* the token's box is read about five times a second (every frame forced a style pass after the scene
+           had moved things); Nexi's springs smooth the steps */
+        var rAt = -9, rr = null, mr = null;
         T.tick = function () {
+          if (time - rAt < 0.2 && (rr || mr)) { if (rr) goTo(rr.cx, rr.cy - SIZE * 0.62, 1); else goTo(mr.cx + Math.sin(time) * mr.w * 0.3, mr.y + SIZE * 0.5, 0.5); return; }
+          rAt = time; rr = mr = null;
           if (!lock || !lock.isConnected || !visible(lock)) { var toks = qa('.pm-tok').filter(visible); lock = toks.length ? pick(toks) : null; }
-          if (lock) { var r = rectOf(lock); goTo(r.cx, r.cy - SIZE * 0.62, 1); lookAtPx(r.cx, r.cy, 0.5); }
-          else { var m = rectOf(map); goTo(m.cx + Math.sin(time) * m.w * 0.3, m.y + SIZE * 0.5, 0.5); }
+          if (lock) { rr = rectOf(lock); goTo(rr.cx, rr.cy - SIZE * 0.62, 1); lookAtPx(rr.cx, rr.cy, 0.5); }
+          else { mr = rectOf(map); goTo(mr.cx + Math.sin(time) * mr.w * 0.3, mr.y + SIZE * 0.5, 0.5); }
         };
       } },
       watchGate: { w: function () { return qa('.pm-gate').length ? 1.4 : 0; }, run: function (T) {
@@ -606,7 +753,11 @@
       } },
       cheerOrb: { w: function () { return visible(q('[data-journey]')) ? 3 : 0; }, run: function (T) {
         T.dur = 7; expr('happy', 2);
-        T.tick = function () { var orb = q('.lj-puck') || q('.lj-ptag'); if (!orb) return; var r = rectOf(orb); goTo(r.cx - SIZE * 0.8, r.cy - SIZE * 0.35, 1); lookAtPx(r.cx, r.cy, 0.5); };
+        var oAt = -9, orr = null;
+        T.tick = function () {
+          if (time - oAt >= 0.2 || !orr) { oAt = time; var orb = q('.lj-puck') || q('.lj-ptag'); if (!orb) return; orr = rectOf(orb); lookAtPx(orr.cx, orr.cy, 0.5); }
+          goTo(orr.cx - SIZE * 0.8, orr.cy - SIZE * 0.35, 1);
+        };
         T.at(2.2, function () { play('clap'); emote(['✦', '♪'], 2); say('orb'); });
       } },
       readHeadline: { w: function () { return q('.as-h1') ? 1 : 0; }, run: function (T) {
@@ -698,10 +849,190 @@
       startTask(n);
     }
 
+    /* ---------- the stage: the two Nexi slides ----------
+       hero-scenes.js (NexiStage) calls stage(kind, root) when a Nexi slide opens and stage(null) when it
+       closes, and cue(name, arg) for each beat of its script. While the stage is on Nexi takes no roaming
+       tasks, does not chatter and never fades over text: she is the show. */
+    var ST = { on: false, kind: '', root: null, spot: '', follow: null, followAt: 0, z: 0, idleAt: 0 };
+    var STAGE_Z = LITE ? 2 : 3;
+    function sfx(n) { if (window.TNVoice) window.TNVoice.sfx(n); }
+    function visibleBand() {
+      /* the part of the hero on screen, below the fixed header */
+      var hr = hero.getBoundingClientRect(), hd = document.querySelector('[data-header]'), top = hd ? hd.getBoundingClientRect().bottom : 0;
+      var y0 = clamp(top - hr.top, 0, H), y1 = clamp(window.innerHeight - hr.top, y0 + 1, H);
+      return { y0: y0, y1: y1 };
+    }
+    function closeSpot() {
+      var b = visibleBand(), vh = b.y1 - b.y0, k = clamp(Math.min(vh * (LITE ? 0.6 : 0.8), (W - TABS) * (LITE ? 0.86 : 0.56)) / SIZE, 1.6, 4.4);
+      return { x: (W - TABS) / 2, y: b.y0 + vh * 0.48, z: CAMZ * (1 - 1 / k) };
+    }
+    /* home: floating at the left edge of the website (meet), or at the left edge of the brand desk (brand).
+       No platform: she roams, and on these slides she may overlap the design */
+    function homeZ() { return ST.kind === 'brand' ? (LITE ? 3 : 7) : (LITE ? 1 : 1); }
+    function inHero(x, y, k) { return { x: clamp(x, SIZE * 0.4 * k, W - TABS - SIZE * 0.4 * k), y: clamp(y, SIZE * 0.55 * k + 24, H - SIZE * 0.55 * k) }; }
+    function homeSpot() {
+      if (!ST.root) return null;
+      var k = depthK(homeZ()), web = ST.root.querySelector('.nxh-web'), desk = ST.root.querySelector('.nxh-desk');
+      if (web) { var view = ST.root.querySelector('.nxh-view') || web; return presenterSpot(view); }
+      if (desk) { var q2 = rectOf(desk); return inHero(q2.x - SIZE * k * 0.02, q2.y + q2.h * 0.3, k); }
+      return null;
+    }
+    /* beside a piece of the brand desk: at its left edge, a third of the way down, looking at it (her body
+       covers only a sliver of the piece she is excited about) */
+    function assetSpot(el) {
+      var r = rectOf(el), k = depthK(homeZ());
+      return inHero(r.x - SIZE * k * 0.12, r.y + r.h * 0.34, k);
+    }
+    /* where she presents a part of the website from: the nearest spot where her box covers no text, no button
+       and not the part itself (rings around it, plus the free spots inside it). She points at it from there. */
+    function clearSpot(el) {
+      obstacles();
+      var r = rectOf(el), z = homeZ(), k = depthK(z), hw = SIZE * 0.4 * k, hh = SIZE * 0.52 * k, cands = [];
+      [0.12, 0.4, 0.75].forEach(function (g0) {
+        var g = g0 * SIZE * k;
+        [r.y + r.h * 0.3, r.cy, r.y + r.h * 0.7].forEach(function (yy) { cands.push([r.x - g - hw, yy], [r.x + r.w + g + hw, yy]); });
+        [r.x + r.w * 0.2, r.cx, r.x + r.w * 0.8].forEach(function (xx) { cands.push([xx, r.y - g - hh], [xx, r.y + r.h + g + hh]); });
+      });
+      freeSpots();
+      for (var f = 0; f < FREE.length; f += 2) {
+        var fx = FREE[f], fy = FREE[f + 1];
+        if (fx > r.x - SIZE * k * 2 && fx < r.x + r.w + SIZE * k * 2 && fy > r.y - SIZE * k * 2 && fy < r.y + r.h + SIZE * k * 2) cands.push([fx, fy]);
+      }
+      var best = null, bestS = Infinity, self = [r.x, r.y, r.x + r.w, r.y + r.h];
+      for (var i = 0; i < cands.length; i++) {
+        var c = inHero(cands[i][0], cands[i][1], k), b = box(c.x, c.y, z);
+        var own = Math.max(0, Math.min(b[2], self[2]) - Math.max(b[0], self[0])) * Math.max(0, Math.min(b[3], self[3]) - Math.max(b[1], self[1]));
+        var dx = Math.max(0, Math.abs(c.x - r.cx) - r.w / 2), dy = Math.max(0, Math.abs(c.y - r.cy) - r.h / 2);
+        var sc = overlap(b) * 12 + own * 6 + Math.hypot(dx, dy) * 1.2;
+        if (sc < bestS) { bestS = sc; best = c; }
+      }
+      return best || inHero(r.x - hw, r.cy, k);
+    }
+    /* desktop: the presenter's spot at the website's left edge, level with the part she explains, where her box
+       covers the least text and no button (she points across at the part from there) */
+    function presenterSpot(el) {
+      obstacles();
+      var web = ST.root && ST.root.querySelector('.nxh-web'); if (!web) return clearSpot(el);
+      var w = rectOf(web), r = rectOf(el), z = homeZ(), k = depthK(z), hw = SIZE * 0.4 * k, hh = SIZE * 0.52 * k, best = null, bestS = Infinity;
+      /* phones: the lane the layout keeps under the website (hero.css), left of centre, her lines beside her */
+      if (LITE) { var st = rectOf(ST.root); return inHero(w.x + SIZE * k * 0.55, (w.y + w.h + st.y + st.h) / 2 + SIZE * 0.04, k); }
+      [-0.2, -0.32, -0.08].forEach(function (fx) {
+        for (var y = w.y + hh * 0.6; y <= w.y + w.h - hh * 0.4; y += 12) {
+          var c = inHero(w.x + SIZE * k * fx, y, k), b = box(c.x, c.y, z);
+          var sc = overlap(b) * 12 + Math.abs(c.y - r.cy) * 1.2 + Math.abs(fx + 0.2) * 300;
+          if (sc < bestS) { bestS = sc; best = c; }
+        }
+      });
+      return best || clearSpot(el);
+    }
+    /* beside a part of the website: a small control gets her right hand on it (she presses it with 'tap');
+       a big area gets her at its left edge */
+    function nearSpot(el) {
+      var r = rectOf(el), k = depthK(homeZ());
+      if (r.w < SIZE * k * 1.3 && r.h < SIZE * k * 0.9) return inHero(r.cx - SIZE * k * 0.3, r.cy + SIZE * k * 0.1, k);
+      return inHero(r.x + SIZE * k * 0.05, r.y + Math.min(r.h * 0.45, SIZE * k * 0.7), k);
+    }
+    function go(spot, z, follow) {
+      if (!spot) return;
+      ST.z = z; ST.follow = follow || null; ST.followAt = time + 0.25;
+      place(spot.x, spot.y, z);
+    }
+    function stageTask(name, fn) { startTask('st-' + name, function (T) { T.dur = 1e9; fn(T); }); }
+    function stage(kind, root) {
+      if (!kind) {
+        if (!ST.on) return;
+        ST.on = false; ST.root = null; ST.follow = null; ST.spot = '';
+        R.task = null; timersT.length = 0; R.lock = null; R.look = null;
+        hit.setAttribute('aria-haspopup', 'dialog'); hit.setAttribute('aria-expanded', 'false');
+        [].forEach.call(fxEl.querySelectorAll('b'), function (old) { old.remove(); });   // her last line stays with its slide
+        return;
+      }
+      if (R.cardOpen) closeCard();
+      /* not run yet (still paused after its warm-up): the scene has no size, and every spot below needs one */
+      if (W < 2) resize();
+      hit.removeAttribute('aria-haspopup'); hit.removeAttribute('aria-expanded');
+      var first = !running || !ST.seen; ST.seen = true;
+      ST.on = true; ST.kind = kind; ST.root = root; ST.spot = 'enter'; ST.follow = null; ST.idleAt = time + 99;
+      R.task = null; timersT.length = 0; R.entered = true;
+      if (first || kind === 'meet') {
+        /* arrive from far away, straight down the middle, so the close-up reads as coming toward the glass */
+        var c = closeSpot(); Sp.x.x = c.x; Sp.y.x = c.y; Sp.z.x = -18; Sp.x.v = Sp.y.v = Sp.z.v = 0;
+        place(c.x, c.y, -18);
+      }
+      if (kind === 'brand') { var hs = homeSpot(); if (hs) { Sp.x.x = W + SIZE * 2; Sp.y.x = hs.y; Sp.z.x = 0; place(W + SIZE * 2, hs.y, 0); } }
+    }
+    var TAP = ['Hee hee, that tickles!', 'Boop! Hi again!', 'You found me!', 'Hello, friend!', 'Beep boop!'];
+    function face(s) { R.look = camera.position; R.lookUntil = time + s; }
+    function cue(name, a) {
+      if (!ST.on) return;
+      obsAt = -9;
+      var el = a && a.nodeType === 1 ? a : null;
+      ST.idleAt = time + 5.5;
+      /* the over-reactions play to the visitor: a quick look at the piece, then the face turns to them */
+      if (/^(gasp|star|love|bigjump|wiggle|faint|celebrate|cute)$/.test(name)) { if (el) lookAtEl(el, 0.5); later(el ? 0.45 : 0, function () { face(2.4); }); }
+      switch (name) {
+        case 'closeup': stageTask(name, function (T) {
+          var c = closeSpot(); ST.spot = 'close'; go(c, c.z);
+          R.look = camera.position; R.lookUntil = time + 30; expr('wow', 1.2); sfx('whoosh');
+          T.at(1.1, function () { expr('happy', 1.5); play('hop'); });
+        }); break;
+        case 'knock': stageTask(name, function (T) {
+          play('knock'); expr('content', 1.6); R.look = camera.position; R.lookUntil = time + 30;
+          [0.36, 0.72, 1.08].forEach(function (s) { T.at(s, function () { boop(0.26, 0.02); sfx('knock'); shake(); }); });
+        }); break;
+        case 'cute': play('cute'); expr('happy', 2.4); R.blushUntil = time + 2.6; emote(['♥', '✦', '♥'], 3); sfx('heart'); break;
+        case 'home': stageTask(name, function (T) {
+          var was = ST.spot; ST.spot = 'home'; go(homeSpot(), homeZ(), homeSpot);
+          R.look = camera.position; R.lookUntil = time + 3; if (was === 'close') sfx('whoosh');
+        }); break;
+        case 'zoomin': stageTask(name, function (T) {
+          ST.spot = 'home'; go(homeSpot(), homeZ(), homeSpot); play('spin'); expr('wow', 1.4); sfx('whoosh');
+          T.at(1.2, function () { play('hop'); expr('star', 1.2); emote(['!', '✦'], 2); });
+        }); break;
+        case 'visit': if (el) {
+          var spotFn = ST.kind === 'meet' ? presenterSpot : assetSpot; ST.spot = 'asset';
+          var at0 = spotFn(el); go(at0, homeZ(), null); lookAtEl(el, 4);
+          if (ST.kind === 'meet') later(0.8, function () { var r = rectOf(el), hp = botPx(); ST.pointAt = time; play(r.cx > hp.x ? 'point' : 'pointL'); });
+        } break;
+        case 'tap': if (el) { var rt = rectOf(el), ht = botPx(); if (!(ST.pointAt && time - ST.pointAt < 1.6)) play(rt.cx > ht.x ? 'point' : 'pointL'); lookAtEl(el, 1.6); } else play('tap'); expr('content', 0.9); sfx('boop'); break;
+        case 'present': play('present'); if (el) lookAtEl(el, 2.4); expr('happy', 1.8); break;
+        case 'point': if (el) { var r = rectOf(el), hp = botPx(); lookAtEl(el, 2.6); play(r.cx > hp.x ? 'point' : 'pointL'); } else play('point'); expr('happy', 1.6); break;
+        case 'wave': play('wave'); expr('happy', 1.8); R.look = el ? null : camera.position; R.lookUntil = time + 2.2; if (el) lookAtEl(el, 2.4); break;
+        case 'nod': play('nod'); expr('content', 1.4); break;
+        case 'hop': play('hop'); expr('happy', 1); break;
+        case 'star': expr('star', 1.9); play('spin'); emote(['✦', '✧', '★'], 4); sfx('sparkle'); break;
+        case 'love': expr('love', 2.2); R.blushUntil = time + 2.4; play('cute'); emote(['♥', '♥', '♥'], 4); sfx('heart'); break;
+        case 'gasp': expr('wow', 1.6); play('gasp'); emote(['!', '!!'], 2); sfx('gasp'); jolt(-2.4); break;
+        case 'bigjump': play('bigjump'); expr('happy', 1.5); emote(['✦', '!'], 2); sfx('boing'); break;
+        case 'wiggle': play('wiggle'); expr('star', 1.3); emote(['✧', '✦'], 3); sfx('pop'); break;
+        case 'faint': expr('dizzy', 2); play('faint'); sfx('whoosh');
+          later(0.6, function () { emote(['✦', '✧', '★'], 3); }); later(1.9, function () { expr('wow', 0.7); sfx('boing'); }); break;
+        case 'celebrate': play('celebrate'); expr('happy', 2); emote(['✦', '✧', '♪'], 4); sfx('tada'); break;
+        case 'say': if (typeof a === 'object' && a && a.text) { word(a.text, a.life || 2.4, false, { wide: true, silent: true, stage: true }); R.humUntil = time + Math.min(a.life || 2.4, 0.5 + a.text.length * 0.055); } break;
+      }
+    }
+    /* the glass shakes a little with each knock: the active slide's inner, translate only (it composes with the
+       tilt's transform), one animation on the compositor */
+    function shake() {
+      var sl = active(), el = sl && sl.querySelector('.slide-inner'); if (!el || !el.animate) return;
+      el.animate([{ translate: '0 0' }, { translate: '2px -1px', offset: 0.3 }, { translate: '-2px 1px', offset: 0.65 }, { translate: '0 0' }], { duration: 180, easing: 'ease-out' });
+    }
+    /* a quick jump back and in again (the gasp) */
+    function jolt(dz) { if (!R.lock) return; var z0 = ST.z; R.tz = z0 + dz; later(0.32, function () { if (R.lock) R.tz = z0; }); }
+    function later(s, fn) { timersT.push({ at: time + s, fn: fn }); }
+    /* the script is between cues or over: small things, never a roaming task */
+    function stageIdle() {
+      ST.idleAt = time + rand(4, 6.5);
+      var c = pick(ST.kind === 'meet' ? ['look', 'look', 'nod'] : ['nod', 'hop', 'curious', 'look', 'look']);
+      if (c === 'look' && ST.root) { var r = rectOf(ST.root); lookAtPx(r.x + rand(0.1, 0.9) * r.w, r.y + rand(0.1, 0.9) * r.h, 1.6); }
+      else if (c !== 'look') play(c);
+    }
+
     /* the carousel changed slide: swoop to the new visual */
     hero.addEventListener('tn:slide', function () {
-      if (!running || R.cardOpen) return;
+      if (!running || R.cardOpen || ST.on) return;
       setTimeout(function () {
+        if (ST.on || R.cardOpen) return;
         startTask('swoop', function (T) {
           var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
           if (v) { var r = rectOf(v); goTo(r.x + r.w * rand(0.2, 0.8), r.y + SIZE * 0.4, 2); T.at(1.4, function () { lookAtEl(v, 1.6); expr('happy', 1.5); say('slide', true); }); }
@@ -710,14 +1041,14 @@
     });
     /* clicks on hero items: Nexi comes over to look */
     hero.addEventListener('click', function (e) {
-      if (!running || R.cardOpen || e.target.closest('.nexi-hit,.nexi-card')) return;
+      if (!running || R.cardOpen || ST.on || e.target.closest('.nexi-hit,.nexi-card')) return;
       var el = e.target.closest('[data-app],[data-flow],.lj-hit,.pm-scen button,.dot,.hero-arrow');
       if (el) { startTask('visit', function (T) { var r = rectOf(el); goTo(r.cx + (r.cx > W / 2 ? -1 : 1) * SIZE * 0.75, r.cy - SIZE * 0.2, 1.5); lookAtEl(el, 3); T.dur = 3.4; expr('wow', 0.7); T.at(1.3, function () { play('clap'); expr('happy', 1.4); emote('✦', 2); }); }); }
       else { var hr = hero.getBoundingClientRect(); lookAtPx(e.clientX - hr.left, e.clientY - hr.top, 2); play('curious'); say('react'); }
     }, true);
     /* the launch path finished a phase: cheer */
     var ljWatch = new MutationObserver(function (list) {
-      if (!running || R.cardOpen) return;
+      if (!running || R.cardOpen || ST.on) return;
       for (var i = 0; i < list.length; i++) { var t = list[i].target; if (t.classList && t.classList.contains('is-done') && (list[i].oldValue || '').indexOf('is-done') < 0 && /lj-(badge|plat)/.test(t.getAttribute('class') || '')) { play('celebrate'); expr('happy', 1.6); emote(['✦', '✧', '♪'], 3); if (Math.random() < 0.5) say('cheer'); return; } }
     });
     var lj = hero.querySelector('[data-journey]'); if (lj) ljWatch.observe(lj, { subtree: true, attributes: true, attributeFilter: ['class'], attributeOldValue: true });
@@ -725,6 +1056,8 @@
     /* ---------- the intro card ---------- */
     var chirpCtx = null;
     function chirp() {
+      /* all of Nexi's sounds follow the voice switch when the voice module is on the page */
+      if (window.TNVoice) { window.TNVoice.sfx('chirp'); return; }
       try {
         var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
         if (navigator.userActivation && !navigator.userActivation.isActive) return; /* browsers only allow sound after a real click */
@@ -752,7 +1085,12 @@
       card.classList.remove('is-on'); setTimeout(function () { if (!R.cardOpen) card.hidden = true; }, 260);
       play('wave'); expr('happy', 1.2); R.task = null; if (back) hit.focus({ preventScroll: true });
     }
-    hit.addEventListener('click', function (e) { e.stopPropagation(); if (R.cardOpen) closeCard(); else openCard(); });
+    hit.addEventListener('click', function (e) {
+      e.stopPropagation();
+      /* on the stage a tap is a little moment with Nexi, not the intro card (the slide already introduces her) */
+      if (ST.on && !R.cardOpen) { play('hop'); play('cute'); expr('happy', 1.6); R.blushUntil = time + 1.8; emote(['♥', '✦'], 2); sfx('boop'); word(pick(TAP), 1.9, false, { silent: false }); ST.idleAt = time + 4; return; }
+      if (R.cardOpen) closeCard(); else openCard();
+    });
     hit.addEventListener('touchend', function (e) { e.stopPropagation(); });
     card.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -774,11 +1112,15 @@
       if (!running || !inView || document.hidden) return;
       var dt = Math.min(0.05, clock.getDelta()); time += dt;
       for (var ti = timersT.length - 1; ti >= 0; ti--) if (time >= timersT[ti].at) { var f = timersT[ti].fn; timersT.splice(ti, 1); f(); }
-      if (!R.entered) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
+      if (!R.entered && !ST.on) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
       var T = R.task;
       if (T) { var p = (time - T.t0) / Math.max(0.001, T.dur); if (T.tick) T.tick(clamp(p, 0, 1)); if (p >= 1) { R.task = null; } }
-      if (!R.task && !R.cardOpen) nextTask();
-      if (!R.cardOpen && time > (R.chatAt || 0)) {
+      if (ST.on) {
+        if (time > ST.idleAt) stageIdle();
+        /* the spot she holds moves with the slide (tilt, reveals, resizes): re-read it a few times a second */
+        if (ST.follow && R.lock && time > ST.followAt) { ST.followAt = time + 0.25; var fs = ST.follow(); if (fs) { R.lock.sx = fs.x; R.lock.sy = fs.y; } }
+      } else if (!R.task && !R.cardOpen) nextTask();
+      if (!R.cardOpen && !ST.on && time > (R.chatAt || 0)) {
         R.chatAt = time + rand(6, 9);
         if (time - (R.lastWord || -9) > 5 && !(R.task && (R.task.name === 'talk' || R.task.name === 'fourthWall' || R.task.name === 'callTab'))) {
           var cl = Math.random() < 0.5 ? ctxTalk() : null;
@@ -800,7 +1142,7 @@
       var px = Sp.x.step(R.tx, dt), py = Sp.y.step(R.ty, dt), pz = Sp.z.step(R.tz, dt);
       var vx = Sp.x.v, vy = Sp.y.v, speed = Math.hypot(vx, vy) / S;
       bot.position.set((px - W / 2) / S, (H / 2 - py) / S, pz);
-      var O = { yb: 0, sq: 0, spin: 0, flip: 0, nod: 0, tilt: 0, hLx: 0, hLy: 0, hLz: 0, hRx: 0, hRy: 0, hRz: 0, hRr: 0 };
+      var O = { yb: 0, sq: 0, spin: 0, flip: 0, roll: 0, nod: 0, tilt: 0, hLx: 0, hLy: 0, hLz: 0, hRx: 0, hRy: 0, hRz: 0, hRr: 0 };
       R.clips = R.clips.filter(function (c) { var pp = (time - c.t0) / c.dur; if (pp >= 1) return false; c.fn(clamp(pp, 0, 1), O); return true; });
       var sq = Sp.sq.step(O.sq, dt);
       var yb = Sp.yb.step(O.yb, dt), bob = Math.sin(time * 1.5) * 0.06;
@@ -808,7 +1150,7 @@
       aura.scale.setScalar(bot.scale.x); aura.position.set(bot.position.x, bot.position.y + 0.1 * bot.scale.x, bot.position.z - 1.2 * bot.scale.x);
       hover.scale.set(1 - sq * 0.5, 1 + sq, 1 - sq * 0.5);
       spinner.rotation.x = O.flip + clamp(-vy / S * 0.02, -0.2, 0.2);
-      spinner.rotation.z = Sp.bank.step(clamp(-vx / S * 0.06, -0.35, 0.35), dt);
+      spinner.rotation.z = Sp.bank.step(clamp(-vx / S * 0.06, -0.35, 0.35), dt) + Sp.roll.step(O.roll, dt);
       bot.rotation.y = O.spin + Sp.yaw.step(speed > 0.6 ? clamp(vx / S * 0.08, -0.6, 0.6) : 0, dt);
 
       /* look */
@@ -832,8 +1174,10 @@
       eyes.forEach(function (e, i) {
         e.g.position.x = e.bx + lookY * 0.03; e.g.position.y = 0.045 - lookP * 0.03;
         SHAPES.forEach(function (k) { e[k].visible = k === shape; });
-        var m = e[shape], s = Math.max(0.05, sw); m.scale.set(0.7 + 0.3 * s, s * (shape === 'open' ? blink : 1), 1);
+        var m = e[shape], s = Math.max(0.05, sw), beat = shape === 'heart' ? 1 + 0.16 * Math.pow(Math.max(0, Math.sin(time * 9)), 3) : 1;
+        m.scale.set((0.7 + 0.3 * s) * beat, s * (shape === 'open' ? blink : 1) * beat, 1);
         if (shape === 'star') m.rotation.z = Math.sin(time * 3 + i) * 0.25;
+        if (shape === 'x') m.rotation.z = Math.sin(time * 5 + i) * 0.3;
       });
       var tk = Sp.talk.step(time < R.humUntil ? 1 : 0, dt);
       smile.visible = tk < 0.5 && R.mouth === 'smile'; mouthO.visible = tk < 0.5 && R.mouth === 'o';
@@ -853,21 +1197,33 @@
       var h = botPx(); hit.style.transform = 'translate(' + (h.x - SIZE * 0.36).toFixed(1) + 'px,' + (h.y - SIZE * 0.5).toFixed(1) + 'px) scale(' + depthK(pz).toFixed(3) + ')';
 
       /* passing over text or a button on the way somewhere: fade out of the way, never block a click */
+      /* on the stage she never fades (she is the show), but her hit area still lets clicks through to a button
+         under her, except in the close-up, where a tap on her face must not open a link behind the veil */
       var bb = box(h.x, h.y, pz), over = !R.cardOpen && overlap(bb) > (bb[2] - bb[0]) * (bb[3] - bb[1]) * 0.03;
-      R.alpha = lerp(R.alpha == null ? 1 : R.alpha, over ? 0.28 : 1, 1 - Math.exp(-dt * (over ? 10 : 4)));
+      R.alpha = lerp(R.alpha == null ? 1 : R.alpha, over && !ST.on ? 0.28 : 1, 1 - Math.exp(-dt * (over ? 10 : 4)));
       var ao = R.alpha.toFixed(2); if (ao !== R.alphaSet) { cv.style.opacity = ao; R.alphaSet = ao; }
-      if (over !== R.passThru) { R.passThru = over; hit.style.pointerEvents = over ? 'none' : ''; }
+      var thru = over && !(ST.on && ST.spot === 'close');
+      if (thru !== R.passThru) { R.passThru = thru; hit.style.pointerEvents = thru ? 'none' : ''; }
 
+      /* the bigger render window while she is near the glass (with a little hysteresis) */
+      var kNow = depthK(pz); if (VBIG ? kNow < 1.5 : kNow > 1.7) setView(!VBIG);
       var vx0 = Math.round(h.x - VIEW / 2), vy0 = Math.round(h.y - VIEW / 2);
       camera.setViewOffset(W, H, vx0, vy0, VIEW, VIEW);
-      renderer.setRenderTarget(null); renderer.render(scene, camera); Glow.render();
+      renderer.setRenderTarget(null); renderer.render(scene, camera);
+      if (!LITE) { if (speed < 0.2 && !glowReuse && glowFresh) { Glow.again(); glowReuse = true; } else { Glow.render(); glowReuse = false; glowFresh = true; } }
       camera.clearViewOffset();
       cv.style.transform = 'translate3d(' + vx0 + 'px,' + vy0 + 'px,0)';
       raf = requestAnimationFrame(tick);
     }
     for (var z0 = 0; z0 < SPK; z0++) spkPos[z0 * 3 + 1] = -999;
+    /* the glow is reused for one frame at a time while she is nearly still (glowFresh: rendered since the last resize) */
+    var glowReuse = false, glowFresh = false;
 
-    function resume() { if (running) return; running = true; layer.style.display = ''; resize(); clock.getDelta(); setOn(); if (!raf) raf = requestAnimationFrame(tick); }
+    var warmed = false;
+    function resume() {
+      if (running) return; running = true; layer.style.display = ''; resize(); clock.getDelta(); setOn(); if (!raf) raf = requestAnimationFrame(tick);
+      if (!warmed) { warmed = true; hero.dispatchEvent(new CustomEvent('tn:nexi-ready')); }
+    }
     function pause() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; layer.style.display = 'none'; closeCard(); setOn(); }
     /* Compile the shaders one per frame slot before Nexi's first frame. All at once they cost one long
        frame (a visible hitch on the hero); spread out, no single frame waits long. */
@@ -885,7 +1241,7 @@
           renderer.compile(ws, camera);
         });
       });
-      steps = steps.concat(Glow.warmSteps);
+      if (!LITE) steps = steps.concat(Glow.warmSteps, [Glow.warmTwins]);
       var i = 0;
       (function next() {
         if (i >= steps.length) { done(); return; }
@@ -893,7 +1249,17 @@
         setTimeout(next, 24);
       })();
     }
-    setTimeout(function () { warmUp(resume); }, 30);
-    return { pause: pause, resume: resume };
+    /* nexi.js decides when Nexi may run (desktop: always; phones: on a Nexi slide), so the first resume
+       waits for its say-so after the warm-up */
+    var wantRun = true;
+    setTimeout(function () { warmUp(function () { if (wantRun) resume(); else { warmed = true; hero.dispatchEvent(new CustomEvent('tn:nexi-ready')); } }); }, 30);
+    var api = {
+      pause: function () { wantRun = false; if (running) pause(); },
+      resume: function () { wantRun = true; if (warmed) resume(); },
+      stage: stage, cue: cue, lite: LITE
+    };
+    /* live: drawing on screen right now (the stage script only cues a Nexi the visitor can see) */
+    Object.defineProperty(api, 'live', { get: function () { return running && inView && !document.hidden; } });
+    return api;
   }
 })();
