@@ -1323,7 +1323,7 @@ def article_html(meta: dict, body: str) -> str:
 {body}
       <div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with an office in Taguig City, Metro Manila and a development hub in Ho Chi Minh City. We implement Odoo end to end (discovery, configuration, data migration, training and support) for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. We implement Odoo end to end (discovery, configuration, data migration, training and support) for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
       </div>
     </div>
   </div>
@@ -1649,8 +1649,8 @@ def write_llms_full():
     can quote TechNext accurately without parsing the design."""
     c = S.COMPANY
     out = ["# TechNext — full reference", "",
-           "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with an office in "
-           "Taguig City, Metro Manila and a development hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
+           "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
+           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
            "enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- WhatsApp: {c['whatsapp']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
