@@ -1,6 +1,6 @@
 # TechNext — full reference
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with an office in Taguig City, Metro Manila and a development hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.
 
 ## Contact
 
@@ -11,8 +11,8 @@
 ## Offices
 
 - Singapore HQ: 261 Waterloo Street #03-36, Singapore 180261 — Headquarters. Sales, discovery and on-site work in Singapore.
-- Philippines office: Level 9, IP Center, Taguig City, Metro Manila — Odoo consulting, finance, sales and marketing. Our open roles are here.
-- Vietnam development hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City — Engineering. Odoo modules, integrations and AI.
+- Philippines development hub: Level 9, IP Center, Taguig City, Metro Manila — Our main hub for Odoo development and consulting, with finance, sales and marketing. Our open roles are here.
+- Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City — AI engineering. The enterprise AI behind our solutions.
 
 ## Pages
 
@@ -330,7 +330,7 @@ Source: https://technext.asia/blog/what-is-erp
 
 ### Where are TechNext's open roles based?
 
-All six current roles are in Taguig City, Metro Manila, at our Philippines office (Level 9, IP Center). TechNext is headquartered in Singapore and has a development hub in Ho Chi Minh City, Vietnam.
+All six current roles are in Taguig City, Metro Manila, at our Philippines office (Level 9, IP Center), our main development and consulting hub. TechNext is headquartered in Singapore and has an AI engineering hub in Ho Chi Minh City, Vietnam.
 
 Source: https://technext.asia/careers
 
@@ -354,7 +354,7 @@ Source: https://technext.asia/careers
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. We also have an office at Level 9, IP Center, Taguig City, Metro Manila, and a development hub at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 10+ countries.
+Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is at Level 9, IP Center, Taguig City, Metro Manila, and our AI engineering hub is at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 10+ countries.
 
 Source: https://technext.asia/company
 
@@ -402,7 +402,7 @@ Source: https://technext.asia/
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. We also have an office in Taguig City, Metro Manila and a development hub in Ho Chi Minh City, and serve clients in 10+ countries.
+Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is in Taguig City, Metro Manila, our AI engineering hub is in Ho Chi Minh City, and we serve clients in 10+ countries.
 
 Source: https://technext.asia/
 
@@ -852,7 +852,7 @@ Source: https://technext.asia/odoo/integration
 
 ### Is TechNext an Odoo partner in the Philippines?
 
-Yes. TechNext Pte. Ltd. is an Odoo Ready Partner, listed in Odoo's partner directory, with an office at Level 9, IP Center, Taguig City, Metro Manila.
+Yes. TechNext Pte. Ltd. is an Odoo Ready Partner, listed in Odoo's partner directory, with its main development and consulting hub at Level 9, IP Center, Taguig City, Metro Manila.
 
 Source: https://technext.asia/odoo/philippines
 
@@ -906,7 +906,7 @@ Source: https://technext.asia/odoo/support
 
 ### Where is the support team based?
 
-Support is led from our Singapore HQ, with consultants at our Philippines office and developers at our Vietnam development hub. We serve clients globally.
+Support is led from our Singapore HQ, with consultants and developers at our main development and consulting hub in Taguig City, and AI engineers in Ho Chi Minh City for AI features. We serve clients globally.
 
 Source: https://technext.asia/odoo/support
 

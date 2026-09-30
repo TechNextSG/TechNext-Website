@@ -5,8 +5,8 @@
 SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
-ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with an office in Taguig City and a "
-            "development hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
+ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and "
+            "consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
             "and Inventory, and build enterprise AI and websites for growing companies in 10+ countries.")
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
@@ -51,15 +51,15 @@ OFFICES = [
      "street": "261 Waterloo Street #03-36", "locality": "Singapore", "region": "", "postal": "180261",
      "maps": "https://maps.google.com/?cid=3474088819422984887", "geo": (1.2989163, 103.8519697),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
-    {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines office",
-     "role": "Odoo consulting, finance, sales and marketing. Our open roles are here.",
+    {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines development hub",
+     "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing. Our open roles are here.",
      "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines",
      "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
      "maps": "https://maps.google.com/?cid=12500824038992408388", "geo": (14.5350092, 121.0509849),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
-    {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam development hub",
-     "role": "Engineering. Odoo modules, integrations and AI.",
+    {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam AI engineering hub",
+     "role": "AI engineering. The enterprise AI behind our solutions.",
      "lines": ["62 Nguyễn Thị Nhung, Phường Hiệp Bình", "Ho Chi Minh City"], "lang": "vi", "geo": (10.8440075, 106.7121703),
      "street": "62 Nguyễn Thị Nhung, Phường Hiệp Bình", "locality": "Ho Chi Minh City", "region": "", "postal": "",
      "maps": "https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City",
@@ -199,9 +199,9 @@ NAV = [
                 {"label": "Singapore HQ", "href": "company.html#office-hq", "icon": "pin",
                  "desc": "261 Waterloo Street #03-36."},
                 {"label": "Philippines", "href": "odoo/philippines.html", "icon": "pin",
-                 "desc": "Odoo in the Philippines · Taguig City."},
+                 "desc": "Main development and consulting hub · Taguig City."},
                 {"label": "Vietnam", "href": "company.html#office-vn", "icon": "pin",
-                 "desc": "Development hub, Ho Chi Minh City."},
+                 "desc": "AI engineering hub · Ho Chi Minh City."},
             ]},
         ],
     },

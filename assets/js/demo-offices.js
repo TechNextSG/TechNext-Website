@@ -1,6 +1,6 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
-/* Company page: three offices, one team. An abstract network map of Singapore HQ, Taguig City and
-   the Ho Chi Minh City development hub; step through an engagement and watch the work move between
+/* Company page: three offices, one team. An abstract network map of Singapore HQ, the Taguig City
+   development and consulting hub and the Ho Chi Minh City AI engineering hub; step through an engagement and watch the work move between
    the offices (packets on the arcs), with who does what at each step. */
 TN.demo('offices', function (root, K) {
   var stage = K.$('.dof-stage', root), svg = K.$('.dof-svg', root);
@@ -10,10 +10,10 @@ TN.demo('offices', function (root, K) {
   // who is on each step, and which way the work flows
   var PLAN = [
     { on: ['sg', 'ph'], flow: [['client', 'sg', 'Process walk-through'], ['client', 'ph', 'How orders run today'], ['sg', 'ph', 'Scope draft']] },
-    { on: ['ph', 'vn'], flow: [['ph', 'vn', 'Spec for a module'], ['vn', 'ph', 'Module on staging'], ['ph', 'client', 'Staging copy to review']] },
-    { on: ['vn', 'ph'], flow: [['vn', 'client', 'Bank feed connected'], ['ph', 'vn', 'Field mapping'], ['vn', 'ph', 'Sync tested']] },
+    { on: ['ph'], flow: [['sg', 'ph', 'Signed scope'], ['ph', 'client', 'Module on staging'], ['client', 'ph', 'Review notes']] },
+    { on: ['ph', 'vn'], flow: [['ph', 'client', 'Bank feed connected'], ['client', 'ph', 'Field mapping'], ['vn', 'ph', 'AI assistant, if in scope']] },
     { on: ['ph', 'sg'], flow: [['ph', 'client', 'Training on your data'], ['sg', 'client', 'Quick-reference guides']] },
-    { on: ['sg', 'ph', 'vn'], flow: [['client', 'ph', 'Support request'], ['ph', 'vn', 'Fix'], ['vn', 'ph', 'Tested fix'], ['sg', 'client', 'Upgrade plan']] }
+    { on: ['sg', 'ph', 'vn'], flow: [['client', 'ph', 'Support request'], ['ph', 'client', 'Tested fix'], ['vn', 'ph', 'AI answers tuned'], ['sg', 'client', 'Upgrade plan']] }
   ];
   var client = K.$('.dof-client', root), clientAt = null;
   function pos(k) {
