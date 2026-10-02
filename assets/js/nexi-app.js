@@ -14,7 +14,7 @@ if (window.top === window.self) { location.replace("/nexi"); return; }
    chain ends at one of the goals: schedule, quote or talk.
    ===================================================================== */
 var BOT_NAME = "Nexi";
-var GREETING = "Hi there! I'm " + BOT_NAME + ", TechNext's little helper robot. Pick a question below, take a mini tour, or type anything about Odoo, AI, websites or pricing!";
+var GREETING = "Hi there! I'm " + BOT_NAME + ", TechNext's little helper robot. Pick a question below or type anything about TechNext, Odoo, AI, websites or pricing!";
 var SITE_URL = "/";
 var WA = "https://wa.me/6588396998";
 var MEET = "https://technext.odoo.com/book/c82cf8a9";
@@ -104,81 +104,124 @@ function svgImage(k,color){
    (on /nexi the form opens in the page around Nexi).
    ===================================================================== */
 var KB = [
-  { id:'odoo', kw:['what is odoo','odoo','odooo','oodo','about odoo','explain odoo','erp','erp system','enterprise resource planning','business software','management software','all in one','all-in-one','what do you do','what you do','your services','what do you offer','offering','help me with'],
-    a:'<b>Odoo</b> is a suite of business apps on one database — Accounting, Sales, Inventory, CRM, Purchase, POS, HR and more. TechNext is an <b>Odoo Partner</b>: we scope, configure, migrate, train and support it. Our first focus is Accounting, Sales and Inventory.',
-    actions:[['link','solutions/odoo-erp.html','Odoo ERP'],['link','odoo/apps.html','All apps']] },
-  { id:'accounting', kw:['accounting','accountancy','accountant','acounting','accountng','akounting','bookkeeping','book keeping','ledger','general ledger','gst','vat','tax','taxes','taxation','bank','bank feed','reconcile','reconciliation','invoice','invoicing','invoices','billing','bill','bills','payable','receivable','payables','receivables','expenses','expense','month end','month-end','closing','finance','financial','financials','p&l','profit and loss','balance sheet','cash flow','audit','journal','chart of accounts'],
-    a:'<b>Odoo Accounting</b> covers the ledger, bank feeds and reconciliation, GST/VAT returns, multi-currency and full financial reports.<ul><li>'+oi('accountant')+'Bank sync and one-click reconciliation</li><li>'+oi('account')+'Invoicing with online payment links</li><li>'+oi('hr_expense')+'Expenses posted straight to the books</li></ul>We usually implement it together with Sales and Inventory so nothing is typed twice.',
-    actions:[['link','odoo/apps.html#finance','Finance apps'],['quote']] },
+  { id:'odoo', kw:['what is odoo','odoo','odooo','oodo','about odoo','explain odoo','erp','erp system','what is erp','enterprise resource planning','business software','management software','all in one','all-in-one','replace our software','one system'],
+    a:'<b>Odoo</b> is a suite of business apps on one database: Accounting, Sales, Inventory, CRM, Purchase, POS, HR and more. TechNext is an <b>Odoo Ready Partner</b>. We scope, configure, migrate, train and support it, starting with Accounting, Sales and Inventory.',
+    actions:[['link','solutions/odoo-erp','Odoo ERP'],['link','odoo/apps','All apps']] },
+  { id:'accounting', kw:['accounting','accountancy','accountant','acounting','accountng','akounting','bookkeeping','book keeping','ledger','general ledger','gst','gst filing','gst return','gst returns','file gst','vat','tax','taxes','taxation','bank','bank feed','reconcile','reconciliation','invoice','invoicing','invoices','billing','bill','bills','payable','receivable','payables','receivables','expenses','expense','month end','month-end','closing','finance','financial','financials','p&l','profit and loss','balance sheet','cash flow','audit','journal','chart of accounts','multi currency','multicurrency','foreign currency','currency','currencies'],
+    a:'<b>Odoo Accounting</b> covers the ledger, bank feeds and reconciliation, GST/VAT returns, multi-currency and full financial reports.<ul><li>'+oi('accountant')+'<span>Bank sync and one-click reconciliation</span></li><li>'+oi('account')+'<span>Invoicing with online payment links</span></li><li>'+oi('hr_expense')+'<span>Expenses posted straight to the books</span></li></ul>We usually implement it together with Sales and Inventory, so nothing is typed twice.',
+    actions:[['link','odoo/apps#finance','Finance apps'],['quote']] },
   { id:'sales', kw:['sales','sale','selling','sell','crm','customer relationship','pipeline','lead','leads','opportunity','opportunities','deal','deals','quotation','quotations','sales order','order','orders','pricelist','price list','discount','e-signature','esignature','signature','pos','point of sale','cashier','till','subscription','subscriptions','recurring','customer','customers','client portal'],
-    a:'<b>Odoo Sales + CRM</b>: leads and pipeline in CRM, quotations from templates with e-signature, and confirmed orders that reserve stock and raise the invoice.<ul><li>'+oi('crm')+'CRM pipeline and activities</li><li>'+oi('sale')+'Quotations → orders → invoices</li><li>'+oi('point_of_sale')+'Point of Sale for shops and restaurants</li></ul>',
-    actions:[['link','odoo/apps.html#sales','Sales apps'],['link','odoo/crm-development.html','CRM development']] },
+    a:'<b>Odoo Sales + CRM</b> runs the whole path from lead to invoice.<ul><li>'+oi('crm')+'<span>Leads, pipeline and activities in CRM</span></li><li>'+oi('sale')+'<span>Quotations from templates with e-signature, then orders and invoices</span></li><li>'+oi('point_of_sale')+'<span>Point of Sale for shops and restaurants</span></li></ul>',
+    actions:[['link','odoo/apps#sales','Sales apps'],['link','odoo/crm-development','CRM development']] },
   { id:'inventory', kw:['inventory','inventry','inventroy','stock','stok','stocks','warehouse','warehousing','warehouses','wms','barcode','barcodes','scanner','purchase','purchasing','procurement','buy','buying','vendor','vendors','supplier','suppliers','rfq','purchase order','purchase orders','goods receipt','reorder','reordering','replenish','replenishment','supply','supply chain','logistics','picking','packing','shipping','delivery','deliveries','fulfilment','fulfillment','lot','lots','serial','serials','expiry','manufacturing','manufacture','manufactur','production','produce','factory','mrp','bom','bill of materials','work order'],
-    a:'<b>Odoo Inventory</b> gives real stock across warehouses with barcode operations, and reordering rules that create purchase orders before you run out.<ul><li>'+oi('stock')+'Multi-warehouse, lots, serials, expiry</li><li>'+oi('purchase')+'RFQs and bills matched to receipts</li><li>'+oi('mrp')+'Manufacturing when you build to order</li></ul>',
-    actions:[['link','odoo/apps.html#supply-chain','Supply chain apps']] },
-  { id:'price', kw:['price','prices','pricing','pricin','prise','cost','costs','costing','how much','how much does it cost','how much is it','fee','fees','budget','quotation','quote','rate','rates','expensive','cheap','affordable','ballpark','estimate','proposal','payment plan','instalment','roi','value','per user','per month'],
-    a:'Pricing follows the scope — which apps, how many users, hosting, data migration and training. Two ways to get a number:<br>1. Build a quick scope in the <b>quotation builder</b> (2 minutes) and we reply with a written quotation.<br>2. Message the team on WhatsApp or email <b>sales@technext.asia</b> and a consultant follows up.',
+    a:'<b>Odoo Inventory</b> shows real stock across warehouses, with barcode operations and reordering rules that create purchase orders before you run out.<ul><li>'+oi('stock')+'<span>Multi-warehouse, lots, serials and expiry</span></li><li>'+oi('purchase')+'<span>RFQs and bills matched to receipts</span></li><li>'+oi('mrp')+'<span>Manufacturing when you build to order</span></li></ul>',
+    actions:[['link','odoo/apps#supply-chain','Supply chain apps']] },
+  { id:'price', kw:['price','prices','pricing','pricin','prise','cost','costs','costing','how much','how much does it cost','how much is it','fee','fees','budget','quote','rate','rates','expensive','cheap','affordable','ballpark','estimate','proposal','payment plan','instalment','roi','value','per user','per month','odoo expensive','is it expensive','odoo cost','odoo price','price of odoo','odoo pricing','how much is odoo','cost of odoo'],
+    a:'Pricing follows the scope: which apps, how many users, hosting, data migration and training. Two ways to get a number:<ol><li><span>Build a quick scope in the <b>quotation builder</b> (2 minutes). We reply with a written quotation.</span></li><li><span>Message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant follows up.</span></li></ol>',
     actions:[['quote'],['wa']] },
-  { id:'how', kw:['how do you work','how does it work','how it works','process','implementation','implement','implementing','deploy','deployment','rollout','roll out','setup','set up','get started','getting started','begin','kickoff','kick off','onboarding','onboard','how long','duration','timeline','timeframe','time frame','steps','stages','phases','discovery','training','train','support','go live','go-live','golive','methodology','approach','plan','configure','configuration','customise','customize','customisation'],
-    a:'Four steps, one team:<br><b>1. Discovery</b> — we map how orders, stock and money move, then match each step to an Odoo app and write a scope.<br><b>2. Training</b> — role-based sessions on your own data.<br><b>3. Integration</b> — banks, payments, stores and tools connected.<br><b>4. Support</b> — fixes, month-end help, upgrades and small changes after go-live.',
-    actions:[['link','odoo/discovery.html','Discovery'],['link','odoo/support.html','Support plans']] },
-  { id:'migration', kw:['migration','migrate','migrating','data migration','import','importing','transfer data','move data','existing data','legacy','legacy system','switch','switch from','move from','coming from','quickbooks','xero','myob','sap','zoho','tally','excel','spreadsheet','spreadsheets','csv','opening balance','opening balances','upgrade odoo','version upgrade'],
-    a:'We migrate your <b>master data</b> (customers, vendors, products, chart of accounts) and <b>opening balances / open items</b> from spreadsheets or your current system — QuickBooks, Xero, SAP, Tally, MYOB and others. Everything is loaded on a staging database and reconciled before cut-over, so day one balances match.',
-    actions:[['link','odoo/discovery.html','Discovery']] },
+  { id:'how', kw:['how do you work','how does it work','how it works','process','implementation','implement','implementing','deploy','deployment','rollout','roll out','setup','set up','get started','getting started','begin','kickoff','kick off','onboarding','onboard','how long','duration','timeline','timeframe','time frame','steps','stages','phases','discovery','go live','go-live','golive','methodology','approach','plan','configure','configuration'],
+    a:'Four steps, one team:<ol><li><span><b>Discovery</b>: we map how orders, stock and money move, match each step to an Odoo app and write a scope.</span></li><li><span><b>Training</b>: role-based sessions on your own data.</span></li><li><span><b>Integration</b>: banks, payments, stores and tools connected.</span></li><li><span><b>Support</b>: fixes, month-end help, upgrades and small changes after go-live.</span></li></ol>',
+    actions:[['link','odoo/discovery','Discovery'],['link','odoo/support','Support plans']] },
+  { id:'migration', kw:['migration','migrate','migrating','data migration','import','importing','transfer data','move data','existing data','legacy','legacy system','switch','switch from','move from','coming from','quickbooks','xero','myob','sap','zoho','tally','excel','spreadsheet','spreadsheets','csv','opening balance','opening balances'],
+    a:'We migrate your <b>master data</b> (customers, vendors, products, chart of accounts) and <b>opening balances and open items</b> from spreadsheets or your current system: QuickBooks, Xero, SAP, Tally, MYOB and others. Everything is loaded on a staging database and reconciled before cut-over, so day one balances match.',
+    actions:[['link','odoo/discovery','Discovery']] },
   { id:'integration', kw:['integration','integrate','integrating','connect','connection','api','apis','webhook','sync','synchronise','synchronize','third party','third-party','shopify','woocommerce','wordpress','magento','lazada','shopee','amazon','payment gateway','stripe','paypal','payment','bank feed','whatsapp api','outlook','gmail','ecommerce connector','marketplace'],
-    a:'Odoo connects to the tools around it — <b>online stores</b> (Shopify, WooCommerce, marketplaces), <b>payment gateways</b>, <b>bank feeds</b>, email/calendar and internal systems over API. Orders, stock and payouts flow in so nothing is re-keyed.',
-    actions:[['link','odoo/integration.html','Integrations'],['link','solutions/ai-automation.html','Workflow automation']] },
-  { id:'hosting', kw:['hosting','host','hosted','cloud','on-premise','on premise','premise','premises','self host','self-hosted','odoo.sh','odoosh','odoo sh','online','server','servers','vps','aws','azure','gcp','saas','enterprise','community','edition','editions','version','licence','licence fee','license','licensing','subscription cost','uptime','downtime','backup','backups'],
-    a:'Odoo can run on <b>Odoo Online</b> (Odoo\'s cloud, standard apps), <b>Odoo.sh</b> (cloud with custom modules and staging) or <b>on-premise / your own cloud</b>. Odoo licences are per user per month and billed by Odoo; we advise on the edition during discovery.',
-    actions:[['link','solutions/odoo-erp.html','Editions & hosting']] },
+    a:'Odoo connects to the tools around it, so nothing is re-keyed:<ul><li><span><b>Online stores</b>: Shopify, WooCommerce and marketplaces</span></li><li><span><b>Payment gateways</b> and <b>bank feeds</b></span></li><li><span>Email, calendar and internal systems over API</span></li></ul>',
+    actions:[['link','odoo/integration','Integrations'],['link','solutions/ai-automation','Workflow automation']] },
+  { id:'hosting', kw:['hosting','host','hosted','cloud','on-premise','on premise','premise','premises','self host','self-hosted','odoo.sh','odoosh','odoo sh','online','server','servers','vps','aws','azure','gcp','saas','community','edition','editions','licence','licence fee','license','licensing','subscription cost','uptime','downtime'],
+    a:'Odoo runs in one of three places:<ul><li><span><b>Odoo Online</b>: Odoo\'s cloud, standard apps</span></li><li><span><b>Odoo.sh</b>: cloud with custom modules and staging</span></li><li><span><b>On-premise or your own cloud</b></span></li></ul>Odoo licences are per user per month and billed by Odoo. We advise on the edition during discovery.',
+    actions:[['link','solutions/odoo-erp','Editions and hosting'],['link','blog/odoo-online-vs-odoo-sh-vs-on-premise','Compare the options']] },
   { id:'security', kw:['security','secure','safe','safety','data protection','data privacy','gdpr','pdpa','compliance','compliant','backup','backups','disaster recovery','access rights','permissions','roles','audit trail','encryption','sla','reliability'],
-    a:'Odoo runs with <b>role-based access rights</b>, an audit trail on records, and encrypted connections. On Odoo Online and Odoo.sh, Odoo handles <b>daily backups</b> and infrastructure; on your own cloud we set backups and access policy up with you. We scope data-protection needs (GDPR/PDPA) during discovery.',
-    actions:[['link','solutions/odoo-erp.html','Editions & hosting']] },
-  { id:'industries', kw:['industry','industries','sector','sectors','medical','clinic','clinics','dental','pharmacy','health','healthcare','travel','tour','tours','tourism','agency','retail','shop','shops','store','stores','boutique','ecommerce','e-commerce','online store','online shop','marketplace','restaurant','restaurants','hotel','hospitality','construction','contractor','contractors','builder','f&b','fnb','food','beverage','cafe','kitchen','catering','manufacturing','manufacturer','factory','wellness','spa','salon','gym','fitness','studio'],
-    a:'We configure Odoo for <b>Medical</b>, <b>Travel</b>, <b>Retail</b>, <b>Ecommerce</b>, <b>Construction</b> (job costing, progress billing), <b>F&amp;B</b> (POS to kitchen, recipes, outlet books), <b>Manufacturing</b> (BoMs, work orders, costing) and <b>Health &amp; Wellness</b> (bookings, memberships, retail).',
-    actions:[['link','industries/medical.html','Medical'],['link','industries/retail.html','Retail'],['link','industries/construction.html','Construction'],['link','industries/fnb.html','F&B'],['link','industries/manufacturing.html','Manufacturing'],['link','industries/health-wellness.html','Wellness']] },
-  { id:'partner', kw:['partner','odoo partner','certified','ready partner','official','accredited','why technext','why you','who are you','about technext','about you','company','team','experience','experienced','expertise','track record','portfolio','clients','customers','references','reviews','testimonial','testimonials','trusted','reputable','reliable'],
-    a:'TechNext Pte. Ltd. is a Singapore-based <b>Odoo Partner</b> serving clients globally. Clients in 10+ countries; 11+ enterprise clients transformed. Same team from discovery through support.',
-    actions:[['link','company.html','About TechNext']] },
-  { id:'marketing', kw:['website','web','web design','web development','webdev','site','landing page','social media','social','smm','marketing','digital marketing','facebook','meta','linkedin','instagram','tiktok','seo','ads','advertising','campaign','campaigns','email marketing','email campaign','newsletter','content','posts','logo','brand','branding','identity','deck','decks','brochure','brochures','flyer','graphic','graphics','design','video','creative'],
-    a:'Separately from Odoo, TechNext does <b>web design &amp; development</b>, <b>social media management</b> on a monthly plan, and <b>graphic &amp; brand assets</b> — logo, decks, brochures and templates as editable files you own.',
-    actions:[['link','solutions/website.html','Web design'],['link','solutions/social-media.html','Social media'],['link','solutions/brand-assets.html','Brand assets']] },
-  { id:'ai', kw:['ai','a.i','artificial intelligence','artificial','machine learning','ml','chatgpt','gpt','openai','claude','llm','automation','automate','automating','agent','agents','bot','chatbot','chat bot','copilot','ocr','document ai','extract','rag','knowledge','knowledge base','assistant','workflow','workflows'],
-    a:'Four AI solutions: <b>RAG knowledge assistants</b> that answer from your documents with sources, <b>AI inside Odoo</b> (bills read and matched, replies drafted), <b>workflow automation</b> agents with approval steps, and <b>chatbots</b> for web, WhatsApp and in-app.',
-    actions:[['link','solutions/ai.html','AI solutions'],['link','solutions/ai-knowledge.html','Knowledge assistants'],['link','solutions/ai-chatbots.html','Chatbots']] },
+    a:'Odoo runs with <b>role-based access rights</b>, an audit trail on records and encrypted connections. On Odoo Online and Odoo.sh, Odoo handles <b>daily backups</b> and infrastructure; on your own cloud we set backups and access policy up with you. We scope data-protection needs (GDPR/PDPA) during discovery.',
+    actions:[['link','solutions/odoo-erp','Editions and hosting']] },
+  { id:'industries', kw:['industry','industries','sector','sectors','medical','clinic','clinics','dental','pharmacy','health','healthcare','travel','tour','tours','tourism','agency','retail','shop','shops','store','stores','boutique','ecommerce','e-commerce','online store','online shop','restaurant','restaurants','hotel','hospitality','construction','contractor','contractors','builder','f&b','fnb','food','beverage','cafe','kitchen','catering','manufacturer','wellness','spa','salon','gym','fitness','studio','construction company','construction firm','for my restaurant','for my clinic','for my shop','for my factory','my industry','travel agency','travel agencies','tour operator','tour operators','for clinics','for retail'],
+    a:'We configure Odoo for:<ul><li><span><b>Medical</b> clinics and healthcare groups</span></li><li><span><b>Travel</b> agencies and tour operators</span></li><li><span><b>Retail</b> and <b>Ecommerce</b></span></li><li><span><b>Construction</b>: job costing, progress billing</span></li><li><span><b>F&amp;B</b>: POS to kitchen, recipes, outlet books</span></li><li><span><b>Manufacturing</b>: BoMs, work orders, costing</span></li><li><span><b>Health &amp; Wellness</b>: bookings, memberships, retail</span></li></ul>',
+    actions:[['link','industries/medical','Medical'],['link','industries/retail','Retail'],['link','industries/construction','Construction'],['link','industries/fnb','F&B'],['link','industries/manufacturing','Manufacturing'],['link','industries/health-wellness','Wellness']] },
+  { id:'partner', kw:['partner','odoo partner','oodo partner','partner singapore','partner in singapore','odoo partner singapore','odoo ready partner','certified','ready partner','official','accredited','why technext','why you','who are you','about technext','about you','what is technext','who is technext','tell me about technext','technext','about the company','company','team','experience','experienced','expertise','track record','portfolio','clients','customers','references','reviews','testimonial','testimonials','trusted','reputable','reliable'],
+    a:'<b>TechNext Pte. Ltd.</b> is an <b>Odoo Ready Partner</b> headquartered in Singapore, with teams in the Philippines and Vietnam. We do three things:<ul><li>'+oi('accountant')+'<span><b>Odoo ERP</b>: implementation, customisation and support</span></li><li>'+oi('ai_app')+'<span><b>Enterprise AI</b>: knowledge assistants, AI inside Odoo, automation, chatbots</span></li><li>'+oi('website')+'<span><b>Marketing</b>: websites, social media and brand assets</span></li></ul>Clients in 10+ countries, 11+ enterprise clients transformed, and the same team from discovery through support.',
+    actions:[['link','company','About TechNext'],['link','case-studies','Case studies']] },
+  { id:'offices', kw:['where','where are you','where are you based','where is technext','located','location','locations','address','office','offices','headquarters','head office','hq','singapore','map','directions','philippines','manila','metro manila','taguig','vietnam','ho chi minh','hcmc','saigon','countries','which countries','what countries','international','overseas','abroad','in the philippines','in vietnam','office in the philippines','office in vietnam','office in manila','branches','regional'],
+    a:'TechNext has three offices:<ul><li><span><b>Singapore</b> (headquarters): 261 Waterloo Street #03-36, Singapore 180261</span></li><li><span><b>Taguig City, Philippines</b>: our main development and consulting hub</span></li><li><span><b>Ho Chi Minh City, Vietnam</b>: AI engineering</span></li></ul>We serve clients globally, in 10+ countries.',
+    actions:[['link','company','About TechNext'],['link','odoo/philippines','Odoo in the Philippines']] },
+  { id:'marketing', kw:['marketing','digital marketing','marketing services','seo','ads','advertising','campaign','campaigns','email marketing','email campaign','newsletter','content','creative','video','videos','monthly service'],
+    a:'Alongside Odoo and AI, TechNext runs <b>marketing as a monthly service</b>: strategy, design, production and a one-page report.<ul><li><span><b>Web design &amp; development</b>: company sites, landing pages, online stores</span></li><li><span><b>Social media management</b>: LinkedIn, Facebook, Instagram</span></li><li><span><b>Graphic &amp; brand assets</b>: logo, decks, brochures, templates</span></li></ul>',
+    actions:[['link','solutions/marketing','Marketing'],['link','solutions/website','Web design'],['link','solutions/social-media','Social media']] },
+  { id:'website', kw:['website','websites','web','web design','web development','webdev','site','landing page','landing pages','build websites','build a website','new website','website design','redesign','web developer','wordpress site','company website','online store website'],
+    a:'TechNext builds <b>fast, clear company websites</b>, landing pages and online stores: designed, built and handed over, with forms that reach your team. We can also connect the site to Odoo and add an AI chatbot, like me!',
+    actions:[['link','solutions/website','Web design'],['quote']] },
+  { id:'social', kw:['social media','social','smm','facebook','meta','linkedin','instagram','tiktok','posts','posting','social media management','manage our social','content calendar'],
+    a:'We run your <b>LinkedIn, Facebook and Instagram</b> on a monthly plan: content, scheduling, replies and a one-page report, while you run the business.',
+    actions:[['link','solutions/social-media','Social media'],['talkform']] },
+  { id:'brand', kw:['logo','brand','branding','identity','brand guidelines','guidelines','deck','decks','pitch deck','brochure','brochures','flyer','flyers','graphic','graphics','graphic design','design','templates','collateral'],
+    a:'<b>Graphic and brand assets</b>: logo refresh, guidelines, sales decks, brochures, and social and document templates, all delivered as <b>editable files you own</b>.',
+    actions:[['link','solutions/brand-assets','Brand assets'],['quote']] },
+  { id:'ai', kw:['ai','a.i','artificial intelligence','artificial','machine learning','ml','chatgpt','gpt','openai','claude','llm','automation','automate','automating','agent','agents','bot','chatbot','chat bot','chatbots','copilot','ocr','document ai','extract','rag','knowledge','knowledge base','assistant','workflow','workflows','reads invoices','read invoices','reads bills','invoice ai','ai invoice','ai bill','ai ocr','chatbot for','website chatbot','ai chatbot','whatsapp bot','chatbot like you'],
+    a:'Four AI solutions:<ul><li>'+icon('i_database')+'<span><b>RAG knowledge assistants</b> that answer from your documents, with sources</span></li><li>'+oi('ai_app')+'<span><b>AI inside Odoo</b>: bills read and matched, replies drafted</span></li><li>'+icon('i_zap')+'<span><b>Workflow automation</b> agents, with approval where money moves</span></li><li>'+icon('i_bot')+'<span><b>Chatbots</b> for websites, WhatsApp and Odoo</span></li></ul>',
+    actions:[['link','solutions/ai','AI solutions'],['link','solutions/ai-knowledge','Knowledge assistants'],['link','solutions/ai-chatbots','Chatbots']] },
+  { id:'hr', kw:['payroll','payslip','payslips','hr','human resources','hrm','hris','leave','leave management','leave application','time off','timeoff','attendance','attendances','employee','employees','staff records','recruitment','recruiting','appraisal','appraisals','expense claims'],
+    a:'<b>Odoo\'s HR apps</b> keep your people on the same database as your money:<ul><li><span><b>Employees</b> and contracts</span></li><li><span><b>Time Off</b> and <b>Attendances</b></span></li><li><span><b>Payroll</b>, with payslips posted to Accounting</span></li><li><span><b>Recruitment</b>, <b>Appraisals</b> and <b>Expenses</b></span></li></ul>We check the payroll rules for your country during discovery.',
+    actions:[['link','odoo/apps#hr','HR apps'],['link','odoo/apps/payroll','Payroll'],['link','odoo/apps/time-off','Time Off']] },
+  { id:'projects', kw:['project','projects','project management','task','tasks','timesheet','timesheets','helpdesk','help desk','ticket','tickets','ticketing','ticket system','customer support','support tickets','field service','technician','technicians','service team','planning','shift planning','maintenance app'],
+    a:'For service work, Odoo runs the jobs themselves:<ul><li><span><b>Project</b> with tasks and <b>Timesheets</b></span></li><li><span><b>Helpdesk</b> tickets with SLAs</span></li><li><span><b>Field Service</b> for technicians on site</span></li><li><span><b>Planning</b> for shifts</span></li></ul>Hours and materials flow straight into invoices.',
+    actions:[['link','odoo/apps/project','Project'],['link','odoo/apps/helpdesk','Helpdesk'],['link','odoo/apps/field-service','Field Service']] },
+  { id:'odoo20', kw:['odoo 20','odoo20','version 20','support odoo 20','on odoo 20','latest odoo','latest version','newest version','new version','version','whats new','new features','upgrade to odoo 20'],
+    a:'<b>Odoo 20</b> is the current release, and TechNext implements it. Our plain-language guide covers what\'s new, and every Odoo app page on technext.asia lists that app\'s Odoo 20 changes.',
+    actions:[['link','blog/odoo-20-whats-new','What\'s new in Odoo 20'],['link','blog/odoo-20-singapore-philippines-vietnam','Odoo 20 in SG, PH and VN']] },
+  { id:'custom', kw:['customise','customize','customise odoo','customize odoo','customising odoo','customizing odoo','customisation','customization','custom','custom module','custom modules','custom development','bespoke','tailor made','tailored','modify odoo','odoo studio','studio customisation','upgrade','upgrade from odoo','upgrade odoo','version upgrade','older version','odoo 16','odoo 17','odoo 18','odoo 19'],
+    a:'We work <b>standard first</b>: most needs are met by configuring Odoo. When they aren\'t, we build <b>upgrade-safe custom modules</b>, and we <b>upgrade older Odoo versions</b> with your custom code ported and tested on a staging copy before go-live.',
+    actions:[['link','odoo/erp-system','Odoo customisation'],['link','blog/standard-first-odoo-customisation','Customise or configure?'],['link','odoo/support','Support and upgrades']] },
+  { id:'enterprise', kw:['multi company','multi-company','multicompany','multiple companies','group of companies','consolidation','consolidate','consolidated','holding company','subsidiaries','subsidiary','intercompany','inter-company','multi country','multi-country','different countries','several countries','many entities','entities','enterprise'],
+    a:'Yes. Odoo runs <b>multiple companies in one database</b>, each with its own books and taxes, with <b>inter-company</b> flows and a <b>consolidated view</b> in the group currency. We roll out with a pilot company first, then reuse the template country by country.',
+    actions:[['link','solutions/enterprise','Multi-company ERP']] },
+  { id:'invoicenow', kw:['invoicenow','invoice now','peppol','e-invoicing','einvoicing','e invoicing','electronic invoicing','e-invoice','einvoice','iras','gst invoicenow','invoicenow requirement'],
+    a:'<b>InvoiceNow</b> is Singapore\'s Peppol e-invoicing network, and the GST InvoiceNow requirement phases in from 1 Nov 2025 to 1 Apr 2031. Our guide explains who must comply and when, and how to prepare in Odoo Accounting.',
+    actions:[['link','blog/invoicenow-singapore-gst-timeline','InvoiceNow timeline'],['link','odoo/apps/accounting','Odoo Accounting']] },
+  { id:'support', kw:['support','after go live','after go-live','after sales','aftersales','support plan','support plans','maintenance','fix','fixes','bug','bugs','issue','issues','helpline','ongoing support','retainer','month end help'],
+    a:'After go-live we stay with you on a <b>support plan</b> that fits your team: fixes, month-end help, version upgrades and small changes, from the same people who implemented your Odoo.',
+    actions:[['link','odoo/support','Support plans']] },
+  { id:'training', kw:['training','train','train my team','train staff','user training','learn odoo','learning','teach','guides','user guide','manual','manuals'],
+    a:'<b>Role-based Odoo training</b>: finance, sales and warehouse teams learn their own screens on your own data, with written guides for hand-over.',
+    actions:[['link','odoo/training','Odoo training']] },
+  { id:'careers', kw:['hiring','are you hiring','careers','career','job','jobs','job opening','job openings','vacancy','vacancies','internship','work at technext','work for technext','join your team','join technext'],
+    a:'We\'re growing! Our open roles are in <b>Taguig City, Metro Manila</b>: Odoo consultants and architects, finance, HR, sales and marketing. See them all on the careers page.',
+    actions:[['link','careers','Open roles']] },
   { id:'demo', kw:['demo','demonstration','free demo','trial','free trial','test drive','test','try','try odoo','see it','show me','sandbox','walkthrough','presentation','preview'],
-    a:'Happy to show you Odoo on real scenarios. The quickest path is a short <b>discovery call</b> — we walk through the apps that fit your business and answer pricing. Reach us on WhatsApp or email and we\'ll set it up.',
-    actions:[['wabook'],['email']] },
-  { id:'contact', kw:['contact','contact you','get in touch','reach','reach you','email','email address','phone','phone number','number','telephone','mobile','whatsapp','wa','address','location','located','where','where are you','office','singapore','map','directions','call','call you','hours'],
-    a:'Email <span class="mail">sales@technext.asia</span> · WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">+65 8839 6998</a> · 261 Waterloo Street #03-36, Singapore 180261. Headquartered in Singapore, serving clients globally.',
+    a:'Happy to show you Odoo on real scenarios. The quickest path is a short <b>discovery call</b>: we walk through the apps that fit your business and answer pricing.',
+    actions:[['meet'],['wabook']] },
+  { id:'contact', kw:['contact','contact you','contact details','get in touch','reach','reach you','email','email address','phone','phone number','number','telephone','mobile','whatsapp','wa','call','call you','hours','opening hours'],
+    a:'Here\'s how to reach the team:<ul><li>'+icon('i_mail')+'<span>Email <span class="mail">sales@technext.asia</span></span></li><li>'+icon('i_whatsapp')+'<span>WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">+65 8839 6998</a></span></li><li>'+icon('i_pin')+'<span>261 Waterloo Street #03-36, Singapore 180261</span></li></ul>Headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City.',
     actions:[['wa'],['email']] },
   { id:'human', kw:['human','person','real person','someone','somebody','talk to','talk to someone','speak','speak to','consultant','expert','specialist','advisor','sales team','sales rep','representative','account manager','meeting','call me','callback','call back','get in touch with someone'],
-    a:'Happy to connect you. Send the <b>Let’s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
+    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
     actions:[['talkform'],['wa'],['email']] },
-  { id:'thanks', kw:['thank','thanks','thankyou','thank you','thx','ty','cheers','appreciate','great','perfect','awesome','nice','ok','okay','k','cool','got it','understood','bye','goodbye','see you'], a:'You\'re welcome. Anything else — Accounting, Sales, Inventory, pricing or how we work?', actions:[] },
-  { id:'hello', kw:['hi','hii','hello','helo','hey','heya','hiya','yo','sup','good morning','good afternoon','good evening','greetings','morning','evening'], a:'Hello! Ask me about Odoo Accounting, Sales, Inventory, pricing, or how an implementation runs.', actions:[] },
+  { id:'thanks', kw:['thank','thanks','thankyou','thank you','thx','ty','cheers','appreciate','great','perfect','awesome','nice','ok','okay','k','cool','got it','understood','bye','goodbye','see you'], a:'You\'re welcome! Anything else? Odoo, AI, websites, pricing or how we work?', actions:[] },
+  { id:'hello', kw:['hi','hii','hello','helo','hey','heya','hiya','yo','sup','good morning','good afternoon','good evening','greetings','morning','evening'], a:'Hello! Ask me about Odoo, AI, websites, pricing, or where our teams are.', actions:[] },
   /* goals */
-  { id:'schedule', goal:true, kw:['schedule','book','booking','appointment','calendar','discovery call','book a call','set up a call','book a meeting','schedule a call','arrange a call','book discovery'],
+  { id:'schedule', goal:true, kw:['schedule','book','booking','appointment','calendar','discovery call','book a call','set up a call','book a meeting','schedule a call','arrange a call','book discovery','schedule a meeting','arrange a meeting','set a meeting','set up a meeting','meet you','book a slot','meeting with sales','meeting with your team','meet the team'],
     a:'Let\'s get you on the calendar! A short <b>discovery call</b> walks through the apps that fit your business and answers pricing. Pick a time in the booking calendar, or message the team on WhatsApp.',
     actions:[['meet'],['wabook']] },
-  { id:'quote', goal:true, kw:['request a quotation','request quotation','request a quote','get a quote','get a quotation','quotation builder','send me a quote','written quotation'],
-    a:'Pricing follows the scope — which apps, how many users, hosting, data migration and training. Build a quick scope in the <b>quotation builder</b> (2 minutes) and we reply with a written quotation.',
+  { id:'quote', goal:true, kw:['request a quotation','request quotation','request a quote','get a quote','get a quotation','quotation builder','send me a quote','written quotation','quote','quote please','written quote','formal quote','quotation please'],
+    a:'Pricing follows the scope: which apps, how many users, hosting, data migration and training. Build a quick scope in the <b>quotation builder</b> (2 minutes) and we reply with a written quotation.',
     actions:[['quote'],['wa']] },
   { id:'talk', goal:true, kw:["let's talk",'lets talk','talk to the team','talk to sales','contact sales','speak to the team','chat with the team'],
-    a:'Happy to connect you. Send the <b>Let’s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
+    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
     actions:[['talkform'],['wa'],['email']] }
 ];
-var LABEL = { odoo:'What is Odoo?', accounting:'What does Odoo Accounting cover?', sales:'How do Sales and CRM work?', inventory:'Can Odoo track my stock?', price:'How much does it cost?', how:'How does a rollout work?', migration:'Can you move my old data?', integration:'Does it connect to my other tools?', hosting:'Where is Odoo hosted?', security:'Is my data safe?', industries:'Which industries do you work with?', partner:'Why choose TechNext?', marketing:'Do you build websites too?', ai:'How can AI help my team?', demo:'Can I see a demo?', contact:'How do I contact you?', human:'Can I talk to a person?', schedule:'Book a discovery call', quote:'Request a quotation', talk:"Let's talk" };
-var CHIP_ICON = { accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', schedule:'i_calendar', quote:'i_receipt', talk:'i_whatsapp' };
+var LABEL = { odoo:'What is Odoo?', accounting:'What does Odoo Accounting cover?', sales:'How do Sales and CRM work?', inventory:'Can Odoo track my stock?', price:'How much does it cost?', how:'How does a rollout work?', migration:'Can you move my old data?', integration:'Does it connect to my other tools?', hosting:'Where is Odoo hosted?', security:'Is my data safe?', industries:'Which industries do you work with?', partner:'Who is TechNext?', offices:'Where are your offices?', marketing:'What marketing do you do?', website:'Do you build websites?', social:'Can you run our social media?', brand:'Can you design our brand?', ai:'How can AI help my team?', hr:'Does Odoo handle HR and payroll?', projects:'Can Odoo run projects and support?', odoo20:'What\'s new in Odoo 20?', custom:'Can you customise Odoo?', enterprise:'Can Odoo run a group of companies?', invoicenow:'What is InvoiceNow?', support:'What support do you give after go-live?', training:'Do you train our team?', careers:'Are you hiring?', demo:'Can I see a demo?', contact:'How do I contact you?', human:'Can I talk to a person?', schedule:'Book a discovery call', quote:'Request a quotation', talk:"Let's talk" };
+var CHIP_ICON = { accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', website:'o_website', offices:'i_pin', partner:'i_star', schedule:'i_calendar', quote:'i_receipt', talk:'i_whatsapp' };
 /* related questions after each answer. The last one is always a step toward a goal. */
 var FOLLOW = {
-  start:['odoo','price','industries'],
-  odoo:['accounting','how','quote'], accounting:['sales','migration','quote'], sales:['inventory','integration','quote'],
-  inventory:['integration','how','schedule'], price:['how','hosting','quote'], how:['migration','price','schedule'],
-  migration:['how','price','schedule'], integration:['ai','price','schedule'], hosting:['security','price','quote'],
-  security:['hosting','how','talk'], industries:['how','price','schedule'], partner:['industries','how','talk'],
-  marketing:['partner','price','quote'], ai:['integration','demo','schedule'], demo:['how','price','schedule'],
-  contact:['price','how','talk'], human:['price','schedule','talk'], thanks:['price','schedule','talk'], hello:['odoo','price','schedule'],
+  start:['odoo','price','offices'],
+  odoo:['accounting','how','quote'], accounting:['hr','invoicenow','quote'], sales:['inventory','projects','quote'],
+  inventory:['integration','how','schedule'], price:['how','hosting','quote'], how:['migration','training','schedule'],
+  migration:['how','price','schedule'], integration:['ai','price','schedule'], hosting:['security','odoo20','quote'],
+  security:['hosting','support','talk'], industries:['how','enterprise','schedule'], partner:['offices','industries','talk'],
+  offices:['partner','careers','talk'], marketing:['website','social','quote'], website:['brand','ai','quote'], social:['brand','website','talk'],
+  brand:['website','social','quote'], ai:['integration','website','schedule'], hr:['accounting','price','schedule'],
+  projects:['integration','price','schedule'], odoo20:['custom','price','schedule'], custom:['support','price','quote'],
+  enterprise:['hosting','price','schedule'], invoicenow:['accounting','migration','schedule'], support:['training','price','talk'],
+  training:['support','how','schedule'], careers:['offices','partner','talk'], demo:['how','price','schedule'],
+  contact:['offices','price','talk'], human:['price','schedule','talk'], thanks:['price','schedule','talk'], hello:['odoo','price','schedule'],
   site:['price','how','talk'], unknown:['odoo','price','talk'],
   tour_about:['odoo','ai','marketing'], tour_odoo:['accounting','price','schedule'], tour_ai:['ai','integration','schedule'],
   goal:['odoo','ai','marketing']
@@ -197,13 +240,26 @@ var TOPIC = {
   security:{ icon:'i_shield', react:'nod', intro:'Safety first, always.', shot:'lowHero' },
   industries:{ icon:'i_briefcase', react:'dance', intro:'We speak lots of industries!', shot:'orbitReveal' },
   partner:{ icon:'i_star', react:'celebrate', intro:'Proud robot moment!', tour:'about', shot:'lowHero' },
+  offices:{ icon:'i_pin', react:'wave', intro:'We\'re a well-travelled bunch!', shot:'aerialDrop' },
   marketing:{ icon:'i_megaphone', react:'spin', intro:'Ooh, the fun stuff!', tour:'about', shot:'sweep' },
+  website:{ icon:'i_globe', react:'clap', intro:'Websites? I live on one!', shot:'sweep' },
+  social:{ icon:'i_megaphone', react:'dance', intro:'Likes incoming!', shot:'sweep' },
+  brand:{ icon:'i_sparkle', react:'sparkle', intro:'Ooh, pretty things!', shot:'orbitReveal' },
   ai:{ icon:'o_ai_app', react:'sparkle', intro:'My favourite topic, obviously!', tour:'ai', shot:'orbitReveal' },
-  demo:{ icon:'i_play', react:'wave', intro:'Let\'s show you around!', shot:'aerialDrop' },
+  hr:{ icon:'i_users', react:'wave', intro:'People power! Here\'s the HR side.' },
+  projects:{ icon:'i_layers', react:'clap', intro:'Busy bees! Let\'s organise the work.', shot:'sweep' },
+  odoo20:{ icon:'i_sparkle', react:'gift', intro:'Fresh out of the box: Odoo 20!', shot:'punchIn' },
+  custom:{ icon:'i_cpu', react:'clap', intro:'Ooh, bespoke! Let\'s build it right.' },
+  enterprise:{ icon:'i_trend', react:'nod', intro:'Big group? Big smiles.', shot:'lowHero' },
+  invoicenow:{ icon:'i_file', react:'think', intro:'Paperwork, but make it digital!' },
+  support:{ icon:'i_lifebuoy', react:'nod', intro:'I never leave a friend behind!', shot:'closeUp' },
+  training:{ icon:'i_users', react:'clap', intro:'Class is in session!' },
+  careers:{ icon:'i_briefcase', react:'gift', intro:'Ooh, want to be my teammate?', shot:'punchIn' },
+  demo:{ icon:'i_play', react:'knock', intro:'Let\'s show you around!', shot:'aerialDrop' },
   contact:{ icon:'i_whatsapp', react:'wave', intro:'Here\'s where to find my humans.', shot:'closeUp' },
   human:{ icon:'i_users', react:'wave', intro:'My human friends would love to help!', shot:'closeUp' },
-  thanks:{ icon:'i_heart', react:'love', intro:'Aww!', shot:'punchIn' },
-  hello:{ icon:'i_smile', react:'wave', intro:'Hi hi!', shot:'closeUp' },
+  thanks:{ icon:'i_heart', react:'catchLove', intro:'Aww!', shot:'punchIn' },
+  hello:{ icon:'i_smile', react:'hello', intro:'Hi hi!', shot:'closeUp' },
   schedule:{ icon:'i_calendar', react:'celebrate', intro:'Yay, a meeting!', shot:'closeUp' },
   quote:{ icon:'i_receipt', react:'clap', intro:'Ooh, a quotation! Numbers incoming.', shot:'punchIn' },
   talk:{ icon:'i_whatsapp', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' }
@@ -238,7 +294,12 @@ function wordMatch(tok,kw){
   return 0;
 }
 function bestSingle(tok,singles){ var best=0; for(var j=0;j<singles.length;j++){ var m=wordMatch(tok,singles[j]); if(m>best){ best=m; if(best>=1) break; } } return best; }
+/* generic words (odoo, technext, erp...) count half when the question also has a real topic word,
+   so "is odoo expensive" reaches pricing instead of tying with What is Odoo */
+var GENERIC = { odoo:1, odooo:1, oodo:1, technext:1, erp:1, system:1, software:1, company:1 };
+var STOPW = { the:1, a:1, an:1, do:1, does:1, you:1, your:1, we:1, i:1, is:1, are:1, can:1, for:1, to:1, of:1, and:1, or:1, my:1, our:1, us:1, me:1, it:1, in:1, on:1, with:1, what:1, whats:1, how:1, have:1, has:1, be:1, there:1, any:1, about:1, tell:1, please:1, ah:1, la:1, lah:1 };
 function scoreEntry(k,qtoks,qnorm){
+  var content=0; for(var c=0;c<qtoks.length;c++){ if(qtoks[c].length>=3 && !GENERIC[qtoks[c]] && !STOPW[qtoks[c]]) content++; }
   if(!k._sing){ k._sing=[]; k._phr=[]; k.kw.forEach(function(w){ var n=norm(w); if(!n) return; (n.indexOf(' ')>-1?k._phr:k._sing).push(n); }); }
   var s=0,i,j,p;
   for(i=0;i<k._phr.length;i++){
@@ -248,7 +309,7 @@ function scoreEntry(k,qtoks,qnorm){
     for(p=0;p<parts.length;p++){ best=0; for(j=0;j<qtoks.length;j++){ var m=wordMatch(qtoks[j],parts[p]); if(m>best) best=m; } if(best<.6){ ok=false; break; } tot+=best; }
     if(ok) s+=(tot/parts.length)*1.6;
   }
-  for(i=0;i<qtoks.length;i++){ if(qtoks[i].length<2) continue; var b=bestSingle(qtoks[i],k._sing); if(b>0) s+=b*2; }
+  for(i=0;i<qtoks.length;i++){ if(qtoks[i].length<2) continue; var b=bestSingle(qtoks[i],k._sing); if(b>0) s+=b*(GENERIC[qtoks[i]] && content ? 1 : 2); }
   return s;
 }
 function cleanTitle(t){ return (t||'').split(/\s[—|·]\s/)[0].replace(/\s*[|·]\s*TechNext\s*$/i,'').trim(); }
@@ -845,7 +906,8 @@ function buildWorld(){
     inner.add(mesh(bubbleGeo(side),mat));
     var dots=[];
     for(var i=0;i<3;i++){ var d=new THREE.Mesh(new THREE.SphereGeometry(.042,20,14),dotMat); d.userData.glow=side<0; d.position.set((i-1)*.15,.02,.072); inner.add(d); dots.push(d); }
-    scene.add(g); return { g:g, inner:inner, dots:dots, x:x, y:y, z:z, pop:new Spring(3,.4) };
+    g.visible=false; g.scale.setScalar(.001);
+    scene.add(g); return { g:g, inner:inner, dots:dots, x:x, y:y, z:z, pop:new Spring(3,.4), show:new Spring(2.6,.55) };
   }
   var bubbles = [
     makeBubble(1, new THREE.MeshPhysicalMaterial({ color:0x3a74e0, roughness:.28, clearcoat:1, clearcoatRoughness:.1, emissive:0x2455c4, emissiveIntensity:.45, envMapIntensity:.7 }), new THREE.MeshBasicMaterial({ color:0xffffff, toneMapped:false }), -1.9,2.64,.25),
@@ -871,7 +933,7 @@ function buildWorld(){
     eyes:"open", eyeFrom:"open", eyeT0:-9, mouth:"smile", exprUntil:Infinity, talking:false, typing:false, humUntil:-1, yawnUntil:-1,
     clips:[], blinkAt:2.5, blinkT0:-9, ringTarget:new THREE.Color(0x4f86ee), nextIdle:6, lastIdle:"",
     blushUntil:-1, boostUntil:-1, shake:0, sleep:false, lastPoke:0, fxAt:0, busyUntil:-1, scanning:false,
-    goal:new THREE.Vector2(0,0), wanderUntil:-1
+    goal:new THREE.Vector2(0,0), wanderUntil:-1, lockUntil:-1, pending:null, routine:null
   };
   var onPed=true, onPedK=1, LISTEN_COL=new THREE.Color(.62,.82,1);
   var EXPR = { idle:["open","smile"], happy:["happy","smile"], star:["star","smile"], scan:["line","smile"], think:["open","o"],
@@ -924,9 +986,34 @@ function buildWorld(){
       else if(p<.6){ O.yd+=6.5; }
       else if(p<.84){ var q2=(p-.6)/.24; O.yd+=(1-q2*q2)*6.5; O.hLy+=.9; O.hRy+=.9; }
       else { var q3=(p-.84)/.16; O.yd+=bell(q3)*.28; O.sqd-=.28*bell(clamp(q3*2,0,1)); } } },
-    dance:{ dur:3.2, fn:function(p,O){ var s=Math.sin(p*Math.PI*6), e=env(p,.08,.12); O.y+=Math.abs(s)*.15*e; O.tilt+=Math.sin(p*Math.PI*3)*.16*e; O.hLy+=(.5+.5*s)*1*e; O.hRy+=(.5-.5*s)*1*e; O.spin+=Math.sin(p*Math.PI*3)*.4*e; O.sq+=(Math.abs(s)-.5)*.06*e; } }
+    dance:{ dur:3.2, fn:function(p,O){ var s=Math.sin(p*Math.PI*6), e=env(p,.08,.12); O.y+=Math.abs(s)*.15*e; O.tilt+=Math.sin(p*Math.PI*3)*.16*e; O.hLy+=(.5+.5*s)*1*e; O.hRy+=(.5-.5*s)*1*e; O.spin+=Math.sin(p*Math.PI*3)*.4*e; O.sq+=(Math.abs(s)-.5)*.06*e; } },
+    /* from the Nexi cute-shorts video renderer (nexi-bot.js clips; yb -> y, roll -> tilt, yaw -> spin) */
+    flip:{ dur:1.5, fn:function(p,O){ if(p<.18) O.sq-=.16*ease(p/.18); else if(p<.85){ var q=(p-.18)/.67; O.yd+=bell(q)*.9; O.flip-=ease(q)*Math.PI*2; O.hLy+=.7; O.hRy+=.7; } else O.sq-=.15*bell((p-.85)/.15); } },
+    pointL:{ dur:2.4, fn:function(p,O){ var e=env(p,.2,.25); O.hLx-=.4*e; O.hLy+=.25*e; O.hLz+=.55*e; O.nod+=.1*e; } },
+    surf:{ dur:4.2, fn:function(p,O){ var e=env(p,.15,.15); O.hLx-=.25*e; O.hRx+=.25*e; O.hLy+=.5*e; O.hRy+=.5*e; O.tilt+=Math.sin(p*Math.PI*4)*.12*e; } },
+    tug:{ dur:2.2, fn:function(p,O){ var e=env(p,.12,.18), c=(1-Math.cos(p*Math.PI*6))/2; O.hRx+=(.5-c*.18)*e; O.hLx+=(.62-c*.18)*e; O.hRy+=.12*e; O.hLy+=.1*e; O.tilt-=(.08+c*.1)*e; O.sq+=c*.05*e; } },
+    tap:{ dur:.9, fn:function(p,O){ var e=env(p,.22,.3), t=bell(clamp((p-.28)/.4,0,1)); O.hRy+=.5*e; O.hRx-=.18*e; O.hRz+=(.14+.3*t)*e; O.hRr-=.25*e; O.nod-=.06*e; } },
+    knock:{ dur:1.4, fn:function(p,O){ var e=env(p,.14,.2), t=Math.max(0,Math.sin(clamp((p-.12)/.76,0,1)*Math.PI*3)); O.hRy+=.62*e; O.hRx-=.28*e; O.hRz+=(.22+.34*t)*e; O.hRr-=.3*e; O.nod-=.05*e; O.tilt+=.06*e; O.sq-=t*.015*e; } },
+    cute:{ dur:2.4, fn:function(p,O){ var e=env(p,.15,.2), s=Math.sin(p*Math.PI*4); O.tilt+=(.22+s*.07)*e; O.hLx+=.3*e; O.hRx-=.3*e; O.hLy+=.6*e; O.hRy+=.6*e; O.hLz+=.3*e; O.hRz+=.3*e; O.sq+=s*.03*e; O.nod+=.08*e; } },
+    presentBoth:{ dur:2.2, fn:function(p,O){ var e=env(p,.2,.25); O.hLx-=.34*e; O.hLy+=.44*e; O.hRx+=.34*e; O.hRy+=.44*e; O.hLz+=.2*e; O.hRz+=.2*e; O.tilt+=.06*e; O.nod-=.05*e; } },
+    gasp:{ dur:1.4, fn:function(p,O){ var e=env(p,.07,.35); O.sq-=.12*bell(clamp(p/.14,0,1)); O.y+=.34*e; O.nod-=.22*e; O.hLy+=.8*e; O.hRy+=.8*e; O.hLx+=.34*e; O.hRx-=.34*e; O.hLz+=.36*e; O.hRz+=.36*e; } },
+    wiggle:{ dur:1.4, fn:function(p,O){ var e=env(p,.1,.2), s=Math.sin(p*Math.PI*12); O.tilt+=s*.22*e; O.spin+=s*.18*e; O.hLy+=(.5+s*.2)*e; O.hRy+=(.5-s*.2)*e; O.sq+=Math.abs(s)*.04*e; } },
+    bigjump:{ dur:1.25, fn:function(p,O){ if(p<.2) O.sq-=.2*ease(p/.2); else if(p<.85){ var q=(p-.2)/.65, b=bell(q); O.yd+=b*1.3; O.sq+=.1*b; O.hLy+=1.1*b; O.hRy+=1.1*b; O.hLx-=.2*b; O.hRx+=.2*b; O.spin+=ease(q)*Math.PI*2; } else O.sq-=.18*bell((p-.85)/.15); } },
+    faint:{ dur:2.6, fn:function(p,O){ var f=p<.3?ease(p/.3):p<.68?1:1-ease((p-.68)/.32); O.tilt+=1.05*f+.18*f+Math.sin(p*Math.PI*6)*.07*f; O.flip-=.22*f; O.y-=.3*f; O.hLy+=.95*f; O.hRy+=.95*f; O.hLx-=.32*f; O.hRx+=.32*f; if(p>.68) O.sq+=.09*bell((p-.68)/.32); } },
+    shake:{ dur:.9, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.spin+=Math.sin(p*Math.PI*6)*.35*e; O.tilt+=Math.sin(p*Math.PI*6)*.08*e; } },
+    reach:{ dur:.9, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.hLy+=.9*e; O.hRy+=.9*e; O.hLx+=.2*e; O.hRx-=.2*e; O.nod-=.15*e; O.y+=.12*e; } },
+    kiss:{ dur:1.6, fn:function(p,O){ var e=p<.3?ease(p/.3):p<.55?1:1-ease((p-.55)/.45); O.hRx-=.55*e; O.hRy+=.95*e; O.hRz+=.55*e; O.tilt+=.12*e; O.nod+=.08*e; } },
+    leanL:{ dur:1.2, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.tilt+=.35*e; O.spin+=.35*e; O.hRy+=.3*e; } },
+    leanR:{ dur:1.2, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.tilt-=.35*e; O.spin-=.35*e; O.hLy+=.3*e; } }
   };
-  function play(name){ var c=CLIPS[name]; if(!c) return; if(reduce && /spin|celebrate|backflip|tornado|rocket|dance|floatSpin/.test(name)) c=CLIPS.hop; R.clips.push({ t0:time, dur:c.dur, fn:c.fn, name:name }); return c.dur; }
+  function play(name){ var c=CLIPS[name]; if(!c) return; if(reduce && /spin|celebrate|backflip|tornado|rocket|dance|floatSpin|bigjump|flip|faint/.test(name)) c=CLIPS.hop; R.clips.push({ t0:time, dur:c.dur, fn:c.fn, name:name }); return c.dur; }
+  /* long animations (2.5 s or more, and every routine) play to the end: nothing cancels them,
+     and whatever the chat asks for meanwhile waits and plays as soon as they finish */
+  var LONG=2.5;
+  function locked(){ return time<R.lockUntil; }
+  function lock(sec){ R.lockUntil=Math.max(R.lockUntil,time+sec); R.busyUntil=Math.max(R.busyUntil,time+sec); }
+  function defer(fn){ R.pending=fn; }
+  function playLong(name){ var d=play(name); if(d>=LONG) lock(d); return d; }
   var timers=[];
   function later(sec,fn){ timers.push({ at:time+sec, fn:fn }); }
 
@@ -1059,10 +1146,91 @@ function buildWorld(){
       later(2.86,function(){ Snd.play("land"); burst(30); R.shake=.18; word("…and back!"); }); },
     dance:function(){ play("dance"); setExpr("happy",3.2); R.humUntil=time+3.1; Snd.play("dance"); word("DANCE BREAK!"); emote(["♪","♫"],"",7); }
   };
+  /* ---- routines: the ten Nexi cute-short episodes, re-staged for this 3D world.
+     Each is a list of [seconds, step]; a routine locks Nexi until it ends. */
+  function hearts(n){ emote("\u2665","heart",n||6); }
+  function notes(n){ emote(["\u266a","\u266b"],"",n||6); }
+  var ROUTINES = {
+    hello:{ dur:7.6, steps:[
+      [0,function(){ play("hop"); Snd.play("hop"); }],
+      [.6,function(){ play("wave"); setExpr("happy",2.4); word("Hi! I'm Nexi!"); Snd.play("happy"); }],
+      [3,function(){ play("cute"); setExpr("heart",2.4); R.blushUntil=time+2.6; hearts(7); Snd.play("love"); }],
+      [5.3,function(){ play("spin"); setExpr("star",1.6); burst(16); Snd.play("whee"); }],
+      [6.5,function(){ play("nod"); setExpr("happy",1.4); word("Nice to meet you!"); }] ] },
+    knock:{ dur:7.8, steps:[
+      [0,function(){ play("curious"); setExpr("idle"); }],
+      [.9,function(){ play("knock"); setExpr("content",1.4); word("Knock knock!"); }],
+      [1.2,function(){ Snd.play("tap"); }], [1.6,function(){ Snd.play("tap"); }], [2,function(){ Snd.play("tap"); }],
+      [2.5,function(){ play("peek"); word("Anyone in there?"); }],
+      [4.7,function(){ play("gasp"); setExpr("wow",.9); emote("!","",3); Snd.play("surprise"); }],
+      [5.6,function(){ play("cute"); setExpr("heart",2.2); R.blushUntil=time+2.4; hearts(7); word("Oh, hi there!"); Snd.play("love"); }] ] },
+    sleepy:{ dur:9, steps:[
+      [0,function(){ play("snooze"); setExpr("sleep",3.9); Snd.play("yawn"); }],
+      [.5,function(){ emote(["z","Z"],"z",2); }], [1.7,function(){ emote(["z","Z"],"z",2); }], [2.9,function(){ emote(["z","Z"],"z",2); }],
+      [4,function(){ play("gasp"); setExpr("wow",1); emote("!","",2); Snd.play("wake"); }],
+      [5.1,function(){ play("stretch"); setExpr("content",2.2); R.yawnUntil=time+1.8; word("Yaaawn..."); Snd.play("yawn"); }],
+      [7.5,function(){ play("wave"); setExpr("happy",1.6); word("Good morning!"); Snd.play("happy"); }] ] },
+    catchLove:{ dur:7.2, steps:[
+      [0,function(){ setExpr("wow",.8); word("Ooh, hearts!"); hearts(4); }],
+      [.8,function(){ play("reach"); play("hop"); setExpr("happy",1); hearts(3); Snd.play("pop"); }],
+      [2,function(){ play("reach"); play("hop"); setExpr("star",1); hearts(3); Snd.play("pop"); }],
+      [3.2,function(){ play("reach"); play("hop"); setExpr("happy",1); hearts(3); Snd.play("pop"); }],
+      [4.4,function(){ play("cute"); setExpr("heart",2.6); R.blushUntil=time+2.8; hearts(10); word("So much love!"); Snd.play("love"); }] ] },
+    danceBreak:{ dur:8.6, steps:[
+      [0,function(){ play("hop"); word("Music time!"); Snd.play("hop"); }],
+      [.8,function(){ play("dance"); setExpr("happy",3.2); R.humUntil=time+3.1; notes(8); Snd.play("dance"); }],
+      [4.1,function(){ play("wiggle"); setExpr("star",1.4); notes(4); }],
+      [5.6,function(){ play("spin"); Snd.play("whee"); }],
+      [6.9,function(){ play("celebrate"); setExpr("star",1.6); burst(40); word("Woo-hoo!"); Snd.play("success"); }] ] },
+    dizzy:{ dur:8.8, steps:[
+      [0,function(){ play("hop"); word("Watch this!"); }],
+      [1,function(){ play("spin"); setExpr("star",2.8); Snd.play("whee"); }], [1.9,function(){ play("spin"); }], [2.6,function(){ play("spin"); }], [3.15,function(){ play("spin"); }],
+      [3.9,function(){ play("faint"); setExpr("spiral",3); Snd.play("dizzy"); }],
+      [4.7,function(){ emote(["?","@","~"],"",4); }],
+      [6.7,function(){ play("shake"); setExpr("happy",2); R.blushUntil=time+2.2; word("Hehe... oops!"); Snd.play("laugh"); }] ] },
+    peekaboo:{ dur:7.2, steps:[
+      [0,function(){ play("leanL"); setExpr("happy",1); Snd.play("tap"); }],
+      [1.4,function(){ play("leanR"); setExpr("star",1); Snd.play("tap"); }],
+      [2.8,function(){ play("bigjump"); setExpr("star",1.6); word("Peekaboo!"); Snd.play("boing"); }],
+      [4.4,function(){ play("cute"); setExpr("happy",2); R.blushUntil=time+2; hearts(6); Snd.play("love"); }] ] },
+    gift:{ dur:7.8, steps:[
+      [0,function(){ play("curious"); setExpr("wow",.9); word("Hmm? What's this?"); }],
+      [1.5,function(){ play("tap"); Snd.play("tap"); }], [2.2,function(){ play("tap"); Snd.play("tap"); }],
+      [2.9,function(){ play("gasp"); setExpr("wow",1); burst(36); emote("!","",3); Snd.play("surprise"); }],
+      [4,function(){ play("clap"); setExpr("star",1.8); Snd.play("success"); }],
+      [5.2,function(){ play("bigjump"); setExpr("happy",2.4); Snd.play("boing"); }],
+      [5.7,function(){ word("For me?! Thank you!"); R.blushUntil=time+2.4; }] ] },
+    bye:{ dur:7, steps:[
+      [0,function(){ play("nod"); word("Time to go!"); }],
+      [1.2,function(){ play("wave"); setExpr("happy",2.2); }],
+      [3.4,function(){ play("kiss"); R.blushUntil=time+2.4; setExpr("content",1.4); }],
+      [3.95,function(){ hearts(5); Snd.play("love"); }],
+      [4.8,function(){ setExpr("heart",1.6); }],
+      [5.2,function(){ play("wave"); word("See you soon!"); }] ] },
+    bubblePop:{ dur:6.6, steps:[
+      [0,function(){ setExpr("wow",.8); word("Bubbles!"); emote(["\u25cb","\u25ef"],"",5); }],
+      [.8,function(){ play("point"); }], [1.25,function(){ emote("pop!","",1); Snd.play("pop"); }],
+      [2.2,function(){ play("pointL"); }], [2.65,function(){ emote("pop!","",1); Snd.play("pop"); setExpr("star",.9); }],
+      [3.6,function(){ play("point"); }], [4.05,function(){ emote("pop!","",1); Snd.play("pop"); }],
+      [4.9,function(){ play("celebrate"); setExpr("happy",1.6); burst(24); word("Wheee!"); Snd.play("whee"); }] ] }
+  };
+  function routine(name){
+    var r=ROUTINES[name]; if(!r) return false;
+    if(locked()){ defer(function(){ routine(name); }); return true; }
+    if(reduce){ play("wave"); setExpr("happy",1.6); lock(2.4); return true; }
+    R.clips.length=0; R.idleSeq=null; R.routine=name;
+    r.steps.forEach(function(st){ if(st[0]<=0) st[1](); else later(st[0],st[1]); });
+    lock(r.dur); R.nextIdle=time+r.dur+rand(5,8);
+    return true;
+  }
+  /* tapping Nexi: quick over-reactions and the episode routines, shuffled */
   var reactBag=[];
   function reactRandom(){
-    if(!reactBag.length) reactBag=Object.keys(REACTS).sort(function(){ return Math.random()-.5; });
-    var name=reactBag.pop(); REACTS[name](); R.busyUntil=time+3.4; return name;
+    if(locked()) return null;
+    if(!reactBag.length) reactBag=Object.keys(REACTS).concat(["hello","knock","catchLove","danceBreak","dizzy","peekaboo","gift","bubblePop"]).sort(function(){ return Math.random()-.5; });
+    var name=reactBag.pop();
+    if(ROUTINES[name]) routine(name); else { REACTS[name](); var c=R.clips[R.clips.length-1]; lock(Math.max(3.4,c?c.dur:0)); }
+    return name;
   }
 
   /* ---- idle life */
@@ -1082,11 +1250,12 @@ function buildWorld(){
     holoOrbit:function(){ holo.orbitT0=time; setExpr("happy",1.4); Snd.play("holo"); R.idleSeq=[[.4,-.2,1.4],[-.4,-.2,1.4],[0,0,1]]; R.idleT0=time; },
     holoLogo:function(){ holo.logoT0=time; play("present"); R.idleObj=holoLogo; R.idleObjUntil=time+4.2; setExpr("happy",4); Snd.play("holo"); R.busyUntil=time+4.6; later(1.2,function(){ word("TechNext!"); }); },
     holoFacts:function(){ showFact(); setExpr("happy",1.2); later(1.6,showFact); },
-    planeVisit:function(){ planeLaunch("visit"); }
+    planeVisit:function(){ planeLaunch("visit"); },
+    rtDance:function(){ routine("danceBreak"); }, rtPeek:function(){ routine("peekaboo"); }, rtBubbles:function(){ routine("bubblePop"); }, rtKnock:function(){ routine("knock"); }
   };
-  var IDLE_W={ lookAround:1, stretch:1, checkHand:.8, hum:.8, peek:.8, floatSpin:.7, bounce:.8, yawn:.5, wander:2.2, holoScan:1.2, holoOrbit:1, holoLogo:1, holoFacts:1.6, planeVisit:1 };
+  var IDLE_W={ lookAround:1, stretch:1, checkHand:.8, hum:.8, peek:.8, floatSpin:.7, bounce:.8, yawn:.5, wander:2.2, holoScan:1.2, holoOrbit:1, holoLogo:1, holoFacts:1.6, planeVisit:1, rtDance:.5, rtPeek:.6, rtBubbles:.6, rtKnock:.4 };
   function doIdle(){
-    var names=Object.keys(IDLES).filter(function(n){ return n!==R.lastIdle && !(reduce && /wander|planeVisit|floatSpin/.test(n)); }), tot=0;
+    var names=Object.keys(IDLES).filter(function(n){ return n!==R.lastIdle && !(reduce && /wander|planeVisit|floatSpin|^rt/.test(n)); }), tot=0;
     names.forEach(function(n){ tot+=IDLE_W[n]; });
     var r=Math.random()*tot, n=names[0];
     for(var i=0;i<names.length;i++){ r-=IDLE_W[names[i]]; if(r<=0){ n=names[i]; break; } }
@@ -1101,6 +1270,7 @@ function buildWorld(){
   }
   /* stop whatever is playing (a new question arrived, or the visitor started typing) */
   function cancel(hard){
+    if(locked()){ if(cam.shot) endShot(); return; }
     R.clips.length=0; timers.length=0; R.idleSeq=null; R.idleObj=null; R.humUntil=R.blushUntil=R.boostUntil=R.yawnUntil=R.busyUntil=-1;
     R.scanning=false; holo.scanT0=holo.orbitT0=holo.logoT0=-99; factPanels.forEach(function(fp){ fp.t0=-99; });
     if(cam.shot) endShot();
@@ -1373,6 +1543,8 @@ function buildWorld(){
   function tick(){
     var dt=Math.min(.05,clock.getDelta()); time+=dt;
     for(var ti=timers.length-1;ti>=0;ti--){ if(time>=timers[ti].at){ var fn=timers[ti].fn; timers.splice(ti,1); fn(); } }
+    if(R.routine && !locked()) R.routine=null;
+    if(R.pending && !locked()){ var pf=R.pending; R.pending=null; pf(); }
 
     /* camera: preset framing, or a cinematic shot around the robot */
     var fr=frameRect(); camGoal(fr);
@@ -1499,7 +1671,12 @@ function buildWorld(){
     M.ring.color.lerp(listening?LISTEN_COL:R.ringTarget,1-Math.exp(-dt*5));
 
     bubbles.forEach(function(b,bi){
-      b.g.position.set(b.x+bot.position.x,b.y+Math.sin(time*1.2+bi*1.7)*.05+lift,b.z+bot.position.z);
+      var want=bi===0 ? (R.typing||listening) : time<bubbleIconUntil;
+      var sc=Math.max(0,b.show.step(want?1:0,dt));
+      b.g.visible=sc>.02; b.g.scale.setScalar(Math.max(.001,sc));
+      if(!b.g.visible) return;
+      /* fixed spots beside the pedestal: the bubbles never follow Nexi around */
+      b.g.position.set(b.x,b.y+Math.sin(time*1.2+bi*1.7)*.05-(1-Math.min(1,sc))*.35,b.z);
       b.g.rotation.z=Math.sin(time*.9+bi)*.03;
       b.inner.scale.setScalar(1+b.pop.step(0,dt));
       b.dots.forEach(function(d,i){
@@ -1545,7 +1722,10 @@ function buildWorld(){
   }
   return {
     ok:true, api:api, ready:ready,
-    play:play, expr:setExpr, poke:poke, listen:listen, react:reactRandom, cancel:cancel, shot:shot,
+    play:function(n){ if(locked()){ defer(function(){ playLong(n); }); return; } return playLong(n); },
+    expr:function(n,d,i){ if(!locked()) setExpr(n,d,i); },
+    poke:poke, listen:listen, react:reactRandom, cancel:cancel, shot:shot,
+    routine:routine, locked:locked, defer:defer, playing:function(){ return R.routine; },
     busy:function(){ return R.clips.length>0 || time<R.busyUntil || PL.state!=="home" || !!cam.shot; },
     talk:function(on){ R.talking=on; if(on) poke(); },
     typing:function(on){ R.typing=on; },
@@ -1556,7 +1736,7 @@ function buildWorld(){
     celebrate:function(){ burst(48); },
     blush:function(sec){ R.blushUntil=time+sec; },
     emote:emote, word:word, fact:showFact,
-    topic:function(key){ if(!key) return; bIcon.material.map=iconTexture(key); bIcon.material.needsUpdate=true; bubbleIconUntil=time+5; bubbles[1].pop.v=4; },
+    topic:function(key){ if(!key) return; bIcon.material.map=iconTexture(key); bIcon.material.needsUpdate=true; bubbleIconUntil=time+2.8; bubbles[1].pop.v=4; },
     orbs:{
       show:function(){ if(!orbs) buildOrbs(); orbs.forEach(function(o){ o.k=0; }); orbState.on=true; orbState.t0=time; orbState.focus=null; },
       hide:function(){ orbState.on=false; orbState.focus=null; },
@@ -1580,12 +1760,12 @@ function stubWorld(){
   var el=document.createElement("p"); el.className="nowebgl"; el.textContent=BOT_NAME+" needs WebGL to appear in 3D. The chat still works.";
   $("#stage").appendChild(el); var l=$("#loading"); if(l) l.remove();
   var noop=function(){}, p=function(){ return Promise.resolve(); };
-  return { ok:false, api:{}, ready:Promise.resolve(), play:noop, expr:noop, poke:noop, listen:noop, react:noop, cancel:noop, shot:noop, busy:function(){ return false; }, talk:noop, typing:noop, ring:noop, look:noop, camera:noop, home:noop, celebrate:noop, blush:noop, emote:noop, word:noop, fact:noop, topic:noop,
+  return { ok:false, api:{}, ready:Promise.resolve(), play:noop, expr:noop, poke:noop, listen:noop, react:noop, cancel:noop, shot:noop, routine:function(){ return false; }, locked:function(){ return false; }, defer:function(f){ f(); }, playing:noop, busy:function(){ return false; }, talk:noop, typing:noop, ring:noop, look:noop, camera:noop, home:noop, celebrate:noop, blush:noop, emote:noop, word:noop, fact:noop, topic:noop,
     orbs:{show:noop,hide:noop,focus:noop}, flow:{show:noop,hide:noop,step:noop,all:noop}, bill:{show:noop,hide:noop,scan:p,post:p} };
 }
 
 /* ======================================================= CHAT */
-var log=$("#log"), followEl=$("#follow"), toursEl=$("#tours"), card=$("#tut"), form=$("#composer"), input=$("#q"), sendBtn=$("#send");
+var log=$("#log"), followEl=$("#follow"), toursEl=followEl, card=$("#tut"), form=$("#composer"), input=$("#q"), sendBtn=$("#send");
 var queue=Promise.resolve(), asked={}, tut=null, follow=FOLLOW.start, gen=0, turn=0;
 function scrollLog(){ log.scrollTop=log.scrollHeight; }
 function row(who){
@@ -1667,18 +1847,29 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){ try{ parent.postMessage({ tn:"nexi-esc" }, location.origin); }catch(err){} }
 });
 
-/* suggestion chips: three related questions (the last leads to a goal) and the mini tours */
+/* suggested questions: three related questions (the last leads to a goal) plus one 3D mini tour,
+   the one the answer pointed to, else the next tour the visitor has not taken */
+var tourPick=null;
 function renderChips(){
-  followEl.innerHTML=follow.filter(function(id){ return LABEL[id]; }).slice(0,3).map(function(id){
+  var html=follow.filter(function(id){ return LABEL[id]; }).slice(0,3).map(function(id){
     var k=kbById(id), goal=k&&k.goal;
     return '<button class="chip'+(goal?' goal':'')+'" type="button" data-kb="'+id+'">'+(CHIP_ICON[id]?icon(CHIP_ICON[id]):icon("i_chat"))+'<span>'+esc(LABEL[id])+'</span></button>';
-  }).join("");
-  toursEl.innerHTML='<span class="lbl">Mini tours</span>'+QUESTIONS.map(function(q){
-    return '<button class="chip tour'+(asked[q.id]?' asked':'')+'" type="button" data-q="'+q.id+'" title="'+esc(q.label)+'">'+icon("i_play")+'<span>'+esc(q.short)+'</span><span class="tick">'+icon("i_check")+'</span></button>';
-  }).join("");
+  });
+  var q=tourPick&&!asked[tourPick]?byId(tourPick):null;
+  if(!q){ for(var i=0;i<QUESTIONS.length;i++){ if(!asked[QUESTIONS[i].id]){ q=QUESTIONS[i]; break; } } }
+  if(q) html.push('<button class="chip tour'+(tourPick===q.id?' suggest':'')+'" type="button" data-q="'+q.id+'" title="3D mini tour">'+icon("i_play")+'<span>'+esc(q.label)+'</span></button>');
+  followEl.classList.remove("wait","fresh"); followEl.innerHTML=html.join("");
+  /* the chip area only ever grows, so a shorter set never pulls the chat log up and down */
+  var h=followEl.offsetHeight; if(h>(+followEl.dataset.h||0)){ followEl.dataset.h=h; followEl.style.minHeight=h+"px"; }
+  void followEl.offsetWidth; followEl.classList.add("fresh");
+}
+/* while Nexi types, keep the old chips (dimmed) and swap them once the answer is done */
+function chipsAfter(p,key,pick,list){
+  var my=turn; followEl.classList.add("wait");
+  Promise.resolve(p).then(function(){ if(my!==turn) return; tourPick=pick||null; follow=list||FOLLOW[key]||FOLLOW.start; renderChips(); });
 }
 function setFollow(key){ follow=FOLLOW[key]||FOLLOW.start; renderChips(); }
-function suggest(id){ [].forEach.call(toursEl.querySelectorAll(".chip"),function(b){ b.classList.toggle("suggest",b.dataset.q===id); }); }
+function suggest(id){ tourPick=id; renderChips(); }
 function nextQ(q){
   var i=QUESTIONS.indexOf(q);
   for(var k=1;k<=QUESTIONS.length;k++){ var c=QUESTIONS[(i+k)%QUESTIONS.length]; if(!asked[c.id]) return c; }
@@ -1712,29 +1903,39 @@ function handleTyped(text){
   interrupt(); addUser(text);
   if(u && u.type==="kb"){ answerKB(u.k); return; }
   if(u && u.type==="site"){ answerSite(u.pages); return; }
-  answerUnknown();
+  answerUnknown(text);
 }
-function react(name){ if(REACT[name]) REACT[name](); else World.play(name); }
+function react(name){
+  if(World.locked()){ World.defer(function(){ react(name); }); return; }
+  if(REACT[name]) REACT[name](); else if(!World.routine(name)) World.play(name);
+}
 function answerKB(k){
   if(!k) return;
   var t=TOPIC[k.id]||{}, my=turn;
   World.play("think"); World.expr("think",.8); Snd.play("think");
   setTimeout(function(){ if(my!==turn) return; react(t.react||"nod"); World.topic(t.icon); if(t.shot) World.shot(t.shot); if(k.id==="partner") World.fact(); },800);
-  var acts=(k.actions||[]).slice(); if(t.tour && !asked[t.tour]) acts.push(["tour",t.tour]);
-  say((t.intro?esc(t.intro)+" ":"")+k.a,{ html:true, delay:800, acts:acts });
-  setFollow(k.goal?"goal":k.id);
-  if(t.tour) suggest(t.tour);
+  var acts=(k.actions||[]).slice();
+  chipsAfter(say((t.intro?esc(t.intro)+" ":"")+k.a,{ html:true, delay:800, acts:acts }),k.goal?"goal":k.id,t.tour);
 }
 function answerSite(pages){
   var top=pages[0], d=top.d||'', first=d.split('. ')[0], my=turn; if(first && first.length<d.length) first+='.';
   World.play("think"); Snd.play("think"); setTimeout(function(){ if(my!==turn) return; react("nod"); World.topic("i_search"); },800);
   say('Let me look that up! Here\'s the page on <b>'+esc(cleanTitle(top.t))+'</b>. '+esc(first),{ html:true, delay:800, acts:pages.map(function(p){ return ['link',p.u,cleanTitle(p.t)]; }).concat([['wa']]) });
-  setFollow("site");
+  chipsAfter(queue,"site");
 }
-function answerUnknown(){
+function answerUnknown(text){
   World.play("shrug"); World.expr("wow",1.4); Snd.play("confused"); World.word("hmm?");
-  say("Hmm, I don't have an answer for that one yet. My human teammates do! Message them on WhatsApp or email sales@technext.asia.",{ delay:900, acts:[['wa'],['email']] });
-  setFollow("unknown");
+  /* tolerance: offer the closest topics instead of a dead end */
+  var qn=norm(text||""), qt=toks(text||""), near=[];
+  if(qt.length) near=KB.filter(function(k){ return LABEL[k.id] && !k.goal; }).map(function(k){ return { id:k.id, s:scoreEntry(k,qt,qn) }; })
+    .filter(function(x){ return x.s>=.35; }).sort(function(a,b){ return b.s-a.s; }).slice(0,2).map(function(x){ return x.id; });
+  if(near.length){
+    say("Hmm, I'm not sure I got that. Did you mean one of these? Or ask my human teammates on WhatsApp or at sales@technext.asia.",{ delay:900, acts:[['wa'],['email']] });
+    chipsAfter(queue,null,null,near.concat(['talk']));
+  } else {
+    say("Hmm, I don't have an answer for that one yet. My human teammates do! Message them on WhatsApp or email sales@technext.asia.",{ delay:900, acts:[['wa'],['email']] });
+    chipsAfter(queue,"unknown");
+  }
 }
 
 /* tutorial card */
@@ -1895,11 +2096,11 @@ var REACT = {
 function ask(q,typed){
   if(!q) return;
   Snd.resume(); interrupt();
-  asked[q.id]=true; suggest(null);
+  asked[q.id]=true; tourPick=null;
   addUser(typed||q.label);
   var my=turn;
   World.play("think"); World.expr("think",.95); Snd.play("think");
-  [].forEach.call(toursEl.querySelectorAll(".chip"),function(b){ b.disabled=true; });
+  [].forEach.call(followEl.querySelectorAll(".chip"),function(b){ b.disabled=true; });
   setTimeout(function(){
     if(my!==turn) return;
     react(q.reaction);
@@ -1907,13 +2108,13 @@ function ask(q,typed){
     if(q.tutorial && TUTORIALS[q.tutorial]) tut=TUTORIALS[q.tutorial](q);
   },950);
   say(q.reply,{ delay:950 }).then(function(){ renderChips(); });
-  renderChips(); [].forEach.call(toursEl.querySelectorAll(".chip"),function(b){ b.disabled=true; });
+  followEl.classList.add("wait");
 }
 
 World.api.onBot=function(){ World.poke(); World.react(); };
 
 renderChips();
 World.ready.then(function(){
-  setTimeout(function(){ World.play("wave"); World.expr("happy",1.3); World.word("Hi there!"); World.shot("closeUp"); say(GREETING,{ delay:450, sound:"greet" }); },400);
+  setTimeout(function(){ World.shot("closeUp"); World.routine("hello"); say(GREETING,{ delay:450, sound:"greet" }); },400);
 });
 })();
