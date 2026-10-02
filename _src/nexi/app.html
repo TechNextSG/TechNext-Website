@@ -1884,7 +1884,8 @@ function buildWorld(){
       var sc=Math.max(0,b.show.step(want?1:0,dt));
       b.g.visible=sc>.02; b.g.scale.setScalar(Math.max(.001,sc));
       if(!b.g.visible) return;
-      b.g.position.set(b.x+bot.position.x,b.y+Math.sin(time*1.2+bi*1.7)*.05+lift-(1-Math.min(1,sc))*.35,b.z+bot.position.z);
+      /* fixed spots beside the pedestal: the bubbles never follow Nexi around */
+      b.g.position.set(b.x,b.y+Math.sin(time*1.2+bi*1.7)*.05-(1-Math.min(1,sc))*.35,b.z);
       b.g.rotation.z=Math.sin(time*.9+bi)*.03;
       b.inner.scale.setScalar(1+b.pop.step(0,dt));
       b.dots.forEach(function(d,i){
