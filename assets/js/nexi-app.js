@@ -1745,7 +1745,15 @@ function renderChips(){
   var q=tourPick&&!asked[tourPick]?byId(tourPick):null;
   if(!q){ for(var i=0;i<QUESTIONS.length;i++){ if(!asked[QUESTIONS[i].id]){ q=QUESTIONS[i]; break; } } }
   if(q) html.push('<button class="chip tour'+(tourPick===q.id?' suggest':'')+'" type="button" data-q="'+q.id+'" title="3D mini tour">'+icon("i_play")+'<span>'+esc(q.label)+'</span></button>');
-  followEl.innerHTML=html.join("");
+  followEl.classList.remove("wait","fresh"); followEl.innerHTML=html.join("");
+  /* the chip area only ever grows, so a shorter set never pulls the chat log up and down */
+  var h=followEl.offsetHeight; if(h>(+followEl.dataset.h||0)){ followEl.dataset.h=h; followEl.style.minHeight=h+"px"; }
+  void followEl.offsetWidth; followEl.classList.add("fresh");
+}
+/* while Nexi types, keep the old chips (dimmed) and swap them once the answer is done */
+function chipsAfter(p,key,pick,list){
+  var my=turn; followEl.classList.add("wait");
+  Promise.resolve(p).then(function(){ if(my!==turn) return; tourPick=pick||null; follow=list||FOLLOW[key]||FOLLOW.start; renderChips(); });
 }
 function setFollow(key){ follow=FOLLOW[key]||FOLLOW.start; renderChips(); }
 function suggest(id){ tourPick=id; renderChips(); }
@@ -1791,15 +1799,13 @@ function answerKB(k){
   World.play("think"); World.expr("think",.8); Snd.play("think");
   setTimeout(function(){ if(my!==turn) return; react(t.react||"nod"); World.topic(t.icon); if(t.shot) World.shot(t.shot); if(k.id==="partner") World.fact(); },800);
   var acts=(k.actions||[]).slice();
-  say((t.intro?esc(t.intro)+" ":"")+k.a,{ html:true, delay:800, acts:acts });
-  setFollow(k.goal?"goal":k.id);
-  if(t.tour) suggest(t.tour);
+  chipsAfter(say((t.intro?esc(t.intro)+" ":"")+k.a,{ html:true, delay:800, acts:acts }),k.goal?"goal":k.id,t.tour);
 }
 function answerSite(pages){
   var top=pages[0], d=top.d||'', first=d.split('. ')[0], my=turn; if(first && first.length<d.length) first+='.';
   World.play("think"); Snd.play("think"); setTimeout(function(){ if(my!==turn) return; react("nod"); World.topic("i_search"); },800);
   say('Let me look that up! Here\'s the page on <b>'+esc(cleanTitle(top.t))+'</b>. '+esc(first),{ html:true, delay:800, acts:pages.map(function(p){ return ['link',p.u,cleanTitle(p.t)]; }).concat([['wa']]) });
-  setFollow("site");
+  chipsAfter(queue,"site");
 }
 function answerUnknown(text){
   World.play("shrug"); World.expr("wow",1.4); Snd.play("confused"); World.word("hmm?");
@@ -1809,10 +1815,10 @@ function answerUnknown(text){
     .filter(function(x){ return x.s>=.35; }).sort(function(a,b){ return b.s-a.s; }).slice(0,2).map(function(x){ return x.id; });
   if(near.length){
     say("Hmm, I'm not sure I got that. Did you mean one of these? Or ask my human teammates on WhatsApp or at sales@technext.asia.",{ delay:900, acts:[['wa'],['email']] });
-    follow=near.concat(['talk']); renderChips();
+    chipsAfter(queue,null,null,near.concat(['talk']));
   } else {
     say("Hmm, I don't have an answer for that one yet. My human teammates do! Message them on WhatsApp or email sales@technext.asia.",{ delay:900, acts:[['wa'],['email']] });
-    setFollow("unknown");
+    chipsAfter(queue,"unknown");
   }
 }
 
@@ -1974,7 +1980,7 @@ var REACT = {
 function ask(q,typed){
   if(!q) return;
   Snd.resume(); interrupt();
-  asked[q.id]=true; suggest(null);
+  asked[q.id]=true; tourPick=null;
   addUser(typed||q.label);
   var my=turn;
   World.play("think"); World.expr("think",.95); Snd.play("think");
@@ -1986,7 +1992,7 @@ function ask(q,typed){
     if(q.tutorial && TUTORIALS[q.tutorial]) tut=TUTORIALS[q.tutorial](q);
   },950);
   say(q.reply,{ delay:950 }).then(function(){ renderChips(); });
-  renderChips(); [].forEach.call(followEl.querySelectorAll(".chip"),function(b){ b.disabled=true; });
+  followEl.classList.add("wait");
 }
 
 World.api.onBot=function(){ World.poke(); World.react(); };
