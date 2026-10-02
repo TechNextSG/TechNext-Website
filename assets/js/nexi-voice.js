@@ -1,64 +1,57 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
-/* Nexi's voice: her lines read aloud by the browser's own speech engine in a bright, higher voice, and
-   small robot sounds (chirp, knock, pop, sparkle...) made with Web Audio, so there are no sound files.
+/* Nexi's voice: the same robot voice as the chatbot on /nexi, never a human one. A reply chirp, then a soft
+   square-wave blip every few letters while she "talks", with pauses at punctuation (Web Audio, no sound files and
+   no speech engine). Plus small robot sounds (chirp, knock, pop, sparkle...).
    Off until the visitor turns it on with a speaker button ([data-nexi-voice]); the choice is remembered.
    Browsers allow sound only after a tap, so a remembered "on" waits for the first tap on the page.
    window.TNVoice: on, live, speaking (read-only), set(on), say(text) -> Promise (true when the line has been
-   spoken, 'cut' when a newer line interrupted it, 'stop' when stopped, false if it was not spoken), stop(), sfx(name).
-   Turning the voice on fires a cancelable tn:voice; a listener that reads out its own line cancels the greeting. */
+   voiced, 'cut' when a newer line interrupted it, 'stop' when stopped, false if it was not voiced), stop(), sfx(name).
+   Turning the voice on fires a cancelable tn:voice; a listener that voices its own line cancels the greeting. */
 (function () {
   'use strict';
   var KEY = 'tn_nexi_voice';
-  var synth = window.speechSynthesis || null;
-  var on = false, unlocked = false, ctx = null, voice = null, current = null;
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var on = false, unlocked = false, ctx = null, master = null, current = null, talkT = 0;
   try { on = localStorage.getItem(KEY) === '1'; } catch (e) { /* storage may be blocked */ }
 
-  /* a clear, bright English voice where the device has one (the exact voice differs by device) */
-  function pickVoice() {
-    var all = synth ? synth.getVoices() : [];
-    var en = all.filter(function (v) { return /^en([-_]|$)/i.test(v.lang); });
-    var prefer = [/Aria|Jenny|Ava|Emma|Michelle|Sonia|Libby|Natasha/i, /Samantha|Karen|Moira|Tessa|Serena/i,
-                  /Google UK English Female/i, /Google US English/i, /Zira|Hazel|Susan|Female/i];
-    for (var i = 0; i < prefer.length; i++) for (var j = 0; j < en.length; j++) if (prefer[i].test(en[j].name)) return en[j];
-    return en[0] || all[0] || null;
-  }
-  // no speech engine on this device: the voice buttons have nothing to do
-  if (!synth) document.documentElement.classList.add('no-voice');
-  if (synth && 'onvoiceschanged' in synth) synth.addEventListener('voiceschanged', function () { voice = pickVoice(); });
+  // no Web Audio on this device: the voice buttons have nothing to do
+  if (!AC) document.documentElement.classList.add('no-voice');
 
-  /* what the speech engine should not read: stage directions (*taps the glass*), emoji and symbols */
+  /* what Nexi does not voice: stage directions (*taps the glass*), emoji and symbols */
   function clean(t) {
     return String(t || '').replace(/\*[^*]*\*/g, ' ').replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, ' ')
       .replace(/[←-⇿☀-➿⬀-⯿✓✔✦✧♪♫♥❤️]/g, ' ')
       .replace(/·/g, ',').replace(/\s+/g, ' ').trim();
   }
+  /* the robot voice, matched to /nexi: "reply" chirp, then a blip every 3 letters (the chat blips every 4 letters
+     of its fast typewriter; this pace follows reading speed so the hero scenes still wait long enough) */
   function say(text) {
     return new Promise(function (res) {
-      var t = clean(text);
-      if (!on || !unlocked || !synth || !/[a-z0-9]/i.test(t)) return res(false);
-      try {
-        if (current) current('cut');                            // the line playing now was interrupted, not spoken
-        synth.cancel();
-        var u = new SpeechSynthesisUtterance(t), done = false, tm = 0;
-        voice = voice || pickVoice();
-        if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = 'en-US';
-        u.pitch = 1.5; u.rate = 1.04; u.volume = 1;
-        var fin = function (why) { if (done) return; done = true; clearTimeout(tm); if (current === fin) current = null; res(why || true); };
-        current = fin;
-        u.onend = function () { fin(true); }; u.onerror = function () { fin(true); };
-        tm = setTimeout(function () { fin(true); }, 1600 + t.length * 95);   // some engines never fire onend
-        synth.speak(u);
-      } catch (e) { current = null; res(false); }
+      var t = clean(text), c = on && ac();
+      if (!c || !/[a-z0-9]/i.test(t)) return res(false);
+      if (current) current('cut');
+      var done = false, i = 0;
+      var fin = function (why) { if (done) return; done = true; clearTimeout(talkT); if (current === fin) current = null; res(why || true); };
+      current = fin;
+      try { voiceTone(c, 'triangle', 740, 1180, c.currentTime + 0.01, 0.08, 0.45); voiceTone(c, 'sine', 1180, 880, c.currentTime + 0.1, 0.1, 0.38); } catch (e) { /* optional */ }
+      (function step() {
+        if (done) return;
+        if (i >= t.length) { talkT = setTimeout(function () { fin(true); }, 180); return; }
+        var ch = t.charAt(i++);
+        if (i % 3 === 0 && /[a-z0-9]/i.test(ch)) { try { var f = 640 + Math.random() * 360; voiceTone(c, 'square', f, f * 1.12, c.currentTime + 0.005, 0.045, 0.05); } catch (e) { /* optional */ } }
+        talkT = setTimeout(step, /[.!?]/.test(ch) ? 260 : /[,;:—]/.test(ch) ? 140 : 42);
+      })();
     });
   }
-  function stop() { if (current) current('stop'); if (synth) try { synth.cancel(); } catch (e) { /* ignore */ } }
+  function stop() { if (current) current('stop'); clearTimeout(talkT); }
 
   /* ---------- sounds ---------- */
   function ac() {
     if (!unlocked) return null;
     try {
-      var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
-      ctx = ctx || new AC(); if (ctx.state === 'suspended') ctx.resume();
+      if (!AC) return null;
+      if (!ctx) { ctx = new AC(); var comp = ctx.createDynamicsCompressor(); master = ctx.createGain(); master.gain.value = 0.26; master.connect(comp); comp.connect(ctx.destination); }
+      if (ctx.state === 'suspended') ctx.resume();
       return ctx;
     } catch (e) { return null; }
   }
@@ -67,6 +60,13 @@
     o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
     g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.03);
+  }
+  /* the chat's tone, through the same master level and compressor as /nexi */
+  function voiceTone(c, type, f0, f1, t, dur, vol) {
+    var o = c.createOscillator(), g = c.createGain();
+    o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(master || c.destination); o.start(t); o.stop(t + dur + 0.03);
   }
   function noise(c, t, dur, vol, hz) {
     var b = c.createBuffer(1, Math.ceil(c.sampleRate * dur), c.sampleRate), d = b.getChannelData(0);
@@ -96,8 +96,6 @@
   function unlock() {
     if (unlocked) return; unlocked = true;
     ac();
-    // wake the speech engine inside the tap, or the first real line can be refused
-    if (synth) try { var u = new SpeechSynthesisUtterance(' '); u.volume = 0; synth.speak(u); } catch (e) { /* ignore */ }
   }
   function paint() {
     [].forEach.call(document.querySelectorAll('[data-nexi-voice]'), function (b) {
