@@ -571,18 +571,18 @@ var TOPIC = {
   ai:{ icon:'o_ai_app', react:'sparkle', intro:'My favourite topic, obviously!', tour:'ai', shot:'orbitReveal' },
   hr:{ icon:'i_users', react:'wave', intro:'People power! Here\'s the HR side.' },
   projects:{ icon:'i_layers', react:'clap', intro:'Busy bees! Let\'s organise the work.', shot:'sweep' },
-  odoo20:{ icon:'i_sparkle', react:'celebrate', intro:'Fresh out of the box: Odoo 20!', shot:'punchIn' },
+  odoo20:{ icon:'i_sparkle', react:'gift', intro:'Fresh out of the box: Odoo 20!', shot:'punchIn' },
   custom:{ icon:'i_cpu', react:'clap', intro:'Ooh, bespoke! Let\'s build it right.' },
   enterprise:{ icon:'i_trend', react:'nod', intro:'Big group? Big smiles.', shot:'lowHero' },
   invoicenow:{ icon:'i_file', react:'think', intro:'Paperwork, but make it digital!' },
   support:{ icon:'i_lifebuoy', react:'nod', intro:'I never leave a friend behind!', shot:'closeUp' },
   training:{ icon:'i_users', react:'clap', intro:'Class is in session!' },
-  careers:{ icon:'i_briefcase', react:'celebrate', intro:'Ooh, want to be my teammate?', shot:'punchIn' },
-  demo:{ icon:'i_play', react:'wave', intro:'Let\'s show you around!', shot:'aerialDrop' },
+  careers:{ icon:'i_briefcase', react:'gift', intro:'Ooh, want to be my teammate?', shot:'punchIn' },
+  demo:{ icon:'i_play', react:'knock', intro:'Let\'s show you around!', shot:'aerialDrop' },
   contact:{ icon:'i_whatsapp', react:'wave', intro:'Here\'s where to find my humans.', shot:'closeUp' },
   human:{ icon:'i_users', react:'wave', intro:'My human friends would love to help!', shot:'closeUp' },
-  thanks:{ icon:'i_heart', react:'love', intro:'Aww!', shot:'punchIn' },
-  hello:{ icon:'i_smile', react:'wave', intro:'Hi hi!', shot:'closeUp' },
+  thanks:{ icon:'i_heart', react:'catchLove', intro:'Aww!', shot:'punchIn' },
+  hello:{ icon:'i_smile', react:'hello', intro:'Hi hi!', shot:'closeUp' },
   schedule:{ icon:'i_calendar', react:'celebrate', intro:'Yay, a meeting!', shot:'closeUp' },
   quote:{ icon:'i_receipt', react:'clap', intro:'Ooh, a quotation! Numbers incoming.', shot:'punchIn' },
   talk:{ icon:'i_whatsapp', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' }
@@ -1256,7 +1256,7 @@ function buildWorld(){
     eyes:"open", eyeFrom:"open", eyeT0:-9, mouth:"smile", exprUntil:Infinity, talking:false, typing:false, humUntil:-1, yawnUntil:-1,
     clips:[], blinkAt:2.5, blinkT0:-9, ringTarget:new THREE.Color(0x4f86ee), nextIdle:6, lastIdle:"",
     blushUntil:-1, boostUntil:-1, shake:0, sleep:false, lastPoke:0, fxAt:0, busyUntil:-1, scanning:false,
-    goal:new THREE.Vector2(0,0), wanderUntil:-1
+    goal:new THREE.Vector2(0,0), wanderUntil:-1, lockUntil:-1, pending:null, routine:null
   };
   var onPed=true, onPedK=1, LISTEN_COL=new THREE.Color(.62,.82,1);
   var EXPR = { idle:["open","smile"], happy:["happy","smile"], star:["star","smile"], scan:["line","smile"], think:["open","o"],
@@ -1309,9 +1309,34 @@ function buildWorld(){
       else if(p<.6){ O.yd+=6.5; }
       else if(p<.84){ var q2=(p-.6)/.24; O.yd+=(1-q2*q2)*6.5; O.hLy+=.9; O.hRy+=.9; }
       else { var q3=(p-.84)/.16; O.yd+=bell(q3)*.28; O.sqd-=.28*bell(clamp(q3*2,0,1)); } } },
-    dance:{ dur:3.2, fn:function(p,O){ var s=Math.sin(p*Math.PI*6), e=env(p,.08,.12); O.y+=Math.abs(s)*.15*e; O.tilt+=Math.sin(p*Math.PI*3)*.16*e; O.hLy+=(.5+.5*s)*1*e; O.hRy+=(.5-.5*s)*1*e; O.spin+=Math.sin(p*Math.PI*3)*.4*e; O.sq+=(Math.abs(s)-.5)*.06*e; } }
+    dance:{ dur:3.2, fn:function(p,O){ var s=Math.sin(p*Math.PI*6), e=env(p,.08,.12); O.y+=Math.abs(s)*.15*e; O.tilt+=Math.sin(p*Math.PI*3)*.16*e; O.hLy+=(.5+.5*s)*1*e; O.hRy+=(.5-.5*s)*1*e; O.spin+=Math.sin(p*Math.PI*3)*.4*e; O.sq+=(Math.abs(s)-.5)*.06*e; } },
+    /* from the Nexi cute-shorts video renderer (nexi-bot.js clips; yb -> y, roll -> tilt, yaw -> spin) */
+    flip:{ dur:1.5, fn:function(p,O){ if(p<.18) O.sq-=.16*ease(p/.18); else if(p<.85){ var q=(p-.18)/.67; O.yd+=bell(q)*.9; O.flip-=ease(q)*Math.PI*2; O.hLy+=.7; O.hRy+=.7; } else O.sq-=.15*bell((p-.85)/.15); } },
+    pointL:{ dur:2.4, fn:function(p,O){ var e=env(p,.2,.25); O.hLx-=.4*e; O.hLy+=.25*e; O.hLz+=.55*e; O.nod+=.1*e; } },
+    surf:{ dur:4.2, fn:function(p,O){ var e=env(p,.15,.15); O.hLx-=.25*e; O.hRx+=.25*e; O.hLy+=.5*e; O.hRy+=.5*e; O.tilt+=Math.sin(p*Math.PI*4)*.12*e; } },
+    tug:{ dur:2.2, fn:function(p,O){ var e=env(p,.12,.18), c=(1-Math.cos(p*Math.PI*6))/2; O.hRx+=(.5-c*.18)*e; O.hLx+=(.62-c*.18)*e; O.hRy+=.12*e; O.hLy+=.1*e; O.tilt-=(.08+c*.1)*e; O.sq+=c*.05*e; } },
+    tap:{ dur:.9, fn:function(p,O){ var e=env(p,.22,.3), t=bell(clamp((p-.28)/.4,0,1)); O.hRy+=.5*e; O.hRx-=.18*e; O.hRz+=(.14+.3*t)*e; O.hRr-=.25*e; O.nod-=.06*e; } },
+    knock:{ dur:1.4, fn:function(p,O){ var e=env(p,.14,.2), t=Math.max(0,Math.sin(clamp((p-.12)/.76,0,1)*Math.PI*3)); O.hRy+=.62*e; O.hRx-=.28*e; O.hRz+=(.22+.34*t)*e; O.hRr-=.3*e; O.nod-=.05*e; O.tilt+=.06*e; O.sq-=t*.015*e; } },
+    cute:{ dur:2.4, fn:function(p,O){ var e=env(p,.15,.2), s=Math.sin(p*Math.PI*4); O.tilt+=(.22+s*.07)*e; O.hLx+=.3*e; O.hRx-=.3*e; O.hLy+=.6*e; O.hRy+=.6*e; O.hLz+=.3*e; O.hRz+=.3*e; O.sq+=s*.03*e; O.nod+=.08*e; } },
+    presentBoth:{ dur:2.2, fn:function(p,O){ var e=env(p,.2,.25); O.hLx-=.34*e; O.hLy+=.44*e; O.hRx+=.34*e; O.hRy+=.44*e; O.hLz+=.2*e; O.hRz+=.2*e; O.tilt+=.06*e; O.nod-=.05*e; } },
+    gasp:{ dur:1.4, fn:function(p,O){ var e=env(p,.07,.35); O.sq-=.12*bell(clamp(p/.14,0,1)); O.y+=.34*e; O.nod-=.22*e; O.hLy+=.8*e; O.hRy+=.8*e; O.hLx+=.34*e; O.hRx-=.34*e; O.hLz+=.36*e; O.hRz+=.36*e; } },
+    wiggle:{ dur:1.4, fn:function(p,O){ var e=env(p,.1,.2), s=Math.sin(p*Math.PI*12); O.tilt+=s*.22*e; O.spin+=s*.18*e; O.hLy+=(.5+s*.2)*e; O.hRy+=(.5-s*.2)*e; O.sq+=Math.abs(s)*.04*e; } },
+    bigjump:{ dur:1.25, fn:function(p,O){ if(p<.2) O.sq-=.2*ease(p/.2); else if(p<.85){ var q=(p-.2)/.65, b=bell(q); O.yd+=b*1.3; O.sq+=.1*b; O.hLy+=1.1*b; O.hRy+=1.1*b; O.hLx-=.2*b; O.hRx+=.2*b; O.spin+=ease(q)*Math.PI*2; } else O.sq-=.18*bell((p-.85)/.15); } },
+    faint:{ dur:2.6, fn:function(p,O){ var f=p<.3?ease(p/.3):p<.68?1:1-ease((p-.68)/.32); O.tilt+=1.05*f+.18*f+Math.sin(p*Math.PI*6)*.07*f; O.flip-=.22*f; O.y-=.3*f; O.hLy+=.95*f; O.hRy+=.95*f; O.hLx-=.32*f; O.hRx+=.32*f; if(p>.68) O.sq+=.09*bell((p-.68)/.32); } },
+    shake:{ dur:.9, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.spin+=Math.sin(p*Math.PI*6)*.35*e; O.tilt+=Math.sin(p*Math.PI*6)*.08*e; } },
+    reach:{ dur:.9, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.hLy+=.9*e; O.hRy+=.9*e; O.hLx+=.2*e; O.hRx-=.2*e; O.nod-=.15*e; O.y+=.12*e; } },
+    kiss:{ dur:1.6, fn:function(p,O){ var e=p<.3?ease(p/.3):p<.55?1:1-ease((p-.55)/.45); O.hRx-=.55*e; O.hRy+=.95*e; O.hRz+=.55*e; O.tilt+=.12*e; O.nod+=.08*e; } },
+    leanL:{ dur:1.2, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.tilt+=.35*e; O.spin+=.35*e; O.hRy+=.3*e; } },
+    leanR:{ dur:1.2, fn:function(p,O){ var e=Math.sin(p*Math.PI); O.tilt-=.35*e; O.spin-=.35*e; O.hLy+=.3*e; } }
   };
-  function play(name){ var c=CLIPS[name]; if(!c) return; if(reduce && /spin|celebrate|backflip|tornado|rocket|dance|floatSpin/.test(name)) c=CLIPS.hop; R.clips.push({ t0:time, dur:c.dur, fn:c.fn, name:name }); return c.dur; }
+  function play(name){ var c=CLIPS[name]; if(!c) return; if(reduce && /spin|celebrate|backflip|tornado|rocket|dance|floatSpin|bigjump|flip|faint/.test(name)) c=CLIPS.hop; R.clips.push({ t0:time, dur:c.dur, fn:c.fn, name:name }); return c.dur; }
+  /* long animations (2.5 s or more, and every routine) play to the end: nothing cancels them,
+     and whatever the chat asks for meanwhile waits and plays as soon as they finish */
+  var LONG=2.5;
+  function locked(){ return time<R.lockUntil; }
+  function lock(sec){ R.lockUntil=Math.max(R.lockUntil,time+sec); R.busyUntil=Math.max(R.busyUntil,time+sec); }
+  function defer(fn){ R.pending=fn; }
+  function playLong(name){ var d=play(name); if(d>=LONG) lock(d); return d; }
   var timers=[];
   function later(sec,fn){ timers.push({ at:time+sec, fn:fn }); }
 
@@ -1444,10 +1469,91 @@ function buildWorld(){
       later(2.86,function(){ Snd.play("land"); burst(30); R.shake=.18; word("…and back!"); }); },
     dance:function(){ play("dance"); setExpr("happy",3.2); R.humUntil=time+3.1; Snd.play("dance"); word("DANCE BREAK!"); emote(["♪","♫"],"",7); }
   };
+  /* ---- routines: the ten Nexi cute-short episodes, re-staged for this 3D world.
+     Each is a list of [seconds, step]; a routine locks Nexi until it ends. */
+  function hearts(n){ emote("\u2665","heart",n||6); }
+  function notes(n){ emote(["\u266a","\u266b"],"",n||6); }
+  var ROUTINES = {
+    hello:{ dur:7.6, steps:[
+      [0,function(){ play("hop"); Snd.play("hop"); }],
+      [.6,function(){ play("wave"); setExpr("happy",2.4); word("Hi! I'm Nexi!"); Snd.play("happy"); }],
+      [3,function(){ play("cute"); setExpr("heart",2.4); R.blushUntil=time+2.6; hearts(7); Snd.play("love"); }],
+      [5.3,function(){ play("spin"); setExpr("star",1.6); burst(16); Snd.play("whee"); }],
+      [6.5,function(){ play("nod"); setExpr("happy",1.4); word("Nice to meet you!"); }] ] },
+    knock:{ dur:7.8, steps:[
+      [0,function(){ play("curious"); setExpr("idle"); }],
+      [.9,function(){ play("knock"); setExpr("content",1.4); word("Knock knock!"); }],
+      [1.2,function(){ Snd.play("tap"); }], [1.6,function(){ Snd.play("tap"); }], [2,function(){ Snd.play("tap"); }],
+      [2.5,function(){ play("peek"); word("Anyone in there?"); }],
+      [4.7,function(){ play("gasp"); setExpr("wow",.9); emote("!","",3); Snd.play("surprise"); }],
+      [5.6,function(){ play("cute"); setExpr("heart",2.2); R.blushUntil=time+2.4; hearts(7); word("Oh, hi there!"); Snd.play("love"); }] ] },
+    sleepy:{ dur:9, steps:[
+      [0,function(){ play("snooze"); setExpr("sleep",3.9); Snd.play("yawn"); }],
+      [.5,function(){ emote(["z","Z"],"z",2); }], [1.7,function(){ emote(["z","Z"],"z",2); }], [2.9,function(){ emote(["z","Z"],"z",2); }],
+      [4,function(){ play("gasp"); setExpr("wow",1); emote("!","",2); Snd.play("wake"); }],
+      [5.1,function(){ play("stretch"); setExpr("content",2.2); R.yawnUntil=time+1.8; word("Yaaawn..."); Snd.play("yawn"); }],
+      [7.5,function(){ play("wave"); setExpr("happy",1.6); word("Good morning!"); Snd.play("happy"); }] ] },
+    catchLove:{ dur:7.2, steps:[
+      [0,function(){ setExpr("wow",.8); word("Ooh, hearts!"); hearts(4); }],
+      [.8,function(){ play("reach"); play("hop"); setExpr("happy",1); hearts(3); Snd.play("pop"); }],
+      [2,function(){ play("reach"); play("hop"); setExpr("star",1); hearts(3); Snd.play("pop"); }],
+      [3.2,function(){ play("reach"); play("hop"); setExpr("happy",1); hearts(3); Snd.play("pop"); }],
+      [4.4,function(){ play("cute"); setExpr("heart",2.6); R.blushUntil=time+2.8; hearts(10); word("So much love!"); Snd.play("love"); }] ] },
+    danceBreak:{ dur:8.6, steps:[
+      [0,function(){ play("hop"); word("Music time!"); Snd.play("hop"); }],
+      [.8,function(){ play("dance"); setExpr("happy",3.2); R.humUntil=time+3.1; notes(8); Snd.play("dance"); }],
+      [4.1,function(){ play("wiggle"); setExpr("star",1.4); notes(4); }],
+      [5.6,function(){ play("spin"); Snd.play("whee"); }],
+      [6.9,function(){ play("celebrate"); setExpr("star",1.6); burst(40); word("Woo-hoo!"); Snd.play("success"); }] ] },
+    dizzy:{ dur:8.8, steps:[
+      [0,function(){ play("hop"); word("Watch this!"); }],
+      [1,function(){ play("spin"); setExpr("star",2.8); Snd.play("whee"); }], [1.9,function(){ play("spin"); }], [2.6,function(){ play("spin"); }], [3.15,function(){ play("spin"); }],
+      [3.9,function(){ play("faint"); setExpr("spiral",3); Snd.play("dizzy"); }],
+      [4.7,function(){ emote(["?","@","~"],"",4); }],
+      [6.7,function(){ play("shake"); setExpr("happy",2); R.blushUntil=time+2.2; word("Hehe... oops!"); Snd.play("laugh"); }] ] },
+    peekaboo:{ dur:7.2, steps:[
+      [0,function(){ play("leanL"); setExpr("happy",1); Snd.play("tap"); }],
+      [1.4,function(){ play("leanR"); setExpr("star",1); Snd.play("tap"); }],
+      [2.8,function(){ play("bigjump"); setExpr("star",1.6); word("Peekaboo!"); Snd.play("boing"); }],
+      [4.4,function(){ play("cute"); setExpr("happy",2); R.blushUntil=time+2; hearts(6); Snd.play("love"); }] ] },
+    gift:{ dur:7.8, steps:[
+      [0,function(){ play("curious"); setExpr("wow",.9); word("Hmm? What's this?"); }],
+      [1.5,function(){ play("tap"); Snd.play("tap"); }], [2.2,function(){ play("tap"); Snd.play("tap"); }],
+      [2.9,function(){ play("gasp"); setExpr("wow",1); burst(36); emote("!","",3); Snd.play("surprise"); }],
+      [4,function(){ play("clap"); setExpr("star",1.8); Snd.play("success"); }],
+      [5.2,function(){ play("bigjump"); setExpr("happy",2.4); Snd.play("boing"); }],
+      [5.7,function(){ word("For me?! Thank you!"); R.blushUntil=time+2.4; }] ] },
+    bye:{ dur:7, steps:[
+      [0,function(){ play("nod"); word("Time to go!"); }],
+      [1.2,function(){ play("wave"); setExpr("happy",2.2); }],
+      [3.4,function(){ play("kiss"); R.blushUntil=time+2.4; setExpr("content",1.4); }],
+      [3.95,function(){ hearts(5); Snd.play("love"); }],
+      [4.8,function(){ setExpr("heart",1.6); }],
+      [5.2,function(){ play("wave"); word("See you soon!"); }] ] },
+    bubblePop:{ dur:6.6, steps:[
+      [0,function(){ setExpr("wow",.8); word("Bubbles!"); emote(["\u25cb","\u25ef"],"",5); }],
+      [.8,function(){ play("point"); }], [1.25,function(){ emote("pop!","",1); Snd.play("pop"); }],
+      [2.2,function(){ play("pointL"); }], [2.65,function(){ emote("pop!","",1); Snd.play("pop"); setExpr("star",.9); }],
+      [3.6,function(){ play("point"); }], [4.05,function(){ emote("pop!","",1); Snd.play("pop"); }],
+      [4.9,function(){ play("celebrate"); setExpr("happy",1.6); burst(24); word("Wheee!"); Snd.play("whee"); }] ] }
+  };
+  function routine(name){
+    var r=ROUTINES[name]; if(!r) return false;
+    if(locked()){ defer(function(){ routine(name); }); return true; }
+    if(reduce){ play("wave"); setExpr("happy",1.6); lock(2.4); return true; }
+    R.clips.length=0; R.idleSeq=null; R.routine=name;
+    r.steps.forEach(function(st){ if(st[0]<=0) st[1](); else later(st[0],st[1]); });
+    lock(r.dur); R.nextIdle=time+r.dur+rand(5,8);
+    return true;
+  }
+  /* tapping Nexi: quick over-reactions and the episode routines, shuffled */
   var reactBag=[];
   function reactRandom(){
-    if(!reactBag.length) reactBag=Object.keys(REACTS).sort(function(){ return Math.random()-.5; });
-    var name=reactBag.pop(); REACTS[name](); R.busyUntil=time+3.4; return name;
+    if(locked()) return null;
+    if(!reactBag.length) reactBag=Object.keys(REACTS).concat(["hello","knock","catchLove","danceBreak","dizzy","peekaboo","gift","bubblePop"]).sort(function(){ return Math.random()-.5; });
+    var name=reactBag.pop();
+    if(ROUTINES[name]) routine(name); else { REACTS[name](); var c=R.clips[R.clips.length-1]; lock(Math.max(3.4,c?c.dur:0)); }
+    return name;
   }
 
   /* ---- idle life */
@@ -1467,11 +1573,12 @@ function buildWorld(){
     holoOrbit:function(){ holo.orbitT0=time; setExpr("happy",1.4); Snd.play("holo"); R.idleSeq=[[.4,-.2,1.4],[-.4,-.2,1.4],[0,0,1]]; R.idleT0=time; },
     holoLogo:function(){ holo.logoT0=time; play("present"); R.idleObj=holoLogo; R.idleObjUntil=time+4.2; setExpr("happy",4); Snd.play("holo"); R.busyUntil=time+4.6; later(1.2,function(){ word("TechNext!"); }); },
     holoFacts:function(){ showFact(); setExpr("happy",1.2); later(1.6,showFact); },
-    planeVisit:function(){ planeLaunch("visit"); }
+    planeVisit:function(){ planeLaunch("visit"); },
+    rtDance:function(){ routine("danceBreak"); }, rtPeek:function(){ routine("peekaboo"); }, rtBubbles:function(){ routine("bubblePop"); }, rtKnock:function(){ routine("knock"); }
   };
-  var IDLE_W={ lookAround:1, stretch:1, checkHand:.8, hum:.8, peek:.8, floatSpin:.7, bounce:.8, yawn:.5, wander:2.2, holoScan:1.2, holoOrbit:1, holoLogo:1, holoFacts:1.6, planeVisit:1 };
+  var IDLE_W={ lookAround:1, stretch:1, checkHand:.8, hum:.8, peek:.8, floatSpin:.7, bounce:.8, yawn:.5, wander:2.2, holoScan:1.2, holoOrbit:1, holoLogo:1, holoFacts:1.6, planeVisit:1, rtDance:.5, rtPeek:.6, rtBubbles:.6, rtKnock:.4 };
   function doIdle(){
-    var names=Object.keys(IDLES).filter(function(n){ return n!==R.lastIdle && !(reduce && /wander|planeVisit|floatSpin/.test(n)); }), tot=0;
+    var names=Object.keys(IDLES).filter(function(n){ return n!==R.lastIdle && !(reduce && /wander|planeVisit|floatSpin|^rt/.test(n)); }), tot=0;
     names.forEach(function(n){ tot+=IDLE_W[n]; });
     var r=Math.random()*tot, n=names[0];
     for(var i=0;i<names.length;i++){ r-=IDLE_W[names[i]]; if(r<=0){ n=names[i]; break; } }
@@ -1486,6 +1593,7 @@ function buildWorld(){
   }
   /* stop whatever is playing (a new question arrived, or the visitor started typing) */
   function cancel(hard){
+    if(locked()){ if(cam.shot) endShot(); return; }
     R.clips.length=0; timers.length=0; R.idleSeq=null; R.idleObj=null; R.humUntil=R.blushUntil=R.boostUntil=R.yawnUntil=R.busyUntil=-1;
     R.scanning=false; holo.scanT0=holo.orbitT0=holo.logoT0=-99; factPanels.forEach(function(fp){ fp.t0=-99; });
     if(cam.shot) endShot();
@@ -1758,6 +1866,8 @@ function buildWorld(){
   function tick(){
     var dt=Math.min(.05,clock.getDelta()); time+=dt;
     for(var ti=timers.length-1;ti>=0;ti--){ if(time>=timers[ti].at){ var fn=timers[ti].fn; timers.splice(ti,1); fn(); } }
+    if(R.routine && !locked()) R.routine=null;
+    if(R.pending && !locked()){ var pf=R.pending; R.pending=null; pf(); }
 
     /* camera: preset framing, or a cinematic shot around the robot */
     var fr=frameRect(); camGoal(fr);
@@ -1935,7 +2045,10 @@ function buildWorld(){
   }
   return {
     ok:true, api:api, ready:ready,
-    play:play, expr:setExpr, poke:poke, listen:listen, react:reactRandom, cancel:cancel, shot:shot,
+    play:function(n){ if(locked()){ defer(function(){ playLong(n); }); return; } return playLong(n); },
+    expr:function(n,d,i){ if(!locked()) setExpr(n,d,i); },
+    poke:poke, listen:listen, react:reactRandom, cancel:cancel, shot:shot,
+    routine:routine, locked:locked, defer:defer, playing:function(){ return R.routine; },
     busy:function(){ return R.clips.length>0 || time<R.busyUntil || PL.state!=="home" || !!cam.shot; },
     talk:function(on){ R.talking=on; if(on) poke(); },
     typing:function(on){ R.typing=on; },
@@ -1970,7 +2083,7 @@ function stubWorld(){
   var el=document.createElement("p"); el.className="nowebgl"; el.textContent=BOT_NAME+" needs WebGL to appear in 3D. The chat still works.";
   $("#stage").appendChild(el); var l=$("#loading"); if(l) l.remove();
   var noop=function(){}, p=function(){ return Promise.resolve(); };
-  return { ok:false, api:{}, ready:Promise.resolve(), play:noop, expr:noop, poke:noop, listen:noop, react:noop, cancel:noop, shot:noop, busy:function(){ return false; }, talk:noop, typing:noop, ring:noop, look:noop, camera:noop, home:noop, celebrate:noop, blush:noop, emote:noop, word:noop, fact:noop, topic:noop,
+  return { ok:false, api:{}, ready:Promise.resolve(), play:noop, expr:noop, poke:noop, listen:noop, react:noop, cancel:noop, shot:noop, routine:function(){ return false; }, locked:function(){ return false; }, defer:function(f){ f(); }, playing:noop, busy:function(){ return false; }, talk:noop, typing:noop, ring:noop, look:noop, camera:noop, home:noop, celebrate:noop, blush:noop, emote:noop, word:noop, fact:noop, topic:noop,
     orbs:{show:noop,hide:noop,focus:noop}, flow:{show:noop,hide:noop,step:noop,all:noop}, bill:{show:noop,hide:noop,scan:p,post:p} };
 }
 
@@ -2115,7 +2228,10 @@ function handleTyped(text){
   if(u && u.type==="site"){ answerSite(u.pages); return; }
   answerUnknown(text);
 }
-function react(name){ if(REACT[name]) REACT[name](); else World.play(name); }
+function react(name){
+  if(World.locked()){ World.defer(function(){ react(name); }); return; }
+  if(REACT[name]) REACT[name](); else if(!World.routine(name)) World.play(name);
+}
 function answerKB(k){
   if(!k) return;
   var t=TOPIC[k.id]||{}, my=turn;
@@ -2322,7 +2438,7 @@ World.api.onBot=function(){ World.poke(); World.react(); };
 
 renderChips();
 World.ready.then(function(){
-  setTimeout(function(){ World.play("wave"); World.expr("happy",1.3); World.word("Hi there!"); World.shot("closeUp"); say(GREETING,{ delay:450, sound:"greet" }); },400);
+  setTimeout(function(){ World.shot("closeUp"); World.routine("hello"); say(GREETING,{ delay:450, sound:"greet" }); },400);
 });
 })();
 </script>
