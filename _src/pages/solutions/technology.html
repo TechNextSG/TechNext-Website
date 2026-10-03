@@ -1,4 +1,4 @@
-<!--meta {"title": "Technology Services — IoT, Apps, Networks and Cyber Security", "desc": "TechNext technology services: IoT solutions, mobile and web app development, office networks and cyber security, from the team behind your Odoo ERP and AI.", "out": "solutions/technology.html", "nav": "solution"} -->
+<!--meta {"title": "Technology Services — IoT, Apps and Networks", "desc": "TechNext technology services: IoT solutions, mobile and web app development and office networks, from the team behind your Odoo ERP and AI, connected end to end.", "out": "solutions/technology.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-techflow.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-techflow.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -7,50 +7,92 @@
     <div class="two two--stage">
       <div>
         <h1><span class="hand h1-hand">technology services</span>The technology around your business, from one team.</h1>
-        <p class="lead">Devices that report in, apps your customers and staff use, the network everything runs on and the security that keeps it safe, planned and supported by the same team that runs your Odoo and AI.</p>
+        <p class="lead">Devices that report in, apps your customers and staff use, and the network everything runs on, planned and supported by the same team that runs your Odoo and AI, so the pieces work as one.</p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
+          <a class="btn btn-ghost btn-lg" href="#tech-live">See it work</a>
         </div>
-        <div class="pill-row"><span class="tag">{{icon:cpu}} IoT</span><span class="tag">{{icon:tablet}} Apps</span><span class="tag">{{icon:network}} Networks</span><span class="tag">{{icon:shield}} Cyber Security</span></div>
+        <div class="pill-row"><span class="tag">{{icon:cpu}} IoT</span><span class="tag">{{icon:tablet}} Apps</span><span class="tag">{{icon:network}} Networks</span></div>
       </div>
-      <div class="stage stage--tx" aria-hidden="true">
+      <div class="stage stage--tx stage--tech" aria-hidden="true">
         <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Technology services</span></div>
-          <ul class="tx-rows">
+          <ul class="tx-rows th-rows">
             <li style="--k:0"><span class="tx-ic">{{icon:cpu}}</span><span><b>IoT Solutions</b><small>Sensors, devices, live dashboards</small></span><span class="tx-st i">Devices</span></li>
-            <li style="--k:1"><span class="tx-ic">{{icon:tablet}}</span><span><b>App Development</b><small>Mobile and web apps, portals</small></span><span class="tx-st i">Software</span></li>
-            <li style="--k:2"><span class="tx-ic">{{icon:network}}</span><span><b>Networks</b><small>Office networks, Wi-Fi, remote access</small></span><span class="tx-st i">Infrastructure</span></li>
-            <li style="--k:3"><span class="tx-ic">{{icon:shield}}</span><span><b>Cyber Security</b><small>Reviews, hardening, awareness</small></span><span class="tx-st i">Protection</span></li>
+            <li style="--k:1"><span class="tx-ic">{{icon:network}}</span><span><b>Networks</b><small>Office networks, Wi-Fi, remote access</small></span><span class="tx-st i">Infrastructure</span></li>
+            <li style="--k:2"><span class="tx-ic">{{icon:tablet}}</span><span><b>App Development</b><small>Mobile and web apps, portals</small></span><span class="tx-st i">Software</span></li>
+            <li style="--k:3"><span class="tx-ic">{{odoo:accountant}}</span><span><b>Odoo ERP</b><small>Where it all lands</small></span><span class="tx-st">Records</span></li>
           </ul>
+          <i class="th-focus"></i>
           <p class="tx-foot">Each one on its own, or planned together</p>
         </div>
-        <div class="st-card tx-side dp" style="--d:14"><b>One team</b>
-          <p><i>Plan</i>One plan across your systems</p><p><i>Data</i>Connected to your Odoo records</p><p><i>Call</i>One point of contact</p>
+        <div class="st-card tx-side th-mini dp" style="--d:14"><b>One alert, end to end</b>
+          <div class="th-flow"><span>{{icon:cpu}}</span><span>{{icon:network}}</span><span>{{icon:tablet}}</span><span>{{odoo:accountant}}</span><i class="th-dot"></i></div>
+          <small>Sensor · network · app · Odoo</small>
         </div>
         <span class="st-chip tx-c1 dp" style="--d:10">{{odoo:iot}}Works with Odoo</span>
         <span class="st-chip tx-c2 dp" style="--d:18">{{icon:users}}One team to call</span>
       </div>
     </div>
     <h2 class="sr-only">At a glance</h2>
-    <dl class="glance"><div><dt>Services</dt><dd>IoT, apps, networks, cyber security</dd></div><div><dt>Delivered by</dt><dd>The TechNext team</dd></div><div><dt>Works with</dt><dd>Odoo and your other systems</dd></div><div><dt>Start with</dt><dd>One service or a plan</dd></div><div><dt>After go-live</dt><dd>Support plans</dd></div></dl>
+    <dl class="glance"><div><dt>Services</dt><dd>IoT, apps and networks</dd></div><div><dt>Delivered by</dt><dd>The TechNext team</dd></div><div><dt>Works with</dt><dd>Odoo and your other systems</dd></div><div><dt>Start with</dt><dd>One service or a plan</dd></div><div><dt>After go-live</dt><dd>Support plans</dd></div></dl>
   </div>
 </section>
 
 <section class="section section--tight answer-sec">
-  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>TechNext's technology services cover the devices, software and infrastructure around a company's business systems: IoT solutions that connect equipment and sites, mobile and web app development, office networks and Wi-Fi, and cyber security. They are delivered by the same team that implements Odoo ERP and enterprise AI, so the pieces are planned together and the data ends up in one set of records.</p></div></div>
+  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>TechNext's technology services cover the devices, software and infrastructure around a company's business systems: IoT solutions that connect equipment and sites, mobile and web app development, and office networks and Wi-Fi. They are delivered by the same team that implements Odoo ERP and enterprise AI, so the pieces are planned together and the data ends up in one set of records.</p></div></div>
+</section>
+
+<section class="section demo-sec" id="tech-live">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">see them work together</span><h2>One alert, from the sensor to the Odoo record.</h2><p class="lead">A sensor notices something, the network carries it, an app puts it in front of the right person and Odoo records what was done. Pick a situation and watch it travel. Then switch one service off to see where things stall and how long the problem waits.</p></div>
+    <div class="dm dm-tfl reveal" data-demo="techflow">
+      <div class="dm-head">
+        <div class="dm-title"><b>Sensor to Odoo · sample business</b><small>Fictional company · times are typical, not measured</small></div>
+        <div class="dm-seg" role="group" aria-label="Choose the situation">
+          <button type="button" data-sc="freezer" aria-pressed="true">{{icon:pulse}}Freezer warming</button>
+          <button type="button" data-sc="machine" aria-pressed="false">{{icon:gear}}Machine stopped</button>
+          <button type="button" data-sc="delivery" aria-pressed="false">{{icon:truck}}Delivery arrived</button>
+        </div>
+        <button class="dm-btn" type="button" data-run>{{icon:refresh}}<span>Run again</span></button>
+      </div>
+      <div class="tfl-wrap">
+        <div class="tfl-svc" role="group" aria-label="Services in use">
+          <span class="tfl-svc-l">Services in use</span>
+          <button type="button" data-svc="iot" aria-pressed="true">{{icon:cpu}}IoT</button>
+          <button type="button" data-svc="net" aria-pressed="true">{{icon:network}}Network</button>
+          <button type="button" data-svc="app" aria-pressed="true">{{icon:tablet}}App</button>
+        </div>
+        <div class="tfl-pipe">
+          <div class="tfl-rail" aria-hidden="true"><i class="tfl-pk"></i></div>
+          <article class="tfl-st" data-st="iot"><p class="tfl-ic">{{icon:cpu}}</p><b>IoT</b><span data-t>Waiting for a reading</span></article>
+          <article class="tfl-st" data-st="net"><p class="tfl-ic">{{icon:network}}</p><b>Network</b><span data-t>Ready</span></article>
+          <article class="tfl-st" data-st="app"><p class="tfl-ic">{{icon:tablet}}</p><b>App</b><span data-t>Ready</span></article>
+          <article class="tfl-st" data-st="odoo"><p class="tfl-ic">{{odoo:accountant}}</p><b>Odoo</b><span data-t>Ready</span></article>
+        </div>
+        <p class="tfl-out" aria-live="polite"><b data-out-h>All three services on</b><span data-out></span></p>
+      </div>
+      <dl class="dm-kpis tfl-kpis"><div><dt>Minutes until someone acts</dt><dd data-k="mins">0</dd></div><div><dt>Manual steps</dt><dd data-k="manual">0</dd></div><div><dt>Odoo records opened</dt><dd data-k="recs">0</dd></div><div class="dm-ok"><dt>Services working together</dt><dd data-k="svc">3</dd></div></dl>
+      <div class="dm-static">
+        <p><b>Freezer warming:</b> the freezer sensor reads above its limit, the office network carries the reading, the supervisor's phone shows the alert and Odoo opens a quality check on the stock.</p>
+        <p><b>Machine stopped:</b> the machine's runtime counter goes flat, the status reaches the server, the technician gets the job in the field app and Odoo opens a maintenance request.</p>
+        <p><b>Delivery arrived:</b> the dock scale weighs the pallets, the weight reaches the server, the storekeeper confirms the count in the app and Odoo validates the receipt and updates the stock.</p>
+        <p><b>Without one of the services</b> the information stops at that point: someone has to notice, walk over and type it in later.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Fictional business. The minutes are typical examples to show the difference, not measurements.</p>
+  </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="hand">the four services</span>
+      <span class="hand">the services</span>
       <h2>Pick one, or plan them together.</h2>
     </div>
-    <div class="grid-2">
+    <div class="grid-3">
       <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/iot.html"><div class="card-ic">{{icon:cpu}}</div><h3>IoT Solutions</h3><p>Sensors and devices that report temperature, energy, runtime or location to live dashboards, alerts and Odoo.</p><span class="btn-link">IoT Solutions {{icon:arrow}}</span></a>
       <a class="card reveal" style="--i:1" href="{{ROOT}}solutions/app-development.html"><div class="card-ic">{{icon:tablet}}</div><h3>App Development</h3><p>Mobile apps, web apps and portals for customers and staff, built around one workflow and connected to Odoo.</p><span class="btn-link">App Development {{icon:arrow}}</span></a>
       <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/networks.html"><div class="card-ic">{{icon:network}}</div><h3>Networks</h3><p>Office networks, Wi-Fi, firewalls and remote access, installed, documented and supported.</p><span class="btn-link">Networks {{icon:arrow}}</span></a>
-      <a class="card reveal" style="--i:3" href="{{ROOT}}solutions/cyber-security.html"><div class="card-ic">{{icon:shield}}</div><h3>Cyber Security</h3><p>A security review, fixes ranked by risk, tested backups and phishing awareness for your team.</p><span class="btn-link">Cyber Security {{icon:arrow}}</span></a>
     </div>
   </div>
 </section>
@@ -62,7 +104,7 @@
       <h2>Fewer hand-offs, fewer gaps.</h2>
     </div>
     <div class="grid-3">
-      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:layers}}</div><h3>Planned together</h3><p>Devices, apps, network and security scoped in one plan instead of four separate projects.</p></article>
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:layers}}</div><h3>Planned together</h3><p>Devices, apps and network scoped in one plan instead of separate projects with separate vendors.</p></article>
       <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:database}}</div><h3>Connected to your records</h3><p>Readings, orders and reports land in the Odoo records your team already uses.</p></article>
       <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:users}}</div><h3>One point of contact</h3><p>One team to call when something needs to change, not a different vendor for each piece.</p></article>
     </div>
@@ -92,7 +134,7 @@
     </div>
     <div class="faq reveal">
       <details><summary>Do these services need Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>No. Each one works on its own. When you run Odoo, we connect them so the data ends up in one place.</p></div></details>
-      <details><summary>Can we start with just one? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Most companies start with one need, such as a new app, a network refresh or a security review, and add the rest when it makes sense.</p></div></details>
+      <details><summary>Can we start with just one? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Most companies start with one need, such as a new app, a network refresh or sensors in one room, and add the rest when it makes sense.</p></div></details>
       <details><summary>Where is TechNext based? {{icon:chevron}}</summary><div class="faq-a"><p>TechNext is headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City. Ask us about on-site work at your location.</p></div></details>
       <details><summary>What does it cost? {{icon:chevron}}</summary><div class="faq-a"><p>Pricing is on quotation, scoped to the services and sites involved. <a href="{{ROOT}}quotation.html">Request a quotation</a> and we'll return a written scope.</p></div></details>
     </div>
@@ -119,7 +161,7 @@
       <div>
         <span class="hand">next step</span>
         <h2>Tell us what you need around your systems.</h2>
-        <p>Devices, apps, network or security, or all four. We'll come back with a plan and an estimate.</p>
+        <p>Devices, apps or network, or all three. We'll come back with a plan and an estimate.</p>
       </div>
       <div class="actions">
         <a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>

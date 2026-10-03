@@ -105,14 +105,13 @@
 - https://technext.asia/solutions/ai-knowledge — Enterprise RAG Knowledge Assistants in Singapore: Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited.
 - https://technext.asia/solutions/app-development — App Development in Singapore — mobile and web apps: Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.
 - https://technext.asia/solutions/brand-assets — Graphic Design & Brand Assets in Singapore: Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own.
-- https://technext.asia/solutions/cyber-security — Cyber Security for Growing Companies in Singapore: Cyber security by TechNext: a review of accounts, devices, network and backups, fixes ranked by risk, phishing awareness for staff and help when something goes wrong.
 - https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP for Groups & Consolidation: Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.
 - https://technext.asia/solutions/iot — IoT Solutions in Singapore — sensors, devices and Odoo: IoT solutions by TechNext: sensors and devices connected to live dashboards, alerts and Odoo, so equipment, rooms and sites report their own status.
 - https://technext.asia/solutions/marketing — Website & Social Media Marketing in Singapore: TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.
 - https://technext.asia/solutions/networks — Office Network and Wi-Fi Setup in Singapore: Network services by TechNext: office networks, Wi-Fi, firewalls and remote access, designed for your team, installed, documented and supported.
 - https://technext.asia/solutions/odoo-erp — Odoo ERP Implementation in Singapore: Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.
 - https://technext.asia/solutions/social-media — Social Media Management in Singapore: TechNext runs your LinkedIn, Facebook and Instagram on a monthly plan — content, scheduling, replies and a one-page report — while you run the business.
-- https://technext.asia/solutions/technology — Technology Services — IoT, Apps, Networks and Cyber Security: TechNext technology services: IoT solutions, mobile and web app development, office networks and cyber security, from the team behind your Odoo ERP and AI.
+- https://technext.asia/solutions/technology — Technology Services — IoT, Apps and Networks: TechNext technology services: IoT solutions, mobile and web app development and office networks, from the team behind your Odoo ERP and AI, connected end to end.
 - https://technext.asia/solutions/website — Web Design & Development in Singapore: TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.
 
 ## Questions and answers
@@ -371,7 +370,7 @@ Source: https://technext.asia/company
 
 ### What does TechNext do besides Odoo?
 
-Enterprise AI: agents and workflow automation, knowledge assistants that answer from your own documents, and chatbots for the web and WhatsApp, often connected to Odoo. We also build websites and run social media as a monthly service, and deliver IoT solutions, mobile and web apps, office networks and cyber security.
+Enterprise AI: agents and workflow automation, knowledge assistants that answer from your own documents, and chatbots for the web and WhatsApp, often connected to Odoo. We also build websites and run social media as a monthly service, and deliver IoT solutions, mobile and web apps, and office networks.
 
 Source: https://technext.asia/company
 
@@ -395,7 +394,7 @@ Source: https://technext.asia/company
 
 ### What does TechNext do?
 
-TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support) builds enterprise AI, websites and social media, and delivers IoT, app development, network and cyber security services for growing companies.
+TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support), builds enterprise AI, websites and social media, and delivers IoT, app development and network services for growing companies.
 
 Source: https://technext.asia/
 
@@ -1191,36 +1190,6 @@ Per scope, as a one-off. We quote before work begins, so you see the figure firs
 
 Source: https://technext.asia/solutions/brand-assets
 
-### We are a small team. Do we need this?
-
-Small companies are often targeted because they are easier. Most of the protection comes from a handful of basics done well: multi-factor sign-in, updates, tested backups and a team that recognises phishing.
-
-Source: https://technext.asia/solutions/cyber-security
-
-### Where do we start?
-
-With a review. We look at your accounts, devices, network and backups, then give you a short list of fixes in order of risk.
-
-Source: https://technext.asia/solutions/cyber-security
-
-### Will it slow my team down?
-
-It shouldn't. We pick protection people can live with, such as sign-in prompts on trusted devices, password managers and updates outside working hours.
-
-Source: https://technext.asia/solutions/cyber-security
-
-### What if we are attacked?
-
-Contact us straight away. We help you contain it, restore from backup and close the gap that was used, then review what to change.
-
-Source: https://technext.asia/solutions/cyber-security
-
-### What does it cost?
-
-Pricing is on quotation, scoped to your team size, systems and the support you want. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/cyber-security
-
 ### Do all entities have to go live at once?
 
 No. We implement a pilot entity first, then roll the template out company by company. Each entity goes live when it's ready.
@@ -1433,7 +1402,7 @@ Source: https://technext.asia/solutions/technology
 
 ### Can we start with just one?
 
-Yes. Most companies start with one need, such as a new app, a network refresh or a security review, and add the rest when it makes sense.
+Yes. Most companies start with one need, such as a new app, a network refresh or sensors in one room, and add the rest when it makes sense.
 
 Source: https://technext.asia/solutions/technology
 

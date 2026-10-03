@@ -7,8 +7,8 @@ SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and "
             "consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
-            "and Inventory, build enterprise AI and websites, and deliver IoT, app, network and cyber security "
-            "services for growing companies in 10+ countries.")
+            "and Inventory, build enterprise AI and websites, and deliver IoT, app and network services "
+            "for growing companies in 10+ countries.")
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
 
@@ -134,8 +134,6 @@ NAV = [
                  "desc": "Mobile and web apps for your workflow."},
                 {"label": "Networks", "href": "solutions/networks.html", "icon": "network",
                  "desc": "Office networks, Wi-Fi and IT infrastructure."},
-                {"label": "Cyber Security", "href": "solutions/cyber-security.html", "icon": "shield",
-                 "desc": "Assessments, hardening and protection."},
             ]},
         ],
     },

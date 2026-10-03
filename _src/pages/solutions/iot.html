@@ -1,4 +1,4 @@
-<!--meta {"title": "IoT Solutions in Singapore — sensors, devices and Odoo", "desc": "IoT solutions by TechNext: sensors and devices connected to live dashboards, alerts and Odoo, so equipment, rooms and sites report their own status.", "out": "solutions/iot.html", "nav": "solution"} -->
+<!--meta {"title": "IoT Solutions in Singapore — sensors, devices and Odoo", "desc": "IoT solutions by TechNext: sensors and devices connected to live dashboards, alerts and Odoo, so equipment, rooms and sites report their own status.", "out": "solutions/iot.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-coldchain.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-coldchain.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -10,25 +10,25 @@
         <p class="lead">Sensors and devices that measure what matters, such as temperature, energy, machine runtime or location, and send it to a live dashboard, an alert or straight into Odoo, so problems show up before someone has to walk over and check.</p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
+          <a class="btn btn-ghost btn-lg" href="#iot-live">See it run</a>
         </div>
         <div class="pill-row"><span class="tag">{{icon:wifi}} Wired or wireless</span><span class="tag tag--ok">{{icon:check}} Alerts you can act on</span><span class="tag">{{icon:plug}} Connects to Odoo</span></div>
       </div>
-      <div class="stage stage--tx" aria-hidden="true">
-        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Live readings · cold room and kitchen</span></div>
+      <div class="stage stage--tx stage--iot" aria-hidden="true">
+        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Live readings · cold store</span><em class="io-live">Live</em></div>
           <ul class="tx-rows">
-            <li style="--k:0"><span class="tx-ic">{{icon:pulse}}</span><span><b>Temperature</b><small>Cold room 2</small></span><span class="tx-st">3.8 °C</span></li>
-            <li style="--k:1"><span class="tx-ic">{{icon:wifi}}</span><span><b>Humidity</b><small>Cold room 2</small></span><span class="tx-st">61%</span></li>
-            <li style="--k:2"><span class="tx-ic">{{icon:box}}</span><span><b>Door</b><small>Loading bay</small></span><span class="tx-st w">Open 6 min</span></li>
-            <li style="--k:3"><span class="tx-ic">{{icon:zap}}</span><span><b>Power</b><small>Kitchen freezer</small></span><span class="tx-st">Normal</span></li>
+            <li style="--k:0"><span class="tx-ic">{{icon:pulse}}</span><span><b>Chiller A</b><small>Temperature</small></span><span class="tx-st">3.4 °C</span></li>
+            <li style="--k:1" class="io-hot"><span class="tx-ic">{{icon:pulse}}</span><span><b>Chiller B</b><small>Temperature</small></span><span class="io-swap"><span class="tx-st">3.8 °C</span><span class="tx-st w">5.6 °C</span></span></li>
+            <li style="--k:2" class="io-door"><span class="tx-ic">{{icon:box}}</span><span><b>Chiller B door</b><small>Loading bay</small></span><span class="io-swap"><span class="tx-st">Closed</span><span class="tx-st w">Open 6 min</span></span></li>
+            <li style="--k:3"><span class="tx-ic">{{icon:zap}}</span><span><b>Freezer power</b><small>Kitchen</small></span><span class="tx-st">Normal</span></li>
           </ul>
-          <p class="tx-foot">Sample readings · updated every minute</p>
+          <p class="tx-foot">Sample readings · every minute</p>
         </div>
-        <div class="st-card tx-side dp" style="--d:14"><b>Alerts</b>
-          <p><i>09:14</i>Door open 5 min, supervisor alerted</p><p><i>09:20</i>Door closed</p><p><i>11:02</i>Freezer back in range</p>
+        <div class="st-card tx-side io-chart dp" style="--d:14"><b>Chiller B · last hour</b>
+          <div class="io-plot"><svg viewBox="0 0 220 74"><path class="io-area" d="M2 58 L22 57 L42 59 L62 56 L82 57 L102 55 L122 50 L142 38 L162 24 L178 18 L192 26 L206 44 L218 54 L218 74 L2 74Z"/><path class="io-line" d="M2 58 L22 57 L42 59 L62 56 L82 57 L102 55 L122 50 L142 38 L162 24 L178 18 L192 26 L206 44 L218 54"/><circle class="io-dot" cx="162" cy="24" r="4"/></svg><i class="io-wipe"></i><span class="io-lim"></span><span class="io-limt">5 °C limit</span></div>
         </div>
-        <span class="st-chip tx-c1 dp" style="--d:10">{{odoo:iot}}Readings in Odoo</span>
-        <span class="st-chip tx-c2 dp" style="--d:18">{{icon:whatsapp}}Alert sent</span>
+        <span class="st-chip tx-c1 io-chip1 dp" style="--d:10">{{odoo:quality_control}}Quality check in Odoo</span>
+        <span class="st-chip tx-c2 io-chip2 dp" style="--d:18">{{icon:whatsapp}}Supervisor alerted</span>
       </div>
     </div>
     <h2 class="sr-only">At a glance</h2>
@@ -38,6 +38,42 @@
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>IoT (Internet of Things) solutions connect physical things such as fridges, machines, meters, vehicles and rooms to software, so they report their own status. TechNext recommends the sensors and gateways, sets up the connection, builds the dashboards and alerts, and can feed the readings into Odoo, where they support maintenance, quality and inventory work. Odoo IoT also connects scales, printers and measuring tools directly to Odoo apps.</p></div></div>
+</section>
+
+<section class="section demo-sec" id="iot-live">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch the sensors</span><h2>IoT monitoring for a cold store, from the sensor to Odoo.</h2><p class="lead">Three rooms report every minute. When one drifts out of range, the person on duty gets an alert; if it stays out too long, Odoo opens a quality check on the stock inside, and a power fault opens a maintenance request. Pick a scenario, move the alert limit, and hover a chart to read any minute.</p></div>
+    <div class="dm dm-cold reveal" data-demo="coldchain">
+      <div class="dm-head">
+        <div class="dm-title"><b>Live sensors · sample cold store</b><small>Simulated readings, sped up · one tick is one minute</small></div>
+        <div class="dm-seg" role="group" aria-label="Choose the scenario">
+          <button type="button" data-sc="normal" aria-pressed="false">{{icon:check}}Normal day</button>
+          <button type="button" data-sc="door" aria-pressed="true">{{icon:box}}Door left open</button>
+          <button type="button" data-sc="power" aria-pressed="false">{{icon:zap}}Power cut</button>
+        </div>
+        <label class="cld-th"><span>Chiller limit</span><input type="range" id="cld-th" min="4" max="8" step="0.5" value="5" aria-label="Alert limit for the chillers, in degrees Celsius"><output for="cld-th" data-thv>5.0 °C</output></label>
+        <button class="dm-btn cld-play" type="button" data-play aria-label="Pause the simulation">{{icon:pause}}{{icon:play}}<span>Pause</span></button>
+      </div>
+      <div class="cld-wrap">
+        <div class="cld-rooms">
+          <div class="cld-room" data-r="0"><header><b>Chiller A</b><span class="cld-st">OK</span></header><p class="cld-v"><em data-v>3.2</em><small>°C</small></p><svg class="cld-spark" viewBox="0 0 240 64" preserveAspectRatio="none" role="img" aria-label="Chiller A temperature, last 40 minutes"></svg><footer><span>Limit <b data-lim>5.0 °C</b></span><span data-door>Door closed</span></footer></div>
+          <div class="cld-room" data-r="1"><header><b>Chiller B</b><span class="cld-st">OK</span></header><p class="cld-v"><em data-v>3.6</em><small>°C</small></p><svg class="cld-spark" viewBox="0 0 240 64" preserveAspectRatio="none" role="img" aria-label="Chiller B temperature, last 40 minutes"></svg><footer><span>Limit <b data-lim>5.0 °C</b></span><span data-door>Door closed</span></footer></div>
+          <div class="cld-room" data-r="2"><header><b>Freezer</b><span class="cld-st">OK</span></header><p class="cld-v"><em data-v>-18.0</em><small>°C</small></p><svg class="cld-spark" viewBox="0 0 240 64" preserveAspectRatio="none" role="img" aria-label="Freezer temperature, last 40 minutes"></svg><footer><span>Limit <b data-lim>-15.0 °C</b></span><span data-door>Power on</span></footer></div>
+        </div>
+        <div class="cld-side">
+          <div class="cld-card"><p class="cld-h">{{icon:zap}}<b>Alerts</b><small data-clock>08:00</small></p><ol class="dm-log cld-log" aria-live="polite"></ol></div>
+          <div class="cld-card cld-odoo"><p class="cld-h">{{odoo:quality_control}}<b>In Odoo</b><small>opened automatically</small></p><ol class="cld-recs"><li class="cld-none">Nothing yet: every room is in range.</li></ol></div>
+        </div>
+      </div>
+      <dl class="dm-kpis cld-kpis"><div><dt>Readings</dt><dd data-k="reads">0</dd></div><div><dt>Alerts sent</dt><dd data-k="alerts">0</dd></div><div><dt>Minutes out of range</dt><dd data-k="out">0</dd></div><div class="dm-ok"><dt>Odoo records opened</dt><dd data-k="recs">0</dd></div></dl>
+      <div class="dm-static">
+        <p><b>Rooms:</b> two chillers and a freezer, each with a temperature sensor reporting every minute, plus a door contact on Chiller B and a power monitor on the freezer.</p>
+        <p><b>Alerts:</b> a reading above the room's limit sends an alert to the person on duty; the alert repeats if nobody acts, and a recovery message follows when the room is back in range.</p>
+        <p><b>Odoo:</b> ten minutes out of range opens a quality check on the stock in that room; a power fault also opens a maintenance request for the equipment.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Sample data, sped up. Limits, who is alerted and what Odoo opens are agreed with you room by room.</p>
+  </div>
 </section>
 
 <section class="section">
@@ -123,7 +159,7 @@
     <div class="grid-3">
       <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/networks.html"><div class="card-ic">{{icon:network}}</div><h3>Networks</h3><p>The office network and Wi-Fi your devices and people rely on, set up and documented.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
       <a class="card reveal" style="--i:1" href="{{ROOT}}odoo/apps/iot.html"><div class="card-ic">{{odoo:iot}}</div><h3>Odoo IoT app</h3><p>How Odoo connects scales, printers and measuring tools to its apps.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how IoT fits alongside apps, networks and cyber security.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how IoT works together with apps and networks.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
     </div>
   </div>
 </section>

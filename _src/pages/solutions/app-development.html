@@ -1,4 +1,4 @@
-<!--meta {"title": "App Development in Singapore — mobile and web apps", "desc": "Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.", "out": "solutions/app-development.html", "nav": "solution"} -->
+<!--meta {"title": "App Development in Singapore — mobile and web apps", "desc": "Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.", "out": "solutions/app-development.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-fieldapp.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-fieldapp.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
   {{STAGE_BG}}
@@ -10,25 +10,26 @@
         <p class="lead">Customer apps, field and staff apps, portals and internal tools for iOS, Android and the browser, each designed around one job done well and connected to Odoo and the systems you already run.</p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
+          <a class="btn btn-ghost btn-lg" href="#app-live">See it run</a>
         </div>
         <div class="pill-row"><span class="tag">{{icon:tablet}} iOS and Android</span><span class="tag">{{icon:globe}} Web apps and portals</span><span class="tag tag--ok">{{icon:check}} Connected to Odoo</span></div>
       </div>
-      <div class="stage stage--tx" aria-hidden="true">
-        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Field app · site visit</span></div>
-          <ul class="tx-rows">
+      <div class="stage stage--tx stage--appdev" aria-hidden="true">
+        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Field app · site visit</span><em class="ap-prog"><i></i></em></div>
+          <ul class="tx-rows ap-rows">
             <li style="--k:0"><span class="tx-ic">{{icon:pin}}</span><span><b>Checked in on site</b><small>Location confirmed</small></span><span class="tx-st">09:02</span></li>
             <li style="--k:1"><span class="tx-ic">{{icon:camera}}</span><span><b>Photos added</b><small>Before and after</small></span><span class="tx-st">3 photos</span></li>
             <li style="--k:2"><span class="tx-ic">{{icon:usercheck}}</span><span><b>Customer signed</b><small>On the phone screen</small></span><span class="tx-st">Signed</span></li>
             <li style="--k:3"><span class="tx-ic">{{icon:refresh}}</span><span><b>Report sent to Odoo</b><small>Attached to the job</small></span><span class="tx-st i">Synced</span></li>
           </ul>
-          <p class="tx-foot">Sample job · works on iOS, Android and the web</p>
+          <p class="tx-foot">Sample job · iOS, Android and the web</p>
         </div>
-        <div class="st-card tx-side dp" style="--d:14"><b>Built for the job</b>
-          <p><i>Field</i>Jobs, photos and signatures</p><p><i>Sales</i>Orders and price lists</p><p><i>Clients</i>Bookings and a portal</p>
+        <div class="st-card tx-side ap-sign dp" style="--d:14"><b>Customer signature</b>
+          <div class="ap-pad"><svg viewBox="0 0 200 60"><path class="ap-sig" d="M8 42 C 18 18, 30 16, 34 36 S 52 52, 60 30 S 74 8, 82 30 S 96 50, 108 28 C 116 14, 126 18, 128 34 C 130 44, 140 42, 150 30 C 158 22, 170 24, 192 26"/></svg><i class="ap-wipe"></i><span class="ap-base"></span></div>
+          <small class="ap-who">Signed on the phone · 09:41</small>
         </div>
         <span class="st-chip tx-c1 dp" style="--d:10">{{icon:tablet}}iOS and Android</span>
-        <span class="st-chip tx-c2 dp" style="--d:18">{{icon:plug}}Odoo API</span>
+        <span class="st-chip tx-c2 ap-chip dp" style="--d:18">{{odoo:industry_fsm}}Job done in Odoo</span>
       </div>
     </div>
     <h2 class="sr-only">At a glance</h2>
@@ -38,6 +39,68 @@
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>App development is designing and building the software people use on a phone, tablet or browser to do a specific job: book, order, check in, report or approve. TechNext builds mobile apps, web apps and portals around one clear workflow, connects them to Odoo and your other systems through APIs so nothing is typed twice, and supports them after launch.</p></div></div>
+</section>
+
+<section class="section demo-sec" id="app-live">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">tap through a job</span><h2>A field app that fills Odoo as the job happens.</h2><p class="lead">A technician runs the whole visit from a phone: check in, work through the checklist, take photos and get the customer's signature. Each step lands on the job in Odoo as it happens, so the office sees progress live and the invoice is ready when the van leaves. Switch the platform and the job, or tap a step to jump to it.</p></div>
+    <div class="dm dm-fap reveal" data-demo="fieldapp">
+      <div class="dm-head">
+        <div class="dm-title"><b>Field app · sample job</b><small>Fictional company and customer · sped up</small></div>
+        <div class="dm-seg" role="group" aria-label="Platform">
+          <button type="button" data-pf="ios" aria-pressed="true">{{icon:tablet}}iOS</button>
+          <button type="button" data-pf="android" aria-pressed="false">{{icon:tablet}}Android</button>
+          <button type="button" data-pf="web" aria-pressed="false">{{icon:globe}}Web</button>
+        </div>
+        <div class="dm-seg" role="group" aria-label="Job type">
+          <button type="button" data-job="aircon" aria-pressed="true">{{icon:wrench}}Aircon service</button>
+          <button type="button" data-job="install" aria-pressed="false">{{icon:box}}Installation</button>
+          <button type="button" data-job="delivery" aria-pressed="false">{{icon:truck}}Delivery</button>
+        </div>
+        <button class="dm-btn fap-play" type="button" data-play aria-label="Pause the walkthrough">{{icon:pause}}{{icon:play}}<span>Pause</span></button>
+      </div>
+      <div class="fap-wrap">
+        <div class="fap-dev">
+          <div class="fap-phone" data-pf="ios">
+            <div class="fap-chrome"><i class="fap-cam"></i><span class="fap-url">jobs.example.app</span></div>
+            <div class="fap-screen">
+              <div class="fap-top"><b data-app-title>Today's jobs</b><small data-app-sub>3 jobs</small></div>
+              <div class="fap-view" data-view aria-live="polite"></div>
+            </div>
+          </div>
+          <ol class="fap-rail" aria-label="Steps of the job">
+            <li><button type="button" data-step="0">Jobs</button></li>
+            <li><button type="button" data-step="1">Check in</button></li>
+            <li><button type="button" data-step="2">Checklist</button></li>
+            <li><button type="button" data-step="3">Photos</button></li>
+            <li><button type="button" data-step="4">Sign</button></li>
+            <li><button type="button" data-step="5">Done</button></li>
+          </ol>
+        </div>
+        <svg class="fap-wires" aria-hidden="true"></svg>
+        <div class="fap-odoo">
+          <p class="fap-oh">{{odoo:industry_fsm}}<b>Odoo · Field Service</b><small data-ref>FS/2026/0418</small></p>
+          <dl class="fap-rec">
+            <div data-f="status"><dt>Status</dt><dd>Scheduled</dd></div>
+            <div data-f="checkin"><dt>Checked in</dt><dd>–</dd></div>
+            <div data-f="checklist"><dt>Checklist</dt><dd>0 of 4</dd></div>
+            <div data-f="photos"><dt>Photos</dt><dd>–</dd></div>
+            <div data-f="sign"><dt>Customer signature</dt><dd>–</dd></div>
+            <div data-f="time"><dt>Timesheet</dt><dd>–</dd></div>
+            <div data-f="invoice"><dt>Invoice</dt><dd>–</dd></div>
+          </dl>
+          <ol class="dm-log fap-log" aria-live="polite"></ol>
+        </div>
+      </div>
+      <dl class="dm-kpis fap-kpis"><div><dt>Steps done</dt><dd data-k="steps">0</dd></div><div><dt>Odoo fields filled</dt><dd data-k="fields">0</dd></div><div><dt>Minutes on site</dt><dd data-k="mins">0</dd></div><div class="dm-ok"><dt>Fields retyped at the office</dt><dd data-k="retype">0</dd></div></dl>
+      <div class="dm-static">
+        <p><b>On the phone:</b> the technician picks the day's job, checks in on site, works through the checklist, adds photos and gets the customer's signature on the screen.</p>
+        <p><b>In Odoo:</b> each step updates the Field Service job as it happens: status, check-in time, checklist, photos, signature, the timesheet and a draft invoice when the job is done.</p>
+        <p><b>Platforms:</b> the same app runs on iOS, Android or in the browser.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Fictional job and customer, sped up. Your app follows your own jobs, steps and Odoo fields.</p>
+  </div>
 </section>
 
 <section class="section">
@@ -123,7 +186,7 @@
     <div class="grid-3">
       <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/odoo-erp.html"><div class="card-ic">{{odoo:accountant}}</div><h3>Odoo ERP</h3><p>The system behind the app: customers, products, stock and invoices in one place.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
       <a class="card reveal" style="--i:1" href="{{ROOT}}solutions/ai-chatbots.html"><div class="card-ic">{{icon:bot}}</div><h3>AI chatbots</h3><p>Add an assistant inside the app that answers questions and takes requests.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how apps fit alongside IoT, networks and cyber security.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how apps work together with IoT and networks.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
     </div>
   </div>
 </section>
