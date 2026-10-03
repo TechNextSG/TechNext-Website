@@ -103,11 +103,15 @@
 - https://technext.asia/solutions/ai-automation — AI Workflow Automation in Singapore — AI agents: AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.
 - https://technext.asia/solutions/ai-chatbots — AI Chatbot Development in Singapore — web & WhatsApp: AI chatbots by TechNext for websites, WhatsApp and Odoo: answers from your content, lead qualification, order lookups and a clean hand-off to your team.
 - https://technext.asia/solutions/ai-knowledge — Enterprise RAG Knowledge Assistants in Singapore: Enterprise RAG knowledge assistants by TechNext: ask in plain language and get answers from your policies, manuals, contracts and records, with sources cited.
+- https://technext.asia/solutions/app-development — App Development in Singapore — mobile and web apps: Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.
 - https://technext.asia/solutions/brand-assets — Graphic Design & Brand Assets in Singapore: Graphic and brand assets by TechNext: logo refresh, guidelines, sales decks, brochures, social and document templates, delivered as editable files you own.
 - https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP for Groups & Consolidation: Odoo for groups: multi-company consolidation, inter-company flows, country localisations, governance and a phased rollout by TechNext, Odoo Partner.
+- https://technext.asia/solutions/iot — IoT Solutions in Singapore — sensors, devices and Odoo: IoT solutions by TechNext: sensors and devices connected to live dashboards, alerts and Odoo, so equipment, rooms and sites report their own status.
 - https://technext.asia/solutions/marketing — Website & Social Media Marketing in Singapore: TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.
+- https://technext.asia/solutions/networks — Office Network and Wi-Fi Setup in Singapore: Network services by TechNext: office networks, Wi-Fi, firewalls and remote access, designed for your team, installed, documented and supported.
 - https://technext.asia/solutions/odoo-erp — Odoo ERP Implementation in Singapore: Odoo ERP implementation by TechNext, an Odoo Partner in Singapore. Accounting, Sales and Inventory first — configured, migrated, trained and supported.
 - https://technext.asia/solutions/social-media — Social Media Management in Singapore: TechNext runs your LinkedIn, Facebook and Instagram on a monthly plan — content, scheduling, replies and a one-page report — while you run the business.
+- https://technext.asia/solutions/technology — Technology Services — IoT, Apps and Networks: TechNext technology services: IoT solutions, mobile and web app development and office networks, from the team behind your Odoo ERP and AI, connected end to end.
 - https://technext.asia/solutions/website — Web Design & Development in Singapore: TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.
 
 ## Questions and answers
@@ -366,7 +370,7 @@ Source: https://technext.asia/company
 
 ### What does TechNext do besides Odoo?
 
-Enterprise AI: agents and workflow automation, knowledge assistants that answer from your own documents, and chatbots for the web and WhatsApp, often connected to Odoo. We also build websites and run social media as a monthly service.
+Enterprise AI: agents and workflow automation, knowledge assistants that answer from your own documents, and chatbots for the web and WhatsApp, often connected to Odoo. We also build websites and run social media as a monthly service, and deliver IoT solutions, mobile and web apps, and office networks.
 
 Source: https://technext.asia/company
 
@@ -390,7 +394,7 @@ Source: https://technext.asia/company
 
 ### What does TechNext do?
 
-TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support) and builds enterprise AI, websites and social media for growing companies.
+TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support), builds enterprise AI, websites and social media, and delivers IoT, app development and network services for growing companies.
 
 Source: https://technext.asia/
 
@@ -1120,6 +1124,36 @@ Pricing is on quotation, scoped to the task and the data involved. Request a quo
 
 Source: https://technext.asia/solutions/ai
 
+### Native or cross-platform?
+
+We choose per project: one cross-platform codebase when it serves iOS and Android well, native code when the app leans heavily on device features.
+
+Source: https://technext.asia/solutions/app-development
+
+### Can the app work with Odoo?
+
+Yes. Apps can read and write Odoo records through its API, so orders, bookings, job reports and stock updates land in the ERP without retyping.
+
+Source: https://technext.asia/solutions/app-development
+
+### Do you build web apps too?
+
+Yes: portals, dashboards and internal tools that run in the browser, on their own or alongside a mobile app.
+
+Source: https://technext.asia/solutions/app-development
+
+### How long does a first version take?
+
+It depends on the scope. Most teams start with one workflow, launch it, then add to it. The quotation comes with a timeline for the first version.
+
+Source: https://technext.asia/solutions/app-development
+
+### What does it cost?
+
+Pricing is on quotation, scoped to the screens, platforms and integrations involved. Request a quotation and we'll return a written scope.
+
+Source: https://technext.asia/solutions/app-development
+
 ### Do we get editable files, or just PDFs?
 
 Editable master files. PDFs are for sharing; the source files are yours so your team can make new assets later.
@@ -1192,6 +1226,36 @@ By the entities, countries, integrations and custom work involved, so it's scope
 
 Source: https://technext.asia/solutions/enterprise
 
+### What can we monitor?
+
+Temperature and humidity, energy use, machine runtime and stoppages, doors, room occupancy and vehicle location are the common ones. If a sensor can measure it, it can usually be brought onto a dashboard.
+
+Source: https://technext.asia/solutions/iot
+
+### Do we need Odoo?
+
+No. Dashboards and alerts work on their own. If you run Odoo, the readings can feed it, and Odoo IoT connects devices such as scales and printers to the Odoo apps directly.
+
+Source: https://technext.asia/solutions/iot
+
+### Who supplies the hardware?
+
+We recommend the sensors and gateways for your site and can source them, or work with devices you already have where they can be connected.
+
+Source: https://technext.asia/solutions/iot
+
+### What if a device goes offline?
+
+A device that stops reporting raises its own alert, so a silent sensor is noticed rather than mistaken for a calm reading.
+
+Source: https://technext.asia/solutions/iot
+
+### What does it cost?
+
+Pricing is on quotation, scoped to the number of devices, sites and integrations. Request a quotation and we'll return a written scope.
+
+Source: https://technext.asia/solutions/iot
+
 ### Can I take just one of the three services?
 
 Yes. A website, social media management or brand assets each work on their own. Most companies start with one and add the others as they need them.
@@ -1227,6 +1291,36 @@ Source: https://technext.asia/solutions/marketing
 Singapore is home base, with a global production team. We have worked with clients across 10+ countries and transformed 11+ enterprise clients.
 
 Source: https://technext.asia/solutions/marketing
+
+### Can you work with our existing equipment?
+
+Yes. We review what you have, keep what is sound and replace only what is holding you back.
+
+Source: https://technext.asia/solutions/networks
+
+### Do you set up remote access?
+
+Yes. A VPN or other secure remote access lets people reach office systems from home or on the road, with access limited to what they need.
+
+Source: https://technext.asia/solutions/networks
+
+### Can guests use our Wi-Fi without reaching our files?
+
+Yes. Guest Wi-Fi runs on its own network, kept apart from staff computers, servers and printers.
+
+Source: https://technext.asia/solutions/networks
+
+### Do you support the network after set-up?
+
+Yes, through a support plan: changes, troubleshooting and regular checks, with the documentation kept current.
+
+Source: https://technext.asia/solutions/networks
+
+### What does it cost?
+
+Pricing is on quotation, scoped to your office, the equipment needed and the support you want. Request a quotation and we'll return a written scope.
+
+Source: https://technext.asia/solutions/networks
 
 ### Which apps should we start with?
 
@@ -1299,6 +1393,30 @@ Source: https://technext.asia/solutions/social-media
 As a monthly retainer, scoped to the channels and volume you want. We quote first, so you see the figure before you commit. Get a quotation .
 
 Source: https://technext.asia/solutions/social-media
+
+### Do these services need Odoo?
+
+No. Each one works on its own. When you run Odoo, we connect them so the data ends up in one place.
+
+Source: https://technext.asia/solutions/technology
+
+### Can we start with just one?
+
+Yes. Most companies start with one need, such as a new app, a network refresh or sensors in one room, and add the rest when it makes sense.
+
+Source: https://technext.asia/solutions/technology
+
+### Where is TechNext based?
+
+TechNext is headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City. Ask us about on-site work at your location.
+
+Source: https://technext.asia/solutions/technology
+
+### What does it cost?
+
+Pricing is on quotation, scoped to the services and sites involved. Request a quotation and we'll return a written scope.
+
+Source: https://technext.asia/solutions/technology
 
 ### Can we edit the site ourselves afterwards?
 

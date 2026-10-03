@@ -1,6 +1,6 @@
 # TechNext (TechNext Pte. Ltd., Singapore)
 
-> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.
+> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, AI inside Odoo, workflow automation agents, chatbots), run websites and social media, and deliver IoT, app development and network services for growing companies.
 
 - Registered name: TechNext Pte. Ltd. (UEN 202699888G)
 - Headquarters: 261 Waterloo Street #03-36, Singapore 180261
@@ -41,6 +41,13 @@
 - [Website & Social Media Marketing in Singapore](https://technext.asia/solutions/marketing): TechNext marketing services: websites and social media management run as a monthly service — strategy, design, production and a one-page report.
 - [Social Media Management in Singapore](https://technext.asia/solutions/social-media): TechNext runs your LinkedIn, Facebook and Instagram on a monthly plan — content, scheduling, replies and a one-page report — while you run the business.
 - [Web Design & Development in Singapore](https://technext.asia/solutions/website): TechNext builds fast, clear company websites, landing pages and online stores, designed, built and handed over with forms that reach your team.
+
+## Technology: IoT, apps and networks
+
+- [App Development in Singapore — mobile and web apps](https://technext.asia/solutions/app-development): Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.
+- [IoT Solutions in Singapore — sensors, devices and Odoo](https://technext.asia/solutions/iot): IoT solutions by TechNext: sensors and devices connected to live dashboards, alerts and Odoo, so equipment, rooms and sites report their own status.
+- [Office Network and Wi-Fi Setup in Singapore](https://technext.asia/solutions/networks): Network services by TechNext: office networks, Wi-Fi, firewalls and remote access, designed for your team, installed, documented and supported.
+- [Technology Services — IoT, Apps and Networks](https://technext.asia/solutions/technology): TechNext technology services: IoT solutions, mobile and web app development and office networks, from the team behind your Odoo ERP and AI, connected end to end.
 
 ## Odoo by industry
 

@@ -1,0 +1,208 @@
+<!--meta {"title": "App Development in Singapore — mobile and web apps", "desc": "Mobile and web app development by TechNext: customer apps, field and staff apps and portals, built around one workflow and connected to Odoo and your systems.", "out": "solutions/app-development.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-fieldapp.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-fieldapp.css?v={ASSET_V}\">"} -->
+
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>Technology</span><span>App Development</span></nav>
+    <div class="two two--stage">
+      <div>
+        <h1><span class="hand h1-hand">app development</span>Apps built around how your team works.</h1>
+        <p class="lead">Customer apps, field and staff apps, portals and internal tools for iOS, Android and the browser, each designed around one job done well and connected to Odoo and the systems you already run.</p>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="#app-live">See it run</a>
+        </div>
+        <div class="pill-row"><span class="tag">{{icon:tablet}} iOS and Android</span><span class="tag">{{icon:globe}} Web apps and portals</span><span class="tag tag--ok">{{icon:check}} Connected to Odoo</span></div>
+      </div>
+      <div class="stage stage--tx stage--appdev" aria-hidden="true">
+        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Field app · site visit</span><em class="ap-prog"><i></i></em></div>
+          <ul class="tx-rows ap-rows">
+            <li style="--k:0"><span class="tx-ic">{{icon:pin}}</span><span><b>Checked in on site</b><small>Location confirmed</small></span><span class="tx-st">09:02</span></li>
+            <li style="--k:1"><span class="tx-ic">{{icon:camera}}</span><span><b>Photos added</b><small>Before and after</small></span><span class="tx-st">3 photos</span></li>
+            <li style="--k:2"><span class="tx-ic">{{icon:usercheck}}</span><span><b>Customer signed</b><small>On the phone screen</small></span><span class="tx-st">Signed</span></li>
+            <li style="--k:3"><span class="tx-ic">{{icon:refresh}}</span><span><b>Report sent to Odoo</b><small>Attached to the job</small></span><span class="tx-st i">Synced</span></li>
+          </ul>
+          <p class="tx-foot">Sample job · iOS, Android and the web</p>
+        </div>
+        <div class="st-card tx-side ap-sign dp" style="--d:14"><b>Customer signature</b>
+          <div class="ap-pad"><svg viewBox="0 0 200 60"><path class="ap-sig" d="M8 42 C 18 18, 30 16, 34 36 S 52 52, 60 30 S 74 8, 82 30 S 96 50, 108 28 C 116 14, 126 18, 128 34 C 130 44, 140 42, 150 30 C 158 22, 170 24, 192 26"/></svg><i class="ap-wipe"></i><span class="ap-base"></span></div>
+          <small class="ap-who">Signed on the phone · 09:41</small>
+        </div>
+        <span class="st-chip tx-c1 dp" style="--d:10">{{icon:tablet}}iOS and Android</span>
+        <span class="st-chip tx-c2 ap-chip dp" style="--d:18">{{odoo:industry_fsm}}Job done in Odoo</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>Mobile and web apps</dd></div><div><dt>Platforms</dt><dd>iOS, Android and browser</dd></div><div><dt>Starts with</dt><dd>A clickable prototype</dd></div><div><dt>Connects</dt><dd>Odoo and your systems</dd></div><div><dt>After launch</dt><dd>Support and updates</dd></div></dl>
+  </div>
+</section>
+
+<section class="section section--tight answer-sec">
+  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>App development is designing and building the software people use on a phone, tablet or browser to do a specific job: book, order, check in, report or approve. TechNext builds mobile apps, web apps and portals around one clear workflow, connects them to Odoo and your other systems through APIs so nothing is typed twice, and supports them after launch.</p></div></div>
+</section>
+
+<section class="section demo-sec" id="app-live">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">tap through a job</span><h2>A field app that fills Odoo as the job happens.</h2><p class="lead">A technician runs the whole visit from a phone: check in, work through the checklist, take photos and get the customer's signature. Each step lands on the job in Odoo as it happens, so the office sees progress live and the invoice is ready when the van leaves. Switch the platform and the job, or tap a step to jump to it.</p></div>
+    <div class="dm dm-fap reveal" data-demo="fieldapp">
+      <div class="dm-head">
+        <div class="dm-title"><b>Field app · sample job</b><small>Fictional company and customer · sped up</small></div>
+        <div class="dm-seg" role="group" aria-label="Platform">
+          <button type="button" data-pf="ios" aria-pressed="true">{{icon:tablet}}iOS</button>
+          <button type="button" data-pf="android" aria-pressed="false">{{icon:tablet}}Android</button>
+          <button type="button" data-pf="web" aria-pressed="false">{{icon:globe}}Web</button>
+        </div>
+        <div class="dm-seg" role="group" aria-label="Job type">
+          <button type="button" data-job="aircon" aria-pressed="true">{{icon:wrench}}Aircon service</button>
+          <button type="button" data-job="install" aria-pressed="false">{{icon:box}}Installation</button>
+          <button type="button" data-job="delivery" aria-pressed="false">{{icon:truck}}Delivery</button>
+        </div>
+        <button class="dm-btn fap-play" type="button" data-play aria-label="Pause the walkthrough">{{icon:pause}}{{icon:play}}<span>Pause</span></button>
+      </div>
+      <div class="fap-wrap">
+        <div class="fap-dev">
+          <div class="fap-phone" data-pf="ios">
+            <div class="fap-chrome"><i class="fap-cam"></i><span class="fap-url">jobs.example.app</span></div>
+            <div class="fap-screen">
+              <div class="fap-top"><b data-app-title>Today's jobs</b><small data-app-sub>3 jobs</small></div>
+              <div class="fap-view" data-view aria-live="polite"></div>
+            </div>
+          </div>
+          <ol class="fap-rail" aria-label="Steps of the job">
+            <li><button type="button" data-step="0">Jobs</button></li>
+            <li><button type="button" data-step="1">Check in</button></li>
+            <li><button type="button" data-step="2">Checklist</button></li>
+            <li><button type="button" data-step="3">Photos</button></li>
+            <li><button type="button" data-step="4">Sign</button></li>
+            <li><button type="button" data-step="5">Done</button></li>
+          </ol>
+        </div>
+        <svg class="fap-wires" aria-hidden="true"></svg>
+        <div class="fap-odoo">
+          <p class="fap-oh">{{odoo:industry_fsm}}<b>Odoo · Field Service</b><small data-ref>FS/2026/0418</small></p>
+          <dl class="fap-rec">
+            <div data-f="status"><dt>Status</dt><dd>Scheduled</dd></div>
+            <div data-f="checkin"><dt>Checked in</dt><dd>–</dd></div>
+            <div data-f="checklist"><dt>Checklist</dt><dd>0 of 4</dd></div>
+            <div data-f="photos"><dt>Photos</dt><dd>–</dd></div>
+            <div data-f="sign"><dt>Customer signature</dt><dd>–</dd></div>
+            <div data-f="time"><dt>Timesheet</dt><dd>–</dd></div>
+            <div data-f="invoice"><dt>Invoice</dt><dd>–</dd></div>
+          </dl>
+          <ol class="dm-log fap-log" aria-live="polite"></ol>
+        </div>
+      </div>
+      <dl class="dm-kpis fap-kpis"><div><dt>Steps done</dt><dd data-k="steps">0</dd></div><div><dt>Odoo fields filled</dt><dd data-k="fields">0</dd></div><div><dt>Minutes on site</dt><dd data-k="mins">0</dd></div><div class="dm-ok"><dt>Fields retyped at the office</dt><dd data-k="retype">0</dd></div></dl>
+      <div class="dm-static">
+        <p><b>On the phone:</b> the technician picks the day's job, checks in on site, works through the checklist, adds photos and gets the customer's signature on the screen.</p>
+        <p><b>In Odoo:</b> each step updates the Field Service job as it happens: status, check-in time, checklist, photos, signature, the timesheet and a draft invoice when the job is done.</p>
+        <p><b>Platforms:</b> the same app runs on iOS, Android or in the browser.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Fictional job and customer, sped up. Your app follows your own jobs, steps and Odoo fields.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">what's included</span>
+      <h2>Everything a working app needs.</h2>
+    </div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:tablet}}</div><h3>Mobile apps</h3><p>iOS and Android apps for customers or staff, from ordering and bookings to field reports.</p></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:globe}}</div><h3>Web apps and portals</h3><p>Customer and partner portals, dashboards and internal tools that run in the browser.</p></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:layout}}</div><h3>Design first</h3><p>Screens designed around the task and tried as a clickable prototype before any code is written.</p></article>
+      <article class="card reveal" style="--i:3"><div class="card-ic">{{icon:plug}}</div><h3>Integrations</h3><p>Connected to Odoo, payments, maps, messaging and your other systems through APIs.</p></article>
+      <article class="card reveal" style="--i:4"><div class="card-ic">{{icon:lock}}</div><h3>Accounts and access</h3><p>Sign-in, roles and data access set up properly from the first version.</p></article>
+      <article class="card reveal" style="--i:5"><div class="card-ic">{{icon:lifebuoy}}</div><h3>Launch and support</h3><p>App store submission, fixes and updates after launch, planned with you.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">how we build one</span>
+      <h2>One workflow first, then grow it.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step reveal" style="--i:0"><div class="step-n">1</div><div><h3>Scope the job</h3><p>Who uses the app, for what, on which devices, and which systems it reads from and writes to.</p></div></div>
+      <div class="step reveal" style="--i:1"><div class="step-n">2</div><div><h3>Prototype</h3><p>Clickable screens you can try with real users before development starts.</p></div></div>
+      <div class="step reveal" style="--i:2"><div class="step-n">3</div><div><h3>Build in stages</h3><p>Working releases you can test along the way, connected to Odoo and your data.</p></div></div>
+      <div class="step reveal" style="--i:3"><div class="step-n">4</div><div><h3>Launch and improve</h3><p>Store release or web launch, then fixes and new features from what users actually do.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="two two--top">
+      <div class="reveal">
+        <span class="hand">what you get</span>
+        <h2>An app that fits the work, not the other way round.</h2>
+        <p class="lead">We start from the job the app has to do and the records it touches, so orders, bookings and reports land where your team already works, usually in Odoo, without retyping.</p>
+      </div>
+      <ul class="spec-cols" style="margin:0">
+        <li>{{icon:check}}Cross-platform or native, chosen per project</li>
+        <li>{{icon:check}}Web app or portal in the browser</li>
+        <li>{{icon:check}}A clickable prototype before the build</li>
+        <li>{{icon:check}}Accounts, roles and permissions</li>
+        <li>{{icon:check}}Connected to Odoo through its API</li>
+        <li>{{icon:check}}Payments, maps and notifications where needed</li>
+        <li>{{icon:check}}Admin screens for your team</li>
+        <li>{{icon:check}}Testing on real devices</li>
+        <li>{{icon:check}}App Store and Google Play submission</li>
+        <li>{{icon:check}}Documentation for your team</li>
+        <li>{{icon:check}}Support and updates after launch</li>
+        <li>{{icon:check}}Clear pricing on quotation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">questions</span>
+      <h2>What teams ask before they start.</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Native or cross-platform? {{icon:chevron}}</summary><div class="faq-a"><p>We choose per project: one cross-platform codebase when it serves iOS and Android well, native code when the app leans heavily on device features.</p></div></details>
+      <details><summary>Can the app work with Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Apps can read and write Odoo records through its API, so orders, bookings, job reports and stock updates land in the ERP without retyping.</p></div></details>
+      <details><summary>Do you build web apps too? {{icon:chevron}}</summary><div class="faq-a"><p>Yes: portals, dashboards and internal tools that run in the browser, on their own or alongside a mobile app.</p></div></details>
+      <details><summary>How long does a first version take? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on the scope. Most teams start with one workflow, launch it, then add to it. The quotation comes with a timeline for the first version.</p></div></details>
+      <details><summary>What does it cost? {{icon:chevron}}</summary><div class="faq-a"><p>Pricing is on quotation, scoped to the screens, platforms and integrations involved. <a href="{{ROOT}}quotation.html">Request a quotation</a> and we'll return a written scope.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">related services</span>
+      <h2>Pairs well with these.</h2>
+    </div>
+    <div class="grid-3">
+      <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/odoo-erp.html"><div class="card-ic">{{odoo:accountant}}</div><h3>Odoo ERP</h3><p>The system behind the app: customers, products, stock and invoices in one place.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:1" href="{{ROOT}}solutions/ai-chatbots.html"><div class="card-ic">{{icon:bot}}</div><h3>AI chatbots</h3><p>Add an assistant inside the app that answers questions and takes requests.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how apps work together with IoT and networks.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta reveal">
+      <div>
+        <span class="hand">next step</span>
+        <h2>Describe the app your team keeps wishing for.</h2>
+        <p>Who uses it, what they do in it and what it should connect to. We'll come back with a scope and a first-version estimate.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        <a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a>
+      </div>
+    </div>
+  </div>
+</section>

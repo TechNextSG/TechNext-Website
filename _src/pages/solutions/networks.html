@@ -1,0 +1,197 @@
+<!--meta {"title": "Office Network and Wi-Fi Setup in Singapore", "desc": "Network services by TechNext: office networks, Wi-Fi, firewalls and remote access, designed for your team, installed, documented and supported.", "out": "solutions/networks.html", "nav": "solution", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-netsim.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-netsim.css?v={ASSET_V}\">"} -->
+
+<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
+  {{STAGE_BG}}
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>Technology</span><span>Networks</span></nav>
+    <div class="two two--stage">
+      <div>
+        <h1><span class="hand h1-hand">networks</span>A network nobody has to think about.</h1>
+        <p class="lead">Office networks, Wi-Fi, firewalls and remote access, planned for how many people and devices you have, installed tidily, documented and supported, so the connection is simply there when your team needs it.</p>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="#net-live">See it run</a>
+        </div>
+        <div class="pill-row"><span class="tag">{{icon:wifi}} Wi-Fi coverage</span><span class="tag">{{icon:shield}} Firewall and VPN</span><span class="tag tag--ok">{{icon:check}} Documented</span></div>
+      </div>
+      <div class="stage stage--tx stage--net" aria-hidden="true">
+        <div class="st-card tx-panel dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i><span>Office network · overview</span></div>
+          <ul class="tx-rows">
+            <li style="--k:0"><span class="tx-ic">{{icon:globe}}</span><span><b>Internet</b><small>Main line and backup</small></span><span class="tx-st">Online</span></li>
+            <li style="--k:1"><span class="tx-ic">{{icon:shield}}</span><span><b>Firewall</b><small>Rules reviewed</small></span><span class="nt-swap"><span class="tx-st">Protected</span><span class="tx-st w">1 blocked</span></span></li>
+            <li style="--k:2"><span class="tx-ic">{{icon:wifi}}</span><span><b>Wi-Fi</b><small>Staff and guest networks</small></span><span class="tx-st">Good</span></li>
+            <li style="--k:3"><span class="tx-ic">{{icon:monitor}}</span><span><b>Printers and devices</b><small>On their own segment</small></span><span class="tx-st">OK</span></li>
+          </ul>
+          <p class="tx-foot">Sample office · every port labelled, every change logged</p>
+        </div>
+        <div class="st-card tx-side nt-mini dp" style="--d:14"><b>Traffic right now</b>
+          <p class="nt-lane"><span>Staff</span><i class="nt-track"><i class="nt-pk"></i></i><span>Server</span></p>
+          <p class="nt-lane nt-guest"><span>Guest</span><i class="nt-track"><i class="nt-pk"></i><i class="nt-wall"></i></i><span>Server</span></p>
+          <p class="nt-lane nt-vpn"><span>Home</span><i class="nt-track"><i class="nt-pk"></i></i><span>VPN</span></p>
+        </div>
+        <span class="st-chip tx-c1 dp" style="--d:10">{{icon:network}}Staff, guest and devices apart</span>
+        <span class="st-chip tx-c2 dp" style="--d:18">{{icon:wifi}}Coverage checked</span>
+      </div>
+    </div>
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="glance"><div><dt>Discipline</dt><dd>Office networks and Wi-Fi</dd></div><div><dt>Covers</dt><dd>Internet, firewall, Wi-Fi, devices</dd></div><div><dt>Remote work</dt><dd>Secure access from anywhere</dd></div><div><dt>Handed over</dt><dd>Diagram and device list</dd></div><div><dt>After set-up</dt><dd>Support and changes</dd></div></dl>
+  </div>
+</section>
+
+<section class="section section--tight answer-sec">
+  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Network services cover everything that connects your people and devices: the internet line, router and firewall, switches and cabling, Wi-Fi and remote access. TechNext plans the network for your office, installs and labels it, keeps staff, guest and device traffic apart, documents how it is set up and supports it afterwards, so changes are made safely and there is someone to call when something stops working.</p></div></div>
+</section>
+
+<section class="section demo-sec" id="net-live">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">watch the traffic</span><h2>An office network that lets the right traffic through.</h2><p class="lead">Staff reach the file server, guests get the internet and nothing else, remote staff come in through the VPN, and the firewall turns away unasked-for traffic from outside. Switch a safeguard off to see what slips through, change the size of the office, and hover any device.</p></div>
+    <div class="dm dm-net reveal" data-demo="netsim">
+      <div class="dm-head">
+        <div class="dm-title"><b>Office network · sample office</b><small>Simulated traffic, sped up</small></div>
+        <div class="dm-seg" role="group" aria-label="Office size">
+          <button type="button" data-size="10" aria-pressed="false">{{icon:users}}10 people</button>
+          <button type="button" data-size="25" aria-pressed="true">{{icon:users}}25 people</button>
+          <button type="button" data-size="60" aria-pressed="false">{{icon:users}}60 people</button>
+        </div>
+        <button class="dm-btn nsm-play" type="button" data-play aria-label="Pause the traffic">{{icon:pause}}{{icon:play}}<span>Pause</span></button>
+      </div>
+      <div class="nsm-wrap">
+        <div class="nsm-map" role="img" aria-label="Network map: home office, internet and outside traffic on the left, the firewall and switch in the middle, the server, printer, staff Wi-Fi and guest Wi-Fi on the right">
+          <svg class="nsm-svg" aria-hidden="true"></svg>
+          <div class="nsm-nodes">
+            <button type="button" class="nsm-n" data-n="home">{{icon:monitor}}<span><b>Home office</b><small>Remote staff</small></span></button>
+            <button type="button" class="nsm-n" data-n="net">{{icon:globe}}<span><b>Internet</b><small>Main line</small></span></button>
+            <button type="button" class="nsm-n" data-n="scan">{{icon:search}}<span><b>Outside traffic</b><small>Unknown sources</small></span></button>
+            <button type="button" class="nsm-n nsm-n--core" data-n="fw">{{icon:shield}}<span><b>Firewall</b><small>Rules and VPN</small></span></button>
+            <button type="button" class="nsm-n nsm-n--core" data-n="sw">{{icon:network}}<span><b>Office switch</b><small data-ports>32 ports in use</small></span></button>
+            <button type="button" class="nsm-n" data-n="srv">{{icon:database}}<span><b>File server</b><small>Shared drives</small></span></button>
+            <button type="button" class="nsm-n" data-n="prn">{{icon:file}}<span><b>Printer</b><small>Own segment</small></span></button>
+            <button type="button" class="nsm-n" data-n="staff">{{icon:wifi}}<span><b>Staff Wi-Fi</b><small data-aps>2 access points</small></span></button>
+            <button type="button" class="nsm-n nsm-n--guest" data-n="guest">{{icon:wifi}}<span><b>Guest Wi-Fi</b><small data-gtag>Internet only</small></span></button>
+          </div>
+        </div>
+        <div class="nsm-side">
+          <div class="nsm-card"><p class="nsm-h">{{icon:shield}}<b>Safeguards</b><small>tap to switch</small></p>
+            <div class="nsm-tg">
+              <button type="button" data-g="guest" aria-pressed="true"><i></i><span><b>Guest Wi-Fi kept apart</b><small>Guests get the internet only</small></span></button>
+              <button type="button" data-g="vpn" aria-pressed="true"><i></i><span><b>VPN for remote staff</b><small>An encrypted way in from outside</small></span></button>
+              <button type="button" data-g="fw" aria-pressed="true"><i></i><span><b>Firewall rules</b><small>Unasked-for traffic turned away</small></span></button>
+            </div>
+          </div>
+          <div class="nsm-card"><p class="nsm-h">{{icon:file}}<b>Network log</b><small data-clock>09:00</small></p><ol class="dm-log nsm-log" aria-live="polite"></ol></div>
+        </div>
+      </div>
+      <dl class="dm-kpis nsm-kpis"><div><dt>Devices online</dt><dd data-k="dev">0</dd></div><div><dt>Wi-Fi access points</dt><dd data-k="ap">0</dd></div><div><dt>Switch ports in use</dt><dd data-k="ports">0</dd></div><div class="dm-ok"><dt>Blocked attempts</dt><dd data-k="blk">0</dd></div></dl>
+      <div class="dm-static">
+        <p><b>The map:</b> the internet, a home office and unknown outside traffic on the left; the firewall and the office switch in the middle; the file server, printer, staff Wi-Fi and guest Wi-Fi on the right.</p>
+        <p><b>Safeguards:</b> guest Wi-Fi on its own network reaches the internet but not the server; remote staff come in through an encrypted VPN; firewall rules turn away traffic nobody asked for.</p>
+        <p><b>Office size:</b> more people means more access points and switch ports, placed so Wi-Fi covers every room.</p>
+      </div>
+    </div>
+    <p class="dm-note">{{icon:check}} Simulated traffic, sped up. Your design, equipment and rules are worked out from a survey of your office.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">what's included</span>
+      <h2>From the internet line to the last desk.</h2>
+    </div>
+    <div class="grid-3">
+      <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:network}}</div><h3>Network design</h3><p>Layout, equipment and addressing planned for your people, your devices and the next hire.</p></article>
+      <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:wifi}}</div><h3>Wi-Fi</h3><p>Access points placed for coverage where people actually sit, with separate staff and guest networks.</p></article>
+      <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:shield}}</div><h3>Firewall and remote access</h3><p>A firewall at the edge and a VPN or secure remote access for people working away from the office.</p></article>
+      <article class="card reveal" style="--i:3"><div class="card-ic">{{icon:plug}}</div><h3>Installation</h3><p>Equipment, cabling and racks installed tidily, with every port and device labelled.</p></article>
+      <article class="card reveal" style="--i:4"><div class="card-ic">{{icon:monitor}}</div><h3>Devices on the network</h3><p>Laptops, printers, storage and servers set up with the right access, and nothing more.</p></article>
+      <article class="card reveal" style="--i:5"><div class="card-ic">{{icon:lifebuoy}}</div><h3>Support</h3><p>Changes, troubleshooting and upkeep, with the documentation kept up to date.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">how we deliver</span>
+      <h2>Survey, plan, install, hand over.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step reveal" style="--i:0"><div class="step-n">1</div><div><h3>Site survey</h3><p>Rooms, people, devices and the systems you run, plus what works badly today.</p></div></div>
+      <div class="step reveal" style="--i:1"><div class="step-n">2</div><div><h3>Design and quote</h3><p>Equipment list, layout and security settings, with a fixed scope before anything is ordered.</p></div></div>
+      <div class="step reveal" style="--i:2"><div class="step-n">3</div><div><h3>Install and test</h3><p>Installed and labelled, with Wi-Fi coverage and speeds checked room by room.</p></div></div>
+      <div class="step reveal" style="--i:3"><div class="step-n">4</div><div><h3>Document and support</h3><p>A network diagram and device list handed over, and support for the changes that follow.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="two two--top">
+      <div class="reveal">
+        <span class="hand">what you get</span>
+        <h2>Fast where you work, closed where it matters.</h2>
+        <p class="lead">Good Wi-Fi in the meeting room and a guest network that cannot see your files are two sides of the same job. We set up both, write down how, and keep it that way as the team grows.</p>
+      </div>
+      <ul class="spec-cols" style="margin:0">
+        <li>{{icon:check}}A survey of rooms, people and devices</li>
+        <li>{{icon:check}}An equipment list and network diagram</li>
+        <li>{{icon:check}}Staff, guest and device networks kept apart</li>
+        <li>{{icon:check}}Firewall rules set and reviewed</li>
+        <li>{{icon:check}}Secure remote access for your team</li>
+        <li>{{icon:check}}Wi-Fi placed for coverage and checked</li>
+        <li>{{icon:check}}Cabling and ports labelled</li>
+        <li>{{icon:check}}Network settings backed up</li>
+        <li>{{icon:check}}Admin access recorded and shared with you</li>
+        <li>{{icon:check}}Changes logged</li>
+        <li>{{icon:check}}Support when something breaks</li>
+        <li>{{icon:check}}Clear pricing on quotation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">questions</span>
+      <h2>What teams ask before they start.</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Can you work with our existing equipment? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. We review what you have, keep what is sound and replace only what is holding you back.</p></div></details>
+      <details><summary>Do you set up remote access? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. A VPN or other secure remote access lets people reach office systems from home or on the road, with access limited to what they need.</p></div></details>
+      <details><summary>Can guests use our Wi-Fi without reaching our files? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Guest Wi-Fi runs on its own network, kept apart from staff computers, servers and printers.</p></div></details>
+      <details><summary>Do you support the network after set-up? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, through a support plan: changes, troubleshooting and regular checks, with the documentation kept current.</p></div></details>
+      <details><summary>What does it cost? {{icon:chevron}}</summary><div class="faq-a"><p>Pricing is on quotation, scoped to your office, the equipment needed and the support you want. <a href="{{ROOT}}quotation.html">Request a quotation</a> and we'll return a written scope.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">related services</span>
+      <h2>Pairs well with these.</h2>
+    </div>
+    <div class="grid-3">
+      <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/iot.html"><div class="card-ic">{{icon:cpu}}</div><h3>IoT Solutions</h3><p>Sensors and devices that report over the network to live dashboards and Odoo.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:1" href="{{ROOT}}solutions/app-development.html"><div class="card-ic">{{icon:tablet}}</div><h3>App Development</h3><p>Mobile and web apps your team uses over the network, connected to Odoo.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card reveal" style="--i:2" href="{{ROOT}}solutions/technology.html"><div class="card-ic">{{icon:layers}}</div><h3>Technology overview</h3><p>See how networks work together with IoT and apps.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="cta reveal">
+      <div>
+        <span class="hand">next step</span>
+        <h2>Tell us about your office.</h2>
+        <p>How many people, rooms and devices, and what is not working today. We'll come back with a plan and an estimate.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        <a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a>
+      </div>
+    </div>
+  </div>
+</section>

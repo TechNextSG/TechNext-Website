@@ -202,6 +202,9 @@ def talk_panel_html() -> str:
           <option>Odoo training or support</option>
           <option>Website</option>
           <option>Social media management</option>
+          <option>IoT solutions</option>
+          <option>App development</option>
+          <option>Networks</option>
           <option>Something else</option>
         </select>
       </div>
@@ -404,7 +407,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "description": S.ORG_DESC,
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
-                           "AI workflow automation", "AI chatbots", "Website development", "Business consultation"],
+                           "AI workflow automation", "AI chatbots", "Website development", "Business consultation",
+                           "Internet of Things (IoT)", "Mobile and web app development", "Network infrastructure"],
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "publisher": {"@id": org_id}, "inLanguage": "en"},
@@ -1548,6 +1552,8 @@ LLMS_GROUPS = [
     ("AI solutions", lambda u: u.startswith("solutions/ai")),
     ("Websites and marketing", lambda u: u in ("solutions/marketing", "solutions/website",
                                                 "solutions/social-media", "solutions/brand-assets")),
+    ("Technology: IoT, apps and networks", lambda u: u in (
+        "solutions/technology", "solutions/iot", "solutions/app-development", "solutions/networks")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
     ("Company", lambda u: u in ("", "company", "careers", "quotation")),
@@ -1564,7 +1570,8 @@ def write_llms():
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end "
         "(accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, "
-        "AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies.",
+        "AI inside Odoo, workflow automation agents, chatbots), run websites and social media, and deliver IoT, "
+        "app development and network services for growing companies.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
         f"- Headquarters: {', '.join(c['address'])}",
