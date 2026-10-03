@@ -7,7 +7,8 @@ SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and "
             "consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
-            "and Inventory, and build enterprise AI and websites for growing companies in 10+ countries.")
+            "and Inventory, build enterprise AI and websites, and deliver IoT, app, network and cyber security "
+            "services for growing companies in 10+ countries.")
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
 
@@ -125,6 +126,16 @@ NAV = [
                  "desc": "Steady posting with a plan behind it."},
                 {"label": "Graphic & Brand Assets", "href": "solutions/brand-assets.html", "icon": "sparkle",
                  "desc": "Logos, decks, collateral, templates."},
+            ]},
+            {"title": "Technology", "href": "solutions/technology.html", "links": [
+                {"label": "IoT Solutions", "href": "solutions/iot.html", "icon": "cpu",
+                 "desc": "Sensors, devices and live dashboards."},
+                {"label": "App Development", "href": "solutions/app-development.html", "icon": "tablet",
+                 "desc": "Mobile and web apps for your workflow."},
+                {"label": "Networks", "href": "solutions/networks.html", "icon": "network",
+                 "desc": "Office networks, Wi-Fi and IT infrastructure."},
+                {"label": "Cyber Security", "href": "solutions/cyber-security.html", "icon": "shield",
+                 "desc": "Assessments, hardening and protection."},
             ]},
         ],
     },
@@ -365,6 +376,8 @@ ICONS = {
     "calendar": _S % ('<path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4H3z"' + _T + '/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'),
     "wrench": _S % ('<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"' + _T + '/><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>'),
     "zap": _S % ('<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"' + _T + '/><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>'),
+    "network": _S % ('<rect x="9" y="2" width="6" height="6" rx="1"' + _T + '/><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/>'),
+    "wifi": _S % ('<path d="M8.5 16.1a5 5 0 0 1 7 0L12 19.5z"' + _T + '/><path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16.1a5 5 0 0 1 7 0"/><path d="M12 19.5h.01"/>'),
     "bars": _S % ('<rect x="4" y="15" width="4" height="6" rx="1"' + _T + '/><rect x="10" y="9" width="4" height="12" rx="1"' + _T + '/><rect x="16" y="3" width="4" height="18" rx="1"' + _T + '/><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>'),
     "clock": _S % ('<circle cx="12" cy="12" r="10"' + _T + '/><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>'),
     "x": _S % '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',

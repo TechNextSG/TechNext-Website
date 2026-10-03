@@ -21,9 +21,9 @@ var MEET = "https://technext.odoo.com/book/c82cf8a9";
 
 var QUESTIONS = [
   { id:"about", label:"What does TechNext do?", short:"Services",
-    reply:"Ooh, my favourite question! TechNext helps businesses in three ways: Odoo ERP, AI solutions and marketing. I popped out an orb for each one. Tap an orb to say hello!",
+    reply:"Ooh, my favourite question! TechNext helps businesses in four ways: Odoo ERP, AI solutions, marketing and technology services. I popped out an orb for each one. Tap an orb to say hello!",
     reaction:"spin", camera:"orbs", tutorial:"orbs",
-    done:"Yay, you met all three! Want to see how one of them works?" },
+    done:"Yay, you met all four! Want to see how one of them works?" },
   { id:"odoo", label:"How does Odoo run my business?", short:"Odoo order flow",
     reply:"Odoo keeps sales, stock and money in one database, so nothing gets typed twice. Let's walk one order through it. Press Next and I'll hop the box along!",
     reaction:"nod", camera:"flow", tutorial:"flow",
@@ -34,7 +34,7 @@ var QUESTIONS = [
     done:"All done! TechNext builds four kinds of AI: knowledge assistants, AI inside Odoo, workflow automation and chatbots. Chatbots like me!" }
 ];
 var TOUR_KW = {
-  about:["what does technext do","what do you do","what you do","your services","what services","services","service","what do you offer","offering","three services","what can technext do","technext do","show me around","take a tour","tour"],
+  about:["what does technext do","what do you do","what you do","your services","what services","services","service","what do you offer","offering","three services","four services","what can technext do","technext do","show me around","take a tour","tour"],
   odoo:["how does odoo work","how odoo works","how does odoo run","odoo run my business","run my business","order to cash","quote to cash","order flow","walk me through","one database","nothing typed twice","how does erp work","odoo flow"],
   ai:["what can ai do","ai do for me","ai for me","ai for my business","read a bill","read bills","scan a bill","scan bill","bill scanning","scan invoice","read invoice","ai example","ai demo","show me ai"]
 };
@@ -58,7 +58,11 @@ var SERVICES = [
   { id:"mkt", name:"Marketing", hex:0x21b799, css:"#15866F", icons:["i_globe","i_megaphone","i_sparkle"], orbIcon:"i_globe",
     line:"Fast, modern websites, social media and brand assets that win the click.",
     items:["Web Design & Development","Social Media Management","Graphic & Brand Assets"],
-    say:"Marketing! Websites, social media and brand assets." }
+    say:"Marketing! Websites, social media and brand assets." },
+  { id:"tech", name:"Technology", hex:0xf0a030, css:"#A65F00", icons:["i_cpu","i_shield"], orbIcon:"i_cpu",
+    line:"IoT, apps, networks and cyber security around your business systems.",
+    items:["IoT Solutions","App Development","Networks","Cyber Security"],
+    say:"Technology! Devices, apps, networks and security. I'm a device too!" }
 ];
 var FLOW = [
   { k:"Quote",   app:"Odoo Sales",      icon:"o_sale",       text:"Send a quotation from a template. Your customer signs it online." },
@@ -188,6 +192,18 @@ var KB = [
   { id:'demo', kw:['demo','demonstration','free demo','trial','free trial','test drive','test','try','try odoo','see it','show me','sandbox','walkthrough','presentation','preview'],
     a:'Happy to show you Odoo on real scenarios. The quickest path is a short <b>discovery call</b>: we walk through the apps that fit your business and answer pricing.',
     actions:[['meet'],['wabook']] },
+  { id:'iot', kw:['iot','internet of things','iot solution','iot solutions','sensor','sensors','iot device','iot devices','connected devices','smart device','smart devices','remote monitoring','temperature monitoring','temperature sensor','cold room','energy monitoring','machine monitoring','asset tracking','gps tracking','telemetry','iot gateway','odoo iot','iot box'],
+    a:'<b>IoT solutions</b> connect equipment, rooms and sites to software so they report their own status: temperature, energy, machine runtime or location. We recommend the sensors and gateways, build live dashboards and alerts, and can feed the readings into Odoo. Odoo IoT also connects scales, printers and measuring tools to Odoo apps.',
+    actions:[['link','solutions/iot','IoT Solutions'],['quote']] },
+  { id:'apps', kw:['app','apps','mobile app','mobile apps','app development','develop an app','build an app','build our app','application development','ios','android','iphone app','android app','web app','web apps','webapp','portal','customer portal','pwa','progressive web app','custom app','field app','staff app'],
+    a:'We build <b>mobile and web apps</b>: customer apps, field and staff apps, portals and internal tools for iOS, Android and the browser. Each one is designed around one workflow, tried as a clickable prototype first, and connected to Odoo and your other systems through APIs.',
+    actions:[['link','solutions/app-development','App Development'],['quote']] },
+  { id:'network', kw:['network','networks','networking','office network','office wifi','set up wifi','setup wifi','wifi setup','set up network','network setup','wifi','wi fi','wireless','lan','router','routers','cabling','structured cabling','firewall','firewalls','vpn','remote access','internet connection','access point','access points','it infrastructure','infrastructure'],
+    a:'We set up <b>office networks</b>: the internet line, firewall, Wi-Fi with separate staff and guest networks, secure remote access and the devices on the network. Everything is labelled and documented, and a support plan covers the changes that follow.',
+    actions:[['link','solutions/networks','Networks'],['quote']] },
+  { id:'cyber', kw:['cyber','cyber security','cybersecurity','cyber attack','cyberattack','phishing','ransomware','malware','virus','hacked','hack','hacker','hackers','mfa','2fa','two factor','multi factor','password policy','security review','security audit','data breach','breach'],
+    a:'For <b>cyber security</b> we start with a review of your accounts, devices, network and backups, then fix the gaps in order of risk: multi-factor sign-in, updates, tested backups, access rights and firewall rules. We also run phishing awareness for your team and help you recover if something goes wrong.',
+    actions:[['link','solutions/cyber-security','Cyber Security'],['quote']] },
   { id:'contact', kw:['contact','contact you','contact details','get in touch','reach','reach you','email','email address','phone','phone number','number','telephone','mobile','whatsapp','wa','call','call you','hours','opening hours'],
     a:'Here\'s how to reach the team:<ul><li>'+icon('i_mail')+'<span>Email <span class="mail">sales@technext.asia</span></span></li><li>'+icon('i_whatsapp')+'<span>WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">+65 8839 6998</a></span></li><li>'+icon('i_pin')+'<span>261 Waterloo Street #03-36, Singapore 180261</span></li></ul>Headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City.',
     actions:[['wa'],['email']] },
@@ -207,8 +223,8 @@ var KB = [
     a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
     actions:[['talkform'],['wa'],['email']] }
 ];
-var LABEL = { odoo:'What is Odoo?', accounting:'What does Odoo Accounting cover?', sales:'How do Sales and CRM work?', inventory:'Can Odoo track my stock?', price:'How much does it cost?', how:'How does a rollout work?', migration:'Can you move my old data?', integration:'Does it connect to my other tools?', hosting:'Where is Odoo hosted?', security:'Is my data safe?', industries:'Which industries do you work with?', partner:'Who is TechNext?', offices:'Where are your offices?', marketing:'What marketing do you do?', website:'Do you build websites?', social:'Can you run our social media?', brand:'Can you design our brand?', ai:'How can AI help my team?', hr:'Does Odoo handle HR and payroll?', projects:'Can Odoo run projects and support?', odoo20:'What\'s new in Odoo 20?', custom:'Can you customise Odoo?', enterprise:'Can Odoo run a group of companies?', invoicenow:'What is InvoiceNow?', support:'What support do you give after go-live?', training:'Do you train our team?', careers:'Are you hiring?', demo:'Can I see a demo?', contact:'How do I contact you?', human:'Can I talk to a person?', schedule:'Book a discovery call', quote:'Request a quotation', talk:"Let's talk" };
-var CHIP_ICON = { accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', website:'o_website', offices:'i_pin', partner:'i_star', schedule:'i_calendar', quote:'i_receipt', talk:'i_whatsapp' };
+var LABEL = { iot:'Do you do IoT?', apps:'Can you build our app?', network:'Can you set up our network?', cyber:'Can you help with cyber security?', odoo:'What is Odoo?', accounting:'What does Odoo Accounting cover?', sales:'How do Sales and CRM work?', inventory:'Can Odoo track my stock?', price:'How much does it cost?', how:'How does a rollout work?', migration:'Can you move my old data?', integration:'Does it connect to my other tools?', hosting:'Where is Odoo hosted?', security:'Is my data safe?', industries:'Which industries do you work with?', partner:'Who is TechNext?', offices:'Where are your offices?', marketing:'What marketing do you do?', website:'Do you build websites?', social:'Can you run our social media?', brand:'Can you design our brand?', ai:'How can AI help my team?', hr:'Does Odoo handle HR and payroll?', projects:'Can Odoo run projects and support?', odoo20:'What\'s new in Odoo 20?', custom:'Can you customise Odoo?', enterprise:'Can Odoo run a group of companies?', invoicenow:'What is InvoiceNow?', support:'What support do you give after go-live?', training:'Do you train our team?', careers:'Are you hiring?', demo:'Can I see a demo?', contact:'How do I contact you?', human:'Can I talk to a person?', schedule:'Book a discovery call', quote:'Request a quotation', talk:"Let's talk" };
+var CHIP_ICON = { iot:'i_cpu', apps:'i_layers', network:'i_plug', cyber:'i_shield', accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', website:'o_website', offices:'i_pin', partner:'i_star', schedule:'i_calendar', quote:'i_receipt', talk:'i_whatsapp' };
 /* related questions after each answer. The last one is always a step toward a goal. */
 var FOLLOW = {
   start:['odoo','price','offices'],
@@ -223,6 +239,7 @@ var FOLLOW = {
   training:['support','how','schedule'], careers:['offices','partner','talk'], demo:['how','price','schedule'],
   contact:['offices','price','talk'], human:['price','schedule','talk'], thanks:['price','schedule','talk'], hello:['odoo','price','schedule'],
   site:['price','how','talk'], unknown:['odoo','price','talk'],
+  iot:['network','integration','quote'], apps:['integration','ai','quote'], network:['cyber','iot','talk'], cyber:['network','security','talk'],
   tour_about:['odoo','ai','marketing'], tour_odoo:['accounting','price','schedule'], tour_ai:['ai','integration','schedule'],
   goal:['odoo','ai','marketing']
 };
@@ -262,7 +279,11 @@ var TOPIC = {
   hello:{ icon:'i_smile', react:'hello', intro:'Hi hi!', shot:'closeUp' },
   schedule:{ icon:'i_calendar', react:'celebrate', intro:'Yay, a meeting!', shot:'closeUp' },
   quote:{ icon:'i_receipt', react:'clap', intro:'Ooh, a quotation! Numbers incoming.', shot:'punchIn' },
-  talk:{ icon:'i_whatsapp', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' }
+  talk:{ icon:'i_whatsapp', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' },
+  iot:{ icon:'i_cpu', react:'bounce', intro:'Beep boop, a fellow device!', shot:'sweep' },
+  apps:{ icon:'i_layers', react:'clap', intro:'Ooh, an app! Let\'s build it.', shot:'punchIn' },
+  network:{ icon:'i_plug', react:'nod', intro:'Let\'s get everyone connected.', shot:'aerialDrop' },
+  cyber:{ icon:'i_shield', react:'nod', intro:'Shields up!', shot:'lowHero' }
 };
 
 /* ---------------- fuzzy matching, ported from the site assistant ---------------- */
@@ -1319,7 +1340,7 @@ function buildWorld(){
       el.style.setProperty("--c",s.css);
       el.addEventListener("click",function(){ Snd.resume(); if(api.onOrb) api.onOrb(s.id); });
       var label=pin(el,g,new THREE.Vector3(0,-.5,0),{ depth:true });
-      return { s:s, g:g, sph:sph, ring:ring, icon:ic, label:label, a:i/3*Math.PI*2+.4, k:0, f:new Spring(1.6,.9), pos:new THREE.Vector3() };
+      return { s:s, g:g, sph:sph, ring:ring, icon:ic, label:label, a:i/SERVICES.length*Math.PI*2+.4, k:0, f:new Spring(1.6,.9), pos:new THREE.Vector3() };
     });
   }
   var ORB_FOCUS=new THREE.Vector3(-1.5,2.08,1.05), orbStart=new THREE.Vector3(0,1.05,.45);
@@ -1972,8 +1993,8 @@ var TUTORIALS = {
     function count(){ return Object.keys(seen).length; }
     function render(){
       var info=null; SERVICES.forEach(function(s){ if(s.id===sel) info=s; });
-      openCard(head("Mini tour · "+count()+" of 3 met")+
-        '<h3>'+(done?"You met all three!":"Meet the three services")+'</h3>'+
+      openCard(head("Mini tour · "+count()+" of "+SERVICES.length+" met")+
+        '<h3>'+(done?"You met all four!":"Meet the four services")+'</h3>'+
         (info?'':'<p class="lead">Tap an orb floating around '+esc(BOT_NAME)+', or pick one here.</p>')+
         '<div class="svc-row">'+SERVICES.map(function(s){
           return '<button class="svc'+(sel===s.id?' on':'')+'" type="button" data-svc="'+s.id+'" style="--c:'+s.css+'"><span class="icons">'+s.icons.map(function(k){ return icon(k); }).join("")+'</span>'+esc(s.name)+(seen[s.id]?icon("i_check","tick"):'')+'</button>';
@@ -1987,7 +2008,7 @@ var TUTORIALS = {
       World.orbs.focus(id); World.look("orb",id); World.play("hop"); World.expr("happy",.9); Snd.play("pop");
       var s=null; SERVICES.forEach(function(x){ if(x.id===id) s=x; });
       render(); say(s.say,{ delay:250, sound:"tap" });
-      if(fresh && count()===3){ done=true; setTimeout(function(){ if(tut===api){ render(); complete(q); } },1500); }
+      if(fresh && count()===SERVICES.length){ done=true; setTimeout(function(){ if(tut===api){ render(); complete(q); } },1500); }
     }
     World.api.onOrb=choose;
     render();

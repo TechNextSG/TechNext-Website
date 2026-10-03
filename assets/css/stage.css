@@ -1765,3 +1765,42 @@ p.app-sub{margin:-2px 0 14px}
   .su-stats dt{font-size:11px}
 }
 @media (prefers-reduced-motion:reduce){.su-stats b.is-tick,.su-stats .su-zero.is-tick{animation:none!important}}
+
+/* ==========================================================================
+   Technology services (IoT, apps, networks, cyber security, and their hub):
+   one status panel, a side card and two chips, the same on all five pages
+   ========================================================================== */
+.stage--tx{min-height:460px}
+.tx-panel{left:0;right:18%;top:22px;animation:stRise .8s var(--ease-expo) both .1s}
+.tx-rows{margin:0;padding:6px 16px 8px;list-style:none}
+.tx-rows li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:10px 0;border-bottom:1px solid var(--line);animation:stRise .6s var(--ease-expo) both;animation-delay:calc(var(--k,0) * .14s + .45s)}
+.tx-rows li:last-child{border-bottom:0}
+.tx-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--blue-050);color:var(--blue)}
+.tx-ic .ic{width:17px;height:17px}
+.tx-ic .oi{width:22px;height:22px}
+.tx-rows b{display:block;font:700 13px/1.25 var(--font-display);color:var(--ink)}
+.tx-rows small{display:block;margin-top:2px;font:500 11.5px/1.3 var(--font-body);color:var(--muted-a11y)}
+.tx-st{font:700 11px/1 var(--font-body);padding:6px 9px;border-radius:999px;background:var(--ok-050);color:var(--ok);white-space:nowrap}
+.tx-st.w{background:var(--amber-050);color:var(--amber)}
+.tx-st.i{background:var(--blue-050);color:var(--blue-700)}
+.tx-foot{margin:0;padding:10px 16px 12px;border-top:1px solid var(--line);font:500 12px/1.3 var(--font-body);color:var(--muted-a11y)}
+.tx-side{right:0;top:296px;width:min(240px,48%);padding:13px 15px;animation:stRise .8s var(--ease-expo) both 1.1s}
+.tx-side>b{display:block;margin-bottom:8px;font:700 12.5px/1.2 var(--font-display);color:var(--ink)}
+.tx-side p{display:flex;gap:9px;margin:0;padding:4px 0;font:500 12px/1.3 var(--font-body);color:var(--body)}
+.tx-side p i{flex:none;min-width:34px;font-style:normal;font-weight:700;color:var(--blue-700)}
+.tx-c1{top:0;right:0;animation:stPop .55s var(--ease-expo) both 1.5s}
+.tx-c2{left:4%;top:372px;animation:stPop .55s var(--ease-expo) both 1.8s}
+.tx-c1 .oi,.tx-c2 .oi{width:18px;height:18px}
+@media (max-width:960px){
+  .stage--tx{min-height:480px}
+  .tx-panel{right:0}
+  .tx-side{top:310px}
+  .tx-c1{top:-8px}
+  .tx-c2{left:0;top:auto;bottom:0}
+}
+@media (max-width:640px){
+  .tx-rows small,.tx-foot{display:none}
+  .tx-rows li{padding:8px 0}
+  .tx-side{left:0;right:0;width:auto;top:292px}
+  .stage--tx{min-height:470px}
+}
