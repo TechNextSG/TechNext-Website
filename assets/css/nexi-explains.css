@@ -1,0 +1,214 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* /nexi-explains: the animated series starring Nexi. Hero = Nexi beside an "ON AIR" TV with her speech
+   bubble (the same white tilted bubble as the header button and the home hero), then the seasons as tabs,
+   arcs of episode cards, a Quick Tips rail per season and a YouTube player dialog.
+   Prefix nxe- (site.css owns .nx- for /nexi). Behaviour: assets/js/nexi-explains.js. */
+
+/* ---------- shared: Nexi's speech bubble ---------- */
+.nxe-tab[aria-selected="true"]{background:#fff;color:var(--blue);box-shadow:0 10px 22px -12px rgba(30,70,145,.6),0 0 0 3px rgba(111,160,245,.3)}
+
+/* ---------- hero ---------- */
+.nxe-hero{position:relative;overflow:hidden;padding:56px 0 28px;background:linear-gradient(180deg,var(--blue-050) 0%,#F4F7FD 55%,var(--paper) 100%)}
+.nxe-sky{position:absolute;inset:0;pointer-events:none}
+.nxe-sky::before{content:"";position:absolute;right:-12%;top:-40%;width:min(1100px,95vw);aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(111,160,245,.13) 0 7deg,transparent 7deg 18deg);-webkit-mask-image:radial-gradient(closest-side,#000 30%,transparent 72%);mask-image:radial-gradient(closest-side,#000 30%,transparent 72%);animation:nxeSpin 90s linear infinite}
+.nxe-sky i{position:absolute;border-radius:50%;filter:blur(40px);opacity:.55}
+.nxe-sky i:nth-child(1){width:340px;height:340px;right:6%;top:4%;background:#CFE0FB;animation:nxeDrift 14s ease-in-out infinite}
+.nxe-sky i:nth-child(2){width:220px;height:220px;right:34%;bottom:-6%;background:#FFE3D6;animation:nxeDrift 18s ease-in-out -6s infinite}
+.nxe-sky i:nth-child(3){width:180px;height:180px;left:-4%;top:10%;background:#E3E0FF;animation:nxeDrift 16s ease-in-out -3s infinite}
+@keyframes nxeSpin{to{transform:rotate(360deg)}}
+@keyframes nxeDrift{50%{transform:translate(18px,-14px) scale(1.06)}}
+.nxe-hero-in{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center}
+.nxe-copy h1{margin-bottom:18px}
+.nxe-copy .lead{margin-bottom:26px}
+.nxe-copy .actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.nxe-stats{display:flex;flex-wrap:wrap;gap:8px}
+.nxe-stats li{display:inline-flex;align-items:baseline;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--blue-100);font:500 13.5px/1 var(--font-body);color:var(--body)}
+.nxe-stats b{font:800 15px/1 var(--font-display);color:var(--blue)}
+
+/* the stage: TV + Nexi + her bubble */
+.nxe-stage{position:relative;height:460px}
+.nxe-tv{position:absolute;right:0;top:12px;width:76%;padding:12px;border-radius:28px;background:#fff;box-shadow:0 0 0 3px rgba(111,160,245,.28),0 30px 60px -30px rgba(30,70,145,.55);transform:rotate(2.5deg);animation:nxeTv 6s ease-in-out infinite}
+@keyframes nxeTv{50%{transform:rotate(1.5deg) translateY(-6px)}}
+.nxe-tv-screen{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0B1F4A}
+.nxe-tv-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 3.2s var(--ease-out)}
+.nxe-tv-screen img:first-child,.nxe-tv-screen img.is-on{opacity:1;transform:none}
+.nxe-tv-screen.is-cycling img:first-child:not(.is-on){opacity:0}
+.nxe-tv-on{position:absolute;left:24px;top:-14px;display:inline-flex;align-items:center;gap:7px;padding:6px 11px 6px 9px;border-radius:999px;background:#FF5A47;color:#fff;font:800 11.5px/1 var(--font-display);letter-spacing:.12em;box-shadow:0 8px 16px -8px rgba(217,58,48,.8);transform:rotate(-4deg)}
+.nxe-tv-on::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+@keyframes nxeBlinkDot{50%{opacity:.25}}
+.nxe-tv-leg{position:absolute;bottom:-22px;width:10px;height:26px;border-radius:6px;background:linear-gradient(#E3E9F5,#C9D5EC);z-index:-1}
+.nxe-tv-leg--l{left:22%;transform:rotate(14deg)}
+.nxe-tv-leg--r{right:22%;transform:rotate(-14deg)}
+.nxe-nexi{position:absolute;left:0;bottom:18px;z-index:2;width:215px;padding:0;border:0;background:none;cursor:pointer;animation:nxeBob 3.4s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+.nxe-nexi img{width:100%;height:auto;filter:drop-shadow(0 14px 18px rgba(30,70,145,.25));transition:transform .3s var(--spring)}
+.nxe-nexi:hover img{transform:rotate(-4deg) scale(1.04)}
+.nxe-nexi:focus-visible{outline:3px solid var(--blue-300);outline-offset:6px;border-radius:40px}
+.nxe-nexi.is-hop{animation:nxeHop .65s var(--spring)}
+@keyframes nxeBob{50%{transform:translateY(-12px)}}
+@keyframes nxeHop{35%{transform:translateY(-34px) scale(1.06,.95)}70%{transform:translateY(0) scale(.96,1.05)}}
+.nxe-shadow{position:absolute;left:46px;bottom:8px;width:132px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(30,70,145,.28),transparent);animation:nxeShadow 3.4s ease-in-out infinite}
+@keyframes nxeShadow{50%{transform:scaleX(.82);opacity:.7}}
+.nxe-say{position:absolute;left:206px;bottom:122px;z-index:3;max-width:250px;padding:10px 15px;border-radius:14px;background:#fff;color:var(--blue);font:800 16px/1.25 var(--font-display);text-wrap:balance;transform:rotate(-4deg);transform-origin:0 100%;filter:drop-shadow(0 0 .7px #8FB2F2) drop-shadow(0 0 1.8px rgba(111,160,245,.8)) drop-shadow(0 10px 12px rgba(30,70,145,.25))}
+.nxe-say::after{content:"";position:absolute;left:-11px;bottom:12px;width:14px;height:16px;background:#fff;clip-path:polygon(100% 0,100% 100%,0 75%)}
+.nxe-say.is-pop{animation:nxeSay .55s var(--spring)}
+@keyframes nxeSay{0%{opacity:0;transform:rotate(-12deg) scale(.4)}60%{opacity:1;transform:rotate(-5deg) scale(1.08)}100%{transform:rotate(-4deg) scale(1)}}
+.nxe-pop{position:absolute;z-index:3;font:800 22px/1 var(--font-display);color:var(--blue);text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.95);pointer-events:none;animation:nxeFloat 4s ease-in-out infinite}
+.nxe-pop--1{left:30px;top:120px}
+.nxe-pop--2{right:16%;bottom:34px;color:#FF6B8B;font-size:18px;animation-delay:-1.3s}
+.nxe-pop--3{right:12px;top:6px;font-size:28px;animation-delay:-2.6s}
+@keyframes nxeFloat{50%{transform:translateY(-10px) rotate(12deg) scale(1.15)}}
+.nxe-stage.is-burst .nxe-pop{animation:nxeBurst .8s var(--spring)}
+@keyframes nxeBurst{40%{transform:scale(1.9) rotate(30deg)}}
+
+/* next premiere strip */
+.nxe-next{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:30px;padding:14px 18px;border-radius:16px;background:#fff;border:1px solid var(--blue-100);box-shadow:var(--shadow-sm)}
+.nxe-next-tag{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:999px;background:#FFECE8;color:#C2352A;font:700 12px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase}
+.nxe-next-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF5A47;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+.nxe-next b{font:700 16px/1.3 var(--font-display);color:var(--ink)}
+.nxe-next-when{font-size:14.5px;color:var(--body)}
+.nxe-next-when strong{color:var(--blue);font-weight:700}
+.nxe-next .btn-link{margin-left:auto;font-size:14px}
+
+/* ---------- seasons ---------- */
+.nxe-shows{padding-top:72px}
+.nxe-tabs{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
+.nxe-tab{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:170px;padding:13px 20px;border-radius:16px;border:0;background:var(--alt);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-align:left;cursor:pointer;transition:transform .3s var(--spring),box-shadow .2s ease,background-color .2s ease}
+.nxe-tab b{font:800 17px/1.1 var(--font-display);color:inherit}
+.nxe-tab small{font-size:12.5px;color:var(--muted)}
+.nxe-tab:hover{background:var(--blue-050);transform:translateY(-2px)}
+.nxe-tab[aria-selected="true"]{transform:rotate(-2deg)}
+.nxe-tab[aria-selected="true"] small{color:var(--blue-700)}
+.nxe-js .nxe-panel{display:none}
+.nxe-js .nxe-panel.is-on{display:block;animation:nxeIn .45s var(--ease-out)}
+@keyframes nxeIn{from{opacity:0;transform:translateY(10px)}}
+.nxe-panel:focus{outline:none}
+.nxe-panel + .nxe-panel{margin-top:72px}
+.nxe-js .nxe-panel + .nxe-panel{margin-top:0}
+.nxe-season-head{display:grid;grid-template-columns:1fr auto;gap:24px 40px;align-items:end;padding:30px 32px;margin-bottom:40px;border-radius:var(--r-lg);background:linear-gradient(120deg,var(--blue-050),#F6F3FF);border:1px solid var(--blue-100)}
+.nxe-season-head h2{margin:12px 0 10px;font-size:clamp(1.6rem,2.8vw,2.3rem)}
+.nxe-sn{display:block;font:800 13px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.nxe-season-head p{max-width:64ch;margin-bottom:16px}
+.nxe-status{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:var(--amber-050);color:var(--amber);font:700 12px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase}
+.nxe-status.is-live{background:#FFECE8;color:#C2352A}
+.nxe-status.is-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF5A47;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+.nxe-facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--body)}
+.nxe-facts b{font:800 18px/1 var(--font-display);color:var(--ink);margin-right:3px}
+.nxe-season-act{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.nxe-arc{margin-bottom:44px}
+.nxe-arc-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.nxe-arc-h h3{margin:0;font-size:1.3rem}
+.nxe-arc-h span{flex:none;padding:5px 10px;border-radius:999px;background:var(--blue-050);color:var(--blue-700);font:700 12px/1 var(--font-body);letter-spacing:.04em}
+.nxe-arc-h::after{content:"";flex:1;height:0;border-top:2px dashed var(--blue-100)}
+.nxe-grid,.nxe-rail{list-style:none;margin:0}
+.nxe-grid{padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px 22px}
+.nxe-grid--3{grid-template-columns:repeat(3,1fr)}
+
+/* ---------- cards ---------- */
+.nxe-card{display:flex;flex-direction:column;min-width:0}
+.nxe-thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:var(--r);overflow:hidden;background:var(--blue-050);box-shadow:0 0 0 1px rgba(31,31,61,.06),0 14px 26px -20px rgba(30,70,145,.6);transition:transform .35s var(--spring),box-shadow .25s ease}
+button.nxe-thumb{cursor:pointer}
+.nxe-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.nxe-thumb::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(transparent,rgba(9,20,48,.55));pointer-events:none}
+.nxe-card:hover .nxe-thumb{transform:translateY(-4px) rotate(-1deg);box-shadow:0 0 0 3px rgba(111,160,245,.35),0 22px 34px -20px rgba(30,70,145,.7)}
+.nxe-kick{display:inline-block;margin-bottom:5px;font:800 12px/1 var(--font-display);letter-spacing:.06em;color:var(--blue);text-transform:uppercase}
+.nxe-len{position:absolute;right:10px;bottom:10px;z-index:2;padding:4px 7px;border-radius:7px;background:rgba(9,20,48,.78);color:#fff;font:600 12px/1 var(--font-body)}
+.nxe-state{position:absolute;left:10px;bottom:10px;z-index:2;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);font:700 11.5px/1 var(--font-body)}
+.nxe-thumb[data-nxe-premiere] .nxe-state{background:var(--blue);color:#fff}
+.nxe-thumb.is-live .nxe-state{background:#FF5A47;color:#fff}
+.nxe-playic{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--blue);box-shadow:0 10px 24px -8px rgba(9,20,48,.6);transform:scale(.85);opacity:.92;transition:transform .3s var(--spring),opacity .2s ease}
+.nxe-playic .ic{width:22px;height:22px;margin-left:3px}
+.nxe-thumb:hover .nxe-playic,.nxe-thumb:focus-visible .nxe-playic{transform:scale(1.05);opacity:1}
+.nxe-thumb:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.nxe-body{padding:14px 4px 0}
+.nxe-body h4{margin:0 0 6px;font-size:1.02rem;line-height:1.3}
+.nxe-body p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
+.nxe-take{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin-top:10px!important;font-weight:600;color:var(--ink)!important}
+.nxe-take span{padding:3px 7px;border-radius:6px;background:#FFF1E6;color:#B4521E;font:700 10.5px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase}
+.nxe-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font:600 13.5px/1.2 var(--font-body)}
+.nxe-more .ic{width:15px;height:15px;transition:transform .25s var(--spring)}
+.nxe-more:hover .ic{transform:translateX(3px)}
+
+/* Season 2 cards are drawn until the season's thumbnails are made */
+.nxe-drawn{position:absolute;inset:0;display:block;overflow:hidden;container-type:inline-size;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.nxe-drawn::before{content:"";position:absolute;right:-30%;top:-60%;width:120%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.16) 0 8deg,transparent 8deg 20deg);-webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 75%);mask-image:radial-gradient(closest-side,#000 25%,transparent 75%)}
+.nxe-tone-0{--c1:#2F5FC4;--c2:#79A6F6}
+.nxe-tone-1{--c1:#F0624A;--c2:#FFB287}
+.nxe-tone-2{--c1:#14907F;--c2:#6BD6C2}
+.nxe-tone-3{--c1:#6450F0;--c2:#B0A5FF}
+.nxe-drawn-ep{position:absolute;left:5.5cqw;top:5.5cqw;z-index:1;display:flex;flex-direction:column;color:#fff;font:800 19cqw/.86 var(--font-display);letter-spacing:-.03em;text-shadow:0 1.4cqw 0 rgba(9,20,48,.18)}
+.nxe-drawn-ep small{font:800 4cqw/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;opacity:.92;margin-bottom:2.2cqw;text-shadow:none}
+.nxe-drawn-psych{position:absolute;left:5.5cqw;top:33cqw;z-index:1;max-width:52%;padding:1.6cqw 3.2cqw;border-radius:3cqw;background:rgba(255,255,255,.94);color:var(--ink);font:700 4.3cqw/1.2 var(--font-body);transform:rotate(-2deg)}
+.nxe-drawn-nexi{position:absolute!important;right:4%;bottom:-6%;z-index:1;width:auto!important;height:96%!important;object-fit:contain!important;filter:drop-shadow(0 10px 14px rgba(9,20,48,.3));transition:transform .4s var(--spring)}
+.nxe-card:hover .nxe-drawn-nexi{transform:translateY(-6px) rotate(-5deg)}
+
+/* Quick Tips rail */
+.nxe-tips{margin-top:8px;padding:28px 0 6px;border-top:1px solid var(--line)}
+.nxe-tips-sub{margin:-8px 0 18px;font-size:14.5px;color:var(--muted)}
+.nxe-rail-wrap{position:relative}
+.nxe-rail{display:grid;grid-auto-flow:column;grid-auto-columns:236px;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:0 4px;padding:6px 4px 18px;scrollbar-width:thin;scrollbar-color:var(--blue-100) transparent}
+.nxe-rail:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:12px}
+.nxe-rail > li{scroll-snap-align:start}
+.nxe-card--tip .nxe-body h4{font-size:.95rem}
+.nxe-card--tip .nxe-body p{font-size:13.5px}
+.nxe-rail-btn{position:absolute;top:calc(236px * 9 / 16 / 2 - 4px);z-index:3;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--blue);box-shadow:0 0 0 3px rgba(111,160,245,.3),0 10px 22px -10px rgba(30,70,145,.6);cursor:pointer;transition:transform .25s var(--spring),opacity .2s ease}
+.nxe-rail-btn .ic{width:20px;height:20px}
+.nxe-rail-btn--prev{left:-14px}
+.nxe-rail-btn--prev .ic{transform:rotate(90deg)}
+.nxe-rail-btn--next{right:-14px}
+.nxe-rail-btn--next .ic{transform:rotate(-90deg)}
+.nxe-rail-btn:hover{transform:scale(1.08)}
+.nxe-rail-btn:disabled{opacity:0;pointer-events:none}
+.nxe-note{display:flex;align-items:center;gap:10px;margin:-12px 0 36px;padding:14px 18px;border-radius:14px;border:2px dashed var(--blue-100);color:var(--blue-700);font-weight:600;font-size:15px}
+.nxe-note .ic{width:20px;height:20px;flex:none}
+
+/* ---------- player ---------- */
+.nxe-player{width:min(980px,94vw);max-width:none;max-height:94vh;padding:0;border:0;border-radius:22px;background:#fff;box-shadow:0 40px 80px -30px rgba(9,20,48,.7);overflow:hidden}
+.nxe-player::backdrop{background:rgba(15,22,48,.72);backdrop-filter:blur(4px)}
+.nxe-player[open]{animation:nxePlayer .4s var(--spring)}
+@keyframes nxePlayer{from{opacity:0;transform:translateY(16px) scale(.96)}}
+.nxe-player-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 12px 20px}
+.nxe-player-t{font:800 17px/1.3 var(--font-display);color:var(--ink)}
+.nxe-player-x{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.nxe-player-x:hover{background:var(--blue-050);color:var(--blue-700)}
+.nxe-player-x .ic{width:20px;height:20px}
+.nxe-player-frame{aspect-ratio:16/9;background:#0B0F1E}
+.nxe-player-frame iframe{display:block;width:100%;height:100%;border:0}
+.nxe-player-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+.nxe-player-foot .btn .ic{width:16px;height:16px}
+.nxe-player-foot [data-nxe-prev] .ic{transform:rotate(90deg)}
+.nxe-player-foot [data-nxe-next-ep] .ic{transform:rotate(-90deg)}
+.nxe-player-foot .btn:disabled{opacity:.4;cursor:default}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .nxe-hero-in{grid-template-columns:1fr;gap:12px}
+  .nxe-stage{max-width:620px;width:100%;margin-inline:auto}
+}
+@media (max-width:760px){
+  .nxe-hero{padding-top:36px}
+  .nxe-stage{height:350px}
+  .nxe-tv{width:82%;top:10px}
+  .nxe-nexi{width:146px;bottom:12px}
+  .nxe-shadow{left:30px;bottom:4px;width:92px}
+  .nxe-say{left:142px;bottom:86px;max-width:190px;padding:8px 12px;font-size:14px}
+  .nxe-next .btn-link{margin-left:0}
+  .nxe-season-head{grid-template-columns:1fr;padding:24px 20px}
+  .nxe-season-act{flex-direction:row;flex-wrap:wrap}
+  .nxe-grid,.nxe-grid--3{grid-template-columns:repeat(2,1fr);gap:22px 14px}
+  .nxe-tab{min-width:0;flex:1 1 140px;padding:11px 14px}
+  .nxe-rail-btn{display:none}
+  .nxe-rail{grid-auto-columns:72%}
+}
+@media (max-width:520px){
+  .nxe-grid,.nxe-grid--3{grid-template-columns:1fr}
+  .nxe-stage{height:330px}
+  .nxe-tv{width:86%}
+  .nxe-nexi{width:130px}
+  .nxe-shadow{left:26px;width:82px}
+  .nxe-say{left:128px;bottom:76px;max-width:170px}
+}
+@media (prefers-reduced-motion:reduce){
+  .nxe-sky::before,.nxe-sky i,.nxe-tv,.nxe-nexi,.nxe-shadow,.nxe-pop,.nxe-tv-on::before,.nxe-next-tag::before,.nxe-status.is-live::before{animation:none}
+  .nxe-say.is-pop,.nxe-js .nxe-panel.is-on,.nxe-player[open]{animation:none}
+  .nxe-card:hover .nxe-thumb,.nxe-card:hover .nxe-drawn-nexi{transform:none}
+}

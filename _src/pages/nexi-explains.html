@@ -1,0 +1,84 @@
+<!--meta {"title": "Nexi Explains: Odoo, AI and tech videos by TechNext", "desc": "TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.", "out": "nexi-explains.html", "nav": "nexi-explains", "og_image": "https://technext.asia/assets/img/nexi-explains/og.jpg", "scripts": ["assets/js/nexi-explains.js"], "head": "<script>document.documentElement.classList.add('nxe-js')</script><link rel=\"stylesheet\" href=\"{ROOT}assets/css/nexi-explains.css?v={ASSET_V}\">"} -->
+
+<section class="nxe-hero">
+  <div class="nxe-sky" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="container nxe-hero-in">
+    <div class="nxe-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Nexi Explains</span></nav>
+      <h1><span class="hand h1-hand">odoo, ai &amp; tech, made simple</span>Nexi Explains</h1>
+      <p class="lead">Short animated episodes starring Nexi, TechNext’s AI companion. One idea per episode, told as a little story: what Odoo is, the apps companies start with, AI that does the busywork, and the people side of changing systems.</p>
+      <div class="actions">
+        <a class="btn btn-primary btn-lg" href="#episodes" data-nxe-pre>{{icon:play}}<span>See every episode</span></a>
+        <button class="btn btn-primary btn-lg" type="button" data-nxe-post hidden data-nxe-play="{{NXE_FIRST_YT}}" data-nxe-title="{{NXE_FIRST_TITLE}}" data-nxe-premiere="{{NXE_FIRST_PREMIERE}}">{{icon:play}}<span>Watch EP00</span></button>
+        <a class="btn btn-ghost btn-lg" href="{{NXE_SUBSCRIBE}}" target="_blank" rel="noopener">Subscribe on YouTube {{icon:arrow}}</a>
+      </div>
+      <ul class="nxe-stats">{{NXE_STATS}}</ul>
+    </div>
+
+    <div class="nxe-stage" data-nxe-stage>
+      <div class="nxe-tv" aria-hidden="true">
+        <div class="nxe-tv-screen">{{NXE_TV}}</div>
+        <span class="nxe-tv-on">ON AIR</span>
+        <span class="nxe-tv-leg nxe-tv-leg--l"></span><span class="nxe-tv-leg nxe-tv-leg--r"></span>
+      </div>
+      <button class="nxe-nexi" type="button" data-nxe-nexi aria-label="Say hi to Nexi">
+        <img src="{{ROOT}}assets/img/nexi-explains/nexi-hello.webp" alt="" width="432" height="520" decoding="async" fetchpriority="high">
+      </button>
+      <span class="nxe-shadow" aria-hidden="true"></span>
+      <b class="nxe-say" data-nxe-say aria-live="polite">Hi! I’m Nexi. Grab a seat!</b>
+      <span class="nxe-pop nxe-pop--1" aria-hidden="true">✦</span>
+      <span class="nxe-pop nxe-pop--2" aria-hidden="true">♥</span>
+      <span class="nxe-pop nxe-pop--3" aria-hidden="true">✦</span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="nxe-next" data-nxe-next hidden>
+      <span class="nxe-next-tag">Next premiere</span>
+      <b data-nxe-next-title></b>
+      <span class="nxe-next-when" data-nxe-next-when></span>
+      <a class="btn-link" data-nxe-next-link href="{{NXE_CHANNEL}}" target="_blank" rel="noopener">Set a reminder on YouTube {{icon:arrow}}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section nxe-shows" id="episodes">
+  <div class="container">
+    <div class="sec-head">
+      <span class="hand">every episode, season by season</span>
+      <h2>Pick a season. Press play.</h2>
+      <p class="lead">Episodes play here once they premiere on YouTube. The rest are in the queue, so the list shows what is coming next.</p>
+    </div>
+    {{NXE_TABS}}
+  </div>
+</section>
+
+<section class="section nxe-cta">
+  <div class="container">
+    <div class="cta">
+      <div>
+        <span class="hand">liked an episode?</span>
+        <h2>Ask Nexi, or ask the team that built her.</h2>
+        <p>Nexi answers questions about Odoo, AI and websites on her own page. For your company’s setup, the TechNext team writes a quotation.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" href="{{ROOT}}nexi.html">{{icon:bot}} Chat with Nexi</a>
+        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog class="nxe-player" id="nxe-player" aria-labelledby="nxe-player-t">
+  <div class="nxe-player-box">
+    <div class="nxe-player-top">
+      <b class="nxe-player-t" id="nxe-player-t"></b>
+      <button class="nxe-player-x" type="button" data-nxe-close aria-label="Close the video">{{icon:x}}</button>
+    </div>
+    <div class="nxe-player-frame" data-nxe-frame></div>
+    <div class="nxe-player-foot">
+      <button class="btn btn-ghost btn-sm" type="button" data-nxe-prev>{{icon:chevron}}<span>Previous</span></button>
+      <a class="btn-link" data-nxe-yt href="{{NXE_CHANNEL}}" target="_blank" rel="noopener">Open on YouTube {{icon:arrow}}</a>
+      <button class="btn btn-ghost btn-sm" type="button" data-nxe-next-ep><span>Next</span>{{icon:chevron}}</button>
+    </div>
+  </div>
+</dialog>

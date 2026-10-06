@@ -262,6 +262,9 @@ def write_vercel():
              "headers": [{"key": "Cross-Origin-Resource-Policy", "value": "same-site"}]},
             {"source": "/denied",
              "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
+            # staff-only page (Company menu): never indexed, also when reached as /employee-hub.html
+            {"source": "/employee-hub(\\.html)?",
+             "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
             {"source": "/.well-known/tdmrep.json",
              "headers": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}]},
         ],

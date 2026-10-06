@@ -203,6 +203,9 @@ NAV = [
                  "desc": "Open roles in Taguig City, Metro Manila."},
                 {"label": "Blog", "href": "blog.html", "icon": "file",
                  "desc": "Odoo news, ERP guides and how we work."},
+                # staff-only page: noindex, nofollow, kept out of the sitemap (its meta sets "robots")
+                {"label": "Employee Hub", "href": "employee-hub.html", "icon": "usercheck", "nofollow": True,
+                 "desc": "Brand kit, tools and company details for the team."},
             ]},
             {"title": "Offices", "links": [
                 {"label": "Singapore HQ", "href": "company.html#office-hq", "icon": "pin",
@@ -214,6 +217,8 @@ NAV = [
             ]},
         ],
     },
+    # drawn as Nexi's speech bubble (build.py nav_html, site.css .nav-bubble)
+    {"label": "Nexi Explains", "href": "nexi-explains.html", "id": "nexi-explains", "bubble": True},
 ]
 
 # ---------------------------------------------------------------- Odoo apps
