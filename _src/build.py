@@ -719,7 +719,7 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
 
 
 def team_cards_html() -> str:
-    """One card per employee (_src/team.py), then a card inviting the rest of the team to add theirs."""
+    """One card per employee (_src/team.py) on the client-facing team page."""
     out = []
     for k, p in enumerate(TEAM.TEAM):
         initials = "".join(w[0] for w in p["name"].split()[:3:2] if w).upper() if len(p["name"].split()) > 2 else "".join(w[0] for w in p["name"].split()[:2]).upper()
@@ -731,22 +731,20 @@ def team_cards_html() -> str:
                 if p.get("email") else "")
         out.append(f'<article class="th-person th-tone-{k % 4}"><div class="th-ava">{pic}<img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"></div>'
                    f'<h3>{p["name"]}</h3><p class="th-role">{p["role"]}</p>{mail}</article>')
-    out.append('<article class="th-person th-person--add"><div class="th-ava th-ava--add" aria-hidden="true">{{icon:users}}</div>'
-               '<h3>Your card goes here</h3><p class="th-role">Send your name, role and a photo to the marketing team and we will add you.</p>'
-               f'<a class="th-mail" href="mailto:{S.COMPANY["sales_email"]}?subject=Employee%20Hub%20card">{{{{icon:send}}}}<span>Send my details</span></a></article>')
     return "".join(out)
 
 
-def team_facts_html() -> str:
-    """Company details staff paste into forms, with a copy button each (assets/js/employee-hub.js)."""
-    c = S.COMPANY
-    rows = [("Registered name", c["legal"]), ("UEN", c["uen"]), ("Head office", ", ".join(c["address"])),
-            ("Sales email", c["sales_email"]), ("Careers email", c["careers_email"]), ("WhatsApp", c["whatsapp"]),
-            ("Website", S.SITE_URL.rstrip("/")), ("LinkedIn", c["linkedin"])]
-    rows += [(o["name"], ", ".join(o["lines"])) for o in S.OFFICES[1:]]
-    return "".join(f'<div class="th-fact"><dt>{k}</dt><dd><span>{v}</span>'
-                   f'<button class="th-copy" type="button" data-copy="{attr(v)}" aria-label="Copy {attr(k)}">{{{{icon:file}}}}<span>Copy</span></button></dd></div>'
-                   for k, v in rows)
+def team_offices_html() -> str:
+    """The three offices as a strip on the team page: what each one does for the client, and where it is."""
+    out = []
+    for o in S.OFFICES:
+        lines = "<br>".join(o["lines"])
+        if o.get("lang"):
+            lines = f'<span lang="{o["lang"]}">{o["lines"][0]}</span><br>{o["lines"][1]}'
+        role = o["role"].replace(" Our open roles are here.", "")  # careers line: not for clients
+        out.append(f'<article class="th-office reveal"><span class="th-cc" aria-hidden="true">{o["cc"]}</span>'
+                   f'<h3>{o["name"]}</h3><p>{role}</p><address>{lines}</address></article>')
+    return "".join(out)
 
 
 # ---------------------------------------------------------------- generated blocks
@@ -1747,8 +1745,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = nxe_tokens(content)
     if "{{TEAM_CARDS}}" in content:
         content = content.replace("{{TEAM_CARDS}}", team_cards_html())
-    if "{{TEAM_FACTS}}" in content:
-        content = content.replace("{{TEAM_FACTS}}", team_facts_html())
+    if "{{TEAM_OFFICES}}" in content:
+        content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = _IX_BODY.sub(lambda m: industry_html(m.group(1)), content)
     if "{{VIDEO:" in content or "{{SHOT:" in content or "{{PHOTO:" in content:
