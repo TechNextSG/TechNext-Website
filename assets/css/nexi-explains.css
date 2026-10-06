@@ -135,7 +135,10 @@
 .nxe-next .btn-link{margin-left:auto;font-size:14px}
 
 /* ---------- seasons ---------- */
-.nxe-shows{position:relative;padding-top:64px;background:#F4F7FE}
+/* the hero's slanted bottom edge cuts straight onto this section: it tucks up under the hero by the slant's height,
+   so no white page shows in the wedge (hero z-index 1 sits on top) */
+.nxe-hero{z-index:1}
+.nxe-shows{position:relative;margin-top:-52px;padding-top:116px;background:#F4F7FE}
 .nxe-shows::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(rgba(49,103,202,.13) 1.3px,transparent 1.8px) 0 0/18px 18px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 45%,transparent 70%,#000);mask-image:linear-gradient(180deg,#000,transparent 45%,transparent 70%,#000)}
 .nxe-shows>.container{position:relative}
 .nxe-tabs{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:40px}
@@ -303,6 +306,7 @@ button.nxe-thumb{cursor:pointer}
 }
 @media (max-width:760px){
   .nxe-hero{padding:calc(var(--header-h) + 26px) 0 84px;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%)}
+  .nxe-shows{margin-top:-30px;padding-top:94px}
   .nxe-title{font-size:clamp(2.7rem,13vw,4rem)}
   .nxe-title .hand{font-size:1.35rem}
   .nxe-boom--1{left:auto;right:4%;top:calc(var(--header-h) + 8px);font-size:22px;padding:12px 15px}
