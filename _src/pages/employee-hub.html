@@ -1,66 +1,49 @@
-<!--meta {"title": "Employee Hub · TechNext team", "desc": "Brand kit, everyday tools and company details for the TechNext team.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "scripts": ["assets/js/employee-hub.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/employee-hub.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Meet the TechNext team", "desc": "Meet the TechNext people you will work with on your Odoo, AI and website project, from the first discovery call to support after go-live.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/employee-hub.css?v={ASSET_V}\">"} -->
 
 <section class="page-hero th-hero">
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Employee Hub</span></nav>
-    <span class="hand">for the technext team</span>
-    <h1>Employee Hub</h1>
-    <p class="lead">The people of TechNext, one card each. Below them: your brand kit, the links you use every day and the company details forms keep asking for.</p>
-    <p class="th-note">{{icon:lock}}<span>A page for TechNext staff. Search engines are asked not to list it.</span></p>
+    <span class="hand">the people behind your project</span>
+    <h1>Meet the TechNext team</h1>
+    <p class="lead">These are the people you will work with on your Odoo, AI or website project. One team across Singapore, Taguig City and Ho Chi Minh City, from the first discovery call to support after go-live.</p>
+    <div class="actions">
+      <a class="btn btn-primary btn-lg" href="#team">Meet the team {{icon:arrow}}</a>
+      <a class="btn btn-ghost btn-lg" href="{{ROOT}}company.html">About TechNext</a>
+    </div>
   </div>
 </section>
 
 <section class="section th-sec th-team" id="team">
   <div class="container">
-    <div class="sec-head"><span class="hand">meet the team</span><h2>The TechNext team</h2><p class="lead">Who does what, and how to reach them.</p></div>
+    <div class="sec-head reveal"><span class="hand">who you will talk to</span><h2>Your TechNext team</h2><p class="lead">Every project gets a dedicated project manager and the team behind them. Reach out to them directly.</p></div>
     <div class="th-people">{{TEAM_CARDS}}</div>
   </div>
 </section>
 
-<section class="section section--alt th-sec" id="brand-kit">
+<section class="section section--alt th-sec" id="offices">
   <div class="container">
-    <div class="sec-head"><span class="hand">look like technext</span><h2>Brand kit</h2><p class="lead">Made on the TechNext brand, ready to download. Everything stays in your browser until you download it.</p></div>
-    <div class="th-grid">
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/#signature" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:mail}}</span><b>Email signature</b><small>Fill in your details and copy a signature for Gmail or Odoo.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/#profile" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:smile}}</span><b>Profile photo</b><small>Upload a transparent PNG of yourself and download a TechNext profile photo.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/#logo" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:send}}</span><b>Animated logo</b><small>The looping TechNext logo as a GIF, light or blue.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/#backgrounds" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:monitor}}</span><b>Video-call backgrounds</b><small>HD backgrounds for Google Meet and Zoom, normal and inverted.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/business-cards/#business" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:briefcase}}</span><b>Business cards</b><small>Print-ready cards at 600 or 1200 dpi, with a vCard QR code.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technextsg.github.io/technext-branding-miscellaneous/business-cards/#id" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:usercheck}}</span><b>ID card</b><small>Your staff ID card, front and back.</small><span class="th-go">Open {{icon:arrow}}</span></a>
+    <div class="sec-head reveal"><span class="hand">where we work</span><h2>Three offices, one team</h2><p class="lead">Your project is run from Singapore, built in Taguig City and powered by our AI engineers in Ho Chi Minh City.</p></div>
+    <div class="th-offices">{{TEAM_OFFICES}}</div>
+  </div>
+</section>
+
+<section class="section th-sec">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">how an engagement runs</span><h2>Four steps, one team from start to finish.</h2><p class="lead">The people who map your processes are the people who train your team, connect your systems and answer the support tickets after go-live.</p></div>
+    <div class="journey reveal">
+      <a href="{{ROOT}}odoo/discovery.html"><span class="j-ic">{{icon:search}}</span><span class="j-step">Step 1</span><h3>Discovery</h3><p>We map how orders, stock and money move today, match each step to an Odoo app and write the scope down.</p><span class="btn-link">Discovery {{icon:arrow}}</span></a>
+      <a href="{{ROOT}}odoo/training.html"><span class="j-ic">{{icon:graduation}}</span><span class="j-step">Step 2</span><h3>Training</h3><p>Each team learns its own screens on a copy of your data, with a quick-reference guide for every task.</p><span class="btn-link">Training {{icon:arrow}}</span></a>
+      <a href="{{ROOT}}odoo/integration.html"><span class="j-ic">{{icon:plug}}</span><span class="j-step">Step 3</span><h3>Integration</h3><p>Banks, payment gateways, online stores and the tools you keep are connected, so nobody re-types between systems.</p><span class="btn-link">Integration {{icon:arrow}}</span></a>
+      <a href="{{ROOT}}odoo/support.html"><span class="j-ic">{{icon:lifebuoy}}</span><span class="j-step">Step 4</span><h3>Support</h3><p>Fixes, month-end help, upgrades and small changes, handled by the team that configured your system.</p><span class="btn-link">Support {{icon:arrow}}</span></a>
     </div>
   </div>
 </section>
 
-<section class="section th-sec" id="tools">
+<section class="section">
   <div class="container">
-    <div class="sec-head"><span class="hand">every day</span><h2>Everyday links</h2><p class="lead">The tools we work in, and the pages worth sending to a client.</p></div>
-    <div class="th-grid">
-      <a class="th-tool" href="https://technext.odoo.com/web/login" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:grid}}</span><b>TechNext Odoo</b><small>Sign in to our own Odoo database.</small><span class="th-go">Sign in {{icon:arrow}}</span></a>
-      <a class="th-tool" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener nofollow">
-        <span class="th-ic">{{icon:calendar}}</span><b>Discovery call booking</b><small>Send a client this link to book a call with us.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="{{ROOT}}quotation.html">
-        <span class="th-ic">{{icon:receipt}}</span><b>Quotation request</b><small>Pick the Odoo apps with a client and send the request to sales.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="{{ROOT}}nexi-explains.html">
-        <span class="th-ic">{{icon:play}}</span><b>Nexi Explains videos</b><small>Short episodes to send a client after a call.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="{{ROOT}}nexi.html">
-        <span class="th-ic">{{icon:bot}}</span><b>Ask Nexi</b><small>Nexi answers from our own pages: a quick way to find the right link.</small><span class="th-go">Open {{icon:arrow}}</span></a>
-      <a class="th-tool" href="{{ROOT}}careers.html">
-        <span class="th-ic">{{icon:users}}</span><b>Open roles</b><small>Know someone good? Send them our careers page.</small><span class="th-go">Open {{icon:arrow}}</span></a>
+    <div class="cta reveal">
+      <div><span class="hand">next step</span><h2>Talk to the team.</h2><p>Book a discovery call and we will walk through how your company works today, and what Odoo would change.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
     </div>
-  </div>
-</section>
-
-<section class="section section--alt th-sec" id="company-details">
-  <div class="container">
-    <div class="sec-head"><span class="hand">copy and paste</span><h2>Company details</h2><p class="lead">For forms, invoices and supplier registrations. Press Copy to put a line on your clipboard.</p></div>
-    <dl class="th-facts">{{TEAM_FACTS}}</dl>
-    <p class="th-foot">Something missing from this page? Tell the marketing team and we will add it.</p>
   </div>
 </section>
