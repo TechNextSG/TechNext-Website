@@ -270,11 +270,15 @@
     if (n === idx) return;
     var old = idx;
     if (camOn) camClear();
+    var circle = isCircle(n) || isCircle(old);
+    if (circle) keepUnder(isCircle(n) ? slides[old] : slides[n]);
+    if (isCircle(old)) keepClosing(slides[old]);
+    if (isCircle(n)) { slides[n].classList.remove('is-closing'); clearTimeout(closeT); }
     slides[old].classList.remove('is-active');
     if (dots[old]) { dots[old].classList.remove('is-active'); dots[old].setAttribute('aria-selected', 'false'); }
     idx = n;
     slides[idx].classList.add('is-active');
-    if (camOn && !isNexi(idx)) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
+    if (camOn && !isNexi(idx) && !circle) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
     announce(viaUser); onSlide(idx); restart();
     if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
@@ -282,6 +286,21 @@
   function clear() { if (timer) { clearTimeout(timer); timer = null; } }
   // Nexi's slides: no camera move (she performs the entrance) and a still hero background while she presents
   function isNexi(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-nexi')); }
+  // the Nexi Explains slide opens and closes as a circle on its own layer (hero.css): no camera move on either side
+  // of it, and the slide underneath stays fully visible (and still) until the circle has covered or uncovered it
+  function isCircle(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-circle')); }
+  var underT = null, under = null, closeT = null;
+  function keepUnder(el) {
+    if (under) under.classList.remove('is-under');
+    clearTimeout(underT); under = el; el.classList.add('is-under');
+    underT = setTimeout(function () { el.classList.remove('is-under'); under = null; }, 1000);
+  }
+  // a slide's headline and fade-ins reset the moment it stops being active: the circle slide keeps its content
+  // (.is-closing, hero.css) while its circle shrinks, and the slide underneath keeps its own (.is-under)
+  function keepClosing(el) {
+    el.classList.add('is-closing'); clearTimeout(closeT);
+    closeT = setTimeout(function () { el.classList.remove('is-closing'); }, 950);
+  }
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
   function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
@@ -537,7 +556,7 @@
     document.addEventListener('tn:intro-done', function () { remaining = durOf(idx); release('intro'); restartBar(); }, { once: true });
   }
   if (camOn) {
-    var firstEnter = function () { camClear(); if (!isNexi(idx)) camEnter(slides[idx], idx, true); };
+    var firstEnter = function () { camClear(); if (!isNexi(idx) && !isCircle(idx)) camEnter(slides[idx], idx, true); };
     if (document.documentElement.classList.contains('intro')) document.addEventListener('tn:intro-done', firstEnter, { once: true });
     else firstEnter();
   }
