@@ -730,7 +730,7 @@ html{scrollbar-gutter:stable}
 @keyframes gridOpen{to{scale:1 1}}
 .intro-bloom{position:absolute;left:50%;top:50%;width:min(1100px,150vmax);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(212,225,248,.95) 0,rgba(221,231,248,.75) 18%,rgba(227,243,240,.5) 38%,rgba(221,231,248,0) 66%);opacity:0;scale:.3;pointer-events:none;animation:bloomOpen .9s var(--ease-out) forwards}
 @keyframes bloomOpen{to{opacity:1;scale:1}}
-/* (b) 0.15–1.45 s: the plane flies the loop (offset-path), banks through it, flares to the logo's attitude and lands;
+/* (b) 0.15–1.45 s: the plane flies the loop (transform keyframes, site.js), banks through it, flares to the logo's attitude and lands;
    the comet trail is three dashes of falling length whose heads ride with it (site.js) */
 .intro-trail{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .intro-trail path{fill:none;stroke:var(--blue-300);stroke-linecap:round;stroke-width:calc(.8px + var(--pw,60px) * .012);opacity:.3}
@@ -741,10 +741,14 @@ html{scrollbar-gutter:stable}
 .intro-lockup{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.9vh,16px);width:min(86vw,720px,125vh);z-index:2}
 .intro-stage{position:relative;z-index:2;display:flex;align-items:center;gap:3.5%;width:100%}
 .intro-plane-wrap{position:relative;width:16%;flex:none;opacity:0}
-.intro.is-go .intro-plane-wrap{will-change:transform;animation:introFly 1.3s cubic-bezier(.5,0,.25,1) .15s both}
-@keyframes introFly{0%{opacity:0;offset-distance:0%}8%{opacity:1}100%{opacity:1;offset-distance:100%}}
+/* the flight itself is a transform animation from site.js (sampled along the path: it runs on the compositor) */
+.intro.is-go .intro-plane-wrap{will-change:transform,opacity}
 .intro-plane{position:relative;z-index:2;display:block;width:100%;height:auto;filter:drop-shadow(0 8px 14px rgba(49,103,202,.3));scale:.45}
-.intro.is-go .intro-plane{animation:planeBank 1.3s ease-in-out .15s both,planeLand .45s var(--spring) 1.45s,planeFloat 2.4s ease-in-out 1.95s infinite}
+/* the bank and the landing pop + bob are on two elements: animations sharing `scale` on one element cannot run
+   on the compositor, so each of these does */
+.intro-plane-pop{position:relative;z-index:2;display:block}
+.intro.is-go .intro-plane{animation:planeBank 1.3s ease-in-out .15s both}
+.intro.is-go .intro-plane-pop{animation:planeLand .45s var(--spring) 1.45s,planeFloat 2.4s ease-in-out 1.95s infinite}
 /* it grows in from the distance, rolls about its nose (30° above the horizontal) into the loop and out of it, then
    flares: --flare (site.js) turns it from its approach heading to the logo's attitude */
 @keyframes planeBank{0%{scale:.45;transform:perspective(260px) rotate3d(.87,-.5,0,0deg);rotate:0deg}18%{transform:perspective(260px) rotate3d(.87,-.5,0,0deg)}40%{transform:perspective(260px) rotate3d(.87,-.5,0,40deg)}50%{scale:1}66%{transform:perspective(260px) rotate3d(.87,-.5,0,32deg)}84%{transform:perspective(260px) rotate3d(.87,-.5,0,-8deg);rotate:0deg}100%{scale:1;transform:perspective(260px) rotate3d(.87,-.5,0,0deg);rotate:var(--flare,0deg)}}
@@ -773,12 +777,11 @@ html{scrollbar-gutter:stable}
 .intro-sub{position:relative;z-index:2;font:600 clamp(1.1rem,4.9vw,1.8rem)/1.25 var(--font-hand);color:var(--blue);white-space:nowrap;clip-path:inset(-25% 104% -25% -4%);translate:0 5px}
 .intro.is-go .intro-sub{animation:subWipe .5s cubic-bezier(.3,.7,.2,1) 1.85s forwards}
 @keyframes subWipe{to{clip-path:inset(-25% -4% -25% -4%);translate:0 0}}
-/* (e) 2.2–3.05 s: the three apps burst out from behind the logo on arcs (offset-path, site.js) and settle in the row */
+/* (e) 2.2–3.05 s: the three apps burst out from behind the logo on arcs (transform keyframes, site.js) and settle in the row */
 .intro-pills{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(6px,2vw,10px);width:max-content;max-width:calc(100vw - 24px)}
-.intro-pill{display:inline-flex;align-items:center;gap:clamp(5px,1.6vw,8px);height:clamp(30px,8.8vw,36px);padding:0 clamp(10px,3.4vw,15px) 0 clamp(7px,2.3vw,10px);border-radius:999px;background:#fff;border:1px solid var(--line);font:600 clamp(11.5px,3.4vw,14px)/1 var(--font-body);color:var(--ink);white-space:nowrap;box-shadow:var(--shadow-sm);opacity:0;scale:.35;offset-rotate:0deg}
+.intro-pill{display:inline-flex;align-items:center;gap:clamp(5px,1.6vw,8px);height:clamp(30px,8.8vw,36px);padding:0 clamp(10px,3.4vw,15px) 0 clamp(7px,2.3vw,10px);border-radius:999px;background:#fff;border:1px solid var(--line);font:600 clamp(11.5px,3.4vw,14px)/1 var(--font-body);color:var(--ink);white-space:nowrap;box-shadow:var(--shadow-sm);opacity:0}
 .intro-pill .oi{width:clamp(15px,4.6vw,19px);height:clamp(15px,4.6vw,19px)}
-.intro.is-go .intro-pill{animation:pillBurst .75s cubic-bezier(.2,.75,.25,1) calc(2.2s + var(--i) * .08s) both}
-@keyframes pillBurst{0%{opacity:0;scale:.35;offset-distance:0%;rotate:calc(var(--side) * 16deg)}28%{opacity:1}72%{scale:1.07}100%{opacity:1;scale:1;offset-distance:100%;rotate:0deg}}
+/* the burst is a transform animation from site.js (pillPaths) */
 .intro-progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--blue);opacity:.6;transform:scaleX(0);transform-origin:left}
 .intro.is-go .intro-progress{animation:prog 3.35s linear forwards}
 .intro-skip{position:absolute;z-index:4;right:max(16px,env(safe-area-inset-right));bottom:max(16px,calc(env(safe-area-inset-bottom) + 10px));min-width:64px;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.88);font:600 13px/1 var(--font-body);letter-spacing:.03em;color:var(--body);cursor:pointer;opacity:0;animation:fadeUp .4s var(--ease-out) .3s forwards}

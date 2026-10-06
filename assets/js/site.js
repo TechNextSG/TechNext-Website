@@ -22,15 +22,32 @@
       var clean = location.search.replace(/([?&])intro=1(&|$)/, function (m, a, b) { return b === '&' ? a : ''; });
       history.replaceState(null, '', location.pathname + clean + location.hash);
     }
-    // ~4 s, the beats are in site.css: flight 0.15–1.45 s (same delay, duration and curve as the CSS `introFly`),
+    // ~4 s, the beats are in site.css: flight 0.15–1.45 s (FLY_AT, FLY_MS, FLY_EASE: the plane and its trail),
     // finish() at 3.35 s, then a 0.7 s iris. Every beat is clocked from the real start, which fires on the next
     // frame or after 120 ms at the latest (requestAnimationFrame can stall in a throttled tab).
     var FLY_AT = 150, FLY_MS = 1300, FLY_EASE = 'cubic-bezier(.5,0,.25,1)', END_AT = 3350, IRIS_MS = 700;
+    // 3.15 s: the pills have settled, and all that still moves (the plane's bob, the rays, the progress bar) runs on the
+    // compositor, so a long main-thread task here drops no visible frame. tn:intro-quiet lets a heavy start-up (Nexi)
+    // run in this beat and hold it until done (HOLD_MAX at most) rather than land on the iris or the hero after it.
+    var QUIET_AT = 3150, HOLD_MAX = 400, holds = 0, ending = false;
     var NOSE = -30;                                              // the logo plane points 30° above the horizontal
     var lockup = $('.intro-lockup', el), stage = $('.intro-stage', el), ring = $('.intro-ring', el);
     var wrap = $('.intro-plane-wrap', el), plane = $('.intro-plane', el), sub = $('.intro-sub', el);
     var trails = $$('.intro-trail path', el), pills = $$('.intro-pill', el);
-    var done = false, started = false, timers = [], anims = [], lastW = window.innerWidth, L = 0;
+    var done = false, started = false, timers = [], anims = [], lastW = window.innerWidth, L = 0, flightKF = null, pillKF = [];
+    // The plane's flight and the apps' bursts are transform keyframes sampled along their curves, not offset-path:
+    // transforms run on the compositor, so the page starting up underneath (its scripts, fonts, layout, the tag
+    // manager) cannot stutter them. bez() is a CSS cubic-bezier as a function of time, so the motion is unchanged.
+    function bez(x1, y1, x2, y2) {
+      var B = function (a, b, t) { return 3 * a * t * (1 - t) * (1 - t) + 3 * b * t * t * (1 - t) + t * t * t; };
+      return function (x) {
+        if (x <= 0) return 0; if (x >= 1) return 1;
+        var lo = 0, hi = 1, t = x;
+        for (var i = 0; i < 22; i++) { t = (lo + hi) / 2; if (B(x1, x2, t) < x) lo = t; else hi = t; }
+        return B(y1, y2, t);
+      };
+    }
+    var flyEase = bez(.5, 0, .25, 1), pillEase = bez(.2, .75, .25, 1);
     if (document.documentElement.classList.contains('intro-nxe') && el.dataset.taglineNxe) {
       // the page opens on Nexi Explains: the tagline is Nexi's speech bubble, like the header's Nexi Explains button
       sub.innerHTML = '<span class="nb-face" aria-hidden="true"><i></i></span><span></span><b class="intro-new">NEW!</b>';
@@ -81,10 +98,11 @@
        the right, back underneath and up into the plane's slot, which sits 15° past the loop's leftmost point (so the
        plane climbs into it). Built in viewport pixels from the stage's box and kept inside the viewport minus the
        plane's own reach, so it never leaves the screen, even at 320 px wide; sampled, joined as a Catmull-Rom
-       spline, then expressed relative to the plane's box for offset-path and drawn as the SVG trail. The plane
-       flies nose first (offset-rotate); --flare turns it from its heading into the slot to the logo's attitude. */
+       spline, drawn as the SVG trail and sampled into the plane's keyframes (60 steps, eased in time as
+       FLY_EASE). The plane flies nose first (the path's heading + 30°); --flare turns it from its heading into the
+       slot to the logo's attitude. */
     function buildPath() {
-      wrap.style.offsetPath = 'none';                            // measure the slot, not a point on an old path
+      anims.forEach(function (a) { a.cancel(); }); anims = [];   // measure the slot, not a point of an old flight
       var r = wrap.getBoundingClientRect(), s = stage.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
       var cx = r.left + r.width / 2, cy = r.top + r.height / 2, m = Math.sqrt(r.width * r.width + r.height * r.height) / 2 + 6;
       var D = 0.26, rx = (Math.min(W - m, s.right + Math.min(110, s.width * 0.16)) - cx) / (1 + Math.cos(D));
@@ -103,9 +121,17 @@
       }
       var end = Math.atan2(q[n + 2][1] - q[n][1], q[n + 2][0] - q[n][0]) * 180 / Math.PI;   // heading into the slot
       trails.forEach(function (t) { t.setAttribute('d', d); });
-      var local = d.replace(/(-?\d+\.?\d*),(-?\d+\.?\d*)/g, function (z, x, y) { return (x - r.left).toFixed(1) + ',' + (y - r.top).toFixed(1); });
-      wrap.style.offsetPath = 'path("' + local + '")';
-      wrap.style.offsetRotate = 'auto ' + (-NOSE) + 'deg';
+      var path = trails[0], tot = path.getTotalLength(), kf = [], prev = null;
+      for (var k = 0; k <= 60; k++) {
+        var t = k / 60, at = flyEase(t) * tot, p = path.getPointAtLength(at);
+        var p0 = path.getPointAtLength(Math.max(0, at - 1)), p1 = path.getPointAtLength(Math.min(tot, at + 1));
+        var hd = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
+        if (prev !== null) hd = prev + ((hd - prev + 540) % 360 - 180);   // no 360° flips between samples
+        prev = hd;
+        kf.push({ offset: t, opacity: Math.min(1, t / 0.08),
+          transform: 'translate(' + (p.x - cx).toFixed(1) + 'px,' + (p.y - cy).toFixed(1) + 'px) rotate(' + (hd - NOSE).toFixed(1) + 'deg)' });
+      }
+      flightKF = kf;
       el.style.setProperty('--pw', r.width.toFixed(1) + 'px');        // the plane's size: spark reach, trail weight
       plane.style.setProperty('--flare', (NOSE - end).toFixed(1) + 'deg');
       return trails[0].getTotalLength();
@@ -126,15 +152,28 @@
     }
 
     /* (e) each app's burst: from the middle of the logo (behind it) out and down into its place, the outer pills
-       bowed outward; an offset-path in the pill's own box */
+       bowed outward: a quadratic curve in the pill's own box, sampled with its scale (.35, 1.07 at 72 %, 1), its
+       turn (16° to 0) and its fade (in by 28 %), each eased over its own stretch as the CSS keyframes were. The
+       order rotate · scale · translate is the one the individual properties and offset-path had. */
     function pillPaths() {
       var s = stage.getBoundingClientRect(), ox = s.left + s.width / 2, oy = s.top + s.height / 2;
-      pills.forEach(function (p, i) {
-        p.style.offsetPath = 'none';
+      pillKF = pills.map(function (p, i) {
         var b = p.getBoundingClientRect(), w = p.offsetWidth, h = p.offsetHeight, side = i - (pills.length - 1) / 2;
         var sx = ox - (b.left + b.width / 2 - w / 2), sy = oy - (b.top + b.height / 2 - h / 2);   // the unscaled box
-        var qx = w / 2 + side * Math.max(36, s.width * 0.2), qy = sy + (h / 2 - sy) * 0.2;
-        p.style.offsetPath = 'path("M' + sx.toFixed(1) + ',' + sy.toFixed(1) + ' Q' + qx.toFixed(1) + ',' + qy.toFixed(1) + ' ' + w / 2 + ',' + h / 2 + '")';
+        var qx = w / 2 + side * Math.max(36, s.width * 0.2), qy = sy + (h / 2 - sy) * 0.2, kf = [];
+        // the curve by length, as offset-distance moved along it: a table of the length at 200 steps, then inverted
+        var Q = function (v) { var m = 1 - v; return [m * m * sx + 2 * m * v * qx + v * v * w / 2, m * m * sy + 2 * m * v * qy + v * v * h / 2]; };
+        var len = [0], last = Q(0), j;
+        for (j = 1; j <= 200; j++) { var c = Q(j / 200); len.push(len[j - 1] + Math.hypot(c[0] - last[0], c[1] - last[1])); last = c; }
+        var at = function (f) { var d = f * len[200], lo = 0; while (lo < 199 && len[lo + 1] < d) lo++; var g = len[lo + 1] - len[lo]; return Q((lo + (g ? (d - len[lo]) / g : 0)) / 200); };
+        for (var k = 0; k <= 30; k++) {
+          var t = k / 30, e = pillEase(t), pt = at(e);
+          var x = pt[0] - w / 2, y = pt[1] - h / 2;
+          var sc = t < 0.72 ? 0.35 + 0.72 * pillEase(t / 0.72) : 1.07 - 0.07 * pillEase((t - 0.72) / 0.28);
+          kf.push({ offset: t, opacity: t < 0.28 ? pillEase(t / 0.28) : 1,
+            transform: 'rotate(' + (side * 16 * (1 - e)).toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ') translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)' });
+        }
+        return kf;
       });
     }
 
@@ -142,16 +181,32 @@
       if (started || done) return; started = true;
       el.classList.add('is-go');
       trail();
+      if (wrap.animate && flightKF) anims.push(wrap.animate(flightKF, { duration: FLY_MS, delay: FLY_AT, fill: 'both' }));
+      else wrap.style.opacity = 1;
+      pills.forEach(function (p, i) {
+        if (p.animate && pillKF[i]) anims.push(p.animate(pillKF[i], { duration: 750, delay: 2200 + i * 80, fill: 'both' }));
+        else p.style.opacity = 1;
+      });
       timers.push(setTimeout(function () { wrap.style.willChange = 'auto'; }, FLY_AT + FLY_MS + 60));   // landed
-      timers.push(setTimeout(finish, END_AT));
+      timers.push(setTimeout(quiet, QUIET_AT));
+      timers.push(setTimeout(end, END_AT));
     }
+    function quiet() {
+      document.dispatchEvent(new CustomEvent('tn:intro-quiet', { detail: { hold: function () {
+        var freed = false; holds++;
+        return function () { if (freed) return; freed = true; holds--; if (!holds && ending) finish(); };
+      } } }));
+    }
+    function end() { ending = true; if (!holds) finish(); else timers.push(setTimeout(finish, HOLD_MAX)); }
     place(); L = buildPath(); pillPaths();
-    requestAnimationFrame(start);
-    timers.push(setTimeout(start, 120));
+    // the flight starts once the page's other deferred scripts have run (DOMContentLoaded), so their start-up never
+    // lands on it (the sheet's bloom and grid already play from the first paint); 900 ms at the latest
+    document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(start); timers.push(setTimeout(start, 120)); }, { once: true });
+    timers.push(setTimeout(start, 900));
     function restart() {
       timers.forEach(clearTimeout); timers = [];
       anims.forEach(function (a) { a.cancel(); }); anims = [];
-      el.classList.remove('is-go'); started = false; wrap.style.willChange = '';
+      el.classList.remove('is-go'); started = false; ending = false; wrap.style.willChange = '';
       void el.offsetWidth;                       // reflow so every CSS animation restarts from frame 0
       place(); L = buildPath(); pillPaths(); start();
     }

@@ -1299,8 +1299,6 @@ input,textarea{caret-color:var(--blue)}
 /* ==========================================================================
    Motion control
    ========================================================================== */
-/* nothing plays under the first-visit intro; it starts when the intro hands over */
-html.intro .stage,html.intro .stage *,html.intro .ph-bg *{animation-play-state:paused!important}
 /* stage.js pauses loops that are offscreen or in a hidden tab */
 .stage.is-paused,.stage.is-paused *,.stage.is-paused *::before,.stage.is-paused *::after{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){
