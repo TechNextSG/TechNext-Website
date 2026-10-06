@@ -633,7 +633,7 @@ def _nxe_all():
 
 
 # the home hero's Nexi Explains slide (index.html slide 6): the TV reel + strip, and the pills under the copy
-NXE_SLIDE_REEL = ["EP00", "EP01", "Tip 02", "EP03", "EP06", "EP15"]
+NXE_SLIDE_REEL = ["EP00", "EP01", "EP02", "EP03", "EP06", "EP15"]
 
 
 def nxe_slide_html():
