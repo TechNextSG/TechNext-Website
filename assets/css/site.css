@@ -732,7 +732,10 @@ html{scrollbar-gutter:stable}
 @keyframes bloomOpen{to{opacity:1;scale:1}}
 /* (b) 0.15–1.45 s: the plane flies the loop (transform keyframes, site.js), banks through it, flares to the logo's attitude and lands;
    the comet trail is three dashes of falling length whose heads ride with it (site.js) */
-.intro-trail{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.intro-trail{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;opacity:0}
+/* the path is drawn as soon as the intro is laid out, but it only shows as the comet trail once the flight starts
+   (is-go): before that it would be the whole loop, with no plane, while the page's scripts finish loading */
+.intro.is-go .intro-trail{opacity:1}
 .intro-trail path{fill:none;stroke:var(--blue-300);stroke-linecap:round;stroke-width:calc(.8px + var(--pw,60px) * .012);opacity:.3}
 .intro-trail path+path{stroke-width:calc(1.2px + var(--pw,60px) * .02);opacity:.55}
 .intro-trail path+path+path{stroke:var(--blue);stroke-width:calc(1.6px + var(--pw,60px) * .026);opacity:.85}
