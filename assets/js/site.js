@@ -31,7 +31,11 @@
     var wrap = $('.intro-plane-wrap', el), plane = $('.intro-plane', el), sub = $('.intro-sub', el);
     var trails = $$('.intro-trail path', el), pills = $$('.intro-pill', el);
     var done = false, started = false, timers = [], anims = [], lastW = window.innerWidth, L = 0;
-    sub.textContent = el.dataset.tagline || '';
+    if (document.documentElement.classList.contains('intro-nxe') && el.dataset.taglineNxe) {
+      // the page opens on Nexi Explains: the tagline is Nexi's speech bubble, like the header's Nexi Explains button
+      sub.innerHTML = '<span class="nb-face" aria-hidden="true"><i></i></span><span></span><b class="intro-new">NEW!</b>';
+      sub.children[1].textContent = el.dataset.taglineNxe;
+    } else sub.textContent = el.dataset.tagline || '';
 
     /* (f) exit, the iris: the whole overlay gets a round hole that grows from the middle of the logo to the farthest
        corner, so the page shows through it and never through a half-faded logo. The hole is the viewport minus a

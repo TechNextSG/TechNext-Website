@@ -797,6 +797,44 @@ html{scrollbar-gutter:stable}
 .intro.is-out .intro-lockup{animation:lockupOut .7s cubic-bezier(.55,0,.8,.3) forwards}
 @keyframes lockupOut{to{opacity:0;scale:1.35}}
 .intro.is-out .intro-skip,.intro.is-out .intro-progress{visibility:hidden}
+/* the comic intro (html.intro-nxe): the page opens on the Nexi Explains slide, so the same beats play in that slide's
+   look: the navy sky with rays, halftone and speed lines, a white ink-shadowed logo, a yellow comet trail and landing,
+   Nexi's speech bubble for the tagline (the header's Nexi Explains button) and ink-outlined apps; the iris then opens
+   onto the same sky. Only colours, filters and shadows change, so site.js's flight path and timings are untouched. */
+html.intro-nxe #intro{--ink-c:#101C45;--yel:#FFD23F;--comic:"Bangers","Plus Jakarta Sans",system-ui,sans-serif}
+html.intro-nxe .intro-sheet{background:radial-gradient(1200px 760px at 50% 48%,#3E74DE 0%,#2352B4 32%,#143585 62%,#0B1D52 100%)}
+html.intro-nxe .intro-sheet::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(104deg,transparent 0 46px,rgba(255,255,255,.05) 46px 48px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 38%,transparent 62%,#000);mask-image:linear-gradient(90deg,#000,transparent 38%,transparent 62%,#000)}
+html.intro-nxe .intro-grid i{background:radial-gradient(rgba(255,255,255,.17) 1.4px,transparent 1.9px) 50% 50%/16px 16px}
+html.intro-nxe .intro-grid i+i{display:none}
+html.intro-nxe .intro-bloom{background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.085) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 12%,transparent 74%);mask-image:radial-gradient(closest-side,#000 12%,transparent 74%);animation:bloomOpen .9s var(--ease-out) forwards,introSpin 90s linear infinite}
+@keyframes introSpin{to{rotate:360deg}}
+html.intro-nxe .intro-trail path{stroke:#fff;opacity:.35}
+html.intro-nxe .intro-trail path+path{stroke:var(--yel);opacity:.65}
+html.intro-nxe .intro-trail path+path+path{stroke:var(--yel);opacity:1}
+html.intro-nxe .intro-plane{filter:brightness(0) invert(1) drop-shadow(3px 4px 0 var(--ink-c))}
+html.intro-nxe .intro-letter{filter:brightness(0) invert(1)}
+html.intro-nxe .intro-word{filter:drop-shadow(3px 4px 0 var(--ink-c))}
+html.intro-nxe .intro-glint::before{background:linear-gradient(100deg,rgba(255,210,63,0) 10%,rgba(255,210,63,.95) 50%,rgba(255,210,63,0) 90%)}
+html.intro-nxe .intro-ripple{border:3px solid var(--yel)}
+html.intro-nxe .intro-spark{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--yel)}
+html.intro-nxe .intro-spark:nth-of-type(odd){background:#fff}
+/* the tagline: Nexi's speech bubble pops in (her face from the header button, an ink tail, a NEW! burst) */
+html.intro-nxe .intro-sub{display:inline-flex;align-items:center;gap:.3em;padding:.3em .75em .3em .4em;border-radius:999px;background:#fff;color:var(--blue);font:400 clamp(1.3rem,5.8vw,2.05rem)/1.05 var(--comic);letter-spacing:.045em;clip-path:none;translate:0 0;opacity:0;scale:.2;rotate:-10deg;transform-origin:16% 100%;box-shadow:0 0 0 3px var(--ink-c),5px 6px 0 3px var(--ink-c);margin:4px 0 10px}
+html.intro-nxe .intro-sub::before,html.intro-nxe .intro-sub::after{content:"";position:absolute;clip-path:polygon(0 0,100% 0,0 100%)}
+html.intro-nxe .intro-sub::before{left:calc(16% - 4px);top:calc(100% - 1px);width:27px;height:22px;background:var(--ink-c)}
+html.intro-nxe .intro-sub::after{left:16%;top:calc(100% - 2px);width:18px;height:14px;background:#fff}
+html.intro-nxe .intro-sub .nb-face{scale:1.3;margin:0 .2em 0 .15em}
+html.intro-nxe .intro-new{position:absolute;right:-1.85em;top:-.8em;display:grid;place-items:center;width:3.4em;height:2.7em;font:400 max(12px,.5em)/1 var(--comic);letter-spacing:.05em;color:var(--ink-c);filter:drop-shadow(2px 2px 0 var(--ink-c));rotate:14deg;opacity:0;scale:0}
+html.intro-nxe .intro-new::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--yel);clip-path:polygon(50% 0,61% 22%,86% 8%,78% 34%,100% 42%,79% 57%,92% 82%,64% 74%,52% 100%,40% 76%,13% 90%,21% 62%,0 50%,21% 37%,9% 12%,38% 22%)}
+html.intro-nxe .intro.is-go .intro-sub{animation:introBubble .6s var(--spring) 1.85s forwards}
+html.intro-nxe .intro.is-go .intro-new{animation:introPop .45s var(--spring) 2.3s forwards}
+@keyframes introBubble{0%{opacity:0;scale:.2;rotate:-12deg}55%{opacity:1;scale:1.08;rotate:0deg}100%{opacity:1;scale:1;rotate:-3deg}}
+@keyframes introPop{0%{opacity:0;scale:0}100%{opacity:1;scale:1}}
+html.intro-nxe .intro-pill{border:0;color:var(--ink-c);font-weight:700;box-shadow:0 0 0 2.5px var(--ink-c),3px 4px 0 2.5px var(--ink-c)}
+html.intro-nxe .intro-progress{height:4px;background:var(--yel);opacity:1}
+html.intro-nxe .intro-skip{border:0;background:#fff;color:var(--ink-c);font:400 16px/1 var(--comic);letter-spacing:.07em;box-shadow:0 0 0 2.5px var(--ink-c),0 3px 0 2.5px var(--ink-c)}
+html.intro-nxe .intro-skip:hover{background:var(--yel);color:var(--ink-c)}
+html.intro-nxe .intro-ring{border:3px solid var(--yel);box-shadow:0 0 30px 6px rgba(255,210,63,.4)}
 .kw>.rot{display:inline-grid}
 .card-ic[data-app-pop]{border:0;background:none;padding:0;cursor:zoom-in}
 
