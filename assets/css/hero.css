@@ -1093,7 +1093,8 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
    over this slide: the sky reaches up into that strip */
 .is-home main{margin-top:calc(var(--header-h) * -1)}
 .is-home .hero{padding-top:var(--header-h)}
-.nxs-sky{position:absolute;inset:calc(var(--header-h) * -1) 0 0;z-index:0;pointer-events:none;overflow:hidden;
+/* ...and down behind the slide controls on phones and tablets (the hero clips it at its own bottom) */
+.nxs-sky{position:absolute;inset:calc(var(--header-h) * -1) 0 -160px;z-index:0;pointer-events:none;overflow:hidden;
   background:linear-gradient(180deg,#0E2364 0,rgba(14,35,100,0) 150px),radial-gradient(1200px 760px at 74% 46%,#3E74DE 0%,#2352B4 32%,#143585 62%,#0B1D52 100%)}
 .nxs-rays{position:absolute;left:var(--nxs-ox,74%);top:var(--nxs-oy,46%);width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxsSpin 120s linear infinite}
 .nxs-dots{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.15) 1.4px,transparent 1.9px) 0 0/16px 16px;-webkit-mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%);mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%)}
@@ -1200,6 +1201,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   .nxs-fl{display:none}
   /* phones and tablets: the countdown chip goes under the strip, so the cast has the TV's top to itself */
   .slide--nxs .nxs{display:flex;flex-direction:column;margin-top:66px}
+  .slide--nxs .nxs{max-width:min(660px,100%)}   /* tablets: a bigger TV instead of empty sky */
   .slide--nxs .nxs-next{order:3;align-self:flex-start;margin:14px 0 0}
   .nxs-boom{left:auto;right:5%;top:2%;font-size:20px;padding:11px 14px}
   .slide--nxs .nxs-say{top:96px}
