@@ -262,6 +262,37 @@ button.nxe-thumb{cursor:pointer}
 .nxe-player-foot [data-nxe-next-ep] .ic{transform:rotate(-90deg)}
 .nxe-player-foot .btn:disabled{opacity:.4;cursor:default}
 
+/* ---------- the side tabs (Set up meeting / Let's Talk / Ask Nexi) as comic stickers on this page ----------
+   Desktop tabs are turned 180deg (site.css), so a shadow written as (5px,-5px) lands down-left on screen and the
+   element's left edge is the screen's right edge (no border there: the tab sits on the window edge).
+   As in site.css, hover changes only colour, shadow and the icon, never the tab's box. */
+.is-nxe .side-tab{border:3px solid var(--ink-c);border-left:0;border-radius:0 14px 14px 0;padding:18px 11px 18px 13px;font:400 18px/1 var(--comic);letter-spacing:.07em;box-shadow:5px -5px 0 var(--ink-c);transition:background-color .2s ease,box-shadow .2s ease}
+.is-nxe .side-tab:hover{box-shadow:8px -8px 0 var(--ink-c)}
+.is-nxe .side-tab:active{box-shadow:2px -2px 0 var(--ink-c)}
+.is-nxe .side-tab:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active{color:var(--ink-c)}
+.is-nxe .meet-tab{background:var(--yel)}
+.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active{background:#FFDC5E}
+.is-nxe .talk-tab{background:#fff;color:var(--ink-c)}
+.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active{background:#EAF0FB;color:var(--ink-c)}
+.is-nxe .nexi-tab{background:linear-gradient(0deg,var(--blue),#6B5BFF);color:#fff}
+.is-nxe .nexi-tab:hover,.is-nxe .nexi-tab:active{background:linear-gradient(0deg,#2A58AE,#5A48F0);color:#fff}
+.is-nxe .side-tab .ic{width:18px;height:18px}
+.is-nxe .side-tab:hover .ic{animation:nxeWiggle .5s var(--spring)}
+.is-nxe .meet-tab:hover .ic{animation:nxeWiggleUp .5s var(--spring)}
+@keyframes nxeWiggle{30%{transform:rotate(90deg) translateY(-3px) scale(1.15)}60%{transform:rotate(78deg) scale(1.1)}100%{transform:rotate(90deg)}}
+@keyframes nxeWiggleUp{30%{transform:rotate(180deg) translateY(3px) scale(1.15)}60%{transform:rotate(168deg) scale(1.1)}100%{transform:rotate(180deg)}}
+@media (max-width:960px){
+  /* phones: round sticker buttons, not turned, so the shadow goes down-right as written */
+  .is-nxe .side-tab{border:3px solid var(--ink-c);border-radius:50%;padding:0;box-shadow:3px 3px 0 var(--ink-c)}
+  .is-nxe .side-tab:hover{box-shadow:4px 4px 0 var(--ink-c)}
+  .is-nxe .side-tab:active{box-shadow:1px 1px 0 var(--ink-c)}
+  .is-nxe .side-tab .ic{width:21px;height:21px}
+  @keyframes nxeWiggle{30%{transform:translateY(-3px) scale(1.15)}60%{transform:rotate(-12deg) scale(1.1)}100%{transform:none}}
+  .is-nxe .meet-tab:hover .ic{animation:nxeWiggle .5s var(--spring)}
+}
+@media (prefers-reduced-motion:reduce){.is-nxe .side-tab:hover .ic{animation:none}}
+
 /* ---------- responsive ---------- */
 @media (max-width:1100px){
   .nxe-hero-in{grid-template-columns:1fr;gap:12px}
