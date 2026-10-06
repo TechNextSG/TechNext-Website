@@ -32,7 +32,8 @@ S1 = [
     ("Meet Odoo", [
         ep("EP01", "Odoo Walkthrough with Nexi", "What is Odoo? A quick tour of the apps.", "2:13",
            thumb="s1-ep01", yt="hos3sqJOhMY", premiere="2026-10-17T10:00:00Z", page="odoo/apps.html"),
-        ep("EP02", "All Odoo Apps", "Every app, one Odoo: all the apps on one database.", "1:03", thumb="s1-ep02", page="odoo/apps.html"),
+        ep("EP02", "All Odoo Apps", "Every app, one Odoo: all the apps on one database.", "1:03", thumb="s1-ep02",
+           yt="KwvBOgfXHgs", premiere="2026-10-20T10:00:00Z", page="odoo/apps.html"),
         ep("EP03", "Before vs After: Order to Invoice", "Same order, typed three times? Before and after Odoo.", "0:40",
            thumb="s1-ep03", yt="TJe8GlN43U0", premiere="2026-10-24T10:00:00Z", page="solutions/odoo-erp.html"),
         ep("EP04", "Myth-busting: ERP Is Only for Big Companies", "Too small for ERP? Myth busted.", "0:31", thumb="s1-ep04", page="solutions/odoo-erp.html"),
@@ -71,8 +72,7 @@ S1 = [
 
 S1_TIPS = [
     ep("Tip 01", "Save your search to Favorites", "Same filter every day? Save it once.", "0:37", thumb="qt01"),
-    ep("Tip 02", "Jump anywhere with Ctrl+K", "Still clicking through menus? Press Ctrl+K.", "0:37", thumb="qt02",
-       yt="haDZKW8Fx6k", premiere="2026-10-22T10:00:00Z"),
+    ep("Tip 02", "Jump anywhere with Ctrl+K", "Still clicking through menus? Press Ctrl+K.", "0:37", thumb="qt02"),
     ep("Tip 03", "Edit many records at once", "Change twenty records in one go.", "0:36", thumb="qt03"),
     ep("Tip 04", "Schedule an activity", "Forgot to follow up? Let Odoo remind you.", "0:38", thumb="qt04"),
     ep("Tip 05", "Log a note or send a message", "The customer saw it?! Log note vs send message.", "0:49", thumb="qt05"),
