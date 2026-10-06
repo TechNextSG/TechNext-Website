@@ -216,6 +216,7 @@
   var gg = cv.getContext('2d');
   if (!gg) { cv.remove(); return; }
   var slide = perch ? stage.closest('.slide') : null, heroEl = perch ? stage.closest('[data-hero]') : null, seen = true, wipeT = 0;
+  var stacked = window.matchMedia('(max-width: 960px)');
   var SCENE = 22, W = 0, H = 0, dpr = 1, last = 0, raf = 0, on = true, u0 = 0, prevU = -1, fired = {}, tapAt = -9;
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function ease(k) { k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
@@ -369,6 +370,27 @@
       put(dx, dy - 17 * 1.3 * k + (fly ? Math.sin(T * 18) * 3 * k : 0), 1.3 * k, function () { duck(gg, 0, 0); }, u > 9.4 ? -1 : 1, fly ? -0.18 : 0, 1 - out);
       once('land', u, 3.2, function () { DUCK.bob = T; });
       once('quack', u, 3.6, function () { chip('Quack!', dx + 36 * k, dy - 60 * k, 16 * k, '#B4521E', '#FFF6DA'); });
+    }
+    /* phones and tablets: the floor under the countdown chip is empty, so a little parade walks it: the penguin
+       waddles in fanning, the hamster zooms across (ZOOM!), the goat trots in and hops (BOING!), then they leave */
+    if (stacked.matches) {
+      /* keep clear of the round side buttons fixed at the bottom right of phones (usable floor = W - 90) */
+      var fl = H - 12 * k, nb = rel(stage, c).b, room = fl - nb, pk = clamp(Math.min(k, room / 120), 0.42, 0.75), UW = W - 90;
+      if (room > 64) {
+        var pX = still ? UW * 0.7 : lerp(W + 70 * pk, UW * 0.7, seg(u, 0.4, 3)) - (UW * 0.7 + 80 * pk) * seg(u, 10, 12);
+        var pw = !still && ((u > 0.4 && u < 3) || u > 10);
+        put(pX, fl - 66 * 0.72 * pk - (pw ? Math.abs(Math.sin(T * 9)) * 4 * pk : 0), 0.72 * pk, function () { penguin(gg, 0, 0, 1); }, 1, pw ? Math.sin(T * 9) * 0.07 : 0);
+        if (!still && u > 4.4 && u < 5.8) {
+          var hX = lerp(W + 50 * pk, -60 * pk, seg(u, 4.4, 5.8));
+          put(hX, fl, 0.8 * pk, function () { hamster(gg, 0, 0, 1); }, -1);
+          once('pzoom', u, 4.9, function () { word('ZOOM!', W * 0.42, fl - 120 * pk, 30 * pk, -0.12); });
+        }
+        if (still || (u > 5.9 && u < 12)) {
+          var gX = still ? UW * 0.36 : lerp(W + 70 * pk, UW * 0.36, seg(u, 5.9, 7.3)) - (UW * 0.36 + 90 * pk) * seg(u, 10.4, 12);
+          put(gX, fl - (!still && (u < 7.3 || u > 10.4) ? Math.abs(Math.sin(T * 10)) * 3 * pk : 0), 0.66 * pk, function () { goat(gg, 0, 0, 1, -1); });
+          once('pboing', u, 7.8, function () { GOAT.hop = T; word('BOING!', UW * 0.36, fl - 140 * pk, 28 * pk, 0.15); });
+        }
+      }
     }
     drawWords();
   }
