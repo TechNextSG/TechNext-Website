@@ -205,7 +205,9 @@
   try { last = parseInt(localStorage.getItem(LAST), 10); } catch (e) { /* storage may be blocked */ }
   if (autoplay && slides.length > 1 && !crawler) {
     var pool = slides.map(function (s0, k) { return k; }).filter(function (k) { return k !== last; });
-    var r0 = pool[Math.floor(Math.random() * pool.length)];
+    // the head script (build.py HERO_FIRST_HEAD) has usually picked it already, so the intro could dress for it
+    var pre = window.__tnHeroFirst;
+    var r0 = typeof pre === 'number' && slides[pre] ? pre : pool[Math.floor(Math.random() * pool.length)];
     if (r0 !== idx) { slides[idx].classList.remove('is-active'); slides[r0].classList.add('is-active'); idx = r0; }
     try { localStorage.setItem(LAST, String(idx)); } catch (e) { /* storage may be blocked */ }
   }
