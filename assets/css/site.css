@@ -1098,3 +1098,50 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
   .nx-stage iframe{height:calc(100svh - var(--header-h) - 96px);min-height:520px}
   body.is-nexi .side-tabs{display:none}   /* the round tabs would sit on Nexi's message box; Nexi offers the form itself */
 }
+
+/* ---------- "Nexi Explains" in the header: drawn like Nexi's speech bubbles in the home hero
+   (hero.css .nexi-fx b): a white, slightly tilted bubble with blue display type, a soft blue ring and a
+   tail, plus Nexi's face. It pops in once, then gives a small "talk" bounce now and then.
+   The ring is a drop-shadow on .nb-bg (pill + tail as one shape), so the tail carries it too and the
+   text never gets a shadow. Pop/talk animate the individual `scale`/`rotate` properties, so they
+   compose with the hover transform. ---------- */
+.nav-item--bubble{margin-left:10px}
+.nav-bubble{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px 0 7px;color:var(--blue);font:800 15px/1 var(--font-display);letter-spacing:-.01em;white-space:nowrap;text-decoration:none;transform:rotate(-3deg);transform-origin:18% 100%;transition:transform .35s var(--spring),color .2s ease;animation:nbPop .8s var(--spring) .25s both,nbTalk 9s ease-in-out 4s infinite}
+.nb-bg{position:absolute;inset:0;z-index:-1;filter:drop-shadow(0 0 .7px #8FB2F2) drop-shadow(0 0 1.8px rgba(111,160,245,.8)) drop-shadow(0 8px 9px rgba(30,70,145,.2));transition:filter .25s ease}
+.nb-bg::before{content:"";position:absolute;inset:0;border-radius:14px;background:#fff}
+.nb-bg::after{content:"";position:absolute;left:12px;bottom:-8px;width:15px;height:11px;background:#fff;clip-path:polygon(0 0,100% 0,6% 100%)}
+.nav-bubble:hover,.nav-bubble:focus-visible{text-decoration:none;color:var(--blue-700);transform:rotate(-1deg) scale(1.06)}
+.nav-bubble:hover .nb-bg,.nav-bubble[aria-current] .nb-bg{filter:drop-shadow(0 0 .7px #6FA0F5) drop-shadow(0 0 2.6px rgba(111,160,245,1)) drop-shadow(0 10px 12px rgba(30,70,145,.28))}
+.nav-bubble:focus-visible{outline:none}
+.nav-bubble:focus-visible .nb-bg::before{box-shadow:0 0 0 2px var(--blue)}
+@keyframes nbPop{0%{opacity:0;scale:.3;rotate:-9deg}60%{opacity:1;scale:1.12;rotate:-2deg}100%{opacity:1;scale:1;rotate:0deg}}
+@keyframes nbTalk{0%,86%,100%{scale:1;rotate:0deg}89%{scale:1.09;rotate:2deg}92%{scale:.97;rotate:-1.5deg}95%{scale:1.04;rotate:1deg}}
+/* Nexi's face: white head, dark visor, two glowing eyes that blink; they turn into happy arcs on hover */
+.nb-face{position:relative;flex:none;width:25px;height:25px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#E1E8F5 75%);box-shadow:inset 0 -2px 3px rgba(31,31,61,.14),0 0 0 1.5px #DCE6F7}
+.nb-face i{position:absolute;left:3px;right:3px;top:6px;height:12px;border-radius:7px/6px;background:linear-gradient(#26304F,#121A33)}
+.nb-face i::before,.nb-face i::after{content:"";position:absolute;top:3px;width:3.5px;height:6px;border-radius:3px;background:#9CCBFF;box-shadow:0 0 4px #6FA0F5;animation:nbBlink 5s infinite}
+.nb-face i::before{left:4.5px}
+.nb-face i::after{right:4.5px}
+.nav-bubble:hover .nb-face i::before,.nav-bubble:hover .nb-face i::after{top:4px;width:5px;height:4px;border-radius:5px 5px 0 0;background:transparent;border:1.6px solid #9CCBFF;border-bottom:0;box-shadow:none;animation:none}
+.nav-bubble:hover .nb-face i::before{left:3.5px}
+.nav-bubble:hover .nb-face i::after{right:3.5px}
+@keyframes nbBlink{0%,93%,100%{transform:none}96%{transform:scaleY(.15)}}
+@media (max-width:1180px){
+  .nav-link{padding:0 11px}
+  .nav-item--bubble{margin-left:6px}
+  .nav-bubble{font-size:14px;padding-right:12px}
+}
+@media (max-width:1040px){
+  .nav-list{gap:0}
+  .nav-link{padding:0 9px;font-size:14.5px}
+  .nav-bubble .nb-face{display:none}
+  .nav-bubble{padding:0 11px}
+}
+/* the mobile menu opens with the same bubble on top */
+.mnav-bubble{padding-top:18px;padding-bottom:18px}
+.mnav-bubble-in{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 15px 0 8px;color:var(--blue);font:800 16px/1 var(--font-display);transform:rotate(-2deg);transform-origin:18% 100%}
+.mnav-bubble .ic{color:var(--blue)}
+@media (prefers-reduced-motion:reduce){
+  .nav-bubble{animation:none}
+  .nb-face i::before,.nb-face i::after{animation:none}
+}

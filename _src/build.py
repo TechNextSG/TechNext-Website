@@ -24,6 +24,7 @@ import sitedata as S  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
+import nexi_explains as NXE  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -94,10 +95,24 @@ def link_icon(l: dict, size: int = 28) -> str:
 
 
 # ---------------------------------------------------------------- header
+# Nexi's face, drawn in CSS, for the "Nexi Explains" speech bubble in the header and the mobile menu
+NEXI_FACE = '<span class="nb-face" aria-hidden="true"><i></i></span>'
+
+
+def _rel(l: dict) -> str:
+    return ' rel="nofollow"' if l.get("nofollow") else ""
+
+
 def nav_html(active: str) -> str:
     items = []
     for it in S.NAV:
         cls = "nav-item" + (" is-active" if it["id"] == active else "")
+        if it.get("bubble"):
+            # drawn like Nexi's own speech bubbles in the home hero (hero.css .nexi-fx b)
+            cur = ' aria-current="page"' if it["id"] == active else ""
+            items.append(f'<li class="{cls} nav-item--bubble"><a class="nav-bubble" href="{{{{ROOT}}}}{it["href"]}"{cur}>'
+                         f'<span class="nb-bg" aria-hidden="true"></span>{NEXI_FACE}<span class="nb-txt">{it["label"]}</span></a></li>')
+            continue
         if "columns" not in it:
             items.append(f'<li class="{cls}"><a class="nav-link" href="{{{{ROOT}}}}{it["href"]}">{it["label"]}</a></li>')
             continue
@@ -107,7 +122,7 @@ def nav_html(active: str) -> str:
             if col.get("href"):
                 head = f'<a href="{{{{ROOT}}}}{col["href"]}">{col["title"]} {{{{icon:arrow}}}}</a>'
             links = "".join(
-                f'<a class="mega-link" href="{{{{ROOT}}}}{l["href"]}">'
+                f'<a class="mega-link" href="{{{{ROOT}}}}{l["href"]}"{_rel(l)}>'
                 f'<span class="mega-ic">{link_icon(l)}</span>'
                 f'<span><b>{l["label"]}</b><small>{l["desc"]}</small></span></a>'
                 for l in col["links"])
@@ -127,13 +142,17 @@ def mobile_nav_html() -> str:
     c = S.COMPANY
     out = []
     for it in S.NAV:
+        if it.get("bubble"):
+            out.insert(0, f'<a class="mnav-top mnav-bubble" href="{{{{ROOT}}}}{it["href"]}">'
+                          f'<span class="mnav-bubble-in"><span class="nb-bg" aria-hidden="true"></span>{NEXI_FACE}<span>{it["label"]}</span></span> {{{{icon:arrow}}}}</a>')
+            continue
         if "columns" not in it:
             out.append(f'<a class="mnav-top" href="{{{{ROOT}}}}{it["href"]}">{it["label"]} {{{{icon:arrow}}}}</a>')
             continue
         groups = []
         for col in it["columns"]:
             links = "".join(
-                f'<a href="{{{{ROOT}}}}{l["href"]}"><span class="mnav-ic">{link_icon(l, 24)}</span>{l["label"]}</a>'
+                f'<a href="{{{{ROOT}}}}{l["href"]}"{_rel(l)}><span class="mnav-ic">{link_icon(l, 24)}</span>{l["label"]}</a>'
                 for l in col["links"])
             groups.append(f'<div class="mnav-group"><div class="mnav-head">{col["title"]}</div>{links}</div>')
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
@@ -230,7 +249,7 @@ LAYOUT = '''<!doctype html>
 {TAGS_HEAD}
 <title>{TITLE}</title>
 <meta name="description" content="{DESC}">
-<link rel="canonical" href="{CANONICAL}">
+{ROBOTS}<link rel="canonical" href="{CANONICAL}">
 <meta name="copyright" content="© {YEAR} TechNext Pte. Ltd. All rights reserved.">
 <meta name="tdm-reservation" content="1">
 <meta name="tdm-policy" content="{SITE_URL}terms#content-use">
@@ -446,6 +465,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "blogPost": [{"@type": "BlogPosting", "@id": S.SITE_URL + clean_url(a["out"]) + "#article",
                                     "headline": a["h1"], "url": S.SITE_URL + clean_url(a["out"]),
                                     "datePublished": a["date"]} for a in ARTICLES]})
+    if out_rel == "nexi-explains.html":
+        graph.extend(nxe_jsonld(org_id, page_id))
     if out_rel.startswith(SERVICE_PAGES):
         name = _base_title(meta["title"])
         graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
@@ -453,6 +474,213 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "provider": {"@id": org_id}, "areaServed": AREA_SERVED})
     # a "</" inside a JSON string would end the <script> element early
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
+
+
+# ---------------------------------------------------------------- Nexi Explains + Employee Hub
+from datetime import datetime, timedelta, timezone  # noqa: E402
+
+SGT = timezone(timedelta(hours=8))
+NXE_IMG = "{{ROOT}}assets/img/nexi-explains/"
+# drawn cards (Season 2 has no thumbnails yet): the Nexi renders' sizes at 520 px tall
+NXE_POSE_W = {"hello": 432, "wow": 347, "love": 336, "celebrate": 530, "think": 375, "point-left": 509, "jump": 456, "clap": 347}
+NXE_PAGE_LABELS = {"nexi.html": "Chat with Nexi", "odoo/apps.html": "All Odoo apps", "quotation.html": "Get a quotation",
+                   "solutions/iot.html": "IoT Solutions", "solutions/app-development.html": "App Development",
+                   "solutions/networks.html": "Networks"}
+
+
+def _nxe_when(iso: str):
+    return datetime.fromisoformat(iso.replace("Z", "+00:00"))
+
+
+def _nxe_day(iso: str) -> str:
+    d = _nxe_when(iso).astimezone(SGT)
+    return f"{d.day} {d:%b}"
+
+
+def _nxe_secs(length: str) -> int:
+    m, s = length.split(":")
+    return int(m) * 60 + int(s)
+
+
+def _nxe_page_label(href: str) -> str:
+    for it in S.NAV:
+        for col in it.get("columns", []):
+            for l in col["links"]:
+                if l["href"] == href:
+                    return l["label"]
+    if href in NXE_PAGE_LABELS:
+        return NXE_PAGE_LABELS[href]
+    if href.startswith("odoo/apps/"):
+        app = APP_BY_MOD.get(href[len("odoo/apps/"):-len(".html")])
+        if app:
+            return "Odoo " + app["name"]
+    raise KeyError(f"nexi_explains: no label for page {href}")
+
+
+def _nxe_card(e: dict, soon: str, tone: int = 0, tip: bool = False) -> str:
+    code, title = e["code"], e["title"]
+    if e["thumb"]:
+        pic = f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+    else:
+        pose = e.get("pose") or "hello"
+        num = code.split("EP")[-1]
+        pic = (f'<span class="nxe-drawn nxe-tone-{tone % 4}" aria-hidden="true">'
+               f'<span class="nxe-drawn-ep"><small>Season 2 · EP</small>{num}</span>'
+               f'<span class="nxe-drawn-psych">{e["psych"]}</span>'
+               f'<img class="nxe-drawn-nexi" src="{NXE_IMG}nexi-{pose}.webp" alt="" width="{NXE_POSE_W[pose]}" height="520" loading="lazy" decoding="async"></span>')
+    if e["yt"]:
+        state = f"Premieres {_nxe_day(e['premiere'])}" if e["premiere"] else "Watch now"
+    elif e["airs"]:
+        state = f"Airs {e['airs']}"
+    else:
+        state = soon
+    badges = ((f'<span class="nxe-len">{e["len"]}</span>' if e["len"] else "")
+              + f'<span class="nxe-state"{" data-nxe-state" if e["yt"] else ""}>{state}</span>')
+    if e["yt"]:
+        prem = f' data-nxe-premiere="{e["premiere"]}"' if e["premiere"] else ""
+        thumb = (f'<button type="button" class="nxe-thumb" data-nxe-play="{e["yt"]}" data-nxe-title="{attr(code + " · " + title)}"{prem}'
+                 f' aria-label="Play {attr(code)}: {attr(title)}">{pic}{badges}<span class="nxe-playic" aria-hidden="true">{{{{icon:play}}}}</span></button>')
+    else:
+        thumb = f'<div class="nxe-thumb is-soon">{pic}{badges}</div>'
+    extra = ""
+    if e.get("takeaway"):
+        extra += f'<p class="nxe-take"><span>Takeaway</span>{e["takeaway"]}</p>'
+    if e.get("page"):
+        extra += f'<a class="nxe-more" href="{{{{ROOT}}}}{e["page"]}">{_nxe_page_label(e["page"])} {{{{icon:arrow}}}}</a>'
+    head = "h4"
+    return (f'<li class="nxe-card{" nxe-card--tip" if tip else ""}">{thumb}'
+            f'<div class="nxe-body"><span class="nxe-kick">{code}</span><{head}>{title}</{head}><p>{e["hook"]}</p>{extra}</div></li>')
+
+
+def _nxe_range(arc: list) -> str:
+    a, b = arc[0]["code"], arc[-1]["code"]
+    return a if a == b else f"{a}–{b.split()[-1]}"
+
+
+def _nxe_tips(tips: list, name: str, soon: str, sid: str) -> str:
+    longest = max(_nxe_secs(e["len"]) for e in tips)
+    limit = "a minute" if longest <= 60 else "two minutes"
+    cards = "".join(_nxe_card(e, soon, tip=True) for e in tips)
+    return (f'<section class="nxe-tips" aria-labelledby="{sid}-tips">'
+            f'<div class="nxe-arc-h"><h3 id="{sid}-tips">Quick Tips</h3><span>{name}</span></div>'
+            f'<p class="nxe-tips-sub">One Odoo trick in under {limit}, posted between the episodes.</p>'
+            f'<div class="nxe-rail-wrap"><ol class="nxe-rail" data-nxe-rail tabindex="0" aria-label="{name}">{cards}</ol>'
+            f'<button class="nxe-rail-btn nxe-rail-btn--prev" type="button" data-nxe-step="-1" aria-label="Scroll the tips back">{{{{icon:chevron}}}}</button>'
+            f'<button class="nxe-rail-btn nxe-rail-btn--next" type="button" data-nxe-step="1" aria-label="Scroll the tips forward">{{{{icon:chevron}}}}</button></div>'
+            f'</section>')
+
+
+def _nxe_season(sea: dict, idx: int) -> str:
+    eps = [e for _, arc in sea["arcs"] for e in arc]
+    mins = round(sum(_nxe_secs(e["len"]) for e in eps) / 60)
+    soon = "Coming soon" if idx == 0 else sea["status"]
+    act = ""
+    if any(e["yt"] for e in eps):
+        act += f'<button class="btn btn-primary" type="button" data-nxe-playall="{sea["id"]}">{{{{icon:play}}}}<span>Play the season</span></button>'
+    act += f'<a class="btn btn-ghost" href="{NXE.SUBSCRIBE}" target="_blank" rel="noopener">Subscribe on YouTube {{{{icon:arrow}}}}</a>'
+    arcs, tone = [], 0
+    for k, (name, arc) in enumerate(sea["arcs"]):
+        cards = []
+        for e in arc:
+            cards.append(_nxe_card(e, soon, tone))
+            tone += 1
+        arcs.append(f'<section class="nxe-arc" aria-labelledby="{sea["id"]}-a{k}">'
+                    f'<div class="nxe-arc-h"><h3 id="{sea["id"]}-a{k}">{name}</h3><span>{_nxe_range(arc)}</span></div>'
+                    f'<ol class="nxe-grid">{"".join(cards)}</ol></section>')
+    more = f'<p class="nxe-note">{{{{icon:sparkle}}}}<span>{sea["more"]}</span></p>' if sea.get("more") else ""
+    live = " is-live" if idx == 0 else ""
+    return (f'<div class="nxe-panel" id="{sea["id"]}" role="tabpanel" aria-labelledby="tab-{sea["id"]}" tabindex="-1">'
+            f'<div class="nxe-season-head"><div class="nxe-season-copy">'
+            f'<span class="nxe-status{live}">{sea["status"]}</span>'
+            f'<h2><span class="nxe-sn">{sea["tab"]}</span> {sea["name"]}</h2><p>{sea["blurb"]}</p>'
+            f'<ul class="nxe-facts"><li><b>{len(eps)}</b> episodes</li><li><b>{mins}</b> minutes</li><li><b>{len(sea["tips"])}</b> Quick Tips</li></ul></div>'
+            f'<div class="nxe-season-act">{act}</div></div>'
+            f'{"".join(arcs)}{more}{_nxe_tips(sea["tips"], sea["tips_name"], soon, sea["id"])}</div>')
+
+
+def _nxe_specials() -> str:
+    cards = "".join(_nxe_card(e, "Coming soon") for e in NXE.SPECIALS)
+    return ('<div class="nxe-panel" id="specials" role="tabpanel" aria-labelledby="tab-specials" tabindex="-1">'
+            '<div class="nxe-season-head"><div class="nxe-season-copy"><span class="nxe-status">Holiday specials</span>'
+            '<h2><span class="nxe-sn">Specials</span> Three holiday stories</h2>'
+            '<p>Standalone episodes that air while Season 1 runs. Season 1 lessons come back for Halloween, Christmas and the year-end countdown, with a small peek at Season 2.</p>'
+            f'<ul class="nxe-facts"><li><b>{len(NXE.SPECIALS)}</b> stories</li><li><b>{round(sum(_nxe_secs(e["len"]) for e in NXE.SPECIALS) / 60)}</b> minutes</li></ul></div>'
+            f'<div class="nxe-season-act"><a class="btn btn-ghost" href="{NXE.SUBSCRIBE}" target="_blank" rel="noopener">Subscribe on YouTube {{{{icon:arrow}}}}</a></div></div>'
+            '<section class="nxe-arc" aria-labelledby="specials-a0"><div class="nxe-arc-h"><h3 id="specials-a0">Airing while Season 1 runs</h3>'
+            f'<span>{NXE.SPECIALS[0]["airs"]} – {NXE.SPECIALS[-1]["airs"]}</span></div>'
+            f'<ol class="nxe-grid nxe-grid--3">{cards}</ol></section></div>')
+
+
+def _nxe_tabs() -> str:
+    tabs = []
+    for k, sea in enumerate(NXE.SEASONS):
+        n = sum(len(arc) for _, arc in sea["arcs"])
+        tabs.append(f'<button class="nxe-tab" type="button" role="tab" id="tab-{sea["id"]}" aria-controls="{sea["id"]}" aria-selected="{"true" if k == 0 else "false"}">'
+                    f'<b>{sea["tab"]}</b><small>{n} episodes · {sea["status"].lower()}</small></button>')
+    tabs.append('<button class="nxe-tab" type="button" role="tab" id="tab-specials" aria-controls="specials" aria-selected="false">'
+                f'<b>Holiday specials</b><small>{len(NXE.SPECIALS)} stories</small></button>')
+    panels = "".join(_nxe_season(sea, k) for k, sea in enumerate(NXE.SEASONS)) + _nxe_specials()
+    return (f'<div class="nxe-tabs" role="tablist" aria-label="Seasons">{"".join(tabs)}</div>{panels}')
+
+
+def _nxe_all():
+    for sea in NXE.SEASONS:
+        for _, arc in sea["arcs"]:
+            yield from arc
+        yield from sea["tips"]
+    yield from NXE.SPECIALS
+
+
+def nxe_tokens(content: str) -> str:
+    eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
+    tips = sum(len(sea["tips"]) for sea in NXE.SEASONS)
+    stats = (f'<li><b>{len(NXE.SEASONS)}</b> seasons</li><li><b>{eps}</b> episodes</li>'
+             f'<li><b>{tips}</b> Quick Tips</li><li><b>{len(NXE.SPECIALS)}</b> holiday specials</li>')
+    first = next(e for e in _nxe_all() if e["yt"])
+    tv = "".join(f'<img src="{NXE_IMG}{t}.webp" alt="" width="640" height="360"{"" if k == 0 else " loading=\"lazy\""} decoding="async">'
+                 for k, t in enumerate(["s1-ep00", "s1-ep06", "s1-ep15", "qt07", "s1-ep20", "s1-ep12"]))
+    return (content.replace("{{NXE_STATS}}", stats).replace("{{NXE_TABS}}", _nxe_tabs()).replace("{{NXE_TV}}", tv)
+                   .replace("{{NXE_FIRST_YT}}", first["yt"]).replace("{{NXE_FIRST_TITLE}}", attr(first["code"] + " · " + first["title"]))
+                   .replace("{{NXE_FIRST_PREMIERE}}", first["premiere"] or "")
+                   .replace("{{NXE_SUBSCRIBE}}", NXE.SUBSCRIBE).replace("{{NXE_CHANNEL}}", NXE.CHANNEL))
+
+
+def nxe_jsonld(org_id: str, page_id: str) -> list:
+    """The series and its seasons, plus a VideoObject for every episode that has premiered (as of the build)."""
+    url = S.SITE_URL + "nexi-explains"
+    seasons = []
+    for n, sea in enumerate(NXE.SEASONS, 1):
+        eps = [e for _, arc in sea["arcs"] for e in arc]
+        seasons.append({"@type": "CreativeWorkSeason", "seasonNumber": n, "name": f'{sea["tab"]}: {sea["name"]}',
+                        "numberOfEpisodes": len(eps),
+                        "episode": [{"@type": "Episode", "episodeNumber": int(e["code"].split("EP")[-1]), "name": e["title"]} for e in eps]})
+    out = [{"@type": "CreativeWorkSeries", "@id": url + "#series", "name": "Nexi Explains", "url": url,
+            "description": "Short animated videos starring Nexi, TechNext's AI companion, about Odoo, AI and technology for growing companies.",
+            "inLanguage": "en", "creator": {"@id": org_id}, "publisher": {"@id": org_id}, "sameAs": [NXE.CHANNEL],
+            "isPartOf": {"@id": page_id}, "hasPart": seasons}]
+    now = datetime.now(timezone.utc)
+    for e in _nxe_all():
+        if not (e["yt"] and e["premiere"] and _nxe_when(e["premiere"]) <= now):
+            continue
+        m, s = divmod(_nxe_secs(e["len"]), 60)
+        out.append({"@type": "VideoObject", "name": f'{e["title"]} | Nexi Explains {e["code"]}', "description": e["hook"],
+                    "thumbnailUrl": S.SITE_URL + f'assets/img/nexi-explains/{e["thumb"]}.webp', "uploadDate": e["premiere"],
+                    "duration": f"PT{m}M{s}S", "embedUrl": f'https://www.youtube.com/embed/{e["yt"]}',
+                    "url": f'https://www.youtube.com/watch?v={e["yt"]}', "publisher": {"@id": org_id},
+                    "partOfSeries": {"@id": url + "#series"}})
+    return out
+
+
+def team_facts_html() -> str:
+    """Company details staff paste into forms, with a copy button each (assets/js/employee-hub.js)."""
+    c = S.COMPANY
+    rows = [("Registered name", c["legal"]), ("UEN", c["uen"]), ("Head office", ", ".join(c["address"])),
+            ("Sales email", c["sales_email"]), ("Careers email", c["careers_email"]), ("WhatsApp", c["whatsapp"]),
+            ("Website", S.SITE_URL.rstrip("/")), ("LinkedIn", c["linkedin"])]
+    rows += [(o["name"], ", ".join(o["lines"])) for o in S.OFFICES[1:]]
+    return "".join(f'<div class="th-fact"><dt>{k}</dt><dd><span>{v}</span>'
+                   f'<button class="th-copy" type="button" data-copy="{attr(v)}" aria-label="Copy {attr(k)}">{{{{icon:file}}}}<span>Copy</span></button></dd></div>'
+                   for k, v in rows)
 
 
 # ---------------------------------------------------------------- generated blocks
@@ -612,6 +840,8 @@ APP_BY_MOD = {a["mod"]: a for c in S.APP_CATEGORIES for a in c["apps"]}
 INDEX = []
 FAQ_INDEX = []          # (url, question, answer) for llms-full.txt
 INDEX_SKIP = {"404.html", "privacy.html", "terms.html", "case-studies.html"}
+# pages whose meta sets "robots" (e.g. "noindex, nofollow"): kept out of the sitemap, llms.txt and Nexi's index
+NOINDEX = set()
 
 # How TechNext implements each focus app (our own words; everything from odoo.com is attributed).
 IMPLEMENT = {
@@ -1447,6 +1677,10 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{MARQUEE}}", marquee_html())
     if "{{PILLARS}}" in content:
         content = content.replace("{{PILLARS}}", pillars_html())
+    if "{{NXE_" in content:
+        content = nxe_tokens(content)
+    if "{{TEAM_FACTS}}" in content:
+        content = content.replace("{{TEAM_FACTS}}", team_facts_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = _IX_BODY.sub(lambda m: industry_html(m.group(1)), content)
     if "{{VIDEO:" in content or "{{SHOT:" in content or "{{PHOTO:" in content:
@@ -1467,7 +1701,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         nav_cache[active] = nav_html(active)
 
     canonical = S.SITE_URL + clean_url(out_rel)
-    if out_rel not in INDEX_SKIP:
+    if meta.get("robots"):
+        NOINDEX.add(out_rel)
+    if out_rel not in INDEX_SKIP and out_rel not in NOINDEX:
         INDEX.append({"u": clean_url(out_rel), "t": meta["title"], "d": meta.get("desc", "").strip()})
         for q, a in _FAQ.findall(content):
             FAQ_INDEX.append((canonical, _text(q), _text(a)))
@@ -1484,6 +1720,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
                 .replace("{DESC}", meta.get("desc", S.DEFAULT_DESC).replace('"', "&quot;"))
+                .replace("{ROBOTS}", f'<meta name="robots" content="{attr(meta["robots"])}">\n' if meta.get("robots") else "")
                 .replace("{CANONICAL}", canonical)
                 .replace("{OG_TYPE}", "article" if meta.get("article") else "website")
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + "assets/img/og-image.png")
@@ -1537,7 +1774,7 @@ def page_source(out_rel: str):
 def write_sitemap(pages):
     urls = []
     for p in sorted(pages):
-        if p in ("404.html", "case-studies.html"):
+        if p in ("404.html", "case-studies.html") or p in NOINDEX:
             continue
         loc = S.SITE_URL + clean_url(p)
         urls.append(f"  <url><loc>{loc}</loc><lastmod>{git_date(page_source(p))}</lastmod></url>")
@@ -1556,7 +1793,7 @@ LLMS_GROUPS = [
         "solutions/technology", "solutions/iot", "solutions/app-development", "solutions/networks")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "careers", "quotation")),
+    ("Company", lambda u: u in ("", "company", "careers", "quotation", "nexi-explains")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 
@@ -1683,6 +1920,7 @@ def main():
     built = []
     INDEX.clear()
     FAQ_INDEX.clear()
+    NOINDEX.clear()
     load_articles()
     for path in sorted(PAGES.rglob("*.html")):
         built.append(build_page(path, nav_cache))
