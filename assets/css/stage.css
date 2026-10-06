@@ -16,7 +16,7 @@ html{scrollbar-color:#C4CFE3 transparent}
 input,textarea{caret-color:var(--blue)}
 
 /* ---------- hero shell ---------- */
-.page-hero--stage{padding:56px 0 40px;isolation:isolate;overflow:hidden}
+.page-hero--stage{--ph-pt:56px;padding:var(--ph-pt) 0 40px;isolation:isolate;overflow:hidden}
 .ph-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 /* the old blur(70px) is baked into a wider, softer gradient: no filter, so the drift is a plain composited move */
 .ph-aurora{position:absolute;border-radius:50%;opacity:.6;will-change:transform}
@@ -1109,7 +1109,7 @@ input,textarea{caret-color:var(--blue)}
   .stage{width:100%;max-width:600px;margin:0 auto}
 }
 @media (max-width:640px){
-  .page-hero--stage{padding:32px 0 28px}
+  .page-hero--stage{--ph-pt:32px;padding:var(--ph-pt) 0 28px}
   .glance{grid-template-columns:1fr 1fr;gap:0 18px;margin-top:32px}
   .st-rail li{font-size:10.5px}
   .st-chip{height:30px;padding:0 11px;font-size:11.5px}
@@ -1554,7 +1554,7 @@ a.post-cat:hover{text-decoration:none;filter:brightness(.97)}
 .post-more{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--blue-700)}
 .post-more .ic{width:16px;height:16px;transition:transform .3s var(--spring)}
 .post-card:hover .post-more .ic{transform:translateX(4px)}
-.page-hero--post{padding:44px 0 34px}
+.page-hero--post{--ph-pt:44px;padding:var(--ph-pt) 0 34px}
 .post-head{max-width:880px}
 .post-head .crumbs span:last-child{max-width:34ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .post-head h1{max-width:24ch;font-size:clamp(2rem,4.4vw,3.15rem);line-height:1.08;margin:16px 0 14px}
