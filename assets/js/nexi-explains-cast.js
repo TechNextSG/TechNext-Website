@@ -227,6 +227,13 @@
     W = r.width; H = r.height;
     cv.width = Math.max(1, Math.round(W * dpr)); cv.height = Math.max(1, Math.round(H * dpr));
   }
+  /* where the cat sits on the TV (fraction of its width): just right of the ON AIR sticker, never on it, and clear
+     of the owl in the far corner (cat: 34 units left of its feet, its tail 64 right; owl: 46 each side) */
+  function catF(tvR, c, f0, cs, owlF, os) {
+    var oa = tv.querySelector('.nxe-tv-on,.nxs-onair'), f = f0;
+    if (oa) { var r = rel(oa, c); if (r.w) f = Math.max(f, (r.r + 34 * cs + 8 - tvR.l) / tvR.w); }
+    return Math.min(f, (tvR.w * owlF - 46 * os - 64 * cs - 6) / tvR.w);
+  }
   function rel(el, c) { var r = el.getBoundingClientRect(); return { l: r.left - c.left, t: r.top - c.top, r: r.right - c.left, b: r.bottom - c.top, w: r.width, h: r.height }; }
   /* draw fn at (x, y) scaled by s; flip mirrors it; rot tilts it */
   function put(x, y, s, fn, flip, rot, alpha) {
@@ -291,7 +298,9 @@
 
     /* --- the cat sits on the TV, the owl on its other corner --- */
     var wave = (u > 11.4 && u < 13.2) || T - tapAt < 1.2 ? 1 : 0;
-    put(tvR.l + tvR.w * 0.36, topAt(0.36) + hop, 0.78 * k, function () { cat(gg, 0, 0, wave); });
+    var pf = catF(tvR, c, 0.36, 0.78 * k, 0.88, 0.62 * k);
+    put(tvR.l + tvR.w * pf, topAt(pf) + hop, 0.78 * k, function () { cat(gg, 0, 0, wave); });
+    cv.dataset.cat = Math.round(tvR.l + tvR.w * pf - 34 * 0.78 * k);
     put(tvR.l + tvR.w * 0.88, topAt(0.88) - 60 * 0.62 * k + hop, 0.62 * k, function () { owl(gg, 0, 0, 1); });
     once('hoot', u, 12.3, function () { LK.hoot = T; });
 
@@ -347,7 +356,9 @@
     /* the cat sits clear of the countdown chip when the chip is above the TV (desktop), else at 62% */
     var chipEl = stage.querySelector('.nxs-next'), cf = 0.62;
     if (chipEl) { var ch = rel(chipEl, c); if (ch.b <= tvR.t + 4 && ch.w) cf = clamp((ch.r - tvR.l + 34 * k) / tvR.w, 0.5, 0.74); }
+    cf = catF(tvR, c, cf, 0.66 * k, 0.95, 0.5 * k);
     put(tvR.l + tvR.w * cf, topAt(cf), 0.66 * k, function () { cat(gg, 0, 0, wave); });
+    cv.dataset.cat = Math.round(tvR.l + tvR.w * cf - 34 * 0.66 * k);
     put(tvR.l + tvR.w * 0.95, topAt(0.95) - 60 * 0.5 * k, 0.5 * k, function () { owl(gg, 0, 0, 1); });
     once('hoot', u, 4.6, function () { LK.hoot = T; });
     var q = still ? 1 : seg(u, 2, 3.2), out = still ? 0 : seg(u, 9.4, 10.8);
