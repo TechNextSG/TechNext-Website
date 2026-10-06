@@ -16,14 +16,14 @@
 .is-nxe .header:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
-.is-nxe main{margin-top:calc(var(--header-h) * -1)}
+.is-nxe main{margin-top:calc(var(--header-box) * -1)}
 
 /* ---------- comic helpers ---------- */
 .nxe-mark{position:relative;z-index:0;white-space:nowrap}
 .nxe-mark::before{content:"";position:absolute;z-index:-1;left:-6px;right:-6px;bottom:4%;height:42%;background:var(--yel);border-radius:6px;transform:skew(-8deg) rotate(-1.5deg)}
 
 /* ---------- hero ---------- */
-.nxe-hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 44px) 0 104px;color:#fff;background:radial-gradient(1200px 760px at 72% 42%,#3E74DE 0%,#2352B4 32%,#143585 62%,var(--deep) 100%);clip-path:polygon(0 0,100% 0,100% calc(100% - 52px),0 100%)}
+.nxe-hero{position:relative;overflow:hidden;padding:calc(var(--header-box) + 44px) 0 104px;color:#fff;background:radial-gradient(1200px 760px at 72% 42%,#3E74DE 0%,#2352B4 32%,#143585 62%,var(--deep) 100%);clip-path:polygon(0 0,100% 0,100% calc(100% - 52px),0 100%)}
 .nxe-bg{position:absolute;inset:0;pointer-events:none}
 .nxe-rays{position:absolute;left:72%;top:46%;width:2000px;height:2000px;margin:-1000px 0 0 -1000px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxeSpin 120s linear infinite}
 .nxe-dots{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.16) 1.4px,transparent 1.9px) 0 0/16px 16px;-webkit-mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%);mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%)}
@@ -274,7 +274,7 @@ button.nxe-thumb{cursor:pointer}
   .nxe-fl--1,.nxe-fl--2,.nxe-fl--6{display:none}
 }
 @media (max-width:760px){
-  .nxe-hero{padding:calc(var(--header-h) + 26px) 0 84px;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%)}
+  .nxe-hero{padding:calc(var(--header-box) + 26px) 0 84px;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%)}
   .nxe-shows{margin-top:-30px;padding-top:94px}
   .nxe-title{font-size:clamp(2.7rem,13vw,4rem)}
   .nxe-title .hand{font-size:1.35rem}
