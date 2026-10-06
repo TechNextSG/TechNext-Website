@@ -631,7 +631,53 @@ def _nxe_all():
     yield from NXE.SPECIALS
 
 
+# the home hero's Nexi Explains slide (index.html slide 6): the TV reel + strip, and the pills under the copy
+NXE_SLIDE_REEL = ["EP00", "EP01", "Tip 02", "EP03", "EP06", "EP15"]
+
+
+def nxe_slide_html():
+    by = {e["code"]: e for e in _nxe_all()}
+    reel = [by[c] for c in NXE_SLIDE_REEL]
+    items, picks = [], []
+    for k, e in enumerate(reel):
+        prem = f' data-premiere="{e["premiere"]}"' if e["premiere"] else ""
+        on = " is-on" if k == 0 else ""
+        lazy = "" if k == 0 else ' loading="lazy"'
+        items.append(f'<span class="nxs-item{on}" data-nxs-item data-code="{e["code"]}" data-title="{attr(e["title"])}"{prem}>'
+                     f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360"{lazy} decoding="async"></span>')
+        picks.append(f'<button class="nxs-pick{on}" type="button" data-nxs-pick aria-pressed="{"true" if k == 0 else "false"}" aria-label="Show {attr(e["code"] + ": " + e["title"])} on the TV">'
+                     f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async"><span>{e["code"]}</span></button>')
+    first = reel[0]
+    soon = [e for e in reel if e["premiere"]]
+    nxt = min(soon, key=lambda e: e["premiere"]) if soon else None
+    nexttxt = (f'<span data-nxs-next-t>Next premiere · {nxt["code"]} {nxt["title"]}</span><b data-nxs-next-w>{_nxe_day(nxt["premiere"])}</b>'
+               if nxt else '<span data-nxs-next-t>Now on YouTube</span><b data-nxs-next-w></b>')
+    state = f"Premieres {_nxe_day(first['premiere'])}" if first["premiere"] else "Watch now"
+    stage = (f'<div class="nxs up" style="--d:250ms" data-nxs>'
+             f'<p class="nxs-next" data-nxs-next><i aria-hidden="true"></i>{nexttxt}</p>'
+             f'<a class="nxs-tv" href="{{{{ROOT}}}}nexi-explains.html#episodes" aria-label="Watch Nexi Explains: every episode">'
+             f'<span class="nxs-screen">{"".join(items)}</span>'
+             f'<span class="nxs-onair" aria-hidden="true">ON AIR</span>'
+             f'<span class="nxs-play" aria-hidden="true">{{{{icon:play}}}}</span>'
+             f'<span class="nxs-cap" data-nxs-cap><b>{first["code"]}</b><span>{first["title"]}</span><em>{state}</em></span></a>'
+             f'<b class="nxs-say" data-nxs-say aria-hidden="true">New episodes every week!</b>'
+             f'<div class="nxs-strip" role="group" aria-label="Episodes on the TV">{"".join(picks)}</div>'
+             f'<img class="nxs-nexi" src="{NXE_IMG}nexi-point-left.webp" alt="" width="{NXE_POSE_W["point-left"]}" height="520" loading="lazy" decoding="async">'
+             f'</div>')
+    s1 = NXE.SEASONS[0]
+    n1 = sum(len(arc) for _, arc in s1["arcs"])
+    tips = sum(len(s["tips"]) for s in NXE.SEASONS)
+    s2 = NXE.SEASONS[1]
+    pills = (f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-1">{{{{icon:play}}}} Season 1 · {n1} episodes</a>'
+             f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-1-tips">{{{{icon:zap}}}} {tips} Quick Tips</a>'
+             f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-2">{{{{icon:users}}}} Season 2 · {s2["status"].replace("Coming in ", "")}</a>')
+    return stage, pills
+
+
 def nxe_tokens(content: str) -> str:
+    if "{{NXE_SLIDE_" in content:
+        stage, pills = nxe_slide_html()
+        content = content.replace("{{NXE_SLIDE_STAGE}}", stage).replace("{{NXE_SLIDE_PILLS}}", pills)
     eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
     tips = sum(len(sea["tips"]) for sea in NXE.SEASONS)
     stats = (f'<li><b>{len(NXE.SEASONS)}</b> seasons</li><li><b>{eps}</b> episodes</li>'

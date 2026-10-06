@@ -1790,12 +1790,69 @@
     };
   }
 
+  /* ================================================================== 6 · Nexi Explains
+     The TV cycles the reel (one episode every 2.8 s), its caption counts down to each premiere, the strip under it
+     switches the TV, and Nexi's bubble on the TV corner chats every other episode. Nexi herself is nexi-bot.js
+     (desktop) or a drawn render (phones, reduced motion, no WebGL; hero.css). */
+  function Explains(root) {
+    var items = $$('[data-nxs-item]', root), picks = $$('[data-nxs-pick]', root);
+    var cap = $('[data-nxs-cap]', root), say = $('[data-nxs-say]', root);
+    var nextT = $('[data-nxs-next-t]', root), nextW = $('[data-nxs-next-w]', root);
+    var LINES = ['New episodes every week!', 'One idea per episode!', 'That’s me on TV!', 'Tap an episode below!', 'Season 2 lands in 2027!'];
+    var cur = 0, on = false, t = 0, li = 0;
+    function when(el) { var v = Date.parse(el.getAttribute('data-premiere') || ''); return isNaN(v) ? 0 : v; }
+    function left(ms) {
+      var m = Math.max(1, Math.round(ms / 60000)), d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60);
+      return d ? d + ' d ' + h + ' h' : h ? h + ' h ' + (m % 60) + ' min' : m + ' min';
+    }
+    function state(el) { var w = when(el), now = Date.now(); return !w || w <= now ? 'Watch now' : 'Premieres in ' + left(w - now); }
+    function caption() {
+      var el = items[cur]; if (!el || !cap) return;
+      cap.children[0].textContent = el.getAttribute('data-code');
+      cap.children[1].textContent = el.getAttribute('data-title');
+      cap.children[2].textContent = state(el);
+    }
+    function nextUp() {
+      var now = Date.now(), best = null;
+      items.forEach(function (el) { var w = when(el); if (w > now && (!best || w < when(best))) best = el; });
+      if (!nextT || !nextW) return;
+      if (!best) { nextT.textContent = 'Now on YouTube'; nextW.textContent = ''; root.classList.add('is-out'); return; }
+      nextT.textContent = 'Next premiere · ' + best.getAttribute('data-code') + ' ' + best.getAttribute('data-title');
+      nextW.textContent = 'in ' + left(when(best) - now);
+    }
+    function set(k) {
+      cur = (k + items.length) % items.length;
+      items.forEach(function (el, i) { el.classList.toggle('is-on', i === cur); });
+      picks.forEach(function (b, i) { b.classList.toggle('is-on', i === cur); b.setAttribute('aria-pressed', i === cur ? 'true' : 'false'); });
+      caption();
+    }
+    function chat() {
+      if (!say || reduce) return;
+      li = (li + 1) % LINES.length; say.textContent = LINES[li];
+      say.classList.remove('is-pop'); void say.offsetWidth; say.classList.add('is-pop');
+    }
+    function loop() {
+      clearTimeout(t);
+      if (!on || reduce || !live()) return;
+      t = setTimeout(function () { set(cur + 1); if (cur % 2 === 0) chat(); nextUp(); loop(); }, 2800);
+    }
+    picks.forEach(function (b, i) { b.addEventListener('click', function () { set(i); chat(); loop(); }); });
+    function wake() { if (on) { nextUp(); caption(); loop(); } else clearTimeout(t); }
+    return {
+      root: root,
+      enter: function () { on = true; set(cur); nextUp(); loop(); },
+      leave: function () { on = false; clearTimeout(t); },
+      wake: wake
+    };
+  }
+
   /* ================================================================== wiring */
   var scenes = [];
   var c = $('[data-cine]', hero); if (c) scenes.push(Cine(c));
   var m = $('[data-pmap]', hero); if (m) scenes.push(PMap(m));
   var j = $('[data-journey]', hero); if (j) scenes.push(Journey(j));
   $$('[data-nxh]', hero).forEach(function (st) { scenes.push(NexiStage(st)); });
+  var nxs = $('[data-nxs]', hero); if (nxs) scenes.push(Explains(nxs));
   var current = null, first = true;
   function sceneOf(slide) { for (var i = 0; i < scenes.length; i++) if (slide.contains(scenes[i].root)) return scenes[i]; return null; }
   function activate(slide) {

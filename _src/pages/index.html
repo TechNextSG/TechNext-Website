@@ -377,6 +377,33 @@
         </div>
       </div>
     </article>
+
+    <!-- Slide 6 · Nexi Explains, TechNext's animated series: an "on air" TV cycles the premiering episodes with a
+         live countdown, the strip under it switches the TV, and Nexi (3D on desktop, drawn on phones) shows it off.
+         Episodes and dates come from _src/nexi_explains.py; the scene lives in hero-scenes.js (Explains). -->
+    <article class="slide slide--nxs" data-title="Nexi Explains, TechNext’s animated series" data-dur="16000" aria-roledescription="slide">
+      <div class="container slide-inner si-nxs">
+        <div class="slide-copy">
+          <span class="slide-tag up" style="--d:0ms">{{icon:play}} New series · Nexi Explains</span>
+          <h2 class="as-h1">
+            <span class="kw" style="--i:0"><span>Odoo,</span></span>
+            <span class="kw" style="--i:1"><span>AI</span></span>
+            <span class="kw" style="--i:2"><span>&amp;</span></span>
+            <span class="kw" style="--i:3"><span>tech,</span></span><br>
+            <span class="kw" style="--i:4"><span class="hl">explained</span></span>
+            <span class="kw" style="--i:5"><span class="hl">by</span></span>
+            <span class="kw" style="--i:6"><span class="hl">Nexi.</span></span>
+          </h2>
+          <p class="lead up" style="--d:520ms">Short animated episodes starring Nexi, TechNext’s AI companion: what Odoo is, the apps companies start with, AI that does the busywork and the people side of change. New episodes every week on YouTube.</p>
+          <div class="pill-row up" style="--d:620ms">{{NXE_SLIDE_PILLS}}</div>
+          <div class="actions up" style="--d:720ms">
+            <a class="btn btn-primary btn-lg" href="{{ROOT}}nexi-explains.html">{{icon:play}} Watch Nexi Explains</a>
+            <a class="btn btn-ghost btn-lg" href="{{NXE_SUBSCRIBE}}" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          </div>
+        </div>
+        {{NXE_SLIDE_STAGE}}
+      </div>
+    </article>
   </div>
 
   <div class="hero-ctl">
@@ -388,6 +415,7 @@
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Odoo Partner"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: Meet Nexi"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 5: Brand assets"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 6: Nexi Explains"></button>
     </div>
     <button class="icon-btn hero-arrow" type="button" data-hero-next aria-label="Next slide">{{icon:arrow}}</button>
     <button class="icon-btn hero-arrow hero-pp" type="button" data-hero-pp aria-pressed="false" aria-label="Pause the slides">{{icon:pause}}{{icon:play}}</button>

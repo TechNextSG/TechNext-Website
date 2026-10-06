@@ -689,6 +689,11 @@
         if (+hd > 0) opts.push([hd + ' automatic hand-offs', 'zero typed twice ✓', 'Sales → Warehouse → Finance']);
         if (sc) opts.push(['showing: ' + sc, 'try another flow up top', 'every hand-off is live']);
         opts.push(['a quote becomes an order', 'the order reserves stock', 'then the invoice, then the cash!']);
+      } else if (sl.querySelector('[data-nxs]')) {
+        var ep = txt(sl.querySelector('[data-nxs-cap] b'));
+        if (ep) opts.push(['now on air: ' + ep, 'that’s me in there!', 'one idea per episode ✓']);
+        opts.push(['I have my own show!', 'Odoo, AI and tech', 'explained by me ✨']);
+        opts.push(['new episodes every week', 'tap one under the TV', 'I wear a new costume each time!']);
       } else if (sl.querySelector('[data-journey]')) {
         var wk = txt(sl.querySelector('[data-lj-week]')), st = txt(sl.querySelector('[data-lj-status]'));
         if (wk) opts.push(['week ' + wk + ' of 12', st ? 'now: ' + st : 'right on plan', 'go-live lands in week 10 ✓']);
@@ -1034,7 +1039,7 @@
       setTimeout(function () {
         if (ST.on || R.cardOpen) return;
         startTask('swoop', function (T) {
-          var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
+          var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]') || q('[data-nxs]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
           if (v) { var r = rectOf(v); goTo(r.x + r.w * rand(0.2, 0.8), r.y + SIZE * 0.4, 2); T.at(1.4, function () { lookAtEl(v, 1.6); expr('happy', 1.5); say('slide', true); }); }
         });
       }, 900);
@@ -1112,7 +1117,7 @@
       if (!running || !inView || document.hidden) return;
       var dt = Math.min(0.05, clock.getDelta()); time += dt;
       for (var ti = timersT.length - 1; ti >= 0; ti--) if (time >= timersT[ti].at) { var f = timersT[ti].fn; timersT.splice(ti, 1); f(); }
-      if (!R.entered && !ST.on) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
+      if (!R.entered && !ST.on) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]') || q('[data-nxs]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
       var T = R.task;
       if (T) { var p = (time - T.t0) / Math.max(0.001, T.dur); if (T.tick) T.tick(clamp(p, 0, 1)); if (p >= 1) { R.task = null; } }
       if (ST.on) {
