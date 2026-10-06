@@ -376,7 +376,7 @@
     if (stacked.matches) {
       /* keep clear of the round side buttons fixed at the bottom right of phones (usable floor = W - 90) */
       var fl = H - 12 * k, nb = rel(stage, c).b, room = fl - nb, pk = clamp(Math.min(k, room / 120), 0.42, 0.75), UW = W - 90;
-      if (room > 64) {
+      if (room > 48) {                 /* (48: the phone row for Nexi's bubble under the TV takes some floor) */
         var pX = still ? UW * 0.7 : lerp(W + 70 * pk, UW * 0.7, seg(u, 0.4, 3)) - (UW * 0.7 + 80 * pk) * seg(u, 10, 12);
         var pw = !still && ((u > 0.4 && u < 3) || u > 10);
         put(pX, fl - 66 * 0.72 * pk - (pw ? Math.abs(Math.sin(T * 9)) * 4 * pk : 0), 0.72 * pk, function () { penguin(gg, 0, 0, 1); }, 1, pw ? Math.sin(T * 9) * 0.07 : 0);

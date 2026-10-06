@@ -1204,11 +1204,19 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   .slide--nxs .nxs{max-width:min(660px,100%)}   /* tablets: a bigger TV instead of empty sky */
   .slide--nxs .nxs-next{order:3;align-self:flex-start;margin:14px 0 0}
   .nxs-boom{left:auto;right:5%;top:2%;font-size:20px;padding:11px 14px}
-  .slide--nxs .nxs-say{top:96px}
+  /* phones and tablets: Nexi's bubble gets its own row under the TV, its inked tail pointing up at the screen, instead
+     of sitting on the episode (the TV is full width here, so there is no room beside it) */
+  .slide--nxs .nxs-say{position:relative;top:auto;right:auto;align-self:flex-end;max-width:none;margin:12px 10px -8px 0;transform:rotate(-2deg);transform-origin:85% 0}
+  .slide--nxs .nxs-say::before,.slide--nxs .nxs-say::after{content:"";position:absolute;display:block;clip-path:polygon(0 100%,100% 100%,78% 0)}
+  .slide--nxs .nxs-say::before{right:20px;bottom:calc(100% + 1px);width:22px;height:17px;background:var(--ink-c)}
+  .slide--nxs .nxs-say::after{right:24px;bottom:calc(100% - 2px);width:14px;height:13px;background:#fff}
+  .slide--nxs .nxs-say.is-pop{animation:nxsSayUp .55s var(--spring)}
   .nxs-burst{width:190px;height:146px;margin:-73px 0 0 -95px}
   .nxs-burst b{font-size:44px}
 }
+@keyframes nxsSayUp{0%{opacity:0;transform:rotate(-8deg) scale(.4)}60%{opacity:1;transform:rotate(-1deg) scale(1.08)}100%{transform:rotate(-2deg) scale(1)}}
 @media (prefers-reduced-motion:reduce){
+  .slide--nxs .nxs-say.is-pop{animation:none}
   .nxs-bg,.hero.is-nxs .nxs-bg{transition:none}
   .nxs-rays,.nxs-fl,.nxs-boom,.nxs-tw{animation:none}
   .hero.is-nxs-in .nxs-burst,.hero.is-nxs-out .nxs-burst,.hero.is-nxs-in .nxs-streaks,.hero.is-nxs-out .nxs-streaks{animation:none}
