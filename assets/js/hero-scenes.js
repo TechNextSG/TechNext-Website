@@ -1838,10 +1838,35 @@
     }
     picks.forEach(function (b, i) { b.addEventListener('click', function () { set(i); chat(); loop(); }); });
     function wake() { if (on) { nextUp(); caption(); loop(); } else clearTimeout(t); }
+    /* the comic sky irises open from the TV (hero.css .nxs-bg) and a sound word bursts out of it; leaving, the sky
+       closes with a WHOOSH. The header turns the sky's navy while it is up (html.nxs-dark). */
+    var tvEl = $('.nxs-tv', root), fxWord = $('[data-nxs-fx]', hero), fxT = 0, IN = ['BAM!', 'POW!', 'ZAP!'], inK = 0;
+    function origin() {
+      if (!tvEl) return;
+      var hr = hero.getBoundingClientRect(), r = tvEl.getBoundingClientRect();
+      if (!r.width || !hr.width) return;
+      hero.style.setProperty('--nxs-ox', ((r.left + r.width / 2 - hr.left) / hr.width * 100).toFixed(1) + '%');
+      hero.style.setProperty('--nxs-oy', ((r.top + r.height / 2 - hr.top) / hr.height * 100).toFixed(1) + '%');
+    }
+    function fx(kind) {
+      if (reduce || !fxWord) return;
+      fxWord.textContent = kind === 'in' ? IN[inK++ % IN.length] : 'WHOOSH!';
+      hero.classList.remove('is-nxs-in', 'is-nxs-out'); void hero.offsetWidth;
+      hero.classList.add(kind === 'in' ? 'is-nxs-in' : 'is-nxs-out');
+      clearTimeout(fxT); fxT = setTimeout(function () { hero.classList.remove('is-nxs-in', 'is-nxs-out'); }, 1000);
+    }
     return {
       root: root,
-      enter: function () { on = true; set(cur); nextUp(); loop(); },
-      leave: function () { on = false; clearTimeout(t); },
+      enter: function (first) {
+        on = true; set(cur); nextUp(); loop();
+        origin(); hero.classList.add('is-nxs'); document.documentElement.classList.add('nxs-dark');
+        if (!first) fx('in');
+      },
+      leave: function () {
+        on = false; clearTimeout(t);
+        if (hero.classList.contains('is-nxs')) { origin(); fx('out'); }
+        hero.classList.remove('is-nxs'); document.documentElement.classList.remove('nxs-dark');
+      },
       wake: wake
     };
   }

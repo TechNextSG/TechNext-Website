@@ -8,20 +8,14 @@
    (ZOOM!) and takes a coffee break; the goat trots in and hops (BOING!); the duck lands on Nexi's head and quacks,
    the cat waves, the owl hoots; two helper bots float over the TV; the spreadsheet monster peeks up (EEK!), says
    hi and sinks away; everyone heads off and it starts again. Tapping Nexi makes the whole cast hop.
+   On the home hero's Nexi Explains slide (index.html slide 6, [data-nxs]) a shorter "perch" scene plays on the
+   TV only: cat and owl on top, helper bots over it, the duck flies in, lands between them and quacks; it runs
+   only while that slide is showing.
    One canvas around the stage, pointer-events none. It runs only while the hero is on screen and the tab is
    visible; reduced motion draws one still frame. */
 (function () {
   'use strict';
-  var hero = document.querySelector('[data-nxe-hero]');
-  var stage = hero && hero.querySelector('[data-nxe-stage]');
-  var tv = stage && stage.querySelector('.nxe-tv'), nexiEl = stage && stage.querySelector('[data-nxe-nexi]');
-  if (!stage || !tv || !nexiEl) return;
-  var cv = document.createElement('canvas');
-  cv.className = 'nxe-cast';
-  cv.setAttribute('aria-hidden', 'true');
-  stage.appendChild(cv);
-  var gg = cv.getContext('2d');
-  if (!gg) { cv.remove(); return; }
+  if (!document.querySelector('[data-nxe-stage],[data-nxs]')) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var T = 0;
 
@@ -213,6 +207,15 @@
   function skinGrid(gg, p, x0, y0, x1, y1, step, col) { gg.save(); gg.clip(p); var gl = new Path2D(); for (var gx = x0; gx < x1; gx += step) { gl.moveTo(gx, y0); gl.lineTo(gx, y1); } for (var gy = y0; gy < y1; gy += step * 0.64) { gl.moveTo(x0, gy); gl.lineTo(x1, gy); } gg.strokeStyle = col || MGL; gg.lineWidth = 3; gg.stroke(gl); gg.restore(); }
 
   /* ================= the scene ================= */
+  /* the canvas covers the whole hero (host), so the cast walks and flies in from beyond the window edge */
+  function castScene(host, stage, tv, nexiEl, perch) {
+  var cv = document.createElement('canvas');
+  cv.className = 'nxe-cast';
+  cv.setAttribute('aria-hidden', 'true');
+  host.appendChild(cv);
+  var gg = cv.getContext('2d');
+  if (!gg) { cv.remove(); return; }
+  var slide = perch ? stage.closest('.slide') : null, heroEl = perch ? stage.closest('[data-hero]') : null, seen = true;
   var SCENE = 22, W = 0, H = 0, dpr = 1, last = 0, raf = 0, on = true, u0 = 0, prevU = -1, fired = {}, tapAt = -9;
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function ease(k) { k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
@@ -255,13 +258,15 @@
   function frame(still) {
     var c = cv.getBoundingClientRect();
     if (Math.abs(c.width - W) > 1 || Math.abs(c.height - H) > 1) size();
-    var tvR = rel(tv, c), nx = rel(nexiEl, c), sr = rel(stage, c);
+    var tvR = rel(tv, c), sr = rel(stage, c);
+    if (perch) { perchFrame(still, c, tvR, sr); return; }
+    var nx = rel(nexiEl, c);
     var k = clamp(sr.w / 560, 0.6, 1.1), floor = sr.b - 10 * k, u = still ? 13.2 : (T - u0) % SCENE;
     if (u < prevU) { fired = {}; }
     prevU = u;
     var topAt = function (f) { return tvR.t + 7 * k + f * tvR.w * 0.04; };   /* the TV leans 2.5deg: its top drops to the right */
     var hop = T - tapAt < 0.55 ? -Math.sin((T - tapAt) / 0.55 * Math.PI) * 16 * k : 0;
-    var exitR = sr.r + 120 * k;
+    var exitR = W + 90 * k;
     gg.setTransform(dpr, 0, 0, dpr, 0, 0); gg.clearRect(0, 0, W, H);
 
     /* --- the spreadsheet monster peeks up behind the floor at the right (drawn first: everyone stands in front) --- */
@@ -317,15 +322,40 @@
 
     /* --- the duck flies in and lands on Nexi's head, quacks, flies off --- */
     if (still || (u > 9.8 && u < 21.8)) {
-      var hx2 = nx.l + nx.w * 0.52, hy = nx.t + 4 * k, fx = sr.r + 60 * k, fy = tvR.t - 40 * k, q = still ? 1 : seg(u, 9.8, 11.1), out = still ? 0 : seg(u, 20.4, 21.8);
+      var hx2 = nx.l + nx.w * 0.52, hy = nx.t + 4 * k, fx = W + 70 * k, fy = tvR.t - 40 * k, q = still ? 1 : seg(u, 9.8, 11.1), out = still ? 0 : seg(u, 20.4, 21.8);
       var dx = lerp(fx, hx2, q), dy = lerp(fy, hy, q) - Math.sin(q * Math.PI) * 60 * k;
-      dx = lerp(dx, nx.l - 60 * k, out); dy = lerp(dy, tvR.t - 120 * k, out) - Math.sin(out * Math.PI) * 30 * k;
+      dx = lerp(dx, nx.l - 40 * k, out); dy = lerp(dy, -90 * k, out) - Math.sin(out * Math.PI) * 30 * k;   /* flies off over the top */
       var flying = !still && ((u > 9.8 && u < 11.1) || u > 20.4);
       put(dx, dy - 17 * 1.55 * k + (flying ? Math.sin(T * 18) * 3 * k : 0) + hop, 1.55 * k, function () { duck(gg, 0, 0); }, u > 20.4 ? -1 : 1, flying ? -0.18 : 0);
       once('land', u, 11.1, function () { DUCK.bob = T; });
       once('quack', u, 11.5, function () { chip('Quack!', dx + 50 * k, dy - 70 * k, 17 * k, '#B4521E', '#FFF6DA'); });
     }
 
+    drawWords();
+  }
+
+  /* the home slide: a 12 s party on top of the TV */
+  function perchFrame(still, c, tvR, sr) {
+    var k = clamp(sr.w / 580, 0.6, 1.1), u = still ? 6 : (T - u0) % 12;
+    if (u < prevU) { fired = {}; }
+    prevU = u;
+    var topAt = function (f) { return tvR.t + 7 * k + f * tvR.w * 0.026; };   /* this TV leans 1.5deg */
+    gg.setTransform(dpr, 0, 0, dpr, 0, 0); gg.clearRect(0, 0, W, H);
+    put(tvR.l + tvR.w * 0.7, tvR.t - 64 * k, 0.34 * k, function () { miniBot(gg, 0, 0, 1, '#5FD3FF', { ph: 0 }); });
+    put(tvR.l + tvR.w * 0.84, tvR.t - 76 * k, 0.3 * k, function () { miniBot(gg, 0, 0, 1, '#FFD84A', { ph: 1.7, arm: Math.sin(T * 6) > 0 }); });
+    var wave = u > 3.8 && u < 5.6 ? 1 : 0;
+    put(tvR.l + tvR.w * 0.62, topAt(0.62), 0.66 * k, function () { cat(gg, 0, 0, wave); });
+    put(tvR.l + tvR.w * 0.95, topAt(0.95) - 60 * 0.5 * k, 0.5 * k, function () { owl(gg, 0, 0, 1); });
+    once('hoot', u, 4.6, function () { LK.hoot = T; });
+    var q = still ? 1 : seg(u, 2, 3.2), out = still ? 0 : seg(u, 9.4, 10.8);
+    if (still || (u > 2 && u < 10.8)) {
+      var lx = tvR.l + tvR.w * 0.8, ly = topAt(0.8), fx = W + 70 * k, fy = tvR.t - 130 * k;
+      var dx = lerp(lerp(fx, lx, q), tvR.l + tvR.w * 0.3, out), dy = lerp(lerp(fy, ly, q), tvR.t - 170 * k, out) - Math.sin(q * Math.PI) * 50 * k - Math.sin(out * Math.PI) * 30 * k;
+      var fly = !still && (u < 3.2 || u > 9.4);
+      put(dx, dy - 17 * 1.3 * k + (fly ? Math.sin(T * 18) * 3 * k : 0), 1.3 * k, function () { duck(gg, 0, 0); }, u > 9.4 ? -1 : 1, fly ? -0.18 : 0, 1 - out);
+      once('land', u, 3.2, function () { DUCK.bob = T; });
+      once('quack', u, 3.6, function () { chip('Quack!', dx + 36 * k, dy - 60 * k, 16 * k, '#B4521E', '#FFF6DA'); });
+    }
     drawWords();
   }
 
@@ -339,12 +369,28 @@
   }
   function start() { if (reduce) { frame(true); return; } if (!raf && on) { last = 0; raf = requestAnimationFrame(loop); } }
   function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
-  function sync() { if (on && !document.hidden) start(); else stop(); }
+  function sync() {
+    var showing = !slide || slide.classList.contains('is-active');
+    if (on && showing && !document.hidden) { if (slide && !seen) { u0 = T; prevU = -1; fired = {}; } seen = true; start(); }
+    else {
+      stop();
+      /* the home slide went away: wipe the frame so nobody is left frozen on the next slide */
+      if (slide && !showing) { seen = false; gg.setTransform(1, 0, 0, 1, 0, 0); gg.clearRect(0, 0, cv.width, cv.height); }
+    }
+  }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { on = en[en.length - 1].isIntersecting; sync(); }).observe(stage);
   document.addEventListener('visibilitychange', sync);
+  if (heroEl) heroEl.addEventListener('tn:slide', function () { setTimeout(sync, 0); });
   if ('ResizeObserver' in window) new ResizeObserver(function () { size(); if (reduce) frame(true); }).observe(stage);
   stage.addEventListener('nxe:tap', function () { tapAt = T; LK.hoot = T; GOAT.hop = T; DUCK.bob = T; });
   size();
   /* the sound words use the page's comic font: draw once it is ready (the scene starts either way) */
   if (document.fonts && document.fonts.load) document.fonts.load('30px Bangers').then(sync, sync); else sync();
+  }
+
+  var pageStage = document.querySelector('[data-nxe-hero] [data-nxe-stage]');
+  if (pageStage && pageStage.querySelector('.nxe-tv') && pageStage.querySelector('[data-nxe-nexi]'))
+    castScene(pageStage.closest('[data-nxe-hero]'), pageStage, pageStage.querySelector('.nxe-tv'), pageStage.querySelector('[data-nxe-nexi]'), false);
+  var homeStage = document.querySelector('[data-hero] [data-nxs]');
+  if (homeStage && homeStage.querySelector('.nxs-tv')) castScene(homeStage.closest('[data-hero]'), homeStage, homeStage.querySelector('.nxs-tv'), null, true);
 })();

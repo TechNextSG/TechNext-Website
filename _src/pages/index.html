@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js", "assets/js/nexi-explains-cast.js"], "head": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Bangers&display=swap\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\">"} -->
 
 <!-- ============================================================ HERO CAROUSEL -->
 <section class="hero" data-hero data-root="{{ROOT}}" aria-roledescription="carousel" aria-label="TechNext highlights">
@@ -9,6 +9,17 @@
     <div class="spotlight"></div>
     <canvas class="particles"></canvas>
   </div>
+  <!-- the Nexi Explains slide's comic sky: it irises open from the TV when slide 6 comes on and closes when it goes
+       (.hero.is-nxs, set by hero-scenes.js Explains); .nxs-fx plays the comic transition (BAM! in, WHOOSH! out) -->
+  <div class="nxs-bg" aria-hidden="true">
+    <span class="nxs-rays"></span><span class="nxs-dots"></span><span class="nxs-speed"></span>
+    <span class="nxs-fl nxs-fl--1">{{odoo:sale:30}}</span>
+    <span class="nxs-fl nxs-fl--2">{{odoo:accountant:30}}</span>
+    <span class="nxs-fl nxs-fl--3">{{odoo:crm:30}}</span>
+    <span class="nxs-boom">NEW!</span>
+    <i class="nxs-tw nxs-tw--1">✦</i><i class="nxs-tw nxs-tw--2">✦</i><i class="nxs-tw nxs-tw--3">✦</i><i class="nxs-tw nxs-tw--4">✦</i>
+  </div>
+  <div class="nxs-fx" aria-hidden="true"><span class="nxs-streaks"></span><span class="nxs-burst"><b data-nxs-fx>BAM!</b></span></div>
 
   <div class="hero-track">
 

@@ -1067,3 +1067,107 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
   .nxs-item{transition:none}
   .nxs-say.is-pop{animation:none}
 }
+
+/* ================================================================ 6 · Nexi Explains, comic edition
+   The slide wears the /nexi-explains look: a deep-blue comic sky (rays, halftone, speed lines, Odoo stickers, a NEW!
+   burst), white + yellow inked type, sticker pills, yellow press-in buttons and an inked TV. The sky sits behind
+   every slide but only shows while slide 6 is on (.hero.is-nxs): it irises open from the TV (--nxs-ox/--nxs-oy,
+   set by hero-scenes.js) and closes when the carousel moves on; .nxs-fx adds the comic transition (BAM! / POW! /
+   ZAP! in, WHOOSH! out). While the sky is up the header turns the same navy (html.nxs-dark) so the hero reads as
+   one piece. Outlines here are box-shadows, never borders: slide 6 must not change the shared hero height. */
+.hero{--ink-c:#101C45;--yel:#FFD23F;--comic:"Bangers","Plus Jakarta Sans",system-ui,sans-serif}
+.nxs-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;visibility:hidden;
+  background:linear-gradient(180deg,#0E2364 0,rgba(14,35,100,0) 150px),radial-gradient(1200px 760px at 74% 46%,#3E74DE 0%,#2352B4 32%,#143585 62%,#0B1D52 100%);
+  clip-path:circle(0% at var(--nxs-ox,74%) var(--nxs-oy,46%));transition:clip-path .55s cubic-bezier(.7,0,.3,1),visibility 0s .55s}
+.hero.is-nxs .nxs-bg{visibility:visible;clip-path:circle(150% at var(--nxs-ox,74%) var(--nxs-oy,46%));transition:clip-path .75s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.nxs-rays{position:absolute;left:var(--nxs-ox,74%);top:var(--nxs-oy,46%);width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxsSpin 120s linear infinite}
+.nxs-dots{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.15) 1.4px,transparent 1.9px) 0 0/16px 16px;-webkit-mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%);mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%)}
+.nxs-speed{position:absolute;inset:0;background:repeating-linear-gradient(104deg,transparent 0 46px,rgba(255,255,255,.045) 46px 48px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 55%);mask-image:linear-gradient(90deg,#000,transparent 55%)}
+@keyframes nxsSpin{to{transform:rotate(360deg)}}
+.nxs-fl{position:absolute;display:grid;place-items:center;width:52px;height:52px;border-radius:15px;background:#fff;box-shadow:0 0 0 3px var(--ink-c),5px 5px 0 3px rgba(5,12,40,.45);animation:nxsDrift var(--fd,6s) ease-in-out infinite}
+.nxs-fl .oi{width:30px;height:30px}
+.nxs-fl--1{left:3%;top:16%;--fd:6.4s;rotate:-8deg}
+.nxs-fl--2{left:47%;top:12%;--fd:7.1s;rotate:7deg}
+.nxs-fl--3{left:45%;bottom:22%;--fd:5.9s;rotate:-5deg;width:44px;height:44px}
+.nxs-fl--3 .oi{width:24px;height:24px}
+@keyframes nxsDrift{50%{transform:translateY(-12px)}}
+.nxs-boom{position:absolute;left:36%;top:7%;display:grid;place-items:center;padding:14px 18px;font:400 26px/1 var(--comic);letter-spacing:.04em;color:var(--ink-c);background:var(--yel);clip-path:polygon(50% 0,61% 22%,86% 8%,78% 34%,100% 42%,79% 57%,92% 82%,64% 74%,52% 100%,40% 76%,13% 90%,21% 62%,0 50%,21% 37%,9% 12%,38% 22%);filter:drop-shadow(4px 4px 0 var(--ink-c));rotate:-12deg;animation:nxsBoom 4.5s ease-in-out infinite}
+@keyframes nxsBoom{50%{transform:scale(1.12)}}
+.nxs-tw{position:absolute;font-style:normal;font:800 20px/1 var(--font-display);color:var(--yel);text-shadow:0 0 12px rgba(255,210,63,.7);animation:nxsTw 3s ease-in-out infinite}
+.nxs-tw--1{left:9%;top:58%}.nxs-tw--2{left:33%;top:30%;font-size:13px;color:#fff;animation-delay:-1s}
+.nxs-tw--3{right:28%;top:9%;animation-delay:-2s}.nxs-tw--4{right:6%;bottom:30%;font-size:24px;color:#fff;animation-delay:-.6s}
+@keyframes nxsTw{0%,100%{opacity:.35;transform:scale(.7)}50%{opacity:1;transform:scale(1.15) rotate(25deg)}}
+
+/* the comic transition */
+.nxs-fx{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+.nxs-burst{position:absolute;left:var(--nxs-ox,74%);top:var(--nxs-oy,46%);display:grid;place-items:center;width:250px;height:190px;margin:-95px 0 0 -125px;opacity:0;background:var(--yel);clip-path:polygon(50% 0,61% 22%,86% 8%,78% 34%,100% 42%,79% 57%,92% 82%,64% 74%,52% 100%,40% 76%,13% 90%,21% 62%,0 50%,21% 37%,9% 12%,38% 22%);filter:drop-shadow(6px 6px 0 var(--ink-c))}
+.nxs-burst b{font:400 58px/1 var(--comic);letter-spacing:.04em;color:var(--ink-c);text-shadow:3px 3px 0 #fff;transform:rotate(-8deg)}
+.hero.is-nxs-in .nxs-burst{animation:nxsBam .95s var(--spring) forwards}
+.hero.is-nxs-out .nxs-burst{background:#fff;animation:nxsBam .8s var(--spring) forwards}
+@keyframes nxsBam{0%{opacity:0;transform:scale(.2) rotate(-25deg)}25%{opacity:1;transform:scale(1.18) rotate(4deg)}45%{transform:scale(1) rotate(-3deg)}75%{opacity:1}100%{opacity:0;transform:scale(1.5) rotate(6deg)}}
+.nxs-streaks{position:absolute;inset:-10% -60%;opacity:0;background:repeating-linear-gradient(90deg,transparent 0 60px,rgba(255,255,255,.9) 60px 64px,transparent 64px 150px),repeating-linear-gradient(90deg,transparent 0 110px,rgba(255,210,63,.9) 110px 116px,transparent 116px 230px);-webkit-mask-image:linear-gradient(180deg,transparent 15%,#000 35%,#000 65%,transparent 85%);mask-image:linear-gradient(180deg,transparent 15%,#000 35%,#000 65%,transparent 85%)}
+.hero.is-nxs-out .nxs-streaks{animation:nxsStreak .6s ease-in forwards}
+.hero.is-nxs-in .nxs-streaks{animation:nxsStreak .5s ease-out reverse forwards}
+@keyframes nxsStreak{0%{opacity:0;transform:translateX(-30%) skewX(-20deg)}30%{opacity:1}100%{opacity:0;transform:translateX(30%) skewX(-20deg)}}
+
+/* the header matches the sky while it is up */
+html.nxs-dark .header{transition:background-color .35s ease,border-color .35s ease}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open){background:#0E2364;border-bottom-color:transparent}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .brand img{filter:brightness(0) invert(1)}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#fff;color:var(--blue-700)}
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.hero.is-nxs .mq-item{color:rgba(255,255,255,.88)}
+
+/* slide 6 itself, inked */
+.slide--nxs .slide-tag{background:var(--yel);border-color:transparent;color:var(--ink-c);box-shadow:0 0 0 2.5px var(--ink-c),3px 3px 0 2.5px var(--ink-c);transform:rotate(-2deg)}
+.slide--nxs .slide-tag .ic{color:var(--ink-c)}
+.slide--nxs .as-h1{color:#fff}
+.slide--nxs .as-h1 .kw>span{text-shadow:3px 0 0 var(--ink-c),-3px 0 0 var(--ink-c),0 3px 0 var(--ink-c),0 -3px 0 var(--ink-c),2.2px 2.2px 0 var(--ink-c),-2.2px 2.2px 0 var(--ink-c),2.2px -2.2px 0 var(--ink-c),-2.2px -2.2px 0 var(--ink-c),0 7px 0 var(--ink-c)}
+.slide--nxs .as-h1 .hl{color:var(--yel);background:none;-webkit-text-fill-color:var(--yel)}
+.slide--nxs .lead{color:rgba(255,255,255,.9)}
+.slide--nxs .pill-row .tag{background:#fff;color:var(--ink-c);box-shadow:0 0 0 2.5px var(--ink-c),3px 3px 0 2.5px var(--ink-c)}
+.slide--nxs .pill-row .tag:nth-child(odd){transform:rotate(-2deg)}
+.slide--nxs .pill-row .tag:nth-child(even){transform:rotate(1.5deg)}
+.slide--nxs .pill-row .tag .ic{color:var(--blue)}
+.slide--nxs .actions .btn{box-shadow:0 0 0 3px var(--ink-c),0 6px 0 3px var(--ink-c);border-color:transparent;transition:transform .2s var(--spring),box-shadow .2s ease,background-color .2s ease}
+.slide--nxs .actions .btn:hover{transform:translateY(-2px);box-shadow:0 0 0 3px var(--ink-c),0 8px 0 3px var(--ink-c)}
+.slide--nxs .actions .btn:active{transform:translateY(4px);box-shadow:0 0 0 3px var(--ink-c),0 2px 0 3px var(--ink-c)}
+.slide--nxs .actions .btn-primary{background:var(--yel);color:var(--ink-c)}
+.slide--nxs .actions .btn-primary:hover{background:#FFDC5E;color:var(--ink-c)}
+.slide--nxs .actions .btn-ghost{background:#fff;color:var(--ink-c)}
+.slide--nxs .actions .btn-ghost::before{display:none}
+.slide--nxs .nxs-next{border-color:transparent;color:var(--ink-c);box-shadow:0 0 0 3px var(--ink-c),5px 5px 0 3px rgba(5,12,40,.55)}
+.slide--nxs .nxs-next b{color:var(--blue)}
+.slide--nxs .nxs-tv{box-shadow:0 0 0 4px var(--ink-c),10px 10px 0 4px rgba(5,12,40,.55),0 0 60px rgba(111,160,245,.35)}
+.slide--nxs .nxs-tv:hover{box-shadow:0 0 0 4px var(--ink-c),13px 13px 0 4px rgba(5,12,40,.55),0 0 70px rgba(111,160,245,.45)}
+.slide--nxs .nxs-screen{border:3px solid var(--ink-c)}
+.slide--nxs .nxs-onair{font:400 17px/1 var(--comic);letter-spacing:.08em;box-shadow:0 0 0 3px var(--ink-c),3px 3px 0 3px var(--ink-c)}
+.slide--nxs .nxs-play{background:var(--yel);color:var(--ink-c);box-shadow:0 0 0 3px var(--ink-c),3px 3px 0 3px var(--ink-c)}
+.slide--nxs .nxs-cap b{font:400 15px/1 var(--comic);letter-spacing:.05em}
+.slide--nxs .nxs-cap em{background:var(--yel);color:var(--ink-c);font:400 13.5px/1 var(--comic);letter-spacing:.05em}
+.slide--nxs .nxs-say{top:118px;color:var(--blue);filter:none;box-shadow:0 0 0 3px var(--ink-c),4px 4px 0 3px var(--ink-c)}
+.slide--nxs .nxs-say::after{display:none}
+.slide--nxs .nxs-pick{box-shadow:0 0 0 2.5px var(--ink-c),4px 4px 0 2.5px var(--ink-c)}
+.slide--nxs .nxs-pick.is-on{box-shadow:0 0 0 3px var(--yel),0 0 0 5.5px var(--ink-c),5px 5px 0 5.5px var(--ink-c)}
+.slide--nxs .nxs-nexi{filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(6px 8px 0 rgba(5,12,40,.5))}
+/* the TV-top party (nexi-explains-cast.js, perch mode): one canvas over the hero, under the 3D Nexi */
+.hero>.nxe-cast{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
+.hero:not(.is-nxs)>.nxe-cast{opacity:0;transition:opacity .2s ease}
+@media (max-width:960px){
+  .nxs-fl{display:none}
+  /* phones and tablets: the countdown chip goes under the strip, so the cast has the TV's top to itself */
+  .slide--nxs .nxs{display:flex;flex-direction:column;margin-top:66px}
+  .slide--nxs .nxs-next{order:3;align-self:flex-start;margin:14px 0 0}
+  .nxs-boom{left:auto;right:5%;top:2%;font-size:20px;padding:11px 14px}
+  .slide--nxs .nxs-say{top:96px}
+  .nxs-burst{width:190px;height:146px;margin:-73px 0 0 -95px}
+  .nxs-burst b{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  .nxs-bg,.hero.is-nxs .nxs-bg{transition:none}
+  .nxs-rays,.nxs-fl,.nxs-boom,.nxs-tw{animation:none}
+  .hero.is-nxs-in .nxs-burst,.hero.is-nxs-out .nxs-burst,.hero.is-nxs-in .nxs-streaks,.hero.is-nxs-out .nxs-streaks{animation:none}
+}
