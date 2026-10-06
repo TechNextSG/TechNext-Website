@@ -1853,6 +1853,13 @@
         p[0].style.setProperty('--nxs-r', Math.ceil(Math.sqrt(dx * dx + dy * dy) + 24) + 'px');
       });
     }
+    /* the header buttons and side tabs change costume with a small staggered pop (site.css .nxs-swap) */
+    var swapT = 0;
+    function swap() {
+      if (reduce) return;
+      var de = document.documentElement; de.classList.remove('nxs-swap'); void de.offsetWidth; de.classList.add('nxs-swap');
+      clearTimeout(swapT); swapT = setTimeout(function () { de.classList.remove('nxs-swap'); }, 900);
+    }
     function fx(kind) {
       if (reduce || !fxWord) return;
       fxWord.textContent = kind === 'in' ? IN[inK++ % IN.length] : 'WHOOSH!';
@@ -1866,13 +1873,14 @@
         on = true; set(cur); nextUp(); loop();
         origin(); hero.classList.add('is-nxs');
         /* the header goes transparent (white type) only once the circle has covered the strip under it */
-        clearTimeout(darkT); darkT = setTimeout(function () { if (on) document.documentElement.classList.add('nxs-dark'); }, reduce || first ? 0 : 950);
+        clearTimeout(darkT); darkT = setTimeout(function () { if (on) { document.documentElement.classList.add('nxs-dark'); if (!first) swap(); } }, reduce || first ? 0 : 950);
         if (!first) fx('in');
       },
       leave: function () {
         on = false; clearTimeout(t);
         if (hero.classList.contains('is-nxs')) { origin(); fx('out'); }
-        clearTimeout(darkT); hero.classList.remove('is-nxs'); document.documentElement.classList.remove('nxs-dark');
+        clearTimeout(darkT); hero.classList.remove('is-nxs');
+        if (document.documentElement.classList.contains('nxs-dark')) { document.documentElement.classList.remove('nxs-dark'); swap(); }
       },
       wake: wake
     };

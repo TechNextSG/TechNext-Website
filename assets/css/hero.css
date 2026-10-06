@@ -1124,14 +1124,14 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 @keyframes nxsStreak{0%{opacity:0;transform:translateX(-30%) skewX(-20deg)}30%{opacity:1}100%{opacity:0;transform:translateX(30%) skewX(-20deg)}}
 
 /* the header matches the sky while it is up */
-html.nxs-dark .header{transition:background-color .4s ease,border-color .4s ease}
+html.nxs-dark .header,.is-home .header{transition:background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
+.is-home .header .brand img{transition:transform .3s var(--spring),filter .45s ease}
+.is-home .header .nav-link{transition:background-color .15s ease,color .45s ease}
 html.nxs-dark .header:not(.is-scrolled):not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
 html.nxs-dark .header:not(.is-scrolled):not(.is-open) .brand img{filter:brightness(0) invert(1)}
 html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
 html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
 html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#fff;color:var(--blue-700)}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
 /* the app marquee joins the comic look while the slide is on */
 .hero-marquee{transition:background-color .35s ease,border-color .35s ease}
 .hero.is-nxs .hero-marquee{background:rgba(11,22,66,.94);border-top:3px solid #101C45;box-shadow:inset 0 3px 0 rgba(255,210,63,.85)}

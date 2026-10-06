@@ -485,3 +485,52 @@ document.addEventListener('click', function (e) {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sweep); else sweep();
 })();
+
+/* © TechNext Pte. Ltd. (technext.asia). Overlay scrollbar (mouse/trackpad screens): the browser's bar is hidden
+   (site.css html.tn-sb-on) so dark heroes run to the window edge; this thin thumb shows while the page scrolls or the
+   pointer nears the right edge, and can be dragged. Keyboard, wheel and touch scrolling are untouched. */
+(function () {
+  'use strict';
+  if (!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var root = document.documentElement, bar = document.createElement('div'), th = document.createElement('i');
+  bar.className = 'tn-sb'; bar.setAttribute('aria-hidden', 'true'); bar.appendChild(th);
+  document.body.appendChild(bar);
+  root.classList.add('tn-sb-on');
+  var hideT = 0, raf = 0, drag = null;
+  function metrics() {
+    var vh = window.innerHeight, dh = Math.max(root.scrollHeight, document.body.scrollHeight, vh);
+    var h = Math.max(36, vh * vh / dh), top = (vh - h) * (window.scrollY / Math.max(1, dh - vh));
+    return { vh: vh, dh: dh, h: h, top: top };
+  }
+  function paint() {
+    raf = 0;
+    var m = metrics();
+    bar.hidden = m.dh <= m.vh + 1;
+    th.style.height = Math.round(m.h) + 'px';
+    th.style.transform = 'translateY(' + m.top.toFixed(1) + 'px)';
+  }
+  function req() { if (!raf) raf = requestAnimationFrame(paint); }
+  function show() {
+    bar.classList.add('is-on'); clearTimeout(hideT);
+    hideT = setTimeout(function () { if (!drag) bar.classList.remove('is-on'); }, 1300);
+  }
+  window.addEventListener('scroll', function () { req(); show(); }, { passive: true });
+  window.addEventListener('resize', req);
+  if ('ResizeObserver' in window) new ResizeObserver(req).observe(document.body);
+  window.addEventListener('mousemove', function (e) { if (e.clientX > window.innerWidth - 20) show(); }, { passive: true });
+  th.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    var m = metrics();
+    drag = { y: e.clientY, s: window.scrollY, k: (m.dh - m.vh) / Math.max(1, m.vh - m.h) };
+    try { th.setPointerCapture(e.pointerId); } catch (err) {}
+    bar.classList.add('is-drag', 'is-on');
+  });
+  th.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    window.scrollTo({ top: drag.s + (e.clientY - drag.y) * drag.k, behavior: 'instant' });
+  });
+  function end() { if (!drag) return; drag = null; bar.classList.remove('is-drag'); show(); }
+  th.addEventListener('pointerup', end);
+  th.addEventListener('pointercancel', end);
+  paint();
+})();

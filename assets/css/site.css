@@ -1145,3 +1145,67 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
   .nav-bubble{animation:none}
   .nb-face i::before,.nb-face i::after{animation:none}
 }
+
+/* ---------- comic chrome: the header buttons and the side tabs over a Nexi Explains hero ----------
+   /nexi-explains (body.is-nxe) and home slide 4 while its sky is up (html.nxs-dark, hero-scenes.js). Ink outlines are
+   box-shadows, so a tab or button keeps its size and the switch can cross-fade (colours/shadows transition on the home
+   page; html.nxs-swap adds a staggered pop that hides the font change). Desktop side tabs are turned 180deg
+   (above), so a shadow written (5px,-5px) lands down-left on screen; the outline on the window edge is off-screen. */
+.is-home .header-cta .btn,.is-home .menu-btn{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease,border-color .45s ease,transform .2s ease}
+.is-home .side-tab{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary,
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#FFD23F;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 4px 0 2.5px #101C45}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover,
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover{background:#FFDC5E;color:#101C45;transform:translateY(-1px);box-shadow:0 0 0 2.5px #101C45,0 6px 0 2.5px #101C45}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active,
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active{transform:translateY(3px);box-shadow:0 0 0 2.5px #101C45,0 1px 0 2.5px #101C45}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .menu-btn,
+html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 3px 0 2.5px #101C45}
+.is-nxe .side-tab,html.nxs-dark .side-tab{font:400 18px/1 "Bangers","Plus Jakarta Sans",sans-serif;letter-spacing:.07em;box-shadow:0 0 0 3px #101C45,5px -5px 0 3px #101C45}
+.is-nxe .side-tab:hover,html.nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,8px -8px 0 3px #101C45}
+.is-nxe .side-tab:active,html.nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,2px -2px 0 3px #101C45}
+.is-nxe .side-tab:focus-visible,html.nxs-dark .side-tab:focus-visible{outline:3px solid #FFD23F;outline-offset:5px}
+.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,html.nxs-dark .meet-tab,html.nxs-dark .meet-tab:hover,html.nxs-dark .meet-tab:active{color:#101C45}
+.is-nxe .meet-tab,html.nxs-dark .meet-tab{background:#FFD23F}
+.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,html.nxs-dark .meet-tab:hover,html.nxs-dark .meet-tab:active{background:#FFDC5E}
+.is-nxe .talk-tab,html.nxs-dark .talk-tab{background:#fff;color:#101C45}
+.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active,html.nxs-dark .talk-tab:hover,html.nxs-dark .talk-tab:active{background:#EAF0FB;color:#101C45}
+.is-nxe .nexi-tab,html.nxs-dark .nexi-tab{color:#fff}
+.is-nxe .side-tab .ic,html.nxs-dark .side-tab .ic{width:18px;height:18px}
+.is-nxe .side-tab:hover .ic,html.nxs-dark .side-tab:hover .ic{animation:tnTabWiggle .5s var(--spring)}
+.is-nxe .meet-tab:hover .ic,html.nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleUp .5s var(--spring)}
+@keyframes tnTabWiggle{30%{transform:rotate(90deg) translateY(-3px) scale(1.15)}60%{transform:rotate(78deg) scale(1.1)}100%{transform:rotate(90deg)}}
+@keyframes tnTabWiggleUp{30%{transform:rotate(180deg) translateY(3px) scale(1.15)}60%{transform:rotate(168deg) scale(1.1)}100%{transform:rotate(180deg)}}
+/* the costume change: tabs pop one after another, the header button with them */
+.nxs-swap .side-tab{animation:tnTabSwap .55s var(--spring) both}
+.nxs-swap .side-tab:nth-child(2){animation-delay:.07s}
+.nxs-swap .side-tab:nth-child(3){animation-delay:.14s}
+.nxs-swap .header-cta .btn,.nxs-swap .menu-btn{animation:tnBtnSwap .5s var(--spring) both}
+@keyframes tnTabSwap{0%{translate:0 0;scale:1}35%{translate:-7px 0;scale:.92 1.06}70%{translate:2px 0;scale:1.03 .98}100%{translate:0 0;scale:1}}
+@keyframes tnBtnSwap{0%{scale:1}35%{scale:.9}70%{scale:1.06}100%{scale:1}}
+@media (max-width:960px){
+  /* phones: round sticker buttons, not turned, so the shadow goes down-right as written */
+  .is-nxe .side-tab,html.nxs-dark .side-tab{box-shadow:0 0 0 3px #101C45,3px 3px 0 3px #101C45}
+  .is-nxe .side-tab:hover,html.nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,4px 4px 0 3px #101C45}
+  .is-nxe .side-tab:active,html.nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,1px 1px 0 3px #101C45}
+  .is-nxe .side-tab .ic,html.nxs-dark .side-tab .ic{width:21px;height:21px}
+  .is-nxe .side-tab:hover .ic,.is-nxe .meet-tab:hover .ic,html.nxs-dark .side-tab:hover .ic,html.nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleRound .5s var(--spring)}
+  @keyframes tnTabWiggleRound{30%{transform:translateY(-3px) scale(1.15)}60%{transform:rotate(-12deg) scale(1.1)}100%{transform:none}}
+  @keyframes tnTabSwap{0%{scale:1}35%{scale:.86}70%{scale:1.08}100%{scale:1}}
+}
+@media (prefers-reduced-motion:reduce){
+  .is-nxe .side-tab:hover .ic,html.nxs-dark .side-tab:hover .ic,.nxs-swap .side-tab,.nxs-swap .header-cta .btn,.nxs-swap .menu-btn{animation:none}
+}
+
+/* ---------- the page scrollbar: an overlay, so dark heroes run to the window edge with no white strip ----------
+   Mouse/trackpad screens only (touch screens already overlay their bars). site.js builds .tn-sb: a transparent track
+   and a thin thumb that shows while the page scrolls or the pointer nears the edge, and can be dragged. */
+@media (hover:hover) and (pointer:fine){
+  html.tn-sb-on{scrollbar-width:none}
+  html.tn-sb-on::-webkit-scrollbar{display:none}
+}
+.tn-sb{position:fixed;top:0;right:0;bottom:0;z-index:95;width:14px;pointer-events:none}
+.tn-sb i{position:absolute;top:0;right:3px;width:6px;min-height:36px;border-radius:6px;background:rgba(31,31,61,.42);box-shadow:0 0 0 1px rgba(255,255,255,.6);opacity:0;pointer-events:auto;cursor:grab;transition:opacity .35s ease,width .15s ease,right .15s ease,background-color .15s ease}
+.tn-sb.is-on i,.tn-sb.is-drag i{opacity:1}
+.tn-sb i:hover,.tn-sb.is-drag i{width:9px;right:2px;background:rgba(31,31,61,.6)}
+.tn-sb.is-drag i{cursor:grabbing}
