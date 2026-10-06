@@ -996,3 +996,74 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .hero-track>.slide:not(.is-active):not(.is-leaving) .lj-halo,
 .hero-track>.slide:not(.is-active):not(.is-leaving) .lj-badge .ic,
 .hero-track>.slide:not(.is-active):not(.is-leaving) .lj-live{animation-play-state:paused}
+
+/* ================================================================ 6 · Nexi Explains (the series)
+   An "on air" TV with the episode reel and a countdown chip, Nexi's bubble on its corner and a strip of
+   episodes under it (hero-scenes.js Explains). Nexi: the 3D one swoops here on desktop (nexi-bot.js); where
+   it does not run (phones, touch, reduced motion, no WebGL) a drawn render points at the TV instead. */
+@media (min-width:961px){
+  .slide-inner.si-nxs{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:52px}
+  .si-nxs .as-h1{font-size:clamp(2.3rem,3.9vw,3.5rem)}
+}
+/* min-width 0: the countdown chip's one-line text must never widen the slide (all slides share one grid cell) */
+.nxs{position:relative;width:100%;min-width:0;max-width:600px;justify-self:center}
+.nxs-next{display:inline-flex;align-items:center;gap:8px;max-width:100%;margin:0 0 16px 6px;padding:7px 13px 7px 10px;border-radius:999px;background:#fff;border:1px solid var(--blue-100);box-shadow:var(--shadow-sm);font:500 13px/1.2 var(--font-body);color:var(--body)}
+.nxs-next i{flex:none;width:8px;height:8px;border-radius:50%;background:#FF5A47;box-shadow:0 0 0 4px rgba(255,90,71,.18);animation:nxsDot 1.4s ease-in-out infinite}
+.nxs-next span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nxs-next b{flex:none;color:var(--blue);font-weight:700}
+.nxs.is-out .nxs-next i{background:var(--ok);box-shadow:0 0 0 4px rgba(19,122,74,.15)}
+@keyframes nxsDot{50%{opacity:.35}}
+.nxs-tv{position:relative;display:block;padding:12px;border-radius:26px;background:#fff;box-shadow:0 0 0 3px rgba(111,160,245,.28),0 34px 60px -32px rgba(30,70,145,.6);transform:rotate(1.5deg);transition:transform .45s var(--spring),box-shadow .3s ease}
+.nxs-tv:hover{text-decoration:none;transform:rotate(0deg) scale(1.015);box-shadow:0 0 0 3px rgba(111,160,245,.5),0 40px 70px -32px rgba(30,70,145,.7)}
+.nxs-tv:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.nxs-screen{position:relative;display:block;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0B1F4A}
+.nxs-item{position:absolute;inset:0;opacity:0;transform:scale(1.05);transition:opacity .6s ease,transform 2.8s var(--ease-out)}
+.nxs-item.is-on{opacity:1;transform:none}
+.nxs-item img{width:100%;height:100%;object-fit:cover}
+.nxs-onair{position:absolute;left:26px;top:-12px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:6px 11px 6px 9px;border-radius:999px;background:#FF5A47;color:#fff;font:800 11px/1 var(--font-display);letter-spacing:.12em;box-shadow:0 8px 16px -8px rgba(217,58,48,.8);transform:rotate(-4deg)}
+.nxs-onair::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:nxsDot 1.4s ease-in-out infinite}
+.nxs-play{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--blue);box-shadow:0 12px 26px -10px rgba(9,20,48,.65);transition:transform .35s var(--spring)}
+.nxs-play .ic{width:26px;height:26px;margin-left:4px}
+.nxs-tv:hover .nxs-play{transform:scale(1.12)}
+.nxs-cap{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;display:flex;align-items:center;gap:8px;padding:34px 14px 11px;border-radius:0 0 16px 16px;background:linear-gradient(transparent,rgba(9,20,48,.82));font:600 14px/1.2 var(--font-body)}
+.nxs-cap b{flex:none;padding:4px 8px;border-radius:8px;background:#fff;color:var(--blue);font:800 12px/1 var(--font-display)}
+.nxs-cap span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.nxs-cap em{flex:none;margin-left:auto;padding:4px 8px;border-radius:999px;background:var(--blue);color:#fff;font:700 11.5px/1 var(--font-body);font-style:normal}
+/* Nexi's speech bubble, the same white tilted bubble as the header button */
+.nxs-say{position:absolute;right:-14px;top:52px;z-index:3;max-width:210px;padding:9px 14px;border-radius:14px;background:#fff;color:var(--blue);font:800 15px/1.25 var(--font-display);text-wrap:balance;transform:rotate(4deg);transform-origin:100% 100%;pointer-events:none;filter:drop-shadow(0 0 .7px #8FB2F2) drop-shadow(0 0 1.8px rgba(111,160,245,.8)) drop-shadow(0 10px 12px rgba(30,70,145,.25))}
+.nxs-say::after{content:"";position:absolute;right:22px;bottom:-9px;width:16px;height:11px;background:#fff;clip-path:polygon(0 0,100% 0,100% 100%)}
+.nxs-say.is-pop{animation:nxsSay .55s var(--spring)}
+@keyframes nxsSay{0%{opacity:0;transform:rotate(10deg) scale(.4)}60%{opacity:1;transform:rotate(3deg) scale(1.08)}100%{transform:rotate(4deg) scale(1)}}
+.nxs-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:24px;padding:0 6px}
+.nxs-pick{position:relative;display:block;aspect-ratio:16/9;padding:0;border:0;border-radius:10px;overflow:hidden;background:var(--blue-050);cursor:pointer;opacity:.82;box-shadow:0 0 0 1px rgba(31,31,61,.08),0 8px 16px -12px rgba(30,70,145,.6);transition:transform .3s var(--spring),box-shadow .2s ease,opacity .2s ease}
+.nxs-pick img{display:block;width:100%;height:100%;object-fit:cover}
+.nxs-pick span{position:absolute;left:4px;bottom:4px;padding:2px 5px;border-radius:5px;background:rgba(9,20,48,.78);color:#fff;font:700 9.5px/1.2 var(--font-body)}
+.nxs-pick:hover{opacity:1;transform:translateY(-3px)}
+.nxs-pick.is-on{opacity:1;transform:translateY(-4px) rotate(-2deg);box-shadow:0 0 0 3px var(--blue),0 12px 20px -10px rgba(30,70,145,.7)}
+.nxs-pick:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+/* the drawn Nexi, only where the 3D Nexi does not run */
+.nxs-nexi{position:absolute;right:-30px;bottom:58px;z-index:3;display:none;width:auto;height:44%;filter:drop-shadow(0 12px 16px rgba(30,70,145,.3));animation:nxsBob 3.4s ease-in-out infinite;pointer-events:none}
+@keyframes nxsBob{50%{transform:translateY(-8px)}}
+@media (max-width:960px),(hover:none),(pointer:coarse){.nxs-nexi{display:block}}
+.nexi-fail .nxs-nexi{display:block}
+@media (max-width:960px){
+  .slide-inner.si-nxs{grid-template-columns:minmax(0,1fr);align-content:start}
+  .nxs{max-width:520px;margin:4px auto 0}
+  .nxs-next{margin-left:0;font-size:12px}
+  .nxs-say{right:-4px;top:46px;max-width:150px;padding:7px 11px;font-size:13px}
+  .nxs-play{width:50px;height:50px;margin:-25px 0 0 -25px}
+  .nxs-play .ic{width:22px;height:22px}
+  .nxs-cap{padding:26px 10px 9px;font-size:12.5px}
+  .nxs-strip{gap:6px;margin-top:18px;padding:0}
+  .nxs-nexi{right:-6px;bottom:48px;height:40%}
+}
+@media (max-width:640px){
+  .nxs-pick span{display:none}
+  .nxs-cap em{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .nxs-nexi{display:block;animation:none}
+  .nxs-next i,.nxs-onair::before{animation:none}
+  .nxs-item{transition:none}
+  .nxs-say.is-pop{animation:none}
+}

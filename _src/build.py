@@ -25,6 +25,7 @@ import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
+import team as TEAM  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -631,7 +632,53 @@ def _nxe_all():
     yield from NXE.SPECIALS
 
 
+# the home hero's Nexi Explains slide (index.html slide 6): the TV reel + strip, and the pills under the copy
+NXE_SLIDE_REEL = ["EP00", "EP01", "Tip 02", "EP03", "EP06", "EP15"]
+
+
+def nxe_slide_html():
+    by = {e["code"]: e for e in _nxe_all()}
+    reel = [by[c] for c in NXE_SLIDE_REEL]
+    items, picks = [], []
+    for k, e in enumerate(reel):
+        prem = f' data-premiere="{e["premiere"]}"' if e["premiere"] else ""
+        on = " is-on" if k == 0 else ""
+        lazy = "" if k == 0 else ' loading="lazy"'
+        items.append(f'<span class="nxs-item{on}" data-nxs-item data-code="{e["code"]}" data-title="{attr(e["title"])}"{prem}>'
+                     f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360"{lazy} decoding="async"></span>')
+        picks.append(f'<button class="nxs-pick{on}" type="button" data-nxs-pick aria-pressed="{"true" if k == 0 else "false"}" aria-label="Show {attr(e["code"] + ": " + e["title"])} on the TV">'
+                     f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async"><span>{e["code"]}</span></button>')
+    first = reel[0]
+    soon = [e for e in reel if e["premiere"]]
+    nxt = min(soon, key=lambda e: e["premiere"]) if soon else None
+    nexttxt = (f'<span data-nxs-next-t>Next premiere · {nxt["code"]} {nxt["title"]}</span><b data-nxs-next-w>{_nxe_day(nxt["premiere"])}</b>'
+               if nxt else '<span data-nxs-next-t>Now on YouTube</span><b data-nxs-next-w></b>')
+    state = f"Premieres {_nxe_day(first['premiere'])}" if first["premiere"] else "Watch now"
+    stage = (f'<div class="nxs up" style="--d:250ms" data-nxs>'
+             f'<p class="nxs-next" data-nxs-next><i aria-hidden="true"></i>{nexttxt}</p>'
+             f'<a class="nxs-tv" href="{{{{ROOT}}}}nexi-explains.html#episodes" aria-label="Watch Nexi Explains: every episode">'
+             f'<span class="nxs-screen">{"".join(items)}</span>'
+             f'<span class="nxs-onair" aria-hidden="true">ON AIR</span>'
+             f'<span class="nxs-play" aria-hidden="true">{{{{icon:play}}}}</span>'
+             f'<span class="nxs-cap" data-nxs-cap><b>{first["code"]}</b><span>{first["title"]}</span><em>{state}</em></span></a>'
+             f'<b class="nxs-say" data-nxs-say aria-hidden="true">New episodes every week!</b>'
+             f'<div class="nxs-strip" role="group" aria-label="Episodes on the TV">{"".join(picks)}</div>'
+             f'<img class="nxs-nexi" src="{NXE_IMG}nexi-point-left.webp" alt="" width="{NXE_POSE_W["point-left"]}" height="520" loading="lazy" decoding="async">'
+             f'</div>')
+    s1 = NXE.SEASONS[0]
+    n1 = sum(len(arc) for _, arc in s1["arcs"])
+    tips = sum(len(s["tips"]) for s in NXE.SEASONS)
+    s2 = NXE.SEASONS[1]
+    pills = (f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-1">{{{{icon:play}}}} Season 1 · {n1} episodes</a>'
+             f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-1-tips">{{{{icon:zap}}}} {tips} Quick Tips</a>'
+             f'<a class="tag" href="{{{{ROOT}}}}nexi-explains.html#season-2">{{{{icon:users}}}} Season 2 · {s2["status"].replace("Coming in ", "")}</a>')
+    return stage, pills
+
+
 def nxe_tokens(content: str) -> str:
+    if "{{NXE_SLIDE_" in content:
+        stage, pills = nxe_slide_html()
+        content = content.replace("{{NXE_SLIDE_STAGE}}", stage).replace("{{NXE_SLIDE_PILLS}}", pills)
     eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
     tips = sum(len(sea["tips"]) for sea in NXE.SEASONS)
     stats = (f'<li><b>{len(NXE.SEASONS)}</b> seasons</li><li><b>{eps}</b> episodes</li>'
@@ -669,6 +716,25 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
                     "url": f'https://www.youtube.com/watch?v={e["yt"]}', "publisher": {"@id": org_id},
                     "partOfSeries": {"@id": url + "#series"}})
     return out
+
+
+def team_cards_html() -> str:
+    """One card per employee (_src/team.py), then a card inviting the rest of the team to add theirs."""
+    out = []
+    for k, p in enumerate(TEAM.TEAM):
+        initials = "".join(w[0] for w in p["name"].split()[:3:2] if w).upper() if len(p["name"].split()) > 2 else "".join(w[0] for w in p["name"].split()[:2]).upper()
+        if p.get("photo"):
+            pic = f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="" width="600" height="600" loading="lazy" decoding="async">'
+        else:
+            pic = f'<span class="th-ini" aria-hidden="true">{initials}</span>'
+        mail = (f'<a class="th-mail" href="mailto:{p["email"]}">{{{{icon:mail}}}}<span>{p["email"]}</span></a>'
+                if p.get("email") else "")
+        out.append(f'<article class="th-person th-tone-{k % 4}"><div class="th-ava">{pic}<img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"></div>'
+                   f'<h3>{p["name"]}</h3><p class="th-role">{p["role"]}</p>{mail}</article>')
+    out.append('<article class="th-person th-person--add"><div class="th-ava th-ava--add" aria-hidden="true">{{icon:users}}</div>'
+               '<h3>Your card goes here</h3><p class="th-role">Send your name, role and a photo to the marketing team and we will add you.</p>'
+               f'<a class="th-mail" href="mailto:{S.COMPANY["sales_email"]}?subject=Employee%20Hub%20card">{{{{icon:send}}}}<span>Send my details</span></a></article>')
+    return "".join(out)
 
 
 def team_facts_html() -> str:
@@ -1679,6 +1745,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{PILLARS}}", pillars_html())
     if "{{NXE_" in content:
         content = nxe_tokens(content)
+    if "{{TEAM_CARDS}}" in content:
+        content = content.replace("{{TEAM_CARDS}}", team_cards_html())
     if "{{TEAM_FACTS}}" in content:
         content = content.replace("{{TEAM_FACTS}}", team_facts_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)

@@ -1,214 +1,340 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
-/* /nexi-explains: the animated series starring Nexi. Hero = Nexi beside an "ON AIR" TV with her speech
-   bubble (the same white tilted bubble as the header button and the home hero), then the seasons as tabs,
-   arcs of episode cards, a Quick Tips rail per season and a YouTube player dialog.
-   Prefix nxe- (site.css owns .nx- for /nexi). Behaviour: assets/js/nexi-explains.js. */
+/* /nexi-explains: the animated series starring Nexi, drawn in the series' own comic look (the YouTube thumbnails
+   and channel art): deep TechNext blue, sunburst rays, halftone dots, navy ink outlines with hard offset shadows,
+   chunky white + yellow type and stickers. The header turns transparent over the dark hero (body.is-nxe) and
+   white again once the page scrolls or a menu opens.
+   Hero = Nexi beside an "ON AIR" TV with her speech bubble; then seasons as tabs, arcs of episode cards (comic
+   panels that pop in), a Quick Tips rail per season and a YouTube player dialog.
+   Prefix nxe- (site.css owns .nx- for /nexi). Behaviour: assets/js/nexi-explains.js. Comic display font: Bangers
+   (Google Fonts, this page only) for stickers, labels and sound words. */
+.is-nxe{--ink-c:#101C45;--yel:#FFD23F;--yel-700:#F2B705;--red:#FF5A47;--deep:#0B1D52;--comic:"Bangers","Plus Jakarta Sans",system-ui,sans-serif}
 
-/* ---------- shared: Nexi's speech bubble ---------- */
-.nxe-tab[aria-selected="true"]{background:#fff;color:var(--blue);box-shadow:0 10px 22px -12px rgba(30,70,145,.6),0 0 0 3px rgba(111,160,245,.3)}
+/* ---------- transparent header over the dark hero ---------- */
+.is-nxe .header{transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.is-nxe .header:not(.is-scrolled):not(.is-open){background:transparent;border-bottom-color:transparent}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .brand img{filter:brightness(0) invert(1)}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#fff;color:var(--blue-700)}
+.is-nxe .header:not(.is-scrolled):not(.is-open) .menu-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.is-nxe main{margin-top:calc(var(--header-h) * -1)}
+
+/* ---------- comic helpers ---------- */
+.nxe-mark{position:relative;z-index:0;white-space:nowrap}
+.nxe-mark::before{content:"";position:absolute;z-index:-1;left:-6px;right:-6px;bottom:4%;height:42%;background:var(--yel);border-radius:6px;transform:skew(-8deg) rotate(-1.5deg)}
 
 /* ---------- hero ---------- */
-.nxe-hero{position:relative;overflow:hidden;padding:56px 0 28px;background:linear-gradient(180deg,var(--blue-050) 0%,#F4F7FD 55%,var(--paper) 100%)}
-.nxe-sky{position:absolute;inset:0;pointer-events:none}
-.nxe-sky::before{content:"";position:absolute;right:-12%;top:-40%;width:min(1100px,95vw);aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(111,160,245,.13) 0 7deg,transparent 7deg 18deg);-webkit-mask-image:radial-gradient(closest-side,#000 30%,transparent 72%);mask-image:radial-gradient(closest-side,#000 30%,transparent 72%);animation:nxeSpin 90s linear infinite}
-.nxe-sky i{position:absolute;border-radius:50%;filter:blur(40px);opacity:.55}
-.nxe-sky i:nth-child(1){width:340px;height:340px;right:6%;top:4%;background:#CFE0FB;animation:nxeDrift 14s ease-in-out infinite}
-.nxe-sky i:nth-child(2){width:220px;height:220px;right:34%;bottom:-6%;background:#FFE3D6;animation:nxeDrift 18s ease-in-out -6s infinite}
-.nxe-sky i:nth-child(3){width:180px;height:180px;left:-4%;top:10%;background:#E3E0FF;animation:nxeDrift 16s ease-in-out -3s infinite}
+.nxe-hero{position:relative;overflow:hidden;padding:calc(var(--header-h) + 44px) 0 104px;color:#fff;background:radial-gradient(1200px 760px at 72% 42%,#3E74DE 0%,#2352B4 32%,#143585 62%,var(--deep) 100%);clip-path:polygon(0 0,100% 0,100% calc(100% - 52px),0 100%)}
+.nxe-bg{position:absolute;inset:0;pointer-events:none}
+.nxe-rays{position:absolute;left:72%;top:46%;width:2000px;height:2000px;margin:-1000px 0 0 -1000px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxeSpin 120s linear infinite}
+.nxe-dots{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.16) 1.4px,transparent 1.9px) 0 0/16px 16px;-webkit-mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%);mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%)}
+.nxe-speed{position:absolute;inset:0;background:repeating-linear-gradient(104deg,transparent 0 46px,rgba(255,255,255,.045) 46px 48px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 55%);mask-image:linear-gradient(90deg,#000,transparent 55%)}
 @keyframes nxeSpin{to{transform:rotate(360deg)}}
-@keyframes nxeDrift{50%{transform:translate(18px,-14px) scale(1.06)}}
+/* floating Odoo app stickers (they drift; the pointer adds a little parallax: nexi-explains.js) */
+.nxe-fl{position:absolute;display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#fff;border:3px solid var(--ink-c);box-shadow:5px 5px 0 rgba(5,12,40,.45);transition:translate .5s var(--ease-out)}
+.nxe-fl .oi{width:34px;height:34px}
+.nxe-fl>*{animation:nxeFloat var(--fd,6s) ease-in-out infinite}
+.nxe-fl{animation:nxeDrift var(--fd,6s) ease-in-out infinite}
+.nxe-fl--1{left:45%;top:calc(var(--header-h) + 64px);--fd:6.5s;rotate:-8deg}
+.nxe-fl--2{right:4%;top:20%;--fd:7.2s;rotate:9deg}
+.nxe-fl--3{left:3%;bottom:20%;--fd:5.8s;rotate:6deg}
+.nxe-fl--4{right:7%;bottom:24%;--fd:6.8s;rotate:-6deg;display:none}   /* the cast walks there now (nexi-explains-cast.js) */
+.nxe-fl--5{left:48%;bottom:30%;--fd:7.6s;rotate:5deg;width:48px;height:48px}
+.nxe-fl--6{left:47%;top:38%;--fd:6.1s;rotate:-4deg;width:46px;height:46px}
+.nxe-fl--5 .oi,.nxe-fl--6 .oi{width:26px;height:26px}
+@keyframes nxeDrift{50%{transform:translateY(-14px)}}
+@keyframes nxeFloat{50%{transform:rotate(6deg)}}
+/* comic sound words */
+.nxe-boom{position:absolute;display:grid;place-items:center;padding:16px 20px;font:400 30px/1 var(--comic);letter-spacing:.04em;color:var(--ink-c);background:var(--yel);clip-path:polygon(50% 0,61% 22%,86% 8%,78% 34%,100% 42%,79% 57%,92% 82%,64% 74%,52% 100%,40% 76%,13% 90%,21% 62%,0 50%,21% 37%,9% 12%,38% 22%);filter:drop-shadow(4px 4px 0 var(--ink-c));transition:translate .5s var(--ease-out)}
+.nxe-boom--1{left:33%;top:calc(var(--header-h) + 18px);rotate:-12deg;animation:nxeBoom 4.5s ease-in-out infinite}
+.nxe-boom--2{right:2%;bottom:13%;rotate:10deg;font-size:24px;background:#fff;animation:nxeBoom 5.2s ease-in-out -2s infinite}
+@keyframes nxeBoom{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.nxe-tw{position:absolute;font-style:normal;font:800 22px/1 var(--font-display);color:var(--yel);text-shadow:0 0 12px rgba(255,210,63,.7);animation:nxeTw 3s ease-in-out infinite}
+.nxe-tw--1{left:8%;top:22%}
+.nxe-tw--2{left:31%;top:40%;font-size:14px;color:#fff;animation-delay:-1s}
+.nxe-tw--3{right:30%;top:12%;font-size:16px;animation-delay:-2s}
+.nxe-tw--4{right:14%;bottom:34%;font-size:26px;color:#fff;animation-delay:-.6s}
+.nxe-tw--5{left:52%;bottom:26%;font-size:14px;animation-delay:-1.8s}
+@keyframes nxeTw{0%,100%{opacity:.35;transform:scale(.7) rotate(0deg)}50%{opacity:1;transform:scale(1.15) rotate(25deg)}}
+
 .nxe-hero-in{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center}
-.nxe-copy h1{margin-bottom:18px}
-.nxe-copy .lead{margin-bottom:26px}
-.nxe-copy .actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
-.nxe-stats{display:flex;flex-wrap:wrap;gap:8px}
-.nxe-stats li{display:inline-flex;align-items:baseline;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--blue-100);font:500 13.5px/1 var(--font-body);color:var(--body)}
-.nxe-stats b{font:800 15px/1 var(--font-display);color:var(--blue)}
+.nxe-hero .crumbs,.nxe-hero .crumbs a{color:rgba(255,255,255,.72)}
+.nxe-hero .crumbs span::before{color:rgba(255,255,255,.35)}
+.nxe-title{margin:0 0 20px;color:#fff;font:800 clamp(3rem,7vw,6rem)/.92 var(--font-display);letter-spacing:-.03em;text-transform:uppercase}
+.nxe-title .hand{color:var(--yel);text-transform:none;letter-spacing:0;font-size:1.6rem;margin-bottom:12px}
+.nxe-t1,.nxe-t2{display:inline-block;text-shadow:3px 0 0 var(--ink-c),-3px 0 0 var(--ink-c),0 3px 0 var(--ink-c),0 -3px 0 var(--ink-c),2.2px 2.2px 0 var(--ink-c),-2.2px 2.2px 0 var(--ink-c),2.2px -2.2px 0 var(--ink-c),-2.2px -2.2px 0 var(--ink-c),0 8px 0 var(--ink-c)}
+.nxe-t1{transform:rotate(-3deg)}
+.nxe-t2{color:var(--yel);transform:rotate(-1.5deg) translateY(4px)}
+.nxe-copy .lead{color:rgba(255,255,255,.88);margin-bottom:28px}
+.nxe-copy .actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+/* comic buttons: ink outline, hard shadow that the button presses into */
+.nxe-hero .btn,.nxe-shows .nxe-season-act .btn,.nxe-cta .btn{border:3px solid var(--ink-c);box-shadow:0 6px 0 var(--ink-c);transition:transform .2s var(--spring),box-shadow .2s ease,background-color .2s ease}
+.nxe-hero .btn:hover,.nxe-shows .nxe-season-act .btn:hover,.nxe-cta .btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--ink-c)}
+.nxe-hero .btn:active,.nxe-shows .nxe-season-act .btn:active,.nxe-cta .btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink-c)}
+.nxe-hero .btn-primary,.nxe-shows .nxe-season-act .btn-primary,.nxe-cta .btn-white{background:var(--yel);color:var(--ink-c)}
+.nxe-hero .btn-primary:hover,.nxe-shows .nxe-season-act .btn-primary:hover,.nxe-cta .btn-white:hover{background:#FFDC5E;color:var(--ink-c)}
+.nxe-hero .btn-ghost,.nxe-cta .btn-outline-white{background:#fff;color:var(--ink-c)}
+.nxe-hero .btn-ghost::before,.nxe-cta .btn-outline-white::before{display:none}
+.nxe-stats{display:flex;flex-wrap:wrap;gap:10px}
+.nxe-stats li{display:inline-flex;align-items:baseline;gap:6px;padding:7px 12px;border-radius:12px;background:#fff;border:2.5px solid var(--ink-c);box-shadow:3px 3px 0 var(--ink-c);font:600 13.5px/1 var(--font-body);color:var(--ink-c)}
+.nxe-stats li:nth-child(odd){transform:rotate(-2deg)}
+.nxe-stats li:nth-child(even){transform:rotate(1.5deg)}
+.nxe-stats b{font:400 19px/1 var(--comic);letter-spacing:.03em;color:var(--blue)}
 
 /* the stage: TV + Nexi + her bubble */
-.nxe-stage{position:relative;height:460px}
-.nxe-tv{position:absolute;right:0;top:12px;width:76%;padding:12px;border-radius:28px;background:#fff;box-shadow:0 0 0 3px rgba(111,160,245,.28),0 30px 60px -30px rgba(30,70,145,.55);transform:rotate(2.5deg);animation:nxeTv 6s ease-in-out infinite}
-@keyframes nxeTv{50%{transform:rotate(1.5deg) translateY(-6px)}}
-.nxe-tv-screen{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#0B1F4A}
+.nxe-stage{position:relative;height:470px}
+.nxe-tv{position:absolute;right:0;top:12px;width:76%;padding:12px;border-radius:28px;background:#fff;border:4px solid var(--ink-c);box-shadow:10px 10px 0 rgba(5,12,40,.55),0 0 60px rgba(111,160,245,.35);transform:rotate(2.5deg);animation:nxeTv 6s ease-in-out infinite}
+@keyframes nxeTv{50%{transform:rotate(1.2deg) translateY(-8px)}}
+.nxe-tv-screen{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0B1F4A;border:3px solid var(--ink-c)}
 .nxe-tv-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 3.2s var(--ease-out)}
 .nxe-tv-screen img:first-child,.nxe-tv-screen img.is-on{opacity:1;transform:none}
 .nxe-tv-screen.is-cycling img:first-child:not(.is-on){opacity:0}
-.nxe-tv-on{position:absolute;left:24px;top:-14px;display:inline-flex;align-items:center;gap:7px;padding:6px 11px 6px 9px;border-radius:999px;background:#FF5A47;color:#fff;font:800 11.5px/1 var(--font-display);letter-spacing:.12em;box-shadow:0 8px 16px -8px rgba(217,58,48,.8);transform:rotate(-4deg)}
-.nxe-tv-on::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+.nxe-tv-on{position:absolute;left:24px;top:-18px;display:inline-flex;align-items:center;gap:7px;padding:6px 12px 5px 10px;border-radius:10px;background:var(--red);border:3px solid var(--ink-c);color:#fff;font:400 18px/1 var(--comic);letter-spacing:.08em;box-shadow:3px 3px 0 var(--ink-c);transform:rotate(-5deg)}
+.nxe-tv-on::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
 @keyframes nxeBlinkDot{50%{opacity:.25}}
-.nxe-tv-leg{position:absolute;bottom:-22px;width:10px;height:26px;border-radius:6px;background:linear-gradient(#E3E9F5,#C9D5EC);z-index:-1}
+.nxe-tv-leg{position:absolute;bottom:-26px;width:12px;height:28px;border-radius:6px;background:#fff;border:3px solid var(--ink-c);z-index:-1}
 .nxe-tv-leg--l{left:22%;transform:rotate(14deg)}
 .nxe-tv-leg--r{right:22%;transform:rotate(-14deg)}
-.nxe-nexi{position:absolute;left:0;bottom:18px;z-index:2;width:215px;padding:0;border:0;background:none;cursor:pointer;animation:nxeBob 3.4s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
-.nxe-nexi img{width:100%;height:auto;filter:drop-shadow(0 14px 18px rgba(30,70,145,.25));transition:transform .3s var(--spring)}
+.nxe-nexi{position:absolute;left:0;bottom:18px;z-index:2;width:220px;padding:0;border:0;background:none;cursor:pointer;animation:nxeBob 3.4s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+/* Nexi as a sticker: white rim, then a hard ink shadow */
+.nxe-nexi img{width:100%;height:auto;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(7px 9px 0 rgba(5,12,40,.5));transition:transform .3s var(--spring)}
 .nxe-nexi:hover img{transform:rotate(-4deg) scale(1.04)}
-.nxe-nexi:focus-visible{outline:3px solid var(--blue-300);outline-offset:6px;border-radius:40px}
+.nxe-nexi:focus-visible{outline:3px solid var(--yel);outline-offset:6px;border-radius:40px}
 .nxe-nexi.is-hop{animation:nxeHop .65s var(--spring)}
 @keyframes nxeBob{50%{transform:translateY(-12px)}}
-@keyframes nxeHop{35%{transform:translateY(-34px) scale(1.06,.95)}70%{transform:translateY(0) scale(.96,1.05)}}
-.nxe-shadow{position:absolute;left:46px;bottom:8px;width:132px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(30,70,145,.28),transparent);animation:nxeShadow 3.4s ease-in-out infinite}
+@keyframes nxeHop{35%{transform:translateY(-36px) scale(1.06,.95)}70%{transform:translateY(0) scale(.95,1.06)}}
+.nxe-shadow{position:absolute;left:46px;bottom:6px;width:136px;height:18px;border-radius:50%;background:radial-gradient(closest-side,rgba(5,12,40,.55),transparent);animation:nxeShadow 3.4s ease-in-out infinite}
 @keyframes nxeShadow{50%{transform:scaleX(.82);opacity:.7}}
-.nxe-say{position:absolute;left:206px;bottom:122px;z-index:3;max-width:250px;padding:10px 15px;border-radius:14px;background:#fff;color:var(--blue);font:800 16px/1.25 var(--font-display);text-wrap:balance;transform:rotate(-4deg);transform-origin:0 100%;filter:drop-shadow(0 0 .7px #8FB2F2) drop-shadow(0 0 1.8px rgba(111,160,245,.8)) drop-shadow(0 10px 12px rgba(30,70,145,.25))}
-.nxe-say::after{content:"";position:absolute;left:-11px;bottom:12px;width:14px;height:16px;background:#fff;clip-path:polygon(100% 0,100% 100%,0 75%)}
+/* the bubble: the site's Nexi bubble, inked for the comic page */
+.nxe-say{position:absolute;left:212px;bottom:128px;z-index:3;max-width:250px;padding:10px 15px;border-radius:16px;background:#fff;color:var(--blue);border:3px solid var(--ink-c);box-shadow:4px 4px 0 var(--ink-c);font:800 16px/1.25 var(--font-display);text-wrap:balance;transform:rotate(-4deg);transform-origin:0 100%}
+.nxe-say::before,.nxe-say::after{content:"";position:absolute;clip-path:polygon(100% 0,100% 100%,0 70%)}
+.nxe-say::before{left:-17px;bottom:9px;width:17px;height:22px;background:var(--ink-c)}
+.nxe-say::after{left:-11px;bottom:13px;width:13px;height:15px;background:#fff}
 .nxe-say.is-pop{animation:nxeSay .55s var(--spring)}
 @keyframes nxeSay{0%{opacity:0;transform:rotate(-12deg) scale(.4)}60%{opacity:1;transform:rotate(-5deg) scale(1.08)}100%{transform:rotate(-4deg) scale(1)}}
-.nxe-pop{position:absolute;z-index:3;font:800 22px/1 var(--font-display);color:var(--blue);text-shadow:0 2px 0 #fff,0 0 12px rgba(255,255,255,.95);pointer-events:none;animation:nxeFloat 4s ease-in-out infinite}
-.nxe-pop--1{left:30px;top:120px}
-.nxe-pop--2{right:16%;bottom:34px;color:#FF6B8B;font-size:18px;animation-delay:-1.3s}
-.nxe-pop--3{right:12px;top:6px;font-size:28px;animation-delay:-2.6s}
-@keyframes nxeFloat{50%{transform:translateY(-10px) rotate(12deg) scale(1.15)}}
+.nxe-pop{position:absolute;z-index:3;font:800 24px/1 var(--font-display);color:var(--yel);text-shadow:0 0 12px rgba(255,210,63,.8);pointer-events:none;animation:nxeTw 3.6s ease-in-out infinite}
+.nxe-pop--1{left:26px;top:116px}
+.nxe-pop--2{right:16%;bottom:30px;color:#FF8FA8;text-shadow:0 0 12px rgba(255,143,168,.8);font-size:20px;animation-delay:-1.3s}
+.nxe-pop--3{right:8px;top:0;font-size:30px;animation-delay:-2.6s}
 .nxe-stage.is-burst .nxe-pop{animation:nxeBurst .8s var(--spring)}
-@keyframes nxeBurst{40%{transform:scale(1.9) rotate(30deg)}}
+@keyframes nxeBurst{40%{transform:scale(2) rotate(30deg)}}
+/* the sidekicks' scene (nexi-explains-cast.js): one canvas around the stage, above Nexi and the TV, under her bubble */
+.nxe-cast{position:absolute;left:-40px;right:-110px;top:-150px;bottom:-30px;z-index:2;width:calc(100% + 150px);height:calc(100% + 180px);pointer-events:none}
+/* a sound word pops out of Nexi when she is tapped (nexi-explains.js) */
+.nxe-word{position:absolute;z-index:4;font:400 34px/1 var(--comic);letter-spacing:.04em;color:var(--yel);pointer-events:none;text-shadow:2.5px 0 0 var(--ink-c),-2.5px 0 0 var(--ink-c),0 2.5px 0 var(--ink-c),0 -2.5px 0 var(--ink-c),2px 2px 0 var(--ink-c),-2px 2px 0 var(--ink-c),2px -2px 0 var(--ink-c),-2px -2px 0 var(--ink-c),0 5px 0 var(--ink-c);animation:nxeWord 1.1s var(--ease-out) forwards}
+@keyframes nxeWord{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(var(--r,-10deg))}25%{opacity:1;transform:translate(var(--x,0),-30px) scale(1.15) rotate(var(--r,-10deg))}100%{opacity:0;transform:translate(var(--x,0),-70px) scale(1) rotate(var(--r,-10deg))}}
 
-/* next premiere strip */
-.nxe-next{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:30px;padding:14px 18px;border-radius:16px;background:#fff;border:1px solid var(--blue-100);box-shadow:var(--shadow-sm)}
-.nxe-next-tag{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:999px;background:#FFECE8;color:#C2352A;font:700 12px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase}
-.nxe-next-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF5A47;animation:nxeBlinkDot 1.4s ease-in-out infinite}
-.nxe-next b{font:700 16px/1.3 var(--font-display);color:var(--ink)}
+/* next premiere: a comic caption panel */
+.nxe-next{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:34px;padding:14px 18px;border-radius:16px;background:#fff;border:3px solid var(--ink-c);box-shadow:6px 6px 0 rgba(5,12,40,.55);color:var(--ink-c)}
+.nxe-next-tag{display:inline-flex;align-items:center;gap:7px;padding:5px 11px 4px 9px;border-radius:9px;background:var(--red);border:2.5px solid var(--ink-c);color:#fff;font:400 17px/1 var(--comic);letter-spacing:.06em;transform:rotate(-3deg)}
+.nxe-next-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+.nxe-next b{font:800 16px/1.3 var(--font-display);color:var(--ink-c)}
 .nxe-next-when{font-size:14.5px;color:var(--body)}
-.nxe-next-when strong{color:var(--blue);font-weight:700}
+.nxe-next-when strong{color:var(--blue);font-weight:800}
 .nxe-next .btn-link{margin-left:auto;font-size:14px}
 
 /* ---------- seasons ---------- */
-.nxe-shows{padding-top:72px}
-.nxe-tabs{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
-.nxe-tab{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:170px;padding:13px 20px;border-radius:16px;border:0;background:var(--alt);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-align:left;cursor:pointer;transition:transform .3s var(--spring),box-shadow .2s ease,background-color .2s ease}
-.nxe-tab b{font:800 17px/1.1 var(--font-display);color:inherit}
-.nxe-tab small{font-size:12.5px;color:var(--muted)}
-.nxe-tab:hover{background:var(--blue-050);transform:translateY(-2px)}
-.nxe-tab[aria-selected="true"]{transform:rotate(-2deg)}
-.nxe-tab[aria-selected="true"] small{color:var(--blue-700)}
+.nxe-shows{position:relative;padding-top:64px;background:#F4F7FE}
+.nxe-shows::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(rgba(49,103,202,.13) 1.3px,transparent 1.8px) 0 0/18px 18px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 45%,transparent 70%,#000);mask-image:linear-gradient(180deg,#000,transparent 45%,transparent 70%,#000)}
+.nxe-shows>.container{position:relative}
+.nxe-tabs{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:40px}
+.nxe-tab{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:180px;padding:13px 20px;border-radius:16px;border:3px solid var(--ink-c);background:#fff;box-shadow:5px 5px 0 var(--ink-c);color:var(--ink-c);text-align:left;cursor:pointer;transition:transform .3s var(--spring),box-shadow .2s ease,background-color .2s ease}
+.nxe-tab b{font:400 24px/1 var(--comic);letter-spacing:.04em;color:inherit}
+.nxe-tab small{font:600 12.5px/1.2 var(--font-body);color:#4A5478}
+.nxe-tab:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink-c)}
+.nxe-tab[aria-selected="true"]{background:var(--yel);transform:rotate(-2deg);box-shadow:7px 7px 0 var(--ink-c)}
+.nxe-tab[aria-selected="true"] small{color:var(--ink-c)}
+.nxe-tab:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 .nxe-js .nxe-panel{display:none}
 .nxe-js .nxe-panel.is-on{display:block;animation:nxeIn .45s var(--ease-out)}
 @keyframes nxeIn{from{opacity:0;transform:translateY(10px)}}
 .nxe-panel:focus{outline:none}
 .nxe-panel + .nxe-panel{margin-top:72px}
 .nxe-js .nxe-panel + .nxe-panel{margin-top:0}
-.nxe-season-head{display:grid;grid-template-columns:1fr auto;gap:24px 40px;align-items:end;padding:30px 32px;margin-bottom:40px;border-radius:var(--r-lg);background:linear-gradient(120deg,var(--blue-050),#F6F3FF);border:1px solid var(--blue-100)}
-.nxe-season-head h2{margin:12px 0 10px;font-size:clamp(1.6rem,2.8vw,2.3rem)}
-.nxe-sn{display:block;font:800 13px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.nxe-season-head{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;gap:24px 40px;align-items:end;padding:30px 32px;margin-bottom:44px;border-radius:22px;background:#fff;border:3px solid var(--ink-c);box-shadow:8px 8px 0 var(--ink-c)}
+.nxe-season-head::before{content:"";position:absolute;right:-180px;top:-260px;width:560px;height:560px;border-radius:50%;background:repeating-conic-gradient(rgba(255,210,63,.32) 0 7deg,transparent 7deg 18deg);-webkit-mask-image:radial-gradient(closest-side,#000 20%,transparent 70%);mask-image:radial-gradient(closest-side,#000 20%,transparent 70%);pointer-events:none}
+.nxe-season-head>*{position:relative}
+.nxe-season-head h2{margin:14px 0 10px;font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--ink-c)}
+.nxe-sn{display:inline-block;margin:0 10px 8px 0;padding:5px 12px 3px;border-radius:9px;background:var(--yel);border:2.5px solid var(--ink-c);font:400 20px/1 var(--comic);letter-spacing:.06em;color:var(--ink-c);transform:rotate(-2deg);vertical-align:middle}
 .nxe-season-head p{max-width:64ch;margin-bottom:16px}
-.nxe-status{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:var(--amber-050);color:var(--amber);font:700 12px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase}
-.nxe-status.is-live{background:#FFECE8;color:#C2352A}
-.nxe-status.is-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF5A47;animation:nxeBlinkDot 1.4s ease-in-out infinite}
-.nxe-facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--body)}
-.nxe-facts b{font:800 18px/1 var(--font-display);color:var(--ink);margin-right:3px}
-.nxe-season-act{display:flex;flex-direction:column;gap:10px;align-items:stretch}
-.nxe-arc{margin-bottom:44px}
-.nxe-arc-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.nxe-arc-h h3{margin:0;font-size:1.3rem}
-.nxe-arc-h span{flex:none;padding:5px 10px;border-radius:999px;background:var(--blue-050);color:var(--blue-700);font:700 12px/1 var(--font-body);letter-spacing:.04em}
-.nxe-arc-h::after{content:"";flex:1;height:0;border-top:2px dashed var(--blue-100)}
+.nxe-status{display:inline-flex;align-items:center;gap:7px;padding:6px 12px 4px;border-radius:9px;background:#fff;border:2.5px solid var(--ink-c);color:var(--ink-c);font:400 17px/1 var(--comic);letter-spacing:.06em;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--ink-c)}
+.nxe-status.is-live{background:var(--red);color:#fff}
+.nxe-status.is-live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
+.nxe-facts{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--body)}
+.nxe-facts b{font:400 26px/1 var(--comic);letter-spacing:.03em;color:var(--blue);margin-right:4px}
+.nxe-season-act{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.nxe-shows .nxe-season-act .btn-ghost{background:#fff;color:var(--ink-c)}
+.nxe-shows .nxe-season-act .btn-ghost::before{display:none}
+.nxe-arc{margin-bottom:48px}
+.nxe-arc-h{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.nxe-arc-h h3{margin:0;padding:7px 15px 6px;border-radius:11px;background:#fff;border:3px solid var(--ink-c);box-shadow:4px 4px 0 var(--ink-c);font-size:1.15rem;color:var(--ink-c);transform:rotate(-1.5deg)}
+.nxe-arc-h span{flex:none;padding:5px 10px 3px;border-radius:8px;background:var(--blue);color:#fff;border:2px solid var(--ink-c);font:400 16px/1 var(--comic);letter-spacing:.06em;transform:rotate(2deg)}
+.nxe-arc-h::after{content:"";flex:1;height:4px;background:radial-gradient(circle,var(--ink-c) 1.6px,transparent 2px) 0 50%/10px 4px repeat-x;opacity:.35}
 .nxe-grid,.nxe-rail{list-style:none;margin:0}
-.nxe-grid{padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px 22px}
+.nxe-grid{padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:30px 24px}
 .nxe-grid--3{grid-template-columns:repeat(3,1fr)}
 
-/* ---------- cards ---------- */
+/* ---------- cards: comic panels ---------- */
 .nxe-card{display:flex;flex-direction:column;min-width:0}
-.nxe-thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:var(--r);overflow:hidden;background:var(--blue-050);box-shadow:0 0 0 1px rgba(31,31,61,.06),0 14px 26px -20px rgba(30,70,145,.6);transition:transform .35s var(--spring),box-shadow .25s ease}
+.nxe-anim .nxe-card{opacity:0;transform:translateY(22px) scale(.93) rotate(-2deg)}
+.nxe-anim .nxe-card.is-in{animation:nxePopIn .6s var(--spring) both;animation-delay:var(--k,0ms)}
+@keyframes nxePopIn{from{opacity:0;transform:translateY(22px) scale(.93) rotate(-2deg)}to{opacity:1;transform:none}}
+.nxe-thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:3px solid var(--ink-c);border-radius:16px;overflow:hidden;background:var(--blue-050);box-shadow:6px 6px 0 var(--ink-c);transition:transform .35s var(--spring),box-shadow .25s ease}
 button.nxe-thumb{cursor:pointer}
 .nxe-thumb img{display:block;width:100%;height:100%;object-fit:cover}
-.nxe-thumb::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(transparent,rgba(9,20,48,.55));pointer-events:none}
-.nxe-card:hover .nxe-thumb{transform:translateY(-4px) rotate(-1deg);box-shadow:0 0 0 3px rgba(111,160,245,.35),0 22px 34px -20px rgba(30,70,145,.7)}
-.nxe-kick{display:inline-block;margin-bottom:5px;font:800 12px/1 var(--font-display);letter-spacing:.06em;color:var(--blue);text-transform:uppercase}
-.nxe-len{position:absolute;right:10px;bottom:10px;z-index:2;padding:4px 7px;border-radius:7px;background:rgba(9,20,48,.78);color:#fff;font:600 12px/1 var(--font-body)}
-.nxe-state{position:absolute;left:10px;bottom:10px;z-index:2;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);font:700 11.5px/1 var(--font-body)}
-.nxe-thumb[data-nxe-premiere] .nxe-state{background:var(--blue);color:#fff}
-.nxe-thumb.is-live .nxe-state{background:#FF5A47;color:#fff}
-.nxe-playic{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--blue);box-shadow:0 10px 24px -8px rgba(9,20,48,.6);transform:scale(.85);opacity:.92;transition:transform .3s var(--spring),opacity .2s ease}
+.nxe-thumb::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(transparent,rgba(9,20,48,.5));pointer-events:none}
+.nxe-card:hover .nxe-thumb{transform:translate(-3px,-3px) rotate(-1.2deg);box-shadow:9px 9px 0 var(--ink-c)}
+.nxe-len{position:absolute;right:9px;bottom:9px;z-index:2;padding:4px 7px;border-radius:7px;background:var(--ink-c);color:#fff;font:700 12px/1 var(--font-body)}
+.nxe-state{position:absolute;left:9px;bottom:9px;z-index:2;padding:5px 9px 4px;border-radius:8px;background:#fff;border:2px solid var(--ink-c);color:var(--ink-c);font:400 14px/1 var(--comic);letter-spacing:.05em;transform:rotate(-2deg)}
+.nxe-thumb[data-nxe-premiere] .nxe-state{background:var(--yel)}
+.nxe-thumb.is-live .nxe-state{background:var(--red);color:#fff}
+.nxe-playic{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:var(--yel);border:3px solid var(--ink-c);color:var(--ink-c);box-shadow:3px 3px 0 var(--ink-c);transform:scale(.88);transition:transform .3s var(--spring)}
 .nxe-playic .ic{width:22px;height:22px;margin-left:3px}
-.nxe-thumb:hover .nxe-playic,.nxe-thumb:focus-visible .nxe-playic{transform:scale(1.05);opacity:1}
-.nxe-thumb:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.nxe-body{padding:14px 4px 0}
-.nxe-body h4{margin:0 0 6px;font-size:1.02rem;line-height:1.3}
+.nxe-thumb:hover .nxe-playic,.nxe-thumb:focus-visible .nxe-playic{transform:scale(1.08) rotate(-8deg)}
+.nxe-thumb:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.nxe-body{padding:16px 4px 0}
+.nxe-kick{display:inline-block;margin-bottom:6px;font:400 17px/1 var(--comic);letter-spacing:.06em;color:var(--blue)}
+.nxe-body h4{margin:0 0 6px;font-size:1.05rem;line-height:1.3;color:var(--ink-c)}
 .nxe-body p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
-.nxe-take{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin-top:10px!important;font-weight:600;color:var(--ink)!important}
-.nxe-take span{padding:3px 7px;border-radius:6px;background:#FFF1E6;color:#B4521E;font:700 10.5px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase}
-.nxe-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font:600 13.5px/1.2 var(--font-body)}
+.nxe-take{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;margin-top:10px!important;font-weight:600;color:var(--ink-c)!important}
+.nxe-take span{padding:3px 8px 2px;border-radius:6px;background:var(--yel);border:2px solid var(--ink-c);color:var(--ink-c);font:400 13px/1 var(--comic);letter-spacing:.07em}
+.nxe-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font:700 13.5px/1.2 var(--font-body)}
 .nxe-more .ic{width:15px;height:15px;transition:transform .25s var(--spring)}
 .nxe-more:hover .ic{transform:translateX(3px)}
 
-/* Season 2 cards are drawn until the season's thumbnails are made */
+/* Season 2 cards are drawn until the season's thumbnails are made: halftone + rays, an inked number */
 .nxe-drawn{position:absolute;inset:0;display:block;overflow:hidden;container-type:inline-size;background:linear-gradient(135deg,var(--c1),var(--c2))}
-.nxe-drawn::before{content:"";position:absolute;right:-30%;top:-60%;width:120%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.16) 0 8deg,transparent 8deg 20deg);-webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 75%);mask-image:radial-gradient(closest-side,#000 25%,transparent 75%)}
+.nxe-drawn::before{content:"";position:absolute;right:-30%;top:-60%;width:120%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.18) 0 8deg,transparent 8deg 20deg);-webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 75%);mask-image:radial-gradient(closest-side,#000 25%,transparent 75%)}
+.nxe-drawn::after{content:"";position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.22) 1.2px,transparent 1.7px) 0 0/12px 12px;-webkit-mask-image:linear-gradient(200deg,transparent 40%,#000);mask-image:linear-gradient(200deg,transparent 40%,#000)}
 .nxe-tone-0{--c1:#2F5FC4;--c2:#79A6F6}
 .nxe-tone-1{--c1:#F0624A;--c2:#FFB287}
 .nxe-tone-2{--c1:#14907F;--c2:#6BD6C2}
 .nxe-tone-3{--c1:#6450F0;--c2:#B0A5FF}
-.nxe-drawn-ep{position:absolute;left:5.5cqw;top:5.5cqw;z-index:1;display:flex;flex-direction:column;color:#fff;font:800 19cqw/.86 var(--font-display);letter-spacing:-.03em;text-shadow:0 1.4cqw 0 rgba(9,20,48,.18)}
-.nxe-drawn-ep small{font:800 4cqw/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;opacity:.92;margin-bottom:2.2cqw;text-shadow:none}
-.nxe-drawn-psych{position:absolute;left:5.5cqw;top:33cqw;z-index:1;max-width:52%;padding:1.6cqw 3.2cqw;border-radius:3cqw;background:rgba(255,255,255,.94);color:var(--ink);font:700 4.3cqw/1.2 var(--font-body);transform:rotate(-2deg)}
-.nxe-drawn-nexi{position:absolute!important;right:4%;bottom:-6%;z-index:1;width:auto!important;height:96%!important;object-fit:contain!important;filter:drop-shadow(0 10px 14px rgba(9,20,48,.3));transition:transform .4s var(--spring)}
+.nxe-drawn-ep{position:absolute;left:5.5cqw;top:5cqw;z-index:1;display:flex;flex-direction:column;color:var(--yel);font:400 22cqw/.82 var(--comic);letter-spacing:.02em;text-shadow:.8cqw 0 0 var(--ink-c),-.8cqw 0 0 var(--ink-c),0 .8cqw 0 var(--ink-c),0 -.8cqw 0 var(--ink-c),.6cqw .6cqw 0 var(--ink-c),-.6cqw .6cqw 0 var(--ink-c),.6cqw -.6cqw 0 var(--ink-c),-.6cqw -.6cqw 0 var(--ink-c),0 1.8cqw 0 var(--ink-c)}
+.nxe-drawn-ep small{font:400 5cqw/1 var(--comic);letter-spacing:.1em;color:#fff;margin-bottom:1.6cqw;text-shadow:.4cqw .4cqw 0 var(--ink-c)}
+.nxe-drawn-psych{position:absolute;left:5.5cqw;top:33cqw;z-index:2;max-width:64%;padding:1.5cqw 3cqw;border-radius:2.6cqw;background:#fff;border:.7cqw solid var(--ink-c);color:var(--ink-c);font:700 3.9cqw/1.2 var(--font-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform:rotate(-2deg)}
+.nxe-drawn-nexi{position:absolute!important;right:4%;bottom:-6%;z-index:1;width:auto!important;height:96%!important;object-fit:contain!important;filter:drop-shadow(.6cqw 0 0 #fff) drop-shadow(-.6cqw 0 0 #fff) drop-shadow(0 -.6cqw 0 #fff) drop-shadow(1.6cqw 1.6cqw 0 rgba(9,20,48,.4));transition:transform .4s var(--spring)}
 .nxe-card:hover .nxe-drawn-nexi{transform:translateY(-6px) rotate(-5deg)}
 
 /* Quick Tips rail */
-.nxe-tips{margin-top:8px;padding:28px 0 6px;border-top:1px solid var(--line)}
-.nxe-tips-sub{margin:-8px 0 18px;font-size:14.5px;color:var(--muted)}
+.nxe-tips{margin-top:8px;padding:30px 0 6px;border-top:3px dashed rgba(16,28,69,.18)}
+.nxe-tips-sub{margin:-8px 0 18px;font-size:14.5px;color:var(--body)}
 .nxe-rail-wrap{position:relative}
-.nxe-rail{display:grid;grid-auto-flow:column;grid-auto-columns:236px;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:0 4px;padding:6px 4px 18px;scrollbar-width:thin;scrollbar-color:var(--blue-100) transparent}
+.nxe-rail{display:grid;grid-auto-flow:column;grid-auto-columns:240px;gap:22px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:0 4px;padding:6px 10px 22px 4px;scrollbar-width:thin;scrollbar-color:var(--blue-100) transparent}
 .nxe-rail:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:12px}
 .nxe-rail > li{scroll-snap-align:start}
-.nxe-card--tip .nxe-body h4{font-size:.95rem}
+.nxe-card--tip .nxe-thumb{box-shadow:5px 5px 0 var(--ink-c)}
+.nxe-card--tip .nxe-body h4{font-size:.96rem}
 .nxe-card--tip .nxe-body p{font-size:13.5px}
-.nxe-rail-btn{position:absolute;top:calc(236px * 9 / 16 / 2 - 4px);z-index:3;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--blue);box-shadow:0 0 0 3px rgba(111,160,245,.3),0 10px 22px -10px rgba(30,70,145,.6);cursor:pointer;transition:transform .25s var(--spring),opacity .2s ease}
-.nxe-rail-btn .ic{width:20px;height:20px}
-.nxe-rail-btn--prev{left:-14px}
+.nxe-rail-btn{position:absolute;top:calc(240px * 9 / 16 / 2 - 14px);z-index:3;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:3px solid var(--ink-c);background:var(--yel);color:var(--ink-c);box-shadow:3px 3px 0 var(--ink-c);cursor:pointer;transition:transform .25s var(--spring),opacity .2s ease}
+.nxe-rail-btn .ic{width:22px;height:22px}
+.nxe-rail-btn--prev{left:-16px}
 .nxe-rail-btn--prev .ic{transform:rotate(90deg)}
-.nxe-rail-btn--next{right:-14px}
+.nxe-rail-btn--next{right:-16px}
 .nxe-rail-btn--next .ic{transform:rotate(-90deg)}
-.nxe-rail-btn:hover{transform:scale(1.08)}
+.nxe-rail-btn:hover{transform:scale(1.1) rotate(-6deg)}
 .nxe-rail-btn:disabled{opacity:0;pointer-events:none}
-.nxe-note{display:flex;align-items:center;gap:10px;margin:-12px 0 36px;padding:14px 18px;border-radius:14px;border:2px dashed var(--blue-100);color:var(--blue-700);font-weight:600;font-size:15px}
-.nxe-note .ic{width:20px;height:20px;flex:none}
+.nxe-note{display:flex;align-items:center;gap:10px;margin:-12px 0 38px;padding:14px 18px;border-radius:14px;background:#FFF6D4;border:3px solid var(--ink-c);box-shadow:5px 5px 0 var(--ink-c);color:var(--ink-c);font-weight:700;font-size:15px;transform:rotate(-.6deg)}
+.nxe-note .ic{width:22px;height:22px;flex:none;color:var(--blue)}
+
+/* ---------- CTA: a deep-blue comic panel ---------- */
+.nxe-cta{background:#F4F7FE}
+.nxe-cta .cta{background:radial-gradient(900px 500px at 85% 20%,#3E74DE,#1D47A6 55%,var(--deep));border:3px solid var(--ink-c);box-shadow:10px 10px 0 var(--ink-c)}
+.nxe-cta .cta::after{right:-200px;top:-260px;width:620px;height:620px;background:repeating-conic-gradient(rgba(255,255,255,.08) 0 7deg,transparent 7deg 18deg);-webkit-mask-image:radial-gradient(closest-side,#000 15%,transparent 70%);mask-image:radial-gradient(closest-side,#000 15%,transparent 70%)}
+.nxe-cta .cta .hand{color:var(--yel)}
 
 /* ---------- player ---------- */
-.nxe-player{width:min(980px,94vw);max-width:none;max-height:94vh;padding:0;border:0;border-radius:22px;background:#fff;box-shadow:0 40px 80px -30px rgba(9,20,48,.7);overflow:hidden}
-.nxe-player::backdrop{background:rgba(15,22,48,.72);backdrop-filter:blur(4px)}
-.nxe-player[open]{animation:nxePlayer .4s var(--spring)}
-@keyframes nxePlayer{from{opacity:0;transform:translateY(16px) scale(.96)}}
-.nxe-player-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 12px 20px}
-.nxe-player-t{font:800 17px/1.3 var(--font-display);color:var(--ink)}
-.nxe-player-x{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
-.nxe-player-x:hover{background:var(--blue-050);color:var(--blue-700)}
+.nxe-player{width:min(980px,94vw);max-width:none;max-height:94vh;padding:0;border:4px solid var(--ink-c);border-radius:22px;background:#fff;box-shadow:12px 12px 0 rgba(5,12,40,.6);overflow:hidden}
+.nxe-player::backdrop{background:rgba(11,29,82,.78);backdrop-filter:blur(4px)}
+.nxe-player[open]{animation:nxePlayer .45s var(--spring)}
+@keyframes nxePlayer{from{opacity:0;transform:translateY(16px) scale(.94) rotate(-1deg)}}
+.nxe-player-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 12px 20px;border-bottom:3px solid var(--ink-c);background:var(--yel)}
+.nxe-player-t{font:400 22px/1.2 var(--comic);letter-spacing:.04em;color:var(--ink-c)}
+.nxe-player-x{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;border:3px solid var(--ink-c);background:#fff;color:var(--ink-c);box-shadow:2px 2px 0 var(--ink-c);cursor:pointer}
+.nxe-player-x:hover{background:var(--blue-050)}
 .nxe-player-x .ic{width:20px;height:20px}
 .nxe-player-frame{aspect-ratio:16/9;background:#0B0F1E}
 .nxe-player-frame iframe{display:block;width:100%;height:100%;border:0}
-.nxe-player-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+.nxe-player-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-top:3px solid var(--ink-c)}
+.nxe-player-foot .btn{border:2.5px solid var(--ink-c);box-shadow:0 3px 0 var(--ink-c);color:var(--ink-c)}
+.nxe-player-foot .btn::before{display:none}
 .nxe-player-foot .btn .ic{width:16px;height:16px}
 .nxe-player-foot [data-nxe-prev] .ic{transform:rotate(90deg)}
 .nxe-player-foot [data-nxe-next-ep] .ic{transform:rotate(-90deg)}
 .nxe-player-foot .btn:disabled{opacity:.4;cursor:default}
 
+/* ---------- the side tabs (Set up meeting / Let's Talk / Ask Nexi) as comic stickers on this page ----------
+   Desktop tabs are turned 180deg (site.css), so a shadow written as (5px,-5px) lands down-left on screen and the
+   element's left edge is the screen's right edge (no border there: the tab sits on the window edge).
+   As in site.css, hover changes only colour, shadow and the icon, never the tab's box. */
+.is-nxe .side-tab{border:3px solid var(--ink-c);border-left:0;border-radius:0 14px 14px 0;padding:18px 11px 18px 13px;font:400 18px/1 var(--comic);letter-spacing:.07em;box-shadow:5px -5px 0 var(--ink-c);transition:background-color .2s ease,box-shadow .2s ease}
+.is-nxe .side-tab:hover{box-shadow:8px -8px 0 var(--ink-c)}
+.is-nxe .side-tab:active{box-shadow:2px -2px 0 var(--ink-c)}
+.is-nxe .side-tab:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active{color:var(--ink-c)}
+.is-nxe .meet-tab{background:var(--yel)}
+.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active{background:#FFDC5E}
+.is-nxe .talk-tab{background:#fff;color:var(--ink-c)}
+.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active{background:#EAF0FB;color:var(--ink-c)}
+.is-nxe .nexi-tab{background:linear-gradient(0deg,var(--blue),#6B5BFF);color:#fff}
+.is-nxe .nexi-tab:hover,.is-nxe .nexi-tab:active{background:linear-gradient(0deg,#2A58AE,#5A48F0);color:#fff}
+.is-nxe .side-tab .ic{width:18px;height:18px}
+.is-nxe .side-tab:hover .ic{animation:nxeWiggle .5s var(--spring)}
+.is-nxe .meet-tab:hover .ic{animation:nxeWiggleUp .5s var(--spring)}
+@keyframes nxeWiggle{30%{transform:rotate(90deg) translateY(-3px) scale(1.15)}60%{transform:rotate(78deg) scale(1.1)}100%{transform:rotate(90deg)}}
+@keyframes nxeWiggleUp{30%{transform:rotate(180deg) translateY(3px) scale(1.15)}60%{transform:rotate(168deg) scale(1.1)}100%{transform:rotate(180deg)}}
+@media (max-width:960px){
+  /* phones: round sticker buttons, not turned, so the shadow goes down-right as written */
+  .is-nxe .side-tab{border:3px solid var(--ink-c);border-radius:50%;padding:0;box-shadow:3px 3px 0 var(--ink-c)}
+  .is-nxe .side-tab:hover{box-shadow:4px 4px 0 var(--ink-c)}
+  .is-nxe .side-tab:active{box-shadow:1px 1px 0 var(--ink-c)}
+  .is-nxe .side-tab .ic{width:21px;height:21px}
+  @keyframes nxeWiggle{30%{transform:translateY(-3px) scale(1.15)}60%{transform:rotate(-12deg) scale(1.1)}100%{transform:none}}
+  .is-nxe .meet-tab:hover .ic{animation:nxeWiggle .5s var(--spring)}
+}
+@media (prefers-reduced-motion:reduce){.is-nxe .side-tab:hover .ic{animation:none}}
+
 /* ---------- responsive ---------- */
 @media (max-width:1100px){
   .nxe-hero-in{grid-template-columns:1fr;gap:12px}
-  .nxe-stage{max-width:620px;width:100%;margin-inline:auto}
+  .nxe-stage{max-width:620px;width:100%;margin:64px auto 0}   /* room above the TV for the cat, the owl and the helper bots */
+  .nxe-fl--1,.nxe-fl--2,.nxe-fl--6{display:none}
 }
 @media (max-width:760px){
-  .nxe-hero{padding-top:36px}
+  .nxe-hero{padding:calc(var(--header-h) + 26px) 0 84px;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%)}
+  .nxe-title{font-size:clamp(2.7rem,13vw,4rem)}
+  .nxe-title .hand{font-size:1.35rem}
+  .nxe-boom--1{left:auto;right:4%;top:calc(var(--header-h) + 8px);font-size:22px;padding:12px 15px}
+  .nxe-boom--2,.nxe-fl--3,.nxe-fl--5{display:none}
+  .nxe-fl--4{bottom:12%}
   .nxe-stage{height:350px}
-  .nxe-tv{width:82%;top:10px}
-  .nxe-nexi{width:146px;bottom:12px}
+  .nxe-tv{width:82%;top:12px;border-width:3px;box-shadow:7px 7px 0 rgba(5,12,40,.55)}
+  .nxe-nexi{width:148px;bottom:12px}
   .nxe-shadow{left:30px;bottom:4px;width:92px}
-  .nxe-say{left:142px;bottom:86px;max-width:190px;padding:8px 12px;font-size:14px}
+  .nxe-say{left:146px;bottom:88px;max-width:180px;padding:8px 12px;font-size:14px}
   .nxe-next .btn-link{margin-left:0}
-  .nxe-season-head{grid-template-columns:1fr;padding:24px 20px}
+  .nxe-season-head{grid-template-columns:1fr;padding:24px 20px;box-shadow:6px 6px 0 var(--ink-c)}
   .nxe-season-act{flex-direction:row;flex-wrap:wrap}
-  .nxe-grid,.nxe-grid--3{grid-template-columns:repeat(2,1fr);gap:22px 14px}
+  .nxe-grid,.nxe-grid--3{grid-template-columns:repeat(2,1fr);gap:26px 16px}
   .nxe-tab{min-width:0;flex:1 1 140px;padding:11px 14px}
+  .nxe-tab b{font-size:20px}
   .nxe-rail-btn{display:none}
   .nxe-rail{grid-auto-columns:72%}
+  .nxe-cta .cta{box-shadow:6px 6px 0 var(--ink-c)}
 }
 @media (max-width:520px){
   .nxe-grid,.nxe-grid--3{grid-template-columns:1fr}
   .nxe-stage{height:330px}
   .nxe-tv{width:86%}
-  .nxe-nexi{width:130px}
+  .nxe-nexi{width:132px}
   .nxe-shadow{left:26px;width:82px}
-  .nxe-say{left:128px;bottom:76px;max-width:170px}
+  .nxe-say{left:130px;bottom:78px;max-width:168px}
+  .nxe-copy .actions .btn{flex:1 1 100%}
 }
 @media (prefers-reduced-motion:reduce){
-  .nxe-sky::before,.nxe-sky i,.nxe-tv,.nxe-nexi,.nxe-shadow,.nxe-pop,.nxe-tv-on::before,.nxe-next-tag::before,.nxe-status.is-live::before{animation:none}
-  .nxe-say.is-pop,.nxe-js .nxe-panel.is-on,.nxe-player[open]{animation:none}
+  .nxe-rays,.nxe-fl,.nxe-fl>*,.nxe-boom,.nxe-tw,.nxe-tv,.nxe-nexi,.nxe-shadow,.nxe-pop,.nxe-tv-on::before,.nxe-next-tag::before,.nxe-status.is-live::before{animation:none}
+  .nxe-say.is-pop,.nxe-js .nxe-panel.is-on,.nxe-player[open],.nxe-word{animation:none}
+  .nxe-anim .nxe-card{opacity:1;transform:none}
   .nxe-card:hover .nxe-thumb,.nxe-card:hover .nxe-drawn-nexi{transform:none}
 }

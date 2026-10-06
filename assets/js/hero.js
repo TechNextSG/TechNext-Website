@@ -312,7 +312,7 @@
   }
   // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
   // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
-  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.nxs,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
   // the Nexi stage holds the slide while Nexi finishes a spoken line (hero-scenes.js, tn:hero-hold)
   hero.addEventListener('tn:hero-hold', function (e) { var d = e.detail || {}; if (!d.why) return; d.on ? hold(d.why) : release(d.why); });
   // ...and asks for a new turn when the visitor jumps within its script, so it never changes mid-explanation
@@ -451,7 +451,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.nxs,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;

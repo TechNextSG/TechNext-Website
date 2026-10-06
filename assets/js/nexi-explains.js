@@ -23,6 +23,22 @@
     return mm + ' min';
   }
 
+  /* ---------------- cards pop in like comic panels as they scroll into view ---------------- */
+  var popIO = null;
+  if (!reduce && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('nxe-anim');
+    popIO = new IntersectionObserver(function (en) {
+      en.forEach(function (x) {
+        if (!x.isIntersecting) return;
+        var c = x.target, sibs = c.parentNode ? [].slice.call(c.parentNode.children) : [];
+        c.style.setProperty('--k', Math.min(5, Math.max(0, sibs.indexOf(c) % 4)) * 70 + 'ms');
+        c.classList.add('is-in');
+        popIO.unobserve(c);
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
+    $$('.nxe-card').forEach(function (c) { popIO.observe(c); });
+  }
+
   /* ---------------- season tabs ---------------- */
   var tabs = $$('.nxe-tab'), panels = $$('.nxe-panel');
   function select(id, focus, push) {
@@ -213,6 +229,21 @@
   var TAP = [['wow', 'Whoa! You found me!'], ['love', 'Aww, thank you for watching!'], ['celebrate', 'Popcorn ready? Let’s go!'],
              ['jump', 'I wear a new costume every episode!'], ['clap', 'Beep boop! Pick a season below.'], ['hello', 'Hehe, that tickles!']];
   var poseW = { hello: 432, wow: 347, love: 336, celebrate: 530, jump: 456, clap: 347 };
+  var WORDS = ['BOOP!', 'WOW!', 'HEHE!', 'YAY!', 'ZING!', 'BEEP!'], wi = 0;
+  function soundWord() {
+    if (reduce || !nexi) return;
+    var w = document.createElement('span');
+    w.className = 'nxe-word';
+    w.setAttribute('aria-hidden', 'true');
+    w.textContent = WORDS[wi++ % WORDS.length];
+    var sr = stage.getBoundingClientRect(), nr = nexi.getBoundingClientRect();
+    w.style.left = Math.round(nr.left - sr.left + nr.width * 0.55) + 'px';
+    w.style.top = Math.round(nr.top - sr.top + 10) + 'px';
+    w.style.setProperty('--r', (Math.random() * 24 - 12).toFixed(1) + 'deg');
+    w.style.setProperty('--x', Math.round(Math.random() * 60 - 10) + 'px');
+    stage.appendChild(w);
+    w.addEventListener('animationend', function () { w.remove(); });
+  }
   var li = 0, ti = 0, visible = true, sayTimer = 0, tvTimer = 0, back = 0;
   function speak(text) {
     say.textContent = text;
@@ -228,7 +259,8 @@
   setTimeout(function () { Object.keys(poseW).forEach(function (k) { var i = new Image(); i.src = ROOT_IMG + 'nexi-' + k + '.webp'; }); }, 2500);
   if (nexi) nexi.addEventListener('click', function () {
     var t = TAP[ti++ % TAP.length];
-    pose(t[0]); speak(t[1]);
+    pose(t[0]); speak(t[1]); soundWord();
+    stage.dispatchEvent(new CustomEvent('nxe:tap'));
     if (!reduce) {
       nexi.classList.remove('is-hop'); void nexi.offsetWidth; nexi.classList.add('is-hop');
       stage.classList.remove('is-burst'); void stage.offsetWidth; stage.classList.add('is-burst');
@@ -257,4 +289,22 @@
   document.addEventListener('visibilitychange', restart);
   imgs.forEach(function (im) { if (im.loading === 'lazy') im.loading = 'eager'; });
   restart();
+
+  var heroEl = document.querySelector('[data-nxe-hero]');
+  var layers = heroEl ? $$('[data-depth]', heroEl) : [];
+  if (heroEl && layers.length && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var px = 0, py = 0, raf = 0;
+    heroEl.addEventListener('pointermove', function (e) {
+      var r = heroEl.getBoundingClientRect();
+      px = (e.clientX - r.left) / r.width - 0.5; py = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(function () {
+        raf = 0;
+        layers.forEach(function (el) {
+          var d = parseFloat(el.getAttribute('data-depth')) || 0;
+          el.style.translate = (px * d * -34).toFixed(1) + 'px ' + (py * d * -26).toFixed(1) + 'px';
+        });
+      });
+    });
+    heroEl.addEventListener('pointerleave', function () { layers.forEach(function (el) { el.style.translate = ''; }); });
+  }
 })();
