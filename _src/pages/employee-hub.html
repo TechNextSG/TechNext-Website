@@ -5,12 +5,19 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Employee Hub</span></nav>
     <span class="hand">for the technext team</span>
     <h1>Employee Hub</h1>
-    <p class="lead">Your email signature, profile photo, cards and call backgrounds, the links you use every day, and the company details forms keep asking for.</p>
+    <p class="lead">The people of TechNext, one card each. Below them: your brand kit, the links you use every day and the company details forms keep asking for.</p>
     <p class="th-note">{{icon:lock}}<span>A page for TechNext staff. Search engines are asked not to list it.</span></p>
   </div>
 </section>
 
-<section class="section th-sec" id="brand-kit">
+<section class="section th-sec th-team" id="team">
+  <div class="container">
+    <div class="sec-head"><span class="hand">meet the team</span><h2>The TechNext team</h2><p class="lead">Who does what, and how to reach them.</p></div>
+    <div class="th-people">{{TEAM_CARDS}}</div>
+  </div>
+</section>
+
+<section class="section section--alt th-sec" id="brand-kit">
   <div class="container">
     <div class="sec-head"><span class="hand">look like technext</span><h2>Brand kit</h2><p class="lead">Made on the TechNext brand, ready to download. Everything stays in your browser until you download it.</p></div>
     <div class="th-grid">
@@ -30,7 +37,7 @@
   </div>
 </section>
 
-<section class="section section--alt th-sec" id="tools">
+<section class="section th-sec" id="tools">
   <div class="container">
     <div class="sec-head"><span class="hand">every day</span><h2>Everyday links</h2><p class="lead">The tools we work in, and the pages worth sending to a client.</p></div>
     <div class="th-grid">
@@ -50,7 +57,7 @@
   </div>
 </section>
 
-<section class="section th-sec" id="company-details">
+<section class="section section--alt th-sec" id="company-details">
   <div class="container">
     <div class="sec-head"><span class="hand">copy and paste</span><h2>Company details</h2><p class="lead">For forms, invoices and supplier registrations. Press Copy to put a line on your clipboard.</p></div>
     <dl class="th-facts">{{TEAM_FACTS}}</dl>

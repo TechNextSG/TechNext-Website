@@ -25,6 +25,7 @@ import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
+import team as TEAM  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -715,6 +716,25 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
                     "url": f'https://www.youtube.com/watch?v={e["yt"]}', "publisher": {"@id": org_id},
                     "partOfSeries": {"@id": url + "#series"}})
     return out
+
+
+def team_cards_html() -> str:
+    """One card per employee (_src/team.py), then a card inviting the rest of the team to add theirs."""
+    out = []
+    for k, p in enumerate(TEAM.TEAM):
+        initials = "".join(w[0] for w in p["name"].split()[:3:2] if w).upper() if len(p["name"].split()) > 2 else "".join(w[0] for w in p["name"].split()[:2]).upper()
+        if p.get("photo"):
+            pic = f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="" width="600" height="600" loading="lazy" decoding="async">'
+        else:
+            pic = f'<span class="th-ini" aria-hidden="true">{initials}</span>'
+        mail = (f'<a class="th-mail" href="mailto:{p["email"]}">{{{{icon:mail}}}}<span>{p["email"]}</span></a>'
+                if p.get("email") else "")
+        out.append(f'<article class="th-person th-tone-{k % 4}"><div class="th-ava">{pic}<img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"></div>'
+                   f'<h3>{p["name"]}</h3><p class="th-role">{p["role"]}</p>{mail}</article>')
+    out.append('<article class="th-person th-person--add"><div class="th-ava th-ava--add" aria-hidden="true">{{icon:users}}</div>'
+               '<h3>Your card goes here</h3><p class="th-role">Send your name, role and a photo to the marketing team and we will add you.</p>'
+               f'<a class="th-mail" href="mailto:{S.COMPANY["sales_email"]}?subject=Employee%20Hub%20card">{{{{icon:send}}}}<span>Send my details</span></a></article>')
+    return "".join(out)
 
 
 def team_facts_html() -> str:
@@ -1725,6 +1745,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{PILLARS}}", pillars_html())
     if "{{NXE_" in content:
         content = nxe_tokens(content)
+    if "{{TEAM_CARDS}}" in content:
+        content = content.replace("{{TEAM_CARDS}}", team_cards_html())
     if "{{TEAM_FACTS}}" in content:
         content = content.replace("{{TEAM_FACTS}}", team_facts_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)

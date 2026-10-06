@@ -260,6 +260,7 @@
   if (nexi) nexi.addEventListener('click', function () {
     var t = TAP[ti++ % TAP.length];
     pose(t[0]); speak(t[1]); soundWord();
+    stage.dispatchEvent(new CustomEvent('nxe:tap'));
     if (!reduce) {
       nexi.classList.remove('is-hop'); void nexi.offsetWidth; nexi.classList.add('is-hop');
       stage.classList.remove('is-burst'); void stage.offsetWidth; stage.classList.add('is-burst');
