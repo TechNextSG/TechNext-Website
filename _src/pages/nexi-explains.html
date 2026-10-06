@@ -1,11 +1,24 @@
-<!--meta {"title": "Nexi Explains: Odoo, AI and tech videos by TechNext", "desc": "TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.", "out": "nexi-explains.html", "nav": "nexi-explains", "og_image": "https://technext.asia/assets/img/nexi-explains/og.jpg", "scripts": ["assets/js/nexi-explains.js"], "head": "<script>document.documentElement.classList.add('nxe-js')</script><link rel=\"stylesheet\" href=\"{ROOT}assets/css/nexi-explains.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Nexi Explains: Odoo, AI and tech videos by TechNext", "desc": "TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.", "out": "nexi-explains.html", "nav": "nexi-explains", "og_image": "https://technext.asia/assets/img/nexi-explains/og.jpg", "body": "is-nxe", "scripts": ["assets/js/nexi-explains.js"], "head": "<script>document.documentElement.classList.add('nxe-js')</script><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Bangers&display=swap\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/nexi-explains.css?v={ASSET_V}\">"} -->
 
-<section class="nxe-hero">
-  <div class="nxe-sky" aria-hidden="true"><i></i><i></i><i></i></div>
+<section class="nxe-hero" data-nxe-hero>
+  <div class="nxe-bg" aria-hidden="true">
+    <span class="nxe-rays"></span>
+    <span class="nxe-dots"></span>
+    <span class="nxe-speed"></span>
+    <span class="nxe-fl nxe-fl--1" data-depth=".7">{{odoo:sale:34}}</span>
+    <span class="nxe-fl nxe-fl--2" data-depth="1">{{odoo:accountant:34}}</span>
+    <span class="nxe-fl nxe-fl--3" data-depth=".45">{{odoo:stock:34}}</span>
+    <span class="nxe-fl nxe-fl--4" data-depth=".85">{{odoo:crm:34}}</span>
+    <span class="nxe-fl nxe-fl--5" data-depth=".55">{{odoo:website:34}}</span>
+    <span class="nxe-fl nxe-fl--6" data-depth=".95">{{odoo:point_of_sale:34}}</span>
+    <span class="nxe-boom nxe-boom--1" data-depth=".35">NEW!</span>
+    <span class="nxe-boom nxe-boom--2" data-depth=".6">ZAP!</span>
+    <i class="nxe-tw nxe-tw--1">✦</i><i class="nxe-tw nxe-tw--2">✦</i><i class="nxe-tw nxe-tw--3">✦</i><i class="nxe-tw nxe-tw--4">✦</i><i class="nxe-tw nxe-tw--5">✦</i>
+  </div>
   <div class="container nxe-hero-in">
     <div class="nxe-copy">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Nexi Explains</span></nav>
-      <h1><span class="hand h1-hand">odoo, ai &amp; tech, made simple</span>Nexi Explains</h1>
+      <h1 class="nxe-title"><span class="hand h1-hand">odoo, ai &amp; tech, made simple</span><span class="nxe-t1">Nexi</span> <span class="nxe-t2">Explains</span></h1>
       <p class="lead">Short animated episodes starring Nexi, TechNext’s AI companion. One idea per episode, told as a little story: what Odoo is, the apps companies start with, AI that does the busywork, and the people side of changing systems.</p>
       <div class="actions">
         <a class="btn btn-primary btn-lg" href="#episodes" data-nxe-pre>{{icon:play}}<span>See every episode</span></a>
@@ -45,7 +58,7 @@
   <div class="container">
     <div class="sec-head">
       <span class="hand">every episode, season by season</span>
-      <h2>Pick a season. Press play.</h2>
+      <h2>Pick a season. <span class="nxe-mark">Press play.</span></h2>
       <p class="lead">Episodes play here once they premiere on YouTube. The rest are in the queue, so the list shows what is coming next.</p>
     </div>
     {{NXE_TABS}}
