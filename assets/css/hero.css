@@ -1144,6 +1144,9 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .slide--nxs .as-h1{color:#fff}
 .slide--nxs .as-h1 .kw>span{text-shadow:3px 0 0 var(--ink-c),-3px 0 0 var(--ink-c),0 3px 0 var(--ink-c),0 -3px 0 var(--ink-c),2.2px 2.2px 0 var(--ink-c),-2.2px 2.2px 0 var(--ink-c),2.2px -2.2px 0 var(--ink-c),-2.2px -2.2px 0 var(--ink-c),0 7px 0 var(--ink-c)}
 .slide--nxs .as-h1 .hl{color:var(--yel);background:none;-webkit-text-fill-color:var(--yel)}
+/* each kinetic word clips its own box (the rise-in): give the inked words room for the outline, the 7px drop
+   shadow and the descenders, and take it back with negative margins so the layout does not move */
+.slide--nxs .as-h1 .kw{padding:.08em .1em .3em;margin:-.08em -.1em -.3em}
 .slide--nxs .lead{color:rgba(255,255,255,.9)}
 .slide--nxs .pill-row .tag{background:#fff;color:var(--ink-c);box-shadow:0 0 0 2.5px var(--ink-c),3px 3px 0 2.5px var(--ink-c)}
 .slide--nxs .pill-row .tag:nth-child(odd){transform:rotate(-2deg)}
