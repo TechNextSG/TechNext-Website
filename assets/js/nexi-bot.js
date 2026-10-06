@@ -387,6 +387,7 @@
     /* Nexi never parks on text or buttons. obstacles() lists the text runs, links, buttons and controls
        of the visible slide (refreshed every 0.35 s); goTo() moves each target to the nearest spot
        where Nexi's box touches none of them. */
+    var WORDY = (function () { try { return new RegExp('[\\p{L}\\p{N}]', 'u'); } catch (e) { return /[A-Za-z0-9\u00C0-\u024F\u0370-\u1FFF\u3040-\uD7AF]/; } })();
     var OBS = [], obsAt = -9, OBS_SEL = 'a,button,input,select,textarea,label,.btn,[role="button"],[tabindex]';
     var rg = document.createRange();
     function shown(el) { return !el.checkVisibility || el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); }
@@ -422,7 +423,9 @@
       [slide, hero.querySelector('.hero-ctl')].forEach(function (root) {
         if (!root) return;
         root.querySelectorAll(OBS_SEL).forEach(function (el) { var r = el.getBoundingClientRect(); if (r.width * r.height < W * H * 0.2 && shown(el)) add(clipIn(r, el, scr, sr), 8); });
-        var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return /\S/.test(n.nodeValue) ? 1 : 3; } }), n;
+        /* words only: a glyph with no letter or digit (the comic sky's ✦ twinkles, ★, ♪) is decoration, not text to keep
+           readable, so she never fades for one */
+        var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { return WORDY.test(n.nodeValue) ? 1 : 3; } }), n;
         while ((n = tw.nextNode())) { var el = n.parentElement; if (!el || !shown(el)) continue; rg.selectNodeContents(n); add(clipIn(rg.getBoundingClientRect(), el, scr, sr), 6); }
       });
       var mq = hero.querySelector('.hero-marquee'); if (mq) add(mq.getBoundingClientRect(), 4);
@@ -501,6 +504,17 @@
       return t;
     }
     function place(sx, sy, z) { R.tz = z; R.lock = { sx: sx, sy: sy }; }
+    /* the right-most point of either hand on screen, in px: the palm's edge (0.13 wide) taken both ways, so it holds
+       whichever way the body has turned */
+    function handFront() {
+      var best = -1e9, upp = 0;
+      [handL, handR].forEach(function (h) {
+        var a = [-0.13, 0.13].map(function (dx) { tmp3.set(dx, 0, 0); h.localToWorld(tmp3).project(camera); return (tmp3.x + 1) / 2 * W; });
+        var f = Math.max(a[0], a[1]);
+        if (f > best) { best = f; upp = 0.26 / Math.max(4, Math.abs(a[1] - a[0])); }
+      });
+      return { x: best, upp: upp };
+    }
     /* The fourth-wall corner: Nexi comes right up to the screen at the left edge, half of it past the edge.
        Only where its close-up box (the visible part) covers no text or button; the right edge belongs to the
        side tabs. */
@@ -814,9 +828,22 @@
         var at = toScreen(R.tx, R.ty, R.tz), near = Math.abs(at[0] - want[0]) < SIZE * 0.8 && Math.abs(at[1] - want[1]) < SIZE * 1.1;
         T.dur = near ? 8 : 5.4;
         T.at(1.6, function () { lookAtEl(t, 6); play('point'); expr('happy', 2); t.classList.add('is-called'); say('tab1', true, 2.1); });
+        /* while she tugs, her leading hand stays on the tab and her body does the pulling: each frame she slides so the
+           hand's front edge sits 4 px over the tab's real edge (turning to face it shortens her reach, and the comic
+           tabs are a different width, so the reach is measured, never assumed; the tab's own tug moves the hand too) */
+        var grip = false;
+        T.tick = function () {
+          R.gripOn = grip;
+          if (!grip) return;
+          var hf = handFront(), d = (rectOf(t).x + 4) - hf.x;
+          /* the body closes most of the gap (it moves on a spring, so it lags the pulls); the hands take up the rest
+             at once, so they stay on the tab while the body and the pose do the tugging */
+          if (Math.abs(d) > 0.5) { var b = botPx(); place(b.x + d * 0.5, b.y, R.tz); }
+          R.gripDx = clamp((R.gripDx || 0) + d * hf.upp * 0.8, -0.7, 0.7);
+        };
         if (near) {
-          T.at(3.4, function () { play('tug'); expr('content', 2); if (!t.matches(':hover')) t.classList.add('is-tugged'); say('tab2', true, 2.1); });
-          T.at(5.8, function () { t.classList.remove('is-tugged'); play('wave'); play('hop'); expr('star', 1.6); emote(['✦', '→'], 2); say('tab3', true, 2.1); });
+          T.at(3.4, function () { play('tug'); expr('content', 2); grip = true; if (!t.matches(':hover')) t.classList.add('is-tugged'); say('tab2', true, 2.1); });
+          T.at(5.8, function () { grip = false; R.gripOn = false; var b = botPx(); goTo(b.x - SIZE * 0.2, b.y, R.tz); t.classList.remove('is-tugged'); play('wave'); play('hop'); expr('star', 1.6); emote(['✦', '→'], 2); say('tab3', true, 2.1); });
         } else {
           T.at(2.4, function () { arrowsTo(t); });
           T.at(3.6, function () { play('point'); expr('star', 1.4); arrowsTo(t); say('tab3', true, 2.1); });
@@ -842,7 +869,7 @@
       var T = { name: name, t0: time, dur: 4, tick: null, done: false,
         at: function (s, fn) { timersT.push({ at: time + s, fn: fn }); },
         end: function () { T.dur = 0; } };
-      R.task = T; R.lastTask = name;
+      R.task = T; R.lastTask = name; R.gripOn = false;
       (extra || TASKS[name].run)(T);
     }
     function nextTask() {
@@ -1167,8 +1194,10 @@
       }
       var lookY = Sp.ly.step(ly, dt), lookP = Sp.lp.step(lp, dt);
       head.rotation.set(lookP + Sp.nod.step(O.nod, dt), lookY, Sp.tilt.step(O.tilt, dt));
-      handL.position.set(HL.x + Sp.hLx.step(O.hLx, dt), HL.y + Math.sin(time * 2) * 0.035 + Sp.hLy.step(O.hLy, dt), HL.z + Sp.hLz.step(O.hLz, dt));
-      handR.position.set(HR.x + Sp.hRx.step(O.hRx, dt), HR.y + Math.sin(time * 2 + 1.3) * 0.035 + Sp.hRy.step(O.hRy, dt), HR.z + Sp.hRz.step(O.hRz, dt));
+      if (!R.gripOn && R.gripDx) R.gripDx = Math.abs(R.gripDx) < 0.002 ? 0 : R.gripDx * Math.exp(-dt * 7);
+      var gdx = R.gripDx || 0;
+      handL.position.set(HL.x + gdx + Sp.hLx.step(O.hLx, dt), HL.y + Math.sin(time * 2) * 0.035 + Sp.hLy.step(O.hLy, dt), HL.z + Sp.hLz.step(O.hLz, dt));
+      handR.position.set(HR.x + gdx + Sp.hRx.step(O.hRx, dt), HR.y + Math.sin(time * 2 + 1.3) * 0.035 + Sp.hRy.step(O.hRy, dt), HR.z + Sp.hRz.step(O.hRz, dt));
       handR.rotation.z = Sp.hRr.step(O.hRr, dt);
 
       /* face */
@@ -1261,7 +1290,8 @@
     var api = {
       pause: function () { wantRun = false; if (running) pause(); },
       resume: function () { wantRun = true; if (warmed) resume(); },
-      stage: stage, cue: cue, lite: LITE
+      stage: stage, cue: cue, lite: LITE,
+      act: function (n) { if (TASKS[n] && !ST.on && TASKS[n].w()) { startTask(n); return true; } return false; }
     };
     /* live: drawing on screen right now (the stage script only cues a Nexi the visitor can see) */
     Object.defineProperty(api, 'live', { get: function () { return running && inView && !document.hidden; } });
