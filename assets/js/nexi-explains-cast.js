@@ -215,7 +215,7 @@
   host.appendChild(cv);
   var gg = cv.getContext('2d');
   if (!gg) { cv.remove(); return; }
-  var slide = perch ? stage.closest('.slide') : null, heroEl = perch ? stage.closest('[data-hero]') : null, seen = true;
+  var slide = perch ? stage.closest('.slide') : null, heroEl = perch ? stage.closest('[data-hero]') : null, seen = true, wipeT = 0;
   var SCENE = 22, W = 0, H = 0, dpr = 1, last = 0, raf = 0, on = true, u0 = 0, prevU = -1, fired = {}, tapAt = -9;
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function ease(k) { k = clamp(k, 0, 1); return k * k * (3 - 2 * k); }
@@ -344,12 +344,15 @@
     put(tvR.l + tvR.w * 0.7, tvR.t - 64 * k, 0.34 * k, function () { miniBot(gg, 0, 0, 1, '#5FD3FF', { ph: 0 }); });
     put(tvR.l + tvR.w * 0.84, tvR.t - 76 * k, 0.3 * k, function () { miniBot(gg, 0, 0, 1, '#FFD84A', { ph: 1.7, arm: Math.sin(T * 6) > 0 }); });
     var wave = u > 3.8 && u < 5.6 ? 1 : 0;
-    put(tvR.l + tvR.w * 0.62, topAt(0.62), 0.66 * k, function () { cat(gg, 0, 0, wave); });
+    /* the cat sits clear of the countdown chip when the chip is above the TV (desktop), else at 62% */
+    var chipEl = stage.querySelector('.nxs-next'), cf = 0.62;
+    if (chipEl) { var ch = rel(chipEl, c); if (ch.b <= tvR.t + 4 && ch.w) cf = clamp((ch.r - tvR.l + 34 * k) / tvR.w, 0.5, 0.74); }
+    put(tvR.l + tvR.w * cf, topAt(cf), 0.66 * k, function () { cat(gg, 0, 0, wave); });
     put(tvR.l + tvR.w * 0.95, topAt(0.95) - 60 * 0.5 * k, 0.5 * k, function () { owl(gg, 0, 0, 1); });
     once('hoot', u, 4.6, function () { LK.hoot = T; });
     var q = still ? 1 : seg(u, 2, 3.2), out = still ? 0 : seg(u, 9.4, 10.8);
     if (still || (u > 2 && u < 10.8)) {
-      var lx = tvR.l + tvR.w * 0.8, ly = topAt(0.8), fx = W + 70 * k, fy = tvR.t - 130 * k;
+      var lf = (cf + 0.95) / 2 + 0.02, lx = tvR.l + tvR.w * lf, ly = topAt(lf), fx = W + 70 * k, fy = tvR.t - 130 * k;
       var dx = lerp(lerp(fx, lx, q), tvR.l + tvR.w * 0.3, out), dy = lerp(lerp(fy, ly, q), tvR.t - 170 * k, out) - Math.sin(q * Math.PI) * 50 * k - Math.sin(out * Math.PI) * 30 * k;
       var fly = !still && (u < 3.2 || u > 9.4);
       put(dx, dy - 17 * 1.3 * k + (fly ? Math.sin(T * 18) * 3 * k : 0), 1.3 * k, function () { duck(gg, 0, 0); }, u > 9.4 ? -1 : 1, fly ? -0.18 : 0, 1 - out);
@@ -375,7 +378,8 @@
     else {
       stop();
       /* the home slide went away: wipe the frame so nobody is left frozen on the next slide */
-      if (slide && !showing) { seen = false; gg.setTransform(1, 0, 0, 1, 0, 0); gg.clearRect(0, 0, cv.width, cv.height); }
+      /* (after the slide's closing circle, so the cast is not wiped while it is still on screen) */
+      if (slide && !showing) { seen = false; clearTimeout(wipeT); wipeT = setTimeout(function () { if (!slide.classList.contains('is-active')) { gg.setTransform(1, 0, 0, 1, 0, 0); gg.clearRect(0, 0, cv.width, cv.height); } }, 950); }
     }
   }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { on = en[en.length - 1].isIntersecting; sync(); }).observe(stage);
@@ -392,5 +396,6 @@
   if (pageStage && pageStage.querySelector('.nxe-tv') && pageStage.querySelector('[data-nxe-nexi]'))
     castScene(pageStage.closest('[data-nxe-hero]'), pageStage, pageStage.querySelector('.nxe-tv'), pageStage.querySelector('[data-nxe-nexi]'), false);
   var homeStage = document.querySelector('[data-hero] [data-nxs]');
-  if (homeStage && homeStage.querySelector('.nxs-tv')) castScene(homeStage.closest('[data-hero]'), homeStage, homeStage.querySelector('.nxs-tv'), null, true);
+  /* home: the canvas lives in slide 6 itself, so the circle transition clips the cast with the slide */
+  if (homeStage && homeStage.querySelector('.nxs-tv')) castScene(homeStage.closest('.slide'), homeStage, homeStage.querySelector('.nxs-tv'), null, true);
 })();

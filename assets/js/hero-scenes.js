@@ -1840,13 +1840,18 @@
     function wake() { if (on) { nextUp(); caption(); loop(); } else clearTimeout(t); }
     /* the comic sky irises open from the TV (hero.css .nxs-bg) and a sound word bursts out of it; leaving, the sky
        closes with a WHOOSH. The header turns the sky's navy while it is up (html.nxs-dark). */
-    var tvEl = $('.nxs-tv', root), fxWord = $('[data-nxs-fx]', hero), fxT = 0, IN = ['BAM!', 'POW!', 'ZAP!'], inK = 0;
+    var tvEl = $('.nxs-tv', root), slideEl = root.closest('.slide'), fxWord = $('[data-nxs-fx]', hero), fxT = 0, darkT = 0, IN = ['BAM!', 'POW!', 'ZAP!'], inK = 0;
+    /* the circle grows from (and shrinks into) the TV's centre: set on the slide for its clip, on the hero for the burst */
     function origin() {
       if (!tvEl) return;
-      var hr = hero.getBoundingClientRect(), r = tvEl.getBoundingClientRect();
-      if (!r.width || !hr.width) return;
-      hero.style.setProperty('--nxs-ox', ((r.left + r.width / 2 - hr.left) / hr.width * 100).toFixed(1) + '%');
-      hero.style.setProperty('--nxs-oy', ((r.top + r.height / 2 - hr.top) / hr.height * 100).toFixed(1) + '%');
+      var r = tvEl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      [[hero, hero.getBoundingClientRect()], [slideEl, slideEl && slideEl.getBoundingClientRect()]].forEach(function (p) {
+        if (!p[0] || !p[1] || !p[1].width || !r.width) return;
+        p[0].style.setProperty('--nxs-ox', ((cx - p[1].left) / p[1].width * 100).toFixed(1) + '%');
+        p[0].style.setProperty('--nxs-oy', ((cy - p[1].top) / p[1].height * 100).toFixed(1) + '%');
+        var hr = hero.getBoundingClientRect(), dx = Math.max(cx - hr.left, hr.right - cx), dy = Math.max(cy - hr.top, hr.bottom - cy);
+        p[0].style.setProperty('--nxs-r', Math.ceil(Math.sqrt(dx * dx + dy * dy) + 24) + 'px');
+      });
     }
     function fx(kind) {
       if (reduce || !fxWord) return;
@@ -1859,13 +1864,15 @@
       root: root,
       enter: function (first) {
         on = true; set(cur); nextUp(); loop();
-        origin(); hero.classList.add('is-nxs'); document.documentElement.classList.add('nxs-dark');
+        origin(); hero.classList.add('is-nxs');
+        /* the header goes transparent (white type) only once the circle has covered the strip under it */
+        clearTimeout(darkT); darkT = setTimeout(function () { if (on) document.documentElement.classList.add('nxs-dark'); }, reduce || first ? 0 : 950);
         if (!first) fx('in');
       },
       leave: function () {
         on = false; clearTimeout(t);
         if (hero.classList.contains('is-nxs')) { origin(); fx('out'); }
-        hero.classList.remove('is-nxs'); document.documentElement.classList.remove('nxs-dark');
+        clearTimeout(darkT); hero.classList.remove('is-nxs'); document.documentElement.classList.remove('nxs-dark');
       },
       wake: wake
     };
