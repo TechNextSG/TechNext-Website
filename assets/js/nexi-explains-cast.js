@@ -406,7 +406,7 @@
   function start() { if (reduce) { frame(true); return; } if (!raf && on) { last = 0; raf = requestAnimationFrame(loop); } }
   function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
   function sync() {
-    var showing = !slide || slide.classList.contains('is-active');
+    var showing = (!slide || slide.classList.contains('is-active')) && !document.documentElement.classList.contains('intro');
     if (on && showing && !document.hidden) { if (slide && !seen) { u0 = T; prevU = -1; fired = {}; } seen = true; start(); }
     else {
       stop();
@@ -417,6 +417,7 @@
   }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { on = en[en.length - 1].isIntersecting; sync(); }).observe(stage);
   document.addEventListener('visibilitychange', sync);
+  document.addEventListener('tn:intro-done', sync);
   if (heroEl) heroEl.addEventListener('tn:slide', function () { setTimeout(sync, 0); });
   if ('ResizeObserver' in window) new ResizeObserver(function () { size(); if (reduce) frame(true); }).observe(stage);
   stage.addEventListener('nxe:tap', function () { tapAt = T; LK.hoot = T; GOAT.hop = T; DUCK.bob = T; });
