@@ -119,8 +119,8 @@
 .nxe-pop--3{right:8px;top:0;font-size:30px;animation-delay:-2.6s}
 .nxe-stage.is-burst .nxe-pop{animation:nxeBurst .8s var(--spring)}
 @keyframes nxeBurst{40%{transform:scale(2) rotate(30deg)}}
-/* the sidekicks' scene (nexi-explains-cast.js): one canvas around the stage, above Nexi and the TV, under her bubble */
-.nxe-cast{position:absolute;left:-40px;right:-110px;top:-150px;bottom:-30px;z-index:2;width:calc(100% + 150px);height:calc(100% + 180px);pointer-events:none}
+/* the sidekicks' scene (nexi-explains-cast.js): one canvas over the whole hero (so they enter from the window edge), above Nexi and the TV, under her bubble */
+.nxe-hero>.nxe-cast{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
 /* a sound word pops out of Nexi when she is tapped (nexi-explains.js) */
 .nxe-word{position:absolute;z-index:4;font:400 34px/1 var(--comic);letter-spacing:.04em;color:var(--yel);pointer-events:none;text-shadow:2.5px 0 0 var(--ink-c),-2.5px 0 0 var(--ink-c),0 2.5px 0 var(--ink-c),0 -2.5px 0 var(--ink-c),2px 2px 0 var(--ink-c),-2px 2px 0 var(--ink-c),2px -2px 0 var(--ink-c),-2px -2px 0 var(--ink-c),0 5px 0 var(--ink-c);animation:nxeWord 1.1s var(--ease-out) forwards}
 @keyframes nxeWord{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(var(--r,-10deg))}25%{opacity:1;transform:translate(var(--x,0),-30px) scale(1.15) rotate(var(--r,-10deg))}100%{opacity:0;transform:translate(var(--x,0),-70px) scale(1) rotate(var(--r,-10deg))}}
