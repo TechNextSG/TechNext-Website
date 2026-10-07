@@ -311,9 +311,19 @@
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
   function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
-  function restart() { clear(); remaining = durOf(idx); if (dots[idx]) dots[idx].style.setProperty('--dur', remaining + 'ms'); if (!autoplay) return; if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); } }
+  // barDur: the length of the active dot's bar animation (its --dur), so a postponed turn can redraw the bar to match
+  var barDur = DUR;
+  function setBar(dur, lag) { var d = dots[idx]; if (!d) return; barDur = dur; d.style.setProperty('--dur', dur + 'ms'); d.style.setProperty('--lag', (lag || 0) + 'ms'); }
+  function restart() { clear(); remaining = durOf(idx); dots.forEach(function (d) { d.style.removeProperty('--lag'); }); setBar(remaining, 0); if (!autoplay) return; if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); } }
   function pause() { if (paused || !autoplay) return; paused = true; hero.classList.add('is-paused'); if (timer) { remaining = Math.max(200, remaining - (performance.now() - startedAt)); clear(); } }
-  function resume() { if (!paused || !autoplay) return; paused = false; hero.classList.remove('is-paused'); startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
+  // after the visitor has been doing something in the hero the turn is postponed: at least GRACE is left when the
+  // countdown runs again, and the bar steps back to show it
+  var GRACE = 4000;
+  function resume() {
+    if (!paused || !autoplay) return; paused = false;
+    if (remaining < GRACE && barDur > GRACE) { remaining = GRACE; setBar(barDur, GRACE - barDur); restartBar(); }
+    hero.classList.remove('is-paused'); startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining);
+  }
   // Autoplay stops while anything holds it: the pause button, a hand on the interactive visual, keyboard
   // focus, an open pop-up, a touch, the intro, a hidden tab or the hero off screen. It runs again only when
   // no hold is left. The progress bar pauses with the timer (.is-paused), so the two always agree.
@@ -338,14 +348,14 @@
   }
   // A hand on the interactive visual holds the slide (so it never changes under the cursor); the headline,
   // the text and these controls do not. Released with a short delay, so crossing the stage does not stop it.
-  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.nxs,.actions,.pill-row,[data-app],[data-flow]', holdT = null;
+  var HOLD = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage button,.nxs,.actions,.pill-row,[data-app],[data-flow],.hxs-left,.hxs-nexi-b,.hxs-pills', holdT = null;
   // the Nexi stage holds the slide while Nexi finishes a spoken line (hero-scenes.js, tn:hero-hold)
   hero.addEventListener('tn:hero-hold', function (e) { var d = e.detail || {}; if (!d.why) return; d.on ? hold(d.why) : release(d.why); });
   // ...and asks for a new turn when the visitor jumps within its script, so it never changes mid-explanation
   hero.addEventListener('tn:hero-dur', function (e) {
     var ms = e.detail && +e.detail.ms; if (!ms || !autoplay) return;
     clear(); remaining = ms;
-    if (dots[idx]) { dots[idx].style.setProperty('--dur', ms + 'ms'); restartBar(); }
+    if (dots[idx]) { setBar(ms, 0); restartBar(); }
     if (!paused) { startedAt = performance.now(); timer = setTimeout(function () { show(nextIdx()); }, remaining); }
   });
   hero.addEventListener('pointerover', function (e) {
@@ -359,6 +369,25 @@
     clearTimeout(holdT); holdT = setTimeout(function () { release('hover'); }, 400);
   });
   hero.addEventListener('pointerleave', function () { clearTimeout(holdT); release('hover'); });
+  // a click or tap anywhere in the hero (not on the slide controls) is the visitor doing something: the turn waits
+  // while they do and a few seconds after (and then has GRACE left)
+  var actT = 0;
+  hero.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.hero-ctl')) return;
+    hold('act'); clearTimeout(actT); actT = setTimeout(function () { release('act'); }, 2500);
+  });
+  // the header's menus, the phone menu and the Let's Talk panel cover the hero: the turn waits until they close
+  var hdr = document.querySelector('[data-header]'), mnav = document.getElementById('mnav');
+  function menus() {
+    var open = !!(hdr && hdr.classList.contains('is-open')) || !!(mnav && !mnav.hidden) || document.body.classList.contains('talk-open') || document.body.classList.contains('tabs-open');
+    open ? hold('menu') : release('menu');
+  }
+  if (window.MutationObserver) {
+    var mo = new MutationObserver(menus);
+    if (hdr) mo.observe(hdr, { attributes: true, attributeFilter: ['class'] });
+    if (mnav) mo.observe(mnav, { attributes: true, attributeFilter: ['hidden'] });
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  }
   // keyboard focus holds it too; a mouse click on an arrow or a dot does not (that used to freeze the bar)
   hero.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches(':focus-visible')) hold('focus'); });
   hero.addEventListener('focusout', function (e) { if (!hero.contains(e.relatedTarget)) release('focus'); });

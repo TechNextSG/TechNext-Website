@@ -1841,30 +1841,40 @@
     /* the comic sky irises open from the TV (hero.css .nxs-bg) and a sound word bursts out of it; leaving, the sky
        closes with a WHOOSH. The header turns the sky's navy while it is up (html.nxs-dark). */
     var tvEl = $('.nxs-tv', root), slideEl = root.closest('.slide'), fxWord = $('[data-nxs-fx]', hero), fxT = 0, darkT = 0, IN = ['BAM!', 'POW!', 'ZAP!'], inK = 0;
-    /* the circle grows from (and shrinks into) the TV's centre: set on the slide for its clip, on the hero for the burst */
+    /* the circle grows from (and shrinks into) the TV's centre: set on the slide for its clip, on the burst's layer (it
+       covers the hero) for the burst. Never on the hero itself: a custom property there restyles its ~1,500 elements.
+       All the reads come first, then the writes, so the layout is worked out once. */
+    var fxBox = fxWord && fxWord.closest('.nxs-fx');
     function origin() {
       if (!tvEl) return;
-      var r = tvEl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      [[hero, hero.getBoundingClientRect()], [slideEl, slideEl && slideEl.getBoundingClientRect()]].forEach(function (p) {
-        if (!p[0] || !p[1] || !p[1].width || !r.width) return;
+      var r = tvEl.getBoundingClientRect(), hr = hero.getBoundingClientRect(), sr = slideEl && slideEl.getBoundingClientRect();
+      if (!r.width) return;
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2, dx = Math.max(cx - hr.left, hr.right - cx), dy = Math.max(cy - hr.top, hr.bottom - cy);
+      var rad = Math.ceil(Math.sqrt(dx * dx + dy * dy) + 24) + 'px';
+      [[fxBox, hr], [slideEl, sr]].forEach(function (p) {
+        if (!p[0] || !p[1] || !p[1].width) return;
         p[0].style.setProperty('--nxs-ox', ((cx - p[1].left) / p[1].width * 100).toFixed(1) + '%');
         p[0].style.setProperty('--nxs-oy', ((cy - p[1].top) / p[1].height * 100).toFixed(1) + '%');
-        var hr = hero.getBoundingClientRect(), dx = Math.max(cx - hr.left, hr.right - cx), dy = Math.max(cy - hr.top, hr.bottom - cy);
-        p[0].style.setProperty('--nxs-r', Math.ceil(Math.sqrt(dx * dx + dy * dy) + 24) + 'px');
+        p[0].style.setProperty('--nxs-r', rad);
       });
+    }
+    /* restart a class's animation without forcing a layout: off now, back on two frames later */
+    function replay(el, cls) {
+      el.classList.remove(cls); var tok = (el['_r' + cls] = (el['_r' + cls] || 0) + 1);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { if (el['_r' + cls] === tok) el.classList.add(cls); }); });
     }
     /* the header buttons and side tabs change costume with a small staggered pop (site.css .nxs-swap) */
     var swapT = 0;
     function swap() {
       if (reduce) return;
-      var de = document.documentElement; de.classList.remove('nxs-swap'); void de.offsetWidth; de.classList.add('nxs-swap');
+      var de = document.documentElement; replay(de, 'nxs-swap');
       clearTimeout(swapT); swapT = setTimeout(function () { de.classList.remove('nxs-swap'); }, 900);
     }
     function fx(kind) {
       if (reduce || !fxWord) return;
       fxWord.textContent = kind === 'in' ? IN[inK++ % IN.length] : 'WHOOSH!';
-      hero.classList.remove('is-nxs-in', 'is-nxs-out'); void hero.offsetWidth;
-      hero.classList.add(kind === 'in' ? 'is-nxs-in' : 'is-nxs-out');
+      hero.classList.remove(kind === 'in' ? 'is-nxs-out' : 'is-nxs-in');
+      replay(hero, kind === 'in' ? 'is-nxs-in' : 'is-nxs-out');
       clearTimeout(fxT); fxT = setTimeout(function () { hero.classList.remove('is-nxs-in', 'is-nxs-out'); }, 1000);
     }
     return {
