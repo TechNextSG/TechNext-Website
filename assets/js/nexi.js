@@ -34,6 +34,7 @@
   function introOn() { return document.documentElement.classList.contains('intro'); }
   function allowed() {
     if (calm.matches || introOn()) return false;
+    if (document.documentElement.classList.contains('hxs-on')) return false;   // the industries slide has its own Nexi
     // the desktop build is hidden below 961 px (hero.css): it runs only where it shows
     if (app && !app.lite) return desk.matches;
     return desk.matches || onNexiSlide();
@@ -82,7 +83,7 @@
   }
   [desk, calm].forEach(function (m) { if (m.addEventListener) m.addEventListener('change', sync); else m.addListener(sync); });
   /* phones: Nexi wakes with a Nexi slide and sleeps when the carousel moves on */
-  hero.addEventListener('tn:slide', function () { if (!desk.matches) sync(); });
+  hero.addEventListener('tn:slide', function () { if (!desk.matches) sync(); else setTimeout(function () { if (app) sync(); }, 0); });
 
   var saveData = navigator.connection && navigator.connection.saveData;
   /* the intro's end only wakes a Nexi that already exists: loading her here would land her set-up (Three.js + WebGL,

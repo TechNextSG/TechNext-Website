@@ -274,13 +274,17 @@
     if (camOn) camClear();
     var circle = isCircle(n) || isCircle(old);
     if (circle) keepUnder(isCircle(n) ? slides[old] : slides[n]);
+    // the industries slide opens as a circle from its badge strip over the slide before, which holds still under it
+    if (!circle && isOwn(n)) keepUnder(slides[old]);
     if (isCircle(old)) keepClosing(slides[old]);
     if (isCircle(n)) { slides[n].classList.remove('is-closing'); clearTimeout(closeT); }
     slides[old].classList.remove('is-active');
     if (dots[old]) { dots[old].classList.remove('is-active'); dots[old].setAttribute('aria-selected', 'false'); }
     idx = n;
     slides[idx].classList.add('is-active');
-    if (camOn && !isNexi(idx) && !circle) { camLeave(slides[old], old); camEnter(slides[idx], idx, false); }
+    // the industries slide makes its own entrance and exit (a full-bleed scene must not spin): it only fades, its
+    // neighbours keep their camera moves
+    if (camOn && !isNexi(idx) && !circle) { if (!isOwn(old) && !isOwn(idx)) camLeave(slides[old], old); if (!isOwn(idx)) camEnter(slides[idx], idx, false); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
     announce(viaUser); onSlide(idx); restart();
     if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
@@ -291,6 +295,7 @@
   // the Nexi Explains slide opens and closes as a circle on its own layer (hero.css): no camera move on either side
   // of it, and the slide underneath stays fully visible (and still) until the circle has covered or uncovered it
   function isCircle(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-circle')); }
+  function isOwn(i) { return !!(slides[i] && slides[i].hasAttribute('data-slide-inds')); }
   var underT = null, under = null, closeT = null;
   function keepUnder(el) {
     if (under) under.classList.remove('is-under');

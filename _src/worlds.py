@@ -159,9 +159,9 @@ def showcase_html() -> str:
             f'<span class="hand h1-hand">{b["hand"]}</span>'
             f'<p class="hxs-h">{b["h1"]}</p>'
             f'<p class="lead"><span class="m-full">{b["lead"]}</span><span class="m-short">{b["lead_m"]}</span></p>'
-            f'<div class="actions"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}industries/{k}.html" tabindex="{0 if i == 0 else -1}">Explore {ind["name"]} {{{{icon:arrow}}}}</a>'
-            f'<a class="btn btn-ghost btn-lg" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
-            f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry below</span></p>'
+            f'<div class="actions"><a class="btn btn-primary" href="{{{{ROOT}}}}industries/{k}.html" tabindex="{0 if i == 0 else -1}">Explore {ind["name"]} {{{{icon:arrow}}}}</a>'
+            f'<a class="btn btn-ghost" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
+            f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry</span></p>'
             f'</div></div>')
         casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" '
                      f'data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp"><span class="hxs-pills">{pills}</span></div>')
