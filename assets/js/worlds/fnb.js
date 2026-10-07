@@ -71,15 +71,17 @@
     }
   }
   function diner(x, y, ph, col, hair, hs) { return { x: x, y: y, s: 0.44, ph: ph, c: { skin: ['#F3CDA8', '#8D5A3B', '#E8B48F', '#B9845F', '#6B4329', '#C68B5E'][Math.round(ph * 3) % 6], hair: hair, top: col }, outfit: 'tee', hairStyle: hs, short: true, feet: false, mood: 'happy', look: 0, talk: false, hands: [[-70, -180], [70, -180]] }; }
-  var DINERS = [diner(-466, 446, 0.2, '#7FA8C9', '#2B1D16', 'long'), diner(-354, 446, 1.3, C.mustard, '#A9A9A9', 'bald'), diner(-140, 446, 0.8, '#C9A7E0', '#2B1D16', 'pony')];
+  var DINERS = [diner(-458, 446, 0.2, '#7FA8C9', '#2B1D16', 'long'), diner(-362, 446, 1.3, C.mustard, '#A9A9A9', 'bald'), diner(-140, 446, 0.8, '#C9A7E0', '#2B1D16', 'pony')];
   DINERS[1].glasses = true; DINERS[1].build = 1.15; DINERS[2].hijab = '#2F6B57';
+  /* seated on the banquette: legs and feet show under the tablecloth (the floor is F; the body keeps its height) */
+  DINERS.forEach(function (P) { P.sit = true; P.chair = false; P.sitDrop = -(F - P.y) / P.s; P.y = F; P.c.low = P.c.low || '#3D405B'; P.c.shoe = P.c.shoe || '#2B1D16'; });
   /* the front row: two more tables nearer the camera, two guests each (drawn live: guest, then the table in front) */
   var FTABS = [-660, 1020], FY = 650;
   var FRONT = [diner(-636, FY - 22, 1.9, C.tomato, '#1F1A1A', 'short'), diner(-526, FY - 22, 2.7, '#F2EFE8', '#4A2E22', 'curly'), diner(1044, FY - 22, 0.5, '#7FA8C9', '#1F1A1A', 'buzz'), diner(1154, FY - 22, 1.6, C.mustard, '#2B1D16', 'long')];
-  FRONT.forEach(function (P) { P.s = 0.56; }); FRONT[0].beard = '#1F1A1A'; FRONT[2].glasses = true;
+  FRONT.forEach(function (P) { P.s = 0.56; P.sit = true; P.chair = false; P.sitDrop = -22 / 0.56; P.y = FY; P.c.low = '#3D405B'; P.c.shoe = '#2B1D16'; }); FRONT[0].beard = '#1F1A1A'; FRONT[2].glasses = true;
   function frontRow(g, t, S) { var ext = S.ext;
-    FRONT.forEach(function (P, i) { if (P.x < ext.l - 60 || P.x > ext.r + 60) return; g.strokeStyle = C.woodD; g.lineCap = 'round'; g.lineWidth = 7; g.beginPath(); g.moveTo(P.x - 58, FY); g.lineTo(P.x - 58, P.y - 236); g.quadraticCurveTo(P.x, P.y - 262, P.x + 58, P.y - 236); g.lineTo(P.x + 58, FY); g.stroke();
-      g.lineWidth = 5; g.beginPath(); g.moveTo(P.x - 56, P.y - 196); g.quadraticCurveTo(P.x, P.y - 214, P.x + 56, P.y - 196); g.stroke(); fillRR(g, P.x - 66, P.y - 66, 132, 14, 6, C.wood); fillRR(g, P.x - 62, P.y - 76, 124, 12, 6, '#B8432F');
+    FRONT.forEach(function (P, i) { if (P.x < ext.l - 60 || P.x > ext.r + 60) return; g.strokeStyle = C.woodD; g.lineCap = 'round'; g.lineWidth = 7; g.beginPath(); g.moveTo(P.x - 58, FY); g.lineTo(P.x - 58, P.y - 22 - 236); g.quadraticCurveTo(P.x, P.y - 22 - 262, P.x + 58, P.y - 22 - 236); g.lineTo(P.x + 58, FY); g.stroke();
+      g.lineWidth = 5; g.beginPath(); g.moveTo(P.x - 56, P.y - 22 - 196); g.quadraticCurveTo(P.x, P.y - 22 - 214, P.x + 56, P.y - 22 - 196); g.stroke(); fillRR(g, P.x - 66, P.y - 22 - 66, 132, 14, 6, C.wood); fillRR(g, P.x - 62, P.y - 22 - 76, 124, 12, 6, '#B8432F');
       P.talk = ((t + i * 2.1) % 6) < 1.8; P.look = Math.sin(t * 0.6 + i * 1.7) * 0.7; P.hands = [[-70, -190 + Math.abs(Math.sin(t * 1.8 + i)) * 12], [70, -190]]; K.person(g, P, t); });
     FTABS.forEach(function (tx, i) { if (tx + 170 < ext.l || tx > ext.r) return; var w = 150, ty = FY - 92; soft(g, tx + w / 2, FY + 6, 100, 10, 0.3);
       g.fillStyle = C.woodD; g.fillRect(tx + w / 2 - 6, ty + 56, 12, FY - ty - 58); fillRR(g, tx + w / 2 - 40, FY - 10, 80, 10, 4, C.woodD);
