@@ -1,14 +1,15 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* World: travel (/industries/travel) — Bluewave Journeys, a sample travel agency, drawn as an AIRPORT TERMINAL.
    A glass curtain wall runs the full width of the hero: sky, the control tower, parked tails at the far gates and the
-   runway, where a jet takes off now and then (tap the runway to send it early) and a small plane taxis. Inside: a hanging
-   split-flap departures board whose remarks flip to each trip's margin (Dashboards), two hanging world clocks on the
-   visitor's real time, a wayfinding sign, the information totem with a live chat (CRM enquiries), the check-in counter
-   with the itinerary display (Sales) and the card terminal (deposits), the baggage belt carrying suitcases tagged AIR /
-   HOTEL / RAIL (Purchase: one purchase per supplier service; tap a suitcase), the currency-exchange booth whose rates
-   flip (Accounting, multi-currency), waiting seats, a luggage trolley, a swaying palm, and the TechNext paper plane, which
-   glides through and loops when you tap it. Staff: Lina at check-in (sample); Sam, a traveller, at the exchange booth
-   (sample). Painted with the kit in industry-world.js. */
+   runway, where a jet takes off now and then (tap the runway to send it early) and a small plane taxis; the view passes
+   BEHIND the props (windowBehind). Inside: a hanging split-flap departures board whose remarks flip to each trip's margin
+   on the Margins stop (Dashboards), two hanging world clocks on the visitor's real time, a wayfinding sign, the information
+   totem with a live chat (CRM enquiries), the check-in counter with the itinerary display (Sales) and the card terminal
+   (deposits), the baggage belt carrying suitcases tagged AIR / HOTEL / RAIL (Purchase: one purchase per supplier service;
+   they hop on the Suppliers stop), the bag-drop scale, the currency-exchange booth whose rates flip (Accounting, multi-
+   currency), a luggage trolley, a swaying potted palm, and the TechNext paper plane, which glides under the board and
+   loops when you tap it. Staff: Lina at check-in (sample); Sam, a traveller, at the exchange booth (sample). Painted with
+   the kit in industry-world.js. */
 (function (K) {
   'use strict';
   if (!K) return;
@@ -16,14 +17,14 @@
   var F = 470, HZ = 372;                    /* the floor line; the runway's horizon behind the glass */
   var T = {
     gates: { x: 104, y: 14, w: 176, h: 34 },
-    board: { x: 468, y: 38, w: 300, h: 128 },
+    board: { x: 468, y: 16, w: 300, h: 120 },
     clocks: [{ x: 836, y: 74, r: 19, tz: 8, lab: 'SIN', rim: '#21B799' }, { x: 900, y: 74, r: 19, tz: 9, lab: 'TYO', rim: '#FF8FA3' }],
     booth: { x: 318, y: 236, w: 118, h: 234 },
     totem: { x: 452, y: 268, w: 50, h: 202 },
     desk: { x: 528, y: 334, w: 268 },
-    screen: { x: 560, y: 286 }, term: { x: 708, y: 300 }, scale: { x: 770, y: 400 },
-    belt: { x0: 806, x1: 1030, y: 426 },
-    seats: { x: 838, y: 492 }, trolley: { x: 176, y: 492 }, palm: { x: 968, y: 470 }
+    screen: { x: 560, y: 286 }, term: { x: 708, y: 300 }, scale: { x: 806 },
+    belt: { x0: 892, x1: 1030, y: 426 },
+    trolley: { x: 92, y: 492 }, palm: { x: 1004, y: 506 }
   };
   var base = ((document.currentScript && document.currentScript.src) || '').replace(/assets\/js\/worlds\/.*$/, '');
   var LOGO = new Image(); LOGO.decoding = 'async'; LOGO.src = base + 'assets/img/logo-plane.png';
@@ -37,7 +38,7 @@
     g.fillStyle = tail || '#3167CA'; g.fillRect(-46, 3, 92, 2.5); g.restore();
   }
 
-  /* ---------------- the terminal: ceiling, the glass curtain wall, the floor (hero px, painted once) ---------------- */
+  /* ---------------- the view through the glass: sky, city, tower, parked tails, apron (hero px, painted once) ---------------- */
   function paintBg(g, W, Hh, k, sx, sy) {
     var fy = sy + F * k, hz = sy + HZ * k, top = sy - 40 * k;
     var sk = g.createLinearGradient(0, 0, 0, hz); sk.addColorStop(0, '#7FC6F5'); sk.addColorStop(0.7, '#CFEAFB'); sk.addColorStop(1, '#F1F9FF'); g.fillStyle = sk; g.fillRect(0, 0, W, hz);
@@ -48,6 +49,10 @@
     var ap = g.createLinearGradient(0, hz, 0, fy); ap.addColorStop(0, '#B9C7D6'); ap.addColorStop(1, '#9FB0C3'); g.fillStyle = ap; g.fillRect(0, hz, W, fy - hz);
     g.fillStyle = 'rgba(255,255,255,.85)'; for (var d = -2; d < W / (60 * k) + 2; d++) g.fillRect(d * 60 * k + (sx % (60 * k)), hz + (fy - hz) * 0.46, 30 * k, 3 * k);
     g.fillStyle = '#F2C14E'; g.fillRect(0, hz + (fy - hz) * 0.18, W, 2 * k);
+  }
+  /* ---------------- the terminal in front of the view: reflections, mullions, ceiling, floor (hero px, painted once) ---------------- */
+  function paintFrame(g, W, Hh, k, sx, sy) {
+    var fy = sy + F * k, top = sy - 40 * k;
     g.fillStyle = 'rgba(255,255,255,.18)'; for (var s2 = 0; s2 < W; s2 += 420 * k) { g.beginPath(); g.moveTo(s2, top + 40 * k); g.lineTo(s2 + 120 * k, top + 40 * k); g.lineTo(s2 + 40 * k, fy); g.lineTo(s2 - 80 * k, fy); g.closePath(); g.fill(); }
     g.fillStyle = '#E9EFF6'; for (var m = (sx % (140 * k)) - 140 * k; m < W; m += 140 * k) g.fillRect(m, 0, 7 * k, fy);
     g.fillRect(0, sy + 150 * k, W, 5 * k); g.fillRect(0, sy + 300 * k, W, 5 * k);
@@ -88,9 +93,7 @@
     fillE(g, tt.x + tt.w / 2, tt.y + 20, 12, 12, '#3167CA'); text(g, 'i', tt.x + tt.w / 2, tt.y + 25, 14, 800, '#FFFFFF', 'center');
     fillRR(g, tt.x + 6, tt.y + 40, tt.w - 12, 82, 6, '#EAF0FB');
     fillRR(g, tt.x + 10, tt.y + tt.h - 16, tt.w - 20, 8, 4, '#DCE6F0');
-    var be = T.belt; fillRR(g, be.x0, be.y, be.x1 - be.x0, 14, 7, '#55657F'); fillRR(g, be.x0 + 4, be.y + 14, be.x1 - be.x0 - 8, 34, 6, '#8191AA');
-    g.fillStyle = '#6B7B95'; for (var lg = be.x0 + 20; lg < be.x1; lg += 60) g.fillRect(lg, be.y + 48, 8, F - be.y - 48);
-    soft(g, (be.x0 + be.x1) / 2, F + 4, (be.x1 - be.x0) * 0.5, 10, 0.18);
+    var be = T.belt; soft(g, (be.x0 + be.x1) / 2, F + 4, (be.x1 - be.x0) * 0.5, 10, 0.18);
     soft(g, T.desk.x + T.desk.w / 2, F + 6, T.desk.w * 0.62, 18, 0.2);
   }
 
@@ -110,11 +113,15 @@
     [['#3FA9E0', 30], ['#FF8FA3', 24], ['#21B799', 32]].forEach(function (q, i) { fillE(g, s.x + 11, s.y + 18 + i * 7, 2.4, 2.4, q[0]); g.fillStyle = '#C9D3E3'; g.fillRect(s.x + 16, s.y + 16.5 + i * 7, q[1], 3); });
     var tm = T.term; g.save(); g.translate(tm.x + 18, tm.y + 14); g.rotate(-0.1); fillRR(g, -15, -18, 30, 46, 7, '#2A3550'); fillRR(g, -11, -14, 22, 14, 3, '#EAF0FB');
     for (var kk = 0; kk < 6; kk++) fillRR(g, -10 + (kk % 3) * 7.5, 4 + Math.floor(kk / 3) * 7, 5, 4.5, 1.2, kk === 5 ? '#21B799' : '#5D6E93'); g.restore();
-    var sc = T.scale; fillRR(g, sc.x - 6, sc.y + 50, 52, 12, 4, '#9AA6BC'); fillRR(g, sc.x + 2, sc.y + 6, 38, 46, 8, '#7B5BD6'); fillRR(g, sc.x + 15, sc.y - 2, 12, 9, 4, '#5B3FB6');
-    fillRR(g, sc.x + 6, sc.y + 24, 30, 10, 3, '#FFFFFF'); text(g, '18.2 kg', sc.x + 21, sc.y + 32, 7.5, 800, '#1F1F3D', 'center');
-    var st = T.seats; for (var i = 0; i < 3; i++) { var x = st.x + i * 52; fillRR(g, x, st.y - 40, 46, 30, 8, '#3FA9E0'); fillRR(g, x, st.y - 12, 46, 12, 5, '#2B8CC4'); }
-    fillRR(g, st.x - 4, st.y, 160, 6, 3, '#9AA6BC'); g.fillStyle = '#9AA6BC'; g.fillRect(st.x + 10, st.y + 6, 5, 18); g.fillRect(st.x + 140, st.y + 6, 5, 18);
-    soft(g, st.x + 78, st.y + 26, 90, 8, 0.18);
+    /* the bag-drop scale beside the desk: a low platform, a suitcase lying on it (handle and tag up), the readout on a post */
+    var sc = T.scale, bx = sc.x + 6, by = F - 52;
+    soft(g, sc.x + 34, F + 3, 44, 7, 0.22);
+    fillRR(g, sc.x, F - 16, 66, 14, 4, '#9AA6BC'); fillRR(g, sc.x + 3, F - 19, 60, 5, 2, '#C3CDDA');
+    fillRR(g, sc.x + 62, F - 84, 6, 70, 3, '#AAB4C4'); fillRR(g, sc.x + 45, F - 108, 40, 25, 6, '#2A3550'); text(g, '18.2 kg', sc.x + 65, F - 92, 8, 800, '#7FE9C4', 'center');
+    g.strokeStyle = '#5B3FB6'; g.lineWidth = 4; rr(g, bx + 15, by - 10, 18, 14, 5); g.stroke();
+    fillRR(g, bx, by, 48, 34, 7, '#7B5BD6'); fillRR(g, bx, by + 26, 48, 8, 4, '#6A4BC9');
+    g.fillStyle = 'rgba(255,255,255,.22)'; g.fillRect(bx + 13, by + 5, 4, 22); g.fillRect(bx + 31, by + 5, 4, 22);
+    g.save(); g.translate(bx + 31, by - 6); g.rotate(0.5); fillRR(g, 0, -4, 20, 10, 2, '#FFFFFF'); fillRR(g, 0, -4, 5, 10, 2, '#FFC94A'); g.restore();
     var tr = T.trolley; soft(g, tr.x + 30, tr.y + 6, 50, 8, 0.2);
     g.strokeStyle = '#9AA6BC'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(tr.x, tr.y - 92); g.lineTo(tr.x + 6, tr.y - 6); g.lineTo(tr.x + 64, tr.y - 6); g.stroke();
     fillRR(g, tr.x + 8, tr.y - 52, 52, 44, 8, '#FF8A65'); fillRR(g, tr.x + 12, tr.y - 86, 42, 34, 7, '#FFC94A'); fillRR(g, tr.x + 26, tr.y - 92, 14, 7, 3, '#C98E2E');
@@ -129,7 +136,7 @@
     return { x: x, y: y, tilt: roll * 0.22, s: 0.95 - u * 0.25 };
   }
   function paintWindow(g, t, par) {
-    for (var c = 0; c < 4; c++) K.cloud(g, -500 + ((hash(c + 9) * 1900 + t * (4 + c * 1.8)) % 2000) - par * (3 + c), 40 + c * 50, 0.3 + c * 0.05);
+    for (var c = 0; c < 4; c++) K.cloud(g, -500 + ((hash(c + 9) * 1900 + t * (4 + c * 1.8)) % 2000) - par * (3 + c), 30 + c * 40, 0.28 + c * 0.04);
     if (t > JET.t0 + 7 && t >= JET.next) { JET.t0 = t; JET.next = t + 12; }
     var j = jetPos(t); if (j) {
       if (j.tilt > 0.05) { g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 3; g.setLineDash([6, 6]); g.beginPath(); g.moveTo(j.x + 60, j.y + 14); g.lineTo(j.x + 220, j.y + 70); g.stroke(); g.setLineDash([]); }
@@ -150,7 +157,7 @@
     var b = T.board, margins = S.hot === 'review' || (S.toy.board != null && t - S.toy.board < 6), slot = Math.floor(t / 2.2), ph = (t % 2.2) / 2.2;
     var tapFlip = S.toy.board != null && t - S.toy.board < 0.9;
     for (var r = 0; r < 4; r++) {
-      var row = TRIPS[r], y = b.y + 50 + r * 18, flipping = tapFlip || ((slot % 4) === r && ph < 0.15), sq = flipping ? Math.abs(Math.cos((tapFlip ? (t - S.toy.board) / 0.3 : ph / 0.15) * Math.PI)) : 1;
+      var row = TRIPS[r], y = b.y + 48 + r * 17, flipping = tapFlip || ((slot % 4) === r && ph < 0.15), sq = flipping ? Math.abs(Math.cos((tapFlip ? (t - S.toy.board) / 0.3 : ph / 0.15) * Math.PI)) : 1;
       flap(g, b.x + 12, y, 128, 14, row[0], '#F3E7C9', sq);
       flap(g, b.x + 146, y, 40, 14, row[1], '#F3E7C9', sq);
       flap(g, b.x + 192, y, 96, 14, margins ? 'MARGIN ' + row[3] : row[2], margins ? '#3FE0A8' : row[2] === 'BOARDING' ? '#FFC94A' : '#7FE9C4', sq);
@@ -167,6 +174,8 @@
     if (cyc < 3) { for (var i = 0; i < 3; i++) fillE(g, tt.x + 17 + i * 6, tt.y + 56, 1.8, 1.8 + (Math.floor(t * 4) % 3 === i ? 0.8 : 0), '#7B8DB0'); }
     else { fillRR(g, tt.x + 14, tt.y + 68, 26, 12, 5, '#3167CA'); fillRR(g, tt.x + 10, tt.y + 86, 22, 12, 5, '#FFFFFF'); }
     var be = T.belt, span = be.x1 - be.x0 + 80, off = (t * 26) % span, hotB = S.hot === 'book';
+    fillRR(g, be.x0, be.y, be.x1 - be.x0, 14, 7, '#55657F'); fillRR(g, be.x0 + 4, be.y + 14, be.x1 - be.x0 - 8, 34, 6, '#8191AA');
+    g.fillStyle = '#6B7B95'; for (var lg = be.x0 + 20; lg < be.x1; lg += 60) g.fillRect(lg, be.y + 48, 8, F - be.y - 48);
     g.save(); rr(g, be.x0, be.y - 60, be.x1 - be.x0, 76, 6); g.clip();
     g.fillStyle = '#6B7B95'; for (var sl = be.x0 - 20 + (t * 26) % 20; sl < be.x1; sl += 20) g.fillRect(sl, be.y + 2, 2, 10);
     BAGS.forEach(function (bg, j) {
@@ -176,11 +185,12 @@
       g.save(); g.translate(x + bg.w - 6, y + 10); g.rotate(0.3 + (hotB ? Math.sin(t * 6 + j) * 0.15 : 0)); fillRR(g, -2, -4, 30, 13, 3, '#FFFFFF'); text(g, bg.tag, 13, 5, 7.5, 800, '#1F1F3D', 'center'); g.restore();
     });
     g.restore();
+    paperPlane(g, t);
   }
 
-  /* ---------------- live front: contactless, the palm, the paper plane ---------------- */
+  /* ---------------- the palm (on the floor in front of the belt's far end) and the paper plane (in front of the back props, behind the people) ---------------- */
   var PL = { start: 4, loop: -9, cyc: 15, dur: 5.2 };
-  function bez(u) { var p = [[-60, 150], [260, 30], [600, 250], [1060, 80]], a = Math.pow(1 - u, 3), b = 3 * u * (1 - u) * (1 - u), c = 3 * u * u * (1 - u), d = u * u * u;
+  function bez(u) { var p = [[-60, 230], [300, 110], [640, 290], [1060, 150]], /* a glide under the board, over the booth and the desk */ a = Math.pow(1 - u, 3), b = 3 * u * (1 - u) * (1 - u), c = 3 * u * u * (1 - u), d = u * u * u;
     return [a * p[0][0] + b * p[1][0] + c * p[2][0] + d * p[3][0], a * p[0][1] + b * p[1][1] + c * p[2][1] + d * p[3][1]]; }
   function planeAt(t) {
     var local = t - PL.start; if (local < 0) return null; var cyc = local % PL.cyc; if (cyc > PL.dur) return null;
@@ -188,11 +198,9 @@
     if (lt >= 0 && lt < 1.3) { var la = lt / 1.3 * Math.PI * 2; p = [p[0] + Math.sin(la) * 46, p[1] - (1 - Math.cos(la)) * 46]; ang += la; }
     return { x: p[0], y: p[1], a: ang, u: u };
   }
-  function paintFrontLive(g, t, S) {
-    var tm = T.term, wv = (t % 1.6) / 1.6, act = S.hot === 'deposit' ? 1 : 0.5;
-    g.strokeStyle = 'rgba(49,103,202,' + ((1 - wv) * act).toFixed(2) + ')'; g.lineWidth = 2; g.lineCap = 'round';
-    for (var r2 = 0; r2 < 2; r2++) { g.beginPath(); g.arc(tm.x + 18, tm.y - 10, 6 + r2 * 6 + wv * 6, -2.4, -0.74); g.stroke(); }
+  function palm(g, t) {
     var pl = T.palm, sw = Math.sin(t * 0.9) * 0.05;
+    soft(g, pl.x, pl.y + 2, 42, 8, 0.24);
     g.strokeStyle = '#B98A55'; g.lineWidth = 9; g.beginPath(); g.moveTo(pl.x, pl.y - 50); g.quadraticCurveTo(pl.x - 6, pl.y - 120, pl.x + 4 + sw * 40, pl.y - 190); g.stroke();
     for (var fr = 0; fr < 7; fr++) {
       var a3 = -Math.PI / 2 + (fr - 3) * 0.52 + sw * (fr % 2 ? 1.4 : -1), len = 66 + (fr % 3) * 12;
@@ -200,6 +208,8 @@
       g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(len * 0.5, -18, len, 8); g.quadraticCurveTo(len * 0.5, 9, 0, 0); g.fill(); g.restore();
     }
     fillRR(g, pl.x - 26, pl.y - 52, 52, 52, 10, '#F2C14E'); fillRR(g, pl.x - 30, pl.y - 56, 60, 12, 6, '#F6D27A');
+  }
+  function paperPlane(g, t) {
     var pp = planeAt(t);
     if (pp) {
       g.strokeStyle = 'rgba(49,103,202,.35)'; g.lineWidth = 2; g.setLineDash([4, 6]); g.beginPath();
@@ -209,13 +219,19 @@
       g.restore();
     }
   }
+  function paintFrontLive(g, t, S) {
+    var tm = T.term, wv = (t % 1.6) / 1.6, act = S.hot === 'deposit' || S.peek === 'deposit' ? 1 : 0.5;
+    g.strokeStyle = 'rgba(49,103,202,' + ((1 - wv) * act).toFixed(2) + ')'; g.lineWidth = 2; g.lineCap = 'round';
+    for (var r2 = 0; r2 < 2; r2++) { g.beginPath(); g.arc(tm.x + 18, tm.y - 10, 6 + r2 * 6 + wv * 6, -2.4, -0.74); g.stroke(); }
+    palm(g, t);
+  }
 
-  var LINA = { x: 652, y: 452, s: 0.6, ph: 0.4, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', scarf: '#FFC94A', hairStyle: 'bun', clipCol: '#3FA9E0', feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
+  var LINA = { x: 652, y: 456, s: 0.6, ph: 0.4, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', scarf: '#FFC94A', hairStyle: 'bun', clipCol: '#3FA9E0', feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
   var SAM = { x: 232, y: 484, s: 0.64, ph: 1.2, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FF8A65', print: '#FFFFFF', low: '#4A6FA5', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#3FA9E0' }, outfit: 'tee', hat: 'sunhat', backpack: '#21B799', hold: 'passport', hairStyle: 'short', short: true, feet: true, mood: 'calm', look: 0.6, talk: false, hands: [[-64, -206], [96, -150]] };
 
   window.IXW.worlds.travel = {
-    paintBg: paintBg, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    moteCol: 'rgba(255,255,255,.75)',
+    paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    motes: false, /* dust motes read as specks on the dark board and screens: the terminal's air is clear */
     glow: {
       enquire: function (g) { var tt = T.totem; rr(g, tt.x - 8, tt.y - 8, tt.w + 16, tt.h + 12, 18); },
       quote: function (g) { rr(g, T.screen.x - 8, T.screen.y - 8, 78, 70, 12); },
@@ -241,13 +257,18 @@
         P.look = lerp(P.look, on ? 1 : clamp((S.nexi.x - P.x) / 160, -1, 1), 0.08);
       } }
     ],
-    toy: function (name, S, t) { if (name === 'board') S.toy.board = t; },
-    hit: function (x, y, S, t) {
+    onStop: function (key, S, t) {
+      if (key === 'review') S.toy.board = t;
+      if (key === 'book') BAGS.forEach(function (bg, j) { bg.hop = t + j * 0.14; });
+    },
+    /* onBtn: the click landed on a button (a person, a hotspot); only the moving paper plane wins over it */
+    hit: function (x, y, S, t, onBtn) {
       var pp = planeAt(t);
-      if (pp && Math.hypot(x - pp.x, y - pp.y) < 46) { PL.loop = t; S.toy.plane = t; return { say: 'Whoosh! That paper plane is the **TechNext** logo. Loop-the-loop!', near: [Math.round(clamp(pp.x, 300, 760)), Math.round(clamp(pp.y + 120, 160, 330))], pose: 'celebrate' }; }
+      if (pp && Math.hypot(x - pp.x, y - pp.y) < (onBtn ? 34 : 46)) { PL.loop = t; S.toy.plane = t; return { say: 'Whoosh! That paper plane is the **TechNext** logo. Loop-the-loop!', near: [Math.round(clamp(pp.x, 300, 760)), Math.round(clamp(pp.y + 120, 160, 330))], pose: 'celebrate' }; }
+      if (onBtn) return null;
       var be = T.belt;
       for (var i = 0; i < BAGS.length; i++) { var bg = BAGS[i]; if (bg.x != null && x > bg.x - 6 && x < bg.x + bg.w + 30 && y > be.y - bg.h - 14 && y < be.y + 8) { bg.hop = t; return { say: 'Each suitcase is a supplier: **' + (bg.tag === 'AIR' ? 'the flights' : bg.tag === 'HOTEL' ? 'the hotel' : 'the rail passes') + '**, one purchase on the same booking.', near: [760, 220], pose: 'point-right' }; } }
-      if (y > HZ - 40 && y < F && (x < 290 || x > 800)) { if (t > JET.t0 + 7) { JET.t0 = t; JET.next = t + 12; } return { say: 'Cleared for take-off! The trip is **booked, paid and costed** before the wheels leave the ground.', near: [380, 170], pose: 'wow' }; }
+      if (y > HZ - 40 && y < F) { if (t > JET.t0 + 7) { JET.t0 = t; JET.next = t + 12; } return { say: 'Cleared for take-off! The trip is **booked, paid and costed** before the wheels leave the ground.', near: [380, 170], pose: 'wow' }; }
       return null;
     }
   };

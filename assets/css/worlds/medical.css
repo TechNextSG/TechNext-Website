@@ -45,3 +45,62 @@
   .ixw--medical .fefo-qbins:empty::before{font-size:11.5px}
   .ixw--medical :is(.fefo-bid,.fefo-tok,.fefo-mk b,.fefo-ax span,.fefo-nx){font-size:10.5px}
 }
+
+/* ---------- buttons: the clinic's capsules ----------
+   Like Nexi Explains' comic buttons (an ink outline and a hard lip you press the button onto), but cut from the clinic's
+   medicine cabinet: the primary is a two-tone capsule whose white cap holds the arrow, the controls are domed tablets,
+   the dots and the switch are pills, the links beat like the monitor. */
+.ixw--medical{--m-ink:#0F4C45;--m-pill:linear-gradient(180deg,#1DA58B,#12806B);
+  --lab-bd:2px solid var(--m-ink);--lab-lip:var(--m-ink);--lab-tail:var(--m-ink)}
+.ixw--medical main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:2.5px solid var(--m-ink);box-shadow:0 5px 0 var(--m-ink)}
+.ixw--medical main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{border-color:var(--m-ink);translate:0 -2px;box-shadow:0 7px 0 var(--m-ink)}
+.ixw--medical main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 4px;transition-duration:.07s;box-shadow:0 1px 0 var(--m-ink)}
+.ixw--medical main :is(.btn-primary,.ixw-cta .btn-white){gap:14px;padding-right:0}
+.ixw--medical main .btn-primary,.ixw--medical main .btn-primary:hover{color:#fff;
+  background:linear-gradient(180deg,#FFFFFF,#E3F2EE) right/48px 100% no-repeat,linear-gradient(var(--m-ink),var(--m-ink)) right 48px top/2.5px 100% no-repeat,var(--m-pill)}
+.ixw--medical .ixw-cta .btn-white,.ixw--medical .ixw-cta .btn-white:hover{color:var(--m-ink);
+  background:var(--m-pill) right/48px 100% no-repeat,linear-gradient(var(--m-ink),var(--m-ink)) right 48px top/2.5px 100% no-repeat,#FFFFFF}
+/* the capsule's gloss */
+.ixw--medical main :is(.btn-primary,.ixw-cta .btn-white)::before{content:"";position:absolute;left:18px;top:6px;width:34%;height:5px;border-radius:5px;background:rgba(255,255,255,.4);pointer-events:none}
+.ixw--medical .ixw-cta .btn-white::before{background:rgba(33,183,153,.16)}
+.ixw--medical main :is(.btn-primary,.ixw-cta .btn-white) .ic{width:48px;height:100%;margin:0;padding:0 14px;border-radius:0;background:none;transition:transform .35s var(--w-spring)}
+.ixw--medical main .btn-primary .ic{color:#12806B}
+.ixw--medical .ixw-cta .btn-white .ic{color:#FFFFFF}
+.ixw--medical main :is(.btn-primary,.ixw-cta .btn-white):hover .ic{transform:translateX(3px);background:none}
+.ixw--medical main .btn-ghost{background:#FFFFFF;color:var(--m-ink)}
+.ixw--medical main .btn-ghost:hover{color:var(--m-ink)}
+.ixw--medical main .btn-ghost::before{background:#DDF4EE}
+.ixw--medical main .btn-ghost .ic{width:30px;height:30px;padding:6px;margin-left:-8px;border-radius:50%;background:#DDF4EE;color:#12806B}
+.ixw--medical .ixw-cta .btn-outline-white{background:rgba(255,255,255,.14);color:#FFFFFF}
+.ixw--medical .ixw-cta .btn-outline-white::before{background:rgba(255,255,255,.18)}
+.ixw--medical main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #7EE3CB;outline-offset:4px}
+/* the tour and walkthrough controls: domed tablets; play is the teal one */
+.ixw--medical .ixw-ibtn{border:2.5px solid var(--m-ink);color:var(--m-ink);background:radial-gradient(circle at 34% 28%,#FFFFFF 0 26%,#E2F4EF 74%);box-shadow:0 3px 0 var(--m-ink)}
+.ixw--medical .ixw-ibtn:hover{border-color:var(--m-ink);color:#12806B;box-shadow:0 5px 0 var(--m-ink)}
+.ixw--medical .ixw-ibtn:active{box-shadow:0 1px 0 var(--m-ink)}
+.ixw--medical .ixw-ibtn--play,.ixw--medical .ixw-ibtn--play:hover{color:#FFFFFF;background:radial-gradient(circle at 34% 26%,#7EE3CB 0 14%,#1DA58B 46%,#12806B 100%)}
+.ixw--medical .ixw-ibtn--play.is-on{animation:mPulse 2.4s ease-out infinite}
+@keyframes mPulse{0%{box-shadow:0 3px 0 var(--m-ink),0 0 0 0 rgba(33,183,153,.45)}70%,100%{box-shadow:0 3px 0 var(--m-ink),0 0 0 12px rgba(33,183,153,0)}}
+.ixw--medical .ixw-dots button{width:12px;height:7px;background:#CDEBE3}
+.ixw--medical .ixw-dots button.is-on{width:26px;background:linear-gradient(90deg,#1DA58B 0 50%,#FFFFFF 50%);box-shadow:0 0 0 1.5px var(--m-ink)}
+/* the episode tag: a prescription label */
+.ixw--medical .ixw-ep-tag{border-radius:8px;background:var(--m-ink);box-shadow:0 3px 0 #07302B}
+.ixw--medical .ixw-ep-tag:hover{box-shadow:0 4px 0 #07302B}
+.ixw--medical .ixw-ep-tag .ic{background:#7EE3CB;color:var(--m-ink)}
+/* switches: a pill slides in a blister track */
+.ixw--medical .ix-switch{border:2.5px solid var(--m-ink);background:#F3FAF8;box-shadow:0 4px 0 var(--m-ink)}
+.ixw--medical .ix-switch::before{background:var(--m-ink)}
+.ixw--medical .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{background:var(--m-pill);box-shadow:0 3px 0 var(--m-ink)}
+.ixw--medical .ix-views{border:2px solid var(--m-ink);box-shadow:0 3px 0 var(--m-ink)}
+.ixw--medical .ix-views button[aria-pressed="true"]{background:var(--m-pill);color:#FFFFFF;box-shadow:0 2px 0 var(--m-ink)}
+.ixw--medical .sc-tab.is-active{border-color:var(--m-ink);background:#EAF6F4;box-shadow:0 4px 0 var(--m-ink)}
+/* other industries: two-tone capsules */
+.ixw--medical .ix-others a{border:2px solid var(--m-ink);box-shadow:0 3px 0 var(--m-ink);background:linear-gradient(90deg,#DDF4EE 0 36px,#FFFFFF 36px)}
+.ixw--medical .ix-others a:hover{border-color:var(--m-ink);box-shadow:0 5px 0 var(--m-ink);background:linear-gradient(90deg,#BDEBDF 0 36px,#FFFFFF 36px)}
+.ixw--medical .ix-others a:active{box-shadow:0 1px 0 var(--m-ink)}
+/* text links: the heartbeat runs under them */
+.ixw--medical main .btn-link{color:#12806B;padding-bottom:12px;background:var(--m-ecg) 0 100%/72px 10px repeat-x}
+.ixw--medical main .btn-link::after{display:none}
+.ixw--medical main .btn-link:hover{color:var(--m-ink);animation:mBeat 1.1s linear infinite}
+@keyframes mBeat{to{background-position:72px 100%}}
+@media (prefers-reduced-motion:reduce){.ixw--medical .ixw-ibtn--play.is-on,.ixw--medical main .btn-link:hover{animation:none}}

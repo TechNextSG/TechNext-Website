@@ -107,6 +107,26 @@ and must look like no other world:
 Phone copy: `<span class="m-full">…</span><span class="m-short">…</span>` shows the short version under 768px.
 Every name and figure in a world is sample data and is labelled as such.
 
+Worlds so far: Medical (clinic), Travel (airport terminal), Retail (shop floor), Ecommerce (packing room).
+
+- No indicator dots. Hotspots (`data-hot`), toys (`data-toy`) and staff (`data-cast`) are invisible areas over the
+  drawn objects: `--x/--y` is the centre and `--w/--h` the size, in set units. Pointing at one glows the object
+  (`glow[key]` in the world file) and pops its `.ixw-hot-lab` label. Pointing at a staff member makes them smile and
+  hop. Small objects still get a 32 px touch area.
+- Every world has its own button family, in the spirit of the comic buttons on /nexi-explains: an ink outline and a
+  hard lip you press onto, shaped by the theme. Medical uses capsules, Travel boarding passes and luggage tags, Retail
+  price tags and receipts, Ecommerce taped parcels, shipping labels and bubble wrap. These rules are scoped to `main`
+  so the site header keeps its own buttons. Labels take `--lab-bg`, `--lab-bd`, `--lab-lip`, `--lab-tail` and `--lab-r`.
+- The engine options a world can set:
+  - `windowBehind` with `paintFrame()`: a view outside the glass (clouds, jets) passes behind the props.
+  - `motes: false`: turns off the floating dust specks.
+  - `hit(x, y, S, t, onBtn)`: makes something moving in the canvas tappable even over a button.
+- The cast kit's outfit options:
+  - outfits: `scrubs`, `coat`, `blazer`, `tee`, `hoodie`
+  - hats: `sunhat`, `cap`
+  - extras: `apron`, `headset`
+  - things held: `clipboard`, `passport`, `bags`, `box`
+
 ## Smoothness rules (keep these, the home page depends on them)
 
 - Animate `transform` and `opacity` only. A `filter` or `backdrop-filter` in the same animation keeps it off

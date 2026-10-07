@@ -61,9 +61,6 @@
 .ixw--travel .ix-after{color:var(--t-amber)}
 .ixw--travel .ix-before .ic{background:rgba(224,69,107,.18);color:#FF9EB1}
 .ixw--travel .ix-after .ic{background:rgba(63,224,168,.16);color:#3FE0A8}
-.ixw--travel .ix-switch{border-color:#D3E4F5;box-shadow:0 4px 0 #D3E4F5}
-.ixw--travel .ix-switch::before{background:var(--t-navy);box-shadow:0 3px 0 #0B1428}
-.ixw--travel .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{background:var(--t-sea);box-shadow:0 3px 0 var(--t-sea-d)}
 
 /* ---------- media: an airplane window whose shade lifts ---------- */
 .ixw--travel .ix-video{position:relative}
@@ -98,8 +95,10 @@
 /* ---------- FAQ + chips: the help desk and luggage tags ---------- */
 .ixw--travel .faq summary::before{background:#DDF0FB;color:var(--t-sea-d)}
 .ixw--travel .faq details[open] summary::before{background:var(--t-sea)}
-.ixw--travel .ix-others a{border-radius:10px 999px 999px 10px;padding-left:24px;position:relative}
-.ixw--travel .ix-others a::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #C9D6E8}
+.ixw--travel .ix-others a{border-radius:10px 999px 999px 10px;padding-left:24px;position:relative;border:2px solid var(--t-ink);box-shadow:0 3px 0 var(--t-ink)}
+.ixw--travel .ix-others a:hover{border-color:var(--t-ink);box-shadow:0 5px 0 var(--t-ink)}
+.ixw--travel .ix-others a:active{box-shadow:0 1px 0 var(--t-ink)}
+.ixw--travel .ix-others a::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 1.6px,#E9B949 2px);box-shadow:0 0 0 1.5px var(--t-ink)}
 
 /* ---------- the end card: a boarding pass ---------- */
 .ixw--travel .ixw-cta{--stub:330px;background:linear-gradient(120deg,#1E7FBF,#3FA9E0 62%,#6CC3EE)}
@@ -127,7 +126,7 @@
 .ixw--travel .ixw-copy .crumbs{margin-bottom:12px}
 .ixw--travel .ixw-copy h1{max-width:13ch}
 .ixw--travel .ixw-hint{margin-top:34px}
-.ixw--travel .ixw-toy--board{border-radius:14px}
+
 .ixw--travel .ixw-cap{padding-top:32px;border-radius:16px}
 .ixw--travel .ixw-cap::before{content:"BOARDING PASS \00B7  NEXI \00B7  SEAT 1A";position:absolute;left:0;right:0;top:0;height:22px;padding-left:16px;border-radius:16px 16px 0 0;
   background:linear-gradient(90deg,var(--t-sea-d),var(--t-sea));font:800 9.5px/22px var(--font-body);letter-spacing:.18em;color:#fff}
@@ -158,3 +157,68 @@
   .ixw--travel :is(.itn-wv,.itn-wl,.itn-lg){font-size:10.5px}
   .ixw--travel .itn-x{width:28px}
 }
+
+/* ---------- buttons: tickets and tags ----------
+   Like Nexi Explains' comic buttons (an ink outline and a hard lip you press the button onto), cut from the trip's
+   paperwork: the primary is a boarding pass whose yellow stub holds the paper plane (it takes off on hover), the
+   secondary is a luggage tag with an eyelet, the controls are airplane windows, the switches are split-flap boards. */
+.ixw--travel{--t-ink:#17284A;--t-pass:linear-gradient(180deg,#24447A,#17284A);--t-stub:linear-gradient(180deg,#FFD96B,#FFC94A);
+  --lab-bd:2px solid var(--t-ink);--lab-lip:var(--t-ink);--lab-tail:var(--t-ink);--lab-r:999px 9px 9px 999px}
+.ixw--travel main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:2.5px solid var(--t-ink);box-shadow:0 5px 0 var(--t-ink)}
+.ixw--travel main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{border-color:var(--t-ink);translate:0 -2px;box-shadow:0 7px 0 var(--t-ink)}
+.ixw--travel main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 4px;transition-duration:.07s;box-shadow:0 1px 0 var(--t-ink)}
+.ixw--travel main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+/* the boarding pass: navy ticket, a white tear line, the yellow stub */
+.ixw--travel main :is(.btn-primary,.ixw-cta .btn-white){gap:14px;padding-right:0;border-radius:10px}
+.ixw--travel main .btn-primary,.ixw--travel main .btn-primary:hover{color:#FFFFFF;
+  background:var(--t-stub) right/50px 100% no-repeat,repeating-linear-gradient(180deg,#FFFFFF 0 4px,transparent 4px 8px) right 50px top/2px 100% no-repeat,var(--t-pass)}
+.ixw--travel .ixw-cta .btn-white,.ixw--travel .ixw-cta .btn-white:hover{color:var(--t-ink);
+  background:var(--t-stub) right/50px 100% no-repeat,repeating-linear-gradient(180deg,var(--t-ink) 0 4px,transparent 4px 8px) right 50px top/2px 100% no-repeat,#FFFFFF}
+.ixw--travel main :is(.btn-primary,.ixw-cta .btn-white) .ic{width:50px;height:100%;margin:0;padding:0 14px;border-radius:0;background:none;color:var(--t-ink);transition:transform .45s var(--w-spring)}
+.ixw--travel main :is(.btn-primary,.ixw-cta .btn-white):hover .ic{transform:translate(4px,-4px) rotate(-10deg);background:none}
+/* the luggage tag: a round end with an eyelet, square corners at the other end */
+.ixw--travel main :is(.btn-ghost,.ixw-cta .btn-outline-white){border-radius:999px 10px 10px 999px;padding-left:36px}
+.ixw--travel main .btn-ghost{color:var(--t-ink);background:linear-gradient(90deg,#DDF0FB 0 30px,#FFFFFF 30px)}
+.ixw--travel main .btn-ghost:hover{color:var(--t-ink)}
+.ixw--travel main .btn-ghost::before{display:none}
+.ixw--travel main .btn-ghost .ic{color:var(--t-sea-d)}
+.ixw--travel main :is(.btn-ghost,.ixw-cta .btn-outline-white)::after,.ixw--travel main :is(.btn-ghost,.ixw-cta .btn-outline-white):hover::after{
+  content:"";inset:auto;left:11px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;transform:none;transition:none;background:radial-gradient(circle,#FFFFFF 0 2.4px,#E9B949 2.9px);box-shadow:0 0 0 1.5px var(--t-ink)}
+.ixw--travel .ixw-cta .btn-outline-white{color:#FFFFFF;background:linear-gradient(90deg,rgba(255,255,255,.3) 0 30px,rgba(255,255,255,.12) 30px)}
+.ixw--travel .ixw-cta .btn-outline-white::before{background:rgba(255,255,255,.16)}
+/* the tour and walkthrough controls: airplane windows; play is the sunny one */
+.ixw--travel .ixw-ibtn{border:3px solid #FFFFFF;border-radius:44%;color:var(--t-ink);background:linear-gradient(180deg,#BFE3FA,#F1F9FF);box-shadow:0 0 0 2.5px var(--t-ink),0 4px 0 2.5px var(--t-ink)}
+.ixw--travel .ixw-ibtn:hover{border-color:#FFFFFF;color:var(--t-sea-d);box-shadow:0 0 0 2.5px var(--t-ink),0 6px 0 2.5px var(--t-ink)}
+.ixw--travel .ixw-ibtn:active{box-shadow:0 0 0 2.5px var(--t-ink),0 1px 0 2.5px var(--t-ink)}
+.ixw--travel .ixw-ibtn--play,.ixw--travel .ixw-ibtn--play:hover{color:var(--t-ink);background:radial-gradient(circle at 50% 38%,#FFF1B8 0 18%,#FFD96B 52%,#FFC94A)}
+.ixw--travel .ixw-ibtn--play.is-on{animation:tGlow 2.4s ease-out infinite}
+@keyframes tGlow{0%{box-shadow:0 0 0 2.5px var(--t-ink),0 4px 0 2.5px var(--t-ink),0 0 0 2.5px rgba(255,201,74,.6)}70%,100%{box-shadow:0 0 0 2.5px var(--t-ink),0 4px 0 2.5px var(--t-ink),0 0 0 14px rgba(255,201,74,0)}}
+/* the tour dots: runway lights */
+.ixw--travel .ixw-dots button{background:#C9D6E8}
+.ixw--travel .ixw-dots button.is-on{width:26px;background:repeating-linear-gradient(90deg,var(--t-ink) 0 5px,#FFC94A 5px 9px)}
+/* the episode tag: a wayfinding sign */
+.ixw--travel .ixw-ep-tag{border-radius:7px;background:var(--t-ink);color:#FFC94A;box-shadow:0 3px 0 #0B1428}
+.ixw--travel .ixw-ep-tag:hover{color:#FFE48A;box-shadow:0 4px 0 #0B1428}
+.ixw--travel .ixw-ep-tag .ic{border-radius:5px;background:#FFC94A;color:var(--t-ink)}
+/* switches and view toggles: split-flap boards */
+.ixw--travel :is(.ix-switch,.ix-views){border:2.5px solid var(--t-ink);background:var(--t-ink);box-shadow:0 4px 0 #0B1428}
+.ixw--travel :is(.ix-switch,.ix-views) button{color:#8FB6E8;text-transform:uppercase;letter-spacing:.08em;font-size:12.5px;white-space:nowrap}
+.ixw--travel :is(.ix-switch,.ix-views) button[aria-pressed="true"]{color:var(--t-ink)}
+.ixw--travel .ix-switch::before{border-radius:8px;background:#E8EEF7;box-shadow:0 3px 0 #0B1428}
+.ixw--travel .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{background:#FFC94A;box-shadow:0 3px 0 #0B1428}
+.ixw--travel .ix-views button{border-radius:7px}
+.ixw--travel .ix-views button[aria-pressed="true"]{background:#FFC94A;box-shadow:0 2px 0 #0B1428}
+/* the sample picker: destination tags */
+.ixw--travel .ixw-pick-b{border:2.5px solid var(--t-ink);box-shadow:0 4px 0 var(--t-ink)}
+.ixw--travel .ixw-pick-b button{border-radius:999px 8px 8px 999px}
+.ixw--travel .ixw-pick-b button[aria-pressed="true"]{background:var(--t-ink);color:#FFC94A;box-shadow:0 3px 0 #0B1428}
+.ixw--travel .sc-tab.is-active{border-color:var(--t-ink);background:#EAF5FD;box-shadow:0 4px 0 var(--t-ink)}
+/* text links: a dotted flight path that keeps flying on hover */
+.ixw--travel main .btn-link{color:var(--t-sea-d);padding-bottom:10px;background:radial-gradient(circle,var(--t-sea) 1.6px,transparent 1.9px) 0 100%/9px 6px repeat-x}
+.ixw--travel main .btn-link::after{display:none}
+.ixw--travel main .btn-link:hover{color:var(--t-ink);animation:tPath .9s linear infinite}
+@keyframes tPath{to{background-position:18px 100%}}
+/* hover labels in the terminal: luggage tags with an eyelet */
+.ixw--travel .ixw-hot-lab{padding-left:20px}
+.ixw--travel .ixw-hot-lab::before{content:"";position:absolute;left:7px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 2px var(--t-ink)}
+@media (prefers-reduced-motion:reduce){.ixw--travel .ixw-ibtn--play.is-on,.ixw--travel main .btn-link:hover{animation:none}}

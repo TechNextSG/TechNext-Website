@@ -44,8 +44,9 @@
   /* ============================== the cast: Season 2 "F3 pill flat" model ==============================
      Origin = the floor between the feet; about 490 units tall at s 1 (head centre y -392, rx 92, ry 88; pill body
      y -314..-108, 172 wide; shoulders (±76, -258); arm segments 80 + 76, 36 wide).
-     P: x, y, s, ph, c {skin, hair, top, top2, shirt, low, shoe, hat, hatBand, print, pocket}, outfit (scrubs | coat | blazer | tee),
-        hairStyle (bun | long | pony | short), hat (sunhat), glasses, scarf, backpack, hold (clipboard | passport), feet, short,
+     P: x, y, s, ph, c {skin, hair, top, top2, shirt, low, shoe, hat, hatBand, print, pocket}, outfit (scrubs | coat | blazer | tee | hoodie),
+        hairStyle (bun | long | pony | short), hat (sunhat | cap), glasses, scarf, apron (colour), headset (mic colour), backpack,
+        hold (clipboard | passport | bags | box), feet, short,
         mood (calm | happy | wow), look (-1..1), talk, tilt, hop, hands [[lx, ly], [rx, ry]] */
   var F3 = { hy: -392, rx: 92, ry: 88, top: -314, bot: -108, tw: 172, shx: 76, shy: -258, a: 80, b: 76, aw: 36 };
   function ik(sx, sy, hx, hy, a, b, d) {
@@ -98,12 +99,27 @@
   }
   function hat(g, P) {
     var rx = F3.rx, ry = F3.ry, cy = F3.hy;
+    if (P.hat === 'cap') { /* a baseball cap seen from the front: the crown, the visor, the button */
+      var cc = P.c.hat || '#3167CA';
+      g.beginPath(); g.ellipse(0, cy - ry * 0.4, rx * 1.03, ry * 0.88, 0, Math.PI, 0); g.closePath(); g.fillStyle = cc; g.fill();
+      g.fillStyle = 'rgba(255,255,255,.14)'; g.beginPath(); g.ellipse(-rx * 0.3, cy - ry * 0.86, rx * 0.36, ry * 0.2, -0.3, 0, Math.PI * 2); g.fill();
+      fillE(g, 0, cy - ry * 0.36, rx * 0.92, ry * 0.17, tone(cc, 0.22)); fillE(g, 0, cy - ry * 1.27, 10, 7, tone(cc, 0.25));
+      if (P.c.hatBand) fillRR(g, -16, cy - ry * 0.98, 32, 22, 6, P.c.hatBand);
+    }
     if (P.hat === 'sunhat') {
       var c = P.c.hat || '#F2D59B';
       fillE(g, 0, cy - ry * 0.55, rx * 1.48, ry * 0.3, tone(c, 0.08)); fillE(g, 0, cy - ry * 0.62, rx * 1.44, ry * 0.26, c);
       g.beginPath(); g.ellipse(0, cy - ry * 0.7, rx * 0.95, ry * 0.85, 0, Math.PI, 0); g.closePath(); g.fillStyle = c; g.fill();
       g.fillStyle = P.c.hatBand || '#3167CA'; g.fillRect(-rx * 0.95, cy - ry * 0.86, rx * 1.9, ry * 0.18);
     }
+  }
+  function headset(g, P) { /* a call-centre headset: the band over the head, two ear cups, the mic boom */
+    var rx = F3.rx, ry = F3.ry, cy = F3.hy;
+    g.strokeStyle = '#2A3550'; g.lineCap = 'round'; g.lineWidth = 9;
+    g.beginPath(); g.ellipse(0, cy, rx * 1.07, ry * 1.1, 0, Math.PI * 1.06, Math.PI * 1.94); g.stroke();
+    fillRR(g, -rx * 1.2, cy - 20, 28, 42, 12, '#2A3550'); fillRR(g, rx * 1.2 - 28, cy - 20, 28, 42, 12, '#2A3550');
+    g.lineWidth = 5; g.beginPath(); g.moveTo(-rx * 1.08, cy + 14); g.quadraticCurveTo(-rx * 0.9, cy + ry * 0.62, -rx * 0.34, cy + ry * 0.6); g.stroke();
+    fillE(g, -rx * 0.3, cy + ry * 0.6, 10, 8, P.headset);
   }
   function torso(g, P) {
     var c = P.c, w = F3.tw / 2, top = F3.top, bot = F3.bot, o = P.outfit || 'scrubs';
@@ -123,6 +139,11 @@
       g.fillStyle = tone(c.top, 0.18); [-1, 1].forEach(function (d) { g.beginPath(); g.moveTo(d * 36, top - 4); g.lineTo(d * 6, top + 96); g.lineTo(d * 30, top + 74); g.lineTo(d * 58, top + 18); g.closePath(); g.fill(); });
       fillE(g, -6, top + 112, 6, 6, '#E9C46A'); fillE(g, -6, top + 140, 6, 6, '#E9C46A');
       fillRR(g, 34, -206, 34, 8, 3, c.pocket || '#FFD84A');
+    } else if (o === 'hoodie') { /* the hood folds behind the neck, drawstrings, a front pocket */
+      fillE(g, 0, top + 6, 74, 30, tone(c.top, 0.16)); fillE(g, 0, top - 2, 32, 20, c.skin);
+      g.strokeStyle = '#FFFFFF'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(-14, top + 14); g.lineTo(-17, top + 58); g.moveTo(14, top + 14); g.lineTo(17, top + 58); g.stroke();
+      fillE(g, -17, top + 61, 4, 4, '#FFFFFF'); fillE(g, 17, top + 61, 4, 4, '#FFFFFF');
+      fillRR(g, -52, -200, 104, 46, 18, tone(c.top, 0.12));
     } else if (o === 'tee') {
       fillE(g, 0, top - 2, 34, 22, c.skin);
       if (c.print) { g.fillStyle = c.print; g.save(); g.translate(0, -214); g.rotate(-0.2); g.beginPath(); g.moveTo(-24, 6); g.lineTo(26, -14); g.lineTo(6, 22); g.lineTo(2, 6); g.closePath(); g.fill(); g.restore(); }
@@ -131,6 +152,11 @@
       g.fillStyle = c.top2; g.beginPath(); g.moveTo(-30, top - 4); g.lineTo(0, top + 40); g.lineTo(30, top - 4); g.closePath(); g.fill();
       g.fillStyle = c.skin; g.beginPath(); g.moveTo(-22, top - 4); g.lineTo(0, top + 28); g.lineTo(22, top - 4); g.closePath(); g.fill();
       fillRR(g, -66, -214, 40, 32, 8, c.top2); fillRR(g, -58, -224, 5, 20, 2, '#FFFFFF');
+    }
+    if (P.apron) { /* a shop apron over any outfit: the bib, the straps, the body and a pocket */
+      g.strokeStyle = tone(P.apron, 0.2); g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(-28, top + 24); g.lineTo(-40, top - 4); g.moveTo(28, top + 24); g.lineTo(40, top - 4); g.stroke();
+      fillRR(g, -34, top + 20, 68, 70, 12, P.apron); fillRR(g, -54, top + 76, 108, bot - top - 60, 18, P.apron);
+      fillRR(g, -26, -176, 52, 30, 8, tone(P.apron, 0.14)); g.fillStyle = 'rgba(255,255,255,.55)'; g.fillRect(-1, -176, 2, 30);
     }
     g.restore();
     if (P.scarf) { /* a knotted neck scarf over the collar */
@@ -141,6 +167,16 @@
   function held(g, kind, hp) {
     g.save(); g.translate(hp[0] + 30, hp[1] - 6);
     if (kind === 'clipboard') { g.rotate(-0.12); fillRR(g, -40, -54, 80, 104, 8, '#C98E55'); fillRR(g, -32, -44, 64, 88, 4, '#FFFFFF'); fillRR(g, -16, -60, 32, 14, 4, '#9AA6BC'); g.fillStyle = '#C9D3E3'; for (var k = 0; k < 5; k++) g.fillRect(-24, -30 + k * 14, k === 2 ? 30 : 46, 4); fillE(g, 16, 30, 7, 7, '#21B799'); }
+    else if (kind === 'bags') { /* two paper shopping bags hanging from the hand */
+      g.translate(-30, 6);
+      fillRR(g, -2, 20, 54, 62, 6, '#9DBFA4'); g.strokeStyle = '#6E9B7A'; g.lineWidth = 4; g.beginPath(); g.arc(25, 22, 12, Math.PI, 0); g.stroke();
+      g.strokeStyle = '#8A5A3B'; g.beginPath(); g.arc(0, 16, 14, Math.PI, 0); g.stroke();
+      fillRR(g, -32, 14, 64, 72, 7, '#E8C394'); fillRR(g, -32, 14, 64, 11, 5, '#DDAF78'); fillE(g, 0, 52, 13, 13, '#C96F4A'); fillE(g, 0, 52, 6, 6, '#F8E7CF');
+    }
+    else if (kind === 'box') { /* a parcel held in front: kraft card, tape, a shipping label */
+      g.translate(32, -4); fillRR(g, -56, -40, 112, 78, 7, '#C99A6B'); fillRR(g, -56, -40, 112, 12, 5, '#B5865A');
+      g.fillStyle = 'rgba(255,240,210,.55)'; g.fillRect(-9, -40, 18, 78); fillRR(g, 14, -18, 34, 24, 3, '#FFFFFF'); g.fillStyle = '#2A3550'; for (var bk = 0; bk < 6; bk++) g.fillRect(18 + bk * 4.6, -12, bk % 2 ? 1.6 : 3, 12);
+    }
     else if (kind === 'passport') { g.translate(-6, 4); g.rotate(-0.25); fillRR(g, -30, -40, 60, 80, 8, '#1E4691'); fillE(g, 0, -6, 15, 15, '#E9C46A'); fillE(g, 0, -6, 9, 9, '#1E4691'); fillRR(g, -16, 18, 32, 5, 2, '#E9C46A'); fillRR(g, 10, -52, 30, 40, 4, '#FFFFFF'); g.fillStyle = '#3167CA'; g.fillRect(14, -46, 22, 5); }
     g.restore();
   }
@@ -159,7 +195,7 @@
     fillRR(g, -20, F3.top - 14, 40, 30, 8, tone(c.skin, 0.1));
     [-1, 1].forEach(function (d) { fillE(g, d * F3.rx * 0.96, F3.hy + F3.ry * 0.12, F3.rx * 0.15, F3.ry * 0.19, c.skin); });
     fillE(g, 0, F3.hy, F3.rx, F3.ry, c.skin);
-    face(g, P, t); hair(g, P, false); hat(g, P);
+    face(g, P, t); hair(g, P, false); hat(g, P); if (P.headset) headset(g, P);
     g.restore();
     var sl = P.outfit === 'coat' ? '#F1F4FA' : tone(c.top, 0.06);
     [[-1, P.hands[0]], [1, P.hands[1]]].forEach(function (a) {
@@ -263,21 +299,24 @@
     plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, reduce: reduce };
 
   /* ============================== the hero ==============================
-     A world: { room (see room()), paintBack(g), paintFront(g), paintWindow(g, t, par, S), paintLive(g, t, date, S),
-     paintFrontLive?(g, t, S), glow {hotKey: fn(g) path}, backGlow [hotKeys drawn behind the counter staff],
-     cast [{ id, P, behind, keys [hotKeys that make them talk], act(P, t, S) }], toy?(name, S, t, btn), onStop?(key, S, t), moteCol }
-     S (shared state): hot, hotA, nexi {x, y}, cast {id: {wave, until}}, toy {name: start time}, t */
+     A world: { room (see room()) or paintBg(g, W, H, k, sx, sy), paintBack(g), paintFront(g), paintWindow(g, t, par, S), paintLive(g, t, date, S),
+     paintFrontLive?(g, t, S), glow {hotKey or toyName: fn(g) path}, backGlow [keys drawn behind the counter staff],
+     cast [{ id, P, behind, keys [hotKeys that make them talk], act(P, t, S) }], toy?(name, S, t, btn), onStop?(key, S, t), moteCol, motes (false: no dust motes),
+     windowBehind? (the window view is painted BEHIND the back props, which get a third cache: paintBg, then the live view,
+     then paintFrame?(g, W, H, k, sx, sy) (hero px: mullions, ceiling, floor) and paintBack) }
+     S (shared state): hot, hotA, peek (the hotspot or toy under the pointer), peekA, nexi {x, y}, cast {id: {wave, until, hover, hopAt}}, toy {name: start time}, t */
   function hero(root) {
     var W0 = IXW.worlds[root.getAttribute('data-world')];
     var cv = root.querySelector('[data-ixw-cv]'), set = root.querySelector('[data-ixw-set]'), front = root.querySelector('[data-ixw-front]');
     var nexi = root.querySelector('[data-ixw-nexi]'), cap = root.querySelector('[data-ixw-cap]');
     if (!W0 || !cv || !set || !cv.getContext) return;
     var g = cv.getContext('2d'), A = document.createElement('canvas'), B = document.createElement('canvas'), ga = A.getContext('2d'), gb = B.getContext('2d');
+    var C = W0.windowBehind ? document.createElement('canvas') : null, gc = C && C.getContext('2d');
     var W = 0, Hh = 0, dpr = 1, k = 1, sx = 0, sy = 0, M = 24, live = false, raf = 0, frameN = 0, T0 = performance.now();
     var par = { x: 0, y: 0, tx: 0, ty: 0 };
     var home = (root.getAttribute('data-home') || '288,196').split(',').map(Number);
-    var S = { hot: '', hotA: 0, nexi: { x: home[0], y: home[1] }, cast: {}, toy: {}, t: 0 };
-    W0.cast.forEach(function (c) { S.cast[c.id] = { wave: 0, until: 0 }; });
+    var S = { hot: '', hotA: 0, peek: '', peekA: 0, nexi: { x: home[0], y: home[1] }, cast: {}, toy: {}, t: 0 }, pk = '';
+    W0.cast.forEach(function (c) { S.cast[c.id] = { wave: 0, until: 0, hover: false, hopAt: -9 }; });
     root.classList.add('is-live');
     function now() { return (performance.now() - T0) / 1000; }
 
@@ -285,36 +324,55 @@
       var hr = root.getBoundingClientRect(), r = set.getBoundingClientRect();
       W = Math.round(hr.width); Hh = Math.round(hr.height); dpr = Math.min(window.devicePixelRatio || 1, 1.75);
       k = r.width / 1000; sx = r.left - hr.left; sy = r.top - hr.top;
-      [cv, A, B].forEach(function (c) { c.width = Math.round((W + M * 2) * dpr); c.height = Math.round((Hh + M * 2) * dpr); });
+      [cv, A, B, C].forEach(function (c) { if (!c) return; c.width = Math.round((W + M * 2) * dpr); c.height = Math.round((Hh + M * 2) * dpr); });
       cv.style.width = (W + M * 2) + 'px'; cv.style.height = (Hh + M * 2) + 'px';
       ga.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr);
       if (W0.paintBg) W0.paintBg(ga, W + M, Hh + M, k, sx, sy); else room(ga, W + M, Hh + M, k, sx, sy, W0.room);
-      ga.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintBack(ga);
+      var gp = gc || ga; /* the back props get their own cache when the window view sits behind them */
+      if (gc) { gc.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr); if (W0.paintFrame) W0.paintFrame(gc, W + M, Hh + M, k, sx, sy); }
+      gp.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintBack(gp);
       gb.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintFront(gb);
       draw(performance.now());
     }
-    function glow(t) {
-      var fn = W0.glow && W0.glow[S.hot]; if (!fn) return;
-      g.save(); g.shadowColor = 'rgba(255,255,255,.95)'; g.shadowBlur = 18; g.lineWidth = 4; g.strokeStyle = 'rgba(49,103,202,' + ((0.5 + 0.3 * Math.sin(t * 5)) * S.hotA).toFixed(3) + ')'; fn(g); g.stroke(); g.restore();
+    /* the tour glow pulses; the hover glow (the thing under the pointer) is a steady outline with a light wash */
+    function glow(t, key, a, hover) {
+      var fn = W0.glow && W0.glow[key]; if (!fn || a < 0.01) return;
+      g.save(); g.shadowColor = 'rgba(255,255,255,.95)'; g.shadowBlur = 18; g.lineWidth = 4; fn(g);
+      if (hover) { g.fillStyle = 'rgba(255,255,255,' + (0.16 * a).toFixed(3) + ')'; g.fill(); g.strokeStyle = 'rgba(49,103,202,' + (0.85 * a).toFixed(3) + ')'; }
+      else g.strokeStyle = 'rgba(49,103,202,' + ((0.5 + 0.3 * Math.sin(t * 5)) * a).toFixed(3) + ')';
+      g.stroke(); g.restore();
+    }
+    /* a staff member under the pointer smiles and gives one little hop */
+    function figure(c, t) {
+      var st = S.cast[c.id], P = c.P, m0 = P.mood, h0 = P.hop || 0, u = (t - st.hopAt) / 0.5;
+      if (st.hover && m0 === 'calm') P.mood = 'happy';
+      if (u >= 0 && u < 1 && !reduce) P.hop = h0 + Math.sin(u * Math.PI) * 16;
+      person(g, P, t); P.mood = m0; P.hop = h0;
     }
     function draw(nowMs) {
       var t = (nowMs - T0) / 1000; S.t = t;
       par.x = lerp(par.x, par.tx, 0.08); par.y = lerp(par.y, par.ty, 0.08);
       if (S.hot) S.hotA = Math.min(1, S.hotA + 0.08);
-      var fx = par.x * 6, fy = par.y * 3, back = W0.backGlow || [];
+      if (S.peek) { if (pk !== S.peek) { pk = S.peek; S.peekA = 0; } S.peekA = reduce ? 1 : Math.min(1, S.peekA + 0.2); }
+      else { S.peekA = reduce ? 0 : Math.max(0, S.peekA - 0.2); if (!S.peekA) pk = ''; }
+      var fx = par.x * 6, fy = par.y * 3, back = W0.backGlow || [], pkOn = pk && pk !== S.hot;
       g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height);
       g.drawImage(A, 0, 0);
       g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr);
-      W0.paintWindow(g, t, par.x, S); W0.paintLive(g, t, new Date(), S);
-      if (S.hot && back.indexOf(S.hot) >= 0) glow(t);
+      W0.paintWindow(g, t, par.x, S);
+      if (C) { g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(C, 0, 0); g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); }
+      W0.paintLive(g, t, new Date(), S);
+      if (S.hot && back.indexOf(S.hot) >= 0) glow(t, S.hot, S.hotA);
+      if (pkOn && back.indexOf(pk) >= 0) glow(t, pk, S.peekA, true);
       g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M + fx) * dpr, (sy + M + fy) * dpr);
-      W0.cast.forEach(function (c) { if (c.behind) { c.act(c.P, t, S); person(g, c.P, t); } });
+      W0.cast.forEach(function (c) { if (c.behind) { c.act(c.P, t, S); figure(c, t); } });
       g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(B, 0, 0, B.width / dpr, B.height / dpr);
       g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M + fx) * dpr, (sy + M + fy) * dpr);
       if (W0.paintFrontLive) W0.paintFrontLive(g, t, S);
-      if (S.hot && back.indexOf(S.hot) < 0) glow(t);
-      W0.cast.forEach(function (c) { if (!c.behind) { c.act(c.P, t, S); person(g, c.P, t); } });
-      if (!reduce) motes(g, t, W0.moteCol);
+      if (S.hot && back.indexOf(S.hot) < 0) glow(t, S.hot, S.hotA);
+      if (pkOn && back.indexOf(pk) < 0) glow(t, pk, S.peekA, true);
+      W0.cast.forEach(function (c) { if (!c.behind) { c.act(c.P, t, S); figure(c, t); } });
+      if (!reduce && W0.motes !== false) motes(g, t, W0.moteCol);
       if (front) front.style.transform = 'translate3d(' + fx.toFixed(2) + 'px,' + fy.toFixed(2) + 'px,0)';
     }
     function loop(nowMs) { raf = 0; if (!live) return; if (++frameN % 2 === 0) draw(nowMs); raf = requestAnimationFrame(loop); }
@@ -430,15 +488,34 @@
         redraw();
       });
     });
-    /* a world can make moving things in its canvas tappable (the travel paper plane): hit(x, y) in set units */
+    /* pointing at a hotspot or a toy glows it (S.peek); at a staff member, they smile and hop. A touch tap skips the hover
+       (the tap itself plays the stop); keyboard focus counts as pointing. */
+    function pointed(el, on, off) {
+      el.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') on(); });
+      el.addEventListener('pointerleave', off);
+      el.addEventListener('focus', function () { if (!el.matches || el.matches(':focus-visible')) on(); });
+      el.addEventListener('blur', off);
+    }
+    [].forEach.call(root.querySelectorAll('[data-hot], [data-toy]'), function (el) {
+      var key = el.getAttribute('data-hot') || el.getAttribute('data-toy');
+      pointed(el, function () { S.peek = key; redraw(); }, function () { if (S.peek === key) S.peek = ''; redraw(); });
+    });
+    [].forEach.call(root.querySelectorAll('[data-cast]'), function (el) {
+      var st = S.cast[el.getAttribute('data-cast')]; if (!st) return;
+      pointed(el, function () { if (!st.hover) st.hopAt = now(); st.hover = true; redraw(); }, function () { st.hover = false; redraw(); });
+    });
+    /* a world can make moving things in its canvas tappable (the travel paper plane): hit(x, y, S, t, onBtn) in set units.
+       Capture phase: a moving thing in front of a person or a hotspot wins the click (hit() gets onBtn = true then). */
     if (W0.hit) set.addEventListener('click', function (e) {
-      if (e.target.closest && e.target.closest('button, a')) return;
-      var r = set.getBoundingClientRect(), res = W0.hit((e.clientX - r.left - par.x * 6) / k, (e.clientY - r.top - par.y * 3) / k, S, now());
+      if (!e.target.closest || e.target.closest('.ixw-cap, a')) return;
+      var onBtn = !!e.target.closest('button');
+      var r = set.getBoundingClientRect(), res = W0.hit((e.clientX - r.left - par.x * 6) / k, (e.clientY - r.top - par.y * 3) / k, S, now(), onBtn);
       if (!res) return;
+      if (onBtn) e.stopPropagation();
       tour.stop(); S.hot = ''; clearHot(); say(res.say || '', '', '', '', true); rec(null);
       if (res.near) flyTo(res.near[0], res.near[1], res.pose || 'wow');
       redraw();
-    });
+    }, true);
     if (reduce) go(0);
   }
 
