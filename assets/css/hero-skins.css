@@ -110,7 +110,7 @@
   background:var(--t-stub) right/50px 100% no-repeat,repeating-linear-gradient(180deg,#FFFFFF 0 4px,transparent 4px 8px) right 50px top/2px 100% no-repeat,var(--t-pass)}
 .hxs--travel :is(.btn-primary,.ixw-cta .btn-white) .ic{width:50px;height:100%;margin:0;padding:0 14px;border-radius:0;background:none;color:var(--t-ink);transition:transform .45s var(--w-spring)}
 .hxs--travel :is(.btn-primary,.ixw-cta .btn-white):hover .ic{transform:translate(4px,-4px) rotate(-10deg);background:none}
-.hxs--travel :is(.btn-ghost,.ixw-cta .btn-outline-white){border-radius:999px 10px 10px 999px;padding-left:36px}
+.hxs--travel :is(.btn-ghost,.ixw-cta .btn-outline-white){border-radius:26px 10px 10px 26px / 50% 10px 10px 50%;padding-left:36px}
 .hxs--travel .btn-ghost{color:var(--t-ink);background:linear-gradient(90deg,#DDF0FB 0 30px,#FFFFFF 30px)}
 .hxs--travel .btn-ghost:hover{color:var(--t-ink)}
 .hxs--travel .btn-ghost::before{display:none}
