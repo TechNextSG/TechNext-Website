@@ -18,7 +18,7 @@
   .ixw--office-ph .ixw-copy .lead{grid-area:lead;margin-top:12px;font-size:.96rem}.ixw--office-ph .ixw-copy .actions{grid-area:actions;margin-top:12px;flex-direction:column;align-items:stretch;gap:12px}
   .ixw--office-ph .ixw-hint{display:none}
   .ixw--office-ph .ixw-copy .actions .btn-lg{height:46px;padding:0 18px;font-size:15px;justify-content:center}
-  .ixw--office-ph .ixw-set{width:min(68vw,1010px);bottom:36px}
+  .ixw--office-ph .ixw-set{width:min(68vw,1010px);bottom:46px}
   .ixw--office-ph .ixw-cap{left:60cqw;top:44.5cqw}
   .ixw--office-ph .ixw-copy .lead .m-full{display:none}.ixw--office-ph .ixw-copy .lead .m-short{display:inline}
 }
