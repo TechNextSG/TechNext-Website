@@ -27,6 +27,7 @@ import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
 import worlds as WD  # noqa: E402
+import company_pages as CP  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -49,7 +50,7 @@ def asset_version() -> str:
     against new markup (GitHub Pages caches assets for ~10 minutes)."""
     import hashlib
     h = hashlib.sha1()
-    for f in sorted((ROOT / "assets").glob("css/*.css")) + sorted((ROOT / "assets").glob("js/*.js")):
+    for f in sorted((ROOT / "assets").glob("css/**/*.css")) + sorted((ROOT / "assets").glob("js/**/*.js")):   # subfolders too (worlds/, company/)
         h.update(f.read_bytes())
     return h.hexdigest()[:8]
 
@@ -820,7 +821,7 @@ def offices_html() -> str:
         if o.get("lang"):
             lines = f'<span lang="{o["lang"]}">{o["lines"][0]}</span><br>{o["lines"][1]}'
         on = k == 0
-        page = (f'<a class="btn-link" href="{{{{ROOT}}}}{o["page"]}">{o["page_label"]} {{{{icon:arrow}}}}</a>' if o.get("page") else "")
+        page = (f'<a class="btn-link" href="{{{{ROOT}}}}{o["office"]}">Office page <span class="sr-only">for {o["name"]}</span>{{{{icon:arrow}}}}</a>' if o.get("office") else "")
         out.append(f'''<article class="office{" is-on" if on else ""} reveal" id="office-{o["key"]}" data-office="{o["key"]}" style="--i:{k}">
           <div class="office-top"><span class="office-cc" aria-hidden="true">{o["cc"]}</span><div><h3>{o["name"]}</h3><p>{o["role"]}</p></div></div>
           <address>{lines}</address>
@@ -1121,8 +1122,9 @@ WORLD_SHORT = {   # phone copy for the generated sections of every world page
 def world_flow_html(key: str) -> str:
     """The workflow of a world page: a clinic day (or a shop day, a site day...) as stations on a route. Each station has
     an animated vignette, a caption card whose text types in, the Odoo app, what it replaces and a sample record."""
-    d, w = IX.IND[key], WD.WORLDS[key]
+    d, w = IX.IND.get(key) or WD.module(key).FLOW, WD.WORLDS[key]   # a Company page is not an industry: its module carries FLOW
     steps, n = d["flow"], len(d["flow"])
+    office = getattr(WD.module(key), "OFFICE", None)
     sc, chips = WD.scenes(key)
     pick = ""
     if w.get("samples") and w.get("pick"):
@@ -1133,20 +1135,20 @@ def world_flow_html(key: str) -> str:
                 f'<span class="ixw-pick-l">{pk["icon"] if pk.get("icon") else ""}{pk["label"]}</span><div class="ixw-pick-b">{btns}</div></div>')
     tabs = "".join(
         f'<button class="ixw-stop{" is-on" if k == 0 else ""}" type="button" role="tab" id="ixs-{k}" aria-selected="{"true" if k == 0 else "false"}" '
-        f'aria-controls="ixp-{k}" tabindex="{"0" if k == 0 else "-1"}" style="--i:{k}"><span class="ixw-pin">{_app_ic(st, 26)}<i>{k + 1}</i></span>'
+        f'aria-controls="ixp-{k}" tabindex="{"0" if k == 0 else "-1"}" style="--i:{k}"{f' data-office="{office[k]}"' if office else ""}><span class="ixw-pin">{_app_ic(st, 26)}<i>{k + 1}</i></span>'
         f'<span class="ixw-stop-t">{st["t"]}</span></button>' for k, st in enumerate(steps))
     scenes = "".join(f'<div class="ixw-scene{" is-on" if k == 0 else ""}" data-scene="{k}">{sc[k]}</div>' for k in range(n))
     panels = "".join(
         f'<article class="ixw-panel{" is-on" if k == 0 else ""}" role="tabpanel" id="ixp-{k}" aria-labelledby="ixs-{k}">'
         f'<div class="ixw-panel-who"><span class="ixw-av" aria-hidden="true">{WD.avatar(w["img"])}</span><span><b>Nexi</b><small>Step {k + 1} of {n} · {st["odoo"].split(" · ")[0]}</small></span></div>'
         f'<h3>{st["h"]}</h3><p class="ixw-panel-p"><span class="sr-only">{st["p"]}</span><span aria-hidden="true" data-ixw-ftype>{st["p"]}</span></p>'
-        f'<dl class="ixw-panel-meta"><div class="ixw-in"><dt>In Odoo</dt><dd>{_app_ic(st, 22)}<span>{st["odoo"]}</span></dd></div>'
-        f'<div class="ixw-was"><dt>What it replaces</dt><dd><span>{st["was"]}</span></dd></div></dl>'
+        f'<dl class="ixw-panel-meta"><div class="ixw-in"><dt>{d.get("lab_in", "In Odoo")}</dt><dd>{_app_ic(st, 22)}<span>{st["odoo"]}</span></dd></div>'
+        f'<div class="ixw-was"><dt>{d.get("lab_was", "What it replaces")}</dt><dd><span>{st["was"]}</span></dd></div></dl>'
         f'<p class="ixw-rec">{(f"{{{{icon:{chips[k][0][5:]}}}}}" if chips[k][0].startswith("icon:") else f"{{{{odoo:{chips[k][0]}:18}}}}")}<span>{chips[k][1]}</span><em>Sample</em></p></article>'
         for k, st in enumerate(steps))
     return f'''<section class="section ixw-flow-sec" id="flow">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">how it flows</span><h2>{d["flow_title"]}</h2><p class="lead">{mshort(d["flow_lead"], w["m"].get("flow", ""))}</p></div>
+    <div class="sec-head reveal"><span class="hand">{d.get("hand", "how it flows")}</span><h2>{d["flow_title"]}</h2><p class="lead">{mshort(d["flow_lead"], w["m"].get("flow", ""))}</p></div>
     <div class="ixw-flow reveal" data-ixw-flow style="--n:{n}">
       {pick}
       <div class="ixw-stage">
@@ -1157,7 +1159,7 @@ def world_flow_html(key: str) -> str:
         <div class="ixw-track" data-ixw-route>
           <span class="ixw-road" aria-hidden="true"><i></i></span>
           <span class="ixw-rider" data-ixw-rider aria-hidden="true"><span>{WD.pose_img(w["img"], "hello", True)}</span></span>
-          <div class="ixw-stops" role="tablist" aria-label="{attr(d["name"])} workflow in Odoo, step by step">{tabs}</div>
+          <div class="ixw-stops" role="tablist" aria-label="{attr(d.get("route_label") or d["name"] + " workflow in Odoo, step by step")}">{tabs}</div>
         </div>
         <div class="ixw-fctl">
           <button class="ixw-ibtn" type="button" data-ixw-fprev aria-label="Previous step">{{{{icon:chevron}}}}</button>
@@ -1816,6 +1818,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{APPS_STAGE}}", apps_stage_html())
     if "{{STAGE_BG}}" in content:
         content = content.replace("{{STAGE_BG}}", STAGE_BG)
+    if "{{CO_CITIES" in content:   # the Company pages' office postcards ({{CO_CITIES}}, or {{CO_CITIES:sg}} to leave one out)
+        content = re.sub(r"\{\{CO_CITIES(?::([a-z]+))?\}\}", lambda m: CP.cities_html(m.group(1) or ""), content)
     if "{{OFFICES}}" in content:
         content = content.replace("{{OFFICES}}", offices_html())
     if "{{MARQUEE}}" in content:
