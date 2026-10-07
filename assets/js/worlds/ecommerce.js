@@ -28,8 +28,51 @@
   function parcel(g, x, y, w, h, tapeV) { fillRR(g, x, y, w, h, 4, C.kraft); fillRR(g, x, y, w, Math.min(10, h * 0.22), 3, C.kraftD); g.fillStyle = 'rgba(255,240,210,.5)';
     if (tapeV) g.fillRect(x + w / 2 - 5, y, 10, h); else g.fillRect(x, y + h / 2 - 4, w, 8); }
 
+
+  /* ---------------- beyond the frame: the rest of the warehouse (ext = the whole hero in set units) ----------------
+     Far left: tall pallet racking and a forklift shuttling a pallet. Behind the copy: a second packing bench and a tote
+     cart under the "zone A" sign. Right: dock 2 (closed) and a pallet jack. Pickers walk the margins. */
+  function rackBay(g, x, w) { g.fillStyle = '#F08A5D'; g.fillRect(x, 100, 8, F - 100); g.fillRect(x + w - 8, 100, 8, F - 100);
+    for (var lv = 0; lv < 3; lv++) { var ly = 200 + lv * 110; fillRR(g, x, ly, w, 8, 2, '#3167CA'); fillRR(g, x + 10, ly - 6, w - 20, 6, 2, '#C99A6B');
+      for (var b = 0; b < Math.floor((w - 20) / 40); b++) parcel(g, x + 12 + b * 40, ly - 6 - 34 - (b % 2) * 10, 36, 34 + (b % 2) * 10, (b + lv) % 2 === 0); } }
+  function wideBack(g, ext) {
+    if (ext.l < -560) { rackBay(g, -950, 150); rackBay(g, -790, 150); soft(g, -790, F + 4, 160, 9, 0.2); fillRR(g, -900, 70, 180, 26, 6, C.ink); text(g, 'BULK STOCK · AISLE 4', -810, 87, 9, 800, '#FFFFFF', 'center'); }
+    if (ext.l < 120) {
+      fillRR(g, -400, 60, 150, 30, 6, C.mint); text(g, 'ZONE A · PICK', -325, 80, 10, 800, C.ink, 'center');
+      var bx = -420; fillRR(g, bx, 346, 200, 14, 5, '#E9D6B8'); g.fillStyle = '#7D759E'; g.fillRect(bx + 8, 360, 8, F - 360); g.fillRect(bx + 184, 360, 8, F - 360);
+      parcel(g, bx + 20, 300, 60, 46, true); parcel(g, bx + 90, 316, 50, 30, false); fillRR(g, bx + 150, 326, 30, 18, 4, '#3A3358'); fillRR(g, bx + 152, 318, 12, 10, 3, '#D8D2EA');
+      var cx = -150; fillRR(g, cx, 380, 110, 8, 3, '#7D759E'); fillRR(g, cx, 430, 110, 8, 3, '#7D759E'); g.fillStyle = '#7D759E'; g.fillRect(cx + 4, 340, 6, 120); fillE(g, cx + 14, F - 4, 6, 6, C.ink); fillE(g, cx + 96, F - 4, 6, 6, C.ink);
+      for (var tt = 0; tt < 2; tt++) { fillRR(g, cx + 12 + tt * 48, 348, 42, 32, 4, '#4A86C5'); fillRR(g, cx + 12 + tt * 48, 398, 42, 32, 4, tt ? C.violet : '#4A86C5'); }
+    }
+    if (ext.r > 1010) { var dx = 1040; fillRR(g, dx - 12, 104 - 14, 160, 16, 4, '#7D759E'); g.fillStyle = '#8A82AA'; g.fillRect(dx - 12, 104, 12, F - 104); g.fillRect(dx + 136, 104, 12, F - 104);
+      for (var y = 104; y < F - 4; y += 10) { fillRR(g, dx, y, 136, 10, 2, (Math.floor((y - 104) / 10) % 2) ? '#B9B2D3' : '#C9C3DE'); }
+      for (var hz = 0; hz < 8; hz++) { g.fillStyle = hz % 2 ? '#2B2350' : '#FFD84A'; g.fillRect(dx + hz * 17, F - 4, 17, 6); } text(g, 'DOCK 2', dx + 68, 100, 8.5, 800, '#FFFFFF', 'center');
+      var jx = 1230; fillRR(g, jx, F - 14, 110, 10, 3, '#C99A6B'); parcel(g, jx + 6, F - 64, 48, 50, true); parcel(g, jx + 56, F - 54, 48, 40, false); g.strokeStyle = '#F08A5D'; g.lineWidth = 5; g.beginPath(); g.moveTo(jx + 110, F - 8); g.lineTo(jx + 140, F - 70); g.stroke(); fillRR(g, jx + 130, F - 82, 26, 10, 4, '#F08A5D'); }
+  }
+  function wideLive(g, t, S) {
+    var ext = S.ext;
+    if (ext.l < -380) { /* the forklift shuttles a pallet between the racks and the bench */
+      var span = 240, d = (t * 40) % (span * 2), fx = -620 + (d < span ? d : span * 2 - d), dir = d < span ? 1 : -1;
+      g.save(); g.translate(fx, F); g.scale(dir, 1); soft(g, 0, 4, 70, 8, 0.25);
+      fillRR(g, -60, -54, 80, 44, 8, '#FFD84A'); fillRR(g, -50, -112, 52, 60, 8, 'rgba(255,255,255,.0)'); g.strokeStyle = '#3A3358'; g.lineWidth = 5; g.strokeRect(-50, -110, 46, 58);
+      fillRR(g, -66, -52, 14, 30, 4, '#3A3358'); fillE(g, -40, -6, 12, 12, C.ink); fillE(g, 4, -6, 12, 12, C.ink); g.fillStyle = '#3A3358'; g.fillRect(24, -120, 6, 114); g.fillRect(28, -14, 46, 6);
+      fillRR(g, 30, -22, 46, 8, 2, '#C99A6B'); parcel(g, 32, -62, 40, 40, true); g.restore();
+    }
+    pick(g, t, S, false);
+  }
+  var PICK = [{ x0: -480, x1: 60, y: 490, spd: 20, ph: 0.3, drag: '#4A86C5', P: { s: 0.44, ph: 0.6, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#22A88A', low: '#2B2350', shoe: '#F7F8FB', hat: '#6D5BD0' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'pony', clipCol: null, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { front: true, x0: -940, x1: -420, y: 650, spd: 26, ph: 0.7, P: { s: 0.5, ph: 1.4, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#F08A5D', low: '#2B2350', shoe: '#F7F8FB' }, outfit: 'hoodie', hairStyle: 'short', short: true, hold: 'box', mood: 'happy', look: 0, hands: [[-60, -212], [64, -216]] } },
+    { x0: 1010, x1: 1340, y: 490, spd: 22, ph: 0.2, P: { s: 0.44, ph: 2.1, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#6D5BD0', low: '#2B2350', shoe: '#F7F8FB', hat: '#3CCFAE' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'short', short: true, hold: 'box', mood: 'calm', look: 0, hands: [[-60, -212], [64, -216]] } }];
+  function pick(g, t, S, front) { var ext = S.ext;
+    PICK.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
+  function wideFront(g, ext) {
+    if (ext.l < -600) { for (var p2 = 0; p2 < 3; p2++) parcel(g, -880 + p2 * 50, 640 - p2 * 6, 48, 40 + p2 * 6, p2 % 2 === 0); fillRR(g, -890, 680, 170, 10, 3, '#C99A6B'); soft(g, -810, 694, 100, 8, 0.25); }
+    if (ext.r > 1060) { var cx = 1100; fillRR(g, cx, 560, 40, 90, 10, '#FFD84A'); fillRR(g, cx + 4, 600, 32, 10, 3, '#2B2350'); text(g, 'CAUTION', cx + 20, 590, 7, 800, '#2B2350', 'center'); soft(g, cx + 20, 654, 30, 6, 0.25); }
+  }
+
   /* ---------------- static back props (set units) ---------------- */
-  function paintBack(g) {
+  function paintBack(g, ext) {
+    wideBack(g, ext);
     T.lights.forEach(function (lx) { g.fillStyle = '#9C95B8'; g.fillRect(lx - 40, 0, 2, 18); g.fillRect(lx + 38, 0, 2, 18); fillRR(g, lx - 48, 16, 96, 12, 6, '#FFFFFF'); fillRR(g, lx - 44, 26, 88, 4, 2, '#FFF8E0');
       g.save(); var gl = g.createLinearGradient(0, 28, 0, 220); gl.addColorStop(0, 'rgba(255,250,230,.35)'); gl.addColorStop(1, 'rgba(255,250,230,0)'); g.fillStyle = gl; g.beginPath(); g.moveTo(lx - 44, 30); g.lineTo(lx + 44, 30); g.lineTo(lx + 110, 220); g.lineTo(lx - 110, 220); g.closePath(); g.fill(); g.restore(); });
     /* the returns cage */
@@ -65,7 +108,8 @@
   }
 
   /* ---------------- static front props: the support desk, the packing table, the conveyor (over the staff) ---------------- */
-  function paintFront(g) {
+  function paintFront(g, ext) {
+    wideFront(g, ext);
     var dk = T.desk; fillRR(g, dk.x, dk.y, dk.w, 12, 5, '#F4F1FA'); fillRR(g, dk.x + 6, dk.y + 10, dk.w - 12, F - dk.y - 10, 6, C.violet);
     g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(dk.x + 18, dk.y + 26, dk.w - 36, 3); fillRR(g, dk.x + 24, dk.y + 44, 62, 30, 5, C.violetD); fillRR(g, dk.x + 30, dk.y + 52, 50, 4, 2, '#8D7FE0');
     text(g, 'SUPPORT', dk.x + dk.w - 30, dk.y + 66, 9, 800, '#FFFFFF', 'center');
@@ -110,6 +154,7 @@
   /* ---------------- live back: order slips, the dashboard, the low bin ---------------- */
   var SLIPS = [['WEB', '#1042', 0], ['MKT A', '#A-5531', 1], ['MKT B', '#B-2208', 2], ['WEB', '#1043', 0]];
   function paintLive(g, t, now, S) {
+    wideLive(g, t, S);
     var rl = T.rail, on = S.hot === 'order', shift = on ? clamp((t - (S.ordT || 0)) / 0.8, 0, 1) : 1;
     for (var i = 0; i < 4; i++) {
       var s = SLIPS[i], x = rl.x + 2 + i * 44, dy = i === 3 ? (on ? (1 - shift) * -60 : 0) : 0, sw = Math.sin(t * 1.6 + i) * 0.03;
@@ -134,6 +179,7 @@
   /* ---------------- live front: the tablet, the label, the helpdesk screen, the parcels, the bubbles ---------------- */
   var BOXES = [{ w: 46, h: 30 }, { w: 38, h: 36 }, { w: 52, h: 26 }];
   function paintFrontLive(g, t, S) {
+    pick(g, t, S, true);
     var tt = T.tab, pay = S.hot === 'pay' || S.peek === 'pay', cyc = (t % 6) / 6, paid = pay || cyc > 0.45;
     text(g, '#1042', tt.x + 7, tt.y + 13, 6.5, 800, C.ink); text(g, 'S$ 49.80', tt.x + 45, tt.y + 13, 6, 700, '#6B6B84', 'right');
     fillRR(g, tt.x + 6, tt.y + 20, 40, 13, 6, paid ? C.mintD : '#ECE8F5'); text(g, paid ? 'PAID ✓' : 'paying…', tt.x + 26, tt.y + 29.5, 6.5, 800, paid ? '#FFFFFF' : '#6B6B84', 'center');

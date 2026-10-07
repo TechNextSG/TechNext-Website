@@ -107,7 +107,14 @@ and must look like no other world:
 Phone copy: `<span class="m-full">…</span><span class="m-short">…</span>` shows the short version under 768px.
 Every name and figure in a world is sample data and is labelled as such.
 
-Worlds so far: Medical (clinic), Travel (airport terminal), Retail (shop floor), Ecommerce (packing room).
+Worlds so far: Medical (clinic), Travel (airport terminal), Retail (shop floor), Ecommerce (packing room), Construction
+(building site), F&B (restaurant with an open kitchen).
+
+- Beyond the frame: `paintBack(g, ext)` and `paintFront(g, ext)` get `ext {l, r, t, b}`, the whole hero in set units, and
+  `S.ext` holds the same. Every world fills its margins (left of the frame, behind the title card, right of it, and
+  the ground in front) with props and passers-by (`K.walker`), so wide desktops look busy.
+- "View the scene" (`.ixw-peek`, added by the engine, desktop only) hides the title card and the caption so the
+  whole scene shows; pressing it again brings them back.
 
 - No indicator dots. Hotspots (`data-hot`), toys (`data-toy`) and staff (`data-cast`) are invisible areas over the
   drawn objects: `--x/--y` is the centre and `--w/--h` the size, in set units. Pointing at one glows the object

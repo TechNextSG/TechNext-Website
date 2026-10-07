@@ -67,8 +67,48 @@
     g.fillStyle = 'rgba(127,198,245,.10)'; for (var rf = (sx % (140 * k)) - 140 * k; rf < W; rf += 140 * k) g.fillRect(rf + 20 * k, fy + 8 * k, 70 * k, (Hh - fy) * 0.5);
   }
 
+
+  /* ---------------- beyond the frame: the rest of the terminal (ext = the whole hero in set units) ----------------
+     Far left: self check-in kiosks and the A1-A3 counters with a queue lane. Behind the copy: the duty-free shop under the
+     arrivals screen. Right: the gates sign over a moving walkway and a bench. Travellers walk with their cases. */
+  function wideBack(g, ext) {
+    if (ext.l < -480) {
+      [-920, -858].forEach(function (kx) { soft(g, kx + 22, F + 4, 26, 6, 0.2); fillRR(g, kx, 300, 44, 170, 10, '#FFFFFF'); fillRR(g, kx + 6, 314, 32, 46, 4, '#2A3550'); fillRR(g, kx + 9, 317, 26, 40, 2, '#DDF0FB');
+        fillRR(g, kx + 12, 324, 20, 6, 2, '#3167CA'); fillRR(g, kx + 12, 336, 14, 4, 2, '#9DB7DC'); fillRR(g, kx + 8, 372, 28, 6, 3, '#9AA6BC'); fillRR(g, kx - 2, 292, 48, 12, 6, '#3167CA'); text(g, 'SELF', kx + 22, 301, 7, 800, '#FFFFFF', 'center'); });
+      var cx = -780; fillRR(g, cx, 334, 250, 14, 6, '#E6ECF4'); fillRR(g, cx + 6, 346, 238, F - 346, 10, '#FFFFFF'); g.fillStyle = '#3167CA'; g.fillRect(cx + 6, 372, 238, 26);
+      text(g, 'CHECK-IN  A1 – A3', cx + 125, 390, 11, 800, '#FFFFFF', 'center'); [cx + 30, cx + 110, cx + 190].forEach(function (sx) { fillRR(g, sx, 292, 50, 40, 6, '#2A3550'); fillRR(g, sx + 4, 296, 42, 30, 3, '#FFFFFF'); fillRR(g, sx + 4, 296, 42, 7, 2, '#3FA9E0'); });
+      for (var st = 0; st < 5; st++) { var px = cx + 10 + st * 58; g.fillStyle = '#9AA6BC'; g.fillRect(px, 500, 4, 70); fillE(g, px + 2, 572, 10, 3, '#9AA6BC'); fillE(g, px + 2, 498, 4, 4, '#C3CDDA'); if (st < 4) { g.fillStyle = '#3167CA'; g.fillRect(px + 4, 506, 54, 5); } }
+    }
+    if (ext.l < 80) { /* the arrivals screen and the duty-free shop */
+      fillRR(g, -380, 40, 220, 92, 8, '#17284A'); g.fillStyle = '#9AA6BC'; g.fillRect(-330, 0, 3, 40); g.fillRect(-210, 0, 3, 40); fillRR(g, -374, 46, 208, 18, 5, '#21375F'); text(g, 'ARRIVALS', -364, 59, 9.5, 800, '#7FE9C4');
+      [['SINGAPORE', 'LANDED'], ['KUALA LUMPUR', 'ON TIME'], ['BANGKOK', 'DELAYED']].forEach(function (r, i) { text(g, r[0], -364, 82 + i * 16, 8, 800, '#F3E7C9'); text(g, r[1], -176, 82 + i * 16, 8, 800, r[1] === 'DELAYED' ? '#FF8FA3' : '#7FE9C4', 'right'); });
+      var dx = -440; fillRR(g, dx, 186, 330, 284, 8, '#1E2A4A'); fillRR(g, dx + 10, 222, 310, 248, 4, '#F6F1E7'); fillRR(g, dx + 20, 194, 290, 22, 6, '#FFC94A'); text(g, 'DUTY FREE', dx + 165, 210, 12, 800, '#1E2A4A', 'center');
+      for (var sh = 0; sh < 3; sh++) { var sy = 270 + sh * 60; fillRR(g, dx + 20, sy, 290, 6, 2, '#C9B79C'); for (var it = 0; it < 8; it++) { var ix = dx + 30 + it * 35, cols = ['#FF8FA3', '#7B5BD6', '#3FA9E0', '#FFC94A', '#21B799'];
+        if ((it + sh) % 3 === 0) fillRR(g, ix, sy - 30, 18, 30, 4, cols[(it + sh) % 5]); else { fillRR(g, ix, sy - 22, 22, 22, 4, cols[(it * 2 + sh) % 5]); fillRR(g, ix + 7, sy - 26, 8, 5, 2, '#C9B79C'); } } }
+      g.fillStyle = 'rgba(255,255,255,.25)'; g.beginPath(); g.moveTo(dx + 40, 470); g.lineTo(dx + 160, 222); g.lineTo(dx + 200, 222); g.lineTo(dx + 80, 470); g.closePath(); g.fill();
+    }
+    if (ext.r > 1000) { /* the gates sign, the moving walkway, a bench */
+      g.fillStyle = '#9AA6BC'; g.fillRect(1060, 0, 3, 40); g.fillRect(1240, 0, 3, 40); shadowed(g, 10, 4, 0.2, function () { fillRR(g, 1040, 40, 220, 36, 6, '#1E2A4A'); });
+      fillRR(g, 1048, 46, 24, 24, 4, '#FFC94A'); planeIcon(g, 1060, 58, 0.9, '#1E2A4A'); text(g, 'Gates B10–B20', 1082, 64, 13, 800, '#FFC94A'); text(g, '→', 1244, 65, 15, 800, '#FFFFFF', 'center');
+      fillRR(g, 1010, 476, 420, 20, 6, '#8191AA'); fillRR(g, 1010, 470, 420, 8, 4, '#55657F');
+      var bx = 1280; fillRR(g, bx, 420, 120, 14, 5, '#3FA9E0'); fillRR(g, bx, 398, 120, 24, 6, '#2B8CC4'); g.fillStyle = '#9AA6BC'; g.fillRect(bx + 10, 434, 6, 36); g.fillRect(bx + 104, 434, 6, 36);
+    }
+  }
+  function wideLive(g, t, S) {
+    var ext = S.ext;
+    if (ext.r > 1000) { g.save(); rr(g, 1010, 476, 420, 20, 6); g.clip(); g.fillStyle = 'rgba(255,255,255,.55)'; for (var a = 1000 + ((t * 30) % 40); a < 1440; a += 40) { g.beginPath(); g.moveTo(a, 480); g.lineTo(a + 10, 486); g.lineTo(a, 492); g.closePath(); g.fill(); } g.restore(); }
+    trav(g, t, S, false);
+  }
+  var TRAV = [{ x0: -940, x1: -520, y: 488, spd: 24, ph: 0.1, drag: '#FF8A65', P: { s: 0.44, ph: 0.4, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#3167CA', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { x0: -430, x1: 60, y: 490, spd: 18, ph: 0.6, drag: '#21B799', P: { s: 0.44, ph: 1.3, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FFC94A', low: '#2A3550', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#FF8A65' }, outfit: 'tee', hat: 'sunhat', hairStyle: 'short', short: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { front: true, x0: -930, x1: -380, y: 650, spd: 28, ph: 0.35, drag: '#7B5BD6', P: { s: 0.5, ph: 2.2, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FF8FA3', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', backpack: '#3FA9E0', hairStyle: 'pony', clipCol: '#FFC94A', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { x0: 1010, x1: 1340, y: 486, spd: 34, ph: 0.2, drag: '#FFC94A', P: { s: 0.44, ph: 0.8, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', hairStyle: 'short', mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } }];
+  function trav(g, t, S, front) { var ext = S.ext;
+    TRAV.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
+
   /* ---------------- static back props (set units) ---------------- */
-  function paintBack(g) {
+  function paintBack(g, ext) {
+    wideBack(g, ext);
     var gs = T.gates; g.fillStyle = '#9AA6BC'; g.fillRect(gs.x + 20, gs.y - 30, 3, 30); g.fillRect(gs.x + gs.w - 23, gs.y - 30, 3, 30);
     shadowed(g, 10, 4, 0.2, function () { fillRR(g, gs.x, gs.y, gs.w, gs.h, 6, '#1E2A4A'); });
     fillRR(g, gs.x + 6, gs.y + 6, 22, 22, 4, '#FFC94A'); planeIcon(g, gs.x + 17, gs.y + 17, 0.8, '#1E2A4A');
@@ -152,6 +192,7 @@
   function fmt(v, d) { var s = v.toFixed(d); return d === 0 ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : s; }
   function flap(g, x, y, w, h, s, col, sq) { g.save(); g.translate(x + w / 2, y + h / 2); g.scale(1, Math.max(0.08, sq)); fillRR(g, -w / 2, -h / 2, w, h, 3, '#24395E'); text(g, s, -w / 2 + 5, h / 2 - 4, 10, 800, col); g.restore(); g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(x, y + h / 2 - 0.5, w, 1); }
   function paintLive(g, t, now, S) {
+    wideLive(g, t, S);
     var utc = now.getUTCHours() + now.getUTCMinutes() / 60;
     T.clocks.forEach(function (c) { var h = (utc + c.tz) % 24; K.clockHands(g, c, Math.floor(h), Math.floor((h % 1) * 60), now.getUTCSeconds()); });
     var b = T.board, margins = S.hot === 'review' || (S.toy.board != null && t - S.toy.board < 6), slot = Math.floor(t / 2.2), ph = (t % 2.2) / 2.2;
@@ -220,6 +261,7 @@
     }
   }
   function paintFrontLive(g, t, S) {
+    trav(g, t, S, true);
     var tm = T.term, wv = (t % 1.6) / 1.6, act = S.hot === 'deposit' || S.peek === 'deposit' ? 1 : 0.5;
     g.strokeStyle = 'rgba(49,103,202,' + ((1 - wv) * act).toFixed(2) + ')'; g.lineWidth = 2; g.lineCap = 'round';
     for (var r2 = 0; r2 < 2; r2++) { g.beginPath(); g.arc(tm.x + 18, tm.y - 10, 6 + r2 * 6 + wv * 6, -2.4, -0.74); g.stroke(); }

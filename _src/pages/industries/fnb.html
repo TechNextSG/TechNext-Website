@@ -1,38 +1,68 @@
-<!--meta {"title": "Odoo for F&B in Singapore — restaurants & kitchens", "desc": "Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.", "out": "industries/fnb.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-kitchen.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kitchen.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for F&B in Singapore — restaurants & kitchens", "desc": "Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.", "out": "industries/fnb.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-kitchen.js", "assets/js/industry-world.js", "assets/js/worlds/fnb.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kitchen.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/fnb.css?v={ASSET_V}\">", "body": "ixw ixw--fnb"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>F&amp;B</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo for f&amp;b</span>From the order to the kitchen to the books, in one system.</h1>
-        <p class="lead">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</p>
-        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
-      </div>
-      <div class="stage stage--fnb" aria-hidden="true">
-        <div class="st-card fb-floor dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:pos_restaurant:16}}<span>Floor plan · Outlet 1</span></div>
-          <div class="fb-tables"><span class="busy">T1</span><span>T2</span><span class="sq busy">T3</span><span class="on">T4</span><span class="sq">T5</span><span class="busy">T6</span></div>
-        </div>
-        <div class="st-card fb-kds dp" style="--d:12"><b>Kitchen · T4</b><p>2 × Laksa</p><p>1 × Teh tarik</p><span class="fb-time"><i></i></span><em class="fb-ready">{{icon:check}}Ready to serve</em></div>
-        <div class="st-card fb-stock dp" style="--d:14"><b>Ingredients · par levels</b>
-          <div class="fb-bar"><span>Noodles</span><u><i style="--w:56%;--w0:74%"></i></u></div>
-          <div class="fb-bar low"><span>Prawns</span><u><i style="--w:24%;--w0:38%"></i></u><em>Below par · PO raised</em></div>
-          <div class="fb-bar"><span>Coconut milk</span><u><i style="--w:46%;--w0:60%"></i></u></div>
-        </div>
-        <span class="st-chip fb-night dp" style="--d:10">{{icon:calculator}}Outlet takings posted each night</span>
+<section class="ixw-hero" data-ixw-hero data-world="fnb" data-home="646,110" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>F&amp;B</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Restaurants, cafés &amp; central kitchens</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo for f&amp;b</span>From the order to the kitchen to the books, in one system.</h1>
+      <p class="lead"><span class="m-full">Point of Sale that talks to the kitchen, recipes that deplete stock as dishes sell, purchasing from suppliers on par levels, and each outlet's takings posted to Accounting the same night.</span><span class="m-short">A POS that talks to the kitchen, recipes that use up stock, par-level ordering and nightly takings in the books.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Hover or tap anything in the restaurant to explore.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="marco" data-near="646,110" data-who="Marco" data-role="Head chef · sample" data-say="The ticket pops up on my screen with the **notes** attached. No more shouting across the pass!" style="--x:470;--y:240;--w:116;--h:150" aria-label="Say hi to Marco, the head chef (sample character)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Marco</b><i>head chef</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="aisha" data-near="600,120" data-who="Aisha" data-role="Server · sample" data-say="Table 7 ordered from the **QR code**, so I just bring the food. And the tips!" style="--x:716;--y:350;--w:120;--h:280" aria-label="Say hi to Aisha, the server (sample character)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Aisha</b><i>server</i></span></button>
+      <button class="ixw-toy" type="button" data-toy="wok" data-near="646,110" data-pose="wow" data-say="Whoosh! Every dish that leaves the wok deducts its **ingredients** through its recipe." style="--x:544;--y:236;--w:70;--h:70" aria-label="Toss the wok"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Toss the wok</b></span></button>
+      <button class="ixw-toy" type="button" data-toy="bell" data-near="646,110" data-pose="celebrate" data-say="Ding! Order up. The **kitchen display** marks it ready for the floor." style="--x:600;--y:290;--w:40;--h:30" aria-label="Ring the pass bell"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Ring the bell</b></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="buy" data-nx="290,210" data-pose="point-left" data-rec="PO00156 · 40 kg tomatoes · Fri delivery" data-say="Reordering rules raise **purchase orders** from par levels, with each supplier&#x27;s prices and delivery days." style="--x:226;--y:430;--w:84;--h:92" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:purchase:18}}<b>Buy</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="prep" data-nx="290,210" data-pose="point-right" data-rec="MO/0091 · laksa paste · 20 kg" data-say="Sauces and pastes run as **manufacturing orders** from recipes, so ingredient use and cost are recorded." style="--x:386;--y:268;--w:70;--h:74" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:mrp:18}}<b>Prep</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="deliver" data-nx="200,240" data-pose="point-right" data-rec="Transfer · central kitchen → outlet 2" data-say="**Transfers** move prepared items to each outlet, and outlet stock updates when the delivery is received." style="--x:302;--y:425;--w:70;--h:96" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:stock:18}}<b>Deliver</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="serve" data-nx="646,110" data-pose="point-right" data-rec="Table 7 · 4 guests · ordered by QR" data-say="The restaurant POS runs **tables, takeaway and QR self-ordering**, with split bills and tips." style="--x:820;--y:372;--w:140;--h:90" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:pos_restaurant:18}}<b>Serve</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="cook" data-nx="646,110" data-pose="point-left" data-rec="#42 · 2 × laksa · no prawns" data-say="Orders appear on the **kitchen display** with the guest&#x27;s notes, and each dish deducts its ingredients." style="--x:525;--y:89;--w:118;--h:82" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:pos_restaurant:18}}<b>Cook</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="close" data-nx="880,200" data-pose="present" data-rec="Outlet 1 · S$ 6,240 · food cost 31%" data-say="Closing the session posts each outlet&#x27;s **takings**, and food cost shows from recipe usage against sales." style="--x:940;--y:274;--w:64;--h:64" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Close</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:646;--ny:110" data-reacts="wow::Ooh, that smells like **food cost under control**!|love::Front of house, kitchen and books in **one database**. Delicious!|celebrate::Chef Nexi says: order to the books, **all in Odoo**!|think::Hmm… which outlet first? Start with **one outlet**.">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:fnb}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/pos_restaurant.html">POS Restaurant</a> · <a href="{{ROOT}}odoo/apps/mrp.html">Manufacturing</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a></dd></div><div><dt>First phase</dt><dd>Start with one outlet</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi, I&#x27;m **Nexi**! Welcome to Lantern Kitchen, our sample restaurant. Tap anything and I&#x27;ll show you how **Odoo** runs the kitchen." data-outro="From the supplier to the table to the books, in **one Odoo database**.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:fnb}}<b data-for="marco" style="--c:#E2553D">M</b><b data-for="aisha" style="--c:#E9B949">A</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="Your kitchen guide · Lantern Kitchen is a sample restaurant">Your kitchen guide · Lantern Kitchen is a sample restaurant</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi, I'm <b>Nexi</b>! Welcome to Lantern Kitchen, our sample restaurant. Tap anything and I'll show you how <b>Odoo</b> runs the kitchen.</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: buy"></button><button type="button" data-ixw-dot aria-label="Stop 3: prep"></button><button type="button" data-ixw-dot aria-label="Stop 4: deliver"></button><button type="button" data-ixw-dot aria-label="Stop 5: serve"></button><button type="button" data-ixw-dot aria-label="Stop 6: cook"></button><button type="button" data-ixw-dot aria-label="Stop 7: close"></button><button type="button" data-ixw-dot aria-label="Stop 8: one database"></button></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits"><div><dt>{{icon:layers}}Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/pos_restaurant.html">POS Restaurant</a> · <a href="{{ROOT}}odoo/apps/mrp.html">Manufacturing</a> · <a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a></dd></div><div><dt>{{icon:target}}First phase</dt><dd>Start with one outlet</dd></div><div><dt>{{icon:users}}Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
+
 {{INDUSTRY_INTRO:fnb}}
+
+{{INDUSTRY_FLOW:fnb}}
 
 <section class="section demo-sec" id="floor-to-kitchen">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">one night of service</span><h2>Odoo for F&amp;B: from the floor plan to the kitchen display to the books.</h2><p class="lead">A dinner service on Odoo Point of Sale for restaurants, set up the way TechNext runs outlets: tables are seated and ordered, each order splits into tickets for the grill, the fryer and the drinks station, recipes deduct ingredients when the bill is paid, and closing the session posts the night into Accounting. Turn on the dinner rush, press a table to see its order, then close the session.</p></div>
+    <div class="sec-head reveal"><span class="hand">one night of service</span><h2>Odoo for F&amp;B: from the floor plan to the kitchen display to the books.</h2><p class="lead"><span class="m-full">A dinner service on Odoo Point of Sale for restaurants, set up the way TechNext runs outlets: tables are seated and ordered, each order splits into tickets for the grill, the fryer and the drinks station, recipes deduct ingredients when the bill is paid, and closing the session posts the night into Accounting. Turn on the dinner rush, press a table to see its order, then close the session.</span><span class="m-short">Seat a table, send orders to the kitchen and watch recipes use up stock.</span></p></div>
+    <div class="ixw-browser reveal" aria-hidden="true"><i></i><i></i><i></i><span>yourcompany.odoo.com/odoo/pos_restaurant</span><em>Sample data</em></div>
     <div class="dm dm-kitchen reveal" data-demo="kitchen">
       <div class="dm-head">
         <div class="dm-title"><b>Outlet 1 · dinner service</b><small>Sample menu and prices · GST 9% · time compressed</small></div>
@@ -109,7 +139,7 @@
 <section class="section">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
-    <div class="grid-3">
+    <div class="grid-3 ixw-board">
       <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:utensils}}</div><h3>Food cost is a guess</h3><p>Recipes live in someone's head; ingredient prices move and nobody sees the margin per dish.</p></article>
       <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:box}}</div><h3>Stock counted by feel</h3><p>Walk-in fridges checked by eye; orders placed by habit; waste unrecorded.</p></article>
       <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:calculator}}</div><h3>Outlets close in spreadsheets</h3><p>Each outlet's Z-report and delivery-platform payouts reconciled by hand, days later.</p></article>
@@ -137,9 +167,10 @@
 
 <section class="section">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">next step</span><h2>Start with one outlet.</h2><p>POS, recipes and books for a single outlet first; the central kitchen and other outlets follow.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    <div class="cta ixw-cta reveal" data-ixw-burst>
+      <span class="ixw-cta-nexi" aria-hidden="true">{{IXW_POSE:fnb:celebrate}}</span>
+      <div><span class="hand">next step</span><h2>Start with one outlet.</h2><p><span class="m-full">POS, recipes and books for a single outlet first; the central kitchen and other outlets follow.</span><span class="m-short">POS, recipes and books for one outlet first; the rest follow.</span></p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
     </div>
   </div>
 </section>
