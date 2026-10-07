@@ -27,7 +27,8 @@ import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
 import worlds as WD  # noqa: E402
-import company_pages as CP  # noqa: E402
+import company_pages as CP
+import app_worlds as AW  # noqa: E402
 import hero_skins  # noqa: E402
 hero_skins.write()   # the homepage industries slide's skins, before the asset version is taken
 import backdrops  # noqa: E402
@@ -1572,6 +1573,13 @@ def app_page(mod: str) -> tuple:
     </div>
   </div>
 </section>'''
+    if mod in AW.WORLD:   # Accounting, Sales and Inventory: their own world hero instead of the generated stage
+        w = AW.WORLD[mod]
+        i0 = content.index('<section class="page-hero'); i1 = content.index("</section>", i0) + len("</section>")
+        content = content[:i0] + AW.hero(mod, h1name, headline, lead) + content[i1:]
+        meta["scripts"] = meta.get("scripts", []) + ["assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", f"assets/js/worlds/{w}.js"]
+        meta["head"] = meta.get("head", "") + "".join(f'<link rel="stylesheet" href="{{ROOT}}assets/css/{c}?v={{ASSET_V}}">' for c in ("industry.css", "industry-world.css", "odoo-walk.css", f"worlds/{w}.css"))
+        meta["body"] = f"ixw ixw--{w} ow-page"
     return meta, content
 
 # ---------------------------------------------------------------- blog

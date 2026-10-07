@@ -96,7 +96,10 @@ def intro_html(world: str) -> str:
     from industries import IND
     meta = module(world).META
     ind = IND.get(world) or getattr(module(world), "FLOW", {"name": meta.get("tag", ""), "flow": []})   # Company pages are not industries
-    page = (_ROOT / "_src/pages" / (meta.get("page") or f"industries/{world}.html")).read_text(encoding="utf-8")
+    src = _ROOT / "_src/pages" / (meta.get("page") or f"industries/{world}.html")
+    # a generated page (the Odoo app pages) has no source file: its intro takes the ep label and hand from META
+    page = src.read_text(encoding="utf-8") if src.exists() else (f'<p class="ixw-ep"><a></a><span>{meta.get("tag", "")}</span></p>'
+                                                                  f'<span class="hand h1-hand">{meta.get("hand", "")}</span>')
     m_ep = _re.search(r'<p class="ixw-ep">.*?</a><span>(.*?)</span></p>', page, _re.S)
     m_hd = _re.search(r'<span class="hand h1-hand">(.*?)</span>', page)
     title = meta.get("intro_title") or f'Odoo for <b>{ind["name"]}</b>'
