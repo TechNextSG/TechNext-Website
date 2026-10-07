@@ -1,0 +1,119 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: travel (Bluewave Journeys, a sample travel agency). Sky, sand and sea. Every section wears the trip:
+   airmail postcards for the three problems, boarding-pass tabs for the apps, a split-flap departures board for
+   before/after, an airplane window for the video, a luggage tag for Odoo 20, flight legs for the rollout and a boarding
+   pass for the end card. Loaded after industry-world.css; scoped to body.ixw--travel. */
+.ixw--travel{--w-vwall:#E8F3FE;--w-vwains:#F3E6D2;--w-vfloor:#F1E3CB;--w-vbase:#E2CBA6;--w-alt:#F1F7FE;--w-dot:rgba(49,103,202,.09);--w-hand:#1E7FBF;
+  --t-sea:#3FA9E0;--t-sea-d:#1E7FBF;--t-sand:#F4E2B8;--t-coral:#FF8A65;--t-navy:#17284A;--t-amber:#FFC94A}
+.ixw--travel .ixw-hero{background:linear-gradient(180deg,#EEF6FF 0%,#E1EEFC 64%,#F1DFC5 64%,#E2C7A3 100%)}
+.ixw--travel .ixw-credits dt .ic{color:var(--t-sea)}
+.ixw--travel .ixw-say .ix-intro-h{background:#DDF0FB;color:#155E8F}
+.ixw--travel .ixw-scene-tag{color:#155E8F}
+.ixw--travel .ixw-scenes{background:#E8F3FE;box-shadow:0 3px 0 #D3E4F5,0 30px 60px -36px rgba(20,60,110,.45)}
+/* the route is a dotted flight path */
+.ixw--travel .ixw-road{background:repeating-linear-gradient(90deg,#BFD9F3 0 10px,transparent 10px 18px)}
+.ixw--travel .ixw-road i{background:linear-gradient(90deg,var(--t-sea),var(--blue))}
+.ixw--travel .ixw-stop.is-done .ixw-pin{border-color:#BFE0F5;box-shadow:0 4px 0 #BFE0F5}
+.ixw--travel .ixw-stop.is-done .ixw-pin i{background:var(--t-sea)}
+.ixw--travel .ixw-pick-l::before{content:"";width:18px;height:18px;background:var(--t-sea);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* ---------- the three problems: airmail postcards ---------- */
+.ixw--travel .ixw-board{background:none;box-shadow:none;padding:14px 6px 6px;gap:26px}
+.ixw--travel .ixw-board .card{border:7px solid transparent;border-radius:12px;padding:30px 84px 26px 24px;
+  background:linear-gradient(#FFFDF8,#FFFDF8) padding-box,repeating-linear-gradient(-45deg,#E0456B 0 9px,#FFFFFF 9px 15px,#3167CA 15px 24px,#FFFFFF 24px 30px) border-box;
+  box-shadow:0 22px 34px -22px rgba(30,60,110,.45)}
+.ixw--travel .ixw-board .card:nth-child(n){background:linear-gradient(#FFFDF8,#FFFDF8) padding-box,repeating-linear-gradient(-45deg,#E0456B 0 9px,#FFFFFF 9px 15px,#3167CA 15px 24px,#FFFFFF 24px 30px) border-box}
+/* the stamp (perforated edge) and its postmark */
+.ixw--travel .ixw-board .card::before{left:auto;right:16px;top:16px;width:52px;height:62px;margin:0;border-radius:3px;box-shadow:0 2px 4px rgba(30,40,80,.18);
+  background:radial-gradient(circle at 50% 42%,#FFD84A 0 9px,transparent 9.5px),linear-gradient(180deg,#7CC8FF 0 58%,#F4E2B8 58%);
+  -webkit-mask:radial-gradient(circle at 3px 3px,transparent 2.4px,#000 2.6px) -3px -3px/6px 6px;mask:radial-gradient(circle at 3px 3px,transparent 2.4px,#000 2.6px) -3px -3px/6px 6px}
+.ixw--travel .ixw-board .card:nth-child(2)::before{background:radial-gradient(circle at 50% 42%,#FFFFFF 0 9px,transparent 9.5px),linear-gradient(180deg,#FF9EB1 0 58%,#FFE6A6 58%)}
+.ixw--travel .ixw-board .card:nth-child(3)::before{background:radial-gradient(circle at 50% 42%,#FFD84A 0 9px,transparent 9.5px),linear-gradient(180deg,#7CD6C4 0 58%,#CDEBD5 58%)}
+.ixw--travel .ixw-board .card::after{content:"";position:absolute;right:46px;top:44px;width:70px;height:40px;opacity:.55;pointer-events:none;transform:rotate(-12deg);transition:transform .45s var(--w-spring),opacity .3s ease;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='none' stroke='%231F1F3D' stroke-width='2'/%3E%3Cpath d='M36 12q8-5 16 0t16 0M36 20q8-5 16 0t16 0M36 28q8-5 16 0t16 0' fill='none' stroke='%231F1F3D' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat}
+.ixw--travel .ixw-board .card:hover::after{transform:rotate(-4deg) scale(1.12);opacity:.85}
+.ixw--travel .ixw-board .card-ic{color:var(--t-sea-d)}
+.ixw--travel .ixw-board .card h3{font-family:var(--font-display)}
+
+/* ---------- the apps: boarding-pass tabs and a boarding-pass panel ---------- */
+.ixw--travel .sc-tab{--tk:#FFFFFF;border:0;border-radius:14px;box-shadow:none;filter:drop-shadow(0 3px 0 #DCE6F4);
+  background:radial-gradient(circle at 0 50%,transparent 9px,var(--tk) 9.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 9px,var(--tk) 9.5px) right/51% 100% no-repeat;
+  padding-left:22px;padding-right:22px}
+.ixw--travel .sc-tab:hover{--tk:#F6FAFF;filter:drop-shadow(0 5px 0 #CFE0F7)}
+.ixw--travel .sc-tab.is-active{--tk:#EAF5FD;filter:drop-shadow(0 4px 0 var(--t-sea))}
+.ixw--travel .sc-tab::after{left:22px;right:22px;background:var(--t-sea)}
+.ixw--travel .sc-panel{padding-top:44px;padding-right:0}
+.ixw--travel .sc-panel::before{height:44px;background:linear-gradient(90deg,var(--t-sea),var(--blue));content:"BOARDING PASS \00B7  ODOO";display:flex;align-items:center;padding-left:22px;font:800 11px/1 var(--font-body);letter-spacing:.2em;color:#fff}
+.ixw--travel .sc-panel::after{left:auto;right:22px;top:auto;bottom:18px;width:96px;height:34px;margin:0;border-radius:2px;
+  background:repeating-linear-gradient(90deg,#1F1F3D 0 2px,transparent 2px 4px,#1F1F3D 4px 5px,transparent 5px 8px,#1F1F3D 8px 11px,transparent 11px 13px);opacity:.75}
+
+/* ---------- before / after: the departures board ---------- */
+.ixw--travel .ix-ba{gap:8px;padding:46px 14px 14px;border-radius:22px;background:var(--t-navy);box-shadow:0 3px 0 #0E1A33,0 30px 60px -36px rgba(10,20,50,.6);position:relative}
+.ixw--travel .ix-ba::before{content:"DEPARTURES \00B7  TODAY \2192  WITH ODOO";position:absolute;left:22px;top:17px;font:800 11px/1 var(--font-body);letter-spacing:.18em;color:var(--t-amber)}
+.ixw--travel .ix-ba::after{content:"";position:absolute;right:22px;top:16px;width:10px;height:10px;border-radius:50%;background:#3FE0A8;box-shadow:0 0 0 4px rgba(63,224,168,.2);animation:ixwBlink 1.6s steps(2) infinite}
+@keyframes ixwBlink{50%{opacity:.25}}
+.ixw--travel .ix-row{background:#21375F;border:0;box-shadow:none;border-radius:10px}
+.ixw--travel .ix-ba.is-js[data-state="after"] .ix-row{box-shadow:none}
+.ixw--travel .ix-task{color:#F3E7C9;text-transform:uppercase;letter-spacing:.06em;font-size:12.5px}
+.ixw--travel .ix-face{position:relative;padding:6px 10px;border-radius:6px;background:#2A4572;font-weight:700}
+.ixw--travel .ix-face::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.35)}
+.ixw--travel .ix-before{color:#AFC4E8}
+.ixw--travel .ix-after{color:var(--t-amber)}
+.ixw--travel .ix-before .ic{background:rgba(224,69,107,.18);color:#FF9EB1}
+.ixw--travel .ix-after .ic{background:rgba(63,224,168,.16);color:#3FE0A8}
+.ixw--travel .ix-switch{border-color:#D3E4F5;box-shadow:0 4px 0 #D3E4F5}
+.ixw--travel .ix-switch::before{background:var(--t-navy);box-shadow:0 3px 0 #0B1428}
+.ixw--travel .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{background:var(--t-sea);box-shadow:0 3px 0 var(--t-sea-d)}
+
+/* ---------- media: an airplane window whose shade lifts ---------- */
+.ixw--travel .ix-video{position:relative}
+.ixw--travel .ix-video .yt{border:14px solid #F5F7FB;border-radius:46px;box-shadow:inset 0 0 0 2px #D9E1EC,0 3px 0 #DCE4EE,0 34px 60px -34px rgba(20,40,90,.5)}
+.ixw--travel .ix-video::before{content:"";position:absolute;left:14px;right:14px;top:14px;height:13%;z-index:3;border-radius:32px 32px 6px 6px;pointer-events:none;
+  background:linear-gradient(180deg,#E9EEF6,#D9E1EC);box-shadow:0 3px 6px rgba(20,40,90,.18);transform-origin:top;transition:transform .7s var(--w-ease)}
+.ixw--travel .ix-video:hover::before,.ixw--travel .ix-video:focus-within::before,.ixw--travel .ix-video:has(iframe)::before{transform:scaleY(.12)}
+.ixw--travel .ix-shots .shot,.ixw--travel .ix-shot{transform:rotate(var(--r,0deg));transition:transform .4s var(--w-spring)}
+.ixw--travel .ix-shots>*:nth-child(1){--r:-1.2deg}.ixw--travel .ix-shots>*:nth-child(2){--r:1deg}.ixw--travel .ix-shots>*:nth-child(3){--r:.8deg}.ixw--travel .ix-shots>*:nth-child(4){--r:-.8deg}
+.ixw--travel .ix-shots>*:hover{transform:rotate(0) translateY(-4px)}
+
+/* ---------- new in Odoo 20: a luggage tag ---------- */
+.ixw--travel .ix-new{overflow:visible;position:relative;border-radius:22px 22px 22px 22px}
+.ixw--travel .ix-new-head{padding-left:70px;border-radius:22px 22px 0 0;background:linear-gradient(120deg,var(--t-sea-d),var(--t-sea))}
+.ixw--travel .ix-new::before{content:"";position:absolute;left:26px;top:34px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 5px #CBE6F7;z-index:2}
+.ixw--travel .ix-new::after{content:"";position:absolute;left:-30px;top:8px;width:66px;height:44px;border:3px solid #C99A5B;border-right:0;border-radius:26px 0 0 26px;z-index:1;transform-origin:100% 50%;transition:transform .5s var(--w-spring)}
+.ixw--travel .ix-new:hover::after{transform:rotate(-8deg)}
+.ixw--travel .ix-new .checks .ic{background:#DDF0FB;color:var(--t-sea-d)}
+
+/* ---------- rollout: three flight legs, a plane flies them when they scroll in ---------- */
+.ixw--travel .ix-phases{container-type:inline-size}
+.ixw--travel .ix-phases::before{background:repeating-linear-gradient(90deg,#9FC6EE 0 10px,transparent 10px 18px)}
+.ixw--travel .ix-phases::after{content:"";position:absolute;left:12px;top:31px;width:28px;height:28px;z-index:2;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233167CA' d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat;
+  transform:translateX(0) rotate(45deg);transition:transform 2.6s cubic-bezier(.45,0,.25,1) .3s}
+.ixw--travel .ix-phases.is-in::after{transform:translateX(calc(100cqw - 52px)) rotate(45deg)}
+.ixw--travel .ix-ph-n{background:var(--t-sea);box-shadow:0 3px 0 var(--t-sea-d),0 0 0 6px var(--w-alt)}
+.ixw--travel .ix-phase:nth-child(2) .ix-ph-n{background:var(--blue);box-shadow:0 3px 0 var(--w-lip),0 0 0 6px var(--w-alt)}
+.ixw--travel .ix-phase:nth-child(3) .ix-ph-n{background:var(--t-coral);box-shadow:0 3px 0 #D9643F,0 0 0 6px var(--w-alt)}
+.ixw--travel .ix-phase{border-top:5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,var(--t-sea),var(--blue)) border-box}
+
+/* ---------- FAQ + chips: the help desk and luggage tags ---------- */
+.ixw--travel .faq summary::before{background:#DDF0FB;color:var(--t-sea-d)}
+.ixw--travel .faq details[open] summary::before{background:var(--t-sea)}
+.ixw--travel .ix-others a{border-radius:10px 999px 999px 10px;padding-left:24px;position:relative}
+.ixw--travel .ix-others a::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #C9D6E8}
+
+/* ---------- the end card: a boarding pass ---------- */
+.ixw--travel .ixw-cta{--stub:330px;background:linear-gradient(120deg,#1E7FBF,#3FA9E0 62%,#6CC3EE)}
+.ixw--travel .ixw-cta .actions{align-self:stretch;flex-direction:column;justify-content:center;align-items:stretch;gap:12px;min-width:230px;padding:8px 0 8px 40px;border-left:3px dashed rgba(255,255,255,.55)}
+.ixw--travel .ixw-cta .actions::before{content:"BOARDING NOW";font:800 10.5px/1.3 var(--font-body);letter-spacing:.14em;color:#FFE48A}
+.ixw--travel .ixw-cta .actions::after{content:"";height:30px;margin-top:4px;opacity:.75;background:repeating-linear-gradient(90deg,#FFFFFF 0 2px,transparent 2px 4px,#FFFFFF 4px 5px,transparent 5px 8px,#FFFFFF 8px 11px,transparent 11px 13px)}
+.ixw--travel .ixw-cta .actions .btn{width:100%}
+.ixw--travel .ixw-cta .hand{color:#FFE48A}
+@media (max-width:767px){
+  .ixw--travel .ixw-board .card{padding-right:24px;padding-top:88px}
+  .ixw--travel .ixw-board .card::after{right:56px;top:28px}
+  .ixw--travel .ixw-cta .actions{border-left:0;border-top:3px dashed rgba(255,255,255,.55);padding:18px 0 0;min-width:0}
+  .ixw--travel .sc-panel::after{display:none}
+  .ixw--travel .ix-new-head{padding-left:58px}
+  .ixw--travel .ix-new::before{left:20px}
+}
+@media (prefers-reduced-motion:reduce){.ixw--travel .ix-ba::after{animation:none}.ixw--travel .ix-phases::after{transition:none}}

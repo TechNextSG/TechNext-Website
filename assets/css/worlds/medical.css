@@ -1,0 +1,4 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: medical (Bayview Clinic, a sample clinic group). Mint walls and a clinic-blue floor; the shared defaults in
+   industry-world.css are this world's look (staff-room corkboard for the three problems, Odoo windows, map-pin phases). */
+.ixw--medical{--w-vwall:#EAF6F4;--w-vwains:#D6EDE8;--w-vfloor:#EEF3F9;--w-vbase:#C4E2DB;--w-alt:#F3FAF8;--w-dot:rgba(33,183,153,.09)}

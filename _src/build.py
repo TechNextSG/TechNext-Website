@@ -26,6 +26,7 @@ import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
+import worlds as WD  # noqa: E402
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -1094,13 +1095,88 @@ def _app_ic(step: dict, size: int) -> str:
 
 def industry_intro_html(key: str) -> str:
     d = IX.IND[key]
+    if key in WD.WORLDS:   # a world page: the paragraph is Nexi's caption card
+        return (f'<section class="section section--tight ix-intro-sec"><div class="container">'
+                f'<div class="ix-intro ixw-say reveal"><span class="ixw-av" aria-hidden="true">{WD.avatar(WD.WORLDS[key]["img"])}</span>'
+                f'<div><p class="ix-intro-h">Nexi · in one paragraph</p><p>{mshort(d["intro"], WD.WORLDS[key]["m"].get("intro", ""))}</p></div></div></div></section>')
     return (f'<section class="section section--tight ix-intro-sec"><div class="container">'
             f'<div class="ix-intro reveal"><p class="ix-intro-h">In one paragraph</p><p>{d["intro"]}</p></div></div></section>')
+
+
+def mshort(full: str, short: str) -> str:
+    """The full text for wide screens and a shorter one for phones (industry-world.css shows one of them)."""
+    if not short:
+        return full
+    return f'<span class="m-full">{full}</span><span class="m-short">{short}</span>'
+
+
+WORLD_SHORT = {   # phone copy for the generated sections of every world page
+    "ba": "Six jobs, today and in Odoo.",
+    "dash": "Built from the work your team already records.",
+    "media": "The official Odoo video and screenshots.",
+    "phases": "Each phase goes live before the next one starts.",
+}
+
+
+def world_flow_html(key: str) -> str:
+    """The workflow of a world page: a clinic day (or a shop day, a site day...) as stations on a route. Each station has
+    an animated vignette, a caption card whose text types in, the Odoo app, what it replaces and a sample record."""
+    d, w = IX.IND[key], WD.WORLDS[key]
+    steps, n = d["flow"], len(d["flow"])
+    sc, chips = WD.scenes(key)
+    pick = ""
+    if w.get("samples") and w.get("pick"):
+        pk = w["pick"]
+        btns = "".join(f'<button type="button" data-sample="{sk}" aria-pressed="{"true" if j == 0 else "false"}">{lab}</button>'
+                       for j, (sk, lab) in enumerate(pk["options"]))
+        pick = (f'<div class="ixw-pick" data-ixw-pick data-samples="{attr(json.dumps(w["samples"], ensure_ascii=False))}" role="group" aria-label="{attr(pk["label"])}">'
+                f'<span class="ixw-pick-l">{pk["icon"] if pk.get("icon") else ""}{pk["label"]}</span><div class="ixw-pick-b">{btns}</div></div>')
+    tabs = "".join(
+        f'<button class="ixw-stop{" is-on" if k == 0 else ""}" type="button" role="tab" id="ixs-{k}" aria-selected="{"true" if k == 0 else "false"}" '
+        f'aria-controls="ixp-{k}" tabindex="{"0" if k == 0 else "-1"}" style="--i:{k}"><span class="ixw-pin">{_app_ic(st, 26)}<i>{k + 1}</i></span>'
+        f'<span class="ixw-stop-t">{st["t"]}</span></button>' for k, st in enumerate(steps))
+    scenes = "".join(f'<div class="ixw-scene{" is-on" if k == 0 else ""}" data-scene="{k}">{sc[k]}</div>' for k in range(n))
+    panels = "".join(
+        f'<article class="ixw-panel{" is-on" if k == 0 else ""}" role="tabpanel" id="ixp-{k}" aria-labelledby="ixs-{k}">'
+        f'<div class="ixw-panel-who"><span class="ixw-av" aria-hidden="true">{WD.avatar(w["img"])}</span><span><b>Nexi</b><small>Step {k + 1} of {n} · {st["odoo"].split(" · ")[0]}</small></span></div>'
+        f'<h3>{st["h"]}</h3><p class="ixw-panel-p"><span class="sr-only">{st["p"]}</span><span aria-hidden="true" data-ixw-ftype>{st["p"]}</span></p>'
+        f'<dl class="ixw-panel-meta"><div class="ixw-in"><dt>In Odoo</dt><dd>{_app_ic(st, 22)}<span>{st["odoo"]}</span></dd></div>'
+        f'<div class="ixw-was"><dt>What it replaces</dt><dd><span>{st["was"]}</span></dd></div></dl>'
+        f'<p class="ixw-rec">{{{{odoo:{chips[k][0]}:18}}}}<span>{chips[k][1]}</span><em>Sample</em></p></article>'
+        for k, st in enumerate(steps))
+    return f'''<section class="section ixw-flow-sec" id="flow">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">how it flows</span><h2>{d["flow_title"]}</h2><p class="lead">{mshort(d["flow_lead"], w["m"].get("flow", ""))}</p></div>
+    <div class="ixw-flow reveal" data-ixw-flow style="--n:{n}">
+      {pick}
+      <div class="ixw-stage">
+        <div class="ixw-scenewrap"><div class="ixw-scenes" aria-hidden="true">{scenes}</div><p class="ixw-scene-note">{{{{icon:sparkle}}}}<span>{w.get("note") or w.get("tag", "Sample")}</span></p></div>
+        <div class="ixw-panels">{panels}</div>
+      </div>
+      <div class="ixw-route">
+        <div class="ixw-track" data-ixw-route>
+          <span class="ixw-road" aria-hidden="true"><i></i></span>
+          <span class="ixw-rider" data-ixw-rider aria-hidden="true"><span>{WD.pose_img(w["img"], "hello", True)}</span></span>
+          <div class="ixw-stops" role="tablist" aria-label="{attr(d["name"])} workflow in Odoo, step by step">{tabs}</div>
+        </div>
+        <div class="ixw-fctl">
+          <button class="ixw-ibtn" type="button" data-ixw-fprev aria-label="Previous step">{{{{icon:chevron}}}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-fplay aria-pressed="true" aria-label="Pause the walkthrough">{{{{icon:pause}}}}{{{{icon:play}}}}</button>
+          <button class="ixw-ibtn" type="button" data-ixw-fnext aria-label="Next step">{{{{icon:chevron}}}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''
 
 
 def industry_html(key: str) -> str:
     d = IX.IND[key]
     name, low = d["name"], d["noun"]
+    world = key in WD.WORLDS
+
+    def ms(full: str, short_key: str) -> str:
+        return mshort(full, WORLD_SHORT[short_key]) if world else full
     steps = d["flow"]
     tabs = "".join(
         f'<button class="ix-step{" is-on" if k == 0 else ""}" type="button" role="tab" id="ixs-{k}" aria-selected="{"true" if k == 0 else "false"}" '
@@ -1132,7 +1208,7 @@ def industry_html(key: str) -> str:
                      for k2, ic in (("medical", "pulse"), ("travel", "plane"), ("retail", "bag"), ("ecommerce", "cart"),
                                     ("construction", "hardhat"), ("fnb", "utensils"), ("manufacturing", "gear"), ("health-wellness", "heart"))
                      if k2 != key)
-    return f'''<section class="section" id="flow">
+    flow_sec = "" if key in WD.WORLDS else f'''<section class="section" id="flow">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">how it flows</span><h2>{d["flow_title"]}</h2><p class="lead">{d["flow_lead"]}</p></div>
     <div class="ix-flow reveal" data-ixflow>
@@ -1140,7 +1216,8 @@ def industry_html(key: str) -> str:
       <div class="ix-panels">{panels}</div>
     </div>
   </div>
-</section>
+</section>'''
+    return f'''{flow_sec}
 
 <section class="section section--alt">
   <div class="container">
@@ -1148,7 +1225,7 @@ def industry_html(key: str) -> str:
       <div class="reveal">
         <span class="hand">before and after</span>
         <h2>What changes on day one.</h2>
-        <p class="lead">The same six jobs, done today and done in Odoo. Switch between them.</p>
+        <p class="lead">{ms("The same six jobs, done today and done in Odoo. Switch between them.", "ba")}</p>
         <div class="ix-switch" role="group" aria-label="Compare"><button type="button" data-ba="before" aria-pressed="false">Today</button><button type="button" data-ba="after" aria-pressed="true">With Odoo</button></div>
       </div>
       <ul class="ix-ba reveal" data-ixba data-state="after">{ba}</ul>
@@ -1162,7 +1239,7 @@ def industry_html(key: str) -> str:
       <div class="reveal">
         <span class="hand">the numbers you'll see</span>
         <h2>{d["chart"]["title"]}, on one screen.</h2>
-        <p class="lead">Every figure comes from the transactions your team already records in Odoo. These are the reports we set up first for {low}.</p>
+        <p class="lead">{ms(f"Every figure comes from the transactions your team already records in Odoo. These are the reports we set up first for {low}.", "dash")}</p>
         <ul class="checks">{reports}</ul>
       </div>
       <figure class="ix-dash reveal" data-ixchart>
@@ -1176,7 +1253,7 @@ def industry_html(key: str) -> str:
 
 <section class="section section--alt">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">see it in odoo</span><h2>What your team will use.</h2><p class="lead">An official Odoo video and screenshots of the apps in this setup. Press a screenshot to see it full size.</p></div>
+    <div class="sec-head reveal"><span class="hand">see it in odoo</span><h2>What your team will use.</h2><p class="lead">{ms("An official Odoo video and screenshots of the apps in this setup. Press a screenshot to see it full size.", "media")}</p></div>
     <div class="ix-media">
       <div class="ix-video reveal">{yt_facade(vid, vtitle)}<p class="ix-cap">{vtitle} · official Odoo video</p></div>
       <div class="ix-shots">{shots}</div>
@@ -1197,8 +1274,8 @@ def industry_html(key: str) -> str:
 
 <section class="section section--alt">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">how we roll it out</span><h2>Three phases, one database.</h2><p class="lead">Each phase goes live before the next one starts, so your team learns Odoo on work that already matters.</p></div>
-    <ol class="ix-phases">{phases}</ol>
+    <div class="sec-head reveal"><span class="hand">how we roll it out</span><h2>Three phases, one database.</h2><p class="lead">{ms("Each phase goes live before the next one starts, so your team learns Odoo on work that already matters.", "phases")}</p></div>
+    <ol class="ix-phases"{" data-ixw-in" if world else ""}>{phases}</ol>
     <div class="ix-int reveal"><b>Connects to</b><div>{ints}</div></div>
   </div>
 </section>
@@ -1752,6 +1829,11 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{TEAM_OFFICES}}" in content:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
+    content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
+    if "{{IXW_" in content:   # world pages: Nexi's pose stack, her avatar, one pose
+        content = re.sub(r"\{\{IXW_NEXI:([a-z-]+)\}\}", lambda m: WD.nexi_stack(m.group(1)), content)
+        content = re.sub(r"\{\{IXW_AV:([a-z-]+)\}\}", lambda m: WD.avatar(m.group(1)), content)
+        content = re.sub(r"\{\{IXW_POSE:([a-z-]+):([a-z-]+)\}\}", lambda m: WD.pose_img(m.group(1), m.group(2), True), content)
     content = _IX_BODY.sub(lambda m: industry_html(m.group(1)), content)
     if "{{VIDEO:" in content or "{{SHOT:" in content or "{{PHOTO:" in content:
         content = media_tokens(content)
