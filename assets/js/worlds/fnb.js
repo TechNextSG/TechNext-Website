@@ -247,6 +247,7 @@
     ];
   }
   window.IXW.worlds.fnb = {
+    pan: [-700, 1230], /* phones: how far the scene drags each way (set units), ending on whole objects */
     room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: function () {}, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE().concat([[FY, function () { frontRow(g, t, S); }]]), function () { crew(g, t, S, 'fore'); }); },
     moteCol: 'rgba(255,231,176,.55)',
     glow: {

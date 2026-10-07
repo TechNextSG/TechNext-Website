@@ -1871,7 +1871,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         heads = re.findall(r'<(?:div|article|section)\b[^>]*\bclass="slide(?:\s[^"]*)?"[^>]*>', content)
         nxs = next((k for k, t in enumerate(heads) if "data-slide-circle" in t), -1)
         intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs))
-    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else "").replace("{INTRO_BODY}", INTRO_BODY if home else "")
+    wk = re.match(r"ixw ixw--([a-z-]+)", meta.get("body", "") or "")      # a world page plays its own short intro
+    w_head, w_body = (WD.INTRO_HEAD, WD.intro_html(wk.group(1))) if wk else ("", "")
+    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)

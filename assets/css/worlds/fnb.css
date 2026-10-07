@@ -175,6 +175,8 @@
 
 /* the side tabs and the header's Contact Us in this world's colours */
 .ixw--fnb{--st-ink:#13332A;--st-meet:#2F6B57;--st-talk:#E2553D;--st-nexi:#E9B949;--st-nexi-fg:#13332A;--hc-bg:linear-gradient(180deg,#EA6A52,#E2553D 70%)}
+/* the entry intro in this world's colours */
+.ixw--fnb{--ii-plate:#FFF6E5;--ii-plate-shadow:0 6px 0 #0E241D;--ii-bg:#1F4D3F;--ii-pattern:linear-gradient(rgba(255,255,255,.06) 1.5px,transparent 1.5px) 0 0/68px 32px,linear-gradient(90deg,rgba(255,255,255,.06) 1.5px,transparent 1.5px) 0 0/68px 64px,radial-gradient(circle at 50% 40%,rgba(255,214,140,.22),transparent 55%);--ii-ink:#FFF6E5;--ii-sub:#E9D7B5;--ii-b:#E9B949;--ii-accent:#E2553D;--ii-lip:#0E241D;--ii-ep-bg:#E2553D;--ii-ep-fg:#FFFFFF;--ii-pill-ink:#13332A}
 /* "View the scene": a little chalkboard with a dashed chalk line; pressed, tomato */
 .ixw--fnb .ixw-peek{border:2px solid var(--f-green-d);color:#F3EBDD;background:var(--f-chalk);outline:1.5px dashed rgba(243,235,221,.45);outline-offset:-6px;box-shadow:0 3px 0 var(--f-green-d)}
 .ixw--fnb .ixw-peek:hover{box-shadow:0 5px 0 var(--f-green-d)}.ixw--fnb .ixw-peek:active{box-shadow:0 1px 0 var(--f-green-d)}

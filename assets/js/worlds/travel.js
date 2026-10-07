@@ -292,6 +292,7 @@
     ];
   }
   window.IXW.worlds.travel = {
+    pan: [-400, 1280], /* phones: how far the scene drags each way (set units), ending on whole objects */
     paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { trav(g, t, S, 'fore'); }); },
     motes: false, /* dust motes read as specks on the dark board and screens: the terminal's air is clear */
     glow: {

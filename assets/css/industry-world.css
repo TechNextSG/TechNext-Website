@@ -352,7 +352,10 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw .ix-switch button[aria-pressed="true"]{background:transparent;color:#fff}
 .ixw .ix-switch::before{content:"";position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:999px;background:var(--ink);transition:transform .45s var(--w-spring),background-color .3s ease;box-shadow:0 3px 0 #0B0B22}
 .ixw .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{transform:translateX(100%);background:var(--w-teal);box-shadow:0 3px 0 var(--w-teal-d)}
-.ixw .ix-switch button{flex:1}
+/* two equal halves (an intrinsically sized grid gives both 1fr columns the wider label's width), so the sliding pill
+   is exactly one half on either side */
+.ixw .ix-switch{display:inline-grid;grid-template-columns:1fr 1fr}
+.ixw .ix-switch button{flex:1;white-space:nowrap}
 .ixw .ix-row{border:0;border-radius:16px;box-shadow:0 2px 0 #E3EAF4,0 12px 24px -20px rgba(20,40,90,.4)}
 .ixw .ix-ba.is-js[data-state="after"] .ix-row{box-shadow:0 2px 0 #BFE9E1,0 12px 24px -20px rgba(20,90,70,.4)}
 .ixw .ix-face .ic{width:22px;height:22px;padding:4px;border-radius:50%;margin-top:0}
@@ -415,7 +418,8 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw .ixw-cta::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.16) 2px,transparent 2.2px);background-size:24px 24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);mask-image:linear-gradient(90deg,transparent,#000 60%)}
 .ixw .ixw-cta::after{display:none}
 .ixw .ixw-cta .hand{color:#FFE48A}
-@media (min-width:768px){.ixw .ixw-cta{padding-right:240px}}
+@media (min-width:1100px){.ixw .ixw-cta{padding-right:240px}}
+@media (min-width:768px) and (max-width:1099px){.ixw .ixw-cta{grid-template-columns:minmax(0,1fr);padding-right:190px}}
 /* the side tabs and the header's Contact Us, themed by each world (--st-* set in assets/css/worlds/<key>.css): an ink outline
    and a hard lip like the world's buttons. The tabs are turned 180deg, so the lip (box-shadow x) shows on their left. */
 .ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-left:0;border-radius:0 12px 12px 0;color:var(--st-fg,#FFFFFF);box-shadow:4px 0 0 var(--st-ink,#1F1F3D);transition:box-shadow .2s ease,background-color .2s ease}
@@ -428,10 +432,12 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw[class*="ixw--"] .header-cta .btn-primary:hover{color:var(--hc-fg,#FFFFFF);background:var(--hc-bg);translate:0 -2px;box-shadow:0 6px 0 var(--st-ink)}
 .ixw[class*="ixw--"] .header-cta .btn-primary:active{translate:0 3px;box-shadow:0 1px 0 var(--st-ink)}
 .ixw[class*="ixw--"] .header-cta .btn-primary .ic{color:currentColor}
-@media (max-width:767px){.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}
+@media (max-width:960px){.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}
   .ixw[class*="ixw--"] .side-tab:hover{translate:0 -2px;box-shadow:0 6px 0 var(--st-ink,#1F1F3D)}
   .ixw[class*="ixw--"] .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--st-ink)}
-  .ixw[class*="ixw--"] .header-cta .btn-primary .ic{flex:none;width:24px;height:24px;padding:3px}}
+  .ixw[class*="ixw--"] .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none;box-shadow:none}
+  .ixw[class*="ixw--"] .header-cta .btn-primary::after{display:none}
+  .ixw[class*="ixw--"] .side-fab{background:var(--st-talk);color:var(--st-fg,#FFFFFF);border:2.5px solid var(--st-ink,#1F1F3D);box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}}
 .ixw-cta-nexi{position:absolute;right:96px;bottom:100%;width:0;height:0;--npx:.36px;pointer-events:none}
 .ixw-cta-nexi .ixw-pose{left:calc(var(--ax) * -.36px);top:calc(var(--ay) * -.36px + 40px);width:calc(var(--w) * .36px);animation:ixwBob 3.4s ease-in-out infinite}
 .ixw .ixw-cta .actions{position:relative}
@@ -467,8 +473,9 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
   .ixw-panel{padding:20px}
   .ixw-panel-meta{grid-template-columns:1fr}
   .ixw-route{flex-direction:column;align-items:stretch;gap:10px}
-  .ixw-track{padding-top:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
+  .ixw-track{padding-top:26px;padding-bottom:8px;margin-top:-16px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
   .ixw-track::-webkit-scrollbar{display:none}
+  .ixw-track{scroll-behavior:smooth;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 28px),transparent)}
   .ixw-stops{grid-template-columns:repeat(var(--n),88px)}
   .ixw-road{top:33px;left:44px;right:auto;width:calc(var(--n) * 94px - 94px)}
   .ixw-rider{display:none}
@@ -571,11 +578,9 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw-drag{display:none}
 @media (max-width:767px){
   .ixw-hero{touch-action:pan-y}
-  .ixw-set{translate:var(--pan,0px) 0}
-  .ixw-cap{translate:calc(var(--pan,0px) * -1) 0}
   .ixw-hero.is-dragging .ixw-set{cursor:grabbing}
   .ixw-hero.is-dragging .ixw-hot,.ixw-hero.is-dragging .ixw-toy,.ixw-hero.is-dragging .ixw-cast{pointer-events:none}
-  .ixw-drag{display:inline-flex;position:absolute;z-index:6;left:59%;top:10px;translate:calc(-50% - var(--pan,0px)) 0;align-items:center;gap:6px;padding:6px 12px;border:2px solid var(--st-ink,#1F1F3D);border-radius:999px;
+  .ixw-drag{display:inline-flex;position:absolute;z-index:6;left:59%;top:10px;translate:-50% 0;align-items:center;gap:6px;padding:6px 12px;border:2px solid var(--st-ink,#1F1F3D);border-radius:999px;
     background:#FFFFFF;box-shadow:0 3px 0 var(--st-ink,#1F1F3D);font:800 12px/1 var(--font-display);color:var(--st-ink,#1F1F3D);white-space:nowrap;pointer-events:none;transition:opacity .4s ease}
   .ixw-drag::before,.ixw-drag::after{content:"";width:8px;height:8px;border:solid currentColor;border-width:0 0 2.5px 2.5px;rotate:45deg;animation:ixwNudge 1.6s ease-in-out infinite}
   .ixw-drag::after{rotate:-135deg;order:2}
@@ -584,3 +589,53 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 @keyframes ixwNudge{50%{translate:-3px 0}}
 @media (prefers-reduced-motion:reduce){.ixw-drag::before,.ixw-drag::after{animation:none}}
 @media (prefers-reduced-motion:reduce){.ixw-copy,.ixw-cap{transition:none}}
+
+/* ---------------- the entry intro (#ixw-intro): 3 s in the world's own colours ----------------
+   Each world sets --ii-bg, --ii-pattern, --ii-ink, --ii-b (the industry word), --ii-accent (ripples, sparks, bar),
+   --ii-ep-bg/--ii-ep-fg (the Nexi Explains tag), --ii-pill-r and --ii-font in assets/css/worlds/<key>.css. */
+.ixwi{position:fixed;inset:0;z-index:2147483000;place-items:center;overflow:hidden;background:var(--ii-bg,#F4F7FD);color:var(--ii-ink,#1F1F3D);font-family:var(--font-display);cursor:pointer;
+  animation:ixwiFailsafe 0s linear 7s forwards}
+@keyframes ixwiFailsafe{to{visibility:hidden;opacity:0;pointer-events:none}}
+.ixwi-bg{position:absolute;inset:-6%;background:var(--ii-pattern,none)}
+.ixwi.is-on .ixwi-bg{animation:ixwiDrift 2.6s cubic-bezier(.2,.7,.3,1) both}
+@keyframes ixwiDrift{from{transform:scale(1.08)}}
+.ixwi-lock{position:relative;z-index:2;display:grid;justify-items:center;gap:12px;padding:0 24px;text-align:center}
+.ixwi.is-out .ixwi-lock{animation:ixwiRush .56s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes ixwiRush{to{transform:scale(1.3);opacity:0}}
+.ixwi-mark{position:relative;width:148px;height:148px;margin-bottom:22px}
+.ixwi-badge::before{content:"";position:absolute;inset:-12px;border-radius:46px;background:var(--ii-plate,transparent);box-shadow:var(--ii-plate-shadow,none)}
+.ixwi-badge{position:absolute;inset:0;z-index:2;display:grid;place-items:center;transform:scale(0)}
+.ixwi-badge .ic-ind{position:relative;width:148px;height:148px;border-radius:40px;filter:drop-shadow(0 7px 0 var(--ii-lip,rgba(20,30,60,.28))) drop-shadow(0 22px 30px rgba(20,30,60,.22))}
+.ixwi.is-on .ixwi-badge{animation:ixwiPop .62s cubic-bezier(.3,1.6,.5,1) .08s both}
+@keyframes ixwiPop{from{transform:scale(0) rotate(-16deg)}to{transform:scale(1) rotate(0)}}
+.ixwi-nexi{position:absolute;z-index:1;left:58%;bottom:30%;width:auto;height:190px;opacity:0;transform-origin:30% 100%}
+.ixwi.is-on .ixwi-nexi{animation:ixwiPeek .6s cubic-bezier(.3,1.5,.5,1) .55s both}
+@keyframes ixwiPeek{from{opacity:0;transform:translate(-30%,46%) rotate(-10deg) scale(.7)}to{opacity:1;transform:translate(0,0) rotate(9deg) scale(1)}}
+.ixwi-ripple{position:absolute;inset:0;border-radius:46px;border:3px solid var(--ii-accent,#3167CA);opacity:0}
+.ixwi.is-on .ixwi-ripple{animation:ixwiRipple 1s cubic-bezier(.2,.7,.3,1) .3s both}
+.ixwi.is-on .ixwi-ripple+.ixwi-ripple{animation-delay:.52s}
+@keyframes ixwiRipple{from{opacity:.9;transform:scale(.7)}to{opacity:0;transform:scale(2.1)}}
+.ixwi-spark{position:absolute;left:50%;top:50%;width:7px;height:16px;margin:-8px 0 0 -3.5px;border-radius:4px;background:var(--ii-accent,#3167CA);opacity:0}
+.ixwi.is-on .ixwi-spark{animation:ixwiSpark .7s cubic-bezier(.2,.7,.3,1) .3s both}
+@keyframes ixwiSpark{from{opacity:1;transform:rotate(var(--a)) translateY(-56px) scale(.5)}to{opacity:0;transform:rotate(var(--a)) translateY(calc(-118px * var(--d))) scale(1)}}
+.ixwi-ep{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;background:var(--ii-ep-bg,#1F1F3D);color:var(--ii-ep-fg,#FFFFFF);font:800 12px/1 var(--font-display);letter-spacing:.06em;opacity:0}
+.ixwi-title{font:800 clamp(32px,4.6vw,56px)/1.05 var(--ii-font,var(--font-display));letter-spacing:-.02em;opacity:0}
+.ixwi-title b{color:var(--ii-b,var(--ii-accent,#3167CA))}
+.ixwi-sub{font:800 12px/1.2 var(--font-display);letter-spacing:.18em;text-transform:uppercase;opacity:0;color:var(--ii-sub,currentColor)}
+.ixwi.is-on .ixwi-ep{animation:ixwiUp .45s cubic-bezier(.3,1.4,.5,1) .62s both}
+.ixwi.is-on .ixwi-title{animation:ixwiUp .55s cubic-bezier(.3,1.3,.5,1) .74s both}
+.ixwi.is-on .ixwi-sub{animation:ixwiUp .45s ease .98s both}
+@keyframes ixwiUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.ixwi-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
+.ixwi-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 9px;border:2px solid var(--ii-pill-ink,var(--ii-ink,#1F1F3D));border-radius:var(--ii-pill-r,999px);background:#FFFFFF;
+  box-shadow:0 3px 0 var(--ii-pill-ink,var(--ii-ink,#1F1F3D));color:#1F1F3D;font:800 13px/1 var(--font-display);opacity:0}
+.ixwi-pill .oi{width:18px;height:18px}
+.ixwi.is-on .ixwi-pill{animation:ixwiBurst .6s cubic-bezier(.3,1.5,.5,1) calc(1.12s + var(--i) * .1s) both}
+@keyframes ixwiBurst{from{opacity:0;transform:translate(calc(var(--side) * -90px),-120px) scale(.3)}to{opacity:1;transform:none}}
+.ixwi-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--ii-bar,var(--ii-accent,#3167CA));transform:scaleX(0);transform-origin:0 50%}
+.ixwi.is-on .ixwi-bar{animation:ixwiBar 2.45s linear both}
+@keyframes ixwiBar{to{transform:scaleX(1)}}
+.ixwi-ring{position:fixed;z-index:3;border-radius:50%;border:3px solid var(--ii-accent,#3167CA);pointer-events:none;opacity:0}
+.ixwi-skip{position:absolute;z-index:3;right:22px;bottom:22px;padding:8px 14px;border:2px solid currentColor;border-radius:999px;background:transparent;color:inherit;font:800 12px/1 var(--font-display);letter-spacing:.06em;opacity:.7;cursor:pointer}
+.ixwi-skip:hover{opacity:1}
+@media (max-width:767px){.ixwi-mark,.ixwi-badge .ic-ind{width:112px;height:112px}.ixwi-badge .ic-ind{border-radius:30px}.ixwi-badge::before{inset:-9px;border-radius:36px}.ixwi-nexi{height:140px}.ixwi-title{font-size:30px}.ixwi-pill{font-size:12px;padding:6px 11px 6px 8px}}

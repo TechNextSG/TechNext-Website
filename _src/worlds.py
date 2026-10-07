@@ -67,3 +67,39 @@ def _discover() -> dict:
 
 
 WORLDS = _discover()
+
+
+# ---------------------------------------------------------------- the entry intro
+# A short (3 s) intro in the world's own colours, in the spirit of the home page's: the industry badge pops, Nexi
+# in costume peeks out from behind it, the title lands, three workflow steps burst out, then an iris opens onto the hero.
+# The head gate shows it on entry (fresh load, link, refresh), never on back/forward, for bots or with reduced motion;
+# ?intro=1 forces it, ?nointro=1 skips it. industry-world.js runs the timeline.
+INTRO_HEAD = ("<style>#ixw-intro{display:none}html.ixw-intro #ixw-intro,#ixw-intro.is-out{display:grid}</style>\n"
+              "<script>(function(){try{var q=location.search,force=/[?&]intro=1(&|$)/.test(q);"
+              "var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};"
+              "var bot=/bot\/|bot;|crawler|spider|lighthouse|pagespeed|headlesschrome|google-inspectiontool|googleother|bingbot|googlebot/i.test(navigator.userAgent||'');"
+              "if(force||(nav.type!=='back_forward'&&!bot&&!/[?&]nointro=1/.test(q)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('ixw-intro');}}catch(e){}})();</script>\n")
+
+
+def intro_html(world: str) -> str:
+    from industries import IND
+    ind, meta = IND[world], module(world).META
+    steps = [f for f in ind["flow"] if f.get("app")][:3]
+    pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for i, f in enumerate(steps))
+    sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
+    nexi = poses(world)["hello"]
+    return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
+            f'  <div class="ixwi-bg"></div>\n'
+            f'  <span class="ixwi-ring"></span>\n'
+            f'  <div class="ixwi-lock">\n'
+            f'    <span class="ixwi-mark"><span class="ixwi-ripple"></span><span class="ixwi-ripple"></span>{sparks}'
+            f'<img class="ixwi-nexi" src="{{{{ROOT}}}}assets/img/industries/{world}/nexi-hello.webp" alt="" width="{nexi["w"]}" height="{nexi["h"]}" decoding="sync" fetchpriority="high">'
+            f'<span class="ixwi-badge">{{{{icon:ind-{world}}}}}</span></span>\n'
+            f'    <span class="ixwi-ep">Nexi Explains</span>\n'
+            f'    <span class="ixwi-title">Odoo for <b>{ind["name"]}</b></span>\n'
+            f'    <span class="ixwi-sub">{meta["tag"]}</span>\n'
+            f'    <span class="ixwi-pills">{pills}</span>\n'
+            f'  </div>\n'
+            f'  <span class="ixwi-bar"></span>\n'
+            f'  <button class="ixwi-skip" type="button" tabindex="-1">Skip</button>\n'
+            f'</div>\n')

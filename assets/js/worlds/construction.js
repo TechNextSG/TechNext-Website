@@ -292,6 +292,7 @@
     ];
   }
   window.IXW.worlds.construction = {
+    pan: [-420, 1280], /* phones: how far the scene drags each way (set units), ending on whole objects */
     paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { crew(g, t, S, 'fore'); }); },
     motes: false,
     glow: {

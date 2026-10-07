@@ -118,6 +118,8 @@
 
 /* the side tabs and the header's Contact Us in this world's colours */
 .ixw--medical{--st-ink:#0F4C45;--st-meet:#12806B;--st-talk:#21B799;--st-nexi:#3FA9E0;--hc-bg:linear-gradient(90deg,#1DA58B 50%,#12806B 50%)}
+/* the entry intro in this world's colours */
+.ixw--medical{--ii-bg:linear-gradient(160deg,#EFFAF7,#D3F0E8);--ii-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 17v10M17 22h10' stroke='%2321B799' stroke-opacity='.22' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");--ii-ink:#0F4C45;--ii-b:#12806B;--ii-accent:#21B799;--ii-lip:#0F4C45;--ii-ep-bg:#0F4C45;--ii-ep-fg:#FFFFFF}
 /* "View the scene": a capsule, half white, half mint; pressed, the whole pill fills */
 .ixw--medical .ixw-peek{border:2px solid var(--m-ink);color:var(--m-ink);background:linear-gradient(90deg,#FFFFFF 50%,#D6F3EC 50%);box-shadow:0 3px 0 var(--m-ink)}
 .ixw--medical .ixw-peek:hover{box-shadow:0 5px 0 var(--m-ink)}.ixw--medical .ixw-peek:active{box-shadow:0 1px 0 var(--m-ink)}

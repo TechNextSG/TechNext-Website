@@ -225,6 +225,8 @@
 
 /* the side tabs and the header's Contact Us in this world's colours */
 .ixw--travel{--st-ink:#17284A;--st-meet:#24447A;--st-talk:#3167CA;--st-nexi:#FFC94A;--st-nexi-fg:#17284A;--hc-bg:linear-gradient(180deg,#24447A,#17284A)}
+/* the entry intro in this world's colours */
+.ixw--travel{--ii-bg:linear-gradient(180deg,#BFE1F7,#EEF6FD 70%);--ii-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='160'%3E%3Cpath d='M-10 130C60 40 170 30 270 70' fill='none' stroke='%2317284A' stroke-opacity='.14' stroke-width='2' stroke-dasharray='6 8'/%3E%3C/svg%3E");--ii-ink:#17284A;--ii-b:#3167CA;--ii-accent:#FFC94A;--ii-bar:#17284A;--ii-lip:#17284A;--ii-ep-bg:#FFC94A;--ii-ep-fg:#17284A;--ii-pill-r:8px}
 /* "View the scene": a boarding-pass stub with its notches; pressed, the yellow stub */
 .ixw--travel .ixw-peek{border:2px solid var(--t-ink);border-radius:8px;color:var(--t-ink);box-shadow:0 3px 0 var(--t-ink);
   background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),#FFFFFF}

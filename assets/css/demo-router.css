@@ -90,6 +90,7 @@
 .omr-sh small{margin-left:auto;font:500 10px/1.2 var(--font-body);color:var(--muted);white-space:nowrap}
 .omr-stm dl{display:grid;gap:1px;margin:0}
 .omr-stm dl div{display:flex;justify-content:space-between;gap:8px;font:500 10.5px/1.55 var(--font-body);color:var(--body)}
+@media (max-width:420px){.omr-stm dl div{flex-wrap:wrap;gap:0 8px;font-size:11px}.omr-stm dt{white-space:normal;overflow:visible;text-overflow:clip}}
 .omr-stm dd{margin:0;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .omr-stm .omr-tot{margin-top:2px;padding-top:3px;border-top:1px solid var(--line)}
 .omr-stm .omr-tot dt,.omr-stm .omr-tot dd{font-weight:700;color:var(--ink)}

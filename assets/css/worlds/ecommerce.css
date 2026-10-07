@@ -217,6 +217,8 @@
 /* wide screens: the scene sits a little higher, so the tracking card clears the credits card */
 /* the side tabs and the header's Contact Us in this world's colours */
 .ixw--ecommerce{--st-ink:#2B2350;--st-meet:#22A88A;--st-talk:#6D5BD0;--st-nexi:#3CCFAE;--st-nexi-fg:#2B2350;--hc-bg:#6D5BD0}
+/* the entry intro in this world's colours */
+.ixw--ecommerce{--ii-bg:#F2EFFA;--ii-pattern:linear-gradient(rgba(109,91,208,.09) 2px,transparent 2px) 0 0/72px 36px,linear-gradient(90deg,rgba(109,91,208,.09) 2px,transparent 2px) 0 0/72px 72px;--ii-ink:#2B2350;--ii-b:#6D5BD0;--ii-accent:#3CCFAE;--ii-bar:#6D5BD0;--ii-lip:#2B2350;--ii-ep-bg:#2B2350;--ii-ep-fg:#FFFFFF;--ii-pill-r:7px}
 /* "View the scene": a shipping label with a barcode strip; pressed, mint */
 .ixw--ecommerce .ixw-peek{border:2px solid var(--e-ink);border-radius:7px;color:var(--e-ink);box-shadow:0 3px 0 var(--e-ink);padding-right:40px;
   background:repeating-linear-gradient(90deg,#2B2350 0 2px,transparent 2px 4px,#2B2350 4px 5px,transparent 5px 7px) calc(100% - 10px) 50%/20px 18px no-repeat,#FFFFFF}
