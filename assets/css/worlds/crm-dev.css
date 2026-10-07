@@ -1,0 +1,51 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: crm-dev (/odoo/crm-development) — a CRM shaped around how the client sells. CRM mint, deal-bell gold, Odoo purple.
+   The title card is an opportunity card from the pipeline (its stage chip, stars and an expected-revenue footer); the
+   caption is an activity on the lead (a "next activity" chip); buttons are stage chevrons that point onward; the glance
+   strip is the pipeline's stage bar. */
+.ixw--crm-dev{--ow-c:#21B799;--cr-ink:#1B1F3B;--cr-mint:#21B799;--cr-mint-l:#E6F7F1;--cr-gold:#E9B949;--cr-pur:#714B67;
+  --w-alt:#F3FAF7;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
+  --st-ink:#1B1F3B;--st-meet:#21B799;--st-talk:#714B67;--st-nexi:#E9B949;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#34C9A9,#21B799);
+  --ii-bg:linear-gradient(160deg,#F4FBF8,#D9F2E8 60%,#FFF1D0);--ii-ink:#1B1F3B;--ii-b:#21B799;--ii-accent:#E9B949;--ii-lip:#1B1F3B;--ii-ep-bg:#21B799;--ii-ep-fg:#FFFFFF}
+.ixw--crm-dev .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F4FBF8 18%,#E5F4EE 62%,#E7EBF1 62%,#D6DDE7 100%)}
+
+/* ---------- the title card: an opportunity card ---------- */
+.ixw--crm-dev .ixw-copy{position:relative;max-width:510px;margin-top:20px;padding:30px 30px 60px;border-radius:12px;background:#FFFFFF;border-left:7px solid var(--cr-mint);
+  box-shadow:0 0 0 1.5px #D3EBE1,0 40px 70px -30px rgba(20,80,60,.35)}
+.ixw--crm-dev .ixw-copy::before{content:"PROPOSITION";position:absolute;right:20px;top:-12px;padding:6px 11px;border-radius:999px;background:var(--cr-mint-l);box-shadow:0 0 0 1.5px #A9DFCD;font:800 10.5px/1 var(--font-body);letter-spacing:.12em;color:#127A64}
+.ixw--crm-dev .ixw-copy::after{content:"\2605\2605\2605   Expected: a pipeline you trust";position:absolute;left:0;right:0;bottom:0;height:42px;display:flex;align-items:center;padding-left:24px;border-radius:0 0 12px 0;
+  background:#FBFCFD;border-top:1.5px solid #E3EEE9;font:800 12px/1 var(--font-body);color:#3D4560;letter-spacing:.02em}
+.ixw--crm-dev .ixw-copy h1{max-width:14ch}
+.ixw--crm-dev .ixw-copy .hand{color:#127A64}
+.ixw--crm-dev .ixw-hint .ic{color:var(--cr-gold)}
+@media (max-width:767px){.ixw--crm-dev .ixw-copy{padding:26px 20px 56px}.ixw--crm-dev .ixw-copy::before{display:none}}
+
+/* ---------- the caption: an activity on the lead ---------- */
+.ixw--crm-dev .ixw-cap{border-radius:14px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3EBE1,0 0 0 6px var(--cr-mint-l),0 26px 44px -22px rgba(20,80,60,.35)}
+.ixw--crm-dev .ixw-cap::before{content:"\25F7  NEXT ACTIVITY";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--cr-gold);color:#1B1F3B;font:800 10.5px/1 var(--font-body);letter-spacing:.12em}
+.ixw--crm-dev .ixw-cap-who b{color:#127A64}.ixw--crm-dev .ixw-cap-txt b{color:var(--cr-pur)}
+.ixw--crm-dev .ixw-cap-rec{background:var(--cr-mint-l);border:1px dashed #8AD9C2;color:#0E5A4C}
+
+/* ---------- buttons: stage chevrons that point onward ---------- */
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:0;border-radius:8px 0 0 8px;padding-right:34px;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);transition:translate .22s cubic-bezier(.34,1.45,.64,1),filter .2s ease}
+.ixw--crm-dev main .btn-primary,.ixw--crm-dev main .btn-primary:hover{color:#FFFFFF;background:var(--cr-mint)}
+.ixw--crm-dev main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--crm-dev main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--cr-ink);background:#E3EEE9}
+.ixw--crm-dev main .btn-ghost::before{display:none}.ixw--crm-dev main .btn-ghost .ic{color:#127A64}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){filter:drop-shadow(0 4px 0 rgba(14,90,76,.55))}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:4px -1px}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;filter:none;transition-duration:.06s}
+.ixw--crm-dev .ixw-cta .btn-outline-white,.ixw--crm-dev .ixw-cta .btn-outline-white:hover{color:#1B1F3B;background:var(--cr-gold)}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--crm-dev .ixw-ibtn{border:2px solid var(--cr-ink);box-shadow:0 3px 0 var(--cr-ink)}
+.ixw--crm-dev .ixw-ibtn--play,.ixw--crm-dev .ixw-ibtn--play:hover{background:var(--cr-mint);color:#FFFFFF}
+.ixw--crm-dev .ixw-dots button.is-on{background:var(--cr-gold);box-shadow:0 0 0 1.5px var(--cr-ink)}
+.ixw--crm-dev .ixw-peek{border-color:var(--cr-ink);box-shadow:0 3px 0 var(--cr-ink)}.ixw--crm-dev .ixw-peek[aria-pressed="true"]{background:var(--cr-mint-l)}
+
+/* ---------- the glance strip: the pipeline's stage bar ---------- */
+.ixw--crm-dev .ow-strip{border-radius:12px;box-shadow:0 0 0 1.5px #D3EBE1,0 24px 44px -30px rgba(20,80,60,.3);
+  background:linear-gradient(90deg,#D5DCE6 0 25%,#9ADBC8 25% 50%,#5BC4A6 50% 75%,#2BC48A 75%) 0 0/100% 5px no-repeat,#FFFFFF}
+.ixw--crm-dev .ow-strip dt .ic{color:#127A64}
+
+/* ---------- the end card ---------- */
+.ixw--crm-dev main .cta{background:radial-gradient(circle at 88% 18%,rgba(233,185,73,.4),transparent 45%),linear-gradient(120deg,#0E5A4C,#21B799)}
