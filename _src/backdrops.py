@@ -1,19 +1,71 @@
 # -*- coding: utf-8 -*-
-"""Clean illustrated backdrops for the homepage industries slide: one SVG per industry, drawn here (no people, no
-screenshots), in the world's palette. 1600 x 900, the wall above y 640, the floor below; the left half stays calm behind
-the title card, the right half frames Nexi (the page stands Nexi and the workflow steps in front, at the right). build.py
-calls write() and the files land in assets/img/industries/<key>/backdrop.svg."""
+"""Illustrated backdrops for the homepage industries slide: one SVG per industry, drawn here (no people, no screenshots),
+in the world's palette. build.py calls write(); files land in assets/img/industries/<key>/backdrop.svg.
+
+Craft rules every scene follows (1600 x 900, wall above FL, floor below):
+  depth     three planes: a hazy far plane, the lit mid plane, a soft blurred foreground at the edges
+  light     one direction per scene: shafts from a window or skylight, glowing lamps, ambient occlusion where wall
+            meets floor, a contact shadow under every object
+  stage     a soft pool of light on the floor where Nexi stands (NX, about x 1180), the props frame it
+  calm      the left ~45% is a quiet gradient wall: the title card sits there
+  finish    film grain and an edge vignette over everything"""
 import math
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-W, H, FL = 1600, 900, 640
+W, H, FL = 1600, 900, 600
+NX, NY = 1180, 790          # where Nexi's feet land (the light pool sits here)
+
+
+# ---------------------------------------------------------------- the canvas
+class Scene:
+    def __init__(self):
+        self.defs, self.out, self.n = [], [], 0
+
+    def _id(self, p):
+        self.n += 1
+        return f"{p}{self.n}"
+
+    @staticmethod
+    def _stops(stops):
+        out = []
+        for s in stops:
+            o, col, a = (s + (1,))[:3] if len(s) == 2 else s
+            out.append(f'<stop offset="{o}" stop-color="{col}" stop-opacity="{a}"/>')
+        return "".join(out)
+
+    def lin(self, stops, x1=0, y1=0, x2=0, y2=1):
+        i = self._id("l")
+        self.defs.append(f'<linearGradient id="{i}" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}">{self._stops(stops)}</linearGradient>')
+        return f"url(#{i})"
+
+    def rad(self, stops, cx=.5, cy=.5, r=.5):
+        i = self._id("r")
+        self.defs.append(f'<radialGradient id="{i}" cx="{cx}" cy="{cy}" r="{r}">{self._stops(stops)}</radialGradient>')
+        return f"url(#{i})"
+
+    def blur(self, sd):
+        i = self._id("b")
+        self.defs.append(f'<filter id="{i}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="{sd}"/></filter>')
+        return f"url(#{i})"
+
+    def add(self, *parts):
+        self.out.extend(parts)
+
+    def svg(self, bg):
+        g = self._id("g")   # film grain, applied last
+        self.defs.append(f'<filter id="{g}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/>'
+                         f'<feColorMatrix type="matrix" values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .055 0"/></filter>')
+        vig = self.rad([(0, "#000", 0), (.62, "#000", 0), (1, "#0A1020", .2)], .5, .46, .78)
+        return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMax slice">'
+                f'<defs>{"".join(self.defs)}</defs>{r(0, 0, W, H, bg)}{"".join(self.out)}'
+                f'{r(0, 0, W, H, vig)}<rect width="{W}" height="{H}" filter="url(#{g})"/></svg>')
 
 
 # ---------------------------------------------------------------- primitives
 def r(x, y, w, h, f, rx=0, o=None, extra=""):
     op = f' opacity="{o}"' if o is not None else ""
-    return f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{rx}" fill="{f}"{op}{extra}/>'
+    return f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{max(h, 0):.1f}" rx="{rx}" fill="{f}"{op}{extra}/>'
 
 
 def c(x, y, rad, f, o=None):
@@ -27,282 +79,457 @@ def e(x, y, rx, ry, f, o=None, rot=0):
     return f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" fill="{f}"{op}{tr}/>'
 
 
-def p(d, f="none", s=None, sw=0, o=None, cap="round"):
-    st = f' stroke="{s}" stroke-width="{sw}" stroke-linecap="{cap}" stroke-linejoin="round"' if s else ""
+def p(d, f="none", s=None, sw=0, o=None, extra=""):
+    st = f' stroke="{s}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round"' if s else ""
     op = f' opacity="{o}"' if o is not None else ""
-    return f'<path d="{d}" fill="{f}"{st}{op}/>'
+    return f'<path d="{d}" fill="{f}"{st}{op}{extra}/>'
 
 
-def g(body, tr="", o=None):
-    op = f' opacity="{o}"' if o is not None else ""
-    t = f' transform="{tr}"' if tr else ""
-    return f'<g{t}{op}>{body}</g>'
+def g(body, tr="", o=None, filt=None, blend=None):
+    a = (f' transform="{tr}"' if tr else "") + (f' opacity="{o}"' if o is not None else "") + \
+        (f' filter="{filt}"' if filt else "") + (f' style="mix-blend-mode:{blend}"' if blend else "")
+    return f'<g{a}>{body}</g>'
 
 
-def shadow(x, y, w, o=.16):
-    return e(x, y, w, w * .12, "#1A2236", o)
+# ---------------------------------------------------------------- shared scene parts
+def room(S, wall, ceiling=None, ceil_h=0):
+    """The back wall (vertical gradient) and an optional ceiling band with its shadow line."""
+    S.add(r(0, 0, W, FL, S.lin([(0, wall[0]), (1, wall[1])])))
+    if ceiling:
+        S.add(r(0, 0, W, ceil_h, S.lin([(0, ceiling[0]), (1, ceiling[1])])), r(0, ceil_h, W, 14, S.lin([(0, "#0A1020", .12), (1, "#0A1020", 0)])))
 
 
-# ---------------------------------------------------------------- shared props
-def plant(x, y, s=1, pot="#E9A07F", leaf=("#5FA77B", "#4C9068")):
-    # leaves fan out from the soil: each is drawn upright above the pot and turned about its base
-    leaves = "".join(f'<ellipse cx="0" cy="-104" rx="14" ry="46" fill="{leaf[i % 2]}" transform="rotate({a} 0 -58)"/>'
-                     for i, a in enumerate((-62, 62, -40, 40, -18, 18, 0)))
-    body = (shadow(0, 4, 60) + g(leaves, "translate(0,-6)") +
-            p("M-34 -58 H34 L26 0 H-26 Z", pot) + r(-38, -66, 76, 14, pot, 6) + r(-38, -66, 76, 5, "#FFFFFF", 3, .25))
-    return g(body, f"translate({x},{y}) scale({s})")
+def dado(S, y, cols, rail="#FFFFFF", panels=0):
+    S.add(r(0, y, W, FL - y, S.lin([(0, cols[0]), (1, cols[1])])), r(0, y - 6, W, 8, rail), r(0, y + 2, W, 6, S.lin([(0, "#0A1020", .08), (1, "#0A1020", 0)])))
+    if panels:
+        for x in range(30, W, panels):
+            S.add(r(x, y + 26, panels - 40, FL - y - 50, "#FFFFFF", 6, .12), r(x, y + 26, panels - 40, 3, "#FFFFFF", 2, .3))
 
 
-_gid = [0]
+def floor(S, cols, line, kind="tiles", gloss=0.0, vp=(NX - 120, 120)):
+    """A floor in one-point perspective toward vp, with an optional glossy sheen."""
+    S.add(r(0, FL, W, H - FL, S.lin([(0, cols[0]), (1, cols[1])])))
+    vx, vy = vp
+    if kind == "tiles":
+        for i in range(1, 9):
+            y = FL + (H - FL) * (i / 9) ** 1.7
+            S.add(p(f"M0 {y:.1f} H{W}", s=line, sw=1.2))
+        for k in range(-14, 15):
+            xb = vx + k * 150
+            xt = vx + (xb - vx) * (FL - vy) / (H - vy)
+            S.add(p(f"M{xt:.1f} {FL} L{xb:.1f} {H}", s=line, sw=1.2))
+    elif kind == "planks":
+        for k in range(-20, 21):
+            xb = vx + k * 92
+            xt = vx + (xb - vx) * (FL - vy) / (H - vy)
+            S.add(p(f"M{xt:.1f} {FL} L{xb:.1f} {H}", s=line, sw=1.4))
+        for i in range(1, 7):
+            y = FL + (H - FL) * (i / 7) ** 1.6
+            S.add(p(f"M0 {y:.1f} H{W}", s=line, sw=.8, o=.6))
+    if gloss:
+        S.add(r(0, FL, W, 120, S.lin([(0, "#FFFFFF", gloss), (1, "#FFFFFF", 0)])))
+    S.add(r(0, FL, W, 26, S.lin([(0, "#0A1020", .16), (1, "#0A1020", 0)])))     # ambient occlusion at the skirting
 
 
-def glow(x, y, rx, ry, col="#FFE7B0", o=.55):
-    """A soft pool of light: a radial gradient that fades to nothing (flat ovals looked muddy on dark walls)."""
-    _gid[0] += 1; i = _gid[0]
-    return (f'<defs><radialGradient id="gl{i}"><stop offset="0" stop-color="{col}" stop-opacity="{o}"/>'
-            f'<stop offset="1" stop-color="{col}" stop-opacity="0"/></radialGradient></defs>' + e(x, y, rx, ry, f"url(#gl{i})"))
+def stage(S, col="#FFFFFF", a=.55, wall_a=.35):
+    """Nexi's spot: a light pool on the floor and a soft halo on the wall behind."""
+    S.add(e(NX, NY + 4, 300, 70, S.rad([(0, col, a), (.6, col, a * .35), (1, col, 0)])),
+          e(NX, 430, 340, 300, S.rad([(0, col, wall_a), (1, col, 0)])))
 
 
-def lamp(x, y, col="#2B3A33", shade="#E9B949", light="#FFE7B0", top=0):
-    return (glow(x, y + 110, 170, 150, light, .42) + p(f"M{x} {top} V{y - 34}", s=col, sw=2.4) +
-            p(f"M{x - 34} {y} Q{x - 30} {y - 38} {x} {y - 38} Q{x + 30} {y - 38} {x + 34} {y} Z", shade) + e(x, y + 2, 12, 6, light))
+def shadow(S, x, y, w, a=.22):
+    S.add(e(x, y, w, w * .14, S.rad([(0, "#0A1020", a), (1, "#0A1020", 0)])))
+
+
+def shaft(S, pts, col="#FFFFFF", a=.35):
+    """A light shaft: a polygon that fades from bright at its source to nothing."""
+    d = "M" + " L".join(f"{x:.0f} {y:.0f}" for x, y in pts) + " Z"
+    ys = [y for _, y in pts]
+    S.add(p(d, S.lin([(0, col, a), (1, col, 0)], 0, 0, 0, 1), extra=' style="mix-blend-mode:screen"'))
+
+
+def glow(S, x, y, rx, ry, col, a=.6):
+    S.add(e(x, y, rx, ry, S.rad([(0, col, a), (1, col, 0)])))
+
+
+def pendant(S, x, y, shade, top=0, light="#FFE9B8", cord="#3A3A3A", wide=40):
+    S.add(e(x, y + 150, 210, 170, S.rad([(0, light, .42), (1, light, 0)])),
+          p(f"M{x} {top} V{y - 38}", s=cord, sw=2),
+          p(f"M{x - wide} {y} Q{x - wide + 4} {y - 42} {x} {y - 42} Q{x + wide - 4} {y - 42} {x + wide} {y} Z", S.lin([(0, shade[0]), (1, shade[1])])),
+          e(x, y + 1, wide * .42, 7, light), e(x, y + 1, wide * .22, 4, "#FFFFFF"))
+
+
+def leafy(S, x, y, s=1, pot=("#E7A385", "#C9805F"), leaf=("#6FB38A", "#3E8A5E"), blur=0, flip=1):
+    """A potted plant: big gradient leaves with midribs, a shaded pot, a contact shadow."""
+    lf = S.lin([(0, leaf[0]), (1, leaf[1])], 0, 0, 1, 1)
+    body = ""
+    for i, (a, L) in enumerate(((-66, 112), (66, 104), (-40, 134), (40, 128), (-16, 150), (16, 146), (0, 120))):
+        body += (f'<g transform="rotate({a * flip} 0 -60)"><ellipse cx="0" cy="{-60 - L * .62:.0f}" rx="{20 + (i % 2) * 3}" ry="{L * .52:.0f}" fill="{lf}"/>'
+                 f'<path d="M0 -62 V{-60 - L * 1.08:.0f}" stroke="#FFFFFF" stroke-opacity=".28" stroke-width="2.4" fill="none"/></g>')
+    potg = S.lin([(0, pot[0]), (1, pot[1])], 0, 0, 1, 0)
+    body += (p("M-44 -66 H44 L34 0 H-34 Z", potg) + r(-50, -76, 100, 16, pot[0], 7) + r(-50, -76, 100, 5, "#FFFFFF", 3, .3) +
+             p("M-44 -60 L-34 0 H-20 L-28 -60 Z", "#FFFFFF", o=.14))
+    sh = e(0, 4, 70, 11, S.rad([(0, "#0A1020", .25), (1, "#0A1020", 0)]))
+    S.add(g(sh + body, f"translate({x},{y}) scale({s})", filt=S.blur(blur) if blur else None))
 
 
 def cloud(x, y, s=1, f="#FFFFFF", o=.95):
-    return g(c(0, 0, 30, f) + c(34, -12, 38, f) + c(72, 0, 30, f) + r(-30, 0, 132, 28, f, 14), f"translate({x},{y}) scale({s})", o)
+    return g(c(0, 0, 30, f) + c(34, -14, 40, f) + c(76, 0, 32, f) + r(-30, 0, 138, 30, f, 15), f"translate({x},{y}) scale({s})", o)
+
+
+def frame(S, x, y, w, h, art, border="#FFFFFF", mat="#F7F3EC"):
+    shadow(S, x + w / 2, y + h + 6, w * .5, .12)
+    S.add(r(x - 8, y - 8, w + 16, h + 16, border, 4), r(x, y, w, h, mat, 2), art, r(x - 8, y - 8, w + 16, 4, "#FFFFFF", 2, .5))
 
 
 def jar(x, y, w, h, body, lid):
-    return r(x, y - h, w, h, body, 6) + r(x + w * .2, y - h - 7, w * .6, 9, lid, 3) + r(x + 4, y - h + 6, 4, h - 14, "#FFFFFF", 2, .35)
+    return r(x, y - h, w, h, body, 6) + r(x + w * .18, y - h - 8, w * .64, 10, lid, 3) + r(x + 5, y - h + 7, 5, h - 16, "#FFFFFF", 2, .4)
 
 
-def box(x, y, w, h, f="#C99A6B", tape="#E7C79A", d="#A87A4C"):
-    return (r(x, y - h, w, h, f, 3) + r(x, y - h, w, h * .18, d, 3, .5) + r(x + w / 2 - 6, y - h, 12, h, tape, 1, .9) +
-            r(x + 8, y - h * .5, w * .32, h * .22, "#FFFFFF", 2, .9))
+def parcel(x, y, w, h, f="#C99A6B", d="#A87A4C", tape="#EAD3AE"):
+    return (r(x, y - h, w, h, f, 3) + r(x + w * .72, y - h, w * .28, h, d, 0, .35) + r(x + w / 2 - 7, y - h, 14, h, tape, 0, .85) +
+            r(x + 8, y - h * .55, w * .3, h * .22, "#FFFFFF", 2, .9) + r(x, y - h, w, 4, "#FFFFFF", 2, .25))
 
 
-def window(x, y, w, h, sky=("#BFE3F7", "#EAF6FD"), frame="#FFFFFF", bars=2, uid="w"):
-    gid = f"sky{uid}"
-    s = (f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{sky[0]}"/><stop offset="1" stop-color="{sky[1]}"/></linearGradient></defs>' +
-         r(x - 12, y - 12, w + 24, h + 24, frame, 10) + r(x, y, w, h, f"url(#{gid})", 4) + cloud(x + w * .2, y + h * .28, .55) + cloud(x + w * .62, y + h * .5, .4, o=.8))
-    for i in range(1, bars):
-        s += r(x + w * i / bars - 4, y, 8, h, frame)
-    s += r(x, y + h * .55, w, 8, frame) + r(x - 20, y + h + 8, w + 40, 14, frame, 6)
-    return s
-
-
-def floor(y, top, bottom, line, kind="tiles", step=120):
-    s = (f'<defs><linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{top}"/><stop offset="1" stop-color="{bottom}"/></linearGradient></defs>' +
-         r(0, y, W, H - y, "url(#fl)"))
-    if kind == "tiles":
-        for i in range(1, 6):
-            yy = y + (H - y) * (i / 6) ** 1.5
-            s += p(f"M0 {yy:.1f} H{W}", s=line, sw=1.4)
-        for xx in range(-800, W + 800, step):
-            s += p(f"M{W / 2 + (xx - W / 2) * .62:.1f} {y} L{xx:.1f} {H}", s=line, sw=1.4)
-    elif kind == "planks":
-        for i in range(1, 7):
-            yy = y + (H - y) * (i / 7) ** 1.35
-            s += p(f"M0 {yy:.1f} H{W}", s=line, sw=1.6)
-            off = (i * 137) % 260
-            for xx in range(-off, W, 260):
-                s += p(f"M{xx} {yy:.1f} v{(H - y) / 7 * .9:.1f}", s=line, sw=1.2)
-    return s + r(0, y, W, 10, "#000000", 0, .06)
-
-
-def wall(top, bottom, uid="wall"):
-    return (f'<defs><linearGradient id="{uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{top}"/><stop offset="1" stop-color="{bottom}"/></linearGradient></defs>' +
-            r(0, 0, W, FL, f"url(#{uid})"))
-
-
-def wrap(body, bg):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMax slice">'
-            f'{r(0, 0, W, H, bg)}{body}</svg>')
-
-
-# ---------------------------------------------------------------- the eight backdrops
+# ---------------------------------------------------------------- the eight scenes
 def medical():
-    ink, teal, mint = "#0F4C45", "#21B799", "#E3F6F1"
-    s = wall("#F3FBF9", "#E4F4EF")
-    s += "".join(p(f"M{x} {y - 9} v18 M{x - 9} {y} h18", s="#21B799", sw=2.4, o=.12) for x in range(40, W, 90) for y in range(60, 520, 90))
-    s += r(0, 520, W, 120, "#D6EEE7") + r(0, 512, W, 10, "#FFFFFF")                       # wainscot and rail
-    s += "".join(glow(x, 110, 200, 120, "#FFFFFF", .7) + r(x - 70, 22, 140, 16, "#FFFFFF", 6) for x in (250, 700, 1150, 1500))
-    s += window(1060, 150, 360, 250, uid="m")                                            # the clinic window
-    s += r(860, 120, 120, 120, "#FFFFFF", 24) + r(908, 140, 24, 80, teal, 6) + r(880, 168, 80, 24, teal, 6)   # cross lightbox
-    s += p("M820 300 h70 l14 -34 l18 66 l14 -32 h120", s=teal, sw=4, o=.55)              # heartbeat line
-    sx = 1460                                                                            # medicine cabinet
-    s += shadow(sx + 70, FL + 2, 90) + r(sx, 330, 140, 310, "#FFFFFF", 10) + r(sx + 8, 338, 124, 294, mint, 6)
-    for row, yy in enumerate((420, 500, 580)):
-        s += r(sx + 8, yy, 124, 6, "#BFE3D9")
-        s += "".join(jar(sx + 16 + i * 30, yy, 22, 34 + (i + row) % 2 * 10, ("#FFFFFF", "#FFD9E0", "#CDE9FB", "#FFF1C2")[(i + row) % 4], teal) for i in range(4))
-    s += r(140, 420, 210, 120, "#FFFFFF", 12) + r(156, 440, 90, 10, teal, 5) + r(156, 462, 170, 8, "#CFE5DF", 4) + r(156, 480, 140, 8, "#CFE5DF", 4) + r(156, 498, 160, 8, "#CFE5DF", 4)   # notice board
-    s += floor(FL, "#F2F7FA", "#E1EBF2", "#FFFFFF")
-    s += plant(1010, 760, 1.25, "#F59A8B") + plant(90, 800, 1.1, "#7CC8FF", ("#4FB28A", "#3E9A76"))
-    return wrap(s, "#F3FBF9")
+    S = Scene()
+    teal, ink, mint, pink, blue = "#21B799", "#0F4C45", "#E3F6F1", "#FF8FA3", "#3FA9E0"
+    room(S, ("#EEF9F5", "#D5EEE6"), ("#FFFFFF", "#E8F5F1"), 64)
+    for x in range(200, W, 340):                                          # recessed ceiling lights
+        S.add(r(x - 70, 22, 140, 18, "#FFFFFF", 9), r(x - 64, 26, 128, 10, "#FFFDF0", 5))
+        glow(S, x, 120, 230, 150, "#FFFFFF", .55)
+    shaft(S, [(-40, 0), (300, 0), (760, FL + 200), (300, FL + 200)], "#FFFFFF", .28)   # morning light from the left
+    dado(S, 470, ("#BFE6DA", "#A9DCCD"), panels=180)
+    # far plane: frosted glass partition with the clinic mark behind the desk
+    S.add(r(780, 150, 700, 330, S.lin([(0, "#FFFFFF", .85), (1, "#DDF2EC", .7)]), 10),
+          r(780, 150, 700, 8, "#FFFFFF"), *[r(780 + i * 140, 150, 4, 330, "#FFFFFF", 0, .9) for i in range(1, 5)])
+    S.add(r(1030, 190, 210, 64, "#FFFFFF", 14), r(1046, 204, 36, 36, teal, 9), r(1059, 209, 10, 26, "#FFFFFF", 3), r(1051, 217, 26, 10, "#FFFFFF", 3),
+          r(1094, 208, 120, 13, ink, 4), r(1094, 228, 80, 9, "#8FB7AE", 4))
+    S.add(p("M800 330 h120 l16 -40 l20 74 l16 -38 h300", s=teal, sw=4, o=.35))          # heartbeat line on the glass
+    frame(S, 1340, 196, 96, 120, r(1346, 202, 84, 108, S.lin([(0, "#CFF0E6"), (1, "#A7E0D2")]), 2) + c(1388, 246, 22, "#FFFFFF", .8) + r(1376, 280, 24, 18, teal, 4, .6))
+    floor(S, ("#E7F0F5", "#D2E0EA"), "#FFFFFF", "tiles", gloss=.4)
+    S.add(p("M640 600 Q900 620 1060 600 L1060 680 Q900 700 640 680 Z", "#FFFFFF", o=.18))   # the desk's reflection
+    # mid plane: the curved reception desk to the left of Nexi, a medicine cabinet to the right
+    shadow(S, 900, FL + 70, 260, .2)
+    S.add(p("M640 500 Q900 470 1060 500 L1060 650 Q900 676 640 650 Z", S.lin([(0, "#FFFFFF"), (1, "#EAF5F2")])),
+          p("M640 500 Q900 470 1060 500 L1060 520 Q900 490 640 520 Z", S.lin([(0, "#C79E74"), (1, "#A57B52")])),
+          p("M664 560 Q900 536 1036 560 L1036 600 Q900 576 664 600 Z", teal, o=.85),
+          r(760, 452, 86, 50, ink, 8), r(766, 458, 74, 38, S.lin([(0, "#BDEFE2"), (1, "#7FD9C2")]), 4), r(796, 500, 14, 10, "#9AA6BC"),
+          c(960, 492, 12, "#FFFFFF"), c(960, 492, 8, pink))
+    cx = 1420
+    shadow(S, cx + 80, FL + 66, 120, .2)
+    S.add(r(cx, 250, 170, 410, S.lin([(0, "#FFFFFF"), (1, "#E9F4F1")], 0, 0, 1, 0), 12), r(cx + 10, 262, 150, 386, "#F2FAF8", 8))
+    for row, y in enumerate((360, 450, 540, 630)):
+        S.add(r(cx + 10, y, 150, 7, "#C9E6DD"))
+        for i in range(4):
+            col = ("#FFFFFF", "#FFD9E0", "#CDE9FB", "#FFF1C2")[(i + row) % 4]
+            S.add(jar(cx + 20 + i * 34, y, 26, 38 + ((i + row) % 3) * 8, col, teal if (i + row) % 2 else blue))
+    S.add(r(cx, 250, 170, 6, "#FFFFFF", 3, .7))
+    stage(S, "#FFFFFF", .7, .4)
+    leafy(S, 1560, 900, 1.9, ("#F59A8B", "#D97A6C"), ("#6FC79B", "#2F9468"), blur=3)      # foreground, soft
+    leafy(S, 80, 905, 1.5, ("#7CC8FF", "#4FA8E0"), ("#6FC79B", "#2F9468"), blur=2.5, flip=-1)
+    return S.svg("#F6FCFA")
 
 
 def travel():
-    ink, yel, sea = "#17284A", "#FFC94A", "#3167CA"
-    s = ('<defs><linearGradient id="tsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FD3F5"/><stop offset=".75" stop-color="#E8F5FD"/></linearGradient></defs>' +
-         r(0, 0, W, FL, "url(#tsky)"))
-    s += cloud(240, 150, 1.2) + cloud(760, 90, .9, o=.85) + cloud(1260, 170, 1.1)
-    s += g(p("M0 0 L120 -10 L150 -40 L168 -40 L160 -8 L230 -14 L238 0 L160 10 L168 42 L150 42 L120 10 Z", "#FFFFFF") + c(30, 0, 4, sea), "translate(980,250) rotate(-8)")
-    s += p("M1150 254 C1060 262 980 276 860 300", s="#FFFFFF", sw=3, o=.7)
-    s += r(330, 380, 26, 200, "#9CB2C9") + r(306, 360, 74, 32, "#9CB2C9", 8) + r(316, 366, 54, 14, "#E2F1FA", 4)      # control tower
-    s += "".join(r(x, 470 - hh, 70, hh + 120, "#C9DCEC") for x, hh in ((40, 80), (120, 40), (420, 60), (520, 100), (620, 50)))
-    s += "".join(r(x, 0, 14, FL, "#FFFFFF", 0, .85) for x in range(0, W + 1, 320))      # the glass wall's mullions
-    s += r(0, 0, W, 34, "#FFFFFF") + r(0, 560, W, 80, "#E9EEF6") + r(0, 556, W, 8, "#FFFFFF")
-    s += r(1030, 330, 380, 190, ink, 14) + r(1046, 346, 348, 30, "#24447A", 6) + r(1060, 356, 120, 10, yel, 5)      # departures board
+    S = Scene()
+    ink, sea, yel = "#17284A", "#3167CA", "#FFC94A"
+    S.add(r(0, 0, W, FL, S.lin([(0, "#7FC1EF"), (.55, "#CDE9FA"), (1, "#FFF1DC")])))       # sunrise sky through the glass
+    glow(S, 1250, 470, 520, 260, "#FFE2A8", .55)
+    for (x, y, s, o) in ((120, 120, 1.3, .9), (520, 70, .9, .75), (900, 160, 1.1, .85), (1330, 90, .8, .7)):
+        S.add(cloud(x, y, s, o=o))
+    S.add(*[r(x, 450 - h, w, h + 40, S.lin([(0, "#AFC8DF"), (1, "#C9DBEA")]), 0, .9) for x, w, h in
+            ((0, 90, 70), (96, 60, 120), (160, 120, 60), (290, 70, 150), (370, 140, 90), (520, 80, 60))])   # the far city, hazy
+    S.add(r(640, 330, 22, 160, "#9CB2C9"), r(616, 304, 70, 34, "#9CB2C9", 10), r(626, 312, 50, 16, "#E8F4FB", 4))   # control tower
+    S.add(r(0, 470, W, 28, S.lin([(0, "#9FB0C2"), (1, "#B8C7D6")])), *[r(x, 482, 50, 4, "#FFFFFF", 2, .8) for x in range(20, W, 110)])   # runway
+    S.add(g(p("M0 0 L130 -12 L162 -46 L182 -46 L172 -10 L250 -16 L258 0 L172 12 L182 46 L162 46 L130 12 Z", "#FFFFFF") +
+            r(30, -3, 160, 6, "#DDE7F2", 3) + c(36, 0, 5, sea), "translate(1010,220) rotate(-9) scale(.9)"))
+    S.add(p("M1240 196 C1120 210 1010 232 860 270", s="#FFFFFF", sw=3, o=.6))
+    # the glass curtain wall: mullions and transoms in front of the sky
+    for x in range(0, W + 1, 230):
+        S.add(r(x - 7, 0, 14, FL, S.lin([(0, "#FFFFFF"), (1, "#E6EEF7")], 0, 0, 1, 0)))
+    S.add(r(0, 0, W, 40, "#FFFFFF"), r(0, 40, W, 10, "#0A1020", .06), r(0, 300, W, 8, "#FFFFFF", 0, .9))
+    shaft(S, [(800, 50), (1400, 50), (1700, FL + 300), (1000, FL + 300)], "#FFF4D6", .35)
+    S.add(r(0, 520, W, 80, S.lin([(0, "#EDF2F8"), (1, "#DCE4EE")])), r(0, 516, W, 6, "#FFFFFF"))   # the sill
+    # departures board hanging over the gate
+    S.add(p("M1290 50 V210 M1520 50 V210", s="#9AA6BC", sw=3))
+    shadow(S, 1405, 400, 150, .12)
+    S.add(r(1240, 208, 330, 176, S.lin([(0, "#1E3460"), (1, ink)]), 14), r(1254, 222, 302, 30, "#24447A", 6), r(1268, 232, 110, 10, yel, 5))
     for i in range(4):
-        y = 392 + i * 30
-        s += r(1062, y, 150, 14, "#2E4C82", 4) + r(1230, y, 50, 14, "#2E4C82", 4) + r(1298, y, 80, 14, ("#5FD39A", yel, "#5FD39A", "#FF8A65")[i], 4)
-    s += r(1206, 300, 4, 30, "#9AA6BC") + r(1236, 300, 4, 30, "#9AA6BC")
-    s += floor(FL, "#F4F7FC", "#E3EAF5", "#FFFFFF")
-    for i, (x, col, hh) in enumerate(((990, "#FF8A65", 120), (1050, "#21B799", 90), (150, "#7B5BD6", 110))):       # suitcases
-        s += shadow(x + 26, 800, 40) + r(x, 800 - hh, 56, hh, col, 10) + r(x + 18, 800 - hh - 22, 20, 26, "none", 6, extra=f' stroke="{ink}" stroke-width="5"') + r(x + 6, 800 - hh + 12, 44, 6, "#FFFFFF", 3, .4)
-    s += plant(1530, 790, 1.2, yel, ("#3FA06A", "#2F8A58"))
-    return wrap(s, "#E8F5FD")
+        y = 266 + i * 27
+        S.add(r(1268, y, 140, 13, "#2E4C82", 4), r(1420, y, 46, 13, "#2E4C82", 4), r(1478, y, 64, 13, ("#5FD39A", yel, "#5FD39A", "#FF8A65")[i], 4))
+    floor(S, ("#F3F6FB", "#DCE4F0"), "#FFFFFF", "tiles", gloss=.55)
+    S.add(*[r(x - 7, FL, 14, 120, S.lin([(0, "#FFFFFF", .35), (1, "#FFFFFF", 0)])) for x in range(0, W + 1, 230)])   # mullion reflections
+    # mid plane: a row of gate seats left of Nexi, check-in kiosks right
+    shadow(S, 820, FL + 70, 210, .2)
+    for i in range(4):
+        x = 650 + i * 92
+        S.add(r(x, 552, 80, 70, S.lin([(0, "#4E7AD0"), (1, sea)]), 16), r(x - 2, 614, 84, 22, S.lin([(0, "#2E58A8"), (1, "#244A92")]), 9), r(x + 8, 560, 64, 8, "#FFFFFF", 4, .25))
+    S.add(r(650, 636, 360, 8, "#5C6670", 4), r(670, 644, 8, 26, "#5C6670"), r(980, 644, 8, 26, "#5C6670"))
+    for i, x in enumerate((1400, 1500)):
+        shadow(S, x + 34, FL + 80, 60, .18)
+        S.add(r(x, 470, 68, 210, S.lin([(0, "#FFFFFF"), (1, "#E3EAF5")], 0, 0, 1, 0), 10), r(x + 10, 486, 48, 64, ink, 5),
+              r(x + 14, 490, 40, 56, S.lin([(0, "#5DA9F5"), (1, sea)]), 3), r(x + 18, 572, 32, 8, yel, 4))
+    stage(S, "#FFF6E0", .6, .3)
+    S.add(g(r(0, -150, 120, 150, S.lin([(0, "#FF9A72"), (1, "#E06E4A")]), 18) + r(30, -186, 60, 42, "none", 12, extra=f' stroke="{ink}" stroke-width="10"') +
+            r(14, -130, 92, 8, "#FFFFFF", 4, .35), "translate(1490,905)", filt=S.blur(3)))   # foreground suitcase, soft
+    leafy(S, 70, 905, 1.6, (yel, "#E0A92E"), ("#5DBF7E", "#2E8A55"), blur=2.5, flip=-1)
+    return S.svg("#CDE9FA")
 
 
 def retail():
+    S = Scene()
     terra, sage, cream, ink, oak = "#D9785A", "#81B29A", "#FBF3E6", "#3D405B", "#D9B48A"
-    s = wall("#FBF3E6", "#F5E7D3") + "".join(r(x, 0, 3, FL, sage, 0, .2) for x in range(30, W, 46))
-    s += r(0, 540, W, 100, "#E9B39A") + r(0, 532, W, 10, "#FFFFFF")
-    bunt = "".join(p(f"M{x} {60 + 18 * math.sin(x / 140)} l40 0 l-20 34 Z", (terra, sage, "#E9C46A", "#7FA8C9")[i % 4]) for i, x in enumerate(range(0, W, 46)))
-    s += p("M0 60 " + " ".join(f"L{x} {60 + 18 * math.sin(x / 140):.1f}" for x in range(0, W + 40, 20)), s="#B9A58A", sw=2) + bunt
-    s += lamp(700, 150, "#8A7F6E", sage, "#FFF2CF") + lamp(1180, 150, "#8A7F6E", terra, "#FFF2CF")
-    sx = 1240                                                                            # oak shelving
-    s += shadow(sx + 150, FL + 2, 170) + r(sx, 250, 300, 390, "#B98E62", 10) + r(sx + 10, 260, 280, 370, "#F4E4CC", 6)
-    for row, yy in enumerate((360, 460, 560)):
-        s += r(sx + 10, yy, 280, 10, "#B98E62")
-        for i in range(5):
-            x = sx + 24 + i * 52
-            if row == 0: s += r(x, yy - 44, 36, 44, (terra, sage, "#E9C46A")[i % 3], 8) + r(x + 30, yy - 34, 10, 18, "none", 5, extra=f' stroke="{(terra, sage, "#E9C46A")[i % 3]}" stroke-width="4"')
-            elif row == 1: s += r(x, yy - 56, 30, 56, ("#FFFFFF", "#F7D9C9", "#DDEBE2")[i % 3], 8) + r(x + 6, yy - 44, 18, 10, terra, 3, .7)
-            else: s += r(x - 4, yy - 26, 46, 13, (terra, "#F7D9C9", sage)[i % 3], 4) + r(x - 2, yy - 13, 44, 13, (sage, terra, "#E9C46A")[i % 3], 4)
-    s += r(860, 200, 300, 330, "#FFFFFF", 150) + r(876, 216, 268, 300, "#CFE7F2", 136) + cloud(930, 300, .6) + r(876, 420, 268, 96, "#E3D9CB")   # arched shop window
-    s += r(990, 360, 6, 70, "#8A6A4A") + e(993, 350, 44, 38, "#6FAF86")
-    s += floor(FL, "#E8D2B5", "#D9BE9A", "#CDAF88", "planks")
-    s += plant(1100, 790, 1.2, terra) + plant(80, 810, 1.15, sage, ("#5E8F77", "#4E7D66"))
-    s += shadow(240, 800, 70) + r(180, 730, 120, 70, terra, 12) + p("M196 730 Q240 670 284 730", s=terra, sw=6)       # a basket
-    return wrap(s, "#FBF3E6")
+    room(S, ("#FCF5EA", "#F3E5D0"))
+    S.add(*[r(x, 0, 3, FL, "#B79A78", 0, .1) for x in range(24, W, 40)])                  # panelled wall
+    S.add(p("M0 70 " + " ".join(f"L{x} {70 + 20 * math.sin(x / 150):.1f}" for x in range(0, W + 40, 20)), s="#A68B6A", sw=2))
+    S.add(*[p(f"M{x} {70 + 20 * math.sin(x / 150):.1f} l38 0 l-19 34 Z", (terra, sage, "#E9C46A", "#7FA8C9")[i % 4]) for i, x in enumerate(range(0, W, 44))])
+    pendant(S, 760, 190, ("#9CC5AF", sage), 0, cord="#8A7F6E")
+    pendant(S, 1300, 190, ("#E9967A", terra), 0, cord="#8A7F6E")
+    dado(S, 500, ("#EAB59D", "#DFA488"), rail="#FFF8EE", panels=150)
+    # far plane: the arched shop window onto a sunny street
+    wx, wy, ww, wh = 760, 180, 330, 300
+    arch = f"M{wx} {wy + wh} V{wy + ww / 2} A{ww / 2} {ww / 2} 0 0 1 {wx + ww} {wy + ww / 2} V{wy + wh} Z"
+    S.defs.append(f'<clipPath id="rarch"><path d="{arch}"/></clipPath>')
+    S.add(p(f"M{wx - 16} {wy + wh + 16} V{wy + ww / 2} A{ww / 2 + 16} {ww / 2 + 16} 0 0 1 {wx + ww + 16} {wy + ww / 2} V{wy + wh + 16} Z", "#FFFBF3"),
+          '<g clip-path="url(#rarch)">' + r(wx, wy, ww, wh, S.lin([(0, "#BFE3F7"), (1, "#F0F8FC")])) + cloud(wx + 50, wy + 90, .6) +
+          r(wx, wy + 190, ww, 110, "#E8DCCB") + r(wx + 30, wy + 120, 110, 80, "#E7B9A6") + r(wx + 180, wy + 100, 130, 100, "#C9DDE8") +
+          r(wx + 210, wy + 120, 26, 26, "#FFFFFF", 3, .8) + r(wx + 250, wy + 120, 26, 26, "#FFFFFF", 3, .8) +
+          r(wx + 128, wy + 150, 8, 90, "#8A6A4A") + c(wx + 132, wy + 140, 42, "#6FAF86") + c(wx + 110, wy + 160, 26, "#5E9E75") + '</g>',
+          r(wx + ww / 2 - 4, wy + 40, 8, wh - 40, "#FFFBF3"), r(wx - 26, wy + wh + 10, ww + 52, 16, "#FFFBF3", 6))
+    S.add(p(f"M{wx + 40} {wy + wh} L{wx - 120} {FL + 260} L{wx + ww + 140} {FL + 260} L{wx + ww - 40} {wy + wh} Z", S.lin([(0, "#FFF6DE", .45), (1, "#FFF6DE", 0)]), extra=' style="mix-blend-mode:screen"'))
+    floor(S, ("#E9D3B6", "#D6B993"), "#C5A47C", "planks", gloss=.25)
+    # mid plane: oak shelving right of Nexi, a display table left
+    sx = 1350
+    shadow(S, sx + 125, FL + 74, 170, .22)
+    S.add(r(sx, 210, 250, 460, S.lin([(0, "#C49A6C"), (1, "#A9794C")], 0, 0, 1, 0), 10), r(sx + 12, 222, 226, 436, S.lin([(0, "#F7E8D2"), (1, "#EEDBBF")]), 6))
+    for row, y in enumerate((320, 420, 520, 620)):
+        S.add(r(sx + 12, y, 226, 10, "#B98E62"), r(sx + 12, y + 10, 226, 6, "#0A1020", 0, .06))
+        for i in range(4):
+            x = sx + 26 + i * 54
+            if row == 0: S.add(r(x, y - 46, 38, 46, (terra, sage, "#E9C46A", "#7FA8C9")[i], 9), p(f"M{x + 38} {y - 36} q14 0 14 12 q0 12 -14 12", s=(terra, sage, "#E9C46A", "#7FA8C9")[i], sw=5))
+            elif row == 1: S.add(r(x + 4, y - 64, 30, 64, ("#FFFFFF", "#F7D9C9", "#DDEBE2", "#E9E1F5")[i], 10), r(x + 10, y - 50, 18, 12, terra, 3, .6))
+            elif row == 2: S.add(r(x - 4, y - 30, 46, 14, (terra, "#F7D9C9", sage, "#E9C46A")[i], 4), r(x - 2, y - 16, 44, 16, (sage, terra, "#E9C46A", "#7FA8C9")[i], 4))
+            else: S.add(c(x + 19, y - 22, 20, ("#E9C46A", terra, sage, "#7FA8C9")[i]), c(x + 13, y - 28, 6, "#FFFFFF", .35))
+    S.add(r(sx, 210, 250, 8, "#FFFFFF", 4, .3))
+    tx = 640
+    shadow(S, tx + 160, FL + 82, 200, .22)
+    S.add(r(tx, 560, 320, 18, S.lin([(0, "#E3C29A"), (1, oak)]), 8), r(tx + 20, 578, 14, 100, "#B98E62"), r(tx + 286, 578, 14, 100, "#B98E62"),
+          *[r(tx + 30 + (i % 2) * 6, 560 - (i + 1) * 15, 110, 14, ("#F7D9C9", terra, "#FFFFFF", sage)[i % 4], 4) for i in range(4)],
+          r(tx + 190, 500, 40, 60, "#7FA8C9", 14), c(tx + 210, 488, 26, "#6FAF86"), c(tx + 196, 478, 14, "#5E9E75"),
+          r(tx + 250, 530, 44, 30, "#FFFFFF", 6), r(tx + 256, 538, 32, 6, terra, 3))
+    stage(S, "#FFF2D6", .6, .3)
+    leafy(S, 1560, 905, 1.8, (terra, "#B95E43"), ("#7FB59A", "#3F7D60"), blur=3)
+    S.add(g(r(-60, -90, 150, 90, S.lin([(0, "#E59478"), (1, terra)]), 14) + p("M-40 -90 Q15 -170 70 -90", s="#C26A4E", sw=8), "translate(110,905)", filt=S.blur(2.5)))
+    return S.svg("#FCF5EA")
 
 
 def ecommerce():
+    S = Scene()
     vio, mint, kraft, ink = "#6D5BD0", "#3CCFAE", "#C99A6B", "#2B2350"
-    s = wall("#F4F1FB", "#E9E4F6")
-    s += "".join(r(x + (row % 2) * 40, row * 40, 76, 34, "#DDD5F2", 3, .6) for row in range(16) for x in range(-40, W, 80))
-    s += r(0, 560, W, 80, "#D8D0F0") + r(0, 552, W, 10, mint)
-    s += "".join(glow(x, 100, 190, 110, "#FFFFFF", .75) + r(x - 70, 24, 140, 14, "#FFFFFF", 6) for x in (300, 800, 1300))
-    for k, rx in enumerate((1180, 1380)):                                                # racks of parcels
-        s += shadow(rx + 90, FL + 2, 110) + r(rx, 220, 10, 420, "#8A82AA") + r(rx + 170, 220, 10, 420, "#8A82AA")
-        for yy in (300, 420, 540, 636):
-            s += r(rx, yy, 180, 10, "#F29A4A" if k else "#8A82AA")
-            if yy < 600:
-                s += box(rx + 14, yy, 66, 52 + (yy % 3) * 6) + box(rx + 90, yy, 74, 60)
-    s += r(860, 210, 270, 430, "#7D759E", 8) + "".join(r(872, y, 246, 12, ("#C9C3DE", "#B9B2D3")[i % 2], 2) for i, y in enumerate(range(222, 470, 14)))   # roller door, half open
-    s += r(872, 470, 246, 170, "#2E2A4A") + r(866, 462, 258, 12, "#8A82AA", 3) + r(980, 466, 30, 8, "#FFD84A", 3)
-    s += floor(FL, "#F2F0F8", "#E2DDF0", "#FFFFFF")
-    s += r(560, 650, 480, 26, "#5C5480", 8) + r(560, 676, 480, 10, "#463E6A", 4) + "".join(c(x, 681, 6, "#2B2350") for x in range(580, 1040, 40))   # conveyor
-    s += box(600, 650, 80, 60) + box(720, 650, 70, 48) + box(830, 650, 90, 70) + box(950, 650, 60, 44)
-    s += plant(90, 810, 1.15, vio, ("#4FB28A", "#3E9A76"))
-    return wrap(s, "#F4F1FB")
+    room(S, ("#F3F0FB", "#E4DEF4"), ("#D8D1EE", "#CFC7EA"), 70)
+    S.add(*[r(x + (row % 2) * 44, 80 + row * 38, 84, 32, "#D9D1F0", 3, .55) for row in range(14) for x in range(-44, W, 88)])   # painted brick
+    for x in (250, 700, 1150):                                                                    # strip lights
+        S.add(r(x - 110, 72, 220, 14, "#FFFFFF", 7), r(x - 104, 76, 208, 6, "#FFFDF2", 3))
+        glow(S, x, 170, 260, 140, "#FFFFFF", .6)
+    S.add(r(0, 520, W, 80, S.lin([(0, "#D2C9EE"), (1, "#C6BCE8")])), r(0, 514, W, 8, mint))
+    # far plane: the open roller door onto the loading bay and sky
+    dx = 760
+    S.add(r(dx - 18, 200, 380, 400, "#8A82AA", 6), r(dx, 216, 344, 384, S.lin([(0, "#BFE3F7"), (1, "#F2F8FC")])), cloud(dx + 60, 280, .7),
+          r(dx, 470, 344, 130, "#C9C3DA"), r(dx + 30, 420, 200, 120, "#FFFFFF", 10), r(dx + 30, 420, 200, 30, vio, 10), r(dx + 30, 440, 200, 10, vio),
+          c(dx + 70, 548, 18, ink), c(dx + 190, 548, 18, ink), r(dx + 56, 470, 120, 40, "#ECE8FA", 6))
+    S.add(*[r(dx, y, 344, 12, ("#C9C3DE", "#B9B2D3")[i % 2], 2) for i, y in enumerate(range(216, 330, 14))],
+          r(dx - 4, 326, 352, 14, "#8A82AA", 3), r(dx + 150, 330, 44, 8, "#FFD84A", 3))
+    shaft(S, [(dx, 470), (dx + 344, 470), (dx + 520, FL + 300), (dx - 160, FL + 300)], "#FFF6DE", .32)
+    floor(S, ("#F1EEF8", "#DED7EF"), "#FFFFFF", "tiles", gloss=.45)
+    S.add(p("M0 760 L1600 760", s="#FFD84A", sw=5, o=.75), p("M0 850 L1600 850", s="#FFD84A", sw=5, o=.75))
+    # mid plane: racking receding to the right, a hanging zone sign
+    for k, (rx, s) in enumerate(((1250, 1), (1440, 1.05))):
+        shadow(S, rx + 90 * s, FL + 74, 120 * s, .2)
+        S.add(r(rx, 210, 12, 460, "#7D74A6"), r(rx + 168 * s, 210, 12, 460, "#7D74A6"))
+        for y in (310, 420, 530, 660):
+            S.add(r(rx, y, 180 * s, 12, "#F29A4A"), r(rx, y + 12, 180 * s, 5, "#0A1020", 0, .08))
+            if y < 640:
+                S.add(parcel(rx + 16, y, 70, 58 + (y % 3) * 8), parcel(rx + 96, y, 74, 66))
+    S.add(p("M1290 0 V120 M1430 0 V120", s="#9C95B8", sw=2), r(1270, 120, 180, 44, ink, 8), r(1270, 156, 180, 8, mint, 4), r(1290, 136, 90, 12, "#FFFFFF", 6, .9))
+    # the conveyor, left of Nexi
+    S.add(p("M560 640 L1020 640 L1040 664 L540 664 Z", S.lin([(0, "#6B6392"), (1, "#4E4778")])), r(540, 664, 500, 12, "#3A3460", 4),
+          *[c(x, 682, 7, ink) for x in range(560, 1040, 40)], r(552, 676, 476, 26, "#463E6A", 6, .5))
+    S.add(parcel(590, 640, 84, 62), parcel(700, 640, 70, 50, "#D4A879"), parcel(800, 640, 96, 74), parcel(920, 640, 64, 46, "#D4A879"))
+    stage(S, "#FFFFFF", .65, .3)
+    S.add(g(parcel(0, 0, 150, 120) + parcel(20, -120, 120, 96, "#D4A879"), "translate(1470,905)", filt=S.blur(3)))
+    leafy(S, 80, 905, 1.5, (vio, "#5443B5"), ("#6FC79B", "#2F9468"), blur=2.5, flip=-1)
+    return S.svg("#F3F0FB")
 
 
 def construction():
-    yel, navy, ink = "#FFC93C", "#1F3F73", "#1E2A3A"
-    s = ('<defs><linearGradient id="csky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86C6F0"/><stop offset="1" stop-color="#E4F3FC"/></linearGradient></defs>' +
-         r(0, 0, W, 560, "url(#csky)") + c(1380, 120, 70, "#FFF6D2", .9))
-    s += cloud(180, 120, 1) + cloud(640, 80, .8, o=.85) + cloud(1060, 150, .9)
-    s += "".join(r(x, 560 - hh, ww, hh, ("#B9D2E6", "#A8C4DC")[i % 2]) for i, (x, ww, hh) in enumerate(((0, 90, 160), (100, 70, 110), (180, 110, 200), (300, 80, 130), (390, 120, 170), (520, 90, 120), (620, 100, 210), (730, 80, 140))))
-    fx = 1120                                                                            # the frame going up
-    for lv in range(4):
-        y = 560 - lv * 90
-        s += r(fx, y - 8, 330, 10, "#9AA8B8") + "".join(r(fx + i * 110, y - 90, 10, 90, "#C3CDDA") for i in range(4))
-    s += r(fx, 200, 330, 10, "#9AA8B8") + r(fx + 20, 380, 90, 90, "#7FB7E3", 4, .6) + r(fx + 140, 290, 90, 90, "#7FB7E3", 4, .6)
-    cx = 940                                                                             # tower crane
-    s += "".join(p(f"M{cx - 10} {y} L{cx + 10} {y - 30} M{cx + 10} {y} L{cx - 10} {y - 30}", s=yel, sw=3) for y in range(560, 140, -30))
-    s += r(cx - 12, 120, 6, 440, yel) + r(cx + 6, 120, 6, 440, yel) + r(cx - 260, 112, 640, 12, yel) + r(cx - 260, 100, 640, 6, yel, 0, .7)
-    s += p(f"M{cx} 70 L{cx - 260} 106 M{cx} 70 L{cx + 380} 106", s="#C9930A", sw=3) + r(cx - 12, 60, 24, 30, yel) + r(cx - 260, 118, 80, 40, "#8A97A8", 4)
-    s += p(f"M{cx + 220} 124 V300", s="#5C6B7A", sw=2) + r(cx + 170, 300, 100, 14, "#E2553D", 3)
-    s += r(0, 560, W, 80, navy) + r(0, 560, W, 8, yel) + r(0, 576, W, 6, "#FFFFFF") + "".join(r(x, 560, 3, 80, "#FFFFFF", 0, .12) for x in range(0, W, 120))   # hoarding
-    s += ('<defs><linearGradient id="cfl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7D3B6"/><stop offset="1" stop-color="#D3B892"/></linearGradient></defs>' + r(0, FL, W, H - FL, "url(#cfl)"))
-    s += p("M0 760 Q600 700 1600 780", s="#C4A57B", sw=3, o=.6) + p("M0 840 Q700 790 1600 860", s="#C4A57B", sw=3, o=.5)
-    s += "".join(shadow(x, 800, 26) + p(f"M{x - 22} 800 L{x - 6} 740 H{x + 6} L{x + 22} 800 Z", "#FF7A1A") + r(x - 12, 768, 24, 8, "#FFFFFF") for x in (1030, 1100))
-    s += shadow(1480, 800, 110) + "".join(r(1390 + i * 6, 800 - (i + 1) * 14, 180, 14, ("#C99A6B", "#B98552")[i % 2], 2) for i in range(4))
-    s += shadow(180, 810, 60) + "".join(r(130 + (i % 2) * 8, 810 - (i + 1) * 22, 90, 20, "#B4573C", 3) for i in range(4))
-    return wrap(s, "#E4F3FC")
+    S = Scene()
+    yel, navy, ink, orange = "#FFC93C", "#1F3F73", "#1E2A3A", "#FF7A1A"
+    S.add(r(0, 0, W, 560, S.lin([(0, "#6FB4E8"), (.6, "#BFE0F6"), (1, "#FFE9C2")])))       # golden-hour sky
+    glow(S, 1360, 360, 420, 300, "#FFE29A", .8)
+    S.add(c(1360, 340, 64, "#FFF4D0", .95))
+    for x, y, s, o in ((80, 110, 1.2, .9), (520, 70, .9, .8), (980, 130, 1, .8)):
+        S.add(cloud(x, y, s, o=o))
+    for depth, (col, base, hmax, a) in enumerate((("#C7D9EA", 470, 210, .9), ("#A9C2DA", 520, 160, 1))):   # two layers of skyline, hazy then nearer
+        x = -20 + depth * 37
+        while x < W:
+            w = 60 + (x * 7 + depth * 13) % 70
+            h = 60 + (x * 13 + depth * 31) % hmax
+            S.add(r(x, base - h, w, h + 50, col, 0, a))
+            for wy in range(base - h + 14, base, 22):
+                S.add(r(x + 8, wy, w - 16, 5, "#FFFFFF", 0, .18))
+            x += w + 6
+    # the frame going up, right of Nexi
+    fx = 1250
+    for lv in range(5):
+        y = 560 - lv * 80
+        S.add(r(fx, y - 8, 330, 10, "#8E9CAD"), *[r(fx + i * 110, y - 80, 10, 80, "#B6C2D0") for i in range(4)])
+    S.add(r(fx, 152, 330, 10, "#8E9CAD"), r(fx + 18, 330, 92, 70, "#7FB7E3", 3, .55), r(fx + 128, 410, 92, 70, "#7FB7E3", 3, .55), r(fx + 238, 250, 92, 70, "#7FB7E3", 3, .55))
+    S.add(*[p(f"M{fx - 30 + i * 60} 560 L{fx + i * 60} 480", s="#D9A13A", sw=3) for i in range(7)])   # scaffold braces
+    # tower crane, its jib over the scene
+    cx = 1080
+    S.add(*[p(f"M{cx - 12} {y} L{cx + 12} {y - 32} M{cx + 12} {y} L{cx - 12} {y - 32}", s=yel, sw=3) for y in range(560, 120, -32)],
+          r(cx - 14, 100, 6, 460, yel), r(cx + 8, 100, 6, 460, yel), r(cx - 520, 92, 900, 14, S.lin([(0, "#FFD866"), (1, "#E5AE20")])),
+          p(f"M{cx} 40 L{cx - 520} 88 M{cx} 40 L{cx + 380} 88", s="#C9930A", sw=3), r(cx - 16, 30, 32, 40, yel, 4), r(cx - 520, 106, 90, 44, "#8A97A8", 4),
+          r(cx - 40, 108, 60, 40, "#E9EEF4", 4), r(cx - 34, 114, 48, 22, "#7FB7E3", 3))
+    S.add(p(f"M{cx + 240} 106 V300", s="#4C5A69", sw=2), r(cx + 180, 300, 120, 16, "#E2553D", 3), r(cx + 180, 316, 120, 6, "#0A1020", 0, .15))
+    # hoarding
+    S.add(r(0, 520, W, 80, S.lin([(0, "#24497F"), (1, navy)])), r(0, 520, W, 8, yel), r(0, 534, W, 5, "#FFFFFF", 0, .8),
+          *[r(x, 520, 3, 80, "#FFFFFF", 0, .1) for x in range(0, W, 140)], r(80, 552, 220, 26, "#FFFFFF", 4, .12))
+    S.add(r(0, FL, W, H - FL, S.lin([(0, "#E9D4B4"), (1, "#CFAF86")])), r(0, FL, W, 26, S.lin([(0, "#0A1020", .2), (1, "#0A1020", 0)])))
+    S.add(p("M0 720 Q620 650 1600 740", s="#BC9A6E", sw=10, o=.35), p("M0 820 Q700 760 1600 850", s="#BC9A6E", sw=10, o=.3))   # tyre tracks
+    shadow(S, 760, 690, 150, .22)
+    S.add(*[r(640 + i * 6, 690 - (i + 1) * 16, 220, 16, ("#C99A6B", "#B98552")[i % 2], 3) for i in range(4)])   # timber stack, left of Nexi
+    S.add(*[p(f"M{x - 20} 700 L{x - 6} 640 H{x + 6} L{x + 20} 700 Z", orange) + r(x - 11, 666, 22, 8, "#FFFFFF") for x in (960, 1010)])
+    stage(S, "#FFF2CC", .6, .25)
+    S.add(g(p("M-60 0 L-30 -110 H30 L60 0 Z", orange) + r(-36, -70, 72, 14, "#FFFFFF") + r(-70, -6, 140, 12, ink, 4), "translate(1530,905)", filt=S.blur(3)))
+    S.add(g(r(0, -60, 220, 60, S.lin([(0, "#FFFFFF"), (1, "#E8E2D4")]), 6) + "".join(r(14 + i * 40, -60, 20, 60, "#E2553D") for i in range(5)), "translate(-40,905)", filt=S.blur(2.5)))
+    return S.svg("#BFE0F6")
 
 
 def fnb():
-    green, tomato, mustard, cream, wood = "#1F4D3F", "#E2553D", "#E9B949", "#FFF6E5", "#A9744A"
-    s = r(0, 0, W, 110, "#F4EBDD") + "".join(r(x, 0, 10, 110, wood, 0, .18) for x in range(0, W, 120)) + r(0, 104, W, 12, wood)
-    s += p("M0 70 " + " ".join(f"L{x} {70 + 22 * abs(math.sin(x / 260 * math.pi)):.1f}" for x in range(0, W + 20, 20)), s="#5C4632", sw=2)
-    s += "".join(c(x, 80 + 22 * abs(math.sin(x / 260 * math.pi)), 6, "#FFD27A") + c(x, 80 + 22 * abs(math.sin(x / 260 * math.pi)), 14, "#FFD27A", .2) for x in range(20, W, 46))
-    s += r(0, 116, W, 400, green) + "".join(p(f"M0 {y} H{W}", s="#FFFFFF", sw=1.2, o=.08) for y in range(132, 516, 22))
-    s += "".join(p(f"M{x + (j % 2) * 34} {132 + j * 22} v22", s="#FFFFFF", sw=1.2, o=.08) for j in range(18) for x in range(0, W, 68))
-    s += r(0, 516, W, 124, wood) + r(0, 508, W, 10, "#C9A44A") + "".join(r(x, 530, 150, 90, "#93633E", 8, .5) for x in range(20, W, 170))
-    s += lamp(820, 230, "#2B3A33", "#C9A44A", "#FFE7B0", 116) + lamp(1380, 230, "#2B3A33", "#C9A44A", "#FFE7B0", 116)
-    s += r(1240, 170, 230, 170, "#263238", 6) + r(1232, 162, 246, 186, "none", 8, extra=f' stroke="{wood}" stroke-width="8"')   # the menu board
-    s += r(1270, 196, 100, 12, "#F3EBDD", 4) + "".join(r(1270, 228 + i * 24, 120, 8, "#F3EBDD", 4, .6) + r(1420, 228 + i * 24, 24, 8, "#FFD27A", 4) for i in range(4))
-    s += r(150, 210, 300, 10, wood) + r(150, 300, 300, 10, wood)                          # jar shelves
-    s += "".join(jar(166 + i * 46, 210, 30, 34 + (i % 3) * 8, ("#4A7A5E", "#FFF1D6", tomato, mustard, "#8E5A2E", "#FFF1D6")[i], "#C9A44A") for i in range(6))
-    s += "".join(jar(170 + i * 54, 300, 34, 40, ("#FFF1D6", tomato, mustard, "#FFF1D6", "#4A7A5E")[i], "#2B3A33") for i in range(5))
-    kx = 900                                                                             # the open kitchen counter
-    s += r(kx - 10, 440, 420, 16, "#C9D1DB", 4) + r(kx, 456, 400, 184, wood, 8) + r(kx + 120, 500, 160, 40, "#13332A", 8) + r(kx + 128, 508, 144, 24, "none", 6, extra=' stroke="#C9A44A" stroke-width="2"')
-    s += r(kx + 40, 380, 70, 60, "#AAB4C0", 8) + r(kx + 34, 372, 82, 12, "#8A949E", 4) + "".join(c(kx + 60 + i * 14, 340 - i * 18, 10 + i * 4, "#FFFFFF", .5 - i * .12) for i in range(3))
-    s += g(p("M-40 0 Q0 30 40 0 Z", "#2B2F33") + r(36, -4, 44, 6, "#2B2F33", 3), f"translate({kx + 250},432)") + p(f"M{kx + 230} 420 q20 -40 40 -10 q14 -36 30 4", "#FF8C28", o=.85)
-    s += r(0, FL, W, H - FL, "#EADBC4") + "".join(r(x + (row % 2) * 40, FL + row * 52, 80, 52, "#D7C0A0" if (x // 80 + row) % 2 else "#EADBC4") for row in range(6) for x in range(-40, W, 80))
-    s += r(0, FL, W, 10, "#000000", 0, .08)
-    s += plant(120, 810, 1.3, "#C96F4A", ("#3F8F5E", "#2F7A4E")) + plant(1530, 800, 1.2, "#C96F4A", ("#3F8F5E", "#2F7A4E"))
-    return wrap(s, "#1F4D3F")
+    S = Scene()
+    green, tomato, mustard, cream, wood, brass = "#1F4D3F", "#E2553D", "#E9B949", "#FFF6E5", "#A9744A", "#C9A44A"
+    S.add(r(0, 0, W, 104, S.lin([(0, "#F5EBDC"), (1, "#EADCC6")])), *[r(x, 0, 12, 104, wood, 0, .2) for x in range(0, W, 120)], r(0, 98, W, 12, wood))
+    S.add(r(0, 110, W, 400, S.lin([(0, "#1A4437"), (1, "#245A49")])))
+    S.add(*[p(f"M0 {y} H{W}", s="#FFFFFF", sw=1.2, o=.07) for y in range(130, 510, 22)],
+          *[p(f"M{x + (j % 2) * 34} {130 + j * 22} v22", s="#FFFFFF", sw=1.2, o=.07) for j in range(18) for x in range(0, W, 68)])
+    S.add(p("M0 64 " + " ".join(f"L{x} {64 + 24 * abs(math.sin(x / 260 * math.pi)):.1f}" for x in range(0, W + 20, 20)), s="#5C4632", sw=2))
+    for x in range(20, W, 44):
+        y = 74 + 24 * abs(math.sin(x / 260 * math.pi))
+        glow(S, x, y, 22, 22, "#FFD27A", .45)
+        S.add(c(x, y, 5.5, "#FFE3A0"))
+    S.add(r(0, 504, W, 96, S.lin([(0, "#B07C51"), (1, "#8F5F3A")])), r(0, 498, W, 10, brass), *[r(x, 518, 150, 66, "#000000", 8, .1) for x in range(20, W, 170)])
+    # far plane: shelves of jars and a menu board, lanterns
+    S.add(r(640, 230, 330, 10, wood), r(640, 320, 330, 10, wood))
+    S.add(*[jar(656 + i * 52, 230, 32, 34 + (i % 3) * 9, ("#4A7A5E", "#FFF1D6", tomato, mustard, "#8E5A2E", "#FFF1D6")[i], brass) for i in range(6)])
+    S.add(*[jar(662 + i * 62, 320, 36, 42, ("#FFF1D6", tomato, mustard, "#FFF1D6", "#4A7A5E")[i], "#2B3A33") for i in range(5)])
+    for lx in (700, 1300):
+        glow(S, lx, 300, 200, 180, "#FFB25A", .3)
+        S.add(p(f"M{lx} 110 V170", s="#2B3A33", sw=2), r(lx - 18, 168, 36, 8, brass, 3), r(lx - 22, 176, 44, 56, S.rad([(0, "#FF8A55"), (1, tomato)]), 18),
+              e(lx, 204, 10, 16, "#FFD27A"), r(lx - 18, 230, 36, 8, brass, 3))
+    S.add(r(1370, 170, 210, 170, "#263238", 6), r(1362, 162, 226, 186, "none", 8, extra=f' stroke="{wood}" stroke-width="8"'),
+          r(1396, 192, 90, 12, "#F3EBDD", 4), *[r(1396, 222 + i * 24, 110, 8, "#F3EBDD", 4, .55) + r(1530, 222 + i * 24, 24, 8, "#FFD27A", 4) for i in range(4)])
+    # floor: chequered tiles in perspective, warm light pools
+    S.add(r(0, FL, W, H - FL, S.lin([(0, "#EADBC4"), (1, "#D9C3A2")])))
+    vx, vy = NX - 120, 140
+    for i in range(10):
+        y0 = FL + (H - FL) * (i / 10) ** 1.6
+        y1 = FL + (H - FL) * ((i + 1) / 10) ** 1.6
+        for k in range(-16, 16):
+            if (k + i) % 2: continue
+            def X(xb, y): return vx + (xb - vx) * (y - vy) / (H - vy)
+            xa, xb2 = vx + k * 120, vx + (k + 1) * 120
+            S.add(p(f"M{X(xa, y0) * 1:.1f} {y0:.1f} L{X(xb2, y0):.1f} {y0:.1f} L{X(xb2, y1):.1f} {y1:.1f} L{X(xa, y1):.1f} {y1:.1f} Z", "#C9A97F", o=.55))
+    S.add(r(0, FL, W, 30, S.lin([(0, "#0A1020", .25), (1, "#0A1020", 0)])))
+    glow(S, 700, 680, 260, 70, "#FFB25A", .35)
+    # mid plane: the open kitchen pass behind Nexi's left, heat lamps glowing
+    kx = 760
+    for lx in (840, 940, 1040):
+        S.add(p(f"M{lx} 110 V360", s="#8A949E", sw=2), p(f"M{lx - 22} 380 L{lx - 10} 360 H{lx + 10} L{lx + 22} 380 Z", "#5C6670"))
+        glow(S, lx, 430, 70, 60, "#FF9A4A", .5)
+    shadow(S, kx + 210, FL + 70, 250, .3)
+    S.add(r(kx - 10, 440, 440, 16, S.lin([(0, "#E8EDF2"), (1, "#B9C3CD")]), 4), r(kx, 456, 420, 190, S.lin([(0, "#B57F52"), (1, "#8F5F3A")]), 8),
+          r(kx + 140, 500, 150, 42, "#13332A", 8), r(kx + 148, 508, 134, 26, "none", 6, extra=f' stroke="{brass}" stroke-width="2"'),
+          r(kx + 40, 380, 74, 60, S.lin([(0, "#C9D1DB"), (1, "#8A949E")], 0, 0, 1, 0), 8), r(kx + 34, 372, 86, 12, "#6E7883", 4))
+    S.add(*[c(kx + 66 + i * 14, 344 - i * 22, 12 + i * 5, "#FFFFFF", .35 - i * .09) for i in range(3)])
+    S.add(g(p("M-44 0 Q0 32 44 0 Z", "#2B2F33") + r(40, -4, 50, 7, "#2B2F33", 3), f"translate({kx + 260},436)"),
+          p(f"M{kx + 236} 424 q22 -46 44 -12 q16 -40 34 4", S.lin([(0, "#FFD27A"), (1, "#FF7A2A")]), o=.9))
+    stage(S, "#FFE0A8", .55, .22)
+    leafy(S, 1560, 905, 1.9, ("#C96F4A", "#9E4E30"), ("#4F9E6C", "#245F3E"), blur=3)
+    leafy(S, 70, 905, 1.6, ("#C96F4A", "#9E4E30"), ("#4F9E6C", "#245F3E"), blur=2.5, flip=-1)
+    return S.svg("#1F4D3F")
 
 
 def manufacturing():
+    S = Scene()
     teal, orange, steel, ink, yel = "#2F6B7A", "#FF7A1A", "#8A97A6", "#1E2A33", "#FFC93C"
-    s = wall("#E3E9EE", "#D4DCE3") + "".join(r(x, 90, 6, 460, "#000000", 0, .05) for x in range(0, W, 22))
-    s += r(0, 0, W, 90, "#C9D3DA") + "".join(r(x, 16, 150, 58, "#BFE3F3", 4) + r(x + 72, 16, 6, 58, steel) for x in range(30, W, 200))   # clerestory
-    s += r(0, 150, W, 18, ink) + "".join(p(f"M{x} 150 l18 0 l-18 18 h-18 Z", yel) for x in range(0, W + 40, 40))   # hazard band
-    s += r(0, 560, W, 80, "#5C7080") + r(0, 552, W, 10, yel)
-    s += r(0, 210, W, 16, "#8A97A6") + r(1180, 226, 30, 40, "#5C6B7A") + p("M1195 266 V360", s="#5C6B7A", sw=3) + r(1150, 360, 90, 16, "#A9B4C2", 3)   # gantry
-    cx = 1200                                                                            # the robot cell
-    s += r(cx - 60, 380, 300, 260, "none", 6, extra=f' stroke="{yel}" stroke-width="6"') + "".join(p(f"M{cx - 60 + i * 20} 380 V640", s=yel, sw=1.4, o=.5) for i in range(16))
-    s += r(cx + 30, 600, 70, 40, ink, 6) + p(f"M{cx + 65} 600 L{cx + 50} 500 L{cx + 140} 440", s=orange, sw=22) + c(cx + 50, 500, 14, ink) + c(cx + 140, 440, 12, ink) + r(cx + 140, 430, 34, 12, steel, 3)
-    s += c(cx + 160, 444, 6, "#FFF6C0") + c(cx + 160, 444, 16, "#FFE27A", .4)
-    s += r(cx + 260, 420, 22, 70, "#3A4A55", 4) + c(cx + 271, 434, 8, "#3FE08A") + c(cx + 271, 454, 8, "#FFC93C") + c(cx + 271, 474, 8, "#E2453C")   # andon tower
-    s += r(860, 260, 240, 140, "#FFFFFF", 10) + r(860, 260, 240, 26, teal, 10) + r(860, 276, 240, 10, teal)      # planning board
-    s += "".join(r(880 + (i * 37) % 90, 300 + i * 22, 90 + (i % 3) * 20, 12, ("#3A93C0", yel, "#21B799", orange)[i % 4], 4) for i in range(4))
-    s += floor(FL, "#C6D0CE", "#AEBAB8", "#FFFFFF", step=160) + p(f"M0 {FL + 40} H{W} M0 {H - 60} H{W}", s=yel, sw=6, o=.8)
-    s += shadow(1500, 820, 70) + "".join(r(1440 + (i % 2) * 6, 820 - (i + 1) * 20, 120, 20, ("#A9B4C2", "#C3CDDA")[i % 2], 2) for i in range(5))
-    s += shadow(160, 820, 60) + r(110, 740, 100, 80, orange, 8) + r(110, 740, 100, 16, "#E0650C", 6) + "".join(r(120 + i * 30, 770, 20, 30, "#FFFFFF", 4, .4) for i in range(3))
-    return wrap(s, "#E3E9EE")
+    room(S, ("#E6ECF1", "#D2DBE3"))
+    S.add(*[r(x, 120, 7, 400, "#0A1020", 0, .045) for x in range(0, W, 22)])                  # ribbed cladding
+    S.add(r(0, 0, W, 112, "#C3CDD6"), *[r(x, 18, 170, 72, S.lin([(0, "#BFE6F7"), (1, "#E8F6FC")]), 4) + r(x + 82, 18, 6, 72, steel) for x in range(20, W, 220)])
+    for x in range(105, W, 440):                                                               # volumetric light from the clerestory
+        shaft(S, [(x - 40, 90), (x + 130, 90), (x + 380, FL + 260), (x + 60, FL + 260)], "#FFFFFF", .3)
+    S.add(r(0, 150, W, 18, ink), *[p(f"M{x} 150 l18 0 l-18 18 h-18 Z", yel) for x in range(0, W + 40, 40)])
+    S.add(r(0, 214, W, 18, S.lin([(0, "#9AA6B2"), (1, "#7A8794")])), r(1180, 232, 34, 44, "#5C6B7A"), p("M1197 276 V380", s="#4C5A69", sw=3), r(1150, 380, 96, 16, "#A9B4C2", 3))   # gantry
+    S.add(r(0, 520, W, 80, S.lin([(0, "#5C7080"), (1, "#4C5E6C")])), r(0, 512, W, 10, yel))
+    # far plane: a planning board and pallet racks
+    frame(S, 690, 250, 250, 150, r(690, 250, 250, 28, teal) + "".join(r(706 + (i * 41) % 90, 296 + i * 24, 100 + (i % 3) * 22, 12, ("#3A93C0", yel, "#21B799", orange)[i % 4], 4) for i in range(4)), "#FFFFFF", "#FFFFFF")
+    floor(S, ("#C9D3D2", "#AEBBB9"), "#FFFFFF", "tiles", gloss=.3)
+    S.add(p("M560 900 L960 600", s=yel, sw=7, o=.85), p("M1700 900 L1340 600", s=yel, sw=7, o=.85))   # walkway lines toward the back
+    # mid plane: the robot cell right of Nexi, sparks glowing
+    cx = 1330
+    shadow(S, cx + 130, FL + 70, 190, .22)
+    S.add(r(cx, 380, 270, 280, "none", 6, extra=f' stroke="{yel}" stroke-width="6"'), *[p(f"M{cx + i * 18} 380 V660", s=yel, sw=1.4, o=.45) for i in range(16)])
+    S.add(r(cx + 70, 610, 80, 50, ink, 6), p(f"M{cx + 110} 610 L{cx + 92} 500 L{cx + 190} 438", s=S.lin([(0, "#FF9A4D"), (1, orange)]), sw=26),
+          c(cx + 92, 500, 16, ink), c(cx + 190, 438, 14, ink), r(cx + 190, 428, 38, 14, steel, 3))
+    glow(S, cx + 232, 440, 60, 60, "#FFE27A", .9)
+    S.add(c(cx + 232, 440, 7, "#FFFBE0"), *[p(f"M{cx + 232} 440 l{dx} {dy}", s="#FFD050", sw=2) for dx, dy in ((22, -14), (26, 8), (14, 24), (-6, 26), (30, -2))])
+    S.add(r(cx + 284, 420, 24, 76, "#3A4A55", 5), c(cx + 296, 434, 8, "#3FE08A"), c(cx + 296, 456, 8, "#FFC93C"), c(cx + 296, 478, 8, "#E2453C"))
+    shadow(S, 760, FL + 80, 170, .2)
+    S.add(*[r(650 + (i % 2) * 6, 680 - (i + 1) * 22, 230, 22, ("#A9B4C2", "#C3CDDA")[i % 2], 3) for i in range(5)], r(650, 680, 236, 12, "#6B5A4A", 3))   # steel sheet stack, left of Nexi
+    stage(S, "#FFFFFF", .6, .28)
+    S.add(g(e(0, -70, 90, 70, S.rad([(0, "#C3CDDA"), (1, "#8A97A6")])) + e(0, -70, 32, 26, "#5C6B7A"), "translate(1530,905)", filt=S.blur(3)))
+    S.add(g(r(-60, -120, 160, 120, S.lin([(0, "#FF9A4D"), (1, "#E0650C")]), 10) + r(-60, -120, 160, 20, "#C9560A", 8) + "".join(r(-46 + i * 46, -84, 34, 46, "#FFFFFF", 4, .3) for i in range(3)), "translate(90,905)", filt=S.blur(2.5)))
+    return S.svg("#E6ECF1")
 
 
 def health():
-    sage, sageD, lav, blush, sand = "#8DB39A", "#5E8C6E", "#B9A6D8", "#F2B5A7", "#EAD9C2"
-    s = wall("#F8F2E9", "#EFE6D8")
-    s += "".join(p(f"M{x} 0 L{x + 90} 0 L{x - 230} {FL} L{x - 320} {FL} Z", "#FFFCF0", o=.35) for x in (900, 1300, 1700))
-    s += r(0, 520, W, 120, "#CFE0D1") + r(0, 512, W, 10, "#FFFFFF")
-    s += p("M0 120 " + " ".join(f"L{x} {120 + 26 * abs(math.sin(x / 320 * math.pi)):.1f}" for x in range(0, W + 20, 20)), s="#7FA88B", sw=2.4)
-    s += "".join(e(x, 126 + 26 * abs(math.sin(x / 320 * math.pi)) + (8 if i % 2 else -6), 9, 6, ("#9CC0A6", "#86AE93")[i % 2]) for i, x in enumerate(range(6, W, 16)))
-    wx, wy, ww, wh = 1100, 170, 300, 400                                                 # the arched garden window
-    s += ('<defs><linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEBF7"/><stop offset="1" stop-color="#F4FAF6"/></linearGradient>'
-          f'<clipPath id="harch"><path d="M{wx} {wy + wh} V{wy + ww / 2} A{ww / 2} {ww / 2} 0 0 1 {wx + ww} {wy + ww / 2} V{wy + wh} Z"/></clipPath></defs>')
-    s += p(f"M{wx - 14} {wy + wh + 14} V{wy + ww / 2} A{ww / 2 + 14} {ww / 2 + 14} 0 0 1 {wx + ww + 14} {wy + ww / 2} V{wy + wh + 14} Z", "#FFFFFF")
-    s += ('<g clip-path="url(#harch)">' + r(wx, wy, ww, wh, "url(#hsky)") + cloud(wx + 60, wy + 110, .5) +
-          "".join(e(wx + 20 + i * 52, wy + wh - 50 - (i % 2) * 30, 50, 60, ("#9CC9A6", "#86BB93")[i % 2]) for i in range(6)) + r(wx, wy + wh - 40, ww, 40, "#7FAF8A") + '</g>')
-    s += r(wx + ww / 2 - 4, wy, 8, wh, "#FFFFFF") + r(wx, wy + 210, ww, 8, "#FFFFFF") + r(wx - 24, wy + wh + 8, ww + 48, 16, "#FFFFFF", 6)
-    for x, col in ((780, blush), (940, sand)):                                            # hanging planters
-        s += p(f"M{x} 0 V180", s="#A57B52", sw=1.6) + r(x - 26, 180, 52, 36, col, 14) + "".join(e(x - 20 + i * 10, 230 + (i % 3) * 18, 6, 14, ("#7FAF8A", "#6A9C77")[i % 2], rot=(i - 2) * 12) for i in range(5))
-    sx = 860                                                                             # shelf of oils and candles
-    s += r(sx, 380, 180, 10, "#C79E74") + r(sx, 460, 180, 10, "#C79E74")
-    s += "".join(jar(sx + 10 + i * 34, 380, 22, 32 + (i % 2) * 10, (lav, sage, blush)[i % 3], "#A57B52") for i in range(5))
-    s += "".join(r(sx + 10 + i * 42, 430, 30, 30, "#FFFFFF", 8, .9) + r(sx + 14 + i * 42, 442, 22, 16, (blush, sand, lav, sage)[i], 5) for i in range(4))
-    s += floor(FL, "#EEDDC6", "#DCC6A8", "#CDB290", "planks")
-    s += "".join(r(1080 + i * 10, 760 - i * 4, 300, 16, (lav, sage, blush)[i], 8, .95) for i in range(3))   # mats on the floor
-    s += shadow(240, 812, 60) + r(190, 752, 100, 60, "#C79E74", 12) + "".join(r(204 + i * 26, 700, 22, 70, (lav, sage, blush)[i], 11) for i in range(3))   # mat basket
-    s += plant(80, 810, 1.25, blush, ("#7FAF8A", "#6A9C77")) + plant(1530, 800, 1.15, sand, ("#7FAF8A", "#6A9C77"))
-    return wrap(s, "#F8F2E9")
+    S = Scene()
+    sage, sageD, lav, blush, sand, wood = "#8DB39A", "#5E8C6E", "#B9A6D8", "#F2B5A7", "#EAD9C2", "#C79E74"
+    room(S, ("#FAF4EB", "#F0E6D7"), ("#EFE2CE", "#E6D6BE"), 60)
+    S.add(*[r(x, 0, 14, 60, wood, 0, .28) for x in range(0, W, 32)])                              # slatted ceiling
+    # the window's sunlight falling on the wall (a gobo of the frame)
+    S.add(g(p("M120 140 L520 140 L620 520 L180 520 Z", "#FFF6DF", o=.55) + p("M314 140 L326 140 L408 520 L394 520 Z", "#F0E6D7") + p("M150 320 L560 320 L566 340 L156 340 Z", "#F0E6D7"),
+            blend="multiply"), "")
+    S.add(r(0, 470, W, 130, S.lin([(0, "#D3E3D6"), (1, "#C3D8C8")])), r(0, 464, W, 8, "#FFFFFF"))
+    S.add(p("M0 104 " + " ".join(f"L{x} {104 + 26 * abs(math.sin(x / 320 * math.pi)):.1f}" for x in range(0, W + 20, 20)), s="#7FA88B", sw=2.4))
+    S.add(*[e(x, 110 + 26 * abs(math.sin(x / 320 * math.pi)) + (8 if i % 2 else -6), 9, 6, ("#9CC0A6", "#86AE93")[i % 2]) for i, x in enumerate(range(6, W, 16))])
+    # far plane: the arched garden window behind and right of Nexi
+    wx, wy, ww, wh = 1290, 150, 280, 380
+    arch = f"M{wx} {wy + wh} V{wy + ww / 2} A{ww / 2} {ww / 2} 0 0 1 {wx + ww} {wy + ww / 2} V{wy + wh} Z"
+    S.defs.append(f'<clipPath id="harch"><path d="{arch}"/></clipPath>')
+    S.add(p(f"M{wx - 16} {wy + wh + 16} V{wy + ww / 2} A{ww / 2 + 16} {ww / 2 + 16} 0 0 1 {wx + ww + 16} {wy + ww / 2} V{wy + wh + 16} Z", "#FFFFFF"),
+          '<g clip-path="url(#harch)">' + r(wx, wy, ww, wh, S.lin([(0, "#CBEAF7"), (1, "#F2FAF6")])) + cloud(wx + 60, wy + 110, .55) +
+          "".join(e(wx + 10 + i * 50, wy + wh - 60 - (i % 2) * 34, 56, 70, ("#9CC9A6", "#7FB78E")[i % 2]) for i in range(7)) + r(wx, wy + wh - 40, ww, 40, "#73A983") + '</g>',
+          r(wx + ww / 2 - 4, wy, 8, wh, "#FFFFFF"), r(wx, wy + 220, ww, 8, "#FFFFFF"), r(wx - 26, wy + wh + 10, ww + 52, 16, "#FFFFFF", 6))
+    shaft(S, [(wx, wy + 100), (wx + ww, wy + 100), (wx + ww - 60, FL + 300), (wx - 380, FL + 300)], "#FFF6DF", .4)
+    for x, col in ((880, blush), (1010, sand)):                                                    # hanging planters
+        S.add(p(f"M{x} 0 V176", s="#A57B52", sw=1.6), r(x - 28, 176, 56, 40, S.lin([(0, col), (1, "#D9A08F" if col == blush else "#CDB898")]), 16),
+              *[e(x - 22 + i * 11, 232 + (i % 3) * 20, 7, 16, ("#7FAF8A", "#5E9670")[i % 2], rot=(i - 2) * 14) for i in range(5)])
+    floor(S, ("#EDDCC4", "#DBC3A2"), "#CBAE89", "planks", gloss=.3)
+    S.add(*[p(f"M{960 + i * 26} {720 + i * 30} L{1500 + i * 26} {700 + i * 30} L{1520 + i * 26} {722 + i * 30} L{980 + i * 26} {742 + i * 30} Z", (lav, sage, blush)[i], o=.75) for i in range(3)])   # mats on the floor
+    # mid plane: a low shelf of oils and candles and a stack of mats left of Nexi
+    sx = 650
+    shadow(S, sx + 150, FL + 72, 190, .2)
+    S.add(r(sx, 520, 300, 140, S.lin([(0, "#D7B38C"), (1, wood)]), 10), r(sx + 12, 532, 276, 116, "#F2E6D6", 6), r(sx + 12, 586, 276, 8, wood))
+    S.add(*[jar(sx + 26 + i * 52, 584, 28, 34 + (i % 2) * 10, (lav, sage, blush, sand, lav)[i], "#A57B52") for i in range(5)])
+    S.add(*[r(sx + 24 + i * 66, 610, 50, 36, "#FFFFFF", 10, .9) + r(sx + 30 + i * 66, 622, 38, 22, (blush, sand, lav, sage)[i], 6) for i in range(4)])
+    S.add(*[r(sx + 30 + i * 14, 500 - i * 16, 220, 18, (lav, sage, blush)[i], 9) for i in range(3)])
+    stage(S, "#FFF4DE", .6, .3)
+    leafy(S, 1550, 905, 1.9, (blush, "#D98E7E"), ("#8DC29C", "#4E8A62"), blur=3)
+    S.add(g(r(-50, -76, 130, 76, S.lin([(0, "#D7B38C"), (1, wood)]), 14) + "".join(r(-36 + i * 36, -150, 28, 90, (lav, sage, blush)[i], 14) for i in range(3)), "translate(100,905)", filt=S.blur(2.5)))
+    return S.svg("#FAF4EB")
 
 
 DRAW = {"medical": medical, "travel": travel, "retail": retail, "ecommerce": ecommerce, "construction": construction,
