@@ -38,11 +38,18 @@
   var text = K.text, shadowed = K.shadowed, F = FLOOR;
   function chair(g, x) { fillRR(g, x, 404, 54, 40, 10, '#21B799'); fillRR(g, x, 438, 54, 14, 6, '#168F76'); g.fillStyle = '#9AA6BC'; g.fillRect(x + 6, 452, 4, 18); g.fillRect(x + 44, 452, 4, 18); }
   function wideBack(g, ext) {
+    /* ceiling light panels all along, wall posters on the left */
+    ceiling(g, ext);
+    if (ext.l < -440) {
+      shadowed(g, 10, 4, 0.16, function () { fillRR(g, -640, 110, 110, 140, 6, '#FFFFFF'); }); fillRR(g, -632, 118, 94, 26, 4, '#21B799'); text(g, 'WASH', -585, 136, 11, 800, '#FFFFFF', 'center');
+      for (var h = 0; h < 3; h++) { fillE(g, -610 + h * 25, 176, 10, 12, '#FFD9E0'); g.fillStyle = 'rgba(63,169,224,.6)'; g.beginPath(); g.arc(-610 + h * 25, 200, 4, 0, 7); g.fill(); } text(g, '20 seconds, every time', -585, 236, 7, 700, '#5C6B7E', 'center');
+      shadowed(g, 10, 4, 0.16, function () { fillRR(g, -500, 120, 70, 110, 4, '#FFFFFF'); }); ['E', 'F P', 'T O Z', 'L P E D'].forEach(function (r2, i) { text(g, r2, -465, 150 + i * 22, 18 - i * 3.5, 800, '#2A3550', 'center'); });
+    }
     if (ext.l < -480) {
-      shadowed(g, 12, 4, 0.18, function () { fillRR(g, -900, 110, 170, 96, 8, '#2A3550'); }); fillRR(g, -894, 116, 158, 84, 4, '#17284A');
-      text(g, 'NOW SERVING', -815, 136, 9, 800, '#9FE3C1', 'center'); fillRR(g, -880, 146, 130, 6, 3, '#21375F');
-      for (var c = -900; c < -720; c += 60) chair(g, c); soft(g, -810, F + 4, 100, 8, 0.2);
-      var wx = -660; fillRR(g, wx, 330, 44, 140, 8, '#FFFFFF'); fillRR(g, wx + 6, 280, 32, 52, 10, 'rgba(160,210,240,.85)'); fillRR(g, wx + 10, 368, 24, 8, 3, '#3FA9E0'); fillRR(g, wx + 10, 382, 24, 6, 3, '#FF8FA3'); soft(g, wx + 22, F + 4, 26, 5, 0.2);
+      shadowed(g, 12, 4, 0.18, function () { fillRR(g, -760, 110, 100, 96, 8, '#2A3550'); }); fillRR(g, -754, 116, 88, 84, 4, '#17284A');
+      text(g, 'NOW SERVING', -710, 136, 8, 800, '#9FE3C1', 'center'); fillRR(g, -746, 146, 72, 6, 3, '#21375F');
+      for (var c = -760; c < -580; c += 60) chair(g, c); soft(g, -670, F + 4, 100, 8, 0.2);
+      var wx = -900; fillRR(g, wx, 330, 44, 140, 8, '#FFFFFF'); fillRR(g, wx + 6, 280, 32, 52, 10, 'rgba(160,210,240,.85)'); fillRR(g, wx + 10, 368, 24, 8, 3, '#3FA9E0'); fillRR(g, wx + 10, 382, 24, 6, 3, '#FF8FA3'); soft(g, wx + 22, F + 4, 26, 5, 0.2);
       fillRR(g, -590, 452, 110, 18, 6, '#FFEDB0'); [['#FF8FA3', 0], ['#3FA9E0', 1], ['#21B799', 2], ['#FFD84A', 3]].forEach(function (b) { fillRR(g, -580 + b[1] * 24, 430 - (b[1] % 2) * 12, 20, 20 + (b[1] % 2) * 12, 3, b[0]); });
     }
     if (ext.l < 120) { /* the pharmacy: shelves of boxes behind the counter (the pharmacist is live; the counter front is in front of her) */
@@ -50,34 +57,51 @@
       for (var r = 0; r < 3; r++) { fillRR(g, px + 10, 200 + r * 44, 280, 5, 2, '#D6EDE8'); for (var b2 = 0; b2 < 9; b2++) fillRR(g, px + 16 + b2 * 30, 176 + r * 44, 24, 24, 3, ['#DDF4EE', '#FFD9E0', '#DDE7F8', '#FFEDB0'][(b2 + r) % 4]); }
     }
     if (ext.r > 1000) { /* the consult room door, the sanitiser stand, a wheelchair */
-      var dx = 1020; fillRR(g, dx, 160, 120, 310, 6, '#FFFFFF'); fillRR(g, dx + 10, 170, 100, 300, 4, '#C8E6E0'); fillRR(g, dx + 20, 190, 80, 110, 4, '#D9F0EA'); fillE(g, dx + 92, 330, 4, 4, '#9AA6BC');
-      fillRR(g, dx + 14, 120, 92, 26, 6, '#2A3550'); text(g, 'CONSULT 2', dx + 60, 137, 9, 800, '#FFFFFF', 'center');
-      g.fillStyle = '#9AA6BC'; g.fillRect(dx + 176, 340, 6, 130); fillRR(g, dx + 164, 300, 30, 44, 8, '#FFFFFF'); fillRR(g, dx + 170, 314, 18, 10, 3, '#21B799'); fillRR(g, dx + 160, F - 6, 38, 6, 3, '#9AA6BC');
+      var dx = 1016; fillRR(g, dx, 160, 168, 310, 6, '#FFFFFF'); fillRR(g, dx + 10, 170, 148, 300, 4, '#C8E6E0'); fillRR(g, dx + 24, 190, 120, 110, 4, '#D9F0EA'); fillE(g, dx + 140, 330, 5, 5, '#9AA6BC'); fillRR(g, dx + 132, 326, 18, 6, 3, '#9AA6BC');
+      fillRR(g, dx + 30, 120, 108, 26, 6, '#2A3550'); text(g, 'CONSULT 2', dx + 84, 137, 9, 800, '#FFFFFF', 'center');
+      g.fillStyle = '#9AA6BC'; g.fillRect(dx + 222, 340, 6, 130); fillRR(g, dx + 210, 300, 30, 44, 8, '#FFFFFF'); fillRR(g, dx + 216, 314, 18, 10, 3, '#21B799'); fillRR(g, dx + 206, F - 6, 38, 6, 3, '#9AA6BC');
       var wcx = 1250; g.strokeStyle = '#5C6670'; g.lineWidth = 5; g.beginPath(); g.arc(wcx, 438, 30, 0, Math.PI * 2); g.stroke(); g.lineWidth = 2; g.beginPath(); for (var sp = 0; sp < 6; sp++) { g.moveTo(wcx, 438); g.lineTo(wcx + Math.cos(sp) * 28, 438 + Math.sin(sp) * 28); } g.stroke();
       fillRR(g, wcx - 34, 390, 64, 12, 4, '#3FA9E0'); fillRR(g, wcx + 22, 340, 12, 56, 4, '#3FA9E0'); g.strokeStyle = '#5C6670'; g.lineWidth = 4; g.beginPath(); g.moveTo(wcx + 28, 340); g.lineTo(wcx + 44, 336); g.moveTo(wcx - 34, 402); g.lineTo(wcx - 46, 462); g.stroke(); fillE(g, wcx - 46, 464, 6, 6, '#5C6670');
     }
   }
   var PHARM = { x: -270, y: 452, s: 0.48, ph: 0.9, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FBFCFF', top2: '#21B799' }, outfit: 'coat', hairStyle: 'bun', clipCol: '#21B799', feet: false, mood: 'happy', look: 0.3, talk: false, hands: [[-62, -186], [62, -186]] };
-  var WALK = [{ x0: -940, x1: -520, y: 488, spd: 18, ph: 0.3, P: { s: 0.44, ph: 0.4, c: { skin: '#C68B5E', hair: '#B9B9B9', top: '#7FA8C9', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'short', short: true, glasses: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { front: true, x0: -920, x1: -420, y: 650, spd: 24, ph: 0.65, P: { s: 0.5, ph: 1.5, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#FF8FA3', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', mood: 'happy', look: 0, hold: 'clipboard', hands: [[-60, -200], [70, -150]] } },
-    { x0: 1010, x1: 1330, y: 490, spd: 26, ph: 0.15, P: { s: 0.44, ph: 2.3, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#5B8DEF', top2: '#3167CA' }, outfit: 'scrubs', hairStyle: 'pony', clipCol: '#FFD84A', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } }];
+  var WALK = [{ x0: -940, x1: -520, y: 488, spd: 18, ph: 0.3, P: { s: 0.44, ph: 0.4, c: { skin: '#C68B5E', hair: '#C9C9C9', top: '#7FA8C9', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'bald', glasses: true, build: 1.12, short: true, glasses: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { front: true, x0: -920, x1: -420, y: 650, spd: 24, ph: 0.65, P: { s: 0.5, ph: 1.5, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#FF8FA3', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', hijab: '#3FA9E0', mood: 'happy', look: 0, hold: 'clipboard', hands: [[-60, -200], [70, -150]] } },
+    { x0: 1010, x1: 1330, y: 490, spd: 26, ph: 0.15, P: { s: 0.44, ph: 2.3, c: { skin: '#6B4329', hair: '#1F1A1A', top: '#5B8DEF', top2: '#3167CA' }, outfit: 'scrubs', hairStyle: 'curly', clipCol: '#FFD84A', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } }];
   function walk(g, t, S, front) { var ext = S.ext;
-    WALK.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); }); }
+    WALK.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); }); }
   function wideLive(g, t, S) {
     var ext = S.ext;
-    if (ext.l < -480) { var n = 100 + Math.floor(t / 5) % 30; text(g, 'A' + n, -815, 186, 24, 800, '#FFFFFF', 'center'); }
+    if (ext.l < -480) { var n = 100 + Math.floor(t / 5) % 30; text(g, 'A' + n, -710, 186, 22, 800, '#FFFFFF', 'center'); }
     if (ext.r > 1000 && Math.floor(t * 1.2) % 2 === 0) { fillRR(g, 1046, 98, 68, 16, 8, '#FF8FA3'); text(g, 'IN SESSION', 1080, 110, 7.5, 800, '#FFFFFF', 'center'); } else if (ext.r > 1000) { fillRR(g, 1046, 98, 68, 16, 8, '#E8D5DA'); text(g, 'IN SESSION', 1080, 110, 7.5, 800, '#FFFFFF', 'center'); }
     if (ext.l < 120) { PHARM.hands = [[-62, -200 + Math.abs(Math.sin(t * 2.4)) * 14], [70, -196]]; PHARM.talk = (t % 6) < 1.5; K.person(g, PHARM, t); }
     walk(g, t, S, false);
   }
   function wideFront(g, ext) {
     if (ext.l < 120) { var px = -420; fillRR(g, px - 6, 340, 312, 14, 6, '#FFFFFF'); fillRR(g, px, 352, 300, F - 352, 8, '#D6EDE8'); fillRR(g, px + 90, 380, 120, 30, 6, '#FFFFFF'); text(g, 'Please queue here', px + 150, 400, 9, 800, '#168F76', 'center'); }
-    if (ext.l < -600) K.plant(g, { x: -860, y: 680 }, '#F59A8B', '#F7AE9F');
-    if (ext.r > 1060) K.plant(g, { x: 1120, y: 660 }, '#3FA9E0', '#7CC8FF');
   }
 
   /* static back props, in set units */
+  /* ---------------- more of the clinic: direction signs and a health-tips screen; a play corner, a water cooler ---------------- */
+  function ceiling(g, ext) { var cb = -96, top = Math.max(ext.t, -420); if (top >= cb) return;
+    g.fillStyle = '#F6FBFA'; g.fillRect(ext.l, top, ext.r - ext.l, cb - top); g.strokeStyle = 'rgba(42,53,80,.07)'; g.lineWidth = 1.5; g.beginPath();
+    for (var x = Math.floor(ext.l / 80) * 80; x < ext.r; x += 80) { g.moveTo(x, top); g.lineTo(x, cb); } for (var y = cb - 60; y > top; y -= 60) { g.moveTo(ext.l, y); g.lineTo(ext.r, y); } g.stroke();
+    fillRR(g, ext.l, cb - 4, ext.r - ext.l, 10, 0, '#DCEFEA'); g.fillStyle = 'rgba(33,183,153,.35)'; g.fillRect(ext.l, cb + 6, ext.r - ext.l, 3);
+    for (var lx = Math.floor(ext.l / 240) * 240 + 40; lx < ext.r; lx += 240) { fillRR(g, lx - 56, cb - 52, 112, 26, 3, '#FFFFFF'); g.fillStyle = 'rgba(42,53,80,.10)'; g.fillRect(lx - 56, cb - 30, 112, 4);
+      g.fillStyle = 'rgba(255,253,235,.9)'; g.fillRect(lx - 50, cb - 48, 100, 18);
+      if (lx < 130 || lx > 950) { g.save(); var gl = g.createLinearGradient(0, cb, 0, 170); gl.addColorStop(0, 'rgba(255,255,240,.32)'); gl.addColorStop(1, 'rgba(255,255,240,0)'); g.fillStyle = gl; g.beginPath(); g.moveTo(lx - 50, cb + 6); g.lineTo(lx + 50, cb + 6); g.lineTo(lx + 110, 170); g.lineTo(lx - 110, 170); g.closePath(); g.fill(); g.restore(); }
+      var vx = lx + 120; fillRR(g, vx - 22, cb - 50, 44, 22, 3, '#E6EEF0'); g.fillStyle = 'rgba(42,53,80,.25)'; for (var v = 0; v < 4; v++) g.fillRect(vx - 18, cb - 46 + v * 5, 36, 2);
+      fillE(g, lx + 60, cb - 14, 5, 3, '#C9D3DD'); fillE(g, lx - 60, cb - 14, 5, 3, '#C9D3DD'); if ((lx / 240 | 0) % 2) { fillE(g, vx, cb - 12, 9, 4, '#FFFFFF'); fillE(g, vx + 4, cb - 13, 1.6, 1.6, '#21B799'); } }
+  }
+  function hanging(g, x0, w, y, label, col) { g.fillStyle = '#9AA6BC'; g.fillRect(x0 + 16, -90, 2, y + 90); g.fillRect(x0 + w - 18, -90, 2, y + 90); shadowed(g, 8, 3, 0.14, function () { fillRR(g, x0, y, w, 32, 6, col); }); text(g, label, x0 + w / 2, y + 21, 10, 800, '#FFFFFF', 'center'); }
+  function moreBack(g, ext) {
+    if (ext.l < -200) hanging(g, -440, 190, -50, '\u2190 Pharmacy · X-ray \u2192', '#2A3550');
+    if (ext.r > 1000) hanging(g, 1000, 176, -50, 'Consult rooms 1–4 \u2192', '#21B799');
+  }
+  function moreFront(g, ext) {
+  }
   function paintBack(g, ext) {
+    moreBack(g, ext);
     wideBack(g, ext);
     K.windowFrame(g, MED.win);
     /* sign: Bayview Clinic, a sample clinic group */
@@ -223,10 +247,21 @@
     g.fillStyle = '#FFFFFF'; g.font = '800 8px ' + FONT; g.fillText('30d', m.x + 66, m.y + 105);
   }
 
-  var NURSE = { x: 548, y: 440, s: 0.62, ph: 0.3, c: { skin: '#F1C6A0', hair: '#2E2230', top: '#2BB3A3', top2: '#1F8F82', low: '#2C3E66', shoe: '#9A3350' }, outfit: 'scrubs', hairStyle: 'bun', short: true, feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
-  var DOC = { x: 812, y: 480, s: 0.64, ph: 1.7, c: { skin: '#DDA97F', hair: '#3B3E4E', top: '#5B8DEF', top2: '#5B8DEF', low: '#3A4766', shoe: '#2A2F45' }, outfit: 'coat', hairStyle: 'short', glasses: true, feet: true, hold: 'clipboard', mood: 'calm', look: 0, talk: false, hands: [[-64, -206], [96, -150]] };
+  var NURSE = { x: 548, y: 440, s: 0.56, ph: 0.3, c: { skin: '#F1C6A0', hair: '#2E2230', top: '#2BB3A3', top2: '#1F8F82', low: '#2C3E66', shoe: '#9A3350' }, outfit: 'scrubs', hairStyle: 'bun', short: true, feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
+  var DOC = { x: 812, y: 480, s: 0.56, ph: 1.7, c: { skin: '#DDA97F', hair: '#3B3E4E', top: '#5B8DEF', top2: '#5B8DEF', low: '#3A4766', shoe: '#2A2F45' }, outfit: 'coat', hairStyle: 'short', glasses: true, feet: true, hold: 'clipboard', mood: 'calm', look: 0, talk: false, hands: [[-64, -206], [96, -150]] };
+  /* the foreground, nearest last: each prop stands at a y, sorted with the front-row passers-by (K.zfore) */
+  function FORE() {
+    return [
+      [680, function (g, ext) {
+    if (ext.l < -600) K.plant(g, { x: -860, y: 680 }, '#F59A8B', '#F7AE9F');
+      }],
+      [660, function (g, ext) {
+    if (ext.r > 1060) K.plant(g, { x: 1120, y: 660 }, '#3FA9E0', '#7CC8FF');
+      }]
+    ];
+  }
   window.IXW.worlds.medical = {
-    paintFrontLive: function (g, t, S) { walk(g, t, S, true); },
+    paintFrontLive: function (g, t, S) { walk(g, t, S, true); }, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { walk(g, t, S, 'fore'); }); },
     room: { wall: MED.wall, wains: MED.wains, rail: MED.rail, base: '#BFDDD7', floor: MED.floor, floorKind: 'tiles', pattern: K.plusPattern('rgba(255,255,255,.55)') },
     paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive,
     glow: GLOW, backGlow: ['roster', 'stock'],

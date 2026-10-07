@@ -173,5 +173,12 @@
 .ixw--fnb main .btn-link:hover{color:var(--f-green);animation:fDots .8s linear infinite}
 @keyframes fDots{to{background-position:16px 100%}}
 
+/* the side tabs and the header's Contact Us in this world's colours */
+.ixw--fnb{--st-ink:#13332A;--st-meet:#2F6B57;--st-talk:#E2553D;--st-nexi:#E9B949;--st-nexi-fg:#13332A;--hc-bg:linear-gradient(180deg,#EA6A52,#E2553D 70%)}
+/* "View the scene": a little chalkboard with a dashed chalk line; pressed, tomato */
+.ixw--fnb .ixw-peek{border:2px solid var(--f-green-d);color:#F3EBDD;background:var(--f-chalk);outline:1.5px dashed rgba(243,235,221,.45);outline-offset:-6px;box-shadow:0 3px 0 var(--f-green-d)}
+.ixw--fnb .ixw-peek:hover{box-shadow:0 5px 0 var(--f-green-d)}.ixw--fnb .ixw-peek:active{box-shadow:0 1px 0 var(--f-green-d)}
+.ixw--fnb .ixw-peek[aria-pressed="true"]{background:linear-gradient(180deg,#EA6A52,#E2553D 70%);color:#FFFFFF}
+.ixw--fnb .ixw-peek:focus-visible{outline:3px solid #E9B949;outline-offset:3px}
 @media (min-width:1500px){.ixw--fnb .ixw-set{bottom:160px}}
 @media (prefers-reduced-motion:reduce){.ixw--fnb .ixw-ibtn--play.is-on,.ixw--fnb main .btn-link:hover{animation:none}}

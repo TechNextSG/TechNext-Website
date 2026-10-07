@@ -104,3 +104,21 @@
 .ixw--medical main .btn-link:hover{color:var(--m-ink);animation:mBeat 1.1s linear infinite}
 @keyframes mBeat{to{background-position:72px 100%}}
 @media (prefers-reduced-motion:reduce){.ixw--medical .ixw-ibtn--play.is-on,.ixw--medical main .btn-link:hover{animation:none}}
+
+/* ---------- the title card: a patient chart on a clipboard (a metal clip, a teal file header, a heartbeat strip) ---------- */
+.ixw--medical .ixw-copy{position:relative;max-width:468px;margin-top:10px;padding:60px 28px 46px;border-radius:14px;background:#FFFFFF;
+  box-shadow:inset 0 0 0 9px #FFFFFF,inset 0 0 0 11px #D6EDE8,0 0 0 8px #C98E55,0 6px 0 8px #A8733F,0 40px 70px -30px rgba(20,60,70,.5)}
+.ixw--medical .ixw-copy::before{content:"PATIENT FILE \00B7  BAYVIEW CLINIC \00B7  SAMPLE";position:absolute;left:11px;right:11px;top:11px;height:30px;display:flex;align-items:center;padding-left:18px;border-radius:4px 4px 0 0;
+  background:linear-gradient(90deg,var(--m-teal-d),var(--m-teal));font:800 10.5px/1 var(--font-body);letter-spacing:.18em;color:#FFFFFF}
+.ixw--medical .ixw-copy::after{content:"";position:absolute;left:50%;top:-22px;width:120px;height:36px;margin-left:-60px;border-radius:10px 10px 6px 6px;
+  background:linear-gradient(#E9EDF2,#AAB4C4);box-shadow:0 3px 0 #8E99AC,inset 0 0 0 4px rgba(255,255,255,.45)}
+.ixw--medical .ixw-copy .ixw-hint{position:relative;padding-bottom:4px}
+.ixw--medical .ixw-copy .ixw-hint::after{content:"";position:absolute;left:-17px;right:-17px;top:calc(100% + 12px);height:22px;background:var(--m-ecg) left center/180px 22px repeat-x;opacity:.8}
+@media (max-width:767px){.ixw--medical .ixw-copy{padding:56px 20px 40px}.ixw--medical .ixw-copy::before{font-size:9.5px;letter-spacing:.12em}}
+
+/* the side tabs and the header's Contact Us in this world's colours */
+.ixw--medical{--st-ink:#0F4C45;--st-meet:#12806B;--st-talk:#21B799;--st-nexi:#3FA9E0;--hc-bg:linear-gradient(90deg,#1DA58B 50%,#12806B 50%)}
+/* "View the scene": a capsule, half white, half mint; pressed, the whole pill fills */
+.ixw--medical .ixw-peek{border:2px solid var(--m-ink);color:var(--m-ink);background:linear-gradient(90deg,#FFFFFF 50%,#D6F3EC 50%);box-shadow:0 3px 0 var(--m-ink)}
+.ixw--medical .ixw-peek:hover{box-shadow:0 5px 0 var(--m-ink)}.ixw--medical .ixw-peek:active{box-shadow:0 1px 0 var(--m-ink)}
+.ixw--medical .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:var(--m-pill)}
