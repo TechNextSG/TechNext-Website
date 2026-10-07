@@ -1,0 +1,51 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: custom (/odoo/erp-system) — Odoo customization, standard first. Blueprint blue, Studio pink, module purple.
+   The title card is a light blueprint (grid paper, a corner title block); the caption is a code review comment; buttons
+   are building blocks with two studs along the top (modules snap on, they don't replace the base); the glance strip is the
+   blueprint's title block. */
+.ixw--custom{--ow-c:#3167CA;--cu-ink:#1B1F3B;--cu-blue:#3167CA;--cu-pink:#E0456B;--cu-pur:#714B67;--cu-bp:#EEF4FD;
+  --w-alt:#F4F7FC;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
+  --st-ink:#1B1F3B;--st-meet:#2E9C7E;--st-talk:#E0456B;--st-nexi:#E0456B;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
+  --ii-bg:linear-gradient(160deg,#F6F8FD,#E2EBFA 60%,#FBE3EA);--ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#E0456B;--ii-lip:#1B1F3B;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
+.ixw--custom .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F6F8FD 18%,#E9EEF8 62%,#E7EBF1 62%,#D6DDE7 100%)}
+
+/* ---------- the title card: a light blueprint ---------- */
+.ixw--custom .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:30px 30px 24px;border-radius:6px;
+  background:linear-gradient(rgba(49,103,202,.09) 1px,transparent 1px) 0 0/20px 20px,linear-gradient(90deg,rgba(49,103,202,.09) 1px,transparent 1px) 0 0/20px 20px,var(--cu-bp);
+  box-shadow:0 0 0 2px #B9CDEF,0 0 0 8px #FFFFFF,0 0 0 9.5px #B9CDEF,0 40px 70px -30px rgba(30,50,100,.4)}
+.ixw--custom .ixw-copy::after{content:"DWG 01 \00B7  STANDARD FIRST";position:absolute;right:-1px;bottom:-1px;padding:7px 12px;border:2px solid #B9CDEF;border-radius:6px 0 6px 0;background:#FFFFFF;
+  font:800 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;color:var(--cu-blue)}
+.ixw--custom .ixw-copy h1{max-width:15ch}
+.ixw--custom .ixw-copy .hand{color:var(--cu-pink)}
+.ixw--custom .ixw-hint{padding-right:150px}.ixw--custom .ixw-hint .ic{color:var(--cu-pink)}
+@media (max-width:767px){.ixw--custom .ixw-copy{padding:26px 20px 22px}.ixw--custom .ixw-copy::after{display:none}.ixw--custom .ixw-hint{padding-right:0}}
+
+/* ---------- the caption: a code review comment ---------- */
+.ixw--custom .ixw-cap{border-radius:12px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #D5DEE9,0 26px 44px -22px rgba(30,50,100,.35)}
+.ixw--custom .ixw-cap::before{content:"# review \00B7  approved";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:6px;background:var(--cu-ink);color:#9FE3C8;font:700 11px/1 ui-monospace,Consolas,monospace}
+.ixw--custom .ixw-cap-who b{color:var(--cu-pur)}.ixw--custom .ixw-cap-txt b{color:var(--cu-blue)}
+.ixw--custom .ixw-cap-rec{background:#F3F6FC;border:1px solid #D5DEE9;color:#3D4560;font-family:ui-monospace,Consolas,monospace}
+
+/* ---------- buttons: building blocks with two studs ---------- */
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;border-radius:6px;border:0;
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){background-image:radial-gradient(ellipse 12px 7px at 30% 0,rgba(255,255,255,.4) 11px,transparent 11.5px),radial-gradient(ellipse 12px 7px at 70% 0,rgba(255,255,255,.4) 11px,transparent 11.5px)}
+.ixw--custom main .btn-primary,.ixw--custom main .btn-primary:hover{--stud:#3167CA;color:#FFFFFF;background-color:var(--cu-blue);box-shadow:0 5px 0 #1E4691}
+.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white):hover{--stud:#E0456B;color:#FFFFFF;background-color:var(--cu-pink);box-shadow:0 5px 0 #A92E4E}
+.ixw--custom main .btn-ghost::before{display:none}.ixw--custom main .btn-ghost .ic{color:#FFFFFF}
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -3px}
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 4px;box-shadow:0 1px 0 rgba(0,0,0,.25);transition-duration:.06s}
+.ixw--custom .ixw-cta .btn-outline-white,.ixw--custom .ixw-cta .btn-outline-white:hover{--stud:#FFD84A;color:#1B1F3B;background-color:#FFD84A;box-shadow:0 5px 0 #C9A21A}
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:6px}
+.ixw--custom .ixw-ibtn{border:2px solid var(--cu-ink);box-shadow:0 3px 0 var(--cu-ink)}
+.ixw--custom .ixw-ibtn--play,.ixw--custom .ixw-ibtn--play:hover{background:var(--cu-pink);color:#FFFFFF}
+.ixw--custom .ixw-dots button.is-on{background:var(--cu-pink);box-shadow:0 0 0 1.5px var(--cu-ink)}
+.ixw--custom .ixw-peek{border-color:var(--cu-ink);box-shadow:0 3px 0 var(--cu-ink)}.ixw--custom .ixw-peek[aria-pressed="true"]{background:var(--cu-bp)}
+
+/* ---------- the glance strip: the blueprint's title block ---------- */
+.ixw--custom .ow-strip{border-radius:6px;background:var(--cu-bp);box-shadow:0 0 0 2px #B9CDEF,0 24px 44px -30px rgba(30,50,100,.35)}
+.ixw--custom .ow-strip>div+div{border-left:1px dashed #B9CDEF}
+.ixw--custom .ow-strip dt{font-family:ui-monospace,Consolas,monospace}.ixw--custom .ow-strip dt .ic{color:var(--cu-blue)}
+
+/* ---------- the end card ---------- */
+.ixw--custom main .cta{background:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(120deg,#1E3A6E,#3167CA)}
