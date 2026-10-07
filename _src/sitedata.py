@@ -45,22 +45,30 @@ COMPANY = {
 
 # Offices, as TechNext lists them (and on Google Maps). `key` matches the map entries in
 # assets/js/stage.js; `maps` opens the office's Google Maps listing or address.
+def _built(page: str, fallback: str) -> str:
+    """A link to a page that may not be written yet (the office pages): the page once _src/pages has it, else the fallback."""
+    import pathlib
+    return page if (pathlib.Path(__file__).resolve().parent / "pages" / page).exists() else fallback
+
+
 OFFICES = [
     {"key": "hq", "cc": "SG", "country": "Singapore", "name": "Singapore HQ",
      "role": "Headquarters. Sales, discovery and on-site work in Singapore.",
+     "office": "offices/singapore.html",
      "lines": ["261 Waterloo Street #03-36", "Singapore 180261"],
      "street": "261 Waterloo Street #03-36", "locality": "Singapore", "region": "", "postal": "180261",
      "maps": "https://maps.google.com/?cid=3474088819422984887", "geo": (1.2989163, 103.8519697),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
     {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines development hub",
      "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing. Our open roles are here.",
-     "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines",
+     "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines", "office": "offices/philippines.html",
      "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
      "maps": "https://maps.google.com/?cid=12500824038992408388", "geo": (14.5350092, 121.0509849),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
     {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam AI engineering hub",
      "role": "AI engineering. The enterprise AI behind our solutions.",
+     "office": _built("offices/vietnam.html", ""),
      "lines": ["62 Nguyễn Thị Nhung, Phường Hiệp Bình", "Ho Chi Minh City"], "lang": "vi", "geo": (10.8440075, 106.7121703),
      "street": "62 Nguyễn Thị Nhung, Phường Hiệp Bình", "locality": "Ho Chi Minh City", "region": "", "postal": "",
      "maps": "https://www.google.com/maps/search/?api=1&query=62+Nguyen+Thi+Nhung+Hiep+Binh+Ho+Chi+Minh+City",
@@ -208,11 +216,11 @@ NAV = [
                  "desc": "Meet the people behind your project."},
             ]},
             {"title": "Offices", "links": [
-                {"label": "Singapore HQ", "href": "company.html#office-hq", "icon": "pin",
+                {"label": "Singapore HQ", "href": "offices/singapore.html", "icon": "pin",
                  "desc": "261 Waterloo Street #03-36."},
-                {"label": "Philippines", "href": "odoo/philippines.html", "icon": "pin",
+                {"label": "Philippines", "href": "offices/philippines.html", "icon": "pin",
                  "desc": "Main development and consulting hub · Taguig City."},
-                {"label": "Vietnam", "href": "company.html#office-vn", "icon": "pin",
+                {"label": "Vietnam", "href": _built("offices/vietnam.html", "company.html#office-vn"), "icon": "pin",
                  "desc": "AI engineering hub · Ho Chi Minh City."},
             ]},
         ],
@@ -342,6 +350,13 @@ _S = ('<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 # check, x, menu, chevron, expand, play) stay plain strokes.
 _T = ' fill="currentColor" fill-opacity=".2" stroke="none"'
 ICONS = {
+    'co-about': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#3167CA"/><path d="M5.5 13.8 26.5 6l-4.6 20.4-5.2-7.1-4.1 4.5.4-6.3z" fill="#FFFFFF"/><path d="M13 17.5 26.5 6" stroke="#3167CA" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    'co-sg': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#3167CA"/><path d="M9 25V12h3.5v13zM14.3 25V10.5h3.5V25zM19.6 25V9h3.5v16z" fill="#FFFFFF"/><rect x="7" y="7.6" width="18" height="2.4" rx="1.2" fill="#FFD84A"/><rect x="6" y="25" width="20" height="2" rx="1" fill="#BFD4F6"/></svg>',
+    'co-ph': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#14A38B"/><path d="M14.5 26 15 7.5l1.6-2.4 1.6 2.4.5 18.5z" fill="#FFFFFF"/><path d="M7 26V15h4.5v11zM20.5 26V12h4.5v14zM11.5 26v-7h3v7z" fill="#C8F0E6"/></svg>',
+    'co-vn': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#E07B12"/><path d="M13 26V14h6v12zM14 14v-4h4v4zM15 10V7h2v3z" fill="#FFFFFF"/><rect x="15.6" y="4" width=".8" height="3" fill="#FFFFFF"/><path d="M6 24q5-2 10 0t10-1v3H6z" fill="#FFE3C4"/><path d="M8 26v-6h3v6zM21.5 26v-8h3v8z" fill="#FFE3C4"/></svg>',
+    'co-careers': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#1B1F3B"/><rect x="9" y="8" width="14" height="18" rx="2.5" fill="#FFFFFF"/><rect x="9" y="8" width="14" height="5" rx="2.5" fill="#3167CA"/><rect x="9" y="11" width="14" height="2" fill="#3167CA"/><circle cx="16" cy="17.5" r="2.6" fill="#C9D6EE"/><rect x="12" y="21.5" width="8" height="1.8" rx=".9" fill="#AAB7CC"/><path d="M13 8V5h6v3" fill="none" stroke="#FFD84A" stroke-width="1.6"/></svg>',
+    'co-blog': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#7B5BD6"/><rect x="8" y="7" width="13" height="18" rx="2" fill="#FFFFFF"/><path d="M10.5 11h8M10.5 14h8M10.5 17h5" stroke="#C9C0EE" stroke-width="1.6" stroke-linecap="round"/><path d="m19.5 24.5 1-4 6-6 3 3-6 6z" fill="#FFD84A"/><path d="m19.5 24.5 1-4 3 3z" fill="#1B1F3B"/></svg>',
+    'co-team': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#E0456B"/><circle cx="10" cy="13" r="3" fill="#FFE0E8"/><circle cx="22" cy="13" r="3" fill="#FFE0E8"/><circle cx="16" cy="11.5" r="3.6" fill="#FFFFFF"/><path d="M5.5 24c.4-3.6 2.2-5.6 4.5-5.6s4 1 4.6 2.8M26.5 24c-.4-3.6-2.2-5.6-4.5-5.6s-4 1-4.6 2.8" fill="#FFE0E8"/><path d="M10 25c.5-4.3 2.8-6.6 6-6.6s5.5 2.3 6 6.6z" fill="#FFFFFF"/></svg>',
     'ind-medical': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#21B799"/><rect x="8.5" y="7" width="15" height="19" rx="2.5" fill="#FFFFFF"/><rect x="12" y="5" width="8" height="4" rx="1.5" fill="#0F4C45"/><path d="M10.5 17h3l1.5-4 2.4 7 1.6-3h2.5" fill="none" stroke="#12806B" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     'ind-travel': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#17284A"/><path d="M6 10.5a1.5 1.5 0 0 1 1.5-1.5h17a1.5 1.5 0 0 1 1.5 1.5v3a2.5 2.5 0 0 0 0 5v3a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 6 21.5v-3a2.5 2.5 0 0 0 0-5z" fill="#FFFFFF"/><path d="M20.5 9v14" stroke="#17284A" stroke-width="1" stroke-dasharray="1.6 1.4"/><path d="M9.5 16.6l3.3-.9 2.6-3.7 1.3.3-1.2 3 2.6-.7.9-1.2.9.2-.4 1.9-1.6 1-7.4 1.4z" fill="#FFC94A"/><rect x="22" y="13" width="2" height="6" rx="1" fill="#FFC94A"/></svg>',
     'ind-retail': '<svg class="ic ic-ind" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#D9785A"/><rect x="8" y="14" width="16" height="11" rx="1.5" fill="#FBF3E6"/><rect x="10.5" y="17" width="5" height="8" rx="1" fill="#81B29A"/><rect x="17.5" y="17" width="4.5" height="4" rx="1" fill="#BFE3F3"/><path d="M7 9.5h18l1 4.5H6z" fill="#FFFFFF"/><path d="M10 9.5h3l-.5 4.5h-3.5zM16 9.5h3l.5 4.5h-3.5z" fill="#B95E43"/><path d="M6 14a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0" fill="none" stroke="#FFFFFF" stroke-width="1.4"/></svg>',

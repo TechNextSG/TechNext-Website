@@ -1,0 +1,130 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: office-ph (/offices/philippines) — the Taguig City hub. Teal and sprint-board colours. The title card is a wide
+   sprint-board banner across the top-left (two columns), the dev floor runs below it; the caption is a pull-request comment;
+   buttons are kanban cards (a colour edge and drag dots); teams sit in board lanes; what gets built is a list of merged PRs. */
+.ixw--office-ph{--ph-ink:#15302B;--ph-teal:#14A38B;--ph-teal-d:#0E7A68;--ph-y:#FFE680;
+  --w-alt:#F1F8F6;--lab-bd:2px solid #15302B;--lab-lip:#15302B;--lab-tail:#15302B;--lab-r:6px;
+  --st-ink:#15302B;--st-meet:#3167CA;--st-talk:#14A38B;--st-nexi:#F2B233;--hc-bg:linear-gradient(90deg,#14A38B 0 70%,#0E7A68 70%);
+  --ii-bg:linear-gradient(160deg,#F1FAF7,#D9F0EA);--ii-ink:#15302B;--ii-b:#0E7A68;--ii-accent:#14A38B;--ii-lip:#15302B;--ii-ep-bg:#15302B;--ii-ep-fg:#FFFFFF}
+.ixw--office-ph .ixw-hero{background:linear-gradient(180deg,#D3EEF1 0%,#EEF8F5 62%,#DDE4E8 62%,#C9D2D8 100%)}
+
+/* ---------- the layout: a wide banner card top-left, the dev floor large and low ---------- */
+@media (min-width:1200px){
+  .ixw--office-ph .ixw-hero{min-height:clamp(780px,100vh,960px)}
+  .ixw--office-ph .ixw-copy{max-width:820px;padding-top:52px;padding-bottom:20px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-areas:"crumbs ep" "h1 h1" "lead actions";column-gap:28px;align-items:center}
+  .ixw--office-ph .ixw-copy .crumbs{grid-area:crumbs;margin-bottom:10px}.ixw--office-ph .ixw-ep{grid-area:ep;margin:0 0 10px;justify-self:end}
+  .ixw--office-ph .ixw-copy h1{grid-area:h1;max-width:none!important;font-size:clamp(1.9rem,2.5vw,2.35rem)}
+  .ixw--office-ph .ixw-copy h1 .h1-hand{display:inline-block;margin-right:12px}
+  .ixw--office-ph .ixw-copy .lead{grid-area:lead;margin-top:12px;font-size:.96rem}.ixw--office-ph .ixw-copy .actions{grid-area:actions;margin-top:12px;flex-direction:column;align-items:stretch;gap:12px}
+  .ixw--office-ph .ixw-hint{display:none}
+  .ixw--office-ph .ixw-copy .actions .btn-lg{height:46px;padding:0 18px;font-size:15px;justify-content:center}
+  .ixw--office-ph .ixw-set{width:min(68vw,1010px);bottom:36px}
+  .ixw--office-ph .ixw-cap{left:60cqw;top:44.5cqw}
+  .ixw--office-ph .ixw-copy .lead .m-full{display:none}.ixw--office-ph .ixw-copy .lead .m-short{display:inline}
+}
+/* ---------- the title card: the sprint board banner ---------- */
+.ixw--office-ph .ixw-copy{position:relative;margin-top:16px;padding:58px 28px 22px;border-radius:12px;background:#FFFFFF;
+  box-shadow:0 0 0 2.5px var(--ph-ink),0 7px 0 2.5px var(--ph-ink),0 40px 70px -32px rgba(15,48,43,.5)}
+.ixw--office-ph .ixw-copy::before{content:"";position:absolute;left:0;right:0;top:0;height:40px;border-radius:9.5px 9.5px 0 0;
+  background:linear-gradient(90deg,#E3E8EF 0 33.3%,#FFF2C8 33.3% 66.6%,#D7F2EA 66.6%)}
+.ixw--office-ph .ixw-copy::after{content:"TO DO          DOING          DONE  \2713";position:absolute;left:18px;top:13px;white-space:pre;font:800 11px/1 var(--font-body);letter-spacing:.18em;color:var(--ph-ink);word-spacing:.3em}
+.ixw--office-ph .ixw-copy h1{font-size:clamp(2rem,3vw,2.75rem);max-width:15ch;position:relative}
+.ixw--office-ph .ixw-copy h1::after{content:"";position:absolute;right:-6px;top:-10px;width:62px;height:20px;background:rgba(255,216,74,.7);transform:rotate(8deg)}
+.ixw--office-ph .ixw-copy .lead{font-size:1rem}
+.ixw--office-ph .ixw-hint .ic{color:var(--ph-teal)}
+@media (max-width:767px){.ixw--office-ph .ixw-copy{padding:54px 20px 22px}.ixw--office-ph .ixw-copy::after{font-size:9px;letter-spacing:.1em}.ixw--office-ph .ixw-copy h1::after{display:none}}
+
+/* ---------- the caption: a comment on the sprint's pull request ---------- */
+.ixw--office-ph .ixw-cap{border:2px solid #C9D6D2;border-radius:12px;padding-top:30px;box-shadow:0 5px 0 #C9D6D2,0 26px 44px -22px rgba(15,48,43,.45)}
+.ixw--office-ph .ixw-cap::before{content:"\2713  Sprint 7 \00B7  checks passed";position:absolute;left:0;right:0;top:0;height:22px;display:flex;align-items:center;padding-left:14px;border-radius:10px 10px 0 0;
+  background:#E6F6F2;border-bottom:1px solid #C9D6D2;font:800 11px/1 var(--font-body);letter-spacing:.04em;color:var(--ph-teal-d)}
+.ixw--office-ph .ixw-cap-av{border-radius:50%;box-shadow:0 0 0 2px var(--ph-teal)}
+.ixw--office-ph .ixw-cap-who b{color:var(--ph-ink)}
+.ixw--office-ph .ixw-cap-txt b{color:var(--ph-teal-d)}
+.ixw--office-ph .ixw-cap-rec{border-radius:6px;background:#F1F8F6;border:1px dashed var(--ph-teal)}
+
+/* ---------- buttons: kanban cards (a colour edge, drag dots, a lift on hover) ---------- */
+.ixw--office-ph main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:2px solid var(--ph-ink);border-radius:8px;padding-left:30px;
+  box-shadow:0 4px 0 var(--ph-ink);transition:translate .22s cubic-bezier(.34,1.45,.64,1),rotate .22s ease,box-shadow .22s ease}
+.ixw--office-ph main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:10px;top:50%;width:6px;height:14px;margin-top:-7px;opacity:.6;
+  background:radial-gradient(circle,currentColor 1.3px,transparent 1.6px) 0 0/3px 4.6px}
+.ixw--office-ph main .btn-primary,.ixw--office-ph main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(90deg,#0E7A68 0 6px,#14A38B 6px)}
+.ixw--office-ph main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--office-ph main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ph-ink);background:linear-gradient(90deg,#F2B233 0 6px,#FFFFFF 6px)}
+.ixw--office-ph main .btn-ghost::before{display:none}
+.ixw--office-ph main .btn-ghost .ic{color:var(--ph-teal-d)}
+.ixw--office-ph main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{border-color:var(--ph-ink);translate:0 -3px;rotate:-1.2deg;box-shadow:0 7px 0 var(--ph-ink)}
+.ixw--office-ph main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;transition-duration:.06s;box-shadow:0 1px 0 var(--ph-ink)}
+.ixw--office-ph .ixw-cta .btn-outline-white,.ixw--office-ph .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.1);border-color:#FFFFFF;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.ixw--office-ph main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--office-ph .ixw-ibtn{border:2px solid var(--ph-ink);border-radius:8px;box-shadow:0 3px 0 var(--ph-ink)}
+.ixw--office-ph .ixw-ibtn:hover{border-color:var(--ph-ink);color:var(--ph-teal-d);box-shadow:0 5px 0 var(--ph-ink)}
+.ixw--office-ph .ixw-ibtn--play,.ixw--office-ph .ixw-ibtn--play:hover{color:#FFFFFF;background:var(--ph-teal)}
+.ixw--office-ph .ixw-dots button{border-radius:2px}.ixw--office-ph .ixw-dots button.is-on{background:var(--ph-teal)}
+.ixw--office-ph .ixw-peek{border-radius:8px;border-color:var(--ph-ink);box-shadow:0 3px 0 var(--ph-ink)}
+.ixw--office-ph .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:var(--ph-teal)}
+.ixw--office-ph main .btn-link{color:var(--ph-teal-d)}
+
+/* ---------- the glance strip ---------- */
+.ixw--office-ph .ph-strip{grid-template-columns:repeat(4,minmax(0,1fr));border:2.5px solid var(--ph-ink);box-shadow:0 6px 0 var(--ph-ink)}
+.ixw--office-ph .ph-strip dt .ic{color:var(--ph-teal)}
+@media (max-width:991px){.ixw--office-ph .ph-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ixw--office-ph .ixw-say .ix-intro-h{background:#DDF4EE;color:var(--ph-teal-d)}
+
+/* ---------- the teams: three board lanes ---------- */
+.ph-lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px;border-radius:18px;background:#E8EEF0;box-shadow:inset 0 0 0 1px #D2DCDF}
+.ph-lane{display:flex;flex-direction:column;gap:12px;padding:12px;border-radius:12px;background:#F5F8F9}
+.ph-lane-h{display:flex;align-items:center;gap:8px;margin:2px 4px 2px;font:800 12px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--ph-ink)}
+.ph-lane-h i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+.ph-card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;padding:14px 14px 14px 12px;border-radius:8px;background:#FFFFFF;border-left:4px solid var(--ph-teal);box-shadow:0 1px 2px rgba(0,0,0,.06),0 10px 18px -14px rgba(15,48,43,.4);transition:transform .3s cubic-bezier(.34,1.45,.64,1)}
+.ph-lane:nth-child(2) .ph-card{border-left-color:#3167CA}.ph-lane:nth-child(3) .ph-card{border-left-color:#F08A24}
+.ph-card:hover{transform:translateY(-3px) rotate(-.8deg)}
+.ph-card .ic{grid-row:1/3;width:22px;height:22px;margin-top:2px;color:var(--ph-teal-d)}
+.ph-card b{font:800 15px/1.3 var(--font-display);color:var(--ink)}.ph-card span{font-size:14px;line-height:1.5;color:var(--body)}
+@media (max-width:860px){.ph-lanes{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.ph-card{transition:none}}
+
+/* ---------- what gets built: merged pull requests ---------- */
+.ph-build{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.ph-pr{position:relative;display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;border-radius:12px;background:#FFFFFF;border:2px solid #C9D6D2;text-decoration:none;color:var(--ink);transition:border-color .2s ease,transform .3s cubic-bezier(.34,1.45,.64,1)}
+.ph-pr:hover{border-color:var(--ph-teal);transform:translateY(-4px);text-decoration:none;color:var(--ink)}
+.ph-pr:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ph-pr-top{display:flex;align-items:center;gap:10px;font:800 1.15rem/1.2 var(--font-display)}
+.ph-pr-top b{padding:4px 8px;border-radius:6px;background:#15302B;color:#FFFFFF;font:800 12px/1 var(--font-body)}
+.ph-pr p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
+.ph-pr-ok{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:5px 10px;border-radius:999px;background:#DDF6EC;color:#0E7A50;font:800 12px/1 var(--font-body)}
+.ph-pr-ok .ic{width:14px;height:14px}
+.ph-pr .btn-link{margin-top:auto}
+.ph-local{display:flex;align-items:center;gap:16px;margin-top:22px;padding:18px 22px;border-radius:14px;background:#15302B;color:#FFFFFF;text-decoration:none;flex-wrap:wrap}
+.ph-local:hover{text-decoration:none;color:#FFFFFF;background:#1C3D37}
+.ph-local:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ph-local-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--ph-teal)}.ph-local-ic .ic{width:20px;height:20px}
+.ph-local>span:nth-child(2){flex:1;min-width:220px}.ph-local b{display:block;font:800 16px/1.3 var(--font-display)}.ph-local small{font-size:14px;color:#BFE3DA}
+.ixw--office-ph .ph-local .btn-link{color:#7FE3C4}
+@media (max-width:960px){.ph-build{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- hiring: a band with the six roles ---------- */
+.ph-hire{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:center;padding:36px;border-radius:24px;background:linear-gradient(135deg,#E6F6F2,#FFFFFF 60%);border:2.5px solid var(--ph-ink);box-shadow:0 7px 0 var(--ph-ink)}
+.ph-hire h2{margin:6px 0 10px}.ph-hire p{color:var(--body)}
+.ph-hire .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.ph-hire-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.ph-hire-list li{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;background:#FFFFFF;border-left:4px solid var(--ph-teal);font:700 14.5px/1.3 var(--font-display);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ph-hire-list li:nth-child(n+3){border-left-color:#3167CA}.ph-hire-list li:nth-child(n+5){border-left-color:#F08A24}
+.ph-hire-list .ic{width:18px;height:18px;color:var(--ph-teal-d)}
+@media (max-width:860px){.ph-hire{grid-template-columns:minmax(0,1fr);padding:24px}}
+
+/* ---------- visit: a staff ID next to the map ---------- */
+.ph-badge{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:30px;border-radius:18px;background:#FFFFFF;border:2.5px solid var(--ph-ink);box-shadow:0 6px 0 var(--ph-ink)}
+.ph-badge-top{margin:-30px -30px 6px;padding:14px 30px;border-radius:15px 15px 0 0;background:var(--ph-teal);color:#FFFFFF;font:800 12px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase}
+.ph-badge address{font:600 15px/1.6 var(--font-body);font-style:normal}
+.ph-badge .actions{display:flex;flex-wrap:wrap;gap:12px}
+.ixw--office-ph .ph-visit .map{border-radius:18px;border:2.5px solid var(--ph-ink)}
+
+/* ---------- FAQ: sticky notes ---------- */
+.ixw--office-ph .ph-faq details{border-radius:6px;background:#FFFBEA;box-shadow:0 1px 2px rgba(0,0,0,.06),0 12px 20px -16px rgba(80,60,0,.45)}
+.ixw--office-ph .ph-faq details:nth-child(2n){background:#EFFAF6}
+.ixw--office-ph .ph-faq summary::before{content:"?";border-radius:6px;background:var(--ph-y);color:var(--ph-ink)}
+.ixw--office-ph .ph-faq details[open] summary::before{content:"\2713";background:var(--ph-teal);color:#FFFFFF;transform:none}
+
+/* ---------- the end card ---------- */
+.ixw--office-ph .ph-cta{background:linear-gradient(120deg,#0E7A68,#14A38B 60%,#3AB9A2)}
+.ixw--office-ph .ph-cta .hand{color:#FFE680}

@@ -87,6 +87,12 @@
     if (st === 'buzz') { if (back) return; g.globalAlpha = 0.85; g.beginPath(); g.moveTo(-rx * 0.98, cy - ry * 0.12); g.bezierCurveTo(-rx * 1.04, cy - ry * 1.18, rx * 1.04, cy - ry * 1.18, rx * 0.98, cy - ry * 0.12);
       g.quadraticCurveTo(rx * 0.7, cy - ry * 0.62, 0, cy - ry * 0.66); g.quadraticCurveTo(-rx * 0.7, cy - ry * 0.62, -rx * 0.98, cy - ry * 0.12); g.closePath(); g.fill(); g.globalAlpha = 1; return; }
     if (st === 'bald') { if (back) return; ell(g, -rx * 0.3, cy - ry * 0.62, rx * 0.22, ry * 0.1); g.fillStyle = 'rgba(255,255,255,.22)'; g.fill(); g.fillStyle = P.c.hair; [-1, 1].forEach(function (d) { ell(g, d * rx * 0.92, cy - ry * 0.1, rx * 0.16, ry * 0.32); g.fill(); }); return; }
+    if (st === 'bob') { /* a chin-length bob with a straight fringe */
+      if (back) { g.beginPath(); g.moveTo(-rx * 1.16, cy + ry * 0.55); g.lineTo(-rx * 1.16, cy - ry * 0.1); g.bezierCurveTo(-rx * 1.22, cy - ry * 1.32, rx * 1.22, cy - ry * 1.32, rx * 1.16, cy - ry * 0.1);
+        g.lineTo(rx * 1.16, cy + ry * 0.55); g.quadraticCurveTo(rx * 1.1, cy + ry * 0.74, rx * 0.86, cy + ry * 0.7); g.lineTo(-rx * 0.86, cy + ry * 0.7); g.quadraticCurveTo(-rx * 1.1, cy + ry * 0.74, -rx * 1.16, cy + ry * 0.55); g.closePath(); g.fill(); return; }
+      g.beginPath(); g.moveTo(-rx * 1.06, cy + ry * 0.1); g.bezierCurveTo(-rx * 1.14, cy - ry * 1.26, rx * 1.14, cy - ry * 1.26, rx * 1.06, cy + ry * 0.1);
+      g.lineTo(rx * 0.92, cy - ry * 0.34); g.lineTo(-rx * 0.92, cy - ry * 0.34); g.closePath(); g.fill(); return;
+    }
     if (st === 'bun' || st === 'long' || st === 'pony') {
       if (back) {
         if (st === 'long') { g.beginPath(); g.moveTo(-rx * 1.12, cy + ry * 0.62); g.lineTo(-rx * 1.14, cy - ry * 0.1); g.bezierCurveTo(-rx * 1.2, cy - ry * 1.32, rx * 1.2, cy - ry * 1.32, rx * 1.14, cy - ry * 0.1); g.lineTo(rx * 1.12, cy + ry * 0.62); g.quadraticCurveTo(rx * 1.1, cy + ry * 0.8, rx * 0.9, cy + ry * 0.78); g.lineTo(-rx * 0.9, cy + ry * 0.78); g.quadraticCurveTo(-rx * 1.1, cy + ry * 0.8, -rx * 1.12, cy + ry * 0.62); g.closePath(); g.fill(); return; }
@@ -169,6 +175,19 @@
       g.strokeStyle = '#FFFFFF'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(-14, top + 14); g.lineTo(-17, top + 58); g.moveTo(14, top + 14); g.lineTo(17, top + 58); g.stroke();
       fillE(g, -17, top + 61, 4, 4, '#FFFFFF'); fillE(g, 17, top + 61, 4, 4, '#FFFFFF');
       fillRR(g, -52, -200, 104, 46, 18, tone(c.top, 0.12));
+    } else if (o === 'polo') { /* a polo shirt: the flat collar, the placket and two buttons */
+      fillE(g, 0, top - 2, 30, 18, c.skin);
+      g.fillStyle = tone(c.top, 0.12); [-1, 1].forEach(function (d) { g.beginPath(); g.moveTo(d * 4, top - 6); g.lineTo(d * 40, top - 8); g.lineTo(d * 30, top + 22); g.lineTo(d * 6, top + 26); g.closePath(); g.fill(); });
+      fillRR(g, -6, top + 18, 12, 50, 4, tone(c.top, 0.08)); fillE(g, 0, top + 34, 3.5, 3.5, c.top2 || '#FFFFFF'); fillE(g, 0, top + 52, 3.5, 3.5, c.top2 || '#FFFFFF');
+      if (c.print) fillRR(g, 30, -216, 24, 6, 3, c.print);
+    } else if (o === 'shirt' || o === 'cardigan') { /* an open-collar casual shirt (sleeves rolled), or a cardigan open over a tee */
+      if (o === 'cardigan') { g.fillStyle = c.top2 || '#FFFFFF'; g.fillRect(-34, top - 4, 68, bot - top + 4); fillE(g, 0, top - 2, 30, 18, c.skin);
+        g.fillStyle = tone(c.top, 0.1); g.fillRect(-36, top, 6, bot - top); g.fillRect(30, top, 6, bot - top);
+        [0, 1, 2].forEach(function (k) { fillE(g, -40, top + 50 + k * 34, 3.5, 3.5, tone(c.top, 0.25)); }); }
+      else { g.fillStyle = c.skin; g.beginPath(); g.moveTo(-24, top - 4); g.lineTo(0, top + 34); g.lineTo(24, top - 4); g.closePath(); g.fill();
+        g.fillStyle = tone(c.top, 0.14); [-1, 1].forEach(function (d) { g.beginPath(); g.moveTo(d * 22, top - 8); g.lineTo(d * 2, top + 36); g.lineTo(d * 16, top + 40); g.lineTo(d * 44, top + 6); g.closePath(); g.fill(); });
+        g.fillStyle = tone(c.top, 0.1); g.fillRect(-2, top + 36, 4, bot - top - 36); [0, 1, 2].forEach(function (k) { fillE(g, 6, top + 60 + k * 36, 3, 3, '#FFFFFF'); });
+        fillRR(g, -60, -222, 34, 28, 6, tone(c.top, 0.08)); }
     } else if (o === 'tee') {
       fillE(g, 0, top - 2, 34, 22, c.skin);
       if (c.print) { g.fillStyle = c.print; g.save(); g.translate(0, -214); g.rotate(-0.2); g.beginPath(); g.moveTo(-24, 6); g.lineTo(26, -14); g.lineTo(6, 22); g.lineTo(2, 6); g.closePath(); g.fill(); g.restore(); }
@@ -192,6 +211,16 @@
     if (P.scarf) { /* a knotted neck scarf over the collar */
       g.fillStyle = P.scarf; g.beginPath(); g.moveTo(-40, top - 2); g.quadraticCurveTo(0, top + 26, 40, top - 2); g.lineTo(30, top - 14); g.quadraticCurveTo(0, top + 8, -30, top - 14); g.closePath(); g.fill();
       g.beginPath(); g.moveTo(8, top + 10); g.lineTo(30, top + 52); g.lineTo(12, top + 58); g.closePath(); g.fill(); fillE(g, 6, top + 12, 11, 9, tone(P.scarf, 0.1));
+    }
+    if (P.idcard) { /* a staff ID on a lanyard (P.idcard = the strap colour): the strap round the neck, the clip, the card with its header band */
+      var lc = P.idcard === true ? '#3167CA' : P.idcard, cy0 = -206 + (P.idSwing ? Math.sin(P.idSwing) * 2 : 0), cx0 = P.idSwing ? Math.sin(P.idSwing) * 4 : 0;
+      g.strokeStyle = lc; g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(-26, top - 2); g.quadraticCurveTo(-18, top + 40, cx0 - 3, cy0 - 30); g.moveTo(26, top - 2); g.quadraticCurveTo(18, top + 40, cx0 + 3, cy0 - 30); g.stroke();
+      fillRR(g, cx0 - 6, cy0 - 34, 12, 12, 3, '#B9C3D1');
+      g.save(); g.translate(cx0, cy0); g.rotate(P.idSwing ? Math.sin(P.idSwing) * 0.12 : 0);
+      fillRR(g, -21, -24, 42, 54, 6, '#1E2F5C'); fillRR(g, -19, -22, 38, 50, 5, '#FFFFFF'); fillRR(g, -19, -22, 38, 13, 5, lc); g.fillRect(-19, -14, 38, 5);
+      fillRR(g, -13, -4, 12, 14, 2, '#C9D6EE'); g.fillStyle = '#AAB7CC'; g.fillRect(3, -2, 12, 3); g.fillRect(3, 4, 9, 3); g.fillStyle = lc; g.fillRect(-13, 16, 26, 4);
+      g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(-6, -15.5); g.lineTo(6, -20); g.lineTo(3.4, -12); g.lineTo(0.4, -15); g.closePath(); g.fill();
+      g.restore();
     }
   }
   function held(g, kind, hp) {
@@ -225,7 +254,8 @@
   function person(g, P, t) {
     if (VIEW && (P.x < VIEW.l - 140 || P.x > VIEW.r + 140)) return;
     var c = P.c, br = Math.sin(t * 2.1 + P.ph), hop = P.hop || 0, hb = Math.sin(t * 2.3 + P.ph + 0.6) * 2 + (P.talk ? Math.sin(t * 8.5) * 2.5 : 0);
-    g.save(); g.translate(P.x, P.y); g.scale(P.s, P.s);
+    var sxk = P.sx == null ? 1 : Math.abs(P.sx) < 0.08 ? (P.sx < 0 ? -0.08 : 0.08) : P.sx; /* P.sx: a turn on the spot (Company scenes) */
+    g.save(); g.translate(P.x, P.y); g.scale(P.s * sxk, P.s);
     if (P.feet) {
       soft(g, 0, 4, 120 - hop * 0.4, 18, 0.22);
       [-1, 1].forEach(function (d) { limb(g, [[d * 34, -128 - hop], [d * 34, -30 - hop * 0.4]], 42, c.low); });
@@ -656,13 +686,13 @@
     });
     /* a world can make moving things in its canvas tappable (the travel paper plane): hit(x, y, S, t, onBtn) in set units.
        Capture phase: a moving thing in front of a person or a hotspot wins the click (hit() gets onBtn = true then). */
-    if (W0.hit) set.addEventListener('click', function (e) {
-      if (!e.target.closest || e.target.closest('.ixw-cap, a')) return;
+    if (W0.hit) root.addEventListener('click', function (e) { /* the whole hero, so things in the margins can be tapped too */
+      if (!e.target.closest || e.target.closest('.ixw-cap, .ixw-copy, .ixw-peek, a')) return;
       var onBtn = !!e.target.closest('button');
       var r = set.getBoundingClientRect(), res = W0.hit((e.clientX - r.left - par.x * 6) / k, (e.clientY - r.top - par.y * 3) / k, S, now(), onBtn);
       if (!res) return;
       if (onBtn) e.stopPropagation();
-      tour.stop(); S.hot = ''; clearHot(); say(res.say || '', '', '', '', true); rec(null);
+      tour.stop(); S.hot = ''; clearHot(); say(res.say || '', res.who || '', res.role || '', '', true); rec(null);
       if (res.near) flyTo(res.near[0], res.near[1], res.pose || 'wow');
       redraw();
     }, true);

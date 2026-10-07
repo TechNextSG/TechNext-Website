@@ -21,16 +21,22 @@ _ROOT = pathlib.Path(__file__).resolve().parent.parent
 _POSES = {}
 
 
+def img_dir(world: str) -> str:
+    """Nexi's poses for a world: its own costume (assets/img/industries/<world>/), or, for the Company pages, Nexi wearing
+    her TechNext ID (assets/img/nexi-id/)."""
+    return f"industries/{world}" if (_ROOT / "assets/img/industries" / world / "poses.json").exists() else "nexi-id"
+
+
 def poses(world: str) -> dict:
     """Pose anchors at the exported size (w, h and the body anchor ax, ay), so every pose pins to the same point."""
     if world not in _POSES:
-        _POSES[world] = json.loads((_ROOT / "assets/img/industries" / world / "poses.json").read_text(encoding="utf-8"))
+        _POSES[world] = json.loads((_ROOT / "assets/img" / img_dir(world) / "poses.json").read_text(encoding="utf-8"))
     return _POSES[world]
 
 
 def pose_img(world: str, pose: str, on: bool = False, prio: str = "low") -> str:
     p = poses(world)[pose]
-    return (f'<img class="ixw-pose{" is-on" if on else ""}" data-pose="{pose}" src="{{{{ROOT}}}}assets/img/industries/{world}/nexi-{pose}.webp" '
+    return (f'<img class="ixw-pose{" is-on" if on else ""}" data-pose="{pose}" src="{{{{ROOT}}}}assets/img/{img_dir(world)}/nexi-{pose}.webp" '
             f'alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" fetchpriority="{prio}" style="--w:{p["w"]};--h:{p["h"]};--ax:{p["ax"]};--ay:{p["ay"]}">')
 
 
@@ -41,7 +47,7 @@ def nexi_stack(world: str, first: str = "hello") -> str:
 
 def avatar(world: str) -> str:
     p = poses(world)["hello"]
-    return (f'<img src="{{{{ROOT}}}}assets/img/industries/{world}/nexi-hello.webp" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" '
+    return (f'<img src="{{{{ROOT}}}}assets/img/{img_dir(world)}/nexi-hello.webp" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" '
             'fetchpriority="low">')
 
 
@@ -87,12 +93,18 @@ def intro_html(world: str) -> str:
     style; the badge pops above the card with Nexi peeking out, and the iris opens from it onto the hero."""
     import re as _re
     from industries import IND
-    ind, meta = IND[world], module(world).META
-    page = (_ROOT / "_src/pages/industries" / f"{world}.html").read_text(encoding="utf-8")
+    meta = module(world).META
+    ind = IND.get(world) or getattr(module(world), "FLOW", {"name": meta.get("tag", ""), "flow": []})   # Company pages are not industries
+    page = (_ROOT / "_src/pages" / (meta.get("page") or f"industries/{world}.html")).read_text(encoding="utf-8")
     m_ep = _re.search(r'<p class="ixw-ep">.*?</a><span>(.*?)</span></p>', page, _re.S)
     m_hd = _re.search(r'<span class="hand h1-hand">(.*?)</span>', page)
-    steps = [f for f in ind["flow"] if f.get("app")][:3]
-    pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for i, f in enumerate(steps))
+    title = meta.get("intro_title") or f'Odoo for <b>{ind["name"]}</b>'
+    badge = meta.get("badge") or f"ind-{world}"
+    if meta.get("intro_pills"):
+        pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{icon:{ic}}}}}{t}</span>' for i, (ic, t) in enumerate(meta["intro_pills"]))
+    else:
+        steps = [f for f in ind["flow"] if f.get("app")][:3]
+        pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for i, f in enumerate(steps))
     sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
     nexi = poses(world)["hello"]
     return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
@@ -102,12 +114,12 @@ def intro_html(world: str) -> str:
             f'  <div class="ixwi-lock">\n'
             f'    <div class="ixw-copy ixwi-card">\n'
             f'      <span class="ixwi-mark"><span class="ixwi-ripple"></span><span class="ixwi-ripple"></span>{sparks}'
-            f'<img class="ixwi-nexi" src="{{{{ROOT}}}}assets/img/industries/{world}/nexi-hello.webp" alt="" width="{nexi["w"]}" height="{nexi["h"]}" decoding="sync" fetchpriority="high">'
-            f'<span class="ixwi-badge">{{{{icon:ind-{world}}}}}</span></span>\n'
+            f'<img class="ixwi-nexi" src="{{{{ROOT}}}}assets/img/{img_dir(world)}/nexi-hello.webp" alt="" width="{nexi["w"]}" height="{nexi["h"]}" decoding="sync" fetchpriority="high">'
+            f'<span class="ixwi-badge">{{{{icon:{badge}}}}}</span></span>\n'
             f'      <p class="ixw-ep ixwi-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{m_ep.group(1) if m_ep else ""}</span></p>\n'
             f'      <span class="hand h1-hand ixwi-hand">{m_hd.group(1) if m_hd else ""}</span>\n'
-            f'      <span class="ixwi-title">Odoo for <b>{ind["name"]}</b></span>\n'
-            f'      <span class="ixwi-sub">{meta["tag"]}</span>\n'
+            f'      <span class="ixwi-title">{title}</span>\n'
+            f'      <span class="ixwi-sub">{meta.get("intro_sub") or meta["tag"]}</span>\n'
             f'      <span class="ixwi-pills">{pills}</span>\n'
             f'    </div>\n'
             f'  </div>\n'

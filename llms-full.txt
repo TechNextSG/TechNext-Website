@@ -99,6 +99,8 @@
 - https://technext.asia/odoo/philippines — Odoo Partner in the Philippines — Taguig City: TechNext is an Odoo Ready Partner with an office in Taguig City, Metro Manila: Odoo implementation with BIR localisation, payroll, training and support.
 - https://technext.asia/odoo/support — Odoo Support in Singapore — fixes & upgrades: Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.
 - https://technext.asia/odoo/training — Odoo Training in Singapore — on your data: Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.
+- https://technext.asia/offices/philippines — TechNext Taguig City hub — Odoo development, Philippines: TechNext's main development and consulting hub at Level 9, IP Center, Taguig City, Metro Manila: Odoo developers, consultants and architects, and our open roles.
+- https://technext.asia/offices/singapore — TechNext Singapore HQ — 261 Waterloo Street #03-36: TechNext's headquarters at 261 Waterloo Street #03-36, Singapore 180261: sales, Odoo discovery workshops and on-site work with clients in Singapore.
 - https://technext.asia/quotation — Odoo Implementation Cost — get a written quote: Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.
 - https://technext.asia/solutions/ai — Enterprise AI Solutions in Singapore: TechNext AI solutions: RAG knowledge assistants, AI inside Odoo, workflow automation agents and customer chatbots, with human approval where it matters.
 - https://technext.asia/solutions/ai-automation — AI Workflow Automation in Singapore — AI agents: AI workflow automation by TechNext: agents that read, classify, prepare and hand over across email, Odoo and your tools, with approval where money moves.
@@ -956,6 +958,54 @@ Source: https://technext.asia/odoo/training
 On quotation, sized to the teams and sessions involved — request a quotation .
 
 Source: https://technext.asia/odoo/training
+
+### Where is TechNext's office in the Philippines?
+
+At Level 9, IP Center (Intellectual Property Center), Taguig City, Metro Manila. It's our main development and consulting hub.
+
+Source: https://technext.asia/offices/philippines
+
+### What is done at the Taguig City hub?
+
+Odoo configuration, custom modules and integrations, by our developers, consultants and architects, with TechNext's finance, HR, sales and marketing teams working alongside them.
+
+Source: https://technext.asia/offices/philippines
+
+### Is TechNext hiring in Taguig City?
+
+Yes. Our open roles are in Taguig City: see them on our careers page , or email career@technext.asia.
+
+Source: https://technext.asia/offices/philippines
+
+### Does TechNext implement Odoo for companies in the Philippines?
+
+Yes. See Odoo in the Philippines for how we implement Odoo for Philippine companies.
+
+Source: https://technext.asia/offices/philippines
+
+### Where is TechNext's Singapore office?
+
+Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Email sales@technext.asia or message us on WhatsApp at +65 8839 6998 to arrange a meeting.
+
+Source: https://technext.asia/offices/singapore
+
+### What does the Singapore HQ do?
+
+Sales, discovery workshops and on-site work with clients in Singapore. Configuration, custom modules and integration run from our main development and consulting hub in Taguig City, Metro Manila, and our AI engineers in Ho Chi Minh City join when AI is in scope.
+
+Source: https://technext.asia/offices/singapore
+
+### Does TechNext work on-site in Singapore?
+
+Yes. We work on-site with clients in Singapore, and remotely with clients in 10+ countries.
+
+Source: https://technext.asia/offices/singapore
+
+### How do I start an Odoo project with TechNext?
+
+Book a discovery call, email sales@technext.asia or use the quotation form . Most Odoo projects start with a discovery session that maps your processes to Odoo apps.
+
+Source: https://technext.asia/offices/singapore
 
 ### How much does Odoo cost?
 
