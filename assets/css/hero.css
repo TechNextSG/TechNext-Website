@@ -1307,19 +1307,47 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs.is-held .hxs-ch.is-on i{opacity:1;transform:scaleX(1)}
 @keyframes hxsTick{to{transform:scaleX(1)}}
 /* Nexi in costume and three workflow steps, standing in the scene */
-/* Nexi stands on the floor as the model, at a fixed share of the image's own size (never stretched), in costume */
+/* Nexi stands on the floor as the model, in costume, never stretched: every pose is pinned at the same body anchor
+   (--ax/--ay, the export's anchor) and drawn at --ns of its own size. The cast is a zero-size point at that anchor; the
+   feet sit 251 units below it. A tap or click swaps the pose for one of the industry page's reactions and floats its
+   line in a bubble above Nexi's head (--hy, the anchor's height above the head top). */
 .hxs-stage{position:relative;align-self:stretch;min-height:440px}
-.hxs-cast{position:absolute;right:5%;bottom:-6px;visibility:hidden;--ns:.5}
-.hxs-cast::before{content:"";position:absolute;left:12%;right:12%;bottom:-6px;height:22px;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,55,.28),rgba(20,30,55,0))}
+.hxs-cast{position:absolute;right:calc(var(--ns) * 290px);bottom:calc(var(--ns) * 251px - 4px);width:0;height:0;visibility:hidden;--ns:.76}
+.hxs-cast::before{content:"";position:absolute;left:calc(var(--ns) * -170px);width:calc(var(--ns) * 340px);top:calc(var(--ns) * 251px - 14px);height:28px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(20,30,55,.3),rgba(20,30,55,0))}
 .hxs-cast.is-on,.hxs-cast.is-out{visibility:visible}
-.hxs-nexi{position:relative;display:block;width:calc(var(--w) * var(--ns) * 1px);max-width:none;height:auto;transform-origin:50% 100%;filter:drop-shadow(0 18px 18px rgba(15,25,50,.3));
-  translate:calc(var(--px) * 10px) calc(var(--py) * 6px);transition:translate .6s ease-out}
-.hxs-cast.is-on .hxs-nexi{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .35s) both,hxsBob 3.4s ease-in-out 1.6s infinite}
-.hxs-cast.is-out .hxs-nexi{animation:hxsDrop .4s ease-in both}
-@keyframes hxsHop{from{opacity:0;transform:translateY(30%) scale(.7) rotate(-8deg)}to{opacity:1;transform:none}}
-@keyframes hxsDrop{to{opacity:0;transform:translateY(18%) scale(.85)}}
-@keyframes hxsBob{50%{transform:translateY(-3%)}}
-.hxs-pills{position:absolute;right:calc(100% - 24px);bottom:36%;display:grid;justify-items:end;gap:10px}
+.hxs-nexi-b{position:absolute;left:0;top:0;width:0;height:0;padding:0;border:0;background:none;cursor:pointer;transform-origin:0 calc(var(--ns) * 251px);-webkit-tap-highlight-color:transparent}
+.hxs-pose{position:absolute;left:calc(var(--ax) * var(--ns) * -1px);top:calc(var(--ay) * var(--ns) * -1px);width:calc(var(--w) * var(--ns) * 1px);max-width:none;height:auto;
+  opacity:0;pointer-events:none;filter:drop-shadow(0 18px 18px rgba(15,25,50,.28));transition:opacity .16s ease}
+.hxs-pose.is-on{opacity:1;pointer-events:auto}
+.hxs-nexi-b:hover .hxs-pose.is-on{filter:drop-shadow(0 18px 18px rgba(15,25,50,.28)) drop-shadow(0 0 14px rgba(255,255,255,.9))}
+.hxs-nexi-b:focus-visible{outline:none}
+.hxs-nexi-b:focus-visible .hxs-pose.is-on{outline:3px solid var(--blue-300);outline-offset:6px;border-radius:40%}
+.hxs-cast.is-on .hxs-nexi-b{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .35s) both,hxsBob 3.4s ease-in-out 1.6s infinite}
+.hxs-cast.is-out .hxs-nexi-b{animation:hxsDrop .4s ease-in both}
+.hxs-cast.is-on .hxs-nexi-b.is-react{animation:hxsReact .6s cubic-bezier(.3,1.6,.5,1) both,hxsBob 3.4s ease-in-out .6s infinite}
+@keyframes hxsHop{from{opacity:0;transform:translateY(80px) scale(.7) rotate(-8deg)}to{opacity:1;transform:none}}
+@keyframes hxsDrop{to{opacity:0;transform:translateY(40px) scale(.85)}}
+@keyframes hxsBob{50%{transform:translateY(-10px)}}
+@keyframes hxsReact{0%{transform:scale(1)}30%{transform:translateY(-26px) scale(1.06,.94) rotate(-3deg)}60%{transform:translateY(0) scale(.96,1.04)}100%{transform:none}}
+/* the floating line above Nexi's head */
+.hxs-say{position:absolute;z-index:3;left:0;bottom:calc(var(--hy) * var(--ns) * 1px + 22px);width:max-content;max-width:min(320px,42vw);padding:12px 16px;
+  border:2.5px solid var(--st-ink,#1F1F3D);border-radius:18px;background:#FFFFFF;box-shadow:0 4px 0 var(--st-ink,#1F1F3D),0 22px 36px -18px rgba(15,25,50,.45);
+  font:800 15px/1.35 var(--font-display);color:var(--ink);text-wrap:balance;translate:-50% 10px;scale:.6;opacity:0;transform-origin:50% 100%;pointer-events:none;
+  transition:opacity .2s ease,scale .35s cubic-bezier(.3,1.6,.5,1),translate .35s cubic-bezier(.3,1.6,.5,1)}
+.hxs-say::after{content:"";position:absolute;left:50%;bottom:-9px;width:16px;height:16px;margin-left:-8px;background:#FFFFFF;border:solid var(--st-ink,#1F1F3D);border-width:0 2.5px 2.5px 0;rotate:45deg}
+.hxs-say b{color:var(--hc-ac,var(--st-talk,var(--blue)))}
+.hxs-say.is-on{opacity:1;scale:1;translate:-50% 0;animation:hxsFloat 2.8s ease-in-out .4s infinite}
+@keyframes hxsFloat{50%{translate:-50% -6px}}
+/* the hint until the first tap */
+.hxs-tap{position:absolute;left:calc(var(--ns) * 70px);bottom:calc(var(--hy) * var(--ns) * 1px - 6px);padding:6px 11px;border:2px solid var(--st-ink,#1F1F3D);border-radius:999px;
+  background:var(--hc-bg,var(--blue));color:var(--hc-fg,#FFFFFF);box-shadow:0 3px 0 var(--st-ink,#1F1F3D);font:800 12px/1 var(--font-display);white-space:nowrap;opacity:0;pointer-events:none}
+.hxs-cast.is-on .hxs-tap{animation:hxsTapIn .5s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + 1.6s) both,hxsFloat2 2.4s ease-in-out 2.2s infinite}
+.hxs.was-tapped .hxs-tap,.hxs-cast.is-saying .hxs-tap{display:none}
+@keyframes hxsTapIn{from{opacity:0;transform:translateY(10px) scale(.6)}to{opacity:1;transform:none}}
+@keyframes hxsFloat2{50%{translate:0 -5px}}
+/* the workflow steps float to Nexi's left */
+.hxs-pills{position:absolute;right:calc(var(--ns) * 275px);top:calc(var(--ns) * -40px);display:grid;justify-items:end;gap:10px}
 .hxs-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 9px;border:2.5px solid var(--st-ink,#1F1F3D);border-radius:var(--ii-pill-r,999px);background:var(--hc-bg,var(--blue));
   box-shadow:0 4px 0 var(--st-ink,#1F1F3D),0 16px 26px -14px rgba(15,25,50,.45);color:var(--hc-fg,#FFFFFF);font:800 14px/1 var(--font-display);white-space:nowrap;opacity:0}
 .hxs-pill:nth-child(2){margin-right:26px}
@@ -1329,8 +1357,8 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 @keyframes hxsPill{from{opacity:0;transform:translateX(40px) scale(.6)}to{opacity:1;transform:none}}
 /* desktop: the strip is the slide's channel selector, top right, so the card keeps the full height */
 @media (min-width:961px){.hxs-left{position:static}.hxs-strip{position:absolute;z-index:3;right:0;top:18px}.hxs-strip-l{max-width:none}}
-@media (max-width:1180px){.slide-inner.hxs-inner{grid-template-columns:minmax(0,480px) minmax(0,1fr)}.hxs-cast{--ns:.42}}
-@media (max-height:820px) and (min-width:961px){.hxs-cast{--ns:.42}}
+@media (max-width:1180px){.slide-inner.hxs-inner{grid-template-columns:minmax(0,480px) minmax(0,1fr)}.hxs-cast{--ns:.6}}
+@media (max-height:820px) and (min-width:961px){.hxs-cast{--ns:.6}}
 @media (max-width:960px){
   .slide-inner.hxs-inner{grid-template-columns:minmax(0,1fr);padding:24px 16px 40px;justify-items:center}
   .hxs-left{justify-items:stretch;width:100%;max-width:560px}
@@ -1351,7 +1379,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 }
 @media (prefers-reduced-motion:reduce){
   .hxs-bg,.hxs-bg img{transition:none}.hxs-bg img{transform:none;translate:none}.hxs-bg.is-on,.hxs.is-leave .hxs-bg.is-on,.hxs-sky::after{animation:none!important}
-  .hxs-panel.is-on .hxs-card,.hxs-panel.is-on .hxs-card>*,.hxs-panel.is-out,.hxs-cast .hxs-nexi,.hxs-cast .hxs-pill{animation:none!important;opacity:1}
+  .hxs-panel.is-on .hxs-card,.hxs-panel.is-on .hxs-card>*,.hxs-panel.is-out,.hxs-cast .hxs-nexi-b,.hxs-cast .hxs-pill,.hxs-say,.hxs-tap{animation:none!important}.hxs-cast .hxs-pill{opacity:1}
 }
 
 /* the page around the industries slide (html.hxs-on, set by hero-industries.js with the industry's colours as --hx-*):
