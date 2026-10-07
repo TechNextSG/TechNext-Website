@@ -49,3 +49,4 @@
 
 /* ---------- the end card ---------- */
 .ixw--discovery main .cta{background:radial-gradient(circle at 88% 18%,rgba(255,226,122,.35),transparent 42%),linear-gradient(120deg,#1E3A6E,#3167CA)}
+@media (max-width:767px){.ixw--discovery .ixw-credits-wrap{margin-top:-6px}}
