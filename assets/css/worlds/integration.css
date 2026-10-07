@@ -1,0 +1,54 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: integration (/odoo/integration) — step 3 of 4, connect what you keep. Connector teal, Odoo purple, cable navy.
+   The title card is a patch panel (a strip of ports along the top, two of them lit); the caption is a sync-status line with
+   its SYNCED pill; buttons are plugs with two prongs; the glance strip is a cable run. */
+.ixw--integration{--ow-c:#14A38B;--ig-ink:#1B2A4A;--ig-teal:#14A38B;--ig-teal-l:#E2F5F0;--ig-pur:#714B67;
+  --w-alt:#F2F8F7;--lab-bd:2px solid #1B2A4A;--lab-lip:#1B2A4A;--lab-tail:#1B2A4A;--lab-r:8px;
+  --st-ink:#1B2A4A;--st-meet:#14A38B;--st-talk:#714B67;--st-nexi:#14A38B;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#1FB89D,#14A38B);
+  --ii-bg:linear-gradient(160deg,#F5FAF9,#DDF1EC 60%,#EDE5F3);--ii-ink:#1B2A4A;--ii-b:#14A38B;--ii-accent:#714B67;--ii-lip:#1B2A4A;--ii-ep-bg:#14A38B;--ii-ep-fg:#FFFFFF}
+.ixw--integration .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F5FAF9 18%,#E8F2F0 62%,#E6ECEB 62%,#D3DCDA 100%)}
+
+/* ---------- the title card: a patch panel ---------- */
+.ixw--integration .ixw-copy{position:relative;max-width:510px;margin-top:20px;padding:52px 30px 24px;border-radius:14px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #D5E5E1,0 40px 70px -30px rgba(20,60,60,.4)}
+.ixw--integration .ixw-copy::before{content:"";position:absolute;left:18px;right:18px;top:14px;height:20px;border-radius:10px;background:#F1F5F4;
+  box-shadow:inset 0 0 0 1.5px #D5E5E1}
+.ixw--integration .ixw-copy::after{content:"";position:absolute;left:28px;right:28px;top:19px;height:10px;
+  background:radial-gradient(circle,#14A38B 3.5px,transparent 4px) 0 0/26px 10px no-repeat,radial-gradient(circle,#714B67 3.5px,transparent 4px) 26px 0/26px 10px no-repeat,radial-gradient(circle,#C9D5D2 3.5px,transparent 4px) 0 0/26px 10px repeat-x}
+.ixw--integration .ixw-copy h1{max-width:15ch}
+.ixw--integration .ixw-copy .hand{color:var(--ig-teal)}
+.ixw--integration .ixw-hint .ic{color:var(--ig-pur)}
+@media (max-width:767px){.ixw--integration .ixw-copy{padding:48px 20px 22px}}
+
+/* ---------- the caption: a sync-status line ---------- */
+.ixw--integration .ixw-cap{border-radius:16px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #D5E5E1,0 0 0 6px var(--ig-teal-l),0 26px 44px -22px rgba(20,60,60,.4)}
+.ixw--integration .ixw-cap::before{content:"\25CF  SYNCED";position:absolute;right:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--ig-teal);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.14em}
+.ixw--integration .ixw-cap-who b{color:var(--ig-ink)}.ixw--integration .ixw-cap-txt b{color:var(--ig-pur)}
+.ixw--integration .ixw-cap-rec{background:var(--ig-teal-l);border:1px dashed #7FD3C0;color:#0E5A4C}
+
+/* ---------- buttons: plugs with two prongs ---------- */
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;margin-right:14px;border-radius:12px;border:0;
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;right:-12px;top:50%;width:12px;height:16px;margin-top:-8px;
+  background:linear-gradient(currentColor,currentColor) 0 2px/12px 3px no-repeat,linear-gradient(currentColor,currentColor) 0 11px/12px 3px no-repeat;opacity:.55;transition:right .22s ease}
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{right:-6px}
+.ixw--integration main .btn-primary,.ixw--integration main .btn-primary:hover{color:#FFFFFF;background:var(--ig-teal);box-shadow:0 4px 0 #0E7A68}
+.ixw--integration main .btn-primary::after{background:linear-gradient(#14A38B,#14A38B) 0 2px/12px 3px no-repeat,linear-gradient(#14A38B,#14A38B) 0 11px/12px 3px no-repeat;opacity:1}
+.ixw--integration main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--integration main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ig-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--ig-ink),0 4px 0 2px var(--ig-ink)}
+.ixw--integration main .btn-ghost::before{display:none}.ixw--integration main .btn-ghost .ic{color:var(--ig-teal)}
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--integration .ixw-cta .btn-outline-white,.ixw--integration .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--integration .ixw-ibtn{border:2px solid var(--ig-ink);box-shadow:0 3px 0 var(--ig-ink)}
+.ixw--integration .ixw-ibtn--play,.ixw--integration .ixw-ibtn--play:hover{background:var(--ig-teal);color:#FFFFFF}
+.ixw--integration .ixw-dots button.is-on{background:var(--ig-teal);box-shadow:0 0 0 1.5px var(--ig-ink)}
+.ixw--integration .ixw-peek{border-color:var(--ig-ink);box-shadow:0 3px 0 var(--ig-ink)}.ixw--integration .ixw-peek[aria-pressed="true"]{background:var(--ig-teal-l)}
+
+/* ---------- the glance strip: a cable run ---------- */
+.ixw--integration .ow-strip{border-radius:14px;box-shadow:0 0 0 1.5px #D5E5E1,0 24px 44px -30px rgba(20,60,60,.35);
+  background:repeating-linear-gradient(90deg,#14A38B 0 18px,transparent 18px 30px) 0 0/100% 4px no-repeat,#FFFFFF}
+.ixw--integration .ow-strip dt .ic{color:var(--ig-teal)}
+
+/* ---------- the end card ---------- */
+.ixw--integration main .cta{background:radial-gradient(circle at 88% 18%,rgba(113,75,103,.35),transparent 45%),linear-gradient(120deg,#0E5A4C,#14A38B)}

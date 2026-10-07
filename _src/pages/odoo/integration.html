@@ -1,33 +1,59 @@
-<!--meta {"title": "Odoo Integration — banks, payments, stores", "desc": "Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Integration — banks, payments, stores", "desc": "Odoo integrations by TechNext: bank feeds, payment gateways, e-commerce platforms, marketplaces, carriers and the tools you keep — connected, not replaced.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/integration.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/integration.css?v={ASSET_V}\">", "body": "ixw ixw--integration ow-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Integration</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo integration · step 3 of 4</span>Integration: connect what you keep.</h1>
-        <p class="lead">Odoo replaces a lot, but not everything. Banks, payment gateways, online stores, carriers and specialist tools stay — and talk to Odoo 20 over standard connectors or its API, so orders, stock and payouts flow across without anyone re-typing between systems.</p>
-        <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
-        </div>
-        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Shopify</span><span class="tag">WooCommerce</span><span class="tag">Bank feeds</span></div>
-      </div>
-      <div class="stage stage--integ" aria-hidden="true">
-        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-done"><b>2</b>Training</li><li class="is-on"><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
-        <div class="ig-field">
-          <svg class="ig-svg st-anim" viewBox="0 0 560 360" focusable="false"><path id="igp1" class="ig-ln l1" pathLength="1" d="M80,60 C180,60 190,180 280,180"/><path id="igp2" class="ig-ln l2" pathLength="1" d="M480,60 C380,60 370,180 280,180"/><path id="igp3" class="ig-ln l3" pathLength="1" d="M59,180 L280,180"/><path id="igp4" class="ig-ln l4" pathLength="1" d="M501,180 L280,180"/><path id="igp5" class="ig-ln l5" pathLength="1" d="M80,300 C180,300 190,180 280,180"/><path id="igp6" class="ig-ln l6" pathLength="1" d="M480,300 C380,300 370,180 280,180"/><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite"><mpath href="#igp1" xlink:href="#igp1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.8s" begin="1.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.2s" begin="2.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp2" xlink:href="#igp2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.2s" begin="2.0s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.6s" begin="2.4s" repeatCount="indefinite"><mpath href="#igp3" xlink:href="#igp3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.6s" begin="2.4s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="3.0s" begin="1.8s" repeatCount="indefinite"><mpath href="#igp4" xlink:href="#igp4"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.0s" begin="1.8s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="3.4s" begin="2.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp5" xlink:href="#igp5"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.4s" begin="2.6s" repeatCount="indefinite"/></circle><circle class="ig-pk" r="4" opacity="0"><animateMotion dur="2.9s" begin="2.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="2.2s" repeatCount="indefinite"/></circle><circle class="ig-pk in" r="4" opacity="0"><animateMotion dur="2.9s" begin="3.65s" repeatCount="indefinite"><mpath href="#igp6" xlink:href="#igp6"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.9s" begin="3.65s" repeatCount="indefinite"/></circle></svg>
-          <span class="ig-node n1" data-node="1">{{icon:cart}}<b>Online store</b></span><span class="ig-node n2" data-node="2">{{icon:bag}}<b>Marketplaces</b></span><span class="ig-node n3" data-node="3">{{icon:receipt}}<b>Payments</b></span><span class="ig-node n4" data-node="4">{{icon:bank}}<b>Bank feeds</b></span><span class="ig-node n5" data-node="5">{{icon:mail}}<b>Email &amp; calendar</b></span><span class="ig-node n6" data-node="6">{{icon:code}}<b>Your systems</b></span>
-          <div class="st-card ig-core"><b>Your Odoo</b><small>One database</small><span class="ig-apps">{{odoo:sale:22}}{{odoo:stock:22}}{{odoo:accountant:22}}</span></div>
-        </div>
-        <div class="st-card ig-log"><div class="ig-log-rows"><p><span class="st-tick">{{icon:check}}</span><b>Web order</b> became a sales order</p><p><span class="st-tick">{{icon:check}}</span><b>Gateway payout</b> matched in Accounting</p><p><span class="st-tick">{{icon:check}}</span><b>Stock level</b> synced to the store</p><p><span class="st-tick">{{icon:check}}</span><b>Bank statement</b> imported and matched</p><p><span class="st-tick">{{icon:check}}</span><b>Web order</b> became a sales order</p></div></div>
+<section class="ixw-hero" data-ixw-hero data-world="integration" data-home="760,236" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Integration</span></nav>
+      <ol class="ow-rail" aria-label="Step 3 of 4"><li><a href="{{ROOT}}odoo/discovery.html"><b>1</b>Discovery</a></li><li><a href="{{ROOT}}odoo/training.html"><b>2</b>Training</a></li><li class="is-on"><b>3</b>Integration</li><li><a href="{{ROOT}}odoo/support.html"><b>4</b>Support</a></li></ol>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo integration · step 3 of 4</span>Integration: connect what you keep.</h1>
+      <p class="lead"><span class="m-full">Odoo replaces a lot, but not everything. Banks, payment gateways, online stores, carriers and specialist tools stay, and talk to Odoo 20 over standard connectors or its API, so orders, stock and payouts flow across without anyone re-typing between systems.</span><span class="m-short">Banks, payments, online stores and your own tools, connected to Odoo 20 so nobody re-types between systems.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap a system, the engineers or the plug.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="en1" data-near="760,236" data-who="TechNext engineer" data-role="Odoo integration · illustration" data-say="Every event lands in the **sync log**. If one fails, it retries on its own." style="--x:584;--y:324;--w:84;--h:80" aria-label="Say hi to the engineer at the sync log (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Engineer</b><i>sync log</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="en2" data-near="760,236" data-who="TechNext developer" data-role="Odoo integration · illustration" data-say="Standard connector first. The **API** only where we really need it." style="--x:930;--y:358;--w:90;--h:230" aria-label="Say hi to the developer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b><i>TechNext</i></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="store" data-nx="760,236" data-pose="point-left" data-rec="Online store · web order → sales order" data-say="Your **online store** (Shopify, WooCommerce): web orders arrive as sales orders." style="--x:386;--y:-66;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:cart}}<b>Online store</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="market" data-nx="760,236" data-pose="point-left" data-rec="Marketplaces · orders in, stock out" data-say="**Marketplaces**: orders come in, stock levels go back out." style="--x:386;--y:26;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:bag}}<b>Marketplaces</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="pay" data-nx="760,236" data-pose="point-left" data-rec="Payments · payouts matched in Accounting" data-say="**Payment gateways**: each payout is matched in Accounting, line by line." style="--x:386;--y:118;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:receipt}}<b>Payments</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="bank" data-nx="760,236" data-pose="point-left" data-rec="Bank feeds · statements imported and matched" data-say="**Bank feeds**: statements come in every day and are matched for you." style="--x:904;--y:-66;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:bank}}<b>Bank feeds</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="mail" data-nx="760,236" data-pose="point-left" data-rec="Email &amp; calendar · threads and meetings on the record" data-say="**Email and calendar**: threads and meetings sit on the customer's record." style="--x:904;--y:26;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:mail}}<b>Email &amp; calendar</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="api" data-nx="760,236" data-pose="point-left" data-rec="Your systems · over the Odoo API" data-say="**Your own systems** talk to Odoo over its API: webhooks, scheduled jobs and retries." style="--x:904;--y:118;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>Your systems</b></span></button>
+
+      <button class="ixw-toy" type="button" data-toy="plug" data-near="760,236" data-pose="wow" data-say="A cable dropped! Watch it **retry**, then recover. Nothing is booked twice." style="--x:640;--y:40;--w:150;--h:120" aria-label="Pull a plug"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Pull a plug</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:760;--ny:236" data-reacts="wow::Look at all those **packets** go!|love::No more **re-typing**. I love it.|celebrate::All systems synced. **Yay!**|think::Hmm… which system do you **re-type** into today?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:integration}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance"><div><dt>Phase</dt><dd>Step 3 of 4</dd></div><div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>Goal</dt><dd>No re-keying between systems</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. This is **integration**: the systems you keep, connected to one Odoo. Tap around!" data-outro="Connected once, synced every day, **no re-typing**. That's integration.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:integration}}<b data-for="en1" style="--c:#14A38B">E</b><b data-for="en2" style="--c:#3167CA">D</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo integration">assistant · Odoo integration</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. This is <b>integration</b>: the systems you keep, connected to one Odoo. Tap around!</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: online store"></button><button type="button" data-ixw-dot aria-label="Stop 3: marketplaces"></button><button type="button" data-ixw-dot aria-label="Stop 4: payments"></button><button type="button" data-ixw-dot aria-label="Stop 5: bank feeds"></button><button type="button" data-ixw-dot aria-label="Stop 6: email and calendar"></button><button type="button" data-ixw-dot aria-label="Stop 7: your systems"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:layers}}Phase</dt><dd>Step 3 of 4</dd></div><div><dt>{{icon:plug}}Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>{{icon:code}}Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>{{icon:check}}Goal</dt><dd>No re-keying between systems</dd></div><div><dt>{{icon:users}}Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo integration connects the systems you keep to your Odoo database: banks, payment gateways, online stores such as Shopify and WooCommerce, marketplaces, carriers and specialist tools. TechNext uses standard connectors or the Odoo API, so orders, stock levels and payouts flow across without anyone re-typing them between systems.</p></div></div>
