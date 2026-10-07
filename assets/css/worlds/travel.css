@@ -117,3 +117,44 @@
   .ixw--travel .ix-new::before{left:20px}
 }
 @media (prefers-reduced-motion:reduce){.ixw--travel .ix-ba::after{animation:none}.ixw--travel .ix-phases::after{transition:none}}
+
+/* ---------- the terminal hero: the copy rides a boarding pass, the caption is one too ---------- */
+.ixw--travel .ixw-hero{background:linear-gradient(180deg,#8FCDF6 0%,#DDF0FC 62%,#EEF2F7 62%,#D9E2EC 100%)}
+.ixw--travel .ixw-copy{position:relative;max-width:468px;padding:50px 28px 22px;border-radius:22px;background:#FFFFFF;box-shadow:0 3px 0 #CFDDEC,0 34px 64px -34px rgba(20,50,100,.5)}
+.ixw--travel .ixw-copy::before{content:"BOARDING PASS \00B7  BLUEWAVE \2192  ODOO";position:absolute;left:0;right:0;top:0;height:32px;display:flex;align-items:center;padding-left:26px;border-radius:22px 22px 0 0;
+  background:linear-gradient(90deg,var(--t-sea-d),var(--t-sea));font:800 10.5px/1 var(--font-body);letter-spacing:.2em;color:#fff}
+.ixw--travel .ixw-copy::after{content:"";position:absolute;left:18px;right:18px;bottom:58px;border-top:2px dashed #D5DEEC;pointer-events:none}
+.ixw--travel .ixw-copy .crumbs{margin-bottom:12px}
+.ixw--travel .ixw-copy h1{max-width:13ch}
+.ixw--travel .ixw-hint{margin-top:34px}
+.ixw--travel .ixw-toy--board{border-radius:14px}
+.ixw--travel .ixw-cap{padding-top:32px;border-radius:16px}
+.ixw--travel .ixw-cap::before{content:"BOARDING PASS \00B7  NEXI \00B7  SEAT 1A";position:absolute;left:0;right:0;top:0;height:22px;padding-left:16px;border-radius:16px 16px 0 0;
+  background:linear-gradient(90deg,var(--t-sea-d),var(--t-sea));font:800 9.5px/22px var(--font-body);letter-spacing:.18em;color:#fff}
+.ixw--travel .ixw-cap::after{content:"";position:absolute;top:30px;bottom:12px;right:146px;border-left:2px dashed #D5DEEC;pointer-events:none}
+.ixw--travel .ixw-cap-av{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px #CBE6F7}
+
+/* ---------- more travel: plane kickers, dotted flight paths behind alt sections, a passport stamp ---------- */
+.ixw--travel .sec-head .hand::before,.ixw--travel .ix-new-head .hand::before{content:"";display:inline-block;width:20px;height:20px;margin-right:6px;vertical-align:-3px;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat}
+.ixw--travel .section--alt{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180' viewBox='0 0 320 180'%3E%3Cpath d='M20 130Q120 30 230 90' fill='none' stroke='%233167CA' stroke-opacity='.10' stroke-width='2' stroke-dasharray='3 7'/%3E%3Cpath d='M240 92l-14-1 4 4-4 5z' fill='%233167CA' fill-opacity='.16'/%3E%3C/svg%3E"),radial-gradient(rgba(49,103,202,.07) 1.6px,transparent 1.7px);background-size:320px 180px,26px 26px}
+.ixw--travel .ixw-say{position:relative}
+.ixw--travel .ixw-say::after{content:"";position:absolute;right:24px;top:-26px;width:96px;height:96px;transform:rotate(-12deg);opacity:.85;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%23E0456B' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23E0456B' stroke-width='1.5' stroke-dasharray='3 3'/%3E%3Ctext x='50' y='45' text-anchor='middle' font-family='Arial' font-weight='700' font-size='12' fill='%23E0456B'%3EBLUEWAVE%3C/text%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='Arial' font-weight='700' font-size='10' fill='%23E0456B'%3EAPPROVED%3C/text%3E%3C/svg%3E") center/contain no-repeat}
+.ixw--travel .ixw-credits{position:relative}
+.ixw--travel .ixw-credits::after{content:"";position:absolute;right:22px;top:-14px;width:120px;height:28px;border-radius:6px;background:#FFC94A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='28'%3E%3Ctext x='60' y='19' text-anchor='middle' font-family='Arial' font-weight='700' font-size='11' letter-spacing='2' fill='%231F1F3D'%3EGATE A4%3C/text%3E%3C/svg%3E") center no-repeat;box-shadow:0 3px 0 #D9A52A}
+@media (max-width:1199px){.ixw--travel .ixw-copy{max-width:600px}}
+@media (max-width:767px){
+  .ixw--travel .ixw-copy{padding:46px 18px 18px;border-radius:18px}
+  .ixw--travel .ixw-copy::after{display:none}
+  .ixw--travel .ixw-cap::after{display:none}
+  .ixw--travel .ixw-say::after{width:70px;height:70px;top:-30px;right:10px}
+  .ixw--travel .ixw-credits::after{display:none}
+}
+
+/* phones: the itinerary demo's labels stay readable, remove buttons are easy to hit */
+@media (max-width:767px){
+  .ixw--travel :is(.itn-cap,.itn-cap small,.itn-pgh,.itn-svc b,.itn-ib b,.itn-svc small,.itn-ib small,.itn-dh small,.itn-ns,.itn-checks li,.itn-checks li b,.itn-sl,.itn-rates,.itn-sumd dt,.itn-cur li,.itn-depw,.itn-invl b,.itn-payl b,.itn-invl span,.itn-payl span,.itn-invl small,.itn-payl small,.itn-xd,.itn-gt,.itn-cashn){font-size:11.5px}
+  .ixw--travel :is(.itn-wv,.itn-wl,.itn-lg){font-size:10.5px}
+  .ixw--travel .itn-x{width:28px}
+}

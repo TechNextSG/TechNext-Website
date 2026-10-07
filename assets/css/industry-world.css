@@ -528,3 +528,18 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw-scenewrap{display:flex;flex-direction:column;gap:10px;min-width:0}
 .ixw-scene-note{display:flex;align-items:center;gap:7px;margin:0 4px;font:600 12.5px/1.4 var(--font-body);color:var(--muted)}
 .ixw-scene-note .ic{width:15px;height:15px;flex:none;color:var(--w-amber)}
+
+/* small laptops (1200-1499 px): the scene sits higher so the caption always clears the credits card */
+@media (min-width:1200px) and (max-width:1499px){.ixw-set{bottom:172px}}
+
+/* phones: readable labels and comfortable tap targets on every world page */
+@media (max-width:767px){
+  .ixw .ix-intro-h{font-size:11px}
+  .ixw-cap-rec em,.ixw-rec em{font-size:10.5px}
+  .ixw-panel-meta dt{font-size:11px}
+  .ixw .crumbs a{display:inline-block;padding:5px 0}
+  .ixw .dm-kpis dt{font-size:11px}
+  .ixw-pick{gap:8px}
+  .ixw-pick-b{width:100%;border-radius:18px}
+  .ixw-pick-b button{flex:1 1 auto;height:auto;min-height:40px;padding:8px 12px;border-radius:12px;font-size:13px}
+}

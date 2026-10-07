@@ -74,6 +74,8 @@ if __name__ == "__main__":
     # threaded: a browser holds keep-alive connections open, which stalls a single-threaded server
     socketserver.ThreadingTCPServer.allow_reuse_address = True
     socketserver.ThreadingTCPServer.daemon_threads = True
+    # several headless browsers load pages at once during QA; the default backlog (5) refuses connections
+    socketserver.ThreadingTCPServer.request_queue_size = 128
     h = functools.partial(Handler, directory=str(ROOT))
     with socketserver.ThreadingTCPServer(("127.0.0.1", PORT), h) as httpd:
         print(f"serving {ROOT} at http://127.0.0.1:{PORT} (cleanUrls)")
