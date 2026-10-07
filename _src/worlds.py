@@ -96,7 +96,7 @@ def intro_html(world: str) -> str:
     sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
     nexi = poses(world)["hello"]
     return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
-            f'  <div class="ixwi-bg"><img src="{{{{ROOT}}}}assets/img/industries/pano/{world}.webp" alt="" width="1560" height="555" decoding="async" fetchpriority="high"></div>\n'
+            f'  <div class="ixwi-bg"><img src="{{{{ROOT}}}}assets/img/industries/{world}/scene.webp" alt="" width="2400" height="1125" decoding="async" fetchpriority="high"></div>\n'
             f'  <span class="ixwi-rays"></span>\n'
             f'  <span class="ixwi-ring"></span>\n'
             f'  <div class="ixwi-lock">\n'
@@ -117,9 +117,9 @@ def intro_html(world: str) -> str:
 
 
 # ---------------------------------------------------------------- the homepage showcase (slide 3 of the hero)
-# Every world on one "screen": the real scene (a panorama captured from the world page, assets/img/industries/pano/),
-# Nexi in that world's costume, the sample business and three workflow steps, with a channel strip of the eight badges.
-# assets/js/hero-industries.js runs it (auto-cycle, hover/tap/swipe/keys); assets/css/hero.css styles it (.inds).
+# The slide becomes each world's hero in turn: its scene (assets/img/industries/<key>/scene.webp, captured from the world
+# page by qa/ind-medical/hqbg.py), its title card and buttons (hero-skins.css, from _src/hero_skins.py), Nexi in costume.
+# assets/js/hero-industries.js runs it; assets/css/hero.css styles the frame (.hxs-*).
 SHOW_ORDER = ["medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness"]
 SHOW_SKIN = {  # accent, ink, light
     "medical": ("#21B799", "#0F4C45", "#E3F6F1"), "travel": ("#FFC94A", "#17284A", "#FFF6DC"), "retail": ("#D9785A", "#3D405B", "#FBEBE3"),
@@ -128,35 +128,53 @@ SHOW_SKIN = {  # accent, ink, light
 }
 
 
-def _pitch(world: str) -> str:
+def _hero_bits(world: str) -> dict:
+    """The industry page's own hero copy: the episode line, the hand label, the headline and the lead (both lengths)."""
     import re as _re
     s = (_ROOT / "_src/pages/industries" / f"{world}.html").read_text(encoding="utf-8")
-    m = _re.search(r'<h1 id="ixw-h1">.*?</span>(.*?)</h1>', s, _re.S)
-    return m.group(1).strip() if m else ""
+    g = lambda pat: (_re.search(pat, s, _re.S).group(1).strip() if _re.search(pat, s, _re.S) else "")
+    return {"ep": g(r'<p class="ixw-ep">.*?</a><span>(.*?)</span></p>'), "hand": g(r'<span class="hand h1-hand">(.*?)</span>'),
+            "h1": g(r'<h1 id="ixw-h1">.*?</span>(.*?)</h1>'), "lead": g(r'<p class="lead"><span class="m-full">(.*?)</span>'),
+            "lead_m": g(r'<p class="lead"><span class="m-full">.*?</span><span class="m-short">(.*?)</span>')}
 
 
 def showcase_html() -> str:
+    """Slide 3 of the homepage hero: the whole slide becomes each industry's hero in turn. Behind, the world's real scene
+    (assets/img/industries/<key>/scene.webp); in front, the page's own title card (its .ixw-copy skin, Nexi Explains tag,
+    hand label, headline, lead and buttons, from hero-skins.css), Nexi in costume with three workflow steps, and a strip of
+    the eight badges. hero-industries.js runs it."""
     from industries import IND
-    chans, screens = [], []
+    bgs, panels, casts, chans = [], [], [], []
     for i, k in enumerate(SHOW_ORDER):
-        ind, meta, (ac, ink, lt) = IND[k], module(k).META, SHOW_SKIN[k]
-        steps = [f for f in ind["flow"] if f.get("app")][:3]
-        pills = "".join(f'<span class="hxi-pill" style="--j:{j}">{{{{odoo:{f["app"]}:16}}}}{f["t"]}</span>' for j, f in enumerate(steps))
-        p = poses(k)["present"]
+        ind, meta, b = IND[k], module(k).META, _hero_bits(k)
         on = " is-on" if i == 0 else ""
-        screens.append(
-            f'<a class="hxi-scr{on}" href="{{{{ROOT}}}}industries/{k}.html" data-k="{k}" style="--ac:{ac};--ink:{ink};--lt:{lt}" tabindex="-1" aria-hidden="{"false" if i == 0 else "true"}">'
-            f'<span class="hxi-pano"><img alt="" width="1560" height="555" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/pano/{k}.webp"></span>'
-            f'<span class="hxi-chip">{{{{icon:ind-{k}}}}}<span><b>Odoo for {ind["name"]}</b><small>{meta["tag"]}</small></span></span>'
-            f'<span class="hxi-say"><b>{_pitch(k)}</b></span>'
-            f'<span class="hxi-pills">{pills}</span>'
-            f'<img class="hxi-nexi" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp">'
-            f'<span class="hxi-go">Step inside {{{{icon:arrow}}}}</span></a>')
-        chans.append(f'<button class="hxi-ch{on}" type="button" role="tab" data-k="{k}" aria-selected="{"true" if i == 0 else "false"}" '
-                     f'aria-label="{ind["name"]}" style="--ac:{ac};--ink:{ink}">{{{{icon:ind-{k}}}}}<i></i></button>')
-    return ('<div class="hxi up" style="--d:250ms" data-inds>\n'
-            '  <div class="hxi-head"><b>Odoo, one world per industry</b><small>Eight sample worlds · tap one to step inside</small>'
-            '<span class="hxi-count" aria-hidden="true"><b data-inds-n>1</b>/8</span></div>\n'
-            '  <div class="hxi-screen" data-inds-screen>' + "".join(screens) + '<span class="hxi-wipe" aria-hidden="true"></span></div>\n'
-            '  <div class="hxi-strip" role="tablist" aria-label="Industries">' + "".join(chans) + '</div>\n'
+        hid = "false" if i == 0 else "true"
+        steps = [f for f in ind["flow"] if f.get("app")][:3]
+        pills = "".join(f'<span class="hxs-pill" style="--j:{j}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for j, f in enumerate(steps))
+        p = poses(k)["present"]
+        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/scene.webp"></div>')
+        panels.append(
+            f'<div class="hxs-panel hxs--{k}{on}" data-k="{k}" aria-hidden="{hid}"><div class="ixw-copy hxs-card">'
+            f'<p class="ixw-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{b["ep"]}</span></p>'
+            f'<span class="hand h1-hand">{b["hand"]}</span>'
+            f'<p class="hxs-h">{b["h1"]}</p>'
+            f'<p class="lead"><span class="m-full">{b["lead"]}</span><span class="m-short">{b["lead_m"]}</span></p>'
+            f'<div class="actions"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}industries/{k}.html" tabindex="{0 if i == 0 else -1}">Explore {ind["name"]} {{{{icon:arrow}}}}</a>'
+            f'<a class="btn btn-ghost btn-lg" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
+            f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry below</span></p>'
+            f'</div></div>')
+        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" '
+                     f'data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp"><span class="hxs-pills">{pills}</span></div>')
+        chans.append(f'<button class="hxs-ch hxs--{k}{on}" type="button" role="tab" data-k="{k}" aria-selected="{"true" if i == 0 else "false"}" '
+                     f'tabindex="{0 if i == 0 else -1}" aria-label="{ind["name"]}">{{{{icon:ind-{k}}}}}<i></i></button>')
+    return ('<div class="hxs" data-inds>\n'
+            '  <div class="hxs-sky" aria-hidden="true">' + "".join(bgs) + '<span class="hxs-veil"></span></div>\n'
+            '  <div class="container slide-inner hxs-inner">\n'
+            '    <div class="hxs-left">\n'
+            '      <h2 class="sr-only">Odoo for your industry</h2>\n'
+            '      <div class="hxs-cards">' + "".join(panels) + '</div>\n'
+            '      <div class="hxs-strip"><span class="hxs-strip-l">Eight industries</span><div class="hxs-chs" role="tablist" aria-label="Industries">' + "".join(chans) + '</div></div>\n'
+            '    </div>\n'
+            '    <div class="hxs-stage" aria-hidden="true">' + "".join(casts) + '</div>\n'
+            '  </div>\n'
             '</div>')

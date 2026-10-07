@@ -1,43 +1,47 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
-/* The homepage hero's industries slide ([data-inds], markup from worlds.showcase_html()): one screen, eight industry worlds.
-   Each world's real scene pans slowly behind Nexi in that world's costume, the sample business, the page's headline in a
-   speech bubble and three workflow steps. The worlds cycle on their own while the slide is showing; the channel strip
-   (hover, tap, arrow keys), a swipe on the screen or the arrows switch them; a tap on the screen opens the industry page.
-   The scenes load only when the slide is near, so the first screen of the homepage stays light. */
+/* The homepage hero's industries slide ([data-inds], markup from worlds.showcase_html()): the whole slide becomes each
+   industry's own hero in turn. Its real scene fills the background (crossfading, drifting with the pointer), the page's
+   own title card, tag and buttons (skins extracted from the industry stylesheets into hero-skins.css, loaded here when the
+   page is idle) and Nexi in that industry's costume with three workflow steps. The industries change every few seconds
+   while the slide shows and carry on from where they stopped next time; the badge strip (tap, hover, arrow keys) picks one.
+   Scenes load one at a time: the one showing and the next. */
 (function () {
   'use strict';
   var root = document.querySelector('[data-inds]'); if (!root) return;
   var slide = root.closest('.slide'), hero = root.closest('.hero') || document;
-  var screen = root.querySelector('[data-inds-screen]');
-  var scrs = [].slice.call(root.querySelectorAll('.hxi-scr')), chans = [].slice.call(root.querySelectorAll('.hxi-ch'));
-  var nEl = root.querySelector('[data-inds-n]'), cta = slide && slide.querySelector('[data-inds-cta]'), ctaName = slide && slide.querySelector('[data-inds-name]');
+  var $$ = function (s) { return [].slice.call(root.querySelectorAll(s)); };
+  var bgs = $$('.hxs-bg'), panels = $$('.hxs-panel'), casts = $$('.hxs-cast'), chans = $$('.hxs-ch');
   var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var fine = !!(window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches);
-  var STEP = 3300, at = 0, timer = 0, held = false, active = false, loaded = false, swiped = 0;
+  var STEP = 5200, n = panels.length, at = 0, timer = 0, outT = 0, held = false, active = false, seen = false;
 
-  function load() {
-    if (loaded) return; loaded = true;
-    // the scene in view first, then the rest in order
-    var order = scrs.map(function (_, i) { return (at + i) % scrs.length; });
-    order.forEach(function (i, n) {
-      setTimeout(function () { [].forEach.call(scrs[i].querySelectorAll('img[data-src]'), function (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }); }, n * 120);
-    });
+  /* the skins (the industry pages' cards and buttons) */
+  var skinned = false;
+  function skins() {
+    if (skinned) return; skinned = true;
+    var base = document.querySelector('link[href*="hero.css"]');
+    var l = document.createElement('link'); l.rel = 'stylesheet';
+    l.href = base ? base.href.replace('hero.css', 'hero-skins.css') : '/assets/css/hero-skins.css';
+    l.onload = function () { root.classList.add('is-skinned'); };
+    l.onerror = function () { root.classList.add('is-skinned'); };
+    document.head.appendChild(l);
   }
-  function names(i) { var b = chans[i].getAttribute('aria-label') || ''; return b.replace(/&amp;/g, '&'); }
-  function show(i, user) {
-    i = (i + scrs.length) % scrs.length; if (i === at && !user) return;
-    var prev = at; at = i;
-    scrs.forEach(function (s, k) {
-      s.classList.toggle('is-on', k === at); s.classList.toggle('is-prev', k === prev && k !== at);
-      s.setAttribute('aria-hidden', k === at ? 'false' : 'true');
+  function img(el) { if (!el) return; [].forEach.call(el.querySelectorAll('img[data-src]'), function (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }); }
+  function warm(i) { img(bgs[i]); img(casts[i]); }
+
+  function show(i) {
+    i = (i + n) % n; if (i === at) { arm(); return; }
+    var prev = at; at = i; warm(at); warm((at + 1) % n);
+    clearTimeout(outT);
+    [bgs, panels, casts].forEach(function (list) {
+      list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.toggle('is-out', k === prev); });
+    });
+    panels.forEach(function (p, k) {
+      p.setAttribute('aria-hidden', k === at ? 'false' : 'true');
+      [].forEach.call(p.querySelectorAll('a'), function (a) { a.tabIndex = k === at ? 0 : -1; });
     });
     chans.forEach(function (c, k) { c.classList.toggle('is-on', k === at); c.setAttribute('aria-selected', k === at ? 'true' : 'false'); c.tabIndex = k === at ? 0 : -1; });
-    // replay the arrival (the wipe, Nexi's hop, the pills) even when the same world is picked again
-    var s = scrs[at]; s.classList.remove('is-in'); void s.offsetWidth; s.classList.add('is-in');
-    if (nEl) nEl.textContent = String(at + 1);
-    if (cta) cta.setAttribute('href', s.getAttribute('href'));
-    if (ctaName) ctaName.textContent = names(at);
-    root.style.setProperty('--ac', getComputedStyle(s).getPropertyValue('--ac'));
+    outT = setTimeout(function () { [bgs, panels, casts].forEach(function (list) { list[prev].classList.remove('is-out'); }); }, 1300);
     arm();
   }
   function arm() {
@@ -47,39 +51,34 @@
     root.classList.remove('is-held'); root.classList.add('is-tick');
     timer = setTimeout(function () { show(at + 1); }, STEP);
   }
-  function setActive(on) { active = on; if (on) load(); arm(); }
+  function setActive(on) {
+    if (on === active) return; active = on;
+    if (on) { skins(); warm(at); warm((at + 1) % n); if (seen) setTimeout(function () { if (active) show(at + 1); }, 700); seen = true; }
+    arm();
+  }
 
-  // the channel strip: hover previews (and holds), tap picks, arrow keys move
   chans.forEach(function (c, k) {
-    c.addEventListener('click', function () { show(k, true); });
-    if (fine) c.addEventListener('pointerenter', function () { held = true; show(k, true); });
+    c.addEventListener('click', function () { show(k); });
+    if (fine) c.addEventListener('pointerenter', function () { held = true; show(k); });
     c.addEventListener('keydown', function (e) {
-      var n = null; if (e.key === 'ArrowRight') n = at + 1; else if (e.key === 'ArrowLeft') n = at - 1; else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = chans.length - 1;
-      if (n === null) return; e.preventDefault(); show(n, true); chans[at].focus();
+      var d = null; if (e.key === 'ArrowRight') d = at + 1; else if (e.key === 'ArrowLeft') d = at - 1; else if (e.key === 'Home') d = 0; else if (e.key === 'End') d = n - 1;
+      if (d === null) return; e.preventDefault(); show(d); chans[at].focus();
     });
   });
-  // the screen: hovering holds the world and tilts it a touch toward the pointer; a swipe switches; a tap opens the page
-  root.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') { held = true; arm(); } });
-  root.addEventListener('pointerleave', function () { held = false; root.style.setProperty('--tx', '0'); root.style.setProperty('--ty', '0'); arm(); });
-  if (fine && !reduce) screen.addEventListener('pointermove', function (e) {
-    var r = screen.getBoundingClientRect();
-    root.style.setProperty('--tx', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
-    root.style.setProperty('--ty', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
-  });
-  var sx = 0, sy = 0, sw = false;
-  screen.addEventListener('touchstart', function (e) { var t = e.touches[0]; sx = t.clientX; sy = t.clientY; sw = true; held = true; arm(); }, { passive: true });
-  screen.addEventListener('touchend', function (e) {
-    if (!sw) return; sw = false; held = false;
-    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) { swiped = Date.now(); show(at + (dx < 0 ? 1 : -1), true); } else arm();
-  }, { passive: true });
-  screen.addEventListener('click', function (e) { if (Date.now() - swiped < 400) { e.preventDefault(); e.stopPropagation(); } }, true);
+  // holding: the pointer over the card, the strip or Nexi pauses the turn; the scene drifts a touch with the pointer
+  var left = root.querySelector('.hxs-left');
+  if (left) { left.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') { held = true; arm(); } });
+    left.addEventListener('pointerleave', function () { held = false; arm(); }); }
+  if (fine && !reduce) {
+    var raf = 0, px = 0, py = 0;
+    slide.addEventListener('pointermove', function (e) {
+      px = e.clientX / window.innerWidth * 2 - 1; py = e.clientY / window.innerHeight * 2 - 1;
+      if (!raf) raf = requestAnimationFrame(function () { raf = 0; root.style.setProperty('--px', px.toFixed(3)); root.style.setProperty('--py', py.toFixed(3)); });
+    });
+  }
 
-  // follow the carousel: run while this slide is showing
   if (hero && hero.addEventListener) hero.addEventListener('tn:slide', function (e) { setActive(!!(e.detail && e.detail.slide === slide)); });
-  if (slide && slide.classList.contains('is-active')) setActive(true);
   document.addEventListener('visibilitychange', arm);
-  // warm the scenes up once the page is idle, so the slide never opens on empty screens
-  window.addEventListener('load', function () { setTimeout(load, 2500); });
-  show(0, true);
+  window.addEventListener('load', function () { setTimeout(function () { skins(); warm(0); }, 2500); });
+  if (slide && slide.classList.contains('is-active')) setActive(true);
 })();

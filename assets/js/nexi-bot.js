@@ -709,9 +709,9 @@
         opts.push(['I have my own show!', 'Odoo, AI and tech', 'explained by me ✨']);
         opts.push(['new episodes every week', 'tap one under the TV', 'I wear a new costume each time!']);
       } else if (sl.querySelector('[data-inds]')) {
-        var ind = txt(sl.querySelector('.hxi-scr.is-on .hxi-chip b'));
+        var ind = txt(sl.querySelector('.hxs-panel.is-on .h1-hand'));
         if (ind) opts.push(['now showing: ' + ind, 'that’s me in costume!', 'tap the screen to step inside']);
-        opts.push(['eight industries, one Odoo', 'a costume for every one', 'pick a badge under the screen!']);
+        opts.push(['eight industries, one Odoo', 'a costume for every one', 'pick a badge in the strip!']);
         opts.push(['clinics, kitchens, factories…', 'each runs Odoo its own way', 'hover a badge to switch ✓']);
       }
       return opts.length ? pick(opts) : null;
