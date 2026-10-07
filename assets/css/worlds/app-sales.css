@@ -1,0 +1,51 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: app-sales (/odoo/apps/sales) — Odoo Sales, quote to cash. Sales rose, Odoo purple, signed green. The title card
+   is a quotation (a header with its number, a signature line at the foot); the caption is a message on the customer portal;
+   buttons are price tags with a punched hole; the glance strip is the quotation's totals bar. */
+.ixw--app-sales{--ow-c:#E46E78;--sl-ink:#1B1F3B;--sl-rose:#E46E78;--sl-rose-l:#FDF0F2;--sl-pur:#714B67;--sl-ok:#1E9E6A;
+  --w-alt:#FCF6F7;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
+  --st-ink:#1B1F3B;--st-meet:#1E9E6A;--st-talk:#714B67;--st-nexi:#E46E78;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#EC8790,#E46E78);
+  --ii-bg:linear-gradient(160deg,#FDF7F7,#F9DEE2 60%,#EDE5F3);--ii-ink:#1B1F3B;--ii-b:#E46E78;--ii-accent:#714B67;--ii-lip:#1B1F3B;--ii-ep-bg:#E46E78;--ii-ep-fg:#FFFFFF}
+.ixw--app-sales .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FDF7F7 18%,#F5EAEC 62%,#E7EBF1 62%,#D6DDE7 100%)}
+
+/* ---------- the title card: a quotation ---------- */
+.ixw--app-sales .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:54px 30px 66px;border-radius:10px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #F0D9DD,0 40px 70px -30px rgba(90,40,50,.3)}
+.ixw--app-sales .ixw-copy::before{content:"QUOTATION \00B7  S00042";position:absolute;left:0;right:0;top:0;height:34px;display:flex;align-items:center;padding-left:24px;border-radius:10px 10px 0 0;
+  background:var(--sl-pur);font:800 11.5px/1 var(--font-body);letter-spacing:.14em;color:#FFFFFF}
+.ixw--app-sales .ixw-copy::after{content:"\2713  Signed online";position:absolute;left:30px;right:30px;bottom:20px;padding-top:8px;border-top:1.5px solid #1B1F3B;font:700 12px/1.2 var(--font-body);color:var(--sl-ok)}
+.ixw--app-sales .ixw-copy h1{max-width:15ch}
+.ixw--app-sales .ixw-copy .hand{color:var(--sl-rose)}
+.ixw--app-sales .ixw-hint .ic{color:var(--sl-rose)}
+@media (max-width:767px){.ixw--app-sales .ixw-copy{padding:50px 20px 60px}.ixw--app-sales .ixw-copy::after{left:20px;right:20px}}
+
+/* ---------- the caption: a message on the customer portal ---------- */
+.ixw--app-sales .ixw-cap{border-radius:18px 18px 18px 6px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #F0D9DD,0 0 0 6px var(--sl-rose-l),0 26px 44px -22px rgba(90,40,50,.3)}
+.ixw--app-sales .ixw-cap::before{content:"CUSTOMER PORTAL";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--sl-rose);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.14em}
+.ixw--app-sales .ixw-cap-who b{color:#B34452}.ixw--app-sales .ixw-cap-txt b{color:var(--sl-pur)}
+.ixw--app-sales .ixw-cap-rec{background:var(--sl-rose-l);border:1px dashed #F0B4BC;color:#7A2E3A}
+
+/* ---------- buttons: price tags with a punched hole ---------- */
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:0;padding-left:34px;border-radius:0 10px 10px 0;
+  clip-path:polygon(16px 0,100% 0,100% 100%,16px 100%,0 50%);transition:translate .22s cubic-bezier(.34,1.45,.64,1),rotate .22s ease,filter .2s ease}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:14px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#FFFFFF;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.15)}
+.ixw--app-sales main .btn-primary,.ixw--app-sales main .btn-primary:hover{color:#FFFFFF;background:var(--sl-pur)}
+.ixw--app-sales main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-sales main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--sl-ink);background:#FCE3E7}
+.ixw--app-sales main .btn-ghost::before{display:none}.ixw--app-sales main .btn-ghost .ic{color:#B34452}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){filter:drop-shadow(0 4px 0 rgba(74,46,68,.45))}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1.5deg}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;filter:none;transition-duration:.06s}
+.ixw--app-sales .ixw-cta .btn-outline-white,.ixw--app-sales .ixw-cta .btn-outline-white:hover{color:#1B1F3B;background:#FFD84A}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--app-sales .ixw-ibtn{border:2px solid var(--sl-ink);box-shadow:0 3px 0 var(--sl-ink)}
+.ixw--app-sales .ixw-ibtn--play,.ixw--app-sales .ixw-ibtn--play:hover{background:var(--sl-rose);color:#FFFFFF}
+.ixw--app-sales .ixw-dots button.is-on{background:var(--sl-rose);box-shadow:0 0 0 1.5px var(--sl-ink)}
+.ixw--app-sales .ixw-peek{border-color:var(--sl-ink);box-shadow:0 3px 0 var(--sl-ink)}.ixw--app-sales .ixw-peek[aria-pressed="true"]{background:var(--sl-rose-l)}
+@media (prefers-reduced-motion:reduce){.ixw--app-sales main .btn:hover{rotate:0deg}}
+
+/* ---------- the glance strip: the quotation's totals bar ---------- */
+.ixw--app-sales .ow-strip{border-radius:10px;box-shadow:0 0 0 1.5px #F0D9DD,0 24px 44px -30px rgba(90,40,50,.3);background:linear-gradient(90deg,var(--sl-pur) 0 6px,#FFFFFF 6px)}
+.ixw--app-sales .ow-strip dt .ic{color:var(--sl-rose)}
+
+/* ---------- the end card ---------- */
+.ixw--app-sales main .cta{background:radial-gradient(circle at 88% 18%,rgba(228,110,120,.45),transparent 45%),linear-gradient(120deg,#4A2E44,#714B67)}

@@ -1,0 +1,50 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: app-stock (/odoo/apps/inventory) — Odoo Inventory, a bright warehouse. Safety yellow, rack blue, amber stock. The
+   title card is a shipping label (a barcode strip, a FROM/TO header); the caption is the scanner's readout; buttons carry a
+   short barcode on their left; the glance strip is the floor's yellow safety line. */
+.ixw--app-stock{--ow-c:#F2A33A;--sk-ink:#1B1F3B;--sk-amb:#F2A33A;--sk-amb-l:#FFF4E0;--sk-blue:#3167CA;--sk-y:#FFD84A;
+  --w-alt:#F7F8FB;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:4px;
+  --st-ink:#1B1F3B;--st-meet:#1E9E6A;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#F5B357,#F2A33A);
+  --ii-bg:linear-gradient(160deg,#F7F8FB,#FFEFC9 60%,#E2EBFA);--ii-ink:#1B1F3B;--ii-b:#C47A12;--ii-accent:#3167CA;--ii-lip:#1B1F3B;--ii-ep-bg:#1B1F3B;--ii-ep-fg:#FFFFFF}
+.ixw--app-stock .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F7F8FB 18%,#EBEEF4 62%,#DDE2EA 62%,#C9D0DB 100%)}
+
+/* ---------- the title card: a shipping label ---------- */
+.ixw--app-stock .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:48px 30px 74px;border-radius:4px;background:#FFFFFF;
+  box-shadow:0 0 0 2px #1B1F3B,0 40px 70px -30px rgba(30,40,70,.4)}
+.ixw--app-stock .ixw-copy::before{content:"FROM  WH/STOCK   \2192   TO  YOUR CUSTOMER";position:absolute;left:0;right:0;top:0;height:30px;display:flex;align-items:center;padding-left:20px;
+  background:repeating-linear-gradient(-45deg,#FFD84A 0 12px,#1B1F3B 12px 24px) 0 100%/100% 5px no-repeat,#FFFFFF;border-bottom:2px solid #1B1F3B;font:800 10.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em;color:#1B1F3B}
+.ixw--app-stock .ixw-copy::after{content:"";position:absolute;left:30px;right:30px;bottom:18px;height:40px;
+  background:repeating-linear-gradient(90deg,#1B1F3B 0 2px,transparent 2px 4px,#1B1F3B 4px 7px,transparent 7px 9px,#1B1F3B 9px 10px,transparent 10px 13px,#1B1F3B 13px 16px,transparent 16px 18px)}
+.ixw--app-stock .ixw-copy h1{max-width:15ch}
+.ixw--app-stock .ixw-copy .hand{color:#C47A12}
+.ixw--app-stock .ixw-hint .ic{color:var(--sk-amb)}
+@media (max-width:767px){.ixw--app-stock .ixw-copy{padding:44px 20px 66px}.ixw--app-stock .ixw-copy::before{font-size:9px;padding-left:12px}.ixw--app-stock .ixw-copy::after{left:20px;right:20px}}
+
+/* ---------- the caption: the scanner's readout ---------- */
+.ixw--app-stock .ixw-cap{border-radius:10px;border:0;background:#FFFFFF;box-shadow:0 0 0 2px #1B1F3B,0 6px 0 #1B1F3B,0 26px 44px -22px rgba(30,40,70,.4)}
+.ixw--app-stock .ixw-cap::before{content:"\25AE\25AE\25AF\25AE  SCANNED";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:var(--sk-y);color:#1B1F3B;font:800 10.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--app-stock .ixw-cap-who b{color:var(--sk-blue)}.ixw--app-stock .ixw-cap-txt b{color:#C47A12}
+.ixw--app-stock .ixw-cap-rec{background:var(--sk-amb-l);border:1px dashed #F5C77E;color:#7A4A12;font-family:ui-monospace,Consolas,monospace}
+
+/* ---------- buttons: a short barcode on the left ---------- */
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:4px;border:0;padding-left:44px;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:14px;top:12px;bottom:12px;width:18px;
+  background:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 3.5px,currentColor 3.5px 4.5px,transparent 4.5px 6px);opacity:.75}
+.ixw--app-stock main .btn-primary,.ixw--app-stock main .btn-primary:hover{color:#1B1F3B;background:var(--sk-y);box-shadow:0 0 0 2px #1B1F3B,0 4px 0 2px #1B1F3B}
+.ixw--app-stock main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-stock main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:#1B1F3B;background:#FFFFFF;box-shadow:0 0 0 2px #1B1F3B,0 4px 0 2px #1B1F3B}
+.ixw--app-stock main .btn-ghost::before{display:none}.ixw--app-stock main .btn-ghost .ic{color:var(--sk-blue)}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;box-shadow:0 0 0 2px #1B1F3B;transition-duration:.06s}
+.ixw--app-stock .ixw-cta .btn-outline-white,.ixw--app-stock .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #3167CA;outline-offset:4px}
+.ixw--app-stock .ixw-ibtn{border:2px solid var(--sk-ink);box-shadow:0 3px 0 var(--sk-ink)}
+.ixw--app-stock .ixw-ibtn--play,.ixw--app-stock .ixw-ibtn--play:hover{background:var(--sk-y);color:#1B1F3B}
+.ixw--app-stock .ixw-dots button.is-on{background:var(--sk-amb);box-shadow:0 0 0 1.5px var(--sk-ink)}
+.ixw--app-stock .ixw-peek{border-color:var(--sk-ink);box-shadow:0 3px 0 var(--sk-ink)}.ixw--app-stock .ixw-peek[aria-pressed="true"]{background:var(--sk-y)}
+
+/* ---------- the glance strip: the floor's safety line ---------- */
+.ixw--app-stock .ow-strip{border-radius:4px;box-shadow:0 0 0 2px #1B1F3B,0 24px 44px -30px rgba(30,40,70,.35);background:repeating-linear-gradient(-45deg,#FFD84A 0 12px,#1B1F3B 12px 24px) 0 0/100% 6px no-repeat,#FFFFFF}
+.ixw--app-stock .ow-strip dt .ic{color:var(--sk-blue)}
+
+/* ---------- the end card ---------- */
+.ixw--app-stock main .cta{background:repeating-linear-gradient(-45deg,rgba(255,216,74,.08) 0 14px,transparent 14px 28px),linear-gradient(120deg,#1B1F3B,#3167CA)}

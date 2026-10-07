@@ -1,0 +1,49 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: app-acc (/odoo/apps/accounting) — Odoo Accounting, month-end in a bright finance office. Ledger green, Odoo
+   purple, paid red. The title card is a ledger sheet (green-ruled, a red margin line, a debit/credit header); the caption
+   is a journal entry; buttons are posted entries with a tick; the glance strip is the ledger's totals line. */
+.ixw--app-acc{--ow-c:#2E9C7E;--ac-ink:#1B1F3B;--ac-grn:#2E9C7E;--ac-grn-l:#E8F5F0;--ac-pur:#714B67;--ac-red:#E2453C;
+  --w-alt:#F3F9F6;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
+  --st-ink:#1B1F3B;--st-meet:#2E9C7E;--st-talk:#714B67;--st-nexi:#2E9C7E;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#3DB08F,#2E9C7E);
+  --ii-bg:linear-gradient(160deg,#F5FAF8,#DCEFE7 60%,#EDE5F3);--ii-ink:#1B1F3B;--ii-b:#2E9C7E;--ii-accent:#714B67;--ii-lip:#1B1F3B;--ii-ep-bg:#2E9C7E;--ii-ep-fg:#FFFFFF}
+.ixw--app-acc .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F5FAF8 18%,#E7F2EE 62%,#E7EBF1 62%,#D6DDE7 100%)}
+.ow-page .app-ep{display:inline-flex;align-items:center;gap:6px}
+.ow-page .ixw-copy .app-sub{margin:-4px 0 10px;font:700 1rem/1.4 var(--font-body);color:#3D4560}
+
+/* ---------- the title card: a ledger sheet ---------- */
+.ixw--app-acc .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:46px 30px 24px 48px;border-radius:6px;
+  background:linear-gradient(90deg,transparent 30px,rgba(226,69,60,.5) 30px 31.5px,transparent 31.5px),repeating-linear-gradient(180deg,#FFFFFF 0 27px,#DCEFE7 27px 28px);
+  box-shadow:0 0 0 1.5px #D3E6DE,0 40px 70px -30px rgba(20,70,50,.35)}
+.ixw--app-acc .ixw-copy::before{content:"DEBIT \00B7  CREDIT \00B7  BALANCE";position:absolute;left:0;right:0;top:0;height:30px;display:flex;align-items:center;justify-content:flex-end;padding-right:20px;border-radius:6px 6px 0 0;
+  background:var(--ac-grn);font:800 10.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;color:#FFFFFF}
+.ixw--app-acc .ixw-copy h1{max-width:15ch}
+.ixw--app-acc .ixw-copy .hand{color:var(--ac-grn)}
+.ixw--app-acc .ixw-hint .ic{color:var(--ac-red)}
+@media (max-width:767px){.ixw--app-acc .ixw-copy{padding:42px 20px 22px 30px;background:linear-gradient(90deg,transparent 16px,rgba(226,69,60,.5) 16px 17.5px,transparent 17.5px),repeating-linear-gradient(180deg,#FFFFFF 0 27px,#DCEFE7 27px 28px)}}
+
+/* ---------- the caption: a journal entry ---------- */
+.ixw--app-acc .ixw-cap{border-radius:10px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3E6DE,0 0 0 6px var(--ac-grn-l),0 26px 44px -22px rgba(20,70,50,.35)}
+.ixw--app-acc .ixw-cap::before{content:"JOURNAL ENTRY \00B7  POSTED";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:var(--ac-ink);color:#9FE3C8;font:800 10.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em}
+.ixw--app-acc .ixw-cap-who b{color:var(--ac-grn)}.ixw--app-acc .ixw-cap-txt b{color:var(--ac-pur)}
+.ixw--app-acc .ixw-cap-rec{background:var(--ac-grn-l);border:1px dashed #8FD0B7;color:#1D5E4A;font-family:ui-monospace,Consolas,monospace}
+
+/* ---------- buttons: posted entries with a tick ---------- */
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:0;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-acc main .btn-primary,.ixw--app-acc main .btn-primary:hover{color:#FFFFFF;background:var(--ac-grn);box-shadow:0 4px 0 #1D6E58}
+.ixw--app-acc main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-acc main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ac-ink);background:#FFFFFF;box-shadow:inset 0 -3px 0 var(--ac-grn),0 0 0 1.5px #B9DCCE,0 4px 0 #B9DCCE}
+.ixw--app-acc main .btn-ghost::before{display:none}.ixw--app-acc main .btn-ghost .ic{color:var(--ac-grn)}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--app-acc .ixw-cta .btn-outline-white,.ixw--app-acc .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--app-acc .ixw-ibtn{border:2px solid var(--ac-ink);box-shadow:0 3px 0 var(--ac-ink)}
+.ixw--app-acc .ixw-ibtn--play,.ixw--app-acc .ixw-ibtn--play:hover{background:var(--ac-grn);color:#FFFFFF}
+.ixw--app-acc .ixw-dots button.is-on{background:var(--ac-grn);box-shadow:0 0 0 1.5px var(--ac-ink)}
+.ixw--app-acc .ixw-peek{border-color:var(--ac-ink);box-shadow:0 3px 0 var(--ac-ink)}.ixw--app-acc .ixw-peek[aria-pressed="true"]{background:var(--ac-grn-l)}
+
+/* ---------- the glance strip: the ledger's totals line ---------- */
+.ixw--app-acc .ow-strip{border-radius:6px;box-shadow:0 0 0 1.5px #D3E6DE,0 24px 44px -30px rgba(20,70,50,.3);border-top:3px double var(--ac-ink);background:#FFFFFF}
+.ixw--app-acc .ow-strip dt .ic{color:var(--ac-grn)}
+
+/* ---------- the end card ---------- */
+.ixw--app-acc main .cta{background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 27px,transparent 27px 28px),linear-gradient(120deg,#1D5E4A,#2E9C7E)}
