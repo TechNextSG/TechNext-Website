@@ -1,0 +1,254 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
+/* World: travel (/industries/travel) — Bluewave Journeys, a sample travel agency, drawn as an AIRPORT TERMINAL.
+   A glass curtain wall runs the full width of the hero: sky, the control tower, parked tails at the far gates and the
+   runway, where a jet takes off now and then (tap the runway to send it early) and a small plane taxis. Inside: a hanging
+   split-flap departures board whose remarks flip to each trip's margin (Dashboards), two hanging world clocks on the
+   visitor's real time, a wayfinding sign, the information totem with a live chat (CRM enquiries), the check-in counter
+   with the itinerary display (Sales) and the card terminal (deposits), the baggage belt carrying suitcases tagged AIR /
+   HOTEL / RAIL (Purchase: one purchase per supplier service; tap a suitcase), the currency-exchange booth whose rates
+   flip (Accounting, multi-currency), waiting seats, a luggage trolley, a swaying palm, and the TechNext paper plane, which
+   glides through and loops when you tap it. Staff: Lina at check-in (sample); Sam, a traveller, at the exchange booth
+   (sample). Painted with the kit in industry-world.js. */
+(function (K) {
+  'use strict';
+  if (!K) return;
+  var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed;
+  var F = 470, HZ = 372;                    /* the floor line; the runway's horizon behind the glass */
+  var T = {
+    gates: { x: 104, y: 14, w: 176, h: 34 },
+    board: { x: 468, y: 38, w: 300, h: 128 },
+    clocks: [{ x: 836, y: 74, r: 19, tz: 8, lab: 'SIN', rim: '#21B799' }, { x: 900, y: 74, r: 19, tz: 9, lab: 'TYO', rim: '#FF8FA3' }],
+    booth: { x: 318, y: 236, w: 118, h: 234 },
+    totem: { x: 452, y: 268, w: 50, h: 202 },
+    desk: { x: 528, y: 334, w: 268 },
+    screen: { x: 560, y: 286 }, term: { x: 708, y: 300 }, scale: { x: 770, y: 400 },
+    belt: { x0: 806, x1: 1030, y: 426 },
+    seats: { x: 838, y: 492 }, trolley: { x: 176, y: 492 }, palm: { x: 968, y: 470 }
+  };
+  var base = ((document.currentScript && document.currentScript.src) || '').replace(/assets\/js\/worlds\/.*$/, '');
+  var LOGO = new Image(); LOGO.decoding = 'async'; LOGO.src = base + 'assets/img/logo-plane.png';
+  function planeIcon(g, x, y, s, col) { g.save(); g.translate(x, y); g.scale(s, s); g.fillStyle = col; g.beginPath(); g.moveTo(9, -7); g.lineTo(-9, 0); g.lineTo(-3, 2); g.lineTo(-1, 8); g.lineTo(2, 3); g.lineTo(9, -7); g.closePath(); g.fill(); g.restore(); }
+  function jet(g, x, y, s, tilt, tail) { /* a side-on jet, nose to the left */
+    g.save(); g.translate(x, y); g.rotate(tilt || 0); g.scale(s, s);
+    fillRR(g, -46, -7, 92, 14, 7, '#FFFFFF'); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(-46, 0); g.quadraticCurveTo(-56, 0, -50, -5); g.lineTo(-44, -7); g.closePath(); g.fill();
+    g.fillStyle = tail || '#3167CA'; g.beginPath(); g.moveTo(30, -6); g.lineTo(44, -26); g.lineTo(50, -26); g.lineTo(46, -6); g.closePath(); g.fill();
+    g.fillStyle = '#D5DEEC'; g.beginPath(); g.moveTo(-6, 2); g.lineTo(16, 18); g.lineTo(24, 18); g.lineTo(12, 2); g.closePath(); g.fill();
+    g.fillStyle = '#9DB7DC'; for (var i = 0; i < 7; i++) g.fillRect(-34 + i * 9, -3, 4, 3);
+    g.fillStyle = tail || '#3167CA'; g.fillRect(-46, 3, 92, 2.5); g.restore();
+  }
+
+  /* ---------------- the terminal: ceiling, the glass curtain wall, the floor (hero px, painted once) ---------------- */
+  function paintBg(g, W, Hh, k, sx, sy) {
+    var fy = sy + F * k, hz = sy + HZ * k, top = sy - 40 * k;
+    var sk = g.createLinearGradient(0, 0, 0, hz); sk.addColorStop(0, '#7FC6F5'); sk.addColorStop(0.7, '#CFEAFB'); sk.addColorStop(1, '#F1F9FF'); g.fillStyle = sk; g.fillRect(0, 0, W, hz);
+    g.fillStyle = '#C2DDF0'; for (var i = 0, x = -40; x < W; i++) { var bw = (30 + hash(i * 3.1) * 50) * k, bh = (16 + hash(i * 1.7) * 46) * k; g.fillRect(x, hz - bh, bw, bh); x += bw + 6 * k; }
+    var tx = sx + 120 * k; g.fillStyle = '#B4CFE6'; g.fillRect(tx - 6 * k, hz - 120 * k, 12 * k, 120 * k); fillRR(g, tx - 22 * k, hz - 146 * k, 44 * k, 26 * k, 6 * k, '#A9C6E0'); g.fillStyle = '#E7F4FF'; g.fillRect(tx - 18 * k, hz - 141 * k, 36 * k, 10 * k);
+    for (var p = 0; p < 6; p++) { var px = sx + (560 + p * 120) * k, ph = hz - 4 * k; g.fillStyle = p % 2 ? '#FFFFFF' : '#F3F7FC'; g.fillRect(px - 40 * k, ph - 10 * k, 80 * k, 10 * k);
+      g.fillStyle = ['#3167CA', '#21B799', '#FF8A65', '#7B5BD6', '#3FA9E0', '#FFC94A'][p]; g.beginPath(); g.moveTo(px + 24 * k, ph - 10 * k); g.lineTo(px + 36 * k, ph - 32 * k); g.lineTo(px + 42 * k, ph - 32 * k); g.lineTo(px + 38 * k, ph - 10 * k); g.closePath(); g.fill(); }
+    var ap = g.createLinearGradient(0, hz, 0, fy); ap.addColorStop(0, '#B9C7D6'); ap.addColorStop(1, '#9FB0C3'); g.fillStyle = ap; g.fillRect(0, hz, W, fy - hz);
+    g.fillStyle = 'rgba(255,255,255,.85)'; for (var d = -2; d < W / (60 * k) + 2; d++) g.fillRect(d * 60 * k + (sx % (60 * k)), hz + (fy - hz) * 0.46, 30 * k, 3 * k);
+    g.fillStyle = '#F2C14E'; g.fillRect(0, hz + (fy - hz) * 0.18, W, 2 * k);
+    g.fillStyle = 'rgba(255,255,255,.18)'; for (var s2 = 0; s2 < W; s2 += 420 * k) { g.beginPath(); g.moveTo(s2, top + 40 * k); g.lineTo(s2 + 120 * k, top + 40 * k); g.lineTo(s2 + 40 * k, fy); g.lineTo(s2 - 80 * k, fy); g.closePath(); g.fill(); }
+    g.fillStyle = '#E9EFF6'; for (var m = (sx % (140 * k)) - 140 * k; m < W; m += 140 * k) g.fillRect(m, 0, 7 * k, fy);
+    g.fillRect(0, sy + 150 * k, W, 5 * k); g.fillRect(0, sy + 300 * k, W, 5 * k);
+    var ceil = Math.max(top + 46 * k, 0), cg = g.createLinearGradient(0, 0, 0, Math.max(ceil, 1)); cg.addColorStop(0, '#F7F9FC'); cg.addColorStop(1, '#E3EAF2'); g.fillStyle = cg; g.fillRect(0, 0, W, ceil);
+    for (var l = (sx % (180 * k)) - 180 * k; l < W; l += 180 * k) fillRR(g, l + 40 * k, Math.max(top + 30 * k, 4), 90 * k, 6 * k, 3 * k, 'rgba(255,255,255,.95)');
+    g.fillStyle = '#D5DEE9'; g.fillRect(0, ceil, W, 4 * k);
+    var fl = g.createLinearGradient(0, fy, 0, Hh); fl.addColorStop(0, '#EEF2F7'); fl.addColorStop(1, '#D9E2EC'); g.fillStyle = fl; g.fillRect(0, fy, W, Hh - fy);
+    g.fillStyle = '#C9D4E1'; g.fillRect(0, fy, W, 6 * k);
+    g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = 2 * k; g.beginPath(); var cx = sx + 600 * k;
+    for (var r = 1; r < 9; r++) { var yy = fy + Math.pow(r / 8, 1.6) * (Hh - fy); g.moveTo(0, yy); g.lineTo(W, yy); }
+    for (var c2 = -30; c2 <= 30; c2++) { g.moveTo(cx + c2 * 90 * k, fy); g.lineTo(cx + c2 * 90 * k * 2.8, Hh + 40); } g.stroke();
+    g.fillStyle = 'rgba(127,198,245,.10)'; for (var rf = (sx % (140 * k)) - 140 * k; rf < W; rf += 140 * k) g.fillRect(rf + 20 * k, fy + 8 * k, 70 * k, (Hh - fy) * 0.5);
+  }
+
+  /* ---------------- static back props (set units) ---------------- */
+  function paintBack(g) {
+    var gs = T.gates; g.fillStyle = '#9AA6BC'; g.fillRect(gs.x + 20, gs.y - 30, 3, 30); g.fillRect(gs.x + gs.w - 23, gs.y - 30, 3, 30);
+    shadowed(g, 10, 4, 0.2, function () { fillRR(g, gs.x, gs.y, gs.w, gs.h, 6, '#1E2A4A'); });
+    fillRR(g, gs.x + 6, gs.y + 6, 22, 22, 4, '#FFC94A'); planeIcon(g, gs.x + 17, gs.y + 17, 0.8, '#1E2A4A');
+    text(g, 'Gates A1–A12', gs.x + 36, gs.y + 22, 13, 800, '#FFC94A'); text(g, '→', gs.x + gs.w - 18, gs.y + 23, 15, 800, '#FFFFFF', 'center');
+    var b = T.board; g.fillStyle = '#9AA6BC'; g.fillRect(b.x + 30, 0, 3, b.y); g.fillRect(b.x + b.w - 33, 0, 3, b.y);
+    shadowed(g, 18, 8, 0.25, function () { fillRR(g, b.x, b.y, b.w, b.h, 10, '#17284A'); });
+    fillRR(g, b.x + 6, b.y + 6, b.w - 12, 22, 6, '#21375F'); text(g, 'DEPARTURES', b.x + 16, b.y + 22, 11.5, 800, '#FFC94A');
+    text(g, 'TRIP', b.x + 16, b.y + 42, 8.5, 800, '#8FB6E8'); text(g, 'GATE', b.x + 150, b.y + 42, 8.5, 800, '#8FB6E8'); text(g, 'REMARK', b.x + 196, b.y + 42, 8.5, 800, '#8FB6E8');
+    g.fillStyle = '#9AA6BC'; g.fillRect(810, 0, 3, 52); g.fillRect(924, 0, 3, 52); fillRR(g, 804, 48, 128, 6, 3, '#C3CDDA');
+    T.clocks.forEach(function (c) { K.clockFace(g, c, c.rim); fillRR(g, c.x - 16, c.y + c.r + 7, 32, 15, 7, '#FFFFFF'); text(g, c.lab, c.x, c.y + c.r + 18, 9.5, 800, '#1F1F3D', 'center'); });
+    var bo = T.booth; soft(g, bo.x + bo.w / 2, F + 4, bo.w * 0.7, 12, 0.22);
+    shadowed(g, 16, 6, 0.18, function () { fillRR(g, bo.x, bo.y + 34, bo.w, bo.h - 34, 10, '#FFFFFF'); });
+    fillRR(g, bo.x - 8, bo.y, bo.w + 16, 40, 10, '#21B799'); text(g, 'FX', bo.x + 26, bo.y + 28, 22, 800, '#FFFFFF', 'center');
+    text(g, 'CURRENCY', bo.x + 80, bo.y + 18, 8.5, 800, '#E9FFF8', 'center'); text(g, 'EXCHANGE', bo.x + 80, bo.y + 31, 8.5, 800, '#E9FFF8', 'center');
+    fillRR(g, bo.x + 10, bo.y + 46, bo.w - 20, 86, 8, '#17284A'); fillRR(g, bo.x + 14, bo.y + 50, bo.w - 28, 78, 6, '#132544');
+    text(g, '1 SGD =', bo.x + 22, bo.y + 66, 9.5, 800, '#8FB6E8');
+    fillRR(g, bo.x + 6, bo.y + 148, bo.w - 12, 12, 4, '#E6ECF4'); fillRR(g, bo.x + 18, bo.y + 168, bo.w - 36, 54, 8, '#EAF6F4');
+    g.fillStyle = 'rgba(33,183,153,.35)'; g.fillRect(bo.x + 18, bo.y + 192, bo.w - 36, 3);
+    fillRR(g, bo.x + 6, bo.y + bo.h - 18, bo.w - 12, 18, 4, '#DCE6F0');
+    var tt = T.totem; soft(g, tt.x + tt.w / 2, F + 4, 40, 9, 0.2);
+    shadowed(g, 14, 6, 0.18, function () { fillRR(g, tt.x, tt.y, tt.w, tt.h, 14, '#FFFFFF'); });
+    fillE(g, tt.x + tt.w / 2, tt.y + 20, 12, 12, '#3167CA'); text(g, 'i', tt.x + tt.w / 2, tt.y + 25, 14, 800, '#FFFFFF', 'center');
+    fillRR(g, tt.x + 6, tt.y + 40, tt.w - 12, 82, 6, '#EAF0FB');
+    fillRR(g, tt.x + 10, tt.y + tt.h - 16, tt.w - 20, 8, 4, '#DCE6F0');
+    var be = T.belt; fillRR(g, be.x0, be.y, be.x1 - be.x0, 14, 7, '#55657F'); fillRR(g, be.x0 + 4, be.y + 14, be.x1 - be.x0 - 8, 34, 6, '#8191AA');
+    g.fillStyle = '#6B7B95'; for (var lg = be.x0 + 20; lg < be.x1; lg += 60) g.fillRect(lg, be.y + 48, 8, F - be.y - 48);
+    soft(g, (be.x0 + be.x1) / 2, F + 4, (be.x1 - be.x0) * 0.5, 10, 0.18);
+    soft(g, T.desk.x + T.desk.w / 2, F + 6, T.desk.w * 0.62, 18, 0.2);
+  }
+
+  /* ---------------- static front props (over Lina) ---------------- */
+  function paintFront(g) {
+    var d = T.desk, top = d.y;
+    fillRR(g, d.x + 6, top + 12, d.w - 12, F - top - 12, 12, '#FFFFFF');
+    g.save(); rr(g, d.x + 6, top + 12, d.w - 12, F - top - 12, 12); g.clip();
+    g.fillStyle = 'rgba(25,40,80,.06)'; g.fillRect(d.x + d.w * 0.7, top, d.w, 200);
+    g.fillStyle = '#3167CA'; g.fillRect(d.x, top + 38, d.w, 30); g.fillStyle = '#FFC94A'; g.fillRect(d.x, top + 68, d.w, 5);
+    g.fillStyle = '#E8EEF5'; g.fillRect(d.x, F - 12, d.w, 12); g.restore();
+    planeIcon(g, d.x + 26, top + 53, 0.9, '#FFFFFF'); text(g, 'CHECK-IN', d.x + 44, top + 58, 12, 800, '#FFFFFF');
+    text(g, 'A4', d.x + d.w - 26, top + 58, 14, 800, '#FFC94A', 'center');
+    fillRR(g, d.x - 4, top, d.w + 8, 14, 7, '#E6ECF4'); g.fillStyle = '#C9D3E0'; g.fillRect(d.x + 4, top + 10, d.w - 8, 4);
+    var s = T.screen; fillRR(g, s.x + 26, s.y + 40, 10, 10, 2, '#AAB4C4'); fillRR(g, s.x + 14, s.y + 46, 34, 5, 2, '#C3CDDA');
+    fillRR(g, s.x, s.y, 62, 44, 6, '#2A3550'); fillRR(g, s.x + 4, s.y + 4, 54, 36, 3, '#FFFFFF'); fillRR(g, s.x + 4, s.y + 4, 54, 8, 2, '#7B5BD6');
+    [['#3FA9E0', 30], ['#FF8FA3', 24], ['#21B799', 32]].forEach(function (q, i) { fillE(g, s.x + 11, s.y + 18 + i * 7, 2.4, 2.4, q[0]); g.fillStyle = '#C9D3E3'; g.fillRect(s.x + 16, s.y + 16.5 + i * 7, q[1], 3); });
+    var tm = T.term; g.save(); g.translate(tm.x + 18, tm.y + 14); g.rotate(-0.1); fillRR(g, -15, -18, 30, 46, 7, '#2A3550'); fillRR(g, -11, -14, 22, 14, 3, '#EAF0FB');
+    for (var kk = 0; kk < 6; kk++) fillRR(g, -10 + (kk % 3) * 7.5, 4 + Math.floor(kk / 3) * 7, 5, 4.5, 1.2, kk === 5 ? '#21B799' : '#5D6E93'); g.restore();
+    var sc = T.scale; fillRR(g, sc.x - 6, sc.y + 50, 52, 12, 4, '#9AA6BC'); fillRR(g, sc.x + 2, sc.y + 6, 38, 46, 8, '#7B5BD6'); fillRR(g, sc.x + 15, sc.y - 2, 12, 9, 4, '#5B3FB6');
+    fillRR(g, sc.x + 6, sc.y + 24, 30, 10, 3, '#FFFFFF'); text(g, '18.2 kg', sc.x + 21, sc.y + 32, 7.5, 800, '#1F1F3D', 'center');
+    var st = T.seats; for (var i = 0; i < 3; i++) { var x = st.x + i * 52; fillRR(g, x, st.y - 40, 46, 30, 8, '#3FA9E0'); fillRR(g, x, st.y - 12, 46, 12, 5, '#2B8CC4'); }
+    fillRR(g, st.x - 4, st.y, 160, 6, 3, '#9AA6BC'); g.fillStyle = '#9AA6BC'; g.fillRect(st.x + 10, st.y + 6, 5, 18); g.fillRect(st.x + 140, st.y + 6, 5, 18);
+    soft(g, st.x + 78, st.y + 26, 90, 8, 0.18);
+    var tr = T.trolley; soft(g, tr.x + 30, tr.y + 6, 50, 8, 0.2);
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(tr.x, tr.y - 92); g.lineTo(tr.x + 6, tr.y - 6); g.lineTo(tr.x + 64, tr.y - 6); g.stroke();
+    fillRR(g, tr.x + 8, tr.y - 52, 52, 44, 8, '#FF8A65'); fillRR(g, tr.x + 12, tr.y - 86, 42, 34, 7, '#FFC94A'); fillRR(g, tr.x + 26, tr.y - 92, 14, 7, 3, '#C98E2E');
+    fillE(g, tr.x + 12, tr.y, 6, 6, '#2A3550'); fillE(g, tr.x + 58, tr.y, 6, 6, '#2A3550');
+  }
+
+  /* ---------------- the window: jets on the runway ---------------- */
+  var JET = { next: 2, t0: -99 };
+  function jetPos(t) { /* a take-off: rolls left along the runway, rotates, climbs out over the far city */
+    var u = (t - JET.t0) / 7; if (u < 0 || u > 1) return null;
+    var x = 1080 - u * 1500, roll = clamp((u - 0.35) / 0.25, 0, 1), y = HZ + 58 - roll * roll * 260 - Math.max(0, u - 0.6) * 220;
+    return { x: x, y: y, tilt: roll * 0.22, s: 0.95 - u * 0.25 };
+  }
+  function paintWindow(g, t, par) {
+    for (var c = 0; c < 4; c++) K.cloud(g, -500 + ((hash(c + 9) * 1900 + t * (4 + c * 1.8)) % 2000) - par * (3 + c), 40 + c * 50, 0.3 + c * 0.05);
+    if (t > JET.t0 + 7 && t >= JET.next) { JET.t0 = t; JET.next = t + 12; }
+    var j = jetPos(t); if (j) {
+      if (j.tilt > 0.05) { g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 3; g.setLineDash([6, 6]); g.beginPath(); g.moveTo(j.x + 60, j.y + 14); g.lineTo(j.x + 220, j.y + 70); g.stroke(); g.setLineDash([]); }
+      jet(g, j.x, j.y, j.s, j.tilt, '#3167CA');
+    }
+    var tx = -200 + ((t * 14) % 1500); jet(g, tx, HZ + 18, 0.42, 0, '#FF8A65');
+  }
+
+  /* ---------------- live back props: clocks, the flipping board, the booth's rates, the totem chat, the belt ---------------- */
+  var TRIPS = [['TOKYO', 'A4', 'ON TIME', '18%'], ['BALI', 'B2', 'BOARDING', '21%'], ['SEOUL', 'A7', 'CHECK-IN', '16%'], ['SYDNEY', 'C1', 'ON TIME', '14%']];
+  var RATES = [['JPY', 113.64, 2], ['EUR', 0.685, 3], ['IDR', 12060, 0], ['KRW', 1032, 0]];
+  var BAGS = [{ w: 44, h: 32, col: '#3FA9E0', dark: '#1E7FBF', tag: 'AIR' }, { w: 40, h: 36, col: '#FF8A65', dark: '#D9643F', tag: 'HOTEL' }, { w: 46, h: 30, col: '#21B799', dark: '#168F76', tag: 'RAIL' }];
+  function fmt(v, d) { var s = v.toFixed(d); return d === 0 ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : s; }
+  function flap(g, x, y, w, h, s, col, sq) { g.save(); g.translate(x + w / 2, y + h / 2); g.scale(1, Math.max(0.08, sq)); fillRR(g, -w / 2, -h / 2, w, h, 3, '#24395E'); text(g, s, -w / 2 + 5, h / 2 - 4, 10, 800, col); g.restore(); g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(x, y + h / 2 - 0.5, w, 1); }
+  function paintLive(g, t, now, S) {
+    var utc = now.getUTCHours() + now.getUTCMinutes() / 60;
+    T.clocks.forEach(function (c) { var h = (utc + c.tz) % 24; K.clockHands(g, c, Math.floor(h), Math.floor((h % 1) * 60), now.getUTCSeconds()); });
+    var b = T.board, margins = S.hot === 'review' || (S.toy.board != null && t - S.toy.board < 6), slot = Math.floor(t / 2.2), ph = (t % 2.2) / 2.2;
+    var tapFlip = S.toy.board != null && t - S.toy.board < 0.9;
+    for (var r = 0; r < 4; r++) {
+      var row = TRIPS[r], y = b.y + 50 + r * 18, flipping = tapFlip || ((slot % 4) === r && ph < 0.15), sq = flipping ? Math.abs(Math.cos((tapFlip ? (t - S.toy.board) / 0.3 : ph / 0.15) * Math.PI)) : 1;
+      flap(g, b.x + 12, y, 128, 14, row[0], '#F3E7C9', sq);
+      flap(g, b.x + 146, y, 40, 14, row[1], '#F3E7C9', sq);
+      flap(g, b.x + 192, y, 96, 14, margins ? 'MARGIN ' + row[3] : row[2], margins ? '#3FE0A8' : row[2] === 'BOARDING' ? '#FFC94A' : '#7FE9C4', sq);
+    }
+    var bo = T.booth, rslot = Math.floor(t / 2.6), rph = (t % 2.6) / 2.6;
+    for (var q = 0; q < 3; q++) {
+      var idx = (q + Math.floor(rslot / 3)) % RATES.length, R = RATES[idx], wob = 1 + (hash(rslot * 7 + idx) - 0.5) * 0.004, yy = bo.y + 74 + q * 18;
+      text(g, R[0], bo.x + 22, yy + 10, 10, 800, '#F3E7C9');
+      var fl2 = (rslot % 3) === q && rph < 0.14, s2 = fl2 ? Math.abs(Math.cos(rph / 0.14 * Math.PI)) : 1;
+      g.save(); g.translate(bo.x + 78, yy + 6); g.scale(1, Math.max(0.08, s2)); fillRR(g, -24, -7, 52, 14, 3, '#24395E'); text(g, fmt(R[1] * wob, R[2]), 24, 4, 10, 800, '#FFC94A', 'right'); g.restore();
+    }
+    var tt = T.totem, cyc = t % 6;
+    fillRR(g, tt.x + 10, tt.y + 50, 26, 12, 5, '#FFFFFF');
+    if (cyc < 3) { for (var i = 0; i < 3; i++) fillE(g, tt.x + 17 + i * 6, tt.y + 56, 1.8, 1.8 + (Math.floor(t * 4) % 3 === i ? 0.8 : 0), '#7B8DB0'); }
+    else { fillRR(g, tt.x + 14, tt.y + 68, 26, 12, 5, '#3167CA'); fillRR(g, tt.x + 10, tt.y + 86, 22, 12, 5, '#FFFFFF'); }
+    var be = T.belt, span = be.x1 - be.x0 + 80, off = (t * 26) % span, hotB = S.hot === 'book';
+    g.save(); rr(g, be.x0, be.y - 60, be.x1 - be.x0, 76, 6); g.clip();
+    g.fillStyle = '#6B7B95'; for (var sl = be.x0 - 20 + (t * 26) % 20; sl < be.x1; sl += 20) g.fillRect(sl, be.y + 2, 2, 10);
+    BAGS.forEach(function (bg, j) {
+      var x = be.x0 - 40 + ((j * span / BAGS.length + off) % span), hop = bg.hop != null ? Math.max(0, Math.sin(Math.min(1, (t - bg.hop) / 0.6) * Math.PI)) * 26 : 0;
+      bg.x = x; var y = be.y - bg.h - hop;
+      fillRR(g, x, y, bg.w, bg.h, 6, bg.col); fillRR(g, x + bg.w / 2 - 7, y - 6, 14, 7, 3, bg.dark);
+      g.save(); g.translate(x + bg.w - 6, y + 10); g.rotate(0.3 + (hotB ? Math.sin(t * 6 + j) * 0.15 : 0)); fillRR(g, -2, -4, 30, 13, 3, '#FFFFFF'); text(g, bg.tag, 13, 5, 7.5, 800, '#1F1F3D', 'center'); g.restore();
+    });
+    g.restore();
+  }
+
+  /* ---------------- live front: contactless, the palm, the paper plane ---------------- */
+  var PL = { start: 4, loop: -9, cyc: 15, dur: 5.2 };
+  function bez(u) { var p = [[-60, 150], [260, 30], [600, 250], [1060, 80]], a = Math.pow(1 - u, 3), b = 3 * u * (1 - u) * (1 - u), c = 3 * u * u * (1 - u), d = u * u * u;
+    return [a * p[0][0] + b * p[1][0] + c * p[2][0] + d * p[3][0], a * p[0][1] + b * p[1][1] + c * p[2][1] + d * p[3][1]]; }
+  function planeAt(t) {
+    var local = t - PL.start; if (local < 0) return null; var cyc = local % PL.cyc; if (cyc > PL.dur) return null;
+    var u = cyc / PL.dur, p = bez(u), q = bez(Math.min(1, u + 0.01)), ang = Math.atan2(q[1] - p[1], q[0] - p[0]), lt = t - PL.loop;
+    if (lt >= 0 && lt < 1.3) { var la = lt / 1.3 * Math.PI * 2; p = [p[0] + Math.sin(la) * 46, p[1] - (1 - Math.cos(la)) * 46]; ang += la; }
+    return { x: p[0], y: p[1], a: ang, u: u };
+  }
+  function paintFrontLive(g, t, S) {
+    var tm = T.term, wv = (t % 1.6) / 1.6, act = S.hot === 'deposit' ? 1 : 0.5;
+    g.strokeStyle = 'rgba(49,103,202,' + ((1 - wv) * act).toFixed(2) + ')'; g.lineWidth = 2; g.lineCap = 'round';
+    for (var r2 = 0; r2 < 2; r2++) { g.beginPath(); g.arc(tm.x + 18, tm.y - 10, 6 + r2 * 6 + wv * 6, -2.4, -0.74); g.stroke(); }
+    var pl = T.palm, sw = Math.sin(t * 0.9) * 0.05;
+    g.strokeStyle = '#B98A55'; g.lineWidth = 9; g.beginPath(); g.moveTo(pl.x, pl.y - 50); g.quadraticCurveTo(pl.x - 6, pl.y - 120, pl.x + 4 + sw * 40, pl.y - 190); g.stroke();
+    for (var fr = 0; fr < 7; fr++) {
+      var a3 = -Math.PI / 2 + (fr - 3) * 0.52 + sw * (fr % 2 ? 1.4 : -1), len = 66 + (fr % 3) * 12;
+      g.save(); g.translate(pl.x + 4 + sw * 40, pl.y - 190); g.rotate(a3); g.fillStyle = fr % 2 ? '#3FBF7F' : '#33A86C';
+      g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(len * 0.5, -18, len, 8); g.quadraticCurveTo(len * 0.5, 9, 0, 0); g.fill(); g.restore();
+    }
+    fillRR(g, pl.x - 26, pl.y - 52, 52, 52, 10, '#F2C14E'); fillRR(g, pl.x - 30, pl.y - 56, 60, 12, 6, '#F6D27A');
+    var pp = planeAt(t);
+    if (pp) {
+      g.strokeStyle = 'rgba(49,103,202,.35)'; g.lineWidth = 2; g.setLineDash([4, 6]); g.beginPath();
+      for (var trl = 0; trl <= 12; trl++) { var bp = bez(Math.max(0, pp.u - 0.15 + trl * 0.0125)); if (trl === 0) g.moveTo(bp[0], bp[1]); else g.lineTo(bp[0], bp[1]); } g.stroke(); g.setLineDash([]);
+      g.save(); g.translate(pp.x, pp.y); g.rotate(pp.a * 0.35);
+      if (LOGO.complete && LOGO.naturalWidth) g.drawImage(LOGO, -24, -20, 48, 41); else planeIcon(g, 0, 0, 2, '#3167CA');
+      g.restore();
+    }
+  }
+
+  var LINA = { x: 652, y: 452, s: 0.6, ph: 0.4, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', scarf: '#FFC94A', hairStyle: 'bun', clipCol: '#3FA9E0', feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
+  var SAM = { x: 232, y: 484, s: 0.64, ph: 1.2, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FF8A65', print: '#FFFFFF', low: '#4A6FA5', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#3FA9E0' }, outfit: 'tee', hat: 'sunhat', backpack: '#21B799', hold: 'passport', hairStyle: 'short', short: true, feet: true, mood: 'calm', look: 0.6, talk: false, hands: [[-64, -206], [96, -150]] };
+
+  window.IXW.worlds.travel = {
+    paintBg: paintBg, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    moteCol: 'rgba(255,255,255,.75)',
+    glow: {
+      enquire: function (g) { var tt = T.totem; rr(g, tt.x - 8, tt.y - 8, tt.w + 16, tt.h + 12, 18); },
+      quote: function (g) { rr(g, T.screen.x - 8, T.screen.y - 8, 78, 70, 12); },
+      deposit: function (g) { rr(g, T.term.x - 10, T.term.y - 22, 56, 74, 12); },
+      book: function (g) { var be = T.belt; rr(g, be.x0 - 6, be.y - 52, be.x1 - be.x0 + 12, 72, 14); },
+      pay: function (g) { var bo = T.booth; rr(g, bo.x - 14, bo.y - 8, bo.w + 28, bo.h + 12, 16); },
+      review: function (g) { var b = T.board; rr(g, b.x - 8, b.y - 8, b.w + 16, b.h + 16, 16); }
+    },
+    backGlow: ['enquire', 'book', 'pay', 'review'],
+    cast: [
+      { id: 'lina', behind: true, keys: ['enquire', 'quote', 'deposit'], P: LINA, act: function (P, t, S) {
+        var st = S.cast.lina, busy = S.hot === 'quote' || S.hot === 'deposit' || S.hot === 'enquire';
+        P.talk = t < st.until; P.mood = P.talk || busy ? 'happy' : 'calm';
+        var tap = busy ? Math.abs(Math.sin(t * 9)) * 7 : 0;
+        P.hands = t < st.wave ? [[-62, -186], [128 + Math.sin(t * 12) * 16, -404]] : [[-62, -186 + tap], [62, -186 + (busy ? Math.abs(Math.cos(t * 9)) * 7 : 0)]];
+        P.look = lerp(P.look, clamp((S.nexi.x - P.x) / 160, -1, 1), 0.08);
+      } },
+      { id: 'sam', keys: ['pay', 'book'], P: SAM, act: function (P, t, S) {
+        var st = S.cast.sam, on = S.hot === 'pay', waving = t < st.wave;
+        P.talk = t < st.until; P.mood = P.talk || on ? 'happy' : S.toy.plane != null && t - S.toy.plane < 1.6 ? 'wow' : 'calm';
+        P.hop = waving ? Math.abs(Math.sin(t * 7)) * 14 : 0;
+        P.hands = waving ? [[-64, -206], [118 + Math.sin(t * 12) * 16, -420]] : on ? [[-64, -206], [150, -250]] : [[-64, -206], [96, -150]];
+        P.look = lerp(P.look, on ? 1 : clamp((S.nexi.x - P.x) / 160, -1, 1), 0.08);
+      } }
+    ],
+    toy: function (name, S, t) { if (name === 'board') S.toy.board = t; },
+    hit: function (x, y, S, t) {
+      var pp = planeAt(t);
+      if (pp && Math.hypot(x - pp.x, y - pp.y) < 46) { PL.loop = t; S.toy.plane = t; return { say: 'Whoosh! That paper plane is the **TechNext** logo. Loop-the-loop!', near: [Math.round(clamp(pp.x, 300, 760)), Math.round(clamp(pp.y + 120, 160, 330))], pose: 'celebrate' }; }
+      var be = T.belt;
+      for (var i = 0; i < BAGS.length; i++) { var bg = BAGS[i]; if (bg.x != null && x > bg.x - 6 && x < bg.x + bg.w + 30 && y > be.y - bg.h - 14 && y < be.y + 8) { bg.hop = t; return { say: 'Each suitcase is a supplier: **' + (bg.tag === 'AIR' ? 'the flights' : bg.tag === 'HOTEL' ? 'the hotel' : 'the rail passes') + '**, one purchase on the same booking.', near: [760, 220], pose: 'point-right' }; } }
+      if (y > HZ - 40 && y < F && (x < 290 || x > 800)) { if (t > JET.t0 + 7) { JET.t0 = t; JET.next = t + 12; } return { say: 'Cleared for take-off! The trip is **booked, paid and costed** before the wheels leave the ground.', near: [380, 170], pose: 'wow' }; }
+      return null;
+    }
+  };
+})(window.IXW && window.IXW.kit);

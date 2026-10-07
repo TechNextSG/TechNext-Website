@@ -1,36 +1,66 @@
-<!--meta {"title": "Odoo for Clinics & Healthcare Groups in Singapore", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-fefo.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-fefo.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Clinics & Healthcare Groups in Singapore", "desc": "Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.", "out": "industries/medical.html", "nav": "industries", "body": "ixw ixw--medical", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-fefo.js", "assets/js/industry-world.js", "assets/js/worlds/medical.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-fefo.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/medical.css?v={ASSET_V}\">"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Medical</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo for clinics</span>Stock, purchasing and books — per branch, in one system.</h1>
-        <p class="lead">Consumables and medicines tracked by lot and expiry, purchasing centralised, and each clinic's accounts kept clean without a separate spreadsheet per site.</p>
-        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
-      </div>
-      <div class="stage stage--med" aria-hidden="true">
-        <div class="md-branches">
-          <div class="st-card md-b" style="--i:0"><b>Clinic A</b><p>Gauze · Lot 24B</p><em>Expires 03/2027</em></div>
-          <div class="st-card md-b alert" style="--i:1"><b>Clinic B</b><p>Saline · Lot 17A</p><em>Expires in 30 days</em></div>
-          <div class="st-card md-b" style="--i:2"><b>Clinic C</b><p>Syringes · Lot 09C</p><em>Expires 11/2027</em></div>
-        </div>
-        <svg class="md-svg" viewBox="0 0 600 90" preserveAspectRatio="none" focusable="false"><path class="md-ln" d="M100,0 C100,50 300,40 300,90"/><path class="md-ln" d="M300,0 L300,90"/><path class="md-ln" d="M500,0 C500,50 300,40 300,90"/></svg>
-        <div class="st-card md-rfq dp" style="--d:10">{{odoo:purchase:28}}<b>Central purchasing</b><span>One RFQ from three branches' demand</span><small>{{icon:check}}Bills matched to receipts</small></div>
-        <span class="st-chip md-books">{{icon:calculator}}Books per branch · one consolidated report</span>
+<section class="ixw-hero" data-ixw-hero data-world="medical" data-home="288,196" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Medical</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Clinics &amp; healthcare groups</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo for clinics</span>Stock, purchasing and books — per branch, in one system.</h1>
+      <p class="lead"><span class="m-full">Consumables and medicines tracked by lot and expiry, purchasing centralised, and each clinic's accounts kept clean without a separate spreadsheet per site.</span><span class="m-short">Medicines by lot and expiry, central buying and clean books for every branch.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap a dot, the staff or Nexi to explore the clinic.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="nurse" data-near="400,186" data-who="Mei" data-role="Front desk · sample" data-say="Morning! Bookings come in **online** now, so the phone is finally quiet." style="--x:546;--y:238;--w:116;--h:190" aria-label="Say hi to Mei at the front desk (sample character)"></button>
+      <button class="ixw-cast" type="button" data-cast="doc" data-near="680,196" data-who="Dr. Tan" data-role="Doctor · sample" data-say="My roster is in **Planning**, so patients only see my slots when I'm on duty." style="--x:812;--y:322;--w:128;--h:316" aria-label="Say hi to Dr. Tan (sample character)"></button>
+
+      <button class="ixw-hot" type="button" data-hot="book" data-nx="300,212" data-pose="point-right" data-chip="appointment" data-rec="Thu 10:30 · Dr. Tan · reminder sent" data-say="Patients book online by **doctor, service or branch**. Odoo Appointments sends the reminders by itself." style="--x:416;--y:262" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:appointment:18}}<b>Bookings</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="roster" data-nx="656,140" data-pose="point-right" data-chip="planning" data-rec="Branch A · Thu · 3 doctors, 4 nurses" data-say="Rosters live in **Planning**, per branch, so bookable slots match who is actually on duty." style="--x:850;--y:24" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:planning:18}}<b>Rosters</b></span></button>
+      <button class="ixw-hot ixw-hot--left" type="button" data-hot="stock" data-nx="800,404" data-pose="point-right" data-chip="stock" data-rec="Lot 17A · expiry alert · picked first" data-say="Every box has a **lot and an expiry date**. Odoo picks the first expiry first and flags what is close." style="--x:930;--y:262" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:stock:18}}<b>Medicines</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="buy" data-nx="392,232" data-pose="point-left" data-chip="purchase" data-rec="PO00042 · Saline 0.9% × 200" data-say="Running low on saline? A **reordering rule** drafts the purchase order to an approved supplier." style="--x:276;--y:372" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:purchase:18}}<b>Deliveries</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="counter" data-nx="580,410" data-pose="point-right" data-chip="point_of_sale" data-rec="S$ 18.40 paid by card · Lot 24B" data-say="The counter sells through **Point of Sale**, and the right lot leaves stock with every sale." style="--x:672;--y:278" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:point_of_sale:18}}<b>Counter</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="bill" data-nx="380,186" data-pose="point-right" data-chip="accountant" data-rec="INV/2026/0158 · S$ 1,240 · reconciled" data-say="Invoices to patients, companies or insurers, bank feeds reconciled, and a **P&amp;L for every branch**." style="--x:488;--y:302" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Billing</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:288;--ny:196" data-reacts="wow::Beep boop! Heart rate normal. Your **stock** looks healthy too!|love::Aww. I'd prescribe **one Odoo database**, taken daily.|celebrate::Checkup done: bookings, stock and books, **all in one place**!|think::Hmm… shall we start with **one branch's numbers**?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:medical}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/point_of_sale.html">Point of Sale</a> · <a href="{{ROOT}}odoo/apps/appointment.html">Appointments</a></dd></div><div><dt>First phase</dt><dd>Bring one branch's numbers</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi, I'm **Nexi**! Welcome to Bayview, our sample clinic group. Tap anything and I'll show you how **Odoo** runs it." data-outro="Clinical records stay in your **EMR**. Odoo runs everything around them, in **one database**.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:medical}}<b data-for="nurse" style="--c:#2BB3A3">M</b><b data-for="doc" style="--c:#5B8DEF">T</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="Your guide · Bayview is a sample clinic">Your guide · Bayview is a sample clinic</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi, I'm <b>Nexi</b>! Welcome to Bayview, our sample clinic group. Tap anything and I'll show you how <b>Odoo</b> runs it.</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: bookings"></button><button type="button" data-ixw-dot aria-label="Stop 3: rosters"></button><button type="button" data-ixw-dot aria-label="Stop 4: medicines"></button><button type="button" data-ixw-dot aria-label="Stop 5: deliveries"></button><button type="button" data-ixw-dot aria-label="Stop 6: counter"></button><button type="button" data-ixw-dot aria-label="Stop 7: billing"></button><button type="button" data-ixw-dot aria-label="Stop 8: records"></button></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits"><div><dt>{{icon:layers}}Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/stock.html">Inventory</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/point_of_sale.html">Point of Sale</a> · <a href="{{ROOT}}odoo/apps/appointment.html">Appointments</a></dd></div><div><dt>{{icon:target}}First phase</dt><dd>Bring one branch's numbers</dd></div><div><dt>{{icon:users}}Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
+
 {{INDUSTRY_INTRO:medical}}
+
+{{INDUSTRY_FLOW:medical}}
 
 <section class="section section--alt demo-sec" id="lot-trace">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">follow one lot</span><h2>Odoo lot and expiry tracking for clinics, from shelf to recall.</h2><p class="lead">Thirty sample days in a clinic group's central store, set up the way TechNext configures Odoo Inventory. Orders are reserved lot by lot by the FEFO removal strategy, alert dates raise activities before stock expires, and lots that reach their removal date move to quarantine. Switch to FIFO to compare, or click any lot to trace it from the supplier receipt to every transfer, delivery and customer, then run a recall.</p></div>
+    <div class="sec-head reveal"><span class="hand">follow one lot</span><h2>Odoo lot and expiry tracking for clinics, from shelf to recall.</h2><p class="lead"><span class="m-full">Thirty sample days in a clinic group's central store, set up the way TechNext configures Odoo Inventory. Orders are reserved lot by lot by the FEFO removal strategy, alert dates raise activities before stock expires, and lots that reach their removal date move to quarantine. Switch to FIFO to compare, or click any lot to trace it from the supplier receipt to every transfer, delivery and customer, then run a recall.</span><span class="m-short">Thirty sample days in a clinic store: FEFO picking, expiry alerts, quarantine and a one-click recall.</span></p></div>
+    <div class="ixw-browser reveal" aria-hidden="true"><i></i><i></i><i></i><span>yourcompany.odoo.com/odoo/inventory</span><em>Sample data</em></div>
     <div class="dm dm-fefo reveal" data-demo="fefo">
       <div class="dm-head">
         <div class="dm-title"><b>Central store · lots and expiry dates</b><small>Sample clinic group · 1 to 30 Oct 2026</small></div>
@@ -87,7 +117,7 @@
 <section class="section">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
-    <div class="grid-3">
+    <div class="grid-3 ixw-board">
       <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:box}}</div><h3>Stock nobody trusts</h3><p>Consumables counted by hand, expiries missed, each branch ordering on its own.</p></article>
       <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:receipt}}</div><h3>Supplier bills out of step</h3><p>Deliveries received, bills arriving later, nobody sure what's been paid for.</p></article>
       <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:calculator}}</div><h3>Month-end by spreadsheet</h3><p>Branch figures consolidated manually; management sees numbers weeks late.</p></article>
@@ -115,8 +145,9 @@
 
 <section class="section">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">next step</span><h2>Bring one branch's numbers.</h2><p>A discovery call with one month of real data is enough to scope the first phase.</p></div>
+    <div class="cta ixw-cta reveal" data-ixw-burst>
+      <span class="ixw-cta-nexi" aria-hidden="true">{{IXW_POSE:medical:celebrate}}</span>
+      <div><span class="hand">next step</span><h2>Bring one branch's numbers.</h2><p><span class="m-full">A discovery call with one month of real data is enough to scope the first phase.</span><span class="m-short">One month of real data is enough to scope phase one.</span></p></div>
       <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
     </div>
   </div>

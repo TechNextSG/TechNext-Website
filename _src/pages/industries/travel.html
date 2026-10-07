@@ -1,46 +1,67 @@
-<!--meta {"title": "Odoo for Travel Agencies & Tour Operators in Singapore", "desc": "Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.", "out": "industries/travel.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-itinerary.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-itinerary.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo for Travel Agencies & Tour Operators in Singapore", "desc": "Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.", "out": "industries/travel.html", "nav": "industries", "scripts": ["assets/js/showcase.js", "assets/js/industry.js", "assets/js/demo-kit.js", "assets/js/demo-itinerary.js", "assets/js/industry-world.js", "assets/js/worlds/travel.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-itinerary.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/travel.css?v={ASSET_V}\">", "body": "ixw ixw--travel"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Travel</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo for travel agencies</span>Know the margin on every booking.</h1>
-        <p class="lead">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</p>
-        <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a></div>
-      </div>
-      <div class="stage stage--travel" aria-hidden="true">
-        <svg class="tv-svg st-anim" viewBox="0 0 600 110" focusable="false">
-          <path id="tvarc" class="tv-arc" d="M30,100 Q300,-26 570,100"/>
-          <circle class="tv-dot" cx="30" cy="100" r="6"/><circle class="tv-dot" cx="570" cy="100" r="6"/>
-          <path class="tv-plane" d="M-10,-7 L11,0 L-10,7 L-6,0 Z" opacity="0"><animateMotion dur="5s" begin="1.2s" repeatCount="indefinite" rotate="auto"><mpath href="#tvarc" xlink:href="#tvarc"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="5s" begin="1.2s" repeatCount="indefinite"/></path>
-        </svg>
-        <div class="st-card tv-book dp" style="--d:6"><div class="st-bar"><i></i><i></i><i></i>{{odoo:sale:16}}<span>Booking · 5 days · 2 travellers</span></div>
-          <div class="tv-legs">
-            <p style="--k:0">{{icon:plane}}Flights<b>S$ 1,180</b></p>
-            <p style="--k:1">{{icon:briefcase}}Hotel · 4 nights<b class="tv-fx"><i>IDR 7,800,000</i><i>S$ 660</i></b></p>
-            <p style="--k:2">{{icon:truck}}Transfers<b>S$ 180</b></p>
-            <p style="--k:3">{{icon:users}}Guide<b>S$ 540</b></p>
-          </div>
-        </div>
-        <div class="st-card tv-margin dp" style="--d:14"><b>Margin on this booking</b>
-          <div class="tv-row"><span>Sell</span><b>S$ 3,200</b></div><div class="tv-row"><span>Cost</span><b>S$ 2,560</b></div>
-          <div class="tv-meter"><i></i></div><div class="tv-row t"><span>Margin</span><b>20%</b></div>
-        </div>
-        <span class="st-chip tv-cur dp" style="--d:10">{{icon:globe}}Invoiced in the customer's currency</span>
+<section class="ixw-hero" data-ixw-hero data-world="travel" data-home="390,140" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Industries</span><span>Travel</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Travel agencies &amp; tour operators</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo for travel agencies</span>Know the margin on every booking.</h1>
+      <p class="lead"><span class="m-full">Quotations that turn into confirmed bookings, supplier costs recorded against the same job, and invoices in the customer's currency — so margin is visible before the trip, not after the audit.</span><span class="m-short">Quotes, supplier costs and invoices in one place, so you see the margin before the trip.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap the board, a suitcase, a jet or a dot to explore.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="lina" data-near="520,190" data-who="Lina" data-role="Check-in · sample" data-say="Morning! Your **Tokyo** trip is one quotation, signed online in a minute." style="--x:652;--y:256;--w:112;--h:182" aria-label="Say hi to Lina at check-in (sample character)"></button>
+      <button class="ixw-cast" type="button" data-cast="sam" data-near="400,170" data-who="Sam" data-role="Traveller · sample" data-say="Changing a little money for Tokyo. The **deposit**? Paid from my phone in two taps!" style="--x:232;--y:330;--w:128;--h:316" aria-label="Say hi to Sam, a traveller (sample character)"></button>
+      <button class="ixw-toy ixw-toy--board" type="button" data-toy="board" data-near="360,110" data-pose="point-right" data-say="Flip, flip! Departures shows each trip, and its **margin** when you ask." style="--x:618;--y:102;--w:300;--h:128" aria-label="Flip the departures board"><span class="ixw-toy-tw" aria-hidden="true">✦</span></button>
+
+      <button class="ixw-hot" type="button" data-hot="enquire" data-nx="400,150" data-pose="point-right" data-rec="Family of 4 · Tokyo · 6 nights" data-say="Enquiries from email, web forms and chats land in **CRM**, each with a follow-up activity." style="--x:477;--y:300" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:crm:18}}<b>Enquiries</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="quote" data-nx="470,190" data-pose="point-right" data-rec="S0158 · Tokyo · S$ 9,840" data-say="The itinerary is a **quotation**: flights, hotel and tours as lines, with optional extras." style="--x:591;--y:290" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:sale:18}}<b>Itineraries</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="deposit" data-nx="860,240" data-pose="point-left" data-rec="30% deposit · S$ 2,952 paid" data-say="The customer signs online and pays the **deposit** through a payment link." style="--x:726;--y:300" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:account:18}}<b>Deposits</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="book" data-nx="760,220" data-pose="point-right" data-rec="Flights, hotel and rail passes booked" data-say="Each supplier service is a **purchase** on the same booking, so costs sit next to the price." style="--x:910;--y:392" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:purchase:18}}<b>Suppliers</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="pay" data-nx="520,200" data-pose="point-left" data-rec="¥ 412,000 = S$ 3,625.48" data-say="Supplier bills in **yen, rupiah or won**: Odoo converts them and books the exchange difference." style="--x:377;--y:234" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Currencies</b></span></button>
+      <button class="ixw-hot ixw-hot--left" type="button" data-hot="review" data-nx="360,110" data-pose="point-right" data-rec="Tokyo trip · margin 18%" data-say="The dashboard shows the **margin per trip**, before the customer even flies." style="--x:468;--y:102" aria-pressed="false"><span class="ixw-hot-dot" aria-hidden="true"></span><span class="ixw-hot-lab">{{odoo:spreadsheet_dashboard:18}}<b>Margins</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:390;--ny:140" data-reacts="wow::Fasten your seatbelts! Margins are **cleared for take-off**.|love::I'd recommend **one database** for every trip. Window seat, please!|celebrate::Captain Nexi here: enquiry to margin, **all in Odoo**!|think::Hmm… where to next? Show us **one recent booking**.">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:travel}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance glance--ind"><div><dt>Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/sale.html">Sales</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/crm.html">CRM</a> · <a href="{{ROOT}}odoo/apps/event.html">Events &amp; Rental</a></dd></div><div><dt>First phase</dt><dd>Show us one recent booking end to end</dd></div><div><dt>Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi, I'm **Nexi**, your co-pilot! Welcome to Bluewave, our sample travel agency. Tap anything and I'll show you how **Odoo** runs a trip." data-outro="Every trip, from the first message to the final margin, in **one Odoo database**.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:travel}}<b data-for="lina" style="--c:#2A4D8F">L</b><b data-for="sam" style="--c:#FF8A65">S</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="Your co-pilot · Bluewave is a sample agency">Your co-pilot · Bluewave is a sample agency</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi, I'm <b>Nexi</b>, your co-pilot! Welcome to Bluewave, our sample travel agency. Tap anything and I'll show you how <b>Odoo</b> runs a trip.</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: enquiries"></button><button type="button" data-ixw-dot aria-label="Stop 3: itineraries"></button><button type="button" data-ixw-dot aria-label="Stop 4: deposits"></button><button type="button" data-ixw-dot aria-label="Stop 5: suppliers"></button><button type="button" data-ixw-dot aria-label="Stop 6: currencies"></button><button type="button" data-ixw-dot aria-label="Stop 7: margins"></button><button type="button" data-ixw-dot aria-label="Stop 8: one database"></button></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits"><div><dt>{{icon:layers}}Apps we switch on</dt><dd><a href="{{ROOT}}odoo/apps/sale.html">Sales</a> · <a href="{{ROOT}}odoo/apps/purchase.html">Purchase</a> · <a href="{{ROOT}}odoo/apps/accountant.html">Accounting</a> · <a href="{{ROOT}}odoo/apps/crm.html">CRM</a> · <a href="{{ROOT}}odoo/apps/event.html">Events &amp; Rental</a></dd></div><div><dt>{{icon:target}}First phase</dt><dd>Show us one recent booking end to end</dd></div><div><dt>{{icon:users}}Delivered by</dt><dd>TechNext, Odoo Partner · Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
+
 {{INDUSTRY_INTRO:travel}}
+
+{{INDUSTRY_FLOW:travel}}
 
 <section class="section section--alt demo-sec" id="itinerary-builder">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">build a trip, watch the margin</span><h2>Odoo for travel agencies: build the itinerary, see the margin.</h2><p class="lead">A sample Tokyo and Kyoto trip, quoted the way TechNext sets up Odoo Sales, Purchase and Accounting for travel businesses. Drag supplier services onto the days, or choose a day and press a service. Costs in SGD, USD, JPY and EUR convert at sample rates, markups per category set the price, and the waterfall shows the margin that is left. The same booking schedules the deposit and balance invoices, every supplier payment and the cash in between.</p></div>
+    <div class="sec-head reveal"><span class="hand">build a trip, watch the margin</span><h2>Odoo for travel agencies: build the itinerary, see the margin.</h2><p class="lead"><span class="m-full">A sample Tokyo and Kyoto trip, quoted the way TechNext sets up Odoo Sales, Purchase and Accounting for travel businesses. Drag supplier services onto the days, or choose a day and press a service. Costs in SGD, USD, JPY and EUR convert at sample rates, markups per category set the price, and the waterfall shows the margin that is left. The same booking schedules the deposit and balance invoices, every supplier payment and the cash in between.</span><span class="m-short">Build a sample Tokyo and Kyoto trip: drag services onto the days and watch the margin and the payments.</span></p></div>
+    <div class="ixw-browser reveal" aria-hidden="true"><i></i><i></i><i></i><span>yourcompany.odoo.com/odoo/sales</span><em>Sample data</em></div>
     <div class="dm dm-itinerary reveal" data-demo="itinerary">
       <div class="dm-head">
         <div class="dm-title"><b>Tokyo &amp; Kyoto · 5 days · 2 travellers</b><small>Sample quotation S00214 · departs Sat 12 Dec 2026 · quoted in SGD</small></div>
@@ -109,7 +130,7 @@
 <section class="section">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">what usually slows you down</span><h2>Three problems we see first.</h2></div>
-    <div class="grid-3">
+    <div class="grid-3 ixw-board">
       <article class="card reveal" style="--i:0"><div class="card-ic">{{icon:file}}</div><h3>Quotes in documents</h3><p>Itineraries priced in Word or Excel, re-typed into invoices, versions lost in email.</p></article>
       <article class="card reveal" style="--i:1"><div class="card-ic">{{icon:receipt}}</div><h3>Supplier costs arrive late</h3><p>Hotel, transport and guide bills land weeks after the trip; margin per booking is a guess.</p></article>
       <article class="card reveal" style="--i:2"><div class="card-ic">{{icon:globe}}</div><h3>Currencies everywhere</h3><p>Selling in one currency, buying in three, reporting in a fourth — reconciled by hand.</p></article>
@@ -137,7 +158,8 @@
 
 <section class="section">
   <div class="container">
-    <div class="cta reveal">
+    <div class="cta ixw-cta reveal" data-ixw-burst>
+      <span class="ixw-cta-nexi" aria-hidden="true">{{IXW_POSE:travel:celebrate}}</span>
       <div><span class="hand">next step</span><h2>Show us one recent booking end to end.</h2><p>That's enough to map the flow and scope the first phase.</p></div>
       <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
     </div>

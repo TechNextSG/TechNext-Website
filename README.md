@@ -88,6 +88,25 @@ a normal page that frames `nexi-app.html` (noindex; opened directly it forwards 
 `_src/nexi/app.html` by `_src/make_nexi.py` with the site's page index written in, so Nexi knows every page.
 Its Let's Talk button asks the page around it to open the form (`postMessage`, same origin only).
 
+## Industry worlds (/industries/*)
+
+Industry pages are drawn as "worlds" in the look of the Nexi Explains videos: a live hero scene (canvas) with the
+industry's own room, props and two sample staff, Nexi in the industry's costume giving a guided tour of six hotspots,
+a six-station workflow with animated scenes, and every section skinned for the industry. Each world is self-contained
+and must look like no other world:
+
+| What | Where |
+|---|---|
+| Engine (shared): hero canvas, cast, tour, caption, workflow, picker | `assets/js/industry-world.js`, `assets/css/industry-world.css` |
+| The world's scene, props, cast and toys | `assets/js/worlds/<key>.js` |
+| The world's palette and section designs | `assets/css/worlds/<key>.css` |
+| Six workflow scenes, sample records, phone copy (`META`) | `_src/vignettes/<key>.py` (discovered by `_src/worlds.py`) |
+| Nexi's poses in the costume (+ `poses.json`) | `assets/img/industries/<key>/` |
+| Hero markup (hotspots, cast, toys, lines) and the page | `_src/pages/industries/<key>.html` |
+
+Phone copy: `<span class="m-full">…</span><span class="m-short">…</span>` shows the short version under 768px.
+Every name and figure in a world is sample data and is labelled as such.
+
 ## Smoothness rules (keep these, the home page depends on them)
 
 - Animate `transform` and `opacity` only. A `filter` or `backdrop-filter` in the same animation keeps it off
