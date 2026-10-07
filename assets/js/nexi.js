@@ -83,7 +83,18 @@
   }
   [desk, calm].forEach(function (m) { if (m.addEventListener) m.addEventListener('change', sync); else m.addListener(sync); });
   /* phones: Nexi wakes with a Nexi slide and sleeps when the carousel moves on */
-  hero.addEventListener('tn:slide', function () { if (!desk.matches) sync(); else setTimeout(function () { if (app) sync(); }, 0); });
+  /* desktop: stepping aside (the industries slide) is immediate; coming back waits until the new slide has settled,
+     so her restart (about 20 ms of WebGL work) never lands on the transition */
+  var backT = 0;
+  hero.addEventListener('tn:slide', function () {
+    if (!desk.matches) { sync(); return; }
+    clearTimeout(backT);
+    setTimeout(function () {
+      if (!app) return;
+      if (!allowed()) { app.pause(); return; }
+      backT = setTimeout(function () { if (app) sync(); }, 1100);
+    }, 0);
+  });
 
   var saveData = navigator.connection && navigator.connection.saveData;
   /* the intro's end only wakes a Nexi that already exists: loading her here would land her set-up (Three.js + WebGL,

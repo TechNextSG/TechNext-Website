@@ -412,7 +412,7 @@ main>.page-hero:first-child{margin-top:calc(var(--header-box) * -1);padding-top:
 .dot::after{background:var(--blue);transform:scaleX(0);transform-origin:left}
 .dot.is-active{width:64px}
 .dot.is-active::before{background:var(--blue-100)}
-.dot.is-active::after{animation:prog var(--dur,10s) linear forwards}
+.dot.is-active::after{animation:prog var(--dur,10s) linear var(--lag,0ms) forwards}
 .dot.is-active.is-static::after{animation:none;transform:scaleX(1)}
 .hero.is-paused .dot.is-active::after{animation-play-state:paused}
 .dot.is-active.is-restart::after{animation:none}
