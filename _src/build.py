@@ -29,6 +29,8 @@ import team as TEAM  # noqa: E402
 import worlds as WD  # noqa: E402
 import hero_skins  # noqa: E402
 hero_skins.write()   # the homepage industries slide's skins, before the asset version is taken
+import backdrops  # noqa: E402
+backdrops.write()    # the industries slide's illustrated backdrops (assets/img/industries/<key>/backdrop.svg)
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
