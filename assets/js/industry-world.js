@@ -45,8 +45,8 @@
      Origin = the floor between the feet; about 490 units tall at s 1 (head centre y -392, rx 92, ry 88; pill body
      y -314..-108, 172 wide; shoulders (±76, -258); arm segments 80 + 76, 36 wide).
      P: x, y, s, ph, c {skin, hair, top, top2, shirt, low, shoe, hat, hatBand, print, pocket}, outfit (scrubs | coat | blazer | tee | hoodie),
-        hairStyle (bun | long | pony | short), hat (sunhat | cap), glasses, scarf, apron (colour), headset (mic colour), backpack,
-        hold (clipboard | passport | bags | box), feet, short,
+        hairStyle (bun | long | pony | short), hat (sunhat | cap | hardhat | toque), glasses, scarf, apron (colour), vest (hi-vis colour),
+        headset (mic colour), backpack, hold (clipboard | passport | bags | box | tablet | tray), feet, short,
         mood (calm | happy | wow), look (-1..1), talk, tilt, hop, hands [[lx, ly], [rx, ry]] */
   var F3 = { hy: -392, rx: 92, ry: 88, top: -314, bot: -108, tw: 172, shx: 76, shy: -258, a: 80, b: 76, aw: 36 };
   function ik(sx, sy, hx, hy, a, b, d) {
@@ -106,6 +106,18 @@
       fillE(g, 0, cy - ry * 0.36, rx * 0.92, ry * 0.17, tone(cc, 0.22)); fillE(g, 0, cy - ry * 1.27, 10, 7, tone(cc, 0.25));
       if (P.c.hatBand) fillRR(g, -16, cy - ry * 0.98, 32, 22, 6, P.c.hatBand);
     }
+    if (P.hat === 'hardhat') { /* a safety helmet: the shell, its ridge and the brim all round */
+      var hh = P.c.hat || '#FFC93C';
+      fillE(g, 0, cy - ry * 0.46, rx * 1.2, ry * 0.18, tone(hh, 0.18));
+      g.beginPath(); g.ellipse(0, cy - ry * 0.5, rx * 1.02, ry * 0.92, 0, Math.PI, 0); g.closePath(); g.fillStyle = hh; g.fill();
+      fillRR(g, -9, cy - ry * 1.4, 18, ry * 0.9, 9, tone(hh, 0.1)); g.fillStyle = 'rgba(255,255,255,.22)'; g.beginPath(); g.ellipse(-rx * 0.4, cy - ry * 1.0, rx * 0.26, ry * 0.18, -0.5, 0, Math.PI * 2); g.fill();
+    }
+    if (P.hat === 'toque') { /* a chef's hat: a tall pleated crown on a band */
+      var tq = P.c.hat || '#FFFFFF';
+      fillE(g, -rx * 0.45, cy - ry * 1.42, rx * 0.5, ry * 0.42, tq); fillE(g, rx * 0.45, cy - ry * 1.42, rx * 0.5, ry * 0.42, tq); fillE(g, 0, cy - ry * 1.58, rx * 0.56, ry * 0.46, tq);
+      fillRR(g, -rx * 0.86, cy - ry * 1.4, rx * 1.72, ry * 0.7, 10, tq); fillRR(g, -rx * 0.9, cy - ry * 0.84, rx * 1.8, ry * 0.3, 8, tone(tq, 0.06));
+      g.strokeStyle = 'rgba(30,40,70,.08)'; g.lineWidth = 3; g.beginPath(); g.moveTo(-rx * 0.3, cy - ry * 1.5); g.lineTo(-rx * 0.32, cy - ry * 0.86); g.moveTo(rx * 0.3, cy - ry * 1.5); g.lineTo(rx * 0.32, cy - ry * 0.86); g.stroke();
+    }
     if (P.hat === 'sunhat') {
       var c = P.c.hat || '#F2D59B';
       fillE(g, 0, cy - ry * 0.55, rx * 1.48, ry * 0.3, tone(c, 0.08)); fillE(g, 0, cy - ry * 0.62, rx * 1.44, ry * 0.26, c);
@@ -153,6 +165,11 @@
       g.fillStyle = c.skin; g.beginPath(); g.moveTo(-22, top - 4); g.lineTo(0, top + 28); g.lineTo(22, top - 4); g.closePath(); g.fill();
       fillRR(g, -66, -214, 40, 32, 8, c.top2); fillRR(g, -58, -224, 5, 20, 2, '#FFFFFF');
     }
+    if (P.vest) { /* a hi-vis vest over any outfit: two front panels with reflective bands */
+      g.fillStyle = P.vest; g.beginPath(); g.moveTo(-w, top + 30); g.lineTo(-30, top - 2); g.lineTo(-12, top + 60); g.lineTo(-12, bot); g.lineTo(-w, bot); g.closePath(); g.fill();
+      g.beginPath(); g.moveTo(w, top + 30); g.lineTo(30, top - 2); g.lineTo(12, top + 60); g.lineTo(12, bot); g.lineTo(w, bot); g.closePath(); g.fill();
+      g.fillStyle = 'rgba(235,240,245,.92)'; g.fillRect(-w, -190, w - 12, 12); g.fillRect(12, -190, w - 12, 12); g.fillRect(-w, -150, w - 12, 12); g.fillRect(12, -150, w - 12, 12);
+    }
     if (P.apron) { /* a shop apron over any outfit: the bib, the straps, the body and a pocket */
       g.strokeStyle = tone(P.apron, 0.2); g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(-28, top + 24); g.lineTo(-40, top - 4); g.moveTo(28, top + 24); g.lineTo(40, top - 4); g.stroke();
       fillRR(g, -34, top + 20, 68, 70, 12, P.apron); fillRR(g, -54, top + 76, 108, bot - top - 60, 18, P.apron);
@@ -176,6 +193,14 @@
     else if (kind === 'box') { /* a parcel held in front: kraft card, tape, a shipping label */
       g.translate(32, -4); fillRR(g, -56, -40, 112, 78, 7, '#C99A6B'); fillRR(g, -56, -40, 112, 12, 5, '#B5865A');
       g.fillStyle = 'rgba(255,240,210,.55)'; g.fillRect(-9, -40, 18, 78); fillRR(g, 14, -18, 34, 24, 3, '#FFFFFF'); g.fillStyle = '#2A3550'; for (var bk = 0; bk < 6; bk++) g.fillRect(18 + bk * 4.6, -12, bk % 2 ? 1.6 : 3, 12);
+    }
+    else if (kind === 'tablet') { /* a site tablet held up, its screen showing a progress chart */
+      g.translate(-4, -8); g.rotate(-0.1); fillRR(g, -38, -52, 76, 100, 10, '#2A3550'); fillRR(g, -32, -46, 64, 86, 5, '#FFFFFF');
+      fillRR(g, -32, -46, 64, 14, 4, '#1F4E8C'); g.fillStyle = '#FFC93C'; g.fillRect(-24, -6, 10, 34); g.fillRect(-8, -18, 10, 46); g.fillStyle = '#1F4E8C'; g.fillRect(8, 2, 10, 26);
+    }
+    else if (kind === 'tray') { /* a serving tray held high on the hand, two plates on it */
+      g.translate(-30, -14); fillE(g, 0, 0, 74, 14, '#C9A44A'); fillE(g, 0, -3, 70, 11, '#E3C36A');
+      fillE(g, -26, -10, 24, 7, '#FFFFFF'); fillE(g, -26, -14, 14, 6, '#E2553D'); fillE(g, 26, -10, 24, 7, '#FFFFFF'); fillE(g, 26, -14, 13, 6, '#7CB342');
     }
     else if (kind === 'passport') { g.translate(-6, 4); g.rotate(-0.25); fillRR(g, -30, -40, 60, 80, 8, '#1E4691'); fillE(g, 0, -6, 15, 15, '#E9C46A'); fillE(g, 0, -6, 9, 9, '#1E4691'); fillRR(g, -16, 18, 32, 5, 2, '#E9C46A'); fillRR(g, 10, -52, 30, 40, 4, '#FFFFFF'); g.fillStyle = '#3167CA'; g.fillRect(14, -46, 22, 5); }
     g.restore();
@@ -208,6 +233,17 @@
     g.restore();
   }
 
+  /* a passer-by for a world's margins: walks between x0 and x1 (set units) at spd units/s, bobbing and swinging the arms,
+     looking where they go; drag (a colour) pulls a roller case behind them, carry ('bags', 'box', 'tray' ...) holds something */
+  function walker(g, W, t) {
+    var span = Math.max(1, W.x1 - W.x0), d = ((t * W.spd + W.ph * span) % (span * 2) + span * 2) % (span * 2), fwd = d < span, x = W.x0 + (fwd ? d : span * 2 - d), dir = fwd ? 1 : -1;
+    var P = W.P, step = t * W.spd * 0.09 + W.ph * 7, sw = Math.sin(step) * 30;
+    P.x = x; P.y = W.y; P.look = dir * 0.8; P.hop = Math.abs(Math.sin(step)) * 6; P.feet = true;
+    P.hands = W.drag ? (dir > 0 ? [[-94, -150], [70 + sw * 0.3, -150]] : [[-70 - sw * 0.3, -150], [94, -150]]) : [[-70 - sw * 0.4, -150 + Math.abs(sw) * 0.4], [70 + sw * 0.4, -150 + Math.abs(sw) * 0.4]];
+    if (W.drag) { var cx = x - dir * 70 * P.s, cy = W.y; g.save(); g.translate(cx, cy); g.scale(P.s, P.s); g.strokeStyle = '#5C6670'; g.lineWidth = 6; g.beginPath(); g.moveTo(dir * 12, -70); g.lineTo(dir * 34, -150); g.stroke();
+      fillRR(g, -40, -96, 80, 96, 12, W.drag); fillRR(g, -40, -96, 80, 14, 7, tone(W.drag, 0.18)); fillE(g, -26, 2, 7, 7, '#2A3550'); fillE(g, 26, 2, 7, 7, '#2A3550'); g.restore(); }
+    person(g, P, t);
+  }
   /* ============================== shared room painters (set units: 1000 x 600; walls and floors in hero px) ============================== */
   /* R: { wall:[top,bottom], wains:[top,bottom], rail, base, panelLine, floor:[top,bottom], floorKind: tiles | planks, floorLine, pattern(g, W, railY, k, sx, sy) } */
   function room(g, W, Hh, k, sx, sy, R) {
@@ -296,7 +332,7 @@
   IXW.worlds = IXW.worlds || {};
   IXW.kit = { clamp: clamp, lerp: lerp, hash: hash, rr: rr, ell: ell, fillRR: fillRR, fillE: fillE, limb: limb, soft: soft, shadowed: shadowed, text: text, tone: tone, FONT: FONT,
     person: person, ik: ik, F3: F3, room: room, plusPattern: plusPattern, windowFrame: windowFrame, windowSky: windowSky, windowGlass: windowGlass, windowMullions: windowMullions, cloud: cloud,
-    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, reduce: reduce };
+    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, reduce: reduce };
 
   /* ============================== the hero ==============================
      A world: { room (see room()) or paintBg(g, W, H, k, sx, sy), paintBack(g), paintFront(g), paintWindow(g, t, par, S), paintLive(g, t, date, S),
@@ -304,7 +340,8 @@
      cast [{ id, P, behind, keys [hotKeys that make them talk], act(P, t, S) }], toy?(name, S, t, btn), onStop?(key, S, t), moteCol, motes (false: no dust motes),
      windowBehind? (the window view is painted BEHIND the back props, which get a third cache: paintBg, then the live view,
      then paintFrame?(g, W, H, k, sx, sy) (hero px: mullions, ceiling, floor) and paintBack) }
-     S (shared state): hot, hotA, peek (the hotspot or toy under the pointer), peekA, nexi {x, y}, cast {id: {wave, until, hover, hopAt}}, toy {name: start time}, t */
+     paintBack(g, ext) and paintFront(g, ext) may paint beyond the frame: ext {l, r, t, b} is the whole hero in set units.
+     S (shared state): hot, hotA, peek (the hotspot or toy under the pointer), peekA, ext, nexi {x, y}, cast {id: {wave, until, hover, hopAt}}, toy {name: start time}, t */
   function hero(root) {
     var W0 = IXW.worlds[root.getAttribute('data-world')];
     var cv = root.querySelector('[data-ixw-cv]'), set = root.querySelector('[data-ixw-set]'), front = root.querySelector('[data-ixw-front]');
@@ -315,9 +352,14 @@
     var W = 0, Hh = 0, dpr = 1, k = 1, sx = 0, sy = 0, M = 24, live = false, raf = 0, frameN = 0, T0 = performance.now();
     var par = { x: 0, y: 0, tx: 0, ty: 0 };
     var home = (root.getAttribute('data-home') || '288,196').split(',').map(Number);
-    var S = { hot: '', hotA: 0, peek: '', peekA: 0, nexi: { x: home[0], y: home[1] }, cast: {}, toy: {}, t: 0 }, pk = '';
+    var S = { hot: '', hotA: 0, peek: '', peekA: 0, nexi: { x: home[0], y: home[1] }, cast: {}, toy: {}, t: 0, ext: { l: 0, r: 1000, t: 0, b: 600 } }, pk = '';
     W0.cast.forEach(function (c) { S.cast[c.id] = { wave: 0, until: 0, hover: false, hopAt: -9 }; });
     root.classList.add('is-live');
+    /* "View the scene": hides the title card and the caption so the whole scene shows (desktop; the button is added here) */
+    var peekBtn = document.createElement('button'), peekLab = document.createElement('span');
+    peekBtn.type = 'button'; peekBtn.className = 'ixw-peek'; peekBtn.setAttribute('aria-pressed', 'false'); peekLab.textContent = 'View the scene'; peekBtn.appendChild(peekLab);
+    peekBtn.addEventListener('click', function () { var on = root.classList.toggle('is-peek'); peekBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); peekLab.textContent = on ? 'Show the text' : 'View the scene'; });
+    root.appendChild(peekBtn);
     function now() { return (performance.now() - T0) / 1000; }
 
     function measure() {
@@ -330,8 +372,10 @@
       if (W0.paintBg) W0.paintBg(ga, W + M, Hh + M, k, sx, sy); else room(ga, W + M, Hh + M, k, sx, sy, W0.room);
       var gp = gc || ga; /* the back props get their own cache when the window view sits behind them */
       if (gc) { gc.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr); if (W0.paintFrame) W0.paintFrame(gc, W + M, Hh + M, k, sx, sy); }
-      gp.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintBack(gp);
-      gb.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintFront(gb);
+      /* the whole hero in set units: a world paints beyond its 1000 x 600 frame into the margins (ext.l < 0, ext.r > 1000) */
+      S.ext = { l: -(sx + M) / k, r: (W + M - sx) / k, t: -(sy + M) / k, b: (Hh + M - sy) / k };
+      gp.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintBack(gp, S.ext);
+      gb.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintFront(gb, S.ext);
       draw(performance.now());
     }
     /* the tour glow pulses; the hover glow (the thing under the pointer) is a steady outline with a light wash */
