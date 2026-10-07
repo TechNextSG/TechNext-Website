@@ -590,52 +590,75 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 @media (prefers-reduced-motion:reduce){.ixw-drag::before,.ixw-drag::after{animation:none}}
 @media (prefers-reduced-motion:reduce){.ixw-copy,.ixw-cap{transition:none}}
 
-/* ---------------- the entry intro (#ixw-intro): 3 s in the world's own colours ----------------
-   Each world sets --ii-bg, --ii-pattern, --ii-ink, --ii-b (the industry word), --ii-accent (ripples, sparks, bar),
-   --ii-ep-bg/--ii-ep-fg (the Nexi Explains tag), --ii-pill-r and --ii-font in assets/css/worlds/<key>.css. */
-.ixwi{position:fixed;inset:0;z-index:2147483000;place-items:center;overflow:hidden;background:var(--ii-bg,#F4F7FD);color:var(--ii-ink,#1F1F3D);font-family:var(--font-display);cursor:pointer;
+/* ---------------- the entry intro (#ixw-intro): 3 s in the page's own style ----------------
+   The world's real scene zooms in behind; the page's own title card (.ixw-copy, skinned by assets/css/worlds/<key>.css)
+   rises with its Nexi Explains tag, hand label, the industry and three workflow steps in the page's button colours
+   (--hc-bg, --st-ink); the badge pops above it with Nexi peeking out; soft rays turn behind like the Nexi Explains slide.
+   Per world: --ii-ink (veil), --ii-accent (rays, ripples, bar), --ii-b (the industry word), --ii-font (title type). */
+.ixwi{position:fixed;inset:0;z-index:2147483000;place-items:center;overflow:hidden;background:var(--ii-bg,#F4F7FD);color:var(--ii-ink,#1F1F3D);cursor:pointer;
   animation:ixwiFailsafe 0s linear 7s forwards}
 @keyframes ixwiFailsafe{to{visibility:hidden;opacity:0;pointer-events:none}}
-.ixwi-bg{position:absolute;inset:-6%;background:var(--ii-pattern,none)}
-.ixwi.is-on .ixwi-bg{animation:ixwiDrift 2.6s cubic-bezier(.2,.7,.3,1) both}
-@keyframes ixwiDrift{from{transform:scale(1.08)}}
-.ixwi-lock{position:relative;z-index:2;display:grid;justify-items:center;gap:12px;padding:0 24px;text-align:center}
-.ixwi.is-out .ixwi-lock{animation:ixwiRush .56s cubic-bezier(.6,0,.2,1) forwards}
-@keyframes ixwiRush{to{transform:scale(1.3);opacity:0}}
-.ixwi-mark{position:relative;width:148px;height:148px;margin-bottom:22px}
-.ixwi-badge::before{content:"";position:absolute;inset:-12px;border-radius:46px;background:var(--ii-plate,transparent);box-shadow:var(--ii-plate-shadow,none)}
+.ixwi-bg{position:absolute;inset:0;overflow:hidden}
+.ixwi-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%;transform:scale(1.14)}
+.ixwi.is-on .ixwi-bg img{animation:ixwiZoom 3s cubic-bezier(.2,.7,.3,1) both}
+@keyframes ixwiZoom{from{transform:scale(1.14)}to{transform:scale(1.02)}}
+.ixwi-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(55% 65% at 50% 50%,color-mix(in srgb,var(--st-ink,#1F1F3D) 8%,transparent),color-mix(in srgb,var(--st-ink,#1F1F3D) 55%,transparent))}
+.ixwi-rays{position:absolute;left:50%;top:50%;width:2400px;height:2400px;margin:-1200px 0 0 -1200px;border-radius:50%;pointer-events:none;opacity:0;
+  background:repeating-conic-gradient(from 0deg,color-mix(in srgb,#FFFFFF 22%,transparent) 0 5deg,transparent 5deg 14deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 55%);mask-image:radial-gradient(closest-side,#000 6%,transparent 55%)}
+.ixwi.is-on .ixwi-rays{animation:ixwiRays 3s ease-out both}
+@keyframes ixwiRays{0%{opacity:0;transform:rotate(-20deg) scale(.6)}25%{opacity:1}100%{opacity:.7;transform:rotate(25deg) scale(1)}}
+.ixwi-lock{position:relative;z-index:2;display:grid;justify-items:center;padding:0 20px}
+.ixwi.is-out .ixwi-lock{animation:ixwiRush .55s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes ixwiRush{to{transform:scale(1.25);opacity:0}}
+/* the badge with Nexi peeking from behind it */
+.ixwi-mark{position:absolute;z-index:3;right:-36px;top:-46px;width:96px;height:96px;rotate:8deg}
 .ixwi-badge{position:absolute;inset:0;z-index:2;display:grid;place-items:center;transform:scale(0)}
-.ixwi-badge .ic-ind{position:relative;width:148px;height:148px;border-radius:40px;filter:drop-shadow(0 7px 0 var(--ii-lip,rgba(20,30,60,.28))) drop-shadow(0 22px 30px rgba(20,30,60,.22))}
-.ixwi.is-on .ixwi-badge{animation:ixwiPop .62s cubic-bezier(.3,1.6,.5,1) .08s both}
+.ixwi-badge .ic-ind{width:96px;height:96px;border-radius:26px;filter:drop-shadow(0 6px 0 var(--st-ink,#1F1F3D)) drop-shadow(0 20px 26px rgba(10,20,40,.35))}
+.ixwi-badge::before{content:"";position:absolute;inset:-7px;border-radius:33px;background:#FFFFFF;box-shadow:0 6px 0 var(--st-ink,#1F1F3D)}
+.ixwi-badge .ic-ind{position:relative}
+.ixwi.is-on .ixwi-badge{animation:ixwiPop .6s cubic-bezier(.3,1.6,.5,1) .08s both}
 @keyframes ixwiPop{from{transform:scale(0) rotate(-16deg)}to{transform:scale(1) rotate(0)}}
-.ixwi-nexi{position:absolute;z-index:1;left:58%;bottom:30%;width:auto;height:190px;opacity:0;transform-origin:30% 100%}
-.ixwi.is-on .ixwi-nexi{animation:ixwiPeek .6s cubic-bezier(.3,1.5,.5,1) .55s both}
+.ixwi-nexi{position:absolute;z-index:1;left:30%;bottom:62%;width:auto;height:128px;opacity:0;transform-origin:30% 100%}
+.ixwi.is-on .ixwi-nexi{animation:ixwiPeek .6s cubic-bezier(.3,1.5,.5,1) .5s both}
 @keyframes ixwiPeek{from{opacity:0;transform:translate(-30%,46%) rotate(-10deg) scale(.7)}to{opacity:1;transform:translate(0,0) rotate(9deg) scale(1)}}
-.ixwi-ripple{position:absolute;inset:0;border-radius:46px;border:3px solid var(--ii-accent,#3167CA);opacity:0}
+.ixwi-ripple{position:absolute;inset:-8px;border-radius:40px;border:3px solid var(--ii-accent,#3167CA);opacity:0}
 .ixwi.is-on .ixwi-ripple{animation:ixwiRipple 1s cubic-bezier(.2,.7,.3,1) .3s both}
 .ixwi.is-on .ixwi-ripple+.ixwi-ripple{animation-delay:.52s}
-@keyframes ixwiRipple{from{opacity:.9;transform:scale(.7)}to{opacity:0;transform:scale(2.1)}}
+@keyframes ixwiRipple{from{opacity:.9;transform:scale(.7)}to{opacity:0;transform:scale(2.2)}}
 .ixwi-spark{position:absolute;left:50%;top:50%;width:7px;height:16px;margin:-8px 0 0 -3.5px;border-radius:4px;background:var(--ii-accent,#3167CA);opacity:0}
-.ixwi.is-on .ixwi-spark{animation:ixwiSpark .7s cubic-bezier(.2,.7,.3,1) .3s both}
-@keyframes ixwiSpark{from{opacity:1;transform:rotate(var(--a)) translateY(-56px) scale(.5)}to{opacity:0;transform:rotate(var(--a)) translateY(calc(-118px * var(--d))) scale(1)}}
-.ixwi-ep{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;background:var(--ii-ep-bg,#1F1F3D);color:var(--ii-ep-fg,#FFFFFF);font:800 12px/1 var(--font-display);letter-spacing:.06em;opacity:0}
-.ixwi-title{font:800 clamp(32px,4.6vw,56px)/1.05 var(--ii-font,var(--font-display));letter-spacing:-.02em;opacity:0}
+.ixwi.is-on .ixwi-spark{animation:ixwiSpark .7s cubic-bezier(.2,.7,.3,1) .32s both}
+@keyframes ixwiSpark{from{opacity:1;transform:rotate(var(--a)) translateY(-60px) scale(.5)}to{opacity:0;transform:rotate(var(--a)) translateY(calc(-124px * var(--d))) scale(1)}}
+/* the page's own title card */
+.ixw .ixwi-card{position:relative;width:min(468px,calc(100vw - 48px));max-width:none;margin:0;text-align:left;opacity:0;cursor:pointer}
+.ixwi.is-on .ixwi-card{animation:ixwiCard .6s cubic-bezier(.3,1.3,.5,1) .18s both}
+@keyframes ixwiCard{from{opacity:0;transform:translateY(40px) scale(.92)}to{opacity:1;transform:none}}
+.ixwi-ep,.ixwi-hand,.ixwi-title,.ixwi-sub{opacity:0}
+.ixwi-ep .ixw-ep-tag{pointer-events:none}
+.ixwi-hand{display:block;margin-top:14px}
+.ixw--health-wellness .ixwi-card::after{display:none}
+.ixwi-title{display:block;margin-top:2px;font:800 clamp(30px,4.2vw,46px)/1.05 var(--ii-font,var(--font-display));letter-spacing:-.02em;color:var(--ink)}
 .ixwi-title b{color:var(--ii-b,var(--ii-accent,#3167CA))}
-.ixwi-sub{font:800 12px/1.2 var(--font-display);letter-spacing:.18em;text-transform:uppercase;opacity:0;color:var(--ii-sub,currentColor)}
-.ixwi.is-on .ixwi-ep{animation:ixwiUp .45s cubic-bezier(.3,1.4,.5,1) .62s both}
-.ixwi.is-on .ixwi-title{animation:ixwiUp .55s cubic-bezier(.3,1.3,.5,1) .74s both}
-.ixwi.is-on .ixwi-sub{animation:ixwiUp .45s ease .98s both}
-@keyframes ixwiUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.ixwi-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
-.ixwi-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 13px 7px 9px;border:2px solid var(--ii-pill-ink,var(--ii-ink,#1F1F3D));border-radius:var(--ii-pill-r,999px);background:#FFFFFF;
-  box-shadow:0 3px 0 var(--ii-pill-ink,var(--ii-ink,#1F1F3D));color:#1F1F3D;font:800 13px/1 var(--font-display);opacity:0}
-.ixwi-pill .oi{width:18px;height:18px}
-.ixwi.is-on .ixwi-pill{animation:ixwiBurst .6s cubic-bezier(.3,1.5,.5,1) calc(1.12s + var(--i) * .1s) both}
-@keyframes ixwiBurst{from{opacity:0;transform:translate(calc(var(--side) * -90px),-120px) scale(.3)}to{opacity:1;transform:none}}
-.ixwi-bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--ii-bar,var(--ii-accent,#3167CA));transform:scaleX(0);transform-origin:0 50%}
+.ixwi-sub{display:block;margin-top:10px;font:800 11.5px/1.2 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ixwi.is-on .ixwi-ep{animation:ixwiUp .45s cubic-bezier(.3,1.4,.5,1) .5s both}
+.ixwi.is-on .ixwi-hand{animation:ixwiUp .45s cubic-bezier(.3,1.4,.5,1) .62s both}
+.ixwi.is-on .ixwi-title{animation:ixwiUp .55s cubic-bezier(.3,1.3,.5,1) .72s both}
+.ixwi.is-on .ixwi-sub{animation:ixwiUp .45s ease .95s both}
+@keyframes ixwiUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* three workflow steps, in the page's primary button colours */
+.ixwi-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.ixwi-pill{display:inline-flex;align-items:center;gap:7px;padding:8px 14px 8px 9px;border:2.5px solid var(--st-ink,#1F1F3D);border-radius:var(--ii-pill-r,999px);background:var(--hc-bg,#3167CA);
+  box-shadow:0 4px 0 var(--st-ink,#1F1F3D);color:var(--hc-fg,#FFFFFF);font:800 13.5px/1 var(--font-display);opacity:0}
+.ixwi-pill .oi{width:18px;height:18px;padding:2px;border-radius:5px;background:#FFFFFF;box-sizing:content-box}
+.ixwi.is-on .ixwi-pill{animation:ixwiBurst .55s cubic-bezier(.3,1.5,.5,1) calc(1.1s + var(--i) * .1s) both}
+@keyframes ixwiBurst{from{opacity:0;transform:translateY(-30px) scale(.4)}to{opacity:1;transform:none}}
+.ixwi-bar{position:absolute;z-index:3;left:0;right:0;bottom:0;height:5px;background:var(--ii-bar,var(--ii-accent,#3167CA));transform:scaleX(0);transform-origin:0 50%}
 .ixwi.is-on .ixwi-bar{animation:ixwiBar 2.45s linear both}
 @keyframes ixwiBar{to{transform:scaleX(1)}}
 .ixwi-ring{position:fixed;z-index:3;border-radius:50%;border:3px solid var(--ii-accent,#3167CA);pointer-events:none;opacity:0}
-.ixwi-skip{position:absolute;z-index:3;right:22px;bottom:22px;padding:8px 14px;border:2px solid currentColor;border-radius:999px;background:transparent;color:inherit;font:800 12px/1 var(--font-display);letter-spacing:.06em;opacity:.7;cursor:pointer}
-.ixwi-skip:hover{opacity:1}
-@media (max-width:767px){.ixwi-mark,.ixwi-badge .ic-ind{width:112px;height:112px}.ixwi-badge .ic-ind{border-radius:30px}.ixwi-badge::before{inset:-9px;border-radius:36px}.ixwi-nexi{height:140px}.ixwi-title{font-size:30px}.ixwi-pill{font-size:12px;padding:6px 11px 6px 8px}}
+.ixwi-skip{position:absolute;z-index:3;right:22px;bottom:22px;padding:8px 14px;border:2px solid #FFFFFF;border-radius:999px;background:color-mix(in srgb,var(--ii-ink,#1F1F3D) 40%,transparent);color:#FFFFFF;font:800 12px/1 var(--font-display);letter-spacing:.06em;cursor:pointer}
+@media (min-width:1100px){.ixwi-lock{scale:1.18}}
+@media (max-width:767px){
+  .ixwi-mark,.ixwi-badge .ic-ind{width:76px;height:76px}.ixwi-mark{right:-10px;top:-40px}.ixwi-badge .ic-ind{border-radius:21px}.ixwi-badge::before{border-radius:27px}
+  .ixwi-nexi{height:100px}.ixwi-title{font-size:30px}.ixwi-pill{font-size:12.5px;padding:7px 12px 7px 8px}
+}

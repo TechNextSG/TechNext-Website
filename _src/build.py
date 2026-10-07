@@ -1830,6 +1830,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
+    if "{{IND_SHOWCASE}}" in content:   # the homepage hero's industries slide
+        content = content.replace("{{IND_SHOWCASE}}", WD.showcase_html())
     if "{{IXW_" in content:   # world pages: Nexi's pose stack, her avatar, one pose
         content = re.sub(r"\{\{IXW_NEXI:([a-z-]+)\}\}", lambda m: WD.nexi_stack(m.group(1)), content)
         content = re.sub(r"\{\{IXW_AV:([a-z-]+)\}\}", lambda m: WD.avatar(m.group(1)), content)
