@@ -1173,7 +1173,7 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
    text never gets a shadow. Pop/talk animate the individual `scale`/`rotate` properties, so they
    compose with the hover transform. ---------- */
 .nav-item--bubble{margin-left:10px}
-.nav-bubble{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px 0 7px;color:var(--blue);font:800 15px/1 var(--font-display);letter-spacing:-.01em;white-space:nowrap;text-decoration:none;transform:rotate(-3deg);transform-origin:18% 100%;transition:transform .35s var(--spring),color .2s ease;animation:nbPop .8s var(--spring) .25s both,nbTalk 9s ease-in-out 4s infinite}
+.nav-bubble{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px 0 7px;color:var(--blue);font:800 15px/1 var(--font-display);letter-spacing:-.01em;white-space:nowrap;text-decoration:none;transform:rotate(-3deg);transform-origin:18% 100%;transition:transform .35s var(--spring),color .2s ease;animation:nbTalk 9s ease-in-out 4s infinite} /* no pop-in on load: it made the header flicker on every page switch */
 .nb-bg{position:absolute;inset:0;z-index:-1;filter:drop-shadow(0 0 .7px #8FB2F2) drop-shadow(0 0 1.8px rgba(111,160,245,.8)) drop-shadow(0 8px 9px rgba(30,70,145,.2));transition:filter .25s ease}
 .nb-bg::before{content:"";position:absolute;inset:0;border-radius:14px;background:#fff}
 .nb-bg::after{content:"";position:absolute;left:12px;bottom:-8px;width:15px;height:11px;background:#fff;clip-path:polygon(0 0,100% 0,6% 100%)}

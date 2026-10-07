@@ -827,9 +827,10 @@
   }
   function finish() {
     if (done) return; done = true; clearTimeout(timer);
-    var b = mark.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight, x = b.left + b.width / 2, y = b.top + b.height / 2;
+    /* the intro starts under the site header (it stays put on every page switch), so the iris works in the intro's own box */
+    var b = mark.getBoundingClientRect(), box = el.getBoundingClientRect(), W = box.width, H = box.height, x = b.left + b.width / 2 - box.left, y = b.top + b.height / 2 - box.top;
     var R = Math.ceil(Math.sqrt(Math.pow(Math.max(x, W - x), 2) + Math.pow(Math.max(y, H - y), 2))) + 4;
-    lock.style.transformOrigin = '50% ' + (y - lock.getBoundingClientRect().top).toFixed(1) + 'px';
+    lock.style.transformOrigin = '50% ' + (b.top + b.height / 2 - lock.getBoundingClientRect().top).toFixed(1) + 'px';
     el.classList.add('is-out');
     if (el.animate) {
       var o = { duration: IRIS_MS, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' };

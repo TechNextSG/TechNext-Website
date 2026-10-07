@@ -597,6 +597,9 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
    Per world: --ii-ink (veil), --ii-accent (rays, ripples, bar), --ii-b (the industry word), --ii-font (title type). */
 .ixwi{position:fixed;inset:0;z-index:2147483000;place-items:center;overflow:hidden;background:var(--ii-bg,#F4F7FD);color:var(--ii-ink,#1F1F3D);cursor:pointer;
   animation:ixwiFailsafe 0s linear 7s forwards}
+/* the intro sits under the site header, so the header never disappears when you switch pages */
+.ixwi{top:var(--header-box);z-index:59}
+html.ixw-intro .header{z-index:61}
 @keyframes ixwiFailsafe{to{visibility:hidden;opacity:0;pointer-events:none}}
 .ixwi-bg{position:absolute;inset:-6%;background:var(--ii-pattern,none)}
 .ixwi.is-on .ixwi-bg{animation:ixwiDrift 3s cubic-bezier(.2,.7,.3,1) both}
