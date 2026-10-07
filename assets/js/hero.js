@@ -367,7 +367,7 @@
   // process map sideways, scrubbing the plan. A touch pauses autoplay for a while.
   var tx = null, ty = null, touchT = 0;
   hero.addEventListener('touchstart', function (e) {
-    var own = e.target.closest('.cine,.pm-view,.pm-scen,.lj');
+    var own = e.target.closest('.cine,.pm-view,.pm-scen,.lj,.hxs-strip');
     tx = own ? null : e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
     hold('touch'); clearTimeout(touchT); touchT = setTimeout(function () { release('touch'); }, 9000);
   }, { passive: true });

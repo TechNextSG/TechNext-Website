@@ -27,6 +27,8 @@ import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
 import worlds as WD  # noqa: E402
+import hero_skins  # noqa: E402
+hero_skins.write()   # the homepage industries slide's skins, before the asset version is taken
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent

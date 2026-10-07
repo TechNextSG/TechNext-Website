@@ -210,7 +210,10 @@
 .ixw--travel .ix-views button[aria-pressed="true"]{background:#FFC94A;box-shadow:0 2px 0 #0B1428}
 /* the sample picker: destination tags */
 .ixw--travel .ixw-pick-b{border:2.5px solid var(--t-ink);box-shadow:0 4px 0 var(--t-ink)}
-.ixw--travel .ixw-pick-b button{border-radius:999px 8px 8px 999px}
+.ixw--travel .ixw-pick-b{border-radius:999px}
+.ixw--travel .ixw-pick-b button{border-radius:999px}
+.ixw--travel .ixw-pick-b button:hover{background:#EAF1FB;color:var(--t-ink)}
+@media (max-width:767px){.ixw--travel .ixw-pick-b{border-radius:20px}.ixw--travel .ixw-pick-b button{border-radius:14px}}
 .ixw--travel .ixw-pick-b button[aria-pressed="true"]{background:var(--t-ink);color:#FFC94A;box-shadow:0 3px 0 #0B1428}
 .ixw--travel .sc-tab.is-active{border-color:var(--t-ink);background:#EAF5FD;box-shadow:0 4px 0 var(--t-ink)}
 /* text links: a dotted flight path that keeps flying on hover */
