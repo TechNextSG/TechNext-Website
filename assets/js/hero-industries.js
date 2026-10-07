@@ -13,7 +13,31 @@
   var bgs = $$('.hxs-bg'), panels = $$('.hxs-panel'), casts = $$('.hxs-cast'), chans = $$('.hxs-ch');
   var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var fine = !!(window.matchMedia && matchMedia('(hover:hover) and (pointer:fine)').matches);
-  var STEP = 5200, n = panels.length, at = 0, timer = 0, outT = 0, held = false, active = false, seen = false;
+  var STEP = 5200, n = panels.length, at = 0, timer = 0, outT = 0, enterT = 0, dressT = 0, held = false, active = false;
+  var html = document.documentElement, header = document.querySelector('.header');
+  /* the page around the slide takes the showing industry's style: its colours go on <html> as --hx-* for the header's
+     Contact Us and the side tabs (hero.css); the header stays see-through over the scene; the roaming 3D Nexi steps aside */
+  var VARS = ['st-ink', 'st-meet', 'st-talk', 'st-nexi', 'st-nexi-fg', 'st-fg', 'hc-bg', 'hc-fg'];
+  function dress() {
+    if (!active) { VARS.forEach(function (v) { html.style.removeProperty('--hx-' + v); }); html.classList.remove('hxs-on', 'hxs-top'); return; }
+    html.classList.add('hxs-on'); top();
+    if (!root.classList.contains('is-skinned')) return;   // the colours come with the skins
+    var cs = getComputedStyle(panels[at]);
+    VARS.forEach(function (v) { var val = cs.getPropertyValue('--' + v).trim(); if (val) html.style.setProperty('--hx-' + v, val); else html.style.removeProperty('--hx-' + v); });
+    html.classList.add('hxs-on'); top();
+  }
+  var topRaf = 0;
+  function top() { topRaf = 0; var r = slide.getBoundingClientRect(); html.classList.toggle('hxs-top', active && r.bottom > (header ? header.offsetHeight : 70) + 120); }
+  window.addEventListener('scroll', function () { if (active && !topRaf) topRaf = requestAnimationFrame(top); }, { passive: true });
+  /* where the scene opens from: the picked badge, in the sky's own coordinates, and the radius that covers the sky */
+  var sky = root.querySelector('.hxs-sky');
+  function origin() {
+    var s = sky.getBoundingClientRect(), c = chans[at].getBoundingClientRect(); if (!s.width || !c.width) return;
+    var x = c.left + c.width / 2 - s.left, y = c.top + c.height / 2 - s.top;
+    var r = Math.ceil(Math.sqrt(Math.pow(Math.max(x, s.width - x), 2) + Math.pow(Math.max(y, s.height - y), 2))) + 8;
+    root.style.setProperty('--ox', x.toFixed(0) + 'px'); root.style.setProperty('--oy', y.toFixed(0) + 'px'); root.style.setProperty('--or', r + 'px');
+  }
+  function pickOther() { var r = Math.floor(Math.random() * (n - 1)); return r >= at ? r + 1 : r; }
 
   /* the skins (the industry pages' cards and buttons) */
   var skinned = false;
@@ -22,7 +46,7 @@
     var base = document.querySelector('link[href*="hero.css"]');
     var l = document.createElement('link'); l.rel = 'stylesheet';
     l.href = base ? base.href.replace('hero.css', 'hero-skins.css') : '/assets/css/hero-skins.css';
-    l.onload = function () { root.classList.add('is-skinned'); };
+    l.onload = function () { root.classList.add('is-skinned'); if (active) dress(); };
     l.onerror = function () { root.classList.add('is-skinned'); };
     document.head.appendChild(l);
   }
@@ -32,7 +56,8 @@
   function show(i) {
     i = (i + n) % n; if (i === at) { arm(); return; }
     var prev = at; at = i; warm(at); warm((at + 1) % n);
-    clearTimeout(outT);
+    clearTimeout(outT); origin();
+    root.classList.remove('is-swap'); void root.offsetWidth; root.classList.add('is-swap');
     [bgs, panels, casts].forEach(function (list) {
       list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.toggle('is-out', k === prev); });
     });
@@ -42,6 +67,7 @@
     });
     chans.forEach(function (c, k) { c.classList.toggle('is-on', k === at); c.setAttribute('aria-selected', k === at ? 'true' : 'false'); c.tabIndex = k === at ? 0 : -1; });
     outT = setTimeout(function () { [bgs, panels, casts].forEach(function (list) { list[prev].classList.remove('is-out'); }); }, 1300);
+    if (skinned && root.classList.contains('is-skinned')) dress();
     arm();
   }
   function arm() {
@@ -53,8 +79,21 @@
   }
   function setActive(on) {
     if (on === active) return; active = on;
-    if (on) { skins(); warm(at); warm((at + 1) % n); if (seen) setTimeout(function () { if (active) show(at + 1); }, 700); seen = true; }
+    // every visit opens on a different industry, picked at random
+    if (on) { skins(); var next = pickOther(); jump(next); }
+    // the page's colours change as the circle sweeps past the header (straight away on the way out)
+    clearTimeout(dressT); if (on) dressT = setTimeout(dress, 420); else dress();
+    // the entrance: the scene pushes in, the card rises, its parts arrive in turn, Nexi hops in (hero.css .is-enter)
+    root.classList.remove('is-enter', 'is-leave'); void root.offsetWidth; root.classList.add(on ? 'is-enter' : 'is-leave');
+    clearTimeout(enterT); enterT = setTimeout(function () { root.classList.remove('is-enter', 'is-leave', 'is-swap'); }, 1800);
     arm();
+  }
+  /* switch with no transition (the slide itself is fading in) */
+  function jump(i) {
+    at = i; warm(at); warm((at + 1) % n); origin();
+    [bgs, panels, casts].forEach(function (list) { list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.remove('is-out'); }); });
+    panels.forEach(function (p, k) { p.setAttribute('aria-hidden', k === at ? 'false' : 'true'); [].forEach.call(p.querySelectorAll('a'), function (a) { a.tabIndex = k === at ? 0 : -1; }); });
+    chans.forEach(function (c, k) { c.classList.toggle('is-on', k === at); c.setAttribute('aria-selected', k === at ? 'true' : 'false'); c.tabIndex = k === at ? 0 : -1; });
   }
 
   chans.forEach(function (c, k) {
@@ -79,6 +118,7 @@
 
   if (hero && hero.addEventListener) hero.addEventListener('tn:slide', function (e) { setActive(!!(e.detail && e.detail.slide === slide)); });
   document.addEventListener('visibilitychange', arm);
-  window.addEventListener('load', function () { setTimeout(function () { skins(); warm(0); }, 2500); });
+  jump(Math.floor(Math.random() * n));   // the page opens on a random industry too
+  window.addEventListener('load', function () { setTimeout(function () { skins(); warm(at); }, 2500); });
   if (slide && slide.classList.contains('is-active')) setActive(true);
 })();

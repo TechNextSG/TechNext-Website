@@ -1227,43 +1227,70 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
    drifting with the pointer), the industry page's own title card and buttons (.hxs--<key> skins in hero-skins.css),
    Nexi in costume with three workflow steps, and the badge strip. Every change is staggered and eased. */
 .hxs{--px:0;--py:0}
-.hxs-sky{position:absolute;inset:calc(var(--header-box) * -1) 0 0;z-index:0;overflow:hidden;pointer-events:none;background:#EEF2F8}
-.hxs-bg{position:absolute;inset:-3%;opacity:0;transition:opacity 1.1s cubic-bezier(.4,0,.2,1)}
-.hxs-bg.is-on{opacity:1;z-index:1}
-.hxs-bg.is-out{opacity:0;z-index:0}
-.hxs-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:64% 70%;transform:scale(1.06);
+.hxs-sky{position:absolute;inset:calc(var(--header-box) * -1) 0 0;z-index:0;overflow:hidden;pointer-events:none}
+.hxs-bg{position:absolute;inset:0;visibility:hidden}
+.hxs-bg.is-on{visibility:visible;z-index:2;animation:hxsIris 1.05s cubic-bezier(.65,0,.25,1) both}
+.hxs-bg.is-out{visibility:visible;z-index:1}
+/* the scene opens as a circle from the badge that was picked (--ox/--oy/--or set by hero-industries.js), and on the
+   way out closes back into it */
+@keyframes hxsIris{from{clip-path:circle(0px at var(--ox,80%) var(--oy,8%))}to{clip-path:circle(var(--or,160vmax) at var(--ox,80%) var(--oy,8%))}}
+@keyframes hxsIrisOut{from{clip-path:circle(var(--or,160vmax) at var(--ox,80%) var(--oy,8%))}to{clip-path:circle(0px at var(--ox,80%) var(--oy,8%))}}
+.hxs-sky::after{content:"";position:absolute;z-index:3;left:var(--ox,80%);top:var(--oy,8%);width:0;height:0;border-radius:50%;box-shadow:0 0 0 3px var(--hx-st-ink,rgba(31,31,61,.5));opacity:0;pointer-events:none}
+.hxs.is-enter .hxs-sky::after,.hxs.is-swap .hxs-sky::after{animation:hxsRing 1.05s cubic-bezier(.65,0,.25,1) both}
+@keyframes hxsRing{0%{opacity:.9;width:0;height:0;margin:0}100%{opacity:0;width:calc(var(--or,160vmax) * 2);height:calc(var(--or,160vmax) * 2);margin:calc(var(--or,160vmax) * -1) 0 0 calc(var(--or,160vmax) * -1)}}
+.hxs-bg img{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;object-position:64% 70%;transform:scale(1.06);
   translate:calc(var(--px) * -14px) calc(var(--py) * -8px);transition:transform 9s cubic-bezier(.2,.6,.3,1),translate .8s ease-out}
 .hxs-bg.is-on img{transform:scale(1.02)}
 .hxs-veil{position:absolute;inset:0;z-index:2;background:
   linear-gradient(180deg,rgba(255,255,255,.72) 0,rgba(255,255,255,0) 190px),
   linear-gradient(0deg,#FFFFFF 0,rgba(255,255,255,0) 220px),
   radial-gradient(70% 90% at 0% 55%,rgba(255,255,255,.35),rgba(255,255,255,0) 70%)}
-.slide-inner.hxs-inner{position:relative;z-index:1;grid-template-columns:minmax(0,540px) minmax(0,1fr);gap:24px;padding:20px 0 112px;align-items:center}
+.slide-inner.hxs-inner{position:relative;z-index:1;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:24px;padding:clamp(18px,3.4vh,40px) 0 118px;align-items:start}
 .hxs-left{position:relative;display:grid;gap:18px;justify-items:start}
 /* the cards: stacked in one cell, so the slide never jumps between industries */
 .hxs-cards{display:grid;width:100%;transition:opacity .4s ease}
 .hxs:not(.is-skinned) .hxs-cards{opacity:0}
-.hxs-panel{grid-area:1/1;align-self:end;visibility:hidden;opacity:0;pointer-events:none}
+.hxs-panel{grid-area:1/1;align-self:start;visibility:hidden;opacity:0;pointer-events:none}
 .hxs-panel.is-on{visibility:visible;opacity:1;pointer-events:auto}
-.hxs-panel.is-out{visibility:visible;animation:hxsOut .45s cubic-bezier(.4,0,.6,1) both}
+.hxs-panel.is-out{visibility:visible;animation:hxsOut .3s cubic-bezier(.4,0,.6,1) both}
+.hxs.is-swap{--hd:.18s}   /* switching: the new card starts once the old one has gone */
 @keyframes hxsOut{from{opacity:1}to{opacity:0;transform:translateY(-14px) scale(.98)}}
-.hxs .hxs-card{max-width:540px;margin:0;padding-top:max(var(--pt,0px),12px)}
-.hxs-panel.is-on .hxs-card{animation:hxsIn .7s cubic-bezier(.3,1.25,.5,1) .18s both}
+.hxs .hxs-panel .hxs-card{width:100%;max-width:560px}
+.hxs .hxs-card{max-width:560px;margin:0;padding-top:max(var(--pt,0px),12px)}
+.hxs-panel.is-on .hxs-card{animation:hxsIn .7s cubic-bezier(.3,1.25,.5,1) calc(var(--hd,0s) + .18s) both}
 @keyframes hxsIn{from{opacity:0;transform:translateY(26px) scale(.965)}to{opacity:1;transform:none}}
 .hxs-panel.is-on .hxs-card>*{animation:hxsUp .55s cubic-bezier(.3,1.3,.5,1) both}
-.hxs-panel.is-on .hxs-card>:nth-child(1){animation-delay:.32s}
-.hxs-panel.is-on .hxs-card>:nth-child(2){animation-delay:.4s}
-.hxs-panel.is-on .hxs-card>:nth-child(3){animation-delay:.48s}
-.hxs-panel.is-on .hxs-card>:nth-child(4){animation-delay:.58s}
-.hxs-panel.is-on .hxs-card>:nth-child(5){animation-delay:.68s}
-.hxs-panel.is-on .hxs-card>:nth-child(6){animation-delay:.78s}
+.hxs-panel.is-on .hxs-card>:nth-child(1){animation-delay:calc(var(--hd,0s) + .32s)}
+.hxs-panel.is-on .hxs-card>:nth-child(2){animation-delay:calc(var(--hd,0s) + .4s)}
+.hxs-panel.is-on .hxs-card>:nth-child(3){animation-delay:calc(var(--hd,0s) + .48s)}
+.hxs-panel.is-on .hxs-card>:nth-child(4){animation-delay:calc(var(--hd,0s) + .58s)}
+.hxs-panel.is-on .hxs-card>:nth-child(5){animation-delay:calc(var(--hd,0s) + .68s)}
+.hxs-panel.is-on .hxs-card>:nth-child(6){animation-delay:calc(var(--hd,0s) + .78s)}
 @keyframes hxsUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.hxs .hxs-h{margin:2px 0 0;font:800 clamp(1.7rem,2.2vw,2.2rem)/1.1 var(--font-display);letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.hxs .hxs-h{margin:2px 0 0;font:800 clamp(1.6rem,1.95vw,2rem)/1.1 var(--font-display);letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
 .hxs .hxs-card .lead{margin-top:10px;font-size:.98rem;line-height:1.5;max-width:48ch}
-.hxs .hxs-card .m-short{display:none}
-.hxs .hxs-card .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.hxs .hxs-card .m-full{display:none}
+.hxs .hxs-card .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hxs .hxs-card .actions .btn{height:46px;padding:0 18px;font-size:15px}
 .hxs .hxs-card .ixw-hint{margin-top:14px}
-@media (max-height:820px) and (min-width:961px){.hxs .hxs-h{font-size:1.85rem}.slide-inner.hxs-inner{padding-top:4px}.hxs .hxs-card .ixw-hint{display:none}.hxs .hxs-card .lead .m-full{display:none}.hxs .hxs-card .lead .m-short{display:inline}}
+@media (min-width:961px){.hxs .hxs-card .ixw-hint{display:none}}
+@media (max-height:820px) and (min-width:961px){.hxs .hxs-h{font-size:1.5rem}.slide-inner.hxs-inner{padding-top:10px;padding-bottom:104px}.hxs .h1-hand{display:none}}
+/* entering the slide (.is-enter): the scene pushes in from further away, the strip drops in; leaving (.is-leave): the
+   card and Nexi sink away while the slide fades */
+.hxs.is-enter{--hd:.5s}
+.hxs.is-enter .hxs-bg.is-on img{animation:hxsPush 2.4s cubic-bezier(.2,.7,.3,1) both}
+.hxs.is-enter .hxs-veil{animation:hxsVeil 1s ease both}
+.hxs.is-leave .hxs-veil{animation:hxsVeil .7s ease .15s reverse both}
+@keyframes hxsVeil{from{opacity:0}to{opacity:1}}
+.hxs.is-leave .hxs-bg.is-on{animation:hxsIrisOut .75s cubic-bezier(.6,0,.4,1) .12s both}
+.hxs.is-leave .hxs-strip{animation:hxsOut .4s ease both}
+.hero-track>.slide--inds.is-active{z-index:2;transition:opacity .2s ease,visibility 0s}
+.hero-track>.slide--inds:not(.is-active){transition:opacity .2s ease .85s,visibility 0s linear 1.05s}
+@keyframes hxsPush{from{transform:scale(1.16)}to{transform:scale(1.02)}}
+.hxs.is-enter .hxs-strip{animation:hxsStrip .6s cubic-bezier(.3,1.4,.5,1) .55s both}
+@keyframes hxsStrip{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.hxs.is-leave .hxs-panel.is-on .hxs-card{animation:hxsOut .45s cubic-bezier(.4,0,.6,1) both}
+.hxs.is-leave .hxs-cast.is-on .hxs-nexi,.hxs.is-leave .hxs-cast.is-on .hxs-pill{animation:hxsDrop .4s ease-in both}
 /* the badge strip */
 .hxs-strip{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:18px;background:rgba(255,255,255,.94);box-shadow:0 1px 2px rgba(31,31,61,.08),0 18px 36px -22px rgba(31,31,61,.45)}
 .hxs-strip-l{font:800 11px/1.1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);max-width:64px}
@@ -1285,7 +1312,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs-cast.is-on,.hxs-cast.is-out{visibility:visible}
 .hxs-nexi{position:absolute;right:0;bottom:0;width:auto;height:100%;transform-origin:50% 100%;filter:drop-shadow(0 18px 18px rgba(15,25,50,.3));
   translate:calc(var(--px) * 10px) calc(var(--py) * 6px);transition:translate .6s ease-out}
-.hxs-cast.is-on .hxs-nexi{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) .35s both,hxsBob 3.4s ease-in-out 1.2s infinite}
+.hxs-cast.is-on .hxs-nexi{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .35s) both,hxsBob 3.4s ease-in-out 1.6s infinite}
 .hxs-cast.is-out .hxs-nexi{animation:hxsDrop .4s ease-in both}
 @keyframes hxsHop{from{opacity:0;transform:translateY(30%) scale(.7) rotate(-8deg)}to{opacity:1;transform:none}}
 @keyframes hxsDrop{to{opacity:0;transform:translateY(18%) scale(.85)}}
@@ -1295,14 +1322,14 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   box-shadow:0 4px 0 var(--st-ink,#1F1F3D),0 16px 26px -14px rgba(15,25,50,.45);color:var(--hc-fg,#FFFFFF);font:800 14px/1 var(--font-display);white-space:nowrap;opacity:0}
 .hxs-pill:nth-child(2){margin-right:26px}
 .hxs-pill .oi{width:18px;height:18px;padding:2px;border-radius:6px;background:#FFFFFF;box-sizing:content-box}
-.hxs-cast.is-on .hxs-pill{animation:hxsPill .6s cubic-bezier(.3,1.5,.5,1) calc(.7s + var(--j) * .12s) both}
+.hxs-cast.is-on .hxs-pill{animation:hxsPill .6s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .7s + var(--j) * .12s) both}
 .hxs-cast.is-out .hxs-pill{opacity:1;animation:hxsDrop .35s ease-in both}
 @keyframes hxsPill{from{opacity:0;transform:translateX(40px) scale(.6)}to{opacity:1;transform:none}}
 /* desktop: the strip is the slide's channel selector, top right, so the card keeps the full height */
 @media (min-width:961px){.hxs-left{position:static}.hxs-strip{position:absolute;z-index:3;right:0;top:18px}.hxs-strip-l{max-width:none}}
 @media (max-width:1180px){.slide-inner.hxs-inner{grid-template-columns:minmax(0,480px) minmax(0,1fr)}.hxs-pills{right:70%}}
 @media (max-width:960px){
-  .slide-inner.hxs-inner{grid-template-columns:minmax(0,1fr);padding:24px 0 40px;justify-items:center}
+  .slide-inner.hxs-inner{grid-template-columns:minmax(0,1fr);padding:24px 16px 40px;justify-items:center}
   .hxs-left{justify-items:stretch;width:100%;max-width:560px}
   .hxs-stage{display:none}
   .hxs-bg img{object-position:60% 55%}
@@ -1313,7 +1340,6 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   .hxs-chs{flex:none;justify-content:space-between;width:100%;min-width:max-content}
 }
 @media (max-width:767px){
-  .hxs .hxs-card .m-full{display:none}.hxs .hxs-card .m-short{display:inline}
   .hxs .hxs-h{font-size:1.7rem}
   .hxs .hxs-card .actions .btn{flex:1 1 auto}
   .hxs .hxs-card .ixw-hint{display:none}
@@ -1321,6 +1347,30 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   .hxs-ch .ic-ind{width:26px;height:26px;border-radius:8px}
 }
 @media (prefers-reduced-motion:reduce){
-  .hxs-bg,.hxs-bg img{transition:none}.hxs-bg img{transform:none;translate:none}
+  .hxs-bg,.hxs-bg img{transition:none}.hxs-bg img{transform:none;translate:none}.hxs-bg.is-on,.hxs.is-leave .hxs-bg.is-on,.hxs-sky::after{animation:none!important}
   .hxs-panel.is-on .hxs-card,.hxs-panel.is-on .hxs-card>*,.hxs-panel.is-out,.hxs-cast .hxs-nexi,.hxs-cast .hxs-pill{animation:none!important;opacity:1}
+}
+
+/* the page around the industries slide (html.hxs-on, set by hero-industries.js with the industry's colours as --hx-*):
+   the roaming 3D Nexi steps aside (the slide has its own), the header stays see-through over the scene while the hero is
+   in view (html.hxs-top), and the header's Contact Us and the side tabs take the industry's button style */
+.nexi:not(.nexi--lite),.nexi-card:not(.nexi-card--lite){transition:opacity .35s ease,visibility 0s linear 0s}
+html.hxs-on .nexi:not(.nexi--lite),html.hxs-on .nexi-card:not(.nexi-card--lite){opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+html.hxs-top .header:not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
+.header-cta .btn-primary,.side-tab,.side-fab{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .3s ease,translate .2s ease}
+html.hxs-on .header-cta .btn-primary{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:10px;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+html.hxs-on .header-cta .btn-primary:hover{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));translate:0 -2px;box-shadow:0 6px 0 var(--hx-st-ink,#1F1F3D)}
+html.hxs-on .header-cta .btn-primary:active{translate:0 3px;box-shadow:0 1px 0 var(--hx-st-ink,#1F1F3D)}
+html.hxs-on .header-cta .btn-primary .ic{color:currentColor}
+html.hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-left:0;color:var(--hx-st-fg,#FFFFFF);box-shadow:4px 0 0 var(--hx-st-ink,#1F1F3D)}
+html.hxs-on .meet-tab,html.hxs-on .meet-tab:hover,html.hxs-on .meet-tab:active{background:var(--hx-st-meet,var(--ok))}
+html.hxs-on .talk-tab,html.hxs-on .talk-tab:hover,html.hxs-on .talk-tab:active{background:var(--hx-st-talk,var(--blue))}
+html.hxs-on .nexi-tab,html.hxs-on .nexi-tab:hover,html.hxs-on .nexi-tab:active{background:var(--hx-st-nexi,var(--blue));color:var(--hx-st-nexi-fg,#FFFFFF)}
+html.hxs-on .side-tab:hover{box-shadow:7px 0 0 var(--hx-st-ink,#1F1F3D)}
+html.hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
+@media (max-width:960px){
+  html.hxs-on .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--hx-st-ink,#1F1F3D)}
+  html.hxs-on .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none}
+  html.hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+  html.hxs-on .side-fab{background:var(--hx-st-talk,var(--blue));color:var(--hx-st-fg,#FFFFFF);border:2.5px solid var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
 }
