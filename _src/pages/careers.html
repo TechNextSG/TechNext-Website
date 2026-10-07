@@ -1,43 +1,66 @@
-<!--meta {"title": "Careers: Odoo, ERP and finance jobs in Taguig | TechNext", "desc": "Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.", "out": "careers.html", "nav": "company", "scripts": ["assets/js/filter.js", "assets/js/demo-kit.js", "assets/js/demo-rolematch.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-rolematch.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Careers: Odoo, ERP and finance jobs in Taguig | TechNext", "desc": "Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.", "out": "careers.html", "nav": "company", "scripts": ["assets/js/filter.js", "assets/js/demo-kit.js", "assets/js/demo-rolematch.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/careers.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-rolematch.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/company.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/careers.css?v={ASSET_V}\">", "body": "ixw ixw--careers co-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Careers</span></nav>
-    <div class="two two--stage">
-      <div>
-        <span class="hand">careers at technext</span>
-        <h1>Build the systems companies run on.</h1>
-        <p class="lead">We're hiring in Taguig City, Metro Manila: Odoo architects and consultants, finance, HR, sales and marketing. Taguig is our main development and consulting hub: you'll work with our Singapore HQ and our AI engineers in Ho Chi Minh City on Odoo projects for clients in 10+ countries.</p>
-        <div class="actions"><a class="btn btn-primary btn-lg" href="#roles">See the six open roles {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="mailto:career@technext.asia">Email your CV</a></div>
-      </div>
-      <div class="stage stage--jobs" aria-hidden="true">
-        <div class="st-card jb-board dp" style="--d:6">
-          <div class="st-bar"><i></i><i></i><i></i><span>Open roles · Taguig City</span></div>
-          <ol class="jb-list">
-            <li style="--i:0"><span class="jb-ic">{{icon:layers}}</span><b>Senior Solutions Architect</b><em>ERP</em></li>
-            <li style="--i:1"><span class="jb-ic">{{icon:layers}}</span><b>Functional Odoo Consultant</b><em>Finance</em></li>
-            <li style="--i:2"><span class="jb-ic">{{icon:trend}}</span><b>B2B Sales Consultant</b><em>Odoo / ERP</em></li>
-            <li style="--i:3"><span class="jb-ic">{{icon:megaphone}}</span><b>Marketing Officer</b><em>Web &amp; AI</em></li>
-            <li style="--i:4"><span class="jb-ic">{{icon:calculator}}</span><b>Senior Accountant (CPA)</b><em>Tax</em></li>
-            <li style="--i:5"><span class="jb-ic">{{icon:users}}</span><b>HR Generalist</b><em>People</em></li>
-          </ol>
-        </div>
-        <div class="st-card jb-apply dp" style="--d:14"><span class="jb-apply-ic">{{icon:send}}</span><div><b>Apply on JobStreet</b><small>or email career@technext.asia</small></div></div>
-        <span class="st-chip jb-c1 dp" style="--d:10">{{icon:pin}}Taguig City, Metro Manila</span>
-        <span class="st-chip jb-c2 dp" style="--d:8">{{icon:globe}}Singapore · Philippines · Vietnam</span>
+<section class="ixw-hero" data-ixw-hero data-world="careers" data-home="520,90" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Careers</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Recruitment day</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">careers at technext</span>Build the systems companies run on.</h1>
+      <p class="lead"><span class="m-full">We're hiring in Taguig City, Metro Manila: Odoo architects and consultants, finance, HR, sales and marketing. Taguig is our main development and consulting hub: you'll work with our Singapore HQ and our AI engineers in Ho Chi Minh City on Odoo projects for clients in 10+ countries.</span><span class="m-short">Six open roles in Taguig City: Odoo, finance, HR, sales and marketing.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="#roles">See the six open roles {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="mailto:career@technext.asia">{{icon:mail}}Email your CV</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap a role on the booth wall, the recruiters, the ID printer or the balloons.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="rec" data-near="420,90" data-who="Recruiter" data-role="TechNext HR · illustration" data-say="Hi! Six roles, all in **Taguig City**. Which one sounds like you?" style="--x:300;--y:260;--w:100;--h:110" aria-label="Say hi to a TechNext recruiter (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Recruiter</b><i>TechNext HR</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="hr" data-near="700,110" data-who="Interviewer" data-role="TechNext HR · illustration" data-say="Tell me about a **process you fixed**. That's what this job is." style="--x:610;--y:355;--w:100;--h:230" aria-label="Say hi to an interviewer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Interviewer</b><i>TechNext HR</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="cand" data-near="700,110" data-who="A candidate" data-role="Visitor lanyard · illustration" data-say="I mapped our **month-end close** in Excel. Twelve tabs!" style="--x:774;--y:355;--w:100;--h:230" aria-label="Say hi to a candidate in an interview (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Candidate</b><i>interview</i></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r0" data-nx="242,70" data-pose="present" data-rec="₱150,000–180,000 a month · Taguig City" data-say="Senior Solutions Architect: Turn complex requirements into well-architected **Odoo solutions**, from discovery to go-live." style="--x:242;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>Senior Solutions Architect</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r1" data-nx="358,70" data-pose="present" data-rec="₱70,000–85,000 a month · hybrid" data-say="Functional ERP/Odoo Consultant: Own the **finance workstream**: how a client's books close, set up in Odoo Accounting." style="--x:358;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>Functional ERP/Odoo Consultant</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r2" data-nx="474,70" data-pose="present" data-rec="₱90,000–120,000 a month · hybrid" data-say="B2B Sales Consultant: Guide **international buyers** through a consultative ERP purchase." style="--x:474;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>B2B Sales Consultant</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r3" data-nx="590,70" data-pose="present" data-rec="₱38,000–50,000 a month · Taguig City" data-say="Marketing Officer: Build the **lead engine**: the website, content, campaigns and email." style="--x:590;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>Marketing Officer</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r4" data-nx="706,70" data-pose="present" data-rec="₱60,000–75,000 a month · hybrid" data-say="Senior Accountant (CPA): Own TechNext's **own finances**: month-end close and BIR filings." style="--x:706;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>Senior Accountant</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="r5" data-nx="822,70" data-pose="present" data-rec="₱30,000–45,000 a month · hybrid" data-say="HR Generalist: Build the **people function** from the ground up: policies, hiring, onboarding." style="--x:822;--y:206;--w:108;--h:116" aria-pressed="false"><span class="ixw-hot-lab">{{icon:briefcase}}<b>HR Generalist</b></span></button>
+      <button class="ixw-toy" type="button" data-toy="printer" data-near="420,90" data-pose="celebrate" data-say="A fresh **TechNext ID**, still warm. Could the next one be yours?" style="--x:400;--y:350;--w:64;--h:44" aria-label="Print a TechNext ID"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Print an ID</b></span></button>
+      <button class="ixw-toy" type="button" data-toy="stand" data-near="760,110" data-pose="point-right" data-say="Apply on **JobStreet**, or email **career@technext.asia** with your CV." style="--x:897;--y:325;--w:80;--h:160" aria-label="How to apply"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>How to apply</b></span></button>
+      <button class="ixw-toy ixw-hot--below" type="button" data-toy="balloons" data-near="300,90" data-pose="celebrate" data-say="Balloons! It's **recruitment day** at the TechNext booth." style="--x:168;--y:0;--w:84;--h:96" aria-label="Bounce the balloons"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Balloons</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:520;--ny:90" data-reacts="wow::Six roles, **one team**, three offices!|love::Everyone here gets a **TechNext ID**. Even me.|celebrate::You're hired! (Well, apply first.)|think::Not sure which role? Try **the role matcher** below.">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:careers}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">Hiring at a glance</h2>
-    <dl class="glance">
-      <div><dt>Open roles</dt><dd>6</dd></div>
-      <div><dt>Location</dt><dd>Taguig City, Metro Manila</dd></div>
-      <div><dt>Type</dt><dd>Full time · hybrid for most roles</dd></div>
-      <div><dt>Apply through</dt><dd>JobStreet, or career@technext.asia</dd></div>
-      <div><dt>Offices</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div>
-    </dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Welcome to the **TechNext booth**! I'm **Nexi**. Tap a role on the wall and I'll tell you about it." data-outro="Apply on **JobStreet**, or email **career@technext.asia**. See you in Taguig City!">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:careers}}<b data-for="rec" style="--c:#3167CA">R</b><b data-for="hr" style="--c:#E0456B">I</b><b data-for="cand" style="--c:#14A38B">C</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="Now serving · TechNext booth">Now serving · TechNext booth</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Welcome to the <b>TechNext booth</b>! I'm <b>Nexi</b>. Tap a role on the wall and I'll tell you about it.</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: Senior Solutions Architect"></button><button type="button" data-ixw-dot aria-label="Stop 3: Functional ERP/Odoo Consultant"></button><button type="button" data-ixw-dot aria-label="Stop 4: B2B Sales Consultant"></button><button type="button" data-ixw-dot aria-label="Stop 5: Marketing Officer"></button><button type="button" data-ixw-dot aria-label="Stop 6: Senior Accountant (CPA)"></button><button type="button" data-ixw-dot aria-label="Stop 7: HR Generalist"></button><button type="button" data-ixw-dot aria-label="Stop 8: how to apply"></button></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">Hiring at a glance</h2>
+  <dl class="glance glance--ind ixw-credits cr-strip">
+    <div><dt>{{icon:briefcase}}Open roles</dt><dd>6</dd></div>
+    <div><dt>{{icon:pin}}Location</dt><dd>Taguig City, Metro Manila</dd></div>
+    <div><dt>{{icon:clock}}Type</dt><dd>Full time · hybrid for most roles</dd></div>
+    <div><dt>{{icon:send}}Apply through</dt><dd>JobStreet, or career@technext.asia</dd></div>
+    <div><dt>{{icon:globe}}Offices</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div>
+  </dl>
+</div>
 
 <section class="section section--tight demo-sec" id="find-your-role">
   <div class="container">
@@ -90,7 +113,7 @@
       <button type="button" data-filter-tag="finance" aria-pressed="false">Finance &amp; HR <span>2</span></button>
     </div>
     <p class="sr-only" data-filter-say aria-live="polite"></p>
-    <div class="jobs" id="role-list">
+    <div class="jobs cr-flyers" id="role-list">
 
       <article class="job reveal" data-tags="erp" style="--i:0">
         <div class="job-top"><span class="job-team job-team--erp">{{icon:layers}}Odoo &amp; ERP</span><span class="job-pay">₱150,000–180,000 <small>a month</small></span></div>
@@ -175,7 +198,7 @@
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section section--alt cr-work">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">the work</span><h2>What working at TechNext is about.</h2></div>
     <div class="grid-3">
@@ -194,7 +217,7 @@
         <h2>Three ways in.</h2>
         <p class="lead">Apply for a listed role on JobStreet. If the role you want isn't listed, write to us anyway.</p>
       </div>
-      <ol class="apply-steps reveal">
+      <ol class="apply-steps cr-tickets reveal">
         <li><span class="apply-n">1</span><div><b>Pick a role above</b><p>Open its full listing on JobStreet: responsibilities, requirements and salary.</p></div></li>
         <li><span class="apply-n">2</span><div><b>Apply on JobStreet</b><p>Send your application and CV through the listing itself.</p></div></li>
         <li><span class="apply-n">3</span><div><b>No matching role?</b><p>Email <a href="mailto:career@technext.asia">career@technext.asia</a> with the role you're after and your CV. Developers and consultants in Singapore, the Philippines and Vietnam can write too.</p></div></li>
