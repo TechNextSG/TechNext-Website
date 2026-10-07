@@ -270,7 +270,7 @@
       [-1, 1].forEach(function (d) { limb(g, [[d * 34, -128 - hop], [d * 34, -30 - hop * 0.4]], 42, c.low); });
       [-1, 1].forEach(function (d) { fillRR(g, d * 36 - 30 + d * 8, -28 - hop * 0.4, 60, 30, 14, c.shoe); });
     }
-    g.translate(0, -hop + (P.sit ? 46 : 0));
+    g.translate(0, -hop + (P.sit ? (P.sitDrop != null ? P.sitDrop : 46) : 0)); /* P.sitDrop: a seat higher than the office chair (a banquette or a cafe chair behind a table) */
     var bw = P.build || 1;
     g.save(); g.translate(0, -116); g.scale((1 + 0.008 * br) * bw, 1 + 0.012 * br); g.translate(0, 116); torso(g, P); g.restore();
     g.save(); g.translate(0, F3.top + hb); g.rotate(P.tilt || 0); g.translate(0, -F3.top);
