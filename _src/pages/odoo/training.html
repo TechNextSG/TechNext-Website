@@ -1,59 +1,62 @@
-<!--meta {"title": "Odoo Training in Singapore — on your data", "desc": "Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.", "out": "odoo/training.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-curriculum.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-curriculum.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Training in Singapore — on your data", "desc": "Role-based Odoo training by TechNext: finance, sales and warehouse teams learn their own screens on your data, with written guides for hand-over.", "out": "odoo/training.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-curriculum.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/training.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-curriculum.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/training.css?v={ASSET_V}\">", "body": "ixw ixw--training ow-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Training</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo training · step 2 of 4</span>Training: each team learns its own screens.</h1>
-        <p class="lead">Not a tour of every menu. Finance learns bank reconciliation and month-end; sales learns quotations and confirmations; the warehouse learns receipts, picking and counts — all on your own products and customers in Odoo 20, so day one after go-live feels familiar.</p>
-        <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
-        </div>
-        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">{{odoo:accountant:16}} Finance</span><span class="tag">{{odoo:sale:16}} Sales</span><span class="tag">{{odoo:stock:16}} Warehouse</span></div>
-      </div>
-      <div class="stage stage--train" data-cycle="finance,sales,warehouse" aria-hidden="true">
-        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-on"><b>2</b>Training</li><li><b>3</b>Integration</li><li><b>4</b>Support</li></ol>
-        <div class="st-card tr-win dp" style="--d:6">
-          <div class="st-bar"><i></i><i></i><i></i><span>Training database · a copy of your own data</span></div>
-          <div class="tr-tabs"><span data-role-tab="finance">{{odoo:accountant:16}}Finance</span><span data-role-tab="sales">{{odoo:sale:16}}Sales</span><span data-role-tab="warehouse">{{odoo:stock:16}}Warehouse</span></div>
-          <div class="tr-screens">
-            <div class="tr-screen" data-role="finance">
-              <div class="tr-h">Bank reconciliation</div>
-              <div class="tr-row"><span>Harbourline Supplies</span><span class="tag tag--ok">Matched</span><span>S$ 4,280.00</span></div>
-              <div class="tr-row"><span>Card settlement</span><span class="tag tag--ok">Matched</span><span>S$ 1,962.40</span></div>
-              <div class="tr-row"><span>Transfer, no reference</span><span class="tag">To review</span><span>S$ 350.00</span></div>
-              <span class="tr-btn">Validate</span><div class="tr-veil"></div>
-              <div class="tr-tip">Check the suggested match, then validate.</div>
-            </div>
-            <div class="tr-screen" data-role="sales">
-              <div class="tr-h">Quotation S00042</div>
-              <div class="tr-row"><span>Barcode scanner</span><span class="tag">&times; 6</span><span>S$ 1,080.00</span></div>
-              <div class="tr-row"><span>Label printer</span><span class="tag">&times; 2</span><span>S$ 460.00</span></div>
-              <div class="tr-row"><span>Set-up service</span><span class="tag">&times; 1</span><span>S$ 300.00</span></div>
-              <span class="tr-btn">Confirm</span><div class="tr-veil"></div>
-              <div class="tr-tip">Confirm it, and the quotation becomes a sales order.</div>
-            </div>
-            <div class="tr-screen" data-role="warehouse">
-              <div class="tr-h">Receipt WH/IN/00017</div>
-              <div class="tr-row"><span>Barcode scanner</span><span class="tag tag--ok">Scanned</span><span>6 / 6</span></div>
-              <div class="tr-row"><span>Label printer</span><span class="tag tag--ok">Scanned</span><span>2 / 2</span></div>
-              <div class="tr-row"><span>Thermal labels</span><span class="tag">Waiting</span><span>0 / 40</span></div>
-              <span class="tr-btn">Validate</span><div class="tr-veil"></div>
-              <div class="tr-tip">Scan each product in, then validate the receipt.</div>
-            </div>
-          </div>
-        </div>
-        <div class="st-card tr-guide dp" style="--d:14"><b>Quick-reference guide</b><ol class="tr-steps" data-role="finance"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Open the bank statement</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Check the suggested matches</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Validate the lines</li></ol><ol class="tr-steps" data-role="sales"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Pick the customer and products</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Send the quotation</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Confirm it into an order</li></ol><ol class="tr-steps" data-role="warehouse"><li style="--k:0"><span class="st-tick">{{icon:check}}</span>Open the incoming receipt</li><li style="--k:1"><span class="st-tick">{{icon:check}}</span>Scan each product in</li><li style="--k:2"><span class="st-tick">{{icon:check}}</span>Validate the receipt</li></ol></div>
-        <span class="st-chip tr-data dp" style="--d:10">{{icon:database}}Your products, your customers</span>
+<section class="ixw-hero" data-ixw-hero data-world="training" data-home="1010,110" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Training</span></nav>
+      <ol class="ow-rail" aria-label="Step 2 of 4"><li><a href="{{ROOT}}odoo/discovery.html"><b>1</b>Discovery</a></li><li class="is-on"><b>2</b>Training</li><li><a href="{{ROOT}}odoo/integration.html"><b>3</b>Integration</a></li><li><a href="{{ROOT}}odoo/support.html"><b>4</b>Support</a></li></ol>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo training · step 2 of 4</span>Training: each team learns its own screens.</h1>
+      <p class="lead"><span class="m-full">Not a tour of every menu. Finance learns bank reconciliation and month-end; sales learns quotations and confirmations; the warehouse learns receipts, picking and counts, all on your own products and customers in Odoo 20, so day one after go-live feels familiar.</span><span class="m-short">Finance, sales and the warehouse each learn their own Odoo 20 screens, on a copy of your own data.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap a trainee, the trainer, the guides or the certificate.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="tr" data-near="1010,110" data-who="TechNext trainer" data-role="Odoo training · illustration" data-say="Same screens you'll use on **day one**, with your own customers in them." style="--x:880;--y:358;--w:90;--h:230" aria-label="Say hi to the TechNext trainer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Trainer</b><i>TechNext</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="fin" data-near="1010,110" data-who="Finance" data-role="Trainee · illustration" data-say="Bank reconciliation, done in **minutes**. I can do this." style="--x:420;--y:322;--w:80;--h:76" aria-label="Say hi to finance (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Finance</b></span></button>
+      <button class="ixw-cast" type="button" data-cast="sal" data-near="1010,110" data-who="Sales" data-role="Trainee · illustration" data-say="Confirm, and the quotation becomes an **order**. Nice." style="--x:560;--y:322;--w:80;--h:76" aria-label="Say hi to sales (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Sales</b></span></button>
+      <button class="ixw-cast" type="button" data-cast="wh" data-near="1010,110" data-who="Warehouse" data-role="Trainee · illustration" data-say="Scan it in, validate. **That's** the receipt." style="--x:700;--y:322;--w:80;--h:76" aria-label="Say hi to the warehouse (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Warehouse</b></span></button>
+
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="finance" data-nx="1010,110" data-pose="point-left" data-rec="Finance · bank reconciliation, month-end" data-say="**Finance** learns bank reconciliation and month-end, on your own bank lines." style="--x:420;--y:404;--w:76;--h:40" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Finance</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="sales" data-nx="1010,110" data-pose="point-left" data-rec="Sales · quotations and confirmations" data-say="**Sales** learns quotations and confirmations, with your products and prices." style="--x:560;--y:404;--w:76;--h:40" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:sale:18}}<b>Sales</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="warehouse" data-nx="1010,110" data-pose="point-left" data-rec="Warehouse · receipts, picking and counts" data-say="The **warehouse** learns receipts, picking and counts, with a scanner in hand." style="--x:700;--y:404;--w:76;--h:40" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:stock:18}}<b>Warehouse</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="database" data-nx="1010,110" data-pose="point-left" data-rec="Training database · a copy of your own data" data-say="Everyone practises on a **copy of your own data**, so nothing real can break." style="--x:595;--y:-83;--w:470;--h:30" aria-pressed="false"><span class="ixw-hot-lab">{{icon:database}}<b>Your data, copied</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="guides" data-nx="860,120" data-pose="point-right" data-rec="Quick-reference guides · one per task" data-say="Every task gets a **quick-reference guide**, yours to keep after go-live." style="--x:1005;--y:356;--w:150;--h:60" aria-pressed="false"><span class="ixw-hot-lab">{{icon:file}}<b>Guides</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="schedule" data-nx="330,240" data-pose="point-left" data-rec="Schedule · on-site in Singapore, remote elsewhere" data-say="One session per team: **on-site in Singapore**, remote everywhere else." style="--x:235;--y:38;--w:170;--h:196" aria-pressed="false"><span class="ixw-hot-lab">{{icon:calendar}}<b>Schedule</b></span></button>
+
+      <button class="ixw-toy" type="button" data-toy="guide" data-near="860,120" data-pose="love" data-say="Here's your **guide**. Step by step, with screenshots of your screens." style="--x:1050;--y:410;--w:70;--h:36" aria-label="Hand out a guide"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Take a guide</b></span></button>
+      <button class="ixw-toy ixw-hot--below" type="button" data-toy="cert" data-near="1010,110" data-pose="celebrate" data-say="Training done: **certificate** earned!" style="--x:1005;--y:0;--w:110;--h:80" aria-label="Celebrate the certificate"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Certificate</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:1010;--ny:110" data-reacts="wow::Your own data, on the **big screen**!|love::I love a good **quick-reference guide**.|celebrate::Everyone trained. **Yay!**|think::Hmm… which screen does **your team** use most?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:training}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance"><div><dt>Phase</dt><dd>Step 2 of 4</dd></div><div><dt>Format</dt><dd>Role-based · hands-on · on your data</dd></div><div><dt>Audiences</dt><dd>Administrators and end-users</dd></div><div><dt>Delivery</dt><dd>On-site in Singapore · remote elsewhere</dd></div><div><dt>You keep</dt><dd>Quick-reference guides per task</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. Welcome to **training**: each team learns its own Odoo 20 screens. Tap around!" data-outro="Own screens, own data, a guide to keep. **That's** training.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:training}}<b data-for="tr" style="--c:#714B67">T</b><b data-for="fin" style="--c:#2E9C7E">F</b><b data-for="sal" style="--c:#E46E78">S</b><b data-for="wh" style="--c:#F2A33A">W</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo training">assistant · Odoo training</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. Welcome to <b>training</b>: each team learns its own Odoo 20 screens. Tap around!</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: finance"></button><button type="button" data-ixw-dot aria-label="Stop 3: sales"></button><button type="button" data-ixw-dot aria-label="Stop 4: warehouse"></button><button type="button" data-ixw-dot aria-label="Stop 5: your data"></button><button type="button" data-ixw-dot aria-label="Stop 6: guides"></button><button type="button" data-ixw-dot aria-label="Stop 7: schedule"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:layers}}Phase</dt><dd>Step 2 of 4</dd></div><div><dt>{{icon:users}}Format</dt><dd>Role-based · hands-on · on your data</dd></div><div><dt>{{icon:smile}}Audiences</dt><dd>Administrators and end-users</dd></div><div><dt>{{icon:pin}}Delivery</dt><dd>On-site in Singapore · remote elsewhere</dd></div><div><dt>{{icon:file}}You keep</dt><dd>Quick-reference guides per task</dd></div></dl>
+</div>
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo training from TechNext is role-based: each team learns its own screens on a copy of your own data. Finance learns bank reconciliation and month-end, sales learns quotations and confirmations, and the warehouse learns receipts, picking and counts, with written guides left behind for hand-over.</p></div></div>
