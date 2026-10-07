@@ -351,7 +351,6 @@
     /* ---------------- caption: typed like the videos ---------------- */
     var typeEl = cap && cap.querySelector('[data-ixw-type]'), liveEl = cap && cap.querySelector('[data-ixw-live]'), whoEl = cap && cap.querySelector('[data-ixw-who]'), roleEl = cap && cap.querySelector('[data-ixw-role]'), avEl = cap && cap.querySelector('[data-ixw-av]');
     var typeTimer = 0, recEl = cap && cap.querySelector('[data-ixw-rec]');
-    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
     function say(textS, who, role, av, announce) {
       if (!typeEl) return;
       if (whoEl) whoEl.textContent = who || 'Nexi'; if (roleEl) roleEl.textContent = role || roleEl.getAttribute('data-default') || '';
@@ -359,14 +358,16 @@
       var plain = textS.replace(/\*\*/g, ''); if (liveEl && announce) liveEl.textContent = (who || 'Nexi') + ': ' + plain;
       clearInterval(typeTimer);
       var parts = textS.split('**'), n = 0, total = plain.length;
-      function render(m) { var out = '', left = m; parts.forEach(function (p, i) { if (left <= 0) return; var s = p.slice(0, left); left -= s.length; out += i % 2 ? '<b>' + esc(s) + '</b>' : esc(s); }); typeEl.innerHTML = out; }
+      /* built from text nodes (never markup): **bold** parts become <b> elements */
+      function render(m) { var frag = document.createDocumentFragment(), left = m; parts.forEach(function (p, i) { if (left <= 0) return; var s = p.slice(0, left); left -= s.length; if (i % 2) { var b = document.createElement('b'); b.textContent = s; frag.appendChild(b); } else frag.appendChild(document.createTextNode(s)); }); typeEl.textContent = ''; typeEl.appendChild(frag); }
       cap.classList.add('is-typing');
       if (reduce) { render(total); cap.classList.remove('is-typing'); return; }
       typeTimer = setInterval(function () { n += 2; render(n); if (n >= total) { clearInterval(typeTimer); cap.classList.remove('is-typing'); } }, 32);
     }
     function rec(el) {
       if (!recEl) return; var ic = el && el.querySelector('.oi'), r = el && el.getAttribute('data-rec');
-      recEl.innerHTML = r ? (ic ? ic.outerHTML : '') + '<span>' + esc(r) + '</span><em>Sample</em>' : '';
+      recEl.textContent = '';
+      if (r) { if (ic) recEl.appendChild(ic.cloneNode(true)); var sp = document.createElement('span'); sp.textContent = r; recEl.appendChild(sp); var em = document.createElement('em'); em.textContent = 'Sample'; recEl.appendChild(em); }
       cap.classList.remove('has-rec'); if (r) { void cap.offsetWidth; cap.classList.add('has-rec'); }
     }
 
