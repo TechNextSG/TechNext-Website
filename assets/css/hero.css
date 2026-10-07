@@ -1238,19 +1238,19 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs-sky::after{content:"";position:absolute;z-index:3;left:var(--ox,80%);top:var(--oy,8%);width:0;height:0;border-radius:50%;box-shadow:0 0 0 3px var(--hx-st-ink,rgba(31,31,61,.5));opacity:0;pointer-events:none}
 .hxs.is-enter .hxs-sky::after,.hxs.is-swap .hxs-sky::after{animation:hxsRing 1.05s cubic-bezier(.65,0,.25,1) both}
 @keyframes hxsRing{0%{opacity:.9;width:0;height:0;margin:0}100%{opacity:0;width:calc(var(--or,160vmax) * 2);height:calc(var(--or,160vmax) * 2);margin:calc(var(--or,160vmax) * -1) 0 0 calc(var(--or,160vmax) * -1)}}
-.hxs-bg img{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;max-height:none;object-fit:cover;object-position:64% 70%;transform:scale(1.06);
+.hxs-bg img{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;max-height:none;object-fit:cover;object-position:50% 100%;transform:scale(1.06);
   translate:calc(var(--px) * -14px) calc(var(--py) * -8px);transition:transform 9s cubic-bezier(.2,.6,.3,1),translate .8s ease-out}
 .hxs-bg.is-on img{transform:scale(1.02)}
 .hxs-veil{position:absolute;inset:0;z-index:2;background:
   linear-gradient(180deg,rgba(255,255,255,.72) 0,rgba(255,255,255,0) 190px),
   linear-gradient(0deg,#FFFFFF 0,rgba(255,255,255,0) 220px),
   radial-gradient(70% 90% at 0% 55%,rgba(255,255,255,.35),rgba(255,255,255,0) 70%)}
-.slide-inner.hxs-inner{position:relative;z-index:1;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:24px;padding:clamp(18px,3.4vh,40px) 0 118px;align-items:start}
+.slide-inner.hxs-inner{position:relative;z-index:1;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:24px;padding:24px 0 112px;align-items:center}
 .hxs-left{position:relative;display:grid;gap:18px;justify-items:start}
 /* the cards: stacked in one cell, so the slide never jumps between industries */
 .hxs-cards{display:grid;width:100%;transition:opacity .4s ease}
 .hxs:not(.is-skinned) .hxs-cards{opacity:0}
-.hxs-panel{grid-area:1/1;align-self:start;visibility:hidden;opacity:0;pointer-events:none}
+.hxs-panel{grid-area:1/1;align-self:center;visibility:hidden;opacity:0;pointer-events:none}
 .hxs-panel.is-on{visibility:visible;opacity:1;pointer-events:auto}
 .hxs-panel.is-out{visibility:visible;animation:hxsOut .3s cubic-bezier(.4,0,.6,1) both}
 .hxs.is-swap{--hd:.18s}   /* switching: the new card starts once the old one has gone */
@@ -1307,17 +1307,19 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs.is-held .hxs-ch.is-on i{opacity:1;transform:scaleX(1)}
 @keyframes hxsTick{to{transform:scaleX(1)}}
 /* Nexi in costume and three workflow steps, standing in the scene */
+/* Nexi stands on the floor as the model, at a fixed share of the image's own size (never stretched), in costume */
 .hxs-stage{position:relative;align-self:stretch;min-height:440px}
-.hxs-cast{position:absolute;right:2%;bottom:-2%;width:clamp(200px,20vw,300px);height:clamp(260px,34vh,380px);visibility:hidden}
+.hxs-cast{position:absolute;right:5%;bottom:-6px;visibility:hidden;--ns:.5}
+.hxs-cast::before{content:"";position:absolute;left:12%;right:12%;bottom:-6px;height:22px;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,55,.28),rgba(20,30,55,0))}
 .hxs-cast.is-on,.hxs-cast.is-out{visibility:visible}
-.hxs-nexi{position:absolute;right:0;bottom:0;width:auto;height:100%;transform-origin:50% 100%;filter:drop-shadow(0 18px 18px rgba(15,25,50,.3));
+.hxs-nexi{position:relative;display:block;width:calc(var(--w) * var(--ns) * 1px);max-width:none;height:auto;transform-origin:50% 100%;filter:drop-shadow(0 18px 18px rgba(15,25,50,.3));
   translate:calc(var(--px) * 10px) calc(var(--py) * 6px);transition:translate .6s ease-out}
 .hxs-cast.is-on .hxs-nexi{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .35s) both,hxsBob 3.4s ease-in-out 1.6s infinite}
 .hxs-cast.is-out .hxs-nexi{animation:hxsDrop .4s ease-in both}
 @keyframes hxsHop{from{opacity:0;transform:translateY(30%) scale(.7) rotate(-8deg)}to{opacity:1;transform:none}}
 @keyframes hxsDrop{to{opacity:0;transform:translateY(18%) scale(.85)}}
 @keyframes hxsBob{50%{transform:translateY(-3%)}}
-.hxs-pills{position:absolute;right:78%;bottom:34%;display:grid;justify-items:end;gap:10px}
+.hxs-pills{position:absolute;right:calc(100% - 24px);bottom:36%;display:grid;justify-items:end;gap:10px}
 .hxs-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 15px 8px 9px;border:2.5px solid var(--st-ink,#1F1F3D);border-radius:var(--ii-pill-r,999px);background:var(--hc-bg,var(--blue));
   box-shadow:0 4px 0 var(--st-ink,#1F1F3D),0 16px 26px -14px rgba(15,25,50,.45);color:var(--hc-fg,#FFFFFF);font:800 14px/1 var(--font-display);white-space:nowrap;opacity:0}
 .hxs-pill:nth-child(2){margin-right:26px}
@@ -1327,12 +1329,13 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 @keyframes hxsPill{from{opacity:0;transform:translateX(40px) scale(.6)}to{opacity:1;transform:none}}
 /* desktop: the strip is the slide's channel selector, top right, so the card keeps the full height */
 @media (min-width:961px){.hxs-left{position:static}.hxs-strip{position:absolute;z-index:3;right:0;top:18px}.hxs-strip-l{max-width:none}}
-@media (max-width:1180px){.slide-inner.hxs-inner{grid-template-columns:minmax(0,480px) minmax(0,1fr)}.hxs-pills{right:70%}}
+@media (max-width:1180px){.slide-inner.hxs-inner{grid-template-columns:minmax(0,480px) minmax(0,1fr)}.hxs-cast{--ns:.42}}
+@media (max-height:820px) and (min-width:961px){.hxs-cast{--ns:.42}}
 @media (max-width:960px){
   .slide-inner.hxs-inner{grid-template-columns:minmax(0,1fr);padding:24px 16px 40px;justify-items:center}
   .hxs-left{justify-items:stretch;width:100%;max-width:560px}
   .hxs-stage{display:none}
-  .hxs-bg img{object-position:60% 55%}
+  .hxs-bg img{object-position:72% 100%}
   .hxs-veil{background:linear-gradient(180deg,rgba(255,255,255,.7) 0,rgba(255,255,255,0) 150px),linear-gradient(0deg,#FFFFFF 0,rgba(255,255,255,0) 160px)}
   .hxs-strip{overflow-x:auto;scrollbar-width:none;padding-left:8px}
   .hxs-strip::-webkit-scrollbar{display:none}

@@ -3,7 +3,7 @@
    industry's own hero in turn. Its real scene fills the background (crossfading, drifting with the pointer), the page's
    own title card, tag and buttons (skins extracted from the industry stylesheets into hero-skins.css, loaded here when the
    page is idle) and Nexi in that industry's costume with three workflow steps. The industries change every few seconds
-   while the slide shows and carry on from where they stopped next time; the badge strip (tap, hover, arrow keys) picks one.
+   while the slide shows and carry on from where they stopped next time; the badge strip (click or arrow keys) picks one.
    Scenes load one at a time: the one showing and the next. */
 (function () {
   'use strict';
@@ -98,7 +98,6 @@
 
   chans.forEach(function (c, k) {
     c.addEventListener('click', function () { show(k); });
-    if (fine) c.addEventListener('pointerenter', function () { held = true; show(k); });
     c.addEventListener('keydown', function (e) {
       var d = null; if (e.key === 'ArrowRight') d = at + 1; else if (e.key === 'ArrowLeft') d = at - 1; else if (e.key === 'Home') d = 0; else if (e.key === 'End') d = n - 1;
       if (d === null) return; e.preventDefault(); show(d); chans[at].focus();

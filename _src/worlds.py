@@ -117,8 +117,8 @@ def intro_html(world: str) -> str:
 
 
 # ---------------------------------------------------------------- the homepage showcase (slide 3 of the hero)
-# The slide becomes each world's hero in turn: its scene (assets/img/industries/<key>/scene.webp, captured from the world
-# page by qa/ind-medical/hqbg.py), its title card and buttons (hero-skins.css, from _src/hero_skins.py), Nexi in costume.
+# The slide becomes each world's hero in turn: its illustrated backdrop (no people; _src/backdrops.py), its title card and
+# buttons (hero-skins.css, from _src/hero_skins.py), Nexi in costume at natural proportions with the workflow steps.
 # assets/js/hero-industries.js runs it; assets/css/hero.css styles the frame (.hxs-*).
 SHOW_ORDER = ["medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness"]
 SHOW_SKIN = {  # accent, ink, light
@@ -152,7 +152,7 @@ def showcase_html() -> str:
         steps = [f for f in ind["flow"] if f.get("app")][:3]
         pills = "".join(f'<span class="hxs-pill" style="--j:{j}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for j, f in enumerate(steps))
         p = poses(k)["present"]
-        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/scene.webp"></div>')
+        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/backdrop.svg"></div>')
         panels.append(
             f'<div class="hxs-panel hxs--{k}{on}" data-k="{k}" aria-hidden="{hid}"><div class="ixw-copy hxs-card">'
             f'<p class="ixw-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{b["ep"]}</span></p>'
@@ -163,7 +163,7 @@ def showcase_html() -> str:
             f'<a class="btn btn-ghost" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
             f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry</span></p>'
             f'</div></div>')
-        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" decoding="async" '
+        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" style="--w:{p["w"]};--ay:{p["ay"]};--ax:{p["ax"]}" decoding="async" '
                      f'data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp"><span class="hxs-pills">{pills}</span></div>')
         chans.append(f'<button class="hxs-ch hxs--{k}{on}" type="button" role="tab" data-k="{k}" aria-selected="{"true" if i == 0 else "false"}" '
                      f'tabindex="{0 if i == 0 else -1}" aria-label="{ind["name"]}">{{{{icon:ind-{k}}}}}<i></i></button>')
