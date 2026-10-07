@@ -1,33 +1,105 @@
-<!--meta {"title": "Meet the TechNext team", "desc": "Meet the TechNext people you will work with on your Odoo, AI and website project, from the first discovery call to support after go-live.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/employee-hub.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Employee Hub: the TechNext 201 and team sheets", "desc": "The TechNext Employee Hub: an employee information sheet for each person on the team, what a 201 file holds, and the three offices we work from.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "scripts": ["assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/team.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/company.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/employee-hub.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/team.css?v={ASSET_V}\">", "body": "ixw ixw--team co-page"} -->
 
-<section class="page-hero th-hero">
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Employee Hub</span></nav>
-    <span class="hand">the people behind your project</span>
-    <h1>Meet the TechNext team</h1>
-    <p class="lead">These are the people you will work with on your Odoo, AI or website project. One team across Singapore, Taguig City and Ho Chi Minh City, from the first discovery call to support after go-live.</p>
-    <div class="actions">
-      <a class="btn btn-primary btn-lg" href="#team">Meet the team {{icon:arrow}}</a>
-      <a class="btn btn-ghost btn-lg" href="{{ROOT}}company.html">About TechNext</a>
+<section class="ixw-hero" data-ixw-hero data-world="team" data-home="560,120" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Employee Hub</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Employee Hub</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">the 201 room</span>Every TechNext person, on file.</h1>
+      <p class="lead"><span class="m-full">One employee information sheet for each person on the team, the TechNext ID we all wear, and the three offices we work from: Singapore, Taguig City and Ho Chi Minh City.</span><span class="m-short">An employee sheet for each person, the TechNext ID we all wear, and our three offices.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="#team">Open the sheets {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#file">{{icon:file}}The 201 file</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap HR, the new hire, a drawer or the ID printer.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="hr" data-near="840,130" data-who="HR officer" data-role="Employee Hub · illustration" data-say="Every sheet is checked against the **201 file** before it says ON FILE." style="--x:724;--y:322;--w:110;--h:120" aria-label="Say hi to the HR officer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>HR</b><i>201 files</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="hire" data-near="560,120" data-who="New hire" data-role="Employee Hub · illustration" data-say="First day! My papers are in, and my **TechNext ID** is printing." style="--x:880;--y:358;--w:90;--h:224" aria-label="Say hi to the new hire (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>New hire</b><i>day one</i></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="sheet" data-nx="840,130" data-pose="point-left" data-rec="Employee information sheet · name, position, office, ID, email" data-say="The **employee information sheet**: name, position, office, TechNext ID and work email." style="--x:598;--y:333;--w:116;--h:78" aria-pressed="false"><span class="ixw-hot-lab">{{icon:file}}<b>Employee sheet</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="file" data-nx="840,130" data-pose="point-left" data-rec="201 file · the personnel record HR keeps" data-say="A **201 file** is the personnel record HR keeps for each employee, from hiring to exit." style="--x:500;--y:368;--w:76;--h:48" aria-pressed="false"><span class="ixw-hot-lab">{{icon:layers}}<b>201 file</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="cabinet" data-nx="400,200" data-pose="point-left" data-rec="Records · A to Z, one folder per person" data-say="One folder per person, **A to Z**. Tap a drawer and it slides out." style="--x:203;--y:300;--w:206;--h:340" aria-pressed="false"><span class="ixw-hot-lab">{{icon:database}}<b>Records</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="id" data-nx="560,200" data-pose="point-left" data-rec="TechNext ID · every employee wears one" data-say="Every one of us wears a **TechNext ID**, in all three offices." style="--x:376;--y:336;--w:170;--h:80" aria-pressed="false"><span class="ixw-hot-lab">{{icon:users}}<b>TechNext ID</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="offices" data-nx="620,180" data-pose="point-left" data-rec="Singapore HQ · Taguig City · Ho Chi Minh City" data-say="**Three offices**, one team: Singapore HQ, Taguig City and Ho Chi Minh City." style="--x:430;--y:69;--w:200;--h:150" aria-pressed="false"><span class="ixw-hot-lab">{{icon:pin}}<b>Offices</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="journey" data-nx="960,40" data-pose="point-left" data-rec="Discovery · Training · Integration · Support" data-say="The same people run **all four steps**, from discovery to support after go-live." style="--x:730;--y:6;--w:340;--h:92" aria-pressed="false"><span class="ixw-hot-lab">{{icon:check}}<b>Four steps</b></span></button>
+
+      <button class="ixw-toy" type="button" data-toy="drawer" data-near="400,200" data-pose="wow" data-say="A drawer slides out: **manila folders**, one per person." style="--x:203;--y:230;--w:186;--h:150" aria-label="Open a drawer"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Open a drawer</b></span></button>
+      <button class="ixw-toy ixw-hot--below" type="button" data-toy="printer" data-near="560,200" data-pose="love" data-say="Printing a fresh **TechNext ID**. Lanyard included!" style="--x:390;--y:342;--w:96;--h:44" aria-label="Print an ID card"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Print an ID</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:560;--ny:120" data-reacts="wow::Ooh, my own **201 file**!|love::Lanyard on, **TechNext ID** ready.|celebrate::Sheet complete: **ON FILE**. Yay!|think::Hmm… did you update your address with **HR**?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:team}}</span></button></div>
+      </div>
+    </div>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. This is the **201 room**, where every TechNext person has a file. Tap around!" data-outro="Everyone on file, everyone with a **TechNext ID**: one team, three offices.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:team}}<b data-for="hr" style="--c:#14A38B">H</b><b data-for="hire" style="--c:#3167CA">N</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Employee Hub">assistant · Employee Hub</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. This is the <b>201 room</b>, where every TechNext person has a file. Tap around!</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: employee sheet"></button><button type="button" data-ixw-dot aria-label="Stop 3: 201 file"></button><button type="button" data-ixw-dot aria-label="Stop 4: records"></button><button type="button" data-ixw-dot aria-label="Stop 5: TechNext ID"></button><button type="button" data-ixw-dot aria-label="Stop 6: offices"></button><button type="button" data-ixw-dot aria-label="Stop 7: four steps"></button><button type="button" data-ixw-dot aria-label="Stop 8: one team"></button></div>
+      </div>
     </div>
   </div>
 </section>
 
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">The Employee Hub at a glance</h2>
+  <dl class="glance glance--ind ixw-credits th-strip">
+    <div><dt>{{icon:file}}On file</dt><dd>One employee sheet per person</dd></div>
+    <div><dt>{{icon:users}}Every employee</dt><dd>Wears a TechNext ID</dd></div>
+    <div><dt>{{icon:pin}}Offices</dt><dd>Singapore · Taguig City · Ho Chi Minh City</dd></div>
+    <div><dt>{{icon:lock}}This page</dt><dd>Staff page, not indexed</dd></div>
+  </dl>
+</div>
+
 <section class="section th-sec th-team" id="team">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">who you will talk to</span><h2>Your TechNext team</h2><p class="lead">Every project gets a dedicated project manager and the team behind them. Reach out to them directly.</p></div>
+    <div class="sec-head reveal"><span class="hand">employee information sheets</span><h2>The team, on file.</h2><p class="lead">One sheet per person: who they are, what they do and how to reach them at work. These are also the people clients work with, from the first discovery call to support after go-live.</p></div>
     <div class="th-people">{{TEAM_CARDS}}</div>
   </div>
 </section>
 
-<section class="section section--alt th-sec" id="offices">
+<section class="section section--alt th-sec" id="file">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">where we work</span><h2>Three offices, one team</h2><p class="lead">Your project is run from Singapore, built in Taguig City and powered by our AI engineers in Ho Chi Minh City.</p></div>
+    <div class="two two--top">
+      <div class="reveal">
+        <span class="hand">what a 201 holds</span>
+        <h2>The 201 file, explained.</h2>
+        <p class="lead">A 201 file is the personnel record HR keeps for each employee, from the day they are hired to the day they leave. In the Philippines it usually holds the documents on the right.</p>
+        <div class="th-memo"><b>Keep yours current.</b> Tell HR when your address, civil status, dependents, contact numbers or bank details change, so your sheet and your file stay the same.</div>
+      </div>
+      <div class="th-folder reveal" aria-label="What a 201 file usually holds">
+        <p class="th-folder-tab">201 · Personnel file</p>
+        <ol class="th-checklist">
+          <li><b>Employee information sheet</b><span>Personal details, position, office, work email, emergency contact</span></li>
+          <li><b>Government numbers</b><span>TIN, SSS, PhilHealth and Pag-IBIG</span></li>
+          <li><b>Pre-employment documents</b><span>Birth certificate, NBI clearance, ID photos, diploma or transcript</span></li>
+          <li><b>Employment records</b><span>Job offer, contract, job description and any changes to them</span></li>
+          <li><b>Previous employment</b><span>Certificate of employment and BIR Form 2316 from the last employer</span></li>
+          <li><b>Performance and training</b><span>Evaluations, certificates and trainings attended</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section th-sec" id="offices">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">where we work</span><h2>Three offices, one team.</h2><p class="lead">Projects are run from Singapore, built in Taguig City and powered by our AI engineers in Ho Chi Minh City.</p></div>
     <div class="th-offices">{{TEAM_OFFICES}}</div>
   </div>
 </section>
 
-<section class="section th-sec">
+<section class="section section--alt th-sec">
   <div class="container">
     <div class="sec-head reveal"><span class="hand">how an engagement runs</span><h2>Four steps, one team from start to finish.</h2><p class="lead">The people who map your processes are the people who train your team, connect your systems and answer the support tickets after go-live.</p></div>
     <div class="journey reveal">
@@ -41,7 +113,8 @@
 
 <section class="section">
   <div class="container">
-    <div class="cta reveal">
+    <div class="cta ixw-cta th-cta reveal" data-ixw-burst>
+      <span class="ixw-cta-nexi" aria-hidden="true">{{IXW_POSE:team:celebrate}}</span>
       <div><span class="hand">next step</span><h2>Talk to the team.</h2><p>Book a discovery call and we will walk through how your company works today, and what Odoo would change.</p></div>
       <div class="actions"><a class="btn btn-white btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
     </div>

@@ -1,0 +1,55 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: team (/employee-hub) — the TechNext 201 room on a bright Taguig City morning. Brand blue, manila, file-green
+   stamps. The title card is an employee sheet clipped to a manila folder (with its 201 tab and a paper clip); the caption is
+   an HR note with a REMARKS label; buttons are stamped tags; the glance strip is the folder's index card. */
+.ixw--team{--tm-ink:#1B1F3B;--tm-man:#EBC98B;--tm-man2:#D9B06A;--tm-ok:#1E9E6A;
+  --w-alt:#F7F4EC;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
+  --st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#EBC98B;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
+  --ii-bg:linear-gradient(160deg,#F7F4EC,#E8EFFC 60%,#F6E3BC);--ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#D9B06A;--ii-lip:#1B1F3B;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
+.ixw--team .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FAFBFD 18%,#EEF2F8 52%,#E3E9F2 62%,#E9E2D6 62%,#D9D0C1 100%)}
+
+/* ---------- the title card: an employee sheet clipped to a manila folder ---------- */
+.ixw--team .ixw-copy{position:relative;max-width:510px;margin-top:34px;padding:34px 30px 24px;border-radius:4px;background:#FFFFFF;
+  box-shadow:12px 12px 0 var(--tm-man),12px 12px 0 1.5px var(--tm-man2),0 40px 70px -30px rgba(40,40,60,.45)}
+.ixw--team .ixw-copy::before{content:"201 \00B7  EMPLOYEE HUB";position:absolute;left:0;top:-26px;height:26px;padding:0 16px;border-radius:10px 10px 0 0;background:var(--tm-man);
+  font:800 11.5px/26px var(--font-body);letter-spacing:.14em;color:#6B4E1E}
+/* the paper clip */
+.ixw--team .ixw-copy::after{content:"";position:absolute;right:46px;top:-14px;width:16px;height:46px;border:3px solid #9AA6BC;border-radius:10px;border-bottom-color:transparent;
+  box-shadow:inset 0 0 0 3px #FFFFFF,inset 0 0 0 6px #9AA6BC;clip-path:inset(0 0 8px 0)}
+.ixw--team .ixw-copy h1{max-width:14ch}
+.ixw--team .ixw-copy .hand{color:#B7862F}
+.ixw--team .ixw-copy .lead{border-top:1px solid #E3E8EF;padding-top:14px}
+.ixw--team .ixw-ep-tag{box-shadow:0 3px 0 #1E4691}
+.ixw--team .ixw-hint .ic{color:#D9B06A}
+@media (max-width:767px){.ixw--team .ixw-copy{padding:30px 20px 22px;box-shadow:8px 8px 0 var(--tm-man),0 30px 50px -30px rgba(40,40,60,.4)}}
+
+/* ---------- the caption: an HR note ---------- */
+.ixw--team .ixw-cap{border-radius:8px;border:2px solid #1B1F3B;background:#FFFFFF;box-shadow:6px 6px 0 var(--tm-man),0 26px 44px -22px rgba(10,15,40,.45)}
+.ixw--team .ixw-cap::before{content:"HR NOTE \00B7  REMARKS";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:#1B1F3B;color:var(--tm-man);font:800 10.5px/1 var(--font-body);letter-spacing:.14em}
+.ixw--team .ixw-cap-who b{color:var(--tm-ink)}.ixw--team .ixw-cap-txt b{color:#2756B0}
+.ixw--team .ixw-cap-rec{background:#FBF3E2;border:1px dashed var(--tm-man2);color:#6B4E1E}
+
+/* ---------- buttons: stamped tags ---------- */
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:2px solid #1B1F3B;box-shadow:0 4px 0 #1B1F3B;
+  transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,rotate .2s ease}
+.ixw--team main .btn-primary,.ixw--team main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#4A80E2,#3167CA)}
+.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:#1B1F3B;background:var(--tm-man)}
+.ixw--team main .btn-ghost::before{display:none}.ixw--team main .btn-ghost .ic{color:#6B4E1E}
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1deg;box-shadow:0 6px 0 #1B1F3B}
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--team .ixw-cta .btn-outline-white,.ixw--team .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:#FFFFFF;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--team .ixw-ibtn{border:2px solid #1B1F3B;border-radius:8px;box-shadow:0 3px 0 #1B1F3B}
+.ixw--team .ixw-ibtn--play,.ixw--team .ixw-ibtn--play:hover{background:var(--tm-man);color:#1B1F3B}
+.ixw--team .ixw-dots button.is-on{background:var(--tm-man2);box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--team .ixw-peek{border-color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B}.ixw--team .ixw-peek[aria-pressed="true"]{background:var(--tm-man)}
+
+/* ---------- the glance strip: the folder's index card ---------- */
+.ixw--team .th-strip{grid-template-columns:repeat(4,minmax(0,1fr));border-radius:6px;border:2px solid #1B1F3B;box-shadow:6px 6px 0 var(--tm-man);
+  background:repeating-linear-gradient(180deg,transparent 0 31px,#EEF1F6 31px 32px),#FFFFFF;border-top:6px solid #E2453C}
+.ixw--team .th-strip dt .ic{color:#3167CA}
+@media (max-width:991px){.ixw--team .th-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- the end card ---------- */
+.ixw--team main .th-cta{background:radial-gradient(circle at 85% 20%,rgba(235,201,139,.35),transparent 45%),linear-gradient(120deg,#1E3A6E,#3167CA)}
+.ixw--team main .th-cta .hand{color:var(--tm-man)}
