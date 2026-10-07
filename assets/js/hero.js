@@ -247,13 +247,15 @@
     slides.forEach(function (s) { CAM_CLASSES.forEach(function (c) { s.classList.remove(c); }); });
     hero.classList.remove('is-cam'); slides.forEach(function (s) { s.style.removeProperty('--cam'); });
   }
-  function camEnter(slide, n, first) {
+  // quick: coming from the industries slide, which makes no camera exit of its own (its scene closes into the badge),
+  // so the new slide's content starts arriving at once instead of leaving the hero empty for a beat
+  function camEnter(slide, n, first, quick) {
     slide.classList.add('is-entering', CAM_IN[n % CAM_IN.length]);
     if (first) slide.classList.add('cam-first');
     hero.classList.add('is-cam');
     // the delay of the slide's own reveals, on the slide (on the hero it restyled everything when the move ended);
     // it stays until the next change clears it
-    slide.style.setProperty('--cam', first ? '700ms' : '900ms');
+    slide.style.setProperty('--cam', first ? '700ms' : quick ? '400ms' : '900ms');
     tiltReset();
     camTimers.push(setTimeout(function () {
       slide.classList.remove('is-entering', 'cam-first'); CAM_IN.forEach(function (c) { slide.classList.remove(c); });
@@ -284,7 +286,7 @@
     slides[idx].classList.add('is-active');
     // the industries slide makes its own entrance and exit (a full-bleed scene must not spin): it only fades, its
     // neighbours keep their camera moves
-    if (camOn && !isNexi(idx) && !circle) { if (!isOwn(old) && !isOwn(idx)) camLeave(slides[old], old); if (!isOwn(idx)) camEnter(slides[idx], idx, false); }
+    if (camOn && !isNexi(idx) && !circle) { if (!isOwn(old) && !isOwn(idx)) camLeave(slides[old], old); if (!isOwn(idx)) camEnter(slides[idx], idx, false, isOwn(old)); }
     if (dots[idx]) { dots[idx].classList.add('is-active'); dots[idx].setAttribute('aria-selected', 'true'); if (!autoplay) dots[idx].classList.add('is-static'); }
     announce(viaUser); onSlide(idx); restart();
     if (viaUser === 'key' && dots[idx]) dots[idx].focus({ preventScroll: true });
