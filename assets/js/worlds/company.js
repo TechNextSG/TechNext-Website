@@ -190,16 +190,15 @@
   /* ---------------- static front props: the developer's desk, the plugs, the hologram table top ---------------- */
   function paintFront(g, ext) {
     var d = T.desk, top = d.y; soft(g, d.x + d.w / 2, F + 4, d.w * 0.6, 9, 0.24);
-    fillRR(g, d.x, top + 10, d.w, F - top - 10, 6, '#F4F7FC'); g.fillStyle = '#DCE3EE'; g.fillRect(d.x + d.w - 12, top + 10, 12, F - top - 10);
+    fillRR(g, d.x + 6, top + 8, 8, F - top - 8, 3, '#7A869C'); fillRR(g, d.x + d.w - 14, top + 8, 8, F - top - 8, 3, '#7A869C'); fillRR(g, d.x + 6, F - 6, 30, 6, 3, '#7A869C'); fillRR(g, d.x + d.w - 36, F - 6, 30, 6, 3, '#7A869C');
     fillRR(g, d.x - 6, top, d.w + 12, 12, 5, '#C9A27A'); g.fillStyle = 'rgba(255,255,255,.3)'; g.fillRect(d.x - 4, top + 2, d.w + 8, 2);
     /* two monitors on arms (their content is live), a keyboard, a mug */
-    [[d.x + 8, 72], [d.x + 84, 60]].forEach(function (m) { g.fillStyle = '#5C6B7A'; g.fillRect(m[0] + m[1] / 2 - 2, top - 26, 4, 26); fillRR(g, m[0] + m[1] / 2 - 14, top - 4, 28, 5, 2, '#5C6B7A'); fillRR(g, m[0], top - 74, m[1], 50, 5, '#2A3550'); });
+    [[d.x + 8, 72], [d.x + 84, 60]].forEach(function (m) { g.fillStyle = '#5C6B7A'; g.fillRect(m[0] + m[1] / 2 - 2, top - 14, 4, 14); fillRR(g, m[0] + m[1] / 2 - 14, top - 4, 28, 5, 2, '#5C6B7A'); fillRR(g, m[0], top - 56, m[1], 42, 5, '#2A3550'); });
     fillRR(g, d.x + 30, top - 6, 60, 7, 3, '#DDE3EC'); fillRR(g, d.x + 132, top - 18, 13, 18, 4, '#FFFFFF'); fillRR(g, d.x + 132, top - 18, 13, 5, 2, C.blue);
     /* the integration hub on the desk front: three plugs (bank, card, store) into Odoo */
-    var hx = d.x + 18, hy = top + 30; fillRR(g, hx, hy, d.w - 36, 46, 10, '#FFFFFF'); g.strokeStyle = '#DCE3EE'; g.lineWidth = 2; rr(g, hx, hy, d.w - 36, 46, 10); g.stroke();
-    fillE(g, hx + (d.w - 36) / 2, hy + 23, 15, 15, C.odoo); text(g, 'odoo', hx + (d.w - 36) / 2, hy + 26, 7.5, 800, '#FFFFFF', 'center');
-    [[hx + 18, C.ph, 'BANK'], [hx + 44, '#F2B233', 'PAY'], [hx + d.w - 36 - 44, C.sg, 'SHOP'], [hx + d.w - 36 - 18, C.vn, 'AI']].forEach(function (p) { fillE(g, p[0], hy + 23, 10, 10, p[1]); text(g, p[2], p[0], hy + 44, 5.8, 800, '#5C6B7A', 'center'); });
-    text(g, 'TAGUIG CITY · DEV', d.x + d.w / 2, F - 12, 7.5, 800, C.ph, 'center');
+    var hx = d.x + 18, hy = top + 12; fillRR(g, hx, hy, d.w - 36, 26, 9, '#FFFFFF'); g.strokeStyle = '#DCE3EE'; g.lineWidth = 2; rr(g, hx, hy, d.w - 36, 26, 9); g.stroke();
+    fillE(g, hx + (d.w - 36) / 2, hy + 13, 10, 10, C.odoo); text(g, 'odoo', hx + (d.w - 36) / 2, hy + 15.5, 5.6, 800, '#FFFFFF', 'center');
+    [[hx + 18, C.ph, 'BANK'], [hx + 44, '#F2B233', 'PAY'], [hx + d.w - 36 - 44, C.sg, 'SHOP'], [hx + d.w - 36 - 18, C.vn, 'AI']].forEach(function (p) { fillE(g, p[0], hy + 13, 7, 7, p[1]); });
     /* the hologram table's top */
     var h = T.holo; fillE(g, h.x + h.w / 2, h.y + 8, h.w / 2 + 6, 10, '#2A3142'); fillE(g, h.x + h.w / 2, h.y + 4, h.w / 2, 9, '#3A4458'); fillE(g, h.x + h.w / 2, h.y + 4, h.w / 2 - 14, 5, '#7FE3FF');
   }
@@ -279,10 +278,6 @@
     fillRR(g, d.x + 10, d.y + 84, d.w - 20, 6, 3, '#E3E8EF'); fillRR(g, d.x + 10, d.y + 84, (d.w - 20) * (ck ? cp : 1), 6, 3, C.ph);
     /* the developer's monitors: code scrolls; on Integration, a payment and a bank line flow into Odoo */
     var dk2 = T.desk, top = dk2.y, ig = S.hot === 'integrate';
-    [[dk2.x + 8, 72], [dk2.x + 84, 60]].forEach(function (m, mi) { fillRR(g, m[0] + 4, top - 70, m[1] - 8, 42, 2, mi ? '#1E2A3A' : '#FFFFFF');
-      for (var l = 0; l < 5; l++) { var w = 10 + hash(l + mi * 7 + Math.floor(t * 1.5)) * (m[1] - 26); fillRR(g, m[0] + 8 + (l % 2) * 6, top - 64 + l * 7.5, w, 3.4, 1.5, mi ? ['#7FE3C4', '#FFD84A', '#9FC4FF'][l % 3] : ['#3167CA', '#C9D3E3', '#14A38B'][l % 3]); } });
-    var hx = dk2.x + 18, hy = top + 30, cx = hx + (dk2.w - 36) / 2, flow = ig ? ((t - (S.iT || 0)) * 1.4) % 1 : (t * 0.35) % 1;
-    [[hx + 18, C.ph], [hx + 44, '#F2B233'], [hx + dk2.w - 36 - 44, C.sg]].forEach(function (p, i) { var q = (flow + i * 0.33) % 1, px = lerp(p[0], cx, q); fillE(g, px, hy + 23 + Math.sin(q * Math.PI) * -6, 2.6, 2.6, p[1]); });
     /* the support screen: tickets arrive from the three offices into one queue */
     var sp = T.sup, su = S.hot === 'support', tk = su ? Math.floor((t - (S.sT || 0)) * 1.2) : Math.floor(t * 0.5);
     for (var q = 0; q < 3; q++) { var n = tk - q, col = [C.sg, C.ph, C.vn][((n % 3) + 3) % 3], yy = sp.y + 20 + q * 18; fillRR(g, sp.x + 6, yy, sp.w - 12, 14, 4, q === 0 && su ? '#E6F6F2' : '#FFFFFF'); fillE(g, sp.x + 14, yy + 7, 3.4, 3.4, col);
@@ -301,7 +296,14 @@
     capsule(g, t, S);
     paperPlane(g, t, S);
   }
-  function paintFrontLive(g, t, S) { crew(g, t, S, true); }
+  function paintFrontLive(g, t, S) {
+    crew(g, t, S, true);
+    var dk2 = T.desk, top = dk2.y, ig = S.hot === 'integrate';
+    [[dk2.x + 8, 72], [dk2.x + 84, 60]].forEach(function (m, mi) { fillRR(g, m[0] + 4, top - 52, m[1] - 8, 34, 2, mi ? '#1E2A3A' : '#FFFFFF');
+      for (var l = 0; l < 4; l++) { var w = 10 + hash(l + mi * 7 + Math.floor(t * 1.5)) * (m[1] - 26); fillRR(g, m[0] + 8 + (l % 2) * 6, top - 47 + l * 7.5, w, 3.4, 1.5, mi ? ['#7FE3C4', '#FFD84A', '#9FC4FF'][l % 3] : ['#3167CA', '#C9D3E3', '#14A38B'][l % 3]); } });
+    var hx = dk2.x + 18, hy = top + 12, cx = hx + (dk2.w - 36) / 2, flow = ig ? ((t - (S.iT || 0)) * 1.4) % 1 : (t * 0.35) % 1;
+    [[hx + 18, C.ph], [hx + 44, '#F2B233'], [hx + dk2.w - 36 - 44, C.sg]].forEach(function (p, i) { var q = (flow + i * 0.33) % 1, px = lerp(p[0], cx, q); fillE(g, px, hy + 13 + Math.sin(q * Math.PI) * -6, 2.6, 2.6, p[1]); });
+  }
 
   /* ---------------- the foreground (in depth order with the front-row passers-by) ---------------- */
   function FORE() {
@@ -313,7 +315,7 @@
 
   /* ---------------- the people (illustrations, no names): the TechNext team, semi-casual, every one with a TechNext ID ---------------- */
   var CON = W({ x: 392, y: 470, s: 0.54, ph: 0.4, skin: 1, hair: 0, style: 'bob', outfit: 'cardigan', top: '#E9D7C0', top2: '#3167CA', low: '#3A4458', hands: [[-120, -300], [62, -190]], look: -0.4 });
-  var DEV = W({ x: 668, y: 470, s: 0.54, ph: 1.6, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: '#3167CA', top2: '#FFFFFF', glasses: true, headset: '#14A38B', feet: false, hands: [[-60, -200], [60, -200]] });
+  var DEV = W({ x: 668, y: 470, s: 0.54, ph: 1.6, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: '#3167CA', top2: '#FFFFFF', glasses: true, headset: '#14A38B', sit: true, chairCol: '#2A3550', hands: [[-60, -196], [60, -196]] });
   var AIE = W({ x: 940, y: 470, s: 0.54, ph: 2.4, skin: 0, hair: 2, style: 'short', outfit: 'shirt', top: '#F08A24', low: '#2A3550', shoe: '#FFFFFF', glasses: true, hands: [[-80, -230], [70, -150]], look: -0.5 });
 
   window.IXW.worlds.company = {

@@ -1,0 +1,104 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: office-vn (/offices/vietnam) — the Ho Chi Minh City AI lab at dusk. Night navy, cyan and sunset orange. The title
+   card is a terminal window; the caption is the assistant's chat bubble; buttons glow like the lab's neon; the four AI
+   disciplines are editor tabs; how AI joins a project is a terminal log; the FAQ is a prompt. */
+.ixw--office-vn{--vn-ink:#0F1422;--vn-navy:#171B33;--vn-cy:#5FE3F2;--vn-or:#F08A24;--vn-vi:#B79CFF;
+  --w-alt:#EEF0FA;--lab-bg:#0F1422;--lab-bd:1.5px solid #5FE3F2;--lab-lip:#0B0E1D;--lab-tail:#0F1422;--lab-r:8px;
+  --st-ink:#0F1422;--st-meet:#46418A;--st-talk:#F08A24;--st-nexi:#5FE3F2;--st-nexi-fg:#0F1422;--hc-bg:linear-gradient(90deg,#2B2D6E,#6B4B8F 55%,#F08A24);
+  --ii-bg:linear-gradient(160deg,#1B1F3B,#3A2F6E 60%,#8A4F7A);--ii-ink:#FFFFFF;--ii-b:#FFB46B;--ii-accent:#5FE3F2;--ii-lip:#0B0E1D;--ii-ep-bg:#5FE3F2;--ii-ep-fg:#0F1422}
+.ixw--office-vn .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#EEF1F8 12%,#2B2D6E 12%,#6B4B8F 50%,#262B4A 62%,#171B33 100%)}
+.ixw--office-vn .ixw-hot-lab{color:#FFFFFF}.ixw--office-vn .ixw-hot-lab i{color:#AFC0DD}.ixw--office-vn .ixw-hot-lab .ic{color:var(--vn-cy)}
+
+/* ---------- the title card: a terminal window ---------- */
+.ixw--office-vn .ixw-copy{position:relative;max-width:480px;margin-top:20px;padding:58px 30px 26px;border-radius:14px;background:#0F1422;color:#E6ECF8;
+  box-shadow:0 0 0 1.5px #2F3760,0 0 0 6px rgba(95,227,242,.12),0 40px 80px -30px rgba(0,0,0,.6)}
+.ixw--office-vn .ixw-copy::before{content:"~/ai-lab/ho-chi-minh-city";position:absolute;left:0;right:0;top:0;height:40px;display:flex;align-items:center;padding-left:78px;border-radius:14px 14px 0 0;
+  background:radial-gradient(circle at 22px 50%,#FF6F61 5px,transparent 5.5px),radial-gradient(circle at 40px 50%,#FFC94A 5px,transparent 5.5px),radial-gradient(circle at 58px 50%,#2BC48A 5px,transparent 5.5px),#1B2140;
+  font:600 12px/1 ui-monospace,Consolas,monospace;color:#AFC0DD}
+.ixw--office-vn .ixw-copy h1{color:#FFFFFF;max-width:14ch}
+.ixw--office-vn .ixw-copy .h1-hand::before{content:"$ ";font:700 .9em/1 ui-monospace,Consolas,monospace;color:var(--vn-cy)}
+.ixw--office-vn .ixw-copy .hand{color:#FFB46B}
+.ixw--office-vn .ixw-copy .lead,.ixw--office-vn .ixw-copy .crumbs,.ixw--office-vn .ixw-copy .crumbs a,.ixw--office-vn .ixw-ep{color:#C9D3E6}
+.ixw--office-vn .ixw-copy .crumbs span{color:#8E9BB8}
+.ixw--office-vn .ixw-ep-tag{background:var(--vn-cy);color:#0F1422;box-shadow:0 3px 0 #2B8C97}.ixw--office-vn .ixw-ep-tag .ic{background:#0F1422;color:var(--vn-cy)}
+.ixw--office-vn .ixw-hint{color:#AFC0DD}.ixw--office-vn .ixw-hint .ic{color:var(--vn-or)}
+.ixw--office-vn .ixw-hint::after{content:"";display:inline-block;width:8px;height:15px;margin-left:4px;background:var(--vn-cy);animation:vnCaret 1s steps(1) infinite}
+@keyframes vnCaret{50%{opacity:0}}
+@media (max-width:767px){.ixw--office-vn .ixw-copy{padding:54px 20px 22px}.ixw--office-vn .ixw-copy::before{font-size:10.5px;padding-left:72px}}
+
+/* ---------- the caption: the assistant's chat bubble ---------- */
+.ixw--office-vn .ixw-cap{background:#121833;border:1.5px solid #2F3760;border-radius:22px 22px 22px 6px;box-shadow:0 0 0 5px rgba(95,227,242,.08),0 28px 50px -24px rgba(0,0,0,.6)}
+.ixw--office-vn .ixw-cap-who b{color:var(--vn-cy)}.ixw--office-vn .ixw-cap-who small{color:#8E9BB8}
+.ixw--office-vn .ixw-cap-txt{color:#E6ECF8}.ixw--office-vn .ixw-cap-txt b{color:#FFB46B}
+.ixw--office-vn .ixw-caret{background:var(--vn-cy)}
+.ixw--office-vn .ixw-cap-av{background:#1B2140;box-shadow:0 0 0 2px var(--vn-cy)}
+.ixw--office-vn .ixw-cap-rec{background:#1B2140;color:#C9D3E6;border:1px solid #2F3760}
+
+/* ---------- buttons: neon tubes ---------- */
+.ixw--office-vn main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:10px;border:1.5px solid currentColor;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .25s ease,background-color .2s ease}
+.ixw--office-vn main .btn-primary,.ixw--office-vn main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#FFA04A,#E0761A);border-color:#FFC98A;box-shadow:0 0 0 1px #E0761A,0 0 18px rgba(240,138,36,.55),0 4px 0 #A9520E}
+.ixw--office-vn main .btn-primary:hover{translate:0 -2px;box-shadow:0 0 0 1px #E0761A,0 0 28px rgba(240,138,36,.75),0 6px 0 #A9520E}
+.ixw--office-vn main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--office-vn main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--vn-cy);background:rgba(95,227,242,.06);box-shadow:0 0 12px rgba(95,227,242,.3),inset 0 0 10px rgba(95,227,242,.15),0 4px 0 #0B0E1D}
+.ixw--office-vn main :is(.btn-ghost,.ixw-cta .btn-white):hover{translate:0 -2px;box-shadow:0 0 22px rgba(95,227,242,.55),inset 0 0 14px rgba(95,227,242,.25),0 6px 0 #0B0E1D}
+.ixw--office-vn main .btn-ghost::before{display:none}.ixw--office-vn main .btn-ghost .ic{color:var(--vn-cy)}
+.ixw--office-vn main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--office-vn .ixw-cta .btn-outline-white,.ixw--office-vn .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:rgba(255,255,255,.7);box-shadow:0 0 12px rgba(183,156,255,.4)}
+.ixw--office-vn main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+/* light sections: ghost buttons go dark-on-light */
+.ixw--office-vn main .section:not(.vn-dark) .btn-ghost{color:#2B2D6E;background:#FFFFFF;box-shadow:0 0 0 1px #C9C3EE,0 4px 0 #C9C3EE}
+.ixw--office-vn .ixw-ibtn{background:#1B2140;border:1.5px solid #2F3760;color:#E6ECF8;box-shadow:0 3px 0 #0B0E1D}
+.ixw--office-vn .ixw-ibtn:hover{color:var(--vn-cy);border-color:var(--vn-cy);box-shadow:0 0 12px rgba(95,227,242,.4),0 4px 0 #0B0E1D}
+.ixw--office-vn .ixw-ibtn--play,.ixw--office-vn .ixw-ibtn--play:hover{color:#0F1422;background:var(--vn-cy);border-color:var(--vn-cy)}
+.ixw--office-vn .ixw-dots button{background:#2F3760}.ixw--office-vn .ixw-dots button.is-on{background:var(--vn-cy);box-shadow:0 0 8px var(--vn-cy)}
+.ixw--office-vn .ixw-peek{background:#0F1422;color:#FFFFFF;border-color:var(--vn-cy);box-shadow:0 0 12px rgba(95,227,242,.35),0 3px 0 #0B0E1D}
+.ixw--office-vn .ixw-peek[aria-pressed="true"]{background:var(--vn-cy);color:#0F1422}
+.ixw--office-vn main .btn-link{color:#46418A}
+
+/* ---------- the glance strip ---------- */
+.ixw--office-vn .vn-strip{grid-template-columns:repeat(4,minmax(0,1fr));background:#121833;box-shadow:0 0 0 1.5px #2F3760,0 30px 50px -30px rgba(0,0,0,.5)}
+.ixw--office-vn .vn-strip dt{color:#8E9BB8}.ixw--office-vn .vn-strip dt .ic{color:var(--vn-cy)}.ixw--office-vn .vn-strip dd{color:#FFFFFF}
+@media (max-width:991px){.ixw--office-vn .vn-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ixw--office-vn .ixw-say .ix-intro-h{background:#ECE8FA;color:#46418A}
+
+/* ---------- the four disciplines: editor tabs ---------- */
+.vn-disc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.vn-card{position:relative;display:flex;flex-direction:column;gap:10px;padding:0 0 22px;border-radius:14px;background:#0F1422;color:#E6ECF8;text-decoration:none;overflow:hidden;
+  box-shadow:0 0 0 1.5px #2F3760,0 26px 44px -28px rgba(15,20,34,.7);transition:transform .3s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease}
+.vn-card:hover{transform:translateY(-5px);box-shadow:0 0 0 1.5px var(--c),0 0 26px color-mix(in srgb,var(--c) 40%,transparent),0 30px 50px -28px rgba(15,20,34,.8);color:#FFFFFF;text-decoration:none}
+.vn-card:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.vn-card-top{display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;background:#1B2140;border-bottom:2px solid var(--c)}
+.vn-card-top i{width:8px;height:8px;border-radius:50%;background:#3A4472}.vn-card-top b{margin-left:8px;font:600 12px/1 ui-monospace,Consolas,monospace;color:#C9D3E6}
+.vn-card-ic{display:grid;place-items:center;width:44px;height:44px;margin:12px 20px 0;border-radius:12px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.vn-card-ic .ic{width:22px;height:22px}
+.vn-card h3{margin:0 20px;color:#FFFFFF;font-size:1.15rem}.vn-card p{margin:0 20px;font-size:14.5px;line-height:1.55;color:#C9D3E6}
+.ixw--office-vn .vn-card .btn-link{margin:auto 20px 0;color:var(--c)}
+@media (max-width:1100px){.vn-disc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.vn-disc{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- how AI joins: a dark band with a terminal log ---------- */
+.vn-dark{background:linear-gradient(160deg,#171B33,#2B2D6E 70%,#46418A);color:#E6ECF8}
+.vn-dark h2{color:#FFFFFF}.vn-dark .lead{color:#C9D3E6}.vn-dark .hand{color:#FFB46B}
+.vn-term{border-radius:14px;background:#0B0E1D;box-shadow:0 0 0 1.5px #2F3760,0 30px 60px -30px rgba(0,0,0,.7);overflow:hidden}
+.vn-term-bar{display:flex;align-items:center;gap:6px;margin:0;height:36px;padding:0 14px;background:#1B2140}
+.vn-term-bar i{width:9px;height:9px;border-radius:50%;background:#FF6F61}.vn-term-bar i:nth-child(2){background:#FFC94A}.vn-term-bar i:nth-child(3){background:#2BC48A}
+.vn-term-bar span{margin-left:10px;font:600 12px/1 ui-monospace,Consolas,monospace;color:#8E9BB8}
+.vn-log{margin:0;padding:18px 20px 22px;list-style:none;display:grid;gap:14px}
+.vn-log li{display:grid;gap:4px}
+.vn-log code{font:700 13.5px/1.4 ui-monospace,Consolas,monospace;color:var(--vn-cy);background:none;padding:0}
+.vn-log span{font:500 14px/1.5 var(--font-body);color:#C9D3E6;padding-left:18px;position:relative}
+.vn-log span::before{content:"\2713";position:absolute;left:0;color:#2BC48A;font-weight:800}
+
+/* ---------- visit and FAQ ---------- */
+.vn-addr{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:30px;border-radius:16px;background:#0F1422;color:#E6ECF8;box-shadow:0 0 0 1.5px #2F3760}
+.vn-addr-top{margin:0;font:800 12px/1 var(--font-body);letter-spacing:.16em;text-transform:uppercase;color:var(--vn-cy)}
+.vn-addr address{font:600 15px/1.6 var(--font-body);font-style:normal;color:#FFFFFF}
+.vn-addr .actions{display:flex;flex-wrap:wrap;gap:12px}
+.ixw--office-vn .vn-addr .btn-ghost{color:var(--vn-cy)!important;background:rgba(95,227,242,.06)!important}
+.ixw--office-vn .vn-visit .map{border-radius:16px;box-shadow:0 0 0 1.5px #2F3760}
+.ixw--office-vn .vn-faq summary::before{content:">";border-radius:6px;background:#0F1422;color:var(--vn-cy);font-family:ui-monospace,Consolas,monospace}
+.ixw--office-vn .vn-faq details[open] summary::before{content:"$";background:var(--vn-cy);color:#0F1422;transform:none}
+
+/* ---------- the end card ---------- */
+.ixw--office-vn .vn-cta{background:linear-gradient(120deg,#171B33,#46418A 55%,#E0761A)}
+.ixw--office-vn .vn-cta .hand{color:#FFD9A8}
+@media (prefers-reduced-motion:reduce){.ixw--office-vn .ixw-hint::after{animation:none}}

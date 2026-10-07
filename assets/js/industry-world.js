@@ -256,12 +256,21 @@
     var c = P.c, br = Math.sin(t * 2.1 + P.ph), hop = P.hop || 0, hb = Math.sin(t * 2.3 + P.ph + 0.6) * 2 + (P.talk ? Math.sin(t * 8.5) * 2.5 : 0);
     var sxk = P.sx == null ? 1 : Math.abs(P.sx) < 0.08 ? (P.sx < 0 ? -0.08 : 0.08) : P.sx; /* P.sx: a turn on the spot (Company scenes) */
     g.save(); g.translate(P.x, P.y); g.scale(P.s * sxk, P.s);
-    if (P.feet) {
+    if (P.sit) { /* seated (P.sit): an office chair (P.chair: false for none, P.chairCol), knees toward us, shins down, feet on the floor */
+      soft(g, 0, 4, 140, 18, 0.24);
+      if (P.chair !== false) { var cc = P.chairCol || '#2A3550';
+        g.strokeStyle = tone(cc, 0.1); g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); g.moveTo(-86, -6); g.lineTo(86, -6); g.moveTo(-50, -2); g.lineTo(0, -16); g.lineTo(50, -2); g.stroke();
+        [-86, 0, 86].forEach(function (x) { fillE(g, x, 0, 9, 7, '#1B1F3B'); }); fillRR(g, -8, -82, 16, 70, 5, '#7A869C');
+        fillRR(g, -108, -326 + 46, 216, 230, 40, cc); fillRR(g, -96, -314 + 46, 192, 40, 20, 'rgba(255,255,255,.08)');
+        fillRR(g, -112, -96, 224, 30, 14, tone(cc, 0.12)); }
+      [-1, 1].forEach(function (d) { limb(g, [[d * 38, -70 - hop], [d * 40, -30]], 40, c.low); fillRR(g, d * 40 - 30 + d * 6, -28, 60, 30, 14, c.shoe); });
+      [-1, 1].forEach(function (d) { fillE(g, d * 38, -78 - hop, 40, 30, c.low); fillE(g, d * 38, -88 - hop, 30, 12, 'rgba(255,255,255,.12)'); });
+    } else if (P.feet) {
       soft(g, 0, 4, 120 - hop * 0.4, 18, 0.22);
       [-1, 1].forEach(function (d) { limb(g, [[d * 34, -128 - hop], [d * 34, -30 - hop * 0.4]], 42, c.low); });
       [-1, 1].forEach(function (d) { fillRR(g, d * 36 - 30 + d * 8, -28 - hop * 0.4, 60, 30, 14, c.shoe); });
     }
-    g.translate(0, -hop);
+    g.translate(0, -hop + (P.sit ? 46 : 0));
     var bw = P.build || 1;
     g.save(); g.translate(0, -116); g.scale((1 + 0.008 * br) * bw, 1 + 0.012 * br); g.translate(0, 116); torso(g, P); g.restore();
     g.save(); g.translate(0, F3.top + hb); g.rotate(P.tilt || 0); g.translate(0, -F3.top);

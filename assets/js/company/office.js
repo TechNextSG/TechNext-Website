@@ -78,7 +78,10 @@
     /* a desk seen from the front: the top, the modesty panel, two monitors on arms (their screens are drawn live) */
     desk: function (g, x, y, w, F, k) {
       k = k || {}; soft(g, x + w / 2, F + 4, w * 0.6, 9, 0.22);
-      fillRR(g, x, y + 10, w, F - y - 10, 6, k.panel || '#F4F7FC'); g.fillStyle = 'rgba(30,60,110,.06)'; g.fillRect(x + w - 12, y + 10, 12, F - y - 10);
+      if (k.open) { /* an open desk: legs and a back rail, so whoever sits at it shows their legs and chair */
+        var lc = k.legs || '#7A869C'; fillRR(g, x + 6, y + 8, 8, F - y - 8, 3, lc); fillRR(g, x + w - 14, y + 8, 8, F - y - 8, 3, lc); fillRR(g, x + 6, F - 6, 30, 6, 3, lc); fillRR(g, x + w - 36, F - 6, 30, 6, 3, lc);
+        g.fillStyle = 'rgba(30,60,110,.18)'; g.fillRect(x + 14, y + 22, w - 28, 5); }
+      else { fillRR(g, x, y + 10, w, F - y - 10, 6, k.panel || '#F4F7FC'); g.fillStyle = 'rgba(30,60,110,.06)'; g.fillRect(x + w - 12, y + 10, 12, F - y - 10); }
       fillRR(g, x - 6, y, w + 12, 12, 5, k.top || '#C9A27A'); g.fillStyle = 'rgba(255,255,255,.3)'; g.fillRect(x - 4, y + 2, w + 8, 2);
       (k.mons || []).forEach(function (m) { g.fillStyle = '#5C6B7A'; g.fillRect(m[0] + m[1] / 2 - 2, y - 26, 4, 26); fillRR(g, m[0] + m[1] / 2 - 14, y - 4, 28, 5, 2, '#5C6B7A'); fillRR(g, m[0], y - 26 - (m[2] || 48), m[1], m[2] || 48, 5, '#2A3550'); });
     },
