@@ -737,10 +737,13 @@ def team_cards_html() -> str:
             pic = f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="" width="600" height="600" loading="lazy" decoding="async">'
         else:
             pic = f'<span class="th-ini" aria-hidden="true">{initials}</span>'
-        mail = (f'<a class="th-mail" href="mailto:{p["email"]}">{{{{icon:mail}}}}<span>{p["email"]}</span></a>'
-                if p.get("email") else "")
-        out.append(f'<article class="th-person th-tone-{k % 4}"><div class="th-ava">{pic}<img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"></div>'
-                   f'<h3>{p["name"]}</h3><p class="th-role">{p["role"]}</p>{mail}</article>')
+        mail = (f'<a class="th-mail" href="mailto:{p["email"]}">{p["email"]}</a>' if p.get("email") else "&mdash;")
+        out.append(f'<article class="th-person ef-sheet th-tone-{k % 4} reveal" style="--i:{k}"><span class="ef-tab" aria-hidden="true">201</span>'
+                   f'<p class="ef-head"><img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"><span>TechNext · Employee information sheet</span><b>Sheet {k + 1:02d}</b></p>'
+                   f'<div class="ef-body"><div class="th-ava ef-photo">{pic}</div>'
+                   f'<dl class="ef-fields"><div><dt>Name</dt><dd><h3>{p["name"]}</h3></dd></div><div><dt>Position</dt><dd class="th-role">{p["role"]}</dd></div>'
+                   f'<div><dt>Work email</dt><dd>{mail}</dd></div></dl></div>'
+                   f'<p class="ef-foot"><span class="ef-id">{{{{icon:users}}}}TechNext ID</span><span class="ef-stamp">On file</span></p></article>')
     return "".join(out)
 
 
@@ -752,7 +755,7 @@ def team_offices_html() -> str:
         if o.get("lang"):
             lines = f'<span lang="{o["lang"]}">{o["lines"][0]}</span><br>{o["lines"][1]}'
         role = o["role"].replace(" Our open roles are here.", "")  # careers line: not for clients
-        out.append(f'<article class="th-office reveal"><span class="th-cc" aria-hidden="true">{o["cc"]}</span>'
+        out.append(f'<article class="th-office reveal" data-o="{o["cc"].lower()}"><span class="th-cc" aria-hidden="true">{o["cc"]}</span>'
                    f'<h3>{o["name"]}</h3><p>{role}</p><address>{lines}</address></article>')
     return "".join(out)
 
