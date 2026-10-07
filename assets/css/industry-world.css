@@ -591,18 +591,16 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 @media (prefers-reduced-motion:reduce){.ixw-copy,.ixw-cap{transition:none}}
 
 /* ---------------- the entry intro (#ixw-intro): 3 s in the page's own style ----------------
-   The world's real scene zooms in behind; the page's own title card (.ixw-copy, skinned by assets/css/worlds/<key>.css)
+   The world's own colour and pattern drift behind (--ii-bg, --ii-pattern); the page's own title card (.ixw-copy, skinned by assets/css/worlds/<key>.css)
    rises with its Nexi Explains tag, hand label, the industry and three workflow steps in the page's button colours
    (--hc-bg, --st-ink); the badge pops above it with Nexi peeking out; soft rays turn behind like the Nexi Explains slide.
    Per world: --ii-ink (veil), --ii-accent (rays, ripples, bar), --ii-b (the industry word), --ii-font (title type). */
 .ixwi{position:fixed;inset:0;z-index:2147483000;place-items:center;overflow:hidden;background:var(--ii-bg,#F4F7FD);color:var(--ii-ink,#1F1F3D);cursor:pointer;
   animation:ixwiFailsafe 0s linear 7s forwards}
 @keyframes ixwiFailsafe{to{visibility:hidden;opacity:0;pointer-events:none}}
-.ixwi-bg{position:absolute;inset:0;overflow:hidden}
-.ixwi-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%;transform:scale(1.14)}
-.ixwi.is-on .ixwi-bg img{animation:ixwiZoom 3s cubic-bezier(.2,.7,.3,1) both}
-@keyframes ixwiZoom{from{transform:scale(1.14)}to{transform:scale(1.02)}}
-.ixwi-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(55% 65% at 50% 50%,color-mix(in srgb,var(--st-ink,#1F1F3D) 0%,transparent),color-mix(in srgb,var(--st-ink,#1F1F3D) 34%,transparent))}
+.ixwi-bg{position:absolute;inset:-6%;background:var(--ii-pattern,none)}
+.ixwi.is-on .ixwi-bg{animation:ixwiDrift 3s cubic-bezier(.2,.7,.3,1) both}
+@keyframes ixwiDrift{from{transform:scale(1.08)}}
 .ixwi-rays{position:absolute;left:50%;top:50%;width:2400px;height:2400px;margin:-1200px 0 0 -1200px;border-radius:50%;pointer-events:none;opacity:0;
   background:repeating-conic-gradient(from 0deg,color-mix(in srgb,#FFFFFF 13%,transparent) 0 5deg,transparent 5deg 14deg);
   -webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 55%);mask-image:radial-gradient(closest-side,#000 6%,transparent 55%)}

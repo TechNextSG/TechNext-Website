@@ -82,7 +82,7 @@ INTRO_HEAD = ("<style>#ixw-intro{display:none}html.ixw-intro #ixw-intro,#ixw-int
 
 
 def intro_html(world: str) -> str:
-    """The entry intro in the page's own style: the world's real scene behind, its own title card (the same .ixw-copy skin
+    """The entry intro in the page's own style: the world's own colour and pattern behind (--ii-bg, --ii-pattern), its own title card (the same .ixw-copy skin
     as the hero) with the Nexi Explains tag, the hand label, the industry and three workflow steps in the page's button
     style; the badge pops above the card with Nexi peeking out, and the iris opens from it onto the hero."""
     import re as _re
@@ -96,7 +96,7 @@ def intro_html(world: str) -> str:
     sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
     nexi = poses(world)["hello"]
     return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
-            f'  <div class="ixwi-bg"><img src="{{{{ROOT}}}}assets/img/industries/{world}/scene.webp" alt="" width="2400" height="1125" decoding="async" fetchpriority="high"></div>\n'
+            f'  <div class="ixwi-bg"></div>\n'
             f'  <span class="ixwi-rays"></span>\n'
             f'  <span class="ixwi-ring"></span>\n'
             f'  <div class="ixwi-lock">\n'
@@ -140,7 +140,7 @@ def _hero_bits(world: str) -> dict:
 
 def showcase_html() -> str:
     """Slide 3 of the homepage hero: the whole slide becomes each industry's hero in turn. Behind, the world's real scene
-    (assets/img/industries/<key>/scene.webp); in front, the page's own title card (its .ixw-copy skin, Nexi Explains tag,
+    (assets/img/industries/<key>/backdrop.svg); in front, the page's own title card (its .ixw-copy skin, Nexi Explains tag,
     hand label, headline, lead and buttons, from hero-skins.css), Nexi in costume with three workflow steps, and a strip of
     the eight badges. hero-industries.js runs it."""
     from industries import IND
