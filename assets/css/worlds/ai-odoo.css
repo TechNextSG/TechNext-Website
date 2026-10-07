@@ -1,0 +1,54 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: ai-odoo (/odoo/ai-integration) — AI inside Odoo, on the client's data. AI violet, Odoo purple, approval green.
+   The title card is an Odoo record the AI has prepared (a "Prepared by AI · a person approves" ribbon, a sparkle in the
+   corner); the caption is an AI suggestion with its approve chip; buttons shimmer once on hover; the glance strip is the
+   record's log line. */
+.ixw--ai-odoo{--ow-c:#7B5CD6;--ai-ink:#1B1F3B;--ai-v:#7B5CD6;--ai-v-l:#F1EDFC;--ai-pur:#714B67;--ai-ok:#1E9E6A;
+  --w-alt:#F6F5FC;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:10px;
+  --st-ink:#1B1F3B;--st-meet:#1E9E6A;--st-talk:#7B5CD6;--st-nexi:#7B5CD6;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#8F74E0,#7B5CD6);
+  --ii-bg:linear-gradient(160deg,#F8F7FD,#E8E2FA 60%,#E2F5F0);--ii-ink:#1B1F3B;--ii-b:#7B5CD6;--ii-accent:#1E9E6A;--ii-lip:#1B1F3B;--ii-ep-bg:#7B5CD6;--ii-ep-fg:#FFFFFF}
+.ixw--ai-odoo .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F8F7FD 18%,#ECEAF7 62%,#E7EBF1 62%,#D6DDE7 100%)}
+
+/* ---------- the title card: an Odoo record the AI has prepared ---------- */
+.ixw--ai-odoo .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:30px 30px 58px;border-radius:14px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #E1DCF3,0 40px 70px -30px rgba(60,40,120,.35)}
+.ixw--ai-odoo .ixw-copy::before{content:"\2726";position:absolute;right:22px;top:16px;font:400 28px/1 var(--font-body);color:var(--ai-v);opacity:.85}
+.ixw--ai-odoo .ixw-copy::after{content:"\2726  Prepared by AI \00B7  a person approves";position:absolute;left:0;right:0;bottom:0;height:40px;display:flex;align-items:center;padding-left:24px;border-radius:0 0 14px 14px;
+  background:var(--ai-v-l);border-top:1.5px solid #E1DCF3;font:800 12px/1 var(--font-body);color:#4B3A8A}
+.ixw--ai-odoo .ixw-copy h1{max-width:15ch}
+.ixw--ai-odoo .ixw-copy .hand{color:var(--ai-v)}
+.ixw--ai-odoo .ixw-badges{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 16px}
+.ixw--ai-odoo .ixw-badges span{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;background:#F4F6FA;font:700 12px/1 var(--font-body);color:#3D4560}
+.ixw--ai-odoo .ixw-hint .ic{color:var(--ai-v)}
+@media (max-width:767px){.ixw--ai-odoo .ixw-copy{padding:26px 20px 54px}.ixw--ai-odoo .ixw-copy::after{font-size:11px;padding-left:18px}}
+
+/* ---------- the caption: an AI suggestion with its approve chip ---------- */
+.ixw--ai-odoo .ixw-cap{border-radius:16px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #E1DCF3,0 0 0 6px var(--ai-v-l),0 26px 44px -22px rgba(60,40,120,.35)}
+.ixw--ai-odoo .ixw-cap::before{content:"\2726  SUGGESTED \00B7  YOU APPROVE";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--ai-v);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.1em}
+.ixw--ai-odoo .ixw-cap-who b{color:var(--ai-v)}.ixw--ai-odoo .ixw-cap-txt b{color:var(--ai-pur)}
+.ixw--ai-odoo .ixw-cap-rec{background:var(--ai-v-l);border:1px dashed #C9BCF0;color:#4B3A8A}
+
+/* ---------- buttons: a shimmer sweeps across once on hover ---------- */
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:12px;border:0;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%) -150% 0/250% 100% no-repeat;pointer-events:none}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{animation:aiShine .8s ease-out}
+@keyframes aiShine{to{background-position:150% 0}}
+.ixw--ai-odoo main .btn-primary,.ixw--ai-odoo main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(120deg,#7B5CD6,#714B67);box-shadow:0 4px 0 #4B3A8A}
+.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ai-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--ai-v),0 4px 0 2px var(--ai-v)}
+.ixw--ai-odoo main .btn-ghost::before{display:none}.ixw--ai-odoo main .btn-ghost .ic{color:var(--ai-v)}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--ai-odoo .ixw-cta .btn-outline-white,.ixw--ai-odoo .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--ai-odoo .ixw-ibtn{border:2px solid var(--ai-v);box-shadow:0 3px 0 var(--ai-v);color:var(--ai-v)}
+.ixw--ai-odoo .ixw-ibtn--play,.ixw--ai-odoo .ixw-ibtn--play:hover{background:var(--ai-v);color:#FFFFFF}
+.ixw--ai-odoo .ixw-dots button.is-on{background:var(--ai-v);box-shadow:0 0 0 3px rgba(123,92,214,.2)}
+.ixw--ai-odoo .ixw-peek{border-color:var(--ai-v);box-shadow:0 3px 0 var(--ai-v)}.ixw--ai-odoo .ixw-peek[aria-pressed="true"]{background:var(--ai-v-l)}
+@media (prefers-reduced-motion:reduce){.ixw--ai-odoo main .btn::after{animation:none!important}}
+
+/* ---------- the glance strip: the record's log line ---------- */
+.ixw--ai-odoo .ow-strip{border-radius:14px;box-shadow:0 0 0 1.5px #E1DCF3,0 24px 44px -30px rgba(60,40,120,.3);background:linear-gradient(90deg,var(--ai-v) 0 6px,#FFFFFF 6px)}
+.ixw--ai-odoo .ow-strip dt .ic{color:var(--ai-v)}
+
+/* ---------- the end card ---------- */
+.ixw--ai-odoo main .cta{background:radial-gradient(circle at 88% 18%,rgba(30,158,106,.3),transparent 45%),linear-gradient(120deg,#4B3A8A,#7B5CD6)}
