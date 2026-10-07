@@ -38,11 +38,18 @@
   var text = K.text, shadowed = K.shadowed, F = FLOOR;
   function chair(g, x) { fillRR(g, x, 404, 54, 40, 10, '#21B799'); fillRR(g, x, 438, 54, 14, 6, '#168F76'); g.fillStyle = '#9AA6BC'; g.fillRect(x + 6, 452, 4, 18); g.fillRect(x + 44, 452, 4, 18); }
   function wideBack(g, ext) {
+    /* ceiling light panels all along, wall posters on the left */
+    for (var lx = Math.floor(ext.l / 260) * 260 + 60; lx < ext.r; lx += 260) { if (lx > 120 && lx < 960) continue; fillRR(g, lx - 60, Math.max(ext.t + 20, -60), 120, 12, 6, '#FFFFFF'); g.save(); var gl = g.createLinearGradient(0, -50, 0, 160); gl.addColorStop(0, 'rgba(255,255,240,.35)'); gl.addColorStop(1, 'rgba(255,255,240,0)'); g.fillStyle = gl; g.beginPath(); g.moveTo(lx - 56, -48); g.lineTo(lx + 56, -48); g.lineTo(lx + 120, 160); g.lineTo(lx - 120, 160); g.closePath(); g.fill(); g.restore(); }
+    if (ext.l < -440) {
+      shadowed(g, 10, 4, 0.16, function () { fillRR(g, -640, 110, 110, 140, 6, '#FFFFFF'); }); fillRR(g, -632, 118, 94, 26, 4, '#21B799'); text(g, 'WASH', -585, 136, 11, 800, '#FFFFFF', 'center');
+      for (var h = 0; h < 3; h++) { fillE(g, -610 + h * 25, 176, 10, 12, '#FFD9E0'); g.fillStyle = 'rgba(63,169,224,.6)'; g.beginPath(); g.arc(-610 + h * 25, 200, 4, 0, 7); g.fill(); } text(g, '20 seconds, every time', -585, 236, 7, 700, '#5C6B7E', 'center');
+      shadowed(g, 10, 4, 0.16, function () { fillRR(g, -500, 120, 70, 110, 4, '#FFFFFF'); }); ['E', 'F P', 'T O Z', 'L P E D'].forEach(function (r2, i) { text(g, r2, -465, 150 + i * 22, 18 - i * 3.5, 800, '#2A3550', 'center'); });
+    }
     if (ext.l < -480) {
-      shadowed(g, 12, 4, 0.18, function () { fillRR(g, -900, 110, 170, 96, 8, '#2A3550'); }); fillRR(g, -894, 116, 158, 84, 4, '#17284A');
-      text(g, 'NOW SERVING', -815, 136, 9, 800, '#9FE3C1', 'center'); fillRR(g, -880, 146, 130, 6, 3, '#21375F');
-      for (var c = -900; c < -720; c += 60) chair(g, c); soft(g, -810, F + 4, 100, 8, 0.2);
-      var wx = -660; fillRR(g, wx, 330, 44, 140, 8, '#FFFFFF'); fillRR(g, wx + 6, 280, 32, 52, 10, 'rgba(160,210,240,.85)'); fillRR(g, wx + 10, 368, 24, 8, 3, '#3FA9E0'); fillRR(g, wx + 10, 382, 24, 6, 3, '#FF8FA3'); soft(g, wx + 22, F + 4, 26, 5, 0.2);
+      shadowed(g, 12, 4, 0.18, function () { fillRR(g, -760, 110, 100, 96, 8, '#2A3550'); }); fillRR(g, -754, 116, 88, 84, 4, '#17284A');
+      text(g, 'NOW SERVING', -710, 136, 8, 800, '#9FE3C1', 'center'); fillRR(g, -746, 146, 72, 6, 3, '#21375F');
+      for (var c = -760; c < -580; c += 60) chair(g, c); soft(g, -670, F + 4, 100, 8, 0.2);
+      var wx = -900; fillRR(g, wx, 330, 44, 140, 8, '#FFFFFF'); fillRR(g, wx + 6, 280, 32, 52, 10, 'rgba(160,210,240,.85)'); fillRR(g, wx + 10, 368, 24, 8, 3, '#3FA9E0'); fillRR(g, wx + 10, 382, 24, 6, 3, '#FF8FA3'); soft(g, wx + 22, F + 4, 26, 5, 0.2);
       fillRR(g, -590, 452, 110, 18, 6, '#FFEDB0'); [['#FF8FA3', 0], ['#3FA9E0', 1], ['#21B799', 2], ['#FFD84A', 3]].forEach(function (b) { fillRR(g, -580 + b[1] * 24, 430 - (b[1] % 2) * 12, 20, 20 + (b[1] % 2) * 12, 3, b[0]); });
     }
     if (ext.l < 120) { /* the pharmacy: shelves of boxes behind the counter (the pharmacist is live; the counter front is in front of her) */
@@ -65,7 +72,7 @@
     WALK.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); }); }
   function wideLive(g, t, S) {
     var ext = S.ext;
-    if (ext.l < -480) { var n = 100 + Math.floor(t / 5) % 30; text(g, 'A' + n, -815, 186, 24, 800, '#FFFFFF', 'center'); }
+    if (ext.l < -480) { var n = 100 + Math.floor(t / 5) % 30; text(g, 'A' + n, -710, 186, 22, 800, '#FFFFFF', 'center'); }
     if (ext.r > 1000 && Math.floor(t * 1.2) % 2 === 0) { fillRR(g, 1046, 98, 68, 16, 8, '#FF8FA3'); text(g, 'IN SESSION', 1080, 110, 7.5, 800, '#FFFFFF', 'center'); } else if (ext.r > 1000) { fillRR(g, 1046, 98, 68, 16, 8, '#E8D5DA'); text(g, 'IN SESSION', 1080, 110, 7.5, 800, '#FFFFFF', 'center'); }
     if (ext.l < 120) { PHARM.hands = [[-62, -200 + Math.abs(Math.sin(t * 2.4)) * 14], [70, -196]]; PHARM.talk = (t % 6) < 1.5; K.person(g, PHARM, t); }
     walk(g, t, S, false);

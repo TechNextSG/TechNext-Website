@@ -33,6 +33,11 @@
     fillRR(g, x - 26, y - 190, 52, 80, 18, top); if (skirt) { g.fillStyle = skirt; g.beginPath(); g.moveTo(x - 26, y - 118); g.lineTo(x + 26, y - 118); g.lineTo(x + 36, y - 66); g.lineTo(x - 36, y - 66); g.closePath(); g.fill(); }
     fillE(g, x, y - 206, 15, 17, '#E8DCCB'); fillRR(g, x - 6, y - 192, 12, 8, 3, '#E8DCCB'); }
   function wideBack(g, ext) {
+    /* bunting across the shop and pendant lamps beyond the frame */
+    var by = Math.max(ext.t + 30, -40), cols = [C.terra, C.sage, '#E9C46A', '#7FA8C9'];
+    g.strokeStyle = '#B9A58A'; g.lineWidth = 1.4; g.beginPath(); for (var bx = ext.l; bx < ext.r; bx += 40) { var sag = Math.sin((bx - ext.l) / 240 * Math.PI) * 14; if (bx === ext.l) g.moveTo(bx, by + sag); else g.lineTo(bx, by + sag); } g.stroke();
+    for (var fx = ext.l + 10, i = 0; fx < ext.r; fx += 40, i++) { var s2 = Math.sin((fx - ext.l) / 240 * Math.PI) * 14; g.fillStyle = cols[i % 4]; g.beginPath(); g.moveTo(fx, by + s2); g.lineTo(fx + 24, by + s2); g.lineTo(fx + 12, by + s2 + 22); g.closePath(); g.fill(); }
+    [-760, -360, 1120].forEach(function (lx) { if (lx < ext.l || lx > ext.r) return; g.fillStyle = '#8A7F6E'; g.fillRect(lx - 1, by, 2, 70 - by); g.fillStyle = C.sage; g.beginPath(); g.moveTo(lx - 24, 96); g.quadraticCurveTo(lx - 22, 70, lx, 70); g.quadraticCurveTo(lx + 22, 70, lx + 24, 96); g.closePath(); g.fill(); fillE(g, lx, 100, 8, 5, '#FFF2CF'); });
     var w = WIN;
     if (ext.l < w.x + w.w) { /* the display window: the street outside, a decal, the mannequins */
       shadowed(g, 12, 4, 0.16, function () { fillRR(g, w.x - 10, w.y - 10, w.w + 20, w.h + 20, 8, '#F3E6D2'); }); fillRR(g, w.x, w.y, w.w, w.h, 4, C.sageD);

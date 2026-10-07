@@ -36,6 +36,11 @@
     for (var lv = 0; lv < 3; lv++) { var ly = 200 + lv * 110; fillRR(g, x, ly, w, 8, 2, '#3167CA'); fillRR(g, x + 10, ly - 6, w - 20, 6, 2, '#C99A6B');
       for (var b = 0; b < Math.floor((w - 20) / 40); b++) parcel(g, x + 12 + b * 40, ly - 6 - 34 - (b % 2) * 10, 36, 34 + (b % 2) * 10, (b + lv) % 2 === 0); } }
   function wideBack(g, ext) {
+    /* strip lights over the margins, a duct along the ceiling, wall banners */
+    g.fillStyle = '#C9C3DE'; g.fillRect(ext.l, Math.max(ext.t + 30, -50), ext.r - ext.l, 14); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(ext.l, Math.max(ext.t + 30, -50) + 10, ext.r - ext.l, 4);
+    for (var lx = Math.floor(ext.l / 220) * 220 + 80; lx < ext.r; lx += 220) { if (lx > 220 && lx < 990) continue; g.fillStyle = '#9C95B8'; g.fillRect(lx - 30, -36, 2, 52); g.fillRect(lx + 28, -36, 2, 52); fillRR(g, lx - 40, 14, 80, 10, 5, '#FFFFFF'); }
+    if (ext.l < -480) { shadowed(g, 10, 4, 0.18, function () { fillRR(g, -720, 40, 200, 56, 8, C.violet); }); text(g, 'PARCEL LANE', -620, 66, 15, 800, '#FFFFFF', 'center'); text(g, 'FULFILMENT · SAMPLE', -620, 84, 8, 800, '#D6CEEE', 'center'); }
+    if (ext.l < 80) { fillRR(g, -230, 130, 150, 60, 6, '#FFFFFF'); text(g, 'TODAY', -155, 150, 8, 800, '#6B6B84', 'center'); text(g, '412 parcels out', -155, 172, 11, 800, C.ink, 'center'); }
     if (ext.l < -560) { rackBay(g, -950, 150); rackBay(g, -790, 150); soft(g, -790, F + 4, 160, 9, 0.2); fillRR(g, -900, 70, 180, 26, 6, C.ink); text(g, 'BULK STOCK · AISLE 4', -810, 87, 9, 800, '#FFFFFF', 'center'); }
     if (ext.l < 120) {
       fillRR(g, -400, 60, 150, 30, 6, C.mint); text(g, 'ZONE A · PICK', -325, 80, 10, 800, C.ink, 'center');
