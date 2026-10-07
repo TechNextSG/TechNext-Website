@@ -17,27 +17,49 @@
   var html = document.documentElement, header = document.querySelector('.header');
   /* the page around the slide takes the showing industry's style: its colours go on <html> as --hx-* for the header's
      Contact Us and the side tabs (hero.css); the header stays see-through over the scene; the roaming 3D Nexi steps aside */
+  /* The colours go only on the elements that use them (the header, the side tabs, the sky's ring), never on <html>:
+     a custom property set there restyles all ~3,000 elements of the page, which was a 100 ms hitch on every change.
+     Each industry's colours are read once, when the skins have loaded, and kept. */
   var VARS = ['st-ink', 'st-meet', 'st-talk', 'st-nexi', 'st-nexi-fg', 'st-fg', 'hc-bg', 'hc-fg'];
-  function dress() {
-    if (!active) { VARS.forEach(function (v) { html.style.removeProperty('--hx-' + v); }); html.classList.remove('hxs-on', 'hxs-top'); return; }
-    html.classList.add('hxs-on'); top();
-    if (!root.classList.contains('is-skinned')) return;   // the colours come with the skins
-    var cs = getComputedStyle(panels[at]);
-    VARS.forEach(function (v) { var val = cs.getPropertyValue('--' + v).trim(); if (val) html.style.setProperty('--hx-' + v, val); else html.style.removeProperty('--hx-' + v); });
-    html.classList.add('hxs-on'); top();
+  var sky = root.querySelector('.hxs-sky'), tabs = document.querySelector('.side-tabs'), cols = null, painted = -2;
+  var wearers = [header, tabs, sky].filter(Boolean);
+  function colours() {
+    if (cols || !root.classList.contains('is-skinned')) return cols;
+    cols = panels.map(function (p) { var cs = getComputedStyle(p); return VARS.map(function (v) { return cs.getPropertyValue('--' + v).trim(); }); });
+    return cols;
   }
+  function dress() {
+    var want = active ? at : -1;
+    if (want === -1) { html.classList.remove('hxs-on', 'hxs-top'); }
+    else { html.classList.add('hxs-on'); topSoon(); }
+    var c = want === -1 ? null : colours(); if (c === null && want !== -1) return;   // the colours come with the skins
+    if (painted === want) return; painted = want;
+    wearers.forEach(function (el) { VARS.forEach(function (v, k) { var val = c && c[want][k]; if (val) el.style.setProperty('--hx-' + v, val); else el.style.removeProperty('--hx-' + v); }); });
+  }
+  /* the header stays see-through while the slide's bottom is well below it (read in a frame, never after a write) */
   var topRaf = 0;
   function top() { topRaf = 0; var r = slide.getBoundingClientRect(); html.classList.toggle('hxs-top', active && r.bottom > (header ? header.offsetHeight : 70) + 120); }
-  window.addEventListener('scroll', function () { if (active && !topRaf) topRaf = requestAnimationFrame(top); }, { passive: true });
+  function topSoon() { if (!topRaf) topRaf = requestAnimationFrame(top); }
+  window.addEventListener('scroll', function () { if (active) topSoon(); }, { passive: true });
+  /* restart a class's animation without forcing a layout: off now, back on two frames later */
+  function replay(el, cls, on) {
+    el.classList.remove(cls); var tok = (el['_r' + cls] = (el['_r' + cls] || 0) + 1);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (el['_r' + cls] === tok && (!on || on())) el.classList.add(cls); }); });
+  }
+  /* tell the carousel the visitor is busy with Nexi, so the slide never changes under a reaction */
+  function heroHold(on) { if (hero && hero.dispatchEvent) hero.dispatchEvent(new CustomEvent('tn:hero-hold', { detail: { why: 'hxs-react', on: on } })); }
   /* where the scene opens from: the picked badge, in the sky's own coordinates, and the radius that covers the sky */
-  var sky = root.querySelector('.hxs-sky');
   function origin() {
     var s = sky.getBoundingClientRect(), c = chans[at].getBoundingClientRect(); if (!s.width || !c.width) return;
     var x = c.left + c.width / 2 - s.left, y = c.top + c.height / 2 - s.top;
     var r = Math.ceil(Math.sqrt(Math.pow(Math.max(x, s.width - x), 2) + Math.pow(Math.max(y, s.height - y), 2))) + 8;
-    root.style.setProperty('--ox', x.toFixed(0) + 'px'); root.style.setProperty('--oy', y.toFixed(0) + 'px'); root.style.setProperty('--or', r + 'px');
+    sky.style.setProperty('--ox', x.toFixed(0) + 'px'); sky.style.setProperty('--oy', y.toFixed(0) + 'px'); sky.style.setProperty('--or', r + 'px');
   }
   function pickOther() { var r = Math.floor(Math.random() * (n - 1)); return r >= at ? r + 1 : r; }
+  /* the industry the next visit opens on is picked ahead and its scene and Nexi loaded, so the circle never opens on a
+     scene still downloading */
+  var nextUp = -1;
+  function pickAhead() { nextUp = pickOther(); warm(nextUp); }
 
   /* the skins (the industry pages' cards and buttons) */
   var skinned = false;
@@ -46,7 +68,10 @@
     var base = document.querySelector('link[href*="hero.css"]');
     var l = document.createElement('link'); l.rel = 'stylesheet';
     l.href = base ? base.href.replace('hero.css', 'hero-skins.css') : '/assets/css/hero-skins.css';
-    l.onload = function () { root.classList.add('is-skinned'); if (active) dress(); };
+    l.onload = function () {
+      root.classList.add('is-skinned');
+      if (active) dress(); else (window.requestIdleCallback || function (f) { return setTimeout(f, 200); })(colours);
+    };
     l.onerror = function () { root.classList.add('is-skinned'); };
     document.head.appendChild(l);
   }
@@ -82,8 +107,8 @@
     var im = cast.querySelector('.hxs-pose[data-pose="' + r.pose + '"]');
     if (im && !(im.complete && im.naturalWidth)) { im.addEventListener('load', go, { once: true }); setTimeout(go, 500); } else go();
     root.classList.add('was-tapped'); cast.classList.add('is-saying');
-    reactHeld = true; arm();
-    clearTimeout(cast._t); cast._t = setTimeout(function () { calm(cast); reactHeld = false; arm(); }, 4600);
+    reactHeld = true; arm(); heroHold(true);
+    clearTimeout(cast._t); cast._t = setTimeout(function () { calm(cast); reactHeld = false; arm(); heroHold(false); }, 4600);
   }
   casts.forEach(function (cast) {
     var btn = cast.querySelector('.hxs-nexi-b'); if (!btn) return;
@@ -93,11 +118,13 @@
 
   function show(i) {
     i = (i + n) % n; if (i === at) { arm(); return; }
-    var prev = at; at = i; warm(at); warm((at + 1) % n);
+    var prev = at; at = i; origin();   // measure first, while nothing has changed yet
+    warm(at); warm((at + 1) % n);
+    if (reactHeld) heroHold(false);
     calm(casts[prev]); reactHeld = false;
     casts.forEach(function (cs, k) { var b = cs.querySelector('.hxs-nexi-b'); if (b) b.tabIndex = k === at ? 0 : -1; });
-    clearTimeout(outT); origin();
-    root.classList.remove('is-swap'); void root.offsetWidth; root.classList.add('is-swap');
+    clearTimeout(outT);
+    replay(root, 'is-swap');
     [bgs, panels, casts].forEach(function (list) {
       list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.toggle('is-out', k === prev); });
     });
@@ -112,25 +139,31 @@
   }
   function arm() {
     clearTimeout(timer);
-    root.classList.remove('is-tick'); void root.offsetWidth;
-    if (!active || held || reactHeld || reduce || document.hidden) { root.classList.add('is-held'); return; }
-    root.classList.remove('is-held'); root.classList.add('is-tick');
+    var still = !active || held || reactHeld || reduce || document.hidden;
+    root.classList.toggle('is-held', still);
+    replay(root, 'is-tick', function () { return !root.classList.contains('is-held'); });
+    if (still) return;
     timer = setTimeout(function () { show(at + 1); }, STEP);
   }
   function setActive(on) {
     if (on === active) return; active = on;
     // every visit opens on a different industry, picked at random
-    if (on) { skins(); var next = pickOther(); jump(next); }
+    if (on) { skins(); var next = nextUp >= 0 ? nextUp : pickOther(); jump(next); nextUp = -1; }
+    else { if (reactHeld) { reactHeld = false; heroHold(false); } setTimeout(pickAhead, 1500); }
     // the page's colours change as the circle sweeps past the header (straight away on the way out)
     clearTimeout(dressT); if (on) dressT = setTimeout(dress, 420); else dress();
     // the entrance: the scene pushes in, the card rises, its parts arrive in turn, Nexi hops in (hero.css .is-enter)
-    root.classList.remove('is-enter', 'is-leave'); void root.offsetWidth; root.classList.add(on ? 'is-enter' : 'is-leave');
+    var cls = on ? 'is-enter' : 'is-leave', had = root.classList.contains(cls);
+    root.classList.remove('is-enter', 'is-leave');
+    if (had) replay(root, cls); else root.classList.add(cls);   // only a quick return needs the replay
     clearTimeout(enterT); enterT = setTimeout(function () { root.classList.remove('is-enter', 'is-leave', 'is-swap'); }, 1800);
     arm();
   }
   /* switch with no transition (the slide itself is fading in) */
   function jump(i) {
-    at = i; warm(at); warm((at + 1) % n); origin();
+    at = i; warm(at); warm((at + 1) % n);
+    // measured in the next frame: the slide is changing now, and a read here would force a layout of the whole hero
+    cancelAnimationFrame(jump._r); jump._r = requestAnimationFrame(origin);
     [bgs, panels, casts].forEach(function (list) { list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.remove('is-out'); }); });
     panels.forEach(function (p, k) { p.setAttribute('aria-hidden', k === at ? 'false' : 'true'); [].forEach.call(p.querySelectorAll('a'), function (a) { a.tabIndex = k === at ? 0 : -1; }); });
     chans.forEach(function (c, k) { c.classList.toggle('is-on', k === at); c.setAttribute('aria-selected', k === at ? 'true' : 'false'); c.tabIndex = k === at ? 0 : -1; });
@@ -158,6 +191,6 @@
   if (hero && hero.addEventListener) hero.addEventListener('tn:slide', function (e) { setActive(!!(e.detail && e.detail.slide === slide)); });
   document.addEventListener('visibilitychange', arm);
   jump(Math.floor(Math.random() * n));   // the page opens on a random industry too
-  window.addEventListener('load', function () { setTimeout(function () { skins(); warm(at); }, 2500); });
-  if (slide && slide.classList.contains('is-active')) setActive(true);
+  window.addEventListener('load', function () { setTimeout(function () { skins(); warm(at); if (!active) pickAhead(); }, 2500); });
+  if (slide && slide.classList.contains('is-active')) { nextUp = at; setActive(true); }   // opening the page: the one just loaded
 })();
