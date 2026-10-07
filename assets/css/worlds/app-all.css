@@ -1,0 +1,50 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: app-all (/odoo/apps) — every Odoo app, by category, on one database. Odoo purple, category colours, focus yellow.
+   The title card is an Odoo home screen (the app-grid launcher in its corner, the category chips as app tiles); the caption
+   is an app tooltip; buttons are app tiles; the glance strip is the launcher's dock. */
+.ixw--app-all{--ow-c:#714B67;--aa-ink:#1B1F3B;--aa-pur:#714B67;--aa-pur-l:#F4F0F8;--aa-y:#FFD84A;
+  --w-alt:#F7F5FA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:10px;
+  --st-ink:#1B1F3B;--st-meet:#0E9384;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#8A5F80,#714B67);
+  --ii-bg:linear-gradient(160deg,#F8F6FB,#EDE5F3 60%,#FFF4C8);--ii-ink:#1B1F3B;--ii-b:#714B67;--ii-accent:#F08A24;--ii-lip:#1B1F3B;--ii-ep-bg:#714B67;--ii-ep-fg:#FFFFFF}
+.ixw--app-all .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F8F6FB 18%,#ECE8F3 62%,#E7EBF1 62%,#D6DDE7 100%)}
+
+/* ---------- the title card: an Odoo home screen ---------- */
+.ixw--app-all .ixw-copy{position:relative;max-width:540px;margin-top:20px;padding:30px 30px 24px;border-radius:20px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #E3DCEB,0 40px 70px -30px rgba(60,30,60,.35)}
+.ixw--app-all .ixw-copy::before{content:"";position:absolute;right:22px;top:22px;width:26px;height:26px;
+  background:radial-gradient(circle,#714B67 3px,transparent 3.5px) 0 0/9px 9px;opacity:.75}
+.ixw--app-all .ixw-copy h1{max-width:14ch}
+.ixw--app-all .ixw-copy .hand{color:var(--aa-pur)}
+.ixw--app-all .aa-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0 4px}
+.ixw--app-all .aa-nav a{display:flex;flex-direction:column;align-items:center;gap:4px;height:auto;min-height:0;padding:10px 4px 8px;border:0;border-radius:14px;background:#F6F4FA;font:700 11.5px/1.2 var(--font-body);color:#1B1F3B;text-align:center;text-decoration:none;
+  transition:transform .25s cubic-bezier(.34,1.45,.64,1),background-color .2s ease}
+.ixw--app-all .aa-nav a .ic{width:22px;height:22px;color:var(--aa-pur)}
+.ixw--app-all .aa-nav a .muted{font-size:10.5px;font-weight:600}
+.ixw--app-all .aa-nav a:hover{transform:translateY(-3px);background:var(--aa-pur-l);text-decoration:none}
+.ixw--app-all .aa-nav a.is-focus{background:#FFF7D6;box-shadow:inset 0 0 0 1.5px #F0D27A}
+.ixw--app-all .ixw-hint .ic{color:#F08A24}
+@media (max-width:767px){.ixw--app-all .ixw-copy{padding:26px 20px 22px}.ixw--app-all .aa-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- the caption: an app tooltip ---------- */
+.ixw--app-all .ixw-cap{border-radius:16px;border:0;background:#FFFFFF;box-shadow:0 0 0 1.5px #E3DCEB,0 0 0 6px var(--aa-pur-l),0 26px 44px -22px rgba(60,30,60,.35)}
+.ixw--app-all .ixw-cap::before{content:"\25A6  50 APPS \00B7  ONE DATABASE";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--aa-pur);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.1em}
+.ixw--app-all .ixw-cap-who b{color:var(--aa-pur)}.ixw--app-all .ixw-cap-txt b{color:#C47A12}
+.ixw--app-all .ixw-cap-rec{background:var(--aa-pur-l);border:1px dashed #C9B6D4;color:#4A2E44}
+
+/* ---------- buttons: app tiles ---------- */
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:16px;border:0;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-all main .btn-primary,.ixw--app-all main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(135deg,#8A5F80,#714B67);box-shadow:0 4px 0 #4A2E44}
+.ixw--app-all main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-all main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--aa-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--aa-pur),0 4px 0 2px var(--aa-pur)}
+.ixw--app-all main .btn-ghost::before{display:none}.ixw--app-all main .btn-ghost .ic{color:var(--aa-pur)}
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -3px}
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--app-all .ixw-cta .btn-outline-white,.ixw--app-all .ixw-cta .btn-outline-white:hover{color:#1B1F3B;background:var(--aa-y);box-shadow:0 4px 0 #C9A21A}
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--app-all .ixw-ibtn{border:2px solid var(--aa-pur);box-shadow:0 3px 0 var(--aa-pur);color:var(--aa-pur)}
+.ixw--app-all .ixw-ibtn--play,.ixw--app-all .ixw-ibtn--play:hover{background:var(--aa-pur);color:#FFFFFF}
+.ixw--app-all .ixw-dots button.is-on{background:var(--aa-y);box-shadow:0 0 0 1.5px var(--aa-pur)}
+.ixw--app-all .ixw-peek{border-color:var(--aa-pur);box-shadow:0 3px 0 var(--aa-pur)}.ixw--app-all .ixw-peek[aria-pressed="true"]{background:var(--aa-pur-l)}
+
+/* ---------- the glance strip: the launcher's dock ---------- */
+.ixw--app-all .ow-strip{border-radius:20px;box-shadow:0 0 0 1.5px #E3DCEB,0 24px 44px -30px rgba(60,30,60,.3);background:#FFFFFF}
+.ixw--app-all .ow-strip dt .ic{color:var(--aa-pur)}

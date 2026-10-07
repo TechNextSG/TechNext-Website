@@ -1,21 +1,60 @@
-<!--meta {"title": "Odoo Apps List — every module, by category", "desc": "The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.", "out": "odoo/apps.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-appgraph.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-appgraph.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Apps List — every module, by category", "desc": "The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.", "out": "odoo/apps.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-appgraph.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/app-all.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-appgraph.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/app-all.css?v={ASSET_V}\">", "body": "ixw ixw--app-all ow-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}solutions/odoo-erp.html">Odoo</a></span><span>Apps</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo apps list</span>All Odoo apps, by category.</h1>
-        <p class="lead">Every app shares the same customers, products and accounts. Start with Finance, Sales and Supply Chain — our focus areas — and add the rest as the business needs them.</p>
-        <div class="apps-nav mt-40">
+<section class="ixw-hero" data-ixw-hero data-world="app-all" data-home="1060,200" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}solutions/odoo-erp.html">Odoo</a></span><span>Apps</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Odoo apps</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo apps list</span>All Odoo apps, by category.</h1>
+      <p class="lead"><span class="m-full">Every app shares the same customers, products and accounts. Start with Finance, Sales and Supply Chain (our focus areas) and add the rest as the business needs them.</span><span class="m-short">Every app shares one database. Start with Finance, Sales and Supply Chain.</span></p>
+      <div class="apps-nav aa-nav">
 {{APPS_NAV}}
-        </div>
       </div>
-      {{APPS_STAGE}}
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap any shelf, the database or the team.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="con" data-near="1060,200" data-who="TechNext consultant" data-role="Odoo apps · illustration" data-say="We switch on **Finance, Sales and Supply Chain** first, then grow." style="--x:470;--y:358;--w:90;--h:230" aria-label="Say hi to the TechNext consultant (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Consultant</b><i>TechNext</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="own" data-near="1060,200" data-who="Business owner" data-role="Client · illustration" data-say="So every app reads the **same customers**? No more exports!" style="--x:1000;--y:358;--w:90;--h:230" aria-label="Say hi to the business owner (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Owner</b></span></button>
+      <button class="ixw-cast" type="button" data-cast="pln" data-near="1060,200" data-who="Operations manager" data-role="Client · illustration" data-say="Accounting, Sales, Inventory first. HR **next year**." style="--x:846;--y:322;--w:80;--h:76" aria-label="Say hi to the operations manager (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Planner</b></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="finance" data-nx="1060,200" data-pose="point-left" data-rec="Finance · Accounting, Invoicing, Expenses, Documents, Sign" data-say="**Finance**: Accounting, Invoicing, Expenses, Spreadsheets, Documents and Sign." style="--x:380;--y:-56;--w:180;--h:112" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Finance</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="sales" data-nx="1060,200" data-pose="point-left" data-rec="Sales · CRM, Sales, Point of Sale, Subscriptions, Rental" data-say="**Sales**: CRM, Sales, Point of Sale, Restaurant, Subscriptions and Rental." style="--x:572;--y:-56;--w:180;--h:112" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:sale:18}}<b>Sales</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="supply" data-nx="1060,200" data-pose="point-left" data-rec="Supply Chain · Inventory, Manufacturing, PLM, Purchase" data-say="**Supply Chain**: Inventory, Manufacturing, PLM, Purchase, Maintenance and Quality." style="--x:764;--y:-56;--w:180;--h:112" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:stock:18}}<b>Supply Chain</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="hr" data-nx="1060,200" data-pose="point-left" data-rec="Human Resources · Employees, Recruitment, Time Off, Payroll" data-say="**Human Resources**: Employees, Recruitment, Time Off, Appraisals, Fleet and Payroll." style="--x:380;--y:68;--w:180;--h:112" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:hr:18}}<b>HR</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="services" data-nx="1060,200" data-pose="point-left" data-rec="Services · Project, Timesheets, Helpdesk, Planning" data-say="**Services**: Project, Timesheets, Field Service, Helpdesk, Planning and Appointments." style="--x:764;--y:68;--w:180;--h:112" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:project:18}}<b>Services</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="db" data-nx="1060,200" data-pose="point-left" data-rec="One database · customers, products, accounts" data-say="Every app reads and writes **one database**: the same customers, products and accounts." style="--x:640;--y:385;--w:168;--h:190" aria-pressed="false"><span class="ixw-hot-lab">{{icon:database}}<b>One database</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:1060;--ny:200" data-reacts="wow::So many **apps**!|love::One database for all of them. **Love it**.|celebrate::Finance, Sales, Supply Chain: **go**!|think::Hmm… which app would you **switch on first**?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:app-all}}</span></button></div>
+      </div>
+    </div>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. This is the **app wall**: every Odoo app, by category, on one database. Tap a shelf!" data-outro="Start with three, add the rest **when you need them**. One database throughout.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:app-all}}<b data-for="con" style="--c:#3167CA">C</b><b data-for="own" style="--c:#E0456B">O</b><b data-for="pln" style="--c:#14A38B">P</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo apps">assistant · Odoo apps</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. This is the <b>app wall</b>: every Odoo app, by category, on one database. Tap a shelf!</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: Finance"></button><button type="button" data-ixw-dot aria-label="Stop 3: Sales"></button><button type="button" data-ixw-dot aria-label="Stop 4: Supply Chain"></button><button type="button" data-ixw-dot aria-label="Stop 5: Human Resources"></button><button type="button" data-ixw-dot aria-label="Stop 6: Services"></button><button type="button" data-ixw-dot aria-label="Stop 7: one database"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:grid}}Apps</dt><dd>50, in 8 categories</dd></div><div><dt>{{icon:check}}Our focus</dt><dd>Finance · Sales · Supply Chain</dd></div><div><dt>{{icon:database}}Data</dt><dd>One database for every app</dd></div><div><dt>{{icon:layers}}Approach</dt><dd>Start small, add apps as you grow</dd></div><div><dt>{{icon:users}}Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo is a suite of business apps that share one database: accounting, sales, inventory, manufacturing, HR, websites and more. TechNext, an Odoo Ready Partner in Singapore, implements the apps you need, usually starting with Accounting, Sales and Inventory and adding others as the business grows.</p></div></div>
