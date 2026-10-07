@@ -100,8 +100,6 @@ def intro_html(world: str) -> str:
     m_hd = _re.search(r'<span class="hand h1-hand">(.*?)</span>', page)
     title = meta.get("intro_title") or f'Odoo for <b>{ind["name"]}</b>'
     badge = meta.get("badge") or f"ind-{world}"
-    scene = (_ROOT / "assets/img/industries" / world / "scene.webp").exists()
-    bg = (f'<img src="{{{{ROOT}}}}assets/img/industries/{world}/scene.webp" alt="" width="2400" height="1125" decoding="async" fetchpriority="high">' if scene else "")
     if meta.get("intro_pills"):
         pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{icon:{ic}}}}}{t}</span>' for i, (ic, t) in enumerate(meta["intro_pills"]))
     else:
@@ -110,11 +108,7 @@ def intro_html(world: str) -> str:
     sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
     nexi = poses(world)["hello"]
     return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
-<<<<<<< HEAD
-            f'  <div class="ixwi-bg">{bg}</div>\n'
-=======
             f'  <div class="ixwi-bg"></div>\n'
->>>>>>> origin/master
             f'  <span class="ixwi-rays"></span>\n'
             f'  <span class="ixwi-ring"></span>\n'
             f'  <div class="ixwi-lock">\n'
