@@ -1238,7 +1238,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs-sky::after{content:"";position:absolute;z-index:3;left:var(--ox,80%);top:var(--oy,8%);width:0;height:0;border-radius:50%;box-shadow:0 0 0 3px var(--hx-st-ink,rgba(31,31,61,.5));opacity:0;pointer-events:none}
 .hxs.is-enter .hxs-sky::after,.hxs.is-swap .hxs-sky::after{animation:hxsRing 1.05s cubic-bezier(.65,0,.25,1) both}
 @keyframes hxsRing{0%{opacity:.9;width:0;height:0;margin:0}100%{opacity:0;width:calc(var(--or,160vmax) * 2);height:calc(var(--or,160vmax) * 2);margin:calc(var(--or,160vmax) * -1) 0 0 calc(var(--or,160vmax) * -1)}}
-.hxs-bg img{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;object-position:64% 70%;transform:scale(1.06);
+.hxs-bg img{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;max-height:none;object-fit:cover;object-position:64% 70%;transform:scale(1.06);
   translate:calc(var(--px) * -14px) calc(var(--py) * -8px);transition:transform 9s cubic-bezier(.2,.6,.3,1),translate .8s ease-out}
 .hxs-bg.is-on img{transform:scale(1.02)}
 .hxs-veil{position:absolute;inset:0;z-index:2;background:
