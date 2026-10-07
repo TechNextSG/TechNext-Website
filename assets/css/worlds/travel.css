@@ -95,7 +95,7 @@
 /* ---------- FAQ + chips: the help desk and luggage tags ---------- */
 .ixw--travel .faq summary::before{background:#DDF0FB;color:var(--t-sea-d)}
 .ixw--travel .faq details[open] summary::before{background:var(--t-sea)}
-.ixw--travel .ix-others a{border-radius:10px 999px 999px 10px;padding-left:24px;position:relative;border:2px solid var(--t-ink);box-shadow:0 3px 0 var(--t-ink)}
+.ixw--travel .ix-others a{border-radius:10px 22px 22px 10px / 10px 50% 50% 10px;padding-left:24px;position:relative;border:2px solid var(--t-ink);box-shadow:0 3px 0 var(--t-ink)}
 .ixw--travel .ix-others a:hover{border-color:var(--t-ink);box-shadow:0 5px 0 var(--t-ink)}
 .ixw--travel .ix-others a:active{box-shadow:0 1px 0 var(--t-ink)}
 .ixw--travel .ix-others a::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 1.6px,#E9B949 2px);box-shadow:0 0 0 1.5px var(--t-ink)}
@@ -177,7 +177,9 @@
 .ixw--travel main :is(.btn-primary,.ixw-cta .btn-white) .ic{width:50px;height:100%;margin:0;padding:0 14px;border-radius:0;background:none;color:var(--t-ink);transition:transform .45s var(--w-spring)}
 .ixw--travel main :is(.btn-primary,.ixw-cta .btn-white):hover .ic{transform:translate(4px,-4px) rotate(-10deg);background:none}
 /* the luggage tag: a round end with an eyelet, square corners at the other end */
-.ixw--travel main :is(.btn-ghost,.ixw-cta .btn-outline-white){border-radius:999px 10px 10px 999px;padding-left:36px}
+/* the stub: round on the left, 10px on the right. Written with a 50% vertical radius, not 999px: a 999px corner makes the
+   browser scale every corner down to fit, and the 10px ones came out square, as if the button were cut off */
+.ixw--travel main :is(.btn-ghost,.ixw-cta .btn-outline-white){border-radius:26px 10px 10px 26px / 50% 10px 10px 50%;padding-left:36px}
 .ixw--travel main .btn-ghost{color:var(--t-ink);background:linear-gradient(90deg,#DDF0FB 0 30px,#FFFFFF 30px)}
 .ixw--travel main .btn-ghost:hover{color:var(--t-ink)}
 .ixw--travel main .btn-ghost::before{display:none}

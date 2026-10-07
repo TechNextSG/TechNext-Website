@@ -1244,7 +1244,8 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs-veil{position:absolute;inset:0;z-index:2;background:
   linear-gradient(180deg,rgba(255,255,255,.72) 0,rgba(255,255,255,0) 190px),
   linear-gradient(0deg,#FFFFFF 0,rgba(255,255,255,0) 220px),
-  radial-gradient(70% 90% at 0% 55%,rgba(255,255,255,.35),rgba(255,255,255,0) 70%)}
+  radial-gradient(70% 90% at 0% 55%,rgba(255,255,255,.35),rgba(255,255,255,0) 70%),
+  url(../img/industries/grain.png) 0 0/128px 128px}   /* the scenes' film grain (backdrops.py) */
 .slide-inner.hxs-inner{position:relative;z-index:1;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:24px;padding:24px 0 112px;align-items:center}
 .hxs-left{position:relative;display:grid;gap:18px;justify-items:start}
 /* the cards: stacked in one cell, so the slide never jumps between industries */
@@ -1290,7 +1291,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs.is-enter .hxs-strip{animation:hxsStrip .6s cubic-bezier(.3,1.4,.5,1) .55s both}
 @keyframes hxsStrip{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
 .hxs.is-leave .hxs-panel.is-on .hxs-card{animation:hxsOut .45s cubic-bezier(.4,0,.6,1) both}
-.hxs.is-leave .hxs-cast.is-on .hxs-nexi,.hxs.is-leave .hxs-cast.is-on .hxs-pill{animation:hxsDrop .4s ease-in both}
+.hxs.is-leave .hxs-cast.is-on .hxs-pill{animation:hxsDrop .4s ease-in both}
 /* the badge strip */
 .hxs-strip{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:18px;background:rgba(255,255,255,.94);box-shadow:0 1px 2px rgba(31,31,61,.08),0 18px 36px -22px rgba(31,31,61,.45)}
 .hxs-strip-l{font:800 11px/1.1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);max-width:64px}
@@ -1326,6 +1327,12 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs-cast.is-on .hxs-nexi-b{animation:hxsHop .75s cubic-bezier(.3,1.5,.5,1) calc(var(--hd,0s) + .35s) both,hxsBob 3.4s ease-in-out 1.6s infinite}
 .hxs-cast.is-out .hxs-nexi-b{animation:hxsDrop .4s ease-in both}
 .hxs-cast.is-on .hxs-nexi-b.is-react{animation:hxsReact .6s cubic-bezier(.3,1.6,.5,1) both,hxsBob 3.4s ease-in-out .6s infinite}
+/* leaving the slide, Nexi steps off with the card and the steps (left standing, Nexi was alone on an empty hero), and
+   takes the floor shadow, the line and the hint along */
+.hxs.is-leave .hxs-cast.is-on .hxs-nexi-b,.hxs.is-leave .hxs-cast.is-on .hxs-nexi-b.is-react{animation:hxsDrop .4s ease-in both}
+.hxs-cast::before{transition:opacity .3s ease}
+.hxs.is-leave .hxs-cast::before{opacity:0}
+.hxs.is-leave .hxs-say,.hxs.is-leave .hxs-tap{visibility:hidden}
 @keyframes hxsHop{from{opacity:0;transform:translateY(80px) scale(.7) rotate(-8deg)}to{opacity:1;transform:none}}
 @keyframes hxsDrop{to{opacity:0;transform:translateY(40px) scale(.85)}}
 @keyframes hxsBob{50%{transform:translateY(-10px)}}
@@ -1404,4 +1411,12 @@ html.hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
   html.hxs-on .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none}
   html.hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
   html.hxs-on .side-fab{background:var(--hx-st-talk,var(--blue));color:var(--hx-st-fg,#FFFFFF);border:2.5px solid var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+}
+
+/* Travel's boarding pass on the homepage: the page's hint row under the buttons is hidden here (desktop), so the tear line
+   gets a stub row of its own below the buttons instead of crossing them */
+@media (min-width:961px){
+  .hxs .hxs--travel .ixw-copy.hxs-card{padding-bottom:68px}
+  .hxs .hxs--travel .ixw-copy.hxs-card::after{content:"GATE 07  \00B7  SEAT 1A  \00B7  SAMPLE";bottom:0;height:46px;display:flex;align-items:center;padding-left:8px;
+    border-top:2px dashed #D5DEEC;font:800 10.5px/1 var(--font-body);letter-spacing:.2em;color:#8FA0B8}
 }

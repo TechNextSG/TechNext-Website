@@ -8,7 +8,7 @@ Craft rules every scene follows (1600 x 900, wall above FL, floor below):
             meets floor, a contact shadow under every object
   stage     a soft pool of light on the floor where Nexi stands (NX, about x 1180), the props frame it
   calm      the left ~45% is a quiet gradient wall: the title card sits there
-  finish    film grain and an edge vignette over everything"""
+  finish    an edge vignette over everything (the film grain is a tiled grain.png in hero.css, far cheaper to paint)"""
 import math
 import pathlib
 
@@ -53,13 +53,13 @@ class Scene:
         self.out.extend(parts)
 
     def svg(self, bg):
-        g = self._id("g")   # film grain, applied last
-        self.defs.append(f'<filter id="{g}" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/>'
-                         f'<feColorMatrix type="matrix" values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .055 0"/></filter>')
+        # The film grain is not drawn here: an feTurbulence filter over the whole scene was the costliest part to paint
+        # and, the first time a browser met it, held up the slide's opening for ~200 ms. hero.css lays grain.png (one
+        # tile, written below) over every scene instead.
         vig = self.rad([(0, "#000", 0), (.62, "#000", 0), (1, "#0A1020", .2)], .5, .46, .78)
         return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMax slice">'
                 f'<defs>{"".join(self.defs)}</defs>{r(0, 0, W, H, bg)}{"".join(self.out)}'
-                f'{r(0, 0, W, H, vig)}<rect width="{W}" height="{H}" filter="url(#{g})"/></svg>')
+                f'{r(0, 0, W, H, vig)}</svg>')
 
 
 # ---------------------------------------------------------------- primitives
@@ -536,8 +536,23 @@ DRAW = {"medical": medical, "travel": travel, "retail": retail, "ecommerce": eco
         "fnb": fnb, "manufacturing": manufacturing, "health-wellness": health}
 
 
+def grain_png(size=128, seed=7):
+    """A tile of film grain: mid grey at 0-5.5% opacity per pixel (what the old feTurbulence filter drew), as a PNG
+    written with zlib alone. Seeded, so every build writes the same bytes."""
+    import random, struct, zlib
+    rnd = random.Random(seed)
+    rows = b"".join(b"\x00" + bytes(v for _ in range(size) for v in (128, rnd.randint(0, 14))) for _ in range(size))
+    def chunk(t, d): return struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xFFFFFFFF)
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 4, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(rows, 9)) + chunk(b"IEND", b""))
+
+
 def write():
     n = 0
+    g = ROOT / "assets/img/industries/grain.png"
+    png = grain_png()
+    if not g.exists() or g.read_bytes() != png:
+        g.write_bytes(png); n += 1
     for k, fn in DRAW.items():
         out = ROOT / "assets/img/industries" / k / "backdrop.svg"
         svg = fn()
