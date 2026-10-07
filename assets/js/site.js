@@ -593,3 +593,26 @@ document.addEventListener('click', function (e) {
   th.addEventListener('pointercancel', end);
   paint();
 })();
+
+/* phones: the floating Meet / Talk / Nexi buttons wait until the visitor scrolls past the first screen, so they never
+   sit on top of the page's own first buttons */
+(function () {
+  var b = document.body; if (!b || !document.querySelector('.side-tabs')) return;
+  var raf = 0;
+  function upd() { raf = 0; b.classList.toggle('tabs-wait', window.scrollY < window.innerHeight * 0.55); }
+  upd(); window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  window.addEventListener('resize', upd);
+})();
+/* tablets and phones: the floating buttons fold into one round button (styles in site.css under 960px) */
+(function () {
+  var box = document.querySelector('.side-tabs'); if (!box) return;
+  var b = document.body, fab = document.createElement('button');
+  fab.type = 'button'; fab.className = 'side-fab'; fab.setAttribute('aria-expanded', 'false'); fab.setAttribute('aria-label', 'Contact options');
+  fab.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+  box.appendChild(fab);
+  function set(on) { b.classList.toggle('tabs-open', on); fab.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+  fab.addEventListener('click', function (e) { e.stopPropagation(); set(!b.classList.contains('tabs-open')); });
+  box.addEventListener('click', function (e) { if (e.target.closest('.side-tab')) set(false); });
+  document.addEventListener('click', function (e) { if (b.classList.contains('tabs-open') && !box.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();

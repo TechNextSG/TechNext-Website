@@ -34,7 +34,7 @@
   /* ---------------- beyond the frame: the rest of the clinic (ext = the whole hero in set units) ----------------
      Far left: the waiting area with chairs, the "now serving" screen, a water dispenser, a kids' corner. Behind the copy:
      the pharmacy counter with its pharmacist. Right: the consult room door with its "in session" light, a sanitiser
-     stand, a wheelchair. Patients and a nurse walk the margins. */
+     stand. Patients and a nurse walk the margins. */
   var text = K.text, shadowed = K.shadowed, F = FLOOR;
   function chair(g, x) { fillRR(g, x, 404, 54, 40, 10, '#21B799'); fillRR(g, x, 438, 54, 14, 6, '#168F76'); g.fillStyle = '#9AA6BC'; g.fillRect(x + 6, 452, 4, 18); g.fillRect(x + 44, 452, 4, 18); }
   function wideBack(g, ext) {
@@ -56,12 +56,10 @@
       var px = -420; fillRR(g, px, 160, 300, 170, 6, '#FFFFFF'); fillRR(g, px + 30, 130, 240, 26, 6, '#21B799'); text(g, 'PHARMACY', px + 150, 148, 12, 800, '#FFFFFF', 'center');
       for (var r = 0; r < 3; r++) { fillRR(g, px + 10, 200 + r * 44, 280, 5, 2, '#D6EDE8'); for (var b2 = 0; b2 < 9; b2++) fillRR(g, px + 16 + b2 * 30, 176 + r * 44, 24, 24, 3, ['#DDF4EE', '#FFD9E0', '#DDE7F8', '#FFEDB0'][(b2 + r) % 4]); }
     }
-    if (ext.r > 1000) { /* the consult room door, the sanitiser stand, a wheelchair */
+    if (ext.r > 1000) { /* the consult room door, the sanitiser stand */
       var dx = 1016; fillRR(g, dx, 160, 168, 310, 6, '#FFFFFF'); fillRR(g, dx + 10, 170, 148, 300, 4, '#C8E6E0'); fillRR(g, dx + 24, 190, 120, 110, 4, '#D9F0EA'); fillE(g, dx + 140, 330, 5, 5, '#9AA6BC'); fillRR(g, dx + 132, 326, 18, 6, 3, '#9AA6BC');
       fillRR(g, dx + 30, 120, 108, 26, 6, '#2A3550'); text(g, 'CONSULT 2', dx + 84, 137, 9, 800, '#FFFFFF', 'center');
       g.fillStyle = '#9AA6BC'; g.fillRect(dx + 222, 340, 6, 130); fillRR(g, dx + 210, 300, 30, 44, 8, '#FFFFFF'); fillRR(g, dx + 216, 314, 18, 10, 3, '#21B799'); fillRR(g, dx + 206, F - 6, 38, 6, 3, '#9AA6BC');
-      var wcx = 1250; g.strokeStyle = '#5C6670'; g.lineWidth = 5; g.beginPath(); g.arc(wcx, 438, 30, 0, Math.PI * 2); g.stroke(); g.lineWidth = 2; g.beginPath(); for (var sp = 0; sp < 6; sp++) { g.moveTo(wcx, 438); g.lineTo(wcx + Math.cos(sp) * 28, 438 + Math.sin(sp) * 28); } g.stroke();
-      fillRR(g, wcx - 34, 390, 64, 12, 4, '#3FA9E0'); fillRR(g, wcx + 22, 340, 12, 56, 4, '#3FA9E0'); g.strokeStyle = '#5C6670'; g.lineWidth = 4; g.beginPath(); g.moveTo(wcx + 28, 340); g.lineTo(wcx + 44, 336); g.moveTo(wcx - 34, 402); g.lineTo(wcx - 46, 462); g.stroke(); fillE(g, wcx - 46, 464, 6, 6, '#5C6670');
     }
   }
   var PHARM = { x: -270, y: 452, s: 0.48, ph: 0.9, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FBFCFF', top2: '#21B799' }, outfit: 'coat', hairStyle: 'bun', clipCol: '#21B799', feet: false, mood: 'happy', look: 0.3, talk: false, hands: [[-62, -186], [62, -186]] };
@@ -261,6 +259,7 @@
     ];
   }
   window.IXW.worlds.medical = {
+    pan: [-460, 1260], /* phones: how far the scene drags each way (set units), ending on whole objects */
     paintFrontLive: function (g, t, S) { walk(g, t, S, true); }, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { walk(g, t, S, 'fore'); }); },
     room: { wall: MED.wall, wains: MED.wains, rail: MED.rail, base: '#BFDDD7', floor: MED.floor, floorKind: 'tiles', pattern: K.plusPattern('rgba(255,255,255,.55)') },
     paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive,

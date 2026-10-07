@@ -172,7 +172,7 @@
 .ixw--health-wellness .ixw-ep-tag:hover{box-shadow:0 4px 0 #2A4A36}
 .ixw--health-wellness .ixw-ep-tag .ic{background:var(--g-blush);color:var(--g-ink)}
 /* switches and view toggles: a rolled-out mat */
-.ixw--health-wellness :is(.ix-switch,.ix-views){border:2.5px solid var(--g-ink);border-radius:999px;background:#EFE8F7;box-shadow:inset -18px 0 0 -10px rgba(140,118,184,.25),0 4px 0 var(--g-ink)}
+.ixw--health-wellness :is(.ix-switch,.ix-views){border:2.5px solid var(--g-ink);border-radius:999px;background:#EFE8F7;box-shadow:0 4px 0 var(--g-ink)}
 .ixw--health-wellness :is(.ix-switch,.ix-views) button{border-radius:999px;white-space:nowrap}
 .ixw--health-wellness .ix-switch::before{border-radius:999px;background:var(--g-ink);box-shadow:0 3px 0 #1F1B2E}
 .ixw--health-wellness .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{background:var(--g-sage-d);box-shadow:0 3px 0 var(--g-sage-dd)}
@@ -195,6 +195,8 @@
 
 /* the side tabs and the header's Contact Us in this world's colours */
 .ixw--health-wellness{--st-ink:#3B3651;--st-meet:#5E8C6E;--st-talk:#8C76B8;--st-nexi:#F2B5A7;--st-nexi-fg:#3B3651;--hc-bg:radial-gradient(90% 120% at 30% 10%,#B6A3DD,#8C76B8 55%,#7A63A9)}
+/* the entry intro in this world's colours */
+.ixw--health-wellness{--ii-bg:#F8F2E9;--ii-pattern:radial-gradient(ellipse 40% 30% at 18% 24%,rgba(141,179,154,.22),transparent 70%),radial-gradient(ellipse 36% 26% at 84% 74%,rgba(185,166,216,.24),transparent 70%),radial-gradient(ellipse 30% 22% at 78% 18%,rgba(242,181,167,.2),transparent 70%);--ii-ink:#3B3651;--ii-b:#5E8C6E;--ii-accent:#8C76B8;--ii-lip:#3F6B4F;--ii-ep-bg:#5E8C6E;--ii-ep-fg:#FFFFFF;--ii-font:var(--g-serif,Georgia,serif)}
 /* "View the scene": a stitched linen pebble; pressed, lavender */
 .ixw--health-wellness .ixw-peek{border:2.5px solid var(--g-ink);color:var(--g-ink);background:var(--g-linen);box-shadow:0 3px 0 var(--g-ink);outline:1.5px dashed rgba(94,140,110,.6);outline-offset:-6px}
 .ixw--health-wellness .ixw-peek:hover{box-shadow:0 5px 0 var(--g-ink)}.ixw--health-wellness .ixw-peek:active{box-shadow:0 1px 0 var(--g-ink)}
