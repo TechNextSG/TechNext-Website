@@ -193,6 +193,13 @@
 .ixw--construction main .btn-link{background-repeat:repeat-x;background-size:25.4px 5px}
 
 /* wide screens: the scene sits a little higher, so the caption clears the credits card */
+/* the side tabs and the header's Contact Us in this world's colours */
+.ixw--construction{--st-ink:#1E2A3A;--st-meet:#1F3F73;--st-talk:#FF7A1A;--st-nexi:#FFC93C;--st-nexi-fg:#1E2A3A;--hc-bg:linear-gradient(180deg,#FFD866,#FFC93C);--hc-fg:#1E2A3A}
+/* "View the scene": a site sign edged in hazard tape; pressed, safety yellow */
+.ixw--construction .ixw-peek{border:2px solid var(--c-ink);border-radius:4px;color:var(--c-ink);box-shadow:0 3px 0 var(--c-yellow),0 5px 0 var(--c-ink);padding-bottom:4px;
+  background:repeating-linear-gradient(-45deg,var(--c-ink) 0 6px,var(--c-yellow) 6px 12px) bottom/100% 5px no-repeat,#FFFFFF}
+.ixw--construction .ixw-peek:hover{box-shadow:0 5px 0 var(--c-yellow),0 7px 0 var(--c-ink)}.ixw--construction .ixw-peek:active{box-shadow:0 1px 0 var(--c-yellow),0 2px 0 var(--c-ink)}
+.ixw--construction .ixw-peek[aria-pressed="true"]{background:repeating-linear-gradient(-45deg,var(--c-ink) 0 6px,var(--c-yellow) 6px 12px) bottom/100% 5px no-repeat,linear-gradient(180deg,#FFD866,#FFC93C)}
 @media (min-width:1500px){.ixw--construction .ixw-set{bottom:158px}}
 @media (prefers-reduced-motion:reduce){.ixw--construction .ixw-ibtn--play.is-on,.ixw--construction main .btn-link:hover{animation:none}}
 .ixw--construction .sc-tab:not(.is-active)::after{background:none}

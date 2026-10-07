@@ -99,14 +99,23 @@
     if (ext.r > 1000) { g.save(); rr(g, 1010, 476, 420, 20, 6); g.clip(); g.fillStyle = 'rgba(255,255,255,.55)'; for (var a = 1000 + ((t * 30) % 40); a < 1440; a += 40) { g.beginPath(); g.moveTo(a, 480); g.lineTo(a + 10, 486); g.lineTo(a, 492); g.closePath(); g.fill(); } g.restore(); }
     trav(g, t, S, false);
   }
-  var TRAV = [{ x0: -940, x1: -520, y: 488, spd: 24, ph: 0.1, drag: '#FF8A65', P: { s: 0.44, ph: 0.4, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#3167CA', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { x0: -430, x1: 60, y: 490, spd: 18, ph: 0.6, drag: '#21B799', P: { s: 0.44, ph: 1.3, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FFC94A', low: '#2A3550', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#FF8A65' }, outfit: 'tee', hat: 'sunhat', hairStyle: 'short', short: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { front: true, x0: -930, x1: -380, y: 650, spd: 28, ph: 0.35, drag: '#7B5BD6', P: { s: 0.5, ph: 2.2, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FF8FA3', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', backpack: '#3FA9E0', hairStyle: 'pony', clipCol: '#FFC94A', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { x0: 1010, x1: 1340, y: 486, spd: 34, ph: 0.2, drag: '#FFC94A', P: { s: 0.44, ph: 0.8, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', hairStyle: 'short', mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } }];
+  var TRAV = [{ x0: -940, x1: -520, y: 488, spd: 24, ph: 0.1, drag: '#FF8A65', P: { s: 0.44, ph: 0.4, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#3167CA', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', hijab: '#1E4691', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { x0: -430, x1: 60, y: 490, spd: 18, ph: 0.6, drag: '#21B799', P: { s: 0.44, ph: 1.3, c: { skin: '#6B4329', hair: '#1F1A1A', top: '#FFC94A', low: '#2A3550', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#FF8A65' }, outfit: 'tee', hat: 'sunhat', hairStyle: 'buzz', short: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { front: true, x0: -930, x1: -380, y: 650, spd: 28, ph: 0.35, drag: '#7B5BD6', P: { s: 0.5, ph: 2.2, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FF8FA3', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'tee', backpack: '#3FA9E0', hairStyle: 'pony', clipCol: '#FFC94A', mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } }];
   function trav(g, t, S, front) { var ext = S.ext;
-    TRAV.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
+    TRAV.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
 
   /* ---------------- static back props (set units) ---------------- */
+  /* ---------------- more of the terminal: roof trusses and a welcome banner; seats, a trolley, a palm ---------------- */
+  function moreBack(g, ext) {
+    var ty = Math.max(ext.t + 30, -150); g.strokeStyle = 'rgba(150,165,190,.55)'; g.lineWidth = 3; g.beginPath(); g.moveTo(ext.l, ty); g.lineTo(ext.r, ty); g.moveTo(ext.l, ty + 34); g.lineTo(ext.r, ty + 34);
+    for (var x = Math.floor(ext.l / 40) * 40; x < ext.r; x += 40) { g.moveTo(x, ty + 34); g.lineTo(x + 20, ty); g.lineTo(x + 40, ty + 34); } g.stroke();
+    for (var b = Math.floor(ext.l / 360) * 360 + 180; b < ext.r; b += 360) { if (b > 120 && b < 1000) continue; fillRR(g, b - 90, ty + 50, 180, 40, 6, '#1E4691'); text(g, 'WELCOME · SELAMAT DATANG', b, ty + 75, 9, 800, '#FFC94A', 'center'); g.fillStyle = '#9AA6BC'; g.fillRect(b - 70, ty + 34, 2, 16); g.fillRect(b + 68, ty + 34, 2, 16); }
+  }
+  function seatRow(g, x, y, n, col) { for (var i = 0; i < n; i++) { fillRR(g, x + i * 58, y - 70, 50, 44, 12, col); fillRR(g, x + i * 58 - 2, y - 32, 54, 14, 6, col); g.fillStyle = 'rgba(0,0,0,.12)'; g.fillRect(x + i * 58 + 4, y - 22, 46, 4); }
+    g.fillStyle = '#5C6670'; g.fillRect(x, y - 18, n * 58 - 6, 6); g.fillRect(x + 10, y - 14, 6, 14); g.fillRect(x + n * 58 - 24, y - 14, 6, 14); K.soft(g, x + n * 29, y + 4, n * 34, 7, 0.2); }
+  function moreFront(g, ext) {
+  }
   function paintBack(g, ext) {
     wideBack(g, ext);
     var gs = T.gates; g.fillStyle = '#9AA6BC'; g.fillRect(gs.x + 20, gs.y - 30, 3, 30); g.fillRect(gs.x + gs.w - 23, gs.y - 30, 3, 30);
@@ -138,7 +147,7 @@
   }
 
   /* ---------------- static front props (over Lina) ---------------- */
-  function paintFront(g) {
+  function paintFront(g, ext) {
     var d = T.desk, top = d.y;
     fillRR(g, d.x + 6, top + 12, d.w - 12, F - top - 12, 12, '#FFFFFF');
     g.save(); rr(g, d.x + 6, top + 12, d.w - 12, F - top - 12, 12); g.clip();
@@ -268,11 +277,22 @@
     palm(g, t);
   }
 
-  var LINA = { x: 652, y: 456, s: 0.6, ph: 0.4, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', scarf: '#FFC94A', hairStyle: 'bun', clipCol: '#3FA9E0', feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
-  var SAM = { x: 232, y: 484, s: 0.64, ph: 1.2, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FF8A65', print: '#FFFFFF', low: '#4A6FA5', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#3FA9E0' }, outfit: 'tee', hat: 'sunhat', backpack: '#21B799', hold: 'passport', hairStyle: 'short', short: true, feet: true, mood: 'calm', look: 0.6, talk: false, hands: [[-64, -206], [96, -150]] };
+  var LINA = { x: 652, y: 456, s: 0.56, ph: 0.4, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#2A4D8F', shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', scarf: '#FFC94A', hairStyle: 'bun', clipCol: '#3FA9E0', feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
+  var SAM = { x: 232, y: 484, s: 0.56, ph: 1.2, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#FF8A65', print: '#FFFFFF', low: '#4A6FA5', shoe: '#F7F8FB', hat: '#F2D59B', hatBand: '#3FA9E0' }, outfit: 'tee', hat: 'sunhat', backpack: '#21B799', hold: 'passport', hairStyle: 'short', short: true, feet: true, mood: 'calm', look: 0.6, talk: false, hands: [[-64, -206], [96, -150]] };
 
+  /* the foreground, nearest last: each prop stands at a y, sorted with the front-row passers-by (K.zfore) */
+  function FORE() {
+    return [
+      [704, function (g, ext) {
+    if (ext.l < -500) seatRow(g, -700, 704, 4, '#3167CA');
+      }],
+      [700, function (g, ext) {
+    if (ext.r > 1160) { K.plant(g, { x: 1220, y: 700 }, '#E9B949', '#F2CC6B'); }
+      }]
+    ];
+  }
   window.IXW.worlds.travel = {
-    paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { trav(g, t, S, 'fore'); }); },
     motes: false, /* dust motes read as specks on the dark board and screens: the terminal's air is clear */
     glow: {
       enquire: function (g) { var tt = T.totem; rr(g, tt.x - 8, tt.y - 8, tt.w + 16, tt.h + 12, 18); },

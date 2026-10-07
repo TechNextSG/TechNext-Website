@@ -45,8 +45,9 @@
      Origin = the floor between the feet; about 490 units tall at s 1 (head centre y -392, rx 92, ry 88; pill body
      y -314..-108, 172 wide; shoulders (±76, -258); arm segments 80 + 76, 36 wide).
      P: x, y, s, ph, c {skin, hair, top, top2, shirt, low, shoe, hat, hatBand, print, pocket}, outfit (scrubs | coat | blazer | tee | hoodie),
-        hairStyle (bun | long | pony | short), hat (sunhat | cap | hardhat | toque), glasses, scarf, apron (colour), vest (hi-vis colour),
-        headset (mic colour), backpack, hold (clipboard | passport | bags | box | tablet | tray), feet, short,
+        hairStyle (bun | long | pony | short | curly | buzz | bald), hat (sunhat | cap | hardhat | toque), hijab (colour), beard (colour), build (0.9..1.25 body width),
+        glasses, scarf, apron (colour), vest (hi-vis colour),
+        headset (mic colour), backpack, hold (clipboard | passport | bags | box | tablet | tray | mat), feet, short,
         mood (calm | happy | wow), look (-1..1), talk, tilt, hop, hands [[lx, ly], [rx, ry]] */
   var F3 = { hy: -392, rx: 92, ry: 88, top: -314, bot: -108, tw: 172, shx: 76, shy: -258, a: 80, b: 76, aw: 36 };
   function ik(sx, sy, hx, hy, a, b, d) {
@@ -78,7 +79,14 @@
   }
   function hair(g, P, back) {
     var rx = F3.rx, ry = F3.ry, cy = F3.hy, st = P.hairStyle;
+    if (P.hijab) { if (back) { var hc = P.hijab; g.fillStyle = tone(hc, 0.1); g.beginPath(); g.moveTo(-rx * 1.22, cy); g.bezierCurveTo(-rx * 1.3, cy - ry * 1.42, rx * 1.3, cy - ry * 1.42, rx * 1.22, cy);
+        g.quadraticCurveTo(rx * 1.3, cy + ry * 1.05, rx * 1.05, cy + ry * 1.5); g.lineTo(-rx * 1.05, cy + ry * 1.5); g.quadraticCurveTo(-rx * 1.3, cy + ry * 1.05, -rx * 1.22, cy); g.closePath(); g.fill(); } return; }
     g.fillStyle = P.c.hair;
+    if (st === 'curly') { if (back) { for (var k = 0; k < 11; k++) { var a = Math.PI * (0.92 + k * 0.116); ell(g, Math.cos(a) * rx * 1.08, cy - ry * 0.12 + Math.sin(a) * ry * 1.04, 30, 30); g.fill(); } ell(g, 0, cy - ry * 0.25, rx * 1.12, ry * 0.95); g.fill(); return; }
+      for (var q = 0; q < 6; q++) { ell(g, -rx * 0.72 + q * rx * 0.29, cy - ry * 0.8 + Math.abs(q - 2.5) * 6, 26, 22); g.fill(); } return; }
+    if (st === 'buzz') { if (back) return; g.globalAlpha = 0.85; g.beginPath(); g.moveTo(-rx * 0.98, cy - ry * 0.12); g.bezierCurveTo(-rx * 1.04, cy - ry * 1.18, rx * 1.04, cy - ry * 1.18, rx * 0.98, cy - ry * 0.12);
+      g.quadraticCurveTo(rx * 0.7, cy - ry * 0.62, 0, cy - ry * 0.66); g.quadraticCurveTo(-rx * 0.7, cy - ry * 0.62, -rx * 0.98, cy - ry * 0.12); g.closePath(); g.fill(); g.globalAlpha = 1; return; }
+    if (st === 'bald') { if (back) return; ell(g, -rx * 0.3, cy - ry * 0.62, rx * 0.22, ry * 0.1); g.fillStyle = 'rgba(255,255,255,.22)'; g.fill(); g.fillStyle = P.c.hair; [-1, 1].forEach(function (d) { ell(g, d * rx * 0.92, cy - ry * 0.1, rx * 0.16, ry * 0.32); g.fill(); }); return; }
     if (st === 'bun' || st === 'long' || st === 'pony') {
       if (back) {
         if (st === 'long') { g.beginPath(); g.moveTo(-rx * 1.12, cy + ry * 0.62); g.lineTo(-rx * 1.14, cy - ry * 0.1); g.bezierCurveTo(-rx * 1.2, cy - ry * 1.32, rx * 1.2, cy - ry * 1.32, rx * 1.14, cy - ry * 0.1); g.lineTo(rx * 1.12, cy + ry * 0.62); g.quadraticCurveTo(rx * 1.1, cy + ry * 0.8, rx * 0.9, cy + ry * 0.78); g.lineTo(-rx * 0.9, cy + ry * 0.78); g.quadraticCurveTo(-rx * 1.1, cy + ry * 0.8, -rx * 1.12, cy + ry * 0.62); g.closePath(); g.fill(); return; }
@@ -99,6 +107,11 @@
   }
   function hat(g, P) {
     var rx = F3.rx, ry = F3.ry, cy = F3.hy;
+    if (P.hijab) { var hc = P.hijab; g.fillStyle = hc; g.beginPath(); g.moveTo(-rx * 1.16, cy + ry * 0.2); g.bezierCurveTo(-rx * 1.22, cy - ry * 1.34, rx * 1.22, cy - ry * 1.34, rx * 1.16, cy + ry * 0.2);
+      g.quadraticCurveTo(rx * 1.18, cy + ry * 0.9, rx * 0.6, cy + ry * 1.18); g.lineTo(rx * 0.62, cy + ry * 0.86); g.quadraticCurveTo(rx * 0.96, cy + ry * 0.5, rx * 0.94, cy - ry * 0.1);
+      g.bezierCurveTo(rx * 0.92, cy - ry * 0.92, -rx * 0.92, cy - ry * 0.92, -rx * 0.94, cy - ry * 0.1); g.quadraticCurveTo(-rx * 0.96, cy + ry * 0.5, -rx * 0.62, cy + ry * 0.86); g.lineTo(-rx * 0.6, cy + ry * 1.18);
+      g.quadraticCurveTo(-rx * 1.18, cy + ry * 0.9, -rx * 1.16, cy + ry * 0.2); g.closePath(); g.fill();
+      g.fillStyle = tone(hc, 0.12); g.beginPath(); g.moveTo(-rx * 0.6, cy + ry * 1.18); g.quadraticCurveTo(0, cy + ry * 1.5, rx * 0.6, cy + ry * 1.18); g.lineTo(rx * 0.62, cy + ry * 0.86); g.quadraticCurveTo(0, cy + ry * 1.12, -rx * 0.62, cy + ry * 0.86); g.closePath(); g.fill(); }
     if (P.hat === 'cap') { /* a baseball cap seen from the front: the crown, the visor, the button */
       var cc = P.c.hat || '#3167CA';
       g.beginPath(); g.ellipse(0, cy - ry * 0.4, rx * 1.03, ry * 0.88, 0, Math.PI, 0); g.closePath(); g.fillStyle = cc; g.fill();
@@ -194,6 +207,9 @@
       g.translate(32, -4); fillRR(g, -56, -40, 112, 78, 7, '#C99A6B'); fillRR(g, -56, -40, 112, 12, 5, '#B5865A');
       g.fillStyle = 'rgba(255,240,210,.55)'; g.fillRect(-9, -40, 18, 78); fillRR(g, 14, -18, 34, 24, 3, '#FFFFFF'); g.fillStyle = '#2A3550'; for (var bk = 0; bk < 6; bk++) g.fillRect(18 + bk * 4.6, -12, bk % 2 ? 1.6 : 3, 12);
     }
+    else if (kind === 'mat') { /* a rolled yoga mat under the arm */
+      g.translate(-10, -10); g.rotate(-0.5); fillRR(g, -70, -14, 140, 28, 14, '#B9A6D8'); fillE(g, 70, 0, 9, 14, tone('#B9A6D8', 0.2)); g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = 3; g.beginPath(); g.moveTo(-40, -14); g.lineTo(-40, 14); g.moveTo(40, -14); g.lineTo(40, 14); g.stroke();
+    }
     else if (kind === 'tablet') { /* a site tablet held up, its screen showing a progress chart */
       g.translate(-4, -8); g.rotate(-0.1); fillRR(g, -38, -52, 76, 100, 10, '#2A3550'); fillRR(g, -32, -46, 64, 86, 5, '#FFFFFF');
       fillRR(g, -32, -46, 64, 14, 4, '#1F4E8C'); g.fillStyle = '#FFC93C'; g.fillRect(-24, -6, 10, 34); g.fillRect(-8, -18, 10, 46); g.fillStyle = '#1F4E8C'; g.fillRect(8, 2, 10, 26);
@@ -214,17 +230,21 @@
       [-1, 1].forEach(function (d) { fillRR(g, d * 36 - 30 + d * 8, -28 - hop * 0.4, 60, 30, 14, c.shoe); });
     }
     g.translate(0, -hop);
-    g.save(); g.translate(0, -116); g.scale(1 + 0.008 * br, 1 + 0.012 * br); g.translate(0, 116); torso(g, P); g.restore();
+    var bw = P.build || 1;
+    g.save(); g.translate(0, -116); g.scale((1 + 0.008 * br) * bw, 1 + 0.012 * br); g.translate(0, 116); torso(g, P); g.restore();
     g.save(); g.translate(0, F3.top + hb); g.rotate(P.tilt || 0); g.translate(0, -F3.top);
     hair(g, P, true);
     fillRR(g, -20, F3.top - 14, 40, 30, 8, tone(c.skin, 0.1));
     [-1, 1].forEach(function (d) { fillE(g, d * F3.rx * 0.96, F3.hy + F3.ry * 0.12, F3.rx * 0.15, F3.ry * 0.19, c.skin); });
     fillE(g, 0, F3.hy, F3.rx, F3.ry, c.skin);
+    if (P.beard) { g.fillStyle = P.beard; g.beginPath(); g.moveTo(-F3.rx * 0.98, F3.hy + F3.ry * 0.05); g.quadraticCurveTo(-F3.rx * 0.9, F3.hy + F3.ry * 1.12, 0, F3.hy + F3.ry * 1.12); g.quadraticCurveTo(F3.rx * 0.9, F3.hy + F3.ry * 1.12, F3.rx * 0.98, F3.hy + F3.ry * 0.05);
+      g.quadraticCurveTo(F3.rx * 0.7, F3.hy + F3.ry * 0.5, F3.rx * 0.3, F3.hy + F3.ry * 0.42); g.quadraticCurveTo(0, F3.hy + F3.ry * 0.36, -F3.rx * 0.3, F3.hy + F3.ry * 0.42); g.quadraticCurveTo(-F3.rx * 0.7, F3.hy + F3.ry * 0.5, -F3.rx * 0.98, F3.hy + F3.ry * 0.05); g.closePath(); g.fill();
+      fillE(g, 0, F3.hy + F3.ry * 0.7, F3.rx * 0.26, F3.ry * 0.14, tone(c.skin, 0.06)); }
     face(g, P, t); hair(g, P, false); hat(g, P); if (P.headset) headset(g, P);
     g.restore();
     var sl = P.outfit === 'coat' ? '#F1F4FA' : tone(c.top, 0.06);
     [[-1, P.hands[0]], [1, P.hands[1]]].forEach(function (a) {
-      var d = a[0], h = a[1], sx = d * F3.shx, sy = F3.shy, r = ik(sx, sy, h[0], h[1], F3.a, F3.b, d), e = r.e, hp = r.h;
+      var d = a[0], h = a[1], sx = d * F3.shx * bw, sy = F3.shy, r = ik(sx, sy, h[0], h[1], F3.a, F3.b, d), e = r.e, hp = r.h;
       if (P.short) { limb(g, [[sx, sy], e, hp], F3.aw - 6, c.skin); limb(g, [[sx, sy], [lerp(sx, e[0], 0.62), lerp(sy, e[1], 0.62)]], F3.aw + 2, sl); }
       else limb(g, [[sx, sy], e, [lerp(e[0], hp[0], 0.8), lerp(e[1], hp[1], 0.8)]], F3.aw, sl);
       if (d < 0 && P.hold) held(g, P.hold, hp);
@@ -235,11 +255,42 @@
 
   /* a passer-by for a world's margins: walks between x0 and x1 (set units) at spd units/s, bobbing and swinging the arms,
      looking where they go; drag (a colour) pulls a roller case behind them, carry ('bags', 'box', 'tray' ...) holds something */
+  var zq = null;
+  /* the foreground in depth order: props [[y, fn(g, ext)], ...] and the passers-by that drawWalkers() queues, sorted by the
+     y they stand on, so nearer things always cover farther ones */
+  function zfore(g, t, S, props, drawWalkers) {
+    zq = []; props.forEach(function (p) { if (p) zq.push({ y: p[0], f: function () { p[1](g, S.ext, t); } }); });
+    if (drawWalkers) drawWalkers(); var q = zq; zq = null;
+    q.sort(function (a, b) { return a.y - b.y; }).forEach(function (it) { it.f(); });
+  }
+  /* people scale with depth: everyone standing at the same y is the same size */
+  function depthScale(y) { return 0.54 + (y - 480) * 0.0002; }
   function walker(g, W, t) {
-    var span = Math.max(1, W.x1 - W.x0), d = ((t * W.spd + W.ph * span) % (span * 2) + span * 2) % (span * 2), fwd = d < span, x = W.x0 + (fwd ? d : span * 2 - d), dir = fwd ? 1 : -1;
-    var P = W.P, step = t * W.spd * 0.09 + W.ph * 7, sw = Math.sin(step) * 30;
-    P.x = x; P.y = W.y; P.look = dir * 0.8; P.hop = Math.abs(Math.sin(step)) * 6; P.feet = true;
+    if (zq) { zq.push({ y: W.y, f: function () { walker(g, W, t); } }); return; }
+    if (!W.P.fixS) W.P.s = depthScale(W.y) * (W.P.kid ? 0.72 : 1);
+    var P = W.P, st = P._w, lo = Math.min(W.x0, W.x1), hi = Math.max(W.x0, W.x1);
+    if (!st || st.lo !== lo || st.hi !== hi) { var x0 = lo + (hi - lo) * (((W.ph || 0) % 1 + 1) % 1); st = P._w = { lo: lo, hi: hi, x: x0, tx: x0, t: t, until: t + Math.random() * 2, spd: W.spd, dir: 1, dist: 0 }; }
+    var dt = Math.min(0.2, Math.max(0, t - st.t)); st.t = t;
+    if (st.x === st.tx && t >= st.until) { /* choose the next stop: somewhere new, at a fresh pace */
+      var far = (hi - lo) * (0.25 + Math.random() * 0.75), tx = st.x + (Math.random() < 0.5 ? -far : far);
+      if (tx < lo || tx > hi) tx = st.x - (tx - st.x); st.tx = clamp(tx, lo, hi); st.spd = W.spd * (0.6 + Math.random() * 0.8); }
+    var moving = st.x !== st.tx;
+    if (moving) { var d = st.tx - st.x, mv = Math.min(Math.abs(d), st.spd * dt); st.dir = d > 0 ? 1 : -1; st.x += st.dir * mv; st.dist += mv;
+      if (Math.abs(st.tx - st.x) < 0.5) { st.x = st.tx; st.until = t + 0.8 + Math.random() * 3.6; } }
+    var x = st.x, dir = st.dir, step = st.dist * 0.09 + (W.ph || 0) * 7, sw = moving ? Math.sin(step) * 30 : 0;
+    P.x = x; P.y = W.y; P.look = moving ? dir * 0.8 : Math.sin(t * 0.7 + (W.ph || 0) * 9) * 0.9; P.hop = moving ? Math.abs(Math.sin(step)) * 6 : 0; P.feet = true;
     P.hands = W.drag ? (dir > 0 ? [[-94, -150], [70 + sw * 0.3, -150]] : [[-70 - sw * 0.3, -150], [94, -150]]) : [[-70 - sw * 0.4, -150 + Math.abs(sw) * 0.4], [70 + sw * 0.4, -150 + Math.abs(sw) * 0.4]];
+    if (P.wheel) { /* a wheelchair user, seen from the front like everyone else: big wheels either side, pushing the rims */
+      var wx = x, wy = W.y, s = P.s, push = Math.sin(step * 0.6) * 10, spin = step * 0.25 * dir; P.hop = 0; P.feet = false; P.look = dir * 0.6;
+      g.save(); g.translate(wx, wy); g.scale(s, s); soft(g, 0, 4, 130, 16, 0.22); fillRR(g, -78, -270, 156, 170, 18, '#3A4458'); g.restore();
+      P.hands = [[-102, -118 + push], [102, -118 - push]]; var y0 = P.y; P.y = wy - 36 * s; person(g, P, t); P.y = y0;
+      g.save(); g.translate(wx, wy); g.scale(s, s); var lo = P.c.low || '#3A4458';
+      fillRR(g, -84, -150, 168, 26, 10, '#4A5468'); [-1, 1].forEach(function (d) { fillRR(g, d * 34 - 20, -140, 40, 104, 16, lo); fillRR(g, d * 36 - 26, -46, 52, 24, 11, P.c.shoe || '#F7F8FB'); });
+      g.strokeStyle = '#8A94A8'; g.lineWidth = 6; g.beginPath(); g.moveTo(-70, -20); g.lineTo(70, -20); g.stroke();
+      [-1, 1].forEach(function (d) { var cx2 = d * 104; g.strokeStyle = '#2A3142'; g.lineWidth = 10; g.beginPath(); g.ellipse(cx2, -92, 18, 90, 0, 0, Math.PI * 2); g.stroke();
+        g.strokeStyle = '#A9B2C4'; g.lineWidth = 4; g.beginPath(); g.ellipse(cx2 - d * 6, -92, 12, 76, 0, 0, Math.PI * 2); g.stroke();
+        fillE(g, cx2 + Math.sin(spin) * 6, -92 + Math.cos(spin) * 60, 4, 6, '#FFFFFF'); fillE(g, d * 66, -6, 9, 9, '#2A3142'); });
+      g.restore(); return; }
     if (W.drag) { var cx = x - dir * 70 * P.s, cy = W.y; g.save(); g.translate(cx, cy); g.scale(P.s, P.s); g.strokeStyle = '#5C6670'; g.lineWidth = 6; g.beginPath(); g.moveTo(dir * 12, -70); g.lineTo(dir * 34, -150); g.stroke();
       fillRR(g, -40, -96, 80, 96, 12, W.drag); fillRR(g, -40, -96, 80, 14, 7, tone(W.drag, 0.18)); fillE(g, -26, 2, 7, 7, '#2A3550'); fillE(g, 26, 2, 7, 7, '#2A3550'); g.restore(); }
     person(g, P, t);
@@ -332,11 +383,12 @@
   IXW.worlds = IXW.worlds || {};
   IXW.kit = { clamp: clamp, lerp: lerp, hash: hash, rr: rr, ell: ell, fillRR: fillRR, fillE: fillE, limb: limb, soft: soft, shadowed: shadowed, text: text, tone: tone, FONT: FONT,
     person: person, ik: ik, F3: F3, room: room, plusPattern: plusPattern, windowFrame: windowFrame, windowSky: windowSky, windowGlass: windowGlass, windowMullions: windowMullions, cloud: cloud,
-    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, reduce: reduce };
+    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, zfore: zfore, depthScale: depthScale, reduce: reduce };
 
   /* ============================== the hero ==============================
      A world: { room (see room()) or paintBg(g, W, H, k, sx, sy), paintBack(g), paintFront(g), paintWindow(g, t, par, S), paintLive(g, t, date, S),
-     paintFrontLive?(g, t, S), glow {hotKey or toyName: fn(g) path}, backGlow [keys drawn behind the counter staff],
+     paintFrontLive?(g, t, S), paintFore?(g, ext) (static props in the foreground, y >= 560, cached and drawn over the passers-by on
+     the floor line), paintForeLive?(g, t, S) (the front-row passers-by, over the foreground props), glow {hotKey or toyName: fn(g) path}, backGlow [keys drawn behind the counter staff],
      cast [{ id, P, behind, keys [hotKeys that make them talk], act(P, t, S) }], toy?(name, S, t, btn), onStop?(key, S, t), moteCol, motes (false: no dust motes),
      windowBehind? (the window view is painted BEHIND the back props, which get a third cache: paintBg, then the live view,
      then paintFrame?(g, W, H, k, sx, sy) (hero px: mullions, ceiling, floor) and paintBack) }
@@ -349,7 +401,11 @@
     if (!W0 || !cv || !set || !cv.getContext) return;
     var g = cv.getContext('2d'), A = document.createElement('canvas'), B = document.createElement('canvas'), ga = A.getContext('2d'), gb = B.getContext('2d');
     var C = W0.windowBehind ? document.createElement('canvas') : null, gc = C && C.getContext('2d');
+    var D = W0.paintFore ? document.createElement('canvas') : null, gd = D && D.getContext('2d'); /* the foreground props, in front of the passers-by */
     var W = 0, Hh = 0, dpr = 1, k = 1, sx = 0, sy = 0, M = 24, live = false, raf = 0, frameN = 0, T0 = performance.now();
+    /* phones: the sideways drag. pan (px) runs from -Er (the right margin in view) to El (the left margin in view) */
+    var El = 0, Er = 0, pan = 0, panT = 0, panSet = null, drag = null, noClick = 0, follow = 0, lastHot = '', PAN_L = -300, PAN_R = 1280;
+    var phoneQ = window.matchMedia ? window.matchMedia('(max-width:767px)') : { matches: false };
     var par = { x: 0, y: 0, tx: 0, ty: 0 };
     var home = (root.getAttribute('data-home') || '288,196').split(',').map(Number);
     var S = { hot: '', hotA: 0, peek: '', peekA: 0, nexi: { x: home[0], y: home[1] }, cast: {}, toy: {}, t: 0, ext: { l: 0, r: 1000, t: 0, b: 600 } }, pk = '';
@@ -362,20 +418,43 @@
     root.appendChild(peekBtn);
     function now() { return (performance.now() - T0) / 1000; }
 
+    function setPan() { var v = pan.toFixed(1); if (v !== panSet) { panSet = v; root.style.setProperty('--pan', v + 'px'); } }
+    var hint = document.createElement('span'); hint.className = 'ixw-drag'; hint.setAttribute('aria-hidden', 'true'); hint.textContent = 'Drag to look around'; set.appendChild(hint);
+    function dragDone() { if (!root.classList.contains('was-dragged')) root.classList.add('was-dragged'); }
+    root.addEventListener('pointerdown', function (e) {
+      if (!(El || Er) || !e.isPrimary || (e.target.closest && e.target.closest('.ixw-cap, .ixw-copy, a'))) return;
+      drag = { x: e.clientX, y: e.clientY, p: pan, on: false, id: e.pointerId, vx: 0, lx: e.clientX, lt: performance.now() };
+    });
+    root.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x, dy = e.clientY - drag.y, tn = performance.now();
+      if (!drag.on) { if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) { drag.on = true; root.classList.add('is-dragging'); dragDone(); } else { if (Math.abs(dy) > 12) drag = null; return; } }
+      drag.vx = lerp(drag.vx, (e.clientX - drag.lx) / Math.max(8, tn - drag.lt), 0.5); drag.lx = e.clientX; drag.lt = tn;
+      var raw = drag.p + dx; pan = panT = raw > El ? El + (raw - El) * 0.25 : raw < -Er ? -Er + (raw + Er) * 0.25 : raw; follow = 0; setPan(); if (reduce || !raf) draw(performance.now());
+    });
+    function dragEnd() { if (!drag) return; if (drag.on) { panT = clamp(pan + drag.vx * 240, -Er, El); noClick = performance.now(); root.classList.remove('is-dragging'); if (reduce || !raf) { pan = panT; setPan(); draw(performance.now()); } } drag = null; }
+    root.addEventListener('pointerup', dragEnd); root.addEventListener('pointercancel', dragEnd);
+    root.addEventListener('click', function (e) { if (performance.now() - noClick < 350) { e.stopPropagation(); e.preventDefault(); } }, true);
+    if (phoneQ.addEventListener) phoneQ.addEventListener('change', function () { panT = pan = 0; measure(); });
     function measure() {
       var hr = root.getBoundingClientRect(), r = set.getBoundingClientRect();
       W = Math.round(hr.width); Hh = Math.round(hr.height); dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-      k = r.width / 1000; sx = r.left - hr.left; sy = r.top - hr.top;
-      [cv, A, B, C].forEach(function (c) { if (!c) return; c.width = Math.round((W + M * 2) * dpr); c.height = Math.round((Hh + M * 2) * dpr); });
+      k = r.width / 1000; sx = r.left - hr.left - pan; sy = r.top - hr.top;
+      /* phones: how far the scene may slide each way to reach set units PAN_L .. PAN_R */
+      El = Er = 0; if (phoneQ.matches) { El = Math.max(0, Math.round(-(sx + PAN_L * k))); Er = Math.max(0, Math.round(sx + PAN_R * k - W)); }
+      pan = panT = clamp(panT, -Er, El); setPan();
+      var VW = W + El + Er, SX = sx + El; /* the caches see a hero widened by the drag range */
+      [cv, A, B, C, D].forEach(function (c) { if (!c) return; c.width = Math.round(((c === cv ? W : VW) + M * 2) * dpr); c.height = Math.round((Hh + M * 2) * dpr); });
       cv.style.width = (W + M * 2) + 'px'; cv.style.height = (Hh + M * 2) + 'px';
       ga.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr);
-      if (W0.paintBg) W0.paintBg(ga, W + M, Hh + M, k, sx, sy); else room(ga, W + M, Hh + M, k, sx, sy, W0.room);
+      if (W0.paintBg) W0.paintBg(ga, VW + M, Hh + M, k, SX, sy); else room(ga, VW + M, Hh + M, k, SX, sy, W0.room);
       var gp = gc || ga; /* the back props get their own cache when the window view sits behind them */
-      if (gc) { gc.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr); if (W0.paintFrame) W0.paintFrame(gc, W + M, Hh + M, k, sx, sy); }
+      if (gc) { gc.setTransform(dpr, 0, 0, dpr, M * dpr, M * dpr); if (W0.paintFrame) W0.paintFrame(gc, VW + M, Hh + M, k, SX, sy); }
       /* the whole hero in set units: a world paints beyond its 1000 x 600 frame into the margins (ext.l < 0, ext.r > 1000) */
-      S.ext = { l: -(sx + M) / k, r: (W + M - sx) / k, t: -(sy + M) / k, b: (Hh + M - sy) / k };
-      gp.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintBack(gp, S.ext);
-      gb.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); W0.paintFront(gb, S.ext);
+      S.ext = { l: -(SX + M) / k, r: (VW + M - SX) / k, t: -(sy + M) / k, b: (Hh + M - sy) / k };
+      gp.setTransform(dpr * k, 0, 0, dpr * k, (SX + M) * dpr, (sy + M) * dpr); W0.paintBack(gp, S.ext);
+      gb.setTransform(dpr * k, 0, 0, dpr * k, (SX + M) * dpr, (sy + M) * dpr); W0.paintFront(gb, S.ext);
+      if (gd) { gd.setTransform(dpr * k, 0, 0, dpr * k, (SX + M) * dpr, (sy + M) * dpr); W0.paintFore(gd, S.ext); }
       draw(performance.now());
     }
     /* the tour glow pulses; the hover glow (the thing under the pointer) is a steady outline with a light wash */
@@ -399,20 +478,27 @@
       if (S.hot) S.hotA = Math.min(1, S.hotA + 0.08);
       if (S.peek) { if (pk !== S.peek) { pk = S.peek; S.peekA = 0; } S.peekA = reduce ? 1 : Math.min(1, S.peekA + 0.2); }
       else { S.peekA = reduce ? 0 : Math.max(0, S.peekA - 0.2); if (!S.peekA) pk = ''; }
-      var fx = par.x * 6, fy = par.y * 3, back = W0.backGlow || [], pkOn = pk && pk !== S.hot;
+      if (El || Er) {
+        if (S.hot !== lastHot) { lastHot = S.hot; if (!drag) follow = nowMs + 2600; }
+        if (!drag && nowMs < follow) { var nx = sx + S.nexi.x * k + panT, pad = 56; if (nx < pad) panT += pad - nx; else if (nx > W - pad) panT -= nx - (W - pad); panT = clamp(panT, -Er, El); }
+        if (!drag) pan = Math.abs(panT - pan) < 0.3 ? panT : lerp(pan, panT, 0.16); setPan();
+      }
+      var fx = par.x * 6, fy = par.y * 3, back = W0.backGlow || [], pkOn = pk && pk !== S.hot, px = sx + pan, sh = pan - El;
       g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height);
-      g.drawImage(A, 0, 0);
-      g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr);
+      g.drawImage(A, sh * dpr, 0);
+      g.setTransform(dpr * k, 0, 0, dpr * k, (px + M) * dpr, (sy + M) * dpr);
       W0.paintWindow(g, t, par.x, S);
-      if (C) { g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(C, 0, 0); g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M) * dpr, (sy + M) * dpr); }
+      if (C) { g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(C, sh * dpr, 0); g.setTransform(dpr * k, 0, 0, dpr * k, (px + M) * dpr, (sy + M) * dpr); }
       W0.paintLive(g, t, new Date(), S);
       if (S.hot && back.indexOf(S.hot) >= 0) glow(t, S.hot, S.hotA);
       if (pkOn && back.indexOf(pk) >= 0) glow(t, pk, S.peekA, true);
-      g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M + fx) * dpr, (sy + M + fy) * dpr);
+      g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr);
       W0.cast.forEach(function (c) { if (c.behind) { c.act(c.P, t, S); figure(c, t); } });
-      g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(B, 0, 0, B.width / dpr, B.height / dpr);
-      g.setTransform(dpr * k, 0, 0, dpr * k, (sx + M + fx) * dpr, (sy + M + fy) * dpr);
+      g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(B, sh, 0, B.width / dpr, B.height / dpr);
+      g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr);
       if (W0.paintFrontLive) W0.paintFrontLive(g, t, S);
+      if (D) { g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(D, sh, 0, D.width / dpr, D.height / dpr); g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr); }
+      if (W0.paintForeLive) W0.paintForeLive(g, t, S);
       if (S.hot && back.indexOf(S.hot) < 0) glow(t, S.hot, S.hotA);
       if (pkOn && back.indexOf(pk) < 0) glow(t, pk, S.peekA, true);
       W0.cast.forEach(function (c) { if (!c.behind) { c.act(c.P, t, S); figure(c, t); } });

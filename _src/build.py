@@ -1142,7 +1142,7 @@ def world_flow_html(key: str) -> str:
         f'<h3>{st["h"]}</h3><p class="ixw-panel-p"><span class="sr-only">{st["p"]}</span><span aria-hidden="true" data-ixw-ftype>{st["p"]}</span></p>'
         f'<dl class="ixw-panel-meta"><div class="ixw-in"><dt>In Odoo</dt><dd>{_app_ic(st, 22)}<span>{st["odoo"]}</span></dd></div>'
         f'<div class="ixw-was"><dt>What it replaces</dt><dd><span>{st["was"]}</span></dd></div></dl>'
-        f'<p class="ixw-rec">{{{{odoo:{chips[k][0]}:18}}}}<span>{chips[k][1]}</span><em>Sample</em></p></article>'
+        f'<p class="ixw-rec">{(f"{{{{icon:{chips[k][0][5:]}}}}}" if chips[k][0].startswith("icon:") else f"{{{{odoo:{chips[k][0]}:18}}}}")}<span>{chips[k][1]}</span><em>Sample</em></p></article>'
         for k, st in enumerate(steps))
     return f'''<section class="section ixw-flow-sec" id="flow">
   <div class="container">

@@ -222,3 +222,11 @@
 .ixw--travel .ixw-hot-lab{padding-left:20px}
 .ixw--travel .ixw-hot-lab::before{content:"";position:absolute;left:7px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 2px var(--t-ink)}
 @media (prefers-reduced-motion:reduce){.ixw--travel .ixw-ibtn--play.is-on,.ixw--travel main .btn-link:hover{animation:none}}
+
+/* the side tabs and the header's Contact Us in this world's colours */
+.ixw--travel{--st-ink:#17284A;--st-meet:#24447A;--st-talk:#3167CA;--st-nexi:#FFC94A;--st-nexi-fg:#17284A;--hc-bg:linear-gradient(180deg,#24447A,#17284A)}
+/* "View the scene": a boarding-pass stub with its notches; pressed, the yellow stub */
+.ixw--travel .ixw-peek{border:2px solid var(--t-ink);border-radius:8px;color:var(--t-ink);box-shadow:0 3px 0 var(--t-ink);
+  background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),#FFFFFF}
+.ixw--travel .ixw-peek:hover{box-shadow:0 5px 0 var(--t-ink)}.ixw--travel .ixw-peek:active{box-shadow:0 1px 0 var(--t-ink)}
+.ixw--travel .ixw-peek[aria-pressed="true"]{background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),var(--t-stub)}

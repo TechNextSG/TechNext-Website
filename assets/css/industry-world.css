@@ -415,6 +415,23 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw .ixw-cta::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.16) 2px,transparent 2.2px);background-size:24px 24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);mask-image:linear-gradient(90deg,transparent,#000 60%)}
 .ixw .ixw-cta::after{display:none}
 .ixw .ixw-cta .hand{color:#FFE48A}
+@media (min-width:768px){.ixw .ixw-cta{padding-right:240px}}
+/* the side tabs and the header's Contact Us, themed by each world (--st-* set in assets/css/worlds/<key>.css): an ink outline
+   and a hard lip like the world's buttons. The tabs are turned 180deg, so the lip (box-shadow x) shows on their left. */
+.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-left:0;border-radius:0 12px 12px 0;color:var(--st-fg,#FFFFFF);box-shadow:4px 0 0 var(--st-ink,#1F1F3D);transition:box-shadow .2s ease,background-color .2s ease}
+.ixw[class*="ixw--"] .meet-tab,.ixw[class*="ixw--"] .meet-tab:hover,.ixw[class*="ixw--"] .meet-tab:active{background:var(--st-meet)}
+.ixw[class*="ixw--"] .talk-tab,.ixw[class*="ixw--"] .talk-tab:hover,.ixw[class*="ixw--"] .talk-tab:active{background:var(--st-talk)}
+.ixw[class*="ixw--"] .nexi-tab,.ixw[class*="ixw--"] .nexi-tab:hover,.ixw[class*="ixw--"] .nexi-tab:active{background:var(--st-nexi);color:var(--st-nexi-fg,#FFFFFF)}
+.ixw[class*="ixw--"] .side-tab:hover{translate:none;box-shadow:7px 0 0 var(--st-ink,#1F1F3D)}
+.ixw[class*="ixw--"] .side-tab:active{translate:none;box-shadow:2px 0 0 var(--st-ink,#1F1F3D)}
+.ixw[class*="ixw--"] .header-cta .btn-primary{color:var(--hc-fg,#FFFFFF);background:var(--hc-bg);border:2.5px solid var(--st-ink);border-radius:10px;box-shadow:0 4px 0 var(--st-ink);transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw[class*="ixw--"] .header-cta .btn-primary:hover{color:var(--hc-fg,#FFFFFF);background:var(--hc-bg);translate:0 -2px;box-shadow:0 6px 0 var(--st-ink)}
+.ixw[class*="ixw--"] .header-cta .btn-primary:active{translate:0 3px;box-shadow:0 1px 0 var(--st-ink)}
+.ixw[class*="ixw--"] .header-cta .btn-primary .ic{color:currentColor}
+@media (max-width:767px){.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}
+  .ixw[class*="ixw--"] .side-tab:hover{translate:0 -2px;box-shadow:0 6px 0 var(--st-ink,#1F1F3D)}
+  .ixw[class*="ixw--"] .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--st-ink)}
+  .ixw[class*="ixw--"] .header-cta .btn-primary .ic{flex:none;width:24px;height:24px;padding:3px}}
 .ixw-cta-nexi{position:absolute;right:96px;bottom:100%;width:0;height:0;--npx:.36px;pointer-events:none}
 .ixw-cta-nexi .ixw-pose{left:calc(var(--ax) * -.36px);top:calc(var(--ay) * -.36px + 40px);width:calc(var(--w) * .36px);animation:ixwBob 3.4s ease-in-out infinite}
 .ixw .ixw-cta .actions{position:relative}
@@ -550,4 +567,20 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw-hero.is-peek .ixw-copy{opacity:0;translate:-36px 0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,translate .45s var(--w-ease),visibility 0s linear .45s}
 .ixw-hero.is-peek .ixw-cap{opacity:0;translate:0 24px;visibility:hidden;pointer-events:none;transition:opacity .3s ease,translate .45s var(--w-ease),visibility 0s linear .45s}
 @media (max-width:1199px){.ixw-peek{display:none}}
+/* phones: the scene drags sideways (the engine sets --pan); the caption stays put; a hint until the first drag */
+.ixw-drag{display:none}
+@media (max-width:767px){
+  .ixw-hero{touch-action:pan-y}
+  .ixw-set{translate:var(--pan,0px) 0}
+  .ixw-cap{translate:calc(var(--pan,0px) * -1) 0}
+  .ixw-hero.is-dragging .ixw-set{cursor:grabbing}
+  .ixw-hero.is-dragging .ixw-hot,.ixw-hero.is-dragging .ixw-toy,.ixw-hero.is-dragging .ixw-cast{pointer-events:none}
+  .ixw-drag{display:inline-flex;position:absolute;z-index:6;left:59%;top:10px;translate:calc(-50% - var(--pan,0px)) 0;align-items:center;gap:6px;padding:6px 12px;border:2px solid var(--st-ink,#1F1F3D);border-radius:999px;
+    background:#FFFFFF;box-shadow:0 3px 0 var(--st-ink,#1F1F3D);font:800 12px/1 var(--font-display);color:var(--st-ink,#1F1F3D);white-space:nowrap;pointer-events:none;transition:opacity .4s ease}
+  .ixw-drag::before,.ixw-drag::after{content:"";width:8px;height:8px;border:solid currentColor;border-width:0 0 2.5px 2.5px;rotate:45deg;animation:ixwNudge 1.6s ease-in-out infinite}
+  .ixw-drag::after{rotate:-135deg;order:2}
+  .ixw-hero.was-dragged .ixw-drag{opacity:0}
+}
+@keyframes ixwNudge{50%{translate:-3px 0}}
+@media (prefers-reduced-motion:reduce){.ixw-drag::before,.ixw-drag::after{animation:none}}
 @media (prefers-reduced-motion:reduce){.ixw-copy,.ixw-cap{transition:none}}

@@ -226,6 +226,12 @@
   .ixw--retail main :is(.btn-primary,.ixw-cta .btn-white):hover,.ixw--retail .ix-others a:hover{rotate:0deg}}
 
 /* wide screens: the scene sits a little higher, so the receipt's torn edge clears the credits card */
+/* the side tabs and the header's Contact Us in this world's colours */
+.ixw--retail{--st-ink:#3D405B;--st-meet:#5E8F77;--st-talk:#D9785A;--st-nexi:#E9C46A;--st-nexi-fg:#3D405B;--hc-bg:linear-gradient(180deg,#E28C6E,#D9785A 70%)}
+/* "View the scene": a swing tag with its eyelet; pressed, terracotta */
+.ixw--retail .ixw-peek{border:2px solid var(--r-ink);border-radius:999px 8px 8px 999px;color:var(--r-ink);box-shadow:0 3px 0 var(--r-ink);padding-left:16px;background:#FFFFFF}
+.ixw--retail .ixw-peek:hover{box-shadow:0 5px 0 var(--r-ink)}.ixw--retail .ixw-peek:active{box-shadow:0 1px 0 var(--r-ink)}
+.ixw--retail .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:linear-gradient(180deg,#E28C6E,#D9785A 70%)}
 @media (min-width:1500px){.ixw--retail .ixw-set{bottom:162px}}
 
 /* phones: the store-network demo's labels stay readable */

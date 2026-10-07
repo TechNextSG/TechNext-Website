@@ -14,10 +14,10 @@
   var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed, tone = K.tone;
   var F = 470;
   var T = {
-    door: { x: 136, y: 84, w: 112, h: 386 }, sign: { x: 192, y: 176 }, bell: { x: 192, y: 62 },
-    shelf: { x: 268, y: 150, w: 136, h: 320 }, logo: { x: 650, y: 30, w: 216, h: 64 },
+    door: { x: 116, y: 118, w: 160, h: 352 }, sign: { x: 196, y: 200 }, bell: { x: 196, y: 96 },
+    shelf: { x: 290, y: 150, w: 136, h: 320 }, logo: { x: 650, y: 30, w: 216, h: 64 },
     counter: { x: 556, y: 332, w: 252 }, till: { x: 572, y: 262 }, scan: { x: 666, y: 318 }, term: { x: 718, y: 296 }, printer: { x: 756, y: 302 },
-    cubby: { x: 832, y: 126, w: 158, h: 164 }, tote: { x: 824, y: 470 }, cartons: { x: 906, y: 470 }, lamps: [336, 920]
+    cubby: { x: 832, y: 126, w: 158, h: 164 }, tote: { x: 824, y: 470 }, cartons: { x: 906, y: 470 }, lamps: [358, 920]
   };
   var C = { terra: '#D9785A', terraD: '#B95E43', peach: '#F2B8A0', sage: '#81B29A', sageD: '#5E8F77', cream: '#FBF3E6', ink: '#3D405B', oak: '#D9B48A', oakD: '#B98E62', kraft: '#C99A6B' };
   function stripes(g, W, ry, k, sx) { g.fillStyle = 'rgba(129,178,154,.17)'; var step = 34 * k; for (var x = (sx % step) - step; x < W; x += step) g.fillRect(x, 0, 3 * k, ry - 7 * k); }
@@ -66,24 +66,28 @@
     }
   }
   function wideFront(g, ext) {
-    if (ext.l < -500) { /* a round display table in front, stacked linen and a vase */ var tx = -700, ty = 600; soft(g, tx, ty + 70, 110, 10, 0.25);
-      g.fillStyle = C.oakD; g.fillRect(tx - 6, ty, 12, 70); fillRR(g, tx - 50, ty + 62, 100, 10, 4, C.oakD); g.fillStyle = C.oak; g.beginPath(); g.ellipse(tx, ty, 110, 18, 0, 0, Math.PI * 2); g.fill();
-      for (var f = 0; f < 4; f++) fillRR(g, tx - 80, ty - 14 - f * 12, 60, 11, 3, f % 2 ? '#F7D9C9' : C.terra); for (var h = 0; h < 3; h++) fillRR(g, tx + 6, ty - 14 - h * 12, 56, 11, 3, h % 2 ? '#DDEBE2' : C.sage);
-      fillRR(g, tx + 70, ty - 46, 22, 40, 9, '#7FA8C9'); fillE(g, tx + 81, ty - 54, 12, 10, '#5DB07E'); fillRR(g, tx - 30, ty - 76, 60, 22, 4, '#FFFFFF'); text(g, '2 FOR S$ 99', tx, ty - 61, 8, 800, C.terraD, 'center'); }
-    if (ext.r > 1050) { K.plant(g, { x: 1110, y: 650 }, '#5E8F77', '#81B29A'); }
   }
-  var SHOPPERS = [{ x0: -930, x1: -360, y: 488, spd: 22, ph: 0.2, P: { s: 0.46, ph: 0.5, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#E9C46A', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', hold: 'bags', mood: 'happy', look: 0, hands: [[-74, -150], [70, -150]] } },
-    { x0: -300, x1: 90, y: 488, spd: 16, ph: 0.7, P: { s: 0.46, ph: 1.4, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#81B29A', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'short', short: true, mood: 'calm', look: 0, hands: [[-74, -150], [70, -150]] } },
-    { front: true, x0: -940, x1: -380, y: 650, spd: 26, ph: 0.45, P: { s: 0.5, ph: 2.2, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#7FA8C9', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'bun', clipCol: '#D9785A', hold: 'bags', mood: 'happy', look: 0, hands: [[-74, -150], [70, -150]] } },
+  var SHOPPERS = [{ x0: -560, x1: -220, y: 488, spd: 22, ph: 0.2, P: { s: 0.46, ph: 0.5, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#E9C46A', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'long', hold: 'bags', mood: 'happy', look: 0, hands: [[-74, -150], [70, -150]] } },
+    { x0: -160, x1: 80, y: 488, spd: 16, ph: 0.7, P: { s: 0.46, ph: 1.4, c: { skin: '#8D5A3B', hair: '#1F1A1A', top: '#81B29A', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'curly', short: true, mood: 'calm', look: 0, hands: [[-74, -150], [70, -150]] } },
+    { front: true, x0: -940, x1: -420, y: 720, spd: 26, ph: 0.45, P: { s: 0.5, ph: 2.2, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#7FA8C9', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'bun', hijab: '#D9785A', clipCol: '#D9785A', hold: 'bags', mood: 'happy', look: 0, hands: [[-74, -150], [70, -150]] } },
     { x0: 1010, x1: 1330, y: 488, spd: 20, ph: 0.1, P: { s: 0.46, ph: 0.9, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#D9785A', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hairStyle: 'short', short: true, hold: 'bags', mood: 'calm', look: 0, hands: [[-74, -150], [70, -150]] } }];
   function crowd(g, t, S, front) { var ext = S.ext;
-    SHOPPERS.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 30), b = Math.min(w.x1, ext.r - 40); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); }); }
+    SHOPPERS.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== front) return; var a = Math.max(w.x0, ext.l + 30), b = Math.min(w.x1, ext.r - 40); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); }); }
 
   /* ---------------- static back props (set units) ---------------- */
   function mug(g, x, y, col) { fillRR(g, x, y - 26, 26, 26, 5, col); g.strokeStyle = col; g.lineWidth = 4; g.beginPath(); g.arc(x + 27, y - 13, 7, -1.4, 1.4); g.stroke(); fillRR(g, x + 3, y - 24, 20, 4, 2, 'rgba(255,255,255,.35)'); }
   function candle(g, x, y, col) { fillRR(g, x, y - 30, 24, 30, 6, 'rgba(255,255,255,.75)'); fillRR(g, x + 3, y - 20, 18, 17, 4, col); fillRR(g, x + 2, y - 34, 20, 6, 3, '#C9B79C'); }
   function tag(g, x, y, col, rot) { g.save(); g.translate(x, y); g.rotate(rot || 0); g.strokeStyle = '#B9A58A'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(0, -10); g.lineTo(0, 0); g.stroke();
     fillRR(g, -9, 0, 18, 13, 3, '#FFFFFF'); fillE(g, 0, 4, 1.8, 1.8, '#C9B79C'); g.fillStyle = col; g.fillRect(-6, 8, 12, 2.2); g.restore(); }
+  /* ---------------- more of the shop: a wall shelf of plants and prints, a sale banner; baskets, gift boxes ---------------- */
+  function moreBack(g, ext) {
+    var y = 30;
+    [[-900, -700], [-560, -360], [1020, 1240]].forEach(function (r, i) { if (r[1] < ext.l || r[0] > ext.r) return; fillRR(g, r[0], y, r[1] - r[0], 8, 3, C.oakD);
+      for (var x = r[0] + 20; x < r[1] - 30; x += 64) { if (((x - r[0]) / 64 | 0) % 2) { for (var lf = 0; lf < 5; lf++) { g.save(); g.translate(x + 18, y - 24); g.rotate((lf - 2) * 0.4); g.fillStyle = lf % 2 ? '#7FB59A' : C.sageD; g.beginPath(); g.ellipse(0, -16, 5, 14, 0, 0, Math.PI * 2); g.fill(); g.restore(); } fillRR(g, x + 6, y - 26, 24, 26, 6, C.terra); } else { fillRR(g, x, y - 60, 40, 56, 3, '#FFFFFF'); fillRR(g, x + 5, y - 55, 30, 46, 2, i % 2 ? C.peach : '#CFE3D8'); } } });
+    if (ext.l < -260) { fillRR(g, -320, 120, 160, 46, 8, C.terra); text(g, 'SEASON SALE', -240, 140, 12, 800, '#FFFFFF', 'center'); text(g, 'up to 30% off · sample', -240, 156, 7, 700, '#FFE3D6', 'center'); }
+  }
+  function moreFront(g, ext) {
+  }
   function paintBack(g, ext) {
     wideBack(g, ext);
     /* the wall sign: Harbour Goods, a sample homeware store */
@@ -155,7 +159,6 @@
 
   /* ---------------- static front props: the counter and what stands on it (over the cashier) ---------------- */
   function paintFront(g, ext) {
-    wideFront(g, ext);
     var co = T.counter, top = co.y;
     fillRR(g, co.x + 6, top + 12, co.w - 12, F - top - 12, 10, C.terra);
     g.save(); rr(g, co.x + 6, top + 12, co.w - 12, F - top - 12, 10); g.clip();
@@ -258,13 +261,27 @@
     g.restore();
   }
 
-  var ANA = { x: 676, y: 456, s: 0.6, ph: 0.3, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#F2EFE8', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', apron: C.sage, hairStyle: 'pony', clipCol: C.terra,
+  var ANA = { x: 676, y: 456, s: 0.56, ph: 0.3, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#F2EFE8', low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', apron: C.sage, hairStyle: 'pony', clipCol: C.terra,
     feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
-  var RAJ = { x: 462, y: 486, s: 0.62, ph: 1.4, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#7FA8C9', print: null, low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hold: 'bags', hairStyle: 'short',
+  var RAJ = { x: 462, y: 486, s: 0.56, ph: 1.4, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#7FA8C9', print: null, low: '#3D405B', shoe: '#F7F8FB' }, outfit: 'tee', hold: 'bags', hairStyle: 'short', beard: '#1F1A1A',
     short: true, feet: true, mood: 'calm', look: 0.6, talk: false, hands: [[-74, -150], [80, -170]] };
 
+  /* the foreground, nearest last: each prop stands at a y, sorted with the front-row passers-by (K.zfore) */
+  function FORE() {
+    return [
+      [670, function (g, ext) {
+    if (ext.l < -500) { /* a round display table in front, stacked linen and a vase */ var tx = -700, ty = 600; soft(g, tx, ty + 70, 110, 10, 0.25);
+      g.fillStyle = C.oakD; g.fillRect(tx - 6, ty, 12, 70); fillRR(g, tx - 50, ty + 62, 100, 10, 4, C.oakD); g.fillStyle = C.oak; g.beginPath(); g.ellipse(tx, ty, 110, 18, 0, 0, Math.PI * 2); g.fill();
+      for (var f = 0; f < 4; f++) fillRR(g, tx - 80, ty - 14 - f * 12, 60, 11, 3, f % 2 ? '#F7D9C9' : C.terra); for (var h = 0; h < 3; h++) fillRR(g, tx + 6, ty - 14 - h * 12, 56, 11, 3, h % 2 ? '#DDEBE2' : C.sage);
+      fillRR(g, tx + 70, ty - 46, 22, 40, 9, '#7FA8C9'); fillE(g, tx + 81, ty - 54, 12, 10, '#5DB07E'); fillRR(g, tx - 30, ty - 76, 60, 22, 4, '#FFFFFF'); text(g, '2 FOR S$ 99', tx, ty - 61, 8, 800, C.terraD, 'center'); }
+      }],
+      [650, function (g, ext) {
+    if (ext.r > 1050) { K.plant(g, { x: 1110, y: 650 }, '#5E8F77', '#81B29A'); }
+      }]
+    ];
+  }
   window.IXW.worlds.retail = {
-    room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { crowd(g, t, S, 'fore'); }); },
     moteCol: 'rgba(255,236,200,.8)',
     glow: {
       buy: function (g) { var ca = T.cartons; rr(g, ca.x - 8, F - 160, 102, 166, 14); },

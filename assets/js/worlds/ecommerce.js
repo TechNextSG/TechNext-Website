@@ -17,7 +17,7 @@
     cage: { x: 92, y: 300, w: 96, h: 170 }, rail: { x: 196, y: 56, w: 176 }, desk: { x: 196, y: 352, w: 178 }, mon: { x: 298, y: 280 },
     tv: { x: 394, y: 30, w: 168, h: 110 }, rack: { x: 394, y: 166, w: 148, h: 304 },
     table: { x: 602, y: 346, w: 206 }, tab: { x: 612, y: 292 }, printer: { x: 750, y: 304 }, wrap: { x: 552, y: 470 },
-    belt: { x0: 808, x1: 1034, y: 360 }, door: { x: 868, y: 104, w: 134, h: 366 }, lights: [300, 650, 930]
+    belt: { x0: 808, x1: 1034, y: 360 }, door: { x: 852, y: 104, w: 164, h: 366 }, lights: [300, 650, 930]
   };
   var C = { violet: '#6D5BD0', violetD: '#5443B5', mint: '#3CCFAE', mintD: '#22A88A', kraft: '#C99A6B', kraftD: '#A87A4C', ink: '#2B2350', lilac: '#E9E4F4', steel: '#9C95B8' };
   var CH = [{ k: 'WEB', col: C.violet }, { k: 'MKT A', col: '#F08A5D' }, { k: 'MKT B', col: C.mintD }];
@@ -35,23 +35,24 @@
   function rackBay(g, x, w) { g.fillStyle = '#F08A5D'; g.fillRect(x, 100, 8, F - 100); g.fillRect(x + w - 8, 100, 8, F - 100);
     for (var lv = 0; lv < 3; lv++) { var ly = 200 + lv * 110; fillRR(g, x, ly, w, 8, 2, '#3167CA'); fillRR(g, x + 10, ly - 6, w - 20, 6, 2, '#C99A6B');
       for (var b = 0; b < Math.floor((w - 20) / 40); b++) parcel(g, x + 12 + b * 40, ly - 6 - 34 - (b % 2) * 10, 36, 34 + (b % 2) * 10, (b + lv) % 2 === 0); } }
+  function hangSign(g, cx, y, w, label) { g.fillStyle = '#9C95B8'; g.fillRect(cx - w / 2 + 16, 24, 2, y - 24); g.fillRect(cx + w / 2 - 18, 24, 2, y - 24);
+    shadowed(g, 8, 3, 0.16, function () { fillRR(g, cx - w / 2, y, w, 30, 6, C.ink); }); fillRR(g, cx - w / 2, y + 24, w, 6, 3, C.mint); text(g, label, cx, y + 17, 10, 800, '#FFFFFF', 'center'); }
   function wideBack(g, ext) {
     /* strip lights over the margins, a duct along the ceiling, wall banners */
     g.fillStyle = '#C9C3DE'; g.fillRect(ext.l, Math.max(ext.t + 30, -50), ext.r - ext.l, 14); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(ext.l, Math.max(ext.t + 30, -50) + 10, ext.r - ext.l, 4);
     for (var lx = Math.floor(ext.l / 220) * 220 + 80; lx < ext.r; lx += 220) { if (lx > 220 && lx < 990) continue; g.fillStyle = '#9C95B8'; g.fillRect(lx - 30, -36, 2, 52); g.fillRect(lx + 28, -36, 2, 52); fillRR(g, lx - 40, 14, 80, 10, 5, '#FFFFFF'); }
-    if (ext.l < -480) { shadowed(g, 10, 4, 0.18, function () { fillRR(g, -720, 40, 200, 56, 8, C.violet); }); text(g, 'PARCEL LANE', -620, 66, 15, 800, '#FFFFFF', 'center'); text(g, 'FULFILMENT · SAMPLE', -620, 84, 8, 800, '#D6CEEE', 'center'); }
-    if (ext.l < 80) { fillRR(g, -230, 130, 150, 60, 6, '#FFFFFF'); text(g, 'TODAY', -155, 150, 8, 800, '#6B6B84', 'center'); text(g, '412 parcels out', -155, 172, 11, 800, C.ink, 'center'); }
-    if (ext.l < -560) { rackBay(g, -950, 150); rackBay(g, -790, 150); soft(g, -790, F + 4, 160, 9, 0.2); fillRR(g, -900, 70, 180, 26, 6, C.ink); text(g, 'BULK STOCK · AISLE 4', -810, 87, 9, 800, '#FFFFFF', 'center'); }
+    if (ext.l < 60) { shadowed(g, 10, 4, 0.18, function () { fillRR(g, -250, 40, 200, 56, 8, C.violet); }); text(g, 'PARCEL LANE', -150, 66, 15, 800, '#FFFFFF', 'center'); text(g, 'FULFILMENT · SAMPLE', -150, 84, 8, 800, '#D6CEEE', 'center'); }
+    if (ext.l < -560) { rackBay(g, -950, 150); rackBay(g, -790, 150); soft(g, -790, F + 4, 160, 9, 0.2); hangSign(g, -810, 104, 180, 'BULK STOCK · AISLE 4'); }
     if (ext.l < 120) {
-      fillRR(g, -400, 60, 150, 30, 6, C.mint); text(g, 'ZONE A · PICK', -325, 80, 10, 800, C.ink, 'center');
+      hangSign(g, -320, 104, 180, 'ZONE A · PICK');
       var bx = -420; fillRR(g, bx, 346, 200, 14, 5, '#E9D6B8'); g.fillStyle = '#7D759E'; g.fillRect(bx + 8, 360, 8, F - 360); g.fillRect(bx + 184, 360, 8, F - 360);
       parcel(g, bx + 20, 300, 60, 46, true); parcel(g, bx + 90, 316, 50, 30, false); fillRR(g, bx + 150, 326, 30, 18, 4, '#3A3358'); fillRR(g, bx + 152, 318, 12, 10, 3, '#D8D2EA');
       var cx = -150; fillRR(g, cx, 380, 110, 8, 3, '#7D759E'); fillRR(g, cx, 430, 110, 8, 3, '#7D759E'); g.fillStyle = '#7D759E'; g.fillRect(cx + 4, 340, 6, 120); fillE(g, cx + 14, F - 4, 6, 6, C.ink); fillE(g, cx + 96, F - 4, 6, 6, C.ink);
       for (var tt = 0; tt < 2; tt++) { fillRR(g, cx + 12 + tt * 48, 348, 42, 32, 4, '#4A86C5'); fillRR(g, cx + 12 + tt * 48, 398, 42, 32, 4, tt ? C.violet : '#4A86C5'); }
     }
-    if (ext.r > 1010) { var dx = 1040; fillRR(g, dx - 12, 104 - 14, 160, 16, 4, '#7D759E'); g.fillStyle = '#8A82AA'; g.fillRect(dx - 12, 104, 12, F - 104); g.fillRect(dx + 136, 104, 12, F - 104);
-      for (var y = 104; y < F - 4; y += 10) { fillRR(g, dx, y, 136, 10, 2, (Math.floor((y - 104) / 10) % 2) ? '#B9B2D3' : '#C9C3DE'); }
-      for (var hz = 0; hz < 8; hz++) { g.fillStyle = hz % 2 ? '#2B2350' : '#FFD84A'; g.fillRect(dx + hz * 17, F - 4, 17, 6); } text(g, 'DOCK 2', dx + 68, 100, 8.5, 800, '#FFFFFF', 'center');
+    if (ext.r > 1010) { var dx = 1052; fillRR(g, dx - 12, 104 - 14, 188, 16, 4, '#7D759E'); g.fillStyle = '#8A82AA'; g.fillRect(dx - 12, 104, 12, F - 104); g.fillRect(dx + 164, 104, 12, F - 104);
+      for (var y = 104; y < F - 4; y += 10) { fillRR(g, dx, y, 164, 10, 2, (Math.floor((y - 104) / 10) % 2) ? '#B9B2D3' : '#C9C3DE'); }
+      for (var hz = 0; hz < 10; hz++) { g.fillStyle = hz % 2 ? '#2B2350' : '#FFD84A'; g.fillRect(dx + hz * 16.4, F - 4, 16.4, 6); } text(g, 'DOCK 2', dx + 82, 100, 8.5, 800, '#FFFFFF', 'center');
       var jx = 1230; fillRR(g, jx, F - 14, 110, 10, 3, '#C99A6B'); parcel(g, jx + 6, F - 64, 48, 50, true); parcel(g, jx + 56, F - 54, 48, 40, false); g.strokeStyle = '#F08A5D'; g.lineWidth = 5; g.beginPath(); g.moveTo(jx + 110, F - 8); g.lineTo(jx + 140, F - 70); g.stroke(); fillRR(g, jx + 130, F - 82, 26, 10, 4, '#F08A5D'); }
   }
   function wideLive(g, t, S) {
@@ -65,17 +66,24 @@
     }
     pick(g, t, S, false);
   }
-  var PICK = [{ x0: -480, x1: 60, y: 490, spd: 20, ph: 0.3, drag: '#4A86C5', P: { s: 0.44, ph: 0.6, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#22A88A', low: '#2B2350', shoe: '#F7F8FB', hat: '#6D5BD0' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'pony', clipCol: null, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+  var PICK = [{ x0: -480, x1: 60, y: 490, spd: 20, ph: 0.3, drag: '#4A86C5', P: { s: 0.44, ph: 0.6, c: { skin: '#F3CDA8', hair: '#4A2E22', top: '#22A88A', low: '#2B2350', shoe: '#F7F8FB', hat: '#6D5BD0' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'pony', hijab: '#C9503A', clipCol: null, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
     { front: true, x0: -940, x1: -420, y: 650, spd: 26, ph: 0.7, P: { s: 0.5, ph: 1.4, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#F08A5D', low: '#2B2350', shoe: '#F7F8FB' }, outfit: 'hoodie', hairStyle: 'short', short: true, hold: 'box', mood: 'happy', look: 0, hands: [[-60, -212], [64, -216]] } },
-    { x0: 1010, x1: 1340, y: 490, spd: 22, ph: 0.2, P: { s: 0.44, ph: 2.1, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#6D5BD0', low: '#2B2350', shoe: '#F7F8FB', hat: '#3CCFAE' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'short', short: true, hold: 'box', mood: 'calm', look: 0, hands: [[-60, -212], [64, -216]] } }];
+    { x0: 1010, x1: 1340, y: 490, spd: 22, ph: 0.2, P: { s: 0.44, ph: 2.1, c: { skin: '#6B4329', hair: '#1F1A1A', top: '#6D5BD0', low: '#2B2350', shoe: '#F7F8FB', hat: '#3CCFAE' }, outfit: 'hoodie', hat: 'cap', hairStyle: 'curly', short: true, hold: 'box', mood: 'calm', look: 0, hands: [[-60, -212], [64, -216]] } }];
   function pick(g, t, S, front) { var ext = S.ext;
-    PICK.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
+    PICK.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== front) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, drag: w.drag, P: w.P }, t); }); }
   function wideFront(g, ext) {
-    if (ext.l < -600) { for (var p2 = 0; p2 < 3; p2++) parcel(g, -880 + p2 * 50, 640 - p2 * 6, 48, 40 + p2 * 6, p2 % 2 === 0); fillRR(g, -890, 680, 170, 10, 3, '#C99A6B'); soft(g, -810, 694, 100, 8, 0.25); }
-    if (ext.r > 1060) { var cx = 1100; fillRR(g, cx, 560, 40, 90, 10, '#FFD84A'); fillRR(g, cx + 4, 600, 32, 10, 3, '#2B2350'); text(g, 'CAUTION', cx + 20, 590, 7, 800, '#2B2350', 'center'); soft(g, cx + 20, 654, 30, 6, 0.25); }
   }
 
   /* ---------------- static back props (set units) ---------------- */
+  /* ---------------- more of the warehouse: aisle signs and a mezzanine rail; pallets, a pallet jack, carton stacks ---------------- */
+  function moreBack(g, ext) {
+    var my = Math.max(ext.t + 40, -170); g.fillStyle = '#C9C3DE'; g.fillRect(ext.l, my + 40, ext.r - ext.l, 8); g.strokeStyle = '#9C95B8'; g.lineWidth = 3; g.beginPath(); g.moveTo(ext.l, my); g.lineTo(ext.r, my);
+    for (var x = Math.floor(ext.l / 60) * 60; x < ext.r; x += 60) { g.moveTo(x, my); g.lineTo(x, my + 40); } g.stroke();
+    var n = 1; for (var a = Math.floor(ext.l / 280) * 280 + 140; a < ext.r; a += 280, n++) { if (a > 150 && a < 1000) continue; g.fillStyle = '#9C95B8'; g.fillRect(a - 1, my + 48, 2, 40); fillRR(g, a - 46, my + 88, 92, 34, 6, C.mint); text(g, 'AISLE ' + ((n % 6) + 1), a, my + 110, 11, 800, '#FFFFFF', 'center'); }
+  }
+  function pallet(g, x, y, w) { fillRR(g, x, y - 12, w, 12, 2, '#B98E62'); g.fillStyle = '#8E6A44'; for (var i = 0; i < 3; i++) g.fillRect(x + 6 + i * (w - 20) / 2, y - 12, 8, 12); }
+  function moreFront(g, ext) {
+  }
   function paintBack(g, ext) {
     wideBack(g, ext);
     T.lights.forEach(function (lx) { g.fillStyle = '#9C95B8'; g.fillRect(lx - 40, 0, 2, 18); g.fillRect(lx + 38, 0, 2, 18); fillRR(g, lx - 48, 16, 96, 12, 6, '#FFFFFF'); fillRR(g, lx - 44, 26, 88, 4, 2, '#FFF8E0');
@@ -114,7 +122,6 @@
 
   /* ---------------- static front props: the support desk, the packing table, the conveyor (over the staff) ---------------- */
   function paintFront(g, ext) {
-    wideFront(g, ext);
     var dk = T.desk; fillRR(g, dk.x, dk.y, dk.w, 12, 5, '#F4F1FA'); fillRR(g, dk.x + 6, dk.y + 10, dk.w - 12, F - dk.y - 10, 6, C.violet);
     g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(dk.x + 18, dk.y + 26, dk.w - 36, 3); fillRR(g, dk.x + 24, dk.y + 44, 62, 30, 5, C.violetD); fillRR(g, dk.x + 30, dk.y + 52, 50, 4, 2, '#8D7FE0');
     text(g, 'SUPPORT', dk.x + dk.w - 30, dk.y + 66, 9, 800, '#FFFFFF', 'center');
@@ -146,7 +153,7 @@
     g.save(); rr(g, dr.x, dr.y, dr.w, dr.h, 2); g.clip();
     var sk = g.createLinearGradient(0, dr.y, 0, F); sk.addColorStop(0, '#CFEAF7'); sk.addColorStop(0.55, '#F2F8FB'); sk.addColorStop(0.56, '#C9C4D6'); sk.addColorStop(1, '#BAB4CA'); g.fillStyle = sk; g.fillRect(dr.x, dr.y, dr.w, dr.h);
     /* the courier van's rear, doors open */
-    var vx = dr.x + 14 - par * 2, vy = F - 168;
+    var vx = dr.x + (dr.w - 108) / 2 - par * 2, vy = F - 168;
     fillRR(g, vx, vy, 108, 150, 10, '#FFFFFF'); fillRR(g, vx + 6, vy + 8, 96, 108, 6, '#3A3358'); parcel(g, vx + 14, vy + 64, 36, 30, true); parcel(g, vx + 56, vy + 70, 32, 24, false); parcel(g, vx + 30, vy + 36, 30, 26, false);
     fillRR(g, vx + 4, vy + 120, 100, 14, 4, '#D8D2EA'); text(g, 'PARCEL LANE', vx + 54, vy + 131, 7.5, 800, C.violet, 'center');
     fillE(g, vx + 18, F - 12, 9, 9, '#2B2350'); fillE(g, vx + 90, F - 12, 9, 9, '#2B2350');
@@ -213,13 +220,28 @@
       if (pp === 2) text(g, 'POP!', wr.x + 16, F - 96 - tw * 26, 12, 800, 'rgba(109,91,208,' + al + ')', 'center'); }
   }
 
-  var KAI = { x: 714, y: 458, s: 0.6, ph: 0.5, c: { skin: '#C68B5E', hair: '#1F1A1A', top: C.violet, low: '#2B2350', shoe: '#F7F8FB', hat: C.mint, hatBand: null }, outfit: 'hoodie', hat: 'cap', hold: 'box', hairStyle: 'short',
+  var KAI = { x: 714, y: 458, s: 0.56, ph: 0.5, c: { skin: '#C68B5E', hair: '#1F1A1A', top: C.violet, low: '#2B2350', shoe: '#F7F8FB', hat: C.mint, hatBand: null }, outfit: 'hoodie', hat: 'cap', hold: 'box', hairStyle: 'short', beard: '#1F1A1A', glasses: true,
     feet: false, mood: 'calm', look: 0, talk: false, hands: [[-60, -212], [64, -216]] };
-  var NORA = { x: 286, y: 458, s: 0.58, ph: 1.7, c: { skin: '#F3CDA8', hair: '#4A2E22', top: C.mintD, shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', headset: C.violet, glasses: true, hairStyle: 'long',
+  var NORA = { x: 286, y: 458, s: 0.56, ph: 1.7, c: { skin: '#F3CDA8', hair: '#4A2E22', top: C.mintD, shirt: '#FFFFFF', pocket: '#FFD84A' }, outfit: 'blazer', headset: C.violet, glasses: true, hairStyle: 'long',
     feet: false, mood: 'calm', look: 0, talk: false, hands: [[-62, -186], [62, -186]] };
 
+  /* the foreground, nearest last: each prop stands at a y, sorted with the front-row passers-by (K.zfore) */
+  function FORE() {
+    return [
+      [680, function (g, ext) {
+    if (ext.l < -600) { for (var p2 = 0; p2 < 3; p2++) parcel(g, -880 + p2 * 50, 640 - p2 * 6, 48, 40 + p2 * 6, p2 % 2 === 0); fillRR(g, -890, 680, 170, 10, 3, '#C99A6B'); soft(g, -810, 694, 100, 8, 0.25); }
+      }],
+      [652, function (g, ext) {
+    if (ext.r > 1060) { var cx = 1100; fillRR(g, cx, 560, 40, 90, 10, '#FFD84A'); fillRR(g, cx + 4, 600, 32, 10, 3, '#2B2350'); text(g, 'CAUTION', cx + 20, 590, 7, 800, '#2B2350', 'center'); soft(g, cx + 20, 654, 30, 6, 0.25); }
+      }],
+      [702, function (g, ext) {
+    if (ext.l < -480) { var px = -640; K.soft(g, px + 70, 706, 90, 8, 0.25); pallet(g, px, 700, 140); for (var r = 0; r < 3; r++) for (var c = 0; c < 3 - (r === 2 ? 1 : 0); c++) parcel(g, px + 6 + c * 44 + (r === 2 ? 22 : 0), 688 - r * 36 - 34, 42, 34, (r + c) % 2 === 0);
+      g.fillStyle = 'rgba(220,235,245,.35)'; g.fillRect(px + 4, 580, 132, 108); }
+      }]
+    ];
+  }
   window.IXW.worlds.ecommerce = {
-    room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { pick(g, t, S, 'fore'); }); },
     moteCol: 'rgba(255,255,255,.7)',
     glow: {
       order: function (g) { var rl = T.rail; rr(g, rl.x - 12, rl.y - 18, rl.w + 24, 82, 12); },

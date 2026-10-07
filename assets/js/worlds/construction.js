@@ -70,9 +70,9 @@
       g.strokeStyle = 'rgba(60,70,90,.55)'; g.lineWidth = 1.2; g.beginPath();
       for (var gx = GATE - 120; gx <= GATE - 10; gx += 10) { g.moveTo(gx, HO - 10); g.lineTo(gx, F); } for (var gy = HO - 10; gy <= F; gy += 10) { g.moveTo(GATE - 120, gy); g.lineTo(GATE - 10, gy); } g.stroke();
       fillRR(g, GATE - 124, HO - 14, 118, 6, 3, '#8A97A8'); fillRR(g, GATE - 124, F - 6, 118, 6, 3, '#8A97A8');
-      soft(g, GATE + 40, F + 4, 50, 8, 0.22); fillRR(g, GATE, F - 120, 84, 120, 6, '#FFFFFF'); fillRR(g, GATE + 8, F - 104, 68, 40, 4, '#7FB7E3'); fillRR(g, GATE - 4, F - 128, 92, 12, 4, C.navy);
-      text(g, 'SECURITY', GATE + 42, F - 119, 8, 800, '#FFFFFF', 'center'); fillRR(g, GATE + 26, F - 52, 32, 52, 3, '#D7DEE8');
-      fillRR(g, GATE + 12, F - 150, 60, 22, 4, C.yellow); text(g, 'SIGN IN HERE', GATE + 42, F - 135, 7, 800, C.ink, 'center');
+      soft(g, GATE + 60, F + 4, 70, 8, 0.22); fillRR(g, GATE, F - 180, 124, 180, 6, '#FFFFFF'); fillRR(g, GATE + 70, F - 150, 44, 50, 4, '#7FB7E3'); fillRR(g, GATE - 4, F - 188, 132, 14, 4, C.navy);
+      text(g, 'SECURITY', GATE + 62, F - 177, 8.5, 800, '#FFFFFF', 'center'); fillRR(g, GATE + 10, F - 140, 52, 140, 3, '#D7DEE8'); fillRR(g, GATE + 16, F - 132, 40, 46, 3, '#AFC8DD'); fillRR(g, GATE + 50, F - 74, 8, 4, 2, '#5C6B7A');
+      fillRR(g, GATE + 32, F - 214, 60, 22, 4, C.yellow); text(g, 'SIGN IN HERE', GATE + 62, F - 199, 7, 800, C.ink, 'center');
     }
     /* behind the copy: two stacked site containers, a portaloo, a pipe stack */
     [[-170, F - 64, '#2E7FA8', 'NORTHLINE'], [-160, F - 128, '#E0650C', 'SITE STORE']].forEach(function (c) {
@@ -88,10 +88,12 @@
       fillRR(g, TX + 262, F - 30, 10, 26, 2, '#E2553D'); fillRR(g, TX + 300, F - 34, 10, 26, 2, '#E2553D');
     }
   }
-  var CREW = [{ x0: -940, x1: -600, y: 476, spd: 24, ph: 0.1, P: { s: 0.36, ph: 0.3, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#5C6B7E', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFC93C' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'short', short: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { x0: -400, x1: 40, y: 478, spd: 18, ph: 0.6, P: { s: 0.36, ph: 1.1, c: { skin: '#F3CDA8', hair: '#3A2620', top: '#1F3F73', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: '#D7F04B', hairStyle: 'pony', clipCol: null, mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
-    { front: true, x0: -900, x1: -360, y: 640, spd: 30, ph: 0.8, P: { s: 0.46, ph: 0.6, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#3A93C0', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'long', mood: 'calm', look: 0, hold: 'tablet', hands: [[-58, -230], [70, -160]] } },
-    { x0: 1030, x1: 1340, y: 478, spd: 22, ph: 0.35, P: { s: 0.36, ph: 2.1, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#E2553D', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFC93C' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'short', short: true, mood: 'calm', look: 0, hold: 'box', hands: [[-60, -212], [64, -216]] } }];
+  var CREW = [{ front: true, x0: 90, x1: 520, y: 700, spd: 16, ph: 0.2, P: { s: 0.52, ph: 2.6, c: { skin: '#8D5A3B', hair: '#1F1A1A', top: '#5C6B7E', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFC93C' }, outfit: 'tee', hat: 'hardhat', vest: '#D7F04B', hairStyle: 'short', beard: '#1F1A1A', short: true, mood: 'happy', look: 0, hold: 'box', hands: [[-60, -212], [64, -216]] } },
+    { x0: -880, x1: -450, y: 520, spd: 20, ph: 0.45, P: { s: 0.4, ph: 1.7, c: { skin: '#F1C6A0', hair: '#C9C9C9', top: '#E2553D', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'bun', glasses: true, clipCol: null, mood: 'calm', look: 0, hold: 'clipboard', hands: [[-58, -230], [70, -160]] } },
+{ x0: -940, x1: -600, y: 476, spd: 24, ph: 0.1, P: { s: 0.36, ph: 0.3, c: { skin: '#C68B5E', hair: '#1F1A1A', top: '#5C6B7E', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFC93C' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'short', short: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { x0: -400, x1: 40, y: 478, spd: 18, ph: 0.6, P: { s: 0.36, ph: 1.1, c: { skin: '#6B4329', hair: '#3A2620', top: '#1F3F73', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: '#D7F04B', hairStyle: 'curly', clipCol: null, mood: 'happy', look: 0, hands: [[-70, -150], [70, -150]] } },
+    { front: true, x0: -900, x1: -360, y: 640, spd: 30, ph: 0.8, P: { s: 0.46, ph: 0.6, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#3A93C0', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'long', hijab: '#5E3C8C', mood: 'calm', look: 0, hold: 'tablet', hands: [[-58, -230], [70, -160]] } },
+    { x0: 1030, x1: 1340, y: 478, spd: 22, ph: 0.35, P: { s: 0.36, ph: 2.1, c: { skin: '#A86B45', hair: '#1F1A1A', top: '#E2553D', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFC93C' }, outfit: 'tee', hat: 'hardhat', vest: '#FF7A1A', hairStyle: 'buzz', build: 1.15, short: true, mood: 'calm', look: 0, hold: 'box', hands: [[-60, -212], [64, -216]] } }];
   function wideLive(g, t, S) {
     var ext = S.ext;
     if (ext.l < EX + 260) { /* the excavator's arm digs */
@@ -99,14 +101,19 @@
       g.strokeStyle = C.yellowD; g.lineCap = 'round'; g.lineWidth = 16; g.beginPath(); g.moveTo(bx, by); g.lineTo(ex, ey); g.lineTo(kx, ky); g.stroke();
       g.save(); g.translate(kx, ky); g.rotate(a2 + 0.6 + dig * 0.4); fillRR(g, -6, -10, 40, 28, 6, '#5C6B7E'); g.restore();
     }
-    if (ext.l < GATE + 160) { var up = (t % 9) < 3 ? Math.sin((t % 9) / 3 * Math.PI) : 0; g.save(); g.translate(GATE + 84, F - 46); g.rotate(-up * 1.2); fillRR(g, 0, -4, 120, 8, 4, '#FFFFFF');
-      g.fillStyle = '#E2553D'; for (var st = 8; st < 120; st += 24) g.fillRect(st, -4, 12, 8); g.restore(); fillRR(g, GATE + 80, F - 54, 12, 54, 3, '#8A97A8'); }
+    if (ext.l < GATE + 160) { var up = (t % 9) < 3 ? Math.sin((t % 9) / 3 * Math.PI) : 0; g.save(); g.translate(GATE + 124, F - 46); g.rotate(-up * 1.2); fillRR(g, 0, -4, 120, 8, 4, '#FFFFFF');
+      g.fillStyle = '#E2553D'; for (var st = 8; st < 120; st += 24) g.fillRect(st, -4, 12, 8); g.restore(); fillRR(g, GATE + 120, F - 54, 12, 54, 3, '#8A97A8'); }
     if (ext.r > 1010) { var TX = 1040, ang = t * 1.6; g.save(); g.translate(TX + 74, F - 74); g.rotate(-0.25); fillE(g, 0, 0, 74, 40, '#E0650C'); fillE(g, 56, 0, 18, 30, '#C9560A');
       g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = 5; for (var f = 0; f < 3; f++) { var fa = ang + f * 2.1; g.beginPath(); g.moveTo(-60 * Math.cos(fa) * 0.7, -32 * Math.sin(fa)); g.lineTo(60 * Math.cos(fa) * 0.7, 32 * Math.sin(fa)); g.stroke(); } g.restore(); }
     crew(g, t, S, false);
+    var span = ext.r - ext.l + 300, dx = ext.l - 150 + ((t * 34) % span), dy = 74 + Math.sin(t * 0.9) * 14, bob = Math.sin(t * 6) * 1.5;
+    g.fillStyle = 'rgba(255,240,170,.10)'; g.beginPath(); g.moveTo(dx - 4, dy + 10); g.lineTo(dx + 4, dy + 10); g.lineTo(dx + 40, dy + 150); g.lineTo(dx - 40, dy + 150); g.closePath(); g.fill();
+    g.strokeStyle = '#3A4A5E'; g.lineWidth = 3; g.beginPath(); g.moveTo(dx - 22, dy + bob); g.lineTo(dx + 22, dy + bob); g.stroke(); fillRR(g, dx - 12, dy - 5 + bob, 24, 12, 5, '#FFFFFF'); fillRR(g, dx - 4, dy + 6 + bob, 8, 6, 2, '#3A4A5E');
+    [-22, 22].forEach(function (r) { var sp = Math.abs(Math.sin(t * 30 + r)) * 12 + 3; fillE(g, dx + r, dy - 3 + bob, sp, 2, 'rgba(90,110,130,.55)'); });
+    fillE(g, dx + 10, dy - 1 + bob, 2, 2, (t % 1) < 0.5 ? '#E2553D' : '#1FA463'); text(g, 'SURVEY', dx, dy + 4 + bob, 4.5, 800, C.navy, 'center');
   }
   function crew(g, t, S, front) { var ext = S.ext;
-    CREW.forEach(function (w) { if (!!w.front !== front) return; var a = Math.max(w.x0, ext.l + 30), b = Math.min(w.x1, ext.r - 40); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); });
+    CREW.slice().sort(function (a, b) { return a.y - b.y; }).forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== front) return; var a = Math.max(w.x0, ext.l + 30), b = Math.min(w.x1, ext.r - 40); if (b - a < 60) return; K.walker(g, { x0: a, x1: b, y: w.y, spd: w.spd, ph: w.ph, P: w.P }, t); });
   }
 
   /* ---------------- static back props (set units) ---------------- */
@@ -166,18 +173,10 @@
   /* the open ground in front: a wheelbarrow, cement bags on a pallet, a barrier line, timber, puddles (beyond the frame and below it) */
   function foreground(g, ext) {
     var y0 = 560;
-    if (ext.l < -600) { fillRR(g, -860, y0 + 10, 120, 12, 3, '#B98E62'); for (var b = 0; b < 3; b++) for (var c = 0; c < 4 - b; c++) fillRR(g, -856 + c * 28 + b * 14, y0 - 12 - b * 20, 26, 20, 5, b % 2 ? '#E6E1D6' : '#D9D3C6');
-      text(g, 'CEMENT', -800, y0 - 2, 7, 800, '#8A7F6E', 'center'); soft(g, -800, y0 + 26, 70, 8, 0.25); }
-    if (ext.l < -420) { var wx = -560, wy = y0 + 44; soft(g, wx, wy + 18, 56, 7, 0.25); g.fillStyle = '#5C6B7E'; g.beginPath(); g.moveTo(wx - 50, wy - 30); g.lineTo(wx + 34, wy - 30); g.lineTo(wx + 22, wy); g.lineTo(wx - 38, wy); g.closePath(); g.fill();
-      g.fillStyle = '#D5B791'; g.beginPath(); g.ellipse(wx - 8, wy - 30, 40, 9, 0, Math.PI, 0); g.fill(); fillE(g, wx - 46, wy + 8, 11, 11, C.ink); g.strokeStyle = '#3A4A5E'; g.lineWidth = 4; g.beginPath(); g.moveTo(wx + 22, wy - 8); g.lineTo(wx + 70, wy - 26); g.moveTo(wx - 30, wy); g.lineTo(wx - 30, wy + 16); g.stroke(); }
-    g.fillStyle = 'rgba(150,190,220,.45)'; [[-300, 640, 60], [120, 720, 80], [1080, 650, 50]].forEach(function (pd) { if (pd[0] > ext.l && pd[0] < ext.r) { g.beginPath(); g.ellipse(pd[0], pd[1], pd[2], pd[2] * 0.18, 0, 0, Math.PI * 2); g.fill(); } });
-    for (var bx = -380; bx < -60; bx += 64) { if (bx < ext.l) continue; fillRR(g, bx, 660, 58, 16, 4, '#FFFFFF'); g.fillStyle = '#E2553D'; for (var st = 4; st < 58; st += 16) g.fillRect(bx + st, 660, 8, 16); g.fillStyle = '#5C6B7E'; g.fillRect(bx + 6, 676, 4, 18); g.fillRect(bx + 48, 676, 4, 18); }
-    if (ext.r > 960) { for (var tb = 0; tb < 4; tb++) fillRR(g, 960 + tb * 4, 568 - tb * 9, 150, 9, 2, tb % 2 ? '#C99A6B' : '#B98552'); soft(g, 1036, 584, 80, 7, 0.25);
-      g.fillStyle = C.orange; g.beginPath(); g.moveTo(1150, 600); g.lineTo(1162, 562); g.lineTo(1174, 600); g.closePath(); g.fill(); g.fillStyle = '#FFFFFF'; g.fillRect(1156, 580, 12, 5); }
+    /* a brick pallet and sandbags just in front of the hoarding line */
   }
   /* ---------------- static front props: the scaffold in front of the frame (over the foreman) ---------------- */
   function paintFront(g, ext) {
-    foreground(g, ext);
     var x0 = 548, x1 = 704, sl = T.slabs;
     g.strokeStyle = '#8A97A8'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath();
     [x0, 600, 652, x1].forEach(function (x) { g.moveTo(x, F); g.lineTo(x, sl[1] - 40); });
@@ -188,7 +187,16 @@
   }
 
   /* ---------------- the sky: clouds and a bird or two ---------------- */
+  function farCrane(g, x, top, jl, jr, a) { g.strokeStyle = 'rgba(140,165,190,' + a + ')'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(x - 5, HO); g.lineTo(x - 5, top); g.moveTo(x + 5, HO); g.lineTo(x + 5, top);
+    for (var y = HO; y > top + 10; y -= 12) { g.moveTo(x - 5, y); g.lineTo(x + 5, y - 12); } g.moveTo(x - jl, top); g.lineTo(x + jr, top); g.moveTo(x - jl, top + 6); g.lineTo(x + jr, top + 6);
+    for (var j = x - jl; j < x + jr; j += 12) { g.moveTo(j, top + 6); g.lineTo(j + 6, top); g.lineTo(j + 12, top + 6); } g.moveTo(x, top); g.lineTo(x, top - 22); g.lineTo(x - jl, top); g.moveTo(x, top - 22); g.lineTo(x + jr, top); g.stroke();
+    g.beginPath(); g.moveTo(x + jr * 0.6, top + 6); g.lineTo(x + jr * 0.6, top + 60); g.stroke(); }
+  function tower(g, x, w, top, floors) { var fh = (HO - top) / floors; g.fillStyle = 'rgba(176,190,204,.85)';
+    for (var f = 0; f < floors; f++) { var y = HO - (f + 1) * fh; g.fillRect(x, y, w, 4); for (var c = 0; c <= 4; c++) g.fillRect(x + c * (w - 5) / 4, y, 5, fh); }
+    g.fillStyle = 'rgba(255,201,60,.55)'; g.fillRect(x - 4, top - 10, w + 8, 10); g.fillStyle = 'rgba(120,140,160,.5)'; g.fillRect(x + w * 0.3, top - 30, 3, 20); }
   function paintWindow(g, t, par) {
+    tower(g, -520 - par * 1.5, 120, 110, 9); tower(g, 1190 - par * 1.5, 110, 150, 7); tower(g, 240 - par * 1.5, 90, 200, 5);
+    farCrane(g, -420 - par * 2, 70, 150, 70, 0.7); farCrane(g, 1300 - par * 2, 96, 60, 140, 0.7); farCrane(g, 120 - par * 2, 150, 90, 50, 0.45);
     for (var c = 0; c < 7; c++) K.cloud(g, -1100 + ((hash(c + 3) * 2600 + t * (3 + (c % 4) * 1.6)) % 2700) - par * (2 + c % 4), 22 + (c % 4) * 24, 0.24 + (c % 4) * 0.04); /* high in the sky, never behind a head */
     for (var b = 0; b < 4; b++) { var bx = ((t * (18 + b * 6) + b * 700) % 2400) - 900, by = 90 + b * 30 + Math.sin(t * 2 + b) * 6, fl = Math.sin(t * 10 + b) * 4;
       g.strokeStyle = 'rgba(40,60,90,.5)'; g.lineWidth = 2; g.lineCap = 'round'; g.beginPath(); g.moveTo(bx - 8, by - fl); g.quadraticCurveTo(bx - 4, by - 4, bx, by); g.quadraticCurveTo(bx + 4, by - 4, bx + 8, by - fl); g.stroke(); }
@@ -242,13 +250,49 @@
       g.fillStyle = i % 2 ? '#FFC93C' : '#FF7A1A'; g.fillRect(sx + Math.cos(a) * d, sy + Math.sin(a) * d + d * 0.4, 2.4, 2.4); }
   }
 
-  var SITI = { x: 404, y: 486, s: 0.52, ph: 0.6, c: { skin: '#D9A07A', hair: '#2B1D16', top: '#1F3F73', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: C.orange, hold: 'tablet',
+  var SITI = { x: 404, y: 486, s: 0.56, ph: 0.6, c: { skin: '#D9A07A', hair: '#2B1D16', top: '#1F3F73', low: '#3A4A5E', shoe: '#5C4632', hat: '#FFFFFF' }, outfit: 'tee', hat: 'hardhat', vest: C.orange, hold: 'tablet',
     hairStyle: 'pony', clipCol: null, feet: true, mood: 'calm', look: -0.4, talk: false, hands: [[-58, -230], [70, -160]] };
   var BEN = { x: 630, y: 356, s: 0.38, ph: 1.9, c: { skin: '#B9845F', hair: '#1F1A1A', top: '#5C6B7E', low: '#3A4A5E', shoe: '#5C4632', hat: C.yellow }, outfit: 'tee', hat: 'hardhat', vest: '#D7F04B',
     hairStyle: 'short', short: true, feet: true, mood: 'calm', look: 0.5, talk: false, hands: [[-70, -150], [72, -150]] };
 
+  var y0 = 560;
+  /* the foreground, nearest last: each prop stands at a y, sorted with the front-row passers-by (K.zfore) */
+  function FORE() {
+    return [
+      [0, function (g, ext) {
+    g.fillStyle = 'rgba(150,190,220,.45)'; [[-300, 640, 60], [120, 720, 80], [1080, 650, 50]].forEach(function (pd) { if (pd[0] > ext.l && pd[0] < ext.r) { g.beginPath(); g.ellipse(pd[0], pd[1], pd[2], pd[2] * 0.18, 0, 0, Math.PI * 2); g.fill(); } });
+      }],
+      [600, function (g, ext) {
+    var px = 120; soft(g, px + 40, 604, 56, 7, 0.25); fillRR(g, px, 588, 84, 12, 2, '#B98E62'); for (var br = 0; br < 4; br++) for (var bc = 0; bc < 4; bc++) fillRR(g, px + 4 + bc * 19 + (br % 2) * 4, 572 - br * 13, 17, 12, 2, br % 2 ? '#C0664A' : '#B4573C');
+      }],
+      [572, function (g, ext) {
+    if (ext.l < -600) { fillRR(g, -860, y0 + 10, 120, 12, 3, '#B98E62'); for (var b = 0; b < 3; b++) for (var c = 0; c < 4 - b; c++) fillRR(g, -856 + c * 28 + b * 14, y0 - 12 - b * 20, 26, 20, 5, b % 2 ? '#E6E1D6' : '#D9D3C6');
+      text(g, 'CEMENT', -800, y0 - 2, 7, 800, '#8A7F6E', 'center'); soft(g, -800, y0 + 26, 70, 8, 0.25); }
+      }],
+      [606, function (g, ext) {
+    if (ext.l < -420) { var wx = -560, wy = y0 + 44; soft(g, wx, wy + 18, 56, 7, 0.25); g.fillStyle = '#5C6B7E'; g.beginPath(); g.moveTo(wx - 50, wy - 30); g.lineTo(wx + 34, wy - 30); g.lineTo(wx + 22, wy); g.lineTo(wx - 38, wy); g.closePath(); g.fill();
+      g.fillStyle = '#D5B791'; g.beginPath(); g.ellipse(wx - 8, wy - 30, 40, 9, 0, Math.PI, 0); g.fill(); fillE(g, wx - 46, wy + 8, 11, 11, C.ink); g.strokeStyle = '#3A4A5E'; g.lineWidth = 4; g.beginPath(); g.moveTo(wx + 22, wy - 8); g.lineTo(wx + 70, wy - 26); g.moveTo(wx - 30, wy); g.lineTo(wx - 30, wy + 16); g.stroke(); }
+      }],
+      [586, function (g, ext) {
+    if (ext.r > 960) { for (var tb = 0; tb < 4; tb++) fillRR(g, 960 + tb * 4, 568 - tb * 9, 150, 9, 2, tb % 2 ? '#C99A6B' : '#B98552'); soft(g, 1036, 584, 80, 7, 0.25);
+      g.fillStyle = C.orange; g.beginPath(); g.moveTo(1150, 600); g.lineTo(1162, 562); g.lineTo(1174, 600); g.closePath(); g.fill(); g.fillStyle = '#FFFFFF'; g.fillRect(1156, 580, 12, 5); }
+      }],
+      [694, function (g, ext) {
+    for (var bx = -380; bx < -60; bx += 64) { if (bx < ext.l) continue; fillRR(g, bx, 660, 58, 16, 4, '#FFFFFF'); g.fillStyle = '#E2553D'; for (var st = 4; st < 58; st += 16) g.fillRect(bx + st, 660, 8, 16); g.fillStyle = '#5C6B7E'; g.fillRect(bx + 6, 676, 4, 18); g.fillRect(bx + 48, 676, 4, 18); }
+      }],
+      [700, function (g, ext) {
+    if (ext.r > 1180) { /* a mobile light tower */ var lx = 1250; soft(g, lx, 700, 60, 8, 0.25); fillRR(g, lx - 50, 640, 100, 46, 8, C.yellow); fillE(g, lx - 30, 690, 12, 12, C.ink); fillE(g, lx + 30, 690, 12, 12, C.ink);
+      g.fillStyle = '#8A97A8'; g.fillRect(lx - 4, 420, 8, 220); fillRR(g, lx - 52, 396, 104, 30, 4, '#3A4A5E'); for (var lp = 0; lp < 4; lp++) fillRR(g, lx - 46 + lp * 24, 400, 20, 22, 3, '#FFF6D2'); }
+      }],
+      [730, function (g, ext) {
+    if (ext.l < -620) { /* a mini dumper loaded with sand */ var mx = -720, my = 730; soft(g, mx, my + 4, 90, 9, 0.25); g.fillStyle = C.orange; g.beginPath(); g.moveTo(mx - 90, my - 70); g.lineTo(mx + 10, my - 70); g.lineTo(mx - 6, my - 26); g.lineTo(mx - 76, my - 26); g.closePath(); g.fill();
+      g.fillStyle = '#D5B791'; g.beginPath(); g.ellipse(mx - 40, my - 70, 48, 12, 0, Math.PI, 0); g.fill(); fillRR(g, mx - 80, my - 30, 150, 14, 4, '#3A4A5E'); fillRR(g, mx + 20, my - 76, 44, 50, 6, '#3A4A5E'); fillRR(g, mx + 26, my - 98, 6, 24, 2, '#3A4A5E'); fillRR(g, mx + 52, my - 98, 6, 24, 2, '#3A4A5E'); fillRR(g, mx + 22, my - 102, 40, 6, 3, C.yellow);
+      fillE(g, mx - 54, my - 10, 22, 22, C.ink); fillE(g, mx - 54, my - 10, 9, 9, '#A9B4C2'); fillE(g, mx + 46, my - 10, 22, 22, C.ink); fillE(g, mx + 46, my - 10, 9, 9, '#A9B4C2'); }
+      }]
+    ];
+  }
   window.IXW.worlds.construction = {
-    paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    paintBg: paintBg, paintFrame: paintFrame, windowBehind: true, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { crew(g, t, S, 'fore'); }); },
     motes: false,
     glow: {
       win: function (g) { var bd = T.board; rr(g, bd.x - 8, bd.y - 8, bd.w + 16, bd.h + 16, 12); },
