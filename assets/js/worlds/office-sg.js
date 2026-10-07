@@ -11,7 +11,7 @@
   var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed;
   var F = 470, CEIL = -150, WALL = 430, C = CO.C;
   var T = { desk: { x: 150, y: 372, w: 250 }, room: { x: 470, y: 130, w: 340 }, board: { x: 612, y: 196, w: 170, h: 104 }, tv: { x: 488, y: 196, w: 96, h: 62 },
-    plaque: { x: 52, y: 214, w: 146, h: 74 }, lift: { x: -150, y: 240, w: 112 }, coffee: { x: -10, y: 330, w: 70 } };
+    plaque: { x: 52, y: 214, w: 146, h: 74 }, lift: { x: -190, y: 240, w: 112 }, coffee: { x: 10, y: 330, w: 70 } };
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
 
@@ -65,8 +65,12 @@
     text(g, 'DISCOVERY ROOM', rm.x + rm.w / 2, rm.y + 26, 9, 800, C.ink, 'center');
     /* the window bench and plants on the glass side */
     K.plant(g, { x: 900, y: F }, '#FFFFFF', '#E3E9F3'); K.plant(g, { x: 440, y: F }, '#3167CA', '#4F7FD8');
-    /* beyond: a sofa on the far right */
-    if (ext.r > 1000) { soft(g, 1080, F + 4, 100, 9, 0.22); fillRR(g, 1000, 400, 170, 50, 16, '#5E7BB5'); fillRR(g, 994, 386, 30, 72, 12, '#4F6CA8'); fillRR(g, 1146, 386, 30, 72, 12, '#4F6CA8'); fillRR(g, 1030, 392, 44, 30, 10, '#FFD84A'); }
+    /* the waiting lounge by the window: a rug, a floor lamp, the sofa's back (its seat is in front of whoever sits on it) */
+    if (ext.r > 900) { g.fillStyle = 'rgba(49,103,202,.14)'; g.beginPath(); g.ellipse(1090, F + 34, 210, 34, 0, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = '#1B1F3B'; g.lineWidth = 4; g.beginPath(); g.moveTo(1250, F); g.lineTo(1250, 240); g.quadraticCurveTo(1250, 214, 1222, 214); g.stroke(); fillE(g, 1250, F, 22, 5, '#1B1F3B');
+      g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(1196, 236); g.lineTo(1210, 210); g.lineTo(1234, 210); g.lineTo(1248, 236); g.closePath(); g.fill();
+      soft(g, 1060, F + 6, 140, 10, 0.24); fillRR(g, 950, 332, 220, 96, 22, '#4F6CA8'); fillRR(g, 960, 342, 200, 30, 14, 'rgba(255,255,255,.08)');
+      fillRR(g, 940, 412, 240, 38, 16, '#5E7BB5'); fillRR(g, 930, 360, 34, 96, 14, '#4F6CA8'); fillRR(g, 1156, 360, 34, 96, 14, '#4F6CA8'); g.fillStyle = '#3E5A94'; g.fillRect(956, 450, 8, 20); g.fillRect(1156, 450, 8, 20); }
   }
   /* ---------------- static front props: the reception desk, the room's glass and its table ---------------- */
   function paintFront(g, ext) {
@@ -80,19 +84,22 @@
     fillRR(g, d.x + 178, d.y - 40, 46, 34, 4, '#2A3550');
     /* the Discovery Room: glass front with frame, a table, the door rail */
     var rm = T.room; fillRR(g, rm.x + 60, 392, 230, 10, 4, '#C9A27A'); g.fillStyle = '#A9825C'; g.fillRect(rm.x + 80, 402, 6, F - 402); g.fillRect(rm.x + 264, 402, 6, F - 402);
-    [[rm.x + 98, '#3167CA'], [rm.x + 210, '#FFFFFF']].forEach(function (p) { fillRR(g, p[0], 378, 34, 14, 3, p[1]); });
+    [[rm.x + 150, '#3167CA'], [rm.x + 236, '#FFFFFF']].forEach(function (p) { fillRR(g, p[0], 378, 34, 14, 3, p[1]); });
+    /* the lounge: the sofa's seat and arms in front of whoever sits there, the coffee table */
+    if (ext.r > 900) { fillRR(g, 1000, 470, 120, 10, 5, '#C9A27A'); g.fillStyle = '#A9825C'; g.fillRect(1010, 480, 5, 30); g.fillRect(1105, 480, 5, 30); fillRR(g, 1020, 458, 30, 12, 2, '#FFFFFF'); fillRR(g, 1064, 460, 14, 10, 3, '#3167CA'); }
   }
 
   /* ---------------- the people: the TechNext team (and one client), semi-casual, every staff member with a TechNext ID ---------------- */
   var W = CR.who;
   var REC = W({ x: 268, y: 470, s: 0.54, ph: 0.3, skin: 1, hair: 0, style: 'bun', clip: '#FFD84A', outfit: 'shirt', top: '#DCE7FB', headset: '#3167CA', feet: false, hands: [[-60, -200], [64, -200]] });
   var CON = W({ x: 726, y: 470, s: 0.5, ph: 1.1, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: '#14A38B', glasses: true, hands: [[-120, -300], [62, -190]], look: -0.4 });
-  var CLI = W({ x: 588, y: 500, s: 0.5, ph: 2.2, skin: 0, hair: 2, style: 'bob', outfit: 'cardigan', top: '#E9D7C0', top2: '#E0456B', id: '#F2B233', feet: false, hands: [[-60, -200], [60, -200]], look: 0.6 });
+  var CLI = W({ x: 600, y: 470, s: 0.5, ph: 2.2, skin: 0, hair: 2, style: 'bob', outfit: 'cardigan', top: '#E9D7C0', top2: '#E0456B', id: '#F2B233', sit: true, chairCol: '#3A4458', hands: [[-60, -205], [60, -205]], look: 0.6 });
+  var VIS = W({ x: 1060, y: 470, s: 0.5, ph: 0.8, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#14A38B', id: '#F2B233', sit: true, chair: false, hold: 'tablet', hands: [[-60, -190], [60, -170]], look: -0.4 });
   var SAL = W({ x: 846, y: 470, s: 0.54, ph: 2.9, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#F2B233', glasses: true, hold: 'tablet', hands: [[-60, -205], [70, -150]], look: -0.6 });
   var CREW = [
-    { x0: -160, x1: 120, y: 488, spd: 18, ph: 0.4, label: 'Consultant, off to a client site', lines: ['Off to a **client site** in town. On-site days are the best days.', 'Laptop, ID, umbrella. **Singapore weather!**'], acts: ['wave', 'id', 'jump'],
+    { x0: -200, x1: 60, y: 488, spd: 18, ph: 0.4, label: 'Consultant, off to a client site', lines: ['Off to a **client site** in town. On-site days are the best days.', 'Laptop, ID, umbrella. **Singapore weather!**'], acts: ['wave', 'id', 'jump'],
       P: W({ s: 0.5, skin: 4, hair: 1, style: 'short', outfit: 'polo', top: '#1E4691', hold: 'bags' }) },
-    { front: true, x0: -170, x1: 420, y: 690, spd: 22, ph: 0.7, label: 'Project manager', lines: ['Discovery at ten, **training** at two.', 'One page, one plan, **one team**.'], acts: ['cheer', 'spin', 'id'],
+    { front: true, x0: -220, x1: 130, y: 690, spd: 22, ph: 0.7, label: 'Project manager', lines: ['Discovery at ten, **training** at two.', 'One page, one plan, **one team**.'], acts: ['cheer', 'spin', 'id'],
       P: W({ s: 0.58, skin: 1, hair: 0, style: 'long', outfit: 'shirt', top: '#E0456B', hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) }
   ];
 
@@ -131,14 +138,15 @@
     var rm = T.room, dr = t - (S.toy.door != null ? S.toy.door : -9), open = dr < 3 ? Math.min(1, dr * 2.2) * (dr > 2.4 ? (3 - dr) / 0.6 : 1) : 0;
     g.fillStyle = 'rgba(214,232,250,.22)'; g.fillRect(rm.x + 70 + open * 0, rm.y + 10, rm.w - 70, F - rm.y - 10);
     g.fillStyle = 'rgba(255,255,255,.35)'; [0, 1].forEach(function (k2) { var gx = rm.x + 120 + k2 * 140; g.beginPath(); g.moveTo(gx, F); g.lineTo(gx + 30, rm.y + 10); g.lineTo(gx + 44, rm.y + 10); g.lineTo(gx + 14, F); g.closePath(); g.fill(); });
-    g.fillStyle = '#E3E9F3'; g.fillRect(rm.x, rm.y, rm.w, 10); g.fillRect(rm.x + rm.w - 6, rm.y, 6, F - rm.y); g.fillRect(rm.x, rm.y, 6, F - rm.y);
+    g.fillStyle = '#C9D1DD'; g.fillRect(rm.x - 4, rm.y - 4, rm.w + 8, 14); g.fillRect(rm.x + rm.w - 8, rm.y, 10, F - rm.y); g.fillRect(rm.x - 4, rm.y, 10, F - rm.y); g.fillRect(rm.x + 70, rm.y, 6, F - rm.y);
+    g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(rm.x + 76, 404, rm.w - 84, 16); g.fillStyle = 'rgba(49,103,202,.32)'; for (var fd = rm.x + 84; fd < rm.x + rm.w - 12; fd += 14) g.fillRect(fd, 408, 8, 8);
     var dx = rm.x + 6 + open * 60; g.fillStyle = 'rgba(214,232,250,.38)'; g.fillRect(dx, rm.y + 10, 64, F - rm.y - 10); fillRR(g, dx + 52, 300, 5, 40, 2, '#9AA6BC');
     fillRR(g, rm.x + rm.w / 2 - 70, 250, 140, 18, 9, 'rgba(255,255,255,.9)'); fillE(g, rm.x + rm.w / 2 - 56, 259, 4, 4, S.hot === 'discovery' || dr < 3 ? '#E2453C' : '#2BC48A'); text(g, S.hot === 'discovery' ? 'WORKSHOP IN PROGRESS' : 'DISCOVERY ROOM · FREE', rm.x + rm.w / 2 + 6, 262, 6.2, 800, C.ink, 'center');
     CR.draw(g, t);
   }
 
   function FORE() {
-    return [[700, function (g, ext) { if (ext.l < -40) { soft(g, -80, 706, 60, 7, 0.2); fillRR(g, -120, 660, 80, 44, 18, '#FFD84A'); fillRR(g, -114, 648, 68, 22, 11, '#FFE27A'); } }]];
+    return [];
   }
 
   window.IXW.worlds['office-sg'] = {
@@ -168,9 +176,11 @@
       { id: 'rec', behind: true, keys: ['welcome'], P: REC, act: function (P, t, S) { var st = S.cast.rec; P.talk = t < st.until; P.mood = P.talk || S.hot === 'welcome' ? 'happy' : 'calm';
         P.hands = [[-60, -200], [64, -200 - (S.hot === 'welcome' ? Math.abs(Math.sin(t * 6)) * 20 : 0)]]; P.look = lerp(P.look, clamp((S.nexi.x - P.x) / 160, -1, 1), 0.08); CR.cast(P, st, t, ['wave', 'id', 'love', 'jump', 'nod']); } },
       { id: 'cli', behind: true, keys: ['discovery'], P: CLI, act: function (P, t, S) { var st = S.cast.cli; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
-        P.hands = [[-60, -200 - (S.hot === 'discovery' ? Math.abs(Math.sin(t * 3)) * 10 : 0)], [60, -200]]; P.look = lerp(P.look, 0.7, 0.08); CR.cast(P, st, t, ['nod', 'think', 'love', 'wave']); } },
+        P.hands = [[-60, -205 - (S.hot === 'discovery' ? Math.abs(Math.sin(t * 3)) * 10 : 0)], [60, -205]]; P.look = lerp(P.look, 0.7, 0.08); CR.cast(P, st, t, ['nod', 'think', 'love', 'wave']); } },
       { id: 'con', behind: true, keys: ['discovery', 'training'], P: CON, act: function (P, t, S) { var st = S.cast.con, busy = S.hot === 'discovery'; P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm';
         P.hands = busy ? [[-140 + Math.sin(t * 3) * 16, -330], [62, -190]] : [[-110, -280 + Math.sin(t * 1.3) * 6], [62, -190]]; P.look = lerp(P.look, busy ? -0.8 : -0.4, 0.08); CR.cast(P, st, t, ['wave', 'id', 'spin', 'cheer', 'jump']); } },
+      { id: 'vis', behind: false, keys: [], P: VIS, act: function (P, t, S) { var st = S.cast.vis; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+        P.hands = [[-60, -190], [60, -170 + Math.sin(t * 1.5) * 4]]; P.look = lerp(P.look, clamp((S.nexi.x - P.x) / 160, -1, 1), 0.05); CR.cast(P, st, t, ['wave', 'love', 'nod', 'jump']); } },
       { id: 'sal', behind: false, keys: ['quote'], P: SAL, act: function (P, t, S) { var st = S.cast.sal; P.talk = t < st.until || S.hot === 'quote'; P.mood = P.talk ? 'happy' : 'calm';
         P.hands = [[-60, -205], [70, -150]]; P.look = lerp(P.look, clamp((S.nexi.x - P.x) / 160, -1, 1), 0.08); CR.cast(P, st, t, ['id', 'wave', 'jump', 'dance', 'spin']); } }
     ],

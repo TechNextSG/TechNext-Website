@@ -22,7 +22,7 @@
     love: { dur: 1.6, fx: 'heart', pose: function (P, u) { P.mood = 'happy'; P.hands = [[-40, -250], [40, -250]]; P.hop = Math.sin(u * Math.PI) * 10; } },
     think: { dur: 1.8, fx: 'ask', pose: function (P) { P.mood = 'calm'; P.tilt = -0.08; P.hands = [P.hands0[0], [40, -330]]; } },
     id: { dur: 1.8, fx: 'spark', pose: function (P, u, t) { P.mood = 'happy'; P.idSwing = t * 6; P.hands = [P.hands0[0], [70, -250]]; P.hop = Math.sin(u * Math.PI) * 8; } },
-    type: { dur: 1.5, fx: 'code', pose: function (P, u, t) { P.mood = 'happy'; var k = Math.abs(Math.sin(t * 22)) * 12; P.hands = [[-70, -196 - k], [60, -196 - (12 - k)]]; } },
+    type: { dur: 1.5, fx: 'code', pose: function (P, u, t) { P.mood = 'happy'; var k = Math.abs(Math.sin(t * 22)) * 12, h0 = P.sit ? -196 : -196; P.hands = [[-70, h0 - k], [60, h0 - (12 - k)]]; } },
     nod: { dur: 1.2, fx: 'spark', pose: function (P, u, t) { P.mood = 'happy'; P.tilt = Math.sin(t * 10) * 0.08; } }
   };
   function burst(kind, x, y, t) {
@@ -81,7 +81,7 @@
     who: function (o) {
       return { x: o.x || 0, y: o.y || 0, s: o.s || 0.54, ph: o.ph || 0, c: { skin: CR.skin[o.skin || 0], hair: CR.hair[o.hair || 0], top: o.top || '#3167CA', top2: o.top2 || '#FFFFFF', shirt: '#FFFFFF', low: o.low || '#2A3550', shoe: o.shoe || '#2A3550', print: o.print, pocket: o.pocket, hat: o.hat },
         outfit: o.outfit || 'polo', hairStyle: o.style || 'short', clipCol: o.clip || null, glasses: !!o.glasses, hold: o.hold, headset: o.headset, idcard: o.id || '#3167CA', short: o.outfit === 'polo' || !!o.short,
-        feet: o.feet !== false, mood: 'calm', look: o.look || 0, talk: false, hands: o.hands || [[-70, -150], [70, -150]], build: o.build, hat: o.hatKind };
+        feet: o.feet !== false, sit: !!o.sit, chair: o.chair, chairCol: o.chairCol, mood: 'calm', look: o.look || 0, talk: false, hands: o.hands || [[-70, -150], [70, -150]], build: o.build, hat: o.hatKind };
     }
   };
   /* live local times on the page ([data-cp-clock] = the city's UTC offset; Singapore and Manila +8, Ho Chi Minh City +7) */
