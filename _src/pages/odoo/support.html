@@ -1,39 +1,60 @@
-<!--meta {"title": "Odoo Support in Singapore — fixes & upgrades", "desc": "Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.", "out": "odoo/support.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-sla.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-sla.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Support in Singapore — fixes & upgrades", "desc": "Odoo support by TechNext after go-live: fixes, month-end help, version upgrades and small changes on a plan that fits your team.", "out": "odoo/support.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-sla.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/support.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-sla.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/support.css?v={ASSET_V}\">", "body": "ixw ixw--support ow-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Support</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo support · step 4 of 4</span>Support: the same team, after go-live.</h1>
-        <p class="lead">Go-live is where questions start. We stay on for fixes, month-end help, upgrades (such as moving to Odoo 20) and the small changes a growing business keeps needing — with the people who configured your system in the first place, not a call centre meeting it for the first time.</p>
-        <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
-        </div>
-        <div class="pill-row"><span class="tag">Odoo Partner</span><span class="tag">Fixes</span><span class="tag">Month-end</span><span class="tag">Upgrades</span></div>
-      </div>
-      <div class="stage stage--support" aria-hidden="true">
-        <ol class="st-rail"><li class="is-done"><b>1</b>Discovery</li><li class="is-done"><b>2</b>Training</li><li class="is-done"><b>3</b>Integration</li><li class="is-on"><b>4</b>Support</li></ol>
-        <div class="st-card sp-board dp" style="--d:6">
-          <div class="st-bar"><i></i><i></i><i></i><span>Support · one tracked channel</span></div>
-          <div class="sp-cols"><b>Triage</b><b>Fix</b><b class="done">Done</b></div>
-          <div class="sp-lane">
-            <div class="sp-t t1"><div><b>Bank feed sync</b><small>Fix {{icon:check}}</small></div></div>
-            <div class="sp-t t2"><div><b>Month-end close</b><small>Month-end {{icon:check}}</small></div></div>
-            <div class="sp-t t3"><div><b>Version upgrade</b><small>Upgrade {{icon:check}}</small></div></div>
-            <div class="sp-t t4"><div><b>PO approval step</b><small>Change {{icon:check}}</small></div></div>
-          </div>
-        </div>
-        <div class="st-card sp-sum dp" style="--d:14"><b>A named team</b><span>The people who configured your system answer the ticket.</span></div>
-        <span class="st-chip sp-month dp" style="--d:10">{{icon:clock}}Response targets agreed in your plan</span>
+<section class="ixw-hero" data-ixw-hero data-world="support" data-home="1010,230" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Support</span></nav>
+      <ol class="ow-rail" aria-label="Step 4 of 4"><li><a href="{{ROOT}}odoo/discovery.html"><b>1</b>Discovery</a></li><li><a href="{{ROOT}}odoo/training.html"><b>2</b>Training</a></li><li><a href="{{ROOT}}odoo/integration.html"><b>3</b>Integration</a></li><li class="is-on"><b>4</b>Support</li></ol>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo support · step 4 of 4</span>Support: the same team, after go-live.</h1>
+      <p class="lead"><span class="m-full">Go-live is where questions start. We stay on for fixes, month-end help, upgrades (such as moving to Odoo 20) and the small changes a growing business keeps needing, with the people who configured your system in the first place, not a call centre meeting it for the first time.</span><span class="m-short">Fixes, month-end help, upgrades and small changes, from the people who configured your system.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap the team, a ticket, the screens or the lifebuoy.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="ag1" data-near="1010,230" data-who="Your consultant" data-role="Odoo support · illustration" data-say="I configured your system, so I already know **where to look**." style="--x:520;--y:322;--w:80;--h:76" aria-label="Say hi to your consultant (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Consultant</b><i>headset on</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="ag2" data-near="1010,230" data-who="Your developer" data-role="Odoo support · illustration" data-say="A new approval step? Tested on a copy, then **live**." style="--x:690;--y:322;--w:80;--h:76" aria-label="Say hi to your developer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b></span></button>
+      <button class="ixw-cast" type="button" data-cast="lead" data-near="1010,230" data-who="Support lead" data-role="Odoo support · illustration" data-say="Every request goes through **one tracked channel**. Nothing gets lost." style="--x:880;--y:358;--w:90;--h:230" aria-label="Say hi to the support lead (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Lead</b><i>TechNext</i></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="fix" data-nx="1010,230" data-pose="point-left" data-rec="Fix · bank feed sync" data-say="**Fixes**: a bank feed stops syncing, and it's back the same day." style="--x:505;--y:-19;--w:398;--h:48" aria-pressed="false"><span class="ixw-hot-lab">{{icon:lifebuoy}}<b>Fixes</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="monthend" data-nx="1010,230" data-pose="point-right" data-rec="Month-end · close help" data-say="**Month-end help**: we're online when your books close." style="--x:1026;--y:-24;--w:126;--h:126" aria-pressed="false"><span class="ixw-hot-lab">{{icon:calendar}}<b>Month-end</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="upgrade" data-nx="1010,230" data-pose="point-left" data-rec="Upgrade · Odoo 19 → Odoo 20" data-say="**Upgrades**, such as moving to Odoo 20: tested on a copy of your data first." style="--x:839;--y:-46;--w:196;--h:106" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:ai_app:18}}<b>Upgrades</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="change" data-nx="1010,230" data-pose="point-left" data-rec="Change · PO approval step" data-say="**Small changes** a growing business keeps needing, like a new PO approval step." style="--x:505;--y:113;--w:398;--h:48" aria-pressed="false"><span class="ixw-hot-lab">{{icon:layers}}<b>Small changes</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="channel" data-nx="1010,230" data-pose="point-left" data-rec="One tracked channel · response targets in your plan" data-say="**One tracked channel**, with response targets agreed in your support plan." style="--x:839;--y:74;--w:196;--h:106" aria-pressed="false"><span class="ixw-hot-lab">{{icon:chat}}<b>One channel</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="team" data-nx="1010,230" data-pose="point-left" data-rec="A named team · the people who configured your system" data-say="A **named team**: the people who configured your system answer the ticket." style="--x:615;--y:420;--w:290;--h:30" aria-pressed="false"><span class="ixw-hot-lab">{{icon:users}}<b>Named team</b></span></button>
+
+      <button class="ixw-toy" type="button" data-toy="ring" data-near="1010,230" data-pose="love" data-say="Spin the **lifebuoy**! We're here after go-live." style="--x:200;--y:30;--w:88;--h:88" aria-label="Spin the lifebuoy"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Spin the lifebuoy</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:1010;--ny:230" data-reacts="wow::Ticket in, ticket **done**!|love::Same team, after **go-live**. Love it.|celebrate::Upgraded to **Odoo 20**. Yay!|think::Hmm… what would you **change** next?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:support}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance"><div><dt>Phase</dt><dd>Step 4 of 4</dd></div><div><dt>Covers</dt><dd>Fixes · month-end · upgrades · changes</dd></div><div><dt>Response</dt><dd>Targets agreed in your plan</dd></div><div><dt>Channel</dt><dd>Single tracked channel, named team</dd></div><div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. This is **support**: the same team stays on after go-live. Tap around!" data-outro="Fixes, month-end, upgrades and changes, from **the same team**. That's support.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:support}}<b data-for="ag1" style="--c:#F08A24">C</b><b data-for="ag2" style="--c:#3167CA">D</b><b data-for="lead" style="--c:#1B2350">L</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo support">assistant · Odoo support</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. This is <b>support</b>: the same team stays on after go-live. Tap around!</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: fixes"></button><button type="button" data-ixw-dot aria-label="Stop 3: month-end"></button><button type="button" data-ixw-dot aria-label="Stop 4: upgrades"></button><button type="button" data-ixw-dot aria-label="Stop 5: small changes"></button><button type="button" data-ixw-dot aria-label="Stop 6: one channel"></button><button type="button" data-ixw-dot aria-label="Stop 7: named team"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:layers}}Phase</dt><dd>Step 4 of 4</dd></div><div><dt>{{icon:lifebuoy}}Covers</dt><dd>Fixes · month-end · upgrades · changes</dd></div><div><dt>{{icon:clock}}Response</dt><dd>Targets agreed in your plan</dd></div><div><dt>{{icon:chat}}Channel</dt><dd>Single tracked channel, named team</dd></div><div><dt>{{icon:users}}Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
+</div>
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo support from TechNext continues after go-live with the same people who configured your system: fixes, month-end help, version upgrades and the small changes a growing business keeps needing. Requests run through one tracked channel, with response targets agreed in your support plan.</p></div></div>
