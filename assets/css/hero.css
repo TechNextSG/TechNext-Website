@@ -1271,7 +1271,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 .hxs .hxs-card .lead{margin-top:10px;font-size:.98rem;line-height:1.5;max-width:48ch}
 .hxs .hxs-card .m-full{display:none}
 .hxs .hxs-card .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.hxs .hxs-card .actions .btn{height:46px;padding:0 18px;font-size:15px}
+.hxs .hxs-card .actions .btn{height:46px;font-size:15px}
 .hxs .hxs-card .ixw-hint{margin-top:14px}
 @media (min-width:961px){.hxs .hxs-card .ixw-hint{display:none}}
 @media (max-height:820px) and (min-width:961px){.hxs .hxs-h{font-size:1.5rem}.slide-inner.hxs-inner{padding-top:10px;padding-bottom:104px}.hxs .h1-hand{display:none}}
