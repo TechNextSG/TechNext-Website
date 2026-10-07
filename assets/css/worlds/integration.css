@@ -27,7 +27,7 @@
 .ixw--integration .ixw-cap-rec{background:var(--ig-teal-l);border:1px dashed #7FD3C0;color:#0E5A4C}
 
 /* ---------- buttons: plugs with two prongs ---------- */
-.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;margin-right:14px;border-radius:12px;border:0;
+.ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;overflow:visible;margin-right:14px;border-radius:12px;border:0;
   transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
 .ixw--integration main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;right:-12px;top:50%;width:12px;height:16px;margin-top:-8px;
   background:linear-gradient(currentColor,currentColor) 0 2px/12px 3px no-repeat,linear-gradient(currentColor,currentColor) 0 11px/12px 3px no-repeat;opacity:.55;transition:right .22s ease}

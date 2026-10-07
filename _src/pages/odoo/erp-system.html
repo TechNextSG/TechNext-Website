@@ -1,37 +1,60 @@
-<!--meta {"title": "Odoo Customization in Singapore — upgrade-safe modules", "desc": "Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Customization in Singapore — upgrade-safe modules", "desc": "Odoo customisation by TechNext: tailored modules, workflows, reports and approvals built the upgrade-safe way, custom only where it earns its place.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/custom.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/custom.css?v={ASSET_V}\">", "body": "ixw ixw--custom ow-page"} -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>ERP System</span></nav>
-    <div class="two two--stage">
-      <div>
-        <h1><span class="hand h1-hand">odoo customization</span>Tailor Odoo without breaking the next upgrade.</h1>
-        <p class="lead">Standard Odoo first. It's one database across every department, with modules switched on as you need them. Where your process genuinely differs, we build the Odoo 20 module, workflow or report you need — in a way that survives version upgrades and that another developer could maintain.</p>
-        <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
-        </div>
-        <div class="pill-row"><span class="tag">Odoo Partner</span><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:accountant:16}} Accounting</a><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:sale:16}} Sales</a><a class="tag" href="{{ROOT}}odoo/apps.html">{{odoo:stock:16}} Inventory</a></div>
-      </div>
-      <div class="stage stage--erp" aria-hidden="true">
-        <div class="st-card er-code dp" style="--d:6">
-          <div class="st-bar"><i></i><i></i><i></i><span>custom_approvals / models / sale_order.py</span></div>
-          <pre class="er-pre"><span class="ln" style="--k:0"><i class="tk-k">class</i> <i class="tk-f">SaleOrder</i>(models.Model):</span><span class="ln" style="--k:1">    _inherit = <i class="tk-s">"sale.order"</i></span><span class="ln" style="--k:2">    approval_required = fields.Boolean()</span><span class="ln" style="--k:3"> </span><span class="ln" style="--k:4">    <i class="tk-k">def</i> <i class="tk-f">action_confirm</i>(self):</span><span class="ln" style="--k:5">        self._check_approval()</span><span class="ln" style="--k:6">        <i class="tk-k">return</i> super().action_confirm()</span></pre>
-        </div>
-        <div class="er-stack dp" style="--d:12">
-          <div class="er-slab s1"><b>Odoo core</b><span class="er-ver grow"><em class="v1">This version</em><em class="v2">Next version</em></span></div>
-          <div class="er-slab s2"><b>Standard apps</b>{{odoo:accountant:18}}{{odoo:sale:18}}{{odoo:stock:18}}</div>
-          <div class="er-slab s3"><b>Your module</b><span class="er-mod">custom_approvals</span><span class="er-ok grow">{{icon:check}}Upgrade-safe</span></div>
-          <span class="er-scan"></span>
-        </div>
-        <div class="er-eds"><span class="st-chip">{{icon:globe}}Odoo Online</span><span class="st-chip">{{icon:layers}}Odoo.sh</span><span class="st-chip">{{icon:database}}On-premise</span></div>
+<section class="ixw-hero" data-ixw-hero data-world="custom" data-home="1010,230" aria-labelledby="ixw-h1">
+  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
+  <div class="container ixw-hero-in">
+    <div class="ixw-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>ERP System</span></nav>
+      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Odoo customization</span></p>
+      <h1 id="ixw-h1"><span class="hand h1-hand">odoo customization</span>Tailor Odoo without breaking the next upgrade.</h1>
+      <p class="lead"><span class="m-full">Standard Odoo first. It's one database across every department, with modules switched on as you need them. Where your process genuinely differs, we build the Odoo 20 module, workflow or report you need, in a way that survives version upgrades and that another developer could maintain.</span><span class="m-short">Standard Odoo first; custom modules only where your process differs, built to survive upgrades.</span></p>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
+      <p class="ixw-hint">{{icon:sparkle}}<span>Tap the developers, a layer, the screens or the crate.</span></p>
+    </div>
+  </div>
+  <div class="ixw-set" data-ixw-set>
+    <div class="ixw-front" data-ixw-front>
+      <button class="ixw-cast" type="button" data-cast="dv1" data-near="1010,230" data-who="TechNext developer" data-role="Odoo customization · illustration" data-say="It inherits the standard order, then adds **one approval step**. Nothing more." style="--x:562;--y:322;--w:80;--h:76" aria-label="Say hi to a developer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b><i>module</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="dv2" data-near="1010,230" data-who="TechNext developer" data-role="Odoo customization · illustration" data-say="Tests pass on the **next version** too. Upgrade-safe." style="--x:772;--y:322;--w:80;--h:76" aria-label="Say hi to a developer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b><i>tests</i></span></button>
+      <button class="ixw-cast" type="button" data-cast="rev" data-near="1010,230" data-who="TechNext reviewer" data-role="Odoo customization · illustration" data-say="Could **configuration** or Studio do this? Then we don't write code." style="--x:930;--y:358;--w:90;--h:230" aria-label="Say hi to the reviewer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Reviewer</b><i>standard first</i></span></button>
+
+      <button class="ixw-hot" type="button" data-hot="standard" data-nx="1010,230" data-pose="point-left" data-rec="Standard apps · one database, switched on as needed" data-say="**Standard Odoo first**: one database for every department, apps switched on as you need them." style="--x:465;--y:143;--w:316;--h:66" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Standard first</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="studio" data-nx="1010,230" data-pose="point-left" data-rec="Studio · fields, views, approvals" data-say="**Studio** next: new fields, views and approvals, still without code." style="--x:465;--y:19;--w:216;--h:66" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:web_studio:18}}<b>Studio</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="module" data-nx="1010,230" data-pose="point-left" data-rec="Custom module · only where it earns its place" data-say="A **custom module** only where your process genuinely differs." style="--x:465;--y:-43;--w:166;--h:66" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>Custom module</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="code" data-nx="1010,230" data-pose="point-left" data-rec="custom_approvals · models/sale_order.py" data-say="Clean **code** that inherits Odoo, so another developer could maintain it." style="--x:448;--y:345;--w:136;--h:84" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>The code</b></span></button>
+      <button class="ixw-hot" type="button" data-hot="upgrade" data-nx="1010,230" data-pose="point-left" data-rec="Upgrade check · this version → next version" data-say="Every module is checked against the **next version**, so upgrades don't break it." style="--x:812;--y:-54;--w:300;--h:100" aria-pressed="false"><span class="ixw-hot-lab">{{icon:check}}<b>Upgrade-safe</b></span></button>
+      <button class="ixw-hot ixw-hot--below" type="button" data-hot="editions" data-nx="1010,230" data-pose="point-left" data-rec="Odoo Online · Odoo.sh · On-premise" data-say="It runs on **Odoo Online, Odoo.sh or on-premise**; custom code needs Odoo.sh or your own servers." style="--x:812;--y:74;--w:300;--h:120" aria-pressed="false"><span class="ixw-hot-lab">{{icon:globe}}<b>Where it runs</b></span></button>
+
+      <button class="ixw-toy" type="button" data-toy="crate" data-near="1010,230" data-pose="wow" data-say="Unboxing **custom_approvals**: one tidy module." style="--x:1052;--y:435;--w:96;--h:70" aria-label="Open the module crate"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Open the crate</b></span></button>
+
+      <div class="ixw-nexi" data-ixw-nexi style="--nx:1010;--ny:230" data-reacts="wow::Upgrade-safe **and** tidy!|love::Standard first. I **love** a rule.|celebrate::Tests pass. **Yay!**|think::Hmm… could **Studio** do it without code?">
+        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:custom}}</span></button></div>
       </div>
     </div>
-    <h2 class="sr-only">At a glance</h2>
-    <dl class="glance"><div><dt>What it is</dt><dd>One Odoo database, all departments</dd></div><div><dt>Modules</dt><dd>Switched on as you need them</dd></div><div><dt>Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>Approach</dt><dd>Standard first, custom where it earns its place</dd></div><div><dt>Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div></dl>
+    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. This is the **dev studio**: standard Odoo first, custom only where it earns its place." data-outro="Standard first, code last, **upgrade-safe** always. That's customization.">
+      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:custom}}<b data-for="dv1" style="--c:#714B67">D</b><b data-for="dv2" style="--c:#E0456B">D</b><b data-for="rev" style="--c:#1E3A6E">R</b></span>
+      <div class="ixw-cap-body">
+        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo customization">assistant · Odoo customization</small></p>
+        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. This is the <b>dev studio</b>: standard Odoo first, custom only where it earns its place.</span><i class="ixw-caret"></i></p>
+        <p class="sr-only" aria-live="polite" data-ixw-live></p>
+        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
+      </div>
+      <div class="ixw-cap-side">
+        <div class="ixw-cap-ctl">
+          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
+          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
+          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
+        </div>
+        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: standard first"></button><button type="button" data-ixw-dot aria-label="Stop 3: Studio"></button><button type="button" data-ixw-dot aria-label="Stop 4: custom module"></button><button type="button" data-ixw-dot aria-label="Stop 5: the code"></button><button type="button" data-ixw-dot aria-label="Stop 6: upgrade-safe"></button><button type="button" data-ixw-dot aria-label="Stop 7: where it runs"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
+      </div>
+    </div>
   </div>
 </section>
+
+<div class="container ixw-credits-wrap">
+  <h2 class="sr-only">At a glance</h2>
+  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:database}}What it is</dt><dd>One Odoo database, all departments</dd></div><div><dt>{{icon:layers}}Modules</dt><dd>Switched on as you need them</dd></div><div><dt>{{icon:globe}}Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>{{icon:check}}Approach</dt><dd>Standard first, custom where it earns its place</dd></div><div><dt>{{icon:trend}}Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div></dl>
+</div>
 
 <section class="section section--tight answer-sec">
   <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo customization at TechNext starts from standard Odoo: one database across every department, with apps switched on as you need them. Where your process genuinely differs, we build the module, workflow, report or approval you need, in a way that survives version upgrades and that another developer could maintain.</p></div></div>
