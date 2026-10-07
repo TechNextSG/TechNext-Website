@@ -61,6 +61,7 @@ CHIPS = [
 ]
 
 META = {
+    "page": "company.html",
     "tag": "TechNext · one team across three offices",
     "note": "Illustration · sample records · the team is set per project",
     "badge": "co-about",

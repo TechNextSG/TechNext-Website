@@ -708,11 +708,11 @@
         if (ep) opts.push(['now on air: ' + ep, 'that’s me in there!', 'one idea per episode ✓']);
         opts.push(['I have my own show!', 'Odoo, AI and tech', 'explained by me ✨']);
         opts.push(['new episodes every week', 'tap one under the TV', 'I wear a new costume each time!']);
-      } else if (sl.querySelector('[data-journey]')) {
-        var wk = txt(sl.querySelector('[data-lj-week]')), st = txt(sl.querySelector('[data-lj-status]'));
-        if (wk) opts.push(['week ' + wk + ' of 12', st ? 'now: ' + st : 'right on plan', 'go-live lands in week 10 ✓']);
-        opts.push(['discovery, build, test, go live', 'then we stay for support', 'one team the whole way']);
-        opts.push(['drag the timeline, try it!', 'watch each phase light up', 'real dates come from discovery']);
+      } else if (sl.querySelector('[data-inds]')) {
+        var ind = txt(sl.querySelector('.hxs-panel.is-on .h1-hand'));
+        if (ind) opts.push(['now showing: ' + ind, 'that’s me in costume!', 'tap the screen to step inside']);
+        opts.push(['eight industries, one Odoo', 'a costume for every one', 'pick a badge in the strip!']);
+        opts.push(['clinics, kitchens, factories…', 'each runs Odoo its own way', 'hover a badge to switch ✓']);
       }
       return opts.length ? pick(opts) : null;
     }
@@ -770,7 +770,7 @@
         T.at(1.5, function () { lookAtEl(el, 2.4); play('think'); expr('content', 1.6); });
         T.at(3.2, function () { play('nod'); expr('happy', 1); ringAt(el); say('gate'); });
       } },
-      cheerOrb: { w: function () { return visible(q('[data-journey]')) ? 3 : 0; }, run: function (T) {
+      cheerOrb: { w: function () { return visible(q('[data-inds]')) ? 3 : 0; }, run: function (T) {
         T.dur = 7; expr('happy', 2);
         var oAt = -9, orr = null;
         T.tick = function () {
@@ -1066,7 +1066,7 @@
       setTimeout(function () {
         if (ST.on || R.cardOpen) return;
         startTask('swoop', function (T) {
-          var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]') || q('[data-nxs]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
+          var v = q('[data-cine]') || q('[data-pmap]') || q('[data-inds]') || q('[data-nxs]'); T.dur = 3.2; play('spin'); expr('wow', 0.8);
           if (v) { var r = rectOf(v); goTo(r.x + r.w * rand(0.2, 0.8), r.y + SIZE * 0.4, 2); T.at(1.4, function () { lookAtEl(v, 1.6); expr('happy', 1.5); say('slide', true); }); }
         });
       }, 900);
@@ -1144,7 +1144,7 @@
       if (!running || !inView || document.hidden) return;
       var dt = Math.min(0.05, clock.getDelta()); time += dt;
       for (var ti = timersT.length - 1; ti >= 0; ti--) if (time >= timersT[ti].at) { var f = timersT[ti].fn; timersT.splice(ti, 1); f(); }
-      if (!R.entered && !ST.on) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-journey]') || q('[data-nxs]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
+      if (!R.entered && !ST.on) { R.entered = true; Sp.x.x = W + SIZE; Sp.y.x = H * 0.35; startTask('enter', function (T) { var v = q('[data-cine]') || q('[data-pmap]') || q('[data-inds]') || q('[data-nxs]'); var r = v ? rectOf(v) : { cx: W * 0.7, cy: H * 0.4, w: 0, h: 0 }; goTo(r.cx + r.w * 0.3, r.cy - SIZE * 0.3, 1.5); T.dur = 4.2; T.at(1.9, function () { play('wave'); expr('happy', 2); say('hello', true, 2.2); }); R.wallNext = true; }); }
       var T = R.task;
       if (T) { var p = (time - T.t0) / Math.max(0.001, T.dur); if (T.tick) T.tick(clamp(p, 0, 1)); if (p >= 1) { R.task = null; } }
       if (ST.on) {

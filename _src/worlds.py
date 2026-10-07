@@ -21,8 +21,6 @@ _ROOT = pathlib.Path(__file__).resolve().parent.parent
 _POSES = {}
 
 
-
-
 def img_dir(world: str) -> str:
     """Nexi's poses for a world: its own costume (assets/img/industries/<world>/), or, for the Company pages, Nexi wearing
     her TechNext ID (assets/img/nexi-id/)."""
@@ -85,18 +83,25 @@ WORLDS = _discover()
 INTRO_HEAD = ("<style>#ixw-intro{display:none}html.ixw-intro #ixw-intro,#ixw-intro.is-out{display:grid}</style>\n"
               "<script>(function(){try{var q=location.search,force=/[?&]intro=1(&|$)/.test(q);"
               "var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};"
-              "var bot=/bot\/|bot;|crawler|spider|lighthouse|pagespeed|headlesschrome|google-inspectiontool|googleother|bingbot|googlebot/i.test(navigator.userAgent||'');"
+              "var bot=/bot\\/|bot;|crawler|spider|lighthouse|pagespeed|headlesschrome|google-inspectiontool|googleother|bingbot|googlebot/i.test(navigator.userAgent||'');"
               "if(force||(nav.type!=='back_forward'&&!bot&&!/[?&]nointro=1/.test(q)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add('ixw-intro');}}catch(e){}})();</script>\n")
 
 
-
-
 def intro_html(world: str) -> str:
+    """The entry intro in the page's own style: the world's real scene behind, its own title card (the same .ixw-copy skin
+    as the hero) with the Nexi Explains tag, the hand label, the industry and three workflow steps in the page's button
+    style; the badge pops above the card with Nexi peeking out, and the iris opens from it onto the hero."""
+    import re as _re
     from industries import IND
     meta = module(world).META
     ind = IND.get(world) or getattr(module(world), "FLOW", {"name": meta.get("tag", ""), "flow": []})   # Company pages are not industries
+    page = (_ROOT / "_src/pages" / (meta.get("page") or f"industries/{world}.html")).read_text(encoding="utf-8")
+    m_ep = _re.search(r'<p class="ixw-ep">.*?</a><span>(.*?)</span></p>', page, _re.S)
+    m_hd = _re.search(r'<span class="hand h1-hand">(.*?)</span>', page)
     title = meta.get("intro_title") or f'Odoo for <b>{ind["name"]}</b>'
     badge = meta.get("badge") or f"ind-{world}"
+    scene = (_ROOT / "assets/img/industries" / world / "scene.webp").exists()
+    bg = (f'<img src="{{{{ROOT}}}}assets/img/industries/{world}/scene.webp" alt="" width="2400" height="1125" decoding="async" fetchpriority="high">' if scene else "")
     if meta.get("intro_pills"):
         pills = "".join(f'<span class="ixwi-pill" style="--i:{i};--side:{i - 1}">{{{{icon:{ic}}}}}{t}</span>' for i, (ic, t) in enumerate(meta["intro_pills"]))
     else:
@@ -105,17 +110,85 @@ def intro_html(world: str) -> str:
     sparks = "".join(f'<i class="ixwi-spark" style="--a:{a}deg;--d:{d}"></i>' for a, d in ((10, 1.2), (62, 1.6), (118, 1.3), (170, 1.7), (222, 1.25), (276, 1.55), (322, 1.35)))
     nexi = poses(world)["hello"]
     return (f'<div class="ixwi" id="ixw-intro" aria-hidden="true">\n'
-            f'  <div class="ixwi-bg"></div>\n'
+            f'  <div class="ixwi-bg">{bg}</div>\n'
+            f'  <span class="ixwi-rays"></span>\n'
             f'  <span class="ixwi-ring"></span>\n'
             f'  <div class="ixwi-lock">\n'
-            f'    <span class="ixwi-mark"><span class="ixwi-ripple"></span><span class="ixwi-ripple"></span>{sparks}'
+            f'    <div class="ixw-copy ixwi-card">\n'
+            f'      <span class="ixwi-mark"><span class="ixwi-ripple"></span><span class="ixwi-ripple"></span>{sparks}'
             f'<img class="ixwi-nexi" src="{{{{ROOT}}}}assets/img/{img_dir(world)}/nexi-hello.webp" alt="" width="{nexi["w"]}" height="{nexi["h"]}" decoding="sync" fetchpriority="high">'
             f'<span class="ixwi-badge">{{{{icon:{badge}}}}}</span></span>\n'
-            f'    <span class="ixwi-ep">Nexi Explains</span>\n'
-            f'    <span class="ixwi-title">{title}</span>\n'
-            f'    <span class="ixwi-sub">{meta.get("intro_sub") or meta["tag"]}</span>\n'
-            f'    <span class="ixwi-pills">{pills}</span>\n'
+            f'      <p class="ixw-ep ixwi-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{m_ep.group(1) if m_ep else ""}</span></p>\n'
+            f'      <span class="hand h1-hand ixwi-hand">{m_hd.group(1) if m_hd else ""}</span>\n'
+            f'      <span class="ixwi-title">{title}</span>\n'
+            f'      <span class="ixwi-sub">{meta.get("intro_sub") or meta["tag"]}</span>\n'
+            f'      <span class="ixwi-pills">{pills}</span>\n'
+            f'    </div>\n'
             f'  </div>\n'
             f'  <span class="ixwi-bar"></span>\n'
             f'  <button class="ixwi-skip" type="button" tabindex="-1">Skip</button>\n'
             f'</div>\n')
+
+
+# ---------------------------------------------------------------- the homepage showcase (slide 3 of the hero)
+# The slide becomes each world's hero in turn: its illustrated backdrop (no people; _src/backdrops.py), its title card and
+# buttons (hero-skins.css, from _src/hero_skins.py), Nexi in costume at natural proportions with the workflow steps.
+# assets/js/hero-industries.js runs it; assets/css/hero.css styles the frame (.hxs-*).
+SHOW_ORDER = ["medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness"]
+SHOW_SKIN = {  # accent, ink, light
+    "medical": ("#21B799", "#0F4C45", "#E3F6F1"), "travel": ("#FFC94A", "#17284A", "#FFF6DC"), "retail": ("#D9785A", "#3D405B", "#FBEBE3"),
+    "ecommerce": ("#6D5BD0", "#2B2350", "#ECE8FA"), "construction": ("#FFC93C", "#1E2A3A", "#FFF4D4"), "fnb": ("#E2553D", "#13332A", "#FCE6E1"),
+    "manufacturing": ("#FF7A1A", "#1E2A33", "#FFEBDD"), "health-wellness": ("#8C76B8", "#3B3651", "#EFEAF7"),
+}
+
+
+def _hero_bits(world: str) -> dict:
+    """The industry page's own hero copy: the episode line, the hand label, the headline and the lead (both lengths)."""
+    import re as _re
+    s = (_ROOT / "_src/pages/industries" / f"{world}.html").read_text(encoding="utf-8")
+    g = lambda pat: (_re.search(pat, s, _re.S).group(1).strip() if _re.search(pat, s, _re.S) else "")
+    return {"ep": g(r'<p class="ixw-ep">.*?</a><span>(.*?)</span></p>'), "hand": g(r'<span class="hand h1-hand">(.*?)</span>'),
+            "h1": g(r'<h1 id="ixw-h1">.*?</span>(.*?)</h1>'), "lead": g(r'<p class="lead"><span class="m-full">(.*?)</span>'),
+            "lead_m": g(r'<p class="lead"><span class="m-full">.*?</span><span class="m-short">(.*?)</span>')}
+
+
+def showcase_html() -> str:
+    """Slide 3 of the homepage hero: the whole slide becomes each industry's hero in turn. Behind, the world's real scene
+    (assets/img/industries/<key>/scene.webp); in front, the page's own title card (its .ixw-copy skin, Nexi Explains tag,
+    hand label, headline, lead and buttons, from hero-skins.css), Nexi in costume with three workflow steps, and a strip of
+    the eight badges. hero-industries.js runs it."""
+    from industries import IND
+    bgs, panels, casts, chans = [], [], [], []
+    for i, k in enumerate(SHOW_ORDER):
+        ind, meta, b = IND[k], module(k).META, _hero_bits(k)
+        on = " is-on" if i == 0 else ""
+        hid = "false" if i == 0 else "true"
+        steps = [f for f in ind["flow"] if f.get("app")][:3]
+        pills = "".join(f'<span class="hxs-pill" style="--j:{j}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for j, f in enumerate(steps))
+        p = poses(k)["present"]
+        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/backdrop.svg"></div>')
+        panels.append(
+            f'<div class="hxs-panel hxs--{k}{on}" data-k="{k}" aria-hidden="{hid}"><div class="ixw-copy hxs-card">'
+            f'<p class="ixw-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{b["ep"]}</span></p>'
+            f'<span class="hand h1-hand">{b["hand"]}</span>'
+            f'<p class="hxs-h">{b["h1"]}</p>'
+            f'<p class="lead"><span class="m-full">{b["lead"]}</span><span class="m-short">{b["lead_m"]}</span></p>'
+            f'<div class="actions"><a class="btn btn-primary" href="{{{{ROOT}}}}industries/{k}.html" tabindex="{0 if i == 0 else -1}">Explore {ind["name"]} {{{{icon:arrow}}}}</a>'
+            f'<a class="btn btn-ghost" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
+            f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry</span></p>'
+            f'</div></div>')
+        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" style="--w:{p["w"]};--ay:{p["ay"]};--ax:{p["ax"]}" decoding="async" '
+                     f'data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp"><span class="hxs-pills">{pills}</span></div>')
+        chans.append(f'<button class="hxs-ch hxs--{k}{on}" type="button" role="tab" data-k="{k}" aria-selected="{"true" if i == 0 else "false"}" '
+                     f'tabindex="{0 if i == 0 else -1}" aria-label="{ind["name"]}">{{{{icon:ind-{k}}}}}<i></i></button>')
+    return ('<div class="hxs" data-inds>\n'
+            '  <div class="hxs-sky" aria-hidden="true">' + "".join(bgs) + '<span class="hxs-veil"></span></div>\n'
+            '  <div class="container slide-inner hxs-inner">\n'
+            '    <div class="hxs-left">\n'
+            '      <h2 class="sr-only">Odoo for your industry</h2>\n'
+            '      <div class="hxs-cards">' + "".join(panels) + '</div>\n'
+            '      <div class="hxs-strip"><span class="hxs-strip-l">Eight industries</span><div class="hxs-chs" role="tablist" aria-label="Industries">' + "".join(chans) + '</div></div>\n'
+            '    </div>\n'
+            '    <div class="hxs-stage" aria-hidden="true">' + "".join(casts) + '</div>\n'
+            '  </div>\n'
+            '</div>')

@@ -3,6 +3,7 @@
 sitedata.OFFICES[1]: TechNext's main development and consulting hub (Odoo developers, consultants and architects, with
 finance, HR, sales and marketing); the open roles are here."""
 META = {
+    "page": "offices/philippines.html",
     "tag": "Taguig City hub · Level 9, IP Center",
     "badge": "co-ph",
     "intro_title": "<b>Taguig City</b> hub",

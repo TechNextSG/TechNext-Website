@@ -28,6 +28,10 @@ import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
 import worlds as WD  # noqa: E402
 import company_pages as CP  # noqa: E402
+import hero_skins  # noqa: E402
+hero_skins.write()   # the homepage industries slide's skins, before the asset version is taken
+import backdrops  # noqa: E402
+backdrops.write()    # the industries slide's illustrated backdrops (assets/img/industries/<key>/backdrop.svg)
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -1834,6 +1838,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
+    if "{{IND_SHOWCASE}}" in content:   # the homepage hero's industries slide
+        content = content.replace("{{IND_SHOWCASE}}", WD.showcase_html())
     if "{{IXW_" in content:   # world pages: Nexi's pose stack, her avatar, one pose
         content = re.sub(r"\{\{IXW_NEXI:([a-z-]+)\}\}", lambda m: WD.nexi_stack(m.group(1)), content)
         content = re.sub(r"\{\{IXW_AV:([a-z-]+)\}\}", lambda m: WD.avatar(m.group(1)), content)

@@ -206,7 +206,10 @@
 .ixw--retail .ix-views button[aria-pressed="true"]{background:var(--r-terra);color:#FFFFFF;box-shadow:0 2px 0 var(--r-terra-d)}
 /* the sample picker: price tags */
 .ixw--retail .ixw-pick-b{border:2.5px solid var(--r-ink);box-shadow:0 4px 0 var(--r-ink);background:#FFFCF7}
-.ixw--retail .ixw-pick-b button{border-radius:999px 7px 7px 999px}
+.ixw--retail .ixw-pick-b{border-radius:999px}
+.ixw--retail .ixw-pick-b button{border-radius:999px}
+.ixw--retail .ixw-pick-b button:hover{background:#FBEBE3;color:var(--r-ink)}
+@media (max-width:767px){.ixw--retail .ixw-pick-b{border-radius:20px}.ixw--retail .ixw-pick-b button{border-radius:14px}}
 .ixw--retail .ixw-pick-b button:hover{color:var(--r-terra-d);background:#FBEDE6}
 .ixw--retail .ixw-pick-b button[aria-pressed="true"]{background:var(--r-terra);color:#FFFFFF;box-shadow:0 3px 0 var(--r-terra-d)}
 .ixw--retail .sc-tab.is-active b{color:var(--r-terra-d)}
