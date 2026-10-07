@@ -51,11 +51,51 @@
     document.head.appendChild(l);
   }
   function img(el) { if (!el) return; [].forEach.call(el.querySelectorAll('img[data-src]'), function (im) { im.src = im.getAttribute('data-src'); im.removeAttribute('data-src'); }); }
-  function warm(i) { img(bgs[i]); img(casts[i]); }
+  function warm(i) { img(bgs[i]); var pr = casts[i] && casts[i].querySelector('.hxs-pose[data-pose="present"]'); if (pr && pr.hasAttribute('data-src')) { pr.src = pr.getAttribute('data-src'); pr.removeAttribute('data-src'); } }
+
+  /* Nexi as the model: a tap swaps the pose for the next of the page's reactions and floats its line above the head */
+  var reactHeld = false;
+  function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function pose(cast, name) {
+    var want = cast.querySelector('.hxs-pose[data-pose="' + name + '"]');
+    if (!want || want.hasAttribute('data-src') || !(want.complete && want.naturalWidth)) want = cast.querySelector('.hxs-pose[data-pose="present"]');
+    [].forEach.call(cast.querySelectorAll('.hxs-pose'), function (im) { im.classList.toggle('is-on', im === want); });
+  }
+  function calm(cast) {
+    if (!cast) return; clearTimeout(cast._t);
+    var say = cast.querySelector('.hxs-say'); if (say) say.classList.remove('is-on');
+    cast.classList.remove('is-saying'); pose(cast, 'present');
+  }
+  function react(cast) {
+    var btn = cast.querySelector('.hxs-nexi-b'); if (!btn) return;
+    img(cast);   // the reaction poses load on the first tap
+    var list = (btn.getAttribute('data-reacts') || '').split('|').map(function (x) { var k = x.indexOf('::'); return { pose: x.slice(0, k), text: x.slice(k + 2) }; }).filter(function (x) { return x.pose; });
+    if (!list.length) return;
+    var ri = cast.getAttribute('data-ri'), n2 = ri === null ? 0 : (+ri + 1) % list.length, r = list[n2]; cast.setAttribute('data-ri', n2);
+    var go = function () {
+      pose(cast, r.pose);
+      var say = cast.querySelector('.hxs-say');
+      say.innerHTML = esc(r.text).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+      say.classList.remove('is-on'); void say.offsetWidth; say.classList.add('is-on');
+      btn.classList.remove('is-react'); void btn.offsetWidth; btn.classList.add('is-react');
+    };
+    var im = cast.querySelector('.hxs-pose[data-pose="' + r.pose + '"]');
+    if (im && !(im.complete && im.naturalWidth)) { im.addEventListener('load', go, { once: true }); setTimeout(go, 500); } else go();
+    root.classList.add('was-tapped'); cast.classList.add('is-saying');
+    reactHeld = true; arm();
+    clearTimeout(cast._t); cast._t = setTimeout(function () { calm(cast); reactHeld = false; arm(); }, 4600);
+  }
+  casts.forEach(function (cast) {
+    var btn = cast.querySelector('.hxs-nexi-b'); if (!btn) return;
+    btn.addEventListener('click', function (e) { e.preventDefault(); react(cast); });
+    btn.addEventListener('pointerenter', function () { img(cast); }, { once: true });
+  });
 
   function show(i) {
     i = (i + n) % n; if (i === at) { arm(); return; }
     var prev = at; at = i; warm(at); warm((at + 1) % n);
+    calm(casts[prev]); reactHeld = false;
+    casts.forEach(function (cs, k) { var b = cs.querySelector('.hxs-nexi-b'); if (b) b.tabIndex = k === at ? 0 : -1; });
     clearTimeout(outT); origin();
     root.classList.remove('is-swap'); void root.offsetWidth; root.classList.add('is-swap');
     [bgs, panels, casts].forEach(function (list) {
@@ -73,7 +113,7 @@
   function arm() {
     clearTimeout(timer);
     root.classList.remove('is-tick'); void root.offsetWidth;
-    if (!active || held || reduce || document.hidden) { root.classList.add('is-held'); return; }
+    if (!active || held || reactHeld || reduce || document.hidden) { root.classList.add('is-held'); return; }
     root.classList.remove('is-held'); root.classList.add('is-tick');
     timer = setTimeout(function () { show(at + 1); }, STEP);
   }

@@ -13,6 +13,7 @@ key has a module in _src/vignettes/). Every world is self-contained, so worlds c
 
 The engine (assets/js/industry-world.js + assets/css/industry-world.css) is shared by every world.
 """
+import html
 import importlib
 import json
 import pathlib
@@ -140,6 +141,15 @@ SHOW_SKIN = {  # accent, ink, light
 }
 
 
+def _reacts(world: str) -> list:
+    """Nexi's reactions from the industry page's own hero (data-reacts="pose::line|..."), lines keep their **bold**."""
+    import re as _re
+    s = (_ROOT / "_src/pages/industries" / f"{world}.html").read_text(encoding="utf-8")
+    m = _re.search(r'data-reacts="([^"]*)"', s)
+    raw = html.unescape(m.group(1)) if m else ""
+    return [tuple(x.split("::", 1)) for x in raw.split("|") if "::" in x]
+
+
 def _hero_bits(world: str) -> dict:
     """The industry page's own hero copy: the episode line, the hand label, the headline and the lead (both lengths)."""
     import re as _re
@@ -175,8 +185,15 @@ def showcase_html() -> str:
             f'<a class="btn btn-ghost" href="#talk" tabindex="{0 if i == 0 else -1}">{{{{icon:chat}}}}Talk to us</a></div>'
             f'<p class="ixw-hint">{{{{icon:sparkle}}}}<span>{meta["tag"]} · pick another industry</span></p>'
             f'</div></div>')
-        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}"><img class="hxs-nexi" alt="" width="{p["w"]}" height="{p["h"]}" style="--w:{p["w"]};--ay:{p["ay"]};--ax:{p["ax"]}" decoding="async" '
-                     f'data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-present.webp"><span class="hxs-pills">{pills}</span></div>')
+        # Nexi as the model: every reaction pose stacked on one body anchor, the page's own reaction lines, a bubble above
+        P = poses(k); reacts = _reacts(k); stack = ["present"] + [ps for ps, _ in reacts if ps in P and ps != "present"]
+        imgs = "".join(f'<img class="hxs-pose{" is-on" if ps == "present" else ""}" data-pose="{ps}" alt="" width="{P[ps]["w"]}" height="{P[ps]["h"]}" '
+                       f'style="--w:{P[ps]["w"]};--ax:{P[ps]["ax"]};--ay:{P[ps]["ay"]}" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/nexi-{ps}.webp">' for ps in stack)
+        rx = html.escape("|".join(f"{ps}::{t}" for ps, t in reacts), quote=True)
+        casts.append(f'<div class="hxs-cast hxs--{k}{on}" data-k="{k}" style="--hy:{P["present"]["ay"]}">'
+                     f'<button class="hxs-nexi-b" type="button" data-reacts="{rx}" aria-label="Nexi in the {ind["name"]} costume: tap for a reaction" tabindex="{0 if i == 0 else -1}">{imgs}</button>'
+                     f'<span class="hxs-say" role="status" aria-live="polite"></span><span class="hxs-tap" aria-hidden="true">Tap me!</span>'
+                     f'<span class="hxs-pills" aria-hidden="true">{pills}</span></div>')
         chans.append(f'<button class="hxs-ch hxs--{k}{on}" type="button" role="tab" data-k="{k}" aria-selected="{"true" if i == 0 else "false"}" '
                      f'tabindex="{0 if i == 0 else -1}" aria-label="{ind["name"]}">{{{{icon:ind-{k}}}}}<i></i></button>')
     return ('<div class="hxs" data-inds>\n'
@@ -187,6 +204,6 @@ def showcase_html() -> str:
             '      <div class="hxs-cards">' + "".join(panels) + '</div>\n'
             '      <div class="hxs-strip"><span class="hxs-strip-l">Eight industries</span><div class="hxs-chs" role="tablist" aria-label="Industries">' + "".join(chans) + '</div></div>\n'
             '    </div>\n'
-            '    <div class="hxs-stage" aria-hidden="true">' + "".join(casts) + '</div>\n'
+            '    <div class="hxs-stage">' + "".join(casts) + '</div>\n'
             '  </div>\n'
             '</div>')
