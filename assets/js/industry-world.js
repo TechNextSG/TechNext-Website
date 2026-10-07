@@ -827,7 +827,7 @@
   }
   function finish() {
     if (done) return; done = true; clearTimeout(timer);
-    /* the intro starts under the site header (it stays put on every page switch), so the iris works in the intro's own box */
+    /* the iris works in the intro's own box (the whole window; the site header is hidden until the intro opens) */
     var b = mark.getBoundingClientRect(), box = el.getBoundingClientRect(), W = box.width, H = box.height, x = b.left + b.width / 2 - box.left, y = b.top + b.height / 2 - box.top;
     var R = Math.ceil(Math.sqrt(Math.pow(Math.max(x, W - x), 2) + Math.pow(Math.max(y, H - y), 2))) + 4;
     lock.style.transformOrigin = '50% ' + (b.top + b.height / 2 - lock.getBoundingClientRect().top).toFixed(1) + 'px';

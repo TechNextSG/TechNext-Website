@@ -189,7 +189,10 @@ a.card:hover{text-decoration:none}
 .strip-badge{height:40px;width:auto}
 
 /* ---------- header ---------- */
-.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);border-bottom:1px solid transparent;transition:background-color .25s ease,border-color .2s ease,box-shadow .2s ease}
+.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);border-bottom:1px solid transparent;transition:background-color .25s ease,border-color .2s ease,box-shadow .2s ease,opacity .4s ease .1s,visibility 0s linear .1s}
+/* hidden while a page's entry intro plays (the home #intro, the industry and Company .ixwi), back as it opens */
+html.intro .header{visibility:hidden;opacity:0;transition:none;animation:hdrBack 0s linear 7s forwards}
+@keyframes hdrBack{to{visibility:visible;opacity:1}}
 .header.is-scrolled,.header.is-open{border-bottom-color:var(--line)}
 /* transparent at the top of every page: the first hero runs up under it (--header-box = the header plus its 1px
    border, so no hairline of page background shows); solid again once the page scrolls or a menu opens */
