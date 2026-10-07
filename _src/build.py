@@ -1652,6 +1652,29 @@ def blog_card(a: dict, k: int, heading: str = "h3") -> str:
             f'<span class="post-more" aria-hidden="true">Read {{{{icon:arrow}}}}</span></div></article>')
 
 
+def blog_newsdesk() -> str:
+    """The blog's Odoo 20 newsdesk: the lead story (the Odoo 20 article) as a front page, with its own section headings
+    as "in this story" links, and the other Odoo news articles down the side."""
+    lead = next((a for a in ARTICLES if a["out"] == "blog/odoo-20-whats-new.html"), None)
+    if not lead:
+        return ""
+    _, body = read_meta(PAGES / lead["out"])
+    heads = [_text(m.group(2)) for m in _H2.finditer(body)]
+    heads = [h for h in heads if not h.lower().startswith(("common questions", "should you"))][:7]
+    story = "".join(f'<li><a href="{{{{ROOT}}}}{lead["out"]}#{_slug(h)}"><b>{k + 1:02d}</b>{h}</a></li>' for k, h in enumerate(heads))
+    side = [a for a in ARTICLES if a["cat"] == "odoo-news" and a is not lead][:3]
+    items = "".join(f'<li class="nd-brief reveal" style="--i:{k}"><span class="nd-kicker">{"Events" if "events" in a["out"] else "Country changes" if "singapore-philippines" in a["out"] else "Odoo Experience 2026"}</span>'
+                    f'<h3><a href="{{{{ROOT}}}}{a["out"]}">{a["h1"]}</a></h3><p>{a["card"]}</p>'
+                    f'<span class="nd-meta"><time datetime="{a["date"]}">{_nice_date(a["date"])}</time> · {a["read"]} min read</span></li>' for k, a in enumerate(side))
+    return (f'<div class="nd-paper">'
+            f'<div class="nd-mast"><span class="nd-live">Odoo news</span><b>The TechNext Odoo desk</b><span class="nd-date">Odoo 20 · release notes Sept 2026</span></div>'
+            f'<article class="nd-lead reveal">{cover_html(lead)}<div class="nd-lead-b"><span class="nd-kicker">Lead story · {lead["read"]} min read</span>'
+            f'<h3><a href="{{{{ROOT}}}}{lead["out"]}">{lead["h1"]}</a></h3><p class="nd-lede">{lead["lede"]}</p>'
+            f'<p class="nd-in">In this story</p><ol class="nd-story">{story}</ol>'
+            f'<a class="btn btn-primary" href="{{{{ROOT}}}}{lead["out"]}">Read the Odoo 20 story {{{{icon:arrow}}}}</a></div></article>'
+            f'<aside class="nd-side" aria-label="More Odoo news"><p class="nd-side-h">Also on the Odoo desk</p><ol class="nd-briefs">{items}</ol></aside></div>')
+
+
 def blog_filters() -> str:
     btns = [f'<button type="button" data-filter-tag="all" aria-pressed="true">All <span>{len(ARTICLES)}</span></button>']
     for key, label in BLOG_CATS.items():
@@ -1853,6 +1876,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = (content.replace("{{BLOG_CARDS}}", "".join(blog_card(a, k, "h2") for k, a in enumerate(ARTICLES)))
                           .replace("{{BLOG_LATEST}}", "".join(blog_card(a, k) for k, a in enumerate(ARTICLES[:3])))
                           .replace("{{BLOG_FILTERS}}", blog_filters())
+                          .replace("{{BLOG_NEWSDESK}}", blog_newsdesk())
                           .replace("{{BLOG_COUNT}}", str(len(ARTICLES))))
 
     out_rel = meta["out"]

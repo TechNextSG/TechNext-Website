@@ -1,0 +1,100 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: blog (/blog) — the TechNext newsroom, on air with Odoo 20. A bright studio: brand blue, breaking-news red, ticker
+   yellow, newsprint white. The title card is a newspaper front page with its masthead; the caption is a broadcast lower
+   third; buttons are press keys with a hard edge; the Odoo 20 desk is a front page (lead story, "in this story", briefs);
+   the archive cards carry a red kicker rule. */
+.ixw--blog :is(.ixw-copy,.nd-paper,.post-card){font-variant-numeric:lining-nums}
+.ixw--blog{--bl-serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--bl-ink:#141A3A;--bl-red:#E2453C;--bl-blue:#3167CA;--bl-y:#FFD84A;--bl-paper:#FFFDF8;--bl-rule:#D9DEE8;
+  --w-alt:#F4F6FB;--lab-bd:2px solid #141A3A;--lab-lip:#141A3A;--lab-tail:#141A3A;--lab-r:4px;
+  --st-ink:#141A3A;--st-meet:#14A38B;--st-talk:#E2453C;--st-nexi:#FFD84A;--st-nexi-fg:#141A3A;--hc-bg:linear-gradient(90deg,#E2453C,#3167CA);
+  --ii-bg:linear-gradient(160deg,#F4F7FC,#DCE6F7 60%,#FBE3E1);--ii-ink:#141A3A;--ii-b:#E2453C;--ii-accent:#3167CA;--ii-lip:#141A3A;--ii-ep-bg:#E2453C;--ii-ep-fg:#FFFFFF}
+.ixw--blog .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F4F7FC 18%,#E2E9F4 62%,#E9EEF6 62%,#D6DEEA 100%)}
+
+/* ---------- the title card: a newspaper front page ---------- */
+.ixw--blog .ixw-copy{position:relative;max-width:500px;margin-top:20px;padding:70px 30px 26px;border-radius:3px;background:var(--bl-paper);
+  box-shadow:0 0 0 1px #E6E1D4,0 2px 0 rgba(0,0,0,.04),0 40px 70px -34px rgba(20,26,58,.45)}
+.ixw--blog .ixw-copy::before{content:"THE TECHNEXT NEWS \00B7  ODOO 20 EDITION";position:absolute;left:30px;right:30px;top:16px;height:38px;display:flex;align-items:center;justify-content:center;
+  border-top:3px solid var(--bl-ink);border-bottom:1px solid var(--bl-ink);box-shadow:0 3px 0 var(--bl-paper),0 4px 0 var(--bl-ink);
+  font:800 13px/1 var(--bl-serif);letter-spacing:.16em;color:var(--bl-ink)}
+.ixw--blog .ixw-copy h1{max-width:15ch;font-family:var(--bl-serif);font-weight:700;letter-spacing:-.01em}
+.ixw--blog .ixw-copy .hand{color:var(--bl-red)}
+.ixw--blog .ixw-copy .lead{font-size:.98rem;line-height:1.6;color:#3D4560;column-rule:1px solid var(--bl-rule)}
+.ixw--blog .ixw-ep-tag{background:var(--bl-red);color:#FFFFFF;box-shadow:0 3px 0 #9E2A23}.ixw--blog .ixw-ep-tag .ic{background:#FFFFFF;color:var(--bl-red)}
+.ixw--blog .ixw-hint{border-top:1px solid var(--bl-rule);padding-top:12px}.ixw--blog .ixw-hint .ic{color:var(--bl-red)}
+@media (max-width:767px){.ixw--blog .ixw-copy{padding:64px 20px 22px}.ixw--blog .ixw-copy::before{left:20px;right:20px;font-size:10.5px;letter-spacing:.1em}}
+
+/* ---------- the caption: a broadcast lower third ---------- */
+.ixw--blog .ixw-cap{border-radius:4px;border:0;border-left:8px solid var(--bl-red);background:#FFFFFF;box-shadow:0 0 0 1.5px #141A3A,0 6px 0 #141A3A,0 26px 44px -22px rgba(10,15,40,.45)}
+.ixw--blog .ixw-cap::before{content:"LIVE";position:absolute;left:-8px;top:-16px;padding:6px 10px 6px 24px;border-radius:3px;background:var(--bl-red);color:#FFFFFF;font:800 11px/1 var(--font-body);letter-spacing:.14em;
+  background-image:radial-gradient(circle at 12px 50%,#FFFFFF 3.5px,transparent 4px)}
+.ixw--blog .ixw-cap-who b{color:var(--bl-ink)}.ixw--blog .ixw-cap-txt b{color:var(--bl-red)}
+.ixw--blog .ixw-cap-rec{background:#FFF7D6;border:0;border-left:4px solid var(--bl-y);color:#5A4600;border-radius:2px}
+
+/* ---------- buttons: press keys with a hard edge ---------- */
+.ixw--blog main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:4px;border:2px solid var(--bl-ink);box-shadow:0 4px 0 var(--bl-ink);
+  transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,background-color .2s ease}
+.ixw--blog main .btn-primary,.ixw--blog main .btn-primary:hover{color:#FFFFFF;background:var(--bl-red)}
+.ixw--blog main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--blog main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--bl-ink);background:#FFFFFF}
+.ixw--blog main .btn-ghost::before{display:none}.ixw--blog main .btn-ghost .ic{color:var(--bl-red)}
+.ixw--blog main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;box-shadow:0 6px 0 var(--bl-ink)}
+.ixw--blog main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;box-shadow:0 1px 0 var(--bl-ink);transition-duration:.06s}
+.ixw--blog .ixw-cta .btn-outline-white,.ixw--blog .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:#FFFFFF;box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.ixw--blog main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid var(--bl-y);outline-offset:4px}
+.ixw--blog .ixw-ibtn{border:2px solid var(--bl-ink);border-radius:4px;box-shadow:0 3px 0 var(--bl-ink)}
+.ixw--blog .ixw-ibtn--play,.ixw--blog .ixw-ibtn--play:hover{background:var(--bl-red);color:#FFFFFF}
+.ixw--blog .ixw-dots button{border-radius:2px}.ixw--blog .ixw-dots button.is-on{background:var(--bl-red);box-shadow:0 0 0 1.5px var(--bl-ink)}
+.ixw--blog .ixw-peek{border-color:var(--bl-ink);border-radius:4px;box-shadow:0 3px 0 var(--bl-ink)}.ixw--blog .ixw-peek[aria-pressed="true"]{background:var(--bl-y)}
+
+/* ---------- the glance strip: a ticker bar ---------- */
+.ixw--blog .bl-strip{grid-template-columns:repeat(4,minmax(0,1fr));border-radius:4px;border:2px solid var(--bl-ink);box-shadow:0 5px 0 var(--bl-ink);background:linear-gradient(90deg,var(--bl-red) 0 8px,#FFFFFF 8px)}
+.ixw--blog .bl-strip dt .ic{color:var(--bl-red)}
+@media (max-width:991px){.ixw--blog .bl-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- the Odoo 20 desk: a front page ---------- */
+.nd-sec{background:linear-gradient(180deg,#FFFFFF,#F7F5EE)}
+.nd-paper{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:0;border:2px solid var(--bl-ink,#141A3A);border-radius:4px;background:var(--bl-paper,#FFFDF8);box-shadow:0 8px 0 var(--bl-ink,#141A3A),0 40px 70px -40px rgba(20,26,58,.45);overflow:hidden}
+.nd-mast{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:3px double var(--bl-ink,#141A3A);background:#FFFFFF}
+.nd-mast b{font:700 clamp(1.2rem,2.2vw,1.6rem)/1.1 var(--bl-serif);color:var(--bl-ink,#141A3A)}
+.nd-live{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 10px;border-radius:3px;background:var(--bl-red,#E2453C);color:#FFFFFF;font:800 11px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase}
+.nd-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#FFFFFF;animation:ndBlink 1.4s ease-in-out infinite}
+@keyframes ndBlink{50%{opacity:.25}}
+.nd-date{margin-left:auto;font:700 12.5px/1.2 var(--font-body);color:#5C6378}
+.nd-lead{display:flex;flex-direction:column;border-right:1px solid var(--bl-rule,#D9DEE8)}
+.nd-lead .post-cover{margin:0;aspect-ratio:auto;height:clamp(200px,24vw,300px);border-radius:0;border-bottom:1px solid var(--bl-rule,#D9DEE8);background:linear-gradient(135deg,#EEF2FB,#F7F9FE)}
+.nd-lead .post-cover img{padding:14px 18px 0;object-fit:cover;object-position:50% 0}
+.nd-lead-b{display:flex;flex-direction:column;gap:12px;padding:24px 28px 30px}
+.nd-kicker{font:800 11.5px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--bl-red,#E2453C)}
+.nd-lead h3{margin:0;font:700 clamp(1.5rem,2.6vw,2.1rem)/1.15 var(--bl-serif);letter-spacing:-.01em}
+.nd-lead h3 a,.nd-brief h3 a{color:var(--bl-ink,#141A3A);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .3s ease}
+.nd-lead h3 a:hover,.nd-brief h3 a:hover{background-size:100% 2px}
+.nd-lede{margin:0;font:500 16px/1.6 var(--font-body);color:#3D4560}
+.nd-in{margin:6px 0 0;font:800 12px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--bl-ink,#141A3A);border-top:1px solid var(--bl-ink,#141A3A);padding-top:12px}
+.nd-story{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 22px;margin:0 0 10px;padding:0;list-style:none}
+.nd-story a{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--bl-rule,#D9DEE8);font:600 14.5px/1.4 var(--font-body);color:var(--bl-ink,#141A3A);text-decoration:none}
+.nd-story a:hover{color:var(--bl-red,#E2453C)}
+.nd-story b{flex:none;font:700 13px/1 var(--bl-serif);color:var(--bl-red,#E2453C)}
+.nd-lead .btn{align-self:flex-start}
+.nd-side{padding:22px 24px 26px;background:#FFFFFF}
+.nd-side-h{margin:0 0 6px;font:800 12px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--bl-ink,#141A3A);padding-bottom:10px;border-bottom:3px solid var(--bl-ink,#141A3A)}
+.nd-briefs{margin:0;padding:0;list-style:none}
+.nd-brief{display:flex;flex-direction:column;gap:8px;padding:18px 0;border-bottom:1px solid var(--bl-rule,#D9DEE8)}
+.nd-brief:last-child{border-bottom:0}
+.nd-brief h3{margin:0;font:700 1.12rem/1.3 var(--bl-serif)}
+.nd-brief p{margin:0;font:500 14px/1.55 var(--font-body);color:#4A5168}
+.nd-meta{font:600 12.5px/1 var(--font-body);color:#6B7288}
+@media (max-width:991px){.nd-paper{grid-template-columns:minmax(0,1fr)}.nd-lead{border-right:0;border-bottom:1px solid var(--bl-rule,#D9DEE8)}}
+@media (max-width:620px){.nd-story{grid-template-columns:minmax(0,1fr)}.nd-mast{flex-wrap:wrap;gap:8px 12px;padding:12px 16px}.nd-date{margin-left:0;width:100%}.nd-lead-b{padding:20px 18px 24px}.nd-side{padding:18px}}
+@media (prefers-reduced-motion:reduce){.nd-live::before{animation:none}.nd-lead h3 a,.nd-brief h3 a{transition:none}}
+
+/* ---------- the archive and the three beats ---------- */
+.ixw--blog .post-card{border-radius:4px;border-top:4px solid var(--bl-red)}
+.ixw--blog .post-card[data-tags="technext-odoo"]{border-top-color:var(--bl-blue)}.ixw--blog .post-card[data-tags="erp"]{border-top-color:#14A38B}
+.ixw--blog .post-card h2,.ixw--blog .post-card h3{font-family:var(--bl-serif)}
+.ixw--blog .filter-bar button{border-radius:4px}
+.ixw--blog .filter-bar button[aria-pressed="true"]{background:var(--bl-ink);border-color:var(--bl-ink);color:#FFFFFF}
+.ixw--blog .bl-beats .card{border-radius:4px;border-top:4px solid var(--bl-red)}
+.ixw--blog .bl-beats .card:nth-child(2){border-top-color:var(--bl-blue)}.ixw--blog .bl-beats .card:nth-child(3){border-top-color:#14A38B}
+
+/* ---------- the end card ---------- */
+.ixw--blog main .bl-cta{background:repeating-linear-gradient(-45deg,rgba(255,255,255,.05) 0 14px,transparent 14px 28px),linear-gradient(120deg,#141A3A,#3167CA 70%,#E2453C)}
+.ixw--blog main .bl-cta .hand{color:var(--bl-y)}
