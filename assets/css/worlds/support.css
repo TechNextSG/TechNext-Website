@@ -1,0 +1,53 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: support (/odoo/support) — step 4 of 4, the same team after go-live. Warm orange, desk navy, lifebuoy red.
+   The title card is a support ticket (a status strip with OPEN → DONE); the caption is the reply on the ticket with an
+   assignee chip; buttons carry a status dot; the glance strip is the ticket's footer. */
+.ixw--support{--ow-c:#F08A24;--sp-ink:#1B2350;--sp-or:#F08A24;--sp-or-l:#FFF4E5;
+  --w-alt:#FBF7F1;--lab-bd:2px solid #1B2350;--lab-lip:#1B2350;--lab-tail:#1B2350;--lab-r:8px;
+  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#F08A24;--st-nexi:#F08A24;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#FFA04A,#F08A24);
+  --ii-bg:linear-gradient(160deg,#FDF9F4,#FFE9D0 60%,#E8EFFC);--ii-ink:#1B2350;--ii-b:#F08A24;--ii-accent:#E2453C;--ii-lip:#1B2350;--ii-ep-bg:#1B2350;--ii-ep-fg:#FFFFFF}
+.ixw--support .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FDF9F4 18%,#F5EEE5 62%,#E6E9EE 62%,#D3D8E0 100%)}
+
+/* ---------- the title card: a support ticket ---------- */
+.ixw--support .ixw-copy{position:relative;max-width:510px;margin-top:20px;padding:58px 30px 24px;border-radius:14px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #EBDDCB,0 40px 70px -30px rgba(80,50,20,.35)}
+.ixw--support .ixw-copy::before{content:"TICKET \00B7  ODOO SUPPORT";position:absolute;left:0;right:0;top:0;height:38px;display:flex;align-items:center;padding-left:22px;border-radius:14px 14px 0 0;
+  background:var(--sp-ink);font:800 11.5px/1 var(--font-body);letter-spacing:.14em;color:#FFFFFF}
+.ixw--support .ixw-copy::after{content:"OPEN \2192  DONE";position:absolute;right:16px;top:9px;padding:5px 10px;border-radius:999px;background:#2BC48A;font:800 10.5px/1 var(--font-body);letter-spacing:.1em;color:#FFFFFF}
+.ixw--support .ixw-copy h1{max-width:15ch}
+.ixw--support .ixw-copy .hand{color:#C96A12}
+.ixw--support .ixw-hint .ic{color:var(--sp-or)}
+@media (max-width:767px){.ixw--support .ixw-copy{padding:54px 20px 22px}.ixw--support .ixw-copy::after{display:none}}
+
+/* ---------- the caption: the reply on the ticket ---------- */
+.ixw--support .ixw-cap{border-radius:16px;border:0;border-left:6px solid var(--sp-or);background:#FFFFFF;box-shadow:0 0 0 1.5px #EBDDCB,0 26px 44px -22px rgba(80,50,20,.35)}
+.ixw--support .ixw-cap::before{content:"REPLY \00B7  ASSIGNED TO YOUR TEAM";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:999px;background:var(--sp-or);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.12em}
+.ixw--support .ixw-cap-who b{color:var(--sp-ink)}.ixw--support .ixw-cap-txt b{color:#C96A12}
+.ixw--support .ixw-cap-rec{background:var(--sp-or-l);border:1px dashed #F5B97A;color:#7A4A12}
+
+/* ---------- buttons: a status dot on each ---------- */
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;padding-left:40px;border-radius:999px;border:0;
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:18px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.25)}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{animation:spDot 1s ease-in-out infinite}
+@keyframes spDot{50%{box-shadow:0 0 0 7px rgba(43,196,138,0)}}
+.ixw--support main .btn-primary,.ixw--support main .btn-primary:hover{color:#FFFFFF;background:var(--sp-ink);box-shadow:0 4px 0 #0E1430}
+.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--sp-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--sp-or),0 4px 0 2px var(--sp-or)}
+.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white)::after{background:var(--sp-or);box-shadow:0 0 0 3px rgba(240,138,36,.25)}
+.ixw--support main .btn-ghost::before{display:none}.ixw--support main .btn-ghost .ic{color:var(--sp-or)}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--support .ixw-cta .btn-outline-white,.ixw--support .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--support .ixw-ibtn{border:2px solid var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}
+.ixw--support .ixw-ibtn--play,.ixw--support .ixw-ibtn--play:hover{background:var(--sp-or);color:#FFFFFF}
+.ixw--support .ixw-dots button.is-on{background:var(--sp-or);box-shadow:0 0 0 1.5px var(--sp-ink)}
+.ixw--support .ixw-peek{border-color:var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}.ixw--support .ixw-peek[aria-pressed="true"]{background:var(--sp-or-l)}
+@media (prefers-reduced-motion:reduce){.ixw--support main .btn::after{animation:none!important}}
+
+/* ---------- the glance strip: the ticket's footer ---------- */
+.ixw--support .ow-strip{border-radius:14px;box-shadow:0 0 0 1.5px #EBDDCB,0 24px 44px -30px rgba(80,50,20,.3);background:linear-gradient(90deg,var(--sp-or) 0 6px,#FFFFFF 6px)}
+.ixw--support .ow-strip dt .ic{color:var(--sp-or)}
+
+/* ---------- the end card ---------- */
+.ixw--support main .cta{background:radial-gradient(circle at 88% 18%,rgba(240,138,36,.4),transparent 45%),linear-gradient(120deg,#0E1430,#1B2350)}
