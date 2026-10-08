@@ -445,6 +445,9 @@ ICONS = {
     "play": ('<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'),
     "pause": ('<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'),
 }
+# per-page badges as files (_src/badges/<name>.svg, one 32x32 "ic ic-ind" SVG each), so pages can add theirs without editing this list
+for _b in sorted((__import__("pathlib").Path(__file__).resolve().parent / "badges").glob("*.svg")):
+    ICONS.setdefault(_b.stem, _b.read_text(encoding="utf-8").strip())
 
 
 # ---------------------------------------------------------------- tracking
