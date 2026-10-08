@@ -367,3 +367,7 @@
 .ixw--company .ixw-peek:active{translate:0 4px}
 .ixw--company .ixw-peek:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
 @media (max-width:767px){.ixw--company .ixw-copy .actions .btn-lg{height:50px;font-size:15.5px}.ixw--company .co-pills .tag{height:30px;font-size:12px}}
+
+/* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
+.ixw--company .ix-intro-sec{position:relative;z-index:2;padding-bottom:24px}
+@media (max-width:767px){.ixw--company .ix-intro-sec{padding-bottom:20px}}
