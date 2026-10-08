@@ -60,7 +60,7 @@
   var CREW = [
     { x0: -900, x1: 1300, y: 330, spd: 13, ph: 0.4, label: 'TechNext field engineer', lines: ['Site survey first: **what to measure**, where the devices go, how they connect.', 'A few sensors in **one room** first, then roll it out.'], acts: ['wave', 'nod', 'id'],
       P: W({ s: 0.3, skin: 2, hair: 3, style: 'pony', outfit: 'polo', top: BLUE, hold: 'box' }) },
-    { front: true, x0: 1040, x1: 1290, y: 656, spd: 16, ph: 0.6, label: 'TechNext IoT engineer', lines: ['A **device list** with locations and owners, so nothing goes missing.', 'Batteries and firmware **checked**, every change recorded.'], acts: ['nod', 'id', 'wave'],
+    { front: true, x0: 1030, x1: 1240, y: 656, spd: 16, ph: 0.6, label: 'TechNext IoT engineer', lines: ['A **device list** with locations and owners, so nothing goes missing.', 'Batteries and firmware **checked**, every change recorded.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.58, skin: 0, hair: 0, style: 'short', outfit: 'polo', top: TEAL, hold: 'clipboard' }) },
     { front: true, x0: -900, x1: 80, y: 664, spd: 14, ph: 0.2, label: 'Grower', lines: ['Harvest in, **straight to cold room 1**.', 'The beds tell us when they need water now.'], acts: ['wave', 'cheer', 'nod'],
       P: W({ s: 0.58, skin: 3, hair: 1, style: 'bun', outfit: 'shirt', top: '#8CC63F', id: '#9AA6BC', hold: 'box' }) }];
@@ -170,6 +170,7 @@
     /* the right margin (wide screens): a pallet of produce crates, a hose reel; outside, the van with its tracker */
     if (ext.r > CR0.r) { var pxl = 1112; fillRR(g, pxl, F - 10, 120, 10, 2, '#C99A6B'); for (var cr = 0; cr < 3; cr++) for (var cc = 0; cc < 2; cc++) { var cx = pxl + 4 + cc * 58, cy = F - 40 - cr * 30; fillRR(g, cx, cy, 54, 30, 4, cr % 2 ? '#2E9A58' : '#3FAE6A'); for (var hd = 0; hd < 4; hd++) fillE(g, cx + 9 + hd * 12, cy + 4, 6, 5, hd % 2 ? '#8CD47E' : '#E9483B'); fillRR(g, cx + 6, cy + 12, 42, 4, 2, 'rgba(255,255,255,.4)'); } }
     if (ext.r > 1240) { fillE(g, 1262, 380, 22, 22, '#3FAE6A'); fillE(g, 1262, 380, 9, 9, '#C9D3DE'); fillRR(g, 1256, 400, 12, 70, 3, '#9AA6BC'); }
+    propWall(g, ext);
     /* left margin (wide screens): a second bed, a seedling rack, potting bench with soil sacks */
     if (ext.l < -560) { var sl = -740; fillRR(g, sl, 230, 150, 6, 2, '#9AA6BC'); fillRR(g, sl, 300, 150, 6, 2, '#9AA6BC'); fillRR(g, sl, 370, 150, 6, 2, '#9AA6BC'); fillRR(g, sl, 440, 150, 6, 2, '#9AA6BC'); fillRR(g, sl, 220, 5, F - 220, 2, '#7A869C'); fillRR(g, sl + 145, 220, 5, F - 220, 2, '#7A869C');
       [230, 300, 370, 440].forEach(function (y, r) { for (var s = 0; s < 6; s++) { var x = sl + 10 + s * 23; fillRR(g, x, y - 12, 20, 12, 2, '#2A3142'); for (var lf = 0; lf < 2; lf++) fillE(g, x + 6 + lf * 8, y - 14 - r * 2, 4 + r, 3 + r * 0.6, lf ? LEAF : LEAF3); } }); }
@@ -180,6 +181,7 @@
       [[-620, '#C9A27A'], [-578, '#B5865A']].forEach(function (s) { fillRR(g, s[0], 410, 38, 60, 8, s[1]); text(g, 'SOIL', s[0] + 19, 444, 7, 800, '#FFFFFF', 'center'); }); }
   }
   function paintFront(g, ext) {
+    if (ext.l < -100) propBench(g);
     /* the planting bed: legs, the galvanised trough, soil, lettuces and herbs, the sensor stakes' posts */
     var x = BEN.x, w = BEN.w; soft(g, x + w / 2, F + 3, w * 0.55, 8, 0.24);
     [x + 10, x + w - 20, x + w / 2 - 5].forEach(function (lx) { fillRR(g, lx, BT + 10, 10, F - BT - 10, 3, STEEL); }); fillRR(g, x + 10, F - 16, w - 20, 5, 2, '#9AA6BC');
@@ -202,21 +204,19 @@
     fillRR(g, tx + 70, 366, 24, 22, 4, '#2A3142'); fillRR(g, tx + 73, 368, 18, 3, 1, '#111827');
     g.strokeStyle = '#5C6B7A'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(tx + 42, 384); g.lineTo(tx + 46, 384); g.moveTo(tx + 66, 382); g.lineTo(tx + 70, 382); g.stroke();
   }
-  function paintFore(g, ext) {
-    /* terracotta pots with plants, seedling trays, a coiled hose, a watering can, a wheelbarrow, crates of greens */
-    function pot(x, y, r, kind) { soft(g, x, y + 2, r * 1.3, 4, 0.24); g.fillStyle = '#D9784E'; g.beginPath(); g.moveTo(x - r, y - r * 1.6); g.lineTo(x + r, y - r * 1.6); g.lineTo(x + r * 0.75, y); g.lineTo(x - r * 0.75, y); g.closePath(); g.fill(); fillRR(g, x - r - 3, y - r * 1.6 - 6, r * 2 + 6, 8, 3, '#E58A60');
+  function pot(g, x, y, r, kind) { soft(g, x, y + 2, r * 1.3, 4, 0.24); g.fillStyle = '#D9784E'; g.beginPath(); g.moveTo(x - r, y - r * 1.6); g.lineTo(x + r, y - r * 1.6); g.lineTo(x + r * 0.75, y); g.lineTo(x - r * 0.75, y); g.closePath(); g.fill(); fillRR(g, x - r - 3, y - r * 1.6 - 6, r * 2 + 6, 8, 3, '#E58A60');
       if (kind) { for (var l = 0; l < 7; l++) { var a = -Math.PI / 2 + (l - 3) * 0.4; g.save(); g.translate(x, y - r * 1.6 - 4); g.rotate(a + Math.PI / 2); fillE(g, 0, -r * 1.1, r * 0.35, r * 1.1, l % 2 ? LEAF : LEAF2); g.restore(); } }
       else { fillE(g, x, y - r * 2.2, r * 1.1, r * 0.8, LEAF2); fillE(g, x - r * 0.5, y - r * 2.5, r * 0.6, r * 0.5, LEAF3); fillE(g, x + r * 0.4, y - r * 2.6, r * 0.25, r * 0.25, '#FF8FA3'); fillE(g, x - r * 0.3, y - r * 2.0, r * 0.22, r * 0.22, '#FFD84A'); } }
-    pot(170, 712, 26, 1); pot(232, 720, 18, 0); pot(300, 722, 14, 1);
+  function paintFore(g, ext) {
+    g.save(); g.translate(0, -26); /* the front row sits a little higher, clear of the glance strip on wide screens */
+    /* terracotta pots with plants, seedling trays, a coiled hose, a watering can, a wheelbarrow, crates of greens */
+    pot(g, 196, 712, 26, 1); pot(g, 256, 720, 18, 0); pot(g, 318, 722, 14, 1);
     var tx = 380; soft(g, tx + 70, 740, 90, 5, 0.22); for (var t = 0; t < 2; t++) { fillRR(g, tx + t * 74, 714, 70, 22, 3, '#2A3142'); for (var c = 0; c < 6; c++) { fillRR(g, tx + 4 + t * 74 + c * 11, 718, 9, 9, 1, '#1B2433'); fillE(g, tx + 8.5 + t * 74 + c * 11, 714, 4, 3, c % 2 ? LEAF3 : '#9FDB8C'); } }
     var hx = 560; soft(g, hx, 744, 46, 6, 0.24); g.strokeStyle = '#2E9A58'; g.lineWidth = 6; for (var h = 0; h < 4; h++) { g.beginPath(); g.ellipse(hx, 728 - h * 4, 34 - h * 3, 12 - h, 0, 0, Math.PI * 2); g.stroke(); } fillRR(g, hx + 30, 716, 14, 8, 3, '#F5A524');
     var wx = 660; soft(g, wx, 744, 30, 5, 0.24); fillRR(g, wx - 20, 704, 40, 38, 8, '#3FA9E0'); g.strokeStyle = '#3FA9E0'; g.lineWidth = 5; g.beginPath(); g.moveTo(wx + 18, 714); g.lineTo(wx + 46, 694); g.stroke(); fillRR(g, wx + 42, 688, 12, 8, 3, '#2E8FD0'); g.beginPath(); g.arc(wx, 704, 14, Math.PI, 0); g.stroke();
     var bx = 780; soft(g, bx + 40, 748, 66, 6, 0.24); g.fillStyle = '#3167CA'; g.beginPath(); g.moveTo(bx, 690); g.lineTo(bx + 96, 690); g.lineTo(bx + 80, 730); g.lineTo(bx + 14, 730); g.closePath(); g.fill(); fillE(g, bx + 48, 690, 48, 7, '#6E5238');
     fillE(g, bx + 88, 736, 12, 12, '#2A3142'); fillE(g, bx + 88, 736, 5, 5, '#9AA6BC'); g.strokeStyle = '#5C6B7A'; g.lineWidth = 4; g.beginPath(); g.moveTo(bx + 4, 700); g.lineTo(bx - 34, 716); g.moveTo(bx + 20, 730); g.lineTo(bx + 16, 748); g.stroke();
-    if (ext.r > 900) { var cx = 920; soft(g, cx + 50, 748, 66, 6, 0.24); for (var k = 0; k < 2; k++) { fillRR(g, cx + k * 56, 704, 52, 40, 4, k ? '#3FAE6A' : '#2E9A58'); for (var hd = 0; hd < 4; hd++) fillE(g, cx + 8 + k * 56 + hd * 12, 702, 7, 6, k ? '#E9483B' : '#8CD47E'); } }
-    if (ext.r > 1060) pot(1120, 726, 30, 0);
-    if (ext.l < 100) { pot(40, 720, 30, 0); pot(-30, 714, 20, 1); }
-    if (ext.l < -500) { var wb = -760; soft(g, wb + 50, 744, 80, 6, 0.24); g.fillStyle = '#E3C36A'; g.beginPath(); g.moveTo(wb, 690); g.lineTo(wb + 110, 690); g.lineTo(wb + 90, 730); g.lineTo(wb + 20, 730); g.closePath(); g.fill(); fillE(g, wb + 56, 690, 54, 8, '#6E5238'); fillE(g, wb + 100, 738, 12, 12, '#2A3142'); }
+    g.restore();
   }
 
   /* ---------------- live ---------------- */
@@ -300,6 +300,7 @@
   /* ---------------- in front of the cast: the bed's stake LEDs, held props, the phone alert ---------------- */
   var RAIN = { t: -9 };
   function paintFrontLive(g, t, S) {
+    if (S.ext.l < 140) { propLive(g, t, S); trolley(g, t); bagsLive(g, t); danish(g, t); }
     var R = S.R || room(cyc(t));
     STAKES.forEach(function (sx, i) { var v = stakeVal(i, t, S); fillRR(g, sx - 6, TR - 54, 12, 8, 1.5, '#1E2A3A'); text(g, Math.round(v) + '', sx, TR - 47.6, 6.2, 800, '#7FF0CF', 'center'); fillE(g, sx, TR - 41, 1.8, 1.8, (t + i * 0.5) % 1.6 < 0.2 ? '#FFFFFF' : OK); });
     fillE(g, AIR.x + 5, AIR.y + 46, 1.8, 1.8, (t % 1.6) < 0.2 ? '#FFFFFF' : OK);
@@ -340,6 +341,106 @@
   }
 
   /* ---------------- the cast ---------------- */
+  /* ---------------- the propagation corner (behind the title card): a hanging sign, a grow-light bar over the propagation
+     bench with sensor-tagged seedling trays under a clear dome, the irrigation manifold on the knee wall (three zone valves
+     that click on in turn), grow bags with moisture stakes, and a scouting trolley that rides the heating-pipe rail ---------------- */
+  var PB = { x: -450, r: -190, top: 404 }, MAN = { x: -132, y: 336 }, BAGS = [-440, -110];
+  var PROP = W({ x: -320, y: 470, s: 0.46, ph: 4.6, skin: 2, hair: 1, style: 'bob', outfit: 'cardigan', top: '#14A3A3', top2: '#FFFFFF', hands: [[-60, -290], [60, -290]], look: 0.2 });
+  var PRS = { dome: 0 };
+  function propWall(g, ext) {
+    if (ext.l > 60) return;
+    /* the hanging sign */
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(-390, EAVE + 4); g.lineTo(-380, 70); g.moveTo(-230, EAVE + 4); g.lineTo(-240, 70); g.stroke();
+    shadowed(g, 8, 3, 0.16, function () { fillRR(g, -412, 70, 204, 46, 10, '#FFFFFF'); }); fillRR(g, -412, 70, 46, 46, 10, LEAF2); g.fillRect(-372, 70, 6, 46);
+    g.strokeStyle = '#FFFFFF'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(-389, 104); g.lineTo(-389, 86); g.stroke(); fillE(g, -395, 88, 7, 4, '#FFFFFF'); fillE(g, -383, 84, 7, 4, '#FFFFFF');
+    text(g, 'PROPAGATION', -356, 92, 13, 800, INK); text(g, 'every tray reports in', -356, 106, 8, 700, '#6B7A74');
+    /* the grow-light bar on its chains */
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-420, EAVE + 4); g.lineTo(-420, 196); g.moveTo(-220, EAVE + 4); g.lineTo(-220, 196); g.stroke();
+    fillRR(g, -440, 196, 240, 12, 4, '#3A4458'); for (var l = 0; l < 10; l++) fillRR(g, -432 + l * 23, 206, 16, 4, 2, l % 3 === 1 ? '#FF9EC7' : '#FFF1C9');
+    /* the irrigation manifold and its controller on the knee wall */
+    shadowed(g, 6, 2, 0.16, function () { fillRR(g, MAN.x, MAN.y - 26, 64, 54, 6, '#FFFFFF'); }); fillRR(g, MAN.x, MAN.y - 26, 64, 12, 6, TEAL); g.fillRect(MAN.x, MAN.y - 20, 64, 6);
+    text(g, 'IRRIGATION', MAN.x + 32, MAN.y - 17, 6.2, 800, '#FFFFFF', 'center'); fillRR(g, MAN.x + 6, MAN.y - 8, 52, 16, 3, '#1E2A3A');
+    g.strokeStyle = '#7A869C'; g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(MAN.x - 30, MAN.y + 60); g.lineTo(MAN.x + 150, MAN.y + 60); g.moveTo(MAN.x - 30, MAN.y + 60); g.lineTo(MAN.x - 30, F - 4); g.stroke();
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(MAN.x - 30, MAN.y + 57); g.lineTo(MAN.x + 150, MAN.y + 57); g.stroke();
+    for (var v = 0; v < 3; v++) { var vx = MAN.x + 10 + v * 44; g.strokeStyle = '#7A869C'; g.lineWidth = 5; g.beginPath(); g.moveTo(vx, MAN.y + 60); g.lineTo(vx, MAN.y + 104); g.stroke(); fillRR(g, vx - 9, MAN.y + 66, 18, 16, 3, '#2A3142'); fillRR(g, vx - 6, MAN.y + 62, 12, 6, 2, '#3A4458'); text(g, 'Z' + (v + 1), vx, MAN.y + 100, 6, 800, '#6B7A74', 'center'); }
+    g.strokeStyle = '#3A4458'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(MAN.x + 32, MAN.y + 28); g.quadraticCurveTo(MAN.x + 40, MAN.y + 50, MAN.x + 54, MAN.y + 64); g.stroke();
+    fillE(g, MAN.x + 118, MAN.y + 72, 13, 13, '#FFFFFF'); g.strokeStyle = '#7A869C'; g.lineWidth = 2; g.beginPath(); g.arc(MAN.x + 118, MAN.y + 72, 13, 0, Math.PI * 2); g.stroke(); text(g, 'L/min', MAN.x + 118, MAN.y + 94, 5.6, 800, '#6B7A74', 'center');
+    /* the heating-pipe rail along the bay, with its end stops */
+    g.strokeStyle = '#B5BFCC'; g.lineWidth = 5; g.beginPath(); g.moveTo(-660, 512); g.lineTo(130, 512); g.moveTo(-660, 524); g.lineTo(130, 524); g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(-660, 510); g.lineTo(130, 510); g.moveTo(-660, 522); g.lineTo(130, 522); g.stroke();
+    for (var sp = -640; sp < 130; sp += 90) fillRR(g, sp, 508, 6, 22, 2, '#9AA6BC'); [-664, 128].forEach(function (x) { fillRR(g, x - 4, 500, 10, 30, 3, AMB); });
+  }
+  function propBench(g) {
+    soft(g, (PB.x + PB.r) / 2, F + 2, 140, 7, 0.22);
+    [PB.x + 10, PB.r - 18].forEach(function (lx) { fillRR(g, lx, PB.top + 10, 8, F - PB.top - 10, 2, STEEL); }); fillRR(g, PB.x + 14, F - 26, PB.r - PB.x - 28, 4, 2, '#9AA6BC');
+    [[PB.x + 26, '#C9A27A'], [PB.x + 70, '#B5865A']].forEach(function (s) { fillRR(g, s[0], F - 44, 36, 40, 7, s[1]); text(g, 'MIX', s[0] + 18, F - 20, 6.4, 800, '#FFFFFF', 'center'); });
+    /* seedling trays with sensor tags (the tags' readings are live), the clear dome over the middle tray */
+    for (var tr = 0; tr < 3; tr++) { var x = PB.x + 14 + tr * 82; fillRR(g, x, PB.top - 14, 74, 14, 3, '#2A3142'); for (var c = 0; c < 6; c++) { fillRR(g, x + 4 + c * 11.6, PB.top - 11, 9, 8, 1, '#1B2433'); fillE(g, x + 8.5 + c * 11.6, PB.top - 16, 4, 3.2, c % 2 ? LEAF3 : '#9FDB8C'); fillE(g, x + 6.5 + c * 11.6, PB.top - 19, 2.4, 1.8, LEAF); }
+      fillRR(g, x + 58, PB.top - 44, 3, 32, 1.5, '#E3E8EF'); fillRR(g, x + 48, PB.top - 58, 22, 16, 4, '#FFFFFF'); g.strokeStyle = '#C9D3DE'; g.lineWidth = 1; rr(g, x + 48, PB.top - 58, 22, 16, 4); g.stroke(); }
+    /* the bench top */
+    shadowed(g, 6, 3, 0.12, function () { fillRR(g, PB.x, PB.top, PB.r - PB.x, 12, 3, '#E3E8EF'); }); fillRR(g, PB.x, PB.top, PB.r - PB.x, 4, 2, '#FFFFFF');
+    fillRR(g, PB.x + 70, PB.top + 14, 120, 22, 4, '#FFFFFF'); text(g, 'SEEDLINGS · TAGGED + LOGGED', PB.x + 130, PB.top + 28.5, 6.2, 800, LEAF2, 'center');
+  }
+  function propLive(g, t, S) {
+    /* tray tags: soil moisture, ticking; the middle one is the humidity under the dome */
+    for (var tr = 0; tr < 3; tr++) { var x = PB.x + 14 + tr * 82, v = tr === 1 ? Math.round(92 - PRS.dome * 22) + '%' : Math.round(46 + tr * 4 + Math.sin(t * 0.4 + tr) * 1.4) + '%';
+      fillRR(g, x + 50, PB.top - 56, 18, 9, 1.5, '#1E2A3A'); text(g, v, x + 59, PB.top - 49.6, 5.4, 800, '#7FF0CF', 'center'); fillE(g, x + 59, PB.top - 44.5, 1.6, 1.6, (t + tr * 0.7) % 2 < 0.2 ? '#FFFFFF' : OK); }
+    /* the clear dome over the middle tray: lifted on a tap */
+    var dx = PB.x + 96, lift = PRS.dome; g.save(); if (lift > 0) { var hp = handAt(PROP, 1), hl = handAt(PROP, 0); g.translate(lerp(dx + 37, (hp[0] + hl[0]) / 2, lift) - (dx + 37), lerp(0, Math.min(hp[1], hl[1]) - (PB.top - 46), lift)); }
+    g.fillStyle = 'rgba(220,245,250,.42)'; g.beginPath(); g.moveTo(dx, PB.top - 14); g.lineTo(dx + 4, PB.top - 40); g.quadraticCurveTo(dx + 37, PB.top - 52, dx + 70, PB.top - 40); g.lineTo(dx + 74, PB.top - 14); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = 1.6; g.stroke(); fillRR(g, dx + 30, PB.top - 52, 14, 5, 2.5, '#FFFFFF'); g.restore();
+    PUFF = PUFF.filter(function (p) { return t - p.t0 < 1.8; }); PUFF.forEach(function (p) { var q = (t - p.t0) / 1.8; fillE(g, p.x + Math.sin(q * 5 + p.p) * 10, p.y - q * 50, 5 + q * 12, 4 + q * 8, 'rgba(255,255,255,' + (0.6 * (1 - q)).toFixed(2) + ')'); });
+    /* the irrigation controller: zone valves click on in turn, the flow meter's needle */
+    var z = Math.floor(t / 3.2) % 4; fillRR(g, MAN.x + 6, MAN.y - 8, 52, 16, 3, '#1E2A3A'); text(g, z < 3 ? 'ZONE ' + (z + 1) + ' ON' : 'ALL OFF', MAN.x + 32, MAN.y + 2.6, 6.4, 800, z < 3 ? '#7FF0CF' : '#9FB0C8', 'center');
+    for (var v = 0; v < 3; v++) { var vx = MAN.x + 10 + v * 44; fillE(g, vx, MAN.y + 74, 2.6, 2.6, v === z ? OK : '#3A4458'); if (v === z) { var dq = (t * 2.4) % 1; fillE(g, vx, MAN.y + 106 + dq * 10, 1.8, 2.6, 'rgba(63,169,224,' + (0.8 * (1 - dq)).toFixed(2) + ')'); } }
+    var ang = -2.4 + (z < 3 ? 1.4 + Math.sin(t * 3) * 0.06 : 0); g.strokeStyle = RED; g.lineWidth = 1.6; g.beginPath(); g.moveTo(MAN.x + 118, MAN.y + 72); g.lineTo(MAN.x + 118 + Math.cos(ang) * 10, MAN.y + 72 + Math.sin(ang) * 10); g.stroke();
+  }
+  function bagsLive(g, t) {
+    /* grow bags with moisture stakes on the floor */
+    BAGS.forEach(function (bx, i) { var y = 584; soft(g, bx, y + 3, 40, 5, 0.22); fillRR(g, bx - 30, y - 34, 60, 34, 9, '#2A3142'); fillRR(g, bx - 30, y - 34, 60, 8, 4, '#3A4458'); fillE(g, bx, y - 34, 26, 5, SOIL);
+      for (var lf = 0; lf < 5; lf++) { var a = -Math.PI / 2 + (lf - 2) * 0.42 + Math.sin(t * 1.1 + lf + i) * 0.04; g.save(); g.translate(bx, y - 36); g.rotate(a + Math.PI / 2); fillE(g, 0, -22, 7, 22, lf % 2 ? LEAF : LEAF2); g.restore(); }
+      fillRR(g, bx + 14, y - 64, 3, 32, 1.5, '#E3E8EF'); fillRR(g, bx + 6, y - 76, 20, 14, 3, '#FFFFFF'); fillE(g, bx + 16, y - 69, 2.4, 2.4, (t + i) % 1.8 < 0.25 ? '#FFFFFF' : OK);
+      if ((t + i * 1.6) % 4.6 < 0.9) { var pq = ((t + i * 1.6) % 4.6) / 0.9; g.strokeStyle = 'rgba(20,163,163,' + (0.7 * (1 - pq)).toFixed(2) + ')'; g.lineWidth = 1.6; g.beginPath(); g.arc(bx + 16, y - 76, 6 + pq * 20, -2.5, -0.6); g.stroke(); } });
+  }
+  /* the scouting trolley on the pipe rail: a camera mast and a climate sensor, it stops at each post to take a reading */
+  function trolley(g, t) {
+    var P0 = 26, q = (t % P0) / P0, f = q < 0.5 ? q / 0.5 : 1 - (q - 0.5) / 0.5, st = Math.floor(f * 8), fr = f * 8 - st, ease = fr < 0.6 ? smooth(fr / 0.6) : 1, x = lerp(-630, 96, (st + ease) / 8), y = 510, stop = fr >= 0.6;
+    fillRR(g, x - 30, y - 8, 60, 10, 3, '#5C6B7A'); [-20, 20].forEach(function (wx) { fillE(g, x + wx, y + 4, 6, 6, '#2A3142'); fillE(g, x + wx, y + 16, 6, 6, '#2A3142'); });
+    fillRR(g, x - 24, y - 30, 48, 22, 5, '#FFFFFF'); fillRR(g, x - 24, y - 30, 48, 7, 4, LEAF2); fillRR(g, x - 2, y - 76, 4, 48, 2, '#9AA6BC');
+    fillRR(g, x - 9, y - 90, 18, 14, 4, '#2A3142'); fillE(g, x, y - 83, 4, 4, '#3FA9E0'); fillE(g, x, y - 83, 1.6, 1.6, '#FFFFFF');
+    for (var pl = 0; pl < 3; pl++) fillE(g, x + 16, y - 56 + pl * 5, 7 - pl * 0.4, 2.4, '#F4F7F6'); fillE(g, x - 16, y - 20, 2.4, 2.4, stop ? OK : ((t % 0.5) < 0.25 ? AMB : '#FFE3A6'));
+    if (stop) { var sq = (fr - 0.6) / 0.4; g.strokeStyle = 'rgba(63,169,224,' + (0.7 * (1 - sq)).toFixed(2) + ')'; g.lineWidth = 1.6; g.beginPath(); g.arc(x, y - 90, 8 + sq * 22, -2.6, -0.5); g.stroke(); }
+  }
+  /* a Danish trolley of potted seedlings, parked on the floor, one sensor tag riding along */
+  function danish(g, t) {
+    var x = -330, y = 616; soft(g, x + 70, y + 2, 84, 6, 0.24);
+    [x + 4, x + 132].forEach(function (px) { fillRR(g, px, y - 132, 5, 126, 2, '#9AA6BC'); }); g.strokeStyle = '#9AA6BC'; g.lineWidth = 4; g.beginPath(); g.moveTo(x + 6, y - 132); g.lineTo(x + 134, y - 132); g.stroke();
+    [y - 92, y - 46, y - 8].forEach(function (sy, r) { fillRR(g, x, sy, 142, 7, 2, '#7A869C');
+      for (var p = 0; p < 5; p++) { var px = x + 16 + p * 27, sw = Math.sin(t * 1.2 + p + r) * 0.05; g.fillStyle = '#D9784E'; g.beginPath(); g.moveTo(px - 10, sy - 16); g.lineTo(px + 10, sy - 16); g.lineTo(px + 7, sy); g.lineTo(px - 7, sy); g.closePath(); g.fill();
+        g.save(); g.translate(px, sy - 16); g.rotate(sw); fillE(g, 0, -9, 11, 8, (p + r) % 2 ? LEAF : LEAF2); fillE(g, -4, -13, 6, 5, LEAF3); if ((p + r) % 3 === 0) fillE(g, 4, -14, 3, 3, (p + r) % 2 ? '#FF8FA3' : '#FFD84A'); g.restore(); } });
+    [x + 12, x + 130].forEach(function (wx) { fillE(g, wx, y + 1, 6, 6, '#2A3142'); fillE(g, wx, y + 1, 2.4, 2.4, '#9AA6BC'); });
+    fillRR(g, x + 106, y - 128, 26, 16, 3, '#FFFFFF'); fillRR(g, x + 109, y - 125, 20, 8, 1.5, '#1E2A3A'); text(g, Math.round(48 + Math.sin(t * 0.5) * 2) + '%', x + 119, y - 119, 5.6, 800, '#7FF0CF', 'center'); fillE(g, x + 119, y - 114, 1.4, 1.4, (t % 1.6) < 0.2 ? '#FFFFFF' : OK);
+  }
+  var PUFF = [];
+  var castProp = { id: 'prop', behind: true, keys: [], P: PROP, act: function (P, t, S) {
+    var st = S.cast.prop; tapped('prop', st, t);
+    P.tilt = 0; P.hop = 0; PRS.dome = 0; P.x = -320; P.hold = null;
+    var tk = TAP.prop != null ? t - TAP.prop : 99;
+    if (tk < 3) { var q = tk / 3, up = q < 0.25 ? smooth(q / 0.25) : q < 0.75 ? 1 : 1 - smooth((q - 0.75) / 0.25); PRS.dome = up; P.talk = true; P.mood = q < 0.4 ? 'wow' : 'happy'; P.look = 0;
+      P.hands = [[-34, -300 - up * 120], [34, -300 - up * 120]]; if (q > 0.25 && q < 0.75) { P.hands = [[-34 + Math.sin(t * 14) * 10, -420], [34 + Math.sin(t * 14) * 10, -420]]; P.tilt = Math.sin(t * 7) * 0.05; }
+      if (q > 0.22 && !TAP.propP) { TAP.propP = true; for (var i = 0; i < 6; i++) PUFF.push({ x: PB.x + 110 + i * 9, y: PB.top - 50, t0: t + i * 0.05, p: i }); CR.burst('note', P.x, P.y - 250, t); }
+      if (q > 0.8) P.hop = Math.sin((q - 0.8) / 0.2 * Math.PI) * 10; return; }
+    TAP.propP = false;
+    var cy = (t + 3) % 11; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (cy < 5) { var pk = (cy % 1.25) / 1.25, dip = Math.sin(pk * Math.PI); P.hands = [[-110 + pk * 40, -296 + dip * 18], [60, -300]]; P.tilt = 0.06; lookAtNexi(P, st, t, S, -0.3); return; }
+    if (cy < 8) { P.hands = [[-50, -330], [10, -338 + Math.abs(Math.sin(t * 6)) * 3]]; P.hold = 'tablet'; lookAtNexi(P, st, t, S, 0.1); return; }
+    P.hold = null; P.hands = [[-60, -296], [190, -380 + Math.sin(t * 3) * 6]]; P.tilt = -0.03; lookAtNexi(P, st, t, S, 0.9);
+  } };
+  function zCrates(g) { var cx = 920; soft(g, cx + 50, 748, 66, 6, 0.24); for (var k = 0; k < 2; k++) { fillRR(g, cx + k * 56, 704, 52, 40, 4, k ? '#3FAE6A' : '#2E9A58'); for (var hd = 0; hd < 4; hd++) fillE(g, cx + 8 + k * 56 + hd * 12, 702, 7, 6, k ? '#E9483B' : '#8CD47E'); } }
+  function zBarrow(g) { var wb = -820; soft(g, wb + 50, 744, 80, 6, 0.24); g.fillStyle = '#E3C36A'; g.beginPath(); g.moveTo(wb, 690); g.lineTo(wb + 110, 690); g.lineTo(wb + 90, 730); g.lineTo(wb + 20, 730); g.closePath(); g.fill(); fillE(g, wb + 56, 690, 54, 8, '#6E5238'); fillE(g, wb + 100, 738, 12, 12, '#2A3142'); }
+  function up(f) { return function (g) { g.save(); g.translate(0, -26); f(g); g.restore(); }; }
+  var FORE_Z = [[748, zCrates], [726, function (g) { pot(g, 1120, 726, 30, 0); }], [722, function (g) { pot(g, -585, 722, 26, 0); }], [716, function (g) { pot(g, -646, 716, 18, 1); }], [744, zBarrow]];
+
   function tapped(id, st, t) { if (st.wave && st.wave !== st._my) { st._my = st.wave; TAP[id] = t; return true; } return false; }
   function lookAtNexi(P, st, t, S, base) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : base, 0.08); }
   var castEng = { id: 'eng', behind: true, keys: ['sensors'], P: ENG, act: function (P, t, S) {
@@ -401,7 +502,7 @@
     pan: [-320, 1280],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(FORE_CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE_Z.map(function (z) { return [z[0] - 26, up(z[1])]; }), function () { CO.crew(FORE_CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
     motes: true, moteCol: 'rgba(255,255,240,.6)',
     glow: {
       sensors: function (g) { rr(g, AIR.x - 22, AIR.y - 4, 44, 64, 14); STAKES.forEach(function (sx) { rr(g, sx - 14, TR - 76, 28, 44, 10); }); },
@@ -413,7 +514,7 @@
       mist: function (g) { rr(g, VALVE.x - 16, -30, 32, 34, 12); }
     },
     backGlow: ['sensors', 'gateway', 'dash', 'alert', 'cold'],
-    cast: [castEng, castGrow, castTech, castSup, castPack],
+    cast: [castProp, castEng, castGrow, castTech, castSup, castPack],
     toy: function (name, S, t) { if (name === 'mist') { MISTK.t = t; CR.burst('spark', VALVE.x, -20, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w;
@@ -421,6 +522,9 @@
       if (onBtn) return null;
       if (S.pk && Math.hypot(x - S.pk[0], y - S.pk[1]) < 22) return { say: 'That dot is a **reading** on its way to the gateway, then the dashboard.', near: [clamp(S.pk[0], 200, 880), 40], pose: 'wow', who: 'A sensor reading' };
       if (x > 1110 && x < 1260 && y > 190 && y < 300) return { say: 'Even the van reports in: **location** on the same dashboard.', near: [930, 20], pose: 'present', who: 'The delivery van' };
+      if (x > MAN.x - 40 && x < MAN.x + 160 && y > MAN.y - 30 && y < F) return { say: 'The **irrigation valves** run zone by zone, and the flow meter reports every litre.', near: [-60, 120], pose: 'point-left', who: 'The irrigation manifold' };
+      if (x > -680 && x < 140 && y > 410 && y < 540 && !(x > PB.x && x < PB.r && y < F)) return { say: 'The scouting trolley rides the pipe rail and **takes a reading** at every post.', near: [-120, 300], pose: 'wow', who: 'The scouting trolley' };
+      if (x > PB.x && x < PB.r && y > 60 && y < F) return { say: 'Every seedling tray carries a **sensor tag**: moisture and humidity, logged as it grows.', near: [-120, 120], pose: 'point-left', who: 'The propagation bench' };
       if (y < EAVE - 20 && y > -300) return { say: 'The roof vents open as the air warms, and the **air sensor** sees it first.', near: [clamp(x, 240, 880), -40], pose: 'wow', who: 'The roof vents' };
       return null;
     },
