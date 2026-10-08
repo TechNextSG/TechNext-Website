@@ -36,12 +36,23 @@
         popIO.unobserve(c);
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
-    $$('.nxe-card').forEach(function (c) { popIO.observe(c); });
+    $$('.nxe-card,.nxe-ch').forEach(function (c) { popIO.observe(c); });
   }
 
-  /* ---------------- season tabs ---------------- */
-  var tabs = $$('.nxe-tab'), panels = $$('.nxe-panel');
-  function select(id, focus, push) {
+  /* ---------------- category tabs (Series / Specials / Comics / Characters) + season filters ----------------
+     Deep links: #series #specials #comics #characters, and any id inside a category (#season-2, #cast-season-2…)
+     opens that category and its season. Tabs follow the ARIA tabs pattern (arrows, Home, End). */
+  var tabs = $$('.nxe-cats .nxe-tab'), cats = $$('.nxe-cat');
+  function pickGroup(cat, gid) {
+    var chips = $$('[data-nxe-filter]', cat);
+    if (!chips.length) return;
+    if (!chips.some(function (c) { return c.getAttribute('data-nxe-filter') === gid; })) gid = chips[0].getAttribute('data-nxe-filter');
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', c.getAttribute('data-nxe-filter') === gid ? 'true' : 'false'); });
+    $$('[data-nxe-group]', cat).forEach(function (g) { g.classList.toggle('is-on', g.getAttribute('data-nxe-group') === gid); });
+    portraits(cat);
+    rails();
+  }
+  function select(id, focus, push, group) {
     var found = false;
     tabs.forEach(function (t) {
       var on = t.getAttribute('aria-controls') === id;
@@ -51,8 +62,14 @@
       if (on && focus) t.focus();
     });
     if (!found) return false;
-    panels.forEach(function (p) { p.classList.toggle('is-on', p.id === id); });
-    if (push && history.replaceState) history.replaceState(null, '', '#' + id);
+    cats.forEach(function (p) {
+      var on = p.id === id;
+      p.classList.toggle('is-on', on);
+      if (on && group) pickGroup(p, group);
+      if (on && popIO) $$('.nxe-card:not(.is-in),.nxe-ch:not(.is-in)', p).forEach(function (c) { popIO.unobserve(c); popIO.observe(c); });
+    });
+    if (push && history.replaceState) history.replaceState(null, '', '#' + (group || id));
+    portraits(document.getElementById(id));
     rails();
     return true;
   }
@@ -65,17 +82,42 @@
       select(tabs[j].getAttribute('aria-controls'), true, true);
     });
   });
+  $$('[data-nxe-filter]').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var cat = c.closest('.nxe-cat'), gid = c.getAttribute('data-nxe-filter');
+      pickGroup(cat, gid);
+      if (history.replaceState) history.replaceState(null, '', '#' + gid);
+    });
+  });
   function fromHash() {
     var h = decodeURIComponent((location.hash || '').slice(1));
     if (!h) return;
-    var p = panels.filter(function (x) { return x.id === h; })[0];
-    if (!p) { var el = document.getElementById(h); p = el && el.closest('.nxe-panel'); }
-    if (p) select(p.id, false, false);
+    var el = document.getElementById(h);
+    if (!el) return;
+    var cat = el.classList.contains('nxe-cat') ? el : el.closest('.nxe-cat');
+    if (!cat) return;
+    var g = el.closest('[data-nxe-group]');
+    select(cat.id, false, false, g ? g.getAttribute('data-nxe-group') : null);
   }
+  /* links to a category from inside the page (e.g. the Comics "watch the series" button) */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1), el = id && document.getElementById(id);
+    if (!el || !(el.classList.contains('nxe-cat') || el.closest('.nxe-cat'))) return;
+    e.preventDefault();
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    fromHash();
+    var top = document.querySelector('.nxe-cats');
+    if (top) top.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  });
+  /* the sidekick portraits are drawn by nexi-explains-cast.js once their category is open */
+  function portraits(root) { if (root && window.NXEportraits) window.NXEportraits(root); }
   if (tabs.length) {
     select(tabs[0].getAttribute('aria-controls'), false, false);
     fromHash();
     addEventListener('hashchange', fromHash);
+    addEventListener('nxe:portraits-ready', function () { cats.forEach(function (c) { if (c.classList.contains('is-on')) portraits(c); }); });
   }
 
   /* ---------------- premiere states + the "next premiere" strip ---------------- */
