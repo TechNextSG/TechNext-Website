@@ -6,7 +6,7 @@ META = {
     "tag": "Odoo Training · step 2 of 4",
     "badge": "wk-training",
     "intro_title": "Odoo <b>Training</b>",
-    "intro_sub": "Step 2 of 4 · each team learns its own screens",
+    "intro_sub": "Step 2 of 4 · practise on your own data first",
     "intro_pills": [("users", "Role-based"), ("database", "Your own data"), ("file", "Guides to keep")],
     "m": {},
 }
