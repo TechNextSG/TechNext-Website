@@ -465,3 +465,7 @@
 @media (prefers-reduced-motion:reduce){
   .is-home .hm-live *,.is-home .hm-live *::before,.is-home .hm-live *::after{animation:none!important}
 }
+/* industry badges: the same full-colour icons as the header's Industries menu */
+.is-home .hm-ind-badge{background:none;border:0;width:46px;height:46px;border-radius:13px;box-shadow:0 0 0 3px #fff,0 6px 14px -6px rgba(31,31,61,.45)}
+.is-home .hm-ind-badge .ic{width:46px;height:46px}
+@media (max-width:560px){.is-home .hm-ind-badge,.is-home .hm-ind-badge .ic{width:36px;height:36px}}
