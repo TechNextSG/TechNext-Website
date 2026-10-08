@@ -250,3 +250,6 @@
 .ixw--sol-brand .lpr-chip .card-ic{top:14px;right:16px;width:44px;height:44px;box-shadow:0 0 0 3px rgba(255,255,255,.35),0 6px 12px -4px rgba(0,0,0,.25)}
 .ixw--sol-brand .lpr-chip .card-ic .ic{width:22px;height:22px}
 .ixw--sol-brand .lpr-chip h3{padding-right:0}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--sol-brand .ixw-credits-wrap + .section{padding-top:14px!important}

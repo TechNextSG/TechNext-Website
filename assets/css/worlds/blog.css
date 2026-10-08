@@ -212,3 +212,6 @@
 @media (prefers-reduced-motion:reduce){.ixw--blog .ixw-ibtn--play.is-on{animation:none}}
 /* phones: Nexi sits on top of the end card instead of over the heading */
 @media (max-width:767px){.ixw--blog .ixw-cta-nexi .ixw-pose{top:calc(var(--ay) * -.26px + 2px)}.ixw--blog .bl-cta h2{padding-right:34px}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--blog .ixw-credits-wrap + .section{padding-top:44px!important}

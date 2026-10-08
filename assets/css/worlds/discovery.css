@@ -275,3 +275,6 @@
 /* fix round: the end card stacks on tablets and phones (its two-column grid had no small-screen override, which squeezed the
    text into a one-word column on phones) */
 @media (max-width:1099px){.ixw--discovery main .cta{grid-template-columns:minmax(0,1fr)}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--discovery .ixw-credits-wrap + .section{padding-top:14px!important}

@@ -1921,3 +1921,23 @@ p.app-sub{margin:-2px 0 14px}
 @keyframes thRun{0%,5%{transform:translateX(0);opacity:1}28%,32%{transform:translateX(33.33%)}53%,57%{transform:translateX(66.66%)}78%,92%{transform:translateX(100%);opacity:1}100%{transform:translateX(100%);opacity:0}}
 @media (max-width:640px){.th-focus{display:none}}
 @media (prefers-reduced-motion:reduce){.th-focus,.th-dot{display:none}}
+
+/* ================================================================ R9 mobile audit (agent E): tap targets >= 40px, no text under 11px */
+@media (max-width:767px){
+  main .btn-link{min-height:40px}
+  .post-cat{height:40px;padding-right:14px}
+  .post-toc a{padding-top:10px;padding-bottom:10px}
+  [data-demo] .dm-btn,[data-demo] .dm-seg button,.demo-sec .dm-btn,.demo-sec .dm-seg button{min-height:40px;height:auto}
+  .answer-h{font-size:11px}
+  .dm-kpis dt,.dm-ok dt{font-size:11px}
+  .lf-h,.lf-bh,.lf-states small{font-size:11px}
+  main .tag{min-height:40px}
+  .lf-h,.lf-bh,.lf-states small,.lf-hand,.dm-kpis dt,.dm-ok dt{font-size:11px!important}
+  .snk-tab th,.snk-tab td,.sla-tbl th,.scv-tbl th,.scv-tbl td,.dch-tb th,.dch-tb td,.cns-tbl th,.bkt-sws,.wsd-th,.wsd-slot,.wsd-docs,.wsd-dh,.umx-tick,.umx-q,.umx-lab,.sbd-tag,.dra-l,.dtk-mean,.tpk-station-k{font-size:11px!important}
+  .ow-rail a,.twr-tags a,.orc-apps a,.hm-wt-links a,.hm-st-sign,.cur-chips button,.cur-tabs button,.cur-rl,.rtv-qs button,.fap-rail button,.drm-pc~button,[data-go],
+  .srn-sw,.asis-ws,.lyr-sug,.obx-leaf,.nsm-n,.sbd-pg,.sbd-sw{min-height:40px!important}
+  /* demo mock-ups: small print scales with its line but never drops under 11px */
+  [data-demo] small,[data-demo] caption,[data-demo] th,[data-demo] td,[data-demo] dt,.lf-hand small{font-size:max(11px,.85em)!important}
+  .answer-h,.cur-rolesh,.asis-sh,.cns-nt,.cns-nv,.cns-sw,.cns-fl,.cns-en,.dch-doc b,.dch-lh,.drm-h,.hm-wt-tag,.rtv-h,.rtv-flag,.rtv-src span,.rtv-behind,.lbr-book-no,.lbr-xref-k,.fap-job,.tpk-kiosk-n,
+  .sbd-copy,.sbd-gl,.sbd-team b,.sbd-team em,.sbd-box p,.sbd-src b,.obx-h b,.obx-int,.obx-st,.obx-br,.obx-br em,.is-bot,.lyr-gate,.lyr-sh,.nsm-n b{font-size:11px!important}
+}

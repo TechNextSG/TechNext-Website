@@ -250,3 +250,6 @@
 @media (max-width:767px){.ixw--careers .ixw-copy .actions{max-width:none}.ixw--careers .ixw-copy .actions .btn-lg{height:50px}}
 /* the role filter wraps on phones (no clipped chip at the edge) */
 @media (max-width:767px){.ixw--careers .cr-roles .filter-bar{flex-wrap:wrap;overflow:visible;margin:0 0 22px;padding:2px 0 6px}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--careers .ixw-credits-wrap + .section{padding-top:38px!important}

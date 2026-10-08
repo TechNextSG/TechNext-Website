@@ -251,3 +251,6 @@
 .ixw--sol-social .bky-chans::after{content:"";position:absolute;left:-8px;right:-8px;bottom:-6px;height:14px;border-radius:4px;background:linear-gradient(180deg,#C98E5A,#A8724A);box-shadow:0 6px 12px -6px rgba(85,51,31,.5)}
 .ixw--sol-social .bky-chans::before{content:"ON THE COUNTER · YOUR ACCOUNTS";position:absolute;left:50%;top:-11px;translate:-50% 0;padding:5px 12px;border-radius:999px;background:var(--bk-cocoa-d);color:#FFFFFF;font:800 9.5px/1 var(--font-body);letter-spacing:.12em;white-space:nowrap}
 @media (max-width:640px){.ixw--sol-social .bky-chans{padding:22px 10px 26px;gap:8px}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--sol-social .ixw-credits-wrap + .section{padding-top:14px!important}
