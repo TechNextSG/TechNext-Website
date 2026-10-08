@@ -1,9 +1,8 @@
 /* Homepage sections below the hero (styles: assets/css/home.css).
    - every .hm-live section gets .hm-on while it is on screen; CSS pauses every loop inside a section without it
-   - who we are: counters count up once, office clocks tick (local time per office)
-   - how we work: the rollout pipeline runs stage by stage; hovering or focusing a stage pins the run there
-   - full suite: the app wall lights one random tile at a time
-   - FAQ: the command palette filters the questions as you type; arrow keys move between them, "/" jumps to search
+   - who we are: the plaque counters count up once; the office postcards ({{CO_CITIES}}) show each office's local time
+   - how we work: the four step worlds light up in turn (with their step tabs); hovering or focusing one holds it
+   - FAQ: the search filters the questions as you type; arrow keys move between them, "/" jumps to search
    Nothing loops with prefers-reduced-motion. */
 (function () {
   'use strict';
@@ -28,12 +27,12 @@
       requestAnimationFrame(step);
     });
   }
-  var clocks = Array.prototype.slice.call(document.querySelectorAll('[data-utc]')), clockTimer = 0;
+  var clocks = Array.prototype.slice.call(document.querySelectorAll('.hm-live [data-cp-clock]')), clockTimer = 0;
   function tick() {
-    var now = new Date(), utc = now.getTime() + now.getTimezoneOffset() * 60000;
     clocks.forEach(function (c) {
-      var d = new Date(utc + (+c.getAttribute('data-utc')) * 3600000);
-      c.textContent = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ' local';
+      var d = new Date(Date.now() + (+c.getAttribute('data-cp-clock') || 8) * 3600000), h = d.getUTCHours(), m = d.getUTCMinutes();
+      var t = ((h % 12) || 12) + ':' + ('0' + m).slice(-2) + (h < 12 ? ' am' : ' pm'), sp = c.querySelector('span') || c;
+      if (sp.textContent !== t) sp.textContent = t;
     });
   }
   if (clocks.length) {
@@ -46,26 +45,17 @@
     });
   }
 
-  /* ---------------------------------------------------------------- rollout pipeline (how we work) */
+  /* ---------------------------------------------------------------- the road, stop by stop (how we work) */
   var run = document.querySelector('[data-hm-run]');
   if (run) {
     var stages = Array.prototype.slice.call(run.querySelectorAll('.hm-stage'));
-    var fill = run.querySelector('[data-hm-run-fill]'), label = run.querySelector('[data-hm-run-label]'), log = run.querySelector('[data-hm-run-log]');
-    var LOG = ['stage 1 · discovery · mapping how orders, stock and money move',
-      'stage 2 · training · finance, sales and warehouse teams on their own data',
-      'stage 3 · integration · banks, gateways and marketplaces connected to Odoo',
-      'stage 4 · support · fixes, month-end help and upgrades after go-live',
-      'pipeline passed · one team from the first workshop to the help after go-live'];
+    var fill = run.querySelector('[data-hm-run-fill]'), tabs = Array.prototype.slice.call(run.querySelectorAll('.hm-steptabs li'));
     var at = 0, runTimer = 0, pinned = -1, runOn = false;
     var show = function (n) {
       stages.forEach(function (s, i) { s.classList.toggle('is-done', i < n); s.classList.toggle('is-run', i === n); });
+      tabs.forEach(function (s, i) { s.classList.toggle('is-run', i === n); });
       run.classList.toggle('is-passed', n >= stages.length);
       if (fill) fill.parentNode.style.setProperty('--p', Math.min(1, n / (stages.length - 1)));
-      if (label) label.textContent = n >= stages.length ? 'Passed' : 'Running';
-      if (log && log.textContent !== LOG[Math.min(n, 4)]) {
-        log.classList.add('is-swap');
-        setTimeout(function () { log.textContent = LOG[Math.min(n, 4)]; log.classList.remove('is-swap'); }, 200);
-      }
     };
     var loop = function () {
       clearTimeout(runTimer);
@@ -89,26 +79,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------- the app wall (full suite) */
-  var wall = document.querySelector('[data-hm-wall]'), wallTimer = 0, lastTile = null;
-  function lightTile() {
-    if (!wall || document.hidden) return;
-    var tiles = wall.querySelectorAll('.hm-tile'), w = window.innerWidth;
-    for (var n = 0; n < 6; n++) {
-      var t = tiles[(Math.random() * tiles.length) | 0], r = t.getBoundingClientRect();
-      if (r.left > w * 0.1 && r.right < w * 0.9) {
-        if (lastTile) lastTile.classList.remove('is-lit');
-        t.classList.add('is-lit'); lastTile = t; break;
-      }
-    }
-  }
-  if (wall) hooks.push(function (sec, on) {
-    if (!sec.contains(wall)) return;
-    clearInterval(wallTimer);
-    if (on && !reduce) wallTimer = setInterval(lightTile, 900);
-  });
-
-  /* ---------------------------------------------------------------- command palette (FAQ) */
+  /* ---------------------------------------------------------------- help desk search (FAQ) */
   var pal = document.querySelector('[data-hm-pal]');
   if (pal) {
     var q = pal.querySelector('[data-hm-pal-q]'), items = Array.prototype.slice.call(pal.querySelectorAll('details'));
