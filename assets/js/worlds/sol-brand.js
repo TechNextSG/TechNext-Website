@@ -59,7 +59,7 @@
   var CLT = W({ x: 846, y: 470, s: 0.47, ph: 0.9, skin: 4, hair: 1, style: 'pony', outfit: 'shirt', top: '#6E5BA8', id: '#9AA6BC', clip: MUST, sit: true, chair: false, hands: [[-40, -230], [40, -230]], look: -0.3 });
   CLT.sitDrop = 12;
   var CREW = [
-    { x0: -920, x1: 110, y: 496, spd: 15, ph: 0.35, label: 'TechNext production assistant', lines: ['A fresh ream for the press: **letterheads** today.', 'Every new asset matches the last: that is what the **guideline** is for.'], acts: ['id', 'wave', 'nod'],
+    { x0: -920, x1: -480, y: 496, spd: 15, ph: 0.35, label: 'TechNext production assistant', lines: ['A fresh ream for the press: **letterheads** today.', 'Every new asset matches the last: that is what the **guideline** is for.'], acts: ['id', 'wave', 'nod'],
       P: W({ s: 0.5, skin: 1, hair: 1, style: 'bun', outfit: 'cardigan', top: '#5FA8D3', top2: '#FFFFFF', hold: 'box' }) },
     { x0: 1010, x1: 1360, y: 496, spd: 14, ph: 0.6, label: 'TechNext designer', lines: ['Campaign graphics on demand, built **in the same system**.', 'Banners, ads and event material: all **on-brand**.'], acts: ['wave', 'id', 'cheer'],
       P: W({ s: 0.5, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: MAG, hold: 'clipboard' }) },
@@ -67,6 +67,21 @@
       P: W({ s: 0.58, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: '#714B67', top2: '#FFFFFF', clip: MUST, hold: 'tablet' }) }
   ];
   CREW[0].P.fixS = true; CREW[1].P.fixS = true;
+  /* walkers keep clear of the floating side tabs (right) and the title card (left) */
+  var MG = { ext: null, cardL: -9999, tabR: 9999 };
+  function fitCrew(S) {
+    if (MG.ext !== S.ext) { MG.ext = S.ext; MG.cardL = -9999; MG.tabR = 9999;
+      var c = document.querySelector('.ixw-copy'), st = document.querySelector('[data-ixw-set]');
+      if (c && st && window.innerWidth >= 768) { var cr = c.getBoundingClientRect(), sr = st.getBoundingClientRect(), k = sr.width / 1000; MG.cardL = (cr.left - sr.left) / k; MG.tabR = (window.innerWidth - 84 - sr.left) / k; } }
+    CREW.forEach(function (w) { if (w.xMin == null) { w.xMin = w.x0; w.xMax = w.x1; }
+      if (MG.cardL === -9999) { w.x0 = w.xMin; w.x1 = w.xMax; }
+      else if (w.xMin >= 900) { w.x0 = w.xMin; w.x1 = Math.min(w.xMax, MG.tabR - 50); }
+      else if (w.xMax <= 200) { w.x0 = Math.max(w.xMin, S.ext.l + 90); w.x1 = Math.min(w.xMax, MG.cardL - 70); } });
+  }
+  /* the finishing table (left, behind the title card): the TechNext finisher trims and stacks business cards */
+  var FIN = W({ x: -150, y: 486, s: 0.47, ph: 1.9, skin: 0, hair: 0, style: 'short', outfit: 'polo', top: '#E9B949', top2: '#FFFFFF', glasses: true, hands: [[-50, -230], [50, -230]], look: 0.2 });
+  FIN.apron = '#3E4A59';
+  var FT = { x: -244, y: 420, w: 190 };
 
   /* ---------------- the static layers ---------------- */
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
@@ -130,6 +145,12 @@
       /* ink tins on a shelf */
       fillRR(g, -230, 140, 220, 8, 2, KRAFT_D); [CYAN, MAG, YEL, INK, RED, TEAL, MUST].forEach(function (c, i) { fillRR(g, -222 + i * 30, 112, 24, 28, 3, '#D5DAE0'); fillRR(g, -222 + i * 30, 120, 24, 12, 1, c); fillRR(g, -224 + i * 30, 108, 28, 6, 2, '#AEB6C2'); });
       text(g, 'INKS', -120, 102, 8, 800, INK, 'center');
+      /* the proof wall: press proofs with crop marks and colour bars, clipped to a wire */
+      g.strokeStyle = 'rgba(60,60,70,.55)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-236, 186); g.quadraticCurveTo(-130, 194, -22, 186); g.stroke();
+      [[-226, 'brochure', 0.03], [-176, 'poster', -0.04], [-124, 'onepager', 0.02], [-72, 'cards', -0.03]].forEach(function (p2, i) { g.save(); g.translate(p2[0] + 22, 190); g.rotate(p2[2]);
+        shadowed(g, 6, 2, 0.16, function () { fillRR(g, -22, 0, 44, 62, 1, '#FFFFFF'); }); g.save(); g.translate(0, 2); g.scale(0.78, 0.78); print(g, p2[1], 0, 2, 1, 40 + i, 0); g.restore();
+        [CYAN, MAG, YEL, INK].forEach(function (c, k) { g.fillStyle = c; g.fillRect(-18 + k * 9, 54, 8, 4); }); regMark(g, 16, 8, 2.4, 'rgba(30,30,40,.5)'); fillRR(g, -4, -4, 8, 8, 2, '#9AA6BC'); g.restore(); });
+      text(g, 'PROOFS · CHECK BEFORE PRINT', -130, 176, 6.8, 800, '#7A869C', 'center');
     }
     if (ext.l < 110) { /* a tall plant and a paper roll by the pinboard */
       fillRR(g, 40, 300, 60, F - 300, 6, '#EDE6DA'); fillE(g, 70, 300, 30, 9, '#D9CFBE'); g.fillStyle = '#C9BCA6'; g.fillRect(66, 300, 8, F - 300);
@@ -195,7 +216,16 @@
       if (ext.r > 1280) { fillRR(g, 1290, 180, 120, 160, 6, '#FFFFFF'); fillRR(g, 1298, 188, 104, 144, 2, '#E2F1FA'); text(g, 'STUDIO', 1350, 172, 9, 800, INK, 'center'); }
     }
   }
+  function finTable(g) {
+    var f = FT; soft(g, f.x + f.w / 2, 524, f.w * 0.6, 7, 0.25); fillRR(g, f.x, f.y + 12, f.w, 520 - f.y - 12, 6, '#5C6B7A'); g.fillStyle = 'rgba(0,0,0,.12)'; g.fillRect(f.x + f.w - 14, f.y + 12, 14, 520 - f.y - 12);
+    for (var dd = 0; dd < 3; dd++) { fillRR(g, f.x + 12 + dd * 58, f.y + 30, 50, 22, 3, '#6E7D8F'); fillRR(g, f.x + 29 + dd * 58, f.y + 38, 16, 4, 2, '#C9D3DE'); fillRR(g, f.x + 12 + dd * 58, f.y + 58, 50, 22, 3, '#6E7D8F'); fillRR(g, f.x + 29 + dd * 58, f.y + 66, 16, 4, 2, '#C9D3DE'); }
+    fillRR(g, f.x - 8, f.y, f.w + 16, 14, 4, '#2F7A5F'); g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 0.8; g.beginPath(); for (var gx = f.x; gx < f.x + f.w; gx += 12) { g.moveTo(gx, f.y + 1); g.lineTo(gx + 2, f.y + 13); } g.stroke();
+    /* the rotary trimmer's rail on the table top, a ruler, a stack of cut sheets */
+    fillRR(g, f.x + 4, f.y - 4, 96, 5, 2, '#AEB6C2'); fillRR(g, f.x + 120, f.y - 10, 50, 8, 1, '#FFFFFF'); fillRR(g, f.x + 120, f.y - 14, 50, 4, 1, '#FFE9A8'); fillRR(g, f.x + 112, f.y + 2, 60, 3, 1, MUST);
+    text(g, 'FINISHING', f.x + f.w / 2, f.y + 100, 8, 800, '#FFFFFF', 'center');
+  }
   function paintFront(g, ext) {
+    finTable(g);
     /* the designer's stool */
     var sx = DSG.x; fillRR(g, sx - 28, 414, 56, 9, 4, '#3E4A59'); g.strokeStyle = '#5C6B7A'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(sx, 422); g.lineTo(sx, 452); g.moveTo(sx - 26, F - 2); g.lineTo(sx, 452); g.lineTo(sx + 26, F - 2); g.stroke();
     /* the lectern top and the logo stamp's side table */
@@ -213,21 +243,27 @@
   }
   function paintFore(g, ext) {
     /* the near floor: a pallet of reams, a crate of wood type, a bin of rolled posters, the files box */
+    /* a printed colour-bar runner on the floor (behind the title card; seen in View the scene) */
+    [CYAN, MAG, YEL, INK, RED, TEAL, MUST, BLUE, '#FFFFFF', CYAN, MAG, YEL].forEach(function (c, i) { var x0 = -440 + i * 46; g.fillStyle = c; g.globalAlpha = 0.8; g.beginPath(); g.moveTo(x0, 596); g.lineTo(x0 + 44, 596); g.lineTo(x0 + 46, 612); g.lineTo(x0 + 2, 612); g.closePath(); g.fill(); g.globalAlpha = 1; });
+    g.strokeStyle = 'rgba(30,30,40,.35)'; g.lineWidth = 1; g.strokeRect(-440, 596, 552, 16); regMark(g, -456, 604, 5, 'rgba(30,30,40,.5)'); regMark(g, 128, 604, 5, 'rgba(30,30,40,.5)');
+    g.save(); g.translate(0, -30);
     var pl = 140; soft(g, pl + 70, 742, 90, 7, 0.25); fillRR(g, pl, 726, 140, 14, 2, '#C9A57A'); g.fillStyle = '#A8845A'; g.fillRect(pl + 10, 740, 20, 6); g.fillRect(pl + 60, 740, 20, 6); g.fillRect(pl + 110, 740, 20, 6);
     for (var r = 0; r < 4; r++) for (var c = 0; c < 3; c++) fillRR(g, pl + 6 + c * 44, 712 - r * 14, 42, 13, 1, ['#FFFFFF', '#FFE9A8', '#CDE8F6', '#FAD3CC'][(r + c) % 4]);
     text(g, 'PAPER · 120 gsm', pl + 70, 738, 6.6, 800, '#6A4A2A', 'center');
     var wt = 470; soft(g, wt + 50, 744, 64, 6, 0.25); fillRR(g, wt, 700, 100, 44, 5, '#B07A4A'); fillRR(g, wt, 700, 100, 8, 4, '#8A5A34');
     ['A', 'a', 'B', 'R', '&'].forEach(function (l, i) { fillRR(g, wt + 6 + i * 19, 682 - (i % 2) * 6, 17, 22, 2, '#D9B98C'); text(g, l, wt + 14.5 + i * 19, 698 - (i % 2) * 6, 14, 800, INK, 'center'); });
     var bn = 940; soft(g, bn + 26, 744, 34, 5, 0.25); fillRR(g, bn, 690, 52, 54, 6, TEAL); [[8, '#FFFFFF'], [18, MUST], [28, RED], [38, CYAN]].forEach(function (p) { fillRR(g, bn + p[0] - 4, 650 - (p[0] % 3) * 6, 8, 48, 4, p[1]); fillE(g, bn + p[0], 650 - (p[0] % 3) * 6, 4, 2.4, 'rgba(0,0,0,.12)'); });
+    g.restore(); g.save(); g.translate(0, -32);
     if (ext.l < -500) {
-      /* a hand truck with boxes of finished collateral, and a bike with a poster tube */
-      var ht = -560; soft(g, ht + 20, 746, 50, 5, 0.25); g.strokeStyle = '#3E4A59'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(ht, 600); g.lineTo(ht, 736); g.lineTo(ht + 50, 736); g.stroke(); fillE(g, ht + 4, 740, 9, 9, '#2A3142');
+      /* a hand truck with boxes of finished collateral, and a bike with a poster tube (kept left of the title card) */
+      var ht = -640; soft(g, ht + 20, 746, 50, 5, 0.25); g.strokeStyle = '#3E4A59'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(ht, 600); g.lineTo(ht, 736); g.lineTo(ht + 50, 736); g.stroke(); fillE(g, ht + 4, 740, 9, 9, '#2A3142');
       [[0, KRAFT, 'BROCHURES'], [1, '#C9A57A', 'ONE-PAGERS'], [2, KRAFT, 'CARDS']].forEach(function (b) { fillRR(g, ht + 4, 700 - b[0] * 34, 56, 32, 3, b[1]); fillRR(g, ht + 4, 700 - b[0] * 34, 56, 6, 2, KRAFT_D); text(g, b[2], ht + 32, 722 - b[0] * 34, 6, 800, '#5A3A1A', 'center'); });
-      var bk = -640; g.save(); g.translate(bk, 742); soft(g, 0, 2, 70, 6, 0.25); g.strokeStyle = '#2A3142'; g.lineWidth = 4; [-40, 40].forEach(function (wx) { g.beginPath(); g.arc(wx, -26, 25, 0, 7); g.stroke(); });
+      var bk = -750; g.save(); g.translate(bk, 742); soft(g, 0, 2, 70, 6, 0.25); g.strokeStyle = '#2A3142'; g.lineWidth = 4; [-40, 40].forEach(function (wx) { g.beginPath(); g.arc(wx, -26, 25, 0, 7); g.stroke(); });
       g.strokeStyle = TEAL; g.lineWidth = 5; g.beginPath(); g.moveTo(-40, -26); g.lineTo(-6, -26); g.lineTo(18, -58); g.lineTo(-20, -58); g.lineTo(-40, -26); g.moveTo(-6, -26); g.lineTo(-18, -64); g.moveTo(18, -58); g.lineTo(40, -26); g.moveTo(18, -58); g.lineTo(22, -74); g.stroke();
       fillRR(g, -28, -70, 20, 6, 3, '#2A3142'); g.save(); g.rotate(-0.5); fillRR(g, -10, -110, 12, 70, 6, RED); fillE(g, -4, -110, 6, 3, '#9A2A18'); g.restore(); g.restore();
-      soft(g, -780, 744, 70, 6, 0.25); fillRR(g, -840, 700, 120, 44, 6, KRAFT); fillRR(g, -840, 700, 120, 8, 4, KRAFT_D); text(g, 'FONTS & LICENCES', -780, 730, 7.4, 800, '#5A3A1A', 'center'); }
+      soft(g, -880, 744, 70, 6, 0.25); fillRR(g, -940, 700, 120, 44, 6, KRAFT); fillRR(g, -940, 700, 120, 8, 4, KRAFT_D); text(g, 'FONTS & LICENCES', -880, 730, 7.4, 800, '#5A3A1A', 'center'); }
     if (ext.r > 1150) { soft(g, 1230, 744, 60, 6, 0.25); fillRR(g, 1180, 690, 100, 54, 8, '#E9E4DA'); text(g, 'OFFCUTS', 1230, 722, 8, 800, '#7A869C', 'center'); }
+    g.restore();
   }
 
   /* ---------------- live ---------------- */
@@ -301,7 +337,7 @@
     var kx = CH.x + 90, ky = CH.y - 30, kg = (t % 4) < 0.5; g.save(); g.translate(kx, ky); g.rotate(-0.5 + Math.sin(t * 1.2) * 0.05); g.strokeStyle = '#C9A44A'; g.lineWidth = 4; g.beginPath(); g.arc(0, -14, 9, 0, 7); g.stroke(); fillRR(g, -2, -6, 4, 30, 2, '#C9A44A'); fillRR(g, 2, 14, 8, 4, 1, '#C9A44A'); fillRR(g, 2, 20, 6, 4, 1, '#C9A44A');
     if (kg || hoff) { g.fillStyle = 'rgba(255,255,255,.9)'; g.beginPath(); for (var kk = 0; kk < 8; kk++) { var a = kk * Math.PI / 4, rd = kk % 2 ? 2 : 6; g.lineTo(-6 + Math.cos(a) * rd, -18 + Math.sin(a) * rd); } g.closePath(); g.fill(); } g.restore();
     g.strokeStyle = RED; g.lineWidth = 3; g.beginPath(); g.moveTo(kx - 4, ky - 22); g.quadraticCurveTo(kx - 20, ky - 30, kx - 26, ky - 14); g.stroke();
-    CO.crew(CREW, g, t, S, false);
+    fitCrew(S); CO.crew(CREW, g, t, S, false);
   }
   function paintFrontLive(g, t, S) {
     /* the logo stamp on its side table: idle, or thumping when tapped */
@@ -310,6 +346,14 @@
     if (su > 0.42 && su < 2.2) { g.save(); g.globalAlpha = clamp(2.2 - su, 0, 1); var ring = (su - 0.42) * 60; g.strokeStyle = 'rgba(232,69,44,.6)'; g.lineWidth = 2; g.beginPath(); g.ellipse(st.x, st.y - 4, 14 + ring, 4 + ring * 0.25, 0, 0, 7); g.stroke(); mark(g, st.x, st.y - 40 - (su - 0.42) * 20, 12, '#3167CA'); g.restore(); }
     props(g, t, S);
     CO.crew(CREW, g, t, S, true);
+    /* the finishing table: the trimmer's blade, the card stack, the juggled ink tins */
+    var tb = FT.x + 8 + (FIN.trim || 0) * 84; fillRR(g, tb - 6, FT.y - 12, 14, 10, 3, RED); fillE(g, tb + 1, FT.y - 3, 5, 5, '#C9D3DE');
+    var fa = handAt(FIN, 0), fb = handAt(FIN, 1);
+    if (FIN.stack) { var sx3 = (fa[0] + fb[0]) / 2, sy3 = Math.min(fa[1], fb[1]) - 4; for (var cs = 0; cs < 5; cs++) fillRR(g, sx3 - 14, sy3 - cs * 2.2, 28, 16, 1.5, cs % 2 ? '#FFFFFF' : '#F4F0E8'); fillRR(g, sx3 - 14, sy3 - 9, 28, 4, 1.5, BLUE); mark(g, sx3 + 8, sy3 - 1, 3.4, BLUE); }
+    if (FIN.juggle != null) { [CYAN, MAG, YEL].forEach(function (c, i) { var a = FIN.juggle * 7 + i * 2.09, jx = FIN.x + Math.cos(a) * 34, jy = FIN.y - 300 + Math.sin(a) * 26 - Math.abs(Math.sin(a)) * 30;
+      fillRR(g, jx - 9, jy - 10, 18, 20, 3, '#D5DAE0'); fillRR(g, jx - 9, jy - 4, 18, 8, 1, c); fillRR(g, jx - 10, jy - 13, 20, 5, 2, '#AEB6C2'); }); }
+    if (FIN.loupe) { g.save(); g.translate(fb[0], fb[1] - 8); g.strokeStyle = SLATE; g.lineWidth = 2; g.beginPath(); g.moveTo(0, 0); g.lineTo(-6, 10); g.stroke(); g.fillStyle = 'rgba(205,232,246,.85)'; g.beginPath(); g.arc(0, -4, 7, 0, 7); g.fill(); g.strokeStyle = MUST; g.lineWidth = 2; g.stroke();
+      [CYAN, MAG, YEL].forEach(function (c, k) { fillE(g, -3 + k * 3, -4, 1.4, 1.4, c); }); g.restore(); }
     /* flying business cards and the swatch fan */
     CARDS = CARDS.filter(function (c) { return t - c.t0 < 1.6; }); CARDS.forEach(function (c) { var u = t - c.t0; if (u < 0) return; g.save(); g.translate(c.x + c.vx * u, c.y + c.vy * u + 150 * u * u); g.rotate(u * c.r); g.globalAlpha = clamp(1.6 - u, 0, 1); fillRR(g, -9, -5.5, 18, 11, 1, '#FFFFFF'); g.strokeStyle = 'rgba(0,0,0,.12)'; g.lineWidth = 0.6; rr(g, -9, -5.5, 18, 11, 1); g.stroke(); mark(g, -4, 0, 3, c.c); g.restore(); });
     if (TAP.gkp && t - TAP.gkp < 2.6) { var u2 = clamp((t - TAP.gkp - 0.3) / 0.8, 0, 1), hp = handAt(GKP, 1), cols = [BLUE, '#1F1F3D', '#D69A00', RED, TEAL, MAG, CYAN];
@@ -341,6 +385,15 @@
   /* ---------------- the cast: an idle loop and a tap choreography each ---------------- */
   function tapped(id, st, t) { if (st.wave && st.wave !== st._my) { st._my = st.wave; TAP[id] = t; return true; } return false; }
   function lookAtNexi(P, st, t, S, base) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : base, 0.08); }
+  var castFIN = { id: 'fin', behind: true, keys: ['collateral'], P: FIN, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.stack = false; P.juggle = null; P.loupe = false; P.trim = 0.1;
+    if (TAP.fin && t - TAP.fin < 3) { var u = (t - TAP.fin) / 3; P.talk = true; P.mood = 'happy'; P.juggle = u * 3; var j = Math.sin(t * 14); P.hands = [[-50 + j * 14, -330 - Math.max(0, j) * 30], [50 - j * 14, -330 - Math.max(0, -j) * 30]]; P.look = 0; P.hop = Math.abs(Math.sin(u * Math.PI * 3)) * 4; return; }
+    var c = (t + 3) % 13, busy = S.hot === 'collateral'; P.talk = busy; P.mood = busy ? 'happy' : 'calm';
+    if (c < 4.5) { var sw = (Math.sin(t * 2.4) + 1) / 2; P.trim = sw; P.hands = [[-40, -232], [-170 + sw * 180, -238]]; P.look = lerp(P.look, -0.4 + sw * 0.6, 0.1); }
+    else if (c < 7.5) { P.stack = true; var tap2 = Math.abs(Math.sin(t * 7)); P.hands = [[-30, -250 + tap2 * 10], [30, -250 + tap2 * 10]]; P.look = lerp(P.look, 0, 0.1); }
+    else if (c < 10.5) { P.loupe = true; P.hands = [[-50, -232], [30, -300]]; P.look = lerp(P.look, 0.2, 0.1); P.tilt = 0.05; }
+    else { P.stack = true; P.hands = [[-30, -300], [30, -300]]; P.look = lerp(P.look, 0.7, 0.08); P.mood = 'happy'; }
+  } };
   var castDSG = { id: 'dsg', behind: true, keys: ['logo'], P: DSG, act: function (P, t, S) {
     var st = S.cast.dsg; if (tapped('dsg', st, t)) CR.burst('spark', P.x, P.y - 300, t);
     P.tilt = 0; P.hop = 0; P.sx = 1;
@@ -410,10 +463,11 @@
       stamp: function (g) { rr(g, STAMP.x - 22, STAMP.y - 48, 44, 56, 14); }
     },
     backGlow: ['logo', 'guide', 'templates', 'decks', 'collateral', 'handover'],
-    cast: [castDSG, castGKP, castOPR, castPRS, castCLT],
+    cast: [castFIN, castDSG, castGKP, castOPR, castPRS, castCLT],
     toy: function (name, S, t) { if (name === 'stamp') { STAMPT = t; CR.burst('star', STAMP.x, STAMP.y - 40, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
+      if (Math.abs(x - FIN.x) < 50 && y > 250 && y < FT.y + 30) { TAP.fin = t; CR.burst('star', FIN.x, 250, t); return { say: 'Cyan, magenta, yellow: the finishing table checks every colour against the **guideline** before anything is trimmed.', near: [80, 20], pose: 'wow', who: 'TechNext finisher' }; }
       if (Math.abs(x - 990) < 30 && y > WB1 - 34 && y < WB1 + 4) { CATT = t; return { say: 'The studio cat approves of the **paper stock**. Mostly for sleeping on.', near: [620, -60], pose: 'love', who: 'The studio cat' }; }
       if (y > -160 && y < 0) { var L = Math.round(x / 46); CR.burst('spark', x, y, t); return { say: ['A **brochure**, drying: laid out for print and PDF.', 'A **one-pager**: a service sheet in your brand.', 'A **campaign poster**, built in the same system.', 'A sheet of **business cards**, fresh off the press.', 'A **social post**, from the template set.'][((L % 5) + 5) % 5], near: [620, -60], pose: 'wow', who: 'On the drying line' }; }
       return null;

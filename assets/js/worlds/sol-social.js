@@ -70,12 +70,27 @@
       P: W({ s: 0.5, skin: 2, hair: 2, style: 'long', outfit: 'cardigan', top: '#FF9DB4', top2: '#FFFFFF', hold: 'bags', id: '#9AA6BC' }) },
     { x0: 960, x1: 1350, y: 524, spd: 17, ph: 0.62, label: 'A follower', lines: ['Commented on the **LinkedIn** one. Somebody replied the same day.', 'I sent a message about a quote. They **passed it to sales**.'], acts: ['nod', 'think', 'wave'],
       P: W({ s: 0.51, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#F2B233', glasses: true, id: '#9AA6BC' }) },
-    { x0: -920, x1: 110, y: 496, spd: 15, ph: 0.4, label: 'TechNext copywriter', lines: ['Copy written **for each channel**: a LinkedIn caption is not an Instagram one.', 'Fresh topics in the sack: **ideas** for next month.'], acts: ['id', 'wave', 'nod'],
+    { x0: -920, x1: -470, y: 496, spd: 15, ph: 0.4, label: 'TechNext copywriter', lines: ['Copy written **for each channel**: a LinkedIn caption is not an Instagram one.', 'Fresh topics in the sack: **ideas** for next month.'], acts: ['id', 'wave', 'nod'],
       P: W({ s: 0.5, skin: 1, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E0A93A', top2: '#FFFFFF', hold: 'box' }) },
     { front: true, x0: 1040, x1: 1380, y: 690, spd: 16, ph: 0.3, label: 'TechNext strategist', lines: ['Who we are talking to, on which channels, and the **handful of things** each month should do.', 'We recommend the mix. **You decide.**'], acts: ['id', 'nod', 'wave'],
       P: W({ s: 0.58, skin: 0, hair: 0, style: 'short', outfit: 'polo', top: '#714B67', top2: '#FFFFFF', hold: 'clipboard' }) }
   ];
   CREW[0].P.fixS = true; CREW[1].P.fixS = true; CREW[2].P.fixS = true;
+  /* walkers keep clear of the floating side tabs (right) and the title card (left) */
+  var MG = { ext: null, cardL: -9999, tabR: 9999 };
+  function fitCrew(S) {
+    if (MG.ext !== S.ext) { MG.ext = S.ext; MG.cardL = -9999; MG.tabR = 9999;
+      var c = document.querySelector('.ixw-copy'), st = document.querySelector('[data-ixw-set]');
+      if (c && st && window.innerWidth >= 768) { var cr = c.getBoundingClientRect(), sr = st.getBoundingClientRect(), k = sr.width / 1000; MG.cardL = (cr.left - sr.left) / k; MG.tabR = (window.innerWidth - 84 - sr.left) / k; } }
+    CREW.forEach(function (w) { if (w.xMin == null) { w.xMin = w.x0; w.xMax = w.x1; }
+      if (MG.cardL === -9999) { w.x0 = w.xMin; w.x1 = w.xMax; }
+      else if (w.xMin >= 900) { w.x0 = w.xMin; w.x1 = Math.min(w.xMax, MG.tabR - 50); }
+      else if (w.xMax <= 200) { w.x0 = Math.max(w.xMin, S.ext.l + 90); w.x1 = Math.min(w.xMax, MG.cardL - 70); } });
+  }
+  /* the dough counter (left, behind the title card): the TechNext copywriter kneads drafts; the proofing rack of drafts */
+  var KN = W({ x: -338, y: 488, s: 0.47, ph: 2.6, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#5FB38E', top2: '#FFFFFF', hands: [[-50, -230], [50, -230]], look: 0.2 });
+  KN.apron = '#FFFFFF';
+  var DC = { x: -420, y: 418, w: 170 }, PRF = { x: -110, y: 600 };
 
   /* ---------------- the static layers ---------------- */
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
@@ -269,7 +284,18 @@
     var lx = 1120; fillRR(g, lx - 4, -60, 8, F + 60, 3, '#3E4A59'); fillRR(g, lx - 12, F - 14, 24, 14, 4, '#3E4A59'); g.strokeStyle = '#3E4A59'; g.lineWidth = 4; g.beginPath(); g.moveTo(lx, -40); g.quadraticCurveTo(lx + 30, -60, lx + 44, -40); g.stroke();
     fillRR(g, lx + 34, -40, 20, 26, 6, '#3E4A59'); fillRR(g, lx + 37, -34, 14, 16, 4, '#FFF4C9');
   }
+  function doughCounter(g) {
+    var c = DC; soft(g, c.x + c.w / 2, 524, c.w * 0.6, 7, 0.25);
+    fillRR(g, c.x, c.y + 10, c.w, 520 - c.y - 10, 6, WOOD); g.fillStyle = 'rgba(85,51,31,.18)'; g.fillRect(c.x + c.w - 14, c.y + 10, 14, 520 - c.y - 10);
+    [0, 1].forEach(function (k) { fillRR(g, c.x + 12 + k * 80, c.y + 28, 66, 30, 4, '#B57C4B'); fillRR(g, c.x + 37 + k * 80, c.y + 40, 16, 5, 2.5, '#F6E3C2'); fillRR(g, c.x + 12 + k * 80, c.y + 66, 66, 30, 4, '#B57C4B'); fillRR(g, c.x + 37 + k * 80, c.y + 78, 16, 5, 2.5, '#F6E3C2'); });
+    fillRR(g, c.x - 8, c.y, c.w + 16, 14, 5, '#F4EEE6'); g.strokeStyle = 'rgba(160,140,120,.25)'; g.lineWidth = 1; g.beginPath(); g.moveTo(c.x, c.y + 5); g.bezierCurveTo(c.x + 50, c.y + 2, c.x + 90, c.y + 9, c.x + c.w, c.y + 5); g.stroke();
+    fillRR(g, c.x + 10, c.y - 14, 34, 14, 3, '#FFFFFF'); text(g, 'DRAFTS', c.x + 27, c.y - 4.6, 6, 800, STRAW_D, 'center');
+    [[c.x + 132, 8], [c.x + 150, 6]].forEach(function (d) { fillE(g, d[0], c.y - d[1] + 2, d[1] + 4, d[1], '#F7E2C4'); fillE(g, d[0] - 2, c.y - d[1] - 1, 3, 2, 'rgba(255,255,255,.7)'); });
+    g.fillStyle = 'rgba(255,255,255,.75)'; for (var fd = 0; fd < 14; fd++) fillE(g, c.x + 50 + hash(fd) * 70, c.y + 2 + hash(fd + 3) * 4, 1.4, 0.8, 'rgba(255,255,255,.85)');
+    text(g, 'COPY DESK', c.x + c.w / 2, c.y + 112, 8, 800, '#FFF6EA', 'center');
+  }
   function paintFront(g, ext) {
+    doughCounter(g);
     /* the decorating bench: a marble top on cocoa legs, open below so the stool and legs show */
     var b = BENCH; soft(g, b.x + b.w / 2, F + 3, b.w * 0.6, 8, 0.25);
     fillRR(g, b.x + 8, b.y + 10, 8, F - b.y - 10, 3, COCOA_D); fillRR(g, b.x + b.w - 16, b.y + 10, 8, F - b.y - 10, 3, COCOA_D); fillRR(g, b.x + 8, 430, b.w - 16, 6, 3, COCOA);
@@ -307,18 +333,23 @@
   function paintFore(g, ext) {
     /* the near floor inside: a crate of eggs, a flour sack, a step stool */
     if (ext.l < 160) { var cx = 136; soft(g, cx + 40, 708, 52, 6, 0.25); fillRR(g, cx, 664, 84, 44, 5, '#C98E5A'); fillRR(g, cx, 664, 84, 8, 4, '#A8724A'); for (var e = 0; e < 5; e++) fillE(g, cx + 12 + e * 15, 660, 7, 9, e % 2 ? '#FFF6E6' : '#F7E2C4'); text(g, 'FRESH', cx + 42, 694, 9, 800, '#FFF6E6', 'center'); }
-    sack(g, 470, 728, 'HOOKS', BLUE); sack(g, 528, 734, 'HASHTAGS', MINT_D);
+    sack(g, 470, 706, 'HOOKS', BLUE); sack(g, 528, 710, 'HASHTAGS', MINT_D);
+    /* a round woven mat and the proofing rack of drafts (behind the title card; seen in View the scene) */
+    g.save(); g.translate(-200, 606); g.scale(1, 0.24); fillE(g, 0, 0, 150, 150, '#F7D9C4'); g.strokeStyle = 'rgba(240,98,126,.45)'; g.lineWidth = 9; for (var mr = 40; mr <= 140; mr += 34) { g.beginPath(); g.arc(0, 0, mr, 0, 7); g.stroke(); } g.restore();
+    var pr = PRF; soft(g, pr.x + 50, pr.y + 4, 66, 6, 0.25); g.fillStyle = '#B9C2CC'; g.fillRect(pr.x, pr.y - 190, 5, 186); g.fillRect(pr.x + 100, pr.y - 190, 5, 186); fillRR(g, pr.x - 4, pr.y - 196, 113, 8, 3, '#C9D1DA');
+    for (var tr2 = 0; tr2 < 5; tr2++) { var ty2 = pr.y - 164 + tr2 * 34; fillRR(g, pr.x - 2, ty2, 109, 4, 2, '#C9D1DA'); for (var pd = 0; pd < 3; pd++) { var dx2 = pr.x + 18 + pd * 34; fillE(g, dx2, ty2 - 7, 13, 8, '#F7E2C4'); fillE(g, dx2 - 3, ty2 - 10, 4, 2, 'rgba(255,255,255,.7)'); } }
+    [pr.x + 2, pr.x + 102].forEach(function (wx) { fillE(g, wx, pr.y, 5, 5, '#3A3A3A'); }); fillRR(g, pr.x + 14, pr.y - 216, 78, 16, 4, '#FFFFFF'); text(g, 'PROOFING', pr.x + 53, pr.y - 205, 7, 800, STRAW_D, 'center');
     if (ext.l < -500) {
       /* a rolling trolley of trays, crates of strawberries, the mop bucket */
       var tx = -900; soft(g, tx + 60, 744, 80, 7, 0.25); fillRR(g, tx, 600, 6, 140, 3, '#9AA6BC'); fillRR(g, tx + 116, 600, 6, 140, 3, '#9AA6BC');
       for (var tr = 0; tr < 4; tr++) { fillRR(g, tx - 4, 612 + tr * 30, 130, 5, 2, '#C9D1DA'); for (var pc = 0; pc < 3; pc++) postCard(g, tx + 24 + pc * 38, 612 + tr * 30, 26, 22, ['ig', 'li', 'fb'][(tr + pc) % 3], tr * 3 + pc + 50, 0); }
       fillE(g, tx + 6, 744, 7, 7, '#3A3A3A'); fillE(g, tx + 118, 744, 7, 7, '#3A3A3A');
-      [[-720, 704], [-640, 716]].forEach(function (c, i) { soft(g, c[0] + 34, c[1] + 2, 44, 5, 0.25); fillRR(g, c[0], c[1] - 40, 68, 40, 5, '#C98E5A'); fillRR(g, c[0], c[1] - 40, 68, 7, 4, '#A8724A');
+      [[-800, 704], [-720, 712]].forEach(function (c, i) { soft(g, c[0] + 34, c[1] + 2, 44, 5, 0.25); fillRR(g, c[0], c[1] - 40, 68, 40, 5, '#C98E5A'); fillRR(g, c[0], c[1] - 40, 68, 7, 4, '#A8724A');
         for (var sb = 0; sb < 6; sb++) { fillE(g, c[0] + 8 + sb * 10.5, c[1] - 44 - (sb % 2) * 3, 6, 5.5, STRAW); fillE(g, c[0] + 8 + sb * 10.5, c[1] - 49 - (sb % 2) * 3, 2.5, 1.6, '#5FB38E'); } text(g, i ? 'STORIES' : 'SHORT VIDEO', c[0] + 34, c[1] - 14, 7, 800, '#FFF6EA', 'center'); });
-      soft(g, -530, 742, 40, 5, 0.25); fillRR(g, -560, 690, 60, 50, 8, '#B4E1CB'); fillRR(g, -564, 686, 68, 8, 4, '#9FD3BB'); g.strokeStyle = '#8A6A4A'; g.lineWidth = 4; g.beginPath(); g.moveTo(-536, 690); g.lineTo(-500, 560); g.stroke(); fillRR(g, -520, 548, 44, 18, 6, '#FFD36E'); }
+      g.save(); g.translate(-82, -26); soft(g, -530, 742, 40, 5, 0.25); fillRR(g, -560, 690, 60, 50, 8, '#B4E1CB'); fillRR(g, -564, 686, 68, 8, 4, '#9FD3BB'); g.strokeStyle = '#8A6A4A'; g.lineWidth = 4; g.beginPath(); g.moveTo(-536, 690); g.lineTo(-500, 560); g.stroke(); fillRR(g, -520, 548, 44, 18, 6, '#FFD36E'); g.restore(); }
     /* the near pavement: a planter, bollards, the bike */
-    planter(g, 940, 724, 96);
-    [1060, 1140].forEach(function (bx) { if (bx > ext.r + 20) return; soft(g, bx, 734, 14, 3, 0.25); fillRR(g, bx - 8, 680, 16, 54, 6, '#3E4A59'); fillRR(g, bx - 10, 676, 20, 8, 4, BUTTER_D); });
+    planter(g, 940, 710, 96);
+    [1060, 1140].forEach(function (bx) { if (bx > ext.r + 20) return; soft(g, bx, 712, 14, 3, 0.25); fillRR(g, bx - 8, 660, 16, 52, 6, '#3E4A59'); fillRR(g, bx - 10, 656, 20, 8, 4, BUTTER_D); });
     if (ext.r > 1180) bike(g, 1270, 730, 0.92);
   }
 
@@ -404,7 +435,7 @@
     /* the SALES CONTACT postbox flag */
     var lt = t - (S.leadT || -9), fa = lt < 3 ? -1.4 : 0; g.save(); g.translate(BOX.x + 44, BOX.y + 16); g.rotate(fa * clamp(lt < 3 ? Math.min(1, lt * 4) : 1, 0, 1)); fillRR(g, -1.5, -18, 3, 20, 1.5, '#3E4A59'); fillRR(g, 1, -18, 12, 8, 2, BUTTER); g.restore();
     /* the far-side passers-by and the follower on the bench */
-    CO.crew(CREW, g, t, S, false);
+    fitCrew(S); CO.crew(CREW, g, t, S, false);
     if (e.r > 1180) { var sp = SIT; sp.hands = [[-30, -230 + Math.sin(t * 2) * 2], [30, -236]]; sp.look = -0.25 + Math.sin(t * 0.4) * 0.1; sp.mood = (t % 5) < 0.8 ? 'happy' : 'calm'; if (TAP.sit && t - TAP.sit < 1.6) { sp.mood = 'happy'; sp.hands = [[-90, -380], [30, -236]]; }
       K.person(g, sp, t); var hp = handAt(sp, 1); fillRR(g, hp[0] - 8, hp[1] - 14, 16, 24, 3, '#2A3142'); fillRR(g, hp[0] - 6, hp[1] - 12, 12, 18, 2, (t % 5) < 0.8 ? '#FFD3DE' : '#DCEBFA'); if ((t % 5) < 0.8) heart(g, hp[0], hp[1] - 4, 3.4, STRAW); }
   }
@@ -426,6 +457,13 @@
     /* the runner: in front of the shop, carrying the tray; then the passers-by, nearer still */
     runner(g, t, S, R);
     CO.crew(CREW, g, t, S, true);
+    /* the copy desk: the dough under the copywriter's hands, flour puffs, the tossed draft on a tap */
+    var ka = handAt(KN, 0), kb = handAt(KN, 1);
+    if (KN.toss != null) { var tu = KN.toss, tx3 = (ka[0] + kb[0]) / 2, ty3 = Math.min(ka[1], kb[1]) - 12 - Math.sin(Math.min(1, tu) * Math.PI) * 90; g.save(); g.translate(tx3, ty3); g.rotate(tu * 9); g.scale(1, 0.55 + 0.45 * Math.abs(Math.cos(tu * 9)));
+      if (tu < 0.8) fillE(g, 0, 0, 22, 9, '#F7E2C4'); else postCard(g, 0, 14, 30, 30, 'ig', 7, 0); g.restore(); }
+    else { var dw = KN.knead || 0; fillE(g, (ka[0] + kb[0]) / 2, DC.y - 4, 22 + dw * 6, 7 - dw * 2, '#F7E2C4'); fillE(g, (ka[0] + kb[0]) / 2 - 6, DC.y - 7, 6, 2, 'rgba(255,255,255,.7)'); }
+    if (KN.flour) { for (var fp = 0; fp < 8; fp++) { var fu2 = ((t * 1.5 + fp / 8) % 1); fillE(g, kb[0] + (hash(fp) - 0.5) * 30 * fu2, kb[1] + 10 + fu2 * 30, 1.6, 1.6, 'rgba(255,255,255,' + (0.9 * (1 - fu2)).toFixed(2) + ')'); } }
+    if (KN.card) { g.save(); g.translate(kb[0], kb[1] - 6); g.rotate(-0.2); fillRR(g, -14, -10, 28, 18, 2, '#FFFFFF'); fillRR(g, -14, -10, 28, 5, 2, STRAW); text(g, 'DRAFT', 0, 5, 5.6, 800, COCOA, 'center'); g.restore(); }
     /* bubbles, flying leads, sprinkles, hearts */
     BUB = BUB.filter(function (b) { return t - b.t0 < b.life; }); BUB.forEach(function (b) { var u = (t - b.t0) / b.life; if (u < 0) return; var x = lerp(b.x, b.tx, smooth(u)), y = lerp(b.y, b.ty, smooth(u)) - Math.sin(u * Math.PI) * 30;
       g.save(); g.globalAlpha = u > 0.8 ? (1 - u) / 0.2 : 1; fillRR(g, x - 14, y - 9, 28, 18, 8, b.col); g.fillStyle = b.col; g.beginPath(); g.moveTo(x - 6, y + 7); g.lineTo(x - 9, y + 13); g.lineTo(x, y + 8); g.fill();
@@ -534,6 +572,16 @@
     else { P.hands = [[-40, -210], [60, -190]]; P.mood = 'calm'; lookAtNexi(P, st, t, S, Math.sin(t * 0.5) * 0.6); }
   } };
 
+  var castKN = { id: 'kn', behind: true, keys: ['plan'], P: KN, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.toss = null; P.flour = false; P.card = false; P.knead = 0; P.sx = 1;
+    if (TAP.kn && t - TAP.kn < 2.6) { var u = (t - TAP.kn) / 2.6; P.talk = true; P.mood = 'happy'; P.toss = u * 1.25; P.hands = [[-40, -300 - Math.sin(Math.min(1, u * 1.25) * Math.PI) * 60], [40, -300 - Math.sin(Math.min(1, u * 1.25) * Math.PI) * 60]]; P.look = 0; P.hop = u > 0.8 ? Math.sin((u - 0.8) / 0.2 * Math.PI) * 10 : 0; return; }
+    var c = (t + 6) % 12, busy = S.hot === 'plan'; P.talk = busy; P.mood = busy ? 'happy' : 'calm';
+    if (c < 5) { var k = Math.sin(t * 5); P.knead = (k + 1) / 2; P.hands = [[-30, -232 + k * 10], [30, -232 - k * 10]]; P.tilt = k * 0.03; P.look = lerp(P.look, 0.1, 0.1); }
+    else if (c < 7) { P.flour = true; P.hands = [[-40, -232], [60, -330 + Math.sin(t * 14) * 6]]; P.look = lerp(P.look, 0.5, 0.1); P.mood = 'happy'; }
+    else if (c < 9.5) { P.card = true; var dn = Math.abs(Math.sin((c - 7) * 3)); P.hands = [[-40, -232], [40, -250 + dn * 20]]; P.look = lerp(P.look, 0.3, 0.1); }
+    else { P.hands = [[-40, -232], [40, -232]]; P.look = lerp(P.look, 0.8, 0.06); P.mood = 'happy'; P.tilt = Math.sin(t * 2) * 0.03; }
+  } };
+
   window.IXW.worlds['sol-social'] = {
     pan: [-300, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -545,8 +593,8 @@
         if (fu < 2.4) { x += fu * 60 * (i % 2 ? 1 : -1); y -= fu * 120 - fu * fu * 8; }
         g.save(); g.translate(x, y); if (fu < 2.4 && fu >= 0) { var fl = Math.sin(t * 30) * 6; g.fillStyle = '#9AA6BC'; g.beginPath(); g.moveTo(-2, -8); g.lineTo(-14, -14 - fl); g.lineTo(-4, -4); g.fill(); g.beginPath(); g.moveTo(2, -8); g.lineTo(14, -14 - fl); g.lineTo(4, -4); g.fill(); }
         fillE(g, 0, -8, 11, 8, '#A9B4C4'); fillE(g, peck ? 9 : 7, peck ? -6 : -16, 5, 5, '#8E9AAD'); fillE(g, peck ? 12 : 10, peck ? -6 : -17, 1.2, 1.2, INK); g.fillStyle = '#E3B04B'; g.fillRect(peck ? 13 : 11, peck ? -5 : -16, 4, 1.6); fillE(g, -9, -10, 4, 3, '#8E9AAD'); g.restore(); });
-      var bu = ((t + 9) % 26) / 26, bx = S.ext.l - 120 + bu * (S.ext.r - S.ext.l + 240);
-      { g.save(); g.translate(bx, 762); g.strokeStyle = '#2A3142'; g.lineWidth = 3; [-30, 30].forEach(function (wx) { g.beginPath(); g.arc(wx, -14, 14, 0, 7); g.stroke(); }); fillRR(g, -52, -52, 46, 32, 4, '#3167CA'); text(g, 'DELIVERY', -29, -32, 6.6, 800, '#FFFFFF', 'center');
+      var bu = ((t + 9) % 22) / 22, bx = CUT1 + 380 + bu * Math.max(0, S.ext.r - CUT1 - 260);
+      if (S.ext.r > FAC1 + 60) { g.save(); g.translate(bx, 728); g.strokeStyle = '#2A3142'; g.lineWidth = 3; [-30, 30].forEach(function (wx) { g.beginPath(); g.arc(wx, -14, 14, 0, 7); g.stroke(); }); fillRR(g, -52, -52, 46, 32, 4, '#3167CA'); text(g, 'DELIVERY', -29, -32, 6.6, 800, '#FFFFFF', 'center');
         g.strokeStyle = '#3E4A59'; g.lineWidth = 3; g.beginPath(); g.moveTo(-30, -14); g.lineTo(0, -40); g.lineTo(30, -14); g.moveTo(0, -40); g.lineTo(8, -60); g.stroke(); g.restore(); }
       K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t);
     },
@@ -562,10 +610,11 @@
       timer: function (g) { rr(g, TIMER.x - 20, TIMER.y - 24, 40, 40, 14); }
     },
     backGlow: ['plan', 'schedule', 'windows', 'timer'],
-    cast: [castPLN, castDES, castCLI, castCMG],
+    cast: [castKN, castPLN, castDES, castCLI, castCMG],
     toy: function (name, S, t) { if (name === 'timer') { TIMERD = t; CR.burst('star', TIMER.x, TIMER.y - 20, t); WIN.forEach(function (w) { for (var i = 0; i < 3; i++) HEARTS.push({ x: w.x + WW / 2 + (i - 1) * 20, y: 40, t0: t + i * 0.15, p: i }); }); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
+      if (Math.abs(x - KN.x) < 50 && y > 250 && y < DC.y + 30) { TAP.kn = t; CR.burst('heart', KN.x, 250, t); return { say: 'The copy desk: every caption is **drafted for its channel**, then proofed before it goes in the oven.', near: [-80, 20], pose: 'love', who: 'TechNext copywriter' }; }
       var R = S.R; if (R && Math.abs(x - RUN.x) < 50 && y < RUN.y + 8 && y > RUN.y - 260) { TAP.run = t; CR.burst('star', RUN.x, RUN.y - 260, t);
         return { say: 'Fresh out of the oven! Every approved post goes into its **' + CH[WIN[R.wi].ch].n + '** window on schedule.', near: [540, -70], pose: 'celebrate', who: 'TechNext · the runner' }; }
       if (S.ext.r > 1180 && Math.abs(x - SIT.x) < 46 && y > 250 && y < F) { TAP.sit = t; CR.burst('heart', SIT.x, SIT.y - 240, t); return { say: 'Scrolling, liking, **following**. The window display works on a phone too.', near: [960, -80], pose: 'love', who: 'A follower on the bench' }; }
