@@ -211,3 +211,34 @@
 @media (min-width:1101px){.ixw--training .ow-strip{grid-template-columns:.62fr 1.2fr 1.1fr 1.1fr 1.1fr}}
 .ixw--training .fs-next .card{display:flex;flex-direction:column}
 .ixw--training .fs-next .card .btn-link{margin-top:auto;padding-top:6px}
+
+/* fix round: the flight path runs straight through the four waypoint diamonds (tip to tip), the numbers sit dead centre,
+   and the plane flies along that same line; the curved route that floated above the row is gone */
+.ixw--training .fs-path-sec .sec-head{margin-bottom:34px}
+.ixw--training .fs-route{position:absolute;left:0;right:0;top:0;height:50px;margin:0;z-index:0}
+.ixw--training .fs-route svg{display:none}
+.ixw--training .fs-steps{position:relative}
+.ixw--training .fs-steps .fs-route{left:25px;right:calc((100% - 84px) / 4 - 25px)}
+.ixw--training .fs-steps::before{display:block;content:"";position:absolute;left:25px;right:calc((100% - 84px) / 4 - 25px);top:26.5px;height:3px;border:0;border-radius:0;transform:none;opacity:1;
+  background:repeating-linear-gradient(90deg,var(--tr-pur) 0 10px,transparent 10px 18px)}
+.ixw--training .fs-steps .step-n{position:relative;z-index:1;display:grid;place-items:center;padding:0;line-height:1;text-align:center;font-variant-numeric:tabular-nums}
+.ixw--training .fs-steps .step:nth-child(n) .step-n{background:var(--sc)}
+.ixw--training .fs-steps .step:hover .step-n{transform:scale(1.08);background:#F2A33A}
+.ixw--training .fs-route{z-index:2}.ixw--training .fs-plane .ic{display:block;flex:none;width:17px;height:17px}.ixw--training .fs-plane{top:28px;width:32px;height:32px;margin:-16px 0 0 -16px;animation:trFly2 9s cubic-bezier(.45,.05,.4,1) infinite}
+@keyframes trFly2{0%{left:0;opacity:0}8%{opacity:1}90%{left:100%;opacity:1}100%{left:100%;opacity:0}}
+@media (max-width:1100px){.ixw--training .fs-steps::before{display:none}}
+@media (prefers-reduced-motion:reduce){.ixw--training .fs-plane{animation:none;left:50%}}
+/* fix round: the FAQ's headset no longer floats alone in an empty column; it sits in a side card (an "open line" label,
+   a short line and a Talk to us link) that fills the column beside the questions */
+.ixw--training .fs-deco--headset.fs-ask{top:150px;right:0;width:330px;padding:16px 24px 24px;border-radius:18px;pointer-events:auto;z-index:1;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px var(--tr-line),0 30px 50px -30px rgba(60,30,80,.45);border-top:8px solid var(--tr-pur)}
+.ixw--training .fs-ask-art{display:block;width:170px;margin:0 auto 6px}
+.ixw--training .fs-ask-art svg{display:block;width:100%;height:auto}
+.ixw--training .fs-ask-k{margin:0 0 6px;font:800 10.5px/1 var(--tr-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tr-pur)}
+.ixw--training .fs-ask-k::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.2);vertical-align:1px}
+.ixw--training .fs-ask-t{margin:0 0 6px;font:800 1.25rem/1.2 var(--font-display);color:var(--tr-ink)}
+.ixw--training .fs-ask-p{margin:0 0 12px;font:500 14.5px/1.5 var(--font-body);color:#4A4F66}
+.ixw--training .fs-ask .btn-link{color:var(--tr-pur)}
+.ixw--training .fs-faq-sec .fs-faq{max-width:calc(100% - 380px)}
+@media (max-width:1099px){.ixw--training .fs-faq-sec .fs-faq{max-width:none}}
+.ixw--training .fs-ask .btn-link{display:inline-flex;align-items:center;gap:6px}.ixw--training .fs-ask .btn-link svg{display:inline-block;width:16px;height:16px;flex:none}.ixw--training .fs-deco--headset.fs-ask{top:160px}
