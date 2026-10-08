@@ -398,6 +398,36 @@ Tell us how your process runs today by email to sales@technext.asia, on WhatsApp
 
 Source: https://technext.asia/company
 
+### Who replies to my message?
+
+The TechNext team. Form inquiries and emails go to sales@technext.asia, and we reply from that address. WhatsApp messages go to +65 8839 6998.
+
+Source: https://technext.asia/contact
+
+### What happens on the discovery call?
+
+We walk through how your company works today, and what Odoo would change. Most Odoo projects start with a discovery session that maps your processes to Odoo apps. No pitch before we understand the problem.
+
+Source: https://technext.asia/contact
+
+### Will I get a written quotation?
+
+Yes. TechNext quotes the implementation in writing once the scope is clear. If you already know the apps, users and services, the quotation builder sends that scope to us. Nothing there commits you to anything.
+
+Source: https://technext.asia/contact
+
+### Do you work with companies outside Singapore?
+
+Yes. We work on-site in Singapore and remotely with clients in 10+ countries, from our headquarters in Singapore, our main development and consulting hub in Taguig City and our AI engineering hub in Ho Chi Minh City.
+
+Source: https://technext.asia/contact
+
+### What do you do with my details?
+
+We use your details only to reply. See the privacy policy .
+
+Source: https://technext.asia/contact
+
 ### What does TechNext do?
 
 TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support), builds enterprise AI, websites and social media, and delivers IoT, app development and network services for growing companies.

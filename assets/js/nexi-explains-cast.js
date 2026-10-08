@@ -426,6 +426,38 @@
   if (document.fonts && document.fonts.load) document.fonts.load('30px Bangers').then(sync, sync); else sync();
   }
 
+
+  /* ---------------- the Characters category: a still portrait of each sidekick on its card ----------------
+     window.NXEportraits(root) draws every canvas[data-nxe-portrait] inside root once (300 x 240 set units).
+     Same drawings as the scene above, posed still (T fixed), so the cards match the hero. */
+  var PORTRAIT = {
+    penguin: function (g) { penguin(g, 150, 228 - 66 * 1.45, 1.45); },
+    cat: function (g) { g.save(); g.translate(150, 214); g.scale(1.55, 1.55); cat(g, 0, 0, 1); g.restore(); },
+    duck: function (g) { g.save(); g.translate(150, 150); g.scale(2.6, 2.6); duck(g, 0, 0); g.restore(); },
+    owl: function (g) { owl(g, 150, 214 - 60 * 1.4, 1.4); },
+    hamster: function (g) { g.save(); g.translate(140, 205); g.scale(2.1, 2.1); hamster(g, 0, 0, 0); g.restore(); },
+    goat: function (g) { g.save(); g.translate(150, 222); g.scale(1.2, 1.2); goat(g, 0, 0, 1, -1); g.restore(); },
+    bots: function (g) { g.save(); g.translate(98, 120); g.scale(0.85, 0.85); miniBot(g, 0, 0, 1, '#5FD3FF', { ph: 0 }); g.restore();
+                         g.save(); g.translate(205, 104); g.scale(0.75, 0.75); miniBot(g, 0, 0, 1, '#FFD84A', { ph: 1.7, arm: true }); g.restore(); },
+    monster: function (g) { var r = KJ.rise, lk = KJ.look; KJ.rise = 1; KJ.look = -1; g.save(); g.translate(170, 236); g.scale(0.26, 0.26); monster(g, 0, 0, 1); g.restore(); KJ.rise = r; KJ.look = lk; }
+  };
+  window.NXEportraits = function (root) {
+    [].slice.call((root || document).querySelectorAll('canvas[data-nxe-portrait]')).forEach(function (cv) {
+      if (cv.dataset.drawn || !cv.offsetWidth) return;
+      var fn = PORTRAIT[cv.getAttribute('data-nxe-portrait')];
+      if (!fn) return;
+      var w = cv.offsetWidth, h = cv.offsetHeight, d = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = Math.round(w * d); cv.height = Math.round(h * d);
+      var g = cv.getContext('2d'), k = Math.min(w / 300, h / 240), keep = T;
+      T = 1.3;
+      g.setTransform(d * k, 0, 0, d * k, d * (w - 300 * k) / 2, d * (h - 240 * k));
+      try { fn(g); } catch (e) { /* a drawing that needs scene state just stays blank */ }
+      T = keep;
+      cv.dataset.drawn = '1';
+    });
+  };
+  window.dispatchEvent(new Event('nxe:portraits-ready'));
+
   var pageStage = document.querySelector('[data-nxe-hero] [data-nxe-stage]');
   if (pageStage && pageStage.querySelector('.nxe-tv') && pageStage.querySelector('[data-nxe-nexi]'))
     castScene(pageStage.closest('[data-nxe-hero]'), pageStage, pageStage.querySelector('.nxe-tv'), pageStage.querySelector('[data-nxe-nexi]'), false);
