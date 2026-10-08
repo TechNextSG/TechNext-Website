@@ -481,7 +481,7 @@
     if (phoneQ.addEventListener) phoneQ.addEventListener('change', function () { panT = pan = 0; measure(); });
     function measure() {
       var hr = root.getBoundingClientRect(), r = set.getBoundingClientRect();
-      W = Math.round(hr.width); Hh = Math.round(hr.height); dpr = Math.min(window.devicePixelRatio || 1, phoneQ.matches ? 1.5 : 1.75);
+      W = Math.round(hr.width); Hh = Math.round(hr.height); dpr = Math.min(window.devicePixelRatio || 1, phoneQ.matches ? 1.25 : 1.5);   // R9 perf: the full-hero canvas at 1.75x cost a third more fill per frame for no visible gain
       k = r.width / 1000; sx = r.left - hr.left - pan; sy = r.top - hr.top;
       /* phones: how far the scene may slide each way to reach set units PAN_L .. PAN_R */
       var PL = W0.pan ? W0.pan[0] : PAN_L, PR = W0.pan ? W0.pan[1] : PAN_R;
@@ -641,9 +641,24 @@
       function arm() { clearTimeout(timer); if (!auto || held || !vis) return; timer = setTimeout(function () { if (auto && !held && vis && !document.hidden) go(at + 1); arm(); }, at === 0 ? 5200 : 6400); }
       if (playBtn) playBtn.addEventListener('click', function () { if (auto && !held) { held = true; } else { auto = true; held = false; go(at + 1); } sync(); arm(); });
       sync();
-      return { visible: function (on) { vis = on; if (on && !started) { started = true; setTimeout(function () { go(0); arm(); }, 500); } else arm(); }, stop: function () { auto = false; clearTimeout(timer); sync(); } };
+      return { visible: function (on) { vis = on; if (on && !started) { started = true; setTimeout(function () { go(0); arm(); }, 500); } else arm(); }, stop: function () { auto = false; clearTimeout(timer); sync(); },
+        play: function () { started = true; auto = !reduce; held = false; go(0, true); sync(); arm(); } };
     })();
     hots.forEach(function (h, j) { h.addEventListener('click', function () { tour.stop(); go(j + 1, true); }); });
+    /* R9: the card's "Nexi Explains" pill (a play icon) plays THIS scene's episode: Nexi's tour starts again from her
+       welcome, on autoplay, and the caption is brought into view. It used to leave the page for the series index, so
+       the play button never played anything. A modified click (new tab / window) still opens the series page. */
+    var epTag = root.querySelector('.ixw-copy a.ixw-ep-tag');
+    if (epTag && cap && STOPS.length > 1) {
+      epTag.setAttribute('aria-label', 'Play Nexi Explains: the tour of this scene');
+      epTag.addEventListener('click', function (e) {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button) return;
+        e.preventDefault(); tour.play();
+        epTag.classList.remove('is-play'); void epTag.offsetWidth; epTag.classList.add('is-play');
+        var cr = cap.getBoundingClientRect();
+        if (cr.bottom > window.innerHeight || cr.top < 0) cap.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
     var prev = cap && cap.querySelector('[data-ixw-prev]'), next = cap && cap.querySelector('[data-ixw-next]');
     if (prev) prev.addEventListener('click', function () { tour.stop(); go(at - 1, true); });
     if (next) next.addEventListener('click', function () { tour.stop(); go(at + 1, true); });

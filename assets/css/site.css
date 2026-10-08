@@ -1279,3 +1279,55 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;
 .tn-sb.is-on i,.tn-sb.is-drag i{opacity:1}
 .tn-sb i:hover,.tn-sb.is-drag i{width:9px;right:2px;background:rgba(31,31,61,.6)}
 .tn-sb.is-drag i{cursor:grabbing}
+
+/* R9 perf: every section below the first is skipped by style, layout and paint until it nears the viewport (the browser
+   keeps its last real height once seen). A page here has 2,000-4,000 elements; the intro's first measure and every
+   later full layout (fonts arriving, a resize, the reveals) now only touch what is on screen. Audited 109 pages: no
+   section draws outside its own box, so the paint containment this brings clips nothing. */
+main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:auto 900px}
+@media print{main>section:not(:first-child){content-visibility:visible}}
+/* ================= R9 nav: header "Let's talk" button + floating WhatsApp, both dressed in the page's world =================
+   Every world sets --hc-bg / --hc-fg (button fill + text) and --st-ink (outline + lip); pages without a world fall back to
+   brand blue + navy ink. The home industries slide (html.hxs-on) and Nexi Explains keep their own rules. */
+html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact,
+html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:hover,
+html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:active{
+  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#4A80E2,#3167CA));border:2px solid var(--st-ink,#1B2350);border-radius:12px;
+  box-shadow:0 3px 0 var(--st-ink,#1B2350);translate:none;transition:translate .2s var(--spring),box-shadow .2s ease,filter .2s ease}
+html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:hover{translate:0 -2px;box-shadow:0 5px 0 var(--st-ink,#1B2350);filter:saturate(1.08) brightness(1.04)}
+html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:active{translate:0 2px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
+.header .header-cta .btn.hdr-contact::after{display:none}
+.header .header-cta .btn.hdr-contact .ic{color:currentColor;width:19px;height:19px;padding:0;margin:0;background:none;border-radius:0;transition:transform .3s var(--spring)}
+.header .header-cta .btn.hdr-contact:hover .ic{transform:rotate(-8deg) scale(1.08)}
+@media (max-width:1100px){
+  html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact{width:44px;height:44px;padding:0;justify-content:center}
+  .header .header-cta .btn.hdr-contact .ic{width:22px;height:22px}
+}
+
+/* floating WhatsApp: bottom-right corner. Desktop: below the vertical side tabs. Phone: stacked above the round "+" FAB,
+   and it steps aside while the FAB's menu or the Let's Talk panel is open. */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:57;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
+  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#4A80E2,#3167CA));border:2.5px solid var(--st-ink,#1B2350);
+  box-shadow:0 4px 0 var(--st-ink,#1B2350),0 16px 28px -14px rgba(15,25,50,.55);-webkit-tap-highlight-color:transparent;
+  transition:translate .22s var(--spring),box-shadow .22s ease,opacity .25s ease,scale .3s var(--spring)}
+.wa-float .ic{width:26px;height:26px}
+.wa-float::before{content:"";position:absolute;right:-3px;top:-3px;width:14px;height:14px;border-radius:50%;background:#25D366;border:2.5px solid #FFFFFF;box-shadow:0 0 0 1.5px var(--st-ink,#1B2350)}
+.wa-float:hover{translate:0 -3px;box-shadow:0 7px 0 var(--st-ink,#1B2350),0 20px 32px -14px rgba(15,25,50,.6)}
+.wa-float:active{translate:0 3px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
+.wa-float:focus-visible{outline:3px solid var(--st-ink,#1B2350);outline-offset:4px}
+.wa-float-tip{position:absolute;right:calc(100% + 12px);top:50%;translate:6px -50%;padding:8px 12px;border-radius:10px;background:#FFFFFF;color:var(--st-ink,#1B2350);
+  border:2px solid var(--st-ink,#1B2350);font:800 13px/1 var(--font-display);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease,translate .25s var(--spring)}
+.wa-float:hover .wa-float-tip,.wa-float:focus-visible .wa-float-tip{opacity:1;translate:0 -50%}
+body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
+html.hxs-on .wa-float{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border-color:var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+.is-nxe .wa-float,html.nxs-dark .wa-float{background:#FFD23F;color:#101C45;border-color:#101C45;box-shadow:0 4px 0 #101C45}
+@media (max-width:960px){
+  .wa-float{right:16px;bottom:80px;width:50px;height:50px;transition:translate .22s var(--spring),bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
+  body.tabs-wait .wa-float{bottom:16px}
+  .wa-float .ic{width:24px;height:24px}
+  .wa-float-tip{display:none}
+  body.is-nexi .wa-float{bottom:16px}
+  body.tabs-open .wa-float{opacity:0;pointer-events:none;scale:.6}
+}
+@media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.header .header-cta .btn.hdr-contact{transition:none}}
+@media print{.wa-float{display:none}}

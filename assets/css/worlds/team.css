@@ -1,86 +1,52 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
-/* World: team (/employee-hub) — the TechNext 201 room on a bright Taguig City morning. Brand blue, manila, file-green
-   stamps. The title card is an employee sheet clipped to a manila folder (with its 201 tab and a paper clip); the caption is
-   an HR note with a REMARKS label; buttons are stamped tags; the glance strip is the folder's index card. */
-.ixw--team{--tm-ink:#1B1F3B;--tm-man:#EBC98B;--tm-man2:#D9B06A;--tm-ok:#1E9E6A;
-  --w-alt:#F7F4EC;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
-  --st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#EBC98B;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
-  --ii-bg:linear-gradient(160deg,#F7F4EC,#E8EFFC 60%,#F6E3BC);--ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#D9B06A;--ii-lip:#1B1F3B;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
-.ixw--team .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FAFBFD 18%,#EEF2F8 52%,#E3E9F2 62%,#E9E2D6 62%,#D9D0C1 100%)}
+/* World: team (/employee-hub) — the TechNext card room on a bright morning. Brand blue, navy, paper white and a yellow
+   edge. The title card is a print proof (crop marks at the corners, a blue band with a yellow end); the caption is a
+   rolodex card (two punched slots, a ruled face); buttons are business cards (a yellow edge on the right). */
+.ixw--team{--tm-ink:#1B2350;--tm-blue:#3167CA;--tm-y:#FFD84A;--tm-paper:#FFFDF8;--tm-line:#DCE3EE;
+  --w-alt:#F2F5FB;--lab-bd:2px solid #1B2350;--lab-lip:#1B2350;--lab-tail:#1B2350;--lab-r:6px;
+  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B2350;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
+  --ii-bg:linear-gradient(160deg,#F6F8FD,#E6ECF6 55%,#FFF1BF);--ii-ink:#1B2350;--ii-b:#3167CA;--ii-accent:#FFD84A;--ii-lip:#1B2350;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
+.ixw--team .ixw-hero{background:linear-gradient(180deg,#FFFFFF 0,#F6F8FD 16%,#E6ECF6 52%,#DCE6F6 62%,#E4E8F0 62%,#CDD4E2 100%)}
 
-/* ---------- the title card: an employee sheet clipped to a manila folder ---------- */
-.ixw--team .ixw-copy{position:relative;max-width:510px;margin-top:34px;padding:34px 30px 24px;border-radius:4px;background:#FFFFFF;
-  box-shadow:12px 12px 0 var(--tm-man),12px 12px 0 1.5px var(--tm-man2),0 40px 70px -30px rgba(40,40,60,.45)}
-.ixw--team .ixw-copy::before{content:"201 \00B7  EMPLOYEE HUB";position:absolute;left:0;top:-26px;height:26px;padding:0 16px;border-radius:10px 10px 0 0;background:var(--tm-man);
-  font:800 11.5px/26px var(--font-body);letter-spacing:.14em;color:#6B4E1E}
-/* the paper clip */
-.ixw--team .ixw-copy::after{content:"";position:absolute;right:46px;top:-14px;width:16px;height:46px;border:3px solid #9AA6BC;border-radius:10px;border-bottom-color:transparent;
-  box-shadow:inset 0 0 0 3px #FFFFFF,inset 0 0 0 6px #9AA6BC;clip-path:inset(0 0 8px 0)}
+/* ---------- the title card: a print proof with crop marks ---------- */
+.ixw--team .ixw-copy{position:relative;max-width:510px;margin-top:34px;padding:34px 32px 40px;border-radius:10px;background:var(--tm-paper);
+  box-shadow:0 0 0 1.5px var(--tm-line),0 40px 70px -30px rgba(27,35,80,.45);
+  background-image:linear-gradient(90deg,var(--tm-blue) 0 78%,var(--tm-y) 78%);background-size:100% 12px;background-position:0 100%;background-repeat:no-repeat}
+.ixw--team .ixw-copy::before{content:"";position:absolute;inset:-16px;pointer-events:none;
+  background:linear-gradient(#1B2350,#1B2350) 0 15px/12px 1.5px,linear-gradient(#1B2350,#1B2350) 15px 0/1.5px 12px,
+    linear-gradient(#1B2350,#1B2350) 100% 15px/12px 1.5px,linear-gradient(#1B2350,#1B2350) calc(100% - 15px) 0/1.5px 12px,
+    linear-gradient(#1B2350,#1B2350) 0 calc(100% - 15px)/12px 1.5px,linear-gradient(#1B2350,#1B2350) 15px 100%/1.5px 12px,
+    linear-gradient(#1B2350,#1B2350) 100% calc(100% - 15px)/12px 1.5px,linear-gradient(#1B2350,#1B2350) calc(100% - 15px) 100%/1.5px 12px;background-repeat:no-repeat;opacity:.55}
+.ixw--team .ixw-copy::after{content:"PROOF \00B7  CARD ROOM";position:absolute;right:22px;top:-13px;padding:6px 10px;border-radius:4px;background:var(--tm-ink);color:var(--tm-y);font:800 10.5px/1 var(--font-body);letter-spacing:.16em}
 .ixw--team .ixw-copy h1{max-width:14ch}
-.ixw--team .ixw-copy .hand{color:#B7862F}
+.ixw--team .ixw-copy .hand{color:var(--tm-blue)}
 .ixw--team .ixw-copy .lead{border-top:1px solid #E3E8EF;padding-top:14px}
 .ixw--team .ixw-ep-tag{box-shadow:0 3px 0 #1E4691}
-.ixw--team .ixw-hint .ic{color:#D9B06A}
-@media (max-width:767px){.ixw--team .ixw-copy{padding:30px 20px 22px;box-shadow:8px 8px 0 var(--tm-man),0 30px 50px -30px rgba(40,40,60,.4)}}
+.ixw--team .ixw-hint .ic{color:#E8B500}
+@media (max-width:767px){.ixw--team .ixw-copy{padding:30px 20px 34px}.ixw--team .ixw-copy::before{inset:-10px}}
 
-/* ---------- the caption: an HR note ---------- */
-.ixw--team .ixw-cap{border-radius:8px;border:2px solid #1B1F3B;background:#FFFFFF;box-shadow:6px 6px 0 var(--tm-man),0 26px 44px -22px rgba(10,15,40,.45)}
-.ixw--team .ixw-cap::before{content:"HR NOTE \00B7  REMARKS";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:#1B1F3B;color:var(--tm-man);font:800 10.5px/1 var(--font-body);letter-spacing:.14em}
+/* ---------- the caption: a rolodex card ---------- */
+.ixw--team .ixw-cap{border-radius:10px;border:2px solid var(--tm-ink);background:repeating-linear-gradient(180deg,#FFFFFF 0 27px,#EEF2F9 27px 28px);box-shadow:0 6px 0 var(--tm-ink),0 26px 44px -22px rgba(10,15,40,.45)}
+.ixw--team .ixw-cap::before{content:"";position:absolute;left:50%;bottom:-11px;width:120px;height:14px;margin-left:-60px;background:radial-gradient(circle,var(--tm-ink) 5px,transparent 5.5px) 0 50%/40px 14px space;opacity:.9}
+.ixw--team .ixw-cap::after{content:"CONTACTS";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:var(--tm-blue);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.16em}
 .ixw--team .ixw-cap-who b{color:var(--tm-ink)}.ixw--team .ixw-cap-txt b{color:#2756B0}
-.ixw--team .ixw-cap-rec{background:#FBF3E2;border:1px dashed var(--tm-man2);color:#6B4E1E}
+.ixw--team .ixw-cap-rec{background:#FFF8D9;border:1px dashed #E8B500;color:#5A4600}
 
-/* ---------- buttons: stamped tags ---------- */
-.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:2px solid #1B1F3B;box-shadow:0 4px 0 #1B1F3B;
+/* ---------- buttons: business cards with a yellow edge ---------- */
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:2px solid var(--tm-ink);box-shadow:inset -10px 0 0 var(--tm-y),0 4px 0 var(--tm-ink);padding-right:30px;
   transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,rotate .2s ease}
 .ixw--team main .btn-primary,.ixw--team main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#4A80E2,#3167CA)}
-.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:#1B1F3B;background:var(--tm-man)}
-.ixw--team main .btn-ghost::before{display:none}.ixw--team main .btn-ghost .ic{color:#6B4E1E}
-.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1deg;box-shadow:0 6px 0 #1B1F3B}
-.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
-.ixw--team .ixw-cta .btn-outline-white,.ixw--team .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:#FFFFFF;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--team main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--tm-ink);background:var(--tm-paper)}
+.ixw--team main .btn-ghost::before{display:none}.ixw--team main .btn-ghost .ic{color:var(--tm-blue)}
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1deg;box-shadow:inset -14px 0 0 var(--tm-y),0 6px 0 var(--tm-ink)}
+.ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;box-shadow:inset -10px 0 0 var(--tm-y),0 1px 0 var(--tm-ink);transition-duration:.06s}
+.ixw--team .ixw-cta .btn-outline-white,.ixw--team .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:#FFFFFF;box-shadow:inset -10px 0 0 var(--tm-y),0 4px 0 rgba(0,0,0,.3)}
 .ixw--team main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
-.ixw--team .ixw-ibtn{border:2px solid #1B1F3B;border-radius:8px;box-shadow:0 3px 0 #1B1F3B}
-.ixw--team .ixw-ibtn--play,.ixw--team .ixw-ibtn--play:hover{background:var(--tm-man);color:#1B1F3B}
-.ixw--team .ixw-dots button.is-on{background:var(--tm-man2);box-shadow:0 0 0 1.5px #1B1F3B}
-.ixw--team .ixw-peek{border-color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B}.ixw--team .ixw-peek[aria-pressed="true"]{background:var(--tm-man)}
-
-/* ---------- the glance strip: the folder's index card ---------- */
-.ixw--team .th-strip{grid-template-columns:repeat(4,minmax(0,1fr));border-radius:6px;border:2px solid #1B1F3B;box-shadow:6px 6px 0 var(--tm-man);
-  background:repeating-linear-gradient(180deg,transparent 0 31px,#EEF1F6 31px 32px),#FFFFFF;border-top:6px solid #E2453C}
-.ixw--team .th-strip dt .ic{color:#3167CA}
-@media (max-width:991px){.ixw--team .th-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-/* ---------- the end card ---------- */
-.ixw--team main .th-cta{background:radial-gradient(circle at 85% 20%,rgba(235,201,139,.35),transparent 45%),linear-gradient(120deg,#1E3A6E,#3167CA)}
-.ixw--team main .th-cta .hand{color:var(--tm-man)}
-
-/* ---------- audit round: hero controls. Stamped tags at one height, the play key in manila with an ink lip and a manila
-   halo (not the shared blue), a hover/press/focus state on every control, the peek key's eye in brand blue ---------- */
 .ixw--team .ixw-copy .actions{gap:14px}
-.ixw--team .ixw-copy .actions .btn{height:52px;padding:0 22px}
-.ixw--team .ixw-ep-tag:hover{box-shadow:0 4px 0 #1E4691;color:#FFFFFF}
-.ixw--team .ixw-ep-tag:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
-.ixw--team .ixw-ibtn{transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,color .2s ease,background-color .2s ease}
-.ixw--team .ixw-ibtn:not(.ixw-ibtn--play):hover{border-color:#1B1F3B;color:#3167CA;background:#F7F4EC;box-shadow:0 5px 0 #1B1F3B}
-.ixw--team .ixw-ibtn:active{box-shadow:0 1px 0 #1B1F3B}
-.ixw--team .ixw-ibtn--play{box-shadow:0 3px 0 #1B1F3B}
-.ixw--team .ixw-ibtn--play:hover{box-shadow:0 5px 0 #1B1F3B;background:#F6E3BC}
-.ixw--team .ixw-ibtn--play.is-on{animation:tmHalo 2.4s ease-out infinite}
-@keyframes tmHalo{0%{box-shadow:0 3px 0 #1B1F3B,0 0 0 0 rgba(217,176,106,.6)}70%,100%{box-shadow:0 3px 0 #1B1F3B,0 0 0 12px rgba(217,176,106,0)}}
+.ixw--team .ixw-ibtn{border:2px solid var(--tm-ink);border-radius:8px;box-shadow:0 3px 0 var(--tm-ink)}
+.ixw--team .ixw-ibtn--play,.ixw--team .ixw-ibtn--play:hover{background:var(--tm-y);color:var(--tm-ink)}
+.ixw--team .ixw-dots button.is-on{background:var(--tm-blue);box-shadow:0 0 0 1.5px var(--tm-ink)}
+.ixw--team .ixw-dots button{border-radius:2px}
+.ixw--team .ixw-peek{border-color:var(--tm-ink);box-shadow:0 3px 0 var(--tm-ink)}.ixw--team .ixw-peek[aria-pressed="true"]{background:var(--tm-y)}
 .ixw--team :is(.ixw-ibtn,.ixw-dots button,.ixw-peek):focus-visible{outline:3px solid #3167CA;outline-offset:3px}
-.ixw--team .ixw-dots button{border-radius:3px}
-.ixw--team .ixw-dots button:not(.is-on):hover{background:#D9B06A}
-.ixw--team .ixw-peek{height:40px;padding:0 16px 0 13px;border-radius:8px}
-.ixw--team .ixw-peek::before{background:#3167CA}
-.ixw--team .ixw-peek:hover{background:#FBF3E2;box-shadow:0 5px 0 #1B1F3B}
-.ixw--team .ixw-peek[aria-pressed="true"]::before{background:#1B1F3B}
-@media (prefers-reduced-motion:reduce){.ixw--team .ixw-ibtn--play.is-on{animation:none}}
-/* audit round, below the hero: the index card gives the offices cell room so "Ho Chi Minh City" stays on one line; on phones
-   the long cells take a full row; the sheet's paper clip and the DOC numbers stop colliding with text; the 201 memo column
-   sits centred against the folder; Nexi sits on top of the end card on phones */
-@media (min-width:992px){.ixw--team .th-strip{grid-template-columns:1fr 1fr 1.45fr 1fr}}
-@media (max-width:620px){.ixw--team .th-strip>div:nth-of-type(n+3){grid-column:1/-1}}
-@media (max-width:620px){.ixw--team .ef-sheet::before{display:none}}
-.ixw--team .th-checklist li{padding-right:52px}
-@media (max-width:767px){.ixw--team .ixw-cta-nexi .ixw-pose{top:calc(var(--ay) * -.26px + 2px)}}
-@media (min-width:992px){.ixw--team #file .two>.th-head{align-self:center}}
+.ixw--team .ixwi-card::after{display:none}

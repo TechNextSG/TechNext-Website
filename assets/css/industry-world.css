@@ -667,3 +667,8 @@ html.ixw-intro .header{visibility:hidden;opacity:0;transition:none;animation:hdr
   .ixwi-mark,.ixwi-badge .ic-ind{width:76px;height:76px}.ixwi-mark{right:-10px;top:-40px}.ixwi-badge .ic-ind{border-radius:21px}.ixwi-badge::before{border-radius:27px}
   .ixwi-nexi{height:100px}.ixwi-title{font-size:30px}.ixwi-pill{font-size:12.5px;padding:7px 12px 7px 8px}
 }
+
+/* R9: the hero card's Nexi Explains pill plays the scene's tour (industry-world.js): a press pop and a ring on its play icon */
+.ixw-ep-tag.is-play .ic{animation:ixwEpPlay .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes ixwEpPlay{0%{transform:scale(.6)}55%{transform:scale(1.25);box-shadow:0 0 0 6px rgba(255,210,63,.45)}100%{transform:none;box-shadow:0 0 0 0 rgba(255,210,63,0)}}
+@media (prefers-reduced-motion:reduce){.ixw-ep-tag.is-play .ic{animation:none}}
