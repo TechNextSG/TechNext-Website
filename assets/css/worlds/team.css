@@ -53,3 +53,34 @@
 /* ---------- the end card ---------- */
 .ixw--team main .th-cta{background:radial-gradient(circle at 85% 20%,rgba(235,201,139,.35),transparent 45%),linear-gradient(120deg,#1E3A6E,#3167CA)}
 .ixw--team main .th-cta .hand{color:var(--tm-man)}
+
+/* ---------- audit round: hero controls. Stamped tags at one height, the play key in manila with an ink lip and a manila
+   halo (not the shared blue), a hover/press/focus state on every control, the peek key's eye in brand blue ---------- */
+.ixw--team .ixw-copy .actions{gap:14px}
+.ixw--team .ixw-copy .actions .btn{height:52px;padding:0 22px}
+.ixw--team .ixw-ep-tag:hover{box-shadow:0 4px 0 #1E4691;color:#FFFFFF}
+.ixw--team .ixw-ep-tag:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ixw--team .ixw-ibtn{transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,color .2s ease,background-color .2s ease}
+.ixw--team .ixw-ibtn:not(.ixw-ibtn--play):hover{border-color:#1B1F3B;color:#3167CA;background:#F7F4EC;box-shadow:0 5px 0 #1B1F3B}
+.ixw--team .ixw-ibtn:active{box-shadow:0 1px 0 #1B1F3B}
+.ixw--team .ixw-ibtn--play{box-shadow:0 3px 0 #1B1F3B}
+.ixw--team .ixw-ibtn--play:hover{box-shadow:0 5px 0 #1B1F3B;background:#F6E3BC}
+.ixw--team .ixw-ibtn--play.is-on{animation:tmHalo 2.4s ease-out infinite}
+@keyframes tmHalo{0%{box-shadow:0 3px 0 #1B1F3B,0 0 0 0 rgba(217,176,106,.6)}70%,100%{box-shadow:0 3px 0 #1B1F3B,0 0 0 12px rgba(217,176,106,0)}}
+.ixw--team :is(.ixw-ibtn,.ixw-dots button,.ixw-peek):focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--team .ixw-dots button{border-radius:3px}
+.ixw--team .ixw-dots button:not(.is-on):hover{background:#D9B06A}
+.ixw--team .ixw-peek{height:40px;padding:0 16px 0 13px;border-radius:8px}
+.ixw--team .ixw-peek::before{background:#3167CA}
+.ixw--team .ixw-peek:hover{background:#FBF3E2;box-shadow:0 5px 0 #1B1F3B}
+.ixw--team .ixw-peek[aria-pressed="true"]::before{background:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--team .ixw-ibtn--play.is-on{animation:none}}
+/* audit round, below the hero: the index card gives the offices cell room so "Ho Chi Minh City" stays on one line; on phones
+   the long cells take a full row; the sheet's paper clip and the DOC numbers stop colliding with text; the 201 memo column
+   sits centred against the folder; Nexi sits on top of the end card on phones */
+@media (min-width:992px){.ixw--team .th-strip{grid-template-columns:1fr 1fr 1.45fr 1fr}}
+@media (max-width:620px){.ixw--team .th-strip>div:nth-of-type(n+3){grid-column:1/-1}}
+@media (max-width:620px){.ixw--team .ef-sheet::before{display:none}}
+.ixw--team .th-checklist li{padding-right:52px}
+@media (max-width:767px){.ixw--team .ixw-cta-nexi .ixw-pose{top:calc(var(--ay) * -.26px + 2px)}}
+@media (min-width:992px){.ixw--team #file .two>.th-head{align-self:center}}
