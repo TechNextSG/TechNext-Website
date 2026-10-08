@@ -175,14 +175,27 @@ def ch(name, role, line, art=None, eps=(), page=None):
 
 CHARACTERS = [
     {"id": "cast-season-1", "tab": "Season 1", "name": "Nexi and the Season 1 sidekicks",
-     "blurb": "Nexi stars in every episode, in a new costume each time. These sidekicks come from the episodes’ own drawings, and they act out a little scene around the TV at the top of this page.",
+     "blurb": "Nexi stars in every episode, in a new costume each time. Season 1 was remade with one animal sidekick per episode; the art below is drawn from the episodes themselves.",
      "cast": [
          ch("Nexi", "The star · TechNext’s AI companion", "One idea per episode, told as a little story.", "img:nexi-explains/nexi-hello.webp", ["EP00–EP22"], "nexi.html"),
          ch("The helper bots", "EP00 · Meet Nexi", "They float in when Nexi saves the day in a comic-book city.", "draw:bots", ["EP00"]),
          ch("The spreadsheet monster", "EP00 · Meet Nexi", "The villain of the pilot: spreadsheet chaos with claws.", "draw:monster", ["EP00"]),
-         ch("The Customization goat", "EP11 · Odoo Customization", "Customize Odoo without breaking upgrades.", "draw:goat", ["EP11"]),
-         ch("The Odoo + AI owl", "EP13 · Odoo + AI Integrations", "AI inside Odoo: it prepares, you approve.", "draw:owl", ["EP13"]),
-         ch("The Workflow Automation hamster", "EP14 · Workflow Automation", "Still doing it by hand? Let the workflow run itself.", "draw:hamster", ["EP14"]),
+         ch("Dot", "A duckling · EP01 Odoo Walkthrough", "Follows Tour Guide Nexi everywhere with the tour passport, and slips on the last lily pad.", "img:nexi-explains/cast/dot.webp", ["EP01"]),
+         ch("Boba", "A city-hall capybara · EP02 All Odoo Apps", "Calm, with an orange balanced on her head, she carries one order from island to island.", "img:nexi-explains/cast/boba.webp", ["EP02"]),
+         ch("Chip", "A beaver · EP03 and EP05", "An eager carpenter and builder who always wants to skip a step.", "img:nexi-explains/cast/chip.webp", ["EP03", "EP05"]),
+         ch("Atlas", "A red ant · EP04 Myth-busting", "The myth lab’s tiny assistant with mighty muscles.", "img:nexi-explains/cast/atlas.webp", ["EP04"]),
+         ch("Mango", "A lovebird · EP06 Odoo Accounting", "The game show’s co-host: she swoons at every match.", "img:nexi-explains/cast/mango.webp", ["EP06"]),
+         ch("Sprocket", "The shop corgi · EP07 Odoo Sales", "Lost in the paper chaos, then rides the basket to Lotus Mart.", "img:nexi-explains/cast/sprocket-corgi.webp", ["EP07"]),
+         ch("Cosmo", "A golden hamster · EP08 Odoo Inventory", "The cargo deck’s seed-hoarding stock keeper, who stuffs his cheeks and loses count.", "img:nexi-explains/cast/cosmo.webp", ["EP08"]),
+         ch("Bao", "A panda · EP09 Reordering Rules", "Loves bamboo, until his rack runs empty.", "img:nexi-explains/cast/bao.webp", ["EP09"]),
+         ch("Penny", "A fox porter · EP10 CRM Development", "Counts every coin on the CRM railway and gets the golden coin at the end.", "img:nexi-explains/cast/penny.webp", ["EP10"]),
+         ch("Pebble", "A marmot · EP11 Odoo Customization", "Whistles whenever the climb gets risky, and stays quiet at a safe summit.", "img:nexi-explains/cast/pebble.webp", ["EP11"]),
+         ch("Skipper", "A seagull · EP12 Multi-company", "The ground crew in a high-vis vest, re-tagging the same bag for three systems.", "img:nexi-explains/cast/skipper.webp", ["EP12"]),
+         ch("Olive", "An owl · EP13 Odoo + AI Integrations", "Keeps the manor’s records, with a bow tie that matches Nexi’s.", "img:nexi-explains/cast/olive.webp", ["EP13"]),
+         ch("Sprocket", "An otter · EP14 Workflow Automation", "Never lets go of his favourite pebble, until it falls into the machine.", "img:nexi-explains/cast/sprocket-otter.webp", ["EP14"]),
+         ch("Rocco", "A raccoon bellhop · EP15 AI Chatbots", "Dying to ring the service bell all night, and finally gets to.", "img:nexi-explains/cast/rocco.webp", ["EP15"]),
+         ch("Turbo", "A snail · EP16 Web Design", "Slow himself, so he spots a slow website.", "img:nexi-explains/cast/turbo.webp", ["EP16"]),
+         ch("Bramble", "A hedgehog · EP17 Social Media", "Posts five times on a Monday, then naps for a month.", "img:nexi-explains/cast/bramble.webp", ["EP17"]),
          ch("The App Development cat", "EP19 · App Development", "Apps for customers, staff and portals.", "draw:cat", ["EP19"]),
          ch("The IoT penguin", "EP20 · IoT Solutions", "Freezer too warm? Sensors that warn you first.", "draw:penguin", ["EP20"]),
          ch("The Networks duck", "EP21 · Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "draw:duck", ["EP21"]),
@@ -199,8 +212,41 @@ CHARACTERS = [
      ]},
 ]
 
-# Nexi's industry costumes (assets/img/industries/<key>/), shown as the last character group.
+# Nexi's industry costumes (assets/img/industries/<key>/): one pose per card (and a second one on hover).
 COSTUMES = ["medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness"]
+COSTUME_POSES = {"medical": ("hello", "love"), "travel": ("point-right", "celebrate"), "retail": ("present", "wow"),
+                 "ecommerce": ("celebrate", "hello"), "construction": ("think", "clap"), "fnb": ("love", "present"),
+                 "manufacturing": ("clap", "point-left"), "health-wellness": ("wow", "think")}
+
+# Nexi's Season 1 wardrobe: the role and costume she wears in each episode (the films' intro badges and wear() calls,
+# nexi-tutorial/web/films/*.js), rendered from her 3D model in that costume (assets/img/nexi-explains/wardrobe/).
+def wd(key, name, costume, line, eps):
+    return {"key": key, "name": name, "costume": costume, "line": line, "eps": list(eps)}
+
+
+WARDROBE = [
+    wd("tour-guide", "Tour Guide Nexi", "Blue cap", "A sunny park tour: one order, stop by stop through Odoo.", ["EP01"]),
+    wd("mayor", "Mayor Nexi", "Top hat", "Odoo City: every app on one shared grid.", ["EP02"]),
+    wd("hard-hat", "Hard-hat Nexi", "Hard hat", "Builds it in order: blueprint, foundation, rooms, housewarming.", ["EP03", "EP05"]),
+    wd("myth-lab", "Myth-buster Nexi", "Lab goggles", "The myth, three tests, the verdict.", ["EP04"]),
+    wd("matchmaker", "Matchmaker Nexi", "Heart boppers", "It’s a match! Bank lines meet their invoices.", ["EP06"]),
+    wd("shopkeeper", "Shopkeeper Nexi", "Cycling helmet", "Nexi’s Bike Shop: one order from quote to invoice.", ["EP07"]),
+    wd("commander", "Commander Nexi", "Space helmet", "The cargo deck: one transfer from receipt to put-away.", ["EP08"]),
+    wd("keeper", "Keeper Nexi", "Zookeeper cap", "A sunny bamboo garden that never runs out.", ["EP09"]),
+    wd("conductor", "Conductor Nexi", "Conductor cap", "The CRM railway. Next stop: Won.", ["EP10"]),
+    wd("guide", "Guide Nexi", "Knit beanie", "The customization trail, up to the summit.", ["EP11"]),
+    wd("captain", "Captain Nexi", "Pilot cap", "Captain Nexi’s airline: three companies, one Odoo.", ["EP12", "EP00"]),
+    wd("butler", "Nexi the butler", "Bow tie", "The butler prepares, you approve.", ["EP13"]),
+    wd("inventor", "Inventor Nexi", "Goggles", "An agent machine that runs the steps. You keep the decision.", ["EP14"]),
+    wd("concierge", "Concierge Nexi", "Bellhop cap", "The night shift, open all hours.", ["EP15"]),
+    wd("inspector", "Inspector Nexi", "Glasses", "A slow website, inspected and renovated. Case closed.", ["EP16"]),
+    wd("gardener", "Nexi the gardener", "Straw hat", "Social channels are a garden: planned, planted, watered on schedule.", ["EP17"]),
+    wd("stylist", "Stylist Nexi", "Beret", "A brand is a wardrobe.", ["EP18"]),
+    wd("technician", "Technician Nexi", "Cap", "A site visit, run from one app.", ["EP19"]),
+    wd("chef", "Chef Nexi", "Chef’s hat", "The cold store, fresh and watched.", ["EP20"]),
+    wd("gatekeeper", "Gatekeeper Nexi", "Knight’s helmet", "Your office network as a castle.", ["EP21"]),
+    wd("host", "Host Nexi", "Bow tie", "Party time: the Season 1 finale recap.", ["EP22", "EP00"]),
+]
 
 # Comics: none published yet; the Comics category shows a "coming soon" panel until entries are added here.
 COMICS = []
