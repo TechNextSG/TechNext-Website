@@ -129,13 +129,72 @@
     shadowed(g, 10, 4, 0.18, function () { fillRR(g, RPL.x - 5, RPL.y - 5, RPL.w + 10, RPL.h + 10, 8, '#2A3142'); });
     fillRR(g, RPL.x - 12, PASS.y - 6, RPL.w + 24, 6, 3, STEEL_D);
   }
-  function paintFore(g, e) { /* the foreground: crates of produce, a sack of rice, a mop bucket */
+  function paintFore(g, e) { /* the static foreground: crates of produce, a sack of rice, the rubber floor mats */
     function crate(x, y, col) { soft(g, x, y + 4, 56, 8, 0.24); fillRR(g, x - 44, y - 40, 88, 40, 5, '#C99A6B'); g.fillStyle = 'rgba(110,70,40,.25)'; g.fillRect(x - 44, y - 26, 88, 3); g.fillRect(x - 44, y - 12, 88, 3);
       for (var i = 0; i < 6; i++) fillE(g, x - 34 + i * 13.6, y - 44 - (i % 2) * 4, 8, 8, col); }
     crate(170, 712, TOM); crate(250, 724, HERB); crate(1000, 700, '#F2C94C');
     soft(g, 1110, 664, 40, 8, 0.24); fillRR(g, 1080, 610, 60, 54, 18, '#E9DCC4'); fillRR(g, 1092, 600, 36, 16, 6, '#D9C7A6'); text(g, 'RICE', 1110, 644, 9, 800, '#9A6B45', 'center');
-    soft(g, -620, 724, 50, 8, 0.24); fillRR(g, -654, 676, 68, 48, 8, '#F2C94C'); fillRR(g, -650, 670, 60, 10, 4, '#E0B43A'); g.strokeStyle = '#8A94A8'; g.lineWidth = 3; g.beginPath(); g.moveTo(-604, 676); g.lineTo(-560, 540); g.stroke(); fillRR(g, -590, 520, 46, 26, 8, '#3FA6D6');
+    /* anti-fatigue rubber mats: one in front of the range, a long one along the front of the line */
+    function mat(x, y, w, h) { fillRR(g, x, y, w, h, 10, '#3A4458'); fillRR(g, x + 4, y + 3, w - 8, h - 6, 8, '#465165'); g.fillStyle = '#323B4D';
+      for (var my = y + 10; my < y + h - 6; my += 12) for (var mx = x + 12 + ((my - y) % 24 ? 6 : 0); mx < x + w - 8; mx += 14) fillE(g, mx, my, 3.4, 2.4, '#323B4D'); g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(x + 6, y + 3, w - 12, 2); }
+    mat(-660, 476, 230, 40); mat(-476, 684, 640, 78);
   }
+  /* the live foreground of the lower-left floor (depth-sorted with the passers-by): the mise-en-place trolley, the mop bucket,
+     the box of paper bills being unpacked by the accounts-payable clerk, the herb planter, the bus tub of plates, the crate stack */
+  var POR = { x: -560, y: 742, tapT: -9, pile: 0 }, PORP = W0who({ x: -560, y: 742, s: 0.59, ph: 1.1, skin: 1, hair: 3, style: 'bob', outfit: 'cardigan', top: '#5A6B8C', top2: '#FFFFFF', id: '#9AA6BC', hands: [[-60, -150], [60, -150]] });
+  function W0who(o) { return CR.who(o); }
+  function porPhase(t) { var c = (t + 3) % 8; return c < 1.3 ? 'reach' : c < 2.2 ? 'lift' : c < 4.6 ? 'read' : c < 5.8 ? 'file' : 'rest'; }
+  function porter(g, t) { /* the clerk: pulls a bill from the box, reads it, files it in the TO SCAN tray; tap: tosses it up and catches it */
+    var P = PORP, ph = porPhase(t), u = (t - POR.tapT) / 2.0, c = (t + 3) % 8, paper = null;
+    P.talk = u >= 0 && u < 1.1; P.mood = 'calm'; P.tilt = 0; P.hop = 0; P.sx = 1; P.feet = true;
+    if (ph === 'reach') { var k = Math.sin(Math.min(1, c / 1.3) * Math.PI); P.hands = [[lerp(-60, -118, k), lerp(-150, -112, k)], [60, -160]]; P.tilt = -0.14 * k; P.look = -0.8; }
+    else if (ph === 'lift') { var k2 = ease((c - 1.3) / 0.9); P.hands = [[lerp(-118, -36, k2), lerp(-112, -282, k2)], [lerp(60, 36, k2), lerp(-160, -282, k2)]]; P.look = -0.3; paper = 1; }
+    else if (ph === 'read') { P.hands = [[-34, -292 + Math.sin(t * 2) * 3], [34, -292 - Math.sin(t * 2) * 3]]; P.look = 0.05; P.tilt = Math.sin(t * 1.4) * 0.04; paper = 1; if (c > 3.8) P.mood = 'happy'; }
+    else if (ph === 'file') { var k3 = ease((c - 4.6) / 1.2); P.hands = [[-60, -160], [lerp(34, 118, k3), lerp(-292, -150, k3)]]; P.look = 0.8; paper = k3 < 0.92 ? 2 : 0; if (k3 >= 0.92) POR.filed = Math.floor((t + 3) / 8); }
+    else { P.hands = [[-60, -150], [60, -150]]; P.look = Math.sin(t * 0.9) * 0.7; P.tilt = Math.sin(t * 2.2) * 0.03; }
+    var toss = -1;
+    if (u >= 0 && u < 1) { paper = 0; P.talk = true; P.mood = u < 0.6 ? 'wow' : 'happy'; P.look = 0;
+      if (u < 0.15) P.hands = [[-34, -282], [34, -282]]; else if (u < 0.65) { P.hands = [[-60, -380], [60, -380]]; toss = (u - 0.15) / 0.5; } else { P.hands = [[-50, -330], [50, -330]]; P.hop = Math.sin((u - 0.65) / 0.35 * Math.PI) * 14; paper = 1; }
+      if (!POR.burst) { POR.burst = 1; CR.burst('spark', P.x, P.y - 330, t); } } else POR.burst = 0;
+    K.person(g, P, t);
+    var h0 = hw(P, 0), h1 = hw(P, 1);
+    if (paper === 1) { var mx = (h0[0] + h1[0]) / 2, my = (h0[1] + h1[1]) / 2; g.save(); g.translate(mx, my - 12); g.rotate(-0.06); fillRR(g, -18, -22, 36, 44, 2, '#FFFFFF'); fillRR(g, -14, -18, 20, 4, 2, PUR); g.fillStyle = '#C9D3E3'; g.fillRect(-14, -10, 26, 2.4); g.fillRect(-14, -4, 20, 2.4); g.fillRect(-14, 2, 24, 2.4); fillRR(g, 2, 10, 12, 6, 2, '#F2C94C'); g.restore(); }
+    else if (paper === 2) { g.save(); g.translate(h1[0] + 6, h1[1] - 10); g.rotate(0.3); fillRR(g, -14, -18, 28, 36, 2, '#FFFFFF'); fillRR(g, -10, -14, 16, 3.4, 1.5, PUR); g.restore(); }
+    if (toss >= 0) { var tx = P.x, ty = P.y - 380 * P.s - Math.sin(toss * Math.PI) * 110; g.save(); g.translate(tx, ty); g.rotate(toss * Math.PI * 4); g.scale(Math.cos(toss * Math.PI * 6) * 0.3 + 0.7, 1); fillRR(g, -16, -20, 32, 40, 2, '#FFFFFF'); fillRR(g, -12, -16, 18, 3.4, 1.5, PUR); g.restore(); }
+  }
+  function billsBox(g, t) { var x = -652, y = 750; soft(g, x, y + 4, 60, 9, 0.26);
+    g.fillStyle = '#B5865A'; g.beginPath(); g.moveTo(x - 44, y - 48); g.lineTo(x - 66, y - 70); g.lineTo(x - 50, y - 74); g.lineTo(x - 30, y - 50); g.closePath(); g.fill(); g.beginPath(); g.moveTo(x + 44, y - 48); g.lineTo(x + 64, y - 66); g.lineTo(x + 48, y - 72); g.lineTo(x + 30, y - 50); g.closePath(); g.fill();
+    for (var i = 0; i < 5; i++) { var fl = i === 2 ? Math.sin(t * 3) * 4 : 0; g.save(); g.translate(x - 26 + i * 13, y - 56 - (i % 2) * 6 - Math.max(0, fl)); g.rotate((i - 2) * 0.08); fillRR(g, -10, -14, 22, 30, 2, '#FFFFFF'); fillRR(g, -7, -10, 12, 3, 1.5, PUR); g.fillStyle = '#C9D3E3'; g.fillRect(-7, -4, 15, 2); g.restore(); }
+    fillRR(g, x - 46, y - 52, 92, 52, 4, '#C99A6B'); g.fillStyle = 'rgba(255,240,210,.45)'; g.fillRect(x - 8, y - 52, 16, 52); fillRR(g, x - 34, y - 34, 40, 20, 3, '#FFFFFF'); text(g, 'BILLS', x - 14, y - 20, 8.4, 800, PUR, 'center');
+    /* the TO SCAN tray on its stool, the pile grows with each bill filed */
+    var sx = -496, sy = 746; soft(g, sx, sy + 4, 40, 7, 0.22); g.strokeStyle = '#7A5236'; g.lineWidth = 4; g.beginPath(); g.moveTo(sx - 22, sy); g.lineTo(sx - 16, sy - 44); g.moveTo(sx + 22, sy); g.lineTo(sx + 16, sy - 44); g.stroke(); fillE(g, sx, sy - 46, 28, 6, '#9A6B45');
+    var n = 1 + ((POR.filed || 0) % 4); for (var p = 0; p < n; p++) { g.save(); g.translate(sx + (p % 2 ? 2 : -2), sy - 52 - p * 3); g.rotate((p % 2 ? 0.05 : -0.06)); fillRR(g, -16, -4, 32, 8, 1.5, '#FFFFFF'); g.restore(); }
+    g.strokeStyle = STEEL_D; g.lineWidth = 2; rr(g, sx - 22, sy - 66 - n * 3, 44, 18 + n * 3, 4); g.stroke(); fillRR(g, sx - 18, sy - 82 - n * 3, 36, 12, 3, VIO); text(g, 'TO SCAN', sx, sy - 73 - n * 3, 6.4, 800, '#FFFFFF', 'center');
+  }
+  function trolley(g, t) { var x = -846, y = 612; soft(g, x, y + 6, 76, 9, 0.24);
+    g.strokeStyle = STEEL_D; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(x - 62, y - 4); g.lineTo(x - 62, y - 92); g.moveTo(x + 62, y - 4); g.lineTo(x + 62, y - 92); g.moveTo(x + 62, y - 92); g.lineTo(x + 76, y - 104); g.stroke();
+    fillRR(g, x - 70, y - 96, 140, 9, 3, STEEL); fillRR(g, x - 70, y - 44, 140, 9, 3, STEEL); [x - 58, x + 58].forEach(function (wx) { fillE(g, wx, y, 7, 7, '#2A3142'); fillE(g, wx, y, 3, 3, '#8A94A8'); });
+    [[x - 46, TOM], [x - 18, HERB], [x + 10, '#F2C94C'], [x + 38, VIO]].forEach(function (b) { fillE(g, b[0], y - 99, 13, 4, '#E6EBF1'); g.fillStyle = '#FFFFFF'; g.beginPath(); g.ellipse(b[0], y - 99, 13, 10, 0, 0, Math.PI); g.fill(); for (var i = 0; i < 4; i++) fillE(g, b[0] - 7 + i * 4.6, y - 101 - (i % 2), 3.2, 2.4, b[1]); });
+    pot(g, x - 30, y - 44, 40, 26, COP); fillRR(g, x + 6, y - 66, 48, 22, 4, '#C98E55'); for (var v = 0; v < 5; v++) fillE(g, x + 14 + v * 8, y - 70, 4, 3, v % 2 ? HERB : TOM);
+    steam(g, x - 30, y - 74, t, 3, 46);
+  }
+  function mopBucket(g) { var x = -742, y = 756; soft(g, x, y + 4, 44, 8, 0.24); fillRR(g, x - 34, y - 48, 68, 48, 8, '#F2C94C'); fillRR(g, x - 30, y - 54, 60, 10, 4, '#E0B43A'); g.strokeStyle = '#8A94A8'; g.lineWidth = 3; g.beginPath(); g.moveTo(x + 16, y - 48); g.lineTo(x + 60, y - 184); g.stroke(); fillRR(g, x + 44, y - 204, 46, 26, 8, '#3FA6D6'); }
+  function planter(g, t) { var x = -350, y = 742; soft(g, x, y + 4, 96, 8, 0.24);
+    for (var i = 0; i < 9; i++) { var lx = x - 72 + i * 18, sw = Math.sin(t * 1.6 + i * 0.9) * 3, h = 26 + (i % 3) * 8; g.strokeStyle = '#2E8A55'; g.lineWidth = 2; g.beginPath(); g.moveTo(lx, y - 30); g.quadraticCurveTo(lx + sw * 0.5, y - 30 - h * 0.5, lx + sw, y - 30 - h); g.stroke();
+      fillE(g, lx + sw, y - 32 - h, 7, 9, i % 2 ? '#3FA66B' : '#57BF7F'); fillE(g, lx + sw * 0.6 - 6, y - 34 - h * 0.55, 6, 4, '#4CB374'); fillE(g, lx + sw * 0.6 + 6, y - 32 - h * 0.45, 6, 4, '#3FA66B'); }
+    fillRR(g, x - 88, y - 34, 176, 34, 6, '#C8794A'); fillRR(g, x - 92, y - 38, 184, 8, 4, '#D9915F'); g.fillStyle = 'rgba(110,50,20,.18)'; g.fillRect(x - 88, y - 18, 176, 3);
+    fillRR(g, x - 30, y - 26, 60, 14, 3, '#FFF7E6'); text(g, 'HERBS', x, y - 16, 7.4, 800, '#7A4E2A', 'center');
+  }
+  function busTub(g, t) { var x = -150, y = 744; soft(g, x, y + 4, 54, 8, 0.24);
+    for (var p = 0; p < 4; p++) fillE(g, x - 8 + p * 4, y - 40 - p * 4, 26, 6, p % 2 ? '#F1F4F8' : '#FFFFFF');
+    fillRR(g, x - 48, y - 40, 96, 40, 6, '#5C6B7A'); fillRR(g, x - 50, y - 44, 100, 8, 4, '#7A869C'); g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x - 40, y - 30, 80, 3);
+    for (var b = 0; b < 5; b++) { var u = (t * 0.45 + b / 5) % 1; g.globalAlpha = (1 - u) * 0.85; g.strokeStyle = '#BFE3F5'; g.lineWidth = 1.4; g.beginPath(); g.arc(x - 24 + b * 12 + Math.sin(t * 2 + b) * 4, y - 48 - u * 44, 3 + b % 3, 0, 7); g.stroke(); } g.globalAlpha = 1;
+    steam(g, x + 16, y - 50, t + 0.7, 2, 40);
+  }
+  function crateStack(g) { var x = 20, y = 746; soft(g, x, y + 4, 60, 8, 0.24);
+    [[0, 0, '#F2C94C'], [6, -36, '#E2553D']].forEach(function (c) { fillRR(g, x - 44 + c[0], y - 36 + c[1], 88, 36, 5, '#C99A6B'); g.fillStyle = 'rgba(110,70,40,.25)'; g.fillRect(x - 44 + c[0], y - 24 + c[1], 88, 3); for (var i = 0; i < 6; i++) fillE(g, x - 34 + c[0] + i * 13.6, y - 40 + c[1] - (i % 2) * 3, 7, 7, c[2]); });
+  }
+  function FORE() { return [[612, trolley], [756, mopBucket], [750, billsBox], [742, function (g2, e, t) { porter(g2, t); }], [742, planter], [744, busTub], [746, crateStack]]; }
 
   /* ------------------------------ the cast ------------------------------ */
   var W = CR.who;
@@ -146,9 +205,14 @@
   var CREW = [
     { x0: 1010, x1: 1300, y: 488, spd: 14, ph: 0.3, label: 'TechNext AI engineer', lines: ['The AI **prepares**. A person approves.', 'Answers come from **your own records**, with the source.', 'Every step is clipped to the **record**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'polo', top: BLUE, hold: 'clipboard' }) },
-    { front: true, x0: -930, x1: -560, y: 700, spd: 18, ph: 0.6, label: 'Supplier courier', lines: ['Another box of **paper bills** for the scanner.', 'Delivery for accounts payable!'], acts: ['cheer', 'wave', 'jump'],
-      P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#E9A23B', id: '#9AA6BC', hold: 'box', hands: [[-60, -212], [70, -150]] }) }
+    { front: true, x0: -930, x1: -790, y: 700, spd: 18, ph: 0.6, label: 'Supplier courier', lines: ['Another box of **paper bills** for the scanner.', 'Delivery for accounts payable!'], acts: ['cheer', 'wave', 'jump'],
+      P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#E9A23B', id: '#9AA6BC', hold: 'box', hands: [[-60, -212], [70, -150]] }) },
+    { front: true, x0: -920, x1: -470, y: 588, spd: 30, ph: 0.15, label: 'Runner', lines: ['Two plates up, **approved at the pass**.', 'Nothing leaves the pass without a **person\'s** OK.', 'Hot plates, and every one is **logged** on the way out.'], acts: ['aiTray'],
+      P: W({ s: 0.56, skin: 3, hair: 1, style: 'pony', outfit: 'polo', top: '#1E9BB0', id: '#9AA6BC', hold: 'tray', hands: [[-60, -240], [70, -150]] }) }
   ];
+  /* the runner's own tap move: the tray goes up overhead on one hand, a twirl underneath it, a little bow */
+  CR.ACT.aiTray = { dur: 1.8, fx: 'star', pose: function (P, u, t) { P.mood = 'happy'; var k = Math.min(1, u / 0.2); P.hands = [[-60, lerp(-240, -450, k)], [lerp(70, 110, k), lerp(-150, -300, k)]];
+    P.sx = u > 0.2 && u < 0.75 ? Math.cos((u - 0.2) / 0.55 * Math.PI * 2) : 1; P.hop = u < 0.75 ? Math.abs(Math.sin(u * Math.PI * 3)) * 10 : 0; P.tilt = u > 0.8 ? 0.12 : 0; } };
   /* the bill's cycle (7 s): read field by field (0-4), matched (4.2), plated to the pass (4.4-5), approved (5.6), posted (6+) */
   function cyc(S, t) { var keys = ['capture', 'match', 'approve', 'log']; return keys.indexOf(S.hot) >= 0 ? ((t - (S.kT || 0)) * 0.9 + (S.hot === 'approve' ? 4.4 : 0)) % 7 : (t * 0.42) % 7; }
   var FX = { scan: -9, bell: -9, bot: -9 };
@@ -283,7 +347,7 @@
     pan: [-700, 1300],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
     moteCol: 'rgba(255,255,255,.75)',
     glow: {
       capture: function (g) { rr(g, BILL.x + 4, BILL.y + 28, BILL.w - 8, 98, 10); },
@@ -303,7 +367,10 @@
       { id: 'eng', behind: false, keys: ['ask', 'log'], P: ENG, act: actEng }
     ],
     toy: function (name, S, t) { if (name === 'scanner') { FX.scan = t; CR.burst('spark', SCAN.x + 42, SCAN.y - 30, t); } else if (name === 'bell') { FX.bell = t; CR.burst('star', BELL.x, BELL.y - 30, t); } else if (name === 'bot') { FX.bot = t; CR.burst('spark', BOT.x, 170, t); } },
-    hit: function (x, y, S, t) { return CR.hitWalker(x, y, t); },
+    hit: function (x, y, S, t) {
+      var P = PORP; if (Math.abs(x - P.x) < 70 && y < P.y + 10 && y > P.y - 300) { POR.tapT = t; POR.li = (POR.li || 0) + 1;
+        return { say: ['A whole box of **paper bills**. Into the scanner they go.', 'Paper in, **fields out**: the AI reads every one, a person approves.'][POR.li % 2], who: 'Accounts payable', role: 'Client team · unpacking paper bills · illustration', near: [760, 70], pose: 'clap' }; }
+      return CR.hitWalker(x, y, t); },
     onStop: function (key, S, t) { S.kT = t; }
   };
 })(window.IXW && window.IXW.kit, window.CR, window.CO);
