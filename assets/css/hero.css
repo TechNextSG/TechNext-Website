@@ -1121,19 +1121,19 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 @keyframes nxsBam{0%{opacity:0;transform:scale(.2) rotate(-25deg)}25%{opacity:1;transform:scale(1.18) rotate(4deg)}45%{transform:scale(1) rotate(-3deg)}75%{opacity:1}100%{opacity:0;transform:scale(1.5) rotate(6deg)}}
 
 /* the header matches the sky while it is up */
-html.nxs-dark .header,.is-home .header{transition:background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
+.header.c-nxs-dark,.is-home .header{transition:background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
 .is-home .header .brand img{transition:transform .3s var(--spring),filter .45s ease}
 .is-home .header .nav-link{transition:background-color .15s ease,color .45s ease}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .brand img{filter:brightness(0) invert(1)}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .brand img{filter:brightness(0) invert(1)}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .nav-link{color:#fff}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(255,255,255,.75)}
 /* the app marquee joins the comic look while the slide is on */
 .hero-marquee{transition:background-color .35s ease,border-color .35s ease}
-.hero.is-nxs .hero-marquee{background:rgba(11,22,66,.94);border-top:3px solid #101C45;box-shadow:inset 0 3px 0 rgba(255,210,63,.85)}
-.hero.is-nxs .mq-item{color:#fff}
-.hero.is-nxs .mq-item .oi{padding:3px;border-radius:8px;background:#fff;box-shadow:0 0 0 2px #101C45;width:30px;height:30px}
+.hero-marquee.mq-nxs{background:rgba(11,22,66,.94);border-top:3px solid #101C45;box-shadow:inset 0 3px 0 rgba(255,210,63,.85)}
+.hero-marquee.mq-nxs .mq-item{color:#fff}
+.hero-marquee.mq-nxs .mq-item .oi{padding:3px;border-radius:8px;background:#fff;box-shadow:0 0 0 2px #101C45;width:30px;height:30px}
 
 /* slide 6 itself, inked */
 .slide--nxs .slide-tag{background:var(--yel);border-color:transparent;color:var(--ink-c);box-shadow:0 0 0 2.5px var(--ink-c),3px 3px 0 2.5px var(--ink-c);transform:rotate(-2deg)}
@@ -1275,7 +1275,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
 /* entering the slide (.is-enter): the scene pushes in from further away, the strip drops in; leaving (.is-leave): the
    card and Nexi sink away while the slide fades */
 .hxs.is-enter{--hd:.5s}
-.hxs.is-enter .hxs-bg.is-on img{animation:hxsPush 2.4s cubic-bezier(.2,.7,.3,1) both}
+.hxs.is-enter .hxs-bg.is-on .hxs-bgi{animation:hxsPush 2.4s cubic-bezier(.2,.7,.3,1) both}
 .hxs.is-enter .hxs-veil{animation:hxsVeil 1s ease both}
 .hxs.is-leave .hxs-veil{animation:hxsVeil .7s ease .15s reverse both}
 @keyframes hxsVeil{from{opacity:0}to{opacity:1}}
@@ -1390,22 +1390,22 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
    in view (html.hxs-top), and the header's Contact Us and the side tabs take the industry's button style */
 .nexi:not(.nexi--lite),.nexi-card:not(.nexi-card--lite){transition:opacity .35s ease,visibility 0s linear 0s}
 html.hxs-on .nexi:not(.nexi--lite),html.hxs-on .nexi-card:not(.nexi-card--lite){opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
-html.hxs-top .header:not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
+.header.c-hxs-top:not(.is-open){background:transparent;border-bottom-color:transparent;box-shadow:none}
 .header-cta .btn-primary,.side-tab,.side-fab{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .3s ease,translate .2s ease}
-html.hxs-on .header-cta .btn-primary{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:10px;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
-html.hxs-on .header-cta .btn-primary:hover{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));translate:0 -2px;box-shadow:0 6px 0 var(--hx-st-ink,#1F1F3D)}
-html.hxs-on .header-cta .btn-primary:active{translate:0 3px;box-shadow:0 1px 0 var(--hx-st-ink,#1F1F3D)}
-html.hxs-on .header-cta .btn-primary .ic{color:currentColor}
-html.hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-left:0;color:var(--hx-st-fg,#FFFFFF);box-shadow:4px 0 0 var(--hx-st-ink,#1F1F3D)}
-html.hxs-on .meet-tab,html.hxs-on .meet-tab:hover,html.hxs-on .meet-tab:active{background:var(--hx-st-meet,var(--ok))}
-html.hxs-on .talk-tab,html.hxs-on .talk-tab:hover,html.hxs-on .talk-tab:active{background:var(--hx-st-talk,var(--blue))}
-html.hxs-on .nexi-tab,html.hxs-on .nexi-tab:hover,html.hxs-on .nexi-tab:active{background:var(--hx-st-nexi,var(--blue));color:var(--hx-st-nexi-fg,#FFFFFF)}
-html.hxs-on .side-tab:hover{box-shadow:7px 0 0 var(--hx-st-ink,#1F1F3D)}
-html.hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
+.header.c-hxs-on .header-cta .btn-primary{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:10px;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+.header.c-hxs-on .header-cta .btn-primary:hover{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));translate:0 -2px;box-shadow:0 6px 0 var(--hx-st-ink,#1F1F3D)}
+.header.c-hxs-on .header-cta .btn-primary:active{translate:0 3px;box-shadow:0 1px 0 var(--hx-st-ink,#1F1F3D)}
+.header.c-hxs-on .header-cta .btn-primary .ic{color:currentColor}
+.side-tabs.c-hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-left:0;color:var(--hx-st-fg,#FFFFFF);box-shadow:4px 0 0 var(--hx-st-ink,#1F1F3D)}
+.side-tabs.c-hxs-on .meet-tab,.side-tabs.c-hxs-on .meet-tab:hover,.side-tabs.c-hxs-on .meet-tab:active{background:var(--hx-st-meet,var(--ok))}
+.side-tabs.c-hxs-on .talk-tab,.side-tabs.c-hxs-on .talk-tab:hover,.side-tabs.c-hxs-on .talk-tab:active{background:var(--hx-st-talk,var(--blue))}
+.side-tabs.c-hxs-on .nexi-tab,.side-tabs.c-hxs-on .nexi-tab:hover,.side-tabs.c-hxs-on .nexi-tab:active{background:var(--hx-st-nexi,var(--blue));color:var(--hx-st-nexi-fg,#FFFFFF)}
+.side-tabs.c-hxs-on .side-tab:hover{box-shadow:7px 0 0 var(--hx-st-ink,#1F1F3D)}
+.side-tabs.c-hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
 @media (max-width:960px){
-  html.hxs-on .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--hx-st-ink,#1F1F3D)}
-  html.hxs-on .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none}
-  html.hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+  .header.c-hxs-on .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--hx-st-ink,#1F1F3D)}
+  .header.c-hxs-on .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none}
+  .side-tabs.c-hxs-on .side-tab{border:2.5px solid var(--hx-st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
   html.hxs-on .side-fab{background:var(--hx-st-talk,var(--blue));color:var(--hx-st-fg,#FFFFFF);border:2.5px solid var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
 }
 
@@ -1422,10 +1422,20 @@ html.hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
    style update), and the hidden slides kept ~25 of them going (the comic sky's rays/stickers/twinkles, the industries
    slide's Nexi bob and tap pill). They pause while their slide is neither on, leaving, entering nor under a circle.
    The hero's own backdrop (aurora blobs, marquee) pauses while a full-bleed slide covers it. */
-.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *,
-.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *::before,
-.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *::after,
-.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *,
-.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *::before,
-.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *::after{animation-play-state:paused!important}
+/* (named, never "*": a universal descendant here made every slide change restyle both slides' whole subtrees) */
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing) .nxs-rays,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing) .nxs-fl,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing) .nxs-boom,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing) .nxs-tw,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing) .nxs-onair::before,
+.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) .hxs-nexi-b,
+.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) .hxs-tap{animation-play-state:paused}
 .hero.is-full .a1,.hero.is-full .a2,.hero.is-full .a3{animation-play-state:paused}
+
+/* R9 mobile audit: on touch the orbit's app buttons (scaled down to 14-18 px at the back of the orbit) get a wider
+   invisible tap ring; the front ones sit above the back ones, so the nearest app still wins */
+@media (pointer:coarse){.cine-app::after{inset:-16px}.cine-app--r1::after{inset:-18px}}
+/* R9 perf: the seven industries not on show skip style and layout entirely (their scene and Nexi only); entering the
+   slide or switching industry restyles the one that shows, not all eight. Panels keep theirs: they share one grid
+   cell, whose height must not jump. */
+.hxs-bg:not(.is-on):not(.is-out),.hxs-cast:not(.is-on):not(.is-out){content-visibility:hidden}

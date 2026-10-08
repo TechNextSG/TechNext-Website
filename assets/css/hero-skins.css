@@ -49,6 +49,8 @@
 @media (prefers-reduced-motion:reduce){.hxs .ixw-copy{transition:none}}
 .hxs .ixw-ep-tag.is-play .ic{animation:ixwEpPlay .6s cubic-bezier(.3,1.6,.5,1)}
 @media (prefers-reduced-motion:reduce){.hxs .ixw-ep-tag.is-play .ic{animation:none}}
+.hxs .ixw-ep-tag{position:relative}
+.hxs .ixw-ep-tag::before{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
 @keyframes ixwTwinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.25) rotate(18deg)}}
 /* medical */
 .hxs--medical{--w-vwall:#EAF6F4;--w-vwains:#D6EDE8;--w-vfloor:#EEF3F9;--w-vbase:#C4E2DB;--w-alt:#F3FAF8;--w-dot:rgba(33,183,153,.09)}

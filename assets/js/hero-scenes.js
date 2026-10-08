@@ -1844,7 +1844,7 @@
     /* the circle grows from (and shrinks into) the TV's centre: set on the slide for its clip, on the burst's layer (it
        covers the hero) for the burst. Never on the hero itself: a custom property there restyles its ~1,500 elements.
        All the reads come first, then the writes, so the layout is worked out once. */
-    var fxBox = fxWord && fxWord.closest('.nxs-fx');
+    var fxBox = fxWord && fxWord.closest('.nxs-fx'), mqEl = $('.hero-marquee', hero);
     /* measured once (and again after a resize) in a quiet moment, never inside a slide change: the read there forced
        a style + layout pass of the whole hero (~1,500 elements) on the very frame the circle starts */
     var oDone = false;
@@ -1889,7 +1889,7 @@
       root: root,
       enter: function (first) {
         on = true; set(cur); nextUp(); loop();
-        origin(); hero.classList.add('is-nxs');
+        origin(); hero.classList.add('is-nxs'); if (mqEl) mqEl.classList.add('mq-nxs');   // the marquee's own switch (hero.css), so its ~200 icons are the only ones restyled
         /* the header goes transparent (white type) only once the circle has covered the strip under it */
         clearTimeout(darkT); darkT = setTimeout(function () { if (on) { document.documentElement.classList.add('nxs-dark'); if (!first) swap(); } }, reduce || first ? 0 : 950);
         if (!first) fx('in');
@@ -1897,7 +1897,7 @@
       leave: function () {
         on = false; clearTimeout(t);
         if (hero.classList.contains('is-nxs')) { origin(); fx('out'); }
-        clearTimeout(darkT); hero.classList.remove('is-nxs');
+        clearTimeout(darkT); hero.classList.remove('is-nxs'); if (mqEl) mqEl.classList.remove('mq-nxs');
         if (document.documentElement.classList.contains('nxs-dark')) { document.documentElement.classList.remove('nxs-dark'); swap(); }
       },
       wake: wake
