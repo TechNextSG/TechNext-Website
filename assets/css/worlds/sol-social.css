@@ -239,3 +239,15 @@
 .ixw--sol-social .bky-faq summary:focus-visible{outline:3px solid var(--bk-butter);outline-offset:3px}
 /* the channel tins: the INSTAGRAM label fits the smaller phone tin */
 @media (max-width:640px){.ixw--sol-social .bky-ch small{font-size:7.6px;letter-spacing:.02em}}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-social .bky-faq-sec .container{display:block}
+  .ixw--sol-social .bky-faq-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0 170px 0 0;min-height:110px}
+  .ixw--sol-social .bky-faq-sec .sec-head::after{left:auto;right:0;bottom:-8px;width:140px;height:110px}
+  .ixw--sol-social .bky-faq{max-width:920px}}
+/* "what you get": the copy is centred against the receipt, the channel tins stand on a display shelf (no blank block under them) */
+@media (min-width:961px){.ixw--sol-social .bky-order{align-items:center}}
+.ixw--sol-social .bky-chans{position:relative;justify-content:space-around;max-width:420px;margin-top:30px;padding:22px 22px 30px;border-radius:18px 18px 6px 6px;background:linear-gradient(180deg,var(--bk-cream) 0,#FFF1DE 100%);box-shadow:inset 0 0 0 1.5px #F0D9BD}
+.ixw--sol-social .bky-chans::after{content:"";position:absolute;left:-8px;right:-8px;bottom:-6px;height:14px;border-radius:4px;background:linear-gradient(180deg,#C98E5A,#A8724A);box-shadow:0 6px 12px -6px rgba(85,51,31,.5)}
+.ixw--sol-social .bky-chans::before{content:"ON THE COUNTER · YOUR ACCOUNTS";position:absolute;left:50%;top:-11px;translate:-50% 0;padding:5px 12px;border-radius:999px;background:var(--bk-cocoa-d);color:#FFFFFF;font:800 9.5px/1 var(--font-body);letter-spacing:.12em;white-space:nowrap}
+@media (max-width:640px){.ixw--sol-social .bky-chans{padding:22px 10px 26px;gap:8px}}
