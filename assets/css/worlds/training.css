@@ -242,3 +242,6 @@
 .ixw--training .fs-faq-sec .fs-faq{max-width:calc(100% - 380px)}
 @media (max-width:1099px){.ixw--training .fs-faq-sec .fs-faq{max-width:none}}
 .ixw--training .fs-ask .btn-link{display:inline-flex;align-items:center;gap:6px}.ixw--training .fs-ask .btn-link svg{display:inline-block;width:16px;height:16px;flex:none}.ixw--training .fs-deco--headset.fs-ask{top:160px}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--training .ixw-credits-wrap + .section{padding-top:14px!important}

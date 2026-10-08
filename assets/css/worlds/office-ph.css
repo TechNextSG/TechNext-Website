@@ -242,3 +242,6 @@
 /* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
 .ixw--office-ph .ix-intro-sec{position:relative;z-index:2;padding-bottom:64px}
 @media (max-width:767px){.ixw--office-ph .ix-intro-sec{padding-bottom:44px}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--office-ph .ixw-credits-wrap + .section{padding-top:22px!important}

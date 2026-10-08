@@ -251,3 +251,6 @@
 .ixw--sol-rag .lbr-drawer:hover{translate:0 -6px}
 .ixw--sol-rag .lbr-drawer:hover .lbr-drawer-f i{background:linear-gradient(180deg,#FFF1C2,var(--lbr-gold))}
 @media (max-width:767px){.ixw--sol-rag .lbr-doors{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--sol-rag .lbr-priv{grid-auto-rows:auto}.ixw--sol-rag .lbr-priv li{height:auto;min-height:52px}.ixw--sol-rag .lbr-card{background:#FFFDF6}.ixw--sol-rag .lbr-priv li+li{border-top:1px solid rgba(49,103,202,.14)}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--sol-rag .ixw-credits-wrap + .section{padding-top:14px!important}

@@ -111,18 +111,39 @@
 .is-home .hm-cities .co-city-art::after{content:"";position:absolute;right:16px;bottom:14px;width:46px;height:56px;border:2px dashed rgba(255,255,255,.95);border-radius:3px;rotate:6deg;pointer-events:none;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M-10.5-2.2 10.5-10 5.9 10.4.7 3.3-3.4 7.8-3 1.5z' fill='%23FFFFFF'/%3E%3C/svg%3E") center 40%/24px 24px no-repeat,var(--o);box-shadow:0 0 0 3px #FFFFFF,0 6px 10px -4px rgba(20,30,60,.4)}
 .is-home .hm-cities .co-city-h::before{content:"greetings from";display:block;margin-bottom:2px;font:600 1rem/1.1 var(--font-hand);color:var(--o)}
-/* the room doors (mirrors /company .co-rooms) */
-.is-home .hm-rooms{gap:18px}
-.is-home .hm-rooms .card{position:relative;border:2.5px solid var(--co-ink);border-radius:16px;box-shadow:0 6px 0 var(--co-ink);padding-top:46px;color:inherit;text-decoration:none;transition:translate .25s var(--hm-spring),box-shadow .25s ease}
-.is-home .hm-rooms .card::before{content:attr(data-room);position:absolute;right:16px;top:14px;padding:5px 9px;border-radius:6px;background:var(--co-ink);color:#fff;font:800 10.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase}
-.is-home .hm-rooms .card::after{content:"";position:absolute;left:24px;top:20px;width:30px;height:5px;border-radius:3px;background:var(--co-blue)}
-.is-home .hm-rooms .card:nth-child(2)::after{background:var(--co-vn)}
-.is-home .hm-rooms .card:nth-child(3)::after{background:#E0456B}
-.is-home .hm-rooms .card:nth-child(4)::after{background:var(--co-ph)}
-.is-home .hm-rooms .card:hover{transform:none;translate:0 -4px;border-color:var(--co-ink);box-shadow:0 10px 0 var(--co-ink)}
-.is-home .hm-rooms .card-ic .ic{width:30px;height:30px}
-.is-home .hm-rooms .card h3{font-size:1.15rem}
-.is-home .hm-rooms .card p{font-size:14px}
+/* what we do: four doors into the practice hubs, each in its hub's palette (compact teaser; the full cards live in #solutions) */
+.is-home .hm-sub--doors{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.is-home .hm-doors-all{display:inline-flex;align-items:center;gap:6px;min-height:40px;font:700 14px/1 var(--font-body);color:#3167CA;text-decoration:none}
+.is-home .hm-doors-all .ic{width:16px;height:16px}
+.is-home .hm-doors{--dk:#1B2433;--dc:#FFFDF8;--da:#3167CA;--db:#3167CA;--df:#fff;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.is-home .hm-door{position:relative;display:flex;flex-direction:column;border-radius:999px 999px 14px 14px;padding:10px 10px 12px;background:var(--dc);box-shadow:0 0 0 2px var(--dk),0 6px 0 var(--dk);color:inherit;text-decoration:none;transition:translate .3s var(--hm-spring),box-shadow .25s ease}
+.is-home .hm-door:hover,.is-home .hm-door:focus-visible{translate:0 -4px;box-shadow:0 0 0 2px var(--dk),0 10px 0 var(--dk);text-decoration:none}
+.is-home .hm-door-way{position:relative;display:block;height:150px;border-radius:999px 999px 6px 6px;overflow:hidden;background:var(--da);box-shadow:inset 0 0 0 3px var(--dk);perspective:600px}
+.is-home .hm-door-way img{width:100%;height:100%;object-fit:cover;object-position:50% 60%;display:block}
+.is-home .hm-door-leaf{position:absolute;inset:0 0 0 50%;background:var(--da);border-left:3px solid var(--dk);transform-origin:100% 50%;transform:rotateY(-58deg);transition:transform .5s var(--hm-spring);
+  background-image:linear-gradient(var(--dk),var(--dk)),linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22));background-size:8px 8px,60% 34%;background-position:18% 55%,50% 20%;background-repeat:no-repeat}
+.is-home .hm-door:hover .hm-door-leaf,.is-home .hm-door:focus-visible .hm-door-leaf{transform:rotateY(-82deg)}
+.is-home .hm-door-sign{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 6px 2px;flex:1}
+.is-home .hm-door-sign .hand{margin:0;font-size:1.15rem;color:var(--da)}
+.is-home .hm-door-sign b{font:800 1.15rem/1.2 var(--font-display);color:var(--dk)}
+.is-home .hm-door-sign small{font-size:.9rem;line-height:1.35;color:#4A5268}
+.is-home .hm-door-btn{display:inline-flex;align-items:center;gap:6px;min-height:40px;margin-top:auto;padding:0 14px;border-radius:10px;background:var(--db);color:var(--df);font:700 13.5px/1 var(--font-body);box-shadow:0 3px 0 var(--dk);translate:0 6px}
+.is-home .hm-door-btn .ic{width:15px;height:15px}
+.is-home .hm-door--erp{--dk:#55354D;--dc:#FFFCF3;--da:#8A4F7D;--db:#714B67;--df:#FFF3DA}
+.is-home .hm-door--erp .hm-door-way{box-shadow:inset 0 0 0 3px #E2B23A}
+.is-home .hm-door--ai{--dk:#16323A;--dc:#FFFDF8;--da:#0E9384;--db:#16323A;--df:#F2DD8E}
+.is-home .hm-door--ai .hm-door-btn{box-shadow:0 3px 0 #94741A}
+.is-home .hm-door--mkt{--dk:#1F2A55;--dc:#F1F8FC;--da:#2F62C0;--db:#2F62C0;--df:#fff}
+.is-home .hm-door--mkt .hm-door-btn{border-radius:999px}
+.is-home .hm-door--mkt .hm-door-way::before{content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:16px;background:repeating-linear-gradient(90deg,#2F62C0 0 14px,#fff 14px 28px)}
+.is-home .hm-door--tech{--dk:#1B2433;--dc:#FFFDF8;--da:#B9720F;--db:#FFC93C;--df:#1B2433;border-radius:16px}
+.is-home .hm-door--tech .hm-door-way{border-radius:8px}
+.is-home .hm-door--tech .hm-door-way::before{content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:9px;background:repeating-linear-gradient(-45deg,#FFC93C 0 9px,#1B2433 9px 18px)}
+.is-home .hm-door--tech .hm-door-btn{border-radius:6px;box-shadow:0 0 0 2px #1B2433,0 3px 0 2px #1B2433}
+@media (max-width:1100px){.is-home .hm-doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.is-home .hm-doors{gap:14px}.is-home .hm-door-way{height:110px}.is-home .hm-door-sign small{font-size:.85rem}.is-home .hm-door-btn{font-size:12px;padding:0 10px;white-space:nowrap;gap:4px}.is-home .hm-door-btn .ic{width:13px;height:13px}.is-home .hm-door-sign b{font-size:1.02rem}}
+@media (max-width:380px){.is-home .hm-doors{grid-template-columns:1fr 1fr;gap:10px}.is-home .hm-door{padding:8px 6px 10px}}
+@media (prefers-reduced-motion:reduce){.is-home .hm-door,.is-home .hm-door-leaf{transition:none}}
 
 /* ================================================================ 2 · the three app worlds */
 .is-home .hm-apps3{padding:110px 0;background:#FAF9FB}
@@ -404,7 +425,6 @@
 @media (max-width:1100px){
   .is-home .hm-wts--4,.is-home .hm-ind-grid,.is-home .hm-plaques{grid-template-columns:repeat(2,minmax(0,1fr))}
   .is-home .hm-wts--4{row-gap:34px}
-  .is-home .hm-rooms{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:980px){
   .is-home .hm-who-in,.is-home .hm-faq-in,.is-home .hm-news-top{grid-template-columns:1fr}
@@ -433,12 +453,6 @@
   .is-home .co-plaque span:not(.hm-num){font-size:12.5px}
   .is-home .co-plaque--odoo img{height:32px}
   .is-home .hm-sub{margin:48px 0 14px}
-  .is-home .hm-rooms{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .is-home .hm-rooms .card{padding:44px 14px 16px}
-  .is-home .hm-rooms .card::before{right:10px;top:12px;font-size:9.5px}
-  .is-home .hm-rooms .card::after{left:14px}
-  .is-home .hm-rooms .card h3{font-size:1rem}
-  .is-home .hm-rooms .card p{font-size:13px}
   .is-home .hm-pass{padding:44px 10px 10px;border-radius:20px}
   .is-home .hm-pass::before{font-size:10px;padding-left:16px}
   .is-home .hm-wt-card{margin:-24px 10px 12px}

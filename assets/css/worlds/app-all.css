@@ -193,3 +193,6 @@
 .ixw--app-all .ixw-peek[aria-pressed="true"]{background:#F4F0F8}
 .ixw--app-all .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
 @media (prefers-reduced-motion:reduce){.ixw--app-all :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}
+
+/* R9: no empty band under the glance strip, the next section starts right below it */
+.ixw--app-all .ixw-credits-wrap + .section{padding-top:16px!important}
