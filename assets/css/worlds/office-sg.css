@@ -200,3 +200,24 @@
 .ixw--office-sg .sg-cta .hand{color:#FFE08A}
 .ixw--office-sg .sg-cta>div:first-of-type{position:relative;padding-top:38px}
 .ixw--office-sg .sg-cta>div:first-of-type::before{content:"#03-36";position:absolute;left:0;top:0;padding:6px 12px;border-radius:5px;background:var(--sg-screw) 3px 50%/8px 8px no-repeat,var(--sg-screw) calc(100% - 3px) 50%/8px 8px no-repeat,linear-gradient(180deg,#F4F6FA,#C9D1DD);color:#1B1F3B;font:800 12px/1 var(--font-body);letter-spacing:.14em}
+
+/* ============================== hero controls (audit round): the lift's call panel ==============================
+   The two CTAs sit side by side like a pair of call buttons (52px, a lit ring that turns amber on hover, a press that sinks
+   into the panel); the arrow is the lit button itself; the tour controls are round steel buttons; "View the scene" is the
+   panel's door-open button. */
+@media (min-width:768px){.ixw--office-sg .ixw-copy .actions{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;margin-top:26px}}
+.ixw--office-sg .ixw-copy .actions .btn-lg{height:52px;padding:0 16px;font:800 15.5px/1 var(--font-display);justify-content:center;overflow:visible;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--office-sg .ixw-copy .actions .btn-primary .ic{width:30px;height:30px;padding:7px;margin:0 -8px 0 4px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#6E9DEE,#2756B0 75%);box-shadow:0 0 0 2px #9FC4FF,0 0 0 4px #1E4691}
+.ixw--office-sg .ixw-copy .actions .btn-primary:hover .ic{background:radial-gradient(circle at 50% 40%,#FFE08A,#F2B233 75%);color:#1B1F3B;box-shadow:0 0 0 2px #FFF1C2,0 0 0 4px #B98A12,0 0 14px 2px rgba(255,201,74,.6)}
+.ixw--office-sg .ixw-copy .actions .btn-ghost .ic{width:22px;height:22px;padding:3px;border-radius:50%;background:#FFFFFF;color:#3167CA;box-shadow:0 0 0 1.5px #B9C3D1}
+.ixw--office-sg .ixw-copy .actions .btn-ghost:hover .ic{color:#B26B00;box-shadow:0 0 0 1.5px #B9C3D1,0 0 0 4px #FFE08A}
+.ixw--office-sg .ixw-cap .ixw-ibtn{width:40px;height:40px;transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw--office-sg .ixw-cap .ixw-ibtn--play{width:46px;height:46px}
+.ixw--office-sg .ixw-ibtn:hover{translate:0 -2px}
+.ixw--office-sg .ixw-ibtn:active{translate:0 3px;box-shadow:inset 0 0 0 2px #8E99AC,inset 0 0 0 5px #FFE08A,0 0 0 #8E99AC;transition-duration:.06s}
+.ixw--office-sg .ixw-ibtn:focus-visible,.ixw--office-sg .ixw-peek:focus-visible,.ixw--office-sg .ixw-dots button:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ixw--office-sg .ixw-dots button{border-radius:3px}.ixw--office-sg .ixw-dots button:hover{background:#AFC0DD}
+.ixw--office-sg .ixw-peek{height:44px;padding:0 18px 0 14px;gap:9px;font-size:13.5px;transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw--office-sg .ixw-peek:hover{translate:0 -2px;box-shadow:inset 0 0 0 2px #8E99AC,0 5px 0 #8E99AC}
+.ixw--office-sg .ixw-peek:active{translate:0 3px;box-shadow:inset 0 0 0 2px #8E99AC,0 0 0 #8E99AC}
+@media (max-width:767px){.ixw--office-sg .ixw-copy .actions .btn-lg{height:50px}}

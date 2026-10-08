@@ -221,3 +221,32 @@
 @keyframes crBob{50%{translate:0 -8px}}
 @media (max-width:991px){.ixw--careers .cr-cta-balloons{display:none}.ixw--careers .cr-cta-tag{top:40px;right:20px}}
 @media (prefers-reduced-motion:reduce){.ixw--careers .cr-cta-balloons i{animation:none}}
+
+/* ============================== hero controls (audit round): queue tickets ==============================
+   The two CTAs are one ticket roll: the same width, 52px, the stub edge on the right with the arrow (or the envelope) in it,
+   the ticket number printed small; they lift and drop a shadow on hover, press flat; the tour controls are ticket-machine
+   keys; "View the scene" is a NOW SERVING tab. */
+.ixw--careers .ixw-copy .actions{display:grid;grid-template-columns:minmax(0,1fr);max-width:330px;gap:12px;margin-top:26px}
+.ixw--careers .ixw-copy .actions .btn-lg{height:52px;padding:0 44px 0 22px;justify-content:flex-start;font:800 16px/1 var(--font-display);rotate:0deg}
+.ixw--careers .ixw-copy .actions .btn-lg .ic{position:absolute;right:12px;top:50%;margin:-11px 0 0;width:22px;height:22px;padding:0;background:none;border-radius:0}
+.ixw--careers .ixw-copy .actions .btn-ghost .ic{position:static;margin:0 2px 0 0;width:20px;height:20px}
+.ixw--careers .ixw-copy .actions .btn-ghost{padding-left:20px}
+.ixw--careers .ixw-copy .actions .btn-lg::after{right:44px}
+.ixw--careers .ixw-copy .actions .btn-primary:hover .ic{transform:translateX(3px)}
+.ixw--careers .ixw-copy .actions .btn-lg:nth-child(1)::before,.ixw--careers .ixw-copy .actions .btn-lg:nth-child(2)::before{display:block;position:absolute;right:52px;top:7px;font:700 8.5px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em;opacity:.65;background:none;width:auto;height:auto;inset:7px 52px auto auto;transform:none;border-radius:0}
+.ixw--careers .ixw-copy .actions .btn-lg:nth-child(1)::before{content:"A-001"}
+.ixw--careers .ixw-copy .actions .btn-lg:nth-child(2)::before{content:"A-002"}
+.ixw--careers .ixw-cap .ixw-ibtn{width:40px;height:40px}
+.ixw--careers .ixw-cap .ixw-ibtn--play{width:46px;height:46px}
+.ixw--careers .ixw-ibtn{transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw--careers .ixw-ibtn:hover{translate:0 -2px;box-shadow:0 5px 0 #1B2350;color:#3167CA}
+.ixw--careers .ixw-ibtn--play:hover{color:#1B2350}
+.ixw--careers .ixw-ibtn:active{translate:0 3px;box-shadow:0 0 0 #1B2350;transition-duration:.06s}
+.ixw--careers .ixw-ibtn:focus-visible,.ixw--careers .ixw-peek:focus-visible,.ixw--careers .ixw-dots button:focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--careers .ixw-dots button:hover{background:#F2C94C}
+.ixw--careers .ixw-peek{height:44px;padding:0 18px 0 14px;border-radius:10px;font-size:13.5px;transition:translate .2s var(--w-spring),box-shadow .2s ease,background-color .2s ease}
+.ixw--careers .ixw-peek:hover{translate:0 -2px;box-shadow:0 5px 0 #1B2350}
+.ixw--careers .ixw-peek:active{translate:0 3px;box-shadow:0 0 0 #1B2350}
+@media (max-width:767px){.ixw--careers .ixw-copy .actions{max-width:none}.ixw--careers .ixw-copy .actions .btn-lg{height:50px}}
+/* the role filter wraps on phones (no clipped chip at the edge) */
+@media (max-width:767px){.ixw--careers .cr-roles .filter-bar{flex-wrap:wrap;overflow:visible;margin:0 0 22px;padding:2px 0 6px}}
