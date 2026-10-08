@@ -90,7 +90,7 @@
 /* ---------- four rooms: the corridor of meeting-room doors (wood, a frosted glass panel, a brass number, a handle, a kick plate) ---------- */
 .sg-corridor{position:relative;overflow:hidden;background:linear-gradient(180deg,#F6F9FE 0,#EEF3FB calc(100% - 128px),#1E4691 calc(100% - 128px),#1E4691 calc(100% - 120px),#EADFCC calc(100% - 120px),#D8C6AA 100%)}
 .sg-corridor::before{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 138px,rgba(120,80,40,.13) 138px 140px),linear-gradient(180deg,rgba(255,255,255,.25),transparent)}
-.sg-corridor::after{content:"";position:absolute;left:0;right:0;top:0;height:16px;pointer-events:none;background:repeating-linear-gradient(90deg,#FFFFFF 0 160px,transparent 160px 240px);opacity:.9;box-shadow:0 10px 30px 10px rgba(255,248,220,.5)}
+.sg-corridor::after{content:"";position:absolute;left:0;right:0;top:0;height:10px;pointer-events:none;background:linear-gradient(180deg,#DCE3EE,#F4F7FC);box-shadow:0 1px 0 #C9D1DD,0 14px 34px 4px rgba(255,248,220,.55)}
 .sg-corridor .container{position:relative;z-index:1}
 .sg-rooms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px;align-items:end;padding-top:40px;perspective:1400px}
 .sg-room{position:relative;display:flex;flex-direction:column;min-height:446px;padding:16px 36px 0 16px;border-radius:12px 12px 3px 3px;text-decoration:none;color:var(--ink);transform-origin:left center;
@@ -221,3 +221,7 @@
 .ixw--office-sg .ixw-peek:hover{translate:0 -2px;box-shadow:inset 0 0 0 2px #8E99AC,0 5px 0 #8E99AC}
 .ixw--office-sg .ixw-peek:active{translate:0 3px;box-shadow:inset 0 0 0 2px #8E99AC,0 0 0 #8E99AC}
 @media (max-width:767px){.ixw--office-sg .ixw-copy .actions .btn-lg{height:50px}}
+
+/* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
+.ixw--office-sg .ix-intro-sec{position:relative;z-index:2;padding-bottom:64px}
+@media (max-width:767px){.ixw--office-sg .ix-intro-sec{padding-bottom:44px}}
