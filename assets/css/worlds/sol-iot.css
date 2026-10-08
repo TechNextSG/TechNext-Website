@@ -205,3 +205,30 @@
 .ixw--sol-iot .ixw-peek[aria-pressed="true"]::after{background:var(--gh-amber);box-shadow:0 0 0 3px rgba(245,165,36,.3)}
 @media (min-width:1200px){.ixw--sol-iot .ixw-hero:not(.is-peek) .grh-side{visibility:hidden}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-iot .ixw-peek::after{animation:none}}
+
+/* ============ fix round: nothing floats alone ============ */
+/* the readout: the gauge lives in a card that fills the column beside the scope board */
+.ixw--sol-iot .grh-readout{align-items:stretch}
+.ixw--sol-iot .grh-readout-l{display:flex;flex-direction:column}
+.grh-gcard{flex:1;display:grid;align-content:space-between;gap:16px;margin-top:26px;padding:22px 24px;border-radius:22px;background:#FFFFFF;box-shadow:0 0 0 1.5px #CFE8DA,0 18px 36px -26px rgba(20,70,50,.45);
+  background-image:radial-gradient(rgba(46,154,88,.10) 1.4px,transparent 1.6px);background-size:16px 16px}
+.grh-gcard .grh-gauge{margin-top:0}
+.grh-gcard-h{margin:0;font:800 11.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:#1E7A55}
+.grh-trig{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.grh-trig li{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 10px;border-radius:999px;background:#F2F8F5;box-shadow:inset 0 0 0 1.5px #CFE8DA;font:700 13px/1 var(--font-body);color:var(--gh-ink)}
+.grh-trig i{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 22%,transparent)}
+.grh-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0}
+.grh-flow span{position:relative;padding:9px 6px;border-radius:10px;background:var(--gh-leaf-l);text-align:center;font:800 12px/1 var(--font-display);color:#1E7A55}
+.grh-flow span:not(:last-child)::after{content:"";position:absolute;right:-6px;top:50%;width:6px;height:2px;background:#8FD0AA}
+.grh-flow span:last-child{background:var(--gh-leaf);color:#FFFFFF}
+/* the FAQ: heading and the phone share a compact header row; the questions run full width below */
+.ixw--sol-iot .grh-qa{grid-template-columns:1fr;gap:28px}
+.ixw--sol-iot .grh-qa .sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:center;max-width:none;margin-bottom:0}
+.ixw--sol-iot .grh-qa .sec-head>:not(.grh-phone){grid-column:1;justify-self:start}
+.ixw--sol-iot .grh-qa .grh-phone{grid-column:2;grid-row:1/span 3;margin-top:0;width:auto;grid-template-columns:repeat(3,minmax(150px,1fr));padding:16px 14px 14px 30px;border-radius:24px}
+.ixw--sol-iot .grh-qa .grh-phone-notch{left:12px;top:50%;width:10px;height:44px;margin:-22px 0 0}
+.ixw--sol-iot .grh-alerts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;align-items:start}
+.ixw--sol-iot .grh-alerts details:last-child{grid-column:1/-1}
+@media (max-width:1100px){.ixw--sol-iot .grh-qa .grh-phone{grid-template-columns:1fr;padding:30px 12px 14px}.ixw--sol-iot .grh-qa .grh-phone-notch{left:50%;top:9px;width:60px;height:12px;margin-left:-30px}}
+@media (max-width:960px){.ixw--sol-iot .grh-qa .sec-head{grid-template-columns:1fr}.ixw--sol-iot .grh-alerts{grid-template-columns:1fr}}
+@media (max-width:640px){.grh-gcard{padding:18px}.grh-flow span{font-size:11px;padding:8px 2px}}
