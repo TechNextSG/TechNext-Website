@@ -171,6 +171,7 @@ def mobile_nav_html() -> str:
     out.append(f'''
 <div class="mnav-cta">
   <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
   <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
@@ -301,7 +302,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary" href="{WA_MSG}" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">{{icon:whatsapp}}<span>Contact Us</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}contact.html" aria-label="Contact TechNext">{{icon:chat-send}}<span>Let's talk</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -327,6 +328,7 @@ LAYOUT = '''<!doctype html>
 </footer>
 
 {TALK}
+<a class="wa-float" href="{WA_MSG}" target="_blank" rel="noopener" aria-label="Chat with TechNext on WhatsApp">{{icon:whatsapp}}<span class="wa-float-tip">WhatsApp us</span></a>
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
@@ -1590,6 +1592,7 @@ def app_page(mod: str) -> tuple:
         <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
       </div>
@@ -2062,7 +2065,7 @@ LLMS_GROUPS = [
         "solutions/technology", "solutions/iot", "solutions/app-development", "solutions/networks")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "careers", "quotation", "nexi-explains")),
+    ("Company", lambda u: u in ("", "company", "careers", "quotation", "contact", "events", "life", "nexi-explains")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 
