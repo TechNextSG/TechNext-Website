@@ -6,7 +6,7 @@ META = {
     "tag": "Enterprise Solution · the group tower",
     "badge": "sol-enterprise",
     "intro_title": "Odoo for <b>groups</b>",
-    "intro_sub": "A floor per company, one set of numbers at the top",
+    "intro_sub": "A floor per company, one set of numbers",
     "intro_pills": [("layers", "Multi-company"), ("refresh", "Inter-company"), ("bars", "Consolidation")],
     "m": {},
 }

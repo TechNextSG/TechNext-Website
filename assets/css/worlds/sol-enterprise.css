@@ -37,7 +37,7 @@
 
 /* ---------- the caption: the lift's floor display ---------- */
 .ixw--sol-enterprise .ixw-cap{border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px var(--tw-steel),0 0 0 6px var(--tw-steel-l),0 0 0 7.5px var(--tw-steel),0 26px 44px -22px rgba(20,42,82,.42)}
-.ixw--sol-enterprise .ixw-cap::before{content:"\25B2  SKY DECK";position:absolute;left:18px;top:-15px;padding:5px 11px;border-radius:6px;background:var(--tw-navy);color:#FFD84A;font:800 10.5px/1 var(--font-body);letter-spacing:.16em;box-shadow:0 3px 0 var(--tw-navy-d)}
+.ixw--sol-enterprise .ixw-cap::before{content:"\25B2  SKY DECK";position:absolute;left:auto;right:18px;top:-15px;padding:5px 11px;border-radius:6px;background:var(--tw-navy);color:#FFD84A;font:800 10.5px/1 var(--font-body);letter-spacing:.16em;box-shadow:0 3px 0 var(--tw-navy-d)}
 .ixw--sol-enterprise .ixw-cap-who b{color:var(--tw-ph)}.ixw--sol-enterprise .ixw-cap-txt b{color:var(--tw-navy)}
 .ixw--sol-enterprise .ixw-caret{background:var(--tw-navy)}
 .ixw--sol-enterprise .ixw-cap-rec{background:var(--tw-sky);border:1px dashed #9FC4EA;color:var(--tw-navy)}
@@ -205,3 +205,55 @@
 .ixw--sol-enterprise .twr-roof-sec .cta .btn-white{color:var(--tw-navy);box-shadow:inset 0 0 0 2px rgba(255,216,74,.7),0 4px 0 #9FB4CC,0 16px 28px -14px rgba(10,20,60,.5)}
 .ixw--sol-enterprise .twr-roof-sec .cta .btn-white:hover{color:var(--tw-navy);box-shadow:inset 0 0 0 2px #FFD84A,0 0 0 4px rgba(255,216,74,.3),0 6px 0 #9FB4CC}
 @media (max-width:767px){.ixw--sol-enterprise .twr-roof-sec .cta{padding:44px 26px 84px}}
+
+/* ---------- hero buttons, audit round: lift-call styling, one height, clear hover / press / focus ---------- */
+.ixw--sol-enterprise .ixw-copy .actions{gap:14px;align-items:center}
+.ixw--sol-enterprise main .ixw-copy .btn-lg{height:52px;padding:0 22px 0 24px;gap:10px;font-weight:700}
+.ixw--sol-enterprise main .ixw-copy .btn-ghost{padding:0 22px 0 14px}
+.ixw--sol-enterprise main .ixw-copy .btn-primary .ic{display:grid;place-items:center;width:26px;height:26px;padding:5px;border-radius:50%;box-shadow:0 0 0 3px rgba(255,216,74,.22)}
+.ixw--sol-enterprise main .ixw-copy .btn-primary:hover{translate:0 -2px;transform:none}
+.ixw--sol-enterprise main .ixw-copy .btn-ghost:hover{translate:0 -2px;transform:none}
+.ixw--sol-enterprise main .ixw-copy .btn:active{translate:0 3px;transform:none;transition-duration:.08s}
+.ixw--sol-enterprise main .ixw-copy .btn-ghost:active{box-shadow:0 1px 0 var(--tw-navy),0 4px 10px -8px rgba(20,42,82,.4)}
+.ixw--sol-enterprise main .ixw-copy .btn:focus-visible{outline:3px solid #FFD84A;outline-offset:4px;box-shadow:0 0 0 7px rgba(30,58,110,.35)}
+.ixw--sol-enterprise .twr-tags>*{height:30px}
+.ixw--sol-enterprise .twr-tags a:focus-visible{outline:3px solid #FFD84A;outline-offset:2px}
+.ixw--sol-enterprise .twr-tags a:active{translate:0 1px;box-shadow:inset 0 0 0 1.5px var(--tw-navy),0 1px 0 var(--tw-navy)}
+/* the caption controls: steel call buttons, the play button lit gold */
+.ixw--sol-enterprise .ixw-ibtn:not(.ixw-ibtn--play){width:42px;height:42px;color:var(--tw-navy);background:linear-gradient(180deg,#FFFFFF,#EEF3F9);box-shadow:0 3px 0 var(--tw-steel),inset 0 -2px 0 rgba(30,58,110,.06)}
+.ixw--sol-enterprise .ixw-ibtn:not(.ixw-ibtn--play):hover{translate:0 -2px;background:#FFFFFF;border-color:var(--tw-navy);box-shadow:0 5px 0 var(--tw-navy)}
+.ixw--sol-enterprise .ixw-ibtn:not(.ixw-ibtn--play):active{translate:0 2px;box-shadow:0 1px 0 var(--tw-navy)}
+.ixw--sol-enterprise .ixw-ibtn--play{width:48px;height:48px}
+.ixw--sol-enterprise .ixw-ibtn--play:active{translate:0 2px;box-shadow:inset 0 0 0 2px #FFD84A,0 1px 0 var(--tw-navy-d)}
+.ixw--sol-enterprise :is(.ixw-ibtn,.ixw-dots button):focus-visible{outline:3px solid #FFD84A;outline-offset:3px}
+.ixw--sol-enterprise .ixw-dots button{transition:background-color .2s ease,transform .2s var(--w-spring),box-shadow .2s ease}
+.ixw--sol-enterprise .ixw-dots button:hover{background:#9FC4EA;transform:scale(1.25)}
+.ixw--sol-enterprise .ixw-dots button.is-on:hover{background:var(--tw-gold);transform:none}
+/* "View the scene": a lift-call key, moved off the tower's crown to sit just right of the title card */
+.ixw--sol-enterprise .ixw-peek{right:auto;left:calc((100vw - var(--container, 1200px)) / 2 + 594px);height:42px;padding:0 16px 0 12px;border:2px solid var(--tw-navy);border-radius:12px;
+  background:linear-gradient(180deg,#FFFFFF,#EEF3F9);color:var(--tw-navy);box-shadow:0 4px 0 var(--tw-navy),0 14px 24px -14px rgba(20,42,82,.55)}
+.ixw--sol-enterprise .ixw-peek::after{content:"";width:7px;height:7px;margin-left:2px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 2px rgba(43,196,138,.25)}
+.ixw--sol-enterprise .ixw-peek:hover{translate:0 -2px;box-shadow:0 6px 0 var(--tw-navy),0 0 0 4px rgba(255,216,74,.35),0 18px 28px -14px rgba(20,42,82,.55)}
+.ixw--sol-enterprise .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--tw-navy)}
+.ixw--sol-enterprise .ixw-peek:focus-visible{outline:3px solid #FFD84A;outline-offset:3px}
+.ixw--sol-enterprise .ixw-peek[aria-pressed="true"]{color:#FFD84A;background:linear-gradient(180deg,#2C4F8F,var(--tw-navy) 64%);box-shadow:0 4px 0 var(--tw-navy-d),0 14px 24px -14px rgba(20,42,82,.6)}
+.ixw--sol-enterprise .ixw-peek[aria-pressed="true"]::after{background:#FFD84A;box-shadow:0 0 0 2px rgba(255,216,74,.3)}
+
+/* ---------- below the hero, audit round ---------- */
+/* related towers: equal heights, "Learn more" pinned to the same baseline, window strip centred so no half window at the edge */
+.ixw--sol-enterprise .twr-link{display:flex;flex-direction:column;height:100%}
+.ixw--sol-enterprise .twr-link .btn-link{margin-top:auto;padding-top:14px}
+.ixw--sol-enterprise .twr-link-top{background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(255,255,255,.55) 10px 22px) 50% 12px/calc(100% - 20px) 14px no-repeat,var(--c)}
+.ixw--sol-enterprise .twr-link:focus-visible{outline:3px solid #FFD84A;outline-offset:4px}
+/* the concierge desk (FAQ): heading and a keycard on the left, questions on the right, so the row is filled at desktop widths */
+@media (min-width:1024px){
+  .ixw--sol-enterprise .twr-desk-sec .container{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:56px;align-items:start}
+  .ixw--sol-enterprise .twr-desk-sec .sec-head{position:sticky;top:calc(var(--header-box) + 32px);margin-bottom:0}
+  .ixw--sol-enterprise .twr-desk-sec .sec-head::after{content:"GROUP HQ \A VISITOR \00B7  ASK AT THE DESK";white-space:pre;display:block;margin-top:28px;width:230px;height:140px;padding:58px 18px 0;box-sizing:border-box;border-radius:14px;
+    background:radial-gradient(circle at 34px 30px,#FFD84A 9px,transparent 10px),linear-gradient(90deg,var(--tw-sg) 0 25%,var(--tw-ph) 25% 50%,var(--tw-vn) 50% 75%,var(--tw-my) 75%) 0 100%/100% 8px no-repeat,linear-gradient(160deg,#2C4F8F,var(--tw-navy) 70%);
+    color:#FFFFFF;font:800 12px/1.6 var(--font-body);letter-spacing:.12em;box-shadow:0 4px 0 var(--tw-navy-d),0 24px 36px -22px rgba(20,42,82,.55);transform:rotate(-4deg)}
+  .ixw--sol-enterprise .twr-faq{max-width:none}
+}
+/* the specification: the elevation drawing grows to balance the sheet */
+@media (min-width:961px){.ixw--sol-enterprise .twr-elev{max-width:380px;height:300px}.ixw--sol-enterprise .twr-elev-b{width:140px;height:200px;margin-left:-70px}}
+@media (max-width:520px){.ixw--sol-enterprise .twr-blue-h{flex-wrap:wrap;row-gap:4px}.ixw--sol-enterprise .twr-blue-h span{flex-basis:100%;white-space:nowrap}}
