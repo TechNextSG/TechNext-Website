@@ -335,4 +335,54 @@
       return null;
     }
   };
+  /* ---------------- audit round: the floor and the space behind the title card ----------------
+     A moving walkway runs the length of the terminal (its chevrons crawl), gate arrows are painted on the floor, a phone
+     charging pillar stands behind the card with Ade, a traveller topping up her phone (idle: scrolls and glances at the
+     departures; tapped: a selfie, flash and all), and a stack of trolleys waits by the right-hand column. */
+  var ADE = { x: -24, y: 520, s: 0.47, ph: 3.3, c: { skin: '#8D5A3B', hair: '#1F1A1A', top: '#21B799', print: '#FFFFFF', low: '#2A3550', shoe: '#F7F8FB' }, outfit: 'hoodie', hairStyle: 'pony', backpack: '#FF8A65', feet: true, mood: 'calm', look: 0, hands: [[-60, -200], [64, -206]] }, ADT = { tap: -9 };
+  function exFloor(g, ext) {
+    /* the walkway: a steel frame, a dark belt, glass rails on both sides */
+    var y0 = 548, y1 = 584; fillRR(g, ext.l, y0 - 10, ext.r - ext.l, y1 - y0 + 20, 6, '#C9D3E2'); fillRR(g, ext.l, y0, ext.r - ext.l, y1 - y0, 4, '#4A5670');
+    g.fillStyle = 'rgba(255,255,255,.55)'; g.fillRect(ext.l, y0 - 10, ext.r - ext.l, 3); g.fillStyle = 'rgba(42,53,80,.18)'; g.fillRect(ext.l, y1 + 8, ext.r - ext.l, 2);
+    /* painted gate arrows on the floor below it */
+    for (var x = Math.floor(ext.l / 300) * 300 + 60; x < ext.r; x += 300) { g.fillStyle = 'rgba(242,181,68,.55)'; g.beginPath(); g.moveTo(x, 606); g.lineTo(x + 46, 606); g.lineTo(x + 46, 598); g.lineTo(x + 66, 612); g.lineTo(x + 46, 626); g.lineTo(x + 46, 618); g.lineTo(x, 618); g.closePath(); g.fill();
+      text(g, 'GATES A1\u2013A12', x + 112, 617, 9, 800, 'rgba(42,53,80,.38)', 'center'); }
+  }
+  function exBack(g, ext) {
+    if (ext.l > 120) return;
+    /* the charging pillar: a slim white totem with sockets and a cable */
+    var px = 54; soft(g, px, F + 4, 30, 6, 0.2); shadowed(g, 10, 4, 0.16, function () { fillRR(g, px - 18, 300, 36, 170, 10, '#FFFFFF'); });
+    fillRR(g, px - 18, 300, 36, 26, 10, '#3167CA'); text(g, '\u26A1', px, 318, 13, 800, '#FFD84A', 'center'); text(g, 'CHARGE', px, 342, 6.5, 800, '#3167CA', 'center');
+    for (var i = 0; i < 4; i++) { fillRR(g, px - 10, 352 + i * 22, 20, 14, 4, '#EAF0FB'); fillE(g, px - 3, 359 + i * 22, 1.6, 1.6, '#2A3550'); fillE(g, px + 3, 359 + i * 22, 1.6, 1.6, '#2A3550'); }
+  }
+  function exLive(g, t, S) {
+    var ext = S.ext, y0 = 548, y1 = 584, off = (t * 26) % 40; g.fillStyle = 'rgba(255,255,255,.22)';
+    for (var x = Math.floor(ext.l / 40) * 40 - 40 + off; x < ext.r; x += 40) { g.beginPath(); g.moveTo(x, y0 + 8); g.lineTo(x + 10, (y0 + y1) / 2); g.lineTo(x, y1 - 8); g.lineTo(x + 5, y1 - 8); g.lineTo(x + 15, (y0 + y1) / 2); g.lineTo(x + 5, y0 + 8); g.closePath(); g.fill(); }
+    if (ext.l > 120) return;
+    var P = ADE, d = t - ADT.tap, tapped = d >= 0 && d < 2.4;
+    P.mood = tapped ? 'happy' : 'calm'; P.talk = false;
+    P.look = tapped ? 0.2 : (t % 8) < 2.5 ? 0.9 : -0.3;
+    P.hands = tapped ? [[-60, -200], [70, -470]] : [[-60, -200], [64, -228 + Math.sin(t * 1.3) * 4]];
+    P.tilt = tapped ? 0.06 * Math.sin(d * 6) : 0;
+    /* the charging cable from her phone to the pillar */
+    g.strokeStyle = '#2A3550'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(P.x + 64 * P.s, P.y - 220 * P.s); g.quadraticCurveTo(P.x + 50, P.y - 40, 44, 370); g.stroke();
+    K.person(g, P, t);
+    var hx = P.x + P.hands[1][0] * P.s, hy = P.y + P.hands[1][1] * P.s; fillRR(g, hx - 6, hy - 14, 12, 20, 3, '#2A3550'); fillRR(g, hx - 4.5, hy - 12, 9, 15, 2, (t % 3) < 1.5 ? '#9FC4FF' : '#C9F0E2');
+    if (tapped && d > 0.6 && d < 0.9) { g.globalAlpha = 1 - (d - 0.6) / 0.3; fillE(g, hx, hy - 4, 40, 40, 'rgba(255,255,240,.9)'); g.globalAlpha = 1; }
+  }
+  function exFore(g, t, S) {
+    var ext = S.ext; if (ext.r < 980) return;
+    /* nested trolleys by the column, right of the caption */
+    var x = 944, y = 640; soft(g, x + 10, y + 4, 60, 7, 0.22);
+    for (var i = 0; i < 3; i++) { var ox = x - 24 + i * 12; g.strokeStyle = '#8A94A8'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(ox, y - 62); g.lineTo(ox + 8, y - 10); g.lineTo(ox + 56, y - 10); g.stroke();
+      fillRR(g, ox + 6, y - 46, 46, 30, 3, i === 2 ? '#3167CA' : '#5B7FC4'); fillE(g, ox + 12, y - 4, 5, 5, '#2A3550'); fillE(g, ox + 50, y - 4, 5, 5, '#2A3550'); }
+    text(g, 'TROLLEYS', x + 16, y - 52, 6.5, 800, '#FFFFFF', 'center');
+  }
+  function exHit(x, y, S, t) { if (Math.abs(x - ADE.x) < 55 && y > ADE.y - 260 && y < ADE.y + 10) { ADT.tap = t; return true; } return false; }
+  (function (W) { var pb = W.paintBack, pl = W.paintLive, pf = W.paintForeLive, h0 = W.hit;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); exBack(g, ext); };
+    W.paintLive = function (g, t, now, S) { pl(g, t, now, S); exLive(g, t, S); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds.travel);
 })(window.IXW && window.IXW.kit);

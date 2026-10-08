@@ -173,3 +173,35 @@
 .ixw--sol-iot .grh-packet .card-ic{width:52px;height:52px;justify-content:center;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 2px var(--c);margin-top:6px;color:var(--c)}
 .ixw--sol-iot .grh-packet:hover{transform:none;translate:0 -6px}
 .ixw--sol-iot .grh-packet .btn-link{color:#1E7A55}
+
+/* ============================== audit round: hero controls, the propagation corner ============================== */
+/* CTA pills: one height, the LED and the arrow chip on one centre line, a glow on hover, a soft press */
+.ixw--sol-iot .ixw-copy .actions{gap:14px;margin-top:24px}
+.ixw--sol-iot .ixw-copy .actions .btn{height:50px;padding:0 22px 0 20px;font-size:15.5px;font-weight:700;align-items:center}
+.ixw--sol-iot .ixw-copy .btn-primary .ic{width:26px;height:26px;padding:5px;margin-right:-8px;border-radius:50%;background:rgba(255,255,255,.2);transition:translate .25s var(--w-spring)}
+.ixw--sol-iot .ixw-copy .btn-primary:hover{background:#2A5DBB;box-shadow:0 14px 26px -12px rgba(49,103,202,.85),0 0 0 4px rgba(125,240,176,.28),inset 0 -3px 0 rgba(0,0,0,.14)}
+.ixw--sol-iot .ixw-copy .btn-primary:hover .ic{translate:3px 0}
+.ixw--sol-iot .ixw-copy .btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--gh-leaf),0 12px 22px -12px rgba(20,70,50,.55)}
+.ixw--sol-iot main :is(.btn-primary,.btn-ghost):active{translate:0 1px;filter:brightness(.97)}
+/* status pills: a leaf border and a lift */
+.ixw--sol-iot .grh-pill{height:30px;padding:0 12px 0 8px;transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw--sol-iot .grh-pill:hover{translate:0 -1px;box-shadow:inset 0 0 0 1.5px #8FD0AA,0 6px 12px -8px rgba(20,70,50,.45)}
+/* caption controls: frosted round keys, a leaf ring on hover, the play key glows */
+.ixw--sol-iot .ixw-ibtn{background:#FFFFFF;color:var(--gh-ink);transition:translate .2s var(--w-spring),box-shadow .2s ease,border-color .2s ease,background-color .2s ease}
+.ixw--sol-iot .ixw-ibtn:hover{translate:0 -2px;border-color:var(--gh-leaf);color:var(--gh-leaf);background:var(--gh-leaf-l);box-shadow:0 5px 0 #BFE3CD,0 0 0 4px rgba(46,154,88,.12)}
+.ixw--sol-iot .ixw-ibtn:active{translate:0 1px;box-shadow:0 1px 0 #BFE3CD}
+.ixw--sol-iot .ixw-ibtn--play:hover{background:#2A8C50;color:#FFFFFF;box-shadow:0 5px 0 #1E7A55,0 0 0 5px rgba(46,154,88,.18)}
+.ixw--sol-iot .ixw-ibtn:focus-visible,.ixw--sol-iot .ixw-dots button:focus-visible,.ixw--sol-iot .ixw-peek:focus-visible{outline:3px solid var(--gh-teal);outline-offset:3px}
+.ixw--sol-iot .ixw-dots{gap:6px}
+.ixw--sol-iot .ixw-dots button{width:9px;height:9px;background:#CFE8DA;transition:width .3s var(--w-spring),background-color .2s ease,scale .2s ease}
+.ixw--sol-iot .ixw-dots button:hover{background:var(--gh-teal);scale:1.25}
+.ixw--sol-iot .ixw-dots button.is-on{width:24px;background:var(--gh-leaf);box-shadow:0 0 0 3px rgba(46,154,88,.18)}
+/* "View the scene": a frosted sensor pill with its own status LED */
+.ixw--sol-iot .ixw-peek{height:40px;padding:0 16px 0 12px;border:1.5px solid #BFE3CD;border-radius:999px;background:rgba(255,255,255,.94);color:var(--gh-ink);font-weight:800;box-shadow:0 3px 0 #BFE3CD,0 10px 22px -12px rgba(20,70,50,.45);backdrop-filter:blur(6px);transition:translate .2s var(--w-spring),box-shadow .2s ease,background-color .2s ease}
+.ixw--sol-iot .ixw-peek::after{content:"";width:8px;height:8px;margin-left:2px;border-radius:50%;background:#7DF0B0;box-shadow:0 0 0 3px rgba(125,240,176,.3);animation:grhLed 2s ease-in-out infinite}
+.ixw--sol-iot .ixw-peek:hover{translate:0 -2px;border-color:var(--gh-leaf);box-shadow:0 5px 0 #8FD0AA,0 14px 26px -12px rgba(20,70,50,.5)}
+.ixw--sol-iot .ixw-peek:active{translate:0 1px;box-shadow:0 1px 0 #8FD0AA}
+.ixw--sol-iot .ixw-peek[aria-pressed="true"]{background:var(--gh-leaf);border-color:var(--gh-leaf);color:#FFFFFF;box-shadow:0 3px 0 #1E7A55,0 10px 22px -12px rgba(20,70,50,.5)}
+.ixw--sol-iot .ixw-peek[aria-pressed="true"]::after{background:var(--gh-amber);box-shadow:0 0 0 3px rgba(245,165,36,.3)}
+@media (min-width:1200px){.ixw--sol-iot .ixw-hero:not(.is-peek) .grh-side{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.ixw--sol-iot .ixw-peek::after{animation:none}}
