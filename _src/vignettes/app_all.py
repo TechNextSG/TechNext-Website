@@ -2,7 +2,7 @@
 """All Odoo apps (/odoo/apps): the app catalogue, drawn as its own world (not an industry). Only META (the entry intro)."""
 META = {
     "page": "odoo/apps.html",
-    "tag": "Odoo apps · 50 apps, 8 categories",
+    "tag": "Odoo apps · Odoo Street, 50 apps",
     "badge": "wk-app-all",
     "intro_title": "All Odoo <b>apps</b>",
     "intro_sub": "50 apps in 8 categories, one database",

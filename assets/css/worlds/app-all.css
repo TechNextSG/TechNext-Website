@@ -6,7 +6,7 @@
   --w-alt:#F7F5FA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:10px;
   --st-ink:#1B1F3B;--st-meet:#0E9384;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#8A5F80,#714B67);
   --ii-bg:linear-gradient(160deg,#F8F6FB,#EDE5F3 60%,#FFF4C8);--ii-ink:#1B1F3B;--ii-b:#714B67;--ii-accent:#F08A24;--ii-lip:#1B1F3B;--ii-ep-bg:#714B67;--ii-ep-fg:#FFFFFF}
-.ixw--app-all .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F8F6FB 18%,#ECE8F3 62%,#E7EBF1 62%,#D6DDE7 100%)}
+.ixw--app-all .ixw-hero{background:linear-gradient(180deg,#9FD3F6 0,#F2EAF6 18%,#F2EAF6 62%,#F4EADF 62%,#C9CDD6 72%,#E2D9CC 100%)}
 
 /* ---------- the title card: an Odoo home screen ---------- */
 .ixw--app-all .ixw-copy{position:relative;max-width:540px;margin-top:20px;padding:30px 30px 24px;border-radius:20px;background:#FFFFFF;
@@ -48,3 +48,89 @@
 /* ---------- the glance strip: the launcher's dock ---------- */
 .ixw--app-all .ow-strip{border-radius:20px;box-shadow:0 0 0 1.5px #E3DCEB,0 24px 44px -30px rgba(60,30,60,.3);background:#FFFFFF}
 .ixw--app-all .ow-strip dt .ic{color:var(--aa-pur)}
+
+/* ============================== below the hero: down Odoo Street, shop by shop ============================== */
+.ixw--app-all{--aa-awn:repeating-linear-gradient(90deg,var(--aw,#714B67) 0 22px,#FFFFFF 22px 44px);--aa-tile:#7FC4B4}
+/* the title card wears the street's awning */
+.ixw--app-all .ixw-copy{padding-top:44px;background:radial-gradient(circle at 11px 0,#714B67 10.5px,transparent 11px) 0 14px/44px 11px repeat-x,radial-gradient(circle at 33px 0,#F2EAF6 10.5px,transparent 11px) 0 14px/44px 11px repeat-x,var(--aa-awn) 0 0/100% 14px no-repeat,#FFFFFF}
+.ixw--app-all .ixw-copy::before{top:34px}
+/* the glance strip: a shop sign under an awning */
+.ixw--app-all .ow-strip{padding-top:24px;background:radial-gradient(circle at 11px 0,#714B67 10.5px,transparent 11px) 0 12px/44px 10px repeat-x,var(--aa-awn) 0 0/100% 12px no-repeat,#FFFFFF}
+
+/* the one-paragraph answer: a notice hung on two chains */
+.ixw--app-all .aa-notice-sec{padding-top:84px}
+.ixw--app-all .aa-notice{max-width:940px;margin-inline:auto;padding:26px 30px;border:0;border-radius:16px;background:#FFFFFF;box-shadow:0 0 0 6px #F2EAF6,0 0 0 7.5px #DCCDE6,0 26px 44px -28px rgba(60,30,60,.4)}
+.ixw--app-all .aa-hang{position:absolute;left:0;right:0;top:-46px;height:40px;pointer-events:none}
+.ixw--app-all .aa-hang::before,.ixw--app-all .aa-hang::after{content:"";position:absolute;top:0;bottom:0;width:4px;background:repeating-linear-gradient(180deg,#B5A3BE 0 6px,transparent 6px 9px)}
+.ixw--app-all .aa-hang::before{left:15%}.ixw--app-all .aa-hang::after{right:15%}
+.ixw--app-all .aa-notice .answer-h{background:var(--aa-pur);color:#FFFFFF}
+.ixw--app-all .aa-notice p:not(.answer-h){font-size:15px;color:#3D4560}
+
+/* the app map: framed as the street map, the Odoo Line across its top */
+.ixw--app-all .aa-map-sec{background:linear-gradient(180deg,#FFFFFF,#F7F3FA)}
+.ixw--app-all .aa-mapboard{position:relative;padding:14px;border-radius:30px;background:#F2EAF6;box-shadow:inset 0 0 0 2px #E3D6EA,0 40px 70px -44px rgba(60,30,60,.5)}
+.ixw--app-all .aa-mapboard::before,.ixw--app-all .aa-mapboard::after{content:"";position:absolute;top:14px;width:10px;height:10px;border-radius:50%;background:#C9B6D4;box-shadow:inset 0 2px 2px rgba(0,0,0,.18)}
+.ixw--app-all .aa-mapboard::before{left:14px}.ixw--app-all .aa-mapboard::after{right:14px}
+.ixw--app-all .aa-map-top{display:flex;align-items:center;gap:18px;padding:6px 26px 16px}
+.ixw--app-all .aa-map-top b{flex:none;padding:7px 14px;border-radius:999px;background:var(--aa-pur);color:#FFFFFF;font:800 12px/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase}
+.ixw--app-all .aa-map-top em{flex:none;font:700 12px/1 var(--font-body);font-style:normal;color:#8A6A84}
+.ixw--app-all .aa-line{position:relative;flex:1;display:flex;justify-content:space-between;min-width:0;margin:0 46px 0 34px;padding-top:16px}
+.ixw--app-all .aa-line::before{content:"";position:absolute;left:-14px;right:-14px;top:5px;height:5px;border-radius:3px;background:var(--aa-pur)}
+.ixw--app-all .aa-line i{position:relative;font:700 10.5px/1 var(--font-body);font-style:normal;color:#5C5C73;white-space:nowrap}
+.ixw--app-all .aa-line i::before{content:"";position:absolute;left:50%;top:-16px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 3.5px var(--c);transition:transform .3s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-all .aa-line i{display:flex;justify-content:center;width:0}
+.ixw--app-all .aa-mapboard:hover .aa-line i::before{transform:scale(1.25)}
+.ixw--app-all .aa-mapboard .dm{border-radius:20px}
+@media (max-width:1100px){.ixw--app-all .aa-line i{font-size:0}.ixw--app-all .aa-line{min-height:14px}}
+@media (max-width:767px){.ixw--app-all .aa-mapboard{padding:8px;border-radius:22px}.ixw--app-all .aa-map-top em{display:none}.ixw--app-all .aa-map-top{padding:6px 10px 12px;gap:12px}}
+
+/* the street sign between the map and the shops */
+.ixw--app-all .aa-street-sign{padding:30px 0 0;background:#F7F3FA}
+.ixw--app-all .aa-street-sign .container{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ixw--app-all .aa-street-sign span{position:relative;padding:12px 30px;border-radius:10px;background:#0E7A4C;box-shadow:inset 0 0 0 3px #0E7A4C,inset 0 0 0 5px #FFFFFF,0 14px 24px -14px rgba(10,60,40,.6);color:#FFFFFF;font:800 1.5rem/1 var(--font-display);letter-spacing:.01em}
+.ixw--app-all .aa-street-sign i{font:700 12.5px/1 var(--font-body);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:#8A6A84}
+
+/* every category: a shophouse unit with its number, a fascia, an awning and a shop window of apps */
+.ixw--app-all main{counter-reset:shop}
+.ixw--app-all .apps-cat{counter-increment:shop;position:relative;padding:62px 0 64px;border-top:0;background:var(--fac,#F7F3FA)}
+.ixw--app-all .apps-cat::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:
+  radial-gradient(circle,#E07B8E 2px,transparent 2.5px) 6px 3px/24px 14px,linear-gradient(45deg,transparent 40%,var(--aa-tile) 40% 60%,transparent 60%) 0 0/12px 14px,linear-gradient(-45deg,transparent 40%,var(--aa-tile) 40% 60%,transparent 60%) 0 0/12px 14px,#FFFFFF;opacity:.85}
+.ixw--app-all #finance{--cc:#0E9384;--fac:#EAF7F2}.ixw--app-all #sales{--cc:#3167CA;--fac:#EEF4FC}.ixw--app-all #websites{--cc:#7B5CD6;--fac:#F3EFFC}.ixw--app-all #supply-chain{--cc:#E07B12;--fac:#FDF4E6}
+.ixw--app-all #hr{--cc:#D63C64;--fac:#FCEEF2}.ixw--app-all #marketing{--cc:#C98316;--fac:#FBF5E2}.ixw--app-all #services{--cc:#14A38B;--fac:#E9F6F3}.ixw--app-all #productivity{--cc:#56709E;--fac:#EEF2F8}
+.ixw--app-all .apps-cat .container{position:relative}
+.ixw--app-all .apps-cat-head{position:relative;align-items:center;margin-bottom:0;padding:16px 22px 16px 106px;border-radius:16px 16px 0 0;background:var(--cc);box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
+.ixw--app-all .apps-cat-head::before{content:"No." counter(shop,decimal-leading-zero);position:absolute;left:16px;top:50%;display:grid;place-items:center;width:72px;height:40px;margin-top:-20px;border-radius:8px;background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--cc);color:var(--cc);font:800 13px/1 var(--font-display);letter-spacing:.02em}
+.ixw--app-all .apps-cat-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:26px;background:radial-gradient(circle at 11px 0,var(--cc) 10.5px,transparent 11px) 0 14px/44px 11px repeat-x,radial-gradient(circle at 33px 0,#FFFFFF 10.5px,transparent 11px) 0 14px/44px 11px repeat-x,repeating-linear-gradient(90deg,var(--cc) 0 22px,#FFFFFF 22px 44px) 0 0/100% 14px no-repeat;z-index:1}
+.ixw--app-all .apps-cat-head h2{color:#FFFFFF;font-size:1.5rem}
+.ixw--app-all .apps-cat-head h2 .card-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.2);color:#FFFFFF}
+.ixw--app-all .apps-cat-head h2 .card-ic .ic{width:22px;height:22px}
+.ixw--app-all .apps-cat-head p{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.92);font-weight:700}
+.ixw--app-all .apps-cat-head .tag--ok{background:#FFD84A;color:#1B1F3B;box-shadow:0 2px 0 #C9A21A}
+.ixw--app-all .apps-cat-head .tag--ok .ic{color:#1B1F3B}
+.ixw--app-all .apps-grid{position:relative;gap:14px;padding:42px 22px 26px;border-radius:0 0 16px 16px;background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(232,244,252,.9) 60%,rgba(255,255,255,.95));
+  box-shadow:inset 0 0 0 8px #FFFFFF,inset 0 0 0 9.5px color-mix(in srgb,var(--cc) 25%,#FFFFFF),0 30px 50px -36px rgba(40,30,60,.45)}
+.ixw--app-all .apps-grid::after{content:"";position:absolute;left:20px;right:20px;bottom:16px;height:4px;border-radius:2px;background:color-mix(in srgb,var(--cc) 30%,#FFFFFF)}
+.ixw--app-all .app{border:0;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px #E7E1EC,0 3px 0 #E7E1EC}
+.ixw--app-all .app:hover{transform:translateY(-4px);box-shadow:0 0 0 2px var(--cc),0 5px 0 var(--cc),0 18px 26px -18px rgba(40,30,60,.4)}
+.ixw--app-all .app:hover .oi{transform:rotate(-8deg) scale(1.08)}
+.ixw--app-all .app.is-focus{box-shadow:0 0 0 2px #F0D27A,0 3px 0 #E8B92E}
+.ixw--app-all .app .tag{background:#FFF4C8;color:#7A5A00}
+.ixw--app-all .app>.ic{color:var(--cc)}
+@media (max-width:767px){.ixw--app-all .apps-cat-head{padding:14px 16px 16px 16px;border-radius:14px 14px 0 0}.ixw--app-all .apps-cat-head::before{position:static;margin:0 0 4px;height:28px;width:auto;padding:0 10px}.ixw--app-all .apps-grid{padding:38px 12px 26px}}
+
+/* the FAQ: ask the shopkeeper, each row edged in floor tiles */
+.ixw--app-all .aa-ask-sec{background-color:#F7F3FA;background-image:radial-gradient(rgba(113,75,103,.08) 1.6px,transparent 1.7px);background-size:22px 22px}
+.ixw--app-all .aa-faq details{position:relative;border:0;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px #E3D6EA,0 3px 0 #E3D6EA;overflow:hidden;transition:box-shadow .25s ease,transform .3s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-all .aa-faq details::before{content:"";position:absolute;left:0;top:0;bottom:0;width:12px;background:radial-gradient(circle,#E07B8E 1.6px,transparent 2px) 0 2px/12px 12px,linear-gradient(45deg,transparent 40%,var(--aa-tile) 40% 60%,transparent 60%) 0 0/12px 12px,linear-gradient(-45deg,transparent 40%,var(--aa-tile) 40% 60%,transparent 60%) 0 0/12px 12px,#FFFFFF}
+.ixw--app-all .aa-faq details:hover{transform:translateY(-2px)}
+.ixw--app-all .aa-faq details[open]{box-shadow:0 0 0 2px var(--aa-pur),0 4px 0 #4A2E44,0 20px 30px -22px rgba(60,30,60,.4)}
+.ixw--app-all .aa-faq summary{padding-left:30px}.ixw--app-all .aa-faq .faq-a{padding-left:30px}
+.ixw--app-all .aa-faq summary .ic{color:var(--aa-pur)}
+
+/* the end card: the shop is open */
+.ixw--app-all .aa-open-sec .cta{padding-top:76px;background:radial-gradient(circle at 86% 26%,rgba(255,216,74,.35),transparent 40%),linear-gradient(120deg,#4A2E44,#714B67 60%,#8A5F80)}
+.ixw--app-all .aa-open-sec .cta::before{content:"";position:absolute;left:0;right:0;top:0;height:30px;background:radial-gradient(circle at 11px 0,#FFD84A 10.5px,transparent 11px) 0 18px/44px 12px repeat-x,radial-gradient(circle at 33px 0,#FFFFFF 10.5px,transparent 11px) 0 18px/44px 12px repeat-x,repeating-linear-gradient(90deg,#FFD84A 0 22px,#FFFFFF 22px 44px) 0 0/100% 18px no-repeat}
+.ixw--app-all .aa-open-sec .cta::after{content:"OPEN";right:40px;top:50px;width:auto;height:auto;padding:8px 16px;border-radius:12px;background:none;border:3px solid #FF8FA3;color:#FFE1E7;font:800 18px/1 var(--font-display);letter-spacing:.16em;text-shadow:0 0 10px rgba(255,143,163,.9);box-shadow:0 0 18px rgba(255,143,163,.55),inset 0 0 12px rgba(255,143,163,.4);transform:rotate(4deg);animation:aaNeon 3.2s steps(1) infinite}
+@keyframes aaNeon{0%,100%{opacity:1}46%{opacity:1}48%{opacity:.35}50%{opacity:1}52%{opacity:.5}54%{opacity:1}}
+@media (max-width:960px){.ixw--app-all .aa-open-sec .cta::after{display:none}}
+@media (prefers-reduced-motion:reduce){.ixw--app-all .aa-open-sec .cta::after{animation:none}}
