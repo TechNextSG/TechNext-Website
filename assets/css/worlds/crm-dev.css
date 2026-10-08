@@ -7,7 +7,7 @@
   --w-alt:#F3FAF7;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
   --st-ink:#1B1F3B;--st-meet:#21B799;--st-talk:#714B67;--st-nexi:#E9B949;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#34C9A9,#21B799);
   --ii-bg:linear-gradient(160deg,#F4FBF8,#D9F2E8 60%,#FFF1D0);--ii-ink:#1B1F3B;--ii-b:#21B799;--ii-accent:#E9B949;--ii-lip:#1B1F3B;--ii-ep-bg:#21B799;--ii-ep-fg:#FFFFFF}
-.ixw--crm-dev .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F4FBF8 18%,#E5F4EE 62%,#E7EBF1 62%,#D6DDE7 100%)}
+.ixw--crm-dev .ixw-hero{background:linear-gradient(180deg,#9FD3F6 0,#E6F5FD 20%,#EEF3F7 38%,#E8EFF4 60%,#A6DE8F 60%,#86CC72 100%)}
 
 /* ---------- the title card: an opportunity card ---------- */
 .ixw--crm-dev .ixw-copy{position:relative;max-width:510px;margin-top:20px;padding:30px 30px 60px;border-radius:12px;background:#FFFFFF;border-left:7px solid var(--cr-mint);
@@ -49,3 +49,126 @@
 
 /* ---------- the end card ---------- */
 .ixw--crm-dev main .cta{background:radial-gradient(circle at 88% 18%,rgba(233,185,73,.4),transparent 45%),linear-gradient(120deg,#0E5A4C,#21B799)}
+
+/* ============================== below the hero: the relay, section by section ============================== */
+.ixw--crm-dev{--cr-track:#E2725A;--cr-track-d:#B9533E;--cr-track-l:#FBE3DA;--cr-navy:#14304A;--cr-grass:#A6DE8F;--cr-chk:repeating-conic-gradient(#1B1F3B 0 25%,#FFFFFF 0 50%)}
+/* the glance strip: the track itself, lanes numbered */
+.ixw--crm-dev .ow-strip{counter-reset:lane;background:linear-gradient(180deg,var(--cr-track) 0 3px,#FFFFFF 3px 4.5px,var(--cr-track) 4.5px 8px,#FFFFFF 8px 9.5px,var(--cr-track) 9.5px 13px) 0 0/100% 13px no-repeat,#FFFFFF;padding-top:14px}
+.ixw--crm-dev .ow-strip>div{counter-increment:lane;position:relative}
+.ixw--crm-dev .ow-strip>div::after{content:"Lane " counter(lane);position:absolute;right:0;top:18px;padding:3px 7px;border-radius:999px;background:var(--cr-track-l);color:var(--cr-track-d);font:800 9.5px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:960px){.ixw--crm-dev .ow-strip>div::after{display:none}}
+
+/* the one-paragraph answer: a race briefing at the start line */
+.ixw--crm-dev .cr-brief{max-width:980px;padding:24px 28px 24px 112px;border:0;border-radius:18px;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3EBE1,0 24px 44px -30px rgba(20,80,60,.35);overflow:hidden}
+.ixw--crm-dev .cr-brief::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:var(--cr-chk) 0 0/9px 9px}
+.ixw--crm-dev .cr-flag{position:absolute;left:42px;top:50%;width:44px;height:56px;margin-top:-30px}
+.ixw--crm-dev .cr-flag::before{content:"";position:absolute;left:2px;top:0;bottom:0;width:4px;border-radius:2px;background:#7A869C}
+.ixw--crm-dev .cr-flag::after{content:"";position:absolute;left:6px;top:2px;width:36px;height:26px;border-radius:0 4px 4px 0;background:var(--cr-chk) 0 0/9px 9px;transform-origin:0 50%;animation:crFlag 2.4s ease-in-out infinite}
+@keyframes crFlag{0%,100%{transform:skewY(0)}50%{transform:skewY(-6deg) scaleX(.94)}}
+.ixw--crm-dev .cr-brief .answer-h{background:var(--cr-mint-l);color:#127A64}
+.ixw--crm-dev .cr-brief p:not(.answer-h){font-size:15px;color:#3D4560}
+@media (max-width:640px){.ixw--crm-dev .cr-brief{padding:20px 18px 20px 76px}.ixw--crm-dev .cr-flag{left:28px;transform:scale(.8)}}
+
+/* the demo: the stadium's jumbotron, a graphite frame with a live header and the stage lanes */
+.ixw--crm-dev .cr-demo-sec{background:linear-gradient(180deg,#FFFFFF 0,#F1FAF6 100%)}
+.ixw--crm-dev .cr-tron{position:relative;padding:12px;border-radius:30px;background:#2A3142;box-shadow:0 0 0 4px #3A4458,0 50px 80px -46px rgba(10,30,40,.65)}
+.ixw--crm-dev .cr-tron::before,.ixw--crm-dev .cr-tron::after{content:"";position:absolute;top:84px;width:22px;height:96px;border-radius:8px;background:radial-gradient(circle,#4A5468 6px,#2A3142 6.5px) 50% 0/22px 32px repeat-y,#2A3142;box-shadow:0 0 0 3px #3A4458}
+.ixw--crm-dev .cr-tron::before{left:-36px}.ixw--crm-dev .cr-tron::after{right:-36px}
+.ixw--crm-dev .cr-tron-top{display:flex;align-items:center;gap:14px;padding:6px 10px 12px;color:#FFFFFF;font:800 12.5px/1 var(--font-display);letter-spacing:.04em;text-transform:uppercase}
+.ixw--crm-dev .cr-live{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:rgba(255,111,111,.16);color:#FFB3B3;font-size:10.5px}
+.ixw--crm-dev .cr-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF6F6F;animation:crBlink 1.2s steps(2,start) infinite}
+@keyframes crBlink{to{visibility:hidden}}
+.ixw--crm-dev .cr-tron-lanes{display:flex;gap:6px;margin-left:auto}
+.ixw--crm-dev .cr-tron-lanes i{padding:5px 10px;border-radius:999px;background:rgba(127,240,207,.12);color:#7FF0CF;font:800 10.5px/1 var(--font-body);font-style:normal;letter-spacing:.06em}
+.ixw--crm-dev .cr-tron-lanes i:last-child{background:#2BC48A;color:#0E3B2C}
+.ixw--crm-dev .cr-tron .dm{border-radius:20px;box-shadow:none}
+@media (max-width:1240px){.ixw--crm-dev .cr-tron::before,.ixw--crm-dev .cr-tron::after{display:none}}
+@media (max-width:767px){.ixw--crm-dev .cr-tron{padding:8px;border-radius:22px}.ixw--crm-dev .cr-tron-lanes{display:none}}
+
+/* what's included: six race bibs, pinned at the corners */
+.ixw--crm-dev .cr-bibs-sec{background:linear-gradient(180deg,#F1FAF6 0,#FFFFFF 70%)}
+.ixw--crm-dev .cr-bibs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.ixw--crm-dev .cr-bib{position:relative;padding:62px 26px 26px;border-radius:14px;background:
+  radial-gradient(circle at 14px 14px,#C9D3DE 3.5px,#FFFFFF 4px,transparent 5px),radial-gradient(circle at calc(100% - 14px) 14px,#C9D3DE 3.5px,#FFFFFF 4px,transparent 5px),
+  radial-gradient(circle at 14px calc(100% - 14px),#C9D3DE 3.5px,transparent 4px),radial-gradient(circle at calc(100% - 14px) calc(100% - 14px),#C9D3DE 3.5px,transparent 4px),#FFFFFF;
+  box-shadow:0 0 0 1.5px #E3E8EF,0 3px 0 #E3E8EF,0 26px 40px -30px rgba(20,40,60,.4);transform:rotate(var(--rot,0deg));transition:transform .45s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease;overflow:hidden}
+.ixw--crm-dev .cr-bib:nth-child(3n+1){--rot:-.6deg}.ixw--crm-dev .cr-bib:nth-child(3n+3){--rot:.6deg}
+.ixw--crm-dev .cr-bib:hover{transform:rotate(0) translateY(-6px);box-shadow:0 0 0 2px var(--c),0 5px 0 var(--c),0 34px 46px -30px rgba(20,40,60,.45)}
+.ixw--crm-dev .cr-bib-top{position:absolute;left:0;right:0;top:0;height:40px;display:flex;align-items:center;padding:0 30px;background:var(--c);color:#FFFFFF;font:800 11px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase}
+.ixw--crm-dev .cr-bib-top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 14px,transparent 14px 28px)}
+.ixw--crm-dev .cr-bib-n{position:absolute;right:20px;top:46px;font:800 64px/1 var(--font-display);letter-spacing:-.04em;color:var(--c);opacity:.13;transition:opacity .3s ease,transform .45s cubic-bezier(.34,1.45,.64,1)}
+.ixw--crm-dev .cr-bib:hover .cr-bib-n{opacity:.3;transform:scale(1.08)}
+.ixw--crm-dev .cr-bib .card-ic{display:grid;place-items:center;width:52px;height:52px;margin-bottom:16px;border-radius:14px;background:color-mix(in srgb,var(--c) 12%,#FFFFFF);color:var(--c)}
+.ixw--crm-dev .cr-bib .card-ic .ic{width:26px;height:26px}.ixw--crm-dev .cr-bib .card-ic .oi{width:34px;height:34px}
+.ixw--crm-dev .cr-bib h3{margin-bottom:8px;font-size:1.16rem}
+.ixw--crm-dev .cr-bib p{margin:0;font-size:15px;line-height:1.6;color:#4A5268}
+@media (max-width:960px){.ixw--crm-dev .cr-bibs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ixw--crm-dev .cr-bibs{grid-template-columns:minmax(0,1fr);gap:18px}}
+
+/* how we build it: four legs of the relay on one track, the baton passed at each hand-off */
+.ixw--crm-dev .cr-relay-sec{background-color:#EEF8F1;background-image:repeating-linear-gradient(100deg,rgba(255,255,255,.45) 0 60px,transparent 60px 120px)}
+.ixw--crm-dev .cr-relay{position:relative;padding-top:34px}
+.ixw--crm-dev .cr-relay-track{position:absolute;left:0;right:0;top:40px;height:34px;border-radius:999px;background:linear-gradient(180deg,#EE9478 0,#E06A50 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,.35),0 10px 20px -12px rgba(150,60,40,.55)}
+.ixw--crm-dev .cr-relay-track::before{content:"";position:absolute;left:18px;right:18px;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,#FFFFFF 0 16px,transparent 16px 28px)}
+.ixw--crm-dev .cr-relay-track::after{content:"";position:absolute;right:0;top:0;bottom:0;width:30px;border-radius:0 999px 999px 0;background:var(--cr-chk) 0 0/8.5px 8.5px}
+.ixw--crm-dev .cr-relay-track span{position:absolute;top:-24px;font:800 11px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:#B9533E}
+.ixw--crm-dev .cr-relay-track span:first-child{left:6px}.ixw--crm-dev .cr-relay-track span:last-child{right:6px}
+.ixw--crm-dev .cr-legs{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:0;padding:0;list-style:none}
+.ixw--crm-dev .cr-leg{position:relative;padding:62px 22px 24px;border-radius:18px;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3EBE1,0 22px 36px -28px rgba(20,80,60,.4);transition:transform .4s cubic-bezier(.34,1.45,.64,1)}
+.ixw--crm-dev .cr-leg:hover{transform:translateY(-5px)}
+.ixw--crm-dev .cr-leg-n{position:absolute;left:50%;top:-26px;display:grid;place-items:center;width:52px;height:52px;margin-left:-26px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 5px var(--cr-mint),0 6px 0 5px #127A64;font:800 22px/1 var(--font-display);color:var(--cr-ink)}
+.ixw--crm-dev .cr-leg:last-child .cr-leg-n{box-shadow:0 0 0 5px var(--cr-gold),0 6px 0 5px #B98E2A}
+.ixw--crm-dev .cr-leg:not(:last-child)::after{content:"";position:absolute;right:-19px;top:-12px;width:16px;height:30px;border-radius:5px;background:linear-gradient(180deg,#FFFFFF 0 7px,var(--cr-gold) 7px);box-shadow:0 3px 0 #B98E2A;transform:rotate(28deg);z-index:2;animation:crBaton 2.6s ease-in-out infinite;animation-delay:calc(var(--i) * .4s)}
+@keyframes crBaton{0%,100%{transform:rotate(28deg) translateY(0)}50%{transform:rotate(-14deg) translateY(-6px)}}
+.ixw--crm-dev .cr-leg h3{margin:0 0 8px;font-size:1.1rem;text-align:center}
+.ixw--crm-dev .cr-leg p{margin:0;font-size:14.5px;line-height:1.6;color:#4A5268;text-align:center}
+@media (max-width:960px){.ixw--crm-dev .cr-legs{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:56px}.ixw--crm-dev .cr-leg::after{display:none}.ixw--crm-dev .cr-relay-track{display:none}.ixw--crm-dev .cr-relay{padding-top:30px}}
+@media (max-width:640px){.ixw--crm-dev .cr-legs{grid-template-columns:minmax(0,1fr)}}
+
+/* what you get: the podium beside the list; every item ticked off at the finish */
+.ixw--crm-dev .cr-medal-sec{background:#FFFFFF}
+.ixw--crm-dev .cr-podium{position:relative;display:flex;align-items:flex-end;gap:8px;margin-top:78px;max-width:400px;padding-bottom:14px}
+.ixw--crm-dev .cr-podium::after{content:"";position:absolute;left:-12px;right:-12px;bottom:0;height:10px;border-radius:999px;background:linear-gradient(180deg,var(--cr-track) 0 4px,#FFFFFF 4px 5.5px,var(--cr-track) 5.5px)}
+.ixw--crm-dev .cr-pod::before{content:attr(data-n);position:absolute;left:0;right:0;top:22px;font:800 34px/1 var(--font-display);color:#E3E8EF}
+.ixw--crm-dev .cr-pod--1::before{color:rgba(233,185,73,.45)}
+@media (min-width:961px){.ixw--crm-dev .cr-medal{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+.ixw--crm-dev .cr-pod{position:relative;flex:1;display:flex;align-items:flex-end;justify-content:center;padding:0 6px 14px;border-radius:10px 10px 4px 4px;background:#FFFFFF;box-shadow:0 0 0 1.5px #E3E8EF,0 4px 0 #E3E8EF;font:800 12px/1.2 var(--font-body);color:#3D4560;text-align:center}
+.ixw--crm-dev .cr-pod--1{height:150px;box-shadow:0 0 0 2px var(--cr-gold),0 5px 0 #B98E2A}.ixw--crm-dev .cr-pod--2{height:112px}.ixw--crm-dev .cr-pod--3{height:88px}
+.ixw--crm-dev .cr-pod i{position:absolute;left:50%;top:-30px;width:40px;height:40px;margin-left:-20px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFFFFF 0 3px,transparent 4px),var(--m,#C9D3DE);box-shadow:0 0 0 4px #FFFFFF,0 6px 14px -4px rgba(0,0,0,.25)}
+.ixw--crm-dev .cr-pod i::after{content:"";position:absolute;left:50%;bottom:100%;width:16px;height:22px;margin-left:-8px;background:linear-gradient(90deg,#3167CA 0 50%,#21B799 50%);clip-path:polygon(0 0,100% 0,100% 100%,50% 70%,0 100%);transform:translateY(4px)}
+.ixw--crm-dev .cr-pod--1 i{--m:var(--cr-gold);width:48px;height:48px;margin-left:-24px;top:-36px;animation:crShine 3s ease-in-out infinite}
+.ixw--crm-dev .cr-pod--3 i{--m:#E5A877}
+@keyframes crShine{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15) drop-shadow(0 0 8px rgba(233,185,73,.7))}}
+.ixw--crm-dev .cr-checks{padding:26px 28px;border-radius:20px;background:#F6FBF9;box-shadow:inset 0 0 0 1.5px #D3EBE1}
+.ixw--crm-dev .cr-checks li{position:relative;padding-left:4px}
+.ixw--crm-dev .cr-checks li .ic{width:22px;height:22px;padding:4px;border-radius:6px;background:var(--cr-mint);color:#FFFFFF;margin-top:0}
+.ixw--crm-dev .cr-checks li:nth-child(6) .ic,.ixw--crm-dev .cr-checks li:nth-child(7) .ic{background:var(--cr-gold);color:#1B1F3B}
+.ixw--crm-dev .cr-checks a{color:#127A64;font-weight:700}
+
+/* the FAQ: questions from the stands, each row a seat in the stand */
+.ixw--crm-dev .cr-stands-sec{background-color:#F3F8FB;background-image:radial-gradient(circle,rgba(91,196,166,.18) 4px,transparent 4.5px),linear-gradient(180deg,transparent 0 19px,rgba(20,48,74,.05) 19px 21px);background-size:16px 21px,100% 21px}
+.ixw--crm-dev .cr-faq{counter-reset:q;max-width:900px}
+.ixw--crm-dev .cr-faq details{counter-increment:q;border:0;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px #D9E5EE,0 3px 0 #D9E5EE;transition:box-shadow .25s ease,transform .3s cubic-bezier(.34,1.45,.64,1)}
+.ixw--crm-dev .cr-faq details:hover{transform:translateX(4px)}
+.ixw--crm-dev .cr-faq details[open]{box-shadow:0 0 0 2px var(--cr-mint),0 4px 0 #127A64,0 22px 34px -24px rgba(20,80,60,.4)}
+.ixw--crm-dev .cr-faq summary{gap:14px;padding-left:16px}
+.ixw--crm-dev .cr-faq summary::before{content:counter(q,decimal-leading-zero);flex:none;display:grid;place-items:center;width:38px;height:30px;border-radius:8px;background:var(--cr-navy);color:#7FF0CF;font:800 13px/1 var(--font-body);letter-spacing:.04em}
+.ixw--crm-dev .cr-faq summary{justify-content:flex-start}.ixw--crm-dev .cr-faq summary .ic{margin-left:auto;color:var(--cr-track)}
+.ixw--crm-dev .cr-faq details[open] summary::before{background:var(--cr-mint);color:#FFFFFF}
+.ixw--crm-dev .cr-faq .faq-a{padding-left:68px}
+.ixw--crm-dev .cr-faq .faq-a a{color:#127A64;font-weight:700}
+@media (max-width:640px){.ixw--crm-dev .cr-faq .faq-a{padding-left:22px}}
+
+/* related services: event tickets with a torn stub */
+.ixw--crm-dev .cr-ticket{padding:28px 28px 26px 86px;border:0;border-radius:16px;background:radial-gradient(circle at 64px 0,transparent 9px,#FFFFFF 9.5px) top/100% 51% no-repeat,radial-gradient(circle at 64px 100%,transparent 9px,#FFFFFF 9.5px) bottom/100% 51% no-repeat;
+  box-shadow:none;filter:drop-shadow(0 0 1.5px #D3DCE6) drop-shadow(0 18px 20px rgba(20,40,60,.12));transition:transform .4s cubic-bezier(.34,1.45,.64,1)}
+.ixw--crm-dev .cr-ticket:hover{transform:translateY(-6px) rotate(-.6deg);border:0}
+.ixw--crm-dev .cr-ticket::before{content:"";position:absolute;left:64px;top:14px;bottom:14px;border-left:2px dashed #D3DCE6}
+.ixw--crm-dev .cr-ticket .card-ic{position:absolute;left:0;top:0;bottom:0;width:64px;min-height:0;margin:0;display:grid;place-items:center;border-radius:16px 0 0 16px;background:color-mix(in srgb,var(--c) 12%,#FFFFFF);color:var(--c)}
+.ixw--crm-dev .cr-ticket .card-ic .ic{width:26px;height:26px}.ixw--crm-dev .cr-ticket .card-ic .oi{width:32px;height:32px}
+.ixw--crm-dev .cr-ticket .btn-link{color:var(--c)}
+
+/* the end card: the finish line */
+.ixw--crm-dev .cr-finish-sec .cta{padding-top:74px;background:radial-gradient(circle at 88% 30%,rgba(233,185,73,.45),transparent 40%),linear-gradient(120deg,#0E5A4C,#21B799)}
+.ixw--crm-dev .cr-finish-sec .cta::before{content:"";position:absolute;left:0;right:0;top:0;height:22px;background:var(--cr-chk) 0 0/11px 11px;opacity:.9}
+.ixw--crm-dev .cr-finish-sec .cta::after{right:-60px;top:auto;bottom:-140px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,216,74,.35),rgba(255,216,74,0) 70%)}

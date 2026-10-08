@@ -3,7 +3,7 @@
 industry). Only META (the entry intro)."""
 META = {
     "page": "odoo/crm-development.html",
-    "tag": "CRM Development · shaped around how you sell",
+    "tag": "CRM Development · the pipeline relay",
     "badge": "wk-crm",
     "intro_title": "Odoo <b>CRM</b>",
     "intro_sub": "Stages, routing, scoring and hand-offs, your way",
