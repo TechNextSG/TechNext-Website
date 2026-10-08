@@ -1,15 +1,20 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
-/* World: training (/odoo/training) — step 2 of 4, role-based training. Odoo purple, lavender walls, the role colours
-   (finance green, sales rose, warehouse amber). The title card is a spiral-bound quick-reference guide with index tabs; the
-   caption is an onboarding tooltip; buttons are lessons with a progress bar that fills on hover; the glance strip is a
-   course progress tracker. */
-.ixw--training{--ow-c:#714B67;--tr-ink:#1B1F3B;--tr-pur:#714B67;--tr-pur-l:#F4F0F8;
+/* World: training (/odoo/training) — step 2 of 4, drawn as a bright FLIGHT SCHOOL: practise in the simulator (a copy of your
+   own data) before the real flight (go-live). Odoo purple, lavender hangar walls, sky blue, taxi-line amber and the role
+   colours (finance green, sales rose, warehouse amber). The title card is a spiral-bound flight manual with index tabs; the
+   caption is an onboarding tooltip; buttons are lessons with a progress bar that fills on hover; the glance strip is a course
+   progress tracker. Below the hero: a pre-flight briefing on a clipboard, the lesson planner inside a simulator bezel with
+   its instruments, six type-rating cards (one per audience), the flight path with four waypoints and a plane flying it, the
+   go-live checklist with its switches, ground-school questions, connecting lessons and a runway end card. */
+.ixw--training{--ow-c:#714B67;--tr-ink:#1B1F3B;--tr-pur:#714B67;--tr-pur-d:#4A2E44;--tr-pur-l:#F4F0F8;--tr-amb:#F2A33A;--tr-sky:#6FB2EE;--tr-line:#E3DCEB;
+  --tr-mono:ui-monospace,"Cascadia Mono","Consolas","SFMono-Regular",monospace;
   --w-alt:#F7F5FA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
   --st-ink:#1B1F3B;--st-meet:#2E9C7E;--st-talk:#714B67;--st-nexi:#F2A33A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#8A5F80,#714B67);
   --ii-bg:linear-gradient(160deg,#F8F6FB,#EDE5F3 60%,#FFF1D6);--ii-ink:#1B1F3B;--ii-b:#714B67;--ii-accent:#F2A33A;--ii-lip:#1B1F3B;--ii-ep-bg:#714B67;--ii-ep-fg:#FFFFFF}
-.ixw--training .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F8F6FB 18%,#EEEAF3 62%,#E9E2D6 62%,#D9D0C1 100%)}
+.ixw--training .ixw-hero{background:linear-gradient(180deg,#EFEBF4 0,#F7F5FA 18%,#ECE8F2 62%,#EEEBF3 62%,#DCD6E4 100%)}
+.ixw--training .section--alt{background:var(--w-alt)}
 
-/* ---------- the title card: a spiral-bound quick-reference guide with index tabs ---------- */
+/* ---------- the title card: a spiral-bound flight manual with index tabs ---------- */
 .ixw--training .ixw-copy{position:relative;max-width:510px;margin-top:30px;padding:40px 34px 24px 30px;border-radius:6px 14px 14px 6px;background:#FFFFFF;
   box-shadow:0 0 0 1.5px #E3DCEB,6px 6px 0 #EDE5F3,0 40px 70px -30px rgba(60,30,60,.4)}
 .ixw--training .ixw-copy::before{content:"";position:absolute;left:24px;right:24px;top:-12px;height:24px;
@@ -28,26 +33,151 @@
 .ixw--training .ixw-cap-rec{background:var(--tr-pur-l);border:1px dashed #C9B6D4;color:#4A2E44}
 
 /* ---------- buttons: lessons with a progress bar ---------- */
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;overflow:hidden;border-radius:12px;border:0;
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white){position:relative;overflow:hidden;border-radius:12px;border:0;
   transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:0;bottom:0;height:5px;width:30%;background:#F2A33A;transition:width .5s cubic-bezier(.2,.8,.2,1)}
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{width:100%}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white)::after{content:"";position:absolute;left:0;bottom:0;height:5px;width:30%;background:#F2A33A;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):hover::after{width:100%}
 .ixw--training main .btn-primary,.ixw--training main .btn-primary:hover{color:#FFFFFF;background:var(--tr-pur);box-shadow:0 4px 0 #4A2E44}
-.ixw--training main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--training main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--tr-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--tr-pur),0 4px 0 2px var(--tr-pur)}
+.ixw--training main :is(.btn-ghost,.cta .btn-white),.ixw--training main :is(.btn-ghost,.cta .btn-white):hover{color:var(--tr-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--tr-pur),0 4px 0 2px var(--tr-pur)}
 .ixw--training main .btn-ghost::before{display:none}.ixw--training main .btn-ghost .ic{color:var(--tr-pur)}
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
-.ixw--training .ixw-cta .btn-outline-white,.ixw--training .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
-.ixw--training main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #F2A33A;outline-offset:4px}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--training .cta .btn-outline-white,.ixw--training .cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):focus-visible{outline:3px solid #F2A33A;outline-offset:4px}
 .ixw--training .ixw-ibtn{border:2px solid var(--tr-pur);box-shadow:0 3px 0 var(--tr-pur);color:var(--tr-pur)}
 .ixw--training .ixw-ibtn--play,.ixw--training .ixw-ibtn--play:hover{background:var(--tr-pur);color:#FFFFFF}
 .ixw--training .ixw-dots button.is-on{background:#F2A33A;box-shadow:0 0 0 1.5px var(--tr-pur)}
 .ixw--training .ixw-peek{border-color:var(--tr-pur);box-shadow:0 3px 0 var(--tr-pur)}.ixw--training .ixw-peek[aria-pressed="true"]{background:var(--tr-pur-l)}
 @media (prefers-reduced-motion:reduce){.ixw--training main .btn::after{transition:none}}
 
-/* ---------- the glance strip: a course progress tracker ---------- */
+/* ---------- the glance strip: a course progress tracker with status lamps ---------- */
 .ixw--training .ow-strip{border-radius:14px;box-shadow:0 0 0 1.5px #E3DCEB,0 24px 44px -30px rgba(60,30,60,.35);background:linear-gradient(90deg,#2E9C7E 0 33%,#E46E78 33% 66%,#F2A33A 66%) 0 100%/100% 5px no-repeat,#FFFFFF}
+.ixw--training .ow-strip dt{font:800 10.5px/1.2 var(--tr-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tr-pur)}
 .ixw--training .ow-strip dt .ic{color:var(--tr-pur)}
+.ixw--training .ow-strip dt::after{content:"";width:7px;height:7px;margin-left:2px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.2)}
+.ixw--training .ow-strip dd{font-weight:700;color:var(--tr-ink)}
 
-/* ---------- the end card ---------- */
-.ixw--training main .cta{background:radial-gradient(circle at 88% 18%,rgba(242,163,58,.35),transparent 42%),linear-gradient(120deg,#4A2E44,#714B67)}
+/* ---------- shared: section tags (a cockpit placard) ---------- */
+.ixw--training .fs-tag{display:inline-flex;align-items:center;gap:8px;width:fit-content;height:30px;margin:0 0 16px;padding:0 14px 0 10px;border-radius:8px;background:#3A3550;color:#FFE7B8;
+  font:800 11px/1 var(--tr-mono);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 3px 0 #1B1F3B}
+.ixw--training .fs-tag .ic{width:15px;height:15px;color:#F2A33A}
+.ixw--training :is(.fs-sim-sec,.fs-rate-sec,.fs-faq-sec)>.container{position:relative}
+.ixw--training .fs-deco{position:absolute;right:8px;top:-20px;width:300px;pointer-events:none}
+.ixw--training .fs-deco svg{display:block;width:100%;height:auto;overflow:visible}
+.ixw--training .sec-head{position:relative;z-index:1}
+@media (max-width:1099px){.ixw--training .fs-deco{display:none}}
+
+/* ---------- in one paragraph: the pre-flight briefing on a clipboard ---------- */
+.ixw--training .fs-answer{padding-top:44px}
+.ixw--training .fs-answer .answer-box{grid-template-columns:minmax(0,1fr);gap:10px;max-width:980px;margin:0 auto;padding:34px 34px 26px;border:0;border-radius:14px;background:#FFFFFF;
+  box-shadow:0 0 0 1.5px #E3DCEB,0 0 0 12px #C9A27A,0 0 0 13.5px #B58A5E,0 30px 50px -30px rgba(60,30,60,.45)}
+.ixw--training .fs-answer .answer-box::before{content:"";position:absolute;left:50%;top:-24px;width:130px;height:34px;margin-left:-65px;border-radius:9px 9px 6px 6px;background:linear-gradient(180deg,#C9D2DE,#8E9AAE);box-shadow:0 4px 0 #6E7A8E,inset 0 2px 0 rgba(255,255,255,.5)}
+.ixw--training .fs-answer .answer-h{justify-self:start;padding:6px 12px;border-radius:6px;background:var(--tr-pur);color:#FFFFFF;font:800 10.5px/1.2 var(--tr-mono);letter-spacing:.16em}
+.ixw--training .fs-answer .answer-box p:not(.answer-h){font-size:15px;line-height:1.7;color:#2E3450}
+@media (max-width:640px){.ixw--training .fs-answer .answer-box{padding:30px 18px 20px;box-shadow:0 0 0 1.5px #E3DCEB,0 0 0 8px #C9A27A,0 24px 40px -30px rgba(60,30,60,.45)}}
+
+/* ---------- build a plan: the planner inside a simulator bezel, instruments beside the head ---------- */
+.ixw--training .fs-sim-sec{background:linear-gradient(180deg,#FFFFFF,#F8F6FB)}
+.ixw--training .fs-deco--gauges{top:-34px;width:300px}
+.ixw--training .fs-horizon{animation:trAtt 6s ease-in-out infinite}
+@keyframes trAtt{0%,100%{transform:rotate(-8deg) translateY(4px)}50%{transform:rotate(7deg) translateY(-6px)}}
+.ixw--training .fs-needle{animation:trNeedle 5s ease-in-out infinite}
+@keyframes trNeedle{0%,100%{transform:rotate(-40deg)}50%{transform:rotate(130deg)}}
+.ixw--training .fs-led{animation:trBlink 1.4s steps(2) infinite}
+@keyframes trBlink{50%{opacity:.25}}
+.ixw--training .fs-bezel{position:relative;padding:50px 16px 16px;border-radius:28px;
+  background:radial-gradient(circle at 18px 18px,#B9B0C9 3px,transparent 3.6px),radial-gradient(circle at calc(100% - 18px) 18px,#B9B0C9 3px,transparent 3.6px),radial-gradient(circle at 18px calc(100% - 18px),#B9B0C9 3px,transparent 3.6px),radial-gradient(circle at calc(100% - 18px) calc(100% - 18px),#B9B0C9 3px,transparent 3.6px),linear-gradient(180deg,#EFEBF5,#E3DDED);
+  box-shadow:inset 0 0 0 2px #FFFFFF,0 0 0 2px #D3CAE0,0 44px 70px -40px rgba(60,30,80,.5)}
+.ixw--training .fs-bezel-h{position:absolute;left:38px;right:38px;top:16px;display:flex;align-items:center;gap:8px;margin:0;font:800 11px/1 var(--tr-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tr-pur)}
+.ixw--training .fs-bezel-h i{width:9px;height:9px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.18)}
+.ixw--training .fs-bezel-h i:nth-child(2){background:#F2A33A;box-shadow:0 0 0 3px rgba(242,163,58,.2);animation:trBlink 1.6s steps(2) infinite}
+.ixw--training .fs-bezel-h i:nth-child(3){background:#E46E78;box-shadow:0 0 0 3px rgba(228,110,120,.2);margin-right:6px}
+.ixw--training .fs-bezel-h span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ixw--training .fs-bezel-h b{margin-left:auto;padding:4px 9px;border-radius:6px;background:#3A3550;color:#FFD4CF}
+.ixw--training .demo-sec .fs-bezel .dm{border-radius:16px;box-shadow:0 2px 0 #D3CAE0,0 16px 30px -18px rgba(60,30,80,.4)}
+@media (max-width:640px){.ixw--training .fs-bezel{padding:42px 8px 8px;border-radius:18px}.ixw--training .fs-bezel-h{left:16px;right:16px;top:14px;font-size:9.5px}.ixw--training .fs-bezel-h span{display:none}}
+
+/* ---------- what training covers: six type-rating cards ---------- */
+.ixw--training .fs-rate-sec .sec-head{margin-bottom:56px}
+.ixw--training .fs-deco--wings{top:-10px;width:290px}
+.ixw--training .fs-ratings{counter-reset:rt;gap:28px}
+.ixw--training .fs-ratings .card{counter-increment:rt;border:0;border-radius:18px;padding:70px 26px 26px;overflow:hidden;background:linear-gradient(115deg,transparent 62%,rgba(111,178,238,.10) 70%,rgba(242,163,58,.10) 76%,transparent 84%) 0 0/250% 100%,#FFFFFF;
+  box-shadow:0 0 0 1.5px var(--tr-line),0 22px 40px -28px rgba(60,30,80,.45);transition:translate .35s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease,background-position .9s ease}
+.ixw--training .fs-ratings .card::before{content:"";position:absolute;left:0;top:0;right:0;height:46px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.12) 0 8px,transparent 8px 16px),var(--rc,#714B67)}
+.ixw--training .fs-ratings .card::after{content:"RATING " counter(rt,decimal-leading-zero);position:absolute;left:26px;top:17px;font:800 11px/1 var(--tr-mono);letter-spacing:.16em;color:#FFFFFF}
+.ixw--training .fs-ratings .card-ic{position:absolute;right:20px;top:14px;z-index:1;width:60px;height:60px;min-height:0;margin:0;justify-content:center;border-radius:50%;background:#FFFFFF;color:var(--rc,#714B67);box-shadow:0 0 0 3px var(--rc,#714B67),0 10px 18px -8px rgba(30,20,60,.4)}
+.ixw--training .fs-ratings .card-ic .ic{width:28px;height:28px}
+.ixw--training .fs-ratings .card-ic .oi{width:36px;height:36px}
+.ixw--training .fs-ratings .card h3{font-size:1.15rem;padding-right:40px}
+.ixw--training .fs-ratings .card p{margin:0}
+.ixw--training .fs-ratings .card:hover{transform:none;translate:0 -6px;background-position:100% 0,0 0;box-shadow:0 0 0 2px var(--rc,#714B67),0 30px 46px -28px rgba(60,30,80,.5)}
+
+/* ---------- how training runs: the flight path, four waypoints ---------- */
+.ixw--training .fs-path-sec .sec-head{margin-bottom:20px}
+.ixw--training .fs-route{position:relative;height:110px;margin:0 0 -40px;pointer-events:none}
+.ixw--training .fs-route svg{display:block;width:100%;height:100%;overflow:visible}
+.ixw--training .fs-route-line{fill:none;stroke:var(--tr-pur);stroke-width:3;stroke-dasharray:3 11;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.6}
+.ixw--training .fs-plane{position:absolute;left:0;top:84px;display:grid;place-items:center;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#FFFFFF;color:var(--tr-pur);box-shadow:0 0 0 2px var(--tr-pur),0 8px 16px -8px rgba(60,30,80,.5);
+  animation:trFly 9s cubic-bezier(.45,.05,.4,1) infinite}
+.ixw--training .fs-plane .ic{width:20px;height:20px;rotate:35deg}
+@keyframes trFly{0%{left:1%;top:94px;opacity:0}6%{opacity:1}24%{left:22%;top:70px}48%{left:50%;top:36px}72%{left:76%;top:20px}88%{left:98%;top:8px;opacity:1}94%,100%{left:99%;top:6px;opacity:0}}
+.ixw--training .fs-steps{gap:28px}
+.ixw--training .fs-steps::before{display:none}
+.ixw--training .fs-steps .step-n{width:50px;height:50px;margin-bottom:20px;border:0;border-radius:0;background:var(--tr-pur);color:#FFFFFF;font:800 17px/1 var(--font-display);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);box-shadow:none}
+.ixw--training .section--alt .fs-steps .step-n{box-shadow:none}
+.ixw--training .fs-steps .step:hover .step-n{background:#F2A33A;color:var(--tr-ink);transform:scale(1.1) rotate(0)}
+.ixw--training .fs-steps .step>div:not(.step-n){padding:18px 20px 20px;border-radius:10px;background:#FFFFFF;border-left:8px solid var(--sc,#714B67);box-shadow:0 0 0 1.5px var(--tr-line),0 18px 30px -24px rgba(60,30,80,.45);transition:translate .35s cubic-bezier(.34,1.45,.64,1)}
+.ixw--training .fs-steps .step:nth-child(1){--sc:#714B67}.ixw--training .fs-steps .step:nth-child(2){--sc:#2E9C7E}.ixw--training .fs-steps .step:nth-child(3){--sc:#E46E78}.ixw--training .fs-steps .step:nth-child(4){--sc:#F2A33A}
+.ixw--training .fs-steps .step:hover>div:not(.step-n){translate:0 -4px}
+.ixw--training .fs-wpt{display:block;margin-bottom:8px;font:800 10.5px/1 var(--tr-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--sc,#714B67)}
+@media (max-width:1100px){.ixw--training .fs-route{display:none}}
+@media (max-width:640px){.ixw--training .fs-steps .step{border-bottom:0;padding:10px 0}.ixw--training .fs-steps .step .step-n{width:40px;height:40px;font-size:14px}}
+
+/* ---------- what you get: the go-live checklist with its switches ---------- */
+.ixw--training .fs-checklist{align-items:center}
+.ixw--training .fs-cleared{display:inline-flex;align-items:center;gap:10px;margin:24px 0 0;padding:11px 16px;border-radius:12px;background:#DDF5EA;color:#137A4A;font:800 12.5px/1 var(--tr-mono);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 3px 0 #A8E3C6}
+.ixw--training .fs-cleared i{width:11px;height:11px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 4px rgba(43,196,138,.25);animation:trBlink 1.4s steps(2) infinite}
+.ixw--training .fs-panel{position:relative;border-radius:22px;background:#FFFFFF;box-shadow:0 0 0 1.5px var(--tr-line),0 34px 60px -36px rgba(60,30,80,.5);overflow:hidden}
+.ixw--training .fs-panel-h{display:flex;justify-content:space-between;align-items:center;margin:0;padding:15px 24px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.08) 0 8px,transparent 8px 16px),var(--tr-pur);color:#FFFFFF;font:800 12px/1 var(--tr-mono);letter-spacing:.16em;text-transform:uppercase}
+.ixw--training .fs-panel-h b{padding:4px 9px;border-radius:6px;background:#2BC48A;color:#0E3B27}
+.ixw--training .fs-panel .spec-cols{padding:16px 24px 10px;column-gap:28px}
+.ixw--training .fs-panel li{align-items:center;gap:12px;margin:0;padding:10px 0;border-bottom:1px dashed var(--tr-line);font-size:14.5px;color:#2E3450}
+.ixw--training .fs-panel li .ic{width:34px;height:20px;padding:2px 2px 2px 15px;margin:0;border-radius:999px;background:#2BC48A;color:#FFFFFF;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.06)}
+.ixw--training .fs-checklist.reveal .fs-panel li .ic,.ixw--training .fs-panel li .ic{transition:padding .4s cubic-bezier(.34,1.45,.64,1),background-color .3s ease}
+@media (max-width:640px){.ixw--training .fs-panel .spec-cols{padding:12px 16px 6px}}
+
+/* ---------- FAQ: ground-school questions, a headset beside ---------- */
+.ixw--training .fs-deco--headset{top:150px;right:10px;width:230px}
+.ixw--training .fs-wave path{animation:trWave 1.8s ease-in-out infinite}
+.ixw--training .fs-wave path:nth-child(2){animation-delay:.3s}
+@keyframes trWave{0%,100%{opacity:.25}50%{opacity:1}}
+.ixw--training .fs-faq{max-width:880px}
+.ixw--training .fs-faq details{border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px var(--tr-line),0 14px 26px -22px rgba(60,30,80,.4)}
+.ixw--training .fs-faq details[open]{box-shadow:0 0 0 2px var(--tr-pur),0 20px 36px -24px rgba(60,30,80,.45)}
+.ixw--training .fs-faq summary::before{content:"Q";border-radius:50%;background:var(--tr-pur-l);color:var(--tr-pur);font:800 14px/1 var(--tr-mono)}
+.ixw--training .fs-faq details[open] summary::before{content:"A";background:#F2A33A;color:var(--tr-ink);transform:none}
+
+/* ---------- related: connecting lessons ---------- */
+.ixw--training .fs-next{gap:28px}
+.ixw--training .fs-next .card{border:0;border-radius:18px;padding:60px 26px 26px;background:#FFFFFF;box-shadow:0 0 0 1.5px var(--tr-line),0 22px 40px -28px rgba(60,30,80,.45);transition:translate .35s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease}
+.ixw--training .fs-next .card:hover{transform:none;translate:0 -5px;box-shadow:0 0 0 2px var(--rc),0 30px 46px -28px rgba(60,30,80,.5)}
+.ixw--training .fs-leg{position:absolute;left:26px;right:26px;top:22px;display:flex;align-items:center;gap:10px;font:800 10.5px/1 var(--tr-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--rc)}
+.ixw--training .fs-leg b{flex:none;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--rc) 12%,#FFFFFF)}
+.ixw--training .fs-leg i{position:relative;flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--rc) 0 6px,transparent 6px 11px)}
+.ixw--training .fs-leg i::after{content:"";position:absolute;top:-5px;left:0;width:12px;height:12px;border-radius:50%;background:var(--rc);box-shadow:0 0 0 3px #FFFFFF;animation:trLeg 3.2s ease-in-out infinite}
+@keyframes trLeg{0%{left:0}50%{left:calc(100% - 12px)}100%{left:0}}
+.ixw--training .fs-next .card-ic{color:var(--rc)}
+.ixw--training .fs-next .btn-link{color:var(--rc)}
+
+/* ---------- the end card: cleared for take-off, a runway along the bottom ---------- */
+.ixw--training main .cta{padding-bottom:96px;background:radial-gradient(circle at 88% 18%,rgba(242,163,58,.35),transparent 42%),linear-gradient(120deg,#4A2E44,#714B67)}
+.ixw--training .fs-runway{position:absolute;left:0;right:0;bottom:0;height:52px;border-radius:0 0 var(--r-lg,24px) var(--r-lg,24px);pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 34px,transparent 34px 70px) 0 50%/100% 4px no-repeat,repeating-linear-gradient(0deg,rgba(255,255,255,.8) 0 4px,transparent 4px 9px) 22px 50%/40px 34px no-repeat,#3A3550}
+.ixw--training .fs-runway::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:repeating-linear-gradient(90deg,#FFC93C 0 8px,transparent 8px 40px)}
+.ixw--training .fs-cta-plane{position:absolute;left:90px;bottom:12px;display:grid;place-items:center;width:44px;height:44px;color:#FFE7B8;animation:trTake 8s cubic-bezier(.5,0,.6,1) infinite}
+.ixw--training .fs-cta-plane .ic{width:30px;height:30px;rotate:45deg}
+@keyframes trTake{0%,12%{transform:translate(0,0);opacity:1}55%{transform:translate(42vw,-6px) rotate(-4deg)}80%{transform:translate(60vw,-110px) rotate(-18deg);opacity:1}86%,100%{transform:translate(64vw,-140px) rotate(-18deg);opacity:0}}
+.ixw--training main .cta>div:not(.fs-runway),.ixw--training main .cta .actions{position:relative;z-index:1}
+.ixw--training main .cta{overflow:hidden}
+@media (max-width:640px){.ixw--training main .cta{padding-bottom:84px}.ixw--training .fs-runway{height:44px}}
+@media (prefers-reduced-motion:reduce){.ixw--training :is(.fs-plane,.fs-cta-plane,.fs-horizon,.fs-needle,.fs-led,.fs-wave path,.fs-cleared i,.fs-bezel-h i),.ixw--training .fs-leg i::after{animation:none!important}.ixw--training .fs-plane{left:50%;top:36px}}
