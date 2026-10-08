@@ -230,3 +230,10 @@
 @media (max-width:767px){
   .ixw--ecommerce .dm-router .omr-nh b,.ixw--ecommerce .dm-router dt,.ixw--ecommerce :is(.omr-nd small,.omr-st,.omr-sh small,.omr-sg,.omr-sf,.omr-sr,.omr-snet,.omr-last,.omr-s,.omr-av,.omr-cap,.omr-bankd){font-size:11px}
 }
+
+/* audit round: hero CTAs at 52px on desktop, matching the caption controls' rhythm */
+@media (min-width:768px){.ixw--ecommerce .ixw-copy .btn-lg{height:52px}}
+/* audit round: before/after, the intro and switch stay in view beside the tall board instead of floating mid-way */
+@media (min-width:1024px){.ixw--ecommerce .ix-ba-wrap{align-items:start}.ixw--ecommerce .ix-ba-wrap>div:first-child{position:sticky;top:120px;padding-top:24px}}
+/* audit round: tablets, the glance strip clears the typed caption however long the line runs */
+@media (min-width:768px) and (max-width:1023px){.ixw--ecommerce .ixw-credits{margin-top:48px}}

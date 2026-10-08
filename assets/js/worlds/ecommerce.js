@@ -274,4 +274,37 @@
     ],
     onStop: function (key, S, t) { if (key === 'order') S.ordT = t; if (key === 'restock') S.rsT = t; if (key === 'ship') { S.shT = t; S.toy.parcel = t; } }
   };
+  /* ---------------- audit round: a marked-out floor (the pick lane with zone letters), a small robot cart that shuttles
+     totes along it (tap it: it stops, beeps and spins its light), and a hand truck of parcels right of the tracking card ---------------- */
+  var AGV = { x0: -560, x1: 940, y: 578, beep: -9, paid: 0 };
+  function agvT(t) { var d = t - AGV.beep; return d < 2.5 ? AGV.beep - AGV.paid : t - AGV.paid - 2.5; }
+  function exFloor(g, ext) {
+    g.fillStyle = 'rgba(255,216,74,.85)'; g.fillRect(ext.l, 546, ext.r - ext.l, 5); g.fillRect(ext.l, 606, ext.r - ext.l, 5);
+    g.fillStyle = 'rgba(109,91,208,.07)'; g.fillRect(ext.l, 551, ext.r - ext.l, 55);
+    [['A \u00B7 PICK', -440], ['B \u00B7 PACK', 160], ['C \u00B7 SHIP', 760]].forEach(function (z) { if (z[1] < ext.l - 60 || z[1] > ext.r) return;
+      fillRR(g, z[1] - 44, 618, 88, 22, 5, 'rgba(43,35,80,.10)'); text(g, z[0], z[1], 634, 11, 800, 'rgba(43,35,80,.42)', 'center'); });
+    for (var x = Math.floor(ext.l / 120) * 120; x < ext.r; x += 120) { g.fillStyle = 'rgba(43,35,80,.12)'; g.beginPath(); g.moveTo(x, 572); g.lineTo(x + 14, 578); g.lineTo(x, 584); g.closePath(); g.fill(); }
+  }
+  function agvX(t) { var span = AGV.x1 - AGV.x0, u = (t * 48) % (span * 2); return { x: AGV.x0 + (u < span ? u : span * 2 - u), dir: u < span ? 1 : -1 }; }
+  function exFore(g, t, S) {
+    var ext = S.ext, p = agvX(agvT(t)), d = t - AGV.beep;
+    var x = p.x, y = AGV.y; if (x > ext.l - 60 && x < ext.r + 60) {
+      soft(g, x, y + 3, 48, 6, 0.24); fillRR(g, x - 40, y - 22, 80, 20, 8, '#E9E4F4'); fillRR(g, x - 40, y - 10, 80, 8, 4, '#C9C1E2');
+      fillE(g, x - 26, y - 2, 6, 6, '#2B2350'); fillE(g, x + 26, y - 2, 6, 6, '#2B2350'); fillRR(g, x + p.dir * 30 - 4, y - 18, 8, 6, 3, '#3CCFAE');
+      fillRR(g, x - 30, y - 50, 60, 28, 5, '#6D5BD0'); fillRR(g, x - 30, y - 50, 60, 7, 3, '#5443B5'); fillRR(g, x - 16, y - 62, 32, 16, 3, '#C99A6B'); g.fillStyle = 'rgba(255,240,210,.5)'; g.fillRect(x - 3, y - 62, 6, 16);
+      g.fillStyle = '#2B2350'; g.fillRect(x - 1, y - 78, 2, 16); var on = d >= 0 && d < 2.5, bl = on ? (Math.floor(t * 8) % 2 ? '#FF6B6B' : '#FFD84A') : (Math.floor(t * 2) % 2 ? '#3CCFAE' : '#8EE8D2'); fillE(g, x, y - 80, 4.5, 4.5, bl);
+      if (on) { fillRR(g, x + 12, y - 112, 44, 20, 8, '#FFFFFF'); text(g, 'beep!', x + 34, y - 98, 9, 800, '#6D5BD0', 'center'); }
+    }
+    if (ext.r > 970) { /* a hand truck of parcels */
+      var hx = 952, hy = 640; soft(g, hx, hy + 3, 44, 6, 0.22); g.strokeStyle = '#5C6670'; g.lineWidth = 5; g.beginPath(); g.moveTo(hx + 28, hy - 6); g.lineTo(hx + 36, hy - 118); g.stroke();
+      fillRR(g, hx - 30, hy - 10, 64, 8, 3, '#5C6670'); fillE(g, hx + 24, hy - 2, 7, 7, '#2B2350');
+      parcel(g, hx - 28, hy - 48, 52, 38, true); parcel(g, hx - 24, hy - 80, 44, 32, false); parcel(g, hx - 18, hy - 104, 34, 24, true);
+    }
+  }
+  function exHit(x, y, S, t) { if (t - AGV.beep < 2.5) return false; var at = agvT(t), p = agvX(at); if (Math.abs(x - p.x) < 50 && y > AGV.y - 90 && y < AGV.y + 10) { AGV.paid = t - at; AGV.beep = t; return true; } return false; }
+  (function (W) { var pb = W.paintBack, pf = W.paintForeLive, h0 = W.hit;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds.ecommerce);
 })(window.IXW && window.IXW.kit);
