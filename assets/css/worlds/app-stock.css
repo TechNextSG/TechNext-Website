@@ -179,3 +179,46 @@
   background:linear-gradient(90deg,rgba(138,100,64,.14) 0 10px,transparent 10px calc(100% - 10px),rgba(138,100,64,.14) calc(100% - 10px)),repeating-linear-gradient(180deg,rgba(201,162,122,.14) 0 30px,rgba(201,162,122,.22) 30px 32px);box-shadow:inset 0 0 0 3px rgba(138,100,64,.25)}}
 .ixw--app-stock main [data-aw="what"] .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .ixw--app-stock main [data-aw="watch"] .videos--one{margin-inline:auto}
+/* ======== round 4: section fixes ======== */
+@media (min-width:900px){.ixw--app-stock main [data-aw="works"] .apps-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ======== round 4: the hero controls: shipping-label buttons with a barcode stub, pills and caption controls ======== */
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){overflow:hidden;height:52px;padding:0 20px 0 50px;border:0;border-radius:5px;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";inset:auto;left:12px;top:13px;bottom:13px;width:26px;height:auto;border-radius:2px;opacity:1;transform:none;transition:none;
+  background:repeating-linear-gradient(90deg,#1B1F3B 0 2px,transparent 2px 3.5px,#1B1F3B 3.5px 4.5px,transparent 4.5px 6.5px,#1B1F3B 6.5px 9px,transparent 9px 10.5px) 3px 3px/calc(100% - 6px) calc(100% - 6px) no-repeat,#FFFFFF;box-shadow:inset 0 0 0 1px rgba(27,31,59,.2)}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{transform:none}
+.ixw--app-stock main .btn-primary,.ixw--app-stock main .btn-primary:hover{color:#1B1F3B;background:#FFC93C;box-shadow:inset 0 0 0 2px #1B1F3B,0 4px 0 #1B1F3B}
+.ixw--app-stock main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-stock main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:#1B1F3B;background:#FFFFFF;box-shadow:inset 0 0 0 2px #1B1F3B,0 4px 0 #1B1F3B}
+.ixw--app-stock main .ixw-cta .btn-outline-white,.ixw--app-stock main .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;box-shadow:inset 0 0 0 2px #FFFFFF}
+.ixw--app-stock main .ixw-cta .btn-outline-white::after{background:repeating-linear-gradient(90deg,#FFFFFF 0 2px,transparent 2px 3.5px,#FFFFFF 3.5px 4.5px,transparent 4.5px 6.5px) 3px 3px/calc(100% - 6px) calc(100% - 6px) no-repeat,transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost):hover{box-shadow:inset 0 0 0 2px #1B1F3B,0 6px 0 #1B1F3B,0 16px 20px -10px rgba(27,31,59,.35)}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost):active{box-shadow:inset 0 0 0 2px #1B1F3B,0 1px 0 #1B1F3B}
+.ixw--app-stock main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #3167CA;outline-offset:4px}
+.ixw--app-stock main .btn-primary .ic{width:26px;height:26px;padding:5px;border-radius:50%;background:rgba(27,31,59,.1)}
+.ixw--app-stock main .btn-ghost .ic{color:#3167CA}
+.ixw--app-stock .ixw-copy .actions{gap:12px}
+
+.ixw--app-stock .ixw-ep-tag{height:30px;padding:0 13px 0 6px;box-shadow:0 3px 0 #0B0B22;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-stock .ixw-ep-tag:hover{translate:0 -2px;box-shadow:0 5px 0 #0B0B22}
+.ixw--app-stock .ixw-ep-tag:active{translate:0 2px;box-shadow:0 1px 0 #0B0B22;transition-duration:.06s}
+.ixw--app-stock .ixw-ep-tag:focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--app-stock .ixw-ep>span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#FFF4CF;box-shadow:inset 0 0 0 1.5px #C47A1233;font:800 12.5px/1 var(--font-body);color:#1B1F3B}
+.ixw--app-stock .ixw-cap .ixw-ibtn{width:38px;height:38px;border:2px solid #1B1F3B;background:#FFFFFF;color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B;transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .18s ease,color .18s ease}
+.ixw--app-stock .ixw-cap .ixw-ibtn:hover{translate:0 -2px;background:#FFF4CF;color:#1B1F3B;border-color:#1B1F3B;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-stock .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-stock .ixw-cap .ixw-ibtn:focus-visible,.ixw--app-stock .ixw-dots button:focus-visible,.ixw--app-stock .ixw-peek:focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--app-stock .ixw-cap .ixw-ibtn--play,.ixw--app-stock .ixw-cap .ixw-ibtn--play:hover{width:46px;height:46px;background:#FFC93C;color:#1B1F3B}
+.ixw--app-stock .ixw-cap .ixw-ibtn--play:hover{filter:brightness(1.06)}
+.ixw--app-stock .ixw-dots{gap:6px;padding:4px 2px}
+.ixw--app-stock .ixw-dots button{width:9px;height:9px;background:#D5DCE6;box-shadow:inset 0 0 0 1px rgba(27,31,59,.06);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,translate .2s ease}
+.ixw--app-stock .ixw-dots button:hover{background:#C47A12;translate:0 -1px}
+.ixw--app-stock .ixw-dots button.is-on{width:26px;background:#F2A33A;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--app-stock .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid #1B1F3B;color:#1B1F3B;background:#FFFFFF;box-shadow:0 3px 0 #1B1F3B}
+.ixw--app-stock .ixw-peek::before{color:#C47A12}
+.ixw--app-stock .ixw-peek:hover{translate:0 -2px;background:#FFF4CF;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-stock .ixw-peek:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-stock .ixw-peek[aria-pressed="true"]{background:#FFC93C}
+.ixw--app-stock .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--app-stock :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}

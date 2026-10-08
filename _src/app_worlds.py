@@ -110,7 +110,9 @@ SPEC = {
             {"id": "cfo", "lab": "Finance lead", "sub": "closing", "col": "#1E3A6E", "who": "Finance lead", "role": C_ROLE, "aria": "the finance lead", "near": "662,-6",
              "say": "Close checklist done, reports **ready**. Same day.", "x": 940, "y": 358, "w": 90, "h": 230},
             {"id": "bk", "lab": "Bookkeeper", "sub": "expenses", "col": "#B8863B", "who": "Bookkeeper", "role": C_ROLE, "aria": "the bookkeeper", "near": "662,-6",
-             "say": "A photo of the receipt from my phone, and the expense is **ready to post**.", "x": 318, "y": 358, "w": 90, "h": 230}],
+             "say": "A photo of the receipt from my phone, and the expense is **ready to post**.", "x": 318, "y": 358, "w": 90, "h": 230},
+            {"id": "tr", "lab": "Treasury", "sub": "cash and bank", "col": "#3A7CA5", "who": "Treasury", "role": C_ROLE, "aria": "treasury", "near": "662,-6",
+             "say": "Cash counted, banked, and the bank line **matched** the next morning.", "x": -66, "y": 362, "w": 90, "h": 220}],
         "hots": [
             {"id": "bank", "dot": "bank", "lab": "Bank reconciliation", "icon": "{{icon:bank}}", "near": "660,-4", "x": 444, "y": -6, "w": 292, "h": 210, "pose": "point-left",
              "rec": "Bank reconciliation · suggested matches", "say": "**Bank reconciliation**: statement lines matched to invoices and bills, ready to validate."},
@@ -143,7 +145,9 @@ SPEC = {
             {"id": "cust", "lab": "Customer", "sub": "signing", "col": "#3167CA", "who": "Customer", "role": C_ROLE, "aria": "the customer", "near": "694,-6",
              "say": "I signed and paid **online**, from my tablet.", "x": 948, "y": 358, "w": 90, "h": 230},
             {"id": "mgr", "lab": "Sales manager", "sub": "pricelists", "col": "#714B67", "who": "Sales manager", "role": C_ROLE, "aria": "the sales manager", "near": "694,-6",
-             "say": "One price for retail, one for resellers, one for **10+ units**. Odoo picks the right one.", "x": 326, "y": 358, "w": 90, "h": 230}],
+             "say": "One price for retail, one for resellers, one for **10+ units**. Odoo picks the right one.", "x": 326, "y": 358, "w": 90, "h": 230},
+            {"id": "sa", "lab": "Shop assistant", "sub": "demo corner", "col": "#2E9C7E", "who": "Shop assistant", "role": C_ROLE, "aria": "the shop assistant", "near": "694,-6",
+             "say": "Customers try the scanner here. The **carry case** goes on the quote as an optional extra.", "x": -104, "y": 362, "w": 90, "h": 220}],
         "hots": [
             {"id": "quote", "dot": "quotation", "lab": "Quotation", "icon": "{{odoo:sale:18}}", "near": "694,-6", "x": 472, "y": -2, "w": 296, "h": 212, "pose": "point-left",
              "rec": "Quotation · products, prices, optional extras", "say": "A **quotation** with your products, prices and optional extras, built in minutes."},
@@ -176,7 +180,9 @@ SPEC = {
             {"id": "pack", "lab": "Packer", "sub": "labelling", "col": "#3167CA", "who": "Packer", "role": C_ROLE, "aria": "the packer", "near": "482,-10",
              "say": "Packed, labelled, and the carrier is **booked**.", "x": 690, "y": 322, "w": 80, "h": 76},
             {"id": "rcv", "lab": "Receiver", "sub": "at the dock", "col": "#714B67", "who": "Receiver", "role": C_ROLE, "aria": "the receiver", "near": "482,-10",
-             "say": "The pallet comes off the truck and is checked against the **purchase order**.", "x": 936, "y": 358, "w": 90, "h": 230}],
+             "say": "The pallet comes off the truck and is checked against the **purchase order**.", "x": 936, "y": 358, "w": 90, "h": 230},
+            {"id": "clk", "lab": "Stock clerk", "sub": "zone A picks", "col": "#3FA9E0", "who": "Stock clerk", "role": C_ROLE, "aria": "the stock clerk", "near": "482,-10",
+             "say": "Bin A5-03, into the tote, then one scan and the **picking** is validated.", "x": -6, "y": 362, "w": 90, "h": 220}],
         "hots": [
             {"id": "receive", "dot": "receipts", "lab": "Receipts", "icon": "{{icon:truck}}", "near": "790,236", "x": 921, "y": 186, "w": 160, "h": 64, "pose": "point-right",
              "rec": "Receipt · WH/IN · checked against the PO", "say": "**Receipts** checked against the purchase order at the dock."},
