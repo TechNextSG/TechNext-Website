@@ -277,3 +277,11 @@
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 130'%3E%3Cpath d='M0 118 Q20 110 40 118 T80 118 T120 118 T160 118 V130 H0Z' fill='%233E9FD0' opacity='.35'/%3E%3Cpath d='M44 116 L52 40 H72 L80 116Z' fill='%23FFFFFF' stroke='%231F2A55' stroke-width='2.5'/%3E%3Cpath d='M50 60 H74 L75 72 H49Z M47 88 H77 L78 100 H46Z' fill='%232F62C0'/%3E%3Crect x='48' y='30' width='28' height='12' rx='2' fill='%231F2A55'/%3E%3Crect x='53' y='16' width='18' height='14' rx='2' fill='%23FFF3C8' stroke='%23E3A21A' stroke-width='2'/%3E%3Cpath d='M51 16 Q62 2 73 16Z' fill='%23E3A21A'/%3E%3Cpath d='M74 22 L140 8 L140 36Z' fill='%23F6C74A' opacity='.45'/%3E%3Ccircle cx='112' cy='108' r='9' fill='%23FFFFFF' stroke='%23E0567A' stroke-width='5' stroke-dasharray='7 7'/%3E%3C/svg%3E") 0 100%/contain no-repeat}
   .ixw--sol-mkt .hbr-faq{max-width:none}}
 .ixw--sol-mkt .hbr-faq summary:focus-visible{outline:3px solid var(--hb-gold-l);outline-offset:3px}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-mkt .hbr-faq-sec .container{display:block}
+  .ixw--sol-mkt .hbr-faq-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0 160px 0 0;min-height:110px}
+  .ixw--sol-mkt .hbr-faq-sec .sec-head::after{left:auto;right:0;bottom:-8px;width:130px;height:110px}
+  .ixw--sol-mkt .hbr-faq{max-width:920px}}
+/* the end card's lighthouse: the beam pivots at the lamp itself */
+.ixw--sol-mkt .hbr-cta-lh i{bottom:36px;margin:0;z-index:-1}
