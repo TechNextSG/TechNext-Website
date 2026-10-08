@@ -5,8 +5,8 @@ META = {
     "tag": "Odoo Sales",
     "badge": "wk-app-sales",
     "intro_title": "Odoo <b>Sales</b>",
-    "intro_sub": "Quotes to orders to invoices",
+    "intro_sub": "The showroom counter, quote to cash",
     "intro_pills": [("receipt", "Quotes"), ("check", "Sign online"), ("truck", "Deliver")],
-    "hand": "odoo sales · quote to cash",
+    "hand": "odoo sales · the showroom counter",
     "m": {},
 }

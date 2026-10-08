@@ -8,7 +8,7 @@
   --ii-bg:linear-gradient(160deg,#F5FAF8,#DCEFE7 60%,#EDE5F3);--ii-ink:#1B1F3B;--ii-b:#2E9C7E;--ii-accent:#714B67;--ii-lip:#1B1F3B;--ii-ep-bg:#2E9C7E;--ii-ep-fg:#FFFFFF}
 .ixw--app-acc .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F5FAF8 18%,#E7F2EE 62%,#E7EBF1 62%,#D6DDE7 100%)}
 .ow-page .app-ep{display:inline-flex;align-items:center;gap:6px}
-.ow-page .ixw-copy .app-sub{margin:-4px 0 10px;font:700 1rem/1.4 var(--font-body);color:#3D4560}
+.ow-page .ixw-copy .app-sub{margin:8px 0 10px;font:700 1rem/1.4 var(--font-body);color:#3D4560}
 
 /* ---------- the title card: a ledger sheet ---------- */
 .ixw--app-acc .ixw-copy{position:relative;max-width:520px;margin-top:20px;padding:46px 30px 24px 48px;border-radius:6px;
@@ -47,3 +47,137 @@
 
 /* ---------- the end card ---------- */
 .ixw--app-acc main .cta{background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 27px,transparent 27px 28px),linear-gradient(120deg,#1D5E4A,#2E9C7E)}
+
+/* =====================================================================================================================
+   The sections below the hero: the counting house's paper. Warm ledger paper ruled in green, brass coins for the section
+   badges, index cards, pinned receipts, a posted-journal step list, brass plaques for the company facts, a PAID stamp on
+   the end card. Every rule is scoped to this page (body.ixw--app-acc).
+   ===================================================================================================================== */
+.ixw--app-acc main .aw-sec{position:relative;background:#FBFAF4}
+.ixw--app-acc main .aw-sec:nth-of-type(odd){background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(46,156,126,.06) 31px 32px),#FBFAF4}
+.ixw--app-acc main .aw-sec.section--alt,.ixw--app-acc main .aw-band{background:linear-gradient(90deg,transparent 0 46px,rgba(226,69,60,.22) 46px 47.5px,transparent 47.5px),repeating-linear-gradient(180deg,transparent 0 31px,rgba(46,156,126,.09) 31px 32px),#EFF6F1}
+.ixw--app-acc main .aw-sec+.aw-sec::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:linear-gradient(180deg,#C9A44A 0 2px,transparent 2px 5px,#C9A44A 5px 7px);opacity:.55}
+.ixw--app-acc main .aw-sec .hand{color:#2E9C7E}
+.ixw--app-acc main .aw-sec h2{color:#1B1F3B}
+.ixw--app-acc main .aw-sec .sec-head h2::after,.ixw--app-acc main [data-aw="impl"] h2::after{content:"";display:block;width:84px;height:7px;margin-top:14px;background:linear-gradient(180deg,#C9A44A 0 2px,transparent 2px 5px,#C9A44A 5px 7px)}
+.ixw--app-acc main .aw-sec .sec-head--row h2::after{display:none}
+.ixw--app-acc .aw-badge{display:inline-grid;place-items:center;width:42px;height:42px;margin:0 10px 0 0;vertical-align:-14px;border-radius:50%;color:#1D5E4A;
+  background:radial-gradient(circle at 35% 30%,#FFF2C2,#E9D08A 40%,#C9A44A 75%,#A9852E);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35),inset 0 0 0 5px rgba(122,90,30,.25),0 6px 14px -6px rgba(122,90,30,.6);transition:rotate .6s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-acc .aw-badge .ic{width:20px;height:20px}
+.ixw--app-acc .sec-head:hover .aw-badge,.ixw--app-acc .reveal.is-in .aw-badge{rotate:360deg}
+.ixw--app-acc .cta .aw-badge{display:none}
+
+/* in one paragraph: a ledger card with a red margin */
+.ixw--app-acc main .answer-box{max-width:none;padding:22px 26px 22px 70px;border:0;border-radius:8px;background:linear-gradient(90deg,transparent 52px,rgba(226,69,60,.45) 52px 54px,transparent 54px),repeating-linear-gradient(180deg,#FFFFFF 0 27px,#E3F1EA 27px 28px);
+  box-shadow:0 0 0 1.5px #D3E6DE,0 26px 50px -30px rgba(20,70,50,.4)}
+.ixw--app-acc main .answer-box::before{content:"\2713";position:absolute;left:14px;top:20px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#2E9C7E;color:#FFFFFF;font:800 13px/1 var(--font-body)}
+.ixw--app-acc main .answer-h{background:#1D5E4A;color:#E9D08A}
+.ixw--app-acc main .answer-box p:not(.answer-h){font-size:14.5px;color:#2B3245}
+.ixw--app-acc main .answer-note .ic{color:#C9A44A}
+
+/* the month-end ledger band */
+.ixw--app-acc .aw-ledger{border-radius:10px;background:#FFFFFF;overflow:hidden;box-shadow:0 0 0 2px #1D5E4A,0 0 0 8px #E3F1EA,0 40px 70px -40px rgba(20,70,50,.5)}
+.ixw--app-acc .aw-ledger-head,.ixw--app-acc .aw-row{display:grid;grid-template-columns:64px minmax(180px,.9fr) minmax(0,2fr) 120px;align-items:center;gap:0 18px;padding:0 22px}
+.ixw--app-acc .aw-ledger-head{height:44px;background:#1D5E4A;font:800 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:#E9D08A}
+.ixw--app-acc .aw-rows{margin:0;padding:0;list-style:none}
+.ixw--app-acc .aw-row{min-height:66px;border-bottom:1px solid #E3F1EA;background:linear-gradient(90deg,#FFFFFF,#FFFFFF);transition:background .25s ease}
+.ixw--app-acc .aw-row:nth-child(even){background:#F7FBF8}
+.ixw--app-acc .aw-row:hover{background:#FFF8E4}
+.ixw--app-acc .aw-no{font:800 14px/1 ui-monospace,Consolas,monospace;color:#C9A44A}
+.ixw--app-acc .aw-st{display:flex;align-items:center;gap:10px;color:#1D5E4A}.ixw--app-acc .aw-st .ic{width:20px;height:20px;flex:none}.ixw--app-acc .aw-st b{font:800 15px/1.25 var(--font-display);color:#1B1F3B}
+.ixw--app-acc .aw-say{font-size:14.5px;line-height:1.5;color:#3D4560}.ixw--app-acc .aw-say b{color:#714B67}
+.ixw--app-acc .aw-ok{justify-self:end;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:#E8F7EF;color:#1E7A55;font:800 12px/1 var(--font-body);
+  transform:rotate(-3deg);box-shadow:inset 0 0 0 1.5px #9FD9BF}
+.ixw--app-acc .aw-ok .ic{width:14px;height:14px}
+.ixw--app-acc .aw-total{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;align-items:center;margin:0;padding:18px 22px;border-top:6px double #1B1F3B;background:#FFFDF4;font-size:15px;color:#1B1F3B}
+.ixw--app-acc .aw-total span:first-child{font:800 12px/1 ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:#2E9C7E}
+.ixw--app-acc .aw-total b{color:#2E9C7E}
+@media (max-width:860px){.ixw--app-acc .aw-ledger-head{display:none}.ixw--app-acc .aw-row{grid-template-columns:44px minmax(0,1fr);gap:6px 12px;padding:16px 18px}.ixw--app-acc .aw-say{grid-column:2}.ixw--app-acc .aw-ok{grid-column:2;justify-self:start}
+  .ixw--app-acc .aw-total{grid-template-columns:1fr;gap:6px}}
+
+/* the lifecycle demo: framed like a bound ledger */
+.ixw--app-acc main [data-aw="life"] .dm{border:2px solid #1D5E4A;border-radius:14px;box-shadow:0 0 0 7px #E3F1EA,0 0 0 9px #C9A44A,0 40px 70px -40px rgba(20,70,50,.5)}
+.ixw--app-acc main [data-aw="life"] .dm-head{background:linear-gradient(90deg,#1D5E4A,#2E9C7E);border-bottom:0}
+.ixw--app-acc main [data-aw="life"] .dm-title b{color:#FFFFFF}.ixw--app-acc main [data-aw="life"] .dm-title small{color:#CFEDE1}
+.ixw--app-acc main [data-aw="life"] .dm-note .ic{color:#2E9C7E}
+
+/* official videos: brass frames */
+.ixw--app-acc main [data-aw="watch"] .video{border:0;border-radius:12px;box-shadow:0 0 0 6px #C9A44A,0 0 0 8px #A9852E,0 0 0 13px #FFFDF4,0 30px 50px -26px rgba(20,70,50,.5);transition:translate .3s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-acc main [data-aw="watch"] .video:hover{translate:0 -4px}
+.ixw--app-acc main [data-aw="watch"] .videos{gap:34px;padding:14px}
+.ixw--app-acc main .yt-play{background:#2E9C7E;box-shadow:0 0 0 6px rgba(233,208,138,.6),0 14px 34px -10px rgba(20,70,50,.7)}
+.ixw--app-acc main .yt:hover .yt-play{background:#1D5E4A}
+
+/* section by section: the screenshots on clipped ledger sheets, the kicker as a rubber stamp */
+.ixw--app-acc main [data-aw="what"] .feats{gap:64px}
+.ixw--app-acc main [data-aw="what"] .feat-media{position:relative;overflow:visible;border:0;border-radius:6px;padding:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3E6DE,0 30px 60px -34px rgba(20,70,50,.5);rotate:-1deg;transition:rotate .4s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-acc main [data-aw="what"] .feat--flip .feat-media{rotate:1deg}
+.ixw--app-acc main [data-aw="what"] .feat:hover .feat-media{rotate:0deg}
+.ixw--app-acc main [data-aw="what"] .feat-media::before{content:"";position:absolute;z-index:2;left:50%;top:-12px;width:70px;height:22px;margin-left:-35px;border-radius:6px;background:linear-gradient(180deg,#E9D08A,#C9A44A);box-shadow:0 3px 6px rgba(122,90,30,.35),inset 0 -6px 0 rgba(122,90,30,.25)}
+.ixw--app-acc main [data-aw="what"] .feat-media a,.ixw--app-acc main [data-aw="what"] .feat-media img{border-radius:3px}
+.ixw--app-acc main [data-aw="what"] .feat-media .zoom{display:block;overflow:hidden}
+.ixw--app-acc main [data-aw="what"] .card-kicker{display:inline-block;padding:6px 10px;border:2px solid #E2453C;border-radius:4px;color:#E2453C;font-family:ui-monospace,Consolas,monospace;rotate:-3deg;background:rgba(226,69,60,.05)}
+.ixw--app-acc main [data-aw="what"] .feat-copy h3{font-size:1.6rem}
+.ixw--app-acc main [data-aw="what"] .feat-copy p{font-size:1.04rem}
+.ixw--app-acc main [data-aw="what"] .checks .ic,.ixw--app-acc main [data-aw="impl"] .checks .ic{color:#2E9C7E}
+.ixw--app-acc main [data-aw="what"] .card{border:0;border-radius:6px;padding:34px 28px 28px;background:linear-gradient(180deg,#2E9C7E 0 8px,transparent 8px),repeating-linear-gradient(180deg,#FFFFFF 0 27px,#EAF5EF 27px 28px);box-shadow:0 0 0 1.5px #D3E6DE,0 26px 46px -30px rgba(20,70,50,.45)}
+.ixw--app-acc main [data-aw="what"] .card::after{content:"";position:absolute;right:20px;top:22px;width:14px;height:14px;border-radius:50%;background:#FBFAF4;box-shadow:inset 0 2px 3px rgba(0,0,0,.18)}
+.ixw--app-acc main [data-aw="what"] .card:hover{transform:translateY(-4px) rotate(-.6deg)}
+
+/* inside the app: receipts pinned to a cork rail */
+.ixw--app-acc main [data-aw="screens"] .shots{padding:26px 8px 22px;gap:26px}
+.ixw--app-acc main [data-aw="screens"] .shot{position:relative;overflow:visible;border:0;border-radius:4px;background:#FFFFFF;padding:10px 10px 0;box-shadow:0 18px 34px -22px rgba(20,70,50,.55);rotate:-1.4deg;transition:rotate .35s cubic-bezier(.34,1.45,.64,1),translate .35s ease}
+.ixw--app-acc main [data-aw="screens"] .shot:nth-child(even){rotate:1.2deg}
+.ixw--app-acc main [data-aw="screens"] .shot:hover{rotate:0deg;translate:0 -4px}
+.ixw--app-acc main [data-aw="screens"] .shot::before{content:"";position:absolute;z-index:2;left:50%;top:-9px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FF8A80,#E2453C 60%,#A8261E);box-shadow:0 3px 4px rgba(0,0,0,.25)}
+.ixw--app-acc main [data-aw="screens"] .shot .zoom{display:block;overflow:hidden;border-radius:2px}
+.ixw--app-acc main [data-aw="screens"] .shot figcaption{padding:10px 4px 12px;font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:#1D5E4A;border-top:1px dashed #C9D9D1;margin-top:8px}
+
+/* how TechNext implements it: posted journal lines */
+.ixw--app-acc main .aw-steps{counter-reset:je;gap:0;margin:0;padding:8px 0;border-radius:8px;background:#FFFFFF;box-shadow:0 0 0 1.5px #D3E6DE,0 26px 46px -30px rgba(20,70,50,.4)}
+.ixw--app-acc main .aw-steps li{counter-increment:je;position:relative;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px dashed #D3E6DE}
+.ixw--app-acc main .aw-steps li:last-child{border-bottom:0}
+.ixw--app-acc main .aw-steps li::before{content:"JE " counter(je,decimal-leading-zero);flex:none;width:56px;height:30px;display:grid;place-items:center;border-radius:6px;background:#1D5E4A;color:#E9D08A;font:800 11.5px/1 ui-monospace,Consolas,monospace}
+.ixw--app-acc main .aw-steps li .ic{order:3;margin-left:auto;width:22px;height:22px;padding:3px;border-radius:50%;background:#2E9C7E;color:#FFFFFF}
+
+/* who implements it: brass plaques */
+.ixw--app-acc .aw-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0;padding:0;list-style:none}
+.ixw--app-acc .aw-fact{position:relative;display:grid;gap:6px;padding:22px 26px;border-radius:10px;background:linear-gradient(160deg,#FFF6D8,#F1DC9C 45%,#D9B860);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55),inset 0 0 0 4px rgba(122,90,30,.3),0 18px 36px -24px rgba(122,90,30,.7);transition:translate .3s cubic-bezier(.34,1.45,.64,1)}
+.ixw--app-acc .aw-fact::before,.ixw--app-acc .aw-fact::after{content:"";position:absolute;top:10px;width:7px;height:7px;border-radius:50%;background:#8F6E22;box-shadow:0 1px 0 rgba(255,255,255,.6)}
+.ixw--app-acc .aw-fact::before{left:10px}.ixw--app-acc .aw-fact::after{right:10px}
+.ixw--app-acc .aw-fact:hover{translate:0 -4px}
+.ixw--app-acc .aw-fact b{font:800 1.5rem/1.1 var(--font-display);color:#1D5E4A}
+.ixw--app-acc .aw-fact span{font:600 14px/1.4 var(--font-body);color:#5A3F12}
+@media (max-width:860px){.ixw--app-acc .aw-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ixw--app-acc .aw-facts{grid-template-columns:1fr}}
+
+/* works with: ledger tabs */
+.ixw--app-acc main [data-aw="works"] .app{border:0;border-radius:4px 12px 12px 4px;background:#FFFFFF;box-shadow:inset 6px 0 0 #2E9C7E,0 0 0 1.5px #D3E6DE;padding:16px 16px 16px 20px}
+.ixw--app-acc main [data-aw="works"] .app:nth-child(3n+2){box-shadow:inset 6px 0 0 #714B67,0 0 0 1.5px #D3E6DE}
+.ixw--app-acc main [data-aw="works"] .app:nth-child(3n){box-shadow:inset 6px 0 0 #C9A44A,0 0 0 1.5px #D3E6DE}
+.ixw--app-acc main [data-aw="works"] .app:hover{transform:translateX(4px)}
+.ixw--app-acc main [data-aw="works"] .app > .ic{color:#2E9C7E}
+
+/* the end card: a PAID stamp and a stack of coins */
+.ixw--app-acc main .cta{padding-right:56px;box-shadow:0 0 0 6px #E3F1EA,0 0 0 8px #C9A44A}
+.ixw--app-acc main .cta .hand{color:#E9D08A}
+.ixw--app-acc main .cta .btn-white{color:#1D5E4A;background:#FFFFFF;border:0;box-shadow:0 4px 0 #C9A44A}
+.ixw--app-acc main .cta .btn-outline-white{color:#FFFFFF;border:2px solid #E9D08A}
+.ixw--app-acc .aw-cta-art{position:absolute;right:34%;top:18px;width:150px;height:110px;pointer-events:none;z-index:0}
+.ixw--app-acc .aw-stamp{position:absolute;left:0;top:6px;display:grid;justify-items:center;padding:8px 14px;border:3px solid rgba(255,138,128,.9);border-radius:6px;color:rgba(255,138,128,.95);font:800 26px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;rotate:-12deg}
+.ixw--app-acc .aw-stamp small{font:700 9px/1.4 ui-monospace,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}
+.ixw--app-acc .aw-coin{position:absolute;right:0;width:46px;height:14px;border-radius:50%;background:linear-gradient(180deg,#F6DE94,#C9A44A);box-shadow:0 2px 0 #8F6E22}
+.ixw--app-acc .aw-coin:nth-of-type(2){bottom:20px}.ixw--app-acc .aw-coin:nth-of-type(3){bottom:31px}.ixw--app-acc .aw-coin:nth-of-type(4){bottom:42px;animation:awCoin 3.2s ease-in-out infinite}
+@keyframes awCoin{0%,70%,100%{translate:0 0}80%{translate:0 -14px}90%{translate:0 0}}
+@media (max-width:1100px){.ixw--app-acc .aw-cta-art{display:none}}
+@media (prefers-reduced-motion:reduce){.ixw--app-acc .aw-coin{animation:none}.ixw--app-acc .aw-badge{transition:none}}
+
+/* section heads: the badge sits beside the handwriting; a faint T-account fills the space to the right of each head */
+.ixw--app-acc main .aw-sec .sec-head{position:static}
+.ixw--app-acc main .aw-sec>.container{position:relative}
+.ixw--app-acc main .aw-badge+.hand{display:inline-block;vertical-align:middle}
+@media (min-width:1000px){.ixw--app-acc main .aw-sec>.container>.sec-head:not(.sec-head--row)::after{content:"Dr Cr";position:absolute;right:24px;top:-6px;width:300px;height:170px;padding:0 34px;text-align:justify;text-align-last:justify;
+  font:600 3.2rem/1 var(--font-hand);color:rgba(46,156,126,.22);rotate:2deg;pointer-events:none;
+  background:linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 0 62px/100% 4px no-repeat,linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 50% 62px/4px 108px no-repeat,
+  repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 18px 82px/110px 80px no-repeat,repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 172px 82px/110px 80px no-repeat}}
+.ixw--app-acc main [data-aw="what"] .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
