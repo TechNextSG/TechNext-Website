@@ -205,3 +205,10 @@
 @media (min-width:1500px){.ixw--construction .ixw-set{bottom:158px}}
 @media (prefers-reduced-motion:reduce){.ixw--construction .ixw-ibtn--play.is-on,.ixw--construction main .btn-link:hover{animation:none}}
 .ixw--construction .sc-tab:not(.is-active)::after{background:none}
+
+/* audit round: hero CTAs at 52px on desktop, matching the caption controls' rhythm */
+@media (min-width:768px){.ixw--construction .ixw-copy .btn-lg{height:52px}}
+/* audit round: before/after, the intro and switch stay in view beside the tall board instead of floating mid-way */
+@media (min-width:1024px){.ixw--construction .ix-ba-wrap{align-items:start}.ixw--construction .ix-ba-wrap>div:first-child{position:sticky;top:120px;padding-top:24px}}
+/* audit round: tablets, the glance strip clears the typed caption however long the line runs */
+@media (min-width:768px) and (max-width:1023px){.ixw--construction .ixw-credits{margin-top:48px}}
