@@ -58,60 +58,145 @@
 .ixw--office-sg main .btn-link{color:#2756B0}
 .ixw--office-sg main .btn-link:hover{color:var(--sg-ink)}
 
+/* ============================== below the hero: one walk through level 3 ==============================
+   The building directory (glance), a note on the reception desk (Nexi), the corridor of meeting-room doors (what happens
+   here), the Discovery Room's whiteboard and its booking panel (first meeting), the lift lobby's destination screens (other
+   offices), the steel unit plate and the lift call panel (visit), the lift's floor panel (FAQ), the feature wall (end card). */
+.ixw--office-sg{--sg-brass:linear-gradient(180deg,#F1D58A,#C9A040);--sg-screw:radial-gradient(circle,#E3E8EF 2.6px,#8E99AC 3.2px,transparent 3.8px)}
+
 /* ---------- the glance strip: the building directory ---------- */
-.ixw--office-sg .sg-strip{grid-template-columns:repeat(4,minmax(0,1fr));background:#1B1F3B;box-shadow:0 0 0 3px #C9D1DD,0 26px 50px -30px rgba(20,40,90,.5)}
-.ixw--office-sg .sg-strip dt{color:#AFC0DD}.ixw--office-sg .sg-strip dt .ic{color:#FFD84A}
+.ixw--office-sg .sg-strip{position:relative;grid-template-columns:repeat(4,minmax(0,1fr));padding-top:42px;background:linear-gradient(180deg,#252B4C,#1B1F3B);
+  box-shadow:0 0 0 3px #C9D1DD,0 0 0 9px #EEF1F6,0 0 0 11px #B9C3D1,0 30px 54px -30px rgba(20,40,90,.55)}
+.ixw--office-sg .sg-strip::before{content:"LEVEL 03  \00B7  BUILDING DIRECTORY";position:absolute;left:26px;top:16px;font:800 10.5px/1 var(--font-body);letter-spacing:.24em;color:#FFD84A}
+.ixw--office-sg .sg-strip::after{content:"";position:absolute;right:26px;top:15px;width:40px;height:12px;background:radial-gradient(circle,#2BC48A 3px,transparent 3.6px) 0 50%/13px 12px repeat-x;animation:sgBlink 2.4s steps(2) infinite}
+@keyframes sgBlink{50%{opacity:.35}}
+.ixw--office-sg .sg-strip>div{padding:14px 0 0 16px;border-left:1px dashed rgba(255,255,255,.16)}
+.ixw--office-sg .sg-strip>div:first-child{padding-left:0;border-left:0}
+.ixw--office-sg .sg-strip dt{color:#AFC0DD;text-transform:uppercase;font-size:11px;letter-spacing:.12em;font-weight:800}.ixw--office-sg .sg-strip dt .ic{color:#FFD84A}
 .ixw--office-sg .sg-strip dd{color:#FFFFFF}.ixw--office-sg .sg-strip dd a{color:#9FC4FF}
-@media (max-width:991px){.ixw--office-sg .sg-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.ixw--office-sg .ixw-say .ix-intro-h{background:#E8EFFC;color:#1E4691}
+@media (max-width:991px){.ixw--office-sg .sg-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--office-sg .sg-strip>div:nth-child(3){padding-left:0;border-left:0}}
+@media (max-width:767px){.ixw--office-sg .sg-strip{padding-top:38px}.ixw--office-sg .sg-strip::before{left:18px;font-size:9.5px;letter-spacing:.16em}}
 
-/* ---------- four rooms: meeting-room door signs with a status light ---------- */
-.sg-rooms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.sg-room{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px 22px 24px;border-radius:16px;background:linear-gradient(180deg,#FFFFFF,#F7F9FC);text-decoration:none;color:var(--ink);
-  box-shadow:0 0 0 1px #DCE3EE,0 18px 34px -24px rgba(20,40,90,.45);transition:transform .3s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease}
-.sg-room:hover{transform:translateY(-5px);box-shadow:0 0 0 2px #3167CA,0 28px 44px -26px rgba(20,40,90,.5);text-decoration:none;color:var(--ink)}
-.sg-room:focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
-.sg-room-no{align-self:flex-start;padding:5px 9px;border-radius:6px;background:#1B1F3B;color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase}
-.sg-room::after{content:attr(data-status);position:absolute;right:18px;top:22px;display:inline-flex;align-items:center;gap:6px;padding-left:14px;font:700 11.5px/1 var(--font-body);color:var(--muted);
-  background:radial-gradient(circle at 4px 50%,#2BC48A 4px,transparent 4.5px) no-repeat}
-.sg-room[data-status="In use"]::after{background-image:radial-gradient(circle at 4px 50%,#E2453C 4px,transparent 4.5px)}
-.sg-room[data-status="Out on-site"]::after{background-image:radial-gradient(circle at 4px 50%,#F2B233 4px,transparent 4.5px)}
-.sg-room-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#E8EFFC;color:#3167CA}
+/* ---------- Nexi's paragraph: a note clipped to the reception desk ---------- */
+.ixw--office-sg .sg-intro-sec .ixw-say{position:relative;margin-top:14px;border-radius:16px;background:linear-gradient(180deg,#FFFFFF,#FAFBFE);box-shadow:0 0 0 1.5px #DCE3EE,0 6px 0 #DCE3EE,0 30px 50px -32px rgba(20,40,90,.45)}
+.ixw--office-sg .sg-intro-sec .ixw-say::after{content:"";position:absolute;left:50%;top:-13px;width:70px;height:24px;margin-left:-35px;border-radius:6px 6px 12px 12px;background:var(--sg-brass);box-shadow:inset 0 -4px 0 rgba(0,0,0,.14),0 3px 6px -2px rgba(80,60,0,.4)}
+.ixw--office-sg .ixw-say .ix-intro-h{background:#1B1F3B;color:#FFD84A;letter-spacing:.14em}
+
+/* ---------- the kicker: a small door sign above a section head ---------- */
+.sg-kicker{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;padding:5px 16px 5px 5px;border-radius:999px;background:linear-gradient(180deg,#F7F9FC,#D9DFE8);box-shadow:inset 0 0 0 1.5px #B9C3D1,0 3px 0 #B9C3D1;
+  font:800 11px/1 var(--font-body);letter-spacing:.16em;text-transform:uppercase;color:#1B1F3B}
+.sg-kicker i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#5C90EA,#2756B0 75%);color:#FFFFFF;font:800 11px/1 var(--font-body);font-style:normal;letter-spacing:0;box-shadow:0 0 0 3px #FFE08A}
+
+/* ---------- four rooms: the corridor of meeting-room doors (wood, a frosted glass panel, a brass number, a handle, a kick plate) ---------- */
+.sg-corridor{position:relative;overflow:hidden;background:linear-gradient(180deg,#F6F9FE 0,#EEF3FB calc(100% - 128px),#1E4691 calc(100% - 128px),#1E4691 calc(100% - 120px),#EADFCC calc(100% - 120px),#D8C6AA 100%)}
+.sg-corridor::before{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 138px,rgba(120,80,40,.13) 138px 140px),linear-gradient(180deg,rgba(255,255,255,.25),transparent)}
+.sg-corridor::after{content:"";position:absolute;left:0;right:0;top:0;height:16px;pointer-events:none;background:repeating-linear-gradient(90deg,#FFFFFF 0 160px,transparent 160px 240px);opacity:.9;box-shadow:0 10px 30px 10px rgba(255,248,220,.5)}
+.sg-corridor .container{position:relative;z-index:1}
+.sg-rooms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px;align-items:end;padding-top:40px;perspective:1400px}
+.sg-room{position:relative;display:flex;flex-direction:column;min-height:446px;padding:16px 36px 0 16px;border-radius:12px 12px 3px 3px;text-decoration:none;color:var(--ink);transform-origin:left center;
+  background:linear-gradient(90deg,rgba(0,0,0,.08),transparent 9%,transparent 90%,rgba(0,0,0,.1)),repeating-linear-gradient(90deg,#C9A27A 0 7px,#C29A70 7px 10px,#CDA77F 10px 19px,#C59D74 19px 23px);
+  box-shadow:0 0 0 8px #F4F6FA,0 0 0 10px #B9C3D1,0 32px 40px -26px rgba(60,40,20,.6);transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease}
+.sg-room:hover{transform:rotateY(-9deg);text-decoration:none;color:var(--ink);box-shadow:0 0 0 8px #F4F6FA,0 0 0 10px #3167CA,22px 32px 44px -24px rgba(60,40,20,.55)}
+.sg-room:focus-visible{outline:3px solid #FFC94A;outline-offset:14px}
+/* the occupancy sign over the door */
+.sg-room::after{content:attr(data-status);position:absolute;left:50%;top:-44px;transform:translateX(-50%);display:inline-flex;align-items:center;height:24px;padding:0 12px 0 26px;border-radius:999px;white-space:nowrap;
+  background:radial-gradient(circle at 13px 50%,#2BC48A 4.5px,rgba(43,196,138,.25) 7px,transparent 8px),#1B1F3B;font:800 10.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:#FFFFFF}
+.sg-room[data-status="In use"]::after{background:radial-gradient(circle at 13px 50%,#FF5A4F 4.5px,rgba(255,90,79,.3) 7px,transparent 8px),#1B1F3B;animation:sgUse 1.6s ease-in-out infinite}
+.sg-room[data-status="Out on-site"]::after{background:radial-gradient(circle at 13px 50%,#FFB547 4.5px,rgba(255,181,71,.3) 7px,transparent 8px),#1B1F3B}
+@keyframes sgUse{50%{box-shadow:0 0 0 4px rgba(255,90,79,.18)}}
+/* the handle */
+.sg-room::before{content:"";position:absolute;right:9px;top:52%;width:17px;height:50px;border-radius:9px;background:linear-gradient(90deg,#F4F6FA,#AEB8C8);box-shadow:0 3px 0 #8E99AC,inset 0 0 0 1.5px #8E99AC;transition:transform .3s ease}
+.sg-room:hover::before{transform:rotate(-14deg)}
+.sg-room-glass{position:relative;display:flex;flex-direction:column;gap:10px;flex:1;padding:18px 18px 22px;border-radius:7px;
+  background:linear-gradient(160deg,rgba(255,255,255,.97),rgba(238,245,255,.94));box-shadow:inset 0 0 0 2px rgba(255,255,255,.7),inset 0 0 0 5px rgba(150,110,70,.35),0 1px 0 rgba(255,255,255,.4)}
+.sg-room-glass::after{content:"";position:absolute;inset:5px;border-radius:4px;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 38%,transparent 46%);opacity:0;transition:opacity .4s ease}
+.sg-room:hover .sg-room-glass::after{opacity:1}
+.sg-room-no{align-self:flex-start;position:relative;padding:6px 14px;border-radius:4px;background:var(--sg-screw) 3px 50%/8px 8px no-repeat,var(--sg-screw) calc(100% - 3px) 50%/8px 8px no-repeat,var(--sg-brass);
+  color:#3A2A08;font:800 10.5px/1 var(--font-body);letter-spacing:.16em;text-transform:uppercase;box-shadow:0 2px 0 #9C7A26}
+.sg-room-ic{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#FFFFFF,#DCE3EE 75%);color:#3167CA;box-shadow:inset 0 0 0 2px #B9C3D1,0 4px 10px -6px rgba(20,40,90,.5)}
 .sg-room-ic .ic{width:22px;height:22px}
-.sg-room h3{margin:0;font-size:1.18rem}.sg-room p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
-.sg-room .btn-link{margin-top:auto}
-@media (max-width:991px){.sg-rooms{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.sg-rooms{grid-template-columns:minmax(0,1fr)}}
+.sg-room h3{margin:0;font-size:1.2rem}.sg-room p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
+.sg-room .btn-link{margin-top:auto;align-self:flex-start}
+.sg-room-kick{display:block;height:44px;margin:16px -36px 0 -16px;border-radius:0 0 3px 3px;background:repeating-linear-gradient(180deg,rgba(255,255,255,.35) 0 1px,transparent 1px 3px),linear-gradient(180deg,#EEF1F6,#BFC8D6);box-shadow:inset 0 2px 0 rgba(255,255,255,.7)}
+/* the lift: brushed steel doors, no handle, its lobby button */
+.sg-room--lift{background:linear-gradient(90deg,#CCD4DF,#F2F5F9 46%,#9AA6BC 49.5%,#9AA6BC 50.5%,#F2F5F9 54%,#CCD4DF);box-shadow:0 0 0 8px #E9EDF3,0 0 0 10px #8E99AC,0 32px 40px -26px rgba(30,40,60,.5)}
+.sg-room--lift::before{right:7px;top:46%;width:20px;height:44px;border-radius:10px;background:radial-gradient(circle at 50% 30%,#FFB547 4px,#FFF1D6 5px,#E3E8EF 6px,transparent 6.5px),radial-gradient(circle at 50% 72%,#E3E8EF 5px,transparent 6px),#1B1F3B;box-shadow:none}
+.sg-room--lift .sg-room-no{background:#0E1230;color:#FFB547;box-shadow:none;font-family:ui-monospace,Consolas,monospace}
+@media (max-width:991px){.sg-rooms{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:72px}}
+@media (max-width:560px){.sg-rooms{grid-template-columns:minmax(0,1fr)}.sg-room{min-height:0}.sg-room:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.sg-room,.sg-room::before{transition:none}.sg-room:hover{transform:none}.sg-room[data-status="In use"]::after,.ixw--office-sg .sg-strip::after{animation:none}}
 
-/* ---------- the discovery session: a meeting invite ---------- */
-.sg-invite{border-radius:18px;background:#FFFFFF;overflow:hidden;box-shadow:0 0 0 1px #DCE3EE,0 30px 50px -30px rgba(20,40,90,.45)}
-.sg-invite-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:16px 22px;background:linear-gradient(90deg,#3167CA,#2756B0);color:#FFFFFF}
+/* ---------- the first meeting: the Discovery Room whiteboard and its booking panel ---------- */
+.ixw--office-sg .sg-meet{position:relative;overflow:hidden;background:radial-gradient(circle at 0 0,rgba(49,103,202,.08),transparent 40%),linear-gradient(180deg,#F6F2EA,#F2ECE1)}
+.ixw--office-sg .sg-meet::before{content:"";position:absolute;right:-60px;top:-40px;width:420px;height:420px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(201,162,122,.14) 0 2px,transparent 2px 18px);pointer-events:none}
+.sg-wb{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin:24px 0 30px;padding:18px 22px 22px;border-radius:12px;background:#FFFFFF;box-shadow:0 0 0 6px #C9D1DD,0 0 0 8px #AAB4C4,0 24px 40px -26px rgba(20,40,90,.45)}
+.sg-wb::after{content:"";position:absolute;left:28px;right:28px;bottom:-16px;height:8px;border-radius:0 0 6px 6px;background:linear-gradient(90deg,#3167CA 0 22px,transparent 22px 30px,#E0456B 30px 52px,transparent 52px) 18px 0/80px 4px no-repeat,#AAB4C4}
+.sg-wb span{position:relative;display:grid;place-items:center;width:84px;height:62px;background:var(--c);transform:rotate(var(--r));font:800 13.5px/1 var(--font-display);color:#1B1F3B;box-shadow:0 8px 12px -8px rgba(0,0,0,.35);transition:transform .35s cubic-bezier(.34,1.45,.64,1)}
+.sg-wb span::before{content:"";position:absolute;left:0;right:0;top:0;height:12px;background:rgba(0,0,0,.05)}
+.sg-wb span+span::after{content:"\2192";position:absolute;left:-19px;top:50%;transform:translateY(-50%) rotate(calc(var(--r) * -1));font:800 16px/1 var(--font-body);color:#E0456B}
+.sg-meet-copy:hover .sg-wb span{transform:rotate(0) translateY(-3px)}
+.sg-invite{position:relative;border-radius:28px;background:#FFFFFF;border:13px solid #1B1F3B;overflow:hidden;box-shadow:0 0 0 2px #3A4458,0 46px 70px -36px rgba(20,40,90,.6)}
+.sg-invite-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:18px 22px;background:linear-gradient(90deg,#3167CA,#2756B0);color:#FFFFFF}
 .sg-invite-top span{display:inline-flex;align-items:center;gap:8px;font:800 15px/1 var(--font-display)}.sg-invite-top .ic{width:17px;height:17px}
-.sg-invite-top b{font:700 12.5px/1 var(--font-body);opacity:.85}
-.sg-agenda{counter-reset:ag;margin:0;padding:10px 22px;list-style:none}
-.sg-agenda li{counter-increment:ag;display:grid;grid-template-columns:44px 90px minmax(0,1fr);align-items:baseline;gap:10px;padding:14px 0;border-bottom:1px dashed #DCE3EE}
-.sg-agenda li::before{content:"0" counter(ag);font:800 13px/1 var(--font-body);color:#3167CA}
+.sg-invite-top b{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.14);font:700 12px/1 var(--font-body)}
+.sg-invite-top b::before{content:"";width:7px;height:7px;border-radius:50%;background:#2BE09A;box-shadow:0 0 0 3px rgba(43,224,154,.3)}
+.sg-agenda{counter-reset:ag;margin:0;padding:12px 22px 6px;list-style:none}
+.sg-agenda li{position:relative;counter-increment:ag;display:grid;grid-template-columns:46px 88px minmax(0,1fr);align-items:baseline;gap:10px;padding:16px 0;border-bottom:1px dashed #DCE3EE}
+.sg-agenda li:last-child{border-bottom:0}
+.sg-agenda li::before{content:"0" counter(ag);display:grid;place-items:center;width:34px;height:34px;align-self:center;border-radius:50%;background:#EEF4FE;box-shadow:inset 0 0 0 2px #3167CA;font:800 12.5px/1 var(--font-body);color:#1E4691}
+.sg-agenda li:not(:last-child)::after{content:"";position:absolute;left:16px;top:calc(50% + 18px);bottom:calc(-50% + 18px);width:2px;background:repeating-linear-gradient(180deg,#3167CA 0 4px,transparent 4px 8px);opacity:.4}
 .sg-agenda b{font:800 16px/1.3 var(--font-display)}.sg-agenda span{font-size:14.5px;line-height:1.5;color:var(--body)}
-.sg-invite-foot{display:flex;align-items:center;gap:8px;margin:0;padding:14px 22px 18px;font:600 13.5px/1.4 var(--font-body);color:var(--muted)}
+.sg-invite-foot{display:flex;align-items:center;gap:10px;margin:0;padding:14px 22px 18px;background:#F6F9FE;border-top:1px solid #E3EAF4;font:600 13.5px/1.4 var(--font-body);color:var(--muted)}
 .sg-invite-foot .ic{width:16px;height:16px;color:#14A38B}
-@media (max-width:560px){.sg-agenda li{grid-template-columns:32px minmax(0,1fr)}.sg-agenda li span{grid-column:2}}
+.sg-dots{display:inline-flex}.sg-dots i{width:22px;height:22px;margin-right:-7px;border-radius:50%;border:2.5px solid #FFFFFF;background:#3167CA}.sg-dots i:nth-child(2){background:#14A38B}.sg-dots i:nth-child(3){background:#F08A24;margin-right:4px}
+@media (max-width:560px){.sg-agenda li{grid-template-columns:40px minmax(0,1fr)}.sg-agenda li span{grid-column:2}.sg-wb{gap:16px}.sg-wb span{width:68px;height:52px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){.sg-wb span{transition:none}}
 
-/* ---------- visit: the steel unit plate next to the map ---------- */
+/* ---------- the other offices: the lift lobby's destination screens ---------- */
+.ixw--office-sg .sg-lobby{position:relative;background:linear-gradient(180deg,#FFFFFF 0,#F1F5FB 100%)}
+.ixw--office-sg .sg-lobby .co-cities{gap:34px}
+.ixw--office-sg .sg-lobby .co-city{border:0;border-radius:20px;box-shadow:0 0 0 2px #B9C3D1,0 0 0 10px #EEF1F6,0 0 0 12px #B9C3D1,0 34px 50px -30px rgba(20,40,90,.5)}
+.ixw--office-sg .sg-lobby .co-city:hover{box-shadow:0 0 0 2px #3167CA,0 0 0 10px #EEF1F6,0 0 0 12px #3167CA,0 40px 56px -30px rgba(20,40,90,.55)}
+.ixw--office-sg .sg-lobby .co-city-art{border-bottom:0;background:linear-gradient(180deg,color-mix(in srgb,var(--o) 24%,#EAF3FF),#F7FAFF)}
+.ixw--office-sg .sg-lobby .co-city-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent calc(50% - 3px),#FFFFFF calc(50% - 3px) calc(50% + 3px),transparent calc(50% + 3px)),linear-gradient(115deg,transparent 35%,rgba(255,255,255,.4) 42%,transparent 50%)}
+.ixw--office-sg .sg-lobby .co-otag{border:0;border-radius:4px;background:var(--sg-brass);color:#3A2A08;box-shadow:0 2px 0 #9C7A26}
+.ixw--office-sg .sg-lobby .co-time{border-radius:6px;background:#0E1230;color:#FFB547;font-family:ui-monospace,Consolas,monospace;box-shadow:inset 0 0 0 1.5px #3A4458}
+.ixw--office-sg .sg-lobby .co-city-b{position:relative;padding-top:30px;background:linear-gradient(180deg,#1B1F3B 0 6px,#FFFFFF 6px)}
+.ixw--office-sg .sg-lobby .co-city-b::before{content:"\25B2  NEXT STOP";position:absolute;left:22px;top:14px;font:800 10px/1 var(--font-body);letter-spacing:.2em;color:#3167CA}
+
+/* ---------- visit: the steel unit plate, its lift call panel, the map in a steel frame ---------- */
 .sg-visit{align-items:stretch}
-.sg-plate{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:34px 30px;border-radius:18px;background:linear-gradient(160deg,#F7F9FC,#D7DEE8);
-  box-shadow:inset 0 0 0 2px #FFFFFF,0 0 0 1px #B9C3D1,0 30px 50px -30px rgba(20,40,90,.45)}
-.sg-plate-unit{margin:0;font:800 clamp(3rem,6vw,4.6rem)/1 var(--font-display);letter-spacing:-.03em;color:#1B1F3B}
+.sg-plate{position:relative;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:40px 34px;border-radius:18px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.4) 0 1px,transparent 1px 3px),linear-gradient(160deg,#F7F9FC,#D2DAE5);
+  box-shadow:inset 0 0 0 2px #FFFFFF,0 0 0 1.5px #B9C3D1,0 6px 0 #B9C3D1,0 34px 54px -30px rgba(20,40,90,.5)}
+.sg-plate::before{content:"";position:absolute;inset:12px;pointer-events:none;background:var(--sg-screw) 0 0/10px 10px no-repeat,var(--sg-screw) 100% 0/10px 10px no-repeat,var(--sg-screw) 0 100%/10px 10px no-repeat,var(--sg-screw) 100% 100%/10px 10px no-repeat}
+.sg-plate-unit{margin:0;font:800 clamp(3.2rem,6.4vw,5rem)/1 var(--font-display);letter-spacing:-.03em;color:#1B1F3B;text-shadow:0 2px 0 #FFFFFF,0 -1px 0 rgba(20,30,60,.25)}
 .sg-plate-name{margin:0;font:800 1.2rem/1.2 var(--font-display);color:#3167CA}
 .sg-plate address{font:600 15px/1.55 var(--font-body);font-style:normal;color:var(--ink)}
 .sg-plate .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-.ixw--office-sg .sg-visit .map{border-radius:18px;box-shadow:0 0 0 1px #B9C3D1}
+.sg-call{position:absolute;right:30px;top:30px;display:grid;justify-items:center;gap:8px;padding:10px 10px 12px;border-radius:30px;background:linear-gradient(180deg,#E9EDF3,#C9D1DD);box-shadow:inset 0 0 0 1.5px #8E99AC,0 3px 0 #8E99AC}
+.sg-call b{display:grid;place-items:center;width:40px;height:26px;border-radius:5px;background:#0E1230;color:#FFB547;font:800 14px/1 ui-monospace,Consolas,monospace;letter-spacing:.06em}
+.sg-call i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#FFFFFF,#D9DFE8 75%);box-shadow:inset 0 0 0 2px #8E99AC;font:800 10px/1 var(--font-body);font-style:normal;color:#5C6B7A}
+.sg-call i:first-of-type{color:#B26B00;box-shadow:inset 0 0 0 2px #8E99AC,0 0 0 3px #FFB547;animation:sgCall 2s ease-in-out infinite}
+@keyframes sgCall{50%{box-shadow:inset 0 0 0 2px #8E99AC,0 0 0 6px rgba(255,181,71,.25)}}
+.ixw--office-sg .sg-visit .map{border-radius:18px;border:0;box-shadow:0 0 0 2px #B9C3D1,0 0 0 10px #EEF1F6,0 0 0 12px #B9C3D1,0 34px 54px -30px rgba(20,40,90,.5)}
+@media (max-width:560px){.sg-plate{padding:34px 22px 28px}.sg-call{right:18px;top:18px;transform:scale(.85);transform-origin:top right}}
+@media (prefers-reduced-motion:reduce){.sg-call i:first-of-type{animation:none}}
 
-/* ---------- FAQ: lift floor buttons ---------- */
-.ixw--office-sg .sg-faq{counter-reset:fl}
-.ixw--office-sg .sg-faq details{counter-increment:fl}
-.ixw--office-sg .sg-faq summary::before{content:"L" counter(fl);border-radius:50%;background:radial-gradient(circle at 50% 40%,#FFFFFF,#D9DFE8 75%);color:#1B1F3B;box-shadow:inset 0 0 0 2px #8E99AC;font-size:12px}
+/* ---------- FAQ: the lift's floor panel ---------- */
+.ixw--office-sg .sg-faq{position:relative;counter-reset:fl;gap:12px;padding:56px 26px 26px;border-radius:24px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 1px,transparent 1px 3px),linear-gradient(160deg,#F2F5F9,#D6DDE7);box-shadow:inset 0 0 0 2px #FFFFFF,0 0 0 1.5px #B9C3D1,0 6px 0 #B9C3D1,0 34px 54px -32px rgba(20,40,90,.45)}
+.ixw--office-sg .sg-faq::before{content:"TECHNEXT  \00B7  #03-36  \00B7  PRESS A FLOOR";position:absolute;left:26px;top:22px;font:800 10.5px/1 var(--font-body);letter-spacing:.2em;color:#5C6B7A}
+.ixw--office-sg .sg-faq::after{content:"\25B2  03";position:absolute;right:26px;top:16px;display:grid;place-items:center;width:62px;height:24px;border-radius:5px;background:#0E1230;box-shadow:inset 0 0 0 1.5px #3A4458;font:800 12px/1 ui-monospace,Consolas,monospace;color:#FFB547}
+.ixw--office-sg .sg-faq details{counter-increment:fl;border:0;border-radius:14px;background:#FFFFFF;box-shadow:0 0 0 1.5px #C9D1DD,0 4px 0 #C9D1DD}
+.ixw--office-sg .sg-faq details[open]{box-shadow:0 0 0 2px #3167CA,0 4px 0 #1E4691}
+.ixw--office-sg .sg-faq summary::before{content:"L" counter(fl);width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#FFFFFF,#D9DFE8 75%);color:#1B1F3B;box-shadow:inset 0 0 0 2px #8E99AC;font-size:12px}
 .ixw--office-sg .sg-faq details[open] summary::before{content:"L" counter(fl);background:radial-gradient(circle at 50% 40%,#5C90EA,#2756B0 75%);color:#FFFFFF;transform:none;box-shadow:inset 0 0 0 2px #1E4691,0 0 0 4px #FFE08A}
+@media (max-width:767px){.ixw--office-sg .sg-faq{padding:50px 14px 16px}.ixw--office-sg .sg-faq::before{left:16px;font-size:9px;letter-spacing:.12em}.ixw--office-sg .sg-faq::after{display:none}}
 
-/* ---------- the end card: the feature wall ---------- */
-.ixw--office-sg .sg-cta{background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 12px,transparent 12px 28px),linear-gradient(120deg,#2756B0,#3A72D6)}
+/* ---------- the end card: the feature wall, with the logo's plane and the unit plate ---------- */
+.ixw--office-sg .sg-cta{background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 12px,transparent 12px 28px),linear-gradient(120deg,#2756B0,#3A72D6);box-shadow:inset 0 -10px 0 #1E4691,0 34px 60px -34px rgba(20,40,90,.6)}
+.ixw--office-sg .sg-cta::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M-10.5-2.2 10.5-10 5.9 10.4.7 3.3-3.4 7.8-3 1.5z' fill='%23FFFFFF' fill-opacity='.09'/%3E%3C/svg%3E");background-size:340px 340px;background-repeat:no-repeat;background-position:62% 40%;-webkit-mask-image:none;mask-image:none}
 .ixw--office-sg .sg-cta .hand{color:#FFE08A}
+.ixw--office-sg .sg-cta>div:first-of-type{position:relative;padding-top:38px}
+.ixw--office-sg .sg-cta>div:first-of-type::before{content:"#03-36";position:absolute;left:0;top:0;padding:6px 12px;border-radius:5px;background:var(--sg-screw) 3px 50%/8px 8px no-repeat,var(--sg-screw) calc(100% - 3px) 50%/8px 8px no-repeat,linear-gradient(180deg,#F4F6FA,#C9D1DD);color:#1B1F3B;font:800 12px/1 var(--font-body);letter-spacing:.14em}

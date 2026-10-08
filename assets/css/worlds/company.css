@@ -271,3 +271,26 @@
 
 
 @media (prefers-reduced-motion:reduce){.ixw--company .ixw-ibtn--play.is-on{animation:none}.ixw--company .co-rules .card{transition:none}}
+
+/* ============================== more of the office below the hero ==============================
+   The workflow's head gets the TechNext Line's route sign beside it; the office postcards are stamped and postmarked,
+   "greetings from" each city; the plaques hang on a wall band. */
+@media (min-width:1100px){
+  .ixw--company .ixw-flow-sec .container{position:relative}
+  .ixw--company .ixw-flow-sec .container::before{content:"";position:absolute;right:24px;top:6px;width:420px;height:170px;pointer-events:none;border-radius:18px;background:#FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 170'%3E%3Cg font-family='Plus Jakarta Sans,Inter,sans-serif' font-weight='800'%3E%3Ctext x='24' y='36' font-size='12' letter-spacing='2.4' fill='%231B1F3B'%3ETECHNEXT LINE%3C/text%3E%3Cpath d='M300 24.5 316 18.6 312.5 34.2 308.6 28.8 305.4 32.2 305.7 27.4z' fill='%233167CA'/%3E%3Cpath d='M40 92H150' stroke='%233167CA' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M150 92H270' stroke='%2314A38B' stroke-width='12'/%3E%3Cpath d='M270 92H380' stroke='%23F08A24' stroke-width='12' stroke-linecap='round'/%3E%3Cg fill='%23FFFFFF' stroke-width='6'%3E%3Ccircle cx='60' cy='92' r='13' stroke='%233167CA'/%3E%3Ccircle cx='210' cy='92' r='13' stroke='%2314A38B'/%3E%3Ccircle cx='360' cy='92' r='13' stroke='%23F08A24'/%3E%3C/g%3E%3Cg font-size='12.5' fill='%231B1F3B' text-anchor='middle'%3E%3Ctext x='60' y='132'%3ESingapore%3C/text%3E%3Ctext x='210' y='132'%3ETaguig City%3C/text%3E%3Ctext x='360' y='132'%3EHo Chi Minh City%3C/text%3E%3C/g%3E%3Cg font-size='10' font-weight='700' fill='%235C6478' text-anchor='middle'%3E%3Ctext x='60' y='149'%3EHQ %C2%B7 discovery%3C/text%3E%3Ctext x='210' y='149'%3Ebuild %C2%B7 consult%3C/text%3E%3Ctext x='360' y='149'%3EAI engineering%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;
+    box-shadow:0 0 0 2.5px var(--co-ink),0 6px 0 2.5px var(--co-ink),0 30px 50px -30px rgba(20,40,90,.45);rotate:1.2deg}
+}
+.ixw--company .co-cities-sec{background:radial-gradient(circle at 100% 0,rgba(240,138,36,.08),transparent 40%),radial-gradient(circle at 0 100%,rgba(20,163,139,.08),transparent 40%),#FFFFFF}
+.ixw--company .co-cities{gap:30px}
+.ixw--company .co-city{border-radius:14px;rotate:-.7deg;transition:translate .3s cubic-bezier(.34,1.45,.64,1),box-shadow .25s ease,rotate .35s ease}
+.ixw--company .co-city:nth-child(2){rotate:.6deg}.ixw--company .co-city:nth-child(3){rotate:-.3deg}
+.ixw--company .co-city:hover{rotate:0deg}
+.ixw--company .co-city-art{height:166px}
+/* the postmark: a round cancel with wavy lines across the sky */
+.ixw--company .co-city-art::before{content:"";position:absolute;left:38%;top:12px;width:150px;height:62px;pointer-events:none;opacity:.5;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 62'%3E%3Cg fill='none' stroke='%231B1F3B' stroke-width='2'%3E%3Ccircle cx='31' cy='31' r='26'/%3E%3Ccircle cx='31' cy='31' r='19' stroke-dasharray='2 4'/%3E%3Cpath d='M62 16q11-6 22 0t22 0 22 0 22 0M62 31q11-6 22 0t22 0 22 0 22 0M62 46q11-6 22 0t22 0 22 0 22 0'/%3E%3C/g%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+/* the stamp: perforated, in the office colour, with the paper plane */
+.ixw--company .co-city-art::after{content:"";position:absolute;right:16px;bottom:14px;width:46px;height:56px;border:2px dashed rgba(255,255,255,.95);border-radius:3px;rotate:6deg;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M-10.5-2.2 10.5-10 5.9 10.4.7 3.3-3.4 7.8-3 1.5z' fill='%23FFFFFF'/%3E%3C/svg%3E") center 40%/24px 24px no-repeat,var(--o);box-shadow:0 0 0 3px #FFFFFF,0 6px 10px -4px rgba(20,30,60,.4)}
+.ixw--company .co-city-h::before{content:"greetings from";display:block;margin-bottom:2px;font:600 1rem/1.1 var(--font-hand);color:var(--o)}
+@media (prefers-reduced-motion:reduce){.ixw--company .co-city{transition:none}}
