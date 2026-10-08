@@ -235,20 +235,31 @@
 <div class="pop" role="dialog" aria-modal="true" aria-label="Details" hidden></div>
 
 <!-- ============================================================ FRONT DOOR: the answer box + where we are -->
-<section class="section section--tight answer-sec hm-front hm-live">
-  <div class="container hm-front-in">
-    <div class="hm-front-copy">
-      <div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, build enterprise AI and websites, and deliver IoT, app and network services for growing companies in 10+ countries.</p></div>
-      <!-- ============================================================ TRUST STRIP -->
-      <div class="strip hm-strip reveal" style="--i:1">
-        <img class="strip-badge" src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <span class="strip-item">{{icon:pin}} <b>Singapore HQ</b> · Philippines · Vietnam</span>
-        <span class="strip-item">{{icon:globe}} Clients in <b>10+ countries</b></span>
-        <span class="strip-item">{{icon:users}} <b>11+</b> enterprise clients transformed</span>
-      </div>
+<section class="section hm-front hm-live" aria-labelledby="hm-front-h">
+  <div class="container">
+    <div class="hm-front-head reveal">
+      <span class="hand">who we are</span>
+      <h2 id="hm-front-h">One Odoo partner. Three offices. One team.</h2>
+      <p class="lead">An Odoo Ready Partner headquartered in Singapore, with our main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City.</p>
     </div>
-    <figure class="hm-map reveal" style="--i:2" aria-label="TechNext's three offices: Singapore HQ, Taguig City and Ho Chi Minh City">
-      <svg class="hm-map-svg" viewBox="0 0 360 300" aria-hidden="true">
+    <div class="hm-front-in">
+      <div class="hm-front-copy">
+        <ul class="hm-stats" role="list">
+          <li class="hm-stat hm-stat--partner reveal" style="--i:0"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span><b>Odoo Ready Partner</b>Implementing Odoo 20 end to end</span></li>
+          <li class="hm-stat reveal" style="--i:1"><span class="hm-stat-ic">{{icon:users}}</span><span><b class="hm-num">11+</b>enterprise clients transformed</span></li>
+          <li class="hm-stat reveal" style="--i:2"><span class="hm-stat-ic">{{icon:globe}}</span><span><b class="hm-num">10+</b>countries with clients</span></li>
+          <li class="hm-stat reveal" style="--i:3"><span class="hm-stat-ic">{{icon:pin}}</span><span><b class="hm-num">3</b>offices: Singapore · Philippines · Vietnam</span></li>
+        </ul>
+        <p class="hm-do-h reveal" style="--i:4">What we do</p>
+        <ul class="hm-do reveal" style="--i:5" role="list">
+          <li><a href="{{ROOT}}solutions/odoo-erp.html">{{icon:sol-erp}}<span><b>Odoo ERP</b>Accounting, Sales and Inventory first</span>{{icon:arrow}}</a></li>
+          <li><a href="{{ROOT}}solutions/ai.html">{{icon:sol-ai}}<span><b>Enterprise AI</b>Agents, knowledge, chatbots</span>{{icon:arrow}}</a></li>
+          <li><a href="{{ROOT}}solutions/marketing.html">{{icon:sol-mkt}}<span><b>Websites &amp; marketing</b>Sites, social and brand</span>{{icon:arrow}}</a></li>
+          <li><a href="{{ROOT}}solutions/technology.html">{{icon:sol-tech}}<span><b>Technology</b>IoT, apps and networks</span>{{icon:arrow}}</a></li>
+        </ul>
+      </div>
+      <figure class="hm-map reveal" style="--i:2" aria-label="TechNext's three offices: Singapore HQ, Taguig City and Ho Chi Minh City">
+        <svg class="hm-map-svg" viewBox="0 0 360 300" aria-hidden="true">
         <defs><pattern id="hmDots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#C9D6F0"/></pattern></defs>
         <rect x="0" y="0" width="360" height="300" rx="22" fill="url(#hmDots)"/>
         <path class="hm-map-land" d="M54 70c22-14 46-10 60 4 10 10 6 26 18 36 14 12 8 34-6 44-12 9-10 24-2 36 10 15 2 32-14 36-18 5-30-8-36-24-6-16-20-22-26-38-7-20-14-38-6-58 3-14 6-28 12-36z" fill="#E7EEFB"/>
@@ -262,12 +273,13 @@
         <g class="hm-pin hm-pin--ph"><circle class="hm-ring hm-a" style="--d:-1.6s" cx="284" cy="104" r="9"/><circle cx="284" cy="104" r="6" fill="#714B67"/><circle cx="284" cy="104" r="2.2" fill="#fff"/></g>
         <g class="hm-jet hm-a"><path d="M-7 -5 L9 0 L-7 5 L-3 0Z" fill="#3167CA"/></g>
       </svg>
-      <figcaption class="hm-map-tags">
-        <span class="hm-tag hm-tag--sg"><i></i><b>Singapore</b>HQ · 261 Waterloo Street</span>
-        <span class="hm-tag hm-tag--ph"><i></i><b>Taguig City</b>development &amp; consulting hub</span>
-        <span class="hm-tag hm-tag--vn"><i></i><b>Ho Chi Minh City</b>AI engineering hub</span>
-      </figcaption>
-    </figure>
+        <figcaption class="hm-offices">
+          <a class="hm-office hm-office--sg" href="{{ROOT}}offices/singapore.html"><i></i><span><b>Singapore</b>HQ · 261 Waterloo Street</span>{{icon:arrow}}</a>
+          <a class="hm-office hm-office--ph" href="{{ROOT}}offices/philippines.html"><i></i><span><b>Taguig City</b>Development &amp; consulting hub</span>{{icon:arrow}}</a>
+          <a class="hm-office hm-office--vn" href="{{ROOT}}offices/vietnam.html"><i></i><span><b>Ho Chi Minh City</b>AI engineering hub</span>{{icon:arrow}}</a>
+        </figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 

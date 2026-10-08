@@ -20,8 +20,8 @@
 .is-home .is-in .hm-leaf--r{transform:perspective(600px) rotateY(78deg)}
 
 /* ---------------------------------------------------------------- front door: answer box, trust strip, the three offices */
-.is-home .hm-front{padding-top:72px;padding-bottom:40px;background:radial-gradient(60% 80% at 85% 30%,#EEF3FC 0,rgba(238,243,252,0) 70%)}
-.is-home .hm-front-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);gap:48px;align-items:center}
+.is-home .hm-front{padding-top:84px;padding-bottom:64px;background:radial-gradient(60% 80% at 85% 40%,#EEF3FC 0,rgba(238,243,252,0) 70%),linear-gradient(180deg,#fff,#F8FAFE)}
+.is-home .hm-front-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:stretch}
 .is-home .hm-front .answer-box{display:block;max-width:none;padding:26px 28px 24px 30px;border:0;border-radius:18px;background:#fff;box-shadow:0 0 0 1px var(--line),0 30px 60px -44px rgba(31,31,61,.45);position:relative;overflow:hidden}
 .is-home .hm-front .answer-box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--blue),var(--odoo))}
 .is-home .hm-front .answer-h{display:inline-block;margin-bottom:12px}
@@ -369,3 +369,41 @@
   .is-home .hm-van,.is-home .hm-train,.is-home .hm-coin,.is-home .hm-cta-trail{display:none}
   .is-home .hm-wall-row,.is-home .hm-ticker-run{transform:none}
 }
+
+/* ---------------------------------------------------------------- who we are (front section) */
+.is-home .hm-front-head{max-width:760px;margin-bottom:36px}
+.is-home .hm-front-head h2{margin:6px 0 12px;font-size:clamp(1.9rem,3.2vw,2.6rem);line-height:1.12;text-wrap:balance}
+.is-home .hm-front-head .lead{max-width:62ch}
+.is-home .hm-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 26px;padding:0;list-style:none}
+.is-home .hm-stat{display:flex;align-items:center;gap:14px;padding:18px 18px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px var(--line),0 18px 36px -30px rgba(31,31,61,.4);transition:transform .3s var(--spring),box-shadow .25s ease}
+.is-home .hm-stat:hover{transform:translateY(-3px);box-shadow:0 0 0 1px #CFDBF3,0 22px 40px -26px rgba(49,103,202,.45)}
+.is-home .hm-stat span:last-child{display:grid;gap:2px;font:500 14px/1.4 var(--font-body);color:var(--body)}
+.is-home .hm-stat b{font:800 15px/1.25 var(--font-display);color:var(--ink)}
+.is-home .hm-stat .hm-num{font:800 30px/1 var(--font-display);letter-spacing:-.02em;background:linear-gradient(120deg,#3167CA,#714B67);-webkit-background-clip:text;background-clip:text;color:transparent}
+.is-home .hm-stat-ic{display:grid;place-items:center;width:46px;height:46px;flex:none;border-radius:14px;background:#EEF3FC;color:#3167CA}
+.is-home .hm-stat-ic .ic{width:22px;height:22px}
+.is-home .hm-stat--partner img{height:34px;width:auto;flex:none}
+.is-home .hm-do-h{margin:0 0 10px;font:800 12px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:#5C6B7A}
+.is-home .hm-do{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.is-home .hm-do a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px var(--line);text-decoration:none;color:var(--ink);transition:transform .25s var(--spring),box-shadow .2s ease}
+.is-home .hm-do a:hover{transform:translateY(-2px);box-shadow:0 0 0 1.5px #3167CA,0 14px 26px -18px rgba(49,103,202,.55);text-decoration:none}
+.is-home .hm-do a:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.is-home .hm-do .ic-ind{width:34px;height:34px;flex:none}
+.is-home .hm-do span{display:grid;gap:1px;flex:1;font:500 12.5px/1.35 var(--font-body);color:var(--body)}
+.is-home .hm-do b{font:700 14.5px/1.25 var(--font-body);color:var(--ink)}
+.is-home .hm-do a > .ic:last-child{width:16px;height:16px;color:#3167CA;transition:transform .2s ease}
+.is-home .hm-do a:hover > .ic:last-child{transform:translateX(3px)}
+.is-home .hm-map{display:flex;flex-direction:column;justify-content:space-between}
+.is-home .hm-map-svg{max-height:300px}
+.is-home .hm-offices{display:grid;gap:8px;margin-top:10px}
+.is-home .hm-office{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--line);text-decoration:none;color:var(--ink);transition:transform .25s var(--spring),box-shadow .2s ease}
+.is-home .hm-office:hover{transform:translateX(3px);box-shadow:0 0 0 1.5px var(--oc,#3167CA);text-decoration:none}
+.is-home .hm-office:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.is-home .hm-office i{width:12px;height:12px;flex:none;border-radius:50%;background:var(--oc,#3167CA);box-shadow:0 0 0 4px color-mix(in srgb,var(--oc,#3167CA) 18%,transparent)}
+.is-home .hm-office span{display:grid;gap:1px;flex:1;font:500 13px/1.35 var(--font-body);color:var(--body)}
+.is-home .hm-office b{font:700 14.5px/1.25 var(--font-body);color:var(--ink)}
+.is-home .hm-office > .ic{width:16px;height:16px;color:var(--oc,#3167CA)}
+.is-home .hm-office--sg{--oc:#3167CA}.is-home .hm-office--ph{--oc:#714B67}.is-home .hm-office--vn{--oc:#0E9384}
+@media (max-width:991px){.is-home .hm-front-in{grid-template-columns:minmax(0,1fr)}.is-home .hm-map{max-width:none}}
+@media (max-width:560px){.is-home .hm-front{padding-top:56px;padding-bottom:44px}.is-home .hm-stats,.is-home .hm-do{grid-template-columns:minmax(0,1fr)}.is-home .hm-stat .hm-num{font-size:26px}}
+@media (prefers-reduced-motion:reduce){.is-home .hm-stat,.is-home .hm-do a,.is-home .hm-office{transition:none}}
