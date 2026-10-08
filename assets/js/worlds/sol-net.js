@@ -57,7 +57,7 @@
       P: W({ s: 0.52, skin: 0, hair: 1, style: 'long', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', hold: 'clipboard' }) },
     { x0: 1090, x1: 1290, y: 492, spd: 14, ph: 0.6, label: 'TechNext installer', lines: ['A new **access point**, placed where people sit.', 'Equipment list first, then a **fixed scope** before ordering.'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.52, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: STAFF, hold: 'box' }) },
-    { front: true, x0: 1100, x1: 1290, y: 572, spd: 17, ph: 0.25, label: 'TechNext support engineer', lines: ['Changes, troubleshooting, regular checks: **documentation kept current**.', 'Network settings **backed up**, admin access shared with you.'], acts: ['nod', 'id', 'wave'],
+    { front: true, x0: 1100, x1: 1220, y: 572, spd: 17, ph: 0.25, label: 'TechNext support engineer', lines: ['Changes, troubleshooting, regular checks: **documentation kept current**.', 'Network settings **backed up**, admin access shared with you.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.56, skin: 3, hair: 1, style: 'bob', outfit: 'polo', top: VPN, hold: 'tablet' }) }
   ];
   CREW[0].P.fixS = true;
@@ -153,8 +153,8 @@
       fillRR(g, rx + 30, 350, 160, 44, 10, '#FFFFFF'); text(g, 'INTERNET PROVIDER', rx + 110, 370, 11, 800, AQUA_D, 'center'); text(g, 'the city supply', rx + 110, 384, 8, 700, '#5C6B7A', 'center');
       fillRR(g, rx + 196, 420, 10, 50, 3, '#5C6B8A'); valveWheel(g, rx + 201, 418, 9, RED);
       var hy = -360; soft(g, hy, F + 2, 18, 3, 0.25); fillRR(g, hy - 9, F - 40, 18, 40, 6, RED); fillRR(g, hy - 12, F - 44, 24, 8, 4, '#C0383A'); fillRR(g, hy - 15, F - 28, 30, 8, 4, '#C0383A'); fillE(g, hy, F - 46, 5, 4, '#C0383A');
-      var lx = -520; fillRR(g, lx - 3, 300, 6, F - 300, 3, '#5C6B8A'); fillRR(g, lx - 16, 292, 32, 10, 5, '#5C6B8A'); fillE(g, lx, 304, 7, 4, '#FFF4C9');
     }
+    streetBack(g, ext);
     /* the towers: the main line and its backup */
     tower(g, BTANK, [BTANK.x + 6, BTANK.x + BTANK.w - 6], '#4FB3E3', null);
     fillRR(g, BTANK.x + 4, BTANK.y + 14, BTANK.w - 8, 16, 4, '#FFFFFF'); text(g, 'BACKUP', BTANK.x + BTANK.w / 2, BTANK.y + 25, 6.8, 800, AQUA_D, 'center');
@@ -298,7 +298,9 @@
     var cw = CREW[0]; if (cw.P._w) { var h0 = handAt(cw.P, 0), h1 = handAt(cw.P, 1), mx = (h0[0] + h1[0]) / 2, my = (h0[1] + h1[1]) / 2; fillE(g, mx, my, 13, 13, '#5C6B8A'); fillE(g, mx, my, 10, 10, STAFF); fillE(g, mx, my, 4, 4, '#C9D3DE'); g.strokeStyle = STAFF; g.lineWidth = 1.6; g.beginPath(); g.arc(mx, my, 7, t, t + 4); g.stroke(); }
   }
   function paintFrontLive(g, t, S) {
+    if (S.ext.l < 100) streetLive(g, t, S);
     CO.crew(CREW, g, t, S, true);
+    if (S.ext.l < 100) { streetFront(g); cableDrum(g); }
     /* the staff monitor: the shared drive, a file arriving */
     var fopen = (t - FILES.t) < 2.6 || ((t % 7) / 7) * 1.6 > 0.95 && ((t % 7) / 7) * 1.6 < 1.5; fillRR(g, MON.x, MON.y, MON.w, MON.h, 2, '#FFFFFF'); fillRR(g, MON.x, MON.y, MON.w, 7, 2, STAFF); text(g, 'Shared drives', MON.x + 3, MON.y + 5.4, 4.6, 800, '#FFFFFF');
     for (var f = 0; f < 4; f++) { var fx = MON.x + 4 + (f % 2) * 21, fy = MON.y + 10 + Math.floor(f / 2) * 12; fillRR(g, fx, fy, 18, 10, 2, f === 3 && fopen ? '#FFF1CC' : '#F3F6FA'); fillRR(g, fx + 2, fy + 2, 7, 5, 1, '#FFD27A'); g.fillStyle = '#C9D3E3'; g.fillRect(fx + 10, fy + 4, 6, 1.4); }
@@ -331,6 +333,65 @@
   /* ---------------- the cast: an idle loop and a tap choreography each ---------------- */
   function tapped(id, st, t) { if (st.wave && st.wave !== st._my) { st._my = st.wave; TAP[id] = t; return true; } return false; }
   function lookAtNexi(P, st, t, S, base) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : base, 0.08); }
+  /* ---------------- the street side (behind the title card): the provider's street cabinet where the supply is handed over,
+     a TechNext field engineer at its gauges, a bus stop with a passer-by's phone on guest Wi-Fi out of reach, the street works
+     barrier round an open manhole, warning tape over the buried conduit, and the city supply main running to the towers ---------------- */
+  var CAB = { x: -262, y: 330, w: 92 }, MH = { x: -70 }, CITY = [[-610, F - 4], [-610, 676], [118, 676], [118, F + 10]];
+  var FENG = W({ x: -305, y: F, s: 0.46, ph: 4.3, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: AQUA, top2: '#FFFFFF', hatKind: 'cap', hat: STAFF, hold: 'tablet', hands: [[-40, -250], [40, -250]], look: 0.6 });
+  function streetBack(g, ext) {
+    if (ext.l > 80) return;
+    /* the buried city supply main and the warning tape above the conduit */
+    pipe(g, CITY, 12, '#4FB3E3'); fillRR(g, -470, 688, 112, 18, 9, '#FFFFFF'); text(g, 'CITY SUPPLY MAIN', -414, 700, 7.2, 800, AQUA_D, 'center');
+    [[-610, 640], [118, 640]].forEach(function (p) { fillRR(g, p[0] - 10, p[1], 20, 12, 3, '#5C6B8A'); });
+    g.save(); g.strokeStyle = '#FFD84A'; g.lineWidth = 7; g.beginPath(); g.moveTo(ext.l, 624); g.quadraticCurveTo(-260, 632, 120, 622); g.stroke(); g.setLineDash([10, 12]); g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(ext.l, 624); g.quadraticCurveTo(-260, 632, 120, 622); g.stroke(); g.restore();
+    fillRR(g, -230, 616, 118, 14, 3, '#FFD84A'); text(g, 'CAUTION · CABLE BELOW', -171, 626, 6.6, 800, INK, 'center');
+    /* the bus stop: a shelter with a route map and a timetable */
+    var bs = -520; [bs, bs + 120].forEach(function (x) { fillRR(g, x - 3, 300, 6, F - 300, 2, '#8A96A8'); }); fillRR(g, bs - 14, 290, 148, 14, 5, STAFF); fillRR(g, bs + 4, 312, 112, 96, 4, 'rgba(220,240,252,.55)');
+    g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = 2; rr(g, bs + 4, 312, 112, 96, 4); g.stroke(); fillRR(g, bs + 70, 320, 40, 52, 3, '#FFFFFF'); [AQUA, GUEST, DEV].forEach(function (c, i) { g.strokeStyle = c; g.lineWidth = 2; g.beginPath(); g.moveTo(bs + 74, 330 + i * 12); g.lineTo(bs + 106, 334 + i * 12 - (i % 2) * 6); g.stroke(); });
+    fillRR(g, bs + 6, 424, 100, 8, 3, '#C99A6B'); [bs + 14, bs + 96].forEach(function (x) { fillRR(g, x, 432, 5, F - 432, 2, '#8A96A8'); }); fillRR(g, bs + 36, 274, 52, 18, 9, '#FFFFFF'); text(g, 'BUS', bs + 62, 286.5, 9, 800, STAFF, 'center');
+    /* the provider's street cabinet on the pavement, its door, the handover valve, the meter */
+    soft(g, CAB.x + CAB.w / 2, F + 2, 60, 5, 0.24); shadowed(g, 8, 3, 0.18, function () { fillRR(g, CAB.x, CAB.y, CAB.w, F - CAB.y, 6, '#5E8E78'); });
+    fillRR(g, CAB.x, CAB.y, CAB.w, 16, 6, '#4E7A66'); text(g, 'PROVIDER · HANDOVER', CAB.x + CAB.w / 2, CAB.y + 11, 6, 800, '#FFFFFF', 'center');
+    fillRR(g, CAB.x + 8, CAB.y + 24, CAB.w - 16, 92, 4, '#2A3550'); pipe(g, [[CAB.x + 22, CAB.y + 112], [CAB.x + 22, CAB.y + 44], [CAB.x + CAB.w - 22, CAB.y + 44], [CAB.x + CAB.w - 22, CAB.y + 112]], 7, AQUA);
+    valveWheel(g, CAB.x + CAB.w / 2, CAB.y + 44, 9, RED); fillE(g, CAB.x + 30, CAB.y + 78, 12, 12, '#FFFFFF'); g.strokeStyle = '#7A869C'; g.lineWidth = 1.6; g.beginPath(); g.arc(CAB.x + 30, CAB.y + 78, 12, 0, Math.PI * 2); g.stroke();
+    fillRR(g, CAB.x + 50, CAB.y + 70, 30, 16, 3, '#1E2A3A'); fillRR(g, CAB.x + 8, CAB.y + 120, CAB.w - 16, 12, 3, '#FFFFFF'); text(g, 'MAIN · 01', CAB.x + CAB.w / 2, CAB.y + 129, 6.4, 800, INK, 'center');
+    /* the open manhole on the pavement */
+    fillE(g, MH.x, F + 92, 40, 10, '#5C6B8A'); fillE(g, MH.x, F + 92, 34, 7.5, '#2A3550'); g.save(); g.translate(MH.x + 52, F + 88); g.rotate(-0.35); fillE(g, 0, 0, 30, 7, '#7A869C'); fillE(g, -1, -1, 24, 5, '#9AA6BC'); g.restore();
+  }
+  function streetFront(g) {
+    /* the street-works barrier in front of the manhole (drawn over the passers-by on the pavement) */
+    [MH.x - 56, MH.x + 56].forEach(function (x) { soft(g, x, F + 70, 12, 3, 0.25); g.strokeStyle = '#8A96A8'; g.lineWidth = 3; g.beginPath(); g.moveTo(x - 10, F + 70); g.lineTo(x, F + 20); g.lineTo(x + 10, F + 70); g.stroke(); });
+    fillRR(g, MH.x - 66, F + 24, 132, 16, 3, '#FFFFFF'); g.save(); g.beginPath(); g.rect(MH.x - 66, F + 24, 132, 16); g.clip(); g.fillStyle = RED; for (var sx = MH.x - 80; sx < MH.x + 70; sx += 24) { g.beginPath(); g.moveTo(sx, F + 40); g.lineTo(sx + 12, F + 24); g.lineTo(sx + 24, F + 24); g.lineTo(sx + 12, F + 40); g.closePath(); g.fill(); } g.restore();
+    g.strokeStyle = INK; g.lineWidth = 1.4; rr(g, MH.x - 66, F + 24, 132, 16, 3); g.stroke(); fillRR(g, MH.x - 30, F + 44, 60, 14, 4, '#FFFFFF'); text(g, 'NETWORK WORKS', MH.x, F + 54, 6.6, 800, INK, 'center');
+  }
+  function cableDrum(g) {
+    var x = -420, y = F + 96; soft(g, x, y + 2, 50, 6, 0.26); fillE(g, x, y - 36, 38, 38, '#B5865A'); fillE(g, x, y - 36, 30, 30, STAFF); g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1.4; for (var r = 0; r < 4; r++) { g.beginPath(); g.arc(x, y - 36, 14 + r * 4, -2.6, -1.2); g.stroke(); }
+    fillE(g, x, y - 36, 12, 12, '#C99A6B'); fillE(g, x, y - 36, 4, 4, '#8A5A30'); fillRR(g, x - 40, y - 4, 80, 6, 3, '#9A7048'); fillRR(g, x - 18, y - 46, 36, 12, 3, '#FFFFFF'); text(g, 'CAT6 · 305 m', x, y - 37.5, 5.4, 800, INK, 'center');
+    g.strokeStyle = STAFF; g.lineWidth = 3; g.beginPath(); g.moveTo(x + 30, y - 20); g.quadraticCurveTo(x + 80, y + 4, x + 140, y - 10); g.stroke();
+  }
+  function streetLive(g, t, S) {
+    /* the city main's flow, the cabinet's meter and lamps, the barrier lamps blinking in turn */
+    flow(g, CITY, 12, 'rgba(255,255,255,.85)', t, 26);
+    var rate = 92 + Math.round(Math.sin(t * 0.7) * 4 + (t - (TAP.feng || -99) < 3 ? 6 : 0)); fillRR(g, CAB.x + 50, CAB.y + 70, 30, 16, 3, '#1E2A3A'); text(g, rate + '%', CAB.x + 65, CAB.y + 81, 7, 800, '#7FF0CF', 'center');
+    var nd = -2.2 + 1.6 * (rate - 80) / 20; g.strokeStyle = RED; g.lineWidth = 1.6; g.beginPath(); g.moveTo(CAB.x + 30, CAB.y + 78); g.lineTo(CAB.x + 30 + Math.cos(nd) * 9, CAB.y + 78 + Math.sin(nd) * 9); g.stroke();
+    var up = t - (TAP.feng || -99) < 3; [[CAB.x + 14, DEV], [CAB.x + 26, (t % 1.2) < 0.6 ? AQUA : '#2A3550'], [CAB.x + 38, up ? DEV : '#3A4766']].forEach(function (l) { fillE(g, l[0], CAB.y + 102, 3, 3, l[1]); });
+    if (up) { var q = (t - TAP.feng) / 3; fillRR(g, CAB.x + 4, CAB.y - 30, CAB.w - 8, 20, 10, '#FFFFFF'); text(g, 'LINK UP ✓', CAB.x + CAB.w / 2, CAB.y - 16, 8, 800, DEV, 'center');
+      for (var r = 0; r < 3; r++) { var f = (q * 2 + r / 3) % 1; g.strokeStyle = 'rgba(28,154,214,' + (0.7 * (1 - f)).toFixed(2) + ')'; g.lineWidth = 2; g.beginPath(); g.arc(CAB.x + CAB.w / 2, CAB.y - 20, 30 + f * 40, -2.6, -0.5); g.stroke(); } }
+    [MH.x - 56, MH.x + 56].forEach(function (x, i) { var on = Math.floor(t * 2.2 + i) % 2 === 0; fillE(g, x, F + 18, 5, 5, on ? '#FFB020' : '#C9A24A'); if (on) fillE(g, x, F + 18, 9, 9, 'rgba(255,176,32,.25)'); });
+  }
+  var castFeng = { id: 'feng', behind: true, keys: [], P: FENG, act: function (P, t, S) {
+    var st = S.cast.feng; if (tapped('feng', st, t)) {}
+    P.tilt = 0; P.hop = 0; P.hold = 'tablet'; P.x = -305;
+    var tk = TAP.feng != null ? t - TAP.feng : 99;
+    if (tk < 2.8) { var q = tk / 2.8; P.talk = true; P.look = 0.8; P.hold = null;
+      if (q < 0.45) { var a = q / 0.45 * Math.PI * 2; P.mood = 'calm'; P.hands = [[120 + Math.cos(a) * 18, -282 + Math.sin(a) * 18], [150 - Math.cos(a) * 18, -282 - Math.sin(a) * 18]]; P.tilt = 0.06; }
+      else { P.mood = 'happy'; P.hands = [[-60, -230], [40, -420]]; P.hop = Math.sin((q - 0.45) / 0.55 * Math.PI) * 14; if (!TAP.fengB) { TAP.fengB = true; CR.burst('spark', CAB.x + CAB.w / 2, CAB.y + 40, t); } } return; }
+    TAP.fengB = false;
+    var cy = (t + 2) % 11; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (cy < 4) { P.hands = [[-40, -250], [40, -254 + Math.abs(Math.sin(t * 5)) * 3]]; lookAtNexi(P, st, t, S, -0.2); return; }
+    if (cy < 7.5) { P.hold = null; var tq = Math.sin(t * 3); P.hands = [[130 + tq * 8, -300], [150 - tq * 8, -260]]; P.tilt = 0.05; lookAtNexi(P, st, t, S, 0.9); return; }
+    P.hold = null; P.hands = [[-60, -230], [86, -360 + Math.sin(t * 2.4) * 6]]; lookAtNexi(P, st, t, S, 0.6);
+  } };
   var castENG = { id: 'eng', behind: true, keys: ['switch', 'firewall'], P: ENG, act: function (P, t, S) {
     var st = S.cast.eng; if (tapped('eng', st, t)) { PULSE.t = t + 0.35; }
     P.hop = 0; P.tilt = 0; P.label = 0;
@@ -416,12 +477,15 @@
       valve: function (g) { rr(g, VALVE.x - 20, VALVE.y - 34, 40, 40, 20); }
     },
     backGlow: ['internet', 'firewall', 'switch', 'wifi', 'guest', 'vpn', 'valve'],
-    cast: [castENG, castMGR, castSTF, castSRV, castGST],
+    cast: [castFeng, castENG, castMGR, castSTF, castSRV, castGST],
     toy: function (name, S, t) { if (name === 'valve') { SURGE.t = t; CR.burst('spark', VALVE.x, VALVE.y - 30, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
       if (x > HOME.x && x < HOME.x + HOME.w && y > HOME.y && y < F) return { say: 'Working from home today: in through the **VPN**, only to what I need.', near: [560, -66], pose: 'point-left', who: 'Remote colleague · client team' };
       if (x > BIN.x - 6 && x < BIN.x + BIN.w + 6 && y > BIN.y - 8 && y < BIN.y + BIN.h + 6) return { say: '**' + blocked + '** bits of traffic nobody asked for, turned away at the gate.', near: [620, -62], pose: 'point-left', who: 'The firewall bin' };
+      if (x > CAB.x - 6 && x < CAB.x + CAB.w + 6 && y > CAB.y - 6 && y < F) return { say: 'The **handover point**: where the provider’s line ends and your network begins. We test it before anything else.', near: [-150, 180], pose: 'point-left', who: 'The street cabinet' };
+      if (Math.abs(x - MH.x) < 80 && y > F && y < F + 104) return { say: 'Network works in progress: **cabling installed tidily**, then documented.', near: [-150, 300], pose: 'wow', who: 'The street works' };
+      if (x > -530 && x < -390 && y > 270 && y < F) return { say: 'Even the bus stop wants Wi-Fi. **Guest access** stays separate from your staff network.', near: [-250, 160], pose: 'point-left', who: 'The bus stop' };
       if (y > SOIL && y < SOIL + 140) return { say: 'Under the street: the **main line**, the backup and the sealed **VPN** pipe, each labelled on the diagram.', near: [clamp(x, 260, 880), -60], pose: 'wow', who: 'The pipes' };
       if (y > WIN.y && y < WIN.y + WIN.h && x > WIN.x && x < WIN.x + WIN.w) return { say: 'Good Wi-Fi by the window **and** in the corners: coverage is checked room by room.', near: [420, -66], pose: 'point-right', who: 'The office' };
       return null;

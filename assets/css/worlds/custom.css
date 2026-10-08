@@ -30,21 +30,46 @@
 .ixw--custom .ixw-cap-who b{color:var(--cu-plum)}.ixw--custom .ixw-cap-txt b{color:var(--cu-blue)}
 .ixw--custom .ixw-cap-rec{background:var(--cu-paper);border:1px dashed #D9C6A4;color:#5A4630}
 
-/* ---------- buttons: stitched ---------- */
-.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;border-radius:10px;border:0;outline:1.5px dashed rgba(255,255,255,.6);outline-offset:-6px;
-  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
-.ixw--custom main .btn-primary,.ixw--custom main .btn-primary:hover{color:#FFFFFF;background:var(--cu-plum);box-shadow:0 5px 0 var(--cu-plum-d)}
-.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--cu-plum);background:var(--cu-paper);outline-color:rgba(113,75,103,.5);box-shadow:inset 0 0 0 2px var(--cu-plum),0 5px 0 var(--cu-plum)}
-.ixw--custom main .btn-ghost::before{display:none}.ixw--custom main .btn-ghost .ic{color:var(--cu-plum)}
+/* ---------- hero buttons: stitched (52px, a running stitch inside, a brass-ringed icon button), garment-tag controls ---------- */
+.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;overflow:hidden;height:52px;padding:0 24px;gap:12px;border-radius:12px;border:0;font:800 16px/1 var(--font-display);
+  outline:1.5px dashed rgba(255,255,255,.6);outline-offset:-6px;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .22s ease,outline-color .2s ease}
+.ixw--custom main .btn-primary:has(.ic){padding-right:9px}.ixw--custom main .btn-ghost:has(.ic){padding-left:9px}
+.ixw--custom main :is(.btn-primary,.btn-ghost) .ic{width:34px;height:34px;padding:8px;margin:0;border-radius:50%;transition:transform .3s var(--w-spring)}
+.ixw--custom main .btn-primary,.ixw--custom main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#86587A,#714B67);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 5px 0 var(--cu-plum-d),0 16px 24px -16px rgba(85,52,73,.8)}
+.ixw--custom main .btn-primary .ic{background:var(--cu-tape);color:var(--cu-ink);box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--custom main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--cu-plum);background:var(--cu-paper);outline-color:rgba(113,75,103,.5);box-shadow:inset 0 0 0 2px var(--cu-plum),0 5px 0 var(--cu-plum-d),0 16px 24px -18px rgba(85,52,73,.6)}
+.ixw--custom main .btn-ghost::before{display:none}.ixw--custom main .btn-ghost .ic{background:#F1E6EE;color:var(--cu-plum);box-shadow:inset 0 0 0 1.5px var(--cu-brass)}
 .ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -3px}
+.ixw--custom main .btn-primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 0 var(--cu-plum-d),0 22px 28px -14px rgba(201,162,74,.6)}
+.ixw--custom main .btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--cu-plum),0 8px 0 var(--cu-plum-d),0 22px 28px -16px rgba(201,162,74,.55)}
+.ixw--custom main :is(.btn-primary,.btn-ghost):hover .ic{transform:rotate(-12deg) scale(1.06)}
 .ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 4px;box-shadow:0 1px 0 rgba(0,0,0,.25);transition-duration:.06s}
 .ixw--custom .ixw-cta .btn-outline-white,.ixw--custom .ixw-cta .btn-outline-white:hover{color:var(--cu-ink);background:var(--cu-tape);outline-color:rgba(35,40,74,.4);box-shadow:0 5px 0 #C9A21A}
 .ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid var(--cu-tape);outline-offset:4px}
-.ixw--custom .ixw-ibtn{border:2px solid var(--cu-ink);box-shadow:0 3px 0 var(--cu-ink)}
-.ixw--custom .ixw-ibtn--play,.ixw--custom .ixw-ibtn--play:hover{background:var(--cu-plum);color:#FFFFFF}
-.ixw--custom .ixw-dots button{border-radius:50%;width:9px;height:9px}
-.ixw--custom .ixw-dots button.is-on{width:22px;border-radius:999px;background:var(--cu-pin);box-shadow:0 0 0 1.5px var(--cu-ink)}
-.ixw--custom .ixw-peek{border-color:var(--cu-ink);box-shadow:0 3px 0 var(--cu-ink)}.ixw--custom .ixw-peek[aria-pressed="true"]{background:var(--cu-paper)}
+.ixw--custom .ixw-copy .actions{gap:14px}
+/* the episode tag: a woven label */
+.ixw--custom .ixw-ep-tag{transition:translate .2s var(--w-spring),box-shadow .2s ease}
+.ixw--custom .ixw-ep-tag:hover{translate:0 -2px}
+.ixw--custom .ixw-ep-tag:focus-visible{outline:3px solid var(--cu-tape);outline-offset:3px}
+/* caption controls: buttons sewn on */
+.ixw--custom .ixw-ibtn{border:2px solid var(--cu-ink);color:var(--cu-ink);box-shadow:0 3px 0 var(--cu-ink)}
+.ixw--custom .ixw-ibtn:hover{color:var(--cu-plum);border-color:var(--cu-ink);box-shadow:0 5px 0 var(--cu-ink),0 10px 16px -8px rgba(201,162,74,.7)}
+.ixw--custom .ixw-ibtn:active{box-shadow:0 1px 0 var(--cu-ink)}
+.ixw--custom .ixw-ibtn:focus-visible{outline:3px solid var(--cu-tape);outline-offset:3px}
+.ixw--custom .ixw-ibtn--play,.ixw--custom .ixw-ibtn--play:hover{background:linear-gradient(180deg,#86587A,#714B67);color:#FFFFFF}
+.ixw--custom .ixw-ibtn--play::after{content:"";position:absolute;inset:4px;border-radius:50%;border:1.2px dashed rgba(255,255,255,.55);pointer-events:none}
+.ixw--custom .ixw-ibtn--play{position:relative}
+.ixw--custom .ixw-dots{gap:6px}
+.ixw--custom .ixw-dots button{border-radius:50%;width:9px;height:9px;background:#E3D5BE}
+.ixw--custom .ixw-dots button:hover{background:#D9B98A}
+.ixw--custom .ixw-dots button.is-on{width:24px;border-radius:999px;background:var(--cu-pin);box-shadow:0 0 0 1.5px var(--cu-ink)}
+/* "View the scene": top left, on the wall over the fitting corner, clear of the mirror */
+.ixw--custom .ixw-peek{left:max(24px,calc((100vw - 1200px) / 2 + 24px));right:auto;top:calc(var(--header-box) + 2px);height:40px;padding:0 16px 0 6px;gap:9px;border-color:var(--cu-ink);background:var(--cu-paper);box-shadow:0 3px 0 var(--cu-ink)}
+.ixw--custom .ixw-peek::before{width:28px;height:28px;border-radius:50%;background:var(--cu-plum);-webkit-mask:none;mask:none;box-shadow:inset 0 0 0 2px var(--cu-tape);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");background-size:16px;background-position:center;background-repeat:no-repeat}
+.ixw--custom .ixw-peek:hover{box-shadow:0 5px 0 var(--cu-ink),0 12px 18px -10px rgba(201,162,74,.7)}
+.ixw--custom .ixw-peek:focus-visible{outline:3px solid var(--cu-tape)}
+.ixw--custom .ixw-peek[aria-pressed="true"]{background:#F1E6EE}
 .ixw--custom .ixw-hot-lab .ic{color:var(--cu-plum)}
 
 /* ---------- the glance strip: a tape measure laid along the floor ---------- */
@@ -204,3 +229,8 @@
 @media (max-width:1100px){.ixw--custom .cu-demo-top{grid-template-columns:1fr;gap:26px}.ixw--custom .cu-ladder{max-width:420px;rotate:0deg}}
 @media (max-width:767px){.ixw--custom .cu-ladder{display:none}}
 @media (prefers-reduced-motion:reduce){.ixw--custom .cu-rung,.ixw--custom .cu-ladder-tape u{animation:none}}
+
+/* audit round: fittings of even height; the edition bags taller, with room for their words */
+.ixw--custom .cu-fit{align-items:stretch}
+.ixw--custom .cu-fit-step{display:flex;flex-direction:column}
+.ixw--custom .cu-bag{min-height:176px;padding:34px 16px 24px}

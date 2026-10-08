@@ -237,3 +237,9 @@
   background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),#FFFFFF}
 .ixw--travel .ixw-peek:hover{box-shadow:0 5px 0 var(--t-ink)}.ixw--travel .ixw-peek:active{box-shadow:0 1px 0 var(--t-ink)}
 .ixw--travel .ixw-peek[aria-pressed="true"]{background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),var(--t-stub)}
+/* audit round: hero CTAs at 52px on desktop, matching the caption controls' rhythm */
+@media (min-width:768px){.ixw--travel .ixw-copy .btn-lg{height:52px}}
+/* audit round: before/after, the intro and switch stay in view beside the tall board instead of floating mid-way */
+@media (min-width:1024px){.ixw--travel .ix-ba-wrap{align-items:start}.ixw--travel .ix-ba-wrap>div:first-child{position:sticky;top:120px;padding-top:24px}}
+/* audit round: tablets, the glance strip clears the typed caption however long the line runs */
+@media (min-width:768px) and (max-width:1023px){.ixw--travel .ixw-credits{margin-top:48px}}
