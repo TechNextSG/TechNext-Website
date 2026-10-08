@@ -48,6 +48,9 @@
     if (!chips.length) return;
     if (!chips.some(function (c) { return c.getAttribute('data-nxe-filter') === gid; })) gid = chips[0].getAttribute('data-nxe-filter');
     chips.forEach(function (c) { c.setAttribute('aria-pressed', c.getAttribute('data-nxe-filter') === gid ? 'true' : 'false'); });
+    /* phones: the chip row scrolls sideways; bring the chosen season into view (row only, never the page) */
+    var on = chips.filter(function (c) { return c.getAttribute('data-nxe-filter') === gid; })[0], row = on && on.parentNode;
+    if (row && row.scrollWidth > row.clientWidth) row.scrollLeft = Math.max(0, on.offsetLeft - row.offsetLeft - 24);
     $$('[data-nxe-group]', cat).forEach(function (g) { g.classList.toggle('is-on', g.getAttribute('data-nxe-group') === gid); });
     portraits(cat);
     rails();
