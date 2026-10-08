@@ -39,7 +39,7 @@
   /* the header stays see-through while the slide's bottom is well below it (read in a frame, never after a write) */
   var topRaf = 0;
   function top() { topRaf = 0; var r = slide.getBoundingClientRect(); html.classList.toggle('hxs-top', active && r.bottom > (header ? header.offsetHeight : 70) + 120); }
-  function topSoon() { if (!topRaf) topRaf = requestAnimationFrame(top); }
+  function topSoon() { if (!topRaf) topRaf = requestAnimationFrame(function () { setTimeout(top, 0); }); }   // read after the frame's layout, never force one
   window.addEventListener('scroll', function () { if (active) topSoon(); }, { passive: true });
   /* restart a class's animation without forcing a layout: off now, back on two frames later */
   function replay(el, cls, on) {
@@ -163,7 +163,7 @@
   function jump(i) {
     at = i; warm(at); warm((at + 1) % n);
     // measured in the next frame: the slide is changing now, and a read here would force a layout of the whole hero
-    cancelAnimationFrame(jump._r); jump._r = requestAnimationFrame(origin);
+    cancelAnimationFrame(jump._r); jump._r = requestAnimationFrame(function () { setTimeout(origin, 0); });   // after that frame's layout: a read in rAF forced it
     [bgs, panels, casts].forEach(function (list) { list.forEach(function (el, k) { el.classList.toggle('is-on', k === at); el.classList.remove('is-out'); }); });
     panels.forEach(function (p, k) { p.setAttribute('aria-hidden', k === at ? 'false' : 'true'); [].forEach.call(p.querySelectorAll('a'), function (a) { a.tabIndex = k === at ? 0 : -1; }); });
     chans.forEach(function (c, k) { c.classList.toggle('is-on', k === at); c.setAttribute('aria-selected', k === at ? 'true' : 'false'); c.tabIndex = k === at ? 0 : -1; });

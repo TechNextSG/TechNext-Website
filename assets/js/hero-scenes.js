@@ -153,7 +153,7 @@
       var list = apps.filter(function (a) { return a.ring === r; });
       list.forEach(function (a, k) { a.slot = k / list.length * TAU + (r ? .21 : 0); });
     });
-    var W = 1, H = 1, dpr = 1, raf = 0, last = 0, on = false;
+    var W = 1, H = 1, dpr = 1, fdpr = 1, raf = 0, last = 0, on = false;
     var measured = false, viewBox = '', coreT = { x: 0, y: 0 }, ringTr = [], ringRR = [], hbD = '', PT = { x: 0, y: 0 };
     var rot = [0, .9], spd = 1, spdT = 1, dragV = 0, dragging = false, lastX = 0, lastT = 0;
     var tilt = { tx: 0, ty: 0, x: 0, y: 0 };
@@ -214,7 +214,7 @@
       var f = box(feed, root);
       coreT = { x: f.cx - core.offsetWidth / 2, y: f.y + 10 - core.offsetHeight / 2 };
       // resizing a canvas clears and reallocates it, so only when the size really changes
-      var fw = Math.round(W * 2 * dpr), fh = Math.round(H * 2 * dpr);
+      var fw = Math.round(W * 2 * fdpr), fh = Math.round(H * 2 * fdpr);   // the warp canvas is 4x the stage: drawn at 1x (motion streaks), never at the screen ratio
       if (fx.width !== fw) fx.width = fw;
       if (fx.height !== fh) fx.height = fh;
       gdpr = Math.min(1.5, window.devicePixelRatio || 1);
@@ -360,7 +360,7 @@
       if (!flying && !warpOn) { if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; fx.style.visibility = 'hidden'; } return; }
       if (!fxDirty) fx.style.visibility = '';
       fxDirty = true;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W * 2, H * 2);
+      ctx.setTransform(fdpr, 0, 0, fdpr, 0, 0); ctx.clearRect(0, 0, W * 2, H * 2);
       ctx.save(); ctx.translate(W / 2, H / 2); ctx.lineCap = 'round';
       if (warpOn) {
         var k = t / 1100, cx = W / 2, cy = H / 2;
@@ -1845,10 +1845,14 @@
        covers the hero) for the burst. Never on the hero itself: a custom property there restyles its ~1,500 elements.
        All the reads come first, then the writes, so the layout is worked out once. */
     var fxBox = fxWord && fxWord.closest('.nxs-fx');
-    function origin() {
-      if (!tvEl) return;
+    /* measured once (and again after a resize) in a quiet moment, never inside a slide change: the read there forced
+       a style + layout pass of the whole hero (~1,500 elements) on the very frame the circle starts */
+    var oDone = false;
+    function origin(force) {
+      if (!tvEl || (oDone && !force)) return;
       var r = tvEl.getBoundingClientRect(), hr = hero.getBoundingClientRect(), sr = slideEl && slideEl.getBoundingClientRect();
       if (!r.width) return;
+      oDone = true;
       var cx = r.left + r.width / 2, cy = r.top + r.height / 2, dx = Math.max(cx - hr.left, hr.right - cx), dy = Math.max(cy - hr.top, hr.bottom - cy);
       var rad = Math.ceil(Math.sqrt(dx * dx + dy * dy) + 24) + 'px';
       [[fxBox, hr], [slideEl, sr]].forEach(function (p) {
@@ -1858,6 +1862,10 @@
         p[0].style.setProperty('--nxs-r', rad);
       });
     }
+    var idleO = window.requestIdleCallback || function (f) { return setTimeout(f, 300); };
+    idleO(function () { origin(true); }, { timeout: 2000 });
+    var oRz = 0;
+    window.addEventListener('resize', function () { oDone = false; clearTimeout(oRz); oRz = setTimeout(function () { idleO(function () { if (!oDone) origin(true); }); }, 250); }, { passive: true });
     /* restart a class's animation without forcing a layout: off now, back on two frames later */
     function replay(el, cls) {
       el.classList.remove(cls); var tok = (el['_r' + cls] = (el['_r' + cls] || 0) + 1);
