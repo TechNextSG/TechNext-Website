@@ -1,125 +1,308 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
-/* World: ai-odoo (/odoo/ai-integration) — AI that works inside Odoo, on the client's data. A bright finance-and-service
-   office: the scanner feeds paper vendor bills; the wall screen shows the Odoo vendor bill the AI reads, fills field by field
-   and matches to its purchase order, then waits for a person to approve; the record's log keeps every step; a helpdesk reply
-   is drafted for the agent to send; a question is answered from the records. Finance and the support agent sit at their
-   desks (chairs, legs and feet); a TechNext AI engineer (TechNext ID) stands by. Tap anyone, any screen or the scanner. */
+/* World: ai-odoo (/odoo/ai-integration) — AI inside Odoo as a professional kitchen. The AI sous-chef (a kitchen robot, not a
+   person) preps everything: paper bills go through the scanner, it reads them into the Odoo vendor bill on the order screen
+   field by field and matches the purchase order from the pantry of the client's own records; the prepared bill goes to the
+   pass under the heat lamps, where the head chef (a person: the client's finance lead) approves each plate before it leaves;
+   every step is clipped to the ticket rail (logged on the record); the expediter (the client's support agent) edits and sends
+   the reply the AI drafted; the chalkboard answers a question from the pantry, with the source. TechNext's AI engineer tastes
+   the sauce (measures accuracy on the client's data). Clients wear grey passes, TechNext the blue ID. Every person has an idle
+   loop and a tap choreography of their own; the robot, the scanner and the service bell are tappable too. */
 (function (K, CR, CO) {
   'use strict';
   if (!K || !CR || !CO) return;
   var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed;
-  var F = 470, CEIL = -150, C = CO.C, PUR = '#714B67', SPK = '#7B5CD6', OK = '#1E9E6A';
-  var BILL = { x: 320, y: -112, w: 320, h: 286 }, LOG = { x: 662, y: -112, w: 196, h: 160 }, DRAFT = { x: 878, y: -112, w: 196, h: 160 }, ASK = { x: 662, y: 66, w: 412, h: 96 };
-  var T = { desk: { x: 380, y: 392, w: 520 }, scan: { x: 236, y: 372, w: 140 } };
+  var F = 470, CEIL = -232;
+  var PUR = '#714B67', VIO = '#7B5CD6', VIO_L = '#EFEAFB', OK = '#1E9E6A', INK = '#1B1F3B', STEEL = '#C9D1DC', STEEL_L = '#E8EDF3', STEEL_D = '#97A3B4', COP = '#C8794A', HERB = '#3FA66B', TOM = '#E2553D', AMB = '#FFB347', PINK = '#E0456B', BLUE = '#3167CA', CHALK = '#2F3D38';
+  var CHB = { x: 176, y: -140, w: 168, h: 116 }, PAN = { x: 176, y: -6, w: 168 }, RAIL = { x: 360, y: -136, w: 636, h: 62 };
+  var BILL = { x: 360, y: -58, w: 272, h: 194 }, PREP = { x: 344, y: 360, w: 292 }, PASS = { x: 642, y: 380, w: 362 }, RPL = { x: 884, y: 236, w: 114, h: 134 };
+  var BOT = { x: 520 }, SCAN = { x: 354, y: 326 }, BELL = { x: 858, y: 380 }, LAMPS = [690, 760, 830];
+  var WINS = [{ x: -760, y: -110, w: 150, h: 250 }];
   var FIELDS = [['Vendor', 'Harbourline Supplies'], ['Bill date', '12 Sep 2026'], ['Total', 'S$ 1,284.00'], ['PO match', 'PO00123']];
+  var JARS = [['Purchase orders', '#C8794A', 'match'], ['Vendor bills', '#E9A23B', 'capture'], ['Sales orders', '#3FA66B', 'ask'], ['Helpdesk', '#E0456B', 'draft'], ['Products', '#7B5CD6', '']];
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
+  function ease(u) { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); }
+  function hw(P, i) { var h = P.hands[i], sxk = P.sx == null ? 1 : P.sx; return [P.x + h[0] * P.s * sxk, P.y + (h[1] - (P.hop || 0)) * P.s]; }
+  function tapU(st, t, dur) { if (!st || !st.wave) return -1; var u = (t - (st.wave - 1.6)) / dur; return u >= 0 && u < 1 ? u : -1; }
+  function looks(P, st, t, S, rest) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : rest, 0.08); }
   function spark(g, x, y, r, col) { g.fillStyle = col; g.beginPath(); g.moveTo(x, y - r); g.quadraticCurveTo(x, y, x + r, y); g.quadraticCurveTo(x, y, x, y + r); g.quadraticCurveTo(x, y, x - r, y); g.quadraticCurveTo(x, y, x, y - r); g.fill(); }
+  function tick(g, x, y, r) { fillE(g, x, y, r, r, OK); g.strokeStyle = '#FFFFFF'; g.lineWidth = r * 0.28; g.lineCap = 'round'; g.beginPath(); g.moveTo(x - r * 0.45, y); g.lineTo(x - r * 0.1, y + r * 0.38); g.lineTo(x + r * 0.5, y - r * 0.38); g.stroke(); }
+  function wrap(g, s, x, y, max, lh, size, weight, col, n) { var line = '', ln = 0; s.split(' ').forEach(function (w) { if ((line + w).length > max) { text(g, line, x, y + ln * lh, size, weight, col); line = ''; ln++; } line += w + ' '; }); text(g, line, x, y + ln * lh, size, weight, col); }
+  function steam(g, x, y, t, n, h) { for (var i = 0; i < n; i++) { var u = ((t * 0.5 + i / n) % 1); g.globalAlpha = (1 - u) * 0.55; fillE(g, x + Math.sin(t * 2 + i * 2.3) * 7 * u, y - u * (h || 70), 6 + u * 12, 6 + u * 12, '#FFFFFF'); } g.globalAlpha = 1; }
+  function plate(g, x, y, r, food) { fillE(g, x, y + 2, r + 2, r * 0.32 + 2, 'rgba(30,40,70,.18)'); fillE(g, x, y, r + 1.5, r * 0.32 + 1.5, '#AEB8C6'); fillE(g, x, y, r, r * 0.32, '#FFFFFF'); fillE(g, x, y - 1, r * 0.7, r * 0.2, '#F1F4F8'); if (food) food(g, x, y); }
+  function pot(g, x, y, w, h, col) { fillRR(g, x - w / 2, y - h, w, h, 6, col); fillRR(g, x - w / 2 - 4, y - h - 4, w + 8, 7, 3, K.tone(col, 0.15)); fillRR(g, x - w / 2 - 12, y - h + 8, 12, 5, 2, '#2A3550'); fillRR(g, x + w / 2, y - h + 8, 12, 5, 2, '#2A3550'); g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(x - w / 2 + 6, y - h + 6, 4, h - 12); }
 
+  /* ------------------------------ the static layers ------------------------------ */
   function paintBg(g, W, H, k, sx, sy) {
     g.save(); setU(g, sx, sy, k); var e = extOf(W, H, k, sx, sy);
-    var wg = g.createLinearGradient(0, CEIL, 0, F); wg.addColorStop(0, '#F8F7FD'); wg.addColorStop(1, '#ECEAF7'); g.fillStyle = wg; g.fillRect(e.l, CEIL, e.r - e.l, F - CEIL);
-    var rg = g.createRadialGradient(560, 40, 10, 560, 40, 420); rg.addColorStop(0, 'rgba(123,92,214,.10)'); rg.addColorStop(1, 'rgba(123,92,214,0)'); g.fillStyle = rg; g.fillRect(e.l, CEIL, e.r - e.l, F - CEIL);
-    g.fillStyle = '#E4E1F2'; g.fillRect(e.l, 250, e.r - e.l, F - 250); g.fillStyle = '#D6D1EA'; g.fillRect(e.l, 246, e.r - e.l, 5);
-    for (var i = 0; i < 2; i++) { var wx = -250 + i * 150; CO.sky(g, { l: wx, r: wx + 120, t: -80 }, -80, 220, [[0, '#86BDEE'], [1, '#E3F1FB']]); g.strokeStyle = '#FFFFFF'; g.lineWidth = 8; g.strokeRect(wx, -80, 120, 300); }
-    CO.ceiling(g, e, CEIL, '#F1EFF8', '#FAF9FD', '#FFFFFF');
-    CO.floor(g, e, F, '#E7EBF1', '#D6DDE7', 'rgba(40,70,120,.08)');
+    CO.sky(g, e, CEIL, 200, [[0, '#86C5F2'], [1, '#E6F4FC']]); CO.skyPH(g, e.l, e.r, 120, 160, { tall: -650 });
+    g.fillStyle = '#DDEFD9'; g.fillRect(e.l, 150, e.r - e.l, 60); g.restore();
+  }
+  function paintWindow(g, t) { WINS.forEach(function (w) { for (var c = 0; c < 2; c++) K.cloud(g, w.x - 50 + ((hash(c + 5) * 200 + t * (5 + c * 2)) % (w.w + 100)), w.y + 40 + c * 50, 0.24 + c * 0.04); }); }
+  function paintBack(g, e) {
+    /* white subway tiles, a stainless band behind the counters, the window cut out */
+    g.beginPath(); g.rect(e.l - 10, CEIL, e.r - e.l + 20, F - CEIL); WINS.forEach(function (w) { g.rect(w.x, w.y, w.w, w.h); }); g.fillStyle = '#FBFCFD'; g.fill('evenodd');
+    g.save(); g.beginPath(); g.rect(e.l - 10, CEIL, e.r - e.l + 20, 300 - CEIL); WINS.forEach(function (w) { g.rect(w.x, w.y, w.w, w.h); }); g.clip('evenodd');
+    g.strokeStyle = '#E1E6EE'; g.lineWidth = 1.4; g.beginPath(); for (var ty = CEIL; ty < 300; ty += 14) { g.moveTo(e.l - 10, ty); g.lineTo(e.r + 10, ty); var off = ((ty - CEIL) / 14) % 2 ? 14 : 0; for (var tx = Math.floor(e.l / 28) * 28 + off; tx < e.r + 28; tx += 28) { g.moveTo(tx, ty); g.lineTo(tx, ty + 14); } } g.stroke();
+    g.fillStyle = 'rgba(123,92,214,.035)'; g.fillRect(e.l - 10, CEIL, e.r - e.l + 20, 300 - CEIL);
     g.restore();
+    var sb = g.createLinearGradient(0, 300, 0, F); sb.addColorStop(0, '#E9EEF4'); sb.addColorStop(1, '#D3DAE4'); g.fillStyle = sb; g.fillRect(e.l - 10, 300, e.r - e.l + 20, F - 300);
+    g.fillStyle = 'rgba(255,255,255,.5)'; for (var bx = Math.floor(e.l / 60) * 60; bx < e.r; bx += 60) g.fillRect(bx, 300, 1.5, F - 300); g.fillStyle = STEEL_D; g.fillRect(e.l - 10, 298, e.r - e.l + 20, 4);
+    g.fillStyle = '#AEB8C6'; g.fillRect(e.l - 10, F - 12, e.r - e.l + 20, 12);
+    /* the quarry-tile floor */
+    var fg = g.createLinearGradient(0, F, 0, e.b); fg.addColorStop(0, '#DDE2E8'); fg.addColorStop(1, '#C9D0DA'); g.fillStyle = fg; g.fillRect(e.l - 10, F, e.r - e.l + 20, e.b - F + 10);
+    g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 1.6; g.beginPath(); for (var fy = F + 24; fy < e.b + 30; fy += 34) { g.moveTo(e.l - 10, fy); g.lineTo(e.r + 10, fy); } for (var fx = Math.floor(e.l / 54) * 54; fx < e.r + 54; fx += 54) { g.moveTo(fx, F); g.lineTo(fx + (fx - 560) * 0.35, e.b + 30); } g.stroke();
+    g.fillStyle = 'rgba(30,50,80,.08)'; g.fillRect(e.l - 10, F, e.r - e.l + 20, 6);
+    /* the ceiling and the long extraction hood */
+    var cg = g.createLinearGradient(0, e.t, 0, CEIL); cg.addColorStop(0, '#E6EAF0'); cg.addColorStop(1, '#F4F6F9'); g.fillStyle = cg; g.fillRect(e.l - 10, e.t - 10, e.r - e.l + 20, CEIL - e.t + 10);
+    fillRR(g, e.l - 10, CEIL - 4, e.r - e.l + 20, 8, 2, '#FFFFFF');
+    var hg = g.createLinearGradient(0, CEIL, 0, -168); hg.addColorStop(0, '#DCE2EA'); hg.addColorStop(1, '#BAC4D1'); g.fillStyle = hg; g.beginPath(); g.moveTo(330, CEIL); g.lineTo(1010, CEIL); g.lineTo(1030, -168); g.lineTo(310, -168); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.4)'; g.fillRect(310, -172, 720, 4); for (var mf = 0; mf < 8; mf++) { fillRR(g, 350 + mf * 82, -214, 70, 36, 4, '#C4CDD8'); g.strokeStyle = 'rgba(80,95,120,.25)'; g.lineWidth = 1; g.beginPath(); for (var ml = 0; ml < 7; ml++) { g.moveTo(354 + mf * 82 + ml * 10, -210); g.lineTo(354 + mf * 82 + ml * 10, -182); } g.stroke(); }
+    /* ---- the left margin: the walk-in private pantry, the window with herbs, the range with the stock pot ---- */
+    shadowed(g, 12, 5, 0.16, function () { fillRR(g, -940, -120, 170, F + 120, 8, STEEL); });
+    fillRR(g, -928, -108, 146, F + 98, 6, STEEL_L); fillRR(g, -900, -80, 90, 70, 8, '#CFE6F6'); g.fillStyle = 'rgba(255,255,255,.6)'; g.fillRect(-890, -74, 18, 58);
+    fillRR(g, -800, 120, 10, 70, 4, STEEL_D); fillRR(g, -918, 20, 126, 46, 8, VIO); text(g, 'PRIVATE PANTRY', -855, 40, 9, 800, '#FFFFFF', 'center'); text(g, 'data stays in your environment', -855, 54, 6.4, 700, '#E6DEFB', 'center');
+    g.strokeStyle = STEEL_D; g.lineWidth = 3; g.beginPath(); g.arc(-855, 98, 8, Math.PI, 0); g.stroke(); fillRR(g, -866, 98, 22, 18, 4, '#5C6B7A');
+    WINS.forEach(function (w) { g.lineWidth = 8; g.strokeStyle = '#FFFFFF'; g.strokeRect(w.x, w.y, w.w, w.h); g.lineWidth = 4; g.strokeStyle = STEEL_D; g.beginPath(); g.moveTo(w.x + w.w / 2, w.y); g.lineTo(w.x + w.w / 2, w.y + w.h); g.stroke();
+      K.windowGlass(g, w); fillRR(g, w.x - 12, w.y + w.h, w.w + 24, 12, 4, STEEL_L);
+      [w.x + 20, w.x + 62, w.x + 104].forEach(function (hx, i) { fillRR(g, hx, w.y + w.h - 22, 26, 22, 4, ['#C8794A', '#E9A23B', '#C8794A'][i]); for (var lf = 0; lf < 5; lf++) fillE(g, hx + 5 + lf * 4, w.y + w.h - 28 - (lf % 2) * 8, 5, 9, lf % 2 ? '#3FA66B' : '#57BF7F'); }); });
+    /* the range and its hood */
+    g.fillStyle = '#C4CDD8'; g.beginPath(); g.moveTo(-610, -40); g.lineTo(-470, -40); g.lineTo(-450, 30); g.lineTo(-630, 30); g.closePath(); g.fill(); fillRR(g, -632, 26, 184, 8, 3, STEEL_D);
+    fillRR(g, -626, 330, 172, F - 330, 6, '#5C6B7A'); fillRR(g, -632, 322, 184, 14, 5, STEEL); [-590, -540, -490].forEach(function (kx) { fillE(g, kx, 360, 7, 7, '#E9EEF4'); }); fillRR(g, -612, 380, 144, 70, 6, '#3A4458'); fillRR(g, -600, 392, 120, 6, 3, STEEL_D);
+    pot(g, -575, 322, 70, 66, STEEL_D); pot(g, -500, 322, 44, 34, COP);
+    /* hanging copper pans */
+    fillRR(g, -640, 80, 200, 6, 3, STEEL_D); [-620, -580, -536, -494].forEach(function (px, i) { var r = 16 + (i % 2) * 5; g.strokeStyle = STEEL_D; g.lineWidth = 2; g.beginPath(); g.moveTo(px, 86); g.lineTo(px, 98); g.stroke(); fillRR(g, px - 3, 98, 6, 22, 2, '#7A5236'); fillE(g, px, 120 + r, r, r, COP); fillE(g, px - r * 0.3, 116 + r, r * 0.3, r * 0.5, 'rgba(255,255,255,.25)'); });
+    /* ---- the right margin: the swing doors to the dining room, a tray stand, a plant ---- */
+    fillRR(g, 1040, 70, 180, F - 70, 6, STEEL_D); [1046, 1132].forEach(function (dx) { fillRR(g, dx, 78, 82, F - 84, 4, STEEL_L); fillE(g, dx + 41, 150, 22, 22, STEEL_D); fillE(g, dx + 41, 150, 18, 18, '#FFF3D6'); fillRR(g, dx + 8, 300, 66, 16, 4, STEEL); });
+    fillRR(g, 1060, 36, 140, 26, 13, INK); text(g, 'SERVICE', 1130, 54, 11, 800, AMB, 'center');
+    g.strokeStyle = '#7A5236'; g.lineWidth = 4; g.beginPath(); g.moveTo(1250, F); g.lineTo(1290, 400); g.moveTo(1330, F); g.lineTo(1290, 400); g.stroke(); fillE(g, 1290, 398, 46, 8, '#9A6B45');
+    K.plant(g, { x: 1370, y: F }, '#FFFFFF', STEEL_L);
+
+    /* ---- the chalkboard: ask your records ---- */
+    shadowed(g, 12, 5, 0.18, function () { fillRR(g, CHB.x - 6, CHB.y - 6, CHB.w + 12, CHB.h + 12, 8, '#9A6B45'); }); fillRR(g, CHB.x, CHB.y, CHB.w, CHB.h, 4, CHALK);
+    g.fillStyle = 'rgba(255,255,255,.04)'; g.fillRect(CHB.x + 10, CHB.y + 20, 60, 30); text(g, 'ASK YOUR RECORDS', CHB.x + 10, CHB.y + 16, 8, 800, '#FFFFFF'); text(g, 'sample', CHB.x + CHB.w - 10, CHB.y + 16, 6.4, 700, 'rgba(255,255,255,.55)', 'right');
+    fillRR(g, CHB.x + 10, CHB.y + CHB.h + 6, 40, 5, 2, '#FFFFFF'); fillRR(g, CHB.x + 56, CHB.y + CHB.h + 6, 18, 5, 2, '#F7C2CF');
+    /* ---- the pantry: the client's own records, scoped ---- */
+    var sh0 = PAN.y; g.strokeStyle = STEEL_D; g.lineWidth = 5; g.beginPath(); g.moveTo(PAN.x + 4, sh0); g.lineTo(PAN.x + 4, F); g.moveTo(PAN.x + PAN.w - 4, sh0); g.lineTo(PAN.x + PAN.w - 4, F); g.stroke();
+    fillRR(g, PAN.x + 18, sh0 + 6, PAN.w - 36, 22, 11, INK); text(g, 'YOUR DATA · pantry', PAN.x + PAN.w / 2, sh0 + 21, 8, 800, '#FFFFFF', 'center');
+    for (var s = 0; s < 5; s++) { var y0 = sh0 + 116 + s * 74; fillRR(g, PAN.x - 2, y0, PAN.w + 4, 7, 2, STEEL);
+      for (var j = 0; j < 3; j++) { var jx = PAN.x + 14 + j * 52, jc = JARS[s][1]; fillRR(g, jx, y0 - 50, 40, 50, 8, 'rgba(220,235,245,.75)'); fillRR(g, jx + 3, y0 - 34 + j * 4, 34, 32 - j * 4, 6, jc); fillRR(g, jx + 2, y0 - 56, 36, 9, 3, j === 1 ? STEEL_D : '#9A6B45'); g.fillStyle = 'rgba(255,255,255,.45)'; g.fillRect(jx + 5, y0 - 46, 4, 40); }
+      fillRR(g, PAN.x + 20, y0 + 9, PAN.w - 40, 14, 3, '#FFFFFF'); text(g, JARS[s][0], PAN.x + PAN.w / 2, y0 + 19.5, 7.4, 800, INK, 'center'); }
+    fillRR(g, PAN.x + PAN.w - 40, sh0 + 34, 32, 26, 5, '#F3EFFD'); g.strokeStyle = VIO; g.lineWidth = 2.4; g.beginPath(); g.arc(PAN.x + PAN.w - 24, sh0 + 44, 5, Math.PI, 0); g.stroke(); fillRR(g, PAN.x + PAN.w - 31, sh0 + 43, 14, 11, 2, VIO);
+    text(g, 'scoped access', PAN.x + 16, sh0 + 52, 7, 800, VIO);
+    /* ---- the ticket rail: every step clipped on the record ---- */
+    fillRR(g, RAIL.x, RAIL.y + 4, RAIL.w, 12, 6, STEEL_D); fillRR(g, RAIL.x, RAIL.y + 4, RAIL.w, 5, 3, '#E6EBF1');
+    text(g, 'LOGGED ON THE RECORD', RAIL.x + 8, RAIL.y - 2, 7, 800, '#5C6B7A');
+    /* ---- the order screen (the Odoo vendor bill) ---- */
+    shadowed(g, 16, 6, 0.2, function () { fillRR(g, BILL.x - 8, BILL.y - 8, BILL.w + 16, BILL.h + 16, 10, '#2A3142'); });
+    fillRR(g, BILL.x, BILL.y, BILL.w, BILL.h, 4, '#FFFFFF'); fillRR(g, BILL.x, BILL.y, BILL.w, 24, 4, PUR); g.fillRect(BILL.x, BILL.y + 16, BILL.w, 8);
+    text(g, 'Accounting · Vendor bill · Draft', BILL.x + 12, BILL.y + 16, 8.6, 800, '#FFFFFF'); spark(g, BILL.x + BILL.w - 16, BILL.y + 12, 6, '#FFFFFF');
+    FIELDS.forEach(function (f, i) { text(g, f[0], BILL.x + 12, BILL.y + 52 + i * 32, 8.4, 700, '#8A96A8'); });
+    /* ---- heat lamps over the pass: chains, shades, the warm light on the wall behind ---- */
+    LAMPS.forEach(function (lx) { g.strokeStyle = STEEL_D; g.lineWidth = 1.6; g.beginPath(); g.moveTo(lx, RAIL.y + 16); g.lineTo(lx, 6); g.stroke();
+      var lg = g.createRadialGradient(lx, 40, 4, lx, 60, 120); lg.addColorStop(0, 'rgba(255,190,100,.28)'); lg.addColorStop(1, 'rgba(255,190,100,0)'); g.fillStyle = lg; g.fillRect(lx - 120, 10, 240, 240);
+      g.fillStyle = '#E2553D'; g.beginPath(); g.moveTo(lx - 22, 34); g.quadraticCurveTo(lx, -2, lx + 22, 34); g.closePath(); g.fill(); fillE(g, lx, 34, 22, 4, '#B8402C'); });
+    /* the wall clock and the house rule over the expediter */
+    shadowed(g, 8, 3, 0.14, function () { fillRR(g, 886, 120, 108, 52, 8, INK); }); text(g, 'HOUSE RULE', 940, 138, 7, 800, AMB, 'center'); text(g, 'the AI preps,', 940, 152, 8.2, 800, '#FFFFFF', 'center'); text(g, 'a person approves', 940, 164, 8.2, 800, '#FFFFFF', 'center');
+    /* the reply screen's stand */
+    fillRR(g, RPL.x + RPL.w / 2 - 4, RPL.y + RPL.h, 8, PASS.y - RPL.y - RPL.h, 2, STEEL_D);
   }
-  function paintFrame(g) {}
-  function paintBack(g, ext) {
-    /* the screens on the wall */
-    [BILL, LOG, DRAFT, ASK].forEach(function (s) { shadowed(g, 14, 5, 0.18, function () { fillRR(g, s.x - 6, s.y - 6, s.w + 12, s.h + 12, 9, '#2A3142'); }); fillRR(g, s.x, s.y, s.w, s.h, 4, '#FFFFFF'); });
-    fillRR(g, BILL.x, BILL.y, BILL.w, 24, 4, PUR); g.fillRect(BILL.x, BILL.y + 16, BILL.w, 8); text(g, 'Accounting · Vendor bill · Draft', BILL.x + 12, BILL.y + 16, 9, 800, '#FFFFFF');
-    fillRR(g, LOG.x, LOG.y, LOG.w, 20, 4, '#EEF2F7'); text(g, 'LOGGED ON THE RECORD', LOG.x + 10, LOG.y + 14, 7, 800, '#5C6B7A');
-    fillRR(g, DRAFT.x, DRAFT.y, DRAFT.w, 20, 4, '#E0456B'); g.fillRect(DRAFT.x, DRAFT.y + 12, DRAFT.w, 8); text(g, 'Helpdesk · reply', DRAFT.x + 10, DRAFT.y + 14, 7.4, 800, '#FFFFFF');
-    fillRR(g, ASK.x, ASK.y, ASK.w, 20, 4, '#3167CA'); g.fillRect(ASK.x, ASK.y + 12, ASK.w, 8); text(g, 'ASK YOUR RECORDS · sample', ASK.x + 10, ASK.y + 14, 7.4, 800, '#FFFFFF');
-    /* the scanner on its cabinet, with the paper bills */
-    var sc = T.scan; soft(g, sc.x + sc.w / 2, F + 4, 80, 8, 0.3); fillRR(g, sc.x, sc.y, sc.w, F - sc.y, 6, '#D9C3A0'); fillRR(g, sc.x + 8, sc.y + 14, sc.w - 16, F - sc.y - 24, 4, '#E8D6B8');
-    fillRR(g, sc.x + 16, sc.y - 30, 90, 30, 6, '#5C6B7A'); fillRR(g, sc.x + 22, sc.y - 36, 78, 8, 3, '#7A869C'); fillRR(g, sc.x + 28, sc.y - 50, 66, 16, 2, '#FFFFFF'); fillRR(g, sc.x + 32, sc.y - 46, 40, 2.4, 1.2, '#C9D3E3');
-    K.plant(g, { x: 1170, y: F }, '#FFFFFF', '#E3E8EF');
+  function paintFront(g, e) {
+    /* the prep counter: stainless, a cutting board, the scanner at its left end, a pot on the burner */
+    var p = PREP; soft(g, p.x + p.w / 2, F + 4, p.w * 0.6, 9, 0.22);
+    var cg = g.createLinearGradient(0, p.y, 0, F); cg.addColorStop(0, '#E6EBF1'); cg.addColorStop(1, '#C9D1DC'); fillRR(g, p.x, p.y + 8, p.w, F - p.y - 8, 4, cg);
+    g.strokeStyle = 'rgba(80,95,120,.18)'; g.lineWidth = 1.4; [p.x + p.w / 3, p.x + p.w * 2 / 3].forEach(function (dx) { g.beginPath(); g.moveTo(dx, p.y + 20); g.lineTo(dx, F - 6); g.stroke(); fillRR(g, dx - 30, p.y + 30, 24, 5, 2, STEEL_D); fillRR(g, dx + 6, p.y + 30, 24, 5, 2, STEEL_D); });
+    fillRR(g, p.x - 6, p.y, p.w + 12, 12, 3, '#F1F4F8'); g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(p.x - 4, p.y + 2, p.w + 8, 2);
+    fillRR(g, 458, p.y - 6, 96, 7, 2, '#C98E55'); [[478, TOM], [492, HERB], [504, '#F2C94C'], [520, HERB], [534, TOM]].forEach(function (v, i) { fillE(g, v[0], p.y - 9 - (i % 2), 5, 3.4, v[1]); });
+    fillRR(g, 572, p.y - 4, 50, 5, 2, '#3A4458'); pot(g, 597, p.y - 4, 40, 30, COP);
+    /* the scanner: a bill goes in at the top, the tray of paper bills beside it */
+    var s = SCAN; fillRR(g, s.x, s.y, 84, 34, 7, '#5C6B7A'); fillRR(g, s.x + 6, s.y - 8, 72, 10, 3, '#7A869C'); fillRR(g, s.x + 10, s.y + 10, 64, 4, 2, '#2A3142'); fillE(g, s.x + 70, s.y + 24, 3, 3, VIO);
+    fillRR(g, s.x + 12, s.y - 22, 58, 16, 2, '#FFFFFF'); g.fillStyle = '#C9D3E3'; g.fillRect(s.x + 18, s.y - 18, 34, 2); g.fillRect(s.x + 18, s.y - 13, 26, 2);
+    /* the pass: a long stainless shelf, warm under the lamps */
+    var q = PASS; soft(g, q.x + q.w / 2, F + 4, q.w * 0.6, 9, 0.22);
+    var pg = g.createLinearGradient(0, q.y, 0, F); pg.addColorStop(0, '#E6EBF1'); pg.addColorStop(1, '#C3CCD8'); fillRR(g, q.x, q.y + 8, q.w, F - q.y - 8, 4, pg);
+    g.fillStyle = 'rgba(80,95,120,.14)'; for (var dv = 0; dv < 3; dv++) g.fillRect(q.x + 30 + dv * 116, q.y + 22, 90, 3);
+    fillRR(g, q.x - 6, q.y, q.w + 12, 12, 3, '#F4F6F9'); LAMPS.forEach(function (lx) { var wg = g.createRadialGradient(lx, q.y + 4, 2, lx, q.y + 4, 44); wg.addColorStop(0, 'rgba(255,180,90,.45)'); wg.addColorStop(1, 'rgba(255,180,90,0)'); g.fillStyle = wg; g.fillRect(lx - 44, q.y - 6, 88, 22); });
+    fillRR(g, q.x + 14, q.y + 30, 120, 22, 11, INK); text(g, 'THE PASS', q.x + 74, q.y + 45, 9, 800, AMB, 'center');
+    fillRR(g, q.x + 150, q.y + 30, 150, 22, 11, '#FFFFFF'); text(g, 'a person approves each plate', q.x + 225, q.y + 45, 7.4, 800, INK, 'center');
+    /* the reply screen's bezel (its content is live) */
+    shadowed(g, 10, 4, 0.18, function () { fillRR(g, RPL.x - 5, RPL.y - 5, RPL.w + 10, RPL.h + 10, 8, '#2A3142'); });
+    fillRR(g, RPL.x - 12, PASS.y - 6, RPL.w + 24, 6, 3, STEEL_D);
   }
-  function paintFront(g, ext) {
-    var d = T.desk; CO.desk(g, d.x, d.y, d.w, F, { open: true, legs: '#9AA6BC', top: '#E9EEF6' });
-    [[520, 'Approve'], [700, 'Send']].forEach(function (m) { fillRR(g, m[0] - 4, d.y - 74, 108, 64, 6, '#2A3142'); fillRR(g, m[0] + 46, d.y - 10, 10, 10, 2, '#5C6B7A'); fillRR(g, m[0] + 30, d.y - 3, 42, 4, 2, '#5C6B7A'); });
+  function paintFore(g, e) { /* the foreground: crates of produce, a sack of rice, a mop bucket */
+    function crate(x, y, col) { soft(g, x, y + 4, 56, 8, 0.24); fillRR(g, x - 44, y - 40, 88, 40, 5, '#C99A6B'); g.fillStyle = 'rgba(110,70,40,.25)'; g.fillRect(x - 44, y - 26, 88, 3); g.fillRect(x - 44, y - 12, 88, 3);
+      for (var i = 0; i < 6; i++) fillE(g, x - 34 + i * 13.6, y - 44 - (i % 2) * 4, 8, 8, col); }
+    crate(170, 712, TOM); crate(250, 724, HERB); crate(1000, 700, '#F2C94C');
+    soft(g, 1110, 664, 40, 8, 0.24); fillRR(g, 1080, 610, 60, 54, 18, '#E9DCC4'); fillRR(g, 1092, 600, 36, 16, 6, '#D9C7A6'); text(g, 'RICE', 1110, 644, 9, 800, '#9A6B45', 'center');
+    soft(g, -620, 724, 50, 8, 0.24); fillRR(g, -654, 676, 68, 48, 8, '#F2C94C'); fillRR(g, -650, 670, 60, 10, 4, '#E0B43A'); g.strokeStyle = '#8A94A8'; g.lineWidth = 3; g.beginPath(); g.moveTo(-604, 676); g.lineTo(-560, 540); g.stroke(); fillRR(g, -590, 520, 46, 26, 8, '#3FA6D6');
   }
 
+  /* ------------------------------ the cast ------------------------------ */
   var W = CR.who;
-  var FIN = W({ x: 460, y: 470, s: 0.5, ph: 0.8, skin: 0, hair: 0, style: 'bob', outfit: 'cardigan', top: '#2E9C7E', top2: '#FFFFFF', glasses: true, sit: true, chairCol: '#2A3550', id: '#9AA6BC', hands: [[-60, -206], [60, -206]] });
-  var AGT = W({ x: 846, y: 470, s: 0.5, ph: 1.8, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: '#E0456B', headset: '#1B2350', sit: true, chairCol: '#2A3550', id: '#9AA6BC', hands: [[-60, -206], [60, -206]] });
-  var ENG = W({ x: 948, y: 470, s: 0.54, ph: 2.5, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: SPK, glasses: true, hands: [[-70, -200], [70, -170]], look: -0.6 });
+  var FIN = W({ x: 724, y: 470, s: 0.54, ph: 0.8, skin: 0, hair: 0, style: 'short', outfit: 'coat', top: '#FFFFFF', top2: '#E3E8EF', id: '#9AA6BC', hatKind: 'toque', hands: [[-40, -196], [40, -196]] });
+  var AGT = W({ x: 830, y: 470, s: 0.52, ph: 1.8, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: PINK, headset: '#1B2350', id: '#9AA6BC', hands: [[-60, -196], [60, -196]] });
+  AGT.apron = '#2A3550';
+  var ENG = W({ x: 626, y: 470, s: 0.56, ph: 2.5, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: VIO, glasses: true, hold: 'tablet', hands: [[-70, -200], [70, -170]], look: -0.4 });
   var CREW = [
-    { x0: 1200, x1: 1420, y: 488, spd: 14, ph: 0.3, label: 'TechNext AI engineer', lines: ['The AI **prepares**. A person approves.', 'Answers come from **your own records**, with the source.'], acts: ['nod', 'id', 'wave'],
-      P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'polo', top: '#3167CA', hold: 'tablet' }) },
-    { front: true, x0: -440, x1: 40, y: 690, spd: 18, ph: 0.6, label: 'TechNext consultant', lines: ['Built by a team that also **implements Odoo**.', 'Every AI step is **logged** on the record.'], acts: ['cheer', 'id', 'wave'],
-      P: W({ s: 0.58, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: PUR, hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) }
+    { x0: 1010, x1: 1300, y: 488, spd: 14, ph: 0.3, label: 'TechNext AI engineer', lines: ['The AI **prepares**. A person approves.', 'Answers come from **your own records**, with the source.', 'Every step is clipped to the **record**.'], acts: ['nod', 'id', 'wave'],
+      P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'polo', top: BLUE, hold: 'clipboard' }) },
+    { front: true, x0: -930, x1: -560, y: 700, spd: 18, ph: 0.6, label: 'Supplier courier', lines: ['Another box of **paper bills** for the scanner.', 'Delivery for accounts payable!'], acts: ['cheer', 'wave', 'jump'],
+      P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#E9A23B', id: '#9AA6BC', hold: 'box', hands: [[-60, -212], [70, -150]] }) }
   ];
+  /* the bill's cycle (7 s): read field by field (0-4), matched (4.2), plated to the pass (4.4-5), approved (5.6), posted (6+) */
+  function cyc(S, t) { var keys = ['capture', 'match', 'approve', 'log']; return keys.indexOf(S.hot) >= 0 ? ((t - (S.kT || 0)) * 0.9 + (S.hot === 'approve' ? 4.4 : 0)) % 7 : (t * 0.42) % 7; }
+  var FX = { scan: -9, bell: -9, bot: -9 };
 
-  var SCN = { t: -9 };
-  function cyc(S, t) { var keys = ['capture', 'match', 'approve', 'log']; var i = keys.indexOf(S.hot); return i >= 0 ? ((t - (S.kT || 0)) * 0.9) % 7 : (t * 0.45) % 7; }
+  function actFin(P, t, S) { /* the head chef (finance): inspects the plate, wipes the rim, approves with a green flag; tap: rings the bell, thumbs up */
+    var st = S.cast.fin, busy = S.hot === 'approve' || S.hot === 'match', u = tapU(st, t, 2.0), c = cyc(S, t);
+    P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm'; P.tilt = 0; P.sx = 1; P.hop = 0;
+    if (c > 5 && c < 6.2) { var k2 = ease((c - 5) / 0.3); P.hands = [[-50, -196], [lerp(40, 60, k2), lerp(-196, -400, k2)]]; P.mood = 'happy'; P.look = lerp(P.look, -0.2, 0.1); }
+    else if (c > 4.4 && c <= 5) { P.hands = [[-60, -190], [-20, -190]]; P.tilt = -0.08; P.look = lerp(P.look, -0.6, 0.1); }
+    else if ((t % 9) < 3) { var w = t * 6; P.hands = [[-50, -190], [20 + Math.cos(w) * 22, -192 + Math.sin(w) * 8]]; looks(P, st, t, S, -0.3); }
+    else { P.hands = [[-40, -196], [40, -196]]; looks(P, st, t, S, Math.sin(t * 0.6) * 0.6); }
+    if (u >= 0) { P.talk = true; P.mood = u < 0.3 ? 'wow' : 'happy'; var dn = u < 0.25 ? ease(u / 0.25) : 1;
+      P.hands = u < 0.45 ? [[-40, -196], [lerp(40, 236, dn), lerp(-196, -170 + (u < 0.3 ? 0 : -30), dn)]] : [[-40, -196], [70, -430 + Math.sin(t * 10) * 6]]; P.hop = u > 0.45 ? Math.sin((u - 0.45) / 0.55 * Math.PI) * 14 : 0;
+      if (u > 0.2 && !st._b) { st._b = 1; FX.bell = t; CR.burst('star', BELL.x, BELL.y - 30, t); } } else st._b = 0;
+  }
+  function actAgt(P, t, S) { /* the expediter (support): reads the drafted reply, taps send, hands plates out; tap: a little dance and the reply flies out */
+    var st = S.cast.agt, busy = S.hot === 'draft', u = tapU(st, t, 2.2), c = (t + 1) % 8;
+    P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm'; P.tilt = 0; P.sx = 1; P.hop = 0;
+    if (busy || c < 4) { P.hands = [[-50, -196], [118, -250 + (Math.sin(t * 7) > 0.6 ? -10 : 0)]]; looks(P, st, t, S, 0.7); }
+    else if (c < 6) { var r = ease((c - 4) / 0.6); P.hands = [[-60, -196], [lerp(60, 100, r), -200]]; P.look = lerp(P.look, 0.9, 0.1); }
+    else { P.hands = [[-60, -196], [60, -196]]; looks(P, st, t, S, -0.3); P.tilt = Math.sin(t * 2) * 0.03; }
+    if (u >= 0) { P.talk = true; P.mood = 'happy'; var b = Math.sin(t * 10); P.tilt = b * 0.12; P.hop = Math.abs(b) * 14; P.hands = b > 0 ? [[-110, -380], [80, -200]] : [[-80, -200], [110, -380]];
+      if (!st._b) { st._b = 1; st.planeT = t; CR.burst('note', P.x, P.y - 280, t); } } else st._b = 0;
+  }
+  function actEng(P, t, S) { /* TechNext's AI engineer: tastes the sauce, checks the tablet, nods; tap: a chef's kiss */
+    var st = S.cast.eng, busy = S.hot === 'ask' || S.hot === 'log', u = tapU(st, t, 1.8), c = (t + 2) % 9;
+    P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm'; P.tilt = 0; P.sx = 1; P.hop = 0;
+    if (c < 2.4) { var k2 = c < 0.5 ? ease(c / 0.5) : c > 1.9 ? 1 - ease((c - 1.9) / 0.5) : 1; P.hands = [[-70, -200], [lerp(70, 20, k2), lerp(-170, -350, k2)]]; P.look = lerp(P.look, 0, 0.1); if (c > 0.8 && c < 1.9) P.mood = 'happy'; }
+    else if (c < 5) { P.hands = [[-50, -230], [-10, -232 + Math.sin(t * 8) * 4]]; P.look = lerp(P.look, -0.5, 0.1); P.tilt = 0.04; }
+    else if (c < 6) { P.hands = [[-70, -200], [70, -170]]; P.tilt = Math.sin((c - 5) * Math.PI * 4) * 0.06; P.mood = 'happy'; }
+    else { P.hands = [[-70, -200], [70, -170]]; looks(P, st, t, S, -0.5); }
+    if (busy) P.hands = [[-70, -200], [-140, -330 + Math.sin(t * 3) * 8]];
+    if (u >= 0) { P.talk = true; P.mood = 'happy'; P.hands = u < 0.4 ? [[-70, -200], [24, -356]] : [[-70, -200], [150, -380]]; P.hop = u > 0.4 ? Math.sin((u - 0.4) / 0.6 * Math.PI) * 10 : 0;
+      if (u > 0.38 && !st._b) { st._b = 1; CR.burst('heart', P.x + 50, P.y - 260, t); } } else st._b = 0;
+  }
+
+  /* ------------------------------ the live layers ------------------------------ */
+  function drawBot(g, t, S) { /* the AI sous-chef: a kitchen robot behind the prep counter; chops, scans the bill, plates it; tap: juggles three plates */
+    var x = BOT.x, c = cyc(S, t), scanning = S.hot === 'capture' || S.hot === 'match' || (c < 4), ju = (t - FX.bot) / 2.2, jug = ju >= 0 && ju < 1;
+    var by = Math.sin(t * 2.4) * 2, hy = 214 + by, tilt = scanning ? -0.12 : Math.sin(t * 0.8) * 0.05;
+    fillRR(g, x - 48, 260 + by, 96, 114, 28, '#AEB8C6'); fillRR(g, x - 46, 262 + by, 92, 110, 26, '#F4F6F9'); fillRR(g, x - 46, 262 + by, 92, 110, 26, 'rgba(123,92,214,.05)'); fillRR(g, x - 18, 290 + by, 36, 24, 8, VIO_L); spark(g, x, 302 + by, 7 + Math.sin(t * 4) * 1.5, VIO);
+    fillRR(g, x - 52, 270 + by, 12, 40, 6, STEEL); fillRR(g, x + 40, 270 + by, 12, 40, 6, STEEL);
+    fillRR(g, x - 10, 248 + by, 20, 18, 4, STEEL_D);
+    g.save(); g.translate(x, hy); g.rotate(tilt);
+    fillRR(g, -46, -34, 92, 66, 22, '#AEB8C6'); fillRR(g, -44, -32, 88, 62, 20, '#F4F6F9'); fillRR(g, -36, -24, 72, 46, 14, '#1E2140');
+    var bl = ((t + 0.4) % 4.2) < 0.12; [-1, 1].forEach(function (d) { if (bl) fillRR(g, d * 15 - 7, -3, 14, 3, 1.5, '#B9A6F2'); else { fillE(g, d * 15, -2, 6, 7.5, '#B9A6F2'); fillE(g, d * 15 - 2, -4, 2, 2, '#FFFFFF'); } });
+    g.strokeStyle = '#B9A6F2'; g.lineWidth = 2.4; g.lineCap = 'round'; g.beginPath(); g.arc(0, 8, 6, 0.2, Math.PI - 0.2); g.stroke();
+    fillE(g, -14, -46, 18, 15, '#FFFFFF'); fillE(g, 14, -46, 18, 15, '#FFFFFF'); fillE(g, 0, -54, 20, 17, '#FFFFFF'); fillRR(g, -28, -46, 56, 18, 6, '#FFFFFF'); fillRR(g, -30, -34, 60, 7, 3, '#E6EBF1');
+    fillE(g, 46, -4, 5, 9, STEEL); fillE(g, -46, -4, 5, 9, STEEL);
+    g.restore();
+    if (scanning && !jug) { g.save(); g.globalAlpha = 0.18 + 0.1 * Math.sin(t * 8); g.fillStyle = VIO; g.beginPath(); g.moveTo(x - 20, hy - 6); g.lineTo(x + 20, hy - 6); g.lineTo(BILL.x + BILL.w - 20, BILL.y + BILL.h); g.lineTo(BILL.x + 20, BILL.y + BILL.h); g.closePath(); g.fill(); g.restore(); }
+    /* the arms: steel tubes from the shoulders to the grippers */
+    var chop = Math.abs(Math.sin(t * 9)) * 10, L = [x - 50, 300 + by], R = [x + 50, 300 + by], lh, rh;
+    if (jug) { lh = [x - 40, 250]; rh = [x + 40, 250]; }
+    else if (c > 4.3 && c < 5.1) { var m = ease((c - 4.3) / 0.8); lh = [lerp(x - 30, 640, m), 352]; rh = [lerp(x + 20, 680, m), 352]; }
+    else { lh = [x - 40, 352]; rh = [x + 14, 340 - chop]; }
+    [[L, lh], [R, rh]].forEach(function (a) { var s0 = a[0], h = a[1], mx = (s0[0] + h[0]) / 2 + (h[0] < s0[0] ? -8 : 8), my = Math.max(s0[1], h[1]) + 14;
+      g.strokeStyle = STEEL_D; g.lineWidth = 9; g.lineCap = 'round'; g.beginPath(); g.moveTo(s0[0], s0[1]); g.lineTo(mx, my); g.lineTo(h[0], h[1]); g.stroke(); fillE(g, mx, my, 6, 6, VIO); fillE(g, h[0], h[1], 8, 7, '#5C6B7A'); });
+    if (!jug && !(c > 4.3 && c < 5.1)) { g.save(); g.translate(rh[0], rh[1]); g.rotate(0.3); fillRR(g, -2, -4, 22, 6, 2, '#E6EBF1'); fillRR(g, -10, -3, 10, 5, 2, '#2A3142'); g.restore(); }
+    if (jug) { for (var i = 0; i < 3; i++) { var ph = (ju * 3 + i / 3) % 1, jx = lerp(x - 40, x + 40, ph), jy = 240 - Math.sin(ph * Math.PI) * 90; if (ju > 0.85) { jx = x; jy = 236 - i * 5; } plate(g, jx, jy, 15, function (g2, px, py) { fillE(g2, px, py - 3, 7, 3.4, [TOM, HERB, VIO][i]); }); } }
+  }
   function paintLive(g, t, now, S) {
     CO.crew(CREW, g, t, S, false);
-    /* the bill: the AI fills the fields one by one, matches the PO, then waits for approval */
     var c = cyc(S, t), nf = Math.min(4, Math.floor(c)), approved = c > 5.6;
-    FIELDS.forEach(function (f, i) { var y = BILL.y + 44 + i * 40, on = i < nf, hi = i === nf - 1 && c - nf < 0.6;
-      text(g, f[0], BILL.x + 16, y + 14, 9, 700, '#8A96A8'); fillRR(g, BILL.x + 104, y, 200, 26, 6, hi ? '#EFEAFB' : '#F6F8FB');
-      if (on) { text(g, f[1], BILL.x + 114, y + 17, 10, 800, '#1B1F3B'); spark(g, BILL.x + 292, y + 13, 6, SPK); if (i === 3) { fillE(g, BILL.x + 274, y + 13, 7, 7, OK); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.moveTo(BILL.x + 270.5, y + 13); g.lineTo(BILL.x + 273, y + 15.5); g.lineTo(BILL.x + 277.5, y + 10.5); g.stroke(); } } });
-    var by = BILL.y + 216; fillRR(g, BILL.x + 16, by, 186, 28, 14, '#F1EDFC'); spark(g, BILL.x + 32, by + 14, 7, SPK); text(g, 'Prepared by AI · a person approves', BILL.x + 44, by + 18, 7.6, 800, '#4B3A8A');
-    var press = c > 5 && c < 5.6; fillRR(g, BILL.x + 214, by, 90, 28, 8, approved ? OK : (press ? '#5A3A52' : PUR)); text(g, approved ? 'Posted' : 'Approve', BILL.x + 259, by + 18, 9.5, 800, '#FFFFFF', 'center');
-    /* the record's log */
-    [['AI read the bill and filled four fields', 4], ['Matched to purchase order PO00123', 4.2], ['Approved and posted by Finance', 5.6]].forEach(function (l, i) { var y = LOG.y + 30 + i * 42, on = c >= l[1];
-      fillE(g, LOG.x + 14, y + 6, 6, 6, on ? (i === 2 ? OK : SPK) : '#E3E8EF'); var words = l[0].split(' '), line = '', ly = y + 4;
-      words.forEach(function (w) { if ((line + w).length > 24) { text(g, line, LOG.x + 26, ly, 7, 700, on ? '#1B1F3B' : '#B0BAC9'); line = ''; ly += 10; } line += w + ' '; }); text(g, line, LOG.x + 26, ly, 7, 700, on ? '#1B1F3B' : '#B0BAC9'); });
-    /* the helpdesk reply: drafted by AI, the agent edits and sends */
-    var dr = S.hot === 'draft' ? ((t - (S.kT || 0)) * 1.2) % 6 : (t * 0.5) % 6, dn = Math.floor(clamp(dr * 22, 0, 90));
-    fillRR(g, DRAFT.x + 10, DRAFT.y + 28, 150, 22, 8, '#F4F6FA'); text(g, '"Where is my order SO0412?"', DRAFT.x + 16, DRAFT.y + 42, 6.8, 700, '#3D4560');
-    var reply = 'Hi Mei, your order shipped today. Tracking: SG4482. Thanks for waiting!';
-    fillRR(g, DRAFT.x + 30, DRAFT.y + 58, 156, 54, 8, '#FDECF1'); spark(g, DRAFT.x + 40, DRAFT.y + 68, 5, '#E0456B');
-    var rtx = reply.slice(0, dn), line = '', rl = 0; rtx.split(' ').forEach(function (w) { if ((line + w).length > 25) { text(g, line, DRAFT.x + 50, DRAFT.y + 72 + rl * 10, 6.4, 700, '#5A2236'); line = ''; rl++; } line += w + ' '; }); text(g, line, DRAFT.x + 50, DRAFT.y + 72 + rl * 10, 6.4, 700, '#5A2236');
-    fillRR(g, DRAFT.x + 120, DRAFT.y + 124, 66, 22, 7, dr > 4.5 ? OK : '#E0456B'); text(g, dr > 4.5 ? 'Sent' : 'Edit & send', DRAFT.x + 153, DRAFT.y + 139, 7.4, 800, '#FFFFFF', 'center');
-    /* ask your records */
-    var ak = S.hot === 'ask' ? ((t - (S.kT || 0)) * 1.2) % 6 : (t * 0.4) % 6, an = Math.floor(clamp((ak - 1) * 26, 0, 80));
-    fillRR(g, ASK.x + 12, ASK.y + 30, 200, 22, 8, '#EEF3FD'); text(g, 'Units of SKU-204 sold last month?', ASK.x + 20, ASK.y + 44, 7.4, 800, '#1E3A6E');
-    var ans = '142 units across 9 orders. Source: Sales report, Aug 2026.'; fillRR(g, ASK.x + 182, ASK.y + 58, 218, 30, 8, '#F1EDFC'); spark(g, ASK.x + 194, ASK.y + 73, 5, SPK); text(g, ans.slice(0, an), ASK.x + 204, ASK.y + 76, 6.8, 700, '#4B3A8A');
-    /* the scanner: a paper bill feeds through (tapped, or on the Capture stop) */
-    var sc = T.scan, st = S.hot === 'capture' ? (t % 2) : (t - SCN.t); if (st < 2) { var f = clamp(st / 1.6, 0, 1); g.save(); g.globalAlpha = 1 - Math.max(0, f - 0.8) * 5;
-      fillRR(g, lerp(sc.x + 36, sc.x + 120, f), lerp(sc.y - 60, sc.y - 200, f), 40, 52, 3, '#FFFFFF'); fillRR(g, lerp(sc.x + 40, sc.x + 124, f), lerp(sc.y - 54, sc.y - 194, f), 24, 3, 1.5, PUR); g.restore();
-      g.strokeStyle = 'rgba(123,92,214,.5)'; g.lineWidth = 2; g.beginPath(); g.moveTo(sc.x + 30, sc.y - 32 + Math.sin(t * 8) * 4); g.lineTo(sc.x + 92, sc.y - 32 + Math.sin(t * 8) * 4); g.stroke(); }
+    /* the order screen: the AI fills the fields one by one, matches the PO, then waits for a person */
+    FIELDS.forEach(function (f, i) { var y = BILL.y + 36 + i * 32, on = i < nf, hi = i === nf - 1 && c - nf < 0.6;
+      fillRR(g, BILL.x + 82, y, 178, 24, 6, hi ? VIO_L : '#F6F8FB');
+      if (on) { text(g, f[1], BILL.x + 92, y + 16, 9.4, 800, INK); spark(g, BILL.x + 248, y + 12, 5.5, VIO); if (i === 3) tick(g, BILL.x + 232, y + 12, 6.5); }
+      else if (i === nf) { var cw = (t * 40) % 60; fillRR(g, BILL.x + 92, y + 9, cw, 6, 3, '#E3DDF7'); } });
+    var by = BILL.y + 168; fillRR(g, BILL.x + 12, by, 160, 22, 11, VIO_L); spark(g, BILL.x + 26, by + 11, 6, VIO); text(g, 'Prepared by AI · a person approves', BILL.x + 36, by + 14.5, 6.6, 800, '#4B3A8A');
+    var press = c > 5 && c < 5.6; fillRR(g, BILL.x + 180, by, 80, 22, 8, approved ? OK : (press ? '#5A3A52' : PUR)); text(g, approved ? 'Posted' : 'Approve', BILL.x + 220, by + 15, 8.6, 800, '#FFFFFF', 'center');
+    /* the pantry: the jar the AI reaches into glows (match: purchase orders, capture: vendor bills, ask: sales orders) */
+    var jarOn = S.hot === 'match' || (c > 3 && c < 4.3) ? 0 : S.hot === 'capture' || c < 3 ? 1 : S.hot === 'ask' ? 2 : S.hot === 'draft' ? 3 : -1;
+    if (jarOn >= 0) { var jy = PAN.y + 116 + jarOn * 74; g.strokeStyle = 'rgba(123,92,214,' + (0.55 + 0.3 * Math.sin(t * 6)).toFixed(2) + ')'; g.lineWidth = 2.5; rr(g, PAN.x + 8, jy - 60, PAN.w - 16, 86, 10); g.stroke(); }
+    /* the chalkboard: a question, then the answer typed in chalk, with its source */
+    var ak = S.hot === 'ask' ? ((t - (S.kT || 0)) * 1.1) % 7 : (t * 0.36) % 7, qn = Math.floor(clamp(ak * 30, 0, 40)), an = Math.floor(clamp((ak - 1.6) * 24, 0, 40));
+    wrap(g, 'Units of SKU-204 sold last month?'.slice(0, qn), CHB.x + 10, CHB.y + 35, 21, 12, 9.4, 700, '#FFFFFF');
+    if (an > 0) { spark(g, CHB.x + 15, CHB.y + 67, 5.5, '#C9B8FF'); wrap(g, '142 units across 9 orders.'.slice(0, an), CHB.x + 26, CHB.y + 71, 20, 12, 9.8, 800, '#FFE7A3'); }
+    if (ak > 3.4) text(g, 'Source: Sales report, Aug 2026', CHB.x + 10, CHB.y + 106, 7.4, 700, 'rgba(255,255,255,.75)');
+    if (S.hot === 'ask' || (ak > 1.6 && ak < 3.4)) { g.strokeStyle = 'rgba(255,255,255,.7)'; g.setLineDash([3, 4]); g.lineWidth = 1.4; g.beginPath(); g.moveTo(PAN.x + PAN.w - 14, PAN.y + 116 + 2 * 74 - 30); g.quadraticCurveTo(PAN.x + PAN.w + 30, PAN.y + 80, CHB.x + CHB.w - 20, CHB.y + CHB.h + 2); g.stroke(); g.setLineDash([]); }
+    /* the ticket rail: each step clips on as it happens and slides along */
+    var tk = [['01', 'AI read the bill', 'four fields filled', 4, VIO], ['02', 'Matched to', 'purchase order PO00123', 4.2, VIO], ['03', 'Approved and posted', 'by Finance', 5.6, OK], ['04', 'Reply drafted', 'agent edited and sent', 6.2, PINK]];
+    tk.forEach(function (k2, i) { var x = RAIL.x + 14 + i * 152, on = c >= k2[3] || S.hot === 'log', dropIn = on ? ease(Math.min(1, (c - k2[3]) * 3 + (S.hot === 'log' ? 1 : 0))) : 0, sw = Math.sin(t * 1.6 + i) * 0.02;
+      g.save(); g.translate(x + 66, RAIL.y + 10); g.rotate(sw); g.globalAlpha = on ? 1 : 0.6;
+      fillRR(g, -66, 2 - (1 - dropIn) * 10, 132, 44, 3, on ? '#FFFFFF' : '#EEF1F5'); g.fillStyle = on ? '#FFFFFF' : '#EEF1F5'; g.beginPath(); for (var z = 0; z <= 22; z++) g.lineTo(-66 + z * 6, 46 - (1 - dropIn) * 10 + (z % 2 ? 4 : 0)); g.lineTo(66, 40); g.lineTo(-66, 40); g.fill();
+      fillRR(g, -6, -4, 12, 10, 2, STEEL_D); fillE(g, -60 + 8, 14 - (1 - dropIn) * 10, 7, 7, on ? k2[4] : '#C9D1DC'); text(g, k2[0], -52, 17 - (1 - dropIn) * 10, 6, 800, '#FFFFFF', 'center');
+      text(g, k2[1], -40, 18 - (1 - dropIn) * 10, 8.4, 800, on ? INK : '#8A96A8'); text(g, k2[2], -40, 31 - (1 - dropIn) * 10, 7, 700, on ? '#5C6B7A' : '#A3ADBD'); g.restore(); });
+    /* heat-lamp bulbs flicker warm */
+    LAMPS.forEach(function (lx, i) { g.globalAlpha = 0.75 + 0.25 * Math.sin(t * 7 + i * 2); fillE(g, lx, 36, 9, 4, AMB); g.globalAlpha = 1; });
+    /* the AI sous-chef, then the steam of the stock pot in the margin */
+    drawBot(g, t, S);
+    steam(g, -575, 250, t, 5, 90); steam(g, -500, 284, t + 1, 3, 50);
+    /* the clock over the doors (Manila/Singapore time) */
+    CO.clock(g, 1130, 4, 18, 8, STEEL_D);
   }
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
-    /* the desk monitors: finance's approve queue, the agent's inbox */
-    var d = T.desk, c = cyc(S, t); [[520, PUR, 'Bills to approve'], [700, '#E0456B', 'Replies to send']].forEach(function (m, k) { var mx = m[0], my = d.y - 70; fillRR(g, mx, my, 100, 56, 3, '#FFFFFF'); fillRR(g, mx, my, 100, 10, 3, m[1]); text(g, m[2], mx + 4, my + 7.6, 5, 800, '#FFFFFF');
-      for (var l = 0; l < 3; l++) { fillRR(g, mx + 6, my + 16 + l * 12, 60, 4, 2, '#D5DCE6'); spark(g, mx + 86, my + 18 + l * 12, 3.4, l === 0 ? SPK : '#C9C2EA'); } });
+    var c = cyc(S, t);
+    /* the pot on the prep burner steams */
+    steam(g, 597, 318, t, 3, 50);
+    /* the scanner: a paper bill feeds in (tapped, on the capture stop, or at the start of each cycle) */
+    var sc = SCAN, st = S.hot === 'capture' ? (t % 2) : Math.min(t - FX.scan, c < 1.6 ? c : 9);
+    if (st < 1.6) { var f = clamp(st / 1.4, 0, 1); g.save(); g.beginPath(); g.rect(sc.x, sc.y - 80, 84, 74); g.clip(); fillRR(g, sc.x + 22, sc.y - 70 + f * 64, 40, 52, 3, '#FFFFFF'); fillRR(g, sc.x + 26, sc.y - 64 + f * 64, 24, 3, 1.5, PUR); g.fillStyle = '#C9D3E3'; g.fillRect(sc.x + 26, sc.y - 56 + f * 64, 30, 2); g.fillRect(sc.x + 26, sc.y - 50 + f * 64, 22, 2); g.restore();
+      g.strokeStyle = 'rgba(123,92,214,.7)'; g.lineWidth = 2; g.beginPath(); g.moveTo(sc.x + 10, sc.y + 12); g.lineTo(sc.x + 74, sc.y + 12); g.stroke(); }
+    /* the plates on the pass: the bill plate arrives, is approved (green flag), then leaves; the answer and reply plates wait */
+    var bx = c < 4.4 ? -1 : c < 5 ? lerp(640, 704, ease((c - 4.4) / 0.6)) : c < 6.2 ? 704 : lerp(704, 640, ease((c - 6.2) / 0.8));
+    if (bx > 0) { var fade = c > 6.2 ? 1 - (c - 6.2) / 0.8 : 1; g.globalAlpha = clamp(fade, 0, 1); plate(g, bx, PASS.y - 3, 24, function (g2, x, y) { g2.save(); g2.translate(x, y - 8); g2.rotate(-0.08); fillRR(g2, -12, -12, 24, 18, 2, '#FFFFFF'); fillRR(g2, -10, -10, 14, 3, 1.5, PUR); g2.fillStyle = '#C9D3E3'; g2.fillRect(-10, -4, 18, 2); g2.fillRect(-10, 0, 12, 2); g2.restore(); });
+      if (c > 5.6) { g.strokeStyle = '#8A94A8'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(bx + 14, PASS.y - 10); g.lineTo(bx + 14, PASS.y - 36); g.stroke(); fillRR(g, bx + 14, PASS.y - 36, 20, 12, 2, OK); tick(g, bx + 24, PASS.y - 30, 4); }
+      g.globalAlpha = 1; }
+    plate(g, 790, PASS.y - 3, 20, function (g2, x, y) { fillE(g2, x - 6, y - 4, 6, 3.4, TOM); fillE(g2, x + 5, y - 4, 7, 3.6, HERB); });
+    /* the service bell: rings when tapped or when the chef approves */
+    var rb = Math.min(t - FX.bell, c > 5.5 && c < 5.9 ? 0 : 9), ring = rb < 0.8 ? Math.sin(rb * 40) * (1 - rb / 0.8) * 0.3 : 0;
+    g.save(); g.translate(BELL.x, BELL.y - 2); fillE(g, 0, 0, 16, 4, '#5C6B7A'); g.rotate(ring); g.fillStyle = '#E2B13C'; g.beginPath(); g.arc(0, -2, 12, Math.PI, 0); g.closePath(); g.fill(); fillE(g, 0, -15, 3, 3, '#C9952A'); fillE(g, -4, -8, 3, 2, 'rgba(255,255,255,.5)'); g.restore();
+    if (rb < 0.9) { g.globalAlpha = 1 - rb / 0.9; fillRR(g, BELL.x - 18, BELL.y - 54 - rb * 14, 36, 16, 8, '#FFFFFF'); text(g, 'Ding!', BELL.x, BELL.y - 43 - rb * 14, 8, 800, '#C9952A', 'center'); g.globalAlpha = 1; }
+    /* the reply screen: drafted by the AI, the agent edits and sends */
+    var dr = S.hot === 'draft' ? ((t - (S.kT || 0)) * 1.2) % 6 : ((t + 1) * 0.5) % 6, dn = Math.floor(clamp(dr * 22, 0, 90)), R = RPL;
+    fillRR(g, R.x, R.y, R.w, R.h, 4, '#FFFFFF'); fillRR(g, R.x, R.y, R.w, 18, 4, PINK); g.fillRect(R.x, R.y + 10, R.w, 8); text(g, 'Helpdesk · reply', R.x + 8, R.y + 13, 7, 800, '#FFFFFF');
+    fillRR(g, R.x + 6, R.y + 24, 92, 18, 7, '#F4F6FA'); text(g, 'Where is my order SO0412?', R.x + 11, R.y + 36, 5.8, 700, '#3D4560');
+    fillRR(g, R.x + 14, R.y + 48, 94, 54, 7, '#FDECF1'); spark(g, R.x + 22, R.y + 57, 4.5, PINK);
+    var reply = 'Hi Mei, your order shipped today. Tracking: SG4482. Thanks for waiting!'; wrap(g, reply.slice(0, dn), R.x + 30, R.y + 60, 20, 9, 6.2, 700, '#5A2236');
+    var sent = dr > 4.5; fillRR(g, R.x + 46, R.y + 110, 62, 18, 6, sent ? OK : PINK); text(g, sent ? 'Sent' : 'Edit & send', R.x + 77, R.y + 122.5, 7, 800, '#FFFFFF', 'center');
+    /* the expediter's tap: the reply flies out to the dining room as a paper plane */
+    var pu = (t - (S.cast.agt.planeT || -9)) / 1.6; if (pu >= 0 && pu < 1) { var px = lerp(R.x + R.w / 2, 1180, pu), py = R.y + 40 - Math.sin(pu * Math.PI) * 120; CO.plane(g, px, py, 1.6, -0.3 + pu * 0.5, PINK, '#FFFFFF'); }
+    /* the engineer's spoon and the head chef's flag */
+    var e0 = hw(ENG, 1), ec = (t + 2) % 9; if (ec < 2.4) { g.save(); g.translate(e0[0], e0[1]); g.rotate(-0.8); fillRR(g, -2, -2, 26, 4, 2, '#C9D1DC'); fillE(g, 26, 0, 6, 4, '#E6EBF1'); g.restore(); }
+    var f1 = hw(FIN, 1); if (c > 5.1 && c < 6.2 && tapU(S.cast.fin, t, 2) < 0) { g.strokeStyle = '#8A94A8'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(f1[0], f1[1]); g.lineTo(f1[0], f1[1] - 30); g.stroke(); fillRR(g, f1[0], f1[1] - 30, 22, 13, 2, OK); tick(g, f1[0] + 11, f1[1] - 23.5, 4.5); }
+    if (tapU(S.cast.fin, t, 2) < 0 && (t % 9) < 3 && !(c > 4.4 && c < 6.2)) { fillRR(g, f1[0] - 8, f1[1] - 4, 16, 12, 3, '#FFFFFF'); }
     CR.draw(g, t);
   }
 
-  function seat(id, keys, P, acts) { return { id: id, behind: true, keys: keys, P: P, act: function (P, t, S) { var st = S.cast[id], busy = keys.indexOf(S.hot) >= 0; P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm';
-    var k2 = Math.abs(Math.sin(t * (busy ? 10 : 3) + P.ph)) * 6; P.hands = busy && id === 'fin' ? [[-60, -206], [110, -230 + k2]] : [[-60, -206 - k2], [60, -206 - (6 - k2)]];
-    P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : (id === 'fin' ? 0.5 : -0.5), 0.08); CR.cast(P, st, t, acts); } }; }
   window.IXW.worlds['ai-odoo'] = {
-    pan: [-300, 1200],
-    paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront,
-    paintWindow: function () {}, paintLive: paintLive, paintFrontLive: paintFrontLive,
+    pan: [-700, 1300],
+    paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
+    paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
     paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
-    moteCol: 'rgba(123,92,214,.24)',
+    moteCol: 'rgba(255,255,255,.75)',
     glow: {
-      capture: function (g) { rr(g, BILL.x + 6, BILL.y + 36, BILL.w - 12, 80, 10); },
-      match: function (g) { rr(g, BILL.x + 6, BILL.y + 160, BILL.w - 12, 40, 10); },
-      approve: function (g) { rr(g, BILL.x + 6, BILL.y + 206, BILL.w - 12, 48, 12); },
-      log: function (g) { rr(g, LOG.x - 10, LOG.y - 10, LOG.w + 20, LOG.h + 20, 12); },
-      draft: function (g) { rr(g, DRAFT.x - 10, DRAFT.y - 10, DRAFT.w + 20, DRAFT.h + 20, 12); },
-      ask: function (g) { rr(g, ASK.x - 10, ASK.y - 10, ASK.w + 20, ASK.h + 20, 12); },
-      scanner: function (g) { var s = T.scan; rr(g, s.x + 8, s.y - 58, 110, 64, 10); }
+      capture: function (g) { rr(g, BILL.x + 4, BILL.y + 28, BILL.w - 8, 98, 10); },
+      match: function (g) { rr(g, BILL.x + 4, BILL.y + 126, BILL.w - 8, 36, 10); },
+      approve: function (g) { rr(g, 664, 330, 150, 60, 14); },
+      log: function (g) { rr(g, RAIL.x - 8, RAIL.y - 14, RAIL.w + 16, RAIL.h + 18, 12); },
+      draft: function (g) { rr(g, RPL.x - 10, RPL.y - 10, RPL.w + 20, RPL.h + 20, 12); },
+      ask: function (g) { rr(g, CHB.x - 12, CHB.y - 12, CHB.w + 24, 330, 14); },
+      scanner: function (g) { rr(g, SCAN.x - 8, SCAN.y - 30, 100, 72, 10); },
+      bell: function (g) { rr(g, BELL.x - 22, BELL.y - 24, 44, 30, 10); },
+      bot: function (g) { rr(g, BOT.x - 60, 150, 120, 210, 24); }
     },
-    backGlow: ['capture', 'match', 'approve', 'log', 'draft', 'ask', 'scanner'],
+    backGlow: ['capture', 'match', 'log', 'ask', 'bot'],
     cast: [
-      seat('fin', ['approve', 'match'], FIN, ['nod', 'think', 'wave', 'id']),
-      seat('agt', ['draft'], AGT, ['type', 'wave', 'nod', 'id']),
-      { id: 'eng', behind: false, keys: ['ask', 'log'], P: ENG, act: function (P, t, S) { var st = S.cast.eng, busy = S.hot === 'ask' || S.hot === 'log'; P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm';
-        P.hands = busy ? [[-70, -200], [-150, -320 + Math.sin(t * 3) * 8]] : [[-70, -200], [70, -170]]; P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : -0.6, 0.08); CR.cast(P, st, t, ['wave', 'nod', 'id', 'think', 'cheer']); } }
+      { id: 'fin', behind: true, keys: ['approve', 'match'], P: FIN, act: actFin },
+      { id: 'agt', behind: true, keys: ['draft'], P: AGT, act: actAgt },
+      { id: 'eng', behind: false, keys: ['ask', 'log'], P: ENG, act: actEng }
     ],
-    toy: function (name, S, t) { if (name === 'scanner') { SCN.t = t; CR.burst('spark', T.scan.x + 60, T.scan.y - 60, t); } },
+    toy: function (name, S, t) { if (name === 'scanner') { FX.scan = t; CR.burst('spark', SCAN.x + 42, SCAN.y - 30, t); } else if (name === 'bell') { FX.bell = t; CR.burst('star', BELL.x, BELL.y - 30, t); } else if (name === 'bot') { FX.bot = t; CR.burst('spark', BOT.x, 170, t); } },
     hit: function (x, y, S, t) { return CR.hitWalker(x, y, t); },
     onStop: function (key, S, t) { S.kT = t; }
   };
