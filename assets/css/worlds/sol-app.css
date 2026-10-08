@@ -215,3 +215,8 @@
 .ixw--sol-app .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--tp-ink)}
 .ixw--sol-app .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:radial-gradient(circle at 0 50%,transparent 6px,var(--tp-coral) 6.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 6px,var(--tp-coral) 6.5px) right/51% 100% no-repeat}
 @media (min-width:1200px){.ixw--sol-app .ixw-hero:not(.is-peek) .tpk-side{visibility:hidden}}
+
+/* ============ fix round: the FAQ uses the full width ============ */
+.ixw--sol-app .tpk-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
+.ixw--sol-app .tpk-faq details:last-child{grid-column:1/-1}
+@media (max-width:960px){.ixw--sol-app .tpk-faq{grid-template-columns:1fr}}

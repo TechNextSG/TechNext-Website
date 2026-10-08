@@ -210,3 +210,8 @@
 .ixw--sol-net .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--wt-ink),inset 9px 0 0 -3px var(--wt-brass),inset -9px 0 0 -3px var(--wt-brass)}
 .ixw--sol-net .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:linear-gradient(180deg,#4DB8EA,var(--wt-aqua))}
 @media (min-width:1200px){.ixw--sol-net .ixw-hero:not(.is-peek) .wtw-side{visibility:hidden}}
+
+/* ============ fix round: the FAQ uses the full width ============ */
+.ixw--sol-net .wtw-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
+.ixw--sol-net .wtw-faq details:last-child{grid-column:1/-1}
+@media (max-width:960px){.ixw--sol-net .wtw-faq{grid-template-columns:1fr}}

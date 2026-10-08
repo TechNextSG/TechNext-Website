@@ -228,4 +228,11 @@
 .ixw--sol-tech main h2{text-wrap:balance}
 .mkg-nw{white-space:nowrap}
 @media (max-width:767px){.ixw--sol-tech .ixw-copy .actions .btn{height:50px}.ixw--sol-tech .mkg-brief{margin:40px 12px 0}}
-@media (prefers-reduced-motion:reduce){
+/* ============ fix round: nothing floats alone ============ */
+/* the FAQ: heading and the parts cabinet share a compact header row; the drawers run full width, two by two */
+.ixw--sol-tech .mkg-qa{grid-template-columns:1fr;gap:30px}
+.ixw--sol-tech .mkg-qa .sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:center;max-width:none;margin-bottom:0}
+.ixw--sol-tech .mkg-qa .sec-head>:not(.mkg-cabinet){grid-column:1;justify-self:start}
+.ixw--sol-tech .mkg-qa .mkg-cabinet{grid-column:2;grid-row:1/span 3;margin-top:0;width:200px}
+.ixw--sol-tech .mkg-drawers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px;align-items:start}
+@media (max-width:960px){.ixw--sol-tech .mkg-qa .sec-head{grid-template-columns:1fr}.ixw--sol-tech .mkg-drawers{grid-template-columns:1fr}}
