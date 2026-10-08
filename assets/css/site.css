@@ -1285,6 +1285,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;
    later full layout (fonts arriving, a resize, the reveals) now only touch what is on screen. Audited 109 pages: no
    section draws outside its own box, so the paint containment this brings clips nothing. */
 main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:auto 900px}
+main>section:has(.ixw-cta),main>section:has(.cta-nexi),main>section:has([class*="-cta"] img[src*="nexi"]){content-visibility:visible}
 @media print{main>section:not(:first-child){content-visibility:visible}}
 /* ================= R9 nav: header "Let's talk" button + floating WhatsApp, both dressed in the page's world =================
    Every world sets --hc-bg / --hc-fg (button fill + text) and --st-ink (outline + lip); pages without a world fall back to
