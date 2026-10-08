@@ -61,6 +61,11 @@
   DES.apron = '#F3E2C7';
   var LEAD = W({ x: 962, y: 470, s: 0.44, ph: 3.4, skin: 4, hair: 3, style: 'short', outfit: 'polo', top: '#3167CA', top2: '#FFFFFF', hatKind: 'cap', hat: NAVY, hold: 'clipboard', hands: [[-70, -190], [70, -170]], look: -0.3 });
   LEAD.c.hatBand = GOLD;
+  /* the left quay (behind the title card): a visitor on the bench with a map, a TechNext photographer shooting content for the posts */
+  var VIS = W({ x: -142, y: 474, s: 0.44, ph: 1.7, skin: 2, hair: 1, style: 'long', outfit: 'shirt', top: '#F6C1C6', id: '#9AA6BC', sit: true, chair: false, hands: [[-60, -250], [60, -250]], look: 0.3 });
+  var PHO = W({ x: -30, y: 566, s: 0.5, ph: 2.9, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: '#2F62C0', top2: '#FFFFFF', hands: [[-60, -300], [60, -300]], look: 0.6 });
+  VIS.c.low = '#5C6B7A'; PHO.c.low = '#2A3550';
+  var TRI = { x: 36, y: 566 }, STALL = { x: -330 }, GULLQ = [[-250, 640, 0], [-200, 652, 2.1], [70, 624, 4.2]];
   var CREW = [
     { x0: 1010, x1: 1290, y: 492, spd: 15, ph: 0.4, label: 'A visitor', lines: ['Saw the **lighthouse** from the bay. Now, where is the door?', 'The posts, the boat, the shop: all **the same colours**. Easy to spot.'], acts: ['wave', 'jump', 'love'],
       P: W({ s: 0.52, skin: 2, hair: 1, style: 'long', outfit: 'tee', top: '#FFB3C4', id: '#9AA6BC', hold: 'bags' }) },
@@ -223,8 +228,30 @@
       g.strokeStyle = '#2A3550'; g.lineWidth = 3; g.beginPath(); g.arc(-520, 440, 14, 0, 7); g.arc(-472, 440, 14, 0, 7); g.moveTo(-520, 440); g.lineTo(-500, 412); g.lineTo(-472, 440); g.moveTo(-500, 412); g.lineTo(-480, 412); g.stroke(); fillRR(g, -514, 404, 22, 8, 3, '#E0567A'); }
     /* a lamp post with a flower basket at the corner of the street */
     g.fillStyle = '#2A3550'; g.fillRect(118, 140, 5, Q0 - 140); fillE(g, 120, Q0 - 2, 10, 3, '#2A3550'); fillRR(g, 108, 124, 26, 18, 6, '#2A3550'); fillRR(g, 111, 128, 20, 11, 4, '#FFF3C8'); fillE(g, 120, 176, 16, 9, '#4FBE7A'); [-10, -3, 5, 11].forEach(function (d, j) { fillE(g, 120 + d, 172 + (j % 2) * 4, 3.4, 3.4, j % 2 ? '#E0456B' : '#FFD84A'); });
+    leftQuay(g);
     shop(g); office(g); board(g);
     if (ext.r > 1000) rightPier(g, ext);
+  }
+  /* the left quay: a mosaic of the client's mark in the cobbles, a fruit and flower stall, a bench against the houses */
+  function leftQuay(g) {
+    /* the mosaic: a blue disc with a gold sail, laid flat in the cobbles */
+    g.save(); g.translate(-210, 604); g.scale(1, 0.22); fillE(g, 0, 0, 120, 120, 'rgba(47,98,192,.5)'); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 8; g.beginPath(); g.arc(0, 0, 104, 0, 7); g.stroke();
+    g.strokeStyle = 'rgba(227,162,26,.55)'; g.lineWidth = 5; g.beginPath(); g.arc(0, 0, 118, 0, 7); g.stroke(); g.restore();
+    g.save(); g.translate(-210, 600); g.scale(2.6, 0.62); mark(g, 0, 0, 1, '#F6C74A', '#FFFFFF'); g.restore();
+    /* the stall: trestle, crates of fruit and flowers, a striped awning on poles, a chalkboard */
+    var x = STALL.x, b = Q0 + 22; soft(g, x, b + 3, 84, 7, 0.22);
+    [x - 64, x + 64].forEach(function (px) { fillRR(g, px - 3, 330, 6, b - 330, 2, '#8E6440'); });
+    for (var a = 0; a < 9; a++) { fillRR(g, x - 76 + a * 17, 318, 17, 22, a === 0 || a === 8 ? 4 : 0, a % 2 ? '#FFFFFF' : '#2EA597'); g.fillStyle = a % 2 ? '#FFFFFF' : '#2EA597'; g.beginPath(); g.arc(x - 67.5 + a * 17, 340, 8.5, 0, Math.PI); g.fill(); }
+    fillRR(g, x - 52, 306, 104, 14, 4, '#FFFFFF'); text(g, 'HARBOUR MARKET', x, 316.4, 8, 800, '#2EA597', 'center');
+    fillRR(g, x - 70, b - 58, 140, 10, 3, '#B98A5E'); [x - 60, x + 52].forEach(function (lx) { fillRR(g, lx, b - 48, 8, 48, 2, '#8E6440'); });
+    [[x - 66, '#F2B233', '#E07B12'], [x - 22, '#E0456B', '#B83250'], [x + 22, '#7DBB4C', '#4E9A2E']].forEach(function (c) { fillRR(g, c[0], b - 82, 42, 26, 3, '#C99A6B'); g.fillStyle = 'rgba(90,60,30,.25)'; g.fillRect(c[0], b - 70, 42, 2);
+      for (var f = 0; f < 6; f++) fillE(g, c[0] + 7 + f * 6, b - 84 - (f % 2) * 4, 5.2, 5.2, f % 2 ? c[1] : c[2]); });
+    fillRR(g, x - 14, b - 44, 40, 40, 3, '#C99A6B'); for (var fl = 0; fl < 6; fl++) { fillE(g, x - 8 + fl * 6, b - 50 - (fl % 2) * 6, 3.4, 3.4, ['#FFFFFF', '#E0456B', '#FFD84A'][fl % 3]); g.strokeStyle = '#3FAE6B'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(x - 8 + fl * 6, b - 46 - (fl % 2) * 6); g.lineTo(x - 6 + fl * 3, b - 42); g.stroke(); }
+    g.fillStyle = '#2A3550'; g.beginPath(); g.moveTo(x + 74, b); g.lineTo(x + 84, b - 50); g.lineTo(x + 108, b - 50); g.lineTo(x + 118, b); g.lineTo(x + 112, b); g.lineTo(x + 104, b - 44); g.lineTo(x + 88, b - 44); g.lineTo(x + 80, b); g.closePath(); g.fill();
+    fillRR(g, x + 84, b - 48, 24, 34, 2, '#33405E'); text(g, 'FRESH', x + 96, b - 38, 5.6, 800, '#FFFFFF', 'center'); g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(x + 88, b - 32, 16, 1.4); g.fillRect(x + 88, b - 26, 12, 1.4); fillE(g, x + 96, b - 19, 3, 3, '#F2B233');
+    /* the bench against the houses (the visitor sits on its seat) */
+    var bx = VIS.x; soft(g, bx, Q0 + 26, 70, 5, 0.22); fillRR(g, bx - 66, Q0 - 26, 132, 8, 3, '#8E6440'); fillRR(g, bx - 66, Q0 - 14, 132, 8, 3, '#8E6440');
+    fillRR(g, bx - 70, Q0 + 4, 140, 9, 3, '#B98A5E'); [bx - 60, bx + 54].forEach(function (lx) { fillRR(g, lx, Q0 + 12, 6, 14, 2, '#2A3550'); fillRR(g, lx, Q0 - 28, 6, 34, 2, '#2A3550'); });
   }
   function shop(g) {
     var x = SHOP.x, w = SHOP.w, base = Q0 - 2, wn = SHOP.win, dr = SHOP.door;
@@ -343,10 +370,16 @@
     soft(g, 820, 704, 44, 5, 0.25); g.strokeStyle = '#2A3550'; g.lineWidth = 3; g.beginPath(); g.arc(796, 694, 10, 0, 7); g.stroke(); fillRR(g, 784, 660, 76, 26, 5, '#2EA597'); g.fillStyle = '#2EA597'; g.fillRect(856, 666, 26, 3);
     for (var f = 0; f < 10; f++) { fillE(g, 790 + f * 7, 656 - (f % 2) * 4, 5, 5, '#3FAE6B'); fillE(g, 790 + f * 7, 652 - (f % 3) * 4, 3.6, 3.6, ['#E0456B', '#FFD84A', '#FFFFFF', '#B05FC9'][f % 4]); }
     /* the rowing boat in the livery, tied up below the quay */
-    var bx = 470, by = 742; soft(g, bx + 60, by + 16, 70, 5, 0.25); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + 126, by); g.quadraticCurveTo(bx + 116, by + 22, bx + 96, by + 26); g.lineTo(bx + 22, by + 26); g.quadraticCurveTo(bx + 6, by + 18, bx, by); g.closePath(); g.fill();
+    var bx = 470, by = 722; soft(g, bx + 60, by + 16, 70, 5, 0.25); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + 126, by); g.quadraticCurveTo(bx + 116, by + 22, bx + 96, by + 26); g.lineTo(bx + 22, by + 26); g.quadraticCurveTo(bx + 6, by + 18, bx, by); g.closePath(); g.fill();
     g.fillStyle = BLUE; g.fillRect(bx + 4, by + 6, 118, 7); g.fillStyle = GOLD; g.fillRect(bx + 4, by + 14, 118, 2); mark(g, bx + 104, by + 10, 0.4, '#FFFFFF', '#FFFFFF');
     g.strokeStyle = '#C9A06A'; g.lineWidth = 2; g.beginPath(); g.moveTo(bx + 2, by); g.quadraticCurveTo(bx - 20, by - 30, bx - 26, by - 40); g.stroke();
-    if (ext.l < -300) { bollard(-380); crate(-470, 668, 'FISH'); rope(-330, 700); }
+    /* under the title card only low things: rope coils, a lobster pot, a mooring ring */
+    rope(-330, 700); rope(-120, 702);
+    soft(g, -430, 704, 24, 4, 0.25); fillRR(g, -452, 680, 44, 22, 8, '#C9A06A'); g.strokeStyle = 'rgba(90,60,30,.5)'; g.lineWidth = 1.2; for (var lp = 0; lp < 6; lp++) { g.beginPath(); g.moveTo(-448 + lp * 7, 682); g.lineTo(-448 + lp * 7, 700); g.stroke(); }
+    g.strokeStyle = '#3A4458'; g.lineWidth = 3; g.beginPath(); g.ellipse(-230, 708, 10, 4, 0, 0, 7); g.stroke();
+    /* a chalk pavement sign pointing to the shop */
+    var ps = 76; soft(g, ps + 18, 612, 26, 4, 0.25); g.fillStyle = '#2A3550'; g.beginPath(); g.moveTo(ps, 610); g.lineTo(ps + 8, 556); g.lineTo(ps + 30, 556); g.lineTo(ps + 38, 610); g.lineTo(ps + 32, 610); g.lineTo(ps + 26, 562); g.lineTo(ps + 12, 562); g.lineTo(ps + 6, 610); g.closePath(); g.fill();
+    fillRR(g, ps + 8, 558, 22, 40, 2, '#33405E'); text(g, 'THIS', ps + 19, 570, 5.4, 800, '#FFFFFF', 'center'); text(g, 'WAY', ps + 19, 578, 5.4, 800, '#FFFFFF', 'center'); g.fillStyle = GOLD_L; g.beginPath(); g.moveTo(ps + 11, 588); g.lineTo(ps + 23, 588); g.lineTo(ps + 23, 584); g.lineTo(ps + 29, 590); g.lineTo(ps + 23, 596); g.lineTo(ps + 23, 592); g.lineTo(ps + 11, 592); g.closePath(); g.fill();
     if (ext.r > 1100) { bollard(1180); crate(1100, 668, 'NETS'); }
   }
 
@@ -522,6 +555,19 @@
     else if (LEAD.write) { g.save(); g.translate(hl1[0], hl1[1]); g.rotate(-0.7); fillRR(g, -1.5, -12, 3, 14, 1, '#FFD84A'); fillRR(g, -1.5, -14, 3, 3, 1, '#E0456B'); g.restore(); }
   }
 
+  /* the left quay, live: gulls pecking on the cobbles, the tripod and camera, the photographer's flash and prints, the visitor's map */
+  function quayLive(g, t, S) {
+    GULLQ.forEach(function (q, i) { var hop = ((t + q[2]) % 5) < 0.25 ? Math.sin(((t + q[2]) % 5) / 0.25 * Math.PI) * 6 : 0, dx = Math.sin((t + q[2]) * 0.3) * 14; soft(g, q[0] + dx, q[1] + 6, 10, 2, 0.2); perch(g, q[0] + dx, q[1] - hop, t, q[2]); });
+    var tx = TRI.x, ty = TRI.y; g.strokeStyle = '#2A3550'; g.lineWidth = 2.6; g.lineCap = 'round'; g.beginPath(); g.moveTo(tx, ty - 120); g.lineTo(tx - 22, ty); g.moveTo(tx, ty - 120); g.lineTo(tx + 20, ty); g.moveTo(tx, ty - 120); g.lineTo(tx + 3, ty - 4); g.stroke();
+    var tilt = PHO.camTilt || 0; g.save(); g.translate(tx, ty - 126); g.rotate(tilt); fillRR(g, -20, -16, 40, 24, 5, '#2A3550'); fillRR(g, -10, -22, 14, 8, 2, '#3A4458'); fillE(g, 8, -4, 9, 9, '#4A5468'); fillE(g, 8, -4, 5.6, 5.6, '#9FC4FF'); fillE(g, 6, -6, 1.8, 1.8, '#FFFFFF'); fillRR(g, -16, -13, 6, 3, 1, BLUE); g.restore();
+    if (PHO.flash) { fillE(g, tx + 8, ty - 132, 22, 22, 'rgba(255,255,255,.75)'); fillE(g, tx + 8, ty - 132, 8, 8, '#FFFFFF'); }
+    if (PHO.prints) { var hp = handAt(PHO, 1); [0, 1, 2].forEach(function (i) { var u = clamp(PHO.prints - i * 0.15, 0, 1); if (!u) return; g.save(); g.translate(hp[0] + i * 4, hp[1] - 6 - u * 10 * i); g.rotate(-0.3 + i * 0.3 * u); fillRR(g, -11, -26, 22, 26, 2, '#FFFFFF'); fillRR(g, -9, -24, 18, 16, 1, [BLUE, '#F2B233', '#2EA597'][i]); fillE(g, -3 + i * 2, -18, 3, 3, '#FFF3C8'); g.restore(); }); }
+    if (VIS.map) { var a0 = handAt(VIS, 0), a1 = handAt(VIS, 1), mx = (a0[0] + a1[0]) / 2, my = Math.min(a0[1], a1[1]) - 12, mw = Math.max(30, Math.abs(a1[0] - a0[0]) + 14);
+      g.save(); g.translate(mx, my); fillRR(g, -mw / 2, -18, mw, 32, 2, '#FFF7E6'); g.fillStyle = '#BFE3F7'; g.fillRect(-mw / 2 + 2, 0, mw - 4, 12); g.strokeStyle = 'rgba(200,180,140,.8)'; g.lineWidth = 1; for (var fd = 1; fd < 3; fd++) { g.beginPath(); g.moveTo(-mw / 2 + fd * mw / 3, -18); g.lineTo(-mw / 2 + fd * mw / 3, 14); g.stroke(); }
+      g.strokeStyle = '#E0456B'; g.setLineDash([2, 2]); g.beginPath(); g.moveTo(-mw / 2 + 6, -12); g.quadraticCurveTo(0, -2, mw / 2 - 8, -10); g.stroke(); g.setLineDash([]);
+      var pin = VIS.found ? 1 : 0; fillE(g, mw / 2 - 8, -12 - pin * 4, 3.4 + pin, 3.4 + pin, '#E0456B'); g.restore();
+      if (VIS.found) { mark(g, mx + mw / 2 - 8, my - 34, 0.6, GOLD, BLUE); } }
+  }
   /* ---------------- the cast: an idle loop and a tap choreography each ---------------- */
   function tapped(id, st, t) { if (st.wave && st.wave !== st._my) { st._my = st.wave; TAP[id] = t; return true; } return false; }
   function lookAtNexi(P, st, t, S, base) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : base, 0.08); }
@@ -593,11 +639,32 @@
     P.hands = [[-70, -190], [70, -170]]; P.mood = (t % 2) < 1 ? 'happy' : 'calm'; lookAtNexi(P, st, t, S, -0.4);
   } };
 
+  var castVIS = { id: 'vis', behind: true, keys: [], P: VIS, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.map = false; P.found = false; P.talk = false;
+    if (TAP.vis && t - TAP.vis < 2.8) { var u = (t - TAP.vis) / 2.8; P.map = u < 0.5; P.found = u > 0.2 && u < 0.5; P.mood = 'happy'; P.talk = true;
+      P.hands = u < 0.5 ? [[-60, -270], [60, -270]] : [[-60, -220], [140, -360 + Math.sin(u * 20) * 6]]; P.look = u < 0.5 ? 0 : 0.9; P.hop = u > 0.5 ? Math.abs(Math.sin(u * Math.PI * 3)) * 8 : 0; return; }
+    var c = (t + 4) % 12; P.mood = 'calm';
+    if (c < 6) { P.map = true; P.hands = [[-58 - Math.sin(t * 0.8) * 4, -262], [58 + Math.sin(t * 0.8) * 4, -262]]; P.look = lerp(P.look, Math.sin(t * 0.6) * 0.4, 0.08); P.tilt = Math.sin(t * 0.6) * 0.03; }
+    else if (c < 9) { P.hands = [[-50, -210], [40, -220]]; P.look = lerp(P.look, 0.9, 0.06); P.mood = 'happy'; }
+    else { P.hands = [[-50, -210], [-20, -330 + Math.sin(t * 2) * 4]]; P.look = lerp(P.look, -0.6, 0.06); P.tilt = -0.04; }
+  } };
+  var castPHO = { id: 'pho', behind: false, keys: ['social'], P: PHO, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.flash = false; P.prints = 0; P.camTilt = 0; P.x = -30;
+    if (TAP.pho && t - TAP.pho < 3) { var u = (t - TAP.pho) / 3; P.talk = true; P.mood = 'happy';
+      if (u < 0.3) { P.hands = [[40, -330], [70, -320]]; P.look = 0.9; P.flash = u > 0.18 && u < 0.24; P.camTilt = -0.1; }
+      else { P.prints = clamp((u - 0.3) * 3, 0, 1.4); P.hands = [[-60, -240], [70, -380]]; P.look = 0.3; P.hop = u < 0.5 ? Math.sin((u - 0.3) / 0.2 * Math.PI) * 10 : 0; } return; }
+    var c = (t + 2) % 11, busy = S.hot === 'social'; P.talk = busy; P.mood = busy ? 'happy' : 'calm';
+    if (c < 4) { P.x = -30 + Math.sin(c / 4 * Math.PI) * 4; P.hands = [[44, -330], [74, -318]]; P.look = 0.9; P.camTilt = Math.sin(t * 0.9) * 0.08; P.flash = (c > 2.6 && c < 2.75); }
+    else if (c < 6.5) { P.hands = [[-50, -230], [20, -260]]; P.look = -0.2; P.tilt = 0.05; P.mood = 'happy'; }
+    else if (c < 8.5) { P.hands = [[-90, -420], [-40, -420]]; P.look = -0.8; P.tilt = -0.05; }
+    else { P.hands = [[-60, -200], [60, -200]]; P.look = lerp(P.look, 0.4, 0.1); P.hop = Math.abs(Math.sin(t * 6)) * 2; }
+  } };
+
   window.IXW.worlds['sol-mkt'] = {
     pan: [-320, 1180],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); quayLive(g, t, S); CR.draw(g, t); },
     motes: false,
     glow: {
       lighthouse: function (g) { rr(g, LH.x - 34, LH.gal - 80, 68, LH.base - LH.gal + 84, 18); },
@@ -609,10 +676,12 @@
       flags: function (g) { rr(g, POLE.x - 16, POLE.y1 - 12, 56, POLE.y0 - POLE.y1 + 18, 12); }
     },
     backGlow: ['lighthouse', 'website', 'social', 'report', 'flags'],
-    cast: [castDEV, castOWN, castSOC, castDES, castLEAD],
+    cast: [castVIS, castDEV, castOWN, castSOC, castDES, castLEAD, castPHO],
     toy: function (name, S, t) { if (name === 'flags') { FLAGS.t = t; CR.burst('conf', POLE.x + 10, POLE.y1 + 10, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
+      if (Math.abs(x - VIS.x) < 60 && y > 330 && y < Q0 + 20) { TAP.vis = t; CR.burst('star', VIS.x, 320, t); return { say: 'A visitor with a map. Your shop is **marked on it**: the website, the posts and the signs all point the same way.', near: [80, 20], pose: 'love', who: 'Visitor' }; }
+      if (Math.abs(x - PHO.x - 20) < 60 && y > 300 && y < 580) { TAP.pho = t; CR.burst('spark', TRI.x, TRI.y - 130, t); return { say: 'Short video and graphics made from **your own** shop and people, so the posts look like you.', near: [200, 30], pose: 'wow', who: 'TechNext content producer' }; }
       for (var i = 0; i < GULLS.length; i++) if (Math.abs(x - GULLS[i][0]) < 22 && Math.abs(y - GULLS[i][1]) < 16) { CR.burst('note', GULLS[i][0], GULLS[i][1], t); return { say: 'Squawk! Even the gulls can **find you** now.', near: [clamp(x, 240, 900), clamp(y + 120, -40, 120)], pose: 'wow', who: 'A gull' }; }
       if (Math.abs(x - PLANE.x - 60) < 90 && Math.abs(y - PLANE.y) < 20) return { say: 'The banner plane tows your **handle** past the whole bay: social reach, in the same colours.', near: [clamp(x, 240, 900), -30], pose: 'wow', who: 'The banner plane' };
       for (var b = 0; b < BOATS.length; b++) { var B = BOATS[b]; if (Math.abs(x - B[0]) < 30 * B[2] + 8 && y < B[1] + 10 && y > B[1] - 64 * B[2]) return { say: B[3] === 0 ? 'A sail in **your livery**: blue, white and gold. People know it is you from across the bay.' : 'Every boat in the bay can see the **lighthouse**. That is the point of it.', near: [clamp(B[0], 240, 900), clamp(B[1] - 160, -60, 80)], pose: 'point-right', who: 'A sailboat' }; }
