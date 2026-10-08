@@ -192,4 +192,41 @@
     ],
     onStop: function (key, S, t) { if (key === 'make') S.mkT = t; if (key === 'check') S.ckT = t; if (key === 'cost') S.csT = t; }
   };
+  /* ---------------- audit round: a working aisle. Painted direction arrows and a hatched keep-clear box on the floor, a
+     forklift shuttling a pallet of finished goods along the aisle (tap it: it stops, toots and lifts its forks), and a
+     wrapped pallet of finished goods waiting right of the caption ---------------- */
+  var FL = { x0: -560, x1: 930, y: 580, toot: -9, paid: 0 };
+  function flT(t) { var d = t - FL.toot; return d < 2.6 ? FL.toot - FL.paid : t - FL.paid - 2.6; }
+  function flX(tt) { var span = FL.x1 - FL.x0, u = (tt * 44) % (span * 2); return { x: FL.x0 + (u < span ? u : span * 2 - u), dir: u < span ? 1 : -1 }; }
+  function exFloor(g, ext) {
+    for (var x = Math.floor(ext.l / 220) * 220 + 40; x < ext.r; x += 220) { g.fillStyle = 'rgba(255,255,255,.55)'; g.beginPath(); g.moveTo(x, 555); g.lineTo(x + 34, 555); g.lineTo(x + 34, 548); g.lineTo(x + 52, 559); g.lineTo(x + 34, 570); g.lineTo(x + 34, 563); g.lineTo(x, 563); g.closePath(); g.fill(); }
+    if (ext.l < -200) { var kx = -370, ky = 612, kw = 200, kh = 44; g.save(); rr(g, kx, ky, kw, kh, 2); g.clip(); fillRR(g, kx, ky, kw, kh, 0, 'rgba(255,201,60,.55)');
+      g.strokeStyle = 'rgba(30,42,51,.45)'; g.lineWidth = 8; for (var hx = kx - kh; hx < kx + kw; hx += 22) { g.beginPath(); g.moveTo(hx, ky + kh); g.lineTo(hx + kh, ky); g.stroke(); } g.restore();
+      fillRR(g, kx + 50, ky + 12, 100, 20, 4, '#F4F1EA'); text(g, 'KEEP CLEAR', kx + 100, ky + 26, 10, 800, '#1E2A33', 'center'); }
+  }
+  function forklift(g, x, y, dir, lift) {
+    g.save(); g.translate(x, y); g.scale(dir * 1.45, 1.45); soft(g, 0, 3, 70, 7, 0.25);
+    fillRR(g, -46, -44, 72, 34, 8, '#FF7A1A'); fillRR(g, -40, -40, 26, 10, 3, '#FFB070'); fillRR(g, -60, -40, 18, 30, 4, '#5C6B7A');
+    g.strokeStyle = '#1E2A33'; g.lineWidth = 4; g.beginPath(); g.moveTo(-34, -44); g.lineTo(-30, -96); g.lineTo(10, -96); g.lineTo(16, -44); g.stroke(); fillRR(g, -36, -100, 52, 6, 3, '#1E2A33');
+    fillE(g, -12, -62, 9, 9, '#F1C6A0'); fillRR(g, -22, -54, 20, 14, 5, '#1FA463'); fillE(g, -12, -70, 10, 5, '#FFC93C');
+    fillRR(g, 28, -110, 6, 104, 2, '#5C6B7A'); var fy = -14 - lift * 26; fillRR(g, 30, fy, 46, 5, 2, '#5C6B7A');
+    fillRR(g, 32, fy - 8, 42, 8, 2, '#B98E62'); for (var i = 0; i < 2; i++) fillRR(g, 34 + i * 20, fy - 34, 18, 26, 3, i ? '#3A93C0' : '#FFC93C');
+    fillE(g, -32, -6, 11, 11, '#1E2A33'); fillE(g, 12, -6, 9, 9, '#1E2A33'); fillE(g, -32, -6, 4, 4, '#8A97A6'); fillE(g, 12, -6, 3.5, 3.5, '#8A97A6');
+    g.restore();
+  }
+  function exFore(g, t, S) {
+    var ext = S.ext, tt = flT(t), p = flX(tt), d = t - FL.toot, on = d >= 0 && d < 2.6;
+    if (p.x > ext.l - 90 && p.x < ext.r + 90) { forklift(g, p.x, FL.y, p.dir, on ? Math.sin(Math.min(1, d / 1.3) * Math.PI) : 0);
+      fillE(g, p.x - p.dir * 49, FL.y - 151, 3.5, 3.5, Math.floor(t * 3) % 2 ? '#FF7A1A' : '#FFD08A');
+      if (on) { fillRR(g, p.x - 30, FL.y - 196, 60, 20, 8, '#FFFFFF'); text(g, 'toot toot', p.x, FL.y - 182, 8.5, 800, '#FF7A1A', 'center'); } }
+    if (ext.r > 970) { var px = 950, py = 648; soft(g, px, py + 3, 52, 6, 0.24); fillRR(g, px - 46, py - 12, 92, 12, 2, '#B98E62'); g.fillStyle = '#8E6A44'; for (var i = 0; i < 3; i++) g.fillRect(px - 42 + i * 38, py - 12, 8, 12);
+      fillRR(g, px - 42, py - 92, 84, 80, 4, 'rgba(210,225,235,.92)'); g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = 2; for (var w = 0; w < 4; w++) { g.beginPath(); g.moveTo(px - 42, py - 80 + w * 18); g.lineTo(px + 42, py - 72 + w * 18); g.stroke(); }
+      fillRR(g, px - 18, py - 64, 36, 22, 3, '#FFFFFF'); text(g, 'FG', px, py - 49, 10, 800, '#2F6B7A', 'center'); }
+  }
+  function exHit(x, y, S, t) { if (t - FL.toot < 2.6) return false; var tt = flT(t), p = flX(tt); if (Math.abs(x - p.x) < 100 && y > FL.y - 170 && y < FL.y + 10) { FL.paid = t - tt; FL.toot = t; return true; } return false; }
+  (function (W) { var pb = W.paintBack, pf = W.paintForeLive, h0 = W.hit;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds.manufacturing);
 })(window.IXW && window.IXW.kit);

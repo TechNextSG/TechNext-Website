@@ -179,3 +179,27 @@
 .ixw--blog .bl-cta-onair::before{content:"";width:8px;height:8px;border-radius:50%;background:#FFFFFF;animation:ndBlink 1.4s ease-in-out infinite}
 @media (max-width:767px){.ixw--blog .bl-cta-onair{left:24px}}
 @media (prefers-reduced-motion:reduce){.ixw--blog .bl-crawl-run i,.ixw--blog .bl-extra,.ixw--blog .bl-crawl-tag::before,.ixw--blog .bl-monitors .card::after,.ixw--blog .bl-cta-onair::before,.ixw--blog .bl-strip>div:first-of-type::after{animation:none}}
+
+/* ---------- audit round: hero controls. One height for the press keys, a themed halo on play, a hover, a press and a
+   focus ring on every control, the eye of the peek key in red, the EXTRA! seal clear of the masthead date ---------- */
+.ixw--blog .ixw-copy .actions{gap:14px}
+.ixw--blog .ixw-copy .actions .btn{height:52px;padding:0 22px}
+.ixw--blog .ixw-ep-tag:hover{box-shadow:0 4px 0 #9E2A23;color:#FFFFFF}
+.ixw--blog .ixw-ep-tag:focus-visible{outline:3px solid var(--bl-y);outline-offset:3px}
+.ixw--blog .ixw-ibtn{transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,color .2s ease,background-color .2s ease}
+.ixw--blog .ixw-ibtn:not(.ixw-ibtn--play):hover{border-color:var(--bl-ink);color:var(--bl-red);background:#FFF7D6;box-shadow:0 5px 0 var(--bl-ink)}
+.ixw--blog .ixw-ibtn:active{box-shadow:0 1px 0 var(--bl-ink)}
+.ixw--blog .ixw-ibtn--play{box-shadow:0 3px 0 var(--bl-ink)}
+.ixw--blog .ixw-ibtn--play:hover{box-shadow:0 5px 0 var(--bl-ink)}
+.ixw--blog .ixw-ibtn--play.is-on{animation:blHalo 2.4s ease-out infinite}
+@keyframes blHalo{0%{box-shadow:0 3px 0 #141A3A,0 0 0 0 rgba(226,69,60,.45)}70%,100%{box-shadow:0 3px 0 #141A3A,0 0 0 12px rgba(226,69,60,0)}}
+.ixw--blog :is(.ixw-ibtn,.ixw-dots button,.ixw-peek):focus-visible{outline:3px solid var(--bl-y);outline-offset:3px}
+.ixw--blog .ixw-dots button:not(.is-on):hover{background:#9AA6BC}
+.ixw--blog .ixw-peek{height:40px;padding:0 16px 0 13px}
+.ixw--blog .ixw-peek::before{background:var(--bl-red)}
+.ixw--blog .ixw-peek:hover{background:#FFF7D6;box-shadow:0 5px 0 var(--bl-ink)}
+.ixw--blog .ixw-peek[aria-pressed="true"]::before{background:var(--bl-ink)}
+@media (min-width:768px){.ixw--blog .bl-desk .nd-date{padding-right:104px}}
+@media (prefers-reduced-motion:reduce){.ixw--blog .ixw-ibtn--play.is-on{animation:none}}
+/* phones: Nexi sits on top of the end card instead of over the heading */
+@media (max-width:767px){.ixw--blog .ixw-cta-nexi .ixw-pose{top:calc(var(--ay) * -.26px + 2px)}.ixw--blog .bl-cta h2{padding-right:34px}}

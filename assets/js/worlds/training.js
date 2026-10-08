@@ -14,7 +14,7 @@
   var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed;
   var F = 470, CEIL = -150, PUR = '#714B67', BLUE = '#3167CA', AMB = '#F2A33A', INK = '#1B1F3B', PASS = '#9AA6BC', YEL = '#FFC93C';
   var SC = { x: 346, y: -100, w: 468, h: 250 }, WIN = { x: 910, y: -126, w: 460, h: 356 };
-  var T = { strip: { x: 176, y: -74, w: 154, h: 224 }, cert: { x: 826, y: -64, w: 74, h: 84 }, rack: { x: 826, y: 52, w: 74, h: 118 }, ios: { x: 960, y: 362, w: 140 }, poster: { x: -440, y: -84, w: 400, h: 220 } };
+  var T = { strip: { x: 176, y: -74, w: 154, h: 224 }, cert: { x: 826, y: -64, w: 74, h: 84 }, rack: { x: 826, y: 52, w: 74, h: 118 }, ios: { x: 960, y: 362, w: 140 }, poster: { x: -440, y: -70, w: 400, h: 170 } };
   var ROLES = [
     { key: 'finance', tab: 'Finance', col: '#2E9C7E', h: 'Bank reconciliation', btn: 'Validate', tip: 'Check the suggested match, then validate.',
       rows: [['Harbourline Supplies', 'Matched', 'S$ 4,280.00', 1], ['Card settlement', 'Matched', 'S$ 1,962.40', 1], ['Transfer, no reference', 'To review', 'S$ 350.00', 0]] },
@@ -62,7 +62,7 @@
     g.strokeStyle = 'rgba(90,70,110,.08)'; g.lineWidth = 1.6; g.beginPath(); for (var d = 1; d < 7; d++) { var yy = F + Math.pow(d / 6, 1.5) * (e.b - F); g.moveTo(e.l, yy); g.lineTo(e.r, yy); } g.stroke();
     /* the taxi line that leads to the pods: yellow with a dark edge */
     g.lineCap = 'round'; g.strokeStyle = 'rgba(60,40,10,.18)'; g.lineWidth = 12; taxiPath(g); g.stroke(); g.strokeStyle = YEL; g.lineWidth = 7; taxiPath(g); g.stroke();
-    g.save(); g.translate(600, 724); g.scale(1, 0.42); g.font = '800 64px ' + K.FONT; g.textAlign = 'center'; g.fillStyle = 'rgba(113,75,103,.10)'; g.fillText('TRAINING BAY', 0, 0); g.restore();
+    g.save(); g.translate(586, 732); g.scale(1, 0.42); g.font = '800 46px ' + K.FONT; g.textAlign = 'center'; g.fillStyle = 'rgba(113,75,103,.10)'; g.fillText('TRAINING BAY', 0, 0); g.restore();
     /* hold-short bars in front of each pod */
     PODS.forEach(function (p) { g.fillStyle = 'rgba(255,201,60,.8)'; g.fillRect(p.x - 60, 610, 120, 5); g.fillRect(p.x - 60, 620, 120, 5); g.setLineDash([10, 8]); g.strokeStyle = 'rgba(255,201,60,.8)'; g.lineWidth = 4; g.beginPath(); g.moveTo(p.x - 60, 632); g.lineTo(p.x + 60, 632); g.stroke(); g.setLineDash([]); });
     g.restore();
@@ -96,9 +96,13 @@
     /* behind the title card: the training path poster, the bench with flight bags, the coffee machine */
     var po = T.poster; shadowed(g, 12, 4, 0.16, function () { fillRR(g, po.x, po.y, po.w, po.h, 8, '#FFFFFF'); }); fillRR(g, po.x, po.y, po.w, 30, 8, PUR); g.fillRect(po.x, po.y + 20, po.w, 10);
     text(g, 'THE TRAINING PATH', po.x + 18, po.y + 20, 11, 800, '#FFFFFF');
-    ['Key users', 'End users', 'Train-the-trainer', 'UAT', 'Go-live'].forEach(function (s, i) { var x = po.x + 40 + i * 80, y = po.y + 110 - (i % 2) * 40; if (i) { g.strokeStyle = PUR; g.setLineDash([5, 5]); g.lineWidth = 2; g.beginPath(); g.moveTo(po.x + 40 + (i - 1) * 80, po.y + 110 - ((i - 1) % 2) * 40); g.lineTo(x, y); g.stroke(); g.setLineDash([]); }
+    ['Key users', 'End users', 'Train-the-trainer', 'UAT', 'Go-live'].forEach(function (s, i) { var x = po.x + 40 + i * 80, y = po.y + 100 - (i % 2) * 36; if (i) { g.strokeStyle = PUR; g.setLineDash([5, 5]); g.lineWidth = 2; g.beginPath(); g.moveTo(po.x + 40 + (i - 1) * 80, po.y + 100 - ((i - 1) % 2) * 36); g.lineTo(x, y); g.stroke(); g.setLineDash([]); }
       fillE(g, x, y, 13, 13, i === 4 ? AMB : '#F4F0F8'); g.strokeStyle = PUR; g.lineWidth = 2.5; g.beginPath(); g.arc(x, y, 13, 0, 7); g.stroke(); text(g, String(i + 1), x, y + 4.5, 11, 800, i === 4 ? '#FFFFFF' : PUR, 'center'); text(g, s, x, y + 30, 8.5, 800, INK, 'center'); });
-    CO.plane(g, po.x + po.w - 40, po.y + 70, 2.2, -0.4, AMB);
+    CO.plane(g, po.x + po.w - 40, po.y + 62, 2.2, -0.4, AMB);
+    /* the flight-school sign under the poster */
+    shadowed(g, 10, 4, 0.16, function () { fillRR(g, po.x, 114, po.w, 54, 10, INK); }); fillRR(g, po.x + 6, 120, po.w - 12, 42, 7, '#2A2F55'); wings(g, po.x + 48, 141, 0.62, YEL);
+    text(g, 'TECHNEXT FLIGHT SCHOOL', po.x + 92, 139, 13, 800, '#FFFFFF'); text(g, 'Odoo 20 training bay · practise first, then fly', po.x + 92, 154, 7.5, 700, '#C9C2E0');
+    for (var lt = 0; lt < 3; lt++) fillE(g, po.x + po.w - 22 - lt * 14, 141, 3.5, 3.5, ['#2BC48A', AMB, '#E2453C'][lt]);
     fillRR(g, -420, 400, 300, 14, 5, '#C9A27A'); [-400, -150].forEach(function (lx) { fillRR(g, lx, 414, 10, F - 414, 3, '#9AA6BC'); });
     [[-390, '#3167CA'], [-320, PUR], [-250, '#2E9C7E']].forEach(function (b) { fillRR(g, b[0], 366, 56, 36, 8, b[1]); fillRR(g, b[0] + 16, 358, 24, 10, 4, b[1]); fillRR(g, b[0] + 6, 378, 44, 4, 2, 'rgba(255,255,255,.4)'); });
     fillRR(g, 40, 300, 92, F - 300, 8, '#3A4458'); fillRR(g, 48, 312, 76, 40, 4, '#1E2A3A'); text(g, 'COFFEE', 86, 336, 9, 800, AMB, 'center'); fillRR(g, 70, 372, 32, 30, 3, '#2A3142'); fillRR(g, 78, 384, 16, 16, 2, '#FFFFFF');
@@ -130,16 +134,33 @@
   function paintFore(g, ext) {
     cone(g, 196, 700, 1); cone(g, 236, 712, 0.86); cone(g, 990, 690, 1);
     /* a flight bag with a headset on it */
-    soft(g, 560, 744, 50, 7, 0.26); fillRR(g, 516, 690, 90, 54, 10, '#3A4458'); fillRR(g, 516, 690, 90, 12, 6, '#4A5468'); fillRR(g, 540, 676, 42, 16, 6, '#2A3142'); fillRR(g, 530, 712, 62, 18, 4, '#4A5468');
-    g.strokeStyle = '#2A3550'; g.lineWidth = 6; g.beginPath(); g.arc(612, 712, 22, Math.PI * 1.05, Math.PI * 1.95); g.stroke(); fillRR(g, 586, 704, 14, 22, 6, '#2A3550'); fillRR(g, 624, 704, 14, 22, 6, '#2A3550'); fillRR(g, 628, 700, 6, 6, 2, AMB);
+    g.save(); g.translate(250, 0); soft(g, 560, 744, 50, 7, 0.26); fillRR(g, 516, 690, 90, 54, 10, '#3A4458'); fillRR(g, 516, 690, 90, 12, 6, '#4A5468'); fillRR(g, 540, 676, 42, 16, 6, '#2A3142'); fillRR(g, 530, 712, 62, 18, 4, '#4A5468');
+    g.strokeStyle = '#2A3550'; g.lineWidth = 6; g.beginPath(); g.arc(612, 712, 22, Math.PI * 1.05, Math.PI * 1.95); g.stroke(); fillRR(g, 586, 704, 14, 22, 6, '#2A3550'); fillRR(g, 624, 704, 14, 22, 6, '#2A3550'); fillRR(g, 628, 700, 6, 6, 2, AMB); g.restore();
+    gate(g);
     /* boxes of guides, ready to hand out */
     [[1010, 760, 100, 66], [1024, 694, 76, 54]].forEach(function (bx) { soft(g, bx[0] + bx[2] / 2, bx[1] + 3, bx[2] * 0.6, 7, 0.26); fillRR(g, bx[0], bx[1] - bx[3], bx[2], bx[3], 4, '#C99A6B'); fillRR(g, bx[0] - 3, bx[1] - bx[3], bx[2] + 6, 12, 3, '#B5865A');
       fillRR(g, bx[0] + 12, bx[1] - bx[3] + 22, bx[2] - 24, 18, 2, '#FFFFFF'); text(g, 'GUIDES', bx[0] + bx[2] / 2, bx[1] - bx[3] + 35, 8, 800, PUR, 'center'); });
     /* the model plane's stand (the plane and its spinning propeller are live) */
     soft(g, 360, 770, 40, 7, 0.26); fillRR(g, 330, 756, 60, 14, 4, '#5C6B7A'); fillRR(g, 356, 692, 8, 66, 3, '#9AA6BC');
-    K.plant(g, { x: -500, y: 770 }, '#FFFFFF', '#E3DCEB'); cone(g, -700, 760, 1);
+    K.plant(g, { x: -560, y: 770 }, '#FFFFFF', '#E3DCEB'); cone(g, -700, 760, 1);
   }
 
+  /* behind the title card, on the floor: the boarding stairs up to the briefing deck, a taxiway sign, wheel chocks */
+  function gate(g) {
+    /* the airport taxiway sign: black and yellow, on two legs */
+    var sx = -330, sy = 600; soft(g, sx, sy + 4, 70, 7, 0.26); g.fillStyle = '#5C6B7A'; g.fillRect(sx - 52, sy - 40, 6, 40); g.fillRect(sx + 46, sy - 40, 6, 40);
+    fillRR(g, sx - 70, sy - 84, 140, 46, 4, '#1B1B1B'); fillRR(g, sx - 66, sy - 80, 64, 38, 2, YEL); text(g, '← SIM 1–3', sx - 34, sy - 56, 9.5, 800, '#1B1B1B', 'center');
+    text(g, 'BRIEF', sx + 34, sy - 63, 9.5, 800, YEL, 'center'); text(g, 'ROOM →', sx + 34, sy - 50, 9.5, 800, YEL, 'center');
+    /* the boarding stairs (mobile airstair) on castors */
+    var bx = -120, by = 640; soft(g, bx + 70, by + 4, 100, 9, 0.28); fillRR(g, bx - 10, by - 26, 170, 16, 5, '#5C6680'); [bx, bx + 140].forEach(function (x) { fillE(g, x, by - 6, 8, 8, '#2A3142'); fillE(g, x, by - 6, 3, 3, '#9AA6BC'); });
+    g.fillStyle = '#B9B0CC'; g.beginPath(); g.moveTo(bx, by - 26); g.lineTo(bx + 110, by - 196); g.lineTo(bx + 160, by - 196); g.lineTo(bx + 160, by - 26); g.closePath(); g.fill(); g.strokeStyle = PUR; g.lineWidth = 3; g.stroke(); fillRR(g, bx + 132, by - 190, 22, 160, 4, '#A49AC0');
+    for (var st = 0; st < 8; st++) { var u = st / 8, x = bx + 8 + u * 104, y = by - 34 - u * 160; fillRR(g, x, y, 34, 7, 2, '#F4F1F8'); fillRR(g, x, y + 5, 34, 2, 1, '#8E86A3'); }
+    fillRR(g, bx + 108, by - 204, 56, 10, 3, PUR); g.strokeStyle = '#5C6680'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(bx + 4, by - 70); g.lineTo(bx + 112, by - 240); g.lineTo(bx + 162, by - 240); g.moveTo(bx + 162, by - 240); g.lineTo(bx + 162, by - 200); g.stroke();
+    g.strokeStyle = '#7A84A0'; g.lineWidth = 2; for (var p = 0; p < 6; p++) { var q = p / 5; g.beginPath(); g.moveTo(bx + 4 + q * 108, by - 70 - q * 170); g.lineTo(bx + 10 + q * 108, by - 34 - q * 160); g.stroke(); }
+    fillRR(g, bx + 118, by - 120, 36, 22, 3, '#FFFFFF'); text(g, 'SIM', bx + 136, by - 105, 8, 800, PUR, 'center');
+    /* wheel chocks */
+    [[-460, 660], [-420, 660]].forEach(function (c) { soft(g, c[0], c[1] + 2, 16, 3, 0.24); g.fillStyle = YEL; g.beginPath(); g.moveTo(c[0] - 14, c[1]); g.lineTo(c[0] + 14, c[1]); g.lineTo(c[0] + 6, c[1] - 14); g.lineTo(c[0] - 6, c[1] - 14); g.closePath(); g.fill(); fillRR(g, c[0] - 10, c[1] - 9, 20, 3, 1, '#1B1B1B'); });
+  }
   /* ============================== the cast ============================== */
   var W = CR.who;
   var TR = W({ x: 650, y: 470, s: 0.54, ph: 0.3, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: PUR, hold: 'tablet', headset: AMB, hands: [[-60, -212], [70, -170]], look: -0.4 });
@@ -147,12 +168,13 @@
   var SAL = W({ x: 470, y: PLAT, s: 0.5, ph: 2.0, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: '#E46E78', sit: true, chair: false, id: PASS, headset: '#E46E78', hands: [[-60, -206], [60, -206]] });
   var WH = W({ x: 815, y: PLAT, s: 0.5, ph: 2.7, skin: 3, hair: 0, style: 'short', outfit: 'polo', top: AMB, sit: true, chair: false, id: PASS, hatKind: 'cap', hat: '#5C6B7A', hands: [[-60, -206], [60, -206]] });
   [FIN, SAL, WH].forEach(function (P, i) { P.pod = i; });
+  var BEN = W({ x: -160, y: 470, s: 0.5, ph: 0.4, skin: 1, hair: 2, style: 'pony', outfit: 'cardigan', top: '#E46E78', top2: '#FFFFFF', sit: true, chair: false, sitDrop: 50, id: PASS, hands: [[-40, -230], [40, -230]], look: 0.3 });
   var CREW = [
     { x0: 1080, x1: 1400, y: 492, spd: 15, ph: 0.3, label: 'TechNext consultant', lines: ['More **quick-reference guides** for the rack.', 'Administrators next: users, access rights and **settings**.'], acts: ['nod', 'tr_plane'],
       P: W({ s: 0.5, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: BLUE, hold: 'box' }) },
-    { x0: -920, x1: -500, y: 494, spd: 14, ph: 0.6, label: 'Trainee, administrator', lines: ['Admin session at **two**: users and access rights.', 'Practising on a **copy** of our data. Nothing breaks!'], acts: ['cheer', 'tr_salute'],
+    { x0: -930, x1: -640, y: 494, spd: 14, ph: 0.6, label: 'Trainee, administrator', lines: ['Admin session at **two**: users and access rights.', 'Practising on a **copy** of our data. Nothing breaks!'], acts: ['cheer', 'tr_salute'],
       P: W({ s: 0.5, skin: 0, hair: 1, style: 'long', outfit: 'cardigan', top: '#3A72D6', top2: '#FFFFFF', id: PASS, hold: 'tablet' }) },
-    { front: true, x0: -920, x1: -470, y: 706, spd: 18, ph: 0.2, label: 'TechNext consultant', lines: ['Key users first, then everyone else. **They** train the rest.', 'A refresher after the **first month-end**, too.'], acts: ['wave', 'tr_wings'],
+    { front: true, x0: -540, x1: 120, y: 672, spd: 18, ph: 0.2, label: 'TechNext consultant', lines: ['Key users first, then everyone else. **They** train the rest.', 'A refresher after the **first month-end**, too.'], acts: ['wave', 'tr_wings'],
       P: W({ s: 0.58, skin: 3, hair: 0, style: 'bun', outfit: 'polo', top: '#2E9C7E', hold: 'clipboard' }) }
   ];
 
@@ -170,7 +192,18 @@
   A.tr_salute = { dur: 1.6, fx: 'star', pose: function (P, u) { P.mood = 'happy'; P.hands = [[-60, -200], [50, -430]]; P.tilt = -0.06; } };
   A.tr_wings = { dur: 2.0, fx: 'spark', pose: function (P, u, t) { var w = Math.sin(t * 4); P.mood = 'happy'; P.hands = [[-170, -280 + w * 40], [170, -280 - w * 40]]; P.tilt = w * 0.14; } };
 
-  var FX = [], GD = { t: -9 }, CT = { t: -9 };
+  var FX = [], GD = { t: -9 }, CT = { t: -9 }, BNT = { t: -9 };
+  /* the trainee on the bench (behind the title card, a client: grey pass): idle, reads her quick-reference guide, turns a page,
+     sips her coffee, looks up at the flight strips; tapped, she pulls on her headset and gives a thumbs up: ready for take-off */
+  function actBen(P, t) {
+    var u = t - BNT.t, cyc = (t + 1) % 9; P.sx = 1; P.tilt = 0; P.hop = 0; P.talk = false; P.mood = 'calm'; P._guide = 1; P._cup = 0; P.headset = null;
+    if (cyc < 4) { P.hands = [[-36, -250], [36, -250]]; P.look = 0.1; P.tilt = 0.03; if (cyc > 3.4) P.hands = [[-36, -250], [-6, -262]]; }
+    else if (cyc < 6) { P.hands = [[-36, -250], [70, -330]]; P._cup = 1; P.look = lerp(P.look, 0.7, 0.06); }
+    else { P.hands = [[-40, -220], [40, -220]]; P._guide = 0; P.look = lerp(P.look, 0.9, 0.05); P.mood = 'happy'; P.tilt = Math.sin(t * 1.5) * 0.04; }
+    if (u < 2.2) { P.talk = true; P.mood = 'happy'; P._guide = 0; P._cup = 0; P.look = 0.3;
+      if (u < 0.8) P.hands = [[-90, -400], [90, -400]]; else { P.headset = '#E46E78'; P.hands = [[-40, -220], [90, -330]]; P.hop = u < 1.2 ? Math.sin((u - 0.8) / 0.4 * Math.PI) * 12 : 0; }
+      if (u > 0.9 && !BNT.b) { BNT.b = 1; fx('badge', P.x, P.y - 270, t, { txt: 'Ready for take-off', life: 1.6, bg: '#F4F0F8', fg: PUR }); } } else BNT.b = 0;
+  }
   function fx(kind, x, y, t, o) { FX.push({ k: kind, x: x, y: y, t0: t, o: o || {} }); }
   function acting(st, name, t) { return st && st.rx === name ? (t - st.rxT) / A[name].dur : -1; }
   function role(S, t) { var i = ['finance', 'sales', 'warehouse'].indexOf(S.hot); return i >= 0 ? i : Math.floor(t / 5) % 3; }
@@ -240,6 +273,10 @@
     /* the world clocks, the coffee machine's steam */
     var nowMs = Date.now(); [[-598, 8], [-550, 8], [-502, 7]].forEach(function (c) { var d = new Date(nowMs + c[1] * 3600e3); K.clockHands(g, { x: c[0], y: -72, r: 17 }, d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()); });
     g.strokeStyle = 'rgba(160,170,190,.55)'; g.lineWidth = 2; g.lineCap = 'round'; for (var sm = 0; sm < 2; sm++) { var ph = (t * 0.5 + sm * 0.5) % 1; g.globalAlpha = 1 - ph; g.beginPath(); g.moveTo(84 + sm * 6, 380 - ph * 10); g.quadraticCurveTo(84 + sm * 6 + Math.sin(t * 3 + sm) * 5, 368 - ph * 14, 84 + sm * 6, 356 - ph * 18); g.stroke(); } g.globalAlpha = 1;
+    /* the trainee on the bench, her guide and her coffee */
+    actBen(BEN, t); K.person(g, BEN, t);
+    if (BEN._guide) { var b0 = handW(BEN, 0), b1 = handW(BEN, 1); g.save(); g.translate((b0[0] + b1[0]) / 2, Math.min(b0[1], b1[1]) - 10); g.rotate(-0.06); fillRR(g, -18, -12, 36, 24, 2, '#FFFFFF'); fillRR(g, -18, -12, 36, 6, 2, PUR); fillRR(g, -1, -12, 2, 24, 1, '#E3DCEB'); g.fillStyle = '#C9D3E3'; for (var gl = 0; gl < 3; gl++) { g.fillRect(-14, -2 + gl * 4, 11, 1.4); g.fillRect(3, -2 + gl * 4, 11, 1.4); } g.restore(); }
+    if (BEN._cup) { var bc = handW(BEN, 1); fillRR(g, bc[0] - 6, bc[1] - 13, 12, 13, 3, '#FFFFFF'); fillRR(g, bc[0] - 6, bc[1] - 13, 12, 4, 2, AMB); }
     /* the pods, behind their trainees */
     PODS.forEach(function (p, i) { pod(g, p, t, [FIN, SAL, WH][i]); });
     /* the warehouse trainee's scanner (behind his hand) */
@@ -346,7 +383,8 @@
       if (name === 'guide') { GD.t = t; fx('guide', T.ios.x + 70, T.ios.y - 12, t, { tx: PODS[2].x + 10, ty: PLAT - 150, life: 1.2 }); CR.burst('spark', T.ios.x + 70, T.ios.y - 20, t); }
       if (name === 'cert') { CT.t = t; CR.burst('star', T.cert.x + T.cert.w / 2, T.cert.y, t); }
     },
-    hit: function (x, y, S, t) { var r = CR.hitWalker(x, y, t); if (r) { CREW.forEach(function (w) { var Wk = w._W; if (Wk && Wk.st && Wk.st.rx === 'tr_plane' && Wk.st._fx !== Wk.st.rxT) { Wk.st._fx = Wk.st.rxT; fx('plane', Wk.P.x, Wk.P.y - 230, t + 0.5, { life: 2.6 }); } }); } return r; },
+    hit: function (x, y, S, t) { if (Math.abs(x - BEN.x) < 56 && y < BEN.y + 6 && y > BEN.y - 230) { BNT.t = t; CR.burst('star', BEN.x, BEN.y - 240, t); return { say: 'Practising on a **copy** of our own data first. I came early to read the **guide**.', near: [-250, 60], pose: 'love', who: 'Trainee (client)' }; }
+      var r = CR.hitWalker(x, y, t); if (r) { CREW.forEach(function (w) { var Wk = w._W; if (Wk && Wk.st && Wk.st.rx === 'tr_plane' && Wk.st._fx !== Wk.st.rxT) { Wk.st._fx = Wk.st.rxT; fx('plane', Wk.P.x, Wk.P.y - 230, t + 0.5, { life: 2.6 }); } }); } return r; },
     onStop: function () {}
   };
 })(window.IXW && window.IXW.kit, window.CR, window.CO);

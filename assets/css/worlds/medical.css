@@ -124,3 +124,9 @@
 .ixw--medical .ixw-peek{border:2px solid var(--m-ink);color:var(--m-ink);background:linear-gradient(90deg,#FFFFFF 50%,#D6F3EC 50%);box-shadow:0 3px 0 var(--m-ink)}
 .ixw--medical .ixw-peek:hover{box-shadow:0 5px 0 var(--m-ink)}.ixw--medical .ixw-peek:active{box-shadow:0 1px 0 var(--m-ink)}
 .ixw--medical .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:var(--m-pill)}
+/* audit round: hero CTAs at 52px on desktop, matching the caption controls' rhythm */
+@media (min-width:768px){.ixw--medical .ixw-copy .btn-lg{height:52px}}
+/* audit round: before/after, the intro and switch stay in view beside the tall board instead of floating mid-way */
+@media (min-width:1024px){.ixw--medical .ix-ba-wrap{align-items:start}.ixw--medical .ix-ba-wrap>div:first-child{position:sticky;top:120px;padding-top:24px}}
+/* audit round: tablets, the glance strip clears the typed caption however long the line runs */
+@media (min-width:768px) and (max-width:1023px){.ixw--medical .ixw-credits{margin-top:48px}}
