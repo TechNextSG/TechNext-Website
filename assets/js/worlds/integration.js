@@ -105,7 +105,14 @@
     text(g, s.name, s.x + 52, s.y + 24, 9.5, 800, '#1B1F3B'); text(g, s.sub, s.x + 52, s.y + 37, 7, 700, '#8A96A8');
     fillRR(g, s.x + 124, s.y + 6, 18, 12, 6, s.col); text(g, 'L' + s.n, s.x + 133, s.y + 15, 7, 800, '#FFFFFF', 'center');
   }
+  function cardEdge() { /* where the title card's left edge sits in set units (null when the card is not beside the set, on phones) */
+    var set = document.querySelector('.ixw--integration [data-ixw-set]'), card = document.querySelector('.ixw--integration .ixw-copy');
+    if (!set || !card) return null; var r = set.getBoundingClientRect(), c = card.getBoundingClientRect(), k = r.width / 1000;
+    if (!k || c.bottom < r.top + 20 || c.top > r.bottom) return null; return (c.left - r.left) / k;
+  }
   function paintBack(g, ext) {
+    /* the passers-by on the left walk only where they are clear of the title card */
+    var ce = cardEdge(); CREW.forEach(function (w) { if (!w.left) return; if (w.x1b == null) w.x1b = w.x1; w.x1 = ce == null ? w.x1b : Math.min(w.x1b, ce - 150 * w.P.s); });
     /* the monorail beam over the hall */
     g.fillStyle = '#FFFFFF'; for (var hx = Math.floor(ext.l / 150) * 150; hx < ext.r; hx += 150) g.fillRect(hx, CEIL, 3, 18);
     fillRR(g, ext.l, -132, ext.r - ext.l, 9, 0, '#C9D4DC'); g.fillStyle = '#E8EEF2'; g.fillRect(ext.l, -132, ext.r - ext.l, 2);
@@ -174,7 +181,7 @@
       if (gi < 3) { g.fillStyle = 'rgba(160,215,235,.45)'; g.beginPath(); g.moveTo(gx + 24, F - 70); g.lineTo(gx + 40, F - 66); g.lineTo(gx + 40, F - 34); g.lineTo(gx + 24, F - 30); g.closePath(); g.fill(); } }
     bench(g, -640, F, 120, TEAL); K.plant(g, { x: -490, y: F }, '#FFFFFF', '#E3E8EF');
     /* the right platform: a parcel trolley, a bench and a plant */
-    var tx = 1090; soft(g, tx + 50, F + 2, 70, 7, 0.22); fillRR(g, tx, F - 30, 104, 10, 3, '#5C6B7A'); g.fillStyle = '#5C6B7A'; g.fillRect(tx + 96, F - 110, 6, 84);
+    var tx = 1124; soft(g, tx + 50, F + 2, 70, 7, 0.22); fillRR(g, tx, F - 30, 104, 10, 3, '#5C6B7A'); g.fillStyle = '#5C6B7A'; g.fillRect(tx + 96, F - 110, 6, 84);
     [[tx + 4, F - 76, 46, 46, '#C99A6B'], [tx + 52, F - 64, 40, 34, '#D6A877'], [tx + 14, F - 108, 34, 32, '#C99A6B']].forEach(function (b) { fillRR(g, b[0], b[1], b[2], b[3], 4, b[4]); g.fillStyle = 'rgba(255,240,210,.55)'; g.fillRect(b[0] + b[2] / 2 - 4, b[1], 8, b[3]); });
     fillE(g, tx + 14, F - 8, 9, 9, '#2A3142'); fillE(g, tx + 90, F - 8, 9, 9, '#2A3142');
     bench(g, 1230, F, 120, NAVY); K.plant(g, { x: 1390, y: F }, '#FFFFFF', '#E3E8EF');
@@ -185,12 +192,13 @@
   var EN1 = W({ x: 584, y: 470, s: 0.52, ph: 0.6, skin: 1, hair: 1, style: 'short', outfit: 'polo', top: TEAL, glasses: true, sit: true, chairCol: '#2A3550', hands: [[-120, -205], [-30, -205]], look: -0.7 });
   var EN2 = W({ x: 930, y: 470, s: 0.54, ph: 1.6, skin: 0, hair: 0, style: 'bob', outfit: 'shirt', top: '#3167CA', hold: 'tablet', hands: [[-70, -212], [60, -200]], look: -0.5 });
   var CN = W({ x: 222, y: 470, s: 0.53, ph: 2.3, skin: 2, hair: 0, style: 'pony', outfit: 'cardigan', top: PUR, top2: '#FFFFFF', clip: '#7FE3C9', hands: [[-70, -160], [86, -176]], look: 0.4 });
+  var PS = W({ x: 988, y: 598, s: 0.56, ph: 3.4, skin: 0, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E0456B', top2: '#FFFFFF', low: '#3A4458', sit: true, chair: false, id: '#9AA6BC', hands: [[-48, -300], [48, -300]], look: 0 });
   var CREW = [
-    { x0: 1010, x1: 1380, y: 494, spd: 16, ph: 0.3, label: 'TechNext developer', lines: ['Standard connector **first**. API only where we must.', 'Every message has a key, so nothing is **booked twice**.'], acts: ['nod', 'id', 'wave'],
+    { x0: 1112, x1: 1380, y: 494, spd: 16, ph: 0.3, label: 'TechNext developer', lines: ['Standard connector **first**. API only where we must.', 'Every message has a key, so nothing is **booked twice**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.5, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: '#1B2A4A', hold: 'box' }) },
-    { x0: -880, x1: -470, y: 500, spd: 18, ph: 0.6, label: 'Visitor · client', lines: ['Our web orders just **arrive in Odoo** now.', 'No more copying the **bank statement** by hand.'], acts: ['wave', 'cheer', 'nod'],
+    { left: true, x0: -880, x1: -470, y: 500, spd: 18, ph: 0.6, label: 'Visitor · client', lines: ['Our web orders just **arrive in Odoo** now.', 'No more copying the **bank statement** by hand.'], acts: ['wave', 'cheer', 'nod'],
       P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'shirt', top: '#E07B12', hold: 'bags', id: '#9AA6BC' }) },
-    { x0: -920, x1: -480, y: 610, spd: 20, ph: 0.15, label: 'TechNext consultant', lines: ['We map the data **field by field** first.', 'Tested on **staging** with real records.'], acts: ['cheer', 'id', 'wave'],
+    { left: true, x0: -920, x1: -480, y: 610, spd: 20, ph: 0.15, label: 'TechNext consultant', lines: ['We map the data **field by field** first.', 'Tested on **staging** with real records.'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.58, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: TEAL, hold: 'clipboard' }) }
   ];
 
@@ -283,6 +291,14 @@
     for (var r = 0; r < 4; r++) { var s = SYS[(r + roll) % 6], y = 186 + r * 19, fresh = r === 3 && (t % 2.6) < 0.5;
       fillE(g, nx - 62, y - 3, 3.5, 3.5, s.col); text(g, s.name, nx - 54, y, 7, 800, fresh ? '#FFFFFF' : '#E7EEF8'); text(g, r === 0 ? 'arrived' : r === 3 ? 'now' : (r * 2) + ' min', nx + 62, y, 6.6, 800, r === 0 ? '#7FE3C9' : '#FFC94A', 'right'); }
     backTrain(g, t, e);
+    platformBench(g);
+  }
+  function platformBench(g) { /* the platform bench the passenger waits on: backrest, seat, arm rests, legs */
+    var x = 926, w = 124, y = 598; soft(g, x + w / 2, y + 3, 72, 7, 0.22);
+    fillRR(g, x + 4, 478, w - 8, 22, 6, TEAL); fillRR(g, x + 4, 506, w - 8, 18, 6, TEAL); g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x + 8, 481, w - 16, 3);
+    g.fillStyle = '#7A869C'; g.fillRect(x + 12, 524, 5, 24); g.fillRect(x + w - 17, 524, 5, 24);
+    fillRR(g, x, 546, w, 11, 5, '#0E7A68'); fillRR(g, x - 4, 532, 10, 26, 4, '#5C6B7A'); fillRR(g, x + w - 6, 532, 10, 26, 4, '#5C6B7A');
+    g.fillStyle = '#5C6B7A'; g.fillRect(x + 8, 557, 6, y - 557); g.fillRect(x + w - 14, 557, 6, y - 557); fillRR(g, x + 2, y - 4, 18, 4, 2, '#4A5468'); fillRR(g, x + w - 20, y - 4, 18, 4, 2, '#4A5468');
   }
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
@@ -307,6 +323,15 @@
     var cp = handAt(CN, 1); g.strokeStyle = NAVY; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(cp[0], cp[1] + 6); g.bezierCurveTo(cp[0] + 10, cp[1] + 60, CN.x + 52, F - 30, CN.x + 46, F - 8); g.stroke();
     [0, 1, 2].forEach(function (c) { g.strokeStyle = c % 2 ? '#2E4470' : NAVY; g.lineWidth = 3; g.beginPath(); g.ellipse(CN.x + 46, F - 7 - c * 3, 16 - c * 2, 5, 0, 0, Math.PI * 2); g.stroke(); });
     g.save(); g.translate(cp[0], cp[1]); fillRR(g, -7, -8, 14, 16, 4, TEAL); g.fillStyle = '#C9D2DE'; g.fillRect(-4, -15, 2.4, 8); g.fillRect(1.6, -15, 2.4, 8); g.restore();
+    /* the passenger's newspaper (turning a page now and then) or the paper plane she throws */
+    if (PAPER.on) { var l = handAt(PS, 0), r = handAt(PS, 1), cx = (l[0] + r[0]) / 2, cy = (l[1] + r[1]) / 2 + 6, hw = Math.max(8, (r[0] - l[0]) / 2 + 12) * PAPER.k, fl = PAPER.flip;
+      g.save(); g.translate(cx, cy); g.rotate(PAPER.tilt);
+      fillRR(g, -hw, -20, hw * 2, 40, 2, '#F4F1EA'); g.fillStyle = 'rgba(30,40,60,.10)'; g.fillRect(-1, -20, 2, 40);
+      if (hw > 20) { g.fillStyle = NAVY; g.fillRect(-hw + 4, -16, hw - 8, 5); g.fillStyle = '#C3C9D4'; for (var ln = 0; ln < 4; ln++) { g.fillRect(-hw + 4, -7 + ln * 6, hw - 8, 2); g.fillRect(4, -16 + ln * 6, hw - 8, 2); } fillRR(g, 4, 8, hw * 0.5, 8, 1, '#9FD3F5'); }
+      if (fl > 0) { var fw = hw * Math.cos(fl * Math.PI); fillRR(g, Math.min(0, fw), -20, Math.abs(fw), 40, 2, fw < 0 ? '#E8E3D8' : '#F4F1EA'); }
+      g.restore(); }
+    var pu = t - PLANE.t; if (pu >= 0 && pu < 2.8) { var v = pu / 2.8, px = PLANE.x - 330 * v + Math.sin(v * 6) * 16, py = PLANE.y - Math.sin(v * Math.PI) * 120 - 40 * v, ang = Math.atan2(-Math.cos(v * Math.PI) * 120, -330) + Math.PI;
+      g.save(); g.globalAlpha = v > 0.8 ? (1 - v) / 0.2 : 1; fillE(g, px, py + 10, 10, 2.5, 'rgba(30,40,60,.12)'); CO.plane(g, px, py, 2.2, ang + 0.4, '#F4F1EA', NAVY); g.restore(); }
     /* the lever handles: the middle one pulls back when tapped */
     var L = T.lever, lu = t - PLUG.t, pull = lu >= 0 && lu < 1.4 ? Math.sin(Math.min(1, lu / 0.25) * Math.PI / 2) * (lu > 1 ? (1.4 - lu) / 0.4 : 1) : 0;
     [[-22, RED, 0], [0, AMBER, 1], [22, TEAL, 0]].forEach(function (lv) { var a = -0.12 + lv[2] * pull * 0.85 + (lv[2] ? 0 : Math.sin(t * 0.9 + lv[0]) * 0.02), bx = L.x + lv[0], by = F - 42;
@@ -314,9 +339,56 @@
     /* the fare gates' arrows blink */
     for (var gi = 0; gi < 4; gi++) { var gx = -905 + gi * 62, on = ((t * 1.4 + gi * 0.37) % 1) < 0.6; g.fillStyle = on ? GO : '#335244'; g.beginPath(); g.moveTo(gx + 7, F - 85); g.lineTo(gx + 17, F - 80); g.lineTo(gx + 7, F - 75); g.closePath(); g.fill(); }
   }
+  function paintFore(g, ext) { /* the near platform on the right: a recycling bin, a parcel trolley, a drinks machine */
+    var bn = 1084; soft(g, bn, 600, 24, 5, 0.22); fillRR(g, bn - 16, 548, 32, 52, 7, TEAL); fillRR(g, bn - 20, 542, 40, 10, 5, NAVY); fillRR(g, bn - 8, 546, 16, 3, 1.5, '#0F1A30');
+    g.strokeStyle = '#FFFFFF'; g.lineWidth = 2.4; g.lineCap = 'round'; g.beginPath(); g.arc(bn, 574, 8, -2.2, 1.2); g.stroke(); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(bn + 4, 581); g.lineTo(bn + 10, 577); g.lineTo(bn + 10, 585); g.closePath(); g.fill();
+    var tx = 1126; soft(g, tx + 38, 622, 52, 6, 0.24); fillRR(g, tx, 600, 80, 8, 3, '#5C6B7A'); g.fillStyle = '#5C6B7A'; g.fillRect(tx - 4, 540, 5, 64); fillRR(g, tx - 10, 536, 16, 6, 3, NAVY);
+    [[tx + 6, 566, 36, 34, '#C99A6B', 'ORDER'], [tx + 44, 572, 32, 28, '#D6A877', ''], [tx + 12, 540, 28, 26, '#E0456B', '']].forEach(function (b) { fillRR(g, b[0], b[1], b[2], b[3], 3, b[4]); g.fillStyle = 'rgba(255,240,210,.5)'; g.fillRect(b[0] + b[2] / 2 - 3, b[1], 6, b[3]);
+      if (b[5]) { fillRR(g, b[0] + 4, b[1] + 12, 20, 9, 2, '#FFFFFF'); text(g, b[5], b[0] + 14, b[1] + 18.6, 4.6, 800, NAVY, 'center'); } });
+    fillE(g, tx + 10, 612, 7, 7, '#2A3142'); fillE(g, tx + 70, 612, 7, 7, '#2A3142');
+    var vx = 1208, vy = 588; soft(g, vx + 30, vy + 3, 44, 6, 0.26); fillRR(g, vx, vy - 172, 62, 172, 8, '#E9EEF4'); fillRR(g, vx, vy - 172, 62, 22, 8, TEAL); g.fillRect(vx, vy - 160, 62, 10);
+    text(g, 'DRINKS', vx + 31, vy - 157, 8, 800, '#FFFFFF', 'center'); fillRR(g, vx + 6, vy - 144, 36, 96, 4, '#BFE3F4');
+    for (var rw = 0; rw < 4; rw++) for (var cl = 0; cl < 3; cl++) { var cx2 = vx + 10 + cl * 11, cy2 = vy - 136 + rw * 23; fillRR(g, cx2, cy2, 8, 15, 3, [TEAL, '#F08A24', '#E0456B', '#635BFF'][(rw + cl) % 4]); g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(cx2 + 1.5, cy2 + 2, 1.5, 10); g.fillStyle = '#9FB3C8'; g.fillRect(vx + 7, cy2 + 16, 34, 2); }
+    fillRR(g, vx + 46, vy - 140, 11, 46, 3, '#22324F'); fillRR(g, vx + 8, vy - 40, 32, 14, 3, '#22324F'); g.fillStyle = 'rgba(255,255,255,.3)'; g.beginPath(); g.moveTo(vx + 8, vy - 144); g.lineTo(vx + 20, vy - 144); g.lineTo(vx + 6, vy - 100); g.closePath(); g.fill();
+    fillRR(g, vx + 4, vy - 8, 54, 8, 3, '#C9D2DE');
+  }
+  function edgeLights(g, t, e) { /* studs along the platform edge: a sweep runs with the freight, all pulse amber while the express pulls in */
+    var tk = track(e), y = tk.edge - 3, spd = 170, len = 760, span = e.r - e.l + len + 500, fx = e.l - 120 + ((t - FT.t0) * spd) % span, arr = ((t + 3) % 30) < 5;
+    for (var x = Math.floor(e.l / 40) * 40 + 20; x < e.r; x += 40) { var near = x < fx + 160 && x > fx - len - 60, a = near ? 1 : arr ? 0.5 + 0.5 * Math.sin(t * 8) : 0.25 + 0.15 * Math.sin(t * 1.5 + x * 0.02);
+      fillRR(g, x - 6, y - 2, 12, 4, 2, '#7D8893'); g.globalAlpha = a; fillRR(g, x - 5, y - 1.5, 10, 3, 1.5, near ? '#FFE27A' : arr ? AMBER : '#BFF0E3'); g.globalAlpha = 1; }
+  }
+  var BIRDS = [{ x: 1142, ph: 0 }, { x: 1166, ph: 1.7 }, { x: 1190, ph: 3.1 }], FLY = { t: -99 }, BOT = { t: -99, x: 1200 };
+  function botX(t) { return 1205 + Math.sin(t * 0.22) * 82; }
+  function pigeons(g, t) { /* three pigeons peck the platform; the cleaner robot, the freight or a tap sends them up for a moment */
+    var bx = botX(t); BIRDS.forEach(function (b, i) { var fu = t - FLY.t - i * 0.08, close = Math.abs(bx - b.x) < 34;
+      if (close && t - FLY.t > 2.2) FLY.t = t;
+      var air = fu >= 0 && fu < 1.6 ? Math.sin(fu / 1.6 * Math.PI) : 0, x = b.x + Math.sin(t * 0.4 + b.ph) * 6 + air * (i - 1) * 14, y = 644 - air * 46, peck = air ? 0 : Math.max(0, Math.sin(t * 3 + b.ph * 2)) ;
+      fillE(g, x, 646, 9 * (1 - air * 0.6), 2.4, 'rgba(40,40,30,.18)');
+      g.save(); g.translate(x, y); if (Math.sin(t * 0.4 + b.ph) < 0) g.scale(-1, 1);
+      if (air) { var fl = Math.sin(t * 30) * 0.9; g.fillStyle = '#7F8BA0'; g.beginPath(); g.moveTo(-2, -8); g.lineTo(-14, -8 - 10 * fl); g.lineTo(4, -6); g.closePath(); g.fill(); }
+      else { g.strokeStyle = '#E07B5A'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(-2, -3); g.lineTo(-3, 0); g.moveTo(2, -3); g.lineTo(3, 0); g.stroke(); }
+      fillE(g, 0, -8, 9, 6, '#9AA6BC'); fillE(g, -7, -9, 5, 3, '#7F8BA0'); fillE(g, 1, -10, 4, 2.6, 'rgba(120,200,170,.6)');
+      var hx = 7 + peck * 2, hy = -14 + peck * 9; fillE(g, hx, hy, 3.6, 3.6, '#8C98AE'); fillE(g, hx + 1.2, hy - 0.8, 0.9, 0.9, '#1B1F3B'); g.fillStyle = '#F2C230'; g.beginPath(); g.moveTo(hx + 3, hy - 0.5); g.lineTo(hx + 6, hy + 0.5); g.lineTo(hx + 3, hy + 1.5); g.closePath(); g.fill();
+      g.restore(); });
+  }
+  function robot(g, t) { /* the cleaner robot sweeps the platform: brushes spin, a light blinks, a damp shine trails behind; tapped, it spins */
+    var x = botX(t), dir = Math.cos(t * 0.22) >= 0 ? 1 : -1, su = t - BOT.t, spin = su >= 0 && su < 1.2 ? su / 1.2 * Math.PI * 2 : 0, y = 654;
+    g.fillStyle = 'rgba(160,215,235,.35)'; g.beginPath(); g.ellipse(x - dir * 40, y + 1, 30, 3.5, 0, 0, Math.PI * 2); g.fill();
+    fillE(g, x, y + 2, 26, 4, 'rgba(30,40,60,.18)');
+    [-1, 1].forEach(function (d) { var bx = x + d * 18 + dir * 4; g.save(); g.translate(bx, y - 1); g.rotate(t * 14 * d); g.strokeStyle = '#F2C230'; g.lineWidth = 1.6; for (var q = 0; q < 4; q++) { g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(q * Math.PI / 2) * 6, Math.sin(q * Math.PI / 2) * 2.2); g.stroke(); } g.restore(); });
+    g.save(); g.translate(x, y - 6); g.scale(Math.cos(spin) || 0.05, 1);
+    fillRR(g, -22, -16, 44, 16, 8, '#FFFFFF'); fillRR(g, -22, -6, 44, 6, 3, TEAL); g.beginPath(); g.ellipse(0, -16, 16, 12, 0, Math.PI, 0); g.closePath(); g.fillStyle = '#E9EEF4'; g.fill();
+    fillRR(g, -9, -24, 18, 8, 4, '#22324F'); fillE(g, -4 + dir * 2, -20, 1.8, 1.8, '#7FE3C9'); fillE(g, 4 + dir * 2, -20, 1.8, 1.8, '#7FE3C9');
+    g.fillStyle = '#9AA6BC'; g.fillRect(-1, -34, 2, 8); fillE(g, 0, -35, 2.6, 2.6, (t % 1.2) < 0.4 ? '#FFC94A' : '#C9D2DE');
+    g.restore();
+  }
+  function vendingLive(g, t) { /* a button blinks; now and then a can drops to the tray */
+    var vx = 1208, vy = 588; fillE(g, vx + 51, vy - 130, 2.4, 2.4, (t % 1) < 0.5 ? GO : '#335244'); fillE(g, vx + 51, vy - 122, 2.4, 2.4, ((t + 0.5) % 1) < 0.5 ? AMBER : '#5C4A20');
+    var cu = (t + 1.5) % 9; if (cu < 0.7) { var cy = lerp(vy - 90, vy - 34, cu / 0.7); fillRR(g, vx + 21, cy, 8, 13, 3, '#E0456B'); } else if (cu < 2) fillRR(g, vx + 18, vy - 37, 13, 8, 3, '#E0456B');
+  }
   function paintForeLive(g, t, S) {
     var e = S.ext;
-    K.zfore(g, t, S, [[track(e).r2, function () { foreTrain(g, t, e); }]], function () { CO.crew(CREW, g, t, S, 'fore'); });
+    K.zfore(g, t, S, [[588, function () { vendingLive(g, t); }], [644, function () { pigeons(g, t); }], [654, function () { robot(g, t); }], [track(e).edge - 3, function () { edgeLights(g, t, e); }], [track(e).r2, function () { foreTrain(g, t, e); }]], function () { CO.crew(CREW, g, t, S, 'fore'); });
     CR.draw(g, t);
   }
 
@@ -362,9 +434,25 @@
     else { P.hands = [[-34, -232], [30, -236]]; P.tilt = 0.08; P.look = lerp(P.look, 0, 0.1); }
   }
 
+  var PAPER = { on: true, k: 1, flip: 0, tilt: 0 }, PLANE = { t: -99, x: 0, y: 0 };
+  function ps(P, t, S) { /* reads the paper, turns a page, lowers it to watch the express come in. Tap: folds it into a paper plane, throws it, cheers */
+    var st = S.cast.ps; if (tapped(st, t)) st.thrown = false; P.sx = 1; P.hop = 0; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm'; PAPER.on = true; PAPER.k = 1; PAPER.flip = 0; PAPER.tilt = 0;
+    var u = (t - (st.c == null ? -99 : st.c)) / 2.6;
+    if (u >= 0 && u < 1) { P.talk = u > 0.4; P.mood = 'happy'; P.tilt = 0;
+      if (u < 0.3) { var a = u / 0.3; PAPER.k = 1 - a * 0.85; PAPER.tilt = a * 0.6; P.hands = [[lerp(-48, -10, a), lerp(-300, -310, a)], [lerp(48, 10, a), lerp(-300, -310, a)]]; P.look = 0; }
+      else if (u < 0.42) { PAPER.on = false; var b = (u - 0.3) / 0.12; P.hands = [[-50, -240], [lerp(10, 60, b), lerp(-310, -404, b)]]; P.mood = 'wow'; if (b > 0.6 && !st.thrown) { st.thrown = true; var h = handAt(P, 1); PLANE.t = t; PLANE.x = h[0]; PLANE.y = h[1]; CR.burst('spark', h[0], h[1], t); } }
+      else { PAPER.on = false; P.hands = [[-96, -380 + Math.sin(t * 14) * 8], [96, -380 - Math.sin(t * 14) * 8]]; P.look = lerp(P.look, -0.8, 0.1); P.hop = Math.abs(Math.sin(t * 9)) * 6; }
+      return; }
+    var c = (t + 2) % 12;
+    if (c < 6.5) { P.hands = [[-48, -300], [48, -300]]; P.tilt = 0.08; P.look = lerp(P.look, Math.sin(t * 0.8) * 0.25, 0.1);
+      var pg = c - 4.6; if (pg > 0 && pg < 0.8) { PAPER.flip = pg / 0.8; P.hands = [[-48, -300], [lerp(48, -36, Math.sin(PAPER.flip * Math.PI)), -304]]; } }
+    else if (c < 9.5) { var r2 = clamp(Math.min((c - 6.5) / 0.4, (9.5 - c) / 0.4), 0, 1); P.hands = [[-48, lerp(-300, -246, r2)], [48, lerp(-300, -246, r2)]]; P.look = lerp(P.look, -0.85, 0.08); P.tilt = -0.04 * r2; P.mood = r2 > 0.6 ? 'happy' : 'calm'; }
+    else { P.hands = [[-48, -300], [48, -300]]; P.tilt = 0.1; P.look = lerp(P.look, 0.2, 0.1); }
+  }
+
   window.IXW.worlds.integration = {
     pan: [-300, 1200],
-    paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront,
+    paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: function (g, t, par, S) { /* clouds drift past the glass, a city train crosses its viaduct */
       var e = S.ext, w = e.r - e.l + 500;
       for (var c = 0; c < 5; c++) { var x = e.l - 250 + ((hash(c + 2) * w + t * (5 + c * 1.6)) % w) - par * (2 + c); K.cloud(g, x, -100 + (c % 3) * 70 + hash(c) * 20, 0.34 + (c % 2) * 0.12); }
@@ -378,11 +466,14 @@
     cast: [
       { id: 'en1', behind: true, keys: ['store', 'pay'], P: EN1, act: en1 },
       { id: 'en2', behind: true, keys: ['bank', 'mail'], P: EN2, act: en2 },
-      { id: 'cn', behind: true, keys: ['market', 'api'], P: CN, act: cn }
+      { id: 'cn', behind: true, keys: ['market', 'api'], P: CN, act: cn },
+      { id: 'ps', behind: true, keys: [], P: PS, act: ps }
     ],
     toy: function (name, S, t) { if (name === 'lever') { PLUG.t = t; PLUG.k = (PLUG.k + 2) % SYS.length; CR.burst('spark', T.lever.x, F - 110, t); } },
     hit: function (x, y, S, t, onBtn) {
       var r = CR.hitWalker(x, y, t); if (r) return r;
+      var bx = botX(t); if (Math.abs(x - bx) < 32 && y > 612 && y < 664) { BOT.t = t; FLY.t = t; return { say: 'Beep! The platform **stays clean**, like data that is never typed twice.', near: [clamp(bx - 160, 220, 860), 236], pose: 'love' }; }
+      if (x > 1124 && x < 1206 && y > 606 && y < 652) { FLY.t = t; return { say: 'Coo! Even the **pigeons** know: every line runs to Odoo Central.', near: [860, 236], pose: 'wow' }; }
       var e = S.ext, tk = track(e), spd = 170, len = 760, span = e.r - e.l + len + 500, fx = e.l - 120 + ((t - FT.t0) * spd) % span;
       if (y > tk.r2 - 90 && y < tk.r2 + 6 && x < fx + 14 && x > fx - len) { BOOST.t = t; return { say: 'The **freight** to Odoo Central: orders, stock and payouts ride the same line, every day.', near: [clamp(x, 220, 860), 236], pose: 'wow' }; }
       if (!onBtn && y > 330 && y < 470) { var u = (t + 3) % 30; if (u >= 5 && u < 13 && x > T.dock && x < T.dock + 620) return { say: 'The **express** waits at platform 6, then runs across the station: connected once, synced every day.', near: [840, 236], pose: 'point-right' }; }
