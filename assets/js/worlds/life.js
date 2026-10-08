@@ -237,7 +237,7 @@
     /* the fridge: flyers and a calendar magnet with the next event's date (from the events list) */
     var fd = T.fridge, ev = nx(); COL.note(g, fd.x + 24, 170, 30, -0.08, '#FFE680', 'Odoo', INK); COL.note(g, fd.x + 54, 196, 26, 0.12, '#D6E4FF');
     g.save(); g.translate(fd.x + 38, 290); g.rotate(S.hot === 'events' ? Math.sin(t * 5) * 0.05 : -0.04); fillRR(g, -26, -30, 52, 58, 4, '#FFFFFF'); fillRR(g, -26, -30, 52, 14, 4, PUR); text(g, 'NEXT EVENT', 0, -20, 5.6, 800, '#FFFFFF', 'center');
-    if (ev) { var dm = EV.dayMon(ev.date); text(g, String(dm[0]), 0, 6, 18, 800, INK, 'center'); text(g, dm[1].toUpperCase() + ' · ' + (ev.cc === 'ONLINE' ? 'ONLINE' : ev.cc), 0, 18, 5.6, 800, PUR, 'center'); } else text(g, 'SOON', 0, 6, 11, 800, INK, 'center');
+    if (ev) { var dm = EV.dayMon(ev.date); text(g, String(dm[0]), 0, 6, 18, 800, INK, 'center'); text(g, dm[1].toUpperCase() + ' · ' + String(ev.where || '').toUpperCase(), 0, 18, 5.6, 800, PUR, 'center'); } else text(g, 'SOON', 0, 6, 11, 800, INK, 'center');
     g.restore(); fillE(g, fd.x + 38, 262, 3, 3, '#E2453C');
     /* a little radio on the fridge (tap it: music notes) */
     var rt = t - RADIO.t; fillRR(g, fd.x + 14, 100, 44, 20, 5, CORAL); fillE(g, fd.x + 26, 110, 6, 6, '#FFF2E8'); fillRR(g, fd.x + 36, 105, 16, 3, 1.5, '#FFF2E8'); fillRR(g, fd.x + 36, 111, 12, 3, 1.5, '#FFF2E8'); g.strokeStyle = '#6B7A76'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(fd.x + 52, 100); g.lineTo(fd.x + 60, 84); g.stroke();

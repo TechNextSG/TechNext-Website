@@ -230,3 +230,25 @@
 @media (max-width:767px){.ixw--events .ev-cta-ticket{display:none}}
 
 @media (prefers-reduced-motion:reduce){.ixw--events .ev-pulse,.ixw--events .ev-mile--today .ev-dot{animation:none}}
+
+/* ---------- TechNext-only scope: types, the "stay tuned" ticket, covered-easel empty states ---------- */
+.ixw--events .ev-row[data-type="own"],.ixw--events .ev-ticket[data-type="own"]{--cc:var(--ev-pur)}
+.ixw--events .ev-row[data-type="joining"],.ixw--events .ev-ticket[data-type="joining"]{--cc:var(--ev-coral)}
+.ixw--events .ev-tag--own{background:#EFE6F2;color:var(--ev-pur)}.ixw--events .ev-tag--joining{background:#FDEAE5;color:#B8432C}
+.ixw--events .ev-ticket--empty{grid-template-columns:150px 1fr}
+.ixw--events .ev-stub--tbc{background:repeating-linear-gradient(-45deg,#F3EEF2 0 10px,#EAE1E8 10px 20px)!important;color:#7A6A80!important;border-right:3px dashed var(--ev-line)!important}
+@media (max-width:479px){.ixw--events .ev-ticket--empty{grid-template-columns:1fr}}
+.ixw--events .ev-empty-booth{grid-column:1/-1;list-style:none;display:grid;grid-template-columns:150px 1fr;align-items:center;gap:30px;padding:28px 32px;border-radius:22px;border:2.5px dashed var(--ev-pur2);
+  background:repeating-linear-gradient(-45deg,#FFFFFF 0 14px,#FBF5F8 14px 28px)}
+.ixw--events .ev-empty-booth[data-kind="joining"]{border-color:var(--ev-coral)}
+.ixw--events .ev-empty-booth h3{margin:8px 0 6px;color:var(--ev-ink);font-size:1.25rem}
+.ixw--events .ev-empty-booth p{margin:0;color:#5C5C73;max-width:60ch}
+/* the covered easel: an A-frame with a draped cloth that lifts a little on hover */
+.ixw--events .ev-easel{position:relative;display:block;width:120px;height:140px;margin:0 auto}
+.ixw--events .ev-easel-legs{position:absolute;inset:auto 0 0;height:140px;background:linear-gradient(68deg,transparent 46%,#B5865A 46% 50%,transparent 50%) left/50% 100% no-repeat,linear-gradient(-68deg,transparent 46%,#B5865A 46% 50%,transparent 50%) right/50% 100% no-repeat}
+.ixw--events .ev-cloth{position:absolute;left:10px;right:10px;top:4px;height:96px;z-index:1;border-radius:8px 8px 4px 4px;background:repeating-linear-gradient(90deg,var(--ev-pur) 0 12px,var(--ev-pur2) 12px 22px);
+  clip-path:polygon(0 0,100% 0,100% 88%,86% 100%,72% 90%,58% 100%,44% 90%,30% 100%,14% 90%,0 100%);box-shadow:0 10px 16px -8px rgba(36,25,58,.5);transform-origin:50% 0;transition:transform .35s cubic-bezier(.34,1.45,.64,1)}
+.ixw--events .ev-empty-booth[data-kind="joining"] .ev-cloth{background:repeating-linear-gradient(90deg,var(--ev-coral) 0 12px,#F48E7A 12px 22px)}
+.ixw--events .ev-cloth::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:800 2.4rem/1 var(--font-display);opacity:.85}
+.ixw--events .ev-empty-booth:hover .ev-cloth{transform:rotateX(18deg) translateY(-4px)}
+@media (max-width:599px){.ixw--events .ev-empty-booth{grid-template-columns:1fr;padding:22px 20px;gap:16px;text-align:center}.ixw--events .ev-empty-booth p{margin:0 auto}}
