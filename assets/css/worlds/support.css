@@ -224,3 +224,14 @@
 .ixw--support .sp-plan .step>div:not(.step-n){flex:1}
 .ixw--support .sp-pass .card{display:flex;flex-direction:column}
 .ixw--support .sp-pass .card>p{flex:1}
+
+/* fix round: the flight plan's dashed route now runs straight through the centre of every waypoint diamond (it sat a few px
+   above them), the numbers are centred in the diamonds, and the jet flies on the route and parks just short of the
+   landing waypoint */
+.ixw--support .sp-plan::before{top:24.5px;left:26px;right:calc(25% - 44px + 2px);border-top-width:3px;opacity:.55}
+.ixw--support .sp-plan .step-n{position:relative;z-index:1;display:grid;place-items:center;padding:0;line-height:1}
+.ixw--support .sp-plan .step-n::after{display:block;width:44px;height:44px;line-height:44px;text-align:center;font-variant-numeric:tabular-nums}
+.ixw--support .sp-plan-jet{top:9px}
+@keyframes spJet{0%{opacity:0;left:48px}10%{opacity:1}100%{opacity:1;left:calc(75% - 22px)}}
+@media (max-width:991px){.ixw--support .sp-plan-jet{display:none}}
+@media (max-width:991px){.ixw--support .sp-plan .step-n{margin:10px 0 24px 10px}}

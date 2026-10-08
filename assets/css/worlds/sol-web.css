@@ -255,3 +255,25 @@
 /* related folders: equal heights, the link always on the bottom line */
 .ixw--sol-web .msd-folder{display:flex;flex-direction:column}
 .ixw--sol-web .msd-folder .btn-link{margin-top:auto;padding-top:14px}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-web .msd-rfi-sec .container{display:block}
+  .ixw--sol-web .msd-rfi-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0 190px 0 0;min-height:100px}
+  .ixw--sol-web .msd-rfi-sec .sec-head::after{left:auto;right:0;bottom:-8px;width:160px;height:100px}
+  .ixw--sol-web .msd-rfi{max-width:920px}}
+/* kit lids: white labels, all lids level (hover only lifts) */
+.ixw--sol-web .msd-lid b,.ixw--sol-web .msd-lid i{color:#FFFFFF}
+.ixw--sol-web .msd-lid,.ixw--sol-web .msd-kit,.ixw--sol-web .msd-kit.reveal{rotate:none}
+.ixw--sol-web .msd-kit:hover .msd-lid{transform:translateY(-4px)}
+/* related folders: no loose paper strip behind the tab, all three tabs alike */
+.ixw--sol-web .msd-folder::before{display:none}
+.ixw--sol-web .msd-tab{top:-26px;height:28px;line-height:28px;box-shadow:0 -1px 0 color-mix(in srgb,var(--c) 70%,#000000) inset}
+/* "The basics": the left column sits centred against the spec sheet; the model under glass is a solid exhibit with a plaque, not a faint ghost */
+@media (min-width:961px){.ixw--sol-web .msd-spec{align-items:center}}
+.ixw--sol-web .msd-dome{width:200px;height:190px;margin:40px 0 0 24px}
+.ixw--sol-web .msd-dome::before{height:22px;background:linear-gradient(180deg,#D9B48A,#B98F62);box-shadow:0 5px 0 #9C7448,0 18px 22px -12px rgba(80,50,20,.45)}
+.ixw--sol-web .msd-dome::after{left:14px;right:14px;bottom:20px;height:160px;border-radius:86px 86px 6px 6px;background:linear-gradient(115deg,rgba(255,255,255,.85) 0 12%,rgba(200,226,246,.55) 12% 60%,rgba(255,255,255,.7) 60% 66%,rgba(200,226,246,.5) 66%);box-shadow:inset 0 0 0 2.5px #8FB7DE}
+.ixw--sol-web .msd-dome-m{left:52px;bottom:22px;width:70px;height:86px;background:linear-gradient(180deg,#1F2A55 0 10px,#FFFFFF 10px 14px,#9CC8EE 14px 40px,#FFFFFF 40px 46px,#E8EEF7 46px)}
+.ixw--sol-web .msd-dome-p{left:130px;bottom:22px;width:26px;height:110px}
+.ixw--sol-web .msd-spec-l .msd-dome+*{margin-top:0}
+.ixw--sol-web .msd-dome i:last-child::after{content:"SCALE 1 : WEB";position:absolute;left:-104px;bottom:-24px;width:150px;font:800 9px/1 var(--font-body);letter-spacing:.14em;color:#FFFFFF;text-align:center}

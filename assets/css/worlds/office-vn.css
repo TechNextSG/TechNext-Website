@@ -219,3 +219,11 @@
 .vn-addr::after{content:"AI LAB";position:absolute;right:-4px;bottom:-18px;font:800 84px/1 var(--font-display);letter-spacing:-.04em;color:rgba(14,165,183,.07);pointer-events:none}
 @media (max-width:767px){.ixw--office-vn .vn-faq{padding:56px 12px 14px}.ixw--office-vn .vn-faq::before{padding-left:68px;font-size:10.5px}.ixw--office-vn .vn-faq::after{display:none}.vn-addr::after{font-size:60px}}
 .ixw--office-vn .vn-faq details,.ixw--office-vn .vn-faq details[open]{background:none!important;box-shadow:none!important;border:0!important}
+
+/* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
+.ixw--office-vn .ix-intro-sec{position:relative;z-index:2;padding-bottom:64px}
+@media (max-width:767px){.ixw--office-vn .ix-intro-sec{padding-bottom:44px}}
+/* the lanterns hang from a rail along the top of the lab section, not from thin air */
+.ixw--office-vn .vn-lab{padding-top:clamp(84px,9vw,120px)}
+.vn-lanterns{top:0}
+.vn-lanterns::before{content:"";position:absolute;left:-26px;right:-26px;top:0;height:6px;border-radius:3px;background:linear-gradient(180deg,#C9A27A,#A9825C);box-shadow:0 2px 0 rgba(0,0,0,.08)}
