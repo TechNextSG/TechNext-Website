@@ -5,8 +5,8 @@ META = {
     "tag": "Odoo Inventory",
     "badge": "wk-app-stock",
     "intro_title": "Odoo <b>Inventory</b>",
-    "intro_sub": "Stock, warehouses and deliveries",
+    "intro_sub": "The logistics hub, every move tracked",
     "intro_pills": [("pin", "Locations"), ("check", "Barcode"), ("refresh", "Replenish")],
-    "hand": "odoo inventory · warehouse",
+    "hand": "odoo inventory · the port-side hub",
     "m": {},
 }
