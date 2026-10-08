@@ -201,3 +201,36 @@
 .ixw--discovery .dc-exhibit .sec-head,.ixw--discovery .dc-ev-sec .sec-head,.ixw--discovery .dc-time-sec .sec-head,.ixw--discovery .dc-faq-sec .sec-head{position:relative;z-index:1}
 @media (max-width:1099px){.ixw--discovery .dc-deco{display:none}}
 @media (prefers-reduced-motion:reduce){.ixw--discovery .dc-reel,.ixw--discovery .dc-recdot,.ixw--discovery .dc-deco--lens *{animation:none!important}}
+
+/* ---------- audit round: hero controls. The marker caps show again (the shared sheen's transform hid them), one 52px
+   height, the play key's lip and halo in the case-room ink and red, hover/press/focus on every control, and the peek key
+   becomes a second folder tab on the case file, so it no longer covers the app line-up screen ---------- */
+.ixw--discovery .ixw-copy .actions{gap:14px}
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white,.cta .btn-white,.cta .btn-outline-white)::after{left:auto;transform:none;transition:width .25s cubic-bezier(.34,1.45,.64,1)}
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):hover::after{transform:none;width:28px}
+.ixw--discovery .ixw-copy .actions .btn{height:52px}
+.ixw--discovery .ow-rail a{transition:background-color .2s ease,color .2s ease,translate .2s ease}
+.ixw--discovery .ow-rail a:hover{translate:0 -1px;background:var(--dc-y);color:#1B1F3B}
+.ixw--discovery .ow-rail a:focus-visible,.ixw--discovery .ixw-ep-tag:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ixw--discovery .ixw-ibtn{transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,color .2s ease,background-color .2s ease}
+.ixw--discovery .ixw-ibtn:not(.ixw-ibtn--play):hover{border-color:#1B1F3B;color:var(--dc-red);background:#FFFDF7;box-shadow:0 5px 0 #1B1F3B}
+.ixw--discovery .ixw-ibtn:active{box-shadow:0 1px 0 #1B1F3B}
+.ixw--discovery .ixw-ibtn--play{box-shadow:0 3px 0 #1B1F3B}
+.ixw--discovery .ixw-ibtn--play:hover{box-shadow:0 5px 0 #1B1F3B;color:var(--dc-red)}
+.ixw--discovery .ixw-ibtn--play.is-on{animation:dcHalo 2.4s ease-out infinite}
+@keyframes dcHalo{0%{box-shadow:0 3px 0 #1B1F3B,0 0 0 0 rgba(226,69,60,.45)}70%,100%{box-shadow:0 3px 0 #1B1F3B,0 0 0 12px rgba(226,69,60,0)}}
+.ixw--discovery :is(.ixw-ibtn,.ixw-dots button):focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--discovery .ixw-dots button:not(.is-on):hover{background:#C9A21A}
+.ixw--discovery .ixw-peek{top:calc(var(--header-box) + 30px);right:auto;left:calc(max(0px, (100vw - 1200px) / 2) + 318px);height:32px;padding:0 15px 0 12px;border:0;border-radius:10px 10px 0 0;
+  background:var(--dc-kraft);box-shadow:inset 0 1.5px 0 var(--dc-kraft-d),inset 1.5px 0 0 var(--dc-kraft-d),inset -1.5px 0 0 var(--dc-kraft-d);font:800 11px/1 var(--dc-mono);letter-spacing:.08em;text-transform:uppercase;color:#7A5A30}
+.ixw--discovery .ixw-peek::before{width:16px;height:16px;background:var(--dc-red)}
+.ixw--discovery .ixw-peek:hover{translate:0 -3px;background:#F3D9A6;box-shadow:inset 0 1.5px 0 var(--dc-kraft-d),inset 1.5px 0 0 var(--dc-kraft-d),inset -1.5px 0 0 var(--dc-kraft-d),0 -4px 10px -4px rgba(90,60,20,.35)}
+.ixw--discovery .ixw-peek:active{translate:0 1px}
+.ixw--discovery .ixw-peek:focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--discovery .ixw-peek[aria-pressed="true"]{background:var(--dc-y);border-radius:10px;box-shadow:inset 0 0 0 1.5px #C9A21A,0 4px 0 #C9A21A}
+@media (prefers-reduced-motion:reduce){.ixw--discovery .ixw-ibtn--play.is-on{animation:none}}
+/* audit round, below the hero: the glance strip keeps each process name whole and gives the long cells room; the clip on
+   the scope sheet no longer sits on the first line on phones */
+.ixw--discovery .ow-strip .ow-nb{white-space:nowrap}
+@media (min-width:1101px){.ixw--discovery .ow-strip{grid-template-columns:.62fr 1.3fr 1.2fr 1fr 1.08fr}}
+@media (max-width:640px){.ixw--discovery .dc-sheet{padding-top:44px!important}}

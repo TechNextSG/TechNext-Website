@@ -76,6 +76,7 @@
     WINS.forEach(function (w, i) { for (var c = 0; c < 2; c++) { var x = w.x - 60 + ((hash(c + i * 3) * 300 + t * (5 + c * 2)) % (w.w + 120)); K.cloud(g, x, w.y + 70 + c * 70, 0.26 + c * 0.05); } });
   }
   function paintBack(g, e) {
+    CREW.forEach(function (w) { if (w.x0 < 0) return; if (w.x1b == null) w.x1b = w.x1; w.x1 = Math.min(w.x1b, e.r - 150); });
     /* the linen wall, pinstriped, with the two arches cut out of it */
     var wg = g.createLinearGradient(0, CEIL, 0, 300); wg.addColorStop(0, '#FCF8F1'); wg.addColorStop(1, '#F3E9D8');
     g.beginPath(); g.rect(e.l - 10, CEIL, e.r - e.l + 20, F - CEIL); WINS.forEach(function (w) { arch(g, w); }); g.fillStyle = wg; g.fill('evenodd');
@@ -123,6 +124,7 @@
     text(g, 'Ready', 1292, 337, 7, 800, PLUM, 'center'); text(g, 'to collect', 1292, 346, 5.5, 700, '#8A96A8', 'center');
     K.plant(g, { x: 1350, y: F }, '#E9DCC4', '#F2E8D6');
 
+    atelierBack(g);
     /* ---- the garment bags: where it's worn ---- */
     fillRR(g, BAGS.x - 4, BAGS.y - 4, BAGS.w + 8, 6, 3, BRASS); fillE(g, BAGS.x, BAGS.y - 1, 5, 5, BRASS_D); fillE(g, BAGS.x + BAGS.w, BAGS.y - 1, 5, 5, BRASS_D);
     text(g, 'WHERE IT\'S WORN', BAGS.x + BAGS.w / 2, BAGS.y - 12, 7.5, 800, '#8A6A45', 'center');
@@ -170,7 +172,57 @@
     g.save(); g.translate(PEG.x + 112, PEG.y + 128); g.rotate(0.3); g.strokeStyle = '#8A94A8'; g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(-6, 34); g.moveTo(0, 0); g.lineTo(6, 34); g.stroke();
     g.strokeStyle = PLUM; g.lineWidth = 3; g.beginPath(); g.arc(-7, -8, 6, 0, 7); g.stroke(); g.beginPath(); g.arc(7, -8, 6, 0, 7); g.stroke(); g.restore();
   }
+  /* ---- the fitting corner behind the title card: a framed pattern sketch, an embroidery hoop, a shelf of boxed apps,
+     a sideboard, a dress form with a jacket half pinned, a velvet armchair on a round rug ---- */
+  var DF = { x: -150 }, ARM = { x: -330, y: 600 };
+  function atelierBack(g) {
+    /* the round rug under the armchair */
+    fillE(g, ARM.x + 20, 606, 150, 26, '#C9A27A'); fillE(g, ARM.x + 20, 606, 138, 21, '#E9D6BA'); g.setLineDash([4, 5]); g.strokeStyle = 'rgba(113,75,103,.45)'; g.lineWidth = 2; g.beginPath(); g.ellipse(ARM.x + 20, 606, 122, 16, 0, 0, 7); g.stroke(); g.setLineDash([]);
+    /* the framed pattern sketch: a jacket drafted on squared paper, measure lines and three notes */
+    var fx = -462, fy = -58, fw = 214, fh = 196;
+    shadowed(g, 14, 5, 0.16, function () { fillRR(g, fx - 8, fy - 8, fw + 16, fh + 16, 8, WAL); }); fillRR(g, fx - 3, fy - 3, fw + 6, fh + 6, 5, BRASS); fillRR(g, fx, fy, fw, fh, 3, '#FFF8EA');
+    g.strokeStyle = 'rgba(49,103,202,.10)'; g.lineWidth = 1; g.beginPath(); for (var gx = fx + 12; gx < fx + fw; gx += 12) { g.moveTo(gx, fy); g.lineTo(gx, fy + fh); } for (var gy = fy + 12; gy < fy + fh; gy += 12) { g.moveTo(fx, gy); g.lineTo(fx + fw, gy); } g.stroke();
+    text(g, 'PATTERN No. 01 · STANDARD FIRST', fx + 12, fy + 18, 7, 800, PLUM);
+    g.save(); g.translate(fx + 78, fy + 34); g.strokeStyle = INK; g.lineWidth = 1.8; g.lineJoin = 'round';
+    g.beginPath(); g.moveTo(-34, 6); g.lineTo(-10, 0); g.lineTo(0, 30); g.lineTo(10, 0); g.lineTo(34, 6); g.lineTo(44, 60); g.lineTo(36, 132); g.quadraticCurveTo(0, 142, -36, 132); g.lineTo(-44, 60); g.closePath(); g.stroke();
+    g.beginPath(); g.moveTo(-34, 6); g.lineTo(-56, 110); g.lineTo(-46, 112); g.moveTo(34, 6); g.lineTo(56, 110); g.lineTo(46, 112); g.moveTo(0, 30); g.lineTo(0, 136); g.stroke();
+    fillE(g, 4, 66, 2.2, 2.2, INK); fillE(g, 4, 86, 2.2, 2.2, INK); fillE(g, 4, 106, 2.2, 2.2, INK);
+    g.setLineDash([3, 3]); g.strokeStyle = PIN; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-60, 0); g.lineTo(-60, 136); g.moveTo(-44, 150); g.lineTo(44, 150); g.stroke(); g.setLineDash([]);
+    g.restore();
+    [['fields', 64, PINK], ['views', 104, BLUE], ['approvals', 144, MINT]].forEach(function (n) { var ny = fy + n[1]; g.strokeStyle = n[2]; g.lineWidth = 1.2; g.beginPath(); g.moveTo(fx + 124, ny - 3); g.lineTo(fx + 140, ny - 3); g.stroke();
+      fillRR(g, fx + 142, ny - 12, 60, 16, 4, '#FFFFFF'); g.strokeStyle = n[2]; rr(g, fx + 142, ny - 12, 60, 16, 4); g.stroke(); text(g, n[0], fx + 172, ny - 1, 7, 800, n[2], 'center'); });
+    text(g, 'Studio before code', fx + fw - 10, fy + fh - 8, 6.4, 700, '#9A8A70', 'right');
+    /* the embroidery hoop on the wall */
+    var hx = -112, hy = -6; g.fillStyle = '#B7BFCC'; g.fillRect(hx - 1, hy - 74, 2, 14); fillE(g, hx, hy, 58, 58, BRASS_D); fillE(g, hx, hy, 53, 53, '#FFFDF6');
+    g.strokeStyle = 'rgba(214,69,69,.6)'; g.lineWidth = 1.4; g.setLineDash([2.5, 2.5]); g.beginPath(); g.arc(hx, hy, 46, 0, 7); g.stroke(); g.setLineDash([]);
+    text(g, 'Measure', hx, hy - 12, 11, 800, PLUM, 'center'); text(g, 'twice,', hx, hy + 2, 11, 800, PLUM, 'center'); text(g, 'code once.', hx, hy + 17, 10, 800, MINT, 'center');
+    for (var fl = 0; fl < 5; fl++) { var fa = Math.PI * 0.65 + fl * 0.16; fillE(g, hx + Math.cos(fa) * 40, hy + Math.sin(fa) * 40, 3.2, 3.2, [PINK, TAPE, BLUE, MINT, PINK][fl]); }
+    /* the shelf: the boxed apps, spools, a vase */
+    fillRR(g, -210, 112, 250, 7, 3, WAL); g.fillStyle = WAL_D; g.fillRect(-196, 119, 5, 14); g.fillRect(16, 119, 5, 14);
+    [['Sales', '#E46E78', 0], ['Inventory', '#F2A33A', 1], ['Accounting', '#2E9C7E', 2]].forEach(function (b2) { var by = 94 - b2[2] * 19, bw = 78 - b2[2] * 6; fillRR(g, -200 + b2[2] * 3, by, bw, 18, 3, '#F4ECDD'); fillRR(g, -200 + b2[2] * 3, by, 8, 18, 2, b2[1]); text(g, b2[0], -186 + b2[2] * 3, by + 12.5, 7, 800, INK); });
+    [[-96, PLUM], [-80, BLUE], [-64, TAPE], [-48, MINT]].forEach(function (sp) { fillRR(g, sp[0] - 6, 94, 12, 18, 2, '#E9DCC4'); fillRR(g, sp[0] - 5, 97, 10, 12, 3, sp[1]); });
+    fillRR(g, -10, 86, 22, 26, 8, '#FFFFFF'); g.strokeStyle = '#2E9E66'; g.lineWidth = 2; [[-6, -14], [1, -22], [8, -12]].forEach(function (st2) { g.beginPath(); g.moveTo(1, 88); g.lineTo(st2[0], st2[1] + 88); g.stroke(); fillE(g, st2[0], st2[1] + 86, 5, 5, st2[0] < 0 ? PINK : st2[0] > 4 ? TAPE : '#FFFFFF'); });
+    /* the sideboard: drawers with brass pulls, a basket and fabric rolls on top */
+    var sb = { x: -462, y: 378, w: 196 }; soft(g, sb.x + sb.w / 2, F + 3, sb.w * 0.55, 7, 0.22); fillRR(g, sb.x, sb.y, sb.w, F - sb.y - 6, 6, WAL); fillRR(g, sb.x - 4, sb.y - 6, sb.w + 8, 10, 4, WAL_D);
+    for (var dr = 0; dr < 3; dr++) { fillRR(g, sb.x + 8 + dr * 62, sb.y + 12, 56, 32, 4, '#9A6B48'); fillRR(g, sb.x + 8 + dr * 62, sb.y + 50, 56, 26, 4, '#9A6B48'); fillRR(g, sb.x + 28 + dr * 62, sb.y + 26, 16, 4, 2, BRASS); fillRR(g, sb.x + 28 + dr * 62, sb.y + 61, 16, 4, 2, BRASS); }
+    fillRR(g, sb.x + 6, F - 8, 10, 8, 2, WAL_D); fillRR(g, sb.x + sb.w - 16, F - 8, 10, 8, 2, WAL_D);
+    fillRR(g, sb.x + 14, sb.y - 34, 54, 28, 8, '#C98E55'); g.strokeStyle = 'rgba(110,60,20,.35)'; g.lineWidth = 1.6; for (var bw2 = 0; bw2 < 3; bw2++) { g.beginPath(); g.moveTo(sb.x + 16, sb.y - 26 + bw2 * 8); g.lineTo(sb.x + 66, sb.y - 26 + bw2 * 8); g.stroke(); }
+    [[PLUM, 0], [BLUE, 1], [TAPE, 2]].forEach(function (c) { fillRR(g, sb.x + 90 + c[1] * 30, sb.y - 30, 26, 24, 5, c[0]); fillE(g, sb.x + 103 + c[1] * 30, sb.y - 18, 4, 9, K.tone(c[0], 0.2)); });
+    /* the dress form with a plum jacket, half pinned, a chalk line on the hem */
+    bust(g, DF.x, 286, 1.15, PLUM); pin(g, DF.x - 20, 318, PIN); pin(g, DF.x + 18, 336, TAPE); pin(g, DF.x - 8, 360, BLUE);
+    g.setLineDash([4, 4]); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.moveTo(DF.x - 40, 386); g.lineTo(DF.x + 40, 386); g.stroke(); g.setLineDash([]);
+  }
+  function armchair(g) { /* the velvet armchair (drawn behind the client sitting in it) */
+    var x = ARM.x, y = ARM.y; soft(g, x, y + 3, 80, 8, 0.24);
+    fillRR(g, x - 62, 466, 124, 92, 30, PLUM_D); fillRR(g, x - 54, 474, 108, 76, 24, PLUM); for (var b = 0; b < 3; b++) fillE(g, x - 30 + b * 30, 508, 3, 3, 'rgba(255,255,255,.25)');
+    fillRR(g, x - 58, 544, 116, 22, 10, PLUM); fillRR(g, x - 76, 520, 26, 50, 12, PLUM_D); fillRR(g, x + 50, 520, 26, 50, 12, PLUM_D);
+    g.fillStyle = BRASS_D; g.fillRect(x - 64, 566, 5, y - 566); g.fillRect(x + 59, 566, 5, y - 566); fillE(g, x - 62, y, 4, 2, BRASS); fillE(g, x + 62, y, 4, 2, BRASS);
+  }
   function paintFront(g, e) {
+    /* the fitting corner's side table: a teacup on a saucer, a swatch book */
+    var st = { x: -226, y: 548 }; soft(g, st.x, 602, 28, 5, 0.22); g.fillStyle = WAL_D; g.fillRect(st.x - 2, st.y, 4, 600 - st.y); g.fillRect(st.x - 16, 596, 32, 4); fillE(g, st.x, st.y, 30, 6, WAL);
+    fillE(g, st.x - 10, st.y - 4, 10, 2.6, '#FFFFFF'); fillRR(g, st.x - 17, st.y - 16, 14, 12, 4, '#FFFFFF'); fillRR(g, st.x - 17, st.y - 12, 14, 2, 1, PLUM); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.arc(st.x - 2, st.y - 11, 3, -1.4, 1.4); g.stroke();
+    fillRR(g, st.x + 4, st.y - 9, 22, 7, 2, MINT); fillRR(g, st.x + 6, st.y - 14, 20, 5, 2, PINK);
     /* the cutting table: walnut top, brass legs (open, so the drafter's chair and legs show), the pattern hanging over the edge */
     var d = TABLE; soft(g, d.x + d.w / 2, F + 4, d.w * 0.6, 9, 0.22);
     [d.x + 8, d.x + d.w - 16].forEach(function (lx) { fillRR(g, lx, d.y + 8, 8, F - d.y - 8, 3, BRASS_D); fillRR(g, lx - 10, F - 6, 28, 6, 3, BRASS_D); });
@@ -214,10 +266,12 @@
   var CLI = W({ x: POD.x, y: POD.y, s: 0.52, ph: 2.2, skin: 2, hair: 2, style: 'bob', outfit: 'blazer', top: PLUM, low: '#3A3F5C', shoe: '#2A2230', id: '#9AA6BC', hands: [[-70, -150], [70, -150]], look: 0.4 });
   CLI.c.shirt = '#FFFFFF'; CLI.c.pocket = TAPE;
   var TAI = W({ x: 774, y: 470, s: 0.56, ph: 2.9, skin: 3, hair: 0, style: 'short', outfit: 'cardigan', top: '#5A6B8C', top2: '#FFFFFF', glasses: true, hands: [[-70, -200], [70, -170]], look: -0.6 });
+  var FC = W({ x: -60, y: 470, s: 0.54, ph: 4.3, skin: 1, hair: 1, style: 'pony', outfit: 'cardigan', top: MINT, top2: '#FFFFFF', hands: [[-80, -230], [40, -180]], look: -0.8 });
+  var AC = W({ x: ARM.x, y: ARM.y, s: 0.56, ph: 5.4, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: '#3167CA', low: '#3A3F5C', glasses: true, sit: true, chair: false, id: '#9AA6BC', hands: [[-34, -262], [34, -262]], look: 0.3 });
   var CREW = [
     { x0: 1010, x1: 1300, y: 488, spd: 14, ph: 0.3, label: 'TechNext consultant', lines: ['Can **configuration** do it? Then no code at all.', 'Studio first, module last. That is the house rule.', 'This one is boxed and ready: **custom_approvals**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.5, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: PINK, hold: 'box' }) },
-    { front: true, x0: -930, x1: -560, y: 700, spd: 18, ph: 0.6, label: 'TechNext developer', lines: ['Written so **another developer** can maintain it.', 'Tested against the **next version** before it ships.', 'More fabric for the **standard** rack!'], acts: ['cheer', 'id', 'wave'],
+    { front: true, x0: -930, x1: 70, y: 700, spd: 18, ph: 0.6, label: 'TechNext developer', lines: ['Written so **another developer** can maintain it.', 'Tested against the **next version** before it ships.', 'More fabric for the **standard** rack!'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.58, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: PLUM, hold: 'mat', hands: [[-60, -212], [70, -150]] }) }
   ];
 
@@ -266,6 +320,27 @@
     if (u >= 0) { P.talk = true; P.mood = 'happy'; P.sx = u < 0.6 ? Math.cos(u / 0.6 * Math.PI * 2) : 1; P.hop = Math.sin(Math.min(1, u / 0.6) * Math.PI) * 18;
       P.hands = u < 0.6 ? [[-140, -300], [140, -300]] : [[-70, -150], [96, -400]];
       if (!st._b) { st._b = 1; CR.burst('conf', P.x, P.y - 280, t); } } else st._b = 0;
+  }
+
+  function actFc(P, t, S) { /* the fitter: pins the jacket on the dress form, steps back to look, chalks the hem; tap: drapes the tape, claps, the jacket gets its "fits" tag */
+    var st = S.cast.fc, u = tapU(st, t, 2.2); P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm'; P.tilt = 0; P.hop = 0; P.sx = 1; P.x = -60;
+    if (u >= 0) { P.talk = true; P.mood = 'happy'; if (!st._b) { st._b = 1; DONE.t = t + 0.5; CR.burst('star', DF.x + 20, 300, t); }
+      if (u < 0.4) { P.hands = [[-50, -390], [50, -390]]; P.look = 0; P.hop = Math.sin(u / 0.4 * Math.PI) * 10; } else { var cl = Math.abs(Math.sin(t * 16)); P.hands = [[-14 - cl * 20, -290], [14 + cl * 20, -290]]; P.look = -0.5; }
+      return; } st._b = 0;
+    var c = (t + 1) % 12;
+    if (c < 5) { var j = Math.sin(t * 5) * 6; P.hands = [[-100 + j, -280 + j], [-40, -200]]; P.look = lerp(P.look, -0.9, 0.1); P.tilt = -0.05; }
+    else if (c < 8) { var b = clamp(Math.min((c - 5) / 0.5, (8 - c) / 0.5), 0, 1); P.x = -60 + b * 22; P.hands = [[-40, -240], [36, -270]]; P.look = lerp(P.look, -0.6, 0.08); P.tilt = 0.06 * b; P.mood = 'happy'; }
+    else if (c < 10.5) { P.hands = [[-110, -170 + Math.sin(t * 3) * 18], [40, -190]]; P.look = lerp(P.look, -0.9, 0.1); P.tilt = -0.1; }
+    else { P.hands = [[-70, -180], [70, -180]]; looks(P, st, t, S, 0.4); }
+  }
+  function actAc(P, t, S) { /* the client in the armchair: leafs through the lookbook, sips tea, gazes at the rack; tap: holds the page up to you, thumbs up */
+    var st = S.cast.ac, u = tapU(st, t, 2.2); P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm'; P.tilt = 0; P.hop = 0; P.sx = 1; BOOK.open = 1; BOOK.show = 0;
+    if (u >= 0) { P.talk = true; P.mood = 'happy'; BOOK.show = 1; var a = ease(Math.min(1, u / 0.25)); P.hands = [[lerp(-34, -50, a), lerp(-262, -360, a)], [lerp(34, 50, a), lerp(-262, -360, a)]]; P.look = 0; P.hop = u > 0.3 ? Math.abs(Math.sin(t * 9)) * 5 : 0;
+      if (!st._b) { st._b = 1; CR.burst('heart', P.x, P.y - 250, t); } return; } st._b = 0;
+    var c = (t + 6) % 13;
+    if (c < 6) { var flip = (c % 2.4) < 0.3; P.hands = [[-34, -262], [flip ? -4 : 34, flip ? -270 : -262]]; P.look = lerp(P.look, 0.15, 0.1); P.tilt = 0.06; }
+    else if (c < 8.5) { var r = clamp(Math.min((c - 6) / 0.4, (8.5 - c) / 0.4), 0, 1); BOOK.open = 1 - r; P.hands = [[-34, -250], [34, -250]]; P.look = lerp(P.look, 0.2, 0.1); P.tilt = -0.05 * r; }
+    else { BOOK.open = 0.4; P.hands = [[-30, -244], [36, -248]]; P.look = lerp(P.look, 0.85, 0.06); P.mood = 'happy'; }
   }
 
   /* ------------------------------ the live layers ------------------------------ */
@@ -321,9 +396,18 @@
     g.strokeStyle = 'rgba(46,156,126,.8)'; g.lineWidth = 1; g.beginPath(); g.moveTo(PEG.x + 110, PEG.y + 150); g.quadraticCurveTo(PEG.x + 116, 270, 960, 312); g.stroke();
     /* steam rises from the iron in the left margin */
     steam(g, -694, 356, t, 4);
+    armchair(g);
   }
+  var BOOK = { open: 0, show: 0 }, DONE = { t: -99 };
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
+    /* tea steam; the client's lookbook; the jacket's "fits" tag after the fitter's tap */
+    for (var sw = 0; sw < 2; sw++) { var sy = 528 - ((t * 9 + sw * 7) % 14); g.strokeStyle = 'rgba(170,150,130,.45)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-238 + sw * 4, sy); g.quadraticCurveTo(-234 + sw * 4, sy - 4, -237 + sw * 4, sy - 8); g.stroke(); }
+    var bl = hw(AC, 0), br = hw(AC, 1), bx = (bl[0] + br[0]) / 2, by = (bl[1] + br[1]) / 2 - 6, bwid = 16 + 16 * BOOK.open;
+    g.save(); g.translate(bx, by); g.rotate(BOOK.show ? 0 : 0.08); fillRR(g, -bwid, -14, bwid * 2, 26, 2, BOOK.show ? '#FFFFFF' : PLUM); if (BOOK.open > 0.3) { fillRR(g, -bwid + 2, -12, bwid - 3, 22, 1, '#FFF8EA'); fillRR(g, 1, -12, bwid - 3, 22, 1, '#FFF8EA');
+      g.fillStyle = PLUM; g.beginPath(); g.moveTo(-bwid * 0.6, -8); g.lineTo(-bwid * 0.3, -9); g.lineTo(-bwid * 0.25, 8); g.lineTo(-bwid * 0.65, 8); g.closePath(); g.fill(); g.fillStyle = '#C9D3E3'; for (var ll = 0; ll < 3; ll++) g.fillRect(4, -7 + ll * 5, bwid - 10, 1.6); }
+    if (BOOK.show) text(g, 'Odoo 20 · tailored', 0, -18, 6.4, 800, PLUM, 'center'); g.restore();
+    var du2 = t - DONE.t; if (du2 >= 0 && du2 < 3) { g.save(); g.globalAlpha = du2 > 2.5 ? (3 - du2) / 0.5 : 1; g.translate(DF.x + 30, 330 - Math.min(1, du2 / 0.2) * 6); g.rotate(0.12); fillRR(g, -2, -11, 46, 20, 4, '#FFFFFF'); g.strokeStyle = MINT; g.lineWidth = 1.6; rr(g, -2, -11, 46, 20, 4); g.stroke(); tick(g, 8, -1, 5.5); text(g, 'fits', 28, 3, 8, 800, MINT, 'center'); g.restore(); }
     /* the drafter's laptop: the custom_approvals module, typed in line by line */
     var fast = S.hot === 'code', n = Math.floor((t * (fast ? 4 : 1.3)) % 10), L = LAP;
     fillRR(g, L.x, L.y, L.w, L.h, 3, '#FFFFFF'); fillRR(g, L.x, L.y, L.w, 10, 3, '#F3EDE2'); text(g, 'custom_approvals / sale_order.py', L.x + 4, L.y + 7.4, 4.6, 800, '#8A6A45');
@@ -381,7 +465,9 @@
       { id: 'dv1', behind: true, keys: ['code'], P: DV1, act: actDv1 },
       { id: 'dv2', behind: true, keys: ['module'], P: DV2, act: actDv2 },
       { id: 'cli', behind: true, keys: [], P: CLI, act: actCli },
-      { id: 'tai', behind: true, keys: ['fit', 'upgrade', 'standard'], P: TAI, act: actTai }
+      { id: 'tai', behind: true, keys: ['fit', 'upgrade', 'standard'], P: TAI, act: actTai },
+      { id: 'fc', behind: true, keys: [], P: FC, act: actFc },
+      { id: 'ac', behind: true, keys: [], P: AC, act: actAc }
     ],
     toy: function (name, S, t) { if (name === 'box') { FX.box = t; CR.burst('spark', BOX.x + 22, BOX.y - 24, t); } },
     hit: function (x, y, S, t) { return CR.hitWalker(x, y, t); },

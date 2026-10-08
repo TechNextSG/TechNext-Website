@@ -82,6 +82,34 @@
     /* pallets and a fire point on the left wall */
     fillRR(g, -470, 250, 30, 40, 4, RED); fillRR(g, -464, 240, 18, 12, 3, INK);
     for (var pl = 0; pl < 5; pl++) fillRR(g, -440, F - 10 - pl * 12, 90, 9, 2, '#B8916A');
+    leftWall(g);
+  }
+  /* the wall behind the title card ("View the scene" shows it): dock 2 for dispatch with its roller door, the PPE board, a
+     wall clock, and a pick-to-light bin wall where the stock clerk picks */
+  var D2 = { x: -344, y: 46, w: 190 }, PTL = { x: -112, y: 70, c: 6, r: 5, w: 33, h: 44 };
+  function ptlBin(i) { return { x: PTL.x + (i % PTL.c) * PTL.w, y: PTL.y + Math.floor(i / PTL.c) * PTL.h }; }
+  function leftWall(g) {
+    var d = D2; fillRR(g, d.x - 10, d.y - 12, d.w + 20, F - d.y + 12, 4, STEEL); fillRR(g, d.x, d.y, d.w, F - d.y, 2, '#2A3142');
+    fillRR(g, d.x + 10, d.y + 120, d.w - 20, F - d.y - 120, 2, '#3D4560'); box(g, d.x + 22, F - 70, 44, 70); box(g, d.x + 70, F - 52, 40, 52, '#D9B88E'); box(g, d.x + 116, F - 84, 50, 84, '#B8916A');
+    fillRR(g, d.x + 28, d.y - 46, d.w - 56, 28, 5, YEL); text(g, 'DOCK 2 · DISPATCH', d.x + d.w / 2, d.y - 27.5, 8.6, 800, INK, 'center');
+    hazard(g, d.x - 10, F - 64, 10, 64); hazard(g, d.x + d.w, F - 64, 10, 64); fillRR(g, d.x + d.w + 16, 210, 26, 40, 4, '#C9D2DE'); fillE(g, d.x + d.w + 29, 222, 5, 5, OK); fillE(g, d.x + d.w + 29, 238, 5, 5, RED);
+    /* the PPE board and a clock over the pallets */
+    fillRR(g, -470, -60, 104, 104, 8, '#FFFFFF'); fillRR(g, -470, -60, 104, 22, 8, BLUE); g.fillRect(-470, -46, 104, 8); text(g, 'PPE ZONE', -418, -44, 8.6, 800, '#FFFFFF', 'center');
+    [['hat', -448], ['vest', -418], ['boot', -388]].forEach(function (q) { var cx = q[1], cy = -8; fillE(g, cx, cy, 13, 13, BLUE); g.fillStyle = '#FFFFFF';
+      if (q[0] === 'hat') { g.beginPath(); g.arc(cx, cy + 3, 8, Math.PI, 0); g.fill(); g.fillRect(cx - 10, cy + 2, 20, 3); }
+      else if (q[0] === 'vest') { g.beginPath(); g.moveTo(cx - 7, cy - 7); g.lineTo(cx - 2, cy - 7); g.lineTo(cx, cy - 2); g.lineTo(cx + 2, cy - 7); g.lineTo(cx + 7, cy - 7); g.lineTo(cx + 7, cy + 8); g.lineTo(cx - 7, cy + 8); g.closePath(); g.fill(); }
+      else { g.fillRect(cx - 5, cy - 8, 6, 12); fillRR(g, cx - 5, cy + 2, 13, 6, 2, '#FFFFFF'); } });
+    text(g, 'hard hat · vest · boots', -418, 26, 6, 700, '#3D4560', 'center');
+    K.clockFace(g, { x: -418, y: 110, r: 24 }, STEEL); text(g, 'SINGAPORE', -418, 146, 6, 800, '#3D4560', 'center');
+    /* the pick-to-light wall: bins with addresses, a light module under each */
+    var p = PTL; fillRR(g, p.x - 10, p.y - 34, p.c * p.w + 20, p.r * p.h + 44, 6, BLUE); fillRR(g, p.x - 4, p.y - 4, p.c * p.w + 8, p.r * p.h + 8, 4, '#E9EEF5');
+    text(g, 'PICK FACE · ZONE A', p.x + p.c * p.w / 2, p.y - 15, 8, 800, '#FFFFFF', 'center');
+    for (var i = 0; i < p.c * p.r; i++) { var b = ptlBin(i), col = ['#3FA9E0', YEL, RED, OK][(i + Math.floor(i / p.c)) % 4];
+      fillRR(g, b.x + 3, b.y + 6, p.w - 6, 22, 3, col); fillRR(g, b.x + 3, b.y + 6, p.w - 6, 6, 2, 'rgba(255,255,255,.35)'); fillRR(g, b.x + 8, b.y + 14, p.w - 16, 8, 1.5, '#FFFFFF');
+      text(g, 'A' + (Math.floor(i / p.c) + 1) + '-0' + (i % p.c + 1), b.x + p.w / 2, b.y + 20.4, 4.6, 800, INK, 'center'); fillRR(g, b.x + 6, b.y + 31, p.w - 12, 8, 2, '#2A3142'); }
+    /* the clerk's tote trolley */
+    var tx = 66; soft(g, tx + 30, F + 3, 40, 6, 0.3); g.strokeStyle = STEEL; g.lineWidth = 3; g.beginPath(); g.moveTo(tx + 60, F - 92); g.lineTo(tx + 60, F - 10); g.stroke(); fillRR(g, tx, F - 52, 64, 6, 2, STEEL); fillRR(g, tx, F - 14, 64, 6, 2, STEEL);
+    fillRR(g, tx + 4, F - 46, 52, 32, 3, BLUE); fillRR(g, tx + 4, F - 84, 52, 32, 3, YEL); fillE(g, tx + 8, F - 4, 5, 5, INK); fillE(g, tx + 56, F - 4, 5, 5, INK);
   }
   function paintFront(g, ext) {
     /* the pick cart */
@@ -92,11 +120,15 @@
   }
   function paintFore(g, ext) {
     /* the foreground: bollards, wrapped pallets, a pallet jack, cones */
-    [-420, -260, 1000, 1180].forEach(function (x) { soft(g, x, 676, 22, 4, 0.3); fillRR(g, x - 9, 610, 18, 64, 6, YEL); g.fillStyle = INK; g.fillRect(x - 9, 626, 18, 6); g.fillRect(x - 9, 646, 18, 6); });
-    [[-150, 652], [1090, 690]].forEach(function (p) { soft(g, p[0] + 50, p[1] + 4, 66, 7, 0.3); fillRR(g, p[0], p[1] - 10, 100, 10, 2, '#A07A52'); for (var b = 0; b < 6; b++) box(g, p[0] + 2 + (b % 3) * 33, p[1] - 44 - Math.floor(b / 3) * 34, 31, 33, ['#C9A27A', '#D9B88E', '#B8916A'][b % 3]);
+    [[-372, 540], [-126, 540], [1110, 674], [1220, 674]].forEach(function (q) { var x = q[0], by = q[1]; soft(g, x, by + 2, 22, 4, 0.3); fillRR(g, x - 9, by - 64, 18, 64, 6, YEL); g.fillStyle = INK; g.fillRect(x - 9, by - 48, 18, 6); g.fillRect(x - 9, by - 28, 18, 6); });
+    /* the floor band below the card: a hatched keep-clear lane with stencilled zone marks */
+    g.save(); g.beginPath(); g.rect(ext.l - 20, 646, ext.r - ext.l + 40, 50); g.clip(); g.fillStyle = 'rgba(255,201,60,.22)'; g.fillRect(ext.l - 20, 646, ext.r - ext.l + 40, 50); g.fillStyle = 'rgba(255,201,60,.55)';
+    for (var hz = Math.floor(ext.l / 28) * 28 - 60; hz < ext.r + 40; hz += 28) { g.beginPath(); g.moveTo(hz, 696); g.lineTo(hz + 12, 696); g.lineTo(hz + 62, 646); g.lineTo(hz + 50, 646); g.closePath(); g.fill(); } g.restore();
+    g.fillStyle = YEL; g.fillRect(ext.l - 20, 644, ext.r - ext.l + 40, 4); g.fillRect(ext.l - 20, 694, ext.r - ext.l + 40, 4);
+    [[380, 'ZONE A · PICK FACE'], [800, 'KEEP CLEAR']].forEach(function (z) { fillRR(g, z[0] - 84, 656, 168, 30, 4, 'rgba(228,233,240,.92)'); text(g, z[1], z[0], 676, 11, 800, '#2A3550', 'center'); });
+    [[-660, 548], [1090, 690]].forEach(function (p) { soft(g, p[0] + 50, p[1] + 4, 66, 7, 0.3); fillRR(g, p[0], p[1] - 10, 100, 10, 2, '#A07A52'); for (var b = 0; b < 6; b++) box(g, p[0] + 2 + (b % 3) * 33, p[1] - 44 - Math.floor(b / 3) * 34, 31, 33, ['#C9A27A', '#D9B88E', '#B8916A'][b % 3]);
       g.fillStyle = 'rgba(220,235,250,.35)'; g.fillRect(p[0], p[1] - 80, 100, 70); g.strokeStyle = 'rgba(255,255,255,.6)'; g.lineWidth = 1; for (var s = 0; s < 6; s++) { g.beginPath(); g.moveTo(p[0], p[1] - 76 + s * 12); g.lineTo(p[0] + 100, p[1] - 70 + s * 12); g.stroke(); } });
-    g.strokeStyle = RED; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(30, 700); g.lineTo(50, 620); g.stroke(); fillRR(g, 46, 612, 26, 8, 4, INK); fillRR(g, 10, 692, 120, 12, 3, RED); fillE(g, 24, 708, 6, 6, INK); fillE(g, 116, 708, 6, 6, INK);
-    [[150, 720], [-560, 700]].forEach(function (c) { soft(g, c[0], c[1] + 2, 20, 4, 0.3); g.fillStyle = AMB; g.beginPath(); g.moveTo(c[0] - 14, c[1]); g.lineTo(c[0] - 4, c[1] - 40); g.lineTo(c[0] + 4, c[1] - 40); g.lineTo(c[0] + 14, c[1]); g.closePath(); g.fill(); fillRR(g, c[0] - 18, c[1] - 4, 36, 6, 2, AMB); g.fillStyle = '#FFFFFF'; g.fillRect(c[0] - 8, c[1] - 26, 16, 6); });
+    [[184, 712], [-560, 700]].forEach(function (c) { soft(g, c[0], c[1] + 2, 20, 4, 0.3); g.fillStyle = AMB; g.beginPath(); g.moveTo(c[0] - 14, c[1]); g.lineTo(c[0] - 4, c[1] - 40); g.lineTo(c[0] + 4, c[1] - 40); g.lineTo(c[0] + 14, c[1]); g.closePath(); g.fill(); fillRR(g, c[0] - 18, c[1] - 4, 36, 6, 2, AMB); g.fillStyle = '#FFFFFF'; g.fillRect(c[0] - 8, c[1] - 26, 16, 6); });
   }
 
   var W = CR.who;
@@ -105,6 +137,8 @@
   var PACK = W({ x: 690, y: 470, s: 0.5, ph: 1.8, skin: 0, hair: 1, style: 'pony', outfit: 'shirt', top: BLUE, sit: true, chairCol: '#2A3550', id: '#9AA6BC', hands: [[-60, -206], [60, -206]], look: -0.3 });
   var RCV = W({ x: 936, y: 470, s: 0.54, ph: 3.6, skin: 3, hair: 1, style: 'short', outfit: 'polo', top: PUR, id: '#9AA6BC', hold: 'tablet', hands: [[-60, -212], [70, -170]], look: -0.4 });
   RCV.vest = YEL;
+  var CLK = W({ x: -6, y: 470, s: 0.54, ph: 2.1, skin: 2, hair: 0, style: 'bob', outfit: 'polo', top: '#3FA9E0', id: '#9AA6BC', hands: [[-60, -212], [70, -212]], look: -0.4 });
+  CLK.vest = YEL;
   var CREW = [
     { x0: -900, x1: -480, y: 488, spd: 14, ph: 0.3, label: 'TechNext consultant', lines: ['Locations, routes and reorder rules set up **first**.', 'Opening stock counted and **loaded** before go-live.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'polo', top: '#3167CA', hold: 'clipboard' }) },
@@ -115,7 +149,10 @@
   var DRV = W({ x: 0, y: 0, s: 0.46, ph: 1.1, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: '#2E9C7E', sit: true, chair: false, id: '#9AA6BC', hands: [[-40, -230], [60, -230]] });
   DRV.hat = 'hardhat';
 
-  var FX = { honk: -9, scan: -9, label: -9, whistle: -9, marshal: -9, crane: -9, cart: 1, fork: -9 };
+  CREW[1].peek = true; /* the near walker strolls in front of the title card only while the scene is in view */
+  var HERO = null; function peekOn() { if (!HERO) HERO = document.querySelector('.ixw-hero'); return !!(HERO && HERO.classList.contains('is-peek')); }
+  function crewVis() { var pk = peekOn(); return CREW.filter(function (w) { return !w.peek || pk; }); }
+  var FX = { ptl: -9, honk: -9, scan: -9, label: -9, whistle: -9, marshal: -9, crane: -9, cart: 1, fork: -9 };
   function tapU(st, t, dur) { if (st.wave && st.wave !== st._tw) { st._tw = st.wave; st.tapT = t; } var u = (t - (st.tapT == null ? -99 : st.tapT)) / dur; return u >= 0 && u < 1 ? u : -1; }
   function look(P, st, t, S, rest) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : rest, 0.08); }
   function handAt(P, i) { var h = P.hands[i], sxk = P.sx == null ? 1 : P.sx; return [P.x + h[0] * P.s * sxk, P.y + (h[1] - (P.hop || 0) + (P.sit ? 46 : 0)) * P.s]; }
@@ -133,6 +170,13 @@
     g.strokeStyle = '#2A3142'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(tx - 3, RAIL + 6); g.lineTo(tx - 3, hy); g.moveTo(tx + 3, RAIL + 6); g.lineTo(tx + 3, hy); g.stroke(); fillRR(g, tx - 10, hy, 20, 7, 2, YEL);
     if (carry) { box(g, tx - 20, hy + 7, 40, 30, '#D9B88E'); fillRR(g, tx - 8, hy + 14, 16, 9, 1, '#FFFFFF'); }
     if (wu < 4.8 && wu > 2.8) { var tb = bin(1, 2); box(g, tb.x + 4, LEVELS[1] - 44, 44, 44, '#D9B88E'); }
+    /* pick-to-light: the lit bin glows green (it goes off when confirmed); a tap lights them all in a wave; the dock 2 door rolls up and down */
+    var lb = litBin(t), lc = (t + 1) % 9, wv = t - FX.ptl; for (var pi = 0; pi < PTL.c * PTL.r; pi++) { var pb = ptlBin(pi), on = wv < 2.4 ? Math.sin(wv * 8 - (pi % PTL.c) * 0.9 - Math.floor(pi / PTL.c) * 0.5) > 0.2 : (pi === lb && lc < 4.05);
+      fillRR(g, pb.x + 8, pb.y + 32.5, PTL.w - 16, 5, 1.5, on ? '#3BE38F' : (pi === lb && lc < 5.2 ? '#9AA6BC' : '#4A5468')); if (on) fillE(g, pb.x + PTL.w / 2, pb.y + 35, 10, 5, 'rgba(59,227,143,.25)'); }
+    var dr = (t * 0.07) % 1, dopen = dr < 0.15 ? dr / 0.15 : dr < 0.5 ? 1 : dr < 0.65 ? 1 - (dr - 0.5) / 0.15 : 0, dh = (F - D2.y - 2) * (1 - dopen * 0.62);
+    fillRR(g, D2.x, D2.y, D2.w, dh, 2, '#C9D2DE'); g.fillStyle = 'rgba(40,60,90,.16)'; for (var sl = D2.y + 8; sl < D2.y + dh - 2; sl += 10) g.fillRect(D2.x, sl, D2.w, 2); hazard(g, D2.x, D2.y + dh - 8, D2.w, 8);
+    fillRR(g, D2.x + D2.w / 2 - 12, D2.y + dh - 18, 24, 6, 2, STEEL);
+    var kd = new Date(Date.now() + 8 * 3600e3); K.clockHands(g, { x: -418, y: 110, r: 24 }, kd.getUTCHours(), kd.getUTCMinutes(), kd.getUTCSeconds());
     /* the departures board: rows flip in turn */
     var fl = Math.floor(t * 0.7) % OUT.length; OUT.forEach(function (r, i) { var y = BD.y + 36 + i * 19, fp = i === fl ? ((t * 0.7) % 1) : 1, sc = fp < 0.25 ? Math.abs(Math.cos(fp * 4 * Math.PI)) : 1;
       g.save(); g.translate(0, y + 6); g.scale(1, sc); text(g, r[0], BD.x + 8, 3, 7, 800, '#FFFFFF'); text(g, r[1], BD.x + 98, 3, 7, 800, YEL); fillRR(g, BD.x + 148, -6, 64, 12, 3, r[3]); text(g, r[2], BD.x + 180, 3, 6.4, 800, '#FFFFFF', 'center'); g.restore(); });
@@ -182,6 +226,8 @@
     var su = t - FX.scan; if (su < 1.8) pill(g, PICK.x, PICK.y - 330 - su * 12, 54, 'Beep!', RED, '#FFFFFF', clamp((1.8 - su) * 2, 0, 1));
     var mu = t - FX.marshal; if (mu < 2.6) pill(g, RCV.x - 10, RCV.y - 340 - mu * 10, 92, 'Received · PO ✓', OK, '#FFFFFF', clamp((2.6 - mu) * 2, 0, 1));
     var wu = t - FX.whistle; if (wu < 2.2) pill(g, LEAD.x + 10, LEAD.y - 340 - wu * 10, 96, 'Crate to WH/A-203', AMB, INK, clamp((2.2 - wu) * 2, 0, 1));
+    if (CLK._item) { var ih = handAt(CLK, 1); box(g, ih[0] - 9, ih[1] - 16, 18, 15, '#3FA9E0'); }
+    var tu = t - FX.ptl; if (tu < 2.6) pill(g, CLK.x, CLK.y - 330 - tu * 10, 104, 'Picked ✓ · WH/OUT/0044', OK, '#FFFFFF', clamp((2.6 - tu) * 2, 0, 1));
     CR.draw(g, t);
   }
 
@@ -223,11 +269,25 @@
     else if (c < 4.6) { P.hands = [[-40, -300], [30, -280]]; P.tilt = 0.06; look(P, st, t, S, -0.1); }
     else { P.hands = [[-60, -212], [-60, -330]]; P.mood = 'happy'; look(P, st, t, S, -0.5); }
   }
+  /* the lit bin on the pick-to-light wall (a lower row, within the clerk's reach) */
+  function litBin(t) { var n = Math.floor((t + 1) / 9); return 18 + Math.floor(hash(n * 2.3) * 12); }
+  function actClk(P, t, S) { /* the stock clerk: reaches into the lit bin, drops the item in the tote, presses the light to confirm, scans the tote; tapped: every bin lights in a wave and she spins */
+    var st = S.cast.clk, u = tapU(st, t, 2.4), c = (t + 1) % 9; reset(P); P._item = false; P.hold = null; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (u >= 0) { P.mood = 'happy'; P.talk = true; if (FX.ptl < st.tapT) { FX.ptl = t; CR.burst('star', P.x, P.y - 290, t); }
+      P.sx = Math.cos(u * Math.PI * 2); P.hands = [[-110, -400 + Math.sin(t * 12) * 10], [110, -400 - Math.sin(t * 12) * 10]]; P.hop = Math.abs(Math.sin(u * Math.PI * 2)) * 14; return; }
+    var b = ptlBin(litBin(t)), bx = (b.x + PTL.w / 2 - P.x) / P.s, byy = (b.y + 20 - P.y) / P.s;
+    if (c < 2.4) { P.hands = [[-60, -212], [clamp(bx, -150, 150), clamp(byy, -460, -200)]]; P.look = clamp(bx / 150, -1, 1); P.tilt = -0.03; }
+    else if (c < 4) { P._item = true; P.hands = [[-60, -212], [lerp(clamp(bx, -150, 150), 140, (c - 2.4) / 1.6), lerp(clamp(byy, -460, -200), -170, (c - 2.4) / 1.6)]]; P.look = 0.7; }
+    else if (c < 5.2) { P.hands = [[-60, -212], [clamp(bx, -150, 150), clamp(byy + 26, -440, -180)]]; P.look = clamp(bx / 150, -1, 1); if (c - 4 < 0.04) CR.burst('spark', b.x + PTL.w / 2, b.y + 34, t); }
+    else if (c < 7) { P.hold = 'tablet'; P.hands = [[-60, -220], [60, -232]]; P.tilt = 0.05; P.look = 0.5; }
+    else { P.hands = [[-60, -212], [70, -212]]; P.tilt = Math.sin(t * 2) * 0.04; P.look = Math.sin(t * 0.8) * 0.8; }
+    if (t < st.until) look(P, st, t, S, P.look);
+  }
   window.IXW.worlds['app-stock'] = {
     pan: [-300, 1200],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(crewVis(), g, t, S, 'fore'); }); CR.draw(g, t); },
     moteCol: 'rgba(242,163,58,.22)',
     glow: {
       receive: function (g) { rr(g, DK.x - 10, DK.y - 52, DK.w + 20, 130, 12); },
@@ -243,7 +303,8 @@
       { id: 'lead', behind: false, keys: ['reorder', 'count', 'putaway'], P: LEAD, act: actLead },
       { id: 'pick', behind: false, keys: ['picking'], P: PICK, act: actPick },
       { id: 'pack', behind: true, keys: ['packing'], P: PACK, act: actPack },
-      { id: 'rcv', behind: false, keys: ['receive'], P: RCV, act: actRcv }
+      { id: 'rcv', behind: false, keys: ['receive'], P: RCV, act: actRcv },
+      { id: 'clk', behind: true, keys: [], P: CLK, act: actClk }
     ],
     toy: function (name, S, t) { if (name === 'honk') { FX.honk = t; CR.burst('note', DK.x + 79, DK.y - 10, t); } },
     hit: function (x, y, S, t) {

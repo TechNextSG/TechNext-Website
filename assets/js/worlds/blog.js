@@ -94,10 +94,71 @@
       fillRR(g, pr.x, pr.y, pr.w, F - pr.y, 12, '#5C6B8A'); fillRR(g, pr.x + 10, pr.y + 10, pr.w - 20, 70, 8, '#46546F'); fillRR(g, pr.x, pr.y - 30, pr.w, 34, 8, RED);
       text(g, 'THE TECHNEXT PRESS', pr.x + pr.w / 2, pr.y - 8, 13, 800, '#FFFFFF', 'center');
       for (var pl = 0; pl < 3; pl++) { fillE(g, pr.x + 60 + pl * 90, pr.y + 120, 30, 30, '#3A4458'); fillE(g, pr.x + 60 + pl * 90, pr.y + 120, 24, 24, '#8A96B0'); }
-      fillRR(g, pr.x + 20, pr.y + 170, pr.w - 40, 14, 4, '#3A4458'); fillRR(g, pr.x + 30, F - 40, 60, 40, 6, '#46546F'); fillRR(g, pr.x + pr.w - 90, F - 40, 60, 40, 6, '#46546F'); }
-    K.plant(g, { x: -40, y: F }, '#FFFFFF', '#E3E8EF');
+      fillRR(g, pr.x + 20, pr.y + 170, pr.w - 40, 14, 4, '#3A4458'); fillRR(g, pr.x + 30, F - 40, 60, 40, 6, '#46546F'); fillRR(g, pr.x + pr.w - 90, F - 40, 60, 40, 6, '#46546F');
+      /* two fabric banners hang from the grid over the press */
+      [[pr.x + 20, RED, 'EXTRA!', 'Odoo 20 edition'], [pr.x + 170, BLUE, 'PRINTED', 'in plain language']].forEach(function (b) { g.fillStyle = '#9AA6BC'; g.fillRect(b[0] + 8, -136, 2, 16); g.fillRect(b[0] + 100, -136, 2, 16);
+        fillRR(g, b[0], -122, 110, 8, 3, '#5C6B7A'); g.fillStyle = b[1]; g.beginPath(); g.moveTo(b[0] + 4, -114); g.lineTo(b[0] + 106, -114); g.lineTo(b[0] + 106, 160); g.lineTo(b[0] + 55, 136); g.lineTo(b[0] + 4, 160); g.closePath(); g.fill();
+        g.fillStyle = 'rgba(255,255,255,.14)'; g.fillRect(b[0] + 4, -114, 10, 270); CO.plane(g, b[0] + 55, -60, 2.2, 0, '#FFFFFF'); text(g, b[2], b[0] + 55, 10, 15, 800, '#FFFFFF', 'center'); text(g, b[3], b[0] + 55, 30, 8, 700, 'rgba(255,255,255,.85)', 'center'); }); }
+    newsroom(g);
+  }
+  /* behind the title card: the newsroom corner. Framed front pages, the monitor wall (live), the newsroom light box, the
+     rundown board (live), a softbox on its stand, the water cooler, the fact-checker's research desk, the interview corner
+     on its rug, and tape marks on the studio floor. */
+  var FRONTS = [['ODOO 20', 'is here', BLUE], ['INVOICENOW', 'all dates to 2031', TEAL], ['OE 2026', 'five takeaways', PUR]];
+  var RUN = [['Odoo 20: new features', BLUE], ['InvoiceNow in Singapore', TEAL], ['Odoo Experience 2026', PUR], ['Odoo events, Oct–Nov', RED]];
+  var NR = { fronts: { x: -476, y: -104 }, mons: { x: -110, y: -98, w: 104, h: 64 }, sign: { x: -476, y: 44, w: 336 }, run: { x: -476, y: 94, w: 336, h: 122 },
+    soft: { x: -86 }, cool: { x: 66 }, rdesk: { x: -470, y: 404, w: 214 }, corner: { x: -170, y: 604 } };
+  function newsroom(g) {
+    /* framed front pages of past editions */
+    FRONTS.forEach(function (f, i) { var x = NR.fronts.x + i * 118, y = NR.fronts.y + (i % 2) * 8;
+      shadowed(g, 10, 4, 0.18, function () { fillRR(g, x, y, 104, 132, 4, '#2A3142'); }); fillRR(g, x + 6, y + 6, 92, 120, 2, '#FFFDF8');
+      fillRR(g, x + 12, y + 12, 80, 2, 1, INK); text(g, 'THE TECHNEXT NEWS', x + 52, y + 24, 6, 800, INK, 'center'); fillRR(g, x + 12, y + 28, 80, 1, 0, INK);
+      text(g, f[0], x + 52, y + 46, f[0].length > 8 ? 10.5 : 13, 800, f[2], 'center'); text(g, f[1], x + 52, y + 58, 7, 700, '#5C6378', 'center');
+      fillRR(g, x + 12, y + 66, 38, 30, 2, f[2]); g.globalAlpha = 0.25; fillRR(g, x + 16, y + 70, 30, 22, 2, '#FFFFFF'); g.globalAlpha = 1;
+      for (var l = 0; l < 6; l++) fillRR(g, x + 56, y + 68 + l * 5, l % 3 === 2 ? 22 : 34, 2, 1, '#C9D3E3');
+      for (var l2 = 0; l2 < 3; l2++) fillRR(g, x + 12, y + 102 + l2 * 6, 80 - (l2 === 2 ? 30 : 0), 2, 1, '#C9D3E3'); });
+    /* the monitor wall's frame (the feeds are live) */
+    var m = NR.mons; shadowed(g, 12, 4, 0.2, function () { fillRR(g, m.x - 8, m.y - 8, m.w * 2 + 22, m.h * 2 + 22, 8, '#2A3142'); });
+    g.fillStyle = '#9AA6BC'; g.fillRect(m.x + m.w, m.y + m.h * 2 + 14, 6, 24); fillRR(g, m.x + m.w - 20, m.y + m.h * 2 + 36, 46, 6, 3, '#9AA6BC');
+    /* the newsroom light box */
+    var s = NR.sign; shadowed(g, 10, 4, 0.16, function () { fillRR(g, s.x, s.y, s.w, 40, 6, '#FFFFFF'); }); fillRR(g, s.x, s.y, 10, 40, 4, RED);
+    CO.plane(g, s.x + 32, s.y + 20, 1.1, 0, BLUE); text(g, 'THE TECHNEXT NEWSROOM', s.x + 52, s.y + 25, 13, 800, INK); text(g, 'SG · PH · VN', s.x + s.w - 14, s.y + 25, 9, 800, RED, 'right');
+    /* the rundown board (its NOW marker is live) */
+    var r = NR.run; shadowed(g, 10, 4, 0.16, function () { fillRR(g, r.x, r.y, r.w, r.h, 6, '#FFFFFF'); }); fillRR(g, r.x, r.y, r.w, 24, 6, INK); g.fillRect(r.x, r.y + 16, r.w, 8);
+    text(g, "TODAY'S RUNDOWN", r.x + 14, r.y + 16, 8.5, 800, '#FFFFFF'); text(g, 'ON THE DESK', r.x + r.w - 14, r.y + 16, 7, 800, Y, 'right');
+    RUN.forEach(function (it, i) { var y = r.y + 30 + i * 22; fillRR(g, r.x + 10, y, r.w - 20, 18, 3, '#F4F7FC'); fillRR(g, r.x + 10, y, 5, 18, 2, it[1]);
+      text(g, String(i + 1), r.x + 26, y + 13, 9, 800, it[1], 'center'); text(g, it[0], r.x + 40, y + 13, 9, 700, INK); });
+    /* the softbox on its stand, aimed at the desk */
+    var sx = NR.soft.x; soft(g, sx, F + 4, 40, 6, 0.28); g.strokeStyle = '#5C6B7A'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(sx, F - 30); g.lineTo(sx, 150);
+    g.moveTo(sx, F - 30); g.lineTo(sx - 28, F); g.moveTo(sx, F - 30); g.lineTo(sx + 28, F); g.moveTo(sx, F - 30); g.lineTo(sx, F); g.stroke();
+    g.save(); g.translate(sx, 140); g.rotate(0.28); fillRR(g, -40, -34, 80, 64, 6, '#3A4458'); fillRR(g, -34, -28, 68, 52, 4, '#FFF8E6'); g.fillStyle = 'rgba(255,236,180,.5)'; g.fillRect(-34, -28, 68, 8); g.restore();
+    /* the water cooler */
+    var cx = NR.cool.x; soft(g, cx, F + 3, 34, 6, 0.26); fillRR(g, cx - 24, 384, 48, F - 384, 6, '#F4F7FB'); fillRR(g, cx - 24, 384, 48, 8, 4, '#DCE3EE');
+    fillRR(g, cx - 12, 404, 9, 8, 2, BLUE); fillRR(g, cx + 3, 404, 9, 8, 2, RED); fillRR(g, cx - 14, 420, 28, 3, 1, '#C9D3E3');
+    fillRR(g, cx - 20, 306, 40, 80, 16, 'rgba(160,205,240,.78)'); fillRR(g, cx - 16, 314, 12, 60, 6, 'rgba(255,255,255,.45)'); fillRR(g, cx - 8, 300, 16, 10, 3, '#9CC3E6');
+    /* the interview corner: a round rug, two armchairs, a low table with a desk mic */
+    var co = NR.corner; g.save(); g.globalAlpha = 0.9; fillE(g, co.x, co.y + 8, 150, 26, '#D9E3F4'); g.restore(); g.strokeStyle = 'rgba(226,69,60,.45)'; g.lineWidth = 2; g.beginPath(); g.ellipse(co.x, co.y + 8, 138, 21, 0, 0, 7); g.stroke();
+    [[-1, BLUE], [1, RED]].forEach(function (a) { var x = co.x + a[0] * 96; soft(g, x, co.y + 8, 44, 7, 0.26); fillRR(g, x - 38, co.y - 70, 76, 56, 16, a[1]); fillRR(g, x - 42, co.y - 34, 84, 30, 10, a[1]);
+      fillRR(g, x - 34, co.y - 30, 68, 14, 6, 'rgba(255,255,255,.22)'); fillRR(g, x - 46, co.y - 44, 14, 38, 7, a[1]); fillRR(g, x + 32, co.y - 44, 14, 38, 7, a[1]);
+      fillRR(g, x - 36, co.y - 6, 6, 12, 2, '#3A4458'); fillRR(g, x + 30, co.y - 6, 6, 12, 2, '#3A4458'); });
+    soft(g, co.x, co.y + 8, 40, 6, 0.26); fillRR(g, co.x - 34, co.y - 34, 68, 8, 4, '#FFFFFF'); fillRR(g, co.x - 3, co.y - 26, 6, 32, 2, '#9AA6BC'); fillRR(g, co.x - 18, co.y + 4, 36, 5, 2, '#9AA6BC');
+    g.strokeStyle = '#2A3142'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(co.x + 18, co.y - 34); g.lineTo(co.x + 26, co.y - 58); g.stroke(); fillRR(g, co.x + 20, co.y - 70, 12, 14, 6, '#2A3142'); fillRR(g, co.x + 18, co.y - 62, 16, 4, 2, RED);
+    fillRR(g, co.x - 26, co.y - 44, 11, 10, 3, '#FFFFFF'); fillRR(g, co.x - 26, co.y - 44, 11, 3, 1, BLUE);
+    /* tape marks on the studio floor */
+    g.strokeStyle = 'rgba(255,216,74,.9)'; g.lineWidth = 4; g.lineCap = 'butt'; [[-420, 520], [-60, 528], [110, 640]].forEach(function (p) { g.beginPath(); g.moveTo(p[0] - 10, p[1] - 4); g.lineTo(p[0] + 10, p[1] + 4); g.moveTo(p[0] + 10, p[1] - 4); g.lineTo(p[0] - 10, p[1] + 4); g.stroke(); });
+    g.strokeStyle = 'rgba(226,69,60,.7)'; g.beginPath(); g.moveTo(-300, 652); g.lineTo(-260, 652); g.moveTo(-280, 652); g.lineTo(-280, 666); g.stroke();
+    K.plant(g, { x: -14, y: F }, '#FFFFFF', '#E3E8EF');
+  }
+  function newsroomFront(g) {
+    /* the fact-checker's research desk: open (her legs show), the monitor BESIDE her, a lamp, the out-tray */
+    var d = NR.rdesk; CO.desk(g, d.x, d.y, d.w, F, { open: true, legs: '#7A869C', top: '#E9EEF8' }); fillRR(g, d.x - 6, d.y + 9, d.w + 12, 3, 1, RED);
+    g.fillStyle = '#5C6B7A'; g.fillRect(d.x + 150, d.y - 24, 4, 24); fillRR(g, d.x + 138, d.y - 4, 28, 5, 2, '#5C6B7A'); fillRR(g, d.x + 116, d.y - 76, 74, 54, 5, '#2A3550');
+    g.strokeStyle = '#5C6B7A'; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(d.x + 204, d.y); g.lineTo(d.x + 196, d.y - 44); g.lineTo(d.x + 178, d.y - 60); g.stroke();
+    g.fillStyle = Y; g.beginPath(); g.moveTo(d.x + 166, d.y - 54); g.lineTo(d.x + 188, d.y - 70); g.lineTo(d.x + 196, d.y - 58); g.lineTo(d.x + 176, d.y - 44); g.closePath(); g.fill();
+    fillRR(g, d.x + 4, d.y - 12, 44, 12, 2, '#9AA6BC'); for (var p = 0; p < 3; p++) fillRR(g, d.x + 8 + p, d.y - 14 - p * 3, 36, 3, 1, p % 2 ? '#F1F4F9' : '#FFFFFF'); text(g, 'CHECKED', d.x + 26, d.y - 2.5, 5.4, 800, '#FFFFFF', 'center');
   }
   function paintFront(g, ext) {
+    newsroomFront(g);
     /* the writer's open desk with a laptop, a mug, and her paper bin */
     var wd = T.write; CO.desk(g, wd.x, wd.y, wd.w, F, { open: true, legs: '#7A869C', top: '#C9A27A' });
     fillRR(g, wd.x + 50, wd.y - 36, 60, 36, 4, '#2A3550'); fillRR(g, wd.x + 42, wd.y - 4, 76, 6, 3, '#9AA6BC');
@@ -137,17 +198,18 @@
   var CAMOP = W({ x: 820, y: 470, s: 0.52, ph: 2.1, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#F08A24', headset: BLUE, hands: [[-120, -250], [-60, -200]], look: -0.7 });
   var FM = W({ x: 346, y: 470, s: 0.5, ph: 0.3, skin: 0, hair: 2, style: 'pony', outfit: 'polo', top: PUR, top2: '#FFFFFF', headset: RED, hands: [[-70, -160], [100, -330]], look: 0.3 });
   var PROD = W({ x: 1214, y: 470, s: 0.5, ph: 2.7, skin: 4, hair: 1, style: 'short', outfit: 'cardigan', top: '#2A3550', top2: '#DCE7FB', glasses: true, hands: [[-120, -330], [60, -160]], look: -0.8 });
+  var FC = W({ x: -404, y: 470, s: 0.5, ph: 1.7, skin: 1, hair: 1, style: 'bun', outfit: 'cardigan', top: '#F08A24', top2: '#FFFFFF', glasses: true, sit: true, chairCol: RED, hands: [[-60, -200], [60, -200]], look: 0.5 });
   var OPR = W({ x: -560, y: 470, s: 0.5, ph: 1.1, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: '#5C6B8A', hands: [[-110, -250], [60, -160]], look: -0.6 });
   var CREW = [
-    { x0: -880, x1: -540, y: 520, spd: 14, ph: 0.4, label: 'Editor', lines: ['Plain language first. **No jargon** gets past me.', 'Next up: what Odoo 20 means for **month-end**.'], acts: ['nod', 'id', 'think'],
+    { x0: -900, x1: -610, y: 520, spd: 14, ph: 0.4, label: 'Editor', lines: ['Plain language first. **No jargon** gets past me.', 'Next up: what Odoo 20 means for **month-end**.'], acts: ['nod', 'id', 'think'],
       P: W({ s: 0.5, skin: 0, hair: 2, style: 'long', outfit: 'shirt', top: '#E0456B', hold: 'clipboard' }) },
-    { front: true, x0: -420, x1: 80, y: 690, spd: 18, ph: 0.6, label: 'Reporter', lines: ['Live from **Odoo Experience 2026**, five takeaways!', 'Reporting for Singapore, the Philippines and Vietnam.'], acts: ['cheer', 'wave', 'id'],
+    { front: true, x0: -440, x1: 90, y: 624, spd: 18, ph: 0.6, label: 'Reporter', lines: ['Live from **Odoo Experience 2026**, five takeaways!', 'Reporting for Singapore, the Philippines and Vietnam.'], acts: ['cheer', 'wave', 'id'],
       P: W({ s: 0.58, skin: 4, hair: 1, style: 'short', outfit: 'polo', top: BLUE, hold: 'tablet', hands: [[-60, -212], [70, -150]] }) },
     { front: true, x0: 1060, x1: 1300, y: 700, spd: 15, ph: 0.2, label: 'Studio runner', lines: ['Coffee for the **newsroom**!', 'Two flat whites for the desk, one for camera one.'], acts: ['jump', 'wave', 'dance'],
       P: W({ s: 0.58, skin: 2, hair: 0, style: 'bob', outfit: 'shirt', top: Y, hold: 'tray', hands: [[-60, -212], [70, -150]] }) }
   ];
 
-  var AIR = { t: -9 }, SHOT = { t: -9 }, CUE = { t: -9 }, BALL = { t: -9, x: 0, y: 0 }, PRODT = { t: -9 }, OPRT = { t: -9 }, SIGN = { t: -9 };
+  var FCT = { t: -9 }, AIR = { t: -9 }, SHOT = { t: -9 }, CUE = { t: -9 }, BALL = { t: -9, x: 0, y: 0 }, PRODT = { t: -9 }, OPRT = { t: -9 }, SIGN = { t: -9 };
   /* ---- the anchor: idle, squares her script on the desk and talks to camera; tapped, holds up BREAKING and swivels her chair */
   function actAnc(P, t, S) {
     var st = S.cast.anc, u = tapAge(st, t), busy = S.hot === 'o20' || S.hot === 'news', cue = t - CUE.t; reset(P);
@@ -193,6 +255,19 @@
     P._cue = CUES[ci]; P._flip = fl < 0.25 ? Math.cos(fl / 0.25 * Math.PI) : 1;
     if (u < 2.2) { P._cue = ''; P.talk = true; P.mood = u > 0.6 ? 'happy' : 'calm'; P.hands = [[60, -250], [150, -330]]; P.hop = u > 0.62 && u < 1.0 ? Math.sin((u - 0.62) / 0.38 * Math.PI) * 22 : 0;
       if (u > 0.6 && !st._snap) { st._snap = 1; CR.burst('spark', P.x, P.y - 250, t); } if (u < 0.1) st._snap = 0; }
+    P._u = u;
+  }
+  /* ---- the fact-checker (behind the title card): idle, highlights a printout line by line, holds it up to read, taps her pen
+     on her chin, types a note; tapped, she holds the page up, it gets a big green CHECKED, and she spins her chair */
+  function actFc(P, t) {
+    var u = t - FCT.t, cyc = (t + 1) % 8; reset(P); P.talk = false; P.mood = 'calm'; P._sheet = 0; P._pen = 0;
+    if (cyc < 3.5) { P.hands = [[-50, -204], [10 + ((cyc * 0.8) % 1) * 70, -210]]; P._sheet = 1; P._pen = 1; P.look = 0.2; P.tilt = 0.03; }
+    else if (cyc < 5.5) { P.hands = [[-50, -320], [50, -320]]; P._sheet = 2; P.look = 0; P.mood = cyc > 4.6 ? 'happy' : 'calm'; }
+    else if (cyc < 6.6) { P.hands = [[-60, -200], [30, -350]]; P._pen = 2; P.look = -0.3; P.tilt = -0.05; }
+    else { var k2 = Math.abs(Math.sin(t * 10)) * 6; P.hands = [[20, -206 - k2], [90, -206 - (6 - k2)]]; P.look = 0.7; }
+    if (u < 2.4) { P.talk = true; P.mood = 'happy'; P._pen = 0;
+      if (u < 1.4) { P.hands = [[-40, -360], [60, -360]]; P._sheet = 3; P.hop = u > 0.4 && u < 0.8 ? Math.sin((u - 0.4) / 0.4 * Math.PI) * 10 : 0; }
+      else { P._sheet = 0; P.sx = Math.cos(ease((u - 1.4) / 1) * Math.PI * 2); P.hands = [[-110, -300], [110, -300]]; } }
     P._u = u;
   }
   /* ---- the producer (right) and the press operator (far left), drawn and tapped by this file */
@@ -252,13 +327,41 @@
       g.fillStyle = '#FFFDF8'; g.fillRect(pr.x + 30, pr.y + 92, pr.w - 60, 6); g.fillStyle = 'rgba(20,26,58,.35)'; for (var wb = 0; wb < 8; wb++) g.fillRect(pr.x + 30 + ((wb * 40 + t * 60) % (pr.w - 60)), pr.y + 93, 14, 4);
       var sheet = (t * 0.8) % 1, sx2 = pr.x + pr.w - 10 + sheet * 60; g.save(); g.translate(sx2, pr.y + 176 + sheet * 60); g.rotate(sheet * 0.4); fillRR(g, -20, -12, 40, 24, 2, '#FFFDF8'); fillRR(g, -16, -8, 32, 4, 1, INK); fillRR(g, -16, 0, 22, 2, 1, '#C9D3E3'); g.restore();
       for (var stk = 0; stk < 6; stk++) fillRR(g, pr.x + pr.w + 50 + (stk % 2), F - 8 - stk * 6, 52, 6, 1, stk % 2 ? '#F1EEE6' : '#FFFDF8'); }
+    newsroomLive(g, t, S); actFc(FC, t); K.person(g, FC, t);
     actProd(PROD, t); K.person(g, PROD, t); actOpr(OPR, t); K.person(g, OPR, t);
     if (t - PRODT.t < 1.8) { var hp = handW(PROD, 1); fillRR(g, hp[0] - 22, hp[1] - 30, 44, 22, 4, TEAL); text(g, 'PUBLISHED', hp[0], hp[1] - 15, 6.6, 800, '#FFFFFF', 'center'); }
     if (t - OPRT.t < 1.8) { var ho = handW(OPR, 1); fillRR(g, ho[0] - 26, ho[1] - 40, 52, 36, 2, '#FFFDF8'); fillRR(g, ho[0] - 22, ho[1] - 36, 44, 6, 1, INK); text(g, 'ODOO 20', ho[0], ho[1] - 14, 7, 800, RED, 'center'); }
     CO.crew(CREW, g, t, S, false);
   }
+  /* the newsroom corner, live: the four feeds on the monitor wall, the rundown's NOW marker, bubbles in the cooler */
+  function newsroomLive(g, t, S) {
+    var m = NR.mons, rec = Math.floor(t * 1.6) % 2;
+    for (var i = 0; i < 4; i++) { var x = m.x + (i % 2) * (m.w + 6), y = m.y + Math.floor(i / 2) * (m.h + 6); g.save(); g.beginPath(); g.rect(x, y, m.w, m.h); g.clip();
+      if (i === 0) { fillRR(g, x, y, m.w, m.h, 0, '#DCE6F7'); fillE(g, x + 52, y + 30, 13, 13, '#F0CBA8'); fillE(g, x + 52, y + 24, 14, 9, '#1A1414'); fillRR(g, x + 30, y + 42, 44, 24, 10, '#1E3A6E');
+        fillRR(g, x + 4, y + 46, 70, 12, 1, '#FFFFFF'); fillRR(g, x + 4, y + 46, 5, 12, 1, RED); fillRR(g, x + 12, y + 50, 36 + Math.sin(t * 2) * 8, 3, 1, INK); text(g, 'CAM 1', x + m.w - 4, y + 10, 6, 800, RED, 'right'); }
+      else if (i === 1) { ['#FFFFFF', '#FFD84A', '#14C8C8', '#2BC48A', '#E0456B', '#E2453C', '#3167CA'].forEach(function (c, j) { g.fillStyle = c; g.fillRect(x + j * m.w / 7, y, m.w / 7 + 1, m.h * 0.7); }); g.fillStyle = '#1D2A6B'; g.fillRect(x, y + m.h * 0.7, m.w, m.h * 0.3);
+        fillE(g, x + 12, y + m.h - 9, 3.5, 3.5, rec ? RED : '#6A2A26'); text(g, 'REC', x + 20, y + m.h - 6, 7, 800, '#FFFFFF'); text(g, '00:' + (10 + Math.floor(t) % 50), x + m.w - 6, y + m.h - 6, 7, 800, '#9FC4FF', 'right'); }
+      else if (i === 2) { fillRR(g, x, y, m.w, m.h, 0, '#2B2A6E'); g.fillStyle = 'rgba(113,75,103,.45)'; g.fillRect(x + m.w / 2, y, m.w / 2, m.h);
+        text(g, 'Odoo 20', x + 10, y + 34, 18, 800, '#FFFFFF'); text(g, 'explained plainly', x + 10, y + 48, 7.5, 700, '#C9D6EE'); var sh = ((t * 0.5) % 1.6) * m.w * 1.4 - 30; g.fillStyle = 'rgba(255,255,255,.18)'; g.beginPath(); g.moveTo(x + sh, y); g.lineTo(x + sh + 18, y); g.lineTo(x + sh - 6, y + m.h); g.lineTo(x + sh - 24, y + m.h); g.closePath(); g.fill(); }
+      else { fillRR(g, x, y, m.w, m.h, 0, '#16224A'); [['SG', 70, 46, BLUE], ['PH', 84, 22, TEAL], ['VN', 54, 18, '#F08A24']].forEach(function (p, j) { var pu = ((t * 0.8 + j * 0.33) % 1); g.globalAlpha = 1 - pu; fillE(g, x + p[1], y + p[2], 4 + pu * 12, 4 + pu * 12, p[3]); g.globalAlpha = 1; fillE(g, x + p[1], y + p[2], 3.5, 3.5, p[3]); text(g, p[0], x + p[1] - 8, y + p[2] + 3, 6.5, 800, '#FFFFFF', 'right'); });
+        text(g, 'WE WRITE FOR', x + 6, y + m.h - 6, 6, 800, '#9FC4FF'); }
+      g.restore(); }
+    var r = NR.run, now = Math.floor(t / 3) % RUN.length, ny = r.y + 30 + now * 22; g.strokeStyle = RUN[now][1]; g.lineWidth = 2; rr(g, r.x + 10, ny, r.w - 20, 18, 3); g.stroke();
+    fillRR(g, r.x + r.w - 54, ny + 3, 38, 12, 6, RED); text(g, 'NOW', r.x + r.w - 35, ny + 12, 7, 800, '#FFFFFF', 'center');
+    var cx = NR.cool.x; for (var b = 0; b < 3; b++) { var bu = (t * 0.45 + b * 0.37) % 1; fillE(g, cx - 4 + b * 5 + Math.sin(t * 3 + b) * 2, 376 - bu * 64, 2.2 + b * 0.6, 2.2 + b * 0.6, 'rgba(255,255,255,.75)'); }
+  }
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
+    /* the fact-checker's monitor, her printout, her pen, and the CHECKED stamp */
+    var d = NR.rdesk; CO.screen(g, d.x + 120, d.y - 72, 66, 46, t, 'text'); fillRR(g, d.x + 120, d.y - 72, 66, 7, 2, RED); text(g, 'FACT CHECK', d.x + 124, d.y - 66.5, 4.6, 800, '#FFFFFF');
+    if (FC._sheet) { var h0 = handW(FC, 0), h1 = handW(FC, 1), up = FC._sheet >= 2, px = up ? (h0[0] + h1[0]) / 2 : h0[0] + 26, py = up ? h0[1] - 22 : d.y - 3;
+      if (up) { g.save(); g.translate(px, py); fillRR(g, -22, -16, 44, 32, 2, '#FFFFFF'); g.strokeStyle = '#C9D3E3'; g.lineWidth = 1; rr(g, -22, -16, 44, 32, 2); g.stroke(); fillRR(g, -17, -11, 26, 3, 1, INK); for (var l = 0; l < 4; l++) fillRR(g, -17, -4 + l * 5, l % 2 ? 24 : 34, 2, 1, '#C9D3E3');
+        if (FC._sheet === 3) { var su = FC._u, sc = su < 0.5 ? ease((su - 0.25) / 0.25) : 1; if (su > 0.25) { g.rotate(-0.18); g.scale(sc, sc); g.strokeStyle = '#1E9E6A'; g.lineWidth = 2; rr(g, -24, -9, 48, 18, 3); g.stroke(); text(g, '\u2713 CHECKED', 0, 4, 8, 800, '#1E9E6A', 'center'); }
+          if (su > 0.45 && !FCT.b) { FCT.b = 1; CR.burst('star', px, py - 10, t); } }
+        g.restore(); }
+      else { fillRR(g, px - 26, py - 3, 50, 4, 1, '#FFFFFF'); if (FC._pen === 1) fillRR(g, h1[0] - 10, py - 3.5, 18, 3, 1.5, 'rgba(255,216,74,.85)'); } }
+    if (FCT.b && t - FCT.t > 2.4) FCT.b = 0;
+    if (FC._pen) { var hp = handW(FC, 1); g.save(); g.translate(hp[0], hp[1] - 4); g.rotate(FC._pen === 2 ? -0.6 : 0.5); fillRR(g, -2, -14, 4, 16, 2, FC._pen === 1 ? Y : BLUE); g.restore(); }
     /* the writer's laptop: the article grows */
     var wd = T.write, n = Math.floor((t * (S.hot === 'guides' ? 3 : 1)) % 6); fillRR(g, wd.x + 54, wd.y - 32, 52, 28, 2, '#FFFFFF');
     for (var l = 0; l <= n && l < 5; l++) fillRR(g, wd.x + 58, wd.y - 28 + l * 5, l === n ? 20 : 40, 2.6, 1.3, l === 0 ? BLUE : '#C9D3E3');
@@ -317,6 +420,7 @@
     hit: function (x, y, S, t) {
       var r = CR.hitWalker(x, y, t); if (r) return r;
       function on(P) { return Math.abs(x - P.x) < 60 && y < P.y + 6 && y > P.y - 260; }
+      if (on(FC)) { FCT.t = t; FCT.b = 0; return { say: 'Every fact in every article gets **checked** before it goes live.', near: [-250, 90], pose: 'think', who: 'Fact-checker' }; }
       if (on(PROD)) { PRODT.t = t; CR.burst('conf', PROD.x, PROD.y - 260, t); return { say: 'Story moved to **LIVE**. Published, in plain language.', near: [940, 70], pose: 'celebrate', who: 'Producer' }; }
       if (on(OPR)) { OPRT.t = t; CR.burst('spark', OPR.x, OPR.y - 260, t); return { say: 'Hot off the press: the **Odoo 20** edition!', near: [-420, 100], pose: 'wow', who: 'Press operator' }; }
       return null;

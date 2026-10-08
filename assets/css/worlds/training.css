@@ -181,3 +181,33 @@
 .ixw--training main .cta{overflow:hidden}
 @media (max-width:640px){.ixw--training main .cta{padding-bottom:84px}.ixw--training .fs-runway{height:44px}}
 @media (prefers-reduced-motion:reduce){.ixw--training :is(.fs-plane,.fs-cta-plane,.fs-horizon,.fs-needle,.fs-led,.fs-wave path,.fs-cleared i,.fs-bezel-h i),.ixw--training .fs-leg i::after{animation:none!important}.ixw--training .fs-plane{left:50%;top:36px}}
+
+/* ---------- audit round: hero controls. The amber taxi bar on the buttons shows again (the shared sheen's transform hid it),
+   one 52px height, the play key's lip in plum and its halo in amber, hover/press/focus on every control ---------- */
+.ixw--training .ixw-copy .actions{gap:14px}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white)::after{transform:none;inset:auto auto 0 0}
+.ixw--training main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):hover::after{transform:none}
+.ixw--training .ixw-copy .actions .btn{height:52px;padding:0 22px}
+.ixw--training .ow-rail a{transition:background-color .2s ease,color .2s ease,translate .2s ease}
+.ixw--training .ow-rail a:hover{translate:0 -1px;background:#F4F0F8;color:var(--tr-pur)}
+.ixw--training .ow-rail a:focus-visible,.ixw--training .ixw-ep-tag:focus-visible{outline:3px solid #F2A33A;outline-offset:3px}
+.ixw--training .ixw-ibtn{transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,color .2s ease,background-color .2s ease}
+.ixw--training .ixw-ibtn:not(.ixw-ibtn--play):hover{border-color:var(--tr-pur);color:#FFFFFF;background:var(--tr-pur);box-shadow:0 5px 0 #4A2E44}
+.ixw--training .ixw-ibtn:active{box-shadow:0 1px 0 var(--tr-pur)}
+.ixw--training .ixw-ibtn--play{box-shadow:0 3px 0 #4A2E44}
+.ixw--training .ixw-ibtn--play:hover{box-shadow:0 5px 0 #4A2E44;background:#5A3A52}
+.ixw--training .ixw-ibtn--play.is-on{animation:trHalo 2.4s ease-out infinite}
+@keyframes trHalo{0%{box-shadow:0 3px 0 #4A2E44,0 0 0 0 rgba(242,163,58,.55)}70%,100%{box-shadow:0 3px 0 #4A2E44,0 0 0 12px rgba(242,163,58,0)}}
+.ixw--training :is(.ixw-ibtn,.ixw-dots button,.ixw-peek):focus-visible{outline:3px solid #F2A33A;outline-offset:3px}
+.ixw--training .ixw-dots button:not(.is-on):hover{background:#C9A6C0}
+.ixw--training .ixw-peek{height:40px;padding:0 16px 0 13px;color:var(--tr-pur)}
+.ixw--training .ixw-peek:hover{background:#F4F0F8;box-shadow:0 5px 0 var(--tr-pur)}
+.ixw--training .ixw-peek::before{background:#F2A33A}
+.ixw--training .ixw-peek[aria-pressed="true"]::before{background:var(--tr-pur)}
+@media (prefers-reduced-motion:reduce){.ixw--training .ixw-ibtn--play.is-on{animation:none}}
+/* audit round, below the hero: the glance strip keeps hyphenated terms whole and gives the long cells room; the related
+   cards line their links up along the bottom */
+.ixw--training .ow-strip .ow-nb{white-space:nowrap}
+@media (min-width:1101px){.ixw--training .ow-strip{grid-template-columns:.62fr 1.2fr 1.1fr 1.1fr 1.1fr}}
+.ixw--training .fs-next .card{display:flex;flex-direction:column}
+.ixw--training .fs-next .card .btn-link{margin-top:auto;padding-top:6px}

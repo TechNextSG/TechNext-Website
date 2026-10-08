@@ -181,3 +181,47 @@
   background:linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 0 62px/100% 4px no-repeat,linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 50% 62px/4px 108px no-repeat,
   repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 18px 82px/110px 80px no-repeat,repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 172px 82px/110px 80px no-repeat}}
 .ixw--app-acc main [data-aw="what"] .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+/* ======== round 4: section fixes ======== */
+.ixw--app-acc main [data-aw="cta"] h2{color:#FFFFFF}
+.ixw--app-acc main [data-aw="cta"] .hand{color:#E9D08A}
+@media (min-width:900px){.ixw--app-acc main [data-aw="works"] .apps-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ======== round 4: the hero controls: ledger buttons with a brass binding, pills and caption controls ======== */
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){overflow:hidden;height:52px;padding:0 22px 0 26px;border:0;border-radius:8px;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::before{content:"";display:block;position:absolute;inset:0 auto 0 0;width:7px;background:repeating-linear-gradient(180deg,#E9D08A 0 5px,#C9A44A 5px 7px);transform:none;z-index:0;transition:none}
+.ixw--app-acc main .btn-primary,.ixw--app-acc main .btn-primary:hover{color:#FFFFFF;background:#1F7F65;box-shadow:inset 0 0 0 1px rgba(233,208,138,.45),0 4px 0 #14543F}
+.ixw--app-acc main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-acc main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:#1B1F3B;background:#FFFDF7 linear-gradient(180deg,transparent 0 calc(100% - 13px),rgba(46,156,126,.18) calc(100% - 13px) calc(100% - 12px),transparent calc(100% - 12px));box-shadow:inset 0 0 0 1.5px #B9DCCE,0 4px 0 #B9DCCE}
+.ixw--app-acc main .ixw-cta .btn-outline-white,.ixw--app-acc main .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 2px #E9D08A}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--app-acc main .btn-primary:hover{box-shadow:inset 0 0 0 1px rgba(233,208,138,.6),0 6px 0 #14543F,0 16px 22px -10px rgba(31,127,101,.55)}
+.ixw--app-acc main .btn-ghost:hover{box-shadow:inset 0 0 0 1.5px #2E9C7E,0 6px 0 #9FD0BC,0 16px 22px -12px rgba(31,127,101,.35)}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--app-acc main .btn-primary:active{box-shadow:inset 0 0 0 1px rgba(233,208,138,.45),0 1px 0 #14543F}
+.ixw--app-acc main .btn-ghost:active{box-shadow:inset 0 0 0 1.5px #2E9C7E,0 1px 0 #B9DCCE}
+.ixw--app-acc main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #C9A44A;outline-offset:4px}
+.ixw--app-acc main .btn-primary .ic{width:26px;height:26px;padding:5px;border-radius:50%;background:rgba(255,255,255,.16)}
+.ixw--app-acc main .btn-ghost .ic{color:#1F7F65}
+.ixw--app-acc .ixw-copy .actions{gap:12px}
+
+.ixw--app-acc .ixw-ep-tag{height:30px;padding:0 13px 0 6px;box-shadow:0 3px 0 #0B0B22;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-acc .ixw-ep-tag:hover{translate:0 -2px;box-shadow:0 5px 0 #0B0B22}
+.ixw--app-acc .ixw-ep-tag:active{translate:0 2px;box-shadow:0 1px 0 #0B0B22;transition-duration:.06s}
+.ixw--app-acc .ixw-ep-tag:focus-visible{outline:3px solid #C9A44A;outline-offset:3px}
+.ixw--app-acc .ixw-ep>span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#E3F3EC;box-shadow:inset 0 0 0 1.5px #1F7F6533;font:800 12.5px/1 var(--font-body);color:#1B1F3B}
+.ixw--app-acc .ixw-cap .ixw-ibtn{width:38px;height:38px;border:2px solid #1B1F3B;background:#FFFFFF;color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B;transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .18s ease,color .18s ease}
+.ixw--app-acc .ixw-cap .ixw-ibtn:hover{translate:0 -2px;background:#E3F3EC;color:#1B1F3B;border-color:#1B1F3B;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-acc .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-acc .ixw-cap .ixw-ibtn:focus-visible,.ixw--app-acc .ixw-dots button:focus-visible,.ixw--app-acc .ixw-peek:focus-visible{outline:3px solid #C9A44A;outline-offset:3px}
+.ixw--app-acc .ixw-cap .ixw-ibtn--play,.ixw--app-acc .ixw-cap .ixw-ibtn--play:hover{width:46px;height:46px;background:#1F7F65;color:#FFFFFF}
+.ixw--app-acc .ixw-cap .ixw-ibtn--play:hover{filter:brightness(1.06)}
+.ixw--app-acc .ixw-dots{gap:6px;padding:4px 2px}
+.ixw--app-acc .ixw-dots button{width:9px;height:9px;background:#D5DCE6;box-shadow:inset 0 0 0 1px rgba(27,31,59,.06);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,translate .2s ease}
+.ixw--app-acc .ixw-dots button:hover{background:#1F7F65;translate:0 -1px}
+.ixw--app-acc .ixw-dots button.is-on{width:26px;background:#C9A44A;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--app-acc .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid #1B1F3B;color:#1B1F3B;background:#FFFFFF;box-shadow:0 3px 0 #1B1F3B}
+.ixw--app-acc .ixw-peek::before{color:#1F7F65}
+.ixw--app-acc .ixw-peek:hover{translate:0 -2px;background:#E3F3EC;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-acc .ixw-peek:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-acc .ixw-peek[aria-pressed="true"]{background:#E3F3EC}
+.ixw--app-acc .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--app-acc :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}
