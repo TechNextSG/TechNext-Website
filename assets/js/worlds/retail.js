@@ -322,4 +322,35 @@
       return null;
     }
   };
+  /* ---------------- audit round: a dressed floor (a woven runner, the welcome mat), a basket stack and a pavement board
+     between the card and the receipt ---------------- */
+  function exFloor(g, ext) {
+    /* the woven runner along the front of the shop, with fringes */
+    var x0 = Math.max(ext.l, -620), x1 = 880, y0 = 540, y1 = 592; if (x1 > x0) {
+      fillRR(g, x0, y0, x1 - x0, y1 - y0, 6, '#D9785A'); fillRR(g, x0 + 6, y0 + 6, x1 - x0 - 12, y1 - y0 - 12, 4, '#F0C9A8');
+      g.fillStyle = 'rgba(217,120,90,.55)'; for (var x = x0 + 20; x < x1 - 20; x += 36) { g.beginPath(); g.moveTo(x, (y0 + y1) / 2); g.lineTo(x + 12, y0 + 12); g.lineTo(x + 24, (y0 + y1) / 2); g.lineTo(x + 12, y1 - 12); g.closePath(); g.fill(); }
+      g.strokeStyle = '#B95E43'; g.lineWidth = 2; for (var fy = y0 + 4; fy < y1; fy += 6) { g.beginPath(); g.moveTo(x1, fy); g.lineTo(x1 + 8, fy); g.stroke(); if (x0 > ext.l + 4) { g.beginPath(); g.moveTo(x0, fy); g.lineTo(x0 - 8, fy); g.stroke(); } } }
+    /* the welcome mat at the door */
+    fillRR(g, 126, 476, 140, 22, 6, '#81B29A'); fillRR(g, 132, 480, 128, 14, 4, '#5E8F77'); text(g, 'WELCOME', 196, 491, 9, 800, '#FBF3E6', 'center');
+  }
+  function exFore(g, t, S) {
+    var ext = S.ext;
+    if (ext.l < 120) { /* the pavement board: today's pick */
+      var ax = 150, ay = 650, sw = Math.sin(t * 1.4) * 2; soft(g, ax, ay + 3, 40, 6, 0.22);
+      g.strokeStyle = '#B98E62'; g.lineWidth = 5; g.beginPath(); g.moveTo(ax - 30, ay); g.lineTo(ax - 12, ay - 110); g.moveTo(ax + 30, ay); g.lineTo(ax + 12, ay - 110); g.stroke();
+      fillRR(g, ax - 34, ay - 104, 68, 80, 6, '#3D405B'); fillRR(g, ax - 30, ay - 100, 60, 72, 4, '#2F3249');
+      text(g, 'NEW IN', ax, ay - 80, 10, 800, '#F2B8A0', 'center'); text(g, 'linen', ax, ay - 64, 12, 700, '#FBF3E6', 'center'); text(g, '& ceramics', ax, ay - 51, 7.5, 700, '#FBF3E6', 'center');
+      g.save(); g.translate(ax + 26, ay - 104); g.rotate(0.2 + sw * 0.05); fillRR(g, -8, 0, 16, 22, 3, '#E9C46A'); fillE(g, 0, 4, 2.5, 2.5, '#3D405B'); g.restore();
+    }
+    if (ext.r > 970) { /* a stack of shopping baskets by the till side */
+      var bx = 950, by = 642; soft(g, bx, by + 3, 46, 6, 0.22);
+      for (var i = 0; i < 4; i++) { var yy = by - 8 - i * 9; fillRR(g, bx - 36, yy - 26, 72, 30, 6, i === 3 ? '#D9785A' : '#B95E43'); g.fillStyle = 'rgba(255,255,255,.25)'; for (var h = 0; h < 5; h++) g.fillRect(bx - 28 + h * 13, yy - 20, 6, 18); }
+      g.strokeStyle = '#3D405B'; g.lineWidth = 3; g.beginPath(); g.arc(bx, by - 62, 22, Math.PI, 0); g.stroke();
+      text(g, 'BASKETS', bx, by - 14, 7, 800, '#FFFFFF', 'center');
+    }
+  }
+  (function (W) { var pb = W.paintBack, pf = W.paintForeLive;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+  })(window.IXW.worlds.retail);
 })(window.IXW && window.IXW.kit);

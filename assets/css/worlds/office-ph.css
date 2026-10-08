@@ -215,3 +215,30 @@
 .ixw--office-ph .ph-cta>div:first-of-type{padding-top:18px}
 .ixw--office-ph .ph-cta .hand{color:#FFE680}
 @media (max-width:767px){.ixw--office-ph .ph-cta::after{left:24px;font-size:9px;letter-spacing:.1em}}
+
+/* ============================== hero controls (audit round): kanban cards ==============================
+   The CTAs are two cards in the DOING column (52px, a colour edge, drag dots, a label chip on the arrow), they tilt as you
+   pick them up and drop back when pressed; the tour controls are small cards; "View the scene" is a card with the eye. */
+.ixw--office-ph .ixw-copy .actions .btn-lg{height:52px;padding:0 18px 0 32px;font:800 15.5px/1 var(--font-display);overflow:visible}
+@media (min-width:1200px){.ixw--office-ph .ixw-copy .actions .btn-lg{height:52px;padding:0 18px 0 32px;font-size:15.5px}}
+.ixw--office-ph .ixw-copy .actions .btn-primary .ic{width:28px;height:28px;padding:6px;margin:0 -6px 0 4px;border-radius:6px;background:#FFFFFF;color:var(--ph-teal-d);box-shadow:0 2px 0 rgba(21,48,43,.35)}
+.ixw--office-ph .ixw-copy .actions .btn-primary:hover .ic{background:#F2B233;color:var(--ph-ink)}
+.ixw--office-ph .ixw-copy .actions .btn-ghost .ic{width:20px;height:20px}
+.ixw--office-ph .ixw-copy .actions .btn-lg::before{content:"";position:absolute;right:-6px;top:-7px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FF8A80,#E2453C 70%);box-shadow:0 2px 0 rgba(0,0,0,.25);opacity:0;scale:.4;transition:opacity .2s ease,scale .25s cubic-bezier(.34,1.45,.64,1);display:block}
+.ixw--office-ph .ixw-copy .actions .btn-lg:hover::before{opacity:1;scale:1}
+.ixw--office-ph .ixw-cap .ixw-ibtn{width:40px;height:40px}
+.ixw--office-ph .ixw-cap .ixw-ibtn--play{width:46px;height:46px}
+.ixw--office-ph .ixw-ibtn{transition:translate .2s var(--w-spring),rotate .2s ease,box-shadow .2s ease}
+.ixw--office-ph .ixw-ibtn:hover{translate:0 -2px;rotate:-2deg}
+.ixw--office-ph .ixw-ibtn:active{translate:0 3px;rotate:0deg;box-shadow:0 0 0 var(--ph-ink);transition-duration:.06s}
+.ixw--office-ph .ixw-ibtn:focus-visible,.ixw--office-ph .ixw-peek:focus-visible,.ixw--office-ph .ixw-dots button:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ixw--office-ph .ixw-dots button:hover{background:#9FD8CC}
+.ixw--office-ph .ixw-peek{height:44px;padding:0 16px 0 26px;font-size:13.5px;transition:translate .2s var(--w-spring),rotate .2s ease,box-shadow .2s ease}
+.ixw--office-ph .ixw-peek::after{content:"";position:absolute;left:9px;top:50%;width:6px;height:14px;margin-top:-7px;opacity:.5;background:radial-gradient(circle,currentColor 1.3px,transparent 1.6px) 0 0/3px 4.6px}
+.ixw--office-ph .ixw-peek:hover{translate:0 -2px;rotate:-1.5deg;box-shadow:0 5px 0 var(--ph-ink)}
+.ixw--office-ph .ixw-peek:active{translate:0 3px;rotate:0deg;box-shadow:0 0 0 var(--ph-ink)}
+@media (max-width:767px){.ixw--office-ph .ixw-copy .actions .btn-lg{height:50px}}
+
+/* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
+.ixw--office-ph .ix-intro-sec{position:relative;z-index:2;padding-bottom:64px}
+@media (max-width:767px){.ixw--office-ph .ix-intro-sec{padding-bottom:44px}}

@@ -19,7 +19,7 @@
   var F = 470, CEIL = -150, C = CO.C, OR = '#F08A24', CY = '#0EA5B7', CYL = '#7FDDE8', INK = '#1B1F3B';
   var T = { agents: { x: 160, y: 58, w: 196, h: 134 }, scope: { x: 114, y: 290, w: 106, h: 128 }, evalDesk: { x: 228, y: 370, w: 110 }, glass: { x: 112, y: -62, w: 178, h: 100 }, helmet: { x: 978, y: 300, w: 58 }, dock: { x: 858, y: 712 }, holo: { x: 468, y: 404, w: 104 }, desk: { x: 612, y: 386, w: 166 },
     odoo: { x: 604, y: 142, w: 160, h: 92 }, rack: { x: 822, y: 196, w: 146 }, sign: { x: 300, y: -118 }, phin: { x: 748, y: 348 }, wb: { x: -780, y: 190, w: 170, h: 120 } };
-  var HEX = [[150, -128], [230, -112], [320, -132], [470, -118], [600, -130], [690, -112], [780, -128], [880, -114], [980, -130], [1080, -116], [1180, -128], [60, -112], [-40, -128]];
+  var HEX = [[150, -128], [230, -112], [320, -132], [470, -118], [600, -130], [690, -112], [780, -128], [880, -114], [980, -130], [1080, -116], [1180, -128], [60, -112], [-40, -128], [-140, -114], [-240, -130], [-340, -112], [-440, -128], [-540, -114]];
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
 
@@ -52,7 +52,38 @@
   }
 
   function hexPath(g, x, y, r) { g.beginPath(); for (var i = 0; i < 6; i++) { var a = Math.PI / 6 + i * Math.PI / 3; g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.62); } g.closePath(); }
+  /* the lab's left bay (behind the terminal card): the knowledge wall (documents flow into the index, live), the prompt
+     lounge (an orange sofa, a low table, a floor lamp, a bean bag) and the document scanner by the window */
+  var KW = { x: -420, y: -40, w: 250, h: 132 }, SCN = { x: -96, y: 392, w: 70 }, SOFA = { x: -418, y: 372, w: 200 };
+  function bayBack(g, ext) {
+    if (ext.l > 120) return;
+    var k = KW; g.strokeStyle = '#C9D2DE'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(k.x + 30, CEIL); g.lineTo(k.x + 30, k.y); g.moveTo(k.x + k.w - 30, CEIL); g.lineTo(k.x + k.w - 30, k.y); g.stroke();
+    shadowed(g, 16, 6, 0.22, function () { fillRR(g, k.x - 6, k.y - 6, k.w + 12, k.h + 12, 8, '#2A3142'); }); fillRR(g, k.x, k.y, k.w, k.h, 4, '#FFFFFF');
+    fillRR(g, k.x, k.y, k.w, 16, 4, CY); g.fillRect(k.x, k.y + 10, k.w, 6); text(g, 'KNOWLEDGE BASE · YOUR OWN DOCUMENTS · SAMPLE', k.x + 10, k.y + 11.5, 6.2, 800, '#FFFFFF');
+    fillRR(g, k.x + 10, k.y + 26, 70, 96, 4, '#F4F7FB'); text(g, 'SOURCES', k.x + 16, k.y + 38, 5.6, 800, '#5C6B7A');
+    fillRR(g, k.x + k.w - 96, k.y + 26, 86, 96, 4, '#F2FBFC'); text(g, 'INDEX', k.x + k.w - 90, k.y + 38, 5.6, 800, CY);
+    /* the sofa's back and the floor lamp */
+    var so = SOFA; soft(g, so.x + so.w / 2, F + 6, 130, 10, 0.26); fillRR(g, so.x, so.y, so.w, 70, 26, OR); fillRR(g, so.x + 12, so.y + 10, so.w - 24, 22, 11, 'rgba(255,255,255,.14)');
+    fillRR(g, so.x + 22, so.y + 18, 38, 28, 10, '#FFF1E2'); fillRR(g, so.x + so.w - 58, so.y + 18, 36, 28, 10, CYL); fillRR(g, so.x - 6, so.y + 50, so.w + 12, 30, 12, '#F7A045'); g.fillStyle = '#B8661A'; g.fillRect(so.x + 6, so.y + 80, 8, 18); g.fillRect(so.x + so.w - 14, so.y + 80, 8, 18);
+    g.strokeStyle = INK; g.lineWidth = 3.5; g.beginPath(); g.moveTo(-182, F); g.lineTo(-182, 250); g.quadraticCurveTo(-182, 226, -206, 226); g.stroke(); fillE(g, -182, F, 18, 4.5, INK);
+    g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(-232, 250); g.lineTo(-222, 222); g.lineTo(-196, 222); g.lineTo(-186, 250); g.closePath(); g.fill();
+    g.save(); var lg = g.createRadialGradient(-209, 252, 2, -209, 252, 70); lg.addColorStop(0, 'rgba(255,236,170,.45)'); lg.addColorStop(1, 'rgba(255,236,170,0)'); g.fillStyle = lg; g.fillRect(-280, 200, 140, 120); g.restore();
+    /* the scanner on its cabinet */
+    var sc = SCN; soft(g, sc.x + sc.w / 2, F + 4, 50, 6, 0.22); fillRR(g, sc.x, sc.y + 26, sc.w, F - sc.y - 26, 5, '#E9EEF6'); fillE(g, sc.x + sc.w / 2, sc.y + 54, 3, 3, '#9AA6BC');
+    fillRR(g, sc.x + 4, sc.y, sc.w - 8, 28, 6, '#F6F8FB'); fillRR(g, sc.x + 4, sc.y, sc.w - 8, 8, 4, '#DCE3EE'); fillRR(g, sc.x + 12, sc.y - 10, sc.w - 24, 12, 2, '#C9D2DE'); text(g, 'SCAN', sc.x + sc.w / 2, sc.y + 20, 5.6, 800, CY, 'center');
+    /* the teal rug under the lounge */
+    g.fillStyle = 'rgba(14,165,183,.12)'; g.beginPath(); g.ellipse(-300, 548, 220, 34, 0, 0, Math.PI * 2); g.fill(); g.strokeStyle = 'rgba(14,165,183,.4)'; g.lineWidth = 2; g.setLineDash([8, 6]); g.beginPath(); g.ellipse(-300, 548, 200, 28, 0, 0, Math.PI * 2); g.stroke(); g.setLineDash([]);
+  }
+  function bayLive(g, t) {
+    var k = KW, docs = ['SOP-12', 'Price list', 'Contract', 'FAQ', 'Manual'], cyc = (t * 0.4) % docs.length, i0 = Math.floor(cyc), f = cyc - i0;
+    docs.forEach(function (d, i) { var y = k.y + 46 + i * 15, on = i === i0; fillRR(g, k.x + 14, y - 7, 62, 12, 3, on ? '#E3F7F9' : '#FFFFFF'); fillRR(g, k.x + 18, y - 4, 6, 7, 1, on ? CY : '#C9D2DE'); text(g, d, k.x + 28, y + 2, 5.4, 800, on ? INK : '#8A96A8'); });
+    var y0 = k.y + 46 + i0 * 15, ax = lerp(k.x + 80, k.x + k.w - 96, COL.ease(f)), ay = lerp(y0, k.y + 74, COL.ease(f)); g.strokeStyle = 'rgba(14,165,183,.45)'; g.lineWidth = 1.4; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(k.x + 80, y0); g.lineTo(k.x + k.w - 96, k.y + 74); g.stroke(); g.setLineDash([]);
+    fillRR(g, ax - 5, ay - 4, 10, 8, 2, OR);
+    for (var r = 0; r < 5; r++) for (var c = 0; c < 7; c++) { var n = r * 7 + c, lit = hash(n + Math.floor(t * 1.4)) > 0.62; fillE(g, k.x + k.w - 84 + c * 11, k.y + 52 + r * 13, 3, 3, lit ? (n % 3 ? CY : OR) : '#D5E3E8'); }
+    text(g, 'Answers cite the source', k.x + k.w / 2 - 6, k.y + k.h - 4, 5.4, 800, '#5C6B7A', 'center');
+  }
   function paintBack(g, ext) {
+    bayBack(g, ext);
     /* the hexagon baffles under the ceiling, wired like a neural net (the pulses are live) */
     g.strokeStyle = 'rgba(14,165,183,.35)'; g.lineWidth = 1.2; g.beginPath(); for (var i = 0; i < HEX.length - 1; i++) { var a = HEX[i], b = HEX[(i + 1) % HEX.length]; if (Math.abs(a[0] - b[0]) < 200) { g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); } } g.stroke();
     HEX.forEach(function (h, i) { g.strokeStyle = '#C9D2DE'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(h[0], CEIL); g.lineTo(h[0], h[1] - 10); g.stroke(); hexPath(g, h[0], h[1], 26); g.fillStyle = i % 3 === 0 ? '#E3F7F9' : i % 3 === 1 ? '#FFFFFF' : '#FFF1E2'; g.fill(); g.strokeStyle = i % 3 === 2 ? '#F7C99A' : '#BFE9EE'; g.lineWidth = 1.5; g.stroke(); });
@@ -104,7 +135,15 @@
       shadowed(g, 10, 4, 0.18, function () { fillRR(g, -900, -60, 170, 120, 10, '#FFFFFF'); }); fillRR(g, -900, -60, 170, 8, 4, CY); CO.plane(g, -870, -10, 2, 0, C.blue); text(g, 'TechNext', -848, -2, 20, 800, INK);
       text(g, 'HO CHI MINH CITY · AI LAB', -815, 24, 7, 800, OR, 'center'); text(g, 'Xin chào!', -815, 44, 10, 800, CY, 'center'); K.plant(g, { x: -500, y: F }, '#FFFFFF', '#E3E8EF'); }
   }
+  function bayFront(g, ext) {
+    if (ext.l > 120) return; var so = SOFA;
+    fillRR(g, so.x - 22, so.y + 16, 34, 80, 14, OR); fillRR(g, so.x + so.w - 12, so.y + 16, 34, 80, 14, OR);
+    var tx = -300, ty = 520; soft(g, tx, ty + 30, 80, 7, 0.22); fillE(g, tx, ty, 64, 11, '#FFFFFF'); fillE(g, tx, ty + 3, 64, 9, '#E3E8EF'); fillE(g, tx, ty - 2, 60, 9, '#FFFFFF'); g.fillStyle = '#C9D2DE'; g.fillRect(tx - 3, ty + 6, 6, 24); fillE(g, tx, ty + 30, 26, 4, '#C9D2DE');
+    COL.cup(g, tx - 30, ty - 2, 0.8, true); fillRR(g, tx - 4, ty - 8, 30, 6, 2, CY); fillRR(g, tx, ty - 13, 24, 5, 2, '#FFFFFF');
+    var bx = -150, by = 572; soft(g, bx, by + 2, 50, 7, 0.22); fillRR(g, bx - 46, by - 46, 92, 48, 24, CY); fillRR(g, bx - 38, by - 54, 76, 26, 13, '#33B8C8'); fillE(g, bx - 10, by - 40, 12, 5, 'rgba(255,255,255,.2)');
+  }
   function paintFront(g, ext) {
+    bayFront(g, ext);
     var d = T.desk; CO.desk(g, d.x, d.y, d.w, F, { open: true, legs: '#9AA6BC', top: '#E9EEF6', mons: [[d.x + 22, 96, 56]] });
     fillRR(g, d.x + 128, d.y - 6, 30, 6, 3, '#DCE3EE');
     /* the phin's glass, filter and lid */
@@ -152,6 +191,23 @@
       after: function (g, P, t, S, X, u) { var h = COL.hand(P, 0); COL.marker(g, h[0], h[1] - 4, -0.6, CY); } }
   ];
 
+  XS.push(
+    { P: W({ x: -320, y: 470, s: 0.5, ph: 2.2, skin: 2, hair: 1, style: 'short', outfit: 'shirt', top: '#DCE7FB', low: '#2A3550', glasses: true, sit: true, chair: false, sitDrop: 40 }), hands: [[-56, -186], [56, -186]],
+      box: [-320, 360, 100, 210], who: 'Prompt engineer', role: 'Lab lounge \u00B7 illustration', near: [-160, 60], pose: 'think', dur: [1.8, 1.6], fx: ['code', 'spark'],
+      lines: ['Testing the assistant\u2019s answers against **your own documents**.', 'If it can\u2019t cite a source, it **doesn\u2019t answer**.'],
+      idle: function (P, t) { var c = (t + 3) % 9, k = Math.abs(Math.sin(t * 8)) * 5; if (c < 5.5) { P.hands = [[-56, -186 - k], [56, -186 - (5 - k)]]; P.look = -0.15; } else if (c < 7) { P.hands = [[-56, -186], [30, -300]]; P.look = 0.5; P.tilt = 0.05; } else { P.hands = [[-100, -400], [100, -400]]; P.mood = 'happy'; P.look = 0; } },
+      moves: [function (P, u) { P.hands = [[-50, -330], [50, -330]]; P.look = 0; P.hop = COL.bell(u) * 8; }, function (P, u) { var p = Math.abs(Math.sin(u * Math.PI * 4)); P.hands = [[-60, -186], [80, -360 - p * 30]]; P.hop = p * 6; }],
+      after: function (g, P, t, S, X, u, k) { var a = COL.hand(P, 0), b = COL.hand(P, 1), up = u >= 0 && k === 0;
+        if (up) { var hx = (a[0] + b[0]) / 2, hy = Math.min(a[1], b[1]); g.save(); g.translate(hx, hy); fillRR(g, -30, -40, 60, 40, 4, '#2A3550'); fillRR(g, -26, -36, 52, 32, 3, '#FFFFFF'); fillRR(g, -26, -36, 52, 7, 2, CY); text(g, '\u2713 cited: SOP-12', 0, -18, 5.6, 800, '#0E7A50', 'center'); text(g, 'sample', 0, -9, 5, 700, '#9AA6BC', 'center'); g.restore(); }
+        else COL.laptop(g, P.x, P.y - 104 * P.s + 6, 0.95, 1, '#E3F7F9'); } },
+    { P: W({ x: -6, y: 470, s: 0.52, ph: 0.6, skin: 4, hair: 0, style: 'bun', clip: '#0EA5B7', outfit: 'polo', top: '#F08A24', top2: '#FFFFFF', low: '#2A3550' }), hands: [[-90, -200], [60, -160]],
+      box: [-6, 360, 90, 220], who: 'Knowledge engineer', role: 'Document scanner \u00B7 illustration', near: [-140, 60], pose: 'present', dur: [1.7, 1.6], fx: ['star', 'note'],
+      lines: ['Scanning the **manuals** so the assistant can quote them.', 'Your documents stay **in-house** on the local LLM rack.'],
+      idle: function (P, t, S, X) { var c = (t + 1) % 6; X.feed = c < 2.4 ? c / 2.4 : -1; if (c < 2.4) { P.hands = [[-96, -190 + Math.sin(c * 3) * 8], [60, -160]]; P.look = -0.8; } else if (c < 4) { P.hands = [[-60, -170], [30, -310]]; P.look = -0.4; } else { P.hands = [[-70, -160], [70, -200]]; P.look = 0.5; P.mood = 'happy'; } },
+      moves: [function (P, u) { P.hands = [[-70, -160], [100, -380]]; P.look = 0.2; P.hop = COL.bell(u) * 12; }, function (P, u) { P.sx = Math.cos(COL.ease(u) * Math.PI * 2); P.hands = [[-110, -260], [110, -260]]; }],
+      after: function (g, P, t, S, X, u, k) { if (X.feed >= 0) { var sc = SCN, q = X.feed, px = lerp(sc.x + sc.w / 2 + 4, sc.x + sc.w / 2, q), py = sc.y - 10 - 18 * (1 - q); COL.sheet(g, px, py, -0.1 * (1 - q), 26, 30 * (1 - q * 0.8) + 4, 3); }
+        if (u >= 0 && k === 0) COL.pop(g, P.x, P.y - 300, '\u2713 Indexed: Manual', u, CY); } }
+  );
   /* the passers-by: CO.crew, but keeping each walker's roller case (drag) */
   function crew(list, g, t, S, layer) { var ext = S.ext;
     list.forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== layer) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return;
@@ -253,6 +309,7 @@
     var rp = (t * 0.6) % 1; g.strokeStyle = 'rgba(14,165,183,' + (0.45 * (1 - rp)).toFixed(3) + ')'; g.lineWidth = 2; g.beginPath(); g.ellipse(520, 476, 60 + rp * 50, 7 + rp * 6, 0, 0, Math.PI * 2); g.stroke();
     COL.draw([EV], g, t, S);
     if (S.ext.l < -470) { ragLive(g, t); COL.draw([XS[1]], g, t, S); }
+    if (S.ext.l < 120) { bayLive(g, t); COL.draw([XS[2], XS[3]], g, t, S); }
     if (S.ext.r > 1040) COL.draw([XS[0]], g, t, S);
   }
   function paintFrontLive(g, t, S) {

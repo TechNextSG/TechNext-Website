@@ -200,3 +200,92 @@
 @media (max-width:767px){.ixw--sol-chat .cnc-keys{right:24px;width:48px;height:48px}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-chat .cnc-k,.ixw--sol-chat .cnc-desk-bell,.ixw--sol-chat .cnc-bell::before,.ixw--sol-chat .cnc-dial-arc i,.ixw--sol-chat .cnc-say-b .answer-h::after{animation:none}}
 .ixw--sol-chat .ixwi-card::after{display:none}
+
+/* ---------- hero buttons (audit round): one family — plum + gold lip, 50px CTAs, key-tag pills, brass caption controls ---------- */
+.ixw--sol-chat .ixw-copy .actions{align-items:center;gap:12px}
+.ixw--sol-chat .ixw-copy .btn-lg{height:50px;padding:0 20px;border-radius:14px;font-size:15px;gap:10px;overflow:visible;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .22s ease,border-color .2s ease,background-color .2s ease}
+.ixw--sol-chat .ixw-copy .btn-lg::after{border-radius:inherit}
+.ixw--sol-chat .ixw-copy .btn-primary{padding-right:10px}
+.ixw--sol-chat .ixw-copy .btn-primary .ic{width:30px;height:30px;padding:7px;margin:0;border-radius:9px;box-shadow:inset 0 -2px 0 var(--cnc-gold-d)}
+.ixw--sol-chat .ixw-copy .btn-ghost{padding:0 16px 0 18px}
+.ixw--sol-chat .ixw-copy .btn-ghost .ic{width:20px;height:20px}
+.ixw--sol-chat main .ixw-copy .btn-ghost:hover{translate:0 -2px;background:#FFF8E8}
+.ixw--sol-chat main .ixw-copy .btn-ghost:active{translate:0 3px;box-shadow:0 1px 0 #DCC488}
+.ixw--sol-chat main .ixw-copy .cnc-try:hover{background:#F3FBF6;border-color:#25D366;box-shadow:0 6px 0 #9FDFB5}
+.ixw--sol-chat main .ixw-copy .btn:focus-visible{outline:3px solid var(--cnc-gold);outline-offset:4px}
+.ixw--sol-chat .cnc-pills{gap:8px;margin-top:20px}
+.ixw--sol-chat .cnc-pills .tag{height:28px;padding:0 12px 0 6px;gap:6px;border-radius:8px 999px 999px 8px;border:1.5px solid rgba(201,162,74,.55);background:linear-gradient(180deg,#FFFCF2,#FFF5DE);box-shadow:0 2px 0 rgba(201,162,74,.35);transition:translate .2s ease,box-shadow .2s ease}
+.ixw--sol-chat .cnc-pills .tag .ic{width:18px;height:18px;padding:3px;border-radius:50%;background:var(--cnc-plum);color:var(--cnc-gold-l)}
+.ixw--sol-chat .cnc-pills .tag:hover{translate:0 -1px;box-shadow:0 3px 0 rgba(201,162,74,.5)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn{width:36px;height:36px;border:2px solid var(--cnc-plum-d);background:#FFFFFF;color:var(--cnc-plum-d);box-shadow:0 3px 0 var(--cnc-plum-d)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn:hover{border-color:var(--cnc-plum);color:var(--cnc-plum);background:#FFF8E8;box-shadow:0 5px 0 var(--cnc-plum-d),0 0 0 4px rgba(201,162,74,.22)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--cnc-plum-d)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn--play,.ixw--sol-chat .ixw-cap .ixw-ibtn--play:hover{width:42px;height:42px;border:0;background:radial-gradient(circle at 40% 30%,#8E5A85,var(--cnc-plum) 65%);color:var(--cnc-gold-l);box-shadow:0 0 0 2px var(--cnc-gold),0 4px 0 2px var(--cnc-gold-d)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn--play:hover{box-shadow:0 0 0 2px var(--cnc-gold),0 6px 0 2px var(--cnc-gold-d),0 0 0 7px rgba(201,162,74,.22)}
+.ixw--sol-chat .ixw-cap .ixw-ibtn:focus-visible,.ixw--sol-chat .ixw-peek:focus-visible{outline:3px solid var(--cnc-gold);outline-offset:3px}
+.ixw--sol-chat .ixw-dots{gap:6px}
+.ixw--sol-chat .ixw-dots button{width:9px;height:9px;background:#E6D6E1;box-shadow:inset 0 0 0 1.5px rgba(107,63,99,.25)}
+.ixw--sol-chat .ixw-dots button:hover{background:#D3B9CB}
+.ixw--sol-chat .ixw-dots button.is-on{width:26px;background:linear-gradient(90deg,var(--cnc-gold),var(--cnc-gold-l));box-shadow:inset 0 0 0 1.5px var(--cnc-gold-d)}
+.ixw--sol-chat .ixw-peek{height:40px;padding:0 18px 0 14px;border:2px solid var(--cnc-gold);background:var(--cnc-plum);color:var(--cnc-gold-l);font-weight:800;box-shadow:0 3px 0 var(--cnc-plum-d),0 12px 20px -12px rgba(78,44,72,.6)}
+.ixw--sol-chat .ixw-peek:hover{box-shadow:0 5px 0 var(--cnc-plum-d),0 0 0 4px rgba(201,162,74,.25),0 14px 22px -12px rgba(78,44,72,.6)}
+.ixw--sol-chat .ixw-peek:active{box-shadow:0 1px 0 var(--cnc-plum-d)}
+.ixw--sol-chat .ixw-peek[aria-pressed="true"]{background:var(--cnc-gold-l);color:var(--cnc-plum-d);border-color:var(--cnc-gold-d)}
+
+/* ---------- below the hero (audit round) ---------- */
+/* the FAQ: heading beside a framed chat window, so the bubbles don't float in an empty half */
+.ixw--sol-chat .cnc-faq{position:relative;max-width:none;padding:66px 26px 26px;border-radius:26px;background:#FFFFFF radial-gradient(rgba(107,63,99,.07) 1.4px,transparent 1.7px) 0 0/22px 22px;box-shadow:0 0 0 2px #EADCCB,0 5px 0 2px #EADCCB,0 40px 60px -40px rgba(78,44,72,.45)}
+.ixw--sol-chat .cnc-faq::before{content:"The front desk  ·  ask anything";position:absolute;left:0;right:0;top:0;height:50px;padding:0 22px 0 64px;border-radius:26px 26px 0 0;background:var(--cnc-plum);color:var(--cnc-gold-l);font:800 13px/50px var(--font-display);letter-spacing:.04em;white-space:pre}
+.ixw--sol-chat .cnc-faq::after{content:"";position:absolute;left:20px;top:9px;width:32px;height:32px;border-radius:50%;background:var(--cnc-gold-l) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234E2C48' stroke-width='2' stroke-linecap='round'%3E%3Crect x='5' y='8' width='14' height='11' rx='3'/%3E%3Cpath d='M12 4v4M9 13h.01M15 13h.01'/%3E%3C/svg%3E") 50%/18px no-repeat;box-shadow:0 0 0 2px var(--cnc-gold)}
+.ixw--sol-chat .cnc-faq details+details{margin-top:12px}
+.ixw--sol-chat .cnc-faq summary:hover{box-shadow:0 0 0 2px #8BD8A8,0 3px 0 2px #8BD8A8}
+.ixw--sol-chat .cnc-faq summary:focus-visible{outline:3px solid var(--cnc-gold);outline-offset:3px}
+@media (min-width:1000px){.ixw--sol-chat .cnc-faq-sec .container{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr);gap:56px;align-items:start}
+  .ixw--sol-chat .cnc-faq-sec .sec-head{position:sticky;top:120px;margin:0}}
+@media (max-width:640px){.ixw--sol-chat .cnc-faq{padding:62px 12px 16px}.ixw--sol-chat .cnc-faq::before{font-size:12px;padding-left:56px}}
+/* the lift dial: keep all four floor numbers inside on phones */
+@media (max-width:640px){.ixw--sol-chat .cnc-dial-n{gap:18px}}
+/* phone hero: primary CTA full width, the two ghosts side by side */
+@media (max-width:640px){.ixw--sol-chat .ixw-copy .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ixw--sol-chat .ixw-copy .actions .btn-primary{grid-column:1/-1;justify-content:center}
+  .ixw--sol-chat .ixw-copy .actions .btn{width:100%;justify-content:center;padding:0 12px}}
+/* related key fobs: equal heights, the link always on the bottom line */
+.ixw--sol-chat .cnc-fob{display:flex;flex-direction:column}
+.ixw--sol-chat .cnc-fob .btn-link{margin-top:auto;padding-top:14px}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-chat .cnc-faq-sec .container{display:block}
+  .ixw--sol-chat .cnc-faq-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0}
+    .ixw--sol-chat .cnc-faq{max-width:920px}}
+/* the chat window: clean bubbles fully inside it (no clipping by the details box), avatars visible */
+.ixw--sol-chat .cnc-faq{max-width:920px;padding:70px 28px 28px}
+.ixw--sol-chat .cnc-faq details{overflow:visible;border:0;background:transparent;box-shadow:none}
+.ixw--sol-chat .cnc-faq details[open]{box-shadow:none}
+.ixw--sol-chat .cnc-faq summary{gap:12px;padding:12px 12px 12px 22px;border:2px solid #BFE6CD;box-shadow:0 3px 0 #D7F0DF;background:#FFFFFF}
+.ixw--sol-chat .cnc-faq summary:hover{border-color:#8BD8A8;box-shadow:0 3px 0 #BFE6CD}
+.ixw--sol-chat .cnc-faq details[open] summary{background:#ECFAF1;border-color:#8BD8A8}
+.ixw--sol-chat .cnc-faq summary::before{width:32px;height:32px;flex:none}
+.ixw--sol-chat .cnc-faq summary .ic{margin-left:0}
+.ixw--sol-chat .cnc-faq .faq-a{margin:12px 64px 4px 0}
+@media (max-width:640px){.ixw--sol-chat .cnc-faq{padding:62px 12px 14px}.ixw--sol-chat .cnc-faq summary{padding-left:16px}.ixw--sol-chat .cnc-faq .faq-a{margin-right:0}}
+/* the folio heading: light on plum */
+.ixw--sol-chat .cnc-folio-h b{color:var(--cnc-gold-l)}.ixw--sol-chat .cnc-folio-h span{color:#F1DDE9}
+/* the lift's floor dial: a proper semicircle, the needle pivots at its centre */
+.ixw--sol-chat .cnc-lift{padding-top:110px}
+.ixw--sol-chat .cnc-dial{height:98px;overflow:hidden}
+.ixw--sol-chat .cnc-dial-arc{left:50%;right:auto;top:auto;bottom:28px;width:128px;height:64px;margin-left:-64px;border:3px solid var(--cnc-plum-d);border-bottom:0;border-radius:64px 64px 0 0;rotate:none;box-sizing:border-box;
+  background:repeating-conic-gradient(from -90deg at 50% 100%,transparent 0 21deg,rgba(78,44,72,.55) 21deg 22.5deg,transparent 22.5deg 45deg) 0 0/100% 100% no-repeat}
+.ixw--sol-chat .cnc-dial-arc::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--cnc-plum-d);box-shadow:0 0 0 2px var(--cnc-gold-l)}
+.ixw--sol-chat .cnc-dial-arc i{left:50%;top:auto;bottom:0;width:4px;height:50px;margin:0 0 0 -2px;transform-origin:50% 100%;rotate:-60deg;animation:cncNeedle2 8s ease-in-out infinite}
+@keyframes cncNeedle2{0%,18%{rotate:-60deg}25%,43%{rotate:-20deg}50%,68%{rotate:20deg}75%,93%{rotate:60deg}100%{rotate:-60deg}}
+.ixw--sol-chat .cnc-dial-n{bottom:7px;gap:22px}
+@media (prefers-reduced-motion:reduce){.ixw--sol-chat .cnc-dial-arc i{animation:none}}
+/* the end card's badge: a desk bell, not a close button */
+.ixw--sol-chat .cnc-keys{background:var(--cnc-plum-d) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='14' y='5' width='4' height='4' rx='1.5' fill='%23F1DB9A'/%3E%3Cpath d='M5 22a11 11 0 0 1 22 0z' fill='%23F1DB9A'/%3E%3Crect x='3' y='22.5' width='26' height='4' rx='2' fill='%23C9A24A'/%3E%3Cpath d='M10 17a6 6 0 0 1 4-5' stroke='%23FFFFFF' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E") 50% 52%/34px no-repeat}
+.ixw--sol-chat .cnc-keys i{display:none}
+/* related key fobs: a ring on a short leather strap, hanging from the card's top edge */
+.ixw--sol-chat .cnc-fobs{padding-top:22px}
+.ixw--sol-chat .cnc-ring{left:30px;top:-30px;width:28px;height:28px;border-width:4px;box-shadow:0 2px 3px rgba(0,0,0,.18);z-index:1}
+.ixw--sol-chat .cnc-ring::after{content:"";position:absolute;left:50%;top:18px;width:12px;height:20px;margin-left:-6px;border-radius:3px 3px 5px 5px;background:var(--cnc-walnut);box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),inset 0 0 0 1.5px rgba(255,255,255,.15)}
+.ixw--sol-chat .cnc-ring::before{content:"";position:absolute;left:50%;top:30px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--cnc-gold);z-index:1}
+.ixw--sol-chat .cnc-keys{right:34px;top:30px;width:58px;height:58px}
+@media (max-width:767px){.ixw--sol-chat .cnc-keys{right:20px;top:20px;width:46px;height:46px;background-size:26px}}

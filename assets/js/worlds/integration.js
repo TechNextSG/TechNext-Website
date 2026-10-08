@@ -53,7 +53,10 @@
     else { g.lineWidth = 2; g.beginPath(); g.moveTo(cx - 4, cy - 6); g.lineTo(cx - 9, cy); g.lineTo(cx - 4, cy + 6); g.moveTo(cx + 4, cy - 6); g.lineTo(cx + 9, cy); g.lineTo(cx + 4, cy + 6); g.stroke(); }
   }
   /* the front track sits a little above the bottom of the hero, whatever its height */
-  function track(e) { var r2 = clamp(e.b - 16, 700, 770); return { edge: r2 - 64, r1: r2 - 34, r2: r2 }; }
+  var GT = null; /* the top of the glance strip in set units (measured on resize), so the front track never runs under it */
+  function measureGT() { var set = document.querySelector('.ixw--integration [data-ixw-set]'), st = document.querySelector('.ixw--integration .ixw-credits');
+    if (!set || !st) return null; var r = set.getBoundingClientRect(), c = st.getBoundingClientRect(), k = r.width / 1000; if (!k || c.top <= r.top) return null; return (c.top - r.top) / k; }
+  function track(e) { var r2 = clamp(GT != null ? Math.min(GT - 6, e.b - 16) : e.b - 16, 700, 770); return { edge: r2 - 64, r1: r2 - 34, r2: r2 }; }
 
   /* ---------------- static layers ---------------- */
   function paintBg(g, W, H, k, sx, sy) { /* the sky and the city beyond the glass hall */
@@ -66,7 +69,7 @@
     g.restore();
   }
   function paintFrame(g, W, H, k, sx, sy) { /* the glass hall: mullions, the roof truss, the tiled platform wall, the platform and the front track */
-    g.save(); setU(g, sx, sy, k); var e = extOf(W, H, k, sx, sy), x, y;
+    GT = measureGT(); g.save(); setU(g, sx, sy, k); var e = extOf(W, H, k, sx, sy), x, y;
     CO.glass(g, e, CEIL, 304, 118, '#FFFFFF', 64); g.fillStyle = '#FFFFFF'; g.fillRect(e.l, 186, e.r - e.l, 4);
     /* the roof: glass vaults on white arched ribs, a lattice truss along the eaves */
     g.fillStyle = 'rgba(255,255,255,.22)'; g.fillRect(e.l, e.t, e.r - e.l, CEIL - e.t);
@@ -87,10 +90,13 @@
     var tk = track(e), fg = g.createLinearGradient(0, F, 0, tk.edge); fg.addColorStop(0, '#F1EDE5'); fg.addColorStop(1, '#E4DDD0'); g.fillStyle = fg; g.fillRect(e.l, F, e.r - e.l, tk.edge - F);
     g.fillStyle = '#FFFFFF'; g.fillRect(e.l, F, e.r - e.l, 6);
     g.strokeStyle = 'rgba(120,100,70,.10)'; g.lineWidth = 1.5; g.beginPath(); for (y = F + 30; y < tk.edge - 20; y += 34) { g.moveTo(e.l, y); g.lineTo(e.r, y); } for (x = Math.floor(e.l / 90) * 90; x < e.r; x += 90) { g.moveTo(x, F + 6); g.lineTo(x + (x - 560) * 0.12, tk.edge - 18); } g.stroke();
+    /* the six line colours painted along the platform, a roundel every 520 */
+    SYS.forEach(function (s2, i2) { g.fillStyle = s2.col; g.globalAlpha = 0.42; g.fillRect(e.l, 488 + i2 * 4.6, e.r - e.l, 3); }); g.globalAlpha = 1;
+    for (x = Math.floor(e.l / 520) * 520 + 110; x < e.r; x += 520) { fillE(g, x, 501, 17, 17, '#FFFFFF'); g.strokeStyle = PUR; g.lineWidth = 3.4; g.beginPath(); g.arc(x, 501, 14, 0, 7); g.stroke(); text(g, 'O', x, 505.5, 12, 800, PUR, 'center'); }
     /* wayfinding painted on the platform: arrows and the station name */
-    for (x = Math.floor(e.l / 520) * 520; x < e.r; x += 520) { var py = F + 74; g.fillStyle = 'rgba(20,163,139,.16)'; fillRR(g, x + 40, py - 16, 210, 32, 16, 'rgba(20,163,139,.14)');
-      text(g, 'ODOO CENTRAL · LINES 1–6', x + 145, py + 5, 11, 800, 'rgba(14,122,104,.55)', 'center');
-      for (var ar = 0; ar < 3; ar++) { g.fillStyle = 'rgba(27,42,74,.14)'; g.beginPath(); g.moveTo(x + 300 + ar * 40, py - 12); g.lineTo(x + 322 + ar * 40, py); g.lineTo(x + 300 + ar * 40, py + 12); g.lineTo(x + 310 + ar * 40, py); g.closePath(); g.fill(); } }
+    for (x = Math.floor(e.l / 520) * 520; x < e.r; x += 520) { var py = F + 74; g.fillStyle = 'rgba(20,163,139,.16)'; fillRR(g, x + 160, py - 16, 210, 32, 16, 'rgba(20,163,139,.14)');
+      text(g, 'ODOO CENTRAL · LINES 1–6', x + 265, py + 5, 11, 800, 'rgba(14,122,104,.62)', 'center');
+      for (var ar = 0; ar < 3; ar++) { g.fillStyle = 'rgba(27,42,74,.14)'; g.beginPath(); g.moveTo(x + 400 + ar * 34, py - 12); g.lineTo(x + 422 + ar * 34, py); g.lineTo(x + 400 + ar * 34, py + 12); g.lineTo(x + 410 + ar * 34, py); g.closePath(); g.fill(); } }
     g.fillStyle = '#F2C230'; g.fillRect(e.l, tk.edge - 18, e.r - e.l, 12); g.fillStyle = 'rgba(160,110,10,.35)'; for (x = Math.floor(e.l / 8) * 8; x < e.r; x += 8) g.fillRect(x + 2, tk.edge - 14, 3, 3), g.fillRect(x + 6, tk.edge - 10, 3, 3);
     g.fillStyle = '#FFFFFF'; g.fillRect(e.l, tk.edge - 6, e.r - e.l, 8); g.fillStyle = 'rgba(40,40,30,.22)'; g.fillRect(e.l, tk.edge + 2, e.r - e.l, 5);
     g.fillStyle = '#D3CBBC'; g.fillRect(e.l, tk.edge + 7, e.r - e.l, e.b - tk.edge);
@@ -112,7 +118,8 @@
   }
   function paintBack(g, ext) {
     /* the passers-by on the left walk only where they are clear of the title card */
-    var ce = cardEdge(); CREW.forEach(function (w) { if (!w.left) return; if (w.x1b == null) w.x1b = w.x1; w.x1 = ce == null ? w.x1b : Math.min(w.x1b, ce - 150 * w.P.s); });
+    CREW.forEach(function (w) { if (w.left) return; if (w.x1b == null) w.x1b = w.x1; w.x1 = Math.min(w.x1b, ext.r - 150); });
+    concourse(g);
     /* the monorail beam over the hall */
     g.fillStyle = '#FFFFFF'; for (var hx = Math.floor(ext.l / 150) * 150; hx < ext.r; hx += 150) g.fillRect(hx, CEIL, 3, 18);
     fillRR(g, ext.l, -132, ext.r - ext.l, 9, 0, '#C9D4DC'); g.fillStyle = '#E8EEF2'; g.fillRect(ext.l, -132, ext.r - ext.l, 2);
@@ -166,6 +173,46 @@
     shadowed(g, 8, 3, 0.18, function () { fillRR(g, sx2, 126, 106, 42, 8, NAVY); }); fillE(g, sx2 + 20, 147, 12, 12, TEAL); text(g, '6', sx2 + 20, 151, 11, 800, '#FFFFFF', 'center');
     text(g, 'Platform 6', sx2 + 37, 144, 8.6, 800, '#FFFFFF'); text(g, 'Express · L6', sx2 + 37, 157, 7, 700, '#A9C9F0');
   }
+  /* ---------------- the concourse behind the title card ---------------- */
+  var BOARD = { x: -440, y: -66, w: 380, h: 186 }, DEP = [['L1', 'Online store', 'Sales', '1'], ['L2', 'Marketplaces', 'Inventory', '2'], ['L3', 'Payments', 'Accounting', '3'], ['L4', 'Bank feeds', 'Accounting', '4'], ['L5', 'Email & calendar', 'CRM', '5'], ['L6', 'Your systems', 'Odoo API', '6']];
+  function concourse(g) {
+    /* the departures board, hung from the roof on two rods */
+    var b = BOARD; g.fillStyle = '#B9C4CE'; g.fillRect(b.x + 60, CEIL, 3, b.y - CEIL); g.fillRect(b.x + b.w - 63, CEIL, 3, b.y - CEIL);
+    shadowed(g, 16, 6, 0.22, function () { fillRR(g, b.x - 6, b.y - 6, b.w + 12, b.h + 12, 14, '#22324F'); });
+    fillRR(g, b.x, b.y, b.w, b.h, 10, '#16233B'); fillRR(g, b.x, b.y, b.w, 26, 10, NAVY); g.fillStyle = NAVY; g.fillRect(b.x, b.y + 14, b.w, 12);
+    fillE(g, b.x + 16, b.y + 13, 7, 7, TEAL); text(g, '→', b.x + 16, b.y + 16.5, 8, 800, '#FFFFFF', 'center');
+    text(g, 'DEPARTURES · TO YOUR ODOO', b.x + 30, b.y + 17, 9, 800, '#FFFFFF'); text(g, 'sample', b.x + b.w - 66, b.y + 17, 6.6, 700, '#7F8DA6', 'right');
+    var hy = b.y + 40; [['LINE', 12], ['FROM', 50], ['TO', 168], ['PLAT', 248], ['STATUS', 290]].forEach(function (c) { text(g, c[0], b.x + c[1], hy, 6.4, 800, '#7F8DA6'); });
+    g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(b.x + 8, hy + 5, b.w - 16, 1.5);
+    DEP.forEach(function (r, i) { var y = b.y + 62 + i * 21, sc = SYS[i];
+      if (i % 2) { g.fillStyle = 'rgba(255,255,255,.035)'; g.fillRect(b.x + 6, y - 13, b.w - 12, 21); }
+      fillRR(g, b.x + 10, y - 9, 26, 13, 6.5, sc.col); text(g, r[0], b.x + 23, y + 0.5, 7, 800, '#FFFFFF', 'center');
+      text(g, r[1], b.x + 50, y, 8.4, 800, '#E7EEF8'); text(g, '→ ' + r[2], b.x + 168, y, 8.4, 700, '#BFD3F0');
+      fillRR(g, b.x + 250, y - 10, 18, 14, 3, '#22324F'); text(g, r[3], b.x + 259, y + 0.5, 8, 800, '#FFC94A', 'center'); });
+    /* lightbox posters hung from the glass transom */
+    [[-430, TEAL, 'CONNECT', 'what you keep', 0], [-290, PUR, 'STANDARD', 'connectors first', 1], [-150, NAVY, 'BOOKED', 'once, never twice', 2]].forEach(function (pp) {
+      var x = pp[0], y = 198; g.fillStyle = '#9AA6BC'; g.fillRect(x + 20, 188, 3, 12); g.fillRect(x + 95, 188, 3, 12); shadowed(g, 8, 3, 0.16, function () { fillRR(g, x, y, 118, 82, 8, '#C9D4DC'); }); fillRR(g, x + 5, y + 5, 108, 72, 5, pp[1]);
+      g.fillStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.moveTo(x + 5, y + 50); g.lineTo(x + 113, y + 18); g.lineTo(x + 113, y + 5); g.lineTo(x + 5, y + 5); g.closePath(); g.fill();
+      text(g, pp[2], x + 14, y + 26, 11, 800, '#FFFFFF'); text(g, pp[3], x + 14, y + 39, 7.6, 700, 'rgba(255,255,255,.85)');
+      if (pp[4] === 0) SYS.forEach(function (s2, i2) { g.strokeStyle = s2.col; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x + 14, y + 50 + i2 * 3.4); g.lineTo(x + 84, y + 50 + i2 * 3.4); g.lineTo(x + 96, y + 58); g.stroke(); });
+      if (pp[4] === 0) { fillE(g, x + 99, y + 58, 6, 6, '#FFFFFF'); }
+      if (pp[4] === 1) { fillRR(g, x + 14, y + 50, 38, 18, 4, '#FFFFFF'); g.fillStyle = PUR; g.fillRect(x + 20, y + 54, 3, 10); g.fillRect(x + 27, y + 54, 3, 10); g.strokeStyle = '#FFFFFF'; g.lineWidth = 3; g.beginPath(); g.moveTo(x + 52, y + 59); g.bezierCurveTo(x + 70, y + 59, x + 70, y + 66, x + 100, y + 64); g.stroke(); }
+      if (pp[4] === 2) { g.strokeStyle = '#7FE3C9'; g.lineWidth = 3; rr(g, x + 14, y + 48, 62, 20, 5); g.stroke(); text(g, 'SYNCED ✓', x + 45, y + 61.5, 7.6, 800, '#7FE3C9', 'center'); }
+      });
+  }
+  var FLAP = { row: -1, t: 0 };
+  function boardLive(g, t) { /* the status column: on time / boarding / departed, a row flaps over now and then, the SGT clock */
+    var b = BOARD, d = new Date(Date.now() + 8 * 3600e3), hh = d.getUTCHours(), mm = d.getUTCMinutes();
+    text(g, (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm + ' SGT', b.x + b.w - 12, b.y + 17, 7.6, 800, '#FFC94A', 'right');
+    var cyc = Math.floor(t / 3.2), row = cyc % 6, fu = (t % 3.2) / 3.2;
+    DEP.forEach(function (r, i) { var y = b.y + 62 + i * 21, st = i === row ? (fu < 0.5 ? 'Boarding' : 'Departed ✓') : (i === (row + 5) % 6 ? 'Arrived ✓' : 'On time'),
+        col = st === 'Boarding' ? ((t * 2.4) % 1 < 0.6 ? '#FFC94A' : '#8A7030') : st === 'On time' ? '#7FE3C9' : '#B8F5DE';
+      fillRR(g, b.x + 286, y - 10, 84, 14, 3, '#0F1A2E');
+      var flap = i === row && fu > 0.5 && fu < 0.58 ? (fu - 0.5) / 0.08 : 0;
+      if (flap) { g.save(); g.translate(0, y - 3); g.scale(1, Math.abs(Math.cos(flap * Math.PI))); g.translate(0, -(y - 3)); }
+      text(g, st, b.x + 292, y + 0.5, 8, 800, col); if (flap) g.restore();
+      g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(b.x + 286, y - 3.5, 84, 1); });
+  }
   function bench(g, x, y, w, col) { fillRR(g, x, y - 46, w, 10, 4, col); fillRR(g, x, y - 32, w, 9, 4, col); g.fillStyle = '#7A869C'; g.fillRect(x + 10, y - 23, 5, 23); g.fillRect(x + w - 15, y - 23, 5, 23); soft(g, x + w / 2, y + 2, w * 0.6, 6, 0.2); }
   function paintFront(g, ext) {
     /* the signal desk: open legs, the monitor on its arm beside the engineer, the keyboard, a sign */
@@ -185,22 +232,36 @@
     [[tx + 4, F - 76, 46, 46, '#C99A6B'], [tx + 52, F - 64, 40, 34, '#D6A877'], [tx + 14, F - 108, 34, 32, '#C99A6B']].forEach(function (b) { fillRR(g, b[0], b[1], b[2], b[3], 4, b[4]); g.fillStyle = 'rgba(255,240,210,.55)'; g.fillRect(b[0] + b[2] / 2 - 4, b[1], 8, b[3]); });
     fillE(g, tx + 14, F - 8, 9, 9, '#2A3142'); fillE(g, tx + 90, F - 8, 9, 9, '#2A3142');
     bench(g, 1230, F, 120, NAVY); K.plant(g, { x: 1390, y: F }, '#FFFFFF', '#E3E8EF');
+    /* the concourse: the help point beside the guide, the traveller's case, a planter, a litter bin */
+    var hp = HELP; soft(g, hp.x, 566, 30, 6, 0.24); fillRR(g, hp.x - 22, 404, 44, 162, 10, '#E9EEF4'); fillRR(g, hp.x - 22, 404, 44, 30, 10, TEAL); g.fillRect(hp.x - 22, 420, 44, 14);
+    fillE(g, hp.x, 418, 9, 9, '#FFFFFF'); text(g, 'i', hp.x, 422.5, 12, 800, TEAL, 'center'); fillRR(g, hp.x - 16, 442, 32, 44, 4, '#22324F');
+    text(g, 'HELP', hp.x, 500, 7.4, 800, NAVY, 'center'); text(g, 'POINT', hp.x, 509, 6.4, 800, '#5C6B7A', 'center');
+    fillE(g, hp.x, 526, 7, 7, '#C9D2DE'); fillE(g, hp.x, 526, 4, 4, '#5C6B7A'); fillRR(g, hp.x - 12, 540, 24, 5, 2, '#22324F'); fillRR(g, hp.x - 24, 560, 48, 7, 3, '#C9D2DE');
+    var cs = -226; soft(g, cs + 18, 601, 26, 5, 0.24); fillRR(g, cs, 548, 38, 52, 7, '#E0456B'); fillRR(g, cs + 3, 552, 32, 4, 2, 'rgba(255,255,255,.25)'); g.fillStyle = 'rgba(0,0,0,.14)'; g.fillRect(cs + 12, 552, 2.4, 46); g.fillRect(cs + 24, 552, 2.4, 46);
+    g.strokeStyle = '#5C6B7A'; g.lineWidth = 3; g.beginPath(); g.moveTo(cs + 10, 548); g.lineTo(cs + 10, 526); g.lineTo(cs + 28, 526); g.lineTo(cs + 28, 548); g.stroke(); fillRR(g, cs + 6, 562, 16, 11, 2, '#FFFFFF'); text(g, 'SG', cs + 14, 570, 5.4, 800, '#E0456B', 'center');
+    fillE(g, cs + 7, 601, 3, 3, '#2A3142'); fillE(g, cs + 31, 601, 3, 3, '#2A3142');
+    g.save(); g.translate(-462, 606); g.scale(0.66, 0.66); K.plant(g, { x: 0, y: 0 }, '#FFFFFF', '#E3E8EF'); g.restore();
+    var lb = 66; soft(g, lb, 568, 18, 4, 0.2); fillRR(g, lb - 12, 528, 24, 40, 6, '#C9D2DE'); fillRR(g, lb - 14, 522, 28, 8, 4, NAVY); fillRR(g, lb - 6, 538, 12, 14, 3, '#E9EEF4');
   }
+  var HELP = { x: 8 };
 
   /* ---------------- the cast ---------------- */
   var W = CR.who;
   var EN1 = W({ x: 584, y: 470, s: 0.52, ph: 0.6, skin: 1, hair: 1, style: 'short', outfit: 'polo', top: TEAL, glasses: true, sit: true, chairCol: '#2A3550', hands: [[-120, -205], [-30, -205]], look: -0.7 });
   var EN2 = W({ x: 930, y: 470, s: 0.54, ph: 1.6, skin: 0, hair: 0, style: 'bob', outfit: 'shirt', top: '#3167CA', hold: 'tablet', hands: [[-70, -212], [60, -200]], look: -0.5 });
   var CN = W({ x: 222, y: 470, s: 0.53, ph: 2.3, skin: 2, hair: 0, style: 'pony', outfit: 'cardigan', top: PUR, top2: '#FFFFFF', clip: '#7FE3C9', hands: [[-70, -160], [86, -176]], look: 0.4 });
-  var PS = W({ x: 988, y: 598, s: 0.56, ph: 3.4, skin: 0, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E0456B', top2: '#FFFFFF', low: '#3A4458', sit: true, chair: false, id: '#9AA6BC', hands: [[-48, -300], [48, -300]], look: 0 });
+  var PS = W({ x: 938, y: 598, s: 0.56, ph: 3.4, skin: 0, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E0456B', top2: '#FFFFFF', low: '#3A4458', sit: true, chair: false, id: '#9AA6BC', hands: [[-48, -300], [48, -300]], look: 0 });
   var CREW = [
     { x0: 1112, x1: 1380, y: 494, spd: 16, ph: 0.3, label: 'TechNext developer', lines: ['Standard connector **first**. API only where we must.', 'Every message has a key, so nothing is **booked twice**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.5, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: '#1B2A4A', hold: 'box' }) },
-    { left: true, x0: -880, x1: -470, y: 500, spd: 18, ph: 0.6, label: 'Visitor · client', lines: ['Our web orders just **arrive in Odoo** now.', 'No more copying the **bank statement** by hand.'], acts: ['wave', 'cheer', 'nod'],
-      P: W({ s: 0.5, skin: 3, hair: 1, style: 'long', outfit: 'shirt', top: '#E07B12', hold: 'bags', id: '#9AA6BC' }) },
-    { left: true, x0: -920, x1: -480, y: 610, spd: 20, ph: 0.15, label: 'TechNext consultant', lines: ['We map the data **field by field** first.', 'Tested on **staging** with real records.'], acts: ['cheer', 'id', 'wave'],
-      P: W({ s: 0.58, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: TEAL, hold: 'clipboard' }) }
+    { left: true, x0: -940, x1: -430, y: 640, spd: 17, ph: 0.6, label: 'Visitor · client', lines: ['Our web orders just **arrive in Odoo** now.', 'No more copying the **bank statement** by hand.'], acts: ['wave', 'cheer', 'nod'],
+      P: W({ s: 0.57, skin: 3, hair: 1, style: 'long', outfit: 'shirt', top: '#E07B12', hold: 'bags', id: '#9AA6BC' }) },
+    { left: true, x0: -760, x1: 120, y: 664, spd: 22, ph: 0.15, label: 'TechNext consultant', lines: ['We map the data **field by field** first.', 'Tested on **staging** with real records.'], acts: ['cheer', 'id', 'wave'],
+      P: W({ s: 0.59, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: TEAL, hold: 'clipboard' }) }
   ];
+  /* the concourse behind the title card: the station guide at the help point, a traveller on the bench */
+  var GD = W({ x: -64, y: 560, s: 0.56, ph: 4.2, skin: 2, hair: 0, style: 'pony', outfit: 'polo', top: AMBER, low: '#2E3A55', hands: [[-80, -180], [80, -180]], look: 0.5 });
+  var TV = W({ x: -300, y: 598, s: 0.56, ph: 5.1, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#7DAE38', low: '#3A4458', glasses: true, sit: true, chair: false, id: '#9AA6BC', hands: [[-24, -262], [26, -268]], look: 0.2 });
 
   /* ---------------- live state ---------------- */
   var PLUG = { t: -99, k: 3 }, STAMP = { t: -99 }, NEWL = { t: -99 }, FT = { t0: 0 }, BOOST = { t: -99 }, MUG = { hand: false }, FLAG = { on: false, w: 0 }, WHISTLE = { on: false };
@@ -291,13 +352,14 @@
     for (var r = 0; r < 4; r++) { var s = SYS[(r + roll) % 6], y = 186 + r * 19, fresh = r === 3 && (t % 2.6) < 0.5;
       fillE(g, nx - 62, y - 3, 3.5, 3.5, s.col); text(g, s.name, nx - 54, y, 7, 800, fresh ? '#FFFFFF' : '#E7EEF8'); text(g, r === 0 ? 'arrived' : r === 3 ? 'now' : (r * 2) + ' min', nx + 62, y, 6.6, 800, r === 0 ? '#7FE3C9' : '#FFC94A', 'right'); }
     backTrain(g, t, e);
-    platformBench(g);
+    boardLive(g, t);
+    platformBench(g, 876); platformBench(g, -362, PUR);
   }
-  function platformBench(g) { /* the platform bench the passenger waits on: backrest, seat, arm rests, legs */
-    var x = 926, w = 124, y = 598; soft(g, x + w / 2, y + 3, 72, 7, 0.22);
+  function platformBench(g, x, col) { /* a platform bench: backrest, seat, arm rests, legs */
+    var w = 124, y = 598, TEAL = col || '#14A38B'; soft(g, x + w / 2, y + 3, 72, 7, 0.22);
     fillRR(g, x + 4, 478, w - 8, 22, 6, TEAL); fillRR(g, x + 4, 506, w - 8, 18, 6, TEAL); g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x + 8, 481, w - 16, 3);
     g.fillStyle = '#7A869C'; g.fillRect(x + 12, 524, 5, 24); g.fillRect(x + w - 17, 524, 5, 24);
-    fillRR(g, x, 546, w, 11, 5, '#0E7A68'); fillRR(g, x - 4, 532, 10, 26, 4, '#5C6B7A'); fillRR(g, x + w - 6, 532, 10, 26, 4, '#5C6B7A');
+    fillRR(g, x, 546, w, 11, 5, col ? '#5A3B52' : '#0E7A68'); fillRR(g, x - 4, 532, 10, 26, 4, '#5C6B7A'); fillRR(g, x + w - 6, 532, 10, 26, 4, '#5C6B7A');
     g.fillStyle = '#5C6B7A'; g.fillRect(x + 8, 557, 6, y - 557); g.fillRect(x + w - 14, 557, 6, y - 557); fillRR(g, x + 2, y - 4, 18, 4, 2, '#4A5468'); fillRR(g, x + w - 20, y - 4, 18, 4, 2, '#4A5468');
   }
   function paintFrontLive(g, t, S) {
@@ -336,8 +398,26 @@
     var L = T.lever, lu = t - PLUG.t, pull = lu >= 0 && lu < 1.4 ? Math.sin(Math.min(1, lu / 0.25) * Math.PI / 2) * (lu > 1 ? (1.4 - lu) / 0.4 : 1) : 0;
     [[-22, RED, 0], [0, AMBER, 1], [22, TEAL, 0]].forEach(function (lv) { var a = -0.12 + lv[2] * pull * 0.85 + (lv[2] ? 0 : Math.sin(t * 0.9 + lv[0]) * 0.02), bx = L.x + lv[0], by = F - 42;
       g.strokeStyle = '#C9D2DE'; g.lineWidth = 4; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + Math.sin(a) * 58, by - Math.cos(a) * 58); g.stroke(); fillRR(g, bx + Math.sin(a) * 58 - 6, by - Math.cos(a) * 58 - 9, 12, 14, 4, lv[1]); });
+    concourseLive(g, t);
     /* the fare gates' arrows blink */
     for (var gi = 0; gi < 4; gi++) { var gx = -905 + gi * 62, on = ((t * 1.4 + gi * 0.37) % 1) < 0.6; g.fillStyle = on ? GO : '#335244'; g.beginPath(); g.moveTo(gx + 7, F - 85); g.lineTo(gx + 17, F - 80); g.lineTo(gx + 7, F - 75); g.closePath(); g.fill(); }
+  }
+  var LEAF = { k: 0, out: false, flip: 1 }, PING = { t: -99 };
+  function concourseLive(g, t) {
+    /* the help point's screen: each line in turn, a cursor blinking */
+    var hp = HELP, s0 = SYS[Math.floor(t / 1.6) % 6]; fillRR(g, hp.x - 13, 445, 26, 38, 3, '#0F1A30'); fillRR(g, hp.x - 10, 449, 20, 6, 3, s0.col);
+    for (var i = 0; i < 3; i++) fillRR(g, hp.x - 10, 460 + i * 6, 6 + hash(i + Math.floor(t / 1.6)) * 14, 2.6, 1.3, '#9FB6D8'); if ((t % 1) < 0.5) g.fillStyle = '#7FE3C9', g.fillRect(hp.x - 10, 478, 5, 2);
+    /* the guide's leaflet (handing out) or her fold-out line map */
+    if (LEAF.out) { var h = handAt(GD, 1); g.save(); g.translate(h[0], h[1]); g.rotate(-0.15); fillRR(g, -2, -14, 16, 20, 2, '#FFFFFF'); fillRR(g, -2, -14, 16, 5, 2, TEAL); g.fillStyle = '#C3C9D4'; g.fillRect(1, -6, 10, 1.6); g.fillRect(1, -2, 8, 1.6); g.restore(); }
+    if (LEAF.k > 0) { var a = handAt(GD, 0), c = handAt(GD, 1), mx = (a[0] + c[0]) / 2, my = (a[1] + c[1]) / 2 - 4, hw = Math.max(10, (c[0] - a[0]) / 2 + 8) * LEAF.k;
+      g.save(); g.translate(mx, my); g.scale(LEAF.flip, 1); fillRR(g, -hw, -26, hw * 2, 40, 3, '#FFFFFF'); g.fillStyle = 'rgba(27,42,74,.08)'; g.fillRect(-hw / 3, -26, 1.2, 40); g.fillRect(hw / 3, -26, 1.2, 40);
+      if (hw > 24) { SYS.forEach(function (s2, i2) { g.strokeStyle = s2.col; g.lineWidth = 2.6; g.beginPath(); g.moveTo(-hw + 6, -18 + i2 * 5.4); g.lineTo(hw - 22, -18 + i2 * 5.4); g.lineTo(hw - 12, -4); g.stroke(); }); fillE(g, hw - 10, -4, 6, 6, PUR); }
+      g.restore(); }
+    /* the traveller's phone, and the sync ping when she is tapped */
+    var ph = handAt(TV, 1); g.save(); g.translate(ph[0] - 2, ph[1] - 4); g.rotate(-0.2); fillRR(g, -5, -9, 10, 17, 2.5, '#22324F'); fillRR(g, -3.8, -7.6, 7.6, 13, 1.5, (t - PING.t) < 2 ? '#B8F5DE' : '#9FD3F5'); g.restore();
+    var pu = t - PING.t; if (pu >= 0 && pu < 2.2) { var by = ph[1] - 40 - Math.min(1, pu / 0.25) * 10; g.save(); g.globalAlpha = pu > 1.8 ? (2.2 - pu) / 0.4 : 1;
+      shadowed(g, 6, 2, 0.16, function () { fillRR(g, ph[0] - 46, by - 12, 92, 22, 11, '#FFFFFF'); }); fillE(g, ph[0] - 34, by - 1, 7, 7, GO); text(g, '✓', ph[0] - 34, by + 2.5, 8, 800, '#FFFFFF', 'center');
+      text(g, 'Order synced', ph[0] - 24, by + 2.6, 8, 800, NAVY); g.restore(); }
   }
   function paintFore(g, ext) { /* the near platform on the right: a recycling bin, a parcel trolley, a drinks machine */
     var bn = 1084; soft(g, bn, 600, 24, 5, 0.22); fillRR(g, bn - 16, 548, 32, 52, 7, TEAL); fillRR(g, bn - 20, 542, 40, 10, 5, NAVY); fillRR(g, bn - 8, 546, 16, 3, 1.5, '#0F1A30');
@@ -450,6 +530,32 @@
     else { P.hands = [[-48, -300], [48, -300]]; P.tilt = 0.1; P.look = lerp(P.look, 0.2, 0.1); }
   }
 
+  function gd(P, t, S) { /* points travellers to their line, hands out a leaflet, checks the time. Tap: unfolds the line map, turns it round to show you */
+    var st = S.cast.gd; if (tapped(st, t)) st.boom = false; var u = (t - (st.c == null ? -99 : st.c)) / 2.6;
+    P.sx = 1; P.tilt = 0; P.hop = 0; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm'; LEAF.out = false; LEAF.k = 0; LEAF.flip = 1; lookAt(P, S, st, t, 0.5);
+    if (u >= 0 && u < 1) { P.talk = u > 0.25; P.mood = 'happy';
+      if (u < 0.25) { var a = u / 0.25; LEAF.k = a; P.hands = [[lerp(-80, -60, a), lerp(-180, -300, a)], [lerp(80, 60, a), lerp(-180, -300, a)]]; P.look = 0; }
+      else if (u < 0.7) { LEAF.k = 1; P.hands = [[-92, -300], [92, -300]]; P.hop = Math.abs(Math.sin((u - 0.25) * 14)) * 4; P.look = 0;
+        if (!st.boom) { st.boom = true; CR.burst('conf', P.x, P.y - 230, t); } }
+      else { var b = (u - 0.7) / 0.3; LEAF.k = 1; LEAF.flip = Math.cos(b * Math.PI) < 0 ? -1 : 1; P.hands = [[-92, -300], [92, -300]]; P.sx = Math.cos(b * Math.PI * 2) >= 0 ? 1 : -1; P.mood = 'happy'; }
+      return; }
+    var c = (t + 3) % 11;
+    if (c < 4) { var w = Math.sin(t * 1.3) * 10; P.hands = [[-70, -176], [150 + w, -330 + w]]; P.look = lerp(P.look, 0.85, 0.08); P.mood = 'happy'; }
+    else if (c < 7) { var r = clamp(Math.min((c - 4) / 0.4, (7 - c) / 0.4), 0, 1); LEAF.out = true; P.hands = [[-60, -196], [lerp(70, 128, r), lerp(-190, -236, r)]]; P.look = lerp(P.look, -0.3, 0.08); }
+    else if (c < 9) { P.hands = [[-12, -248], [18, -238]]; P.look = lerp(P.look, 0.05, 0.1); P.tilt = 0.06; }
+    else { P.hands = [[-84, -178], [84, -178]]; P.look = lerp(P.look, Math.sin(t * 1.4) * 0.6, 0.06); }
+  }
+  function tv(P, t, S) { /* scrolls her phone, looks up at the departures board, swings her feet. Tap: the phone pings (order synced) and she holds it up, delighted */
+    var st = S.cast.tv; if (tapped(st, t)) { PING.t = t; CR.burst('heart', P.x, P.y - 230, t); } var u = (t - (st.c == null ? -99 : st.c)) / 2.2;
+    P.sx = 1; P.tilt = 0; P.hop = 0; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm'; lookAt(P, S, st, t, 0.2);
+    if (u >= 0 && u < 1) { P.talk = u > 0.3; P.mood = u < 0.25 ? 'wow' : 'happy';
+      var a = clamp(u / 0.25, 0, 1); P.hands = [[lerp(-24, -70, a), lerp(-262, -300, a)], [lerp(26, 60, a), lerp(-268, -390, a)]]; P.look = lerp(P.look, 0.4, 0.2); P.hop = u > 0.25 ? Math.abs(Math.sin((u - 0.25) * 16)) * 6 : 0; return; }
+    var c = (t + 5) % 12;
+    if (c < 6) { var k2 = Math.sin(t * 7) > 0.6 ? 3 : 0; P.hands = [[-24, -262], [26, -268 - k2]]; P.look = lerp(P.look, 0.15, 0.1); P.tilt = 0.05; }
+    else if (c < 9) { P.hands = [[-36, -236], [36, -240]]; P.look = lerp(P.look, -0.35, 0.08); P.tilt = -0.07; P.mood = 'happy'; }
+    else { P.hands = [[-30, -244], [34, -250]]; P.tilt = Math.sin(t * 2.2) * 0.05; P.look = lerp(P.look, 0.7, 0.06); }
+  }
+
   window.IXW.worlds.integration = {
     pan: [-300, 1200],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -467,7 +573,9 @@
       { id: 'en1', behind: true, keys: ['store', 'pay'], P: EN1, act: en1 },
       { id: 'en2', behind: true, keys: ['bank', 'mail'], P: EN2, act: en2 },
       { id: 'cn', behind: true, keys: ['market', 'api'], P: CN, act: cn },
-      { id: 'ps', behind: true, keys: [], P: PS, act: ps }
+      { id: 'ps', behind: true, keys: [], P: PS, act: ps },
+      { id: 'gd', behind: true, keys: [], P: GD, act: gd },
+      { id: 'tv', behind: true, keys: [], P: TV, act: tv }
     ],
     toy: function (name, S, t) { if (name === 'lever') { PLUG.t = t; PLUG.k = (PLUG.k + 2) % SYS.length; CR.burst('spark', T.lever.x, F - 110, t); } },
     hit: function (x, y, S, t, onBtn) {

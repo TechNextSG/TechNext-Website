@@ -211,3 +211,69 @@
 @media (max-width:767px){.ixw--sol-web .msd-cta-sec .cta{padding-right:22px}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-web :is(.msd-reg,.msd-sheet2 i){animation:none}.ixw--sol-web .msd-sheet2::before{animation:none;width:110px}.ixw--sol-web .msd-spec-l.is-in .msd-tape{animation:none}}
 @media (max-width:767px){.ixw--sol-web .msd-strip>div::before{display:none}.ixw--sol-web .msd-strip{padding-top:18px}}
+
+/* ---------- hero buttons (audit round): drafting-office buttons — blueprint block with a coral key, a dashed dimension ghost with tick marks ---------- */
+.ixw--sol-web .ixw-copy .actions{align-items:center}
+.ixw--sol-web .ixw-copy .actions .btn-lg{height:52px;gap:12px;overflow:visible}
+.ixw--sol-web .ixw-copy .actions .btn-lg::after{border-radius:inherit}
+.ixw--sol-web .ixw-copy .btn-primary{padding:0 10px 0 20px}
+.ixw--sol-web .ixw-copy .btn-primary .ic{width:30px;height:30px;padding:7px;box-shadow:inset 0 -2px 0 #D9562F}
+.ixw--sol-web main .ixw-copy .btn-primary:hover{box-shadow:0 7px 0 var(--ms-bp-d),0 0 0 6px rgba(46,111,191,.14)}
+.ixw--sol-web .ixw-copy .btn-ghost{position:relative;padding:0 20px 0 18px}
+.ixw--sol-web .ixw-copy .btn-ghost::before{display:block;content:"";position:absolute;inset:auto -1px -13px -1px;height:7px;transform:none;z-index:0;
+  background:linear-gradient(var(--ms-bp),var(--ms-bp)) 0 50%/100% 1px no-repeat,linear-gradient(var(--ms-bp),var(--ms-bp)) 0 0/1px 100% no-repeat,linear-gradient(var(--ms-bp),var(--ms-bp)) 100% 0/1px 100% no-repeat;opacity:.45;transition:opacity .2s ease}
+.ixw--sol-web main .ixw-copy .btn-ghost:hover::before{opacity:.9;transform:none}
+.ixw--sol-web main .ixw-copy .btn-ghost:hover{background:#F4F8FD}
+.ixw--sol-web .ixw-copy .btn-ghost .ic{width:20px;height:20px}
+.ixw--sol-web main .ixw-copy .btn-ghost:hover .ic{transform:none}
+.ixw--sol-web .msd-badges{gap:7px}
+.ixw--sol-web .msd-badges span{height:28px;padding:0 11px 0 8px;transition:translate .2s ease,box-shadow .2s ease}
+.ixw--sol-web .msd-badges span:hover{translate:0 -2px;box-shadow:inset 0 0 0 1.5px var(--ms-bp),0 3px 0 #C9D8EE}
+.ixw--sol-web .ixw-cap .ixw-ibtn{background:#FFFFFF;color:var(--ms-bp-d)}
+.ixw--sol-web .ixw-cap .ixw-ibtn:hover{background:#F4F8FD;color:var(--ms-bp);border-color:var(--ms-bp);box-shadow:0 5px 0 var(--ms-bp-d),0 0 0 4px rgba(46,111,191,.14)}
+.ixw--sol-web .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--ms-bp-d)}
+.ixw--sol-web .ixw-cap .ixw-ibtn--play,.ixw--sol-web .ixw-cap .ixw-ibtn--play:hover{border:0;border-radius:10px;background:linear-gradient(180deg,#4C88D4,var(--ms-bp));color:#FFFFFF;box-shadow:0 4px 0 var(--ms-bp-d)}
+.ixw--sol-web .ixw-cap .ixw-ibtn--play:hover{box-shadow:0 6px 0 var(--ms-bp-d),0 0 0 5px rgba(255,122,89,.25)}
+.ixw--sol-web .ixw-cap .ixw-ibtn:focus-visible,.ixw--sol-web .ixw-peek:focus-visible{outline:3px solid var(--ms-coral);outline-offset:3px}
+.ixw--sol-web .ixw-dots{gap:6px}
+.ixw--sol-web .ixw-dots button{width:10px;height:6px;background:#D5E2F3}
+.ixw--sol-web .ixw-dots button:hover{background:#A9C4E8}
+.ixw--sol-web .ixw-dots button.is-on{width:26px;background:repeating-linear-gradient(90deg,var(--ms-coral) 0 4px,#FFB49F 4px 6px)}
+.ixw--sol-web .ixw-peek{height:40px;padding:0 18px 0 14px;border:1.5px solid var(--ms-bp);background:#FFFFFF linear-gradient(rgba(46,111,191,.07) 1px,transparent 1px) 0 0/8px 8px;color:var(--ms-bp-d);font-weight:800;box-shadow:0 4px 0 var(--ms-bp-d),0 14px 22px -14px rgba(20,50,100,.55)}
+.ixw--sol-web .ixw-peek:hover{box-shadow:0 6px 0 var(--ms-bp-d),0 0 0 4px rgba(46,111,191,.14)}
+.ixw--sol-web .ixw-peek[aria-pressed="true"]{background:#FFE7DF;border-color:var(--ms-coral);color:#B5401F}
+@media (max-width:640px){.ixw--sol-web .ixw-copy .actions{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}.ixw--sol-web .ixw-copy .actions .btn{width:100%;justify-content:center}}
+
+/* ---------- below the hero (audit round) ---------- */
+/* the RFI list beside its heading and a rolled drawing in a tube (no empty half at desktop widths) */
+@media (min-width:1000px){.ixw--sol-web .msd-rfi-sec .container{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr);gap:56px;align-items:start}
+  .ixw--sol-web .msd-rfi-sec .sec-head{position:sticky;top:120px;margin:0;padding-bottom:150px}
+  .ixw--sol-web .msd-rfi-sec .sec-head::after{content:"";position:absolute;left:0;bottom:0;width:190px;height:130px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 130'%3E%3Crect x='6' y='96' width='178' height='26' rx='3' fill='%23FFFFFF' stroke='%23C9D8EE' stroke-width='2'/%3E%3Cpath d='M14 104h4M24 104h2M32 104h4M42 104h2M50 104h4M60 104h2M68 104h4M78 104h2M86 104h4M96 104h2M104 104h4M114 104h2M122 104h4M132 104h2M140 104h4M150 104h2M158 104h4M168 104h2' stroke='%232E6FBF' stroke-width='2'/%3E%3Crect x='30' y='20' width='120' height='70' rx='3' fill='%232E6FBF'/%3E%3Cpath d='M42 34h40M42 44h60M42 54h30' stroke='%23FFFFFF' stroke-width='3' opacity='.7'/%3E%3Crect x='96' y='50' width='42' height='30' rx='2' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-dasharray='4 3'/%3E%3Ccircle cx='150' cy='20' r='5' fill='%23FF7A59'/%3E%3Ccircle cx='30' cy='20' r='5' fill='%2314A38B'/%3E%3C/svg%3E") 0 100%/contain no-repeat}
+  .ixw--sol-web .msd-rfi{max-width:none}}
+.ixw--sol-web .msd-rfi summary:focus-visible{outline:3px solid var(--ms-coral);outline-offset:3px}
+/* related folders: equal heights, the link always on the bottom line */
+.ixw--sol-web .msd-folder{display:flex;flex-direction:column}
+.ixw--sol-web .msd-folder .btn-link{margin-top:auto;padding-top:14px}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-web .msd-rfi-sec .container{display:block}
+  .ixw--sol-web .msd-rfi-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0 190px 0 0;min-height:100px}
+  .ixw--sol-web .msd-rfi-sec .sec-head::after{left:auto;right:0;bottom:-8px;width:160px;height:100px}
+  .ixw--sol-web .msd-rfi{max-width:920px}}
+/* kit lids: white labels, all lids level (hover only lifts) */
+.ixw--sol-web .msd-lid b,.ixw--sol-web .msd-lid i{color:#FFFFFF}
+.ixw--sol-web .msd-lid,.ixw--sol-web .msd-kit,.ixw--sol-web .msd-kit.reveal{rotate:none}
+.ixw--sol-web .msd-kit:hover .msd-lid{transform:translateY(-4px)}
+/* related folders: no loose paper strip behind the tab, all three tabs alike */
+.ixw--sol-web .msd-folder::before{display:none}
+.ixw--sol-web .msd-tab{top:-26px;height:28px;line-height:28px;box-shadow:0 -1px 0 color-mix(in srgb,var(--c) 70%,#000000) inset}
+/* "The basics": the left column sits centred against the spec sheet; the model under glass is a solid exhibit with a plaque, not a faint ghost */
+@media (min-width:961px){.ixw--sol-web .msd-spec{align-items:center}}
+.ixw--sol-web .msd-dome{width:200px;height:190px;margin:40px 0 0 24px}
+.ixw--sol-web .msd-dome::before{height:22px;background:linear-gradient(180deg,#D9B48A,#B98F62);box-shadow:0 5px 0 #9C7448,0 18px 22px -12px rgba(80,50,20,.45)}
+.ixw--sol-web .msd-dome::after{left:14px;right:14px;bottom:20px;height:160px;border-radius:86px 86px 6px 6px;background:linear-gradient(115deg,rgba(255,255,255,.85) 0 12%,rgba(200,226,246,.55) 12% 60%,rgba(255,255,255,.7) 60% 66%,rgba(200,226,246,.5) 66%);box-shadow:inset 0 0 0 2.5px #8FB7DE}
+.ixw--sol-web .msd-dome-m{left:52px;bottom:22px;width:70px;height:86px;background:linear-gradient(180deg,#1F2A55 0 10px,#FFFFFF 10px 14px,#9CC8EE 14px 40px,#FFFFFF 40px 46px,#E8EEF7 46px)}
+.ixw--sol-web .msd-dome-p{left:130px;bottom:22px;width:26px;height:110px}
+.ixw--sol-web .msd-spec-l .msd-dome+*{margin-top:0}
+.ixw--sol-web .msd-dome i:last-child::after{content:"SCALE 1 : WEB";position:absolute;left:-104px;bottom:-24px;width:150px;font:800 9px/1 var(--font-body);letter-spacing:.14em;color:#FFFFFF;text-align:center}

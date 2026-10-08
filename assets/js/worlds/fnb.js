@@ -280,4 +280,24 @@
     ],
     onStop: function (key, S, t) { if (key === 'cook') S.ckT = t; }
   };
+  /* ---------------- audit round: a mosaic runner set into the floor, and Joy, a server crossing the dining room with
+     plates (idle: weaves between tables; tapped: a little twirl, the plates stay put, a "table 7!" call) ---------------- */
+  var JOY = { x0: -160, x1: 900, y: 604, spd: 34, ph: 0.4, P: { s: 0.55, ph: 2.8, c: { skin: '#E8B48F', hair: '#2B1D16', top: '#FFFFFF', low: '#2B3A33', shoe: '#2B3A33' }, outfit: 'tee', apron: '#E2553D', hairStyle: 'pony', hold: 'tray', mood: 'happy', look: 0, hands: [[-84, -330], [70, -160]] } }, JT = { tap: -9 };
+  function exFloor(g, ext) {
+    var y0 = 540, y1 = 590; fillRR(g, ext.l, y0, ext.r - ext.l, y1 - y0, 0, '#C9A44A'); fillRR(g, ext.l, y0 + 4, ext.r - ext.l, y1 - y0 - 8, 0, '#FFF6E5');
+    for (var x = Math.floor(ext.l / 50) * 50, i = 0; x < ext.r; x += 50, i++) { var c = i % 2 ? '#1F4D3F' : '#E2553D', cx = x + 25, cy = (y0 + y1) / 2;
+      g.fillStyle = c; g.beginPath(); g.moveTo(cx, y0 + 9); g.lineTo(cx + 16, cy); g.lineTo(cx, y1 - 9); g.lineTo(cx - 16, cy); g.closePath(); g.fill(); fillE(g, cx, cy, 4, 4, '#E9B949'); }
+  }
+  function exFore(g, t, S) {
+    var ext = S.ext, a = Math.max(JOY.x0, ext.l + 60), b = Math.min(JOY.x1, ext.r - 60); if (b - a < 80) return;
+    var d = t - JT.tap, tw = d >= 0 && d < 1.6; JOY.P.tilt = tw ? Math.sin(d * 12) * 0.08 : 0;
+    K.walker(g, { x0: a, x1: b, y: JOY.y, spd: JOY.spd, ph: JOY.ph, P: JOY.P }, t);
+    if (tw) { var P = JOY.P; fillRR(g, P.x + 16, P.y - 300, 64, 22, 10, '#FFFFFF'); text(g, 'table 7!', P.x + 48, P.y - 285, 10, 800, '#E2553D', 'center'); }
+  }
+  function exHit(x, y, S, t) { var P = JOY.P; if (P.x != null && Math.abs(x - P.x) < 50 && y > P.y - 290 && y < P.y + 10) { JT.tap = t; return true; } return false; }
+  (function (W) { var pb = W.paintBack, pf = W.paintForeLive, h0 = W.hit;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds.fnb);
 })(window.IXW && window.IXW.kit);

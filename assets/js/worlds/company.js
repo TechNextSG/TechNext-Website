@@ -214,7 +214,43 @@
   function agentBack(g) { var a = AG; g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(a.x + 18, RAIL); g.lineTo(a.x + 18, a.y); g.moveTo(a.x + a.w - 18, RAIL); g.lineTo(a.x + a.w - 18, a.y); g.stroke();
     shadowed(g, 10, 4, 0.2, function () { fillRR(g, a.x - 5, a.y - 5, a.w + 10, a.h + 10, 7, '#2A3142'); }); fillRR(g, a.x, a.y, a.w, a.h, 3, '#FFFFFF');
     fillRR(g, a.x, a.y, a.w, 13, 3, C.vn); g.fillRect(a.x, a.y + 8, a.w, 5); text(g, 'AGENT RUN \u00B7 SAMPLE', a.x + 7, a.y + 9.6, 6, 800, '#FFFFFF'); }
+  /* the lobby behind the visitor pass (left of the board): frosted privacy film on the glass, three pendant lamps over the
+     sofa, the welcome totem on the floor (its slides are live), a low credenza with the guest book and a bowl of oranges */
+  var TOT = { x: -26, y: 250, w: 64, h: 214 };
+  function lobbyBack(g, ext) {
+    if (ext.l > 120) return;
+    var x0 = Math.max(ext.l, -940), x1 = 150;
+    g.fillStyle = 'rgba(255,255,255,.42)'; g.fillRect(x0, 318, x1 - x0, 30); g.fillStyle = 'rgba(49,103,202,.16)';
+    for (var dx = Math.floor(x0 / 14) * 14; dx < x1; dx += 14) { fillE(g, dx, 326, 2, 2, 'rgba(49,103,202,.16)'); fillE(g, dx + 7, 340, 2, 2, 'rgba(49,103,202,.16)'); }
+    for (var px = Math.floor(x0 / 220) * 220 + 60; px < x1 - 40; px += 220) plane(g, px, 333, 0.62, 0, 'rgba(49,103,202,.32)');
+    /* the lamps (cords from the ceiling; brass domes; a warm pool on the glass) */
+    [[-362, 168, '#F2B233'], [-300, 196, '#3167CA'], [-238, 176, '#14A38B']].forEach(function (l) { g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(l[0], CEIL); g.lineTo(l[0], l[1] - 18); g.stroke();
+      g.save(); var lg = g.createRadialGradient(l[0], l[1] + 6, 2, l[0], l[1] + 6, 60); lg.addColorStop(0, 'rgba(255,236,170,.55)'); lg.addColorStop(1, 'rgba(255,236,170,0)'); g.fillStyle = lg; g.fillRect(l[0] - 60, l[1] - 50, 120, 120); g.restore();
+      g.fillStyle = l[2]; g.beginPath(); g.moveTo(l[0] - 18, l[1]); g.quadraticCurveTo(l[0] - 17, l[1] - 20, l[0], l[1] - 20); g.quadraticCurveTo(l[0] + 17, l[1] - 20, l[0] + 18, l[1]); g.closePath(); g.fill(); fillE(g, l[0], l[1] + 1, 11, 3.4, '#FFF4C8'); });
+    /* the credenza under the frosted band, behind the sofa's left arm */
+    if (ext.l < -440) { soft(g, -520, F + 4, 80, 8, 0.2); fillRR(g, -590, 404, 140, 66, 6, '#E3D3BF'); fillRR(g, -590, 404, 140, 8, 4, '#C9B39A'); g.fillStyle = '#C9B39A'; g.fillRect(-521, 416, 2, 46);
+      fillE(g, -568, 444, 2.5, 2.5, '#9C8466'); fillE(g, -474, 444, 2.5, 2.5, '#9C8466');
+      fillRR(g, -578, 392, 46, 12, 2, '#FFFFFF'); fillRR(g, -578, 392, 46, 4, 2, C.blue); text(g, 'GUEST BOOK', -555, 402, 4.6, 800, C.ink, 'center');
+      fillE(g, -488, 398, 22, 7, '#FFFFFF'); [-500, -490, -480, -495, -484].forEach(function (ox, i) { fillE(g, ox, 391 - (i > 2 ? 6 : 0), 6, 6, '#F2A033'); }); }
+    /* the welcome totem: a portrait screen on a slim base */
+    var T0 = TOT; soft(g, T0.x + T0.w / 2, F + 4, 46, 7, 0.24); fillRR(g, T0.x + T0.w / 2 - 22, F - 8, 44, 8, 4, '#5C6B7A');
+    shadowed(g, 12, 5, 0.2, function () { fillRR(g, T0.x, T0.y, T0.w, T0.h, 10, '#2A3550'); }); fillRR(g, T0.x + 5, T0.y + 6, T0.w - 10, T0.h - 34, 5, '#FFFFFF');
+    plane(g, T0.x + T0.w / 2 - 12, T0.y + T0.h - 14, 0.55, 0, '#FFFFFF'); text(g, 'TechNext', T0.x + T0.w / 2 + 4, T0.y + T0.h - 11, 7, 800, '#FFFFFF', 'center');
+  }
+  function totemLive(g, t) { /* three slides: welcome, the partner badge, the three offices; a progress bar under each */
+    var T0 = TOT, x = T0.x + 5, y = T0.y + 6, w = T0.w - 10, h = T0.h - 34, cx = x + w / 2, sl = Math.floor(t / 4) % 3, u = (t % 4) / 4;
+    g.save(); rr(g, x, y, w, h, 5); g.clip();
+    if (sl === 0) { fillRR(g, x, y, w, h, 0, '#EAF1FD'); plane(g, cx, y + 54 - Math.sin(t * 2) * 4, 1.6, 0, C.blue); text(g, 'Welcome', cx, y + 100, 9, 800, C.ink, 'center'); text(g, 'to TechNext', cx, y + 112, 7, 700, '#5C5C73', 'center');
+      text(g, 'Singapore HQ', cx, y + 138, 6, 800, C.blue, 'center'); text(g, '#03-36', cx, y + 148, 6, 700, '#5C5C73', 'center'); }
+    else if (sl === 1) { fillRR(g, x, y, w, h, 0, '#F7F0F5'); fillE(g, cx, y + 56, 22, 22, C.odoo); fillE(g, cx, y + 56, 11, 11, '#F7F0F5'); text(g, 'Odoo', cx, y + 100, 9, 800, C.odoo, 'center'); text(g, 'Ready Partner', cx, y + 112, 7, 800, C.ink, 'center');
+      text(g, 'Odoo 20', cx, y + 140, 7, 800, '#5C5C73', 'center'); }
+    else { fillRR(g, x, y, w, h, 0, '#FFFFFF'); [['Singapore', C.sg], ['Taguig City', C.ph], ['Ho Chi Minh', C.vn]].forEach(function (c, i) { var yy = y + 34 + i * 40, on = u * 3 > i;
+        fillE(g, x + 12, yy, 6, 6, on ? c[1] : '#DCE3EE'); if (i < 2) { g.fillStyle = '#DCE3EE'; g.fillRect(x + 11, yy + 6, 2, 28); } text(g, c[0], x + 22, yy + 3, 6.2, 800, on ? C.ink : '#9AA6BC'); });
+      text(g, 'one team', cx, y + 156, 7, 800, C.blue, 'center'); }
+    fillRR(g, x + 6, y + h - 8, (w - 12) * u, 3, 1.5, [C.sg, C.odoo, C.ph][sl]); g.restore();
+  }
   function paintBack(g, ext) {
+    lobbyBack(g, ext);
     wideBack(g, ext); mapBack(g); agentBack(g); if (ext.r > 1060) teamWall(g);
     sign(g, BAY.sg, C.sg); sign(g, BAY.ph, C.ph); sign(g, BAY.vn, C.vn);
     /* SG: the rolling whiteboard; the pull-down training screen */
@@ -257,17 +293,17 @@
   /* ---------------- passers-by in the margins ---------------- */
   var W = CR.who;
   var CREW = [
-    { x0: -760, x1: -480, y: 476, spd: 18, ph: 0.3, label: 'Reception, Singapore HQ', lines: ['Welcome to **TechNext**! Sign in, and grab a visitor pass.', 'Our IDs open every office door: **Singapore, Taguig City, Ho Chi Minh City**.'],
+    { x0: -760, x1: -530, y: 476, spd: 18, ph: 0.3, label: 'Reception, Singapore HQ', lines: ['Welcome to **TechNext**! Sign in, and grab a visitor pass.', 'Our IDs open every office door: **Singapore, Taguig City, Ho Chi Minh City**.'],
       P: W({ s: 0.5, skin: 1, hair: 0, style: 'bun', clip: '#FFD84A', outfit: 'shirt', top: '#DCE7FB', low: '#2A3550', headset: '#3167CA', hold: 'clipboard', hands: [[-70, -150], [70, -150]] }) },
-    { x0: -420, x1: 40, y: 494, spd: 20, ph: 0.7, label: 'Project manager', lines: ['Your **project manager** keeps the plan on one page.', 'Status update: on track!'], acts: ['id', 'jump', 'wave', 'spin'],
+    { x0: -400, x1: 30, y: 494, spd: 20, ph: 0.7, label: 'Project manager', lines: ['Your **project manager** keeps the plan on one page.', 'Status update: on track!'], acts: ['id', 'jump', 'wave', 'spin'],
       P: W({ s: 0.5, skin: 3, hair: 1, style: 'short', outfit: 'polo', top: '#F2B233', top2: '#1B1F3B', low: '#3A4458', shoe: '#FFFFFF', glasses: true, hold: 'tablet', hands: [[-60, -200], [70, -150]] }) },
-    { x0: 1066, x1: 1440, y: 486, spd: 16, ph: 0.2, label: 'Odoo consultant', lines: ['Coffee first, then **month-end close**.', 'We\u2019re hiring in **Taguig City**. Check the board!'], acts: ['wave', 'dance', 'id'],
+    { x0: 1066, x1: 1230, y: 486, spd: 16, ph: 0.2, label: 'Odoo consultant', lines: ['Coffee first, then **month-end close**.', 'We\u2019re hiring in **Taguig City**. Check the board!'], acts: ['wave', 'dance', 'id'],
       P: W({ s: 0.5, skin: 2, hair: 0, style: 'short', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', low: '#2A3550', glasses: true, hold: 'tablet' }) },
-    { front: true, x0: -940, x1: -360, y: 690, spd: 24, ph: 0.4, label: 'Functional consultant', lines: ['Workshop in ten minutes. **Discovery** room!', 'Every step of your process, matched to an **Odoo app**.'], acts: ['cheer', 'id', 'spin'],
+    { front: true, x0: -900, x1: -530, y: 748, spd: 24, ph: 0.4, label: 'Functional consultant', lines: ['Workshop in ten minutes. **Discovery** room!', 'Every step of your process, matched to an **Odoo app**.'], acts: ['cheer', 'id', 'spin'],
       P: W({ s: 0.58, skin: 0, hair: 2, style: 'long', outfit: 'shirt', top: '#E0456B', low: '#2A3550', shoe: '#FFFFFF', hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
-    { front: true, x0: 1100, x1: 1560, y: 700, spd: 22, ph: 0.6, label: 'Solutions architect', lines: ['Standard first, **custom only where it pays**.', 'This box? New laptops for the **Taguig City** team.'], acts: ['jump', 'id', 'wave'],
+    { front: true, x0: 1100, x1: 1220, y: 700, spd: 22, ph: 0.6, label: 'Solutions architect', lines: ['Standard first, **custom only where it pays**.', 'This box? New laptops for the **Taguig City** team.'], acts: ['jump', 'id', 'wave'],
       P: W({ s: 0.58, skin: 4, hair: 0, style: 'short', outfit: 'polo', top: '#2A3550', top2: '#DCE7FB', low: '#3A4458', glasses: true, build: 1.1, hold: 'box', hands: [[-60, -212], [64, -216]] }) },
-    { x0: -940, x1: -470, y: 500, spd: 26, ph: 0.55, drag: '#3167CA', label: 'Consultant, off to a client site', lines: ['Off to a **client site**. Laptop, ID, the scope on one page.', 'Back on Friday for the **training** session!'], acts: ['wave', 'id', 'jump'],
+    { x0: -940, x1: -530, y: 500, spd: 26, ph: 0.55, drag: '#3167CA', label: 'Consultant, off to a client site', lines: ['Off to a **client site**. Laptop, ID, the scope on one page.', 'Back on Friday for the **training** session!'], acts: ['wave', 'id', 'jump'],
       P: W({ s: 0.54, skin: 2, hair: 1, style: 'short', outfit: 'shirt', top: '#DCE7FB', low: '#2A3550', glasses: true }) }
   ];
   function crew(g, t, S, layer) { var ext = S.ext;
@@ -345,6 +381,7 @@
   }
   function paintLive(g, t, now, S) {
     crew(g, t, S, false); mapLive(g, t); agentLive(g, t, S); hangLive(g, t, S); boardLive(g, t, S); if (S.ext.r > 1330) COL.draw([XS[0]], g, t, S);
+    if (S.ext.l < 60) totemLive(g, t);
     /* the three local clocks */
     ['sg', 'ph', 'vn'].forEach(function (key) { var b = BAY[key]; hands(g, b.x - 52, -55, cityTime(now, b.off)); });
     /* the whiteboard: the process map draws itself; on Discovery, the Odoo apps light up under each step */
@@ -417,8 +454,8 @@
       idle: function (P, t) { var c = (t + 1.3) % 6; if (c < 1.3) { P.hands[1] = [26, -330]; P.look = 0; } else { P.look = Math.sin(t * 0.5) * 0.7; } P.mood = c > 4 ? 'happy' : 'calm'; },
       moves: [function (P, u) { P.hands = [[-90, -260], [110, -410]]; P.hop = COL.bell(u) * 16; }, function (P, u, t) { P.sx = Math.cos(COL.ease(u) * Math.PI * 2); P.hands = [[-70, -150], [70, -280]]; P.tilt = Math.sin(t * 9) * 0.06; }],
       after: function (g, P, t, S, X, u) { var h = COL.hand(P, 1); COL.mug(g, h[0], h[1] + 6, 1, '#FFFFFF', C.ph); if (u < 0 || X.k === 1) COL.steam(g, h[0], h[1] - 12, t, 0.5, 3); if (u >= 0 && X.k === 0) COL.bubble(g, h[0], h[1] - 18, 'Cheers!', COL.bell(u) * 2); } },
-    { P: W({ x: 1252, y: 694, s: 0.58, ph: 2.1, skin: 1, hair: 2, style: 'short', outfit: 'polo', top: '#F08A24', top2: '#FFFFFF', low: '#3A4458', glasses: true, sit: true, chair: false }), hands: [[-56, -200], [56, -200]],
-      box: [1252, 590, 110, 200], who: 'Developer', role: 'Lounge \u00B7 illustration', near: [900, 200], pose: 'wow', dur: [1.8, 2.2], fx: ['spark', 'star'],
+    { P: W({ x: 1212, y: 694, s: 0.58, ph: 2.1, skin: 1, hair: 2, style: 'short', outfit: 'polo', top: '#F08A24', top2: '#FFFFFF', low: '#3A4458', glasses: true, sit: true, chair: false }), hands: [[-56, -200], [56, -200]],
+      box: [1212, 590, 110, 200], who: 'Developer', role: 'Lounge \u00B7 illustration', near: [900, 200], pose: 'wow', dur: [1.8, 2.2], fx: ['spark', 'star'],
       lines: ['Odoo 20 is out. Testing the **upgrade** on a staging copy.', 'Paper plane to **Taguig City**, special delivery!'],
       idle: function (P, t) { var c = (t + 3) % 8, k = Math.abs(Math.sin(t * 9)) * 5; if (c < 5.5) { P.hands = [[-56, -196 - k], [56, -196 - (5 - k)]]; P.look = -0.2; } else { P.hands = [[-56, -200], [70, -260]]; P.look = 0.6; P.mood = 'happy'; } },
       moves: [function (P, u) { P.hands = [[-80, -300], [80, -300]]; P.look = 0; }, function (P, u) { P.hands = u < 0.35 ? [[-56, -200], [40, -300]] : [[-56, -200], [130, -380]]; P.look = 0.6; P.hop = u > 0.35 ? COL.bell((u - 0.35) / 0.65) * 8 : 0; }],
@@ -427,15 +464,59 @@
         else COL.laptop(g, lx, ly, 1.05, lid, '#E9F1FF');
         if (u >= 0 && X.k === 1 && u > 0.35) { var v = (u - 0.35) / 0.65, px = lerp(P.x + 50, P.x - 520, v), py = P.y - 230 - Math.sin(v * Math.PI) * 120 - v * 60; plane(g, px, py, 1.1, -0.5 + v * 0.3 + Math.PI, '#FFFFFF', C.blue); } } }
   ];
+  /* the lobby lounge in front of the reception (behind the visitor pass): a visitor reading the brochure in an armchair, the
+     host with a tray of three coffees; a rug, a second armchair, a round coffee table */
+  function armchair(g, x, y, s, col, back) {
+    g.save(); g.translate(x, y); g.scale(s, s); soft(g, 0, 4, 160, 18, 0.24);
+    if (back !== false) { fillRR(g, -128, -330, 256, 250, 46, col); fillRR(g, -110, -312, 220, 40, 20, 'rgba(255,255,255,.14)'); }
+    fillRR(g, -150, -150, 300, 96, 30, col); fillRR(g, -170, -230, 56, 196, 24, col); fillRR(g, 114, -230, 56, 196, 24, col);
+    fillRR(g, -170, -230, 56, 22, 11, 'rgba(255,255,255,.18)'); fillRR(g, 114, -230, 56, 22, 11, 'rgba(255,255,255,.18)');
+    g.fillStyle = '#7A5A3C'; g.fillRect(-150, -36, 14, 36); g.fillRect(136, -36, 14, 36); g.restore();
+  }
+  var LOUNGE = [-330, 652], HOSTP = [-62, 630];
+  XS.push(
+    { P: W({ x: LOUNGE[0], y: LOUNGE[1], s: 0.58, ph: 1.2, skin: 3, hair: 1, style: 'long', outfit: 'shirt', top: '#9CC3EC', low: '#3A4458', shoe: '#FFFFFF', sit: true, chair: false, sitDrop: 30, id: '#9AA6BC' }), hands: [[-46, -196], [46, -196]],
+      box: [LOUNGE[0], LOUNGE[1] - 130, 120, 230], who: 'Visitor', role: 'Lobby · grey visitor pass · illustration', near: [220, 200], pose: 'love', dur: [1.8, 1.9], fx: ['star', 'heart'],
+      lines: ['Reading up before our **discovery workshop**. Odoo Ready Partner, nice!', 'Three offices, **one team**: that’s what sold us.'],
+      idle: function (P, t, S, X) { var c = (t + 2) % 10; X.flip = c > 3 && c < 3.6 ? (c - 3) / 0.6 : c > 6.5 && c < 7.1 ? (c - 6.5) / 0.6 : -1;
+        if (c < 8.4) { P.look = -0.1 + Math.sin(t * 0.6) * 0.15; } else { P.look = 0.8; P.mood = 'happy'; P.hands = [[-46, -196], [60, -240]]; } },
+      moves: [function (P, u) { P.hands = [[-50, -400], [50, -400]]; P.hop = COL.bell(u) * 10; P.look = 0; }, function (P, u, t) { P.hands = [[-60, -150], [60, -150]]; P.tilt = Math.sin(t * 14) * 0.06 * COL.bell(u); P.hop = Math.abs(Math.sin(u * 12)) * 5; }],
+      after: function (g, P, t, S, X, u, k) { var a = COL.hand(P, 0), b = COL.hand(P, 1), cx = (a[0] + b[0]) / 2, cy = Math.min(a[1], b[1]) + 2, up = u >= 0 && k === 0;
+        if (u >= 0 && k === 1) { COL.bubble(g, P.x, P.y - 300, 'Ha! Love it', COL.bell(u) * 2); return; }
+        g.save(); g.translate(cx, cy); var w = up ? 46 : 38, h = up ? 30 : 26; fillRR(g, -w / 2, -h, w, h, 2, '#FFFFFF'); fillRR(g, -w / 2, -h, w / 2 - 1, h, 2, '#F1F5FB');
+        if (up) { fillE(g, -w / 4, -h / 2, 6, 6, C.odoo); fillE(g, -w / 4, -h / 2, 3, 3, '#FFFFFF'); text(g, 'Ready', w / 4, -h / 2 - 1, 5.4, 800, C.odoo, 'center'); text(g, 'Partner', w / 4, -h / 2 + 6, 5, 800, C.ink, 'center'); }
+        else { fillRR(g, 3, -h + 5, 14, 3, 1, C.blue); fillRR(g, 3, -h + 11, 12, 2, 1, '#C9D3E3'); fillRR(g, 3, -h + 15, 13, 2, 1, '#C9D3E3'); plane(g, -w / 4, -h / 2, 0.55, 0, C.blue); }
+        if (X.flip >= 0) { var fx = Math.cos(X.flip * Math.PI) * (w / 2 - 1); g.fillStyle = '#E3E9F3'; g.fillRect(Math.min(0, fx), -h, Math.abs(fx), h); }
+        g.restore(); } },
+    { P: W({ x: HOSTP[0], y: HOSTP[1], s: 0.57, ph: 0.3, skin: 1, hair: 0, style: 'bun', clip: '#F08A24', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', low: '#2A3550' }), hands: [[-60, -220], [70, -150]],
+      box: [HOSTP[0], HOSTP[1] - 140, 110, 260], who: 'Office host', role: 'Lobby · illustration', near: [240, 160], pose: 'clap', dur: [1.7, 1.8], fx: ['heart', 'conf'],
+      lines: ['Kopi for you! Kape and cà phê are on the **coffee bar** too.', 'Balancing three coffees: one per **office**.'],
+      idle: function (P, t) { var c = (t + 4) % 9; if (c < 4) { P.hands = [[-90, -236], [70, -150]]; P.look = -0.7; } else if (c < 5.4) { P.hands = [[-60, -220], [10, -250]]; P.look = 0.3; P.tilt = -0.04; } else if (c < 6.6) { P.hands = [[-60, -220], [96 + Math.sin(t * 9) * 10, -330]]; P.look = 0.8; P.mood = 'happy'; } else { P.look = Math.sin(t * 0.8) * 0.6; } },
+      moves: [function (P, u) { P.hands = [[-130 + COL.bell(u) * -20, -250], [70, -170]]; P.look = -0.9; P.mood = 'happy'; }, function (P, u, t) { P.sx = Math.cos(COL.ease(u) * Math.PI * 2); P.hands = [[-90, -300], [100, -240]]; P.hop = COL.bell(u) * 10; }],
+      after: function (g, P, t, S, X, u, k) { var h = COL.hand(P, 0); g.save(); g.translate(h[0], h[1] - 4); fillE(g, 0, 0, 30, 6, '#C9A27A'); fillE(g, 0, -1.4, 28, 4.6, '#E3C59A');
+        var give = u >= 0 && k === 0 ? COL.bell(u) : 0; [-16, 0, 16].forEach(function (ox, i) { if (i === 0 && give > 0.3) return; COL.mug(g, ox, -2, 0.62, '#FFFFFF', [C.sg, C.ph, C.vn][i]); }); g.restore();
+        if (give > 0.3) COL.mug(g, lerp(h[0] - 16, LOUNGE[0] + 60, give), h[1] - 6 - give * 10, 0.62, '#FFFFFF', C.sg);
+        COL.steam(g, h[0], h[1] - 18, t, 0.4, 2); if (u >= 0 && k === 0) COL.pop(g, P.x, P.y - 300, 'Kopi for you!', u, C.ph); } }
+  );
   function FORE() {
     return [
+      [590, function (g, ext) { if (ext.l < 80) { g.save(); g.globalAlpha = 0.9; fillE(g, -250, 634, 260, 36, '#DCE7FB'); g.strokeStyle = 'rgba(49,103,202,.35)'; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); g.ellipse(-250, 634, 238, 29, 0, 0, Math.PI * 2); g.stroke(); g.setLineDash([]);
+        [-1, 0, 1].forEach(function (d) { plane(g, -250 + d * 120, 634, 0.9, 0, 'rgba(49,103,202,.22)'); }); g.restore(); } }],
+      [640, function (g, ext, t) { if (ext.l < -300) COL.swayPlant(g, -420, 640, t, 0.55, '#FFFFFF', '#E3E9F3', 6); }],
+      [652, function (g, ext, t) { if (ext.l < 20) { armchair(g, LOUNGE[0], LOUNGE[1], 0.52, '#F2B233'); COL.draw([XS[2]], g, t); } }],
+      [630, function (g, ext, t) { if (ext.l < 60) COL.draw([XS[3]], g, t); }],
+      [668, function (g, ext, t) { if (ext.l < 0) { var x = -196, y = 668; soft(g, x, y + 2, 60, 8, 0.24); g.fillStyle = '#7A5A3C'; g.fillRect(x - 3, y - 40, 6, 40); fillRR(g, x - 26, y - 4, 52, 6, 3, '#7A5A3C');
+        fillE(g, x, y - 44, 52, 10, '#C9A27A'); fillE(g, x, y - 46, 50, 8, '#E3C59A'); COL.mug(g, x - 18, y - 46, 0.6, '#FFFFFF', C.vn); fillRR(g, x + 2, y - 54, 26, 8, 2, C.blue); fillRR(g, x + 4, y - 60, 22, 6, 2, '#FFFFFF'); COL.steam(g, x - 18, y - 60, t, 0.35, 2); } }],
+      [700, function (g, ext) { if (ext.r > 360 && ext.l < 600) { var x = 372, y = 700; soft(g, x + 100, y + 2, 120, 8, 0.22); g.fillStyle = '#5C6B7A'; g.fillRect(x + 14, y - 30, 8, 30); g.fillRect(x + 178, y - 30, 8, 30);
+        fillRR(g, x, y - 42, 200, 14, 7, '#FFFFFF'); fillRR(g, x, y - 42, 200, 5, 3, '#E3E9F3'); fillRR(g, x + 28, y - 70, 40, 30, 10, C.blue); fillRR(g, x + 36, y - 64, 24, 10, 4, '#4A80E2'); fillRR(g, x + 130, y - 56, 44, 14, 4, '#2A3550'); fillRR(g, x + 134, y - 62, 36, 8, 3, '#3A4458'); } }],
+      [704, function (g, ext, t) { if (ext.r > 600 && ext.l < 680) COL.swayPlant(g, 608, 704, t, 0.5, C.ph, '#3AB9A2', 4); }],
       [693, function (g, ext, t) { COL.draw([XS[1]], g, t); }],
       [724, function (g, ext, t) { if (ext.r > 940 || ext.l < -480) COL.vac(g, VAC, t, Math.max(ext.l + 40, -900), Math.min(ext.r - 60, 1450), 724, C.blue); }],
       [790, function (g, ext, t) { COL.swayPlant(g, 980, 800, t, 1.05, '#FFFFFF', '#E3E9F3', 1); if (ext.l < -480) COL.swayPlant(g, -520, 804, t, 1, C.blue, '#4F7FD8', 2); }],
       [770, function (g, ext) { if (ext.r > 1080) { var x = 1090; soft(g, x + 110, 774, 130, 9, 0.22); fillRR(g, x, 716, 220, 56, 10, '#FFFFFF'); fillRR(g, x - 6, 708, 232, 12, 6, '#C9A27A'); fillRR(g, x + 14, 730, 92, 30, 6, '#EEF2F8'); fillRR(g, x + 114, 730, 92, 30, 6, '#EEF2F8');
         fillE(g, x + 60, 745, 4, 4, '#9AA6BC'); fillE(g, x + 160, 745, 4, 4, '#9AA6BC'); COL.laptop(g, x + 70, 708, 0.9, 1, '#DCEBFF'); COL.mug(g, x + 150, 708, 0.9, '#FFFFFF', C.vn); fillRR(g, x + 172, 696, 26, 12, 2, '#3167CA'); fillRR(g, x + 176, 690, 22, 7, 2, '#14A38B'); } }],
       [700, function (g, ext) { if (ext.l < -500) { var x = -840; soft(g, x + 40, 704, 60, 7, 0.22); fillRR(g, x, 660, 80, 40, 18, '#F2B233'); fillRR(g, x + 6, 650, 68, 20, 10, '#F7C65A'); } }],
-      [690, function (g, ext) { if (ext.r > 1140) { var x = 1200; soft(g, x + 50, 694, 70, 7, 0.22); fillRR(g, x, 640, 100, 50, 22, '#14A38B'); fillRR(g, x + 8, 628, 84, 26, 13, '#3AB9A2'); } }]
+      [690, function (g, ext) { if (ext.r > 1100) { var x = 1160; soft(g, x + 50, 694, 70, 7, 0.22); fillRR(g, x, 640, 100, 50, 22, '#14A38B'); fillRR(g, x + 8, 628, 84, 26, 13, '#3AB9A2'); } }]
     ];
   }
 

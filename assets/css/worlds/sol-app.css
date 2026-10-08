@@ -185,3 +185,38 @@
 .ixw--sol-app .tpk-open-sec .cta .btn-outline-white,.ixw--sol-app .tpk-open-sec .cta .btn-outline-white:hover{color:var(--tp-ink);background:var(--tp-sun)}
 @media (prefers-reduced-motion:reduce){.ixw--sol-app :is(.ow-strip,.tpk-console,.tpk-car,.tpk-info-ic,.tpk-open-sec .cta){animation:none}}
 .ixw--sol-app .ixwi-card::after{display:none}
+
+/* ============================== audit round: hero controls, the user-testing tent ============================== */
+/* ride-control buttons: one height, a domed top light, the icon chip on the centre line, a hard press */
+.ixw--sol-app .ixw-copy .actions{gap:14px;margin-top:22px}
+.ixw--sol-app .ixw-copy .actions .btn{height:50px;padding:0 22px;font-size:15.5px;font-weight:700;overflow:visible}
+.ixw--sol-app .ixw-copy .btn-primary .ic{width:26px;height:26px;padding:5px;margin-right:-8px;border-radius:9px;background:rgba(28,35,64,.18);transition:translate .2s cubic-bezier(.34,1.45,.64,1)}
+.ixw--sol-app .ixw-copy .btn-primary:hover .ic{translate:3px 0}
+.ixw--sol-app .ixw-copy .btn-ghost .ic{width:22px;height:22px;padding:4px;border-radius:50%;background:var(--tp-coral-l);color:var(--tp-coral)}
+.ixw--sol-app .ixw-copy .btn-ghost:hover{background:#FFFFFF}
+/* the ride badges: a tilt and a lift on hover */
+.ixw--sol-app .tpk-badges span{height:32px;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--sol-app .tpk-badges span:hover{translate:0 -2px;box-shadow:inset 0 0 0 1.5px var(--tp-teal),0 6px 12px -8px rgba(11,95,105,.5)}
+/* caption controls: chunky keys with ink lips, coral when lit */
+.ixw--sol-app .ixw-ibtn{background:#FFFFFF;color:var(--tp-ink);transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .2s ease}
+.ixw--sol-app .ixw-ibtn:hover{translate:0 -2px;border-color:var(--tp-ink);color:var(--tp-coral-d);background:var(--tp-cream);box-shadow:0 5px 0 var(--tp-ink)}
+.ixw--sol-app .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--tp-ink)}
+.ixw--sol-app .ixw-ibtn--play,.ixw--sol-app .ixw-ibtn--play:hover{background:linear-gradient(180deg,rgba(255,255,255,.3) 0 40%,transparent 40%),var(--tp-coral);color:#FFFFFF;border-color:var(--tp-ink)}
+.ixw--sol-app .ixw-ibtn--play:hover{box-shadow:0 5px 0 var(--tp-ink)}
+.ixw--sol-app .ixw-ibtn:focus-visible,.ixw--sol-app .ixw-dots button:focus-visible,.ixw--sol-app .ixw-peek:focus-visible{outline:3px solid var(--tp-sun);outline-offset:3px}
+.ixw--sol-app .ixw-dots{gap:6px}
+.ixw--sol-app .ixw-dots button{width:9px;height:9px;background:#F6D3CC;box-shadow:inset 0 0 0 1.5px rgba(28,35,64,.25);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,scale .2s ease}
+.ixw--sol-app .ixw-dots button:hover{background:var(--tp-sun);scale:1.25}
+.ixw--sol-app .ixw-dots button.is-on{width:24px;background:var(--tp-teal);box-shadow:0 0 0 1.5px var(--tp-ink)}
+/* "View the scene": an admission ticket with punched notches */
+.ixw--sol-app .ixw-peek{height:40px;padding:0 18px 0 14px;border:2px solid var(--tp-ink);border-radius:10px;background:radial-gradient(circle at 0 50%,transparent 6px,var(--tp-cream) 6.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 6px,var(--tp-cream) 6.5px) right/51% 100% no-repeat;
+  color:var(--tp-ink);font-weight:800;box-shadow:0 4px 0 var(--tp-ink);transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease}
+.ixw--sol-app .ixw-peek:hover{translate:0 -2px;box-shadow:0 6px 0 var(--tp-ink)}
+.ixw--sol-app .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--tp-ink)}
+.ixw--sol-app .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:radial-gradient(circle at 0 50%,transparent 6px,var(--tp-coral) 6.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 6px,var(--tp-coral) 6.5px) right/51% 100% no-repeat}
+@media (min-width:1200px){.ixw--sol-app .ixw-hero:not(.is-peek) .tpk-side{visibility:hidden}}
+
+/* ============ fix round: the FAQ uses the full width ============ */
+.ixw--sol-app .tpk-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
+.ixw--sol-app .tpk-faq details:last-child{grid-column:1/-1}
+@media (max-width:960px){.ixw--sol-app .tpk-faq{grid-template-columns:1fr}}

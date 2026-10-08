@@ -179,3 +179,39 @@
 .ixw--sol-net .wtw-cta-sec .cta .hand{color:#FFE7A8}
 .ixw--sol-net .wtw-cta-sec .cta .btn-outline-white,.ixw--sol-net .wtw-cta-sec .cta .btn-outline-white:hover{color:var(--wt-ink);background:#FFE7A8}
 @media (prefers-reduced-motion:reduce){.ixw--sol-net :is(.wtw-header,.wtw-header::after,.wtw-pipe i,.wtw-spout::after,.wtw-ring,.wtw-ports li .ic,.wtw-flow::before){animation:none}}
+
+/* ============================== audit round: hero controls, the street side ============================== */
+/* pipe-section buttons: one height, brass collars, the icon chip on the centre line, a flow sheen on hover */
+.ixw--sol-net .ixw-copy .actions{gap:14px;margin-top:22px}
+.ixw--sol-net .ixw-copy .actions .btn{height:50px;padding:0 24px;font-size:15.5px;font-weight:700}
+.ixw--sol-net .ixw-copy .btn-primary .ic{width:26px;height:26px;padding:5px;margin-right:-8px;border-radius:50%;background:rgba(15,110,158,.35);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);transition:translate .2s cubic-bezier(.34,1.45,.64,1)}
+.ixw--sol-net .ixw-copy .btn-primary:hover .ic{translate:3px 0}
+.ixw--sol-net .ixw-copy .btn-primary:hover{background:linear-gradient(180deg,#5CC2F0 0,#1F9FDB 55%,#1384BC)}
+.ixw--sol-net .ixw-copy .btn-ghost .ic{width:22px;height:22px;padding:4px;border-radius:50%;background:var(--wt-pale);color:var(--wt-aqua)}
+.ixw--sol-net .ixw-copy .btn-ghost:hover{background:#F4FBFF}
+/* the badges: valve tags that lift */
+.ixw--sol-net .wtw-badges span{height:32px;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--sol-net .wtw-badges span:hover{translate:0 -2px;box-shadow:inset 0 0 0 1.5px var(--wt-aqua),inset 4px 0 0 var(--wt-aqua),0 6px 12px -8px rgba(15,78,114,.5)}
+/* caption controls: round fittings with brass rims, aqua when lit */
+.ixw--sol-net .ixw-ibtn{background:#FFFFFF;color:var(--wt-ink);transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .2s ease}
+.ixw--sol-net .ixw-ibtn:hover{translate:0 -2px;border-color:var(--wt-ink);color:var(--wt-deep);background:var(--wt-pale);box-shadow:0 5px 0 var(--wt-ink),inset 0 0 0 2px var(--wt-brass)}
+.ixw--sol-net .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--wt-ink)}
+.ixw--sol-net .ixw-ibtn--play,.ixw--sol-net .ixw-ibtn--play:hover{background:linear-gradient(180deg,#4DB8EA,var(--wt-aqua));color:#FFFFFF;border-color:var(--wt-ink);box-shadow:0 3px 0 var(--wt-ink),inset 0 0 0 3px var(--wt-brass)}
+.ixw--sol-net .ixw-ibtn--play:hover{box-shadow:0 5px 0 var(--wt-ink),inset 0 0 0 3px var(--wt-brass)}
+.ixw--sol-net .ixw-ibtn:focus-visible,.ixw--sol-net .ixw-dots button:focus-visible,.ixw--sol-net .ixw-peek:focus-visible{outline:3px solid var(--wt-brass);outline-offset:3px}
+.ixw--sol-net .ixw-dots{gap:6px}
+.ixw--sol-net .ixw-dots button{width:9px;height:9px;background:#CFE7F4;box-shadow:inset 0 0 0 1.5px rgba(27,42,61,.2);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,scale .2s ease}
+.ixw--sol-net .ixw-dots button:hover{background:var(--wt-aqua);scale:1.25}
+.ixw--sol-net .ixw-dots button.is-on{width:24px;background:var(--wt-brass);box-shadow:0 0 0 1.5px var(--wt-ink)}
+/* "View the scene": a pipe section with brass collars, aqua when the text is hidden */
+.ixw--sol-net .ixw-peek{height:40px;padding:0 18px 0 14px;border:2px solid var(--wt-ink);border-radius:999px;background:#FFFFFF;color:var(--wt-ink);font-weight:800;
+  box-shadow:0 4px 0 var(--wt-ink),inset 9px 0 0 -3px var(--wt-brass),inset -9px 0 0 -3px var(--wt-brass);transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .2s ease}
+.ixw--sol-net .ixw-peek:hover{translate:0 -2px;background:var(--wt-pale);box-shadow:0 6px 0 var(--wt-ink),inset 9px 0 0 -3px var(--wt-brass),inset -9px 0 0 -3px var(--wt-brass)}
+.ixw--sol-net .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--wt-ink),inset 9px 0 0 -3px var(--wt-brass),inset -9px 0 0 -3px var(--wt-brass)}
+.ixw--sol-net .ixw-peek[aria-pressed="true"]{color:#FFFFFF;background:linear-gradient(180deg,#4DB8EA,var(--wt-aqua))}
+@media (min-width:1200px){.ixw--sol-net .ixw-hero:not(.is-peek) .wtw-side{visibility:hidden}}
+
+/* ============ fix round: the FAQ uses the full width ============ */
+.ixw--sol-net .wtw-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
+.ixw--sol-net .wtw-faq details:last-child{grid-column:1/-1}
+@media (max-width:960px){.ixw--sol-net .wtw-faq{grid-template-columns:1fr}}

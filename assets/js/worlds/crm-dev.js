@@ -51,6 +51,7 @@
   var REP2 = W({ x: 572, y: 470, s: 0.46, ph: 1.8, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: ORANGE, headset: '#1B2350', sit: true, chairCol: '#2A3550', id: '#9AA6BC', hands: [[-60, -206], [60, -206]], look: -0.4 });
   var MGR = W({ x: 690, y: 470, s: 0.47, ph: 2.6, skin: 3, hair: 2, style: 'short', outfit: 'polo', top: '#1E3A6E', top2: GOLD, id: '#9AA6BC', glasses: true, hands: [[-70, -170], [70, -170]], look: -0.4 });
   var SAL = W({ x: 922, y: 470, s: 0.46, ph: 3.3, skin: 1, hair: 1, style: 'pony', outfit: 'shirt', top: PUR, id: '#9AA6BC', clip: '#E9B949', hands: [[-70, -210], [70, -230]], look: -0.5 });
+  var ROOKIE = W({ x: -224, y: 470, s: 0.47, ph: 1.4, skin: 0, hair: 2, style: 'short', outfit: 'tee', top: '#FFD84A', id: '#9AA6BC', hands: [[-70, -170], [70, -170]], look: 0.4 });
   /* the runners: the client's sales people carrying each deal (grey passes); drawn small, far across the track */
   var RUN = [0, 1, 2].map(function (i) { var P = W({ s: 0.2, ph: i * 1.7, skin: [0, 2, 1][i], hair: i, style: ['pony', 'short', 'bob'][i], outfit: 'tee', top: ['#FFFFFF', '#FFD84A', '#5BC4A6'][i], id: '#9AA6BC' }); P.print = null; return P; });
   var CREW = [
@@ -58,7 +59,7 @@
       P: W({ s: 0.25, skin: 4, hair: 1, style: 'long', outfit: 'cardigan', top: '#FF8FA3', top2: '#FFFFFF', hold: 'tablet' }) },
     { x0: 1010, x1: 1290, y: 492, spd: 14, ph: 0.5, label: 'TechNext developer', lines: ['Fresh batons: routing rules send each lead to the **right rep**.', 'Scoring tuned to how **your** deals close.'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.52, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: '#3167CA', hold: 'box' }) },
-    { front: true, x0: 1010, x1: 1300, y: 690, spd: 18, ph: 0.7, label: 'TechNext consultant', lines: ['Won on the track, quotation at the desk. **No re-typing**.', 'Walk us through your **last ten deals**.'], acts: ['nod', 'id', 'wave'],
+    { front: true, x0: 1060, x1: 1300, y: 690, spd: 18, ph: 0.7, label: 'TechNext consultant', lines: ['Won on the track, quotation at the desk. **No re-typing**.', 'Walk us through your **last ten deals**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.58, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: PUR, clip: '#FFD84A', hold: 'clipboard' }) },
     { x0: -900, x1: 120, y: 492, spd: 15, ph: 0.3, label: 'TechNext trainer', lines: ['Warm-up first: the team runs the pipeline in **training**.'], acts: ['wave', 'id'],
       P: W({ s: 0.52, skin: 1, hair: 1, style: 'bun', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', hold: 'mat' }) }
@@ -194,9 +195,38 @@
       g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(tx - 10, 334); g.lineTo(tx + 40, 290); g.lineTo(tx + 180, 290); g.lineTo(tx + 230, 334); g.closePath(); g.fill(); for (var tv = 0; tv < 5; tv++) { g.fillStyle = MINT; g.beginPath(); g.moveTo(tx - 10 + tv * 48, 334); g.lineTo(tx + 40 + tv * 28, 290); g.lineTo(tx + 54 + tv * 28, 290); g.lineTo(tx + 14 + tv * 48, 334); g.closePath(); g.fill(); }
       for (var tf = 0; tf < 10; tf++) { g.fillStyle = tf % 2 ? '#FFFFFF' : MINT; g.beginPath(); g.arc(tx - 10 + 12 + tf * 24, 334, 12, 0, Math.PI); g.fill(); } fillRR(g, tx + 70, 300, 80, 18, 5, '#FFFFFF'); text(g, 'TEAM AREA', tx + 110, 313, 9, 800, MINT_D, 'center');
       fillRR(g, tx + 30, F - 46, 160, 8, 3, '#C99A6B'); fillRR(g, tx + 36, F - 38, 5, 38, 2, '#9AA6BC'); fillRR(g, tx + 180, F - 38, 5, 38, 2, '#9AA6BC'); fillRR(g, tx + 60, F - 74, 34, 28, 5, '#3167CA'); fillRR(g, tx + 60, F - 74, 34, 6, 3, '#FFFFFF'); [110, 124, 138].forEach(function (bx) { fillRR(g, tx + bx, F - 70, 9, 24, 3, '#BDE9FB'); }); }
+    infield(g);
     if (ext.l < 140) { [-220, -120].forEach(function (hx) { g.fillStyle = '#FFFFFF'; g.fillRect(hx - 14, 196, 3, 28); g.fillRect(hx + 12, 200, 3, 28); for (var hb = 0; hb < 5; hb++) { g.fillStyle = hb % 2 ? '#1B1F3B' : '#FFFFFF'; g.fillRect(hx - 14 + hb * 5.8, 192, 5.8, 5); } });
       fillRR(g, -20, F - 50, 150, 10, 4, '#C99A6B'); [0, 130].forEach(function (lx) { fillRR(g, lx - 14, F - 42, 6, 42, 2, '#9AA6BC'); }); fillRR(g, 0, F - 76, 56, 28, 10, '#3167CA'); fillRR(g, 66, F - 70, 46, 22, 9, '#E0456B');
       [76, 92, 104].forEach(function (bx, i) { fillRR(g, bx - 4, F - 96 - i * 2, 9, 26, 3, i === 1 ? '#7FD3F7' : '#BDE9FB'); }); fillRR(g, -40, 300, 120, 34, 8, '#FFFFFF'); text(g, 'WARM-UP ZONE', 20, 322, 10, 800, MINT_D, 'center'); fillRR(g, 16, 334, 8, F - 334, 3, '#9AA6BC'); }
+  }
+  /* the infield behind the title card ("View the scene" shows it): the team dugout with kit and bottles, a long-jump pit with
+     its runway, a lead-source tally board on a stand, and the rookie rep's warm-up mat */
+  var DUG = { x: -536, w: 196 }, PIT = { x: -300, y: 300 }, ROOK = { x: -224 };
+  function infield(g) {
+    /* the long-jump runway and sand pit (flat on the grass, mid-distance) with a rake leaning on a marker */
+    g.fillStyle = '#E2725A'; g.beginPath(); g.moveTo(-540, 300); g.lineTo(PIT.x, 300); g.lineTo(PIT.x, 316); g.lineTo(-540, 318); g.closePath(); g.fill(); g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(-540, 307, PIT.x + 540, 1.6);
+    fillRR(g, PIT.x - 6, 299, 6, 18, 1, '#FFFFFF'); fillRR(g, PIT.x, 294, 150, 28, 12, '#C99A6B'); fillRR(g, PIT.x + 4, 297, 142, 22, 10, '#F0D9A8'); g.fillStyle = 'rgba(160,120,70,.35)'; for (var sd = 0; sd < 9; sd++) fillE(g, PIT.x + 20 + hash(sd) * 110, 304 + hash(sd + 3) * 10, 6, 1.6, 'rgba(160,120,70,.35)');
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(PIT.x + 168, 324); g.lineTo(PIT.x + 150, 262); g.stroke(); fillRR(g, PIT.x + 140, 256, 22, 5, 2, '#7A869C');
+    /* the team dugout: a clear canopy over a mint back wall and a bench with bags, bottles and towels */
+    var d = DUG; soft(g, d.x + d.w / 2, F + 3, d.w * 0.6, 8, 0.25); fillRR(g, d.x, 340, d.w, F - 340, 8, '#E6F7F1'); fillRR(g, d.x, 340, d.w, 10, 6, MINT);
+    g.fillStyle = 'rgba(190,225,245,.55)'; g.beginPath(); g.moveTo(d.x - 10, 330); g.quadraticCurveTo(d.x + d.w / 2, 296, d.x + d.w + 10, 330); g.lineTo(d.x + d.w + 10, 340); g.lineTo(d.x - 10, 340); g.closePath(); g.fill(); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.stroke();
+    [d.x + 4, d.x + d.w - 8].forEach(function (x) { fillRR(g, x, 330, 4, F - 330, 2, '#9AA6BC'); });
+    fillRR(g, d.x + 40, 352, d.w - 80, 20, 5, '#FFFFFF'); text(g, 'TEAM · SALES', d.x + d.w / 2, 366, 9, 800, MINT_D, 'center');
+    fillRR(g, d.x + 12, F - 46, d.w - 24, 10, 4, '#C99A6B'); [d.x + 22, d.x + d.w - 28].forEach(function (x) { fillRR(g, x, F - 36, 6, 36, 2, '#9AA6BC'); });
+    fillRR(g, d.x + 26, F - 70, 44, 24, 9, '#3167CA'); fillRR(g, d.x + 30, F - 66, 36, 4, 2, 'rgba(255,255,255,.7)'); fillRR(g, d.x + 80, F - 58, 30, 12, 4, '#FFFFFF'); fillRR(g, d.x + 80, F - 58, 30, 4, 2, '#E0456B');
+    [d.x + 122, d.x + 136, d.x + 150].forEach(function (bx, i) { fillRR(g, bx - 4, F - 72 - i, 9, 26 + i, 3, ['#BDE9FB', '#7FD3F7', '#BDE9FB'][i]); fillRR(g, bx - 3, F - 76 - i, 7, 5, 2, MINT_D); });
+    /* the lead-source tally board on its A-stand */
+    var bx2 = -112; g.strokeStyle = '#9AA6BC'; g.lineWidth = 4; g.beginPath(); g.moveTo(bx2 - 40, F); g.lineTo(bx2 - 26, 334); g.moveTo(bx2 + 40, F); g.lineTo(bx2 + 26, 334); g.stroke();
+    shadowed(g, 8, 3, 0.16, function () { fillRR(g, bx2 - 62, 268, 124, 92, 8, '#FFFFFF'); }); fillRR(g, bx2 - 62, 268, 124, 20, 8, NAVY); g.fillRect(bx2 - 62, 280, 124, 8); text(g, 'LEADS IN · BY SOURCE', bx2, 282, 7, 800, '#FFFFFF', 'center');
+    SOURCES.forEach(function (sc, i) { var y = 298 + i * 15; fillE(g, bx2 - 50, y, 4, 4, sc[1]); text(g, sc[0], bx2 - 42, y + 3, 6.6, 800, '#3D4560'); fillRR(g, bx2 + 6, y - 4, 48, 8, 4, '#EEF2F7'); });
+    /* nearer on the grass (still behind the card): a cart of spare hurdles and a row of starting blocks; the sprinkler's base */
+    var hc = -470; soft(g, hc + 50, 598, 60, 6, 0.25); fillRR(g, hc, 572, 104, 8, 3, '#9AA6BC'); fillE(g, hc + 12, 590, 8, 8, '#2A3142'); fillE(g, hc + 92, 590, 8, 8, '#2A3142');
+    for (var hh = 0; hh < 4; hh++) { var hy = 528 + hh * 10; g.fillStyle = '#FFFFFF'; g.fillRect(hc + 8 + hh * 3, hy, 4, 44 - hh * 10); g.fillRect(hc + 88 - hh * 3, hy, 4, 44 - hh * 10); for (var hb2 = 0; hb2 < 8; hb2++) { g.fillStyle = hb2 % 2 ? '#E0456B' : '#FFFFFF'; g.fillRect(hc + 8 + hh * 3 + hb2 * (84 - hh * 6) / 8, hy, (84 - hh * 6) / 8, 6); } }
+    [-300, -250, -200].forEach(function (sx, i) { soft(g, sx + 14, 584, 18, 3, 0.2); g.fillStyle = '#7A869C'; g.fillRect(sx, 578, 30, 4); g.fillStyle = ['#3167CA', '#E0456B', MINT][i]; g.beginPath(); g.moveTo(sx + 2, 578); g.lineTo(sx + 12, 562); g.lineTo(sx + 14, 578); g.closePath(); g.fill(); g.beginPath(); g.moveTo(sx + 16, 578); g.lineTo(sx + 26, 566); g.lineTo(sx + 28, 578); g.closePath(); g.fill(); });
+    fillE(g, -40, 590, 16, 5, '#2A3142'); fillRR(g, -43, 572, 6, 18, 2, '#7A869C');
+    /* the rookie's warm-up mat */
+    g.fillStyle = '#3167CA'; g.beginPath(); g.moveTo(ROOK.x - 54, F + 2); g.lineTo(ROOK.x + 50, F + 2); g.lineTo(ROOK.x + 58, F + 14); g.lineTo(ROOK.x - 62, F + 14); g.closePath(); g.fill(); g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(ROOK.x - 56, F + 6, 108, 2);
   }
   function paintFront(g, ext) {
     /* the officials' table, open so the seated reps show legs and chairs; one monitor BESIDE each of them */
@@ -220,10 +250,16 @@
       fillRR(g, cx2 - 46, 636, 84, 44, 8, '#2A3142'); fillRR(g, cx2 - 70, 646, 30, 26, 6, '#3A4458'); fillE(g, cx2 - 70, 659, 10, 12, '#5C6B7A'); fillE(g, cx2 - 72, 659, 6, 8, '#9FC4FF'); fillRR(g, cx2 + 20, 624, 22, 14, 3, '#3A4458'); fillE(g, cx2 + 26, 646, 3, 3, '#E0456B'); text(g, 'TV', cx2 + 2, 664, 10, 800, '#FFFFFF', 'center'); }
     if (ext.r > 1150) { soft(g, 1200, 742, 60, 6, 0.25); fillRR(g, 1150, 706, 104, 36, 16, MINT_D); fillRR(g, 1160, 712, 84, 6, 3, '#FFFFFF'); g.strokeStyle = '#0E5A4C'; g.lineWidth = 4; g.beginPath(); g.arc(1202, 706, 18, Math.PI, 0); g.stroke(); }
     function bag(x, y, col) { soft(g, x + 50, y + 32, 60, 6, 0.25); g.strokeStyle = tone(col); g.lineWidth = 4; g.beginPath(); g.arc(x + 50, y + 2, 20, Math.PI, 0); g.stroke(); fillRR(g, x, y, 100, 32, 14, col); fillRR(g, x + 8, y + 6, 84, 4, 2, 'rgba(255,255,255,.75)'); fillE(g, x + 88, y + 8, 3, 3, '#FFFFFF'); fillRR(g, x + 30, y + 14, 40, 12, 4, 'rgba(0,0,0,.08)'); }
-    if (ext.l < 120) bag(-190, 710, ORANGE);
+    /* the field paint under the title card: the CRM chevrons in white chalk and a chalked START line */
+    g.save(); g.globalAlpha = 0.5; g.strokeStyle = '#FFFFFF'; g.lineWidth = 6; g.lineCap = 'round'; g.lineJoin = 'round'; for (var ch = 0; ch < 3; ch++) { var cx3 = -520 + ch * 40; g.beginPath(); g.moveTo(cx3, 702); g.lineTo(cx3 + 20, 720); g.lineTo(cx3, 738); g.stroke(); }
+    g.lineWidth = 3; g.beginPath(); g.moveTo(-212, 700); g.lineTo(-212, 740); g.stroke(); g.restore(); text(g, 'WARM-UP LANE', -330, 727, 12, 800, 'rgba(255,255,255,.6)', 'center');
+    if (ext.l < 120) bag(-150, 712, ORANGE);
     if (ext.l < -600) { bag(-860, 716, '#3167CA'); [-760, -720, -680].forEach(function (cx) { soft(g, cx, 676, 14, 3, 0.25); g.fillStyle = ORANGE; g.beginPath(); g.moveTo(cx - 11, 674); g.lineTo(cx, 646); g.lineTo(cx + 11, 674); g.closePath(); g.fill(); fillRR(g, cx - 14, 672, 28, 5, 2, '#D9741A'); }); }
   }
 
+  /* the sprinkler on the infield turns, its arc of drops catching the sun (behind the card; seen in "View the scene") */
+  function sprinkler(g, t) { var a0 = Math.sin(t * 0.8) * 0.9; for (var d = 0; d < 14; d++) { var u = ((t * 0.9 + d / 14) % 1), a = -Math.PI / 2 + a0 + (d % 3 - 1) * 0.12, v = 150, x = -40 + Math.cos(a) * v * u, y = 568 + Math.sin(a) * v * u + 260 * u * u;
+    if (y > 592) continue; fillE(g, x, y, 2.2, 3, 'rgba(160,215,255,' + (0.85 - u * 0.5).toFixed(2) + ')'); } }
   /* ---------------- live: the sky, the crowd, the boards, the relay ---------------- */
   var BELLS = { t: -9, big: false }, WAVE = { t: 3, x0: null }, TAP = {};
   function paintWindow(g, t, par, S) {
@@ -360,6 +396,7 @@
   var BUB = [];
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
+    sprinkler(g, t);
     /* the router's screen: leads routed to a team */
     var mx = MONS[0], my = DESK.y - 60; fillRR(g, mx, my, 48, 44, 3, '#FFFFFF'); fillRR(g, mx, my, 48, 9, 3, MINT); text(g, 'Routing', mx + 3, my + 7, 5.4, 800, '#FFFFFF');
     var L = S.L || [];
@@ -391,6 +428,9 @@
     if (MGR.watch) { var hw = handAt(MGR, 0); fillE(g, hw[0], hw[1] - 8, 9, 9, '#C9D3DE'); fillE(g, hw[0], hw[1] - 8, 7, 7, '#FFFFFF'); fillRR(g, hw[0] - 2, hw[1] - 21, 4, 5, 1, '#9AA6BC'); g.strokeStyle = '#E0456B'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(hw[0], hw[1] - 8); var wa = t * 6; g.lineTo(hw[0] + Math.cos(wa) * 5.5, hw[1] - 8 + Math.sin(wa) * 5.5); g.stroke(); }
     if (TAP.mgr && t - TAP.mgr < 1.0) { var mo = mouthAt(MGR); fillRR(g, mo[0] - 2, mo[1] - 4, 16, 8, 4, '#C9D3DE'); fillE(g, mo[0] + 14, mo[1], 5, 5, '#9AA6BC'); g.strokeStyle = 'rgba(30,60,110,.5)'; g.lineWidth = 2;
       for (var wl = 0; wl < 3; wl++) { var wr = 10 + ((t * 3 + wl / 3) % 1) * 22; g.beginPath(); g.arc(mo[0] + 16, mo[1], wr, -0.6, 0.6); g.stroke(); } }
+    /* the rookie's dash: speed lines and a "New lead!" pill */
+    if (ROOKIE.dash) { g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 3; g.lineCap = 'round'; for (var sl = 0; sl < 4; sl++) { var ly = ROOKIE.y - 60 - sl * 40, lx = ROOKIE.x - 40 - ((t * 300 + sl * 40) % 60); g.beginPath(); g.moveTo(lx, ly); g.lineTo(lx - 40, ly); g.stroke(); } }
+    if (TAP.rook && t - TAP.rook < 2.6) { var ru = t - TAP.rook; g.save(); g.globalAlpha = clamp((2.6 - ru) * 2, 0, 1); var ry = ROOKIE.y - 290 - ru * 12; fillRR(g, ROOKIE.x - 48, ry, 96, 20, 10, MINT); text(g, 'New lead! ★★★', ROOKIE.x, ry + 14, 8.4, 800, '#FFFFFF', 'center'); g.restore(); }
     /* the Sales desk: the stamp in her hand, or the quotation held high with SENT */
     var hs2 = handAt(SAL, 1);
     if (TAP.sal && t - TAP.sal < 2.2) { var hl = handAt(SAL, 0), mx2 = (hl[0] + hs2[0]) / 2, my2 = Math.min(hl[1], hs2[1]) - 6; shadowed(g, 6, 2, 0.2, function () { fillRR(g, mx2 - 26, my2 - 30, 52, 40, 3, '#FFFFFF'); });
@@ -460,6 +500,17 @@
     lookAtNexi(P, st, t, S, busy ? -0.3 : -0.5);
   } };
 
+  var castRK = { id: 'rook', behind: true, keys: [], P: ROOKIE, act: function (P, t, S) { /* the rookie rep: arm circles, lunges, toe touches, a jog on the spot; tapped: a sprint start and a dash, "New lead!" */
+    var st = S.cast.rook; if (tapped('rook', st, t)) CR.burst('star', P.x, P.y - 260, t);
+    P.tilt = 0; P.hop = 0; P.sx = 1; P.dash = false; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (TAP.rook && t - TAP.rook < 2.4) { var u = (t - TAP.rook) / 2.4; P.mood = 'happy'; P.talk = true;
+      if (u < 0.3) { P.hands = [[-40, -60], [50, -60]]; P.tilt = 0.32; P.look = 1; } else { P.dash = true; var pm = Math.sin(t * 22); P.hands = [[-70 + pm * 50, -230 - pm * 40], [70 - pm * 50, -230 + pm * 40]]; P.hop = Math.abs(Math.sin(t * 22)) * 16; P.tilt = 0.12; P.look = 1; } return; }
+    var c = (t + 1) % 10;
+    if (c < 2.5) { var a = t * 5; P.hands = [[Math.cos(a) * 110, -300 + Math.sin(a) * 110], [-Math.cos(a) * 110, -300 - Math.sin(a) * 110]]; lookAtNexi(P, st, t, S, 0.2); }
+    else if (c < 5) { var l = Math.sin(t * 2.6); P.hands = [[-60, -200], [60, -200]]; P.tilt = l * 0.14; P.hop = -0; lookAtNexi(P, st, t, S, l > 0 ? 0.6 : -0.6); }
+    else if (c < 7) { var d = Math.max(0, Math.sin(t * 2.4)); P.tilt = d * 0.3; P.hands = d > 0.5 ? [[-40, -80], [40, -80]] : [[-40, -420], [40, -420]]; lookAtNexi(P, st, t, S, 0.9); }
+    else { var j = Math.sin(t * 10); P.hop = Math.abs(j) * 10; P.hands = [[-70 + j * 30, -220], [70 + j * 30, -220]]; lookAtNexi(P, st, t, S, Math.sin(t * 0.7) * 0.8); }
+  } };
   window.IXW.worlds['crm-dev'] = {
     pan: [-300, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -476,13 +527,13 @@
       bell: function (g) { rr(g, BELL.x - 24, BELL.y - 30, 48, 56, 22); }
     },
     backGlow: ['sources', 'stages', 'scoring', 'won', 'quote', 'bell'],
-    cast: [castTN, castR1, castR2, castMGR, castSAL],
+    cast: [castTN, castR1, castR2, castMGR, castSAL, castRK],
     toy: function (name, S, t) { if (name === 'bell') { BELLS.t = t; BELLS.big = true; CR.burst('conf', BELL.x, BELL.y - 20, t); WAVE.t = t; WAVE.x0 = BELL.x; } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
       var L = S.L || [];
       for (var i = 0; i < L.length; i++) { var l = L[i], s = RUN_S[l.i]; if (l.a > 0.5 && Math.abs(x - l.x) < 50 && y < l.y + 6 && y > l.y - 500 * s - 34) { var D = l.deal;
-        return { say: '**' + D.name + '**: ' + D.stars + '★, from ' + SOURCES[D.src][0] + ', routed to the ' + (D.rep === 'SG' ? 'Singapore' : 'Philippines') + ' team. Stage: **' + STAGES[l.stage] + '**.', near: l.x < 560 ? [915, -50] : [250, -60], pose: l.x < 560 ? 'point-left' : 'point-right', who: 'A lead on the track' }; } }
+        return { say: '**' + D.name + '**: ' + D.stars + '★, from ' + SOURCES[D.src][0] + ', routed to the ' + (D.rep === 'SG' ? 'Singapore' : 'Philippines') + ' team. Stage: **' + STAGES[l.stage] + '**.', near: l.x < 560 ? [915, -22] : [250, -60], pose: l.x < 560 ? 'point-left' : 'point-right', who: 'A lead on the track' }; } }
       if (y > ST_T && y < ST_B && !blocked(x, y)) { WAVE.t = t; WAVE.x0 = x; return { say: 'The whole stand does the wave for every **won deal**.', near: [clamp(x, 240, 900), -20], pose: 'celebrate', who: 'The crowd' }; }
       if (y < ROOF - 10 && y > -170) return { say: 'Look up: the **TechNext** blimp keeps an eye on the whole pipeline.', near: [clamp(x, 240, 900), -40], pose: 'wow', who: 'The blimp' };
       return null;

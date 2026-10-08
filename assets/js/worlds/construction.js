@@ -323,4 +323,23 @@
     ],
     onStop: function (key, S, t) { if (key === 'setup') S.suT = t; if (key === 'track') S.trT = t; if (key === 'bill') S.blT = t; if (key === 'site') S.toy.crane = t; }
   };
+  /* ---------------- audit round: the setting-out crew's total station on its tripod behind the card (its laser sweeps to
+     a target pole; tap it: it beeps and logs a point), and a line of water-filled barriers with cones right of the caption ---------------- */
+  var TS = { x: -70, y: 612, log: -9 };
+  function exFore(g, t, S) {
+    var ext = S.ext;
+    if (ext.l < 40) { var x = TS.x, y = TS.y, d = t - TS.log; soft(g, x, y + 3, 40, 6, 0.24);
+      g.strokeStyle = '#E9B949'; g.lineWidth = 4; g.beginPath(); g.moveTo(x, y - 70); g.lineTo(x - 30, y); g.moveTo(x, y - 70); g.lineTo(x + 30, y); g.moveTo(x, y - 70); g.lineTo(x + 4, y + 2); g.stroke();
+      fillRR(g, x - 16, y - 96, 32, 26, 5, '#F2C230'); fillRR(g, x - 10, y - 90, 14, 12, 3, '#1E2A33'); fillE(g, x + 10, y - 84, 4, 4, Math.floor(t * 2) % 2 ? '#3CCFAE' : '#1FA463');
+      var tx = x + 170, ty = y - 6; g.strokeStyle = '#FFFFFF'; g.lineWidth = 3; g.beginPath(); g.moveTo(tx, ty); g.lineTo(tx, ty - 110); g.stroke(); for (var b = 0; b < 4; b++) fillRR(g, tx - 2, ty - 110 + b * 26, 4, 13, 1, '#E2553D'); fillE(g, tx, ty - 114, 7, 7, '#E2553D');
+      var sweep = 0.5 + 0.5 * Math.sin(t * 1.6); g.strokeStyle = 'rgba(226,85,61,' + (d >= 0 && d < 1.5 ? 0.9 : 0.35 * sweep) + ')'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(x + 16, y - 84); g.lineTo(tx, ty - 60 - sweep * 30); g.stroke();
+      if (d >= 0 && d < 2.2) { fillRR(g, x - 40, y - 132, 80, 22, 8, '#FFFFFF'); text(g, 'point logged', x, y - 117, 8.5, 800, '#1E2A33', 'center'); } }
+    if (ext.r > 970) { var bx = 900, by = 648; for (var i = 0; i < 2; i++) { var xx = bx + i * 46; soft(g, xx + 20, by + 3, 30, 5, 0.22); fillRR(g, xx, by - 40, 42, 40, 8, i % 2 ? '#FFFFFF' : '#E2553D'); fillRR(g, xx + 4, by - 30, 34, 6, 3, 'rgba(0,0,0,.08)'); }
+      var cx = 1004, cy = 650; soft(g, cx, cy + 2, 18, 4, 0.2); g.fillStyle = '#FF7A1A'; g.beginPath(); g.moveTo(cx - 14, cy); g.lineTo(cx - 4, cy - 40); g.lineTo(cx + 4, cy - 40); g.lineTo(cx + 14, cy); g.closePath(); g.fill(); fillRR(g, cx - 9, cy - 24, 18, 6, 2, '#FFFFFF'); fillRR(g, cx - 18, cy - 4, 36, 5, 2, '#E06A10'); }
+  }
+  function exHit(x, y, S, t) { if (Math.abs(x - TS.x) < 45 && y > TS.y - 110 && y < TS.y + 10) { TS.log = t; return true; } return false; }
+  (function (W) { var pf = W.paintForeLive, h0 = W.hit;
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds.construction);
 })(window.IXW && window.IXW.kit);

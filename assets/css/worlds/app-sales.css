@@ -173,10 +173,54 @@
 @media (max-width:1100px){.ixw--app-sales .aw-cta-art{display:none}}
 @media (prefers-reduced-motion:reduce){.ixw--app-sales .aw-fact,.ixw--app-sales .aw-receipt{animation:none}}
 
-/* section heads: the badge beside the handwriting; a big hanging price tag fills the space to the right */
+/* section heads: the badge beside the handwriting (no watermark decorations beside the heads) */
 .ixw--app-sales main .aw-sec>.container{position:relative}
 .ixw--app-sales main .aw-badge+.hand{display:inline-block;vertical-align:middle}
-@media (min-width:1000px){.ixw--app-sales main .aw-sec>.container>.sec-head:not(.sec-head--row)::after{content:"S$";position:absolute;right:40px;top:6px;width:250px;height:130px;display:grid;place-items:center;padding-left:40px;
-  font:800 3.4rem/1 var(--font-display);color:rgba(194,78,93,.28);rotate:-8deg;pointer-events:none;transform-origin:0 50%;animation:awSway 6s ease-in-out infinite;
-  background:radial-gradient(circle at 34px 50%,#FFF9F6 9px,rgba(194,78,93,.35) 10px 12px,transparent 12.5px),repeating-linear-gradient(90deg,rgba(228,110,120,.08) 0 10px,rgba(228,110,120,.13) 10px 20px);clip-path:polygon(44px 0,100% 0,100% 100%,44px 100%,0 50%)}}
 .ixw--app-sales main [data-aw="what"] .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+/* ======== round 4: section fixes ======== */
+/* the facts: six price tags hung straight and level on one rail, 3 by 2, equal heights (no sway, no tilt) */
+.ixw--app-sales .aw-facts{align-items:stretch;padding-top:0}
+.ixw--app-sales .aw-facts::before{display:none}
+.ixw--app-sales .aw-fact{animation:none;rotate:0deg;transform:none;min-height:96px;padding:22px 20px 18px 34px;align-content:center;box-shadow:inset 0 0 0 1.5px #F2D3D8,inset 4px 0 0 #E46E78}
+.ixw--app-sales .aw-fact::before{left:12px;top:50%;margin-top:-4px}
+.ixw--app-sales .aw-fact b{font-size:1.2rem}
+@media (min-width:561px){.ixw--app-sales .aw-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media (min-width:900px){.ixw--app-sales main [data-aw="works"] .apps-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ======== round 4: the hero controls: price tags with a pointed end and a punched hole, pills and caption controls ======== */
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){clip-path:none;overflow:visible;height:52px;padding:0 20px 0 30px;margin-left:16px;border:0;border-radius:3px 10px 10px 3px;box-shadow:none;
+  filter:drop-shadow(0 4px 0 var(--slb-lip));transition:translate .22s cubic-bezier(.34,1.45,.64,1),rotate .25s cubic-bezier(.34,1.45,.64,1),filter .2s ease}
+.ixw--app-sales main .btn-primary,.ixw--app-sales main .btn-primary:hover{--slb-lip:#4A2E44;color:#FFFFFF;background:#714B67}
+.ixw--app-sales main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--app-sales main :is(.btn-ghost,.ixw-cta .btn-white):hover{--slb-lip:#E2A2AC;color:#1B1F3B;background:#FDE7EA}
+.ixw--app-sales main .ixw-cta .btn-outline-white,.ixw--app-sales main .ixw-cta .btn-outline-white:hover{--slb-lip:#B58A22;color:#1B1F3B;background:#FFD84A}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::before{content:"";display:block;position:absolute;inset:auto;left:-13px;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:4px;background:inherit;transform:scaleX(.62) rotate(45deg);transform-origin:50% 50%;z-index:-1;transition:none}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";inset:auto;left:6px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:#FFFFFF;box-shadow:inset 0 1px 2px rgba(0,0,0,.25);transform:none;transition:none}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1.5deg;filter:drop-shadow(0 6px 0 var(--slb-lip)) drop-shadow(0 14px 14px rgba(113,75,103,.25))}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{transform:none}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;filter:drop-shadow(0 1px 0 var(--slb-lip));transition-duration:.06s}
+.ixw--app-sales main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #E46E78;outline-offset:5px}
+.ixw--app-sales main .btn-primary .ic{width:26px;height:26px;padding:5px;border-radius:50%;background:rgba(255,255,255,.16)}
+.ixw--app-sales .ixw-copy .actions{gap:12px 8px}
+
+.ixw--app-sales .ixw-ep-tag{height:30px;padding:0 13px 0 6px;box-shadow:0 3px 0 #0B0B22;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-sales .ixw-ep-tag:hover{translate:0 -2px;box-shadow:0 5px 0 #0B0B22}
+.ixw--app-sales .ixw-ep-tag:active{translate:0 2px;box-shadow:0 1px 0 #0B0B22;transition-duration:.06s}
+.ixw--app-sales .ixw-ep-tag:focus-visible{outline:3px solid #E46E78;outline-offset:3px}
+.ixw--app-sales .ixw-ep>span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#FDF0F2;box-shadow:inset 0 0 0 1.5px #C24E5D33;font:800 12.5px/1 var(--font-body);color:#1B1F3B}
+.ixw--app-sales .ixw-cap .ixw-ibtn{width:38px;height:38px;border:2px solid #1B1F3B;background:#FFFFFF;color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B;transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .18s ease,color .18s ease}
+.ixw--app-sales .ixw-cap .ixw-ibtn:hover{translate:0 -2px;background:#FDF0F2;color:#1B1F3B;border-color:#1B1F3B;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-sales .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-sales .ixw-cap .ixw-ibtn:focus-visible,.ixw--app-sales .ixw-dots button:focus-visible,.ixw--app-sales .ixw-peek:focus-visible{outline:3px solid #E46E78;outline-offset:3px}
+.ixw--app-sales .ixw-cap .ixw-ibtn--play,.ixw--app-sales .ixw-cap .ixw-ibtn--play:hover{width:46px;height:46px;background:#E46E78;color:#FFFFFF}
+.ixw--app-sales .ixw-cap .ixw-ibtn--play:hover{filter:brightness(1.06)}
+.ixw--app-sales .ixw-dots{gap:6px;padding:4px 2px}
+.ixw--app-sales .ixw-dots button{width:9px;height:9px;background:#D5DCE6;box-shadow:inset 0 0 0 1px rgba(27,31,59,.06);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,translate .2s ease}
+.ixw--app-sales .ixw-dots button:hover{background:#C24E5D;translate:0 -1px}
+.ixw--app-sales .ixw-dots button.is-on{width:26px;background:#E46E78;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--app-sales .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid #1B1F3B;color:#1B1F3B;background:#FFFFFF;box-shadow:0 3px 0 #1B1F3B}
+.ixw--app-sales .ixw-peek::before{color:#C24E5D}
+.ixw--app-sales .ixw-peek:hover{translate:0 -2px;background:#FDF0F2;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-sales .ixw-peek:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-sales .ixw-peek[aria-pressed="true"]{background:#FDE7EA}
+.ixw--app-sales .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--app-sales :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}

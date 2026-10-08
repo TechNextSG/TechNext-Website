@@ -134,3 +134,62 @@
 @keyframes aaNeon{0%,100%{opacity:1}46%{opacity:1}48%{opacity:.35}50%{opacity:1}52%{opacity:.5}54%{opacity:1}}
 @media (max-width:960px){.ixw--app-all .aa-open-sec .cta::after{display:none}}
 @media (prefers-reduced-motion:reduce){.ixw--app-all .aa-open-sec .cta::after{animation:none}}
+/* ======== round 4: section fixes ======== */
+/* shops of six apps fill two rows of three; shops of seven get a dashed "room to grow" tile in the gap */
+@media (min-width:1000px){
+  .ixw--app-all .apps-grid:has(> .app:nth-child(6):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ixw--app-all .apps-grid:has(> .app:nth-child(7):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ixw--app-all .apps-grid:has(> .app:nth-child(7):last-child)::before{content:"Room to grow \00B7  same database";order:99;display:grid;place-items:center;min-height:64px;border-radius:14px;
+    border:2px dashed color-mix(in srgb,var(--cc) 35%,#FFFFFF);color:color-mix(in srgb,var(--cc) 70%,#1B1F3B);font:800 12.5px/1.2 var(--font-body);text-align:center;padding:8px}
+}
+/* the FAQ: the question shop's sign on the left, the answers on the right */
+@media (min-width:1024px){
+  .ixw--app-all .aa-ask-sec .container{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:56px;align-items:start}
+  .ixw--app-all .aa-ask-sec .sec-head{position:sticky;top:110px;margin:0}
+  .ixw--app-all .aa-ask-sec .faq{max-width:none}
+}
+/* the end card's buttons as app tiles */
+.ixw--app-all main .cta .btn-white{border:0;border-radius:16px;color:#4A2E44;background:#FFFFFF;box-shadow:0 4px 0 #2E1C2A}
+.ixw--app-all main .cta .btn-outline-white{border:0;border-radius:16px;color:#1B1F3B;background:#FFD84A;box-shadow:0 4px 0 #C9A21A}
+.ixw--app-all main .cta .btn-outline-white::before{display:none}
+.ixw--app-all main .cta :is(.btn-white,.btn-outline-white):hover{translate:0 -2px}
+.ixw--app-all main .cta :is(.btn-white,.btn-outline-white):focus-visible{outline:3px solid #FFD84A;outline-offset:4px}
+
+/* ======== round 4: the hero controls: app tiles with a coloured chip, a lip and a ring, pills and caption controls ======== */
+.ixw--app-all .aa-nav a:nth-child(1){--aat:#0E9384}.ixw--app-all .aa-nav a:nth-child(2){--aat:#3167CA}.ixw--app-all .aa-nav a:nth-child(3){--aat:#7B5CD6}.ixw--app-all .aa-nav a:nth-child(4){--aat:#E07B12}.ixw--app-all .aa-nav a:nth-child(5){--aat:#D63C64}.ixw--app-all .aa-nav a:nth-child(6){--aat:#C98316}.ixw--app-all .aa-nav a:nth-child(7){--aat:#14A38B}.ixw--app-all .aa-nav a:nth-child(8){--aat:#56709E}
+.ixw--app-all .aa-nav{gap:10px}
+.ixw--app-all .aa-nav a{position:relative;gap:5px;padding:12px 6px 10px;border-radius:16px;background:#FFFFFF;box-shadow:inset 0 0 0 1.5px #E7E1EE,0 3px 0 #E2DAEA;
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease,background-color .2s ease}
+.ixw--app-all .aa-nav a .ic{width:32px;height:32px;padding:7px;border-radius:10px;color:#FFFFFF;background:var(--aat,#714B67);box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}
+.ixw--app-all .aa-nav a .muted{display:inline-block;min-width:22px;padding:2px 6px;border-radius:999px;background:#F4F0F8;color:#5C4A60;font-size:10.5px;font-weight:800;line-height:1.2}
+.ixw--app-all .aa-nav a:hover{transform:none;translate:0 -3px;background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--aat,#714B67),0 6px 0 #E2DAEA,0 16px 22px -12px rgba(60,30,60,.35)}
+.ixw--app-all .aa-nav a:active{translate:0 2px;box-shadow:inset 0 0 0 2px var(--aat,#714B67),0 1px 0 #E2DAEA;transition-duration:.06s}
+.ixw--app-all .aa-nav a:focus-visible{outline:3px solid #FFD84A;outline-offset:3px}
+.ixw--app-all .aa-nav a.is-focus{background:#FFFBEA;box-shadow:inset 0 0 0 1.5px #F0D27A,0 3px 0 #EBD48A}
+.ixw--app-all .aa-nav a.is-focus::after{content:"\2605";position:absolute;top:6px;right:8px;font-size:10px;line-height:1;color:#C9A21A}
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){height:52px}
+.ixw--app-all main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{filter:drop-shadow(0 10px 12px rgba(74,46,68,.22))}
+@media (max-width:767px){.ixw--app-all .aa-nav a{flex-direction:row;justify-content:flex-start;gap:8px;padding:8px 10px;text-align:left}.ixw--app-all .aa-nav a .ic{width:28px;height:28px;padding:6px}.ixw--app-all .aa-nav a .muted{margin-left:auto}}
+
+.ixw--app-all .ixw-ep-tag{height:30px;padding:0 13px 0 6px;box-shadow:0 3px 0 #0B0B22;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--app-all .ixw-ep-tag:hover{translate:0 -2px;box-shadow:0 5px 0 #0B0B22}
+.ixw--app-all .ixw-ep-tag:active{translate:0 2px;box-shadow:0 1px 0 #0B0B22;transition-duration:.06s}
+.ixw--app-all .ixw-ep-tag:focus-visible{outline:3px solid #FFD84A;outline-offset:3px}
+.ixw--app-all .ixw-ep>span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#F4F0F8;box-shadow:inset 0 0 0 1.5px #714B6733;font:800 12.5px/1 var(--font-body);color:#1B1F3B}
+.ixw--app-all .ixw-cap .ixw-ibtn{width:38px;height:38px;border:2px solid #1B1F3B;background:#FFFFFF;color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B;transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .18s ease,color .18s ease}
+.ixw--app-all .ixw-cap .ixw-ibtn:hover{translate:0 -2px;background:#F4F0F8;color:#1B1F3B;border-color:#1B1F3B;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-all .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-all .ixw-cap .ixw-ibtn:focus-visible,.ixw--app-all .ixw-dots button:focus-visible,.ixw--app-all .ixw-peek:focus-visible{outline:3px solid #FFD84A;outline-offset:3px}
+.ixw--app-all .ixw-cap .ixw-ibtn--play,.ixw--app-all .ixw-cap .ixw-ibtn--play:hover{width:46px;height:46px;background:#714B67;color:#FFFFFF}
+.ixw--app-all .ixw-cap .ixw-ibtn--play:hover{filter:brightness(1.06)}
+.ixw--app-all .ixw-dots{gap:6px;padding:4px 2px}
+.ixw--app-all .ixw-dots button{width:9px;height:9px;background:#D5DCE6;box-shadow:inset 0 0 0 1px rgba(27,31,59,.06);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,translate .2s ease}
+.ixw--app-all .ixw-dots button:hover{background:#714B67;translate:0 -1px}
+.ixw--app-all .ixw-dots button.is-on{width:26px;background:#FFD84A;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--app-all .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid #1B1F3B;color:#1B1F3B;background:#FFFFFF;box-shadow:0 3px 0 #1B1F3B}
+.ixw--app-all .ixw-peek::before{color:#714B67}
+.ixw--app-all .ixw-peek:hover{translate:0 -2px;background:#F4F0F8;box-shadow:0 5px 0 #1B1F3B}
+.ixw--app-all .ixw-peek:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--app-all .ixw-peek[aria-pressed="true"]{background:#F4F0F8}
+.ixw--app-all .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--app-all :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}

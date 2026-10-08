@@ -76,8 +76,9 @@
 .ixw--travel .ix-new{overflow:visible;position:relative;border-radius:22px 22px 22px 22px}
 .ixw--travel .ix-new-head{padding-left:70px;border-radius:22px 22px 0 0;background:linear-gradient(120deg,var(--t-sea-d),var(--t-sea))}
 .ixw--travel .ix-new::before{content:"";position:absolute;left:26px;top:34px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 5px #CBE6F7;z-index:2}
-.ixw--travel .ix-new::after{content:"";position:absolute;left:-30px;top:8px;width:66px;height:44px;border:3px solid #C99A5B;border-right:0;border-radius:26px 0 0 26px;z-index:1;transform-origin:100% 50%;transition:transform .5s var(--w-spring)}
-.ixw--travel .ix-new:hover::after{transform:rotate(-8deg)}
+/* a paper clip holding the card by its top edge, beside the tag eyelet */
+.ixw--travel .ix-new::after{content:"";position:absolute;left:58px;top:-14px;width:16px;height:40px;border:3px solid #C99A5B;border-radius:10px;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 6px #C99A5B;z-index:3;transform-origin:50% 0;transition:transform .4s cubic-bezier(.32,.72,.24,1)}
+.ixw--travel .ix-new:hover::after{transform:rotate(-6deg)}
 .ixw--travel .ix-new .checks .ic{background:#DDF0FB;color:var(--t-sea-d)}
 
 /* ---------- rollout: three flight legs, a plane flies them when they scroll in ---------- */
@@ -136,7 +137,8 @@
 /* ---------- more travel: plane kickers, dotted flight paths behind alt sections, a passport stamp ---------- */
 .ixw--travel .sec-head .hand::before,.ixw--travel .ix-new-head .hand::before{content:"";display:inline-block;width:20px;height:20px;margin-right:6px;vertical-align:-3px;background:currentColor;
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 3 3 10.5l7 2.5 2.5 7z'/%3E%3C/svg%3E") center/contain no-repeat}
-.ixw--travel .section--alt{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180' viewBox='0 0 320 180'%3E%3Cpath d='M20 130Q120 30 230 90' fill='none' stroke='%233167CA' stroke-opacity='.10' stroke-width='2' stroke-dasharray='3 7'/%3E%3Cpath d='M240 92l-14-1 4 4-4 5z' fill='%233167CA' fill-opacity='.16'/%3E%3C/svg%3E"),radial-gradient(rgba(49,103,202,.07) 1.6px,transparent 1.7px);background-size:320px 180px,26px 26px}
+/* the alt sections: just the dot grid (the faint tiled flight-path watermark is gone) */
+.ixw--travel .section--alt{background-image:radial-gradient(rgba(49,103,202,.07) 1.6px,transparent 1.7px);background-size:26px 26px}
 .ixw--travel .ixw-say{position:relative}
 .ixw--travel .ixw-say::after{content:"";position:absolute;right:24px;top:-26px;width:96px;height:96px;transform:rotate(-12deg);opacity:.85;pointer-events:none;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%23E0456B' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%23E0456B' stroke-width='1.5' stroke-dasharray='3 3'/%3E%3Ctext x='50' y='45' text-anchor='middle' font-family='Arial' font-weight='700' font-size='12' fill='%23E0456B'%3EBLUEWAVE%3C/text%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='Arial' font-weight='700' font-size='10' fill='%23E0456B'%3EAPPROVED%3C/text%3E%3C/svg%3E") center/contain no-repeat}
@@ -237,3 +239,25 @@
   background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),#FFFFFF}
 .ixw--travel .ixw-peek:hover{box-shadow:0 5px 0 var(--t-ink)}.ixw--travel .ixw-peek:active{box-shadow:0 1px 0 var(--t-ink)}
 .ixw--travel .ixw-peek[aria-pressed="true"]{background:radial-gradient(circle at 0 50%,var(--t-ink) 5px,transparent 5.5px),radial-gradient(circle at 100% 50%,var(--t-ink) 5px,transparent 5.5px),var(--t-stub)}
+/* audit round: hero CTAs at 52px on desktop, matching the caption controls' rhythm */
+@media (min-width:768px){.ixw--travel .ixw-copy .btn-lg{height:52px}}
+/* audit round: before/after, the intro and switch stay in view beside the tall board instead of floating mid-way */
+@media (min-width:1024px){.ixw--travel .ix-ba-wrap{align-items:start}.ixw--travel .ix-ba-wrap>div:first-child{position:sticky;top:120px;padding-top:24px}}
+/* audit round: tablets, the glance strip clears the typed caption however long the line runs */
+@media (min-width:768px) and (max-width:1023px){.ixw--travel .ixw-credits{margin-top:48px}}
+
+/* fix round: segmented switches (Today / With Odoo, and the dashboard's view toggle). Two equal halves, the active
+   pill sits fully inside with the same 4px inset on every side and a concentric radius, its lip drawn inside it,
+   labels centred; the slide eases without overshoot. */
+.ixw--travel :is(.ix-switch,.ix-views){display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;grid-template-columns:none;align-items:stretch;position:relative;padding:4px;border-radius:999px;overflow:hidden;isolation:isolate}
+.ixw--travel :is(.ix-switch,.ix-views) button{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-width:0;margin:0;padding:0 20px;text-align:center;border-radius:calc(999px - 4px);background:transparent;box-shadow:none;transition:color .25s ease,background-color .25s ease}
+.ixw--travel .ix-switch button{height:42px}
+.ixw--travel .ix-views button{height:34px;padding:0 16px}
+.ixw--travel .ix-switch::before{top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:calc(999px - 4px);z-index:0;transition:transform .42s cubic-bezier(.32,.72,.24,1),background-color .3s ease;box-shadow:inset 0 -3px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25)}
+.ixw--travel .ix-switch:has([data-ba="after"][aria-pressed="true"])::before{transform:translateX(100%);box-shadow:inset 0 -3px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25)}
+.ixw--travel .ix-switch button[aria-pressed="true"]{background:transparent}
+.ixw--travel .ix-views button[aria-pressed="true"]{box-shadow:inset 0 -3px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25)}
+.ixw--travel :is(.ix-switch,.ix-views) button[aria-pressed="false"]:hover{background:rgba(127,127,127,.12)}
+.ixw--travel :is(.ix-switch,.ix-views) button:active{transform:translateY(1px)}
+.ixw--travel :is(.ix-switch,.ix-views) button:focus-visible{outline:2px solid currentColor;outline-offset:-6px}
+@media (prefers-reduced-motion:reduce){.ixw--travel .ix-switch::before{transition:none}}

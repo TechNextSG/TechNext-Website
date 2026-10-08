@@ -51,7 +51,39 @@
   }
 
   /* ---------------- static back props ---------------- */
+  /* the wall behind the sprint-board banner (the card): banderitas strung under the duct, the hanging Level 9 sign and the
+     sprint burndown screen (its line is live); parols and trailing plants hang between them (live) */
+  var BD = { x: 40, y: -66, w: 190, h: 104 }, L9 = { x: 300, y: -104, w: 232, h: 50 };
+  function bandBack(g, ext) {
+    var x0 = Math.max(ext.l - 20, -760), x1 = Math.min(ext.r + 20, 1300), cols = ['#E2453C', '#F2B233', '#3167CA', '#14A38B', '#FFFFFF'];
+    for (var sx0 = Math.floor(x0 / 150) * 150; sx0 < x1; sx0 += 150) { g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(sx0, -142); g.quadraticCurveTo(sx0 + 75, -118, sx0 + 150, -142); g.stroke();
+      for (var f = 0; f < 6; f++) { var u = (f + 0.5) / 6, fx = sx0 + u * 150, fy = -142 + 2 * u * (1 - u) * 24 * 2 * 0.5 + (1 - Math.abs(u - 0.5) * 2) * 0; fy = -142 + 4 * u * (1 - u) * 12;
+        g.fillStyle = cols[(Math.floor(sx0 / 150) * 6 + f + 600) % 5]; g.beginPath(); g.moveTo(fx - 9, fy); g.lineTo(fx + 9, fy); g.lineTo(fx, fy + 16); g.closePath(); g.fill(); } }
+    /* the Level 9 sign */
+    var l = L9; g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(l.x + 30, CEIL); g.lineTo(l.x + 30, l.y); g.moveTo(l.x + l.w - 30, CEIL); g.lineTo(l.x + l.w - 30, l.y); g.stroke();
+    shadowed(g, 10, 4, 0.2, function () { fillRR(g, l.x, l.y, l.w, l.h, 25, TEAL); }); fillRR(g, l.x + 5, l.y + 5, l.w - 10, l.h - 10, 20, 'rgba(255,255,255,.12)');
+    CO.plane(g, l.x + 30, l.y + l.h / 2, 1.3, 0, '#FFFFFF'); text(g, 'LEVEL 9 · IP CENTER', l.x + 52, l.y + 23, 12.5, 800, '#FFFFFF'); text(g, 'Taguig City · development & consulting hub', l.x + 52, l.y + 37, 7, 700, '#D6F3EC');
+    /* the burndown screen */
+    var b = BD; g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(b.x + 24, CEIL); g.lineTo(b.x + 24, b.y); g.moveTo(b.x + b.w - 24, CEIL); g.lineTo(b.x + b.w - 24, b.y); g.stroke();
+    shadowed(g, 12, 5, 0.22, function () { fillRR(g, b.x - 6, b.y - 6, b.w + 12, b.h + 12, 8, '#22302C'); }); fillRR(g, b.x, b.y, b.w, b.h, 3, '#FFFFFF');
+    fillRR(g, b.x, b.y, b.w, 16, 3, INK); g.fillRect(b.x, b.y + 8, b.w, 8); text(g, 'BURNDOWN · SPRINT 7 · SAMPLE', b.x + 8, b.y + 11.5, 6.4, 800, '#FFFFFF');
+    g.strokeStyle = '#E3E8EF'; g.lineWidth = 1; g.beginPath(); for (var gy = 0; gy < 4; gy++) { g.moveTo(b.x + 18, b.y + 30 + gy * 16); g.lineTo(b.x + b.w - 10, b.y + 30 + gy * 16); } g.stroke();
+    g.setLineDash([3, 3]); g.strokeStyle = '#9AA6BC'; g.beginPath(); g.moveTo(b.x + 18, b.y + 30); g.lineTo(b.x + b.w - 10, b.y + 78); g.stroke(); g.setLineDash([]);
+    ['M', 'T', 'W', 'T', 'F'].forEach(function (d, i) { text(g, d, b.x + 22 + i * ((b.w - 36) / 4), b.y + b.h - 8, 6, 800, '#8A96A8', 'center'); });
+  }
+  function bandLive(g, t) {
+    var b = BD, n = 9, q = (t * 0.25) % 1.3, pts = [], vals = [1, 0.92, 0.86, 0.7, 0.62, 0.5, 0.36, 0.22, 0.08];
+    for (var i = 0; i < n; i++) pts.push([b.x + 18 + i * (b.w - 28) / (n - 1), b.y + 30 + (1 - vals[i]) * 48]);
+    var m = Math.min(n - 1, q * (n - 1) / 1); g.strokeStyle = TEAL; g.lineWidth = 2.2; g.lineJoin = 'round'; g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+    for (var j = 1; j <= Math.floor(m); j++) g.lineTo(pts[j][0], pts[j][1]); var fi = Math.floor(m), fr = m - fi; if (fi < n - 1) g.lineTo(lerp(pts[fi][0], pts[fi + 1][0], fr), lerp(pts[fi][1], pts[fi + 1][1], fr)); g.stroke();
+    var hx = fi < n - 1 ? lerp(pts[fi][0], pts[fi + 1][0], fr) : pts[n - 1][0], hy = fi < n - 1 ? lerp(pts[fi][1], pts[fi + 1][1], fr) : pts[n - 1][1]; fillE(g, hx, hy, 3.4, 3.4, TEALD); fillE(g, hx, hy, 1.6, 1.6, '#FFFFFF');
+    if (m >= n - 1) { fillRR(g, b.x + b.w - 64, b.y + 22, 54, 13, 6.5, '#E6F6F2'); text(g, '✓ on track', b.x + b.w - 37, b.y + 31, 6, 800, TEALD, 'center'); }
+    COL.parol(g, -150, CEIL, 46, t, '#E0456B', Y, 0.58, 5.1, Math.sin(t * 0.22) * 0.2); COL.parol(g, 264, CEIL, 96, t, C.blue, Y, 0.5, 6.3, Math.cos(t * 0.27) * 0.2);
+    COL.parol(g, 566, CEIL, 40, t, Y, '#E0456B', 0.52, 7.2, Math.sin(t * 0.31) * 0.2);
+    COL.hangPlant(g, -40, CEIL, 120, t, 0.9, 2);
+  }
   function paintBack(g, ext) {
+    bandBack(g, ext);
     /* the pantry: a "Mabuhay" sign, the merienda board, the counter, the coffee machine, the rice cooker, the kettle */
     var pn = T.pantry;
     fillRR(g, pn.x - 8, -10, pn.w + 16, 74, 10, INK); text(g, 'MABUHAY!', pn.x + pn.w / 2, 18, 15, 800, '#FFE680', 'center'); text(g, 'TAGUIG CITY · LEVEL 9', pn.x + pn.w / 2, 36, 7.4, 800, '#BFE3DA', 'center');
@@ -123,7 +155,7 @@
       P: W({ s: 0.5, skin: 0, hair: 2, style: 'bob', outfit: 'shirt', top: '#E0456B', hold: 'box' }) },
     { x0: 1010, x1: 1260, y: 488, spd: 16, ph: 0.6, label: 'Finance, Taguig City', lines: ['Month-end close, **done in Odoo**.', 'Finance sits right here with the developers.'], acts: ['nod', 'id', 'jump'],
       P: W({ s: 0.5, skin: 2, hair: 0, style: 'short', outfit: 'cardigan', top: '#2A3550', top2: '#DCE7FB', glasses: true, hold: 'tablet' }) },
-    { front: true, x0: -620, x1: 240, y: 640, spd: 22, ph: 0.35, label: 'Marketing officer', lines: ['Merienda’s here! **Pandesal** at three.', 'The website you’re reading? Made **right here**.'], acts: ['cheer', 'id', 'spin'],
+    { front: true, x0: -620, x1: 240, y: 598, spd: 22, ph: 0.35, label: 'Marketing officer', lines: ['Merienda’s here! **Pandesal** at three.', 'The website you’re reading? Made **right here**.'], acts: ['cheer', 'id', 'spin'],
       P: W({ s: 0.58, skin: 1, hair: 2, style: 'long', outfit: 'polo', top: '#F2B233', top2: '#15302B', hold: 'tray', hands: [[-60, -212], [70, -150]] }) }
   ];
   /* extras: the colleague at the pantry counter, the consultant in the phone booth, a teammate with a kape by the window */
@@ -172,7 +204,7 @@
   }
   function paintLive(g, t, now, S) {
     CO.crew(CREW, g, t, S, false);
-    pipeLive(g, t, S); boardLive(g, t, S);
+    pipeLive(g, t, S); boardLive(g, t, S); bandLive(g, t);
     /* parols from the ceiling */
     COL.parol(g, 846, CEIL, 18, t, Y, TEAL, 0.62, 0.4, Math.sin(t * 0.25) * 0.2); COL.parol(g, 940, CEIL, 70, t, TEAL, Y, 0.55, 1.9, Math.cos(t * 0.2) * 0.2);
     if (S.ext.r > 1010) COL.parol(g, 1110, CEIL, 30, t, '#E0456B', Y, 0.6, 3.1, Math.sin(t * 0.3) * 0.2); if (S.ext.l < -420) COL.parol(g, -540, CEIL, 60, t, C.blue, Y, 0.55, 4.2, 0);
@@ -219,8 +251,8 @@
   }
   function FORE() {
     return [
-      [660, function (g, ext, t) { COL.swayPlant(g, -280, 668, t, 0.85, '#FFFFFF', '#E3E9F3', 1); if (ext.r > 940) COL.swayPlant(g, 968, 662, t, 0.8, TEAL, '#3AB9A2', 2); }],
-      [670, function (g, ext) { if (ext.r > 1010) { var x = 1030; soft(g, x + 100, 676, 120, 8, 0.22); fillRR(g, x, 610, 200, 62, 8, '#E9EEF6'); for (var i = 0; i < 4; i++) { fillRR(g, x + 6 + i * 48, 616, 44, 50, 4, ['#14A38B', '#3167CA', '#F2B233', '#E0456B'][i]); fillRR(g, x + 22 + i * 48, 628, 12, 3, 1.5, 'rgba(255,255,255,.7)'); } text(g, 'LOCKERS', x + 100, 604, 7, 800, INK, 'center'); } }]
+      [600, function (g, ext, t) { COL.swayPlant(g, -300, 602, t, 0.62, '#FFFFFF', '#E3E9F3', 1); if (ext.r > 940) COL.swayPlant(g, 976, 600, t, 0.6, TEAL, '#3AB9A2', 2); }],
+      [596, function (g, ext) { if (ext.r > 1010) { var x = 1030, y = 536; soft(g, x + 100, y + 62, 120, 8, 0.22); fillRR(g, x, y, 200, 60, 8, '#E9EEF6'); for (var i = 0; i < 4; i++) { fillRR(g, x + 6 + i * 48, y + 6, 44, 48, 4, ['#14A38B', '#3167CA', '#F2B233', '#E0456B'][i]); fillRR(g, x + 22 + i * 48, y + 18, 12, 3, 1.5, 'rgba(255,255,255,.7)'); } text(g, 'LOCKERS', x + 100, y - 6, 7, 800, INK, 'center'); } }]
     ];
   }
 

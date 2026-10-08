@@ -193,3 +193,46 @@
 .ixw--sol-tech .mkg-sign:nth-child(2):hover{rotate:2.5deg}
 .ixw--sol-tech .mkg-sign .card-ic .ic{color:var(--c)}
 @media (max-width:960px){.mkg-signs{background:none;padding-top:40px;row-gap:56px}}
+
+/* ============================== audit round: hero controls, the kitting corner, spacing ============================== */
+/* CTA keys: one height, icon chips aligned, a lit edge on hover, a hard press */
+.ixw--sol-tech .ixw-copy .actions{gap:14px;margin-top:24px}
+.ixw--sol-tech .ixw-copy .actions .btn{height:50px;padding:0 22px;font-size:15.5px;font-weight:700;overflow:visible}
+.ixw--sol-tech .ixw-copy .btn-primary .ic{width:24px;height:24px;padding:4px;margin-right:-6px;border-radius:7px;background:rgba(255,255,255,.18);transition:translate .2s var(--w-spring)}
+.ixw--sol-tech .ixw-copy .btn-primary:hover .ic{translate:3px 0}
+.ixw--sol-tech .ixw-copy .btn-ghost{background-image:linear-gradient(180deg,#FFD866,#FFC93C)}
+.ixw--sol-tech .ixw-copy .btn-primary:hover{background:#2A5DBB}
+/* bench tags */
+.ixw--sol-tech .mkg-pill{height:32px}
+/* caption controls: keys with a yellow lit state, hover lift, focus ring */
+.ixw--sol-tech .ixw-ibtn{background:#FFFFFF;color:var(--mk-ink);transition:translate .16s ease,box-shadow .16s ease,background-color .2s ease}
+.ixw--sol-tech .ixw-ibtn:hover{translate:0 -2px;border-color:var(--mk-ink);color:var(--mk-ink);background:#FFF6DE;box-shadow:0 5px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-ibtn:focus-visible,.ixw--sol-tech .ixw-dots button:focus-visible,.ixw--sol-tech .ixw-peek:focus-visible{outline:3px solid var(--mk-amber);outline-offset:3px}
+.ixw--sol-tech .ixw-ibtn--play,.ixw--sol-tech .ixw-ibtn--play:hover{background:var(--mk-yel);border-color:var(--mk-ink);box-shadow:0 3px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-ibtn--play:hover{box-shadow:0 5px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-dots{gap:6px}
+.ixw--sol-tech .ixw-dots button{height:9px;border-radius:3px;background:#D9CBB4;box-shadow:inset 0 0 0 1px rgba(27,36,51,.18);transition:width .3s var(--w-spring),background-color .2s ease,translate .2s ease}
+.ixw--sol-tech .ixw-dots button:hover{background:var(--mk-amber);translate:0 -2px}
+.ixw--sol-tech .ixw-dots button.is-on{width:24px;background:var(--mk-amber);box-shadow:0 0 0 1.5px var(--mk-ink)}
+/* "View the scene": a machine key like the CTAs, a hazard edge when the text is hidden */
+.ixw--sol-tech .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid var(--mk-ink);border-radius:10px;background:#FFFFFF;color:var(--mk-ink);font-weight:800;box-shadow:0 4px 0 var(--mk-ink);transition:translate .16s ease,box-shadow .16s ease,background-color .2s ease}
+.ixw--sol-tech .ixw-peek:hover{translate:0 -2px;box-shadow:0 6px 0 var(--mk-ink);background:#FFF6DE}
+.ixw--sol-tech .ixw-peek:active{translate:0 3px;box-shadow:0 1px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-peek[aria-pressed="true"]{background:var(--mk-yel);box-shadow:0 4px 0 var(--mk-ink)}
+.ixw--sol-tech .ixw-peek[aria-pressed="true"]::after{content:"";position:absolute;left:8px;right:8px;bottom:-11px;height:5px;border-radius:0 0 4px 4px;background:var(--mk-hazard);background-size:14px 14px}
+/* the kitting corner's technician only answers when the title card is out of the way */
+@media (min-width:1200px){.ixw--sol-tech .ixw-hero:not(.is-peek) .mkg-side{visibility:hidden}}
+/* the answer clipboard: square with the container, clear of the glance strip */
+.ixw--sol-tech .mkg-brief{max-width:none;margin:46px 14px 0}
+.ixw--sol-tech main h2{text-wrap:balance}
+.mkg-nw{white-space:nowrap}
+@media (max-width:767px){.ixw--sol-tech .ixw-copy .actions .btn{height:50px}.ixw--sol-tech .mkg-brief{margin:40px 12px 0}}
+/* ============ fix round: nothing floats alone ============ */
+/* the FAQ: heading and the parts cabinet share a compact header row; the drawers run full width, two by two */
+.ixw--sol-tech .mkg-qa{grid-template-columns:1fr;gap:30px}
+.ixw--sol-tech .mkg-qa .sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:center;max-width:none;margin-bottom:0}
+.ixw--sol-tech .mkg-qa .sec-head>:not(.mkg-cabinet){grid-column:1;justify-self:start}
+.ixw--sol-tech .mkg-qa .mkg-cabinet{grid-column:2;grid-row:1/span 3;margin-top:0;width:200px}
+.ixw--sol-tech .mkg-drawers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px;align-items:start}
+@media (max-width:960px){.ixw--sol-tech .mkg-qa .sec-head{grid-template-columns:1fr}.ixw--sol-tech .mkg-drawers{grid-template-columns:1fr}}

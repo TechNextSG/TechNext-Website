@@ -172,3 +172,55 @@
 .ixw--crm-dev .cr-finish-sec .cta{padding-top:74px;background:radial-gradient(circle at 88% 30%,rgba(233,185,73,.45),transparent 40%),linear-gradient(120deg,#0E5A4C,#21B799)}
 .ixw--crm-dev .cr-finish-sec .cta::before{content:"";position:absolute;left:0;right:0;top:0;height:22px;background:var(--cr-chk) 0 0/11px 11px;opacity:.9}
 .ixw--crm-dev .cr-finish-sec .cta::after{right:-60px;top:auto;bottom:-140px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,216,74,.35),rgba(255,216,74,0) 70%)}
+/* ======== round 4: section fixes ======== */
+/* the FAQ: the stand's sign on the left, the questions on the right (wide screens) */
+@media (min-width:1024px){.ixw--crm-dev .cr-stands-sec .container{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:56px;align-items:start}
+  .ixw--crm-dev .cr-stands-sec .sec-head{position:sticky;top:110px;margin:0}.ixw--crm-dev .cr-stands-sec .faq{max-width:none}}
+/* the end card's buttons as stage chevrons too */
+.ixw--crm-dev main .cta :is(.btn-white,.btn-outline-white){overflow:visible;height:52px;padding:0 18px 0 22px;margin-right:18px;border:0;border-radius:10px 3px 3px 10px;filter:drop-shadow(0 4px 0 var(--crb-lip));transition:translate .22s cubic-bezier(.34,1.45,.64,1),filter .2s ease}
+.ixw--crm-dev main .cta .btn-white,.ixw--crm-dev main .cta .btn-white:hover{--crb-lip:#0A5E4E;color:#0E5A4C;background:#FFFFFF}
+.ixw--crm-dev main .cta .btn-outline-white,.ixw--crm-dev main .cta .btn-outline-white:hover{--crb-lip:#B58A22;color:#1B1F3B;background:#E9B949}
+.ixw--crm-dev main .cta .btn-outline-white::before{display:none}
+.ixw--crm-dev main .cta :is(.btn-white,.btn-outline-white)::after{content:"";inset:auto;top:50%;right:-14px;left:auto;width:36px;height:36px;margin-top:-18px;border-radius:4px;background:inherit;transform:scaleX(.62) rotate(45deg);transition:none;z-index:-1}
+.ixw--crm-dev main .cta :is(.btn-white,.btn-outline-white):hover::after{transform:scaleX(.62) rotate(45deg)}
+.ixw--crm-dev main .cta :is(.btn-white,.btn-outline-white):hover{translate:3px -2px;filter:drop-shadow(0 6px 0 var(--crb-lip))}
+.ixw--crm-dev main .cta :is(.btn-white,.btn-outline-white):focus-visible{outline:3px solid #E9B949;outline-offset:5px}
+
+/* ======== round 4: the hero controls: stage chevrons with a real tip, a lip, a glow, pills and caption controls ======== */
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){clip-path:none;overflow:visible;height:52px;padding:0 18px 0 22px;margin-right:18px;border:0;border-radius:10px 3px 3px 10px;box-shadow:none;
+  filter:drop-shadow(0 4px 0 var(--crb-lip));transition:translate .22s cubic-bezier(.34,1.45,.64,1),filter .2s ease}
+.ixw--crm-dev main .btn-primary,.ixw--crm-dev main .btn-primary:hover{--crb-lip:#0A5E4E;color:#FFFFFF;background:#0F8A72}
+.ixw--crm-dev main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--crm-dev main :is(.btn-ghost,.ixw-cta .btn-white):hover{--crb-lip:#8FD2BD;color:#1B1F3B;background:#E6F7F1}
+.ixw--crm-dev main .ixw-cta .btn-outline-white,.ixw--crm-dev main .ixw-cta .btn-outline-white:hover{--crb-lip:#B58A22;color:#1B1F3B;background:#E9B949}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";inset:auto;top:50%;right:-14px;left:auto;width:36px;height:36px;margin-top:-18px;border-radius:4px;background:inherit;
+  transform:scaleX(.62) rotate(45deg);transition:none;z-index:-1;pointer-events:none}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{transform:scaleX(.62) rotate(45deg)}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:3px -2px;filter:drop-shadow(0 6px 0 var(--crb-lip)) drop-shadow(0 14px 14px rgba(15,138,114,.28))}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;filter:drop-shadow(0 1px 0 var(--crb-lip));transition-duration:.06s}
+.ixw--crm-dev main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #E9B949;outline-offset:5px}
+.ixw--crm-dev main .btn-primary .ic{width:26px;height:26px;padding:5px;border-radius:50%;background:rgba(255,255,255,.18)}
+.ixw--crm-dev .ixw-copy .actions{gap:14px 8px}
+@media (max-width:420px){.ixw--crm-dev .ixw-copy .actions .btn{height:50px;padding:0 14px 0 18px}}
+
+.ixw--crm-dev .ixw-ep-tag{height:30px;padding:0 13px 0 6px;box-shadow:0 3px 0 #0B0B22;transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--crm-dev .ixw-ep-tag:hover{translate:0 -2px;box-shadow:0 5px 0 #0B0B22}
+.ixw--crm-dev .ixw-ep-tag:active{translate:0 2px;box-shadow:0 1px 0 #0B0B22;transition-duration:.06s}
+.ixw--crm-dev .ixw-ep-tag:focus-visible{outline:3px solid #E9B949;outline-offset:3px}
+.ixw--crm-dev .ixw-ep>span{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:#E6F7F1;box-shadow:inset 0 0 0 1.5px #0F8A7233;font:800 12.5px/1 var(--font-body);color:#1B1F3B}
+.ixw--crm-dev .ixw-cap .ixw-ibtn{width:38px;height:38px;border:2px solid #1B1F3B;background:#FFFFFF;color:#1B1F3B;box-shadow:0 3px 0 #1B1F3B;transition:translate .18s cubic-bezier(.34,1.45,.64,1),box-shadow .18s ease,background-color .18s ease,color .18s ease}
+.ixw--crm-dev .ixw-cap .ixw-ibtn:hover{translate:0 -2px;background:#E6F7F1;color:#1B1F3B;border-color:#1B1F3B;box-shadow:0 5px 0 #1B1F3B}
+.ixw--crm-dev .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--crm-dev .ixw-cap .ixw-ibtn:focus-visible,.ixw--crm-dev .ixw-dots button:focus-visible,.ixw--crm-dev .ixw-peek:focus-visible{outline:3px solid #E9B949;outline-offset:3px}
+.ixw--crm-dev .ixw-cap .ixw-ibtn--play,.ixw--crm-dev .ixw-cap .ixw-ibtn--play:hover{width:46px;height:46px;background:#0F8A72;color:#FFFFFF}
+.ixw--crm-dev .ixw-cap .ixw-ibtn--play:hover{filter:brightness(1.06)}
+.ixw--crm-dev .ixw-dots{gap:6px;padding:4px 2px}
+.ixw--crm-dev .ixw-dots button{width:9px;height:9px;background:#D5DCE6;box-shadow:inset 0 0 0 1px rgba(27,31,59,.06);transition:width .3s cubic-bezier(.34,1.45,.64,1),background-color .2s ease,translate .2s ease}
+.ixw--crm-dev .ixw-dots button:hover{background:#0F8A72;translate:0 -1px}
+.ixw--crm-dev .ixw-dots button.is-on{width:26px;background:#E9B949;box-shadow:0 0 0 1.5px #1B1F3B}
+.ixw--crm-dev .ixw-peek{height:40px;padding:0 16px 0 13px;border:2px solid #1B1F3B;color:#1B1F3B;background:#FFFFFF;box-shadow:0 3px 0 #1B1F3B}
+.ixw--crm-dev .ixw-peek::before{color:#0F8A72}
+.ixw--crm-dev .ixw-peek:hover{translate:0 -2px;background:#E6F7F1;box-shadow:0 5px 0 #1B1F3B}
+.ixw--crm-dev .ixw-peek:active{translate:0 2px;box-shadow:0 1px 0 #1B1F3B;transition-duration:.06s}
+.ixw--crm-dev .ixw-peek[aria-pressed="true"]{background:#E6F7F1}
+.ixw--crm-dev .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
+@media (prefers-reduced-motion:reduce){.ixw--crm-dev :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}
