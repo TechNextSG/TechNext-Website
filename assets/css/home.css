@@ -240,9 +240,17 @@
 .is-home .hm-ind:hover{transform:translateY(-4px);box-shadow:0 9px 0 var(--ii);text-decoration:none}
 .is-home .hm-ind::before{content:attr(data-lab);position:absolute;left:0;right:0;top:0;height:28px;display:flex;align-items:center;padding:0 12px;background:var(--ic);border-bottom:2px solid var(--ii);
   font:800 9.5px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--il);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.is-home .hm-ind-view{display:block;aspect-ratio:16/9;overflow:hidden;border-bottom:2px solid var(--ii)}
-.is-home .hm-ind-view img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--hm-ease)}
-.is-home .hm-ind:hover .hm-ind-view img{transform:scale(1.05)}
+.is-home .hm-ind-view{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-bottom:2px solid var(--ii)}
+.is-home .hm-ind-view > img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--hm-ease)}
+.is-home .hm-ind:hover .hm-ind-view > img{transform:scale(1.05)}
+/* Nexi peeks into every scene, in that industry's costume: from an edge, a corner or behind the counter (--px/--py: where
+   the edge is, --r: which way she leans in, --d: how much of her stays hidden). She bobs and ducks; on hover she comes up. */
+.is-home .hm-peek{position:absolute;z-index:1;left:var(--px);top:var(--py);width:var(--pw,22%);aspect-ratio:412/494;transform:translate(-50%,-100%) rotate(var(--r,0deg));transform-origin:50% 100%;clip-path:inset(-120% -120% 0 -120%);pointer-events:none}
+.is-home .hm-peek-b{display:block;width:100%;height:100%;transform:translateY(var(--d,40%));transition:transform .45s var(--hm-spring)}
+.is-home .hm-peek img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 4px 6px rgba(20,30,60,.22));animation:hmPeek 5.2s ease-in-out calc(var(--i,0) * -.65s) infinite;transform-origin:50% 100%}
+.is-home .hm-ind:hover .hm-peek-b,.is-home .hm-ind:focus-visible .hm-peek-b{transform:translateY(calc(var(--d,40%) - 14%))}
+@keyframes hmPeek{0%,100%{transform:translateY(0) rotate(0)}22%{transform:translateY(-3%) rotate(-3deg)}44%{transform:translateY(0) rotate(2deg)}70%{transform:translateY(0) rotate(0)}78%{transform:translateY(16%) rotate(0)}86%{transform:translateY(-2%) rotate(-2deg)}}
+@media (prefers-reduced-motion:reduce){.is-home .hm-peek-b{transition:none}}
 .is-home .hm-ind-b{position:relative;flex:1;display:flex;flex-direction:column;gap:6px;padding:26px 16px 16px}
 .is-home .hm-ind-badge{position:absolute;left:14px;top:-22px;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--ic);border:2px solid var(--ii);color:#fff}
 .is-home .hm-ind-badge .ic{width:22px;height:22px}
@@ -262,9 +270,50 @@
 
 /* ================================================================ 6 · Odoo Street (/odoo/apps) and the suite widget */
 .is-home .hm-suite{padding:0 0 110px;background:linear-gradient(180deg,#F2EAF6 0%,#F8F6FB 60%,#FFFFFF 100%)}
-.is-home .hm-street{position:relative;display:block;height:clamp(200px,24vw,320px);margin-bottom:64px;overflow:hidden;border-bottom:3px solid #1B1F3B;background:#F2EAF6}
-.is-home .hm-street img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 55%}
-.is-home .hm-street-sign{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);padding:8px 20px;border-radius:8px;background:#1E8A5A;border:3px solid #fff;box-shadow:0 0 0 2px #1B1F3B,0 5px 0 2px #1B1F3B;font:800 1.15rem/1 var(--font-display);color:#fff;white-space:nowrap}
+/* Odoo Street: the /odoo/apps street carried on down the page (canvas: assets/js/home-street.js). The shops are links over
+   the canvas, styled as the shops' own sign boards; the ground's tiles run out into this section's background. */
+.is-home .hm-street{--k:.85;position:relative;margin-bottom:40px;background:linear-gradient(180deg,#FFFFFF 0%,#D8EEFB 55%,#F2EAF6 100%)}
+.is-home .hm-st-scroll{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.is-home .hm-st-scroll::-webkit-scrollbar{display:none}
+.is-home .hm-st-set{position:relative;margin:0 auto;width:1445px;height:374px}
+.is-home .hm-st-cv{position:absolute;top:0;left:0;display:block;pointer-events:none}
+.is-home .hm-st-sign{position:absolute;left:var(--sx,50%);top:calc(14 / 440 * 100%);height:calc(44 / 440 * 100%);transform:translateX(-50%);display:flex;align-items:center;gap:.5em;padding:0 1.3em;border-radius:calc(var(--k) * 9px);
+  background:#714B67;box-shadow:0 calc(var(--k) * 4px) 0 #4A2E44;font:800 max(13px,calc(var(--k) * 21px))/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap;text-decoration:none;transition:transform .25s var(--hm-spring)}
+.is-home .hm-st-sign::before,.is-home .hm-st-sign::after{content:"";width:.34em;height:.34em;border-radius:50%;background:#FFD84A}
+.is-home .hm-st-sign:hover{transform:translateX(-50%) translateY(-2px);color:#fff;text-decoration:none}
+.is-home .hm-st-shop{position:absolute;left:calc((56 + var(--i) * 200) / 1700 * 100%);top:calc(92 / 440 * 100%);width:calc(188 / 1700 * 100%);height:calc(110 / 440 * 100%);border-radius:calc(var(--k) * 7px);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:4px;padding:calc(var(--k) * 7px) calc(var(--k) * 9px) 0;color:#fff;text-decoration:none;transition:transform .3s var(--hm-spring)}
+.is-home .hm-st-shop b{font:800 max(11px,calc(var(--k) * 13px))/1.1 var(--font-display);white-space:nowrap;text-shadow:0 1px 0 rgba(0,0,0,.12)}
+.is-home .hm-st-shop small{font:700 max(10px,calc(var(--k) * 10.5px))/1.2 var(--font-body);opacity:.9;white-space:nowrap}
+.is-home .hm-st-shop:hover,.is-home .hm-st-shop.is-open{transform:translateY(-3px);color:#fff;text-decoration:none}
+.is-home .hm-st-shop:focus-visible{outline:3px solid #3167CA;outline-offset:4px}
+.is-home .hm-st-pop{position:absolute;z-index:6;width:min(300px,calc(100vw - 32px));padding:0 0 10px;border-radius:14px;background:#fff;border:2px solid var(--c);box-shadow:0 5px 0 var(--c),0 30px 50px -24px rgba(60,30,60,.45);
+  opacity:0;transform:translateY(-6px) scale(.97);transform-origin:var(--ax,50%) 0;transition:opacity .2s ease,transform .3s var(--hm-spring)}
+.is-home .hm-st-pop.is-in{opacity:1;transform:none}
+.is-home .hm-st-pop::before{content:"";position:absolute;left:var(--ax,50%);top:-9px;width:14px;height:14px;margin-left:-7px;background:var(--c);transform:rotate(45deg);border-radius:3px}
+.is-home .hm-st-pop-h{position:relative;display:flex;flex-direction:column;gap:3px;margin:0 0 6px;padding:11px 14px 14px;border-radius:11px 11px 0 0;color:#fff;
+  background:radial-gradient(circle at 9px 0,#fff 8.5px,transparent 9px) 0 100%/18px 9px repeat-x,var(--c)}
+.is-home .hm-st-pop-h b{font:800 16px/1.1 var(--font-display);color:#fff}
+.is-home .hm-st-pop-h span{font:600 12px/1.2 var(--font-body);opacity:.9}
+.is-home .hm-st-pop ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;margin:0;padding:4px 8px}
+.is-home .hm-st-pop li a{display:flex;align-items:center;gap:8px;min-height:36px;padding:4px 6px;border-radius:9px;font:600 13px/1.2 var(--font-body);color:var(--hm-ink);text-decoration:none}
+.is-home .hm-st-pop li a:hover,.is-home .hm-st-pop li a:focus-visible{background:#F6F1F9;color:var(--hm-ink);text-decoration:none}
+.is-home .hm-st-pop li .oi{flex:none;width:22px;height:22px}
+.is-home .hm-st-pop-all{display:flex;align-items:center;gap:6px;margin:6px 14px 0;padding-top:9px;border-top:1.5px dashed #E3DCEB;font:700 13px/1.2 var(--font-body);color:#714B67;text-decoration:none}
+.is-home .hm-st-pop-all .ic{width:14px;height:14px;transition:transform .25s var(--hm-spring)}
+.is-home .hm-st-pop-all:hover .ic{transform:translateX(3px)}
+.is-home .hm-st-say{position:absolute;z-index:3;max-width:200px;margin:0;padding:8px 12px;border-radius:12px;background:#fff;box-shadow:0 0 0 1.5px #E3DCEB,0 10px 20px -10px rgba(60,30,60,.4);
+  font:600 12.5px/1.35 var(--font-body);color:var(--hm-ink);transform:translate(-50%,-100%);pointer-events:none;text-align:center}
+.is-home .hm-st-say::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;margin-left:-6px;background:#fff;transform:rotate(45deg);box-shadow:1.5px 1.5px 0 #E3DCEB}
+.is-home .hm-st-say.is-in{animation:hmSay .35s var(--hm-spring)}
+@keyframes hmSay{from{opacity:0;transform:translate(-50%,-80%) scale(.9)}}
+.is-home .hm-st-swipe{display:none}
+.is-home .hm-street.is-swipe .hm-st-shop small{display:none}
+.is-home .hm-street.is-swipe .hm-st-swipe{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;margin:0;padding:6px 12px;border-radius:999px;background:#714B67;color:#fff;font:700 12px/1 var(--font-body);
+  box-shadow:0 3px 0 #4A2E44;pointer-events:none;transition:opacity .3s ease;animation:hmNudge 2.4s ease-in-out infinite}
+.is-home .hm-street.is-swipe .hm-st-swipe .ic{width:13px;height:13px}
+.is-home .hm-street.is-swiped .hm-st-swipe{opacity:0}
+@keyframes hmNudge{50%{transform:translateX(-5px)}}
 .is-home .hm-suite .su-wrap{gap:48px 60px}
 /* the copy wears the street's title card: an Odoo home screen under the awning */
 .is-home .hm-suite .su-copy{position:relative;padding:48px 28px 26px;border-radius:20px;
@@ -397,7 +446,7 @@
   .is-home .hm-ind-view{aspect-ratio:auto;height:100%;border-bottom:0;border-right:2px solid var(--ii)}
   .is-home .hm-ind-b{padding:14px}
   .is-home .hm-ind-badge{position:static;width:34px;height:34px}
-  .is-home .hm-street-sign{font-size:1rem;bottom:14px}
+  .is-home .hm-peek{left:var(--mpx,var(--px));top:var(--mpy,var(--py));width:calc(var(--pw,22%) * 1.75)}
   .is-home .hm-suite .su-copy{padding:44px 18px 22px}
   .is-home .hm-suite .su-stats{gap:8px}
   .is-home .hm-suite .su-stats > div{padding:10px}
