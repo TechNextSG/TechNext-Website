@@ -1918,6 +1918,42 @@ _APP_LINK = re.compile(r"(odoo/apps/)(" + "|".join(sorted(map(re.escape, S.APP_S
 _H1_SEAM = re.compile(r'(<span class="hand h1-hand">.*?</span>)(?!\s|<span class="sr-only">)')
 
 
+_IMG = re.compile(r'<img\b[^>]*>')
+_SECTION_TAG = re.compile(r'<(/?)section\b')
+
+
+def lazy_images(html: str) -> str:
+    """R9 perf: every image outside the first viewport loads lazily and decodes off the main thread.
+    Kept eager: everything before <main> (header logo, intro, phone menu) and the page's first section (the hero,
+    every homepage slide included). The header logo and the intro's plane get fetchpriority="high". A loading,
+    decoding or fetchpriority already written in the markup always wins."""
+    m = html.find('<main')
+    if m < 0:
+        return html
+    cut, depth = m, 0
+    for t in _SECTION_TAG.finditer(html, m):        # the end of main's first <section> (sections can nest)
+        if t.group(1):
+            depth -= 1
+            if depth == 0:
+                cut = html.find('>', t.end()) + 1
+                break
+        else:
+            depth += 1
+
+    def eager(t):
+        tag = t.group(0)
+        if 'fetchpriority=' not in tag and ('class="intro-plane"' in tag or 'img/logo-horizontal' in tag):
+            tag = tag[:-1].rstrip() + ' fetchpriority="high">'
+        return tag
+
+    def lazy(t):
+        tag = t.group(0)
+        add = ('' if 'loading=' in tag else ' loading="lazy"') + ('' if 'decoding=' in tag else ' decoding="async"')
+        return tag[:-1].rstrip() + add + '>' if add else tag
+
+    return _IMG.sub(eager, html[:cut]) + _IMG.sub(lazy, html[cut:])
+
+
 def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{APPS_NAV}}" in content:
         content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html())
@@ -2014,6 +2050,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     html = clean_links(html)
     html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
     html = _APP_LINK.sub(lambda m: m.group(1) + S.APP_SLUG[m.group(2)], html)   # any link still written with the module name
+    html = lazy_images(html)
 
     target = ROOT / out_rel
     target.parent.mkdir(parents=True, exist_ok=True)

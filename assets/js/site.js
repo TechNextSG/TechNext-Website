@@ -222,6 +222,23 @@
     document.addEventListener('keydown', function onKey(e) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === 'Tab') { finish(); document.removeEventListener('keydown', onKey); } });
   })();
 
+  /* ---------------- page-chrome state classes, mirrored onto the chrome itself ----------------
+     The home hero dresses the header, side tabs and WhatsApp button for its full-bleed slides (html.nxs-dark,
+     nxs-swap, hxs-on, hxs-top). The rules for them used to hang off <html>, so every switch restyled every icon,
+     button and image on the page (~1,300-1,500 elements on a slide change). The rules now hang off these hosts
+     (hero.css / site.css), and this keeps the hosts' c-<name> classes in step with <html>'s. The host classes need their own names: an invalidation
+     set belongs to a class NAME, so the same name on <html> would still restyle the whole page. */
+  (function chromeState() {
+    var de = document.documentElement, K = ['nxs-dark', 'nxs-swap', 'hxs-on', 'hxs-top'];
+    var hosts = [].slice.call(document.querySelectorAll('.header,.side-tabs,.wa-float'));
+    if (!hosts.length || !window.MutationObserver) return;
+    function sync() {
+      K.forEach(function (k) { var on = de.classList.contains(k); hosts.forEach(function (h) { if (h.classList.contains('c-' + k) !== on) h.classList.toggle('c-' + k, on); }); });
+    }
+    sync();
+    new MutationObserver(sync).observe(de, { attributes: true, attributeFilter: ['class'] });
+  })();
+
   /* ---------------- header: scrolled state + click-to-open mega menus ---------------- */
   var header = $('[data-header]');
   var megas = $$('.has-mega');

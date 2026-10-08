@@ -93,7 +93,7 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw-cast{border-radius:40% 40% 24% 24%}
 .ixw-hot:focus-visible,.ixw-cast:focus-visible,.ixw-toy:focus-visible{outline:3px dashed var(--blue-300);outline-offset:3px}
 /* a small object still gets a comfortable touch area (at least 32 px), centred on it */
-.ixw-hot::after,.ixw-toy::after{content:"";position:absolute;left:min(0px,calc((100% - 32px) / 2));right:min(0px,calc((100% - 32px) / 2));top:min(0px,calc((100% - 32px) / 2));bottom:min(0px,calc((100% - 32px) / 2))}
+.ixw-hot::after,.ixw-toy::after,.ixw-cast::after{content:"";position:absolute;left:min(0px,calc((100% - 44px) / 2));right:min(0px,calc((100% - 44px) / 2));top:min(0px,calc((100% - 44px) / 2));bottom:min(0px,calc((100% - 44px) / 2))}   /* R9: every tap spot is at least 44 px (mobile audit: Latest, the clocks, Track were 32-38 px) */
 /* a world themes its labels with --lab-bg, --lab-bd (border), --lab-lip, --lab-tail and --lab-r (radius) */
 .ixw-hot-lab{position:absolute;z-index:8;left:50%;bottom:calc(100% + 4px);display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 7px;border-radius:var(--lab-r,999px);background:var(--lab-bg,#fff);border:var(--lab-bd,0);
   font:800 12.5px/1 var(--font-display);color:var(--ink);white-space:nowrap;box-shadow:0 3px 0 var(--lab-lip,#DCE6F4),0 12px 24px -12px rgba(20,40,90,.5);
@@ -672,3 +672,9 @@ html.ixw-intro .header{visibility:hidden;opacity:0;transition:none;animation:hdr
 .ixw-ep-tag.is-play .ic{animation:ixwEpPlay .6s cubic-bezier(.3,1.6,.5,1)}
 @keyframes ixwEpPlay{0%{transform:scale(.6)}55%{transform:scale(1.25);box-shadow:0 0 0 6px rgba(255,210,63,.45)}100%{transform:none;box-shadow:0 0 0 0 rgba(255,210,63,0)}}
 @media (prefers-reduced-motion:reduce){.ixw-ep-tag.is-play .ic{animation:none}}
+
+/* R9 mobile audit: the caption's prev/next and the card's Nexi Explains pill reach 44 px of tap area without changing
+   their drawing (an invisible ring around each) */
+.ixw-cap .ixw-ibtn,.ixw-ep-tag{position:relative}
+.ixw-cap .ixw-ibtn::before{content:"";position:absolute;inset:-6px;border-radius:50%}
+.ixw-ep-tag::before{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}

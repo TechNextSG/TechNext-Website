@@ -177,7 +177,7 @@ def showcase_html() -> str:
         steps = [f for f in ind["flow"] if f.get("app")][:3]
         pills = "".join(f'<span class="hxs-pill" style="--j:{j}">{{{{odoo:{f["app"]}:18}}}}{f["t"]}</span>' for j, f in enumerate(steps))
         p = poses(k)["present"]
-        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/backdrop.svg"></div>')
+        bgs.append(f'<div class="hxs-bg{on}" data-k="{k}"><img class="hxs-bgi" alt="" decoding="async" data-src="{{{{ROOT}}}}assets/img/industries/{k}/backdrop.svg"></div>')
         panels.append(
             f'<div class="hxs-panel hxs--{k}{on}" data-k="{k}" aria-hidden="{hid}"><div class="ixw-copy hxs-card">'
             f'<p class="ixw-ep"><span class="ixw-ep-tag">{{{{icon:play}}}}Nexi Explains</span><span>{b["ep"]}</span></p>'

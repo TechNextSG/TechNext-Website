@@ -1224,47 +1224,47 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
 .is-home .header-cta .btn,.is-home .menu-btn{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease,border-color .45s ease,transform .2s ease}
 .is-home .side-tab{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary,
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#FFD23F;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 4px 0 2.5px #101C45}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#FFD23F;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 4px 0 2.5px #101C45}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover,
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover{background:#FFDC5E;color:#101C45;transform:translateY(-1px);box-shadow:0 0 0 2.5px #101C45,0 6px 0 2.5px #101C45}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover{background:#FFDC5E;color:#101C45;transform:translateY(-1px);box-shadow:0 0 0 2.5px #101C45,0 6px 0 2.5px #101C45}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active,
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active{transform:translateY(3px);box-shadow:0 0 0 2.5px #101C45,0 1px 0 2.5px #101C45}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active{transform:translateY(3px);box-shadow:0 0 0 2.5px #101C45,0 1px 0 2.5px #101C45}
 .is-nxe .header:not(.is-scrolled):not(.is-open) .menu-btn,
-html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 3px 0 2.5px #101C45}
-.is-nxe .side-tab,html.nxs-dark .side-tab{font:400 18px/1 "Bangers","Plus Jakarta Sans",sans-serif;letter-spacing:.07em;box-shadow:0 0 0 3px #101C45,5px -5px 0 3px #101C45}
-.is-nxe .side-tab:hover,html.nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,8px -8px 0 3px #101C45}
-.is-nxe .side-tab:active,html.nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,2px -2px 0 3px #101C45}
-.is-nxe .side-tab:focus-visible,html.nxs-dark .side-tab:focus-visible{outline:3px solid #FFD23F;outline-offset:5px}
-.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,html.nxs-dark .meet-tab,html.nxs-dark .meet-tab:hover,html.nxs-dark .meet-tab:active{color:#101C45}
-.is-nxe .meet-tab,html.nxs-dark .meet-tab{background:#FFD23F}
-.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,html.nxs-dark .meet-tab:hover,html.nxs-dark .meet-tab:active{background:#FFDC5E}
-.is-nxe .talk-tab,html.nxs-dark .talk-tab{background:#fff;color:#101C45}
-.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active,html.nxs-dark .talk-tab:hover,html.nxs-dark .talk-tab:active{background:#EAF0FB;color:#101C45}
-.is-nxe .nexi-tab,html.nxs-dark .nexi-tab{color:#fff}
-.is-nxe .side-tab .ic,html.nxs-dark .side-tab .ic{width:18px;height:18px}
-.is-nxe .side-tab:hover .ic,html.nxs-dark .side-tab:hover .ic{animation:tnTabWiggle .5s var(--spring)}
-.is-nxe .meet-tab:hover .ic,html.nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleUp .5s var(--spring)}
+.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 3px 0 2.5px #101C45}
+.is-nxe .side-tab,.side-tabs.c-nxs-dark .side-tab{font:400 18px/1 "Bangers","Plus Jakarta Sans",sans-serif;letter-spacing:.07em;box-shadow:0 0 0 3px #101C45,5px -5px 0 3px #101C45}
+.is-nxe .side-tab:hover,.side-tabs.c-nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,8px -8px 0 3px #101C45}
+.is-nxe .side-tab:active,.side-tabs.c-nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,2px -2px 0 3px #101C45}
+.is-nxe .side-tab:focus-visible,.side-tabs.c-nxs-dark .side-tab:focus-visible{outline:3px solid #FFD23F;outline-offset:5px}
+.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,.side-tabs.c-nxs-dark .meet-tab,.side-tabs.c-nxs-dark .meet-tab:hover,.side-tabs.c-nxs-dark .meet-tab:active{color:#101C45}
+.is-nxe .meet-tab,.side-tabs.c-nxs-dark .meet-tab{background:#FFD23F}
+.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,.side-tabs.c-nxs-dark .meet-tab:hover,.side-tabs.c-nxs-dark .meet-tab:active{background:#FFDC5E}
+.is-nxe .talk-tab,.side-tabs.c-nxs-dark .talk-tab{background:#fff;color:#101C45}
+.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active,.side-tabs.c-nxs-dark .talk-tab:hover,.side-tabs.c-nxs-dark .talk-tab:active{background:#EAF0FB;color:#101C45}
+.is-nxe .nexi-tab,.side-tabs.c-nxs-dark .nexi-tab{color:#fff}
+.is-nxe .side-tab .ic,.side-tabs.c-nxs-dark .side-tab .ic{width:18px;height:18px}
+.is-nxe .side-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic{animation:tnTabWiggle .5s var(--spring)}
+.is-nxe .meet-tab:hover .ic,.side-tabs.c-nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleUp .5s var(--spring)}
 @keyframes tnTabWiggle{30%{transform:rotate(90deg) translateY(-3px) scale(1.15)}60%{transform:rotate(78deg) scale(1.1)}100%{transform:rotate(90deg)}}
 @keyframes tnTabWiggleUp{30%{transform:rotate(180deg) translateY(3px) scale(1.15)}60%{transform:rotate(168deg) scale(1.1)}100%{transform:rotate(180deg)}}
 /* the costume change: tabs pop one after another, the header button with them */
-.nxs-swap .side-tab{animation:tnTabSwap .55s var(--spring) both}
-.nxs-swap .side-tab:nth-child(2){animation-delay:.07s}
-.nxs-swap .side-tab:nth-child(3){animation-delay:.14s}
-.nxs-swap .header-cta .btn,.nxs-swap .menu-btn{animation:tnBtnSwap .5s var(--spring) both}
+.side-tabs.c-nxs-swap .side-tab{animation:tnTabSwap .55s var(--spring) both}
+.side-tabs.c-nxs-swap .side-tab:nth-child(2){animation-delay:.07s}
+.side-tabs.c-nxs-swap .side-tab:nth-child(3){animation-delay:.14s}
+.header.c-nxs-swap .header-cta .btn,.header.c-nxs-swap .menu-btn{animation:tnBtnSwap .5s var(--spring) both}
 @keyframes tnTabSwap{0%{translate:0 0;scale:1}35%{translate:-7px 0;scale:.92 1.06}70%{translate:2px 0;scale:1.03 .98}100%{translate:0 0;scale:1}}
 @keyframes tnBtnSwap{0%{scale:1}35%{scale:.9}70%{scale:1.06}100%{scale:1}}
 @media (max-width:960px){
   /* phones: round sticker buttons, not turned, so the shadow goes down-right as written */
-  .is-nxe .side-tab,html.nxs-dark .side-tab{box-shadow:0 0 0 3px #101C45,3px 3px 0 3px #101C45}
-  .is-nxe .side-tab:hover,html.nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,4px 4px 0 3px #101C45}
-  .is-nxe .side-tab:active,html.nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,1px 1px 0 3px #101C45}
-  .is-nxe .side-tab .ic,html.nxs-dark .side-tab .ic{width:21px;height:21px}
-  .is-nxe .side-tab:hover .ic,.is-nxe .meet-tab:hover .ic,html.nxs-dark .side-tab:hover .ic,html.nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleRound .5s var(--spring)}
+  .is-nxe .side-tab,.side-tabs.c-nxs-dark .side-tab{box-shadow:0 0 0 3px #101C45,3px 3px 0 3px #101C45}
+  .is-nxe .side-tab:hover,.side-tabs.c-nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,4px 4px 0 3px #101C45}
+  .is-nxe .side-tab:active,.side-tabs.c-nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,1px 1px 0 3px #101C45}
+  .is-nxe .side-tab .ic,.side-tabs.c-nxs-dark .side-tab .ic{width:21px;height:21px}
+  .is-nxe .side-tab:hover .ic,.is-nxe .meet-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic,.side-tabs.c-nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleRound .5s var(--spring)}
   @keyframes tnTabWiggleRound{30%{transform:translateY(-3px) scale(1.15)}60%{transform:rotate(-12deg) scale(1.1)}100%{transform:none}}
   @keyframes tnTabSwap{0%{scale:1}35%{scale:.86}70%{scale:1.08}100%{scale:1}}
 }
 @media (prefers-reduced-motion:reduce){
-  .is-nxe .side-tab:hover .ic,html.nxs-dark .side-tab:hover .ic,.nxs-swap .side-tab,.nxs-swap .header-cta .btn,.nxs-swap .menu-btn{animation:none}
+  .is-nxe .side-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic,.side-tabs.c-nxs-swap .side-tab,.header.c-nxs-swap .header-cta .btn,.header.c-nxs-swap .menu-btn{animation:none}
 }
 
 /* ---------- the page scrollbar: an overlay, so dark heroes run to the window edge with no white strip ----------
@@ -1289,18 +1289,18 @@ main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:au
 /* ================= R9 nav: header "Let's talk" button + floating WhatsApp, both dressed in the page's world =================
    Every world sets --hc-bg / --hc-fg (button fill + text) and --st-ink (outline + lip); pages without a world fall back to
    brand blue + navy ink. The home industries slide (html.hxs-on) and Nexi Explains keep their own rules. */
-html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact,
-html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:hover,
-html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:active{
+body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact,
+body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover,
+body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{
   color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#4A80E2,#3167CA));border:2px solid var(--st-ink,#1B2350);border-radius:12px;
   box-shadow:0 3px 0 var(--st-ink,#1B2350);translate:none;transition:translate .2s var(--spring),box-shadow .2s ease,filter .2s ease}
-html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:hover{translate:0 -2px;box-shadow:0 5px 0 var(--st-ink,#1B2350);filter:saturate(1.08) brightness(1.04)}
-html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact:active{translate:0 2px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
+body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover{translate:0 -2px;box-shadow:0 5px 0 var(--st-ink,#1B2350);filter:saturate(1.08) brightness(1.04)}
+body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{translate:0 2px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
 .header .header-cta .btn.hdr-contact::after{display:none}
 .header .header-cta .btn.hdr-contact .ic{color:currentColor;width:19px;height:19px;padding:0;margin:0;background:none;border-radius:0;transition:transform .3s var(--spring)}
 .header .header-cta .btn.hdr-contact:hover .ic{transform:rotate(-8deg) scale(1.08)}
 @media (max-width:1100px){
-  html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-contact{width:44px;height:44px;padding:0;justify-content:center}
+  body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact{width:44px;height:44px;padding:0;justify-content:center}
   .header .header-cta .btn.hdr-contact .ic{width:22px;height:22px}
 }
 
@@ -1319,8 +1319,8 @@ html:not(.hxs-on):not(.nxs-dark) body:not(.is-nxe) .header .header-cta .btn.hdr-
   border:2px solid var(--st-ink,#1B2350);font:800 13px/1 var(--font-display);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease,translate .25s var(--spring)}
 .wa-float:hover .wa-float-tip,.wa-float:focus-visible .wa-float-tip{opacity:1;translate:0 -50%}
 body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
-html.hxs-on .wa-float{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border-color:var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
-.is-nxe .wa-float,html.nxs-dark .wa-float{background:#FFD23F;color:#101C45;border-color:#101C45;box-shadow:0 4px 0 #101C45}
+.wa-float.c-hxs-on{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border-color:var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
+.is-nxe .wa-float,.wa-float.c-nxs-dark{background:#FFD23F;color:#101C45;border-color:#101C45;box-shadow:0 4px 0 #101C45}
 @media (max-width:960px){
   .wa-float{right:16px;bottom:80px;width:50px;height:50px;transition:translate .22s var(--spring),bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
   body.tabs-wait .wa-float{bottom:16px}
@@ -1331,3 +1331,7 @@ html.hxs-on .wa-float{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,va
 }
 @media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.header .header-cta .btn.hdr-contact{transition:none}}
 @media print{.wa-float{display:none}}
+
+/* R9 mobile audit: the floating Let's Talk "+" and WhatsApp buttons stack over the bottom-right corner; the footer
+   ends with room for them, so the last lines of the page can scroll clear */
+@media (max-width:960px){.footer{padding-bottom:calc(26px + 140px + env(safe-area-inset-bottom,0px))}}

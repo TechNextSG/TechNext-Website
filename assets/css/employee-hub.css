@@ -137,3 +137,7 @@ html:not(.bc-on) .bc-src{display:grid}
 .th-cta-cards i+i{background:#1B2350;box-shadow:inset 0 -8px 0 #FFD84A,0 10px 20px -8px rgba(0,0,0,.4);rotate:6deg;translate:24px 10px}
 @media (max-width:1099px){.th-cta-cards{display:none}}
 @media (prefers-reduced-motion:reduce){.bc-card{transition:none}.bc-n{animation:none}}
+
+/* R9 mobile audit: the directory's e-mail links get a 40 px tall tap area (invisible; the row keeps its height) */
+.th-mail{position:relative}
+.th-mail::after{content:"";position:absolute;left:0;right:0;top:50%;height:40px;transform:translateY(-50%)}
