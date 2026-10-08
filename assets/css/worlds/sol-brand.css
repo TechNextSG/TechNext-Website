@@ -231,8 +231,22 @@
 @media (min-width:1000px){.ixw--sol-brand .lpr-case-sec .container{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr);gap:56px;align-items:start}
   .ixw--sol-brand .lpr-case-sec .sec-head{position:sticky;top:120px;margin:0;padding-bottom:140px}
   .ixw--sol-brand .lpr-case-sec .sec-head::after{content:"";position:absolute;left:0;bottom:0;width:200px;height:120px;
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120'%3E%3Crect x='4' y='30' width='192' height='84' rx='6' fill='%23B07A4A'/%3E%3Cg fill='%23C98E5A'%3E%3Crect x='12' y='38' width='42' height='34' rx='3'/%3E%3Crect x='60' y='38' width='42' height='34' rx='3'/%3E%3Crect x='108' y='38' width='38' height='34' rx='3'/%3E%3Crect x='152' y='38' width='36' height='34' rx='3'/%3E%3Crect x='12' y='76' width='66' height='30' rx='3'/%3E%3Crect x='84' y='76' width='50' height='30' rx='3'/%3E%3Crect x='140' y='76' width='48' height='30' rx='3'/%3E%3C/g%3E%3Cg font-family='Georgia,serif' font-weight='700' text-anchor='middle'%3E%3Ctext x='33' y='64' font-size='24' fill='%231D1F2A'%3EA%3C/text%3E%3Ctext x='81' y='64' font-size='24' fill='%23E8452C'%3Ea%3C/text%3E%3Ctext x='127' y='64' font-size='22' fill='%231D1F2A'%3E%26amp;%3C/text%3E%3Ctext x='170' y='64' font-size='22' fill='%2300A3E0'%3EB%3C/text%3E%3Ctext x='45' y='99' font-size='20' fill='%23E6007E'%3ER%3C/text%3E%3Ctext x='109' y='99' font-size='20' fill='%231D1F2A'%3E?%3C/text%3E%3C/g%3E%3Crect x='148' y='84' width='32' height='14' rx='2' fill='%23FFD100'/%3E%3Crect x='14' y='6' width='70' height='18' rx='2' fill='%23FFFDF7' stroke='%231D1F2A' stroke-width='2' transform='rotate(-6 49 15)'/%3E%3C/svg%3E") 0 100%/contain no-repeat}
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 26 200 94'%3E%3Crect x='4' y='30' width='192' height='84' rx='6' fill='%23B07A4A'/%3E%3Cg fill='%23C98E5A'%3E%3Crect x='12' y='38' width='42' height='34' rx='3'/%3E%3Crect x='60' y='38' width='42' height='34' rx='3'/%3E%3Crect x='108' y='38' width='38' height='34' rx='3'/%3E%3Crect x='152' y='38' width='36' height='34' rx='3'/%3E%3Crect x='12' y='76' width='66' height='30' rx='3'/%3E%3Crect x='84' y='76' width='50' height='30' rx='3'/%3E%3Crect x='140' y='76' width='48' height='30' rx='3'/%3E%3C/g%3E%3Cg font-family='Georgia,serif' font-weight='700' text-anchor='middle'%3E%3Ctext x='33' y='64' font-size='24' fill='%231D1F2A'%3EA%3C/text%3E%3Ctext x='81' y='64' font-size='24' fill='%23E8452C'%3Ea%3C/text%3E%3Ctext x='127' y='64' font-size='22' fill='%231D1F2A'%3E%26amp;%3C/text%3E%3Ctext x='170' y='64' font-size='22' fill='%2300A3E0'%3EB%3C/text%3E%3Ctext x='45' y='99' font-size='20' fill='%23E6007E'%3ER%3C/text%3E%3Ctext x='109' y='99' font-size='20' fill='%231D1F2A'%3E?%3C/text%3E%3C/g%3E%3Crect x='148' y='84' width='32' height='14' rx='2' fill='%23FFD100'/%3E%3C/svg%3E") 0 100%/contain no-repeat}
   .ixw--sol-brand .lpr-drawers{max-width:none}}
 .ixw--sol-brand .lpr-drawers summary:focus-visible{outline:3px dashed var(--lp-c);outline-offset:3px}
 /* the plate label sat behind the round icon: keep it clear of it */
 .ixw--sol-brand .lpr-chip-top i{margin-right:64px}
+
+/* fix round: FAQ in one column — heading row with its drawing on the right, questions full width below (nothing under the side tabs) */
+@media (min-width:1000px){.ixw--sol-brand .lpr-case-sec .container{display:block}
+  .ixw--sol-brand .lpr-case-sec .sec-head{position:relative;top:auto;max-width:920px;margin:0 0 30px;padding:0 200px 0 0;min-height:100px}
+  .ixw--sol-brand .lpr-case-sec .sec-head::after{left:auto;right:0;bottom:-8px;width:170px;height:100px}
+  .ixw--sol-brand .lpr-drawers{max-width:920px}}
+/* TN cards: light labels, level headers, the round icon inside the header (not straddling its edge) */
+.ixw--sol-brand .lpr-chip-top b,.ixw--sol-brand .lpr-chip-top i{color:#FFFFFF}
+.ixw--sol-brand .lpr-chip-top i{margin-right:0}
+.ixw--sol-brand .lpr-chip,.ixw--sol-brand .lpr-chip:hover{rotate:none}
+.ixw--sol-brand .lpr-chip:hover{transform:translateY(-6px)}
+.ixw--sol-brand .lpr-chip .card-ic{top:14px;right:16px;width:44px;height:44px;box-shadow:0 0 0 3px rgba(255,255,255,.35),0 6px 12px -4px rgba(0,0,0,.25)}
+.ixw--sol-brand .lpr-chip .card-ic .ic{width:22px;height:22px}
+.ixw--sol-brand .lpr-chip h3{padding-right:0}

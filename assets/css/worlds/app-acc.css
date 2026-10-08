@@ -172,14 +172,10 @@
 @media (max-width:1100px){.ixw--app-acc .aw-cta-art{display:none}}
 @media (prefers-reduced-motion:reduce){.ixw--app-acc .aw-coin{animation:none}.ixw--app-acc .aw-badge{transition:none}}
 
-/* section heads: the badge sits beside the handwriting; a faint T-account fills the space to the right of each head */
+/* section heads: the badge sits beside the handwriting (no watermark decorations beside the heads) */
 .ixw--app-acc main .aw-sec .sec-head{position:static}
 .ixw--app-acc main .aw-sec>.container{position:relative}
 .ixw--app-acc main .aw-badge+.hand{display:inline-block;vertical-align:middle}
-@media (min-width:1000px){.ixw--app-acc main .aw-sec>.container>.sec-head:not(.sec-head--row)::after{content:"Dr Cr";position:absolute;right:24px;top:-6px;width:300px;height:170px;padding:0 34px;text-align:justify;text-align-last:justify;
-  font:600 3.2rem/1 var(--font-hand);color:rgba(46,156,126,.22);rotate:2deg;pointer-events:none;
-  background:linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 0 62px/100% 4px no-repeat,linear-gradient(rgba(29,94,74,.2),rgba(29,94,74,.2)) 50% 62px/4px 108px no-repeat,
-  repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 18px 82px/110px 80px no-repeat,repeating-linear-gradient(180deg,transparent 0 22px,rgba(201,164,74,.28) 22px 24px) 172px 82px/110px 80px no-repeat}}
 .ixw--app-acc main [data-aw="what"] .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 /* ======== round 4: section fixes ======== */
 .ixw--app-acc main [data-aw="cta"] h2{color:#FFFFFF}

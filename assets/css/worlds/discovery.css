@@ -234,3 +234,44 @@
 .ixw--discovery .ow-strip .ow-nb{white-space:nowrap}
 @media (min-width:1101px){.ixw--discovery .ow-strip{grid-template-columns:.62fr 1.3fr 1.2fr 1fr 1.08fr}}
 @media (max-width:640px){.ixw--discovery .dc-sheet{padding-top:44px!important}}
+
+/* fix round: the four evidence markers stand in one clean row. The red string runs through the middle of every marker, each
+   marker drops its own string straight down to the pin of its card, and nothing tilts at rest (hover only lifts) */
+.ixw--discovery .dc-steps::before{top:27px;left:29px;right:calc((100% - 90px) / 4 - 29px);border-top-width:2.5px;opacity:.8}
+.ixw--discovery .dc-steps .step-n{position:relative;z-index:1;display:grid;place-items:center;padding:12px 0 0;margin-bottom:26px;line-height:1;transform:none;transition:transform .25s cubic-bezier(.34,1.45,.64,1)}
+.ixw--discovery .dc-steps .step:hover .step-n{transform:translateY(-4px)}
+.ixw--discovery .dc-steps .step>div:not(.step-n),.ixw--discovery .dc-steps .step:nth-child(n)>div:not(.step-n){--rot:0deg;rotate:0deg}
+.ixw--discovery .dc-steps .step>div:not(.step-n)::before{left:28px;top:-26px;height:26px;opacity:.8}
+.ixw--discovery .dc-steps .step>div:not(.step-n)::after{content:"";position:absolute;left:23.5px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--dc-red);box-shadow:0 0 0 2.5px #FFFFFF,0 2px 3px rgba(60,30,10,.3)}
+@media (max-width:1100px){.ixw--discovery .dc-steps::before{display:none}}
+@media (max-width:640px){.ixw--discovery .dc-steps .step .step-n{padding-top:10px;margin-bottom:14px}.ixw--discovery .dc-steps .step>div:not(.step-n)::after{display:none}}
+
+/* fix round: the marker buttons. The cap is a deliberate part of each marker: the same hue one shade darker, a light collar
+   line where it meets the barrel, a rounded end and a soft highlight on its round end (the barrel's left radius was 999px, which made the browser scale every corner down to
+   nearly square, hence the broken block); it no longer reads as a grey block on yellow */
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white,.cta .btn-white,.cta .btn-outline-white){border-radius:26px 14px 14px 26px;padding-right:44px}
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white,.cta .btn-white,.cta .btn-outline-white)::after{left:auto;right:0;top:0;bottom:0;width:26px;border-radius:0 14px 14px 0;transform:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.6) 0 2px,transparent 2px 5px,var(--cap,#1E4691) 5px),linear-gradient(var(--cap,#1E4691),var(--cap,#1E4691));background-size:100% 100%,100% 100%;box-shadow:inset -6px 0 0 -3px rgba(255,255,255,.22)}
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white,.cta .btn-white,.cta .btn-outline-white)::after{background:radial-gradient(circle at 100% 50%,rgba(255,255,255,.16) 0 9px,transparent 9.5px),linear-gradient(90deg,rgba(255,255,255,.6) 0 2px,rgba(0,0,0,.18) 2px 4px,var(--cap,#1E4691) 4px)}
+.ixw--discovery main :is(.btn-primary,.btn-ghost,.cta .btn-white,.cta .btn-outline-white):hover::after{width:30px}
+.ixw--discovery main .btn-primary{--cap:#1E4691}
+.ixw--discovery main :is(.btn-ghost,.cta .btn-white){--cap:#B3261E}
+.ixw--discovery .cta .btn-outline-white{--cap:#C9A21A}
+/* fix round: the FAQ's tape recorder no longer floats alone in an empty column; it sits in a proper side card (the
+   "interview tape" label, a short line and a Talk to us link) that fills the column beside the questions */
+.ixw--discovery .dc-deco--rec.dc-ask{top:150px;right:0;width:330px;padding:18px 24px 24px;border-radius:6px;pointer-events:auto;z-index:1;background:var(--dc-paper);
+  box-shadow:0 0 0 1.5px #E2CFA9,0 0 0 7px var(--dc-kraft),0 0 0 8.5px var(--dc-kraft-d),0 30px 50px -30px rgba(90,60,20,.45);rotate:1deg}
+.ixw--discovery .dc-ask::before{content:"";position:absolute;left:50%;top:-12px;width:90px;height:22px;margin-left:-45px;background:rgba(255,255,255,.7);rotate:-2deg;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.ixw--discovery .dc-ask-art{display:block;width:210px;margin:-6px auto 4px}
+.ixw--discovery .dc-ask-art svg{display:block;width:100%;height:auto}
+.ixw--discovery .dc-ask-k{margin:0 0 6px;font:800 10.5px/1 var(--dc-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dc-red-d)}
+.ixw--discovery .dc-ask-t{margin:0 0 6px;font:800 1.25rem/1.2 var(--font-display);color:var(--dc-ink)}
+.ixw--discovery .dc-ask-p{margin:0 0 12px;font:500 14.5px/1.5 var(--font-body);color:#4A4F66}
+.ixw--discovery .dc-ask .btn-link{color:var(--dc-red-d)}
+.ixw--discovery .dc-deco--trail svg g{opacity:1}
+.ixw--discovery .dc-faq-sec .dc-faq{max-width:calc(100% - 380px)}
+@media (max-width:1099px){.ixw--discovery .dc-faq-sec .dc-faq{max-width:none}}
+.ixw--discovery .dc-ask .btn-link{display:inline-flex;align-items:center;gap:6px}.ixw--discovery .dc-ask .btn-link svg{display:inline-block;width:16px;height:16px;flex:none}.ixw--discovery .dc-deco--rec.dc-ask{top:170px}
+/* fix round: the end card stacks on tablets and phones (its two-column grid had no small-screen override, which squeezed the
+   text into a one-word column on phones) */
+@media (max-width:1099px){.ixw--discovery main .cta{grid-template-columns:minmax(0,1fr)}}
