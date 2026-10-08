@@ -1,15 +1,16 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* /nexi-explains hero: the Season 1 and Quick Tips sidekicks act out a short scene around Nexi's TV.
    The drawings are the episodes' own, from TechNext's Nexi video renderer (films/*.js): the IoT penguin with its
-   paper fan, the App Development cat, the Networks duck, the Odoo + AI owl, the Workflow Automation hamster, the
-   Customization goat, and EP00's helper bots and spreadsheet monster. They are copied unchanged by
-   qa/nxe/extract_cast.py (only window.T became the local clock T). Holiday-special characters are not used.
-   The scene (22 s, looping): cat and owl sit on the TV; the penguin waddles in fanning; the hamster zooms past
-   (ZOOM!) and takes a coffee break; the goat trots in and hops (BOING!); the duck lands on Nexi's head and quacks,
-   the cat waves, the owl hoots; two helper bots float over the TV; the spreadsheet monster peeks up (EEK!), says
+   paper fan, the App Development cat, the Networks duck and EP00's helper bots and spreadsheet monster (those
+   episodes are still the current versions), plus three sidekicks of the remade Season 1: Olive the owl (EP13),
+   Sprocket the otter (EP14) and Bramble the hedgehog (EP17), which replaced the old owl, hamster and goat. They are
+   copied unchanged (only window.T became the local clock T). Holiday-special characters are not used.
+   The scene (22 s, looping): cat and Olive sit on the TV; the penguin waddles in fanning; Sprocket zooms past
+   (ZOOM!) and takes a break with his pebble; Bramble trots in and hops (BOING!); the duck lands on Nexi's head and quacks,
+   the cat waves, Olive hoots; two helper bots float over the TV; the spreadsheet monster peeks up (EEK!), says
    hi and sinks away; everyone heads off and it starts again. Tapping Nexi makes the whole cast hop.
    On the home hero's Nexi Explains slide (index.html slide 6, [data-nxs]) a shorter "perch" scene plays on the
-   TV only: cat and owl on top, helper bots over it, the duck flies in, lands between them and quacks; it runs
+   TV only: cat and Olive on top, helper bots over it, the duck flies in, lands between them and quacks; it runs
    only while that slide is showing.
    One canvas around the stage, pointer-events none. It runs only while the hero is on screen and the tab is
    visible; reduced motion draws one still frame. */
@@ -25,6 +26,7 @@
   var DUCK = { bob: -9 }, GOAT = { hop: -9 }, LK = { hoot: -9 };
   var KJ = { rise: 0, roar: 0, hit: 0, chomp: 0, kb: 0, up: 0, dizzy: 0, flinch: 0, look: -1 };
   function lerp(a, b, k) { return a + (b - a) * k; }
+  function clampV(v, a, b) { return v < a ? a : v > b ? b : v; }
   var L = { rrect: function (g, x, y, w, h, r) { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); } };
   var KIT = { chip: function (g, text, x, y, fg, bg, size) {
     g.save(); g.font = '800 ' + size + 'px "Plus Jakarta Sans", Inter, sans-serif';
@@ -63,34 +65,140 @@
   /* from films/network.js */
   function duck(gg, x, y) { var t = T, bob = Math.sin(t * 2.2) * 3 - (t - DUCK.bob < 0.8 ? Math.sin((t - DUCK.bob) / 0.8 * Math.PI * 3) * 10 * (1 - (t - DUCK.bob) / 0.8) : 0); gg.save(); gg.translate(x, y + bob);
     gg.fillStyle = '#FFD25E'; gg.beginPath(); gg.ellipse(0, 0, 28, 17, 0, 0, 7); gg.fill(); gg.beginPath(); gg.arc(16, -20, 14, 0, 7); gg.fill(); gg.fillStyle = ORANGE; gg.beginPath(); gg.moveTo(28, -20); gg.lineTo(42, -16); gg.lineTo(28, -12); gg.closePath(); gg.fill(); gg.fillStyle = '#1F1F3D'; gg.beginPath(); gg.arc(19, -23, 2.6, 0, 7); gg.fill(); gg.fillStyle = '#F5B82E'; gg.beginPath(); gg.ellipse(-6, -2, 13, 8, -0.3, 0, 7); gg.fill(); gg.restore(); }
-  /* from films/odooai.js */
-  function owl(gg, x, y, s) {
-    var t = T, bl = (t % 3.1) < 0.12; gg.save(); gg.translate(x, y); gg.scale(s, s);
-    gg.fillStyle = '#8A5A3C'; gg.beginPath(); gg.ellipse(0, 0, 44, 56, 0, 0, 7); gg.fill(); gg.fillStyle = '#E9C9A6'; gg.beginPath(); gg.ellipse(0, 14, 28, 36, 0, 0, 7); gg.fill();
-    gg.fillStyle = '#8A5A3C'; gg.beginPath(); gg.moveTo(-40, -36); gg.lineTo(-30, -70); gg.lineTo(-14, -44); gg.closePath(); gg.fill(); gg.beginPath(); gg.moveTo(40, -36); gg.lineTo(30, -70); gg.lineTo(14, -44); gg.closePath(); gg.fill();
-    [-17, 17].forEach(function (ex) { gg.beginPath(); gg.arc(ex, -24, 16, 0, 7); gg.fillStyle = '#fff'; gg.fill(); if (bl) { gg.strokeStyle = '#1F1F3D'; gg.lineWidth = 3; gg.beginPath(); gg.moveTo(ex - 9, -24); gg.lineTo(ex + 9, -24); gg.stroke(); } else { gg.beginPath(); gg.arc(ex, -24, 8, 0, 7); gg.fillStyle = '#1F1F3D'; gg.fill(); } });
-    gg.fillStyle = '#F5A524'; gg.beginPath(); gg.moveTo(-6, -14); gg.lineTo(6, -14); gg.lineTo(0, -2); gg.closePath(); gg.fill();
-    gg.fillStyle = '#F5A524'; [-14, 14].forEach(function (fx) { gg.fillRect(fx - 8, 52, 16, 8); });
-    gg.restore();
-    if (t - LK.hoot < 1.2) { gg.save(); gg.globalAlpha *= 1 - (t - LK.hoot) / 1.2; KIT.chip(gg, 'Hoo!', x + 70, y - 90 - (t - LK.hoot) * 30, '#8A5A3C', '#FFF4E3', 24); gg.restore(); }
+  /* ---- the remade Season 1 sidekicks, copied unchanged from the films (only window.T became T) ---- */
+  /* from films/inc (shared set kit) */
+  function envShadow(gg, x, y, rx, ry, a) { var g0 = gg.createRadialGradient(x, y, 0, x, y, rx); g0.addColorStop(0, 'rgba(20,30,60,' + (a == null ? 0.25 : a) + ')'); g0.addColorStop(1, 'rgba(20,30,60,0)'); gg.save(); gg.translate(x, y); gg.scale(1, ry / rx); gg.translate(-x, -y); gg.fillStyle = g0; gg.fillRect(x - rx, y - rx, rx * 2, rx * 2); gg.restore(); }
+  /* from films/odooai.js (EP13): Olive the owl */
+  var BL13 = '#3167CA';
+  function rr13(p, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); p.moveTo(x + r, y); p.arcTo(x + w, y, x + w, y + h, r); p.arcTo(x + w, y + h, x, y + h, r); p.arcTo(x, y + h, x, y, r); p.arcTo(x, y, x + w, y, r); p.closePath(); return p; }
+  function pR13(x, y, w, h, r) { var p = new Path2D(); if (r) rr13(p, x, y, w, h, r); else p.rect(x, y, w, h); return p; }
+  function pE13(x, y, rx, ry) { var p = new Path2D(); p.ellipse(x, y, Math.max(0.1, rx), Math.max(0.1, ry), 0, 0, Math.PI * 2); return p; }
+  function fs13(gg, p, f, s, lw) { if (f) { gg.fillStyle = f; gg.fill(p); } if (s) { gg.strokeStyle = s; gg.lineWidth = lw || 3; gg.stroke(p); } }
+  var OWC = { b: '#C99A66', be: '#A97B4A', w: '#B98955', belly: '#F6E8D2', face: '#FFF5E6', tuft: '#B07D4B', eye: '#3A2B24', ring: '#FFD45E', beak: '#F29B38', bk: '#D47C1E', ft: '#F2A541', bow: '#714B67' };
+  function owWing(gg, a) {   /* the screen-left wing: pivot at the origin, hanging down; a > 0 swings it OUT and up (away from the face) */
+    gg.save(); gg.rotate(a); var w = new Path2D(); w.moveTo(-15, -4); w.quadraticCurveTo(-24, 40, -2, 78); w.quadraticCurveTo(20, 44, 14, -4); w.closePath(); fs13(gg, w, OWC.w, OWC.be, 3);
+    var fe = new Path2D(); fe.moveTo(-7, 30); fe.quadraticCurveTo(0, 37, 7, 30); fe.moveTo(-6, 48); fe.quadraticCurveTo(0, 55, 6, 48); gg.strokeStyle = OWC.be; gg.lineWidth = 2.5; gg.stroke(fe); gg.restore();
   }
-  /* from films/automation.js */
-  function hamster(gg, x, y, run) { var t = T, b = run > 0.5 ? Math.abs(Math.sin(t * 16)) * 6 : 0; gg.save(); gg.translate(x, y - b); gg.fillStyle = '#E8A35C'; gg.beginPath(); gg.ellipse(0, -24, 34, 24, 0, 0, 7); gg.fill(); gg.fillStyle = '#FFE2C0'; gg.beginPath(); gg.ellipse(10, -18, 18, 14, 0, 0, 7); gg.fill(); gg.fillStyle = '#E8A35C'; gg.beginPath(); gg.arc(28, -36, 16, 0, 7); gg.fill(); gg.fillStyle = '#F5B9A8'; gg.beginPath(); gg.arc(22, -50, 7, 0, 7); gg.fill(); gg.fillStyle = '#1F1F3D'; gg.beginPath(); gg.arc(34, -38, 3, 0, 7); gg.fill();
-    if (run <= 0.5) { gg.fillStyle = '#fff'; L.rrect(gg, -50, -46, 24, 26, 5); gg.fill(); gg.strokeStyle = '#9DA8BF'; gg.lineWidth = 2; gg.stroke(); gg.strokeStyle = 'rgba(157,168,191,.8)'; gg.beginPath(); gg.moveTo(-42, -52); gg.quadraticCurveTo(-36, -62, -40, -70); gg.stroke(); }
-    gg.restore(); }
-  /* from films/custom.js */
-  function goat(gg, x, y, s, flip) {
-    var t = T, chew = Math.sin(t * 9) * 2, hb = t - GOAT.hop < 0.6 ? -Math.sin((t - GOAT.hop) / 0.6 * Math.PI) * 40 : 0;
-    gg.save(); gg.translate(x, y + hb); gg.scale(s * flip, s);
-    gg.strokeStyle = '#8A93A6'; gg.lineWidth = 7; gg.lineCap = 'round'; [-26, -10, 14, 30].forEach(function (lx) { gg.beginPath(); gg.moveTo(lx, -34); gg.lineTo(lx, -2); gg.stroke(); });
-    gg.fillStyle = '#FFFFFF'; gg.strokeStyle = 'rgba(31,31,61,.18)'; gg.lineWidth = 2; gg.beginPath(); gg.ellipse(0, -52, 48, 28, 0, 0, 7); gg.fill(); gg.stroke();
-    gg.beginPath(); gg.ellipse(-48, -48, 9, 6, -0.6, 0, 7); gg.fill();
-    gg.save(); gg.translate(40, -78); gg.rotate(0.15); gg.beginPath(); gg.ellipse(0, 0, 22, 18, 0, 0, 7); gg.fill(); gg.stroke();
-    gg.strokeStyle = '#B98A55'; gg.lineWidth = 6; gg.beginPath(); gg.moveTo(-8, -14); gg.quadraticCurveTo(-18, -38, -34, -34); gg.stroke(); gg.beginPath(); gg.moveTo(4, -16); gg.quadraticCurveTo(0, -40, -16, -42); gg.stroke();
-    gg.fillStyle = '#F4F7FD'; gg.beginPath(); gg.ellipse(-14, -4, 12, 6, -0.5, 0, 7); gg.fill();
-    gg.fillStyle = '#1F1F3D'; gg.beginPath(); gg.arc(6, -4, 3.4, 0, 7); gg.fill(); gg.fillStyle = '#F7A8B8'; gg.beginPath(); gg.ellipse(20, 6 + chew * 0.3, 5, 3, 0, 0, 7); gg.fill();
-    gg.fillStyle = '#E9EEF8'; gg.beginPath(); gg.moveTo(10, 14); gg.lineTo(18, 34 + chew); gg.lineTo(24, 14); gg.closePath(); gg.fill();
-    gg.restore(); gg.restore();
+  function owl13(gg, x, y, s, o) {
+    var t = T, fl = clampV(o.fly || 0, 0, 1), hop = o.hop || 0, flap = fl > 0.01 ? Math.sin(t * 16) : 0, bob = fl * Math.sin(t * 5) * 6;
+    gg.save(); gg.translate(x, y); gg.scale(s, s);
+    if (fl < 0.95) envShadow(gg, 0, 3, 50, 10, 0.22 * (1 - fl) * clampV(1 - hop / 160, 0.4, 1));
+    gg.translate(0, -hop - fl * 26 + bob); gg.scale(o.dir || 1, 1); gg.lineJoin = 'round'; gg.lineCap = 'round';
+    if (o.item === 1) { gg.save(); gg.translate(0, 12); gg.rotate(Math.sin(t * 4) * 0.08); fs13(gg, pR13(-36, -4, 72, 50, 6), '#FFFFFF', '#C9D4E3', 3); var fl2 = new Path2D(); fl2.moveTo(-36, -4); fl2.lineTo(0, 22); fl2.lineTo(36, -4); gg.strokeStyle = '#C9D4E3'; gg.lineWidth = 3; gg.stroke(fl2); fs13(gg, pR13(-28, 28, 26, 12, 3), '#E5484D'); gg.restore(); }
+    if (fl < 0.6) { var ft = new Path2D(); [-15, 15].forEach(function (fx) { [-7, 0, 7].forEach(function (d) { ft.moveTo(fx + d + 4, -3); ft.ellipse(fx + d, -3, 4, 5, 0, 0, 7); }); }); gg.fillStyle = OWC.ft; gg.fill(ft); }
+    var wa = clampV(o.wing || 0, 0, 1), bk = clampV(o.book || 0, 0, 1), mac = clampV(o.mac || 0, 0, 1);
+    var aw = lerp(0.12, 2.25 + Math.sin(t * 10) * 0.15, wa); aw = lerp(aw, -0.42, Math.max(bk, mac)); aw = lerp(aw, 0.6 + flap * 1.3, fl);
+    var bd = pE13(0, -62, 48, 58); fs13(gg, bd, OWC.b, OWC.be, 3);
+    gg.save(); gg.clip(bd); gg.fillStyle = OWC.belly; gg.fill(pE13(0, -44, 32, 40)); var sp = new Path2D(); [[-12, -60], [10, -56], [-4, -42], [14, -32], [-14, -28], [2, -20]].forEach(function (q) { sp.moveTo(q[0] - 5, q[1]); sp.quadraticCurveTo(q[0], q[1] + 5, q[0] + 5, q[1]); }); gg.strokeStyle = '#E2C9A2'; gg.lineWidth = 2.5; gg.stroke(sp); gg.restore();
+    if (bk > 0.5) { gg.save(); gg.translate(0, -50); gg.rotate(-0.08); fs13(gg, pR13(-30, -21, 60, 42, 4), BL13); fs13(gg, pR13(-25, -17, 50, 34, 3), '#FFFFFF'); gg.fillStyle = BL13; gg.fill(pR13(-2, -21, 4, 42, 0)); gg.restore(); }
+    if (mac > 0.5) { gg.save(); gg.translate(0, -48); fs13(gg, pE13(0, -6, 24, 9), '#F7A8C8'); fs13(gg, pE13(0, 0, 24, 5), '#FFF1F6'); fs13(gg, pE13(0, 6, 24, 9), '#F7A8C8'); gg.restore(); }
+    gg.save(); gg.translate(-44, -88); owWing(gg, aw); gg.restore(); gg.save(); gg.scale(-1, 1); gg.translate(-44, -88); owWing(gg, aw); gg.restore();
+    gg.save(); gg.translate(0, -128); gg.rotate(o.tilt || 0);
+    var tf = new Path2D(); tf.moveTo(-40, -20); tf.lineTo(-40, -58); tf.lineTo(-17, -36); tf.closePath(); tf.moveTo(40, -20); tf.lineTo(40, -58); tf.lineTo(17, -36); tf.closePath(); fs13(gg, tf, OWC.tuft, OWC.be, 3);
+    fs13(gg, pE13(0, 0, 46, 42), OWC.b, OWC.be, 3);
+    var fd = new Path2D(); fd.ellipse(-17, 0, 22, 25, 0, 0, 7); fd.moveTo(39, 0); fd.ellipse(17, 0, 22, 25, 0, 0, 7); gg.fillStyle = OWC.face; gg.fill(fd);
+    var hap = (o.happy || 0) > 0.5, slp = (o.sleep || 0) > 0.5, wow = clampV(o.wow || 0, 0, 1), blink = (t + 0.7) % 3.4 < 0.12;
+    [-17, 17].forEach(function (ex) {
+      if (slp || (blink && !hap)) { var sl = new Path2D(); sl.moveTo(ex - 10, 1); sl.quadraticCurveTo(ex, 7, ex + 10, 1); gg.strokeStyle = OWC.eye; gg.lineWidth = 3.5; gg.stroke(sl); }
+      else if (hap) { var ha = new Path2D(); ha.arc(ex, 6, 10, Math.PI * 1.15, Math.PI * 1.85); gg.strokeStyle = OWC.eye; gg.lineWidth = 3.5; gg.stroke(ha); }
+      else { var er = 13 + wow * 3; gg.fillStyle = OWC.ring; gg.fill(pE13(ex, 0, er, er)); gg.fillStyle = OWC.eye; gg.fill(pE13(ex, 1, er * 0.66, er * 0.7)); gg.fillStyle = '#FFFFFF'; gg.fill(pE13(ex - 3, -4, er * 0.24, er * 0.24)); gg.fill(pE13(ex + 4, 4, er * 0.1, er * 0.1)); } });
+    gg.fillStyle = 'rgba(255,130,150,.42)'; gg.fill(pE13(-31, 17, 7, 4)); gg.fill(pE13(31, 17, 7, 4));
+    var open = (t - (o.hootT == null ? -9 : o.hootT)) < 0.6 || wow > 0.5 || mac > 0.5; var bkp = new Path2D(); bkp.moveTo(-7, 10); bkp.lineTo(7, 10); bkp.lineTo(0, open ? 18 : 24); bkp.closePath(); fs13(gg, bkp, OWC.beak, OWC.bk, 2);
+    if (open) { var lb = new Path2D(); lb.moveTo(-5, 22); lb.lineTo(5, 22); lb.lineTo(0, 30); lb.closePath(); fs13(gg, lb, OWC.beak, OWC.bk, 2); }
+    if (slp) { var z = new Path2D(), zt = (t * 0.8) % 1; [[0, 1], [1, 0.7]].forEach(function (q, i) { var zx = 50 + i * 22, zy = -56 - i * 26 - zt * 16, zs = 9 * q[1]; z.moveTo(zx - zs, zy - zs); z.lineTo(zx + zs, zy - zs); z.lineTo(zx - zs, zy + zs); z.lineTo(zx + zs, zy + zs); }); gg.strokeStyle = '#8FB4E8'; gg.lineWidth = 4; gg.stroke(z); }
+    gg.restore();
+    var bw = new Path2D(); bw.moveTo(0, -86); bw.lineTo(-16, -95); bw.lineTo(-16, -77); bw.closePath(); bw.moveTo(0, -86); bw.lineTo(16, -95); bw.lineTo(16, -77); bw.closePath(); gg.fillStyle = OWC.bow; gg.fill(bw); gg.fill(pE13(0, -86, 5, 5));
+    gg.restore();
+  }
+  /* from films/automation.js (EP14): Sprocket the otter */
+  var BLU14 = '#3167CA', GOLD14 = '#F5B82E';
+  function rp14(x, y, w, h, r) { var p = new Path2D(); r = Math.max(0, Math.min(r, w / 2, h / 2)); p.moveTo(x + r, y); p.arcTo(x + w, y, x + w, y + h, r); p.arcTo(x + w, y + h, x, y + h, r); p.arcTo(x, y + h, x, y, r); p.arcTo(x, y, x + w, y, r); p.closePath(); return p; }
+  function fs14(gg, p, f, s, lw) { gg.fillStyle = f; gg.fill(p); if (s) { gg.strokeStyle = s; gg.lineWidth = lw || 3; gg.stroke(p); } }
+  function pebble14(gg, x, y, s) { var p = new Path2D(); p.ellipse(x, y, 16 * s, 11 * s, -0.2, 0, 7); gg.fillStyle = '#9AA3B5'; gg.fill(p); var h = new Path2D(); h.ellipse(x - 5 * s, y - 4 * s, 5 * s, 3 * s, -0.3, 0, 7); gg.fillStyle = 'rgba(255,255,255,.6)'; gg.fill(h); }
+  function otter14(gg, x, y, s, o, dir) {
+    var t = T, hop = o.hop || 0, ch = clampV(o.cheer || 0, 0, 1), wv = clampV(o.wave || 0, 0, 1), gp = clampV(o.gasp || 0, 0, 1), sd = clampV(o.sad || 0, 0, 1), pt = clampV(o.point || 0, 0, 1), cw = clampV(o.chew || 0, 0, 1);
+    var BD = '#A06D4A', OL = '#83552F', BL = '#F4E2CB', DK = '#7E5434', NS = '#3E2A1E', EYE = '#2A1C14';
+    gg.save(); gg.translate(x, y); gg.scale(s, s); envShadow(gg, 0, 2, 76 - hop * 0.2, 13, 0.24 * clampV(1 - hop / 160, 0.35, 1)); gg.scale(dir || 1, 1); gg.translate(0, -hop); gg.lineJoin = 'round'; gg.lineCap = 'round';
+    var tl = new Path2D(); tl.moveTo(24, -34); tl.bezierCurveTo(66, -30, 98, -12 + Math.sin(t * 3) * 3, 122, -18); tl.bezierCurveTo(104, -2, 60, 4, 20, -8); tl.closePath(); fs14(gg, tl, DK, OL, 2.5);
+    [-20, 20].forEach(function (fx) { var ft = new Path2D(); ft.ellipse(fx, -5, 19, 9, 0, 0, 7); gg.fillStyle = DK; gg.fill(ft); });
+    function arm(side, hx, hy) { var a = new Path2D(); a.moveTo(side * 30, -126); a.lineTo(hx, hy); gg.strokeStyle = BD; gg.lineWidth = 15; gg.stroke(a); var pw = new Path2D(); pw.arc(hx, hy, 9, 0, 7); gg.fillStyle = DK; gg.fill(pw); }
+    var held = (o.peb || 0) > 0.5 && ch < 0.3 && gp < 0.3 && wv < 0.3 && pt < 0.3, lh = [-14, -98], rh = [14, -98];
+    if (ch > 0.3) { lh = [-66, -236 - Math.sin(t * 12) * 6]; rh = [66, -236 + Math.sin(t * 12) * 6]; }
+    else if (gp > 0.3) { lh = [-66, -150]; rh = [66, -150]; }
+    else { if (wv > 0.3) rh = [74, -214 + Math.sin(t * 10) * 12]; else if (pt > 0.3) rh = [92, -122]; if (!held && wv <= 0.3 && pt <= 0.3) { lh = [-30, -72]; rh = [30, -72]; } else if (!held) lh = [-30, -72]; }
+    if (lh[1] < -120) arm(-1, lh[0], lh[1]); if (rh[1] < -120) arm(1, rh[0], rh[1]);
+    var bd = new Path2D(); bd.moveTo(-46, -12); bd.bezierCurveTo(-58, -74, -48, -138, 0, -142); bd.bezierCurveTo(48, -138, 58, -74, 46, -12); bd.quadraticCurveTo(0, 6, -46, -12); bd.closePath(); fs14(gg, bd, BD, OL, 3);
+    var bl = new Path2D(); bl.ellipse(0, -66, 30, 46, 0, 0, 7); gg.fillStyle = BL; gg.fill(bl);
+    /* the tool belt with its buckle and the tiny wrench */
+    var bt = new Path2D(); bt.moveTo(-50, -52); bt.quadraticCurveTo(0, -38, 50, -52); bt.lineTo(50, -38); bt.quadraticCurveTo(0, -24, -50, -38); bt.closePath(); gg.fillStyle = BLU14; gg.fill(bt); var bk = rp14(-11, -48, 22, 18, 4); gg.fillStyle = GOLD14; gg.fill(bk);
+    var wr = new Path2D(); wr.rect(36, -40, 7, 34); wr.moveTo(48, -6); wr.arc(39.5, -6, 8.5, 0, 7); gg.fillStyle = '#9AA6BC'; gg.fill(wr);
+    if (lh[1] >= -120) arm(-1, lh[0], lh[1]); if (rh[1] >= -120) arm(1, rh[0], rh[1]);
+    if (held) pebble14(gg, 0, -94, 1);
+    gg.save(); gg.translate(0, -150); gg.rotate((o.tilt || 0) + Math.sin(t * 1.4) * 0.03); gg.translate(0, 150);
+    [-1, 1].forEach(function (sg) { var er = new Path2D(); er.arc(sg * 38, -210, 13, 0, 7); fs14(gg, er, BD, OL, 2.5); var ie = new Path2D(); ie.arc(sg * 38, -210, 6, 0, 7); gg.fillStyle = '#E8A98C'; gg.fill(ie); });
+    var hd = new Path2D(); hd.ellipse(0, -176, 50, 44, 0, 0, 7); fs14(gg, hd, BD, OL, 3);
+    var mz = new Path2D(); mz.ellipse(0, -160, 32, 21, 0, 0, 7); gg.fillStyle = BL; gg.fill(mz);
+    var blink = (t % 3.7) < 0.12, happy = (o.happy || 0) > 0.5 || ch > 0.5, er2 = gp > 0.5 ? 10 : 8;
+    [[-19, -186], [19, -186]].forEach(function (ep) { if (happy || blink) { var ar = new Path2D(); if (happy) ar.arc(ep[0], ep[1] + 4, 8, Math.PI * 1.15, Math.PI * 1.85); else { ar.moveTo(ep[0] - 7, ep[1]); ar.lineTo(ep[0] + 7, ep[1]); } gg.strokeStyle = EYE; gg.lineWidth = 3.5; gg.stroke(ar); }
+      else { var ey = new Path2D(); ey.arc(ep[0], ep[1], er2, 0, 7); gg.fillStyle = EYE; gg.fill(ey); var h1 = new Path2D(); h1.arc(ep[0] - 2.5, ep[1] - 3, er2 * 0.38, 0, 7); h1.moveTo(ep[0] + 4.4, ep[1] + 2.6); h1.arc(ep[0] + 3, ep[1] + 2.6, er2 * 0.17, 0, 7); gg.fillStyle = '#FFFFFF'; gg.fill(h1); } });
+    if (sd > 0.3) { var br = new Path2D(); br.moveTo(-28, -204); br.lineTo(-12, -199); br.moveTo(28, -204); br.lineTo(12, -199); gg.strokeStyle = EYE; gg.lineWidth = 3; gg.stroke(br); }
+    var ns = new Path2D(); ns.ellipse(0, -170, 9, 6.5, 0, 0, 7); gg.fillStyle = NS; gg.fill(ns);
+    var wk = new Path2D(); [-1, 1].forEach(function (sg) { wk.moveTo(sg * 24, -162); wk.lineTo(sg * 54, -168); wk.moveTo(sg * 24, -157); wk.lineTo(sg * 54, -155); }); gg.strokeStyle = 'rgba(131,85,47,.7)'; gg.lineWidth = 2; gg.stroke(wk);
+    var mo2;
+    if (gp > 0.5 || (cw > 0.3 && Math.sin(t * 22) > 0)) { mo2 = new Path2D(); mo2.ellipse(0, -150, gp > 0.5 ? 7 : 5, gp > 0.5 ? 8.5 : 4.5, 0, 0, 7); gg.fillStyle = '#7A3A2A'; gg.fill(mo2); }
+    else if (sd > 0.3) { mo2 = new Path2D(); mo2.moveTo(-7, -148); mo2.quadraticCurveTo(0, -154, 7, -148); gg.strokeStyle = EYE; gg.lineWidth = 2.5; gg.stroke(mo2); }
+    else { mo2 = new Path2D(); mo2.moveTo(-8, -156); mo2.quadraticCurveTo(-4, -150, 0, -156); mo2.quadraticCurveTo(4, -150, 8, -156); gg.strokeStyle = EYE; gg.lineWidth = 2.5; gg.stroke(mo2); }
+    var bh = new Path2D(); bh.ellipse(-34, -162, 8, 5, 0, 0, 7); bh.moveTo(42, -162); bh.ellipse(34, -162, 8, 5, 0, 0, 7); gg.fillStyle = 'rgba(255,120,150,.45)'; gg.fill(bh);
+    gg.restore();
+    gg.restore();
+  }
+  /* from films/social.js (EP17): Bramble the hedgehog */
+  function fs7(gg, p, f, s, lw) { gg.fillStyle = f; gg.fill(p); if (s) { gg.strokeStyle = s; gg.lineWidth = lw || 4; gg.stroke(p); } }
+  function brItem() {}
+  function hedgehog(gg, x, y, s, st, dir) {
+    var t = T, hop = st.hop || 0, happy = st.happy > 0.5, sad = clampV(st.sad || 0, 0, 1), sl = clampV(st.sleepy || 0, 0, 1), wave = clampV(st.wave || 0, 0, 1);
+    var SP = '#9A7457', SPD = '#7A5A42', SPI = '#AD8A6C', FC = '#F7E3C6', FCD = '#E4C6A0', IK = '#3A2A22';
+    gg.save(); gg.translate(x, y); gg.scale(s, s); envShadow(gg, 0, 2, 74 - hop * 0.2, 12, 0.24 * clampV(1 - hop / 160, 0.35, 1));
+    gg.translate(0, -hop); gg.scale(dir || 1, 1); gg.lineJoin = 'round'; gg.lineCap = 'round';
+    var br = Math.sin(t * 2.4) * 0.015 * (1 + sl) - sad * 0.04; gg.scale(1 + br, 1 - br);
+    var ft = new Path2D(); ft.ellipse(-38, -6, 17, 8, 0, 0, 7); ft.moveTo(42, -6); ft.ellipse(26, -6, 16, 8, 0, 0, 7); gg.fillStyle = FCD; gg.fill(ft);
+    /* the spines sit behind the face: a zigzag over the back and the top only */
+    var sp = new Path2D(), cx = -16, cy = -58, n = 12, a0 = Math.PI * 0.8, a1 = Math.PI * 1.86;
+    for (var i = 0; i <= n * 2; i++) { var a = a0 + (a1 - a0) * i / (n * 2), R = i % 2 ? 1.3 : 1.0, px = cx + Math.cos(a) * 70 * R, py = cy + Math.sin(a) * 56 * R; if (!i) sp.moveTo(px, py); else sp.lineTo(px, py); }
+    sp.lineTo(34, -16); sp.lineTo(-70, -12); sp.closePath(); fs7(gg, sp, SP, SPD, 3);
+    var ib = new Path2D(); ib.ellipse(cx - 4, cy + 10, 56, 40, 0, 0, 7); gg.fillStyle = SPI; gg.fill(ib);
+    var tx = new Path2D(); for (var j = 0; j < 9; j++) { var aa = a0 + 0.2 + j * 0.11, r0 = 34, r1 = 52; tx.moveTo(cx + Math.cos(aa) * r0, cy + Math.sin(aa) * r0 * 0.8); tx.lineTo(cx + Math.cos(aa) * r1, cy + Math.sin(aa) * r1 * 0.8); } gg.strokeStyle = SPD; gg.lineWidth = 3; gg.stroke(tx);
+    if (wave > 0.02) { var wa = -1.75 + Math.sin(t * 12) * 0.25 * wave, ex = -2 + Math.cos(wa) * 86 * wave, ey = -40 + Math.sin(wa) * 86 * wave, ar = new Path2D(); ar.moveTo(-2, -40); ar.lineTo(ex, ey); gg.strokeStyle = FCD; gg.lineWidth = 15; gg.stroke(ar); var hd = new Path2D(); hd.arc(ex, ey, 11, 0, 7); gg.fillStyle = FC; gg.fill(hd);
+      if (st.item && st.itemK > 0.01) brItem(gg, st.item, ex, ey, st.itemK); }
+    var er = new Path2D(); er.ellipse(24, -96, 13, 11, -0.2, 0, 7); gg.fillStyle = FCD; gg.fill(er); var ei = new Path2D(); ei.ellipse(24, -96, 6, 5, -0.2, 0, 7); gg.fillStyle = '#F4A9B6'; gg.fill(ei);
+    var fc = new Path2D(); fc.ellipse(34, -50, 44, 40, 0, 0, 7); fc.moveTo(98, -46); fc.ellipse(72, -46, 26, 18, 0, 0, 7); fs7(gg, fc, FC, FCD, 2.5);
+    var ns = new Path2D(); ns.arc(97, -48, 8.5, 0, 7); gg.fillStyle = IK; gg.fill(ns); var nh = new Path2D(); nh.arc(94.5, -50.5, 2.6, 0, 7); gg.fillStyle = 'rgba(255,255,255,.75)'; gg.fill(nh);
+    var eyes = [[40, -64], [64, -62]], eR = st.big ? 10 : 8.5;
+    eyes.forEach(function (ep) { if (sl > 0.5) { var ln = new Path2D(); ln.arc(ep[0], ep[1] - 3, 7, 0.15 * Math.PI, 0.85 * Math.PI); gg.strokeStyle = IK; gg.lineWidth = 3.5; gg.stroke(ln); }
+      else if (happy) { var hp = new Path2D(); hp.arc(ep[0], ep[1] + 4, 8, Math.PI * 1.15, Math.PI * 1.85); gg.strokeStyle = IK; gg.lineWidth = 4; gg.stroke(hp); }
+      else { var ey2 = new Path2D(); ey2.ellipse(ep[0], ep[1], eR * 0.9, eR, 0, 0, 7); gg.fillStyle = '#2B1E17'; gg.fill(ey2); var h1 = new Path2D(); h1.arc(ep[0] - eR * 0.3, ep[1] - eR * 0.35, eR * 0.38, 0, 7); h1.moveTo(ep[0] + eR * 0.55, ep[1] + eR * 0.3); h1.arc(ep[0] + eR * 0.38, ep[1] + eR * 0.3, eR * 0.16, 0, 7); gg.fillStyle = '#FFFFFF'; gg.fill(h1); } });
+    if (sad > 0.3) { var bw = new Path2D(); bw.moveTo(32, -80); bw.lineTo(46, -84); bw.moveTo(58, -84); bw.lineTo(72, -80); gg.strokeStyle = IK; gg.lineWidth = 3; gg.stroke(bw); }
+    var bl = new Path2D(); bl.ellipse(36, -42, 10, 6, 0, 0, 7); gg.fillStyle = 'rgba(255,120,150,.45)'; gg.fill(bl);
+    var mo = new Path2D(); if (sad > 0.5) { mo.moveTo(76, -30); mo.quadraticCurveTo(82, -36, 88, -30); } else { mo.moveTo(76, -34); mo.quadraticCurveTo(82, -27, 88, -33); } gg.strokeStyle = IK; gg.lineWidth = 2.8; gg.stroke(mo);
+    var pw = new Path2D(); pw.ellipse(48, -12, 12, 9, 0, 0, 7); gg.fillStyle = FCD; gg.fill(pw);
+    if (sl > 0.5) { var zz = new Path2D(), zb = Math.sin(t * 2) * 6; [[110, -110, 14], [134, -138, 10]].forEach(function (z) { zz.moveTo(z[0] - z[2], z[1] - z[2] + zb); zz.lineTo(z[0] + z[2], z[1] - z[2] + zb); zz.lineTo(z[0] - z[2], z[1] + z[2] + zb); zz.lineTo(z[0] + z[2], z[1] + z[2] + zb); }); gg.strokeStyle = '#6F8BC9'; gg.lineWidth = 4; gg.stroke(zz); }
+    gg.restore();
+  }
+  /* the scene's slots for the remade cast: Olive takes the owl's TV corner (hoots: beak open, a wing up, "Hoo!"),
+     Sprocket the otter takes the hamster's zoom-in and break (his pebble instead of the coffee), Bramble the hedgehog
+     takes the goat's trot-in and BOING hop. Feet sit at the origin. */
+  function olive(gg, x, y, s) {
+    var h = T - LK.hoot;
+    owl13(gg, x, y, s, { hootT: LK.hoot, wing: h >= 0 && h < 0.9 ? 1 : 0 });
+    if (h < 1.2) { gg.save(); gg.globalAlpha *= 1 - h / 1.2; KIT.chip(gg, 'Hoo!', x + 103 * s, y - (221 + h * 44) * s, '#8A5A3C', '#FFF4E3', 35 * s); gg.restore(); }
+  }
+  function sprocketOtter(gg, x, y, s, run) {
+    var b = run > 0.5 ? Math.abs(Math.sin(T * 16)) * 16 : 0;
+    otter14(gg, x, y, s, { hop: b, peb: run > 0.5 ? 0 : 1, cheer: 0, happy: run > 0.5 ? 1 : 0 }, 1);
+  }
+  function bramble(gg, x, y, s) {
+    var hb = T - GOAT.hop < 0.6 ? Math.sin((T - GOAT.hop) / 0.6 * Math.PI) * 52 : 0;
+    hedgehog(gg, x, y, s, { hop: hb, happy: hb > 4 ? 1 : 0 }, -1);
   }
   /* from films/pilot.js */
   function miniBot(gg, x, y, s, col, o) {
@@ -297,15 +405,15 @@
       put(tvR.l + tvR.w * 0.68 - jit, tvR.t - 72 * k + hop, 0.34 * k, function () { miniBot(gg, 0, 0, 1, '#FFD84A', { ph: 1.7, arm: Math.sin(T * 6) > 0 }); }, 1, 0, ba);
     }
 
-    /* --- the cat sits on the TV, the owl on its other corner --- */
+    /* --- the cat sits on the TV, Olive the owl on its other corner --- */
     var wave = (u > 11.4 && u < 13.2) || T - tapAt < 1.2 ? 1 : 0;
     var pf = catF(tvR, c, 0.36, 0.78 * k, 0.88, 0.62 * k);
     put(tvR.l + tvR.w * pf, topAt(pf) + hop, 0.78 * k, function () { cat(gg, 0, 0, wave); });
     cv.dataset.cat = Math.round(tvR.l + tvR.w * pf - 34 * 0.78 * k);
-    put(tvR.l + tvR.w * 0.88, topAt(0.88) - 60 * 0.62 * k + hop, 0.62 * k, function () { owl(gg, 0, 0, 1); });
+    put(tvR.l + tvR.w * 0.88, topAt(0.88) + hop, 0.42 * k, function () { olive(gg, 0, 0, 1); });
     once('hoot', u, 12.3, function () { LK.hoot = T; });
 
-    /* --- the penguin waddles in fanning, spins when the hamster zooms past, jumps at the monster --- */
+    /* --- the penguin waddles in fanning, spins when Sprocket zooms past, jumps at the monster --- */
     var px = still ? sr.r - 170 * k : lerp(exitR, sr.r - 170 * k, seg(u, 1, 4)) + (exitR - (sr.r - 170 * k)) * seg(u, 20.4, 22);
     var walking = !still && ((u > 1 && u < 4) || u > 20.4);
     var pb = walking ? -Math.abs(Math.sin(T * 9)) * 4 * k : 0, prot = walking ? Math.sin(T * 9) * 0.07 : 0;
@@ -313,20 +421,20 @@
     if (u > 16.9 && u < 17.5) pb -= Math.sin((u - 16.9) / 0.6 * Math.PI) * 26 * k;
     put(px, floor - 66 * 0.72 * k + pb + hop, 0.72 * k, function () { penguin(gg, 0, 0, 1); }, 1, prot);
 
-    /* --- the hamster zooms in, stops for coffee beside Nexi, bolts when the monster shows --- */
+    /* --- Sprocket the otter zooms in, stops beside Nexi with his pebble, bolts when the monster shows --- */
     var hStop = nx.r + 40 * k;
     if (still || (u > 5.6 && u < 18.4)) {
       var hx = still ? hStop : lerp(exitR, hStop, seg(u, 5.6, 7.1)), run = !still && (u < 7.1 || u > 17.1) ? 1 : 0, ha = 1;
       if (!still && u > 17.1) { hx = lerp(hStop, nx.l + nx.w * 0.4, seg(u, 17.1, 18.2)); ha = 1 - seg(u, 17.7, 18.3); }
-      put(hx, floor + hop, 0.8 * k, function () { hamster(gg, 0, 0, run); }, run ? -1 : 1, 0, ha);
+      put(hx, floor + hop, 0.36 * k, function () { sprocketOtter(gg, 0, 0, 1, run); }, run ? -1 : 1, 0, ha);
       once('zoom', u, 6.4, function () { word('ZOOM!', sr.r - 150 * k, floor - 228 * k, 38 * k, -0.12); });
     }
 
-    /* --- the goat trots in, hops (BOING!) and chews --- */
+    /* --- Bramble the hedgehog trots in and hops (BOING!) --- */
     if (still || u > 8) {
       var gx = still ? sr.r - 50 * k : lerp(exitR, sr.r - 50 * k, seg(u, 8, 9.4)) + (exitR + 40 * k - (sr.r - 50 * k)) * seg(u, 20.6, 22);
       var gw = !still && ((u > 8 && u < 9.4) || u > 20.6) ? -Math.abs(Math.sin(T * 10)) * 3 * k : 0;
-      put(gx, floor + gw + hop, 0.68 * k, function () { goat(gg, 0, 0, 1, -1); });
+      put(gx, floor + gw + hop, 0.52 * k, function () { bramble(gg, 0, 0, 1); });
       once('boing', u, 9.9, function () { GOAT.hop = T; word('BOING!', sr.r - 40 * k, floor - 200 * k, 36 * k, 0.15); });
     }
 
@@ -360,7 +468,7 @@
     cf = catF(tvR, c, cf, 0.66 * k, 0.95, 0.5 * k);
     put(tvR.l + tvR.w * cf, topAt(cf), 0.66 * k, function () { cat(gg, 0, 0, wave); });
     cv.dataset.cat = Math.round(tvR.l + tvR.w * cf - 34 * 0.66 * k);
-    put(tvR.l + tvR.w * 0.95, topAt(0.95) - 60 * 0.5 * k, 0.5 * k, function () { owl(gg, 0, 0, 1); });
+    put(tvR.l + tvR.w * 0.95, topAt(0.95), 0.34 * k, function () { olive(gg, 0, 0, 1); });
     once('hoot', u, 4.6, function () { LK.hoot = T; });
     var q = still ? 1 : seg(u, 2, 3.2), out = still ? 0 : seg(u, 9.4, 10.8);
     if (still || (u > 2 && u < 10.8)) {
@@ -372,7 +480,7 @@
       once('quack', u, 3.6, function () { chip('Quack!', dx + 36 * k, dy - 60 * k, 16 * k, '#B4521E', '#FFF6DA'); });
     }
     /* phones and tablets: the floor under the countdown chip is empty, so a little parade walks it: the penguin
-       waddles in fanning, the hamster zooms across (ZOOM!), the goat trots in and hops (BOING!), then they leave */
+       waddles in fanning, Sprocket zooms across (ZOOM!), Bramble trots in and hops (BOING!), then they leave */
     if (stacked.matches) {
       /* keep clear of the round side buttons fixed at the bottom right of phones (usable floor = W - 90) */
       var fl = H - 12 * k, nb = rel(stage, c).b, room = fl - nb, pk = clamp(Math.min(k, room / 120), 0.42, 0.75), UW = W - 90;
@@ -382,12 +490,12 @@
         put(pX, fl - 66 * 0.72 * pk - (pw ? Math.abs(Math.sin(T * 9)) * 4 * pk : 0), 0.72 * pk, function () { penguin(gg, 0, 0, 1); }, 1, pw ? Math.sin(T * 9) * 0.07 : 0);
         if (!still && u > 4.4 && u < 5.8) {
           var hX = lerp(W + 50 * pk, -60 * pk, seg(u, 4.4, 5.8));
-          put(hX, fl, 0.8 * pk, function () { hamster(gg, 0, 0, 1); }, -1);
+          put(hX, fl, 0.36 * pk, function () { sprocketOtter(gg, 0, 0, 1, 1); }, -1);
           once('pzoom', u, 4.9, function () { word('ZOOM!', W * 0.42, fl - 120 * pk, 30 * pk, -0.12); });
         }
         if (still || (u > 5.9 && u < 12)) {
           var gX = still ? UW * 0.36 : lerp(W + 70 * pk, UW * 0.36, seg(u, 5.9, 7.3)) - (UW * 0.36 + 90 * pk) * seg(u, 10.4, 12);
-          put(gX, fl - (!still && (u < 7.3 || u > 10.4) ? Math.abs(Math.sin(T * 10)) * 3 * pk : 0), 0.66 * pk, function () { goat(gg, 0, 0, 1, -1); });
+          put(gX, fl - (!still && (u < 7.3 || u > 10.4) ? Math.abs(Math.sin(T * 10)) * 3 * pk : 0), 0.5 * pk, function () { bramble(gg, 0, 0, 1); });
           once('pboing', u, 7.8, function () { GOAT.hop = T; word('BOING!', UW * 0.36, fl - 140 * pk, 28 * pk, 0.15); });
         }
       }
@@ -434,9 +542,6 @@
     penguin: function (g) { penguin(g, 150, 228 - 66 * 1.45, 1.45); },
     cat: function (g) { g.save(); g.translate(150, 214); g.scale(1.55, 1.55); cat(g, 0, 0, 1); g.restore(); },
     duck: function (g) { g.save(); g.translate(150, 150); g.scale(2.6, 2.6); duck(g, 0, 0); g.restore(); },
-    owl: function (g) { owl(g, 150, 214 - 60 * 1.4, 1.4); },
-    hamster: function (g) { g.save(); g.translate(140, 205); g.scale(2.1, 2.1); hamster(g, 0, 0, 0); g.restore(); },
-    goat: function (g) { g.save(); g.translate(150, 222); g.scale(1.2, 1.2); goat(g, 0, 0, 1, -1); g.restore(); },
     bots: function (g) { g.save(); g.translate(98, 120); g.scale(0.85, 0.85); miniBot(g, 0, 0, 1, '#5FD3FF', { ph: 0 }); g.restore();
                          g.save(); g.translate(205, 104); g.scale(0.75, 0.75); miniBot(g, 0, 0, 1, '#FFD84A', { ph: 1.7, arm: true }); g.restore(); },
     monster: function (g) { var r = KJ.rise, lk = KJ.look; KJ.rise = 1; KJ.look = -1; g.save(); g.translate(170, 236); g.scale(0.26, 0.26); monster(g, 0, 0, 1); g.restore(); KJ.rise = r; KJ.look = lk; }
