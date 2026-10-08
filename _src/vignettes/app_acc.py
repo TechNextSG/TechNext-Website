@@ -5,8 +5,8 @@ META = {
     "tag": "Odoo Accounting",
     "badge": "wk-app-acc",
     "intro_title": "Odoo <b>Accounting</b>",
-    "intro_sub": "Invoices, bills, bank and month-end",
+    "intro_sub": "The counting house at month-end",
     "intro_pills": [("bank", "Bank"), ("receipt", "Invoices"), ("calendar", "Month-end")],
-    "hand": "odoo accounting · finance",
+    "hand": "odoo accounting · the counting house",
     "m": {},
 }
