@@ -312,7 +312,8 @@
   }
   // a slide may ask for a longer turn (data-dur, ms): the launch path needs ~14 s to reach Run
   function durOf(i) { return (slides[i] && +slides[i].dataset.dur) || DUR; }
-  function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); void d.offsetWidth; d.classList.remove('is-restart'); }
+  // restarted two frames later instead of with a forced reflow (that read restyled the whole page, ~45 ms, on the intro's iris)
+  function restartBar() { var d = dots[idx]; if (!d) return; d.classList.add('is-restart'); var tok = (d._rb = (d._rb || 0) + 1); requestAnimationFrame(function () { requestAnimationFrame(function () { if (d._rb === tok) d.classList.remove('is-restart'); }); }); }
   // barDur: the length of the active dot's bar animation (its --dur), so a postponed turn can redraw the bar to match
   var barDur = DUR;
   function setBar(dur, lag) { var d = dots[idx]; if (!d) return; barDur = dur; d.style.setProperty('--dur', dur + 'ms'); d.style.setProperty('--lag', (lag || 0) + 'ms'); }
@@ -485,7 +486,7 @@
     new IntersectionObserver(function (es) {
       var vis = es[es.length - 1].isIntersecting;
       hero.classList.toggle('is-off', !vis);
-      if (vis) { if (!isNexi(idx)) bg.on(); release('off'); } else { bg.off(); hold('off'); }
+      if (vis) { if (!isNexi(idx) && !hero.classList.contains('is-full')) bg.on(); release('off'); } else { bg.off(); hold('off'); }
     }, { threshold: 0 }).observe(hero);
   }
 
@@ -508,7 +509,7 @@
   }
   // While the pointer is over an interactive icon the stage stops moving, so the hit box stays put.
   // Whole interactive zones lock the stage, not just the icons: the visual column, the spec strip, the CTAs.
-  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.nxs,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot';
+  var HOT = '.dash-wrap,.cine,.pmap,.lj,.nxh-stage,.nxs,.spec-strip,.actions,.pill-row,[data-app],[data-flow],.hero-arrow,.dot,.hxs-left,.hxs-strip,.hxs-cast';
   var hoverLock = false, unlockTimer = null;
   function lock() {
     clearTimeout(unlockTimer); unlockTimer = null;
@@ -528,6 +529,10 @@
   hero.addEventListener('pointerleave', function () { clearTimeout(unlockTimer); hoverLock = false; hero.classList.remove('is-hot'); });
   function parallax(x, y) {
     if (!fine || reduce || mobile.matches || hoverLock) return;
+    // R9: the industries slide stays flat. Its badge strip sat on the tilting plane, so the stage leaned toward the
+    // cursor as it neared a badge and the badge's hit area slid ~30 px away from where it was drawn (about half of
+    // the clicks missed). The full-bleed scene has its own pointer drift (hero-industries.js --px/--py).
+    if (isOwn(idx)) { x = 0; y = 0; }
     tilt.tx = x; tilt.ty = y;
     if (!tilt.raf) tilt.raf = requestAnimationFrame(tiltStep);
   }
@@ -577,10 +582,15 @@
   }
 
   /* ================================================================ per-slide hooks */
+  var fullT = 0;
   function onSlide(i) {
     var s = slides[i];
     hero.classList.toggle('is-nexi-slide', isNexi(i));
     if (isNexi(i)) bg.off(); else if (!hero.classList.contains('is-off')) bg.on();
+    // a full-bleed slide (the industries scene, the Nexi Explains sky) covers the backdrop: once its circle has
+    // closed over it, the particle canvas and the aurora blobs stop drawing (R9 perf: ~1/4 of each frame's work)
+    clearTimeout(fullT); hero.classList.remove('is-full');
+    if (isCircle(i) || isOwn(i)) fullT = setTimeout(function () { if (idx === i) { hero.classList.add('is-full'); bg.off(); } }, 1300);
     if (s.hasAttribute('data-slide-dash')) { counters(s); toasts(s, true); startRot(); } else { toasts(slides[0], false); clearInterval(rotTimer); }
     // the scenes (orbit, process map, plan) start and stop themselves on this event
     hero.dispatchEvent(new CustomEvent('tn:slide', { detail: { index: i, slide: s } }));
