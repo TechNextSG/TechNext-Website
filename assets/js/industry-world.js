@@ -849,3 +849,26 @@
   function start() { if (started) return; started = true; el.classList.add('is-on'); timer = setTimeout(finish, END_AT); }
   requestAnimationFrame(start); setTimeout(start, 120);
 })();
+
+/* The glance strip hangs below the hero. Under it the page used to show a white band before a tinted section began, so the
+   next section is pulled up behind the strip (its own background fills the gap; a transparent top border keeps its content
+   where it was). */
+(function () {
+  var wraps = document.querySelectorAll('.ixw-credits-wrap');
+  if (!wraps.length) return;
+  function fit(w) {
+    var hero = w.previousElementSibling, next = w.nextElementSibling;
+    if (!hero || !next) return;
+    w.style.marginBottom = ''; next.style.borderTop = '';
+    var cs = getComputedStyle(next);
+    if (cs.backgroundColor === 'rgba(0, 0, 0, 0)' && cs.backgroundImage === 'none') return;
+    var ov = Math.round(w.getBoundingClientRect().bottom - hero.getBoundingClientRect().bottom);
+    if (ov <= 0) return;
+    w.style.marginBottom = -ov + 'px';
+    next.style.borderTop = ov + 'px solid transparent';
+  }
+  function all() { for (var i = 0; i < wraps.length; i++) fit(wraps[i]); }
+  all();
+  if (window.ResizeObserver) { var ro = new ResizeObserver(function () { requestAnimationFrame(all); }); for (var i = 0; i < wraps.length; i++) { ro.observe(wraps[i]); if (wraps[i].previousElementSibling) ro.observe(wraps[i].previousElementSibling); } }
+  else window.addEventListener('resize', all);
+})();

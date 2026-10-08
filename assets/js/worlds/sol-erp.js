@@ -22,7 +22,7 @@
   var SC = { x: 335, y: -150, w: 430, h: 136 }, MX0 = SC.x + 98, MX1 = SC.x + SC.w - 12, BAR = (MX1 - MX0) / 5;
   var PL = { x: 800, y: -100, w: 186, h: 104 }, TOUR = { x: 160, y: -150, w: 150, h: 120 }, LIB = { x: 158, y: 14, w: 154 };
   var BAL = { x: 828, w: 166, top: 16, rail: 122, floor: 172 }, MQ = { x: 904, y: 200, w: 92, h: 88 }, GONG = { x: 772, y: 252, r: 26 };
-  var T2 = 175, T1 = 292, WALL_B = 160, WINS = [-1160, -920, -690, 1125, 1365];
+  var T2 = 175, T1 = 292, WALL_B = 160, WINS = [-1160, -920, -690, -440, 1125, 1365];
   var POD = { x: 520, w: 96, top: 436 }, ST_S = 434, ST_I = 622, DRUMS = [812, 898], DRUM_Y = 396, DRUM_R = 42;
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
@@ -63,11 +63,11 @@
     EXT.push({ tier: 1, kind: a[1], P: W({ x: a[0], y: T1, s: 0.24, ph: i * 1.7 + 0.2, skin: (i + 2) % 5, hair: (i + 1) % 4, style: ['bob', 'short', 'long', 'pony', 'short', 'bun'][i], outfit: ['shirt', 'polo', 'cardigan', 'shirt', 'polo', 'cardigan'][i], top: a[2], top2: '#FFFFFF', sit: true, chairCol: '#4A4560', id: GREY_ID }) }); });
   var HARP = W({ x: -520, y: 455, s: 0.4, ph: 5.1, skin: 2, hair: 0, style: 'long', outfit: 'cardigan', top: '#F2B6C9', top2: '#FFFFFF', sit: true, chairCol: '#4A4560', id: GREY_ID, look: -0.7 });
   var CREW = [
-    { x0: -1040, x1: -470, y: 455, spd: 15, ph: 0.3, label: 'TechNext stagehand', lines: ['Customers, vendors and products, **checked before cut-over**.', 'Opening balances go in and are reconciled **against your current books**.'], acts: ['wave', 'id', 'nod'],
+    { x0: -1040, x1: -640, y: 455, spd: 15, ph: 0.3, label: 'TechNext stagehand', lines: ['Customers, vendors and products, **checked before cut-over**.', 'Opening balances go in and are reconciled **against your current books**.'], acts: ['wave', 'id', 'nod'],
       P: W({ s: 0.46, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#F2B233', hold: 'box' }) },
-    { x0: 1012, x1: 1380, y: 455, spd: 13, ph: 0.6, label: 'TechNext support engineer', lines: ['After opening night we stay on: **fixes, small changes and upgrades**.', 'One **point of contact** at TechNext, backed by Singapore, the Philippines and Vietnam.'], acts: ['nod', 'id', 'wave'],
+    { front: true, x0: -1000, x1: -520, y: 714, spd: 13, ph: 0.6, label: 'TechNext support engineer', lines: ['After opening night we stay on: **fixes, small changes and upgrades**.', 'One **point of contact** at TechNext, backed by Singapore, the Philippines and Vietnam.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.46, skin: 1, hair: 1, style: 'pony', outfit: 'shirt', top: PLUM, hold: 'tablet', clip: '#E2B23A' }) },
-    { front: true, x0: 985, x1: 1380, y: 704, spd: 17, ph: 0.2, label: 'Client finance lead', lines: ['Front row for the **first month-end**, closed together.', 'P&L, GST and cash, all read from **one ledger**.'], acts: ['wave', 'nod'],
+    { front: true, x0: -1080, x1: -600, y: 740, spd: 17, ph: 0.2, label: 'Client finance lead', lines: ['Front row for the **first month-end**, closed together.', 'P&L, GST and cash, all read from **one ledger**.'], acts: ['wave', 'nod'],
       P: W({ s: 0.52, skin: 3, hair: 0, style: 'bob', outfit: 'cardigan', top: '#3FA9E0', top2: '#FFFFFF', id: GREY_ID, hold: 'clipboard' }) }
   ];
   CREW[0].P.fixS = CREW[1].P.fixS = CREW[2].P.fixS = true;
@@ -282,6 +282,7 @@
       fillRR(g, -1006, -56, 92, 202, 4, '#E6D2B6'); fillRR(g, -998, -48, 76, 194, 3, '#C88F55'); fillE(g, -936, 50, 4, 4, GOLD_D); fillRR(g, -994, -84, 68, 22, 5, '#2A2E3E'); text(g, 'REHEARSAL', -960, -69, 8, 800, '#FFB3B3', 'center');
       chairStack(g, -790, 455); K.plant(g, { x: -640, y: 455 }, '#C88F55', '#D9A066'); K.plant(g, { x: -1060, y: 455 }, '#C88F55', '#D9A066'); bass(g, -470, 455);
       fillRR(g, -820, 20, 74, 96, 3, IVORY); fillRR(g, -820, 20, 74, 18, 3, PLUM); text(g, 'TONIGHT', -783, 33, 8, 800, '#FFFFFF', 'center'); text(g, 'Full rehearsal', -783, 54, 6.6, 800, INK, 'center'); text(g, 'all sections', -783, 66, 6, 700, '#6B6F88', 'center'); noteGlyph(g, -796, 96, 5, PLUM, true); }
+    if (ext.l < 0) wingBack(g);
     if (ext.r > 1040) { piano(g, 1078, 455); fillRR(g, 1290, -40, 96, 190, 4, '#E6D2B6'); fillRR(g, 1298, -32, 80, 182, 3, '#C88F55'); fillRR(g, 1300, -66, 76, 22, 5, '#2A2E3E'); text(g, 'STAGE DOOR', 1338, -51, 7.6, 800, '#FFE58A', 'center'); fillE(g, 1306, 60, 4, 4, GOLD_D);
       fillRR(g, 1312, 0, 52, 70, 2, IVORY); fillRR(g, 1312, 0, 52, 14, 2, GOLD); text(g, 'GO-LIVE', 1338, 10.5, 6.4, 800, PLUM, 'center'); star5(g, 1338, 40, 12, '#F3D27A'); text(g, 'opening night', 1338, 62, 5.4, 800, PLUM, 'center'); }
   }
@@ -324,6 +325,7 @@
     var lg = g.createLinearGradient(0, F + 2, 0, F + 38); lg.addColorStop(0, '#B47A43'); lg.addColorStop(1, '#8E5A2E'); g.fillStyle = lg; g.fillRect(ext.l, F + 2, ext.r - ext.l, 36);
     g.fillStyle = GOLD; g.fillRect(ext.l, F + 1, ext.r - ext.l, 3); g.fillStyle = 'rgba(0,0,0,.14)'; g.fillRect(ext.l, F + 36, ext.r - ext.l, 3);
     for (var fl = Math.floor(ext.l / 64) * 64 + 32; fl < ext.r; fl += 64) { g.fillStyle = '#5C4030'; g.beginPath(); g.ellipse(fl, F + 9, 11, 6, 0, Math.PI, 0); g.fill(); fillE(g, fl, F + 9, 7, 2.5, '#FFF0C2'); }
+    if (ext.l < 100) stallsDesk(g);
   }
   function paintFore(g, ext) {
     /* the stalls: the first row's velvet seat backs (the second row is drawn live, over its people) */
@@ -437,6 +439,7 @@
     gongLive(g, t);
     EXT.forEach(function (E) { if (E.tier === 1) extra(g, E, t, pl); });
     if (e.l < -420) { var hp = HARP; hp.hands = [[-150, -300 + Math.sin(t * 5) * 8], [-120, -230 + Math.sin(t * 6 + 1) * 8]]; hp.mood = 'calm'; hp.look = -0.7 + Math.sin(t * 0.5) * 0.1; K.person(g, hp, t); }
+    if (e.l < 0) wingLive(g, t, S);
     CO.crew(CREW, g, t, S, false);
   }
 
@@ -461,10 +464,11 @@
     NOTES = NOTES.filter(function (n) { return t - n.t0 < 1.8; });
     NOTES.forEach(function (n) { var u = (t - n.t0) / 1.8; g.save(); g.globalAlpha = Math.min(1, (1 - u) * 1.6); noteGlyph(g, n.x + n.dx * u + Math.sin(u * 8 + n.x) * 6, n.y - u * 90, 4.4, n.c, n.two); g.restore(); });
     /* the stalls, first row: the backs of the client's managers' heads (the seat backs are cached in front of them) */
+    if (S.ext.l < 100) deskLive(g, t, S);
     audience(g, t, S, 1);
     CO.crew(CREW, g, t, S, true);
   }
-  var SEAT1 = [252, 324, 396, 612, 684, 828, 900], SEAT2 = [212, 292, 452, 692, 852, 932];
+  var SEAT1 = [-756, -612, -468, -324, 252, 324, 396, 612, 684, 828, 900], SEAT2 = [212, 292, 452, 692, 852, 932];
   function audience(g, t, S, row) {
     var xs = row === 1 ? SEAT1 : SEAT2, yb = row === 1 ? 652 : 738, r = row === 1 ? 21 : 24, ap = t - APPL.t, clap = ap >= 0 && ap < 2.4;
     xs.forEach(function (x, i) { var sk = CR.skin[(i * 3 + row) % 5], hc = CR.hair[(i + row) % 4], bob = Math.sin(t * 1.3 + i * 1.7) * 1.5 + (clap ? Math.abs(Math.sin(ap * 9 + i)) * 4 : 0), turn = Math.sin(t * 0.35 + i * 2.1) > 0.86 ? 1 : 0, y = yb - r * 0.6 - bob;
@@ -602,6 +606,101 @@
     if (c >= 5.6) lookAt(P, st, t, S, c < 10 ? 0.3 : 0.6);
   } };
 
+  /* ---------------- the left wing: a sectional rehearsal (training per team) and the production desk in the stalls ----------------
+     Behind the title card (seen in full with "View the scene"): a TechNext trainer coaches one Sales user at a flip-chart,
+     the sections' training sheets are pinned on the wall, a metronome ticks on a side table, and in the stalls a TechNext
+     project lead runs the cut-over checklist from the production desk, headset on. Each has an idle loop and a tap move. */
+  var TRN = W({ x: -292, y: 452, s: 0.44, ph: 6.2, skin: 3, hair: 0, style: 'short', outfit: 'polo', top: '#14A38B', hands: [[-150, -320], [70, -200]], look: -0.4 });
+  var STU = W({ x: -176, y: 456, s: 0.42, ph: 6.9, skin: 1, hair: 1, style: 'pony', outfit: 'shirt', top: '#F08A24', sit: true, chairCol: '#4A4560', id: GREY_ID, hold: 'tablet', clip: '#FFD84A', hands: [[-40, -220], [60, -230]], look: -0.4 });
+  var PM = W({ x: 46, y: 640, s: 0.42, ph: 7.7, skin: 0, hair: 2, style: 'long', outfit: 'shirt', top: '#5B7FD6', sit: true, chairCol: '#2A2E3E', headset: '#2A2E3E', hands: [[-150, -250], [-110, -240]], look: -0.6 });
+  var EASEL = { x: -384, top: 300 }, MET = { x: -86, y: 455 }, DESK = { x0: -196, x1: -26, top: 598, F: 640 }, WTAP = {}, SHEETS = [['Quotation', '#F08A24'], ['Sales order', '#F08A24'], ['Delivery', '#2E9BD6'], ['Invoice', '#1FA463']];
+  function sconce(g, x, y) { fillRR(g, x - 3, y - 4, 6, 18, 3, GOLD_D); g.strokeStyle = GOLD; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x, y + 10); g.quadraticCurveTo(x + 16, y + 10, x + 16, y - 6); g.stroke();
+    g.fillStyle = '#FFF7E0'; g.beginPath(); g.moveTo(x + 8, y - 6); g.lineTo(x + 24, y - 6); g.lineTo(x + 21, y - 22); g.lineTo(x + 11, y - 22); g.closePath(); g.fill(); fillRR(g, x + 7, y - 7, 18, 3, 1.5, GOLD); }
+  function wingBack(g) {
+    /* the sections' training sheets on a cork board, between the window and the wing curtain */
+    var bx = -338, by = -92, bw = 196, bh = 130;
+    shadowed(g, 10, 4, 0.2, function () { fillRR(g, bx - 6, by - 6, bw + 12, bh + 12, 6, WOOD_D); }); fillRR(g, bx - 3, by - 3, bw + 6, bh + 6, 4, WOOD); fillRR(g, bx, by, bw, bh, 3, '#D9B48A');
+    for (var i = 0; i < 40; i++) fillE(g, bx + 6 + hash(i * 3.1) * (bw - 12), by + 6 + hash(i * 5.7) * (bh - 12), 1.4, 1.4, 'rgba(120,70,30,.16)');
+    fillRR(g, bx + bw / 2 - 62, by - 15, 124, 20, 5, PLUM); text(g, 'SECTIONALS', bx + bw / 2, by - 1.5, 9, 800, GOLD_L, 'center');
+    [['Sales', '#F08A24', -0.05], ['Inventory', '#2E9BD6', 0.04], ['Finance', '#1FA463', -0.03]].forEach(function (a, i) {
+      var x = bx + 12 + i * 62, y = by + 14; g.save(); g.translate(x + 25, y + 40); g.rotate(a[2]); g.translate(-25, -40);
+      shadowed(g, 4, 2, 0.18, function () { fillRR(g, 0, 0, 52, 80, 2, IVORY); }); fillRR(g, 0, 0, 52, 13, 2, a[1]); text(g, a[0], 26, 9.6, 7, 800, '#FFFFFF', 'center');
+      text(g, 'team session', 26, 23, 5.2, 800, '#8A8FA6', 'center');
+      for (var r = 0; r < 4; r++) { var ry = 32 + r * 11, done = r < 3 - i % 2; g.strokeStyle = 'rgba(27,31,59,.22)'; g.lineWidth = 1; g.beginPath(); g.moveTo(15, ry); g.lineTo(46, ry); g.stroke(); fillRR(g, 5, ry - 6, 7, 7, 1.5, done ? a[1] : '#E8E2D6');
+        if (done) { g.strokeStyle = '#FFFFFF'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(6.5, ry - 2.5); g.lineTo(8.3, ry - 0.8); g.lineTo(11, ry - 5); g.stroke(); } }
+      fillE(g, 26, 2, 3.4, 3.4, ['#E0456B', '#3167CA', '#FFD84A'][i]); g.restore(); });
+    fillRR(g, bx + 8, by + bh - 18, bw - 16, 13, 6, '#FFFFFF'); text(g, 'we train each team on its own part', bx + bw / 2, by + bh - 8.8, 6.4, 800, PLUM, 'center');
+    sconce(g, -110, -36); sconce(g, -578, -6);
+    /* the flip-chart easel (its sheet is drawn live) */
+    var ex = EASEL.x, et = EASEL.top; soft(g, ex, F - 14, 46, 6, 0.22);
+    g.strokeStyle = WOOD_D; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(ex - 34, F - 14); g.lineTo(ex - 8, et); g.moveTo(ex + 34, F - 14); g.lineTo(ex + 8, et); g.moveTo(ex, et + 10); g.lineTo(ex + 4, F - 10); g.stroke();
+    fillRR(g, ex - 44, et + 10, 88, 6, 2, WOOD_D); fillRR(g, ex - 42, et + 86, 84, 6, 2, WOOD_D); fillRR(g, ex - 22, et + 88, 10, 4, 2, '#3167CA'); fillRR(g, ex - 8, et + 88, 10, 4, 2, '#E0456B');
+    /* the metronome's side table */
+    var mx = MET.x, my = MET.y; soft(g, mx, my + 2, 34, 5, 0.22); fillRR(g, mx - 30, my - 66, 60, 8, 3, WOOD_D); fillRR(g, mx - 26, my - 60, 4, 60, 2, WOOD_D); fillRR(g, mx + 22, my - 60, 4, 60, 2, WOOD_D); fillRR(g, mx - 24, my - 24, 48, 4, 2, WOOD);
+    fillRR(g, mx - 24, my - 34, 22, 10, 2, '#E6D9F0'); fillRR(g, mx - 22, my - 40, 18, 6, 2, '#B9A6EE');
+    g.fillStyle = '#5C3B2A'; g.beginPath(); g.moveTo(mx - 2, my - 66); g.lineTo(mx + 26, my - 66); g.lineTo(mx + 18, my - 116); g.lineTo(mx + 6, my - 116); g.closePath(); g.fill(); fillRR(g, mx + 6, my - 90, 12, 20, 2, IVORY);
+  }
+  function wingLive(g, t, S) {
+    var u = (t + 1.5) % 8, pg = Math.floor((t + 1.5) / 8) % SHEETS.length, ex = EASEL.x, et = EASEL.top;
+    /* the flip-chart: the current step of a quotation's journey, turned over every eight seconds */
+    var flip = u > 3 && u < 3.8 ? (u - 3) / 0.8 : 0, ci = flip > 0.5 ? (pg + 1) % SHEETS.length : pg, cur = SHEETS[ci], nx = SHEETS[(ci + 1) % SHEETS.length];
+    g.save(); g.translate(ex, et + 16); if (flip) g.scale(1, Math.max(0.05, Math.abs(Math.cos(flip * Math.PI))));
+    fillRR(g, -40, 0, 80, 70, 2, '#FFFFFF'); g.strokeStyle = 'rgba(27,31,59,.12)'; g.lineWidth = 1; rr(g, -40, 0, 80, 70, 2); g.stroke();
+    text(g, 'SALES · STEP ' + (ci + 1), 0, 12, 5.6, 800, '#8A8FA6', 'center'); fillRR(g, -30, 18, 60, 16, 4, cur[1]); text(g, cur[0], 0, 29, 7.6, 800, '#FFFFFF', 'center');
+    g.strokeStyle = cur[1]; g.lineWidth = 2; g.beginPath(); g.moveTo(0, 38); g.lineTo(0, 48); g.moveTo(-4, 44); g.lineTo(0, 48); g.lineTo(4, 44); g.stroke();
+    fillRR(g, -28, 52, 56, 12, 4, '#F3F4F8'); text(g, 'next: ' + nx[0], 0, 60.6, 5.4, 800, '#6B6F88', 'center'); g.restore();
+    /* the metronome's pendulum */
+    var mx = MET.x + 12, my = MET.y - 70, a = Math.sin(t * Math.PI * 1.6) * 0.42; g.strokeStyle = '#2A2E3E'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(mx, my); g.lineTo(mx + Math.sin(a) * 40, my - Math.cos(a) * 40); g.stroke(); fillRR(g, mx + Math.sin(a) * 26 - 3, my - Math.cos(a) * 26 - 3, 6, 6, 1, GOLD);
+    /* the trainer: points at the step, turns the page, then explains it to the student; tap = a count-in, then a thumbs-up */
+    var P = TRN, tu = WTAP.trn != null ? t - WTAP.trn : 99; P.hop = 0; P.tilt = 0;
+    if (tu < 2.4) { P.mood = 'happy'; P.talk = true;
+      if (tu < 1.6) { var bt = Math.abs(Math.sin(tu * Math.PI / 0.4)); P.hands = [[-90, -260], [96, -330 + bt * 80]]; P.hop = bt * 10; P.look = 0.5; }
+      else { P.hands = [[-80, -200], [110, -380]]; P.look = 0.7; if (!WTAP.trnB) { WTAP.trnB = true; CR.burst('star', P.x + 50, P.y - 200, t); CR.burst('note', STU.x, STU.y - 200, t); WTAP.stu = t - 0.3; } } }
+    else { WTAP.trnB = false;
+      if (u < 3) { P.hands = [[-170, -300 + Math.sin(t * 3) * 10], [70, -200]]; P.look = -0.7; P.talk = u > 0.6; P.mood = 'calm'; }
+      else if (u < 3.8) { P.hands = [[-150, -380 + (u - 3) * 120], [70, -200]]; P.look = -0.8; P.talk = false; P.tilt = -0.05; }
+      else { var w = Math.sin(t * 4); P.hands = [[-70, -210], [120 + w * 20, -290 + Math.cos(t * 3) * 18]]; P.look = 0.6; P.talk = true; P.mood = (u > 6.6) ? 'happy' : 'calm'; P.tilt = 0.04; } }
+    K.person(g, P, t);
+    /* the student: scrolls the tablet, nods, asks one question per round; tap = lifts the tablet, the order is confirmed */
+    var Q = STU, su = WTAP.stu != null ? t - WTAP.stu : 99; Q.hop = 0; Q.tilt = 0; Q.talk = false;
+    if (su < 2.2) { Q.mood = su < 0.4 ? 'wow' : 'happy'; Q.hands = [[-60, -420], [60, -420]]; Q.talk = su > 0.6; Q.hop = Math.max(0, Math.sin(su * 6)) * 6;
+      if (!WTAP.stuB && su > 0.3) { WTAP.stuB = true; CR.burst('conf', Q.x, Q.y - 230, t); } }
+    else { WTAP.stuB = false;
+      if (u > 5.2 && u < 6.4) { Q.hands = [[-40, -220], [70, -430]]; Q.mood = 'wow'; Q.look = -0.6; WTAP.askOn = Math.min(1, (u - 5.2) * 5) * Math.min(1, (6.4 - u) * 5); }
+      else { Q.hands = [[-40, -220 + Math.sin(t * 1.1) * 4], [40 + Math.sin(t * 2.4) * 10, -228]]; Q.mood = 'calm'; Q.look = u < 3.8 ? -0.7 : -0.5; Q.tilt = Math.sin(t * 2) > 0.92 ? 0.06 : 0; } }
+    K.person(g, Q, t);
+    if (WTAP.askOn > 0 && su >= 2.2) { var qa = WTAP.askOn, qx = Q.x + 44, qy = Q.y - 262 - qa * 4; g.save(); g.globalAlpha = qa; fillRR(g, qx - 13, qy - 13, 26, 22, 9, '#FFFFFF'); g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(qx - 6, qy + 8); g.lineTo(qx - 12, qy + 15); g.lineTo(qx + 1, qy + 8); g.closePath(); g.fill(); text(g, '?', qx, qy + 4, 14, 800, PLUM, 'center'); g.restore(); }
+    WTAP.askOn = 0;
+    if (su > 0.5 && su < 2.6) { var al = Math.min(1, (su - 0.5) * 4) * Math.min(1, (2.6 - su) * 3), yy = Q.y - 296 - (su - 0.5) * 10; g.save(); g.globalAlpha = al; fillRR(g, Q.x - 48, yy, 96, 18, 9, '#1FA463'); text(g, 'Quotation → Order ✓', Q.x, yy + 12, 7.4, 800, '#FFFFFF', 'center'); g.restore(); }
+  }
+  function stallsDesk(g) {
+    /* the production desk laid across the front of the stalls: a laptop beside the project lead, a lamp, the running order */
+    var d = DESK; soft(g, (d.x0 + d.x1) / 2, d.F + 2, (d.x1 - d.x0) * 0.62, 7, 0.24);
+    [d.x0 + 10, d.x1 - 10].forEach(function (lx) { fillRR(g, lx - 3, d.top + 6, 6, d.F - d.top - 6, 2, '#2A2E3E'); fillRR(g, lx - 8, d.F - 3, 16, 4, 2, '#2A2E3E'); });
+    fillRR(g, d.x0, d.top, d.x1 - d.x0, 10, 3, '#3A3F55'); fillRR(g, d.x0 + 4, d.top + 10, d.x1 - d.x0 - 8, 20, 2, PLUM); text(g, 'PRODUCTION DESK · TechNext', (d.x0 + d.x1) / 2, d.top + 23.4, 6.4, 800, GOLD_L, 'center');
+    g.strokeStyle = '#2A2E3E'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(d.x0 + 26, d.top); g.lineTo(d.x0 + 30, d.top - 34); g.lineTo(d.x0 + 52, d.top - 46); g.stroke(); fillRR(g, d.x0 + 18, d.top - 3, 18, 4, 2, '#2A2E3E');
+    g.fillStyle = '#2E9B6F'; g.beginPath(); g.moveTo(d.x0 + 44, d.top - 52); g.lineTo(d.x0 + 64, d.top - 42); g.lineTo(d.x0 + 58, d.top - 34); g.lineTo(d.x0 + 40, d.top - 44); g.closePath(); g.fill();
+    g.save(); g.translate(d.x0 + 70, d.top - 2); g.rotate(-0.06); fillRR(g, 0, -6, 34, 7, 1, IVORY); g.restore(); fillRR(g, d.x0 + 108, d.top - 12, 10, 12, 2, '#FFFFFF'); fillRR(g, d.x0 + 108, d.top - 12, 10, 3, 1, '#B5652A');
+    fillRR(g, d.x1 - 58, d.top - 4, 50, 5, 2, '#C9D3E3'); fillRR(g, d.x1 - 54, d.top - 40, 42, 36, 3, '#2A2E3E');
+  }
+  function deskLive(g, t, S) {
+    var d = DESK, sx = d.x1 - 51, sy = d.top - 37, n = Math.floor(t / 1.6) % 6;
+    fillRR(g, sx, sy, 36, 30, 1.5, '#FFFFFF'); fillRR(g, sx, sy, 36, 6, 1.5, PLUM); text(g, 'Cut-over', sx + 2, sy + 4.8, 3.8, 800, '#FFFFFF');
+    for (var r = 0; r < 4; r++) { var ok = r < Math.min(4, n); fillRR(g, sx + 2, sy + 9 + r * 5, 3.4, 3.4, 0.8, ok ? '#1FA463' : '#D6DAE6'); fillRR(g, sx + 7, sy + 10 + r * 5, 18 + (r % 2) * 7, 1.6, 0.8, '#B8BFD2'); }
+    /* the project lead: types, presses the talkback, sips her coffee; tap = stamps the checklist and pumps a fist */
+    var P = PM, pu = WTAP.pm != null ? t - WTAP.pm : 99, c = (t + 2) % 10; P.hop = 0; P.tilt = 0;
+    if (pu < 2.2) { P.mood = 'happy'; P.talk = pu > 0.8; P.look = 0.1;
+      if (pu < 0.7) P.hands = [[-170, -360 + Math.abs(Math.sin(pu * 9)) * 60], [-110, -240]];
+      else { P.hands = [[-150, -250], [96, -380 - Math.abs(Math.sin(pu * 10)) * 26]]; P.hop = Math.abs(Math.sin(pu * 8)) * 5; if (!WTAP.pmB) { WTAP.pmB = true; CR.burst('star', P.x, P.y - 220, t); } } }
+    else { WTAP.pmB = false;
+      if (c < 5.5) { var k1 = Math.abs(Math.sin(t * 13)), k2 = Math.abs(Math.sin(t * 13 + 1.4)); P.hands = [[-170, -236 + k1 * 8], [-118, -230 + k2 * 8]]; P.look = -0.7; P.talk = false; P.mood = 'calm'; }
+      else if (c < 7.5) { P.hands = [[-150, -240], [70, -400]]; P.look = 0.3; P.talk = true; P.mood = 'happy'; }
+      else { P.hands = [[-150, -240], [10, -340 + Math.sin((c - 7.5) * 2.5) * 10]]; P.look = 0.1; P.talk = false; P.mood = 'calm'; P.tilt = -0.05; } }
+    K.person(g, P, t);
+    if (pu < 2.2 && pu > 0.6) { var al = Math.min(1, (pu - 0.6) * 4); g.save(); g.globalAlpha = al; fillRR(g, d.x1 - 60, d.top - 64, 56, 16, 8, '#1FA463'); text(g, 'Checked ✓', d.x1 - 32, d.top - 53, 7, 800, '#FFFFFF', 'center'); g.restore(); }
+    if (pu >= 2.2 && c >= 7.5) { var h = handAt(P, 1); fillRR(g, h[0] - 4, h[1] - 6, 9, 11, 2, '#FFFFFF'); fillRR(g, h[0] - 4, h[1] - 6, 9, 3, 1, '#B5652A'); }
+  }
+
   window.IXW.worlds['sol-erp'] = {
     pan: [-280, 1240],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -628,7 +727,12 @@
     toy: function (name, S, t) { if (name === 'gong') { GONGT = t; TUTTI.t = t; CR.burst('conf', GONG.x, GONG.y - 30, t); CR.burst('note', SAL.x, 300, t); CR.burst('note', INV.x, 300, t); CR.burst('note', TRP.x, 60, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
-      if (y > 600 && y < 760 && x > 150 && x < 975) { APPL.t = t; return { say: 'The client\'s managers, front row at rehearsal. At go-live they read **one set of reports**, straight from the ledger.', near: [clamp(x, 320, 860), 110], pose: 'clap', who: 'The front row' }; }
+      if (Math.abs(x - TRN.x) < 46 && y > 230 && y < 470) { WTAP.trn = t; return { say: 'A **sectional**: we train each team on its own part of Odoo before go-live.', near: [300, 60], pose: 'clap', who: 'TechNext trainer' }; }
+      if (Math.abs(x - STU.x) < 46 && y > 280 && y < 470) { WTAP.stu = t; return { say: 'Quotation, order, delivery, invoice: the Sales team learns **its own steps** first.', near: [300, 60], pose: 'celebrate', who: 'Sales team member' }; }
+      if (Math.abs(x - EASEL.x) < 46 && y > 290 && y < 470) return { say: 'One step per page: **the same flow** the team will run on day one.', near: [300, 60], pose: 'point-left', who: 'The flip-chart' };
+      if (x > -340 && x < -140 && y > -110 && y < 50) return { say: 'Every team gets **its own sessions**: Sales, Inventory and Finance each rehearse their part.', near: [300, 40], pose: 'point-left', who: 'The sectionals board' };
+      if ((Math.abs(x - PM.x) < 44 && y > 440 && y < 645) || (x > DESK.x0 && x < DESK.x1 && y > DESK.top - 50 && y < DESK.F)) { WTAP.pm = t; return { say: 'The **cut-over checklist**, run from the production desk: every item ticked before go-live.', near: [320, 80], pose: 'clap', who: 'TechNext project lead' }; }
+      if (y > 600 && y < 760 && x > -800 && x < 975) { APPL.t = t; return { say: 'The client\'s managers, front row at rehearsal. At go-live they read **one set of reports**, straight from the ledger.', near: [clamp(x, 320, 860), 110], pose: 'clap', who: 'The front row' }; }
       if (y > T2 - 100 && y < T1 && x > 340 && x < 740) return { say: 'Every user in a section reads **the same score**: one database, no copies to reconcile.', near: [clamp(x + 150, 420, 860), 10], pose: 'love', who: 'The orchestra' };
       if (x > 1060 && x < 1320 && y > 280 && y < 470) return { say: 'The grand piano is tuned **after** opening night too: that\'s the support plan.', near: [860, 40], pose: 'wow', who: 'The piano' };
       if (x < -420 && y > 240 && y < 470) return { say: 'The harp keeps time with the **same score** as everyone else.', near: [300, 60], pose: 'love', who: 'The harpist' };

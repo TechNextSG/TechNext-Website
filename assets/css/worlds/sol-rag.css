@@ -193,3 +193,61 @@
   .ixw--sol-rag .lbr-cabinet{padding:12px}.ixw--sol-rag .lbr-card-h{padding:0 20px}.ixw--sol-rag .lbr-card-pocket{right:12px;top:-26px}.ixw--sol-rag .lbr-priv{padding:0 20px}
   .ixw--sol-rag .lbr-cta-books{left:24px}.ixw--sol-rag .ow-strip{padding:18px 14px 30px;gap:12px 10px}.ixw--sol-rag .lbr-xref{rotate:0deg}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-rag .lbr-drawer-c{transition:none;translate:0 0;opacity:1}.ixw--sol-rag :is(.lbr-bot,.lbr-cta-books i){animation:none}}
+
+/* ---------- audit round: hero buttons as tooled leather (50px CTAs, gold chip icons, lift + glow, press, focus) ---------- */
+.ixw--sol-rag .ixw-copy .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.ixw--sol-rag .ixw-copy .actions .btn{height:50px;padding:0 22px;border-radius:8px;font:800 15.5px/1 var(--font-display);gap:10px;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .22s ease,background-color .2s ease,color .2s ease}
+.ixw--sol-rag .ixw-copy .actions .btn-primary,.ixw--sol-rag .ixw-copy .actions .btn-primary:hover{padding-right:10px;color:#FFFFFF;background:linear-gradient(180deg,#27805F,#1F6B52 58%,#1A5C46)}
+.ixw--sol-rag .ixw-copy .actions .btn-primary{box-shadow:inset 0 0 0 2px #1A5C46,inset 0 0 0 3.5px rgba(240,217,140,.85),0 4px 0 #154A39,0 14px 22px -14px rgba(21,74,57,.65)}
+.ixw--sol-rag .ixw-copy .actions .btn-primary .ic{width:30px;height:30px;padding:7px;margin:0;border-radius:6px;background:linear-gradient(180deg,#F6E3A4,#E3C474);color:#154A39;box-shadow:inset 0 0 0 1px rgba(154,122,44,.6)}
+.ixw--sol-rag .ixw-copy .actions .btn-primary:hover{translate:0 -2px;box-shadow:inset 0 0 0 2px #1A5C46,inset 0 0 0 3.5px #F0D98C,0 6px 0 #154A39,0 0 0 4px rgba(240,217,140,.35),0 20px 28px -14px rgba(21,74,57,.7)}
+.ixw--sol-rag .ixw-copy .actions .btn-primary:hover .ic{transform:translateX(3px);background:#FFF1C2}
+.ixw--sol-rag .ixw-copy .actions .btn-ghost,.ixw--sol-rag .ixw-copy .actions .btn-ghost:hover{color:var(--lbr-ink);background:var(--lbr-parch)}
+.ixw--sol-rag .ixw-copy .actions .btn-ghost{border:0;box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px var(--lbr-parch),inset 0 0 0 5px rgba(200,162,74,.6),0 4px 0 var(--lbr-grn-d),0 14px 22px -16px rgba(60,35,10,.45)}
+.ixw--sol-rag .ixw-copy .actions .btn-ghost .ic{width:18px;height:18px;color:var(--lbr-grn)}
+.ixw--sol-rag .ixw-copy .actions .btn-ghost:hover{translate:0 -2px;color:var(--lbr-grn-d);background:#FFFDF6;box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px #FFFDF6,inset 0 0 0 5px var(--lbr-gold),0 6px 0 var(--lbr-grn-d),0 0 0 4px rgba(240,217,140,.3)}
+.ixw--sol-rag .ixw-copy .actions .btn:active{translate:0 3px;transition-duration:.07s}
+.ixw--sol-rag .ixw-copy .actions .btn-primary:active{box-shadow:inset 0 0 0 2px #1A5C46,inset 0 0 0 3.5px #F0D98C,0 1px 0 #154A39}
+.ixw--sol-rag .ixw-copy .actions .btn-ghost:active{box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px var(--lbr-parch),inset 0 0 0 5px var(--lbr-gold),0 1px 0 var(--lbr-grn-d)}
+.ixw--sol-rag .ixw-copy .actions .btn:focus-visible{outline:3px solid var(--lbr-gold);outline-offset:4px}
+.ixw--sol-rag .lbr-badges{gap:8px}
+.ixw--sol-rag .lbr-badges span{height:28px;padding:0 12px 0 10px;font-size:12px;letter-spacing:.01em;border-radius:5px;box-shadow:inset 0 0 0 1.5px var(--lbr-gold),inset 0 0 0 3px #FFFFFF,inset 0 0 0 3.5px rgba(200,162,74,.35),0 2px 0 #E3D3AE}
+/* the caption controls: parchment roundels tooled in gold, the play button in green leather with a gold halo */
+.ixw--sol-rag .ixw-ibtn{background:var(--lbr-parch);border:2px solid var(--lbr-grn);color:var(--lbr-grn-d);box-shadow:inset 0 0 0 2px var(--lbr-parch),inset 0 0 0 3px rgba(200,162,74,.7),0 3px 0 var(--lbr-grn-d)}
+.ixw--sol-rag .ixw-ibtn:hover{translate:0 -2px;background:#FFFFFF;border-color:var(--lbr-grn);color:var(--lbr-grn);box-shadow:inset 0 0 0 2px #FFFFFF,inset 0 0 0 3px var(--lbr-gold),0 5px 0 var(--lbr-grn-d),0 10px 16px -8px rgba(200,162,74,.7)}
+.ixw--sol-rag .ixw-ibtn:active{translate:0 2px;box-shadow:inset 0 0 0 2px var(--lbr-parch),inset 0 0 0 3px var(--lbr-gold),0 1px 0 var(--lbr-grn-d)}
+.ixw--sol-rag .ixw-ibtn:focus-visible,.ixw--sol-rag .ixw-dots button:focus-visible{outline:3px solid var(--lbr-gold);outline-offset:3px}
+.ixw--sol-rag .ixw-ibtn--play,.ixw--sol-rag .ixw-ibtn--play:hover{width:48px;height:48px;border:0;color:var(--lbr-gold-l);background:radial-gradient(circle at 50% 28%,#2E8A68,#1F6B52 58%,#154A39)}
+.ixw--sol-rag .ixw-ibtn--play{box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px var(--lbr-gold-l),0 3px 0 #0F3A2C,0 10px 18px -10px rgba(21,74,57,.7)}
+.ixw--sol-rag .ixw-ibtn--play:hover{box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px #FFF1C2,0 5px 0 #0F3A2C,0 0 0 4px rgba(240,217,140,.35)}
+.ixw--sol-rag .ixw-ibtn--play:active{box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px var(--lbr-gold-l),0 1px 0 #0F3A2C}
+.ixw--sol-rag .ixw-ibtn--play.is-on{animation:lbrHalo 2.4s ease-out infinite}
+@keyframes lbrHalo{0%{box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px var(--lbr-gold-l),0 3px 0 #0F3A2C,0 0 0 0 rgba(200,162,74,.45)}70%,100%{box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px var(--lbr-gold-l),0 3px 0 #0F3A2C,0 0 0 12px rgba(200,162,74,0)}}
+.ixw--sol-rag .ixw-dots{gap:6px}
+.ixw--sol-rag .ixw-dots button{width:9px;height:9px;background:#EFE3C4;box-shadow:inset 0 0 0 1.5px rgba(154,122,44,.55)}
+.ixw--sol-rag .ixw-dots button:hover{background:var(--lbr-gold-l);box-shadow:inset 0 0 0 1.5px var(--lbr-gold-d)}
+.ixw--sol-rag .ixw-dots button.is-on{width:24px;background:var(--lbr-oxb);box-shadow:inset 0 0 0 1.5px #6A1D29}
+/* "View the scene": a parchment label with a green-leather rim; pressed, it turns to leather */
+.ixw--sol-rag .ixw-peek{height:40px;padding:0 16px 0 13px;border:0;border-radius:8px;background:var(--lbr-parch);color:var(--lbr-grn-d);font-weight:800;
+  box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px var(--lbr-parch),inset 0 0 0 5px rgba(200,162,74,.75),0 3px 0 var(--lbr-grn-d),0 12px 20px -12px rgba(60,35,10,.5)}
+.ixw--sol-rag .ixw-peek:hover{translate:0 -2px;background:#FFFDF6;box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px #FFFDF6,inset 0 0 0 5px var(--lbr-gold),0 5px 0 var(--lbr-grn-d),0 0 0 4px rgba(240,217,140,.4)}
+.ixw--sol-rag .ixw-peek:active{translate:0 2px;box-shadow:inset 0 0 0 2px var(--lbr-grn),inset 0 0 0 4px var(--lbr-parch),inset 0 0 0 5px var(--lbr-gold),0 1px 0 var(--lbr-grn-d)}
+.ixw--sol-rag .ixw-peek:focus-visible{outline:3px solid var(--lbr-gold);outline-offset:3px}
+.ixw--sol-rag .ixw-peek[aria-pressed="true"]{background:var(--lbr-grn);color:var(--lbr-gold-l);box-shadow:inset 0 0 0 2px #154A39,inset 0 0 0 3.5px var(--lbr-gold-l),0 3px 0 #0F3A2C,0 12px 20px -12px rgba(21,74,57,.6)}
+@media (max-width:767px){.ixw--sol-rag .ixw-copy .actions{gap:10px}.ixw--sol-rag .ixw-copy .actions .btn{width:100%}}
+
+/* ---------- audit round: sections ---------- */
+.ixw--sol-rag main :is(h2,h3){text-wrap:balance}
+.ixw--sol-rag .lbr-plate{max-width:none}
+.ixw--sol-rag .lbr-cab-sign{width:258px}.ixw--sol-rag .lbr-cab-sign i{white-space:nowrap}
+.ixw--sol-rag .lbr-card{background:linear-gradient(transparent 55px,rgba(49,103,202,.16) 55px 56px) 0 74px/100% 56px,#FFFDF6;padding:0 0 18px}
+.ixw--sol-rag .lbr-card-h{margin:0 0 8px}
+.ixw--sol-rag .lbr-priv{grid-auto-rows:56px;gap:0 30px}
+.ixw--sol-rag .lbr-priv li{min-height:0;height:56px;padding:0;gap:12px}
+.ixw--sol-rag .lbr-doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:440px}
+.ixw--sol-rag .lbr-doors li{justify-content:flex-start;height:44px;transition:translate .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease}
+.ixw--sol-rag .lbr-doors li:hover{translate:0 -3px;box-shadow:inset 0 0 0 1.5px var(--lbr-grn),inset 0 0 0 3.5px var(--lbr-parch),inset 0 0 0 4.5px var(--lbr-gold),0 5px 0 var(--lbr-grn-d)}
+.ixw--sol-rag .lbr-drawer{transition:translate .3s cubic-bezier(.34,1.56,.64,1)}
+.ixw--sol-rag .lbr-drawer:hover{translate:0 -6px}
+.ixw--sol-rag .lbr-drawer:hover .lbr-drawer-f i{background:linear-gradient(180deg,#FFF1C2,var(--lbr-gold))}
+@media (max-width:767px){.ixw--sol-rag .lbr-doors{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--sol-rag .lbr-priv{grid-auto-rows:auto}.ixw--sol-rag .lbr-priv li{height:auto;min-height:52px}.ixw--sol-rag .lbr-card{background:#FFFDF6}.ixw--sol-rag .lbr-priv li+li{border-top:1px solid rgba(49,103,202,.14)}}
