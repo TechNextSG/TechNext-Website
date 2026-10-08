@@ -99,12 +99,69 @@
     var ar = T.arch; if (ext.l < ar.x + 420) { for (var sh = 0; sh < 3; sh++) { var ax = ar.x + sh * 130; soft(g, ax + 60, F + 4, 70, 7, 0.25); fillRR(g, ax, ar.y, 120, F - ar.y, 6, '#A9B6C9'); fillRR(g, ax + 4, ar.y + 4, 112, F - ar.y - 8, 4, '#C9D2DE');
         for (var rw = 0; rw < 4; rw++) { var ry = ar.y + 14 + rw * 82; fillRR(g, ax + 4, ry + 66, 112, 5, 2, '#8A96AA'); for (var bx = 0; bx < 3; bx++) { fillRR(g, ax + 10 + bx * 36, ry + 26, 32, 40, 3, MAN); fillRR(g, ax + 16 + bx * 36, ry + 34, 20, 10, 2, '#FFFFFF'); } }
         fillE(g, ax + 60, ar.y - 10, 12, 12, '#7A869C'); g.strokeStyle = '#5C6B7A'; g.lineWidth = 3; g.beginPath(); g.moveTo(ax + 60, ar.y - 22); g.lineTo(ax + 60, ar.y + 2); g.moveTo(ax + 48, ar.y - 10); g.lineTo(ax + 72, ar.y - 10); g.stroke(); }
-      fillRR(g, ar.x + 60, ar.y - 50, 270, 26, 6, INK); text(g, '201 ARCHIVE · PERSONNEL RECORDS', ar.x + 195, ar.y - 32, 9, 800, MAN, 'center'); }
+      ['A–H', 'I–P', 'Q–Z'].forEach(function (lb, i) { fillRR(g, ar.x + 22 + i * 130, ar.y - 52, 76, 22, 5, INK); text(g, '201 · ' + lb, ar.x + 60 + i * 130, ar.y - 37, 8.5, 800, MAN, 'center'); }); }
     /* the room clock (Taguig time, hands live) and, wider, three framed prints of the office cities */
     K.clockFace(g, { x: 952, y: -16, r: 24 }, INK); text(g, 'TAGUIG', 952, 22, 6.6, 800, '#5C6B7A', 'center');
     if (ext.r > 1000) [['SG', BLUE], ['PH', TEAL], ['VN', '#E07B12']].forEach(function (c, i) { var fx = 1010 + i * 62, fy = -96; shadowed(g, 8, 3, 0.16, function () { fillRR(g, fx, fy, 54, 70, 3, '#FFFFFF'); });
       fillRR(g, fx + 5, fy + 5, 44, 48, 2, '#E8EFFC'); g.fillStyle = c[1]; for (var tw = 0; tw < 5; tw++) { var th = 12 + hash(tw + i * 7) * 26; g.fillRect(fx + 8 + tw * 8, fy + 53 - th, 6, th); } text(g, c[0], fx + 27, fy + 64, 7, 800, C.ink, 'center'); });
     K.plant(g, { x: 1270, y: F }, '#FFFFFF', '#E3E8EF');
+    lobby(g);
+  }
+  /* behind the title card: the HR lobby. The OUR PEOPLE photo wall (one polaroid per sample person, each with the blue ID
+     ribbon), the wall calendar, the door into the 201 records room with its ID reader (live), the visitor log with the grey
+     visitor passes on their hooks, the waiting chairs where an applicant waits for HR, a locked shred bin and a box stack. */
+  var LB = { wall: { x: -470, y: -46, w: 268, h: 208 }, cal: { x: -184, y: -40, w: 96, h: 108 }, door: { x: -176, y: 150, w: 112 }, log: { x: 18, y: 372 }, hooks: { x: -30, y: 196 },
+    chairs: [-404, -282], table: { x: -344 }, shred: { x: -118, y: 588 }, boxes: { x: 40, y: 592 } };
+  function lobby(g) {
+    /* the photo wall */
+    var w = LB.wall; shadowed(g, 12, 4, 0.16, function () { fillRR(g, w.x, w.y, w.w, w.h, 8, '#FFFFFF'); }); fillRR(g, w.x, w.y, w.w, 26, 8, INK); g.fillRect(w.x, w.y + 16, w.w, 10);
+    text(g, 'OUR PEOPLE', w.x + 14, w.y + 17.5, 9, 800, '#FFFFFF'); text(g, 'ONE TEAM · THREE OFFICES', w.x + w.w - 14, w.y + 17.5, 7, 800, MAN, 'right');
+    var tops = ['#3167CA', TEAL, '#E0456B', '#F08A24', '#714B67', '#2A3550'], sk = CR.skin, hr = CR.hair;
+    for (var i = 0; i < 6; i++) { var px = w.x + 14 + (i % 3) * 84, py = w.y + 36 + Math.floor(i / 3) * 86, rot = (hash(i * 3.7) - 0.5) * 0.08;
+      g.save(); g.translate(px + 38, py + 40); g.rotate(rot); shadowed(g, 4, 2, 0.16, function () { fillRR(g, -36, -40, 72, 80, 2, '#FFFFFF'); });
+      fillRR(g, -30, -34, 60, 50, 1, ['#E8EFFC', '#E6F6EE', '#FBE3E1', '#FFF1D6', '#F4F0F8', '#E8EFFC'][i]);
+      fillRR(g, -16, 2, 32, 16, 8, tops[i]); fillE(g, 0, -10, 11, 12, sk[i % 5]); g.fillStyle = hr[i % 4]; g.beginPath(); g.ellipse(0, -15, 12, 9, 0, Math.PI, 0); g.fill(); if (i % 3 === 1) fillRR(g, -12, -16, 5, 14, 2, hr[i % 4]);
+      fillE(g, -4, -9, 1.3, 1.6, INK); fillE(g, 4, -9, 1.3, 1.6, INK); g.strokeStyle = '#B5644B'; g.lineWidth = 1; g.beginPath(); g.arc(0, -6, 3, 0.3, 2.8); g.stroke();
+      fillRR(g, -3, 4, 6, 8, 1, '#FFFFFF'); fillRR(g, -3, 4, 6, 2.4, 1, BLUE); fillRR(g, -20, 22, 40, 3, 1.5, '#C9D3E3'); fillRR(g, -14, 29, 28, 3, 1.5, '#E3E8EF'); g.restore();
+      fillE(g, px + 38, py + 2, 3.4, 3.4, [RED, BLUE, TEAL][i % 3]); }
+    /* the welcome panel over the waiting chairs: the Taguig City office */
+    shadowed(g, 10, 4, 0.14, function () { fillRR(g, w.x, 174, w.w, 64, 10, '#FFFFFF'); }); fillRR(g, w.x, 174, 8, 64, 4, BLUE);
+    CO.logo(g, w.x + 92, 204, 0.5, INK, BLUE); text(g, 'TAGUIG CITY', w.x + 20, 226, 7.5, 800, BLUE); text(g, '· development and consulting hub', w.x + 78, 226, 6.6, 700, '#5C6B7A');
+    idCard(g, w.x + w.w - 30, 206, 0.5, -0.12);
+    /* the wall calendar: October 2026 (the date ring is live) */
+    var c = LB.cal; shadowed(g, 8, 3, 0.16, function () { fillRR(g, c.x, c.y, c.w, c.h, 5, '#FFFFFF'); }); fillRR(g, c.x, c.y, c.w, 24, 5, RED); g.fillRect(c.x, c.y + 14, c.w, 10);
+    text(g, 'OCTOBER', c.x + c.w / 2, c.y + 16, 8.5, 800, '#FFFFFF', 'center'); fillE(g, c.x + 22, c.y - 2, 3, 5, '#9AA6BC'); fillE(g, c.x + c.w - 22, c.y - 2, 3, 5, '#9AA6BC');
+    for (var d = 0; d < 28; d++) fillRR(g, c.x + 7 + (d % 7) * 12, c.y + 32 + Math.floor(d / 7) * 18, 10, 13, 2, d % 7 > 4 ? '#FBE3E1' : '#F1F4F9');
+    /* the door to the 201 records room */
+    var dr = LB.door; soft(g, dr.x + dr.w / 2, F + 4, 70, 7, 0.22); fillRR(g, dr.x - 10, dr.y - 12, dr.w + 20, F - dr.y + 12, 6, '#FFFFFF'); fillRR(g, dr.x, dr.y, dr.w, F - dr.y, 3, '#C9A27A');
+    fillRR(g, dr.x + 10, dr.y + 12, dr.w - 20, 120, 4, '#B88E63'); fillRR(g, dr.x + 10, dr.y + 146, dr.w - 20, F - dr.y - 160, 4, '#B88E63');
+    fillRR(g, dr.x + 22, dr.y + 24, dr.w - 44, 60, 3, '#D8ECF8'); g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.moveTo(dr.x + 30, dr.y + 84); g.lineTo(dr.x + 50, dr.y + 24); g.lineTo(dr.x + 60, dr.y + 24); g.lineTo(dr.x + 40, dr.y + 84); g.closePath(); g.fill();
+    fillRR(g, dr.x + 14, dr.y + 94, dr.w - 28, 30, 4, INK); text(g, '201 RECORDS', dr.x + dr.w / 2, dr.y + 107, 8, 800, MAN, 'center'); text(g, 'STAFF ONLY', dr.x + dr.w / 2, dr.y + 119, 6.4, 800, '#FFFFFF', 'center');
+    fillRR(g, dr.x + dr.w - 22, dr.y + 172, 8, 26, 4, '#9AA6BC'); fillE(g, dr.x + dr.w - 18, dr.y + 186, 6, 6, '#7A869C');
+    fillRR(g, dr.x + dr.w + 14, dr.y + 128, 22, 34, 5, '#2A3142'); fillRR(g, dr.x + dr.w + 18, dr.y + 134, 14, 14, 3, '#3A4458'); CO.plane(g, dr.x + dr.w + 25, dr.y + 141, 0.5, 0, '#9FC4FF');
+    /* the hooks of grey visitor passes and the blue IDs */
+    var hk = LB.hooks; fillRR(g, hk.x, hk.y, 74, 10, 4, '#C9A27A'); for (var h = 0; h < 4; h++) { var hx = hk.x + 10 + h * 18, gp = h % 2 === 0; fillE(g, hx, hk.y + 6, 2.4, 2.4, '#7A869C');
+      g.strokeStyle = gp ? '#9AA6BC' : BLUE; g.lineWidth = 2; g.beginPath(); g.moveTo(hx - 4, hk.y + 8); g.lineTo(hx, hk.y + 34); g.lineTo(hx + 4, hk.y + 8); g.stroke();
+      fillRR(g, hx - 7, hk.y + 32, 14, 18, 2, '#FFFFFF'); fillRR(g, hx - 7, hk.y + 32, 14, 5, 2, gp ? '#9AA6BC' : BLUE); }
+    text(g, 'VISITOR PASSES', hk.x + 37, hk.y - 6, 6.4, 800, '#5C6B7A', 'center');
+    /* the visitor log on its stand */
+    var lg = LB.log; soft(g, lg.x + 34, F + 4, 36, 6, 0.24); fillRR(g, lg.x + 28, lg.y + 20, 12, F - lg.y - 20, 3, '#9AA6BC'); fillRR(g, lg.x + 14, F - 8, 40, 8, 3, '#7A869C');
+    g.save(); g.translate(lg.x + 34, lg.y + 14); g.rotate(-0.12); fillRR(g, -34, -12, 68, 26, 4, '#3A4458'); fillRR(g, -30, -10, 29, 22, 2, '#FFFFFF'); fillRR(g, 1, -10, 29, 22, 2, '#F7F9FC'); g.fillStyle = '#C9D3E3'; for (var ln = 0; ln < 4; ln++) { g.fillRect(-27, -6 + ln * 5, 22, 1.4); g.fillRect(4, -6 + ln * 5, 22, 1.4); } g.restore();
+    fillRR(g, lg.x + 2, lg.y - 18, 64, 16, 4, '#FFFFFF'); text(g, 'VISITOR LOG', lg.x + 34, lg.y - 7, 6.6, 800, INK, 'center');
+    /* the waiting area: a rug, a second waiting chair, the side table with a plant and leaflets */
+    g.save(); g.globalAlpha = 0.6; fillE(g, -330, F + 30, 150, 22, '#F6E3BC'); g.restore(); g.strokeStyle = 'rgba(217,176,106,.7)'; g.lineWidth = 2; g.beginPath(); g.ellipse(-330, F + 30, 140, 18, 0, 0, 7); g.stroke();
+    var c2 = LB.chairs[1]; soft(g, c2, F + 4, 40, 6, 0.26); fillRR(g, c2 - 30, 330, 60, 72, 14, BLUE); fillRR(g, c2 - 34, 398, 68, 20, 8, '#2756B0'); fillRR(g, c2 - 26, 416, 6, F - 416, 2, '#5C6B7A'); fillRR(g, c2 + 20, 416, 6, F - 416, 2, '#5C6B7A');
+    fillRR(g, c2 - 26, 338, 52, 50, 10, 'rgba(255,255,255,.14)');
+    var tb = LB.table.x; soft(g, tb, F + 4, 26, 5, 0.24); fillRR(g, tb - 22, 418, 44, 8, 4, '#FFFFFF'); fillRR(g, tb - 3, 426, 6, F - 426, 2, '#9AA6BC'); fillRR(g, tb - 14, F - 5, 28, 5, 2, '#9AA6BC');
+    fillRR(g, tb - 18, 410, 20, 8, 2, MAN); fillRR(g, tb - 16, 405, 20, 6, 2, '#E8EFFC'); fillRR(g, tb + 4, 398, 14, 20, 4, '#FFFFFF'); fillE(g, tb + 9, 392, 7, 6, '#3FBF7F'); fillE(g, tb + 15, 388, 6, 7, '#35AE70');
+  }
+  function lobbyFore(g) {
+    /* a locked shred bin and a stack of archive boxes on the floor in front of the lobby */
+    var sb = LB.shred; soft(g, sb.x, sb.y + 4, 40, 7, 0.28); fillRR(g, sb.x - 30, sb.y - 76, 60, 76, 6, '#3A4458'); fillRR(g, sb.x - 30, sb.y - 76, 60, 12, 5, '#4A5468'); fillRR(g, sb.x - 18, sb.y - 72, 36, 4, 2, '#11151F');
+    fillRR(g, sb.x - 22, sb.y - 54, 44, 18, 3, '#FFFFFF'); text(g, 'CONFIDENTIAL', sb.x, sb.y - 42, 6, 800, RED, 'center'); fillRR(g, sb.x - 5, sb.y - 30, 10, 12, 2, '#E9C46A'); fillE(g, sb.x, sb.y - 24, 2, 2, '#6B4E1E');
+    fillE(g, sb.x - 22, sb.y, 5, 5, '#2A3142'); fillE(g, sb.x + 22, sb.y, 5, 5, '#2A3142');
+    var bx = LB.boxes; soft(g, bx.x + 40, bx.y + 3, 56, 7, 0.28); [[0, 0, 'NEW HIRES'], [48, 0, 'IDs'], [22, -44, '201 · 2026']].forEach(function (b) { var x = bx.x + b[0], y = bx.y + b[1];
+      fillRR(g, x, y - 44, 50, 44, 4, MAN); fillRR(g, x - 2, y - 44, 54, 9, 3, MAN2); fillRR(g, x + 8, y - 28, 34, 13, 2, '#FFFFFF'); text(g, b[2], x + 25, y - 19, 5.6, 800, '#6B4E1E', 'center'); });
   }
   function paintFront(g, ext) {
     /* the ID printer on the side cabinet */
@@ -124,7 +181,7 @@
     for (var f = 0; f < 9; f++) { var fx = 160 + f * 13; fillRR(g, fx, 596 + (f % 3) * 4, 11, 46 - (f % 3) * 4, 2, f % 2 ? MAN2 : MAN); fillRR(g, fx + 1, 592 + (f % 3) * 4, 6, 6, 1.5, f % 2 ? MAN2 : MAN); }
     [162, 278].forEach(function (x) { fillE(g, x, 710, 8, 8, '#2A3550'); fillE(g, x, 710, 3, 3, '#9AA6BC'); });
     soft(g, 950, 718, 70, 8, 0.3); [[900, 666, 0], [960, 666, 1], [924, 620, 2]].forEach(function (b) { fillRR(g, b[0], b[1], 56, 46, 4, MAN); fillRR(g, b[0], b[1], 56, 9, 3, MAN2); fillRR(g, b[0] + 12, b[1] + 18, 32, 14, 2, '#FFFFFF'); text(g, ['201 · A–H', '201 · I–P', '201 · Q–Z'][b[2]], b[0] + 28, b[1] + 28, 6, 800, '#6B4E1E', 'center'); });
-    K.plant(g, { x: 1060, y: 730 }, TEAL, '#2BC4A6'); K.plant(g, { x: -40, y: 730 }, '#FFFFFF', '#E3E8EF');
+    K.plant(g, { x: 1060, y: 730 }, TEAL, '#2BC4A6'); K.plant(g, { x: -566, y: 730 }, '#FFFFFF', '#E3E8EF'); lobbyFore(g);
   }
 
   /* ------------------------------------------------------------ the cast */
@@ -135,17 +192,18 @@
   var HIRE = W({ x: 904, y: 470, s: 0.52, ph: 1.9, skin: 3, hair: 1, style: 'short', outfit: 'shirt', top: BLUE, hold: 'clipboard', hands: [[-80, -210], [60, -190]], look: -0.7 });
   var PHOT = W({ x: 1230, y: 470, s: 0.5, ph: 2.6, skin: 0, hair: 2, style: 'pony', outfit: 'polo', top: '#F08A24', hands: [[-110, -300], [-60, -300]], look: -0.8 });
   var SIT = W({ x: 1111, y: 470, s: 0.48, ph: 0.6, skin: 2, hair: 0, style: 'long', outfit: 'shirt', top: '#FFFFFF', sit: true, chair: false, sitDrop: 30, hands: [[-60, -190], [60, -190]], look: 0 });
+  var APP = W({ x: -404, y: 470, s: 0.5, ph: 0.9, skin: 3, hair: 2, style: 'long', outfit: 'shirt', top: '#F2F4F8', top2: '#2A3550', sit: true, chairCol: BLUE, id: '#9AA6BC', hands: [[-40, -200], [40, -200]], look: 0.4 });
   var ARC = W({ x: -620, y: 470, s: 0.5, ph: 1.4, skin: 1, hair: 3, style: 'short', outfit: 'polo', top: '#7B5BD6', hands: [[-60, -380], [60, -380]], look: -0.4 });
   var CREW = [
-    { x0: -880, x1: -540, y: 520, spd: 14, ph: 0.3, label: 'Odoo consultant, Taguig City', lines: ['Updated my **201**: new address, same commute.', 'My TechNext ID opens the **records room**.'], acts: ['wave', 'id', 'nod'],
+    { x0: -920, x1: -700, y: 520, spd: 14, ph: 0.3, label: 'Odoo consultant, Taguig City', lines: ['Updated my **201**: new address, same commute.', 'My TechNext ID opens the **records room**.'], acts: ['wave', 'id', 'nod'],
       P: W({ s: 0.5, skin: 0, hair: 0, style: 'long', outfit: 'polo', top: '#E0456B', hold: 'tablet' }) },
-    { front: true, x0: -420, x1: 60, y: 690, spd: 18, ph: 0.5, label: 'Project manager', lines: ['Off to a **discovery** workshop with a client.', 'One team, from **discovery to support**.'], acts: ['cheer', 'id', 'wave'],
+    { front: true, x0: -440, x1: 100, y: 596, spd: 18, ph: 0.5, label: 'Project manager', lines: ['Off to a **discovery** workshop with a client.', 'One team, from **discovery to support**.'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#1E3A6E', hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
     { front: true, x0: 1060, x1: 1300, y: 700, spd: 15, ph: 0.2, label: 'HR assistant', lines: ['Fresh folders for the **new hires**.', 'Every one gets a sheet, a file and an ID.'], acts: ['jump', 'id', 'wave'],
       P: W({ s: 0.58, skin: 1, hair: 2, style: 'bob', outfit: 'cardigan', top: MAN2, top2: '#FFFFFF', hold: 'box', hands: [[-60, -212], [64, -216]] }) }
   ];
 
-  var PR = { t: -9 }, DR = { t: -9, n: 2 }, STAMP = { t: -9 }, FLASH = { t: -9 }, PHT = { t: -9 }, SITT = { t: -9 }, ARCT = { t: -9 }, FOLD = { t: -9 };
+  var APT = { t: -9 }, DOOR = { t: -9 }, PR = { t: -9 }, DR = { t: -9, n: 2 }, STAMP = { t: -9 }, FLASH = { t: -9 }, PHT = { t: -9 }, SITT = { t: -9 }, ARCT = { t: -9 }, FOLD = { t: -9 };
   /* ---- the records clerk: idle, opens a drawer, files a folder, closes it; tapped, tosses a manila folder that flips, and catches it */
   function actClk(P, t, S) {
     var st = S.cast.clk, u = tapAge(st, t); reset(P);
@@ -200,6 +258,18 @@
       if (u > 0.3 && !st._c) { st._c = 1; CR.burst('conf', P.x + 30, P.y - 260, t); } if (u < 0.2) st._c = 0; }
     P._u = u;
   }
+  /* ---- the applicant in the lobby (behind the title card, a visitor: grey pass): idle, reads her papers, checks her watch,
+     smooths her folder, swings her feet; tapped, she jumps up from the chair, holds her folder high and waves */
+  function actApp(P, t) {
+    var u = t - APT.t, cyc = (t + 3) % 9; reset(P); P.talk = false; P.mood = 'calm'; P._fold = 1; P._watch = 0;
+    if (cyc < 4) { P.hands = [[-40, -250 + Math.sin(t * 0.8) * 4], [40, -250 - Math.sin(t * 0.8) * 4]]; P.look = 0.1; P.tilt = 0.03; }
+    else if (cyc < 5.4) { P.hands = [[-10, -280], [60, -230]]; P._fold = 0; P._watch = 1; P.look = -0.4; P.mood = cyc > 5 ? 'wow' : 'calm'; }
+    else if (cyc < 7) { P.hands = [[-50, -200], [50, -200]]; P.look = lerp(P.look, 0.9, 0.06); P.tilt = Math.sin(t * 2) * 0.04; }
+    else { P.hands = [[-40, -210], [40, -210]]; P.look = 0.3; P.hop = Math.abs(Math.sin(t * 5)) * 3; }
+    if (u < 2.2) { P.talk = true; P.mood = 'happy'; P._watch = 0; P.sit = u > 1.6; P.hop = u < 1.6 ? Math.sin(Math.min(1, u / 0.5) * Math.PI / 2) * 26 + Math.abs(Math.sin(u * 8)) * 4 : 0;
+      P.hands = u < 1.6 ? [[-60, -420], [110, -330 + Math.sin(u * 14) * 30]] : [[-40, -210], [40, -210]]; P.look = 0.6; } else P.sit = true;
+    P._u = u;
+  }
   /* ---- the margins (drawn and tapped by this file): the ID photographer and her sitter, the archivist */
   function actPhot(P, t) { var u = t - PHT.t; reset(P); var cyc = t % 5; P.hands = cyc < 3.6 ? [[-110, -300], [-60, -300]] : [[-110, -300], [100, -340]]; P.look = -0.8; P.mood = cyc > 3.6 ? 'happy' : 'calm'; P.talk = cyc > 3.6;
     if (cyc > 3.2 && cyc < 3.26 && FLASH.t < t - 1) FLASH.t = t; P.x = 1230 + Math.sin(t * 0.5) * 5;
@@ -243,6 +313,10 @@
       var hp = handW(PHOT, 0); fillRR(g, hp[0] - 20, hp[1] - 18, 40, 26, 5, '#2A3142'); fillE(g, hp[0] - 22, hp[1] - 5, 9, 9, '#0B0F24'); fillE(g, hp[0] - 22, hp[1] - 5, 5, 5, '#3A5A9A'); fillRR(g, hp[0] + 2, hp[1] - 24, 10, 6, 2, '#5C6B7A');
       if (fl2 < 0.35) { g.save(); g.globalAlpha = 1 - fl2 / 0.35; fillE(g, hp[0] + 7, hp[1] - 26, 18, 18, '#FFFFFF'); g.restore(); }
       if (t - SITT.t < 1.6) { var hs = handW(SIT, 1); text(g, '✌', hs[0], hs[1] - 6, 14, 800, '#2A3142', 'center'); } }
+    /* the lobby: the records-room reader blinks (green when someone taps in), today's date is ringed on the calendar */
+    var dr = LB.door, dg = t - DOOR.t < 1.4 || (t % 7) < 0.5; fillE(g, dr.x + dr.w + 25, dr.y + 154, 3, 3, dg ? '#2BC48A' : (Math.floor(t * 2) % 2 ? RED : '#7A2C27'));
+    var cl = LB.cal, td = 7; g.strokeStyle = RED; g.lineWidth = 1.6; g.beginPath(); g.ellipse(cl.x + 12 + (td % 7) * 12, cl.y + 38.5 + Math.floor(td / 7) * 18, 8, 9, 0, 0, Math.PI * 2 * clamp((t % 4) / 1.2, 0, 1)); g.stroke();
+    actApp(APP, t); K.person(g, APP, t);
     /* the archivist on the far left */
     if (S.ext.l < -560) { actArc(ARC, t); K.person(g, ARC, t); }
     CO.crew(CREW, g, t, S, false);
@@ -280,6 +354,9 @@
     if (HR._u < 1.3) { var hh = handW(HR, 1); fillRR(g, hh[0] - 7, hh[1] - 22, 14, 16, 4, '#8E6A47'); fillRR(g, hh[0] - 11, hh[1] - 6, 22, 7, 2, OK); }
     if (HR._u >= 1.3 && HR._u < 2.4) { var ht = handW(HR, 1); fillRR(g, ht[0] - 4, ht[1] - 22, 8, 14, 4, CR.skin[1]); }
     var sa = t - STAMP.t; if (sa < 3) { g.save(); g.globalAlpha = clamp(3 - sa, 0, 1); g.translate(T.desk.x + 176, T.desk.y - 3); fillRR(g, -22, -6, 44, 7, 1, '#FFFFFF'); g.rotate(-0.12); g.strokeStyle = OK; g.lineWidth = 1.8; rr(g, -18, -7, 36, 11, 2); g.stroke(); text(g, 'ON FILE', 0, 1.5, 6, 800, OK, 'center'); g.restore(); }
+    /* the applicant's folder and her watch glance */
+    if (APP._fold) { var a0 = handW(APP, 0), a1 = handW(APP, 1); g.save(); g.translate((a0[0] + a1[0]) / 2, Math.min(a0[1], a1[1]) - 12); g.rotate(APP._u < 1.6 ? 0.1 : -0.05); fillRR(g, -20, -14, 40, 28, 2, MAN); fillRR(g, -16, -17, 14, 4, 1, MAN2); fillRR(g, -14, -8, 28, 18, 1, '#FFFFFF'); fillRR(g, -10, -4, 18, 2, 1, '#9AA6BC'); fillRR(g, -10, 1, 22, 2, 1, '#C9D3E3'); g.restore(); }
+    if (APP._watch) { var aw = handW(APP, 0); fillE(g, aw[0], aw[1] - 4, 4, 4, '#FFFFFF'); g.strokeStyle = INK; g.lineWidth = 1.2; g.beginPath(); g.arc(aw[0], aw[1] - 4, 4, 0, 7); g.stroke(); }
     /* the new hire's new ID, held high */
     if (HIRE._u < 2.2) { var hn = handW(HIRE, 1); idCard(g, hn[0] + 2, hn[1] - 22, 0.8, Math.sin(t * 8) * 0.08); }
     CR.draw(g, t);
@@ -314,6 +391,7 @@
       function on(P) { return Math.abs(x - P.x) < 60 && y < P.y + 6 && y > P.y - 260; }
       if (S.ext.r > T.photo.x && on(PHOT)) { PHT.t = t; CR.burst('star', PHOT.x - 60, PHOT.y - 230, t); return { say: 'Chin up, smile: your **2×2 photo** for the 201 file!', near: [880, 60], pose: 'love', who: 'HR assistant' }; }
       if (S.ext.r > T.photo.x && on(SIT)) { SITT.t = t; CR.burst('heart', SIT.x, SIT.y - 230, t); return { say: 'First day! My **ID photo** is done.', near: [880, 60], pose: 'celebrate', who: 'New hire' }; }
+      if (on(APP)) { APT.t = t; DOOR.t = t; CR.burst('heart', APP.x + 40, APP.y - 250, t); return { say: 'My interview with **HR** is next. My grey visitor pass is on!', near: [-250, 80], pose: 'wow', who: 'Applicant (visitor)' }; }
       if (S.ext.l < -560 && on(ARC)) { ARCT.t = t; CR.burst('spark', ARC.x, ARC.y - 260, t); return { say: 'Every **201 file** has a box in the archive, A to Z.', near: [-420, 80], pose: 'wow', who: 'Records team' }; }
       return null;
     },
