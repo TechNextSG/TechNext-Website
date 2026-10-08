@@ -25,25 +25,54 @@
 .ixw--support .ixw-cap-who b{color:var(--sp-ink)}.ixw--support .ixw-cap-txt b{color:#C96A12}
 .ixw--support .ixw-cap-rec{background:var(--sp-or-l);border:1px dashed #F5B97A;color:#7A4A12}
 
-/* ---------- buttons: a status dot on each ---------- */
-.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;padding-left:40px;border-radius:999px;border:0;
-  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
-.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:18px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.25)}
-.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{animation:spDot 1s ease-in-out infinite}
-@keyframes spDot{50%{box-shadow:0 0 0 7px rgba(43,196,138,0)}}
-.ixw--support main .btn-primary,.ixw--support main .btn-primary:hover{color:#FFFFFF;background:var(--sp-ink);box-shadow:0 4px 0 #0E1430}
-.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--sp-ink);background:#FFFFFF;box-shadow:0 0 0 2px var(--sp-or),0 4px 0 2px var(--sp-or)}
-.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white)::after{background:var(--sp-or);box-shadow:0 0 0 3px rgba(240,138,36,.25)}
-.ixw--support main .btn-ghost::before{display:none}.ixw--support main .btn-ghost .ic{color:var(--sp-or)}
+/* ---------- hero buttons: cockpit switches (52px pills, a lit status LED on the primary, an orange port on the ghost) ---------- */
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;overflow:hidden;height:52px;padding:0 26px;gap:12px;border-radius:999px;border:0;font:800 16px/1 var(--font-display);
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .22s ease,background-color .2s ease}
+.ixw--support main .btn-primary,.ixw--support main .btn-primary:hover{padding-left:44px;color:#FFFFFF;background:linear-gradient(180deg,#2A346B,#1B2350);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 0 #0E1430,0 14px 22px -14px rgba(27,35,80,.7)}
+.ixw--support main .actions .btn-primary{padding-left:44px}.ixw--support main .btn-primary:has(.ic){padding-right:10px}
+.ixw--support main .btn-primary::before{content:"";position:absolute;left:20px;top:50%;width:11px;height:11px;margin-top:-5.5px;border-radius:50%;background:#2BC48A;box-shadow:0 0 0 3px rgba(43,196,138,.28),0 0 10px rgba(43,196,138,.8);z-index:2}
+.ixw--support main .btn-primary:hover::before{animation:spDot 1s ease-in-out infinite}
+.ixw--support main .btn-primary .ic{width:32px;height:32px;padding:7px;margin:0;border-radius:50%;background:var(--sp-or);color:#FFFFFF}
+.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--support main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--sp-ink);background:#FFFFFF;box-shadow:inset 0 0 0 2px var(--sp-ink),0 4px 0 var(--sp-ink),0 14px 22px -16px rgba(27,35,80,.5)}
+.ixw--support main .btn-ghost:has(.ic){padding-left:10px}
+.ixw--support main .btn-ghost::before{display:none}.ixw--support main .btn-ghost .ic{width:32px;height:32px;padding:7px;margin:0;border-radius:50%;background:var(--sp-or-l);color:var(--sp-or);box-shadow:inset 0 0 0 1.5px #F5C995}
 .ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--support main .btn-primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 0 #0E1430,0 20px 28px -14px rgba(240,138,36,.55)}
+.ixw--support main .btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--sp-ink),0 6px 0 var(--sp-ink),0 20px 26px -16px rgba(240,138,36,.5)}
+.ixw--support main :is(.btn-primary,.btn-ghost):hover .ic{transform:translateX(3px)}
 .ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--support main .btn-primary:active{box-shadow:0 1px 0 #0E1430}.ixw--support main .btn-ghost:active{box-shadow:inset 0 0 0 2px var(--sp-ink),0 1px 0 var(--sp-ink)}
 .ixw--support .ixw-cta .btn-outline-white,.ixw--support .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 2px #FFFFFF}
-.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
-.ixw--support .ixw-ibtn{border:2px solid var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}
-.ixw--support .ixw-ibtn--play,.ixw--support .ixw-ibtn--play:hover{background:var(--sp-or);color:#FFFFFF}
-.ixw--support .ixw-dots button.is-on{background:var(--sp-or);box-shadow:0 0 0 1.5px var(--sp-ink)}
-.ixw--support .ixw-peek{border-color:var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}.ixw--support .ixw-peek[aria-pressed="true"]{background:var(--sp-or-l)}
-@media (prefers-reduced-motion:reduce){.ixw--support main .btn::after{animation:none!important}}
+.ixw--support main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid var(--sp-or);outline-offset:4px}
+.ixw--support .ixw-copy .actions{gap:14px}
+/* the walkthrough rail: waypoint pills */
+.ixw--support .ow-rail{gap:8px}
+.ixw--support .ow-rail a,.ixw--support .ow-rail li.is-on{height:32px;padding:0 13px 0 5px;font-weight:800;transition:translate .2s var(--w-spring),box-shadow .2s ease,background-color .2s ease}
+.ixw--support .ow-rail a{background:#FFFFFF;color:#4A5570;box-shadow:inset 0 0 0 1.5px #EBDDCB}
+.ixw--support .ow-rail a:hover{translate:0 -2px;background:var(--sp-or-l);color:var(--sp-ink);box-shadow:inset 0 0 0 1.5px var(--sp-or),0 3px 0 #F5C995}
+.ixw--support .ow-rail a:focus-visible{outline:3px solid var(--sp-or);outline-offset:2px}
+.ixw--support .ow-rail a b{background:var(--sp-or-l);color:#C96A12}
+.ixw--support .ow-rail li.is-on{background:var(--sp-or);box-shadow:0 3px 0 #C96A12}
+.ixw--support .ow-rail b{width:22px;height:22px}
+/* caption controls: radio-panel buttons */
+.ixw--support .ixw-ibtn{border:2px solid var(--sp-ink);color:var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}
+.ixw--support .ixw-ibtn:hover{color:#C96A12;border-color:var(--sp-ink);box-shadow:0 5px 0 var(--sp-ink),0 10px 16px -8px rgba(240,138,36,.6)}
+.ixw--support .ixw-ibtn:active{box-shadow:0 1px 0 var(--sp-ink)}
+.ixw--support .ixw-ibtn:focus-visible{outline:3px solid var(--sp-or);outline-offset:3px}
+.ixw--support .ixw-ibtn--play,.ixw--support .ixw-ibtn--play:hover{background:linear-gradient(180deg,#FFA04A,#F08A24);color:#FFFFFF}
+.ixw--support .ixw-dots{gap:6px}
+.ixw--support .ixw-dots button{background:#EBDDCB}
+.ixw--support .ixw-dots button:hover{background:#F5B97A}
+.ixw--support .ixw-dots button.is-on{width:24px;background:var(--sp-or);box-shadow:0 0 0 1.5px var(--sp-ink)}
+/* "View the scene": top left over the flight plan, clear of the displays */
+.ixw--support .ixw-peek{left:max(24px,calc((100vw - 1200px) / 2 + 24px));right:auto;top:calc(var(--header-box) + 6px);height:40px;padding:0 16px 0 6px;gap:9px;border-color:var(--sp-ink);box-shadow:0 3px 0 var(--sp-ink)}
+.ixw--support .ixw-peek::before{width:28px;height:28px;border-radius:50%;background:var(--sp-or);-webkit-mask:none;mask:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");background-size:16px;background-position:center;background-repeat:no-repeat}
+.ixw--support .ixw-peek:hover{box-shadow:0 5px 0 var(--sp-ink),0 12px 18px -10px rgba(240,138,36,.6)}
+.ixw--support .ixw-peek:focus-visible{outline:3px solid var(--sp-or)}
+.ixw--support .ixw-peek[aria-pressed="true"]{background:var(--sp-or-l)}
+.ixw--support .ixw-peek[aria-pressed="true"]::before{background-color:var(--sp-ink)}
+@media (prefers-reduced-motion:reduce){.ixw--support main .btn::before{animation:none!important}}
 
 /* ---------- the glance strip: the ticket's footer ---------- */
 .ixw--support .ow-strip{border-radius:14px;box-shadow:0 0 0 1.5px #EBDDCB,0 24px 44px -30px rgba(80,50,20,.3);background:linear-gradient(90deg,var(--sp-or) 0 6px,#FFFFFF 6px)}
@@ -188,3 +217,10 @@
 }
 @media (prefers-reduced-motion:reduce){.ixw--support .sp-head::before,.ixw--support .sp-head .hand::before,.ixw--support .sp-sweep,.ixw--support .sp-scope b,.ixw--support .sp-radio-sign b i,.ixw--support .sp-console-cap i{animation:none}
   .ixw--support .sp-plan-jet{opacity:1;left:calc(75% - 56px);animation:none!important}}
+@keyframes spDot{50%{box-shadow:0 0 0 7px rgba(43,196,138,0),0 0 10px rgba(43,196,138,.8)}}
+
+/* audit round: even waypoint cards, related gate cards with their links on one line */
+.ixw--support .sp-plan .step{display:flex;flex-direction:column}
+.ixw--support .sp-plan .step>div:not(.step-n){flex:1}
+.ixw--support .sp-pass .card{display:flex;flex-direction:column}
+.ixw--support .sp-pass .card>p{flex:1}

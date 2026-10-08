@@ -218,4 +218,48 @@
     ],
     onStop: function (key, S, t) { if (key === 'checkin') S.ckT = t; if (key === 'close') S.clT = t; }
   };
+  /* ---------------- audit round: behind the card, a water station with candles flickering on the shelf above it; on the
+     floor, mats rolled out for the next class and Mira warming up on one (idle: a slow side stretch; tapped: a tree pose
+     with a little hop and floating leaves); right of the caption, an aroma diffuser puffing ---------------- */
+  var MIRA = { x: 122, y: 588, s: 0.5, ph: 3.1, c: { skin: '#C68B5E', hair: '#2B1D16', top: '#B9A6D8', low: '#3B3651', shoe: '#C68B5E' }, outfit: 'tee', hairStyle: 'bun', feet: true, mood: 'calm', look: 0, hands: [[-70, -150], [70, -150]] }, MT = { tap: -9 };
+  function mat(g, x, y, w, col) { soft(g, x + w / 2, y + 5, w * 0.55, 6, 0.12); fillRR(g, x, y - 10, w, 20, 6, col); g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(x + 6, y - 7, w - 12, 3); }
+  function exFloor(g, ext) {
+    [[-560, 556, 'rgba(141,179,154,.95)'], [-330, 572, 'rgba(185,166,216,.95)'], [20, 592, 'rgba(242,181,167,.95)']].forEach(function (m) { if (m[0] + 220 > ext.l) mat(g, m[0], m[1], 210, m[2]); });
+    if (ext.l < -500) { g.save(); g.translate(-600, 556); fillE(g, 0, -4, 16, 14, '#8DB39A'); fillE(g, 0, -4, 8, 7, '#5E8C6E'); g.restore(); }
+  }
+  function exBack(g, ext) {
+    if (ext.l > 180) return; g.save(); g.translate(-50, 0);
+    /* the water station: a low console, a glass dispenser, cups */
+    soft(g, 60, F + 4, 90, 7, 0.18); fillRR(g, -10, 410, 150, 14, 5, C.wood); fillRR(g, -2, 424, 134, 46, 4, '#E6D2B8'); g.fillStyle = C.woodD; g.fillRect(4, 424, 4, 46); g.fillRect(122, 424, 4, 46);
+    fillRR(g, 20, 330, 50, 80, 12, 'rgba(210,235,240,.75)'); fillRR(g, 20, 360, 50, 50, 10, 'rgba(160,210,190,.55)'); fillRR(g, 28, 322, 34, 10, 4, C.woodD); fillRR(g, 40, 398, 10, 10, 2, C.woodD);
+    for (var c = 0; c < 3; c++) fillRR(g, 86 + c * 14, 392 - (c % 2) * 6, 11, 18, 3, '#FFFFFF');
+    text(g, 'INFUSED WATER', 60, 446, 7, 800, C.sageD, 'center'); text(g, 'help yourself', 60, 458, 6.5, 700, C.woodD, 'center');
+    /* the candle shelf */
+    fillRR(g, -20, 270, 170, 10, 4, C.wood); for (var k = 0; k < 4; k++) fillRR(g, -6 + k * 40, 246 - (k % 2) * 8, 18, 24 + (k % 2) * 8, 4, ['#FBF7F0', '#E9DFF5', '#FBF7F0', '#DCEBDF'][k]);
+    g.restore();
+  }
+  function exLive(g, t, S) {
+    if (S.ext.l > 180) return; g.save(); g.translate(-50, 0);
+    for (var k = 0; k < 4; k++) { var fx = 3 + k * 40, fy = 240 - (k % 2) * 8, f = 1 + 0.18 * Math.sin(t * 9 + k * 2); fillE(g, fx, fy - 4 * f, 3.2, 6 * f, '#FFC94A'); fillE(g, fx, fy - 2.5 * f, 1.6, 3 * f, '#FFF2C4'); }
+    for (var l = 0; l < 3; l++) { var ly = 370 + ((t * 8 + l * 13) % 36); fillE(g, 34 + l * 11, ly, 4, 4, l === 1 ? 'rgba(255,214,90,.9)' : 'rgba(140,200,120,.85)'); }
+    g.restore();
+  }
+  function exFore(g, t, S) {
+    var ext = S.ext;
+    if (ext.l < 160) { var P = MIRA, d = t - MT.tap, tree = d >= 0 && d < 2.6;
+      P.mood = tree || Math.sin(t * 0.6) > 0.3 ? 'happy' : 'calm';
+      if (tree) { P.tilt = 0; P.hop = Math.abs(Math.sin(d * 5)) * 10 * (1 - d / 2.6); P.hands = [[-118, -404], [118, -404]]; }
+      else { var sb = Math.sin(t * 0.8); P.tilt = sb * 0.14; P.hop = 0; P.hands = sb > 0 ? [[-70, -160], [96, -412]] : [[-96, -412], [70, -160]]; }
+      P.look = -P.tilt * 4; K.person(g, P, t);
+      if (tree) for (var i = 0; i < 4; i++) { var u = (d * 0.5 + i * 0.25) % 1; g.globalAlpha = 1 - u; g.fillStyle = i % 2 ? '#7FAF8A' : '#B9A6D8'; g.beginPath(); g.ellipse(P.x - 40 + i * 26, P.y - 260 - u * 80, 5, 9, u * 3, 0, 7); g.fill(); g.globalAlpha = 1; } }
+    if (ext.r > 970) { var x = 952, y = 640; soft(g, x, y + 3, 30, 5, 0.2); fillRR(g, x - 18, y - 40, 36, 40, 14, '#FBF7F0'); fillRR(g, x - 18, y - 22, 36, 6, 3, C.wood); fillE(g, x, y - 42, 8, 4, '#E6D2B8');
+      for (var p = 0; p < 4; p++) { var u2 = (t * 0.35 + p * 0.25) % 1; g.globalAlpha = (1 - u2) * 0.55; fillE(g, x + Math.sin(u2 * 6 + p) * 8, y - 50 - u2 * 70, 7 + u2 * 10, 5 + u2 * 8, '#FFFFFF'); g.globalAlpha = 1; } }
+  }
+  function exHit(x, y, S, t) { if (Math.abs(x - MIRA.x) < 55 && y > MIRA.y - 260 && y < MIRA.y + 10) { MT.tap = t; return true; } return false; }
+  (function (W) { var pb = W.paintBack, pl = W.paintLive, pf = W.paintForeLive, h0 = W.hit;
+    W.paintBack = function (g, ext) { exFloor(g, ext); pb(g, ext); exBack(g, ext); };
+    W.paintLive = function (g, t, now, S) { pl(g, t, now, S); exLive(g, t, S); };
+    W.paintForeLive = function (g, t, S) { exFore(g, t, S); pf(g, t, S); };
+    W.hit = function (x, y, S, t, onBtn) { if (!onBtn && exHit(x, y, S, t)) return null; return h0 ? h0(x, y, S, t, onBtn) : null; };
+  })(window.IXW.worlds['health-wellness']);
 })(window.IXW && window.IXW.kit);

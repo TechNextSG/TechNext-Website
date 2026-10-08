@@ -175,6 +175,7 @@
       fillRR(g, px + 14, F - 42, 92, 12, 5, CORAL); g.strokeStyle = GREY; g.lineWidth = 4; g.beginPath(); g.moveTo(px + 30, F - 150); g.lineTo(px + 30, F - 180); g.lineTo(px + 90, F - 180); g.lineTo(px + 90, F - 150); g.stroke();
       fillRR(g, px - 120, F - 70, 70, 70, 6, '#C99A6B'); fillRR(g, px - 120, F - 70, 70, 10, 4, '#B5865A'); fillRR(g, px - 110, F - 104, 50, 34, 5, '#C99A6B'); text(g, 'SEATS', px - 85, F - 32, 9, 800, '#7A4E2A', 'center');
     }
+    tentBack(g, ext);
     /* the right margin: the GRAND OPENING arch with its ribbon and a popcorn cart (wide screens) */
     if (ext.r > 1010) {
       var gx = 1080; [gx, gx + 190].forEach(function (x) { fillRR(g, x - 9, 60, 18, F - 60, 5, '#FFFFFF'); for (var s2 = 0; s2 < 10; s2++) fillRR(g, x - 9, 60 + s2 * 42, 18, 20, 3, s2 % 2 ? TEAL : '#FFFFFF'); soft(g, x, F + 2, 22, 4, 0.25); });
@@ -235,6 +236,7 @@
     [['App Store', BLUE], ['Google Play', MINT], ['Web', SUN_D]].forEach(function (q, i) { var bx2 = LB.x + 18 + i * 72; fillRR(g, bx2, LB.y + 48, 64, 15, 7.5, '#F3F6FA'); fillE(g, bx2 + 8, LB.y + 55.5, 3.4, 3.4, q[1]); text(g, q[0], bx2 + 14, LB.y + 58.6, 7, 800, '#3D4560'); });
   }
   function paintFront(g, ext) {
+    if (ext.l < 60) tentFront(g);
     /* the prototype bench: open, so the developer's chair and legs show; the laptop BESIDE him on the left */
     CO.desk(g, BENCH.x, BENCH.y, BENCH.w, F, { open: true, legs: '#9AA6BC', top: '#F6D7B0' });
     fillRR(g, BENCH.x + 8, BENCH.y + 12, BENCH.w - 16, 20, 5, INK); fillE(g, BENCH.x + 22, BENCH.y + 22, 7, 7, '#FFFFFF'); text(g, '2', BENCH.x + 22, BENCH.y + 25.6, 9, 800, INK, 'center');
@@ -251,6 +253,9 @@
     /* the dispatch lever's floor box */
     soft(g, LEVER.x, F + 2, 18, 3, 0.25); fillRR(g, LEVER.x - 12, F - 20, 24, 20, 4, '#5C6B8A'); fillRR(g, LEVER.x - 9, F - 22, 18, 4, 2, '#3A4458'); text(g, 'GO', LEVER.x, F - 7, 7, 800, '#FFE7A8', 'center');
   }
+  function cone(g, x, y) { soft(g, x, y + 2, 14, 3, 0.25); g.fillStyle = '#FF8A3D'; g.beginPath(); g.moveTo(x - 11, y); g.lineTo(x, y - 30); g.lineTo(x + 11, y); g.closePath(); g.fill(); fillRR(g, x - 14, y - 3, 28, 5, 2, '#D9741A'); g.fillStyle = '#FFFFFF'; g.fillRect(x - 6, y - 16, 12, 4); }
+  function zBogie(g) { var wb = -900; soft(g, wb + 40, 744, 50, 5, 0.25); fillE(g, wb + 20, 724, 18, 18, '#2A3142'); fillE(g, wb + 20, 724, 7, 7, '#AEB8C8'); fillE(g, wb + 62, 724, 18, 18, '#2A3142'); fillE(g, wb + 62, 724, 7, 7, '#AEB8C8'); fillRR(g, wb + 14, 712, 54, 8, 3, '#5C6B8A'); }
+  var FORE_Z = [[700, function (g) { cone(g, -700, 700); }], [704, function (g) { cone(g, -660, 704); }], [744, zBogie], [690, function (g) { cone(g, -596, 690); }], [696, function (g) { cone(g, -560, 696); }]];
   function paintFore(g, ext) {
     /* the near yard: a toolbox, cones and test-zone tape, a spare seat on a pallet, a crate of test phones, a wheel bogie */
     function cone(x, y) { soft(g, x, y + 2, 14, 3, 0.25); g.fillStyle = '#FF8A3D'; g.beginPath(); g.moveTo(x - 11, y); g.lineTo(x, y - 30); g.lineTo(x + 11, y); g.closePath(); g.fill(); fillRR(g, x - 14, y - 3, 28, 5, 2, '#D9741A'); g.fillStyle = '#FFFFFF'; g.fillRect(x - 6, y - 16, 12, 4); }
@@ -261,8 +266,6 @@
     fillRR(g, sx2 + 12, 660, 64, 58, 8, '#2A3142'); fillRR(g, sx2 + 16, 664, 56, 34, 5, '#FFFFFF'); fillRR(g, sx2 + 10, 700, 68, 12, 5, CORAL); text(g, 'SPARE SEAT', sx2 + 44, 685, 7, 800, CORAL_D, 'center');
     var cx = 800; soft(g, cx + 40, 740, 54, 6, 0.25); fillRR(g, cx, 704, 80, 36, 5, '#C99A6B'); fillRR(g, cx, 704, 80, 8, 4, '#B5865A'); for (var p = 0; p < 5; p++) { fillRR(g, cx + 6 + p * 14.5, 690 - (p % 2) * 4, 11, 20, 2.5, '#2A3142'); fillRR(g, cx + 7.5 + p * 14.5, 692 - (p % 2) * 4, 8, 13, 1.5, ['#BFEAF2', '#FFE3DE', '#E3F3E6', '#FFF0B8', '#E8E1FB'][p]); }
     text(g, 'TEST DEVICES', cx + 40, 728, 7.4, 800, '#7A4E2A', 'center');
-    if (ext.l < 140) { cone(60, 700); cone(100, 706); var sh = -60; soft(g, sh + 50, 742, 60, 5, 0.25); fillRR(g, sh, 708, 100, 10, 3, '#C99A6B'); [sh + 10, sh + 82].forEach(function (x) { g.save(); g.translate(x, 718); fillRR(g, -2, 0, 4, 24, 2, '#9A7048'); g.restore(); }); fillRR(g, sh + 14, 694, 70, 14, 3, '#FFFFFF'); fillRR(g, sh + 14, 694, 70, 4, 2, '#BFEAF2'); }
-    if (ext.l < -560) { cone(-700, 700); cone(-660, 704); var wb = -900; soft(g, wb + 40, 744, 50, 5, 0.25); fillE(g, wb + 20, 724, 18, 18, '#2A3142'); fillE(g, wb + 20, 724, 7, 7, '#AEB8C8'); fillE(g, wb + 62, 724, 18, 18, '#2A3142'); fillE(g, wb + 62, 724, 7, 7, '#AEB8C8'); fillRR(g, wb + 14, 712, 54, 8, 3, '#5C6B8A'); }
     if (ext.r > 1250) { var ts = 1150; soft(g, ts + 30, 742, 44, 5, 0.25); fillRR(g, ts, 704, 60, 38, 6, TEAL); fillRR(g, ts, 704, 60, 9, 5, TEAL_D); text(g, 'TICKETS', ts + 30, 728, 8, 800, '#FFFFFF', 'center'); }
     /* the balloon cart's base (its balloons are drawn live) */
     var C = CART; soft(g, C.x, C.y + 3, 34, 5, 0.25); fillRR(g, C.x - 26, C.y - 34, 52, 30, 6, '#FFFFFF'); fillRR(g, C.x - 26, C.y - 34, 52, 8, 4, CORAL); text(g, 'BALLOONS', C.x, C.y - 14, 6.6, 800, CORAL_D, 'center');
@@ -371,13 +374,16 @@
     car(g, t, R, S);
     /* little pennants on the gantry */
     [RAIL.x0 + 6, 640, RAIL.x1 - 6].forEach(function (x, i) { var fl = Math.sin(t * 5 + i * 2); g.fillStyle = [CORAL, TEAL, SUN][i]; g.beginPath(); g.moveTo(x + 4, RAIL.y + 12); g.quadraticCurveTo(x + 14, RAIL.y + 13 + fl * 2, x + 24, RAIL.y + 16 + fl * 3); g.quadraticCurveTo(x + 14, RAIL.y + 19 + fl * 2, x + 4, RAIL.y + 24); g.closePath(); g.fill(); });
+    if (S.ext.l < 120) blimp(g, t);
     CO.crew(CREW, g, t, S, false);
   }
 
   /* ---------------- in front of the cast: screens, props, effects ---------------- */
   function paintFrontLive(g, t, S) {
     var R = S.R || ride(t);
+    if (S.ext.l < 100) tentLive(g, t, S);
     CO.crew(CREW, g, t, S, true);
+    if (S.ext.l < -200) turntable(g, t);
     /* the laptop beside the developer: code that builds, or BUILD OK after his tap */
     var bt = t - (TAP.dev || -99); fillRR(g, LAP.x, LAP.y, LAP.w, LAP.h, 2, '#1E2A3A');
     if (bt < 2.6 && bt > 0.9) { fillRR(g, LAP.x + 6, LAP.y + 9, LAP.w - 12, 14, 4, MINT); text(g, 'BUILD 0.4 ✓', LAP.x + LAP.w / 2, LAP.y + 18.4, 6, 800, '#FFFFFF', 'center'); }
@@ -433,6 +439,80 @@
   var TAP = {};
   function tapped(id, st, t) { if (st.wave && st.wave !== st._my) { st._my = st.wave; TAP[id] = t; return true; } return false; }
   function lookAtNexi(P, st, t, S, base) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : base, 0.08); }
+  /* ---------------- the user-testing tent (behind the title card): a striped canopy where a client's own staff member tries
+     the prototype on a tablet while the session runs, a BETA blimp tethered to the tent pole, a painted arrow on the yard to the
+     test ride, and a 3D-printed ride car turning on its turntable inside a little queue of stanchions ---------------- */
+  var UT = { x: -200, r: 70, top: 168 }, UTAB = { x: 16, y: 300, w: 44, h: 60 }, TT = { x: -380, y: 604 };
+  var TESTER = W({ x: -70, y: F, s: 0.46, ph: 4.2, skin: 0, hair: 2, style: 'long', outfit: 'shirt', top: '#FF8FA3', id: GREY, hands: [[-60, -210], [80, -250]], look: 0.5 });
+  var UTS = { stars: -99 };
+  function tentBack(g, ext) {
+    if (ext.l > 80) return;
+    /* the painted arrow on the yard: this way to the test ride */
+    g.save(); g.fillStyle = 'rgba(255,201,60,.55)'; g.beginPath(); g.moveTo(-600, 528); g.lineTo(60, 528); g.lineTo(60, 512); g.lineTo(112, 540); g.lineTo(60, 568); g.lineTo(60, 552); g.lineTo(-600, 552); g.closePath(); g.fill();
+    g.globalAlpha = 0.75; text(g, 'THIS WAY TO THE TEST RIDE', -250, 545, 11, 800, '#B07A00', 'center'); g.restore();
+    /* the tent's back cloth, its pin board of notes from the session */
+    fillRR(g, UT.x + 6, UT.top + 40, UT.r - UT.x - 12, F - UT.top - 40, 4, '#FFF3E2'); g.fillStyle = 'rgba(255,107,87,.08)'; for (var sx = UT.x + 6; sx < UT.r - 6; sx += 26) g.fillRect(sx, UT.top + 40, 13, F - UT.top - 40);
+    shadowed(g, 6, 2, 0.14, function () { fillRR(g, UT.x + 20, UT.top + 58, 120, 86, 5, '#E9C79E'); }); fillRR(g, UT.x + 24, UT.top + 62, 112, 78, 3, '#F3DCBC');
+    text(g, 'SESSION NOTES', UT.x + 80, UT.top + 74, 6.8, 800, '#7A4E2A', 'center');
+    [['#FFE38A', 'tap target', -0.06], ['#BFEAF2', 'clear!', 0.05], ['#FFC2CF', 'where is sign?', -0.03], ['#D9F3E3', 'fast', 0.07]].forEach(function (n, i) { g.save(); g.translate(UT.x + 46 + (i % 2) * 56, UT.top + 96 + Math.floor(i / 2) * 30); g.rotate(n[2]); fillRR(g, -22, -11, 44, 22, 2, n[0]); text(g, n[1], 0, 3, 5.6, 700, INK, 'center'); g.restore(); });
+    fillRR(g, UT.x + 150, UT.top + 60, 92, 40, 6, '#FFFFFF'); text(g, 'TASK 2 OF 4', UT.x + 196, UT.top + 75, 7.4, 800, CORAL_D, 'center'); text(g, 'complete a checklist', UT.x + 196, UT.top + 88, 6, 700, '#8A93A6', 'center');
+    /* the poles and the scalloped, striped canopy */
+    [UT.x, UT.r].forEach(function (x) { fillRR(g, x - 5, UT.top, 10, F - UT.top + 2, 3, '#FFFFFF'); for (var s = 0; s < 6; s++) fillRR(g, x - 5, UT.top + 24 + s * 36, 10, 16, 2, s % 2 ? TEAL : '#FFFFFF'); soft(g, x, F + 2, 14, 3, 0.25); });
+    shadowed(g, 10, 4, 0.16, function () { g.fillStyle = TEAL; g.beginPath(); g.moveTo(UT.x - 18, UT.top + 30); g.lineTo((UT.x + UT.r) / 2, UT.top - 34); g.lineTo(UT.r + 18, UT.top + 30); g.closePath(); g.fill(); });
+    for (var st = 0; st < 6; st++) { var a = st / 6, b = (st + 0.5) / 6; g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo((UT.x + UT.r) / 2, UT.top - 34); g.lineTo(lerp(UT.x - 18, UT.r + 18, a), UT.top + 30); g.lineTo(lerp(UT.x - 18, UT.r + 18, b), UT.top + 30); g.closePath(); g.fill(); }
+    var sw = (UT.r - UT.x + 36) / 9; for (var sc = 0; sc < 9; sc++) { g.fillStyle = sc % 2 ? '#FFFFFF' : TEAL; g.beginPath(); g.moveTo(UT.x - 18 + sc * sw, UT.top + 28); g.lineTo(UT.x - 18 + (sc + 1) * sw, UT.top + 28); g.arc(UT.x - 18 + (sc + 0.5) * sw, UT.top + 28, sw / 2, 0, Math.PI); g.closePath(); g.fill(); }
+    fillRR(g, (UT.x + UT.r) / 2 - 66, UT.top + 4, 132, 22, 11, INK); text(g, 'USER TESTING', (UT.x + UT.r) / 2, UT.top + 19, 9.6, 800, '#FFFFFF', 'center');
+    fillRR(g, (UT.x + UT.r) / 2 - 1.5, UT.top - 60, 3, 28, 1, '#9AA6BC'); g.fillStyle = CORAL; g.beginPath(); g.moveTo((UT.x + UT.r) / 2 + 1.5, UT.top - 60); g.lineTo((UT.x + UT.r) / 2 + 22, UT.top - 53); g.lineTo((UT.x + UT.r) / 2 + 1.5, UT.top - 46); g.fill();
+  }
+  function tentFront(g) {
+    /* the high table, the tablet on its stand BESIDE the tester, a cup of pens, the consent clipboard */
+    soft(g, -30, F + 2, 70, 5, 0.22); [-90, 22].forEach(function (x) { fillRR(g, x, 384, 6, F - 384, 2, '#9AA6BC'); }); fillRR(g, -86, F - 6, 104, 5, 2, '#9AA6BC');
+    shadowed(g, 6, 3, 0.14, function () { fillRR(g, -106, 378, 140, 10, 3, '#F6D7B0'); }); fillRR(g, -106, 378, 140, 3, 2, '#FFE9C8');
+    fillRR(g, UTAB.x + UTAB.w / 2 - 3, UTAB.y + UTAB.h, 6, 378 - UTAB.y - UTAB.h, 2, '#7A869C'); fillRR(g, UTAB.x + 6, 374, UTAB.w - 12, 4, 2, '#7A869C');
+    shadowed(g, 8, 3, 0.2, function () { fillRR(g, UTAB.x - 4, UTAB.y - 4, UTAB.w + 8, UTAB.h + 8, 7, '#1F2236'); });
+    fillRR(g, -30, 364, 12, 14, 3, SUN); [0, 1, 2].forEach(function (j) { fillRR(g, -29 + j * 3.4, 356 + j * 2, 2.2, 12, 1, [CORAL, TEAL, BLUE][j]); });
+    g.save(); g.translate(-66, 376); g.rotate(-0.08); fillRR(g, -16, -4, 32, 4, 1, '#C98E55'); fillRR(g, -13, -7, 26, 3, 1, '#FFFFFF'); g.restore();
+  }
+  function tentLive(g, t, S) {
+    /* the tablet: the prototype screen, a tap ripple where she presses, a progress bar through the four tasks */
+    var x = UTAB.x, y = UTAB.y, step = Math.floor(t / 4) % 4; fillRR(g, x, y, UTAB.w, UTAB.h, 4, '#FFFFFF'); fillRR(g, x, y, UTAB.w, 9, 4, CORAL); text(g, 'Field app', x + 4, y + 7, 5, 800, '#FFFFFF');
+    for (var r = 0; r < 4; r++) { var done = r < step || (t - UTS.stars < 3); fillRR(g, x + 4, y + 13 + r * 9, UTAB.w - 8, 7, 2, done ? '#E3F3E6' : '#F3F6FA'); fillE(g, x + 8, y + 16.5 + r * 9, 2, 2, done ? MINT : '#C9D3E3'); fillRR(g, x + 12, y + 15.5 + r * 9, 18, 2, 1, '#C9D3E3'); }
+    fillRR(g, x + 4, y + UTAB.h - 8, UTAB.w - 8, 4, 2, '#EEF2F7'); fillRR(g, x + 4, y + UTAB.h - 8, (UTAB.w - 8) * ((step + ((t % 4) / 4)) / 4), 4, 2, TEAL);
+    if (TESTER.tapAt != null) { var q = TESTER.tapAt; g.strokeStyle = 'rgba(255,107,87,' + (0.8 * (1 - q)).toFixed(2) + ')'; g.lineWidth = 1.6; g.beginPath(); g.arc(x + 24, y + 17 + step * 9, 3 + q * 10, 0, Math.PI * 2); g.stroke(); }
+    var su = t - UTS.stars; if (su < 2.6) { var a = Math.min(1, su / 0.3) * (1 - clamp((su - 2.1) / 0.5, 0, 1)); g.save(); g.globalAlpha = a; var bx = x - 30, by = y - 40 - su * 8;
+      shadowed(g, 6, 2, 0.18, function () { fillRR(g, bx, by, 96, 26, 13, '#FFFFFF'); }); for (var s = 0; s < 5; s++) star(g, bx + 14 + s * 17, by + 13, 6.4, s < Math.min(5, Math.ceil(su * 4)) ? SUN : '#E3E8EF'); g.restore(); }
+  }
+  /* the turntable with the 3D-printed ride car, and the little queue of stanchions round it */
+  function turntable(g, t) {
+    var x = TT.x, y = TT.y, a = t * 0.6; soft(g, x, y + 6, 74, 8, 0.25); fillE(g, x, y + 4, 66, 15, '#C9D3DE'); fillE(g, x, y, 66, 15, '#FFFFFF'); fillE(g, x, y, 54, 11, '#F3F6FA');
+    for (var m = 0; m < 12; m++) { var ma = a + m * Math.PI / 6; fillE(g, x + Math.cos(ma) * 60, y + Math.sin(ma) * 13, 1.8, 1.4, m % 2 ? CORAL : TEAL); }
+    var c = Math.cos(a), s = Math.sin(a), w = 26 + Math.abs(c) * 22, dep = s * 4;
+    fillRR(g, x - w / 2, y - 30 - dep, w, 24, 8, s > 0 ? CORAL : CORAL_D); fillRR(g, x - w / 2 + 4, y - 26 - dep, w - 8, 8, 4, '#FFE3DE'); fillRR(g, x - w / 2 - 2, y - 10 - dep, w + 4, 6, 3, INK);
+    fillRR(g, x - 2, y - 44 - dep, 4, 16, 2, GREY); fillE(g, x, y - 46 - dep, 4, 4, SUN);
+    [[-1, 1], [1, 1]].forEach(function (k) { fillE(g, x + k[0] * w * 0.36 * Math.abs(c), y - 4 - dep, 4.4, 4.4, '#2A3142'); });
+    fillRR(g, x - 34, y + 20, 68, 14, 5, INK); text(g, 'RIDE MODEL · v0.3', x, y + 30, 6.4, 800, '#FFE7A8', 'center');
+    [-470, -440, -320, -290].forEach(function (px, i) { soft(g, px, y + 34, 9, 2.5, 0.25); fillRR(g, px - 2.5, y - 8, 5, 40, 2, '#B9C3D1'); fillE(g, px, y - 9, 4.5, 4.5, SUN_D); fillE(g, px, y + 33, 8, 3, '#9AA6BC'); });
+    g.strokeStyle = CORAL; g.lineWidth = 3; g.beginPath(); g.moveTo(-470, y - 4); g.quadraticCurveTo(-455, y + 6, -440, y - 4); g.moveTo(-320, y - 4); g.quadraticCurveTo(-305, y + 6, -290, y - 4); g.stroke();
+  }
+  /* the BETA blimp, tethered to the tent pole, bobbing in the breeze */
+  function blimp(g, t) {
+    var x = -150 + Math.sin(t * 0.35) * 26, y = 40 + Math.sin(t * 0.8) * 6, tilt = Math.sin(t * 0.5) * 0.06;
+    g.strokeStyle = 'rgba(28,35,64,.45)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo((UT.x + UT.r) / 2, UT.top - 60); g.quadraticCurveTo((UT.x + UT.r) / 2 + 30, (UT.top - 60 + y) / 2 + 20, x - 10, y + 22); g.stroke();
+    g.save(); g.translate(x, y); g.rotate(tilt); fillE(g, 0, 0, 58, 22, '#FFFFFF'); fillE(g, 0, 4, 54, 16, '#F3F6FA'); g.fillStyle = TEAL; g.beginPath(); g.moveTo(-52, -4); g.lineTo(-74, -20); g.lineTo(-70, 0); g.lineTo(-74, 20); g.lineTo(-52, 6); g.closePath(); g.fill();
+    fillRR(g, -26, -9, 52, 18, 9, CORAL); text(g, 'BETA', 0, 4.6, 10.6, 800, '#FFFFFF', 'center'); fillRR(g, -12, 20, 24, 8, 3, INK); fillE(g, 54, -2, 3, 3, (t % 1) < 0.5 ? SUN : '#FFF4C2'); g.restore();
+  }
+  var castTester = { id: 'tester', behind: true, keys: [], P: TESTER, act: function (P, t, S) {
+    var st = S.cast.tester; if (tapped('tester', st, t)) { UTS.stars = t + 0.4; }
+    P.tilt = 0; P.hop = 0; P.tapAt = null; P.x = -70;
+    var tk = TAP.tester != null ? t - TAP.tester : 99;
+    if (tk < 2.8) { var q = tk / 2.8; P.talk = true; P.mood = 'happy'; P.look = 0.3; P.hands = [[-90, -400 - Math.sin(q * Math.PI * 3) * 14], [90, -400 - Math.cos(q * Math.PI * 3) * 14]];
+      P.hop = Math.abs(Math.sin(q * Math.PI * 2)) * 12; if (q > 0.35 && !TAP.testerB) { TAP.testerB = true; CR.burst('star', UTAB.x + 22, UTAB.y - 20, t); } return; }
+    TAP.testerB = false;
+    var cy = (t + 1) % 10; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (cy < 4.5) { var tp = (t * 1.6) % 1, press = tp < 0.18; P.tapAt = tp < 0.6 ? tp / 0.6 : null; P.hands = [[-60, -210], [112, -262 + (press ? 6 : 0)]]; P.tilt = 0.04; lookAtNexi(P, st, t, S, 0.85); return; }
+    if (cy < 7) { P.mood = 'calm'; P.hands = [[-50, -210], [18, -322 + Math.sin(t * 2) * 3]]; P.tilt = -0.04; lookAtNexi(P, st, t, S, 0.5); return; }
+    var nod = Math.sin((cy - 7) * 6) * 0.04; P.mood = 'happy'; P.tilt = nod; P.hands = [[-60, -210], [96, -300]]; lookAtNexi(P, st, t, S, -0.4);
+  } };
   var castUX = { id: 'ux', behind: true, keys: ['story'], P: UX, act: function (P, t, S) {
     var st = S.cast.ux; if (tapped('ux', st, t)) { for (var n = 0; n < 8; n++) NOTE_FLY.push({ x: P.x + 30, y: P.y - 250, vx: (n - 3.5) * 30, vy: -150 - hash(n + t) * 60, t0: t + n * 0.05, p: n * 1.3, c: ['#FFE38A', '#BFEAF2', '#FFC2CF', '#D9F3E3'][n % 4] }); CR.burst('spark', P.x, P.y - 300, t); }
     P.sx = 1; P.tilt = 0; P.hop = 0; P.holdNote = false;
@@ -503,7 +583,7 @@
     pan: [-280, 1240],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); });
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE_Z, function () { CO.crew(CREW, g, t, S, 'fore'); });
       var sp = CREW[3]; if (sp.P._w && sp.P.x > S.ext.l - 60) { var h = handAt(sp.P, 0); fillRR(g, h[0] - 16, h[1] + 2, 32, 18, 3, CORAL_D); fillRR(g, h[0] - 16, h[1] + 2, 32, 5, 2, CORAL); g.strokeStyle = '#7A2A20'; g.lineWidth = 2.4; g.beginPath(); g.arc(h[0], h[1] + 2, 6, Math.PI, 0); g.stroke(); }
       CR.draw(g, t); },
     motes: false,
@@ -517,7 +597,7 @@
       balloons: function (g) { rr(g, CART.x - 34, CART.y - 136, 90, 144, 18); }
     },
     backGlow: ['story', 'track', 'gates', 'odoo', 'launch'],
-    cast: [castUX, castDEV, castLEAD, castTECH, castOPS],
+    cast: [castTester, castUX, castDEV, castLEAD, castTECH, castOPS],
     toy: function (name, S, t) { if (name === 'balloons') { TOYB = t; CR.burst('conf', CART.x + 20, CART.y - 110, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w;
@@ -525,6 +605,9 @@
         var lines = ['Wheee! Checked in with **one tap**.', 'Four ticks and the checklist is done. **Next station!**', 'Say cheese: the photos land **on the job in Odoo**.', 'The customer signs **right on the phone**.', 'Done! The office already has **the whole job**.'];
         return { say: R.at >= 0 ? lines[R.at] : R.st < 0 ? 'Boarding the test ride: **Jobs** first, then check in.' : 'On to the next station: every step writes **to Odoo**.', near: R.x < 640 ? [866, -46] : [300, -52], pose: R.x < 640 ? 'point-left' : 'point-right', who: 'Test riders · client team' }; }
       if (onBtn) return null;
+      if (x > UT.x - 20 && x < UT.r + 20 && y > UT.top - 40 && y < UT.top + 34) return { say: 'In the **user-testing tent** your own people try each screen before it is built for real.', near: [-60, 60], pose: 'point-left', who: 'The user-testing tent' };
+      if (Math.abs(x - TT.x) < 80 && y > TT.y - 60 && y < TT.y + 36) return { say: 'The ride model turns on its stand: every angle checked, like **every screen size** of your app.', near: [-200, 340], pose: 'wow', who: 'The ride model' };
+      if (Math.abs(x + 150) < 90 && y > 0 && y < 80) return { say: 'Up goes the **BETA** blimp: a working release your team can try along the way.', near: [-60, 200], pose: 'wow', who: 'The BETA blimp' };
       if (y < HZ && y > -60 && S.coasterX != null && Math.abs(x - S.coasterX + 30) < 60) return { say: 'The coaster out back is just for fun. **Your app** is the ride in front.', near: [clamp(x, 260, 880), -50], pose: 'wow', who: 'The park coaster' };
       if (y < -112 || (y > -112 && y < -60 && (x < LB.x || x > LB.x + LB.w))) return { say: 'Up there: balloons for every release that **passes its test ride**.', near: [clamp(x, 260, 880), -40], pose: 'wow', who: 'The park' };
       return null;

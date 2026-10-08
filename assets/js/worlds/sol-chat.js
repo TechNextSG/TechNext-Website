@@ -44,16 +44,20 @@
   var G1 = W({ x: 440, y: 470, s: 0.47, ph: 1.3, skin: 0, hair: 1, style: 'pony', outfit: 'cardigan', top: '#F0715A', top2: '#FFF4EC', id: '#9AA6BC', clip: '#FFD84A', hands: [[-60, -190], [40, -250]], look: 0.4 });
   var G2 = W({ x: 624, y: 470, s: 0.47, ph: 2.1, skin: 3, hair: 0, style: 'short', outfit: 'polo', top: '#14A38B', top2: '#FFFFFF', id: '#9AA6BC', hold: 'tablet', glasses: true, hands: [[-56, -214], [60, -190]], look: -0.4 });
   var DM = W({ x: 846, y: 470, s: 0.47, ph: 2.9, skin: 2, hair: 2, style: 'long', outfit: 'shirt', top: PLUM, id: '#9AA6BC', clip: GOLD_L, hands: [[-60, -200], [60, -200]], look: -0.5 });
-  G1.c.low = '#3A4458'; G2.c.low = '#5C6B7A'; DM.c.low = PLUM_D;
+  /* the lounge (left, behind the title card): a guest on the sofa with the paper and her tea, a traveller by the window */
+  var LG = { sofa: -175, tbl: -38, lamp: 70, rug: -150 };
+  var RD = W({ x: -196, y: 470, s: 0.45, ph: 0.8, skin: 2, hair: 0, style: 'bun', outfit: 'shirt', top: '#5FA8D3', id: '#9AA6BC', sit: true, chair: false, hands: [[-60, -250], [60, -250]], look: 0.2 });
+  var TV = W({ x: -392, y: 470, s: 0.46, ph: 2.4, skin: 0, hair: 0, style: 'short', outfit: 'polo', top: '#E07B12', id: '#9AA6BC', glasses: true, hands: [[-64, -196], [40, -250]], look: 0.3 });
+  G1.c.low = '#3A4458'; G2.c.low = '#5C6B7A'; DM.c.low = PLUM_D; RD.c.low = '#3A4458'; TV.c.low = '#4A5568';
   var CREW = [
     { x0: 1040, x1: 1340, y: 492, spd: 15, ph: 0.3, label: 'TechNext developer', lines: ['The same assistant runs on your **website, WhatsApp and app**.', 'One knowledge base behind **every channel**.'], acts: ['wave', 'id', 'nod'],
       P: W({ s: 0.52, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: '#714B67', hold: 'tablet' }) },
-    { front: true, x0: 990, x1: 1330, y: 702, spd: 17, ph: 0.6, label: 'TechNext consultant', lines: ['Send us your **top twenty** customer questions.', 'Unanswered questions are reviewed **every month**.'], acts: ['nod', 'cheer', 'id'],
-      P: W({ s: 0.58, skin: 1, hair: 1, style: 'bun', outfit: 'polo', top: '#3167CA', clip: '#FFD84A', hold: 'clipboard' }) },
+    { x0: -440, x1: 96, y: 506, spd: 17, ph: 0.6, label: 'TechNext consultant', lines: ['Send us your **top twenty** customer questions.', 'Unanswered questions are reviewed **every month**.'], acts: ['nod', 'cheer', 'id'],
+      P: W({ s: 0.53, skin: 1, hair: 1, style: 'bun', outfit: 'polo', top: '#3167CA', clip: '#FFD84A', hold: 'clipboard' }) },
     { x0: -900, x1: -180, y: 492, spd: 14, ph: 0.15, label: 'TechNext trainer', lines: ['Your team learns to **pick up a hand-off** in Live Chat.'], acts: ['wave', 'jump', 'id'],
       P: W({ s: 0.52, skin: 0, hair: 1, style: 'long', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', hold: 'box' }) },
-    { front: true, x0: -880, x1: -360, y: 694, spd: 16, ph: 0.45, label: 'Guest', drag: '#6B3F63', lines: ['I asked on WhatsApp and got the **delivery slot** straight away.'], acts: ['cheer', 'wave'],
-      P: W({ s: 0.58, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#E9B949', id: '#9AA6BC' }) }
+    { x0: -900, x1: -500, y: 496, spd: 16, ph: 0.45, label: 'Guest', drag: '#6B3F63', lines: ['I asked on WhatsApp and got the **delivery slot** straight away.'], acts: ['cheer', 'wave'],
+      P: W({ s: 0.52, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#E9B949', id: '#9AA6BC' }) }
   ];
   function handAt(P, side) {
     var F3 = K.F3, d = side ? 1 : -1, h = P.hands[side], sxk = P.sx == null ? 1 : P.sx, bw = P.build || 1;
@@ -210,10 +214,50 @@
     /* ---- beyond the frame: the fountain and the bench (left); the lounge (right) ---- */
     if (e.l < -440) { var fx2 = -580; soft(g, fx2, F + 4, 110, 10, 0.25); fillE(g, fx2, F - 10, 100, 18, '#E6DDD0'); fillE(g, fx2, F - 16, 92, 14, '#9BD3E6'); fillRR(g, fx2 - 10, F - 120, 20, 104, 4, '#E6DDD0'); fillE(g, fx2, F - 120, 40, 9, '#E6DDD0'); fillE(g, fx2, F - 124, 34, 6, '#9BD3E6');
       var bx = -820; fillRR(g, bx, F - 54, 150, 12, 4, WALNUT); fillRR(g, bx, F - 84, 150, 10, 4, '#A0704C'); [bx + 10, bx + 132].forEach(function (x) { fillRR(g, x, F - 42, 8, 42, 2, GOLD_D); }); }
-    if (e.l < 60) { var ax = -150; soft(g, ax + 50, F + 2, 70, 6, 0.25); fillRR(g, ax, F - 92, 100, 92, 22, '#4E8A72'); fillRR(g, ax + 10, F - 60, 80, 34, 12, '#5E9C82'); fillRR(g, ax - 6, F - 70, 20, 60, 10, '#3E7360'); fillRR(g, ax + 86, F - 70, 20, 60, 10, '#3E7360'); }
+    lounge(g);
     if (e.r > 1040) { var sf = 1060; soft(g, sf + 90, F + 2, 120, 8, 0.25); fillRR(g, sf, F - 96, 180, 50, 24, '#4E8A72'); fillRR(g, sf + 6, F - 60, 168, 40, 16, '#5E9C82'); fillRR(g, sf - 10, F - 74, 26, 60, 12, '#3E7360'); fillRR(g, sf + 164, F - 74, 26, 60, 12, '#3E7360');
       [sf + 40, sf + 100].forEach(function (x, i) { fillRR(g, x, F - 86, 40, 26, 10, i ? '#F1DB9A' : '#F3E7F0'); });
       fillRR(g, sf + 200, F - 40, 70, 8, 3, MARBLE); fillRR(g, sf + 230, F - 32, 8, 32, 2, GOLD_D); fillRR(g, sf + 212, F - 64, 14, 24, 3, '#FFFFFF'); fillE(g, sf + 219, F - 68, 9, 6, '#F0715A'); }
+  }
+  /* the lounge behind the title card: a gilt painting, three office clocks (faces here, hands live), the sofa, a side table, a floor lamp, a rug, a vase */
+  function lounge(g) {
+    var cx = LG.sofa;
+    /* the rug on the marble, in perspective */
+    g.fillStyle = PLUM_D; g.beginPath(); g.moveTo(cx - 190, F + 4); g.lineTo(cx + 190, F + 4); g.lineTo(cx + 230, F + 62); g.lineTo(cx - 230, F + 62); g.closePath(); g.fill();
+    g.fillStyle = PLUM; g.beginPath(); g.moveTo(cx - 178, F + 8); g.lineTo(cx + 178, F + 8); g.lineTo(cx + 214, F + 57); g.lineTo(cx - 214, F + 57); g.closePath(); g.fill();
+    g.strokeStyle = GOLD; g.lineWidth = 1.6; g.beginPath(); g.moveTo(cx - 166, F + 13); g.lineTo(cx + 166, F + 13); g.lineTo(cx + 198, F + 52); g.lineTo(cx - 198, F + 52); g.closePath(); g.stroke();
+    g.fillStyle = 'rgba(241,219,154,.35)'; for (var d = -4; d <= 4; d++) { var dx = cx + d * 38, dy = F + 32; g.beginPath(); g.moveTo(dx, dy - 8); g.lineTo(dx + 10, dy); g.lineTo(dx, dy + 8); g.lineTo(dx - 10, dy); g.closePath(); g.fill(); }
+    g.strokeStyle = GOLD_L; g.lineWidth = 1; for (var fr = -16; fr <= 16; fr++) { g.beginPath(); g.moveTo(cx + fr * 13.5, F + 62); g.lineTo(cx + fr * 13.8, F + 67); g.stroke(); }
+    /* an inlaid marble medallion further out on the floor: a gold compass star in a plum ring */
+    [[-250, 596, 1], [560, 600, 0.8]].forEach(function (m) { var mx = m[0], my = m[1], ms = m[2]; g.save(); g.translate(mx, my); g.scale(ms, ms * 0.2);
+      g.strokeStyle = 'rgba(107,63,99,.45)'; g.lineWidth = 9; g.beginPath(); g.arc(0, 0, 120, 0, 7); g.stroke(); g.strokeStyle = 'rgba(201,162,74,.6)'; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, 104, 0, 7); g.stroke();
+      g.fillStyle = 'rgba(201,162,74,.38)'; g.beginPath(); for (var pt = 0; pt < 16; pt++) { var pa = pt * Math.PI / 8, pr = pt % 2 ? 30 : (pt % 4 ? 70 : 96); g.lineTo(Math.cos(pa) * pr, Math.sin(pa) * pr); } g.closePath(); g.fill(); fillE(g, 0, 0, 16, 16, 'rgba(107,63,99,.5)'); g.restore(); });
+    /* the painting: the bay, in a gilt frame */
+    var px = cx - 84, py = -40, pw = 168, ph = 92; shadowed(g, 10, 4, 0.18, function () { fillRR(g, px - 9, py - 9, pw + 18, ph + 18, 5, GOLD); });
+    fillRR(g, px - 4, py - 4, pw + 8, ph + 8, 3, GOLD_D); var sk = g.createLinearGradient(0, py, 0, py + ph); sk.addColorStop(0, '#9FD6F5'); sk.addColorStop(0.62, '#E6F5FC'); sk.addColorStop(0.62, '#5FB4D9'); sk.addColorStop(1, '#3E95C4'); g.fillStyle = sk; g.fillRect(px, py, pw, ph);
+    fillE(g, px + 30, py + 22, 10, 10, '#FFF1B8'); g.fillStyle = '#F2E2C0'; g.beginPath(); g.moveTo(px, py + ph); g.quadraticCurveTo(px + 60, py + ph - 26, px + 110, py + ph); g.closePath(); g.fill();
+    g.strokeStyle = '#8A6A48'; g.lineWidth = 3; g.beginPath(); g.moveTo(px + 50, py + ph - 14); g.quadraticCurveTo(px + 44, py + 40, px + 58, py + 24); g.stroke();
+    [[-1, 0], [1, 0.2], [-0.5, -0.8], [0.6, 0.9]].forEach(function (L) { g.fillStyle = '#3FA56C'; g.beginPath(); g.moveTo(px + 58, py + 24); g.quadraticCurveTo(px + 58 + L[0] * 16, py + 14 + L[1] * 4, px + 58 + L[0] * 30, py + 30 + L[1] * 4); g.quadraticCurveTo(px + 58 + L[0] * 14, py + 22, px + 58, py + 24); g.fill(); });
+    g.fillStyle = '#FFFFFF'; g.beginPath(); g.moveTo(px + 120, py + 58); g.lineTo(px + 132, py + 40); g.lineTo(px + 134, py + 58); g.closePath(); g.fill(); fillRR(g, px + 116, py + 58, 22, 4, 2, PLUM);
+    /* three clocks: Singapore, Taguig, Ho Chi Minh City (the hands are live) */
+    fillRR(g, cx - 120, 104, 240, 6, 3, GOLD_D);
+    [['SINGAPORE', -80], ['TAGUIG', 0], ['HO CHI MINH', 80]].forEach(function (c) { var x = cx + c[1]; shadowed(g, 8, 3, 0.16, function () { fillE(g, x, 146, 27, 27, GOLD); }); fillRR(g, x - 30, 180, 60, 14, 4, PLUM); text(g, c[0], x, 190.4, c[0].length > 8 ? 6 : 6.8, 800, GOLD_L, 'center'); });
+    /* wall sconces either side of the painting */
+    [cx - 128, cx + 128].forEach(function (x) { fillRR(g, x - 2, 10, 4, 26, 2, GOLD_D); g.fillStyle = '#FFF4DA'; g.beginPath(); g.moveTo(x - 12, 10); g.lineTo(x + 12, 10); g.lineTo(x + 8, -8); g.lineTo(x - 8, -8); g.closePath(); g.fill(); fillRR(g, x - 13, 8, 26, 4, 2, GOLD); });
+    /* the sofa: back and arms here; the guest sits on its seat */
+    soft(g, cx, F + 4, 150, 8, 0.26); fillRR(g, cx - 128, F - 112, 256, 76, 30, '#4E8A72'); [-1, 0, 1].forEach(function (b) { fillRR(g, cx + b * 78 - 36, F - 104, 72, 52, 18, '#5E9C82'); g.fillStyle = 'rgba(255,255,255,.14)'; g.fillRect(cx + b * 78 - 26, F - 98, 52, 3); });
+    fillRR(g, cx - 120, F - 50, 240, 30, 12, '#5E9C82'); fillRR(g, cx - 120, F - 24, 240, 10, 4, '#3E7360');
+    [-1, 1].forEach(function (d) { fillRR(g, cx + d * 128 - 18, F - 78, 36, 66, 14, '#3E7360'); fillRR(g, cx + d * 128 - 14, F - 76, 28, 10, 5, '#4E8A72'); fillRR(g, cx + d * 112 - 4, F - 14, 8, 14, 2, GOLD_D); });
+    fillRR(g, cx + 50, F - 92, 44, 30, 12, GOLD_L); fillRR(g, cx + 58, F - 86, 28, 4, 2, 'rgba(156,122,46,.4)');
+    /* the side table with a teapot and cups (steam is live), the floor lamp, a tall vase */
+    var tx = LG.tbl; soft(g, tx, F + 3, 40, 5, 0.24); fillRR(g, tx - 3, F - 54, 6, 54, 2, GOLD_D); fillRR(g, tx - 20, F - 3, 40, 4, 2, GOLD_D); fillE(g, tx, F - 56, 32, 7, MARBLE); g.strokeStyle = GOLD; g.lineWidth = 1.4; g.beginPath(); g.ellipse(tx, F - 56, 32, 7, 0, 0, 7); g.stroke();
+    fillE(g, tx - 8, F - 70, 13, 11, '#FFFFFF'); fillRR(g, tx - 12, F - 84, 8, 5, 2, '#FFFFFF'); fillE(g, tx - 8, F - 82, 4, 2.4, GOLD); g.strokeStyle = '#FFFFFF'; g.lineWidth = 3; g.beginPath(); g.moveTo(tx + 3, F - 72); g.quadraticCurveTo(tx + 12, F - 78, tx + 14, F - 82); g.stroke();
+    g.strokeStyle = '#E3DCD2'; g.lineWidth = 2; g.beginPath(); g.arc(tx - 21, F - 70, 4, Math.PI * 0.5, Math.PI * 1.5); g.stroke(); fillRR(g, tx - 10, F - 72, 4, 3, 1, GOLD); fillRR(g, tx + 14, F - 64, 10, 8, 2, '#FFFFFF'); fillRR(g, tx + 12, F - 58, 14, 2, 1, '#E3DCD2');
+    var lx = LG.lamp; soft(g, lx, F + 3, 26, 4, 0.24); fillE(g, lx, F - 2, 18, 4, GOLD_D); fillRR(g, lx - 2, F - 150, 4, 148, 2, GOLD_D);
+    g.fillStyle = '#FFF4DA'; g.beginPath(); g.moveTo(lx - 26, F - 150); g.lineTo(lx + 26, F - 150); g.lineTo(lx + 18, F - 186); g.lineTo(lx - 18, F - 186); g.closePath(); g.fill(); fillRR(g, lx - 27, F - 152, 54, 4, 2, GOLD); fillRR(g, lx - 19, F - 188, 38, 3, 1.5, GOLD);
+    var vx = -312; soft(g, vx, F + 3, 26, 4, 0.24); g.fillStyle = PLUM; g.beginPath(); g.moveTo(vx - 12, F); g.quadraticCurveTo(vx - 26, F - 40, vx - 10, F - 70); g.lineTo(vx + 10, F - 70); g.quadraticCurveTo(vx + 26, F - 40, vx + 12, F); g.closePath(); g.fill(); fillRR(g, vx - 13, F - 74, 26, 6, 3, GOLD);
+    g.strokeStyle = '#3FA56C'; g.lineWidth = 2; [[-26, -150], [-8, -170], [10, -160], [24, -140], [0, -130]].forEach(function (s) { g.beginPath(); g.moveTo(vx, F - 72); g.quadraticCurveTo(vx + s[0] * 0.4, F - 110, vx + s[0], F + s[1] + 10); g.stroke(); });
+    [[-26, -150, '#F7D1DC'], [-8, -170, '#FFFFFF'], [10, -160, '#FFE7A3'], [24, -140, '#F7D1DC'], [0, -130, '#F0715A']].forEach(function (f) { for (var p = 0; p < 5; p++) { var a = p * 1.26; fillE(g, vx + f[0] + Math.cos(a) * 5, F + f[1] + Math.sin(a) * 5, 4, 4, f[2]); } fillE(g, vx + f[0], F + f[1], 2.4, 2.4, '#F2B233'); });
   }
   function paintFront(g, ext) {
     /* the duty manager's podium (covers his lower half) */
@@ -223,13 +267,22 @@
   }
   function paintFore(g, ext) {
     /* the brass luggage trolley, a marble planter, the palm, an armchair */
-    var tx = 132; soft(g, tx + 50, 742, 70, 6, 0.25); fillRR(g, tx, 718, 104, 10, 4, GOLD_D); [tx + 12, tx + 92].forEach(function (x) { fillE(g, x, 738, 9, 9, '#2A3142'); fillE(g, x, 738, 3.5, 3.5, GOLD_L); });
+    var tx = 132; g.save(); g.translate(171, 708); g.scale(0.68, 0.68); g.translate(-(tx + 52), -738); soft(g, tx + 50, 742, 70, 6, 0.25); fillRR(g, tx, 718, 104, 10, 4, GOLD_D); [tx + 12, tx + 92].forEach(function (x) { fillE(g, x, 738, 9, 9, '#2A3142'); fillE(g, x, 738, 3.5, 3.5, GOLD_L); });
     g.strokeStyle = GOLD; g.lineWidth = 4; g.beginPath(); g.moveTo(tx + 6, 718); g.lineTo(tx + 6, 610); g.moveTo(tx + 98, 718); g.lineTo(tx + 98, 610); g.stroke(); g.beginPath(); g.arc(tx + 52, 610, 46, Math.PI, 0); g.stroke();
-    fillRR(g, tx + 12, 662, 60, 54, 8, PLUM); fillRR(g, tx + 24, 652, 36, 10, 4, PLUM_D); fillRR(g, tx + 60, 676, 34, 40, 6, '#F0715A'); fillRR(g, tx + 18, 640, 50, 24, 6, '#3167CA'); fillRR(g, tx + 30, 680, 18, 4, 2, GOLD_L);
-    soft(g, 372, 744, 64, 6, 0.25); fillRR(g, 316, 702, 112, 40, 8, MARBLE); marbleVeins(g, 316, 702, 112, 40, 7); fillRR(g, 312, 698, 120, 8, 4, GOLD);
-    for (var f = 0; f < 9; f++) { var fx = 326 + f * 11.5, fy = 690 - (f % 3) * 6; fillE(g, fx, fy + 6, 6, 9, '#3FA56C'); fillE(g, fx, fy - 2, 5.4, 5.4, ['#FFFFFF', '#F7D1DC', '#FFE7A3'][f % 3]); fillE(g, fx, fy - 2, 1.8, 1.8, '#F2B233'); }
-    if (ext.r > 1060) { var ac = 1150; soft(g, ac + 50, 744, 70, 6, 0.25); fillRR(g, ac, 650, 100, 90, 24, PLUM); fillRR(g, ac + 10, 690, 80, 34, 12, '#8A5784'); fillRR(g, ac - 8, 676, 22, 64, 10, PLUM_D); fillRR(g, ac + 86, 676, 22, 64, 10, PLUM_D); }
-    if (ext.l < -300) { var lx = -560; soft(g, lx + 50, 744, 70, 6, 0.25); fillRR(g, lx, 700, 46, 40, 8, '#F0715A'); fillRR(g, lx + 40, 690, 54, 50, 8, '#3167CA'); }
+    fillRR(g, tx + 12, 662, 60, 54, 8, PLUM); fillRR(g, tx + 24, 652, 36, 10, 4, PLUM_D); fillRR(g, tx + 60, 676, 34, 40, 6, '#F0715A'); fillRR(g, tx + 18, 640, 50, 24, 6, '#3167CA'); fillRR(g, tx + 30, 680, 18, 4, 2, GOLD_L); g.restore();
+    g.save(); g.translate(0, -34); soft(g, 372, 744, 64, 6, 0.25); fillRR(g, 316, 702, 112, 40, 8, MARBLE); marbleVeins(g, 316, 702, 112, 40, 7); fillRR(g, 312, 698, 120, 8, 4, GOLD);
+    for (var f = 0; f < 9; f++) { var fx = 326 + f * 11.5, fy = 690 - (f % 3) * 6; fillE(g, fx, fy + 6, 6, 9, '#3FA56C'); fillE(g, fx, fy - 2, 5.4, 5.4, ['#FFFFFF', '#F7D1DC', '#FFE7A3'][f % 3]); fillE(g, fx, fy - 2, 1.8, 1.8, '#F2B233'); } g.restore();
+    /* a velvet rope on brass posts under the title card; a 'chat with us' QR stand under the caption */
+    g.save(); g.translate(0, -28); var SP = [-430, -330, -230]; g.strokeStyle = PLUM; g.lineWidth = 5; g.lineCap = 'round'; for (var sr = 0; sr < SP.length - 1; sr++) { g.beginPath(); g.moveTo(SP[sr] + 4, 668); g.quadraticCurveTo((SP[sr] + SP[sr + 1]) / 2, 694, SP[sr + 1] - 4, 668); g.stroke(); }
+    SP.forEach(function (x) { soft(g, x, 734, 24, 4, 0.25); fillE(g, x, 730, 16, 5, GOLD_D); fillRR(g, x - 3, 666, 6, 64, 3, GOLD); fillE(g, x, 664, 7, 7, GOLD_L); fillE(g, x - 2, 662, 2.4, 2, '#FFFFFF'); }); g.restore();
+    g.save(); g.translate(656, 708); g.scale(0.74, 0.74); g.translate(-656, -740); var qx = 656; soft(g, qx, 744, 30, 5, 0.25); fillE(g, qx, 740, 22, 5, GOLD_D); fillRR(g, qx - 3, 696, 6, 44, 3, GOLD); shadowed(g, 8, 3, 0.18, function () { fillRR(g, qx - 34, 648, 68, 52, 8, PLUM); });
+    fillRR(g, qx - 29, 653, 30, 30, 3, '#FFFFFF'); for (var qi = 0; qi < 25; qi++) { if (hash(qi * 3.7) > 0.5 || qi === 0 || qi === 4 || qi === 20) fillRR(g, qx - 27 + (qi % 5) * 5.2, 655 + Math.floor(qi / 5) * 5.2, 4.6, 4.6, 0.6, INK); }
+    fillE(g, qx + 17, 662, 9, 9, WA); chIcon(g, 'wa', qx + 17, 662, 8.6, '#FFFFFF'); text(g, 'SCAN', qx + 17, 682, 6.4, 800, GOLD_L, 'center'); text(g, 'CHAT WITH US', qx, 694, 6.4, 800, GOLD_L, 'center'); g.restore();
+    /* a clipped bay topiary in a gold-rimmed pot, right of the caption */
+    var tpx = 952; soft(g, tpx, 712, 30, 5, 0.25); fillRR(g, tpx - 20, 676, 40, 34, 6, PLUM); fillRR(g, tpx - 23, 672, 46, 8, 4, GOLD); fillRR(g, tpx - 2, 636, 4, 38, 2, '#7A6248');
+    fillE(g, tpx, 626, 27, 26, '#2E9E5E'); fillE(g, tpx - 8, 618, 15, 13, '#3FAE6E'); fillE(g, tpx + 9, 632, 10, 8, '#3FAE6E'); fillE(g, tpx - 12, 612, 4, 3, 'rgba(255,255,255,.35)');
+    g.save(); g.translate(0, -30); if (ext.r > 1060) { var ac = 1150; soft(g, ac + 50, 744, 70, 6, 0.25); fillRR(g, ac, 650, 100, 90, 24, PLUM); fillRR(g, ac + 10, 690, 80, 34, 12, '#8A5784'); fillRR(g, ac - 8, 676, 22, 64, 10, PLUM_D); fillRR(g, ac + 86, 676, 22, 64, 10, PLUM_D); }
+    g.restore(); g.save(); g.translate(0, -32); if (ext.l < -300) { var lx = -560; soft(g, lx + 50, 744, 70, 6, 0.25); fillRR(g, lx, 700, 46, 40, 8, '#F0715A'); fillRR(g, lx + 40, 690, 54, 50, 8, '#3167CA'); } g.restore();
   }
 
   /* ---------------- live ---------------- */
@@ -335,6 +388,13 @@
     var appOn = R.ch === 'app' && u < 0.92; fillE(g, L0.x + L0.w - 14, L0.y - 26, 4 + (appOn ? Math.abs(Math.sin(t * 6)) * 1.6 : 0), 4 + (appOn ? Math.abs(Math.sin(t * 6)) * 1.6 : 0), appOn ? APP : '#9AA6BC');
     /* the fountain (wide screens, left) */
     if (e.l < -440) { g.strokeStyle = 'rgba(155,211,230,.85)'; g.lineWidth = 2.4; for (var j = 0; j < 6; j++) { var jp = ((t * 0.9 + j / 6) % 1), jx = -580 + (j - 2.5) * 12; g.beginPath(); g.moveTo(-580, F - 126); g.quadraticCurveTo(-580 + (j - 2.5) * 24, F - 170 - Math.sin(jp * Math.PI) * 6, -580 + (j - 2.5) * 40, F - 22); g.stroke(); fillE(g, jx * 1 + (j - 2.5) * 20 * jp, F - 124 - Math.sin(jp * Math.PI) * 40, 2, 2, 'rgba(255,255,255,.9)'); } }
+    /* the lounge: three live clocks, steam off the teapot and the cup, the traveller's case */
+    [[-80, 8], [0, 8], [80, 7]].forEach(function (c) { CO.clock(g, LG.sofa + c[0], 146, 23, c[1], GOLD_D); });
+    for (var sm = 0; sm < 3; sm++) { var sp2 = ((t * 0.5 + sm / 3) % 1), sxx = LG.tbl + (sm === 2 ? 19 : -12) + Math.sin(t * 2 + sm) * 3 * sp2; g.strokeStyle = 'rgba(255,255,255,' + (0.8 * (1 - sp2)).toFixed(2) + ')'; g.lineWidth = 2; g.beginPath(); g.moveTo(sxx, F - 86 - sp2 * 26 + (sm === 2 ? 20 : 0)); g.quadraticCurveTo(sxx + 4, F - 92 - sp2 * 26 + (sm === 2 ? 20 : 0), sxx, F - 98 - sp2 * 26 + (sm === 2 ? 20 : 0)); g.stroke(); }
+    var lampOn = 0.18 + 0.06 * Math.sin(t * 1.3); g.fillStyle = 'rgba(255,236,190,' + lampOn.toFixed(2) + ')'; g.beginPath(); g.moveTo(LG.lamp - 24, F - 150); g.lineTo(LG.lamp + 24, F - 150); g.lineTo(LG.lamp + 56, F - 60); g.lineTo(LG.lamp - 56, F - 60); g.closePath(); g.fill();
+    var cs = TV.x + 46, ch2 = TAP.tv && t - TAP.tv < 2.8 ? Math.min(1, (t - TAP.tv) * 3) * 26 : 0; soft(g, cs + 14, F + 2, 22, 4, 0.25); fillRR(g, cs, F - 58, 30, 54, 6, WEB); fillRR(g, cs + 4, F - 50, 22, 3, 1.5, 'rgba(255,255,255,.5)'); fillRR(g, cs + 4, F - 30, 22, 3, 1.5, 'rgba(255,255,255,.5)');
+    g.strokeStyle = '#5C6B7A'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(cs + 9, F - 58); g.lineTo(cs + 9, F - 76 - ch2); g.lineTo(cs + 21, F - 76 - ch2); g.lineTo(cs + 21, F - 58); g.stroke(); fillE(g, cs + 6, F - 2, 3, 3, '#2A3142'); fillE(g, cs + 24, F - 2, 3, 3, '#2A3142');
+    fillRR(g, cs + 6, F - 44, 18, 10, 2, GOLD_L); text(g, 'SIN', cs + 15, F - 36.6, 6, 800, PLUM_D, 'center');
     bot(g, t, S);
     CO.crew(CREW, g, t, S, false);
   }
@@ -382,11 +442,22 @@
     if (TN.fan) { var hr3 = handAt(TN, 1); for (var fa = 0; fa < 3; fa++) { g.save(); g.translate(hr3[0], hr3[1] - 6); g.rotate(-0.5 + fa * 0.5); fillRR(g, -7, -24, 14, 20, 2, '#FFFFFF'); fillRR(g, -7, -24, 14, 5, 1.5, [WEB, GOLD, WA][fa]); g.restore(); } }
     if (TAP.g2 && t - TAP.g2 > 1.1 && t - TAP.g2 < 3) { var ru = (t - TAP.g2 - 1.1) / 1.9, ry2 = headTop(G2) - 24 - ru * 10; g.save(); g.globalAlpha = Math.min(1, (1 - ru) * 4); fillRR(g, G2.x - 40, ry2, 80, 24, 12, '#FFFFFF'); g.strokeStyle = APP; g.lineWidth = 2; rr(g, G2.x - 40, ry2, 80, 24, 12); g.stroke();
       for (var st = 0; st < 5; st++) { var sr = st < Math.ceil(ru * 12) ? 6 : 4.4; g.fillStyle = st < Math.ceil(ru * 12) ? '#F2B233' : '#E3E8EF'; g.beginPath(); for (var p = 0; p < 10; p++) { var pa = -Math.PI / 2 + p * Math.PI / 5, rad = p % 2 ? sr * 0.45 : sr; g.lineTo(G2.x - 28 + st * 14 + Math.cos(pa) * rad, ry2 + 12 + Math.sin(pa) * rad); } g.closePath(); g.fill(); } g.restore(); }
+    /* the lounge: the guest's newspaper, her tea cup and phone; the traveller's phone and his check-in chip */
+    var rl = handAt(RD, 0), rh = handAt(RD, 1);
+    if (RD.paper) { var pmx = (rl[0] + rh[0]) / 2, pmy = Math.min(rl[1], rh[1]); g.save(); g.translate(pmx, pmy - 14); g.rotate((rh[1] - rl[1]) * 0.004);
+      fillRR(g, -34, -22, 68, 44, 2, '#FBFAF6'); g.fillStyle = '#E8E4DA'; g.fillRect(-1, -22, 2, 44); text(g, 'THE DAILY', -17, -12, 5.6, 800, INK, 'center'); g.fillStyle = '#C9C2DA'; for (var nl = 0; nl < 5; nl++) { g.fillRect(-30, -6 + nl * 5, 26, 1.6); g.fillRect(4, -16 + nl * 6, 26, 1.6); } fillRR(g, 6, 14, 22, 5, 1, '#9FD6F5'); g.restore();
+      if (RD.flip > 0) { g.save(); g.translate(pmx, pmy - 14); g.scale(Math.cos(RD.flip * Math.PI), 1); fillRR(g, 0, -22, 34, 44, 2, '#FFFFFF'); g.restore(); } }
+    if (RD.cup) { var cp = RD.cup === 'r' ? rh : rl; fillRR(g, cp[0] - 7, cp[1] - 14, 14, 11, 3, '#FFFFFF'); fillRR(g, cp[0] - 7, cp[1] - 14, 14, 3, 1.5, GOLD); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.arc(cp[0] + 8, cp[1] - 9, 3, -1.4, 1.4); g.stroke();
+      if (TAP.rd && t - TAP.rd < 3) { var hu = (t - TAP.rd) / 3; g.save(); g.globalAlpha = Math.min(1, (1 - hu) * 3); g.fillStyle = 'rgba(255,255,255,.95)'; var hx = cp[0], hy = cp[1] - 30 - hu * 30; g.beginPath(); g.moveTo(hx, hy + 6); g.bezierCurveTo(hx - 12, hy - 4, hx - 6, hy - 14, hx, hy - 6); g.bezierCurveTo(hx + 6, hy - 14, hx + 12, hy - 4, hx, hy + 6); g.fill(); g.restore(); } }
+    if (RD.phone) { fillRR(g, rh[0] - 6, rh[1] - 20, 12, 20, 3, '#2A3142'); fillRR(g, rh[0] - 4, rh[1] - 17, 8, 13, 1.5, RD.ping ? '#DCF8C6' : '#ECE5DD'); if (RD.ping) fillE(g, rh[0] + 6, rh[1] - 20, 3.4, 3.4, WA); }
+    var tp2 = handAt(TV, 1); g.save(); g.translate(tp2[0], tp2[1] - 8); g.rotate(TV.phoneUp ? 0 : -0.25); fillRR(g, -6, -11, 12, 21, 3, '#2A3142'); fillRR(g, -4, -8, 8, 14, 1.5, TV.phoneUp ? '#FDE3DD' : '#E8EEF7'); g.restore();
+    if (TV.watch) { var wl = handAt(TV, 0); fillE(g, wl[0], wl[1] + 4, 4, 4, GOLD); fillE(g, wl[0], wl[1] + 4, 2.4, 2.4, '#FFFFFF'); }
+    if (TAP.tv && t - TAP.tv < 2.8 && t - TAP.tv > 0.5) chip(g, TV.x - 46, headTop(TV) - 26, 'Checked in · in-app ✓', '#1E9E6A', Math.min(1, (2.8 - (t - TAP.tv)) * 3));
     /* the duty manager's phone between hand-offs */
     if (DM.phone) { var pm = handAt(DM, 1); fillRR(g, pm[0] - 4, pm[1] - 22, 8, 26, 3, '#2A3142'); fillE(g, pm[0], pm[1] - 22, 5, 3, '#2A3142'); g.strokeStyle = '#2A3142'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(pm[0] + 2, pm[1] + 4); g.quadraticCurveTo(pm[0] + 26, pm[1] + 30, POD.x + POD.w - 20, POD.y - 10); g.stroke(); }
   }
   function paintForeLive(g, t, S) {
-    K.zfore(g, t, S, [[740, function () { palm(g, 1004, 744, 0.62, Math.sin(t * 0.8) * 0.04); }]], function () { CO.crew(CREW, g, t, S, 'fore'); });
+    K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); });
     CR.draw(g, t);
   }
 
@@ -441,6 +512,24 @@
       else { P.hands = [[-60, -200], [60, -200]]; lookAtNexi(P, st, t, S, -0.6); } }
   } };
 
+  var castRD = { id: 'rd', behind: true, keys: [], P: RD, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.paper = false; P.cup = ''; P.phone = false; P.ping = false; P.flip = 0;
+    if (TAP.rd && t - TAP.rd < 3) { var u = (t - TAP.rd) / 3; P.talk = true; P.mood = 'happy'; P.cup = 'r'; P.hands = [[-50, -210], [70, -420 + Math.sin(u * 9) * 10]]; P.look = 0.5; P.tilt = Math.sin(u * Math.PI) * 0.08; P.hop = Math.sin(Math.min(1, u * 2) * Math.PI) * 10; return; }
+    var c = (t + 3) % 13; P.talk = false;
+    if (c < 5.4) { P.paper = true; P.mood = 'calm'; P.hands = [[-54, -258 + Math.sin(t * 1.3) * 2], [54, -258 + Math.sin(t * 1.3 + 0.4) * 2]]; P.look = lerp(P.look, Math.sin(t * 0.7) * 0.25, 0.1); if (c > 4.6) P.flip = (c - 4.6) / 0.8; }
+    else if (c < 8.6) { P.paper = false; P.cup = 'r'; P.mood = 'happy'; var sip = c > 6.2 && c < 7.6; P.hands = [[-44, -200], sip ? [14, -330] : [50, -240]]; P.look = lerp(P.look, sip ? 0 : 0.6, 0.1); P.tilt = sip ? -0.05 : 0; }
+    else { P.phone = true; P.ping = c > 10.5; P.mood = P.ping ? 'happy' : 'calm'; P.hands = [[-44, -206], [26, -262 + (P.ping ? 0 : Math.abs(Math.sin(t * 12)) * 3)]]; P.look = lerp(P.look, -0.1, 0.1); if (P.ping) { P.hop = c < 10.9 ? Math.sin((c - 10.5) / 0.4 * Math.PI) * 6 : 0; P.talk = true; } }
+  } };
+  var castTV = { id: 'tv', behind: true, keys: [], P: TV, act: function (P, t, S) {
+    P.tilt = 0; P.hop = 0; P.watch = false; P.phoneUp = false; P.sx = 1;
+    if (TAP.tv && t - TAP.tv < 2.8) { var u = (t - TAP.tv) / 2.8; P.talk = true; P.mood = 'happy'; P.phoneUp = true; P.hands = [[-90, -330 + Math.sin(u * 14) * 12], [70, -430]]; P.hop = u < 0.4 ? Math.sin(u / 0.4 * Math.PI) * 18 : 0; P.look = 0.4; return; }
+    var c = (t + 1) % 11; P.talk = false; P.mood = 'calm';
+    if (c < 4) { P.hands = [[-64, -196], [30, -262 + Math.abs(Math.sin(t * 11)) * 3]]; P.look = lerp(P.look, 0.1, 0.1); }
+    else if (c < 6) { P.watch = true; P.hands = [[-10, -300], [40, -220]]; P.look = lerp(P.look, -0.4, 0.1); P.tilt = -0.04; }
+    else if (c < 8.5) { P.hands = [[-64, -196], [40, -230]]; P.look = lerp(P.look, -0.9, 0.06); P.tilt = 0.03; }
+    else { P.hands = [[-64, -196], [30, -262]]; P.look = lerp(P.look, 0.7, 0.1); P.hop = Math.abs(Math.sin(t * 7)) * 2.5; P.mood = 'happy'; }
+  } };
+
   window.IXW.worlds['sol-chat'] = {
     pan: [-300, 1180],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -457,12 +546,14 @@
       bell: function (g) { rr(g, BELL.x - 18, BELL.y - 20, 36, 30, 10); }
     },
     backGlow: ['channels', 'answers', 'lookups', 'flows', 'leads', 'languages'],
-    cast: [castTN, castG1, castG2, castDM],
+    cast: [castRD, castTV, castTN, castG1, castG2, castDM],
     toy: function (name, S, t) { if (name === 'bell') { TAP.bell = t; CR.burst('note', BELL.x, BELL.y - 20, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
       if (Math.abs(x - BOT.x) < 48 && y > 180 && y < 380) { TAP.bot = t; CR.burst('heart', BOT.x, 190, t); var L = LANGS[Math.floor(t) % LANGS.length];
         return { say: '**' + L[0] + '!** I\'m the assistant. I answer from **your content**, in the guest\'s language (' + L[1] + ' too), and I call a person when it matters.', near: [700, 30], pose: 'love', who: 'The assistant' }; }
+      if (Math.abs(x - RD.x) < 60 && y > 300 && y < F + 6) { TAP.rd = t; CR.burst('heart', RD.x + 20, 300, t); return { say: 'A guest in the lounge: she asked about her booking on **WhatsApp** between two pages of the paper. Cheers to that.', near: [120, 30], pose: 'love', who: 'Guest in the lounge' }; }
+      if (Math.abs(x - TV.x) < 50 && y > 230 && y < F + 6) { TAP.tv = t; CR.burst('star', TV.x, 240, t); return { say: 'A traveller checks in **in the app** while he waits. The same assistant, the same answers.', near: [-60, 30], pose: 'wow', who: 'Traveller' }; }
       if (x > DOOR.x && x < DOOR.x + DOOR.w && y > DOOR.y && y < F) { TAP.door = t; return { say: 'The **web** entrance: the chat widget on your website, styled to your brand.', near: [330, 40], pose: 'point-left', who: 'The revolving door' }; }
       if (x > LIFT.x && x < LIFT.x + LIFT.w && y > LIFT.y && y < F) return { say: 'Going up: the **in-app** assistant, inside your own app, with the same knowledge.', near: [760, 40], pose: 'point-right', who: 'The lift' };
       return null;

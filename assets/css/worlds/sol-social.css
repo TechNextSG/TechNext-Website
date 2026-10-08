@@ -198,3 +198,44 @@
 @media (max-width:767px){.ixw--sol-social .bky-cta{padding-top:72px}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-social .ixw-copy::after,.ixw--sol-social .bky-belt,.ixw--sol-social .bky-ch,.ixw--sol-social .bky-cta::before,.ixw--sol-social .ixw-cap::after,.ixw--sol-social .bky-case-name::before,.ixw--sol-social .bky-step.is-in .bky-dial{animation:none}}
 .ixw--sol-social .ixwi-card::after{display:none}
+
+/* ---------- hero buttons (audit round): glazed buns — 52px, a butter icon dot, sprinkle hover, cocoa press ---------- */
+.ixw--sol-social .ixw-copy .actions{align-items:center;gap:12px}
+.ixw--sol-social .ixw-copy .actions .btn-lg{height:52px;gap:10px;font-size:15px;overflow:visible}
+.ixw--sol-social .ixw-copy .actions .btn-lg::after{border-radius:inherit}
+.ixw--sol-social .ixw-copy .btn-primary{padding:0 9px 0 22px}
+.ixw--sol-social .ixw-copy .btn-primary .ic{width:32px;height:32px;padding:8px;border-radius:50%;background:var(--bk-butter);color:var(--bk-cocoa-d);box-shadow:inset 0 -2px 0 var(--bk-butter-d,#E0A93A)}
+.ixw--sol-social main .ixw-copy .btn-primary:hover{box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 6px 0 var(--bk-cocoa-d),0 0 0 7px rgba(240,98,126,.16)}
+.ixw--sol-social .ixw-copy .btn-ghost{padding:0 22px 0 18px}
+.ixw--sol-social .ixw-copy .btn-ghost .ic{width:20px;height:20px;color:var(--bk-straw)}
+.ixw--sol-social main .ixw-copy .btn-ghost:hover{background:#FFF1DE;box-shadow:inset 0 0 0 2px #E6B98A,0 6px 0 var(--bk-cocoa-d)}
+.ixw--sol-social main .ixw-copy .btn-ghost:hover .ic{transform:rotate(-8deg)}
+.ixw--sol-social .bky-pills{gap:7px}
+.ixw--sol-social .bky-pills span{height:28px;padding:0 12px 0 8px;transition:translate .2s ease,box-shadow .2s ease}
+.ixw--sol-social .bky-pills span:hover{translate:0 -2px;box-shadow:inset 0 0 0 1.5px #E6B98A,0 3px 0 #F0D9BD}
+.ixw--sol-social .ixw-cap .ixw-ibtn{background:#FFFFFF;color:var(--bk-cocoa-d)}
+.ixw--sol-social .ixw-cap .ixw-ibtn:hover{background:var(--bk-cream);color:var(--bk-straw-d);border-color:var(--bk-cocoa-d);box-shadow:0 5px 0 var(--bk-cocoa-d),0 0 0 4px rgba(255,211,110,.35)}
+.ixw--sol-social .ixw-cap .ixw-ibtn:active{translate:0 2px;box-shadow:0 1px 0 var(--bk-cocoa-d)}
+.ixw--sol-social .ixw-cap .ixw-ibtn--play,.ixw--sol-social .ixw-cap .ixw-ibtn--play:hover{border:0;background:radial-gradient(circle at 40% 30%,#F8869C,var(--bk-straw) 62%);color:#FFFFFF;box-shadow:0 0 0 2px var(--bk-cocoa-d),0 4px 0 2px var(--bk-cocoa-d)}
+.ixw--sol-social .ixw-cap .ixw-ibtn--play:hover{box-shadow:0 0 0 2px var(--bk-cocoa-d),0 6px 0 2px var(--bk-cocoa-d),0 0 0 7px rgba(255,211,110,.4)}
+.ixw--sol-social .ixw-cap .ixw-ibtn:focus-visible,.ixw--sol-social .ixw-peek:focus-visible{outline:3px solid var(--bk-butter);outline-offset:3px}
+.ixw--sol-social .ixw-dots{gap:6px}
+.ixw--sol-social .ixw-dots button{width:9px;height:9px;background:#F3D9C6;box-shadow:inset 0 0 0 1.5px rgba(85,51,31,.18)}
+.ixw--sol-social .ixw-dots button:hover{background:#F7B7C4}
+.ixw--sol-social .ixw-dots button.is-on{width:26px;background:repeating-linear-gradient(90deg,var(--bk-straw) 0 5px,#FFFFFF 5px 7px,var(--bk-butter) 7px 12px,#FFFFFF 12px 14px)}
+/* "View the scene" sits top-left over the bunting, clear of the shop sign and the bake plan */
+.ixw--sol-social .ixw-peek{right:auto;left:max(24px,calc((100vw - 1200px) / 2 + 25px));height:40px;padding:0 18px 0 14px;border:2px solid var(--bk-cocoa-d);background:var(--bk-cream);color:var(--bk-cocoa-d);font-weight:800;box-shadow:0 4px 0 var(--bk-cocoa-d),0 14px 22px -14px rgba(120,60,30,.55)}
+.ixw--sol-social .ixw-peek:hover{background:#FFF1DE;box-shadow:0 6px 0 var(--bk-cocoa-d),0 0 0 4px rgba(240,98,126,.18)}
+.ixw--sol-social .ixw-peek[aria-pressed="true"]{background:var(--bk-butter)}
+@media (max-width:640px){.ixw--sol-social .ixw-copy .actions{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.ixw--sol-social .ixw-copy .actions .btn{width:100%;justify-content:center}}
+
+/* ---------- below the hero (audit round) ---------- */
+/* the FAQ beside its heading and a cake on its stand (no empty half at desktop widths) */
+@media (min-width:1000px){.ixw--sol-social .bky-faq-sec .container{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr);gap:56px;align-items:start}
+  .ixw--sol-social .bky-faq-sec .sec-head{position:sticky;top:120px;margin:0;padding-bottom:150px}
+  .ixw--sol-social .bky-faq-sec .sec-head::after{content:"";position:absolute;left:0;bottom:0;width:170px;height:136px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 136'%3E%3Cellipse cx='85' cy='128' rx='60' ry='6' fill='%237A4B33' opacity='.15'/%3E%3Cpath d='M80 92h10v32H80z' fill='%23C98E5A'/%3E%3Cellipse cx='85' cy='124' rx='30' ry='5' fill='%23C98E5A'/%3E%3Cellipse cx='85' cy='92' rx='62' ry='8' fill='%23FFFFFF' stroke='%23E8D3B0' stroke-width='2'/%3E%3Crect x='38' y='48' width='94' height='42' rx='8' fill='%23FFD3DE'/%3E%3Cpath d='M38 60 q8 10 16 0 q8 10 16 0 q8 10 16 0 q8 10 16 0 q8 10 16 0 q8 10 14 0 V52 a6 6 0 0 0 -6 -6 H44 a6 6 0 0 0 -6 6z' fill='%23FFFFFF'/%3E%3Crect x='38' y='72' width='94' height='6' fill='%23F0627E' opacity='.6'/%3E%3Crect x='62' y='22' width='46' height='24' rx='4' fill='%23FFFFFF' stroke='%23F0627E' stroke-width='2'/%3E%3Crect x='66' y='26' width='38' height='10' rx='2' fill='%23BFE3FF'/%3E%3Ccircle cx='100' cy='40' r='3' fill='%23DD2A7B'/%3E%3Ccircle cx='52' cy='44' r='3' fill='%23FFD36E'/%3E%3Ccircle cx='120' cy='42' r='3' fill='%235FB38E'/%3E%3Ccircle cx='85' cy='14' r='5' fill='%23F0627E'/%3E%3C/svg%3E") 0 100%/contain no-repeat}
+  .ixw--sol-social .bky-faq{max-width:none}}
+.ixw--sol-social .bky-faq summary:focus-visible{outline:3px solid var(--bk-butter);outline-offset:3px}
+/* the channel tins: the INSTAGRAM label fits the smaller phone tin */
+@media (max-width:640px){.ixw--sol-social .bky-ch small{font-size:7.6px;letter-spacing:.02em}}

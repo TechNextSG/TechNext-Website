@@ -98,7 +98,64 @@
   }
   function moreFront(g, ext) {
   }
+  /* ---------------- behind the title card: the waiting corner (a health-tips TV, a bench with a patient reading the
+     paper, a sanitiser), and a designed floor: painted wayfinding lanes, a kids' play mat, a wet-floor sign ---------------- */
+  var READER = { x: -36, y: 472, s: 0.44, ph: 2.9, c: { skin: '#E3A877', hair: '#CFCFCF', top: '#F2B544', top2: '#D99A2B', low: '#4A5578', shoe: '#2A2F45' }, outfit: 'tee', hairStyle: 'short', glasses: true, sit: true, chairCol: '#21B799', mood: 'calm', look: 0.2, hands: [[-46, -228], [46, -228]] };
+  var RD = { tap: -9 };
+  function floorLanes(g, ext) {
+    [['#21B799', 548, 'PHARMACY', -1], ['#3FA9E0', 568, 'X-RAY', 1], ['#FF8FA3', 588, 'CONSULT 1–4', 1]].forEach(function (L, i) {
+      g.globalAlpha = 0.42; fillRR(g, ext.l, L[1], ext.r - ext.l, 6, 3, L[0]); g.globalAlpha = 1;
+      for (var x = Math.floor(ext.l / 560) * 560 + 40 + i * 150; x < ext.r; x += 560) {
+        fillRR(g, x - 40, L[1] - 6, 80, 19, 9.5, L[0]); text(g, (L[3] < 0 ? '← ' : '') + L[2] + (L[3] > 0 ? ' →' : ''), x, L[1] + 7.5, 8.5, 800, '#FFFFFF', 'center');
+      }
+    });
+  }
+  function waitBack(g, ext) {
+    if (ext.l > 60) return;
+    /* the health-tips TV on its wall arm */
+    fillRR(g, -40, 82, 14, 18, 3, '#C9D6E2');
+    shadowed(g, 14, 6, 0.2, function () { fillRR(g, -100, 96, 132, 88, 10, '#2A3550'); }); fillRR(g, -94, 102, 120, 76, 6, '#F4FBF9');
+    fillRR(g, -94, 102, 120, 18, 6, '#21B799'); text(g, 'HEALTH TIPS', -34, 115, 8, 800, '#FFFFFF', 'center');
+    /* the sanitiser on the wall and its drip tray */
+    fillRR(g, 56, 250, 30, 48, 8, '#FFFFFF'); fillRR(g, 62, 262, 18, 12, 3, '#21B799'); fillRR(g, 64, 300, 14, 6, 3, '#9AA6BC'); text(g, 'CLEAN HANDS', 71, 244, 6.5, 800, '#168F76', 'center');
+    /* a magazine rack beside the bench */
+    fillRR(g, -130, 396, 34, 74, 5, '#9AB8B2'); fillRR(g, -126, 400, 26, 66, 3, '#C8E6E0'); [['#FF8FA3', 0], ['#3FA9E0', 1], ['#FFD84A', 2]].forEach(function (m) { fillRR(g, -124, 404 + m[1] * 20, 22, 16, 2, m[0]); });
+    soft(g, -36, F + 4, 70, 8, 0.18);
+  }
+  function waitLive(g, t, S) {
+    if (S.ext.l > 60) return;
+    var tips = [['Drink water', 'little and often'], ['Wash hands', '20 seconds'], ['Sleep well', '7 to 9 hours'], ['Move daily', 'a short walk']], k = Math.floor(t / 4) % 4, u = (t % 4) / 4;
+    text(g, tips[k][0], -34, 146, 13, 800, '#1F1F3D', 'center'); text(g, tips[k][1], -34, 162, 8.5, 700, '#5C6B7E', 'center');
+    fillRR(g, -86, 170, 104, 3, 1.5, '#DDEDEA'); fillRR(g, -86, 170, 104 * u, 3, 1.5, '#21B799');
+    /* the reader: turns a page every few seconds, glances at Nexi; tapped, he lowers the paper and waves */
+    var P = READER, d = t - RD.tap, tapped = d >= 0 && d < 2.2, flip = (t % 6) < 0.5;
+    P.look = tapped ? 0.6 : lerp(P.look, clamp((S.nexi.x - P.x) / 300, -1, 1) * ((t % 9) < 3 ? 1 : 0.2), 0.05);
+    P.mood = tapped ? 'happy' : 'calm'; P.hop = tapped ? Math.abs(Math.sin(d * 8)) * 8 * (1 - d / 2.2) : 0;
+    P.hands = tapped ? [[-46, -170], [100 + Math.sin(d * 12) * 14, -400]] : [[-46, -232 + (flip ? -6 : 0)], [46, -232]];
+    K.person(g, P, t);
+    g.save(); g.translate(P.x, P.y - (P.hop || 0) * P.s); g.scale(P.s, P.s); g.translate(0, 46);
+    if (tapped) { g.save(); g.translate(-46, -190); g.rotate(-0.5); fillRR(g, -30, -40, 60, 80, 4, '#FFFFFF'); g.fillStyle = '#C3CDDA'; for (var l = 0; l < 6; l++) g.fillRect(-22, -30 + l * 11, 44, 3); g.restore(); }
+    else { var fw = flip ? 60 * Math.cos((t % 6) / 0.5 * Math.PI) : 60; fillRR(g, -66, -300, 132, 92, 4, '#FFFFFF'); g.fillStyle = '#C3CDDA'; for (var l2 = 0; l2 < 7; l2++) { g.fillRect(-58, -288 + l2 * 11, 54, 3); g.fillRect(6, -288 + l2 * 11, 52, 3); }
+      fillRR(g, -58, -296, 54, 9, 2, '#21B799'); g.fillStyle = 'rgba(42,53,80,.12)'; g.fillRect(-1, -300, 2, 92); if (flip) fillRR(g, 0, -300, fw, 92, 3, '#F4F7FB'); }
+    g.restore();
+    if (tapped) for (var h = 0; h < 3; h++) { var hu = (d * 0.6 + h * 0.33) % 1; g.globalAlpha = 1 - hu; fillE(g, P.x + 40 + h * 12, P.y - 230 - hu * 70, 5, 5, '#FF8FA3'); g.globalAlpha = 1; }
+  }
+  function playMat(g, ext) {
+    if (ext.l > -150) return;
+    var x = -330, y = 606; soft(g, x, y + 4, 140, 14, 0.12); fillE(g, x, y, 128, 26, '#FFEDB0'); fillE(g, x, y, 112, 20, '#FFF6D6');
+    [['#FF8FA3', -70], ['#3FA9E0', -30], ['#21B799', 10], ['#FFD84A', 50]].forEach(function (c, i) { fillRR(g, x + c[1], y - 8 - (i % 2) * 4, 22, 12, 3, c[0]); });
+    fillRR(g, x - 6, y - 32, 20, 20, 3, '#3FA9E0'); fillRR(g, x - 2, y - 50, 20, 20, 3, '#FF8FA3'); fillRR(g, x + 2, y - 68, 16, 16, 3, '#FFD84A');
+    text(g, 'A', x + 4, y - 37, 11, 800, '#FFFFFF', 'center'); text(g, 'B', x + 8, y - 55, 11, 800, '#FFFFFF', 'center');
+  }
+  function wetSign(g, ext, t) {
+    if (ext.r < 1000) return;
+    var x = 972, y = 628; soft(g, x, y + 2, 34, 6, 0.2);
+    g.fillStyle = '#F2B544'; g.beginPath(); g.moveTo(x - 24, y); g.lineTo(x - 8, y - 70); g.lineTo(x + 8, y - 70); g.lineTo(x + 24, y); g.closePath(); g.fill();
+    fillRR(g, x - 12, y - 78, 24, 10, 4, '#E09A22'); g.fillStyle = '#1F1F3D'; g.beginPath(); g.moveTo(x, y - 52); g.lineTo(x - 9, y - 36); g.lineTo(x + 9, y - 36); g.closePath(); g.fill();
+    text(g, '!', x, y - 39, 10, 900, '#F2B544', 'center'); text(g, 'WET FLOOR', x, y - 20, 6.5, 800, '#1F1F3D', 'center');
+  }
   function paintBack(g, ext) {
+    floorLanes(g, ext); waitBack(g, ext);
     moreBack(g, ext);
     wideBack(g, ext);
     K.windowFrame(g, MED.win);
@@ -217,7 +274,7 @@
     g.fillStyle = '#FFFFFF'; g.fillRect(w.x + w.w / 2 - 5, w.y, 10, w.h); g.fillRect(w.x, w.y + w.h * 0.46 - 5, w.w, 10);
   }
   function paintLive(g, t, now, S) {
-    wideLive(g, t, S);
+    wideLive(g, t, S); waitLive(g, t, S);
     /* clock hands: the visitor's own time */
     var c = MED.clock, hr = (now.getHours() % 12 + now.getMinutes() / 60) * Math.PI / 6 - Math.PI / 2, mn = (now.getMinutes() + now.getSeconds() / 60) * Math.PI / 30 - Math.PI / 2, se = now.getSeconds() * Math.PI / 30 - Math.PI / 2;
     g.lineCap = 'round'; g.strokeStyle = '#1F1F3D'; g.lineWidth = 3.4; g.beginPath(); g.moveTo(c.x, c.y); g.lineTo(c.x + Math.cos(hr) * 10, c.y + Math.sin(hr) * 10); g.stroke();
@@ -255,7 +312,8 @@
       }],
       [660, function (g, ext) {
     if (ext.r > 1060) K.plant(g, { x: 1120, y: 660 }, '#3FA9E0', '#7CC8FF');
-      }]
+      }],
+      [606, playMat], [628, wetSign]
     ];
   }
   window.IXW.worlds.medical = {
@@ -264,6 +322,8 @@
     room: { wall: MED.wall, wains: MED.wains, rail: MED.rail, base: '#BFDDD7', floor: MED.floor, floorKind: 'tiles', pattern: K.plusPattern('rgba(255,255,255,.55)') },
     paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive,
     glow: GLOW, backGlow: ['roster', 'stock'],
+    /* the patient reading the paper behind the title card waves back when tapped */
+    hit: function (x, y, S, t, onBtn) { if (!onBtn && Math.abs(x - READER.x) < 60 && y > READER.y - 250 && y < READER.y + 10) RD.tap = t; return null; },
     cast: [
       { id: 'nurse', behind: true, keys: ['book', 'bill', 'counter'], P: NURSE, act: function (P, t, S) {
         var st = S.cast.nurse, nb = S.hot === 'book' || S.hot === 'bill' || S.hot === 'counter';
