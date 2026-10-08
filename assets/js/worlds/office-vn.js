@@ -122,6 +122,10 @@
       after: function (g, P, t, S, X, u) { var h = COL.hand(P, 0); COL.marker(g, h[0], h[1] - 4, -0.6, CY); } }
   ];
 
+  /* the passers-by: CO.crew, but keeping each walker's roller case (drag) */
+  function crew(list, g, t, S, layer) { var ext = S.ext;
+    list.forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== layer) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return;
+      var Wk = w._W || (w._W = { y: w.y, spd: w.spd, ph: w.ph, P: w.P, label: w.label, lines: w.lines, acts: w.acts, drag: w.drag }); Wk.x0 = a; Wk.x1 = b; CR.walk(g, Wk, t); }); }
   var VN = { pull: -9, spin: -9, rate: -9, b: 0 };
   function hexLive(g, t) {
     for (var i = 0; i < 4; i++) { var q = (t * 0.22 + i * 0.27) % 1, n = Math.floor(q * (HEX.length - 1)), f = (q * (HEX.length - 1)) % 1, a = HEX[n], b = HEX[n + 1]; if (Math.abs(a[0] - b[0]) > 200) continue;
@@ -135,7 +139,7 @@
     g.fillStyle = '#C9D3E3'; for (var l = 0; l < 3; l++) g.fillRect(wb.x + 14, wb.y + 76 + l * 10, 60 + hash(l) * 70, 2.4); text(g, 'with the source quoted', wb.x + 14, wb.y + wb.h - 10, 6, 800, '#0E7A50');
   }
   function paintLive(g, t, now, S) {
-    CO.crew(CREW, g, t, S, false);
+    crew(CREW, g, t, S, false);
     hexLive(g, t);
     /* the lit sign: a steady glow with a flicker now and then; tapped, it runs through its colours */
     var sg = T.sign, nt = t - (S.toy.neon != null ? S.toy.neon : -9), flick = (t % 7) > 6.7 ? 0.3 : 1, col = nt < 2 ? ['#E0456B', CY, OR, '#7B5CD6'][Math.floor(nt * 4) % 4] : CY;
@@ -179,7 +183,7 @@
     if (S.ext.r > 1040) COL.draw([XS[0]], g, t, S);
   }
   function paintFrontLive(g, t, S) {
-    CO.crew(CREW, g, t, S, true);
+    crew(CREW, g, t, S, true);
     /* the assistant on the desk monitor: a question, then the answer types in; rated helpful on a tap */
     var d = T.desk, mx = d.x + 26, my = d.y - 78, ch = S.hot === 'chatbots', tt = ch ? (t - (S.cT || 0)) : (t % 8), rt = t - VN.rate;
     fillRR(g, mx, my, 88, 48, 2, '#FFFFFF'); fillRR(g, mx + 30, my + 5, 54, 11, 5, '#3167CA'); text(g, 'Stock of SKU-204?', mx + 57, my + 12.5, 5, 800, '#FFFFFF', 'center');
@@ -217,7 +221,7 @@
         fillE(g, x - 4, y, 1.8, 1.8, '#2A3550'); fillE(g, x + 4, y, 1.8, 1.8, '#2A3550'); fillRR(g, x - 5, y - 4, 10, 3, 1.5, col); fillE(g, x + dir * -1, y - 7, 2.2, 2.2, s % 3 ? '#F2B233' : '#FFFFFF'); }
     },
     paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
     moteCol: 'rgba(14,165,183,.3)',
     glow: {
       agents: function (g) { var a = T.agents; rr(g, a.x - 12, a.y - 12, a.w + 24, a.h + 24, 10); },
