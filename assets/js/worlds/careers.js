@@ -19,6 +19,7 @@
     counter: { x: 226, y: 380, w: 250 }, printer: { x: 410, y: 346 }, tv: { x: 486, y: 288, w: 66, h: 50 }, table: { x: 630, y: 404, w: 120 },
     stand: { x: 862, y: 250 }, balloons: [[168, 40], [892, 40]], band: { t: -112, b: 24 }, photo: { x: 1086, y: 214, w: 150, h: 200 }, cart: { x: 1250, y: 372 },
     reg: { x: -860, y: 392, w: 220 } };
+  var COL2 = window.COL;
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
   function cardX(i) { var c = T.cards; return c.x + i * (c.w + c.gap); }
@@ -50,7 +51,7 @@
     /* the hall's back wall: light, with tall panels and pale far-off booths */
     var wg = g.createLinearGradient(0, b.b, 0, F); wg.addColorStop(0, '#F1F4FA'); wg.addColorStop(1, '#E3E8F2'); g.fillStyle = wg; g.fillRect(e.l, b.b, e.r - e.l, F - b.b);
     g.fillStyle = 'rgba(120,140,180,.07)'; for (var pn = Math.floor(e.l / 120) * 120; pn < e.r; pn += 120) g.fillRect(pn, b.b, 3, F - b.b);
-    [[-1300, '#DCE7F7'], [-470, '#E4E0F4'], [1320, '#DDEFEA'], [1600, '#F3E6D8']].forEach(function (fb, i) { var x = fb[0]; if (x > e.r || x + 260 < e.l) return;
+    [[-1300, '#DCE7F7'], [1320, '#DDEFEA'], [1600, '#F3E6D8']].forEach(function (fb, i) { var x = fb[0]; if (x > e.r || x + 260 < e.l) return;
       fillRR(g, x, 150, 240, F - 150, 8, fb[1]); fillRR(g, x, 150, 240, 30, 8, 'rgba(60,80,130,.16)'); fillRR(g, x + 40, 210, 160, 80, 6, 'rgba(255,255,255,.55)'); fillRR(g, x + 30, 384, 180, F - 384, 4, 'rgba(255,255,255,.6)'); });
     /* the floor: a light exhibition carpet, the aisle tape, soft light pools */
     var fl = g.createLinearGradient(0, F, 0, e.b); fl.addColorStop(0, '#DCE3F0'); fl.addColorStop(1, '#C7D1E5'); g.fillStyle = fl; g.fillRect(e.l, F, e.r - e.l, e.b - F);
@@ -99,7 +100,35 @@
     g.restore();
   }
 
+  /* TechNext's try-it corner, left of the booth (behind the title card): a white wall with the Odoo demo screen (its cards
+     move, live), a high demo table where a developer walks a visitor through Odoo, a waiting bench for interviews, a rug */
+  var TRY = { x: -462, y: 140, w: 330 }, DEMO = { x: -436, y: 196, w: 210, h: 124 }, BENCH = { x: -96, y: 420, w: 150 };
+  function tryBack(g, ext) {
+    if (ext.l > 140) return;
+    var w = TRY; soft(g, w.x + w.w / 2, F + 4, 190, 10, 0.25); fillRR(g, w.x, w.y, w.w, F - w.y, 8, '#FFFFFF'); fillRR(g, w.x, w.y, w.w, 34, 8, TEAL); g.fillRect(w.x, w.y + 20, w.w, 14);
+    CO.plane(g, w.x + 22, w.y + 17, 1.1, 0, '#FFFFFF'); text(g, 'TRY THE ODOO DEMO', w.x + 38, w.y + 22, 12, 800, '#FFFFFF');
+    g.fillStyle = '#F1F5FB'; for (var r = 0; r < 6; r++) g.fillRect(w.x, w.y + 34 + r * 50, w.w, 25);
+    fillRR(g, w.x, F - 36, w.w, 36, 4, NAVY); text(g, 'TAGUIG CITY · MAIN DEVELOPMENT & CONSULTING HUB', w.x + w.w / 2, F - 14, 7.4, 800, Y, 'center');
+    var d = DEMO; fillRR(g, d.x - 5, d.y - 5, d.w + 10, d.h + 10, 7, '#1B1F3B'); fillRR(g, d.x, d.y, d.w, 14, 3, C.odoo); text(g, 'odoo · SALES PIPELINE · DEMO', d.x + 8, d.y + 10, 6.2, 800, '#FFFFFF');
+    /* the high demo table's pedestal; the waiting bench */
+    soft(g, -300, F + 4, 70, 8, 0.25); fillRR(g, -304, 392, 8, F - 398, 3, '#7A869C'); fillRR(g, -336, F - 8, 72, 8, 4, '#5C6B7A');
+    var b = BENCH; soft(g, b.x + b.w / 2, F + 4, 90, 8, 0.25); fillRR(g, b.x, b.y, b.w, 14, 7, '#C9A27A'); fillRR(g, b.x, b.y - 46, b.w, 10, 5, '#C9A27A'); g.fillStyle = '#7A869C'; g.fillRect(b.x + 10, b.y + 14, 6, F - b.y - 14); g.fillRect(b.x + b.w - 16, b.y + 14, 6, F - b.y - 14); g.fillRect(b.x + 12, b.y - 36, 4, 36); g.fillRect(b.x + b.w - 16, b.y - 36, 4, 36);
+    g.strokeStyle = '#9AA6BC'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(b.x + 30, -126); g.lineTo(b.x + 30, 150); g.moveTo(b.x + b.w - 30, -126); g.lineTo(b.x + b.w - 30, 150); g.stroke();
+    shadowed(g, 8, 3, 0.2, function () { fillRR(g, b.x + 6, 150, b.w - 12, 40, 8, NAVY); }); text(g, 'INTERVIEWS', b.x + b.w / 2, 168, 10, 800, Y, 'center'); text(g, 'please wait here', b.x + b.w / 2, 182, 7, 700, '#FFFFFF', 'center');
+    /* the try-it rug */
+    g.save(); g.translate(-262, 548); g.scale(1, 0.24); fillE(g, 0, 0, 170, 170, 'rgba(20,163,139,.16)'); g.lineWidth = 8; g.strokeStyle = 'rgba(20,163,139,.45)'; g.setLineDash([22, 16]); g.beginPath(); g.arc(0, 0, 152, 0, 7); g.stroke(); g.setLineDash([]); g.restore();
+  }
+  function tryFront(g, ext) { if (ext.l > 140 || !COL2) return; fillRR(g, -380, 384, 160, 10, 4, '#D9B48A'); fillRR(g, -380, 392, 160, 4, 2, '#B5865A'); COL2.laptop(g, -330, 384, 0.9, 1, '#F7F0F5'); fillRR(g, -262, 376, 22, 8, 2, Y); fillRR(g, -258, 370, 18, 6, 2, '#FFFFFF'); }
+  function tryLive(g, t) {
+    var d = DEMO, cols = ['New', 'Qualified', 'Won'], cw = (d.w - 16) / 3; fillRR(g, d.x, d.y + 14, d.w, d.h - 14, 0, '#FFFFFF');
+    cols.forEach(function (c, i) { var x = d.x + 6 + i * (cw + 2); fillRR(g, x, d.y + 20, cw - 2, 10, 2, '#F1F4F9'); text(g, c, x + 4, d.y + 27.5, 5.4, 800, i === 2 ? '#0E7A50' : C.ink); });
+    var q = (t * 0.35) % 3, step = Math.floor(q), f = COL2.ease((q - step) / 0.6);
+    for (var k2 = 0; k2 < 5; k2++) { var col = k2 % 3, row = Math.floor(k2 / 3), x = d.x + 6 + col * (cw + 2), y = d.y + 36 + row * 26; if (k2 === 1) { var from = step % 3, to = (from + 1) % 3; x = lerp(d.x + 6 + from * (cw + 2), d.x + 6 + to * (cw + 2), to === 0 ? 1 : f); y = d.y + 62 + (to === 0 ? 0 : -Math.sin(f * Math.PI) * 8); }
+      fillRR(g, x, y, cw - 2, 22, 3, k2 === 1 ? '#FFF8E1' : '#FFFFFF'); g.strokeStyle = '#E3E8EF'; g.lineWidth = 1; rr(g, x, y, cw - 2, 22, 3); g.stroke(); fillRR(g, x, y, 3, 22, 1.5, [BLUE, TEAL, '#714B67', Y, '#E0456B'][k2]);
+      fillRR(g, x + 6, y + 6, cw - 22, 3, 1.5, '#C9D3E3'); fillRR(g, x + 6, y + 12, (cw - 22) * 0.6, 3, 1.5, '#E3E8EF'); }
+  }
   function paintBack(g, ext) {
+    tryBack(g, ext);
     /* the six role cards pinned to the booth wall (their lift and glow are live) */
     var c = T.cards;
     ROLES.forEach(function (r, i) { var x = cardX(i), y = c.y; shadowed(g, 10, 4, 0.25, function () { fillRR(g, x, y, c.w, c.h, 8, '#FFFFFF'); }); fillRR(g, x, y, c.w, 26, 8, r[2]); g.fillRect(x, y + 18, c.w, 8);
@@ -140,6 +169,7 @@
       for (var tl = 0; tl < 4; tl++) fillRR(g, rg.x - 28, 230 + tl * 26, 56, 14, 7, ['#E8EFFC', '#FFF4C8', '#E2F5F0', '#FBE3E1'][tl]); }
   }
   function paintFront(g, ext) {
+    tryFront(g, ext);
     /* the booth counter with its printed front */
     var ct = T.counter; soft(g, ct.x + ct.w / 2, F + 4, ct.w * 0.55, 10, 0.3);
     fillRR(g, ct.x, ct.y, ct.w, F - ct.y, 10, '#FFFFFF'); fillRR(g, ct.x - 8, ct.y - 8, ct.w + 16, 14, 6, '#DCE3EE'); fillRR(g, ct.x, ct.y + 22, ct.w, 34, 0, BLUE);
@@ -178,11 +208,11 @@
   var HR = W({ x: 610, y: 470, s: 0.52, ph: 1.3, skin: 2, hair: 1, style: 'bob', outfit: 'cardigan', top: '#E0456B', top2: '#FFFFFF', sit: true, chairCol: '#2A3550', hold: 'clipboard', hands: [[-80, -220], [40, -210]], look: 0.6 });
   var CNDT = W({ x: 774, y: 470, s: 0.52, ph: 2.2, skin: 3, hair: 0, style: 'short', outfit: 'shirt', top: '#DCE7FB', id: PASS, sit: true, chairCol: '#5C6B7A', hands: [[-80, -200], [60, -200]], look: -0.6 });
   /* the people in the margins (drawn and tapped by this file): the photographer and the visitor posing at the photo wall, the registration volunteer */
-  var PHOT = W({ x: 1040, y: 470, s: 0.5, ph: 3.1, skin: 4, hair: 0, style: 'short', outfit: 'shirt', top: '#7B5BD6', glasses: true, hands: [[-60, -170], [110, -320]], look: 0.8 });
-  var POSE = W({ x: 1160, y: 470, s: 0.5, ph: 0.2, skin: 1, hair: 2, style: 'bob', outfit: 'cardigan', top: '#F08A24', top2: '#FFFFFF', id: PASS, hands: [[-70, -150], [70, -150]], look: -0.3 });
+  var PHOT = W({ x: 1092, y: 470, s: 0.5, ph: 3.1, skin: 4, hair: 0, style: 'short', outfit: 'shirt', top: '#7B5BD6', glasses: true, hands: [[-60, -170], [110, -320]], look: 0.8 });
+  var POSE = W({ x: 1196, y: 470, s: 0.5, ph: 0.2, skin: 1, hair: 2, style: 'bob', outfit: 'cardigan', top: '#F08A24', top2: '#FFFFFF', id: PASS, hands: [[-70, -150], [70, -150]], look: -0.3 });
   var VOL = W({ x: -760, y: 470, s: 0.5, ph: 1.7, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: TEAL, hands: [[-60, -200], [60, -200]], look: 0.3 });
   var CREW = [
-    { front: true, x0: -420, x1: 120, y: 690, spd: 14, ph: 0.2, label: 'A candidate', lines: ['Here for the **Odoo consultant** role!', 'CV printed, nerves steady.'], acts: ['wave', 'jump', 'cheer'],
+    { front: true, x0: -420, x1: 60, y: 664, spd: 14, ph: 0.2, label: 'A candidate', lines: ['Here for the **Odoo consultant** role!', 'CV printed, nerves steady.'], acts: ['wave', 'jump', 'cheer'],
       P: W({ s: 0.58, skin: 0, hair: 2, style: 'pony', outfit: 'shirt', top: TEAL, id: PASS, hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
     { front: true, x0: 1040, x1: 1300, y: 700, spd: 16, ph: 0.6, label: 'A candidate', lines: ['Accountant here. **BIR filings** are my thing.', 'Is the HR role still open?'], acts: ['nod', 'jump', 'wave'],
       P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#2A3550', top2: Y, id: PASS, glasses: true, hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
@@ -192,6 +222,28 @@
       P: W({ s: 0.52, skin: 1, hair: 3, style: 'long', outfit: 'cardigan', top: '#E0456B', id: PASS, hold: 'bags' }) }
   ];
 
+  /* the try-it corner (behind the title card): a developer demoing Odoo, a visitor trying it, a candidate waiting for an interview */
+  var XSC = [
+    { P: W({ x: -238, y: 470, s: 0.52, ph: 0.7, skin: 1, hair: 1, style: 'short', outfit: 'polo', top: '#714B67', top2: '#FFFFFF', glasses: true }), hands: [[-96, -190], [60, -160]],
+      box: [-238, 360, 90, 220], who: 'Odoo developer', role: 'Try-it corner \u00B7 illustration', near: [-100, 60], pose: 'present', dur: [1.8, 1.5], fx: ['conf', 'code'],
+      lines: ['Drag a deal to **Won** and the quotation is ready. Try it!', 'I build these screens in our **Taguig City** hub.'],
+      idle: function (P, t) { var c = (t + 2) % 8, k = Math.abs(Math.sin(t * 8)) * 5; if (c < 3) { P.hands = [[-96 - k, -190], [60, -160]]; P.look = -0.7; } else if (c < 5.5) { P.hands = [[-150, -330 + Math.sin(t * 3) * 10], [60, -160]]; P.look = -0.9; P.talk = true; } else { P.hands = [[-80, -180], [96, -250]]; P.look = -0.4; P.mood = 'happy'; } },
+      moves: [function (P, u) { P.hands = [[-150, -370], [110, -370]]; P.hop = COL2.bell(u) * 14; }, function (P, u) { P.sx = Math.cos(COL2.ease(u) * Math.PI * 2); P.hands = [[-110, -260], [110, -260]]; }],
+      after: function (g, P, t, S, X, u, k) { if (u >= 0 && k === 0) COL2.pop(g, P.x, P.y - 300, '\u2713 Deal won (demo)', u, '#0E7A50'); } },
+    { P: W({ x: -404, y: 470, s: 0.5, ph: 1.9, skin: 3, hair: 0, style: 'long', outfit: 'cardigan', top: '#F2B233', top2: '#FFFFFF', id: PASS }), hands: [[-60, -150], [70, -186]],
+      box: [-404, 360, 90, 220], who: 'A visitor', role: 'Grey visitor pass \u00B7 illustration', near: [-200, 60], pose: 'wow', dur: [1.6, 1.8], fx: ['star', 'heart'],
+      lines: ['So this is **Odoo**. Sales to invoice, one screen!', 'Applying for the **Odoo consultant** role tonight.'],
+      idle: function (P, t) { var c = (t + 5) % 7; P.look = 0.6; if (c < 3) { P.hands = [[-60, -150], [76, -190 + Math.abs(Math.sin(t * 6)) * -6]]; } else if (c < 5) { P.hands = [[-30, -320], [70, -186]]; P.tilt = 0.06; P.look = 0.8; } else { P.hands = [[-60, -150], [70, -150]]; P.mood = 'happy'; P.tilt = Math.sin(t * 9) * 0.04; } },
+      moves: [function (P, u) { P.hands = [[-110, -400], [110, -400]]; P.hop = COL2.bell(u) * 16; P.look = 0; }, function (P, u) { P.hands = [[-60, -150], [96, -330]]; P.look = 0.3; }],
+      after: function (g, P, t, S, X, u, k) { if (u >= 0 && k === 1) { var h = COL2.hand(P, 1); g.save(); g.translate(h[0], h[1] - 14); g.rotate(0.12); fillRR(g, -14, -18, 28, 36, 2, '#FFFFFF'); fillRR(g, -14, -18, 28, 8, 2, BLUE); text(g, 'CV', 0, 6, 9, 800, NAVY, 'center'); g.restore(); } } },
+    { P: W({ x: -22, y: 470, s: 0.5, ph: 2.8, skin: 4, hair: 1, style: 'short', outfit: 'shirt', top: '#DCE7FB', low: '#2A3550', id: PASS, sit: true, chair: false }), hands: [[-50, -196], [50, -196]],
+      box: [-22, 360, 100, 210], who: 'A candidate', role: 'Waiting for an interview \u00B7 illustration', near: [-120, 60], pose: 'clap', dur: [1.6, 1.8], fx: ['spark', 'star'],
+      lines: ['Interview at two for **Solutions Architect**. I\u2019ve got this!', 'Practising my answer: why **Odoo**? One database for everything.'],
+      idle: function (P, t, S, X) { var c = (t + 1) % 9; X.cv = c < 5; P.look = -0.1; if (c < 5) { P.hands = [[-46, -210], [46, -210]]; P.talk = Math.sin(t * 1.3) > 0.2; } else if (c < 6.4) { P.hands = [[-50, -196], [10, -240]]; P.look = 0.4; } else { P.hands = [[-110, -380], [110, -380]]; P.mood = 'happy'; } },
+      moves: [function (P, u) { P.hands = [[-50, -196], [96, -360]]; P.hop = COL2.bell(u) * 8; }, function (P, u, t) { P.hands = [[-46, -210], [46, -210]]; P.tilt = Math.sin(t * 12) * 0.06 * COL2.bell(u); }],
+      after: function (g, P, t, S, X, u, k) { var a = COL2.hand(P, 0), b = COL2.hand(P, 1); if (X.cv || (u >= 0 && k === 1)) { g.save(); g.translate((a[0] + b[0]) / 2, Math.min(a[1], b[1]) + 2); fillRR(g, -16, -24, 32, 26, 2, '#FFFFFF'); fillRR(g, -12, -20, 14, 3, 1, BLUE); g.fillStyle = '#C9D3E3'; g.fillRect(-12, -14, 24, 2); g.fillRect(-12, -9, 20, 2); g.fillRect(-12, -4, 22, 2); g.restore(); }
+        if (u >= 0 && k === 0) COL2.pop(g, P.x, P.y - 280, 'I\u2019ve got this!', u, BLUE); } }
+  ];
   var PRINT = { t: -9 }, POP = { t: -9 }, SERVE = { n: 12, t: 0 }, HS = { t: -9 }, STAMP = { t: -9 }, FLASH = { t: -9 }, SELF = { t: -9 }, POSEJ = { t: -9 }, VOLT = { t: -9 };
   /* ---- the greeter: idle, scans visitor QR codes with her tablet; tapped, twirls a visitor lanyard and tosses it */
   function actGre(P, t, S) {
@@ -252,7 +304,7 @@
   }
   /* ---- margin people (scripted): the photographer, the visitor posing, the registration volunteer */
   function actPhot(P, t) {
-    var u = t - SELF.t; reset(P); var cyc = t % 5.2; P.x = 1040 + Math.sin(t * 0.6) * 8; P.hop = 0;
+    var u = t - SELF.t; reset(P); var cyc = t % 5.2; P.x = 1092 + Math.sin(t * 0.6) * 8; P.hop = 0;
     P.hands = cyc > 4 ? [[-60, -170], [130, -330]] : [[-40, -300], [110, -320]]; P.look = 0.8; P.mood = cyc > 4.2 ? 'happy' : 'calm';
     if (cyc > 4.2 && cyc < 4.26 && FLASH.t < t - 1) FLASH.t = t;
     if (u < 2.2) { P.sx = u < 0.4 ? Math.cos(ease(u / 0.4) * Math.PI) : -1; P.hands = [[-60, -170], [120, -390]]; P.mood = 'happy'; P.talk = true; P.look = -0.2;
@@ -327,6 +379,7 @@
       var ca = T.cart; for (var sm = 0; sm < 3; sm++) { var su = ((t * 0.5 + sm / 3) % 1); g.globalAlpha = 0.5 * (1 - su); g.strokeStyle = '#FFFFFF'; g.lineWidth = 3; g.beginPath(); g.moveTo(ca.x + 66 + sm * 16, ca.y - 24 - su * 30); g.quadraticCurveTo(ca.x + 72 + sm * 16 + Math.sin(t * 2 + sm) * 6, ca.y - 34 - su * 30, ca.x + 66 + sm * 16, ca.y - 44 - su * 30); g.stroke(); } g.globalAlpha = 1; }
     drawMargin(g, t, false);
     CO.crew(CREW, g, t, S, false);
+    if (COL2 && S.ext.l < 140) { tryLive(g, t); COL2.draw(XSC, g, t, S); }
   }
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
@@ -385,6 +438,7 @@
       function on(P) { return Math.abs(x - P.x) < 60 && y < P.y + 6 && y > P.y - 260; }
       if (on(PHOT)) { SELF.t = t; return { say: 'Selfie with the booth! Tag it **#TechNextCareers**.', near: [900, 120], pose: 'love', who: 'TechNext photographer' }; }
       if (on(POSE)) { POSEJ.t = t; CR.burst('conf', POSE.x, POSE.y - 260, t); return { say: 'Just applied on **JobStreet**. Photo for the memories!', near: [900, 120], pose: 'celebrate', who: 'A visitor' }; }
+      if (COL2) { var xr = COL2.hit(XSC, x, y, t); if (xr) return xr; }
       if (on(VOL)) { VOLT.t = t; CR.burst('spark', VOL.x, VOL.y - 260, t); return { say: 'Your **visitor pass**. The TechNext booth is number 12!', near: [-560, 120], pose: 'hello', who: 'Registration' }; }
       return null;
     },

@@ -181,3 +181,41 @@
 .ixw--office-vn .vn-cta .hand{color:#FFF1C9}
 @media (prefers-reduced-motion:reduce){.ixw--office-vn .ixw-hint::after{animation:none}}
 @media (max-width:767px){.ixw--office-vn .vn-cta>div:first-of-type{padding-top:34px}}
+
+/* ============================== hero controls (audit round): the terminal ==============================
+   The CTAs are commands (52px; the primary carries a prompt chip that blinks its caret on hover; the ghost is an outlined
+   command with a cyan glow); the tour controls are terminal keys; "View the scene" toggles like a flag. */
+.ixw--office-vn .ixw-copy .actions{gap:14px}
+.ixw--office-vn .ixw-copy .actions .btn-lg{height:52px;padding:0 22px;font:800 16px/1 var(--font-display);overflow:visible}
+.ixw--office-vn .ixw-copy .actions .btn-primary .ic{width:30px;height:30px;padding:7px;margin:0 -10px 0 4px;border-radius:8px;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.ixw--office-vn .ixw-copy .actions .btn-primary:hover .ic{background:#FFFFFF;color:#E0761A}
+.ixw--office-vn .ixw-copy .actions .btn-ghost{border-width:2px}
+.ixw--office-vn .ixw-copy .actions .btn-ghost .ic{width:20px;height:20px}
+.ixw--office-vn .ixw-copy .actions .btn-ghost::after{content:"_";position:absolute;right:10px;bottom:13px;font:800 14px/1 ui-monospace,Consolas,monospace;color:var(--vn-cy);opacity:0;transform:none;background:none;inset:auto 10px 13px auto;transition:none}
+.ixw--office-vn .ixw-copy .actions .btn-ghost:hover::after{opacity:1;animation:vnCaret 1s steps(2) infinite}
+@keyframes vnCaret{50%{opacity:0}}
+.ixw--office-vn .ixw-cap .ixw-ibtn{width:40px;height:40px;border-radius:10px}
+.ixw--office-vn .ixw-cap .ixw-ibtn--play{width:46px;height:46px;border-radius:12px}
+.ixw--office-vn .ixw-ibtn{transition:translate .2s var(--w-spring),box-shadow .2s ease,color .2s ease}
+.ixw--office-vn .ixw-ibtn:hover{translate:0 -2px}
+.ixw--office-vn .ixw-ibtn:active{translate:0 3px;box-shadow:0 0 0 #CFE3EA;transition-duration:.06s}
+.ixw--office-vn .ixw-ibtn:focus-visible,.ixw--office-vn .ixw-peek:focus-visible,.ixw--office-vn .ixw-dots button:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.ixw--office-vn .ixw-dots button:hover{background:#9ED9E1}
+.ixw--office-vn .ixw-peek{height:44px;padding:0 18px 0 14px;border-width:2px;font-size:13.5px;transition:translate .2s var(--w-spring),box-shadow .2s ease,background-color .2s ease}
+.ixw--office-vn .ixw-peek:hover{translate:0 -2px;box-shadow:0 0 0 4px rgba(14,165,183,.16),0 5px 0 #9ED9E1}
+.ixw--office-vn .ixw-peek:active{translate:0 3px;box-shadow:0 0 0 #9ED9E1}
+@media (max-width:767px){.ixw--office-vn .ixw-copy .actions .btn-lg{height:50px}}
+@media (prefers-reduced-motion:reduce){.ixw--office-vn .ixw-copy .actions .btn-ghost:hover::after{animation:none}}
+/* ---------- audit round: the FAQ is a chat window with the lab's assistant; the address card reads bigger ---------- */
+.ixw--office-vn .vn-faq{position:relative;max-width:900px;padding:62px 26px 26px;border-radius:20px;background:radial-gradient(rgba(14,165,183,.07) 1.2px,transparent 1.4px) 0 0/18px 18px,#F7FBFD;box-shadow:0 0 0 1.5px #D5E6EC,0 30px 50px -34px rgba(30,60,110,.35)}
+.ixw--office-vn .vn-faq::before{content:"assistant \00B7  AI lab, Ho Chi Minh City";position:absolute;left:0;right:0;top:0;height:42px;display:flex;align-items:center;padding-left:74px;border-radius:20px 20px 0 0;
+  background:radial-gradient(circle at 22px 50%,#FF6B5E 5px,transparent 5.5px),radial-gradient(circle at 38px 50%,#FFC94A 5px,transparent 5.5px),radial-gradient(circle at 54px 50%,#2BC48A 5px,transparent 5.5px),#FFFFFF;
+  border-bottom:1.5px solid #E1ECF1;font:700 12px/1 var(--vn-mono,ui-monospace,Consolas,monospace);color:#5C6B7A}
+.ixw--office-vn .vn-faq::after{content:"online";position:absolute;right:20px;top:13px;display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 22px;border-radius:999px;background:radial-gradient(circle at 11px 50%,#2BC48A 3.5px,transparent 4px),#E6F6F2;font:700 11px/1 var(--font-body);color:#0E7A50}
+.ixw--office-vn .vn-faq summary{transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--office-vn .vn-faq summary:hover{translate:-3px 0;box-shadow:0 14px 26px -14px rgba(14,165,183,.85)}
+.ixw--office-vn .vn-faq summary:focus-visible{outline:3px solid #FFC94A;outline-offset:3px}
+.vn-addr address{font-size:17px;line-height:1.55}
+.vn-addr::after{content:"AI LAB";position:absolute;right:-4px;bottom:-18px;font:800 84px/1 var(--font-display);letter-spacing:-.04em;color:rgba(14,165,183,.07);pointer-events:none}
+@media (max-width:767px){.ixw--office-vn .vn-faq{padding:56px 12px 14px}.ixw--office-vn .vn-faq::before{padding-left:68px;font-size:10.5px}.ixw--office-vn .vn-faq::after{display:none}.vn-addr::after{font-size:60px}}
+.ixw--office-vn .vn-faq details,.ixw--office-vn .vn-faq details[open]{background:none!important;box-shadow:none!important;border:0!important}
