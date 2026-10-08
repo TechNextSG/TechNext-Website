@@ -1,7 +1,8 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* World: life (/life) — Life at TechNext: the team's bright common area at mid-morning. Three tall windows, one per office
    (Singapore, Taguig City, Ho Chi Minh City) with their own skyline and a live clock each; the long communal table under
-   them with two colleagues at work; the "How we work" board (the four steps, sticky notes moving along); a lanyard rack
+   them with two colleagues at work; the cork photo wall (polaroids per album, "coming soon" frames, a colleague pinning a
+   new one), a film-strip garland, an instant camera on the fridge (tap: flash and a polaroid); a lanyard rack
    (the Employee Hub) over the blog shelf; the pantry with its coffee machine, upper cabinets and the fridge covered in
    event flyers (the next date comes from the events list); a "We're hiring" A-frame. Pendant lamps and hanging plants sway,
    a robot vacuum roams. Margins: a reading nook with a beanbag and "photos coming soon" frames on the left, a drinks
@@ -18,9 +19,14 @@
   var WW = 118, WT = 34, WB = 236;
   var T = { table: { x: 170, y: 378, w: 340 }, board: { x: 536, y: 52, w: 160, h: 204 }, rack: { x: 712, y: 92 }, shelf: { x: 708, y: 210, w: 48 }, frame: { x: 662 },
     counter: { x: 772, y: 360 }, mach: { x: 800 }, fridge: { x: 930, w: 74 }, nook: { x: -780 }, drinks: { x: 1060 } };
-  var STEPS = [['Discovery', '#3167CA'], ['Training', '#14A38B'], ['Integration', '#F08A24'], ['Support', '#714B67']];
+  var ALB = [['Outings', '#3167CA'], ['Dinners', '#F08A6C'], ['Meetings', '#14A38B'], ['Office', '#714B67']];
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
+  /* a polaroid: white frame, a "coming soon" face (no real photos yet), tape on top */
+  function polaroid(g, x, y, rot, col, dev) { g.save(); g.translate(x, y); g.rotate(rot || 0); g.fillStyle = 'rgba(20,30,40,.14)'; g.fillRect(-12, -13, 26, 30);
+    fillRR(g, -13, -15, 26, 30, 1.5, '#FFFFFF'); fillRR(g, -10, -12, 20, 18, 1, dev == null ? '#EEF4F2' : 'rgba(46,59,57,' + (0.85 - dev * 0.6).toFixed(2) + ')');
+    g.strokeStyle = col; g.lineWidth = 1.2; g.beginPath(); g.arc(0, -3, 4, 0, 7); g.stroke(); fillRR(g, -3, -9.5, 6, 2.5, 1, col);
+    fillRR(g, -7, 9, 14, 2, 1, '#C9D3D0'); g.fillStyle = 'rgba(255,230,128,.85)'; g.fillRect(-6, -18, 12, 6); g.restore(); }
   var EV = window.TN_EV; function nextEv() { try { return EV ? EV.upcoming(Date.now())[0] : null; } catch (e) { return null; } }
   var NX = { at: -1e9, e: null }; function nx() { var n = Date.now(); if (n - NX.at > 60000) { NX.at = n; NX.e = nextEv(); } return NX.e; }
 
@@ -70,13 +76,13 @@
     shadowed(g, 6, 2, 0.18, function () { fillRR(g, 680, -52, 110, 40, 5, '#FFFFFF'); }); fillE(g, 700, -32, 10, 10, PUR); fillE(g, 700, -32, 4, 4, '#FFFFFF'); text(g, 'Odoo Ready', 714, -34, 9, 800, PUR); text(g, 'Partner', 714, -23, 9, 800, PUR);
     fillRR(g, 812, -44, 40, 34, 3, OAK2); fillRR(g, 816, -40, 32, 26, 2, '#F7FBF9'); CO.plane(g, 832, -27, 0.9, 0, BLUE);
     fillRR(g, 870, -40, 28, 30, 3, '#FFFFFF'); COL.mug(g, 925, -10, 1.2, CORAL); fillRR(g, 946, -36, 24, 26, 12, '#2E3B39'); fillE(g, 958, -23, 7, 7, SUN);
-    /* the how-we-work board */
-    var b = T.board; shadowed(g, 12, 5, 0.18, function () { fillRR(g, b.x, b.y, b.w, b.h, 6, '#FFFFFF'); }); g.strokeStyle = '#C9D3D0'; g.lineWidth = 3; rr(g, b.x, b.y, b.w, b.h, 6); g.stroke();
-    fillRR(g, b.x, b.y, b.w, 22, 6, INK); g.fillRect(b.x, b.y + 14, b.w, 8); text(g, 'HOW WE WORK', b.x + b.w / 2, b.y + 15, 9, 800, SUN, 'center');
-    var cw = (b.w - 10) / 4; STEPS.forEach(function (s, i) { var x = b.x + 5 + i * cw; fillRR(g, x + 2, b.y + 28, cw - 4, 14, 4, s[1]); text(g, (i + 1) + ' ' + s[0].slice(0, 5) + (s[0].length > 5 ? '.' : ''), x + cw / 2, b.y + 38, 5.6, 800, '#FFFFFF', 'center');
-      if (i) { g.strokeStyle = '#E3E8EF'; g.lineWidth = 1; g.beginPath(); g.moveTo(x, b.y + 46); g.lineTo(x, b.y + b.h - 8); g.stroke(); } });
-    fillRR(g, b.x + 10, b.y + b.h + 2, b.w - 20, 6, 3, '#C9D3D0'); [b.x + 30, b.x + b.w - 30].forEach(function (lx) { fillRR(g, lx - 3, b.y + b.h + 6, 6, 4, 2, '#9AA6BC'); });
-    for (var mk = 0; mk < 3; mk++) COL.marker(g, b.x + 20 + mk * 10, b.y + b.h + 1, Math.PI / 2, [BLUE, '#14A38B', CORAL][mk]);
+    /* the cork photo wall: an oak frame, four album labels; the polaroids are live */
+    var b = T.board; shadowed(g, 12, 5, 0.2, function () { fillRR(g, b.x - 4, b.y - 4, b.w + 8, b.h + 8, 6, OAK2); }); fillRR(g, b.x, b.y, b.w, b.h, 4, '#D9B48A');
+    g.fillStyle = 'rgba(120,80,40,.18)'; for (var ck = 0; ck < 220; ck++) g.fillRect(b.x + hash(ck) * b.w, b.y + hash(ck + 50) * b.h, 2, 2);
+    fillRR(g, b.x + 20, b.y - 16, b.w - 40, 22, 11, INK); text(g, 'OUR PHOTO WALL', b.x + b.w / 2, b.y - 1.5, 8.6, 800, SUN, 'center');
+    var cw = (b.w - 10) / 4; ALB.forEach(function (s, i) { var x = b.x + 5 + i * cw; fillRR(g, x + 3, b.y + 10, cw - 6, 12, 6, s[1]); text(g, s[0].toUpperCase(), x + cw / 2, b.y + 18.6, 5, 800, '#FFFFFF', 'center'); });
+    /* a tripod camera beside the wall */
+    g.strokeStyle = '#3A4744'; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(b.x - 14, 262); g.lineTo(b.x - 30, 300); g.moveTo(b.x - 14, 262); g.lineTo(b.x + 2, 300); g.moveTo(b.x - 14, 262); g.lineTo(b.x - 14, 300); g.stroke(); fillRR(g, b.x - 32, 242, 36, 22, 4, '#2A3142'); fillE(g, b.x - 14, 253, 7, 7, '#5C7A9E'); fillE(g, b.x - 16, 251, 2, 2, '#FFFFFF'); fillRR(g, b.x - 28, 238, 9, 5, 2, '#2A3142');
     /* the lanyard rack (Employee Hub) and the blog shelf */
     var r = T.rack; fillRR(g, r.x - 4, r.y, 52, 10, 3, OAK2); text(g, 'TEAM', r.x + 22, r.y - 4, 6.5, 800, INK, 'center');
     for (var h = 0; h < 4; h++) { var hx = r.x + 4 + h * 12; fillE(g, hx, r.y + 12, 2, 2, '#7A869C'); g.strokeStyle = BLUE; g.lineWidth = 2; g.beginPath(); g.moveTo(hx - 3, r.y + 12); g.lineTo(hx - 1, r.y + 60 + (h % 2) * 8); g.moveTo(hx + 3, r.y + 12); g.lineTo(hx + 1, r.y + 60 + (h % 2) * 8); g.stroke();
@@ -85,7 +91,7 @@
     fillRR(g, sh.x, sh.y, sh.w, 16, 4, SAGE); text(g, 'BLOG', sh.x + sh.w / 2, sh.y + 11.5, 8, 800, '#FFFFFF', 'center');
     for (var s = 0; s < 4; s++) { var sy = sh.y + 56 + s * 58; fillRR(g, sh.x + 2, sy, sh.w - 4, 4, 1, OAK);
       for (var m = 0; m < 3; m++) { var mcol = [BLUE, '#14A38B', CORAL, PUR, SUN][(s + m) % 5]; g.save(); g.translate(sh.x + 9 + m * 14, sy); g.rotate(m === 2 ? 0.12 : 0); fillRR(g, -5, -34, 11, 34, 1.5, mcol); fillRR(g, -3, -28, 7, 2, 1, 'rgba(255,255,255,.7)'); g.restore(); } }
-    /* the "coming soon" photo frame by the board */
+    /* a "coming soon" photo frame by the photo wall */
     var fr = T.frame; shadowed(g, 8, 3, 0.16, function () { fillRR(g, fr.x - 2, 272, 40, 30, 3, OAK2); }); fillRR(g, fr.x + 2, 276, 32, 22, 2, '#F7FBF9');
     g.strokeStyle = '#9AA6BC'; g.lineWidth = 1; g.setLineDash([2, 2]); g.strokeRect(fr.x + 5, 279, 26, 16); g.setLineDash([]); text(g, 'PHOTO', fr.x + 18, 286, 4.6, 800, '#7A869C', 'center'); text(g, 'SOON', fr.x + 18, 292, 4.6, 800, '#7A869C', 'center');
     /* the pantry: upper cabinets, the backsplash, the fridge */
@@ -200,7 +206,7 @@
     else { P.hands = [[-50, -240], [40, -240]]; P.mood = 'happy'; P.talk = true; P.look = -0.9; P.tilt = Math.sin(t * 12) * 0.05; }
     if (u < 1.6) { P._pad = 0; P.mood = 'happy'; P.talk = true; P.look = -1; P.hands = [[-150, -330 + Math.sin(u * 4) * 6], [40, -214]]; if (u < 0.05 && FIVE.t < t - 1) { FIVE.t = t; } if (u > 0.5 && !st._h) { st._h = 1; CR.burst('star', 337, 270, t); } } else st._h = 0;
   }
-  /* ---- the project lead at the board: idle, carries a sticky note along the four columns and points; tapped, claps and the columns light up 1-2-3-4 */
+  /* ---- the colleague at the photo wall: idle, carries a polaroid to each album and pins it; tapped, claps and the albums light up one by one */
   function actPm(P, t, S) {
     var st = S.cast.pm, u = COL.tap(st, t).e; COL.reset(P, [[-70, -200], [70, -200]]);
     var c = (t + 3.3) % 10, b = T.board, cw = (b.w - 10) / 4; P.talk = t < st.until; P._note = -1;
@@ -208,7 +214,7 @@
     P.x = 596 + Math.sin(t * 0.4) * 10;
     if (f < 0.7) { P._note = col; P._nf = f; var hx = (tx - P.x) / P.s, hy = (b.y + 80 + col * 18 - P.y) / P.s; P.hands = [[-70, -200], [clamp(hx, -150, 150), clamp(hy, -420, -150)]]; P.look = clamp(hx / 150, -1, 1); }
     else { P.hands = [[-70, -200], [60, -230]]; P.look = 0.6; P.mood = 'happy'; }
-    if (S.hot === 'steps') { P.hands = [[-150, -360], [70, -200]]; P.look = -0.8; P.talk = true; P._note = -1; }
+    if (S.hot === 'gallery') { P.hands = [[-150, -360], [70, -200]]; P.look = -0.8; P.talk = true; P._note = -1; }
     if (u < 2.4) { P._note = -1; P.mood = 'happy'; P.talk = true; var cl = Math.abs(Math.sin(u * 12)); P.hands = [[-30 - cl * 20, -270], [30 + cl * 20, -270]]; P.hop = cl * 4; if (u < 0.05 && CLAP.t < t - 1) CLAP.t = t; }
   }
 
@@ -223,25 +229,30 @@
   function paintLive(g, t, now, S) {
     /* the three window clocks */
     WIN.forEach(function (w) { CO.clock(g, w.x + WW / 2, WT - 23, 19, w.off, INK); });
-    /* fairy lights strung under the soffit, twinkling */
-    for (var fl2 = 0; fl2 < 2; fl2++) { var x0 = fl2 ? 540 : 140, x1 = fl2 ? 1000 : 520; g.strokeStyle = 'rgba(22,48,43,.35)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x0, -112); g.quadraticCurveTo((x0 + x1) / 2, -70, x1, -112); g.stroke();
-      for (var bl = 0; bl < 12; bl++) { var u = (bl + 0.5) / 12, bx = lerp(x0, x1, u), by = -112 + 4 * 21 * u * (1 - u) + 3; fillE(g, bx, by, 3, 3.6, ['#FFD25E', '#FFB3A0', '#BDE8D8'][bl % 3]); var tw = 0.5 + 0.5 * Math.sin(t * 3 + bl * 1.7 + fl2); g.globalAlpha = 0.35 * tw; fillE(g, bx, by, 7, 7, '#FFF2C8'); g.globalAlpha = 1; } }
+    /* a film-strip garland under the soffit, frames swaying */
+    for (var fl2 = 0; fl2 < 2; fl2++) { var x0 = fl2 ? 540 : 140, x1 = fl2 ? 1000 : 520, sw2 = Math.sin(t * 1.1 + fl2) * 2; g.strokeStyle = 'rgba(22,48,43,.4)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x0, -112); g.quadraticCurveTo((x0 + x1) / 2, -70 + sw2, x1, -112); g.stroke();
+      for (var bl = 0; bl < 9; bl++) { var u = (bl + 0.5) / 9, bx = lerp(x0, x1, u), by = -112 + 4 * (21 + sw2 / 2) * u * (1 - u); g.save(); g.translate(bx, by); g.rotate(Math.sin(t * 1.4 + bl + fl2 * 3) * 0.06);
+        fillRR(g, -13, 0, 26, 22, 1.5, '#2A3142'); g.fillStyle = '#F4F7F6'; for (var hl = 0; hl < 4; hl++) { g.fillRect(-11 + hl * 6.4, 1.5, 3, 2); g.fillRect(-11 + hl * 6.4, 18.5, 3, 2); }
+        fillRR(g, -10, 5, 20, 12, 1, ['#CFE6F8', '#FFE6C2', '#D7EFE6', '#EBDDF0'][(bl + fl2) % 4]); g.restore(); } }
     /* pendant lamps and hanging plants sway */
     [[240, 0], [340, 1.3], [440, 2.6]].forEach(function (l) { var sw = Math.sin(t * 0.9 + l[1]) * 0.03; g.save(); g.translate(l[0], -120); g.rotate(sw); g.strokeStyle = '#6B7A76'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 150); g.stroke();
       g.fillStyle = SAGE; g.beginPath(); g.moveTo(-22, 172); g.quadraticCurveTo(0, 138, 22, 172); g.closePath(); g.fill(); fillE(g, 0, 172, 22, 4, '#2E6E61'); fillE(g, 0, 175, 9, 4, '#FFF2C8'); g.restore(); });
     COL.hangPlant(g, 1040, -120, 70, t, 1, 0.4); COL.hangPlant(g, 110, -120, 50, t, 1.1, 1.8); if (S.ext.l < -100) COL.hangPlant(g, -200, -120, 60, t, 1, 2.7);
-    /* the board's sticky notes: three per column, one carried by the project lead */
+    /* the photo wall's polaroids: two per album, "coming soon" until real photos arrive; one carried by the colleague */
     var b = T.board, cw = (b.w - 10) / 4, ct = t - CLAP.t;
-    STEPS.forEach(function (s, i) { var x = b.x + 5 + i * cw, lit = ct < 2.4 && ct > i * 0.35 && ct < i * 0.35 + 1.2; if (lit || S.hot === 'steps') { g.save(); g.globalAlpha = lit ? 0.35 : 0.12 + 0.08 * Math.sin(t * 4 + i); fillRR(g, x + 1, b.y + 44, cw - 2, b.h - 50, 3, s[1]); g.restore(); }
-      for (var n = 0; n < 3; n++) { if (PM._note === i && n === 2) continue; COL.note(g, x + cw / 2 + (n % 2 ? 4 : -4), b.y + 66 + n * 44, 26, (hash(i * 3 + n) - 0.5) * 0.2, ['#FFE680', '#BDE8D8', '#FFD0C2', '#D6E4FF'][(i + n) % 4]); } });
+    ALB.forEach(function (s, i) { var x = b.x + 5 + i * cw, lit = ct < 2.4 && ct > i * 0.35 && ct < i * 0.35 + 1.2; if (lit || S.hot === 'gallery') { g.save(); g.globalAlpha = lit ? 0.4 : 0.14 + 0.08 * Math.sin(t * 4 + i); fillRR(g, x + 1, b.y + 26, cw - 2, b.h - 30, 3, s[1]); g.restore(); }
+      for (var n = 0; n < 3; n++) { if (PM._note === i && n === 2) continue; polaroid(g, x + cw / 2 + (n % 2 ? 3 : -3), b.y + 58 + n * 52, (hash(i * 3 + n) - 0.5) * 0.24, s[1]); } });
     /* the fridge: flyers and a calendar magnet with the next event's date (from the events list) */
     var fd = T.fridge, ev = nx(); COL.note(g, fd.x + 24, 170, 30, -0.08, '#FFE680', 'Odoo', INK); COL.note(g, fd.x + 54, 196, 26, 0.12, '#D6E4FF');
     g.save(); g.translate(fd.x + 38, 290); g.rotate(S.hot === 'events' ? Math.sin(t * 5) * 0.05 : -0.04); fillRR(g, -26, -30, 52, 58, 4, '#FFFFFF'); fillRR(g, -26, -30, 52, 14, 4, PUR); text(g, 'NEXT EVENT', 0, -20, 5.6, 800, '#FFFFFF', 'center');
     if (ev) { var dm = EV.dayMon(ev.date); text(g, String(dm[0]), 0, 6, 18, 800, INK, 'center'); text(g, dm[1].toUpperCase() + ' · ' + String(ev.where || '').toUpperCase(), 0, 18, 5.6, 800, PUR, 'center'); } else text(g, 'SOON', 0, 6, 11, 800, INK, 'center');
     g.restore(); fillE(g, fd.x + 38, 262, 3, 3, '#E2453C');
-    /* a little radio on the fridge (tap it: music notes) */
-    var rt = t - RADIO.t; fillRR(g, fd.x + 14, 100, 44, 20, 5, CORAL); fillE(g, fd.x + 26, 110, 6, 6, '#FFF2E8'); fillRR(g, fd.x + 36, 105, 16, 3, 1.5, '#FFF2E8'); fillRR(g, fd.x + 36, 111, 12, 3, 1.5, '#FFF2E8'); g.strokeStyle = '#6B7A76'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(fd.x + 52, 100); g.lineTo(fd.x + 60, 84); g.stroke();
-    if (rt < 3 && Math.floor(rt * 3) !== RADIO.k) { RADIO.k = Math.floor(rt * 3); CR.burst('note', fd.x + 36, 92, t); }
+    /* an instant camera on the fridge (tap it: flash, and a polaroid slides out) */
+    var rt = t - RADIO.t; if (rt < 2.6) { var pu = Math.min(1, rt / 0.9); polaroid(g, fd.x + 36, 96 - 26 * pu, 0, CORAL, pu); }
+    fillRR(g, fd.x + 12, 92, 48, 30, 8, '#F7C3D0'); fillRR(g, fd.x + 12, 112, 48, 10, 4, '#E8A3B4'); fillE(g, fd.x + 36, 106, 10, 10, '#2A3142'); fillE(g, fd.x + 36, 106, 6, 6, '#5C7A9E'); fillE(g, fd.x + 34, 104, 2, 2, '#FFFFFF');
+    fillRR(g, fd.x + 16, 96, 8, 5, 2, '#FFFFFF'); fillE(g, fd.x + 54, 96, 3, 3, CORAL);
+    if (rt < 0.35) { g.save(); g.globalAlpha = (1 - rt / 0.35) * 0.9; fillE(g, fd.x + 20, 98, 30 + rt * 80, 30 + rt * 80, '#FFFFFF'); g.restore(); }
+    if (rt < 2.6) COL.pop(g, fd.x + 36, 64, 'Say cheese!', rt / 2.6, CORAL);
     /* the coffee machine: lights, a drip and the steam */
     var mc = T.mach.x, bt = t - BREW.t, brewing = bt < 3 || ((t + 0.5) % 7 > 2.5 && (t + 0.5) % 7 < 4.5);
     fillE(g, mc - 12, 302, 2.5, 2.5, brewing ? '#7FE3C4' : '#2E8A6C'); fillE(g, mc - 4, 302, 2.5, 2.5, Math.floor(t * 2) % 2 ? SUN : '#8A6B2A');
@@ -268,8 +279,8 @@
     if (DES._pad) { var a = COL.hand(DES, 0), b = COL.hand(DES, 1); g.save(); g.translate((a[0] + b[0]) / 2, Math.min(a[1], b[1]) + 6); g.rotate(-0.2); fillRR(g, -14, -10, 28, 18, 3, '#2A3550'); fillRR(g, -12, -8, 24, 14, 2, '#FFF7F9'); g.strokeStyle = CORAL; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-8, 2); g.quadraticCurveTo(-2, -6 + Math.sin(t * 3) * 2, 8, 0); g.stroke(); g.restore(); }
     var f5 = t - FIVE.t; if (f5 < 1.4 && f5 > 0.4) { g.save(); g.globalAlpha = 1 - (f5 - 0.4); text(g, 'High five!', 337, 236, 10, 800, CORAL, 'center'); g.restore(); }
     /* the sticky note the project lead carries */
-    if (PM._note >= 0) { var hp = COL.hand(PM, 1); COL.note(g, hp[0], hp[1] - 6, 22, Math.sin(t * 3) * 0.1, ['#FFE680', '#BDE8D8', '#FFD0C2', '#D6E4FF'][(PM._note + 2) % 4]); }
-    var ct = t - CLAP.t; if (ct < 2.4) COL.pop(g, PM.x, PM.y - 300, 'Discovery → Support', ct / 2.4, INK);
+    if (PM._note >= 0) { var hp = COL.hand(PM, 1); polaroid(g, hp[0], hp[1] - 14, Math.sin(t * 3) * 0.1, ALB[PM._note][1]); }
+    var ct = t - CLAP.t; if (ct < 2.4) COL.pop(g, PM.x, PM.y - 300, 'Pinned!', ct / 2.4, INK);
     CR.draw(g, t);
   }
 
@@ -281,23 +292,23 @@
     moteCol: 'rgba(255,210,94,.45)',
     glow: {
       offices: function (g) { rr(g, WIN[0].x - 10, WT - 50, WIN[2].x + WW - WIN[0].x + 20, WB - WT + 92, 14); },
-      steps: function (g) { var b = T.board; rr(g, b.x - 8, b.y - 8, b.w + 16, b.h + 20, 10); },
+      gallery: function (g) { var b = T.board; rr(g, b.x - 10, b.y - 22, b.w + 20, b.h + 32, 10); },
       careers: function (g) { rr(g, 650, 374, 56, 100, 8); },
       blog: function (g) { var s = T.shelf; rr(g, s.x - 6, s.y - 6, s.w + 12, F - s.y + 10, 8); },
       events: function (g) { var f = T.fridge; rr(g, f.x - 6, 92, f.w + 12, F - 88, 10); },
       hub: function (g) { var r = T.rack; rr(g, r.x - 10, r.y - 14, 64, 104, 8); },
       coffee: function (g) { rr(g, T.mach.x - 32, 280, 64, 80, 8); }, radio: function (g) { var f = T.fridge; rr(g, f.x + 8, 80, 56, 46, 8); }
     },
-    backGlow: ['offices', 'steps', 'blog', 'events', 'hub', 'coffee', 'radio'],
+    backGlow: ['offices', 'gallery', 'blog', 'events', 'hub', 'coffee', 'radio'],
     cast: [
       { id: 'dev', behind: true, keys: [], P: DEV, act: actDev },
       { id: 'des', behind: true, keys: [], P: DES, act: actDes },
-      { id: 'pm', behind: true, keys: ['steps'], P: PM, act: actPm },
+      { id: 'pm', behind: true, keys: ['gallery'], P: PM, act: actPm },
       { id: 'bar', behind: true, keys: ['events'], P: BAR, act: actBar }
     ],
     toy: function (name, S, t) {
       if (name === 'coffee') { BREW.t = t; CR.burst('spark', T.mach.x, 280, t); }
-      if (name === 'radio') { RADIO.t = t; RADIO.k = -1; }
+      if (name === 'radio') { RADIO.t = t; CR.burst('star', T.fridge.x + 36, 80, t); }
     },
     hit: function (x, y, S, t) {
       var r = CR.hitWalker(x, y, t); if (r) return r;
