@@ -603,7 +603,7 @@ def _nxe_season(sea: dict, idx: int) -> str:
                     f'<ol class="nxe-grid">{"".join(cards)}</ol></section>')
     more = f'<p class="nxe-note">{{{{icon:sparkle}}}}<span>{sea["more"]}</span></p>' if sea.get("more") else ""
     live = " is-live" if idx == 0 else ""
-    return (f'<div class="nxe-panel" id="{sea["id"]}" role="tabpanel" aria-labelledby="tab-{sea["id"]}" tabindex="-1">'
+    return (f'<div class="nxe-panel{" is-on" if idx == 0 else ""}" id="{sea["id"]}" data-nxe-group="{sea["id"]}">'
             f'<div class="nxe-season-head"><div class="nxe-season-copy">'
             f'<span class="nxe-status{live}">{sea["status"]}</span>'
             f'<h2><span class="nxe-sn">{sea["tab"]}</span> {sea["name"]}</h2><p>{sea["blurb"]}</p>'
@@ -614,7 +614,7 @@ def _nxe_season(sea: dict, idx: int) -> str:
 
 def _nxe_specials() -> str:
     cards = "".join(_nxe_card(e, "Coming soon") for e in NXE.SPECIALS)
-    return ('<div class="nxe-panel" id="specials" role="tabpanel" aria-labelledby="tab-specials" tabindex="-1">'
+    return ('<div class="nxe-panel is-on" data-nxe-group="specials-all">'
             '<div class="nxe-season-head"><div class="nxe-season-copy"><span class="nxe-status">Holiday specials</span>'
             '<h2><span class="nxe-sn">Specials</span> Three holiday stories</h2>'
             '<p>Standalone episodes that air while Season 1 runs. Season 1 lessons come back for Halloween, Christmas and the year-end countdown, with a small peek at Season 2.</p>'
@@ -625,16 +625,81 @@ def _nxe_specials() -> str:
             f'<ol class="nxe-grid nxe-grid--3">{cards}</ol></section></div>')
 
 
+def _nxe_filter(label: str, opts: list) -> str:
+    """season filter chips inside a category: opts = [(group id, label, count text)]"""
+    b = "".join(f'<button class="nxe-chip" type="button" data-nxe-filter="{g}" aria-pressed="{"true" if k == 0 else "false"}" aria-controls="{g}">'
+                f'<b>{name}</b><small>{n}</small></button>' for k, (g, name, n) in enumerate(opts))
+    return f'<div class="nxe-filter" role="group" aria-label="{label}"><span class="nxe-filter-l" aria-hidden="true">Season</span>{b}</div>'
+
+
+def _nxe_char_card(c: dict, k: int) -> str:
+    art = c["art"] or ""
+    if art.startswith("img:"):
+        pic = f'<img src="{{{{ROOT}}}}assets/img/{art[4:]}" alt="" loading="lazy" decoding="async">'
+    elif art.startswith("draw:"):
+        pic = f'<canvas class="nxe-ch-cv" data-nxe-portrait="{art[5:]}" width="300" height="240" aria-hidden="true"></canvas>'
+    else:
+        pic = (f'<span class="nxe-ch-letter" aria-hidden="true"><b>{c["name"][0]}</b></span>'
+               '<span class="nxe-ch-soon">Art arrives with the season</span>')
+    eps = "".join(f'<li>{e}</li>' for e in c["eps"])
+    more = f'<a class="nxe-more" href="{{{{ROOT}}}}{c["page"]}">{_nxe_page_label(c["page"])} {{{{icon:arrow}}}}</a>' if c.get("page") else ""
+    return (f'<li class="nxe-ch nxe-tone-{k % 4}"><div class="nxe-ch-art">{pic}</div>'
+            f'<div class="nxe-ch-body"><span class="nxe-kick">{c["role"]}</span><h4>{c["name"]}</h4>'
+            f'<p class="nxe-ch-line">“{c["line"]}”</p><ul class="nxe-ch-eps" aria-label="Appears in">{eps}</ul>{more}</div></li>')
+
+
+def _nxe_characters() -> str:
+    groups, opts = [], []
+    for k, g in enumerate(NXE.CHARACTERS):
+        cards = "".join(_nxe_char_card(c, i) for i, c in enumerate(g["cast"]))
+        opts.append((g["id"], g["tab"], f'{len(g["cast"])} characters'))
+        groups.append(f'<div class="nxe-group{" is-on" if k == 0 else ""}" id="{g["id"]}" data-nxe-group="{g["id"]}">'
+                      f'<div class="nxe-arc-h"><h3>{g["name"]}</h3><span>{g["tab"]}</span></div><p class="nxe-tips-sub">{g["blurb"]}</p>'
+                      f'<ol class="nxe-chars">{cards}</ol></div>')
+    links = {l["href"]: l for it in S.NAV for col in it.get("columns", []) for l in col["links"]}
+    cos = []
+    for i, key in enumerate(NXE.COSTUMES):
+        l = links[f"industries/{key}.html"]
+        lab = l["label"].replace("&", "&amp;")
+        cos.append(f'<li class="nxe-ch nxe-ch--cos nxe-tone-{i % 4}"><div class="nxe-ch-art"><img src="{{{{ROOT}}}}assets/img/industries/{key}/nexi-hello.webp" alt="" loading="lazy" decoding="async"></div>'
+                   f'<div class="nxe-ch-body"><span class="nxe-kick">Industry costume</span><h4>{lab} Nexi</h4>'
+                   f'<p class="nxe-ch-line">“{l["desc"]}”</p><a class="nxe-more" href="{{{{ROOT}}}}{l["href"]}">{lab} {{{{icon:arrow}}}}</a></div></li>')
+    opts.append(("cast-costumes", "Nexi’s costumes", f"{len(cos)} looks"))
+    groups.append('<div class="nxe-group" id="cast-costumes" data-nxe-group="cast-costumes">'
+                  '<div class="nxe-arc-h"><h3>Nexi’s industry costumes</h3><span>Around technext.asia</span></div>'
+                  '<p class="nxe-tips-sub">Off screen, Nexi dresses for each industry TechNext works with. Each look leads its industry page.</p>'
+                  f'<ol class="nxe-chars nxe-chars--cos">{"".join(cos)}</ol></div>')
+    return _nxe_filter("Characters by season", opts) + "".join(groups)
+
+
+def _nxe_comics() -> str:
+    return ('<div class="nxe-soonbox">'
+            '<div class="nxe-soon-panels" aria-hidden="true"><span class="nxe-sp nxe-sp--1"><i>POW!</i></span>'
+            f'<span class="nxe-sp nxe-sp--2"><img src="{NXE_IMG}nexi-think.webp" alt="" width="{NXE_POSE_W["think"]}" height="520" loading="lazy" decoding="async"></span>'
+            '<span class="nxe-sp nxe-sp--3"><b>To be continued…</b></span></div>'
+            '<div class="nxe-soon-copy"><span class="nxe-status">Coming soon</span>'
+            '<h2><span class="nxe-sn">Comics</span> Nexi, panel by panel</h2>'
+            '<p>Nexi comics are on the drawing board. When the first strip is ready it lands here, next to the episodes.</p>'
+            f'<div class="actions"><a class="btn btn-primary" href="{NXE.SUBSCRIBE}" target="_blank" rel="noopener">Subscribe on YouTube {{{{icon:arrow}}}}</a>'
+            '<a class="btn btn-ghost" href="#series">Watch the series meanwhile</a></div></div></div>')
+
+
 def _nxe_tabs() -> str:
-    tabs = []
-    for k, sea in enumerate(NXE.SEASONS):
-        n = sum(len(arc) for _, arc in sea["arcs"])
-        tabs.append(f'<button class="nxe-tab" type="button" role="tab" id="tab-{sea["id"]}" aria-controls="{sea["id"]}" aria-selected="{"true" if k == 0 else "false"}">'
-                    f'<b>{sea["tab"]}</b><small>{n} episodes · {sea["status"].lower()}</small></button>')
-    tabs.append('<button class="nxe-tab" type="button" role="tab" id="tab-specials" aria-controls="specials" aria-selected="false">'
-                f'<b>Holiday specials</b><small>{len(NXE.SPECIALS)} stories</small></button>')
-    panels = "".join(_nxe_season(sea, k) for k, sea in enumerate(NXE.SEASONS)) + _nxe_specials()
-    return (f'<div class="nxe-tabs" role="tablist" aria-label="Seasons">{"".join(tabs)}</div>{panels}')
+    n_eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
+    n_cast = sum(len(g["cast"]) for g in NXE.CHARACTERS) + len(NXE.COSTUMES)
+    cats = [("series", "Series", f"{n_eps} episodes · {len(NXE.SEASONS)} seasons"),
+            ("specials", "Specials", f"{len(NXE.SPECIALS)} holiday stories"),
+            ("comics", "Comics", f"{len(NXE.COMICS)} strips" if NXE.COMICS else "Coming soon"),
+            ("characters", "Characters", f"{n_cast} characters · per season")]
+    tabs = "".join(f'<button class="nxe-tab nxe-tab--{cid}" type="button" role="tab" id="tab-{cid}" aria-controls="{cid}" aria-selected="{"true" if k == 0 else "false"}"{"" if k == 0 else " tabindex=\"-1\""}>'
+                   f'<span class="nxe-tab-n" aria-hidden="true">{k + 1:02d}</span><b>{name}</b><small>{sub}</small></button>'
+                   for k, (cid, name, sub) in enumerate(cats))
+    series = _nxe_filter("Series by season", [(s["id"], s["tab"], f'{sum(len(a) for _, a in s["arcs"])} episodes · {s["status"].lower()}') for s in NXE.SEASONS])
+    series += "".join(_nxe_season(sea, k) for k, sea in enumerate(NXE.SEASONS))
+    body = {"series": series, "specials": _nxe_specials(), "comics": _nxe_comics(), "characters": _nxe_characters()}
+    panels = "".join(f'<div class="nxe-cat{" is-on" if k == 0 else ""}" id="{cid}" role="tabpanel" aria-labelledby="tab-{cid}" tabindex="-1">{body[cid]}</div>'
+                     for k, (cid, *_r) in enumerate(cats))
+    return f'<div class="nxe-tabs nxe-cats" role="tablist" aria-label="Categories">{tabs}</div>{panels}'
 
 
 def _nxe_all():

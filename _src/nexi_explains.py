@@ -164,3 +164,43 @@ SEASONS = [
      "status": "Coming in 2027", "arcs": S2, "tips": S2_TIPS, "tips_name": "Quick Tips 15–34",
      "more": "More episodes are in production: the plan runs to 31, across six arcs."},
 ]
+
+# ---------------------------------------------------------------- Characters (the "Characters" category)
+# One card each, grouped per season. Lines are the episodes' own hooks and the hero cast notes, nothing new.
+# `art`: "img:<path under assets/img/>" for a render, "draw:<name>" for a sidekick drawn live by
+# nexi-explains-cast.js from the episode's own drawing, or None (no artwork yet: a lettered card is shown).
+def ch(name, role, line, art=None, eps=(), page=None):
+    return {"name": name, "role": role, "line": line, "art": art, "eps": list(eps), "page": page}
+
+
+CHARACTERS = [
+    {"id": "cast-season-1", "tab": "Season 1", "name": "Nexi and the Season 1 sidekicks",
+     "blurb": "Nexi stars in every episode, in a new costume each time. These sidekicks come from the episodes’ own drawings, and they act out a little scene around the TV at the top of this page.",
+     "cast": [
+         ch("Nexi", "The star · TechNext’s AI companion", "One idea per episode, told as a little story.", "img:nexi-explains/nexi-hello.webp", ["EP00–EP22"], "nexi.html"),
+         ch("The helper bots", "EP00 · Meet Nexi", "They float in when Nexi saves the day in a comic-book city.", "draw:bots", ["EP00"]),
+         ch("The spreadsheet monster", "EP00 · Meet Nexi", "The villain of the pilot: spreadsheet chaos with claws.", "draw:monster", ["EP00"]),
+         ch("The Customization goat", "EP11 · Odoo Customization", "Customize Odoo without breaking upgrades.", "draw:goat", ["EP11"]),
+         ch("The Odoo + AI owl", "EP13 · Odoo + AI Integrations", "AI inside Odoo: it prepares, you approve.", "draw:owl", ["EP13"]),
+         ch("The Workflow Automation hamster", "EP14 · Workflow Automation", "Still doing it by hand? Let the workflow run itself.", "draw:hamster", ["EP14"]),
+         ch("The App Development cat", "EP19 · App Development", "Apps for customers, staff and portals.", "draw:cat", ["EP19"]),
+         ch("The IoT penguin", "EP20 · IoT Solutions", "Freezer too warm? Sensors that warn you first.", "draw:penguin", ["EP20"]),
+         ch("The Networks duck", "EP21 · Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "draw:duck", ["EP21"]),
+     ]},
+    {"id": "cast-season-2", "tab": "Season 2", "name": "The Bluebay Trading team",
+     "blurb": "Season 2 follows the people of Bluebay Trading as they move onto Odoo. Their artwork arrives with the season.",
+     "cast": [
+         ch("Nexi", "The guide", "Names the psychology behind each fear, then shows the fix.", "img:nexi-explains/nexi-think.webp", ["S2 EP00–EP13"]),
+         ch("Maria", "Accounts", "Asked first: will Odoo take my job? Then came her 14 tabs.", None, ["S2 EP01", "S2 EP07"]),
+         ch("Ben", "58, and sure he is too old for Odoo", "Then we looked at his phone. Later he trades his calculator for a tablet.", None, ["S2 EP02", "S2 EP11"]),
+         ch("Jun", "Found “free Odoo” online", "Odoo is free, right? Then we met Biscuit.", None, ["S2 EP06"]),
+         ch("Biscuit", "The free puppy", "Free to start. Budget to succeed.", None, ["S2 EP06"]),
+         ch("Mrs. Tan", "A customer", "Asked three times. Then she ordered ten more chairs.", None, ["S2 EP13"]),
+     ]},
+]
+
+# Nexi's industry costumes (assets/img/industries/<key>/), shown as the last character group.
+COSTUMES = ["medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness"]
+
+# Comics: none published yet; the Comics category shows a "coming soon" panel until entries are added here.
+COMICS = []
