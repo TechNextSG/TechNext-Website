@@ -32,23 +32,46 @@
 .ixw--ai-odoo .ixw-cap-who b{color:var(--ai-v)}.ixw--ai-odoo .ixw-cap-txt b{color:var(--ai-pur)}
 .ixw--ai-odoo .ixw-cap-rec{background:var(--ai-v-l);border:1px dashed #C9BCF0;color:#4B3A8A}
 
-/* ---------- buttons: brushed steel and violet, a shimmer sweeps across once on hover ---------- */
-.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:0;transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
-.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%) -150% 0/250% 100% no-repeat;pointer-events:none}
+/* ---------- hero buttons: brushed steel and violet (52px), a shimmer sweeps across once on hover, a steel icon plate ---------- */
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;overflow:hidden;height:52px;padding:0 24px;gap:12px;border-radius:10px;border:0;font:800 16px/1 var(--font-display);transition:translate .22s cubic-bezier(.34,1.45,.64,1),box-shadow .22s ease}
+.ixw--ai-odoo main .btn-primary:has(.ic){padding-right:9px}.ixw--ai-odoo main .btn-ghost:has(.ic){padding-left:9px}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%) -150% 0/250% 100% no-repeat;pointer-events:none;transform:none;transition:none}
 .ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover::after{animation:aiShine .8s ease-out}
 @keyframes aiShine{to{background-position:150% 0}}
-.ixw--ai-odoo main .btn-primary,.ixw--ai-odoo main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(120deg,#7B5CD6,#5E43B8);box-shadow:0 4px 0 #3D2D7A}
-.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ai-ink);background:linear-gradient(180deg,#FFFFFF,#E8EDF3);box-shadow:inset 0 0 0 1.5px var(--ai-steel-d),0 4px 0 var(--ai-steel-d)}
-.ixw--ai-odoo main .btn-ghost::before{display:none}.ixw--ai-odoo main .btn-ghost .ic{color:var(--ai-v)}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost) .ic{width:34px;height:34px;padding:8px;margin:0;border-radius:8px;transition:transform .3s var(--w-spring)}
+.ixw--ai-odoo main .btn-primary,.ixw--ai-odoo main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(120deg,#8B6EE0,#6A4FC8 60%,#5E43B8);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 4px 0 #3D2D7A,0 16px 24px -16px rgba(94,67,184,.8)}
+.ixw--ai-odoo main .btn-primary .ic{background:linear-gradient(180deg,#FFFFFF,#E8EDF3);color:var(--ai-v);box-shadow:inset 0 0 0 1px rgba(151,163,180,.6)}
+.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--ai-odoo main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--ai-ink);background:linear-gradient(180deg,#FFFFFF,#E8EDF3);box-shadow:inset 0 0 0 1.5px var(--ai-steel-d),0 4px 0 var(--ai-steel-d),0 16px 24px -18px rgba(27,31,59,.5)}
+.ixw--ai-odoo main .btn-ghost::before{display:none}.ixw--ai-odoo main .btn-ghost .ic{background:var(--ai-v-l);color:var(--ai-v);box-shadow:inset 0 0 0 1px #D9CFF6}
 .ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px}
+.ixw--ai-odoo main .btn-primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 6px 0 #3D2D7A,0 22px 28px -14px rgba(123,92,214,.75)}
+.ixw--ai-odoo main .btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ai-v),0 6px 0 var(--ai-steel-d),0 22px 26px -16px rgba(123,92,214,.5)}
+.ixw--ai-odoo main :is(.btn-primary,.btn-ghost):hover .ic{transform:translateX(3px)}
 .ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;transition-duration:.06s}
+.ixw--ai-odoo main .btn-primary:active{box-shadow:0 1px 0 #3D2D7A}.ixw--ai-odoo main .btn-ghost:active{box-shadow:inset 0 0 0 1.5px var(--ai-steel-d),0 1px 0 var(--ai-steel-d)}
 .ixw--ai-odoo .ixw-cta .btn-outline-white,.ixw--ai-odoo .ixw-cta .btn-outline-white:hover{color:var(--ai-ink);background:var(--ai-amb);box-shadow:0 4px 0 #C9832A}
 .ixw--ai-odoo main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid var(--ai-amb);outline-offset:4px}
-.ixw--ai-odoo .ixw-ibtn{border:2px solid var(--ai-ink);box-shadow:0 3px 0 var(--ai-ink);color:var(--ai-ink)}
-.ixw--ai-odoo .ixw-ibtn--play,.ixw--ai-odoo .ixw-ibtn--play:hover{background:var(--ai-v);color:#FFFFFF}
-.ixw--ai-odoo .ixw-dots button{border-radius:2px}
-.ixw--ai-odoo .ixw-dots button.is-on{background:var(--ai-amb);box-shadow:0 0 0 1.5px var(--ai-ink)}
-.ixw--ai-odoo .ixw-peek{border-color:var(--ai-ink);box-shadow:0 3px 0 var(--ai-ink)}.ixw--ai-odoo .ixw-peek[aria-pressed="true"]{background:var(--ai-v-l)}
+.ixw--ai-odoo .ixw-copy .actions{gap:14px}
+/* the partner badges and the episode tag: steel plates */
+.ixw--ai-odoo .ixw-badges span{height:30px}
+.ixw--ai-odoo .ixw-ep-tag{transition:translate .2s var(--w-spring),box-shadow .2s ease}.ixw--ai-odoo .ixw-ep-tag:hover{translate:0 -2px}.ixw--ai-odoo .ixw-ep-tag:focus-visible{outline:3px solid var(--ai-amb);outline-offset:3px}
+/* caption controls: steel knobs */
+.ixw--ai-odoo .ixw-ibtn{border:2px solid var(--ai-ink);box-shadow:0 3px 0 var(--ai-ink);color:var(--ai-ink);background:linear-gradient(180deg,#FFFFFF,#EEF2F6)}
+.ixw--ai-odoo .ixw-ibtn:hover{color:var(--ai-v);border-color:var(--ai-ink);box-shadow:0 5px 0 var(--ai-ink),0 10px 16px -8px rgba(123,92,214,.6)}
+.ixw--ai-odoo .ixw-ibtn:active{box-shadow:0 1px 0 var(--ai-ink)}
+.ixw--ai-odoo .ixw-ibtn:focus-visible{outline:3px solid var(--ai-amb);outline-offset:3px}
+.ixw--ai-odoo .ixw-ibtn--play,.ixw--ai-odoo .ixw-ibtn--play:hover{background:linear-gradient(180deg,#8B6EE0,#6A4FC8);color:#FFFFFF}
+.ixw--ai-odoo .ixw-dots{gap:6px}
+.ixw--ai-odoo .ixw-dots button{border-radius:2px;background:#D5DCE6}
+.ixw--ai-odoo .ixw-dots button:hover{background:#B9A9EC}
+.ixw--ai-odoo .ixw-dots button.is-on{width:24px;background:var(--ai-amb);box-shadow:0 0 0 1.5px var(--ai-ink)}
+/* "View the scene": top left over the pantry wall, clear of the order screen and the ticket rail */
+.ixw--ai-odoo .ixw-peek{left:max(24px,calc((100vw - 1200px) / 2 + 24px));right:auto;top:calc(var(--header-box) + 6px);height:40px;padding:0 16px 0 6px;gap:9px;border-radius:10px;border-color:var(--ai-ink);background:linear-gradient(180deg,#FFFFFF,#EEF2F6);box-shadow:0 3px 0 var(--ai-ink)}
+.ixw--ai-odoo .ixw-peek::before{width:28px;height:28px;border-radius:7px;background:var(--ai-v);-webkit-mask:none;mask:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");background-size:16px;background-position:center;background-repeat:no-repeat}
+.ixw--ai-odoo .ixw-peek:hover{box-shadow:0 5px 0 var(--ai-ink),0 12px 18px -10px rgba(123,92,214,.6)}
+.ixw--ai-odoo .ixw-peek:focus-visible{outline:3px solid var(--ai-amb)}
+.ixw--ai-odoo .ixw-peek[aria-pressed="true"]{background:var(--ai-v-l)}
 .ixw--ai-odoo .ixw-hot-lab .ic{color:var(--ai-v)}
 @media (prefers-reduced-motion:reduce){.ixw--ai-odoo main .btn::after{animation:none!important}}
 
@@ -199,3 +222,8 @@
   .ixw--ai-odoo .ai-board:first-child{grid-column:auto}.ixw--ai-odoo .ai-board:first-child ul{grid-template-columns:1fr}.ixw--ai-odoo .ai-dish{grid-template-columns:56px minmax(0,1fr);gap:14px}.ixw--ai-odoo .ai-plate{width:56px;height:56px;box-shadow:inset 0 0 0 6px #F4F1EA,inset 0 0 0 7.5px var(--c)}
   .ixw--ai-odoo .ai-menu-sub{letter-spacing:.08em;font-size:10.5px}.ixw--ai-odoo .ai-cta-lamps{left:24px;gap:24px}.ixw--ai-odoo .ow-strip{padding:18px 14px 22px;gap:12px 10px}}
 @media (prefers-reduced-motion:reduce){.ixw--ai-odoo .ai-ticket{transition:none;translate:0 0;opacity:1}.ixw--ai-odoo :is(.ai-pass-plate,.ai-pass-lamps i::after,.ai-spike-t,.ai-cta-lamps i::after){animation:none}}
+
+/* audit round: the boards share a height per row; the copy column stays beside them while they scroll */
+.ixw--ai-odoo .ai-boards{align-items:stretch}
+.ixw--ai-odoo .ai-board{display:flex;flex-direction:column}
+@media (min-width:1101px){.ixw--ai-odoo .ai-rules-copy{position:sticky;top:110px}}
