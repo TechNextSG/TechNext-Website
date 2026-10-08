@@ -1074,7 +1074,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
    Transition: slide 6 is its own layer ABOVE the other slides (data-slide-circle; hero.js skips the camera moves for
    it and keeps the slide underneath still, .is-under). The whole slide (sky, copy, TV, cast) grows out of the TV as
    one circle (clip-path; origin --nxs-ox/--nxs-oy on the slide, set by hero-scenes.js) and shrinks back into it to
-   uncover the next slide. .nxs-fx adds the sound word (BAM! / POW! / ZAP! in, WHOOSH! out); the band around the
+   uncover the next slide (no speed-line streaks: owner, R9, they made the wipe stutter). .nxs-fx adds the sound word (BAM! / POW! / ZAP! in, WHOOSH! out); the band around the
    slide (.nxs-bg) and the header (html.nxs-dark) fade to the same navy. Outlines here are box-shadows, never
    borders: slide 6 must not change the shared hero height. */
 .hero{--ink-c:#101C45;--yel:#FFD23F;--comic:"Bangers","Plus Jakarta Sans",system-ui,sans-serif}
@@ -1119,10 +1119,6 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 .hero.is-nxs-in .nxs-burst{animation:nxsBam .95s var(--spring) .2s forwards}
 .hero.is-nxs-out .nxs-burst{background:#fff;animation:nxsBam .8s var(--spring) forwards}
 @keyframes nxsBam{0%{opacity:0;transform:scale(.2) rotate(-25deg)}25%{opacity:1;transform:scale(1.18) rotate(4deg)}45%{transform:scale(1) rotate(-3deg)}75%{opacity:1}100%{opacity:0;transform:scale(1.5) rotate(6deg)}}
-.nxs-streaks{position:absolute;inset:-10% -60%;opacity:0;background:repeating-linear-gradient(90deg,transparent 0 60px,rgba(255,255,255,.9) 60px 64px,transparent 64px 150px),repeating-linear-gradient(90deg,transparent 0 110px,rgba(255,210,63,.9) 110px 116px,transparent 116px 230px);-webkit-mask-image:linear-gradient(180deg,transparent 15%,#000 35%,#000 65%,transparent 85%);mask-image:linear-gradient(180deg,transparent 15%,#000 35%,#000 65%,transparent 85%)}
-.hero.is-nxs-out .nxs-streaks{animation:nxsStreak .6s ease-in forwards}
-.hero.is-nxs-in .nxs-streaks{animation:nxsStreak .5s ease-out reverse forwards}
-@keyframes nxsStreak{0%{opacity:0;transform:translateX(-30%) skewX(-20deg)}30%{opacity:1}100%{opacity:0;transform:translateX(30%) skewX(-20deg)}}
 
 /* the header matches the sky while it is up */
 html.nxs-dark .header,.is-home .header{transition:background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
@@ -1219,7 +1215,7 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .nav-chev .ic{color:rgba(2
   .slide--nxs .nxs-say.is-pop{animation:none}
   .nxs-bg,.hero.is-nxs .nxs-bg{transition:none}
   .nxs-rays,.nxs-fl,.nxs-boom,.nxs-tw{animation:none}
-  .hero.is-nxs-in .nxs-burst,.hero.is-nxs-out .nxs-burst,.hero.is-nxs-in .nxs-streaks,.hero.is-nxs-out .nxs-streaks{animation:none}
+  .hero.is-nxs-in .nxs-burst,.hero.is-nxs-out .nxs-burst{animation:none}
 }
 
 /* ================= slide 3 · the industries slide ([data-inds], hero-industries.js) =================
@@ -1420,3 +1416,16 @@ html.hxs-on .side-tab:active{box-shadow:2px 0 0 var(--hx-st-ink,#1F1F3D)}
   .hxs .hxs--travel .ixw-copy.hxs-card::after{content:"GATE 07  \00B7  SEAT 1A  \00B7  SAMPLE";bottom:0;height:46px;display:flex;align-items:center;padding-left:8px;
     border-top:2px dashed #D5DEEC;font:800 10.5px/1 var(--font-body);letter-spacing:.2em;color:#8FA0B8}
 }
+
+/* ================= R9 perf: nothing animates where nobody can see it =================
+   A running CSS animation is ticked by the main thread on every frame the page draws (even a compositor one gets a
+   style update), and the hidden slides kept ~25 of them going (the comic sky's rays/stickers/twinkles, the industries
+   slide's Nexi bob and tap pill). They pause while their slide is neither on, leaving, entering nor under a circle.
+   The hero's own backdrop (aurora blobs, marquee) pauses while a full-bleed slide covers it. */
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *::before,
+.hero-track>.slide:not(.is-active):not(.is-leaving):not(.is-under):not(.is-closing):not(.slide--inds) *::after,
+.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *,
+.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *::before,
+.hero-track>.slide--inds:not(.is-active):not(.is-under) .hxs:not(.is-leave):not(.is-enter) *::after{animation-play-state:paused!important}
+.hero.is-full .a1,.hero.is-full .a2,.hero.is-full .a3{animation-play-state:paused}

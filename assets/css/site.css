@@ -1279,3 +1279,10 @@ html.nxs-dark .header:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;
 .tn-sb.is-on i,.tn-sb.is-drag i{opacity:1}
 .tn-sb i:hover,.tn-sb.is-drag i{width:9px;right:2px;background:rgba(31,31,61,.6)}
 .tn-sb.is-drag i{cursor:grabbing}
+
+/* R9 perf: every section below the first is skipped by style, layout and paint until it nears the viewport (the browser
+   keeps its last real height once seen). A page here has 2,000-4,000 elements; the intro's first measure and every
+   later full layout (fonts arriving, a resize, the reveals) now only touch what is on screen. Audited 109 pages: no
+   section draws outside its own box, so the paint containment this brings clips nothing. */
+main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:auto 900px}
+@media print{main>section:not(:first-child){content-visibility:visible}}
