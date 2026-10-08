@@ -53,3 +53,80 @@
 .th-office address{font-style:normal;font-size:13.5px;line-height:1.5;color:var(--muted)}
 @media (max-width:960px){.th-offices{grid-template-columns:1fr;gap:34px}}
 @media (prefers-reduced-motion:reduce){.ef-sheet{transition:none}.ef-sheet:hover{transform:none}}
+
+/* ====================================================================== the 201 room, continued: folders, drawers, stamps */
+.ixw--team{--th-ink:#1B1F3B;--th-man:#EBC98B;--th-man2:#D9B06A;--th-man3:#F6E3BC;--th-ok:#1E9E6A;--th-cork:#D9B48A}
+/* section heads: a manila tab for the kicker, a FILE number stamped on the right, a typed underline */
+.ixw--team .th-head{position:relative}
+.ixw--team .th-head .hand{display:inline-flex;align-items:center;height:32px;padding:0 16px;margin-bottom:12px;border-radius:10px 10px 0 0;background:var(--th-man);color:#6B4E1E;box-shadow:inset 0 -3px 0 var(--th-man2)}
+.ixw--team .sec-head.th-head{max-width:760px}
+.ixw--team .th-head::after{content:attr(data-file);position:absolute;right:0;top:2px;padding:5px 10px;border:2px solid #C0392B;border-radius:6px;font:800 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:#C0392B;rotate:-4deg;opacity:.85}
+.ixw--team .sec-head.th-head::after{right:-150px}
+.ixw--team .th-head h2{position:relative;display:block;width:fit-content;max-width:100%;padding-bottom:12px;background:linear-gradient(90deg,var(--th-ink) 0 100%) 0 100%/100% 2px no-repeat}
+.ixw--team .th-head h2::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:repeating-linear-gradient(90deg,var(--th-man2) 0 8px,transparent 8px 13px)}
+@media (max-width:1100px){.ixw--team .sec-head.th-head::after{right:0;top:-30px}.ixw--team .th-head::after{top:-30px}}
+@media (max-width:767px){.ixw--team .th-head::after{display:none}}
+
+/* the team sheets sit in an open filing drawer */
+.ixw--team .th-team{background:linear-gradient(180deg,#FFFFFF,#F7F4EC)}
+.ixw--team .th-drawer{position:relative;padding:46px 30px 34px;border-radius:18px;background:linear-gradient(180deg,#C9D2DE,#B9C3D1);box-shadow:inset 0 10px 0 #A9B4C4,inset 0 0 0 2px #9AA6BC,0 40px 60px -40px rgba(30,40,80,.5)}
+.ixw--team .th-drawer::before{content:"";position:absolute;inset:16px 16px 14px;border-radius:12px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 2px,transparent 2px 90px),#DCE3EC;box-shadow:inset 0 6px 14px rgba(30,40,80,.18)}
+.ixw--team .th-drawer-front{position:absolute;left:50%;bottom:-28px;z-index:2;display:flex;align-items:center;gap:16px;margin:0;padding:10px 22px;translate:-50% 0;border-radius:12px;background:linear-gradient(180deg,#E3E9F1,#C9D2DE);box-shadow:0 4px 0 #9AA6BC,0 16px 24px -12px rgba(30,40,80,.4)}
+.ixw--team .th-drawer-label{padding:5px 12px;border-radius:4px;background:#FFFFFF;border:1.5px solid #9AA6BC;font:800 11.5px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--th-ink);white-space:nowrap}
+.ixw--team .th-drawer-pull{width:70px;height:12px;border-radius:6px;background:#8A96AA;box-shadow:inset 0 3px 0 rgba(0,0,0,.18)}
+.ixw--team .th-drawer .th-people{position:relative}
+/* each sheet: a paper clip, punched holes down the margin, and an ON FILE stamp that lands when the sheet comes in */
+.ixw--team .ef-sheet{background:linear-gradient(90deg,transparent 0 30px,#FFFFFF 30px),radial-gradient(circle at 15px 50%,#DCE3EC 6px,transparent 6.5px) 0 0/30px 54px repeat-y,#FFFFFF}
+.ixw--team .ef-sheet::before{content:"";position:absolute;right:112px;top:-14px;z-index:2;width:14px;height:42px;border:3px solid #9AA6BC;border-radius:8px;border-bottom-color:transparent;box-shadow:inset 0 0 0 2px #FFFFFF,inset 0 0 0 5px #9AA6BC;clip-path:inset(0 0 6px 0)}
+.ixw--team .ef-sheet .ef-head,.ixw--team .ef-sheet .ef-body,.ixw--team .ef-sheet .ef-foot{margin-left:22px}
+.ixw--team .ef-sheet:nth-child(2n){rotate:.4deg}.ixw--team .ef-sheet:nth-child(2n+1){rotate:-.3deg}
+.ixw--team .ef-stamp{background:rgba(230,246,238,.6)}
+.ixw--team .ef-sheet.reveal.is-in .ef-stamp{animation:thStamp .5s cubic-bezier(.3,1.6,.6,1) both;animation-delay:calc(.45s + var(--i,0) * .12s)}
+@keyframes thStamp{0%{opacity:0;scale:2.2;rotate:-18deg}100%{opacity:.9;scale:1;rotate:-6deg}}
+.ixw--team .ef-photo{background:repeating-linear-gradient(45deg,#F7F9FC 0 8px,#EEF2F8 8px 16px)}
+@media (max-width:767px){.ixw--team .th-drawer{padding:34px 12px 30px;border-radius:14px}.ixw--team .th-drawer::before{inset:10px 8px 10px}.ixw--team .ef-sheet{rotate:0deg!important}.ixw--team .th-drawer-label{font-size:10px}}
+
+/* what a 201 holds: the folder sits on a stack of files, stamped 201; the memo is a sticky note */
+.ixw--team #file .th-folder{z-index:0}
+.ixw--team #file .th-folder::before,.ixw--team #file .th-folder::after{content:"";position:absolute;z-index:-1;inset:12px -10px -10px 14px;border-radius:4px 14px 14px 14px;background:#E8CF9C;rotate:2deg;box-shadow:0 20px 30px -20px rgba(90,60,20,.4)}
+.ixw--team #file .th-folder::after{inset:22px 8px -18px -8px;background:#DDBF85;rotate:-2.2deg;z-index:-2}
+.ixw--team .th-folder-stamp{position:absolute;right:18px;top:-46px;z-index:2;display:grid;place-items:center;width:78px;height:78px;border:3px solid #C0392B;border-radius:50%;font:800 22px/1 ui-monospace,Consolas,monospace;color:#C0392B;rotate:-14deg;opacity:.75;
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.4),inset 0 0 0 6px #C0392B}
+.ixw--team .th-checklist{counter-reset:doc;background:repeating-linear-gradient(180deg,#FFFFFF 0 47px,#F1F4F9 47px 48px)}
+.ixw--team .th-checklist li{counter-increment:doc;transition:background-color .2s ease,padding-left .25s cubic-bezier(.34,1.45,.64,1)}
+.ixw--team .th-checklist li:hover{background:#FBF6EA;padding-left:46px}
+.ixw--team .th-checklist li::after{content:"DOC " counter(doc,decimal-leading-zero);position:absolute;right:0;top:14px;font:800 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;color:#B9C3D1}
+.ixw--team .th-memo{position:relative;margin-top:30px;padding:26px 22px 20px;border:0;border-radius:2px;background:#FFF4B8;rotate:-1.2deg;box-shadow:0 2px 0 rgba(0,0,0,.05),0 22px 30px -20px rgba(90,70,0,.45)}
+.ixw--team .th-memo::before{content:"";position:absolute;left:50%;top:-10px;width:86px;height:22px;margin-left:-43px;background:rgba(255,255,255,.65);box-shadow:0 1px 2px rgba(0,0,0,.08);rotate:2deg}
+.ixw--team #file .lead{max-width:46ch}
+
+/* the offices: folder dividers with a big country code and a map pin */
+.ixw--team #offices{background:linear-gradient(180deg,#F7F4EC,#FFFFFF)}
+.ixw--team .th-office{background:repeating-linear-gradient(180deg,transparent 0 27px,#EEF1F6 27px 28px),#FFFFFF;transition:translate .3s cubic-bezier(.34,1.45,.64,1),box-shadow .3s ease}
+.ixw--team .th-office:hover{translate:0 -5px;box-shadow:0 30px 50px -30px rgba(30,40,80,.45)}
+.ixw--team .th-office::after{position:absolute;right:12px;bottom:8px;font:800 84px/.8 var(--font-display);letter-spacing:-.04em;color:var(--o,#3167CA);opacity:.08;pointer-events:none}
+.ixw--team .th-office[data-o="sg"]::after{content:"SG"}.ixw--team .th-office[data-o="ph"]::after{content:"PH"}.ixw--team .th-office[data-o="vn"]::after{content:"VN"}
+.ixw--team .th-office::before{content:"";position:absolute;right:20px;top:20px;width:22px;height:22px;border-radius:50% 50% 50% 0;rotate:-45deg;background:radial-gradient(circle at 50% 50%,#FFFFFF 0 4px,transparent 4.5px),var(--o,#3167CA);box-shadow:0 4px 0 rgba(0,0,0,.12)}
+.ixw--team .th-office h3{padding-right:34px}
+
+/* how an engagement runs: a routing slip with initials boxes and APPROVED stamps */
+.ixw--team .th-route{position:relative;gap:0;padding:56px 22px 26px;border-radius:6px;background:#FFFFFF;border:2px solid var(--th-ink);box-shadow:8px 8px 0 var(--th-man),0 40px 60px -40px rgba(30,40,80,.45);counter-reset:rs}
+.ixw--team .th-route::before{content:"ROUTING SLIP · ONE TEAM, FOUR STEPS";position:absolute;left:0;right:0;top:0;height:38px;display:flex;align-items:center;padding:0 22px;background:var(--th-ink);font:800 11.5px/1 var(--font-body);letter-spacing:.16em;color:var(--th-man)}
+.ixw--team .th-route a{counter-increment:rs;padding:18px 18px 14px;border-left:1.5px dashed #C9D2DE}
+.ixw--team .th-route a:first-child{border-left:0}
+.ixw--team .th-route a::before{left:18px;right:18px;top:0;height:4px;background:#EEF1F6}
+.ixw--team .th-route a::after{left:18px;top:0;height:4px;background:var(--th-ok)}
+.ixw--team .th-route a:hover::after,.ixw--team .th-route a:focus-visible::after{width:calc(100% - 36px)}
+.ixw--team .th-route .j-ic{border-radius:8px;background:var(--th-man3);color:#6B4E1E;box-shadow:inset 0 -3px 0 var(--th-man)}
+.ixw--team .th-route .j-step{font:800 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:#8A96A8}
+.ixw--team .th-route .btn-link{display:inline-flex;margin-top:4px}
+.ixw--team .th-route a h3::after{content:"✓ Initial";display:inline-block;margin-left:10px;padding:3px 7px;border:1.5px dashed #B9C3D1;border-radius:4px;font:700 10px/1 var(--font-body);color:#9AA6BC;vertical-align:middle;transition:color .2s ease,border-color .2s ease,background-color .2s ease}
+.ixw--team .th-route a:hover h3::after{content:"✓ Approved";border-style:solid;border-color:var(--th-ok);background:#E6F6EE;color:var(--th-ok)}
+@media (max-width:991px){.ixw--team .th-route{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--team .th-route a:nth-child(3){border-left:0}.ixw--team .th-route a:nth-child(n+3){border-top:1.5px dashed #C9D2DE}}
+@media (max-width:620px){.ixw--team .th-route{grid-template-columns:minmax(0,1fr);padding:50px 10px 14px}.ixw--team .th-route a{border-left:0!important}.ixw--team .th-route a+a{border-top:1.5px dashed #C9D2DE}.ixw--team .th-route::before{font-size:10px;letter-spacing:.1em;padding:0 14px}}
+
+/* the end card: a blue folder with a paper clip and an ON FILE stamp */
+.ixw--team .th-cta-clip{position:absolute;left:64px;top:-22px;z-index:2;width:22px;height:62px;border:4px solid #C9D2DE;border-radius:12px;border-bottom-color:transparent;box-shadow:inset 0 0 0 3px #2F62C2,inset 0 0 0 7px #C9D2DE;clip-path:inset(0 0 8px 0)}
+.ixw--team .th-cta-stamp{position:absolute;right:250px;top:26px;z-index:1;padding:8px 14px;border:3px solid #9BE3C1;border-radius:8px;font:800 15px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#9BE3C1;rotate:-10deg;opacity:.9}
+@media (max-width:1099px){.ixw--team .th-cta-stamp{display:none}}
+@media (prefers-reduced-motion:reduce){.ixw--team .ef-sheet.reveal.is-in .ef-stamp{animation:none}.ixw--team .th-checklist li{transition:none}}
