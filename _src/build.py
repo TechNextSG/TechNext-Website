@@ -1577,6 +1577,7 @@ def app_page(mod: str) -> tuple:
         w = AW.WORLD[mod]
         i0 = content.index('<section class="page-hero'); i1 = content.index("</section>", i0) + len("</section>")
         content = content[:i0] + AW.hero(mod, h1name, headline, lead) + content[i1:]
+        content = AW.dress(mod, content)   # themed sections and the two bands for these three apps
         meta["scripts"] = meta.get("scripts", []) + ["assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", f"assets/js/worlds/{w}.js"]
         meta["head"] = meta.get("head", "") + "".join(f'<link rel="stylesheet" href="{{ROOT}}assets/css/{c}?v={{ASSET_V}}">' for c in ("industry.css", "industry-world.css", "odoo-walk.css", f"worlds/{w}.css"))
         meta["body"] = f"ixw ixw--{w} ow-page"

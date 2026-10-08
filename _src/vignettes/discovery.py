@@ -6,7 +6,7 @@ META = {
     "tag": "Odoo Discovery · step 1 of 4",
     "badge": "wk-discovery",
     "intro_title": "Odoo <b>Discovery</b>",
-    "intro_sub": "Step 1 of 4 · map the work before we configure",
+    "intro_sub": "Step 1 of 4 · investigate first, then configure",
     "intro_pills": [("search", "Process map"), ("grid", "App map"), ("file", "Written scope")],
     "m": {},
 }
