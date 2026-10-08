@@ -119,3 +119,61 @@
 .ixw--life .lf-cta-mug{position:absolute;right:34px;bottom:-8px;width:64px;height:70px;border-radius:6px 6px 18px 18px;background:#FFFFFF;box-shadow:inset 0 14px 0 var(--lf-sun)}
 .ixw--life .lf-cta-mug::after{content:"";position:absolute;right:-20px;top:16px;width:22px;height:28px;border:6px solid #FFFFFF;border-left:0;border-radius:0 14px 14px 0}
 @media (max-width:767px){.ixw--life .lf-cta-mug{display:none}}
+
+/* ====================================================================== the photo gallery: a cork wall of polaroids */
+.ixw--life .lg-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 24px}
+.ixw--life .lg-filters button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:10px 20px 20px 10px;border:2px solid var(--lf-ink);background:#FFFFFF;color:var(--lf-ink);font:800 .9rem/1 var(--font-body);cursor:pointer;box-shadow:0 3px 0 var(--lf-ink);transition:translate .18s ease,background .18s ease}
+.ixw--life .lg-filters button:hover{translate:0 -2px}
+.ixw--life .lg-filters button[aria-pressed="true"]{background:var(--lf-sage);color:#FFFFFF}
+.ixw--life .lg-filters button:focus-visible{outline:3px solid var(--lf-sun);outline-offset:3px}
+.ixw--life .lg-n{display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--lf-cream);color:#5B7D75;font-size:.75rem}
+.ixw--life .lg-filters button[aria-pressed="true"] .lg-n{background:rgba(255,255,255,.25);color:#FFFFFF}
+.ixw--life .lg-board{position:relative;padding:54px 34px 40px;border-radius:18px;background:#D9B48A;box-shadow:inset 0 0 0 12px var(--lf-oak2),inset 0 0 0 14px #9C744B,0 34px 60px -34px rgba(60,40,20,.55);
+  background-image:radial-gradient(rgba(120,80,40,.22) 1.2px,transparent 1.6px),radial-gradient(rgba(255,255,255,.18) 1px,transparent 1.4px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.ixw--life .lg-string{position:absolute;left:30px;right:30px;top:22px;height:26px;border-top:2px solid rgba(40,30,20,.45);border-radius:50%/0 0 100% 100%;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0 6%,#2A3142 6% 12%,transparent 12% 30%,#2A3142 30% 36%,transparent 36% 64%,#2A3142 64% 70%,transparent 70% 88%,#2A3142 88% 94%,transparent 94%) 0 4px/100% 16px no-repeat}
+.ixw--life .lg-wall{list-style:none;margin:0;padding:0;columns:4 230px;column-gap:28px}
+.ixw--life .lg-item{break-inside:avoid;margin:0 0 30px;rotate:var(--r,0deg);transition:rotate .25s ease}
+.ixw--life .lg-item:hover{rotate:0deg}
+.ixw--life .lg-pol{position:relative;display:block;width:100%;padding:12px 12px 16px;border:0;border-radius:3px;background:#FFFFFF;text-align:left;cursor:zoom-in;box-shadow:0 2px 0 rgba(0,0,0,.05),0 22px 30px -18px rgba(40,30,20,.6);transition:translate .25s cubic-bezier(.34,1.45,.64,1),box-shadow .25s ease}
+.ixw--life .lg-pol::before{content:"";position:absolute;left:50%;top:-9px;width:70px;height:20px;margin-left:-35px;background:rgba(255,230,128,.82);rotate:-3deg;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.ixw--life button.lg-pol:hover{translate:0 -5px;box-shadow:0 2px 0 rgba(0,0,0,.05),0 30px 40px -20px rgba(40,30,20,.65)}
+.ixw--life button.lg-pol:focus-visible{outline:3px solid var(--lf-sun);outline-offset:4px}
+.ixw--life .lg-pol img{display:block;width:100%;height:auto;border-radius:1px;background:#EEF4F2}
+.ixw--life .lg-cap{display:flex;flex-direction:column;gap:2px;margin-top:12px;font-family:"Caveat",var(--font-body)}
+.ixw--life .lg-cap b{font-size:1.3rem;line-height:1.1;color:var(--lf-ink)}
+.ixw--life .lg-cap small{font:700 .74rem/1.3 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:#7A8C88}
+/* the "coming soon" polaroid: a blank, undeveloped print with the album icon */
+.ixw--life .lg-pol--soon{cursor:default}
+.ixw--life .lg-item--soon:nth-child(odd) .lg-ph{aspect-ratio:4/5}
+.ixw--life .lg-ph{position:relative;display:grid;place-items:center;aspect-ratio:1;border-radius:1px;background:linear-gradient(160deg,#3A4744,#5C6E6A 60%,#7E918C);color:rgba(255,255,255,.55);overflow:hidden}
+.ixw--life .lg-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.14) 45%,transparent 60%) -100% 0/200% 100% no-repeat;animation:lgSheen 4.5s ease-in-out infinite}
+@keyframes lgSheen{60%,100%{background-position:200% 0}}
+.ixw--life .lg-ph .ic{width:56px;height:56px}
+.ixw--life .lg-item--soon .lg-cap small{color:var(--lf-sage)}
+.ixw--life .lg-item--soon[data-cat="dinners"] .lg-ph{background:linear-gradient(160deg,#5A3D33,#8A5A48 60%,#B78470)}
+.ixw--life .lg-item--soon[data-cat="meetings"] .lg-ph{background:linear-gradient(160deg,#24364F,#3E5878 60%,#6A86A8)}
+.ixw--life .lg-item--soon[data-cat="office"] .lg-ph{background:linear-gradient(160deg,#2F5249,#4E7D70 60%,#7FAE9F)}
+.ixw--life .lg-item--soon[data-cat="events"] .lg-ph{background:linear-gradient(160deg,#4A3046,#714B67 60%,#9E7896)}
+.ixw--life .lg-item--soon[data-cat="milestones"] .lg-ph{background:linear-gradient(160deg,#5A4A1E,#8E7432 60%,#C2A55A)}
+.ixw--life .lg-noscript{margin:0;color:#3E2F1F;font-weight:700}
+@media (max-width:767px){.ixw--life .lg-board{padding:44px 16px 20px;box-shadow:inset 0 0 0 8px var(--lf-oak2),0 24px 40px -30px rgba(60,40,20,.55)}.ixw--life .lg-wall{columns:2 140px;column-gap:16px}.ixw--life .lg-item{margin-bottom:20px}.ixw--life .lg-pol{padding:8px 8px 10px}.ixw--life .lg-cap b{font-size:1.05rem}.ixw--life .lg-ph .ic{width:36px;height:36px}.ixw--life .lg-filters{gap:8px}.ixw--life .lg-filters button{height:38px;padding:0 12px;font-size:.84rem}}
+
+/* the lightbox */
+html.lg-open{overflow:hidden}
+.lg-box{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:56px 70px}
+.lg-box[hidden]{display:none}
+.lg-shade{position:absolute;inset:0;background:rgba(16,28,25,.88)}
+.lg-fig{position:relative;margin:0;max-width:min(1200px,100%);padding:14px 14px 18px;border-radius:4px;background:#FFFFFF;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lg-fig img{display:block;max-width:100%;max-height:calc(100vh - 220px);width:auto;height:auto;margin:0 auto}
+.lg-fig figcaption{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:12px}
+.lg-fig figcaption b{font:700 1.5rem/1.1 "Caveat",var(--font-body);color:#16302B}
+.lg-fig figcaption small{font:700 .78rem/1.3 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:#5B7D75}
+.lg-count{margin-left:auto;font:700 .78rem/1 var(--font-body);color:#7A8C88}
+.lg-btn{position:absolute;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:2px solid #FFFFFF;background:rgba(255,255,255,.12);color:#FFFFFF;cursor:pointer;transition:background .18s ease}
+.lg-btn:hover{background:rgba(255,255,255,.28)}.lg-btn:focus-visible{outline:3px solid #FFD25E;outline-offset:3px}
+.lg-btn .ic{width:24px;height:24px}
+.lg-prev{left:12px;top:50%;margin-top:-24px}.lg-next{right:12px;top:50%;margin-top:-24px}.lg-x{right:12px;top:12px}
+.lg-btn[hidden]{display:none}
+@media (max-width:767px){.lg-box{padding:64px 10px 20px}.lg-prev,.lg-next{top:auto;bottom:16px;margin:0}.lg-fig img{max-height:calc(100vh - 260px)}}
+@media (prefers-reduced-motion:reduce){.ixw--life .lg-ph::after{animation:none}}
