@@ -193,6 +193,12 @@
     shadowed(g, 10, 4, 0.16, function () { fillRR(g, -214, 10, 190, 150, 6, '#FFFFFF'); }); fillRR(g, -206, 18, 174, 134, 3, IVORY); text(g, 'FOUR DISCIPLINES', -119, 40, 10, 800, INK, 'center'); text(g, 'one source: your data', -119, 54, 7, 700, '#7A6337', 'center');
     ORDER.forEach(function (k, i) { var b = BAY[k]; fillE(g, -180 + i * 41, 96, 15, 15, b.c); ICON[k](g, -180 + i * 41, 96, 7); text(g, b.n, -180 + i * 41, 128, 7.4, 800, b.d, 'center'); });
     fillRR(g, -120, 360, 44, 110, 6, '#E6EBF1'); fillRR(g, -126, 352, 56, 12, 5, '#C9D1DC'); fillE(g, -98, 350, 8, 3, '#9FD3F0');
+    /* a vitrine with a replica terminal, a wayfinding sign (behind the title card; seen with "View the scene") */
+    soft(g, 86, F + 4, 70, 8, 0.22); fillRR(g, 30, 400, 112, 70, 4, WOOD); fillRR(g, 26, 394, 120, 10, 3, '#8A5A3B'); fillRR(g, 34, 250, 104, 146, 4, 'rgba(220,238,248,.55)'); g.strokeStyle = BRASS_D; g.lineWidth = 2; rr(g, 34, 250, 104, 146, 4); g.stroke();
+    fillRR(g, 52, 300, 68, 56, 8, '#E8DCC2'); fillRR(g, 58, 306, 56, 40, 4, '#1E2A22'); fillRR(g, 48, 356, 76, 16, 4, '#D9CBAE'); for (var kb2 = 0; kb2 < 8; kb2++) fillRR(g, 52 + kb2 * 8.6, 360, 6, 3, 1, '#B8A888');
+    g.fillStyle = 'rgba(255,255,255,.35)'; g.beginPath(); g.moveTo(44, 396); g.lineTo(84, 254); g.lineTo(96, 254); g.lineTo(56, 396); g.closePath(); g.fill();
+    fillRR(g, 50, 418, 72, 22, 3, '#FFFDF8'); text(g, 'TERMINAL', 86, 428, 7, 800, INK, 'center'); text(g, 'replica', 86, 436, 5.6, 700, '#7A6337', 'center');
+    fillRR(g, -230, 196, 170, 30, 6, INK); text(g, 'GALLERIES 01–04  →', -145, 216, 10, 800, BRASS_L, 'center');
     /* ---- the right margin: the museum shop ---- */
     fillRR(g, 1030, -40, 330, F + 40, 6, '#FFFDF7'); g.fillStyle = 'rgba(150,120,70,.08)'; g.fillRect(1030, -40, 330, 14);
     fillRR(g, 1060, -32, 230, 34, 6, PINK); text(g, 'MUSEUM SHOP', 1175, -10, 12.5, 800, '#FFFFFF', 'center');
@@ -431,6 +437,11 @@
       L.forEach(function (n, j) { if (hash(j + li * 7 + Math.floor(t * 0.16)) < 0.25) return; g.globalAlpha = on; fillE(g, n[0], n[1], 7, 7, col); g.globalAlpha = on * 0.3; fillE(g, n[0], n[1], 15, 15, col); });
       if (li < NET.length - 1) { var u = clamp(cyc - li - 0.5, 0, 1); if (u > 0 && u < 1) L.forEach(function (a) { NET[li + 1].forEach(function (b, k) { if ((k + li) % 2) return; g.globalAlpha = 0.9; fillE(g, lerp(a[0], b[0], u), lerp(a[1], b[1], u), 2.4, 2.4, col); }); }); } });
     g.globalAlpha = 1; }
+  function hallBanners(g, t) { /* two long hall banners behind the title card */
+    [[-380, 'HALL A', TEAL], [96, 'HANDS-ON', AMB]].forEach(function (h, i) { var x = h[0], sw = Math.sin(t * 0.8 + i * 2) * 3, w = 54, y0 = -138, y1 = 120;
+      g.fillStyle = BRASS_D; g.fillRect(x - w / 2 - 4, y0 - 2, w + 8, 4); g.fillStyle = h[2]; g.beginPath(); g.moveTo(x - w / 2, y0); g.lineTo(x + w / 2, y0); g.lineTo(x + w / 2 + sw, y1); g.lineTo(x + sw, y1 - 14); g.lineTo(x - w / 2 + sw, y1); g.closePath(); g.fill();
+      g.save(); g.translate(x + sw * 0.5, (y0 + y1) / 2 - 6); g.rotate(-Math.PI / 2); text(g, h[1], 0, 5, 14, 800, '#FFFFFF', 'center'); g.restore(); fillE(g, x + sw * 0.2, y0 + 22, 6, 6, BRASS_L); }); }
+  function terminal(g, t) { var lines = ['> ask', '> sources: 3', '> a person', '  approves'], n = Math.floor(t * 1.2) % 6; for (var i = 0; i < Math.min(n, 4); i++) text(g, lines[i], 61, 315 + i * 8.6, 6, 800, '#7FE3A0'); if ((t % 1) < 0.5) fillRR(g, 61 + (n < 4 ? 0 : 0), 309 + Math.min(n, 4) * 8.6, 5, 7, 1, '#7FE3A0'); }
   function mobile(g, t) { /* a mobile of paper planes over the shop */
     var x = 1180, y = -230; g.strokeStyle = '#7A6337'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x, -300); g.lineTo(x, y); g.stroke();
     for (var i = 0; i < 3; i++) { var a = t * 0.4 + i * 2.09, px = x + Math.cos(a) * 46, py = y + 30 + i * 8, s = 0.7 + 0.3 * Math.sin(a); g.beginPath(); g.moveTo(x, y); g.lineTo(px, py - 8); g.stroke(); CO.plane(g, px, py, 1.4, Math.cos(a) * 0.3, [BLUE, TEAL, AMB][i], '#FFFFFF'); }
@@ -440,7 +451,7 @@
     banners(g, t); globe(g, t, S); kiosk(g, t, S); odooScreen(g, t, S); machine(g, t, S); crank(g, t); chatbot(g, t, S); gate(g, t, S); mobile(g, t); automaton(g, t);
     /* the floor plan's you-are-here dot, the tube's flowing light */
     fillE(g, -560, 336, 3.4, 3.4, (t % 1) < 0.5 ? RED : '#F2A39B');
-    network(g, t);
+    network(g, t); hallBanners(g, t); terminal(g, t);
     wel(g, t); cash(g, t);
     CO.clock(g, 1110, -84, 18, 8, BRASS_D);
   }
@@ -500,4 +511,10 @@
       return CR.hitWalker(x, y, t); },
     onStop: function (key, S, t) { S.kT = t; }
   };
+  /* the hub's exhibits link to their pages: a first tap presents the exhibit, a second tap on the same one opens its page
+     (registered before the engine's own handler, so the check sees the state the visitor left it in) */
+  [].forEach.call(document.querySelectorAll('[data-world="sol-ai"] [data-hot][data-href]'), function (b, i, all) {
+    b.addEventListener('click', function () { if (b.getAttribute('data-armed') === '1') { location.href = b.getAttribute('data-href'); return; }
+      [].forEach.call(all, function (o) { o.removeAttribute('data-armed'); }); b.setAttribute('data-armed', '1'); });
+  });
 })(window.IXW && window.IXW.kit, window.CR, window.CO);

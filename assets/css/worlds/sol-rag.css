@@ -110,13 +110,20 @@
 .ixw--sol-rag .lbr-book p{margin:0;font-size:14.5px;line-height:1.6;color:var(--lbr-txt)}
 
 /* how it works: the card catalogue's drawers, each index card slides out */
+.ixw--sol-rag .lbr-cab-sec .container{position:relative}
+.ixw--sol-rag .lbr-cab-sign{position:absolute;right:24px;top:0;display:grid;justify-items:center;gap:5px;width:230px;padding:16px 18px 14px;border-radius:6px;background:linear-gradient(180deg,#FFF6D8,#F0D98C);rotate:-1.5deg;box-shadow:inset 0 0 0 2px var(--lbr-gold-d),inset 0 0 0 5px #FFF6D8,inset 0 0 0 6px var(--lbr-gold),0 14px 22px -14px rgba(60,35,10,.5)}
+.ixw--sol-rag .lbr-cab-sign::before,.ixw--sol-rag .lbr-cab-sign::after{content:"";position:absolute;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF6D8,#9A7A2C)}
+.ixw--sol-rag .lbr-cab-sign::before{left:8px}.ixw--sol-rag .lbr-cab-sign::after{right:8px}
+.ixw--sol-rag .lbr-cab-sign b{font:800 10.5px/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;color:#7A5A2E}
+.ixw--sol-rag .lbr-cab-sign span{font:800 1.5rem/1.1 Georgia,serif;color:#3A2616}
+.ixw--sol-rag .lbr-cab-sign i{display:inline-flex;align-items:center;gap:5px;font:italic 600 12.5px/1.2 Georgia,serif;color:var(--lbr-oxb)}.ixw--sol-rag .lbr-cab-sign .ic{width:13px;height:13px}
 .ixw--sol-rag .lbr-cabinet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0;padding:18px;list-style:none;border-radius:12px;background:linear-gradient(180deg,#8A5E3C,#6B4527);box-shadow:inset 0 0 0 3px #563820,0 6px 0 #3A2616,0 30px 50px -30px rgba(60,35,10,.6)}
 .ixw--sol-rag .lbr-drawer{position:relative;display:flex;flex-direction:column}
 .ixw--sol-rag .lbr-drawer-f{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 12px 12px;border-radius:6px;background:linear-gradient(180deg,#D19A64,#B07A4A);box-shadow:inset 0 0 0 2px #C08A58,inset 0 -3px 0 rgba(0,0,0,.15),0 4px 6px -2px rgba(0,0,0,.35)}
 .ixw--sol-rag .lbr-drawer-l{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:3px;background:linear-gradient(180deg,#FFF6D8,#F0D98C);box-shadow:inset 0 0 0 1.5px var(--lbr-gold-d);font:800 13px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:#4A3418}
 .ixw--sol-rag .lbr-drawer-l b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--c);color:#FFFFFF;font-size:12px}
 .ixw--sol-rag .lbr-drawer-f i{width:46px;height:12px;border-radius:0 0 12px 12px;background:linear-gradient(180deg,var(--lbr-gold-l),var(--lbr-gold-d));box-shadow:0 2px 2px rgba(0,0,0,.3)}
-.ixw--sol-rag .lbr-drawer-c{position:relative;z-index:1;flex:1;margin:0 8px;padding:20px 18px 20px;border-radius:0 0 6px 6px;background:linear-gradient(transparent 27px,rgba(49,103,202,.13) 27px 28px) 0 62px/100% 28px,#FFFFFF;
+.ixw--sol-rag .lbr-drawer-c{position:relative;z-index:1;flex:1;margin:0 8px;padding:20px 18px 20px;border-radius:0 0 6px 6px;background:linear-gradient(#FFFFFF,#FFFFFF) 0 0/100% 96px no-repeat,linear-gradient(transparent 27px,rgba(49,103,202,.13) 27px 28px) 0 96px/100% 28px,#FFFFFF;
   box-shadow:inset 0 3px 0 #E2553D,0 10px 16px -10px rgba(0,0,0,.45);translate:0 -40px;opacity:0;transition:translate .75s cubic-bezier(.34,1.45,.64,1),opacity .4s ease-out;transition-delay:calc(var(--i) * 160ms + .2s)}
 .ixw--sol-rag .lbr-cabinet.is-in .lbr-drawer-c{translate:0 0;opacity:1}
 .ixw--sol-rag .lbr-drawer-ic{display:grid;place-items:center;width:34px;height:34px;margin-bottom:10px;border-radius:8px;background:var(--c);color:#FFFFFF}
@@ -153,7 +160,7 @@
 .ixw--sol-rag .lbr-faq details{position:relative;border:0;border-radius:4px 10px 10px 4px;background:#FFFFFF;box-shadow:inset 0 3px 0 #E2553D,0 0 0 1.5px #E3D3AE,0 10px 22px -18px rgba(60,35,10,.4);counter-increment:q}
 .ixw--sol-rag .lbr-faq details[open]{box-shadow:inset 4px 0 0 var(--lbr-grn),inset 0 3px 0 #E2553D,0 0 0 1.5px #BFD9CB,0 18px 30px -20px rgba(31,107,82,.35)}
 .ixw--sol-rag .lbr-faq summary{padding-left:66px}
-.ixw--sol-rag .lbr-faq summary::before{content:"Q" counter(q);position:absolute;left:16px;top:14px;display:grid;place-items:center;width:36px;height:24px;border-radius:3px;background:linear-gradient(180deg,#FFF6D8,#F0D98C);box-shadow:inset 0 0 0 1.5px var(--lbr-gold-d);font:800 11px/1 var(--font-body);color:#5C3B22}
+.ixw--sol-rag .lbr-faq summary::before{content:"Q" counter(q);position:absolute;left:16px;top:18px;display:grid;place-items:center;width:36px;height:24px;border-radius:3px;background:linear-gradient(180deg,#FFF6D8,#F0D98C);box-shadow:inset 0 0 0 1.5px var(--lbr-gold-d);font:800 11px/1 var(--font-body);color:#5C3B22}
 .ixw--sol-rag .lbr-faq details[open] summary::before{background:var(--lbr-grn);color:var(--lbr-gold-l);box-shadow:none}
 .ixw--sol-rag .lbr-faq summary .ic{color:var(--lbr-grn)}
 .ixw--sol-rag .lbr-faq .faq-a{padding-left:66px}
@@ -181,7 +188,7 @@
 
 @media (max-width:1100px){.ixw--sol-rag .lbr-demo-top,.ixw--sol-rag .lbr-get{grid-template-columns:1fr;gap:28px}.ixw--sol-rag .lbr-slip{max-width:420px}
   .ixw--sol-rag .lbr-shelf,.ixw--sol-rag .lbr-see{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--sol-rag .lbr-cabinet{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}
-  .ixw--sol-rag .lbr-faq-wrap{grid-template-columns:1fr;gap:28px}.ixw--sol-rag .lbr-faq-side{position:static}.ixw--sol-rag .lbr-desk{display:none}}
+  .ixw--sol-rag .lbr-cab-sign{display:none}.ixw--sol-rag .lbr-faq-wrap{grid-template-columns:1fr;gap:28px}.ixw--sol-rag .lbr-faq-side{position:static}.ixw--sol-rag .lbr-desk{display:none}}
 @media (max-width:767px){.ixw--sol-rag .lbr-slip{display:none}.ixw--sol-rag .lbr-shelf,.ixw--sol-rag .lbr-see,.ixw--sol-rag .lbr-cabinet,.ixw--sol-rag .lbr-priv{grid-template-columns:1fr}
   .ixw--sol-rag .lbr-cabinet{padding:12px}.ixw--sol-rag .lbr-card-h{padding:0 20px}.ixw--sol-rag .lbr-card-pocket{right:12px;top:-26px}.ixw--sol-rag .lbr-priv{padding:0 20px}
   .ixw--sol-rag .lbr-cta-books{left:24px}.ixw--sol-rag .ow-strip{padding:18px 14px 30px;gap:12px 10px}.ixw--sol-rag .lbr-xref{rotate:0deg}}

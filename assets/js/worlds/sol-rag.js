@@ -18,7 +18,7 @@
   var SPINES = ['#8E2C3A', '#1F6B52', '#2F4A7A', '#C8A24A', '#6B4A8A', '#B4583A', '#3C7A6A', '#7A3B2E', '#3A5F9A', '#9A7A2C', '#5A6B3A', '#A33D57'];
   var BAYS = [[176, 'MANUALS'], [296, 'CONTRACTS'], [416, 'ODOO RECORDS'], [536, 'POLICIES'], [656, 'TICKETS']], BW = 120;
   var CAGE = { x: 784, w: 226 }, GATE = { x: 848, w: 70 }, CAT = { x: 176, y: 236, w: 88 }, LECT = { x: 730, y: 324 }, QC = { x: 638, y: 124, w: 188, h: 146 }, TERM = { x: 376, y: 290 };
-  var TABLE = { x: 524, y: 386, w: 150 }, GAP = { x: 694, y: 40, w: 30 }, SHELF = { x: 596, y: 150 };
+  var TABLE = { x: 520, y: 386, w: 178 }, GAP = { x: 694, y: 40, w: 30 }, SHELF = { x: 596, y: 150 };
   var WINS = [{ x: 424, y: -194, w: 104, h: 104 }, { x: 784, y: -194, w: 104, h: 104 }, { x: -704, y: -194, w: 104, h: 104 }, { x: 1144, y: -194, w: 104, h: 104 }, { x: -900, y: 60, w: 120, h: 380 }, { x: 1240, y: -6, w: 104, h: 300 }];
   var Q = 'How do I claim travel expenses?', A = 'Submit the receipt in Expenses within 30 days. Your manager approves it, and Finance reimburses you with the next payroll.';
   function ease(u) { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); }
@@ -141,9 +141,9 @@
     shadowed(g, 6, 2, 0.2, function () { fillRR(g, 410, GAL - 4, 360, 22, 4, GRN); }); g.strokeStyle = GOLD_L; g.lineWidth = 1; rr(g, 413, GAL - 1, 354, 16, 3); g.stroke(); text(g, 'THE READING ROOM · APPROVED CONTENT ONLY', 590, GAL + 11, 8.6, 800, GOLD_L, 'center');
     /* the reading table: open, so the reader's chair and legs show; the lamp, a book stack, the laptop beside her */
     var T = TABLE; CO.desk(g, T.x, T.y, T.w, F, { open: true, legs: WOOD_D, top: WOOD }); g.fillStyle = 'rgba(31,107,82,.55)'; g.fillRect(T.x + 20, T.y + 1, T.w - 40, 4);
-    [[T.x + 10, '#8E2C3A'], [T.x + 12, '#2F4A7A'], [T.x + 9, '#C8A24A']].forEach(function (b, i) { fillRR(g, b[0], T.y - 7 - i * 7, 34, 7, 1.5, b[1]); g.fillStyle = 'rgba(240,217,140,.6)'; g.fillRect(b[0] + 3, T.y - 5 - i * 7, 2, 4); });
-    fillRR(g, T.x + 46, T.y - 2, 40, 3, 1, '#9AA6BC'); fillRR(g, T.x + 50, T.y - 34, 32, 30, 3, '#2A3142'); /* laptop lid: its screen is live */
-    fillRR(g, T.x + T.w - 26, T.y - 9, 14, 9, 3, '#FFFFFF'); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.arc(T.x + T.w - 10, T.y - 5, 3.4, -1.3, 1.3); g.stroke();
+    [[T.x - 30, '#8E2C3A'], [T.x - 28, '#2F4A7A'], [T.x - 31, '#C8A24A']].forEach(function (b, i) { fillRR(g, b[0], F - 8 - i * 8, 30, 8, 1.5, b[1]); g.fillStyle = 'rgba(240,217,140,.6)'; g.fillRect(b[0] + 3, F - 6 - i * 8, 2, 4); });
+    fillRR(g, T.x + 8, T.y - 2, 40, 3, 1, '#9AA6BC'); fillRR(g, T.x + 12, T.y - 34, 32, 30, 3, '#2A3142'); /* laptop lid at the table's end, beside the reader: its screen is live */
+    fillRR(g, T.x + T.w - 58, T.y - 9, 14, 9, 3, '#FFFFFF'); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; g.beginPath(); g.arc(T.x + T.w - 42, T.y - 5, 3.4, -1.3, 1.3); g.stroke();
     /* the ask terminal's ledge */
     fillRR(g, TERM.x - 24, TERM.y + 38, 48, 6, 3, GOLD);
     /* the open book on the lectern (pages are live), the catalogue's top lamp */
@@ -162,7 +162,7 @@
   var W = CR.who;
   var ENG = W({ x: 290, y: 470, s: 0.48, ph: 0.5, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: GRN, glasses: true, hands: [[-60, -196], [60, -196]], look: -0.4 });
   var ASK = W({ x: 434, y: 470, s: 0.48, ph: 1.6, skin: 3, hair: 2, style: 'pony', outfit: 'polo', top: BLUE, id: '#9AA6BC', hands: [[-60, -196], [60, -196]], look: 0.4 });
-  var RDR = W({ x: 612, y: 470, s: 0.48, ph: 2.4, skin: 0, hair: 1, style: 'bob', outfit: 'cardigan', top: '#D9785A', top2: '#FFFFFF', sit: true, chairCol: WOOD_D, id: '#9AA6BC', hands: [[-50, -236], [50, -236]], look: 0 });
+  var RDR = W({ x: 628, y: 470, s: 0.48, ph: 2.4, skin: 0, hair: 1, style: 'bob', outfit: 'cardigan', top: '#D9785A', top2: '#FFFFFF', sit: true, chairCol: WOOD_D, id: '#9AA6BC', hands: [[-50, -236], [50, -236]], look: 0 });
   var FIN = W({ x: 954, y: 470, s: 0.48, ph: 3.1, skin: 2, hair: 0, style: 'bun', outfit: 'cardigan', top: OXB, top2: PARCH, glasses: true, id: '#9AA6BC', hold: 'clipboard', hands: [[-40, -230], [60, -196]], look: -0.4 });
   var CREW = [
     { x0: 200, x1: 980, y: GAL, spd: 12, ph: 0.2, label: 'TechNext librarian', lines: ['Up here: more **policies and manuals**, all indexed.', 'Every answer **cites its page**, so you can check it.'], acts: ['wave', 'id', 'nod'],
@@ -217,7 +217,7 @@
     st._b = 0;
     if (busy) { P.book = 0; P.hands = [[-50, -236], [80, -380]]; P.fb = 1; P.mood = 'happy'; P.look = lerp(P.look, 0.3, 0.1); return; }
     if (c < 3) { P.hands = [[-34, -246], [c > 2.3 && c < 2.9 ? lerp(34, -20, (c - 2.3) / 0.6) : 34, -246]]; P.look = lerp(P.look, 0, 0.1); P.tilt = 0.05; }
-    else if (c < 5) { P.book = 0; var kk = Math.abs(Math.sin(t * 10)) * 6; P.hands = [[-118, -236 - kk], [-70, -236 - (6 - kk)]]; P.look = lerp(P.look, -0.9, 0.1); P.sx = 0.92; }
+    else if (c < 5) { P.book = 0; var kk = Math.abs(Math.sin(t * 10)) * 6; P.hands = [[-150, -236 - kk], [-104, -236 - (6 - kk)]]; P.look = lerp(P.look, -1, 0.1); P.sx = 0.92; }
     else if (c < 6.6) { P.book = 0; P.cup = 1; P.hands = [[-40, -236], [10, -340]]; P.look = lerp(P.look, 0.1, 0.1); P.mood = 'happy'; }
     else if (c < 8) { P.book = 0; P.fb = 1; P.hands = [[-50, -236], [80, -380]]; P.mood = 'happy'; }
     else { P.hands = [[-34, -246], [34, -246]]; looks(P, st, t, S, 0); }
@@ -339,10 +339,10 @@
   function paintFrontLive(g, t, S) {
     CO.crew(CREW, g, t, S, true);
     /* the laptop beside the reader (its lid is in the front layer), the lamp on the table */
-    var T = TABLE; fillRR(g, T.x + 52, T.y - 32, 28, 25, 2, '#FFFFFF'); fillRR(g, T.x + 52, T.y - 32, 28, 6, 2, GRN); g.fillRect(T.x + 52, T.y - 29, 28, 3); fillRR(g, T.x + 55, T.y - 22, 18, 3, 1.5, '#C9D3E3'); fillRR(g, T.x + 55, T.y - 16, 22, 3, 1.5, GRN_L); fillRR(g, T.x + 55, T.y - 11, 12, 2.4, 1.2, BLUE);
-    var lampOn = (t - FX.lamp) >= 0 && (t - FX.lamp) < 5; lamp(g, T.x + T.w - 40, T.y, lampOn); if (lampOn) { g.save(); g.globalAlpha = 0.25; g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(T.x + T.w - 56, T.y - 24); g.lineTo(T.x + T.w - 24, T.y - 24); g.lineTo(T.x + T.w - 4, T.y); g.lineTo(T.x + T.w - 76, T.y); g.closePath(); g.fill(); g.restore(); }
+    var T = TABLE, lx = T.x + 14; fillRR(g, lx, T.y - 32, 28, 25, 2, '#FFFFFF'); fillRR(g, lx, T.y - 32, 28, 6, 2, GRN); g.fillRect(lx, T.y - 29, 28, 3); fillRR(g, lx + 3, T.y - 22, 18, 3, 1.5, '#C9D3E3'); fillRR(g, lx + 3, T.y - 16, 22, 3, 1.5, GRN_L); fillRR(g, lx + 3, T.y - 11, 12, 2.4, 1.2, BLUE);
+    var lampOn = (t - FX.lamp) >= 0 && (t - FX.lamp) < 5, lpx = T.x + T.w - 16; lamp(g, lpx, T.y, lampOn); if (lampOn) { g.save(); g.globalAlpha = 0.25; g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(lpx - 16, T.y - 24); g.lineTo(lpx + 16, T.y - 24); g.lineTo(lpx + 30, T.y); g.lineTo(lpx - 30, T.y); g.closePath(); g.fill(); g.restore(); }
     /* the tea's steam */
-    for (var i = 0; i < 2; i++) { var s = (t * 0.6 + i * 0.5) % 1; g.globalAlpha = (1 - s) * 0.5; fillE(g, T.x + T.w - 19 + Math.sin(t * 2 + i) * 3, T.y - 14 - s * 26, 2.6 + s * 4, 2.6 + s * 4, '#FFFFFF'); } g.globalAlpha = 1;
+    for (var i = 0; i < 2; i++) { var s = (t * 0.6 + i * 0.5) % 1; g.globalAlpha = (1 - s) * 0.5; fillE(g, T.x + T.w - 51 + Math.sin(t * 2 + i) * 3, T.y - 14 - s * 26, 2.6 + s * 4, 2.6 + s * 4, '#FFFFFF'); } g.globalAlpha = 1;
     /* held props: the index card, the reader's book or cup or feedback thumb, the key card, the rep's thumb and light bulb */
     var e0 = hw(ENG, 0), e1 = hw(ENG, 1); if (ENG.card) { var mx = (e0[0] + e1[0]) / 2, my = (e0[1] + e1[1]) / 2 - 8; fillRR(g, mx - 13, my - 9, 26, 17, 1.5, '#FFFFFF'); g.fillStyle = '#E2553D'; g.fillRect(mx - 13, my - 6, 26, 1); g.fillStyle = '#C9D3E3'; g.fillRect(mx - 10, my - 2, 18, 1.4); g.fillRect(mx - 10, my + 2, 14, 1.4); if (ENG.card === 2 || (t % 8) > 4.4) { padlock(g, mx + 8, my + 4, 0.45, false); } }
     var r0 = hw(RDR, 0), r1 = hw(RDR, 1);
@@ -381,7 +381,7 @@
       index: function (g) { rr(g, CAT.x - 10, CAT.y - 34, CAT.w + 20, F - CAT.y + 34, 12); },
       gap: function (g) { rr(g, GAP.x - 16, GAP.y - 2, GAP.w + 32, 66, 10); },
       ladder: function (g) { rr(g, 470, RAIL - 10, 200, 80, 12); },
-      lamp: function (g) { rr(g, TABLE.x + TABLE.w - 62, TABLE.y - 46, 44, 46, 10); }
+      lamp: function (g) { rr(g, TABLE.x + TABLE.w - 38, TABLE.y - 46, 44, 46, 10); }
     },
     backGlow: ['ask', 'fetch', 'cite', 'locked', 'index', 'gap', 'ladder'],
     cast: [
@@ -390,7 +390,7 @@
       { id: 'rdr', behind: true, keys: ['gap'], P: RDR, act: actRdr },
       { id: 'fin', behind: true, keys: ['locked'], P: FIN, act: actFin }
     ],
-    toy: function (name, S, t) { if (name === 'ladder') { FX.ladder = t; CR.burst('spark', 560, 120, t); } else if (name === 'lamp') { FX.lamp = t; CR.burst('star', TABLE.x + TABLE.w - 40, TABLE.y - 40, t); } },
+    toy: function (name, S, t) { if (name === 'ladder') { FX.ladder = t; CR.burst('spark', 560, 120, t); } else if (name === 'lamp') { FX.lamp = t; CR.burst('star', TABLE.x + TABLE.w - 16, TABLE.y - 40, t); } },
     hit: function (x, y, S, t) {
       if (Math.abs(x - CATP.x) < 50 && Math.abs(y - (CATP.y - 14)) < 30) { FX.cat = t; CR.burst('heart', CATP.x, CATP.y - 50, t); return { say: 'Mrrp. The library cat keeps the **quiet**. Only answers from the shelves here.', who: 'Library cat', role: 'reading room · resident', near: [-420, 150], pose: 'love' }; }
       if (Math.abs(x - NOOK.x) < 70 && y < F && y > F - 250) { FX.nook = t; CR.burst('star', NOOK.x, F - 260, t); return { say: ['Oh! I asked about **leave policy** and it showed me the exact page.', 'Answers with **the source**, so I can read the rest myself.'][(FX.ni = (FX.ni || 0) + 1) % 2], who: 'Reader in the nook', role: 'Client team · illustration', near: [-520, 150], pose: 'clap' }; }
