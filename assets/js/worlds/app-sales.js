@@ -94,7 +94,34 @@
     /* the right wall: a hanging OPEN sign by the door and a topiary */
     fillRR(g, 1340, -10, 70, F + 10, 4, '#FFFFFF'); fillRR(g, 1346, -4, 58, F - 2, 3, 'rgba(210,235,250,.6)'); fillE(g, 1352, 240, 4, 4, GOLD);
     K.plant(g, { x: 1006, y: F }, '#FFFFFF', '#F2C3C9'); K.plant(g, { x: -520, y: F }, ROSE, '#F28C96');
+    leftWall(g);
   }
+  /* the wall behind the title card ("View the scene" shows it): a pegboard of products, the chalk pricelist, the shop clock,
+     and the demo corner where the shop assistant tries the products out */
+  var PEG = { x: -446, y: -40, w: 196, h: 250 }, CHK = { x: -222, y: -46, w: 190, h: 196 }, STK = { x: -26 };
+  var PL = [['Barcode scanner', '190', '180', '172'], ['Label printer', '240', '230', '218'], ['Carry case', '22', '20', '18'], ['Set-up service', '300', '300', '300']];
+  function leftWall(g) {
+    var p = PEG; shadowed(g, 10, 4, 0.14, function () { fillRR(g, p.x, p.y, p.w, p.h, 8, '#FFFFFF'); }); fillRR(g, p.x + 6, p.y + 6, p.w - 12, p.h - 12, 5, '#FBE9EC');
+    g.fillStyle = 'rgba(194,78,93,.22)'; for (var hy = p.y + 16; hy < p.y + p.h - 8; hy += 14) for (var hx = p.x + 16; hx < p.x + p.w - 8; hx += 14) g.fillRect(hx - 1, hy - 1, 2.4, 2.4);
+    fillRR(g, p.x + 30, p.y - 12, p.w - 60, 20, 6, RD); text(g, 'TRY BEFORE YOU BUY', p.x + p.w / 2, p.y + 2, 7.6, 800, '#FFFFFF', 'center');
+    [[0, 0], [1, 1], [2, 2], [0, 1], [1, 2], [2, 0]].forEach(function (q, i) { var x = p.x + 40 + (i % 3) * 58, y = p.y + 66 + Math.floor(i / 3) * 96;
+      g.strokeStyle = '#9AA6BC'; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y - 40); g.lineTo(x, y - 30); g.lineTo(x + 8, y - 30); g.stroke(); prod(g, x, y, q[0], 1.15); });
+    fillRR(g, p.x + 14, p.y + p.h - 34, p.w - 28, 6, 2, '#B0707B'); [0, 1, 2, 3].forEach(function (b) { giftBox(g, p.x + 22 + b * 42, p.y + p.h - 58, 30, 24, [BLUE, ROSE, '#2E9C7E', GOLD][b], b % 2 ? '#FFFFFF' : '#FFD84A'); });
+    /* the chalk pricelist in a gold frame */
+    var c = CHK; shadowed(g, 12, 5, 0.18, function () { fillRR(g, c.x - 8, c.y - 8, c.w + 16, c.h + 16, 8, GOLD); }); fillRR(g, c.x - 3, c.y - 3, c.w + 6, c.h + 6, 6, GL); fillRR(g, c.x, c.y, c.w, c.h, 4, '#2F3A3A');
+    text(g, "TODAY'S PRICELISTS", c.x + c.w / 2, c.y + 20, 9.6, 800, '#FFFFFF', 'center'); text(g, 'sample · S$ per unit', c.x + c.w / 2, c.y + 32, 6, 700, '#B8C7C2', 'center');
+    ['Retail', 'Reseller', '10+'].forEach(function (h, i) { text(g, h, c.x + 104 + i * 30, c.y + 52, 6.2, 800, ['#F9C5CB', GL, '#9FE3C8'][i], 'center'); });
+    PL.forEach(function (r, i) { var y = c.y + 74 + i * 24; text(g, r[0], c.x + 12, y, 7, 700, '#FFFFFF'); for (var k2 = 0; k2 < 3; k2++) text(g, r[k2 + 1], c.x + 104 + k2 * 30, y, 7.4, 800, '#FFFFFF', 'center');
+      g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = 1; g.beginPath(); g.moveTo(c.x + 10, y + 8); g.lineTo(c.x + c.w - 10, y + 8); g.stroke(); });
+    text(g, 'Odoo picks the right list', c.x + c.w / 2, c.y + c.h - 10, 7, 700, GL, 'center'); fillRR(g, c.x + 20, c.y + c.h + 8, c.w - 40, 6, 3, '#B0707B');
+    for (var ch = 0; ch < 3; ch++) fillRR(g, c.x + 30 + ch * 12, c.y + c.h + 3, 9, 5, 2, ['#FFFFFF', '#F9C5CB', GL][ch]);
+    /* the shop clock (its hands run live) */
+    K.clockFace(g, { x: 70, y: -20, r: 24 }, GOLD); text(g, 'SINGAPORE', 70, 14, 6, 800, RD, 'center');
+    /* the assistant's demo stock: a stack of boxed products on the floor by the wall */
+    soft(g, STK.x, F + 3, 40, 6, 0.3); box2(g, STK.x - 30, F - 34, 60, 34, '#E8C9A0'); box2(g, STK.x - 24, F - 62, 48, 28, '#F0D6B4'); box2(g, STK.x - 14, F - 84, 30, 22, '#E8C9A0');
+    fillRR(g, STK.x - 18, F - 26, 22, 12, 2, '#FFFFFF'); g.fillStyle = INK; for (var bb = 0; bb < 7; bb++) g.fillRect(STK.x - 16 + bb * 3, F - 24, bb % 2 ? 1 : 2, 8);
+  }
+  function box2(g, x, y, w, h, col) { fillRR(g, x, y, w, h, 3, col); g.fillStyle = 'rgba(0,0,0,.07)'; g.fillRect(x + w / 2 - 3, y, 6, h); fillRR(g, x + 4, y + 4, w * 0.35, 4, 1.5, 'rgba(255,255,255,.6)'); }
   function paintFront(g, ext) {
     /* the counter: a rose front with cream slats and a gold trim */
     var c = CTR; soft(g, c.x + c.w / 2, F + 6, c.w * 0.6, 10, 0.3); fillRR(g, c.x, c.y + 10, c.w, F - c.y - 10, 6, ROSE);
@@ -110,14 +137,19 @@
   }
   function paintFore(g, ext) {
     /* the shop floor in front: a basket stand, a product table, an A-frame sign, a monstera */
-    soft(g, -330, 652, 60, 6, 0.3); for (var b = 0; b < 3; b++) { fillRR(g, -370, 600 - b * 14, 80, 30, 6, ROSE); g.strokeStyle = RD; g.lineWidth = 2; g.strokeRect(-366, 606 - b * 14, 72, 18); }
-    soft(g, -140, 660, 90, 7, 0.3); fillRR(g, -210, 600, 140, 12, 4, CREAM); fillRR(g, -200, 610, 8, 50, 2, '#B0707B'); fillRR(g, -88, 610, 8, 50, 2, '#B0707B');
-    giftBox(g, -196, 566, 40, 34, BLUE, '#FFD84A'); giftBox(g, -150, 556, 46, 44, ROSE, '#FFFFFF'); prod(g, -96, 600, 0, 1.2);
+    /* (behind the title card, back on the floor) the basket stand and a product table */
+    soft(g, -420, 546, 56, 6, 0.3); for (var b = 0; b < 3; b++) { fillRR(g, -460, 506 - b * 14, 80, 30, 6, ROSE); g.strokeStyle = RD; g.lineWidth = 2; g.strokeRect(-456, 512 - b * 14, 72, 18); }
+    soft(g, -260, 548, 86, 7, 0.3); fillRR(g, -330, 490, 140, 12, 4, CREAM); fillRR(g, -320, 500, 8, 46, 2, '#B0707B'); fillRR(g, -208, 500, 8, 46, 2, '#B0707B');
+    giftBox(g, -316, 456, 40, 34, BLUE, '#FFD84A'); giftBox(g, -270, 446, 46, 44, ROSE, '#FFFFFF'); prod(g, -216, 490, 0, 1.2);
+    /* the floor band below the card: a welcome runner with gold edges and pink arrows that lead to the counter */
+    g.fillStyle = 'rgba(228,110,120,.20)'; g.fillRect(ext.l - 20, 644, ext.r - ext.l + 40, 58); g.strokeStyle = 'rgba(224,176,74,.8)'; g.lineWidth = 3; g.beginPath(); g.moveTo(ext.l - 20, 650); g.lineTo(ext.r + 20, 650); g.moveTo(ext.l - 20, 696); g.lineTo(ext.r + 20, 696); g.stroke();
+    g.fillStyle = 'rgba(194,78,93,.45)'; for (var ax2 = Math.floor(ext.l / 120) * 120; ax2 < ext.r; ax2 += 120) { g.beginPath(); g.moveTo(ax2, 664); g.lineTo(ax2 + 22, 673); g.lineTo(ax2, 682); g.lineTo(ax2 + 6, 673); g.closePath(); g.fill(); }
+    fillRR(g, 470, 656, 180, 34, 10, '#C24E5D'); fillRR(g, 476, 660, 168, 26, 8, '#E46E78'); text(g, 'WELCOME · QUOTES INSIDE', 560, 677, 9, 800, '#FFFFFF', 'center');
     /* a round display plinth with a gift pyramid and balloons on the left */
     soft(g, -760, 700, 100, 9, 0.3); fillE(g, -760, 690, 92, 16, '#E9B9BF'); fillRR(g, -852, 640, 184, 50, 0, '#F6D2D5'); fillE(g, -760, 640, 92, 16, CREAM); g.strokeStyle = GOLD; g.lineWidth = 3; K.ell(g, -760, 640, 92, 16); g.stroke();
     giftBox(g, -830, 594, 50, 44, BLUE, '#FFD84A'); giftBox(g, -774, 588, 56, 50, ROSE, '#FFFFFF'); giftBox(g, -712, 600, 40, 38, '#2E9C7E', '#FFD84A'); giftBox(g, -800, 552, 44, 38, PUR, GL); giftBox(g, -748, 556, 40, 34, GOLD, '#FFFFFF');
     [[-860, 470, ROSE], [-830, 450, GOLD], [-800, 476, BLUE]].forEach(function (b) { g.strokeStyle = 'rgba(30,40,70,.35)'; g.lineWidth = 1; g.beginPath(); g.moveTo(b[0], b[1] + 26); g.quadraticCurveTo(b[0] + 10, b[1] + 70, -790, 552); g.stroke(); fillE(g, b[0], b[1], 20, 25, b[2]); fillE(g, b[0] - 6, b[1] - 9, 5, 7, 'rgba(255,255,255,.45)'); });
-    var ax = 1080; soft(g, ax, 706, 50, 6, 0.3); g.fillStyle = '#7A5A3A'; g.beginPath(); g.moveTo(ax - 40, 704); g.lineTo(ax - 26, 600); g.lineTo(ax + 26, 600); g.lineTo(ax + 40, 704); g.lineTo(ax + 32, 704); g.lineTo(ax + 20, 610); g.lineTo(ax - 20, 610); g.lineTo(ax - 32, 704); g.closePath(); g.fill();
+    var ax = 1160; soft(g, ax, 706, 50, 6, 0.3); g.fillStyle = '#7A5A3A'; g.beginPath(); g.moveTo(ax - 40, 704); g.lineTo(ax - 26, 600); g.lineTo(ax + 26, 600); g.lineTo(ax + 40, 704); g.lineTo(ax + 32, 704); g.lineTo(ax + 20, 610); g.lineTo(ax - 20, 610); g.lineTo(ax - 32, 704); g.closePath(); g.fill();
     fillRR(g, ax - 30, 608, 60, 76, 3, '#2A3142'); text(g, 'QUOTES', ax, 630, 9, 800, GL, 'center'); text(g, 'in minutes', ax, 644, 7, 700, '#FFFFFF', 'center'); text(g, 'sign online', ax, 660, 7, 700, '#F9C5CB', 'center'); text(g, '✓ pay online', ax, 674, 7, 700, '#9FE3C8', 'center');
   }
 
@@ -125,6 +157,7 @@
   var REP = W({ x: 470, y: 470, s: 0.54, ph: 0.6, skin: 1, hair: 0, style: 'bob', outfit: 'cardigan', top: ROSE, top2: '#FFFFFF', headset: GOLD, id: '#9AA6BC', hands: [[-60, -206], [60, -206]], look: 0.4 });
   var OPS = W({ x: 730, y: 470, s: 0.54, ph: 1.8, skin: 3, hair: 1, style: 'short', outfit: 'polo', top: '#F2A33A', id: '#9AA6BC', hands: [[-60, -206], [60, -206]], look: -0.4 });
   var CUS = W({ x: 948, y: 470, s: 0.54, ph: 2.6, skin: 0, hair: 1, style: 'long', outfit: 'shirt', top: BLUE, id: '#9AA6BC', hold: 'tablet', hands: [[-70, -210], [70, -170]], look: -0.6 });
+  var SA = W({ x: -104, y: 470, s: 0.54, ph: 0.9, skin: 1, hair: 0, style: 'pony', outfit: 'polo', top: '#2E9C7E', id: '#9AA6BC', hands: [[-60, -212], [70, -230]], look: 0.4 });
   var MGR = W({ x: 326, y: 470, s: 0.54, ph: 3.3, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: PUR, glasses: true, id: '#9AA6BC', hold: 'clipboard', hands: [[-60, -212], [70, -170]], look: -0.5 });
   var CREW = [
     { x0: 1010, x1: 1320, y: 488, spd: 14, ph: 0.3, label: 'TechNext consultant', lines: ['Your products, prices and taxes, set up **once**.', 'Quote templates for what you sell **most**.'], acts: ['nod', 'id', 'wave'],
@@ -135,7 +168,10 @@
       P: W({ s: 0.58, skin: 3, hair: 1, style: 'long', outfit: 'polo', top: PUR, hold: 'tablet', hands: [[-60, -212], [70, -150]] }) }
   ];
 
-  var FX = { gift: -9, plane: -9, bell: -9, sign: -9, price: -9, rcpt: 0, stamp: -9 };
+  CREW[2].peek = true; /* the near walker strolls in front of the title card only while the scene is in view */
+  var HERO = null; function peekOn() { if (!HERO) HERO = document.querySelector('.ixw-hero'); return !!(HERO && HERO.classList.contains('is-peek')); }
+  function crewVis() { var pk = peekOn(); return CREW.filter(function (w) { return !w.peek || pk; }); }
+  var FX = { opt: -9, gift: -9, plane: -9, bell: -9, sign: -9, price: -9, rcpt: 0, stamp: -9 };
   function tapU(st, t, dur) { if (st.wave && st.wave !== st._tw) { st._tw = st.wave; st.tapT = t; } var u = (t - (st.tapT == null ? -99 : st.tapT)) / dur; return u >= 0 && u < 1 ? u : -1; }
   function look(P, st, t, S, rest) { P.look = lerp(P.look, t < st.until ? clamp((S.nexi.x - P.x) / 160, -1, 1) : rest, 0.08); }
   function handAt(P, i) { var h = P.hands[i], sxk = P.sx == null ? 1 : P.sx; return [P.x + h[0] * P.s * sxk, P.y + (h[1] - (P.hop || 0) + (P.sit ? 46 : 0)) * P.s]; }
@@ -200,6 +236,12 @@
     if (CUS._sig) { var th = handAt(CUS, 0); g.strokeStyle = INK; g.lineWidth = 1.4; g.beginPath(); for (var q = 0; q < 10; q++) { var xx = th[0] + 18 + q * 2, yy = th[1] - 12 + Math.sin(q * 0.9 + t * 6) * 3; if (q) g.lineTo(xx, yy); else g.moveTo(xx, yy); } g.stroke(); }
     /* the manager's pricelist switch */
     var mu = t - FX.price; if (mu < 2.2) pill(g, MGR.x, MGR.y - 330 - mu * 12, 96, 'Pricelist: 10+ units', GOLD, INK, clamp((2.2 - mu) * 2, 0, 1));
+    /* the shop assistant's scanner (a red line on the box) and the carry case held high */
+    if (SA._scan) { var sh = handAt(SA, 1); g.save(); g.translate(sh[0], sh[1]); g.rotate(-0.5); fillRR(g, -6, -14, 22, 11, 4, '#2A3142'); fillRR(g, -3, -6, 8, 12, 3, '#3D4560'); fillRR(g, 12, -12, 4, 7, 1.5, '#E2453C'); g.restore();
+      if ((t * 2.2) % 1 < 0.6) { var bh = handAt(SA, 0); g.strokeStyle = 'rgba(226,69,60,.75)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(sh[0] + 6, sh[1] - 16); g.lineTo(bh[0] + 14, bh[1] - 4 + Math.sin(t * 20) * 4); g.stroke(); } }
+    if (SA._case) { var c0 = handAt(SA, 0), c1 = handAt(SA, 1); prod(g, (c0[0] + c1[0]) / 2, Math.min(c0[1], c1[1]) + 6, 2, 1.1); }
+    var ou = t - FX.opt; if (ou < 2.6) pill(g, SA.x, SA.y - 340 - ou * 12, 112, '+ Optional: carry case', PUR, '#FFFFFF', clamp((2.6 - ou) * 2, 0, 1));
+    var ck = new Date(Date.now() + 8 * 3600e3); K.clockHands(g, { x: 70, y: -20, r: 24 }, ck.getUTCHours(), ck.getUTCMinutes(), ck.getUTCSeconds());
     CR.draw(g, t);
   }
 
@@ -240,12 +282,22 @@
     else if (c < 5) { P.hands = [[-60, -212], [60, -280]]; P.tilt = -0.06; look(P, st, t, S, 0.7); }
     else { P.hands = [[-60, -212], [-30 + Math.sin(t * 12) * 6, -210]]; P.tilt = 0.07; look(P, st, t, S, -0.2); }
   }
+  function actSa(P, t, S) { /* the shop assistant: scans a boxed product, restocks from the stack, straightens the pegboard, waves; tapped: lifts the carry case high (the optional extra) and twirls */
+    var st = S.cast.sa, u = tapU(st, t, 2.4), c = (t + 2) % 10; reset(P); P._scan = false; P._case = false; P.hold = null; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (u >= 0) { P.mood = 'happy'; P.talk = true; P._case = true; if (FX.opt < st.tapT) { FX.opt = t; CR.burst('heart', P.x, P.y - 290, t); }
+      if (u < 0.35) { P.hands = [[-40, -300], [40, -300]]; P.tilt = 0.05; } else { P.hands = [[-50, -420], [50, -420]]; P.sx = Math.cos((u - 0.35) / 0.65 * Math.PI * 2); P.hop = Math.abs(Math.sin((u - 0.35) / 0.65 * Math.PI)) * 16; } return; }
+    if (c < 3) { P._scan = true; P.hold = 'box'; P.hands = [[-30, -250], [80, -262 + Math.sin(t * 3) * 6]]; look(P, st, t, S, 0.3); if (c % 1 < 0.04) CR.burst('spark', P.x + 30, P.y - 150, t); }
+    else if (c < 4) { P.hands = [[-60, -212], [140, -130]]; P.tilt = 0.12; look(P, st, t, S, 0.9); }
+    else if (c < 5.4) { P.hold = 'box'; P.hands = [[-40, -300], [40, -300]]; P.hop = Math.abs(Math.sin((c - 4) * Math.PI * 2)) * 6; look(P, st, t, S, -0.3); }
+    else if (c < 7.6) { P.hands = [[-60, -212], [-160 + Math.sin(t * 7) * 10, -400]]; P.tilt = -0.06; look(P, st, t, S, -0.9); }
+    else { P.hands = [[-60, -212], [110, -390 + Math.sin(t * 11) * 14]]; look(P, st, t, S, 0.7); }
+  }
   function glowOf(b, pad) { return function (g) { rr(g, b.x - pad, b.y - pad, b.w + pad * 2, b.h + pad * 2, 12); }; }
   window.IXW.worlds['app-sales'] = {
     pan: [-300, 1200],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(crewVis(), g, t, S, 'fore'); }); CR.draw(g, t); },
     moteCol: 'rgba(228,110,120,.22)',
     glow: { quote: glowOf(QS, 12), price: function (g) { rr(g, CAB.x - 8, CAB.y - 14, CAB.w + 16, 260, 12); }, order: glowOf(ORD, 8), sign: glowOf(SGN, 9), deliver: glowOf(DLV, 8), report: glowOf(DSH, 8),
       gift: function (g) { rr(g, GIFT.x - 32, GIFT.y - 54, 64, 58, 10); } },
@@ -254,7 +306,8 @@
       { id: 'rep', behind: true, keys: ['quote', 'price'], P: REP, act: actRep },
       { id: 'ops', behind: true, keys: ['order', 'deliver'], P: OPS, act: actOps },
       { id: 'cust', behind: false, keys: ['sign'], P: CUS, act: actCus },
-      { id: 'mgr', behind: false, keys: ['report'], P: MGR, act: actMgr }
+      { id: 'mgr', behind: false, keys: ['report'], P: MGR, act: actMgr },
+      { id: 'sa', behind: true, keys: [], P: SA, act: actSa }
     ],
     toy: function (name, S, t) { if (name === 'gift') { FX.gift = t; CR.burst('conf', GIFT.x, GIFT.y - 40, t); } },
     hit: function (x, y, S, t) {

@@ -146,16 +146,36 @@
     fillRR(g, cx + 54, 712, 20, 12, 3, '#C99A6B');
     var hx = 860; soft(g, hx, 772, 18, 4, 0.25); fillRR(g, hx - 10, 738, 20, 34, 5, '#E2453D'); fillE(g, hx, 738, 11, 7, '#C9362F'); fillRR(g, hx - 15, 750, 30, 7, 3, '#C9362F');
     var sx2 = 540; fillRR(g, sx2 - 2, 690, 4, 82, 2, '#7A869C'); soft(g, sx2, 772, 14, 3, 0.25); fillRR(g, sx2 - 46, 680, 92, 22, 4, '#0E7A4C'); g.strokeStyle = '#FFFFFF'; g.lineWidth = 1.2; rr(g, sx2 - 43, 683, 86, 16, 3); g.stroke(); text(g, 'Odoo Street', sx2, 695, 8.4, 800, '#FFFFFF', 'center');
-    if (ext.l < 100) { /* a bus stop for the Odoo Street line and a red post box */
-      var bs = -360; soft(g, bs, 790, 110, 8, 0.25); fillRR(g, bs - 96, 632, 192, 12, 5, PUR); fillRR(g, bs - 88, 644, 6, 146, 2, '#9AA6BC'); fillRR(g, bs + 82, 644, 6, 146, 2, '#9AA6BC');
+    /* (behind the title card) the kueh cart on the five-foot way, a red post box, a trishaw parked in the far lane */
+    cart(g); var pb = -150; soft(g, pb, 508, 24, 5, 0.25); fillRR(g, pb - 18, 434, 36, 72, 8, '#E2453D'); fillE(g, pb, 436, 20, 9, '#C9362F'); fillRR(g, pb - 11, 452, 22, 5, 2, '#2A3142'); fillRR(g, pb - 9, 468, 18, 13, 2, 'rgba(255,255,255,.85)');
+    trishaw(g, -250, 592);
+    if (ext.l < -560) { /* a bus stop for the Odoo Street line (wide screens, left of the title card) */
+      var bs = -770; soft(g, bs, 790, 110, 8, 0.25); fillRR(g, bs - 96, 632, 192, 12, 5, PUR); fillRR(g, bs - 88, 644, 6, 146, 2, '#9AA6BC'); fillRR(g, bs + 82, 644, 6, 146, 2, '#9AA6BC');
       g.fillStyle = 'rgba(200,225,245,.45)'; g.fillRect(bs - 82, 650, 164, 92); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 2; g.beginPath(); g.moveTo(bs - 70, 740); g.lineTo(bs - 40, 656); g.moveTo(bs - 50, 740); g.lineTo(bs - 20, 656); g.stroke();
       fillRR(g, bs - 70, 748, 140, 8, 3, '#C99A6B'); fillRR(g, bs - 64, 756, 5, 30, 2, '#2A3142'); fillRR(g, bs + 59, 756, 5, 30, 2, '#2A3142');
       fillRR(g, bs + 100, 600, 6, 190, 2, '#7A869C'); fillE(g, bs + 103, 600, 22, 22, '#FFFFFF'); g.strokeStyle = '#0E7A4C'; g.lineWidth = 4; g.beginPath(); g.arc(bs + 103, 600, 19, 0, 7); g.stroke(); text(g, 'BUS', bs + 103, 604, 9, 800, '#0E7A4C', 'center');
-      fillRR(g, bs - 60, 660, 120, 30, 5, '#FFFFFF'); text(g, 'Odoo Street', bs, 674, 9, 800, PUR, 'center'); text(g, 'every stop · one database', bs, 685, 6.4, 700, '#8A6A84', 'center');
-      var pb = -130; soft(g, pb, 788, 26, 5, 0.25); fillRR(g, pb - 20, 712, 40, 76, 8, '#E2453D'); fillE(g, pb, 714, 22, 10, '#C9362F'); fillRR(g, pb - 12, 732, 24, 5, 2, '#2A3142'); fillRR(g, pb - 10, 750, 20, 14, 2, 'rgba(255,255,255,.85)'); }
+      fillRR(g, bs - 60, 660, 120, 30, 5, '#FFFFFF'); text(g, 'Odoo Street', bs, 674, 9, 800, PUR, 'center'); text(g, 'every stop · one database', bs, 685, 6.4, 700, '#8A6A84', 'center'); }
     if (ext.r > 1100) { planter(1200, '#F7D3DA'); }
-    if (ext.l < -500) { planter(-620, '#CFEDE1'); var b2 = -860; soft(g, b2 + 60, 770, 80, 6, 0.25); fillRR(g, b2, 732, 124, 8, 3, '#C99A6B'); fillRR(g, b2, 716, 124, 8, 3, '#C99A6B'); fillRR(g, b2 + 8, 740, 6, 28, 2, '#2A3142'); fillRR(g, b2 + 110, 740, 6, 28, 2, '#2A3142'); }
+    if (ext.l < -500) planter(-620, '#CFEDE1');
   }
+  /* the kueh cart: a glass case of kueh, a card reader (Point of Sale), a striped umbrella; its keeper stands behind it */
+  var CART = { x: -400, w: 124, y: 440 };
+  function cart(g) { var c = CART, cx = c.x + c.w / 2; soft(g, cx, 508, 74, 7, 0.28);
+    fillRR(g, cx + 50, 200, 4, c.y - 200, 2, '#8A6A4A');
+    fillRR(g, c.x, c.y, c.w, 54, 6, '#7FC4B4'); g.fillStyle = 'rgba(255,255,255,.35)'; for (var sl = c.x + 10; sl < c.x + c.w - 6; sl += 16) g.fillRect(sl, c.y + 10, 6, 36);
+    fillRR(g, c.x + 22, c.y + 16, c.w - 44, 20, 5, '#FFFFFF'); text(g, 'KUEH', cx, c.y + 30, 10, 800, '#C24E5D', 'center');
+    fillRR(g, c.x + 6, c.y - 30, c.w - 12, 32, 5, 'rgba(210,235,245,.75)'); g.strokeStyle = '#FFFFFF'; g.lineWidth = 2; rr(g, c.x + 6, c.y - 30, c.w - 12, 32, 5); g.stroke();
+    for (var k = 0; k < 10; k++) { var kx = c.x + 16 + (k % 5) * 20, ky = c.y - 22 + Math.floor(k / 5) * 12; fillRR(g, kx, ky, 14, 8, 2, ['#3FBF7F', '#F28C96', '#FFD84A', '#B7A3E8', '#FFFFFF'][(k * 3) % 5]); fillRR(g, kx, ky, 14, 3, 1.5, 'rgba(255,255,255,.5)'); }
+    fillRR(g, c.x + c.w - 30, c.y - 42, 22, 13, 3, '#2A3142'); fillRR(g, c.x + c.w - 27, c.y - 40, 16, 5, 1.5, '#9FE3C8');
+    [c.x + 18, c.x + c.w - 18].forEach(function (wx) { fillE(g, wx, 500, 12, 12, '#2A3142'); fillE(g, wx, 500, 5, 5, '#C9D3DE'); });
+    for (var u = 0; u < 8; u++) { g.fillStyle = u % 2 ? '#FFFFFF' : '#E07B8E'; g.beginPath(); g.moveTo(cx + 52, 172); g.lineTo(cx - 32 + u * 21, 200); g.lineTo(cx - 11 + u * 21, 200); g.closePath(); g.fill(); }
+    for (var sc = 0; sc < 8; sc++) { g.fillStyle = sc % 2 ? '#FFFFFF' : '#E07B8E'; g.beginPath(); g.arc(cx - 21.5 + sc * 21, 200, 10.5, 0, Math.PI); g.fill(); } fillE(g, cx + 52, 170, 4, 4, GOLD);
+  }
+  function trishaw(g, x, y) { soft(g, x + 70, y + 4, 80, 7, 0.25); g.strokeStyle = '#2A3142'; g.lineWidth = 3;
+    [[x + 20, y - 18], [x + 110, y - 18], [x + 150, y - 18]].forEach(function (w) { g.beginPath(); g.arc(w[0], w[1], 18, 0, 7); g.stroke(); fillE(g, w[0], w[1], 3, 3, '#2A3142'); });
+    fillRR(g, x, y - 72, 66, 42, 8, '#3167CA'); fillRR(g, x + 4, y - 66, 58, 14, 5, '#FFFFFF'); g.fillStyle = '#E0456B'; g.beginPath(); g.moveTo(x - 6, y - 74); g.quadraticCurveTo(x + 30, y - 140, x + 70, y - 74); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(x + 66, y - 40); g.lineTo(x + 150, y - 20); g.moveTo(x + 112, y - 40); g.lineTo(x + 130, y - 70); g.stroke(); fillRR(g, x + 120, y - 76, 26, 7, 3, '#2A3142');
+    for (var f = 0; f < 4; f++) fillE(g, x + 12 + f * 13, y - 78, 6, 6, ['#FF8FA3', '#FFD84A', '#FFFFFF', '#3FBF7F'][f]); }
 
   /* ---------------- the people ---------------- */
   var W = CR.who;
@@ -163,10 +183,11 @@
   var PLN = W({ x: 322, y: 470, s: 0.46, ph: 2.4, skin: 2, hair: 0, style: 'short', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', glasses: true, sit: true, chairCol: '#8A5A3B', id: '#9AA6BC', hands: [[-60, -206], [60, -206]], look: 0.5 });
   var KPR = W({ x: 690, y: 470, s: 0.46, ph: 1.1, skin: 0, hair: 1, style: 'short', outfit: 'shirt', top: PUR, hands: [[-80, -230], [-40, -260]], look: -0.6 });
   var OWN = W({ x: 820, y: 470, s: 0.47, ph: 1.6, skin: 3, hair: 1, style: 'bob', outfit: 'shirt', top: '#E0456B', id: '#9AA6BC', hold: 'bags', hands: [[-70, -170], [70, -170]], look: -0.6 });
+  var STL = W({ x: -338, y: 470, s: 0.46, ph: 0.7, skin: 1, hair: 0, style: 'bun', outfit: 'shirt', top: '#E07B12', id: '#9AA6BC', hands: [[-60, -140], [60, -140]], look: 0.3 });
   var CREW = [
     { x0: 1010, x1: 1290, y: 492, spd: 14, ph: 0.5, label: 'TechNext developer', lines: ['App delivery: **Inventory**, plugged into the same records.', 'No exports between apps. **One database**.'], acts: ['cheer', 'id', 'wave'],
       P: W({ s: 0.5, skin: 0, hair: 0, style: 'short', outfit: 'shirt', top: '#1E3A6E', hold: 'box' }) },
-    { front: true, x0: 1010, x1: 1300, y: 730, spd: 18, ph: 0.7, label: 'TechNext trainer', lines: ['Start with **Finance, Sales and Supply Chain**.', 'Add the rest **as you need them**.'], acts: ['nod', 'id', 'wave'],
+    { front: true, x0: 1060, x1: 1300, y: 730, spd: 18, ph: 0.7, label: 'TechNext trainer', lines: ['Start with **Finance, Sales and Supply Chain**.', 'Add the rest **as you need them**.'], acts: ['nod', 'id', 'wave'],
       P: W({ s: 0.58, skin: 2, hair: 1, style: 'pony', outfit: 'polo', top: PUR, clip: '#FFD84A', hold: 'clipboard' }) },
     { x0: -900, x1: 150, y: 492, spd: 15, ph: 0.3, label: 'TechNext consultant', lines: ['Discovery maps your processes to **apps**.'], acts: ['wave', 'id'],
       P: W({ s: 0.5, skin: 1, hair: 1, style: 'bun', outfit: 'cardigan', top: '#14A38B', top2: '#FFFFFF', hold: 'tablet' }) }
@@ -244,6 +265,7 @@
     if (TAP.pln && t - TAP.pln < 2.6) { var hp = handAt(PLN, 1), u = clamp((t - TAP.pln) / 2.6, 0, 1), cx = hp[0] + 10, cy = hp[1] - 60; shadowed(g, 8, 3, 0.2, function () { fillRR(g, cx - 40, cy - 34, 84, 62, 7, '#FFFFFF'); });
       fillRR(g, cx - 40, cy - 34, 84, 12, 7, '#14A38B'); g.fillRect(cx - 40, cy - 27, 84, 5); text(g, 'Phase 1', cx + 2, cy - 25, 6.6, 800, '#FFFFFF', 'center');
       ['Accounting', 'Sales', 'Inventory'].forEach(function (l, i) { var y = cy - 12 + i * 13, on = u > 0.18 + i * 0.2; fillRR(g, cx - 34, y - 6, 9, 9, 2, on ? '#2BC48A' : '#EEF2F7'); if (on) { g.strokeStyle = '#FFFFFF'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(cx - 32, y - 2); g.lineTo(cx - 30, y + 0.5); g.lineTo(cx - 27, y - 4); g.stroke(); } text(g, l, cx - 20, y + 1.5, 6.6, 700, '#3D4560'); }); }
+    if (STL._fan) { var fh = handAt(STL, 0); g.save(); g.translate(fh[0], fh[1] - 6); g.rotate(-0.4 + Math.sin(t * 14) * 0.35); g.fillStyle = '#E07B8E'; g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, 18, -Math.PI * 0.85, -Math.PI * 0.15); g.closePath(); g.fill(); g.strokeStyle = '#FFFFFF'; g.lineWidth = 1; for (var fr = 0; fr < 5; fr++) { var fa = -Math.PI * 0.85 + fr * Math.PI * 0.175; g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(fa) * 18, Math.sin(fa) * 18); g.stroke(); } g.restore(); }
     FX = FX.filter(function (f) { return t - f.t0 < f.dur; });
     FX.forEach(function (f) { var u = clamp((t - f.t0) / f.dur, 0, 1), e = u * u * (3 - 2 * u), x = lerp(f.x0, f.x1, e), y = lerp(f.y0, f.y1, e) - Math.sin(u * Math.PI) * f.arc;
       g.save(); g.translate(x, y); g.rotate(Math.sin(u * Math.PI) * 0.6); var s = 24 * (f.grow ? lerp(0.6, 1.1, Math.sin(u * Math.PI)) : 1); icon(g, f.m, -s / 2, -s / 2, s); g.restore();
@@ -289,6 +311,17 @@
     P.hands = cyc > 5 && cyc < 6.5 ? [[-70, -230], [70, -170]] : busy ? [[-70, -170], [-150, -320 + Math.sin(t * 3) * 8]] : [[-70, -170], [70, -170 + Math.sin(t * 2) * 4]];
     P.tilt = cyc < 5 ? -0.06 : 0; P.x = 820 + Math.sin(t * 0.3) * 8; lookAtNexi(P, st, t, S, glance);
   } };
+  var castSTL = { id: 'stl', behind: true, keys: [], P: STL, act: function (P, t, S) { /* the kueh seller: wraps kueh, taps the card reader, fans herself, rings her bell, waves; tapped: a Point of Sale icon hops from her cart up into the Sales shop */
+    var st = S.cast.stl; if (tapped('stl', st, t)) { var c = CATS[1], j = 2, d = iconXY(c, j); FX.push({ m: c.apps[j], x0: CART.x + CART.w - 20, y0: CART.y - 50, x1: d[0] + 14, y1: d[1] + 14, arc: 90, t0: t + 0.3, dur: 1.5, grow: true, fx: 'heart' }); PICK.c = c; PICK.t = t + 0.6; CR.burst('star', P.x, P.y - 230, t); }
+    P.tilt = 0; P.hop = 0; P.sx = 1; P._fan = false; P.talk = t < st.until; P.mood = P.talk ? 'happy' : 'calm';
+    if (TAP.stl && t - TAP.stl < 2.2) { var u = (t - TAP.stl) / 2.2; P.mood = 'happy'; P.talk = true; P.hands = [[-90, -330 + Math.sin(t * 12) * 10], [100, -360 - Math.sin(t * 12) * 10]]; P.hop = Math.abs(Math.sin(u * Math.PI * 3)) * 16; P.look = 0.8; return; }
+    var c2 = (t + 3) % 10;
+    if (c2 < 3) { var w2 = Math.sin(t * 5); P.hands = [[-30 + w2 * 10, -150], [30 - w2 * 10, -156]]; P.tilt = 0.06; lookAtNexi(P, st, t, S, 0.1); }
+    else if (c2 < 4.4) { P.hands = [[-60, -140], [96, -168 + Math.abs(Math.sin(t * 9)) * -14]]; lookAtNexi(P, st, t, S, 0.8); if (c2 > 4.3 && !P._beep) { P._beep = 1; CR.burst('spark', CART.x + CART.w - 19, CART.y - 50, t); } }
+    else if (c2 < 6.6) { P._beep = 0; P._fan = true; P.hands = [[-50, -300 + Math.sin(t * 14) * 8], [60, -140]]; P.tilt = -0.04; lookAtNexi(P, st, t, S, Math.sin(t * 0.9) * 0.8); }
+    else if (c2 < 8) { P.hands = [[-60, -140], [70, -300 + Math.sin(t * 16) * 10]]; lookAtNexi(P, st, t, S, 0.4); if (c2 < 6.66 && !P._bell) { P._bell = 1; CR.burst('note', P.x + 40, P.y - 200, t); } }
+    else { P._bell = 0; P.hands = [[-60, -140], [-110, -340 + Math.sin(t * 9) * 14]]; P.mood = 'happy'; lookAtNexi(P, st, t, S, -0.8); }
+  } };
   function glowCat(k) { return function (g) { var c = CATS.filter(function (x) { return x.key === k; })[0]; rr(g, c.x - 9, c.y - 9, SH.w + 18, SH.h + 18, 14); }; }
   window.IXW.worlds['app-all'] = {
     pan: [-300, 1240],
@@ -298,7 +331,7 @@
     motes: false,
     glow: { finance: glowCat('finance'), sales: glowCat('sales'), supply: glowCat('supply'), hr: glowCat('hr'), services: glowCat('services'), db: function (g) { rr(g, DB.x - DB.r - 16, DB.y - 30, DB.r * 2 + 32, F - DB.y + 34, 22); } },
     backGlow: ['finance', 'sales', 'supply', 'hr', 'services', 'db'],
-    cast: [castCON, castPLN, castKPR, castOWN],
+    cast: [castCON, castPLN, castKPR, castOWN, castSTL],
     toy: function () {},
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w;
