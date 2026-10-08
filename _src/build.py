@@ -656,15 +656,31 @@ def _nxe_characters() -> str:
         groups.append(f'<div class="nxe-group{" is-on" if k == 0 else ""}" id="{g["id"]}" data-nxe-group="{g["id"]}">'
                       f'<div class="nxe-arc-h"><h3>{g["name"]}</h3><span>{g["tab"]}</span></div><p class="nxe-tips-sub">{g["blurb"]}</p>'
                       f'<ol class="nxe-chars">{cards}</ol></div>')
+    wcards = []
+    for i, w in enumerate(NXE.WARDROBE):
+        eps = "".join(f'<li>{e}</li>' for e in w["eps"])
+        wcards.append(f'<li class="nxe-ch nxe-ch--wd nxe-tone-{i % 4}"><div class="nxe-ch-art"><img src="{{{{ROOT}}}}assets/img/nexi-explains/wardrobe/{w["key"]}.webp" alt="" loading="lazy" decoding="async"></div>'
+                      f'<div class="nxe-ch-body"><span class="nxe-kick">{w["costume"]}</span><h4>{w["name"]}</h4>'
+                      f'<p class="nxe-ch-line">“{w["line"]}”</p><ul class="nxe-ch-eps" aria-label="Wears it in">{eps}</ul></div></li>')
+    opts.append(("cast-wardrobe", "Season 1 wardrobe", f"{len(wcards)} costumes"))
+    groups.append('<div class="nxe-group" id="cast-wardrobe" data-nxe-group="cast-wardrobe">'
+                  '<div class="nxe-arc-h"><h3>Nexi’s Season 1 wardrobe</h3><span>Season 1</span></div>'
+                  '<p class="nxe-tips-sub">A new role and a new costume in every episode, rendered from Nexi’s own 3D model.</p>'
+                  f'<ol class="nxe-chars nxe-chars--wd">{"".join(wcards)}</ol></div>')
     links = {l["href"]: l for it in S.NAV for col in it.get("columns", []) for l in col["links"]}
     cos = []
     for i, key in enumerate(NXE.COSTUMES):
         l = links[f"industries/{key}.html"]
         lab = l["label"].replace("&", "&amp;")
-        cos.append(f'<li class="nxe-ch nxe-ch--cos nxe-tone-{i % 4}"><div class="nxe-ch-art"><img src="{{{{ROOT}}}}assets/img/industries/{key}/nexi-hello.webp" alt="" loading="lazy" decoding="async"></div>'
+        acc, ink, light = WD.SHOW_SKIN[key]
+        p1, p2 = NXE.COSTUME_POSES[key]
+        src = "{{ROOT}}assets/img/industries/" + key + "/nexi-"
+        cos.append(f'<li class="nxe-ch nxe-ch--cos" style="--c1:{acc};--c2:{light};--ci:{ink}"><div class="nxe-ch-art">'
+                   f'<img class="nxe-ch-p1" src="{src}{p1}.webp" alt="" loading="lazy" decoding="async">'
+                   f'<img class="nxe-ch-p2" src="{src}{p2}.webp" alt="" loading="lazy" decoding="async"></div>'
                    f'<div class="nxe-ch-body"><span class="nxe-kick">Industry costume</span><h4>{lab} Nexi</h4>'
                    f'<p class="nxe-ch-line">“{l["desc"]}”</p><a class="nxe-more" href="{{{{ROOT}}}}{l["href"]}">{lab} {{{{icon:arrow}}}}</a></div></li>')
-    opts.append(("cast-costumes", "Nexi’s costumes", f"{len(cos)} looks"))
+    opts.append(("cast-costumes", "Industry costumes", f"{len(cos)} looks"))
     groups.append('<div class="nxe-group" id="cast-costumes" data-nxe-group="cast-costumes">'
                   '<div class="nxe-arc-h"><h3>Nexi’s industry costumes</h3><span>Around technext.asia</span></div>'
                   '<p class="nxe-tips-sub">Off screen, Nexi dresses for each industry TechNext works with. Each look leads its industry page.</p>'
@@ -686,7 +702,7 @@ def _nxe_comics() -> str:
 
 def _nxe_tabs() -> str:
     n_eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
-    n_cast = sum(len(g["cast"]) for g in NXE.CHARACTERS) + len(NXE.COSTUMES)
+    n_cast = sum(len(g["cast"]) for g in NXE.CHARACTERS) + len(NXE.WARDROBE) + len(NXE.COSTUMES)
     cats = [("series", "Series", f"{n_eps} episodes · {len(NXE.SEASONS)} seasons"),
             ("specials", "Specials", f"{len(NXE.SPECIALS)} holiday stories"),
             ("comics", "Comics", f"{len(NXE.COMICS)} strips" if NXE.COMICS else "Coming soon"),

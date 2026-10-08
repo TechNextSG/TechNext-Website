@@ -440,6 +440,7 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
   .ixw[class*="ixw--"] .header-cta .btn-primary::after{display:none}
   .ixw[class*="ixw--"] .side-fab{background:var(--st-talk);color:var(--st-fg,#FFFFFF);border:2.5px solid var(--st-ink,#1F1F3D);box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}}
 .ixw-cta-nexi{position:absolute;right:96px;bottom:100%;width:0;height:0;--npx:.36px;pointer-events:none}
+.ixw-cta:has(.ixw-cta-nexi){overflow:visible!important}
 .ixw-cta-nexi .ixw-pose{left:calc(var(--ax) * -.36px);top:calc(var(--ay) * -.36px + 40px);width:calc(var(--w) * .36px);animation:ixwBob 3.4s ease-in-out infinite}
 .ixw .ixw-cta .actions{position:relative}
 .ixw-conf{position:absolute;z-index:3;width:8px;height:12px;border-radius:2px;background:var(--c);pointer-events:none;animation:ixwConf .85s cubic-bezier(.2,.7,.3,1) forwards}

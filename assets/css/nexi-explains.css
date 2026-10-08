@@ -200,7 +200,7 @@ button.nxe-thumb{cursor:pointer}
 .nxe-body p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
 .nxe-take{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;margin-top:10px!important;font-weight:600;color:var(--ink-c)!important}
 .nxe-take span{padding:3px 8px 2px;border-radius:6px;background:var(--yel);border:2px solid var(--ink-c);color:var(--ink-c);font:400 13px/1 var(--comic);letter-spacing:.07em}
-.nxe-more{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font:700 13.5px/1.2 var(--font-body)}
+.nxe-more{display:inline-flex;align-items:center;gap:5px;min-height:44px;margin-top:4px;padding:0 2px;font:700 13.5px/1.2 var(--font-body)}
 .nxe-more .ic{width:15px;height:15px;transition:transform .25s var(--spring)}
 .nxe-more:hover .ic{transform:translateX(3px)}
 
@@ -354,7 +354,7 @@ button.nxe-thumb{cursor:pointer}
 .nxe-ch-art::before{content:"";position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.2) 0 8deg,transparent 8deg 20deg);-webkit-mask-image:radial-gradient(closest-side,#000 20%,transparent 72%);mask-image:radial-gradient(closest-side,#000 20%,transparent 72%)}
 .nxe-ch-art::after{content:"";position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.24) 1.2px,transparent 1.7px) 0 0/12px 12px;-webkit-mask-image:linear-gradient(200deg,transparent 45%,#000);mask-image:linear-gradient(200deg,transparent 45%,#000);pointer-events:none}
 .nxe-ch-art img{position:absolute;left:50%;bottom:-8px;z-index:1;height:90%;width:auto;translate:-50% 0;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(6px 6px 0 rgba(9,20,48,.35));transition:transform .4s var(--spring)}
-.nxe-ch:hover .nxe-ch-art img,.nxe-ch:hover .nxe-ch-cv{transform:translateY(-6px) rotate(-4deg)}
+.nxe-ch:not(.nxe-ch--cos):hover .nxe-ch-art img,.nxe-ch:hover .nxe-ch-cv{transform:translateY(-6px) rotate(-4deg)}
 .nxe-ch-cv{position:absolute;inset:0;z-index:1;width:100%;height:100%;transition:transform .4s var(--spring)}
 .nxe-ch-letter{position:absolute;left:50%;top:50%;z-index:1;display:grid;place-items:center;width:104px;height:104px;margin:-60px 0 0 -52px;border-radius:50% 50% 50% 12%;background:#fff;border:3px solid var(--ink-c);box-shadow:5px 5px 0 var(--ink-c);transform:rotate(-6deg)}
 .nxe-ch-letter b{font:400 58px/1 var(--comic);color:var(--ink-c);transform:rotate(6deg) translateY(3px)}
@@ -364,9 +364,21 @@ button.nxe-thumb{cursor:pointer}
 .nxe-ch-line{margin:0;font-size:14.5px;line-height:1.5;color:var(--body);font-style:italic}
 .nxe-ch-eps{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0}
 .nxe-ch-eps li{padding:4px 8px 3px;border-radius:7px;background:var(--blue-050);border:2px solid var(--ink-c);color:var(--ink-c);font:400 13px/1 var(--comic);letter-spacing:.06em}
-.nxe-ch-body .nxe-more{margin-top:auto;padding-top:12px}
-.nxe-ch--cos .nxe-ch-art{background:linear-gradient(150deg,#EAF1FF,#FFFFFF)}
-.nxe-ch--cos .nxe-ch-art::before{background:repeating-conic-gradient(rgba(49,103,202,.12) 0 8deg,transparent 8deg 20deg)}
+.nxe-ch-body .nxe-more{margin-top:auto;padding-top:6px}
+/* industry costumes: each card in its industry's own accent (worlds.SHOW_SKIN, the menu badge + world colour), two poses */
+.nxe-ch--cos .nxe-ch-art{background:radial-gradient(120% 90% at 50% 100%,var(--c2) 0 38%,transparent 70%),linear-gradient(160deg,var(--c1),color-mix(in srgb,var(--c1) 70%,var(--ci)))}
+.nxe-ch--cos .nxe-kick{color:var(--ci)}
+.nxe-ch--cos .nxe-ch-body{border-top:6px solid var(--c1)}
+.nxe-ch--cos .nxe-ch-art .nxe-ch-p2{opacity:0;transform:translateY(10px) scale(.94)}
+.nxe-ch--cos .nxe-ch-art img{transition:opacity .3s ease,transform .45s var(--spring)}
+@media (hover:hover){
+  .nxe-ch--cos:hover .nxe-ch-p1{opacity:0;transform:translateY(10px) scale(.94)}
+  .nxe-ch--cos:hover .nxe-ch-p2{opacity:1;transform:translateY(-4px) rotate(-3deg)}
+}
+/* revised Season 1 sidekicks (painted from the films) and the Season 1 wardrobe (3D renders) */
+.nxe-ch-art img[src*="/cast/"]{height:80%;bottom:10px;max-width:88%;object-fit:contain}
+.nxe-ch--wd .nxe-ch-art img{height:92%;bottom:-4px}
+.nxe-ch--wd .nxe-kick{color:#4A5478}
 
 /* comics: coming soon */
 .nxe-soonbox{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:36px;align-items:center;padding:32px;border-radius:22px;background:#fff;border:3px solid var(--ink-c);box-shadow:8px 8px 0 var(--ink-c)}
