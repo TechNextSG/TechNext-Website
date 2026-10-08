@@ -210,3 +210,4 @@
 @media (max-width:1099px){.ixw--sol-web .msd-cta-sec .cta{padding-right:56px}.ixw--sol-web .msd-sheet2{display:none}}
 @media (max-width:767px){.ixw--sol-web .msd-cta-sec .cta{padding-right:22px}}
 @media (prefers-reduced-motion:reduce){.ixw--sol-web :is(.msd-reg,.msd-sheet2 i){animation:none}.ixw--sol-web .msd-sheet2::before{animation:none;width:110px}.ixw--sol-web .msd-spec-l.is-in .msd-tape{animation:none}}
+@media (max-width:767px){.ixw--sol-web .msd-strip>div::before{display:none}.ixw--sol-web .msd-strip{padding-top:18px}}
