@@ -38,26 +38,46 @@
 .ixw--sol-erp .ixw-cap-rec{background:var(--or-cream);border:1px dashed #D9B98A;color:#6B4A62}
 .ixw--sol-erp .ixw-cap-av{background:linear-gradient(180deg,#FFF3DA,#F3E2C8);box-shadow:inset 0 0 0 2px #FFFFFF,0 0 0 2px var(--or-gold-l)}
 
-/* ---------- buttons: tickets with a perforated stub ---------- */
+/* ---------- buttons: concert tickets (a perforated stub with punched notches), gilt caption keys, a box-office peek tag ---------- */
+.ixw--sol-erp .ixw-copy .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px}
 .ixw--sol-erp main :is(.btn-primary,.btn-ghost){border-radius:8px}
-.ixw--sol-erp main .btn-primary{background:linear-gradient(180deg,#8A5F80 0%,var(--or-plum) 64%);box-shadow:0 4px 0 #3A2434,0 14px 24px -12px rgba(85,53,77,.7),inset 0 1px 0 rgba(255,255,255,.25)}
-.ixw--sol-erp main .btn-primary:hover{background:linear-gradient(180deg,#95698B 0%,#7B5371 64%);box-shadow:0 6px 0 #3A2434,0 20px 30px -14px rgba(85,53,77,.75),inset 0 1px 0 rgba(255,255,255,.3)}
+.ixw--sol-erp main .ixw-copy .actions .btn{height:52px;padding:0 24px;font:800 16px/1 var(--font-body);letter-spacing:-.005em}
+.ixw--sol-erp main .btn-primary{color:#FFF8EA;background:linear-gradient(180deg,#8A5F80 0%,var(--or-plum) 64%);box-shadow:0 4px 0 #3A2434,0 14px 24px -12px rgba(85,53,77,.7),inset 0 1px 0 rgba(255,255,255,.25),inset 0 0 0 1.5px rgba(240,215,154,.35)}
+.ixw--sol-erp main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#95698B 0%,#7B5371 64%);box-shadow:0 6px 0 #3A2434,0 20px 30px -14px rgba(85,53,77,.75),0 0 0 4px rgba(226,178,58,.22),inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 1.5px rgba(240,215,154,.6)}
 .ixw--sol-erp main .btn-primary:active{box-shadow:0 1px 0 #3A2434,0 6px 12px -8px rgba(85,53,77,.6)}
-.ixw--sol-erp main .btn-primary .ic{box-sizing:content-box;width:16px;height:16px;padding:6px 2px 6px 12px;margin:0 -10px 0 2px;border-radius:0;background:none;border-left:2px dashed rgba(255,226,160,.6)}
+.ixw--sol-erp main .ixw-copy .btn-primary{padding-right:22px}
+.ixw--sol-erp main .ixw-copy .btn-primary .ic{box-sizing:content-box;width:16px;height:16px;padding:8px 2px 8px 12px;margin:0 -10px 0 4px;border-radius:0;background:none;border-left:2px dashed rgba(255,226,160,.6);color:var(--or-gold-l)}
+.ixw--sol-erp main .ixw-copy .btn-primary::before{content:"";position:absolute;top:0;bottom:0;right:39px;width:10px;z-index:2;pointer-events:none;
+  background:radial-gradient(circle at 50% 0,var(--or-ivory) 4.5px,transparent 5px),radial-gradient(circle at 50% 100%,var(--or-ivory) 4.5px,transparent 5px)}
 .ixw--sol-erp main .btn-primary:hover .ic{background:none;transform:translateX(3px)}
 .ixw--sol-erp main .btn-ghost{background:var(--or-ivory);color:var(--or-plum-d);border:2px solid var(--or-gold-l);box-shadow:0 4px 0 var(--or-gold-l),0 12px 22px -16px rgba(85,53,77,.35)}
-.ixw--sol-erp main .btn-ghost:hover{border-color:var(--or-gold);color:var(--or-plum);box-shadow:0 6px 0 var(--or-gold),0 18px 26px -16px rgba(85,53,77,.4)}
+.ixw--sol-erp main .btn-ghost:hover{border-color:var(--or-gold);color:var(--or-plum);background:#FFF6E2;box-shadow:0 6px 0 var(--or-gold),0 18px 26px -16px rgba(85,53,77,.4),0 0 0 4px rgba(226,178,58,.16)}
 .ixw--sol-erp main .btn-ghost:active{box-shadow:0 1px 0 var(--or-gold)}
 .ixw--sol-erp main .btn-ghost::before{display:none}
 .ixw--sol-erp main .btn-ghost .ic{color:var(--or-plum)}
 .ixw--sol-erp main .btn:focus-visible{outline:3px solid var(--or-gold);outline-offset:4px}
-.ixw--sol-erp .ixw-ibtn{border:2px solid var(--or-gold-l);box-shadow:0 3px 0 var(--or-gold-l)}
-.ixw--sol-erp .ixw-ibtn:hover{border-color:var(--or-gold);color:var(--or-plum);box-shadow:0 5px 0 var(--or-gold)}
-.ixw--sol-erp .ixw-ibtn--play,.ixw--sol-erp .ixw-ibtn--play:hover{border:0;color:#FFFFFF;background:linear-gradient(180deg,#8A5F80,var(--or-plum) 62%);box-shadow:0 3px 0 #3A2434}
+.ixw--sol-erp .orc-apps a:focus-visible{outline:2.5px solid var(--or-gold);outline-offset:3px}
+.ixw--sol-erp .orc-apps a:active{translate:0 1px;box-shadow:inset 0 0 0 1.5px var(--or-gold),0 1px 0 var(--or-gold)}
+/* the caption keys: ivory keys with a gilt lip, the play key a plum drum */
+.ixw--sol-erp .ixw-ibtn{border:2px solid var(--or-gold-l);background:var(--or-ivory);color:var(--or-plum-d);box-shadow:0 3px 0 var(--or-gold-l)}
+.ixw--sol-erp .ixw-ibtn:hover{border-color:var(--or-gold);color:var(--or-plum);background:#FFF6E2;box-shadow:0 5px 0 var(--or-gold),0 0 0 4px rgba(226,178,58,.16)}
+.ixw--sol-erp .ixw-ibtn:active{box-shadow:0 1px 0 var(--or-gold)}
+.ixw--sol-erp .ixw-ibtn:focus-visible{outline:3px solid var(--or-gold);outline-offset:3px}
+.ixw--sol-erp .ixw-ibtn--play,.ixw--sol-erp .ixw-ibtn--play:hover{border:0;color:#FFFFFF;background:linear-gradient(180deg,#8A5F80,var(--or-plum) 62%);box-shadow:0 3px 0 #3A2434,inset 0 0 0 2px rgba(240,215,154,.45)}
+.ixw--sol-erp .ixw-ibtn--play:hover{box-shadow:0 5px 0 #3A2434,inset 0 0 0 2px rgba(240,215,154,.8),0 0 0 4px rgba(226,178,58,.2)}
 .ixw--sol-erp .ixw-ibtn--play.is-on{animation:orHalo 2.4s ease-out infinite}
 @keyframes orHalo{0%{box-shadow:0 3px 0 #3A2434,0 0 0 0 rgba(226,178,58,.5)}70%,100%{box-shadow:0 3px 0 #3A2434,0 0 0 12px rgba(226,178,58,0)}}
-.ixw--sol-erp .ixw-dots button.is-on{background:var(--or-gold);box-shadow:0 0 0 1.5px var(--or-plum)}
-.ixw--sol-erp .ixw-peek{border-color:var(--or-plum);box-shadow:0 3px 0 var(--or-plum)}.ixw--sol-erp .ixw-peek[aria-pressed="true"]{background:var(--or-gold-l)}
+.ixw--sol-erp .ixw-dots{gap:6px}
+.ixw--sol-erp .ixw-dots button{background:#E9DCC6;transition:width .3s var(--w-spring),background-color .2s ease,transform .2s ease}
+.ixw--sol-erp .ixw-dots button:hover{background:var(--or-gold-l);transform:scale(1.25)}
+.ixw--sol-erp .ixw-dots button.is-on{background:var(--or-gold);box-shadow:0 0 0 1.5px var(--or-plum);transform:none}
+.ixw--sol-erp .ixw-dots button:focus-visible{outline:2px solid var(--or-plum);outline-offset:3px}
+/* the peek: a box-office tag in velvet and gilt */
+.ixw--sol-erp .ixw-peek{height:40px;padding:0 17px 0 13px;border:2px solid var(--or-gold);border-radius:8px;background:var(--or-plum);color:#FFF3DA;font-weight:800;box-shadow:0 3px 0 #3A2434,0 12px 22px -14px rgba(58,36,52,.7),inset 0 0 0 2px rgba(255,243,218,.12)}
+.ixw--sol-erp .ixw-peek:hover{background:#7B5371;box-shadow:0 5px 0 #3A2434,0 16px 26px -14px rgba(58,36,52,.7),0 0 0 4px rgba(226,178,58,.22)}
+.ixw--sol-erp .ixw-peek:active{box-shadow:0 1px 0 #3A2434}
+.ixw--sol-erp .ixw-peek:focus-visible{outline:3px solid var(--or-gold);outline-offset:3px}
+.ixw--sol-erp .ixw-peek[aria-pressed="true"]{background:var(--or-gold-l);color:#3A2434;border-color:var(--or-plum);box-shadow:0 3px 0 var(--or-plum)}
 
 /* ---------- the glance strip: a stave, one bar per fact ---------- */
 .ixw--sol-erp .ow-strip{position:relative;padding-top:22px;border-radius:10px;background:repeating-linear-gradient(180deg,rgba(113,75,103,.26) 0 1px,transparent 1px 4px) 0 7px/100% 17px no-repeat,var(--or-ivory);
@@ -237,3 +257,27 @@
 .ixw--sol-erp .orc-night-sec .cta .btn-white:hover{background:#ECC14F;color:#3A2434;box-shadow:0 6px 0 #8A6514}
 .ixw--sol-erp .orc-night-sec .cta .btn-outline-white{border-color:rgba(255,243,218,.75);color:#FFF3DA}
 @media (max-width:767px){.ixw--sol-erp .orc-night-sec .cta{padding:64px 30px 40px}.ixw--sol-erp .orc-drape{width:18px}}
+
+/* ---------- audit round: the stalls seat map beside the FAQ, playbills with their links on one line ---------- */
+.ixw--sol-erp .orc-stalls-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:44px;align-items:start}
+.ixw--sol-erp .orc-stalls-grid .orc-faq{max-width:none}
+.ixw--sol-erp .orc-seatmap{position:sticky;top:110px;display:flex;flex-direction:column;gap:9px;padding:22px 22px 20px;border-radius:14px 14px 8px 8px;background:var(--or-ivory);
+  box-shadow:0 0 0 1.5px var(--or-line),0 0 0 6px #FFFFFF,0 0 0 7.5px var(--or-line),0 26px 40px -28px rgba(85,53,77,.4)}
+.ixw--sol-erp .orc-seatmap-stage{display:grid;place-items:center;height:34px;margin:0 6px 8px;border-radius:50% 50% 8px 8px / 100% 100% 8px 8px;background:linear-gradient(180deg,#8A5F80,var(--or-plum));color:var(--or-gold-l);font:800 10.5px/1 var(--font-body);letter-spacing:.22em;text-transform:uppercase;box-shadow:0 3px 0 #3A2434}
+.ixw--sol-erp .orc-seatmap-row{display:flex;align-items:center;gap:5px;height:24px;padding-left:24px;position:relative;
+  background:radial-gradient(circle at 10px 12px,#E3D3E0 7px,transparent 7.5px) 24px 0/23px 24px repeat-x}
+.ixw--sol-erp .orc-seatmap-row b{position:absolute;left:0;top:50%;translate:0 -50%;width:18px;font:800 11px/1 var(--font-body);color:#A08A9A;text-align:center}
+.ixw--sol-erp .orc-seatmap-row:nth-child(n+4){opacity:.85}.ixw--sol-erp .orc-seatmap-row:nth-child(n+6){opacity:.65}
+.ixw--sol-erp .orc-seatmap-row--a{background-position:162px 0}
+.ixw--sol-erp .orc-seatmap-row--a i{display:grid;place-items:center;width:18px;height:20px;border-radius:6px 6px 4px 4px;background:var(--or-plum);color:var(--or-gold-l);font:800 7.5px/1 var(--font-body);font-style:normal;box-shadow:0 2px 0 #3A2434;
+  animation:orSeat 6s ease-in-out infinite;animation-delay:calc(var(--n,0) * .5s)}
+.ixw--sol-erp .orc-seatmap-row--a i:nth-of-type(2){--n:1}.ixw--sol-erp .orc-seatmap-row--a i:nth-of-type(3){--n:2}.ixw--sol-erp .orc-seatmap-row--a i:nth-of-type(4){--n:3}.ixw--sol-erp .orc-seatmap-row--a i:nth-of-type(5){--n:4}.ixw--sol-erp .orc-seatmap-row--a i:nth-of-type(6){--n:5}
+@keyframes orSeat{0%,80%,100%{background:var(--or-plum);translate:0 0}88%{background:var(--or-gold);translate:0 -3px}}
+.ixw--sol-erp .orc-seatmap-key{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:12px;border-top:1.5px dashed var(--or-line);font:700 12px/1.35 var(--font-body);color:#6B4A62}
+.ixw--sol-erp .orc-seatmap-key i{flex:none;width:14px;height:14px;border-radius:4px;background:var(--or-plum);box-shadow:0 2px 0 #3A2434}
+@media (prefers-reduced-motion:reduce){.ixw--sol-erp .orc-seatmap-row--a i{animation:none}}
+@media (max-width:1023px){.ixw--sol-erp .orc-stalls-grid{grid-template-columns:1fr}.ixw--sol-erp .orc-seatmap{display:none}}
+.ixw--sol-erp .orc-bill{display:flex;flex-direction:column}
+.ixw--sol-erp .orc-bill .btn-link{margin-top:auto;padding-top:16px}
+.ixw--sol-erp .orc-bill:focus-visible{outline:3px solid var(--or-gold);outline-offset:6px}
+@media (max-width:640px){.ixw--sol-erp .orc-r{--band:calc(58px + var(--i) * 6px)}}

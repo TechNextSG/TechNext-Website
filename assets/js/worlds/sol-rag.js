@@ -77,7 +77,7 @@
     /* light falling from the high windows */
     [476, 836].forEach(function (lx) { var lg = g.createLinearGradient(0, -90, 0, F); lg.addColorStop(0, 'rgba(255,248,220,.32)'); lg.addColorStop(1, 'rgba(255,248,220,0)'); g.fillStyle = lg; g.beginPath(); g.moveTo(lx - 50, -90); g.lineTo(lx + 50, -90); g.lineTo(lx + 150, F); g.lineTo(lx - 10, F); g.closePath(); g.fill(); });
     /* ---- the lower level: bookcases wall to wall, each bay one source ---- */
-    for (var lx2 = Math.floor(e.l / BW) * BW + 56; lx2 < e.r; lx2 += BW) { if (lx2 > -960 && lx2 < -760) continue; if (lx2 > 1200 && lx2 < 1360) continue; bookcase(g, lx2, BW, -10, F, lx2 * 0.91 + 5, 7); }
+    for (var lx2 = Math.floor(e.l / BW) * BW + 56; lx2 < e.r; lx2 += BW) { if (lx2 > -960 && lx2 < -760) continue; if (lx2 > 1200 && lx2 < 1360) continue; if (lx2 === -424 || lx2 === -304 || lx2 === -184) continue; bookcase(g, lx2, BW, -10, F, lx2 * 0.91 + 5, 7); }
     BAYS.forEach(function (b) { fillRR(g, b[0] + 14, -8, BW - 28, 16, 3, GOLD_D); fillRR(g, b[0] + 16, -6, BW - 32, 12, 2, GOLD_L); text(g, b[1], b[0] + BW / 2, 3, 7.4, 800, WOOD_D, 'center'); });
     /* the empty slot: a question the documents don't answer yet */
     var gp = GAP; fillRR(g, gp.x - 3, gp.y + 2, gp.w + 6, 50, 1, '#3A2616'); g.strokeStyle = 'rgba(240,217,140,.9)'; g.setLineDash([3, 3]); g.lineWidth = 1.4; rr(g, gp.x, gp.y + 6, gp.w, 44, 2); g.stroke(); g.setLineDash([]);
@@ -105,13 +105,7 @@
     /* ---- the left margin: the window nook, the armchair, a globe, a sign ---- */
     var nw = WINS[4]; fillRR(g, nw.x - 16, nw.y + nw.h, nw.w + 32, 34, 6, WOOD); fillRR(g, nw.x - 8, nw.y + nw.h - 8, nw.w + 16, 14, 7, '#7FA88E'); fillRR(g, nw.x + 6, nw.y + nw.h - 26, 30, 22, 8, '#E9C46A'); fillRR(g, nw.x + 80, nw.y + nw.h - 24, 28, 20, 8, '#D9785A');
     g.fillStyle = WOOD; g.fillRect(nw.x - 16, nw.y - 20, 12, nw.h + 20); g.fillRect(nw.x + nw.w + 4, nw.y - 20, 12, nw.h + 20);
-    /* the globe on its stand */
-    g.strokeStyle = WOOD_D; g.lineWidth = 4; g.beginPath(); g.moveTo(-540, F); g.lineTo(-520, 400); g.moveTo(-500, F); g.lineTo(-520, 400); g.moveTo(-520, 400); g.lineTo(-520, 380); g.stroke();
-    g.strokeStyle = GOLD_D; g.lineWidth = 3; g.beginPath(); g.arc(-520, 340, 44, -2.4, 0.9); g.stroke();
-    /* the quiet sign */
-    fillRR(g, -470, 96, 110, 34, 6, GRN); g.strokeStyle = GOLD_L; g.lineWidth = 1.2; rr(g, -466, 100, 102, 26, 4); g.stroke(); text(g, 'QUIET PLEASE', -415, 112, 8.6, 800, GOLD_L, 'center'); text(g, 'reading room', -415, 122, 6, 700, '#CFE6DA', 'center');
-    /* behind the title card: a reading table with lamps */
-    fillRR(g, -380, 386, 300, 10, 3, WOOD); fillRR(g, -370, 396, 10, 74, 3, WOOD_D); fillRR(g, -100, 396, 10, 74, 3, WOOD_D); [-330, -170].forEach(function (lx) { lamp(g, lx, 386, false); });
+    cardWall(g);
     /* ---- the right margin: the spiral stair, the returns slot, new arrivals ---- */
     var sx = 1096; fillRR(g, sx - 5, GAL, 10, F - GAL, 4, GOLD_D);
     for (var st = 0; st < 14; st++) { var sy = F - 10 - st * 36, a = st * 0.9, w = Math.cos(a) * 62, front = Math.sin(a) > 0; g.fillStyle = front ? WOOD_L : WOOD; g.beginPath(); g.moveTo(sx, sy); g.lineTo(sx + w, sy - 6); g.lineTo(sx + w, sy + 2); g.lineTo(sx, sy + 8); g.closePath(); g.fill();
@@ -126,13 +120,77 @@
     var fg = g.createLinearGradient(0, F, 0, e.b); fg.addColorStop(0, '#D9B98C'); fg.addColorStop(1, '#C9A473'); g.fillStyle = fg; g.fillRect(e.l - 10, F, e.r - e.l + 20, e.b - F + 10);
     g.strokeStyle = 'rgba(110,70,30,.18)'; g.lineWidth = 1.2; g.beginPath(); for (var py = F + 10, row = 0; py < e.b + 20; py += 18, row++) for (var px = Math.floor(e.l / 36) * 36 + (row % 2 ? 18 : 0); px < e.r + 36; px += 36) { g.moveTo(px, py); g.lineTo(px + 18, py - 9); g.moveTo(px, py); g.lineTo(px - 18, py - 9); } g.stroke();
     g.fillStyle = 'rgba(60,30,10,.12)'; g.fillRect(e.l - 10, F, e.r - e.l + 20, 6);
-    /* the long rug down the middle of the room */
-    g.save(); g.beginPath(); g.moveTo(140, 520); g.lineTo(1030, 520); g.lineTo(1080, e.b + 20); g.lineTo(90, e.b + 20); g.closePath(); g.fillStyle = OXB; g.fill(); g.clip();
-    g.strokeStyle = GOLD; g.lineWidth = 4; g.beginPath(); g.moveTo(160, 534); g.lineTo(1010, 534); g.stroke(); g.lineWidth = 2; g.beginPath(); g.moveTo(170, 546); g.lineTo(1000, 546); g.stroke();
-    g.fillStyle = 'rgba(240,217,140,.35)'; for (var rx2 = 180; rx2 < 1000; rx2 += 44) for (var ry = 572; ry < e.b; ry += 40) { g.beginPath(); g.moveTo(rx2, ry - 10); g.lineTo(rx2 + 10, ry); g.lineTo(rx2, ry + 10); g.lineTo(rx2 - 10, ry); g.closePath(); g.fill(); }
-    g.restore(); g.fillStyle = 'rgba(240,217,140,.7)'; for (var fx = 146; fx < 1030; fx += 8) g.fillRect(fx, 514, 3, 7);
+    rug(g, e);
+    /* a round green rug under the long reading table */
+    fillE(g, -282, 636, 178, 50, GOLD_D); fillE(g, -282, 636, 173, 47, '#2C6450'); g.strokeStyle = GOLD_L; g.lineWidth = 1.4; g.beginPath(); g.ellipse(-282, 636, 160, 41, 0, 0, 7); g.stroke(); g.strokeStyle = 'rgba(240,217,140,.3)'; g.lineWidth = 1; g.beginPath(); g.ellipse(-282, 636, 110, 27, 0, 0, 7); g.stroke();
   }
   function lamp(g, x, y, on) { fillRR(g, x - 10, y - 4, 20, 4, 2, GOLD_D); fillRR(g, x - 1.5, y - 26, 3, 22, 1, GOLD_D); g.fillStyle = '#1E7A55'; g.beginPath(); g.moveTo(x - 16, y - 24); g.quadraticCurveTo(x, y - 40, x + 16, y - 24); g.closePath(); g.fill(); g.fillStyle = 'rgba(255,255,255,.3)'; g.fillRect(x - 10, y - 30, 12, 2); fillRR(g, x - 16, y - 25, 32, 3, 1.5, GOLD); }
+  /* ---- behind the title card: the regional map, a low reference shelf, the reading alcove, the globe, a step stool ---- */
+  var GLX = -583, AX = -184, MAP = { x: -412, y: 8, w: 216, h: 188 }, LOW = { x: -420, w: 232, top: 300 };
+  function land(g, m, pts) { g.beginPath(); pts.forEach(function (q, i) { g[i ? 'lineTo' : 'moveTo'](m.x + q[0], m.y + q[1]); }); g.closePath(); g.fillStyle = '#EADFB8'; g.fill(); g.strokeStyle = '#B49A5A'; g.lineWidth = 1.2; g.stroke(); }
+  function cardWall(g) {
+    fillRR(g, -424, 216, 240, 6, 2, WOOD_L);
+    /* the map in a gilt frame under a brass picture light */
+    var m = MAP; shadowed(g, 12, 5, 0.22, function () { fillRR(g, m.x - 12, m.y - 12, m.w + 24, m.h + 24, 5, GOLD_D); });
+    fillRR(g, m.x - 9, m.y - 9, m.w + 18, m.h + 18, 4, GOLD); g.strokeStyle = GOLD_L; g.lineWidth = 1.2; rr(g, m.x - 6, m.y - 6, m.w + 12, m.h + 12, 3); g.stroke(); fillRR(g, m.x - 2, m.y - 2, m.w + 4, m.h + 4, 2, GOLD_D);
+    fillRR(g, m.x, m.y, m.w, m.h, 2, '#D9EBEA'); g.save(); rr(g, m.x, m.y, m.w, m.h, 2); g.clip();
+    g.strokeStyle = 'rgba(58,110,165,.18)'; g.lineWidth = 1; g.beginPath(); for (var wy = m.y + 10, row = 0; wy < m.y + m.h; wy += 12, row++) for (var wx = m.x + (row % 2 ? 0 : 11); wx < m.x + m.w; wx += 22) { g.moveTo(wx, wy); g.quadraticCurveTo(wx + 4, wy - 3, wx + 8, wy); } g.stroke();
+    g.strokeStyle = 'rgba(154,122,44,.28)'; g.beginPath(); for (var gx = m.x + 36; gx < m.x + m.w; gx += 48) { g.moveTo(gx, m.y); g.lineTo(gx, m.y + m.h); } for (var gy = m.y + 40; gy < m.y + m.h; gy += 48) { g.moveTo(m.x, gy); g.lineTo(m.x + m.w, gy); } g.stroke();
+    land(g, m, [[-4, -4], [150, -4], [140, 18], [128, 30], [124, 52], [112, 70], [96, 66], [86, 50], [84, 34], [70, 40], [64, 60], [70, 84], [84, 108], [98, 118], [92, 126], [76, 114], [62, 92], [52, 66], [40, 48], [24, 40], [-4, 44]]);
+    land(g, m, [[30, 124], [56, 114], [80, 136], [100, 160], [94, 168], [70, 154], [44, 140]]);
+    land(g, m, [[118, 118], [150, 100], [178, 106], [186, 128], [172, 150], [140, 154], [122, 140]]);
+    land(g, m, [[176, 22], [188, 18], [194, 40], [186, 60], [196, 76], [188, 86], [176, 68], [172, 42]]); land(g, m, [[104, 174], [150, 176], [178, 182], [150, 186], [110, 184]]);
+    [[40, 18, 30, 12], [150, 128, 18, 12], [110, 8, 26, 7]].forEach(function (f) { fillE(g, m.x + f[0], m.y + f[1], f[2], f[3], 'rgba(63,166,107,.22)'); });
+    var pins = [[96, 117], [182, 44], [104, 62]]; g.strokeStyle = OXB; g.lineWidth = 1.4; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(m.x + 96, m.y + 117); g.quadraticCurveTo(m.x + 156, m.y + 92, m.x + 182, m.y + 44); g.moveTo(m.x + 96, m.y + 117); g.quadraticCurveTo(m.x + 118, m.y + 92, m.x + 104, m.y + 62); g.stroke(); g.setLineDash([]);
+    pins.forEach(function (q, i) { var px = m.x + q[0], py = m.y + q[1], c = i ? OXB : BLUE; fillE(g, px, py - 7, 5, 5, c); g.fillStyle = c; g.beginPath(); g.moveTo(px - 4, py - 5); g.lineTo(px, py + 1); g.lineTo(px + 4, py - 5); g.fill(); fillE(g, px, py - 7, 1.8, 1.8, '#FFFFFF'); });
+    var cx = m.x + m.w - 30, cy = m.y + m.h - 36; g.fillStyle = GOLD_D; for (var r = 0; r < 4; r++) { var a0 = r * Math.PI / 2; g.beginPath(); g.moveTo(cx + Math.cos(a0) * 18, cy + Math.sin(a0) * 18); g.lineTo(cx + Math.cos(a0 + 0.7) * 5, cy + Math.sin(a0 + 0.7) * 5); g.lineTo(cx + Math.cos(a0 - 0.7) * 5, cy + Math.sin(a0 - 0.7) * 5); g.closePath(); g.fill(); }
+    fillE(g, cx, cy, 3, 3, OXB); text(g, 'N', cx, cy - 21, 6.5, 800, WOOD_D, 'center'); g.restore();
+    fillRR(g, m.x + 12, m.y + m.h - 30, 104, 22, 4, PARCH); g.strokeStyle = GOLD_D; g.lineWidth = 1; rr(g, m.x + 14, m.y + m.h - 28, 100, 18, 3); g.stroke(); text(g, 'OUR OFFICES · SG · PH · VN', m.x + 64, m.y + m.h - 16.4, 5.8, 800, WOOD_D, 'center');
+    fillRR(g, m.x + m.w / 2 - 3, m.y - 28, 6, 16, 2, GOLD_D); fillRR(g, m.x + m.w / 2 - 46, m.y - 32, 92, 8, 4, GOLD); fillRR(g, m.x + m.w / 2 - 46, m.y - 26, 92, 2, 1, GOLD_D);
+    var pl = g.createLinearGradient(0, m.y - 24, 0, m.y + 70); pl.addColorStop(0, 'rgba(255,240,190,.45)'); pl.addColorStop(1, 'rgba(255,240,190,0)'); g.fillStyle = pl; g.beginPath(); g.moveTo(m.x + m.w / 2 - 42, m.y - 24); g.lineTo(m.x + m.w / 2 + 42, m.y - 24); g.lineTo(m.x + m.w / 2 + 104, m.y + 70); g.lineTo(m.x + m.w / 2 - 104, m.y + 70); g.closePath(); g.fill();
+    /* the low reference shelf: two rows of books, a bust, a fern, a vase and a clock on top */
+    var L = LOW; shadowed(g, 10, 4, 0.2, function () { fillRR(g, L.x, L.top, L.w, F - L.top, 3, WOOD); }); fillRR(g, L.x - 6, L.top - 6, L.w + 12, 10, 3, WOOD_D); fillRR(g, L.x + 6, L.top + 34, L.w - 12, F - L.top - 44, 2, '#E9DAB8');
+    [L.top + 100, L.top + 166].forEach(function (sy, i) { books(g, L.x + 8, L.x + L.w - 8, sy - 4, 400 + i * 37, 54); fillRR(g, L.x + 4, sy - 4, L.w - 8, 6, 1, WOOD_L); });
+    fillRR(g, L.x + 4, F - 8, L.w - 8, 8, 2, WOOD_D); fillRR(g, L.x + L.w / 2 - 38, L.top + 10, 76, 16, 3, GOLD); fillRR(g, L.x + L.w / 2 - 36, L.top + 12, 72, 12, 2, GOLD_L); text(g, 'REFERENCE', L.x + L.w / 2, L.top + 21, 7, 800, WOOD_D, 'center');
+    shelfObj(g, L.x + 30, L.top - 1, 1); shelfObj(g, L.x + 88, L.top - 1, 2); shelfObj(g, L.x + 150, L.top - 1, 0); shelfObj(g, L.x + 204, L.top - 1, 3);
+    /* the reading alcove: an arched niche, a round window, a cushioned bench, two sconces, the quiet sign on the keystone */
+    var a = AX, aw = 120, ar = 50, acx = a + aw / 2, acy = 104;
+    fillRR(g, a, -10, aw, F + 10, 2, WOOD); fillRR(g, a + 3, -10, 3, F + 10, 1, WOOD_L); fillRR(g, a + aw - 6, -10, 3, F + 10, 1, WOOD_D);
+    g.fillStyle = '#2C6450'; g.beginPath(); g.moveTo(a + 10, F); g.lineTo(a + 10, acy); g.arc(acx, acy, ar, Math.PI, 0); g.lineTo(a + aw - 10, F); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(240,217,140,.16)'; for (var dy = acy - 20, rw = 0; dy < F - 40; dy += 22, rw++) for (var dx = a + 22 + (rw % 2 ? 11 : 0); dx < a + aw - 14; dx += 22) { g.beginPath(); g.moveTo(dx, dy - 5); g.lineTo(dx + 4, dy); g.lineTo(dx, dy + 5); g.lineTo(dx - 4, dy); g.closePath(); g.fill(); }
+    g.strokeStyle = GOLD; g.lineWidth = 2.4; g.beginPath(); g.moveTo(a + 10, F); g.lineTo(a + 10, acy); g.arc(acx, acy, ar, Math.PI, 0); g.lineTo(a + aw - 10, F); g.stroke();
+    fillE(g, acx, 150, 29, 29, WOOD_D); var og = g.createLinearGradient(0, 124, 0, 176); og.addColorStop(0, '#86C6EE'); og.addColorStop(1, '#D8EFFA'); g.fillStyle = og; g.beginPath(); g.arc(acx, 150, 25, 0, 7); g.fill();
+    g.save(); g.beginPath(); g.arc(acx, 150, 25, 0, 7); g.clip(); fillE(g, acx - 10, 172, 18, 12, '#57B874'); fillE(g, acx + 12, 174, 16, 11, '#45A463'); fillE(g, acx + 6, 136, 9, 4, 'rgba(255,255,255,.9)'); g.restore();
+    g.strokeStyle = WOOD_D; g.lineWidth = 2.6; g.beginPath(); g.moveTo(acx - 25, 150); g.lineTo(acx + 25, 150); g.moveTo(acx, 125); g.lineTo(acx, 175); g.stroke();
+    fillRR(g, a + 18, 392, 28, 32, 10, '#E9C46A'); fillRR(g, a + aw - 46, 394, 28, 30, 10, '#F4EBD6');
+    fillRR(g, a + 16, 434, aw - 32, 36, 4, WOOD_D); fillRR(g, a + 22, 442, aw - 44, 2, 1, WOOD_L); fillRR(g, a + 12, 420, aw - 24, 16, 8, '#C8714E'); fillRR(g, a + 18, 422, aw - 36, 3, 2, 'rgba(255,255,255,.2)');
+    [a + 5, a + aw - 5].forEach(function (sx) { fillRR(g, sx - 2, 238, 4, 14, 2, GOLD_D); fillRR(g, sx - 7, 250, 14, 4, 2, GOLD); fillRR(g, sx - 5, 222, 10, 16, 3, '#FFF6D8'); });
+    shadowed(g, 6, 2, 0.2, function () { fillRR(g, acx - 52, 12, 104, 34, 6, GRN); }); g.strokeStyle = GOLD_L; g.lineWidth = 1.2; rr(g, acx - 48, 16, 96, 26, 4); g.stroke(); text(g, 'QUIET PLEASE', acx, 28, 8.6, 800, GOLD_L, 'center'); text(g, 'reading alcove', acx, 38, 6, 700, '#CFE6DA', 'center');
+    /* the globe's stand */
+    g.strokeStyle = WOOD_D; g.lineWidth = 4; g.beginPath(); g.moveTo(GLX - 20, F); g.lineTo(GLX, 400); g.moveTo(GLX + 20, F); g.lineTo(GLX, 400); g.moveTo(GLX, 400); g.lineTo(GLX, 380); g.stroke(); fillE(g, GLX, F - 1, 26, 4, 'rgba(0,0,0,.12)');
+    g.strokeStyle = GOLD_D; g.lineWidth = 3; g.beginPath(); g.arc(GLX, 340, 44, -2.4, 0.9); g.stroke();
+    /* the library step stool at the shelves, two books waiting on it */
+    var sx2 = 8; fillRR(g, sx2 - 26, F - 50, 52, 8, 3, WOOD_L); fillRR(g, sx2 - 30, F - 26, 60, 8, 3, WOOD_L); fillRR(g, sx2 - 26, F - 50, 6, 50, 2, WOOD_D); fillRR(g, sx2 + 20, F - 50, 6, 50, 2, WOOD_D); fillRR(g, sx2 - 18, F - 60, 32, 10, 2, '#2F4A7A'); fillRR(g, sx2 - 14, F - 68, 26, 8, 2, OXB); g.fillStyle = GOLD_L; g.fillRect(sx2 - 15, F - 56, 26, 1.4);
+  }
+  /* the rug: a woven border, a lattice field and a medallion with the reading room's open-book crest */
+  function rug(g, e) {
+    var B = e.b + 20; function path(k) { g.beginPath(); g.moveTo(140 + k, 520 + k * 0.7); g.lineTo(1030 - k, 520 + k * 0.7); g.lineTo(1080 - k * 1.1, B); g.lineTo(90 + k * 1.1, B); g.closePath(); }
+    path(0); g.fillStyle = OXB; g.fill(); g.save(); path(0); g.clip();
+    path(9); g.strokeStyle = GOLD; g.lineWidth = 3; g.stroke(); path(15); g.fillStyle = '#6A1D29'; g.fill();
+    g.fillStyle = 'rgba(240,217,140,.75)'; for (var bx = 168; bx < 1004; bx += 20) { g.beginPath(); g.moveTo(bx, 532); g.lineTo(bx + 5, 536.5); g.lineTo(bx, 541); g.lineTo(bx - 5, 536.5); g.closePath(); g.fill(); }
+    path(30); g.fillStyle = OXB; g.fill(); g.strokeStyle = GOLD_L; g.lineWidth = 1.4; g.stroke(); g.save(); path(30); g.clip();
+    g.strokeStyle = 'rgba(240,217,140,.16)'; g.lineWidth = 1.2; g.beginPath(); for (var d = 0; d < 1100; d += 40) { g.moveTo(100 + d, 540); g.lineTo(100 + d - 260, B); g.moveTo(100 + d - 160, 540); g.lineTo(100 + d + 100, B); } g.stroke();
+    g.fillStyle = 'rgba(240,217,140,.3)'; for (var fx = 180; fx < 1000; fx += 40) for (var fy = 566; fy < B; fy += 36) fillE(g, fx + (Math.round((fy - 566) / 36) % 2 ? 20 : 0), fy, 2.2, 2.2, 'rgba(240,217,140,.3)');
+    [[176, 554, 1], [994, 554, -1]].forEach(function (c) { g.fillStyle = 'rgba(240,217,140,.55)'; g.beginPath(); g.moveTo(c[0], c[1]); g.arc(c[0], c[1], 34, c[2] > 0 ? 0 : Math.PI / 2, c[2] > 0 ? Math.PI / 2 : Math.PI); g.closePath(); g.fill(); fillE(g, c[0], c[1], 10, 10, '#6A1D29'); });
+    var mx = 585, my = 664; [-1, 1].forEach(function (s) { g.fillStyle = GOLD; g.beginPath(); g.moveTo(mx + s * 150, my - 10); g.lineTo(mx + s * 176, my); g.lineTo(mx + s * 150, my + 10); g.closePath(); g.fill(); });
+    fillE(g, mx, my, 158, 50, GOLD); fillE(g, mx, my, 153, 46, '#6A1D29'); g.strokeStyle = 'rgba(240,217,140,.6)'; g.lineWidth = 1.2; g.beginPath(); g.ellipse(mx, my, 140, 40, 0, 0, 7); g.stroke();
+    fillE(g, mx, my, 104, 30, GOLD_D); fillE(g, mx, my, 100, 27, GRN);
+    g.fillStyle = 'rgba(240,217,140,.35)'; for (var ry = 0; ry < 16; ry++) { var ra = ry / 16 * Math.PI * 2; g.beginPath(); g.moveTo(mx + Math.cos(ra) * 60, my + Math.sin(ra) * 17); g.lineTo(mx + Math.cos(ra + 0.08) * 94, my + Math.sin(ra + 0.08) * 25); g.lineTo(mx + Math.cos(ra - 0.08) * 94, my + Math.sin(ra - 0.08) * 25); g.closePath(); g.fill(); }
+    g.fillStyle = GOLD_L; g.beginPath(); g.moveTo(mx, my - 4); g.quadraticCurveTo(mx - 20, my - 12, mx - 40, my - 6); g.lineTo(mx - 40, my + 10); g.quadraticCurveTo(mx - 20, my + 4, mx, my + 12); g.quadraticCurveTo(mx + 20, my + 4, mx + 40, my + 10); g.lineTo(mx + 40, my - 6); g.quadraticCurveTo(mx + 20, my - 12, mx, my - 4); g.closePath(); g.fill();
+    g.strokeStyle = GRN; g.lineWidth = 1.2; g.beginPath(); g.moveTo(mx, my - 4); g.lineTo(mx, my + 12); for (var ln = 0; ln < 3; ln++) { g.moveTo(mx - 34, my - 1 + ln * 4); g.quadraticCurveTo(mx - 18, my - 6 + ln * 4, mx - 5, my - 1 + ln * 4); g.moveTo(mx + 5, my - 1 + ln * 4); g.quadraticCurveTo(mx + 18, my - 6 + ln * 4, mx + 34, my - 1 + ln * 4); } g.stroke();
+    fillRR(g, mx - 3, my + 10, 6, 14, 1, OXB);
+    g.restore(); g.restore(); g.fillStyle = 'rgba(240,217,140,.7)'; for (var fr = 146; fr < 1030; fr += 8) g.fillRect(fr, 514, 3, 7);
+  }
   function paintFront(g, e) {
     /* the gallery's front: the beam with its inscription, balusters and the handrail (over the gallery visitors' legs) */
     fillRR(g, e.l - 10, GAL, e.r - e.l + 20, 14, 2, WOOD); g.fillStyle = GOLD; g.fillRect(e.l - 10, GAL, e.r - e.l + 20, 2); g.fillRect(e.l - 10, GAL + 12, e.r - e.l + 20, 2);
@@ -149,15 +207,6 @@
     /* the open book on the lectern (pages are live), the catalogue's top lamp */
     lamp(g, CAT.x + CAT.w - 18, CAT.y - 6, false);
   }
-  function paintFore(g, e) { /* static foreground: stacks of books on the floor, ferns, a reading bench, the cat's cushion */
-    function stack(x, y, n, seed) { soft(g, x, y + 3, 40, 6, 0.24); for (var i = 0; i < n; i++) { var w = 56 - (i % 3) * 6, c = SPINES[Math.floor(hash(seed + i) * SPINES.length)]; fillRR(g, x - w / 2 + (i % 2 ? 3 : -2), y - 10 - i * 10, w, 10, 2, c); g.fillStyle = PARCH; g.fillRect(x - w / 2 + (i % 2 ? 3 : -2) + w - 4, y - 8 - i * 10, 3, 6); } }
-    stack(-880, 740, 5, 3); stack(-820, 752, 3, 9); stack(1010, 748, 4, 5); stack(1300, 700, 6, 11);
-    function fern(x, y) { soft(g, x, y + 4, 44, 8, 0.24); g.strokeStyle = '#2E8A55'; g.lineWidth = 3; g.lineCap = 'round'; for (var f = 0; f < 9; f++) { var a = -Math.PI / 2 + (f - 4) * 0.3; g.beginPath(); g.moveTo(x, y - 40); g.quadraticCurveTo(x + Math.cos(a) * 40, y - 40 + Math.sin(a) * 60, x + Math.cos(a) * 70, y - 40 + Math.sin(a) * 40 + 30); g.stroke(); }
-      fillRR(g, x - 26, y - 44, 52, 44, 10, '#B4583A'); fillRR(g, x - 30, y - 48, 60, 10, 5, '#C8714E'); }
-    fern(-960, 770); fern(1340, 762);
-    soft(g, -540, 742, 46, 8, 0.24); fillE(g, -540, 732, 44, 14, OXB); fillE(g, -540, 726, 40, 11, '#A63A4A'); g.fillStyle = GOLD; [-1, 1].forEach(function (d) { fillE(g, -540 + d * 42, 732, 4, 4, GOLD); });
-  }
-
   /* ------------------------------ the cast ------------------------------ */
   var W = CR.who;
   var ENG = W({ x: 290, y: 470, s: 0.48, ph: 0.5, skin: 1, hair: 0, style: 'short', outfit: 'shirt', top: GRN, glasses: true, hands: [[-60, -196], [60, -196]], look: -0.4 });
@@ -165,18 +214,10 @@
   var RDR = W({ x: 628, y: 470, s: 0.48, ph: 2.4, skin: 0, hair: 1, style: 'bob', outfit: 'cardigan', top: '#D9785A', top2: '#FFFFFF', sit: true, chairCol: WOOD_D, id: '#9AA6BC', hands: [[-50, -236], [50, -236]], look: 0 });
   var FIN = W({ x: 954, y: 470, s: 0.48, ph: 3.1, skin: 2, hair: 0, style: 'bun', outfit: 'cardigan', top: OXB, top2: PARCH, glasses: true, id: '#9AA6BC', hold: 'clipboard', hands: [[-40, -230], [60, -196]], look: -0.4 });
   var CREW = [
-    { x0: 200, x1: 980, y: GAL, spd: 12, ph: 0.2, label: 'TechNext librarian', lines: ['Up here: more **policies and manuals**, all indexed.', 'Every answer **cites its page**, so you can check it.'], acts: ['wave', 'id', 'nod'],
+    { x0: 200, x1: 940, y: GAL, spd: 12, ph: 0.2, label: 'TechNext librarian', lines: ['Up here: more **policies and manuals**, all indexed.', 'Every answer **cites its page**, so you can check it.'], acts: ['wave', 'id', 'nod'],
       P: (function () { var P = W({ s: 0.3, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: GRN, hold: 'tablet' }); P.fixS = true; return P; })() },
-    { x0: 180, x1: 1000, y: GAL, spd: 9, ph: 0.75, label: 'Visitor on the gallery', lines: ['Found it, **with the section number**.', 'It said "I don\'t know" instead of **guessing**. Good.'], acts: ['cheer', 'love', 'wave'],
-      P: (function () { var P = W({ s: 0.3, skin: 4, hair: 3, style: 'long', outfit: 'cardigan', top: '#6B4A8A', top2: PARCH, id: '#9AA6BC', hold: 'clipboard' }); P.fixS = true; return P; })() },
-    { x0: -900, x1: -470, y: 488, spd: 14, ph: 0.4, label: 'TechNext knowledge engineer', lines: ['New PDFs for the index, **with their access rules**.', 'SharePoint, Drive, Odoo Documents: **connected where they live**.'], acts: ['id', 'nod', 'cheer'],
-      P: W({ s: 0.5, skin: 1, hair: 0, style: 'pony', outfit: 'polo', top: GRN, hold: 'box' }) },
-    { x0: 1000, x1: 1330, y: 488, spd: 13, ph: 0.6, label: 'Visitor', lines: ['Ask in **Odoo, Teams, Slack** or the intranet.', 'Same knowledge behind **every front door**.'], acts: ['wave', 'jump', 'love'],
-      P: W({ s: 0.5, skin: 2, hair: 2, style: 'bun', outfit: 'shirt', top: '#3A5F9A', id: '#9AA6BC', hold: 'tablet' }) },
-    { front: true, x0: -920, x1: -560, y: 660, spd: 18, ph: 0.1, label: 'Visitor with a stack of books', lines: ['I asked in plain language and got **the page**.', 'Nothing invented, **nothing outside the documents**.'], acts: ['ragBooks'],
-      P: W({ s: 0.57, skin: 3, hair: 1, style: 'short', outfit: 'shirt', top: '#B4583A', id: '#9AA6BC', hold: 'passport' }) },
-    { front: true, x0: 1040, x1: 1300, y: 650, spd: 16, ph: 0.85, label: 'TechNext consultant', lines: ['Unanswered questions show which **documents are missing**.', 'Thumbs up or down: the **gap review** starts there.'], acts: ['wave', 'spin', 'id'],
-      P: W({ s: 0.57, skin: 0, hair: 0, style: 'bob', outfit: 'cardigan', top: GRN, top2: '#FFFFFF', hold: 'clipboard' }) }
+    { x0: 180, x1: 960, y: GAL, spd: 9, ph: 0.75, label: 'Visitor on the gallery', lines: ['Found it, **with the section number**.', 'It said "I don\'t know" instead of **guessing**. Good.'], acts: ['cheer', 'love', 'wave'],
+      P: (function () { var P = W({ s: 0.3, skin: 4, hair: 3, style: 'long', outfit: 'cardigan', top: '#6B4A8A', top2: PARCH, id: '#9AA6BC', hold: 'clipboard' }); P.fixS = true; return P; })() }
   ];
   /* the book-stack visitor's own move: books overhead, a careful wobble, a bow */
   CR.ACT.ragBooks = { dur: 1.9, fx: 'star', pose: function (P, u, t) { P.mood = u < 0.3 ? 'wow' : 'happy'; var k = Math.min(1, u / 0.25); P.hands = [[lerp(-70, -40, k), lerp(-150, -430, k)], [lerp(70, 40, k), lerp(-150, -430, k)]];
@@ -233,6 +274,97 @@
     if (busy) { P.hands = [[-40, -230], [-110, -300]]; P.look = -1; }
   }
 
+  /* ------------------------------ the card zone's life: the long table, the alcove, the returns trolley ------------------------------ */
+  var TBL = { x: -430, y: 500, w: 300, F: 590 }, TRL = { x: -10, y: 606 }, SIDE = { x: 956, y: 690 }, TAP = { ta: -9, tb: -9, al: -9, st: -9 };
+  var TA = W({ x: -352, y: 590, s: 0.52, ph: 0.7, skin: 2, hair: 1, style: 'short', outfit: 'shirt', top: '#3A5F9A', glasses: true, sit: true, chairCol: WOOD_D, id: '#9AA6BC', hands: [[-34, -246], [34, -246]] });
+  var TB = W({ x: -206, y: 590, s: 0.52, ph: 2.2, skin: 0, hair: 0, style: 'bob', outfit: 'cardigan', top: '#2F4A7A', top2: '#FFFFFF', sit: true, chairCol: WOOD_D, hands: [[-34, -246], [60, -236]] });
+  var AL = W({ x: -124, y: 470, s: 0.44, ph: 1.3, skin: 3, hair: 0, style: 'short', outfit: 'polo', top: '#B4583A', sit: true, chair: false, sitDrop: 30, id: '#9AA6BC', hands: [[-70, -270], [70, -270]] });
+  var ST = W({ x: 100, y: 612, s: 0.53, ph: 3.3, skin: 1, hair: 0, style: 'short', outfit: 'polo', top: '#6B4A8A', hands: [[-60, -196], [60, -196]] }); ST.feet = true;
+  function tapOn(k, t, d) { var u = (t - TAP[k]) / d; return u >= 0 && u < 1 ? u : -1; }
+  function heldBook(g, x, y, col, open) { if (open) { fillRR(g, x - 18, y - 10, 36, 20, 2, col); fillRR(g, x - 16, y - 9, 15, 17, 1, PARCH); fillRR(g, x + 1, y - 9, 15, 17, 1, PARCH); g.fillStyle = '#C9B98F'; for (var l = 0; l < 3; l++) { g.fillRect(x - 14, y - 5 + l * 4, 11, 1.2); g.fillRect(x + 3, y - 5 + l * 4, 11, 1.2); } }
+    else { fillRR(g, x - 7, y - 16, 14, 30, 1.6, col); g.fillStyle = GOLD_L; g.fillRect(x - 7, y - 11, 14, 1.6); g.fillRect(x - 7, y + 8, 14, 1.6); } }
+  function readers(g, t) { /* paintFrontLive, before the cached table: the reader with the policy binder and the TechNext engineer at her laptop */
+    var u = tapOn('ta', t, 2.4), c = (t + 1.1) % 9; reset(TA); TA.book = 1; TA.flip = -1; TA.talk = u >= 0;
+    if (u >= 0) { TA.mood = 'wow'; TA.hands = u < 0.35 ? [[-34, -246], [24, -350]] : [[-30, -246], [60, -420]]; TA.hop = Math.sin(u * Math.PI) * 10; TA.book = u < 0.35 ? 1 : 3; if (u > 0.35) TA.mood = 'happy'; }
+    else if (c < 3.2) { TA.hands = [[-34, -246], [34, -246]]; TA.tilt = 0.05; TA.look = lerp(TA.look || 0, 0, 0.1); }
+    else if (c < 4) { TA.flip = (c - 3.2) / 0.8; TA.hands = [[-34, -246], [lerp(34, -20, ease(TA.flip)), -252]]; }
+    else if (c < 6.4) { TA.book = 0; TA.hands = [[-40, -236], [62 + Math.sin(t * 9) * 8, -232]]; TA.look = lerp(TA.look || 0, 0.5, 0.1); TA.tilt = 0.1; }
+    else { TA.hands = [[-34, -246], [34, -246]]; TA.look = lerp(TA.look || 0, Math.sin(t * 0.6) * 0.6, 0.06); TA.mood = 'happy'; }
+    K.person(g, TA, t); var a0 = hw(TA, 0), a1 = hw(TA, 1);
+    if (TA.book === 1) { var bx = (a0[0] + a1[0]) / 2, by = (a0[1] + a1[1]) / 2 - 6; heldBook(g, bx, by, OXB, true); if (TA.flip >= 0) { var fw = Math.cos(TA.flip * Math.PI) * 15; g.fillStyle = '#FFFDF5'; g.beginPath(); g.moveTo(bx, by - 9); g.lineTo(bx + fw, by - 10 - Math.sin(TA.flip * Math.PI) * 5); g.lineTo(bx + fw, by + 7); g.lineTo(bx, by + 8); g.closePath(); g.fill(); g.strokeStyle = 'rgba(120,90,40,.4)'; g.lineWidth = 0.8; g.stroke(); } }
+    if (TA.book === 3) { heldBook(g, a1[0], a1[1] - 12, OXB, false); g.globalAlpha = clamp((1 - u) * 3, 0, 1); fillRR(g, TA.x - 30, TA.y - 282, 60, 17, 8.5, '#FFFFFF'); text(g, '§ 4.2 found', TA.x, TA.y - 270.5, 7, 800, GRN, 'center'); g.globalAlpha = 1; }
+    if (TA.book === 0) fillE(g, a1[0], a1[1] - 4, 2, 7, '#E2B23A');
+    var v = tapOn('tb', t, 2.4), d = (t + 3.7) % 10; reset(TB); TB.talk = v >= 0; TB.pen = 0;
+    if (v >= 0) { TB.mood = 'happy'; var a = t * 14; TB.hands = [[-34, -246], [60 + Math.cos(a) * 12, -340 + Math.sin(a) * 12]]; TB.pen = 2; TB.hop = Math.abs(Math.sin(v * Math.PI * 2)) * 8; }
+    else if (d < 4.5) { var k2 = Math.abs(Math.sin(t * 11)) * 6; TB.hands = [[44, -236 - k2], [100, -236 - (6 - k2)]]; TB.look = lerp(TB.look || 0, 0.9, 0.1); TB.sx = 0.94; }
+    else if (d < 7) { TB.hands = [[-30, -246], [30, -246]]; TB.look = lerp(TB.look || 0, -0.1, 0.1); TB.tilt = -0.05; TB.pen = 1; }
+    else if (d < 8.2) { TB.hands = [[-34, -246], [56, -340]]; TB.mood = 'happy'; TB.look = lerp(TB.look || 0, 0.4, 0.1); TB.tilt = Math.sin(t * 8) * 0.06; TB.pen = 3; }
+    else { TB.hands = [[-34, -246], [60, -236]]; TB.look = lerp(TB.look || 0, Math.sin(t * 0.5) * 0.7, 0.05); }
+    K.person(g, TB, t); var b0 = hw(TB, 0), b1 = hw(TB, 1);
+    if (TB.pen === 1) heldBook(g, (b0[0] + b1[0]) / 2, (b0[1] + b1[1]) / 2 - 6, '#3C7A6A', true);
+    if (TB.pen === 2) { g.save(); g.translate(b1[0], b1[1] - 8); g.rotate(t * 16); fillRR(g, -1.6, -13, 3.2, 26, 1.2, '#E2B23A'); fillRR(g, -1.6, 9, 3.2, 4, 1, '#E98A9A'); g.restore(); g.globalAlpha = clamp((1 - v) * 3, 0, 1); fillRR(g, TB.x - 34, TB.y - 280, 68, 17, 8.5, GRN); tick(g, TB.x - 22, TB.y - 271.5, 5); text(g, 'citation ok', TB.x + 6, TB.y - 268.5, 7, 800, '#FFFFFF', 'center'); g.globalAlpha = 1; }
+    if (TB.pen === 3) thumb(g, b1[0], b1[1] - 12, 0.9);
+  }
+  function alcove(g, t) { /* paintLive: the visitor on the alcove bench reads the paper, lowers it for tea; tap: drops it in surprise */
+    var u = tapOn('al', t, 2.4), c = (t + 0.3) % 11, P = AL, paper = 1, cup = 0; reset(P); P.talk = u >= 0;
+    if (u >= 0) { P.mood = u < 0.4 ? 'wow' : 'happy'; paper = u < 0.4 ? 2 : 1; P.hands = u < 0.4 ? [[-60, -200], [60, -200]] : [[-70, -270], [70, -270]]; P.hop = u < 0.4 ? Math.sin(u / 0.4 * Math.PI) * 14 : 0; }
+    else if (c < 6) { P.hands = [[-70, -270 + Math.sin(t * 1.3) * 3], [70, -270 - Math.sin(t * 1.3) * 3]]; P.tilt = Math.sin(t * 0.8) * 0.04; }
+    else if (c < 8.6) { paper = 2; cup = 1; P.hands = [[-56, -200], [16, -330]]; P.mood = 'happy'; P.look = 0.2; }
+    else { P.hands = [[-70, -270], [70, -270]]; P.look = Math.sin(t) * 0.3; }
+    K.person(g, P, t); var h0 = hw(P, 0), h1 = hw(P, 1);
+    if (paper === 1) { var x0 = h0[0] - 6, x1 = h1[0] + 6, py = Math.min(h0[1], h1[1]) - 26; fillRR(g, x0, py, x1 - x0, 44, 1.5, '#FBF8F0'); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect((x0 + x1) / 2 - 0.6, py, 1.2, 44);
+      text(g, u >= 0.4 ? 'ANSWER FOUND' : 'THE DAILY INDEX', (x0 + x1) / 2, py + 9, 5.4, 800, u >= 0.4 ? GRN : INK, 'center'); g.fillStyle = '#C9C2B2'; for (var l = 0; l < 4; l++) { g.fillRect(x0 + 4, py + 15 + l * 6, (x1 - x0) / 2 - 8, 2); g.fillRect((x0 + x1) / 2 + 4, py + 15 + l * 6, (x1 - x0) / 2 - 8, 2); } fillRR(g, x0 + 5, py + 13, 14, 12, 1, '#B8D7DE'); }
+    else { fillRR(g, P.x - 26, 414, 44, 9, 1.5, '#FBF8F0'); g.fillStyle = '#C9C2B2'; g.fillRect(P.x - 22, 417, 34, 1.5); }
+    if (cup) { fillRR(g, h1[0] - 5, h1[1] - 12, 10, 10, 3, '#FFFFFF'); } else fillRR(g, AX + 96, 410, 9, 9, 3, '#FFFFFF');
+    if (u >= 0 && u < 0.4) text(g, '!', P.x + 26, P.y - 196, 16, 800, OXB, 'center');
+  }
+  function staffer(g, t) { /* zfore: the TechNext librarian at the returns trolley: lifts a book, scans it, shelves it; tap: tosses one and catches it */
+    var u = tapOn('st', t, 2.4), c = (t + 2.5) % 8, P = ST, bk = 0, scan = false; reset(P); P.talk = u >= 0;
+    if (u >= 0) { P.mood = 'happy'; var arc = Math.sin(u * Math.PI); P.hands = [[-40, -300 - arc * 50], [40, -300 - arc * 50]]; P.look = 0; P.hop = arc * 6; bk = 2; }
+    else if (c < 1.6) { var k = ease(c / 0.8); P.hands = [[lerp(-60, -124, k), lerp(-196, -226, k)], [60, -196]]; P.look = lerp(P.look || 0, -0.9, 0.1); P.tilt = -0.06; bk = c > 1 ? 1 : 0; }
+    else if (c < 3.8) { P.hands = [[-30, -300], [44, -290]]; bk = 1; scan = c > 2.2 && c < 3.4; P.look = lerp(P.look || 0, 0, 0.1); }
+    else if (c < 5.2) { var k3 = ease((c - 3.8) / 1.4); P.hands = [[lerp(-30, -124, k3), lerp(-300, -226, k3)], [60, -196]]; bk = c < 5 ? 1 : 0; P.look = lerp(P.look || 0, -0.8, 0.1); }
+    else { P.hands = [[-60, -196], [60, -196]]; P.look = lerp(P.look || 0, Math.sin(t * 0.7) * 0.8, 0.05); P.mood = 'happy'; }
+    K.person(g, P, t); var h0 = hw(P, 0), h1 = hw(P, 1);
+    if (bk === 1) heldBook(g, h0[0] + 4, h0[1] - 12, '#2F4A7A', false);
+    if (bk === 2) { var bx = P.x + Math.sin(u * Math.PI * 2) * 8, by = P.y - (330 + 110 * Math.sin(u * Math.PI)) * P.s; g.save(); g.translate(bx, by); g.rotate(u * Math.PI * 4); heldBook(g, 0, 0, '#2F4A7A', false); g.restore(); }
+    if (scan || bk === 1) { fillRR(g, h1[0] - 4, h1[1] - 14, 9, 16, 2.5, '#2A3142'); fillRR(g, h1[0] - 3, h1[1] - 12, 7, 4, 1, '#6FD3A8'); }
+    if (scan) { g.strokeStyle = 'rgba(232,69,59,' + (0.55 + 0.35 * Math.sin(t * 30)).toFixed(2) + ')'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(h1[0] - 4, h1[1] - 12); g.lineTo(h0[0] + 10, h0[1] - 10); g.stroke(); if (c > 3) { fillRR(g, P.x - 30, P.y - 268, 60, 15, 7.5, '#FFFFFF'); text(g, 're-indexed', P.x, P.y - 257.6, 6.6, 800, GRN, 'center'); } }
+  }
+  function trolley(g, x, y) { var x0 = x - 60, w = 120; soft(g, x, y + 4, 66, 8, 0.22);
+    fillRR(g, x0 + 2, y - 92, 6, 86, 2, WOOD_D); fillRR(g, x0 + w - 8, y - 92, 6, 86, 2, WOOD_D);
+    books(g, x0 + 8, x0 + w - 8, y - 88, 77, 40); books(g, x0 + 8, x0 + w - 8, y - 42, 83, 34);
+    fillRR(g, x0, y - 90, w, 8, 3, WOOD); fillRR(g, x0, y - 44, w, 8, 3, WOOD); fillRR(g, x0 + 4, y - 14, w - 8, 6, 3, WOOD_L);
+    g.strokeStyle = GOLD_D; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(x0 + w - 5, y - 90); g.lineTo(x0 + w + 8, y - 112); g.lineTo(x0 + w + 8, y - 120); g.stroke();
+    fillE(g, x0 + 12, y - 3, 6, 6, INK); fillE(g, x0 + w - 12, y - 3, 6, 6, INK); fillE(g, x0 + 12, y - 3, 2, 2, '#9AA6BC'); fillE(g, x0 + w - 12, y - 3, 2, 2, '#9AA6BC');
+    fillRR(g, x - 36, y - 88, 72, 14, 3, PARCH); text(g, 'TO RESHELVE', x, y - 78.4, 6.6, 800, GRN, 'center'); }
+  function fern(g, x, y, k) { soft(g, x, y + 4, 40 * k, 7, 0.24); g.strokeStyle = '#2E8A55'; g.lineWidth = 3; g.lineCap = 'round'; for (var f = 0; f < 9; f++) { var a = -Math.PI / 2 + (f - 4) * 0.3; g.beginPath(); g.moveTo(x, y - 40 * k); g.quadraticCurveTo(x + Math.cos(a) * 34 * k, y - 40 * k + Math.sin(a) * 52 * k, x + Math.cos(a) * 56 * k, y - 40 * k + Math.sin(a) * 34 * k + 26 * k); g.stroke(); }
+    fillRR(g, x - 22 * k, y - 40 * k, 44 * k, 40 * k, 9 * k, '#B4583A'); fillRR(g, x - 26 * k, y - 44 * k, 52 * k, 9 * k, 4 * k, '#C8714E'); }
+  function vitrine(g, x, y) { /* a glass display case on turned legs: the oldest book in the room, open under glass */
+    soft(g, x, y + 4, 44, 7, 0.24); fillRR(g, x - 34, y - 46, 6, 46, 2, WOOD_D); fillRR(g, x + 28, y - 46, 6, 46, 2, WOOD_D); fillRR(g, x - 30, y - 20, 60, 4, 2, WOOD);
+    fillRR(g, x - 40, y - 58, 80, 14, 3, WOOD); fillRR(g, x - 38, y - 92, 76, 36, 3, 'rgba(214,236,244,.55)'); g.strokeStyle = GOLD_D; g.lineWidth = 2; rr(g, x - 38, y - 92, 76, 36, 3); g.stroke();
+    fillRR(g, x - 24, y - 66, 48, 8, 1, OXB); fillRR(g, x - 22, y - 70, 21, 9, 1, PARCH); fillRR(g, x + 1, y - 70, 21, 9, 1, PARCH); g.fillStyle = 'rgba(255,255,255,.6)'; g.fillRect(x - 30, y - 90, 4, 30); g.fillRect(x - 22, y - 90, 2, 30);
+    fillRR(g, x - 18, y - 54, 36, 8, 2, GOLD_L); text(g, 'FIRST EDITION', x, y - 48.2, 4.6, 800, WOOD_D, 'center'); }
+  function bookStack(g, x, y, n, seed) { soft(g, x, y + 3, 36, 6, 0.24); for (var i = 0; i < n; i++) { var w = 52 - (i % 3) * 6, c = SPINES[Math.floor(hash(seed + i) * SPINES.length)], ox = x - w / 2 + (i % 2 ? 3 : -2); fillRR(g, ox, y - 10 - i * 10, w, 10, 2, c); g.fillStyle = PARCH; g.fillRect(ox + w - 4, y - 8 - i * 10, 3, 6); } }
+  function paintFore(g, e) { /* static foreground (cached): the long reading table, the returns trolley, the cat's cushion, the rug's side table, a fern */
+    var T = TBL; CO.desk(g, T.x, T.y, T.w, T.F, { open: true, legs: WOOD_D, top: WOOD }); g.fillStyle = 'rgba(31,107,82,.6)'; g.fillRect(T.x + 14, T.y + 2, T.w - 28, 4);
+    lamp(g, -404, T.y, false); lamp(g, -268, T.y, false);
+    [['#8E2C3A', 0], ['#2F4A7A', 2], ['#C8A24A', -1]].forEach(function (b, i) { fillRR(g, -318 + b[1], T.y - 8 - i * 7, 30, 7, 1.5, b[0]); });
+    fillRR(g, -176, T.y - 3, 46, 3, 1, '#9AA6BC'); fillRR(g, -172, T.y - 36, 36, 32, 3, '#2A3142');
+    trolley(g, TRL.x, TRL.y);
+    soft(g, CATP.x, CATP.y + 6, 42, 7, 0.24); fillE(g, CATP.x, CATP.y - 2, 40, 13, OXB); fillE(g, CATP.x, CATP.y - 8, 36, 10, '#A63A4A'); [-1, 1].forEach(function (d) { fillE(g, CATP.x + d * 38, CATP.y - 2, 4, 4, GOLD); });
+    var S2 = SIDE; soft(g, S2.x, S2.y + 3, 30, 6, 0.24); fillE(g, S2.x, S2.y - 2, 18, 4, WOOD_D); fillRR(g, S2.x - 3, S2.y - 50, 6, 48, 2, WOOD_D); fillE(g, S2.x, S2.y - 52, 30, 7, WOOD); fillE(g, S2.x, S2.y - 54, 28, 5, WOOD_L);
+    lamp(g, S2.x - 8, S2.y - 54, false); fillRR(g, S2.x + 8, S2.y - 63, 10, 9, 3, '#FFFFFF'); fillRR(g, S2.x + 2, S2.y - 56, 22, 3, 1.5, '#FFFFFF'); fillRR(g, S2.x - 26, S2.y - 59, 16, 5, 1, '#3C7A6A');
+    fern(g, 1036, 704, 0.8); bookStack(g, -830, 702, 5, 3); vitrine(g, -692, 664); bookStack(g, 1206, 702, 4, 5);
+  }
+  function tableLive(g, t) { /* the lamps' glow breathes, the laptop beside the engineer updates, motes drift in the lamplight */
+    [[-404, 0], [-268, 1.7], [SIDE.x - 8, 3.1]].forEach(function (l) { var y = l[0] === SIDE.x - 8 ? SIDE.y - 54 : TBL.y, f = 0.2 + 0.05 * Math.sin(t * 2.3 + l[1]) + 0.03 * Math.sin(t * 7.1 + l[1] * 2);
+      g.save(); g.globalAlpha = f; g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(l[0] - 14, y - 24); g.lineTo(l[0] + 14, y - 24); g.lineTo(l[0] + 30, y); g.lineTo(l[0] - 30, y); g.closePath(); g.fill(); g.restore(); fillRR(g, l[0] - 12, y - 25, 24, 2, 1, '#FFF1B8'); });
+    var lx = -168, ly = TBL.y - 32; fillRR(g, lx, ly, 28, 25, 2, '#FFFFFF'); fillRR(g, lx, ly, 28, 6, 2, GRN); g.fillRect(lx, ly + 3, 28, 3); var n = Math.floor(t * 1.4) % 4;
+    for (var r = 0; r < 3; r++) fillRR(g, lx + 3, ly + 9 + r * 5, r === n % 3 ? 22 : 14 + r * 2, 2.6, 1.2, r === n % 3 ? BLUE : '#C9D3E3'); fillRR(g, lx + 20, ly + 19, 6, 4, 1, OK);
+    if (TA.book === 0) { fillRR(g, -322 + 36, TBL.y - 4, 24, 4, 1, '#FFFFFF'); }
+    for (var i = 0; i < 7; i++) { var p = (t * 0.05 + hash(i * 3.1)) % 1, mx = -440 + hash(i * 7.7) * 320 + Math.sin(t * 0.7 + i) * 8, my = 470 - p * 160; g.globalAlpha = Math.sin(p * Math.PI) * 0.6; fillE(g, mx, my, 1.4, 1.4, '#FFF4D6'); } g.globalAlpha = 1;
+  }
   /* ------------------------------ the live layers ------------------------------ */
   function robot(g, t, S) { /* the robot librarian on the gallery rail: its cab, face, arm and gripper; the book it carries */
     var lk = lockMode(S), c = rCyc(S, t), p = lk ? key(RL, (t - (S.kT || 0)) % 4) : key(RK, c), x = p[0], arm = p[1], bob = Math.sin(t * 3) * 1.5, carry = !lk && c > 4.2 && c < 7.8;
@@ -310,7 +442,7 @@
     if (on || ((t * 0.25) % 1) < 0.35) { var a = on ? ((t - (S.kT || 0)) % 3) / 3 : ((t * 0.25) % 1) / 0.35; g.globalAlpha = clamp(1.2 - a, 0, 1); fillRR(g, G.x - 34, G.y + 56 - a * 10, 98, 16, 8, '#FFFFFF'); text(g, 'I don\'t know → gap list', G.x + 15, G.y + 67 - a * 10, 6.6, 800, OXB, 'center'); g.globalAlpha = 1; }
   }
   function nook(g, t) { /* the armchair reader in the window nook: turns pages, dozes, wakes (tap: waves the book) */
-    var x = -660, y = F, P = NOOK, u = (t - FX.nook) / 2, c = (t + 5) % 11; reset(P);
+    var x = NOOKX, y = F, P = NOOK, u = (t - FX.nook) / 2, c = (t + 5) % 11; reset(P);
     soft(g, x, y + 4, 70, 9, 0.22); fillRR(g, x - 62, y - 128, 124, 100, 30, '#2F6B55'); fillRR(g, x - 70, y - 70, 30, 60, 12, '#245845'); fillRR(g, x + 40, y - 70, 30, 60, 12, '#245845'); fillRR(g, x - 54, y - 46, 108, 26, 10, '#3A7D64');
     fillRR(g, x - 56, y - 22, 8, 22, 3, WOOD_D); fillRR(g, x + 48, y - 22, 8, 22, 3, WOOD_D);
     if (u >= 0 && u < 1) { P.mood = 'happy'; P.talk = true; P.hands = [[-40, -300], [lerp(40, 120, Math.abs(Math.sin(u * Math.PI * 3))), -380]]; }
@@ -321,23 +453,24 @@
     var h0 = hw(P, 0), h1 = hw(P, 1), mx = (h0[0] + h1[0]) / 2, my = (h0[1] + h1[1]) / 2; fillRR(g, mx - 14, my - 12, 28, 18, 2, OXB); fillRR(g, mx - 12, my - 11, 11, 15, 1, PARCH); fillRR(g, mx + 1, my - 11, 11, 15, 1, PARCH);
     if (c >= 6 && c < 9 && !(u >= 0 && u < 1)) { var z = (t * 0.6) % 1; g.globalAlpha = 1 - z; text(g, 'z', x + 30 + z * 14, y - 250 - z * 30, 10 + z * 6, 800, '#5C6B7A'); g.globalAlpha = 1; }
     /* the side table, lamp and tea */
-    fillRR(g, -594, 410, 40, 6, 2, WOOD); fillRR(g, -578, 416, 8, 54, 2, WOOD_D); lamp(g, -582, 410, true); fillRR(g, -566, 401, 10, 9, 3, '#FFFFFF');
-    for (var i = 0; i < 2; i++) { var s = (t * 0.6 + i * 0.5) % 1; g.globalAlpha = (1 - s) * 0.5; fillE(g, -561 + Math.sin(t * 2 + i) * 3, 396 - s * 30, 3 + s * 5, 3 + s * 5, '#FFFFFF'); } g.globalAlpha = 1;
+    fillRR(g, NOOKX + 66, 410, 40, 6, 2, WOOD); fillRR(g, NOOKX + 82, 416, 8, 54, 2, WOOD_D); lamp(g, NOOKX + 78, 410, true); fillRR(g, NOOKX + 94, 401, 10, 9, 3, '#FFFFFF');
+    for (var i = 0; i < 2; i++) { var s = (t * 0.6 + i * 0.5) % 1; g.globalAlpha = (1 - s) * 0.5; fillE(g, NOOKX + 99 + Math.sin(t * 2 + i) * 3, 396 - s * 30, 3 + s * 5, 3 + s * 5, '#FFFFFF'); } g.globalAlpha = 1;
   }
-  var NOOK = W({ x: -660, y: 470, s: 0.46, ph: 0.9, skin: 1, hair: 2, style: 'long', outfit: 'cardigan', top: '#E9C46A', top2: '#FFFFFF', sit: true, chair: false, sitDrop: 30, id: '#9AA6BC', hands: [[-36, -250], [36, -250]] });
-  function globe(g, t) { var x = -520, y = 340, r = 40, a = t * 0.4; fillE(g, x, y, r, r, '#7FB8E8'); g.save(); g.beginPath(); g.arc(x, y, r, 0, 7); g.clip();
+  var NOOKX = -840, NOOK = W({ x: NOOKX, y: 470, s: 0.46, ph: 0.9, skin: 1, hair: 2, style: 'long', outfit: 'cardigan', top: '#E9C46A', top2: '#FFFFFF', sit: true, chair: false, sitDrop: 30, id: '#9AA6BC', hands: [[-36, -250], [36, -250]] });
+  function globe(g, t) { var x = GLX, y = 340, r = 40, a = t * 0.4; fillE(g, x, y, r, r, '#7FB8E8'); g.save(); g.beginPath(); g.arc(x, y, r, 0, 7); g.clip();
     for (var i = 0; i < 4; i++) { var cx = x - r + ((a * 20 + i * 34) % (r * 2 + 40)) - 20; fillE(g, cx, y - 14 + (i % 2) * 22, 14 + (i % 3) * 4, 10 + (i % 2) * 6, '#7CC08A'); } g.restore();
     g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = 1; g.beginPath(); g.ellipse(x, y, r, 10, 0, 0, 7); g.stroke(); fillE(g, x - 14, y - 16, 8, 6, 'rgba(255,255,255,.35)'); }
   function returns(g, t) { var u = (t * 0.22) % 1; if (u < 0.3) { var k2 = u / 0.3; g.save(); g.beginPath(); g.rect(1170, 300, 70, 46); g.clip(); fillRR(g, 1196, 300 + k2 * 44, 12, 30, 1.5, SPINES[Math.floor(t * 0.22) % SPINES.length]); g.restore(); } }
   function chandelier(g, t) { var x = 600, y = -150; g.strokeStyle = GOLD_D; g.lineWidth = 2; g.beginPath(); g.moveTo(x, CEIL - 60); g.lineTo(x, y); g.stroke(); fillE(g, x, y, 10, 10, GOLD);
     for (var i = 0; i < 5; i++) { var a = (i - 2) * 0.55, ax = x + Math.sin(a) * 50, ay = y + 14 - Math.cos(a) * 6; g.strokeStyle = GOLD_D; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y + 4); g.quadraticCurveTo(x + Math.sin(a) * 30, y + 26, ax, ay); g.stroke(); fillRR(g, ax - 3, ay - 12, 6, 12, 2, '#FFFDF5'); fillE(g, ax, ay - 15, 2.6, 4, (Math.sin(t * 7 + i) > 0.6) ? '#FFE9A8' : '#FFF6D8'); } }
+  function sconces(g, t) { [AX + 5, AX + 115].forEach(function (x, i) { var f = 0.5 + 0.25 * Math.sin(t * 6.3 + i * 2) + 0.15 * Math.sin(t * 13 + i); g.save(); g.globalAlpha = f * 0.5; fillE(g, x, 222, 10, 12, '#FFE9A8'); g.globalAlpha = 1; fillE(g, x, 219 - f * 2, 2.6, 4.4 + f * 1.6, '#FFC94A'); g.restore(); }); }
   function paintLive(g, t, now, S) {
     chandelier(g, t); CO.crew(CREW, g, t, S, false);
-    var lx = ladder(g, t); robot(g, t, S); lectern(g, t, S); bubble(g, t, S); cage(g, t, S); catalogue(g, t, S); gapSlot(g, t, S); globe(g, t); returns(g, t); nook(g, t);
+    var lx = ladder(g, t); robot(g, t, S); lectern(g, t, S); bubble(g, t, S); cage(g, t, S); catalogue(g, t, S); gapSlot(g, t, S); globe(g, t); returns(g, t); nook(g, t); alcove(g, t); sconces(g, t);
     CO.clock(g, 680, -142, 17, 8, GOLD_D);
   }
   function paintFrontLive(g, t, S) {
-    CO.crew(CREW, g, t, S, true);
+    CO.crew(CREW, g, t, S, true); readers(g, t);
     /* the laptop beside the reader (its lid is in the front layer), the lamp on the table */
     var T = TABLE, lx = T.x + 14; fillRR(g, lx, T.y - 32, 28, 25, 2, '#FFFFFF'); fillRR(g, lx, T.y - 32, 28, 6, 2, GRN); g.fillRect(lx, T.y - 29, 28, 3); fillRR(g, lx + 3, T.y - 22, 18, 3, 1.5, '#C9D3E3'); fillRR(g, lx + 3, T.y - 16, 22, 3, 1.5, GRN_L); fillRR(g, lx + 3, T.y - 11, 12, 2.4, 1.2, BLUE);
     var lampOn = (t - FX.lamp) >= 0 && (t - FX.lamp) < 5, lpx = T.x + T.w - 16; lamp(g, lpx, T.y, lampOn); if (lampOn) { g.save(); g.globalAlpha = 0.25; g.fillStyle = '#FFE9A8'; g.beginPath(); g.moveTo(lpx - 16, T.y - 24); g.lineTo(lpx + 16, T.y - 24); g.lineTo(lpx + 30, T.y); g.lineTo(lpx - 30, T.y); g.closePath(); g.fill(); g.restore(); }
@@ -357,7 +490,7 @@
   }
   function thumb(g, x, y, s) { g.save(); g.translate(x, y); g.scale(s, s); fillRR(g, -7, -2, 14, 14, 4, '#F2C94C'); fillRR(g, -4, -12, 6, 12, 3, '#F2C94C'); fillRR(g, -9, 0, 4, 11, 2, '#D9A93A'); g.restore(); }
   /* the library cat on its cushion: the tail swishes, an ear twitches; tap: it stretches and purrs */
-  var CATP = { x: -540, y: 722 };
+  var CATP = { x: -578, y: 700 };
   function cat(g, t) { var x = CATP.x, y = CATP.y, u = (t - FX.cat) / 2, up = u >= 0 && u < 1 ? Math.sin(u * Math.PI) : 0;
     var tail = Math.sin(t * 1.6) * 0.5; g.strokeStyle = '#E39A4A'; g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(x + 22, y - 6); g.quadraticCurveTo(x + 44, y - 4 - up * 10, x + 40 + Math.cos(tail) * 10, y - 18 + Math.sin(tail) * 8 - up * 16); g.stroke();
     fillE(g, x, y - 10 - up * 8, 28, 14 + up * 4, '#F0A95A'); g.fillStyle = '#E39A4A'; for (var s = 0; s < 3; s++) g.fillRect(x - 10 + s * 9, y - 22 - up * 10, 4, 8);
@@ -365,13 +498,13 @@
     g.fillStyle = '#F0A95A'; g.beginPath(); g.moveTo(hx - 11, hy - 4); g.lineTo(hx - 8, hy - 16 + tw); g.lineTo(hx - 2, hy - 8); g.closePath(); g.fill(); g.beginPath(); g.moveTo(hx + 2, hy - 8); g.lineTo(hx + 8, hy - 16); g.lineTo(hx + 11, hy - 4); g.closePath(); g.fill();
     if (up > 0.3) { fillE(g, hx - 4, hy, 2, 2.4, INK); fillE(g, hx + 4, hy, 2, 2.4, INK); } else { g.strokeStyle = INK; g.lineWidth = 1.4; g.beginPath(); g.arc(hx - 4, hy, 2.4, 0.2, Math.PI - 0.2); g.moveTo(hx + 6.4, hy); g.arc(hx + 4, hy, 2.4, 0.2, Math.PI - 0.2); g.stroke(); }
     fillE(g, hx, hy + 4, 1.6, 1.2, '#D96A7A'); if (up > 0.2) { g.globalAlpha = up; text(g, 'purr', hx - 6, hy - 22, 8, 800, '#A3602A'); g.globalAlpha = 1; } }
-  function FORE() { return [[722, function (g2, e, t) { cat(g2, t); }]]; }
+  function FORE() { return [[612, function (g2, e, t) { staffer(g2, t); }], [700, function (g2, e, t) { cat(g2, t); }]]; }
 
   window.IXW.worlds['sol-rag'] = {
     pan: [-700, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
-    paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
+    paintForeLive: function (g, t, S) { tableLive(g, t); K.zfore(g, t, S, FORE(), function () { CO.crew(CREW, g, t, S, 'fore'); }); CR.draw(g, t); },
     moteCol: 'rgba(255,244,214,.85)',
     glow: {
       ask: function (g) { rr(g, 350, 150, 168, 58, 14); },
@@ -393,7 +526,12 @@
     toy: function (name, S, t) { if (name === 'ladder') { FX.ladder = t; CR.burst('spark', 560, 120, t); } else if (name === 'lamp') { FX.lamp = t; CR.burst('star', TABLE.x + TABLE.w - 16, TABLE.y - 40, t); } },
     hit: function (x, y, S, t) {
       if (Math.abs(x - CATP.x) < 50 && Math.abs(y - (CATP.y - 14)) < 30) { FX.cat = t; CR.burst('heart', CATP.x, CATP.y - 50, t); return { say: 'Mrrp. The library cat keeps the **quiet**. Only answers from the shelves here.', who: 'Library cat', role: 'reading room · resident', near: [-420, 150], pose: 'love' }; }
-      if (Math.abs(x - NOOK.x) < 70 && y < F && y > F - 250) { FX.nook = t; CR.burst('star', NOOK.x, F - 260, t); return { say: ['Oh! I asked about **leave policy** and it showed me the exact page.', 'Answers with **the source**, so I can read the rest myself.'][(FX.ni = (FX.ni || 0) + 1) % 2], who: 'Reader in the nook', role: 'Client team · illustration', near: [-520, 150], pose: 'clap' }; }
+      if (Math.abs(x - NOOK.x) < 70 && y < F && y > F - 250) { FX.nook = t; CR.burst('star', NOOK.x, F - 260, t); return { say: ['Oh! I asked about **leave policy** and it showed me the exact page.', 'Answers with **the source**, so I can read the rest myself.'][(FX.ni = (FX.ni || 0) + 1) % 2], who: 'Reader in the nook', role: 'Client team · illustration', near: [-700, -110], pose: 'clap' }; }
+      var me = [['ta', TA.x, 400, 590, 52, 'Found it: **section 4.2**, quoted word for word. I can open the source and check it myself.', 'Reader at the long table', 'Client team · illustration', 'star'],
+        ['tb', TB.x, 400, 590, 52, 'Every document I connect keeps **its access rules**. Then I check that each answer **cites the right page**.', 'TechNext AI engineer', 'TechNext · tuning the assistant · illustration', 'code'],
+        ['al', AL.x, 300, 470, 50, 'It answers from **approved content only**. If the documents do not say, it tells you so instead of guessing.', 'Visitor in the reading alcove', 'Client team · illustration', 'note'],
+        ['st', ST.x, 400, 612, 46, 'Returned and **re-indexed**: new and updated documents stay connected where they already live.', 'TechNext librarian', 'TechNext · keeps the shelves · illustration', 'spark']];
+      for (var i = 0; i < me.length; i++) { var m = me[i]; if (Math.abs(x - m[1]) < m[4] && y > m[2] && y < m[3]) { TAP[m[0]] = t; CR.burst(m[8], m[1], m[2] - 10, t); return { say: m[5], who: m[6], role: m[7], near: [m[1] + 120, -110], pose: 'clap' }; } }
       return CR.hitWalker(x, y, t); },
     onStop: function (key, S, t) { S.kT = t; }
   };

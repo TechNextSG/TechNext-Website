@@ -20,9 +20,10 @@
   var rr = K.rr, fillRR = K.fillRR, fillE = K.fillE, soft = K.soft, hash = K.hash, clamp = K.clamp, lerp = K.lerp, text = K.text, shadowed = K.shadowed, FONT = K.FONT;
   var F = 470, INK = '#1B1F3B', SLATE = '#2F5D6B', SLATE_D = '#1F4450', SLATE_L = '#E3EEF0', BRASS = '#D4A23F', BRASS_D = '#A87A22', BRASS_L = '#F2D58C',
     RED = '#D64A3A', CREAM = '#FBF4E6', SAGE = '#CFE3D6', KRAFT = '#E6CFA3', GREEN = '#1E9E6A', AMBER = '#F2A93B', PUR = '#714B67', BLUE = '#3167CA', WOOD = '#9A6A43', MONO = '800 8.6px ui-monospace, Consolas, monospace';
-  var ROOF = -122, CT = -112, TAPE = { y: -102, h: 36 }, HEAD_X = 985, RAIL = -32;
+  var ROOF = -122, CT = -112, TAPE = { y: -102, h: 36 }, HEAD_X = 956, RAIL = -32;
   var CHUTE = 176, BASKET = { x: 140, y: 262, w: 72 }, SORT = { x: 282, y: 50, w: 146, h: 176 }, CAB = { x: 446, y: 158, w: 98 }, MON = { x: 452, y: 84, w: 86, h: 56 };
-  var PRESS = { x: 568, y: 96, w: 122, h: 136 }, DESK = { x: 708, y: 374, w: 110 }, POST = 830, RCV = { x: 846, y: 296, w: 104, h: 66 }, TUBES = [864, 898, 932], BEND = [176, 200, 224], FLANGE = 1000, TICK = { x: 866, y: 38, w: 92, h: 112 };
+  var PRESS = { x: 568, y: 96, w: 122, h: 136 }, DESK = { x: 708, y: 374, w: 110 }, POST = 830, RCV = { x: 846, y: 296, w: 104, h: 66 }, TUBES = [864, 898, 932], BEND = [176, 200, 224], FLANGE = 990, TICK = { x: 866, y: 38, w: 92, h: 112 };
+  var LANE = { y: 634, h: 56, words: [['IN', -330], ['SORT', 562], ['OUT', 958], ['OUT', 1190]] };
   var GUARD = { x: 700, y: 30, w: 160, h: 100 }, BAR = { x: 830, y: 326 }, WINX = 300, WIN0 = 60;
   var CYC = 12, PAUSE_LEN = 3.2;
   var DOCS = [
@@ -66,15 +67,21 @@
   var DEV = W({ x: 615, y: 470, s: 0.46, ph: 2.0, skin: 0, hair: 0, style: 'short', outfit: 'polo', top: '#1E3A6E', top2: '#FFFFFF', sit: true, chairCol: '#2A3550', hands: [[-60, -206], [60, -206]], look: 0.5 });
   var APR = W({ x: 763, y: 470, s: 0.47, ph: 2.7, skin: 3, hair: 2, style: 'long', outfit: 'shirt', top: '#C2506A', id: '#9AA6BC', clip: '#F2D58C', hands: [[-60, -200], [60, -200]], look: -0.4 });
   var CREW = [
-    { x0: 1020, x1: 1340, y: 492, spd: 15, ph: 0.4, label: 'TechNext developer', lines: ['Access is **scoped** to what each task needs, nothing more.', 'Email, documents, spreadsheets and **Odoo**, joined in one run.'], acts: ['wave', 'id', 'nod'],
+    { x0: 1150, x1: 1256, y: 492, spd: 13, ph: 0.4, label: 'TechNext developer', lines: ['Access is **scoped** to what each task needs, nothing more.', 'Email, documents, spreadsheets and **Odoo**, joined in one run.'], acts: ['wave', 'id', 'nod'],
       P: W({ s: 0.52, skin: 2, hair: 0, style: 'short', outfit: 'shirt', top: '#14A38B', hold: 'tablet' }) },
-    { front: true, x0: 980, x1: 1330, y: 700, spd: 17, ph: 0.7, label: 'TechNext consultant', lines: ['Gates loosen only when there\'s **evidence** to.', 'Every month: what it **handled, escalated and corrected**.'], acts: ['nod', 'cheer', 'id'],
+    { front: true, x0: -860, x1: -760, y: 700, spd: 16, ph: 0.7, label: 'TechNext consultant', lines: ['Gates loosen only when there\'s **evidence** to.', 'Every month: what it **handled, escalated and corrected**.'], acts: ['nod', 'cheer', 'id'],
       P: W({ s: 0.58, skin: 1, hair: 1, style: 'pony', outfit: 'polo', top: PUR, clip: '#FFD84A', hold: 'clipboard' }) },
-    { x0: -900, x1: -170, y: 492, spd: 14, ph: 0.2, label: 'TechNext trainer', lines: ['Map it, automate it, **keep a gate**.', 'Your team learns to read the **run log** on day one.'], acts: ['wave', 'jump', 'id'],
-      P: W({ s: 0.52, skin: 0, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E07B12', top2: '#FFFFFF', hold: 'box' }) },
-    { front: true, x0: -880, x1: -380, y: 690, spd: 16, ph: 0.5, label: 'TechNext engineer', drag: '#C99A6B', lines: ['Describe one workflow that **eats your week**.'], acts: ['cheer', 'wave'],
-      P: W({ s: 0.58, skin: 3, hair: 0, style: 'short', outfit: 'polo', top: '#3167CA' }) }
+    { x0: -862, x1: -770, y: 492, spd: 14, ph: 0.2, label: 'TechNext trainer', lines: ['Map it, automate it, **keep a gate**.', 'Your team learns to read the **run log** on day one.'], acts: ['wave', 'jump', 'id'],
+      P: W({ s: 0.52, skin: 0, hair: 1, style: 'bun', outfit: 'cardigan', top: '#E07B12', top2: '#FFFFFF', hold: 'box' }) }
   ];
+  /* the supporting cast in the card's corner of the hall: the TechNext mail-room lead at the INWARD frame, and a courier
+     (visitor, grey pass) with a hand truck of sacks */
+  var SRT = W({ x: -572, y: 548, s: 0.48, ph: 0.9, skin: 0, hair: 0, style: 'pony', outfit: 'shirt', top: '#4C9BE8', glasses: true, hands: [[-20, -280], [40, -300]], look: 0.4 });
+  var COU = W({ x: 12, y: 624, s: 0.53, ph: 1.7, skin: 2, hair: 1, style: 'short', outfit: 'polo', top: '#F2A93B', top2: '#FFFFFF', id: '#9AA6BC', hatKind: 'cap', hat: '#2F5D6B', hands: [[-20, -236], [81, -284]], look: 0.3 });
+  var RACK = { x: -528, y: 330, w: 54, h: 94 }, TRUCK = { x: 74, y: 618 }, CONV = [{ x0: -420, x1: -200, y: 558, n: 3, sp: 26, ph: 0 }, { x0: 228, x1: 520, y: 564, n: 4, sp: 30, ph: 3.1 }];
+  /* below 1400px the card reaches further left: the frame moves into the strip the card leaves open and the lead stands behind the card, facing it */
+  function layoutLeft() { var narrow = (window.innerWidth || 1440) < 1400; RACK.x = narrow ? -624 : -528; SRT.x = narrow ? -478 : -572; SRT.side = narrow ? -1 : 1; }
+  function slotAt(i) { var c = i % 3, r = Math.floor(i / 3) % 4, cw = (RACK.w - 8) / 3, rh = (RACK.h - 10) / 4; return [RACK.x + 4 + c * cw + cw / 2, RACK.y + 6 + r * rh + rh / 2, cw, rh]; }
   function handAt(P, side) {
     var F3 = K.F3, d = side ? 1 : -1, h = P.hands[side], sxk = P.sx == null ? 1 : P.sx, bw = P.build || 1;
     var r = K.ik(d * F3.shx * bw, F3.shy, h[0], h[1], F3.a, F3.b, d).h, dy = -(P.hop || 0) + (P.sit ? (P.sitDrop != null ? P.sitDrop : 46) : 0);
@@ -97,8 +104,8 @@
   function plate(g, x, y, w, n, lab, col) { fillRR(g, x, y, w, 15, 4, col || SLATE_D); fillE(g, x + 8, y + 7.5, 5.4, 5.4, BRASS); text(g, String(n), x + 8, y + 10.3, 7.4, 800, INK, 'center'); text(g, lab, x + 17, y + 10.6, 7.6, 800, '#FFFFFF'); }
   function rivets(g, x, y, w, h) { g.fillStyle = BRASS_L; [[x + 5, y + 5], [x + w - 5, y + 5], [x + 5, y + h - 5], [x + w - 5, y + h - 5]].forEach(function (p) { g.beginPath(); g.arc(p[0], p[1], 1.8, 0, 7); g.fill(); }); }
   function pot(g, x, y, s, lean) { g.save(); g.translate(x, y); g.scale(s, s); if (lean) g.rotate(lean); K.plant(g, { x: 0, y: 0 }, '#C77D5A', '#D99172'); g.restore(); }
-  function sack(g, x, y, w, h, col, lab) {
-    soft(g, x + w / 2, y + h, w * 0.55, 5, 0.22); g.fillStyle = col; g.beginPath(); g.moveTo(x + w * 0.1, y + h); g.quadraticCurveTo(x - w * 0.05, y + h * 0.4, x + w * 0.18, y + h * 0.08);
+  function sack(g, x, y, w, h, col, lab, ns) {
+    if (!ns) soft(g, x + w / 2, y + h, w * 0.55, 5, 0.22); g.fillStyle = col; g.beginPath(); g.moveTo(x + w * 0.1, y + h); g.quadraticCurveTo(x - w * 0.05, y + h * 0.4, x + w * 0.18, y + h * 0.08);
     g.lineTo(x + w * 0.82, y + h * 0.08); g.quadraticCurveTo(x + w * 1.05, y + h * 0.4, x + w * 0.9, y + h); g.closePath(); g.fill();
     fillRR(g, x + w * 0.3, y - h * 0.05, w * 0.4, h * 0.16, 4, tone(col, 0.12)); g.strokeStyle = BRASS_D; g.lineWidth = 2; g.beginPath(); g.moveTo(x + w * 0.28, y + h * 0.1); g.lineTo(x + w * 0.72, y + h * 0.1); g.stroke();
     if (lab) { fillRR(g, x + w * 0.24, y + h * 0.42, w * 0.52, 13, 3, '#FFFFFF'); text(g, lab, x + w / 2, y + h * 0.42 + 9.4, 6.6, 800, SLATE_D, 'center'); }
@@ -159,10 +166,19 @@
     for (var r2 = 0; r2 < 11; r2++) { var y0 = F + Math.pow(r2 / 11, 1.5) * (e.b - F), y1 = F + Math.pow((r2 + 1) / 11, 1.5) * (e.b - F), stp = 180 * (1 + r2 * 0.1);
       for (var i = ((r2 * 83) % 180) - stp + Math.floor(e.l / stp) * stp; i < e.r; i += stp) { g.moveTo(i, y0); g.lineTo(i + (i - 560) * 0.06, y1); } }
     g.stroke(); fillRR(g, e.l, F - 4, e.r - e.l, 8, 0, '#B98E5E'); g.fillStyle = 'rgba(40,30,20,.10)'; g.fillRect(e.l, F + 4, e.r - e.l, 10);
+    /* the painted floor: the IN / SORT / OUT lane in safety yellow, its chevrons and stencils, a kerb hatch at each end */
+    var LY = LANE.y, LH = LANE.h; g.fillStyle = 'rgba(255,246,222,.22)'; g.fillRect(e.l, LY, e.r - e.l, LH);
+    g.fillStyle = '#EDBE4C'; g.fillRect(e.l, LY - 2, e.r - e.l, 4); g.fillRect(e.l, LY + LH - 2, e.r - e.l, 4);
+    g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(e.l, LY - 2, e.r - e.l, 1.2); g.fillRect(e.l, LY + LH - 2, e.r - e.l, 1.2);
+    g.strokeStyle = 'rgba(237,190,76,.55)'; g.lineWidth = 5; g.lineCap = 'round'; g.lineJoin = 'round';
+    for (var cv = Math.floor(e.l / 150) * 150 + 40; cv < e.r; cv += 150) { if (LANE.words.some(function (w) { return Math.abs(cv - w[1]) < 90; })) continue;
+      g.beginPath(); g.moveTo(cv - 8, LY + 14); g.lineTo(cv + 6, LY + LH / 2); g.lineTo(cv - 8, LY + LH - 14); g.moveTo(cv + 10, LY + 14); g.lineTo(cv + 24, LY + LH / 2); g.lineTo(cv + 10, LY + LH - 14); g.stroke(); }
+    g.save(); g.font = '800 31px ' + FONT; g.fillStyle = 'rgba(214,160,40,.7)'; g.textAlign = 'center'; if (g.letterSpacing !== undefined) g.letterSpacing = '6px';
+    LANE.words.forEach(function (w) { g.save(); g.translate(w[1], LY + LH / 2 + 10); g.scale(1, 0.72); g.fillText(w[0], 0, 0); g.restore(); }); g.restore();
     g.restore();
   }
   function paintBack(g, ext) {
-    var e = ext;
+    var e = ext; layoutLeft();
     /* the ceiling tube and the rail */
     fillRR(g, e.l, CT - 7, e.r - e.l, 14, 7, 'rgba(200,232,240,.75)'); g.fillStyle = 'rgba(255,255,255,.6)'; g.fillRect(e.l, CT - 5, e.r - e.l, 2.4);
     for (var cx = Math.floor(e.l / 120) * 120; cx < e.r; cx += 120) fillRR(g, cx - 4, CT - 9, 8, 18, 2, BRASS);
@@ -177,7 +193,7 @@
     shadowed(g, 8, 3, 0.2, function () { fillRR(g, HEAD_X - 26, TAPE.y - 14, 54, TAPE.h + 28, 8, SLATE); });
     fillRR(g, HEAD_X - 20, TAPE.y - 8, 42, 12, 3, SLATE_D); text(g, 'RUN LOG', HEAD_X + 1, TAPE.y + 0.6, 6.6, 800, BRASS_L, 'center'); rivets(g, HEAD_X - 26, TAPE.y - 14, 54, TAPE.h + 28);
     fillRR(g, HEAD_X - 14, TAPE.y + TAPE.h + 4, 30, 6, 3, BRASS);
-    var rx = 1080; g.strokeStyle = '#7A869C'; g.lineWidth = 3; g.beginPath(); g.moveTo(rx, ROOF); g.lineTo(rx, TAPE.y - 20); g.stroke(); fillE(g, rx, TAPE.y + 16, 30, 30, SLATE_D); fillE(g, rx, TAPE.y + 16, 24, 24, '#FFFDF6'); fillE(g, rx, TAPE.y + 16, 7, 7, BRASS);
+    var rx = 1214; g.strokeStyle = '#7A869C'; g.lineWidth = 3; g.beginPath(); g.moveTo(rx, ROOF); g.lineTo(rx, TAPE.y - 20); g.stroke(); fillE(g, rx, TAPE.y + 16, 30, 30, SLATE_D); fillE(g, rx, TAPE.y + 16, 24, 24, '#FFFDF6'); fillE(g, rx, TAPE.y + 16, 7, 7, BRASS);
     g.strokeStyle = 'rgba(31,68,80,.12)'; g.lineWidth = 1; for (var rg = 10; rg < 24; rg += 4) { g.beginPath(); g.arc(rx, TAPE.y + 16, rg, 0, 7); g.stroke(); }
     /* the inbox chute: a brass pipe down from the ceiling tube, a NEW lamp, the station plate, the flared mouth */
     fillRR(g, CHUTE - 10, CT, 20, 186 - CT, 4, BRASS); g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(CHUTE - 6, CT, 3, 186 - CT); for (var ry = -60; ry < 180; ry += 52) fillRR(g, CHUTE - 12, ry, 24, 6, 2, BRASS_D);
@@ -237,37 +253,63 @@
     fillRR(g, T0.x + 4, T0.y + 74, T0.w - 8, 32, 4, '#7A5236');
     /* the wall clock (hands drawn live) */
     fillE(g, 510, 30, 22, 22, 'rgba(30,60,90,.08)');
-    /* ---- beyond the frame, left: the route poster, lockers, crates, the tea trolley ---- */
-    if (e.l < 120) {
+    /* ---- the card's corner of the hall (left of the run): route map, report board, clock, franking station, crates, tea ---- */
+    if (e.l < 140) {
+      routeMap(g, -446, 26, 112, 130); report(g, -146, 58, 112, 128);
+      /* an enamel sign over the report board: the house rule */
+      shadowed(g, 8, 3, 0.18, function () { fillRR(g, -146, 6, 112, 38, 6, RED); }); g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = 1.6; rr(g, -142, 10, 104, 30, 4); g.stroke();
+      text(g, 'AGENTS PREPARE', -90, 23, 8.4, 800, '#FFFFFF', 'center'); text(g, 'PEOPLE POST', -90, 35, 8.4, 800, BRASS_L, 'center'); [-140, -40].forEach(function (x) { fillE(g, x, 25, 1.8, 1.8, '#FFFFFF'); });
+      /* the franking station: a slate cabinet, the franking machine, its in- and out-trays, a plate on the dado */
+      var fx = -440; soft(g, fx + 45, F + 2, 56, 5, 0.25); shadowed(g, 10, 4, 0.18, function () { fillRR(g, fx, 404, 90, F - 404, 6, SLATE); });
+      fillRR(g, fx + 6, 412, 78, 22, 4, SLATE_D); fillRR(g, fx + 6, 440, 78, 24, 4, SLATE_D); fillRR(g, fx + 34, 420, 22, 5, 2.5, BRASS); fillRR(g, fx + 34, 449, 22, 5, 2.5, BRASS); rivets(g, fx, 404, 90, F - 404);
+      fillRR(g, fx + 10, 312, 70, 16, 4, SLATE_D); text(g, 'FRANKING', fx + 45, 323.4, 7.4, 800, BRASS_L, 'center');
+      fillRR(g, fx - 14, 394, 22, 6, 2, '#9AA6BC'); for (var fi = 0; fi < 3; fi++) env(g, fx - 3, 390 - fi * 3, 20, 12, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][fi], -0.05, BLUE);
+      fillRR(g, fx + 82, 396, 24, 6, 2, '#9AA6BC'); for (var fo = 0; fo < 2; fo++) env(g, fx + 94, 392 - fo * 3, 20, 12, '#FFFFFF', 0.06, RED);
+      shadowed(g, 8, 3, 0.2, function () { fillRR(g, fx + 8, 366, 74, 38, 8, '#E3E8EF'); }); fillRR(g, fx + 8, 386, 74, 6, 0, RED); fillRR(g, fx + 8, 398, 74, 6, 3, '#C9D3DE');
+      fillRR(g, fx + 16, 372, 34, 12, 3, '#14232B'); fillRR(g, fx + 58, 372, 18, 10, 3, '#C9D3DE'); fillE(g, fx + 63, 377, 2.6, 2.6, '#5C6B7A'); fillE(g, fx + 71, 377, 2.6, 2.6, '#5C6B7A');
+      g.fillStyle = '#1A2A33'; g.fillRect(fx + 8, 392, 74, 3);
+      /* crates of letters and the tea trolley (the kettle steams live) */
+      [[-250, 432], [-246, 396], [-212, 432]].forEach(function (b) { fillRR(g, b[0], b[1], 40, 38, 3, '#C99A6B'); fillRR(g, b[0], b[1], 40, 7, 3, '#B5865A'); for (var q = 0; q < 4; q++) fillRR(g, b[0] + 5 + q * 8, b[1] - 6, 6, 12, 1, ['#FFFFFF', '#FFF6E0', '#EEF4FF', '#F7E7EC'][q]); });
+      soft(g, -230, F + 2, 50, 5, 0.22);
       var cx2 = -110; soft(g, cx2 + 40, F + 2, 60, 5, 0.25); fillRR(g, cx2, 392, 84, 8, 3, '#B98E5E'); fillRR(g, cx2 + 4, 436, 76, 6, 3, '#B98E5E'); [cx2 + 4, cx2 + 74].forEach(function (x) { fillRR(g, x, 392, 5, 72, 2, '#7A869C'); fillE(g, x + 2.5, 466, 5, 5, '#2A3142'); });
       fillRR(g, cx2 + 10, 368, 24, 24, 8, '#E3EEF0'); fillRR(g, cx2 + 30, 374, 8, 3, 1.5, '#E3EEF0'); fillRR(g, cx2 + 18, 362, 8, 6, 2, SLATE_D); [cx2 + 46, cx2 + 60].forEach(function (x) { fillRR(g, x, 380, 10, 12, 3, '#FFFFFF'); fillRR(g, x, 380, 10, 3, 1.5, RED); });
-      [[-250, 432, 0], [-246, 396, 1], [-212, 432, 2]].forEach(function (b) { fillRR(g, b[0], b[1], 40, 38, 3, '#C99A6B'); fillRR(g, b[0], b[1], 40, 7, 3, '#B5865A'); for (var q = 0; q < 4; q++) fillRR(g, b[0] + 5 + q * 8, b[1] - 6, 6, 12, 1, ['#FFFFFF', '#FFF6E0', '#EEF4FF', '#F7E7EC'][q]); });
-      fillRR(g, -66, 120, 52, 60, 6, '#FFFFFF'); fillRR(g, -66, 120, 52, 14, 6, BRASS); text(g, 'POSTAGE', -40, 130.6, 6.6, 800, INK, 'center'); for (var sp = 0; sp < 6; sp++) fillRR(g, -60 + (sp % 3) * 16, 140 + Math.floor(sp / 3) * 18, 12, 14, 1, [RED, BLUE, GREEN][sp % 3]);
+      for (var tb = 0; tb < 3; tb++) fillRR(g, cx2 + 12 + tb * 20, 424, 16, 12, 2, ['#FFF6E0', '#EEF4FF', '#F7E7EC'][tb]);
     }
-    if (e.l < -300) {
-      for (var lk = 0; lk < 4; lk++) { var lx = -560 + lk * 36; fillRR(g, lx, 268, 34, F - 268, 3, '#4E8A72'); fillRR(g, lx + 4, 276, 26, 6, 2, 'rgba(255,255,255,.25)'); fillRR(g, lx + 4, 290, 26, 4, 2, 'rgba(255,255,255,.25)'); fillRR(g, lx + 26, 340, 4, 14, 2, BRASS); text(g, String(11 + lk), lx + 17, 318, 9, 800, '#FFFFFF', 'center'); }
-      fillRR(g, -568, 262, 152, 8, 3, '#3E7360');
-      sack(g, -380, 420, 70, 50, '#E3D2B0', 'AP'); sack(g, -330, 428, 64, 42, '#D9C49C', 'SALES');
+    /* the INWARD sorting frame on its legs, and the rubber mat the mail-room lead stands on */
+    if (e.l < -470) {
+      var R0 = RACK; [R0.x + 4, R0.x + R0.w - 9].forEach(function (x) { fillRR(g, x, R0.y + R0.h, 5, F - R0.y - R0.h, 2, tone(WOOD, 0.15)); }); soft(g, R0.x + R0.w / 2, F + 2, 36, 4, 0.22);
+      shadowed(g, 10, 4, 0.18, function () { fillRR(g, R0.x, R0.y, R0.w, R0.h, 5, WOOD); });
+      fillRR(g, R0.x - 3, R0.y - 16, R0.w + 6, 16, 4, SLATE); text(g, 'INWARD', R0.x + R0.w / 2, R0.y - 5, 7.4, 800, '#FFFFFF', 'center');
+      for (var si = 0; si < 12; si++) { var sl = slotAt(si); fillRR(g, sl[0] - sl[2] / 2 + 1, sl[1] - sl[3] / 2 + 1, sl[2] - 2, sl[3] - 2, 2, '#5C3F27');
+        if (hash(si * 3.7) > 0.35) fillRR(g, sl[0] - sl[2] / 2 + 3, sl[1] + sl[3] / 2 - 9, sl[2] - 6, 7, 1, ['#FFFFFF', '#FFF6E0', '#EEF4FF', '#F7E7EC'][si % 4]); }
+      var mx0 = SRT.x - 48; g.fillStyle = 'rgba(58,68,88,.82)'; g.beginPath(); g.moveTo(mx0, 562); g.lineTo(mx0 + 94, 562); g.lineTo(mx0 + 84, 536); g.lineTo(mx0 + 10, 536); g.closePath(); g.fill();
+      g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 1.4; g.beginPath(); for (var mr = 0; mr < 6; mr++) { var my2 = 539 + mr * 4; g.moveTo(mx0 + 2 + (562 - my2) * 0.38, my2); g.lineTo(mx0 + 92 - (562 - my2) * 0.38, my2); } g.stroke();
     }
-    if (e.l < -560) {
-      var px2 = -820; shadowed(g, 12, 5, 0.18, function () { fillRR(g, px2, 30, 240, 176, 8, '#D9B98C'); }); fillRR(g, px2 + 8, 38, 224, 160, 4, '#FFFDF6');
-      fillRR(g, px2 + 8, 38, 224, 22, 4, SLATE); text(g, 'THE ROUTE · every letter, every step', px2 + 120, 53, 8.6, 800, '#FFFFFF', 'center');
-      var nodes = [['TRIGGER', BLUE], ['CLASSIFY', '#3FA9E0'], ['RECORD', PUR], ['DRAFT', BRASS_D], ['APPROVE', GREEN], ['SEND', SLATE], ['FOLLOW UP', '#E07B12']];
-      nodes.forEach(function (nd, i) { var col = i < 4 ? i : 6 - i, row = i < 4 ? 0 : 1, x = px2 + 20 + col * 54, y = 74 + row * 64; fillRR(g, x, y, 48, 30, 6, nd[1]); text(g, nd[0], x + 24, y + 18.6, 6.4, 800, '#FFFFFF', 'center');
-        g.strokeStyle = SLATE_D; g.lineWidth = 1.6; g.beginPath(); if (i < 3) { g.moveTo(x + 48, y + 15); g.lineTo(x + 54, y + 15); } else if (i === 3) { g.moveTo(x + 24, y + 30); g.lineTo(x + 24, y + 64); } else if (i < 6) { g.moveTo(x, y + 15); g.lineTo(x - 6, y + 15); } g.stroke(); });
-      fillRR(g, px2 + 120, 120, 54, 14, 7, '#FFF1D6'); text(g, 'a person signs', px2 + 147, 129.6, 5.6, 800, '#8A5A12', 'center');
-      [px2 + 12, px2 + 228].forEach(function (x) { fillE(g, x, 44, 4, 4, RED); });
-      var bx2 = -760; soft(g, bx2 + 70, F + 2, 80, 5, 0.25); fillRR(g, bx2, 424, 140, 10, 4, '#B98E5E'); fillRR(g, bx2, 404, 140, 8, 4, '#C9A27A'); [bx2 + 8, bx2 + 126].forEach(function (x) { fillRR(g, x, 434, 6, 34, 2, '#5C6B7A'); });
-      sheet(g, bx2 + 40, 420, 30, 8, 0.1, RED);
+    /* beyond the frame (wide screens): the lockers, the waiting bench */
+    if (e.l < -645) {
+      for (var lk = 0; lk < 3; lk++) { var lx = -726 + lk * 29; fillRR(g, lx, 268, 28, F - 268, 3, '#4E8A72'); fillRR(g, lx + 4, 276, 21, 6, 2, 'rgba(255,255,255,.25)'); fillRR(g, lx + 4, 290, 21, 4, 2, 'rgba(255,255,255,.25)'); fillRR(g, lx + 21, 340, 4, 14, 2, BRASS); text(g, String(11 + lk), lx + 14.5, 318, 9, 800, '#FFFFFF', 'center'); }
+      fillRR(g, -730, 262, 92, 8, 3, '#3E7360'); soft(g, -683, F + 2, 50, 5, 0.22);
     }
-    /* ---- beyond the frame, right: the report board, the outgoing trolley ---- */
-    if (e.r > 1040) {
-      var rb = 1062; shadowed(g, 10, 4, 0.18, function () { fillRR(g, rb, 60, 108, 132, 8, '#FFFFFF'); }); fillRR(g, rb, 60, 108, 20, 8, SLATE); g.fillRect(rb, 72, 108, 8); text(g, 'MONTHLY REPORT', rb + 54, 73.6, 7.4, 800, '#FFFFFF', 'center');
-      [['handled', GREEN, 0.86], ['escalated', AMBER, 0.34], ['corrected', BLUE, 0.22]].forEach(function (b, i) { var y = 92 + i * 30; text(g, b[0], rb + 10, y + 6, 7.2, 800, INK); fillRR(g, rb + 10, y + 11, 88, 8, 4, '#EEF2F7'); fillRR(g, rb + 10, y + 11, 88 * b[2], 8, 4, b[1]); });
-      text(g, 'sample', rb + 98, 186, 5.6, 700, '#9AA6BC', 'right');
-      var tr = 1046; soft(g, tr + 54, F + 2, 70, 6, 0.25); fillRR(g, tr, 430, 108, 10, 3, SLATE_D); [tr + 14, tr + 94].forEach(function (x) { fillE(g, x, 456, 12, 12, '#2A3142'); fillE(g, x, 456, 5, 5, '#9AA6BC'); }); g.fillStyle = '#7A869C'; g.fillRect(tr + 100, 360, 5, 76);
-      sack(g, tr + 2, 380, 50, 52, '#E3D2B0', 'OUT'); sack(g, tr + 46, 386, 50, 46, '#D9C49C', 'OUT');
+    if (e.l < -760) {
+      var bx2 = -900; soft(g, bx2 + 70, F + 2, 80, 5, 0.25); fillRR(g, bx2, 424, 140, 10, 4, '#B98E5E'); fillRR(g, bx2, 404, 140, 8, 4, '#C9A27A'); [bx2 + 8, bx2 + 126].forEach(function (x) { fillRR(g, x, 434, 6, 34, 2, '#5C6B7A'); });
+      sheet(g, bx2 + 40, 420, 30, 8, 0.1, RED); sack(g, bx2 + 88, 384, 40, 40, '#E3D2B0', 'AP');
     }
+  }
+  /* the route map: the seven stops as a line diagram, the gate marked with a person */
+  function routeMap(g, x, y, w, h) {
+    shadowed(g, 12, 5, 0.18, function () { fillRR(g, x - 4, y - 4, w + 8, h + 8, 8, '#D9B98C'); }); fillRR(g, x, y, w, h, 5, '#FFFDF6');
+    fillRR(g, x, y, w, 18, 5, SLATE); g.fillStyle = SLATE; g.fillRect(x, y + 10, w, 8); text(g, 'THE ROUTE', x + w / 2, y + 12.6, 8, 800, '#FFFFFF', 'center');
+    var nodes = [['TRIGGER', BLUE], ['CLASSIFY', '#3FA9E0'], ['RECORD', PUR], ['DRAFT', BRASS_D], ['APPROVE', GREEN], ['SEND', SLATE], ['FOLLOW UP', '#E07B12']], lx = x + 16, y0 = y + 30, st = (h - 40) / 6;
+    g.strokeStyle = '#C9D3DE'; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(lx, y0); g.lineTo(lx, y0 + st * 6); g.stroke();
+    nodes.forEach(function (nd, i) { var ny = y0 + i * st; fillE(g, lx, ny, 5.4, 5.4, '#FFFFFF'); g.strokeStyle = nd[1]; g.lineWidth = 2.6; g.beginPath(); g.arc(lx, ny, 4.4, 0, 7); g.stroke(); text(g, nd[0], lx + 11, ny + 2.6, 7, 800, INK);
+      if (i === 4) { fillRR(g, x + w - 44, ny - 6, 38, 12, 6, '#EAF7F1'); text(g, 'a person', x + w - 25, ny + 2.4, 5.8, 800, '#14704C', 'center'); } });
+    [x + 6, x + w - 6].forEach(function (px) { fillE(g, px, y - 1, 3.4, 3.4, RED); });
+  }
+  /* the monthly report board: what the agent handled, escalated and corrected (plainly sample) */
+  function report(g, x, y, w, h) {
+    shadowed(g, 10, 4, 0.18, function () { fillRR(g, x, y, w, h, 7, '#FFFFFF'); }); fillRR(g, x, y, w, 20, 7, SLATE); g.fillStyle = SLATE; g.fillRect(x, y + 12, w, 8); text(g, 'MONTHLY REPORT', x + w / 2, y + 13.6, 7.4, 800, '#FFFFFF', 'center');
+    [['handled', GREEN, 0.86], ['escalated', AMBER, 0.34], ['corrected', BLUE, 0.22]].forEach(function (b, i) { var yy = y + 32 + i * 28; text(g, b[0], x + 10, yy + 6, 7.4, 800, INK); fillRR(g, x + 10, yy + 11, w - 20, 8, 4, '#EEF2F7'); fillRR(g, x + 10, yy + 11, (w - 20) * b[2], 8, 4, b[1]); });
+    text(g, 'sample', x + w - 10, y + h - 7, 5.8, 700, '#9AA6BC', 'right');
   }
   function paintFront(g, ext) {
     /* the basket's front wires (the letter sits inside) */
@@ -291,22 +333,50 @@
     fillRR(g, DESK.x + 4, DESK.y - 12, 40, 12, 2, '#9AA6BC'); g.fillStyle = '#7A869C'; g.fillRect(DESK.x + 6, DESK.y - 10, 36, 2);
     fillRR(g, DESK.x + 48, DESK.y - 3, 52, 3, 1, '#2E7D5B');
     fillRR(g, DESK.x + 98, DESK.y - 22, 14, 22, 3, '#7A5236'); [0, 1].forEach(function (i) { fillRR(g, DESK.x + 100 + i * 6, DESK.y - 30, 4, 10, 2, '#5C3F27'); fillE(g, DESK.x + 102 + i * 6, DESK.y - 31, 3, 3, BRASS); });
+    paintFrontMid(g, ext);
+  }
+  /* mid-floor fixtures in front of the back row: the roller conveyors, the hamper, the pigeonhole trolley, the OUT cage */
+  function conveyor(g, c, lab) {
+    var x0 = c.x0, x1 = c.x1, y = c.y, base = y + 46; soft(g, (x0 + x1) / 2, base + 2, (x1 - x0) * 0.55, 6, 0.24);
+    [x0 + 10, (x0 + x1) / 2 - 3, x1 - 16].forEach(function (x) { fillRR(g, x, y + 14, 6, base - y - 16, 2, '#7A869C'); fillRR(g, x - 4, base - 4, 14, 4, 2, '#5C6B7A'); });
+    g.fillStyle = '#C9D3DE'; g.beginPath(); g.moveTo(x0 + 8, y - 8); g.lineTo(x1 - 8, y - 8); g.lineTo(x1, y + 2); g.lineTo(x0, y + 2); g.closePath(); g.fill();
+    g.strokeStyle = '#8E9AB0'; g.lineWidth = 2.2; g.beginPath(); for (var rx = x0 + 6; rx < x1 - 4; rx += 9) { g.moveTo(rx + 2, y - 7); g.lineTo(rx, y + 1); } g.stroke();
+    fillRR(g, x0 - 2, y + 2, x1 - x0 + 4, 12, 3, SLATE); g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x0, y + 4, x1 - x0, 2);
+    for (var bx = x0 + 12; bx < x1 - 6; bx += 26) fillE(g, bx, y + 8, 1.8, 1.8, BRASS_L);
+    fillRR(g, (x0 + x1) / 2 - 22, y + 3, 44, 10, 3, BRASS); text(g, lab, (x0 + x1) / 2, y + 10.8, 6.6, 800, INK, 'center');
+  }
+  function hamper(g, x, base, w, lab, col) {
+    soft(g, x + w / 2, base + 2, w * 0.6, 5, 0.24); [x + 10, x + w - 10].forEach(function (cx) { fillE(g, cx, base - 5, 5.4, 5.4, '#2A3142'); fillE(g, cx, base - 5, 2, 2, '#9AA6BC'); });
+    for (var q = 0; q < 5; q++) fillRR(g, x + 8 + q * (w - 22) / 4, base - 76 - (q % 2) * 4, 12, 18, 1.5, ['#FFFFFF', '#FFF6E0', '#EEF4FF', '#F7E7EC', '#FFFFFF'][q]);
+    g.fillStyle = col; g.beginPath(); g.moveTo(x, base - 66); g.lineTo(x + w, base - 66); g.lineTo(x + w - 5, base - 12); g.lineTo(x + 5, base - 12); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(0,0,0,.06)'; g.fillRect(x + 4, base - 40, w - 8, 3); fillRR(g, x - 3, base - 70, w + 6, 7, 3, '#7A869C'); fillRR(g, x + 2, base - 14, w - 4, 4, 2, '#7A869C');
+    fillRR(g, x + w / 2 - 22, base - 50, 44, 14, 3, '#FFFFFF'); text(g, lab, x + w / 2, base - 40.4, 7, 800, SLATE_D, 'center');
+  }
+  function paintFrontMid(g, ext) {
+    if (ext.l < 140) { conveyor(g, CONV[0], 'INWARD'); hamper(g, -186, 616, 82, 'SORTED', '#E8D9B8'); soft(g, TRUCK.x, TRUCK.y + 1, 44, 5, 0.26); }
+    conveyor(g, CONV[1], 'SORT');
+    /* the pigeonhole trolley */
+    var px = 548, pb = 610; soft(g, px + 40, pb + 2, 48, 5, 0.24); [px + 10, px + 70].forEach(function (cx) { fillE(g, cx, pb - 5, 5.4, 5.4, '#2A3142'); fillE(g, cx, pb - 5, 2, 2, '#9AA6BC'); });
+    fillRR(g, px, pb - 14, 80, 6, 2, '#7A869C'); fillRR(g, px + 4, pb - 96, 72, 84, 4, WOOD); fillRR(g, px - 2, pb - 102, 84, 8, 3, SLATE);
+    for (var c = 0; c < 3; c++) for (var r = 0; r < 3; r++) { var sx = px + 8 + c * 22, sy = pb - 90 + r * 25; fillRR(g, sx, sy, 20, 22, 2, '#5C3F27'); if (hash(c * 5 + r * 2.2) > 0.3) fillRR(g, sx + 2, sy + 12, 16, 8, 1, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][(c + r) % 3]); }
+    g.strokeStyle = '#5C6B7A'; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.moveTo(px + 80, pb - 60); g.lineTo(px + 92, pb - 64); g.lineTo(px + 92, pb - 104); g.stroke();
+    /* the OUT cage on castors, two sacks inside */
+    var ox = 652, ob = 610; soft(g, ox + 38, ob + 2, 46, 5, 0.24); [ox + 10, ox + 66].forEach(function (cx) { fillE(g, cx, ob - 5, 5.4, 5.4, '#2A3142'); fillE(g, cx, ob - 5, 2, 2, '#9AA6BC'); });
+    fillRR(g, ox, ob - 92, 76, 80, 2, 'rgba(227,238,240,.78)'); sack(g, ox + 6, ob - 62, 36, 50, '#E3D2B0', ''); sack(g, ox + 36, ob - 56, 34, 44, '#D9C49C', '');
+    g.strokeStyle = '#7A869C'; g.lineWidth = 2; g.beginPath(); for (var gx = ox; gx <= ox + 76; gx += 12.6) { g.moveTo(gx, ob - 92); g.lineTo(gx, ob - 12); } for (var gy = ob - 92; gy <= ob - 12; gy += 16) { g.moveTo(ox, gy); g.lineTo(ox + 76, gy); } g.stroke();
+    fillRR(g, ox - 2, ob - 96, 80, 6, 3, SLATE_D); fillRR(g, ox + 22, ob - 64, 32, 14, 3, RED); text(g, 'OUT', ox + 38, ob - 54, 8, 800, '#FFFFFF', 'center');
+    /* outgoing sacks waiting for collection, and the lane sign */
+    sack(g, 750, 558, 50, 50, '#E3D2B0', 'VENDOR'); sack(g, 796, 566, 46, 42, '#D9C49C', 'AP');
+    var ax = 872, ab = 608; soft(g, ax + 18, ab + 2, 24, 4, 0.22); g.fillStyle = '#5C6B7A'; g.beginPath(); g.moveTo(ax + 4, ab); g.lineTo(ax + 18, ab - 64); g.lineTo(ax + 32, ab); g.lineTo(ax + 28, ab); g.lineTo(ax + 18, ab - 54); g.lineTo(ax + 8, ab); g.closePath(); g.fill();
+    fillRR(g, ax, ab - 66, 36, 44, 4, '#EDBE4C'); fillRR(g, ax + 3, ab - 63, 30, 38, 3, '#FFF4D2'); text(g, 'SORT', ax + 18, ab - 49, 7, 800, INK, 'center'); text(g, '→ OUT', ax + 18, ab - 37, 6.6, 800, RED, 'center');
   }
   function paintFore(g, ext) {
-    /* near the camera: a crate of letters, a step stool, the sacks, the sorting trolley, plants */
-    soft(g, 296, 738, 54, 6, 0.25); fillRR(g, 252, 694, 90, 42, 4, '#C99A6B'); fillRR(g, 252, 694, 90, 8, 4, '#B5865A'); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(252, 716, 90, 3);
-    for (var q = 0; q < 9; q++) env(g, 262 + q * 9, 690 - (q % 3) * 2, 22, 14, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][q % 3], -0.1 + (q % 3) * 0.08, [RED, BLUE, GREEN][q % 3]);
-    text(g, 'TODAY', 297, 724, 8, 800, '#7A5236', 'center');
-    soft(g, 492, 744, 34, 5, 0.25); fillRR(g, 466, 704, 52, 8, 3, '#4E8A72'); fillRR(g, 470, 712, 5, 32, 2, '#3E7360'); fillRR(g, 509, 712, 5, 32, 2, '#3E7360'); fillRR(g, 470, 726, 44, 5, 2, '#3E7360');
-    sack(g, 590, 694, 66, 52, '#E3D2B0', 'VENDOR'); sack(g, 644, 702, 60, 44, '#D9C49C', 'AP');
-    sack(g, 770, 704, 84, 42, '#E8D9B8', '');
-    if (ext.r > 940) { var tx = 972; soft(g, tx + 60, 744, 74, 6, 0.25); fillRR(g, tx, 690, 120, 10, 3, '#B98E5E'); fillRR(g, tx + 4, 700, 112, 30, 4, '#C9A27A'); [tx + 16, tx + 104].forEach(function (x) { fillE(g, x, 736, 9, 9, '#2A3142'); });
-      for (var tr = 0; tr < 3; tr++) { fillRR(g, tx + 8 + tr * 37, 678, 32, 14, 2, '#9AA6BC'); for (var l = 0; l < 3; l++) env(g, tx + 24 + tr * 37, 676 - l * 3, 26, 12, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][l], 0.04 * (l - 1), [RED, BLUE, GREEN][(l + tr) % 3]); } }
-    if (ext.r > 1150) { sack(g, 1180, 690, 70, 56, '#E3D2B0', 'OUT'); pot(g, 1300, 760, 1.15); }
-    if (ext.l < -300) { sack(g, -560, 696, 70, 50, '#D9C49C', 'SALES'); sack(g, -500, 704, 60, 42, '#E3D2B0', ''); }
+    /* near the camera, clear of the card, the caption and the stamp strip: sacks at the left edge, the cat's sack by the gate, plants */
+    if (ext.l < -470) sack(g, -622, 700, 66, 50, '#D9C49C', 'INWARD');
+    sack(g, 926, 712, 66, 48, '#E8D9B8', 'OUT');
+    if (ext.r > 1180) pot(g, 1226, 760, 1);
     if (ext.l < -700) pot(g, -830, 760, 1.2);
   }
-
   /* ---------------- live ---------------- */
   var TAP = {}, WC = {}, CAPS = [];
   function paintWindow(g, t, par, S) {
@@ -421,13 +491,71 @@
       text(g, D.kind, tx + 9, ty + 9.6, 6.8, 800, INK); text(g, 'confidence ' + D.pct + '%', tx + 9, ty + 18, 5.8, 700, '#5C6B7A'); g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 1; g.beginPath(); g.moveTo(tx + tw, ty + 11); g.lineTo(x - 15, cy + 20); g.stroke(); g.restore(); }
     /* the tea trolley's kettle steam (beyond the frame, left) */
     if (e.l < 0) { g.strokeStyle = 'rgba(160,170,190,.5)'; g.lineWidth = 1.6; for (var st = 0; st < 3; st++) { var sy = 352 - ((t * 16 + st * 9) % 30); g.beginPath(); g.moveTo(-88 + st * 3, sy + 10); g.quadraticCurveTo(-84 + st * 3 + Math.sin(t * 2 + st) * 4, sy + 4, -88 + st * 3, sy - 2); g.stroke(); } }
+    cornerBack(g, t, S);
     CO.crew(CREW, g, t, S, false);
   }
 
+  /* ---------------- the card's corner, live: clock, pendant lamp, the franking machine, the INWARD slots, conveyors, the hand truck ---------------- */
+  var LIFE = { slot: -1, slotT: -9 };
+  function cornerBack(g, t, S) {
+    var e = S.ext; if (e.l > 140) return;
+    var sw = Math.sin(t * 0.7) * 0.05; g.save(); g.translate(-390, RAIL + 4); g.rotate(sw);
+    g.fillStyle = 'rgba(255,240,190,.26)'; g.beginPath(); g.moveTo(-9, 32); g.lineTo(9, 32); g.lineTo(30, 66); g.lineTo(-30, 66); g.closePath(); g.fill();
+    g.strokeStyle = '#5C6B7A'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 20); g.stroke();
+    g.fillStyle = SLATE; g.beginPath(); g.moveTo(-5, 20); g.lineTo(5, 20); g.lineTo(14, 32); g.lineTo(-14, 32); g.closePath(); g.fill(); fillE(g, 0, 32, 5, 2.6, '#FFF3C4'); g.restore();
+    /* the franking machine: a letter feeds through every few seconds and comes out franked */
+    var fx = -440, fu = (t % 5.2) / 5.2, on = fu > 0.18 && fu < 0.5;
+    if (fu < 0.52) { var ex = lerp(fx - 4, fx + 98, smooth(Math.min(1, fu / 0.5))); g.save(); g.beginPath(); g.rect(fx - 40, 340, 48, 60); g.rect(fx + 82, 340, 46, 60); g.clip(); env(g, ex, 389, 20, 12, '#FFFFFF', 0, ex > fx + 60 ? RED : BLUE); g.restore(); }
+    text(g, on ? 'FRANKING' : 'READY', fx + 33, 380.4, 5.6, 800, on ? '#FFD84A' : '#7FF0CF', 'center');
+    fillE(g, fx + 78, 369.5, 1.8, 1.8, on && (t % 0.3) < 0.15 ? RED : '#9AA6BC');
+    /* the slot the mail-room lead just posted into glows */
+    if (t - LIFE.slotT < 1.3 && LIFE.slot >= 0) { var sl = slotAt(LIFE.slot), a = 1 - (t - LIFE.slotT) / 1.3; g.strokeStyle = 'rgba(127,240,207,' + a.toFixed(2) + ')'; g.lineWidth = 2.2; rr(g, sl[0] - sl[2] / 2 + 1, sl[1] - sl[3] / 2 + 1, sl[2] - 2, sl[3] - 2, 2); g.stroke(); }
+  }
+  var PCOL = [['#C99A6B', '#E8C27A'], ['#FFFFFF', RED], ['#E6CFA3', BLUE], ['#D9B98C', '#E8C27A']];
+  function parcels(g, t, c, idx) {
+    var L = c.x1 - c.x0 - 34, span = L + 28, gap = span / c.n;
+    for (var k = 0; k < c.n; k++) { var d = (t * c.sp + k * gap + c.ph * 40) % span, x = c.x0 + 12 + d, a = 1, drop = 0, kind = (k + idx) % 4;
+      if (d > L) { var f = (d - L) / 28; a = 1 - f; drop = f * f * 18; } else if (d < 10) a = d / 10;
+      g.save(); g.globalAlpha = a; g.translate(x, c.y - 4 + drop); if (drop) g.rotate(drop * 0.02);
+      if (kind === 1) { for (var q = 0; q < 3; q++) env(g, 0, -5 - q * 4, 24, 12, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][q], (q - 1) * 0.06, [RED, BLUE, GREEN][q]); }
+      else { var w = kind === 3 ? 30 : 24, h = kind === 3 ? 18 : 16; fillRR(g, -w / 2, -h, w, h, 2, PCOL[kind][0]); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(-w / 2, -h, w, 3); fillRR(g, -2.5, -h, 5, h, 1, PCOL[kind][1]); if (kind === 2) fillRR(g, 3, -h + 4, 8, 6, 1, '#FFFFFF'); }
+      g.restore(); }
+  }
+  function truck(g, t, P) {
+    var x = TRUCK.x, b = TRUCK.y; g.save(); g.translate(x, b - 6); g.rotate(P.rock || 0); g.translate(-x, -(b - 6));
+    fillRR(g, x - 23, b - 152, 5, 148, 2, '#3A4458'); fillRR(g, x + 18, b - 152, 5, 148, 2, '#3A4458'); [b - 46, b - 96].forEach(function (y) { fillRR(g, x - 22, y, 44, 4, 2, '#5C6B7A'); });
+    g.strokeStyle = '#3A4458'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(x - 20, b - 150); g.quadraticCurveTo(x, b - 172, x + 20, b - 150); g.stroke();
+    sack(g, x - 27, b - 52, 54, 48, '#E3D2B0', 'IN', true); sack(g, x - 23, b - 92, 46, 42, '#D9C49C', '', true);
+    fillRR(g, x - 27, b - 6, 54, 6, 2, '#5C6B7A'); [-28, 28].forEach(function (d) { fillE(g, x + d, b - 8, 5, 11, '#2A3142'); fillE(g, x + d, b - 8, 1.8, 4, '#9AA6BC'); });
+    g.restore();
+    /* the top parcel: on the stack, or held high on a tap */
+    var hl = handAt(P, 0), hr = handAt(P, 1), lf = P.lift || 0, bx = lerp(x, (hl[0] + hr[0]) / 2, lf), by = lerp(b - 92, Math.min(hl[1], hr[1]) + 4, lf);
+    fillRR(g, bx - 16, by - 22, 32, 22, 3, '#C99A6B'); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(bx - 16, by - 22, 32, 4); fillRR(g, bx - 3, by - 22, 6, 22, 1, '#E8C27A'); fillRR(g, bx + 5, by - 16, 9, 7, 1, '#FFFFFF');
+    if (lf > 0.6) { var ta = (lf - 0.6) / 0.4; g.save(); g.globalAlpha = ta; fillRR(g, bx - 34, by - 50, 68, 18, 9, GREEN); text(g, 'DELIVERED ✓', bx, by - 37.6, 7.6, 800, '#FFFFFF', 'center'); g.restore(); }
+  }
+  function cornerFront(g, t, S) {
+    var e = S.ext;
+    parcels(g, t, CONV[1], 1);
+    if (e.l > 140) return;
+    parcels(g, t, CONV[0], 0);
+    /* the mail-room lead: the bundle, the scanner and its beam, the letters she posts or throws */
+    var P = SRT, hl = handAt(P, 0), hr = handAt(P, 1);
+    for (var q = 0; q < 3; q++) env(g, hl[0] + 2, hl[1] - 6 - q * 3, 22, 13, ['#FFFFFF', '#FFF6E0', '#EEF4FF'][q], -0.1 + q * 0.06, [RED, BLUE, GREEN][q]);
+    if (P.letter) env(g, hr[0] + 6, hr[1] - 6, 20, 12, '#FFF6E0', -0.3, BLUE);
+    else if (!P.fly && !P.pocket) { fillRR(g, hr[0] - 4, hr[1] - 12, 9, 16, 3, '#3A4458'); fillRR(g, hr[0] - 3, hr[1] - 17, 13, 7, 3, '#2A3142'); fillE(g, hr[0] + 9, hr[1] - 13.5, 1.6, 1.6, P.scan && (t % 1.2) < 0.15 ? '#7FF0CF' : RED);
+      if (P.scan && (t % 1.2) < 0.5) { g.strokeStyle = 'rgba(214,74,58,.75)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(hr[0] + 10, hr[1] - 13); g.lineTo(hl[0] - 6, hl[1] - 10); g.lineTo(hl[0] + 12, hl[1] - 8); g.closePath(); g.stroke(); } }
+    if (P.fly) { var sl = slotAt((P.fly.n * 4 + 1) % 12), f = Math.min(1, P.fly.f / 0.55); if (f < 1) env(g, lerp(hr[0], sl[0], f), lerp(hr[1], sl[1], f) - Math.sin(f * Math.PI) * 40, 18, 11, '#FFFFFF', f * 6.28, [RED, BLUE, GREEN][P.fly.n % 3]); }
+    if (TAP.srt && t - TAP.srt > 1.9 && t - TAP.srt < 3.2) { var su = (t - TAP.srt - 1.9) / 1.3; g.save(); g.globalAlpha = Math.min(1, (1 - su) * 3); fillRR(g, P.x - 30, P.y - 330 - su * 16, 60, 18, 9, SLATE); text(g, 'SORTED ✓', P.x, P.y - 317.4 - su * 16, 7.6, 800, '#7FF0CF', 'center'); g.restore(); }
+    /* the courier: the hand truck, the delivery slip, the watch */
+    var C = COU, cl = handAt(C, 0); truck(g, t, C);
+    if (C.slip) { g.save(); g.translate(cl[0] + 4, cl[1] - 10); g.rotate(-0.12); fillRR(g, -9, -12, 18, 24, 2, '#FFFFFF'); fillRR(g, -9, -12, 18, 5, 2, '#F2A93B'); g.fillStyle = '#C9D3E3'; for (var ln = 0; ln < 3; ln++) g.fillRect(-6, -3 + ln * 4.4, 12 - ln * 3, 1.6); if (C.tick) text(g, '✓', 5, 10, 8, 800, GREEN, 'center'); g.restore(); }
+    if (C.watch) { fillE(g, cl[0], cl[1] - 4, 4.4, 4.4, '#2A3142'); fillE(g, cl[0], cl[1] - 4, 3, 3, '#FFFFFF'); }
+  }
   /* ---------------- in front of the cast: desk screens, props in hands, the tray, effects ---------------- */
   function paintFrontLive(g, t, S) {
     var R = S.R, u = R.u, v = u, D = R.D, P = R.P;
     CO.crew(CREW, g, t, S, true);
+    cornerFront(g, t, S);
     /* the developer's monitor: the live trace of the run */
     var mx = 664, my = 322; fillRR(g, mx, my, 36, 56, 2, '#14232B'); text(g, 'TRACE', mx + 3, my + 7, 5, 800, '#7FF0CF');
     var steps = ['in', 'cls', 'rec', 'dft', 'wait', 'ok', 'sent'], stepU = [0, 0.3, 0.52, 0.8, 0.96, 1.15, 1.38];
@@ -473,7 +601,7 @@
   }
   /* the office cat on the sacks, a swaying fern, the front-row walkers, the particles */
   function cat(g, t) {
-    var cu = TAP.cat ? (t - TAP.cat) / 2.4 : 9, awake = cu < 1, x = 812, y = 706, st = awake ? Math.sin(Math.min(1, cu * 2) * Math.PI) : 0, br = Math.sin(t * 1.6) * 0.8;
+    var cu = TAP.cat ? (t - TAP.cat) / 2.4 : 9, awake = cu < 1, x = 958, y = 712, st = awake ? Math.sin(Math.min(1, cu * 2) * Math.PI) : 0, br = Math.sin(t * 1.6) * 0.8;
     g.save(); g.translate(x, y);
     var tw = Math.sin(t * (awake ? 6 : 1.4)) * (awake ? 0.6 : 0.3); g.strokeStyle = '#D98A3E'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(22, 2); g.quadraticCurveTo(38, 4 + tw * 10, 34 + tw * 6, -10 - tw * 4); g.stroke();
     fillE(g, 2, 0 - st * 4, 26 + st * 8, 12 + br * 0.5 - st * 2, '#E8A050'); g.fillStyle = 'rgba(150,80,20,.35)'; for (var s = 0; s < 3; s++) g.fillRect(-6 + s * 9, -10 - st * 4, 3, 8);
@@ -485,7 +613,7 @@
   }
   function fern(g, t, x, y, s, ph) { g.save(); g.translate(x, y); g.rotate(Math.sin(t * 0.9 + ph) * 0.03); pot(g, 0, 0, s); g.restore(); }
   function paintForeLive(g, t, S) {
-    K.zfore(g, t, S, [[706, function () { cat(g, t); }], [700, function () { fern(g, t, 175, 700, 0.95, 0); }]], function () { CO.crew(CREW, g, t, S, 'fore'); });
+    K.zfore(g, t, S, [[760, function () { cat(g, t); }], [700, function () { fern(g, t, 175, 700, 0.95, 0); }]], function () { CO.crew(CREW, g, t, S, 'fore'); });
     CR.draw(g, t);
   }
 
@@ -545,6 +673,40 @@
       else { var tp = Math.abs(Math.sin(t * 6)) * 6; P.hands = [[-40, -206 - tp], [40, -214 + tp]]; lookAtNexi(P, st, t, S, -0.3); } }
   } };
 
+  /* the mail-room lead (TechNext): scans the bundle, posts a letter into the INWARD frame, pushes up her glasses;
+     tap: a speed sort, three letters flicked into three slots, then a spin and SORTED */
+  var castSRT = { id: 'srt', behind: true, keys: [], P: SRT, act: function (P, t, S) {
+    var st = S.cast.srt; if (tapped('srt', st, t)) CR.burst('star', P.x + 30, P.y - 300, t);
+    var sd = P.side || 1; P.tilt = 0; P.hop = 0; P.sx = sd; P.scan = false; P.letter = false; P.fly = null; P.pocket = false;
+    if (TAP.srt && t - TAP.srt < 3.2) { var u = (t - TAP.srt) / 3.2; P.talk = true; P.mood = 'happy';
+      if (u < 0.6) { var k = (u / 0.6) * 3, f = k % 1, n = Math.floor(k), out = f < 0.4 ? f / 0.4 : 1 - (f - 0.4) / 0.6;
+        P.hands = [[-34, -220], [lerp(40, 150, out), -300 - Math.sin(f * Math.PI) * 50]]; P.look = lerp(P.look, 0.8, 0.2); P.fly = { n: n, f: f };
+        if (f > 0.55 && st._n !== n) { st._n = n; LIFE.slot = (n * 4 + 1) % 12; LIFE.slotT = t; } }
+      else { var v = (u - 0.6) / 0.4; P.sx = sd * Math.cos(v * Math.PI * 2); P.hop = Math.sin(v * Math.PI) * 18; P.hands = [[-90, -400], [90, -400]]; } return; }
+    st._n = -1;
+    var c = (t + 3) % 9, busy = t < st.until; P.talk = busy; P.mood = busy ? 'happy' : 'calm';
+    if (c < 4) { P.scan = true; P.hands = [[-34, -200], [58, -232 + Math.sin(t * 3) * 6]]; lookAtNexi(P, st, t, S, 0.1); }
+    else if (c < 6.4) { var k2 = (c - 4) / 2.4, up = Math.sin(k2 * Math.PI); P.letter = k2 < 0.5; P.hands = [[-34, -200], [lerp(58, 160, up), lerp(-232, -360, up)]]; P.look = lerp(P.look, 0.8, 0.1);
+      var cyc = Math.floor((t + 3) / 9); if (k2 > 0.5 && st._p !== cyc) { st._p = cyc; LIFE.slot = Math.floor(hash(cyc) * 12); LIFE.slotT = t; } }
+    else { P.pocket = true; P.hands = [[-34, -200], [26, -404]]; P.tilt = Math.sin(t * 2) * 0.03; lookAtNexi(P, st, t, S, 0.2); }
+  } };
+  /* the courier (visitor, grey pass): reads the delivery slip and ticks it, wipes his brow, checks his watch;
+     tap: tips his cap, lifts the top parcel high (DELIVERED), the hand truck rocks */
+  var HANDLE = [81, -284];
+  var castCOU = { id: 'cou', behind: true, keys: [], P: COU, act: function (P, t, S) {
+    var st = S.cast.cou; if (tapped('cou', st, t)) CR.burst('conf', P.x + 50, P.y - 340, t);
+    P.tilt = 0; P.hop = 0; P.slip = false; P.lift = 0; P.rock = 0; P.watch = false; P.tick = false;
+    if (TAP.cou && t - TAP.cou < 3.2) { var u = (t - TAP.cou) / 3.2; P.talk = true; P.mood = 'happy';
+      if (u < 0.22) { P.hands = [[-6, -470], HANDLE]; P.tilt = -0.04; P.look = 0.1; }
+      else if (u < 0.8) { var v = (u - 0.22) / 0.58, up = Math.sin(Math.min(1, v * 3) * Math.PI / 2); P.lift = up; P.hands = [[-34, lerp(-300, -500, up)], [46, lerp(-300, -500, up)]];
+        P.hop = v > 0.3 && v < 0.7 ? Math.sin((v - 0.3) / 0.4 * Math.PI) * 16 : 0; P.rock = Math.sin(v * 18) * 0.05 * (1 - v); }
+      else { var w = (u - 0.8) / 0.2; P.lift = 1 - w; P.hands = [[-34, lerp(-500, -300, w)], [lerp(46, HANDLE[0], w), lerp(-500, HANDLE[1], w)]]; } return; }
+    var c = (t + 1) % 8, busy = t < st.until; P.talk = busy; P.mood = busy ? 'happy' : 'calm'; P.hands = [[-20, -300], HANDLE];
+    if (c < 3.2) { P.slip = true; P.tick = c > 2.3; P.hands[0] = [-16, -236 + Math.sin(t * 1.4) * 4]; P.look = lerp(P.look, -0.25, 0.1); }
+    else if (c < 4.8) { var wb = (c - 3.2) / 1.6; P.hands[0] = [-40 + Math.sin(wb * Math.PI * 3) * 18, -440]; P.tilt = -0.03; P.look = lerp(P.look, 0.2, 0.1); }
+    else { P.watch = c < 6.2; P.hands[0] = P.watch ? [-8, -262] : [-60, -190]; lookAtNexi(P, st, t, S, P.watch ? -0.4 : 0.3); }
+  } };
+
   window.IXW.worlds['sol-auto'] = {
     pan: [-300, 1180],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
@@ -561,14 +723,14 @@
       lever: function (g) { rr(g, POST - 22, 206, 44, 68, 12); }
     },
     backGlow: ['trigger', 'classify', 'record', 'draft', 'route', 'log', 'lever'],
-    cast: [castTN, castREV, castDEV, castAPR],
+    cast: [castTN, castREV, castDEV, castAPR, castSRT, castCOU],
     toy: function (name, S, t) { if (name === 'lever') { TAP.lever = t; WT.until = t + PAUSE_LEN; CR.burst('spark', POST, 220, t); } },
     hit: function (x, y, S, t, onBtn) {
       var w = CR.hitWalker(x, y, t); if (w) return w; if (onBtn) return null;
       var R = S.R; if (R && Math.abs(x - R.sx) < 40 && y > RAIL - 14 && y < R.cy + 40) {
         var what = { grab: 'picking up a **new letter** from the inbox', carry: 'carrying a **' + R.D.kind.toLowerCase() + '** to the next step', scan: 'reading and **classifying** a ' + R.D.kind.toLowerCase(), record: 'pulling the **record** from Odoo: ' + R.D.rec.toLowerCase(), feed: 'feeding the press to **prepare the ' + R.D.draft.toLowerCase() + '**', back: 'heading back to the inbox for the **next letter**', wait: 'waiting at the inbox for the **next trigger**' }[R.phase];
         return { say: 'I\'m the **agent**. Right now I\'m ' + what + '. Anything irreversible waits for a person.', near: [clamp(R.sx + (R.sx < 500 ? 170 : -170), 220, 900), 70], pose: R.sx < 500 ? 'point-left' : 'point-right', who: 'The agent' }; }
-      if (x > 770 && x < 860 && y > 680 && y < 750) { TAP.cat = t; CR.burst('heart', 800, 690, t); return { say: 'The office cat. She sleeps through every run: the **log** keeps watch for her.', near: [700, 440], pose: 'love', who: 'The office cat' }; }
+      if (x > 922 && x < 1000 && y > 672 && y < 752) { TAP.cat = t; CR.burst('heart', 950, 680, t); return { say: 'The office cat. She sleeps through every run: the **log** keeps watch for her.', near: [770, 440], pose: 'love', who: 'The office cat' }; }
       if (Math.hypot(x - 510, y - 30) < 22) return { say: CO.timeLine(8, 'Singapore', 'and the agent is still on its round.'), near: [600, 60], pose: 'wow', who: 'The wall clock' };
       return null;
     },
