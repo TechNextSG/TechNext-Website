@@ -129,11 +129,20 @@
 
 /* ---------- the archive: a newspaper page of clippings, in columns ---------- */
 .ixw--blog #articles{background:linear-gradient(180deg,#F7F5EE,#FFFFFF 40%)}
-.ixw--blog #articles .filter-bar{gap:0;border-bottom:2px solid var(--bl-ink)}
-.ixw--blog #articles .filter-bar button{margin-bottom:-2px;border:2px solid transparent;border-radius:4px 4px 0 0;background:transparent;color:#4A5168;font-weight:800;transition:background-color .2s ease,color .2s ease}
-.ixw--blog #articles .filter-bar button:hover{background:#FFFFFF;color:var(--bl-ink)}
-.ixw--blog #articles .filter-bar button[aria-pressed="true"]{background:var(--bl-paper);border-color:var(--bl-ink);border-bottom-color:var(--bl-paper);color:var(--bl-ink)}
-.ixw--blog #articles .filter-bar button[aria-pressed="true"] span{background:var(--bl-red);color:#FFFFFF}
+/* the filter row: newspaper section tabs standing on the archive page's top edge. Every tab is the same shape (inactive ones
+   in a lighter newsprint), counts are small pills, the active tab is paper-white and opens into the page below. The page edge
+   is drawn as the row's background line, so the active tab covers it even inside the phone scroller. */
+.ixw--blog #articles .filter-bar{position:relative;align-items:flex-end;gap:6px;margin:0;padding:0 12px;border:0;background:linear-gradient(var(--bl-ink),var(--bl-ink)) 0 100%/100% 2px no-repeat}
+.ixw--blog #articles .filter-bar button{position:relative;flex:none;height:46px;margin:0 0 2px;padding:0 14px 0 18px;gap:10px;border:2px solid #CFC8B4;border-bottom:0;border-radius:6px 6px 0 0;background:#EFEADC;color:#4A5168;
+  font:800 14px/1 var(--font-body);box-shadow:inset 0 -6px 8px -6px rgba(20,26,58,.12);transition:background-color .2s ease,color .2s ease,border-color .2s ease,translate .2s cubic-bezier(.34,1.45,.64,1)}
+.ixw--blog #articles .filter-bar button::before{content:"";position:absolute;left:8px;top:50%;width:4px;height:14px;margin-top:-7px;border-radius:2px;background:#CFC8B4;transition:background-color .2s ease}
+.ixw--blog #articles .filter-bar button span{display:inline-grid;place-items:center;min-width:22px;height:20px;padding:0 7px;border-radius:999px;background:#FFFFFF;box-shadow:inset 0 0 0 1.5px #CFC8B4;color:#4A5168;font:800 11px/1 var(--font-body)}
+.ixw--blog #articles .filter-bar button:hover{translate:0 -2px;background:#F8F5EC;border-color:#9AA6BC;color:var(--bl-ink)}
+.ixw--blog #articles .filter-bar button:hover::before{background:var(--bl-red)}
+.ixw--blog #articles .filter-bar button:focus-visible{outline:3px solid var(--bl-y);outline-offset:-5px}
+.ixw--blog #articles .filter-bar button[aria-pressed="true"]{z-index:1;height:50px;margin-bottom:0;translate:none;background:var(--bl-paper);border-color:var(--bl-ink);color:var(--bl-ink);box-shadow:inset 0 3px 0 var(--bl-red)}
+.ixw--blog #articles .filter-bar button[aria-pressed="true"]::before{background:var(--bl-red)}
+.ixw--blog #articles .filter-bar button[aria-pressed="true"] span{background:var(--bl-red);box-shadow:none;color:#FFFFFF}
 .ixw--blog .bl-archive{margin-top:0;padding:22px 26px 30px;border:2px solid var(--bl-ink);border-top:0;border-radius:0 0 4px 4px;background:var(--bl-paper);box-shadow:0 6px 0 var(--bl-ink),0 40px 70px -40px rgba(20,26,58,.4)}
 .ixw--blog .bl-archive-mast{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 22px;padding-bottom:12px;border-bottom:3px double var(--bl-ink)}
 .ixw--blog .bl-archive-mast b{font:700 clamp(1.3rem,2.4vw,1.8rem)/1 var(--bl-serif);color:var(--bl-ink)}
@@ -154,7 +163,7 @@
   .ixw--blog .bl-archive .post-card:last-child:nth-child(3n+1) .post-cover{grid-row:1/-1;margin:-20px 0 -22px -20px;aspect-ratio:auto;height:100%;min-height:200px;border-bottom:0;border-right:1px solid var(--bl-rule)}}
 @media (max-width:1100px) and (min-width:768px){.ixw--blog .bl-archive .post-card:nth-child(2n+1){border-left:0}}
 @media (max-width:767px){.ixw--blog .bl-archive{padding:16px 14px 20px}.ixw--blog .bl-archive .post-card{border-left:0}.ixw--blog .bl-archive-mast{flex-wrap:wrap}.ixw--blog .bl-archive-mast span:first-child{display:none}
-  .ixw--blog #articles .filter-bar{overflow-x:auto;flex-wrap:nowrap}}
+  .ixw--blog #articles .filter-bar{overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;margin:0;padding:6px 8px 0;scrollbar-width:none}.ixw--blog #articles .filter-bar button{height:42px;padding:0 12px 0 16px;font-size:13px}.ixw--blog #articles .filter-bar button[aria-pressed="true"]{height:46px}}
 
 /* ---------- the three beats: three studio monitors, channels 1 to 3 ---------- */
 .ixw--blog .bl-beats{--w-alt:#EEF2F9;--w-dot:rgba(20,26,58,.07)}
