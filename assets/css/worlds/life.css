@@ -1,0 +1,121 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: life (/life) — the TechNext common room. Sage, oak and sunshine with brand blue. The title card is a pinned
+   cork-and-oak noticeboard note; the caption is a sticky note on the fridge; buttons are wooden door tags; sections are
+   the room: window postcards, the how-we-work board with pinned cards, a photo wall of "coming soon" frames, and doors
+   to the rest of the office. */
+.ixw--life{--lf-ink:#16302B;--lf-sage:#3E8E7E;--lf-sage2:#5FB09D;--lf-oak:#D9B48A;--lf-oak2:#B98E62;--lf-sun:#FFD25E;--lf-cream:#F7F2EA;--lf-line:#DCE6E2;
+  --w-alt:#F1F7F3;--w-dot:rgba(62,142,126,.09);--lab-bd:2px solid #16302B;--lab-lip:#16302B;--lab-tail:#16302B;--lab-r:10px;
+  --st-ink:#16302B;--st-meet:#3E8E7E;--st-talk:#3167CA;--st-nexi:#FFD25E;--st-nexi-fg:#16302B;--hc-bg:linear-gradient(180deg,#5FB09D,#3E8E7E);
+  --ii-bg:linear-gradient(160deg,#F4FAF6,#E2EFE8 55%,#FFF1CC);--ii-ink:#16302B;--ii-b:#3E8E7E;--ii-accent:#D9B48A;--ii-lip:#16302B;--ii-ep-bg:#3E8E7E;--ii-ep-fg:#FFFFFF}
+.ixw--life .ixw-hero{background:linear-gradient(180deg,#FFFFFF 0,#F4FAF6 18%,#E2EFE8 52%,#E9DCC8 62%,#EAD9C0 62%,#D9C2A2 100%)}
+
+/* ---------- the title card: a note pinned to an oak-framed board ---------- */
+.ixw--life .ixw-copy{position:relative;max-width:500px;margin-top:30px;padding:34px 30px 26px;border-radius:6px;background:#FFFEFB;
+  box-shadow:0 0 0 10px var(--lf-oak),0 0 0 12px var(--lf-oak2),0 44px 70px -30px rgba(22,48,43,.5)}
+.ixw--life .ixw-copy::before{content:"";position:absolute;left:50%;top:-20px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFE59A,#E8A93A 70%);box-shadow:0 3px 4px rgba(0,0,0,.3)}
+.ixw--life .ixw-copy::after{content:"";position:absolute;right:-18px;bottom:24px;width:70px;height:70px;rotate:8deg;background:#FFE680;box-shadow:0 6px 10px -4px rgba(0,0,0,.25);
+  -webkit-mask:linear-gradient(#000,#000);clip-path:polygon(0 0,100% 0,100% 82%,82% 100%,0 100%)}
+.ixw--life .ixw-copy h1{max-width:15ch;font-size:clamp(2rem,3vw,2.6rem)}
+.ixw--life .ixw-copy .hand{color:var(--lf-sage)}
+.ixw--life .ixw-copy .lead{font-size:.96rem;line-height:1.55}
+.ixw--life .ixw-ep-tag{background:var(--lf-sage);box-shadow:0 3px 0 #2A6B5E}
+.ixw--life .ixw-hint .ic{color:#E8A93A}
+@media (max-width:767px){.ixw--life .ixw-copy{padding:30px 20px 22px;box-shadow:0 0 0 7px var(--lf-oak),0 0 0 9px var(--lf-oak2),0 30px 50px -30px rgba(22,48,43,.45)}.ixw--life .ixw-copy::after{width:46px;height:46px;right:-10px}}
+
+/* ---------- the caption: a sticky note on the fridge ---------- */
+.ixw--life .ixw-cap{border-radius:4px 4px 18px 4px;border:0;background:#FFF8D6;box-shadow:0 2px 0 rgba(0,0,0,.05),0 26px 44px -22px rgba(22,48,43,.5)}
+.ixw--life .ixw-cap::before{content:"";position:absolute;left:50%;top:-10px;width:90px;height:22px;margin-left:-45px;background:rgba(95,176,157,.55);rotate:-2deg}
+.ixw--life .ixw-cap-who b{color:var(--lf-ink)}.ixw--life .ixw-cap-txt b{color:#2756B0}
+.ixw--life .ixw-cap-rec{background:#FFFFFF;border:1px dashed var(--lf-sage2);color:#21544A}
+
+/* ---------- buttons: wooden door tags (a hole and a string) ---------- */
+.ixw--life main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){position:relative;border-radius:10px 22px 22px 10px;border:0;padding-left:36px;box-shadow:0 4px 0 var(--lf-ink);
+  transition:translate .22s cubic-bezier(.34,1.45,.64,1),rotate .22s ease,box-shadow .2s ease}
+.ixw--life main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white)::after{content:"";position:absolute;left:14px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.ixw--life main .btn-primary,.ixw--life main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#4A80E2,#3167CA)}
+.ixw--life main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--life main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--lf-ink);background:linear-gradient(180deg,#E8C79E,var(--lf-oak))}
+.ixw--life main .btn-ghost::before{display:none}.ixw--life main .btn-ghost .ic{color:var(--lf-ink)}
+.ixw--life main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;rotate:-1.5deg;box-shadow:0 6px 0 var(--lf-ink)}
+.ixw--life main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;rotate:0deg;box-shadow:0 1px 0 var(--lf-ink);transition-duration:.06s}
+.ixw--life .ixw-cta .btn-outline-white,.ixw--life .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:rgba(255,255,255,.16);box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.ixw--life main :is(.btn-primary,.btn-ghost):focus-visible{outline:3px solid var(--lf-sun);outline-offset:4px}
+.ixw--life .ixw-ibtn{border:2px solid var(--lf-ink);border-radius:10px;box-shadow:0 3px 0 var(--lf-ink)}
+.ixw--life .ixw-ibtn--play,.ixw--life .ixw-ibtn--play:hover{background:var(--lf-sun);color:var(--lf-ink)}
+.ixw--life .ixw-dots button.is-on{background:var(--lf-sage);box-shadow:0 0 0 1.5px var(--lf-ink)}
+.ixw--life .ixw-peek{border-color:var(--lf-ink);box-shadow:0 3px 0 var(--lf-ink)}.ixw--life .ixw-peek[aria-pressed="true"]{background:var(--lf-sun)}
+
+/* ====================================================================== the rest of the page */
+/* glance strip: four oak name plates on a sage rail */
+.ixw--life .lf-strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:16px;border-radius:20px;background:var(--lf-sage);box-shadow:0 6px 0 #2A6B5E,0 30px 50px -30px rgba(22,48,43,.45)}
+.ixw--life .lf-strip>div{padding:16px 18px;border-radius:12px;background:#FFFEFB;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.ixw--life .lf-strip>div:nth-child(even){rotate:.6deg}.ixw--life .lf-strip>div:nth-child(odd){rotate:-.5deg}
+.ixw--life .lf-strip dt{font:800 11px/1.2 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:#5B7D75}
+.ixw--life .lf-strip dt .ic{color:var(--lf-sage)}
+.ixw--life .lf-strip dd{font-weight:800;color:var(--lf-ink);font-size:.98rem;line-height:1.35}
+@media (max-width:899px){.ixw--life .lf-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479px){.ixw--life .lf-strip{grid-template-columns:1fr;gap:10px;padding:12px}}
+
+/* section heads: a sticky label above */
+.ixw--life .lf-sec{position:relative}
+.ixw--life .lf-sec::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(var(--w-dot) 1.2px,transparent 1.6px) 0 0/24px 24px;-webkit-mask:linear-gradient(180deg,#000,transparent 55%);mask:linear-gradient(180deg,#000,transparent 55%)}
+.ixw--life .lf-head{position:relative;padding-top:40px}
+.ixw--life .lf-head::before{content:attr(data-note);position:absolute;left:0;top:0;padding:8px 14px;background:#FFE680;color:var(--lf-ink);font:800 11px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;rotate:-2deg;box-shadow:0 4px 8px -4px rgba(0,0,0,.25)}
+.ixw--life .lf-head .hand{color:var(--lf-sage)}
+.ixw--life .lf-head h2{color:var(--lf-ink)}
+
+/* offices: the postcards framed like windows */
+.ixw--life .lf-cities .co-city{border:8px solid #FFFFFF;box-shadow:0 0 0 2px var(--lf-line),0 10px 0 -2px var(--lf-oak),0 26px 40px -26px rgba(22,48,43,.45);border-radius:14px}
+.ixw--life .lf-cities .co-city:hover{translate:0 -4px}
+
+/* how we work: four cards pinned to a board */
+.ixw--life .lf-board{list-style:none;margin:0;padding:34px 26px 30px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;border-radius:18px;background:#FFFFFF;border:3px solid #C9D3D0;box-shadow:0 10px 0 -4px #C9D3D0,0 30px 50px -30px rgba(22,48,43,.4);position:relative}
+.ixw--life .lf-board::before{content:"HOW WE WORK";position:absolute;left:24px;top:-15px;padding:7px 14px;border-radius:6px;background:var(--lf-ink);color:var(--lf-sun);font:800 11px/1 var(--font-body);letter-spacing:.16em}
+.ixw--life .lf-board::after{content:"";position:absolute;left:12%;right:12%;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,#C9D3D0 0 10px,transparent 10px 18px);z-index:0}
+.ixw--life .lf-board li{position:relative;z-index:1;rotate:var(--r)}
+.ixw--life .lf-board a{display:flex;flex-direction:column;gap:8px;height:100%;padding:24px 20px 20px;border-radius:4px;background:color-mix(in srgb,var(--c) 10%,#FFFDF5);border-top:8px solid var(--c);color:var(--lf-ink);text-decoration:none;box-shadow:0 10px 18px -12px rgba(0,0,0,.35);transition:translate .22s ease,rotate .22s ease,box-shadow .22s ease}
+.ixw--life .lf-board a:hover{translate:0 -6px;rotate:calc(var(--r) * -1);box-shadow:0 18px 26px -14px rgba(0,0,0,.35)}
+.ixw--life .lf-pin{position:absolute;left:50%;top:-12px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFFFFF,var(--c) 60%);box-shadow:0 3px 3px rgba(0,0,0,.3)}
+.ixw--life .lf-step{font:800 11px/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.ixw--life .lf-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--c);color:#FFFFFF}
+.ixw--life .lf-ic .ic{width:22px;height:22px}
+.ixw--life .lf-board h3{margin:2px 0 0;font-size:1.15rem}
+.ixw--life .lf-board p{margin:0;font-size:.92rem;color:#3E544F;flex:1}
+.ixw--life .lf-board .btn-link{color:var(--c)}
+@media (max-width:1023px){.ixw--life .lf-board{grid-template-columns:repeat(2,minmax(0,1fr))}.ixw--life .lf-board::after{display:none}}
+@media (max-width:539px){.ixw--life .lf-board{grid-template-columns:1fr;padding:30px 16px 20px}}
+
+/* the photo wall: coming-soon frames on a sage wall with fairy-light string */
+.ixw--life .lf-wall{position:relative;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px;padding:46px 30px 34px;border-radius:20px;background:linear-gradient(180deg,#E2EFE8,#D3E7DE)}
+.ixw--life .lf-wall::before{content:"";position:absolute;left:20px;right:20px;top:18px;height:20px;background:radial-gradient(circle,var(--lf-sun) 3.5px,transparent 4.5px) 0 4px/36px 20px repeat-x;border-top:2px solid rgba(22,48,43,.3);border-radius:50%/0 0 100% 100%}
+.ixw--life .lf-frame{margin:0;padding:12px 12px 14px;background:#FFFFFF;border-radius:4px;rotate:var(--r);box-shadow:0 0 0 6px var(--lf-oak),0 0 0 8px var(--lf-oak2),0 22px 30px -18px rgba(22,48,43,.5);transition:rotate .25s ease,translate .25s ease}
+.ixw--life .lf-frame:hover{rotate:0deg;translate:0 -4px}
+.ixw--life .lf-ph{display:grid;place-items:center;aspect-ratio:4/3;border:2px dashed #9AA6BC;border-radius:3px;background:repeating-linear-gradient(-45deg,#F7FBF9 0 12px,#EEF5F2 12px 24px);color:#7A869C}
+.ixw--life .lf-frame--wide .lf-ph{aspect-ratio:16/10}
+.ixw--life .lf-ph .ic{width:34px;height:34px}
+.ixw--life .lf-frame figcaption{display:flex;flex-direction:column;margin-top:10px;font-size:.86rem;color:#5B7D75}
+.ixw--life .lf-frame figcaption b{color:var(--lf-ink);font-size:.98rem}
+.ixw--life .lf-frame--note{background:#FFF8D6}
+.ixw--life .lf-frame--note .lf-ph{background:repeating-linear-gradient(#FFF8D6 0 18px,#F1E7B9 18px 19px);border-color:#D9C27A;color:#A88B2E}
+@media (max-width:1023px){.ixw--life .lf-wall{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479px){.ixw--life .lf-wall{grid-template-columns:1fr;padding:40px 22px 26px;gap:30px}}
+
+/* around the office: four doors with hanging signs */
+.ixw--life .lf-doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.ixw--life .lf-door{position:relative;display:flex;flex-direction:column;gap:8px;padding:72px 20px 22px;border-radius:120px 120px 14px 14px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 14%,#FFFFFF),#FFFFFF 60%);border:3px solid var(--c);color:var(--lf-ink);text-decoration:none;
+  box-shadow:0 6px 0 color-mix(in srgb,var(--c) 70%,#000),0 26px 40px -26px rgba(22,48,43,.45);transition:translate .22s ease,box-shadow .22s ease}
+.ixw--life .lf-door::after{content:"";position:absolute;right:20px;top:58%;width:10px;height:10px;border-radius:50%;background:var(--lf-oak2)}
+.ixw--life .lf-door:hover{translate:0 -5px}
+.ixw--life .lf-door-sign{position:absolute;left:50%;top:16px;display:grid;place-items:center;width:48px;height:48px;margin-left:-24px;border-radius:50%;background:var(--c);color:#FFFFFF;transform-origin:50% -10px;transition:rotate .4s cubic-bezier(.34,1.6,.64,1)}
+.ixw--life .lf-door:hover .lf-door-sign{rotate:12deg}
+.ixw--life .lf-door-sign .ic{width:22px;height:22px}
+.ixw--life .lf-door>b{font-size:1.2rem}
+.ixw--life .lf-door>span:not(.lf-door-sign):not(.btn-link){font-size:.92rem;color:#3E544F;flex:1}
+.ixw--life .lf-door .btn-link{color:var(--c)}
+@media (max-width:1023px){.ixw--life .lf-doors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479px){.ixw--life .lf-doors{grid-template-columns:1fr}.ixw--life .lf-door{border-radius:60px 60px 14px 14px;padding-top:70px}}
+
+/* CTA: sage with a coffee mug */
+.ixw--life .lf-cta{background:linear-gradient(120deg,#3E8E7E,#2A6B5E 60%,#16302B);overflow:hidden}
+.ixw--life .lf-cta-mug{position:absolute;right:34px;bottom:-8px;width:64px;height:70px;border-radius:6px 6px 18px 18px;background:#FFFFFF;box-shadow:inset 0 14px 0 var(--lf-sun)}
+.ixw--life .lf-cta-mug::after{content:"";position:absolute;right:-20px;top:16px;width:22px;height:28px;border:6px solid #FFFFFF;border-left:0;border-radius:0 14px 14px 0}
+@media (max-width:767px){.ixw--life .lf-cta-mug{display:none}}
