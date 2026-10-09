@@ -226,7 +226,7 @@
 /* ---------- the CTA: a big admission ticket ---------- */
 .ixw--events .ev-cta{background:linear-gradient(120deg,var(--ev-pur),#5A3651 60%,var(--ev-ink));overflow:hidden}
 .ixw--events .ev-cta::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 0 50%,transparent 18px,transparent 18.5px) left/50% 100% no-repeat,repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 2px,transparent 2px 24px)}
-.ixw--events .ev-cta-ticket{position:absolute;right:28px;top:-6px;padding:16px 12px 10px;background:var(--ev-sun);color:var(--ev-ink);font:800 11px/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;rotate:4deg;border-radius:0 0 8px 8px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.ixw--events .ev-cta-ticket{position:absolute;right:28px;bottom:22px;top:auto;padding:10px 14px;background:var(--ev-sun);color:var(--ev-ink);font:800 11px/1 var(--font-body);letter-spacing:.18em;text-transform:uppercase;rotate:-4deg;border-radius:8px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
 @media (max-width:767px){.ixw--events .ev-cta-ticket{display:none}}
 
 @media (prefers-reduced-motion:reduce){.ixw--events .ev-pulse,.ixw--events .ev-mile--today .ev-dot{animation:none}}
