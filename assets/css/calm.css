@@ -168,7 +168,7 @@ main .cta > div{background:none!important;border:0!important;box-shadow:none!imp
 main .cta .actions{display:flex!important;flex-wrap:wrap;gap:12px!important;margin:0!important;justify-content:flex-end}
 main .cta > *:not(div):not(.actions){display:none!important}
 main section:has(> .container > .cta){background:#fff!important}
-@media (max-width:860px){main .cta,main .ixw-cta{grid-template-columns:1fr!important;padding:36px 26px!important;border-radius:20px!important}main .cta .actions{justify-content:flex-start}
+@media (max-width:860px){main .cta,main .ixw-cta,body[class*="ixw--"] main .cta{grid-template-columns:1fr!important;padding:36px 26px!important;border-radius:20px!important}main .cta .actions{justify-content:flex-start}
   main .cta .actions .btn{flex:1 1 calc(50% - 6px)}}
 
 /* ---------------------------------------------------------------- FAQ accordion */

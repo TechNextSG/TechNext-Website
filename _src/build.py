@@ -2074,15 +2074,13 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs))
     wk = re.match(r"ixw ixw--([a-z-]+)", meta.get("body", "") or "")      # a world page plays its own short intro
     w_head, w_body = (WD.INTRO_HEAD, WD.intro_html(wk.group(1))) if wk else ("", "")
-    if CALM:
-        # Owner, 9 Oct 2026: "Use the general intro used in the old pages. When entering Nexi Explains, use the Nexi
-        # Explains intro." Every page plays the general brand intro (plane, wordmark, Odoo Partner · Singapore, the three
-        # app chips, Skip; the header hides while it plays) under the head gate's rules (fresh landings and refreshes
-        # only, never in-site navigation or back/forward, bots or reduced motion). /nexi-explains plays the comic
-        # Nexi Explains version of it (html.intro-nxe). The per-world vignette intros stay off.
-        # /nexi-explains is left exactly as it is on master (owner, 9 Oct): no calm layer, no general intro.
-        w_head, w_body = ("", "") if out_rel in CALM_SKIP else (INTRO_HEAD, INTRO_BODY)
-    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)
+    if CALM and out_rel not in CALM_SKIP:
+        # Owner, 9 Oct 2026 (final): no built-in intro on any page except /nexi-explains (left as on master): every page
+        # opens straight on its content with the header visible. No per-world vignette intros, no home plane intro.
+        w_head = w_body = ""
+        if home:
+            intro_head = intro_head.replace(INTRO_HEAD, "")
+    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home and not CALM else w_body)
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
