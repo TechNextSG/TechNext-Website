@@ -333,9 +333,6 @@
 @media (max-width:767px){
 .ixw--ai-odoo .ai-plate{box-shadow:none}
 }
-body.ixw--ai-odoo main .ai-dish h3::after{border-bottom:1px solid var(--line)!important}
-body.ixw--ai-odoo main .ai-faq summary::before{content:none!important}
-body.ixw--ai-odoo main .ai-faq details[open]{box-shadow:none!important}
 /* ---- worlds/app-acc.css ---- */
 .ixw--app-acc .ixw-copy{background-image:none}
 .ixw--app-acc .ixw-copy::before{content:none;font-family:var(--font-body)}
@@ -920,8 +917,6 @@ body.ixw--ai-odoo main .ai-faq details[open]{box-shadow:none!important}
 .ixw--custom .cu-rung{outline:1.5px solid rgba(255,255,255,.55);box-shadow:none;animation:none}
 .ixw--custom .cu-ladder-tape{background-image:none}
 .ixw--custom .cu-ladder-tape u{background-image:none;animation:none}
-body.ixw--custom main .cu-fit::before{background-image:none!important}
-body.ixw--custom main .cu-faq details[open]{box-shadow:none!important}
 /* ---- worlds/discovery.css ---- */
 .ixw--discovery{--dc-mono:var(--font-body)}
 .ixw--discovery .ixw-copy{box-shadow:0 40px 70px -30px rgba(90,60,20,.45)}
@@ -1294,7 +1289,6 @@ body.ixw--custom main .cu-faq details[open]{box-shadow:none!important}
 .ixw--integration main .ig-cta::after{content:none;border-left:1px solid var(--line)}
 .ixw--integration .ig-status li i::before{animation:none}
 .ixw--integration .ig-status-f{border-top:1px solid var(--line)}
-body.ixw--integration main .ig-steps .step h3::before{content:none!important}
 /* ---- worlds/life.css ---- */
 .ixw--life .ixw-copy{box-shadow:0 44px 70px -30px rgba(22,48,43,.5)}
 .ixw--life .ixw-copy::after{rotate:none}
@@ -2623,7 +2617,6 @@ body.ixw--integration main .ig-steps .step h3::before{content:none!important}
 .ixw--support .sp-pass .card:nth-child(3)::after{content:none}
 .ixw--support main .sp-cta{-webkit-mask:none;mask:none}
 .ixw--support main .sp-cta::after{content:none;border-left:1px solid var(--line)}
-body.ixw--support main .sp-plan::before{border-top:1px solid var(--line)!important}
 /* ---- worlds/team.css ---- */
 .ixw--team .ixw-copy::after{content:none}
 .ixw--team .ixw-ep-tag{box-shadow:none}
@@ -2693,8 +2686,6 @@ body.ixw--support main .sp-plan::before{border-top:1px solid var(--line)!importa
 .ixw--training .fs-plane{animation:none}
 .ixw--training .fs-ask-k{font-family:var(--font-body)}
 .ixw--training .fs-ask-k::before{box-shadow:none}
-body.ixw--training main .fs-steps::before{border-top:1px solid var(--line)!important}
-body.ixw--training main .fs-leg i{background-image:none!important}
 /* ---- worlds/travel.css ---- */
 .ixw--travel .ixw-scenes{box-shadow:0 30px 60px -36px rgba(20,60,110,.45)}
 .ixw--travel .ixw-road{background-image:none}
