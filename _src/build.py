@@ -809,12 +809,14 @@ def nxe_slide_html():
     return stage, pills
 
 
-# /nexi-explains hero: four comic spreads (Series / Quick Tips / Cast / Specials). The copy lives in the page partial;
-# the data-driven parts come from here: the TV reel, the Quick Tips flip deck, the cast on stage, Nexi's wardrobe,
-# the specials panels and the counts used in the copy.
+# /nexi-explains hero: four comic slides, each in its own format (Series = split cover, Quick Tips = pit lane with a
+# conveyor of every tip, Cast = splash page with a wide stage, Specials = banner + triptych). The copy lives in the page
+# partial; the data-driven parts come from here: the TV reel, the tip conveyor and its readout, the cast on stage,
+# Nexi's wardrobe, the holiday panels and the counts used in the copy.
 NXE_HERO_REEL = ["EP00", "EP06", "EP15", "Tip 07", "EP20", "EP12"]
-NXE_HERO_STAGE = ["Peanut", "Olive", "Plume", "Pango", "Ribbit", "Dot"]   # who is on stage before the first shuffle
+NXE_HERO_STAGE = ["Peanut", "Olive", "Plume", "Pango", "Ribbit", "Dot", "Wally", "Kiko"]   # on stage before the first shuffle
 NXE_HS_FX = {"Halloween": "bats", "Christmas": "snow", "Year-End": "confetti"}
+NXE_HS_FOCUS = {"Halloween": "72% 50%", "Christmas": "28% 50%", "Year-End": "50% 50%"}   # where Nexi is in each thumbnail
 
 
 def _nxe_hero_tokens(content: str) -> str:
@@ -825,11 +827,13 @@ def _nxe_hero_tokens(content: str) -> str:
                    f'{"" if k == 0 else " loading=\"lazy\""} decoding="async" data-cap="{attr(c)}" data-title="{attr(by[c]["title"])}"'
                    f'{" class=\"is-on\"" if k == 0 else ""}>' for k, c in enumerate(NXE_HERO_REEL))
     tips = [e for sea in NXE.SEASONS for e in sea["tips"] if e["thumb"]]
-    tip_json = json.dumps([{"c": e["code"], "t": e["title"], "l": e["len"], "i": e["thumb"]} for e in tips], ensure_ascii=False)
+    belt = "".join(f'<button class="nxe-tipc" type="button" data-nxe-tip data-c="{attr(e["code"])}" data-t="{attr(e["title"])}" data-l="{e["len"]}"'
+                   f' aria-label="{attr(e["code"] + ": " + e["title"] + " (" + e["len"] + ")")}">'
+                   f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+                   f'<b>{e["code"].replace("Tip ", "")}</b></button>' for e in tips)
     t0 = by["Tip 07"]
-    tip_card = (f'<img src="{NXE_IMG}{t0["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async" data-nxe-tipimg>'
-                f'<span class="nxe-tipcap"><b data-nxe-tipcode>{t0["code"]}</b><span data-nxe-tiptitle>{t0["title"]}</span>'
-                f'<em data-nxe-tiplen>{t0["len"]}</em></span>')
+    readout = (f'<b data-nxe-tipcode>{t0["code"]}</b><span data-nxe-tiptitle>{t0["title"]}</span>'
+               f'<em data-nxe-tiplen>{t0["len"]}</em>')
     cast = [c for c in NXE.CHARACTERS[0]["cast"] if (c["art"] or "").startswith("img:nexi-explains/cast/")]
     cast_json = json.dumps([{"n": c["name"], "r": c["role"], "f": c["art"][len("img:nexi-explains/cast/"):]} for c in cast], ensure_ascii=False)
     on_stage = []
@@ -843,15 +847,17 @@ def _nxe_hero_tokens(content: str) -> str:
     for k, e in enumerate(NXE.SPECIALS):
         fx = NXE_HS_FX.get(e["code"], "confetti")
         bits = "".join(f'<i style="--i:{i}"></i>' for i in range(9))
-        hs.append(f'<a class="nxe-pn nxe-hs nxe-hs--{k + 1}" href="#specials" data-fx="{fx}" data-title="{attr(e["title"])}" data-airs="{attr(e["airs"])}" aria-label="{attr(e["code"] + " special: " + e["title"] + ", airs " + e["airs"])}">'
-                  f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+        hs.append(f'<a class="nxe-pn nxe-hs nxe-hs--{k + 1}{" is-front" if k == 0 else ""}" href="#specials" data-fx="{fx}" data-title="{attr(e["title"])}" data-airs="{attr(e["airs"])}"'
+                  f' aria-label="{attr(e["code"] + " special: " + e["title"] + ", airs " + e["airs"])}">'
+                  f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async" style="object-position:{NXE_HS_FOCUS.get(e["code"], "50% 50%")}">'
                   f'<span class="nxe-hsfx nxe-hsfx--{fx}" aria-hidden="true">{bits}</span>'
+                  f'<span class="nxe-hs-name" aria-hidden="true">{e["code"]}</span>'
                   f'<span class="nxe-stamp" aria-hidden="true">Airs {e["airs"]}</span></a>')
     n_eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
     rep = {
         "{{NXE_HERO_REEL}}": reel,
-        "{{NXE_HERO_TIPS}}": attr(tip_json),
-        "{{NXE_HERO_TIPCARD}}": tip_card,
+        "{{NXE_HERO_BELT}}": belt,
+        "{{NXE_HERO_READOUT}}": readout,
         "{{NXE_HERO_CAST}}": attr(cast_json),
         "{{NXE_HERO_STAGE}}": "".join(on_stage),
         "{{NXE_HERO_WARDROBE}}": attr(wd_json),

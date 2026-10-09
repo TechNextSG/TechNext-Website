@@ -1,8 +1,10 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* /nexi-explains hero: a living comic book in four spreads (Series / Quick Tips / Cast / Specials).
-   - The deck: chapter tabs (ARIA tabs), arrows, pause, swipe; autoplay with named holds (pointer on the controls or a
-     spread, keyboard focus, the intro, an off-screen hero, a hidden tab, the pause button). Interactions restart the
-     current slide's time instead of yanking the visitor away.
+   - The deck: four formats (Series = split cover, Quick Tips = pit lane + tip conveyor, Cast = splash page with a wide
+     stage, Specials = banner + triptych). A new slide every 3 seconds, starting on a random one (picked in the head:
+     html[data-nxe-first]; ?slide=N forces one, crawlers get slide 1). Chapter tabs (ARIA tabs), arrows, pause, swipe;
+     named holds (pointer on the controls or a spread, keyboard focus, the intro, an off-screen hero, a hidden tab,
+     the pause button). Any tap or drag gives the visitor 8 seconds on that slide.
    - The change: a comic burst slams in over the spread with the next slide's sound word, the page turns underneath,
      the burst blows apart and the new panels slam in (CSS .is-enter); the halftone sky ripples from the burst.
    - The sky: a canvas halftone field that breathes, swells around the pointer and ripples on every tap; parallax layers.
@@ -23,7 +25,7 @@
   var keys = slides.map(function (s) { return s.getAttribute('data-nxe-slide'); });
   var ctl = $('[data-nxe-ctl]', hero), pp = $('[data-nxe-pp]', hero), deck = $('[data-nxe-deck]', hero);
   var bam = $('[data-nxe-bam]', hero), bamWord = bam && $('[data-nxe-bam-word]', bam);
-  var DUR = { series: 10000, tips: 9500, cast: 9500, specials: 9000 };
+  var DUR = { series: 2140, tips: 2140, cast: 2140, specials: 2140 }, LINGER = 8000;   /* + the 0.86 s burst = a new slide every 3 s */
   var BAM = { series: ['ON AIR!', '#FFD23F'], tips: ['ZOOM!', '#FFD23F'], cast: ['TA-DA!', '#FF9DB4'], specials: ['BOO!', '#C3B4FF'] };
   var cur = 0, busy = false;
 
@@ -152,10 +154,10 @@
   /* ---------------- autoplay with named holds ---------------- */
   var holds = {}, timer = 0, remain = 0, started = 0;
   function held() { for (var k in holds) if (holds[k]) return true; return false; }
-  function bar(restart) {
+  function bar(restart, ms) {
     var on = chaps[cur];
     if (!on) return;
-    on.style.setProperty('--dur', (DUR[keys[cur]] || 9000) + 'ms');
+    on.style.setProperty('--dur', (ms || DUR[keys[cur]] || 2300) + 'ms');
     if (restart) { var i = $('i', on); if (i) { i.style.animation = 'none'; void i.offsetWidth; i.style.animation = ''; } }
     ctl.classList.toggle('is-held', held());
   }
@@ -174,7 +176,7 @@
     } else delete holds[why];
     if (was && !held()) arm(); else ctl.classList.toggle('is-held', held());
   }
-  function fresh() { remain = DUR[keys[cur]] || 9000; bar(true); arm(); }   /* the slide's time starts over */
+  function fresh(linger) { remain = linger ? LINGER : (DUR[keys[cur]] || 2300); bar(true, remain); arm(); }   /* the slide's time starts over (8 s after a tap) */
 
   /* ---------------- the deck ---------------- */
   function tabs(n, focus) {
@@ -262,7 +264,7 @@
   /* holds: pointer on the controls or a spread, keyboard focus inside the hero */
   if (fine) {
     var off = {};
-    [ctl].concat($$('[data-nxe-spread]', hero)).forEach(function (z, k) {
+    [ctl].concat($$('[data-nxe-spread],[data-nxe-belt]', hero)).forEach(function (z, k) {
       z.addEventListener('pointerenter', function () { clearTimeout(off[k]); hold('hover', true); });
       z.addEventListener('pointerleave', function () { off[k] = setTimeout(function () { hold('hover', false); }, 400); });
     });
@@ -271,7 +273,7 @@
   hero.addEventListener('focusout', function (e) { if (!hero.contains(e.relatedTarget)) hold('focus', false); });
   /* swipe on touch screens */
   var sx = 0, sy = 0, st = 0;
-  deck.addEventListener('pointerdown', function (e) { if (e.pointerType === 'touch') { sx = e.clientX; sy = e.clientY; st = 1; } });
+  deck.addEventListener('pointerdown', function (e) { if (e.pointerType === 'touch' && !e.target.closest('[data-nxe-belt]')) { sx = e.clientX; sy = e.clientY; st = 1; } });
   deck.addEventListener('pointerup', function (e) {
     if (!st) return;
     st = 0;
@@ -302,9 +304,13 @@
     function speak(t) { say.textContent = t; if (!reduce) restartAnim(say, 'is-pop'); }
     return {
       speak: speak,
-      start: function () { clearInterval(iv); if (!reduce) iv = setInterval(function () { li = (li + 1) % lines.length; speak(lines[li]); }, 4600); },
+      start: function (quiet) {
+        clearInterval(iv);
+        if (!quiet) { li = (li + 1) % lines.length; speak(lines[li]); }
+        if (!reduce) iv = setInterval(function () { li = (li + 1) % lines.length; speak(lines[li]); }, 2200);
+      },
       stop: function () { clearInterval(iv); },
-      bump: function () { this.start(); }
+      bump: function () { this.start(true); }
     };
   }
   /* Nexi's tap: a pose, a line, a sound word, a hop; back to the slide's own pose after a while */
@@ -321,7 +327,7 @@
       if (extra.tap) extra.tap(btn, r);
       clearTimeout(back);
       back = setTimeout(function () { pose(home); }, 4200);
-      fresh();
+      fresh(true);
     });
     /* warm the poses once the page is idle so a tap swaps instantly */
     setTimeout(function () { taps.forEach(function (t) { var i = new Image(); i.src = root + 'nexi-' + t[0] + '.webp'; }); }, 3000 + Math.random() * 2000);
@@ -334,7 +340,7 @@
         restartAnim(k, 'is-hop');
         var r = rel(k, spread);
         word(spread, k.getAttribute('data-word'), r.x + r.w * 0.5, r.y);
-        fresh();
+        fresh(true);
       });
     });
   }
@@ -364,76 +370,133 @@
       }
     }
     stage.series = {
-      enter: function () { talk.start(); clearInterval(iv); if (!reduce && imgs.length > 1) iv = setInterval(function () { k = (k + 1) % imgs.length; show(k); }, 2600); },
+      enter: function () { talk.start(); clearInterval(iv); if (!reduce && imgs.length > 1) iv = setInterval(function () { k = (k + 1) % imgs.length; show(k); }, 1300); },
       leave: function () { talk.stop(); clearInterval(iv); }
     };
   })();
 
-  /* 2 · Quick Tips */
+  /* 2 · Quick Tips: every tip rides a conveyor past a chequered finish line. The tip on the line shows in the readout.
+     Drag the belt, tap a tip (it rolls to the line), or spin the stopwatch (the belt races and stops on a random tip). */
   (function () {
     var sl = slides[keys.indexOf('tips')];
     if (!sl) return;
-    var deckEl = $('[data-nxe-flip]', sl), card = $('[data-nxe-tipcard]', sl), fly = $('[data-nxe-tipfly]', sl);
+    var belt = $('[data-nxe-belt]', sl), track = $('[data-nxe-track]', sl), out = $('[data-nxe-readout]', sl);
     var watch = $('[data-nxe-shuffle]', sl), wt = watch && $('.nxe-watch-t', watch), spread = $('[data-nxe-spread]', sl);
-    var tips = [];
-    try { tips = JSON.parse(deckEl.getAttribute('data-tips') || '[]'); } catch (e) { tips = []; }
-    var root = deckEl.getAttribute('data-root') || '';
-    var img = $('[data-nxe-tipimg]', card), code = $('[data-nxe-tipcode]', card), title = $('[data-nxe-tiptitle]', card), len = $('[data-nxe-tiplen]', card);
-    var at = Math.max(0, tips.map(function (t) { return t.c; }).indexOf(code.textContent)), iv = 0, spinning = false;
-    function pre(i) { var t = tips[i]; if (t) { var im = new Image(); im.src = root + t.i + '.webp'; } }
-    function put(i) {
-      var t = tips[i];
-      if (!t) return;
-      img.src = root + t.i + '.webp'; code.textContent = t.c; title.textContent = t.t; len.textContent = t.l;
-      card.setAttribute('aria-label', 'See the Quick Tips: ' + t.c + ', ' + t.t);
+    var cards = $$('[data-nxe-tip]', track), n = cards.length;
+    if (!n || !belt) return;
+    cards.forEach(function (c) {
+      var k = c.cloneNode(true);
+      k.removeAttribute('data-nxe-tip'); k.setAttribute('aria-hidden', 'true'); k.tabIndex = -1;
+      track.appendChild(k);
+    });
+    var all = $$('.nxe-tipc', track), centers = [], SW = 1, pos = 0, speed = 52, raf = 0, last = 0, hit = -1, glide = null, drag = null, dragged = false, spinning = false;
+    var oc = $('[data-nxe-tipcode]', out), ot = $('[data-nxe-tiptitle]', out), ol = $('[data-nxe-tiplen]', out);
+    function measure() {
+      var x0 = track.offsetLeft;
+      centers = cards.map(function (c) { return c.offsetLeft - x0 + c.offsetWidth / 2; });
+      SW = Math.max(1, all[n].offsetLeft - cards[0].offsetLeft);
     }
-    function flip(i, quick) {
-      if (!tips.length) return;
-      i = (i + tips.length) % tips.length;
-      if (!reduce && fly) {
-        fly.textContent = '';
-        var c = card.cloneNode(true);
-        c.removeAttribute('href'); c.removeAttribute('data-nxe-tipcard'); c.removeAttribute('aria-label');
-        var s = document.createElement('span'); while (c.firstChild) s.appendChild(c.firstChild);
-        fly.appendChild(s);
-        fly.style.animationDuration = quick ? '.22s' : '';
-        restartAnim(fly, 'is-go');
+    function readout(i) {
+      var c = cards[i], code = c.getAttribute('data-c');
+      oc.textContent = code; ot.textContent = c.getAttribute('data-t'); ol.textContent = c.getAttribute('data-l');
+      out.href = '#' + (parseInt(code.replace(/\D/g, ''), 10) > 14 ? 'season-2-tips' : 'season-1-tips');
+      out.setAttribute('aria-label', 'On the finish line: ' + code + ', ' + c.getAttribute('data-t') + '. See the Quick Tips');
+      if (!reduce) restartAnim(out, 'is-new');
+    }
+    function render() {
+      var m = ((pos % SW) + SW) % SW, x = m + belt.clientWidth / 2, best = 0, bd = 1e9;
+      track.style.transform = 'translate3d(' + (-m).toFixed(1) + 'px,0,0)';
+      for (var i = 0; i < n; i++) {
+        var d = Math.min(Math.abs(centers[i] - x), Math.abs(centers[i] + SW - x));
+        if (d < bd) { bd = d; best = i; }
       }
-      at = i; put(i); pre(i + 1);
-      if (!reduce && !quick) restartAnim(card, 'is-new');
+      if (best !== hit) {
+        if (hit >= 0) { cards[hit].classList.remove('is-hit'); all[hit + n].classList.remove('is-hit'); }
+        hit = best;
+        cards[hit].classList.add('is-hit'); all[hit + n].classList.add('is-hit');
+        readout(hit);
+      }
     }
+    function loop(ts) {
+      raf = requestAnimationFrame(loop);
+      var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0;
+      last = ts;
+      if (glide) {
+        var k = Math.min(1, (ts - glide.t0) / glide.d), e = 1 - Math.pow(1 - k, 3);
+        pos = glide.a + (glide.b - glide.a) * e;
+        if (k >= 1) { var f = glide.done; glide = null; if (f) f(); }
+      } else if (!drag) pos += speed * dt;
+      render();
+    }
+    function run(go) {
+      if (go && !raf && !reduce) { last = 0; raf = requestAnimationFrame(loop); }
+      if (!go && raf) { cancelAnimationFrame(raf); raf = 0; }
+    }
+    /* roll so tip i sits on the finish line, after at least `extra` px of travel */
+    function rollTo(i, extra, d, done) {
+      var want = centers[i] - belt.clientWidth / 2, tgt = pos + (extra || 0);
+      tgt += (((want - tgt) % SW) + SW) % SW;
+      if (reduce) { pos = tgt; render(); if (done) done(); return; }
+      glide = { a: pos, b: tgt, t0: performance.now(), d: d || 600, done: done };
+      run(true);
+    }
+    function landed(i, big) {
+      var r = rel(out, spread);
+      word(spread, big ? 'DING!' : rnd(['GOT IT!', 'THIS ONE!', 'DING!']), r.x + r.w * 0.3, r.y);
+      talk.speak(cards[i].getAttribute('data-c') + ': ' + cards[i].getAttribute('data-t') + '!'); talk.bump();
+    }
+    track.addEventListener('click', function (e) {
+      var c = e.target.closest('.nxe-tipc');
+      if (!c) return;
+      if (dragged) { dragged = false; e.preventDefault(); return; }
+      var i = all.indexOf(c) % n;
+      rollTo(i, 0, 520, function () { landed(i); });
+      fresh(true);
+    });
+    belt.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      drag = { x: e.clientX, y: e.clientY, p: pos, id: e.pointerId, cap: false };
+      glide = null; dragged = false;
+    });
+    belt.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x;
+      if (!drag.cap) {
+        if (Math.abs(dx) < 7 || Math.abs(dx) < Math.abs(e.clientY - drag.y)) return;
+        drag.cap = true; dragged = true;
+        try { belt.setPointerCapture(e.pointerId); } catch (x) { /* fine without capture */ }
+        belt.classList.add('is-drag');
+        fresh(true);
+      }
+      pos = drag.p - dx;
+      if (!raf) render();
+    });
+    function endDrag() { if (!drag) return; drag = null; belt.classList.remove('is-drag'); }
+    belt.addEventListener('pointerup', endDrag);
+    belt.addEventListener('pointercancel', endDrag);
     var talk = reactor(sl, 'racer',
       [['jump', 'Zoom zoom!'], ['reach', 'Faster than a coffee break!'], ['clap', 'That’s a wrap. Next tip!'], ['hi', 'Ready, set, Odoo!']],
       ['ZOOM!', 'VROOM!', 'GO!', 'WHOOSH!'],
-      { lines: ['One trick. Under two minutes!', 'Tap the stopwatch for a random tip!', 'Saved searches, bulk edits, Excel exports…', 'Quick Tips drop between the episodes.'] });
-    kids(sl);
+      { lines: ['One trick. Under two minutes!', 'Spin the stopwatch!', 'Drag the conveyor. Pick a tip!', 'Quick Tips drop between the episodes.'] });
     if (watch) watch.addEventListener('click', function () {
-      if (spinning || !tips.length) return;
-      spinning = true; clearInterval(iv);
+      if (spinning) return;
+      spinning = true;
       watch.classList.add('is-spin'); if (wt) wt.textContent = '?!';
-      var r = rel(watch, spread);
+      var r = rel(watch, spread), t = Math.floor(Math.random() * n);
+      if (t === hit) t = (t + 7) % n;
       word(spread, 'TICK-TICK-TICK!', r.x + r.w * 0.6, r.y + r.h * 0.2);
-      var target = Math.floor(Math.random() * tips.length), n = reduce ? 0 : 9, k = 0;
-      if (target === at) target = (target + 5) % tips.length;
-      (function step() {
-        if (k < n) { k++; flip(at + 1, true); setTimeout(step, 120); return; }
-        flip(target);
-        watch.classList.remove('is-spin'); if (wt) wt.textContent = 'GO!';
-        word(spread, 'DING!', r.x + r.w * 0.5, r.y);
-        talk.speak(tips[target].c + ': ' + tips[target].t + '!'); talk.bump();
+      rollTo(t, SW + Math.random() * SW * 0.5, reduce ? 0 : 1800, function () {
+        watch.classList.remove('is-spin'); if (wt) wt.textContent = 'SPIN!';
+        landed(t, true);
         spinning = false;
-        stage.tips.enter(true);
-      })();
-      fresh();
+      });
+      fresh(true);
     });
+    if ('ResizeObserver' in window) new ResizeObserver(function () { measure(); render(); }).observe(belt);
+    measure(); render();
     stage.tips = {
-      enter: function (keepTalk) {
-        if (!keepTalk) talk.start();
-        clearInterval(iv);
-        pre(at + 1);
-        if (!reduce) iv = setInterval(function () { if (!spinning) flip(at + 1); }, 2500);
-      },
-      leave: function () { talk.stop(); clearInterval(iv); }
+      enter: function () { talk.start(); measure(); run(true); },
+      leave: function () { talk.stop(); run(false); endDrag(); glide = null; spinning = false; if (watch) watch.classList.remove('is-spin'); }
     };
   })();
 
@@ -472,10 +535,11 @@
     spots.forEach(function (b) {
       b.addEventListener('click', function () {
         restartAnim(b, 'is-hop');
+        spots.forEach(function (x) { x.classList.toggle('is-spot', x === b); });
         var r = rel(b, spread);
         word(spread, rnd(['HI!', 'YAY!', 'HEY!', 'WHEE!', 'HELLO!']), r.x + r.w / 2, r.y);
         showTag(b);
-        fresh();
+        fresh(true);
       });
     });
     function drop() {
@@ -505,7 +569,7 @@
       setTimeout(function () { busyCast = false; }, reduce ? 0 : spots.length * 90 + 900);
       var r = rel(recast, spread);
       word(spread, 'SHUFFLE!', r.x + r.w / 2, r.y);
-      fresh();
+      fresh(true);
     });
     var talk = talker(sl, ['Say hi to the gang!', 'Tap a sidekick. They love it!', 'Tap me for a new costume!', 'Every episode, a new friend.']);
     if (btn && nimg) btn.addEventListener('click', function () {
@@ -517,10 +581,20 @@
       if (!reduce) restartAnim(btn, 'is-poof');
       word(spread, rnd(['POOF!', 'TA-DA!', 'SHAZAM!']), r.x + r.w / 2, r.y + r.h * 0.1);
       talk.speak(w.n + ', at your service!'); talk.bump();
-      fresh();
+      fresh(true);
     });
     setTimeout(function () { wardrobe.slice(0, 6).forEach(function (w) { var i = new Image(); i.src = root + 'wardrobe/' + w.k + '.webp'; }); }, 5000);
-    stage.cast = { enter: function () { talk.start(); drop(); }, leave: function () { talk.stop(); tag.hidden = true; } };
+    var spotT = 0;
+    function spotlight() {
+      var b = rnd(spots.filter(function (x) { return x.offsetWidth; }));
+      if (!b) return;
+      spots.forEach(function (x) { x.classList.toggle('is-spot', x === b); });
+      showTag(b);
+    }
+    stage.cast = {
+      enter: function () { talk.start(); drop(); clearTimeout(spotT); if (!reduce) spotT = setTimeout(spotlight, 1150); },
+      leave: function () { talk.stop(); tag.hidden = true; clearTimeout(spotT); spots.forEach(function (x) { x.classList.remove('is-spot'); }); }
+    };
   })();
 
   /* 4 · Specials */
@@ -546,18 +620,35 @@
       [['gasp', 'Eek! A ghost in the office!'], ['cute', 'Ho ho ho! Christmas rush!'], ['kiss', 'Happy holidays!'], ['clap', '3… 2… 1… countdown time!']],
       ['WOO-HOO!', 'BOO!', 'HO HO!', 'POP!'],
       { lines: lines.concat(['Tap me for confetti!']), tap: function (b, r) { blast(r.x + r.w * 0.5, r.y + r.h * 0.2); } });
-    function front(i) { panels.forEach(function (p, j) { p.classList.toggle('is-front', j === i); }); }
+    var trip = $('[data-nxe-trip]', sl), GROW = 2.6;
+    /* where the open panel's centre will be once the flex transition settles (so Nexi hops straight there) */
+    function centre(i) {
+      var W = trip.clientWidth, gap = parseFloat(getComputedStyle(trip).columnGap) || 0, u = (W - gap * (panels.length - 1)) / (GROW + panels.length - 1), x = 0;
+      for (var j = 0; j < i; j++) x += u + gap;
+      return (x + u * GROW / 2) / W * 100;
+    }
+    function front(i, say) {
+      fi = i;
+      panels.forEach(function (p, j) { p.classList.toggle('is-front', j === i); });
+      if (i >= 0) spread.style.setProperty('--nx', centre(i).toFixed(2) + '%');
+      if (say && i >= 0) talk.speak(lines[i]);
+    }
     panels.forEach(function (p, i) {
-      p.addEventListener('pointerenter', function () { clearInterval(iv); front(i); });
-      p.addEventListener('focus', function () { clearInterval(iv); front(i); });
+      p.addEventListener('pointerenter', function () { clearInterval(iv); if (fi !== i) front(i, true); });
+      p.addEventListener('focus', function () { clearInterval(iv); if (fi !== i) front(i, true); });
+      p.addEventListener('click', function (e) {
+        if (fi === i) return;          /* a closed panel opens first; tap it again to go to the specials */
+        e.preventDefault(); clearInterval(iv); front(i, true); fresh(true);
+      });
     });
     stage.specials = {
       enter: function () {
-        talk.start(); clearInterval(iv); fi = 0; front(0);
-        if (!reduce) iv = setInterval(function () { fi = (fi + 1) % panels.length; front(fi); talk.speak(lines[fi]); }, 2900);
+        talk.start(true); clearInterval(iv); front(0, true);
+        if (!reduce) iv = setInterval(function () { front((fi + 1) % panels.length, true); }, 1100);
       },
-      leave: function () { talk.stop(); clearInterval(iv); front(-1); }
+      leave: function () { talk.stop(); clearInterval(iv); }
     };
+    front(0);
   })();
 
   /* ---------------- the rest of the page: sidekicks that peek in, doodles drifting with the scroll ---------------- */
@@ -583,10 +674,19 @@
     driftNow();
   }
 
-  /* ---------------- start ---------------- */
-  settle(0);
-  if (stage[keys[0]]) stage[keys[0]].enter();
-  remain = DUR[keys[0]];
+  /* ---------------- start: on the slide the head picked (html[data-nxe-first]) ---------------- */
+  var f0 = Math.max(0, keys.indexOf(document.documentElement.getAttribute('data-nxe-first') || ''));
+  if (f0) {
+    slides[0].classList.remove('is-on');
+    slides[f0].classList.add('is-on');
+    cur = f0;
+    hero.setAttribute('data-slide', keys[f0]);
+    tabs(f0);
+  }
+  document.documentElement.removeAttribute('data-nxe-first');
+  settle(cur);
+  if (stage[keys[cur]]) stage[keys[cur]].enter();
+  remain = DUR[keys[cur]];
   bar(true);
   vis();
   arm();
