@@ -41,14 +41,12 @@
 .is-home .hc-proof-odoo img{display:block;height:34px;width:auto}
 
 /* the visual: one still Odoo dashboard (sample data), framed by the TechNext plane mark */
-.is-home .hc-visual{position:relative;padding:28px 0 36px 28px}
-.is-home .hc-plane{position:absolute;right:-30px;top:-34px;width:190px;height:auto;opacity:.12;pointer-events:none}
+.is-home .hc-visual{position:relative}
 .is-home .hc-dash{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 2px 6px rgba(31,31,61,.05),0 40px 70px -40px rgba(30,70,145,.45);overflow:hidden}
 .is-home .hc-dash-bar{display:flex;align-items:center;gap:12px;height:46px;padding:0 16px;border-bottom:1px solid var(--line);background:#FAFBFE;font:600 13px/1 var(--font-body);color:var(--ink)}
 .is-home .hc-dots{display:flex;gap:6px}
 .is-home .hc-dots i{width:9px;height:9px;border-radius:50%;background:#DADDE6}
 .is-home .hc-dash-bar em{margin-left:auto;font:600 11px/1 var(--font-body);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:5px 8px;border-radius:6px;background:var(--alt);border:1px solid var(--line)}
-.is-home .hc-by{display:none}
 .is-home .hc-dash-body{padding:18px;display:grid;gap:14px}
 .is-home .hc-apps{display:flex;gap:8px;flex-wrap:wrap}
 .is-home .hc-apps span{display:flex;align-items:center;gap:7px;height:38px;padding:0 12px 0 6px;border:1px solid var(--line);border-radius:10px;font:600 12.5px/1 var(--font-body);color:var(--ink);background:#fff}
@@ -71,8 +69,6 @@
 .is-home .hc-feed .oi{width:20px;height:20px;flex:none}
 .is-home .hc-feed span{flex:1;min-width:0}
 .is-home .hc-feed time{font-size:12px;color:var(--muted)}
-.is-home .hc-note{position:absolute;left:0;bottom:0;display:flex;align-items:center;gap:10px;max-width:300px;padding:12px 16px;border-radius:14px;background:var(--blue);color:#fff;font:600 13.5px/1.35 var(--font-body);box-shadow:0 16px 30px -18px rgba(30,70,145,.7)}
-.is-home .hc-note .ic{width:22px;height:22px;flex:none}
 
 /* ---------------------------------------------------------------- where to start: path cards */
 
@@ -147,10 +143,6 @@
 .is-home .hc-faq{background:var(--hc-alt);border-top:1px solid var(--line)}
 .is-home .hc-faq-in{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:40px 64px;align-items:start}
 .is-home .hc-faq-side h2{font-size:clamp(1.85rem,1.3rem + 1.7vw,2.6rem);line-height:1.12;letter-spacing:-.025em;margin:0}
-.is-home .hc-nexi{display:flex;gap:14px;align-items:center;margin-top:28px;padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:var(--hc-r)}
-.is-home .hc-nexi img{width:64px;height:auto;flex:none}
-.is-home .hc-nexi p{margin:0 0 12px;font-size:14.5px;line-height:1.5}
-.is-home .hc-nexi-act{display:flex;flex-wrap:wrap;gap:8px}
 .is-home .hm-pal-search{display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:12px;transition:border-color .2s ease,box-shadow .2s ease}
 .is-home .hm-pal-search:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-050)}
 .is-home .hm-pal-search > .ic{width:18px;height:18px;color:var(--muted);flex:none}
@@ -220,8 +212,7 @@
   .is-home .hc-proof{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0;margin-top:30px}
   .is-home .hc-proof li{padding:0 14px}
   .is-home .hc-proof li:nth-child(odd){padding-left:0;border-left:0}
-  .is-home .hc-visual{padding:14px 0 30px 0}
-  .is-home .hc-plane{width:120px;right:-14px;top:-18px}
+  .is-home .hc-visual{padding:0}
   .is-home .hc-dash-body{padding:14px;gap:10px}
   .is-home .hc-apps{flex-wrap:nowrap;gap:6px}
   .is-home .hc-apps span{height:34px;padding:0 9px 0 5px;font-size:12px;gap:5px}
@@ -240,10 +231,7 @@
   .is-home .hc-kpis small{font-size:11px}
   .is-home .hc-feed{display:none}
   .is-home .hc-bars{height:64px}
-  .is-home .hc-note{left:12px;right:12px;max-width:none;font-size:13px}
   .is-home .hc-stat{padding:20px 18px}
   .is-home .hc-stat b{font-size:2rem}
   .is-home .hc-stat--odoo img{height:36px}
-  .is-home .hc-nexi{align-items:flex-start}
-  .is-home .hc-nexi img{width:52px}
 }
