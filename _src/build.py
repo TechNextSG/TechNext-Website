@@ -809,7 +809,69 @@ def nxe_slide_html():
     return stage, pills
 
 
+# /nexi-explains hero: four comic spreads (Series / Quick Tips / Cast / Specials). The copy lives in the page partial;
+# the data-driven parts come from here: the TV reel, the Quick Tips flip deck, the cast on stage, Nexi's wardrobe,
+# the specials panels and the counts used in the copy.
+NXE_HERO_REEL = ["EP00", "EP06", "EP15", "Tip 07", "EP20", "EP12"]
+NXE_HERO_STAGE = ["Peanut", "Olive", "Plume", "Pango", "Ribbit", "Dot"]   # who is on stage before the first shuffle
+NXE_HS_FX = {"Halloween": "bats", "Christmas": "snow", "Year-End": "confetti"}
+
+
+def _nxe_hero_tokens(content: str) -> str:
+    if "{{NXE_HERO_" not in content:
+        return content
+    by = {e["code"]: e for e in _nxe_all()}
+    reel = "".join(f'<img src="{NXE_IMG}{by[c]["thumb"]}.webp" alt="" width="640" height="360"'
+                   f'{"" if k == 0 else " loading=\"lazy\""} decoding="async" data-cap="{attr(c)}" data-title="{attr(by[c]["title"])}"'
+                   f'{" class=\"is-on\"" if k == 0 else ""}>' for k, c in enumerate(NXE_HERO_REEL))
+    tips = [e for sea in NXE.SEASONS for e in sea["tips"] if e["thumb"]]
+    tip_json = json.dumps([{"c": e["code"], "t": e["title"], "l": e["len"], "i": e["thumb"]} for e in tips], ensure_ascii=False)
+    t0 = by["Tip 07"]
+    tip_card = (f'<img src="{NXE_IMG}{t0["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async" data-nxe-tipimg>'
+                f'<span class="nxe-tipcap"><b data-nxe-tipcode>{t0["code"]}</b><span data-nxe-tiptitle>{t0["title"]}</span>'
+                f'<em data-nxe-tiplen>{t0["len"]}</em></span>')
+    cast = [c for c in NXE.CHARACTERS[0]["cast"] if (c["art"] or "").startswith("img:nexi-explains/cast/")]
+    cast_json = json.dumps([{"n": c["name"], "r": c["role"], "f": c["art"][len("img:nexi-explains/cast/"):]} for c in cast], ensure_ascii=False)
+    on_stage = []
+    for k, name in enumerate(NXE_HERO_STAGE):
+        c = next(c for c in cast if c["name"] == name)
+        f = c["art"][len("img:nexi-explains/cast/"):]
+        on_stage.append(f'<button class="nxe-kid nxe-spot-{k + 1}" type="button" data-nxe-kid aria-label="{attr(c["name"] + ": " + c["role"])}">'
+                        f'<img src="{NXE_IMG}cast/{f}" alt="" loading="lazy" decoding="async"></button>')
+    wd_json = json.dumps([{"k": w["key"], "n": w["name"]} for w in NXE.WARDROBE], ensure_ascii=False)
+    hs = []
+    for k, e in enumerate(NXE.SPECIALS):
+        fx = NXE_HS_FX.get(e["code"], "confetti")
+        bits = "".join(f'<i style="--i:{i}"></i>' for i in range(9))
+        hs.append(f'<a class="nxe-pn nxe-hs nxe-hs--{k + 1}" href="#specials" data-fx="{fx}" data-title="{attr(e["title"])}" data-airs="{attr(e["airs"])}" aria-label="{attr(e["code"] + " special: " + e["title"] + ", airs " + e["airs"])}">'
+                  f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+                  f'<span class="nxe-hsfx nxe-hsfx--{fx}" aria-hidden="true">{bits}</span>'
+                  f'<span class="nxe-stamp" aria-hidden="true">Airs {e["airs"]}</span></a>')
+    n_eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
+    rep = {
+        "{{NXE_HERO_REEL}}": reel,
+        "{{NXE_HERO_TIPS}}": attr(tip_json),
+        "{{NXE_HERO_TIPCARD}}": tip_card,
+        "{{NXE_HERO_CAST}}": attr(cast_json),
+        "{{NXE_HERO_STAGE}}": "".join(on_stage),
+        "{{NXE_HERO_WARDROBE}}": attr(wd_json),
+        "{{NXE_HERO_SPECIALS}}": "".join(hs),
+        "{{NXE_HERO_N_TIPS}}": str(len(tips)),
+        "{{NXE_HERO_N_TIPS1}}": str(len(NXE.SEASONS[0]["tips"])),
+        "{{NXE_HERO_N_TIPS2}}": str(len(NXE.SEASONS[1]["tips"])),
+        "{{NXE_HERO_N_EPS}}": str(n_eps),
+        "{{NXE_HERO_N_CAST}}": str(len(cast)),
+        "{{NXE_HERO_N_WARDROBE}}": str(len(NXE.WARDROBE)),
+    }
+    for e in NXE.SPECIALS:
+        rep["{{NXE_HERO_AIRS_" + e["code"].upper().replace("-", "") + "}}"] = e["airs"]
+    for k, v in rep.items():
+        content = content.replace(k, v)
+    return content
+
+
 def nxe_tokens(content: str) -> str:
+    content = _nxe_hero_tokens(content)
     if "{{NXE_SLIDE_" in content:
         stage, pills = nxe_slide_html()
         content = content.replace("{{NXE_SLIDE_STAGE}}", stage).replace("{{NXE_SLIDE_PILLS}}", pills)

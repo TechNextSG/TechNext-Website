@@ -16,7 +16,7 @@
    visible; reduced motion draws one still frame. */
 (function () {
   'use strict';
-  if (!document.querySelector('[data-nxe-stage],[data-nxs]')) return;
+  if (!document.querySelector('[data-nxe-stage],[data-nxs],canvas[data-nxe-portrait]')) return;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var T = 0;
 
