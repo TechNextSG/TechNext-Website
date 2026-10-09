@@ -342,7 +342,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}contact.html" aria-label="Contact TechNext">{{icon:chat-send}}<span>Let's talk</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}get-started.html" aria-label="Get started with TechNext">{{icon:chat-send}}<span>Get started</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>

@@ -1,0 +1,47 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* /get-started: the simple landing page behind the header's "Get started" button. A plain hero with the inquiry form
+   beside it, three steps, four service cards and one CTA band. Built on the calm kit (site.css + calm.css). */
+.gs-hero{position:relative;overflow:hidden;padding:128px 0 56px;background:linear-gradient(180deg,#F7F9FD 0%,#FFFFFF 100%)}
+.gs-hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(#E6ECF6 1px,transparent 1px),linear-gradient(90deg,#E6ECF6 1px,transparent 1px);background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 25% 35%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse 70% 70% at 25% 35%,#000 0%,transparent 75%)}
+.gs-hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.gs-copy h1{margin:12px 0 18px;font-size:clamp(2.3rem,4.4vw,3.6rem)}
+.gs-copy h1 em{display:block;font-style:normal;color:var(--blue)}
+.gs-copy .lead{max-width:38ch;margin:0}
+.gs-ticks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px}
+.gs-ticks li{display:flex;gap:10px;align-items:center;font-weight:500;color:var(--ink)}
+.gs-ticks .ic{flex:none;width:20px;height:20px;color:var(--blue);stroke-width:2.6}
+.gs-alt{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+.gs-form{padding:32px;border-radius:20px;background:#FFFFFF;box-shadow:var(--calm-shadow,0 14px 32px -22px rgba(31,63,130,.32))}
+.gs-form-h{font-size:1.45rem;margin:0 0 4px}
+.gs-form-sub{font-size:15px;color:var(--muted);margin:0 0 20px}
+.gs-form .form-foot{margin-top:4px}
+.gs-form .gs-submit{width:100%;justify-content:center}
+.gs-form.is-sent .gs-form-h,.gs-form.is-sent .gs-form-sub,.gs-form.is-sent .gs-privacy{display:none}
+.gs-privacy{margin:12px 0 0;font-size:13px}
+.gs-form .form-status:empty{display:none}
+.gs-how{padding-top:64px}
+
+.gs-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.gs-steps li{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.gs-n{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);font:700 15px var(--font-display);margin-bottom:16px}
+.gs-steps h3{font-size:1.15rem;margin-bottom:6px}
+.gs-steps p{font-size:15px;margin:0}
+
+.gs-card{display:flex;flex-direction:column;color:inherit;text-decoration:none}
+.gs-card:hover{text-decoration:none}
+.gs-card .btn-link{margin-top:auto;padding-top:14px;align-self:flex-start}
+
+@media (max-width:1000px){
+  .gs-hero-grid{grid-template-columns:1fr;gap:36px}
+  .gs-copy .lead{max-width:none}
+}
+@media (max-width:720px){
+  .gs-hero{padding:104px 0 32px}
+  .gs-how{padding-top:48px}
+  .gs-form{padding:22px 18px}
+  .gs-steps{grid-template-columns:1fr;gap:16px}
+  .gs-alt .btn{flex:1 1 100%;justify-content:center}
+}
