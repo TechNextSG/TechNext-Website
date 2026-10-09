@@ -279,6 +279,10 @@ def walk(rules, fname, src):
     for r in rules:
         if r.type == "qualified-rule":
             sel = tinycss2.serialize(r.prelude).strip()
+            # body.ixw--<world> selectors are the calm round's own deliberate themed touches (CALM_BALANCE: a soft
+            # doorway frame, one ticket edge...); no pre-calm sheet uses them, so they are left exactly as written.
+            if all(s.startswith("body.ixw--") for s in split_top(sel)):
+                continue
             decls = tinycss2.parse_declaration_list(r.content, skip_comments=True, skip_whitespace=True)
             new = []
             for d in decls:
