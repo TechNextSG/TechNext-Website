@@ -1,0 +1,88 @@
+<!--meta {"title": "Get started with TechNext — Odoo ERP, AI and IT for your business", "desc": "Tell us what your business needs. TechNext plans, sets up and supports Odoo ERP, AI, websites and IT, with offices in Singapore, the Philippines and Vietnam.", "out": "get-started.html", "nav": "", "body": "gs-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\">"} -->
+
+<section class="gs-hero">
+  <div class="container gs-hero-grid">
+    <div class="gs-copy">
+      <span class="hand">get started</span>
+      <h1>Run your business on one system. <em>We set it up for you.</em></h1>
+      <p class="lead">Odoo ERP, AI, websites and IT from one team. Tell us what you need.</p>
+      <ul class="gs-ticks">
+        <li>{{icon:check}} Odoo Ready Partner</li>
+        <li>{{icon:check}} Offices in Singapore, the Philippines and Vietnam</li>
+        <li>{{icon:check}} Clients in 10+ countries</li>
+      </ul>
+      <div class="gs-alt">
+        <a class="btn btn-ghost btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">{{icon:calendar}} Book a call</a>
+        <a class="btn btn-ghost btn-lg" href="https://wa.me/6588396998?text=Hello%20TechNext%2C%20I%27d%20like%20to%20get%20started." target="_blank" rel="noopener">{{icon:whatsapp}} WhatsApp us</a>
+      </div>
+    </div>
+
+    <form class="form gs-form card card--static" id="gs-form" novalidate data-endpoint="https://formsubmit.co/ajax/sales@technext.asia">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_subject" value="Get started — technext.asia">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="source" value="Get started page">
+      <h2 class="gs-form-h">Tell us what you need</h2>
+      <p class="gs-form-sub">We reply from sales@technext.asia.</p>
+      <div class="form-row">
+        <div class="field"><label for="gs-name">Name</label><input id="gs-name" name="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="gs-company">Company</label><input id="gs-company" name="company" type="text" autocomplete="organization"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="gs-email">Work email</label><input id="gs-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="gs-phone">Phone</label><input id="gs-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+      </div>
+      <div class="field">
+        <label for="gs-topic">I need help with</label>
+        <select id="gs-topic" name="topic" required>
+          <option value="">Choose one</option>
+          <option>Odoo ERP</option>
+          <option>AI solutions</option>
+          <option>Website or social media</option>
+          <option>IoT, apps or networks</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="field"><label for="gs-msg">Message <span class="opt">(optional)</span></label><textarea id="gs-msg" name="message" rows="3"></textarea></div>
+      <div class="form-foot">
+        <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Send</span><span class="btn-busy" aria-hidden="true"></span></button>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <div class="form-sent"><h3>Thanks, we have it.</h3><p>It's on its way to sales@technext.asia. We'll reply from that address.</p></div>
+      <p class="small muted gs-privacy">We use your details only to reply. See the <a href="{{ROOT}}privacy.html">privacy policy</a>.</p>
+    </form>
+  </div>
+</section>
+
+<section class="section gs-how">
+  <div class="container">
+    <div class="sec-head sec-head--center reveal"><span class="hand">how it works</span><h2>Three simple steps.</h2></div>
+    <ol class="gs-steps">
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Tell us</h3><p>Send the form or book a call. Share how your business runs today.</p></li>
+      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>Get a plan</h3><p>We say what to set up first and send a written quotation.</p></li>
+      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Go live</h3><p>We set it up, train your team and support you after go-live.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="sec-head sec-head--center reveal"><span class="hand">what we do</span><h2>Pick where to start.</h2></div>
+    <div class="grid-4 gs-cards">
+      <a class="card gs-card reveal" href="{{ROOT}}solutions/odoo-erp.html"><span class="card-ic">{{icon:sol-erp}}</span><h3>Odoo ERP</h3><p>Accounting, sales, inventory and HR in one system.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card gs-card reveal" href="{{ROOT}}solutions/ai.html"><span class="card-ic">{{icon:sol-ai}}</span><h3>AI solutions</h3><p>AI assistants and automation for your team.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card gs-card reveal" href="{{ROOT}}solutions/marketing.html"><span class="card-ic">{{icon:sol-mkt}}</span><h3>Marketing</h3><p>Websites, social media and brand design.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <a class="card gs-card reveal" href="{{ROOT}}solutions/technology.html"><span class="card-ic">{{icon:sol-tech}}</span><h3>Technology</h3><p>IoT, custom apps and networks.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta reveal">
+      <div><span class="hand">prefer to talk?</span><h2>Book a call with our team.</h2><p>Pick a time that suits you and walk us through your business.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a call</a><a class="btn btn-outline-white btn-lg" href="mailto:sales@technext.asia">Email sales</a></div>
+    </div>
+  </div>
+</section>
