@@ -1,7 +1,7 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* /nexi-explains: season tabs, premiere countdowns (cards switch to "Watch now" when a YouTube premiere
-   starts), the video player dialog (one episode, or a whole season as a YouTube playlist), the Quick Tips
-   rails and Nexi's little show in the hero (her bubble chats, tap her to change her mood).
+   starts; the hero's caption panel counts down to the next one), the video player dialog (one episode, or a whole
+   season as a YouTube playlist) and the Quick Tips rails. The hero's comic carousel is nexi-explains-hero.js.
    Video ids come from data-nxe-play and must look like a YouTube id; the player URL is a constant. */
 (function () {
   'use strict';
@@ -144,10 +144,13 @@
       if (out.length) lab.textContent = out.length > 1 ? 'Play the season (' + out.length + ')' : 'Play the season';
       else if (eps.length) lab.textContent = 'Season premiere ' + fmtDay.format(new Date(when(eps[0])));
     });
-    if (next) {
-      if (!soon) { next.hidden = true; return; }
+    /* the hero's caption panel: the next premiere with a countdown, or the channel when nothing is scheduled */
+    if (next && soon) {
       var t = when(soon), d = new Date(t);
-      next.hidden = false;
+      var cta = next.querySelector('[data-nxe-next-cta]');
+      if (cta) cta.textContent = 'Set a reminder on YouTube';
+      var tg = next.querySelector('[data-nxe-next-tag]');
+      if (tg) tg.textContent = 'Next premiere';
       next.querySelector('[data-nxe-next-title]').textContent = soon.getAttribute('data-nxe-title') || '';
       var w = next.querySelector('[data-nxe-next-when]');
       w.textContent = '';
@@ -262,94 +265,4 @@
   });
   addEventListener('resize', rails);
   rails();
-
-  /* ---------------- Nexi's show in the hero ---------------- */
-  var stage = document.querySelector('[data-nxe-stage]');
-  if (!stage) return;
-  var say = stage.querySelector('[data-nxe-say]'), nexi = stage.querySelector('[data-nxe-nexi]');
-  var img = nexi && nexi.querySelector('img'), screen = stage.querySelector('.nxe-tv-screen');
-  var ROOT_IMG = img ? img.getAttribute('src').replace(/nexi-hello\.webp.*$/, '') : '';
-  var IDLE = ['Hi! I’m Nexi. Grab a seat!', 'One idea per episode. Promise!', 'New episodes premiere every week.',
-              'Quick Tips take under two minutes!', 'Season 2 is about the people side of Odoo.', 'Psst… tap me!'];
-  var TAP = [['wow', 'Whoa! You found me!'], ['love', 'Aww, thank you for watching!'], ['celebrate', 'Popcorn ready? Let’s go!'],
-             ['jump', 'I wear a new costume every episode!'], ['clap', 'Beep boop! Pick a season below.'], ['hello', 'Hehe, that tickles!']];
-  var poseW = { hello: 432, wow: 347, love: 336, celebrate: 530, jump: 456, clap: 347 };
-  var WORDS = ['BOOP!', 'WOW!', 'HEHE!', 'YAY!', 'ZING!', 'BEEP!'], wi = 0;
-  function soundWord() {
-    if (reduce || !nexi) return;
-    var w = document.createElement('span');
-    w.className = 'nxe-word';
-    w.setAttribute('aria-hidden', 'true');
-    w.textContent = WORDS[wi++ % WORDS.length];
-    var sr = stage.getBoundingClientRect(), nr = nexi.getBoundingClientRect();
-    w.style.left = Math.round(nr.left - sr.left + nr.width * 0.55) + 'px';
-    w.style.top = Math.round(nr.top - sr.top + 10) + 'px';
-    w.style.setProperty('--r', (Math.random() * 24 - 12).toFixed(1) + 'deg');
-    w.style.setProperty('--x', Math.round(Math.random() * 60 - 10) + 'px');
-    stage.appendChild(w);
-    w.addEventListener('animationend', function () { w.remove(); });
-  }
-  var li = 0, ti = 0, visible = true, sayTimer = 0, tvTimer = 0, back = 0;
-  function speak(text) {
-    say.textContent = text;
-    if (reduce) return;
-    say.classList.remove('is-pop'); void say.offsetWidth; say.classList.add('is-pop');
-  }
-  function pose(name) {
-    if (!img || !poseW[name]) return;
-    img.src = ROOT_IMG + 'nexi-' + name + '.webp';
-    img.width = poseW[name];
-  }
-  // preload the poses once the page is idle, so a tap swaps instantly
-  setTimeout(function () { Object.keys(poseW).forEach(function (k) { var i = new Image(); i.src = ROOT_IMG + 'nexi-' + k + '.webp'; }); }, 2500);
-  if (nexi) nexi.addEventListener('click', function () {
-    var t = TAP[ti++ % TAP.length];
-    pose(t[0]); speak(t[1]); soundWord();
-    stage.dispatchEvent(new CustomEvent('nxe:tap'));
-    if (!reduce) {
-      nexi.classList.remove('is-hop'); void nexi.offsetWidth; nexi.classList.add('is-hop');
-      stage.classList.remove('is-burst'); void stage.offsetWidth; stage.classList.add('is-burst');
-    }
-    clearTimeout(back);
-    back = setTimeout(function () { pose('hello'); }, 4200);
-    restart();
-  });
-  var imgs = screen ? $$('img', screen) : [], cur = 0;
-  function tv() {
-    if (imgs.length < 2) return;
-    screen.classList.add('is-cycling');
-    imgs[cur].classList.remove('is-on');
-    cur = (cur + 1) % imgs.length;
-    imgs[cur].classList.add('is-on');
-  }
-  function restart() {
-    clearInterval(sayTimer); clearInterval(tvTimer);
-    if (reduce || !visible || document.hidden) return;
-    sayTimer = setInterval(function () { li = (li + 1) % IDLE.length; speak(IDLE[li]); }, 5200);
-    tvTimer = setInterval(tv, 2800);
-  }
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (en) { visible = en[0].isIntersecting; restart(); }).observe(stage);
-  }
-  document.addEventListener('visibilitychange', restart);
-  imgs.forEach(function (im) { if (im.loading === 'lazy') im.loading = 'eager'; });
-  restart();
-
-  var heroEl = document.querySelector('[data-nxe-hero]');
-  var layers = heroEl ? $$('[data-depth]', heroEl) : [];
-  if (heroEl && layers.length && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    var px = 0, py = 0, raf = 0;
-    heroEl.addEventListener('pointermove', function (e) {
-      var r = heroEl.getBoundingClientRect();
-      px = (e.clientX - r.left) / r.width - 0.5; py = (e.clientY - r.top) / r.height - 0.5;
-      if (!raf) raf = requestAnimationFrame(function () {
-        raf = 0;
-        layers.forEach(function (el) {
-          var d = parseFloat(el.getAttribute('data-depth')) || 0;
-          el.style.translate = (px * d * -34).toFixed(1) + 'px ' + (py * d * -26).toFixed(1) + 'px';
-        });
-      });
-    });
-    heroEl.addEventListener('pointerleave', function () { layers.forEach(function (el) { el.style.translate = ''; }); });
-  }
 })();
