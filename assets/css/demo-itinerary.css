@@ -182,3 +182,28 @@
   .itn-sg,.itn-wv,.itn-tgt,.itn-svc{transition:none}
   .itn-day.is-drop,.itn-checks li{animation:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .itn-cap,
+  .itn-cap small,
+  .itn-pgh,
+  .itn-svc small,
+  .itn-ib small,
+  .itn-dh small,
+  .itn-ns,
+  .itn-checks li b,
+  .itn-rates,
+  .itn-wv,
+  .itn-wl,
+  .itn-lg,
+  .itn-sumd dt,
+  .itn-cur li,
+  .itn-invl b,
+  .itn-payl b,
+  .itn-invl span,
+  .itn-payl span,
+  .itn-invl small,
+  .itn-payl small,
+  .itn-xd{font-size:11px}
+}

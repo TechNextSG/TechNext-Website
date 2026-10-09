@@ -1285,7 +1285,11 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
    later full layout (fonts arriving, a resize, the reveals) now only touch what is on screen. Audited 109 pages: no
    section draws outside its own box, so the paint containment this brings clips nothing. */
 main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:auto 900px}
-main>section:has(.ixw-cta),main>section:has(.cta-nexi),main>section:has([class*="-cta"] img[src*="nexi"]){content-visibility:visible}
+/* R9 sweep: paint containment also cut the "in one paragraph" bubble's tail (it points down past the section) on the
+   industry pages, the Odoo Street strings that hang the answer card from the facts strip (odoo/apps) and the clipboard
+   clip on top of the Training answer card. Both are short sections, so painting them always costs nothing. */
+main>section:has(.ixw-cta),main>section:has(.cta-nexi),main>section:has([class*="-cta"] img[src*="nexi"]),
+main>section:has(.ixw-say),main>section.answer-sec{content-visibility:visible}
 @media print{main>section:not(:first-child){content-visibility:visible}}
 /* ================= R9 nav: header "Let's talk" button + floating WhatsApp, both dressed in the page's world =================
    Every world sets --hc-bg / --hc-fg (button fill + text) and --st-ink (outline + lip); pages without a world fall back to
@@ -1293,7 +1297,7 @@ main>section:has(.ixw-cta),main>section:has(.cta-nexi),main>section:has([class*=
 body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact,
 body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover,
 body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{
-  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#4A80E2,#3167CA));border:2px solid var(--st-ink,#1B2350);border-radius:12px;
+  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#3F76DA,#3167CA));border:2px solid var(--st-ink,#1B2350);border-radius:12px;
   box-shadow:0 3px 0 var(--st-ink,#1B2350);translate:none;transition:translate .2s var(--spring),box-shadow .2s ease,filter .2s ease}
 body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover{translate:0 -2px;box-shadow:0 5px 0 var(--st-ink,#1B2350);filter:saturate(1.08) brightness(1.04)}
 body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{translate:0 2px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
@@ -1308,7 +1312,7 @@ body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-c
 /* floating WhatsApp: bottom-right corner. Desktop: below the vertical side tabs. Phone: stacked above the round "+" FAB,
    and it steps aside while the FAB's menu or the Let's Talk panel is open. */
 .wa-float{position:fixed;right:22px;bottom:22px;z-index:57;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
-  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#4A80E2,#3167CA));border:2.5px solid var(--st-ink,#1B2350);
+  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#3F76DA,#3167CA));border:2.5px solid var(--st-ink,#1B2350);
   box-shadow:0 4px 0 var(--st-ink,#1B2350),0 16px 28px -14px rgba(15,25,50,.55);-webkit-tap-highlight-color:transparent;
   transition:translate .22s var(--spring),box-shadow .22s ease,opacity .25s ease,scale .3s var(--spring)}
 .wa-float .ic{width:26px;height:26px}

@@ -1,7 +1,7 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
 /* /contact — the "post office" landing page: bright sky, a paper plane, Nexi at the counter with the four channels as
    speech bubbles. World vars so the header button and the floating WhatsApp match the page. */
-.ct-page{--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);--hc-fg:#FFFFFF;--st-ink:#1B2350;--ct-ink:#1B2350;--ct-y:#FFD84A}
+.ct-page{--hc-bg:linear-gradient(180deg,#3F76DA,#3167CA);--hc-fg:#FFFFFF;--st-ink:#1B2350;--ct-ink:#1B2350;--ct-y:#FFD84A}
 
 .ct-hero{position:relative;overflow:hidden;padding:128px 0 72px;background:linear-gradient(180deg,#CFE6FB 0,#E8F3FD 55%,#FFF8E6 100%)}
 .ct-sky{position:absolute;inset:0;pointer-events:none}

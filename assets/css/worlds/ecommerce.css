@@ -132,7 +132,7 @@
 /* ---------- the end card: a parcel with its shipping label ---------- */
 .ixw--ecommerce .ixw-cta{background:linear-gradient(120deg,#4A3A9E,#6D5BD0 60%,#8C7BE6)}
 .ixw--ecommerce .ixw-cta::before{background-image:radial-gradient(rgba(255,255,255,.14) 2px,transparent 2.2px)}
-.ixw--ecommerce .ixw-cta::after{content:"";display:block;position:absolute;left:0;right:0;top:50%;height:30px;margin-top:-15px;z-index:-1;background:var(--e-tape);opacity:.55;transform:rotate(-1.5deg)}
+.ixw--ecommerce .ixw-cta::after{content:"";display:block;position:absolute;left:0;right:0;top:50%;height:30px;width:auto;margin-top:-15px;z-index:-1;background:var(--e-tape);opacity:.55;transform:rotate(-1.5deg)}
 .ixw--ecommerce .ixw-cta .hand{color:#BDF3E4}
 .ixw--ecommerce .ixw-cta>div:first-of-type{position:relative;padding:20px 22px 20px 108px;border-radius:12px;background:#FFFFFF;box-shadow:0 6px 0 rgba(0,0,0,.14)}
 .ixw--ecommerce .ixw-cta>div:first-of-type h2{color:var(--e-ink)}

@@ -8,7 +8,7 @@
   --tp-stripe:repeating-linear-gradient(90deg,var(--tp-coral) 0 26px,#FFFFFF 26px 52px);
   --tp-bulbs:radial-gradient(circle,#FFE27A 3px,rgba(255,226,122,.35) 4.5px,transparent 5.5px);
   --w-alt:#FFF5EC;--w-dot:rgba(255,107,87,.10);--lab-bd:2px solid #1C2340;--lab-lip:#1C2340;--lab-tail:#1C2340;--lab-r:10px;
-  --st-ink:#1C2340;--st-meet:#14B1C4;--st-talk:#FF6B57;--st-nexi:#FFC93C;--st-nexi-fg:#1C2340;--hc-bg:linear-gradient(180deg,#FF8574,#FF6B57);
+  --st-ink:#1C2340;--st-meet:#14B1C4;--st-talk:#FF6B57;--st-nexi:#FFC93C;--st-nexi-fg:#1C2340;--hc-bg:linear-gradient(180deg,#FF8574,#FF6B57);--hc-fg:#1C2340;
   --ii-bg:linear-gradient(160deg,#FFF7EA,#FFE4DC 55%,#D9F4F8);--ii-ink:#1C2340;--ii-b:#FF6B57;--ii-accent:#14B1C4;--ii-lip:#1C2340;--ii-ep-bg:#FF6B57;--ii-ep-fg:#FFFFFF;
   --ii-pattern:radial-gradient(rgba(255,107,87,.16) 2px,transparent 2.4px) 0 0/22px 22px}
 .ixw--sol-app .ixw-hero{background:linear-gradient(180deg,#7CC8F2 0,#CDEBFB 22%,#EAF8FE 34%,#BFE3BE 34%,#BFE3BE 37%,#F3E5D2 37%,#F1DFC8 100%)}

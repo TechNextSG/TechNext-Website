@@ -65,3 +65,11 @@
   .snk-calc{grid-template-columns:minmax(0,1fr);padding:12px}
 }
 @media (prefers-reduced-motion:reduce){.snk-l{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .snk-h,
+  .snk-tab caption,
+  .snk-tab,
+  .snk-tab thead th{font-size:11px}
+}

@@ -136,7 +136,7 @@
 /* ---------- the end card: a gift voucher ---------- */
 .ixw--retail .ixw-cta{background:linear-gradient(120deg,#B95E43,#D9785A 58%,#E9997C);outline:2px dashed rgba(255,246,236,.6);outline-offset:-14px}
 .ixw--retail .ixw-cta::before{background-image:radial-gradient(rgba(255,255,255,.14) 2px,transparent 2.2px)}
-.ixw--retail .ixw-cta::after{content:"GIFT VOUCHER \00B7  HG-ONE-STORE";display:block;position:absolute;left:34px;bottom:22px;font:700 10.5px/1 var(--r-mono);letter-spacing:.16em;color:rgba(255,246,236,.75)}
+.ixw--retail .ixw-cta::after{content:"GIFT VOUCHER \00B7  HG-ONE-STORE";display:block;position:absolute;left:34px;bottom:22px;top:auto;right:auto;width:auto;height:auto;border-radius:0;background:none;transform:none;font:700 10.5px/1 var(--r-mono);letter-spacing:.16em;color:rgba(255,246,236,.75)}
 .ixw--retail .ixw-cta .hand{color:#FFE7C7}
 .ixw--retail .ixw-cta>div:first-of-type{position:relative;padding-left:88px}
 .ixw--retail .ixw-cta>div:first-of-type::before{content:"";position:absolute;left:0;top:4px;width:62px;height:62px;border-radius:12px;background:#FFF6EC;box-shadow:0 4px 0 rgba(0,0,0,.12)}
@@ -230,7 +230,7 @@
 
 /* wide screens: the scene sits a little higher, so the receipt's torn edge clears the credits card */
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--retail{--st-ink:#3D405B;--st-meet:#5E8F77;--st-talk:#D9785A;--st-nexi:#E9C46A;--st-nexi-fg:#3D405B;--hc-bg:linear-gradient(180deg,#E28C6E,#D9785A 70%)}
+.ixw--retail{--st-ink:#3D405B;--st-meet:#5E8F77;--st-talk:#D9785A;--st-nexi:#E9C46A;--st-nexi-fg:#3D405B;--hc-bg:linear-gradient(180deg,#CC5329,#B64B2A 70%)}
 /* the entry intro in this world's colours */
 .ixw--retail{--ii-bg:#FBF3E6;--ii-pattern:repeating-linear-gradient(90deg,rgba(129,178,154,.2) 0 2px,transparent 2px 28px);--ii-ink:#3D405B;--ii-b:#D9785A;--ii-accent:#D9785A;--ii-lip:#B95E43;--ii-ep-bg:#5E8F77;--ii-ep-fg:#FFFFFF;--ii-pill-r:999px 8px 8px 999px}
 /* "View the scene": a swing tag with its eyelet; pressed, terracotta */

@@ -114,3 +114,21 @@
   .rtv-lines path{stroke-dashoffset:0}
   .rtv-rad,.rtv-sb s,.rtv-d{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .rtv-pipe li>i,
+  .rtv-pipe small,
+  .rtv-h,
+  .rtv-h small,
+  .rtv-leg,
+  .rtv-rk,
+  .rtv-rt small,
+  .rtv-sv,
+  .rtv-flag,
+  .rtv-cite,
+  .rtv-warn,
+  .rtv-src li,
+  .rtv-src b,
+  .rtv-behind{font-size:11px}
+}

@@ -33,3 +33,9 @@
 @keyframes drmHi{0%,40%{box-shadow:0 0 0 4px rgba(49,103,202,.35),0 20px 40px -20px rgba(49,103,202,.6)}100%{box-shadow:none}}
 @media (max-width:860px){.drm-wrap{grid-template-columns:minmax(0,1fr)}.drm-left{border-right:0;border-bottom:1px solid var(--line)}}
 @media (prefers-reduced-motion:reduce){.drm-flow li{animation:none}.drm-row::before{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .drm-h,
+  .drm-row small{font-size:11px}
+}

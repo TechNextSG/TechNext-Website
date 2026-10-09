@@ -225,3 +225,32 @@
   .fefo-lk--ret{animation:none}
   .fefo-now,.fefo-lm i,.fefo-cr>i i{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .fefo-cap,
+  .fefo-cap small,
+  .fefo-rl small,
+  .fefo-bid,
+  .fefo-le,
+  .fefo-ld,
+  .fefo-nx,
+  .fefo-ghost,
+  .fefo-ghost b,
+  .fefo-ghost small,
+  .fefo-qbins:empty::before,
+  .fefo-key,
+  .fefo-lnl,
+  .fefo-mk b,
+  .fefo-ax span,
+  .fefo-pkh,
+  .fefo-pkh span,
+  .fefo-short,
+  .fefo-tok,
+  .fefo-cr,
+  .fefo-sum dt,
+  .fefo-nt2 small,
+  .fefo-nd--lot .fefo-nq,
+  .fefo-tag,
+  .fefo-rt{font-size:11px}
+}

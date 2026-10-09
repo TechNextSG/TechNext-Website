@@ -132,3 +132,22 @@
   .omr-nd.is-ping,.omr-stm.is-ping,.omr-st.is-tick,.omr-bank li{animation:none}
   .omr-bar i{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .omr-nd small,
+  .omr-li,
+  .omr-st,
+  .omr-ch.is-stale::after,
+  .dm-router.is-flash .omr-ch:not(.is-off)::before,
+  .omr-av,
+  .omr-s,
+  .omr-inc,
+  .omr-sh small,
+  .omr-stm dl div,
+  .omr-last,
+  .omr-cap,
+  .omr-bank li small,
+  .omr-bankd,
+  .omr-stage.is-v .omr-ch .omr-nh b{font-size:11px}
+}

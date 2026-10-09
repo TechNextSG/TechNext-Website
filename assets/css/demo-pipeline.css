@@ -145,3 +145,29 @@
   .ppl-h small{display:none}
 }
 @media (prefers-reduced-motion:reduce){.dm-pipeline *{transition:none!important;animation:none!important}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ppl-h i,
+  .ppl-h small,
+  .ppl-ch small,
+  .ppl-rules small,
+  .ppl-rules em,
+  .ppl-mem i,
+  .ppl-ct span,
+  .ppl-more,
+  .ppl-card small,
+  .ppl-v,
+  .ppl-stars,
+  .ppl-act,
+  .ppl-av,
+  .ppl-alert,
+  .ppl-lost,
+  .ppl-lostl li,
+  .ppl-chip,
+  .ppl-cht small,
+  .ppl-fr b,
+  .ppl-fr em,
+  .ppl-bc p small,
+  .ppl-bl{font-size:11px}
+}

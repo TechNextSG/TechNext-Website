@@ -124,3 +124,12 @@
   .fap-pad .fap-wipe{display:none}
   .fap-shot{opacity:1;transform:none;transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .fap-phone[data-pf="web"] .fap-url,
+  .fap-job em,
+  .fap-shot figcaption,
+  .fap-pad small,
+  .fap-rec dt{font-size:11px}
+}

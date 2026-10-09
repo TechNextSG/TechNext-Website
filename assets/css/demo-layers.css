@@ -141,3 +141,22 @@
   .lyr-side{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.dm-layers *{transition:none!important;animation:none!important}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .lyr-pick small,
+  .lyr-st,
+  .lyr-lh small,
+  .lyr-slot .lyr-pick b,
+  .lyr-slot .lyr-pick::after,
+  .lyr-put kbd,
+  .lyr-gate span,
+  .lyr-gate em,
+  .lyr-ans,
+  .lyr-key,
+  .lyr-sh,
+  .lyr-path b,
+  .lyr-path span,
+  .lyr-path em,
+  .lyr-up li b{font-size:11px}
+}

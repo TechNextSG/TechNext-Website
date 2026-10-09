@@ -4,7 +4,7 @@
    buttons are kanban cards (a colour edge and drag dots); teams sit in board lanes; what gets built is a list of merged PRs. */
 .ixw--office-ph{--ph-ink:#15302B;--ph-teal:#14A38B;--ph-teal-d:#0E7A68;--ph-y:#FFE680;
   --w-alt:#F1F8F6;--lab-bd:2px solid #15302B;--lab-lip:#15302B;--lab-tail:#15302B;--lab-r:6px;
-  --st-ink:#15302B;--st-meet:#3167CA;--st-talk:#14A38B;--st-nexi:#F2B233;--hc-bg:linear-gradient(90deg,#14A38B 0 70%,#0E7A68 70%);
+  --st-ink:#15302B;--st-meet:#3167CA;--st-talk:#14A38B;--st-nexi:#F2B233;--hc-bg:linear-gradient(90deg,#108471 0 70%,#0B6354 70%);
   --ii-bg:linear-gradient(160deg,#F1FAF7,#D9F0EA);--ii-ink:#15302B;--ii-b:#0E7A68;--ii-accent:#14A38B;--ii-lip:#15302B;--ii-ep-bg:#15302B;--ii-ep-fg:#FFFFFF}
 .ixw--office-ph .ixw-hero{background:linear-gradient(180deg,#D3EEF1 0%,#EEF8F5 62%,#DDE4E8 62%,#C9D2D8 100%)}
 

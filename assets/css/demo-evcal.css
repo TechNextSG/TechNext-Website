@@ -24,3 +24,8 @@
 li.ev.dec-hit{animation:decHit 1.6s ease-out}
 @keyframes decHit{0%,35%{background:var(--blue-050);box-shadow:0 0 0 3px rgba(49,103,202,.25)}100%{background:transparent;box-shadow:none}}
 @media (prefers-reduced-motion:reduce){li.ev.dec-hit{animation:none}.dec-dot{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .dec-tick{font-size:11px}
+}

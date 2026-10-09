@@ -70,3 +70,15 @@
   .ox-up{grid-template-columns:minmax(0,1fr);padding:12px}
 }
 @media (prefers-reduced-motion:reduce){.ox-cards.is-in .ox-card,.ox-out.is-in>*,.ox-out.is-in .ox-checks li{animation:none}.ox-flag,.ox-use i::after{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ox-legend,
+  .ox-chip small,
+  .ox-tag,
+  .ox-you,
+  .ox-l,
+  .ox-route small,
+  .ox-checks li>i,
+  .ox-checks li small{font-size:11px}
+}

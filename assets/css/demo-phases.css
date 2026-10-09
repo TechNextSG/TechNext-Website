@@ -113,3 +113,18 @@
   .phz-gate{padding:10px 12px}
 }
 @media (prefers-reduced-motion:reduce){.phz-fill,.phz-dot,.phz-back{transition:none}.phz-panel.is-in>*,.phz-gate.is-shake .phz-lock{animation:none}}
+
+/* R9 sweep: at 11px the lane names need the room their tracking took (LIVE DATABASE fits the lane again) */
+@media (max-width:640px){.phz-lanes{height:42px}.phz-lane{height:18px;letter-spacing:0;padding:0 7px}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .phz-lab small,
+  .phz-lane,
+  .phz-pt small,
+  .phz-env,
+  .phz-chips span,
+  .phz-fig .phz-bh,
+  .phz-gt small,
+  .phz-lab .phz-short{font-size:11px}
+}

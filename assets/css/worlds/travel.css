@@ -261,3 +261,10 @@
 .ixw--travel :is(.ix-switch,.ix-views) button:active{transform:translateY(1px)}
 .ixw--travel :is(.ix-switch,.ix-views) button:focus-visible{outline:2px solid currentColor;outline-offset:-6px}
 @media (prefers-reduced-motion:reduce){.ixw--travel .ix-switch::before{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ixw--travel :is(.itn-wv,
+  .itn-wl,
+  .itn-lg){font-size:11px}
+}

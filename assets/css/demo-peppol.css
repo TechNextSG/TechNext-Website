@@ -97,3 +97,17 @@
   .pp-mk small{font-size:8.5px}
 }
 @media (prefers-reduced-motion:reduce){.pp-node.is-ping::after,.pp-mk.is-on i::after,.pp-res.is-in{animation:none}.pp-mk i{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .pp-node small,
+  .pp-node em,
+  .pp-doc b,
+  .pp-doc--copy b,
+  .pp-count dt,
+  .pp-fl,
+  .pp-fl small,
+  .pp-mk small,
+  .pp-today small,
+  .pp-node b{font-size:11px}
+}

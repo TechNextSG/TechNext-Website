@@ -53,3 +53,9 @@
   .tfl-kpis{padding:0 12px 12px}
 }
 @media (prefers-reduced-motion:reduce){.tfl-st.is-on::after{animation:none;opacity:1}.tfl-pk{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .tfl-svc-l,
+  .tfl-svc button::after{font-size:11px}
+}

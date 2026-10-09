@@ -88,3 +88,17 @@
   .cns-fl{max-width:130px}
 }
 @media (prefers-reduced-motion:reduce){.cns-tbl td.is-flash,.cns-n.is-nope{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .cns-steps li::before,
+  .cns-nt em,
+  .cns-nc,
+  .cns-nv,
+  .cns-sw,
+  .cns-fl,
+  .cns-tbl caption,
+  .cns-tbl thead th,
+  .cns-eh b,
+  .cns-en{font-size:11px}
+}

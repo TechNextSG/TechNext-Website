@@ -161,3 +161,30 @@
   .ccp-states{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){.ccp-seg,.ccp-fb i,.ccp-post{transition:none}.ccp-post.is-pop,.ccp-log li,.ccp-leads li{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ccp-today small,
+  .ccp-pil,
+  .ccp-cl,
+  .ccp-wd span,
+  .ccp-dn,
+  .ccp-post,
+  .ccp-post b,
+  .ccp-dh,
+  .ccp-dh small,
+  .ccp-badge,
+  .ccp-steps li,
+  .ccp-mv span,
+  .ccp-pm dt,
+  .ccp-trail li,
+  .ccp-lh,
+  .ccp-states li,
+  .ccp-wk em,
+  .ccp-wk small,
+  .ccp-funnel li,
+  .ccp-funnel small,
+  .ccp-leads small,
+  .ccp-leads em,
+  .ccp-leads .ccp-empty{font-size:11px}
+}

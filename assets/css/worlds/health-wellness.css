@@ -130,7 +130,7 @@
 /* ---------- the end card: the garden through the window ---------- */
 .ixw--health-wellness .ixw-cta{border-radius:34px;background:linear-gradient(120deg,#3F6B4F,#5E8C6E 55%,#7FA88B)}
 .ixw--health-wellness .ixw-cta::before{background-image:radial-gradient(rgba(255,255,255,.1) 2px,transparent 2.2px)}
-.ixw--health-wellness .ixw-cta::after{content:"";display:block;position:absolute;right:26px;bottom:-6px;width:150px;height:120px;pointer-events:none;opacity:.35;
+.ixw--health-wellness .ixw-cta::after{content:"";display:block;position:absolute;right:26px;bottom:-6px;width:150px;height:120px;top:auto;border-radius:0;transform:none;pointer-events:none;opacity:.35;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 120'%3E%3Cg fill='%23FFFFFF'%3E%3Cellipse cx='75' cy='108' rx='40' ry='12'/%3E%3Cellipse cx='75' cy='86' rx='30' ry='11'/%3E%3Cellipse cx='75' cy='66' rx='21' ry='9'/%3E%3Cellipse cx='75' cy='50' rx='13' ry='7'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
 .ixw--health-wellness .ixw-cta h2{font-family:var(--g-serif)}
 .ixw--health-wellness .ixw-cta .hand{color:#F6CFC4}
@@ -194,7 +194,7 @@
 @keyframes hWave{to{background-position:24px 100%}}
 
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--health-wellness{--st-ink:#3B3651;--st-meet:#5E8C6E;--st-talk:#8C76B8;--st-nexi:#F2B5A7;--st-nexi-fg:#3B3651;--hc-bg:radial-gradient(90% 120% at 30% 10%,#B6A3DD,#8C76B8 55%,#7A63A9)}
+.ixw--health-wellness{--st-ink:#3B3651;--st-meet:#5E8C6E;--st-talk:#8C76B8;--st-nexi:#F2B5A7;--st-nexi-fg:#3B3651;--hc-bg:radial-gradient(90% 120% at 30% 10%,#8768C7,#6B519D 55%,#5F4B88)}
 /* the entry intro in this world's colours */
 .ixw--health-wellness{--ii-bg:#F8F2E9;--ii-pattern:radial-gradient(ellipse 40% 30% at 18% 24%,rgba(141,179,154,.22),transparent 70%),radial-gradient(ellipse 36% 26% at 84% 74%,rgba(185,166,216,.24),transparent 70%),radial-gradient(ellipse 30% 22% at 78% 18%,rgba(242,181,167,.2),transparent 70%);--ii-ink:#3B3651;--ii-b:#5E8C6E;--ii-accent:#8C76B8;--ii-lip:#3F6B4F;--ii-ep-bg:#5E8C6E;--ii-ep-fg:#FFFFFF;--ii-font:var(--g-serif,Georgia,serif)}
 /* "View the scene": a stitched linen pebble; pressed, lavender */

@@ -5,7 +5,7 @@
    FAQ is a prompt. */
 .ixw--office-vn{--vn-ink:#1B1F3B;--vn-navy:#2B2D6E;--vn-cy:#0EA5B7;--vn-cy-l:#E3F7F9;--vn-or:#E0761A;--vn-vi:#7B5CD6;
   --w-alt:#F2F7FB;--lab-bg:#FFFFFF;--lab-bd:1.5px solid #0EA5B7;--lab-lip:#BFE9EE;--lab-tail:#FFFFFF;--lab-r:8px;
-  --st-ink:#1B1F3B;--st-meet:#46418A;--st-talk:#F08A24;--st-nexi:#0EA5B7;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(90deg,#3167CA,#0EA5B7 55%,#F08A24);
+  --st-ink:#1B1F3B;--st-meet:#46418A;--st-talk:#F08A24;--st-nexi:#0EA5B7;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(90deg,#3167CA,#0B7D8B 55%,#AD5C0C);
   --ii-bg:linear-gradient(160deg,#EAF5FC,#CFE6F7 60%,#FFE9D2);--ii-ink:#1B1F3B;--ii-b:#E0761A;--ii-accent:#0EA5B7;--ii-lip:#BFE9EE;--ii-ep-bg:#0EA5B7;--ii-ep-fg:#FFFFFF}
 .ixw--office-vn .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#EEF1F8 12%,#6FAEEA 12%,#A9D2F5 40%,#E4F2FB 60%,#EEF2F7 62%,#DCE3EC 100%)}
 .ixw--office-vn .ixw-hot-lab{color:var(--vn-ink)}.ixw--office-vn .ixw-hot-lab i{color:#5C6B7A}.ixw--office-vn .ixw-hot-lab .ic{color:var(--vn-cy)}

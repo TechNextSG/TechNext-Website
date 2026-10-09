@@ -85,3 +85,13 @@
   .gt-upc{margin-left:0;flex-basis:100%}
 }
 @media (prefers-reduced-motion:reduce){.gt-up,.gt-verdict.is-in>*{animation:none}.gt-bin,.gt-q{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .gt-qt small,
+  .gt-bin small,
+  .gt-uph,
+  .gt-up i,
+  .gt-up small,
+  .gt-to{font-size:11px}
+}

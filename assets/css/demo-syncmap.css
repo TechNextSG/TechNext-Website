@@ -73,3 +73,15 @@
   .smap-side .dm-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){.dm-syncmap *{transition:none!important;animation:none!important}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .smap-hub small,
+  .smap-n small,
+  .smap-n em,
+  .smap-leg li,
+  .smap-lane p,
+  .smap-lane p b,
+  .smap-b,
+  .smap-sh{font-size:11px}
+}

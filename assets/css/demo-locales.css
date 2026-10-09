@@ -82,3 +82,13 @@
   .lc-mc small{font-size:9.5px}
 }
 @media (prefers-reduced-motion:reduce){.lc-links.is-on .lc-link,.lc-pin.is-on .lc-ring,.lc-panel.is-in>*{animation:none}.lc-d{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .lc-ph small,
+  .lc-area,
+  .lc-chip,
+  .lc-mh,
+  .lc-ma,
+  .lc-mc small{font-size:11px}
+}

@@ -83,3 +83,15 @@
   .bir-lh{margin:6px 0 0}
 }
 @media (prefers-reduced-motion:reduce){.bir-c.is-now::after{animation:none}.bir-c{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .bir-h,
+  .bir-row--h .bir-rh,
+  .bir-rh small,
+  .bir-cad,
+  .bir-mh,
+  .bir-mh.is-ye,
+  .bir-c,
+  .bir-n small{font-size:11px}
+}

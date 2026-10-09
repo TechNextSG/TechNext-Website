@@ -633,3 +633,19 @@ document.addEventListener('click', function (e) {
   document.addEventListener('click', function (e) { if (b.classList.contains('tabs-open') && !box.contains(e.target)) set(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
 })();
+/* R9 sweep: build.py makes every image below the hero lazy, and a lazy image inside UI that starts hidden (tab panels,
+   the homepage Odoo Street pop-ups, closed panels) only starts loading the moment it is shown, so it popped in late.
+   Once the page is loaded and idle, those images are fetched (skipped when the visitor asked to save data). */
+(function () {
+  var c = navigator.connection; if (c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+  function warm() {
+    var l = document.querySelectorAll('img[loading="lazy"]'), b = document.body;
+    for (var i = 0; i < l.length; i++) {
+      for (var p = l[i].parentElement; p && p !== b; p = p.parentElement) {
+        if (p.hidden || getComputedStyle(p).display === 'none') { l[i].loading = 'eager'; break; }
+      }
+    }
+  }
+  function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(warm, { timeout: 5000 }); }
+  if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+})();
