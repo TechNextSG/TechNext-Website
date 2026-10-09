@@ -420,6 +420,7 @@
       bot: function (g) { rr(g, BOT.x - 60, 150, 120, 210, 24); }
     },
     backGlow: ['capture', 'match', 'log', 'ask', 'bot'],
+    calmView: [300, -60, 750, 600],
     cast: [
       { id: 'fin', behind: true, keys: ['approve', 'match'], P: FIN, act: actFin },
       { id: 'agt', behind: true, keys: ['draft'], P: AGT, act: actAgt },

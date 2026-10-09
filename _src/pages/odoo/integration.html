@@ -66,7 +66,7 @@
 
 <section class="section demo-sec" id="sync-map">
   <div class="container">
-    <div class="ig-head-row"><div class="sec-head ig-head reveal"><span class="hand">under the hood</span><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div><aside class="ig-status reveal" aria-hidden="true"><p class="ig-status-h"><span>Line status</span><small>sample</small></p><ul><li style="--lc:#7DAE38"><b>L1</b><span>Online store</span><em>webhook</em><i>Good service</i></li><li style="--lc:#F08A24"><b>L2</b><span>Marketplaces</span><em>webhook</em><i>Good service</i></li><li style="--lc:#635BFF"><b>L3</b><span>Payments</span><em>webhook</em><i>Good service</i></li><li style="--lc:#3167CA"><b>L4</b><span>Bank feeds</span><em>scheduled</em><i>Good service</i></li><li style="--lc:#E0456B"><b>L5</b><span>Email &amp; calendar</span><em>sync</em><i>Good service</i></li><li style="--lc:#1B2A4A"><b>L6</b><span>Your systems (API)</span><em>API</em><i>Good service</i></li></ul><p class="ig-status-f">Every line terminates at <b>one Odoo database</b></p></aside></div>
+    <div class="ig-head-row"><div class="sec-head ig-head reveal"><span class="hand">under the hood</span><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div></div>
     <div class="ig-board-cap" aria-hidden="true"><span><i></i>Signal box · live network</span><em>sample traffic</em></div>
     <div class="dm dm-syncmap reveal" data-demo="syncmap">
       <div class="dm-head">
@@ -138,7 +138,7 @@
 <section class="section section--alt">
   <div class="container">
     <div class="sec-head ig-head reveal"><span class="hand">how we do it</span><h2>Standard connectors first, custom code last.</h2></div>
-    <div class="steps ig-steps reveal"><i class="ig-steps-train" aria-hidden="true"></i>
+    <div class="steps ig-steps reveal">
       <div class="step reveal" style="--i:0"><div class="step-n">1</div><div><h3>Map the data</h3><p>Agree which records flow, in which direction, field by field, before anything is switched on.</p></div></div>
       <div class="step reveal" style="--i:1"><div class="step-n">2</div><div><h3>Choose the connector</h3><p>A standard, maintained connector wherever one exists; custom code only where none does.</p></div></div>
       <div class="step reveal" style="--i:2"><div class="step-n">3</div><div><h3>Test on staging</h3><p>Run real records end-to-end and reconcile the totals before go-live.</p></div></div>
@@ -150,7 +150,7 @@
 <section class="section">
   <div class="container">
     <div class="two two--top">
-      <div class="reveal ig-get-copy ig-head"><span class="hand">what you get</span><h2>Systems that agree with each other.</h2><p class="lead">Odoo and its app store already cover most connections. We only write code where no maintained connector exists — and we document it so the next upgrade stays predictable.</p><div class="ig-ticket" aria-hidden="true"><span>ODOO CENTRAL</span><b>Integration</b><i>Standard connectors first · API where needed</i><em>Step 3 of 4</em></div><ul class="ig-chips" aria-label="In short"><li><b>6</b>kinds of system on the map</li><li><b>1</b>Odoo database</li><li><b>API</b>only where needed</li></ul></div>
+      <div class="reveal ig-get-copy ig-head"><span class="hand">what you get</span><h2>Systems that agree with each other.</h2><p class="lead">Odoo and its app store already cover most connections. We only write code where no maintained connector exists — and we document it so the next upgrade stays predictable.</p><ul class="ig-chips" aria-label="In short"><li><b>6</b>kinds of system on the map</li><li><b>1</b>Odoo database</li><li><b>API</b>only where needed</li></ul></div>
       <div class="ig-timetable reveal"><p class="ig-tt-h" aria-hidden="true"><span>Service</span><span>Status</span></p><ul class="spec-cols" style="margin:0">
         <li>{{icon:check}}Field-by-field mapping agreed before anything syncs</li>
         <li>{{icon:check}}Direction of each flow defined — one-way or two-way</li>
@@ -172,7 +172,7 @@
 <section class="section section--alt">
   <div class="container">
     <div class="sec-head ig-head reveal"><span class="hand">common questions</span><h2>Integration, answered.</h2></div>
-    <div class="ig-desk"><div class="ig-desk-sign" aria-hidden="true"><b>i</b><span>Information<br>desk</span><small>Ask the station staff</small></div>
+    <div class="ig-desk">
     <div class="faq reveal">
       <details><summary>Will Odoo replace our online store? {{icon:chevron}}</summary><div class="faq-a"><p>Only if you want it to. Otherwise we connect your existing Shopify, WooCommerce or marketplace store so orders and stock stay in step both ways.</p></div></details>
       <details><summary>Do you build custom connectors? {{icon:chevron}}</summary><div class="faq-a"><p>Only where no maintained connector exists. We prefer standard connectors from Odoo and its app store, and we document any custom code we write.</p></div></details>

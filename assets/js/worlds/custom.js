@@ -461,6 +461,7 @@
       box: function (g) { rr(g, BOX.x - 8, BOX.y - 8, BOX.w + 16, BOX.h + 14, 8); }
     },
     backGlow: ['standard', 'fit', 'upgrade', 'editions'],
+    calmView: [230, -90, 800, 640],
     cast: [
       { id: 'dv1', behind: true, keys: ['code'], P: DV1, act: actDv1 },
       { id: 'dv2', behind: true, keys: ['module'], P: DV2, act: actDv2 },

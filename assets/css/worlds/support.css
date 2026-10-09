@@ -235,3 +235,57 @@
 @keyframes spJet{0%{opacity:0;left:48px}10%{opacity:1}100%{opacity:1;left:calc(75% - 22px)}}
 @media (max-width:991px){.ixw--support .sp-plan-jet{display:none}}
 @media (max-width:991px){.ixw--support .sp-plan .step-n{margin:10px 0 24px 10px}}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% the control tower: amber accent, request-code colours as thin rules with the
+   two-letter code kept small, waypoint labels on the plan steps, the crew card and pre-flight checklist kept light.
+   No radar, no jet, no radio sign, no gate stubs. */
+.ixw--support{--calm-accent:#E07D17;--calm-accent-ink:#A85A0C;--calm-accent-line:#F1D3AE;--calm-accent-wash:#FFFAF3}
+body.ixw--support main .sp-head-row{display:block!important;margin-bottom:0!important}
+body.ixw--support main .sp-head-row .sec-head{margin-bottom:28px!important}
+body.ixw--support main .sp-console-cap{padding:0 2px 12px!important;background:none!important;border-radius:0!important;color:#A85A0C!important;font:700 12px/1.2 var(--font-body)!important;letter-spacing:.1em!important;text-transform:uppercase}
+body.ixw--support main .sp-console-cap i{width:8px!important;height:8px!important;animation:none!important}
+body.ixw--support main .sp-console-cap em{color:var(--muted)!important;text-transform:none;letter-spacing:0;font-weight:500}
+body.ixw--support main .sp-console-cap+.dm{border-radius:18px!important;box-shadow:var(--calm-shadow)!important;border:1px solid var(--calm-line)}
+/* what's covered: white cards, a 3px code-colour rule; code letters as a small roundel */
+body.ixw--support main .sp-strips{gap:24px!important}
+body.ixw--support main .sp-strip{display:block!important;padding:0!important;background:#fff!important;border-top:3px solid var(--sc)!important;translate:none!important}
+body.ixw--support main .sp-strip-code{display:none!important}
+body.ixw--support main .sp-strip-body{padding:24px 26px 26px!important}
+body.ixw--support main .sp-strip .card-ic{color:var(--sc)!important}
+body.ixw--support main .sp-strip-top em{background:#fff!important;box-shadow:none!important;border:1px solid var(--calm-line);color:var(--muted)!important;font:600 11.5px/1 var(--font-body)!important;letter-spacing:.02em!important;text-transform:none!important}
+/* plan steps: round amber numbers on a thin route, waypoint labels kept */
+body.ixw--support main .sp-plan::before{top:22px!important;border-top:1.5px dashed #F1C891!important;opacity:1!important}
+body.ixw--support main .sp-plan .step-n,body.ixw--support main .sp-plan .step:hover .step-n{width:44px!important;height:44px!important;border-radius:50%!important;transform:none!important;background:#fff!important;border:1.5px solid var(--calm-accent)!important;box-shadow:none!important;color:#A85A0C!important;font:700 16px/1 var(--font-display)!important;margin:0 0 18px!important}
+body.ixw--support main .sp-plan .step-n::after{content:none!important;display:none!important}
+body.ixw--support main .sp-plan .step>div:not(.step-n){padding:22px 20px!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--support main .sp-plan .step h3::before{font:700 11px/1 var(--font-body)!important;letter-spacing:.12em!important;color:#A85A0C!important}
+/* what you get: the crew card light, the checklist a plain white sheet with an amber header rule */
+body.ixw--support main .sp-get-copy{position:static!important}
+body.ixw--support main .sp-crew{background:#FFFAF3!important;color:var(--ink)!important;border:1px solid #F1D3AE;border-radius:16px!important;box-shadow:none!important}
+body.ixw--support main .sp-crew>div{border-bottom:1px solid #F5E3CB!important}
+body.ixw--support main .sp-crew dt{color:#A85A0C!important}
+body.ixw--support main .sp-crew dd{color:var(--ink)!important}
+body.ixw--support main .sp-check{margin-top:0!important;padding:24px 26px 18px!important;border-radius:16px!important;border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)!important}
+body.ixw--support main .sp-check::before,body.ixw--support main .sp-check::after{content:none!important;display:none!important}
+body.ixw--support main .sp-check-h{border-bottom:2px solid #F1C891!important;color:#A85A0C!important;font:700 12px/1 var(--font-body)!important;letter-spacing:.12em!important}
+body.ixw--support main .sp-check .spec-cols li{border-bottom:1px solid #F3EEE6!important}
+body.ixw--support main .sp-check .spec-cols li .ic{background:none!important;box-shadow:none!important;color:#2E9C7E!important;padding:0!important}
+/* FAQ: one column */
+body.ixw--support main .sp-radio{display:block!important;max-width:860px}
+/* related: plain kit cards, no boarding-pass header or gate stub */
+body.ixw--support main .sp-pass{gap:24px!important}
+body.ixw--support main .sp-pass .card{padding:28px 26px 26px!important;translate:none!important}
+body.ixw--support main .sp-pass .card::before,body.ixw--support main .sp-pass .card::after{content:none!important;display:none!important}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--support main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--support main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--support main .answer-sec .answer-box::before,body.ixw--support main .answer-sec .answer-box::after,body.ixw--support main .answer-sec .answer-h::before,body.ixw--support main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--support main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--support main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--support main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--support main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--support main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--support main .cta .actions .btn,html body.ixw--support .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}

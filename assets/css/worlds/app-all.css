@@ -196,3 +196,54 @@
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
 .ixw--app-all .ixw-credits-wrap + .section{padding-top:16px!important}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% Odoo Street: plum accent, each category keeps its colour as an icon tile and a
+   thin rule under its heading; app tiles white; focus apps keep a soft gold edge. No street sign, awnings, scallops,
+   tile borders or "No." plaques; categories sit closer together on alternating white / wash. */
+.ixw--app-all{--calm-accent:#714B67;--calm-accent-ink:#553449;--calm-accent-line:#DCCAD6;--calm-accent-wash:#F9F7FB}
+body.ixw--app-all main .aa-street-sign{display:none!important}
+/* hero: category quick links as small white tiles */
+body.ixw--app-all .ixw-hero .aa-nav{margin:26px 0 0!important;gap:8px!important;max-width:560px}
+body.ixw--app-all .ixw-hero .aa-nav a{padding:10px 6px 9px!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important;border:1px solid var(--calm-line);transform:none!important}
+body.ixw--app-all .ixw-hero .aa-nav a:hover{border-color:var(--aat,#714B67)}
+body.ixw--app-all .ixw-hero .aa-nav a.is-focus{background:#FFFCF0!important;border-color:#EAD9A0}
+body.ixw--app-all .ixw-hero .aa-nav a .ic{width:28px!important;height:28px!important;padding:6px!important;border-radius:8px!important;box-shadow:none!important}
+/* categories */
+body.ixw--app-all main > section.apps-cat:not(.ixw-hero){padding:48px 0!important;background:#fff!important}
+body.ixw--app-all main > section.apps-cat:nth-of-type(even):not(.ixw-hero){background:#F9F7FB!important}
+body.ixw--app-all main > section.apps-cat#finance{padding-top:72px!important}
+body.ixw--app-all main > section.apps-cat#productivity{padding-bottom:88px!important}
+body.ixw--app-all main .apps-cat-head{padding:0 0 14px!important;margin:0 0 20px!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-bottom:2px solid color-mix(in srgb,var(--cc) 35%,#fff)}
+body.ixw--app-all main .apps-cat-head::before,body.ixw--app-all main .apps-cat-head::after,body.ixw--app-all main .apps-grid::before,body.ixw--app-all main .apps-grid::after{content:none!important;display:none!important}
+body.ixw--app-all main .apps-cat-head h2{color:var(--ink)!important;font-size:1.45rem!important;display:flex;align-items:center;gap:12px}
+body.ixw--app-all main .apps-cat-head h2 .card-ic{width:40px!important;height:40px!important;border-radius:12px!important;background:var(--cc)!important;color:#fff!important}
+body.ixw--app-all main .apps-cat-head h2 .card-ic .ic{color:#fff!important}
+body.ixw--app-all main .apps-cat-head p{color:var(--muted)!important;font-weight:600}
+body.ixw--app-all main .apps-cat-head .tag--ok{background:#FFF7DB!important;color:#6B5200!important;box-shadow:none!important;border:1px solid #EAD9A0}
+body.ixw--app-all main .apps-cat-head .tag--ok .ic{color:#6B5200!important}
+body.ixw--app-all main .apps-grid{padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+body.ixw--app-all main .app{border-radius:14px!important;background:#fff!important;box-shadow:none!important;border:1px solid var(--calm-line)!important;transform:none!important}
+body.ixw--app-all main .app:hover{border-color:var(--cc)!important;box-shadow:var(--calm-shadow)!important;transform:translateY(-2px)!important}
+body.ixw--app-all main .app:hover .oi{transform:none!important}
+body.ixw--app-all main .app.is-focus{border-color:#EAD9A0!important;background:#FFFDF6!important}
+body.ixw--app-all main .app .tag{background:#FFF4C8!important;color:#6B5200!important}
+/* the app map demo: a clean panel */
+body.ixw--app-all main .aa-map-sec .dm{border-radius:18px!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-all main .aa-faq{max-width:860px}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--app-all main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--app-all main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--app-all main .answer-sec .answer-box::before,body.ixw--app-all main .answer-sec .answer-box::after,body.ixw--app-all main .answer-sec .answer-h::before,body.ixw--app-all main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--app-all main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--app-all main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--app-all main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--app-all main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+body.ixw--app-all main .aa-mapboard{padding:0!important;background:none!important;box-shadow:none!important;border:0!important;border-radius:0!important}
+body.ixw--app-all main .aa-mapboard::before,body.ixw--app-all main .aa-mapboard::after{content:none!important;display:none!important}
+body.ixw--app-all main .aa-map-top{padding:0 2px 12px!important}
+body.ixw--app-all main .aa-map-top b{background:#F4F0F8!important;color:#553449!important;border:1px solid #DCCAD6;font:700 11.5px/1 var(--font-body)!important}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--app-all main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--app-all main .cta .actions .btn,html body.ixw--app-all .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}

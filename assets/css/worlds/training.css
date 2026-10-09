@@ -245,3 +245,54 @@
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
 .ixw--training .ixw-credits-wrap + .section{padding-top:14px!important}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% flight school: Odoo-plum accent, lavender wash, a thin role-colour rule on the
+   rating cards, waypoint labels on the steps, a plum header on the checklist, the leg line on the related cards. */
+.ixw--training{--calm-accent:#714B67;--calm-step:#714B67;--calm-accent-ink:#5A3A52;--calm-accent-line:#DCCFE0;--calm-accent-wash:#F7F5FA}
+/* simulator bezel round the planner: one plain panel */
+body.ixw--training main .fs-bezel{background:none!important;box-shadow:none!important;padding:0!important;border:0!important}
+/* type-rating cards: white kit cards with a 3px role-colour rule, icon in a soft disc */
+body.ixw--training main .fs-ratings{gap:24px!important}
+body.ixw--training main .fs-ratings .card{padding:28px 26px 26px!important;background:#fff!important;background-image:none!important;border-top:3px solid var(--rc,#714B67)!important}
+body.ixw--training main .fs-ratings .card::before,body.ixw--training main .fs-ratings .card::after{content:none!important;display:none!important}
+body.ixw--training main .fs-ratings .card-ic{position:static!important;width:48px!important;height:48px!important;margin:0 0 16px!important;border-radius:12px!important;background:color-mix(in srgb,var(--rc,#714B67) 10%,#fff)!important;box-shadow:none!important;color:var(--rc,#714B67)!important}
+body.ixw--training main .fs-ratings .card-ic .ic{width:24px!important;height:24px!important;color:var(--rc,#714B67)!important}
+body.ixw--training main .fs-ratings .card-ic .oi{width:30px!important;height:30px!important}
+body.ixw--training main .fs-ratings .card h3{padding-right:0!important}
+/* flight path: plum number discs on one thin dashed route, white step cards, waypoint label kept */
+body.ixw--training main .fs-route,body.ixw--training main .fs-plane{display:none!important}
+body.ixw--training main .fs-steps::before{top:22px!important;height:0!important;background:none!important;border-top:1.5px dashed #CDBFD3!important;animation:none!important}
+body.ixw--training main .fs-steps .step-n,body.ixw--training main .fs-steps .step:nth-child(n) .step-n{width:44px!important;height:44px!important;margin-bottom:18px!important;clip-path:none!important;border-radius:50%!important;background:#fff!important;border:1.5px solid var(--calm-accent)!important;color:var(--calm-accent)!important;font:700 16px/1 var(--font-display)!important;box-shadow:none!important;transform:none!important}
+body.ixw--training main .fs-steps .step:hover .step-n{background:#fff!important;transform:none!important}
+body.ixw--training main .fs-steps .step>div:not(.step-n){padding:22px 20px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;translate:none!important}
+body.ixw--training main .fs-wpt{font:700 11px/1 var(--font-body)!important;letter-spacing:.12em!important;color:var(--sc,#714B67)!important}
+/* go-live checklist: white kit panel, a light plum header, plain accent ticks */
+body.ixw--training main .fs-panel{border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--training main .fs-panel-h{padding:14px 24px!important;background:#F4F0F8!important;background-image:none!important;color:#5A3A52!important;font:700 12px/1.2 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase;border-bottom:1px solid #E3DCEB}
+body.ixw--training main .fs-panel-h b{background:#fff!important;color:#5A3A52!important;border:1px solid #DCCFE0;border-radius:999px!important;font-weight:700}
+body.ixw--training main .fs-panel li{border-bottom:1px solid #F0EDF4!important}
+body.ixw--training main .fs-panel li .ic{width:20px!important;height:20px!important;padding:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;color:#2E9C7E!important}
+/* FAQ: kit accordion, full measure */
+body.ixw--training main .fs-faq{max-width:860px!important}
+/* related: white cards; the dotted leg line stays as the one flight touch, static */
+body.ixw--training main .fs-next{gap:24px!important}
+body.ixw--training main .fs-next .card{padding:62px 26px 26px!important;translate:none!important}
+body.ixw--training main .fs-leg i{background:repeating-linear-gradient(90deg,var(--rc) 0 5px,transparent 5px 10px)!important;opacity:.6}
+body.ixw--training main .fs-leg i::after{content:none!important;display:none!important}
+body.ixw--training main .fs-leg b{font:700 10.5px/1 var(--font-body)!important;letter-spacing:.1em}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--training main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--training main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--training main .answer-sec .answer-box::before,body.ixw--training main .answer-sec .answer-box::after,body.ixw--training main .answer-sec .answer-h::before,body.ixw--training main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--training main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--training main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--training main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--training main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+body.ixw--training main .fs-bezel-h{display:flex!important;align-items:center;gap:10px;margin:0 0 12px!important;padding:0!important;background:none!important;box-shadow:none!important;border:0!important;font:700 12px/1.2 var(--font-body)!important;letter-spacing:.1em!important;text-transform:uppercase;color:#5A3A52!important}
+body.ixw--training main .fs-bezel-h i{display:none!important}
+body.ixw--training main .fs-bezel-h b{padding:3px 8px;border-radius:999px;background:#F4F0F8!important;color:#714B67!important;border:1px solid #DCCFE0;animation:none!important}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--training main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--training main .cta .actions .btn,html body.ixw--training .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}

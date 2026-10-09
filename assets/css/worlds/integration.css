@@ -233,3 +233,52 @@
 .ixw--integration .ig-change .card .btn-link{margin-top:14px}
 .ixw--integration .ig-chips li{white-space:nowrap}
 @media (min-width:1001px){.ixw--integration .ig-get-copy{position:sticky;top:110px;align-self:start}}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% the railway junction: teal accent, line colours as thin rules and L-number
+   roundels on the system cards, a station rule on the steps, the timetable header on the checklist. No train, no
+   status board, no information-desk sign. */
+.ixw--integration{--calm-accent:#14A38B;--calm-accent-ink:#0E7A68;--calm-accent-line:#BFE3DA;--calm-accent-wash:#F3F9F8}
+body.ixw--integration main .ig-head-row{display:block!important;margin-bottom:0!important}
+body.ixw--integration main .ig-head-row .sec-head{margin-bottom:28px!important}
+/* the network label above the demo: a slim light caption, not a dark board */
+body.ixw--integration main .ig-board-cap{padding:0 2px 12px!important;background:none!important;border-radius:0!important;color:#0E7A68!important;font:700 12px/1.2 var(--font-body)!important;letter-spacing:.1em!important;text-transform:uppercase}
+body.ixw--integration main .ig-board-cap i{width:8px!important;height:8px!important;box-shadow:none!important;animation:none!important}
+body.ixw--integration main .ig-board-cap em{color:var(--muted)!important;text-transform:none;letter-spacing:0;font-weight:500}
+body.ixw--integration main .ig-board-cap+.dm{border-radius:18px!important;border-top:1px solid var(--calm-line)!important;border-image:none!important;box-shadow:var(--calm-shadow)!important}
+/* system cards: white, a 3px line-colour rule, the line roundel kept small */
+body.ixw--integration main .ig-lines{gap:24px!important}
+body.ixw--integration main .ig-line{padding:24px 26px 26px!important;border-top:3px solid var(--lc)!important;translate:none!important}
+body.ixw--integration main .ig-line-no{margin:0 0 16px!important;padding:0!important;background:none!important;color:var(--muted)!important;font:600 12px/1 var(--font-body)!important;letter-spacing:.1em!important;text-transform:uppercase}
+body.ixw--integration main .ig-line-no b{width:28px!important;height:28px!important;background:var(--lc)!important;color:#fff!important;box-shadow:none!important}
+body.ixw--integration main .ig-line .card-ic{color:var(--lc)!important}
+body.ixw--integration main .ig-line-route{display:none!important}
+/* steps: stations on one thin teal line */
+body.ixw--integration main .ig-steps::before{top:22px!important;height:2px!important;border-radius:0!important;background:#BFE3DA!important;box-shadow:none!important}
+body.ixw--integration main .ig-steps .step-n,body.ixw--integration main .ig-steps .step:last-of-type .step-n,body.ixw--integration main .ig-steps .step:hover .step-n{width:44px!important;height:44px!important;margin-bottom:18px!important;border-radius:50%!important;background:#fff!important;border:1.5px solid var(--calm-accent)!important;color:#0E7A68!important;font:700 16px/1 var(--font-display)!important;box-shadow:none!important;transform:none!important}
+body.ixw--integration main .ig-steps .step>div:not(.step-n){padding:22px 20px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--integration main .ig-steps .step>div:not(.step-n)::before{content:none!important;display:none!important}
+body.ixw--integration main .ig-steps .step h3::before{content:"Station"!important;display:block!important;margin-bottom:6px;font:700 11px/1 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase;color:#0E7A68!important}
+/* what you get: the copy no longer sticks; chips and the timetable calm */
+body.ixw--integration main .ig-get-copy{position:static!important}
+body.ixw--integration main .ig-chips li{box-shadow:none!important;border:1px solid var(--calm-line)}
+body.ixw--integration main .ig-chips b,body.ixw--integration main .ig-chips li:nth-child(n) b{background:#E2F5F0!important;color:#0E7A68!important}
+body.ixw--integration main .ig-timetable{border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--integration main .ig-tt-h{padding:14px 20px!important;background:#F3F9F8!important;color:#0E7A68!important;border-bottom:1px solid #DCEFEA;font:700 12px/1 var(--font-body)!important;letter-spacing:.12em!important}
+body.ixw--integration main .ig-timetable .spec-cols li:nth-child(even){background:#fff!important}
+body.ixw--integration main .ig-timetable .spec-cols li::before{background:none!important;color:var(--lc)!important;font:700 12px/1 var(--font-display)!important;box-shadow:inset 0 0 0 1px var(--calm-line)!important}
+body.ixw--integration main .ig-timetable .spec-cols li .ic{background:none!important;color:#14A38B!important;padding:0!important}
+/* FAQ: one column, full measure */
+body.ixw--integration main .ig-desk{display:block!important;max-width:860px}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--integration main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--integration main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--integration main .answer-sec .answer-box::before,body.ixw--integration main .answer-sec .answer-box::after,body.ixw--integration main .answer-sec .answer-h::before,body.ixw--integration main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--integration main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--integration main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--integration main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--integration main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--integration main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--integration main .cta .actions .btn,html body.ixw--integration .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}

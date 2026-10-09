@@ -331,6 +331,7 @@
     motes: false,
     glow: { finance: glowCat('finance'), sales: glowCat('sales'), supply: glowCat('supply'), hr: glowCat('hr'), services: glowCat('services'), db: function (g) { rr(g, DB.x - DB.r - 16, DB.y - 30, DB.r * 2 + 32, F - DB.y + 34, 22); } },
     backGlow: ['finance', 'sales', 'supply', 'hr', 'services', 'db'],
+    calmView: [150, -70, 860, 688],
     cast: [castCON, castPLN, castKPR, castOWN, castSTL],
     toy: function () {},
     hit: function (x, y, S, t, onBtn) {
