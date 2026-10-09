@@ -149,9 +149,13 @@ main [class]:hover{rotate:none}
 main .tag{transform:none!important;rotate:none!important;box-shadow:none!important;font-family:var(--font-body)!important;border-radius:999px!important}
 /* the "Nexi in one paragraph" box: plain answer card */
 main .ix-intro,main .answer,main [class*="answer-"]:not(section){transform:none!important;rotate:none!important}
-/* Nexi is a helper (the floating "Ask Nexi"), not in every section */
-main .ixw-cta-nexi,main .ixw-pose,main [class*="cta-art"],main [class*="cta-nexi"],main [class*="-deco"],main .dc-deco,main [class*="bunting"],main [class*="-stamp"]:not([class*="stamps-sec"]):not([class*="timestamp"]),
-main [class*="-tape"],main [class*="cta-pin"],main [class*="cta-note"],main [class*="cta-tape"],main [class*="cta-str"],main [class*="cta-lens"],main .dc-pin,main .aw-pin,main .lf-pin,main .mkg-pin,main .mkg-clip,main .dc-strings,main .lg-string,main .f-tape{display:none!important}
+/* Nexi is a helper (the floating "Ask Nexi"), not in every section; pure decoration goes. ONLY aria-hidden or empty
+   decorations are listed here (scanned over all pages with qa/company/calm_hide_scan.py: none carries text, links,
+   headings, list items or controls). Never hide by a bare class substring: "-stamp" / "-deco" also name real content
+   (solutions/ai-automation .sor-stamp cards, the discovery / training "ask us" asides, demo SVG labels .v-stamp). */
+main .ixw-cta-nexi,main .ixw-pose,
+main [aria-hidden="true"]:is([class*="-deco"],[class*="-stamp"],[class*="-tape"],[class*="cta-art"],[class*="cta-nexi"],[class*="bunting"]),
+main :is(.dc-cta-pin,.dc-cta-lens,.dc-cta-note,.dc-cta-str,.dc-pin,.aw-pin,.lf-pin,.mkg-pin,.mkg-clip,.dc-strings,.lg-string,.f-tape,.cu-ladder-tape,.cu-form-tape){display:none!important}
 
 /* ---------------------------------------------------------------- the CTA band: solid brand gradient, white text, two buttons */
 main .cta,main .ixw-cta,body[class*="ixw--"] main .cta{position:relative;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center;gap:28px 40px!important;padding:52px 56px!important;margin:0!important;
