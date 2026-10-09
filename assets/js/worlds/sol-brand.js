@@ -443,6 +443,7 @@
   } };
 
   window.IXW.worlds['sol-brand'] = {
+    calmView: [120,-60,880,704], /* CALM: the framed part of the set */
     pan: [-300, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

@@ -215,3 +215,43 @@
 .ixw--sol-net .wtw-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
 .ixw--sol-net .wtw-faq details:last-child{grid-column:1/-1}
 @media (max-width:960px){.ixw--sol-net .wtw-faq{grid-template-columns:1fr}}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): networks. 50% TechNext base, 50% the waterworks. One water-blue accent.
+   Themed touches kept: the slim navy control-room bar over the demo, the coloured feed rule on each tap card, valve
+   numbers on the steps, the coloured status dots on the port list.
+   =================================================================================================================== */
+.ixw--sol-net{--calm-accent:#1C9AD6;--calm-accent-ink:#13729F;--calm-accent-line:#BFE0F0;--calm-accent-wash:#F4F9FC;--calm-wash:#F4F9FC}
+html body.ixw--sol-net main .wtw-tag{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-net main .wtw-tag::before,html body.ixw--sol-net main .wtw-tag::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-tag p{color:var(--body)!important}
+html body.ixw--sol-net main .wtw-tag .answer-h{background:#E5F3FA!important;color:var(--calm-accent-ink)!important}
+html body.ixw--sol-net main .wtw-demo-sec{background:#fff!important}
+html body.ixw--sol-net main .wtw-panel{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-net main .wtw-panel::before,html body.ixw--sol-net main .wtw-panel::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-panel-top{padding:12px 18px!important;background:#1F3350!important}
+html body.ixw--sol-net main .wtw-panel .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+html body.ixw--sol-net main .wtw-taps{padding-top:0!important;gap:24px!important}
+html body.ixw--sol-net main .wtw-taps::before,html body.ixw--sol-net main .wtw-taps::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-tap{border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important;margin-top:0!important}
+html body.ixw--sol-net main .wtw-tap .card-ic{box-shadow:none!important;border:0!important;background:color-mix(in srgb,var(--c) 12%,#fff)!important}
+html body.ixw--sol-net main .wtw-main{padding-top:0!important}
+html body.ixw--sol-net main .wtw-valve{padding:24px 22px!important;text-align:left!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-net main .wtw-valve::before,html body.ixw--sol-net main .wtw-valve::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-wheel{position:static!important;margin:0 0 14px!important;width:34px!important;height:34px!important;border:0!important;border-radius:50%!important;background:#E5F3FA!important;box-shadow:none!important;transform:none!important;display:grid!important;place-items:center}
+html body.ixw--sol-net main .wtw-wheel::before,html body.ixw--sol-net main .wtw-wheel::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-wheel b{position:static!important;background:none!important;border:0!important;box-shadow:none!important;color:var(--calm-accent-ink)!important;font:700 15px/1 var(--font-display)!important;width:auto!important;height:auto!important}
+html body.ixw--sol-net main .wtw-ports{background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;border-radius:16px!important}
+html body.ixw--sol-net main .wtw-ports li{background:#F7F9FC!important;color:var(--body)!important}
+html body.ixw--sol-net main .wtw-faq details{box-shadow:none!important}
+html body.ixw--sol-net main .wtw-outlets{padding-top:0!important}
+html body.ixw--sol-net main .wtw-outlets::before,html body.ixw--sol-net main .wtw-outlets::after{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-outlet{border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-net main .wtw-outlet .card-ic{box-shadow:none!important;border:0!important}
+html body.ixw--sol-net main article.wtw-tap::before{content:none!important;display:none!important}
+html body.ixw--sol-net main .wtw-taps{row-gap:24px!important}
+html body.ixw--sol-net main .wtw-valve{margin-top:0!important}
+html body.ixw--sol-net main .wtw-wheel{filter:none!important}
+html body.ixw--sol-net main .wtw-wheel b{margin:0!important;transform:none!important}
+html body.ixw--sol-net main .wtw-ports li span{color:var(--body)!important}
+html body.ixw--sol-net main .wtw-ports li::before{background:#E5F3FA!important;color:var(--calm-accent-ink)!important}

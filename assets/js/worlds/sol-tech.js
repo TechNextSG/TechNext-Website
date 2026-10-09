@@ -624,6 +624,7 @@
   } };
 
   window.IXW.worlds['sol-tech'] = {
+    calmView: [100,-60,900,720], calmHide: ['ops'], /* CALM: the framed part of the set */
     pan: [-320, 1280],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

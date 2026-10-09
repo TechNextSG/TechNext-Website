@@ -531,6 +531,7 @@
   } };
 
   window.IXW.worlds['sol-chat'] = {
+    calmView: [140,-60,800,640], /* CALM: the framed part of the set */
     pan: [-300, 1180],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: paintForeLive,

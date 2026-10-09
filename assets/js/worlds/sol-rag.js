@@ -501,6 +501,7 @@
   function FORE() { return [[612, function (g2, e, t) { staffer(g2, t); }], [700, function (g2, e, t) { cat(g2, t); }]]; }
 
   window.IXW.worlds['sol-rag'] = {
+    calmView: [190,-60,800,640], calmHide: ['fin'], /* CALM: the framed part of the set */
     pan: [-700, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

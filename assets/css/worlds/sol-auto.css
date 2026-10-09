@@ -283,3 +283,54 @@
 .ixw--sol-auto .ixwi-card::after{display:none}
 /* below 1400px the mail-room lead stands behind the card (the world script moves her); her tap target follows */
 @media (max-width:1399px){.ixw--sol-auto .ixw-cast[data-cast="srt"]{--x:-478 !important}}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the sorting office. One slate accent.
+   Themed touches kept: a slim airmail edge on the one-paragraph memo, the stamp frame + value on the six cards, the
+   slate console bar over the demo, the numbered log on what you get.
+   =================================================================================================================== */
+.ixw--sol-auto{--calm-accent:#2F6B7A;--calm-accent-ink:#245562;--calm-accent-line:#C5DADF;--calm-accent-wash:#F5F8F9;--calm-wash:#F5F8F9}
+html body.ixw--sol-auto main .sor-memo{max-width:900px;padding:24px 28px 24px 28px!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;background:#fff!important;box-shadow:var(--calm-shadow)!important;position:relative;overflow:hidden}
+html body.ixw--sol-auto main .sor-memo::before{content:""!important;display:block!important;position:absolute;left:0;right:0;top:0;height:4px;background:repeating-linear-gradient(90deg,#D64A3A 0 18px,#fff 18px 24px,#3167CA 24px 42px,#fff 42px 48px)!important}
+html body.ixw--sol-auto main .sor-memo::after{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-memo p{color:var(--body)!important}
+@media (max-width:640px){html body.ixw--sol-auto main .sor-memo{padding:22px 18px!important}}
+/* the demo: one panel under a slim slate console bar */
+html body.ixw--sol-auto main .sor-desk-sec{background:#fff!important}
+html body.ixw--sol-auto main .sor-console{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-auto main .sor-console::before,html body.ixw--sol-auto main .sor-console::after{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-console-top{padding:12px 18px!important;background:#2F6B7A!important;color:#E6F0F2!important}
+html body.ixw--sol-auto main .sor-gauge{display:none!important}
+html body.ixw--sol-auto main .sor-console .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+/* what's included: six cards with a thin stamp frame inside and the stamp value top-left */
+html body.ixw--sol-auto main .sor-stamps-sec{background:#fff!important}
+html body.ixw--sol-auto main .sor-stamp{filter:none!important;transform:none!important}
+html body.ixw--sol-auto main .sor-stamp-in{padding:56px 28px 28px!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;background:#fff!important;-webkit-mask:none!important;mask:none!important;
+  box-shadow:inset 0 0 0 8px #fff,inset 0 0 0 9.5px color-mix(in srgb,var(--c) 45%,#fff),var(--calm-shadow)!important}
+html body.ixw--sol-auto main .sor-stamp:hover .sor-stamp-in{box-shadow:inset 0 0 0 8px #fff,inset 0 0 0 9.5px var(--c),var(--calm-shadow-h)!important}
+html body.ixw--sol-auto main .sor-stamp-in::before,html body.ixw--sol-auto main .sor-stamp-in::after,html body.ixw--sol-auto main .sor-val::after{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-val{left:28px!important;top:24px!important;font-size:18px!important}
+html body.ixw--sol-auto main .sor-pm{display:none!important}
+html body.ixw--sol-auto main .sor-stamp-in p{color:var(--body)!important}
+/* how we build one: four clean step cards, no pipe */
+html body.ixw--sol-auto main .sor-route{padding-top:0!important}
+html body.ixw--sol-auto main .sor-stop{padding:24px 22px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-auto main .sor-stop::before,html body.ixw--sol-auto main .sor-stop--gate::after{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-stop-n{position:static!important;display:inline-grid!important;margin:0 0 14px!important;background:#E7F0F2!important;color:var(--calm-accent)!important;box-shadow:none!important}
+html body.ixw--sol-auto main .sor-stop-ic{background:#F2F6F7!important;color:var(--calm-accent)!important;box-shadow:none!important}
+html body.ixw--sol-auto main .sor-stop p{color:var(--body)!important}
+/* what you get: the log as a clean card */
+html body.ixw--sol-auto main .sor-log{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-auto main .sor-log::before{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-log li{border-bottom:1px solid var(--calm-line)!important;color:var(--body)!important}
+html body.ixw--sol-auto main .sor-log li .ic{background:#E7F0F2!important;color:var(--calm-accent)!important}
+html body.ixw--sol-auto main .sor-t{border:0!important;color:#8AA2A8!important}
+/* FAQ: plain rows, full width */
+html body.ixw--sol-auto main .sor-faq{max-width:860px!important}
+html body.ixw--sol-auto main .sor-faq details{background:#fff!important;box-shadow:none!important;border-image:none!important}
+html body.ixw--sol-auto main .sor-faq details::before,html body.ixw--sol-auto main .sor-faq details::after{content:none!important;display:none!important}
+/* related: plain white cards with a coloured top rule */
+html body.ixw--sol-auto main .sor-ptag{padding:26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important;-webkit-mask:none!important;mask:none!important}
+html body.ixw--sol-auto main .sor-ptag::before,html body.ixw--sol-auto main .sor-ptag::after{content:none!important;display:none!important}
+html body.ixw--sol-auto main .sor-ptag:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-auto main .sor-memo{border-top:4px solid transparent!important;border-image:repeating-linear-gradient(90deg,#D64A3A 0 18px,#fff 18px 24px,#3167CA 24px 42px,#fff 42px 48px) 4 0 0 0!important}

@@ -257,3 +257,50 @@
 /* the specification: the elevation drawing grows to balance the sheet */
 @media (min-width:961px){.ixw--sol-enterprise .twr-elev{max-width:380px;height:300px}.ixw--sol-enterprise .twr-elev-b{width:140px;height:200px;margin-left:-70px}}
 @media (max-width:520px){.ixw--sol-enterprise .twr-blue-h{flex-wrap:wrap;row-gap:4px}.ixw--sol-enterprise .twr-blue-h span{flex-basis:100%;white-space:nowrap}}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the group tower. One quiet gold accent; navy only in small marks.
+   Themed touches kept: floor tags on the six units over a slim "One Odoo database" plinth, the phase skylines, the spec
+   sheet's navy header, the boardroom screen's flag row.
+   =================================================================================================================== */
+.ixw--sol-enterprise{--calm-accent:#B4892A;--calm-accent-ink:#1E3A6E;--calm-accent-line:#D7DEEA;--calm-accent-wash:#F6F8FC;--calm-wash:#F6F8FC}
+html body.ixw--sol-enterprise main .twr-plaque{max-width:900px;padding:24px 28px 24px 100px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-enterprise main .twr-plaque-ic{left:28px!important;width:48px!important;height:48px!important;box-shadow:none!important}
+html body.ixw--sol-enterprise main .twr-plaque p:not(.answer-h){color:var(--body)!important}
+@media (max-width:640px){html body.ixw--sol-enterprise main .twr-plaque{padding:22px 18px!important}}
+/* the demo: one panel; a slim navy title bar with the four flags is all that is left of the boardroom screen */
+html body.ixw--sol-enterprise main .twr-board-sec{background:#fff!important}
+html body.ixw--sol-enterprise main .twr-board{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-enterprise main .twr-board::before,html body.ixw--sol-enterprise main .twr-board::after{content:none!important;display:none!important}
+html body.ixw--sol-enterprise main .twr-board-top{padding:12px 18px!important;background:#1E3A6E!important}
+html body.ixw--sol-enterprise main .twr-board .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+html body.ixw--sol-enterprise main .twr-board-sec .dm-btn--primary{background:var(--blue)!important;border-color:var(--blue)!important;box-shadow:none!important}
+/* what's included: six floors as clean cards; each keeps its floor tag and colour rule, on one slim plinth */
+html body.ixw--sol-enterprise main .twr-build-sec{background:#fff!important}
+html body.ixw--sol-enterprise main .twr-build{padding-top:0!important;max-width:none}
+html body.ixw--sol-enterprise main .twr-units{padding:0 0 20px!important;background:none!important;box-shadow:none!important;border-radius:0!important;gap:24px!important}
+html body.ixw--sol-enterprise main .twr-unit{padding:26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-enterprise main .twr-unit:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-enterprise main .twr-unit-fl{top:24px!important;right:22px!important;background:#EEF2F9!important;color:#1E3A6E!important}
+html body.ixw--sol-enterprise main .twr-unit p{color:var(--body)!important}
+html body.ixw--sol-enterprise main .twr-plinth{height:44px!important;border-radius:12px!important;background:#1E3A6E!important;box-shadow:none!important}
+html body.ixw--sol-enterprise main .twr-plinth b{color:#F3D58A!important;font-size:11.5px!important}
+/* phases: clean cards; the small skyline above each step (one building, then a row) stays as the visual */
+html body.ixw--sol-enterprise main .twr-ph{border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-enterprise main .twr-ph:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-enterprise main .twr-ph p{color:var(--body)!important}
+/* what you get: the spec sheet keeps its navy header, the blueprint grid goes */
+html body.ixw--sol-enterprise main .twr-blue{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-enterprise main .twr-blue-h{background:#1E3A6E!important}
+html body.ixw--sol-enterprise main .twr-list li{border-bottom:1px solid var(--calm-line)!important;color:var(--body)!important}
+html body.ixw--sol-enterprise main .twr-list li .ic{box-shadow:none!important;background:#F7EFD9!important;color:#8A6514!important}
+/* FAQ: heading on the left, questions on the right; plain rows */
+@media (min-width:961px){html body.ixw--sol-enterprise main .twr-desk-sec .sec-head{position:static!important}}
+html body.ixw--sol-enterprise main .twr-faq details{box-shadow:none!important;transform:none!important}
+html body.ixw--sol-enterprise main .twr-faq summary::before{width:34px!important;height:26px!important;background:#EEF2F9!important;color:#1E3A6E!important;font:700 12px/1 var(--font-body)!important;border-radius:8px!important}
+html body.ixw--sol-enterprise main .twr-faq details[open] summary::before{background:#F7EFD9!important;color:#8A6514!important}
+html body.ixw--sol-enterprise main .twr-faq .faq-a{padding-left:62px!important}
+@media (max-width:640px){html body.ixw--sol-enterprise main .twr-faq .faq-a{padding-left:20px!important}}
+/* related: white cards with a thin top rule in the service colour */
+html body.ixw--sol-enterprise main .twr-link{padding:26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-enterprise main .twr-link:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}

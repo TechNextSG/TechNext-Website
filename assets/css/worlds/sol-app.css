@@ -220,3 +220,37 @@
 .ixw--sol-app .tpk-faq{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;align-items:start}
 .ixw--sol-app .tpk-faq details:last-child{grid-column:1/-1}
 @media (max-width:960px){.ixw--sol-app .tpk-faq{grid-template-columns:1fr}}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the theme park. One coral accent.
+   Themed touches kept: "Attraction 0x" labels on the six cards, the ride-stage words (storyboard, prototype, test rides,
+   opening day) on the steps, the "Test ride" console bar over the demo.
+   =================================================================================================================== */
+.ixw--sol-app{--calm-accent:#E8574A;--calm-accent-ink:#B9392D;--calm-accent-line:#F4CFC9;--calm-accent-wash:#FCF8F6;--calm-wash:#FCF8F6}
+html body.ixw--sol-app main .tpk-info{max-width:900px;padding:24px 28px 24px 92px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-app main .tpk-info::before,html body.ixw--sol-app main .tpk-info::after{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-info-ic{box-shadow:none!important;border:0!important;background:#FDEDEA!important;color:var(--calm-accent)!important}
+html body.ixw--sol-app main .tpk-info p{color:var(--body)!important}
+@media (max-width:640px){html body.ixw--sol-app main .tpk-info{padding:22px 18px!important}}
+html body.ixw--sol-app main .tpk-console{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-app main .tpk-console::before,html body.ixw--sol-app main .tpk-console::after{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-console-top{padding:12px 18px!important;background:#FCF1EE!important;border-bottom:1px solid var(--calm-line);color:var(--ink)!important}
+html body.ixw--sol-app main .tpk-console .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+html body.ixw--sol-app main .tpk-map::before{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-kiosk{border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-app main .tpk-kiosk::before,html body.ixw--sol-app main .tpk-kiosk::after{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-kiosk .card-ic{box-shadow:none!important;border:0!important;background:color-mix(in srgb,var(--c) 12%,#fff)!important}
+html body.ixw--sol-app main .tpk-ride{padding-top:0!important}
+html body.ixw--sol-app main .tpk-station{padding:24px 22px!important;text-align:left!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-app main .tpk-station::before,html body.ixw--sol-app main .tpk-station::after{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-station-n{position:static!important;margin:0 0 12px!important;transform:none!important;translate:none!important;box-shadow:none!important;width:34px!important;height:34px!important;font-size:15px!important}
+html body.ixw--sol-app main .tpk-pass-sec ul,html body.ixw--sol-app main .tpk-pass-sec .spec-cols{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-app main .tpk-faq details{box-shadow:none!important}
+html body.ixw--sol-app main .tpk-faq summary{padding-left:20px!important}
+html body.ixw--sol-app main .tpk-arrow{border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-app main .tpk-arrow::before,html body.ixw--sol-app main .tpk-arrow::after{content:none!important;display:none!important}
+html body.ixw--sol-app main .tpk-arrow .card-ic{box-shadow:none!important;border:0!important}
+
+html body.ixw--sol-app main .tpk-punch{padding:26px 28px 18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-app main .tpk-station{text-align:left!important}
+html body.ixw--sol-app main .tpk-station *{text-align:left!important}

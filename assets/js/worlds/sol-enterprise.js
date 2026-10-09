@@ -648,6 +648,7 @@
   } };
 
   window.IXW.worlds['sol-enterprise'] = {
+    calmView: [170,-130,800,640], /* CALM: the framed part of the set */
     pan: [-280, 1240],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

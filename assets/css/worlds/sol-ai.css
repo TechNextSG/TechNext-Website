@@ -252,3 +252,44 @@
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
 .ixw--sol-ai .ixw-credits-wrap + .section{padding-top:14px!important}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the AI discovery hall. One teal accent.
+   Themed touches kept: the curator's note, the arched gallery cards (01-04), "tour stop" labels on the four steps,
+   the "Admission includes" card with its dark header.
+   =================================================================================================================== */
+.ixw--sol-ai{--calm-accent:#0E9384;--calm-accent-ink:#0B6F64;--calm-accent-line:#BFE3DD;--calm-accent-wash:#F5FAF9;--calm-wash:#F5FAF9}
+html body.ixw--sol-ai main :is(.msm-head,.demo-sec .sec-head) h2::after{content:none!important;display:none!important}
+html body.ixw--sol-ai main :is(.msm-head,.demo-sec .sec-head,.msm-get-copy,.msm-faq-side) .hand::before{content:""!important}
+html body.ixw--sol-ai main .msm-note{max-width:900px;padding:24px 28px 24px 88px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-ai main .msm-note::before{width:40px!important;height:40px!important;left:28px!important;top:24px!important;background:#E3F3F0!important;color:var(--calm-accent)!important;font:800 34px/52px var(--font-display)!important}
+html body.ixw--sol-ai main .msm-note p:not(.answer-h){color:var(--body)!important}
+@media (max-width:640px){html body.ixw--sol-ai main .msm-note{padding:72px 20px 22px!important}html body.ixw--sol-ai main .msm-note::before{left:20px!important;top:20px!important}}
+/* the matrix: a plain white panel and a plain side label */
+html body.ixw--sol-ai main .msm-label{rotate:none!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-ai main .msm-demo-sec .dm{border:1px solid var(--calm-line)!important;border-radius:18px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-ai main .msm-demo-sec .dm-head{background:#FBFCFD!important;box-shadow:inset 0 -1px 0 var(--calm-line)!important}
+/* galleries: the arch stays (the museum), the plinth and the coloured fill go */
+html body.ixw--sol-ai main .msm-gal{background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-ai main .msm-gal:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-ai main .msm-gal::before,html body.ixw--sol-ai main .msm-gal::after{content:none!important;display:none!important}
+html body.ixw--sol-ai main .msm-gal-n{background:color-mix(in srgb,var(--c) 10%,#fff)!important;color:var(--c)!important;box-shadow:none!important}
+html body.ixw--sol-ai main .msm-gal-ic{box-shadow:none!important;transform:none!important}
+/* the route: four clean step cards; brass posts and rope go, the "tour stop" label stays */
+html body.ixw--sol-ai main .msm-route{padding-top:0!important}
+html body.ixw--sol-ai main .msm-route::before,html body.ixw--sol-ai main .msm-stop::before,html body.ixw--sol-ai main .msm-stop::after{content:none!important;display:none!important}
+html body.ixw--sol-ai main .msm-stop{border-radius:16px!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;translate:none!important;opacity:1!important}
+html body.ixw--sol-ai main .msm-stop-k{background:color-mix(in srgb,var(--c) 12%,#fff)!important;box-shadow:none!important}
+html body.ixw--sol-ai main .msm-stop-k b{background:none!important;color:var(--c)!important}
+html body.ixw--sol-ai main .msm-faq summary::before{box-shadow:none!important;border:0!important}
+/* what you get: the admission card, white, no punched edges */
+html body.ixw--sol-ai main .msm-ticket{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-ai main .msm-ticket::before,html body.ixw--sol-ai main .msm-ticket::after{content:none!important;display:none!important}
+html body.ixw--sol-ai main .msm-ticket-h{background:#16332F!important}
+html body.ixw--sol-ai main .msm-incl li{border-bottom:1px solid var(--calm-line)!important;color:var(--body)!important}
+html body.ixw--sol-ai main .msm-ticket-foot{background:#F5FAF9!important;border-top:1px solid var(--calm-line)!important}
+/* FAQ: head on the left (not sticky), numbered rows in the accent */
+html body.ixw--sol-ai main .msm-faq-side{position:static!important}
+html body.ixw--sol-ai main .msm-faq details{box-shadow:none!important}
+html body.ixw--sol-ai main .msm-faq summary::before{background:#E3F3F0!important;color:var(--calm-accent)!important;font:700 13px/1 var(--font-body)!important}
+html body.ixw--sol-ai main .msm-faq details[open] summary::before{background:var(--calm-accent)!important;color:#fff!important}
