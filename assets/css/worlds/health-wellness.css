@@ -194,7 +194,7 @@
 @keyframes hWave{to{background-position:24px 100%}}
 
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--health-wellness{--st-ink:#3B3651;--st-meet:#5E8C6E;--st-talk:#8C76B8;--st-nexi:#F2B5A7;--st-nexi-fg:#3B3651;--hc-bg:radial-gradient(90% 120% at 30% 10%,#8768C7,#6B519D 55%,#5F4B88)}
+.ixw--health-wellness{}
 /* the entry intro in this world's colours */
 .ixw--health-wellness{--ii-bg:#F8F2E9;--ii-pattern:radial-gradient(ellipse 40% 30% at 18% 24%,rgba(141,179,154,.22),transparent 70%),radial-gradient(ellipse 36% 26% at 84% 74%,rgba(185,166,216,.24),transparent 70%),radial-gradient(ellipse 30% 22% at 78% 18%,rgba(242,181,167,.2),transparent 70%);--ii-ink:#3B3651;--ii-b:#5E8C6E;--ii-accent:#8C76B8;--ii-lip:#3F6B4F;--ii-ep-bg:#5E8C6E;--ii-ep-fg:#FFFFFF;--ii-font:var(--g-serif,Georgia,serif)}
 /* "View the scene": a stitched linen pebble; pressed, lavender */

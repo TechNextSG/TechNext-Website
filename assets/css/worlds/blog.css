@@ -6,7 +6,7 @@
 .ixw--blog :is(.ixw-copy,.nd-paper,.post-card){font-variant-numeric:lining-nums}
 .ixw--blog{--bl-serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--bl-ink:#141A3A;--bl-red:#E2453C;--bl-blue:#3167CA;--bl-y:#FFD84A;--bl-paper:#FFFDF8;--bl-rule:#D9DEE8;
   --w-alt:#F4F6FB;--lab-bd:2px solid #141A3A;--lab-lip:#141A3A;--lab-tail:#141A3A;--lab-r:4px;
-  --st-ink:#141A3A;--st-meet:#14A38B;--st-talk:#E2453C;--st-nexi:#FFD84A;--st-nexi-fg:#141A3A;--hc-bg:linear-gradient(90deg,#E2453C,#3167CA);
+  
   --ii-bg:linear-gradient(160deg,#F4F7FC,#DCE6F7 60%,#FBE3E1);--ii-ink:#141A3A;--ii-b:#E2453C;--ii-accent:#3167CA;--ii-lip:#141A3A;--ii-ep-bg:#E2453C;--ii-ep-fg:#FFFFFF}
 .ixw--blog .ixw-hero{background:linear-gradient(180deg,#E9EEF7 0,#F4F7FC 20%,#E2E9F4 62%,#E9EEF6 62%,#D3DBE8 100%)}
 

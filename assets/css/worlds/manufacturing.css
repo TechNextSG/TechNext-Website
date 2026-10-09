@@ -183,7 +183,7 @@
 @keyframes gBelt{to{background-position:12px 100%}}
 
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--manufacturing{--st-ink:#1E2A33;--st-meet:#2F6B7A;--st-talk:#FF7A1A;--st-nexi:#5C6B7A;--hc-bg:radial-gradient(120% 140% at 50% 0,#FF9A4D,#FF7A1A 55%,#E0650C);--hc-fg:#1E2A33}
+.ixw--manufacturing{}
 /* the entry intro in this world's colours */
 .ixw--manufacturing{--ii-bg:linear-gradient(180deg,#E7ECF0,#D3DBE2);--ii-pattern:repeating-linear-gradient(90deg,rgba(40,60,80,.07) 0 6px,transparent 6px 22px);--ii-ink:#1E2A33;--ii-b:#2F6B7A;--ii-accent:#FF7A1A;--ii-bar:repeating-linear-gradient(-45deg,#1E2A33 0 10px,#FFC93C 10px 20px);--ii-lip:#1E2A33;--ii-ep-bg:#2F6B7A;--ii-ep-fg:#FFFFFF;--ii-pill-r:6px;--ii-font:var(--g-mono,var(--font-display))}
 /* "View the scene": a riveted steel plate; pressed, the orange push button */

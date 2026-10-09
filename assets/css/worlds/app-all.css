@@ -4,7 +4,7 @@
    is an app tooltip; buttons are app tiles; the glance strip is the launcher's dock. */
 .ixw--app-all{--ow-c:#714B67;--aa-ink:#1B1F3B;--aa-pur:#714B67;--aa-pur-l:#F4F0F8;--aa-y:#FFD84A;
   --w-alt:#F7F5FA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:10px;
-  --st-ink:#1B1F3B;--st-meet:#0E9384;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#8A5F80,#714B67);
+  
   --ii-bg:linear-gradient(160deg,#F8F6FB,#EDE5F3 60%,#FFF4C8);--ii-ink:#1B1F3B;--ii-b:#714B67;--ii-accent:#F08A24;--ii-lip:#1B1F3B;--ii-ep-bg:#714B67;--ii-ep-fg:#FFFFFF}
 .ixw--app-all .ixw-hero{background:linear-gradient(180deg,#9FD3F6 0,#F2EAF6 18%,#F2EAF6 62%,#F4EADF 62%,#C9CDD6 72%,#E2D9CC 100%)}
 

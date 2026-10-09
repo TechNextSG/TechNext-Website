@@ -9,7 +9,7 @@
 .ixw--training{--ow-c:#714B67;--tr-ink:#1B1F3B;--tr-pur:#714B67;--tr-pur-d:#4A2E44;--tr-pur-l:#F4F0F8;--tr-amb:#F2A33A;--tr-sky:#6FB2EE;--tr-line:#E3DCEB;
   --tr-mono:ui-monospace,"Cascadia Mono","Consolas","SFMono-Regular",monospace;
   --w-alt:#F7F5FA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
-  --st-ink:#1B1F3B;--st-meet:#2E9C7E;--st-talk:#714B67;--st-nexi:#F2A33A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#8A5F80,#714B67);
+  
   --ii-bg:linear-gradient(160deg,#F8F6FB,#EDE5F3 60%,#FFF1D6);--ii-ink:#1B1F3B;--ii-b:#714B67;--ii-accent:#F2A33A;--ii-lip:#1B1F3B;--ii-ep-bg:#714B67;--ii-ep-fg:#FFFFFF}
 .ixw--training .ixw-hero{background:linear-gradient(180deg,#EFEBF4 0,#F7F5FA 18%,#ECE8F2 62%,#EEEBF3 62%,#DCD6E4 100%)}
 .ixw--training .section--alt{background:var(--w-alt)}
