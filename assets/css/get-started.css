@@ -51,7 +51,7 @@
 }
 
 /* the "leaving already?" pop-up (assets/js/get-started.js): a chat-style card from the TechNext team */
-.gs-exit{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:16px}
+.gs-exit{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:16px}
 .gs-exit[hidden]{display:none}
 .gs-exit-bg{position:absolute;inset:0;background:rgba(20,28,58,.45);opacity:0;transition:opacity .22s ease}
 .gs-exit-box{position:relative;width:min(440px,100%);background:#FFFFFF;border-radius:22px;padding:26px 24px 18px;box-shadow:0 30px 70px -20px rgba(20,40,90,.45);
