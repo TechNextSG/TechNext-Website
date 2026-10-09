@@ -494,6 +494,7 @@
   } };
 
   window.IXW.worlds['sol-web'] = {
+    calmView: [140,-60,860,688], calmHide: ['cli'], /* CALM: the framed part of the set */
     pan: [-320, 1180],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

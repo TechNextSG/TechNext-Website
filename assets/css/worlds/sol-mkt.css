@@ -285,3 +285,53 @@
   .ixw--sol-mkt .hbr-faq{max-width:920px}}
 /* the end card's lighthouse: the beam pivots at the lamp itself */
 .ixw--sol-mkt .hbr-cta-lh i{bottom:36px;margin:0;z-index:-1}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the harbour quay. One sea-blue accent.
+   Themed touches kept: the building sign over each service card (shopfront, noticeboard, livery), numbered buoys as
+   small step markers, the "Manifest" header, the slim chart-room bar over the demo.
+   =================================================================================================================== */
+.ixw--sol-mkt{--calm-accent:#2E8FC0;--calm-accent-ink:#1F6C93;--calm-accent-line:#BFDDEC;--calm-accent-wash:#F4F9FC;--calm-wash:#F4F9FC}
+html body.ixw--sol-mkt main .hbr-notice{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-mkt main .hbr-notice::before,html body.ixw--sol-mkt main .hbr-notice::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-notice p{color:var(--body)!important}
+html body.ixw--sol-mkt main .hbr-notice .answer-h{background:#E6F2F8!important;color:var(--calm-accent-ink)!important}
+/* demo */
+html body.ixw--sol-mkt main .hbr-chart-sec{background:#fff!important}
+html body.ixw--sol-mkt main .hbr-chart{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-mkt main .hbr-chart::before,html body.ixw--sol-mkt main .hbr-chart::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-chart-top{padding:12px 18px!important;background:#F4F9FC!important;border-bottom:1px solid var(--calm-line)}
+html body.ixw--sol-mkt main .hbr-compass{display:none!important}
+html body.ixw--sol-mkt main .hbr-chart .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+/* the three services: white cards; the building's sign stays on top */
+html body.ixw--sol-mkt main .hbr-fronts-sec{background:#fff!important}
+html body.ixw--sol-mkt main .hbr-fronts-sec::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-fronts{gap:26px!important}
+html body.ixw--sol-mkt main .hbr-front{padding:44px 26px 26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-mkt main .hbr-front:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-mkt main .hbr-front::before,html body.ixw--sol-mkt main .hbr-front::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-sign{left:26px!important;top:-13px!important;transform:none!important;box-shadow:none!important}
+html body.ixw--sol-mkt main .hbr-win{width:52px!important;height:52px!important;border-radius:14px!important;background:var(--c2)!important;box-shadow:none!important;border:0!important;overflow:hidden}
+html body.ixw--sol-mkt main .hbr-win::before,html body.ixw--sol-mkt main .hbr-win::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-front p{color:var(--body)!important}
+html body.ixw--sol-mkt main .hbr-front .btn-link{margin-top:auto;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;color:var(--c)!important}
+/* how the service runs: four step cards with a small buoy number */
+html body.ixw--sol-mkt main .hbr-voyage-sec{background:var(--calm-wash)!important;background-image:none!important}
+html body.ixw--sol-mkt main .hbr-voyage{padding-top:0!important}
+html body.ixw--sol-mkt main .hbr-port{padding:24px 22px!important;text-align:left!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-mkt main .hbr-buoy{position:static!important;margin:0 0 14px!important;width:34px!important;height:34px!important;border-radius:50%!important;background:#E6F2F8!important;color:var(--calm-accent-ink)!important;box-shadow:none!important;border:0!important;font:700 15px/1 var(--font-display)!important}
+html body.ixw--sol-mkt main .hbr-buoy::before,html body.ixw--sol-mkt main .hbr-buoy::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-port p{color:var(--body)!important}
+html body.ixw--sol-mkt main .hbr-loop{border:1px solid var(--calm-line)!important;box-shadow:none!important;background:#fff!important;color:var(--calm-accent-ink)!important}
+/* what you get: the manifest as a clean card */
+html body.ixw--sol-mkt main .hbr-manifest-sec{background:#fff!important}
+html body.ixw--sol-mkt main .hbr-paper{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;rotate:none!important;transform:none!important}
+html body.ixw--sol-mkt main .hbr-paper::before,html body.ixw--sol-mkt main .hbr-paper::after{content:none!important;display:none!important}
+html body.ixw--sol-mkt main .hbr-paper-h{border-bottom:1px solid var(--calm-line)!important}
+html body.ixw--sol-mkt main .hbr-paper li{color:var(--body)!important}
+/* FAQ: plain rows */
+html body.ixw--sol-mkt main .hbr-faq-sec{background:var(--calm-wash)!important;background-image:none!important}
+html body.ixw--sol-mkt main .hbr-faq{max-width:860px!important}
+html body.ixw--sol-mkt main .hbr-faq details{box-shadow:none!important}
+html body.ixw--sol-mkt main .hbr-faq summary::before{width:28px!important;height:28px!important;border-radius:50%!important;background:#E6F2F8!important;color:var(--calm-accent-ink)!important;box-shadow:none!important;border:0!important;font:700 12px/28px var(--font-body)!important;text-align:center}
+@media (max-width:860px){html body.ixw--sol-mkt main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

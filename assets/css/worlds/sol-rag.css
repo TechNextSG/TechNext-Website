@@ -254,3 +254,55 @@
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
 .ixw--sol-rag .ixw-credits-wrap + .section{padding-top:14px!important}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the reading room. One library-green accent.
+   Themed touches kept: a coloured book spine on each "RAG · 0x" card, the call slip beside the demo, labelled drawer
+   tabs on the four steps, the library-card header on what you get.
+   =================================================================================================================== */
+.ixw--sol-rag{--calm-accent:#1F6B52;--calm-accent-ink:#1F6B52;--calm-accent-line:#C4DCCF;--calm-accent-wash:#F6F9F6;--calm-wash:#F6F9F6}
+html body.ixw--sol-rag main .lbr-plate{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-rag main .lbr-plate::before,html body.ixw--sol-rag main .lbr-plate::after{content:none!important;display:none!important}
+html body.ixw--sol-rag main .lbr-plate p{color:var(--body)!important}
+/* demo: plain panel; the call slip becomes a small white side card */
+html body.ixw--sol-rag main .lbr-slip{rotate:none!important;transform:none!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-rag main .lbr-slip-f div{background:none!important;border-bottom:1px solid var(--calm-line)!important}
+html body.ixw--sol-rag main .lbr-demo-sec .dm{border:1px solid var(--calm-line)!important;border-radius:18px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-rag main .lbr-demo-sec .dm-head{background:#FBFCFB!important}
+/* what's included: white cards, a slim coloured spine on the left, no shelf planks */
+html body.ixw--sol-rag main .lbr-shelf{gap:24px!important;padding-bottom:0!important}
+html body.ixw--sol-rag main .lbr-book{padding:26px 24px 26px 30px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:5px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;rotate:none!important;translate:none!important}
+html body.ixw--sol-rag main .lbr-book:hover{translate:0 -2px!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-rag main .lbr-book::before,html body.ixw--sol-rag main .lbr-book::after{content:none!important;display:none!important}
+html body.ixw--sol-rag main .lbr-book-no{background:#EEF4F0!important;color:var(--calm-accent)!important;border-radius:6px!important}
+html body.ixw--sol-rag main .lbr-book-ic{box-shadow:none!important;background:color-mix(in srgb,var(--c) 10%,#fff)!important;width:46px!important;height:46px!important}
+html body.ixw--sol-rag main .lbr-book p{color:var(--body)!important}
+/* how it works: four step cards with a labelled drawer tab on top; the wooden cabinet goes */
+html body.ixw--sol-rag main .lbr-cabinet{padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;gap:20px!important}
+html body.ixw--sol-rag main .lbr-drawer{border:1px solid var(--calm-line);border-radius:16px;background:#fff;box-shadow:var(--calm-shadow);overflow:hidden}
+html body.ixw--sol-rag main .lbr-drawer-f{align-items:flex-start!important;padding:16px 18px 0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+html body.ixw--sol-rag main .lbr-drawer-f i{display:none!important}
+html body.ixw--sol-rag main .lbr-drawer-l{background:#F6F1E3!important;box-shadow:none!important;border-radius:8px!important}
+html body.ixw--sol-rag main .lbr-drawer-c{margin:0!important;padding:16px 18px 22px!important;background:#fff!important;box-shadow:none!important;translate:none!important;opacity:1!important;border-radius:0!important}
+html body.ixw--sol-rag main .lbr-drawer-c p{line-height:1.6!important;color:var(--body)!important}
+/* what you get: the library card keeps its green header; plain rows; the front doors as calm chips */
+html body.ixw--sol-rag main .lbr-card{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-rag main .lbr-card-h{background:var(--calm-accent)!important;color:#fff!important}
+html body.ixw--sol-rag main .lbr-card-h span{font:700 1.05rem/1 var(--font-display)!important;color:#fff!important}
+html body.ixw--sol-rag main .lbr-priv{padding-top:8px!important}
+html body.ixw--sol-rag main .lbr-priv li{border-bottom:1px solid var(--calm-line);color:var(--body)!important}
+html body.ixw--sol-rag main .lbr-priv li .ic{rotate:none!important;box-shadow:none!important;background:#EEF4F0!important;color:var(--calm-accent)!important}
+html body.ixw--sol-rag main .lbr-doors li{background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:none!important;border-radius:10px!important;rotate:none!important;transform:none!important;color:var(--ink)!important}
+/* FAQ */
+html body.ixw--sol-rag main .lbr-faq-side{position:static!important}
+html body.ixw--sol-rag main .lbr-faq details{box-shadow:none!important;border-radius:14px!important}
+html body.ixw--sol-rag main .lbr-faq summary::before{background:#EEF4F0!important;color:var(--calm-accent)!important;box-shadow:none!important;border-radius:8px!important;font:700 12px/1 var(--font-body)!important}
+html body.ixw--sol-rag main .lbr-faq details[open] summary::before{background:var(--calm-accent)!important;color:#fff!important}
+/* related: white cards with a coloured top rule; no punched holes, no tilt */
+html body.ixw--sol-rag main .lbr-xref{padding:24px 24px 26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;rotate:none!important}
+html body.ixw--sol-rag main .lbr-xref:hover{translate:0 -2px!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-rag main .lbr-xref-k{font:600 13px/1 var(--font-body)!important;color:var(--muted)!important}
+html body.ixw--sol-rag main .lbr-xref-ic{box-shadow:none!important;background:color-mix(in srgb,var(--c) 10%,#fff)!important}
+html body.ixw--sol-rag main .lbr-faq summary{padding-left:22px!important}
+html body.ixw--sol-rag main .lbr-faq .faq-a{padding-left:22px!important}
+@media (max-width:860px){html body.ixw--sol-rag main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

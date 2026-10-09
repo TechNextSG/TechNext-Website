@@ -277,3 +277,52 @@
 .ixw--sol-web .msd-dome-p{left:130px;bottom:22px;width:26px;height:110px}
 .ixw--sol-web .msd-spec-l .msd-dome+*{margin-top:0}
 .ixw--sol-web .msd-dome i:last-child::after{content:"SCALE 1 : WEB";position:absolute;left:-104px;bottom:-24px;width:150px;font:800 9px/1 var(--font-body);letter-spacing:.14em;color:#FFFFFF;text-align:center}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the model-makers' studio. One workbench-green accent.
+   Themed touches kept: the "KIT 0x" label on the six cards, the drawing marks (A-1..A-4) on the steps, the spec-sheet
+   header, folder tabs on the related cards, the slim green workbench bar over the demo.
+   =================================================================================================================== */
+.ixw--sol-web{--calm-accent:#1E9E6A;--calm-accent-ink:#17734F;--calm-accent-line:#C3E4D5;--calm-accent-wash:#F5FAF7;--calm-wash:#F5FAF7}
+html body.ixw--sol-web main .msd-note{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-web main .msd-note::before,html body.ixw--sol-web main .msd-note::after{content:none!important;display:none!important}
+html body.ixw--sol-web main .msd-note p{color:var(--body)!important}
+/* demo */
+html body.ixw--sol-web main .msd-bench-sec{background:#fff!important}
+html body.ixw--sol-web main .msd-bench{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-web main .msd-bench::before,html body.ixw--sol-web main .msd-bench::after{content:none!important;display:none!important}
+html body.ixw--sol-web main .msd-bench-top{padding:12px 18px!important;background:#1E9E6A!important}
+html body.ixw--sol-web main .msd-reg{display:none!important}
+html body.ixw--sol-web main .msd-bench .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+/* kits: white cards, the kit label as a small coloured line on top */
+html body.ixw--sol-web main .msd-kit{padding:56px 26px 26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-web main .msd-kit:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-web main .msd-kit::before,html body.ixw--sol-web main .msd-kit::after,html body.ixw--sol-web main .msd-lid::after{content:none!important;display:none!important}
+html body.ixw--sol-web main .msd-lid{left:26px!important;right:26px!important;top:22px!important;height:auto!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;color:var(--c)!important}
+html body.ixw--sol-web main .msd-lid b{color:var(--c)!important;font:700 12px/1 var(--font-body)!important;letter-spacing:.1em}
+html body.ixw--sol-web main .msd-lid i{color:#9AA3B5!important;font:500 11px/1 var(--font-body)!important}
+html body.ixw--sol-web main .msd-kit-ic::before{border-radius:12px!important;box-shadow:none!important;transform:none!important}
+html body.ixw--sol-web main .msd-kit p{color:var(--body)!important}
+/* steps: plain cards, no blueprint board; the drawing mark stays */
+html body.ixw--sol-web main .msd-plan-sec{background:var(--calm-wash)!important}
+html body.ixw--sol-web main .msd-plan{padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+html body.ixw--sol-web main .msd-plan::before,html body.ixw--sol-web main .msd-plan::after,html body.ixw--sol-web main .msd-step::before,html body.ixw--sol-web main .msd-mark::after{content:none!important;display:none!important}
+html body.ixw--sol-web main .msd-step{padding:24px 22px!important;text-align:left!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-web main .msd-mark{position:relative!important;left:auto!important;top:auto!important;margin:0 0 14px!important;width:44px!important;height:44px!important;box-shadow:0 0 0 1.5px var(--calm-accent)!important;display:grid!important}
+html body.ixw--sol-web main .msd-mark::before{background:var(--calm-accent)!important;opacity:.5}
+html body.ixw--sol-web main .msd-step p{color:var(--body)!important}
+/* spec sheet */
+html body.ixw--sol-web main .msd-spec-sec{background:#fff!important}
+html body.ixw--sol-web main .msd-sheet{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-web main .msd-sheet::before,html body.ixw--sol-web main .msd-sheet::after{content:none!important;display:none!important}
+html body.ixw--sol-web main .msd-sheet li{color:var(--body)!important}
+/* FAQ */
+html body.ixw--sol-web main .msd-rfi-sec{background:var(--calm-wash)!important;background-image:none!important}
+html body.ixw--sol-web main .msd-rfi{max-width:860px!important}
+html body.ixw--sol-web main .msd-rfi details{box-shadow:none!important}
+/* related: white cards with a small folder tab */
+html body.ixw--sol-web main .msd-folders{padding-top:20px}
+html body.ixw--sol-web main .msd-folder{padding:28px 26px 26px!important;border-radius:0 16px 16px 16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-web main .msd-folder:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-web main .msd-tab{box-shadow:none!important}
+@media (max-width:860px){html body.ixw--sol-web main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

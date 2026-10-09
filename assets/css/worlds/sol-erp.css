@@ -285,3 +285,62 @@
 .ixw--sol-erp .orc-bill .btn-link{margin-top:auto;padding-top:16px}
 .ixw--sol-erp .orc-bill:focus-visible{outline:3px solid var(--or-gold);outline-offset:6px}
 @media (max-width:640px){.ixw--sol-erp .orc-r{--band:calc(58px + var(--i) * 6px)}}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the orchestra. One plum accent; gold only as a thin rule.
+   Themed touches kept: roman-numeral parts, a rising crescendo bar on the phases, the arched venues, the programme card.
+   =================================================================================================================== */
+.ixw--sol-erp{--calm-accent:#714B67;--calm-accent-ink:#55354D;--calm-accent-line:#D9C3D2;--calm-accent-wash:#FBF7F2;--calm-wash:#FBF7F2;--calm-card-rule:3px solid #714B67}
+html body.ixw--sol-erp main .orc-note{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-erp main .orc-note p:not(.answer-h)::first-letter{float:none;margin:0;font:inherit;color:inherit}
+html body.ixw--sol-erp main .orc-note p:not(.answer-h){color:var(--body)}
+/* the demo: one clean panel; a light header strip is all that is left of the music stand */
+html body.ixw--sol-erp main .orc-stand{padding:0!important;border-radius:18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-erp main .orc-stand::before,html body.ixw--sol-erp main .orc-stand::after{content:none!important;display:none!important}
+html body.ixw--sol-erp main .orc-stand-top{padding:12px 18px!important;background:#FBF7F2!important;border-bottom:1px solid var(--calm-line);color:var(--calm-accent-ink)!important}
+html body.ixw--sol-erp main .orc-stand-t::before{color:var(--calm-accent)!important}
+html body.ixw--sol-erp main .orc-stand-r{color:#8A7A86!important}
+html body.ixw--sol-erp main .orc-stand .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+/* six parts: white cards, the roman numeral in the part's colour, a thin coloured top rule */
+html body.ixw--sol-erp main .orc-part{padding:24px 26px 26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-erp main .orc-part:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-erp main .orc-part-top{position:absolute!important;left:auto!important;right:22px!important;top:24px!important;height:auto!important;padding:0!important;border:0!important}
+html body.ixw--sol-erp main .orc-part-top b{min-width:34px;height:26px;border-radius:8px!important;font-size:12.5px!important}
+html body.ixw--sol-erp main .orc-part .card-ic{width:48px!important;height:48px!important}
+html body.ixw--sol-erp main .orc-part p{color:var(--body)!important}
+/* the four phases: level cards; a crescendo bar that grows from phase 1 to 4 is the one musical touch */
+html body.ixw--sol-erp main .orc-cresc{padding-top:0!important}
+html body.ixw--sol-erp main .orc-reh{align-items:stretch!important}
+html body.ixw--sol-erp main .orc-r{--band:0px;padding:26px 24px 30px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-erp main .orc-r:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-erp main .orc-r::before{content:none!important;display:none!important}
+html body.ixw--sol-erp main .orc-r::after{content:""!important;display:block!important;position:absolute;left:24px;right:auto;top:auto;bottom:0;width:calc((100% - 48px) * (var(--i) + 1) / 4);height:3px;border-radius:3px 3px 0 0;background:var(--calm-accent)!important}
+html body.ixw--sol-erp main .orc-r-n{position:static!important;display:grid;place-items:center;width:34px;height:34px;margin:0 0 16px;border-radius:50%;background:#F3E7F0;color:var(--calm-accent)!important;font:700 15px/1 var(--font-display)!important}
+html body.ixw--sol-erp main .orc-r p{color:var(--body)!important}
+/* focus apps: white panel, the tabs keep their app colour bar */
+html body.ixw--sol-erp main .orc-showcase .sc-tab{box-shadow:none!important;border:1px solid var(--calm-line)!important;border-radius:12px!important;translate:none!important;background:#fff!important}
+html body.ixw--sol-erp main .orc-showcase .sc-tab.is-active{border-color:var(--c)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-erp main .orc-showcase .sc-panel{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-erp main .orc-showcase .sc-panel::before{content:none!important;display:none!important}
+html body.ixw--sol-erp main .orc-showcase .sc-panel-inner{padding:32px!important}
+/* venues: the arch stays (the hall), the gold lip goes */
+html body.ixw--sol-erp main .orc-venue{padding:74px 26px 32px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:140px 140px 16px 16px!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-erp main .orc-venue::before,html body.ixw--sol-erp main .orc-venue::after{content:none!important;display:none!important}
+html body.ixw--sol-erp main .orc-venue-tag{top:32px!important;background:#F3E7F0!important;box-shadow:none!important;color:var(--calm-accent)!important}
+html body.ixw--sol-erp main .orc-venue .card-ic{width:60px!important;height:60px!important;box-shadow:none!important;transform:none!important}
+html body.ixw--sol-erp main .orc-venue p{color:var(--body)!important}
+/* what you get: the programme card keeps its plum header; a numbered list on white */
+html body.ixw--sol-erp main .orc-prog-sec{background:#fff!important}
+html body.ixw--sol-erp main .orc-programme{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-erp main .orc-programme-h span{font:600 12.5px/1 var(--font-body)!important;color:#EBD9E5!important}
+html body.ixw--sol-erp main .orc-list li{border-bottom:1px solid var(--calm-line)!important;color:var(--body)!important}
+html body.ixw--sol-erp main .orc-list li::before{background:#F3E7F0!important;box-shadow:none!important;color:var(--calm-accent)!important;font:700 12px/1 var(--font-body)!important}
+/* FAQ: one column */
+html body.ixw--sol-erp main .orc-stalls-grid{display:block!important;max-width:860px}
+/* related: white cards, a thin top rule in the service colour; the playbill label stays as a small kicker */
+html body.ixw--sol-erp main .orc-bill{padding:26px 26px 24px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-erp main .orc-bill:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-erp main .orc-bill-top{position:static!important;height:auto!important;justify-content:flex-start!important;margin:0 0 14px;padding:0!important;background:none!important;color:var(--c)!important;font:700 11.5px/1.2 var(--font-body)!important;letter-spacing:.1em!important}
+html body.ixw--sol-erp main .orc-bill-top::before,html body.ixw--sol-erp main .orc-bill-top::after{content:none!important}
+html body.ixw--sol-erp main .orc-bill p{color:var(--body)!important}
+@media (max-width:860px){html body.ixw--sol-erp main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

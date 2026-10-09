@@ -702,6 +702,7 @@
   }
 
   window.IXW.worlds['sol-erp'] = {
+    calmView: [180,-160,820,656], /* CALM: the framed part of the set */
     pan: [-280, 1240],
     paintBg: paintBg, windowBehind: true, paintFrame: paintFrame, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,

@@ -253,3 +253,53 @@
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
 .ixw--sol-brand .ixw-credits-wrap + .section{padding-top:14px!important}
+
+/* ===================================================================================================================
+   CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the print studio. One magenta-ink accent.
+   Themed touches kept: the "TN 0x · identity" swatch label on the six cards, CMYK ink dots + "plate 1 / 4" on the
+   steps, the open brand-guide spread, the coloured spine of the business cards in related.
+   =================================================================================================================== */
+.ixw--sol-brand{--calm-accent:#C0367A;--calm-accent-ink:#9E2A63;--calm-accent-line:#EBC6D8;--calm-accent-wash:#FBF8F7;--calm-wash:#FBF8F7}
+html body.ixw--sol-brand main .lpr-proof-sec{padding-top:64px!important}
+html body.ixw--sol-brand main .lpr-proof{max-width:900px;padding:24px 28px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-left:4px solid var(--calm-accent)!important;box-shadow:var(--calm-shadow)!important}
+html body.ixw--sol-brand main .lpr-proof::before,html body.ixw--sol-brand main .lpr-proof::after{content:none!important;display:none!important}
+html body.ixw--sol-brand main .lpr-proof p{color:var(--body)!important}
+/* demo */
+html body.ixw--sol-brand main .lpr-mat{padding:0!important;border-radius:18px!important;background:#fff!important;background-image:none!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-brand main .lpr-mat::before,html body.ixw--sol-brand main .lpr-mat::after{content:none!important;display:none!important}
+html body.ixw--sol-brand main .lpr-mat-top{padding:12px 18px!important;background:#2F7D5B!important}
+html body.ixw--sol-brand main .lpr-mat .dm{border:0!important;border-radius:0!important;box-shadow:none!important}
+/* six cards: white, a thin coloured rule, the swatch label as small text */
+html body.ixw--sol-brand main .lpr-chip{padding:24px 26px 26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-brand main .lpr-chip:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-brand main .lpr-chip-top{height:auto!important;margin:0 0 14px!important;padding:0!important;background:none!important;align-items:center!important;color:var(--c)!important}
+html body.ixw--sol-brand main .lpr-chip-top b{color:var(--c)!important;font:700 12px/1 var(--font-body)!important;letter-spacing:.1em}
+html body.ixw--sol-brand main .lpr-chip-top i{color:#9AA3B5!important;font:500 12px/1 var(--font-body)!important}
+html body.ixw--sol-brand main .lpr-chip .card-ic{position:static!important;margin:0 0 14px!important;box-shadow:none!important}
+html body.ixw--sol-brand main .lpr-chip p{color:var(--body)!important}
+/* steps */
+html body.ixw--sol-brand main .lpr-plate{padding:24px 22px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
+html body.ixw--sol-brand main .lpr-plate::before,html body.ixw--sol-brand main .lpr-plate::after{content:none!important;display:none!important}
+html body.ixw--sol-brand main .lpr-pn{font-family:var(--font-body)!important;color:#9AA3B5!important}
+html body.ixw--sol-brand main .lpr-plate p{color:var(--body)!important}
+/* what you get: the spread, white pages and a soft gutter */
+html body.ixw--sol-brand main .lpr-book{background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;overflow:hidden}
+html body.ixw--sol-brand main .lpr-book::before{content:none!important;display:none!important}
+html body.ixw--sol-brand main .lpr-book::after{width:1px!important;margin-left:0!important;background:var(--calm-line)!important}
+html body.ixw--sol-brand main .lpr-page li{border-bottom:1px solid var(--calm-line)!important;color:var(--body)!important}
+/* FAQ: plain rows; the letter tag stays small */
+html body.ixw--sol-brand main .lpr-case-sec{background:var(--calm-wash)!important;background-image:none!important}
+html body.ixw--sol-brand main .lpr-drawers{max-width:860px!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+html body.ixw--sol-brand main .lpr-drawers details{background:#fff!important;box-shadow:none!important;translate:none!important}
+html body.ixw--sol-brand main .lpr-drawers summary::before{width:28px!important;height:24px!important;border-radius:6px!important;background:#F8E6EF!important;box-shadow:none!important;color:var(--calm-accent-ink)!important;font:700 12px/24px var(--font-body)!important;text-align:center}
+html body.ixw--sol-brand main .lpr-drawers summary .ic{background:#F6F7FA!important;color:var(--calm-accent-ink)!important}
+html body.ixw--sol-brand main .lpr-drawers .faq-a{margin:0!important;padding:0 20px 18px 62px!important;background:none!important;box-shadow:none!important;color:var(--body)!important}
+@media (max-width:640px){html body.ixw--sol-brand main .lpr-drawers .faq-a{padding-left:20px!important}}
+/* related: business cards, straight, with their coloured spine */
+html body.ixw--sol-brand main .lpr-cards-sec{background:#fff!important}
+html body.ixw--sol-brand main .lpr-cards{gap:24px!important;padding:0!important}
+html body.ixw--sol-brand main .lpr-bcard{border-radius:16px!important;border:1px solid var(--calm-line)!important;border-left:5px solid var(--c)!important;background:#fff!important;box-shadow:var(--calm-shadow)!important;transform:none!important;rotate:none!important}
+html body.ixw--sol-brand main .lpr-bcard::before,html body.ixw--sol-brand main .lpr-bcard::after{content:none!important;display:none!important}
+html body.ixw--sol-brand main .lpr-bcard:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
+html body.ixw--sol-brand main .lpr-run{padding-top:0!important}
+@media (max-width:860px){html body.ixw--sol-brand main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

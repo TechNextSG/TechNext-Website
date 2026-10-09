@@ -611,6 +611,7 @@
   function FORE(t) { return [[ROB[0].y, function (g2, e, t2) { robot(g2, t2, ROB[0]); }], [ROB[1].y, function (g2, e, t2) { robot(g2, t2, ROB[1]); }]].concat(zone(t)); }
 
   window.IXW.worlds['sol-ai'] = {
+    calmView: [140,-120,860,688], calmHide: ['vis'], /* CALM: the framed part of the set */
     pan: [-700, 1260],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
