@@ -187,6 +187,7 @@
     ];
   }
   window.IXW.worlds['health-wellness'] = {
+    calmView: [180,-45,820,656], /* calm layer: the framed hero shows the core of the scene */
     pan: [-460, 1240], /* phones: how far the scene drags each way (set units), ending on whole objects */
     room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { walk(g, t, S, 'fore'); }); },
     moteCol: 'rgba(255,250,235,.8)',
