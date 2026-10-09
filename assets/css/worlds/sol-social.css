@@ -299,3 +299,5 @@ html body.ixw--sol-social main .bky-box{padding:26px!important;border-radius:16p
 html body.ixw--sol-social main .bky-box::before,html body.ixw--sol-social main .bky-box::after{content:none!important;display:none!important}
 html body.ixw--sol-social main .bky-box:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
 html body.ixw--sol-social main .bky-line{padding-top:0!important}
+
+@media (max-width:480px){html body.ixw--sol-social main .ixw-copy .actions{flex-wrap:wrap}html body.ixw--sol-social main .ixw-copy .actions .btn{white-space:normal;flex:1 1 auto;min-width:0;justify-content:center;text-align:center}}
