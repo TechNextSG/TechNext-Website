@@ -285,6 +285,7 @@
   }
   window.IXW.worlds['app-stock'] = {
     pan: [-300, 1200],
+    calmView: [194, -112, 812, 650], calmCast: ['lead', 'pick', 'pack', 'rcv'],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
     paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(crewVis(), g, t, S, 'fore'); }); CR.draw(g, t); },

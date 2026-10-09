@@ -219,3 +219,70 @@
 .ixw--app-stock .ixw-peek[aria-pressed="true"]{background:#FFC93C}
 .ixw--app-stock .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
 @media (prefers-reduced-motion:reduce){.ixw--app-stock :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}
+
+/* ======== CALM LAYER (9 Oct 2026): 50% TechNext base, 50% the port-side hub. One quiet accent (#E08A12), white cards, no tilts,
+   tape, pins, rings or lips; each section keeps one or two themed touches (a hazard-yellow rule under the heads, the dark departures board, gate numbers on the steps). ======== */
+body.ixw--app-stock{--calm-accent:#E08A12;--calm-accent-ink:#9A5B05;--calm-accent-line:#F2D3A6;--calm-accent-wash:#FBF8F2;--calm-card-rule:3px solid #E08A12}
+body.ixw--app-stock main .aw-sec,body.ixw--app-stock main .aw-sec:nth-of-type(odd){background:#FFFFFF!important}
+body.ixw--app-stock main .aw-sec.section--alt,body.ixw--app-stock main .aw-band{background:#FBF8F2!important}
+body.ixw--app-stock main .aw-sec::before,body.ixw--app-stock main .aw-sec+.aw-sec::before,body.ixw--app-stock main .aw-sec.section--alt::before{display:none!important}
+body.ixw--app-stock main .aw-badge{display:none!important}
+body.ixw--app-stock main .aw-sec .sec-head h2::after,body.ixw--app-stock main [data-aw="impl"] h2::after{content:""!important;display:block!important;width:56px!important;height:4px!important;margin-top:16px!important;background:#FFD84A!important;border-radius:2px}
+body.ixw--app-stock main [data-aw="cta"] h2::after,body.ixw--app-stock main .aw-sec .sec-head--row h2::after{display:none!important}
+/* in one paragraph: a plain white card with the accent on its left edge */
+body.ixw--app-stock main .answer-box{padding:22px 26px!important;border:1px solid var(--calm-line)!important;border-left:3px solid #E08A12!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-stock main .answer-box::before,body.ixw--app-stock main .answer-box::after{display:none!important}
+body.ixw--app-stock main .answer-h{background:#FBF8F2!important;color:#9A5B05!important;box-shadow:none!important;border:0!important}
+/* the lifecycle demo: one clean panel, a thin accent rule on top */
+body.ixw--app-stock main [data-aw="life"] .dm{border:1px solid var(--calm-line)!important;border-top:3px solid #E08A12!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;rotate:none!important}
+body.ixw--app-stock main [data-aw="life"] .dm-head{background:#FFFFFF!important;border-bottom:1px solid var(--calm-line)!important}
+body.ixw--app-stock main [data-aw="life"] .dm-title b{color:#1B1F3B!important}body.ixw--app-stock main [data-aw="life"] .dm-title small{color:#5C6B7A!important}
+/* official videos: plain rounded frames */
+body.ixw--app-stock main [data-aw="watch"] .video{border:1px solid var(--calm-line)!important;border-radius:14px!important;box-shadow:var(--calm-shadow)!important;rotate:none!important;translate:none!important;overflow:hidden}
+body.ixw--app-stock main [data-aw="watch"] .video::before,body.ixw--app-stock main [data-aw="watch"] .video::after{display:none!important}
+body.ixw--app-stock main [data-aw="watch"] .videos{gap:24px!important;padding:0!important}
+body.ixw--app-stock main .yt-play{background:#3167CA!important;box-shadow:0 10px 24px -10px rgba(31,63,130,.6)!important}
+/* section by section: screenshots in a plain white frame, the kicker as a small accent label */
+body.ixw--app-stock main [data-aw="what"] .feat-media{rotate:none!important;padding:10px!important;border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-stock main [data-aw="what"] .feat-media::before,body.ixw--app-stock main [data-aw="what"] .feat-media::after{display:none!important}
+body.ixw--app-stock main [data-aw="what"] .card-kicker{display:inline-block!important;padding:0!important;border:0!important;background:none!important;rotate:none!important;clip-path:none!important;color:#9A5B05!important;font:800 12px/1.4 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase}
+body.ixw--app-stock main [data-aw="what"] .card-kicker::before,body.ixw--app-stock main [data-aw="what"] .card-kicker::after{display:none!important}
+body.ixw--app-stock main [data-aw="what"] .feat-copy h3{font-size:1.45rem!important}
+body.ixw--app-stock main [data-aw="what"] .card{padding:28px 26px!important;background:#FFFFFF!important;rotate:none!important}
+body.ixw--app-stock main [data-aw="what"] .card::before,body.ixw--app-stock main [data-aw="what"] .card::after{display:none!important}
+body.ixw--app-stock main [data-aw="what"] .card:hover{transform:translateY(-2px)!important}
+body.ixw--app-stock main :is([data-aw="what"],[data-aw="impl"]) .checks .ic{color:#E08A12!important}
+/* inside the app: a straight row of framed screenshots */
+body.ixw--app-stock main [data-aw="screens"] .shots{padding:0!important;gap:20px!important}
+body.ixw--app-stock main [data-aw="screens"] .shot{rotate:none!important;translate:none!important;padding:10px 10px 0!important;border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-stock main [data-aw="screens"] .shot::before,body.ixw--app-stock main [data-aw="screens"] .shot::after{display:none!important}
+body.ixw--app-stock main [data-aw="screens"] .shot figcaption{border-top:1px solid var(--calm-line)!important;font:500 12.5px/1.4 var(--font-body)!important;color:#5C6B7A!important;background:none!important}
+/* how TechNext implements it: a white list card, numbered in the accent */
+body.ixw--app-stock main .aw-steps{padding:6px 0!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important;clip-path:none!important}
+body.ixw--app-stock main .aw-steps::before,body.ixw--app-stock main .aw-steps::after{display:none!important}
+body.ixw--app-stock main .aw-steps li{border-bottom:1px solid var(--calm-line)!important;padding:16px 22px!important;background:none!important}
+body.ixw--app-stock main .aw-steps li:last-child{border-bottom:0!important}
+body.ixw--app-stock main .aw-steps li::before{display:none!important}
+body.ixw--app-stock main .aw-steps .aw-n{display:grid;place-items:center;flex:none;min-width:48px;height:28px;padding:0 8px;border-radius:8px;background:#FBF8F2;color:#9A5B05;font:800 12px/1 var(--font-body);letter-spacing:.04em}
+body.ixw--app-stock main .aw-steps li .ic{order:3;margin-left:auto;width:20px!important;height:20px!important;padding:0!important;background:none!important;color:#E08A12!important}
+/* works with: plain app cards with a thin accent edge */
+body.ixw--app-stock main [data-aw="works"] .app{border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;border-left:3px solid #E08A12!important;box-shadow:none!important;rotate:none!important;clip-path:none!important}
+body.ixw--app-stock main [data-aw="works"] .app::before,body.ixw--app-stock main [data-aw="works"] .app::after{display:none!important}
+body.ixw--app-stock main [data-aw="works"] .app:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow)!important}
+/* the end card: the TechNext band, no rings */
+body.ixw--app-stock main .cta{box-shadow:0 30px 60px -36px rgba(30,70,145,.6)!important}
+body.ixw--app-stock main .cta .btn-white{box-shadow:none!important}body.ixw--app-stock main .cta .btn-outline-white{border:1px solid rgba(255,255,255,.7)!important}
+body.ixw--app-stock main [data-aw="cta"] .hand{color:#FFFFFF!important}
+/* buttons: the kit's flat buttons, without the world's tag / binding / barcode shapes */
+body.ixw--app-stock .btn{padding:0 22px!important;margin:0!important;clip-path:none!important;filter:none!important;rotate:none!important;translate:none!important;overflow:visible!important}
+body.ixw--app-stock .btn::before,body.ixw--app-stock .btn::after{display:none!important}
+body.ixw--app-stock .btn-primary .ic{width:18px!important;height:18px!important;padding:0!important;background:none!important}
+
+/* themed touch: the departures board stays dark with its yellow header, minus the rings and the flip-in */
+body.ixw--app-stock .aw-board{box-shadow:var(--calm-shadow)!important;border-radius:16px!important}
+body.ixw--app-stock .aw-board-head{font:800 11px/1 var(--font-body)!important;letter-spacing:.12em!important}
+body.ixw--app-stock .aw-board-head span:first-child::before{content:none!important}
+body.ixw--app-stock .aw-gate.reveal,body.ixw--app-stock .aw-gate.reveal.is-in{transform:none!important}
+body.ixw--app-stock .aw-stat{font:800 11px/1 var(--font-body)!important}
+body.ixw--app-stock .aw-no{font:800 13px/1 var(--font-body)!important}
+body.ixw--app-stock main .aw-steps{counter-reset:gt}body.ixw--app-stock main .aw-steps li{counter-increment:gt}
