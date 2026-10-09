@@ -252,4 +252,61 @@
 @media (max-width:767px){.ixw--careers .cr-roles .filter-bar{flex-wrap:wrap;overflow:visible;margin:0 0 22px;padding:2px 0 6px}}
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
-.ixw--careers .ixw-credits-wrap + .section{padding-top:38px!important}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the recruitment booth ==============================
+   Accent: booth yellow, used for the salary chip and thin rules only. Themed touches kept: the role matcher as a kiosk with
+   a slim header, the role flyers (white, a team-colour top rule, the salary chip), the banner signs (a short colour band),
+   the queue-ticket numbers on the three ways in. Pins, bunting, stands, tape and "take a number" are gone. */
+body.ixw--careers{--calm-accent:#3167CA;--calm-accent-ink:#1E4691;--calm-accent-line:#C9D7F1;--calm-accent-wash:#FBF8EE}
+body.ixw--careers .ixw-copy .crumbs::before{display:none!important}
+body.ixw--careers .ixw-hero .ixw-copy .actions{flex-direction:row}
+/* the role matcher: one clean panel with a slim kiosk header */
+body.ixw--careers .cr-match{background:#FFFFFF!important}
+body.ixw--careers .cr-match .container{padding-bottom:0}
+body.ixw--careers .cr-kiosk{padding:0;border-radius:18px;background:#FFFFFF;border:1px solid var(--calm-line);box-shadow:var(--calm-shadow);overflow:hidden}
+body.ixw--careers .cr-kiosk-top{padding:12px 18px;background:#F7F9FD;border-bottom:1px solid var(--calm-line)}
+body.ixw--careers .cr-led{height:auto;padding:0;background:none;box-shadow:none}
+body.ixw--careers .cr-led b{font:700 12px/1 var(--font-body);color:#1E4691;text-shadow:none;letter-spacing:.12em}
+body.ixw--careers .cr-kiosk-pill{background:#FFF4C8;color:#6B5200}
+body.ixw--careers .cr-kiosk-dots,body.ixw--careers .cr-kiosk-foot{display:none}
+body.ixw--careers .cr-kiosk .dm{border-radius:0;box-shadow:none}
+body.ixw--careers .drm-chips button[aria-pressed="true"]{background:#3167CA;border-color:#3167CA;color:#FFFFFF;box-shadow:none}
+body.ixw--careers .drm-chips button[aria-pressed="true"] .ic{color:#FFFFFF}
+body.ixw--careers .drm-row{border-style:solid}
+body.ixw--careers .drm-row.is-top{border:1.5px solid #3167CA;box-shadow:none}
+body.ixw--careers .drm-flow li i{border-color:#3167CA;background:#EEF3FB;color:#1E4691}
+body.ixw--careers .drm-flow::before{background:#C9D7F1}
+body.ixw--careers .drm-empty{border:1px dashed #C9CFE0;background:#F7F9FD}
+/* the role flyers */
+body.ixw--careers .cr-roles .filter-bar button{border:1px solid var(--calm-line);border-radius:999px;box-shadow:none;color:var(--ink)}
+body.ixw--careers .cr-roles .filter-bar button:hover{translate:none;box-shadow:none;border-color:#3167CA}
+body.ixw--careers .cr-roles .filter-bar button[aria-pressed="true"]{background:#3167CA;border-color:#3167CA;color:#FFFFFF}
+body.ixw--careers .cr-board{margin-top:22px;padding:0;background:none!important;box-shadow:none!important;border:0}
+body.ixw--careers .cr-board::before,body.ixw--careers .cr-board::after{display:none}
+body.ixw--careers .cr-flyers{gap:22px}
+body.ixw--careers .cr-flyers .job{padding:26px 24px 24px;border:1px solid var(--calm-line);border-top:3px solid #3167CA;border-radius:16px;background:#FFFFFF;box-shadow:var(--calm-shadow);transform:none!important}
+body.ixw--careers .cr-flyers .job[data-tags="growth"]{border-top-color:#E8B500}
+body.ixw--careers .cr-flyers .job[data-tags="finance"]{border-top-color:#14A38B}
+body.ixw--careers .cr-flyers .job:hover{box-shadow:var(--calm-shadow-h);transform:translateY(-2px)!important}
+body.ixw--careers .cr-flyers .job::before,body.ixw--careers .cr-flyers .job::after,body.ixw--careers .cr-flyers .job-top::before{display:none!important}
+body.ixw--careers .cr-flyers .job-meta{border-top:1px solid #E9EEF5}
+/* the banner signs: a short colour band, no stands */
+body.ixw--careers .cr-banners .card{margin-bottom:0;padding-bottom:26px}
+body.ixw--careers .cr-banners .card::before,body.ixw--careers .cr-banners .card::after{display:none}
+body.ixw--careers .cr-banners .card-ic{height:84px;margin-bottom:18px}
+body.ixw--careers .cr-banners .card-ic .oi,body.ixw--careers .cr-banners .card-ic>.ic{width:52px;height:52px;padding:10px}
+/* three ways in: queue-ticket numbers, light */
+body.ixw--careers .cr-tickets{padding-top:0}
+body.ixw--careers .cr-tickets::before,body.ixw--careers .cr-tickets::after{display:none}
+body.ixw--careers .cr-tickets li{background:#FFFFFF;box-shadow:none;border:1px solid var(--calm-line);margin-left:0!important;translate:none!important;overflow:hidden}
+body.ixw--careers .cr-tickets .apply-n{background:#EEF3FB!important;color:#1E4691!important;box-shadow:none!important;border-right:1px dashed #C9D7F1}
+body.ixw--careers .cr-tickets li:nth-child(n) .apply-n{min-height:76px;font-size:18px;background:#EEF3FB!important;color:#1E4691!important}
+body.ixw--careers .cr-tickets li:nth-child(3) .apply-n{background:#E6F6F2!important;color:#0E7A68!important}
+body.ixw--careers .cr-tickets li>div{border-left:1px dashed #C9D7F1}
+body.ixw--careers .ixw-hero .ixw-copy .actions{display:flex!important;max-width:none}
+body.ixw--careers .ixw-copy .actions .btn-lg{height:48px;padding:0 22px;font:600 16px/1 var(--font-body)}
+body.ixw--careers .ixw-copy .actions .btn-lg .ic{position:static;margin:0 0 0 6px}
+body.ixw--careers .ixw-copy .actions .btn-ghost .ic{margin:0 6px 0 0}
+body.ixw--careers .ixw-copy .actions .btn-lg::before{display:none!important}
+body.ixw--careers .cr-note{margin-top:28px;position:relative;z-index:1}
+@media (max-width:767px){body.ixw--careers .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%;justify-content:center}}

@@ -244,4 +244,41 @@
 @media (max-width:767px){.ixw--office-ph .ix-intro-sec{padding-bottom:44px}}
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
-.ixw--office-ph .ixw-credits-wrap + .section{padding-top:22px!important}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the Taguig City sprint floor ==============================
+   Accent: Taguig teal. Themed touches kept: the sprint board lanes (flat cards, a coloured left edge), the merge line over the
+   build cards, the role tags in the hiring panel (no pins), the L9 badge, a quiet "?" chip in the FAQ. */
+body.ixw--office-ph{--calm-accent:#14A38B;--calm-accent-ink:#0E7A68;--calm-accent-line:#BFE3D9;--calm-accent-wash:#F2F9F7}
+@media (min-width:1200px){
+  body.ixw--office-ph .ixw-hero .ixw-copy{display:block!important}
+  body.ixw--office-ph .ixw-copy h1{font-size:clamp(2.15rem,3.5vw,3.25rem)}
+  body.ixw--office-ph .ixw-copy .actions{flex-direction:row!important;align-items:center!important}
+  body.ixw--office-ph .ixw-copy .lead .m-full{display:inline}body.ixw--office-ph .ixw-copy .lead .m-short{display:none}
+}
+body.ixw--office-ph .ixw-hero .ixw-copy::before,body.ixw--office-ph .ixw-hero .ixw-copy::after{display:none!important}
+body.ixw--office-ph .ph-card{rotate:none!important;box-shadow:0 1px 2px rgba(31,31,61,.05)}
+body.ixw--office-ph .ph-card::before{display:none}
+body.ixw--office-ph .ph-card:hover{translate:0 -2px}
+body.ixw--office-ph .ph-ship{background:var(--calm-accent-wash)!important}
+body.ixw--office-ph .ph-pr::before{opacity:.5}
+body.ixw--office-ph .ph-hire{border:1px solid var(--calm-line);background:#FFFFFF!important;box-shadow:var(--calm-shadow)}
+body.ixw--office-ph .ph-hire::before{height:3px;background:var(--ph-teal)}
+body.ixw--office-ph .ph-six{display:none}
+body.ixw--office-ph .ph-hire-list{gap:14px;padding-top:0}
+body.ixw--office-ph .ph-hire-list li{rotate:none!important;min-height:0;padding:16px 14px 14px;border:1px solid var(--calm-line);border-left:3px solid var(--ph-teal);box-shadow:none}
+body.ixw--office-ph .ph-hire-list li:nth-child(n+3){border-left-color:#3167CA}body.ixw--office-ph .ph-hire-list li:nth-child(n+5){border-left-color:#F08A24}
+body.ixw--office-ph .ph-hire-list li::before,body.ixw--office-ph .ph-hire-list li::after{display:none}
+body.ixw--office-ph .ph-hire-list li:hover{translate:0 -2px}
+body.ixw--office-ph .ph-faq{padding:0;background:none!important;box-shadow:none!important;border:0}
+body.ixw--office-ph .ph-faq details,body.ixw--office-ph .ph-faq details:nth-child(n){rotate:none!important;background:#FFFFFF!important;box-shadow:none!important}
+body.ixw--office-ph .ph-faq details::after{display:none}
+body.ixw--office-ph .ph-local{background:#FFFFFF!important;color:var(--ink)!important;border:1px solid var(--calm-line);border-left:3px solid var(--ph-teal);box-shadow:var(--calm-shadow);padding:20px 22px}
+body.ixw--office-ph .ph-local::before,body.ixw--office-ph .ph-local::after{display:none}
+body.ixw--office-ph .ph-local:hover{background:var(--calm-accent-wash)!important;color:var(--ink)!important}
+body.ixw--office-ph .ph-local b{color:var(--ink)!important}body.ixw--office-ph .ph-local small{color:var(--body)}
+body.ixw--office-ph .ph-local .btn-link{color:var(--ph-teal-d)!important}
+body.ixw--office-ph .ph-local-ic{background:#E6F6F2;color:var(--ph-teal-d)}
+body.ixw--office-ph .ixw-copy h1::after{display:none!important}
+body.ixw--office-ph .ph-board{background:#F2F9F7;box-shadow:none;border:1px solid var(--calm-line)}
+body.ixw--office-ph .ph-board::before,body.ixw--office-ph .ph-board::after{display:none}
+body.ixw--office-ph .ph-linked .co-city{border:1px solid var(--calm-line);border-left:3px solid var(--o);box-shadow:var(--calm-shadow)}

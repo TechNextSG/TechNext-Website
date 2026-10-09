@@ -426,6 +426,7 @@
       o.printer = function (g) { var p = T.printer; rr(g, p.x - 32, p.y - 14, 64, 44, 10); }; o.stand = function (g) { var s = T.stand; rr(g, s.x - 8, s.y - 8, 86, 166, 12); };
       o.balloons = function (g) { rr(g, 130, -70, 80, 110, 30); }; return o; })(),
     backGlow: ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'stand', 'balloons'],
+    calmView: [150, -60, 800, 640],
     cast: [
       { id: 'gre', behind: true, keys: [], P: GRE, act: actGre },
       { id: 'rec', behind: true, keys: ['r0', 'r1'], P: REC, act: actRec },
