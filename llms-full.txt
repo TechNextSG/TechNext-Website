@@ -453,18 +453,6 @@ There are two parts: Odoo licences, priced per user per month by Odoo, and the i
 
 Source: https://technext.asia/
 
-### Which Odoo apps should we start with?
-
-Most companies start with Accounting, Sales and Inventory, the apps where money and stock move, and add the rest once the first phase is running.
-
-Source: https://technext.asia/
-
-### Can we add Odoo apps later?
-
-Yes. Every Odoo app shares the same database, so adding an app later needs no integration project; it uses the customers, products and accounts already in Odoo.
-
-Source: https://technext.asia/
-
 ### Can Odoo do job costing for construction?
 
 Yes. Each job runs as a project with an analytic account, so purchases, subcontractor bills and timesheets land against it, and the project overview shows cost to date against budget.
@@ -740,6 +728,18 @@ Source: https://technext.asia/odoo/ai-integration
 Pricing is on quotation, scoped to the task and your Odoo setup. Request a quotation and we'll return a written scope.
 
 Source: https://technext.asia/odoo/ai-integration
+
+### Which Odoo apps should we start with?
+
+Most companies start with Accounting, Sales and Inventory, the apps where money and stock move, and add the rest once the first phase is running.
+
+Source: https://technext.asia/odoo/apps
+
+### Can we add Odoo apps later?
+
+Yes. Every Odoo app shares the same database, so adding an app later needs no integration project; it uses the customers, products and accounts already in Odoo.
+
+Source: https://technext.asia/odoo/apps
 
 ### Does TechNext implement every Odoo app?
 
