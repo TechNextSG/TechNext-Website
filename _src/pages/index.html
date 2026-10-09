@@ -1,53 +1,241 @@
-<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home is-calm", "scripts": ["assets/js/home.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home.css?v={ASSET_V}\">"} -->
-<!-- Calm homepage (Oct 2026). One clear hero, "where would you like to start" path cards, then a short page that builds
-     trust: how we work, industries, proof, blog, FAQ, closing call. The earlier animated carousel and the illustrated
-     sections are kept, unused, in _src/legacy/ (home-carousel-index.html / .css / .js) together with hero.js,
-     hero-scenes.js, hero-industries.js, home-street.js and hero.css, which this page no longer loads. -->
+<!--meta {"title": "Odoo Partner in Singapore — Odoo ERP & AI | TechNext", "desc": "TechNext is an Odoo Ready Partner in Singapore, with teams in the Philippines and Vietnam: Odoo ERP implementation, enterprise AI and company websites.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js", "assets/js/nexi-explains-cast.js", "assets/js/hero-industries.js", "assets/js/home.js"], "head": "<script>document.documentElement.classList.remove('intro')</script><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Bangers&display=swap\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/company.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home.css?v={ASSET_V}\">"} -->
+<!-- Homepage (Oct 2026): the original hero carousel (restored from tag pre-calm-2026-10-09: hero.js, hero-scenes.js,
+     hero-industries.js, hero.css, hero_skins.py), then the calm sections: where to start, how we work, industries, why
+     TechNext, blog, FAQ, closing call. The earlier illustrated sections below the hero are kept in _src/legacy/. -->
 
-<!-- ============================================================ HERO -->
-<section class="hc-hero" aria-labelledby="hc-h1">
-  <div class="container hc-hero-in">
-    <div class="hc-hero-copy">
-      <h1 id="hc-h1"><span class="hc-kicker"><img src="{{ROOT}}assets/img/logo-plane.png" alt="" width="20" height="17">TechNext · Odoo Ready Partner in Singapore</span>Odoo ERP, AI and technology for growing companies.</h1>
-      <p class="hc-lead">TechNext implements Odoo for growing companies — Accounting, Sales and Inventory first, then the rest of the suite as you need it.</p>
-      <div class="hc-actions">
-        <a class="btn btn-primary btn-lg" href="#talk">Book a discovery call {{icon:arrow}}</a>
-        <a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
-      </div>
-      <ul class="hc-proof" aria-label="TechNext at a glance">
-        <li class="hc-proof-odoo"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="82" height="40"></li>
-        <li><b>11+</b><span>enterprise clients</span></li>
-        <li><b>10+</b><span>countries</span></li>
-        <li><b>3</b><span>offices</span></li>
-      </ul>
-    </div>
+<!-- ============================================================ HERO CAROUSEL -->
+<section class="hero" data-hero data-root="{{ROOT}}" aria-roledescription="carousel" aria-label="TechNext highlights">
+  <p class="skip" data-hero-live aria-live="polite" aria-atomic="true"></p>
+  <div class="hero-bg" aria-hidden="true">
+    <div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
+    <div class="hero-grid"></div>
+    <div class="spotlight"></div>
+    <canvas class="particles"></canvas>
+  </div>
+  <!-- while the Nexi Explains slide is on, the band around it (controls, marquee) turns its navy (.hero.is-nxs);
+       the slide's own comic sky and the circle transition live on slide 6 itself (.nxs-sky, data-slide-circle) -->
+  <div class="nxs-bg" aria-hidden="true"></div>
+  <div class="nxs-fx" aria-hidden="true"><span class="nxs-burst"><b data-nxs-fx>BAM!</b></span></div>
 
-    <div class="hc-visual" aria-hidden="true">
-      <div class="hc-dash">
-        <div class="hc-dash-bar"><span class="hc-dots"><i></i><i></i><i></i></span><span>Odoo · one database</span><em>Sample data</em></div>
-        <div class="hc-dash-body">
-          <div class="hc-apps">
-            <span>{{odoo:accountant:28}}<small>Accounting</small></span>
-            <span>{{odoo:sale:28}}<small>Sales</small></span>
-            <span>{{odoo:stock:28}}<small>Inventory</small></span>
-            <span>{{odoo:crm:28}}<small>CRM</small></span>
+  <div class="hero-track">
+
+    <!-- Slide 1 · kinetic type + every Odoo app rushing into two tilted orbits around the live dashboard -->
+    <article class="slide is-active" data-slide-dash data-title="Odoo ERP, implemented by TechNext" aria-roledescription="slide">
+      <div class="container slide-inner si-cine">
+        <div class="slide-copy">
+          <h1 class="slide-tag up" style="--d:0ms"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt=""><span class="sep"></span>Odoo Ready Partner in Singapore, the Philippines &amp; Vietnam</h1>
+          <h2 class="as-h1">
+            <span class="kw" style="--i:0"><span>Run your</span></span>
+            <span class="kw" style="--i:1"><span class="rot"><b class="is-on">accounts<span class="sr-only">,</span> </b><b>sales<span class="sr-only">,</span> </b><b>stock<span class="sr-only">,</span> </b><b>purchasing<span class="sr-only"> and</span> </b><b>invoicing </b></span></span><br>
+            <span class="kw" style="--i:2"><span>on</span></span>
+            <span class="kw" style="--i:3"><span class="hl">one system.</span></span>
+          </h2>
+          <p class="lead up" style="--d:480ms">TechNext implements Odoo for growing companies — Accounting, Sales and Inventory first, then the rest of the suite as you need it.</p>
+          <div class="actions up" style="--d:580ms">
+            <a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a>
+            <a class="btn btn-ghost btn-lg" href="{{ROOT}}odoo/discovery.html">How we work</a>
           </div>
-          <div class="hc-kpis">
-            <div><small>Orders this week</small><b>62</b><em>+9% vs last</em></div>
-            <div><small>Invoices due</small><b>14</b><em class="is-warn">3 overdue</em></div>
-            <div><small>Bank lines matched</small><b>38</b><em>today</em></div>
+          <div class="spec-strip up" style="--d:700ms" role="group" aria-label="Focus apps — click to learn more">
+            <button class="spec" type="button" data-app="accountant">{{odoo:accountant:36}}<span><b>Accounting</b><span>Journals · bank sync · tax</span></span></button>
+            <button class="spec" type="button" data-app="sale">{{odoo:sale:36}}<span><b>Sales</b><span>Quote → order → invoice</span></span></button>
+            <button class="spec" type="button" data-app="stock">{{odoo:stock:36}}<span><b>Inventory</b><span>Stock · barcodes · replenishment</span></span></button>
           </div>
-          <div class="hc-chart"><small>Revenue · last 12 weeks</small><div class="hc-bars"><i style="--h:38%"></i><i style="--h:46%"></i><i style="--h:42%"></i><i style="--h:58%"></i><i style="--h:52%"></i><i style="--h:64%"></i><i style="--h:60%"></i><i style="--h:72%"></i><i style="--h:68%"></i><i style="--h:80%"></i><i style="--h:76%"></i><i style="--h:88%"></i></div></div>
-          <ol class="hc-feed">
-            <li>{{odoo:sale:20}}<span><b>S00419</b> signed, order confirmed</span><time>now</time></li>
-            <li>{{odoo:stock:20}}<span><b>PO00088</b> raised by a reorder rule</span><time>2 min</time></li>
-            <li>{{odoo:accountant:20}}<span><b>38</b> bank lines matched</span><time>today</time></li>
-          </ol>
+          <nav class="m-visual" aria-label="Focus apps">
+            <a href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:32}}<span><b>Accounting</b><small>Books, bank feeds, tax</small></span>{{icon:arrow}}</a>
+            <a href="{{ROOT}}odoo/apps/sale.html">{{odoo:sale:32}}<span><b>Sales</b><small>Quotation to invoice</small></span>{{icon:arrow}}</a>
+            <a href="{{ROOT}}odoo/apps/stock.html">{{odoo:stock:32}}<span><b>Inventory</b><small>Stock and purchasing</small></span>{{icon:arrow}}</a>
+          </nav>
+        </div>
+
+        <div class="dash-wrap cine up" style="--d:140ms" data-cine>
+          <canvas class="cine-fx" aria-hidden="true"></canvas>
+          <svg class="cine-rings cine-rings--back" aria-hidden="true"></svg>
+          <div class="cine-core">
+            <div class="dash" aria-hidden="true">
+              <div class="dash-bar"><i></i><i></i><i></i> Odoo · one database <span><i class="live"></i> sample data</span></div>
+              <div class="dash-body">
+                <div class="kpis">
+                  <div class="kpi">{{odoo:sale:22}}<small>Orders this week</small><b data-count="62">0</b><em>+9% vs last</em></div>
+                  <div class="kpi">{{odoo:account:22}}<small>Invoices due</small><b data-count="14">0</b><em>3 overdue</em></div>
+                  <div class="kpi">{{odoo:spreadsheet_dashboard:22}}<small>Auto hand-offs</small><b data-count="128" data-cine-hand>0</b><em>typed twice: 0</em></div>
+                </div>
+                <div class="chart"><i style="--h:38%;--i:0"></i><i style="--h:46%;--i:1"></i><i style="--h:42%;--i:2"></i><i style="--h:58%;--i:3"></i><i style="--h:52%;--i:4"></i><i style="--h:64%;--i:5"></i><i style="--h:60%;--i:6"></i><i style="--h:72%;--i:7"></i><i style="--h:68%;--i:8"></i><i style="--h:80%;--i:9"></i><i style="--h:76%;--i:10"></i><i style="--h:88%;--i:11"></i></div>
+                <ol class="cine-feed">
+                  <li>{{odoo:sale:18}}<span><b>S00419</b> signed, order confirmed</span><time>now</time></li>
+                  <li>{{odoo:stock:18}}<span><b>PO00088</b> raised by a reorder rule</span><time>2 min</time></li>
+                  <li>{{odoo:accountant:18}}<span><b>38</b> bank lines matched</span><time>today</time></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <svg class="cine-rings cine-rings--front" aria-hidden="true"></svg>
+          <div class="cine-apps" role="group" aria-label="Odoo apps TechNext implements, orbiting one database: select an app for details">
+            <button class="cine-app cine-app--r0" type="button" data-app="accountant" data-ring="0" aria-label="Accounting">{{odoo:accountant:30}}<span class="cine-tag"><b>Accounting</b><small>Books, bank, tax</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="sale" data-ring="0" aria-label="Sales">{{odoo:sale:30}}<span class="cine-tag"><b>Sales</b><small>Quote to invoice</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="stock" data-ring="0" aria-label="Inventory">{{odoo:stock:30}}<span class="cine-tag"><b>Inventory</b><small>Stock and warehouses</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="crm" data-ring="0" aria-label="CRM">{{odoo:crm:30}}<span class="cine-tag"><b>CRM</b><small>Leads and pipeline</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="purchase" data-ring="0" aria-label="Purchase">{{odoo:purchase:30}}<span class="cine-tag"><b>Purchase</b><small>Vendors and RFQs</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="mrp" data-ring="0" aria-label="Manufacturing">{{odoo:mrp:30}}<span class="cine-tag"><b>Manufacturing</b><small>Bills of materials</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="point_of_sale" data-ring="0" aria-label="Point of Sale">{{odoo:point_of_sale:30}}<span class="cine-tag"><b>Point of Sale</b><small>Shops and restaurants</small></span></button>
+            <button class="cine-app cine-app--r0" type="button" data-app="website_sale" data-ring="0" aria-label="eCommerce">{{odoo:website_sale:30}}<span class="cine-tag"><b>eCommerce</b><small>Online store</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="project" data-ring="1" aria-label="Project">{{odoo:project:22}}<span class="cine-tag"><b>Project</b><small>Tasks and milestones</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="helpdesk" data-ring="1" aria-label="Helpdesk">{{odoo:helpdesk:22}}<span class="cine-tag"><b>Helpdesk</b><small>Tickets and SLAs</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="hr" data-ring="1" aria-label="Employees">{{odoo:hr:22}}<span class="cine-tag"><b>Employees</b><small>People and contracts</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="ai_app" data-ring="1" aria-label="AI">{{odoo:ai_app:22}}<span class="cine-tag"><b>AI</b><small>Assistants and agents</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="mass_mailing" data-ring="1" aria-label="Email Marketing">{{odoo:mass_mailing:22}}<span class="cine-tag"><b>Email Marketing</b><small>Campaigns to CRM lists</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="documents" data-ring="1" aria-label="Documents">{{odoo:documents:22}}<span class="cine-tag"><b>Documents</b><small>Files and OCR</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="sign" data-ring="1" aria-label="Sign">{{odoo:sign:22}}<span class="cine-tag"><b>Sign</b><small>E-signatures</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="hr_expense" data-ring="1" aria-label="Expenses">{{odoo:hr_expense:22}}<span class="cine-tag"><b>Expenses</b><small>Receipts and claims</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="planning" data-ring="1" aria-label="Planning">{{odoo:planning:22}}<span class="cine-tag"><b>Planning</b><small>Shifts and rosters</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="knowledge" data-ring="1" aria-label="Knowledge">{{odoo:knowledge:22}}<span class="cine-tag"><b>Knowledge</b><small>Wiki and procedures</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="social" data-ring="1" aria-label="Social Marketing">{{odoo:social:22}}<span class="cine-tag"><b>Social Marketing</b><small>Posts and social leads</small></span></button>
+            <button class="cine-app cine-app--r1" type="button" data-app="web_studio" data-ring="1" aria-label="Studio">{{odoo:web_studio:22}}<span class="cine-tag"><b>Studio</b><small>Fields and automations</small></span></button>
+          </div>
+          <p class="cine-hint" aria-hidden="true">{{icon:refresh}}Drag to spin · select an app</p>
         </div>
       </div>
-    </div>
+    </article>
+
+    <!-- Slide 2 · lead-to-cash process map: five departments, four decisions, loops and forks, live tokens -->
+    <article class="slide slide--map" data-slide-flow data-title="Lead to cash across five departments" aria-roledescription="slide">
+      <div class="container slide-inner si-stack">
+        <div class="slide-copy sc-row">
+          <div>
+            <span class="slide-tag up" style="--d:0ms">{{icon:layers}} How the apps hand off</span>
+            <h2 class="as-h1">
+              <span class="kw" style="--i:0"><span>From</span></span>
+              <span class="kw" style="--i:1"><span>lead</span></span>
+              <span class="kw" style="--i:2"><span>to</span></span>
+              <span class="kw" style="--i:3"><span class="hl">reconciled</span></span>
+              <span class="kw" style="--i:4"><span class="hl">cash,</span></span><br>
+              <span class="kw" style="--i:5"><span>across</span></span>
+              <span class="kw" style="--i:6"><span>five</span></span>
+              <span class="kw" style="--i:7"><span>departments.</span></span>
+            </h2>
+          </div>
+          <div class="sc-side up" style="--d:420ms">
+            <p class="lead">One Odoo database runs the whole chain. Orders reserve stock or trigger purchasing and manufacturing; deliveries, vendor bills and payments land in the books. TechNext configures every hand-off.</p>
+            <div class="actions">
+              <a class="btn btn-primary btn-lg" href="#talk">Book a discovery call</a>
+              <a class="btn-link" href="{{ROOT}}odoo/discovery.html">How we map your process {{icon:arrow}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="pmap up" style="--d:220ms" data-pmap>
+          <div class="pm-scen" role="group" aria-label="Run one scenario">
+            <button type="button" data-scen="all" aria-pressed="true">All flows</button>
+            <button type="button" data-scen="stock" aria-pressed="false"><i class="pm-sw pm-sw--stock"></i>Ship from stock</button>
+            <button type="button" data-scen="buy" aria-pressed="false"><i class="pm-sw pm-sw--buy"></i>Buy to order</button>
+            <button type="button" data-scen="make" aria-pressed="false"><i class="pm-sw pm-sw--make"></i>Make to order</button>
+            <button type="button" data-scen="late" aria-pressed="false"><i class="pm-sw pm-sw--late"></i>Late payer</button>
+          </div>
+          <div class="pm-view">
+            <div class="pm-cam">
+              <div class="pm-lanes" aria-hidden="true">
+              <div class="pm-lane"><span class="pm-lname">{{odoo:crm:20}}<b>Sales</b></span></div>
+              <div class="pm-lane"><span class="pm-lname">{{odoo:stock:20}}<b>Warehouse</b></span></div>
+              <div class="pm-lane"><span class="pm-lname">{{odoo:mrp:20}}<b>Production</b></span></div>
+              <div class="pm-lane"><span class="pm-lname">{{odoo:purchase:20}}<b>Purchasing</b></span></div>
+              <div class="pm-lane"><span class="pm-lname">{{odoo:accountant:20}}<b>Finance</b></span></div>
+              </div>
+              <svg class="pm-svg" aria-hidden="true"></svg>
+              <div class="pm-elabels" aria-hidden="true"></div>
+              <div class="pm-nodes" role="group" aria-label="Lead-to-cash process in Odoo across sales, warehouse, production, purchasing and finance: select a step for details">
+              <button class="pm-node" type="button" data-pn="lead" data-flow="0" style="grid-area:1/1"><span class="pm-ic">{{odoo:crm:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Lead</b></button>
+              <button class="pm-node" type="button" data-pn="quote" data-flow="1" style="grid-area:1/2"><span class="pm-ic">{{odoo:sale:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Quotation</b></button>
+              <button class="pm-node pm-gate" type="button" data-pn="g_sign" data-flow="2" style="grid-area:1/3"><span class="pm-ic"><i class="pm-dia"></i><span class="pm-n" aria-hidden="true"></span></span><b>Signed?</b></button>
+              <button class="pm-node" type="button" data-pn="order" data-flow="3" style="grid-area:1/4"><span class="pm-ic">{{odoo:sale:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Sales order</b></button>
+              <button class="pm-node pm-gate" type="button" data-pn="g_stock" data-flow="4" style="grid-area:2/4"><span class="pm-ic"><i class="pm-dia"></i><span class="pm-n" aria-hidden="true"></span></span><b>In stock?</b></button>
+              <button class="pm-node" type="button" data-pn="mo" data-flow="5" style="grid-area:3/5"><span class="pm-ic">{{odoo:mrp:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Manufacturing order</b></button>
+              <button class="pm-node pm-gate" type="button" data-pn="g_qc" data-flow="6" style="grid-area:3/6"><span class="pm-ic"><i class="pm-dia"></i><span class="pm-n" aria-hidden="true"></span></span><b>Quality OK?</b></button>
+              <button class="pm-node" type="button" data-pn="po" data-flow="7" style="grid-area:4/5"><span class="pm-ic">{{odoo:purchase:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Purchase order</b></button>
+              <button class="pm-node" type="button" data-pn="receipt" data-flow="8" style="grid-area:4/6"><span class="pm-ic">{{odoo:stock:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Receipt</b></button>
+              <button class="pm-node" type="button" data-pn="vbill" data-flow="9" style="grid-area:5/6"><span class="pm-ic">{{odoo:account:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Vendor bill</b></button>
+              <button class="pm-node" type="button" data-pn="vpay" data-flow="10" style="grid-area:5/7"><span class="pm-ic">{{odoo:accountant:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Pay vendor</b></button>
+              <button class="pm-node" type="button" data-pn="pick" data-flow="11" style="grid-area:2/7"><span class="pm-ic">{{odoo:stock:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Pick &amp; pack</b></button>
+              <button class="pm-node" type="button" data-pn="ship" data-flow="12" style="grid-area:2/8"><span class="pm-ic">{{odoo:stock:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Delivery</b></button>
+              <button class="pm-node" type="button" data-pn="inv" data-flow="13" style="grid-area:5/8"><span class="pm-ic">{{odoo:account:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Invoice</b></button>
+              <button class="pm-node pm-gate" type="button" data-pn="g_paid" data-flow="14" style="grid-area:5/9"><span class="pm-ic"><i class="pm-dia"></i><span class="pm-n" aria-hidden="true"></span></span><b>Paid?</b></button>
+              <button class="pm-node" type="button" data-pn="recon" data-flow="15" style="grid-area:5/10"><span class="pm-ic">{{odoo:accountant:24}}<span class="pm-n" aria-hidden="true"></span></span><b>Bank reconcile</b></button>
+              <button class="pm-node" type="button" data-pn="reports" data-flow="16" style="grid-area:5/11"><span class="pm-ic">{{odoo:spreadsheet_dashboard:24}}<span class="pm-n" aria-hidden="true"></span></span><b>P&amp;L, GST, cash</b></button>
+              </div>
+              <div class="pm-live" aria-hidden="true">
+                <dl class="pm-kpis">
+                  <div><dt>In flight</dt><dd data-k="flight">0</dd></div>
+                  <div><dt>Automatic hand-offs</dt><dd data-k="hand">0</dd></div>
+                  <div class="pm-k0"><dt>Typed twice</dt><dd>0</dd></div>
+                </dl>
+                <ol class="pm-log"></ol>
+              </div>
+            </div>
+          </div>
+          <p class="pm-hint" aria-hidden="true">{{icon:expand}} Select any step · sample simulation</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Slide 3 · the industries showcase: every industry world on one screen (its real scene, Nexi in costume, the
+         sample business and three workflow steps), a channel strip of the eight badges. Markup: worlds.showcase_html();
+         behaviour: hero-industries.js. -->
+    <article class="slide slide--inds" data-slide-inds data-title="Odoo for your industry" data-dur="16000" aria-roledescription="slide">
+      {{IND_SHOWCASE}}
+    </article>
+
+    <!-- Slide 4 · Nexi Explains, TechNext's animated series: an "on air" TV cycles the premiering episodes with a
+         live countdown, the strip under it switches the TV, and Nexi (3D on desktop, drawn on phones) shows it off.
+         Episodes and dates come from _src/nexi_explains.py; the scene lives in hero-scenes.js (Explains). -->
+    <article class="slide slide--nxs" data-slide-circle data-title="Nexi Explains, TechNext’s animated series" data-dur="16000" aria-roledescription="slide">
+      <div class="nxs-sky" aria-hidden="true">
+      <span class="nxs-rays"></span><span class="nxs-dots"></span><span class="nxs-speed"></span>
+      <span class="nxs-fl nxs-fl--1">{{odoo:sale:30}}</span>
+      <span class="nxs-fl nxs-fl--2">{{odoo:accountant:30}}</span>
+      <span class="nxs-boom">NEW!</span>
+      <i class="nxs-tw nxs-tw--1">✦</i><i class="nxs-tw nxs-tw--2">✦</i><i class="nxs-tw nxs-tw--3">✦</i><i class="nxs-tw nxs-tw--4">✦</i>
+      </div>
+      <div class="container slide-inner si-nxs">
+        <div class="slide-copy">
+          <span class="slide-tag up" style="--d:0ms">{{icon:play}} New series · Nexi Explains</span>
+          <h2 class="as-h1">
+            <span class="kw" style="--i:0"><span>Odoo,</span></span>
+            <span class="kw" style="--i:1"><span>AI</span></span>
+            <span class="kw" style="--i:2"><span>&amp;</span></span>
+            <span class="kw" style="--i:3"><span>tech,</span></span><br>
+            <span class="kw" style="--i:4"><span class="hl">explained</span></span>
+            <span class="kw" style="--i:5"><span class="hl">by</span></span>
+            <span class="kw" style="--i:6"><span class="hl">Nexi.</span></span>
+          </h2>
+          <p class="lead up" style="--d:520ms">Short animated episodes starring Nexi, TechNext’s AI companion: what Odoo is, the apps companies start with, AI that does the busywork and the people side of change. New episodes every week on YouTube.</p>
+          <div class="pill-row up" style="--d:620ms">{{NXE_SLIDE_PILLS}}</div>
+          <div class="actions up" style="--d:720ms">
+            <a class="btn btn-primary btn-lg" href="{{ROOT}}nexi-explains.html">{{icon:play}} Watch Nexi Explains</a>
+            <a class="btn btn-ghost btn-lg" href="{{NXE_SUBSCRIBE}}" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          </div>
+        </div>
+        {{NXE_SLIDE_STAGE}}
+      </div>
+    </article>
   </div>
+
+  <div class="hero-ctl">
+   <div class="hero-ctl-inner">
+    <button class="icon-btn hero-arrow hero-arrow--prev" type="button" data-hero-prev aria-label="Previous slide">{{icon:arrow}}</button>
+    <div class="dots" role="tablist" aria-label="Choose slide">
+      <button class="dot" type="button" role="tab" aria-selected="true" aria-label="Slide 1: Odoo ERP, implemented"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: One flow from quotation to cash"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Odoo Partner"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: Nexi Explains"></button>
+    </div>
+    <button class="icon-btn hero-arrow" type="button" data-hero-next aria-label="Next slide">{{icon:arrow}}</button>
+    <button class="icon-btn hero-arrow hero-pp" type="button" data-hero-pp aria-pressed="false" aria-label="Pause the slides">{{icon:pause}}{{icon:play}}</button>
+    <button class="icon-btn hero-arrow hero-voice" type="button" data-nexi-voice aria-pressed="false" aria-label="Nexi’s voice">{{icon:mute}}{{icon:volume}}</button>
+   </div>
+  </div>
+
+  <div class="hero-marquee" aria-label="Odoo apps we implement">{{MARQUEE}}</div>
 </section>
+
+<div class="pop-backdrop" hidden></div>
+<div class="pop" role="dialog" aria-modal="true" aria-label="Details" hidden></div>
 
 <!-- ============================================================ WHERE TO START: the four practices as path cards -->
 <section class="section hc-paths" id="solutions" aria-labelledby="hc-paths-h">
