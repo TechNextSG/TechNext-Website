@@ -569,6 +569,7 @@
     glow: (function () { var o = {}; SYS.forEach(function (s) { o[s.key] = function (g) { rr(g, s.x - 8, s.y - 8, 164, 68, 14); }; });
       o.lever = function (g) { rr(g, T.lever.x - 52, F - 112, 104, 116, 14); }; return o; })(),
     backGlow: ['store', 'market', 'pay', 'bank', 'mail', 'api'],
+    calmView: [125, -40, 750, 600],
     cast: [
       { id: 'en1', behind: true, keys: ['store', 'pay'], P: EN1, act: en1 },
       { id: 'en2', behind: true, keys: ['bank', 'mail'], P: EN2, act: en2 },

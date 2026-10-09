@@ -5,6 +5,10 @@ Each world is its own scene (assets/js/worlds/<world>.js, assets/css/worlds/<wor
 Hotspot coordinates are set units (1000 x 600, floor 470): --x/--y are the centre."""
 
 WORLD = {"accountant": "app-acc", "sale": "app-sales", "stock": "app-stock"}
+# The calm layer (9 Oct 2026): the "who implements it" facts band repeats the hero facts strip, and the CTA's themed
+# illustration crowds the one end card, so both stay out while CALM is on. False brings them back as they were.
+CALM = True
+STEP_NO = {"accountant": lambda n: f"JE {n:02d}", "sale": lambda n: f"{n:02d}", "stock": lambda n: f"G{n}"}
 
 
 def _btn(kind, d):
@@ -293,10 +297,16 @@ def dress(mod: str, content: str) -> str:
             chunk = chunk.replace('class="section', f'data-aw="{tag}" class="aw-sec section', 1)
             if tag == "impl":
                 chunk = chunk.replace('<ul class="checks" style="margin:0">', '<ul class="checks aw-steps">', 1)
-                chunk = chunk.replace("</section>", "</section>\n\n" + _facts(mod), 1)
+                if not CALM:
+                    chunk = chunk.replace("</section>", "</section>\n\n" + _facts(mod), 1)
+                else:   # the step numbers as real markup (calm-gen.css drops generated ::before text)
+                    i0 = chunk.index('<ul class="checks aw-steps">'); i1 = chunk.index("</ul>", i0)
+                    lis = chunk[i0:i1].split("<li>")
+                    lis = lis[:1] + [f'<span class="aw-n">{STEP_NO[mod](k + 1)}</span>{li}' for k, li in enumerate(lis[1:])]
+                    chunk = chunk[:i0] + "<li>".join(lis) + chunk[i1:]
             elif tag == "answer":
                 chunk = chunk.replace("</section>", "</section>\n\n" + _band(mod), 1)
-            elif tag == "cta":
+            elif tag == "cta" and not CALM:
                 chunk = chunk.replace('<div class="cta reveal">', f'<div class="cta reveal"><div class="aw-cta-art" aria-hidden="true">{th["cta_art"]}</div>', 1)
         out.append(chunk)
     content = "<section ".join(out)
