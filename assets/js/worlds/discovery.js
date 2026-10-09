@@ -405,6 +405,7 @@
         var bx = w.x + ((t * 22 + wi * 300) % (w.w + 200)) - 100, by = w.y + 150 + Math.sin(t * 0.7 + wi) * 14; g.strokeStyle = '#4A5A78'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(bx - 6, by - 2 + Math.sin(t * 9) * 2); g.lineTo(bx, by); g.lineTo(bx + 6, by - 2 + Math.sin(t * 9) * 2); g.stroke(); g.restore(); });
     },
     paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: paintForeLive,
+    calmView: [230, -120, 750, 600],
     moteCol: 'rgba(216,172,116,.35)',
     glow: {
       o2c: function (g) { rr(g, CB.x + 12, laneY(0) - 26, 480, 52, 10); },

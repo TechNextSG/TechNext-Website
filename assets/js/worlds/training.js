@@ -362,6 +362,7 @@
       guide: function (g) { var io = T.ios; rr(g, io.x + 40, io.y - 28, 60, 30, 8); }
     },
     backGlow: ['database', 'guides', 'schedule', 'cert', 'guide'],
+    calmView: [190, -110, 750, 600],
     cast: [
       { id: 'tr', behind: false, keys: ['database'], P: TR, act: function (P, t, S) { var st = S.cast.tr, on = ['finance', 'sales', 'warehouse', 'database'].indexOf(S.hot), cyc = (t + 1) % 10;
         /* idle: walks the aisle, checks the tablet, points at the simulator screen */

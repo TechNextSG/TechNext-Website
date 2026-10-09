@@ -394,6 +394,7 @@
       takeoff: function (g) { rr(g, T.rwy.th - 52, T.rwy.y0 - 32, 108, 60, 14); }
     },
     backGlow: ['fix', 'change', 'monthend', 'upgrade', 'channel', 'takeoff'],
+    calmView: [140, -130, 900, 720],
     cast: [
       { id: 'ag1', behind: true, keys: ['fix', 'monthend', 'team'], P: AG1, act: ag1 },
       { id: 'ag2', behind: true, keys: ['change', 'team'], P: AG2, act: ag2 },

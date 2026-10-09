@@ -527,6 +527,7 @@
       bell: function (g) { rr(g, BELL.x - 24, BELL.y - 30, 48, 56, 22); }
     },
     backGlow: ['sources', 'stages', 'scoring', 'won', 'quote', 'bell'],
+    calmView: [240, -20, 750, 600],
     cast: [castTN, castR1, castR2, castMGR, castSAL, castRK],
     toy: function (name, S, t) { if (name === 'bell') { BELLS.t = t; BELLS.big = true; CR.burst('conf', BELL.x, BELL.y - 20, t); WAVE.t = t; WAVE.x0 = BELL.x; } },
     hit: function (x, y, S, t, onBtn) {
