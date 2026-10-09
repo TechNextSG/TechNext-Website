@@ -375,6 +375,7 @@
       lights: function (g) { rr(g, 806, -122, 160, 36, 12); }, cannon: function (g) { rr(g, 974, 352, 38, 84, 10); }
     },
     backGlow: ['next', 'booths', 'timeline', 'past', 'online'],
+    calmView: [190, -60, 790, 632],
     cast: [
       { id: 'vns', behind: true, keys: ['booths'], P: VNS, act: actVn },
       { id: 'host', behind: true, keys: ['register'], P: HOST, act: actHost },

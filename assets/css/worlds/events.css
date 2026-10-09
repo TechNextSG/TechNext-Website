@@ -252,3 +252,20 @@
 .ixw--events .ev-cloth::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;color:#FFFFFF;font:800 2.4rem/1 var(--font-display);opacity:.85}
 .ixw--events .ev-empty-booth:hover .ev-cloth{transform:rotateX(18deg) translateY(-4px)}
 @media (max-width:599px){.ixw--events .ev-empty-booth{grid-template-columns:1fr;padding:22px 20px;gap:16px;text-align:center}.ixw--events .ev-empty-booth p{margin:0 auto}}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% Hall A ==============================
+   Accent: the hall's Odoo-plum, used for the date stubs and small tags. Themed touches kept: the admission-ticket stub on the
+   next event, the date stubs on the agenda, the timeline dot for today. Hall signs, easels, wristband buttons are gone;
+   the event buttons are TechNext blue. */
+body.ixw--events{--calm-accent:#714B67;--calm-accent-ink:#5A3651;--calm-accent-line:#DCCBD6;--calm-accent-wash:#F9F7FA}
+body.ixw--events .ev-head::before{display:none!important}
+body.ixw--events .ev-head{padding-top:0!important}
+body.ixw--events .ev-go{background:#3167CA;border-radius:10px}
+body.ixw--events .ev-go:hover{background:#1E4691}
+body.ixw--events .ev-old .ev-go{background:#5C6784}
+body.ixw--events .ev-ticket{border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)}
+body.ixw--events .ev-ticket-side{background:#F9F7FA}
+body.ixw--events .ev-pulse{animation:none}
+body.ixw--events .ev-easel{display:none}
+body.ixw--events .ev-empty-booth{grid-template-columns:1fr;border:1px solid var(--calm-line)!important;border-left:3px solid #714B67!important;box-shadow:none;background:#FFFFFF}
+body.ixw--events .ev-empty-booth[data-kind="joining"]{border-left-color:#E2553D!important}
