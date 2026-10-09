@@ -52,7 +52,6 @@
     pending = href || null;
     var leave = box.querySelector('[data-exit-leave]');
     leave.hidden = !pending;
-    if (pending) leave.setAttribute('href', pending);
     fill();
     lastFocus = document.activeElement;
     box.hidden = false;
@@ -75,6 +74,7 @@
 
   box.addEventListener('click', function (e) {
     if (e.target.closest('[data-exit-close]')) { close(); return; }
+    if (e.target.closest('[data-exit-leave]') && pending) { location.href = pending; return; }
     var go = e.target.closest('[data-exit-go]');
     if (go) { track('exit_popup_' + go.getAttribute('data-exit-go')); setTimeout(close, 150); }
   });
