@@ -410,6 +410,7 @@
       camera: function (g) { var c = T.cam; rr(g, c.x - 40, c.y - 10, 140, 74, 12); }
     },
     backGlow: ['o20', 'news', 'erp', 'markets', 'events', 'onair', 'camera'],
+    calmView: [140, -110, 800, 640],
     cast: [
       { id: 'fm', behind: true, keys: [], P: FM, act: actFm },
       { id: 'anc', behind: true, keys: ['o20', 'news'], P: ANC, act: actAnc },

@@ -540,6 +540,7 @@
       ai: function (g) { var h = T.holo; rr(g, h.x - 26, h.y - 190, h.w + 52, F - h.y + 196, 16); },
       'clock-sg': function (g) { rr(g, BAY.sg.x - 80, -83, 160, 56, 28); }, 'clock-ph': function (g) { rr(g, BAY.ph.x - 80, -83, 160, 56, 28); }, 'clock-vn': function (g) { rr(g, BAY.vn.x - 80, -83, 160, 56, 28); }
     },
+    calmView: [238, -100, 775, 620],
     backGlow: ['discovery', 'configure', 'support', 'clock-sg', 'clock-ph', 'clock-vn', 'train'],
     cast: [
       /* the consultant: writes on the board, steps back to think, turns to explain; a tap slaps a sticky note on the board or twirls her marker */

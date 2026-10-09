@@ -147,3 +147,18 @@ html:not(.bc-on) .bc-src{display:grid}
 .th-cta-ids i::before{content:"";position:absolute;left:50%;top:-32px;width:3px;height:32px;margin-left:-1.5px;background:#FFD84A}
 .th-cta-ids i+i{left:56px;rotate:7deg;top:22px}
 @media (max-width:1099px){.th-cta-ids{display:none}}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the ID station ==============================
+   Accent: the ID's yellow, kept to the country chips and a thin rule. Themed touches kept: the lanyard rail and straps over a
+   light rack, the numbered anatomy pins, the office codes on white card-back panels. Station file tags are gone. */
+body.ixw--team{--calm-accent:#3167CA;--calm-accent-ink:#1E4691;--calm-accent-line:#C9D7F1;--calm-accent-wash:#F7F9FD}
+body.ixw--team .th-head::after{display:none!important}
+body.ixw--team .idc-rack{background:#F7F9FD;box-shadow:none;border:1px solid var(--calm-line)}
+body.ixw--team .idc-rail{box-shadow:none}
+body.ixw--team .th-office{background:#FFFFFF;color:var(--ink);border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)}
+body.ixw--team .th-office:hover{translate:0 -2px}
+body.ixw--team .th-office::after{color:#3167CA;opacity:.06}
+body.ixw--team .th-office::before{height:3px}
+body.ixw--team .th-office h3{color:var(--ink)}
+body.ixw--team .th-office p{color:var(--body)}
+body.ixw--team .th-office address{color:var(--muted)}

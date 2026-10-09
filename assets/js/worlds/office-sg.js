@@ -331,6 +331,7 @@
       logo: function (g) { rr(g, 96, -6, 262, 112, 20); }
     },
     backGlow: ['discovery', 'training', 'onsite', 'partner', 'coffee', 'clock', 'logo'],
+    calmView: [112, -70, 820, 656],
     cast: [
       /* the receptionist: types, takes a call, stamps passes, waves; a tap prints a visitor pass or rings the bell */
       { id: 'rec', behind: true, keys: ['welcome'], P: REC, act: function (P, t, S) { var st = S.cast.rec, tp = COL.tap(st, t), c = (t + 0.5) % 10, k2 = Math.abs(Math.sin(t * 8)) * 6;

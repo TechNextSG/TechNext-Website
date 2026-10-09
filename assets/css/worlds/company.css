@@ -371,3 +371,38 @@
 /* ---------- section join (fix round): Nexi's answer box sits whole above the next section, with room under it ---------- */
 .ixw--company .ix-intro-sec{position:relative;z-index:2;padding-bottom:24px}
 @media (max-width:767px){.ixw--company .ix-intro-sec{padding-bottom:20px}}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the office floor ==============================
+   The company page IS TechNext, so the accent stays brand blue; the office's three city colours (SG blue, Taguig teal, HCMC
+   orange) come back only as thin rules. Themed touches kept: the room number on the service cards, the hanging-frame wire on
+   the rules, the doorways into each world (short, no Nexi), the directory board. Selectors carry body. so they beat calm-gen. */
+body.ixw--company{--calm-accent:#3167CA;--calm-accent-ink:#1E4691;--calm-accent-line:#C9D7F1;--calm-accent-wash:#F3F7FE}
+body.ixw--company .ixw-hero .ixw-frame{border-bottom:4px solid transparent;border-image:var(--co-tri) 1;border-image-slice:0 0 1 0}
+/* rooms: white cards, a city-colour rule and a quiet room number */
+body.ixw--company .co-rooms .card{border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;padding-top:44px}
+body.ixw--company .co-rooms .card::before{background:#EEF3FB;color:#5C6784;border-radius:999px;font-weight:700;letter-spacing:.1em}
+body.ixw--company .co-rooms .card:hover{box-shadow:var(--calm-shadow-h)!important;translate:none}
+body.ixw--company .co-rooms .card .tag{margin-top:10px;align-self:flex-start}
+/* rules: a framed print hanging on a thin wire, no heavy frame */
+body.ixw--company .co-rules .card{border:1px solid var(--calm-line)!important;border-top:3px solid var(--co-sg)!important;border-radius:14px!important;box-shadow:var(--calm-shadow)!important;margin-top:26px;rotate:none;transform:none}
+body.ixw--company .co-rules .card:nth-child(2){border-top-color:var(--co-ph)!important}
+body.ixw--company .co-rules .card:nth-child(3){border-top-color:var(--co-vn)!important}
+body.ixw--company .co-rules .card::before{top:-30px;height:24px;opacity:.55}
+body.ixw--company .co-rules .card::after{top:-34px;width:8px;height:8px;margin-left:-4px;box-shadow:none}
+body.ixw--company .co-rules .card-ic{width:44px;height:44px;border-radius:12px;background:#EEF3FB!important;color:var(--co-sg)!important;display:grid;place-items:center}
+body.ixw--company .co-rules .card:nth-child(2) .card-ic{background:#E3F5F0!important;color:var(--co-ph)!important}
+body.ixw--company .co-rules .card:nth-child(3) .card-ic{background:#FDEEDD!important;color:var(--co-vn-d)!important}
+body.ixw--company .co-rules .card-ic .ic{width:22px;height:22px;color:inherit!important}
+body.ixw--company .co-rules h3{font-size:1.15rem}
+/* industries: short doorways that show each world; the leaf and Nexi stay out */
+body.ixw--company .co-doors{gap:22px 20px}
+body.ixw--company .co-door{gap:10px}
+body.ixw--company .co-door-way{aspect-ratio:16/10;border-radius:14px 14px 6px 6px;border:1px solid var(--calm-line)!important;box-shadow:inset 0 0 0 6px color-mix(in srgb,var(--d) 30%,#FFFFFF),0 14px 28px -22px rgba(20,40,90,.45)!important;translate:none!important}
+body.ixw--company .co-door-way::after{height:5px;background:var(--d)}
+body.ixw--company .co-door-way::before{inset:6px}
+body.ixw--company .co-door-world{inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);scale:1.04}
+body.ixw--company .co-door-leaf,body.ixw--company .co-door-nexi{display:none!important}
+body.ixw--company .co-door:hover .co-door-world{scale:1.1}
+body.ixw--company .co-door:hover .co-door-way{box-shadow:inset 0 0 0 6px color-mix(in srgb,var(--d) 55%,#FFFFFF),0 18px 32px -22px rgba(20,40,90,.5)!important}
+body.ixw--company .co-door-plate{border-radius:12px;box-shadow:none!important}
+@media (max-width:767px){body.ixw--company .co-doors{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}}

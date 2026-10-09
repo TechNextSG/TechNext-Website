@@ -214,4 +214,27 @@
 @media (max-width:767px){.ixw--blog .ixw-cta-nexi .ixw-pose{top:calc(var(--ay) * -.26px + 2px)}.ixw--blog .bl-cta h2{padding-right:34px}}
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
-.ixw--blog .ixw-credits-wrap + .section{padding-top:44px!important}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the newsroom ==============================
+   Accent: newsroom red, kept to small labels and rules. Themed touches kept: the newsdesk masthead (white paper, one double
+   rule, the red "Odoo news" flag), the archive's folder tabs and masthead line, the channel tally dot on the beat cards.
+   Gone: section labels, the "Extra!" starburst, the scrolling crawl, cream paper, heavy lips, the monitor stands. */
+body.ixw--blog{--calm-accent:#E2453C;--calm-accent-ink:#1E4691;--calm-accent-line:#C9D7F1;--calm-accent-wash:#F7F8FB;--bl-paper:#FFFFFF}
+body.ixw--blog .bl-head::before{display:none!important}
+body.ixw--blog .bl-head{padding-top:0!important}
+body.ixw--blog .nd-paper{border:1px solid var(--calm-line);border-radius:16px;background:#FFFFFF;box-shadow:var(--calm-shadow);overflow:hidden}
+body.ixw--blog .nd-live::before{animation:none}
+body.ixw--blog #articles .filter-bar{background:none;border-bottom:1px solid var(--calm-line);padding:0 4px}
+body.ixw--blog #articles .filter-bar button{height:42px;border:1px solid var(--calm-line);border-bottom:0;border-radius:10px 10px 0 0;background:#F7F9FD;box-shadow:none;translate:none}
+body.ixw--blog #articles .filter-bar button[aria-pressed="true"]{height:44px;background:#FFFFFF;border-color:var(--calm-line);color:var(--ink)}
+body.ixw--blog .bl-archive{border:1px solid var(--calm-line);border-top:0;border-radius:0 0 16px 16px;background:#FFFFFF;box-shadow:var(--calm-shadow)}
+body.ixw--blog .bl-archive-mast b{font-family:var(--font-display)}
+body.ixw--blog .bl-monitors{gap:22px}
+body.ixw--blog .bl-monitors .card{margin-bottom:0;padding:26px 24px 24px;box-shadow:var(--calm-shadow)!important;border:1px solid var(--calm-line)!important}
+body.ixw--blog .bl-monitors .card::before,body.ixw--blog .bl-monitors .card::after{display:none!important}
+body.ixw--blog .bl-monitors .card:hover{translate:0 -2px}
+body.ixw--blog .bl-monitors .card>*{margin-left:0;margin-right:0}
+body.ixw--blog .bl-monitors .card-ic{width:52px;height:52px;margin-top:0;background:#F4F7FC}
+body.ixw--blog .bl-monitors .card h3{font-family:var(--font-display);font-weight:700}
+body.ixw--blog .bl-desk::before,body.ixw--blog .bl-desk::after{display:none}
+@media (min-width:768px){body.ixw--blog .bl-desk .nd-date{padding-right:0}}
