@@ -100,7 +100,7 @@
     timeLine: function (off, city, tail) { var d = new Date(Date.now() + off * 3600e3), h = d.getUTCHours(), m = d.getUTCMinutes(); return "It's **" + (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + ' ' + (h < 12 ? 'am' : 'pm') + '** in ' + city + (tail ? ', ' + tail : '.'); },
     plaque: function (g, x, y, w, h, title, sub, col) { shadowed(g, 10, 4, 0.16, function () { fillRR(g, x, y, w, h, 10, '#FFFFFF'); }); fillRR(g, x, y, w, 18, 10, col || '#714B67'); g.fillRect(x, y + 10, w, 8); text(g, title, x + w / 2, y + h / 2 + 10, 12, 800, '#1B1F3B', 'center'); if (sub) text(g, sub, x + w / 2, y + h / 2 + 24, 7.5, 700, '#5C5C73', 'center'); },
     /* a passer-by's walk cycle, kept on one object so CR can make them react */
-    crew: function (list, g, t, S, layer) { var ext = S.ext;
+    crew: function (list, g, t, S, layer) { var ext = S.ext; if (window.IXW && IXW.kit && IXW.kit.calm) return; /* CALM: no passers-by */
       list.forEach(function (w) { var L = (w.front || w.y >= 560) ? 'fore' : w.y > 470; if (L !== layer) return; var a = Math.max(w.x0, ext.l + 40), b = Math.min(w.x1, ext.r - 50); if (b - a < 60) return;
         var Wk = w._W || (w._W = { y: w.y, spd: w.spd, ph: w.ph, P: w.P, label: w.label, lines: w.lines, acts: w.acts }); Wk.x0 = a; Wk.x1 = b; window.CR.walk(g, Wk, t); }); }
   };
