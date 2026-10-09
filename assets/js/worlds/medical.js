@@ -155,7 +155,7 @@
     text(g, '!', x, y - 39, 10, 900, '#F2B544', 'center'); text(g, 'WET FLOOR', x, y - 20, 6.5, 800, '#1F1F3D', 'center');
   }
   function paintBack(g, ext) {
-    floorLanes(g, ext); waitBack(g, ext);
+    if (!K.calm) floorLanes(g, ext); waitBack(g, ext);   /* calm: no painted wayfinding lanes */
     moreBack(g, ext);
     wideBack(g, ext);
     K.windowFrame(g, MED.win);
@@ -317,6 +317,7 @@
     ];
   }
   window.IXW.worlds.medical = {
+    calmView: [160,-54,840,672], /* calm layer: the framed hero shows the core of the scene */
     pan: [-460, 1260], /* phones: how far the scene drags each way (set units), ending on whole objects */
     paintFrontLive: function (g, t, S) { walk(g, t, S, true); }, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { walk(g, t, S, 'fore'); }); },
     room: { wall: MED.wall, wains: MED.wains, rail: MED.rail, base: '#BFDDD7', floor: MED.floor, floorKind: 'tiles', pattern: K.plusPattern('rgba(255,255,255,.55)') },
