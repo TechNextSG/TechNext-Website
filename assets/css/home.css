@@ -1,8 +1,8 @@
-/* Calm homepage (assets/css/home.css), Oct 2026. TechNext brand system only: brand blue #3167CA leads buttons, links,
-   icons and accents; site neutrals (--ink, --body, --muted, --line, --alt); Plus Jakarta Sans display + Inter body;
-   Odoo purple appears only inside Odoo marks. White cards with a 1px line, 16px radius and a soft shadow; no stickers,
-   rotation, offset "lip" shadows or hand fonts. Motion: the site's one-time scroll reveal (kept to 10px here) and hover.
-   The earlier illustrated homepage styles are kept, unused, in _src/legacy/home-carousel.css. */
+/* Homepage sections below the hero carousel (assets/css/home.css), Oct 2026: "50% the TechNext base, 50% each page's own
+   theme". TechNext first: white cards with a 1px line, 16px radius and soft shadow, brand-blue links and buttons, Plus Jakarta
+   Sans + Inter, white / #F7F9FD section washes. Theme second: each card shows its world's still in a frame, its accent as a
+   top rule and icon tint, the world's own icon and one small touch (hub name, case-file tab, newsroom masthead).
+   The hero carousel is styled by hero.css. The earlier illustrated sections are kept in _src/legacy/home-carousel.css. */
 
 .is-home{--hc-r:16px;--hc-alt:#F7F9FD;--hc-shadow:0 1px 2px rgba(31,31,61,.05),0 10px 28px -20px rgba(31,31,61,.28);--hc-shadow-h:0 2px 6px rgba(31,31,61,.06),0 20px 40px -26px rgba(31,31,61,.34)}
 .is-home .reveal{transform:translateY(10px)}
@@ -25,63 +25,14 @@
 .is-home .hc-stretch:focus-visible{outline:none}
 .is-home .hc-stretch:focus-visible::after{outline:2px solid var(--blue);outline-offset:2px}
 
-/* ---------------------------------------------------------------- hero */
-.is-home .hc-hero{position:relative;overflow:hidden;padding:56px 0 72px;background:linear-gradient(158deg,var(--blue-050) 0%,rgba(234,240,251,.45) 38%,#fff 70%);border-bottom:1px solid var(--line)}
-.is-home .hc-hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
-.is-home .hc-hero h1{font-size:clamp(2.3rem,1.4rem + 2.9vw,3.7rem);line-height:1.06;letter-spacing:-.03em;margin:0;max-width:16ch}
-.is-home .hc-kicker{display:flex;align-items:center;gap:10px;width:max-content;max-width:100%;margin:0 0 22px;padding:7px 14px 7px 10px;border:1px solid var(--blue-100);border-radius:999px;background:#fff;font:600 13.5px/1.2 var(--font-body);letter-spacing:0;color:var(--blue-700)}
-.is-home .hc-kicker img{width:20px;height:auto;flex:none}
-.is-home .hc-lead{margin:22px 0 0;font-size:clamp(1.05rem,.98rem + .3vw,1.22rem);line-height:1.6;color:var(--body);max-width:52ch}
 .is-home .hc-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.is-home .hc-proof{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:0;margin:40px 0 0;padding:0}
-.is-home .hc-proof li{display:flex;align-items:baseline;gap:6px;padding:0 22px;border-left:1px solid var(--line);font-size:14px;color:var(--body)}
-.is-home .hc-proof li:first-child{padding-left:0;border-left:0}
-.is-home .hc-proof b{font:800 1.5rem/1 var(--font-display);color:var(--ink);letter-spacing:-.02em}
-.is-home .hc-proof-odoo{align-self:center}
-.is-home .hc-proof-odoo img{display:block;height:34px;width:auto}
 
-/* the visual: one still Odoo dashboard (sample data), framed by the TechNext plane mark */
-.is-home .hc-visual{position:relative}
-.is-home .hc-dash{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 2px 6px rgba(31,31,61,.05),0 40px 70px -40px rgba(30,70,145,.45);overflow:hidden}
-.is-home .hc-dash-bar{display:flex;align-items:center;gap:12px;height:46px;padding:0 16px;border-bottom:1px solid var(--line);background:#FAFBFE;font:600 13px/1 var(--font-body);color:var(--ink)}
-.is-home .hc-dots{display:flex;gap:6px}
-.is-home .hc-dots i{width:9px;height:9px;border-radius:50%;background:#DADDE6}
-.is-home .hc-dash-bar em{margin-left:auto;font:600 11px/1 var(--font-body);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:5px 8px;border-radius:6px;background:var(--alt);border:1px solid var(--line)}
-.is-home .hc-dash-body{padding:18px;display:grid;gap:14px}
-.is-home .hc-apps{display:flex;gap:8px;flex-wrap:wrap}
-.is-home .hc-apps span{display:flex;align-items:center;gap:7px;height:38px;padding:0 12px 0 6px;border:1px solid var(--line);border-radius:10px;font:600 12.5px/1 var(--font-body);color:var(--ink);background:#fff}
-.is-home .hc-apps .oi{width:26px;height:26px}
-.is-home .hc-apps small{font-size:inherit}
-.is-home .hc-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.is-home .hc-kpis > div{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
-.is-home .hc-kpis small{display:block;font:500 12px/1.3 var(--font-body);color:var(--muted)}
-.is-home .hc-kpis b{display:block;margin:6px 0 4px;font:800 1.65rem/1 var(--font-display);color:var(--ink);letter-spacing:-.02em}
-.is-home .hc-kpis em{font:600 12px/1 var(--font-body);font-style:normal;color:#18885A}
-.is-home .hc-kpis em.is-warn{color:#B4541A}
-.is-home .hc-chart{padding:12px 14px 14px;border:1px solid var(--line);border-radius:12px}
-.is-home .hc-chart small{font:500 12px/1 var(--font-body);color:var(--muted)}
-.is-home .hc-bars{display:flex;align-items:flex-end;gap:6px;height:86px;margin-top:10px}
-.is-home .hc-bars i{flex:1;height:var(--h);border-radius:4px 4px 2px 2px;background:var(--blue-100)}
-.is-home .hc-bars i:nth-last-child(-n+3){background:var(--blue)}
-.is-home .hc-feed{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-.is-home .hc-feed li{display:flex;align-items:center;gap:10px;padding:8px 4px;border-top:1px solid var(--line);font-size:13px;color:var(--body)}
-.is-home .hc-feed li:first-child{border-top:0}
-.is-home .hc-feed .oi{width:20px;height:20px;flex:none}
-.is-home .hc-feed span{flex:1;min-width:0}
-.is-home .hc-feed time{font-size:12px;color:var(--muted)}
 
 /* ---------------------------------------------------------------- where to start: path cards */
 
 .is-home .hc-paths .hc-head{text-align:center;margin:0 auto 44px}
 .is-home .hc-paths .hc-head h2{max-width:22ch;margin:0 auto}
 .is-home .hc-paths .hc-eyebrow{font-size:14px}
-.is-home .hc-path-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.is-home .hc-path{position:relative;display:flex;flex-direction:column;padding:28px 24px 24px;background:#fff;border:1px solid var(--line);border-radius:var(--hc-r);box-shadow:var(--hc-shadow);transition:transform .25s var(--ease-out),border-color .2s ease,box-shadow .25s ease}
-.is-home .hc-path:hover{transform:translateY(-2px);border-color:var(--blue-100);box-shadow:var(--hc-shadow-h)}
-.is-home .hc-path-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:var(--blue-050);color:var(--blue);margin-bottom:20px}
-.is-home .hc-path-ic .ic{width:28px;height:28px}
-.is-home .hc-path h3{font-size:1.22rem;line-height:1.25;margin:0 0 10px}
-.is-home .hc-path p{margin:0;font-size:15px;line-height:1.6;color:var(--body)}
 .is-home .hc-sub{position:relative;z-index:1;list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 22px;padding:0}
 .is-home .hc-sub a{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-radius:8px;background:var(--alt);border:1px solid var(--line);font:500 13px/1 var(--font-body);color:var(--ink);text-decoration:none;transition:border-color .15s ease,color .15s ease,background-color .15s ease}
 .is-home .hc-sub a:hover{border-color:var(--blue-100);background:var(--blue-050);color:var(--blue-700)}
@@ -94,26 +45,9 @@
 .is-home .hc-paths-alt > span{color:var(--muted)}
 
 /* ---------------------------------------------------------------- how we work: numbered row */
-.is-home .hc-steps{background:var(--hc-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.is-home .hc-step-row{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:s}
-.is-home .hc-step{position:relative;padding:24px 22px 26px;background:#fff;border:1px solid var(--line);border-radius:var(--hc-r);transition:transform .25s var(--ease-out),border-color .2s ease,box-shadow .25s ease}
-.is-home .hc-step:hover{transform:translateY(-2px);border-color:var(--blue-100);box-shadow:var(--hc-shadow-h)}
-.is-home .hc-step:not(:last-child)::before{content:"";position:absolute;top:43px;left:calc(100% + 1px);width:18px;height:2px;background:var(--blue-100)}
-.is-home .hc-step-n{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;font:700 16px/1 var(--font-display);margin-bottom:18px}
-.is-home .hc-step h3{font-size:1.15rem;margin:0 0 8px}
-.is-home .hc-step{display:flex;flex-direction:column}
-.is-home .hc-step p{margin:0 0 16px;font-size:15px;line-height:1.6}
 .is-home .hc-step:hover .hc-path-go .ic{transform:translateX(3px)}
 
 /* ---------------------------------------------------------------- industries: brand-styled grid of 8 */
-.is-home .hc-ind-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.is-home .hc-ind{display:flex;gap:14px;align-items:flex-start;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--body);transition:transform .25s var(--ease-out),border-color .2s ease,box-shadow .25s ease}
-.is-home .hc-ind:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--blue-100);box-shadow:var(--hc-shadow-h)}
-.is-home .hc-ind-ic{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:var(--blue-050);color:var(--blue)}
-.is-home .hc-ind-ic .ic{width:24px;height:24px}
-.is-home .hc-ind-t b{display:block;font:700 1.04rem/1.25 var(--font-display);color:var(--ink);margin:2px 0 6px}
-.is-home .hc-ind:hover .hc-ind-t b{color:var(--blue-700)}
-.is-home .hc-ind-t small{display:block;font-size:14px;line-height:1.55;color:var(--body)}
 
 /* ---------------------------------------------------------------- why TechNext: proof + offices */
 .is-home .hc-why{background:var(--hc-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -168,17 +102,8 @@
 @media (min-width:1024px){.is-home .hc-cta .hc-actions{flex-wrap:nowrap}.is-home .hc-cta .hc-actions .btn{padding:0 20px}}
 
 /* ---------------------------------------------------------------- responsive */
-@media (max-width:1180px){
-  .is-home .hc-path-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .is-home .hc-ind-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .is-home .hc-step-row{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .is-home .hc-step:nth-child(2)::before{display:none}
-}
+
 @media (max-width:1023px){
-  .is-home .hc-hero{padding:48px 0 64px}
-  .is-home .hc-hero-in{grid-template-columns:1fr;gap:40px}
-  .is-home .hc-hero h1{max-width:20ch}
-  .is-home .hc-visual{max-width:620px}
   .is-home .hc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .is-home .hc-stat:nth-child(3){border-left:0}
   .is-home .hc-stat:nth-child(n+3){border-top:1px solid var(--line)}
@@ -194,44 +119,106 @@
   .is-home .hc-head-links{align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:12px 24px}
   .is-home .hc-paths .hc-head{text-align:left;margin-left:0}
   .is-home .hc-paths .hc-head h2{margin:0}
-  .is-home .hc-path-grid,.is-home .hc-ind-grid,.is-home .hc-step-row,.is-home .post-cards.hc-posts{grid-template-columns:1fr}
-  .is-home .hc-step::before{display:none}
-  .is-home .hc-path{padding:22px 20px 20px}
-  .is-home .hc-path-ic{width:46px;height:46px;margin-bottom:14px}
-  .is-home .hc-step{display:grid;grid-template-columns:auto 1fr;column-gap:16px;padding:20px}
-  .is-home .hc-step-n{grid-row:span 3;margin:0;width:36px;height:36px;font-size:15px}
+  .is-home .post-cards.hc-posts{grid-template-columns:1fr}
   .is-home .hc-paths-alt{text-align:left}
   .is-home .hc-paths-alt a{margin:0 6px 0 0}
   .is-home .hc-cta{padding:36px 22px;border-radius:20px}
   .is-home .hc-cta .hc-actions .btn{flex:1 1 100%}
 }
 @media (max-width:560px){
-  .is-home .hc-hero{padding:32px 0 48px}
-  .is-home .hc-kicker{font-size:12.5px;margin-bottom:18px}
   .is-home .hc-actions .btn{flex:1 1 100%}
-  .is-home .hc-proof{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0;margin-top:30px}
-  .is-home .hc-proof li{padding:0 14px}
-  .is-home .hc-proof li:nth-child(odd){padding-left:0;border-left:0}
-  .is-home .hc-visual{padding:0}
-  .is-home .hc-dash-body{padding:14px;gap:10px}
-  .is-home .hc-apps{flex-wrap:nowrap;gap:6px}
-  .is-home .hc-apps span{height:34px;padding:0 9px 0 5px;font-size:12px;gap:5px}
-  .is-home .hc-apps .oi{width:22px;height:22px}
-  .is-home .hc-apps span:nth-child(n+4){display:none}
-  .is-home .hc-proof li{align-items:center;white-space:nowrap}
-  .is-home .hc-proof b{font-size:1.35rem}
-  .is-home .hc-ind-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .is-home .hc-ind{flex-direction:column;gap:10px;padding:16px}
-  .is-home .hc-ind-ic{width:40px;height:40px}
-  .is-home .hc-ind-t b{margin:0;font-size:.98rem}
-  .is-home .hc-ind-t small{display:none}
-  .is-home .hc-kpis{gap:6px}
-  .is-home .hc-kpis > div{padding:10px}
-  .is-home .hc-kpis b{font-size:1.35rem}
-  .is-home .hc-kpis small{font-size:11px}
-  .is-home .hc-feed{display:none}
-  .is-home .hc-bars{height:64px}
   .is-home .hc-stat{padding:20px 18px}
   .is-home .hc-stat b{font-size:2rem}
   .is-home .hc-stat--odoo img{height:36px}
+}
+
+/* ================================================================ balance pass (Oct 2026): "50% TechNext base, 50% each
+   page's own theme". Every card keeps the TechNext card (white, 1px line, 16px radius, blue links); its world shows as a
+   framed still, an accent top rule, the world's own icon and one small themed touch (hub name, case-file tab). */
+.is-home .hc-thumb{position:relative;display:block;margin:10px 10px 0;border-radius:10px;overflow:hidden;aspect-ratio:800/422;background:var(--ac-w,#F2F5FB)}
+.is-home .hc-thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease-out)}
+.is-home :is(.hc-path,.hc-step,.hc-ind):hover .hc-thumb img{transform:scale(1.03)}
+.is-home :is(.hc-path,.hc-step,.hc-ind){--ac:var(--blue);--ac-t:var(--blue-700);--ac-w:var(--blue-050);position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--hc-r);box-shadow:var(--hc-shadow);overflow:hidden;text-decoration:none;color:var(--body);transition:transform .25s var(--ease-out),border-color .2s ease,box-shadow .25s ease}
+.is-home :is(.hc-path,.hc-step,.hc-ind)::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--ac);z-index:1}
+.is-home :is(.hc-path,.hc-step,.hc-ind):hover{text-decoration:none;transform:translateY(-2px);border-color:#d5d9e6;box-shadow:var(--hc-shadow-h)}
+
+/* path cards */
+.is-home .hc-path-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.is-home .hc-path-b{display:flex;flex-direction:column;flex:1;padding:18px 20px 22px}
+.is-home .hc-path-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.is-home .hc-path-ic .ic{display:block;width:34px;height:34px}
+.is-home .hc-world{font:700 11.5px/1.2 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--ac-t)}
+.is-home .hc-path h3{font-size:1.18rem;line-height:1.25;margin:0 0 8px}
+.is-home .hc-path p{margin:0;font-size:14.5px;line-height:1.6}
+.is-home .hc-path .hc-sub{margin:16px 0 20px}
+.is-home .hc-path .hc-sub a:hover{border-color:var(--ac);background:var(--ac-w);color:var(--ac-t)}
+.is-home .hc-path--erp{--ac:#8A4F7D;--ac-t:#6E3D63;--ac-w:#FBF4EA}
+.is-home .hc-path--ai{--ac:#0E9384;--ac-t:#0B6F64;--ac-w:#EEF7F3}
+.is-home .hc-path--mkt{--ac:#2F62C0;--ac-t:#244E9C;--ac-w:#F1F8FC}
+.is-home .hc-path--tech{--ac:#D9901A;--ac-t:#8A560B;--ac-w:#F7F2EA}
+
+/* how we work: each step in its page's colour, a still and a case-file style tab */
+.is-home .hc-step-row{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.is-home .hc-tab{position:absolute;left:12px;bottom:0;padding:6px 10px 5px;border-radius:8px 8px 0 0;background:#fff;font:700 11.5px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--ac-t)}
+.is-home .hc-step-b{position:relative;display:flex;flex-direction:column;flex:1;padding:18px 20px 22px}
+.is-home .hc-step-n{position:absolute;top:-20px;right:18px;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ac);color:#fff;font:700 16px/1 var(--font-display);box-shadow:0 0 0 4px #fff;z-index:2}
+.is-home .hc-step h3{font-size:1.15rem;margin:0 0 8px}
+.is-home .hc-step p{margin:0 0 16px;font-size:14.5px;line-height:1.6}
+.is-home .hc-step--disc{--ac:#E2453C;--ac-t:#B5322A;--ac-w:#F7F2E8}
+.is-home .hc-step--train{--ac:#714B67;--ac-t:#5E3E56;--ac-w:#F7F5FA}
+.is-home .hc-step--int{--ac:#14A38B;--ac-t:#0D7A68;--ac-w:#F2F8F7}
+.is-home .hc-step--sup{--ac:#C96A12;--ac-t:#9A500C;--ac-w:#FBF7F1}
+
+/* industries: the eight world stills, each with its own badge and colour */
+.is-home .hc-ind-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.is-home .hc-ind .hc-thumb{aspect-ratio:16/9}
+.is-home .hc-ind-t{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:10px;padding:14px 18px 20px}
+.is-home .hc-ind-ic .ic{display:block;width:32px;height:32px}
+.is-home .hc-ind-t b{font:700 1.04rem/1.25 var(--font-display);color:var(--ink)}
+.is-home .hc-ind:hover .hc-ind-t b{color:var(--ac-t)}
+.is-home .hc-ind-t small{grid-column:1/-1;margin-top:10px;font-size:14px;line-height:1.55;color:var(--body)}
+.is-home .hc-ind--medical{--ac:#21B799;--ac-t:#13806A;--ac-w:#EEF8F5}
+.is-home .hc-ind--travel{--ac:#3FA9E0;--ac-t:#1F6F9C;--ac-w:#EEF6FC}
+.is-home .hc-ind--retail{--ac:#D9785A;--ac-t:#A8523A;--ac-w:#FBF2EE}
+.is-home .hc-ind--ecommerce{--ac:#6D5BD0;--ac-t:#5444AE;--ac-w:#F3F1FC}
+.is-home .hc-ind--construction{--ac:#E0A200;--ac-t:#8A6400;--ac-w:#FBF6E6}
+.is-home .hc-ind--fnb{--ac:#E2553D;--ac-t:#B23D28;--ac-w:#FCF1EE}
+.is-home .hc-ind--manufacturing{--ac:#FF7A1A;--ac-t:#B25010;--ac-w:#FFF3EA}
+.is-home .hc-ind--health-wellness{--ac:#8C76B8;--ac-t:#6A5596;--ac-w:#F5F2FA}
+
+/* offices: the illustrated office badges */
+.is-home .hc-office-tag .ic{width:26px;height:26px}
+.is-home .hc-office-tag{gap:10px}
+
+/* blog: a light newsroom touch (the /blog world's masthead rule and category-coloured kicker rules) */
+.is-home .hc-mast{display:flex;align-items:center;gap:14px;margin:0 0 18px;font:700 12px/1 "Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;letter-spacing:.16em;text-transform:uppercase;color:#141A3A}
+.is-home .hc-mast::after{content:"";flex:1;max-width:220px;height:4px;border-top:2px solid #141A3A;border-bottom:1px solid #141A3A}
+.is-home .hc-news h2{font-family:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;letter-spacing:-.01em}
+.is-home .hc-posts .post-card{overflow:hidden;border-top:3px solid #E2453C}
+.is-home .hc-posts .post-card[data-tags="technext-odoo"]{border-top-color:var(--blue)}
+.is-home .hc-posts .post-card[data-tags="erp"]{border-top-color:#14A38B}
+
+
+@media (max-width:1180px){
+  .is-home .hc-path-grid,.is-home .hc-ind-grid,.is-home .hc-step-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:767px){
+  .is-home .hc-path-grid,.is-home .hc-step-row{grid-template-columns:1fr}
+  .is-home .hc-path .hc-thumb{aspect-ratio:21/8}
+  .is-home .hc-step{display:grid;grid-template-columns:118px 1fr}
+  .is-home .hc-step .hc-thumb{margin:10px 0 10px 10px;aspect-ratio:auto;height:auto;min-height:100%}
+  .is-home .hc-step .hc-tab{display:none}
+  .is-home .hc-step-b{padding:16px 16px 18px}
+  .is-home .hc-step-n{position:static;width:30px;height:30px;font-size:14px;margin-bottom:8px;box-shadow:none}
+  .is-home .hc-ind-grid{grid-template-columns:1fr 1fr;gap:12px}
+}
+@media (max-width:560px){
+  .is-home .hc-ind .hc-thumb{margin:6px 6px 0;border-radius:8px}
+  .is-home .hc-ind-t{padding:10px 12px 14px;column-gap:8px}
+  .is-home .hc-ind-ic .ic{width:26px;height:26px}
+  .is-home .hc-ind-t b{font-size:.94rem}
+  .is-home .hc-ind-t small{display:none}
+  .is-home .hc-mast{line-height:1.5;letter-spacing:.12em}
+  .is-home .hc-mast::after{display:none}
 }
