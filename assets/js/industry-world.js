@@ -598,11 +598,11 @@
     onScreen(root, function (on) { root.classList.toggle('is-off', !on); setLive(on); if (tour) tour.visible(on); });
     document.addEventListener('visibilitychange', function () { setLive(!document.hidden && root.getBoundingClientRect().bottom > 0); });
     if (fine && !reduce) {
-      var box = null;
-      root.addEventListener('pointerenter', function () { box = root.getBoundingClientRect(); });
-      root.addEventListener('pointermove', function (e) { if (!box) box = root.getBoundingClientRect(); par.tx = clamp((e.clientX - box.left) / box.width * 2 - 1, -1, 1); par.ty = clamp((e.clientY - box.top) / box.height * 2 - 1, -1, 1); });
-      root.addEventListener('pointerleave', function () { par.tx = 0; par.ty = 0; box = null; });
-      window.addEventListener('scroll', function () { box = null; }, { passive: true });
+      var pbox = null;
+      root.addEventListener('pointerenter', function () { pbox = root.getBoundingClientRect(); });
+      root.addEventListener('pointermove', function (e) { if (!pbox) pbox = root.getBoundingClientRect(); par.tx = clamp((e.clientX - pbox.left) / pbox.width * 2 - 1, -1, 1); par.ty = clamp((e.clientY - pbox.top) / pbox.height * 2 - 1, -1, 1); });
+      root.addEventListener('pointerleave', function () { par.tx = 0; par.ty = 0; pbox = null; });
+      window.addEventListener('scroll', function () { pbox = null; }, { passive: true });
     }
 
     /* ---------------- Nexi: poses, flights, reactions ---------------- */
