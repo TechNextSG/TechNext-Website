@@ -7,8 +7,7 @@ Posts without an id show as "Coming soon". To publish a new episode: add its `yt
 (UTC, from YouTube Studio), then run `python _src/build.py`.
 
 Thumbnails live in assets/img/nexi-explains/<thumb>.webp (640x360, from the delivered YouTube
-thumbnails). Season 2 episodes have no thumbnails yet (they are made when the whole season is done),
-so their cards are drawn: `pose` picks the Nexi render shown on the card.
+thumbnails). A post without a `thumb` gets a drawn card instead: `pose` picks the Nexi render shown on it.
 
 Numbers and titles follow the posting plans in the Marketing drive:
 00. TechNext Folder/22. Nexi Solution Videos/00 Posting Plan.md (Season 1 + Quick Tips 01-14),
@@ -89,39 +88,39 @@ S1_TIPS = [
 
 S2 = [
     ("Season opener", [
-        ep("S2 EP00", "Season 2 Introduction", "Training, adapting and improving: the map of the season.", "2:54", pose="hello",
+        ep("S2 EP00", "Season 2 Introduction", "Training, adapting and improving: the map of the season.", "2:54", thumb="s2-ep00", pose="hello",
            psych="Status quo bias", takeaway="Installing Odoo is easy. Changing habits is the hard part."),
     ]),
     ("Arc 1 · The Fear", [
-        ep("S2 EP01", "Will Odoo Take My Job?", "Maria from Accounts asked first.", "0:57", pose="think",
+        ep("S2 EP01", "Will Odoo Take My Job?", "Maria from Accounts asked first.", "0:57", thumb="s2-ep01", pose="think",
            psych="Loss aversion", takeaway="Odoo takes tasks, not people."),
-        ep("S2 EP02", "Too Old for Odoo?", "Ben, 58, says so. Then we looked at his phone.", "0:59", pose="love",
+        ep("S2 EP02", "Too Old for Odoo?", "Ben, 58, says so. Then we looked at his phone.", "0:59", thumb="s2-ep02", pose="love",
            psych="Fixed mindset", takeaway="Small lessons, on his own tasks.", page="odoo/training.html"),
-        ep("S2 EP03", "Scared to Click the Wrong Button?", "Pilots don’t learn on a real plane either.", "1:01", pose="wow",
+        ep("S2 EP03", "Scared to Click the Wrong Button?", "Pilots don’t learn on a real plane either.", "1:01", thumb="s2-ep03", pose="wow",
            psych="Psychological safety", takeaway="A test database is a safe place to practise.", page="odoo/training.html"),
-        ep("S2 EP04", "Is Odoo Watching Me?", "Every change has your name on it. Here’s what the log is really for.", "0:58", pose="point-left",
+        ep("S2 EP04", "Is Odoo Watching Me?", "Every change has your name on it. Here’s what the log is really for.", "0:58", thumb="s2-ep04", pose="point-left",
            psych="Fear of being watched", takeaway="Use the log to fix mistakes, never to blame people."),
     ]),
     ("Arc 2 · The Boss’s Beliefs", [
-        ep("S2 EP05", "Will Odoo Fix Our Mess?", "A race car on the wrong road only gets you lost faster.", "2:20", pose="jump",
+        ep("S2 EP05", "Will Odoo Fix Our Mess?", "A race car on the wrong road only gets you lost faster.", "2:20", thumb="s2-ep05", pose="jump",
            psych="Silver-bullet thinking", takeaway="Fix the process first, then automate it.", page="odoo/discovery.html"),
-        ep("S2 EP06", "Odoo Is Free, Right?", "Jun found it online. Then we met Biscuit, the free puppy.", "2:17", pose="love",
+        ep("S2 EP06", "Odoo Is Free, Right?", "Jun found it online. Then we met Biscuit, the free puppy.", "2:17", thumb="s2-ep06", pose="love",
            psych="Planning fallacy", takeaway="Free to start. Budget to succeed.", page="quotation.html"),
-        ep("S2 EP07", "Can Odoo Work Exactly Like Our Old Way?", "Maria’s 14 tabs, and the blue button that does nothing.", "2:28", pose="think",
+        ep("S2 EP07", "Can Odoo Work Exactly Like Our Old Way?", "Maria’s 14 tabs, and the blue button that does nothing.", "2:28", thumb="s2-ep07", pose="think",
            psych="Sunk cost", takeaway="Standard first. Customize what earns money.", page="odoo/erp-system.html"),
-        ep("S2 EP08", "IT Will Handle It!", "There is no IT department. Here’s who really owns your Odoo project.", "2:18", pose="wow",
+        ep("S2 EP08", "IT Will Handle It!", "There is no IT department. Here’s who really owns your Odoo project.", "2:18", thumb="s2-ep08", pose="wow",
            psych="Diffusion of responsibility", takeaway="One owner, plus the people who do the work."),
     ]),
     ("Arc 3 · Winning and Serving Customers", [
-        ep("S2 EP09", "Nobody Opens Your Emails", "2,000 contacts, 11 opens. Why your name beats a megaphone.", "2:16", pose="point-left",
+        ep("S2 EP09", "Nobody Opens Your Emails", "2,000 contacts, 11 opens. Why your name beats a megaphone.", "2:16", thumb="s2-ep09", pose="point-left",
            psych="The cocktail party effect", takeaway="Write to one person, not to everyone.", page="odoo/apps/mass_mailing.html"),
-        ep("S2 EP10", "Customers Ask “How Much?” in Chat", "49 of 50 chats say “how much?”.", "2:13", pose="celebrate",
+        ep("S2 EP10", "Customers Ask “How Much?” in Chat", "49 of 50 chats say “how much?”.", "2:13", thumb="s2-ep10", pose="celebrate",
            psych="Friction", takeaway="Remove the extra steps, and buyers buy.", page="odoo/apps/website_sale.html"),
-        ep("S2 EP11", "Long Queue at the Counter", "The Saturday queue goes out the door. Ben trades his calculator for a tablet.", "2:20", pose="clap",
+        ep("S2 EP11", "Long Queue at the Counter", "The Saturday queue goes out the door. Ben trades his calculator for a tablet.", "2:20", thumb="s2-ep11", pose="clap",
            psych="The psychology of waiting", takeaway="Every sale updates stock and accounting.", page="odoo/apps/point_of_sale.html"),
-        ep("S2 EP12", "Print, Sign, Scan, Email?", "The customer said yes. A week later: “let’s talk next month”.", "2:18", pose="jump",
+        ep("S2 EP12", "Print, Sign, Scan, Email?", "The customer said yes. A week later: “let’s talk next month”.", "2:18", thumb="s2-ep12", pose="jump",
            psych="Momentum", takeaway="Make the yes easy, right now.", page="odoo/apps/sign.html"),
-        ep("S2 EP13", "Customer Asked 3 Times", "Mrs. Tan asked three times. Then she ordered ten more chairs.", "2:20", pose="hello",
+        ep("S2 EP13", "Customer Asked 3 Times", "Mrs. Tan asked three times. Then she ordered ten more chairs.", "2:20", thumb="s2-ep13", pose="hello",
            psych="The peak-end rule", takeaway="Fix the worst moment. End with a smile.", page="odoo/apps/helpdesk.html"),
     ]),
 ]
@@ -138,7 +137,7 @@ S2_TIPS = [
     ep("Tip 23", "Reschedule in the calendar", "Drag the meeting to its new time.", "0:54", thumb="qt23"),
     ep("Tip 24", "Odoo saves for you", "Leave the record and your changes are saved.", "0:56", thumb="qt24"),
     ep("Tip 25", "Combine filters with AND and OR", "Mix filters the way you mean them.", "1:41", thumb="qt25"),
-    ep("Tip 26", "Compare with last period", "This month against last month, side by side.", "1:36", thumb="qt26"),
+    ep("Tip 26", "Step through periods", "Last month? One click on the date arrows.", "1:38", thumb="qt26"),
     ep("Tip 27", "Pivot like a pro", "Turn any list into a pivot table.", "1:37", thumb="qt27"),
     ep("Tip 28", "Change the chart type", "Bar, line or pie in one click.", "1:40", thumb="qt28"),
     ep("Tip 29", "Sort and resize columns", "Click to sort, drag to resize.", "1:36", thumb="qt29"),
