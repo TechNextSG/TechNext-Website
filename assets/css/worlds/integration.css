@@ -280,5 +280,4 @@ body.ixw--integration main .answer-sec .answer-h{display:block!important;width:a
 body.ixw--integration main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
 @media (max-width:767px){body.ixw--integration main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
 /* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
-@media (max-width:860px){html body.ixw--integration main .cta{grid-template-columns:minmax(0,1fr)!important}}
 @media (max-width:480px){html body.ixw--integration main .cta .actions .btn,html body.ixw--integration .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}
