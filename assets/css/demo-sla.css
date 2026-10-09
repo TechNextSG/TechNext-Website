@@ -120,3 +120,22 @@
   .sla-team em{display:none}
 }
 @media (prefers-reduced-motion:reduce){.sla-live,.sla-bdg.is-on{animation:none}.sla-t{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .sla-team li>b,
+  .sla-team small,
+  .sla-colh small,
+  .sla-pz,
+  .sla-more,
+  .sla-tt em,
+  .sla-tm,
+  .sla-who,
+  .sla-bdg,
+  .sla-h,
+  .sla-stn small,
+  .sla-stn em,
+  .sla-train b,
+  .sla-train small,
+  .sla-tbl thead th{font-size:11px}
+}

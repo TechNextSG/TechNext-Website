@@ -181,3 +181,21 @@
   .arn-n.is-ping::after,.arn-fields.is-read li,.arn-je,.arn-rs span,.arn-log li{animation:none}
   .arn-fields s{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .arn-t small,
+  .arn-n--gate .arn-t small,
+  .arn-lamps i,
+  .arn-cnt,
+  .arn-el,
+  .arn-ch,
+  .arn-ch small,
+  .arn-bh em,
+  .arn-fields li,
+  .arn-je,
+  .arn-je p,
+  .arn-rh,
+  .arn-rh b,
+  .arn-rs{font-size:11px}
+}

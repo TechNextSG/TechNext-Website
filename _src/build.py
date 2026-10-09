@@ -200,7 +200,7 @@ def talk_panel_html() -> str:
 <div class="talk-overlay" data-talk-close hidden></div>
 <aside class="talk-panel" id="talk-panel" role="dialog" aria-modal="true" aria-labelledby="talk-title" hidden>
   <div class="talk-head">
-    <img src="{{{{ROOT}}}}assets/img/logo-horizontal.png" alt="TechNext" width="140" height="28">
+    <img src="{{{{ROOT}}}}assets/img/logo-horizontal.png" alt="TechNext" width="140" height="28" data-eager>
     <button class="icon-btn" type="button" data-talk-close aria-label="Close">{{{{icon:x}}}}</button>
   </div>
   <div class="talk-body">
@@ -1942,7 +1942,8 @@ def lazy_images(html: str) -> str:
     """R9 perf: every image outside the first viewport loads lazily and decodes off the main thread.
     Kept eager: everything before <main> (header logo, intro, phone menu) and the page's first section (the hero,
     every homepage slide included). The header logo and the intro's plane get fetchpriority="high". A loading,
-    decoding or fetchpriority already written in the markup always wins."""
+    decoding or fetchpriority already written in the markup always wins, and an <img data-eager> (an image inside UI
+    that starts hidden: the Let's Talk panel, tab panels, flip-card backs) is left eager so it never pops in late."""
     m = html.find('<main')
     if m < 0:
         return html
@@ -1964,6 +1965,8 @@ def lazy_images(html: str) -> str:
 
     def lazy(t):
         tag = t.group(0)
+        if ' data-eager' in tag:   # shown inside hidden-then-opened UI (panels, tabs, flip cards): load with the page
+            return tag.replace(' data-eager=""', '').replace(' data-eager', '')
         add = ('' if 'loading=' in tag else ' loading="lazy"') + ('' if 'decoding=' in tag else ' decoding="async"')
         return tag[:-1].rstrip() + add + '>' if add else tag
 

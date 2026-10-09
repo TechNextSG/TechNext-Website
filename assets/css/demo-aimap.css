@@ -156,3 +156,22 @@
   .umx-b,.umx-dot,.umx-dep,.umx-drawer,.umx-lane,.umx-grid{transition:none!important}
   .umx-drawer.is-in *,.umx-st.is-now .umx-chip,.umx-st .umx-pi,.umx-side.is-open .umx-drawer{animation:none!important}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .umx-q,
+  .umx-tick,
+  .umx-lane small,
+  .umx-lab.is-wrap .umx-sub,
+  .umx-h,
+  .umx-sizes span,
+  .umx-mix span,
+  .umx-dtag,
+  .umx-dstat small,
+  .umx-stx b,
+  .umx-chip,
+  .umx-wait,
+  .umx-okk,
+  .umx-lab,
+  .umx-lab.is-wrap{font-size:11px}
+}

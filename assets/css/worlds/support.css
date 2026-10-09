@@ -4,7 +4,7 @@
    assignee chip; buttons carry a status dot; the glance strip is the ticket's footer. */
 .ixw--support{--ow-c:#F08A24;--sp-ink:#1B2350;--sp-or:#F08A24;--sp-or-l:#FFF4E5;
   --w-alt:#FBF7F1;--lab-bd:2px solid #1B2350;--lab-lip:#1B2350;--lab-tail:#1B2350;--lab-r:8px;
-  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#F08A24;--st-nexi:#F08A24;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#FFA04A,#F08A24);
+  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#F08A24;--st-nexi:#F08A24;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#FFA04A,#F08A24);--hc-fg:#1B2350;
   --ii-bg:linear-gradient(160deg,#FDF9F4,#FFE9D0 60%,#E8EFFC);--ii-ink:#1B2350;--ii-b:#F08A24;--ii-accent:#E2453C;--ii-lip:#1B2350;--ii-ep-bg:#1B2350;--ii-ep-fg:#FFFFFF}
 .ixw--support .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FDF9F4 18%,#F5EEE5 62%,#E6E9EE 62%,#D3D8E0 100%)}
 

@@ -221,3 +221,34 @@
   .ktn-tk,.ktn-close.is-in{animation:none}
   .ktn-ib i{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ktn-zone,
+  .ktn-pass,
+  .ktn-bar,
+  .ktn-door,
+  .ktn-door b,
+  .ktn-clock small,
+  .ktn-tl small,
+  .ktn-kh small,
+  .ktn-ch small,
+  .ktn-tkh b,
+  .ktn-tkh em,
+  .ktn-tk ul li,
+  .ktn-tks,
+  .ktn-ph em,
+  .ktn-osub,
+  .ktn-lst,
+  .ktn-in,
+  .ktn-snz,
+  .ktn-dn small,
+  .ktn-dish .ktn-snzd,
+  .ktn-rec li,
+  .ktn-cl-je th,
+  .ktn-cl-po li,
+  .ktn-cl-po li b,
+  .ktn-cl-po .ktn-poh,
+  .ktn-kpis dt,
+  .ktn-tl b{font-size:11px}
+}

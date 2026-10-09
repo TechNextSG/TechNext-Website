@@ -86,3 +86,19 @@
 }
 @media (max-width:640px){.dch-links{display:none}}
 @media (prefers-reduced-motion:reduce){.dch-doc.is-now::after,.dch-tb tr.is-touch td,.dch-hub .is-ping{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .dch-doc b,
+  .dch-doc small,
+  .dch-hubh,
+  .dch-hub [data-m] small,
+  .dch-n,
+  .dch-rep p,
+  .dch-lh,
+  .dch-jh,
+  .dch-jh span,
+  .dch-jl,
+  .dch-tb,
+  .dch-tb th{font-size:11px}
+}

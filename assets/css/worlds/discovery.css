@@ -9,7 +9,7 @@
 .ixw--discovery{--ow-c:#3167CA;--dc-ink:#1B1F3B;--dc-y:#FFE27A;--dc-red:#E2453C;--dc-red-d:#9E2A23;--dc-al:#C9D2DE;--dc-cork:#D8AC74;--dc-cork-d:#B88752;
   --dc-kraft:#EBCB94;--dc-kraft-d:#C9A06A;--dc-paper:#FFFDF7;--dc-rule:rgba(49,103,202,.13);--dc-mono:ui-monospace,"Cascadia Mono","Consolas","SFMono-Regular",monospace;
   --w-alt:#F7F2E8;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
-  --st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#FFE27A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
+  --st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#FFE27A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#3F76DA,#3167CA);
   --ii-bg:linear-gradient(160deg,#FBF8F1,#F3E6CC 60%,#FFF4C8);--ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#E2453C;--ii-lip:#1B1F3B;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
 .ixw--discovery .ixw-hero{background:linear-gradient(180deg,#F5F1E8 0,#FBF8F1 18%,#F1EADC 62%,#EAD7B6 62%,#D8BE93 100%)}
 .ixw--discovery .section--alt{background:var(--w-alt)}

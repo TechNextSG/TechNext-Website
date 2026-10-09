@@ -61,3 +61,8 @@
   .dm-seg::-webkit-scrollbar{display:none}
 }
 @media (prefers-reduced-motion:reduce){.dm-log li{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .dm-kpis dt{font-size:11px}
+}

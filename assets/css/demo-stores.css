@@ -177,3 +177,24 @@
   .srn-node[data-s="out"]::after,.srn-node.is-ping::before,.srn-ops tbody tr,.srn-r.is-on .srn-rl{animation:none}
   .srn-bar i,.srn-bar u,.srn-bar s{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .srn-vendor small,
+  .srn-flag,
+  .srn-q,
+  .srn-blip,
+  .srn-clock small,
+  .srn-h,
+  .srn-ops th,
+  .srn-ops td small,
+  .srn-pill,
+  .srn-dt small,
+  .srn-sw,
+  .srn-nums small,
+  .srn-apply,
+  .srn-dops li,
+  .srn-dops li b,
+  .srn-nm b,
+  .srn-ops table{font-size:11px}
+}

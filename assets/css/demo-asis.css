@@ -154,3 +154,20 @@
   .asis-side .dm-kpis dt{letter-spacing:.03em}
 }
 @media (prefers-reduced-motion:reduce){.dm-asis *{transition:none!important;animation:none!important}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .asis-fa b,
+  .asis-fb b,
+  .asis-fa small,
+  .asis-fb small,
+  .asis-team,
+  .asis-app,
+  .asis-gap,
+  .asis-db small,
+  .asis-pill b,
+  .asis-lb,
+  .asis-sh,
+  .asis-p i,
+  .asis-ws i{font-size:11px}
+}

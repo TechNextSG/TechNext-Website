@@ -45,3 +45,11 @@
 @media (max-width:860px){.dra-wrap{grid-template-columns:minmax(0,1fr)}.dra-rec{border-right:0;border-bottom:1px solid var(--line)}}
 @media (max-width:480px){.dra-f{grid-template-columns:minmax(0,1fr);gap:2px}}
 @media (prefers-reduced-motion:reduce){.dra-f.is-read::after,.dra-rec.is-busy .dra-rh::after{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .dra-rec.is-busy .dra-rh::after,
+  .dra-h,
+  .dra-act em,
+  .dra-l time{font-size:11px}
+}

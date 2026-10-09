@@ -136,3 +136,17 @@
   .bmt-delta.is-on,.bmt-tree.is-explode .bmt-mr,.bmt-mrp.is-explode .bmt-mcol,.bmt-links.is-explode .bmt-l,.bmt-flash{animation:none}
   .bmt-links.is-explode .bmt-l{stroke-dashoffset:0}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .bmt-nt small,
+  .bmt-ops span,
+  .bmt-delta,
+  .bmt-mr small,
+  .bmt-chip,
+  .bmt-h,
+  .bmt-sel small,
+  .bmt-big em,
+  .bmt-wcs small,
+  .bmt-mcol li{font-size:11px}
+}

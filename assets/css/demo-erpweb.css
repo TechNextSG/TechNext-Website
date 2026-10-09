@@ -97,3 +97,16 @@
 }
 @media (max-width:400px){.ew-sub{display:none}}
 @media (prefers-reduced-motion:reduce){.ew-hub.is-ping,.ew-w--copy,.ew-n.is-pop,.ew-node.is-ping::after{animation:none}.ew-hub,.ew-void,.ew-st,.ew-ic .oi,.ew-sheet{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .ew-void small,
+  .ew-recs em,
+  .ew-sub,
+  .ew-stage[data-mode="sheets"] .ew-sub,
+  .ew-n,
+  .ew-st,
+  .ew-ghost,
+  .ew-hub b,
+  .ew-void b{font-size:11px}
+}

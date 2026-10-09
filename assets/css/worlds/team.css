@@ -4,7 +4,7 @@
    rolodex card (two punched slots, a ruled face); buttons are business cards (a yellow edge on the right). */
 .ixw--team{--tm-ink:#1B2350;--tm-blue:#3167CA;--tm-y:#FFD84A;--tm-paper:#FFFDF8;--tm-line:#DCE3EE;
   --w-alt:#F2F5FB;--lab-bd:2px solid #1B2350;--lab-lip:#1B2350;--lab-tail:#1B2350;--lab-r:6px;
-  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B2350;--hc-bg:linear-gradient(180deg,#4A80E2,#3167CA);
+  --st-ink:#1B2350;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B2350;--hc-bg:linear-gradient(180deg,#3F76DA,#3167CA);
   --ii-bg:linear-gradient(160deg,#F6F8FD,#E6ECF6 55%,#FFF1BF);--ii-ink:#1B2350;--ii-b:#3167CA;--ii-accent:#FFD84A;--ii-lip:#1B2350;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
 .ixw--team .ixw-hero{background:linear-gradient(180deg,#FFFFFF 0,#F6F8FD 16%,#E6ECF6 52%,#DCE6F6 62%,#E4E8F0 62%,#CDD4E2 100%)}
 

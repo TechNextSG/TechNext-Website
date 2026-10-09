@@ -61,3 +61,14 @@
   .hc-layer{grid-template-columns:80px minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.hc-slide,.hc-chip,.hc-card{transition:none}.hc-why ul.is-in li{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .hc-q.is-big .hc-qt b::after,
+  .hc-card small,
+  .hc-card em,
+  .hc-h,
+  .hc-h span i,
+  .hc-ll,
+  .hc-chip{font-size:11px}
+}

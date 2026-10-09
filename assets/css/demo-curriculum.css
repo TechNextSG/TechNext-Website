@@ -181,3 +181,17 @@
   .cur-card-m.is-new,.cur-chips button.is-nope{animation:none}
   .cur-card-m,.cur-b--rt,.cur-ms{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .cur-rolesh,
+  .cur-h,
+  .cur-colh small,
+  .cur-card-m.is-bad .cur-ms::after,
+  .cur-dl dt,
+  .cur-dst span,
+  .cur-wk span,
+  .cur-ph span,
+  .cur-b span,
+  .cur-golive b{font-size:11px}
+}

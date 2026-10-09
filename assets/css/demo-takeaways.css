@@ -28,3 +28,8 @@
 .dtk-mean p{margin:0;font-size:13.5px;color:var(--ink)}
 @media (max-width:560px){.dtk-card{grid-template-columns:minmax(0,1fr);gap:10px}.dtk-stat b{font-size:1.6rem}.dtk-dots button{width:28px;height:28px}}
 @media (prefers-reduced-motion:reduce){.dtk-card{transition:none}.dtk-bar i{transition:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .dtk-mean strong{font-size:11px}
+}

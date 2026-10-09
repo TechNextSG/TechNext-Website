@@ -116,3 +116,22 @@
   .scv-bar rect{transition:none}
   .scv-strip.is-flip .scv-bar,.scv-intro .scv-c{animation:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .scv-ax--vo,
+  .scv-handle b,
+  .scv-h,
+  .scv-evm dt,
+  .scv-evm small,
+  .scv-prog,
+  .scv-costs li,
+  .scv-ph em,
+  .scv-claim .scv-sub,
+  .scv-vos li,
+  .scv-vos b,
+  .scv-tbl,
+  .scv-tbl th,
+  .scv-rel li,
+  .scv-rel b{font-size:11px}
+}

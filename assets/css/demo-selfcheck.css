@@ -69,3 +69,12 @@
 }
 @media (max-width:400px){.sfc-side{grid-template-columns:minmax(0,118px) minmax(0,1fr);padding:12px}.sfc-tx small{font-size:10.5px}}
 @media (prefers-reduced-motion:reduce){.sfc-needle,.sfc-seg,.sfc-box::after{transition:none}.sfc-band.is-in,.sfc-verdict.is-in,.sfc-fixes li.is-new,.sfc-next li{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .sfc-score small,
+  .sfc-h,
+  .sfc-fixes li i,
+  .sfc-next li::before,
+  .sfc-tx small{font-size:11px}
+}

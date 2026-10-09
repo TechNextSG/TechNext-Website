@@ -226,3 +226,32 @@
   .sbd-sec,.sbd-needle,.sbd-cap i,.sbd-frame{transition:none}
   .sbd-wl,.sbd-media u::after,.sbd-why li,.sbd-queue li,.sbd-acts li{animation:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .sbd-h,
+  .sbd-h b,
+  .sbd-h small,
+  .sbd-pg small,
+  .sbd-bar span,
+  .sbd-tag,
+  .sbd-card b,
+  .sbd-tile b,
+  .sbd-menu span,
+  .sbd-s-nav em,
+  .sbd-copy em,
+  .sbd-form em,
+  .sbd-sec .is-lcp::after,
+  .sbd-form span,
+  .sbd-s-foot small,
+  .sbd-gl,
+  .sbd-g small,
+  .sbd-seo small,
+  .sbd-st small,
+  .sbd-q,
+  .sbd-box>p,
+  .sbd-queue,
+  .sbd-team,
+  .sbd-src,
+  .sbd-acts{font-size:11px}
+}

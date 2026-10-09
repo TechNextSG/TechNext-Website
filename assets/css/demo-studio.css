@@ -109,3 +109,28 @@
   .wsd-c,.wsd-c.is-tick,.wsd-prod.is-tick,.wsd-bk li,.wsd-docs li{animation:none;transition:none}
   .wsd-fill i{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .wsd-cap,
+  .wsd-cap small,
+  .wsd-dh,
+  .wsd-th,
+  .wsd-c small,
+  .wsd-c em,
+  .wsd-c.is-me::after,
+  .wsd-c.is-mw::after,
+  .wsd-who small,
+  .wsd-bk li,
+  .wsd-bk em,
+  .wsd-slot b,
+  .wsd-prod b,
+  .wsd-slot span,
+  .wsd-prod em,
+  .wsd-prod small,
+  .wsd-docs b,
+  .wsd-docs span,
+  .wsd-docs em,
+  .wsd-docs small,
+  .wsd-lg{font-size:11px}
+}

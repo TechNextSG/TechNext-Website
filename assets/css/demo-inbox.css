@@ -156,3 +156,24 @@ span.obx-leaf{cursor:default;border-style:dashed;border-color:#E6C98F}
   .obx-item,.is-new,.obx-typing i,.obx-br li.is-ping{animation:none}
   .obx-br::after,.obx-bar i{transition:none}
 }
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .obx-h,
+  .obx-h small,
+  .obx-sla,
+  .obx-tags i,
+  .obx-pn small,
+  .obx-from,
+  .obx-sysl,
+  .obx-rech,
+  .obx-rec dl div,
+  .obx-hand li,
+  .obx-handd,
+  .obx-typing span,
+  .obx-root span,
+  .obx-br li>span:not(.obx-leaf),
+  .obx-br em,
+  .obx-n,
+  .obx-kpis dt{font-size:11px}
+}

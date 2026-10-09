@@ -135,3 +135,23 @@
   .bkt-exp{padding:12px}
 }
 @media (prefers-reduced-motion:reduce){.bkt-g li.is-busy::before,.bkt-a.is-swap .bkt-art,.bkt-c.is-flash{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .bkt-h,
+  .bkt-h b,
+  .bkt-tl,
+  .bkt-sws li,
+  .bkt-type small,
+  .bkt-tag,
+  .bkt-mcard small,
+  .bkt-sl small,
+  .bkt-who small,
+  .bkt-ct,
+  .bkt-al,
+  .bkt-sg small,
+  .bkt-so .bkt-btn,
+  .bkt-em .bkt-btn,
+  .bkt-g li,
+  .bkt-g li.is-fix::after{font-size:11px}
+}

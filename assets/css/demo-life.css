@@ -147,3 +147,14 @@
   .lf-foot{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.lf-states>li.is-pulse::after,.lf-branch.is-take::before,.lf-hand li.is-fire::after{animation:none}}
+
+/* R9 sweep: phone labels: nothing in this demo is drawn under 11px on a phone (same selectors, later in the file) */
+@media (max-width:640px){
+  .lf-states>li small,
+  .lf-n,
+  .lf--hub .lf-center,
+  .lf-tag,
+  .lf-bh,
+  .lf-h,
+  .lf-hand li small{font-size:11px}
+}
