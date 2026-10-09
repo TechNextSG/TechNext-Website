@@ -52,7 +52,7 @@ YEAR = str(date.today().year)
 
 # The first-visit intro plays on the home page only: visitors who land on any other page from search
 # see that page's content straight away (the intro plane was their largest paint, ~3.5 s on a phone).
-INTRO_HEAD = "<style>#intro{display:none}html.intro #intro,#intro.is-out{display:grid}</style>\n<script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward';var bot=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider/i.test(navigator.userAgent||'');if((force||!skip)&&!bot&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>\n"
+INTRO_HEAD = "<style>#intro{display:none}html.intro #intro,#intro.is-out{display:grid}</style>\n<script>(function(){try{var force=/[?&]intro=1(&|$)/.test(location.search);var nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{};var internal=false;try{internal=!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}var skip=(nav.type==='navigate'&&internal)||nav.type==='back_forward'||/[?&]nointro=1(&|$)/.test(location.search);var bot=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider/i.test(navigator.userAgent||'');if((force||!skip)&&!bot&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');}}catch(e){}})();</script>\n"
 # The home hero's first slide is picked here, in the head, rather than in hero.js: a page that opens on the Nexi
 # Explains slide gets the comic intro (html.intro-nxe) from its first frame. Same rules as hero.js: crawlers,
 # audits and reduced motion keep slide 1, ?slide=N wins, never the slide that opened the last visit.
@@ -292,7 +292,7 @@ LAYOUT = '''<!doctype html>
 <link rel="apple-touch-icon" href="{ROOT}assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
 {INTRO_HEAD}{HEAD_EXTRA}
@@ -1983,6 +1983,7 @@ def lazy_images(html: str) -> str:
     return _IMG.sub(eager, html[:cut]) + _IMG.sub(lazy, html[cut:])
 
 
+CALM_SKIP = {"nexi-explains.html"}   # pages the calm layer never touches (owner: Nexi Explains stays as it is on master)
 CALM_HEAD = ('<link rel="stylesheet" href="{ROOT}assets/css/calm-gen.css?v={ASSET_V}">\n'
              '<link rel="stylesheet" href="{ROOT}assets/css/calm.css?v={ASSET_V}">\n'
              '<link rel="stylesheet" href="{ROOT}assets/css/calm-global.css?v={ASSET_V}">\n')
@@ -2073,11 +2074,15 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs))
     wk = re.match(r"ixw ixw--([a-z-]+)", meta.get("body", "") or "")      # a world page plays its own short intro
     w_head, w_body = (WD.INTRO_HEAD, WD.intro_html(wk.group(1))) if wk else ("", "")
-    if CALM:   # no entry intros: the page is there at once and the header is never hidden
-        w_head = w_body = ""
-        if home:
-            intro_head = intro_head.replace(INTRO_HEAD, "")
-    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home and not CALM else w_body)
+    if CALM:
+        # Owner, 9 Oct 2026: "Use the general intro used in the old pages. When entering Nexi Explains, use the Nexi
+        # Explains intro." Every page plays the general brand intro (plane, wordmark, Odoo Partner · Singapore, the three
+        # app chips, Skip; the header hides while it plays) under the head gate's rules (fresh landings and refreshes
+        # only, never in-site navigation or back/forward, bots or reduced motion). /nexi-explains plays the comic
+        # Nexi Explains version of it (html.intro-nxe). The per-world vignette intros stay off.
+        # /nexi-explains is left exactly as it is on master (owner, 9 Oct): no calm layer, no general intro.
+        w_head, w_body = ("", "") if out_rel in CALM_SKIP else (INTRO_HEAD, INTRO_BODY)
+    html = (LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
@@ -2087,7 +2092,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{OG_TYPE}", "article" if meta.get("article") else "website")
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + "assets/img/og-image.png")
                 .replace("{SITE_URL}", S.SITE_URL)
-                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM else ""))
+                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
                 .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html"))
