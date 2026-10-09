@@ -13,7 +13,26 @@
 (function () {
   'use strict';
   var LIFE_PHOTOS = [
-    /* no company photos yet: add entries here (see above) */
+    {"src": "assets/img/life/dinner-group-wide.webp", "thumb": "assets/img/life/dinner-group-wide-thumb.webp", "w": 1280, "h": 960, "category": "dinners", "caption": "Team night out", "date": "", "place": "", "alt": "The whole team posing in a long restaurant"},
+    {"src": "assets/img/life/dive-trip-beach.webp", "thumb": "assets/img/life/dive-trip-beach-thumb.webp", "w": 1600, "h": 1200, "category": "outings", "caption": "Dive trip", "date": "", "place": "", "alt": "Four colleagues in wetsuits on a pebble beach"},
+    {"src": "assets/img/life/core-ops-go-live.webp", "thumb": "assets/img/life/core-ops-go-live-thumb.webp", "w": 1600, "h": 1200, "category": "meetings", "caption": "Core operations go live", "date": "", "place": "", "alt": "A presenter in front of a screen titled Core Operations Go Live"},
+    {"src": "assets/img/life/late-nite-dinner.webp", "thumb": "assets/img/life/late-nite-dinner-thumb.webp", "w": 1200, "h": 1600, "category": "dinners", "caption": "Team dinner", "date": "", "place": "", "alt": "The team around a dinner table at a restaurant"},
+    {"src": "assets/img/life/dive-buddies.webp", "thumb": "assets/img/life/dive-buddies-thumb.webp", "w": 1600, "h": 1200, "category": "outings", "caption": "Dive trip", "date": "", "place": "", "alt": "Two dive buddies making the OK sign underwater"},
+    {"src": "assets/img/life/spreadsheets-to-odoo.webp", "thumb": "assets/img/life/spreadsheets-to-odoo-thumb.webp", "w": 1600, "h": 1200, "category": "events", "caption": "From spreadsheets to Odoo ERP", "date": "", "place": "", "alt": "A TechNext and Odoo screen at the entrance of an event room"},
+    {"src": "assets/img/life/team-lunch.webp", "thumb": "assets/img/life/team-lunch-thumb.webp", "w": 1600, "h": 1200, "category": "dinners", "caption": "Team lunch", "date": "", "place": "", "alt": "The team at a long lunch table"},
+    {"src": "assets/img/life/office-team.webp", "thumb": "assets/img/life/office-team-thumb.webp", "w": 1600, "h": 1200, "category": "office", "caption": "At the office", "date": "", "place": "", "alt": "Four colleagues standing together holding orange signs"},
+    {"src": "assets/img/life/working-session.webp", "thumb": "assets/img/life/working-session-thumb.webp", "w": 1600, "h": 1200, "category": "meetings", "caption": "Working session", "date": "", "place": "", "alt": "The team working on laptops in front of a large screen"},
+    {"src": "assets/img/life/dive-ok.webp", "thumb": "assets/img/life/dive-ok-thumb.webp", "w": 1600, "h": 1200, "category": "outings", "caption": "Dive trip", "date": "", "place": "", "alt": "A diver making the OK sign underwater"},
+    {"src": "assets/img/life/lunch-selfie.webp", "thumb": "assets/img/life/lunch-selfie-thumb.webp", "w": 1600, "h": 1200, "category": "dinners", "caption": "Lunch together", "date": "", "place": "", "alt": "A group selfie at a lunch table"},
+    {"src": "assets/img/life/client-visit.webp", "thumb": "assets/img/life/client-visit-thumb.webp", "w": 1600, "h": 1200, "category": "meetings", "caption": "Catching up over coffee", "date": "", "place": "", "alt": "The team seated together at a café"},
+    {"src": "assets/img/life/training-session.webp", "thumb": "assets/img/life/training-session-thumb.webp", "w": 1600, "h": 900, "category": "meetings", "caption": "Training session", "date": "", "place": "", "alt": "People at desks during a session with a projected screen"},
+    {"src": "assets/img/life/pantry.webp", "thumb": "assets/img/life/pantry-thumb.webp", "w": 1280, "h": 960, "category": "office", "caption": "Pantry break", "date": "", "place": "", "alt": "Two colleagues chatting in the pantry"},
+    {"src": "assets/img/life/dive-pool.webp", "thumb": "assets/img/life/dive-pool-thumb.webp", "w": 1600, "h": 1200, "category": "outings", "caption": "Dive trip", "date": "", "place": "", "alt": "Two divers practising in a pool"},
+    {"src": "assets/img/life/dinner-group.webp", "thumb": "assets/img/life/dinner-group-thumb.webp", "w": 960, "h": 1280, "category": "dinners", "caption": "Team night out", "date": "", "place": "", "alt": "The team posing in a restaurant with woven lamps"},
+    {"src": "assets/img/life/project-room.webp", "thumb": "assets/img/life/project-room-thumb.webp", "w": 1600, "h": 900, "category": "meetings", "caption": "In the project room", "date": "", "place": "", "alt": "Colleagues working around desks in a project room"},
+    {"src": "assets/img/life/breakfast-spread.webp", "thumb": "assets/img/life/breakfast-spread-thumb.webp", "w": 1600, "h": 1200, "category": "office", "caption": "Breakfast at the office", "date": "", "place": "", "alt": "A breakfast spread of sandwiches, cold cuts and coffee"},
+    {"src": "assets/img/life/dive-practice.webp", "thumb": "assets/img/life/dive-practice-thumb.webp", "w": 1600, "h": 1200, "category": "outings", "caption": "Dive trip", "date": "", "place": "", "alt": "Divers practising skills in a pool"},
+    {"src": "assets/img/life/bar-counter.webp", "thumb": "assets/img/life/bar-counter-thumb.webp", "w": 1280, "h": 960, "category": "office", "caption": "Behind the counter", "date": "", "place": "", "alt": "Colleagues seated at a bar counter"}
   ];
   var CATS = [
     { key: 'outings', label: 'Outings', soon: 'Team outing', icon: 'M4 18l5-7 4 5 3-4 4 6z M16 7a2 2 0 1 0 0.01 0' },
