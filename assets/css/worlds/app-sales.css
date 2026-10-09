@@ -224,3 +224,71 @@
 .ixw--app-sales .ixw-peek[aria-pressed="true"]{background:#FDE7EA}
 .ixw--app-sales .ixw-peek[aria-pressed="true"]::before{color:#1B1F3B}
 @media (prefers-reduced-motion:reduce){.ixw--app-sales :is(.ixw-ep-tag,.ixw-ibtn,.ixw-peek,.ixw-dots button,.btn){transition:none}}
+
+/* ======== CALM LAYER (9 Oct 2026): 50% TechNext base, 50% the showroom counter. One quiet accent (#D2596A), white cards, no tilts,
+   tape, pins, rings or lips; each section keeps one or two themed touches (a rose rule under the heads, the six numbered quote tickets, line numbers on the steps). ======== */
+body.ixw--app-sales{--calm-accent:#D2596A;--calm-accent-ink:#A63A4B;--calm-accent-line:#F2C9CF;--calm-accent-wash:#FCF6F7;--calm-card-rule:3px solid #D2596A}
+body.ixw--app-sales main .aw-sec,body.ixw--app-sales main .aw-sec:nth-of-type(odd){background:#FFFFFF!important}
+body.ixw--app-sales main .aw-sec.section--alt,body.ixw--app-sales main .aw-band{background:#FCF6F7!important}
+body.ixw--app-sales main .aw-sec::before,body.ixw--app-sales main .aw-sec+.aw-sec::before,body.ixw--app-sales main .aw-sec.section--alt::before{display:none!important}
+body.ixw--app-sales main .aw-badge{display:none!important}
+body.ixw--app-sales main .aw-sec .sec-head h2::after,body.ixw--app-sales main [data-aw="impl"] h2::after{content:""!important;display:block!important;width:56px!important;height:3px!important;margin-top:16px!important;background:#D2596A!important;border-radius:2px}
+body.ixw--app-sales main [data-aw="cta"] h2::after,body.ixw--app-sales main .aw-sec .sec-head--row h2::after{display:none!important}
+/* in one paragraph: a plain white card with the accent on its left edge */
+body.ixw--app-sales main .answer-box{padding:22px 26px!important;border:1px solid var(--calm-line)!important;border-left:3px solid #D2596A!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-sales main .answer-box::before,body.ixw--app-sales main .answer-box::after{display:none!important}
+body.ixw--app-sales main .answer-h{background:#FCF6F7!important;color:#A63A4B!important;box-shadow:none!important;border:0!important}
+/* the lifecycle demo: one clean panel, a thin accent rule on top */
+body.ixw--app-sales main [data-aw="life"] .dm{border:1px solid var(--calm-line)!important;border-top:3px solid #D2596A!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important;rotate:none!important}
+body.ixw--app-sales main [data-aw="life"] .dm-head{background:#FFFFFF!important;border-bottom:1px solid var(--calm-line)!important}
+body.ixw--app-sales main [data-aw="life"] .dm-title b{color:#1B1F3B!important}body.ixw--app-sales main [data-aw="life"] .dm-title small{color:#5C6B7A!important}
+/* official videos: plain rounded frames */
+body.ixw--app-sales main [data-aw="watch"] .video{border:1px solid var(--calm-line)!important;border-radius:14px!important;box-shadow:var(--calm-shadow)!important;rotate:none!important;translate:none!important;overflow:hidden}
+body.ixw--app-sales main [data-aw="watch"] .video::before,body.ixw--app-sales main [data-aw="watch"] .video::after{display:none!important}
+body.ixw--app-sales main [data-aw="watch"] .videos{gap:24px!important;padding:0!important}
+body.ixw--app-sales main .yt-play{background:#3167CA!important;box-shadow:0 10px 24px -10px rgba(31,63,130,.6)!important}
+/* section by section: screenshots in a plain white frame, the kicker as a small accent label */
+body.ixw--app-sales main [data-aw="what"] .feat-media{rotate:none!important;padding:10px!important;border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-sales main [data-aw="what"] .feat-media::before,body.ixw--app-sales main [data-aw="what"] .feat-media::after{display:none!important}
+body.ixw--app-sales main [data-aw="what"] .card-kicker{display:inline-block!important;padding:0!important;border:0!important;background:none!important;rotate:none!important;clip-path:none!important;color:#A63A4B!important;font:800 12px/1.4 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase}
+body.ixw--app-sales main [data-aw="what"] .card-kicker::before,body.ixw--app-sales main [data-aw="what"] .card-kicker::after{display:none!important}
+body.ixw--app-sales main [data-aw="what"] .feat-copy h3{font-size:1.45rem!important}
+body.ixw--app-sales main [data-aw="what"] .card{padding:28px 26px!important;background:#FFFFFF!important;rotate:none!important}
+body.ixw--app-sales main [data-aw="what"] .card::before,body.ixw--app-sales main [data-aw="what"] .card::after{display:none!important}
+body.ixw--app-sales main [data-aw="what"] .card:hover{transform:translateY(-2px)!important}
+body.ixw--app-sales main :is([data-aw="what"],[data-aw="impl"]) .checks .ic{color:#D2596A!important}
+/* inside the app: a straight row of framed screenshots */
+body.ixw--app-sales main [data-aw="screens"] .shots{padding:0!important;gap:20px!important}
+body.ixw--app-sales main [data-aw="screens"] .shot{rotate:none!important;translate:none!important;padding:10px 10px 0!important;border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important}
+body.ixw--app-sales main [data-aw="screens"] .shot::before,body.ixw--app-sales main [data-aw="screens"] .shot::after{display:none!important}
+body.ixw--app-sales main [data-aw="screens"] .shot figcaption{border-top:1px solid var(--calm-line)!important;font:500 12.5px/1.4 var(--font-body)!important;color:#5C6B7A!important;background:none!important}
+/* how TechNext implements it: a white list card, numbered in the accent */
+body.ixw--app-sales main .aw-steps{padding:6px 0!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;background:#FFFFFF!important;box-shadow:var(--calm-shadow)!important;clip-path:none!important}
+body.ixw--app-sales main .aw-steps::before,body.ixw--app-sales main .aw-steps::after{display:none!important}
+body.ixw--app-sales main .aw-steps li{border-bottom:1px solid var(--calm-line)!important;padding:16px 22px!important;background:none!important}
+body.ixw--app-sales main .aw-steps li:last-child{border-bottom:0!important}
+body.ixw--app-sales main .aw-steps li::before{display:none!important}
+body.ixw--app-sales main .aw-steps .aw-n{display:grid;place-items:center;flex:none;min-width:48px;height:28px;padding:0 8px;border-radius:8px;background:#FCF6F7;color:#A63A4B;font:800 12px/1 var(--font-body);letter-spacing:.04em}
+body.ixw--app-sales main .aw-steps li .ic{order:3;margin-left:auto;width:20px!important;height:20px!important;padding:0!important;background:none!important;color:#D2596A!important}
+/* works with: plain app cards with a thin accent edge */
+body.ixw--app-sales main [data-aw="works"] .app{border:1px solid var(--calm-line)!important;border-radius:14px!important;background:#FFFFFF!important;border-left:3px solid #D2596A!important;box-shadow:none!important;rotate:none!important;clip-path:none!important}
+body.ixw--app-sales main [data-aw="works"] .app::before,body.ixw--app-sales main [data-aw="works"] .app::after{display:none!important}
+body.ixw--app-sales main [data-aw="works"] .app:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow)!important}
+/* the end card: the TechNext band, no rings */
+body.ixw--app-sales main .cta{box-shadow:0 30px 60px -36px rgba(30,70,145,.6)!important}
+body.ixw--app-sales main .cta .btn-white{box-shadow:none!important}body.ixw--app-sales main .cta .btn-outline-white{border:1px solid rgba(255,255,255,.7)!important}
+body.ixw--app-sales main [data-aw="cta"] .hand{color:#FFFFFF!important}
+/* buttons: the kit's flat buttons, without the world's tag / binding / barcode shapes */
+body.ixw--app-sales .btn{padding:0 22px!important;margin:0!important;clip-path:none!important;filter:none!important;rotate:none!important;translate:none!important;overflow:visible!important}
+body.ixw--app-sales .btn::before,body.ixw--app-sales .btn::after{display:none!important}
+body.ixw--app-sales .btn-primary .ic{width:18px!important;height:18px!important;padding:0!important;background:none!important}
+
+/* themed touch: the quote-to-cash tickets: straight white tickets, rose top rule, one torn receipt foot each */
+body.ixw--app-sales .aw-rail::before,body.ixw--app-sales .aw-pin{display:none!important}
+body.ixw--app-sales .aw-tk{rotate:none!important;transform:none!important;animation:none!important;background:#FFFFFF!important;border:1px solid var(--calm-line);border-top:3px solid #D2596A;border-radius:14px!important;box-shadow:var(--calm-shadow)!important;padding:22px 22px 26px!important}
+body.ixw--app-sales .aw-tk::after{display:none!important}
+body.ixw--app-sales .aw-tk::before{display:none!important}
+body.ixw--app-sales .aw-no{font:800 12px/1 var(--font-body)!important;letter-spacing:.1em;color:#A63A4B!important;background:none!important;rotate:none!important}
+body.ixw--app-sales .aw-rec{font:600 12px/1.4 var(--font-body)!important;color:#5C6B7A!important;border-top:1px solid var(--calm-line)!important;padding-top:10px}
+body.ixw--app-sales .aw-total{rotate:none!important;background:#FFFFFF!important;color:#1B1F3B!important;border:1px solid var(--calm-line)!important;box-shadow:none!important;border-radius:999px!important}
+body.ixw--app-sales .aw-total b{color:#A63A4B!important}
