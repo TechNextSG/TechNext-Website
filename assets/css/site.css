@@ -223,8 +223,8 @@ html.intro .header{visibility:hidden;opacity:0;transition:none;animation:hdrBack
 .mega-ic{width:32px;height:32px;flex:none;display:grid;place-items:center;color:var(--blue)}
 .mega-ic .ic{width:22px;height:22px}
 .mega-ic .oi{width:28px;height:28px}
-.mega-ic .ic-ind,.mnav-ic .ic-ind{width:30px;height:30px;border-radius:9px;box-shadow:0 2px 0 rgba(20,30,60,.16);transition:transform .25s var(--spring)}
-.mnav-ic .ic-ind{width:26px;height:26px;border-radius:8px}
+.mega-ic .ic-ind,.mnav-ic .ic-ind{width:30px;height:30px;transition:transform .25s var(--spring)}
+.mnav-ic .ic-ind{width:26px;height:26px}
 .mega-link:hover .ic-ind,.mega a:hover .ic-ind{transform:rotate(-6deg) scale(1.06)}
 .menu-btn{display:none}
 
