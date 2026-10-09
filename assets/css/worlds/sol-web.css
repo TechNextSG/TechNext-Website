@@ -325,4 +325,3 @@ html body.ixw--sol-web main .msd-folders{padding-top:20px}
 html body.ixw--sol-web main .msd-folder{padding:28px 26px 26px!important;border-radius:0 16px 16px 16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;box-shadow:var(--calm-shadow)!important;transform:none!important}
 html body.ixw--sol-web main .msd-folder:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
 html body.ixw--sol-web main .msd-tab{box-shadow:none!important}
-@media (max-width:860px){html body.ixw--sol-web main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

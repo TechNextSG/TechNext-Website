@@ -265,4 +265,3 @@ html body.ixw--sol-iot main .grh-alerts .faq-a{margin:0!important;padding:0 20px
 html body.ixw--sol-iot main .grh-packet{margin-top:0!important;padding:26px!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;translate:none!important}
 html body.ixw--sol-iot main .grh-packet::before,html body.ixw--sol-iot main .grh-packet::after{content:none!important;display:none!important}
 html body.ixw--sol-iot main .grh-packet:hover{translate:0 -2px!important;box-shadow:var(--calm-shadow-h)!important}
-@media (max-width:860px){html body.ixw--sol-iot main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

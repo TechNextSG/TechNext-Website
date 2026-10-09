@@ -254,4 +254,3 @@ html body.ixw--sol-app main .tpk-arrow .card-ic{box-shadow:none!important;border
 html body.ixw--sol-app main .tpk-punch{padding:26px 28px 18px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-radius:16px!important;box-shadow:var(--calm-shadow)!important}
 html body.ixw--sol-app main .tpk-station{text-align:left!important}
 html body.ixw--sol-app main .tpk-station *{text-align:left!important}
-@media (max-width:860px){html body.ixw--sol-app main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

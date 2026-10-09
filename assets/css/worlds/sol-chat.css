@@ -344,7 +344,6 @@ html body.ixw--sol-chat main .cnc-fobs{padding-top:0!important}
 html body.ixw--sol-chat main .cnc-faq details{box-shadow:none!important;outline:0!important}
 html body.ixw--sol-chat main .cnc-faq summary:hover{box-shadow:none!important}
 html body.ixw--sol-chat main .cnc-floor .cnc-btn{position:static!important;display:grid!important;place-items:center;width:34px;height:34px;margin:0 0 14px!important;border-radius:50%!important;background:#F3EAF1!important;color:var(--calm-accent)!important;box-shadow:none!important;transform:none!important;translate:none!important}
-@media (max-width:860px){html body.ixw--sol-chat main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */
 html body.ixw--sol-chat main .cnc-faq details,html body.ixw--sol-chat main .cnc-faq summary{border-color:var(--calm-line)!important;outline:0!important}
 html body.ixw--sol-chat main .cnc-faq summary{border:0!important}
 html body.ixw--sol-chat main .cnc-floor *{text-align:left!important}

@@ -305,4 +305,3 @@ html body.ixw--sol-rag main .lbr-xref-k{font:600 13px/1 var(--font-body)!importa
 html body.ixw--sol-rag main .lbr-xref-ic{box-shadow:none!important;background:color-mix(in srgb,var(--c) 10%,#fff)!important}
 html body.ixw--sol-rag main .lbr-faq summary{padding-left:22px!important}
 html body.ixw--sol-rag main .lbr-faq .faq-a{padding-left:22px!important}
-@media (max-width:860px){html body.ixw--sol-rag main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

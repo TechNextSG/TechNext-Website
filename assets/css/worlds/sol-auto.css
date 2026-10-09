@@ -333,9 +333,4 @@ html body.ixw--sol-auto main .sor-faq details::before,html body.ixw--sol-auto ma
 html body.ixw--sol-auto main .sor-ptag{padding:26px!important;border-radius:16px!important;background:#fff!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;transform:none!important;-webkit-mask:none!important;mask:none!important}
 html body.ixw--sol-auto main .sor-ptag::before,html body.ixw--sol-auto main .sor-ptag::after{content:none!important;display:none!important}
 html body.ixw--sol-auto main .sor-ptag:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
-/* calm.css hides every [class*="-stamp"] (rubber stamps); these are the six postage-stamp cards, so bring them back */
-html body.ixw--sol-auto main .sor-stamp.sor-stamp{display:block!important}
-html body.ixw--sol-auto main .sor-stamp-in.sor-stamp-in{display:block!important}
 html body.ixw--sol-auto main .sor-memo{border-top:4px solid transparent!important;border-image:repeating-linear-gradient(90deg,#D64A3A 0 18px,#fff 18px 24px,#3167CA 24px 42px,#fff 42px 48px) 4 0 0 0!important}
-html body.ixw--sol-auto main .sor-stamps.sor-stamps{display:grid!important}
-@media (max-width:860px){html body.ixw--sol-auto main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

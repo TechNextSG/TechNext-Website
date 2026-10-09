@@ -255,4 +255,3 @@ html body.ixw--sol-net main .wtw-wheel{filter:none!important}
 html body.ixw--sol-net main .wtw-wheel b{margin:0!important;transform:none!important}
 html body.ixw--sol-net main .wtw-ports li span{color:var(--body)!important}
 html body.ixw--sol-net main .wtw-ports li::before{background:#E5F3FA!important;color:var(--calm-accent-ink)!important}
-@media (max-width:860px){html body.ixw--sol-net main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

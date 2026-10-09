@@ -343,4 +343,3 @@ html body.ixw--sol-erp main .orc-bill:hover{transform:translateY(-2px)!important
 html body.ixw--sol-erp main .orc-bill-top{position:static!important;height:auto!important;justify-content:flex-start!important;margin:0 0 14px;padding:0!important;background:none!important;color:var(--c)!important;font:700 11.5px/1.2 var(--font-body)!important;letter-spacing:.1em!important}
 html body.ixw--sol-erp main .orc-bill-top::before,html body.ixw--sol-erp main .orc-bill-top::after{content:none!important}
 html body.ixw--sol-erp main .orc-bill p{color:var(--body)!important}
-@media (max-width:860px){html body.ixw--sol-erp main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

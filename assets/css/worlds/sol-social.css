@@ -299,4 +299,3 @@ html body.ixw--sol-social main .bky-box{padding:26px!important;border-radius:16p
 html body.ixw--sol-social main .bky-box::before,html body.ixw--sol-social main .bky-box::after{content:none!important;display:none!important}
 html body.ixw--sol-social main .bky-box:hover{transform:translateY(-2px)!important;box-shadow:var(--calm-shadow-h)!important}
 html body.ixw--sol-social main .bky-line{padding-top:0!important}
-@media (max-width:860px){html body.ixw--sol-social main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

@@ -334,4 +334,3 @@ html body.ixw--sol-mkt main .hbr-faq-sec{background:var(--calm-wash)!important;b
 html body.ixw--sol-mkt main .hbr-faq{max-width:860px!important}
 html body.ixw--sol-mkt main .hbr-faq details{box-shadow:none!important}
 html body.ixw--sol-mkt main .hbr-faq summary::before{width:28px!important;height:28px!important;border-radius:50%!important;background:#E6F2F8!important;color:var(--calm-accent-ink)!important;box-shadow:none!important;border:0!important;font:700 12px/28px var(--font-body)!important;text-align:center}
-@media (max-width:860px){html body.ixw--sol-mkt main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */

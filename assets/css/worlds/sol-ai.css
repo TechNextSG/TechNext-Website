@@ -293,4 +293,3 @@ html body.ixw--sol-ai main .msm-faq-side{position:static!important}
 html body.ixw--sol-ai main .msm-faq details{box-shadow:none!important}
 html body.ixw--sol-ai main .msm-faq summary::before{background:#E3F3F0!important;color:var(--calm-accent)!important;font:700 13px/1 var(--font-body)!important}
 html body.ixw--sol-ai main .msm-faq details[open] summary::before{background:var(--calm-accent)!important;color:#fff!important}
-@media (max-width:860px){html body.ixw--sol-ai main .cta{grid-template-columns:1fr!important}} /* calm.css phone override loses on specificity; reported to foundation */
