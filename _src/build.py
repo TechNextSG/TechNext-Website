@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
+import tile_icons as TI  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
@@ -88,6 +89,21 @@ ICON_RE = re.compile(r"\{\{icon:([a-z0-9_-]+)\}\}")
 ODOO_RE = re.compile(r"\{\{odoo:([a-z0-9_]+)(?::(\d+))?\}\}")
 META_RE = re.compile(r"^\s*<!--meta\s*(\{.*?\})\s*-->", re.S)
 ODOO_DIR = ROOT / "assets" / "img" / "odoo"
+
+
+# Feature icons (card icons, facts-row labels) show as Odoo-app-style tiles like the mega menu; icons inside buttons,
+# links, bullets and FAQ chevrons stay stroke glyphs (owner, 9 Oct 2026). /nexi-explains keeps its own look.
+TILE_CTX = re.compile(r'(<dt[^>]*>\s*|class="(?:card-ic|ix-ic)[^"]*"[^>]*>\s*)\{\{icon:([a-z0-9_-]+)\}\}')
+
+
+def tile_icons(html: str) -> str:
+    def rep(m):
+        name = m.group(2)
+        svg = S.ICONS.get(name, "")
+        if not svg or "ic-ind" in svg:
+            return m.group(0)
+        return m.group(1) + TI.tile(name, svg)
+    return TILE_CTX.sub(rep, html)
 
 
 def icons(html: str) -> str:
@@ -2083,7 +2099,10 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if out_rel == "nexi-explains.html":
         # Owner, 9 Oct 2026: /nexi-explains opens with the Nexi Explains comic intro (the html.intro-nxe variant of the
         # brand intro: comic sheet, "Nexi Explains!" tagline), under the same head gate (fresh landings only, no bots).
-        w_head = INTRO_HEAD + "<script>document.documentElement.classList.add('intro-nxe')</script>\n"
+        # It plays on every visit to the page, in-site clicks included (owner, 9 Oct); back/forward, ?nointro=1, bots
+        # and reduced motion still skip it.
+        w_head = (INTRO_HEAD.replace("(nav.type==='navigate'&&internal)||", "")
+                  + "<script>document.documentElement.classList.add('intro-nxe')</script>\n")
         w_body = INTRO_BODY
     html =(LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home and not CALM else w_body)
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
@@ -2108,6 +2127,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{{YEAR}}", YEAR).replace("{YEAR}", YEAR))
     html = odoo_icons(html)            # emits {{ROOT}}-prefixed <img> tags
     html = html.replace("{{ROOT}}", root).replace("{ROOT}", root)
+    if out_rel not in CALM_SKIP:
+        html = tile_icons(html)
     html = icons(html)
     html = clean_links(html)
     html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
