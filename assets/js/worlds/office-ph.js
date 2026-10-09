@@ -284,6 +284,7 @@
       card: function (g) { var b = T.board, lw = (b.w - 16) / 3; rr(g, b.x + 4 + lw, b.y + 92, lw + 4, 52, 6); }
     },
     backGlow: ['integrate', 'modules', 'hiring', 'coffee', 'clock', 'card'],
+    calmView: [85, -50, 780, 624],
     cast: [
       /* configures Odoo: types, clicks through the settings, drinks from his tumbler, nods to the music; a tap spins his chair or switches the apps on */
       { id: 'dev1', behind: true, keys: ['configure'], P: DEV1, act: function (P, t, S) { var st = S.cast.dev1, tp = COL.tap(st, t), busy = S.hot === 'configure', c = (t + 1) % 10, k2 = Math.abs(Math.sin(t * (busy ? 14 : 6))) * 6;

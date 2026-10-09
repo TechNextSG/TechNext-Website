@@ -227,3 +227,22 @@
 .ixw--office-vn .vn-lab{padding-top:clamp(84px,9vw,120px)}
 .vn-lanterns{top:0}
 .vn-lanterns::before{content:"";position:absolute;left:-26px;right:-26px;top:0;height:6px;border-radius:3px;background:linear-gradient(180deg,#C9A27A,#A9825C);box-shadow:0 2px 0 rgba(0,0,0,.08)}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the Ho Chi Minh City AI lab ==============================
+   Accent: lab cyan. Themed touches kept: the editor tabs on the discipline cards, the project terminal, a faint skyline under
+   "how AI joins", the route line on the address card, a small "AI" mark on each FAQ answer. Lanterns and prompts are gone. */
+body.ixw--office-vn{--calm-accent:#0EA5B7;--calm-accent-ink:#0B7F8D;--calm-accent-line:#BFE6EC;--calm-accent-wash:#F2F9FB}
+body.ixw--office-vn .vn-city{opacity:.45}
+body.ixw--office-vn .vn-road{display:none}
+body.ixw--office-vn .vn-addr{box-shadow:var(--calm-shadow);border:1px solid var(--calm-line);border-top:3px solid #0EA5B7}
+body.ixw--office-vn .vn-faq{gap:12px}
+body.ixw--office-vn .vn-faq details{background:#FFFFFF!important;border:1px solid var(--calm-line)!important;border-radius:14px!important;overflow:hidden}
+body.ixw--office-vn .vn-faq summary{margin:0;max-width:none;border-radius:0;background:none!important;color:var(--ink)!important;box-shadow:none!important;flex-direction:row;justify-content:space-between;text-align:left}
+body.ixw--office-vn .vn-faq summary::before,body.ixw--office-vn .vn-faq details[open] summary::before{content:none!important;display:none!important}
+body.ixw--office-vn .vn-faq summary .ic{margin-left:auto;margin-right:0;background:#EEF3FB;color:#3167CA}
+body.ixw--office-vn .vn-faq .faq-a{max-width:none;margin:0;border-radius:0;box-shadow:none;background:none;padding:0 18px 16px 58px}
+body.ixw--office-vn .vn-faq .faq-a::before{top:0;width:28px;height:28px;font-size:10px;background:#E3F7F9;color:#0B7F8D}
+@media (max-width:767px){body.ixw--office-vn .vn-faq .faq-a{padding:40px 16px 16px}}
+body.ixw--office-vn .vn-route{display:none}
+body.ixw--office-vn .vn-addr{padding:34px 30px}
+body.ixw--office-vn .vn-faq{padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
