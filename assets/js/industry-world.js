@@ -542,7 +542,7 @@
       var dt = performance.now() - c0; cost.n++; cost.avg += (dt - cost.avg) * 0.05; if (dt > cost.max) cost.max = dt;
     }
     function drawFrame(nowMs) {
-      var t = (nowMs - T0) / 1000; S.t = t;
+      var t = Math.max(0, (nowMs - T0) / 1000); S.t = t;   // a rAF timestamp can predate T0 on the first frame
       VIEW = { l: (-M - sx - pan) / k, r: (W + M - sx - pan) / k };
       par.x = lerp(par.x, par.tx, 0.08); par.y = lerp(par.y, par.ty, 0.08);
       if (S.hot) S.hotA = Math.min(1, S.hotA + 0.08);
