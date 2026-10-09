@@ -86,7 +86,7 @@
 <div class="gs-exit" id="gs-exit" role="dialog" aria-modal="true" aria-labelledby="gs-exit-h" aria-describedby="gs-exit-p" hidden>
   <div class="gs-exit-bg" data-exit-close></div>
   <div class="gs-exit-box">
-    <button class="gs-exit-x" type="button" data-exit-close aria-label="Close">{{icon:x}}</button>
+    <button class="gs-exit-x" type="button" data-exit-close aria-label="Close"><svg class="gs-exit-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="t" cx="18" cy="18" r="15"/><circle class="p" cx="18" cy="18" r="15"/></svg><span class="gs-exit-count" aria-hidden="true">3</span>{{icon:x}}</button>
     <div class="gs-exit-who"><img src="{{ROOT}}assets/img/logo-plane.png" alt="" width="40" height="34"><span><b>TechNext team</b><small>Singapore · Philippines · Vietnam</small></span></div>
     <div class="gs-exit-bubble">
       <span class="gs-exit-typing" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -160,6 +160,28 @@
   }
 
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // the (x) appears after a 3-second countdown; until then the backdrop and Esc do not close the pop-up either
+  var xBtn = box.querySelector('.gs-exit-x'), xCount = box.querySelector('.gs-exit-count'), lockTimer = 0;
+  function unlock() {
+    clearInterval(lockTimer);
+    box.classList.remove('is-locked');
+    xBtn.disabled = false;
+    xBtn.setAttribute('aria-label', 'Close');
+  }
+  function lock() {
+    var n = 3;
+    clearInterval(lockTimer);
+    box.classList.add('is-locked');
+    xBtn.disabled = true;
+    xBtn.setAttribute('aria-label', 'Close, available in 3 seconds');
+    xCount.textContent = n;
+    lockTimer = setInterval(function () {
+      n -= 1;
+      if (n > 0) xCount.textContent = n; else unlock();
+    }, 1000);
+  }
+
   // how: 'early' (mouse / scroll: once per visit, not in the first 4 s), 'link' (every time), 'stay' (after "Leave site?")
   function open(how, href) {
     if (form && form.classList.contains('is-sent')) return false;
@@ -173,6 +195,7 @@
     fill(how === 'stay' ? STAY : MSGS);
     lastFocus = document.activeElement;
     box.hidden = false;
+    lock();
     box.classList.toggle('is-typing', !reduce);
     requestAnimationFrame(function () { box.classList.add('is-open'); });
     if (!reduce) setTimeout(function () { box.classList.remove('is-typing'); }, 900);
@@ -184,6 +207,7 @@
   }
   function close() {
     if (box.hidden) return;
+    unlock();
     box.classList.remove('is-open');
     document.body.style.overflow = '';
     setTimeout(function () { box.hidden = true; }, reduce ? 0 : 220);
@@ -191,16 +215,19 @@
   }
 
   box.addEventListener('click', function (e) {
-    if (e.target.closest('[data-exit-close]')) { close(); return; }
+    if (e.target.closest('[data-exit-close]')) {
+      if (box.classList.contains('is-locked') && !e.target.closest('.gs-exit-foot')) return;   // (x) and backdrop wait for the countdown
+      close(); return;
+    }
     if (e.target.closest('[data-exit-leave]') && pending) { leaving = true; location.href = pending; return; }
     var go = e.target.closest('[data-exit-go]');
     if (go) { track('exit_popup_' + go.getAttribute('data-exit-go')); setTimeout(close, 150); }
   });
   document.addEventListener('keydown', function (e) {
     if (box.hidden) return;
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape' && !box.classList.contains('is-locked')) close();
     if (e.key === 'Tab') {   // keep focus inside the pop-up
-      var f = [].filter.call(box.querySelectorAll('a[href], button'), function (el) { return !el.hidden && el.offsetParent !== null; });
+      var f = [].filter.call(box.querySelectorAll('a[href], button'), function (el) { return !el.hidden && !el.disabled && el.offsetParent !== null; });
       if (!f.length) return;
       if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
       else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
