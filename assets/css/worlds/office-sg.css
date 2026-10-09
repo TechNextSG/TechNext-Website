@@ -4,7 +4,7 @@
    call buttons with a lit ring; rooms are meeting-room door signs with status lights; the address is a steel plate. */
 .ixw--office-sg{--sg-ink:#1B1F3B;--sg-blue:#3167CA;--sg-steel:linear-gradient(180deg,#F4F6FA,#D9DFE8);--sg-wood:#C9A27A;
   --w-alt:#F6F2EA;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
-  --st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#C9A27A;--hc-bg:linear-gradient(180deg,#3F76DA,#3167CA);
+  
   --ii-bg:linear-gradient(160deg,#F7F3EC,#E6EEFB);--ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#3167CA;--ii-lip:#1B1F3B;--ii-ep-bg:#1B1F3B;--ii-ep-fg:#FFFFFF}
 .ixw--office-sg .ixw-hero{background:linear-gradient(180deg,#DCEBFF 0%,#F3F7FF 60%,#EADFCC 60%,#D8C6AA 100%)}
 

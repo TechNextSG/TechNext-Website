@@ -4,7 +4,7 @@
    buttons are price tags with a punched hole; the glance strip is the quotation's totals bar. */
 .ixw--app-sales{--ow-c:#E46E78;--sl-ink:#1B1F3B;--sl-rose:#E46E78;--sl-rose-l:#FDF0F2;--sl-pur:#714B67;--sl-ok:#1E9E6A;
   --w-alt:#FCF6F7;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:8px;
-  --st-ink:#1B1F3B;--st-meet:#1E9E6A;--st-talk:#714B67;--st-nexi:#E46E78;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#EC8790,#E46E78);--hc-fg:#1B1F3B;
+  
   --ii-bg:linear-gradient(160deg,#FDF7F7,#F9DEE2 60%,#EDE5F3);--ii-ink:#1B1F3B;--ii-b:#E46E78;--ii-accent:#714B67;--ii-lip:#1B1F3B;--ii-ep-bg:#E46E78;--ii-ep-fg:#FFFFFF}
 .ixw--app-sales .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#FDF7F7 18%,#F5EAEC 62%,#E7EBF1 62%,#D6DDE7 100%)}
 

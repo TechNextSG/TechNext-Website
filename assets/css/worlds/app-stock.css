@@ -4,7 +4,7 @@
    short barcode on their left; the glance strip is the floor's yellow safety line. */
 .ixw--app-stock{--ow-c:#F2A33A;--sk-ink:#1B1F3B;--sk-amb:#F2A33A;--sk-amb-l:#FFF4E0;--sk-blue:#3167CA;--sk-y:#FFD84A;
   --w-alt:#F7F8FB;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:4px;
-  --st-ink:#1B1F3B;--st-meet:#1E9E6A;--st-talk:#3167CA;--st-nexi:#FFD84A;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#F5B357,#F2A33A);--hc-fg:#1B1F3B;
+  
   --ii-bg:linear-gradient(160deg,#F7F8FB,#FFEFC9 60%,#E2EBFA);--ii-ink:#1B1F3B;--ii-b:#C47A12;--ii-accent:#3167CA;--ii-lip:#1B1F3B;--ii-ep-bg:#1B1F3B;--ii-ep-fg:#FFFFFF}
 .ixw--app-stock .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F7F8FB 18%,#EBEEF4 62%,#DDE2EA 62%,#C9D0DB 100%)}
 

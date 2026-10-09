@@ -18,7 +18,7 @@
 .ixw--company .ixw-vg .t-xs{font-size:11.5px}
 
 /* ---------- the side tabs, the header's Contact Us (three offices, three colours) and the entry intro ---------- */
-.ixw--company{--st-ink:#1B1F3B;--st-meet:#14A38B;--st-talk:#3167CA;--st-nexi:#F08A24;--hc-bg:linear-gradient(90deg,#3167CA 0 34%,#10816E 34% 67%,#AD5C0C 67%)}
+.ixw--company{}
 .ixw--company{--ii-bg:linear-gradient(160deg,#F3F8FF,#DCE9FD);--ii-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cpath d='M0 48h96M48 0v96' stroke='%233167CA' stroke-opacity='.08' stroke-width='2'/%3E%3Cpath d='M38 52.5 58 45l-4.4 19.6-5-6.8-3.9 4.3.4-6z' fill='%233167CA' fill-opacity='.12'/%3E%3C/svg%3E");
   --ii-ink:#1B1F3B;--ii-b:#3167CA;--ii-accent:#3167CA;--ii-lip:#1B1F3B;--ii-ep-bg:#1B1F3B;--ii-ep-fg:#FFFFFF}
 

@@ -194,7 +194,7 @@
 
 /* wide screens: the scene sits a little higher, so the caption clears the credits card */
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--construction{--st-ink:#1E2A3A;--st-meet:#1F3F73;--st-talk:#FF7A1A;--st-nexi:#FFC93C;--st-nexi-fg:#1E2A3A;--hc-bg:linear-gradient(180deg,#FFD866,#FFC93C);--hc-fg:#1E2A3A}
+.ixw--construction{}
 /* the entry intro in this world's colours */
 .ixw--construction{--ii-plate:#FFFFFF;--ii-plate-shadow:0 6px 0 #0E1A2E;--ii-bg:#1F3F73;--ii-pattern:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(rgba(255,255,255,.12) 1.5px,transparent 1.5px) 0 0/120px 120px,linear-gradient(90deg,rgba(255,255,255,.12) 1.5px,transparent 1.5px) 0 0/120px 120px;--ii-ink:#FFFFFF;--ii-sub:#CFE0F5;--ii-b:#E0650C;--ii-accent:#FFC93C;--ii-bar:repeating-linear-gradient(-45deg,#1E2A3A 0 10px,#FFC93C 10px 20px);--ii-lip:#0E1A2E;--ii-ep-bg:#FFC93C;--ii-ep-fg:#1E2A3A;--ii-pill-r:4px;--ii-pill-ink:#1E2A3A}
 /* "View the scene": a site sign edged in hazard tape; pressed, safety yellow */

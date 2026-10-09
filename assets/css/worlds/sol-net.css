@@ -8,7 +8,7 @@
 .ixw--sol-net{--wt-aqua:#1C9AD6;--wt-deep:#0F6E9E;--wt-pale:#E3F4FC;--wt-ink:#1B2A3D;--wt-brass:#C9A24A;--wt-brass-d:#9C7A2C;--wt-staff:#3167CA;--wt-guest:#F28C28;--wt-dev:#2FB57C;--wt-vpn:#7A5CD6;--wt-red:#E04F4F;
   --wt-grid:linear-gradient(rgba(28,154,214,.10) 1px,transparent 1px) 0 0/18px 18px,linear-gradient(90deg,rgba(28,154,214,.10) 1px,transparent 1px) 0 0/18px 18px;
   --w-alt:#EEF7FC;--w-dot:rgba(28,154,214,.10);--lab-bd:2px solid #1B2A3D;--lab-lip:#1B2A3D;--lab-tail:#1B2A3D;--lab-r:999px;
-  --st-ink:#1B2A3D;--st-meet:#2FB57C;--st-talk:#1C9AD6;--st-nexi:#C9A24A;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#3BB0E6,#1C9AD6);--hc-fg:#1B2A3D;
+  
   --ii-bg:linear-gradient(160deg,#F2FAFE,#D8F0FB 55%,#FFF1DC);--ii-ink:#1B2A3D;--ii-b:#1C9AD6;--ii-accent:#C9A24A;--ii-lip:#1B2A3D;--ii-ep-bg:#1C9AD6;--ii-ep-fg:#FFFFFF;
   --ii-pattern:linear-gradient(rgba(28,154,214,.12) 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,rgba(28,154,214,.12) 1px,transparent 1px) 0 0/22px 22px}
 .ixw--sol-net .ixw-hero{background:linear-gradient(180deg,#62BDF0 0,#AEDFF8 18%,#E4F5FD 30%,#DCE4EE 30%,#E9EFF5 40%,#E3EAF2 72%,#D9B98F 72%,#BF9668 100%)}
