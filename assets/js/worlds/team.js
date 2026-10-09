@@ -247,6 +247,7 @@
       sway: function (g) { var r = T.rack; rr(g, r.x - 8, r.y - 20, r.w + 16, r.h + 28, 14); }
     },
     backGlow: ['rack', 'booth', 'printer', 'laminator', 'gate', 'offices', 'sway'],
+    calmView: [290, -40, 740, 592],
     cast: [
       { id: 'sit', behind: true, keys: ['booth'], P: SIT, act: actSit },
       { id: 'pho', behind: true, keys: ['booth'], P: PHO, act: actPho },

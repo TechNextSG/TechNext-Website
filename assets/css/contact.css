@@ -106,3 +106,20 @@
   .ct-copy .actions .btn{flex:1 1 100%}
 }
 @media (prefers-reduced-motion:reduce){.ct-cloud,.ct-plane,.ct-nexi,.ct-bub,.ct-dot,.ct-faq-nexi{animation:none}}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% the contact desk ==============================
+   The page's one Nexi touch is the desk in the hero (still, no bobbing); the ways in keep their channel colour as a top
+   rule, the offices keep a small country code. No highlighter, no ink outlines or lips, no flying plane, no FAQ mascot. */
+body.ct-page .ct-copy h1 em{background:none;color:var(--blue);padding:0}
+body.ct-page .ct-plane,body.ct-page .ct-trail,body.ct-page .ct-dot{display:none!important}
+body.ct-page .ct-nexi,body.ct-page .ct-bub,body.ct-page .ct-cloud{animation:none!important}
+body.ct-page .ct-desk{border:1px solid #E4E8F0;box-shadow:0 20px 36px -24px rgba(31,63,130,.4)}
+body.ct-page .ct-desk::before{border:0;background:#EEF3FB;color:#1E4691;font:700 11.5px/1 var(--font-body);letter-spacing:.14em}
+body.ct-page .ct-bub{border:1px solid #E4E8F0;box-shadow:0 10px 22px -16px rgba(31,63,130,.45)}
+body.ct-page .ct-bub::after{display:none}
+body.ct-page .ct-card{border:1px solid #E4E8F0;border-radius:16px;box-shadow:0 1px 2px rgba(31,31,61,.05),0 14px 32px -22px rgba(31,63,130,.32)}
+body.ct-page .ct-card:hover{transform:translateY(-2px);translate:none}
+body.ct-page .ct-office{border:1px solid #E4E8F0;border-radius:16px;box-shadow:0 1px 2px rgba(31,31,61,.05),0 14px 32px -22px rgba(31,63,130,.32);background:#FFFFFF!important;background-image:none!important}
+body.ct-page .ct-stamp{width:40px;height:40px;top:20px;border:0;font-size:12px;rotate:none;transform:none}
+body.ct-page .ct-ticks .ic{color:var(--blue)}
+@media (min-width:961px){body.ct-page .ct-faq-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}

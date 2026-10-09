@@ -227,4 +227,43 @@
 @media (max-width:767px){.ixw--office-sg .ix-intro-sec{padding-bottom:44px}}
 
 /* R9: no empty band under the glance strip, the next section starts right below it */
-.ixw--office-sg .ixw-credits-wrap + .section{padding-top:22px!important}
+
+/* ============================== CALM BALANCE (9 Oct 2026): 50% TechNext base, 50% Singapore HQ ==============================
+   Accent: HQ brass/wood, used thinly. Themed touches kept: the brass room plates on plain room cards, the whiteboard sticky
+   notes (flat), the meeting invite (thin bezel), the lift call panel on the address plate, the floor numbers in the FAQ. */
+body.ixw--office-sg{--calm-accent:#3167CA;--calm-accent-ink:#1E4691;--calm-accent-line:#D9C6AE;--calm-accent-wash:#F7F5F1}
+body.ixw--office-sg .sg-rooms{gap:20px;padding-top:0;perspective:none;align-items:stretch}
+body.ixw--office-sg .sg-room{min-height:0;padding:0;border-radius:16px;background:#FFFFFF;border:1px solid var(--calm-line);border-top:3px solid var(--sg-wood);box-shadow:var(--calm-shadow)!important;transform:none!important}
+body.ixw--office-sg .sg-room:hover{box-shadow:var(--calm-shadow-h)!important;translate:0 -2px}
+body.ixw--office-sg .sg-room::before,body.ixw--office-sg .sg-room::after,body.ixw--office-sg .sg-room-kick,body.ixw--office-sg .sg-room-glass::after{display:none!important}
+body.ixw--office-sg .sg-room-glass{padding:22px 22px 24px;background:none!important;border:0!important;box-shadow:none!important}
+body.ixw--office-sg .sg-room-no{padding:5px 10px;border-radius:6px;font-size:10.5px;box-shadow:none}
+body.ixw--office-sg .sg-room-ic{width:44px;height:44px;border-radius:12px;background:#EEF3FB;box-shadow:none;color:#3167CA}
+body.ixw--office-sg .sg-room--lift{background:#FFFFFF;border-top-color:#9AA6BC}
+body.ixw--office-sg .sg-room--lift .sg-room-no{background:#EEF1F6;color:#3A4458;font-family:var(--font-body)}
+@media (max-width:991px){body.ixw--office-sg .sg-rooms{row-gap:20px}}
+body.ixw--office-sg .sg-wb{margin:24px 0 0;padding:16px 18px;gap:18px;box-shadow:none;border:1px solid var(--calm-line)}
+body.ixw--office-sg .sg-wb::after{display:none}
+body.ixw--office-sg .sg-wb span{transform:none;box-shadow:none;border-radius:6px;width:78px;height:54px}
+body.ixw--office-sg .sg-wb span::before{display:none}
+body.ixw--office-sg .sg-invite{border:1px solid var(--calm-line);border-radius:20px;box-shadow:var(--calm-shadow)}
+body.ixw--office-sg .sg-agenda li{grid-template-columns:46px 80px minmax(0,1fr);border-bottom:1px solid #E9EEF5}
+body.ixw--office-sg .sg-agenda li:not(:last-child)::after{display:none}
+body.ixw--office-sg .sg-plate{box-shadow:var(--calm-shadow)!important;border:1px solid var(--calm-line)}
+body.ixw--office-sg .sg-plate::before{display:none}
+body.ixw--office-sg .sg-plate-unit{text-shadow:none;font-size:clamp(2.6rem,5vw,4rem)}
+body.ixw--office-sg .sg-call{box-shadow:inset 0 0 0 1px #C9D1DD}
+body.ixw--office-sg .sg-call i:first-of-type{box-shadow:inset 0 0 0 2px #8E99AC}
+body.ixw--office-sg .sg-faq{padding:0;background:none;box-shadow:none;border:0}
+body.ixw--office-sg .sg-faq::before,body.ixw--office-sg .sg-faq::after{display:none}
+body.ixw--office-sg .sg-faq details{box-shadow:none!important}
+body.ixw--office-sg .sg-faq summary::before{width:30px;height:30px;box-shadow:inset 0 0 0 1.5px #C9D1DD;font-size:11px}
+body.ixw--office-sg .sg-faq details[open] summary::before{box-shadow:none;background:#3167CA}
+body.ixw--office-sg .sg-cta>div:first-of-type{padding-top:0}
+body.ixw--office-sg .sg-cta>div:first-of-type::before{display:none}
+body.ixw--office-sg .sg-corridor{background:#FFFFFF!important}
+body.ixw--office-sg .sg-agenda li{grid-template-columns:84px minmax(0,1fr)}
+body.ixw--office-sg .sg-agenda li::before{display:none}
+body.ixw--office-sg .sg-lobby .co-city{box-shadow:var(--calm-shadow)!important;border:1px solid var(--calm-line)}
+body.ixw--office-sg .sg-lobby .co-city-art{border-bottom:3px solid var(--o)!important}
+@media (max-width:767px){body.ixw--office-sg .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%;justify-content:center}}
