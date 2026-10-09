@@ -162,6 +162,7 @@
     ];
   }
   window.IXW.worlds.manufacturing = {
+    calmView: [180,-45,820,656], /* calm layer: the framed hero shows the core of the scene */
     pan: [-340, 1170], /* phones: how far the scene drags each way (set units), ending on whole objects */
     room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: function () {}, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { crew(g, t, S, 'fore'); }); },
     motes: false,
