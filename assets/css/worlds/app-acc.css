@@ -4,7 +4,7 @@
    is a journal entry; buttons are posted entries with a tick; the glance strip is the ledger's totals line. */
 .ixw--app-acc{--ow-c:#2E9C7E;--ac-ink:#1B1F3B;--ac-grn:#2E9C7E;--ac-grn-l:#E8F5F0;--ac-pur:#714B67;--ac-red:#E2453C;
   --w-alt:#F3F9F6;--lab-bd:2px solid #1B1F3B;--lab-lip:#1B1F3B;--lab-tail:#1B1F3B;--lab-r:6px;
-  --st-ink:#1B1F3B;--st-meet:#2E9C7E;--st-talk:#714B67;--st-nexi:#2E9C7E;--st-nexi-fg:#FFFFFF;--hc-bg:linear-gradient(180deg,#3DB08F,#2E9C7E);--hc-fg:#1B1F3B;
+  
   --ii-bg:linear-gradient(160deg,#F5FAF8,#DCEFE7 60%,#EDE5F3);--ii-ink:#1B1F3B;--ii-b:#2E9C7E;--ii-accent:#714B67;--ii-lip:#1B1F3B;--ii-ep-bg:#2E9C7E;--ii-ep-fg:#FFFFFF}
 .ixw--app-acc .ixw-hero{background:linear-gradient(180deg,#EEF1F8 0,#F5FAF8 18%,#E7F2EE 62%,#E7EBF1 62%,#D6DDE7 100%)}
 .ow-page .app-ep{display:inline-flex;align-items:center;gap:6px}

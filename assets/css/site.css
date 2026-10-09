@@ -1216,57 +1216,6 @@ html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;he
   .nb-face i::before,.nb-face i::after{animation:none}
 }
 
-/* ---------- comic chrome: the header buttons and the side tabs over a Nexi Explains hero ----------
-   /nexi-explains (body.is-nxe) and home slide 4 while its sky is up (html.nxs-dark, hero-scenes.js). Ink outlines are
-   box-shadows, so a tab or button keeps its size and the switch can cross-fade (colours/shadows transition on the home
-   page; html.nxs-swap adds a staggered pop that hides the font change). Desktop side tabs are turned 180deg
-   (above), so a shadow written (5px,-5px) lands down-left on screen; the outline on the window edge is off-screen. */
-.is-home .header-cta .btn,.is-home .menu-btn{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease,border-color .45s ease,transform .2s ease}
-.is-home .side-tab{transition:background-color .45s ease,color .45s ease,box-shadow .45s ease}
-.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary,
-.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary{background:#FFD23F;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 4px 0 2.5px #101C45}
-.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover,
-.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:hover{background:#FFDC5E;color:#101C45;transform:translateY(-1px);box-shadow:0 0 0 2.5px #101C45,0 6px 0 2.5px #101C45}
-.is-nxe .header:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active,
-.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .header-cta .btn-primary:active{transform:translateY(3px);box-shadow:0 0 0 2.5px #101C45,0 1px 0 2.5px #101C45}
-.is-nxe .header:not(.is-scrolled):not(.is-open) .menu-btn,
-.header.c-nxs-dark:not(.is-scrolled):not(.is-open) .menu-btn{background:#fff;color:#101C45;border-color:transparent;box-shadow:0 0 0 2.5px #101C45,0 3px 0 2.5px #101C45}
-.is-nxe .side-tab,.side-tabs.c-nxs-dark .side-tab{font:400 18px/1 "Bangers","Plus Jakarta Sans",sans-serif;letter-spacing:.07em;box-shadow:0 0 0 3px #101C45,5px -5px 0 3px #101C45}
-.is-nxe .side-tab:hover,.side-tabs.c-nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,8px -8px 0 3px #101C45}
-.is-nxe .side-tab:active,.side-tabs.c-nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,2px -2px 0 3px #101C45}
-.is-nxe .side-tab:focus-visible,.side-tabs.c-nxs-dark .side-tab:focus-visible{outline:3px solid #FFD23F;outline-offset:5px}
-.is-nxe .meet-tab,.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,.side-tabs.c-nxs-dark .meet-tab,.side-tabs.c-nxs-dark .meet-tab:hover,.side-tabs.c-nxs-dark .meet-tab:active{color:#101C45}
-.is-nxe .meet-tab,.side-tabs.c-nxs-dark .meet-tab{background:#FFD23F}
-.is-nxe .meet-tab:hover,.is-nxe .meet-tab:active,.side-tabs.c-nxs-dark .meet-tab:hover,.side-tabs.c-nxs-dark .meet-tab:active{background:#FFDC5E}
-.is-nxe .talk-tab,.side-tabs.c-nxs-dark .talk-tab{background:#fff;color:#101C45}
-.is-nxe .talk-tab:hover,.is-nxe .talk-tab:active,.side-tabs.c-nxs-dark .talk-tab:hover,.side-tabs.c-nxs-dark .talk-tab:active{background:#EAF0FB;color:#101C45}
-.is-nxe .nexi-tab,.side-tabs.c-nxs-dark .nexi-tab{color:#fff}
-.is-nxe .side-tab .ic,.side-tabs.c-nxs-dark .side-tab .ic{width:18px;height:18px}
-.is-nxe .side-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic{animation:tnTabWiggle .5s var(--spring)}
-.is-nxe .meet-tab:hover .ic,.side-tabs.c-nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleUp .5s var(--spring)}
-@keyframes tnTabWiggle{30%{transform:rotate(90deg) translateY(-3px) scale(1.15)}60%{transform:rotate(78deg) scale(1.1)}100%{transform:rotate(90deg)}}
-@keyframes tnTabWiggleUp{30%{transform:rotate(180deg) translateY(3px) scale(1.15)}60%{transform:rotate(168deg) scale(1.1)}100%{transform:rotate(180deg)}}
-/* the costume change: tabs pop one after another, the header button with them */
-.side-tabs.c-nxs-swap .side-tab{animation:tnTabSwap .55s var(--spring) both}
-.side-tabs.c-nxs-swap .side-tab:nth-child(2){animation-delay:.07s}
-.side-tabs.c-nxs-swap .side-tab:nth-child(3){animation-delay:.14s}
-.header.c-nxs-swap .header-cta .btn,.header.c-nxs-swap .menu-btn{animation:tnBtnSwap .5s var(--spring) both}
-@keyframes tnTabSwap{0%{translate:0 0;scale:1}35%{translate:-7px 0;scale:.92 1.06}70%{translate:2px 0;scale:1.03 .98}100%{translate:0 0;scale:1}}
-@keyframes tnBtnSwap{0%{scale:1}35%{scale:.9}70%{scale:1.06}100%{scale:1}}
-@media (max-width:960px){
-  /* phones: round sticker buttons, not turned, so the shadow goes down-right as written */
-  .is-nxe .side-tab,.side-tabs.c-nxs-dark .side-tab{box-shadow:0 0 0 3px #101C45,3px 3px 0 3px #101C45}
-  .is-nxe .side-tab:hover,.side-tabs.c-nxs-dark .side-tab:hover{box-shadow:0 0 0 3px #101C45,4px 4px 0 3px #101C45}
-  .is-nxe .side-tab:active,.side-tabs.c-nxs-dark .side-tab:active{box-shadow:0 0 0 3px #101C45,1px 1px 0 3px #101C45}
-  .is-nxe .side-tab .ic,.side-tabs.c-nxs-dark .side-tab .ic{width:21px;height:21px}
-  .is-nxe .side-tab:hover .ic,.is-nxe .meet-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic,.side-tabs.c-nxs-dark .meet-tab:hover .ic{animation:tnTabWiggleRound .5s var(--spring)}
-  @keyframes tnTabWiggleRound{30%{transform:translateY(-3px) scale(1.15)}60%{transform:rotate(-12deg) scale(1.1)}100%{transform:none}}
-  @keyframes tnTabSwap{0%{scale:1}35%{scale:.86}70%{scale:1.08}100%{scale:1}}
-}
-@media (prefers-reduced-motion:reduce){
-  .is-nxe .side-tab:hover .ic,.side-tabs.c-nxs-dark .side-tab:hover .ic,.side-tabs.c-nxs-swap .side-tab,.header.c-nxs-swap .header-cta .btn,.header.c-nxs-swap .menu-btn{animation:none}
-}
-
 /* ---------- the page scrollbar: an overlay, so dark heroes run to the window edge with no white strip ----------
    Mouse/trackpad screens only (touch screens already overlay their bars). site.js builds .tn-sb: a transparent track
    and a thin thumb that shows while the page scrolls or the pointer nears the edge, and can be dragged. */
@@ -1291,43 +1240,36 @@ main>section:not(:first-child){content-visibility:auto;contain-intrinsic-size:au
 main>section:has(.ixw-cta),main>section:has(.cta-nexi),main>section:has([class*="-cta"] img[src*="nexi"]),
 main>section:has(.ixw-say),main>section.answer-sec{content-visibility:visible}
 @media print{main>section:not(:first-child){content-visibility:visible}}
-/* ================= R9 nav: header "Let's talk" button + floating WhatsApp, both dressed in the page's world =================
-   Every world sets --hc-bg / --hc-fg (button fill + text) and --st-ink (outline + lip); pages without a world fall back to
-   brand blue + navy ink. The home industries slide (html.hxs-on) and Nexi Explains keep their own rules. */
-body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact,
-body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover,
-body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{
-  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#3F76DA,#3167CA));border:2px solid var(--st-ink,#1B2350);border-radius:12px;
-  box-shadow:0 3px 0 var(--st-ink,#1B2350);translate:none;transition:translate .2s var(--spring),box-shadow .2s ease,filter .2s ease}
-body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:hover{translate:0 -2px;box-shadow:0 5px 0 var(--st-ink,#1B2350);filter:saturate(1.08) brightness(1.04)}
-body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact:active{translate:0 2px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
+/* ================= flat floating buttons: header "Let's talk", the side tabs (+ the phone "+" button) and WhatsApp =================
+   Owner, 9 Oct 2026: "Don't add theme changes on these buttons, bring back the flat design. Apply to all pages."
+   The same on every page and every home slide: solid colour, no outline, no lip, no gradient; hover a shade darker; a focus
+   ring. The !important block beats the home carousel's slide theming (hero.css c-hxs-on / hero-skins) on purpose. */
+.header .header-cta .btn.hdr-contact,.header .header-cta .btn.hdr-contact:hover,.header .header-cta .btn.hdr-contact:active,
+.header.c-hxs-on .header-cta .btn-primary,.header.c-nxs-dark .header-cta .btn-primary{
+  color:#FFFFFF!important;background:#3167CA!important;border:0!important;border-radius:12px!important;box-shadow:none!important;translate:none!important;filter:none!important;
+  transform:none!important;animation:none!important;transition:background-color .2s ease!important}
+.header .header-cta .btn.hdr-contact:hover,.header.c-hxs-on .header-cta .btn-primary:hover,.header.c-nxs-dark .header-cta .btn-primary:hover{background:#1E4691!important}
+.header .header-cta .btn.hdr-contact:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}
 .header .header-cta .btn.hdr-contact::after{display:none}
-.header .header-cta .btn.hdr-contact .ic{color:currentColor;width:19px;height:19px;padding:0;margin:0;background:none;border-radius:0;transition:transform .3s var(--spring)}
-.header .header-cta .btn.hdr-contact:hover .ic{transform:rotate(-8deg) scale(1.08)}
-@media (max-width:1100px){
-  body:not(.is-nxe) .header:not(.c-hxs-on):not(.c-nxs-dark) .header-cta .btn.hdr-contact{width:44px;height:44px;padding:0;justify-content:center}
-  .header .header-cta .btn.hdr-contact .ic{width:22px;height:22px}
-}
+.header .header-cta .btn.hdr-contact .ic{color:currentColor!important;width:19px;height:19px;padding:0;margin:0;background:none;border-radius:0}
+.header.c-hxs-on .menu-btn,.header.c-nxs-dark .menu-btn{box-shadow:none!important;transform:none!important;animation:none!important}
+@media (max-width:1100px){.header .header-cta .btn.hdr-contact{width:44px;height:44px;padding:0;justify-content:center}.header .header-cta .btn.hdr-contact .ic{width:22px;height:22px}}
 
-/* floating WhatsApp: bottom-right corner. Desktop: below the vertical side tabs. Phone: stacked above the round "+" FAB,
-   and it steps aside while the FAB's menu or the Let's Talk panel is open. */
-.wa-float{position:fixed;right:22px;bottom:22px;z-index:57;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
-  color:var(--hc-fg,#FFFFFF);background:var(--hc-bg,linear-gradient(180deg,#3F76DA,#3167CA));border:2.5px solid var(--st-ink,#1B2350);
-  box-shadow:0 4px 0 var(--st-ink,#1B2350),0 16px 28px -14px rgba(15,25,50,.55);-webkit-tap-highlight-color:transparent;
-  transition:translate .22s var(--spring),box-shadow .22s ease,opacity .25s ease,scale .3s var(--spring)}
+/* floating WhatsApp: a flat WhatsApp-green circle, bottom-right. Phone: stacked above the round "+" button, and it steps
+   aside while that button's menu or the Let's Talk panel is open. */
+.wa-float,.wa-float.c-hxs-on,.wa-float.c-nxs-dark,.is-nxe .wa-float{position:fixed;right:22px;bottom:22px;z-index:57;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
+  color:#FFFFFF!important;background:#25D366!important;border:0!important;box-shadow:0 10px 24px -12px rgba(15,25,50,.45)!important;-webkit-tap-highlight-color:transparent;
+  transition:background-color .2s ease,opacity .25s ease,scale .3s var(--spring)}
 .wa-float .ic{width:26px;height:26px}
-.wa-float::before{content:"";position:absolute;right:-3px;top:-3px;width:14px;height:14px;border-radius:50%;background:#25D366;border:2.5px solid #FFFFFF;box-shadow:0 0 0 1.5px var(--st-ink,#1B2350)}
-.wa-float:hover{translate:0 -3px;box-shadow:0 7px 0 var(--st-ink,#1B2350),0 20px 32px -14px rgba(15,25,50,.6)}
-.wa-float:active{translate:0 3px;box-shadow:0 1px 0 var(--st-ink,#1B2350);transition-duration:.07s}
-.wa-float:focus-visible{outline:3px solid var(--st-ink,#1B2350);outline-offset:4px}
-.wa-float-tip{position:absolute;right:calc(100% + 12px);top:50%;translate:6px -50%;padding:8px 12px;border-radius:10px;background:#FFFFFF;color:var(--st-ink,#1B2350);
-  border:2px solid var(--st-ink,#1B2350);font:800 13px/1 var(--font-display);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease,translate .25s var(--spring)}
+.wa-float::before{content:"";position:absolute;right:1px;top:1px;width:12px;height:12px;border-radius:50%;background:#25D366;border:2px solid #FFFFFF;box-shadow:none}
+.wa-float:hover{background:#1EB257!important}
+.wa-float:focus-visible{outline:3px solid #6FA0F5;outline-offset:4px}
+.wa-float-tip{position:absolute;right:calc(100% + 12px);top:50%;translate:6px -50%;padding:8px 12px;border-radius:10px;background:#FFFFFF;color:#1F1F3D;
+  border:1px solid #E7E4E9;box-shadow:0 8px 20px -12px rgba(15,25,50,.35);font:600 13px/1 var(--font-body);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease,translate .25s var(--spring)}
 .wa-float:hover .wa-float-tip,.wa-float:focus-visible .wa-float-tip{opacity:1;translate:0 -50%}
 body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
-.wa-float.c-hxs-on{color:var(--hx-hc-fg,#FFFFFF);background:var(--hx-hc-bg,var(--blue));border-color:var(--hx-st-ink,#1F1F3D);box-shadow:0 4px 0 var(--hx-st-ink,#1F1F3D)}
-.is-nxe .wa-float,.wa-float.c-nxs-dark{background:#FFD23F;color:#101C45;border-color:#101C45;box-shadow:0 4px 0 #101C45}
 @media (max-width:960px){
-  .wa-float{right:16px;bottom:80px;width:50px;height:50px;transition:translate .22s var(--spring),bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
+  .wa-float,.wa-float.c-hxs-on,.wa-float.c-nxs-dark,.is-nxe .wa-float{right:16px;bottom:80px;width:50px;height:50px;transition:background-color .2s ease,bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
   body.tabs-wait .wa-float{bottom:16px}
   .wa-float .ic{width:24px;height:24px}
   .wa-float-tip{display:none}
@@ -1336,6 +1278,18 @@ body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
 }
 @media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.header .header-cta .btn.hdr-contact{transition:none}}
 @media print{.wa-float{display:none}}
+
+/* the side tabs: their original flat look on every page (green Set up meeting, blue Let's Talk and Ask Nexi) */
+.side-tabs .side-tab,.side-tabs.c-hxs-on .side-tab,.side-tabs.c-nxs-dark .side-tab,.is-nxe .side-tab{border:0!important;box-shadow:0 8px 24px -12px rgba(31,31,61,.45)!important;color:#FFFFFF!important;
+  font:700 14px/1 var(--font-display)!important;letter-spacing:.02em!important;filter:none!important;animation:none!important;translate:none!important}
+.side-tabs .meet-tab,.side-tabs .meet-tab:hover,.side-tabs .meet-tab:active,.side-tabs.c-hxs-on .meet-tab,.side-tabs.c-nxs-dark .meet-tab,.is-nxe .meet-tab{background:var(--ok)!important}
+.side-tabs .meet-tab:hover{background:#0F633C!important}
+.side-tabs .talk-tab,.side-tabs .nexi-tab,.side-tabs.c-hxs-on .talk-tab,.side-tabs.c-hxs-on .nexi-tab,.side-tabs.c-nxs-dark .talk-tab,.side-tabs.c-nxs-dark .nexi-tab,.is-nxe .talk-tab,.is-nxe .nexi-tab{background:#3167CA!important}
+.side-tabs .talk-tab:hover,.side-tabs .nexi-tab:hover,.side-tabs .talk-tab:active,.side-tabs .nexi-tab:active{background:#1E4691!important}
+.side-tabs .side-tab:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}
+.side-tabs .side-tab .ic{animation:none!important}
+.side-fab,html.hxs-on .side-fab,.ixw .side-fab{background:#3167CA!important;color:#FFFFFF!important;border:0!important;box-shadow:0 10px 24px -10px rgba(31,31,61,.5)!important}
+.side-fab:hover{background:#1E4691!important}
 
 /* R9 mobile audit: the floating Let's Talk "+" and WhatsApp buttons stack over the bottom-right corner; the footer
    ends with room for them, so the last lines of the page can scroll clear */

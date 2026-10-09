@@ -420,25 +420,6 @@ main>.ixw-hero:first-child{margin-top:calc(var(--header-box) * -1)}
 .ixw .ixw-cta .hand{color:#FFE48A}
 @media (min-width:1100px){.ixw .ixw-cta{padding-right:240px}}
 @media (min-width:768px) and (max-width:1099px){.ixw .ixw-cta{grid-template-columns:minmax(0,1fr);padding-right:190px}}
-/* the side tabs and the header's Contact Us, themed by each world (--st-* set in assets/css/worlds/<key>.css): an ink outline
-   and a hard lip like the world's buttons. The tabs are turned 180deg, so the lip (box-shadow x) shows on their left. */
-.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-left:0;border-radius:0 12px 12px 0;color:var(--st-fg,#FFFFFF);box-shadow:4px 0 0 var(--st-ink,#1F1F3D);transition:box-shadow .2s ease,background-color .2s ease}
-.ixw[class*="ixw--"] .meet-tab,.ixw[class*="ixw--"] .meet-tab:hover,.ixw[class*="ixw--"] .meet-tab:active{background:var(--st-meet)}
-.ixw[class*="ixw--"] .talk-tab,.ixw[class*="ixw--"] .talk-tab:hover,.ixw[class*="ixw--"] .talk-tab:active{background:var(--st-talk)}
-.ixw[class*="ixw--"] .nexi-tab,.ixw[class*="ixw--"] .nexi-tab:hover,.ixw[class*="ixw--"] .nexi-tab:active{background:var(--st-nexi);color:var(--st-nexi-fg,#FFFFFF)}
-.ixw[class*="ixw--"] .side-tab:hover{translate:none;box-shadow:7px 0 0 var(--st-ink,#1F1F3D)}
-.ixw[class*="ixw--"] .side-tab:active{translate:none;box-shadow:2px 0 0 var(--st-ink,#1F1F3D)}
-/* the site header looks the same on every page: Contact Us keeps the standard blue, so switching pages never jumps */
-.ixw[class*="ixw--"] .header-cta .btn-primary{color:#FFFFFF;background:var(--blue);border:0;border-radius:10px;box-shadow:none;transition:background-color .2s ease}
-.ixw[class*="ixw--"] .header-cta .btn-primary:hover{color:#FFFFFF;background:var(--blue-700,#2756B0);translate:none;box-shadow:none}
-.ixw[class*="ixw--"] .header-cta .btn-primary:active{translate:none;box-shadow:none}
-.ixw[class*="ixw--"] .header-cta .btn-primary .ic{color:currentColor}
-@media (max-width:960px){.ixw[class*="ixw--"] .side-tab{border:2.5px solid var(--st-ink,#1F1F3D);border-radius:50%;box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}
-  .ixw[class*="ixw--"] .side-tab:hover{translate:0 -2px;box-shadow:0 6px 0 var(--st-ink,#1F1F3D)}
-  .ixw[class*="ixw--"] .header-cta .btn-primary{width:44px;height:44px;padding:0;justify-content:center;border-width:2px;box-shadow:0 3px 0 var(--st-ink)}
-  .ixw[class*="ixw--"] .header-cta .btn-primary .ic{flex:none;width:22px;height:22px;padding:0;margin:0;border-radius:0;background:none;box-shadow:none}
-  .ixw[class*="ixw--"] .header-cta .btn-primary::after{display:none}
-  .ixw[class*="ixw--"] .side-fab{background:var(--st-talk);color:var(--st-fg,#FFFFFF);border:2.5px solid var(--st-ink,#1F1F3D);box-shadow:0 4px 0 var(--st-ink,#1F1F3D)}}
 .ixw-cta-nexi{position:absolute;right:96px;bottom:100%;width:0;height:0;--npx:.36px;pointer-events:none}
 .ixw-cta:has(.ixw-cta-nexi){overflow:visible!important}
 .ixw-cta-nexi .ixw-pose{left:calc(var(--ax) * -.36px);top:calc(var(--ay) * -.36px + 40px);width:calc(var(--w) * .36px);animation:ixwBob 3.4s ease-in-out infinite}

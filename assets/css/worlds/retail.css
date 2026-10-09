@@ -230,7 +230,7 @@
 
 /* wide screens: the scene sits a little higher, so the receipt's torn edge clears the credits card */
 /* the side tabs and the header's Contact Us in this world's colours */
-.ixw--retail{--st-ink:#3D405B;--st-meet:#5E8F77;--st-talk:#D9785A;--st-nexi:#E9C46A;--st-nexi-fg:#3D405B;--hc-bg:linear-gradient(180deg,#CC5329,#B64B2A 70%)}
+.ixw--retail{}
 /* the entry intro in this world's colours */
 .ixw--retail{--ii-bg:#FBF3E6;--ii-pattern:repeating-linear-gradient(90deg,rgba(129,178,154,.2) 0 2px,transparent 2px 28px);--ii-ink:#3D405B;--ii-b:#D9785A;--ii-accent:#D9785A;--ii-lip:#B95E43;--ii-ep-bg:#5E8F77;--ii-ep-fg:#FFFFFF;--ii-pill-r:999px 8px 8px 999px}
 /* "View the scene": a swing tag with its eyelet; pressed, terracotta */

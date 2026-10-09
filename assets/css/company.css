@@ -28,5 +28,3 @@
 @media (prefers-reduced-motion:reduce){.co-city,.co-city-art svg{transition:none}}
 
 /* the site header looks the same on every Company page (no per-page Contact Us colours), so switching pages never jumps */
-.ixw.co-page .header-cta .btn-primary,.ixw.co-page .header-cta .btn-primary:hover,.ixw.co-page .header-cta .btn-primary:active{color:#FFFFFF;background:var(--blue);border:0;border-radius:10px;box-shadow:none;translate:none}
-.ixw.co-page .header-cta .btn-primary:hover{background:var(--blue-700,#2756B0)}

@@ -9,7 +9,7 @@
   --sor-air:repeating-linear-gradient(-45deg,#D64A3A 0 12px,#FFFFFF 12px 20px,#3167CA 20px 32px,#FFFFFF 32px 40px);
   --ow-c:#2F5D6B;--w-alt:#F6F1E6;--w-dot:rgba(47,93,107,.09);--w-hand:#A87A22;--w-teal:#2F5D6B;--w-teal-d:#1F4450;--w-teal-l:#E3EEF0;
   --lab-bg:#FFFDF7;--lab-bd:2px solid #1F4450;--lab-lip:#1F4450;--lab-tail:#1F4450;--lab-r:7px;
-  --st-ink:#1F4450;--st-meet:#2F5D6B;--st-talk:#D64A3A;--st-nexi:#D4A23F;--st-nexi-fg:#1B1F3B;--hc-bg:linear-gradient(180deg,#3E7383,#2F5D6B);
+  
   --ii-bg:linear-gradient(160deg,#FFFDF7,#FBF4E6 55%,#E3EEF0);--ii-pattern:repeating-linear-gradient(-45deg,rgba(214,74,58,.06) 0 18px,transparent 18px 30px,rgba(49,103,202,.06) 30px 48px,transparent 48px 60px);
   --ii-ink:#1B1F3B;--ii-b:#2F5D6B;--ii-accent:#D64A3A;--ii-lip:#1F4450;--ii-ep-bg:#2F5D6B;--ii-ep-fg:#FFFFFF}
 .ixw--sol-auto .ixw-hero{background:linear-gradient(180deg,#9FD3F6 0,#FFF9EE 18%,#F5EAD6 52%,#CFE3D6 52%,#CFE3D6 64%,#D9B98C 64%,#C49A68 100%)}
