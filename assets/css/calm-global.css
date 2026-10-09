@@ -1,0 +1,16 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* CALM LAYER, global half: the header, on EVERY page including the home page (calm.css, the page kit,
+   is not loaded on the home page; its body belongs to the home agent). Loaded last; reversible with CALM = False in build.py. */
+/* ---------------------------------------------------------------- header: the same clean header everywhere */
+.header,body .header{box-shadow:none!important;border-bottom:1px solid transparent}
+.header.is-scrolled{border-bottom-color:var(--line)!important;background:rgba(255,255,255,.96)!important}
+/* the Let's talk button, the side tabs and WhatsApp: flat and identical everywhere (site.css, flat-buttons commit) */
+/* "Nexi Explains" is a plain nav link now */
+.nav-item--bubble{margin-left:0!important}
+.nav-bubble,.nav-bubble:hover,.nav-bubble:focus-visible{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px!important;border-radius:var(--r-sm);transform:none!important;rotate:none!important;
+  font:500 15px/1 var(--font-body)!important;letter-spacing:0!important;color:var(--ink)!important;background:transparent;filter:none!important;animation:none!important}
+.nav-bubble:hover{background:var(--blue-050)!important;color:var(--blue-700)!important}
+.nav-bubble[aria-current]{color:var(--blue)!important}
+.nav-bubble .nb-bg,.nav-bubble .nb-face,.mnav-bubble .nb-bg,.mnav-bubble .nb-face{display:none!important}
+.mnav-bubble,.mnav-bubble-in{background:none!important;box-shadow:none!important;transform:none!important;font:inherit!important;color:inherit!important;padding:0!important;border:0!important}
+

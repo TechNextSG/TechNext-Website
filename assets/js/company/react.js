@@ -48,7 +48,7 @@
       return applyPose(P, st, t);
     },
     /* a passer-by: walks (IXW.kit.walker) or, while reacting, stops and plays the move */
-    walk: function (g, W, t) {
+    walk: function (g, W, t) { if (window.IXW && IXW.kit && IXW.kit.calm) return; /* CALM: no passers-by */
       var P = W.P, st = W.st || (W.st = {}); if (walkers.indexOf(W) < 0) walkers.push(W);
       if (st.rx && P._w) { if (!applyPose(P, st, t)) { K.walker(g, W, t); return; } P._w.tx = P._w.x; P._w.until = t + 0.6; P._w.t = t; P.feet = true; K.person(g, P, t); return; }
       K.walker(g, W, t);

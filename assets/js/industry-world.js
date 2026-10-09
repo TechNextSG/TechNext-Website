@@ -15,8 +15,14 @@
    All copy lives in the HTML; this file only animates it. Without JS the page reads top to bottom. */
 (function () {
   'use strict';
-  var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches), reduce = REDUCE;
   var fine = !!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches);
+  /* CALM (the calm layer, build.py CALM = True): the hero scene is ONE framed illustration ([data-ixw-frame]) with the
+     world's gentle idle motion only: no walkers / passers-by, no tour, no Nexi, no peek button, no tap reactions; the
+     workflow does not autoplay. A world may set calmView [x, y, w, h], calmCast [ids kept] or calmHide [ids hidden]. */
+  var CALM = !!document.querySelector('[data-ixw-frame]');
+  /* the part of the set (x, y, w, h in set units) the frame shows; a world may set calmView itself */
+  var CALM_VIEW = { def: [125, -40, 750, 600] };
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function lerp(a, b, k) { return a + (b - a) * k; }
   function hash(i) { var s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); }
@@ -307,6 +313,7 @@
   /* people scale with depth: everyone standing at the same y is the same size */
   function depthScale(y) { return 0.54 + (y - 480) * 0.0002; }
   function walker(g, W, t) {
+    if (CALM) return;
     if (zq) { zq.push({ y: W.y, f: function () { walker(g, W, t); } }); return; }
     if (!W.P.fixS) W.P.s = depthScale(W.y) * (W.P.kid ? 0.72 : 1);
     var P = W.P, st = P._w, lo = Math.min(W.x0, W.x1), hi = Math.max(W.x0, W.x1);
@@ -424,7 +431,7 @@
   IXW.worlds = IXW.worlds || {};
   IXW.kit = { clamp: clamp, lerp: lerp, hash: hash, rr: rr, ell: ell, fillRR: fillRR, fillE: fillE, limb: limb, soft: soft, shadowed: shadowed, text: text, tone: tone, FONT: FONT,
     person: person, ik: ik, F3: F3, room: room, plusPattern: plusPattern, windowFrame: windowFrame, windowSky: windowSky, windowGlass: windowGlass, windowMullions: windowMullions, cloud: cloud,
-    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, zfore: zfore, depthScale: depthScale, reduce: reduce };
+    plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, zfore: zfore, depthScale: depthScale, reduce: reduce, calm: CALM };
 
   /* ============================== the hero ==============================
      A world: { room (see room()) or paintBg(g, W, H, k, sx, sy), paintBack(g), paintFront(g), paintWindow(g, t, par, S), paintLive(g, t, date, S),
@@ -437,6 +444,7 @@
      S (shared state): hot, hotA, peek (the hotspot or toy under the pointer), peekA, ext, nexi {x, y}, cast {id: {wave, until, hover, hopAt}}, toy {name: start time}, t */
   function hero(root) {
     var W0 = IXW.worlds[root.getAttribute('data-world')];
+    var frame = root.querySelector('[data-ixw-frame]'), box = frame || root, reduce = REDUCE;
     var cv = root.querySelector('[data-ixw-cv]'), set = root.querySelector('[data-ixw-set]'), front = root.querySelector('[data-ixw-front]');
     var nexi = root.querySelector('[data-ixw-nexi]'), cap = root.querySelector('[data-ixw-cap]');
     if (!W0 || !cv || !set || !cv.getContext) return;
@@ -453,16 +461,16 @@
     W0.cast.forEach(function (c) { S.cast[c.id] = { wave: 0, until: 0, hover: false, hopAt: -9 }; });
     root.classList.add('is-live');
     /* "View the scene": hides the title card and the caption so the whole scene shows (desktop; the button is added here) */
-    var peekBtn = document.createElement('button'), peekLab = document.createElement('span');
+    if (!frame) { var peekBtn = document.createElement('button'), peekLab = document.createElement('span');
     peekBtn.type = 'button'; peekBtn.className = 'ixw-peek'; peekBtn.setAttribute('aria-pressed', 'false'); peekLab.textContent = 'View the scene'; peekBtn.appendChild(peekLab);
     peekBtn.addEventListener('click', function () { var on = root.classList.toggle('is-peek'); peekBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); peekLab.textContent = on ? 'Show the text' : 'View the scene'; });
-    root.appendChild(peekBtn);
+    root.appendChild(peekBtn); }
     function now() { return (performance.now() - T0) / 1000; }
 
     var capEl = root.querySelector('.ixw-cap');
     function setPan() { var v = pan.toFixed(1); if (v === panSet) return; panSet = v;
       set.style.translate = v + 'px 0'; if (capEl) capEl.style.translate = (-pan).toFixed(1) + 'px 0'; if (hint) hint.style.translate = 'calc(-50% - ' + v + 'px) 0'; }
-    var hint = document.createElement('span'); hint.className = 'ixw-drag'; hint.setAttribute('aria-hidden', 'true'); hint.textContent = 'Drag to look around'; set.appendChild(hint);
+    var hint = document.createElement('span'); hint.className = 'ixw-drag'; hint.setAttribute('aria-hidden', 'true'); hint.textContent = 'Drag to look around'; if (!frame) set.appendChild(hint);
     function dragDone() { if (!root.classList.contains('was-dragged')) root.classList.add('was-dragged'); }
     root.addEventListener('pointerdown', function (e) {
       if (!(El || Er) || !e.isPrimary || (e.target.closest && e.target.closest('.ixw-cap, .ixw-copy, a'))) return;
@@ -479,13 +487,21 @@
     root.addEventListener('pointerup', dragEnd); root.addEventListener('pointercancel', dragEnd);
     root.addEventListener('click', function (e) { if (performance.now() - noClick < 350) { e.stopPropagation(); e.preventDefault(); } }, true);
     if (phoneQ.addEventListener) phoneQ.addEventListener('change', function () { panT = pan = 0; measure(); });
+    function frameSet() { /* CALM: scale and place the set so the frame shows the world's calm view, centred, covering the frame */
+      var fr = frame.getBoundingClientRect(), V = W0.calmView || CALM_VIEW[root.getAttribute('data-world')] || CALM_VIEW.def;
+      var kk = Math.max(fr.width / V[2], fr.height / V[3]);
+      set.style.width = (1000 * kk).toFixed(2) + 'px';
+      set.style.left = (-V[0] * kk + (fr.width - V[2] * kk) / 2).toFixed(2) + 'px';
+      set.style.top = (-V[1] * kk + (fr.height - V[3] * kk) / 2).toFixed(2) + 'px';
+    }
     function measure() {
-      var hr = root.getBoundingClientRect(), r = set.getBoundingClientRect();
+      if (frame) frameSet();
+      var hr = box.getBoundingClientRect(), r = set.getBoundingClientRect();
       W = Math.round(hr.width); Hh = Math.round(hr.height); dpr = Math.min(window.devicePixelRatio || 1, phoneQ.matches ? 1.25 : 1.5);   // R9 perf: the full-hero canvas at 1.75x cost a third more fill per frame for no visible gain
       k = r.width / 1000; sx = r.left - hr.left - pan; sy = r.top - hr.top;
       /* phones: how far the scene may slide each way to reach set units PAN_L .. PAN_R */
       var PL = W0.pan ? W0.pan[0] : PAN_L, PR = W0.pan ? W0.pan[1] : PAN_R;
-      El = Er = 0; if (phoneQ.matches) { El = Math.max(0, Math.round(-(sx + PL * k))); Er = Math.max(0, Math.round(sx + PR * k - W)); }
+      El = Er = 0; if (phoneQ.matches && !frame) { El = Math.max(0, Math.round(-(sx + PL * k))); Er = Math.max(0, Math.round(sx + PR * k - W)); }
       pan = panT = clamp(panT, -Er, El); setPan();
       VIEW = null; /* the static layers paint everything */
       var VW = W + El + Er, SX = sx + El; /* the caches see a hero widened by the drag range */
@@ -517,6 +533,8 @@
       if (u >= 0 && u < 1 && !reduce) P.hop = h0 + Math.sin(u * Math.PI) * 16;
       person(g, P, t); P.mood = m0; P.hop = h0;
     }
+    /* CALM: only the core of the analogy stays: a world lists the cast it keeps (calmCast) or hides (calmHide) */
+    function shown(c) { if (!frame) return true; if (W0.calmCast) return W0.calmCast.indexOf(c.id) >= 0; return !(W0.calmHide && W0.calmHide.indexOf(c.id) >= 0); }
     var cost = { n: 0, avg: 0, max: 0 }; IXW.stats = cost;
     function draw(nowMs) {
       var c0 = performance.now();
@@ -545,15 +563,15 @@
       if (S.hot && back.indexOf(S.hot) >= 0) glow(t, S.hot, S.hotA);
       if (pkOn && back.indexOf(pk) >= 0) glow(t, pk, S.peekA, true);
       g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr);
-      W0.cast.forEach(function (c) { if (c.behind) { c.act(c.P, t, S); figure(c, t); } });
+      W0.cast.forEach(function (c) { if (c.behind && shown(c)) { c.act(c.P, t, S); figure(c, t); } });
       g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(B, sh, 0, B.width / dpr, B.height / dpr);
       g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr);
       if (W0.paintFrontLive) W0.paintFrontLive(g, t, S);
       if (D) { g.setTransform(dpr, 0, 0, dpr, fx * dpr, fy * dpr); g.drawImage(D, sh, 0, D.width / dpr, D.height / dpr); g.setTransform(dpr * k, 0, 0, dpr * k, (px + M + fx) * dpr, (sy + M + fy) * dpr); }
-      if (W0.paintForeLive) W0.paintForeLive(g, t, S);
+      if (W0.paintForeLive && !frame) W0.paintForeLive(g, t, S);
       if (S.hot && back.indexOf(S.hot) < 0) glow(t, S.hot, S.hotA);
       if (pkOn && back.indexOf(pk) < 0) glow(t, pk, S.peekA, true);
-      W0.cast.forEach(function (c) { if (!c.behind) { c.act(c.P, t, S); figure(c, t); } });
+      W0.cast.forEach(function (c) { if (!c.behind && shown(c)) { c.act(c.P, t, S); figure(c, t); } });
       if (!reduce && W0.motes !== false) motes(g, t, W0.moteCol);
       if (front) front.style.transform = 'translate3d(' + fx.toFixed(2) + 'px,' + fy.toFixed(2) + 'px,0)';
     }
@@ -571,7 +589,11 @@
     var rt = 0; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 120); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
     measure();
-    if ('ResizeObserver' in window) { var lastW = 0, lastH = 0; new ResizeObserver(function (es) { var r = es[0].contentRect; if (Math.abs(r.width - lastW) < 1 && Math.abs(r.height - lastH) < 1) return; lastW = r.width; lastH = r.height; clearTimeout(rt); rt = setTimeout(measure, 120); }).observe(root); }
+    if ('ResizeObserver' in window) { var lastW = 0, lastH = 0; new ResizeObserver(function (es) { var r = es[0].contentRect; if (Math.abs(r.width - lastW) < 1 && Math.abs(r.height - lastH) < 1) return; lastW = r.width; lastH = r.height; clearTimeout(rt); rt = setTimeout(measure, 120); }).observe(box); }
+    if (frame) { /* repaint the caches when late images (sprites, photos) have arrived */
+      window.addEventListener('load', function () { measure(); setTimeout(measure, 900); });
+      setTimeout(function () { if (!frame.dataset.done) { frame.dataset.done = '1'; measure(); } }, 1600);
+    }
     var started = false, tour;
     onScreen(root, function (on) { root.classList.toggle('is-off', !on); setLive(on); if (tour) tour.visible(on); });
     document.addEventListener('visibilitychange', function () { setLive(!document.hidden && root.getBoundingClientRect().bottom > 0); });
@@ -636,7 +658,7 @@
       redraw();
     }
     tour = (function () {
-      var auto = !reduce, vis = false, held = false, timer = 0, playBtn = cap && cap.querySelector('[data-ixw-play]');
+      var auto = !reduce && !frame, vis = false, held = false, timer = 0, playBtn = cap && cap.querySelector('[data-ixw-play]');
       function sync() { if (playBtn) { var on = auto && !held; playBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); playBtn.setAttribute('aria-label', on ? 'Pause the tour' : 'Play the tour'); playBtn.classList.toggle('is-on', on); } }
       function arm() { clearTimeout(timer); if (!auto || held || !vis) return; timer = setTimeout(function () { if (auto && !held && vis && !document.hidden) go(at + 1); arm(); }, at === 0 ? 5200 : 6400); }
       if (playBtn) playBtn.addEventListener('click', function () { if (auto && !held) { held = true; } else { auto = true; held = false; go(at + 1); } sync(); arm(); });
@@ -710,7 +732,7 @@
     });
     /* a world can make moving things in its canvas tappable (the travel paper plane): hit(x, y, S, t, onBtn) in set units.
        Capture phase: a moving thing in front of a person or a hotspot wins the click (hit() gets onBtn = true then). */
-    if (W0.hit) root.addEventListener('click', function (e) { /* the whole hero, so things in the margins can be tapped too */
+    if (W0.hit && !frame) root.addEventListener('click', function (e) { /* the whole hero, so things in the margins can be tapped too */
       if (!e.target.closest || e.target.closest('.ixw-cap, .ixw-copy, .ixw-peek, a')) return;
       var onBtn = !!e.target.closest('button');
       var r = set.getBoundingClientRect(), res = W0.hit((e.clientX - r.left - par.x * 6) / k, (e.clientY - r.top - par.y * 3) / k, S, now(), onBtn);
@@ -730,10 +752,10 @@
     var playBtn = root.querySelector('[data-ixw-fplay]'), prev = root.querySelector('[data-ixw-fprev]'), next = root.querySelector('[data-ixw-fnext]');
     if (!tabs.length || tabs.length !== panels.length) return;
     root.classList.add('is-js');
-    var at = 0, auto = !reduce, vis = false, held = false, timer = 0, resume = 0, typed = {};
+    var at = 0, auto = !reduce && !CALM, vis = false, held = false, timer = 0, resume = 0, typed = {};
     var track = root.querySelector('.ixw-track'), stopsBox = root.querySelector('.ixw-stops') || track;
     function typeIn(p) {
-      var el = p.querySelector('[data-ixw-ftype]'); if (!el || reduce) return;
+      var el = p.querySelector('[data-ixw-ftype]'); if (!el || reduce || CALM) return;
       var full = el.getAttribute('data-full') || el.textContent; el.setAttribute('data-full', full);
       var n = 0; clearInterval(typed.t); el.textContent = ''; p.classList.add('is-typing');
       typed.t = setInterval(function () { n += 2; el.textContent = full.slice(0, n); if (n >= full.length) { clearInterval(typed.t); p.classList.remove('is-typing'); } }, 24);
@@ -754,7 +776,7 @@
     }
     function sync() { if (playBtn) { var on = auto && !held; playBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); playBtn.setAttribute('aria-label', on ? 'Pause the walkthrough' : 'Play the walkthrough'); playBtn.classList.toggle('is-on', on); } }
     function arm() { clearTimeout(timer); if (!auto || held || !vis) return; timer = setTimeout(function () { if (auto && !held && vis && !document.hidden) show(at + 1); arm(); }, 6200); }
-    function stop() { auto = false; clearTimeout(timer); clearTimeout(resume); if (!reduce && !held) resume = setTimeout(function () { auto = true; sync(); arm(); }, 12000); sync(); }
+    function stop() { auto = false; clearTimeout(timer); clearTimeout(resume); if (!reduce && !held && !CALM) resume = setTimeout(function () { auto = true; sync(); arm(); }, 12000); sync(); }
     tabs.forEach(function (t, k2) {
       t.addEventListener('click', function () { stop(); show(k2); });
       t.addEventListener('keydown', function (e) {
@@ -790,7 +812,7 @@
 
   /* ============================== small things ============================== */
   function ctaBurst(btn) {
-    if (reduce) return;
+    if (reduce || CALM) return;
     var host = btn.closest('[data-ixw-burst]'); if (!host) return;
     var r = btn.getBoundingClientRect(), hr = host.getBoundingClientRect();
     for (var i = 0; i < 14; i++) {
