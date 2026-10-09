@@ -21,7 +21,6 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
-import tile_icons as TI  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
@@ -91,19 +90,32 @@ META_RE = re.compile(r"^\s*<!--meta\s*(\{.*?\})\s*-->", re.S)
 ODOO_DIR = ROOT / "assets" / "img" / "odoo"
 
 
-# Feature icons (card icons, facts-row labels) show as Odoo-app-style tiles like the mega menu; icons inside buttons,
-# links, bullets and FAQ chevrons stay stroke glyphs (owner, 9 Oct 2026). /nexi-explains keeps its own look.
-TILE_CTX = re.compile(r'(<dt[^>]*>\s*|class="(?:card-ic|ix-ic)[^"]*"[^>]*>\s*)\{\{icon:([a-z0-9_-]+)\}\}')
+# Flat Odoo-style icons (owner, 9 Oct 2026: "same as the Odoo design, no background colour, no tiles").
+# _src/flat_icons.json holds one 50x50 transparent SVG per icon name. The illustrated menu icons (class ic-ind) are
+# replaced everywhere; stroke glyphs are replaced only as feature icons (card icons, facts-row labels), while icons
+# inside buttons, links, bullets and FAQ chevrons stay stroke glyphs. /nexi-explains keeps its own look.
+FLAT = json.loads((Path(__file__).parent / "flat_icons.json").read_text(encoding="utf-8")) if (Path(__file__).parent / "flat_icons.json").exists() else {}
+FEATURE_CTX = re.compile(r'(<dt[^>]*>\s*|class="(?:card-ic|ix-ic)[^"]*"[^>]*>\s*)\{\{icon:([a-z0-9_-]+)\}\}')
 
 
-def tile_icons(html: str) -> str:
+_FLAT_N = [0]
+
+
+def flat_svg(name: str) -> str:
+    # clipPath/mask ids get a per-use suffix: the same icon can appear twice on a page (menu + body), and a duplicate id
+    # resolving into the hidden mega menu would blank the visible copy.
+    _FLAT_N[0] += 1
+    svg = FLAT[name]
+    for i in set(re.findall(r'\bid="([^"]+)"', svg)):
+        svg = re.sub(r'(id="|url\(#|href="#)' + re.escape(i) + r'(?=["\)])', r'\g<1>' + i + "-" + str(_FLAT_N[0]), svg)
+    return svg.replace("<svg ", '<svg class="ic ic-ind ic-flat" aria-hidden="true" ', 1)
+
+
+def flat_icons(html: str) -> str:
     def rep(m):
         name = m.group(2)
-        svg = S.ICONS.get(name, "")
-        if not svg or "ic-ind" in svg:
-            return m.group(0)
-        return m.group(1) + TI.tile(name, svg)
-    return TILE_CTX.sub(rep, html)
+        return m.group(1) + flat_svg(name) if name in FLAT else m.group(0)
+    return FEATURE_CTX.sub(rep, html)
 
 
 def icons(html: str) -> str:
@@ -111,6 +123,8 @@ def icons(html: str) -> str:
         name = m.group(1)
         if name not in S.ICONS:
             raise KeyError(f"unknown icon {name!r}")
+        if name in FLAT and "ic-ind" in S.ICONS[name]:
+            return flat_svg(name)
         return S.ICONS[name]
     return ICON_RE.sub(rep, html)
 
@@ -2128,7 +2142,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     html = odoo_icons(html)            # emits {{ROOT}}-prefixed <img> tags
     html = html.replace("{{ROOT}}", root).replace("{ROOT}", root)
     if out_rel not in CALM_SKIP:
-        html = tile_icons(html)
+        html = flat_icons(html)
     html = icons(html)
     html = clean_links(html)
     html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
