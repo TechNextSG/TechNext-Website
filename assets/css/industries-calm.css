@@ -235,9 +235,6 @@
 :root body.ixw.ixw:has([data-ixw-frame]) .ix-others a::before,
 :root body.ixw.ixw:has([data-ixw-frame]) .ix-others a::after{content:none!important}
 :root body.ixw.ixw:has([data-ixw-frame]) :is(.ix-switch,.ix-views,.sc-tab,.ixw-pick-b) :is(button,b,span){text-transform:none;letter-spacing:normal}
-/* phones: industry-world.css gives the (old, full-bleed) set a negative left margin; inside the calm frame it must sit at
-   frameSet()'s left/top exactly, or the phone frame shows the wrong part of the scene */
-:root body.ixw.ixw .ixw-hero .ixw-frame .ixw-set{margin:0!important}
 /* buttons: no leftover world rings, inner frames or glosses (primary TechNext blue, secondary an accent outline) */
 :root body.ixw.ixw:has([data-ixw-frame]) main :is(.btn-primary,.btn-ghost,.btn-white,.btn-outline-white){outline:0;background-image:none!important}
 :root body.ixw.ixw:has([data-ixw-frame]) main :is(.btn-ghost,.btn-outline-white),:root body.ixw.ixw:has([data-ixw-frame]) main :is(.btn-primary,.btn-white):not(:hover){box-shadow:none!important}
