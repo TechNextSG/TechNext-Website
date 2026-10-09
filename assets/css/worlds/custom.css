@@ -234,3 +234,66 @@
 .ixw--custom .cu-fit{align-items:stretch}
 .ixw--custom .cu-fit-step{display:flex;flex-direction:column}
 .ixw--custom .cu-bag{min-height:176px;padding:34px 16px 24px}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% the tailor's fitting room: plum accent, swatch colours as thin rules and button
+   icons on the cards, the tape-measure line under the four fittings with their verbs, the three garment "bags" for
+   hosting as light tiles, a plum header on the fitting card. No tag strings, pins, dashed stitching, ladder, form or tape. */
+.ixw--custom{--calm-accent:#714B67;--calm-accent-ink:#553449;--calm-accent-line:#DCCAD6;--calm-accent-wash:#FAF6F8}
+body.ixw--custom main :is(.cu-head,.demo-sec .sec-head,.cu-worn-copy,.cu-faq-side) .hand::before{content:""!important}
+body.ixw--custom main .cu-demo-top{display:block!important;margin-bottom:28px!important}
+/* what an ERP gives you: white kit cards with a 3px swatch rule; round button icon kept, no stitching */
+body.ixw--custom main .cu-tags{gap:24px!important}
+body.ixw--custom main .cu-tag{padding:24px 26px 26px!important;border-radius:16px!important;border:1px solid var(--calm-line);border-top:3px solid var(--sw)!important;box-shadow:var(--calm-shadow)!important;rotate:none!important}
+body.ixw--custom main .cu-tag::before,body.ixw--custom main .cu-tag::after,body.ixw--custom main .cu-btn-ic::before{content:none!important;display:none!important}
+body.ixw--custom main .cu-tag-top{margin:0 0 16px!important}
+body.ixw--custom main .cu-btn-ic{width:44px!important;height:44px!important;background:color-mix(in srgb,var(--sw,#714B67) 12%,#fff)!important;color:var(--sw,#714B67)!important;box-shadow:none!important}
+body.ixw--custom main .cu-tag-no{font:600 12px/1 var(--font-body)!important;color:var(--muted)!important}
+/* fittings: one thin tape line, white cards, verb kept as the label */
+body.ixw--custom main .cu-fit{padding-top:24px!important;gap:24px!important}
+body.ixw--custom main .cu-fit::before{top:0!important;height:6px!important;rotate:none!important;border-radius:3px!important;background:repeating-linear-gradient(90deg,#E9C766 0 1px,#F4DC8E 1px 10px)!important;box-shadow:none!important;scale:1 1!important;opacity:.8}
+body.ixw--custom main .cu-fit-step{padding:24px 22px!important;border-radius:16px!important;background:#fff!important;outline:0!important;border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)!important;opacity:1!important;translate:none!important;rotate:none!important}
+body.ixw--custom main .cu-fit-step::before,body.ixw--custom main .cu-fit-step::after{content:none!important;display:none!important}
+body.ixw--custom main .cu-fit-verb .ic{width:34px!important;height:34px!important;padding:8px!important;background:#F4ECF2!important;color:#714B67!important}
+body.ixw--custom main .cu-fit-verb span{font:700 1.05rem/1 var(--font-display)!important;color:#714B67!important}
+body.ixw--custom main .cu-fit-verb em{font:700 13px/1 var(--font-display)!important;color:var(--muted)!important}
+/* hosting tiles and the fitting card */
+body.ixw--custom main .cu-worn-copy{position:static!important}
+body.ixw--custom main .cu-bags{padding-top:0!important}
+body.ixw--custom main .cu-bags::before,body.ixw--custom main .cu-bag::before,body.ixw--custom main .cu-bag::after{content:none!important;display:none!important}
+body.ixw--custom main .cu-bag{min-height:0!important;padding:20px 14px 18px!important;border-radius:14px!important;background:#fff!important;border:1px solid var(--calm-line);border-top:3px solid var(--b)!important;box-shadow:none!important;rotate:none!important}
+body.ixw--custom main .cu-bag-ic{background:var(--bl)!important;box-shadow:none!important}
+body.ixw--custom main .cu-bag b{margin-top:6px!important;padding:0!important;background:none!important}
+body.ixw--custom main .cu-card{rotate:none!important;border-radius:16px!important;border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)!important;overflow:hidden}
+body.ixw--custom main .cu-card::before,body.ixw--custom main .cu-card::after{content:none!important;display:none!important}
+body.ixw--custom main .cu-card-h{border-radius:0!important;background:#FAF6F8!important;color:#553449!important;border-bottom:1px solid #EFE4EC}
+body.ixw--custom main .cu-card-h span{font:700 12px/1 var(--font-body)!important;letter-spacing:.12em!important}
+body.ixw--custom main .cu-card-h em{font:500 12.5px/1.2 var(--font-body)!important;color:var(--muted)!important}
+body.ixw--custom main .cu-checks li{border-bottom:1px solid #F3EEF2!important}
+body.ixw--custom main .cu-checks .ic{background:none!important;box-shadow:none!important;padding:0!important;color:#714B67!important}
+/* FAQ: heading above, one column */
+body.ixw--custom main .cu-faq-wrap{display:block!important}
+body.ixw--custom main .cu-faq-side{position:static!important;margin-bottom:40px}
+body.ixw--custom main .cu-faq{max-width:860px}
+/* related: white kit cards with a 3px swatch rule */
+body.ixw--custom main .cu-swatches{gap:24px!important}
+body.ixw--custom main .cu-swatch{padding:26px 26px 26px!important;border-radius:16px!important;border:1px solid var(--calm-line);border-top:3px solid var(--sw)!important;box-shadow:var(--calm-shadow)!important;translate:none!important}
+body.ixw--custom main .cu-swatch::before,body.ixw--custom main .cu-swatch::after{content:none!important;display:none!important}
+body.ixw--custom main .cu-swatch .cu-btn-ic{margin:0 0 16px!important}
+body.ixw--custom main .cu-swatch .btn-link{color:var(--blue)!important}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--custom main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--custom main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--custom main .answer-sec .answer-box::before,body.ixw--custom main .answer-sec .answer-box::after,body.ixw--custom main .answer-sec .answer-h::before,body.ixw--custom main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--custom main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--custom main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--custom main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--custom main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--custom main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--custom main .cta .actions .btn,html body.ixw--custom .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}
+body.ixw--custom main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){outline:0!important}
+body.ixw--custom main .cu-faq details[open]{outline:0!important;box-shadow:inset 3px 0 0 var(--calm-accent)!important}
+body.ixw--custom main .cu-faq summary::before,body.ixw--custom main .cu-faq details:nth-child(n) summary::before{width:10px!important;height:10px!important;top:24px!important;background:#E7D6E2!important;box-shadow:none!important}
+body.ixw--custom main .cu-faq details[open] summary::before{background:#714B67!important}

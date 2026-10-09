@@ -241,6 +241,7 @@
     ];
   }
   window.IXW.worlds.ecommerce = {
+    calmView: [190,0,720,576], /* calm layer: the framed hero shows the core of the scene */
     pan: [-440, 1280], /* phones: how far the scene drags each way (set units), ending on whole objects */
     room: ROOM, paintBack: paintBack, paintFront: paintFront, paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive, paintForeLive: function (g, t, S) { K.zfore(g, t, S, FORE(), function () { pick(g, t, S, 'fore'); }); },
     moteCol: 'rgba(255,255,255,.7)',

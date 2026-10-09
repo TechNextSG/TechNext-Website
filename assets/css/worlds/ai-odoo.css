@@ -227,3 +227,67 @@
 .ixw--ai-odoo .ai-boards{align-items:stretch}
 .ixw--ai-odoo .ai-board{display:flex;flex-direction:column}
 @media (min-width:1101px){.ixw--ai-odoo .ai-rules-copy{position:sticky;top:110px}}
+
+/* ==================================================================================================== CALM ROUND (9 Oct 2026)
+   CALM_BALANCE: 50% TechNext base, 50% the AI kitchen: violet accent, the menu card kept as one light framed panel
+   with dish numbers and plates, station labels on the order tickets, colour headers on the three boards, the three-step
+   chain (AI prepares / person approves / logged). No pass illustration, clips, spikes, lamps or dark specials. */
+.ixw--ai-odoo{--calm-accent:#6A4FC9;--calm-accent-ink:#4B3A8A;--calm-accent-line:#D6CCF3;--calm-accent-wash:#F7F5FD}
+body.ixw--ai-odoo main :is(.ai-head,.demo-sec .sec-head,.ai-rules-copy,.ai-faq-side) .hand::before{content:""!important}
+body.ixw--ai-odoo main .ai-demo-top{display:block!important;margin-bottom:28px!important}
+/* the menu: one light panel with a thin inner rule */
+body.ixw--ai-odoo main .ai-menu{padding:48px 48px 40px!important;border-radius:20px!important;background:#FFFDF8!important;box-shadow:none!important;border:1px solid #EDE5D2}
+body.ixw--ai-odoo main .ai-menu::before{content:none!important;display:none!important}
+body.ixw--ai-odoo main .ai-menu-head .hand{display:inline-flex!important}
+body.ixw--ai-odoo main .ai-menu-sub{border-color:#EDE5D2!important;font:600 12px/1 var(--font-body)!important;color:var(--muted)!important}
+body.ixw--ai-odoo main .ai-plate{width:56px!important;height:56px!important;box-shadow:inset 0 0 0 1px #EDE5D2!important;background:#fff!important}
+body.ixw--ai-odoo main .ai-dish{grid-template-columns:56px minmax(0,1fr)!important}
+body.ixw--ai-odoo main .ai-dish:hover .ai-plate{rotate:none!important}
+body.ixw--ai-odoo main .ai-dish-n{font:700 11px/1 var(--font-body)!important;letter-spacing:.12em!important}
+body.ixw--ai-odoo main .ai-dish h3::after{border-bottom:1px dotted #E2D8C0!important}
+/* the line: four white order cards with a 3px station-colour rule */
+body.ixw--ai-odoo main .ai-line{padding-top:0!important;gap:24px!important}
+body.ixw--ai-odoo main .ai-line::before,body.ixw--ai-odoo main .ai-ticket::before,body.ixw--ai-odoo main .ai-ticket::after{content:none!important;display:none!important}
+body.ixw--ai-odoo main .ai-ticket{padding:22px 22px 24px!important;border-radius:16px!important;border:1px solid var(--calm-line)!important;border-top:3px solid var(--c)!important;box-shadow:var(--calm-shadow)!important;rotate:none!important;translate:none!important;opacity:1!important;clip-path:none!important;-webkit-mask:none!important;mask:none!important;background:#fff!important}
+body.ixw--ai-odoo main .ai-ticket-top{border-bottom:1px solid #EEF1F6!important}
+body.ixw--ai-odoo main .ai-ticket-top b{background:#F7F5FD!important;color:#4B3A8A!important;font:700 12px/1 var(--font-display)!important}
+body.ixw--ai-odoo main .ai-ticket-top span{font:700 1.02rem/1.1 var(--font-display)!important;color:var(--c)!important}
+body.ixw--ai-odoo main .ai-ticket-top .ic{width:30px!important;height:30px!important;padding:7px!important;background:color-mix(in srgb,var(--c) 12%,#fff)!important;color:var(--c)!important}
+/* what you get: copy static; chain chips plain; boards white with a colour header rule */
+body.ixw--ai-odoo main .ai-rules-copy{position:static!important}
+body.ixw--ai-odoo main .ai-chip{box-shadow:none!important;border:1px solid var(--calm-line);font-family:var(--font-body)!important}
+body.ixw--ai-odoo main .ai-board{border-radius:16px!important;background:#fff!important;box-shadow:var(--calm-shadow)!important;border:1px solid var(--calm-line)}
+body.ixw--ai-odoo main .ai-board::before{content:none!important;display:none!important}
+body.ixw--ai-odoo main .ai-board-h{border-bottom:2px solid var(--c)!important;font:700 13px/1 var(--font-body)!important;letter-spacing:.1em!important}
+body.ixw--ai-odoo main .ai-board-h .ic{background:color-mix(in srgb,var(--c) 12%,#fff)!important;color:var(--c)!important}
+body.ixw--ai-odoo main .ai-board li .ic{background:none!important;color:var(--c)!important;padding:0!important}
+/* FAQ: heading above, one column */
+body.ixw--ai-odoo main .ai-faq-wrap{display:block!important}
+body.ixw--ai-odoo main .ai-faq-side{position:static!important;margin-bottom:40px}
+body.ixw--ai-odoo main .ai-faq{max-width:860px}
+/* related: white kit cards; the special tag stays as one small chip */
+body.ixw--ai-odoo main .ai-specials{gap:24px!important}
+body.ixw--ai-odoo main .ai-special{border-radius:16px!important;background:#fff!important;background-image:none!important;color:var(--ink)!important;border:1px solid var(--calm-line);box-shadow:var(--calm-shadow)!important;translate:none!important;rotate:none!important;transform:none!important}
+body.ixw--ai-odoo main .ai-special::before,body.ixw--ai-odoo main .ai-special::after{content:none!important;display:none!important}
+body.ixw--ai-odoo main .ai-special:hover{color:var(--ink)!important;box-shadow:var(--calm-shadow-h)!important}
+body.ixw--ai-odoo main .ai-special-tag{border:1px solid #D6CCF3!important;background:#F7F5FD;color:#4B3A8A!important;font:600 12px/1 var(--font-body)!important}
+body.ixw--ai-odoo main .ai-special-ic{border:0!important;background:#F1EDFC;color:#6A4FC9!important}
+body.ixw--ai-odoo main .ai-special h3{color:var(--ink)!important}
+body.ixw--ai-odoo main .ai-special p{color:var(--body)!important}
+body.ixw--ai-odoo main .ai-special .btn-link{color:var(--blue)!important}
+@media (max-width:767px){body.ixw--ai-odoo main .ai-menu{padding:32px 20px 26px!important}}
+
+/* calm round: the one-paragraph answer as a quiet ruled paragraph (kept for its facts and for answer engines) */
+body.ixw--ai-odoo main .answer-sec{padding:0 0 8px!important;background:#fff!important}
+body.ixw--ai-odoo main .answer-sec .answer-box{display:block!important;max-width:880px!important;margin:44px 0 0!important;padding:2px 0 2px 22px!important;background:none!important;background-image:none!important;border:0!important;border-left:3px solid var(--calm-accent)!important;border-radius:0!important;box-shadow:none!important;rotate:none!important;transform:none!important;clip-path:none!important;min-height:0!important}
+body.ixw--ai-odoo main .answer-sec .answer-box::before,body.ixw--ai-odoo main .answer-sec .answer-box::after,body.ixw--ai-odoo main .answer-sec .answer-h::before,body.ixw--ai-odoo main .answer-sec .answer-h::after{content:none!important;display:none!important}
+body.ixw--ai-odoo main .answer-sec .answer-box > :not(p){display:none!important}
+body.ixw--ai-odoo main .answer-sec .answer-h{display:block!important;width:auto!important;margin:0 0 8px!important;padding:0!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;font:700 12px/1.3 var(--font-body)!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--calm-accent-ink)!important;rotate:none!important;transform:none!important;position:static!important}
+body.ixw--ai-odoo main .answer-sec .answer-box p:not(.answer-h){max-width:none!important;margin:0!important;padding:0!important;font:400 1.02rem/1.7 var(--font-body)!important;color:var(--body)!important;background:none!important}
+@media (max-width:767px){body.ixw--ai-odoo main .answer-sec .answer-box{margin-top:32px!important;padding-left:16px!important}}
+body.ixw--ai-odoo main .ai-faq summary::before{content:"Q" counter(q)!important;font:700 12px/1 var(--font-body)!important;background:#F1EDFC!important;color:#4B3A8A!important}
+body.ixw--ai-odoo main .ai-faq details[open] summary::before{background:#6A4FC9!important;color:#fff!important}
+body.ixw--ai-odoo main .ai-faq details[open]{box-shadow:inset 3px 0 0 var(--calm-accent)!important}
+/* calm round: the end CTA stacks on phones (calm.css's body[class*="ixw--"] .cta grid outranks its own phone rule) */
+@media (max-width:860px){html body.ixw--ai-odoo main .cta{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:480px){html body.ixw--ai-odoo main .cta .actions .btn,html body.ixw--ai-odoo .ixw-hero .ixw-copy .actions .btn{flex:1 1 100%!important}}

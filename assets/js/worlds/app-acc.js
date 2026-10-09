@@ -75,7 +75,7 @@
     fillRR(g, -600, 20, 120, F - 20, 6, '#7A5A3A'); fillRR(g, -592, 28, 104, F - 36, 4, '#F3E7D2');
     for (var sh = 0; sh < 5; sh++) { var y0 = 30 + sh * 86; fillRR(g, -594, y0 + 76, 108, 6, 2, '#7A5A3A'); for (var b = 0; b < 8; b++) { var bh = 50 + hash(b + sh * 9) * 22; fillRR(g, -588 + b * 12.5, y0 + 76 - bh, 11, bh, 2, [GRN, GRD, PUR, '#B8863B', '#3167CA'][(b + sh) % 5]); g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(-586 + b * 12.5, y0 + 76 - bh + 8, 7, 2); } }
     /* the ticker housing under the cornice (the text runs live) */
-    fillRR(g, ext.l, -152, ext.r - ext.l, 38, 0, GRD); g.fillStyle = BR; g.fillRect(ext.l, -152, ext.r - ext.l, 3); g.fillRect(ext.l, -117, ext.r - ext.l, 3);
+    if (!K.calm) { fillRR(g, ext.l, -152, ext.r - ext.l, 38, 0, GRD); g.fillStyle = BR; g.fillRect(ext.l, -152, ext.r - ext.l, 3); g.fillRect(ext.l, -117, ext.r - ext.l, 3); }
     /* the vault door */
     var v = VA; soft(g, v.x + 4, v.y + 10, v.r + 30, v.r + 24, 0.18); [-34, 26].forEach(function (dy) { fillRR(g, v.x - v.r - 16, v.y + dy, 14, 22, 4, '#B08A3A'); fillRR(g, v.x - v.r - 13, v.y + dy + 3, 4, 16, 2, BRL); });
     fillE(g, v.x, v.y, v.r + 10, v.r + 10, '#B08A3A'); fillE(g, v.x, v.y, v.r + 6, v.r + 6, BR);
@@ -94,11 +94,11 @@
     text(g, 'BALANCE SHEET', 662, 98, 6, 800, GRD, 'center'); fillRR(g, 628, 104, 32, 48, 2, '#D8EEE5'); fillRR(g, 664, 104, 32, 22, 2, '#F4E3EC'); fillRR(g, 664, 128, 32, 24, 2, '#EDE3F2');
     text(g, 'Assets', 644, 131, 5.6, 800, GRD, 'center'); text(g, 'Liab.', 680, 118, 5.6, 800, PUR, 'center'); text(g, 'Equity', 680, 143, 5.6, 800, PUR, 'center');
     /* the month-end calendar (pages flip live) and the chart of accounts */
-    shadowed(g, 8, 3, 0.14, function () { fillRR(g, 752, 108, 60, 74, 5, '#FFFFFF'); }); fillRR(g, 752, 108, 60, 18, 5, RED); g.fillRect(752, 118, 60, 8); [764, 800].forEach(function (x) { fillRR(g, x - 2, 102, 4, 12, 2, '#5C6B7A'); });
+    if (!K.calm) { shadowed(g, 8, 3, 0.14, function () { fillRR(g, 752, 108, 60, 74, 5, '#FFFFFF'); }); fillRR(g, 752, 108, 60, 18, 5, RED); g.fillRect(752, 118, 60, 8); [764, 800].forEach(function (x) { fillRR(g, x - 2, 102, 4, 12, 2, '#5C6B7A'); });
     g.save(); g.translate(0, 16); shadowed(g, 8, 3, 0.14, function () { fillRR(g, 824, 90, 162, 78, 6, '#FFFDF7'); }); g.strokeStyle = BR; g.lineWidth = 2.5; rr(g, 824, 90, 162, 78, 6); g.stroke();
     text(g, 'CHART OF ACCOUNTS', 905, 104, 6.4, 800, GRD, 'center'); g.strokeStyle = '#9FCDB9'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(905, 110); g.lineTo(905, 118);
     var acc5 = [['1', 'Assets'], ['2', 'Liabilities'], ['3', 'Equity'], ['4', 'Income'], ['5', 'Expenses']]; g.moveTo(838, 118); g.lineTo(972, 118); acc5.forEach(function (a, i) { var x = 838 + i * 33.5; g.moveTo(x, 118); g.lineTo(x, 126); }); g.stroke();
-    acc5.forEach(function (a, i) { var x = 838 + i * 33.5; fillRR(g, x - 15, 126, 30, 32, 4, i < 3 ? '#E3F3EC' : '#F2EAF0'); text(g, a[0], x, 138, 7, 800, i < 3 ? GRN : PUR, 'center'); text(g, a[1], x, 151, 4.6, 800, '#3D4560', 'center'); }); g.restore();
+    acc5.forEach(function (a, i) { var x = 838 + i * 33.5; fillRR(g, x - 15, 126, 30, 32, 4, i < 3 ? '#E3F3EC' : '#F2EAF0'); text(g, a[0], x, 138, 7, 800, i < 3 ? GRN : PUR, 'center'); text(g, a[1], x, 151, 4.6, 800, '#3D4560', 'center'); }); g.restore(); }
     /* the pneumatic tube: from the vault, along the wall, a drop to each desk */
     g.lineCap = 'round'; g.strokeStyle = 'rgba(160,200,190,.55)'; g.lineWidth = 12; g.beginPath(); g.moveTo(VA.x + VA.r + 4, VA.y + 30); g.quadraticCurveTo(VA.x + VA.r + 30, TUBE, VA.x + VA.r + 70, TUBE); g.lineTo(ext.r, TUBE);
     g.moveTo(404, TUBE); g.lineTo(404, 272); g.moveTo(848, TUBE); g.lineTo(848, 272); g.stroke(); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(VA.x + VA.r + 70, TUBE - 3); g.lineTo(ext.r, TUBE - 3); g.stroke();
@@ -224,9 +224,9 @@
   function paintLive(g, t, now, S) {
     CO.crew(CREW, g, t, S, false);
     /* the ticker */
-    g.save(); g.beginPath(); g.rect(S.ext.l, -149, S.ext.r - S.ext.l, 32); g.clip(); var span = 0, xs = S.ext.l - ((t * 34) % 1960);
+    if (!K.calm) { g.save(); g.beginPath(); g.rect(S.ext.l, -149, S.ext.r - S.ext.l, 32); g.clip(); var span = 0, xs = S.ext.l - ((t * 34) % 1960);
     while (xs < S.ext.r) { TICK.forEach(function (s, i) { var w = s.length * 7 + 48; if (xs > S.ext.l - w && xs < S.ext.r) { fillE(g, xs + 6, -134, 3.6, 3.6, i % 2 ? BRL : '#7FE3C4'); text(g, s, xs + 16, -129.5, 11, 800, i % 2 ? '#E9F7F1' : BRL); } xs += w; }); if (++span > 6) break; }
-    g.restore();
+    g.restore(); }
     /* the vault: the wheel turns; tapped, the door swings open on the gold */
     var v = VA, vu = t - FX.vault, open = vu < 4.5 ? Math.sin(clamp(vu < 3.6 ? vu / 0.6 : (4.5 - vu) / 0.9, 0, 1) * Math.PI / 2) : 0;
     if (open > 0.02) { fillE(g, v.x, v.y, v.r, v.r, '#2A3142'); for (var gb = 0; gb < 6; gb++) { var gx = v.x - 30 + (gb % 3) * 22, gy = v.y + 18 - Math.floor(gb / 3) * 14; fillRR(g, gx, gy, 20, 11, 2, BR); fillRR(g, gx + 3, gy + 1, 14, 3, 1, BRL); }
@@ -238,7 +238,7 @@
     /* capsules racing through the tube */
     FX.cap = FX.cap.filter(function (c) { return t - c.t0 < 3; });
     var caps = [((t * 0.16) % 1), ((t * 0.16 + 0.5) % 1)].map(function (u, i) { return { u: u, drop: i ? 848 : 404 }; }); FX.cap.forEach(function (c) { caps.push({ u: (t - c.t0) / 3, drop: c.drop, hot: true }); });
-    caps.forEach(function (c) { var x0 = VA.x + VA.r + 70, L1 = c.drop - x0, L2 = 72, tot = L1 + L2, d = c.u * tot, x, y;
+    if (!K.calm) caps.forEach(function (c) { var x0 = VA.x + VA.r + 70, L1 = c.drop - x0, L2 = 72, tot = L1 + L2, d = c.u * tot, x, y;
       if (d < L1) { x = x0 + d; y = TUBE; } else { x = c.drop; y = TUBE + (d - L1); }
       fillRR(g, x - 9, y - 5, 18, 10, 5, c.hot ? RED : '#3167CA'); fillRR(g, x - 3, y - 5, 6, 10, 2, BRL); });
     /* bank reconciliation: statement lines on the left, the suggested match on the right, ticked in turn */
@@ -265,8 +265,10 @@
       fillRR(g, CLS.x + 8, y, 11, 11, 3, on ? GRN : '#EEF2F7'); if (on) { g.strokeStyle = '#FFFFFF'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(CLS.x + 10.5, y + 5.5); g.lineTo(CLS.x + 12.8, y + 8); g.lineTo(CLS.x + 16.5, y + 3); g.stroke(); }
       text(g, c, CLS.x + 24, y + 8.6, 6.4, 700, on ? INK : '#9AA6BC'); });
     /* the calendar: month-end pages peel off */
+    if (!K.calm) {
     var cp = (t * 0.22) % 1, days = ['28', '29', '30'], di = Math.floor(t * 0.22) % 3; g.save(); g.translate(0, 16); text(g, 'SEP', 782, 106, 7, 800, '#FFFFFF', 'center');
     text(g, days[(di + 1) % 3], 782, 150, 26, 800, INK, 'center'); if (cp < 0.85) { g.save(); g.translate(752, 110); g.transform(1, 0, 0, 1 - (cp > 0.6 ? (cp - 0.6) * 4 : 0), 0, 0); fillRR(g, 0, 0, 60, 54, 3, '#FFFFFF'); text(g, days[di], 30, 40, 26, 800, days[di] === '30' ? RED : INK, 'center'); if (days[di] === '30') text(g, 'MONTH-END', 30, 50, 5, 800, RED, 'center'); g.restore(); } g.restore();
+    }
     /* the world clocks */
     [[1060, 8], [1150, 8], [1240, 7]].forEach(function (c) { var d = new Date(Date.now() + c[1] * 3600e3); K.clockHands(g, { x: c[0], y: -62, r: 22 }, d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()); });
     /* the balance scale: debits and credits sway, then settle level when the finance lead weighs them */
@@ -384,6 +386,7 @@
   function glowOf(b, pad) { return function (g) { rr(g, b.x - pad, b.y - pad, b.w + pad * 2, b.h + pad * 2, 12); }; }
   window.IXW.worlds['app-acc'] = {
     pan: [-300, 1200],
+    calmView: [186, -124, 810, 648], calmCast: ['acc', 'ap', 'cfo', 'bk'],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
     paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(crewVis(), g, t, S, 'fore'); }); CR.draw(g, t); },

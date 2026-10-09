@@ -295,6 +295,7 @@
   function glowOf(b, pad) { return function (g) { rr(g, b.x - pad, b.y - pad, b.w + pad * 2, b.h + pad * 2, 12); }; }
   window.IXW.worlds['app-sales'] = {
     pan: [-300, 1200],
+    calmView: [234, -128, 770, 616], calmCast: ['rep', 'ops', 'cust', 'mgr'],
     paintBg: paintBg, windowBehind: true, paintFrame: function () {}, paintBack: paintBack, paintFront: paintFront, paintFore: paintFore,
     paintWindow: paintWindow, paintLive: paintLive, paintFrontLive: paintFrontLive,
     paintForeLive: function (g, t, S) { K.zfore(g, t, S, [], function () { CO.crew(crewVis(), g, t, S, 'fore'); }); CR.draw(g, t); },

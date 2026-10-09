@@ -1882,9 +1882,6 @@
 .ixw--sol-auto .sor-pb-cap{box-shadow:none}
 .ixw--sol-auto .sor-pb-slot{box-shadow:none}
 .ixw--sol-auto .sor-pb-env{animation:none}
-html body.ixw--sol-auto main .sor-memo::before{background-image:none!important}
-html body.ixw--sol-auto main .sor-stamp-in{box-shadow:var(--calm-shadow)!important}
-html body.ixw--sol-auto main .sor-stamp:hover .sor-stamp-in{box-shadow:var(--calm-shadow-h)!important}
 /* ---- worlds/sol-brand.css ---- */
 .ixw--sol-brand .ixw-copy{box-shadow:0 0 0 1px #E6DFD2, 0 40px 70px -34px rgba(40,30,20,.4)}
 .ixw--sol-brand .ixw-ep-tag{box-shadow:none}
