@@ -1,4 +1,4 @@
-<!--meta {"title": "Get started with TechNext — Odoo ERP, AI and IT for your business", "desc": "Tell us what your business needs. TechNext plans, sets up and supports Odoo ERP, AI, websites and IT, with offices in Singapore, the Philippines and Vietnam.", "out": "get-started.html", "nav": "", "body": "gs-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Get started with TechNext — Odoo ERP, AI and IT for your business", "desc": "Tell us what your business needs. TechNext plans, sets up and supports Odoo ERP, AI, websites and IT, with offices in Singapore, the Philippines and Vietnam.", "out": "get-started.html", "nav": "", "body": "gs-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\">", "scripts": ["assets/js/get-started.js"]} -->
 
 <section class="gs-hero">
   <div class="container gs-hero-grid">
@@ -11,10 +11,6 @@
         <li>{{icon:check}} Offices in Singapore, the Philippines and Vietnam</li>
         <li>{{icon:check}} Clients in 10+ countries</li>
       </ul>
-      <div class="gs-alt">
-        <a class="btn btn-ghost btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">{{icon:calendar}} Book a call</a>
-        <a class="btn btn-ghost btn-lg" href="https://wa.me/6588396998?text=Hello%20TechNext%2C%20I%27d%20like%20to%20get%20started." target="_blank" rel="noopener">{{icon:whatsapp}} WhatsApp us</a>
-      </div>
     </div>
 
     <form class="form gs-form card card--static" id="gs-form" novalidate data-endpoint="https://formsubmit.co/ajax/sales@technext.asia">
@@ -68,12 +64,12 @@
 
 <section class="section section--alt">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">what we do</span><h2>Pick where to start.</h2></div>
+    <div class="sec-head sec-head--center reveal"><span class="hand">what we do</span><h2>One team for all of it.</h2></div>
     <div class="grid-4 gs-cards">
-      <a class="card gs-card reveal" href="{{ROOT}}solutions/odoo-erp.html"><span class="card-ic">{{icon:sol-erp}}</span><h3>Odoo ERP</h3><p>Accounting, sales, inventory and HR in one system.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card gs-card reveal" href="{{ROOT}}solutions/ai.html"><span class="card-ic">{{icon:sol-ai}}</span><h3>AI solutions</h3><p>AI assistants and automation for your team.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card gs-card reveal" href="{{ROOT}}solutions/marketing.html"><span class="card-ic">{{icon:sol-mkt}}</span><h3>Marketing</h3><p>Websites, social media and brand design.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card gs-card reveal" href="{{ROOT}}solutions/technology.html"><span class="card-ic">{{icon:sol-tech}}</span><h3>Technology</h3><p>IoT, custom apps and networks.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <div class="card card--static gs-card reveal"><span class="card-ic">{{icon:sol-erp}}</span><h3>Odoo ERP</h3><p>Accounting, sales, inventory and HR in one system.</p></div>
+      <div class="card card--static gs-card reveal"><span class="card-ic">{{icon:sol-ai}}</span><h3>AI solutions</h3><p>AI assistants and automation for your team.</p></div>
+      <div class="card card--static gs-card reveal"><span class="card-ic">{{icon:sol-mkt}}</span><h3>Marketing</h3><p>Websites, social media and brand design.</p></div>
+      <div class="card card--static gs-card reveal"><span class="card-ic">{{icon:sol-tech}}</span><h3>Technology</h3><p>IoT, custom apps and networks.</p></div>
     </div>
   </div>
 </section>
@@ -81,8 +77,25 @@
 <section class="section">
   <div class="container">
     <div class="cta reveal">
-      <div><span class="hand">prefer to talk?</span><h2>Book a call with our team.</h2><p>Pick a time that suits you and walk us through your business.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a call</a><a class="btn btn-outline-white btn-lg" href="mailto:sales@technext.asia">Email sales</a></div>
+      <div><span class="hand">ready when you are</span><h2>Tell us what you need.</h2><p>Fill out the short form. It takes about a minute, and we reply from sales@technext.asia.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="#gs-form" data-to-form>Fill out the form {{icon:arrow}}</a></div>
     </div>
   </div>
 </section>
+
+<div class="gs-exit" id="gs-exit" role="dialog" aria-modal="true" aria-labelledby="gs-exit-h" aria-describedby="gs-exit-p" hidden>
+  <div class="gs-exit-bg" data-exit-close></div>
+  <div class="gs-exit-box">
+    <button class="gs-exit-x" type="button" data-exit-close aria-label="Close">{{icon:x}}</button>
+    <div class="gs-exit-who"><img src="{{ROOT}}assets/img/logo-plane.png" alt="" width="40" height="34"><span><b>TechNext team</b><small>Singapore · Philippines · Vietnam</small></span></div>
+    <div class="gs-exit-bubble">
+      <span class="gs-exit-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="gs-exit-msg"><h2 id="gs-exit-h">Leaving already?</h2><p id="gs-exit-p">No pressure. If you have a quick question, just message us.</p></div>
+    </div>
+    <div class="gs-exit-actions">
+      <a class="btn btn-primary btn-lg" href="https://wa.me/6588396998?text=Hi%20TechNext%2C%20I%20have%20a%20quick%20question." target="_blank" rel="noopener" data-exit-go="message">{{icon:whatsapp}} Message us now</a>
+      <a class="btn btn-ghost btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-exit-go="schedule">{{icon:calendar}} Set a schedule</a>
+    </div>
+    <div class="gs-exit-foot"><button type="button" data-exit-close>Stay on this page</button><a href="#" data-exit-leave hidden>Leave anyway</a></div>
+  </div>
+</div>
