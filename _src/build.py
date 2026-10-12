@@ -599,8 +599,6 @@ def _nxe_card(e: dict, soon: str, tone: int = 0, tip: bool = False) -> str:
     else:
         thumb = f'<div class="nxe-thumb is-soon">{pic}{badges}</div>'
     extra = ""
-    if e.get("takeaway"):
-        extra += f'<p class="nxe-take"><span>Takeaway</span>{e["takeaway"]}</p>'
     if e.get("page"):
         extra += f'<a class="nxe-more" href="{{{{ROOT}}}}{e["page"]}">{_nxe_page_label(e["page"])} {{{{icon:arrow}}}}</a>'
     head = "h4"
