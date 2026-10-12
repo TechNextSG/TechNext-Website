@@ -7,7 +7,7 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Employee Hub</span></nav>
       <h1 id="ixw-h1"><span class="hand h1-hand">the id station</span>Every TechNext employee, on one ID.</h1>
       <p class="lead"><span class="m-full">The blue TechNext ID card of each person on the team: photo, name, position and ID number on the front, a work email and our three offices on the back. Flip a card, or save the contact as a vCard.</span><span class="m-short">Each person's TechNext ID card: flip it, or save the contact as a vCard.</span></p>
-      <div class="actions"><a class="btn btn-primary btn-lg" href="#cards">See the ID cards {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#anatomy">{{icon:layers}}What's on an ID</a></div>
+      <div class="actions"><a class="btn btn-primary btn-lg" href="#cards">See the ID cards {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#offices">{{icon:pin}}Our offices</a></div>
     </div>
   </div>
   <div class="ixw-set" data-ixw-set>
@@ -63,46 +63,16 @@
 
 <section class="section th-sec" id="cards">
   <div class="container">
-    <div class="sec-head th-head reveal"><span class="hand">employee ID cards</span><h2>The team, ID by ID.</h2><p class="lead">One TechNext ID per person, on the lanyard rack. Tap a card to turn it over for the work email and our offices; save it to your phone as a vCard.</p></div>
-    <div class="bc-tools reveal"><button type="button" class="bc-flipall" data-bc-flipall aria-pressed="false">{{icon:refresh}}<span>Flip all IDs</span></button><span class="bc-tip">{{icon:sparkle}}Front: photo, name, position, ID No. · Back: email and offices</span></div>
-    <div class="idc-rack">
-      <span class="idc-rail" aria-hidden="true"></span>
+    <div class="sec-head th-head reveal"><span class="hand">employee ID cards</span><h2>The team, ID by ID.</h2><p class="lead">One TechNext ID per person. Turn a card over for the work email and our offices, or save the contact to your phone.</p></div>
+    <div class="bc-tools reveal"><button type="button" class="bc-flipall" data-bc-flipall aria-pressed="false">{{icon:refresh}}<span>Flip all IDs</span></button></div>
+    <div class="idc-stage">
       <div class="idc-grid" data-bc-grid></div>
     </div>
     <div class="th-people bc-src" data-bc-src>{{TEAM_CARDS}}</div>
   </div>
 </section>
 
-<section class="section section--alt th-sec" id="anatomy">
-  <div class="container">
-    <div class="sec-head th-head reveal"><span class="hand">what's on an ID</span><h2>Anatomy of a TechNext ID.</h2><p class="lead">Every ID is built the same way, so a name, a position and an ID number can be read at a glance.</p></div>
-    <div class="ida reveal">
-      <figure class="ida-card" aria-hidden="true">
-        <span class="ida-band"><b>TechNext</b><small>Employee ID</small></span>
-        <span class="ida-photo">AB</span><span class="ida-name">Name Surname</span><span class="ida-role">Position</span><span class="ida-no">ID No. 001</span><span class="ida-bar"></span>
-        <span class="bc-n" style="--x:22%;--y:7%">1</span><span class="bc-n" style="--x:76%;--y:32%">2</span><span class="bc-n" style="--x:84%;--y:60%">3</span><span class="bc-n" style="--x:84%;--y:76%">4</span><span class="bc-n" style="--x:84%;--y:91%">5</span>
-      </figure>
-      <figure class="ida-card ida-card--back" aria-hidden="true">
-        <span class="ida-k">Work email</span><span class="ida-mail">name@technext.asia</span>
-        <span class="ida-k">Our offices</span><span class="ida-off"><b>Singapore HQ</b><b>Taguig City</b><b>Ho Chi Minh City</b></span>
-        <span class="ida-prop">This card is property of TechNext Pte. Ltd.</span><span class="idc-valid">Valid</span>
-        <span class="bc-n" style="--x:84%;--y:14%">6</span><span class="bc-n" style="--x:84%;--y:40%">7</span><span class="bc-n" style="--x:10%;--y:74%">8</span>
-      </figure>
-      <ol class="bc-anat-list">
-        <li><b>TechNext band</b><span>The blue header with the TechNext plane, as on every ID in the office.</span></li>
-        <li><b>Photo slot</b><span>The person's photo, or their initials until one is added.</span></li>
-        <li><b>Name and position</b><span>As listed on this page.</span></li>
-        <li><b>ID No.</b><span>The person's number on the team list: No. 001, No. 002 and so on.</span></li>
-        <li><b>Barcode strip</b><span>The strip along the bottom, read at the badge gate.</span></li>
-        <li><b>Work email</b><span>Work details only, one tap to write.</span></li>
-        <li><b>Our offices</b><span>Singapore HQ, Taguig City and Ho Chi Minh City.</span></li>
-        <li><b>Property line and VALID stamp</b><span>Every ID belongs to TechNext Pte. Ltd.</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="section th-sec" id="offices">
+<section class="section section--alt th-sec" id="offices">
   <div class="container">
     <div class="sec-head th-head reveal"><span class="hand">on every ID back</span><h2>Three offices, one team.</h2><p class="lead">Projects are run from Singapore, built in Taguig City and powered by our AI engineers in Ho Chi Minh City.</p></div>
     <div class="th-offices">{{TEAM_OFFICES}}</div>

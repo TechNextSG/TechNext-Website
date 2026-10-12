@@ -265,23 +265,6 @@
 .ixw--team .th-strip>div:nth-child(3){rotate:none}
 .ixw--team .th-strip>div:nth-child(4){box-shadow:none}
 .bc-flipall{border:1px solid var(--line);box-shadow:none}
-.bc-n{box-shadow:0 4px 8px rgba(0,0,0,.25);animation:none}
-.bc-anat-list li{box-shadow:none}
-.idc-rack{box-shadow:0 30px 50px -34px rgba(90,60,30,.4)}
-.idc-rail{box-shadow:none}
-.idc-clip{box-shadow:none}
-.idc-swing{animation:none}
-.idc-face{border:1px solid var(--line);box-shadow:0 30px 44px -26px rgba(27,35,80,.6)}
-.idc-meta dd{font-family:var(--font-body)}
-.idc-bar{background-image:none;background-color:#FFFFFF}
-.idc-prop{border-top:1px solid var(--line)}
-.idc-valid{rotate:none}
-.idc-btn{border:1px solid var(--line);box-shadow:none}
-.ida-card{border:1px solid var(--line);rotate:none}
-.ida-card--back{rotate:none}
-.ida-no{font-family:var(--font-body)}
-.ida-bar{background-image:none}
-.ida-prop{border-top:1px solid var(--line)}
 .th-cta-ids i{border:1px solid var(--line);rotate:none}
 .th-cta-ids i+i{rotate:none}
 /* ---- worlds/ai-odoo.css ---- */
