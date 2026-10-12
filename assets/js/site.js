@@ -407,7 +407,38 @@
     });
     return data;
   }
+  /* Every submission also becomes a lead in the Odoo CRM (technext.odoo.com, CRM > Leads) through Odoo's
+     public website-form route. Odoo sends no CORS headers, so the post is no-cors: the browser delivers it
+     but the reply is unreadable. It runs beside FormSubmit and never blocks or fails the visitor's send. */
+  var CRM_FORM = 'https://technext.odoo.com/website/form/crm.lead';
+  var CRM_SKIP = { _subject: 1, _template: 1, _captcha: 1, _honey: 1, _next: 1, _cc: 1 };
+  var CRM_LABEL = { name: 'Name', company: 'Company', email: 'Email', phone: 'Phone', topic: 'Interested in',
+    message: 'Message', scope_summary: 'Quotation scope', apps: 'Odoo apps', users: 'Users', hosting: 'Hosting',
+    services: 'Services', timeline: 'Timeline', source: 'Form' };
+  window.tnCrmLead = function (payload) {
+    try {
+      var p = payload || {};
+      var who = p.company || p.name || p.email || 'Website visitor';
+      var what = p.topic || p.source || 'Website inquiry';
+      var lines = [];
+      Object.keys(p).forEach(function (k) {
+        if (CRM_SKIP[k] || p[k] === '' || p[k] == null) return;
+        lines.push((CRM_LABEL[k] || k) + ': ' + p[k]);
+      });
+      lines.push('Page: ' + location.href);
+      var fd = new FormData();
+      fd.append('name', ('technext.asia: ' + what + ' - ' + who).slice(0, 200));
+      fd.append('contact_name', p.name || '');
+      fd.append('partner_name', p.company || '');
+      fd.append('email_from', p.email || '');
+      fd.append('phone', p.phone || '');
+      fd.append('description', lines.join('\n'));
+      fetch(CRM_FORM, { method: 'POST', mode: 'no-cors', body: fd, keepalive: true, credentials: 'omit' })
+        .catch(function () { /* the email copy still goes out */ });
+    } catch (e) { /* the CRM copy must never break a submission */ }
+  };
   window.tnPostForm = function (endpoint, payload) {
+    window.tnCrmLead(payload);
     return fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
