@@ -291,7 +291,7 @@ input,textarea{caret-color:var(--blue)}
 .stage--crm{min-height:420px}
 .cr-sources{position:absolute;left:0;top:0;display:flex;flex-wrap:wrap;gap:6px;animation:stRise .7s var(--ease-expo) both .1s}
 .cr-sources .st-chip{position:static;height:30px;padding:0 11px;font-size:11.5px}
-.cr-board{left:0;right:3%;top:46px;animation:stRise .8s var(--ease-expo) both .25s}
+.stage--crm .cr-board{left:0;right:3%;top:46px;animation:stRise .8s var(--ease-expo) both .25s}
 .cr-cols{display:grid;grid-template-columns:repeat(4,1fr);padding:12px 12px 0}
 .cr-cols b{padding:0 6px 8px;font:700 12px/1 var(--font-display);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cr-lane{position:relative;height:236px;margin:0 12px 12px;border-radius:12px;background:linear-gradient(90deg,var(--alt) 0 25%,#fff 25% 50%,var(--alt) 50% 75%,var(--ok-050) 75%);overflow:hidden}
@@ -1175,7 +1175,7 @@ input,textarea{caret-color:var(--blue)}
   .ai-badge span{display:none}
   .ai-log{left:0;top:320px;width:100%}
   /* crm */
-  .cr-board{right:0}
+  .stage--crm .cr-board{right:0}
   .cr-cols b{font-size:10.5px;padding:0 3px 8px}
   .cr-lane{margin:0 8px 8px}
   .cr-c{padding:4px}
