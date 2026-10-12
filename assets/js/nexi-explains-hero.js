@@ -1,10 +1,10 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* /nexi-explains hero: a living comic book in four spreads (Series / Quick Tips / Cast / Specials).
    - The deck: four formats (Series = split cover, Quick Tips = pit lane + tip conveyor, Cast = splash page with a wide
-     stage, Specials = banner + triptych). A new slide every 3 seconds, starting on a random one (picked in the head:
+     stage, Specials = banner + triptych). A new slide every 10 seconds, starting on a random one (picked in the head:
      html[data-nxe-first]; ?slide=N forces one, crawlers get slide 1). Chapter tabs (ARIA tabs), arrows, pause, swipe;
      named holds (pointer on the controls or a spread, keyboard focus, the intro, an off-screen hero, a hidden tab,
-     the pause button). Any tap or drag gives the visitor 8 seconds on that slide.
+     the pause button). Any tap or drag gives the visitor 12 seconds on that slide.
    - The change: a comic burst slams in over the spread with the next slide's sound word, the page turns underneath,
      the burst blows apart and the new panels slam in (CSS .is-enter); the halftone sky ripples from the burst.
    - The sky: a canvas halftone field that breathes, swells around the pointer and ripples on every tap; parallax layers.
@@ -25,7 +25,7 @@
   var keys = slides.map(function (s) { return s.getAttribute('data-nxe-slide'); });
   var ctl = $('[data-nxe-ctl]', hero), pp = $('[data-nxe-pp]', hero), deck = $('[data-nxe-deck]', hero);
   var bam = $('[data-nxe-bam]', hero), bamWord = bam && $('[data-nxe-bam-word]', bam);
-  var DUR = { series: 2140, tips: 2140, cast: 2140, specials: 2140 }, LINGER = 8000;   /* + the 0.86 s burst = a new slide every 3 s */
+  var DUR = { series: 9140, tips: 9140, cast: 9140, specials: 9140 }, LINGER = 12000;  /* + the 0.86 s burst = a new slide every 10 s */
   var BAM = { series: ['ON AIR!', '#FFD23F'], tips: ['ZOOM!', '#FFD23F'], cast: ['TA-DA!', '#FF9DB4'], specials: ['BOO!', '#C3B4FF'] };
   var cur = 0, busy = false;
 
@@ -157,7 +157,7 @@
   function bar(restart, ms) {
     var on = chaps[cur];
     if (!on) return;
-    on.style.setProperty('--dur', (ms || DUR[keys[cur]] || 2300) + 'ms');
+    on.style.setProperty('--dur', (ms || DUR[keys[cur]] || 9140) + 'ms');
     if (restart) { var i = $('i', on); if (i) { i.style.animation = 'none'; void i.offsetWidth; i.style.animation = ''; } }
     ctl.classList.toggle('is-held', held());
   }
@@ -176,7 +176,7 @@
     } else delete holds[why];
     if (was && !held()) arm(); else ctl.classList.toggle('is-held', held());
   }
-  function fresh(linger) { remain = linger ? LINGER : (DUR[keys[cur]] || 2300); bar(true, remain); arm(); }   /* the slide's time starts over (8 s after a tap) */
+  function fresh(linger) { remain = linger ? LINGER : (DUR[keys[cur]] || 9140); bar(true, remain); arm(); }   /* the slide's time starts over (12 s after a tap) */
 
   /* ---------------- the deck ---------------- */
   function tabs(n, focus) {
