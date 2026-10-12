@@ -23,13 +23,13 @@
   window.TN_EVENTS = [
     /* ---- own: the Nexi Explains Season 1 premieres on TechNext's YouTube channel (dates: _src/nexi_explains.py, /nexi-explains) ---- */
     { id: 'nx-ep00', type: 'own', date: '2026-10-13', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP00: Meet Nexi', kind: 'Video premiere', where: 'YouTube',
-      note: 'The pilot of our animated series: a comic-book city, a spreadsheet monster and four power-ups.', url: 'https://www.youtube.com/watch?v=iz6BNOrpIrg', src: NX },
-    { id: 'nx-ep01', type: 'own', date: '2026-10-17', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP01: Odoo Walkthrough with Nexi', kind: 'Video premiere', where: 'YouTube',
-      note: 'What is Odoo? A quick tour of the apps.', url: 'https://www.youtube.com/watch?v=hos3sqJOhMY', src: NX },
-    { id: 'nx-ep02', type: 'own', date: '2026-10-20', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP02: All Odoo Apps', kind: 'Video premiere', where: 'YouTube',
-      note: 'Every app, one Odoo: all the apps on one database.', url: 'https://www.youtube.com/watch?v=KwvBOgfXHgs', src: NX },
-    { id: 'nx-ep03', type: 'own', date: '2026-10-24', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP03: Before vs After, Order to Invoice', kind: 'Video premiere', where: 'YouTube',
-      note: 'Same order, typed three times? Before and after Odoo.', url: 'https://www.youtube.com/watch?v=TJe8GlN43U0', src: NX },
+      note: 'The pilot of our animated series: a comic-book city, a spreadsheet monster and four power-ups.', url: 'https://www.youtube.com/watch?v=KmnP1UptJhs', src: NX },
+    { id: 'nx-ep01', type: 'own', date: '2026-10-15', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP01: Odoo Walkthrough with Nexi', kind: 'Video premiere', where: 'YouTube',
+      note: 'What is Odoo? A quick tour of the apps.', url: 'https://www.youtube.com/watch?v=xiuyzVw_dYE', src: NX },
+    { id: 'nx-ep02', type: 'own', date: '2026-10-17', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP02: All Odoo Apps', kind: 'Video premiere', where: 'YouTube',
+      note: 'Every app, one Odoo: all the apps on one database.', url: 'https://www.youtube.com/watch?v=cfM5O03OZkI', src: NX },
+    { id: 'nx-ep03', type: 'own', date: '2026-10-20', tz: 8, time: '18:00 SGT · YouTube premiere', title: 'Nexi Explains EP03: Before vs After, Order to Invoice', kind: 'Video premiere', where: 'YouTube',
+      note: 'Same order, typed three times? Before and after Odoo.', url: 'https://www.youtube.com/watch?v=7ouKgR1bj_M', src: NX },
 
     /* ---- joining: none announced yet (add them here when TechNext confirms) ---- */
 

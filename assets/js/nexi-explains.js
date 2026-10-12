@@ -9,6 +9,9 @@
   var ID = /^[A-Za-z0-9_-]{6,20}$/;
   var EMBED = 'https://www.youtube-nocookie.com/embed/';
   var WATCH = 'https://www.youtube.com/watch?v=';
+  var SUBSCRIBE = 'https://www.youtube.com/@TechNextAsia?sub_confirmation=1';
+  /* a tap on a locked card: the status tag wiggles (it already says when it premieres) */
+  function nudge(b) { var st = b.querySelector('[data-nxe-state]'); if (!st) return; st.classList.remove('is-nudge'); void st.offsetWidth; st.classList.add('is-nudge'); }
   var $$ = function (sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); };
   var SGT = { timeZone: 'Asia/Singapore' };
   var fmtDay = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Asia/Singapore' });
@@ -132,6 +135,8 @@
       var t = when(b), st = b.querySelector('[data-nxe-state]');
       var live = !t || t <= now;
       b.classList.toggle('is-live', live);
+      b.classList.toggle('is-wait', !live);   /* locked until its premiere: no player, no YouTube link */
+      if (live) b.removeAttribute('aria-disabled'); else b.setAttribute('aria-disabled', 'true');
       if (st) st.textContent = live ? 'Watch now' : 'Premieres in ' + left(t - now);
       if (!live && (!soon || t < when(soon))) soon = b;
     });
@@ -148,7 +153,6 @@
     if (next && soon) {
       var t = when(soon), d = new Date(t);
       var cta = next.querySelector('[data-nxe-next-cta]');
-      if (cta) cta.textContent = 'Set a reminder on YouTube';
       var tg = next.querySelector('[data-nxe-next-tag]');
       if (tg) tg.textContent = 'Next premiere';
       next.querySelector('[data-nxe-next-title]').textContent = soon.getAttribute('data-nxe-title') || '';
@@ -157,8 +161,10 @@
       var s = document.createElement('strong'); s.textContent = 'in ' + left(t - now);
       w.appendChild(s);
       w.appendChild(document.createTextNode(' · ' + fmtDay.format(d) + ', ' + fmtTime.format(d).toLowerCase() + ' SGT'));
-      var id = soon.getAttribute('data-nxe-play');
-      if (ID.test(id)) next.querySelector('[data-nxe-next-link]').href = WATCH + id;
+      /* only a public premiere takes a reminder; a private upload stays hidden until its time, so point at the channel */
+      var id = soon.getAttribute('data-nxe-play'), pub = soon.hasAttribute('data-nxe-pub') && ID.test(id);
+      next.querySelector('[data-nxe-next-link]').href = pub ? WATCH + id : SUBSCRIBE;
+      if (cta) cta.textContent = pub ? 'Set a reminder on YouTube' : 'Subscribe on YouTube';
     }
   }
   states();
@@ -207,8 +213,9 @@
   }
   function playOne(btn) {
     var tips = btn.closest('.nxe-tips'), panel = btn.closest('.nxe-panel') || document.getElementById('season-1');
-    var pool = tips ? $$('.nxe-thumb[data-nxe-play]', tips)
-                    : $$('.nxe-thumb[data-nxe-play]', panel || document).filter(function (x) { return !x.closest('.nxe-tips'); });
+    if (!released(btn)) { nudge(btn); return; }
+    var pool = (tips ? $$('.nxe-thumb[data-nxe-play]', tips)
+                     : $$('.nxe-thumb[data-nxe-play]', panel || document).filter(function (x) { return !x.closest('.nxe-tips'); })).filter(released);
     list = pool;
     var id = btn.getAttribute('data-nxe-play');
     pos = -1;
