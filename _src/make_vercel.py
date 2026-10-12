@@ -195,7 +195,8 @@ def csp(hashes):
         # i.ytimg: YouTube facade thumbnails; the rest: Google Analytics / Ads pixels
         "img-src 'self' data: https://odoocdn.com https://i.ytimg.com "
         + " ".join(google_img),
-        "connect-src 'self' https://formsubmit.co https://*.google-analytics.com "
+        # technext.odoo.com: every form also files a lead in the Odoo CRM (site.js tnCrmLead)
+        "connect-src 'self' https://formsubmit.co https://technext.odoo.com https://*.google-analytics.com "
         "https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com "
         "https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net "
         "https://pagead2.googlesyndication.com https://www.googleadservices.com "
