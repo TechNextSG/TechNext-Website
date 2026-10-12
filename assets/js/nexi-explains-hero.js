@@ -354,7 +354,7 @@
       [['kiss', 'Aww, thank you for watching!'], ['dizzy', 'Whoa! Breaking panels makes me dizzy!'], ['gasp', 'Is that a new episode?!'],
        ['clap', 'Beep boop! Pick a season below.'], ['cute', 'Hehe, that tickles!'], ['hi', 'Hi again! Grab some popcorn.']],
       ['BOOP!', 'WOW!', 'HEHE!', 'YAY!', 'ZING!', 'BEEP!'],
-      { lines: ['Hi! I’m Nexi. Grab a seat!', 'One idea per episode. Promise!', 'New episodes premiere every week.', 'Tap me. I dare you!', 'Season 2 is about the people side of Odoo.'],
+      { lines: ['Hi! I’m Nexi. Grab a seat!', 'One idea per episode. Promise!', 'New episodes every Tue, Thu and Sat.', 'Tap me. I dare you!', 'Season 2 is about the people side of Odoo.'],
         tap: function () { var sp = $('[data-nxe-spread]', sl); if (!reduce) restartAnim(sp, 'is-shake'); } });
     kids(sl);
     var imgs = $$('[data-nxe-reel] img', sl), cap = $('[data-nxe-tvcap]', sl), k = 0, iv = 0;
