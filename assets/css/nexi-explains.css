@@ -927,6 +927,9 @@ button.nxe-thumb{cursor:pointer}
   .nxe-copy .actions .btn-lg{min-height:46px;padding-top:10px;padding-bottom:10px;font-size:15px}
   .nxe-hero .nxe-stats{display:none}
   .nxe-narrator{font-size:14px;line-height:1.45;padding:10px 14px}
+  /* flicker on phones (owner 2026-10-13): no tilt, and its own GPU layer so the orbiting cast never repaints it */
+  .nxe-narrator{rotate:none;z-index:8;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  .nxe-troupe .nxe-kid{will-change:translate}
   .nxe-copy--foot{gap:10px}
   .nxe-copy--foot .actions{width:100%}
   /* decor that drifted over the copy or the controls */
