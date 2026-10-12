@@ -581,8 +581,6 @@ button.nxe-thumb{cursor:pointer}
 .nxe-kick{display:inline-block;margin-bottom:6px;font:400 17px/1 var(--comic);letter-spacing:.06em;color:var(--blue)}
 .nxe-body h4{margin:0 0 6px;font-size:1.05rem;line-height:1.3;color:var(--ink-c)}
 .nxe-body p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
-.nxe-take{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;margin-top:10px!important;font-weight:600;color:var(--ink-c)!important}
-.nxe-take span{padding:3px 8px 2px;border-radius:6px;background:var(--yel);border:2px solid var(--ink-c);color:var(--ink-c);font:400 13px/1 var(--comic);letter-spacing:.07em}
 .nxe-more{display:inline-flex;align-items:center;gap:5px;min-height:44px;margin-top:4px;padding:0 2px;font:700 13.5px/1.2 var(--font-body)}
 .nxe-more .ic{width:15px;height:15px;transition:transform .25s var(--spring)}
 .nxe-more:hover .ic{transform:translateX(3px)}
@@ -957,7 +955,6 @@ button.nxe-thumb{cursor:pointer}
   .nxe-grid .nxe-body h4{font-size:.95rem;line-height:1.25;margin-bottom:3px}
   .nxe-grid .nxe-body p{font-size:12.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .nxe-grid .nxe-more{display:none}
-  .nxe-grid .nxe-body .nxe-take{display:none}
   .nxe-anim .nxe-card{transform:translateY(14px)}
   .nxe-anim .nxe-card.is-in{animation:nxeRowIn .4s var(--ease-out) both;animation-delay:min(var(--k,0ms),160ms)}
   /* smoother slide changes on phones: no whole-deck shake, the burst alone sells it */
