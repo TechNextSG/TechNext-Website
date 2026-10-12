@@ -16,6 +16,8 @@ Numbers, titles, lengths (ffprobe of the delivered 16x9 MP4) and air dates follo
 
 CHANNEL = "https://www.youtube.com/@TechNextAsia"
 SUBSCRIBE = CHANNEL + "?sub_confirmation=1"
+# Public scheduled premieres (YouTube can set a reminder on these); the other ids stay private until their time.
+PUBLIC_PREMIERES = {"KmnP1UptJhs", "xiuyzVw_dYE", "cfM5O03OZkI", "7ouKgR1bj_M", "BxMuXLlDelw", "oD2DQpoBNDg"}
 
 
 def ep(code, title, hook, length, *, thumb=None, yt=None, premiere=None, airs=None, page=None, pose=None, psych=None, takeaway=None):
@@ -26,64 +28,63 @@ def ep(code, title, hook, length, *, thumb=None, yt=None, premiere=None, airs=No
 S1 = [
     ("The pilot", [
         ep("EP00", "Meet Nexi", "TechNext’s AI companion saves the day: a night city, a spreadsheet monster and four power-ups.", "2:42",
-           thumb="s1-ep00", yt="iz6BNOrpIrg", premiere="2026-10-13T10:00:00Z", page="nexi.html"),
+           thumb="s1-ep00", yt="KmnP1UptJhs", premiere="2026-10-13T10:00:00Z", page="nexi.html"),
     ]),
     ("Meet Odoo", [
         ep("EP01", "Odoo Walkthrough with Nexi", "What is Odoo? A quick tour of the apps.", "2:35",
-           thumb="s1-ep01", yt="hos3sqJOhMY", premiere="2026-10-17T10:00:00Z", page="odoo/apps.html"),
-        ep("EP02", "All Odoo Apps", "Every app, one Odoo: all the apps on one database.", "2:23", thumb="s1-ep02",
-           yt="KwvBOgfXHgs", premiere="2026-10-20T10:00:00Z", page="odoo/apps.html"),
+           thumb="s1-ep01", yt="xiuyzVw_dYE", premiere="2026-10-15T10:00:00Z", page="odoo/apps.html"),
+        ep("EP02", "All Odoo Apps", "Every app, one Odoo: all the apps on one database.", "2:23", thumb="s1-ep02", yt="cfM5O03OZkI", premiere="2026-10-17T10:00:00Z", page="odoo/apps.html"),
         ep("EP03", "Before vs After: Order to Invoice", "Same order, typed three times? Before and after Odoo.", "2:17",
-           thumb="s1-ep03", yt="TJe8GlN43U0", premiere="2026-10-24T10:00:00Z", page="solutions/odoo-erp.html"),
-        ep("EP04", "Myth-busting: ERP Is Only for Big Companies", "Too small for ERP? Myth busted.", "2:23", thumb="s1-ep04", page="solutions/odoo-erp.html"),
-        ep("EP05", "Odoo ERP Implementation", "Spreadsheet chaos? How we implement Odoo ERP.", "2:30", thumb="s1-ep05", page="solutions/odoo-erp.html"),
+           thumb="s1-ep03", yt="7ouKgR1bj_M", premiere="2026-10-20T10:00:00Z", page="solutions/odoo-erp.html"),
+        ep("EP04", "Myth-busting: ERP Is Only for Big Companies", "Too small for ERP? Myth busted.", "2:23", thumb="s1-ep04", yt="BxMuXLlDelw", premiere="2026-10-22T10:00:00Z", page="solutions/odoo-erp.html"),
+        ep("EP05", "Odoo ERP Implementation", "Spreadsheet chaos? How we implement Odoo ERP.", "2:30", thumb="s1-ep05", yt="oD2DQpoBNDg", premiere="2026-10-24T10:00:00Z", page="solutions/odoo-erp.html"),
     ]),
     ("The core apps", [
-        ep("EP06", "Odoo Accounting", "It’s a match! Bank lines meet their invoices.", "2:39", thumb="s1-ep06", page="odoo/apps/accountant.html"),
-        ep("EP07", "Odoo Sales", "Slow quotes? From quote to paid with Odoo Sales.", "2:29", thumb="s1-ep07", page="odoo/apps/sale.html"),
-        ep("EP08", "Odoo Inventory", "One box, five steps: Odoo Inventory.", "2:39", thumb="s1-ep08", page="odoo/apps/stock.html"),
-        ep("EP09", "Inventory Reordering Rules", "Out of stock again? Let reordering rules buy for you.", "2:23", thumb="s1-ep09", page="odoo/apps/stock.html"),
-        ep("EP10", "CRM Development", "Losing leads? Odoo CRM, explained.", "2:31", thumb="s1-ep10", page="odoo/crm-development.html"),
+        ep("EP06", "Odoo Accounting", "It’s a match! Bank lines meet their invoices.", "2:39", thumb="s1-ep06", yt="U3rIsKAfaOU", premiere="2026-10-27T10:00:00Z", page="odoo/apps/accountant.html"),
+        ep("EP07", "Odoo Sales", "Slow quotes? From quote to paid with Odoo Sales.", "2:29", thumb="s1-ep07", yt="kUPLH_vbhEU", premiere="2026-10-29T10:00:00Z", page="odoo/apps/sale.html"),
+        ep("EP08", "Odoo Inventory", "One box, five steps: Odoo Inventory.", "2:39", thumb="s1-ep08", yt="Sdiy1G-ImeI", premiere="2026-10-31T10:00:00Z", page="odoo/apps/stock.html"),
+        ep("EP09", "Inventory Reordering Rules", "Out of stock again? Let reordering rules buy for you.", "2:23", thumb="s1-ep09", yt="3IC8LtvGtYM", premiere="2026-11-03T10:00:00Z", page="odoo/apps/stock.html"),
+        ep("EP10", "CRM Development", "Losing leads? Odoo CRM, explained.", "2:31", thumb="s1-ep10", yt="y4qMBNOSm84", premiere="2026-11-05T10:00:00Z", page="odoo/crm-development.html"),
     ]),
     ("Fit Odoo to you", [
-        ep("EP11", "Odoo Customization", "Customize Odoo without breaking upgrades.", "2:20", thumb="s1-ep11", page="odoo/erp-system.html"),
-        ep("EP12", "Enterprise Solution: Multi-company", "Three companies, one Odoo.", "2:37", thumb="s1-ep12", page="solutions/enterprise.html"),
+        ep("EP11", "Odoo Customization", "Customize Odoo without breaking upgrades.", "2:20", thumb="s1-ep11", yt="geqqCvyZaik", premiere="2026-11-07T10:00:00Z", page="odoo/erp-system.html"),
+        ep("EP12", "Enterprise Solution: Multi-company", "Three companies, one Odoo.", "2:37", thumb="s1-ep12", yt="WYlBrTY6l6Q", premiere="2026-11-10T10:00:00Z", page="solutions/enterprise.html"),
     ]),
     ("AI", [
-        ep("EP13", "Odoo + AI Integrations", "AI inside Odoo: it prepares, you approve.", "2:27", thumb="s1-ep13", page="odoo/ai-integration.html"),
-        ep("EP14", "Workflow Automation", "Still doing it by hand? Let the workflow run itself.", "2:24", thumb="s1-ep14", page="solutions/ai-automation.html"),
-        ep("EP15", "AI Chatbots", "Who answers at 2 AM? A chatbot for the night shift.", "2:26", thumb="s1-ep15", page="solutions/ai-chatbots.html"),
+        ep("EP13", "Odoo + AI Integrations", "AI inside Odoo: it prepares, you approve.", "2:27", thumb="s1-ep13", yt="oenBLZBO3os", premiere="2026-11-12T10:00:00Z", page="odoo/ai-integration.html"),
+        ep("EP14", "Workflow Automation", "Still doing it by hand? Let the workflow run itself.", "2:24", thumb="s1-ep14", yt="pk4B5FT0hSk", premiere="2026-11-14T10:00:00Z", page="solutions/ai-automation.html"),
+        ep("EP15", "AI Chatbots", "Who answers at 2 AM? A chatbot for the night shift.", "2:26", thumb="s1-ep15", yt="Jb94zAXScYM", premiere="2026-11-17T10:00:00Z", page="solutions/ai-chatbots.html"),
     ]),
     ("Marketing", [
-        ep("EP16", "Web Design and Development", "Visitors leaving your website? How we build yours.", "2:25", thumb="s1-ep16", page="solutions/website.html"),
-        ep("EP17", "Social Media Management", "No likes? How we run your social media.", "2:30", thumb="s1-ep17", page="solutions/social-media.html"),
-        ep("EP18", "Graphic and Brand Assets", "One brand, five logos? How we build a brand system.", "2:29", thumb="s1-ep18", page="solutions/brand-assets.html"),
+        ep("EP16", "Web Design and Development", "Visitors leaving your website? How we build yours.", "2:25", thumb="s1-ep16", yt="aEpZurR1eYQ", premiere="2026-11-19T10:00:00Z", page="solutions/website.html"),
+        ep("EP17", "Social Media Management", "No likes? How we run your social media.", "2:30", thumb="s1-ep17", yt="P_STvzbOVTs", premiere="2026-11-21T10:00:00Z", page="solutions/social-media.html"),
+        ep("EP18", "Graphic and Brand Assets", "One brand, five logos? How we build a brand system.", "2:29", thumb="s1-ep18", yt="l7Vh268c4zk", premiere="2026-11-24T10:00:00Z", page="solutions/brand-assets.html"),
     ]),
     ("Technology", [
-        ep("EP19", "App Development", "Apps for customers, staff and portals.", "2:24", thumb="s1-ep19", page="solutions/app-development.html"),
-        ep("EP20", "IoT Solutions", "Freezer too warm? Sensors that warn you first.", "2:23", thumb="s1-ep20", page="solutions/iot.html"),
-        ep("EP21", "Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "2:32", thumb="s1-ep21", page="solutions/networks.html"),
+        ep("EP19", "App Development", "Apps for customers, staff and portals.", "2:24", thumb="s1-ep19", yt="MNO3_xAtTko", premiere="2026-11-26T10:00:00Z", page="solutions/app-development.html"),
+        ep("EP20", "IoT Solutions", "Freezer too warm? Sensors that warn you first.", "2:23", thumb="s1-ep20", yt="kOnXBh9utrw", premiere="2026-11-28T10:00:00Z", page="solutions/iot.html"),
+        ep("EP21", "Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "2:32", thumb="s1-ep21", yt="GRLGFIsgIcM", premiere="2026-12-01T10:00:00Z", page="solutions/networks.html"),
     ]),
     ("The finale", [
-        ep("EP22", "Season 1 Finale", "Everything we learned, in a pop-up book, plus a Season 2 sneak peek.", "2:29", thumb="s1-ep22"),
+        ep("EP22", "Season 1 Finale", "Everything we learned, in a pop-up book, plus a Season 2 sneak peek.", "2:29", thumb="s1-ep22", yt="sxxI1kE88is", premiere="2026-12-03T10:00:00Z"),
     ]),
 ]
 
 S1_TIPS = [
-    ep("Tip 01", "Save your search to Favorites", "Same filter every day? Save it once.", "1:45", thumb="qt01"),
-    ep("Tip 02", "Jump anywhere with Ctrl+K", "Still clicking through menus? Press Ctrl+K.", "1:50", thumb="qt02"),
-    ep("Tip 03", "Edit many records at once", "Change twenty records in one go.", "1:55", thumb="qt03"),
-    ep("Tip 04", "Schedule an activity", "Forgot to follow up? Let Odoo remind you.", "1:55", thumb="qt04"),
-    ep("Tip 05", "Log a note or send a message", "The customer saw it?! Log note vs send message.", "1:37", thumb="qt05"),
-    ep("Tip 06", "Group any list in one click", "Messy lists? Group By in one click.", "1:37", thumb="qt06"),
-    ep("Tip 07", "Export any list to Excel", "Need it in Excel? Export any list.", "1:47", thumb="qt07"),
-    ep("Tip 08", "Import a spreadsheet", "Typing it all in? Import the spreadsheet instead.", "1:46", thumb="qt08"),
-    ep("Tip 09", "Archive instead of delete", "Don’t delete it! Archive it.", "1:45", thumb="qt09"),
-    ep("Tip 10", "Show hidden columns", "Missing a column? It’s only hidden.", "1:49", thumb="qt10"),
-    ep("Tip 11", "Create a customer on the fly", "New customer? Add them without leaving the quote.", "1:55", thumb="qt11"),
-    ep("Tip 12", "Drag files into the chatter", "Drag, drop, done: attach files to any record.", "1:50", thumb="qt12"),
-    ep("Tip 13", "Switch views in one click", "Same data, four views.", "1:59", thumb="qt13"),
-    ep("Tip 14", "Hold Alt for shortcuts", "Secret shortcuts: hold Alt.", "1:58", thumb="qt14"),
+    ep("Tip 01", "Save your search to Favorites", "Same filter every day? Save it once.", "1:45", thumb="qt01", yt="1GJVoA-N2lQ", premiere="2026-12-04T10:00:00Z"),
+    ep("Tip 02", "Jump anywhere with Ctrl+K", "Still clicking through menus? Press Ctrl+K.", "1:50", thumb="qt02", yt="rIx6ClTB384", premiere="2026-12-05T10:00:00Z"),
+    ep("Tip 03", "Edit many records at once", "Change twenty records in one go.", "1:55", thumb="qt03", yt="3-ma391DI-U", premiere="2026-12-06T10:00:00Z"),
+    ep("Tip 04", "Schedule an activity", "Forgot to follow up? Let Odoo remind you.", "1:55", thumb="qt04", yt="v6agD7p8Y6E", premiere="2026-12-07T10:00:00Z"),
+    ep("Tip 05", "Log a note or send a message", "The customer saw it?! Log note vs send message.", "1:37", thumb="qt05", yt="gTHSl62O4Ks", premiere="2026-12-08T10:00:00Z"),
+    ep("Tip 06", "Group any list in one click", "Messy lists? Group By in one click.", "1:37", thumb="qt06", yt="9VvewQ5ZYh0", premiere="2026-12-09T10:00:00Z"),
+    ep("Tip 07", "Export any list to Excel", "Need it in Excel? Export any list.", "1:47", thumb="qt07", yt="BE0Nf-jNpdA", premiere="2026-12-10T10:00:00Z"),
+    ep("Tip 08", "Import a spreadsheet", "Typing it all in? Import the spreadsheet instead.", "1:46", thumb="qt08", yt="UasDVVzOMUQ", premiere="2026-12-11T10:00:00Z"),
+    ep("Tip 09", "Archive instead of delete", "Don’t delete it! Archive it.", "1:45", thumb="qt09", yt="Y1kZGX6n6SM", premiere="2026-12-12T10:00:00Z"),
+    ep("Tip 10", "Show hidden columns", "Missing a column? It’s only hidden.", "1:49", thumb="qt10", yt="bn5qt11XOxU", premiere="2026-12-13T10:00:00Z"),
+    ep("Tip 11", "Create a customer on the fly", "New customer? Add them without leaving the quote.", "1:55", thumb="qt11", yt="6bapSc7JcHY", premiere="2026-12-14T10:00:00Z"),
+    ep("Tip 12", "Drag files into the chatter", "Drag, drop, done: attach files to any record.", "1:50", thumb="qt12", yt="atSl2ZCBBiI", premiere="2026-12-15T10:00:00Z"),
+    ep("Tip 13", "Switch views in one click", "Same data, four views.", "1:59", thumb="qt13", yt="1g-wXDOqQZc", premiere="2026-12-16T10:00:00Z"),
+    ep("Tip 14", "Hold Alt for shortcuts", "Secret shortcuts: hold Alt.", "1:58", thumb="qt14", yt="caaC8ZtyAkU", premiere="2026-12-17T10:00:00Z"),
 ]
 
 S2 = [

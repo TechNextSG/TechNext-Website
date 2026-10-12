@@ -592,6 +592,8 @@ def _nxe_card(e: dict, soon: str, tone: int = 0, tip: bool = False) -> str:
               + f'<span class="nxe-state"{" data-nxe-state" if e["yt"] else ""}>{state}</span>')
     if e["yt"]:
         prem = f' data-nxe-premiere="{e["premiere"]}"' if e["premiere"] else ""
+        if e["yt"] in NXE.PUBLIC_PREMIERES:
+            prem += " data-nxe-pub"   # public scheduled premiere: the next-premiere strip may link to it for a reminder
         thumb = (f'<button type="button" class="nxe-thumb" data-nxe-play="{e["yt"]}" data-nxe-title="{attr(code + " · " + title)}"{prem}'
                  f' aria-label="Play {attr(code)}: {attr(title)}">{pic}{badges}<span class="nxe-playic" aria-hidden="true">{{{{icon:play}}}}</span></button>')
     else:

@@ -983,3 +983,12 @@ button.nxe-thumb{cursor:pointer}
 @property --spin{syntax:'<angle>';inherits:true;initial-value:0deg}
 @keyframes nxeOrbit{to{--spin:360deg}}
 @media (prefers-reduced-motion:reduce){.nxe-sp--cast .nxe-troupe{animation:none}}
+
+/* locked until the premiere (nexi-explains.js toggles .is-wait every 30 s): no play button, no hover lift; a tap wiggles the tag */
+.nxe-thumb.is-wait{cursor:default}
+.nxe-thumb.is-wait .nxe-playic{display:none}
+.nxe-card:hover .nxe-thumb.is-wait{transform:none;box-shadow:6px 6px 0 var(--ink-c)}
+.nxe-thumb.is-wait .nxe-state{background:#fff}
+.nxe-state.is-nudge{animation:nxeNudge .45s var(--spring)}
+@keyframes nxeNudge{0%,100%{translate:0}20%{translate:-5px 0}40%{translate:5px 0}60%{translate:-3px 0}80%{translate:3px 0}}
+@media (prefers-reduced-motion:reduce){.nxe-state.is-nudge{animation:none}}
