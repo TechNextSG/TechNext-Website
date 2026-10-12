@@ -1798,7 +1798,7 @@
     var items = $$('[data-nxs-item]', root), picks = $$('[data-nxs-pick]', root);
     var cap = $('[data-nxs-cap]', root), say = $('[data-nxs-say]', root);
     var nextT = $('[data-nxs-next-t]', root), nextW = $('[data-nxs-next-w]', root);
-    var LINES = ['New episodes every week!', 'One idea per episode!', 'That’s me on TV!', 'Tap an episode below!', 'Season 2 lands in 2027!'];
+    var LINES = ['New episodes Tue, Thu & Sat!', 'One idea per episode!', 'That’s me on TV!', 'Tap an episode below!', 'Season 2 lands in 2027!'];
     var cur = 0, on = false, t = 0, li = 0;
     function when(el) { var v = Date.parse(el.getAttribute('data-premiere') || ''); return isNaN(v) ? 0 : v; }
     function left(ms) {

@@ -767,7 +767,7 @@ def _nxe_all():
 
 
 # the home hero's Nexi Explains slide (index.html slide 6): the TV reel + strip, and the pills under the copy
-NXE_SLIDE_REEL = ["EP00", "EP01", "EP02", "EP03", "EP06", "EP15"]
+NXE_SLIDE_REEL = ["EP00", "EP01", "EP02", "EP03", "EP04", "EP05"]   # the first premieres, 13-24 Oct
 
 
 def nxe_slide_html():
@@ -795,7 +795,7 @@ def nxe_slide_html():
              f'<span class="nxs-onair" aria-hidden="true">ON AIR</span>'
              f'<span class="nxs-play" aria-hidden="true">{{{{icon:play}}}}</span>'
              f'<span class="nxs-cap" data-nxs-cap><b>{first["code"]}</b><span>{first["title"]}</span><em>{state}</em></span></a>'
-             f'<b class="nxs-say" data-nxs-say aria-hidden="true">New episodes every week!</b>'
+             f'<b class="nxs-say" data-nxs-say aria-hidden="true">New episodes Tue, Thu &amp; Sat!</b>'
              f'<div class="nxs-strip" role="group" aria-label="Episodes on the TV">{"".join(picks)}</div>'
              f'<img class="nxs-nexi" src="{NXE_IMG}nexi-point-left.webp" alt="" width="{NXE_POSE_W["point-left"]}" height="520" loading="lazy" decoding="async">'
              f'</div>')

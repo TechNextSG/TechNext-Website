@@ -707,7 +707,7 @@
         var ep = txt(sl.querySelector('[data-nxs-cap] b'));
         if (ep) opts.push(['now on air: ' + ep, 'that’s me in there!', 'one idea per episode ✓']);
         opts.push(['I have my own show!', 'Odoo, AI and tech', 'explained by me ✨']);
-        opts.push(['new episodes every week', 'tap one under the TV', 'I wear a new costume each time!']);
+        opts.push(['new episodes Tue, Thu and Sat', 'tap one under the TV', 'I wear a new costume each time!']);
       } else if (sl.querySelector('[data-inds]')) {
         var ind = txt(sl.querySelector('.hxs-panel.is-on .h1-hand'));
         if (ind) opts.push(['now showing: ' + ind, 'that’s me in costume!', 'tap the screen to step inside']);
