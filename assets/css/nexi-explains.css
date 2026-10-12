@@ -961,23 +961,24 @@ button.nxe-thumb{cursor:pointer}
   .nxe-anim .nxe-card.is-in{animation:nxeRowIn .4s var(--ease-out) both;animation-delay:min(var(--k,0ms),160ms)}
   /* smoother slide changes on phones: no whole-deck shake, the burst alone sells it */
   .nxe-hero.is-shake .nxe-deck,.nxe-spread.is-shake .nxe-pn--tv{animation:none}
-  /* cast: all eight sidekicks in a ring around Nexi (owner 2026-10-12) */
-  .nxe-sp--cast .nxe-say{top:3%;left:50%;right:auto;translate:-50% 0;max-width:42cqw}
-  .nxe-sp--cast .nxe-hero-nexi{height:52cqw;bottom:12%}
-  .nxe-podium{bottom:8%;width:30%}
-  .nxe-troupe .nxe-kid,.nxe-troupe .nxe-spot-1,.nxe-troupe .nxe-spot-8{height:20cqw!important}
+  /* cast: all eight sidekicks circle Nexi on a ring that slowly orbits (owner 2026-10-12).
+     --spin is a registered angle animated on the troupe; each kid sits at its own --a on the ring. */
+  .nxe-sp--cast .nxe-say{top:2%;left:auto;right:3%;translate:none;max-width:34cqw;z-index:7}
+  .nxe-sp--cast .nxe-hero-nexi{height:44cqw;bottom:calc(50% - 21cqw)}
+  .nxe-podium{bottom:calc(50% - 24cqw);width:26%}
+  .nxe-sp--cast .nxe-troupe{z-index:6;animation:nxeOrbit 48s linear infinite;animation-play-state:paused}
+  .nxe-slide.is-on .nxe-sp--cast .nxe-troupe{animation-play-state:running}
+  .nxe-sp--cast:hover .nxe-troupe,.nxe-sp--cast:focus-within .nxe-troupe{animation-play-state:paused}
+  .nxe-troupe .nxe-kid,.nxe-troupe .nxe-spot-1,.nxe-troupe .nxe-spot-8{height:18cqw!important}
+  .nxe-troupe .nxe-kid{z-index:6;left:50%!important;right:auto!important;top:auto!important;bottom:calc(50% + 1cqw)!important;
+    translate:calc(-50% + cos(var(--a) + var(--spin)) * 37cqw) calc(50% + sin(var(--a) + var(--spin)) * 33cqw)}
   .nxe-troupe .nxe-spot-2,.nxe-troupe .nxe-spot-7{display:block}
-  .nxe-sp--cast .nxe-troupe{z-index:6}
-  .nxe-troupe .nxe-kid{z-index:6}
-  .nxe-troupe .nxe-spot-1{left:4%;right:auto;top:12%;bottom:auto}
-  .nxe-troupe .nxe-spot-8{right:4%;left:auto;top:12%;bottom:auto}
-  .nxe-troupe .nxe-spot-2{left:3%;right:auto;bottom:33%!important;top:auto}
-  .nxe-troupe .nxe-spot-7{right:3%;left:auto;bottom:33%!important;top:auto}
-  .nxe-troupe .nxe-spot-3{left:6%;right:auto;bottom:2%!important;top:auto}
-  .nxe-troupe .nxe-spot-6{right:6%;left:auto;bottom:2%!important;top:auto}
-  .nxe-troupe .nxe-spot-4{left:24%;right:auto;bottom:7%!important;top:auto}
-  .nxe-troupe .nxe-spot-5{right:24%;left:auto;bottom:7%!important;top:auto}
+  .nxe-troupe .nxe-spot-1{--a:180deg}.nxe-troupe .nxe-spot-2{--a:225deg}.nxe-troupe .nxe-spot-3{--a:270deg}.nxe-troupe .nxe-spot-4{--a:315deg}
+  .nxe-troupe .nxe-spot-5{--a:0deg}.nxe-troupe .nxe-spot-6{--a:45deg}.nxe-troupe .nxe-spot-7{--a:90deg}.nxe-troupe .nxe-spot-8{--a:135deg}
   .nxe-rail{grid-auto-columns:62%}
   .nxe-season-head{padding:20px 16px}
 }
 @keyframes nxeRowIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@property --spin{syntax:'<angle>';inherits:true;initial-value:0deg}
+@keyframes nxeOrbit{to{--spin:360deg}}
+@media (prefers-reduced-motion:reduce){.nxe-sp--cast .nxe-troupe{animation:none}}
