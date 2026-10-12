@@ -962,19 +962,21 @@ button.nxe-thumb{cursor:pointer}
   /* smoother slide changes on phones: no whole-deck shake, the burst alone sells it */
   .nxe-hero.is-shake .nxe-deck,.nxe-spread.is-shake .nxe-pn--tv{animation:none}
   /* cast: all eight sidekicks in a ring around Nexi (owner 2026-10-12) */
-  .nxe-sp--cast .nxe-say{top:2%;left:50%;right:auto;translate:-50% 0;max-width:52cqw}
+  .nxe-sp--cast .nxe-say{top:3%;left:50%;right:auto;translate:-50% 0;max-width:42cqw}
   .nxe-sp--cast .nxe-hero-nexi{height:52cqw;bottom:12%}
   .nxe-podium{bottom:8%;width:30%}
-  .nxe-troupe .nxe-kid,.nxe-troupe .nxe-spot-1,.nxe-troupe .nxe-spot-8{height:19cqw!important}
+  .nxe-troupe .nxe-kid,.nxe-troupe .nxe-spot-1,.nxe-troupe .nxe-spot-8{height:20cqw!important}
   .nxe-troupe .nxe-spot-2,.nxe-troupe .nxe-spot-7{display:block}
-  .nxe-troupe .nxe-spot-1{left:3%;right:auto;top:30%;bottom:auto}
-  .nxe-troupe .nxe-spot-8{right:3%;left:auto;top:30%;bottom:auto}
-  .nxe-troupe .nxe-spot-2{left:2%;right:auto;bottom:27%!important;top:auto}
-  .nxe-troupe .nxe-spot-7{right:2%;left:auto;bottom:27%!important;top:auto}
+  .nxe-sp--cast .nxe-troupe{z-index:6}
+  .nxe-troupe .nxe-kid{z-index:6}
+  .nxe-troupe .nxe-spot-1{left:4%;right:auto;top:12%;bottom:auto}
+  .nxe-troupe .nxe-spot-8{right:4%;left:auto;top:12%;bottom:auto}
+  .nxe-troupe .nxe-spot-2{left:3%;right:auto;bottom:33%!important;top:auto}
+  .nxe-troupe .nxe-spot-7{right:3%;left:auto;bottom:33%!important;top:auto}
   .nxe-troupe .nxe-spot-3{left:6%;right:auto;bottom:2%!important;top:auto}
   .nxe-troupe .nxe-spot-6{right:6%;left:auto;bottom:2%!important;top:auto}
-  .nxe-troupe .nxe-spot-4{left:24%;right:auto;bottom:0!important;top:auto}
-  .nxe-troupe .nxe-spot-5{right:24%;left:auto;bottom:0!important;top:auto}
+  .nxe-troupe .nxe-spot-4{left:24%;right:auto;bottom:7%!important;top:auto}
+  .nxe-troupe .nxe-spot-5{right:24%;left:auto;bottom:7%!important;top:auto}
   .nxe-rail{grid-auto-columns:62%}
   .nxe-season-head{padding:20px 16px}
 }
