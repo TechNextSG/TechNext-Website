@@ -43,7 +43,7 @@
 .nxe-sky-fill i:nth-child(4){background:radial-gradient(1200px 760px at 70% 40%,#6A55D8 0%,#3E2FA6 32%,#241B6E 62%,#110B3B 100%)}
 .nxe-hero:not([data-slide="series"]) .nxe-sky-fill i:nth-child(1){opacity:0}
 .nxe-hero[data-slide="tips"] .nxe-sky-fill i:nth-child(2),.nxe-hero[data-slide="cast"] .nxe-sky-fill i:nth-child(3),.nxe-hero[data-slide="specials"] .nxe-sky-fill i:nth-child(4){opacity:1}
-.nxe-rays{position:absolute;left:70%;top:46%;width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 64%);mask-image:radial-gradient(closest-side,#000 6%,transparent 64%);animation:nxeSpin 110s linear infinite}
+.nxe-rays{position:absolute;left:70%;top:420px;width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 64%);mask-image:radial-gradient(closest-side,#000 6%,transparent 64%);animation:nxeSpin 110s linear infinite}
 .nxe-hero[data-slide="tips"] .nxe-rays{animation-duration:40s}
 .nxe-dotfield{position:absolute;inset:0;width:100%;height:100%}
 .nxe-speed{position:absolute;inset:0;background:repeating-linear-gradient(104deg,transparent 0 46px,rgba(255,255,255,.045) 46px 48px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 50%);mask-image:linear-gradient(90deg,#000,transparent 50%)}
