@@ -621,7 +621,7 @@
     P.tilt = 0; P.hop = 0; P.bill = false;
     if (TAP.ph && t - TAP.ph < 2.4) { var u = (t - TAP.ph) / 2.4; P.mood = 'happy'; P.talk = true; P.bill = true; P.hands = [[-90, -380], [60, -440]]; P.hop = Math.abs(Math.sin(u * Math.PI * 3)) * 14; P.x = 762; return; }
     var recv = M.ph === 1 && M.c > 5 && M.c < 7, after = M.ph >= 2 && M.c < 9;
-    var tx = recv ? 742 : after ? 800 : 762; P.x = lerp(P.x, tx, 0.04); var walking = Math.abs(P.x - tx) > 1.5; P.hop = walking ? Math.abs(Math.sin(t * 9)) * 4 : 0;
+    var tx = recv ? 742 : after ? 800 : 762; P.x = lerp(P.x, tx, K.ease(0.04)); var walking = Math.abs(P.x - tx) > 1.5; P.hop = walking ? Math.abs(Math.sin(t * 9)) * 4 : 0;
     if (recv) { P.hands = [[-150, -240], [-120, -260]]; P.look = -0.9; P.bill = M.c > 5.6; P.mood = 'happy'; }
     else if (after) { P.bill = true; P.hands = [[-70, -180], [60, -230]]; P.look = 0.7; P.mood = 'calm'; }
     else { P.hands = [[-70, -180], [70, -180 + Math.sin(t * 2) * 4]]; lookAt(P, st, t, S, -0.3); P.mood = 'calm'; }

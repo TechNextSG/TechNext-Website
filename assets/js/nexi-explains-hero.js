@@ -7,7 +7,7 @@
      the pause button). Any tap or drag gives the visitor 12 seconds on that slide.
    - The change: a comic burst slams in over the spread with the next slide's sound word, the page turns underneath,
      the burst blows apart and the new panels slam in (CSS .is-enter); the halftone sky ripples from the burst.
-   - The sky: a canvas halftone field that breathes, swells around the pointer and ripples on every tap; parallax layers.
+   - The sky: a canvas halftone field that breathes, swells around the pointer; parallax layers.
    - Each spread: Nexi reacts when tapped (new 3D poses, a sound word, the bubble); Series cycles the ON AIR reel,
      Quick Tips flips through every tip (the stopwatch riffles to a random one), Cast drops sidekicks on stage (tap one
      to meet it, shuffle the cast, tap Nexi for a new costume), Specials spotlights each holiday panel and fires confetti.
@@ -49,16 +49,72 @@
   }
   function restartAnim(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
 
-  /* ---------------- the halftone sky ---------------- */
+  /* ---------------- the halftone sky ----------------
+     A grid of dots that breathe in a slow diagonal wave, denser in the bottom-left and top-right corners and quieter
+     behind the copy; they swell around the pointer and in the rings a page turn sends out (shock). The dots are drawn
+     by a WebGL fragment shader (the same formula per pixel, on the GPU): building ~4,000 arcs 30 times a second was the
+     main thread's biggest job on this page. Without WebGL the canvas 2D version below draws the same picture. */
   var dots = (function (cv) {
-    var g = cv && cv.getContext('2d');
-    if (!g) return { shock: function () {}, sync: function () {} };
-    var W = 0, H = 0, dpr = 1, gap = 18, pts = [], waves = [], px = -999, py = -999, pa = 0, pt = 0, raf = 0, last = 0, run = false;
+    if (!cv) return { shock: function () {}, sync: function () {} };
+    var W = 0, H = 0, dpr = 1, gap = 18, pts = [], waves = [], px = -999, py = -999, pa = 0, pt = 0, raf = 0, last = 0, run = false, box = null;
+    var MAXW = 8, gl = null, U = {}, lost = false, g = null;
+    var VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+    var FS = [
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH', 'precision highp float;', '#else', 'precision mediump float;', '#endif',
+      'uniform vec2 uRes,uP;uniform float uDpr,uGap,uT,uWide,uPa,uMax;uniform vec4 uW[' + MAXW + '];uniform int uN;',
+      'void main(){',
+      ' vec2 S=uRes/uDpr; vec2 p=vec2(gl_FragCoord.x,uRes.y-gl_FragCoord.y)/uDpr;',
+      ' float cs=0.,ch=0.; float r0=floor(p.y/uGap);',
+      ' for(int dr=-1;dr<=1;dr++){',
+      '  float rw=r0+float(dr); float y=uGap*(rw+.5); if(rw<0.||y>=S.y) continue;',
+      '  float xo=mod(rw,2.)>.5?uGap:uGap*.5; float c0=floor((p.x-xo)/uGap+.5);',
+      '  for(int dc=-1;dc<=1;dc++){',
+      '   float c=c0+float(dc); float x=xo+c*uGap; if(c<0.||x>=S.x) continue;',
+      '   float d=distance(p,vec2(x,y)); if(d>uMax) continue;',
+      '   float bl=max(0.,1.-length(vec2(x/S.x,1.-y/S.y))/.95), tr=max(0.,1.-length(vec2(1.-x/S.x,y/S.y))/.75);',
+      '   float m=.28+.75*bl+.45*tr; if(uWide>.5&&x<S.x*.46&&y>S.y*.12&&y<S.y*.88) m*=.55; m=min(1.15,m);',
+      '   float r=1.45*m*(.72+.42*sin(x*.011+y*.007-uT*1.5)); float b=0.;',
+      '   if(uPa>0.){float dp=distance(vec2(x,y),uP); if(dp<190.){float q=1.-dp/190.; b+=uPa*3.4*q*q;}}',
+      '   for(int j=0;j<' + MAXW + ';j++){ if(j>=uN) break; vec4 w=uW[j]; float dd=abs(distance(vec2(x,y),w.xy)-w.z*820.); if(dd<70.) b+=w.w*3.2*(1.-dd/70.)*(1.-w.z/1.3); }',
+      '   r+=b; if(r<.35) continue;',
+      '   float cov=clamp((r-d)*uDpr+.5,0.,1.); if(b>1.2) ch=max(ch,cov); else cs=max(cs,cov);',
+      '  }',
+      ' }',
+      ' float as=.2*cs, ah=.62*ch; vec3 col=vec3(as)*(1.-ah)+vec3(1.,.8235,.247)*ah;',
+      ' gl_FragColor=vec4(col,ah+as*(1.-ah));',
+      '}'].join('\n');
+    function initGL() {
+      try { gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false }); } catch (e) { gl = null; }
+      if (!gl) return false;
+      function sh(type, src) { var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; }
+      var v = sh(gl.VERTEX_SHADER, VS), fr = sh(gl.FRAGMENT_SHADER, FS);
+      if (!v || !fr) return false;
+      var prog = gl.createProgram(); gl.attachShader(prog, v); gl.attachShader(prog, fr); gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return false;
+      gl.useProgram(prog);
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      var loc = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+      ['uRes', 'uDpr', 'uGap', 'uT', 'uWide', 'uPa', 'uMax', 'uP', 'uW', 'uN'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+      gl.disable(gl.BLEND);
+      return true;
+    }
+    if (!initGL()) {
+      /* a canvas that handed out a WebGL context cannot give a 2D one: swap in a fresh copy */
+      if (gl) { var c2 = cv.cloneNode(false); cv.parentNode.replaceChild(c2, cv); cv = c2; }
+      gl = null; g = cv.getContext('2d');
+      if (!g) return { shock: function () {}, sync: function () {} };
+    } else {
+      cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); lost = true; });
+      cv.addEventListener('webglcontextrestored', function () { lost = !initGL(); size(); if (reduce) draw(0); });
+    }
+    var WU = new Float32Array(MAXW * 4);
     function size() {
-      var r = cv.getBoundingClientRect();
+      var r = cv.getBoundingClientRect(); box = null;
       W = r.width; H = r.height; dpr = Math.min(1.5, window.devicePixelRatio || 1);
       cv.width = Math.max(1, Math.round(W * dpr)); cv.height = Math.max(1, Math.round(H * dpr));
       gap = W < 760 ? 22 : 18;
+      if (gl) return;
       pts = [];
       var wide = W >= 1100;
       for (var y = gap / 2, r0 = 0; y < H; y += gap, r0++) {
@@ -72,12 +128,30 @@
       }
     }
     function draw(t) {
+      var live = [];
+      for (var k = 0; k < waves.length; k++) { var a = t - waves[k].t0; if (a < 1.3) live.push(waves[k]); }
+      waves = live.slice(-MAXW);
+      var pa2 = pa * (fine ? 1 : 0);
+      if (gl) {
+        if (lost) return;
+        var reach = 2 + pa2 * 3.4;      /* the biggest a dot can get this frame: pixels farther from every centre stop early */
+        for (var wi = 0; wi < MAXW; wi++) {
+          var wv = waves[wi], o = wi * 4;
+          if (wv) { WU[o] = wv.x; WU[o + 1] = wv.y; WU[o + 2] = t - wv.t0; WU[o + 3] = wv.s; reach += wv.s * 3.2; }
+          else WU[o] = WU[o + 1] = WU[o + 2] = WU[o + 3] = 0;
+        }
+        gl.viewport(0, 0, cv.width, cv.height);
+        gl.uniform2f(U.uRes, cv.width, cv.height); gl.uniform1f(U.uDpr, cv.width / Math.max(1, W));
+        gl.uniform1f(U.uGap, gap); gl.uniform1f(U.uT, t); gl.uniform1f(U.uWide, W >= 1100 ? 1 : 0);
+        gl.uniform1f(U.uPa, pa2); gl.uniform1f(U.uMax, reach); gl.uniform2f(U.uP, px, py);
+        gl.uniform4fv(U.uW, WU); gl.uniform1i(U.uN, waves.length);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        return;
+      }
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, W, H);
-      var soft = new Path2D(), hot = new Path2D(), live = [];
-      for (var k = 0; k < waves.length; k++) { var a = t - waves[k].t0; if (a < 1.3) live.push(waves[k]); }
-      waves = live;
-      var pr = 190, pa2 = pa * (fine ? 1 : 0);
+      var soft = new Path2D(), hot = new Path2D();
+      var pr = 190;
       for (var i = 0; i < pts.length; i += 3) {
         var x = pts[i], y = pts[i + 1], m = pts[i + 2];
         var r = 1.45 * m * (0.72 + 0.42 * Math.sin(x * 0.011 + y * 0.007 - t * 1.5));
@@ -110,8 +184,12 @@
     size();
     if (reduce) draw(0);
     if ('ResizeObserver' in window) new ResizeObserver(function () { size(); if (reduce) draw(0); }).observe(cv);
+    /* the canvas box is measured once per scroll / resize, not on every pointer move */
+    window.addEventListener('scroll', function () { box = null; }, { passive: true });
+    window.addEventListener('resize', function () { box = null; }, { passive: true });
     if (fine) hero.addEventListener('pointermove', function (e) {
-      var r = cv.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; pt = performance.now();
+      if (!box) box = cv.getBoundingClientRect();
+      px = e.clientX - box.left; py = e.clientY - box.top; pt = performance.now();
     }, { passive: true });
     return {
       shock: function (x, y, s) { if (!reduce) waves.push({ x: x, y: y, t0: performance.now() / 1000, s: s || 1 }); },
@@ -142,14 +220,6 @@
     });
   }
 
-  /* a tap on the empty sky: a random sound word and a ripple */
-  var SKYWORDS = ['POW!', 'ZAP!', 'BAM!', 'WHAM!', 'BOING!', 'KAPOW!', 'ZING!', 'BOOM!'];
-  hero.addEventListener('click', function (e) {
-    if (e.target.closest('a,button,input,label,.nxe-copy,.nxe-ctl,.nxe-pn,.nxe-say')) return;
-    var r = hero.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-    word(hero, rnd(SKYWORDS), x, y, 'nxe-word--sky');
-    dots.shock(x, y, 1);
-  });
 
   /* ---------------- autoplay with named holds ---------------- */
   var holds = {}, timer = 0, remain = 0, started = 0;
@@ -394,8 +464,9 @@
     });
     var all = $$('.nxe-tipc', track), centers = [], SW = 1, pos = 0, speed = 52, raf = 0, last = 0, hit = -1, glide = null, drag = null, dragged = false, spinning = false;
     var oc = $('[data-nxe-tipcode]', out), ot = $('[data-nxe-tiptitle]', out), ol = $('[data-nxe-tiplen]', out);
+    var BW = 1;   /* the belt's width, measured with the cards (reading it every frame forced a layout per frame) */
     function measure() {
-      var x0 = track.offsetLeft;
+      var x0 = track.offsetLeft; BW = belt.clientWidth;
       centers = cards.map(function (c) { return c.offsetLeft - x0 + c.offsetWidth / 2; });
       SW = Math.max(1, all[n].offsetLeft - cards[0].offsetLeft);
     }
@@ -407,7 +478,7 @@
       if (!reduce) restartAnim(out, 'is-new');
     }
     function render() {
-      var m = ((pos % SW) + SW) % SW, x = m + belt.clientWidth / 2, best = 0, bd = 1e9;
+      var m = ((pos % SW) + SW) % SW, x = m + BW / 2, best = 0, bd = 1e9;
       track.style.transform = 'translate3d(' + (-m).toFixed(1) + 'px,0,0)';
       for (var i = 0; i < n; i++) {
         var d = Math.min(Math.abs(centers[i] - x), Math.abs(centers[i] + SW - x));
@@ -437,7 +508,7 @@
     }
     /* roll so tip i sits on the finish line, after at least `extra` px of travel */
     function rollTo(i, extra, d, done) {
-      var want = centers[i] - belt.clientWidth / 2, tgt = pos + (extra || 0);
+      var want = centers[i] - BW / 2, tgt = pos + (extra || 0);
       tgt += (((want - tgt) % SW) + SW) % SW;
       if (reduce) { pos = tgt; render(); if (done) done(); return; }
       glide = { a: pos, b: tgt, t0: performance.now(), d: d || 600, done: done };
@@ -633,7 +704,7 @@
     function front(i, say) {
       fi = i;
       panels.forEach(function (p, j) { p.classList.toggle('is-front', j === i); });
-      if (i >= 0) spread.style.setProperty('--nx', centre(i).toFixed(2) + '%');
+      if (i >= 0) { var cx = centre(i).toFixed(2); spread.style.setProperty('--nx', cx + '%'); spread.style.setProperty('--nxn', cx); }
       if (say && i >= 0) talk.speak(lines[i]);
     }
     panels.forEach(function (p, i) {

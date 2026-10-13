@@ -392,7 +392,7 @@
         if (tp.n && tp.e < 2) { var u = tp.e / 2; P.talk = true; P.mood = 'happy';
           if (tp.n % 2) { hands = u < 0.4 ? [[-70, -150], [150, -320]] : [[-70, -150], [60, -330]]; look = 0.7; if (VN.pt !== tp.n) { VN.pt = tp.n; VN.pull = t; } }
           else { var sw = COL.ease(clamp(u / 0.4, 0, 1)); hands = [[-70, -150], [lerp(60, 170, sw), lerp(-260, -380, sw)]]; look = 0.9; P.hop = u > 0.3 ? COL.bell((u - 0.3) / 0.7) * 10 : 0; if (VN.sp !== tp.n) { VN.sp = tp.n; VN.spin = t; CR.burst('star', T.holo.x + T.holo.w / 2, T.holo.y - 110, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } },
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } },
       /* the engineer testing the assistant: types a question, leans back to read the answer, sips the phin coffee; a tap spins the chair or rates the answer */
       { id: 'en2', behind: true, keys: ['chatbots'], P: EN2, act: function (P, t, S) { var st = S.cast.en2, tp = COL.tap(st, t), busy = S.hot === 'chatbots', c = (t % 8), k2 = Math.abs(Math.sin(t * (busy ? 14 : 8))) * 6;
         COL.reset(P); P.talk = t < st.until; P.mood = P.talk || busy ? 'happy' : 'calm'; var hands = [[-70, -200 - k2], [60, -200 - (6 - k2)]], look = -0.5;

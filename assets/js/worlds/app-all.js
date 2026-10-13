@@ -29,7 +29,15 @@
   /* the real app icons (local SVGs), loaded once; drawn when ready */
   var ROOT = (function () { var s = document.querySelector('script[src*="worlds/app-all.js"]'); return s ? s.getAttribute('src').split('assets/js/')[0] : '/'; })(), IMG = {};
   CATS.forEach(function (c) { c.apps.forEach(function (m) { var im = new Image(); im.src = ROOT + 'assets/img/odoo/' + m + '.svg'; IMG[m] = im; }); });
-  function icon(g, m, x, y, s) { var im = IMG[m]; if (im && im.complete && im.naturalWidth) g.drawImage(im, x, y, s, s); else fillRR(g, x, y, s, s, s * 0.26, '#EEF2F7'); }
+  /* drawing an SVG image re-rasterises it on every call (~45 icons a frame): each icon is rasterised once into a bitmap */
+  var BMP = {};
+  function bmp(m) {
+    if (BMP[m]) return BMP[m];
+    var im = IMG[m]; if (!(im && im.complete && im.naturalWidth)) return null;
+    var c = document.createElement('canvas'); c.width = c.height = 160; c.getContext('2d').drawImage(im, 0, 0, 160, 160);
+    return (BMP[m] = c);
+  }
+  function icon(g, m, x, y, s) { var b = bmp(m); if (b) g.drawImage(b, x, y, s, s); else fillRR(g, x, y, s, s, s * 0.26, '#EEF2F7'); }
   function setU(g, sx, sy, k) { g.translate(sx, sy); g.scale(k, k); }
   function extOf(W, H, k, sx, sy) { return { l: -(sx + 24) / k, r: (W - sx) / k, t: -(sy + 24) / k, b: (H - sy) / k }; }
   function catAt(x, y) { for (var i = 0; i < CATS.length; i++) { var c = CATS[i]; if (x > c.x && x < c.x + SH.w && y > c.y && y < c.y + SH.h) return c; } return null; }

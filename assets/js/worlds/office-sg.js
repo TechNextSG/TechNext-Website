@@ -343,7 +343,7 @@
         if (tp.n && tp.e < 2) { var u = tp.e / 2; P.talk = true; P.mood = 'happy';
           if (tp.n % 2) { hands = [[-60, -200], [70, -330]]; look = 0.3; if (SG.pt !== tp.n) { SG.pt = tp.n; SG.pass = t; CR.burst('spark', P.x + 30, P.y - 220, t); } }
           else { hands = [[-120, -210 - COL.bell(clamp(u / 0.3, 0, 1)) * 40], [64, -200]]; P.hop = u < 0.4 ? COL.bell(u / 0.4) * 10 : 0; look = -0.4; if (SG.bt !== tp.n) { SG.bt = tp.n; SG.bell = t; CR.burst('note', T.desk.x + 62, T.desk.y - 20, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } },
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } },
       /* the client: takes notes, nods, sips water; a tap is a question that turns into an aha, or applause (and a high-five) */
       { id: 'cli', behind: true, keys: ['discovery'], P: CLI, act: function (P, t, S) { var st = S.cast.cli, tp = COL.tap(st, t), c = (t + 3) % 8;
         COL.reset(P); P.talk = t < st.until; var hands = [[-60, -205], [60 + Math.sin(t * 7) * 6, -205 + Math.abs(Math.sin(t * 5)) * -6]], look = 0.7;
@@ -354,7 +354,7 @@
         if (tp.n && tp.e < 1.8) { var u = tp.e / 1.8; P.talk = true; P.mood = u < 0.4 ? 'calm' : 'happy';
           if (tp.n % 2) { hands = u < 0.4 ? [[-60, -205], [30, -320]] : [[-60, -205], [100, -400]]; look = 0.2; P.hop = u > 0.4 ? COL.bell((u - 0.4) / 0.6) * 10 : 0; if (SG.et !== tp.n) { SG.et = tp.n; SG.eureka = t; } }
           else { var cl = Math.abs(Math.sin(u * Math.PI * 7)); hands = [[-24 - cl * 26, -290], [24 + cl * 26, -290]]; look = 0; if (SG.ct !== tp.n) { SG.ct = tp.n; CR.burst('conf', P.x, P.y - 220, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } },
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } },
       /* the consultant: moves notes on the board, points, turns to the client; a tap draws the arrows or high-fives the client */
       { id: 'con', behind: true, keys: ['discovery', 'training'], P: CON, act: function (P, t, S) { var st = S.cast.con, tp = COL.tap(st, t), c = (t + 1) % 10, busy = S.hot === 'discovery';
         COL.reset(P); P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm'; var hands, look;
@@ -366,7 +366,7 @@
           if (tp.n % 2) { hands = [[-170 + u * 120, -330 - Math.sin(u * Math.PI * 3) * 14], [62, -190]]; look = -0.85; if (SG.at !== tp.n) { SG.at = tp.n; SG.arrows = t; } }
           else { var r = COL.ease(clamp(u / 0.35, 0, 1)); hands = [[lerp(-80, -150, r), lerp(-170, -380, r)], [62, -190]]; look = -1; P.hop = u > 0.3 && u < 0.6 ? COL.bell((u - 0.3) / 0.3) * 10 : 0;
             if (SG.ht !== tp.n) { SG.ht = tp.n; SG.hi5 = t; } if (u > 0.33 && SG.hb !== tp.n) { SG.hb = tp.n; CR.burst('star', (P.x + CLI.x) / 2, 300, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } },
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } },
       /* the visitor: scrolls the tablet, checks the time, looks round; a tap is a happy bounce or the booking held up */
       { id: 'vis', behind: true, keys: [], P: VIS, act: function (P, t, S) { var st = S.cast.vis, tp = COL.tap(st, t), c = (t + 4) % 9;
         COL.reset(P); P.talk = t < st.until; var hands = [[-50, -200], [60, -176 + Math.sin(t * 2.4) * 6]], look = -0.3;
@@ -375,7 +375,7 @@
         if (tp.n && tp.e < 2) { var u = tp.e / 2; P.talk = true; P.mood = 'happy';
           if (tp.n % 2) { P.hop = Math.abs(Math.sin(u * Math.PI * 4)) * 14 * (1 - u); hands = [[-50, -200], [118 + Math.sin(t * 12) * 14, -390]]; look = 0.2; }
           else { hands = [[-30, -330], [60, -200]]; look = 0; if (SG.vt !== tp.n) { SG.vt = tp.n; SG.booking = t; CR.burst('spark', P.x, P.y - 230, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.08); } },
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.08)); } },
       /* the sales lead: paces by the window with the tablet; a tap stamps a quotation or spins the pipeline chart */
       { id: 'sal', behind: false, keys: ['quote'], P: SAL, act: function (P, t, S) { var st = S.cast.sal, tp = COL.tap(st, t), c = (t + 6) % 11, busy = S.hot === 'quote';
         COL.reset(P); P.talk = t < st.until || busy; P.mood = P.talk ? 'happy' : 'calm'; var hands = [[-60, -215], [70, -150]], look = -0.5;
@@ -386,7 +386,7 @@
         if (tp.n && tp.e < 2) { var u = tp.e / 2; P.talk = true; P.mood = 'happy';
           if (tp.n % 2) { hands = [[-60, -215], [lerp(70, 40, u), -300 - COL.bell(clamp((u - 0.3) / 0.2, 0, 1)) * 60]]; look = 0.1; if (SG.qt !== tp.n) { SG.qt = tp.n; SG.quote = t; } if (u > 0.4 && SG.qb !== tp.n) { SG.qb = tp.n; CR.burst('star', P.x + 10, P.y - 320, t); } }
           else { P.sx = Math.cos(COL.ease(clamp(u / 0.5, 0, 1)) * Math.PI * 2); P.hop = COL.bell(clamp(u / 0.5, 0, 1)) * 20; hands = [[-60, -260], [100, -300]]; if (SG.ch !== tp.n) { SG.ch = tp.n; SG.chart = t; } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } }
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } }
     ],
     toy: function (name, S, t, btn) {
       if (name === 'clock' && btn) btn.setAttribute('data-say', CO.timeLine(8, 'Singapore', 'the same time as our Taguig City hub. Ho Chi Minh City is an hour behind.'));

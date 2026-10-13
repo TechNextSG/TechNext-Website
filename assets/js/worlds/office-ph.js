@@ -323,7 +323,7 @@
         if (tp.n && tp.e < 1.8) { var u = tp.e / 1.8; P.talk = true; P.mood = 'happy';
           if (tp.n % 2) { var r = COL.ease(clamp(u / 0.4, 0, 1)); hands = [[lerp(-80, -170, r), lerp(-170, -280, r)], [70, -150]]; look = -0.9; if (PH.nc !== tp.n && u > 0.35) { PH.nc = tp.n; PH.newCard = t; CR.burst('star', T.board.x + 30, T.board.y + 150, t); } }
           else { var pump = Math.abs(Math.sin(u * Math.PI * 3)); hands = [[-80, -170], [96, -380 - pump * 40]]; P.hop = pump * 10; look = 0.2; if (PH.sp !== tp.n) { PH.sp = tp.n; PH.ship = t; CR.burst('conf', P.x, P.y - 260, t); } } }
-        P.hands = hands; P.look = lerp(P.look, look, 0.1); } }
+        P.hands = hands; P.look = lerp(P.look, look, K.ease(0.1)); } }
     ],
     toy: function (name, S, t, btn) {
       if (name === 'clock' && btn) btn.setAttribute('data-say', CO.timeLine(8, 'Taguig City', 'the same time as Singapore. Ho Chi Minh City is an hour behind.'));
