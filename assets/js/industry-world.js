@@ -25,6 +25,10 @@
   var CALM_VIEW = { def: [125, -40, 750, 600] };
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function lerp(a, b, k) { return a + (b - a) * k; }
+  /* the hero paints at ~30 fps (see loop()): FS is how many 60 fps steps the current paint covers, and ease(k) turns a
+     per-60-fps-frame easing factor into the one for this paint, so every glide keeps its speed */
+  var FS = 1;
+  function ease(k) { return FS === 1 ? k : 1 - Math.pow(1 - k, FS); }
   function hash(i) { var s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); }
   function rr(g, x, y, w, h, r) { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); }
   function ell(g, x, y, rx, ry, rot) { g.beginPath(); g.ellipse(x, y, Math.max(0.01, rx), Math.max(0.01, ry), rot || 0, 0, Math.PI * 2); }
@@ -429,7 +433,7 @@
 
   var IXW = window.IXW = window.IXW || {};
   IXW.worlds = IXW.worlds || {};
-  IXW.kit = { clamp: clamp, lerp: lerp, hash: hash, rr: rr, ell: ell, fillRR: fillRR, fillE: fillE, limb: limb, soft: soft, shadowed: shadowed, text: text, tone: tone, FONT: FONT,
+  IXW.kit = { clamp: clamp, lerp: lerp, ease: ease, hash: hash, rr: rr, ell: ell, fillRR: fillRR, fillE: fillE, limb: limb, soft: soft, shadowed: shadowed, text: text, tone: tone, FONT: FONT,
     person: person, ik: ik, F3: F3, room: room, plusPattern: plusPattern, windowFrame: windowFrame, windowSky: windowSky, windowGlass: windowGlass, windowMullions: windowMullions, cloud: cloud,
     plaque: plaque, clockFace: clockFace, clockHands: clockHands, plant: plant, motes: motes, walker: walker, zfore: zfore, depthScale: depthScale, reduce: reduce, calm: CALM };
 
@@ -544,14 +548,14 @@
     function drawFrame(nowMs) {
       var t = Math.max(0, (nowMs - T0) / 1000); S.t = t;   // a rAF timestamp can predate T0 on the first frame
       VIEW = { l: (-M - sx - pan) / k, r: (W + M - sx - pan) / k };
-      par.x = lerp(par.x, par.tx, 0.08); par.y = lerp(par.y, par.ty, 0.08);
-      if (S.hot) S.hotA = Math.min(1, S.hotA + 0.08);
-      if (S.peek) { if (pk !== S.peek) { pk = S.peek; S.peekA = 0; } S.peekA = reduce ? 1 : Math.min(1, S.peekA + 0.2); }
-      else { S.peekA = reduce ? 0 : Math.max(0, S.peekA - 0.2); if (!S.peekA) pk = ''; }
+      par.x = lerp(par.x, par.tx, ease(0.08)); par.y = lerp(par.y, par.ty, ease(0.08));
+      if (S.hot) S.hotA = Math.min(1, S.hotA + 0.08 * FS);
+      if (S.peek) { if (pk !== S.peek) { pk = S.peek; S.peekA = 0; } S.peekA = reduce ? 1 : Math.min(1, S.peekA + 0.2 * FS); }
+      else { S.peekA = reduce ? 0 : Math.max(0, S.peekA - 0.2 * FS); if (!S.peekA) pk = ''; }
       if (El || Er) {
         if (S.hot !== lastHot) { lastHot = S.hot; if (!drag) follow = nowMs + 2600; }
         if (!drag && nowMs < follow) { var nx = sx + S.nexi.x * k + panT, pad = 56; if (nx < pad) panT += pad - nx; else if (nx > W - pad) panT -= nx - (W - pad); panT = clamp(panT, -Er, El); }
-        if (!drag) pan = Math.abs(panT - pan) < 0.3 ? panT : lerp(pan, panT, 0.16); setPan();
+        if (!drag) pan = Math.abs(panT - pan) < 0.3 ? panT : lerp(pan, panT, ease(0.16)); setPan();
       }
       var fx = par.x * 6, fy = par.y * 3, back = W0.backGlow || [], pkOn = pk && pk !== S.hot, px = sx + pan, sh = pan - El;
       g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height);
@@ -575,16 +579,19 @@
       if (!reduce && W0.motes !== false) motes(g, t, W0.moteCol);
       if (front) front.style.transform = 'translate3d(' + fx.toFixed(2) + 'px,' + fy.toFixed(2) + 'px,0)';
     }
-    var lastTick = 0, gap = 16.7, half = false;
+    /* R10 perf: the canvas covers the whole hero and every paint clears it and blits up to four full-size caches, which
+       kept laptop GPUs busy at 60 fps. The scene's motion is gentle (breathing, blinking, drifting motes), so it paints at
+       ~30 fps (every other 60 Hz frame, every 4th at 120 Hz); a drag on phones still paints every frame. Nexi and the
+       captions are DOM and stay at the display rate. */
+    var lastDraw = 0;
     function loop(nowMs) {
       raf = 0; if (!live) return;
-      if (lastTick) { var d = Math.min(100, nowMs - lastTick); gap += (d - gap) * 0.05; if (!half && gap > 24) half = true; else if (half && gap < 18.5) half = false; }
-      lastTick = nowMs;
-      if (!half || drag || ++frameN % 2 === 0) draw(nowMs);
+      var el = lastDraw ? nowMs - lastDraw : 1e9;
+      if (drag || el >= 29) { FS = el > 1e8 ? 1 : clamp(Math.round(el / 16.67), 1, 4); lastDraw = nowMs; draw(nowMs); FS = 1; }
       raf = requestAnimationFrame(loop);
     }
     function start() { if (!raf && live && !reduce) raf = requestAnimationFrame(loop); }
-    function setLive(on) { live = on && !document.hidden; lastTick = 0; if (live) start(); else if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+    function setLive(on) { live = on && !document.hidden; lastDraw = 0; if (live) start(); else if (raf) { cancelAnimationFrame(raf); raf = 0; } }
     function redraw() { if (!live || reduce) draw(performance.now()); }
     var rt = 0; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 120); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);

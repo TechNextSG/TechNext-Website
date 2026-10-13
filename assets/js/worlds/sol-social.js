@@ -531,7 +531,7 @@
     if (TAP.pln && t - TAP.pln < 3) { var u = (t - TAP.pln) / 3; P.talk = true; P.mood = 'happy';
       if (u < 0.37) { P.hands = [[-70, -170], [70, -260 - Math.sin(u / 0.37 * Math.PI) * 80]]; P.look = 0.2; } else { P.hands = [[-70, -170], [150, -340 + Math.sin(t * 12) * 6]]; P.look = 0.9; P.tilt = 0.05; } return; }
     var M2 = M; P.talk = t < st.until || S.hot === 'plan';
-    var tgt = M2.writing ? clamp(cell(PLAN[Math.max(0, M2.n - 1)][0], PLAN[Math.max(0, M2.n - 1)][1]).x - 30, 180, 222) : 186; P.x = lerp(P.x, tgt, 0.03);
+    var tgt = M2.writing ? clamp(cell(PLAN[Math.max(0, M2.n - 1)][0], PLAN[Math.max(0, M2.n - 1)][1]).x - 30, 180, 222) : 186; P.x = lerp(P.x, tgt, K.ease(0.03));
     if (M2.writing) { var ce = cell(PLAN[Math.max(0, M2.n - 1)][0], PLAN[Math.max(0, M2.n - 1)][1]), tgx = (ce.x + 20 - P.x) / P.s, tgy = (ce.y + 18 - P.y) / P.s;
       var wr = M2.chalkT < 0.6 ? Math.sin(t * 30) * 8 : 0; P.hands = [[-70, -170], [clamp(tgx, 60, 220) + wr, clamp(tgy, -440, -200) + Math.cos(t * 30) * (wr ? 4 : 0)]]; P.mood = 'calm'; P.look = 0.8; P.tilt = 0.04; }
     else if (M2.wipe > 0) { P.hands = [[-70, -170], [180, -360 + Math.sin(t * 12) * 30]]; P.look = 0.9; P.mood = 'happy'; }

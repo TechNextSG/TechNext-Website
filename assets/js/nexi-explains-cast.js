@@ -343,7 +343,23 @@
     if (oa) { var r = rel(oa, c); if (r.w) f = Math.max(f, (r.r + 34 * cs + 8 - tvR.l) / tvR.w); }
     return Math.min(f, (tvR.w * owlF - 46 * os - 64 * cs - 6) / tvR.w);
   }
-  function rel(el, c) { var r = el.getBoundingClientRect(); return { l: r.left - c.left, t: r.top - c.top, r: r.right - c.left, b: r.bottom - c.top, w: r.width, h: r.height }; }
+  function rel(el, c) {
+    var m = memo && memo.get(el); if (m) return m;
+    var r = el.getBoundingClientRect(); m = { l: r.left - c.left, t: r.top - c.top, r: r.right - c.left, b: r.bottom - c.top, w: r.width, h: r.height };
+    if (memo) memo.set(el, m);
+    return m;
+  }
+  /* Where the TV, the stage and Nexi are. Reading their boxes on every frame forced a style update in the middle of
+     the frame (the rest of the hero writes styles in its own animation callbacks), the biggest cost of this slide.
+     The boxes only move when the slide enters, the page resizes or the visitor's pointer tilts / hovers things, so
+     they are re-read every frame for a moment after any of those and otherwise twice a second. */
+  var memo = null, geoAt = -1e9, freshUntil = 0, cBox = null;
+  function fresh(ms) { freshUntil = Math.max(freshUntil, performance.now() + ms); }
+  function geo(still) {
+    var now = performance.now();
+    if (still || now < freshUntil || now - geoAt > 500 || !cBox) { memo = typeof Map === 'function' ? new Map() : null; geoAt = now; cBox = cv.getBoundingClientRect(); }
+    return cBox;
+  }
   /* draw fn at (x, y) scaled by s; flip mirrors it; rot tilts it */
   function put(x, y, s, fn, flip, rot, alpha) {
     if (alpha !== undefined && alpha <= 0.01) return;
@@ -372,7 +388,7 @@
   }
 
   function frame(still) {
-    var c = cv.getBoundingClientRect();
+    var c = geo(still);
     if (Math.abs(c.width - W) > 1 || Math.abs(c.height - H) > 1) size();
     var tvR = rel(tv, c), sr = rel(stage, c);
     if (perch) { perchFrame(still, c, tvR, sr); return; }
@@ -515,7 +531,7 @@
   function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
   function sync() {
     var showing = (!slide || slide.classList.contains('is-active')) && !document.documentElement.classList.contains('intro');
-    if (on && showing && !document.hidden) { if (slide && !seen) { u0 = T; prevU = -1; fired = {}; } seen = true; start(); }
+    if (on && showing && !document.hidden) { fresh(1800); if (slide && !seen) { u0 = T; prevU = -1; fired = {}; } seen = true; start(); }
     else {
       stop();
       /* the home slide went away: wipe the frame so nobody is left frozen on the next slide */
@@ -527,7 +543,9 @@
   document.addEventListener('visibilitychange', sync);
   document.addEventListener('tn:intro-done', sync);
   if (heroEl) heroEl.addEventListener('tn:slide', function () { setTimeout(sync, 0); });
-  if ('ResizeObserver' in window) new ResizeObserver(function () { size(); if (reduce) frame(true); }).observe(stage);
+  if ('ResizeObserver' in window) new ResizeObserver(function () { fresh(300); size(); if (reduce) frame(true); }).observe(stage);
+  ['pointermove', 'pointerover', 'pointerout'].forEach(function (ev) { (heroEl || host).addEventListener(ev, function () { fresh(1100); }, { passive: true }); });
+  window.addEventListener('resize', function () { fresh(600); }, { passive: true });
   stage.addEventListener('nxe:tap', function () { tapAt = T; LK.hoot = T; GOAT.hop = T; DUCK.bob = T; });
   size();
   /* the sound words use the page's comic font: draw once it is ready (the scene starts either way) */

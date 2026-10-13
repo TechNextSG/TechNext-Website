@@ -67,7 +67,9 @@
   function replay(el, cls, names) {
     if (!el) return;
     var key = '__tn_' + cls, list = el[key], on = el.classList.contains(cls);
-    if (on && list && list.length && list.every(function (x) { return x.playState !== 'idle'; })) {
+    // (reading playState here to spot dropped animations forced a style update on every token hit: CSS dropping one
+    // fires animationcancel instead, which forgets the list)
+    if (on && list && list.length) {
       list.forEach(function (x) { x.currentTime = 0; x.play(); });
       return;
     }
@@ -75,6 +77,12 @@
     el.classList.add(cls);
     el[key] = typeof el.getAnimations === 'function' ?
       el.getAnimations({ subtree: true }).filter(function (x) { return names.indexOf(x.animationName) > -1; }) : null;
+    if (el[key] && !el[key + '_c']) {
+      el[key + '_c'] = true;
+      el.addEventListener('animationcancel', function (e) {
+        var l = el[key]; if (l && l.some(function (x) { return x.animationName === e.animationName && x.effect && x.effect.target === e.target; })) el[key] = null;
+      });
+    }
   }
   // Arc-length table of an SVG path, sampled once with getPointAtLength so a frame can place a point by
   // distance along the path without a layout read; between samples (`step` px apart) it interpolates.
