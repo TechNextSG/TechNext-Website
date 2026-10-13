@@ -574,7 +574,7 @@ def _nxe_page_label(href: str) -> str:
 def _nxe_card(e: dict, soon: str, tone: int = 0, tip: bool = False) -> str:
     code, title = e["code"], e["title"]
     if e["thumb"]:
-        pic = f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+        pic = f'<img data-src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" decoding="async">'
     else:
         pose = e.get("pose") or "hello"
         num = code.split("EP")[-1]
@@ -829,7 +829,7 @@ def _nxe_hero_tokens(content: str) -> str:
     tips = [e for sea in NXE.SEASONS for e in sea["tips"] if e["thumb"]]
     belt = "".join(f'<button class="nxe-tipc" type="button" data-nxe-tip data-c="{attr(e["code"])}" data-t="{attr(e["title"])}" data-l="{e["len"]}"'
                    f' aria-label="{attr(e["code"] + ": " + e["title"] + " (" + e["len"] + ")")}">'
-                   f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
+                   f'<img data-src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" decoding="async">'
                    f'<b>{e["code"].replace("Tip ", "")}</b></button>' for e in tips)
     t0 = by["Tip 07"]
     readout = (f'<b data-nxe-tipcode>{t0["code"]}</b><span data-nxe-tiptitle>{t0["title"]}</span>'

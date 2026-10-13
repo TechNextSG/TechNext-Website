@@ -1860,6 +1860,9 @@
         p[0].style.setProperty('--nxs-ox', ((cx - p[1].left) / p[1].width * 100).toFixed(1) + '%');
         p[0].style.setProperty('--nxs-oy', ((cy - p[1].top) / p[1].height * 100).toFixed(1) + '%');
         p[0].style.setProperty('--nxs-r', rad);
+        /* the rays move by translate from their fixed 74%/46% spot (a left/top change counted as a layout shift) */
+        p[0].style.setProperty('--nxs-dx', (cx - p[1].left - p[1].width * .74).toFixed(1) + 'px');
+        p[0].style.setProperty('--nxs-dy', (cy - p[1].top - p[1].height * .46).toFixed(1) + 'px');
       });
     }
     var idleO = window.requestIdleCallback || function (f) { return setTimeout(f, 300); };
