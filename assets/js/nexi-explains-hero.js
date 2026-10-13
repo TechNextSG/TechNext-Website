@@ -382,6 +382,9 @@
     if (!sl) return;
     var belt = $('[data-nxe-belt]', sl), track = $('[data-nxe-track]', sl), out = $('[data-nxe-readout]', sl);
     var watch = $('[data-nxe-shuffle]', sl), wt = watch && $('.nxe-watch-t', watch), spread = $('[data-nxe-spread]', sl);
+    /* the 34 tip thumbnails (plus their loop clones) load only once the slide is shown or the belt is touched (~1.3 MB) */
+    function hydrate() { $$('img[data-src]', track).forEach(function (i) { i.src = i.getAttribute('data-src'); i.removeAttribute('data-src'); }); }
+    belt.addEventListener('pointerdown', hydrate, { once: true });
     var cards = $$('[data-nxe-tip]', track), n = cards.length;
     if (!n || !belt) return;
     cards.forEach(function (c) {
@@ -495,7 +498,7 @@
     if ('ResizeObserver' in window) new ResizeObserver(function () { measure(); render(); }).observe(belt);
     measure(); render();
     stage.tips = {
-      enter: function () { talk.start(); measure(); run(true); },
+      enter: function () { hydrate(); talk.start(); measure(); run(true); },
       leave: function () { talk.stop(); run(false); endDrag(); glide = null; spinning = false; if (watch) watch.classList.remove('is-spin'); }
     };
   })();

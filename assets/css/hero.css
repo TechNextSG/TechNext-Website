@@ -1096,7 +1096,7 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
 /* ...and down behind the slide controls on phones and tablets (the hero clips it at its own bottom) */
 .nxs-sky{position:absolute;inset:calc(var(--header-box) * -1) 0 -160px;z-index:0;pointer-events:none;overflow:hidden;
   background:linear-gradient(180deg,#0E2364 0,rgba(14,35,100,0) 150px),radial-gradient(1200px 760px at 74% 46%,#3E74DE 0%,#2352B4 32%,#143585 62%,#0B1D52 100%)}
-.nxs-rays{position:absolute;left:var(--nxs-ox,74%);top:var(--nxs-oy,46%);width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxsSpin 120s linear infinite}
+.nxs-rays{position:absolute;left:74%;top:46%;translate:var(--nxs-dx,0px) var(--nxs-dy,0px);width:2200px;height:2200px;margin:-1100px 0 0 -1100px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.075) 0 6deg,transparent 6deg 15deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);animation:nxsSpin 120s linear infinite}
 .nxs-dots{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.15) 1.4px,transparent 1.9px) 0 0/16px 16px;-webkit-mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%);mask-image:radial-gradient(70% 90% at 0% 100%,#000,transparent 70%)}
 .nxs-speed{position:absolute;inset:0;background:repeating-linear-gradient(104deg,transparent 0 46px,rgba(255,255,255,.045) 46px 48px);-webkit-mask-image:linear-gradient(90deg,#000,transparent 55%);mask-image:linear-gradient(90deg,#000,transparent 55%)}
 @keyframes nxsSpin{to{transform:rotate(360deg)}}
@@ -1231,9 +1231,10 @@ html.nxh-talking .nxh-hear[aria-pressed="true"] .ic + .ic,html.nxh-talking .hero
    way out closes back into it */
 @keyframes hxsIris{from{clip-path:circle(0px at var(--ox,80%) var(--oy,8%))}to{clip-path:circle(var(--or,160vmax) at var(--ox,80%) var(--oy,8%))}}
 @keyframes hxsIrisOut{from{clip-path:circle(var(--or,160vmax) at var(--ox,80%) var(--oy,8%))}to{clip-path:circle(0px at var(--ox,80%) var(--oy,8%))}}
-.hxs-sky::after{content:"";position:absolute;z-index:3;left:var(--ox,80%);top:var(--oy,8%);width:0;height:0;border-radius:50%;box-shadow:0 0 0 3px var(--hx-st-ink,rgba(31,31,61,.5));opacity:0;pointer-events:none}
+.hxs-sky::after{content:"";position:absolute;z-index:3;left:var(--ox,80%);top:var(--oy,8%);width:calc(var(--or,160vmax) * 2);height:calc(var(--or,160vmax) * 2);margin:calc(var(--or,160vmax) * -1) 0 0 calc(var(--or,160vmax) * -1);border-radius:50%;box-shadow:0 0 0 3px var(--hx-st-ink,rgba(31,31,61,.5));opacity:0;transform:scale(0);pointer-events:none}
 .hxs.is-enter .hxs-sky::after,.hxs.is-swap .hxs-sky::after{animation:hxsRing 1.05s cubic-bezier(.65,0,.25,1) both}
-@keyframes hxsRing{0%{opacity:.9;width:0;height:0;margin:0}100%{opacity:0;width:calc(var(--or,160vmax) * 2);height:calc(var(--or,160vmax) * 2);margin:calc(var(--or,160vmax) * -1) 0 0 calc(var(--or,160vmax) * -1)}}
+/* scale, not width/height/margin: the ring no longer re-lays-out the page every frame (CLS, 2026-10-13) */
+@keyframes hxsRing{0%{opacity:.9;transform:scale(0)}100%{opacity:0;transform:scale(1)}}
 .hxs-bg img{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;max-height:none;object-fit:cover;object-position:50% 100%;transform:scale(1.06);
   translate:calc(var(--px) * -14px) calc(var(--py) * -8px);transition:transform 9s cubic-bezier(.2,.6,.3,1),translate .8s ease-out}
 .hxs-bg.is-on img{transform:scale(1.02)}
