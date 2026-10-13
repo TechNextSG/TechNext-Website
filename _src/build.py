@@ -574,7 +574,7 @@ def _nxe_page_label(href: str) -> str:
 def _nxe_card(e: dict, soon: str, tone: int = 0, tip: bool = False) -> str:
     code, title = e["code"], e["title"]
     if e["thumb"]:
-        pic = f'<img data-src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" decoding="async">'
+        pic = f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async">'
     else:
         pose = e.get("pose") or "hello"
         num = code.split("EP")[-1]
