@@ -21,7 +21,7 @@
 - https://technext.asia/blog/how-an-odoo-implementation-works — Odoo implementation process, step by step: How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
 - https://technext.asia/blog/invoicenow-singapore-gst-timeline — Singapore GST InvoiceNow requirement: all dates to 2031: Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
 - https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — Odoo 20 in Singapore, the Philippines and Vietnam: The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
-- https://technext.asia/blog/odoo-20-whats-new — Odoo 20 new features, in plain language: Odoo 20 explained by TechNext, an Odoo Partner: AI agents, the MCP connector, offline mode, Field Service in Planning, accounting, payroll and pricing changes.
+- https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: New Features & Upgrade Checklist: Odoo 20 release notes explained by TechNext, an Odoo Partner: AI agents, MCP, offline mode, Field Service in Planning, pricing and an upgrade checklist.
 - https://technext.asia/blog/odoo-experience-2026-takeaways — Odoo Experience 2026: five takeaways for Odoo users: Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
 - https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Odoo Online vs Odoo.sh vs on-premise: which fits?: Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
@@ -189,6 +189,18 @@ Source: https://technext.asia/blog/odoo-20-singapore-philippines-vietnam
 Odoo 20 adds a basic Philippine payroll package with basic pay, benefits, taxes and overtime, plus BIR Forms 1601-C, 2316 and 1604-C and automatic SSS and Pag-IBIG loan deductions.
 
 Source: https://technext.asia/blog/odoo-20-singapore-philippines-vietnam
+
+### What is in the Odoo 20 release notes?
+
+The headline items are AI agents that automated actions can call, an MCP connector for outside AI tools, offline mode, bill payments and an Accounting Assistant. Field Service moves into Planning, payroll work entries are removed and account groups become parent accounts. Odoo publishes the full notes at odoo.com/odoo-20-release-notes.
+
+Source: https://technext.asia/blog/odoo-20-whats-new
+
+### How do I upgrade to Odoo 20?
+
+Odoo Online databases use Odoo's own upgrade service. Odoo.sh and on-premise databases, especially with custom modules, need a planned upgrade: check removed or moved features, test custom modules and Studio changes, budget AI credits, and do a dry run on a copy of the database before the live upgrade.
+
+Source: https://technext.asia/blog/odoo-20-whats-new
 
 ### When was Odoo 20 released?
 
