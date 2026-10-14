@@ -341,7 +341,16 @@
     if (document.documentElement.classList.contains('nx-full-start')) {
       try { var ref = new URL(document.referrer); if (ref.origin === location.origin && ref.pathname !== location.pathname) nxFrom = ref.href; } catch (e) { /* typed in or from another site */ }
     }
+    /* /nexi#full is Nexi only (html.nx-solo): leaving goes back to where the visitor came from, or home,
+       never to the /nexi page around the stage */
+    var nxSolo = function () { return document.documentElement.classList.contains('nx-solo'); };
+    var nxLeave = function () {
+      if (fsEl()) { try { var y = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (y && y.catch) y.catch(function () {}); } catch (e) { /* already out */ } }
+      if (nxFrom && history.length > 1) { history.back(); return; }
+      location.href = nxFrom || (document.querySelector('.header .logo, a.logo') || { href: '/' }).href || '/';
+    };
     var nxExit = function (back) {
+      if (nxSolo() && back !== false) { nxLeave(); return; }
       if (fsEl()) { try { var x = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (x && x.catch) x.catch(function () {}); } catch (e) { /* already out */ } }
       if (back !== false && nxFrom) {
         var to = nxFrom; nxFrom = '';
@@ -364,18 +373,28 @@
       if (req) { try { var pr = req.call(nxStage); if (pr && pr.catch) pr.catch(function () {}); } catch (e) { /* the cover mode stays */ } }
     });
     /* leaving real full screen with the browser's own Esc also ends the cover mode */
-    var nxFs = function () { if (!fsEl() && nxOn()) nxSet(false); };
+    var nxFs = function () { if (!fsEl() && nxOn() && !nxSolo()) nxSet(false); };
     document.addEventListener('fullscreenchange', nxFs);
     document.addEventListener('webkitfullscreenchange', nxFs);
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nxOn()) nxExit(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nxOn() && !nxSolo()) nxExit(); });
+    /* a link to #full while already on /nexi */
+    window.addEventListener('hashchange', function () { if (location.hash === '#full' && !nxSolo()) { document.documentElement.classList.add('nx-solo'); nxSet(true); } });
+    window.tnNexiFs = function () {
+      if (fsEl()) { try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) { /* ignore */ } return; }
+      var rq = nxStage.requestFullscreen || nxStage.webkitRequestFullscreen;
+      if (rq) { try { var pr2 = rq.call(nxStage); if (pr2 && pr2.catch) pr2.catch(function () {}); } catch (e) { /* cover mode stays */ } }
+    };
+    window.tnNexiLeave = function () { if (nxSolo()) nxLeave(); else nxExit(); };
     window.tnNexiFull = nxExit;
     window.addEventListener('pageshow', function (e) { if (e.persisted && nxOn() && !nxFrom) { nxSet(false); if (location.hash === '#full' && history.replaceState) history.replaceState(null, '', location.pathname + location.search); } });
   }
   /* Nexi on /nexi runs in a same-origin frame and asks for the Let's Talk form from there */
   window.addEventListener('message', function (e) {
     if (e.origin !== location.origin || !e.data) return;
-    if (e.data.tn === 'nexi-talk') { if (document.body.classList.contains('nx-max') && window.tnNexiFull) window.tnNexiFull(false); openTalk(); }
-    if (e.data.tn === 'nexi-esc' && document.body.classList.contains('nx-max') && nxBtn) nxBtn.click();
+    if (e.data.tn === 'nexi-talk') { if (document.body.classList.contains('nx-max') && window.tnNexiFull && !document.documentElement.classList.contains('nx-solo')) window.tnNexiFull(false); openTalk(); }
+    if (e.data.tn === 'nexi-fs' && window.tnNexiFs) window.tnNexiFs();
+    if (e.data.tn === 'nexi-leave' && window.tnNexiLeave) window.tnNexiLeave();
+    if (e.data.tn === 'nexi-esc' && document.body.classList.contains('nx-max') && nxBtn && !document.documentElement.classList.contains('nx-solo')) nxBtn.click();
   });
   $$('[data-talk-open]').forEach(function (el) { el.addEventListener('click', function (e) { e.preventDefault(); openTalk(); }); });
   $$('[data-talk-close]').forEach(function (el) { el.addEventListener('click', closeTalk); });
