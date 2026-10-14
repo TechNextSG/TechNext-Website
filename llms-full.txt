@@ -964,6 +964,12 @@ Support is led from our Singapore HQ, with consultants and developers at our mai
 
 Source: https://technext.asia/odoo/support
 
+### What is TechNext Care?
+
+Our monthly plan after go-live, in three levels. Essentials covers Odoo support, upgrades and website updates; Growth adds improvements, new pages and an AI chatbot; Full team adds office networks, devices and a quarterly roadmap. It means you don't need to hire your own team for any of it.
+
+Source: https://technext.asia/odoo/support
+
 ### How is support priced?
 
 On quotation, based on the number of users and apps in use — request a quotation .
