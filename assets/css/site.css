@@ -1163,6 +1163,14 @@ a.app:hover>.ic{transform:translateX(3px);color:var(--blue)}
 html.nx-full-start body,body.nx-max{overflow:hidden}
 html.nx-full-start .nx-stage,body.nx-max .nx-stage{position:fixed;inset:0;z-index:120;border:0;border-radius:0;margin:0}
 html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
+/* /nexi#full = Nexi only: the page around the stage never shows, not even for a frame (html.nx-solo is set in the head) */
+html.nx-solo,html.nx-solo body{background:#dfe9fb}
+html.nx-solo .header,html.nx-solo .footer,html.nx-solo .side-tabs,html.nx-solo .wa-float,html.nx-solo .nx-head,html.nx-solo .cookie,html.nx-solo [class^="cookie"],html.nx-solo .tn-sb,body.nx-max .side-tabs,body.nx-max .wa-float{display:none!important}
+html.nx-solo .nx-stage{position:fixed;inset:0;z-index:2147483000;border:0;border-radius:0;margin:0;box-shadow:none}
+html.nx-solo .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
+html.nx-solo .nx-full{display:none}
+html.nx-solo .talk-overlay{z-index:2147483001}
+html.nx-solo .talk-panel{z-index:2147483002}
 @media (max-width:960px){
   .nx-full{top:10px;left:auto;right:10px;transform:none;width:38px;padding:0;justify-content:center}
   .nx-full-on>span,.nx-full-off>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
