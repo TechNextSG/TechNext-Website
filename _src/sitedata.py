@@ -7,8 +7,8 @@ SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and "
             "consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
-            "and Inventory, build enterprise AI and websites, and deliver IoT, app and network services "
-            "for growing companies in 10+ countries.")
+            "and Inventory, build enterprise AI, websites and brands, and deliver IoT, app and network services "
+            "as one team, so growing companies in 10+ countries don't need to hire their own.")
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
 

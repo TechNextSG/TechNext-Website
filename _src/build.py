@@ -57,7 +57,7 @@ INTRO_HEAD = "<style>#intro{display:none}html.intro #intro,#intro.is-out{display
 # Explains slide gets the comic intro (html.intro-nxe) from its first frame. Same rules as hero.js: crawlers,
 # audits and reduced motion keep slide 1, ?slide=N wins, never the slide that opened the last visit.
 HERO_FIRST_HEAD = "<script>(function(){try{var d=document.documentElement,n={HERO_N},f=-1;var cr=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent||'');var w=/[?&]slide=([1-9])(?:&|$)/.exec(location.search);if(w)f=+w[1]-1;else if(!cr&&n>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var last=-1;try{last=parseInt(localStorage.getItem('tn_hero_first'),10);}catch(e){}var p=[];for(var k=0;k<n;k++)if(k!==last)p.push(k);f=p[Math.floor(Math.random()*p.length)];window.__tnHeroFirst=f;try{localStorage.setItem('tn_hero_first',String(f));}catch(e){}}if(f==={HERO_NXS})d.classList.add('intro-nxe');}catch(e){}})();</script>\n"
-INTRO_BODY = '<div class="intro" id="intro" aria-hidden="true" data-tagline="Odoo Partner · Singapore" data-tagline-nxe="Nexi Explains!">\n  <div class="intro-sheet">\n    <div class="intro-grid"><i></i><i></i></div>\n    <div class="intro-bloom"></div>\n    <svg class="intro-trail"><path d=""/><path d=""/><path d=""/></svg>\n  </div>\n  <span class="intro-ring"></span>\n  <div class="intro-lockup">\n  <div class="intro-stage">\n    <div class="intro-plane-wrap">\n      <span class="intro-ripple"></span><span class="intro-ripple"></span>\n      <i class="intro-spark" style="--a:8deg;--d:1.15"></i><i class="intro-spark" style="--a:52deg;--d:1.6"></i><i class="intro-spark" style="--a:97deg;--d:1.25"></i><i class="intro-spark" style="--a:141deg;--d:1.7"></i><i class="intro-spark" style="--a:188deg;--d:1.2"></i><i class="intro-spark" style="--a:232deg;--d:1.65"></i><i class="intro-spark" style="--a:279deg;--d:1.3"></i><i class="intro-spark" style="--a:323deg;--d:1.55"></i>\n      <span class="intro-plane-pop"><img class="intro-plane" src="{ROOT}assets/img/logo-plane.png" alt="" width="160" height="136" decoding="sync"></span>\n    </div>\n    <span class="intro-word" style="aspect-ratio:{LETTERS_W}/{LETTERS_H}">{LETTERS}<span class="intro-glint"></span></span>\n  </div>\n  <span class="intro-sub"></span>\n  <span class="intro-pills">\n    <span class="intro-pill" style="--i:0;--side:-1">{{odoo:accountant:18}}Accounting</span>\n    <span class="intro-pill" style="--i:1;--side:0">{{odoo:sale:18}}Sales</span>\n    <span class="intro-pill" style="--i:2;--side:1">{{odoo:stock:18}}Inventory</span>\n  </span>\n  </div>\n  <span class="intro-progress"></span>\n  <button class="intro-skip" type="button" tabindex="-1">Skip</button>\n</div>\n'
+INTRO_BODY = '<div class="intro" id="intro" aria-hidden="true" data-tagline="Your team · Singapore · Philippines" data-tagline-nxe="Nexi Explains!">\n  <div class="intro-sheet">\n    <div class="intro-grid"><i></i><i></i></div>\n    <div class="intro-bloom"></div>\n    <svg class="intro-trail"><path d=""/><path d=""/><path d=""/></svg>\n  </div>\n  <span class="intro-ring"></span>\n  <div class="intro-lockup">\n  <div class="intro-stage">\n    <div class="intro-plane-wrap">\n      <span class="intro-ripple"></span><span class="intro-ripple"></span>\n      <i class="intro-spark" style="--a:8deg;--d:1.15"></i><i class="intro-spark" style="--a:52deg;--d:1.6"></i><i class="intro-spark" style="--a:97deg;--d:1.25"></i><i class="intro-spark" style="--a:141deg;--d:1.7"></i><i class="intro-spark" style="--a:188deg;--d:1.2"></i><i class="intro-spark" style="--a:232deg;--d:1.65"></i><i class="intro-spark" style="--a:279deg;--d:1.3"></i><i class="intro-spark" style="--a:323deg;--d:1.55"></i>\n      <span class="intro-plane-pop"><img class="intro-plane" src="{ROOT}assets/img/logo-plane.png" alt="" width="160" height="136" decoding="sync"></span>\n    </div>\n    <span class="intro-word" style="aspect-ratio:{LETTERS_W}/{LETTERS_H}">{LETTERS}<span class="intro-glint"></span></span>\n  </div>\n  <span class="intro-sub"></span>\n  <span class="intro-pills">\n    <span class="intro-pill" style="--i:0;--side:-1">{{odoo:accountant:18}}Accounting</span>\n    <span class="intro-pill" style="--i:1;--side:0">{{odoo:sale:18}}Sales</span>\n    <span class="intro-pill" style="--i:2;--side:1">{{odoo:stock:18}}Inventory</span>\n  </span>\n  </div>\n  <span class="intro-progress"></span>\n  <button class="intro-skip" type="button" tabindex="-1">Skip</button>\n</div>\n'
 
 
 def asset_version() -> str:
@@ -342,7 +342,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}get-started.html" aria-label="Get started with TechNext">{{icon:chat-send}}<span>Get started</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}free-website-with-odoo.html" aria-label="Get your free website with Odoo">{{icon:chat-send}}<span>Free website</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -1578,10 +1578,10 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
 
 # titles that would otherwise compete with a sibling page for the same search
 APP_TITLES = {
-    "ai_app": "Odoo AI app (built-in AI agents) in Singapore",       # vs /odoo/ai-integration (custom AI)
-    "point_of_sale": "Odoo POS (Point of Sale) for shops in Singapore",  # vs /industries/retail
-    "pos_restaurant": "Odoo Restaurant POS implementation in Singapore",  # vs /industries/fnb
-    "voip": "Odoo Phone (VoIP) implementation in Singapore",          # Odoo's name for VoIP
+    "ai_app": "Odoo AI App (built-in AI agents) — Singapore & PH",       # vs /odoo/ai-integration (custom AI)
+    "point_of_sale": "Odoo POS for Shops — Singapore & Philippines",  # vs /industries/retail
+    "pos_restaurant": "Odoo Restaurant POS — Singapore & Philippines",  # vs /industries/fnb
+    "voip": "Odoo Phone (VoIP) — Singapore & Philippines",          # Odoo's name for VoIP
 }
 
 
@@ -1679,9 +1679,9 @@ def app_page(mod: str) -> tuple:
     # Original copy only: the old description was odoo.com's own marketing text, which made
     # these pages near-duplicates of Odoo's.
     short = app["desc"].rstrip(".")
-    desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}. Setup, data migration, training and support."
+    desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore and the Philippines. {short}. Set up for you."
     if len(desc_meta) > 160:
-        desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}."
+        desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore and the Philippines. {short}."
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
@@ -1695,7 +1695,7 @@ def app_page(mod: str) -> tuple:
               f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
               + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
-    meta = {"title": APP_TITLES.get(mod, f"Odoo {name} implementation in Singapore"), "desc": desc_meta,
+    meta = {"title": APP_TITLES.get(mod, f"Odoo {name} in Singapore & the Philippines"), "desc": desc_meta,
             "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo"}
     life = lifecycle_html(mod, name, cat)
     meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
@@ -1710,7 +1710,7 @@ def app_page(mod: str) -> tuple:
     <div class="two two--stage">
       <div>
         <div class="app-hero-head">{{{{odoo:{mod}:56}}}}<span class="hand">odoo · {cat["title"].lower()}</span></div>
-        <h1>Odoo {h1name} in Singapore</h1>
+        <h1>Odoo {h1name} in Singapore &amp; the Philippines</h1>
         <p class="app-sub">{headline}</p>
         <p class="lead">{lead}</p>
         <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
@@ -1761,7 +1761,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="cta reveal">
       <div><span class="hand">next step</span><h2>Want {name} running in your company?</h2><p>Tell us how the process works today. We'll say what to switch on first and what it takes.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
     </div>
   </div>
 </section>'''
@@ -1951,8 +1951,8 @@ def article_html(meta: dict, body: str) -> str:
 <section class="section">
   <div class="container">
     <div class="cta reveal">
-      <div><span class="hand">next step</span><h2>Planning an Odoo project?</h2><p>Tell TechNext how the process runs today. We'll say which apps to start with, what to leave for later, and what it takes.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+      <div><span class="hand">next step</span><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, builds your website and brand with it, and stays on after go-live, in Singapore and the Philippines.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
     </div>
   </div>
 </section>'''
