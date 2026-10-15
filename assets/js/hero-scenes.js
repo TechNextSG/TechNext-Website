@@ -360,7 +360,10 @@
       });
       gx.globalAlpha = 1; gx.setLineDash([]);
     }
-    function setOp(a, v) { if (a.op !== v) { a.op = v; a.pos.style.opacity = v; } }
+    // never exactly 0: an app waiting off-stage stays painted (invisibly, at its resting size), so its icon's one
+    // largest-contentful-paint entry is a 28 px icon and not the 3x-scaled frame of the fly-in (that made the
+    // orbit, not the headline, the page's LCP, 3-8 s in)
+    function setOp(a, v) { if (+v === 0) v = '0.001'; if (a.op !== v) { a.op = v; a.pos.style.opacity = v; } }
     var fxDirty = false;                               // a flag in script, not a data- attribute written every frame
     function drawFx(t, flying) {
       var warpOn = rush && t >= 0 && t < 1100;
@@ -504,6 +507,13 @@
         if (reduce) { startRush(now); layout(now, 0); return; }
         // hold the apps off-stage until the camera has nearly settled, then rush them in (phones have no camera move)
         apps.forEach(function (a) { a.fly = null; a.landed = false; setOp(a, '0'); });
+        // repaint the waiting icons once the camera has faded the slide in and before they fly: an image's paint
+        // under that fade (opacity 0) does not count, so their first counted paint was the 3x-scaled fly-in
+        var oi = $$('.oi', root);
+        setTimeout(function () {
+          oi.forEach(function (i) { i.style.opacity = '.999'; });
+          requestAnimationFrame(function () { requestAnimationFrame(function () { oi.forEach(function (i) { i.style.opacity = ''; }); }); });
+        }, first ? 560 : phone.matches ? 60 : 1150);
         startRush(now + (first ? 900 : phone.matches ? 260 : 1250));
         wake();
       },

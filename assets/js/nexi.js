@@ -108,7 +108,17 @@
     preload();
     /* under the intro: in its quiet last beat, which waits for her (see site.js); otherwise once the hero settles */
     if (introOn()) document.addEventListener('tn:intro-quiet', function (e) { load(e.detail && e.detail.hold ? e.detail.hold() : null); }, { once: true });
-    whenSettled(load);
+    /* her set-up (Three.js + WebGL shader compile) is the page's longest task: keep it out of the first paint and
+       load. She comes in at the visitor's first move (pointer, wheel, key, touch), or 3 s after the page has loaded */
+    var woke = false, MOVES = ['pointermove', 'pointerdown', 'wheel', 'keydown', 'touchstart', 'scroll'];
+    var wake = function () {
+      if (woke) return; woke = true;
+      MOVES.forEach(function (t) { removeEventListener(t, wake, true); });
+      whenSettled(load, 0);
+    };
+    MOVES.forEach(function (t) { addEventListener(t, wake, { capture: true, passive: true }); });
+    var later = function () { setTimeout(wake, 3000); };
+    if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
   }
   else if (possible() && !saveData) whenSettled(preload, 2500);
 })();

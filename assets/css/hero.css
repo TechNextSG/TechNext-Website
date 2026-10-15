@@ -80,7 +80,7 @@
 .cine-app--r1{width:36px;height:36px;border-radius:11px}
 .cine-app .oi{width:28px;height:28px;pointer-events:none}
 /* the per-frame orbit transform, opacity, blur and z-index land on this bare wrapper, not on the button */
-.cine-pos{position:absolute;left:0;top:0;display:block;transform-origin:50% 50%;will-change:transform,opacity;opacity:0}
+.cine-pos{position:absolute;left:0;top:0;display:block;transform-origin:50% 50%;will-change:transform,opacity;opacity:.001}
 .cine-pos>.cine-app{position:relative;opacity:1;will-change:auto}
 .cine-app--r1 .oi{width:21px;height:21px}
 .cine-app::after{content:"";position:absolute;inset:-9px;border-radius:inherit}
@@ -1440,3 +1440,8 @@ html.hxs-on .nexi:not(.nexi--lite),html.hxs-on .nexi-card:not(.nexi-card--lite){
    slide or switching industry restyles the one that shows, not all eight. Panels keep theirs: they share one grid
    cell, whose height must not jump. */
 .hxs-bg:not(.is-on):not(.is-out),.hxs-cast:not(.is-on):not(.is-out){content-visibility:hidden}
+/* LCP: the hero's fade-ins start from opacity .001, not 0. A paint at opacity 0 is not counted, so the lead paragraph
+   only became the page's largest paint once its fade was under way (on a throttled phone 1-1.5 s after it was laid
+   out); at .001 it counts from its first paint and looks exactly the same. */
+@media (prefers-reduced-motion:no-preference){.hero .is-active .up{animation-name:heroFadeUp}}
+@keyframes heroFadeUp{from{opacity:.001;transform:translateY(16px)}to{opacity:1;transform:none}}
