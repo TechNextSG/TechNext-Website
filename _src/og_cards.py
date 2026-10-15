@@ -139,7 +139,8 @@ def card(out_rel, title, icon=None):
     slug = re.sub(r"\.html$", "", out_rel)
     url = "technext.asia/" + slug
     name = slug.replace("/", "-") + ".jpg"
-    key = hashlib.sha1("|".join([VERSION, title, label, url, str(icon or "")]).encode()).hexdigest()[:12]
+    # the icon by file name only, so the key (and the ?v= on og:image) is the same in every checkout/worktree
+    key = hashlib.sha1("|".join([VERSION, title, label, url, Path(icon).name if icon else ""]).encode()).hexdigest()[:12]
     if _manifest.get(name) != key or not (OUT / name).exists():
         draw(title, label, url, icon).save(OUT / name, "JPEG", quality=88, optimize=True, progressive=True)
         _manifest[name] = key

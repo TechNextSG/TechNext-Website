@@ -1074,6 +1074,29 @@ IMG_DIMS_PATH = SRC / "odoo_image_dims.json"
 IMG_DIMS = json.loads(IMG_DIMS_PATH.read_text(encoding="utf-8")) if IMG_DIMS_PATH.exists() else {}
 UNMEASURED = set()
 
+# Self-hosted copies of the odoo.com images. Sources keep the original odoocdn URLs (they key
+# IMG_DIMS and the screenshot index); every page is rewritten to the local WebP copy listed in
+# _src/odoo_media.json just before it is written. A URL with no local copy stays remote and is
+# reported at the end of the build.
+ODOO_MEDIA_PATH = SRC / "odoo_media.json"
+ODOO_MEDIA = json.loads(ODOO_MEDIA_PATH.read_text(encoding="utf-8")) if ODOO_MEDIA_PATH.exists() else {}
+_ODOOCDN_IMG = re.compile(r"https://(?:download\.)?odoocdn\.com/[^\s\"'<>)|\\]+?\.(?:webp|png|jpe?g|gif)(?:\?[^\s\"'<>)|\\]*)?", re.I)
+_ABS_URL_CTX = re.compile(r'(?:content="|"(?:image|url|contentUrl|thumbnailUrl)":\s*\[?\s*")$')   # og:image, JSON-LD
+REMOTE_MEDIA = set()
+
+
+def local_media(html: str) -> str:
+    """odoocdn image URLs -> the self-hosted copy ({ROOT}-relative, or absolute in meta/JSON-LD)."""
+    def sub(m):
+        url = m.group(0)
+        hit = ODOO_MEDIA.get(html_mod.unescape(url))
+        if not hit:
+            REMOTE_MEDIA.add(url)
+            return url
+        absolute = _ABS_URL_CTX.search(html, max(0, m.start() - 40), m.start())
+        return (S.SITE_URL if absolute else "{ROOT}") + hit["path"]
+    return _ODOOCDN_IMG.sub(sub, html)
+
 
 def img_ratio(url: str) -> float:
     d = IMG_DIMS.get(url)
@@ -2210,6 +2233,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{SCRIPTS}", scripts)
                 .replace("{{YEAR}}", YEAR).replace("{YEAR}", YEAR))
     html = odoo_icons(html)            # emits {{ROOT}}-prefixed <img> tags
+    html = local_media(html)           # odoocdn images -> self-hosted copies ({ROOT}-prefixed)
     html = html.replace("{{ROOT}}", root).replace("{ROOT}", root)
     if out_rel not in CALM_SKIP:
         html = flat_icons(html)
@@ -2416,6 +2440,11 @@ def main():
     if UNMEASURED:
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"
               " run: python -B _src/measure_images.py")
+    if REMOTE_MEDIA:
+        print(f"WARNING: {len(REMOTE_MEDIA)} odoocdn image(s) have no local copy in _src/odoo_media.json and are"
+              " still hotlinked:")
+        for u in sorted(REMOTE_MEDIA):
+            print("   ", u)
     og_cards.save_manifest()
     INDEX[:] = [e for e in INDEX if "/" + e["u"] not in REDIRECT_SOURCES]
     write_sitemap(built)
