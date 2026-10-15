@@ -156,6 +156,13 @@ The Let's Talk panel (Nexi on /nexi opens it too) and the quotation builder post
 endpoint for `sales@technext.asia`. An accepted submission fires the Google Ads lead conversion
 and a GA4 `generate_lead` event (only if the visitor accepted cookies — Consent Mode).
 
+Every submission also goes to `/api/lead` (`api/lead.py`, a Vercel Python function), which files it as a
+lead in the Odoo CRM at technext.odoo.com: tags `Website` + `Web form: <form>`, UTM source
+`technext.asia website`, medium `Website`, unassigned, and a chatter message that notifies the partners in
+`ODOO_NOTIFY_PARTNER_IDS` (default 306 = Jeric). Vercel env vars: `ODOO_API_KEY` (required, never commit
+it — the repo is public), `ODOO_URL`, `ODOO_NOTIFY_PARTNER_IDS`. The API key's Odoo user needs Sales/CRM
+access. A send counts as delivered when either FormSubmit or the CRM accepts it.
+
 ## Brand rules
 
 - Brand blue `#3167CA`. Partner wording is **Odoo Ready Partner**, never "Certified".

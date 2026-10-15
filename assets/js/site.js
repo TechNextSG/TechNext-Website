@@ -426,14 +426,42 @@
     });
     return data;
   }
+  /* where the visit started (kept for the session) - goes into the CRM lead with the page and referrer */
+  try {
+    if (!sessionStorage.getItem('tn_landing')) {
+      sessionStorage.setItem('tn_landing', location.href.slice(0, 300));
+      sessionStorage.setItem('tn_referrer', (document.referrer || '').slice(0, 300));
+    }
+  } catch (e) { /* storage blocked: the lead just lacks these lines */ }
+  /* Every submission also becomes a lead in the Odoo CRM through /api/lead (api/lead.py: tagged "Website"
+     + the form, Jeric mentioned). It runs beside the FormSubmit email; the visitor's send succeeds when
+     either one accepts it, so one service being down never loses an inquiry. */
+  function crmLead(payload) {
+    var p = {};
+    Object.keys(payload || {}).forEach(function (k) { p[k] = payload[k]; });
+    p.page = location.href.slice(0, 300);
+    try {
+      var land = sessionStorage.getItem('tn_landing'), ref = sessionStorage.getItem('tn_referrer');
+      if (land && land !== p.page) p.landing = land;
+      if (ref) p.referrer = ref;
+    } catch (e) {}
+    return fetch('/api/lead', {
+      method: 'POST', keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(p)
+    }).then(function (r) { return r.ok; }, function () { return false; });
+  }
   window.tnPostForm = function (endpoint, payload) {
+    var crm = crmLead(payload);
     return fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .catch(function (e) { return { ok: false, j: { message: e && e.message } }; })
+      .then(function (res) { return crm.then(function (crmOk) { res.crm = crmOk; return res; }); })
       .then(function (res) {
-        var ok = res.ok && (res.j.success === 'true' || res.j.success === true);
+        var ok = (res.ok && (res.j.success === 'true' || res.j.success === true)) || res.crm;
         if (!ok) throw new Error((res.j && res.j.message) || 'The form service did not accept the message.');
         // Lead conversions fire only on a submission the form service accepted. The
         // previous site fired the Ads conversion on every contact-page view.
