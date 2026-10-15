@@ -25,6 +25,7 @@
 - [Odoo Partner Philippines — BIR-ready, Taguig City](https://technext.asia/odoo/philippines): TechNext is your Odoo partner in the Philippines: BIR-ready accounting and payroll, set up from Taguig City, so you don't need to hire your own Odoo team.
 - [Odoo Support & Maintenance — TechNext Care](https://technext.asia/odoo/support): Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
 - [Odoo Training on Your Own Data — SG & PH](https://technext.asia/odoo/training): Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so go-live doesn't depend on hiring Odoo experts.
+- [Odoo Partner Vietnam — Circular 99, SInvoice and 01/GTGT](https://technext.asia/odoo/vietnam): TechNext sets up Odoo for companies in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, so you don't need your own Odoo team.
 - [Odoo Multi-Company ERP for Groups & Consolidation](https://technext.asia/solutions/enterprise): Odoo multi-company ERP for groups in Singapore and the Philippines: every entity in one Odoo, inter-company flows and one set of consolidated numbers.
 - [Odoo Implementation in Singapore & the Philippines](https://technext.asia/solutions/odoo-erp): Odoo implementation in Singapore and the Philippines by TechNext: set up, migrated, trained and supported, so you don't need to hire your own ERP team.
 
