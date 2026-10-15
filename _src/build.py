@@ -384,7 +384,8 @@ LAYOUT = '''<!doctype html>
 
 SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html", "odoo/training.html",
                  "odoo/integration.html", "odoo/support.html", "odoo/erp-system.html",
-                 "odoo/crm-development.html", "odoo/ai-integration.html", "odoo/philippines.html")
+                 "odoo/crm-development.html", "odoo/ai-integration.html", "odoo/philippines.html",
+                 "odoo/vietnam.html")
 AREA_SERVED = ["Singapore", "Philippines", "Vietnam", "Southeast Asia", "Worldwide"]
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)

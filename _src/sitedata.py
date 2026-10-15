@@ -68,6 +68,7 @@ OFFICES = [
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
     {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam AI engineering hub",
      "role": "AI engineering. The enterprise AI behind our solutions.",
+     "page": "odoo/vietnam.html", "page_label": "Odoo in Vietnam",
      "office": _built("offices/vietnam.html", ""),
      "lines": ["62 Nguyễn Thị Nhung, Phường Hiệp Bình", "Ho Chi Minh City"], "lang": "vi", "geo": (10.8440075, 106.7121703),
      "street": "62 Nguyễn Thị Nhung, Phường Hiệp Bình", "locality": "Ho Chi Minh City", "region": "", "postal": "",

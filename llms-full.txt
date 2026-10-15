@@ -106,6 +106,7 @@
 - https://technext.asia/odoo/philippines — Odoo Partner Philippines — BIR-ready, Taguig City: TechNext is your Odoo partner in the Philippines: BIR-ready accounting and payroll, set up from Taguig City, so you don't need to hire your own Odoo team.
 - https://technext.asia/odoo/support — Odoo Support & Maintenance — TechNext Care: Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
 - https://technext.asia/odoo/training — Odoo Training on Your Own Data — SG & PH: Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so go-live doesn't depend on hiring Odoo experts.
+- https://technext.asia/odoo/vietnam — Odoo Partner Vietnam — Circular 99, SInvoice and 01/GTGT: TechNext sets up Odoo for companies in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, so you don't need your own Odoo team.
 - https://technext.asia/offices/philippines — TechNext Taguig City hub — Odoo development, Philippines: TechNext's main development and consulting hub at Level 9, IP Center, Taguig City, Metro Manila: Odoo developers, consultants and architects, and our open roles.
 - https://technext.asia/offices/singapore — TechNext Singapore HQ — 261 Waterloo Street #03-36: TechNext's headquarters at 261 Waterloo Street #03-36, Singapore 180261: sales, Odoo discovery workshops and on-site work with clients in Singapore.
 - https://technext.asia/offices/vietnam — TechNext Ho Chi Minh City — AI engineering hub, Vietnam: TechNext's AI engineering hub at 62 Nguyễn Thị Nhung, Ho Chi Minh City: AI agents, knowledge assistants, chatbots and local LLM deployment, often connected to Odoo.
@@ -1135,6 +1136,48 @@ On quotation, sized to the teams and sessions involved — request a quotation .
 
 Source: https://technext.asia/odoo/training
 
+### Is TechNext an Odoo partner in Vietnam?
+
+TechNext Pte. Ltd. is an Odoo Ready Partner, listed in Odoo's partner directory. Our Vietnam office is an AI engineering hub at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. Odoo configuration and custom modules are built by our Taguig City hub, with our Singapore HQ.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Does Odoo follow Circular 99 in Vietnam?
+
+Yes. In Odoo 20, the Vietnamese chart of accounts and balance sheet follow Circular 99/2025/TT-BTC, and the S03a-DN general journal and S03b-DN general ledger comply with it. Circular 99 replaces Circular 200 for financial years starting on or after 1 January 2026.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Can Odoo issue e-invoices in Vietnam?
+
+Yes. Odoo sends invoices to SInvoice, Viettel's e-invoice platform, including replacement and adjustment invoices. In Odoo 20, Point of Sale can also issue SInvoice e-invoices for POS orders.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Which decree governs e-invoices in Vietnam now?
+
+Decree 254/2026/ND-CP, in force since 1 July 2026 with Circular 91/2026/TT-BTC. It replaces Decree 123/2020/ND-CP as amended by Decree 70/2025/ND-CP. Odoo's documentation does not mention the new decree yet, so we check your invoice setup against it during discovery.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Is VAT in Vietnam still 8%?
+
+For many goods and services, yes, until 31 December 2026. Resolution 204/2025/QH15 cut the 10% rate to 8% from 1 July 2025, with some sectors left out, such as telecoms, banking, insurance and real estate. We set the rate per product with your accountant.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Can Odoo export the 01/GTGT VAT declaration?
+
+Yes. Odoo 20 adds the Tax Declaration Form 01/GTGT and its Appendix 142, and exports both as XML for import into HTKK.
+
+Source: https://technext.asia/odoo/vietnam
+
+### Can one Odoo database run our Vietnamese and Singapore companies?
+
+Yes. Odoo runs a company per country in one database, each with its own localisation, currencies and reports, with intercompany transactions between them.
+
+Source: https://technext.asia/odoo/vietnam
+
 ### Where is TechNext's office in the Philippines?
 
 At Level 9, IP Center (Intellectual Property Center), Taguig City, Metro Manila. It's our main development and consulting hub.
@@ -1204,6 +1247,12 @@ Source: https://technext.asia/offices/vietnam
 ### Can TechNext's AI work with Odoo?
 
 Yes. Most of our AI work is connected to Odoo. See Odoo + AI integrations .
+
+Source: https://technext.asia/offices/vietnam
+
+### Does TechNext implement Odoo for companies in Vietnam?
+
+Yes. See Odoo in Vietnam for how we set up Odoo with the Vietnamese localisation: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices.
 
 Source: https://technext.asia/offices/vietnam
 
