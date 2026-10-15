@@ -366,27 +366,52 @@ html:not(.nxe-js) .nxe-slide:not(:first-child),html:not(.nxe-js) .nxe-ctl{displa
 .nxe-copy--banner .actions{margin:0}
 .nxe-fmt-strip>.nxe-spread{grid-area:trip}
 .nxe-spread.nxe-sp--specials{aspect-ratio:1152/350}
-.nxe-trip{position:absolute;inset:0;display:flex;gap:1.6cqw}
-.nxe-hs{position:relative;flex:1 1 0;min-width:0;height:100%;padding:.55cqw;overflow:hidden;color:inherit;text-decoration:none;border-radius:1.6cqw;border-width:.3cqw;box-shadow:.8cqw .8cqw 0 rgba(5,12,40,.55);transition:flex-grow .6s var(--ease-out),rotate .4s var(--spring),box-shadow .3s ease}
-.nxe-hs img{display:block;width:100%;height:100%;object-fit:cover;border-radius:1.1cqw;border:.25cqw solid var(--ink-c)}
+/* Panels sit side by side at fixed widths and move with transform only (owner-approved rebuild, Oct 2026). They used to
+   animate flex-grow, which re-laid-out the page every 1.1 s while the slide cycled (an endless run of layout shifts).
+   Each panel box is now the OPEN width (--o) wherever it is; a closed panel shows only its middle --u of it through
+   clip-paths (inset by --kk on both sides), and translate puts each visible strip where the flex row put it.
+   The widths are the flex row's: 3 panels, 2 gaps of 1.6cqw, border .3 + padding .55 a side (1.7cqw), the free
+   space shared 2.6 : 1 : 1. nexi-explains-hero.js computes the same centres for Nexi (keep both in step). */
+.nxe-trip{position:absolute;inset:0;--g:1.6cqw;--s:calc((100cqw - 2 * var(--g) - 5.1cqw) / 4.6);--u:calc(1.7cqw + var(--s));--o:calc(1.7cqw + 2.6 * var(--s));--k:calc(.8 * var(--s))}
+.nxe-hs{position:absolute;left:0;top:0;width:var(--o);height:100%;padding:0;border:0;border-radius:1.6cqw;background:none;box-shadow:none;color:inherit;text-decoration:none;isolation:isolate;pointer-events:none;--kk:var(--k);translate:calc(var(--c) - var(--o) / 2) 0;transition:translate .6s var(--ease-out),rotate .4s var(--spring)}
+.nxe-hs--1{--c:calc(var(--o) / 2)}
+.nxe-hs--2{--c:calc(var(--o) + var(--g) + var(--u) / 2)}
+.nxe-hs--3{--c:calc(var(--o) + 2 * var(--g) + 1.5 * var(--u))}
+.nxe-trip[data-front="1"] .nxe-hs--1,.nxe-trip[data-front="2"] .nxe-hs--1{--c:calc(var(--u) / 2)}
+.nxe-trip[data-front="1"] .nxe-hs--2{--c:calc(var(--u) + var(--g) + var(--o) / 2)}
+.nxe-trip[data-front="1"] .nxe-hs--3{--c:calc(1.5 * var(--u) + var(--o) + 2 * var(--g))}
+.nxe-trip[data-front="2"] .nxe-hs--2{--c:calc(1.5 * var(--u) + var(--g))}
+.nxe-trip[data-front="2"] .nxe-hs--3{--c:calc(2 * var(--u) + 2 * var(--g) + var(--o) / 2)}
+/* the frame, in clipped layers: hard shadow, ink border, the white card (the old padding box, which also clips the
+   art, name, stamp and weather as its overflow:hidden did), the art's ink border, the art */
+.nxe-hs::before,.nxe-hs::after{content:"";position:absolute;inset:0;clip-path:inset(0 var(--kk) round 1.6cqw);transition:clip-path .6s var(--ease-out),translate .3s ease,background-color .3s ease}
+.nxe-hs::before{z-index:-2;background:rgba(5,12,40,.55);translate:.8cqw .8cqw}
+.nxe-hs.is-front::before{background:rgba(5,12,40,.6);translate:1.2cqw 1.2cqw}
+.nxe-hs::after{z-index:-1;background:var(--ink-c);pointer-events:auto}
+.nxe-hs-in{position:absolute;inset:.3cqw;display:block;background:#fff;clip-path:inset(0 var(--kk) round 1.3cqw);transition:clip-path .6s var(--ease-out)}
+.nxe-hs-ph{position:absolute;inset:.55cqw;display:block;background:var(--ink-c);clip-path:inset(0 var(--kk) round 1.1cqw);transition:clip-path .6s var(--ease-out)}
+.nxe-hs-im{position:absolute;inset:.25cqw;display:block;overflow:hidden;clip-path:inset(0 var(--kk) round .85cqw);transition:clip-path .6s var(--ease-out)}
+/* a closed strip keeps the crop it had (object-position --fp across the narrow box): the art slides by (1 - 2fp) * kk */
+.nxe-hs-im img{display:block;width:100%;height:100%;object-fit:cover;translate:calc((1 - 2 * var(--fp,.5)) * var(--kk)) 0;transition:translate .6s var(--ease-out)}
 .nxe-hs--1{rotate:-1.6deg}
 .nxe-hs--2{rotate:1.2deg}
 .nxe-hs--3{rotate:-1deg}
-.nxe-hs.is-front{flex-grow:2.6;rotate:0deg;box-shadow:1.2cqw 1.2cqw 0 rgba(5,12,40,.6);z-index:2}
+.nxe-hs.is-front{--kk:0px;rotate:0deg;z-index:2}
 .nxe-hs:focus-visible{outline:3px solid var(--yel);outline-offset:4px}
-.nxe-hs-name{position:absolute;z-index:2;left:1.6cqw;bottom:1.4cqw;font:400 clamp(18px,2.8cqw,36px)/1 var(--comic);letter-spacing:.05em;color:#fff;text-shadow:2.5px 0 0 var(--ink-c),-2.5px 0 0 var(--ink-c),0 2.5px 0 var(--ink-c),0 -2.5px 0 var(--ink-c),2px 2px 0 var(--ink-c),-2px 2px 0 var(--ink-c),0 5px 0 var(--ink-c);rotate:-4deg;transform-origin:0 100%;transition:transform .5s var(--spring)}
+.nxe-hs-name{position:absolute;z-index:2;left:1.6cqw;bottom:1.4cqw;font:400 clamp(18px,2.8cqw,36px)/1 var(--comic);letter-spacing:.05em;color:#fff;text-shadow:2.5px 0 0 var(--ink-c),-2.5px 0 0 var(--ink-c),0 2.5px 0 var(--ink-c),0 -2.5px 0 var(--ink-c),2px 2px 0 var(--ink-c),-2px 2px 0 var(--ink-c),0 5px 0 var(--ink-c);rotate:-4deg;transform-origin:0 100%;translate:var(--kk) 0;transition:transform .5s var(--spring),translate .6s var(--ease-out)}
 .nxe-hs:not(.is-front) .nxe-hs-name{transform:rotate(-86deg) translate(10%,30%)}
-.nxe-stamp{position:absolute;right:1.4cqw;top:1.4cqw;z-index:2;padding:.6cqw 1.1cqw .5cqw;border-radius:.9cqw;border:.25cqw solid var(--ink-c);background:var(--red);color:#fff;font:400 clamp(12px,1.5cqw,17px)/1 var(--comic);letter-spacing:.06em;box-shadow:.35cqw .35cqw 0 var(--ink-c);rotate:6deg;transition:opacity .3s ease}
+.nxe-stamp{position:absolute;right:1.4cqw;top:1.4cqw;z-index:2;padding:.6cqw 1.1cqw .5cqw;border-radius:.9cqw;border:.25cqw solid var(--ink-c);background:var(--red);color:#fff;font:400 clamp(12px,1.5cqw,17px)/1 var(--comic);letter-spacing:.06em;box-shadow:.35cqw .35cqw 0 var(--ink-c);rotate:6deg;translate:calc(-1 * var(--kk)) 0;transition:opacity .3s ease,translate .6s var(--ease-out)}
 .nxe-hs:not(.is-front) .nxe-stamp{opacity:0}
 .nxe-hs--2 .nxe-stamp{background:#17874C}
 .nxe-hs--3 .nxe-stamp{background:var(--yel);color:var(--ink-c)}
-.nxe-hsfx{position:absolute;inset:.55cqw;z-index:1;overflow:hidden;border-radius:1.1cqw;pointer-events:none}
-.nxe-hsfx i{position:absolute;display:block}
-.nxe-hsfx--bats i{left:calc(var(--i) * 11%);top:calc(8% + var(--i) * 6%);width:3.2cqw;height:1.5cqw;background:#160B2E;clip-path:polygon(0 30%,18% 0,32% 34%,44% 18%,50% 36%,56% 18%,68% 34%,82% 0,100% 30%,84% 70%,66% 52%,56% 100%,50% 76%,44% 100%,34% 52%,16% 70%);opacity:.85;animation:nxeBat 2.4s ease-in-out calc(var(--i) * -.37s) infinite}
+/* the weather spans the visible strip: --vw is 1% of its width, the drops ride across with translate */
+.nxe-hsfx{position:absolute;inset:.55cqw;z-index:1;overflow:hidden;border-radius:1.1cqw;pointer-events:none;clip-path:inset(0 var(--kk) round 1.1cqw);--vw:calc((var(--o) - 1.7cqw - 2 * var(--kk)) / 100);transition:clip-path .6s var(--ease-out)}
+.nxe-hsfx i{position:absolute;left:0;display:block;transition:translate .6s var(--ease-out)}
+.nxe-hsfx--bats i{translate:calc(var(--kk) + var(--i) * 11 * var(--vw)) 0;top:calc(8% + var(--i) * 6%);width:3.2cqw;height:1.5cqw;background:#160B2E;clip-path:polygon(0 30%,18% 0,32% 34%,44% 18%,50% 36%,56% 18%,68% 34%,82% 0,100% 30%,84% 70%,66% 52%,56% 100%,50% 76%,44% 100%,34% 52%,16% 70%);opacity:.85;animation:nxeBat 2.4s ease-in-out calc(var(--i) * -.37s) infinite}
 @keyframes nxeBat{0%,100%{transform:translate(0,0) scaleY(1)}25%{transform:translate(1cqw,-.7cqw) scaleY(.35)}50%{transform:translate(2cqw,0) scaleY(1)}75%{transform:translate(1cqw,.7cqw) scaleY(.35)}}
-.nxe-hsfx--snow i{left:calc(var(--i) * 11.5% + 2%);top:-6%;width:.8cqw;height:.8cqw;border-radius:50%;background:#fff;box-shadow:0 0 .5cqw rgba(255,255,255,.8);animation:nxeSnow calc(3s + var(--i) * .27s) linear calc(var(--i) * -.53s) infinite}
+.nxe-hsfx--snow i{translate:calc(var(--kk) + (var(--i) * 11.5 + 2) * var(--vw)) 0;top:-6%;width:.8cqw;height:.8cqw;border-radius:50%;background:#fff;box-shadow:0 0 .5cqw rgba(255,255,255,.8);animation:nxeSnow calc(3s + var(--i) * .27s) linear calc(var(--i) * -.53s) infinite}
 @keyframes nxeSnow{to{transform:translate(1.6cqw,34cqw)}}
-.nxe-hsfx--confetti i{left:calc(var(--i) * 11% + 3%);top:-8%;width:.9cqw;height:.5cqw;background:var(--yel);animation:nxeConf calc(2.4s + var(--i) * .21s) linear calc(var(--i) * -.41s) infinite}
+.nxe-hsfx--confetti i{translate:calc(var(--kk) + (var(--i) * 11 + 3) * var(--vw)) 0;top:-8%;width:.9cqw;height:.5cqw;background:var(--yel);animation:nxeConf calc(2.4s + var(--i) * .21s) linear calc(var(--i) * -.41s) infinite}
 .nxe-hsfx--confetti i:nth-child(3n+1){background:#FF5A47}
 .nxe-hsfx--confetti i:nth-child(3n+2){background:#6FA0F5}
 @keyframes nxeConf{to{transform:translate(-1.4cqw,34cqw) rotate(720deg)}}
@@ -394,7 +419,12 @@ html:not(.nxe-js) .nxe-slide:not(:first-child),html:not(.nxe-js) .nxe-ctl{displa
 /* Nexi hops to the open panel; her bubble rides with her */
 /* moves along the strip with translate (cqw of the spread), not left: a left change repainted her drop-shadow filters every frame */
 .nxe-sp--specials .nxe-hero-nexi{left:0;bottom:-5%;height:58%;translate:calc(var(--nxn,24) * 1cqw - 50%) 0;transition:translate .6s var(--spring),rotate .5s var(--ease-out)}
-.nxe-sp--specials .nxe-say{left:calc(var(--nx,24%) + 6%);bottom:42%;max-width:24cqw;font-size:clamp(12.5px,1.6cqw,17px);transition:left .6s var(--spring)}
+/* the bubble rides on translate too (a left change was a layout shift every cycle); its max-width keeps the room
+   it had when left moved (up to the strip's right edge) */
+.nxe-sp--specials .nxe-say{left:6%;translate:calc(var(--nxn,24) * 1cqw) 0;bottom:42%;max-width:min(24cqw,calc(94cqw - var(--nxn,24) * 1cqw));font-size:clamp(12.5px,1.6cqw,17px);transition:translate .6s var(--spring)}
+@media (prefers-reduced-motion:reduce){
+  .nxe-hs,.nxe-hs::before,.nxe-hs::after,.nxe-hs-in,.nxe-hs-ph,.nxe-hs-im,.nxe-hs-im img,.nxe-hsfx,.nxe-hsfx i,.nxe-hs-name,.nxe-stamp,.nxe-sp--specials .nxe-hero-nexi,.nxe-sp--specials .nxe-say{transition:none}
+}
 .nxe-sp--specials .nxe-say::before{right:auto;left:14%;clip-path:polygon(0 0,100% 0,70% 100%)}
 .nxe-sp--specials .nxe-say::after{right:auto;left:calc(14% + .9cqw)}
 .nxe-confetti{position:absolute;inset:0;z-index:6;pointer-events:none}
@@ -744,7 +774,7 @@ button.nxe-thumb{cursor:pointer}
   .nxe-tag{font-size:12px}
   .nxe-recast{font-size:15px;padding:6px 12px;bottom:-14px}
   .nxe-sp--specials .nxe-hero-nexi{height:44cqw;bottom:-3%}
-  .nxe-sp--specials .nxe-say{max-width:46cqw;font-size:13px;bottom:46%;left:calc(var(--nx,24%) - 8%)}
+  .nxe-sp--specials .nxe-say{max-width:min(46cqw,calc(108cqw - var(--nxn,24) * 1cqw));font-size:13px;bottom:46%;left:-8%}
   .nxe-hs-name{font-size:17px}
   .nxe-stamp{font-size:11.5px}
   .nxe-tipc{width:128px}

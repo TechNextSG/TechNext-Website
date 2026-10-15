@@ -851,11 +851,13 @@ def _nxe_hero_tokens(content: str) -> str:
         fx = NXE_HS_FX.get(e["code"], "confetti")
         bits = "".join(f'<i style="--i:{i}"></i>' for i in range(9))
         hs.append(f'<a class="nxe-pn nxe-hs nxe-hs--{k + 1}{" is-front" if k == 0 else ""}" href="#specials" data-fx="{fx}" data-title="{attr(e["title"])}" data-airs="{attr(e["airs"])}"'
-                  f' aria-label="{attr(e["code"] + " special: " + e["title"] + ", airs " + e["airs"])}">'
-                  f'<img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async" style="object-position:{NXE_HS_FOCUS.get(e["code"], "50% 50%")}">'
+                  f' aria-label="{attr(e["code"] + " special: " + e["title"] + ", airs " + e["airs"])}"'
+                  f' style="--fp:{int(NXE_HS_FOCUS.get(e["code"], "50% 50%").split("%")[0]) / 100:g}">'
+                  f'<span class="nxe-hs-in">'
+                  f'<span class="nxe-hs-ph"><span class="nxe-hs-im"><img src="{NXE_IMG}{e["thumb"]}.webp" alt="" width="640" height="360" loading="lazy" decoding="async" style="object-position:{NXE_HS_FOCUS.get(e["code"], "50% 50%")}"></span></span>'
                   f'<span class="nxe-hsfx nxe-hsfx--{fx}" aria-hidden="true">{bits}</span>'
                   f'<span class="nxe-hs-name" aria-hidden="true">{e["code"]}</span>'
-                  f'<span class="nxe-stamp" aria-hidden="true">Airs {e["airs"]}</span></a>')
+                  f'<span class="nxe-stamp" aria-hidden="true">Airs {e["airs"]}</span></span></a>')
     n_eps = sum(len(arc) for sea in NXE.SEASONS for _, arc in sea["arcs"])
     rep = {
         "{{NXE_HERO_REEL}}": reel,

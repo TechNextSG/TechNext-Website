@@ -694,15 +694,16 @@
       [['gasp', 'Eek! A ghost in the office!'], ['cute', 'Ho ho ho! Christmas rush!'], ['kiss', 'Happy holidays!'], ['clap', '3… 2… 1… countdown time!']],
       ['WOO-HOO!', 'BOO!', 'HO HO!', 'POP!'],
       { lines: lines.concat(['Tap me for confetti!']), tap: function (b, r) { blast(r.x + r.w * 0.5, r.y + r.h * 0.2); } });
-    var trip = $('[data-nxe-trip]', sl), GROW = 2.6;
-    /* where the open panel's centre will be once the flex transition settles (so Nexi hops straight there) */
-    function centre(i) {
-      var W = trip.clientWidth, gap = parseFloat(getComputedStyle(trip).columnGap) || 0, u = (W - gap * (panels.length - 1)) / (GROW + panels.length - 1), x = 0;
-      for (var j = 0; j < i; j++) x += u + gap;
-      return (x + u * GROW / 2) / W * 100;
-    }
+    var trip = $('[data-nxe-trip]', sl);
+    /* the open panel's centre in % of the strip (= cqw), so Nexi hops straight there. The panels move with transform
+       only: nexi-explains.css places them with these same numbers (.nxe-trip: gaps 1.6cqw, 1.7cqw of border and
+       padding a panel, the rest shared 2.6 : 1 : 1), so nothing here reads layout */
+    var GAP = 1.6, PB = 1.7, GROW = 2.6, n = panels.length;
+    var S = (100 - GAP * (n - 1) - PB * n) / (GROW + n - 1), U = PB + S, O = PB + GROW * S;
+    function centre(i) { return i * (U + GAP) + O / 2; }
     function front(i, say) {
       fi = i;
+      trip.setAttribute('data-front', String(i));
       panels.forEach(function (p, j) { p.classList.toggle('is-front', j === i); });
       if (i >= 0) { var cx = centre(i).toFixed(2); spread.style.setProperty('--nx', cx + '%'); spread.style.setProperty('--nxn', cx); }
       if (say && i >= 0) talk.speak(lines[i]);
