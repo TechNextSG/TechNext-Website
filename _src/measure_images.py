@@ -17,6 +17,7 @@ from pathlib import Path
 SRC = Path(__file__).resolve().parent
 CONTENT = SRC / "apps_content.json"
 OUT = SRC / "odoo_image_dims.json"
+MEDIA = SRC / "odoo_media.json"          # odoocdn URL -> self-hosted copy (see build.py local_media)
 UA = "Mozilla/5.0 (TechNext site build; +https://technext.asia/)"
 
 
@@ -87,9 +88,24 @@ def measure(url: str):
     return None
 
 
+def measure_local(path: Path):
+    """Size of a self-hosted copy (assets/img/odoo-media/...), read from its header."""
+    with open(path, "rb") as f:
+        return list(size_from_bytes(f.read(65536)) or []) or None
+
+
 def main():
     dims = {} if "--all" in sys.argv or not OUT.exists() else json.loads(OUT.read_text(encoding="utf-8"))
     urls = image_urls()
+    # self-hosted copies (_src/odoo_media.json): measured from disk and recorded under their local path
+    # too. A downscaled copy keeps the original's shape, so framing still uses the odoo.com size.
+    media = json.loads(MEDIA.read_text(encoding="utf-8")) if MEDIA.exists() else {}
+    local = sorted({m["path"] for u, m in media.items() if u in set(urls) and (SRC.parent / m["path"]).exists()})
+    for p in local:
+        size = measure_local(SRC.parent / p)
+        if size:
+            dims[p] = size
+    urls = sorted(set(urls) | set(local))
     todo = [u for u in urls if u not in dims]
     for k, u in enumerate(todo, 1):
         size = measure(u)

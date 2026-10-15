@@ -1,4 +1,1052 @@
 {
+"assets/img/odoo-media/accounting-accounting-bill-797eb3.webp": [
+1324,
+972
+],
+"assets/img/odoo-media/accounting-accounting-bill-pdf-675bbd.webp": [
+451,
+641
+],
+"assets/img/odoo-media/accounting-accounting-hero-image-82fa82.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/accounting-accounting-mobile-01-c02a28.webp": [
+780,
+1460
+],
+"assets/img/odoo-media/accounting-accounting-mobile-02-9b9c3e.webp": [
+920,
+1630
+],
+"assets/img/odoo-media/accounting-accounting-vendor-bill-00bfc0.webp": [
+1000,
+591
+],
+"assets/img/odoo-media/ai-agent-configuration-f83dc3.webp": [
+1256,
+690
+],
+"assets/img/odoo-media/ai-agent-creation-fb45f9.webp": [
+816,
+220
+],
+"assets/img/odoo-media/ai-agent-tailored-responses-82a7f9.webp": [
+816,
+1318
+],
+"assets/img/odoo-media/ai-business-insights-agent-4e02d0.webp": [
+816,
+1318
+],
+"assets/img/odoo-media/ai-new-task-342559.webp": [
+816,
+400
+],
+"assets/img/odoo-media/ai-notification-customer-invoice-79f8aa.webp": [
+815,
+140
+],
+"assets/img/odoo-media/ai-task-assignation-a8d089.webp": [
+816,
+148
+],
+"assets/img/odoo-media/ai-task-prioritization-a38e27.webp": [
+816,
+148
+],
+"assets/img/odoo-media/ai-task-tags-acfece.webp": [
+816,
+144
+],
+"assets/img/odoo-media/appointments-appointment-calendar-f69aa7.webp": [
+976,
+852
+],
+"assets/img/odoo-media/appointments-appointment-confirmation-0d97a2.webp": [
+1039,
+793
+],
+"assets/img/odoo-media/appointments-appointment-hero-image-928904.webp": [
+1440,
+720
+],
+"assets/img/odoo-media/appointments-appointment-meet-70c7a0.webp": [
+1046,
+774
+],
+"assets/img/odoo-media/appointments-appointment-meetings-fe78f8.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/appointments-appointment-mobile-ef9cd0.webp": [
+390,
+725
+],
+"assets/img/odoo-media/appointments-appointment-reporting-8dd53c.webp": [
+1046,
+564
+],
+"assets/img/odoo-media/appointments-appointment-ressources-45a900.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/appointments-appointment-video-conference-a0574a.webp": [
+1046,
+630
+],
+"assets/img/odoo-media/appraisals-hero-banner-11765e.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/blog-banner-b5f67d.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/blog-command-c71dda.webp": [
+750,
+1025
+],
+"assets/img/odoo-media/blog-convert-e19206.webp": [
+1000,
+721
+],
+"assets/img/odoo-media/blog-editor-2fe2dc.webp": [
+1046,
+581
+],
+"assets/img/odoo-media/blog-seo-0c9f69.webp": [
+1010,
+720
+],
+"assets/img/odoo-media/business-intelligence-copy-paste-339734.webp": [
+1046,
+655
+],
+"assets/img/odoo-media/business-intelligence-dashboard-9315f6.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/business-intelligence-features-formating-d6d8a1.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/business-intelligence-hero-image-bd5613.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/business-intelligence-pivot-02-ac496e.webp": [
+1046,
+655
+],
+"assets/img/odoo-media/crm-effortless-communication-9cb137.webp": [
+1046,
+521
+],
+"assets/img/odoo-media/crm-hero-image-110777.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/crm-quotation-97f1da.webp": [
+1046,
+564
+],
+"assets/img/odoo-media/crm-reporting-9b5f7f.webp": [
+1046,
+559
+],
+"assets/img/odoo-media/crm-sample-quote-65935d.webp": [
+540,
+5268
+],
+"assets/img/odoo-media/discuss-agents-624c6c.webp": [
+596,
+326
+],
+"assets/img/odoo-media/discuss-chat-766bf1.webp": [
+750,
+774
+],
+"assets/img/odoo-media/discuss-hero-e6559a.webp": [
+1058,
+611
+],
+"assets/img/odoo-media/discuss-inbox-36688c.webp": [
+1600,
+971
+],
+"assets/img/odoo-media/discuss-search-fd62e8.webp": [
+1036,
+732
+],
+"assets/img/odoo-media/documents-ask-for-signature-49edaf.webp": [
+300,
+145
+],
+"assets/img/odoo-media/documents-create-task-45fff0.webp": [
+300,
+145
+],
+"assets/img/odoo-media/documents-hero-image-bb0df5.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/documents-hub-938141.webp": [
+409,
+534
+],
+"assets/img/odoo-media/documents-organization-aa193e.webp": [
+1046,
+531
+],
+"assets/img/odoo-media/documents-process-bills-773488.webp": [
+300,
+145
+],
+"assets/img/odoo-media/documents-request-file-507feb.webp": [
+300,
+145
+],
+"assets/img/odoo-media/documents-sign-online-83f448.webp": [
+393,
+851
+],
+"assets/img/odoo-media/ecommerce-adaptive-product-c6e9d4.webp": [
+1046,
+534
+],
+"assets/img/odoo-media/ecommerce-bump-up-b7b35d.webp": [
+830,
+956
+],
+"assets/img/odoo-media/ecommerce-maximise-cfee58.webp": [
+783,
+1046
+],
+"assets/img/odoo-media/ecommerce-products-grid-f50d6a.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/ecommerce-reporting-30e570.webp": [
+1046,
+616
+],
+"assets/img/odoo-media/elearning-ease-to-use-2fa53c.webp": [
+1046,
+621
+],
+"assets/img/odoo-media/elearning-front-screen-2ecba5.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/elearning-learning-journey-6232cf.webp": [
+1046,
+578
+],
+"assets/img/odoo-media/elearning-train-people-c7c4e0.webp": [
+1046,
+540
+],
+"assets/img/odoo-media/employees-all-in-one-place-7fb9c4.webp": [
+1046,
+526
+],
+"assets/img/odoo-media/employees-all-of-your-people-d56af6.webp": [
+1046,
+45
+],
+"assets/img/odoo-media/employees-hero-image-bc00fe.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/employees-performance-appraisals-8b3fe5.webp": [
+725,
+723
+],
+"assets/img/odoo-media/employees-show-off-those-skills-3ecd0c.webp": [
+1046,
+578
+],
+"assets/img/odoo-media/employees-stuff-private-462a46.webp": [
+1003,
+647
+],
+"assets/img/odoo-media/employees-take-control-of-time-off-c530bf.webp": [
+1046,
+565
+],
+"assets/img/odoo-media/events-hero-banner-84850a.webp": [
+1440,
+930
+],
+"assets/img/odoo-media/expenses-expense-tracking-522737.webp": [
+277,
+458
+],
+"assets/img/odoo-media/expenses-hero-image-632f67.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/expenses-less-typing-41e5fb.webp": [
+1046,
+515
+],
+"assets/img/odoo-media/expenses-more-scanning-f774ff.webp": [
+284,
+308
+],
+"assets/img/odoo-media/expenses-one-report-aee086.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/expenses-ready-set-expense-fbcb8f.webp": [
+1046,
+312
+],
+"assets/img/odoo-media/expenses-reimburse-0f67d2.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/expenses-robust-reporting-fa50e6.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/expenses-submit-on-the-go-23cbce.webp": [
+393,
+851
+],
+"assets/img/odoo-media/field-service-field-service-hero-image-c44416.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/field-service-field-service-hero-image-mobile-47de64.webp": [
+390,
+760
+],
+"assets/img/odoo-media/field-service-field-service-invoice-f29d96.webp": [
+1039,
+1046
+],
+"assets/img/odoo-media/field-service-field-service-invoicing-51ff10.webp": [
+531,
+453
+],
+"assets/img/odoo-media/field-service-field-service-planning-cee465.webp": [
+1046,
+572
+],
+"assets/img/odoo-media/field-service-field-service-tasks-969c19.webp": [
+704,
+899
+],
+"assets/img/odoo-media/field-service-field-service-timesheet-d6c91c.webp": [
+792,
+680
+],
+"assets/img/odoo-media/field-service-field-service-worksheet-da8ee6.webp": [
+539,
+1046
+],
+"assets/img/odoo-media/fleet-hero-banner-918aa0.webp": [
+1440,
+785
+],
+"assets/img/odoo-media/forum-best-brushes-63e5a6.webp": [
+846,
+940
+],
+"assets/img/odoo-media/forum-customize-01-25e8ca.webp": [
+719,
+534
+],
+"assets/img/odoo-media/forum-customize-02-9542f7.webp": [
+391,
+336
+],
+"assets/img/odoo-media/forum-gamification-566f67.webp": [
+1046,
+613
+],
+"assets/img/odoo-media/forum-hero-image-c8a734.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/helpdesk-helpdesk-dashboard-0a1d9a.webp": [
+1440,
+780
+],
+"assets/img/odoo-media/helpdesk-helpdesk-tickets-overview-2c167c.webp": [
+1360,
+559
+],
+"assets/img/odoo-media/img-131539644-img-0275-58250c.webp": [
+1600,
+826
+],
+"assets/img/odoo-media/img-135077512-event-odoo-business-show-v-d-ch-v-t-i-tp-hcm-1-912dc7.webp": [
+1600,
+900
+],
+"assets/img/odoo-media/img-135177909-ph-bs-lgp-1020-1-1-cc5fb0.webp": [
+1080,
+1080
+],
+"assets/img/odoo-media/img-135772659-screenshot-2026-09-22-at-14-25-36-1dfe91.webp": [
+1600,
+902
+],
+"assets/img/odoo-media/img-135772665-screenshot-2026-09-22-at-14-26-17-639d01.webp": [
+1600,
+899
+],
+"assets/img/odoo-media/img-135772670-screenshot-2026-09-22-at-14-24-51-d7ae31.webp": [
+1600,
+856
+],
+"assets/img/odoo-media/img-135772821-screenshot-2026-09-22-at-14-27-15-3bed19.webp": [
+1600,
+886
+],
+"assets/img/odoo-media/img-135886821-screenshot-2026-09-23-at-12-47-13-d16763.webp": [
+1600,
+919
+],
+"assets/img/odoo-media/img-136007952-img-6137-56b453.webp": [
+688,
+688
+],
+"assets/img/odoo-media/inventory-automate-vendor-82d5c5.webp": [
+850,
+226
+],
+"assets/img/odoo-media/inventory-device-d593fe.webp": [
+346,
+380
+],
+"assets/img/odoo-media/inventory-hero-image-11e30a.webp": [
+1440,
+800
+],
+"assets/img/odoo-media/inventory-optimize-warehouse-6cebb1.webp": [
+1046,
+623
+],
+"assets/img/odoo-media/inventory-reservation-mechanism-d72724.webp": [
+1046,
+786
+],
+"assets/img/odoo-media/inventory-smarts-routes-39274a.webp": [
+1046,
+424
+],
+"assets/img/odoo-media/inventory-traceability-a716db.webp": [
+1046,
+399
+],
+"assets/img/odoo-media/inventory-truck-229add.webp": [
+1046,
+516
+],
+"assets/img/odoo-media/invoicing-invoicing-customer-portal-payments-bef985.webp": [
+660,
+750
+],
+"assets/img/odoo-media/invoicing-invoicing-hero-image-bcf291.webp": [
+1600,
+1000
+],
+"assets/img/odoo-media/invoicing-invoicing-mobile-01-190c47.webp": [
+393,
+851
+],
+"assets/img/odoo-media/invoicing-invoicing-payments-list-508ce9.webp": [
+1600,
+515
+],
+"assets/img/odoo-media/invoicing-invoicing-recurring-invoices-3bbac7.webp": [
+1046,
+352
+],
+"assets/img/odoo-media/invoicing-your-invoice-your-style-6a1754.webp": [
+856,
+467
+],
+"assets/img/odoo-media/knowledge-build-2-1d6c44.webp": [
+370,
+360
+],
+"assets/img/odoo-media/knowledge-build-55ed42.webp": [
+1046,
+616
+],
+"assets/img/odoo-media/knowledge-fingertips-7ac0f2.webp": [
+885,
+560
+],
+"assets/img/odoo-media/knowledge-get-acces-503cbc.webp": [
+628,
+514
+],
+"assets/img/odoo-media/knowledge-hero-image-840e89.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/knowledge-shape-3a0d12.webp": [
+1046,
+615
+],
+"assets/img/odoo-media/live-chat-answer-questions-d655c6.webp": [
+1046,
+680
+],
+"assets/img/odoo-media/live-chat-help-is-just-a-click-away-a183c4.webp": [
+1046,
+738
+],
+"assets/img/odoo-media/live-chat-hero-image-cc147c.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/live-chat-meet-chatbot-your-new-teammate-79eeee.webp": [
+1046,
+655
+],
+"assets/img/odoo-media/live-chat-never-miss-a-question-c03435.webp": [
+1046,
+651
+],
+"assets/img/odoo-media/live-chat-turn-visitor-into-customer-31df3a.webp": [
+1046,
+911
+],
+"assets/img/odoo-media/maintenance-hero-banner-b2417e.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/manufacturing-barcode-2790ed.webp": [
+600,
+1005
+],
+"assets/img/odoo-media/manufacturing-become-paperless-01-82932f.webp": [
+488,
+772
+],
+"assets/img/odoo-media/manufacturing-become-paperless-02-13f072.webp": [
+1046,
+642
+],
+"assets/img/odoo-media/manufacturing-become-paperless-03-8ab524.webp": [
+374,
+496
+],
+"assets/img/odoo-media/manufacturing-hero-image-8e4540.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/manufacturing-operations-34c78c.webp": [
+1046,
+537
+],
+"assets/img/odoo-media/manufacturing-schedule-35acc2.webp": [
+1046,
+559
+],
+"assets/img/odoo-media/manufacturing-sigma-6-300442.webp": [
+1046,
+585
+],
+"assets/img/odoo-media/payroll-payroll-dashboard-2d29e5.webp": [
+1600,
+918
+],
+"assets/img/odoo-media/phone-ai-avatar-mitchell-b7befe.webp": [
+128,
+128
+],
+"assets/img/odoo-media/phone-crm-btn-go-to-b0e58c.webp": [
+342,
+398
+],
+"assets/img/odoo-media/phone-crm-menu-create-b46fde.webp": [
+342,
+264
+],
+"assets/img/odoo-media/phone-crm-sales-order-call-a8444c.webp": [
+941,
+530
+],
+"assets/img/odoo-media/phone-hero-440769.webp": [
+1260,
+698
+],
+"assets/img/odoo-media/phone-hero-call-61e448.webp": [
+323,
+495
+],
+"assets/img/odoo-media/planning-planning-ressource-equipment-0f4c53.webp": [
+1088,
+930
+],
+"assets/img/odoo-media/planning-planning-ressource-staff-c76bb1.webp": [
+870,
+932
+],
+"assets/img/odoo-media/planning-planning-shift-template-c1ba81.webp": [
+1600,
+566
+],
+"assets/img/odoo-media/planning-planning-shifts-overview-ee8544.webp": [
+1600,
+957
+],
+"assets/img/odoo-media/planning-planning-shifts-scheduling-8650d0.webp": [
+1600,
+600
+],
+"assets/img/odoo-media/pos-avatar-01-0ea090.webp": [
+268,
+268
+],
+"assets/img/odoo-media/pos-avatar-02-8fd00f.webp": [
+268,
+268
+],
+"assets/img/odoo-media/pos-avatar-03-7f4eef.webp": [
+268,
+268
+],
+"assets/img/odoo-media/pos-avatar-04-eab1f6.webp": [
+268,
+268
+],
+"assets/img/odoo-media/pos-cross-channel-selling-1-02c7a7.webp": [
+920,
+782
+],
+"assets/img/odoo-media/pos-cross-channel-selling-2-dbdd7e.webp": [
+1046,
+785
+],
+"assets/img/odoo-media/pos-hero-image-2cf7a2.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/pos-integrated-payments-10e9d1.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/pos-interface-d81648.webp": [
+1046,
+760
+],
+"assets/img/odoo-media/pos-payment-terminal-e22271.webp": [
+674,
+670
+],
+"assets/img/odoo-media/pos-pos-ai-chat-aae194.webp": [
+816,
+1366
+],
+"assets/img/odoo-media/pos-pos-booking-details-60f737.webp": [
+810,
+423
+],
+"assets/img/odoo-media/pos-pos-delivery-apps-524284.webp": [
+324,
+274
+],
+"assets/img/odoo-media/pos-pos-kitchen-toolbar-fdcf70.webp": [
+1600,
+82
+],
+"assets/img/odoo-media/pos-pos-orders-list-b55856.webp": [
+1600,
+314
+],
+"assets/img/odoo-media/pos-pos-register-8a098c.webp": [
+1068,
+618
+],
+"assets/img/odoo-media/pos-self-order-kiosk-4a4ca9.webp": [
+816,
+1132
+],
+"assets/img/odoo-media/pos-self-service-for-the-win-kiosk-3c9bc9.webp": [
+592,
+861
+],
+"assets/img/odoo-media/pos-self-service-for-the-win-mobile-277aec.webp": [
+393,
+851
+],
+"assets/img/odoo-media/project-project-chatter-7e2ea4.webp": [
+670,
+664
+],
+"assets/img/odoo-media/project-project-dashboard-07bd26.webp": [
+1331,
+890
+],
+"assets/img/odoo-media/project-project-hero-image-a39be5.webp": [
+1600,
+794
+],
+"assets/img/odoo-media/project-project-overview-budgets-c49836.webp": [
+630,
+315
+],
+"assets/img/odoo-media/project-project-overview-milestones-d9b877.webp": [
+630,
+371
+],
+"assets/img/odoo-media/project-project-overview-profitability-e6eb0e.webp": [
+630,
+450
+],
+"assets/img/odoo-media/project-project-timer-b638cc.webp": [
+800,
+161
+],
+"assets/img/odoo-media/project-project-timesheets-e8062f.webp": [
+1046,
+503
+],
+"assets/img/odoo-media/purchase-all-the-small-things-1-2d4ce3.webp": [
+831,
+353
+],
+"assets/img/odoo-media/purchase-automated-rfq-1-b788b7.webp": [
+599,
+179
+],
+"assets/img/odoo-media/purchase-automated-rfq-2-b4cf2b.webp": [
+330,
+448
+],
+"assets/img/odoo-media/purchase-automated-rfq-3-2bef31.webp": [
+599,
+179
+],
+"assets/img/odoo-media/purchase-automated-rfq-4-d81281.webp": [
+330,
+448
+],
+"assets/img/odoo-media/purchase-charge-vendors-1-3e5081.webp": [
+476,
+598
+],
+"assets/img/odoo-media/purchase-flexible-1-971bad.webp": [
+1046,
+755
+],
+"assets/img/odoo-media/purchase-flexible-2-5ac5b4.webp": [
+1046,
+301
+],
+"assets/img/odoo-media/purchase-hero-image-fbe9fa.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/quality-hero-image-ce2906.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/quality-quality-inspections-1-72960b.webp": [
+1046,
+47
+],
+"assets/img/odoo-media/quality-quality-inspections-2-5d4f4d.webp": [
+810,
+405
+],
+"assets/img/odoo-media/quality-quality-teams-64c758.webp": [
+1046,
+524
+],
+"assets/img/odoo-media/quality-unchecked-ec34ff.webp": [
+1046,
+604
+],
+"assets/img/odoo-media/quality-worksheets-f208f2.webp": [
+1046,
+424
+],
+"assets/img/odoo-media/quality-zero-1-c736d5.webp": [
+536,
+567
+],
+"assets/img/odoo-media/quality-zero-2-6a14dd.webp": [
+1046,
+787
+],
+"assets/img/odoo-media/recruitment-don-t-waste-time-typing-28ad59.webp": [
+1046,
+655
+],
+"assets/img/odoo-media/recruitment-hero-image-6b960d.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/recruitment-less-scheduling-more-interviewing-cb53d6.webp": [
+1046,
+619
+],
+"assets/img/odoo-media/recruitment-never-wonder-about-a-job-status-8e94f7.webp": [
+1046,
+465
+],
+"assets/img/odoo-media/recruitment-reporting-that-makes-sense-edd2b7.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/recruitment-tailor-made-pipelines-rectangle-d42e4e.webp": [
+1046,
+421
+],
+"assets/img/odoo-media/recruitment-visualize-pipeline-to-crop-ca3a81.webp": [
+1046,
+636
+],
+"assets/img/odoo-media/recruitment-you-re-hired-07e3b9.webp": [
+683,
+556
+],
+"assets/img/odoo-media/referral-hero-banner-01e967.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/rental-automate-f5fe2a.webp": [
+1046,
+279
+],
+"assets/img/odoo-media/rental-hero-image-c8ab3e.webp": [
+1046,
+498
+],
+"assets/img/odoo-media/rental-rental-agreement-cfef7e.webp": [
+1046,
+678
+],
+"assets/img/odoo-media/rental-rental-days-2e0ac9.webp": [
+1046,
+551
+],
+"assets/img/odoo-media/rental-rental-meeting-room-8326cd.webp": [
+1046,
+602
+],
+"assets/img/odoo-media/rental-rental-product-9139cd.webp": [
+1046,
+657
+],
+"assets/img/odoo-media/rental-rental-sign-4e7ac3.webp": [
+1046,
+46
+],
+"assets/img/odoo-media/sales-ai-powered-987d33.webp": [
+1046,
+465
+],
+"assets/img/odoo-media/sales-customer-portal-01-cfcc32.webp": [
+790,
+797
+],
+"assets/img/odoo-media/sales-customer-portal-02-f71e7b.webp": [
+883,
+827
+],
+"assets/img/odoo-media/sales-hero-image-e9f392.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/sales-manage-01-4209a9.webp": [
+1046,
+679
+],
+"assets/img/odoo-media/sales-manage-02-a751f0.webp": [
+1046,
+380
+],
+"assets/img/odoo-media/sales-qualified-leads-dc5616.webp": [
+984,
+705
+],
+"assets/img/odoo-media/sales-quote-template-4fe767.webp": [
+1046,
+655
+],
+"assets/img/odoo-media/sign-control-ce6e54.webp": [
+1334,
+747
+],
+"assets/img/odoo-media/sign-features-adopt-08efb4.webp": [
+972,
+867
+],
+"assets/img/odoo-media/sign-features-reminders-50a7be.webp": [
+1046,
+736
+],
+"assets/img/odoo-media/sign-hero-image-8715b9.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/sign-sign-online-56571f.webp": [
+393,
+851
+],
+"assets/img/odoo-media/sign-simplify-signing-081c61.webp": [
+1465,
+872
+],
+"assets/img/odoo-media/subscription-hero-image-cce959.webp": [
+1440,
+786
+],
+"assets/img/odoo-media/survey-hero-banner-b9ae34.webp": [
+1440,
+900
+],
+"assets/img/odoo-media/time-off-accrual-25ccd9.webp": [
+754,
+549
+],
+"assets/img/odoo-media/time-off-allocated-time-feee9f.webp": [
+1046,
+548
+],
+"assets/img/odoo-media/time-off-approval-6439d5.webp": [
+1046,
+393
+],
+"assets/img/odoo-media/time-off-dashboard-b38a38.webp": [
+1046,
+641
+],
+"assets/img/odoo-media/time-off-leave-request-6b3419.webp": [
+1046,
+674
+],
+"assets/img/odoo-media/time-off-request-01-4c2224.webp": [
+612,
+870
+],
+"assets/img/odoo-media/time-off-request-02-0d4e8d.webp": [
+924,
+1140
+],
+"assets/img/odoo-media/timesheet-timesheet-ai-insights-58b1f0.webp": [
+816,
+1366
+],
+"assets/img/odoo-media/timesheet-timesheet-assistant-60f9cf.webp": [
+1255,
+1042
+],
+"assets/img/odoo-media/timesheet-timesheet-billable-525c07.webp": [
+690,
+198
+],
+"assets/img/odoo-media/timesheet-timesheet-billable-filter-9d1d80.webp": [
+232,
+59
+],
+"assets/img/odoo-media/timesheet-timesheet-hero-banner-6dbf1f.webp": [
+1600,
+873
+],
+"assets/img/odoo-media/timesheet-timesheet-overview-b3fc98.webp": [
+1600,
+579
+],
+"assets/img/odoo-media/timesheet-timesheet-reporting-pivot-d31f34.webp": [
+1600,
+978
+],
+"assets/img/odoo-media/timesheet-timesheet-time-tracking-d42c7d.webp": [
+1540,
+1169
+],
+"assets/img/odoo-media/website-website-builder-customer-01-77a2fa.webp": [
+1600,
+889
+],
+"assets/img/odoo-media/website-website-builder-edit-text-cc5da8.webp": [
+738,
+329
+],
+"assets/img/odoo-media/website-website-builder-showcase-01-7d2c59.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-02-98d885.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-03-22200a.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-04-e1ac49.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-05-10c6f8.webp": [
+596,
+514
+],
+"assets/img/odoo-media/website-website-builder-showcase-06-4643e5.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-07-8ecf35.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-builder-showcase-08-8eeb57.webp": [
+800,
+690
+],
+"assets/img/odoo-media/website-website-configurator-business-530703.webp": [
+1600,
+494
+],
+"assets/img/odoo-media/whatsapp-efficient-1-4093d8.webp": [
+1046,
+897
+],
+"assets/img/odoo-media/whatsapp-efficient-2-cb5b9c.webp": [
+440,
+954
+],
+"assets/img/odoo-media/whatsapp-fully-integrated-596079.webp": [
+1046,
+654
+],
+"assets/img/odoo-media/whatsapp-groupe-templates-5cae13.webp": [
+1046,
+736
+],
+"assets/img/odoo-media/whatsapp-multi-channel-f2c291.webp": [
+1046,
+479
+],
+"assets/img/odoo-media/whatsapp-publish-1-c1f1b1.webp": [
+448,
+598
+],
+"assets/img/odoo-media/whatsapp-publish-2-d16258.webp": [
+448,
+598
+],
+"assets/img/odoo-media/whatsapp-templates-51f186.webp": [
+500,
+872
+],
+"assets/img/odoo-media/whatsapp-video-cover-bf6c73.webp": [
+1046,
+559
+],
 "https://odoocdn.com/openerp_website/static/src/img/apps/accounting/accounting-bill-pdf.webp": [
 451,
 641
