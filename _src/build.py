@@ -41,6 +41,8 @@ backdrops.write()    # the industries slide's illustrated backdrops (assets/img/
 # CALM = False brings everything back as it was. See qa/company/CALM_KIT_READY and CALM_BALANCE.md.
 CALM = True
 import calm_css  # noqa: E402
+import og_cards  # noqa: E402
+from make_vercel import REDIRECTS  # noqa: E402
 if CALM:
     calm_css.build()   # before the asset version is taken
 
@@ -1696,7 +1698,7 @@ def app_page(mod: str) -> tuple:
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
               + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
     meta = {"title": APP_TITLES.get(mod, f"Odoo {name} in Singapore & the Philippines"), "desc": desc_meta,
-            "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo"}
+            "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo", "og_icon": str(ODOO_DIR / f"{mod}.svg")}
     life = lifecycle_html(mod, name, cat)
     meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
     if life:
@@ -2194,7 +2196,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{ROBOTS}", f'<meta name="robots" content="{attr(meta["robots"])}">\n' if meta.get("robots") else "")
                 .replace("{CANONICAL}", canonical)
                 .replace("{OG_TYPE}", "article" if meta.get("article") else "website")
-                .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + "assets/img/og-image.png")
+                .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + og_cards.card(out_rel, base_title, meta.get("og_icon")))
                 .replace("{SITE_URL}", S.SITE_URL)
                 .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))
                 .replace("{ASSET_V}", ASSET_V)
@@ -2247,10 +2249,18 @@ def page_source(out_rel: str):
     return ["_src/pages/" + out_rel]
 
 
+REDIRECT_SOURCES = {src for src, _ in REDIRECTS}
+
+
+def redirected(out_rel: str) -> bool:
+    """A page whose URL vercel.json redirects away (e.g. /contact -> /company) is not listed anywhere."""
+    return "/" + clean_url(out_rel) in REDIRECT_SOURCES
+
+
 def write_sitemap(pages):
     urls = []
     for p in sorted(pages):
-        if p in ("404.html", "case-studies.html") or p in NOINDEX:
+        if p in ("404.html", "case-studies.html") or p in NOINDEX or redirected(p):
             continue
         loc = S.SITE_URL + clean_url(p)
         urls.append(f"  <url><loc>{loc}</loc><lastmod>{git_date(page_source(p))}</lastmod></url>")
@@ -2406,6 +2416,8 @@ def main():
     if UNMEASURED:
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"
               " run: python -B _src/measure_images.py")
+    og_cards.save_manifest()
+    INDEX[:] = [e for e in INDEX if "/" + e["u"] not in REDIRECT_SOURCES]
     write_sitemap(built)
     write_robots()
     write_well_known()
