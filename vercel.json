@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "regions": [
+    "sin1"
+  ],
   "redirects": [
     {
       "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
