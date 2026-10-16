@@ -2,8 +2,8 @@
 
 POST /api/lead with the form's fields as JSON (site.js tnPostForm sends it beside the FormSubmit email).
 The lead is tagged "Website" plus the form it came from, gets UTM source "technext.asia website" /
-medium "Website", and the people in ODOO_NOTIFY_PARTNER_IDS (Jeric) are mentioned on it, so Odoo
-notifies them. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
+medium "Website", and every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), so Odoo
+emails him. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
 import html
 import json
@@ -16,7 +16,7 @@ from http.server import BaseHTTPRequestHandler
 
 ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
 KEY = os.environ.get("ODOO_API_KEY", "")
-NOTIFY = [int(x) for x in os.environ.get("ODOO_NOTIFY_PARTNER_IDS", "306").split(",") if x.strip().isdigit()]
+NOTIFY_EMAILS = [x.strip() for x in os.environ.get("ODOO_NOTIFY_EMAILS", "jeric@technext.asia").split(",") if x.strip()]
 ORIGINS = ("https://technext.asia", "https://www.technext.asia")
 SOURCE_NAME = "technext.asia website"
 MEDIUM_NAME = "Website"
@@ -61,6 +61,14 @@ def find_or_create(model, name):
     return _IDS[model, name]
 
 
+def notify_partners():
+    """Odoo partners for NOTIFY_EMAILS (Jeric), looked up once per warm instance."""
+    if "notify" not in _IDS:
+        _IDS["notify"] = [p for e in NOTIFY_EMAILS for p in rpc(
+            "res.partner", "search_read", domain=[["email", "=ilike", e]], fields=["name", "email"], limit=1)]
+    return _IDS["notify"]
+
+
 def clean(v, n=2000):
     return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", str(v)).strip()[:n]
 
@@ -91,10 +99,15 @@ def make_lead(p):
         "medium_id": medium,
     }
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
-    if NOTIFY:
-        rpc("crm.lead", "message_post", ids=[lead], partner_ids=NOTIFY, message_type="comment",
-            subtype_xmlid="mail.mt_comment",
-            body=f"New website lead from the {form}: {company or name} ({email or phone}). Please follow up.")
+    people = notify_partners()
+    if people:                                             # a real @mention in the chatter + an email to each
+        at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
+                      f'data-oe-model="res.partner">@{html.escape(p["name"])}</a> ({html.escape(p["email"])})'
+                      for p in people)
+        who = html.escape(f"{company or name} ({email or phone})")
+        rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in people], message_type="comment",
+            subtype_xmlid="mail.mt_comment", body_is_html=True,
+            body=f"<p>{at} New website lead from the {html.escape(form)}: {who}. Please follow up.</p>")
     return lead
 
 
