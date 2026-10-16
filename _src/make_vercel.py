@@ -249,6 +249,9 @@ def write_vercel():
         "cleanUrls": True,
         # /company/ and /company are one page: the slash form redirects
         "trailingSlash": False,
+        # functions (api/lead.py) run in Singapore, next to technext.odoo.com (AWS ap-southeast-1);
+        # from the default US region every Odoo call crossed the Pacific and a form took 7-8 s
+        "regions": ["sin1"],
         "redirects": bot_block() + [{"source": s, "destination": d, "permanent": True} for s, d in REDIRECTS],
         "headers": [
             {"source": "/(.*)", "headers": common},

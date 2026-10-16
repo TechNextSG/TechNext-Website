@@ -9,11 +9,13 @@ salesperson. Every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), and 
 ODOO_API_KEY, never in this public repo.
 """
 import html
+import http.client
 import json
 import os
 import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler
 
@@ -43,21 +45,39 @@ LABELS = {"name": "Name", "company": "Company", "email": "Email", "phone": "Phon
           "scope_summary": "Quotation scope", "apps": "Odoo apps", "users": "Users", "hosting": "Hosting",
           "services": "Services", "timeline": "Timeline", "source": "Form", "page": "Page",
           "referrer": "Came from", "landing": "First page of the visit"}
+QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse"}
 
 
+_CONN = None  # one HTTPS connection to Odoo, reused while the instance is warm (no new TLS handshake per call)
+HOST = urllib.parse.urlsplit(ODOO).netloc
+
+
 def rpc(model, method, **kw):
-    req = urllib.request.Request(f"{ODOO}/json/2/{model}/{method}", data=json.dumps(kw).encode(),
-                                 headers={"Authorization": f"bearer {KEY}", "Content-Type": "application/json",
-                                          "User-Agent": "technext-website-forms/1.0"})
+    global _CONN
+    body = json.dumps(kw).encode()
+    headers = {"Authorization": f"bearer {KEY}", "Content-Type": "application/json",
+               "User-Agent": "technext-website-forms/1.0"}
     for wait in (1.5, 3, 0):                              # odoo.com answers bursts with 429: back off and retry
-        try:
-            with urllib.request.urlopen(req, timeout=15) as r:
-                return json.loads(r.read() or b"null")
-        except urllib.error.HTTPError as e:
-            if e.code != 429 or not wait:
-                raise
+        for attempt in (1, 2):                            # Odoo may have closed the idle connection: reconnect once
+            try:
+                if _CONN is None:
+                    _CONN = http.client.HTTPSConnection(HOST, timeout=15)
+                _CONN.request("POST", f"/json/2/{model}/{method}", body, headers)
+                r = _CONN.getresponse()
+                data = r.read()
+                break
+            except (http.client.HTTPException, OSError):
+                _CONN = None
+                if attempt == 2:
+                    raise
+        if r.status == 429 and wait:
             time.sleep(wait)
+            continue
+        if r.status >= 400:
+            raise urllib.error.HTTPError(f"{ODOO}/json/2/{model}/{method}", r.status,
+                                         data[:300].decode(errors="replace"), r.headers, None)
+        return json.loads(data or b"null")
 
 
 _IDS = {}  # tag / utm ids, kept while the function instance stays warm
@@ -80,13 +100,13 @@ def partners(emails):
 
 
 def lookup(model, domain):
-    """First matching id or False; a miss is not cached, so a team created later is picked up."""
+    """First matching id or False; a miss is remembered for 5 minutes, so a team created later is picked up."""
     key = (model, json.dumps(domain))
-    if key not in _IDS:
+    hit = _IDS.get(key)
+    if hit is None or (hit is False and time.time() > _IDS.get(key + ("until",), 0)):
         ids = rpc(model, "search", domain=domain, limit=1)
-        if not ids:
-            return False
-        _IDS[key] = ids[0]
+        _IDS[key] = ids[0] if ids else False
+        _IDS[key + ("until",)] = time.time() + 300
     return _IDS[key]
 
 
@@ -103,8 +123,9 @@ def make_lead(p):
     name, email, phone, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "phone", "company"))
     form = form_tag(p.get("source"))
     what = clean(p.get("topic") or form, 80)
+    skip = SKIP | ({"scope_summary"} if any(p.get(k) for k in QUOTE_FIELDS) else set())  # summary repeats them
     lines = [f"{LABELS.get(k, k.replace('_', ' ').capitalize())}: {clean(v)}"
-             for k, v in p.items() if k not in SKIP and str(v).strip()]
+             for k, v in p.items() if k not in skip and str(v).strip()]
     lines = [part for line in lines for part in line.split("\n") if part.strip()]
     # one at a time: parallel calls trip odoo.com's rate limit (429)
     tag_web, tag_form = find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)
@@ -124,6 +145,11 @@ def make_lead(p):
         "medium_id": medium,
     }
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
+    return lead, lambda: follow_up(lead, form, name, email, phone, company, lines)
+
+
+def follow_up(lead, form, name, email, phone, company, lines):
+    """The @Jeric note + emails (and a salesperson, if set). Runs after the visitor has their answer."""
     people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
     if people or copies:                                   # @mention Jeric; Jeric + copies get the details by email
         at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
@@ -143,7 +169,6 @@ def make_lead(p):
                 rpc("crm.lead", "write", ids=[lead], vals={"user_id": user})
         except Exception as e:                             # the lead is filed and Jeric notified either way
             print("salesperson not set:", repr(e)[:300])
-    return lead
 
 
 class handler(BaseHTTPRequestHandler):
@@ -155,6 +180,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+        self.wfile.flush()
 
     def do_POST(self):
         if self.headers.get("Origin", "") not in ORIGINS:
@@ -174,10 +200,15 @@ class handler(BaseHTTPRequestHandler):
         if not KEY:
             return self._send(503, {"ok": False, "error": "not configured"})
         try:
-            return self._send(200, {"ok": True, "lead": make_lead(p)})
+            lead, after = make_lead(p)
         except Exception as e:                             # the visitor is shown sales@technext.asia to email instead
             print("odoo lead failed:", repr(e)[:500])
             return self._send(502, {"ok": False, "error": "crm"})
+        self._send(200, {"ok": True, "lead": lead})        # the lead is saved: thank the visitor now
+        try:
+            after()
+        except Exception as e:                             # the lead exists; only the note / emails are missing
+            print("odoo follow-up failed:", repr(e)[:500])
 
     def do_GET(self):
         self._send(405, {"ok": False})
