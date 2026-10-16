@@ -406,3 +406,7 @@ body.ixw--company .co-door:hover .co-door-world{scale:1.1}
 body.ixw--company .co-door:hover .co-door-way{box-shadow:inset 0 0 0 6px color-mix(in srgb,var(--d) 55%,#FFFFFF),0 18px 32px -22px rgba(20,40,90,.5)!important}
 body.ixw--company .co-door-plate{border-radius:12px;box-shadow:none!important}
 @media (max-width:767px){body.ixw--company .co-doors{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}}
+
+/* route: the line runs through the stop centres (desktop: the 6px column gaps counted; phone: first stop centre 60px in, centres 54px down) */
+.ixw--company .ixw-road{top:98px;left:calc((100% - (var(--n) - 1) * 6px) / (2 * var(--n)));right:calc((100% - (var(--n) - 1) * 6px) / (2 * var(--n)))}
+@media (max-width:767px){.ixw--company .ixw-road{top:54px;left:60px;right:auto}}
