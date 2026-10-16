@@ -1,6 +1,6 @@
 """Vercel function: every form on technext.asia becomes a lead in the Odoo CRM (technext.odoo.com).
 
-POST /api/lead with the form's fields as JSON (site.js tnPostForm sends it beside the FormSubmit email).
+POST /api/lead with the form's fields as JSON (site.js tnPostForm; the only place a form goes).
 The lead is tagged "Website" plus the form it came from, gets source "Website" ("Paid Ads" when the visit
 came from an ad click) / medium "Website", department (sales team) "Marketing Dept", salesperson Jeric
 (ODOO_SALESPERSON), and every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), so Odoo emails him. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
@@ -165,7 +165,7 @@ class handler(BaseHTTPRequestHandler):
             return self._send(503, {"ok": False, "error": "not configured"})
         try:
             return self._send(200, {"ok": True, "lead": make_lead(p)})
-        except Exception as e:                             # the visitor still gets the FormSubmit email path
+        except Exception as e:                             # the visitor is shown sales@technext.asia to email instead
             print("odoo lead failed:", repr(e)[:500])
             return self._send(502, {"ok": False, "error": "crm"})
 

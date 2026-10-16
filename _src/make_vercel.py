@@ -195,7 +195,7 @@ def csp(hashes):
         # i.ytimg: YouTube facade thumbnails; the rest: Google Analytics / Ads pixels
         "img-src 'self' data: https://odoocdn.com https://i.ytimg.com "
         + " ".join(google_img),
-        "connect-src 'self' https://formsubmit.co https://*.google-analytics.com "
+        "connect-src 'self' https://*.google-analytics.com "
         "https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com "
         "https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net "
         "https://pagead2.googlesyndication.com https://www.googleadservices.com "
@@ -205,7 +205,7 @@ def csp(hashes):
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",
-        "form-action 'self' https://formsubmit.co",
+        "form-action 'self'",
         "frame-ancestors 'self'",
         "upgrade-insecure-requests",
     ])

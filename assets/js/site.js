@@ -1,6 +1,6 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* TechNext Website v2 — shared behaviour: one-time intro, header menus, mobile nav, Let's Talk
-   panel, FormSubmit forms, scroll reveals, button ripple + magnetic hover. No dependencies. */
+   panel, forms (to the Odoo CRM), scroll reveals, button ripple + magnetic hover. No dependencies. */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -417,7 +417,7 @@
     if (e.key === 'Escape') { closeMegas(null); closeTalk(); closeMnav(); }
   });
 
-  /* ---------------- forms → FormSubmit (AJAX) ---------------- */
+  /* ---------------- forms → /api/lead (Odoo CRM) ---------------- */
   function serialize(form) {
     var data = {};
     new FormData(form).forEach(function (v, k) {
@@ -433,10 +433,9 @@
       sessionStorage.setItem('tn_referrer', (document.referrer || '').slice(0, 300));
     }
   } catch (e) { /* storage blocked: the lead just lacks these lines */ }
-  /* Every submission also becomes a lead in the Odoo CRM through /api/lead (api/lead.py: tagged "Website"
-     + the form, Jeric mentioned). It runs beside the FormSubmit email; the visitor's send succeeds when
-     either one accepts it, so one service being down never loses an inquiry. */
-  function crmLead(payload) {
+  /* Every submission becomes a lead in the Odoo CRM through /api/lead (api/lead.py: salesperson Jeric,
+     source, department, tags, Jeric @mentioned). Page, first page of the visit and referrer go along. */
+  window.tnPostForm = function (endpoint, payload) {
     var p = {};
     Object.keys(payload || {}).forEach(function (k) { p[k] = payload[k]; });
     p.page = location.href.slice(0, 300);
@@ -445,30 +444,15 @@
       if (land && land !== p.page) p.landing = land;
       if (ref) p.referrer = ref;
     } catch (e) {}
-    return fetch('/api/lead', {
+    return fetch(endpoint || '/api/lead', {
       method: 'POST', keepalive: true,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(p)
-    }).then(function (r) { return r.ok; }, function () { return false; });
-  }
-  window.tnPostForm = function (endpoint, payload) {
-    var crm = crmLead(payload);
-    return fetch(endpoint, {
-      method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-      .catch(function (e) { return { ok: false, j: { message: e && e.message } }; })
-      // the email went through: thank the visitor now; the CRM call (keepalive) finishes on its own
+      body: JSON.stringify(p)
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.ok, j: j }; }, function () { return { ok: false, j: {} }; }); },
+            function () { return { ok: false, j: {} }; })
       .then(function (res) {
-        if (res.ok && (res.j.success === 'true' || res.j.success === true)) return res;
-        return crm.then(function (crmOk) { res.crm = crmOk; return res; });
-      })
-      .then(function (res) {
-        var ok = (res.ok && (res.j.success === 'true' || res.j.success === true)) || res.crm;
-        if (!ok) throw new Error((res.j && res.j.message) || 'The form service did not accept the message.');
-        // Lead conversions fire only on a submission the form service accepted. The
-        // previous site fired the Ads conversion on every contact-page view.
+        if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
+        // Lead conversions fire only on a submission the CRM accepted.
         try {
           if (typeof window.gtag === 'function') {
             window.gtag('event', 'conversion', { send_to: 'AW-18068724830/dBpuCLul3bQcEN6466dD' });
@@ -484,7 +468,7 @@
     if (!$('.form-sent', form)) {
       var sent = document.createElement('div');
       sent.className = 'form-sent';
-      sent.innerHTML = '<h3>Thanks — we have it.</h3><p>Your message is on its way to sales@technext.asia. We reply from that address.</p>';
+      sent.innerHTML = '<h3>Thanks — we have it.</h3><p>Your message is with our team. We reply from sales@technext.asia.</p>';
       form.appendChild(sent);
     }
     // time trap: a person needs a few seconds between first touching the form and sending it;
