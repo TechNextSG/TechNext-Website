@@ -17,11 +17,8 @@
 
 <section class="section section--tight">
   <div class="container">
-    <form class="form qb" id="quote-form" novalidate data-endpoint="https://formsubmit.co/ajax/sales@technext.asia" data-before-send="tnQuoteBeforeSend">
+    <form class="form qb" id="quote-form" novalidate data-endpoint="/api/lead" data-before-send="tnQuoteBeforeSend">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="_subject" value="Quotation request — technext.asia">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="source" value="Quotation builder">
       <textarea id="q-summary" name="scope_summary" hidden aria-hidden="true" tabindex="-1"></textarea>
 

@@ -99,9 +99,8 @@ SCRAPERS = ["HTTrack", "SiteSucker", "WebCopier", "Offline Explorer", "Teleport 
             "python-httpx", "aiohttp", "Go-http-client", "Scrapy", "node-fetch", "axios",
             "libwww-perl", "Wget/", "curl/"]
 
-# FormSubmit — no account needed. The first real submission triggers a one-time
-# activation email to sales@technext.asia; after that every inquiry lands there.
-FORM_ENDPOINT = "https://formsubmit.co/ajax/sales@technext.asia"
+# Every form posts to /api/lead (api/lead.py), which files it as a lead in the Odoo CRM.
+FORM_ENDPOINT = "/api/lead"
 
 # ---------------------------------------------------------------- navigation
 # `href` values are site-root relative; build.py prefixes {{ROOT}}.

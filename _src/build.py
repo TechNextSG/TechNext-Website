@@ -253,9 +253,6 @@ def talk_panel_html() -> str:
 
     <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="_subject" value="New inquiry — technext.asia">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="source" value="Let's Talk panel">
       <div class="form-row">
         <div class="field"><label for="tf-name">Name</label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
