@@ -1,9 +1,9 @@
 """Vercel function: every form on technext.asia becomes a lead in the Odoo CRM (technext.odoo.com).
 
 POST /api/lead with the form's fields as JSON (site.js tnPostForm sends it beside the FormSubmit email).
-The lead is tagged "Website" plus the form it came from, gets UTM source "technext.asia website" /
-medium "Website", and every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), so Odoo
-emails him. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
+The lead is tagged "Website" plus the form it came from, gets source "Website" ("Paid Ads" when the visit
+came from an ad click) / medium "Website", department (sales team) "Marketing Dept", salesperson Jeric
+(ODOO_SALESPERSON), and every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), so Odoo emails him. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
 import html
 import json
@@ -18,8 +18,11 @@ ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
 KEY = os.environ.get("ODOO_API_KEY", "")
 NOTIFY_EMAILS = [x.strip() for x in os.environ.get("ODOO_NOTIFY_EMAILS", "jeric@technext.asia").split(",") if x.strip()]
 ORIGINS = ("https://technext.asia", "https://www.technext.asia")
-SOURCE_NAME = "technext.asia website"
+SALESPERSON = os.environ.get("ODOO_SALESPERSON", "jeric@technext.asia")  # login of the user every lead goes to
+DEPARTMENT = "Marketing Dept"          # website + social leads; direct / referral / messaging go to "Sales Dept"
 MEDIUM_NAME = "Website"
+# an ad click leaves one of these in the landing URL -> source "Paid Ads", otherwise "Website"
+AD_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid|utm_medium=(cpc|ppc|paid[a-z_]*|ads?))(=|&|$)", re.I)
 
 # form "source" field -> short tag name
 FORMS = [
@@ -69,6 +72,17 @@ def notify_partners():
     return _IDS["notify"]
 
 
+def lookup(model, domain):
+    """First matching id or False; a miss is not cached, so a team created later is picked up."""
+    key = (model, json.dumps(domain))
+    if key not in _IDS:
+        ids = rpc(model, "search", domain=domain, limit=1)
+        if not ids:
+            return False
+        _IDS[key] = ids[0]
+    return _IDS[key]
+
+
 def clean(v, n=2000):
     return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", str(v)).strip()[:n]
 
@@ -87,10 +101,14 @@ def make_lead(p):
     lines = [part for line in lines for part in line.split("\n") if part.strip()]
     # one at a time: parallel calls trip odoo.com's rate limit (429)
     tag_web, tag_form = find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)
-    source, medium = find_or_create("utm.source", SOURCE_NAME), find_or_create("utm.medium", MEDIUM_NAME)
+    paid = any(AD_CLICK.search(str(p.get(k, ""))) for k in ("landing", "page"))
+    source = find_or_create("utm.source", "Paid Ads" if paid else "Website")
+    medium = find_or_create("utm.medium", MEDIUM_NAME)
+    team = lookup("crm.team", [["name", "=", DEPARTMENT]])
     vals = {
         "type": "lead",
-        "user_id": False,                                  # unassigned: not the API key's user
+        "user_id": False,                                  # Jeric is set last (see below)
+        "team_id": team,
         "name": f"Website: {what} - {company or name or email}"[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
         "description": "".join(f"<p>{html.escape(line)}</p>" for line in lines),  # html field: one line per field
@@ -108,6 +126,13 @@ def make_lead(p):
         rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in people], message_type="comment",
             subtype_xmlid="mail.mt_comment", body_is_html=True,
             body=f"<p>{at} New website lead from the {html.escape(form)}: {who}. Please follow up.</p>")
+    # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
+    try:
+        user = lookup("res.users", [["login", "=ilike", SALESPERSON]])
+        if user:
+            rpc("crm.lead", "write", ids=[lead], vals={"user_id": user})
+    except Exception as e:                                 # the lead is filed and Jeric notified either way
+        print("salesperson not set:", repr(e)[:300])
     return lead
 
 
