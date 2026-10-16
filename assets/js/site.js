@@ -459,7 +459,11 @@
       body: JSON.stringify(payload)
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .catch(function (e) { return { ok: false, j: { message: e && e.message } }; })
-      .then(function (res) { return crm.then(function (crmOk) { res.crm = crmOk; return res; }); })
+      // the email went through: thank the visitor now; the CRM call (keepalive) finishes on its own
+      .then(function (res) {
+        if (res.ok && (res.j.success === 'true' || res.j.success === true)) return res;
+        return crm.then(function (crmOk) { res.crm = crmOk; return res; });
+      })
       .then(function (res) {
         var ok = (res.ok && (res.j.success === 'true' || res.j.success === true)) || res.crm;
         if (!ok) throw new Error((res.j && res.j.message) || 'The form service did not accept the message.');

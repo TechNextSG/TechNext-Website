@@ -10,6 +10,7 @@ import json
 import os
 import re
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from http.server import BaseHTTPRequestHandler
 
 ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
@@ -43,9 +44,14 @@ def rpc(model, method, **kw):
         return json.loads(r.read() or b"null")
 
 
+_IDS = {}  # tag / utm ids, kept while the function instance stays warm
+
+
 def find_or_create(model, name):
-    ids = rpc(model, "search", domain=[["name", "=", name]], limit=1)
-    return ids[0] if ids else rpc(model, "create", vals_list=[{"name": name}])[0]
+    if (model, name) not in _IDS:
+        ids = rpc(model, "search", domain=[["name", "=", name]], limit=1)
+        _IDS[model, name] = ids[0] if ids else rpc(model, "create", vals_list=[{"name": name}])[0]
+    return _IDS[model, name]
 
 
 def clean(v, n=2000):
@@ -63,16 +69,20 @@ def make_lead(p):
     what = clean(p.get("topic") or form, 80)
     lines = [f"{LABELS.get(k, k.replace('_', ' ').capitalize())}: {clean(v)}"
              for k, v in p.items() if k not in SKIP and str(v).strip()]
-    tags = [find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)]
+    lines = [part for line in lines for part in line.split("\n") if part.strip()]
+    with ThreadPoolExecutor(4) as pool:                    # the four lookups at once, not one after another
+        tag_web, tag_form, source, medium = pool.map(lambda a: find_or_create(*a), [
+            ("crm.tag", "Website"), ("crm.tag", "Web form: " + form),
+            ("utm.source", SOURCE_NAME), ("utm.medium", MEDIUM_NAME)])
     vals = {
         "type": "lead",
         "user_id": False,                                  # unassigned: not the API key's user
         "name": f"Website: {what} - {company or name or email}"[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
         "description": "".join(f"<p>{html.escape(line)}</p>" for line in lines),  # html field: one line per field
-        "tag_ids": [[6, 0, tags]],
-        "source_id": find_or_create("utm.source", SOURCE_NAME),
-        "medium_id": find_or_create("utm.medium", MEDIUM_NAME),
+        "tag_ids": [[6, 0, [tag_web, tag_form]]],
+        "source_id": source,
+        "medium_id": medium,
     }
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
     if NOTIFY:
