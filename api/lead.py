@@ -5,6 +5,7 @@ The lead is tagged "Website" plus the form it came from, gets UTM source "techne
 medium "Website", and the people in ODOO_NOTIFY_PARTNER_IDS (Jeric) are mentioned on it, so Odoo
 notifies them. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
+import html
 import json
 import os
 import re
@@ -68,7 +69,7 @@ def make_lead(p):
         "user_id": False,                                  # unassigned: not the API key's user
         "name": f"Website: {what} - {company or name or email}"[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
-        "description": "\n".join(lines),
+        "description": "".join(f"<p>{html.escape(line)}</p>" for line in lines),  # html field: one line per field
         "tag_ids": [[6, 0, tags]],
         "source_id": find_or_create("utm.source", SOURCE_NAME),
         "medium_id": find_or_create("utm.medium", MEDIUM_NAME),
