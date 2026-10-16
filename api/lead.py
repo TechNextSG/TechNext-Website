@@ -9,8 +9,9 @@ import html
 import json
 import os
 import re
+import time
+import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
 from http.server import BaseHTTPRequestHandler
 
 ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
@@ -40,8 +41,14 @@ def rpc(model, method, **kw):
     req = urllib.request.Request(f"{ODOO}/json/2/{model}/{method}", data=json.dumps(kw).encode(),
                                  headers={"Authorization": f"bearer {KEY}", "Content-Type": "application/json",
                                           "User-Agent": "technext-website-forms/1.0"})
-    with urllib.request.urlopen(req, timeout=15) as r:
-        return json.loads(r.read() or b"null")
+    for wait in (1.5, 3, 0):                              # odoo.com answers bursts with 429: back off and retry
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                return json.loads(r.read() or b"null")
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or not wait:
+                raise
+            time.sleep(wait)
 
 
 _IDS = {}  # tag / utm ids, kept while the function instance stays warm
@@ -70,10 +77,9 @@ def make_lead(p):
     lines = [f"{LABELS.get(k, k.replace('_', ' ').capitalize())}: {clean(v)}"
              for k, v in p.items() if k not in SKIP and str(v).strip()]
     lines = [part for line in lines for part in line.split("\n") if part.strip()]
-    with ThreadPoolExecutor(4) as pool:                    # the four lookups at once, not one after another
-        tag_web, tag_form, source, medium = pool.map(lambda a: find_or_create(*a), [
-            ("crm.tag", "Website"), ("crm.tag", "Web form: " + form),
-            ("utm.source", SOURCE_NAME), ("utm.medium", MEDIUM_NAME)])
+    # one at a time: parallel calls trip odoo.com's rate limit (429)
+    tag_web, tag_form = find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)
+    source, medium = find_or_create("utm.source", SOURCE_NAME), find_or_create("utm.medium", MEDIUM_NAME)
     vals = {
         "type": "lead",
         "user_id": False,                                  # unassigned: not the API key's user
