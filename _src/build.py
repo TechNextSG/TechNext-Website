@@ -2198,9 +2198,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if CALM and out_rel not in CALM_SKIP:
         # Owner, 9 Oct 2026 (final): no built-in intro on any page except /nexi-explains (left as on master): every page
         # opens straight on its content with the header visible. No per-world vignette intros, no home plane intro.
+        # Owner, 16 Oct 2026: the home page brand intro is back (home only); world pages still open without one.
         w_head = w_body = ""
-        if home:
-            intro_head = intro_head.replace(INTRO_HEAD, "")
     if out_rel == "nexi-explains.html":
         # Owner, 9 Oct 2026: /nexi-explains opens with the Nexi Explains comic intro (the html.intro-nxe variant of the
         # brand intro: comic sheet, "Nexi Explains!" tagline), under the same head gate (fresh landings only, no bots).
@@ -2209,7 +2208,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         w_head = (INTRO_HEAD.replace("(nav.type==='navigate'&&internal)||", "")
                   + "<script>document.documentElement.classList.add('intro-nxe')</script>\n")
         w_body = INTRO_BODY
-    html =(LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home and not CALM else w_body)
+    html =(LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
