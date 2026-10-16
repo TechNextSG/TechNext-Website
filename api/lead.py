@@ -2,8 +2,11 @@
 
 POST /api/lead with the form's fields as JSON (site.js tnPostForm; the only place a form goes).
 The lead is tagged "Website" plus the form it came from, gets source "Website" ("Paid Ads" when the visit
-came from an ad click) / medium "Website", department (sales team) "Marketing Dept", salesperson Jeric
-(ODOO_SALESPERSON), and every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), so Odoo emails him. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
+came from an ad click) / medium "Website", department (sales team) "Marketing Dept", and stays UNASSIGNED
+(ODOO_SALESPERSON empty) so everyone with Sales access sees it; Jeric picks it up by setting himself as
+salesperson. Every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), and Jeric plus ODOO_COPY_EMAILS
+(hello@technext.asia) get an email with the full details. The Odoo API key lives only in the Vercel env var
+ODOO_API_KEY, never in this public repo.
 """
 import html
 import json
@@ -18,7 +21,10 @@ ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
 KEY = os.environ.get("ODOO_API_KEY", "")
 NOTIFY_EMAILS = [x.strip() for x in os.environ.get("ODOO_NOTIFY_EMAILS", "jeric@technext.asia").split(",") if x.strip()]
 ORIGINS = ("https://technext.asia", "https://www.technext.asia")
-SALESPERSON = os.environ.get("ODOO_SALESPERSON", "jeric@technext.asia")  # login of the user every lead goes to
+COPY_EMAILS = [x.strip() for x in os.environ.get("ODOO_COPY_EMAILS", "hello@technext.asia").split(",") if x.strip()]
+# login every lead is assigned to; empty = unassigned. Rico (the API user, Sales "Own Documents Only") cannot
+# see a lead assigned to someone else, so leads stay unassigned until Rico gets "All Documents" access.
+SALESPERSON = os.environ.get("ODOO_SALESPERSON", "")
 DEPARTMENT = "Marketing Dept"          # website + social leads; direct / referral / messaging go to "Sales Dept"
 MEDIUM_NAME = "Website"
 # an ad click leaves one of these in the landing URL -> source "Paid Ads", otherwise "Website"
@@ -64,12 +70,13 @@ def find_or_create(model, name):
     return _IDS[model, name]
 
 
-def notify_partners():
-    """Odoo partners for NOTIFY_EMAILS (Jeric), looked up once per warm instance."""
-    if "notify" not in _IDS:
-        _IDS["notify"] = [p for e in NOTIFY_EMAILS for p in rpc(
+def partners(emails):
+    """Odoo partners for these emails, looked up once per warm instance."""
+    key = ("partners",) + tuple(emails)
+    if key not in _IDS:
+        _IDS[key] = [p for e in emails for p in rpc(
             "res.partner", "search_read", domain=[["email", "=ilike", e]], fields=["name", "email"], limit=1)]
-    return _IDS["notify"]
+    return _IDS[key]
 
 
 def lookup(model, domain):
@@ -107,7 +114,7 @@ def make_lead(p):
     team = lookup("crm.team", [["name", "=", DEPARTMENT]])
     vals = {
         "type": "lead",
-        "user_id": False,                                  # Jeric is set last (see below)
+        "user_id": False,                                  # a salesperson, if any, is set last (see below)
         "team_id": team,
         "name": f"Website: {what} - {company or name or email}"[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
@@ -117,22 +124,25 @@ def make_lead(p):
         "medium_id": medium,
     }
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
-    people = notify_partners()
-    if people:                                             # a real @mention in the chatter + an email to each
+    people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
+    if people or copies:                                   # @mention Jeric; Jeric + copies get the details by email
         at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
                       f'data-oe-model="res.partner">@{html.escape(p["name"])}</a> ({html.escape(p["email"])})'
                       for p in people)
         who = html.escape(f"{company or name} ({email or phone})")
-        rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in people], message_type="comment",
-            subtype_xmlid="mail.mt_comment", body_is_html=True,
-            body=f"<p>{at} New website lead from the {html.escape(form)}: {who}. Please follow up.</p>")
+        details = "".join(f"<li>{html.escape(line)}</li>" for line in lines)
+        rpc("crm.lead", "message_post", ids=[lead], partner_ids=list({p["id"] for p in people + copies}),
+            message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
+            context={"mail_notify_author": True},          # the copy goes to Rico, who is also the API user
+            body=f"<p>{at} New website lead from the {html.escape(form)}: {who}. Please follow up.</p><ul>{details}</ul>")
     # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
-    try:
-        user = lookup("res.users", [["login", "=ilike", SALESPERSON]])
-        if user:
-            rpc("crm.lead", "write", ids=[lead], vals={"user_id": user})
-    except Exception as e:                                 # the lead is filed and Jeric notified either way
-        print("salesperson not set:", repr(e)[:300])
+    if SALESPERSON:
+        try:
+            user = lookup("res.users", [["login", "=ilike", SALESPERSON]])
+            if user:
+                rpc("crm.lead", "write", ids=[lead], vals={"user_id": user})
+        except Exception as e:                             # the lead is filed and Jeric notified either way
+            print("salesperson not set:", repr(e)[:300])
     return lead
 
 
