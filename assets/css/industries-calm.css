@@ -83,6 +83,22 @@
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop.is-on .ixw-pin i{background:var(--blue);border-color:var(--blue);color:#FFFFFF}
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop-t{color:var(--body);font:600 13px/1.3 var(--font-body);background:none;box-shadow:none;border:0;transform:none}
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop.is-on .ixw-stop-t{color:var(--ink);font-weight:700}
+/* the route, aligned: every stop is the same 56px circle sitting on the line (the worlds' own shapes, e.g. retail's
+   66x50 hanging signs and its rail at the top, are flattened above, so the line goes through the stops' centres) */
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-track{padding-top:14px}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop .ixw-pin,
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop.is-done .ixw-pin,
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop.is-on .ixw-pin{width:56px;height:56px;border-radius:50%;translate:none;transform-origin:50% 50%}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop:hover .ixw-pin{width:56px;height:56px;border-radius:50%;translate:0 -2px}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop .ixw-pin .oi,
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop .ixw-pin .ix-ic{width:26px;height:26px;padding:0;border-radius:0;background:none}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-stop .ixw-pin i{left:auto;right:-4px;top:-4px;width:22px;height:22px;border-radius:50%;transform:none;rotate:none}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-road{top:42px;margin-top:-1px;left:calc((100% - (var(--n) - 1) * 6px) / (2 * var(--n)));right:calc((100% - (var(--n) - 1) * 6px) / (2 * var(--n)));width:auto;border-radius:2px}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-road i{border-radius:2px}
+@media (max-width:767px){
+  :root body.ixw.ixw:has([data-ixw-frame]) .ixw-track{padding-top:14px}
+  :root body.ixw.ixw:has([data-ixw-frame]) .ixw-road{top:42px;left:60px;right:auto;width:calc((var(--n) - 1) * 94px)}
+}
 /* step controls: plain round buttons, the play one in brand blue */
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn,
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn:hover{background:#FFFFFF;border:1px solid var(--line);color:var(--ink);box-shadow:none;animation:none}
@@ -90,6 +106,13 @@
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn--play,
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn--play:hover,
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn--play.is-on{background:var(--blue);border-color:var(--blue);color:#FFFFFF;animation:none}
+/* step controls: the same circles on every industry page (some worlds drew rounded squares or an inner ring) */
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn{width:44px;height:44px;border-radius:50%;translate:none;rotate:none;outline:0}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn:focus-visible{outline:3px solid var(--blue-300);outline-offset:2px}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn--play{width:52px;height:52px}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn::before,
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn::after{content:none!important}
+:root body.ixw.ixw:has([data-ixw-frame]) .ixw-ibtn:hover{translate:0 -2px}
 /* the sample picker above the flow: a segmented control, brand blue when pressed */
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-pick-b{background:#FFFFFF;border:1px solid var(--line);border-radius:999px;box-shadow:none;padding:4px}
 :root body.ixw.ixw:has([data-ixw-frame]) .ixw-pick-b button{background:none;border:0;border-radius:999px;box-shadow:none;color:var(--body);transform:none}
