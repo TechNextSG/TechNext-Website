@@ -23,6 +23,8 @@ ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
 KEY = os.environ.get("ODOO_API_KEY", "")
 NOTIFY_EMAILS = [x.strip() for x in os.environ.get("ODOO_NOTIFY_EMAILS", "jeric@technext.asia").split(",") if x.strip()]
 ORIGINS = ("https://technext.asia", "https://www.technext.asia")
+# technext.odoo.com hosts a copy of the site and the discovery-call booking page; both post here (CORS)
+CORS_ORIGINS = ("https://technext.odoo.com",)
 COPY_EMAILS = [x.strip() for x in os.environ.get("ODOO_COPY_EMAILS", "hello@technext.asia").split(",") if x.strip()]
 # login every lead is assigned to; empty = unassigned. Rico (the API user, Sales "Own Documents Only") cannot
 # see a lead assigned to someone else, so leads stay unassigned until Rico gets "All Documents" access.
@@ -39,12 +41,13 @@ FORMS = [
     ("free website", "Free website offer (/free-website-with-odoo)"),
     ("contact", "Contact page"),
     ("let's talk", "Let's Talk panel"),
+    ("discovery call", "Discovery call booking"),
 ]
 LABELS = {"name": "Name", "company": "Company", "email": "Email", "phone": "Phone", "topic": "Interested in",
           "message": "Message", "team_size": "Team size", "country": "Country", "current_website": "Current website",
           "scope_summary": "Quotation scope", "apps": "Odoo apps", "users": "Users", "hosting": "Hosting",
           "services": "Services", "timeline": "Timeline", "source": "Form", "page": "Page",
-          "referrer": "Came from", "landing": "First page of the visit"}
+          "referrer": "Came from", "landing": "First page of the visit", "slot": "Meeting time"}
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse"}
 
@@ -119,6 +122,30 @@ def form_tag(source):
     return next((tag for key, tag in FORMS if key in s), "Other form")
 
 
+def keep_typed(lead, name, phone):
+    """An email that matches an existing Odoo contact links that contact, and Odoo then overwrites the
+    typed name and phone with the contact's. Put back what the visitor typed."""
+    want = {k: v for k, v in (("contact_name", name), ("phone", phone)) if v}
+    if not want:
+        return
+    got = rpc("crm.lead", "read", ids=[lead], fields=list(want))
+    if got and any(got[0].get(k) != v for k, v in want.items()):
+        rpc("crm.lead", "write", ids=[lead], vals=want)
+
+
+def booking_lead(email, tries=8, wait=1.5):
+    """The opportunity Odoo's appointment app creates for a discovery-call booking (it appears a moment
+    after the booking form is sent). False when it never shows up or the API user cannot see it."""
+    for i in range(tries):
+        since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
+        ids = rpc("crm.lead", "search", domain=[["email_from", "=ilike", email], ["create_date", ">=", since],
+                                                ["name", "ilike", "Booking"]], order="id desc", limit=1)
+        if ids:
+            return ids[0]
+        time.sleep(wait)
+    return False
+
+
 def make_lead(p):
     name, email, phone, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "phone", "company"))
     form = form_tag(p.get("source"))
@@ -144,8 +171,30 @@ def make_lead(p):
         "source_id": source,
         "medium_id": medium,
     }
+    if form == "Discovery call booking" and email:
+        # Odoo's appointment app files the booking itself: enrich that opportunity instead of adding a second lead
+        def after():
+            found = booking_lead(email)
+            if found:
+                upd = {k: v for k, v in vals.items() if k in ("partner_name", "tag_ids", "source_id", "medium_id") and v}
+                if vals["team_id"]:
+                    upd["team_id"] = vals["team_id"]
+                rpc("crm.lead", "write", ids=[found], vals=upd)
+                rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
+                    subtype_xmlid="mail.mt_note",
+                    body="<p>Booking form details:</p><ul>" + "".join(f"<li>{html.escape(l)}</li>" for l in lines) + "</ul>")
+                lead = found
+            else:                                          # not visible to the API user: file it as a lead of its own
+                lead = rpc("crm.lead", "create", vals_list=[vals])[0]
+            keep_typed(lead, name, phone)
+            follow_up(lead, form, name, email, phone, company, lines)
+        return None, after
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
-    return lead, lambda: follow_up(lead, form, name, email, phone, company, lines)
+
+    def after():
+        keep_typed(lead, name, phone)
+        follow_up(lead, form, name, email, phone, company, lines)
+    return lead, after
 
 
 def follow_up(lead, form, name, email, phone, company, lines):
@@ -172,9 +221,25 @@ def follow_up(lead, form, name, email, phone, company, lines):
 
 
 class handler(BaseHTTPRequestHandler):
+    def _cors(self):
+        origin = self.headers.get("Origin", "")
+        if origin in CORS_ORIGINS:
+            self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
+            self.send_header("Access-Control-Max-Age", "86400")
+            self.send_header("Vary", "Origin")
+
+    def do_OPTIONS(self):
+        self.send_response(204 if self.headers.get("Origin", "") in CORS_ORIGINS else 403)
+        self._cors()
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
     def _send(self, code, obj):
         body = json.dumps(obj).encode()
         self.send_response(code)
+        self._cors()
         self.send_header("Content-Type", "application/json")
         self.send_header("Cache-Control", "no-store")
         self.send_header("Content-Length", str(len(body)))
@@ -183,7 +248,7 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.flush()
 
     def do_POST(self):
-        if self.headers.get("Origin", "") not in ORIGINS:
+        if self.headers.get("Origin", "") not in ORIGINS + CORS_ORIGINS:
             return self._send(403, {"ok": False, "error": "origin"})
         n = int(self.headers.get("Content-Length") or 0)
         if not 0 < n <= 20000:
