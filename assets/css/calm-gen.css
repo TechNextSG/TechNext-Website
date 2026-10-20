@@ -284,6 +284,18 @@
 .ida-prop{border-top:1px solid var(--line)}
 .th-cta-ids i{border:1px solid var(--line);rotate:none}
 .th-cta-ids i+i{rotate:none}
+/* ---- worlds/advisors.css ---- */
+.ixw--advisors .ixw-copy::after{content:none}
+.ixw--advisors .ixw-ep-tag{box-shadow:none}
+.ixw--advisors .ixw-cap{border:1px solid var(--line);background-image:none;box-shadow:0 26px 44px -22px rgba(10,15,40,.45)}
+.ixw--advisors .ixw-cap::after{content:none}
+.ixw--advisors .ixw-cap-rec{border:1px solid var(--line)}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border:1px solid var(--line);box-shadow:none}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{box-shadow:none}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{box-shadow:0 1px 0 var(--av-ink)}
+.ixw--advisors .ixw-cta .btn-outline-white,.ixw--advisors .ixw-cta .btn-outline-white:hover{box-shadow:none}
+.ixw--advisors .ixw-ibtn{border:1px solid var(--line);box-shadow:none}
+.ixw--advisors .ixw-peek{box-shadow:none}
 /* ---- worlds/ai-odoo.css ---- */
 .ixw--ai-odoo .ixw-copy{background-image:none;background-color:#FFFFFF}
 .ixw--ai-odoo .ixw-copy::before{content:none;font-family:var(--font-body)}

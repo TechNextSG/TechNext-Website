@@ -1,0 +1,48 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* World: advisors (/advisers) — the advisory room on a calm, bright morning. Brand blue, navy, paper white, pale oak and a
+   yellow edge. The title card is a written brief (a navy top rule with a blue tab, a ruled divider); the caption is a page
+   of meeting notes (a red margin rule, faint lines); buttons are quiet document tabs (a blue edge on the left). */
+.ixw--advisors{--av-ink:#1B2350;--av-blue:#3167CA;--av-y:#FFD84A;--av-paper:#FFFFFF;--av-line:#DCE3EE;--av-oak:#D9B48A;
+  --w-alt:#F3F6FB;--lab-bd:2px solid #1B2350;--lab-lip:#1B2350;--lab-tail:#1B2350;--lab-r:6px;
+  --ii-bg:linear-gradient(160deg,#F8F9FC,#ECF0F6 55%,#F3E6D2);--ii-ink:#1B2350;--ii-b:#3167CA;--ii-accent:#FFD84A;--ii-lip:#1B2350;--ii-ep-bg:#3167CA;--ii-ep-fg:#FFFFFF}
+.ixw--advisors .ixw-hero{background:linear-gradient(180deg,#FFFFFF 0,#F8F9FC 18%,#ECF0F6 54%,#E4EAF3 62%,#E9DDCB 62%,#D8C6AB 100%)}
+
+/* ---------- the title card: a written brief ---------- */
+.ixw--advisors .ixw-copy{position:relative;max-width:520px;margin-top:34px;padding:34px 32px 36px;border-radius:10px;background:var(--av-paper);
+  box-shadow:0 0 0 1.5px var(--av-line),0 40px 70px -30px rgba(27,35,80,.45);
+  background-image:linear-gradient(90deg,var(--av-ink) 0 82%,var(--av-blue) 82%);background-size:100% 8px;background-position:0 0;background-repeat:no-repeat}
+.ixw--advisors .ixw-copy::after{content:"BRIEF \00B7  ADVISORY ROOM";position:absolute;right:22px;top:-13px;padding:6px 10px;border-radius:4px;background:var(--av-blue);color:#FFFFFF;font:800 10.5px/1 var(--font-body);letter-spacing:.16em}
+.ixw--advisors .ixw-copy h1{max-width:15ch}
+.ixw--advisors .ixw-copy .hand{color:var(--av-blue)}
+.ixw--advisors .ixw-copy .lead{border-top:1px solid #E3E8EF;padding-top:14px}
+.ixw--advisors .ixw-ep-tag{box-shadow:0 3px 0 #1E4691}
+.ixw--advisors .ixw-hint .ic{color:#E8B500}
+@media (max-width:767px){.ixw--advisors .ixw-copy{padding:30px 20px 32px}
+  .ixw--advisors .ixw-hero .ixw-copy .actions .btn{min-width:max-content}}
+
+/* ---------- the caption: a page of meeting notes ---------- */
+.ixw--advisors .ixw-cap{border-radius:10px;border:2px solid var(--av-ink);background:linear-gradient(90deg,transparent 0 58px,rgba(226,69,60,.35) 58px 59.5px,transparent 59.5px),repeating-linear-gradient(180deg,#FFFFFF 0 27px,#EEF2F9 27px 28px);
+  box-shadow:0 6px 0 var(--av-ink),0 26px 44px -22px rgba(10,15,40,.45)}
+.ixw--advisors .ixw-cap::after{content:"MEETING NOTES";position:absolute;left:18px;top:-13px;padding:5px 10px;border-radius:4px;background:var(--av-ink);color:var(--av-y);font:800 10.5px/1 var(--font-body);letter-spacing:.16em}
+.ixw--advisors .ixw-cap-who b{color:var(--av-ink)}.ixw--advisors .ixw-cap-txt b{color:#2756B0}
+.ixw--advisors .ixw-cap-rec{background:#F3F6FB;border:1px dashed #9AB3E0;color:#1E3A73}
+
+/* ---------- buttons: document tabs with a blue edge ---------- */
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){border-radius:8px;border:2px solid var(--av-ink);box-shadow:inset 8px 0 0 var(--av-y),0 4px 0 var(--av-ink);
+  transition:translate .2s cubic-bezier(.34,1.45,.64,1),box-shadow .2s ease}
+.ixw--advisors main .btn-primary,.ixw--advisors main .btn-primary:hover{color:#FFFFFF;background:linear-gradient(180deg,#4A80E2,#3167CA)}
+.ixw--advisors main :is(.btn-ghost,.ixw-cta .btn-white),.ixw--advisors main :is(.btn-ghost,.ixw-cta .btn-white):hover{color:var(--av-ink);background:var(--av-paper)}
+.ixw--advisors main .btn-ghost::before{display:none}.ixw--advisors main .btn-ghost .ic{color:var(--av-blue)}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):hover{translate:0 -2px;box-shadow:inset 12px 0 0 var(--av-y),0 6px 0 var(--av-ink)}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):active{translate:0 3px;box-shadow:inset 8px 0 0 var(--av-y),0 1px 0 var(--av-ink);transition-duration:.06s}
+.ixw--advisors .ixw-cta .btn-outline-white,.ixw--advisors .ixw-cta .btn-outline-white:hover{color:#FFFFFF;background:transparent;border-color:#FFFFFF;box-shadow:inset 8px 0 0 var(--av-y),0 4px 0 rgba(0,0,0,.3)}
+.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white):focus-visible{outline:3px solid #FFC94A;outline-offset:4px}
+.ixw--advisors .ixw-copy .actions{gap:14px}
+.ixw--advisors .ixw-ibtn{border:2px solid var(--av-ink);border-radius:8px;box-shadow:0 3px 0 var(--av-ink)}
+.ixw--advisors .ixw-ibtn--play,.ixw--advisors .ixw-ibtn--play:hover{background:var(--av-y);color:var(--av-ink)}
+.ixw--advisors .ixw-dots button.is-on{background:var(--av-blue);box-shadow:0 0 0 1.5px var(--av-ink)}
+.ixw--advisors .ixw-dots button{border-radius:2px}
+.ixw--advisors .ixw-peek{border-color:var(--av-ink);box-shadow:0 3px 0 var(--av-ink)}.ixw--advisors .ixw-peek[aria-pressed="true"]{background:var(--av-y)}
+.ixw--advisors :is(.ixw-ibtn,.ixw-dots button,.ixw-peek):focus-visible{outline:3px solid #3167CA;outline-offset:3px}
+.ixw--advisors .ixwi-card::after{display:none}
+@media (prefers-reduced-motion:reduce){.ixw--advisors main :is(.btn-primary,.btn-ghost,.ixw-cta .btn-white,.ixw-cta .btn-outline-white){transition:none}}

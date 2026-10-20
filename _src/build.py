@@ -26,6 +26,7 @@ import industries as IX  # noqa: E402
 import app_flows as AF  # noqa: E402
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
+import advisors as ADV  # noqa: E402
 import worlds as WD  # noqa: E402
 import company_pages as CP
 import app_worlds as AW  # noqa: E402
@@ -937,6 +938,51 @@ def team_cards_html() -> str:
                    f'<div><dt>Work email</dt><dd>{mail}</dd></div></dl></div>'
                    f'<p class="ef-foot"><span class="ef-id">{{{{icon:users}}}}TechNext ID</span><span class="ef-stamp">On file</span></p></article>')
     return "".join(out)
+
+
+def expertise_cards_html() -> str:
+    """The advisory practices on /advisors (_src/advisors.py EXPERTISE): role, what they advise on, a first-call question."""
+    out = []
+    for k, e in enumerate(ADV.EXPERTISE):
+        ics = "".join(f"{{{{odoo:{m}:34}}}}" for m in e["odoo"])
+        lis = "".join(f"<li>{{{{icon:check}}}}{a}</li>" for a in e["advise"])
+        out.append(f'<article class="card card--feature adv-card reveal" style="--i:{k}" id="exp-{e["key"]}">'
+                   f'<div class="card-ic{" trio" if len(e["odoo"]) > 1 else ""}">{ics}</div><h3>{e["role"]}</h3><p>{e["lead"]}</p>'
+                   f'<p class="adv-h">Advises on</p><ul class="checks">{lis}</ul>'
+                   f'<blockquote class="adv-ask"><span>A question you\'ll hear in the first call</span>&ldquo;{e["ask"]}&rdquo;</blockquote>'
+                   f'<a class="btn-link" href="{{{{ROOT}}}}{e["href"]}">{e["link"]} {{{{icon:arrow}}}}</a></article>')
+    return "".join(out)
+
+
+def advisor_cards_html() -> str:
+    """Named advisors (_src/advisors.py ADVISORS). Empty list = no section at all (nothing invented)."""
+    if not ADV.ADVISORS:
+        return ""
+    roles = {e["key"]: e["role"].replace(" adviser", "") for e in ADV.EXPERTISE}
+    cards = []
+    for k, p in enumerate(ADV.ADVISORS):
+        words = p["name"].split()
+        ini = (words[0][0] + (words[-1][0] if len(words) > 1 else "")).upper()
+        pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="{html_mod.escape(p["name"])}" width="600" height="600" loading="lazy" decoding="async">'
+               if p.get("photo") else f'<span class="adv-ini" aria-hidden="true">{ini}</span>')
+        meta = [ADV.OFFICES.get(p.get("office"), "")]
+        if p.get("years"):
+            meta.append(f'{p["years"]}+ years')
+        tags = "".join(f'<span class="tag">{roles.get(f, f)}</span>' for f in p.get("focus", []))
+        creds = "".join(f"<li>{{{{icon:check}}}}{c}</li>" for c in p.get("creds", []))
+        li = (f'<a class="btn-link" href="{p["linkedin"]}" target="_blank" rel="noopener">LinkedIn {{{{icon:arrow}}}}</a>' if p.get("linkedin") else "")
+        cards.append(f'<article class="adv-person reveal" style="--i:{k}"><div class="adv-ava">{pic}</div>'
+                     f'<div class="adv-body"><h3>{p["name"]}</h3><p class="adv-role">{p["role"]}</p>'
+                     f'<p class="adv-meta">{" · ".join(m for m in meta if m)}</p>'
+                     f'{f"<p>{p['bio']}</p>" if p.get("bio") else ""}'
+                     f'{f"<ul class=\"checks adv-creds\">{creds}</ul>" if creds else ""}'
+                     f'<div class="pill-row">{tags}</div>{li}</div></article>')
+    return f'''<section class="section section--alt" id="meet">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">meet the advisers</span><h2>The people you'll actually talk to.</h2><p class="lead">The adviser on your first call is the one who leads your project, and the one who answers after go-live.</p></div>
+    <div class="adv-people">{"".join(cards)}</div>
+  </div>
+</section>'''
 
 
 def team_offices_html() -> str:
@@ -2145,6 +2191,10 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = nxe_tokens(content)
     if "{{TEAM_CARDS}}" in content:
         content = content.replace("{{TEAM_CARDS}}", team_cards_html())
+    if "{{EXPERTISE_CARDS}}" in content:
+        content = content.replace("{{EXPERTISE_CARDS}}", expertise_cards_html())
+    if "{{ADVISOR_CARDS}}" in content:
+        content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
     if "{{TEAM_OFFICES}}" in content:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
