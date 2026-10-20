@@ -18,6 +18,7 @@
 
 - https://technext.asia/ — Odoo Partner in Singapore & the Philippines: TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.
 - https://technext.asia/advisers — Odoo & ERP Advisers in Singapore and the Philippines: Talk to TechNext's advisers first: finance, sales, supply chain, operations, AI and web consultants who map your process, advise, then implement Odoo.
+- https://technext.asia/bir-e-invoicing — BIR E-Invoicing in Odoo — Ready Before 31 December 2026: BIR e-invoicing deadline: 31 December 2026. Who is covered, the PTI and EIS steps, what Odoo 20 does for the BIR, and how TechNext gets you ready.
 - https://technext.asia/blog — Blog: Odoo news, Odoo 20 and ERP guides: Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
 - https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing with Odoo: Deadline & Setup Guide: BIR e-invoicing explained by TechNext: the 31 December 2026 deadline, who is covered, the Permit to Issue, and how to get Odoo ready in the Philippines.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG implementation guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
@@ -104,7 +105,7 @@
 - https://technext.asia/odoo/discovery — Odoo Consultant — Singapore & Philippines: Odoo consultation in Singapore and the Philippines: TechNext maps how your business runs and what to set up first, before any configuration starts.
 - https://technext.asia/odoo/erp-system — Odoo Customization — Singapore & Philippines: Odoo customization in Singapore and the Philippines: upgrade-safe modules, reports and workflows built by TechNext, without hiring your own developers.
 - https://technext.asia/odoo/integration — Odoo Integration — Banks, Payments & Stores: Odoo integration by TechNext in Singapore and the Philippines: banks, payment gateways, online stores and marketplaces connected so nothing is typed twice.
-- https://technext.asia/odoo/philippines — Odoo Partner Philippines — BIR-ready, Taguig City: TechNext is your Odoo partner in the Philippines: BIR-ready accounting and payroll, set up from Taguig City, so you don't need to hire your own Odoo team.
+- https://technext.asia/odoo/philippines — BIR-Compliant Odoo for Philippine Companies — TechNext, Taguig City: BIR compliance, handled in your Odoo: 2307 certificates, SLSP, SAWT, QAP, CAS-ready books, payroll forms and e-invoicing readiness, set up by TechNext from Taguig City.
 - https://technext.asia/odoo/support — Odoo Support & Maintenance — TechNext Care: Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
 - https://technext.asia/odoo/training — Odoo Training on Your Own Data — SG & PH: Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so go-live doesn't depend on hiring Odoo experts.
 - https://technext.asia/odoo/vietnam — Odoo Partner Vietnam — Circular 99, SInvoice and 01/GTGT: TechNext sets up Odoo for companies in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, so you don't need your own Odoo team.
@@ -169,7 +170,37 @@ Source: https://technext.asia/advisers
 
 Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
 
-Source: https://technext.asia/blog/bir-e-invoicing-odoo
+Source: https://technext.asia/bir-e-invoicing
+
+### Are micro taxpayers covered?
+
+No. Micro taxpayers are exempt from the mandatory e-invoicing requirement, and e-commerce coverage applies to sellers classed as small, medium or large.
+
+Source: https://technext.asia/bir-e-invoicing
+
+### What is a Permit to Issue (PTI)?
+
+The BIR permit you need before issuing any e-invoice. EIS Certification must then be completed within six months of the PTI.
+
+Source: https://technext.asia/bir-e-invoicing
+
+### Is Odoo BIR compliant?
+
+Odoo 20's Philippine localisation covers BIR- and CAS-compliant invoices, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover the EIS connection, so TechNext builds and tests that as part of your project. Your CAS and e-invoicing applications are still filed with the BIR.
+
+Source: https://technext.asia/bir-e-invoicing
+
+### Can we fix an e-invoice after it is issued?
+
+No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decrease and a new e-invoice for an increase; we set both flows up in Odoo before go-live.
+
+Source: https://technext.asia/bir-e-invoicing
+
+### Does the rule cover our branches?
+
+Yes. Head office and all branches must issue e-invoices, and branches on different invoicing systems may need separate PTIs.
+
+Source: https://technext.asia/bir-e-invoicing
 
 ### Are micro taxpayers covered?
 
@@ -1077,6 +1108,12 @@ Yes. TechNext Pte. Ltd. is an Odoo Ready Partner, listed in Odoo's partner direc
 
 Source: https://technext.asia/odoo/philippines
 
+### Is Odoo BIR compliant?
+
+Odoo 20's Philippine localisation covers the day-to-day BIR work: BIR- and CAS-compliant invoices, a Book of Accounts for CAS and CBA, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. It is not a BIR registration in itself: your CAS and e-invoicing applications are still filed with the BIR, and TechNext helps you prepare them from your own Odoo.
+
+Source: https://technext.asia/odoo/philippines
+
 ### Can Odoo generate BIR Form 2307?
 
 Yes. Odoo 20 generates official BIR 2306 and 2307 withholding tax certificates as PDFs from vendor bills, and can send them to the vendor when a bill is paid.
@@ -1091,7 +1128,7 @@ Source: https://technext.asia/odoo/philippines
 
 ### Does Odoo 20 support the BIR's Electronic Invoicing System (EIS)?
 
-The Odoo 20 release notes do not mention EIS. If your company is covered by it, TechNext plans the connection as a separate piece of work during discovery.
+The Odoo 20 release notes do not mention EIS. If your company is covered by it, TechNext plans the connection as a separate piece of work during discovery. Covered taxpayers must issue e-invoices by 31 December 2026: see BIR e-invoicing with Odoo .
 
 Source: https://technext.asia/odoo/philippines
 

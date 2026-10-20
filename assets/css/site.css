@@ -1307,3 +1307,10 @@ body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
 /* R9 mobile audit: the floating Let's Talk "+" and WhatsApp buttons stack over the bottom-right corner; the footer
    ends with room for them, so the last lines of the page can scroll clear */
 @media (max-width:960px){.footer{padding-bottom:calc(26px + 140px + env(safe-area-inset-bottom,0px))}}
+
+/* home BIR band (20 Oct 2026): one quiet line under the hero for Philippine visitors, links to /bir-e-invoicing */
+.bir-band{background:var(--amber-050);border-bottom:1px solid #F1E2C2}
+.bir-band-in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+.bir-band-in p{margin:0;flex:1 1 320px;font:400 15px/1.5 var(--font-body);color:var(--body)}
+.bir-band-in p b{color:var(--ink);font-weight:700}
+@media (max-width:640px){.bir-band-in{gap:8px}.bir-band-in p{flex-basis:100%}}
