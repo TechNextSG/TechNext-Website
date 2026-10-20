@@ -210,7 +210,7 @@ Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
 ### Is my CAS permit enough to issue e-invoices?
 
-No. You need a Permit to Issue (PTI) Electronic Invoice first. A CAS Acknowledgment Certificate or Permit to Use is not enough. EIS Certification then follows within six months of the PTI.
+Plan for a Permit to Issue (PTI) Electronic Invoice. Under RMC 98-2026 you need a PTI before you issue any e-invoice, and EIS Certification within six months of the PTI. Check with your accountant or BIR revenue district office how your existing CAS registration fits in.
 
 Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
