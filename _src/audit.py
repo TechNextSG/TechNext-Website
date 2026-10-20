@@ -11,6 +11,7 @@ from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = sorted(p for p in ROOT.rglob("*.html") if "_src" not in p.parts and "_screens" not in p.parts
+               and "services-catalogue" not in p.parts   # the flip-book viewer app (published from the catalogue repo, noindex)
                and not p.name.startswith("google") and p.name not in ("denied.html", "nexi-app.html"))  # nexi-app: the noindex frame inside /nexi
 DISALLOWED = ["Certified Odoo Partner", "ISO 27001 certified", "ISO 27001 compliant", "Odoo Gold", "Odoo Silver"]
 
