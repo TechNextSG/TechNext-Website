@@ -116,6 +116,8 @@ NAV = [
                  "desc": "Pipelines built around how you sell."},
                 {"label": "Enterprise Solution", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
                  "desc": "Multi-company, multi-country Odoo at scale."},
+                {"label": "BIR Compliance", "href": "bir-e-invoicing.html", "icon": "receipt",
+                 "desc": "Philippine e-invoicing and BIR forms in Odoo."},
             ]},
             {"title": "AI Solution", "href": "solutions/ai.html", "links": [
                 {"label": "RAG Knowledge Assistants", "href": "solutions/ai-knowledge.html", "icon": "sol-rag",
