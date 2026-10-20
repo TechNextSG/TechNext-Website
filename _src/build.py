@@ -368,7 +368,7 @@ LAYOUT = '''<!doctype html>
 </footer>
 
 {TALK}
-<a class="cat-float" href="https://technextsg.github.io/technext-services-catalogue/" target="_blank" rel="noopener" aria-label="Open the TechNext Services Catalogue (opens in a new tab)">{{icon:book}}<span class="wa-float-tip">Services catalogue</span></a>
+<a class="cat-float" href="{ROOT}services-catalogue" target="_blank" rel="noopener" aria-label="Open the TechNext Services Catalogue (opens in a new tab)">{{icon:book}}<span class="wa-float-tip">Services catalogue</span></a>
 <a class="wa-float" href="{WA_MSG}" target="_blank" rel="noopener" aria-label="Chat with TechNext on WhatsApp">{{icon:whatsapp}}<span class="wa-float-tip">WhatsApp us</span></a>
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
