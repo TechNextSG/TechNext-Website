@@ -17,6 +17,7 @@
 ## Pages
 
 - https://technext.asia/ — Odoo Partner in Singapore & the Philippines: TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.
+- https://technext.asia/advisers — Odoo & ERP Advisers in Singapore and the Philippines: Talk to TechNext's advisers first: finance, sales, supply chain, operations, AI and web consultants who map your process, advise, then implement Odoo.
 - https://technext.asia/blog — Blog: Odoo news, Odoo 20 and ERP guides: Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
 - https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing with Odoo: Deadline & Setup Guide: BIR e-invoicing explained by TechNext: the 31 December 2026 deadline, who is covered, the Permit to Issue, and how to get Odoo ready in the Philippines.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG implementation guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
@@ -127,6 +128,42 @@
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
 
 ## Questions and answers
+
+### Is the adviser the same person who sets up Odoo?
+
+Yes. The adviser who maps your process leads the configuration with our consultants in Taguig City, trains your key users and stays your contact after go-live.
+
+Source: https://technext.asia/advisers
+
+### Do we need to decide on Odoo before we talk?
+
+No. The first conversation is about how your business runs. If Odoo is not the right fit for a part of it, the adviser will tell you.
+
+Source: https://technext.asia/advisers
+
+### We already run Odoo. Can an adviser still help?
+
+Yes. Advisers review an existing set-up, find where people work around the system, and recommend what to reconfigure, retrain or add. See Odoo support .
+
+Source: https://technext.asia/advisers
+
+### Which industries do your advisers know?
+
+Medical, travel, retail, ecommerce, construction, F&B, manufacturing and health & wellness. Each has its own page under Industries .
+
+Source: https://technext.asia/advisers
+
+### Where are the advisers based?
+
+Our headquarters is in Singapore, where we also work on-site. Our main consulting hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We advise clients in 10+ countries online.
+
+Source: https://technext.asia/advisers
+
+### How do we book a first conversation?
+
+Use Let's talk to pick a time, message us on WhatsApp, or email sales@technext.asia with a line on what slows your team down.
+
+Source: https://technext.asia/advisers
 
 ### What is the BIR e-invoicing deadline?
 

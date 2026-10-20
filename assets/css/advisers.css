@@ -1,0 +1,51 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /advisers: page sections below the hero (the hero world lives in worlds/advisors.css). Home "advise first" band too. */
+
+/* sales demo vs adviser: the questions each one asks */
+.adv-vs { gap: 16px; align-self: center; }
+.adv-vs-card { padding: 22px 22px 20px; }
+.adv-h { margin: 0 0 10px; font: 700 12px/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.adv-q { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.adv-q li { font: 600 15px/1.4 var(--font-display); color: var(--body); padding-left: 14px; border-left: 2px solid var(--line); }
+.adv-vs-card--yes { border-color: var(--blue-300); background: var(--blue-050); }
+.adv-vs-card--yes .adv-h { color: var(--blue-700); }
+.adv-vs-card--yes .adv-q li { color: var(--ink); border-left-color: var(--blue); }
+
+/* expertise cards */
+.adv-grid { align-items: stretch; }
+.adv-card { display: flex; flex-direction: column; }
+.adv-card > p:not(.adv-h) { margin-bottom: 16px; }
+.adv-card .checks { margin: 0 0 18px; }
+.adv-card .btn-link { margin-top: auto; }
+.adv-ask { margin: 0 0 18px; padding: 14px 16px; border-radius: var(--r-sm); background: var(--alt); border: 1px solid var(--line);
+  font: 500 14.5px/1.5 var(--font-body); color: var(--ink); font-style: italic; }
+.adv-ask span { display: block; margin-bottom: 6px; font: 700 11px/1.3 var(--font-body); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--blue-700); }
+
+/* named advisers (rendered only when _src/advisors.py ADVISORS has entries) */
+.adv-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.adv-person { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow-sm); }
+.adv-ava { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; background: var(--blue-100); display: grid; place-items: center; box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--blue-300); }
+.adv-ava img { width: 100%; height: 100%; object-fit: cover; }
+.adv-ini { font: 800 30px/1 var(--font-display); color: var(--blue-700); }
+.adv-body h3 { margin: 0 0 2px; }
+.adv-role { margin: 0; font-weight: 600; color: var(--ink); }
+.adv-meta { margin: 2px 0 10px; font-size: 14px; color: var(--muted); }
+.adv-creds { margin: 0 0 12px; }
+.adv-body .pill-row { margin-bottom: 10px; }
+@media (max-width: 560px) {
+  .adv-person { grid-template-columns: 1fr; }
+  .adv-vs { grid-template-columns: 1fr; }
+}
+
+/* home: "advise first" band */
+.adv-home .adv-roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.adv-role-card { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 18px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; color: inherit; transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out), transform .2s var(--ease-out); }
+.adv-role-card:hover { border-color: var(--blue-300); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.adv-role-card .odoo-ic, .adv-role-card svg, .adv-role-card img { flex: none; }
+.adv-role-card b { display: block; font: 700 16px/1.3 var(--font-display); color: var(--ink); margin-bottom: 4px; }
+.adv-role-card small { display: block; font-size: 14px; line-height: 1.45; color: var(--body); }
+.adv-home .actions { margin-top: 28px; }
+@media (max-width: 900px) { .adv-home .adv-roles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .adv-home .adv-roles { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .adv-role-card { transition: none; } .adv-role-card:hover { transform: none; } }

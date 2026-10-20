@@ -207,6 +207,8 @@ NAV = [
             {"title": "Company", "links": [
                 {"label": "About TechNext", "href": "company.html", "icon": "co-about",
                  "desc": "Who we are, how we work, where to find us."},
+                {"label": "Our advisers", "href": "advisers.html", "icon": "usercheck",
+                 "desc": "Finance, sales, stock, operations, AI and web expertise."},
                 # the team, introduced to clients: noindex, nofollow, kept out of the sitemap (its meta sets "robots")
                 {"label": "Employee Hub", "href": "employee-hub.html", "icon": "co-team", "nofollow": True,
                  "desc": "Employee sheets and the TechNext 201."},
