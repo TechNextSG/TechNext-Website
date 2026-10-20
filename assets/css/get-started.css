@@ -3,7 +3,7 @@
    beside it, three steps, four service cards and one CTA band. Built on the calm kit (site.css + calm.css).
    A focused page: the header keeps only the logo (no menu, no Nexi Explains, no header button) and the side tabs and
    the WhatsApp bubble are hidden, so the form is the one thing to do. */
-.gs-page .header .nav,.gs-page .header .header-cta,.gs-page .header .menu-btn,.gs-page .side-tabs,.gs-page .wa-float{display:none!important}
+.gs-page .header .nav,.gs-page .header .header-cta,.gs-page .header .menu-btn,.gs-page .side-tabs,.gs-page .wa-float,.gs-page .cat-float{display:none!important}
 /* footer links are plain text here (get-started.js also drops their href for keyboard users) */
 .gs-page .footer nav a,.gs-page .header .brand{pointer-events:none;cursor:default;color:inherit;text-decoration:none}
 #gs-form{scroll-margin-top:96px}

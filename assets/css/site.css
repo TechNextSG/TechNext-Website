@@ -1165,7 +1165,7 @@ html.nx-full-start .nx-stage,body.nx-max .nx-stage{position:fixed;inset:0;z-inde
 html.nx-full-start .nx-stage iframe,body.nx-max .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
 /* /nexi#full = Nexi only: the page around the stage never shows, not even for a frame (html.nx-solo is set in the head) */
 html.nx-solo,html.nx-solo body{background:#dfe9fb}
-html.nx-solo .header,html.nx-solo .footer,html.nx-solo .side-tabs,html.nx-solo .wa-float,html.nx-solo .nx-head,html.nx-solo .cookie,html.nx-solo [class^="cookie"],html.nx-solo .tn-sb,body.nx-max .side-tabs,body.nx-max .wa-float{display:none!important}
+html.nx-solo .header,html.nx-solo .footer,html.nx-solo .side-tabs,html.nx-solo .wa-float,html.nx-solo .cat-float,html.nx-solo .nx-head,html.nx-solo .cookie,html.nx-solo [class^="cookie"],html.nx-solo .tn-sb,body.nx-max .side-tabs,body.nx-max .wa-float,body.nx-max .cat-float{display:none!important}
 html.nx-solo .nx-stage{position:fixed;inset:0;z-index:2147483000;border:0;border-radius:0;margin:0;box-shadow:none}
 html.nx-solo .nx-stage iframe{height:100vh;height:100dvh;min-height:0}
 html.nx-solo .nx-full{display:none}
@@ -1289,8 +1289,24 @@ body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
   body.is-nexi .wa-float{bottom:16px}
   body.tabs-open .wa-float{opacity:0;pointer-events:none;scale:.6}
 }
-@media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.header .header-cta .btn.hdr-contact{transition:none}}
-@media print{.wa-float{display:none}}
+/* Services Catalogue button: a smaller white circle with the blue book, stacked right above the WhatsApp button,
+   centred on it. It follows every rule that moves or hides the WhatsApp button. */
+.cat-float{position:fixed;right:26px;bottom:90px;z-index:57;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+  color:#3167CA;background:#FFFFFF;border:1px solid #DCE5F5;box-shadow:0 10px 24px -12px rgba(15,25,50,.45);-webkit-tap-highlight-color:transparent;
+  transition:background-color .2s ease,color .2s ease,opacity .25s ease,scale .3s var(--spring)}
+.cat-float .ic{width:22px;height:22px}
+.cat-float:hover{background:#3167CA;color:#FFFFFF;border-color:#3167CA}
+.cat-float:focus-visible{outline:3px solid #6FA0F5;outline-offset:4px}
+.cat-float:hover .wa-float-tip,.cat-float:focus-visible .wa-float-tip{opacity:1;translate:0 -50%}
+body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
+@media (max-width:960px){
+  .cat-float{right:19px;bottom:140px;width:44px;height:44px;transition:background-color .2s ease,bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
+  .cat-float .ic{width:20px;height:20px}
+  body.tabs-wait .cat-float,body.is-nexi .cat-float{bottom:76px}
+  body.tabs-open .cat-float{opacity:0;pointer-events:none;scale:.6}
+}
+@media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.cat-float,.header .header-cta .btn.hdr-contact{transition:none}}
+@media print{.wa-float,.cat-float{display:none}}
 
 /* the side tabs: their original flat look on every page (green Set up meeting, blue Let's Talk and Ask Nexi) */
 .side-tabs .side-tab,.side-tabs.c-hxs-on .side-tab,.side-tabs.c-nxs-dark .side-tab,.is-nxe .side-tab{border:0!important;box-shadow:0 8px 24px -12px rgba(31,31,61,.45)!important;color:#FFFFFF!important;
