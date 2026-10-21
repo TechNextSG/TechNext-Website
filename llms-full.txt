@@ -16,7 +16,6 @@
 ## Pages
 
 - https://technext.asia/ — Odoo Partner in Singapore & the Philippines: TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.
-- https://technext.asia/advisers — Odoo & ERP Advisers in Singapore and the Philippines: Talk to TechNext's advisers first: finance, sales, supply chain, operations, AI and web consultants who map your process, advise, then implement Odoo.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing in Odoo — Ready Before 31 December 2026: BIR e-invoicing deadline: 31 December 2026. Who is covered, the PTI and EIS steps, what Odoo 20 does for the BIR, and how TechNext gets you ready.
 - https://technext.asia/blog — Blog: Odoo news, Odoo 20 and ERP guides: Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
 - https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing with Odoo: Deadline & Setup Guide: BIR e-invoicing explained by TechNext: the 31 December 2026 deadline, who is covered, the Permit to Issue, and how to get Odoo ready in the Philippines.
@@ -33,9 +32,7 @@
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
 - https://technext.asia/blog/upcoming-odoo-events-singapore-philippines-vietnam — Odoo events Oct–Nov 2026: Singapore, Philippines, Vietnam: Upcoming Odoo events in Singapore, the Philippines and Vietnam for October and November 2026, plus free online webinars: dates, venues and links, by TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain-language guide from TechNext, an Odoo Partner.
-- https://technext.asia/careers — Careers: Odoo, ERP and finance jobs in Taguig: Join TechNext, an Odoo Partner. Six open roles in Taguig City, Metro Manila: Odoo consultants and architects, finance, HR, sales and marketing.
 - https://technext.asia/company — About TechNext Pte. Ltd. — Odoo Ready Partner, Singapore: TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with teams in the Philippines and Vietnam: Odoo ERP, enterprise AI and websites.
-- https://technext.asia/events — Events: TechNext events and milestones: TechNext's own events, the events we will join and our milestones, from the Nexi Explains premieres to the blog launch. Past dates move on their own.
 - https://technext.asia/free-website-with-odoo — Free Website & Brand Design with Your Odoo: Start your Odoo with TechNext and your website and brand design come with it, connected to your CRM, sales and stock. You don't need to hire your own team.
 - https://technext.asia/get-started — Free website design and setup on Odoo — TechNext: We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - https://technext.asia/industries/construction — Odoo for Construction — Singapore & Philippines: Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
@@ -46,7 +43,6 @@
 - https://technext.asia/industries/medical — Odoo for Clinics & Healthcare — Singapore & Philippines: Odoo for clinics and healthcare groups: consumables stock per branch, central purchasing, clean accounts per entity — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/retail — Odoo for Retail — Singapore & Philippines: Odoo for retailers: Point of Sale, shared stock across stores, promotions and daily takings posted to Accounting — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/travel — Odoo for Travel Agencies — Singapore & Philippines: Odoo for travel agencies, tour operators and hospitality: quotations, supplier costs and margin per booking, multi-currency invoicing — implemented by TechNext.
-- https://technext.asia/life — Life at TechNext: our photo gallery: Life at TechNext in photos: team outings, group dinners, meetings, office life and events across our offices in Singapore, Taguig City and Ho Chi Minh City.
 - https://technext.asia/nexi — Nexi, TechNext's AI companion for Odoo, AI and websites: Meet Nexi, TechNext's AI companion. Ask about Odoo, AI and websites, take a short 3D tour, and get to a quotation, a meeting or the team in a few taps.
 - https://technext.asia/nexi-explains — Nexi Explains: Odoo, AI and tech videos by TechNext: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
 - https://technext.asia/odoo/ai-integration — Odoo AI Integration — AI Agents Inside Your ERP: Odoo AI integration by TechNext: AI agents and assistants inside your Odoo, working on your own data, for companies in Singapore and the Philippines.
@@ -109,62 +105,18 @@
 - https://technext.asia/odoo/support — Odoo Support & Maintenance — TechNext Care: Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
 - https://technext.asia/odoo/training — Odoo Training on Your Own Data — SG & PH: Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so go-live doesn't depend on hiring Odoo experts.
 - https://technext.asia/odoo/vietnam — Odoo Partner Vietnam — Circular 99, SInvoice and 01/GTGT: TechNext sets up Odoo for companies in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, so you don't need your own Odoo team.
-- https://technext.asia/offices/philippines — TechNext Taguig City hub — Odoo development, Philippines: TechNext's main development and consulting hub at Level 9, IP Center, Taguig City, Metro Manila: Odoo developers, consultants and architects, and our open roles.
-- https://technext.asia/offices/singapore — TechNext Singapore HQ — 261 Waterloo Street #03-36: TechNext's headquarters at 261 Waterloo Street #03-36, Singapore 180261: sales, Odoo discovery workshops and on-site work with clients in Singapore.
-- https://technext.asia/offices/vietnam — TechNext Ho Chi Minh City — AI engineering hub, Vietnam: TechNext's AI engineering hub at 62 Nguyễn Thị Nhung, Ho Chi Minh City: AI agents, knowledge assistants, chatbots and local LLM deployment, often connected to Odoo.
 - https://technext.asia/quotation — Odoo Implementation Cost — get a written quote: Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.
 - https://technext.asia/solutions/ai — AI Solutions for Business — Singapore & Philippines: AI solutions for business in Singapore and the Philippines: assistants, chatbots and automation built and run by TechNext, so you don't hire an AI team.
 - https://technext.asia/solutions/ai-automation — AI Workflow Automation for SMEs — SG & PH: AI workflow automation for SMEs in Singapore and the Philippines: AI agents do the repetitive steps, people approve what matters. No AI team to hire.
 - https://technext.asia/solutions/ai-chatbots — AI Chatbot Development — Singapore & Philippines: AI chatbot development in Singapore and the Philippines for websites, WhatsApp and Odoo: answers from your content and a clean hand-off to your team.
-- https://technext.asia/solutions/ai-knowledge — Enterprise RAG Implementation — Knowledge Assistants: Enterprise RAG implementation by TechNext: knowledge assistants that answer from your policies, manuals and records, with sources, in Singapore and PH.
-- https://technext.asia/solutions/app-development — App Development — Singapore & Philippines: Mobile and web app development in Singapore and the Philippines: apps built around how your team works and connected to Odoo, without an in-house dev team.
 - https://technext.asia/solutions/brand-assets — Branding & Brand Kits for SMEs — Singapore & PH: Branding and brand kits for SMEs in Singapore and the Philippines: logo, guidelines, decks and templates your team can use without hiring a designer.
 - https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP for Groups & Consolidation: Odoo multi-company ERP for groups in Singapore and the Philippines: every entity in one Odoo, inter-company flows and one set of consolidated numbers.
-- https://technext.asia/solutions/iot — IoT Solutions Connected to Odoo — SG & PH: IoT solutions in Singapore and the Philippines: sensors and devices that report straight into Odoo, so alerts, quality checks and records happen on their own.
 - https://technext.asia/solutions/marketing — Website & Social Media Marketing for SMEs: Website and social media marketing for SMEs in Singapore and the Philippines: be easy to find and contact, without hiring your own marketing team.
-- https://technext.asia/solutions/networks — Office Network & Wi-Fi Setup — Singapore & PH: Office network and Wi-Fi setup in Singapore and the Philippines: planned, installed and looked after by TechNext, so nobody in your office has to manage it.
 - https://technext.asia/solutions/odoo-erp — Odoo Implementation in Singapore & the Philippines: Odoo implementation in Singapore and the Philippines by TechNext: set up, migrated, trained and supported, so you don't need to hire your own ERP team.
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
-- https://technext.asia/solutions/technology — Technology Services for SMEs — IoT, Apps, Networks: Technology services for SMEs in Singapore and the Philippines: IoT, apps and networks from one team, so you don't need to hire your own tech staff.
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
 
 ## Questions and answers
-
-### Is the adviser the same person who sets up Odoo?
-
-Yes. The adviser who maps your process leads the configuration with our consultants in Taguig City, trains your key users and stays your contact after go-live.
-
-Source: https://technext.asia/advisers
-
-### Do we need to decide on Odoo before we talk?
-
-No. The first conversation is about how your business runs. If Odoo is not the right fit for a part of it, the adviser will tell you.
-
-Source: https://technext.asia/advisers
-
-### We already run Odoo. Can an adviser still help?
-
-Yes. Advisers review an existing set-up, find where people work around the system, and recommend what to reconfigure, retrain or add. See Odoo support .
-
-Source: https://technext.asia/advisers
-
-### Which industries do your advisers know?
-
-Medical, travel, retail, ecommerce, construction, F&B, manufacturing and health & wellness. Each has its own page under Industries .
-
-Source: https://technext.asia/advisers
-
-### Where are the advisers based?
-
-Our headquarters is in Singapore, where we also work on-site. Our main consulting hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We advise clients in 10+ countries online.
-
-Source: https://technext.asia/advisers
-
-### How do we book a first conversation?
-
-Use Let's talk to pick a time, message us on WhatsApp, or email sales@technext.asia with a line on what slows your team down.
-
-Source: https://technext.asia/advisers
 
 ### What is the BIR e-invoicing deadline?
 
@@ -538,30 +490,6 @@ TechNext is an Odoo Ready Partner and implements Odoo end to end: discovery, con
 
 Source: https://technext.asia/blog/what-is-erp
 
-### Where are TechNext's open roles based?
-
-All six current roles are in Taguig City, Metro Manila, at our Philippines office (Level 9, IP Center), our main development and consulting hub. TechNext is headquartered in Singapore and has an AI engineering hub in Ho Chi Minh City, Vietnam.
-
-Source: https://technext.asia/careers
-
-### Are the roles hybrid?
-
-Four of the six are listed as hybrid: the Functional ERP/Odoo Consultant, B2B Sales Consultant, Senior Accountant and HR Generalist. Each JobStreet listing states the work arrangement for that role.
-
-Source: https://technext.asia/careers
-
-### Do I need Odoo experience?
-
-For the ERP roles, yes: the Senior Solutions Architect and Functional Consultant listings ask for hands-on Odoo implementation experience. The other listings set out their own requirements, such as ERP or SaaS sales experience for the sales role.
-
-Source: https://technext.asia/careers
-
-### How do I apply for a job at TechNext?
-
-Open the role on JobStreet from this page and apply there with your CV. If there is no listing for the role you want, email career@technext.asia.
-
-Source: https://technext.asia/careers
-
 ### Where is TechNext based?
 
 Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is at Level 9, IP Center, Taguig City, Metro Manila, and our AI engineering hub is at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 10+ countries.
@@ -588,19 +516,19 @@ Source: https://technext.asia/company
 
 ### Is TechNext hiring?
 
-Yes. We have open roles in Taguig City, Metro Manila, for Odoo and ERP consultants, finance, HR, sales and marketing. See them on our careers page , or email career@technext.asia.
+Yes. We have open roles in Taguig City, Metro Manila, for Odoo and ERP consultants, finance, HR, sales and marketing. Email your CV to career@technext.asia.
 
 Source: https://technext.asia/company
 
 ### How do we start working with TechNext?
 
-Tell us how your process runs today by email to sales@technext.asia, on WhatsApp, or through the quotation form. Most Odoo projects start with a discovery session that maps your processes to Odoo apps.
+Tell us how your process runs today by email to sales@technext.asia or through the quotation form. Most Odoo projects start with a discovery session that maps your processes to Odoo apps.
 
 Source: https://technext.asia/company
 
 ### Who replies to my message?
 
-The TechNext team. Form inquiries and emails go to sales@technext.asia, and we reply from that address. WhatsApp messages go to the same sales team.
+The TechNext team. Form inquiries and emails go to sales@technext.asia, and we reply from that address.
 
 Source: https://technext.asia/contact
 
@@ -1276,84 +1204,6 @@ Yes. Odoo runs a company per country in one database, each with its own localisa
 
 Source: https://technext.asia/odoo/vietnam
 
-### Where is TechNext's office in the Philippines?
-
-At Level 9, IP Center (Intellectual Property Center), Taguig City, Metro Manila. It's our main development and consulting hub.
-
-Source: https://technext.asia/offices/philippines
-
-### What is done at the Taguig City hub?
-
-Odoo configuration, custom modules and integrations, by our developers, consultants and architects, with TechNext's finance, HR, sales and marketing teams working alongside them.
-
-Source: https://technext.asia/offices/philippines
-
-### Is TechNext hiring in Taguig City?
-
-Yes. Our open roles are in Taguig City: see them on our careers page , or email career@technext.asia.
-
-Source: https://technext.asia/offices/philippines
-
-### Does TechNext implement Odoo for companies in the Philippines?
-
-Yes. See Odoo in the Philippines for how we implement Odoo for Philippine companies.
-
-Source: https://technext.asia/offices/philippines
-
-### Where is TechNext's Singapore office?
-
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Email sales@technext.asia or message us on WhatsApp to arrange a meeting.
-
-Source: https://technext.asia/offices/singapore
-
-### What does the Singapore HQ do?
-
-Sales, discovery workshops and on-site work with clients in Singapore. Configuration, custom modules and integration run from our main development and consulting hub in Taguig City, Metro Manila, and our AI engineers in Ho Chi Minh City join when AI is in scope.
-
-Source: https://technext.asia/offices/singapore
-
-### Does TechNext work on-site in Singapore?
-
-Yes. We work on-site with clients in Singapore, and remotely with clients in 10+ countries.
-
-Source: https://technext.asia/offices/singapore
-
-### How do I start an Odoo project with TechNext?
-
-Book a discovery call, email sales@technext.asia or use the quotation form . Most Odoo projects start with a discovery session that maps your processes to Odoo apps.
-
-Source: https://technext.asia/offices/singapore
-
-### Where is TechNext's office in Vietnam?
-
-At 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. It's our AI engineering hub.
-
-Source: https://technext.asia/offices/vietnam
-
-### What does the Ho Chi Minh City hub do?
-
-AI engineering: AI agents and automation, knowledge and RAG systems, chatbots and assistants, and local LLM deployment, often connected to Odoo. Odoo configuration, custom modules and integration run from our Taguig City hub.
-
-Source: https://technext.asia/offices/vietnam
-
-### Do the AI engineers work on every project?
-
-They join when AI is in scope, which is decided in discovery. They work on the same project as the Singapore and Taguig City teams.
-
-Source: https://technext.asia/offices/vietnam
-
-### Can TechNext's AI work with Odoo?
-
-Yes. Most of our AI work is connected to Odoo. See Odoo + AI integrations .
-
-Source: https://technext.asia/offices/vietnam
-
-### Does TechNext implement Odoo for companies in Vietnam?
-
-Yes. See Odoo in Vietnam for how we set up Odoo with the Vietnamese localisation: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices.
-
-Source: https://technext.asia/offices/vietnam
-
 ### How much does Odoo cost?
 
 Odoo licences are priced per user per month by Odoo, with a free plan for a single app. Prices differ by country and currency, so check odoo.com/pricing for your market.
@@ -1450,42 +1300,6 @@ Pricing is on quotation, scoped to your channels and content. Request a quotatio
 
 Source: https://technext.asia/solutions/ai-chatbots
 
-### How does it avoid making things up?
-
-It answers only from passages retrieved from your own sources, and cites them. When the documents don't cover a question, it says so rather than guessing.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
-### Could it show a document someone shouldn't see?
-
-No. Retrieval is permission-aware: who can see a document decides who can get an answer from it, following your existing access rules.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
-### What sources can it read?
-
-Policies, manuals, contracts, wikis, support tickets, PDFs and Odoo records — connected from the systems where you already keep them.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
-### Where can our people use it?
-
-Inside Odoo Discuss or Knowledge, in Microsoft Teams or Slack, in a web widget on your intranet, or on WhatsApp for a scoped customer version.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
-### Does our data leave our environment?
-
-It stays in your tenancy. Where data can't leave, we deploy private-cloud or on-premise models and choose hosting for your requirements.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
-### What does it cost?
-
-Pricing is on quotation, scoped to your sources and channels. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/ai-knowledge
-
 ### Which of the four should we start with?
 
 Start with the task that removes the most manual hours each week. Tell us the work; we'll say which discipline fits and what a first version takes.
@@ -1521,36 +1335,6 @@ Source: https://technext.asia/solutions/ai
 Pricing is on quotation, scoped to the task and the data involved. Request a quotation and we'll come back with a written scope.
 
 Source: https://technext.asia/solutions/ai
-
-### Native or cross-platform?
-
-We choose per project: one cross-platform codebase when it serves iOS and Android well, native code when the app leans heavily on device features.
-
-Source: https://technext.asia/solutions/app-development
-
-### Can the app work with Odoo?
-
-Yes. Apps can read and write Odoo records through its API, so orders, bookings, job reports and stock updates land in the ERP without retyping.
-
-Source: https://technext.asia/solutions/app-development
-
-### Do you build web apps too?
-
-Yes: portals, dashboards and internal tools that run in the browser, on their own or alongside a mobile app.
-
-Source: https://technext.asia/solutions/app-development
-
-### How long does a first version take?
-
-It depends on the scope. Most teams start with one workflow, launch it, then add to it. The quotation comes with a timeline for the first version.
-
-Source: https://technext.asia/solutions/app-development
-
-### What does it cost?
-
-Pricing is on quotation, scoped to the screens, platforms and integrations involved. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/app-development
 
 ### Do we get editable files, or just PDFs?
 
@@ -1624,36 +1408,6 @@ By the entities, countries, integrations and custom work involved, so it's scope
 
 Source: https://technext.asia/solutions/enterprise
 
-### What can we monitor?
-
-Temperature and humidity, energy use, machine runtime and stoppages, doors, room occupancy and vehicle location are the common ones. If a sensor can measure it, it can usually be brought onto a dashboard.
-
-Source: https://technext.asia/solutions/iot
-
-### Do we need Odoo?
-
-No. Dashboards and alerts work on their own. If you run Odoo, the readings can feed it, and Odoo IoT connects devices such as scales and printers to the Odoo apps directly.
-
-Source: https://technext.asia/solutions/iot
-
-### Who supplies the hardware?
-
-We recommend the sensors and gateways for your site and can source them, or work with devices you already have where they can be connected.
-
-Source: https://technext.asia/solutions/iot
-
-### What if a device goes offline?
-
-A device that stops reporting raises its own alert, so a silent sensor is noticed rather than mistaken for a calm reading.
-
-Source: https://technext.asia/solutions/iot
-
-### What does it cost?
-
-Pricing is on quotation, scoped to the number of devices, sites and integrations. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/iot
-
 ### Can I take just one of the three services?
 
 Yes. A website, social media management or brand assets each work on their own. Most companies start with one and add the others as they need them.
@@ -1689,36 +1443,6 @@ Source: https://technext.asia/solutions/marketing
 Singapore is home base, with a global production team. We have worked with clients across 10+ countries and transformed 11+ enterprise clients.
 
 Source: https://technext.asia/solutions/marketing
-
-### Can you work with our existing equipment?
-
-Yes. We review what you have, keep what is sound and replace only what is holding you back.
-
-Source: https://technext.asia/solutions/networks
-
-### Do you set up remote access?
-
-Yes. A VPN or other secure remote access lets people reach office systems from home or on the road, with access limited to what they need.
-
-Source: https://technext.asia/solutions/networks
-
-### Can guests use our Wi-Fi without reaching our files?
-
-Yes. Guest Wi-Fi runs on its own network, kept apart from staff computers, servers and printers.
-
-Source: https://technext.asia/solutions/networks
-
-### Do you support the network after set-up?
-
-Yes, through a support plan: changes, troubleshooting and regular checks, with the documentation kept current.
-
-Source: https://technext.asia/solutions/networks
-
-### What does it cost?
-
-Pricing is on quotation, scoped to your office, the equipment needed and the support you want. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/networks
 
 ### Which apps should we start with?
 
@@ -1791,30 +1515,6 @@ Source: https://technext.asia/solutions/social-media
 As a monthly retainer, scoped to the channels and volume you want. We quote first, so you see the figure before you commit. Get a quotation .
 
 Source: https://technext.asia/solutions/social-media
-
-### Do these services need Odoo?
-
-No. Each one works on its own. When you run Odoo, we connect them so the data ends up in one place.
-
-Source: https://technext.asia/solutions/technology
-
-### Can we start with just one?
-
-Yes. Most companies start with one need, such as a new app, a network refresh or sensors in one room, and add the rest when it makes sense.
-
-Source: https://technext.asia/solutions/technology
-
-### Where is TechNext based?
-
-TechNext is headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City. Ask us about on-site work at your location.
-
-Source: https://technext.asia/solutions/technology
-
-### What does it cost?
-
-Pricing is on quotation, scoped to the services and sites involved. Request a quotation and we'll return a written scope.
-
-Source: https://technext.asia/solutions/technology
 
 ### Can we edit the site ourselves afterwards?
 

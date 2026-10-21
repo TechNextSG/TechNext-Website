@@ -220,7 +220,6 @@ def mobile_nav_html() -> str:
 </div>
 <div class="mnav-contact">
   <a href="mailto:{c["sales_email"]}">{{{{icon:mail}}}} {c["sales_email"]}</a>
-  <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">{{{{icon:whatsapp}}}} WhatsApp us</a>
   <span>{{{{icon:pin}}}} {c["hubs"]}</span>
 </div>''')
     return "\n".join(out)
@@ -249,8 +248,7 @@ def talk_panel_html() -> str:
   <div class="talk-body">
     <p class="hand">let's talk</p>
     <h2 id="talk-title">Tell us what slows you down.</h2>
-    <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>. Prefer to chat?
-      <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">WhatsApp</a>.</p>
+    <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>.</p>
 
     <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -363,13 +361,13 @@ LAYOUT = '''<!doctype html>
 <footer class="footer">
   <div class="container footer-inner">
     <span>© {YEAR} {LEGAL} All rights reserved.</span>
-    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}careers.html">Careers</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
+    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
 
 {TALK}
 <a class="cat-float" href="{ROOT}services-catalogue" target="_blank" rel="noopener" aria-label="Open the TechNext Services Catalogue (opens in a new tab)">{{icon:book}}<span class="wa-float-tip">Services catalogue</span></a>
-<a class="wa-float" href="{WA_MSG}" target="_blank" rel="noopener" aria-label="Chat with TechNext on WhatsApp">{{icon:whatsapp}}<span class="wa-float-tip">WhatsApp us</span></a>
+
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
@@ -540,8 +538,7 @@ NXE_IMG = "{{ROOT}}assets/img/nexi-explains/"
 # drawn cards (Season 2 has no thumbnails yet): the Nexi renders' sizes at 520 px tall
 NXE_POSE_W = {"hello": 432, "wow": 347, "love": 336, "celebrate": 530, "think": 375, "point-left": 509, "jump": 456, "clap": 347}
 NXE_PAGE_LABELS = {"nexi.html": "Chat with Nexi", "odoo/apps.html": "All Odoo apps", "quotation.html": "Get a quotation",
-                   "solutions/iot.html": "IoT Solutions", "solutions/app-development.html": "App Development",
-                   "solutions/networks.html": "Networks"}
+}
 
 
 def _nxe_when(iso: str):
@@ -965,9 +962,9 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" href="{{ROOT}}case-studies.html">See our case studies {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}advisers.html">Meet our advisers {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>Government compliance, built in.</h3><p>BIR in the Philippines: books for CAS/CBA, 2307 certificates and your e-invoicing plan. GST and InvoiceNow in Singapore. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR compliance in Odoo {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City, AI engineers in Ho Chi Minh City, and new roles open right now.</p><a class="btn-link" href="{{ROOT}}careers.html">We're hiring {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <div class="cw reveal">
       <h3 class="cw-h">Companies we've worked with</h3>
@@ -2380,11 +2377,9 @@ LLMS_GROUPS = [
     ("AI solutions", lambda u: u.startswith("solutions/ai")),
     ("Websites and marketing", lambda u: u in ("solutions/marketing", "solutions/website",
                                                 "solutions/social-media", "solutions/brand-assets")),
-    ("Technology: IoT, apps and networks", lambda u: u in (
-        "solutions/technology", "solutions/iot", "solutions/app-development", "solutions/networks")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "careers", "quotation", "contact", "events", "life", "nexi-explains")),
+    ("Company", lambda u: u in ("", "company", "quotation", "contact", "nexi-explains")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 

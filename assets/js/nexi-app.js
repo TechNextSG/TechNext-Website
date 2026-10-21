@@ -16,7 +16,7 @@ if (window.top === window.self) { location.replace("/nexi"); return; }
 var BOT_NAME = "Nexi";
 var GREETING = "Hi there! I'm " + BOT_NAME + ", TechNext's little helper robot. Ask me anything about Odoo, AI, websites or pricing (typos welcome!), or tap the buttons under me to visit Singapore, the beach, space and more!";
 var SITE_URL = "/";
-var WA = "https://wa.me/6588396998";
+var WA = "https://technext.odoo.com/book/c82cf8a9";
 var MEET = "https://technext.odoo.com/book/c82cf8a9";
 
 var QUESTIONS = [
@@ -161,7 +161,7 @@ var KB = [
     actions:[['link','solutions/brand-assets','Brand assets'],['quote']] },
   { id:'ai', kw:['ai','a.i','artificial intelligence','artificial','machine learning','ml','chatgpt','gpt','openai','claude','llm','automation','automate','automating','agent','agents','bot','chatbot','chat bot','chatbots','copilot','ocr','document ai','extract','rag','knowledge','knowledge base','assistant','workflow','workflows','reads invoices','read invoices','reads bills','invoice ai','ai invoice','ai bill','ai ocr','chatbot for','website chatbot','ai chatbot','whatsapp bot','chatbot like you'],
     a:'Four AI solutions:<ul><li>'+icon('i_database')+'<span><b>RAG knowledge assistants</b> that answer from your documents, with sources</span></li><li>'+oi('ai_app')+'<span><b>AI inside Odoo</b>: bills read and matched, replies drafted</span></li><li>'+icon('i_zap')+'<span><b>Workflow automation</b> agents, with approval where money moves</span></li><li>'+icon('i_bot')+'<span><b>Chatbots</b> for websites, WhatsApp and Odoo</span></li></ul>',
-    actions:[['link','solutions/ai','AI solutions'],['link','solutions/ai-knowledge','Knowledge assistants'],['link','solutions/ai-chatbots','Chatbots']] },
+    actions:[['link','solutions/ai','AI solutions'],['link','blog/enterprise-rag-guide','RAG guide'],['link','solutions/ai-chatbots','Chatbots']] },
   { id:'hr', kw:['payroll','payslip','payslips','hr','human resources','hrm','hris','leave','leave management','leave application','time off','timeoff','attendance','attendances','employee','employees','staff records','recruitment','recruiting','appraisal','appraisals','expense claims'],
     a:'<b>Odoo\'s HR apps</b> keep your people on the same database as your money:<ul><li><span><b>Employees</b> and contracts</span></li><li><span><b>Time Off</b> and <b>Attendances</b></span></li><li><span><b>Payroll</b>, with payslips posted to Accounting</span></li><li><span><b>Recruitment</b>, <b>Appraisals</b> and <b>Expenses</b></span></li></ul>We check the payroll rules for your country during discovery.',
     actions:[['link','odoo/apps#hr','HR apps'],['link','odoo/apps/payroll','Payroll'],['link','odoo/apps/time-off','Time Off']] },
@@ -188,21 +188,21 @@ var KB = [
     actions:[['link','odoo/training','Odoo training']] },
   { id:'careers', kw:['hiring','are you hiring','careers','career','job','jobs','job opening','job openings','vacancy','vacancies','internship','work at technext','work for technext','join your team','join technext'],
     a:'We\'re growing! Our open roles are in <b>Taguig City, Metro Manila</b>: Odoo consultants and architects, finance, HR, sales and marketing. See them all on the careers page.',
-    actions:[['link','careers','Open roles']] },
+    actions:[['link','company','About TechNext']] },
   { id:'demo', kw:['demo','demonstration','free demo','trial','free trial','test drive','test','try','try odoo','see it','show me','sandbox','walkthrough','presentation','preview'],
     a:'Happy to show you Odoo on real scenarios. The quickest path is a short <b>discovery call</b>: we walk through the apps that fit your business and answer pricing.',
     actions:[['meet'],['wabook']] },
   { id:'iot', kw:['iot','internet of things','iot solution','iot solutions','sensor','sensors','iot device','iot devices','connected devices','smart device','smart devices','remote monitoring','temperature monitoring','temperature sensor','cold room','energy monitoring','machine monitoring','asset tracking','gps tracking','telemetry','iot gateway','odoo iot','iot box'],
     a:'<b>IoT solutions</b> connect equipment, rooms and sites to software so they report their own status: temperature, energy, machine runtime or location. We recommend the sensors and gateways, build live dashboards and alerts, and can feed the readings into Odoo. Odoo IoT also connects scales, printers and measuring tools to Odoo apps.',
-    actions:[['link','solutions/iot','IoT Solutions'],['quote']] },
+    actions:[['quote']] },
   { id:'apps', kw:['app','apps','mobile app','mobile apps','app development','develop an app','build an app','build our app','application development','ios','android','iphone app','android app','web app','web apps','webapp','portal','customer portal','pwa','progressive web app','custom app','field app','staff app'],
     a:'We build <b>mobile and web apps</b>: customer apps, field and staff apps, portals and internal tools for iOS, Android and the browser. Each one is designed around one workflow, tried as a clickable prototype first, and connected to Odoo and your other systems through APIs.',
-    actions:[['link','solutions/app-development','App Development'],['quote']] },
+    actions:[['quote']] },
   { id:'network', kw:['network','networks','networking','office network','office wifi','set up wifi','setup wifi','wifi setup','set up network','network setup','wifi','wi fi','wireless','lan','router','routers','cabling','structured cabling','firewall','firewalls','vpn','remote access','internet connection','access point','access points','it infrastructure','infrastructure'],
     a:'We set up <b>office networks</b>: the internet line, firewall, Wi-Fi with separate staff and guest networks, secure remote access and the devices on the network. Everything is labelled and documented, and a support plan covers the changes that follow.',
-    actions:[['link','solutions/networks','Networks'],['quote']] },
+    actions:[['quote']] },
   { id:'contact', kw:['contact','contact you','contact details','get in touch','reach','reach you','email','email address','phone','phone number','number','telephone','mobile','whatsapp','wa','call','call you','hours','opening hours'],
-    a:'Here\'s how to reach the team:<ul><li>'+icon('i_mail')+'<span>Email <span class="mail">sales@technext.asia</span></span></li><li>'+icon('i_whatsapp')+'<span>WhatsApp <a href="https://wa.me/6588396998" target="_blank" rel="noopener">Message us</a></span></li><li>'+icon('i_pin')+'<span>261 Waterloo Street #03-36, Singapore 180261</span></li></ul>Headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City.',
+    a:'Here\'s how to reach the team:<ul><li>'+icon('i_mail')+'<span>Email <span class="mail">sales@technext.asia</span></span></li><li>'+icon('i_pin')+'<span>261 Waterloo Street #03-36, Singapore 180261</span></li></ul>Headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City.',
     actions:[['wa'],['email']] },
   { id:'human', kw:['human','person','real person','someone','somebody','talk to','talk to someone','speak','speak to','consultant','expert','specialist','advisor','sales team','sales rep','representative','account manager','meeting','call me','callback','call back','get in touch with someone'],
     a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
@@ -2256,8 +2256,8 @@ function addActs(rowEl,acts){
     if(a[0]==="quote") return '<a class="act primary" href="'+SITE_URL+'quotation" target="_top">'+icon("i_receipt")+'Open the quotation builder</a>';
     if(a[0]==="meet") return '<a class="act primary" href="'+MEET+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Pick a meeting time</a>';
     if(a[0]==="talkform") return '<button class="act primary" type="button" data-talk>'+icon("i_send")+'Open the Let’s Talk form</button>';
-    if(a[0]==="wabook") return '<a class="act primary" href="'+WA+'?text='+encodeURIComponent("Hi TechNext, I'd like to book a discovery call.")+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Book on WhatsApp</a>';
-    if(a[0]==="wa"||a[0]==="human") return '<a class="act" href="'+WA+'" target="_blank" rel="noopener">'+icon("i_whatsapp")+'WhatsApp the team</a>';
+    if(a[0]==="wabook") return '<a class="act primary" href="'+WA+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Book a discovery call</a>';
+    if(a[0]==="wa"||a[0]==="human") return '<a class="act" href="mailto:sales@technext.asia">'+icon("i_mail")+'Email the team</a>';
     if(a[0]==="email") return '<button class="act" type="button" data-copy>'+icon("i_mail")+'<span>sales@technext.asia</span></button>';
     if(a[0]==="tour"){ var q=byId(a[1]); return q?'<button class="act" type="button" data-ask="'+q.id+'">'+icon("i_play")+'Mini tour: '+esc(q.short)+'</button>':''; }
     return "";
