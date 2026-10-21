@@ -1,0 +1,93 @@
+<!--meta {"title": "BIR Audit Readiness: eLA Rules for 2026 and Your Odoo Records", "desc": "How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record retention, and the Odoo features that keep your books audit-ready.", "out": "blog/bir-audit-readiness-odoo.html", "nav": "company", "article": {"h1": "Ready for a BIR audit: the 2026 rules, and how your Odoo records help", "cat": "erp", "date": "2026-10-21", "order": 16, "lede": "The BIR rewrote its audit rules in 2026: one electronic Letter of Authority per year, a standard document checklist, and ten days to hand records over. Here is how the process works now, how long to keep your books, and the Odoo features that make an audit a matter of running reports.", "card": "How BIR audits work in 2026, what examiners ask for within ten days, and the Odoo features that keep your books ready.", "cover": "documents/organization.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>Under <strong>RMO 1-2026</strong>, the BIR generally issues <strong>one electronic Letter of Authority (eLA) per taxable year</strong>, covering all internal revenue taxes.</li>
+    <li><strong>RMO 22-2026</strong> (24 August 2026) gives you <strong>10 calendar days</strong> to submit requested documents, and treats an audit without a valid eLA, TVN or Mission Order as unauthorised.</li>
+    <li>Books must be kept for <strong>five years</strong> from the day after the filing deadline (Tax Code Section 235, as amended by the EOPT Act).</li>
+    <li>Odoo's <strong>audit trail, hashed entries and lock dates</strong> show examiners that posted records were not quietly changed.</li>
+  </ul>
+</div>
+
+<p>A BIR audit tests two things: whether your returns are right, and whether you can prove it quickly. The second part is where most of the stress comes from. Invoices sit in one folder, 2307s in another, and the bank reconciliations in someone's laptop. In 2026 the BIR tightened its timelines, so how fast you can hand over records now matters more. This guide covers the current audit rules and the Odoo features that help.</p>
+
+<h2>How BIR audits work in 2026</h2>
+<p>The BIR suspended field audits on 24 November 2025 (RMC 107-2025) and lifted the suspension through RMC 8-2026. Two orders now shape the process:</p>
+<ul>
+  <li><strong>RMO 1-2026 (27 January 2026)</strong> set up a single-instance audit framework: generally <strong>one eLA per taxable year</strong>, covering all internal revenue taxes including VAT. Cases are selected by a risk-based, system-assisted process, and a mandatory <strong>standard checklist</strong> (Annex B) is the uniform basis for what examiners request.</li>
+  <li><strong>RMO 22-2026 (24 August 2026)</strong> consolidates the audit rules. An audit needs a valid <strong>eLA, Tax Verification Notice or Mission Order</strong>, limited to the taxes and periods it names. You have <strong>10 calendar days</strong> from a request to submit documents. If you miss it, the BIR sends a first notice, then a second and final notice, and can then issue a subpoena duces tecum. You can also choose where the audit takes place: your office or the BIR's.</li>
+</ul>
+<p>Exceptions to the one-eLA rule include one-time transactions, tax clearance, closing a business and fraud. Claims for income tax refunds or tax credit certificates (Sections 58(E) and 76(C)) generally get a full audit of the books.</p>
+
+<h2>From eLA to final assessment</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Step</th><th>What happens</th><th>Your window</th></tr></thead>
+  <tbody>
+    <tr><td>eLA and document request</td><td>The examiner asks for records on the checklist</td><td>10 calendar days to submit (RMO 22-2026)</td></tr>
+    <tr><td>Notice of Discrepancy</td><td>Findings are shared for discussion (RR 22-2020)</td><td>30 days to explain and send documents</td></tr>
+    <tr><td>Preliminary Assessment Notice (PAN)</td><td>Issued if issues remain</td><td>15 days to reply</td></tr>
+    <tr><td>Formal Letter of Demand / FAN</td><td>The formal assessment</td><td>30 days to protest; 60 days to submit documents for a reinvestigation</td></tr>
+    <tr><td>Final decision (FDDA)</td><td>The BIR's decision on the protest</td><td>30 days to appeal to the Court of Tax Appeals or ask the Commissioner to reconsider</td></tr>
+  </tbody>
+</table></div>
+<p>The BIR generally has <strong>three years</strong> from the filing deadline to assess (Section 203), and <strong>ten years from discovery</strong> for a false or fraudulent return or a failure to file (Section 222).</p>
+
+<h2>How long to keep your books</h2>
+<p>The EOPT Act amended Section 235: books and records are kept for <strong>five years from the day after the deadline</strong> for filing the return (or from the actual filing date, if late). RR 7-2024 adds that computerised books are kept as <strong>electronic copies</strong>, and records tied to a pending protest or refund are kept until the case is resolved. Older articles still quote ten years, a rule from RR 17-2013 that the EOPT Act replaced.</p>
+<p>Five years is the legal minimum. The ten-year window for fraud cases is one reason many accountants advise keeping records longer. In a system like Odoo, that costs little.</p>
+
+<h2>What examiners usually ask for</h2>
+<ul>
+  <li>Tax returns and proof of payment for the period</li>
+  <li>Registered books of accounts and the general ledger</li>
+  <li>Sales invoices, vendor bills and supporting documents</li>
+  <li>The <a href="{{ROOT}}blog/bir-slsp-summary-list-sales-purchases-odoo.html">SLSP</a>, withholding certificates (<a href="{{ROOT}}blog/bir-form-2307-odoo.html">2307s</a>) and alphalists</li>
+  <li>Audited financial statements and schedules behind them</li>
+</ul>
+<p>The exact list comes with your eLA. Ten days is not much time when each item lives in a different place.</p>
+
+<h2>The Odoo features that help</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Feature</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Audit trail</strong></td><td>Logs changes to accounting records: who changed what, when, and the old and new values. In Odoo 19 and 20 the report is under Accounting &gt; Review &gt; Audit Trail. The <strong>Restrictive Audit Trail</strong> setting means tracked records can only be cancelled or archived, not deleted.</td></tr>
+    <tr><td><strong>Secured entries</strong></td><td>Journals can secure posted entries with a hash that chains each entry to the one before it. The Data Inalterability Check report shows whether anything was altered.</td></tr>
+    <tr><td><strong>Lock dates</strong></td><td>Lock a closed period, the tax return period, or everything up to a date. A hard lock cannot be reversed.</td></tr>
+    <tr><td><strong>Attachments and Documents</strong></td><td>The bill or receipt is attached to its entry, and Documents files accounting attachments into folders by journal.</td></tr>
+    <tr><td><strong>BIR reports</strong></td><td>The Philippine localisation produces the 2550Q, SLSP, SAWT, QAP and 2307 data from the same entries.</td></tr>
+  </tbody>
+</table></div>
+<p>Odoo 20's release notes also add a <strong>Book of Accounts</strong> for CAS and CBA. See <a href="{{ROOT}}blog/register-odoo-cas-cba-bir.html">registering Odoo as your computerised books</a>.</p>
+
+{{SHOT:documents/organization.webp|Odoo Documents keeps bills and receipts in folders next to the entries they support (screenshot: odoo.com)}}
+
+<h2>An audit-ready routine</h2>
+<ol>
+  <li><strong>Attach the source document</strong> to every bill and invoice when you post it.</li>
+  <li><strong>Lock each period</strong> after you file its returns.</li>
+  <li><strong>Collect 2307s every quarter</strong> and match them to the customer invoices.</li>
+  <li><strong>Keep a filing pack</strong> per quarter: the return, the report it came from and proof of payment.</li>
+  <li><strong>Run a mock request</strong> once a year: can you produce the checklist in ten days?</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser reviews how your records are kept today, then our team in Taguig City sets up Odoo so the documents an examiner asks for are a few reports away. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by the EOPT Act, RR 7-2024, RR 22-2020, RMO 1-2026 and RMO 22-2026 as reported in published tax alerts on 21 October 2026, and Odoo's 19.0 and 20.0 documentation. It is not tax or legal advice: confirm with your accountant or tax lawyer before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/rmo-no.-12026-revised-bir-audit-framework-following-the-lifting-of-audit-suspension-2026-revised-bir/" target="_blank" rel="noopener">Grant Thornton: RMO 1-2026 audit framework</a></li>
+  <li><a href="https://kpmg.com/ph/en/insights/2026/09/special-intax-september-2026-issue-1-volume-1.html" target="_blank" rel="noopener">KPMG: RMO 22-2026</a></li>
+  <li><a href="https://conventuslaw.com/report/philippines-due-process-on-tax-assessments/" target="_blank" rel="noopener">Conventus Law: due process on tax assessments (RR 22-2020)</a></li>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a> and <a href="https://lawphil.net/statutes/repacts/ra1997/ra_8424_1997.html" target="_blank" rel="noopener">the Tax Code, Sections 203 and 222</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/eopt-is-here-updates-on-the-preservation-of-book-of-accounts-and-changes-in-taxpayer-registration/" target="_blank" rel="noopener">Grant Thornton: preservation of books under RR 7-2024</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/lets-talk-tax/taxpayers-reflection-on-submission-of-documents-during-a-bir-audit/" target="_blank" rel="noopener">Grant Thornton: submitting documents during a BIR audit</a></li>
+  <li>Odoo documentation: <a href="https://www.odoo.com/documentation/20.0/applications/finance/accounting/reporting.html" target="_blank" rel="noopener">audit trail</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">data inalterability</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/year_end.html" target="_blank" rel="noopener">lock dates</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>How long must I keep my books for the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>Five years from the day after the deadline for filing the return, under Section 235 of the Tax Code as amended by the EOPT Act. Computerised books are kept as electronic copies.</p></div></details>
+  <details><summary>How many days do I have to submit documents in a BIR audit? {{icon:chevron}}</summary><div class="faq-a"><p>Ten calendar days from the request, under RMO 22-2026.</p></div></details>
+  <details><summary>Can someone delete a posted invoice in Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>With the Restrictive Audit Trail setting on, tracked accounting records can only be cancelled or archived, and every change is logged with the user and time.</p></div></details>
+  <details><summary>Can the BIR audit me more than once for the same year? {{icon:chevron}}</summary><div class="faq-a"><p>Under RMO 1-2026 the BIR generally issues one eLA per taxable year covering all taxes, with exceptions such as fraud, tax clearance and one-time transactions.</p></div></details>
+</div>

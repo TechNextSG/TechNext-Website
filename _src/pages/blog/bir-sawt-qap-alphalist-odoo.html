@@ -1,0 +1,86 @@
+<!--meta {"title": "SAWT and QAP Explained: BIR Alphalists and How Odoo Builds Them", "desc": "SAWT and QAP in plain English: who files them, deadlines under RMC 55-2026, DAT file naming, why the BIR rejects files, and how Odoo exports SAWT and QAP.", "out": "blog/bir-sawt-qap-alphalist-odoo.html", "nav": "company", "article": {"h1": "SAWT and QAP explained: the two BIR alphalists, and how Odoo builds them", "cat": "erp", "date": "2026-10-21", "order": 19, "lede": "The SAWT lists the tax your customers withheld from you. The QAP lists the tax you withheld from your suppliers. Both are DAT files the BIR validates line by line. A QAP that fails can cost you the expense deduction, and a SAWT that fails puts your tax credits at risk. Here is how they work and how Odoo produces them.", "card": "SAWT vs QAP, the deadlines under RMC 55-2026, why files get rejected, and how Odoo exports both as DAT files.", "cover": "icons:odoo:accountant,icon:database,odoo:documents"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li><strong>SAWT</strong> = tax withheld <em>from you</em> by customers (from the 2307s you receive). <strong>QAP</strong> = tax <em>you</em> withheld from suppliers.</li>
+    <li>The QAP is attached to the <strong>1601-EQ and 1601-FQ</strong> and is due with them, the last day of the month after the quarter (RMC 55-2026). The SAWT goes with the return where you claim the credit.</li>
+    <li>Files are validated by the BIR's <strong>Alphalist Data Entry and Validation Module</strong> (version 7.4 under RMC 15-2025) and sent through eSubmission.</li>
+    <li>Odoo exports both as <strong>DAT files compatible with the BIR Alphalist module</strong>, using the ATC codes on your withholding taxes.</li>
+  </ul>
+</div>
+
+<p>Withholding tax creates paperwork on both sides of every transaction. When a customer withholds tax from your invoice, you collect a 2307 and claim the credit. When you withhold from a supplier, you remit it and issue the 2307. The BIR checks both sides through two alphalists. This guide explains each one and how Odoo produces them from your entries.</p>
+
+<h2>SAWT and QAP side by side</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>SAWT</th><th>QAP</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Full name</strong></td><td>Summary Alphalist of Withholding Taxes</td><td>Quarterly Alphabetical List of Payees</td></tr>
+    <tr><td><strong>Who prepares it</strong></td><td>The payee: you, when customers withheld from you</td><td>The withholding agent: you, when you withheld from suppliers</td></tr>
+    <tr><td><strong>Built from</strong></td><td>The 2307s you received</td><td>The tax you withheld on your payments</td></tr>
+    <tr><td><strong>Attached to</strong></td><td>The return where you claim the credit, such as 1701Q, 1702Q, 1702 or 2550Q (RR 2-2006)</td><td>1601-EQ (expanded) and 1601-FQ (final)</td></tr>
+    <tr><td><strong>Due</strong></td><td>With that return</td><td>With the 1601-EQ or 1601-FQ: last day of the month after the quarter</td></tr>
+  </tbody>
+</table></div>
+<p>RMC 55-2026 (26 May 2026) reminds withholding agents that the alphalist is an attachment to the withholding return, so it shares that return's deadline. The same circular lists the monthly alphalist for 1600-VT and 1600-PT (10th of the following month), the annual alphalist for compensation and final tax (31 January) and the annual 1604-E alphalist (1 March).</p>
+
+<h2>How the files are submitted</h2>
+<ul>
+  <li><strong>Electronic only.</strong> RR 1-2014 requires all withholding agents, regardless of the number of payees, to submit alphalists electronically, and RMC 5-2014 confirmed that CDs, DVDs and USB drives are no longer accepted.</li>
+  <li><strong>Validated first.</strong> The BIR's Alphalist Data Entry and Validation Module checks the file. RMC 15-2025 released version 7.4, with new alphanumeric tax codes and updated rates.</li>
+  <li><strong>A fixed file name.</strong> Under RMC 15-2025 Annex B (the same convention as RMC 7-2021), monthly, quarterly and annual alphalist files of payees are named <code>TIN + branch code + return period + form type</code>, ending in <code>.DAT</code>. For a 1601-EQ, the period is month and year.</li>
+  <li><strong>Proof of submission.</strong> The BIR replies by email with a success or failure notice. Keep it with the return.</li>
+</ul>
+
+<h2>Why the BIR rejects alphalists</h2>
+<p>RMC 5-2014 lists the conditions for an alphalist to count as received. The common failures are:</p>
+<ul>
+  <li><strong>Dummy or missing TINs</strong>, such as 000-000-000-000.</li>
+  <li><strong>Lumped entries</strong> like "Various payees" or "Others" instead of named payees.</li>
+  <li><strong>Special characters</strong> such as ñ, *, ? and &amp; in names.</li>
+  <li><strong>Old module versions</strong> that no longer match the current file structure.</li>
+  <li><strong>Partial amendments.</strong> A corrected list must be complete, not only the changed rows.</li>
+</ul>
+<p>The stakes are real. Under RR 1-2014, a list that does not follow the prescribed format and fails to upload is treated as not received, and the related expenses do not qualify as deductions. When the BIR sends a failure notice, RMC 5-2014 gives you five days to resubmit a corrected, complete list.</p>
+
+<h2>How Odoo builds SAWT and QAP</h2>
+<p>Odoo's <a href="https://www.odoo.com/documentation/20.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a> produces both from the withholding taxes on your posted entries:</p>
+<ul>
+  <li><strong>SAWT</strong> comes from customer invoices with sales withholding taxes. <strong>QAP</strong> comes from vendor bills with purchase withholding taxes.</li>
+  <li>The report is under <strong>Accounting &gt; Reporting &gt; Tax Report</strong>, as <strong>SAWT &amp; QAP (PH)</strong>.</li>
+  <li><strong>Export SAWT &amp; QAP</strong> creates a DAT file compatible with the BIR Alpha module. You choose what the file is attached to (for example, 1601-EQ). Odoo exports one month at a time, as its documentation advises. Check in the BIR's current validation module how the quarter's QAP should be submitted, and file it by the 1601-EQ deadline.</li>
+  <li>Every withholding tax needs its <strong>ATC code</strong>, set on the tax's Philippines tab. Without it, the 2307, SAWT and QAP cannot be built. See <a href="{{ROOT}}blog/expanded-withholding-tax-atc-codes-odoo.html">setting up withholding tax and ATC codes</a>.</li>
+</ul>
+<p>The BIR's own module remains the final check. Run Odoo's DAT files through it before you submit.</p>
+
+{{SHOT:accounting/accounting-vendor-bill.webp|Withholding taxes on a vendor bill are what Odoo reads for the QAP and the 2307 (screenshot: odoo.com)}}
+
+<h2>A quarter-end checklist</h2>
+<ol>
+  <li><strong>Collect every 2307</strong> from customers and match each to its invoice before you build the SAWT.</li>
+  <li><strong>Check that each withholding tax</strong> has the right ATC and that each partner has a valid TIN.</li>
+  <li><strong>Export the DAT files</strong> from Odoo and validate them in the current BIR module.</li>
+  <li><strong>Reconcile</strong>: QAP totals against the tax remitted in your 0619-E and 1601-EQ, SAWT totals against the credits you claim.</li>
+  <li><strong>File, then lock the period</strong> in Odoo.</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser reviews your withholding set-up first, then our team in Taguig City configures Odoo so the SAWT and QAP come straight from your entries. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects RR 2-2006, RR 1-2014, RMC 5-2014, RMC 7-2021, RMC 15-2025 and RMC 55-2026, read from the BIR's own documents where possible, and Odoo's 20.0 documentation, as available on 21 October 2026. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2055-2026.pdf" target="_blank" rel="noopener">RMC 55-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2015-2025.pdf" target="_blank" rel="noopener">RMC 15-2025</a> (BIR)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2015-2025%20Annex%20B.pdf" target="_blank" rel="noopener">RMC 15-2025 Annex B</a> and <a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%207-2021%20Annex%20B.pdf" target="_blank" rel="noopener">RMC 7-2021 Annex B</a>: file naming (BIR)</li>
+  <li><a href="https://dev.lawyerly.ph/laws/54503" target="_blank" rel="noopener">RR 2-2006</a> (SAWT)</li>
+  <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2014/01.13.2014/rr-1-2014-2316.pdf" target="_blank" rel="noopener">RR 1-2014</a> and <a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2014/01.29.2014/rmc-05-14-clarification-on-alphalist.pdf" target="_blank" rel="noopener">RMC 5-2014</a> (copies hosted by Grant Thornton)</li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/submitting-the-quarterly-alphabetical-list-of-payees-qap/" target="_blank" rel="noopener">Grant Thornton: submitting the QAP</a></li>
+  <li><a href="https://www.odoo.com/documentation/20.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Odoo 20 documentation: Philippines fiscal localisation</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>What is the difference between SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>The SAWT lists tax that customers withheld from you, built from the 2307s you received. The QAP lists tax you withheld from your suppliers, attached to your 1601-EQ or 1601-FQ.</p></div></details>
+  <details><summary>When is the QAP due? {{icon:chevron}}</summary><div class="faq-a"><p>With the 1601-EQ or 1601-FQ, on the last day of the month after the quarter closes, as RMC 55-2026 restates.</p></div></details>
+  <details><summary>What happens if my alphalist fails validation? {{icon:chevron}}</summary><div class="faq-a"><p>The BIR emails the reasons. Under RMC 5-2014 you resubmit a corrected, complete list within five days. A list that never uploads is treated as not received, which can disallow the related expenses.</p></div></details>
+  <details><summary>Does Odoo create SAWT and QAP files? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. The Philippine localisation exports both as DAT files compatible with the BIR Alphalist module, from the withholding taxes on your invoices and bills.</p></div></details>
+</div>
