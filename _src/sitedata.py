@@ -5,10 +5,27 @@
 SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
-ORG_DESC = ("TechNext is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-            "consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. We implement Odoo ERP end to end, starting with Accounting, Sales "
-            "and Inventory, build enterprise AI, websites and brands, and deliver IoT, app and network services "
-            "as one team, so growing companies in 10+ countries don't need to hire their own.")
+ORG_DESC = ("TechNext is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, "
+            "with its main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. Our own experts "
+            "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, set it up to meet government requirements "
+            "(BIR in the Philippines, GST and InvoiceNow in Singapore), build enterprise AI, websites and brands, and deliver IoT, app "
+            "and network services as one team, so growing companies in 10+ countries don't need to hire their own.")
+
+# Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
+# never proposal-only prospects or anything under NDA. (name, what they do, where)
+CLIENTS = [
+    ("BHD Asia", "Coaching &amp; HR consulting", "Singapore"),
+    ("HummingBeing", "TRE&trade; &amp; somatic coaching", "Singapore"),
+    ("TRE&trade; in Singapore", "TRE&trade; community", "Singapore"),
+    ("Casa Escondida Anilao", "Dive resort", "Philippines"),
+    ("Immaculate Connections", "Travel agency", "Philippines"),
+    ("St. Clare College of Caloocan", "Education", "Philippines"),
+    ("JR-Tech Solution", "Commercial kitchens", "Malaysia"),
+    ("TRE Worldwide Conference 2027", "International conference", "Indonesia"),
+    ("nivellipso&reg;", "Clear aligners &amp; brackets", "Switzerland"),
+    ("HDH AG", "Dental &amp; medical OEM", "Switzerland"),
+    ("Saymara B. Ryon", "Holistic coaching", "Romania"),
+]
 DEFAULT_DESC = ("TechNext is an Odoo Partner delivering all-in-one Odoo ERP software, world-class and "
                 "holistic business consultation, and impressive website development for growing companies.")
 

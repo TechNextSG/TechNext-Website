@@ -8,6 +8,8 @@
 - Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City
 - Contact: sales@technext.asia · WhatsApp +65 8839 6998
 - Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines
+- Positioning: trusted expert adviser for ERP and government compliance (BIR in the Philippines; GST and InvoiceNow in Singapore); our own experts implement
+- Companies we've worked with: BHD Asia (Coaching & HR consulting, Singapore); HummingBeing (TRE™ & somatic coaching, Singapore); TRE™ in Singapore (TRE™ community, Singapore); Casa Escondida Anilao (Dive resort, Philippines); Immaculate Connections (Travel agency, Philippines); St. Clare College of Caloocan (Education, Philippines); JR-Tech Solution (Commercial kitchens, Malaysia); TRE Worldwide Conference 2027 (International conference, Indonesia); nivellipso® (Clear aligners & brackets, Switzerland); HDH AG (Dental & medical OEM, Switzerland); Saymara B. Ryon (Holistic coaching, Romania)
 - Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
 - Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it
 - Method: discovery, configuration on a staging copy, data migration, training, integration, support
