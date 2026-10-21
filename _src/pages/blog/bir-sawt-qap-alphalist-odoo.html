@@ -48,7 +48,7 @@
 <ul>
   <li><strong>SAWT</strong> comes from customer invoices with sales withholding taxes. <strong>QAP</strong> comes from vendor bills with purchase withholding taxes.</li>
   <li>The report is under <strong>Accounting &gt; Reporting &gt; Tax Report</strong>, as <strong>SAWT &amp; QAP (PH)</strong>.</li>
-  <li><strong>Export SAWT &amp; QAP</strong> creates a DAT file compatible with the BIR Alpha module. You choose what the file is attached to (for example, 1601-EQ). Odoo exports one month at a time, as its documentation advises. Check in the BIR's current validation module how the quarter's QAP should be submitted, and file it by the 1601-EQ deadline.</li>
+  <li><strong>Export SAWT &amp; QAP</strong> creates a DAT file compatible with the BIR Alpha module. You choose what the file is attached to (for example, 1601-EQ). Odoo exports one month at a time, as its documentation advises. The BIR treats the QAP as a quarterly attachment (RMC 15-2025 Annex B), so check in the current validation module whether to combine the three months, and file it by the 1601-EQ deadline.</li>
   <li>Every withholding tax needs its <strong>ATC code</strong>, set on the tax's Philippines tab. Without it, the 2307, SAWT and QAP cannot be built. See <a href="{{ROOT}}blog/expanded-withholding-tax-atc-codes-odoo.html">setting up withholding tax and ATC codes</a>.</li>
 </ul>
 <p>The BIR's own module remains the final check. Run Odoo's DAT files through it before you submit.</p>
