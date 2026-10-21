@@ -3,7 +3,7 @@
   <p class="post-key-h">Key takeaways</p>
   <ul>
     <li>The SLSP is required of <strong>persons liable for VAT</strong> under RR 1-2012, and it supports your quarterly <strong>2550Q</strong>.</li>
-    <li>It has three lists: <strong>sales, purchases and importations</strong>, totalled per customer or supplier with their TINs.</li>
+    <li>It has three lists: <strong>sales</strong> and <strong>purchases</strong>, each totalled per customer or supplier with their TINs, and <strong>importations</strong>, listed per import entry.</li>
     <li>Most SLSP problems come from <strong>bad TINs, name mismatches, wrong file formats and totals that do not agree with the 2550Q</strong>.</li>
     <li>Odoo's Philippine localisation builds the SLS and SLP from posted entries and <strong>exports DAT files for the BIR's RELIEF module</strong>.</li>
   </ul>
@@ -35,19 +35,19 @@
   <li><strong>Branch codes cut off</strong> when a spreadsheet turns a TIN into a number and drops the leading zeros.</li>
   <li><strong>Totals that do not agree with the 2550Q</strong>, usually because the list and the return were prepared from different sources.</li>
   <li><strong>Wrong file formats.</strong> Unreadable or wrongly formatted files are treated as defective under RMO 4-2003.</li>
-  <li><strong>Partial amendments.</strong> Send a complete corrected list for the quarter rather than only the changed rows, and ask your RDO how it wants amendments made.</li>
+  <li><strong>Partial amendments.</strong> For alphalists, the BIR rejects files that contain only the changed rows (RMC 5-2014). Send a complete corrected SLSP for the quarter, and ask your RDO how it wants amendments made.</li>
 </ul>
-<p>All five problems are data problems. They start on the customer and supplier records, long before quarter-end.</p>
+<p>Most of these problems start on the customer and supplier records, long before quarter-end.</p>
 
 <h2>How Odoo builds the SLSP</h2>
 <p>According to <a href="https://www.odoo.com/documentation/20.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Odoo's Philippine localisation documentation</a>:</p>
 <ul>
-  <li>The report sits under <strong>Accounting &gt; Reporting &gt; Summary Lists of Sales and Purchases</strong>, with an SLS tab (per customer, with output VAT) and an SLP tab (per supplier, with input VAT).</li>
+  <li>The report sits under <strong>Accounting &gt; Reporting &gt; Summary Lists of Sales and Purchases</strong>, with a Summary List of Sales (per customer, with output VAT) and a Summary List of Purchases (per supplier, with input VAT).</li>
   <li>Importations are left out of the SLP by default, and you include them with the <strong>Including Importations</strong> option.</li>
   <li>The <strong>Export SLSP</strong> option produces a <strong>DAT file compatible with the RELIEF module</strong>. Odoo exports per month, so you export each month of the quarter.</li>
   <li>The exempt, zero-rated and taxable split comes from the default 12%, zero-rated and exempt VAT taxes. Odoo advises duplicating an existing tax when you need a new one, so the report mapping is kept.</li>
 </ul>
-<p>The partner data matters as much as the report. On the company, Odoo needs the TIN in the <strong>NNN-NNN-NNN-NNNNN</strong> format, with the branch code taken from the last digits, and the RDO code. On each contact, the TIN goes in the Tax ID field, and individuals need their first, middle and last names.</p>
+<p>The partner data matters as much as the report. On the company, Odoo needs the TIN in the <strong>NNN-NNN-NNN-NNNNN</strong> format, with the branch code taken from the last digits, and the RDO code. Since RMC 36-2026, tax returns carry a five-digit branch code. On each contact, the TIN goes in the Tax ID field, and individuals need their first, middle and last names.</p>
 
 {{SHOT:business_intelligence/pivot_02.webp|Odoo reports group sales and purchases per partner, the same shape the SLSP takes (screenshot: odoo.com)}}
 
@@ -61,7 +61,7 @@
 </ol>
 <p>You don't need to hire your own team. A TechNext adviser checks your customer and supplier data first, then our team in Taguig City sets up Odoo so the SLSP comes out of the same entries as your VAT return. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
 
-<div class="post-note"><p>Rules change. This article reflects RR 1-2012, RMO 4-2003 and BIR guidance available on 21 October 2026, and Odoo's 19.0 and 20.0 documentation. The BIR's RELIEF module is the final check on your files. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
+<div class="post-note"><p>Rules change. This article reflects RR 1-2012, RMO 4-2003 and BIR guidance available on 21 October 2026, and Odoo's 20.0 documentation. The BIR's RELIEF module is the final check on your files. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
 
 <h2>Sources</h2>
 <ul>

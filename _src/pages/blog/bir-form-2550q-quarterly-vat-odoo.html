@@ -3,7 +3,7 @@
   <p class="post-key-h">Key takeaways</p>
   <ul>
     <li>VAT-registered businesses file <strong>BIR Form 2550Q within 25 days after each quarter closes</strong>, even in a quarter with no sales. Monthly 2550M filing is optional since RMC 52-2023.</li>
-    <li>Since the EOPT Act (RR 3-2024), <strong>VAT on services follows the invoice date</strong>, not the date you collect.</li>
+    <li>Since the Ease of Paying Taxes (EOPT) Act (RR 3-2024), <strong>VAT on services follows the invoice date</strong>, not the date you collect.</li>
     <li>Input VAT on capital goods bought from 1 January 2022 is claimed in full, not amortised.</li>
     <li>Odoo's Philippine localisation has a <strong>2550Q tax report</strong> that totals sales, purchases, output VAT and input VAT for the period.</li>
   </ul>
@@ -29,7 +29,7 @@
   <tbody>
     <tr><td>VAT on services</td><td>Declared when collected (gross receipts)</td><td>Declared on the <strong>invoice date</strong> (gross sales, accrual basis), under RR 3-2024</td></tr>
     <tr><td>Proof of sale</td><td>Sales invoice for goods, official receipt for services</td><td>One <strong>invoice</strong> for both (RR 7-2024)</td></tr>
-    <tr><td>Where you file</td><td>Through your own RDO or its banks</td><td><strong>File and pay anywhere</strong>, electronically or at any authorised agent bank (RR 4-2024)</td></tr>
+    <tr><td>Where you file</td><td>Through your own RDO or its banks</td><td><strong>File and pay anywhere</strong>: file electronically, and pay online or at any authorised agent bank (RR 4-2024)</td></tr>
   </tbody>
 </table></div>
 <p>The services change is the one that catches people out. If you invoice a client in March and they pay in May, the output VAT belongs in the first-quarter return. For services rendered before the rule took effect, the transitional rule let you declare output VAT when collected.</p>
@@ -49,7 +49,7 @@
   <li><strong>Fiscal positions</strong> that switch the taxes on a partner's invoices to match their registration (for example, an export customer).</li>
   <li><strong>The 2550Q report</strong>, under Accounting &gt; Reporting &gt; Tax Report, which Odoo describes as summarising sales, purchases, output VAT, input VAT and the resulting VAT payable or refundable.</li>
 </ul>
-<p>Because the report reads your posted invoices and bills, the figures match your books by design. You still file the return itself on the BIR's platform (eBIRForms or eFPS), keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2550Q.</p>
+<p>Because the report reads your posted invoices and bills, the figures match your books by design. You still file the return itself on the BIR's platform (eBIRForms or eFPS, the BIR's online filing systems), keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2550Q.</p>
 <p>Odoo 20 adds two related reports for the Philippines, according to its <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a>: <strong>BIR 1600-VT</strong> for final withholding VAT, and <strong>2551Q</strong> for non-VAT registered companies that pay percentage tax.</p>
 
 {{SHOT:accounting/accounting-bill.webp|Vendor bills in Odoo Accounting carry the input VAT that flows into the 2550Q (screenshot: odoo.com)}}
@@ -70,6 +70,7 @@
 <ul>
   <li><a href="https://lawphil.net/statutes/repacts/ra2017/ra_10963_2017.html" target="_blank" rel="noopener">RA 10963 (TRAIN Law), Sections 31, 34, 35 and 37</a></li>
   <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2023/optional-filing-and-payment-of-monthly-vat-returns-now-allowed/" target="_blank" rel="noopener">Grant Thornton: optional monthly VAT returns (RMC 52-2023)</a></li>
+  <li><a href="https://www.grantthornton.com.ph/contentassets/1d077b17a1dc45ea975245feb282190a/rmc-no.-59-2023-guidelines.pdf" target="_blank" rel="noopener">BIR 2550Q guidelines (RMC 59-2023)</a>, including filing in quarters with no transactions</li>
   <li><a href="https://www.forvismazars.com/ph/en/insights/tax-alerts/bir-rmc-05-2023" target="_blank" rel="noopener">Forvis Mazars: RMC 5-2023 transition to quarterly VAT</a></li>
   <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2024/implementation-of-the-amendments-introduced-by-eopt-act-on-vat-and-percentage-tax/" target="_blank" rel="noopener">Grant Thornton: EOPT amendments on VAT (RR 3-2024)</a></li>
   <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2024/faqs-relative-to-the-filing-of-tax-returns-and-payment-of-taxes-pursuant-to-rr-no-4-2024-implementing-the-provisions-of-republic-act-no-11976-otherwise-known-as-eopt-act/" target="_blank" rel="noopener">Grant Thornton: filing and payment under RR 4-2024</a></li>

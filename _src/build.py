@@ -182,6 +182,8 @@ def nav_html(active: str) -> str:
                 f'<span><b>{l["label"]}</b><small>{l["desc"]}</small></span></a>'
                 for l in col["links"])
             wide = " mega-col--wide" if col.get("wide") else ""
+            if col.get("row"):   # owner, 21 Oct 2026: a short menu sits in one row, not a tall column
+                wide = " mega-col--wide mega-col--row"
             cols.append(f'<div class="mega-col{wide}"><div class="mega-head">{head}</div>{links}</div>')
         panel_id = f"mega-{it['id']}"
         items.append(

@@ -1,4 +1,4 @@
-<!--meta {"title": "BIR Compliance for Multi-Branch Businesses in Odoo", "desc": "Branch codes, a COR per branch, invoice series, consolidated VAT, withholding per branch and e-invoicing PTIs: how Philippine branches work in Odoo.", "out": "blog/bir-multi-branch-odoo.html", "nav": "company", "article": {"h1": "BIR compliance for multi-branch businesses, and how Odoo handles branches", "cat": "bir", "date": "2026-10-21", "order": 17, "lede": "Every branch has its own registration, its own invoices and often its own RDO, yet VAT is filed once for the whole company. Here is how the BIR treats branches, what changes with e-invoicing, and how to set up branches in Odoo so each one stays in order.", "card": "Branch codes, invoices per branch, consolidated VAT and e-invoicing PTIs: running Philippine branches in Odoo.", "cover": "icons:odoo:account,icon:globe,odoo:point_of_sale"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "BIR Compliance for Multi-Branch Businesses in Odoo", "desc": "Branch codes, a COR per branch, invoice series, consolidated VAT and e-invoicing PTIs: how Philippine branches work with the BIR and in Odoo.", "out": "blog/bir-multi-branch-odoo.html", "nav": "company", "article": {"h1": "BIR compliance for multi-branch businesses, and how Odoo handles branches", "cat": "bir", "date": "2026-10-21", "order": 17, "lede": "Every branch has its own registration, its own invoices and often its own RDO, yet VAT is filed once for the whole company. Here is how the BIR treats branches, what changes with e-invoicing, and how to set up branches in Odoo so each one stays in order.", "card": "Branch codes, invoices per branch, consolidated VAT and e-invoicing PTIs: running Philippine branches in Odoo.", "cover": "icons:odoo:account,icon:globe,odoo:point_of_sale"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
@@ -15,12 +15,12 @@
 <ul>
   <li><strong>A COR for each site.</strong> RR 7-2024 says each head office, branch and facility is issued its own Certificate of Registration, displayed at that site.</li>
   <li><strong>Branch codes.</strong> Branches use the company's nine-digit TIN plus a branch code. The head office code is all zeros. Older BIR systems used three digits; RMC 36-2026 (April 2026) widened the branch code to five digits on all tax returns in eBIRForms.</li>
-  <li><strong>Each branch has an RDO.</strong> A branch is registered with the RDO where it is located, and has its own ORUS branch account to update its registration, apply for authority to print and register its books (RMC 10-2024).</li>
+  <li><strong>Each branch has an RDO.</strong> A branch is registered with the RDO where it is located, and has its own branch account in ORUS, the BIR's Online Registration and Update System, to update its registration, apply for authority to print and register its books (RMC 10-2024).</li>
   <li><strong>Moving a branch</strong> is done by filing BIR Form 1905 (RMC 91-2024).</li>
 </ul>
 
 <h2>Invoices per branch</h2>
-<p>Each branch issues invoices that show <strong>its own branch code and address</strong>. In practice the head office and each branch keep their own invoice serial numbers under their own authority to print; check the current requirement for your invoices with your RDO. Under the EOPT Act, VAT-registered sellers issue an invoice for every sale, and any converted official receipts may be used until they run out (RR 11-2024). For the full list of what an invoice must show, see <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">EOPT invoice requirements</a>.</p>
+<p>Each branch issues invoices that show <strong>its own branch code and address</strong>. In practice the head office and each branch keep their own invoice serial numbers under their own authority to print; check the current requirement for your invoices with your RDO. Under the EOPT Act, VAT-registered sellers issue an invoice for every sale, and any converted official receipts may be used until they run out (RR 11-2024). Since RR 6-2026 (in force 16 October 2026), invoices must also show any creditable withholding tax as a separate item. For the full list of what an invoice must show, see <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">EOPT invoice requirements</a>.</p>
 
 <h2>Returns: what is consolidated and what is not</h2>
 <div class="table-wrap"><table>
@@ -31,7 +31,7 @@
     <tr><td><strong>Withholding (1601-EQ, 1604-E and similar)</strong></td><td>Separate returns per branch or one consolidated return. Large taxpayers file one consolidated return (BIR Form 1604-E instructions).</td></tr>
   </tbody>
 </table></div>
-<p>Since RR 4-2024 you can <strong>file and pay anywhere</strong>, whatever the RDO, and the old penalty for filing at the wrong venue is gone.</p>
+<p>Since the EOPT Act (RR 4-2024) you can <strong>file and pay anywhere</strong>, whatever the RDO, and the old penalty for filing at the wrong venue is gone.</p>
 
 <h2>E-invoicing with branches</h2>
 <p>RMC 98-2026 says the <strong>head office and every branch</strong> of a covered taxpayer must issue e-invoices by 31 December 2026. The Permit to Issue (PTI) works like this, according to published summaries:</p>

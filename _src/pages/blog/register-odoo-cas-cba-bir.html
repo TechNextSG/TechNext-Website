@@ -1,4 +1,4 @@
-<!--meta {"title": "Registering Odoo as CAS or CBA with the BIR: 2026 Guide", "desc": "How to register Odoo as your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA): Acknowledgement Certificate, documents, ORUS.", "out": "blog/register-odoo-cas-cba-bir.html", "nav": "company", "article": {"h1": "Registering Odoo as your CAS or CBA with the BIR: the steps, the documents, and what comes after", "cat": "bir", "date": "2026-10-21", "order": 20, "lede": "The BIR no longer issues a Permit to Use for accounting systems. You register the system, get an Acknowledgement Certificate, and the RDO checks it afterwards. Here is the difference between CAS and CBA, what goes in the application, what the system must do, and how e-invoicing adds a second permit.", "card": "CAS vs CBA, the Acknowledgement Certificate, the documents the BIR asks for, and how the e-invoicing PTI fits on top.", "cover": "accounting/accounting-hero-image.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Registering Odoo as CAS or CBA with the BIR: 2026 Guide", "desc": "How to register Odoo as your CAS or CBA with the BIR: the Acknowledgement Certificate, documents, system requirements, ORUS and the e-invoicing PTI.", "out": "blog/register-odoo-cas-cba-bir.html", "nav": "company", "article": {"h1": "Registering Odoo as your CAS or CBA with the BIR: the steps, the documents, and what comes after", "cat": "bir", "date": "2026-10-21", "order": 20, "lede": "The BIR no longer issues a Permit to Use for accounting systems. You register the system, get an Acknowledgement Certificate, and the RDO checks it afterwards. Here is the difference between CAS and CBA, what goes in the application, what the system must do, and how e-invoicing adds a second permit.", "card": "CAS vs CBA, the Acknowledgement Certificate, the documents the BIR asks for, and how the e-invoicing PTI fits on top.", "cover": "accounting/accounting-hero-image.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
@@ -17,10 +17,10 @@
   <tbody>
     <tr><td><strong>What it covers</strong></td><td>The full cycle, from the transaction and the invoice to the financial reports</td><td>Books of accounts only: journals, ledger, sales and purchase books, inventory book</td></tr>
     <tr><td><strong>Invoices</strong></td><td>System-generated</td><td>Issued manually (a system that issues invoices by hand is treated as a CBA)</td></tr>
-    <tr><td><strong>Who must use it</strong></td><td>Large taxpayers are required to keep electronic books (RR 9-2009)</td><td>Optional for others who keep computerised books</td></tr>
+    <tr><td><strong>Who must use it</strong></td><td>Large taxpayers must maintain or use a CAS (RR 9-2009, as restated in RMO 9-2021)</td><td>Optional for non-large taxpayers, who may choose a CAS or a CBA</td></tr>
   </tbody>
 </table></div>
-<p>RMO 9-2021 also says registration applies to any software that records sales, purchases, receivables, payables, inventory or payroll, or that produces BIR reports. RMO 9-2021 also defines cloud (hosted) systems and covers third-party providers, so a cloud set-up such as Odoo Online or Odoo.sh is registered the same way.</p>
+<p>RMO 9-2021 says registration applies to any software that records sales, purchases, receivables, payables, inventory or payroll, or that produces BIR reports. It also covers cloud (hosted) systems and third-party providers, so a cloud set-up such as Odoo Online or Odoo.sh is registered too, with the joint sworn statement described below.</p>
 
 <h2>How registration works now</h2>
 <ul>
@@ -54,12 +54,13 @@
   <li><strong>Security</strong>: unique user IDs, password rules, lockouts and logged database changes.</li>
   <li><strong>Backups</strong> kept for ten years.</li>
 </ul>
-<p>Odoo already has the building blocks: an audit trail that logs changes to accounting records, posted entries secured with a hash chain, irreversible hard lock dates, and the Philippine localisation's BIR reports. Odoo 20's <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> add a <strong>Book of Accounts for CBA and CAS</strong> and update Philippine invoices for BIR and CAS requirements. Whether your set-up meets every Annex B item is a matter of configuration, which is checked before you apply.</p>
+<p>Odoo already has the building blocks: an audit trail that logs changes to accounting records, posted entries secured with a hash chain, irreversible hard lock dates, and the Philippine localisation's BIR reports. Odoo 20's <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> add a <strong>Book of Accounts for CBA and CAS</strong> and update Philippine invoices for BIR and CAS requirements. Whether your set-up meets every Annex B item depends on configuration and hosting, which we check before you apply.</p>
 
 <h2>Changes and upgrades</h2>
 <ul>
   <li><strong>Major enhancements need an updated registration before you use them.</strong> That includes adding or removing financial modules, or a version change that affects the financial side. If you skip it, the registration has no effect from the date you adopt the change.</li>
   <li><strong>Minor enhancements need a written notice</strong>: screen changes, bug fixes, performance improvements.</li>
+  <li>RR 11-2024 treated the EOPT invoicing changes to a registered CAS or CBA as a major enhancement, with an updated registration and a new AC.</li>
   <li>An Odoo major-version upgrade that changes accounting features is likely to count as a major enhancement. Plan the update with your RDO alongside the <a href="{{ROOT}}blog/odoo-20-upgrade-checklist.html">upgrade itself</a>.</li>
 </ul>
 
@@ -80,7 +81,7 @@
   <li><strong>Set up Odoo</strong> with the Philippine localisation, audit trail, secured journals and your invoice layout.</li>
   <li><strong>Produce the samples</strong>: invoices, books, reports and the audit trail printout.</li>
   <li><strong>File for the AC</strong> at your RDO and keep the ACCN for your invoices.</li>
-  <li><strong>Apply for the PTI</strong> if you are covered by e-invoicing.</li>
+  <li><strong>Apply for the PTI</strong> if you are covered by e-invoicing, using your RDO's current documentary requirements.</li>
   <li><strong>Register your books in ORUS</strong> each year.</li>
 </ol>
 <p>You don't need to hire your own team. A TechNext adviser maps your registration path first, then our team in Taguig City sets up Odoo and prepares the system samples your application needs. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
@@ -94,7 +95,7 @@
   <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%204-2026.pdf" target="_blank" rel="noopener">RMC 4-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024</a> (BIR)</li>
   <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/required-online-registration-of-books-of-accounts-via-orus/" target="_blank" rel="noopener">Grant Thornton: online registration of books via ORUS</a></li>
   <li><a href="https://assets.kpmg.com/content/dam/kpmgsites/ph/pdf/InTAX/2026/RMC-No-98-2026-redacted.pdf" target="_blank" rel="noopener">RMC 98-2026</a> (copy hosted by KPMG)</li>
-  <li><a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">Odoo documentation: data inalterability</a></li>
+  <li><a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">Odoo documentation: data inalterability</a> and <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/year_end.html" target="_blank" rel="noopener">year-end closing and lock dates</a></li>
 </ul>
 
 <h2>Common questions</h2>

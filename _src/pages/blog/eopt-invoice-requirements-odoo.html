@@ -1,9 +1,10 @@
-<!--meta {"title": "EOPT Invoice Requirements: What Your Odoo Invoice Must Show", "desc": "Under the EOPT Act and RR 7-2024 the invoice replaced the official receipt. The fields a BIR invoice must show, the buyer-TIN rule and Odoo set-up.", "out": "blog/eopt-invoice-requirements-odoo.html", "nav": "company", "article": {"h1": "EOPT invoice rules: what your invoice must show, and how to set it up in Odoo", "cat": "bir", "date": "2026-10-21", "order": 21, "lede": "Since the Ease of Paying Taxes Act, the invoice is the proof of sale for goods and services alike, and the official receipt is only a supporting document. Here is everything RR 7-2024, as amended, asks your invoice to show, what happens when a field is missing, and how to set up the layout in Odoo.", "card": "The invoice replaced the OR: every field RR 7-2024 requires, the buyer-TIN rule, converted receipts and the Odoo invoice layout.", "cover": "invoicing/your_invoice_your_style.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "EOPT Invoice Requirements: What Your Odoo Invoice Must Show", "desc": "Under the EOPT Act the invoice replaced the OR. The fields RR 7-2024 requires, the P1,000 buyer-TIN rule, the RR 6-2026 withholding line and Odoo set-up.", "out": "blog/eopt-invoice-requirements-odoo.html", "nav": "company", "article": {"h1": "EOPT invoice rules: what your invoice must show, and how to set it up in Odoo", "cat": "bir", "date": "2026-10-21", "order": 21, "lede": "Since the Ease of Paying Taxes Act, the invoice is the proof of sale for goods and services alike, and the official receipt is only a supporting document. Here is everything RR 7-2024, as amended, asks your invoice to show, what happens when a field is missing, and how to set up the layout in Odoo.", "card": "The invoice replaced the OR: every field RR 7-2024 requires, the buyer-TIN rule, converted receipts and the Odoo invoice layout.", "cover": "invoicing/your_invoice_your_style.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
     <li>Under the <strong>EOPT Act (RA 11976)</strong> and <strong>RR 7-2024</strong>, the <strong>invoice</strong> is the primary proof of sale for goods and services. Official receipts are supplementary.</li>
     <li>VAT-registered sellers issue an invoice for <strong>every sale</strong>. Sales of <strong>P1,000 or more to a VAT-registered buyer</strong> must show the buyer's name, address and TIN.</li>
+    <li>From <strong>16 October 2026</strong>, <strong>RR 6-2026</strong> requires creditable withholding tax, where applicable, to be shown as a separate item. Old invoice stock can be used if stamped <strong>"Less: Withholding Tax"</strong>.</li>
     <li>System-generated invoices from a CAS or CBA show the <strong>ACCN, series range and date issued</strong> at the bottom (RR 7-2024 Section 6(B.21)).</li>
     <li>Odoo 20's release notes update Philippine invoices for BIR and CAS requirements. On earlier versions, the standard layout needs a Philippine customisation.</li>
   </ul>
@@ -30,7 +31,7 @@
 </table></div>
 
 <h2>What every invoice must show</h2>
-<p>RR 7-2024 Section 6(B) lists the information, and RR 6-2026 (25 August 2026) added a line for creditable withholding tax. The core fields:</p>
+<p>RR 7-2024 Section 6(B) lists the information, and RR 6-2026, dated 25 August 2026 and in force since 16 October 2026, added item 22: the creditable withholding tax, shown as a separate item. The core fields:</p>
 <div class="table-wrap"><table>
   <thead><tr><th>Field</th><th>What to print</th></tr></thead>
   <tbody>
@@ -42,10 +43,10 @@
     <tr><td>Buyer</td><td>A space for the buyer's name, address and TIN. Required for sales of P1,000 or more to a VAT-registered buyer; not needed for end consumers.</td></tr>
     <tr><td>Lines</td><td>Quantity, unit cost and description of the goods or nature of the service</td></tr>
     <tr><td>Totals</td><td>Total amount (VAT-inclusive if VAT-registered) with VAT shown as a separate item</td></tr>
-    <tr><td>Withholding tax</td><td>Where the buyer withholds creditable tax, the amount withheld shown as a separate item, for example a "Less: Withholding Tax" line (RR 6-2026)</td></tr>
+    <tr><td>Withholding tax</td><td>Where creditable withholding tax applies, the amount withheld shown as a separate item. Newly printed invoices must carry the phrase "Less: Withholding Tax" (RR 6-2026)</td></tr>
     <tr><td>Mixed sales</td><td>A breakdown into VATable sales, VAT, zero-rated sales and VAT-exempt sales, or separate invoices labelled "VAT-Exempt Sale" or "Zero-Rated Sale"</td></tr>
     <tr><td>Special discounts</td><td>For senior citizen, PWD and similar discounts: the ID number, the discount and VAT exemption breakdown, and a signature space</td></tr>
-    <tr><td>System footer</td><td>For CAS or CBA invoices: the PTU number or Acknowledgement Certificate control number (ACCN), the series range and the date issued; "REPRINT" on reprints</td></tr>
+    <tr><td>System footer</td><td>For CAS or CBA invoices: the PTU number or Acknowledgement Certificate control number (ACCN), the series range and the date issued at the bottom, and "REPRINT" shown prominently at the top of reprints</td></tr>
   </tbody>
 </table></div>
 <p>Supplementary documents such as delivery receipts, official receipts and credit memos must carry, in bold: <strong>THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX.</strong></p>
@@ -62,15 +63,15 @@
 <p>Two more traps: a <strong>non-VAT seller</strong> that issues a VAT invoice owes the VAT anyway, and a VAT-exempt sale invoiced without the "VAT-Exempt" label can be taxed as if the exemption did not apply.</p>
 
 <h2>Old official receipts</h2>
-<p>RR 11-2024 gave two options for unused ORs. You can use them as <strong>supplementary documents</strong>, stamped "not valid for claim of input tax", or <strong>convert them into invoices</strong> by striking out "Official Receipt" and stamping "Invoice". Converted receipts can be used until they run out. System-generated "official receipts" issued after 31 December 2024 are not evidence of a sale. Under RR 6-2026, unused invoice stock without the new withholding line can still be used if "Less: Withholding Tax" is stamped on it.</p>
+<p>RR 11-2024 gave two options for unused ORs. You can use them as <strong>supplementary documents</strong>, stamped "not valid for claim of input tax", or <strong>convert them into invoices</strong> by striking out "Official Receipt" and stamping "Invoice". Converted receipts can be used until they run out. System-generated "official receipts" issued after 31 December 2024 are not evidence of a sale. Under RR 6-2026, unused invoice stock without the new withholding line can still be used until it runs out if "Less: Withholding Tax" is stamped conspicuously on its face; invoices printed after that must already carry the phrase.</p>
 
 <h2>Setting up the invoice in Odoo</h2>
 <p>Odoo's Philippine localisation already holds most of the data: your <strong>TIN with branch code</strong> and <strong>RDO</strong> on the company, the customer's TIN on the contact, and default taxes for <strong>12% VAT, zero-rated and exempt</strong> sales. What decides compliance is the printed layout.</p>
 <ul>
-  <li><strong>Odoo 20.</strong> The <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> update Philippine invoices for BIR and CAS requirements and add senior citizen and PWD statutory discounts on invoices. Check the printed result against the table above before go-live.</li>
+  <li><strong>Odoo 20.</strong> The <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> update Philippine invoices for BIR and CAS requirements and add senior citizen and PWD statutory discounts on invoices. These release notes do not mention RR 6-2026, so check the printed result against the table above, including the withholding tax line, before go-live.</li>
   <li><strong>Odoo 19 and earlier.</strong> Odoo's documentation describes no BIR invoice layout for these versions, so the layout is customised to add the "VAT Reg TIN" line, the VATable, exempt and zero-rated breakdown, the buyer TIN, the withholding tax line, the ACCN footer and "REPRINT" on copies.</li>
   <li><strong>One series per invoice type.</strong> Each invoice type needs its own serial series. In Odoo, each sales journal numbers its invoices in its own sequence, which also handles <a href="{{ROOT}}blog/bir-multi-branch-odoo.html">branches</a>.</li>
-  <li><strong>Credit notes, not edits.</strong> Odoo corrects a posted invoice with a credit note, which is also how e-invoicing rules expect decreases to be handled.</li>
+  <li><strong>Credit notes, not edits.</strong> Odoo corrects a posted invoice with a credit note, which matches the e-invoicing rule that a decrease is supported by a credit note or memo (RMC 98-2026).</li>
 </ul>
 
 {{SHOT:invoicing/your_invoice_your_style.webp|Odoo's invoice layout, where the BIR fields are added to the printed document (screenshot: odoo.com)}}
@@ -85,12 +86,13 @@
 </ol>
 <p>You don't need to hire your own team. A TechNext adviser reviews your invoices against the rules first, then our team in Taguig City sets up the Odoo layout and series so every invoice is right before it is printed. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
 
-<div class="post-note"><p>Rules change. This article reflects RA 11976 (EOPT Act), RR 7-2024, RR 11-2024, RR 6-2026 and RMC 77-2024, read from the law and the BIR's documents or official copies, and the Odoo 19.0 documentation and Odoo 20 release notes, as available on 21 October 2026. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+<div class="post-note"><p>Rules change. This article reflects RA 11976 (EOPT Act), RR 7-2024, RR 11-2024, RR 6-2026, RMC 77-2024 and RMC 98-2026, read from the law and the BIR's documents or official copies, and the Odoo 19.0 documentation and Odoo 20 release notes, as available on 21 October 2026. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
 
 <h2>Sources</h2>
 <ul>
   <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a>, amending Tax Code Sections 113, 237 and 238</li>
   <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%206-2026.pdf" target="_blank" rel="noopener">RR 6-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2077-2024%20Digest.pdf" target="_blank" rel="noopener">RMC 77-2024 digest</a> (BIR)</li>
+  <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2026/bir-issues-guidelines-on-electronic-invoicing-retains-31-dec-2026-deadline/" target="_blank" rel="noopener">Grant Thornton: RMC 98-2026 e-invoicing guidelines</a></li>
   <li><a href="https://kpmg.com/ph/en/insights/2024/04/special-intax-april-2024-issue-1-volume-3.html" target="_blank" rel="noopener">KPMG: RR 7-2024</a></li>
   <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/clarification-on-the-invoicing-requirements-per-rr-no-7-2024-as-amended-by-rr-no-11-2024/" target="_blank" rel="noopener">Grant Thornton: invoicing requirements under RR 7-2024 and RR 11-2024</a></li>
   <li><a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Odoo documentation: Philippines fiscal localisation</a> and <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a></li>
