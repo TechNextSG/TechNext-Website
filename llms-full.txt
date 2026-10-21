@@ -18,9 +18,17 @@
 - https://technext.asia/ — Odoo Partner in Singapore & the Philippines: TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing in Odoo — Ready Before 31 December 2026: BIR e-invoicing deadline: 31 December 2026. Who is covered, the PTI and EIS steps, what Odoo 20 does for the BIR, and how TechNext gets you ready.
 - https://technext.asia/blog — Blog: Odoo news, Odoo 20 and ERP guides: Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
+- https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit Readiness: eLA Rules for 2026 and Your Odoo Records: How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record retention, and the Odoo features that keep your books audit-ready.
 - https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing with Odoo: Deadline & Setup Guide: BIR e-invoicing explained by TechNext: the 31 December 2026 deadline, who is covered, the Permit to Issue, and how to get Odoo ready in the Philippines.
+- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307 in Odoo: Issue, Collect and Claim (2026 Guide): BIR Form 2307 explained: who issues it, the 20-day rule, what it shows, why credits get disallowed, and how Odoo 19 (XLS) and Odoo 20 (PDF) produce 2307 certificates.
+- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q: Quarterly VAT Return Guide with Odoo (2026): How the BIR 2550Q quarterly VAT return works after TRAIN and EOPT: the 25-day deadline, output vs input VAT, services on invoice basis, and Odoo's 2550Q report.
+- https://technext.asia/blog/bir-multi-branch-odoo — BIR Compliance for Multi-Branch Businesses in Odoo: Branch codes, a COR per branch, invoice series, consolidated VAT, withholding per branch and e-invoicing PTIs: how Philippine branches work with the BIR and in Odoo.
 - https://technext.asia/blog/bir-rules-for-your-accounting-system — BIR Rules for Your Accounting System: RRs, RMCs and Odoo (2026): Has the BIR said anything about Odoo? The RRs, RMCs and RMOs behind CAS, books of accounts, e-invoicing, 2307, SLSP and SAWT, explained for Philippine businesses.
+- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — SAWT and QAP Explained: BIR Alphalists and How Odoo Builds Them: SAWT and QAP in plain English: who files them, deadlines under RMC 55-2026, DAT file naming, why the BIR rejects files, and how Odoo exports SAWT and QAP.
+- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — BIR SLSP Guide: Summary List of Sales and Purchases in Odoo: Who files the BIR Summary List of Sales and Purchases (SLSP), when it is due, what goes in it, common rejection causes, and how Odoo exports the SLSP DAT files.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG implementation guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
+- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoice Requirements: What Your Odoo Invoice Must Show: Under the EOPT Act and RR 7-2024 the invoice replaced the official receipt. The fields a BIR invoice must show, the P1,000 buyer-TIN rule, converted ORs, and Odoo set-up.
+- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — Expanded Withholding Tax and ATC Codes in Odoo: PH Setup Guide: Set up Philippine expanded withholding tax in Odoo: 0619-E, 1601-EQ and 1604-E deadlines, common ATC codes and rates, top withholding agent rules (RR 24-2025), and Odoo taxes.
 - https://technext.asia/blog/how-an-odoo-implementation-works — Odoo implementation process, step by step: How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
 - https://technext.asia/blog/invoicenow-singapore-gst-timeline — Singapore GST InvoiceNow requirement: all dates to 2031: Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
 - https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — Odoo 20 in Singapore, the Philippines and Vietnam: The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
@@ -28,6 +36,8 @@
 - https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: New Features & Upgrade Checklist: Odoo 20 release notes explained by TechNext, an Odoo Partner: AI agents, MCP, offline mode, Field Service in Planning, pricing and an upgrade checklist.
 - https://technext.asia/blog/odoo-experience-2026-takeaways — Odoo Experience 2026: five takeaways for Odoo users: Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
 - https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Odoo Online vs Odoo.sh vs on-premise: which fits?: Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
+- https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C: What Odoo 20's Philippine payroll covers for the BIR: 1601-C items, 2316, 1604-C and the alphalist, plus the 2026 rules for tax tables, de minimis and contributions.
+- https://technext.asia/blog/register-odoo-cas-cba-bir — Registering Odoo as CAS or CBA with the BIR: 2026 Guide: How to register Odoo as your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA): the Acknowledgement Certificate, documents, ORUS and the PTI.
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs a growing company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure instead: TechNext explains configuration, Studio and custom modules, what each costs at upgrade, and how to decide.
 - https://technext.asia/blog/upcoming-odoo-events-singapore-philippines-vietnam — Odoo events Oct–Nov 2026: Singapore, Philippines, Vietnam: Upcoming Odoo events in Singapore, the Philippines and Vietnam for October and November 2026, plus free online webinars: dates, venues and links, by TechNext.
@@ -154,6 +164,30 @@ Yes. Head office and all branches must issue e-invoices, and branches on differe
 
 Source: https://technext.asia/bir-e-invoicing
 
+### How long must I keep my books for the BIR?
+
+Five years from the day after the deadline for filing the return, under Section 235 of the Tax Code as amended by the EOPT Act. Computerised books are kept as electronic copies.
+
+Source: https://technext.asia/blog/bir-audit-readiness-odoo
+
+### How many days do I have to submit documents in a BIR audit?
+
+Ten calendar days from the request, under RMO 22-2026.
+
+Source: https://technext.asia/blog/bir-audit-readiness-odoo
+
+### Can someone delete a posted invoice in Odoo?
+
+With the Restrictive Audit Trail setting on, tracked accounting records can only be cancelled or archived, and every change is logged with the user and time.
+
+Source: https://technext.asia/blog/bir-audit-readiness-odoo
+
+### Can the BIR audit me more than once for the same year?
+
+Under RMO 1-2026 the BIR generally issues one eLA per taxable year covering all taxes, with exceptions such as fraud, tax clearance and one-time transactions.
+
+Source: https://technext.asia/blog/bir-audit-readiness-odoo
+
 ### Are micro taxpayers covered?
 
 No. The BIR's guidelines exempt micro taxpayers from the mandatory e-invoicing requirement.
@@ -178,6 +212,78 @@ Yes. Our team in Taguig City confirms your group with your accountant, sets up O
 
 Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
+### When must I issue Form 2307 to my suppliers?
+
+Within 20 days after the close of each quarter, or at the time of payment if the supplier asks, under RR 2-98 as amended by RR 11-2018.
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### What is the difference between Form 2306 and 2307?
+
+Form 2307 certifies creditable withholding tax, which the payee claims as a credit. Form 2306 certifies final withholding tax.
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### Can Odoo print the BIR 2307 as a PDF?
+
+In Odoo 20, yes: the 2306 & 2307 report generates the certificates in the BIR PDF format. Odoo 18 and 19 export the data as XLS for conversion.
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### Can I claim a government VAT 2307 against income tax?
+
+No. Under RMC 36-2021, VAT withheld by government is credited against your VAT. Using it against income tax leads to disallowance.
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### When is the 2550Q due?
+
+Within 25 days after the close of each taxable quarter, under Section 114(A) of the Tax Code as amended by the TRAIN Law. It is filed every quarter while you are VAT-registered, even with no sales.
+
+Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
+
+### Do I still need to file the monthly 2550M?
+
+No. It has not been mandatory since 1 January 2023. RMC 52-2023 lets you keep filing it for the first two months of a quarter if you choose to.
+
+Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
+
+### Does Odoo file the 2550Q with the BIR?
+
+Odoo prepares the figures in its 2550Q report from your posted entries. You file the return on the BIR's platform, using those figures.
+
+Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
+
+### When do I declare VAT on a service I invoiced but have not been paid for?
+
+In the quarter of the invoice. Since RR 3-2024 under the EOPT Act, VAT on services is recognised when you invoice, the same as for goods.
+
+Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
+
+### Does each branch file its own VAT return?
+
+No. VAT is filed in one consolidated return for the head office and all branches, under Section 114(A) of the Tax Code.
+
+Source: https://technext.asia/blog/bir-multi-branch-odoo
+
+### Does each branch need its own PTI for e-invoicing?
+
+Branches on the same invoicing system share the head office's PTI number. A branch on a different system needs a separate PTI, under RMC 98-2026.
+
+Source: https://technext.asia/blog/bir-multi-branch-odoo
+
+### Can Odoo keep a separate invoice series per branch?
+
+Yes. Each branch can have its own sales journal, and each journal numbers its invoices in its own sequence.
+
+Source: https://technext.asia/blog/bir-multi-branch-odoo
+
+### Should a branch be a branch or a separate company in Odoo?
+
+A BIR-registered branch that shares your TIN is a branch in Odoo. A separate legal entity with its own TIN is a separate company in the same database.
+
+Source: https://technext.asia/blog/bir-multi-branch-odoo
+
 ### Is Odoo BIR-accredited?
 
 No software brand is "BIR-accredited" in the way the question suggests. The BIR registers your books and issues your PTI for the system you use, and as of its 14 September 2026 advisory it had not accredited any e-invoicing service provider. Your business can register Odoo as its computerised books and use it for its PTI application.
@@ -201,6 +307,54 @@ Source: https://technext.asia/blog/bir-rules-for-your-accounting-system
 Yes. The Philippine localisation produces 2307 data per payee and exports the SLSP, SAWT and QAP as DAT files for the BIR's tools, from the invoices and bills you post.
 
 Source: https://technext.asia/blog/bir-rules-for-your-accounting-system
+
+### What is the difference between SAWT and QAP?
+
+The SAWT lists tax that customers withheld from you, built from the 2307s you received. The QAP lists tax you withheld from your suppliers, attached to your 1601-EQ or 1601-FQ.
+
+Source: https://technext.asia/blog/bir-sawt-qap-alphalist-odoo
+
+### When is the QAP due?
+
+With the 1601-EQ or 1601-FQ, on the last day of the month after the quarter closes, as RMC 55-2026 restates.
+
+Source: https://technext.asia/blog/bir-sawt-qap-alphalist-odoo
+
+### What happens if my alphalist fails validation?
+
+The BIR emails the reasons. Under RMC 5-2014 you resubmit a corrected, complete list within five days. A list that never uploads is treated as not received, which can disallow the related expenses.
+
+Source: https://technext.asia/blog/bir-sawt-qap-alphalist-odoo
+
+### Does Odoo create SAWT and QAP files?
+
+Yes. The Philippine localisation exports both as DAT files compatible with the BIR Alphalist module, from the withholding taxes on your invoices and bills.
+
+Source: https://technext.asia/blog/bir-sawt-qap-alphalist-odoo
+
+### Who must submit the SLSP?
+
+Persons liable for VAT, under RR 1-2012. The amended rules list manufacturers, wholesalers and service providers among others, and set no turnover threshold.
+
+Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
+
+### When is the SLSP due?
+
+It follows the quarterly VAT return. RMO 4-2003 ties it to the VAT return due date, now the 25th day after the quarter closes.
+
+Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
+
+### Can Odoo export the SLSP for RELIEF?
+
+Yes. The Philippine localisation exports the SLSP as a DAT file compatible with the BIR's RELIEF module, one month at a time.
+
+Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
+
+### What if a customer has no TIN?
+
+Collect it when you can, and keep the customer record complete. Missing and placeholder TINs are among the most common reasons for SLSP problems.
+
+Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
 
 ### What is the difference between RAG and fine-tuning?
 
@@ -231,6 +385,54 @@ Source: https://technext.asia/blog/enterprise-rag-guide
 It depends mostly on the state of your sources and the number of systems to connect. Starting with one use case and a pilot group gets a working assistant in front of real users sooner, and the rest is added in phases.
 
 Source: https://technext.asia/blog/enterprise-rag-guide
+
+### Do service companies still issue official receipts?
+
+The invoice is now the proof of sale for services too. An official receipt may still be issued when payment is collected, but only as a supplementary document.
+
+Source: https://technext.asia/blog/eopt-invoice-requirements-odoo
+
+### When must an invoice show the buyer's TIN?
+
+For sales of P1,000 or more to a VAT-registered buyer, the invoice must show the buyer's registered name, address and TIN (Tax Code Section 113(B)).
+
+Source: https://technext.asia/blog/eopt-invoice-requirements-odoo
+
+### What must a system-generated invoice show at the bottom?
+
+The PTU number or Acknowledgement Certificate control number, the series range and the date issued, under RR 7-2024 Section 6(B.21).
+
+Source: https://technext.asia/blog/eopt-invoice-requirements-odoo
+
+### Can I still use my old official receipts?
+
+Yes, under RR 11-2024: either as supplementary documents stamped "not valid for claim of input tax", or converted into invoices by stamping "Invoice", until they run out.
+
+Source: https://technext.asia/blog/eopt-invoice-requirements-odoo
+
+### What is an ATC code?
+
+An Alphanumeric Tax Code identifies the type of income payment and its withholding rate, such as WC158 for a top withholding agent's purchase of goods from a corporation. It appears on the 2307, the QAP and the returns.
+
+Source: https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo
+
+### Do I file 0619-E for the third month of the quarter?
+
+No. The 0619-E covers the first two months; the third month is covered by the quarterly 1601-EQ, due the last day of the month after the quarter.
+
+Source: https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo
+
+### Am I a top withholding agent if my sales pass P12 million?
+
+Not automatically. Under RR 31-2020 the duty starts only once the BIR publishes your name on the list of top withholding agents.
+
+Source: https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo
+
+### Where do I enter the ATC in Odoo?
+
+On each withholding tax, under Accounting > Configuration > Taxes, in the Philippines ATC field on the Philippines tab.
+
+Source: https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo
 
 ### How long does an Odoo implementation take?
 
@@ -405,6 +607,54 @@ Source: https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise
 Odoo Online for most first phases, Odoo.sh when a requirement needs custom code, and on-premise only when IT policy or data rules require it.
 
 Source: https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise
+
+### Does Odoo 20 have Philippine payroll?
+
+Yes. The Odoo 20 release notes list a basic Philippine payroll package with 1601-C items, the 2316, 1604-C worksheets, alphalist DAT exports and SSS and Pag-IBIG loan deductions.
+
+Source: https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
+
+### When must employees get their BIR 2316?
+
+By 31 January of the following year, or on the day of the last wage payment if they leave earlier (Tax Code Section 83).
+
+Source: https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
+
+### Is the 13th-month pay taxable?
+
+Only the part above P90,000 a year, counted together with other bonuses and benefits under Section 32(B)(7)(e) of the Tax Code.
+
+Source: https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
+
+### Can I use Odoo payroll on an older version?
+
+Odoo's own Philippine payroll package is listed in the Odoo 20 release notes. Earlier versions typically relied on community or third-party apps. If you are on an older version, plan an upgrade; see our Odoo 20 upgrade checklist .
+
+Source: https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
+
+### Is Odoo registered with the BIR?
+
+The BIR registers each taxpayer's use of a system, not a software brand. Your business registers Odoo as its CAS or CBA at your RDO and receives an Acknowledgement Certificate.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### Do I still need a Permit to Use?
+
+No. RMC 5-2021 replaced the Permit to Use with registration and an Acknowledgement Certificate. Existing PTUs stay valid unless revoked or the system has a major enhancement.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### Does my Acknowledgement Certificate let me issue e-invoices?
+
+No. Under RMC 98-2026, the AC authorises the system but not e-invoicing. Covered taxpayers also need a Permit to Issue and EIS Certification.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### Do I need to re-register after upgrading Odoo?
+
+A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
 
 ### When should a small business move from spreadsheets to an ERP?
 

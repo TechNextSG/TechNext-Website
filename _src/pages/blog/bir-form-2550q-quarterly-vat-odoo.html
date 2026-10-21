@@ -1,0 +1,89 @@
+<!--meta {"title": "BIR Form 2550Q: Quarterly VAT Return Guide with Odoo (2026)", "desc": "How the BIR 2550Q quarterly VAT return works after TRAIN and EOPT: the 25-day deadline, output vs input VAT, services on invoice basis, and Odoo's 2550Q report.", "out": "blog/bir-form-2550q-quarterly-vat-odoo.html", "nav": "company", "article": {"h1": "BIR Form 2550Q: your quarterly VAT return, and how Odoo prepares it", "cat": "erp", "date": "2026-10-21", "order": 14, "lede": "VAT in the Philippines is now a quarterly job, and since the EOPT Act services are taxed when you invoice, not when you are paid. Here is what goes into the 2550Q, what changed, and how Odoo builds the figures from the entries you already post.", "card": "The 2550Q quarterly VAT return after TRAIN and EOPT: deadline, what changed for services, and where Odoo's 2550Q report fits.", "cover": "accounting/accounting-bill.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>VAT-registered businesses file <strong>BIR Form 2550Q within 25 days after each quarter closes</strong>, even in a quarter with no sales. Monthly 2550M filing is optional since RMC 52-2023.</li>
+    <li>Since the EOPT Act (RR 3-2024), <strong>VAT on services follows the invoice date</strong>, not the date you collect.</li>
+    <li>Input VAT on capital goods bought from 1 January 2022 is claimed in full, not amortised.</li>
+    <li>Odoo's Philippine localisation has a <strong>2550Q tax report</strong> that totals sales, purchases, output VAT and input VAT for the period.</li>
+  </ul>
+</div>
+
+<p>For most Philippine companies, the quarterly VAT return is the BIR deadline that touches the most transactions. Every sales invoice, every vendor bill and every withholding certificate from a government customer ends up in one number on the 2550Q. When those transactions live in spreadsheets, the return is a reconciliation exercise. When they live in one system, it is a report. This guide covers the rules as they stand in October 2026 and how Odoo prepares the figures.</p>
+
+<h2>From monthly to quarterly</h2>
+<p>The TRAIN Law (RA 10963, Section 37) amended Section 114(A) of the Tax Code so that VAT is filed and paid <strong>within 25 days following the close of each taxable quarter</strong>, starting 1 January 2023. RMC 5-2023 set the transition, and the monthly 2550M stopped being mandatory.</p>
+<p>Later that year, RMC 52-2023 allowed businesses to <strong>keep filing 2550M</strong> for the first two months of a quarter if they prefer. Either way, the 2550Q is still due within 25 days after quarter-end. A VAT-registered business files it every quarter it stays registered, including quarters with no transactions.</p>
+
+<h2>The basics that have not changed</h2>
+<ul>
+  <li><strong>Rate:</strong> 12% of gross sales, for both goods and services (Tax Code Sections 106 and 108; since RR 3-2024 the term "gross sales" covers both).</li>
+  <li><strong>Threshold:</strong> sales up to P3,000,000 a year are VAT-exempt, and registration is required above it. Under the EOPT Act the threshold is reviewed every three years against the consumer price index.</li>
+  <li><strong>Output less input:</strong> VAT on your sales, less creditable VAT on your purchases and importations, is what you pay or carry over.</li>
+  <li><strong>Zero-rated and exempt sales</strong> are reported separately. Export sales by a VAT-registered seller are zero-rated, and so are certain sales to registered export enterprises.</li>
+</ul>
+
+<h2>What the EOPT Act changed for VAT</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Topic</th><th>Before</th><th>Now</th></tr></thead>
+  <tbody>
+    <tr><td>VAT on services</td><td>Declared when collected (gross receipts)</td><td>Declared on the <strong>invoice date</strong> (gross sales, accrual basis), under RR 3-2024</td></tr>
+    <tr><td>Proof of sale</td><td>Sales invoice for goods, official receipt for services</td><td>One <strong>invoice</strong> for both (RR 7-2024)</td></tr>
+    <tr><td>Where you file</td><td>Through your own RDO or its banks</td><td><strong>File and pay anywhere</strong>, electronically or at any authorised agent bank (RR 4-2024)</td></tr>
+  </tbody>
+</table></div>
+<p>The services change is the one that catches people out. If you invoice a client in March and they pay in May, the output VAT belongs in the first-quarter return. For services rendered before the rule took effect, the transitional rule let you declare output VAT when collected.</p>
+
+<h2>Other rules that shape the number</h2>
+<ul>
+  <li><strong>Capital goods.</strong> Amortising input VAT on capital goods was allowed only until 31 December 2021. For purchases from 1 January 2022, the full input VAT is claimed when you buy (RMC 21-2022). Older balances keep amortising until used up.</li>
+  <li><strong>Sales to government.</strong> The 5% VAT that government offices withhold has been <strong>creditable</strong>, not final, since 1 January 2021. You credit it against your VAT due, supported by the certificate you receive.</li>
+  <li><strong>Digital services.</strong> Since 2 June 2025, digital services consumed in the Philippines carry 12% VAT (RA 12023, RR 3-2025). If you buy from a non-registered foreign provider, you account for that VAT yourself and file BIR Form 1600-VT, which also supports your input VAT claim.</li>
+  <li><strong>Supporting lists.</strong> VAT-registered businesses also submit the quarterly <a href="{{ROOT}}blog/bir-slsp-summary-list-sales-purchases-odoo.html">Summary List of Sales and Purchases (SLSP)</a>, and the VAT withheld by customers shows in your <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT</a>.</li>
+</ul>
+
+<h2>How Odoo prepares the 2550Q</h2>
+<p>Odoo's <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a> ships the taxes and the report you need:</p>
+<ul>
+  <li><strong>Default taxes</strong> for 12% VAT on sales and purchases, zero-rated and VAT-exempt, plus expanded, final and VAT withholding taxes.</li>
+  <li><strong>Fiscal positions</strong> that switch the taxes on a partner's invoices to match their registration (for example, an export customer).</li>
+  <li><strong>The 2550Q report</strong>, under Accounting &gt; Reporting &gt; Tax Report, which Odoo describes as summarising sales, purchases, output VAT, input VAT and the resulting VAT payable or refundable.</li>
+</ul>
+<p>Because the report reads your posted invoices and bills, the figures match your books by design. You still file the return itself on the BIR's platform (eBIRForms or eFPS), keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2550Q.</p>
+<p>Odoo 20 adds two related reports for the Philippines, according to its <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a>: <strong>BIR 1600-VT</strong> for final withholding VAT, and <strong>2551Q</strong> for non-VAT registered companies that pay percentage tax.</p>
+
+{{SHOT:accounting/accounting-bill.webp|Vendor bills in Odoo Accounting carry the input VAT that flows into the 2550Q (screenshot: odoo.com)}}
+
+<h2>A quarter-end routine that works</h2>
+<ol>
+  <li><strong>Post everything for the quarter</strong>: invoices, credit notes, vendor bills and imports.</li>
+  <li><strong>Check partner TINs and fiscal positions</strong>, so exempt and zero-rated sales sit in the right lines.</li>
+  <li><strong>Match withholding certificates</strong> from customers (including government 5% VAT) to their invoices.</li>
+  <li><strong>Run the 2550Q report</strong> and the SLSP for the same period, and check that they agree.</li>
+  <li><strong>Lock the period</strong> in Odoo once filed, so nothing changes the figures you reported.</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser reviews how your VAT is set up today, then our team in Taguig City configures Odoo so the quarter-end is a report, not a reconciliation. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by TRAIN and the EOPT Act, and BIR issuances available on 21 October 2026, read from the law text and published tax alerts. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2017/ra_10963_2017.html" target="_blank" rel="noopener">RA 10963 (TRAIN Law), Sections 31, 34, 35 and 37</a></li>
+  <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2023/optional-filing-and-payment-of-monthly-vat-returns-now-allowed/" target="_blank" rel="noopener">Grant Thornton: optional monthly VAT returns (RMC 52-2023)</a></li>
+  <li><a href="https://www.forvismazars.com/ph/en/insights/tax-alerts/bir-rmc-05-2023" target="_blank" rel="noopener">Forvis Mazars: RMC 5-2023 transition to quarterly VAT</a></li>
+  <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2024/implementation-of-the-amendments-introduced-by-eopt-act-on-vat-and-percentage-tax/" target="_blank" rel="noopener">Grant Thornton: EOPT amendments on VAT (RR 3-2024)</a></li>
+  <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2024/faqs-relative-to-the-filing-of-tax-returns-and-payment-of-taxes-pursuant-to-rr-no-4-2024-implementing-the-provisions-of-republic-act-no-11976-otherwise-known-as-eopt-act/" target="_blank" rel="noopener">Grant Thornton: filing and payment under RR 4-2024</a></li>
+  <li><a href="https://www.forvismazars.com/ph/en/insights/tax-alerts/bir-releases-revenue-memorandum-circular-21-2022" target="_blank" rel="noopener">Forvis Mazars: RMC 21-2022 on input VAT for capital goods</a></li>
+  <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2021/guidelines-for-the-shift-from-final-to-creditable-system-of-vat-withheld-on-sales-to-government/" target="_blank" rel="noopener">Grant Thornton: shift from final to creditable VAT withholding on sales to government (RMC 36-2021)</a></li>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a></li>
+  <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2025/updates-and-clarifications-on-the-implementation-of-vat-on-digital-services/" target="_blank" rel="noopener">Grant Thornton: VAT on digital services (RR 3-2025)</a></li>
+  <li><a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Odoo documentation: Philippines fiscal localisation</a> and <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>When is the 2550Q due? {{icon:chevron}}</summary><div class="faq-a"><p>Within 25 days after the close of each taxable quarter, under Section 114(A) of the Tax Code as amended by the TRAIN Law. It is filed every quarter while you are VAT-registered, even with no sales.</p></div></details>
+  <details><summary>Do I still need to file the monthly 2550M? {{icon:chevron}}</summary><div class="faq-a"><p>No. It has not been mandatory since 1 January 2023. RMC 52-2023 lets you keep filing it for the first two months of a quarter if you choose to.</p></div></details>
+  <details><summary>Does Odoo file the 2550Q with the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo prepares the figures in its 2550Q report from your posted entries. You file the return on the BIR's platform, using those figures.</p></div></details>
+  <details><summary>When do I declare VAT on a service I invoiced but have not been paid for? {{icon:chevron}}</summary><div class="faq-a"><p>In the quarter of the invoice. Since RR 3-2024 under the EOPT Act, VAT on services is recognised when you invoice, the same as for goods.</p></div></details>
+</div>

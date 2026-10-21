@@ -1,0 +1,106 @@
+<!--meta {"title": "Registering Odoo as CAS or CBA with the BIR: 2026 Guide", "desc": "How to register Odoo as your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA): the Acknowledgement Certificate, documents, ORUS and the PTI.", "out": "blog/register-odoo-cas-cba-bir.html", "nav": "company", "article": {"h1": "Registering Odoo as your CAS or CBA with the BIR: the steps, the documents, and what comes after", "cat": "erp", "date": "2026-10-21", "order": 20, "lede": "The BIR no longer issues a Permit to Use for accounting systems. You register the system, get an Acknowledgement Certificate, and the RDO checks it afterwards. Here is the difference between CAS and CBA, what goes in the application, what the system must do, and how e-invoicing adds a second permit.", "card": "CAS vs CBA, the Acknowledgement Certificate, the documents the BIR asks for, and how the e-invoicing PTI fits on top.", "cover": "accounting/accounting-hero-image.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>A <strong>CAS</strong> runs the whole cycle, including system-generated invoices. If you issue invoices by hand, the system counts as a <strong>CBA</strong> (RMO 9-2021).</li>
+    <li>Since RMC 5-2021 there is <strong>no Permit to Use</strong>. The RDO issues an <strong>Acknowledgement Certificate (AC)</strong> within three working days of a complete application, and evaluates the system afterwards.</li>
+    <li>Computerised books are registered <strong>online through ORUS</strong> every year (RMC 4-2026).</li>
+    <li>The AC is <strong>not</strong> a permit to e-invoice. Covered taxpayers also need a <strong>Permit to Issue (PTI)</strong> under RMC 98-2026.</li>
+  </ul>
+</div>
+
+<p>"Is Odoo BIR-registered?" is one of the first questions we hear in the Philippines. The BIR does not register software brands. It registers <em>your</em> use of a system, at <em>your</em> RDO. So the real question is how your business registers Odoo. This guide walks through the process as it stands in October 2026.</p>
+
+<h2>CAS or CBA?</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>CAS (Computerized Accounting System)</th><th>CBA (Computerized Books of Accounts)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>What it covers</strong></td><td>The full cycle, from the transaction and the invoice to the financial reports</td><td>Books of accounts only: journals, ledger, sales and purchase books, inventory book</td></tr>
+    <tr><td><strong>Invoices</strong></td><td>System-generated</td><td>Issued manually (a system that issues invoices by hand is treated as a CBA)</td></tr>
+    <tr><td><strong>Who must use it</strong></td><td>Large taxpayers are required to keep electronic books (RR 9-2009)</td><td>Optional for others who keep computerised books</td></tr>
+  </tbody>
+</table></div>
+<p>RMO 9-2021 also says registration applies to any software that records sales, purchases, receivables, payables, inventory or payroll, or that produces BIR reports. RMO 9-2021 also defines cloud (hosted) systems and covers third-party providers, so a cloud set-up such as Odoo Online or Odoo.sh is registered the same way.</p>
+
+<h2>How registration works now</h2>
+<ul>
+  <li><strong>No Permit to Use.</strong> RMC 5-2021 replaced the PTU with registration, and RMO 9-2021 repealed the old rules (RMO 29-2002).</li>
+  <li><strong>Acknowledgement Certificate in three working days.</strong> The RDO issues the AC once your documents are complete. It carries an AC control number (ACCN), which your system-generated invoices show.</li>
+  <li><strong>Post-evaluation.</strong> There is no demonstration before you start. The RDO evaluates the system afterwards against the BIR's functional and technical requirements, and can revoke the AC if it finds gaps.</li>
+  <li><strong>Where to file.</strong> At your RDO or Large Taxpayers office, in person or by email. Sister companies and affiliates register separately, even on a shared system.</li>
+  <li><strong>Cloud or third-party systems.</strong> You and the provider sign a joint sworn statement that the system cannot suppress sales. If the provider contract ends, the registration is cancelled.</li>
+</ul>
+
+<h2>What goes in the application</h2>
+<p>The checklist in RMC 5-2021 Annex A asks for:</p>
+<ol>
+  <li>A <strong>sworn statement</strong> (or joint sworn statement for an outsourced or cloud system), with a system description, a description of your invoices and documents, and the list of forms, records and reports.</li>
+  <li><strong>Sample printouts of your invoices</strong> and supplementary documents.</li>
+  <li><strong>Sample printouts of your books of accounts</strong> and other system reports.</li>
+  <li>A <strong>printed audit trail</strong> from the system.</li>
+  <li>The signed checklist of <strong>functional and technical requirements</strong> (Annex B).</li>
+</ol>
+<p>Annex labels differ between RMO 9-2021 and RMC 5-2021, so ask your RDO for its current templates.</p>
+
+<h2>What the system must do</h2>
+<p>Annex B of RMC 5-2021 sets the requirements. The ones that matter most:</p>
+<ul>
+  <li><strong>An audit trail</strong> of all activity that can be printed, protected from change.</li>
+  <li><strong>Posted transactions can be voided, not modified</strong>, and the system controls the numbering.</li>
+  <li><strong>Every record stamped</strong> with the user who created it, and reports with the date, time and user.</li>
+  <li><strong>Invoice serial numbers</strong> generated by the system, with at least six running digits, and "REPRINT" on copies.</li>
+  <li><strong>Report headers</strong> with your registered name, address, TIN with branch code, and the software name and version.</li>
+  <li><strong>Exports</strong> of books and reports in CSV or DAT, and the ability to produce the 2306, 2307 and 2316.</li>
+  <li><strong>Security</strong>: unique user IDs, password rules, lockouts and logged database changes.</li>
+  <li><strong>Backups</strong> kept for ten years.</li>
+</ul>
+<p>Odoo already has the building blocks: an audit trail that logs changes to accounting records, posted entries secured with a hash chain, irreversible hard lock dates, and the Philippine localisation's BIR reports. Odoo 20's <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> add a <strong>Book of Accounts for CBA and CAS</strong> and update Philippine invoices for BIR and CAS requirements. Whether your set-up meets every Annex B item is a matter of configuration, which is checked before you apply.</p>
+
+<h2>Changes and upgrades</h2>
+<ul>
+  <li><strong>Major enhancements need an updated registration before you use them.</strong> That includes adding or removing financial modules, or a version change that affects the financial side. If you skip it, the registration has no effect from the date you adopt the change.</li>
+  <li><strong>Minor enhancements need a written notice</strong>: screen changes, bug fixes, performance improvements.</li>
+  <li>An Odoo major-version upgrade that changes accounting features is likely to count as a major enhancement. Plan the update with your RDO alongside the <a href="{{ROOT}}blog/odoo-20-upgrade-checklist.html">upgrade itself</a>.</li>
+</ul>
+
+<h2>Every year: register your books in ORUS</h2>
+<p>Under RMC 3-2023 and RMC 4-2026, computerised books are registered <strong>online through ORUS</strong>, which issues a QR code you print and keep. For taxable year 2025, the deadline for computerised books was extended to 17 February 2026. Earlier rules also asked for the books on a USB drive with a transmittal letter, so check with your RDO what it wants with the ORUS registration.</p>
+
+<h2>E-invoicing adds a second permit</h2>
+<p>RMC 98-2026 is clear that the AC <strong>authorises the use of your system but not the issue of e-invoices</strong>. If you are covered, you also need:</p>
+<ul>
+  <li>a <strong>Permit to Issue (PTI)</strong> e-invoices, decided within 20 working days of a complete application;</li>
+  <li><strong>EIS Certification</strong> within six months of the PTI;</li>
+  <li>a new or amended PTI if you migrate to another invoicing system.</li>
+</ul>
+<p>The covered groups and the 31 December 2026 deadline are in our <a href="{{ROOT}}blog/bir-e-invoicing-odoo.html">BIR e-invoicing guide</a>.</p>
+
+<h2>A realistic order of work</h2>
+<ol>
+  <li><strong>Set up Odoo</strong> with the Philippine localisation, audit trail, secured journals and your invoice layout.</li>
+  <li><strong>Produce the samples</strong>: invoices, books, reports and the audit trail printout.</li>
+  <li><strong>File for the AC</strong> at your RDO and keep the ACCN for your invoices.</li>
+  <li><strong>Apply for the PTI</strong> if you are covered by e-invoicing.</li>
+  <li><strong>Register your books in ORUS</strong> each year.</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser maps your registration path first, then our team in Taguig City sets up Odoo and prepares the system samples your application needs. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects RMO 9-2021, RMC 5-2021 and its annexes, RR 7-2024, RR 11-2024, RMC 3-2023, RMC 4-2026 and RMC 98-2026, read from the BIR's documents or official copies hosted by audit firms, as available on 21 October 2026. Registration is done by each taxpayer at its own RDO; TechNext prepares the system and samples, not the BIR's decision. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/03.02.2021/rmo-no.-9-2021.pdf" target="_blank" rel="noopener">RMO 9-2021</a> and <a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/01.13.2021/rmc-no.-5-2021.pdf" target="_blank" rel="noopener">RMC 5-2021</a> (copies hosted by Grant Thornton)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%205-2021%20Annex%20A.pdf" target="_blank" rel="noopener">RMC 5-2021 Annex A: checklist</a> and <a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%205-2021%20Annex%20B.pdf" target="_blank" rel="noopener">Annex B: functional and technical requirements</a> (BIR)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%204-2026.pdf" target="_blank" rel="noopener">RMC 4-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024</a> (BIR)</li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/required-online-registration-of-books-of-accounts-via-orus/" target="_blank" rel="noopener">Grant Thornton: online registration of books via ORUS</a></li>
+  <li><a href="https://assets.kpmg.com/content/dam/kpmgsites/ph/pdf/InTAX/2026/RMC-No-98-2026-redacted.pdf" target="_blank" rel="noopener">RMC 98-2026</a> (copy hosted by KPMG)</li>
+  <li><a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">Odoo documentation: data inalterability</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>Is Odoo registered with the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>The BIR registers each taxpayer's use of a system, not a software brand. Your business registers Odoo as its CAS or CBA at your RDO and receives an Acknowledgement Certificate.</p></div></details>
+  <details><summary>Do I still need a Permit to Use? {{icon:chevron}}</summary><div class="faq-a"><p>No. RMC 5-2021 replaced the Permit to Use with registration and an Acknowledgement Certificate. Existing PTUs stay valid unless revoked or the system has a major enhancement.</p></div></details>
+  <details><summary>Does my Acknowledgement Certificate let me issue e-invoices? {{icon:chevron}}</summary><div class="faq-a"><p>No. Under RMC 98-2026, the AC authorises the system but not e-invoicing. Covered taxpayers also need a Permit to Issue and EIS Certification.</p></div></details>
+  <details><summary>Do I need to re-register after upgrading Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice.</p></div></details>
+</div>

@@ -1,0 +1,86 @@
+<!--meta {"title": "BIR Compliance for Multi-Branch Businesses in Odoo", "desc": "Branch codes, a COR per branch, invoice series, consolidated VAT, withholding per branch and e-invoicing PTIs: how Philippine branches work with the BIR and in Odoo.", "out": "blog/bir-multi-branch-odoo.html", "nav": "company", "article": {"h1": "BIR compliance for multi-branch businesses, and how Odoo handles branches", "cat": "erp", "date": "2026-10-21", "order": 17, "lede": "Every branch has its own registration, its own invoices and often its own RDO, yet VAT is filed once for the whole company. Here is how the BIR treats branches, what changes with e-invoicing, and how to set up branches in Odoo so each one stays in order.", "card": "Branch codes, invoices per branch, consolidated VAT and e-invoicing PTIs: running Philippine branches in Odoo.", "cover": "icons:odoo:account,icon:globe,odoo:point_of_sale"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>Each head office and branch gets its <strong>own Certificate of Registration</strong> (RR 7-2024). Branches share the company TIN with their own <strong>branch code</strong>; the head office uses zeros.</li>
+    <li><strong>VAT is one consolidated return</strong> for the head office and all branches. Withholding returns can be filed per branch or consolidated, except large taxpayers, who consolidate.</li>
+    <li>Under RMC 98-2026, <strong>every branch must e-invoice</strong> if the company is covered, and branches on a different invoicing system need their own PTI.</li>
+    <li>Odoo's <strong>branches</strong> share the parent's chart of accounts and taxes, keep their own journals, and roll up into consolidated reports.</li>
+  </ul>
+</div>
+
+<p>Opening a second branch doubles more than your sales. It brings a second registration, a second invoice series and often a second revenue district office. When each branch keeps its own spreadsheet, head office spends the first weeks of every quarter stitching them together. This guide sets out how the BIR treats branches and how Odoo keeps them in one database.</p>
+
+<h2>Registration: one TIN, many branches</h2>
+<ul>
+  <li><strong>A COR for each site.</strong> RR 7-2024 says each head office, branch and facility is issued its own Certificate of Registration, displayed at that site.</li>
+  <li><strong>Branch codes.</strong> Branches use the company's nine-digit TIN plus a branch code. The head office code is all zeros. Older BIR systems used three digits; RMC 36-2026 (April 2026) widened the branch code to five digits on all tax returns in eBIRForms.</li>
+  <li><strong>Each branch has an RDO.</strong> A branch is registered with the RDO where it is located, and has its own ORUS branch account to update its registration, apply for authority to print and register its books (RMC 10-2024).</li>
+  <li><strong>Moving a branch</strong> is done by filing BIR Form 1905 (RMC 91-2024).</li>
+</ul>
+
+<h2>Invoices per branch</h2>
+<p>Each branch issues invoices that show <strong>its own branch code and address</strong>. In practice the head office and each branch keep their own invoice serial numbers under their own authority to print; check the current requirement for your invoices with your RDO. Under the EOPT Act, VAT-registered sellers issue an invoice for every sale, and any converted official receipts may be used until they run out (RR 11-2024). For the full list of what an invoice must show, see <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">EOPT invoice requirements</a>.</p>
+
+<h2>Returns: what is consolidated and what is not</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Return</th><th>Branch treatment</th></tr></thead>
+  <tbody>
+    <tr><td><strong>VAT (2550Q)</strong></td><td>One consolidated return for the head office and all branches (Tax Code Section 114(A))</td></tr>
+    <tr><td><strong>Percentage tax (2551Q)</strong></td><td>One consolidated return (Section 128)</td></tr>
+    <tr><td><strong>Withholding (1601-EQ, 1604-E and similar)</strong></td><td>Separate returns per branch or one consolidated return. Large taxpayers file one consolidated return (BIR Form 1604-E instructions).</td></tr>
+  </tbody>
+</table></div>
+<p>Since RR 4-2024 you can <strong>file and pay anywhere</strong>, whatever the RDO, and the old penalty for filing at the wrong venue is gone.</p>
+
+<h2>E-invoicing with branches</h2>
+<p>RMC 98-2026 says the <strong>head office and every branch</strong> of a covered taxpayer must issue e-invoices by 31 December 2026. The Permit to Issue (PTI) works like this, according to published summaries:</p>
+<ul>
+  <li>Branches on the <strong>same invoicing system</strong> share the head office's PTI number.</li>
+  <li>A branch on a <strong>different system</strong> needs a separate PTI.</li>
+  <li>A new branch on an approved system needs no new PTI number, but you must notify the BIR.</li>
+</ul>
+<p>One system across all branches is the simplest path. Read the full <a href="{{ROOT}}blog/bir-e-invoicing-odoo.html">BIR e-invoicing guide</a> for who is covered.</p>
+
+<h2>How Odoo handles branches</h2>
+<p>Odoo has a <strong>branches</strong> feature, set up on the parent company's record. According to Odoo's documentation:</p>
+<ul>
+  <li>The parent's <strong>chart of accounts, currency and taxes</strong> apply to all branches, and branches always follow the parent's fiscal localisation.</li>
+  <li>Each branch can have <strong>its own journals</strong>, so each can keep its own invoice series.</li>
+  <li>Each branch carries <strong>its own legal details</strong>. In the Philippine localisation, the branch code comes from the last digits of the TIN, and the RDO code sits on the company record.</li>
+  <li>A branch user sees only that branch. The parent sees all branches and gets <strong>consolidated reports</strong>.</li>
+  <li>Branches inherit the parent's lock dates and can set earlier ones.</li>
+</ul>
+<p>Odoo lets branches share the parent's VAT number or have their own, which gives a common or a separate VAT return. Because VAT is filed once for the company, set up the branches so the parent's <a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html">2550Q report</a> covers all of them, and check it in a test run before your first quarter-end. Separate legal entities, such as a sister company with its own TIN, are set up as separate companies in the same database instead.</p>
+
+<h2>Setting it up</h2>
+<ol>
+  <li><strong>List every registered site</strong> with its branch code, RDO and COR.</li>
+  <li><strong>Create a branch in Odoo per site</strong>, with its legal details.</li>
+  <li><strong>Give each branch its own sales journal</strong> so its invoices run in their own series.</li>
+  <li><strong>Set user access</strong> so branch staff work only in their branch.</li>
+  <li><strong>Decide how you file withholding</strong> (per branch or consolidated) and set the reports to match.</li>
+  <li><strong>Plan e-invoicing for all branches together</strong>, on one system.</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser maps your branches and registrations first, then our team in Taguig City sets up Odoo so each branch invoices on its own and head office sees one set of numbers. <a href="{{ROOT}}odoo/philippines.html">See Odoo in the Philippines</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by the EOPT Act, RR 7-2024, RR 4-2024, RMC 98-2026 and BIR form instructions, as available on 21 October 2026, and Odoo's 19.0 documentation. Branch code formats differ between BIR systems; check yours on your COR. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a> and <a href="https://lawphil.net/statutes/repacts/ra1997/ra_8424_1997.html" target="_blank" rel="noopener">the Tax Code, Section 114</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/eopt-is-here-updates-on-the-preservation-of-book-of-accounts-and-changes-in-taxpayer-registration/" target="_blank" rel="noopener">Grant Thornton: registration under RR 7-2024</a> and <a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/clarifications-on-the-registration-procedures-under-eopt-act/" target="_blank" rel="noopener">RMC 91-2024</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/clarification-on-the-invoicing-requirements-per-rr-no-7-2024-as-amended-by-rr-no-11-2024/" target="_blank" rel="noopener">Grant Thornton: invoicing under RR 7-2024 and RR 11-2024</a></li>
+  <li><a href="https://www.pwc.com/ph/en/tax/tax-publications/tax-alerts/2026/tax-alert-19.html" target="_blank" rel="noopener">PwC: RMC 36-2026, five-digit branch codes</a> and <a href="https://kpmg.com/ph/en/insights/2024/01/special-intax-january-2024-issue-1-volume-7.html" target="_blank" rel="noopener">KPMG: RMC 10-2024, ORUS branch accounts</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/1604E%20Jan%202018%20ENCS%20Final2.pdf" target="_blank" rel="noopener">BIR Form 1604-E instructions</a> (separate or consolidated withholding returns)</li>
+  <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2026/bir-issues-guidelines-on-electronic-invoicing-retains-31-dec-2026-deadline/" target="_blank" rel="noopener">Grant Thornton: RMC 98-2026</a> and <a href="https://www.reyestacandong.com/rmc-no-98-2026-electronic-invoicing-guidelines/" target="_blank" rel="noopener">Reyes Tacandong: PTI rules for branches</a></li>
+  <li>Odoo documentation: <a href="https://www.odoo.com/documentation/19.0/applications/general/companies.html" target="_blank" rel="noopener">companies and branches</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting.html" target="_blank" rel="noopener">branch accounting</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>Does each branch file its own VAT return? {{icon:chevron}}</summary><div class="faq-a"><p>No. VAT is filed in one consolidated return for the head office and all branches, under Section 114(A) of the Tax Code.</p></div></details>
+  <details><summary>Does each branch need its own PTI for e-invoicing? {{icon:chevron}}</summary><div class="faq-a"><p>Branches on the same invoicing system share the head office's PTI number. A branch on a different system needs a separate PTI, under RMC 98-2026.</p></div></details>
+  <details><summary>Can Odoo keep a separate invoice series per branch? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Each branch can have its own sales journal, and each journal numbers its invoices in its own sequence.</p></div></details>
+  <details><summary>Should a branch be a branch or a separate company in Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>A BIR-registered branch that shares your TIN is a branch in Odoo. A separate legal entity with its own TIN is a separate company in the same database.</p></div></details>
+</div>

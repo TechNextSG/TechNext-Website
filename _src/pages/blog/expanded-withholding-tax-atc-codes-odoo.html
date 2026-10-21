@@ -1,0 +1,99 @@
+<!--meta {"title": "Expanded Withholding Tax and ATC Codes in Odoo: PH Setup Guide", "desc": "Set up Philippine expanded withholding tax in Odoo: 0619-E, 1601-EQ and 1604-E deadlines, common ATC codes and rates, top withholding agent rules (RR 24-2025), and Odoo taxes.", "out": "blog/expanded-withholding-tax-atc-codes-odoo.html", "nav": "company", "article": {"h1": "Expanded withholding tax and ATC codes: how to set them up in Odoo", "cat": "erp", "date": "2026-10-21", "order": 23, "lede": "Expanded withholding tax runs through every supplier payment, and each line needs the right rate and the right ATC. Get the set-up right once and the 0619-E, 1601-EQ, QAP and 2307 follow from your bills. Here are the rules for 2026, the codes most businesses use, and how Odoo models withholding.", "card": "EWT deadlines, the common ATC codes and rates, the 2025 top withholding agent changes, and how withholding taxes work in Odoo.", "cover": "accounting/accounting-vendor-bill.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>Expanded (creditable) withholding is remitted <strong>monthly on 0619-E</strong> (first two months of the quarter), reported <strong>quarterly on 1601-EQ</strong> with the QAP, and <strong>annually on 1604-E</strong> by 1 March.</li>
+    <li>Every withholding tax line needs an <strong>ATC</strong>, the code that tells the BIR what kind of payment it is.</li>
+    <li><strong>Top withholding agents</strong> still withhold 1% on goods and 2% on services. <strong>RR 24-2025</strong> added a 0.5% rate on certain goods bought from manufacturers or direct importers that sell at wholesale, from 10 October 2025.</li>
+    <li>In Odoo, withholding is a <strong>negative tax</strong> with its ATC on the Philippines tab. Odoo 19 and 20 can also apply it <strong>at payment</strong>.</li>
+  </ul>
+</div>
+
+<p>Withholding tax is a set-up problem disguised as a monthly chore. If each supplier and each type of expense has the right tax from the start, the returns almost prepare themselves. If not, someone rebuilds the numbers in a spreadsheet every month. This guide covers the rules and the Odoo set-up.</p>
+
+<h2>Creditable vs final withholding</h2>
+<ul>
+  <li><strong>Creditable (expanded) withholding tax</strong> is an advance on the payee's income tax. The payee claims it as a credit using your <a href="{{ROOT}}blog/bir-form-2307-odoo.html">Form 2307</a>.</li>
+  <li><strong>Final withholding tax</strong> is the full tax on that income. The payee cannot credit it, and the certificate is Form 2306.</li>
+</ul>
+<p>Since the EOPT Act, the duty to withhold arises when the income becomes <strong>payable</strong>: when you record the expense, or when the supplier invoices, whichever comes first (RR 4-2024).</p>
+
+<h2>Forms and deadlines</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Form</th><th>What it is</th><th>Due</th></tr></thead>
+  <tbody>
+    <tr><td><strong>0619-E</strong></td><td>Monthly remittance of expanded withholding tax, for the first two months of each quarter, even with nothing withheld</td><td>10th of the following month; eFPS filers follow staggered dates by group, up to the 15th</td></tr>
+    <tr><td><strong>1601-EQ</strong> with the QAP</td><td>Quarterly return, with the list of payees, income and tax withheld</td><td>Last day of the month after the quarter</td></tr>
+    <tr><td><strong>2307</strong></td><td>Certificate to each payee</td><td>Within 20 days after the quarter</td></tr>
+    <tr><td><strong>1604-E</strong> with the alphalist</td><td>Annual information return</td><td>1 March of the following year</td></tr>
+  </tbody>
+</table></div>
+<p>Returns are filed electronically on any available platform, with manual filing only when those are unavailable (RR 4-2024).</p>
+
+<h2>Common ATC codes and rates</h2>
+<p>These come from the ATC schedule of BIR Form 2307 and RR 2-98 as amended by RR 11-2018; the government VAT codes WV010 and WV020 come from RMC 36-2021. WI codes apply to individual payees, WC codes to corporate payees.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Payment</th><th>Rate</th><th>ATC</th></tr></thead>
+  <tbody>
+    <tr><td>Professional fees, individual, gross income up to P3M</td><td>5%</td><td>WI010</td></tr>
+    <tr><td>Professional fees, individual, over P3M or VAT-registered</td><td>10%</td><td>WI011</td></tr>
+    <tr><td>Professional fees, corporate, up to P720,000</td><td>10%</td><td>WC010</td></tr>
+    <tr><td>Professional fees, corporate, over P720,000</td><td>15%</td><td>WC011</td></tr>
+    <tr><td>Rental of real property used in business, or personal property over P10,000 a year</td><td>5%</td><td>WI100 / WC100</td></tr>
+    <tr><td>Contractors</td><td>2%</td><td>WI120 / WC120</td></tr>
+    <tr><td>Top withholding agent: goods</td><td>1%</td><td>WI158 / WC158</td></tr>
+    <tr><td>Top withholding agent: services</td><td>2%</td><td>WI160 / WC160</td></tr>
+    <tr><td>Government purchases: goods</td><td>1%</td><td>WI640 / WC640</td></tr>
+    <tr><td>Government purchases: services</td><td>2%</td><td>WI157 / WC157</td></tr>
+    <tr><td>VAT withheld by government: goods / services</td><td>5%</td><td>WV010 / WV020</td></tr>
+  </tbody>
+</table></div>
+<p>For the lower professional-fee rates, the payee gives you a sworn declaration and a copy of its COR by 15 January, or before the first payment. Without it, the higher rate applies.</p>
+
+<h2>Top withholding agents in 2026</h2>
+<ul>
+  <li><strong>Who they are.</strong> Under RR 31-2020, the BIR lists taxpayers whose prior-year gross sales or purchases reach P12 million (RDO groups A and B) or P5 million (groups C, D and E). The duty starts the month after the list is published. Crossing the threshold alone does not make you one; being listed does.</li>
+  <li><strong>What they withhold.</strong> 1% on goods and 2% on services bought from regular suppliers (at least six transactions a year), excluding casual purchases under P10,000.</li>
+  <li><strong>The 2025 change.</strong> RR 24-2025, effective 10 October 2025, added a <strong>0.5% rate</strong> on payments to manufacturers or direct importers that sell motor vehicles and parts, medicines and pharmaceutical products, or fuels at wholesale in their regular course of business, even when the buyer uses the goods itself. RMC 79-2026 (July 2026) answers the common questions, including that retail sales by the manufacturer or importer stay at 1%.</li>
+</ul>
+
+<h2>How Odoo models withholding</h2>
+<ul>
+  <li><strong>A negative tax.</strong> In Odoo, a withholding tax is defined as a tax with a negative amount, so it reduces what you pay the supplier.</li>
+  <li><strong>The ATC.</strong> Each withholding tax has a <strong>Philippines ATC</strong> field on its Philippines tab, under Accounting &gt; Configuration &gt; Taxes. Odoo's documentation says ATCs are required for the 2307, SAWT and QAP.</li>
+  <li><strong>Defaults.</strong> The Philippine localisation creates expanded, final and VAT withholding taxes with common ATCs. Add the ones you need, such as the lower professional-fee rates or the 0.5% top withholding agent rate, by <strong>duplicating</strong> an existing tax, so the report mapping is kept.</li>
+  <li><strong>Withholding at payment.</strong> Odoo 19's release notes list the option to apply a withholding tax when you register the payment (also available from 18.0). In Odoo 20, bills with withholding show the amount due, the withholding due and the net due, and you can pay each separately.</li>
+  <li><strong>Reports.</strong> The QAP (attachment to 1601-EQ and 1604-E) exports as a DAT file for the BIR Alphalist module, and the 2307 comes from the same taxes. See <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT and QAP</a>.</li>
+</ul>
+
+{{SHOT:accounting/accounting-vendor-bill.webp|A vendor bill in Odoo: each line carries the withholding tax, and its ATC, that the returns are built from (screenshot: odoo.com)}}
+
+<h2>A set-up checklist</h2>
+<ol>
+  <li><strong>List your payment types</strong>: rent, professional fees, contractors, goods, services, and anything special to your industry.</li>
+  <li><strong>Map each to a rate and ATC</strong> with your accountant, including whether you are a listed top withholding agent.</li>
+  <li><strong>Create or duplicate the taxes</strong> in Odoo and fill in each ATC.</li>
+  <li><strong>Set default taxes</strong> on products, expense accounts or fiscal positions so the right one is picked automatically.</li>
+  <li><strong>Collect sworn declarations</strong> from professionals each January and update their tax if needed.</li>
+  <li><strong>Test one quarter</strong>: run the QAP and the 2307s and check them against your 0619-E remittances.</li>
+</ol>
+<p>You don't need to hire your own team. A TechNext adviser maps your withholding with your accountant first, then our team in Taguig City sets up the taxes and defaults in Odoo so every bill carries the right ATC. <a href="{{ROOT}}odoo/philippines.html">See Odoo in the Philippines</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects RR 2-98 as amended by RR 11-2018, RR 31-2020, RR 4-2024, RR 24-2025 and RMC 79-2026, the January 2018 Form 2307 ATC schedule, and Odoo's 19.0 and 20.0 documentation and release notes, read from the BIR's PDFs and Odoo's own pages as available on 21 October 2026. It is not tax advice: confirm rates and codes with your accountant or the BIR before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RR%20No.%2011-2018.pdf" target="_blank" rel="noopener">RR 11-2018</a> and <a href="https://bir-cdn.bir.gov.ph/local/pdf/2307%20Jan%202018%20ENCS%20v3.pdf" target="_blank" rel="noopener">Form 2307 ATC schedule</a> (BIR)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RR%20No.%2031-2020.pdf" target="_blank" rel="noopener">RR 31-2020</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2024-2025%20Digest%20FINAL.pdf" target="_blank" rel="noopener">RR 24-2025 digest</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2079-2026_redacted.pdf" target="_blank" rel="noopener">RMC 79-2026</a> (BIR)</li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/bir-revises-withholding-tax-rates-for-top-withholding-agents/" target="_blank" rel="noopener">Grant Thornton: revised rates for top withholding agents</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%204-2024.pdf" target="_blank" rel="noopener">RR 4-2024</a> (BIR) and <a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/03.11.2021/rmc-no.-36-2021.pdf" target="_blank" rel="noopener">RMC 36-2021</a> (government VAT withholding; copy hosted by Grant Thornton)</li>
+  <li>Odoo documentation: <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/taxes/retention.html" target="_blank" rel="noopener">withholding taxes</a>, <a href="https://www.odoo.com/documentation/20.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippines (20.0)</a>, and the <a href="https://www.odoo.com/odoo-19-release-notes" target="_blank" rel="noopener">Odoo 19</a> and <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20</a> release notes</li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>What is an ATC code? {{icon:chevron}}</summary><div class="faq-a"><p>An Alphanumeric Tax Code identifies the type of income payment and its withholding rate, such as WC158 for a top withholding agent's purchase of goods from a corporation. It appears on the 2307, the QAP and the returns.</p></div></details>
+  <details><summary>Do I file 0619-E for the third month of the quarter? {{icon:chevron}}</summary><div class="faq-a"><p>No. The 0619-E covers the first two months; the third month is covered by the quarterly 1601-EQ, due the last day of the month after the quarter.</p></div></details>
+  <details><summary>Am I a top withholding agent if my sales pass P12 million? {{icon:chevron}}</summary><div class="faq-a"><p>Not automatically. Under RR 31-2020 the duty starts only once the BIR publishes your name on the list of top withholding agents.</p></div></details>
+  <details><summary>Where do I enter the ATC in Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>On each withholding tax, under Accounting &gt; Configuration &gt; Taxes, in the Philippines ATC field on the Philippines tab.</p></div></details>
+</div>
