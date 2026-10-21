@@ -983,32 +983,39 @@ def client_wall_html() -> str:
 
 
 def advisor_cards_html() -> str:
-    """Named advisors (_src/advisors.py ADVISORS). Empty list = no section at all (nothing invented)."""
-    if not ADV.ADVISORS:
+    """Adviser profiles on the home page: name, role, office, skills and the companies they worked on (_src/advisors.py ADVISORS).
+    Empty list = no section on the live site (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked
+    placeholders in ADV.PREVIEW_PLACEHOLDERS instead, for design previews only; never set it for a production build."""
+    people, preview = ADV.ADVISORS, False
+    if not people and os.environ.get("TN_PREVIEW_PROFILES") == "1":
+        people, preview = ADV.PREVIEW_PLACEHOLDERS, True
+    if not people:
         return ""
-    roles = {e["key"]: e["role"].replace(" adviser", "") for e in ADV.EXPERTISE}
     cards = []
-    for k, p in enumerate(ADV.ADVISORS):
+    for k, p in enumerate(people):
         words = p["name"].split()
         ini = (words[0][0] + (words[-1][0] if len(words) > 1 else "")).upper()
         pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="{html_mod.escape(p["name"])}" width="600" height="600" loading="lazy" decoding="async">'
-               if p.get("photo") else f'<span class="adv-ini" aria-hidden="true">{ini}</span>')
-        meta = [ADV.OFFICES.get(p.get("office"), "")]
-        if p.get("years"):
-            meta.append(f'{p["years"]}+ years')
-        tags = "".join(f'<span class="tag">{roles.get(f, f)}</span>' for f in p.get("focus", []))
-        creds = "".join(f"<li>{{{{icon:check}}}}{c}</li>" for c in p.get("creds", []))
-        li = (f'<a class="btn-link" href="{p["linkedin"]}" target="_blank" rel="noopener">LinkedIn {{{{icon:arrow}}}}</a>' if p.get("linkedin") else "")
-        cards.append(f'<article class="adv-person reveal" style="--i:{k}"><div class="adv-ava">{pic}</div>'
-                     f'<div class="adv-body"><h3>{p["name"]}</h3><p class="adv-role">{p["role"]}</p>'
-                     f'<p class="adv-meta">{" · ".join(m for m in meta if m)}</p>'
-                     f'{f"<p>{p['bio']}</p>" if p.get("bio") else ""}'
-                     f'{f"<ul class=\"checks adv-creds\">{creds}</ul>" if creds else ""}'
-                     f'<div class="pill-row">{tags}</div>{li}</div></article>')
-    return f'''<section class="section section--alt" id="meet">
+               if p.get("photo") else f'<span class="pf-ini" aria-hidden="true">{ini}</span>')
+        office = ADV.OFFICES.get(p.get("office"), "")
+        skills = "".join(f"<li>{s_}</li>" for s_ in p.get("skills", []))
+        cos = "".join(f"<li>{c}</li>" for c in p.get("companies", []))
+        ph = ' data-ph' if preview else ''
+        cards.append(f'<article class="pf-card reveal" style="--i:{k}"{ph}>'
+                     f'<div class="pf-top"><div class="pf-ava">{pic}<i class="pf-ring" aria-hidden="true"></i></div>'
+                     f'<div><h3>{p["name"]}</h3><p class="pf-role">{p["role"]}</p>'
+                     f'{f"<p class=\"pf-office\">{{{{icon:pin}}}}{office}</p>" if office else ""}</div></div>'
+                     f'{f"<p class=\"pf-bio\">{p['bio']}</p>" if p.get("bio") else ""}'
+                     f'{f"<p class=\"pf-h\">Skills</p><ul class=\"pf-skills\">{skills}</ul>" if skills else ""}'
+                     f'{f"<p class=\"pf-h\">Companies worked on</p><ul class=\"pf-cos\">{cos}</ul>" if cos else ""}'
+                     f'</article>')
+    note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, skills and companies replace them before this goes live.</p>'
+            if preview else "")
+    return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">meet the trusted advisers</span><h2>The people you'll actually talk to.</h2><p class="lead">The adviser on your first call is the one who leads your project, and the one who answers after go-live.</p></div>
-    <div class="adv-people">{"".join(cards)}</div>
+    <div class="sec-head reveal"><h2 id="pf-h">The advisers who set up your BIR books.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team in Taguig City builds it, and the same people support it after go-live.</p></div>
+    <div class="pf-grid">{"".join(cards)}</div>
+    {note}
   </div>
 </section>'''
 

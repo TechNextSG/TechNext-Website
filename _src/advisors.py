@@ -53,3 +53,20 @@ EXPERTISE = [
      "ask": "What do customers ask you most before they buy, and is the answer on your website?",
      "href": "solutions/website.html", "link": "Web design"},
 ]
+
+
+# Design previews only (build with TN_PREVIEW_PROFILES=1). Clearly fake; never shown on the live site.
+PREVIEW_PLACEHOLDERS = [
+    {"name": "Adviser Name", "role": "Finance & BIR compliance adviser", "office": "ph",
+     "bio": "One or two sentences from the CV.",
+     "skills": ["BIR CAS / CBA registration", "2307, SLSP, SAWT, QAP set-up", "Odoo Accounting", "Month-end close"],
+     "companies": ["Client company", "Client company", "Client company"]},
+    {"name": "Consultant Name", "role": "Lead Odoo consultant", "office": "ph",
+     "bio": "One or two sentences from the CV.",
+     "skills": ["Odoo Sales & Inventory", "Data migration", "POS & e-invoicing flows", "User training"],
+     "companies": ["Client company", "Client company", "Client company"]},
+    {"name": "Engineer Name", "role": "AI & integration engineer", "office": "vn",
+     "bio": "One or two sentences from the CV.",
+     "skills": ["Odoo integrations & API", "AI inside Odoo", "Workflow automation", "Testing on a copy of your database"],
+     "companies": ["Client company", "Client company", "Client company"]},
+]

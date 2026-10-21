@@ -15,7 +15,7 @@
 
 ## Pages
 
-- https://technext.asia/ — Odoo Partner in Singapore & the Philippines: TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.
+- https://technext.asia/ — Odoo Partner Philippines & Singapore: Books Set Up for BIR: Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing in Odoo — Ready Before 31 December 2026: BIR e-invoicing deadline: 31 December 2026. Who is covered, the PTI and EIS steps, what Odoo 20 does for the BIR, and how TechNext gets you ready.
 - https://technext.asia/blog — Blog: Odoo news, Odoo 20 and ERP guides: Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit Readiness: eLA Rules for 2026 and Your Odoo Records: How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record retention, and the Odoo features that keep your books audit-ready.
@@ -842,27 +842,33 @@ Our monthly plan after go-live. It covers Odoo support and upgrades, website upd
 
 Source: https://technext.asia/free-website-with-odoo
 
-### What does TechNext do?
+### Is Odoo BIR-accredited?
 
-TechNext implements Odoo ERP end to end (discovery, configuration, data migration, training, integration and support), builds enterprise AI, websites and social media, and delivers IoT, app development and network services for growing companies.
+No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and use it for its PTI application.
 
 Source: https://technext.asia/
 
-### Is TechNext an official Odoo partner?
+### What does Odoo produce for the BIR?
 
-Yes. TechNext Pte. Ltd. is an Odoo Ready Partner, listed in Odoo's partner directory .
+Odoo's Philippine localisation produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post. The connection to the BIR's EIS is project work that we build and test on a copy of your database.
+
+Source: https://technext.asia/
+
+### What does TechNext do?
+
+TechNext is an Odoo Ready Partner. Our own experts implement Odoo ERP end to end (discovery, configuration, migration, training and support), set up for BIR requirements in the Philippines and GST and InvoiceNow in Singapore. We also build enterprise AI on your Odoo data, and your website and brand come with your Odoo.
+
+Source: https://technext.asia/
+
+### How does a project start?
+
+With a discovery call. An adviser maps how your sales, purchases, stock and money move today, which BIR reports you file, and what has to be ready by when. You get a written recommendation and a quotation that follows that scope.
 
 Source: https://technext.asia/
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is in Taguig City, Metro Manila, our AI engineering hub is in Ho Chi Minh City, and we serve clients in 10+ countries.
-
-Source: https://technext.asia/
-
-### How much does an Odoo implementation cost?
-
-There are two parts: Odoo licences, priced per user per month by Odoo, and the implementation work, which TechNext quotes in writing. The quote depends on the apps, number of users, data to migrate, integrations, custom modules and training.
+Our headquarters is at 261 Waterloo Street #03-36, Singapore. Our main consulting and development hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We work with clients in 10+ countries.
 
 Source: https://technext.asia/
 
