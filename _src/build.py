@@ -214,7 +214,7 @@ def mobile_nav_html() -> str:
     out.append(f'''
 <div class="mnav-cta">
   <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}company.html#offices">{{{{icon:chat-send}}}} All the ways to reach us</a>
   <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
@@ -246,7 +246,6 @@ def talk_panel_html() -> str:
     <button class="icon-btn" type="button" data-talk-close aria-label="Close">{{{{icon:x}}}}</button>
   </div>
   <div class="talk-body">
-    <p class="hand">let's talk</p>
     <h2 id="talk-title">Tell us what slows you down.</h2>
     <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>.</p>
 
@@ -272,9 +271,6 @@ def talk_panel_html() -> str:
           <option>Odoo training or support</option>
           <option>Website</option>
           <option>Social media management</option>
-          <option>IoT solutions</option>
-          <option>App development</option>
-          <option>Networks</option>
           <option>Something else</option>
         </select>
       </div>
@@ -302,7 +298,7 @@ LAYOUT = '''<!doctype html>
 <meta name="description" content="{DESC}">
 {ROBOTS}<link rel="canonical" href="{CANONICAL}">
 <meta name="copyright" content="© {YEAR} TechNext Pte. Ltd. All rights reserved.">
-<meta name="tdm-reservation" content="1">
+<meta name="tdm-reservation" content="0">
 <meta name="tdm-policy" content="{SITE_URL}terms#content-use">
 <meta property="og:type" content="{OG_TYPE}">
 <meta property="og:site_name" content="TechNext">
@@ -461,7 +457,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     org_id, site_id, page_id = S.SITE_URL + "#organization", S.SITE_URL + "#website", canonical + "#webpage"
     graph = [
         {
-            "@type": "ProfessionalService", "@id": org_id,
+            "@type": ["Organization", "ProfessionalService"], "@id": org_id,
             "name": c["short"], "legalName": c["legal"], "alternateName": ["TechNext Asia", "TechNext Pte Ltd"], "url": S.SITE_URL,
             "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
             "image": S.SITE_URL + "assets/img/og-image.png",
@@ -481,7 +477,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
                            "AI workflow automation", "AI chatbots", "Website development", "Business consultation",
-                           "Internet of Things (IoT)", "Mobile and web app development", "Network infrastructure"],
+                           "BIR compliance (Philippines)", "Computerized Accounting System (CAS) registration",
+                           "BIR e-invoicing (EIS)", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow"],
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "publisher": {"@id": org_id}, "inLanguage": "en"},
@@ -956,7 +953,7 @@ def expertise_cards_html() -> str:
 WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="hand">who we are</span>
+      
       <h2>Your trusted expert adviser for ERP and compliance.</h2>
       <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, and we set it up to meet the government's rules from day one.</p>
     </div>
@@ -1475,6 +1472,60 @@ def world_flow_html(key: str) -> str:
 </section>'''
 
 
+# ---------------------------------------------------------------- BIR block (money pages)
+BIR_MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
+            'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
+BIR_POST = {"medical": "bir-multi-branch-odoo", "travel": "expanded-withholding-tax-atc-codes-odoo",
+            "retail": "eopt-invoice-requirements-odoo", "ecommerce": "eopt-invoice-requirements-odoo",
+            "construction": "expanded-withholding-tax-atc-codes-odoo", "fnb": "eopt-invoice-requirements-odoo",
+            "manufacturing": "bir-slsp-summary-list-sales-purchases-odoo", "health-wellness": "bir-form-2307-odoo"}
+BIR_APP = {
+    "accountant": ("Odoo Accounting for Philippine companies",
+                   "TechNext sets up Odoo Accounting for BIR requirements: books ready for CAS or CBA registration, 2307 and 2306 certificates, and SLSP, SAWT, QAP and 2550Q reports from your own entries. No software is BIR-accredited, so we first check which rules apply to your company.",
+                   "register-odoo-cas-cba-bir", "How to register Odoo as your CAS or CBA"),
+    "account": ("Odoo Invoicing for Philippine companies",
+                "Invoices set up for the BIR invoice rules under the EOPT Act, with a series per branch, and prepared for e-invoicing if you are a covered taxpayer (deadline 31 December 2026). Connecting to the BIR's EIS is a project we scope with you.",
+                "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
+    "hr_payroll": ("Odoo Payroll for Philippine companies",
+                   "Odoo 20's Philippine payroll package covers the BIR payroll forms 1601-C, 2316 and 1604-C. TechNext checks the 2026 tax tables, de minimis limits and contributions with you before go-live.",
+                   "philippine-payroll-bir-forms-odoo-20", "Philippine payroll and BIR forms in Odoo 20"),
+    "point_of_sale": ("Odoo Point of Sale for Philippine companies",
+                      "POS invoices set up for the EOPT invoice rules, with the day's takings posting to Odoo Accounting. For covered taxpayers we also plan for BIR e-invoicing by 31 December 2026.",
+                      "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
+}
+
+
+def bir_block(text: str, post: str, post_label: str) -> str:
+    return f'''<section class="section section--tight bir-block" id="bir">
+  <div class="container">
+    <div class="answer-box reveal">
+      <p class="answer-h">For Philippine companies: BIR</p>
+      <p>{text}</p>
+      <p class="small">Read <a href="{{{{ROOT}}}}odoo/philippines.html">Odoo in the Philippines</a> and <a href="{{{{ROOT}}}}blog/{post}.html">{post_label}</a>.</p>
+      <div class="actions">{BIR_MEET}</div>
+    </div>
+  </div>
+</section>'''
+
+
+def bir_industry_block(key: str, name: str, low: str) -> str:
+    text = (f"If your {low} business is in the Philippines, TechNext sets up Odoo Accounting for BIR requirements: books ready for CAS or CBA registration, "
+            "2307 certificates, SLSP, SAWT and QAP reports, and invoices prepared for e-invoicing if you are a covered taxpayer. "
+            "No software is BIR-accredited, so we first check which rules apply to your company.")
+    return bir_block(text, BIR_POST[key], {"bir-multi-branch-odoo": "BIR compliance for multi-branch businesses",
+                                           "expanded-withholding-tax-atc-codes-odoo": "Expanded withholding tax and ATC codes in Odoo",
+                                           "eopt-invoice-requirements-odoo": "What a BIR invoice must show",
+                                           "bir-slsp-summary-list-sales-purchases-odoo": "The BIR SLSP and how Odoo exports it",
+                                           "bir-form-2307-odoo": "BIR Form 2307 explained"}[BIR_POST[key]])
+
+
+def bir_industry_faqs(low: str) -> list:
+    return [("Is Odoo BIR-accredited?",
+             "No. No accounting software is BIR-accredited; the BIR said so in its advisory of 14 September 2026. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company."),
+            (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
+             "Yes. Our Taguig City team configures Odoo Accounting for CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, e-invoicing preparation. Book a discovery call and an adviser reviews your current invoicing and books first.")]
+
+
 def industry_html(key: str) -> str:
     d = IX.IND[key]
     name, low = d["name"], d["noun"]
@@ -1506,7 +1557,8 @@ def industry_html(key: str) -> str:
         f'<div class="ix-ph-apps">{"".join(f"{{{{odoo:{a}:28}}}}" for a in p["apps"])}</div>'
         f'<ul class="checks">{"".join(f"<li>{{{{icon:check}}}}{i}</li>" for i in p["items"])}</ul></li>' for k, p in enumerate(d["phases"]))
     ints = "".join(f'<span class="ix-chip">{{{{icon:{ic}}}}}{lab}</span>' for ic, lab in d["integrations"])
-    faqs = "".join(f'<details><summary>{q} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{a}</p></div></details>' for q, a in d["faqs"])
+    faqs = "".join(f'<details><summary>{q} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{a}</p></div></details>' for q, a in d["faqs"] + bir_industry_faqs(low))
+    bir = bir_industry_block(key, name, low)
     by_out = {a["out"]: a for a in ARTICLES}
     reads = "".join(blog_card(by_out[r], k) for k, r in enumerate(d["reading"]) if r in by_out)
     others = "".join(f'<a href="{{{{ROOT}}}}industries/{k2}.html">{{{{icon:{ic}}}}}{IX.IND[k2]["name"]}</a>'
@@ -1584,6 +1636,8 @@ def industry_html(key: str) -> str:
     <div class="ix-int reveal"><b>Connects to</b><div>{ints}</div></div>
   </div>
 </section>
+
+{bir}
 
 <section class="section">
   <div class="container">
@@ -1686,6 +1740,10 @@ APP_TITLES = {
     "point_of_sale": "Odoo POS for Shops — Singapore & Philippines",  # vs /industries/retail
     "pos_restaurant": "Odoo Restaurant POS — Singapore & Philippines",  # vs /industries/fnb
     "voip": "Odoo Phone (VoIP) — Singapore & Philippines",          # Odoo's name for VoIP
+    "accountant": "Odoo Accounting Philippines: BIR Reports Set Up | TechNext",
+}
+APP_DESCS = {
+    "accountant": "Odoo Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.",
 }
 
 
@@ -1790,6 +1848,7 @@ def app_page(mod: str) -> tuple:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
         desc_meta += " Book a free discovery call."
+    desc_meta = APP_DESCS.get(mod, desc_meta)
     h1name = name.replace(" — ", " (") + ")" if " — " in name else name
     note = APP_NOTES.get(mod, "")
     d0 = app["desc"]
@@ -1802,6 +1861,7 @@ def app_page(mod: str) -> tuple:
     meta = {"title": APP_TITLES.get(mod, f"Odoo {name} in Singapore & the Philippines"), "desc": desc_meta,
             "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo", "og_icon": str(ODOO_DIR / f"{mod}.svg")}
     life = lifecycle_html(mod, name, cat)
+    bir = bir_block(BIR_APP[mod][1], BIR_APP[mod][2], BIR_APP[mod][3]) if mod in BIR_APP else ""
     meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
     if life:
         meta["head"] = ('<link rel="stylesheet" href="{ROOT}assets/css/demo-kit.css?v={ASSET_V}">'
@@ -1820,7 +1880,7 @@ def app_page(mod: str) -> tuple:
         <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}company.html#offices">{{{{icon:chat-send}}}} All the ways to reach us</a>
           <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
         </div>
       </div>
@@ -1853,6 +1913,8 @@ def app_page(mod: str) -> tuple:
   </div>
 </section>
 
+{bir}
+
 <section class="section">
   <div class="container">
     <div class="sec-head sec-head--row reveal"><div><span class="hand">works with</span><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn-link" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
@@ -1884,8 +1946,8 @@ def app_page(mod: str) -> tuple:
 # build.py adds the article header, contents list, author box, related posts and CTA, and the
 # BlogPosting structured data; blog.html lists them all ({{BLOG_CARDS}}) and the home page shows
 # the newest three ({{BLOG_LATEST}}).
-BLOG_CATS = {"odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
-BLOG_ICON = {"odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
+BLOG_CATS = {"bir": "BIR compliance", "odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
+BLOG_ICON = {"bir": "receipt", "odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
 ARTICLES = []
 _H2 = re.compile(r"<h2(\s[^>]*)?>(.*?)</h2>", re.S)
 
@@ -1992,6 +2054,9 @@ def blog_filters() -> str:
     return "".join(btns)
 
 
+PREPARED_BY = '<p class="small muted post-prep">Prepared by the TechNext Philippines Odoo and finance team, Taguig City.</p>'
+
+
 def article_html(meta: dict, body: str) -> str:
     art = meta["article"]
     ids = set()
@@ -2028,7 +2093,7 @@ def article_html(meta: dict, body: str) -> str:
     <a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a>
     <h1>{art["h1"]}</h1>
     <p class="lead">{art["lede"]}</p>
-    <p class="post-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span></p>
+    {PREPARED_BY if art["cat"] == "bir" else ""}<p class="post-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span></p>
   </div>
 </section>
 
@@ -2280,7 +2345,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if home:
         heads = re.findall(r'<(?:div|article|section)\b[^>]*\bclass="slide(?:\s[^"]*)?"[^>]*>', content)
         nxs = next((k for k, t in enumerate(heads) if "data-slide-circle" in t), -1)
-        intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs))
+        intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs) if nxs >= 0 else "-99")   # no Nexi slide: never the blue intro
     wk = re.match(r"ixw ixw--([a-z-]+)", meta.get("body", "") or "")      # a world page plays its own short intro
     w_head, w_body = (WD.INTRO_HEAD, WD.intro_html(wk.group(1))) if wk else ("", "")
     if CALM and out_rel not in CALM_SKIP:
@@ -2378,7 +2443,11 @@ def write_sitemap(pages):
         + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
 
 
+BIR_BLOG = re.compile(r"bir|cas-cba|2307|slsp|sawt|qap|eopt|withholding|payroll")
+
 LLMS_GROUPS = [
+    ("BIR compliance (Philippines)", lambda u: u in ("bir-e-invoicing", "odoo/philippines")
+                                               or (u.startswith("blog/") and BIR_BLOG.search(u[5:]) is not None)),
     ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
                                     or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
     ("AI solutions", lambda u: u.startswith("solutions/ai")),
@@ -2386,7 +2455,7 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "quotation", "contact", "nexi-explains")),
+    ("Company", lambda u: u in ("", "company", "free-website-with-odoo", "get-started", "quotation", "nexi-explains")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 
@@ -2398,10 +2467,12 @@ def write_llms():
     strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
-        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end "
-        "(accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, "
-        "AI inside Odoo, workflow automation agents, chatbots), run websites and social media, and deliver IoT, "
-        "app development and network services for growing companies.",
+        "Last updated: 2026-10-21", "",
+        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. "
+        "We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), set it up for BIR requirements "
+        "in the Philippines (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for GST and InvoiceNow in Singapore, build "
+        "enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing "
+        "companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
         f"- Headquarters: {', '.join(c['address'])}",
@@ -2441,14 +2512,15 @@ def write_llms():
 
 
 def write_robots():
-    """robots.txt: search and answer engines in, AI-training crawlers out (lists in sitedata)."""
-    lines = ["# technext.asia — © TechNext Pte. Ltd. Content, design and code are not licensed for AI training",
-             "# or reuse. Text and data mining rights are reserved: see /.well-known/tdmrep.json and",
-             f"# {S.SITE_URL}terms#content-use", ""]
-    for ua in S.AI_TRAINING:
-        lines += [f"User-agent: {ua}", "Disallow: /", ""]
+    """robots.txt: search engines, answer engines and AI model crawlers in; scrapers and harvesters out (lists in sitedata)."""
+    lines = ["# technext.asia — © TechNext Pte. Ltd. Search engines, answer engines and the major AI model crawlers",
+             "# (GPTBot, ClaudeBot, Google-Extended, PerplexityBot and others) may read this site so TechNext can be",
+             "# found and cited. Bulk scrapers, site copiers and data harvesters are blocked. Design and code are not",
+             f"# licensed for copying: see {S.SITE_URL}terms#content-use", ""]
     for ua in S.AI_ALLOW:
         lines += [f"User-agent: {ua}", "Allow: /", "Disallow: /denied", ""]
+    for ua in S.AI_TRAINING:
+        lines += [f"User-agent: {ua}", "Disallow: /", ""]
     lines += ["User-agent: *", "Allow: /", "Disallow: /denied", "", f"Sitemap: {S.SITE_URL}sitemap.xml", ""]
     (ROOT / "robots.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
@@ -2457,7 +2529,7 @@ def write_well_known():
     """TDMRep (W3C community spec): text and data mining rights reserved, plus security.txt."""
     wk = ROOT / ".well-known"
     wk.mkdir(exist_ok=True)
-    (wk / "tdmrep.json").write_text(json.dumps([{"location": "/*", "tdm-reservation": 1,
+    (wk / "tdmrep.json").write_text(json.dumps([{"location": "/*", "tdm-reservation": 0,
                                                  "tdm-policy": S.SITE_URL + "terms#content-use"}], indent=2) + "\n",
                                     encoding="utf-8", newline="\n")
     expires = date.today().replace(year=date.today().year + 1).isoformat()
@@ -2473,7 +2545,7 @@ DENIED = """<!doctype html>
 <meta name="robots" content="noindex, nofollow"><title>Automated access not permitted · TechNext</title>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.6 system-ui,sans-serif;color:#1F1F3D;background:#fff}main{max-width:560px;padding:32px}h1{font-size:1.4rem;margin:0 0 .5em}a{color:#3167CA}</style>
 </head><body><main><h1>Automated access to this site is not permitted.</h1>
-<p>This site does not allow automated copying, scraping or collection of its content, design or code, including for AI training. See <a href="/terms#content-use">our terms</a>.</p>
+<p>This site does not allow automated copying, scraping or bulk collection of its content, design or code. See <a href="/terms#content-use">our terms</a>.</p>
 <p>If you are a person and landed here by mistake, go to <a href="/">technext.asia</a>. For permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
 </main></body></html>
 """
@@ -2488,9 +2560,12 @@ def write_llms_full():
     can quote TechNext accurately without parsing the design."""
     c = S.COMPANY
     out = ["# TechNext — full reference", "",
+           "Last updated: 2026-10-21", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
-           "enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.", "",
+           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, "
+           "sets it up for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds "
+           "enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). "
+           "Clients in 10+ countries; 11+ enterprise clients.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:
@@ -2501,7 +2576,7 @@ def write_llms_full():
     out += ["", "## Questions and answers", ""]
     seen = set()
     for url, q, a in FAQ_INDEX:
-        if (q, a) in seen:
+        if (q, a) in seen or re.search(r"hiring|careers?\b|job opening|open roles|vacanc", q + " " + a, re.I):
             continue
         seen.add((q, a))
         out += [f"### {q}", "", a, "", f"Source: {url}", ""]

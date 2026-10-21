@@ -1941,3 +1941,8 @@ p.app-sub{margin:-2px 0 14px}
   .answer-h,.cur-rolesh,.asis-sh,.cns-nt,.cns-nv,.cns-sw,.cns-fl,.cns-en,.dch-doc b,.dch-lh,.drm-h,.hm-wt-tag,.rtv-h,.rtv-flag,.rtv-src span,.rtv-behind,.lbr-book-no,.lbr-xref-k,.fap-job,.tpk-kiosk-n,
   .sbd-copy,.sbd-gl,.sbd-team b,.sbd-team em,.sbd-box p,.sbd-src b,.obx-h b,.obx-int,.obx-st,.obx-br,.obx-br em,.is-bot,.lyr-gate,.lyr-sh,.nsm-n b{font-size:11px!important}
 }
+.post-cat--bir{background:#E4EEFC;color:#1F3F7A}
+.post-cat--bir .ic{color:#3167CA}
+.post-cover--bir{background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.9),transparent 55%),linear-gradient(135deg,#E4EEFC,#F6FAFF)}
+.post-cover--bir .pc-ics .ic{color:#3167CA}
+.post-prep{margin:0 0 8px}

@@ -52,7 +52,7 @@ def hero(mod: str, h1: str, headline: str, lead: str) -> str:
     <div class="ixw-copy">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span>Odoo</span><span><a href="{{{{ROOT}}}}odoo/apps.html">Apps</a></span><span>{sp["crumb"]}</span></nav>
       <p class="ixw-ep"><a class="ixw-ep-tag" href="{{{{ROOT}}}}nexi-explains.html">{{{{icon:play}}}}Nexi Explains</a><span class="app-ep">{{{{odoo:{mod}:18}}}}Odoo {sp["crumb"]}</span></p>
-      <h1 id="ixw-h1"><span class="hand h1-hand">{sp["hand"]}</span>Odoo {h1} in Singapore &amp; the Philippines</h1>
+      <h1 id="ixw-h1">Odoo {h1} in Singapore &amp; the Philippines</h1>
       <p class="app-sub">{headline}</p>
       <p class="lead"><span class="m-full">{lead}</span><span class="m-short">{sp["short"]}</span></p>
       <div class="actions"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:chat}}}}Talk to us</a></div>

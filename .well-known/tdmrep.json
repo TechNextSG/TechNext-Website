@@ -1,7 +1,7 @@
 [
   {
     "location": "/*",
-    "tdm-reservation": 1,
+    "tdm-reservation": 0,
     "tdm-policy": "https://technext.asia/terms#content-use"
   }
 ]

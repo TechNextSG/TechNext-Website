@@ -2459,8 +2459,8 @@
   "lead": "Odoo Payroll syncs attendance, expenses, and time off across all your apps to deliver flawless paychecks automatically.",
   "sections": [
    {
-    "h": "Instant local rules. Zero setup.",
-    "p": "Choose your country and Odoo automatically applies the right tax rules and regulations, giving you a fully compliant system in seconds.",
+    "h": "Local payroll rules, set up for you.",
+    "p": "Choose your country and Odoo loads that country's payroll rules where a localisation exists. For the Philippines, TechNext checks them against your payroll with you and sets up the BIR forms, so you start from a system built for BIR requirements.",
     "img": "",
     "feats": []
    },

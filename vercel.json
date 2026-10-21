@@ -13,7 +13,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(GPTBot|ClaudeBot|anthropic-ai|CCBot|Bytespider|meta-externalagent|FacebookBot|Amazonbot|cohere-ai|cohere-training-data-crawler|Diffbot|Omgilibot|omgili|img2dataset|AI2Bot|PanguBot|Timpibot|ImagesiftBot|Kangaroo Bot|webzio-extended|FirecrawlAgent|HTTrack|SiteSucker|WebCopier|Offline Explorer|Teleport Pro|WebZIP|WebReaper|HeadlessChrome|PhantomJS|python-requests|Python-urllib|python-httpx|aiohttp|Go-http-client|Scrapy|node-fetch|axios|libwww-perl|Wget/|curl/).*"
+          "value": ".*(Bytespider|FacebookBot|cohere-training-data-crawler|Diffbot|Omgilibot|omgili|img2dataset|AI2Bot|PanguBot|Timpibot|ImagesiftBot|Kangaroo Bot|webzio-extended|FirecrawlAgent|HTTrack|SiteSucker|WebCopier|Offline Explorer|Teleport Pro|WebZIP|WebReaper|HeadlessChrome|PhantomJS|python-requests|Python-urllib|python-httpx|aiohttp|Go-http-client|Scrapy|node-fetch|axios|libwww-perl|Wget/|curl/).*"
         }
       ]
     },
@@ -402,22 +402,22 @@
     },
     {
       "source": "/blog/rag-systems-enterprise-guide",
-      "destination": "/solutions/ai",
+      "destination": "/blog/enterprise-rag-guide",
       "permanent": true
     },
     {
       "source": "/blog/rag-systems-enterprise-guide.html",
-      "destination": "/solutions/ai",
+      "destination": "/blog/enterprise-rag-guide",
       "permanent": true
     },
     {
       "source": "/ai-article/rag-systems-enterprise-guide",
-      "destination": "/solutions/ai",
+      "destination": "/blog/enterprise-rag-guide",
       "permanent": true
     },
     {
       "source": "/ai-article/rag-systems-enterprise-guide.html",
-      "destination": "/solutions/ai",
+      "destination": "/blog/enterprise-rag-guide",
       "permanent": true
     },
     {
@@ -911,6 +911,26 @@
       "permanent": true
     },
     {
+      "source": "/blog/upcoming-odoo-events-singapore-philippines-vietnam",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/upcoming-odoo-events-singapore-philippines-vietnam.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/upcoming-odoo-events-singapore-philippines-vietnam",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/ai-article/upcoming-odoo-events-singapore-philippines-vietnam.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
       "source": "/ai-article",
       "destination": "/blog",
       "permanent": true
@@ -1212,7 +1232,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'sha256-/mwDRhgrfF2zYLYJDLTA7B9sF9fE22Pu3tLXYO2fI/c=' 'sha256-0xxF3EdNX/LixPXraBKTOgmYNw4mWyj1iHQLY4QbV4Q=' 'sha256-9Fd+wFC7YKpyBYfypJ382Zul2dG+eDr7JaToMjjIQRY=' 'sha256-Aiwucuat5x7cQgsmT3Hw+V0NNrjOqGp4dW8HPfDWU3A=' 'sha256-JHIEUGD1ET3kKzc7Wdd9pec4wvEesBWtAJ1Vg7KFI2o=' 'sha256-LKGE7A2uATK7qN2uBo28Dl7lNzcCf9hZZw/2/22UXA8=' 'sha256-WP9YwM0yfkuVcY4VoOYQiovtQYenzoEhjh4dbrI6aXE=' 'sha256-e90Qe4fKEpwLx3I5pwxjbx32CR7DsQ/q+NmDg7lPxeg=' 'sha256-gMCDGpFo1a7HZVm8xFwabv8lsJJLBR/l1Dj+606bJpI=' 'sha256-hMTMyv5QJBQqN7SoUEn0jL4KuTzHe0EGljFYEftJ+vI=' 'sha256-hja2gNVPgAdX6xhFPtSTgVd44B4dY4xAu9tKbSde8os=' 'sha256-otghNyPrY7u/HJO5E0vrWLmeSyFcdv9Dl1fkNQKTltc=' 'sha256-tp30jp3RVBpHoMx4IdN7Ks8KN8HBkakiTEC3hq6FOVo=' 'sha256-zWm404GtIcHA7ohrK085VdYMBvRTf2g/r9q5QdGz/Wg=' https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://odoocdn.com https://i.ytimg.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net; media-src 'self' https://download.odoocdn.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'sha256-/mwDRhgrfF2zYLYJDLTA7B9sF9fE22Pu3tLXYO2fI/c=' 'sha256-0xxF3EdNX/LixPXraBKTOgmYNw4mWyj1iHQLY4QbV4Q=' 'sha256-9Fd+wFC7YKpyBYfypJ382Zul2dG+eDr7JaToMjjIQRY=' 'sha256-Aiwucuat5x7cQgsmT3Hw+V0NNrjOqGp4dW8HPfDWU3A=' 'sha256-JHIEUGD1ET3kKzc7Wdd9pec4wvEesBWtAJ1Vg7KFI2o=' 'sha256-LKGE7A2uATK7qN2uBo28Dl7lNzcCf9hZZw/2/22UXA8=' 'sha256-ZWywiixGEa865xa3qmAHc0MJOfohlIwh2FmtzQOhkp0=' 'sha256-e90Qe4fKEpwLx3I5pwxjbx32CR7DsQ/q+NmDg7lPxeg=' 'sha256-gMCDGpFo1a7HZVm8xFwabv8lsJJLBR/l1Dj+606bJpI=' 'sha256-hMTMyv5QJBQqN7SoUEn0jL4KuTzHe0EGljFYEftJ+vI=' 'sha256-hja2gNVPgAdX6xhFPtSTgVd44B4dY4xAu9tKbSde8os=' 'sha256-otghNyPrY7u/HJO5E0vrWLmeSyFcdv9Dl1fkNQKTltc=' 'sha256-tp30jp3RVBpHoMx4IdN7Ks8KN8HBkakiTEC3hq6FOVo=' 'sha256-zWm404GtIcHA7ohrK085VdYMBvRTf2g/r9q5QdGz/Wg=' https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://odoocdn.com https://i.ytimg.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net; media-src 'self' https://download.odoocdn.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "Strict-Transport-Security",
@@ -1244,7 +1264,7 @@
         },
         {
           "key": "tdm-reservation",
-          "value": "1"
+          "value": "0"
         }
       ]
     },

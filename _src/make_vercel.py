@@ -31,10 +31,10 @@ REDIRECTS = [
     # The old blog (20 articles, English + Vietnamese), careers and gallery were removed.
     # Each old article URL - in both its /ai-article/ and /blog/ forms - goes to the
     # closest v2 page so its search history carries over instead of turning into 404s.
-    ("/blog/rag-systems-enterprise-guide", "/solutions/ai"),
-    ("/blog/rag-systems-enterprise-guide.html", "/solutions/ai"),
-    ("/ai-article/rag-systems-enterprise-guide", "/solutions/ai"),
-    ("/ai-article/rag-systems-enterprise-guide.html", "/solutions/ai"),
+    ("/blog/rag-systems-enterprise-guide", "/blog/enterprise-rag-guide"),
+    ("/blog/rag-systems-enterprise-guide.html", "/blog/enterprise-rag-guide"),
+    ("/ai-article/rag-systems-enterprise-guide", "/blog/enterprise-rag-guide"),
+    ("/ai-article/rag-systems-enterprise-guide.html", "/blog/enterprise-rag-guide"),
     ("/blog/ai-agents-enterprise-automation", "/solutions/ai-automation"),
     ("/blog/ai-agents-enterprise-automation.html", "/solutions/ai-automation"),
     ("/ai-article/ai-agents-enterprise-automation", "/solutions/ai-automation"),
@@ -126,6 +126,8 @@ REDIRECTS = [
         ("enterprise-software-requirements-the-2026-evaluation-checklist", "/odoo/discovery"),
         ("eurocham-interview-eric-lou-on-simplifying-digital-systems-for-cambodian-businesses", "/company"),
     ) for d in ("blog", "ai-article")],
+    # blog post removed 21 Oct 2026 (events page): back to the blog index
+    *[(f"/{d}/upcoming-odoo-events-singapore-philippines-vietnam{ext}", "/blog") for d in ("blog", "ai-article") for ext in ("", ".html")],
     ("/ai-article", "/blog"), ("/ai-article/", "/blog"), ("/ai-article/:path*", "/blog"),
     # --- the blog and careers came back on 2026-09-27 as /blog and /careers ------------
     # Old article URLs keep their redirects above; any other old /blog/ URL simply 404s
@@ -218,7 +220,7 @@ def csp(hashes):
 
 
 def bot_block():
-    """Edge redirect for AI-training crawlers that ignore robots.txt, website copiers and scraping
+    """Edge redirect for data-harvesting crawlers (sitedata.AI_TRAINING; the major AI model crawlers are allowed), website copiers and scraping
     libraries. robots.txt, /.well-known and /denied stay reachable so the policy can be read."""
     agents = [a for a in S.AI_TRAINING if a not in S.ROBOTS_ONLY] + S.SCRAPERS
     pattern = ".*(" + "|".join(re.escape(a).replace("\\ ", " ").replace("\\-", "-").replace("\\/", "/") for a in agents) + ").*"
@@ -248,8 +250,8 @@ def write_vercel():
         # the page gets its own browsing context group: no other window can script it
         {"key": "Cross-Origin-Opener-Policy", "value": "same-origin"},
         {"key": "X-Permitted-Cross-Domain-Policies", "value": "none"},
-        # TDMRep: text and data mining rights reserved (see /.well-known/tdmrep.json)
-        {"key": "tdm-reservation", "value": "1"},
+        # TDMRep: no reservation since 21 Oct 2026 (AI model crawlers may read the site; see /.well-known/tdmrep.json)
+        {"key": "tdm-reservation", "value": "0"},
     ]
     config = {
         "cleanUrls": True,

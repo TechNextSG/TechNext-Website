@@ -245,7 +245,7 @@
 .fx-close::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
   background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 40px 40px; }
 .fx-close-glow { position: absolute; right: -140px; top: -160px; width: 460px; height: 460px; border-radius: 50%; z-index: -1; background: radial-gradient(circle, rgba(111,160,245,.55), transparent 65%); }
-.fx-close h2 { margin: 0 0 10px; color: #fff; font: 800 clamp(1.8rem, 1.2rem + 1.8vw, 2.6rem)/1.1 var(--font-display); letter-spacing: -.03em; }
+.fx-close h2 { margin: 0 0 10px; color: #fff !important; font: 800 clamp(1.8rem, 1.2rem + 1.8vw, 2.6rem)/1.1 var(--font-display); letter-spacing: -.03em; }
 .fx-close p { margin: 0; color: rgba(255,255,255,.85); font-size: 1.05rem; line-height: 1.6; max-width: 56ch; }
 .fx-close .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
 
