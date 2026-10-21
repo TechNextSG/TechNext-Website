@@ -61,9 +61,9 @@ S1 = [
         ep("EP18", "Graphic and Brand Assets", "One brand, five logos? How we build a brand system.", "2:29", thumb="s1-ep18", yt="l7Vh268c4zk", premiere="2026-11-24T10:00:00Z", page="solutions/brand-assets.html"),
     ]),
     ("Technology", [
-        ep("EP19", "App Development", "Apps for customers, staff and portals.", "2:24", thumb="s1-ep19", yt="MNO3_xAtTko", premiere="2026-11-26T10:00:00Z", page="solutions/app-development.html"),
-        ep("EP20", "IoT Solutions", "Freezer too warm? Sensors that warn you first.", "2:23", thumb="s1-ep20", yt="kOnXBh9utrw", premiere="2026-11-28T10:00:00Z", page="solutions/iot.html"),
-        ep("EP21", "Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "2:32", thumb="s1-ep21", yt="GRLGFIsgIcM", premiere="2026-12-01T10:00:00Z", page="solutions/networks.html"),
+        ep("EP19", "App Development", "Apps for customers, staff and portals.", "2:24", thumb="s1-ep19", yt="MNO3_xAtTko", premiere="2026-11-26T10:00:00Z", page="quotation.html"),
+        ep("EP20", "IoT Solutions", "Freezer too warm? Sensors that warn you first.", "2:23", thumb="s1-ep20", yt="kOnXBh9utrw", premiere="2026-11-28T10:00:00Z", page="quotation.html"),
+        ep("EP21", "Networks", "Who’s on your Wi-Fi? Your office network as a castle.", "2:32", thumb="s1-ep21", yt="GRLGFIsgIcM", premiere="2026-12-01T10:00:00Z", page="quotation.html"),
     ]),
     ("The finale", [
         ep("EP22", "Season 1 Finale", "Everything we learned, in a pop-up book, plus a Season 2 sneak peek.", "2:29", thumb="s1-ep22", yt="sxxI1kE88is", premiere="2026-12-03T10:00:00Z"),

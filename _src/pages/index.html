@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner in Singapore & the Philippines | TechNext", "desc": "TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js", "assets/js/nexi-explains-cast.js", "assets/js/hero-industries.js"], "head": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Bangers&display=swap\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/advisers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/catalogue.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Partner in Singapore & the Philippines | TechNext", "desc": "TechNext is your Odoo, website and brand team in Singapore and the Philippines. You don't need to hire your own: we set it up and stay on after go-live.", "out": "index.html", "nav": "home", "body": "is-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/suite.js", "assets/js/nexi.js"], "head": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Bangers&display=swap\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/advisers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/catalogue.css?v={ASSET_V}\">"} -->
 <!-- Homepage (Oct 2026): the original hero carousel (restored from tag pre-calm-2026-10-09: hero.js, hero-scenes.js,
      hero-industries.js, hero.css, hero_skins.py), then the calm sections: where to start, how we work, industries, why
      TechNext, blog, FAQ, closing call. The earlier illustrated sections below the hero are kept in _src/legacy/. -->
@@ -33,7 +33,7 @@
           <p class="lead up" style="--d:480ms">You don't need to hire your own team. TechNext advisers look at how your business runs, recommend what fits, then deliver Odoo, your website and brand, and stay on after go-live, from Singapore and the Philippines.</p>
           <div class="actions up" style="--d:580ms">
             <a class="btn btn-primary btn-lg" href="{{ROOT}}free-website-with-odoo.html">Get your free website {{icon:arrow}}</a>
-            <a class="btn btn-ghost btn-lg" href="{{ROOT}}advisers.html">Meet our advisers</a>
+            <a class="btn btn-ghost btn-lg" href="#talk">Book a discovery call</a>
           </div>
           <div class="spec-strip up" style="--d:700ms" role="group" aria-label="Focus apps — click to learn more">
             <button class="spec" type="button" data-app="accountant">{{odoo:accountant:36}}<span><b>Accounting</b><span>Journals · bank sync · tax</span></span></button>
@@ -177,43 +177,6 @@
     <!-- Slide 3 · the industries showcase: every industry world on one screen (its real scene, Nexi in costume, the
          sample business and three workflow steps), a channel strip of the eight badges. Markup: worlds.showcase_html();
          behaviour: hero-industries.js. -->
-    <article class="slide slide--inds" data-slide-inds data-title="Odoo for your industry" data-dur="16000" aria-roledescription="slide">
-      {{IND_SHOWCASE}}
-    </article>
-
-    <!-- Slide 4 · Nexi Explains, TechNext's animated series: an "on air" TV cycles the premiering episodes with a
-         live countdown, the strip under it switches the TV, and Nexi (3D on desktop, drawn on phones) shows it off.
-         Episodes and dates come from _src/nexi_explains.py; the scene lives in hero-scenes.js (Explains). -->
-    <article class="slide slide--nxs" data-slide-circle data-title="Nexi Explains, TechNext’s animated series" data-dur="16000" aria-roledescription="slide">
-      <div class="nxs-sky" aria-hidden="true">
-      <span class="nxs-rays"></span><span class="nxs-dots"></span><span class="nxs-speed"></span>
-      <span class="nxs-fl nxs-fl--1">{{odoo:sale:30}}</span>
-      <span class="nxs-fl nxs-fl--2">{{odoo:accountant:30}}</span>
-      <span class="nxs-boom">NEW!</span>
-      <i class="nxs-tw nxs-tw--1">✦</i><i class="nxs-tw nxs-tw--2">✦</i><i class="nxs-tw nxs-tw--3">✦</i><i class="nxs-tw nxs-tw--4">✦</i>
-      </div>
-      <div class="container slide-inner si-nxs">
-        <div class="slide-copy">
-          <span class="slide-tag up" style="--d:0ms">{{icon:play}} New series · Nexi Explains</span>
-          <h2 class="as-h1">
-            <span class="kw" style="--i:0"><span>Odoo,</span></span>
-            <span class="kw" style="--i:1"><span>AI</span></span>
-            <span class="kw" style="--i:2"><span>&amp;</span></span>
-            <span class="kw" style="--i:3"><span>tech,</span></span><br>
-            <span class="kw" style="--i:4"><span class="hl">explained</span></span>
-            <span class="kw" style="--i:5"><span class="hl">by</span></span>
-            <span class="kw" style="--i:6"><span class="hl">Nexi.</span></span>
-          </h2>
-          <p class="lead up" style="--d:520ms">Short animated episodes starring Nexi, TechNext’s AI companion: what Odoo is, the apps companies start with, AI that does the busywork and the people side of change. New episodes Tue, Thu &amp; Sat on YouTube.</p>
-          <div class="pill-row up" style="--d:620ms">{{NXE_SLIDE_PILLS}}</div>
-          <div class="actions up" style="--d:720ms">
-            <a class="btn btn-primary btn-lg" href="{{ROOT}}nexi-explains.html">{{icon:play}} Watch Nexi Explains</a>
-            <a class="btn btn-ghost btn-lg" href="{{NXE_SUBSCRIBE}}" target="_blank" rel="noopener">Subscribe on YouTube</a>
-          </div>
-        </div>
-        {{NXE_SLIDE_STAGE}}
-      </div>
-    </article>
   </div>
 
   <div class="hero-ctl">
@@ -222,8 +185,6 @@
     <div class="dots" role="tablist" aria-label="Choose slide">
       <button class="dot" type="button" role="tab" aria-selected="true" aria-label="Slide 1: Odoo ERP, implemented"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: One flow from quotation to cash"></button>
-      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Odoo Partner"></button>
-      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: Nexi Explains"></button>
     </div>
     <button class="icon-btn hero-arrow" type="button" data-hero-next aria-label="Next slide">{{icon:arrow}}</button>
     <button class="icon-btn hero-arrow hero-pp" type="button" data-hero-pp aria-pressed="false" aria-label="Pause the slides">{{icon:pause}}{{icon:play}}</button>
@@ -257,7 +218,7 @@
     <span class="strip-item">{{icon:pin}} <b>Singapore HQ</b> · Philippines · Vietnam</span>
     <span class="strip-item">{{icon:globe}} Clients in <b>10+ countries</b></span>
     <span class="strip-item">{{icon:users}} <b>11+</b> enterprise clients transformed</span>
-    <span class="strip-item">{{icon:trend}} <b>Growing</b> · hiring in Taguig</span>
+    <span class="strip-item">{{icon:trend}} <b>Growing</b> · three offices</span>
   </div>
 </section>
 
@@ -270,14 +231,14 @@
       <p class="lead">Your first conversation is with an adviser who knows your side of the business, not a sales demo. They map how the work moves today, recommend what fits and say why, then lead the set-up and stay after go-live.</p>
     </div>
     <div class="adv-roles">
-      <a class="adv-role-card reveal" style="--i:0" href="{{ROOT}}advisers.html#exp-finance">{{odoo:accountant:34}}<span><b>Finance &amp; accounting</b><small>Month-end, bank feeds, GST / VAT and the reports your auditor asks for.</small></span></a>
-      <a class="adv-role-card reveal" style="--i:1" href="{{ROOT}}advisers.html#exp-sales">{{odoo:crm:34}}<span><b>Sales, CRM &amp; service</b><small>Pipeline, quotation approvals, pricelists and after-sales on one record.</small></span></a>
-      <a class="adv-role-card reveal" style="--i:2" href="{{ROOT}}advisers.html#exp-supply">{{odoo:stock:34}}<span><b>Supply chain &amp; inventory</b><small>Warehouses, reordering, lots and expiry: stock you can trust.</small></span></a>
-      <a class="adv-role-card reveal" style="--i:3" href="{{ROOT}}advisers.html#exp-operations">{{odoo:mrp:34}}<span><b>Manufacturing &amp; projects</b><small>Bills of materials, job costing and progress billing, with the real margin.</small></span></a>
-      <a class="adv-role-card reveal" style="--i:4" href="{{ROOT}}advisers.html#exp-ai">{{odoo:ai_app:34}}<span><b>AI &amp; automation</b><small>Where AI genuinely saves hours, and where a plain Odoo rule is enough.</small></span></a>
-      <a class="adv-role-card reveal" style="--i:5" href="{{ROOT}}advisers.html#exp-digital">{{odoo:website:34}}<span><b>Website &amp; brand</b><small>A website and brand that run on the same system as your sales.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:0" href="{{ROOT}}odoo/apps/accountant.html">{{odoo:accountant:34}}<span><b>Finance &amp; accounting</b><small>Month-end, bank feeds, GST / VAT and the reports your auditor asks for.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:1" href="{{ROOT}}odoo/crm-development.html">{{odoo:crm:34}}<span><b>Sales, CRM &amp; service</b><small>Pipeline, quotation approvals, pricelists and after-sales on one record.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:2" href="{{ROOT}}odoo/apps/stock.html">{{odoo:stock:34}}<span><b>Supply chain &amp; inventory</b><small>Warehouses, reordering, lots and expiry: stock you can trust.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:3" href="{{ROOT}}industries/manufacturing.html">{{odoo:mrp:34}}<span><b>Manufacturing &amp; projects</b><small>Bills of materials, job costing and progress billing, with the real margin.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:4" href="{{ROOT}}solutions/ai.html">{{odoo:ai_app:34}}<span><b>AI &amp; automation</b><small>Where AI genuinely saves hours, and where a plain Odoo rule is enough.</small></span></a>
+      <a class="adv-role-card reveal" style="--i:5" href="{{ROOT}}solutions/website.html">{{odoo:website:34}}<span><b>Website &amp; brand</b><small>A website and brand that run on the same system as your sales.</small></span></a>
     </div>
-    <div class="actions reveal"><a class="btn btn-primary" href="#talk">Book a discovery call with an adviser {{icon:arrow}}</a><a class="btn btn-ghost" href="{{ROOT}}advisers.html">Meet our advisers</a></div>
+    <div class="actions reveal"><a class="btn btn-primary" href="#talk">Book a discovery call with an adviser {{icon:arrow}}</a></div>
   </div>
 </section>
 
@@ -360,9 +321,9 @@
   <div class="container">
     <div class="sec-head reveal">
       <span class="hand">what we offer</span>
-      <h2>Four practices. One team.</h2>
+      <h2>Three practices. One team.</h2>
     </div>
-    <div class="grid-2 practices">
+    <div class="grid-3 practices">
       <div class="card card--feature reveal" style="--i:0">
         <span class="tag tag--odoo" style="position:absolute;top:24px;right:24px">Odoo Partner</span>
         <div class="card-ic trio">{{odoo:accountant:34}}{{odoo:sale:34}}{{odoo:stock:34}}</div>
@@ -380,7 +341,6 @@
         <h3>AI Solution</h3>
         <p>Assistants grounded in your documents, AI inside Odoo, agents for repetitive workflows and customer chatbots.</p>
         <ul class="pillar-links">
-          <li><a href="{{ROOT}}solutions/ai-knowledge.html">RAG Knowledge Assistants {{icon:arrow}}</a></li>
           <li><a href="{{ROOT}}odoo/ai-integration.html">Odoo + AI integrations {{icon:arrow}}</a></li>
           <li><a href="{{ROOT}}solutions/ai-automation.html">Workflow Automation {{icon:arrow}}</a></li>
           <li><a href="{{ROOT}}solutions/ai-chatbots.html">AI Chatbots {{icon:arrow}}</a></li>
@@ -394,16 +354,6 @@
           <li><a href="{{ROOT}}solutions/website.html">Web Design &amp; Development {{icon:arrow}}</a></li>
           <li><a href="{{ROOT}}solutions/social-media.html">Social Media Management {{icon:arrow}}</a></li>
           <li><a href="{{ROOT}}solutions/brand-assets.html">Graphic &amp; Brand Assets {{icon:arrow}}</a></li>
-        </ul>
-      </div>
-      <div class="card card--feature reveal" style="--i:3">
-        <div class="card-ic">{{icon:cpu}}{{icon:tablet}}{{icon:network}}</div>
-        <h3>Technology</h3>
-        <p>IoT, apps and networks: the devices, software and infrastructure around your business systems, from the same team.</p>
-        <ul class="pillar-links">
-          <li><a href="{{ROOT}}solutions/iot.html">IoT Solutions {{icon:arrow}}</a></li>
-          <li><a href="{{ROOT}}solutions/app-development.html">App Development {{icon:arrow}}</a></li>
-          <li><a href="{{ROOT}}solutions/networks.html">Networks {{icon:arrow}}</a></li>
         </ul>
       </div>
     </div>

@@ -10,11 +10,11 @@ SKY = {
 }
 
 CITIES = [
-    {"o": "sg", "tag": "Singapore", "h": "Singapore HQ", "off": 8, "tz": "Singapore", "href": "offices/singapore.html", "link": "Visit Singapore HQ",
+    {"o": "sg", "tag": "Singapore", "h": "Singapore HQ", "off": 8, "tz": "Singapore", "href": "company.html#find-us", "link": "Find us",
      "p": "Headquarters: sales, discovery workshops and on-site work with clients in Singapore.", "addr": "261 Waterloo Street #03-36, Singapore 180261"},
-    {"o": "ph", "tag": "Philippines", "h": "Taguig City hub", "off": 8, "tz": "Taguig City", "href": "offices/philippines.html", "link": "Visit the Taguig City hub",
+    {"o": "ph", "tag": "Philippines", "h": "Taguig City hub", "off": 8, "tz": "Taguig City", "href": "company.html#find-us", "link": "Find us",
      "p": "Our main development and consulting hub: Odoo developers, consultants and architects, with finance, HR, sales and marketing.", "addr": "Level 9, IP Center, Taguig City, Metro Manila"},
-    {"o": "vn", "tag": "Vietnam", "h": "Ho Chi Minh City hub", "off": 7, "tz": "Ho Chi Minh City", "href": "offices/vietnam.html", "link": "Visit the Ho Chi Minh City hub",
+    {"o": "vn", "tag": "Vietnam", "h": "Ho Chi Minh City hub", "off": 7, "tz": "Ho Chi Minh City", "href": "company.html#find-us", "link": "Find us",
      "p": "Our AI engineering hub: the engineers behind TechNext’s enterprise AI, on the same projects.", "addr": '<span lang="vi">62 Nguyễn Thị Nhung, Phường Hiệp Bình</span>, Ho Chi Minh City'},
 ]
 

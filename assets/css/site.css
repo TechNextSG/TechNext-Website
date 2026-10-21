@@ -1291,7 +1291,7 @@ body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
 }
 /* Services Catalogue button: a smaller white circle with the blue book, stacked right above the WhatsApp button,
    centred on it. It follows every rule that moves or hides the WhatsApp button. */
-.cat-float{position:fixed;right:26px;bottom:90px;z-index:57;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+.cat-float{position:fixed;right:26px;bottom:26px;z-index:57;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
   color:#3167CA;background:#FFFFFF;border:1px solid #DCE5F5;box-shadow:0 10px 24px -12px rgba(15,25,50,.45);-webkit-tap-highlight-color:transparent;
   transition:background-color .2s ease,color .2s ease,opacity .25s ease,scale .3s var(--spring)}
 .cat-float .ic{width:22px;height:22px}
@@ -1300,9 +1300,9 @@ body.talk-open .wa-float{opacity:0;pointer-events:none;scale:.6}
 .cat-float:hover .wa-float-tip,.cat-float:focus-visible .wa-float-tip{opacity:1;translate:0 -50%}
 body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
 @media (max-width:960px){
-  .cat-float{right:19px;bottom:140px;width:44px;height:44px;transition:background-color .2s ease,bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
+  .cat-float{right:19px;bottom:84px;width:44px;height:44px;transition:background-color .2s ease,bottom .3s var(--ease-out),opacity .25s ease,scale .3s var(--spring)}
   .cat-float .ic{width:20px;height:20px}
-  body.tabs-wait .cat-float,body.is-nexi .cat-float{bottom:76px}
+  body.tabs-wait .cat-float,body.is-nexi .cat-float{bottom:19px}
   body.tabs-open .cat-float{opacity:0;pointer-events:none;scale:.6}
 }
 @media (prefers-reduced-motion:reduce){.wa-float,.wa-float-tip,.cat-float,.header .header-cta .btn.hdr-contact{transition:none}}

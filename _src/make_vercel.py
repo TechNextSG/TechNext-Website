@@ -31,10 +31,10 @@ REDIRECTS = [
     # The old blog (20 articles, English + Vietnamese), careers and gallery were removed.
     # Each old article URL - in both its /ai-article/ and /blog/ forms - goes to the
     # closest v2 page so its search history carries over instead of turning into 404s.
-    ("/blog/rag-systems-enterprise-guide", "/solutions/ai-knowledge"),
-    ("/blog/rag-systems-enterprise-guide.html", "/solutions/ai-knowledge"),
-    ("/ai-article/rag-systems-enterprise-guide", "/solutions/ai-knowledge"),
-    ("/ai-article/rag-systems-enterprise-guide.html", "/solutions/ai-knowledge"),
+    ("/blog/rag-systems-enterprise-guide", "/solutions/ai"),
+    ("/blog/rag-systems-enterprise-guide.html", "/solutions/ai"),
+    ("/ai-article/rag-systems-enterprise-guide", "/solutions/ai"),
+    ("/ai-article/rag-systems-enterprise-guide.html", "/solutions/ai"),
     ("/blog/ai-agents-enterprise-automation", "/solutions/ai-automation"),
     ("/blog/ai-agents-enterprise-automation.html", "/solutions/ai-automation"),
     ("/ai-article/ai-agents-enterprise-automation", "/solutions/ai-automation"),
@@ -130,8 +130,14 @@ REDIRECTS = [
     # --- the blog and careers came back on 2026-09-27 as /blog and /careers ------------
     # Old article URLs keep their redirects above; any other old /blog/ URL simply 404s
     # now, because a catch-all here would also swallow the new articles.
-    ("/blog/", "/blog"), ("/careers/", "/careers"), ("/careers/:path+", "/careers"),
+    ("/blog/", "/blog"), ("/careers/", "/company"), ("/careers/:path+", "/company"),
     ("/gallery", "/company"), ("/gallery/", "/company"), ("/gallery.html", "/company"),
+    # --- removed on 2026-10-21 (owner): office pages, Technology practice, RAG page, events, life, careers, advisers ---
+    *[(f"/offices/{o}{ext}", "/company#offices") for o in ("singapore", "philippines", "vietnam") for ext in ("", ".html")],
+    ("/offices", "/company#offices"),
+    *[(f"/solutions/{p}{ext}", "/#solutions") for p in ("technology", "iot", "app-development", "networks") for ext in ("", ".html")],
+    ("/solutions/ai-knowledge", "/solutions/ai"), ("/solutions/ai-knowledge.html", "/solutions/ai"),
+    *[(f"/{p}{ext}", "/company") for p in ("careers", "events", "life", "advisers") for ext in ("", ".html")],
     # --- section roots named in breadcrumbs --------------------------------------------
     ("/odoo", "/odoo/apps"), ("/solutions", "/#solutions"), ("/industries", "/#industries"),
     # --- the old site served these as directories; v2 serves files -----------------
