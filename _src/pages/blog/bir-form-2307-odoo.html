@@ -1,9 +1,9 @@
-<!--meta {"title": "BIR Form 2307 in Odoo: Issue, Collect and Claim (2026 Guide)", "desc": "BIR Form 2307 explained: who issues it, the 20-day rule, what it shows, why credits get disallowed, and how Odoo 19 (XLS) and Odoo 20 (PDF) produce 2307 certificates.", "out": "blog/bir-form-2307-odoo.html", "nav": "company", "article": {"h1": "BIR Form 2307: issuing, collecting and claiming it, and how Odoo produces it", "cat": "erp", "date": "2026-10-21", "order": 22, "lede": "Form 2307 is the certificate that turns tax your customer withheld into a credit you can claim. Chasing them every quarter is one of the most familiar BIR chores in the Philippines. Here is how the certificate works after the EOPT Act, why credits get disallowed, and how Odoo produces 2307s from your vendor bills.", "card": "Who issues Form 2307 and when, why withholding credits get disallowed, and how Odoo 19 and 20 produce the certificates.", "cover": "accounting/accounting-bill-pdf.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "BIR Form 2307 in Odoo: Issue, Collect and Claim (2026 Guide)", "desc": "BIR Form 2307 explained: who issues it, the 20-day rule, why credits get disallowed, and how Odoo 19 (XLS) and Odoo 20 (PDF) produce certificates.", "out": "blog/bir-form-2307-odoo.html", "nav": "company", "article": {"h1": "BIR Form 2307: issuing, collecting and claiming it, and how Odoo produces it", "cat": "erp", "date": "2026-10-21", "order": 22, "lede": "Form 2307 is the certificate that turns tax your customer withheld into a credit you can claim. Chasing them every quarter is one of the most familiar BIR chores in the Philippines. Here is how the certificate works after the EOPT Act, why credits get disallowed, and how Odoo produces 2307s from your vendor bills.", "card": "Who issues Form 2307 and when, why withholding credits get disallowed, and how Odoo 19 and 20 produce the certificates.", "cover": "accounting/accounting-bill-pdf.webp"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
     <li>The <strong>payor issues Form 2307</strong> to each payee <strong>within 20 days after the quarter closes</strong>, or with the payment if the payee asks (RR 2-98 as amended by RR 11-2018).</li>
-    <li>Since the EOPT Act, withholding applies when the income becomes <strong>payable</strong>, not only when it is paid (RR 4-2024).</li>
+    <li>Since the EOPT Act, the duty to withhold arises when the income becomes <strong>payable</strong>, is recorded in the payor's books or is invoiced, whichever comes first (RR 4-2024).</li>
     <li>The payee claims the credit only if the income was <strong>declared</strong> and the 2307 proves the withholding. A 2307 for government VAT withheld is a <strong>VAT credit only</strong>.</li>
     <li><strong>Odoo 19</strong> exports 2307 data as XLS from bills and payments. <strong>Odoo 20</strong> generates the 2306 and 2307 as PDFs in the BIR format.</li>
   </ul>
@@ -26,21 +26,22 @@
   <tbody>
     <tr><td>Expanded withholding tax on your payments</td><td>Within 20 days after the close of the quarter (for the quarter ending 31 December 2026, by 20 January 2027)</td></tr>
     <tr><td>The payee asks for it</td><td>At the same time as the payment</td></tr>
-    <tr><td>VAT or percentage tax withheld by government</td><td>Monthly, generally by the 10th of the month after the withholding (confirm with your RDO)</td></tr>
+    <tr><td>VAT or percentage tax withheld by government</td><td>Issued by the agency as proof of the VAT withheld (RMC 36-2021). Ask for it with each payment; the agency remits the VAT monthly on Form 1600-VT</td></tr>
   </tbody>
 </table></div>
 <p>The EOPT Act did not change the 20-day rule. It did change <strong>when the duty to withhold arises</strong>: when the income becomes payable. RR 4-2024 treats that as the date the expense is accrued or recorded in your books, or the date the supplier issues its invoice, whichever is earlier. The old "no withholding, no deduction" rule was repealed when the EOPT Act took effect on 22 January 2024, but the duty to withhold and remit remains.</p>
 
 <h2>How the payee uses it</h2>
 <ul>
-  <li><strong>Income tax credit.</strong> The tax withheld is credited against your income tax for the quarter the income was earned (RR 2-98 Section 2.58.3). Two conditions: the income is declared in your return, and the 2307 proves the withholding.</li>
-  <li><strong>SAWT.</strong> Your 2307s are summarised in the <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT</a> filed with your 1701Q or 1702Q.</li>
+  <li><strong>Income tax credit.</strong> The tax withheld is credited against your income tax for the quarter the income was earned or received (RR 2-98 Section 2.58.3). Two conditions: the income is declared in your return, and the 2307 proves the withholding.</li>
+  <li><strong>SAWT.</strong> Your 2307s are summarised in the <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT</a> filed with your quarterly and annual income tax returns (1701Q, 1702Q, 1701 or 1702).</li>
   <li><strong>Government VAT withheld.</strong> Since 2021, the 5% VAT withheld by government is creditable. The agency issues a 2307 with ATC WV010 (goods) or WV020 (services), and you use it against your <a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html">VAT return</a>. Under RMC 36-2021, using it against income tax leads to disallowance.</li>
+  <li><strong>Your own invoices.</strong> Since 16 October 2026, RR 6-2026 requires the creditable withholding tax to appear as a separate item on your invoice, which makes each customer's 2307 easier to match. It does not change when or how the 2307 is issued. See <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">the EOPT invoice guide</a>.</li>
 </ul>
 
 <h2>Why 2307 credits get disallowed</h2>
 <ul>
-  <li><strong>No certificate</strong>, or only a copy where the original is needed.</li>
+  <li><strong>No certificate</strong> on file for the income being claimed.</li>
   <li><strong>Wrong or missing details</strong>: TIN, name or address errors, or no payor signature.</li>
   <li><strong>Income not declared</strong> in the return the credit is claimed in.</li>
   <li><strong>Timing gaps</strong> between the quarter on the 2307 and the quarter the income was reported.</li>
@@ -61,7 +62,7 @@
     <tr><td><strong>Odoo 20</strong></td><td>Under <strong>Accounting &gt; Reporting &gt; Tax Report</strong>, the <strong>2306 &amp; 2307</strong> report generates the certificates in the BIR PDF format, grouped by ATC per partner, for a month or a quarter. Several certificates download as one ZIP. The release notes add sending the certificate to the vendor when a bill is paid.</td></tr>
   </tbody>
 </table></div>
-<p>For the 2307s you <em>receive</em>, attach each certificate to the customer invoice it covers. Odoo then builds the SAWT from customer invoices with sales withholding taxes.</p>
+<p>For the 2307s you <em>receive</em>, attach each certificate to the customer invoice it covers. Separately, Odoo builds the SAWT from customer invoices that carry sales withholding taxes.</p>
 
 {{SHOT:accounting/accounting-bill-pdf.webp|A vendor bill in Odoo with its PDF attached: the withholding on its lines is what the 2307 reports (screenshot: odoo.com)}}
 
@@ -75,12 +76,12 @@
 </ol>
 <p>You don't need to hire your own team. A TechNext adviser reviews your withholding flow first, then our team in Taguig City sets up Odoo so the 2307s you issue come from your bills and the ones you receive are matched to your invoices. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
 
-<div class="post-note"><p>Rules change. This article reflects RR 2-98 as amended by RR 11-2018, RR 4-2024, RMC 36-2021, the January 2018 Form 2307, and Odoo's 18.0 to 20.0 documentation and release notes, read from the BIR's PDFs and Odoo's own pages as available on 21 October 2026. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
+<div class="post-note"><p>Rules change. This article reflects RR 2-98 as amended by RR 11-2018, RR 4-2024, RR 6-2026, RMC 36-2021, the January 2018 Form 2307, and Odoo's 18.0 to 20.0 documentation and release notes, read from the BIR's PDFs and Odoo's own pages as available on 21 October 2026. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
 
 <h2>Sources</h2>
 <ul>
   <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/2307%20Jan%202018%20ENCS%20v3.pdf" target="_blank" rel="noopener">BIR Form 2307 (January 2018)</a> and <a href="https://bir-cdn.bir.gov.ph/local/pdf/RR%20No.%2011-2018.pdf" target="_blank" rel="noopener">RR 11-2018</a> (BIR)</li>
-  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%204-2024.pdf" target="_blank" rel="noopener">RR 4-2024</a> (BIR) and <a href="https://kpmg.com/ph/en/insights/2024/04/special-intax-april-2024-issue-1-volume-3.html" target="_blank" rel="noopener">KPMG's summary</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%204-2024%20(final).pdf" target="_blank" rel="noopener">RR 4-2024 digest</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%206-2026.pdf" target="_blank" rel="noopener">RR 6-2026</a> (BIR) and <a href="https://kpmg.com/ph/en/insights/2024/04/special-intax-april-2024-issue-1-volume-3.html" target="_blank" rel="noopener">KPMG's summary</a></li>
   <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a></li>
   <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/03.11.2021/rmc-no.-36-2021.pdf" target="_blank" rel="noopener">RMC 36-2021</a> (government VAT withholding; copy hosted by Grant Thornton)</li>
   <li><a href="https://www.pwc.com/ph/en/tax/tax-publications/taxwise-or-otherwise/2019-taxwise-or-otherwise/revisiting-the-rules-on-claiming-withholding-tax-credits.html" target="_blank" rel="noopener">PwC: claiming withholding tax credits</a></li>
