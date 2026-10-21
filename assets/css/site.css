@@ -218,6 +218,7 @@ html.intro .header{visibility:hidden;opacity:0;transition:none;animation:hdrBack
 .mega-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px 36px;padding:26px 24px 30px}
 .mega-col--wide{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .mega-col--wide .mega-head{grid-column:1/-1}
+.mega-col--row{grid-template-columns:repeat(3,minmax(0,1fr))}
 .mega-head{font:700 12px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 10px;margin-bottom:10px}
 .mega-head a{display:inline-flex;align-items:center;gap:6px;color:var(--blue)}
 .mega-head a .ic{width:14px;height:14px}
@@ -623,6 +624,7 @@ html.intro .mq-track{animation:none}
   .steps{grid-template-columns:repeat(2,1fr)}
   .steps::before{display:none}
   .mega-col--wide{grid-template-columns:repeat(2,1fr)}
+  .mega-col--row{grid-template-columns:repeat(3,minmax(0,1fr))}
   .slide-inner{padding-right:56px}
 }
 @media (max-width:960px){
