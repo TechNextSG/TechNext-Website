@@ -19,7 +19,7 @@ EXPERTISE = [
     {"key": "finance", "role": "Finance & accounting adviser", "odoo": ["accountant", "account"],
      "lead": "For the people who close the month. How the books, banks and tax should run once everything is in one database.",
      "advise": ["Chart of accounts and journals that fit how you report", "Bank feeds, reconciliation and a shorter month-end",
-                "GST / VAT set-up, multi-currency and multi-company", "What to migrate: opening balances or full history"],
+                "Government compliance: BIR in the Philippines, GST and InvoiceNow in Singapore", "Multi-currency, multi-company and what to migrate"],
      "ask": "Which reports does your accountant or auditor ask for every month, and how long do they take today?",
      "href": "odoo/apps/accountant.html", "link": "Odoo Accounting"},
     {"key": "sales", "role": "Sales, CRM & service adviser", "odoo": ["crm", "sale", "helpdesk"],

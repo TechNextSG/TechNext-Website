@@ -955,6 +955,36 @@ def expertise_cards_html() -> str:
     return "".join(out)
 
 
+# "Who we are" (21 Oct 2026): trusted expert adviser, proof, compliance, growth, named clients. Home, /company, /case-studies.
+WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="hand">who we are</span>
+      <h2>Your trusted expert adviser for ERP and compliance.</h2>
+      <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, and we set it up to meet the government's rules from day one.</p>
+    </div>
+    <div class="who-grid">
+      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" href="{{ROOT}}case-studies.html">See our case studies {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}advisers.html">Meet our advisers {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>Government compliance, built in.</h3><p>BIR in the Philippines: books for CAS/CBA, 2307 certificates and your e-invoicing plan. GST and InvoiceNow in Singapore. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR compliance in Odoo {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City, AI engineers in Ho Chi Minh City, and new roles open right now.</p><a class="btn-link" href="{{ROOT}}careers.html">We're hiring {{icon:arrow}}</a></article>
+    </div>
+    <div class="cw reveal">
+      <h3 class="cw-h">Companies we've worked with</h3>
+      {{CLIENT_WALL}}
+      <p class="cw-note">Delivered and in-progress projects in Singapore, the Philippines, Malaysia, Indonesia, Switzerland and Romania.</p>
+    </div>
+  </div>
+</section>"""
+
+
+def client_wall_html() -> str:
+    """Companies we've worked with (sitedata.CLIENTS): name, line of business, country. Plain text, no logos."""
+    lis = "".join(f'<li class="cw-item reveal" style="--i:{k % 6}"><b>{n}</b><span>{ind}</span><span class="cw-where">{where}</span></li>'
+                  for k, (n, ind, where) in enumerate(S.CLIENTS))
+    return f'<ul class="cw-list" aria-label="Companies we have worked with">{lis}</ul>'
+
+
 def advisor_cards_html() -> str:
     """Named advisors (_src/advisors.py ADVISORS). Empty list = no section at all (nothing invented)."""
     if not ADV.ADVISORS:
@@ -2005,7 +2035,7 @@ def article_html(meta: dict, body: str) -> str:
 {body}
       <div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. We implement Odoo end to end (discovery, configuration, data migration, training and support) for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up for BIR, GST and InvoiceNow, for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
       </div>
     </div>
   </div>
@@ -2194,6 +2224,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{TEAM_CARDS}}", team_cards_html())
     if "{{EXPERTISE_CARDS}}" in content:
         content = content.replace("{{EXPERTISE_CARDS}}", expertise_cards_html())
+    content = content.replace("{{WHO_WE_ARE}}", WHO_WE_ARE)
+    if "{{CLIENT_WALL}}" in content:
+        content = content.replace("{{CLIENT_WALL}}", client_wall_html())
     if "{{ADVISOR_CARDS}}" in content:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
     if "{{TEAM_OFFICES}}" in content:
@@ -2373,6 +2406,8 @@ def write_llms():
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']} · WhatsApp {c['whatsapp']}",
         "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
+        "- Positioning: trusted expert adviser for ERP and government compliance (BIR in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
+        "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
