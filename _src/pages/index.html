@@ -1,5 +1,5 @@
 <!--meta {"title": "Odoo Partner Philippines & Singapore: Books Set Up for BIR", "desc": "Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.", "out": "index.html", "nav": "home", "body": "is-home fx-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/showcase.js", "assets/js/nexi.js", "assets/js/bir-check.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/catalogue.css?v={ASSET_V}\">"} -->
-<!-- Home (21 Oct 2026 redesign): BIR readiness check first, then what Odoo produces for the BIR, the advisers,
+<!-- Home (21 Oct 2026 redesign): the 2-slide hero, then what Odoo produces for the BIR, the advisers,
      proof, practices, industries, catalogue, articles, FAQ and the discovery call. Futuristic glass on the light
      TechNext system; no illustrations. Behaviour: assets/js/bir-check.js. Styles: assets/css/home-fx.css. -->
 
@@ -193,78 +193,6 @@
   </div>
 
   <div class="hero-marquee" aria-label="Odoo apps we implement">{{MARQUEE}}</div>
-</section>
-
-<!-- ============================================================ BIR READINESS CHECK (section 2) -->
-<section class="fx-hero fx-hero--sec" id="check" aria-labelledby="fx-h1">
-  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
-  <div class="container fx-hero-in">
-    <div class="fx-ask">
-      <h2 id="fx-h1" class="fx-h">Is your business ready for <span class="fx-hl">BIR e-invoicing</span>?</h2>
-      <p class="fx-lead">Answer four questions. See whether you must issue e-invoices by 31 December 2026, and what your books need before then. We set it up in your Odoo.</p>
-      <form class="fx-q" data-bircheck novalidate aria-label="BIR readiness check">
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">1</span>Your gross annual sales</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="size" value="micro"><span>Under ₱3M</span></label>
-            <label><input type="radio" name="size" value="small"><span>₱3M to ₱20M</span></label>
-            <label><input type="radio" name="size" value="medium"><span>₱20M to ₱1B</span></label>
-            <label><input type="radio" name="size" value="large"><span>₱1B and up</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">2</span>Do you sell online (a store, a marketplace or social commerce)?</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="online" value="yes"><span>Yes</span></label>
-            <label><input type="radio" name="online" value="no"><span>No</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">3</span>How are your invoices made today?</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="system" value="cas"><span>CAS / CBA or invoicing software</span></label>
-            <label><input type="radio" name="system" value="manual"><span>Manual or loose-leaf</span></label>
-            <label><input type="radio" name="system" value="unsure"><span>Not sure</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">4</span>Are you under the Large Taxpayers Service?</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="lts" value="yes"><span>Yes</span></label>
-            <label><input type="radio" name="lts" value="no"><span>No</span></label>
-            <label><input type="radio" name="lts" value="unsure"><span>Not sure</span></label>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-
-    <aside class="fx-result" data-birresult aria-live="polite" aria-labelledby="fx-r-h">
-      <div class="fx-result-glow" aria-hidden="true"></div>
-      <div class="fx-result-top">
-        <p class="fx-r-label" id="fx-r-h">Your result</p>
-        <p class="fx-pill" data-verdict="pending"><i aria-hidden="true"></i><span data-verdict-t>Answer the questions</span></p>
-      </div>
-      <p class="fx-r-say" data-say>Your answers decide whether you are in the first e-invoicing group, and what to prepare.</p>
-      <div class="fx-count" aria-label="Time left until 31 December 2026">
-        <div><b data-cd="d">--</b><small>days</small></div>
-        <div><b data-cd="h">--</b><small>hours</small></div>
-        <div><b data-cd="m">--</b><small>minutes</small></div>
-        <p>until the 31 December 2026 e-invoicing deadline</p>
-      </div>
-      <ol class="fx-steps" data-steps>
-        <li data-step="pti"><span class="fx-dot" aria-hidden="true"></span><span><b>Permit to Issue (PTI) e-invoice</b>Apply before you issue any e-invoice.</span></li>
-        <li data-step="eis"><span class="fx-dot" aria-hidden="true"></span><span><b>EIS certification</b>Within six months of your PTI.</span></li>
-        <li data-step="books"><span class="fx-dot" aria-hidden="true"></span><span><b>Books registered in ORUS</b>Loose-leaf or computerised, on time each year.</span></li>
-        <li data-step="reports"><span class="fx-dot" aria-hidden="true"></span><span><b>2307, SLSP, SAWT, QAP, 2550Q</b>From your Odoo entries, not spreadsheets.</span></li>
-        <li data-step="branches"><span class="fx-dot" aria-hidden="true"></span><span><b>Every branch and a downtime plan</b>Credit notes, not edits; manual invoices replaced later.</span></li>
-      </ol>
-      <div class="fx-r-act">
-        <a class="btn btn-primary btn-lg" data-meet data-bookcall href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-        <a class="btn btn-ghost" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports</a>
-      </div>
-      <p class="fx-fine">General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Confirm your group with your accountant or RDO.</p>
-    </aside>
-  </div>
 </section>
 
 <!-- ============================================================ PROOF STRIP -->
