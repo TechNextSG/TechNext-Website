@@ -191,7 +191,8 @@
   /* ================================================================ carousel */
   var slides = $$('.slide', hero), dots = $$('.dot', hero), live = $('[data-hero-live]', hero);
   var idx = Math.max(0, slides.findIndex(function (s) { return s.classList.contains('is-active'); }));
-  var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = !reduce;
+  // Owner, 21 Oct 2026: the hero never moves on by itself; the visitor changes slides with the arrows, dots, keys or swipes
+  var timer = null, startedAt = 0, remaining = DUR, paused = false, autoplay = false;
   // Random play on every device: a random slide opens the page, then autoplay deals the others in a shuffled
   // order, each once before any repeats (a new deal never starts with the slide just shown). Arrows, dots, keys
   // and swipes step in order. Crawlers and page-speed tools always get slide 1, the one with the page's H1.
@@ -203,8 +204,10 @@
   // every visit opens on a different slide than the last one (remembered in this browser)
   var LAST = 'tn_hero_first', last = -1;
   try { last = parseInt(localStorage.getItem(LAST), 10); } catch (e) { /* storage may be blocked */ }
-  if (autoplay && slides.length > 1 && !crawler) {
-    var pool = slides.map(function (s0, k) { return k; }).filter(function (k) { return k !== last; });
+  // weighted: slides 1 and 2 open four times as often as the others (owner, 21 Oct 2026: "more focus on 1st and 2nd slide")
+  if (!reduce && slides.length > 1 && !crawler) {
+    var pool = [];
+    slides.forEach(function (s0, k) { if (k !== last) for (var q = 0, wt = k < 2 ? 4 : 1; q < wt; q++) pool.push(k); });
     // the head script (build.py HERO_FIRST_HEAD) has usually picked it already, so the intro could dress for it
     var pre = window.__tnHeroFirst;
     var r0 = typeof pre === 'number' && slides[pre] ? pre : pool[Math.floor(Math.random() * pool.length)];

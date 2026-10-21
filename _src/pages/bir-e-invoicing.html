@@ -97,7 +97,7 @@
     <div class="sec-head reveal"><span class="hand">what odoo covers</span><h2>What Odoo 20 already does for the BIR.</h2><p class="lead">The Philippine localisation handles the day-to-day BIR work. The e-invoicing link is the part we build.</p></div>
     <div class="grid-2">
       <article class="card reveal" style="--i:0"><div class="card-ic">{{odoo:accountant:36}}</div><h3>In Odoo 20</h3><ul class="checks">
-        <li>{{icon:check}}BIR- and CAS-compliant invoices, and a Book of Accounts for CAS and CBA</li>
+        <li>{{icon:check}}Invoices set up for BIR and CAS requirements, and a Book of Accounts for CAS and CBA</li>
         <li>{{icon:check}}BIR 2306 and 2307 certificates as PDFs, generated on vendor bills</li>
         <li>{{icon:check}}SLSP, SAWT and QAP with DAT exports, and the 2550Q VAT summary</li>
         <li>{{icon:check}}Payroll with the 1601-C, 2316 and 1604-C</li>
@@ -109,7 +109,20 @@
         <li>{{icon:check}}Sample outputs and process flow for your PTI application</li>
       </ul></article>
     </div>
-    <p class="small muted mt-24">Sources: the <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and the <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation documentation</a>.</p>
+    <p class="small muted mt-24">Sources: the <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and the <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation documentation</a>. The issuances behind it: <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p>
+  </div>
+</section>
+
+<section class="section" id="sample-reports">
+  <div class="container">
+    <div class="sec-head reveal"><span class="hand">see it first</span><h2>Sample BIR reports from Odoo.</h2><p class="lead">What your 2307, SLSP, QAP, SAWT and VAT summary look like when they come from the same entries as your books. Fictitious company and figures, for illustration.</p></div>
+    <div class="bir-samples">
+      <a class="bir-sample reveal" style="--i:0" href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=1" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/2307.webp" alt="Sample 2307 certificate data report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>2307 certificate data</b><small>Per payee and quarter, from posted vendor bills</small></span></a>
+      <a class="bir-sample reveal" style="--i:1" href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=2" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/slsp.webp" alt="Sample SLSP: sales and purchases report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>SLSP: sales and purchases</b><small>Quarterly summary list, exported as a DAT file</small></span></a>
+      <a class="bir-sample reveal" style="--i:2" href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=3" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/qap.webp" alt="Sample QAP and SAWT report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>QAP and SAWT</b><small>Taxes you withheld, and taxes withheld from you</small></span></a>
+      <a class="bir-sample reveal" style="--i:3" href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=4" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/2550q.webp" alt="Sample 2550Q VAT summary report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>2550Q VAT summary</b><small>Output against input VAT, ready for the return</small></span></a>
+    </div>
+    <div class="actions reveal"><a class="btn btn-primary" href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf" target="_blank" rel="noopener">{{icon:file}}Download the sample reports (PDF) </a><a class="btn btn-ghost" href="#talk">Ask for a walkthrough</a></div>
   </div>
 </section>
 
@@ -141,7 +154,7 @@
       <details><summary>What is the BIR e-invoicing deadline? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.</p></div></details>
       <details><summary>Are micro taxpayers covered? {{icon:chevron}}</summary><div class="faq-a"><p>No. Micro taxpayers are exempt from the mandatory e-invoicing requirement, and e-commerce coverage applies to sellers classed as small, medium or large.</p></div></details>
       <details><summary>What is a Permit to Issue (PTI)? {{icon:chevron}}</summary><div class="faq-a"><p>The BIR permit you need before issuing any e-invoice. EIS Certification must then be completed within six months of the PTI.</p></div></details>
-      <details><summary>Is Odoo BIR compliant? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo 20's Philippine localisation covers BIR- and CAS-compliant invoices, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover the EIS connection, so TechNext builds and tests that as part of your project. Your CAS and e-invoicing applications are still filed with the BIR.</p></div></details>
+      <details><summary>Is Odoo BIR compliant? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover the EIS connection, so TechNext builds and tests that as part of your project. Your CAS and e-invoicing applications are still filed with the BIR. The BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register.</p></div></details>
       <details><summary>Can we fix an e-invoice after it is issued? {{icon:chevron}}</summary><div class="faq-a"><p>No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decrease and a new e-invoice for an increase; we set both flows up in Odoo before go-live.</p></div></details>
       <details><summary>Does the rule cover our branches? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Head office and all branches must issue e-invoices, and branches on different invoicing systems may need separate PTIs.</p></div></details>
     </div>
