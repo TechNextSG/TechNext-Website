@@ -1,0 +1,109 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Home hero slide 3 (owner, 21 Oct 2026: "another hero section based on BIR compliance, heavy interactive"):
+   the BIR control tower. A glass "Accounting · BIR" console in the middle, the BIR forms orbiting it on a tilted ring
+   (drag to spin, select a form to generate it), a glowing beam to the selected form, e-invoices sent to the EIS node.
+   Same language as slide 1 (glass, light rings, flat Odoo icons, no tiles). Behaviour: assets/js/hero-bir.js */
+
+.bt { --bt-blue: #3167CA; --bt-ink: #1F1F3D; --bt-ease: cubic-bezier(.16,1,.3,1);
+  position: relative; width: 100%; aspect-ratio: 1 / .9; max-height: 600px; touch-action: pan-y; user-select: none; perspective: 1400px; }
+.bt.is-dragging { cursor: grabbing; }
+.bt-rings { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.bt-rings ellipse { vector-effect: non-scaling-stroke; fill: none; stroke: rgba(49,103,202,.32); stroke-width: 1.2; stroke-dasharray: 3 7; }
+.bt-rings ellipse.bt-r2 { stroke: rgba(49,103,202,.16); stroke-dasharray: none; }
+.bt-beam { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.bt-beam path { fill: none; stroke: var(--bt-blue); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 6 8; animation: btFlow 1s linear infinite; filter: drop-shadow(0 0 6px rgba(49,103,202,.7)); }
+.bt-beam circle { fill: var(--bt-blue); filter: drop-shadow(0 0 8px rgba(49,103,202,.9)); }
+@keyframes btFlow { to { stroke-dashoffset: -28; } }
+
+/* the console */
+.bt-core { position: absolute; left: 50%; top: 50%; width: min(62%, 380px); transform: translate(-50%, -50%) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d; z-index: 3; border-radius: 20px; padding: 14px 14px 12px; transition: transform .5s var(--bt-ease);
+  background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.95);
+  box-shadow: 0 2px 6px rgba(31,31,61,.06), 0 40px 70px -34px rgba(30,70,145,.55), inset 0 1px 0 #fff;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
+.bt-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font: 700 12.5px/1 var(--font-body); color: var(--bt-ink); white-space: nowrap; }
+.bt-bar .oi { width: 18px; height: 18px; }
+.bt-days { flex: none; margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 999px; background: #1F1F3D; color: #fff; font: 700 11.5px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+.bt-days i { width: 6px; height: 6px; border-radius: 50%; background: #6FA0F5; box-shadow: 0 0 0 3px rgba(111,160,245,.25); }
+.bt-sample { flex: none; padding: 4px 8px; border-radius: 999px; background: #FDF3E1; color: #8F5A00; font: 700 11px/1 var(--font-body); }
+.bt-doc { border-radius: 14px; background: #fff; border: 1px solid #E3E9F5; padding: 12px 12px 10px; position: relative; overflow: hidden; }
+.bt-doc::before { content: ""; position: absolute; left: 12px; right: 12px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--bt-blue); }
+.bt-doc-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.bt-doc-h b { font: 800 15px/1.2 var(--font-display); color: var(--bt-ink); letter-spacing: -.01em; }
+.bt-doc-h small { font: 600 12px/1.2 var(--font-body); color: #4C4C63; white-space: nowrap; }
+.bt-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; min-height: 96px; }
+.bt-rows li { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 6px 8px; border-radius: 8px; background: #F6F8FD; font-size: 12.5px; color: var(--bt-ink);
+  animation: btRow .5s var(--bt-ease) both; animation-delay: calc(var(--r, 0) * 70ms); }
+.bt-rows li b { font-weight: 700; font-variant-numeric: tabular-nums; }
+.bt-rows li.is-ok b { color: #137A4A; }
+@keyframes btRow { from { opacity: 0; transform: translateY(6px); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+.bt-gen { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; margin-top: 10px; font: 600 12px/1.3 var(--font-body); color: #4C4C63; }
+.bt-gen em { font-style: normal; color: #137A4A; font-weight: 700; }
+.bt-prog { grid-column: 1 / -1; height: 4px; border-radius: 4px; background: #E6ECF8; overflow: hidden; }
+.bt-prog i { display: block; height: 100%; width: 100%; border-radius: inherit; background: linear-gradient(90deg, #6FA0F5, var(--bt-blue)); transform-origin: left; animation: btGen .9s var(--bt-ease) both; }
+@keyframes btGen { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bt-send { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.bt-send button { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--bt-blue); color: #fff; font: 700 12.5px/1 var(--font-body); box-shadow: 0 10px 20px -10px rgba(49,103,202,.8); transition: transform .25s var(--bt-ease), box-shadow .25s; }
+.bt-send button:hover { transform: translateY(-1px); box-shadow: 0 14px 24px -10px rgba(49,103,202,.9); }
+.bt-send button:focus-visible { outline: 3px solid #6FA0F5; outline-offset: 3px; }
+.bt-send button .ic { width: 14px; height: 14px; }
+.bt-send span { font: 700 12px/1.2 var(--font-body); color: #137A4A; font-variant-numeric: tabular-nums; }
+
+/* the forms on the ring */
+.bt-node { position: absolute; left: 0; top: 0; z-index: var(--z, 2); display: grid; justify-items: start; gap: 2px; padding: 9px 12px 8px; min-width: 92px; border-radius: 14px; cursor: pointer;
+  background: rgba(255,255,255,.86); border: 1px solid rgba(49,103,202,.18); color: var(--bt-ink); text-align: left;
+  box-shadow: 0 1px 2px rgba(31,31,61,.06), 0 14px 26px -18px rgba(30,70,145,.55);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%) scale(var(--s, 1)); opacity: var(--o, 1);
+  transition: border-color .3s var(--bt-ease), box-shadow .3s var(--bt-ease), background-color .3s; will-change: transform; }
+.bt-node b { font: 800 14px/1 var(--font-display); letter-spacing: -.01em; }
+.bt-node small { font: 600 11.5px/1.2 var(--font-body); color: #4C4C63; white-space: nowrap; }
+.bt-node:hover { border-color: var(--bt-blue); }
+.bt-node:focus-visible { outline: 3px solid #6FA0F5; outline-offset: 3px; }
+.bt-node[aria-pressed="true"] { background: var(--bt-blue); border-color: var(--bt-blue); color: #fff; box-shadow: 0 0 0 4px rgba(49,103,202,.16), 0 18px 30px -14px rgba(49,103,202,.85); }
+.bt-node[aria-pressed="true"] small { color: rgba(255,255,255,.85); }
+.bt-node.is-hit { animation: btHit .6s var(--bt-ease); }
+@keyframes btHit { 40% { box-shadow: 0 0 0 10px rgba(19,122,74,.18), 0 18px 30px -14px rgba(49,103,202,.85); } }
+.bt-pk { position: absolute; left: 0; top: 0; z-index: 5; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--bt-blue);
+  box-shadow: 0 0 12px 3px rgba(49,103,202,.6); pointer-events: none; }
+.bt-hint { position: absolute; right: 4%; top: 2%; z-index: 6; display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 6px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.95); font: 600 12.5px/1 var(--font-body); color: #4C4C63; box-shadow: 0 10px 20px -16px rgba(30,70,145,.5); }
+.bt-hint .ic { width: 14px; height: 14px; color: var(--bt-blue); }
+
+/* slide copy strip: three form shortcuts under the buttons */
+.bt-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.bt-strip button { display: grid; gap: 2px; text-align: left; min-height: 56px; padding: 10px 16px; border-radius: 14px; cursor: pointer; background: rgba(255,255,255,.8);
+  border: 1px solid var(--line, #E7E4E9); transition: border-color .25s, transform .25s cubic-bezier(.16,1,.3,1); }
+.bt-strip button b { font: 800 15px/1.1 var(--font-display); color: #1F1F3D; }
+.bt-strip button span { font-size: 12.5px; color: #4C4C63; }
+.bt-strip button:hover, .bt-strip button[aria-pressed="true"] { border-color: #3167CA; transform: translateY(-2px); }
+.bt-strip button[aria-pressed="true"] b { color: #3167CA; }
+.bt-strip button:focus-visible { outline: 3px solid #6FA0F5; outline-offset: 3px; }
+
+/* phones and narrow screens: the console, then the forms as a row of chips (no ring, no drag) */
+@media (max-width: 900px) {
+  .bt { aspect-ratio: auto; max-height: none; display: grid; gap: 12px; perspective: none; }
+  .bt-rings, .bt-beam, .bt-hint, .bt-pk { display: none; }
+  .bt-core { position: relative; left: auto; top: auto; width: 100%; transform: none; order: 1; }
+  .bt-nodes { order: 2; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 6px; }
+  .bt-nodes::-webkit-scrollbar { display: none; }
+  .bt-node { position: relative; transform: none; opacity: 1; flex: none; min-height: 48px; }
+  .bt-strip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bt-beam path, .bt-rows li, .bt-prog i, .bt-node.is-hit { animation: none; }
+  .bt-core { transition: none; }
+}
+.bt-node[aria-pressed="true"] { opacity: 1 !important; }
+/* the scrolling chip row must never widen the slide (grid/flex min-content) */
+.slide--bir .slide-inner > *, .bt, .bt-core, .bt-nodes { min-width: 0; }
+@media (max-width: 900px) { .slide--bir .bt { max-width: 100%; } }
+@media (max-width: 600px) {
+  .slide--bir .actions { flex-wrap: wrap; }
+  .slide--bir .actions .btn { flex: 1 1 100%; justify-content: center; }
+}
+/* all hero slides: the track's single grid column sized to its widest slide (min-content), so on phones every slide
+   ran ~27px past the screen and clipped its buttons; clamp the column to the hero's width */
+.hero-track { grid-template-columns: minmax(0, 1fr); }
+.hero-track > .slide, .hero .slide-inner > * { min-width: 0; }

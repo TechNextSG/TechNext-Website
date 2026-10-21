@@ -22,3 +22,8 @@ FIRST VIEWPORT: Left 6 cols: kicker "BIR readiness check", H1 "Is your business 
 FORM: "BIR readiness check" (structure 5 of 7 on the ranked list); seed key 4a7d487b. Code-led. Signature interaction: answering a chip re-routes glowing data lines into the result panel and flips the verdict pill with a count-up of steps; scroll section "What Odoo produces" draws report sheets assembling from ledger rows.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+## Owner changes (21 Oct 2026, binding)
+- "REVERT THE 2 HERO SECTION DESIGN": the home page keeps its previous 2-slide hero (carousel, no autoplay, weighted random start, Nexi in the hero) exactly as it was. The readiness-check first viewport is withdrawn.
+- "Remove the readiness check from the home page entirely": no readiness check on the home page. Links that pointed at it go to /bir-e-invoicing#covered.
+- The rest of the redesigned home page stands below the hero: BIR report viewer, adviser profiles (placeholders, preview only), who we are + clients, practices rail, industries, catalogue, articles, FAQ, close.
