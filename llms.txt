@@ -6,7 +6,7 @@
 - Headquarters: 261 Waterloo Street #03-36, Singapore 180261
 - Philippines development hub: Level 9, IP Center, Taguig City, Metro Manila
 - Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City
-- Contact: sales@technext.asia · WhatsApp +65 8839 6998
+- Contact: sales@technext.asia
 - Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines
 - Positioning: trusted expert adviser for ERP and government compliance (BIR in the Philippines; GST and InvoiceNow in Singapore); our own experts implement
 - Companies we've worked with: BHD Asia (Coaching & HR consulting, Singapore); HummingBeing (TRE™ & somatic coaching, Singapore); TRE™ in Singapore (TRE™ community, Singapore); Casa Escondida Anilao (Dive resort, Philippines); Immaculate Connections (Travel agency, Philippines); St. Clare College of Caloocan (Education, Philippines); JR-Tech Solution (Commercial kitchens, Malaysia); TRE Worldwide Conference 2027 (International conference, Indonesia); nivellipso® (Clear aligners & brackets, Switzerland); HDH AG (Dental & medical OEM, Switzerland); Saymara B. Ryon (Holistic coaching, Romania)
@@ -86,6 +86,7 @@
 
 - [Blog: Odoo news, Odoo 20 and ERP guides](https://technext.asia/blog): Odoo news, Odoo 20 explained, and plain-language ERP guides from TechNext, an Odoo Partner in Singapore with teams in the Philippines and Vietnam.
 - [BIR E-Invoicing with Odoo: Deadline & Setup Guide](https://technext.asia/blog/bir-e-invoicing-odoo): BIR e-invoicing explained by TechNext: the 31 December 2026 deadline, who is covered, the Permit to Issue, and how to get Odoo ready in the Philippines.
+- [BIR Rules for Your Accounting System: RRs, RMCs and Odoo (2026)](https://technext.asia/blog/bir-rules-for-your-accounting-system): Has the BIR said anything about Odoo? The RRs, RMCs and RMOs behind CAS, books of accounts, e-invoicing, 2307, SLSP and SAWT, explained for Philippine businesses.
 - [Enterprise RAG Implementation Guide for Business](https://technext.asia/blog/enterprise-rag-guide): A plain-language enterprise RAG implementation guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
 - [Odoo implementation process, step by step](https://technext.asia/blog/how-an-odoo-implementation-works): How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support. What happens at each step.
 - [Singapore GST InvoiceNow requirement: all dates to 2031](https://technext.asia/blog/invoicenow-singapore-gst-timeline): Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.

@@ -59,7 +59,7 @@ INTRO_HEAD = "<style>#intro{display:none}html.intro #intro,#intro.is-out{display
 # The home hero's first slide is picked here, in the head, rather than in hero.js: a page that opens on the Nexi
 # Explains slide gets the comic intro (html.intro-nxe) from its first frame. Same rules as hero.js: crawlers,
 # audits and reduced motion keep slide 1, ?slide=N wins, never the slide that opened the last visit.
-HERO_FIRST_HEAD = "<script>(function(){try{var d=document.documentElement,n={HERO_N},f=-1;var cr=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent||'');var w=/[?&]slide=([1-9])(?:&|$)/.exec(location.search);if(w)f=+w[1]-1;else if(!cr&&n>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var last=-1;try{last=parseInt(localStorage.getItem('tn_hero_first'),10);}catch(e){}var p=[];for(var k=0;k<n;k++)if(k!==last)p.push(k);f=p[Math.floor(Math.random()*p.length)];window.__tnHeroFirst=f;try{localStorage.setItem('tn_hero_first',String(f));}catch(e){}}if(f==={HERO_NXS})d.classList.add('intro-nxe');}catch(e){}})();</script>\n"
+HERO_FIRST_HEAD = "<script>(function(){try{var d=document.documentElement,n={HERO_N},f=-1;var cr=/googlebot|google-inspectiontool|googleother|storebot-google|bingbot|adsbot|applebot|duckduckbot|baiduspider|yandex|slurp|facebookexternalhit|linkedinbot|twitterbot|bot\\/|crawler|spider|lighthouse|pagespeed|headlesschrome/i.test(navigator.userAgent||'');var w=/[?&]slide=([1-9])(?:&|$)/.exec(location.search);if(w)f=+w[1]-1;else if(!cr&&n>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var last=-1;try{last=parseInt(localStorage.getItem('tn_hero_first'),10);}catch(e){}var p=[];for(var k=0;k<n;k++)if(k!==last){for(var q=0,wt=k<2?4:1;q<wt;q++)p.push(k);}f=p[Math.floor(Math.random()*p.length)];window.__tnHeroFirst=f;try{localStorage.setItem('tn_hero_first',String(f));}catch(e){}}if(f==={HERO_NXS})d.classList.add('intro-nxe');}catch(e){}})();</script>\n"
 INTRO_BODY = '<div class="intro" id="intro" aria-hidden="true" data-tagline="Your team · Singapore · Philippines" data-tagline-nxe="Nexi Explains!">\n  <div class="intro-sheet">\n    <div class="intro-grid"><i></i><i></i></div>\n    <div class="intro-bloom"></div>\n    <svg class="intro-trail"><path d=""/><path d=""/><path d=""/></svg>\n  </div>\n  <span class="intro-ring"></span>\n  <div class="intro-lockup">\n  <div class="intro-stage">\n    <div class="intro-plane-wrap">\n      <span class="intro-ripple"></span><span class="intro-ripple"></span>\n      <i class="intro-spark" style="--a:8deg;--d:1.15"></i><i class="intro-spark" style="--a:52deg;--d:1.6"></i><i class="intro-spark" style="--a:97deg;--d:1.25"></i><i class="intro-spark" style="--a:141deg;--d:1.7"></i><i class="intro-spark" style="--a:188deg;--d:1.2"></i><i class="intro-spark" style="--a:232deg;--d:1.65"></i><i class="intro-spark" style="--a:279deg;--d:1.3"></i><i class="intro-spark" style="--a:323deg;--d:1.55"></i>\n      <span class="intro-plane-pop"><img class="intro-plane" src="{ROOT}assets/img/logo-plane.png" alt="" width="160" height="136" decoding="sync"></span>\n    </div>\n    <span class="intro-word" style="aspect-ratio:{LETTERS_W}/{LETTERS_H}">{LETTERS}<span class="intro-glint"></span></span>\n  </div>\n  <span class="intro-sub"></span>\n  <span class="intro-pills">\n    <span class="intro-pill" style="--i:0;--side:-1">{{odoo:accountant:18}}Accounting</span>\n    <span class="intro-pill" style="--i:1;--side:0">{{odoo:sale:18}}Sales</span>\n    <span class="intro-pill" style="--i:2;--side:1">{{odoo:stock:18}}Inventory</span>\n  </span>\n  </div>\n  <span class="intro-progress"></span>\n  <button class="intro-skip" type="button" tabindex="-1">Skip</button>\n</div>\n'
 
 
@@ -220,7 +220,7 @@ def mobile_nav_html() -> str:
 </div>
 <div class="mnav-contact">
   <a href="mailto:{c["sales_email"]}">{{{{icon:mail}}}} {c["sales_email"]}</a>
-  <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">{{{{icon:whatsapp}}}} {c["whatsapp"]}</a>
+  <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">{{{{icon:whatsapp}}}} WhatsApp us</a>
   <span>{{{{icon:pin}}}} {c["hubs"]}</span>
 </div>''')
     return "\n".join(out)
@@ -250,7 +250,7 @@ def talk_panel_html() -> str:
     <p class="hand">let's talk</p>
     <h2 id="talk-title">Tell us what slows you down.</h2>
     <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>. Prefer to chat?
-      <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">WhatsApp {c["whatsapp"]}</a>.</p>
+      <a href="{c["whatsapp_link"]}" target="_blank" rel="noopener">WhatsApp</a>.</p>
 
     <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -467,14 +467,14 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "name": c["short"], "legalName": c["legal"], "alternateName": ["TechNext Asia", "TechNext Pte Ltd"], "url": S.SITE_URL,
             "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
             "image": S.SITE_URL + "assets/img/og-image.png",
-            "email": c["sales_email"], "telephone": c["whatsapp"],
+            "email": c["sales_email"],
             "address": {"@type": "PostalAddress", "streetAddress": c["address"][0],
                         "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
             "identifier": {"@type": "PropertyValue", "propertyID": "UEN", "value": c["uen"]},
             "hasMap": S.OFFICES[0]["maps"],
             "geo": {"@type": "GeoCoordinates", "latitude": S.OFFICES[0]["geo"][0], "longitude": S.OFFICES[0]["geo"][1]},
             "contactPoint": [{"@type": "ContactPoint", "contactType": "sales", "email": c["sales_email"],
-                              "telephone": c["whatsapp"], "areaServed": ["SG", "PH", "VN"],
+                              "areaServed": ["SG", "PH", "VN"],
                               "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
@@ -1010,7 +1010,7 @@ def advisor_cards_html() -> str:
                      f'<div class="pill-row">{tags}</div>{li}</div></article>')
     return f'''<section class="section section--alt" id="meet">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">meet the advisers</span><h2>The people you'll actually talk to.</h2><p class="lead">The adviser on your first call is the one who leads your project, and the one who answers after go-live.</p></div>
+    <div class="sec-head reveal"><span class="hand">meet the trusted advisers</span><h2>The people you'll actually talk to.</h2><p class="lead">The adviser on your first call is the one who leads your project, and the one who answers after go-live.</p></div>
     <div class="adv-people">{"".join(cards)}</div>
   </div>
 </section>'''
@@ -2404,7 +2404,7 @@ def write_llms():
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
         f"- Headquarters: {', '.join(c['address'])}",
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
-        f"- Contact: {c['sales_email']} · WhatsApp {c['whatsapp']}",
+        f"- Contact: {c['sales_email']}",
         "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
         "- Positioning: trusted expert adviser for ERP and government compliance (BIR in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
         "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
@@ -2489,7 +2489,7 @@ def write_llms_full():
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
            "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
            "enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.", "",
-           "## Contact", "", f"- Sales: {c['sales_email']}", f"- WhatsApp: {c['whatsapp']}", f"- LinkedIn: {c['linkedin']}", "",
+           "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:
         out.append(f"- {o['name']}: {', '.join(o['lines'])} — {o['role']}")

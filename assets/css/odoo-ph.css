@@ -16,3 +16,16 @@ body.ph-page .ph-forms li b{color:#8A5E00}
 /* /bir-e-invoicing (20 Oct 2026): the "who is covered" table, white on the alt section, full width */
 body.ph-page .bir-table{max-width:none}
 body.ph-page .bir-table .table-wrap{background:#fff;margin:0}
+
+/* sample BIR reports (21 Oct 2026): fictitious-data previews linking into the PDF */
+.bir-samples{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.bir-sample{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .2s,transform .2s}
+.bir-sample:hover{border-color:var(--blue-300);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.bir-sample img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line);background:#fff}
+.bir-sample span{padding:14px 16px}
+.bir-sample b{display:block;font:700 16px/1.3 var(--font-display);color:var(--ink)}
+.bir-sample small{display:block;margin-top:4px;font-size:14px;line-height:1.45;color:var(--body)}
+#sample-reports .actions{margin-top:24px}
+@media (max-width:1000px){.bir-samples{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.bir-samples{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bir-sample{transition:none}.bir-sample:hover{transform:none}}
