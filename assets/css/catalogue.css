@@ -20,7 +20,7 @@
   background: linear-gradient(to right, transparent 42%, rgba(0, 0, 0, .04) 46%, rgba(0, 0, 0, .14) 49.6%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .1) 50.6%, rgba(0, 0, 0, .03) 54%, transparent 58%); }
 .cat-book:hover .cat-spread, .cat-book:focus-visible .cat-spread { transform: rotateX(0) rotateY(0); box-shadow: 0 2px 4px rgba(15, 25, 50, .08), 0 34px 70px -26px rgba(15, 25, 50, .4); }
 .cat-book:focus-visible { outline: 3px solid #6FA0F5; outline-offset: 8px; border-radius: 6px; }
-/* "50 pages" tag (21 Oct 2026): a white label pinned to the spread's top-left corner */
+/* "58 pages" tag (21 Oct 2026): a white label pinned to the spread's top-left corner */
 .cat-badge { position: absolute; left: -18px; top: 22px; z-index: 2; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 14px;
   background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 36px -18px rgba(31, 31, 61, .35), 0 2px 6px rgba(31, 31, 61, .06); }
 .cat-badge-ic { display: grid; place-items: center; color: #3167CA; padding-left: 4px; }
