@@ -111,3 +111,53 @@
   .dv-a, .dv-b, .dv-cell, .dv-n, .dv-rec-a, .dv-rec-b, .dv-rec-b span, .dv-chain li { transition: none; }
   .dv-chain li { opacity: 1; transform: none; border-color: var(--blue-300); }
 }
+
+/* ---------------------------------------------------------------- as-is map on phones (<= 640px): one-column list
+   The absolutely placed map cannot hold readable text at this width (22 Oct 2026 review: "Handwritt|en", "Quote.doc|x").
+   The same cards stay in the DOM, in process order; lines, pins and labels are hidden; text is 13px+, whole words, no ellipsis. */
+@media (max-width: 640px) {
+  .dv-fx .dm-asis .asis-wrap .asis-stage, .dv-fx .dm-asis.is-narrow .asis-wrap .asis-stage { height: auto; padding: 12px; background: none; overflow: visible; }
+  .dv-fx .dm-asis .asis-svg, .dv-fx .dm-asis .asis-pills, .dv-fx .dm-asis .asis-badges, .dv-fx .dm-asis .asis-db, .dv-fx .dm-asis .dm-tip { display: none !important; }
+  .dv-fx .dm-asis .asis-nodes { position: static; display: grid; gap: 8px; }
+  .dv-fx .dm-asis .asis-node { position: static; width: auto; transform: none !important; opacity: 1 !important; will-change: auto; }
+  /* with Odoo, price list / order log / paper DO / month-end fold into the app that replaces them */
+  .dv-fx .dm-asis.is-b .asis-node[data-n="price"], .dv-fx .dm-asis.is-b .asis-node[data-n="log"],
+  .dv-fx .dm-asis.is-b .asis-node[data-n="dockt"], .dv-fx .dm-asis.is-b .asis-node[data-n="rep"] { display: none; }
+  .dv-fx .dm-asis .asis-card { grid-template-columns: minmax(0, 1fr); border-radius: 14px; }
+  .dv-fx .dm-asis .asis-fa, .dv-fx .dm-asis .asis-fb { gap: 12px; padding: 11px 14px; align-items: flex-start; }
+  .dv-fx .dm-asis .asis-fa .ic, .dv-fx .dm-asis .asis-fb .ic, .dv-fx .dm-asis .asis-fb .oi { width: 24px; height: 24px; padding: 0; border-radius: 0; background: none; margin-top: 1px; }
+  .dv-fx .dm-asis .asis-fa b, .dv-fx .dm-asis .asis-fb b { display: block; overflow: visible; -webkit-line-clamp: unset; font-size: 14px !important; line-height: 1.25;
+    overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  .dv-fx .dm-asis .asis-fa small, .dv-fx .dm-asis .asis-fb small { display: block; overflow: visible; -webkit-line-clamp: unset; font-size: 13px !important; line-height: 1.35; color: var(--body);
+    overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  /* the step tags sit in the flow, under the text, only while a walk-through step shows them */
+  .dv-fx .dm-asis .asis-team, .dv-fx .dm-asis .asis-app, .dv-fx .dm-asis .asis-gap { position: static; display: none; justify-self: start; max-width: calc(100% - 28px); height: auto; min-height: 24px;
+    margin: 0 14px 10px; padding: 4px 10px; font-size: 12px !important; line-height: 1.25; white-space: normal; translate: none; }
+  .dv-fx .dm-asis .asis-app .oi { width: 14px; height: 14px; flex: none; }
+  .dv-fx .dm-asis.is-team .asis-team, .dv-fx .dm-asis.is-map .asis-app, .dv-fx .dm-asis.is-walk.is-gap .asis-gap,
+  .dv-fx .dm-asis.is-b-done:not(.is-walk) .asis-gap, .dv-fx .dm-asis.is-walk.is-b-done .asis-gap { display: inline-flex; }
+  .dv-fx .dm-asis.is-map .asis-team { display: none; }
+  /* header controls: 44px targets, step names whole */
+  .dv-fx .dm-asis .dm-seg { max-width: none; width: 100%; overflow: visible; flex-wrap: nowrap; }
+  .dv-fx .dm-asis .dm-seg button { flex: 1 1 0; justify-content: center; min-height: 44px; font-size: 13px !important; }
+  .dv-fx .dm-asis .dm-btn { min-height: 44px; font-size: 13px !important; }
+  .dv-fx .dm-asis .dm-title b { font-size: 15px !important; }
+  .dv-fx .dm-asis .dm-title small { font-size: 12.5px !important; color: var(--body); }
+  /* side panel and footer */
+  .dv-fx .dm-asis .asis-side { padding: 14px 12px; gap: 10px; }
+  .dv-fx .dm-asis .asis-side .dm-kpis dt { font-size: 12px !important; letter-spacing: .02em; }
+  .dv-fx .dm-asis .asis-sh { font-size: 12px !important; letter-spacing: .03em; text-transform: none; color: var(--body); }
+  .dv-fx .dm-asis .asis-pains { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .dv-fx .dm-asis .asis-p { min-height: 44px; padding: 8px 10px; gap: 10px; grid-template-columns: 22px minmax(0, 1fr); }
+  .dv-fx .dm-asis .asis-p i { width: 22px; height: 22px; font-size: 12px !important; }
+  .dv-fx .dm-asis .asis-p b, .dv-fx .dm-asis .asis-p small { font-size: 13px !important; line-height: 1.35; overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  .dv-fx .dm-asis .asis-scope ol { grid-template-columns: minmax(0, 1fr); }
+  .dv-fx .dm-asis .asis-scope li, .dv-fx .dm-asis .asis-scope li b { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-sf { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-cap b { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-cap span { font-size: 13px !important; color: var(--body); }
+  .dv-fx .dm-asis .asis-walk { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; overflow: visible; max-width: none; flex: 1 1 100%; width: 100%; }
+  .dv-fx .dm-asis .asis-ws { flex: none; min-height: 44px; height: auto; font-size: 13px !important; padding: 4px 10px 4px 6px; white-space: normal; text-align: left; }
+  .dv-fx .dm-asis .asis-ws i { width: 22px; height: 22px; font-size: 12px !important; flex: none; }
+  .dv-fx .dm-asis .asis-ws:last-child { grid-column: 1 / -1; }
+}

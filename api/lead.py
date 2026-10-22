@@ -47,7 +47,10 @@ LABELS = {"name": "Name", "company": "Company", "email": "Email", "phone": "Phon
           "message": "Message", "team_size": "Team size", "country": "Country", "current_website": "Current website",
           "scope_summary": "Quotation scope", "apps": "Odoo apps", "users": "Users", "hosting": "Hosting",
           "services": "Services", "timeline": "Timeline", "source": "Form", "page": "Page",
-          "referrer": "Came from", "landing": "First page of the visit", "slot": "Meeting time"}
+          "referrer": "Came from", "landing": "First page of the visit", "slot": "Meeting time",
+          "job_title": "Role", "industry": "Industry", "branches": "Branches", "annual_sales": "Gross annual sales",
+          "bir_pain": "Biggest BIR headache", "need": "Landing page need", "accounting_system": "Books today",
+          "cas_status": "Registered for CAS or CBA", "call_time": "Best time to call", "consent": "Privacy consent"}
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse"}
 

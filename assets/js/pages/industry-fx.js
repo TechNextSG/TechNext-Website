@@ -45,10 +45,11 @@
     if (reduce) return;                       // the finished state is the default markup
     root.classList.add('is-js');
     cycle();
+    root.addEventListener('ixf:replay', cycle);   // home industry switch: start again when this panel is picked
     if (hasIO) {
       new IntersectionObserver(function (e) {
         visible = e[0].isIntersecting;
-        if (hero) hero.classList.toggle('fx-off', !visible);
+        (hero || root).classList.toggle('fx-off', !visible);
       }, { threshold: 0.05 }).observe(root);
     }
   }
@@ -87,7 +88,38 @@
     });
   }
 
+  /* ---------------- home: industry switch (tabs; the picked industry's panel runs) ---------------- */
+  function switcher(root) {
+    var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
+    function pick(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab, pane = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (pane) pane.hidden = !on;
+      });
+      var cur = document.getElementById(tab.getAttribute('aria-controls'));
+      var p = cur && cur.querySelector('[data-ixf-panel]');
+      if (p) p.dispatchEvent(new CustomEvent('ixf:replay'));
+      if (focus) tab.focus({ preventScroll: true });
+      // tablets and phones: the tab row scrolls sideways; bring the picked tab fully into it without moving the page
+      var row = root.querySelector('.ixs-tabs'), r = tab.getBoundingClientRect(), rr = row.getBoundingClientRect();
+      if (row.scrollWidth > row.clientWidth && (r.left < rr.left || r.right > rr.right))
+        row.scrollBy({ left: r.left < rr.left ? r.left - rr.left - 16 : r.right - rr.right + 16, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { if (t.getAttribute('aria-selected') !== 'true') pick(t, false); });
+      t.addEventListener('keydown', function (e) {
+        var n = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (n === undefined) return;
+        e.preventDefault();
+        pick(tabs[(n + tabs.length) % tabs.length], true);
+      });
+    });
+  }
+
   function init() {
+    [].slice.call(document.querySelectorAll('[data-ixs-root]')).forEach(switcher);
     [].slice.call(document.querySelectorAll('[data-ixf-panel]')).forEach(panel);
     [].slice.call(document.querySelectorAll('[data-ixf-chain]')).forEach(chain);
     offscreen();

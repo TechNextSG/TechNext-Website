@@ -44,7 +44,7 @@ Last updated: 2026-10-21
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
 - https://technext.asia/company — About TechNext: Odoo Ready Partner, Singapore & Taguig: TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 11+ clients, 10+ countries.
-- https://technext.asia/free-website-with-odoo — Free Website & Brand Design with Your Odoo: Start your Odoo with TechNext and your website and brand design come with it, connected to your CRM, sales and stock. You don't need to hire your own team.
+- https://technext.asia/free-website-with-odoo — Ready for BIR E-Invoicing? Get Your Website Free with Odoo: Is your business ready for BIR e-invoicing by 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
 - https://technext.asia/get-started — Free website design and setup on Odoo — TechNext: We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - https://technext.asia/industries/construction — Odoo for Construction — Singapore & Philippines: Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/ecommerce — Odoo for Ecommerce — Singapore & Philippines: Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting. By TechNext, Odoo Partner.
@@ -753,47 +753,41 @@ Book a discovery call, or tell us how your process runs today by email to sales@
 
 Source: https://technext.asia/company
 
+### Is TechNext BIR-accredited?
+
+No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, build and test the e-invoicing link, and prepare the process flow and sample outputs for your PTI application.
+
+Source: https://technext.asia/free-website-with-odoo
+
+### Can Odoo produce our 2307s, SLSP, SAWT and QAP?
+
+Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
+
+Source: https://technext.asia/free-website-with-odoo
+
+### We already have a CAS permit for our current system. What happens?
+
+A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.
+
+Source: https://technext.asia/free-website-with-odoo
+
 ### Is the website really free?
 
-Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### Who can claim it?
-
-Companies in Singapore, the Philippines and Vietnam that run their Odoo with TechNext. We confirm the details on the first call.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### Why build the website in Odoo?
-
-Because the website then shares one database with your CRM, sales, stock and accounting. Website enquiries become leads, and online orders reserve stock, without copying anything between systems.
+Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team. Your Odoo subscription stays in your company's name.
 
 Source: https://technext.asia/free-website-with-odoo
 
 ### We already have a website. Can we still join?
 
-Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll suggest the better option on the call.
+Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll recommend the better option on the call, and say why.
 
 Source: https://technext.asia/free-website-with-odoo
 
-### We are claiming a government grant. Does that change anything?
+### Who can claim it?
 
-Grant rules can limit free items. Tell us on the first call and we'll keep your claim within the scheme's rules.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### What is TechNext Care?
-
-Our monthly plan after go-live. It covers Odoo support and upgrades, website updates and, on larger plans, improvements, AI chatbots and a quarterly roadmap review. It is sized to your users and apps.
+Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST and InvoiceNow instead of BIR. We confirm the details on the first call.
 
 Source: https://technext.asia/free-website-with-odoo
-
-### Who must issue BIR e-invoices by 31 December 2026?
-
-Under RR 26-2025: e-commerce and internet sellers that are small, medium or large; taxpayers under the Large Taxpayers Service; large taxpayers under RA 11976; and businesses on a CAS or CBA with invoicing software. Micro taxpayers are exempt. Exporters, POS users and incentive-registered enterprises join later. Confirm your group with your accountant.
-
-Source: https://technext.asia/
 
 ### Is Odoo BIR-accredited?
 

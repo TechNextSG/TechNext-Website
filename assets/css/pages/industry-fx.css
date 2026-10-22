@@ -669,3 +669,98 @@ body.ind-fx main .omr-stage.is-v .omr-ch .omr-nh b{font-size:12px!important}
 body.ind-fx main .ktn-kpis dt{font-size:12px!important}
 }
 /* <<< min12 */
+
+/* review fix (22 Oct 2026): the step number lives in the timeline node, not in a label above the heading */
+.ixf-node i { width: 30px; height: 30px; display: grid; place-items: center; font: 800 13px/1 var(--font-display); font-style: normal; color: var(--blue-700); font-variant-numeric: tabular-nums; }
+.ixf-step.is-lit .ixf-node i, .ixf-chain:not(.is-js) .ixf-node i { color: #fff; }
+
+/* ---------------------------------------------------------------- sample dashboard chart: review fixes (22 Oct 2026)
+   - legend sits in normal flow under the chart header (was absolute, top:-30px, on top of the view toggle)
+   - paired values are one stacked label above each pair (no side-by-side overlap); on phones the bars go horizontal with the value at the bar end
+   - y-axis labels get room (S$1.2M, not S$1200k), x labels wrap instead of truncating */
+.ind-fx .ix-chart { padding: 2px 18px 10px; }
+.ind-fx .ix-view .ix-legend { position: static; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; font-size: 12.5px; line-height: 1.2; color: var(--body); }
+.ind-fx .ix-legend span::before { flex: none; }
+.ind-fx .ix-plot { --lab: 38px; height: 246px; margin: 28px 0 6px 60px; }
+.ind-fx .ix-view--pair .ix-plot { margin-top: 48px; }
+.ind-fx .ix-grid { inset: 0 0 var(--lab) 0; }
+.ind-fx .ix-grid em { right: calc(100% + 10px); font-size: 12px; }
+.ind-fx .ix-col { grid-template-rows: 1fr var(--lab); }
+.ind-fx .ix-col small { align-self: start; padding-top: 8px; max-width: 100%; font-size: 12px; line-height: 1.25; white-space: normal; overflow: visible; text-overflow: clip;
+  overflow-wrap: normal; word-break: normal; hyphens: auto; text-wrap: balance; }
+.ind-fx .ix-pair { position: relative; gap: 5px; }
+.ind-fx .ix-pair .ix-bar { width: min(30px, 40%); }
+.ind-fx .ix-pair .ix-bar i { display: none; }
+.ind-fx .ix-pv { position: absolute; left: 50%; bottom: calc(var(--hm) * 100% + 7px); display: grid; gap: 1px; transform: translateX(-50%); opacity: 0;
+  transition: opacity .3s ease calc(.5s + var(--i) * 60ms); pointer-events: none; }
+.ind-fx .ix-pv b { display: flex; align-items: center; gap: 5px; font: 700 12px/15px var(--font-body); color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ind-fx .ix-pv b::before { content: ""; width: 8px; height: 8px; border-radius: 2px; flex: none; background: #9FB9EA; }
+.ind-fx .ix-pv b.s2::before { background: var(--blue); }
+.ind-fx .ix-dash.is-in .ix-pv { opacity: 1; }
+.ind-fx .ix-dash .st-bar span { min-width: 0; }
+
+@media (max-width: 640px) {
+  .ind-fx .ix-dash .st-bar { height: auto; min-height: 44px; flex-wrap: wrap; gap: 6px 8px; padding: 8px 14px; white-space: normal; }
+  .ind-fx .ix-dash .st-bar > i { display: none; }
+  .ind-fx .ix-dash .st-bar span { margin-left: 0; overflow: visible; text-overflow: clip; white-space: normal; flex: 1 1 140px; line-height: 1.25; }
+  .ind-fx .ix-dash .st-bar .ix-sample { flex: none; margin-left: auto; }
+  .ind-fx .ix-chart { padding: 2px 14px 12px; }
+  .ind-fx .ix-chart-head { gap: 10px; }
+  /* horizontal bars: name left, bar, value at the bar end. Same markup, same animation (width instead of height) */
+  .ind-fx .ix-plot, .ind-fx .ix-view--pair .ix-plot { height: auto; margin: 18px 0 0; padding-bottom: 30px; }
+  .ind-fx .ix-grid { inset: 0 60px 30px 92px; }
+  .ind-fx .ix-grid span { top: 0; bottom: 0; left: calc(var(--y) * 100%); right: auto; width: 0; border-top: 0; border-left: 1px dashed #E3E6EE; }
+  .ind-fx .ix-grid em { top: auto; right: auto; left: 0; bottom: -26px; transform: translateX(-50%); font-size: 12px; }
+  .ind-fx .ix-cols { position: relative; inset: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px 0; align-items: stretch; }
+  .ind-fx .ix-col { display: grid; grid-template-columns: 84px minmax(0, 1fr); grid-template-rows: auto; column-gap: 8px; align-items: center; justify-items: stretch; height: auto; }
+  .ind-fx .ix-col small { grid-column: 1; grid-row: 1; align-self: center; padding: 0; text-align: left; font-size: 13px; line-height: 1.25; text-wrap: wrap; }
+  .ind-fx .ix-col > .ix-bar, .ind-fx .ix-col > .ix-pair { grid-column: 2; grid-row: 1; }
+  .ind-fx .ix-col > .ix-bar { align-self: center; width: calc((100% - 60px) * var(--h)); height: 20px; border-radius: 3px 8px 8px 3px; transform-origin: left center; transform: scaleX(0);
+    background: linear-gradient(90deg, #6FA0F5, var(--blue)); }
+  .ind-fx .ix-pair { flex-direction: column; align-items: flex-start; justify-content: center; height: auto; gap: 5px; }
+  .ind-fx .ix-pair .ix-bar { align-self: flex-start; width: calc((100% - 60px) * var(--h)); height: 16px; border-radius: 3px 8px 8px 3px; transform-origin: left center; transform: scaleX(0); }
+  .ind-fx .ix-pair .ix-bar.s1 { background: linear-gradient(90deg, #C9D8F4, #9FB9EA); }
+  .ind-fx .ix-pair .ix-bar.s2 { background: linear-gradient(90deg, #6FA0F5, var(--blue)); }
+  .ind-fx .ix-bar i, .ind-fx .ix-pair .ix-bar i { display: block; left: calc(100% + 8px); bottom: auto; top: 50%; transform: translateY(-50%); font-size: 13px; line-height: 1;
+    transition: opacity .3s ease calc(.9s + var(--i) * 60ms); }
+  .ind-fx .ix-pv { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ind-fx .ix-pv, .ind-fx .ix-bar i { transition: none; }
+}
+
+/* ---------------------------------------------------------------- demos on phones (<= 640px): whole words, no ellipsis on names
+   (22 Oct 2026 review). Segmented controls wrap instead of scrolling out of sight; store map, kitchen display, lots and the
+   subcontractor table are re-laid for 390 px. */
+@media (max-width: 640px) {
+  .ind-fx .dm[data-demo] .dm-seg { flex-wrap: wrap; overflow: visible; max-width: 100%; width: 100%; border-radius: 22px; }
+  .ind-fx .dm[data-demo] .dm-seg button { flex: 1 1 auto; justify-content: center; white-space: normal; text-align: center; line-height: 1.2; }
+  /* store network */
+  .ind-fx .srn-node { width: 140px; }
+  .ind-fx .srn-node--wh { width: 154px; }
+  .ind-fx .srn-nm b { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  .ind-fx .srn-q { grid-column: 1 / -1; white-space: normal; }
+  .ind-fx .srn-dops li span:nth-child(2) { white-space: normal; overflow: visible; text-overflow: clip; }
+  /* kitchen display: the three station columns become one list */
+  .ind-fx .ktn-cols { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .ind-fx .ktn-tix { max-height: none; overflow: visible; }
+  .ind-fx .ktn-tkh b, .ind-fx .ktn-tk ul li, .ind-fx .ktn-ch small, .ind-fx .ktn-lines b, .ind-fx .ktn-dn b { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+  /* lots and expiry */
+  .ind-fx .fefo-bin { height: 92px; }
+  .ind-fx .fefo-lot { padding-top: 14px; }
+  .ind-fx .fefo-bin:has(.fefo-lot) .fefo-bid { visibility: hidden; }
+  .ind-fx .fefo-nt2 b, .ind-fx .fefo-nt2 small { white-space: normal; overflow: visible; text-overflow: clip; }
+  /* s-curve: the subcontractor table becomes stacked rows (the other columns stay readable at 390) */
+  .ind-fx .scv-ph { flex-wrap: wrap; row-gap: 2px; }
+  .ind-fx .scv-ph em { white-space: normal; }
+  .ind-fx .scv-tbl:not(.scv-ledger), .ind-fx .scv-tbl:not(.scv-ledger) tbody { display: block; }
+  .ind-fx .scv-tbl:not(.scv-ledger) thead { display: none; }
+  .ind-fx .scv-tbl:not(.scv-ledger) tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px 10px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .ind-fx .scv-tbl:not(.scv-ledger) td { display: block; padding: 0; border: 0; text-align: left; font-size: 13px !important; white-space: nowrap; }
+  .ind-fx .scv-tbl:not(.scv-ledger) td:first-child { grid-column: 1 / -1; font-size: 13.5px !important; white-space: normal; }
+  .ind-fx .scv-tbl:not(.scv-ledger) td:nth-child(n+2)::before { display: block; font-size: 12px !important; font-weight: 600; color: var(--body); }
+  .ind-fx .scv-tbl:not(.scv-ledger) td:nth-child(2)::before { content: "Certified"; }
+  .ind-fx .scv-tbl:not(.scv-ledger) td:nth-child(3)::before { content: "Retention"; }
+  .ind-fx .scv-tbl:not(.scv-ledger) td:nth-child(4)::before { content: "This month"; }
+  .ind-fx .scv-tbl:not(.scv-ledger) .scv-tot { border-bottom: 0; }
+}

@@ -24,7 +24,9 @@ import sitedata as S  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import industry_fx as IFX  # noqa: E402  (the eight industry pages: glass hero, intro, workflow chain)
+import fw_needs as FW  # noqa: E402  (/free-website-with-odoo: the needs picker, live panels and the data the page script reads)
 import app_flows as AF  # noqa: E402
+import app_leads as AL  # noqa: E402   (the app pages' hero leads in TechNext's own voice)
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
 import advisors as ADV  # noqa: E402
@@ -961,7 +963,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
       <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, and we set it up to meet the government's rules from day one.</p>
     </div>
     <div class="who-grid">
-      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" href="{{ROOT}}case-studies.html">See our case studies {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>Government compliance, built in.</h3><p>BIR in the Philippines: books for CAS/CBA, 2307 certificates and your e-invoicing plan. GST and InvoiceNow in Singapore. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR compliance in Odoo {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
@@ -983,14 +985,20 @@ def client_wall_html() -> str:
 
 
 def advisor_cards_html() -> str:
-    """Adviser profiles on the home page: name, role, office, skills and the companies they worked on (_src/advisors.py ADVISORS).
-    Empty list = no section on the live site (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked
-    placeholders in ADV.PREVIEW_PLACEHOLDERS instead, for design previews only; never set it for a production build."""
+    """Team profiles on the home page (_src/advisors.py ADVISORS): name, role, office, bio, stats and grouped skills; no
+    company list (owner 22 Oct 2026). The first skill group shows; the rest open under "See all N skills".
+    Empty list = no section (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked placeholders instead,
+    for design previews only; never set it for a production build."""
+    esc = lambda t: html_mod.escape(t, quote=False)
     people, preview = ADV.ADVISORS, False
     if not people and os.environ.get("TN_PREVIEW_PROFILES") == "1":
         people, preview = ADV.PREVIEW_PLACEHOLDERS, True
     if not people:
         return ""
+
+    def group(lab, items, cls="pf-skills"):
+        return f'<div class="pf-g"><p class="pf-h">{esc(lab)}</p><ul class="{cls}">{"".join(f"<li>{esc(i)}</li>" for i in items)}</ul></div>'
+
     cards = []
     for k, p in enumerate(people):
         words = p["name"].split()
@@ -998,22 +1006,33 @@ def advisor_cards_html() -> str:
         pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="{html_mod.escape(p["name"])}" width="600" height="600" loading="lazy" decoding="async">'
                if p.get("photo") else f'<span class="pf-ini" aria-hidden="true">{ini}</span>')
         office = ADV.OFFICES.get(p.get("office"), "")
-        skills = "".join(f"<li>{s_}</li>" for s_ in p.get("skills", []))
-        cos = "".join(f"<li>{c}</li>" for c in p.get("companies", []))
+        groups = list(p.get("groups") or [])
+        if not groups:   # older placeholder shape
+            groups = [(lab, p.get(key, [])) for lab, key in (("BIR & compliance", "bir"), ("Implementation", "skills"), ("Industries", "industries"))]
+        groups = [(lab, items) for lab, items in groups if items]
+        apps = "".join(f'<li>{{{{odoo:{a}:18}}}}{ADV.APP_NAMES.get(a, a)}</li>' for a in p.get("apps", []))
+        n = sum(len(items) for _, items in groups) + len(p.get("apps", []))
+        shown = ([f'<div class="pf-g"><p class="pf-h">Odoo apps</p><ul class="pf-apps">{apps}</ul></div>'] if apps else []) + [group(l, i) for l, i in groups]
+        more = shown[1:] + ([group("Certifications and education", p["creds"], "pf-skills pf-skills--cred")] if p.get("creds") else [])
+        stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
         ph = ' data-ph' if preview else ''
         cards.append(f'<article class="pf-card reveal" style="--i:{k}"{ph}>'
                      f'<div class="pf-top"><div class="pf-ava">{pic}<i class="pf-ring" aria-hidden="true"></i></div>'
-                     f'<div><h3>{p["name"]}</h3><p class="pf-role">{p["role"]}</p>'
+                     f'<div><h3>{esc(p["name"])}</h3><p class="pf-role">{esc(p["role"])}</p>'
                      f'{f"<p class=\"pf-office\">{{{{icon:pin}}}}{office}</p>" if office else ""}</div></div>'
-                     f'{f"<p class=\"pf-bio\">{p['bio']}</p>" if p.get("bio") else ""}'
-                     f'{f"<p class=\"pf-h\">Skills</p><ul class=\"pf-skills\">{skills}</ul>" if skills else ""}'
-                     f'{f"<p class=\"pf-h\">Companies worked on</p><ul class=\"pf-cos\">{cos}</ul>" if cos else ""}'
-                     f'</article>')
-    note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, skills and companies replace them before this goes live.</p>'
+                     f'{f"<p class=\"pf-bio\">{esc(p['bio'])}</p>" if p.get("bio") else ""}'
+                     f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
+                     f'<div class="pf-sk">{shown[0] if shown else ""}'
+                     f'{f"<details class=\"pf-more\"><summary><span>See all {n} skills</span>{{{{icon:chevron}}}}</summary>{"".join(more)}</details>" if more else ""}'
+                     f'</div></article>')
+    cards.append('<article class="pf-card pf-cta reveal" style="--i:%d"><h3>Talk to the team</h3>'
+                 '<p>Tell us how you invoice, file and close the month today. The team plans the work with you from the first call.</p>'
+                 '<a class="btn btn-primary" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a></article>' % len(people))
+    note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'
             if preview else "")
     return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="pf-h">The advisers who set up your BIR books.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team in Taguig City builds it, and the same people support it after go-live.</p></div>
+    <div class="sec-head reveal"><h2 id="pf-h">The people who set up your Odoo for BIR.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
     <div class="pf-grid">{"".join(cards)}</div>
     {note}
   </div>
@@ -1359,7 +1378,9 @@ def _nice_top(v: float) -> float:
 
 def _fmt(v: float, unit: str) -> str:
     if unit == "S$k":
-        return f"S${v:g}k"
+        if v == 0:
+            return "S$0"
+        return f"S${round(v / 1000, 2):g}M" if v >= 1000 else f"S${v:g}k"
     if unit == "%":
         return f"{v:g}%"
     return f"{v:,.0f}"
@@ -1382,8 +1403,9 @@ def chart_html(ch: dict) -> str:
         grid = "".join(f'<span style="--y:{f:.2f}"><em>{_fmt(top * f, unit)}</em></span>' for f in (1, .5, 0))
         if "pairs" in v:
             cols = "".join(
-                f'<div class="ix-col"><div class="ix-pair"><span class="ix-bar s1" style="--h:{a / top:.3f};--i:{j}"><i>{_fmt(a, unit)}</i></span>'
-                f'<span class="ix-bar s2" style="--h:{b / top:.3f};--i:{j}"><i>{_fmt(b, unit)}</i></span></div><small>{lab}</small></div>'
+                f'<div class="ix-col"><div class="ix-pair" style="--hm:{max(a, b) / top:.3f}"><span class="ix-bar s1" style="--h:{a / top:.3f};--i:{j}"><i>{_fmt(a, unit)}</i></span>'
+                f'<span class="ix-bar s2" style="--h:{b / top:.3f};--i:{j}"><i>{_fmt(b, unit)}</i></span>'
+                f'<span class="ix-pv" style="--i:{j}"><b class="s1">{_fmt(a, unit)}</b><b class="s2">{_fmt(b, unit)}</b></span></div><small>{lab}</small></div>'
                 for j, (lab, a, b) in enumerate(v["pairs"]))
             legend = (f'<div class="ix-legend"><span class="s1">{v["legend"][0]}</span><span class="s2">{v["legend"][1]}</span></div>')
             rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(a, unit)}</td><td>{_fmt(b, unit)}</td></tr>" for lab, a, b in v["pairs"])
@@ -1396,8 +1418,10 @@ def chart_html(ch: dict) -> str:
             rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(val, unit)}</td></tr>" for lab, val in v["bars"])
             head = f'<tr><th scope="col">{ch["title"]}</th><th scope="col">{v["label"]}</th></tr>'
             n = len(v["bars"])
-        blocks.append(f'<div class="ix-plot" data-plot="{k}"{"" if k == 0 else " hidden"}><div class="ix-grid" aria-hidden="true">{grid}</div>'
-                      f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div>{legend}</div>')
+        # the legend sits in normal flow above the plot (it used to float over the view toggle); data-plot is on the wrapper
+        blocks.append(f'<div class="ix-view{" ix-view--pair" if "pairs" in v else ""}" data-plot="{k}"{"" if k == 0 else " hidden"}>{legend}'
+                      f'<div class="ix-plot"><div class="ix-grid" aria-hidden="true">{grid}</div>'
+                      f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div></div></div>')
         # a table ignores width:1px, so the sr-only box is a wrapper div (else phones scroll sideways)
         tables.append(f'<div class="sr-only"><table><caption>{ch["title"]}, {v["label"].lower()} (sample data)</caption>{head}{rows}</table></div>')
     kpis = "".join(f'<div class="ix-kpi"><small>{lab}</small><b>{val}</b></div>' for lab, val in ch["kpis"])
@@ -1738,8 +1762,9 @@ def app_page(mod: str) -> tuple:
     app, cat = APP_BY_MOD[mod], CAT_BY_MOD[mod]
     c = APP_CONTENT.get(mod, {})
     name = app["name"]
-    lead = c.get("lead") or c.get("description") or app["desc"]
-    headline = c.get("headline") or f"{name} in Odoo"
+    # hero lead: TechNext's own adviser-voice copy (_src/app_leads.py); odoo.com's slogan and lead are only a fallback
+    lead = AL.LEADS.get(mod) or c.get("lead") or c.get("description") or app["desc"]
+    headline = "" if mod in AL.LEADS else (c.get("headline") or f"{name} in Odoo")
     odoo_url = c.get("url", "https://www.odoo.com/")
     focus = ' <span class="tag tag--ok">{{icon:check}} TechNext focus app</span>' if app["focus"] else ""
     images = [i for i in c.get("images", []) if not i.endswith(".svg") and not is_strip(i)]
@@ -1875,9 +1900,8 @@ def app_page(mod: str) -> tuple:
   <div class="container fx-hero-in apx-hero-in">
     <div class="apx-copy">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span>Odoo</span><span><a href="{{{{ROOT}}}}odoo/apps.html">Apps</a></span><span><a href="{{{{ROOT}}}}odoo/apps.html#{cat["id"]}">{cat["title"]}</a></span><span>{name}</span></nav>
-      <p class="fx-partner apx-app-pill">{{{{odoo:{mod}:28}}}}<span>Odoo {cat["title"]} app</span></p>
       <h1 id="apx-h1">Odoo {h1name} in Singapore &amp; the Philippines</h1>
-      <p class="app-sub">{headline}</p>
+      {f'<p class="app-sub">{headline}</p>' if headline else ""}
       <p class="fx-lead">{lead}</p>
       <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
       <div class="actions apx-act">
@@ -2318,6 +2342,10 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{TEAM_OFFICES}}" in content:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = re.sub(r"\{\{INDUSTRY_HERO:([a-z-]+)\}\}", lambda m: IFX.hero_html(m.group(1)), content)
+    if "{{INDUSTRY_SWITCH}}" in content:   # home: pick an industry, its sample Odoo panel runs
+        content = content.replace("{{INDUSTRY_SWITCH}}", IFX.switch_html())
+    if "{{FW_NEEDS" in content:   # /free-website-with-odoo: picker chips, the seven live sample panels, the form options, the JSON block
+        content = FW.tokens(content)
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
     if "{{IND_SHOWCASE}}" in content:   # the homepage hero's industries slide

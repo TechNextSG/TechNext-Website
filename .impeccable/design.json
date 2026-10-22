@@ -1,0 +1,1194 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T03:15:00Z",
+  "title": "Design System: technext.asia futuristic redesign",
+  "extensions": {
+    "colorMeta": {
+      "blue": {
+        "role": "primary",
+        "displayName": "TechNext Blue",
+        "canonical": "#3167CA",
+        "oklch": "oklch(53% 0.165 261)",
+        "cssVar": "--blue",
+        "source": "assets/css/site.css",
+        "usage": "Primary buttons, links, selected chips/tabs, data lines, dots, line icons, highlighted headline word.",
+        "tonalRamp": [
+          "#001C5D",
+          "#1E4691",
+          "#3167CA",
+          "#6FA0F5",
+          "#9ABEFE",
+          "#DDE7F8",
+          "#EAF0FB",
+          "#F5F8FE"
+        ],
+        "tonalRampNote": "Steps 2-4 and 6-8 are the project's own --blue-700, --blue, --blue-300, --blue-100, --blue-050 and Field Wash; steps 1 and 5 are synthesised in OKLCH."
+      },
+      "blue-700": {
+        "role": "primary",
+        "displayName": "Deep Blue",
+        "canonical": "#1E4691",
+        "oklch": "oklch(41% 0.132 262)",
+        "cssVar": "--blue-700",
+        "source": "assets/css/site.css",
+        "usage": "Primary hover, link text on pale fills, roles, step numerals, selected-tab titles.",
+        "tonalRamp": [
+          "#000F42",
+          "#052C74",
+          "#264E9A",
+          "#4772C1",
+          "#6C97E6",
+          "#9ABEFE",
+          "#C8DCFE",
+          "#EBF2FE"
+        ]
+      },
+      "blue-300": {
+        "role": "primary",
+        "displayName": "Sky Blue",
+        "canonical": "#6FA0F5",
+        "oklch": "oklch(71% 0.136 261)",
+        "cssVar": "--blue-300",
+        "source": "assets/css/site.css",
+        "usage": "Strokes of idle dots, hover borders, focus ring, bar gradient start, glows. Never text on white (2.62:1).",
+        "tonalRamp": [
+          "#001040",
+          "#002B76",
+          "#234E9C",
+          "#4472C3",
+          "#6998E8",
+          "#99BFFE",
+          "#C8DCFE",
+          "#EBF2FF"
+        ]
+      },
+      "blue-100": {
+        "role": "primary",
+        "displayName": "Mist Blue",
+        "canonical": "#DDE7F8",
+        "oklch": "oklch(93% 0.025 261)",
+        "cssVar": "--blue-100",
+        "source": "assets/css/site.css",
+        "usage": "Input focus halo, rails, current status segment, tracks.",
+        "tonalRamp": [
+          "#0F1622",
+          "#2C3340",
+          "#4B5361",
+          "#6C7584",
+          "#9099A8",
+          "#B7BECA",
+          "#D6DBE3",
+          "#EFF2F7"
+        ]
+      },
+      "blue-050": {
+        "role": "primary",
+        "displayName": "Wash Blue",
+        "canonical": "#EAF0FB",
+        "oklch": "oklch(95% 0.016 263)",
+        "cssVar": "--blue-050",
+        "source": "assets/css/site.css",
+        "usage": "Table heads, skill chips, ghost hover wipe, default tag fill, selected tab tint.",
+        "tonalRamp": [
+          "#12161D",
+          "#2E333B",
+          "#4E535C",
+          "#6F757E",
+          "#9398A2",
+          "#BABEC6",
+          "#D8DBE0",
+          "#F0F2F5"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink Navy",
+        "canonical": "#1F1F3D",
+        "oklch": "oklch(26% 0.056 282)",
+        "cssVar": "--ink",
+        "source": "assets/css/site.css",
+        "usage": "Headings, strong text, dark count block and close band gradient start.",
+        "tonalRamp": [
+          "#13122E",
+          "#2E2F4E",
+          "#4D4F71",
+          "#6F7195",
+          "#9295B9",
+          "#B9BBD9",
+          "#D7D9ED",
+          "#F0F1FD"
+        ]
+      },
+      "navy-mid": {
+        "role": "neutral",
+        "displayName": "Navy Mid",
+        "canonical": "#1E2F66",
+        "oklch": "oklch(32% 0.099 268)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Middle stop of the dark gradients (count readout, close band, sv-dark).",
+        "tonalRamp": [
+          "#050D42",
+          "#1D2E65",
+          "#3B4F89",
+          "#5B72AF",
+          "#7F96D3",
+          "#A9BDEF",
+          "#CCDAFD",
+          "#ECF2FE"
+        ]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body Slate",
+        "canonical": "#4C4C63",
+        "oklch": "oklch(43% 0.038 285)",
+        "cssVar": "--body",
+        "source": "assets/css/site.css",
+        "usage": "Paragraphs, panel labels, table headers.",
+        "tonalRamp": [
+          "#141326",
+          "#313046",
+          "#505067",
+          "#72728A",
+          "#9596AE",
+          "#BBBCD0",
+          "#D9D9E7",
+          "#F1F1F9"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "#62627A",
+        "oklch": "oklch(51% 0.038 285)",
+        "cssVar": "--muted",
+        "source": "assets/css/stage.css (site.css declares #8888A0)",
+        "usage": "Captions, breadcrumbs, secondary meta (effective value from stage.css).",
+        "tonalRamp": [
+          "#141326",
+          "#313046",
+          "#505067",
+          "#72728A",
+          "#9596AE",
+          "#BBBCD0",
+          "#D9D9E7",
+          "#F1F1F9"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#E7E4E9",
+        "oklch": "oklch(92% 0.007 312)",
+        "cssVar": "--line",
+        "source": "assets/css/site.css",
+        "usage": "Idle borders of chips, inputs, cards, proof strip.",
+        "tonalRamp": [
+          "#171518",
+          "#343236",
+          "#545155",
+          "#767378",
+          "#9A979B",
+          "#BFBDC0",
+          "#DBDADC",
+          "#F2F1F3"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100% 0.000 90)",
+        "cssVar": "--paper",
+        "source": "assets/css/site.css",
+        "usage": "Page and solid inner surfaces.",
+        "tonalRamp": [
+          "#161616",
+          "#333333",
+          "#525252",
+          "#747474",
+          "#989898",
+          "#BEBEBE",
+          "#DBDBDB",
+          "#F2F2F2"
+        ]
+      },
+      "alt": {
+        "role": "neutral",
+        "displayName": "Alt Paper",
+        "canonical": "#FAF9FB",
+        "oklch": "oklch(98% 0.003 308)",
+        "cssVar": "--alt",
+        "source": "assets/css/site.css",
+        "usage": "Legacy alternate section background.",
+        "tonalRamp": [
+          "#161617",
+          "#333234",
+          "#535254",
+          "#757476",
+          "#999899",
+          "#BEBDBF",
+          "#DBDADB",
+          "#F2F1F2"
+        ]
+      },
+      "field-wash": {
+        "role": "neutral",
+        "displayName": "Field Wash",
+        "canonical": "#F5F8FE",
+        "oklch": "oklch(98% 0.009 265)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Start of the .fx-sec--alt gradient (ends #FBFCFE), always with the 56px grid mask.",
+        "tonalRamp": [
+          "#14161A",
+          "#313337",
+          "#505357",
+          "#72747A",
+          "#96989D",
+          "#BCBEC2",
+          "#D9DBDE",
+          "#F1F2F3"
+        ]
+      },
+      "field-wash-end": {
+        "role": "neutral",
+        "displayName": "Field Wash End",
+        "canonical": "#FBFCFE",
+        "oklch": "oklch(99% 0.003 265)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "End of the .fx-sec--alt gradient.",
+        "tonalRamp": [
+          "#151617",
+          "#323334",
+          "#525254",
+          "#737476",
+          "#97989A",
+          "#BDBEBF",
+          "#DADBDC",
+          "#F1F2F2"
+        ]
+      },
+      "edge-card": {
+        "role": "neutral",
+        "displayName": "Card Edge",
+        "canonical": "#E3E9F5",
+        "oklch": "oklch(93% 0.017 264)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Border of report sheets, records and journal entries inside panels.",
+        "tonalRamp": [
+          "#12161E",
+          "#2E333C",
+          "#4E535D",
+          "#6F757F",
+          "#9398A3",
+          "#B9BEC6",
+          "#D8DBE1",
+          "#F0F2F5"
+        ]
+      },
+      "edge-row": {
+        "role": "neutral",
+        "displayName": "Row Rule",
+        "canonical": "#EEF1F7",
+        "oklch": "oklch(96% 0.009 265)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Table and list dividers inside panels.",
+        "tonalRamp": [
+          "#14161A",
+          "#313337",
+          "#505357",
+          "#72747A",
+          "#96989D",
+          "#BCBEC2",
+          "#D9DBDE",
+          "#F1F2F3"
+        ]
+      },
+      "neutral-pill": {
+        "role": "neutral",
+        "displayName": "Pending Pill",
+        "canonical": "#F1F2F6",
+        "oklch": "oklch(96% 0.005 275)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Pending/neutral status pill fill.",
+        "tonalRamp": [
+          "#151619",
+          "#323336",
+          "#515256",
+          "#737478",
+          "#97989B",
+          "#BDBDC0",
+          "#DADADC",
+          "#F1F2F3"
+        ]
+      },
+      "track": {
+        "role": "neutral",
+        "displayName": "Status Track",
+        "canonical": "#EAEFF8",
+        "oklch": "oklch(95% 0.013 262)",
+        "cssVar": "(literal)",
+        "source": "assets/css/pages/industry-fx.css",
+        "usage": "Idle segment of the chevron status bar.",
+        "tonalRamp": [
+          "#13161C",
+          "#2F333A",
+          "#4F535A",
+          "#70757C",
+          "#9498A0",
+          "#BABEC4",
+          "#D8DBDF",
+          "#F0F2F4"
+        ]
+      },
+      "ok": {
+        "role": "status",
+        "displayName": "Ledger Green",
+        "canonical": "#137A4A",
+        "oklch": "oklch(51% 0.117 157)",
+        "cssVar": "--ok",
+        "source": "assets/css/site.css",
+        "usage": "Done, balanced, later/exempt verdicts, gain bars.",
+        "tonalRamp": [
+          "#001D0C",
+          "#003E22",
+          "#02633A",
+          "#298857",
+          "#58AD7C",
+          "#8ECFA7",
+          "#BCE7CB",
+          "#E0F9E8"
+        ]
+      },
+      "ok-050": {
+        "role": "status",
+        "displayName": "Green Wash",
+        "canonical": "#E8F5EE",
+        "oklch": "oklch(96% 0.017 163)",
+        "cssVar": "--ok-050",
+        "source": "assets/css/site.css",
+        "usage": "Fill behind Ledger Green text.",
+        "tonalRamp": [
+          "#0F1814",
+          "#2B3630",
+          "#4B5650",
+          "#6C7872",
+          "#909B95",
+          "#B7C0BB",
+          "#D6DCD9",
+          "#EFF3F1"
+        ]
+      },
+      "amber": {
+        "role": "status",
+        "displayName": "Amber",
+        "canonical": "#8F5A00",
+        "oklch": "oklch(51% 0.111 70)",
+        "cssVar": "--fx-amber",
+        "source": "assets/css/home-fx.css",
+        "usage": "Sample data tag, placeholder, warnings, likely verdict.",
+        "tonalRamp": [
+          "#231100",
+          "#492B00",
+          "#734800",
+          "#9D671A",
+          "#C28C4A",
+          "#E1B582",
+          "#F3D5B4",
+          "#FEEFDF"
+        ]
+      },
+      "amber-050": {
+        "role": "status",
+        "displayName": "Amber Wash",
+        "canonical": "#FDF3E1",
+        "oklch": "oklch(97% 0.026 82)",
+        "cssVar": "(literal)",
+        "source": "assets/css/home-fx.css",
+        "usage": "Fill behind Amber text.",
+        "tonalRamp": [
+          "#1C1508",
+          "#393224",
+          "#5A5142",
+          "#7C7363",
+          "#A09787",
+          "#C4BDB0",
+          "#DFDAD1",
+          "#F4F1EC"
+        ]
+      },
+      "red": {
+        "role": "status",
+        "displayName": "Alarm Red",
+        "canonical": "#D93A30",
+        "oklch": "oklch(59% 0.197 28)",
+        "cssVar": "--red",
+        "source": "assets/css/site.css",
+        "usage": "Form errors only.",
+        "tonalRamp": [
+          "#330000",
+          "#660002",
+          "#9E0106",
+          "#CF2F27",
+          "#F66051",
+          "#FFA194",
+          "#FECDC6",
+          "#FFEDEB"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "hero-title": {
+        "displayName": "Hero title",
+        "purpose": ".fx-hero h1 / .fx-h on the home hero panels. Max 15ch, balanced; the highlighted word is Blue with a drawn 0.1em underline."
+      },
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "Inner-page fx heroes (.sv-hero, .ph-hero, .bir-fx .bf-hero, .cx-hero). Max 17-22ch. Industries use clamp(2rem, 1.2rem + 2.2vw, 3rem)."
+      },
+      "section-title": {
+        "displayName": "Section title",
+        "purpose": ".sec-head h2, .fx-who h2, .ixf-two h2. A full sentence in Ink; never a label."
+      },
+      "card-title": {
+        "displayName": "Card title",
+        "purpose": ".fx-node h3 (21px), .pf-card h3 (19px), chain step titles scale up to 1.75rem."
+      },
+      "panel-title": {
+        "displayName": "Panel title",
+        "purpose": "Record and panel headers: .ixf-t b, .fx-sheet-t, .sv-bar b (15-17px)."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "KPIs and countdown: tabular-nums 800; 30px count readout, 22px record KPIs, 16px on phones."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "One paragraph under a title, max 64ch (hero lead 1.13rem / 1.6, 52ch)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base reading text, 16px / 1.65."
+      },
+      "body-card": {
+        "displayName": "Card body",
+        "purpose": "Text inside cards and panels, 14.5-15.5px / 1.55-1.62."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Captions, fine print, sample footnotes, 13-13.5px."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tags, pills, table heads, chip text. 12-13px, 700, no tracking, no uppercase. Floor 12px."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Inter 600 15px (16px on .btn-lg)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "fx-depth",
+        "value": "0 2px 6px rgba(31,31,61,.05), 0 28px 56px -30px rgba(30,70,145,.38)",
+        "purpose": "Resting glass cards and panels (--fx-depth)."
+      },
+      {
+        "name": "fx-depth-h",
+        "value": "0 4px 10px rgba(31,31,61,.06), 0 36px 64px -30px rgba(30,70,145,.48)",
+        "purpose": "Hover, report sheet, core node (--fx-depth-h)."
+      },
+      {
+        "name": "inner-light",
+        "value": "inset 0 1px 0 #fff",
+        "purpose": "Top inner highlight added to every glass panel."
+      },
+      {
+        "name": "chip-selected",
+        "value": "0 10px 22px -12px rgba(49,103,202,.75), inset 0 1px 0 rgba(255,255,255,.25)",
+        "purpose": "Selected tap chip."
+      },
+      {
+        "name": "tab-selected",
+        "value": "0 0 0 1px #3167CA, 0 18px 34px -22px rgba(49,103,202,.7)",
+        "purpose": "Chosen report or industry tab (ring plus soft shadow)."
+      },
+      {
+        "name": "shadow-sm",
+        "value": "0 1px 2px rgba(31,31,61,.06), 0 8px 24px -18px rgba(31,31,61,.25)",
+        "purpose": "Shell: small controls (--shadow-sm)."
+      },
+      {
+        "name": "shadow-md",
+        "value": "0 2px 6px rgba(31,31,61,.06), 0 24px 48px -28px rgba(31,31,61,.35)",
+        "purpose": "Shell: card hover (--shadow-md)."
+      },
+      {
+        "name": "shadow-blue",
+        "value": "0 12px 28px -12px rgba(49,103,202,.55)",
+        "purpose": "Primary button hover (--shadow-blue)."
+      },
+      {
+        "name": "dark-block",
+        "value": "0 18px 34px -22px rgba(30,70,145,.8), inset 0 1px 0 rgba(255,255,255,.12)",
+        "purpose": "Dark count readout (.fx-count, .sv-kpis)."
+      },
+      {
+        "name": "close-band",
+        "value": "0 40px 80px -40px rgba(30,70,145,.7)",
+        "purpose": "Navy close band (.fx-close)."
+      },
+      {
+        "name": "glow-lit",
+        "value": "0 0 0 5px rgba(49,103,202,.16), 0 0 14px rgba(49,103,202,.55)",
+        "purpose": "A lit data dot or timeline node."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fx-ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "The house curve (ease-out expo): --fx-ease, --ease-expo, --bt-ease, and --spring rebound inside fx pages."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.2, .8, .2, 1)",
+        "purpose": "Shell UI: mega menu, drawers, reveals (--ease-out)."
+      },
+      {
+        "name": "spring",
+        "value": "cubic-bezier(.34, 1.45, .64, 1)",
+        "purpose": "Shell buttons and icon pops only (--spring in site.css); not used inside fx pages."
+      },
+      {
+        "name": "reveal",
+        "value": "380ms ease-out, 70ms stagger per --i, translateY(14px) -> 0",
+        "purpose": ".reveal -> .is-in (site.js, 6 per frame)."
+      },
+      {
+        "name": "hover-press",
+        "value": "220-400ms; lift 2-4px; press scale .96",
+        "purpose": "Buttons, cards, chips, tabs."
+      },
+      {
+        "name": "stage-step",
+        "value": "450-900ms",
+        "purpose": "Panel and chain stage transitions (opacity/transform)."
+      },
+      {
+        "name": "count-up",
+        "value": "1100ms, 1 - 2^(-10p)",
+        "purpose": "[data-count] numerals (industry-fx.js runCount); data-pre/suf/dec formatting."
+      },
+      {
+        "name": "panel-cycle",
+        "value": "stages at 0.5 / 1.9 / 3.5 / 4.7 s, restart at 11.5 s",
+        "purpose": "Sample Odoo record replay (.ixf-panel); waits while off-screen or document.hidden."
+      },
+      {
+        "name": "loops",
+        "value": "beam 1.8s, rail 3.6s, edge spin 5s, orb drift 18-22s, ping 1.6s",
+        "purpose": "Decorative loops; paused with .fx-off / [data-loop].is-off."
+      },
+      {
+        "name": "pause-offscreen",
+        "value": "IntersectionObserver toggles .fx-off (threshold .05 or rootMargin 80px)",
+        "purpose": "Pauses CSS animation-play-state off-screen."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce) -> finished state",
+        "purpose": "JS skips .is-js; animations none; transitions none; .reveal visible; live edge becomes a static ring."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "desktop-fx",
+        "value": "1080px",
+        "purpose": "fx grids go single column; sticky panels static; report tabs 3 cols; industry tabs become a pill row."
+      },
+      {
+        "name": "shell",
+        "value": "960px",
+        "purpose": "Desktop nav -> drawer; header 72 -> 64px; side tabs -> round + fan; page .two grids stack."
+      },
+      {
+        "name": "control-tower",
+        "value": "900px",
+        "purpose": "BIR control tower becomes console + chip row; fx-check stacks."
+      },
+      {
+        "name": "chain",
+        "value": "860px",
+        "purpose": ".ixf-chain collapses to a left rail."
+      },
+      {
+        "name": "phone-audit",
+        "value": "767px",
+        "purpose": "44px targets, 12px floor on demo microcopy."
+      },
+      {
+        "name": "phone",
+        "value": "600px",
+        "purpose": "Section padding 72px; 1-column grids; tables scroll in card; full-width buttons."
+      },
+      {
+        "name": "small-phone",
+        "value": "480px",
+        "purpose": "Hero buttons stack full width."
+      }
+    ],
+    "fonts": {
+      "display": {
+        "family": "Plus Jakarta Sans",
+        "stack": "'Plus Jakarta Sans', 'Jakarta Fallback', Inter, 'Inter Fallback', system-ui, sans-serif",
+        "loadedWeights": [
+          500,
+          600,
+          700,
+          800
+        ],
+        "cssVar": "--font-display"
+      },
+      "body": {
+        "family": "Inter",
+        "stack": "Inter, 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif",
+        "loadedWeights": [
+          400,
+          500,
+          600
+        ],
+        "cssVar": "--font-body",
+        "note": "CSS also asks for 650/700, which resolve to 600."
+      },
+      "metricFallbacks": [
+        "Inter Fallback (Arial, size-adjust 106.18% / 101.64%)",
+        "Jakarta Fallback (Arial Bold, size-adjust 101.8%)"
+      ],
+      "minSize": "12px"
+    },
+    "typeScale": {
+      "hero-title": "clamp(2.4rem, 1.4rem + 3.3vw, 4.1rem) / 1.03, 800, -0.035em, max 15ch",
+      "page-title": "clamp(2.1rem, 1.3rem + 2.7vw, 3.5rem) / 1.06, 800, -0.035em, max 17-22ch",
+      "section-title": "clamp(1.9rem, 1.2rem + 2vw, 2.85rem) / 1.1, 800, -0.03em",
+      "card-title": "19-21px / 1.2, 800, -0.015em",
+      "panel-title": "15-17px / 1.2, 800",
+      "numeral": "22-30px / 1, 800, tabular-nums",
+      "lead": "1.08rem / 1.65 (hero 1.13rem / 1.6), max 64ch",
+      "body": "16px / 1.65",
+      "card-body": "14.5-15.5px / 1.55-1.62",
+      "small": "13-13.5px / 1.5",
+      "label": "12-13px / 1.2, 700, no tracking"
+    },
+    "radii": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "12px",
+      "row": "14px",
+      "lg": "16px",
+      "xl": "20px",
+      "card": "22px",
+      "panel": "24px",
+      "band": "28px",
+      "pill": "999px"
+    },
+    "spacing": {
+      "container": "1200px",
+      "gutter": "24px (18px at 640px and below)",
+      "section-y": "104px (72px at 600px and below; shell .section 96/56)",
+      "head-gap": "48px",
+      "gap-card": "20px",
+      "gap-two-col": "56px",
+      "gap-chip": "8px",
+      "panel-pad": "28px (hero panels 20-22px)",
+      "card-pad": "24px",
+      "header": "72px (64px at 960px and below)"
+    },
+    "glass": {
+      "background": "rgba(255,255,255,.72)",
+      "border": "1px solid rgba(255,255,255,.95)",
+      "boxShadow": "var(--fx-depth), inset 0 1px 0 #fff",
+      "backdropFilter": "blur(14px)",
+      "blurTiers": {
+        "chip-node": "10px",
+        "row": "12px",
+        "card": "14px",
+        "demo-frame": "16px",
+        "hero-panel": "18px + saturate(1.4)"
+      },
+      "opacityTiers": {
+        "default": 0.72,
+        "overlapping-node": "0.82-0.86",
+        "legible-record": 0.92,
+        "solid": 1
+      },
+      "radius": "22-24px",
+      "liveEdge": "1.5px masked conic-gradient ring, @property --fx-a, 5s linear spin (.fx-result-glow)",
+      "field": "Glass must sit over .fx-field, .fx-sec--alt or a tinted wash; on plain white it reads as a flat card."
+    },
+    "classCatalogue": [
+      {
+        "group": "tokens",
+        "class": ".fx-home, .fx-page",
+        "description": "Scope for glass tokens: --fx-glass, --fx-edge, --fx-line, --fx-grid, --fx-depth, --fx-depth-h, --fx-amber, --fx-ease. Home body is .is-home.fx-home; inner pages .fx-page + page class (.ind-fx, .bir-fx, .svc-fx, .ph-fx, .gs-fx, .art-fx, .cx-page)."
+      },
+      {
+        "group": "section",
+        "class": ".section.fx-sec / .fx-sec--alt",
+        "description": "104px section (72px phones); alt = Field Wash gradient + 56px grid mask."
+      },
+      {
+        "group": "section",
+        "class": ".sec-head (+ .lead)",
+        "description": "Max 760px, 48px below; H2 + one lead."
+      },
+      {
+        "group": "hero",
+        "class": ".fx-hero, .fx-hero-in, .fx-field, .fx-orb",
+        "description": "Two-column hero 1.08fr / .92fr on a glow-and-grid field with drifting orbs."
+      },
+      {
+        "group": "hero",
+        "class": ".fx-partner",
+        "description": "Glass pill with the Odoo Ready Partner mark above the H1."
+      },
+      {
+        "group": "hero",
+        "class": ".fx-h, .fx-hl, .fx-lead",
+        "description": "Hero title, highlighted word with drawn underline, hero lead."
+      },
+      {
+        "group": "hero",
+        "class": ".slide--bir / .bt, .bt-core, .bt-node, .bt-beam, .bt-days, .bt-sample",
+        "description": "Home slide 3: BIR control tower (hero-bir.css, hero-bir.js)."
+      },
+      {
+        "group": "hero",
+        "class": ".slide--check / .fx-check, .fx-q, .fx-row, .fx-chips, .fx-result",
+        "description": "Home slide 4: readiness check (bir-check.js). Not a home section."
+      },
+      {
+        "group": "control",
+        "class": ".btn .btn-primary / .btn-ghost / .btn-white / .btn-outline-white / .btn-link, .btn-lg, .btn-sm",
+        "description": "Buttons (site.css; calm.css retunes heights on inner pages)."
+      },
+      {
+        "group": "control",
+        "class": ".fx-chips label > span",
+        "description": "44px tap chip over a hidden radio/checkbox."
+      },
+      {
+        "group": "status",
+        "class": ".fx-pill[data-verdict], .ixf-pill[data-tone], .sv-st.is-ok, .ixf-chip[data-tone], .tag, .tag--ok, .tag--warn",
+        "description": "Status pills and tags: covered/likely/later/exempt/pending."
+      },
+      {
+        "group": "status",
+        "class": ".fx-tag, .ixf-browser em, .bt-sample, .ix-sample, .bf-sample",
+        "description": "Amber 'Sample data' tag (required on illustrative figures)."
+      },
+      {
+        "group": "panel",
+        "class": ".fx-result, .fx-result-glow, .ixf-panel, .sv-panel, .cx-panel, .ph-dash",
+        "description": "Glass panels with the live conic edge."
+      },
+      {
+        "group": "panel",
+        "class": ".ixf-bar/.ixf-seg, .ixf-kpis/.ixf-k, .ixf-bars, .ixf-tbl, .ixf-wire, .ixf-post/.ixf-led/.ixf-bal, .ixf-chips",
+        "description": "Parts of the sample Odoo record: chevron status bar, KPIs, bars/table, glowing wire, journal entry (Dr = Cr), chips."
+      },
+      {
+        "group": "panel",
+        "class": ".fx-count",
+        "description": "Dark navy count readout (days, hours, minutes) with tabular numerals."
+      },
+      {
+        "group": "list",
+        "class": ".fx-steps (.is-on, .is-off), .fx-dot",
+        "description": "Step list on a 2px rail with ring dots that light up."
+      },
+      {
+        "group": "list",
+        "class": ".fx-ledger, .fx-beam, .fx-sheet, .fx-tbl (.fx-tbl-wrap, .n, tfoot), .fx-ok",
+        "description": "Report viewer pieces: ledger rows, travelling beam, white report sheet, sample table."
+      },
+      {
+        "group": "tabs",
+        "class": ".fx-rep-tabs button[aria-selected]",
+        "description": "Five report tabs (role=tablist)."
+      },
+      {
+        "group": "tabs",
+        "class": ".ixs, .ixs-tabs .fx-ind[aria-selected], .ixs-stage, .ixs-pane, .ixs-go",
+        "description": "Home industries switch: 8 tabs beside the picked industry's live panel."
+      },
+      {
+        "group": "chain",
+        "class": ".ixf-chain, .ixf-step, .ixf-info, .ixf-node, .ixf-rec, .ixf-meta",
+        "description": "Workflow chain: glowing line, alternating info and glass Odoo record cards."
+      },
+      {
+        "group": "chain",
+        "class": ".fx-rail, .fx-rail-line, .fx-node, .fx-node--core, .fx-node-ic",
+        "description": "Practices rail of three glass nodes."
+      },
+      {
+        "group": "chain",
+        "class": ".sv-journey, .bf-tl, .ixf-phases-sec",
+        "description": "Journey stepper and timeline variants."
+      },
+      {
+        "group": "card",
+        "class": ".pf-grid, .pf-card[data-ph], .pf-ava, .pf-ring, .pf-skills, .pf-cos",
+        "description": "Adviser profile cards; data-ph = dashed placeholder, previews only."
+      },
+      {
+        "group": "card",
+        "class": ".fx-who, .fx-points, .fx-clients, .cw-list/.cw-item",
+        "description": "Who we are copy + glass client wall."
+      },
+      {
+        "group": "card",
+        "class": ".fx-inds, .fx-ind",
+        "description": "Industry link tile (bare line icon + name + one line)."
+      },
+      {
+        "group": "strip",
+        "class": ".fx-proof, .fx-proof-in",
+        "description": "Proof strip between hairlines."
+      },
+      {
+        "group": "faq",
+        "class": ".fx-faq, .faq details/summary, .faq-a",
+        "description": "Glass FAQ rows, one open."
+      },
+      {
+        "group": "close",
+        "class": ".fx-close-sec, .fx-close, .fx-close-glow, .actions",
+        "description": "Navy close band with the two actions."
+      },
+      {
+        "group": "dark",
+        "class": ".sv-dark, .sv-kpis",
+        "description": "Dark navy section variant on service pages; h2 needs color:#fff !important."
+      },
+      {
+        "group": "utility",
+        "class": ".fx-off, [data-loop].is-off",
+        "description": "Set by IntersectionObserver to pause loops off-screen."
+      },
+      {
+        "group": "utility",
+        "class": ".reveal / .is-in, [data-count]",
+        "description": "Scroll reveal and count-up hooks."
+      },
+      {
+        "group": "utility",
+        "class": ".sr-only, .skip, .oi, .ic",
+        "description": "Visually hidden text, skip link, flat Odoo icon, line icon."
+      }
+    ],
+    "hardRules": [
+      "Light theme only; no dark mode.",
+      "No icon tiles: bare line icons and flat Odoo icons.",
+      "No eyebrows or kickers; headings are sentences.",
+      "No gradient text.",
+      "No cartoon or illustrated art.",
+      "Sample data is always labelled 'Sample data'.",
+      "Never BIR-accredited / certified / compliant for software; say 'set up for BIR requirements'.",
+      "No prices; Odoo is never described as free.",
+      "No WhatsApp number or link; WhatsApp only as an Odoo product feature.",
+      "Nexi only in the Ask Nexi launcher, the Nexi Explains series and the home hero.",
+      "British spelling; 'adviser'.",
+      "Minimum text size 12px; text contrast >= 4.5:1.",
+      "Finished state is the default markup; prefers-reduced-motion shows it; loops pause off-screen."
+    ],
+    "inconsistencies": [
+      "--muted: #8888A0 (site.css, 3.46:1 on white) vs #62627A (stage.css, wins as loaded later) vs #5E5E78 (.aix-fx) vs #5C5F78 (.gs-fx main); --muted-a11y duplicates #62627A.",
+      "Amber: --amber #A96B00 on --amber-050 #FDF6E9 (site.css, 4.08:1, fails) vs --fx-amber #8F5A00 on #FDF3E1 (home-fx, hero-bir, 5.26:1); .ind-fx/.aix-fx rebind --amber to #8F5A00; --gold #D69A00 in stage.css.",
+      "--spring: bouncy cubic-bezier(.34,1.45,.64,1) in site.css but rebound to cubic-bezier(.16,1,.3,1) inside .ind-fx/.aix-fx/.mkt-fx/.erp-fx/.qt-fx/.svc-fx; --ease-expo defined in stage.css and again in three page scopes; five easing names total (--fx-ease, --bt-ease, --ease-out, --spring, --w-ease).",
+      "Glass tokens duplicated: --glass/--glass-line (site.css, .72/.9) vs --fx-glass/--fx-edge (home-fx, .72/.95); hero-bir and industry-fx hard-code .82/.86/.92 variants.",
+      "Hairline greys: --line #E7E4E9 (warm) vs --calm-line #E4E8F0 (cool) vs #E3E9F5 and #EEF1F7 literals; --blue-100 #DDE7F8 vs --calm-accent-line #C9D7F1.",
+      "Radius has no token scale in fx: --r-sm 8 / --r 14 / --r-lg 20 in site.css, but fx uses 10-28px literals; the same role varies (glass card 22 vs 24 vs 26; close band 28; .ixf-rec/.fx-ledger 20).",
+      "Inter weights 650 and 700 are used widely but Google Fonts requests Inter 400/500/600 only (700 resolves to 600); Caveat (500/600/700) is still requested although calm.css remaps --font-hand to the display face.",
+      "Text under 12px: .fx-count small 11.5px, .pf-card[data-ph]::after 11.5px, hero-bir .bt-days 11.5px / .bt-sample 11px / .bt-node small 11.5px, and 100+ declarations of 9-11.5px in hero.css (slide 1 and 2 scenes); stage.css phone audit pins demo small print at 11px with !important.",
+      "Focus ring: global :focus-visible is 2px solid --blue (offset 2); fx components use 3px solid --blue-300 #6FA0F5 (offset 3), which is 2.62:1 on white (<3:1 for UI strokes).",
+      "Three H2 scales: site.css clamp(1.75rem,3.1vw,2.6rem); fx clamp(1.9rem,1.2rem+2vw,2.85rem); calm.css clamp(1.7rem,2.6vw,2.35rem) !important (ind-fx overrides back with !important). Six H1 scales across hero.css, home-fx, page-hero, ind-fx, bir-fx, svc-fx, cx-hero.",
+      "Button height: .btn 46px (lg 52, sm 38) on the home page (calm.css not loaded) vs 48/48/40 with lift, sweep and ::before/::after removed on inner pages (calm.css); active scale .96 vs .98.",
+      "calm.css still styles .hand/.h1-hand/.eyebrow as uppercase tracked kickers with the plane mark (!important); site.css keeps .eyebrow, .card-kicker; .cw-h and .mega-head are uppercase tracked labels. None appear in the home markup (verified) but the classes remain available.",
+      "Dead legacy: .wa-float WhatsApp-green (#25D366) rules in site.css although no page emits a WhatsApp button (.wa-float-tip is reused by the catalogue button); .nexi-tab violet gradient #6B5BFF overridden by flat blue; 29 tile-style .ic-ind icon definitions in sitedata.py (build swaps to flat ic-flat).",
+      "Off-accent hues in hero scenes: --tok-buy #D97B12, --tok-make #7447D6, --tok-late #D2433B, --tok-pay #0E9384 (hero.css process map), --odoo #714B67 (.tag--odoo), hero-skins.css Nexi palettes. Intentional scene data hues, not part of the page system.",
+      "Breakpoints: fx uses 1080/900/600/480 plus 1000, 980, 860, 767, 760, 720, 700, 640, 420; shell uses 960/1100/640. Between 961-1080px the header is desktop while fx heroes are already single column.",
+      "Section padding: .section 96/56 (site) vs .fx-sec 104/72 vs .art-fx 88 vs .fx-hero--sec 96/104 vs close band 24/104 (home) or 24/96 (ind-fx)."
+    ],
+    "contrast": {
+      "blue on paper": 5.35,
+      "paper on blue": 5.35,
+      "ink on paper": 15.89,
+      "body on paper": 8.33,
+      "muted (#62627A) on paper": 5.92,
+      "muted (#8888A0, site.css) on paper": 3.46,
+      "ok on ok-050": 4.79,
+      "amber (#8F5A00) on amber-050 (#FDF3E1)": 5.26,
+      "amber (#A96B00) on #FDF6E9 (site.css)": 4.08,
+      "blue-700 on blue-050": 7.84,
+      "blue on blue-050": 4.68,
+      "blue-300 on paper (focus ring)": 2.62
+    },
+    "sources": [
+      "assets/css/site.css",
+      "assets/css/stage.css",
+      "assets/css/home-fx.css",
+      "assets/css/hero.css",
+      "assets/css/hero-bir.css",
+      "assets/css/calm.css",
+      "assets/css/calm-global.css",
+      "assets/css/pages/industry-fx.css",
+      "assets/css/pages/svc-fx.css",
+      "assets/css/pages/bir-e-invoicing-fx.css",
+      "assets/css/pages/get-started-fx.css",
+      "assets/css/pages/article-fx.css",
+      "assets/js/pages/industry-fx.js",
+      "assets/js/bir-check.js",
+      "assets/js/site.js",
+      "PRODUCT.md",
+      ".impeccable/surfaces/src-pages-index-html.md"
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "classNames": [
+        ".btn",
+        ".btn-primary",
+        ".btn-lg"
+      ],
+      "description": "The one primary action per view (Book a discovery call). Blue fill, 12px radius, 46px high, arrow slides on hover.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Book a discovery call <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 20px;border:1px solid transparent;border-radius:12px;background:var(--blue,#3167CA);color:#fff;font:600 15px/1 var(--font-body,Inter,system-ui,sans-serif);cursor:pointer;box-shadow:0 1px 2px rgba(31,31,61,.08);transition:transform .22s cubic-bezier(.16,1,.3,1),background-color .18s ease,box-shadow .22s ease}.ds-btn-primary svg{width:18px;height:18px;transition:transform .28s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:var(--blue-700,#1E4691);box-shadow:0 12px 28px -12px rgba(49,103,202,.55);transform:translateY(-2px)}.ds-btn-primary:hover svg{transform:translateX(4px)}.ds-btn-primary:active{transform:scale(.96)}.ds-btn-primary:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "classNames": [
+        ".btn",
+        ".btn-ghost"
+      ],
+      "description": "Secondary action (See sample BIR reports). White with a hairline; Wash Blue wipes in from the left on hover.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\"><span>See sample BIR reports</span></button>",
+      "css": ".ds-btn-ghost{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 20px;border:1px solid var(--line,#E7E4E9);border-radius:12px;background:#fff;color:var(--ink,#1F1F3D);font:600 15px/1 var(--font-body,Inter,system-ui,sans-serif);cursor:pointer;transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .18s ease,color .18s ease}.ds-btn-ghost::before{content:'';position:absolute;inset:0;background:var(--blue-050,#EAF0FB);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1);z-index:-1}.ds-btn-ghost:hover{border-color:var(--blue-100,#DDE7F8);color:var(--blue-700,#1E4691);transform:translateY(-2px)}.ds-btn-ghost:hover::before{transform:scaleX(1)}.ds-btn-ghost:active{transform:scale(.96)}.ds-btn-ghost:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}"
+    },
+    {
+      "name": "Tap Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "classNames": [
+        ".fx-chips",
+        ".fx-chips label",
+        ".fx-chips span"
+      ],
+      "description": "Answer chip over a hidden radio. 44px, pill; checked = Blue fill with a pressed shadow.",
+      "html": "<div class=\"ds-chips\" role=\"radiogroup\" aria-label=\"Sample question\"><label><input type=\"radio\" name=\"ds-q\" checked><span>We invoice on a CAS</span></label><label><input type=\"radio\" name=\"ds-q\"><span>Books are manual</span></label><label><input type=\"radio\" name=\"ds-q\"><span>Not sure yet</span></label></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:8px}.ds-chips label{position:relative}.ds-chips input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}.ds-chips span{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;cursor:pointer;user-select:none;background:rgba(255,255,255,.8);border:1px solid var(--line,#E7E4E9);color:var(--ink,#1F1F3D);font:550 14.5px/1.2 var(--font-body,Inter,system-ui,sans-serif);transition:background-color .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1)}.ds-chips label:hover span{border-color:#6FA0F5;transform:translateY(-1px)}.ds-chips input:checked+span{background:var(--blue,#3167CA);border-color:var(--blue,#3167CA);color:#fff;box-shadow:0 10px 22px -12px rgba(49,103,202,.75),inset 0 1px 0 rgba(255,255,255,.25)}.ds-chips input:focus-visible+span{outline:3px solid #6FA0F5;outline-offset:3px}"
+    },
+    {
+      "name": "Status Pills and Sample Tag",
+      "kind": "chip",
+      "refersTo": "status-pill-covered",
+      "classNames": [
+        ".fx-pill[data-verdict]",
+        ".fx-tag",
+        ".ixf-pill",
+        ".sv-st"
+      ],
+      "description": "Verdict pills (covered, likely, later, pending) and the required amber 'Sample data' tag.",
+      "html": "<div class=\"ds-pills\"><span class=\"ds-pill ds-pill--covered\"><i></i>Covered by 31 December 2026</span><span class=\"ds-pill ds-pill--likely\"><i></i>Likely covered</span><span class=\"ds-pill ds-pill--later\"><i></i>Later wave</span><span class=\"ds-pill\"><i></i>Pending</span><span class=\"ds-tag\">Sample data</span></div>",
+      "css": ".ds-pills{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ds-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#F1F2F6;color:var(--body,#4C4C63);font:700 13.5px/1.1 var(--font-body,Inter,system-ui,sans-serif)}.ds-pill i{width:8px;height:8px;border-radius:50%;background:currentColor}.ds-pill--covered{background:var(--blue,#3167CA);color:#fff}.ds-pill--likely{background:#FDF3E1;color:#8F5A00}.ds-pill--later{background:var(--ok-050,#E8F5EE);color:var(--ok,#137A4A)}.ds-tag{padding:5px 10px;border-radius:999px;background:#FDF3E1;color:#8F5A00;font:700 12px/1 var(--font-body,Inter,system-ui,sans-serif)}"
+    },
+    {
+      "name": "Glass Result Panel",
+      "kind": "card",
+      "refersTo": "glass-panel",
+      "classNames": [
+        ".fx-result",
+        ".fx-result-glow",
+        ".fx-pill",
+        ".fx-count",
+        ".fx-steps",
+        ".fx-dot"
+      ],
+      "description": "Signature component: frosted result panel with a live verdict pill, dark count readout and a step list on a glowing rail. Sits over a glow-and-grid field.",
+      "html": "<div class=\"ds-field\"><section class=\"ds-result\" aria-label=\"Sample result\"><div class=\"ds-result-top\"><p class=\"ds-r-label\">Your BIR readiness</p><p class=\"ds-pill-v\"><i></i>Covered</p></div><p class=\"ds-r-say\">You are in the first e-invoicing group. Here is what Odoo needs to do before 31 December 2026.</p><div class=\"ds-count\"><div><b>70</b><small>days</small></div><div><b>12</b><small>hours</small></div><div><b>30</b><small>min</small></div><p>until 31 December 2026</p></div><ol class=\"ds-steps\"><li class=\"is-on\"><span class=\"ds-dot\"></span><span><b>Permit to Issue</b><span>Apply for your PTI</span></span></li><li class=\"is-on\"><span class=\"ds-dot\"></span><span><b>Books in ORUS</b><span>Register the system you use</span></span></li><li><span class=\"ds-dot\"></span><span><b>2307 and SLSP from Odoo</b><span>Generated from posted entries</span></span></li></ol><span class=\"ds-tag\">Sample data</span></section></div>",
+      "css": ".ds-field{padding:28px;border-radius:24px;background-color:#F5F8FE;background-image:linear-gradient(rgba(49,103,202,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(49,103,202,.07) 1px,transparent 1px),radial-gradient(60% 55% at 78% 30%,rgba(111,160,245,.20),transparent 70%);background-size:48px 48px,48px 48px,auto}.ds-result{position:relative;max-width:440px;margin:0 auto;border-radius:24px;padding:28px 28px 22px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);box-shadow:0 2px 6px rgba(31,31,61,.05),0 28px 56px -30px rgba(30,70,145,.38),inset 0 1px 0 #fff;-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);font-family:var(--font-body,Inter,system-ui,sans-serif)}.ds-result-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.ds-r-label{margin:0;font:700 13px/1 var(--font-body,Inter,system-ui,sans-serif);color:var(--body,#4C4C63)}.ds-pill-v{display:inline-flex;align-items:center;gap:8px;margin:0;padding:8px 14px;border-radius:999px;background:var(--blue,#3167CA);color:#fff;font:700 13.5px/1.1 var(--font-body,Inter,system-ui,sans-serif)}.ds-pill-v i{width:8px;height:8px;border-radius:50%;background:currentColor}.ds-r-say{margin:16px 0 18px;font:600 1.06rem/1.5 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D)}.ds-count{display:grid;grid-template-columns:repeat(3,auto) 1fr;align-items:end;gap:6px 14px;padding:16px 18px;border-radius:16px;margin-bottom:18px;background:linear-gradient(135deg,#1F1F3D,#1E2F66 70%,#1E4691);color:#fff;box-shadow:0 18px 34px -22px rgba(30,70,145,.8),inset 0 1px 0 rgba(255,255,255,.12)}.ds-count div{display:grid}.ds-count b{color:#fff;font:800 30px/1 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);font-variant-numeric:tabular-nums;letter-spacing:-.02em}.ds-count small{margin-top:4px;font:600 12px/1.2 var(--font-body,Inter,system-ui,sans-serif);color:rgba(255,255,255,.72)}.ds-count p{margin:0;align-self:center;font:500 13px/1.35 var(--font-body,Inter,system-ui,sans-serif);color:rgba(255,255,255,.8)}.ds-steps{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:4px;position:relative}.ds-steps::before{content:'';position:absolute;left:7px;top:12px;bottom:12px;width:2px;background:rgba(49,103,202,.16)}.ds-steps li{position:relative;display:grid;grid-template-columns:16px 1fr;gap:14px;padding:8px 0;opacity:.5}.ds-steps li.is-on{opacity:1}.ds-steps li b{display:block;font:650 14.5px/1.3 var(--font-body,Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D)}.ds-steps li span span{font-size:13.5px;line-height:1.45;color:var(--body,#4C4C63)}.ds-dot{position:relative;z-index:1;width:16px;height:16px;margin-top:2px;border-radius:50%;background:#fff;border:2px solid #6FA0F5}.ds-steps li.is-on .ds-dot{background:var(--blue,#3167CA);border-color:var(--blue,#3167CA);box-shadow:0 0 0 5px rgba(49,103,202,.16),0 0 14px rgba(49,103,202,.55)}.ds-tag{display:inline-block;padding:5px 10px;border-radius:999px;background:#FDF3E1;color:#8F5A00;font:700 12px/1 var(--font-body,Inter,system-ui,sans-serif)}"
+    },
+    {
+      "name": "Report Tab",
+      "kind": "nav",
+      "refersTo": "glass-card",
+      "classNames": [
+        ".fx-rep-tabs button",
+        "[aria-selected=true]"
+      ],
+      "description": "Tab in the BIR report viewer (role=tablist). Selected = white with a Blue ring and Blue title.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"BIR reports\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\" type=\"button\"><b>2307</b><small>Withholding certificate</small></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" type=\"button\"><b>SLSP</b><small>Summary list</small></button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\" type=\"button\"><b>2550Q</b><small>Quarterly VAT</small></button></div>",
+      "css": ".ds-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.ds-tab{display:grid;gap:4px;text-align:left;padding:14px 16px;min-height:64px;border-radius:16px;cursor:pointer;background:rgba(255,255,255,.75);border:1px solid var(--line,#E7E4E9);font-family:var(--font-body,Inter,system-ui,sans-serif);transition:border-color .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1),background-color .3s}.ds-tab b{font:800 17px/1.1 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D);letter-spacing:-.01em}.ds-tab small{font-size:13px;color:var(--body,#4C4C63)}.ds-tab:hover{border-color:#6FA0F5;transform:translateY(-2px)}.ds-tab[aria-selected='true']{background:#fff;border-color:var(--blue,#3167CA);box-shadow:0 0 0 1px var(--blue,#3167CA),0 18px 34px -22px rgba(49,103,202,.7)}.ds-tab[aria-selected='true'] b{color:var(--blue,#3167CA)}.ds-tab:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}"
+    },
+    {
+      "name": "Sample Report Table",
+      "kind": "card",
+      "refersTo": "table-head",
+      "classNames": [
+        ".fx-sheet",
+        ".fx-tbl",
+        ".fx-tag",
+        ".fx-ok"
+      ],
+      "description": "White report sheet with a 3px Blue top edge, Wash Blue header row, tabular numerals, a 2px Ink total rule and the amber 'Sample data' tag.",
+      "html": "<div class=\"ds-sheet\"><div class=\"ds-sheet-top\"><span class=\"ds-sheet-t\">Form 2307 - sample payee list</span><span class=\"ds-tag\">Sample data</span></div><table class=\"ds-tbl\"><thead><tr><th>Payee</th><th>ATC</th><th class=\"ds-n\">Income</th><th class=\"ds-n\">Withheld</th></tr></thead><tbody><tr><td>Sample Supplier A</td><td>WC158</td><td class=\"ds-n\">120,000.00</td><td class=\"ds-n\">1,200.00</td></tr><tr><td>Sample Supplier B</td><td>WI010</td><td class=\"ds-n\">80,000.00</td><td class=\"ds-n\">4,000.00</td></tr></tbody><tfoot><tr><td colspan=\"2\">Total</td><td class=\"ds-n\">200,000.00</td><td class=\"ds-n\">5,200.00</td></tr></tfoot></table></div>",
+      "css": ".ds-sheet{position:relative;max-width:520px;border-radius:20px;padding:22px 22px 18px;background:#fff;border:1px solid #E3E9F5;box-shadow:0 4px 10px rgba(31,31,61,.06),0 36px 64px -30px rgba(30,70,145,.48);font-family:var(--font-body,Inter,system-ui,sans-serif)}.ds-sheet::before{content:'';position:absolute;left:22px;right:22px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--blue,#3167CA)}.ds-sheet-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.ds-sheet-t{font:800 17px/1.2 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D)}.ds-tag{flex:none;padding:5px 10px;border-radius:999px;background:#FDF3E1;color:#8F5A00;font:700 12px/1 var(--font-body,Inter,system-ui,sans-serif)}.ds-tbl{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}.ds-tbl th{text-align:left;padding:9px 10px;font:700 12px/1.2 var(--font-body,Inter,system-ui,sans-serif);color:var(--body,#4C4C63);background:var(--blue-050,#EAF0FB);white-space:nowrap}.ds-tbl .ds-n{text-align:right}.ds-tbl td{padding:10px;border-bottom:1px solid #EEF1F7;color:var(--ink,#1F1F3D);white-space:nowrap}.ds-tbl tfoot td{font-weight:800;border-top:2px solid var(--ink,#1F1F3D);border-bottom:0}"
+    },
+    {
+      "name": "Industry Tab",
+      "kind": "nav",
+      "refersTo": "glass-card",
+      "classNames": [
+        ".ixs-tabs",
+        ".fx-ind",
+        "[aria-selected=true]"
+      ],
+      "description": "Home industries switch tab: bare Blue line icon, name, one line. Selected = Blue border, light tint and ring.",
+      "html": "<div class=\"ds-ixs\" role=\"tablist\" aria-label=\"Industries\"><button class=\"ds-ind\" role=\"tab\" aria-selected=\"true\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 21V8l9-5 9 5v13M9 21v-6h6v6\"/></svg><span><b>Construction</b><small>Projects, subcontractors, progress billing</small></span></button><button class=\"ds-ind\" role=\"tab\" aria-selected=\"false\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0\"/></svg><span><b>Retail</b><small>Stores, stock, point of sale</small></span></button></div>",
+      "css": ".ds-ixs{display:grid;gap:8px;max-width:340px}.ds-ind{display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;width:100%;text-align:left;padding:12px 16px;border-radius:18px;cursor:pointer;background:rgba(255,255,255,.82);border:1px solid var(--line,#E7E4E9);font-family:var(--font-body,Inter,system-ui,sans-serif);color:inherit;transition:border-color .3s cubic-bezier(.16,1,.3,1),box-shadow .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1)}.ds-ind svg{width:24px;height:24px;margin-top:2px;color:var(--blue,#3167CA)}.ds-ind b{display:block;font:700 16px/1.3 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D)}.ds-ind small{display:block;margin-top:3px;font-size:13px;line-height:1.45;color:var(--body,#4C4C63)}.ds-ind:hover{border-color:#6FA0F5;transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(49,103,202,.6)}.ds-ind[aria-selected='true']{border-color:var(--blue,#3167CA);background:linear-gradient(180deg,rgba(234,241,252,.95),rgba(255,255,255,.9));box-shadow:0 0 0 3px rgba(49,103,202,.14),0 18px 34px -24px rgba(49,103,202,.6)}.ds-ind[aria-selected='true'] b{color:var(--blue-700,#1E4691)}.ds-ind:focus-visible{outline:3px solid var(--blue,#3167CA);outline-offset:2px}"
+    },
+    {
+      "name": "Close Band",
+      "kind": "custom",
+      "refersTo": "close-band",
+      "classNames": [
+        ".fx-close-sec",
+        ".fx-close",
+        ".fx-close-glow",
+        ".btn-white",
+        ".btn-outline-white"
+      ],
+      "description": "Navy gradient call-to-action band with a faint white grid and a sky glow. White H2 (needs !important over calm.css) and two buttons.",
+      "html": "<section class=\"ds-close\"><div class=\"ds-close-glow\" aria-hidden=\"true\"></div><div><h2>Bring your BIR deadline to an adviser.</h2><p>A short discovery call is enough to say which e-invoicing group you are in, which Odoo apps you need and what it will take.</p></div><div class=\"ds-close-act\"><a class=\"ds-w\" href=\"#\">Book a discovery call <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a><a class=\"ds-o\" href=\"#\">Your website, with your Odoo</a></div></section>",
+      "css": ".ds-close{position:relative;overflow:hidden;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;padding:56px;border-radius:28px;color:#fff;background:linear-gradient(135deg,#1F1F3D 0%,#1E2F66 55%,#3167CA 120%);box-shadow:0 40px 80px -40px rgba(30,70,145,.7);isolation:isolate;font-family:var(--font-body,Inter,system-ui,sans-serif)}.ds-close::before{content:'';position:absolute;inset:0;z-index:-1;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:40px 40px}.ds-close-glow{position:absolute;right:-140px;top:-160px;width:460px;height:460px;border-radius:50%;z-index:-1;background:radial-gradient(circle,rgba(111,160,245,.55),transparent 65%)}.ds-close h2{margin:0 0 10px;color:#fff;font:800 clamp(1.8rem,1.2rem + 1.8vw,2.6rem)/1.1 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);letter-spacing:-.03em}.ds-close p{margin:0;color:rgba(255,255,255,.85);font-size:1.05rem;line-height:1.6;max-width:56ch}.ds-close-act{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}.ds-w,.ds-o{display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 24px;border-radius:12px;font:600 16px/1 var(--font-body,Inter,system-ui,sans-serif);text-decoration:none;transition:transform .22s cubic-bezier(.16,1,.3,1),background-color .18s ease}.ds-w svg{width:18px;height:18px}.ds-w{background:#fff;color:var(--blue,#3167CA)}.ds-w:hover{color:var(--blue-700,#1E4691);transform:translateY(-2px)}.ds-o{border:1px solid rgba(255,255,255,.55);color:#fff}.ds-o:hover{background:rgba(255,255,255,.14);border-color:#fff;transform:translateY(-2px)}.ds-w:focus-visible,.ds-o:focus-visible{outline:3px solid #6FA0F5;outline-offset:3px}@media (max-width:760px){.ds-close{grid-template-columns:1fr;padding:32px 22px;border-radius:22px}.ds-close-act{justify-content:flex-start}}"
+    },
+    {
+      "name": "FAQ Item",
+      "kind": "card",
+      "refersTo": "glass-card",
+      "classNames": [
+        ".fx-faq",
+        ".faq details",
+        ".faq summary",
+        ".faq-a"
+      ],
+      "description": "Glass disclosure row; one open by default, 56px summary, chevron rotates open, Blue-tinted border when open.",
+      "html": "<div class=\"ds-faq\"><details open><summary>Is Odoo BIR-accredited? <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></summary><div class=\"ds-faq-a\"><p>No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use.</p></div></details><details><summary>How does a project start? <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></summary><div class=\"ds-faq-a\"><p>With a discovery call. An adviser maps how your sales, purchases, stock and money move today.</p></div></details></div>",
+      "css": ".ds-faq{display:grid;gap:10px;max-width:640px;font-family:var(--font-body,Inter,system-ui,sans-serif)}.ds-faq details{border-radius:18px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);box-shadow:0 12px 26px -24px rgba(30,70,145,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease}.ds-faq details[open]{border-color:rgba(49,103,202,.35);box-shadow:0 2px 6px rgba(31,31,61,.05),0 28px 56px -30px rgba(30,70,145,.38)}.ds-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:12px 22px;font:600 1.04rem/1.35 var(--font-display,'Plus Jakarta Sans',Inter,system-ui,sans-serif);color:var(--ink,#1F1F3D)}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary svg{width:20px;height:20px;color:var(--blue,#3167CA);flex:none;transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-faq details[open] summary svg{transform:rotate(180deg)}.ds-faq summary:focus-visible{outline:3px solid #6FA0F5;outline-offset:-3px;border-radius:18px}.ds-faq-a{padding:0 22px 20px;color:var(--body,#4C4C63);font-size:15.5px;line-height:1.62;max-width:72ch}.ds-faq-a p{margin:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Glass Ledger",
+    "overview": "TechNext is a trusted expert adviser for ERP and BIR compliance. The site must feel like the books of a firm that already knows the rules: calm, exact, a little ahead of its time. Odoo records (an invoice, a journal entry, a report sheet) are the hero material. They are drawn as frosted glass panels floating on a faint blue grid, and the story moves along thin glowing data lines that connect one record to the next. This is today's TechNext system (blue #3167CA on white, Plus Jakarta Sans display, Inter body) rendered futuristic, not a new identity.\n\nDensity is moderate and editorial: big plain sentences as headings, one primary action per view (\"Book a discovery call\"), proof next to claims. Colour is restrained: one blue accent on white, status hues only for status. Depth comes from light (hairline edges, inner highlight, blue-tinted shadows, blur), never from heavy dark chrome. Everything is light theme only.\n\nVoice: adviser first, then implementer. British spelling (\"adviser\", \"localisation\"). Lead verbs advise, recommend, deliver. Headings are full sentences (\"Your BIR reports, from the entries you already post.\"), never labels over headings. Sample figures are always fictitious and always tagged \"Sample data\".",
+    "keyCharacteristics": [
+      "Frosted glass records (white at 72%, 1px white edge, inner top highlight, blue-tinted drop shadow) on a blue hairline grid.",
+      "One accent (blue #3167CA) with Deep Blue for hover and small text; status hues (green, amber) only on pills, tags and verdicts.",
+      "Live sample Odoo panels that replay a record: status bar, KPIs count up, lines fill, a journal entry posts with Dr = Cr.",
+      "Glowing data lines, travelling dots and a masked rotating edge as the only decorative motion; all transform/opacity.",
+      "Bare line icons and official flat Odoo app icons; no tiles, no illustrations, no cartoon art, no gradient text.",
+      "Reduced motion shows the finished state; loops pause off-screen."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Blue #3167CA is the only accent. Status colours appear only inside pills, tags, verdicts and bars; they never decorate a section, a heading or an icon.",
+        "section": "colors"
+      },
+      {
+        "name": "The Not-On-White Rule",
+        "body": "Sky Blue (#6FA0F5) is for strokes and glows. Any text on white or a pale wash is Body Slate, Ink, Deep Blue or Blue (all >= 4.5:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Only Rule",
+        "body": "No dark mode, no `prefers-color-scheme: dark`, `color-scheme: light` on :root. Dark appears only as a deliberate navy block (count readout, close band, `.sv-dark`).",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Rule",
+        "body": "Headings are complete sentences in Ink. No eyebrow, kicker or small-caps line above or below a heading, no tracking-wide uppercase labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Twelve Pixel Floor Rule",
+        "body": "No text under 12px in new work (phones included). Tables and panel microcopy go to 12-12.5px, not 10-11px.",
+        "section": "typography"
+      },
+      {
+        "name": "The Field Rule",
+        "body": "Glass only reads over a field. Place it on `.fx-field`, `.fx-sec--alt` or a tinted wash, never on plain white.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Light Over Shadow Rule",
+        "body": "Depth is a bright inner edge plus a long, low-opacity blue shadow. No black drop shadows, no hard outlines for emphasis (use the selected-tab ring).",
+        "section": "elevation"
+      },
+      {
+        "name": "The Finished State Rule",
+        "body": "The default markup is the finished composition; motion only describes how it arrives, so a script that fails or a visitor who prefers reduced motion still sees everything.",
+        "section": "components"
+      },
+      {
+        "name": "The Bare Icon Rule",
+        "body": "An icon sits directly on its surface in Blue or its own colours. No tile, disc, tint or border behind it, in menus, cards, chips or panels.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** build every new section from the glass recipe over a field or wash, with Ink headings (sentences), Body Slate copy, one Blue action.",
+      "**Do** show real Odoo screens, records, journal entries and report sheets with fictitious figures, tagged \"Sample data\" (amber pill) on the same panel.",
+      "**Do** make one primary action per view: \"Book a discovery call\" (Odoo booking). Secondary: \"See sample BIR reports\", the Services Catalogue, the inquiry form.",
+      "**Do** say \"set up for BIR requirements\" and \"adviser\"; cite the rule (RR 26-2025, 31 December 2026) next to the claim.",
+      "**Do** keep motion on transform and opacity, 0.2-0.9s, house easing; pause loops off-screen; make the markup default the finished state.",
+      "**Do** give all interactive targets >= 44px on phones and a visible `:focus-visible` ring (3px Sky Blue, 3px offset on glass; site default 2px Blue, 2px offset).",
+      "**Do** keep `h2` colour in dark panels explicit: calm.css forces `main section h2 { color: var(--ink) !important }`, so `.fx-close h2`, `.sv-dark h2` and similar must use `color: #fff !important`."
+    ],
+    "donts": [
+      "**Don't** add a dark mode or any `prefers-color-scheme: dark` styling. Light only.",
+      "**Don't** put icons on tiles, discs or tinted backdrops; icons are bare. Don't recolour Odoo icons.",
+      "**Don't** use eyebrows, kickers or small-caps/tracked uppercase lines above or below headings (`.eyebrow`, `.card-kicker`, `.hand`, `.h1-hand`, `.sc-kicker` are legacy and must not appear in fx pages).",
+      "**Don't** use gradient text, background-clip text, or gradient headlines. The only text emphasis is Blue plus the drawn underline.",
+      "**Don't** use cartoon, comic or illustrated art, stickers, tilted labels, lips, textures or mascots in content. Imagery is real UI, real records, real screens.",
+      "**Don't** present sample data unlabelled. Sample, fictitious or placeholder values always say so on the same panel (\"Sample data\", \"Placeholder\").",
+      "**Don't** write \"BIR-accredited\", \"BIR-certified\" or \"BIR-compliant\" about software or TechNext. Use \"set up for BIR requirements\".",
+      "**Don't** show prices or \"from $\" anywhere. **Don't** call Odoo free; only TechNext's design and setup labour can be free, and the client pays its own Odoo subscription.",
+      "**Don't** add a WhatsApp number or link, a floating WhatsApp button or a wa.me URL. WhatsApp may be named only as an Odoo product feature.",
+      "**Don't** use Nexi in page content. Nexi appears only in the Ask Nexi launcher (side tab), the Nexi Explains series pages, and the home hero (and hides on hero slide 4).",
+      "**Don't** bring back removed pages (offices, Technology, RAG, careers, events, life, advisers) or invent testimonials, result metrics, case-study outcomes, adviser names or accreditation claims; none are on file.",
+      "**Don't** use \"world-class\", \"leading\", \"one-stop shop\", \"vendor\", \"agency\", \"reseller\".",
+      "**Don't** animate layout properties, loop animations off-screen, or hide content behind motion that may not run.",
+      "**Don't** set text below 12px, or put Sky Blue (#6FA0F5) text on white."
+    ],
+    "accessibility": [
+      "Text contrast >= 4.5:1, UI strokes and focus >= 3:1. Verified pairs: Blue on white 5.35, white on Blue 5.35, Ink 15.9, Body 8.3, Muted 5.9, Green on Green Wash 4.79, Amber on Amber Wash 5.26, Deep Blue on Wash Blue 7.84, Blue on Wash Blue 4.68 (avoid below 14px bold).",
+      "Tabs: role tablist/tab/tabpanel, aria-selected, aria-controls, roving tabindex, Arrow/Home/End. Toggles: aria-pressed.",
+      "Live results use `aria-live=\"polite\"`; chip groups are `fieldset` plus `legend` with real radio inputs; the visible chip is the `span` after the focusable input and shows the focus ring.",
+      "`.sr-only` for icon-only labels; `.skip` link first in the page; headings in order (one H1); decorative field, orbs and grid are `aria-hidden`.",
+      "Tables keep real th/td; on phones they scroll in their card with a visible hint.",
+      "Spoken order matches visual order; nothing important is conveyed by colour alone (pills carry text)."
+    ]
+  }
+}

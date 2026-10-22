@@ -2259,8 +2259,8 @@
   "lead": "Odoo Phone connects your calls to Odoo's call flow designer, so the right person picks up. Every call can be logged to the customer's record. No context lost, no separate phone system to pay for.",
   "sections": [
    {
-    "h": "Cut business phone costs",
-    "p": "Lower your phone bill with plans starting at $2/month.",
+    "h": "One phone system, inside Odoo",
+    "p": "Calls run over the internet from Odoo itself, so there is no separate phone system for your team to learn.",
     "img": "",
     "feats": []
    },

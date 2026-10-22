@@ -160,7 +160,8 @@
 
 /* ---------- responsive */
 @media (max-width: 1000px) {
-  .bir-fx .bf-hero-in { grid-template-columns: 1fr; gap: 36px; }
+  .bir-fx .bf-hero-in { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .bir-fx .bf-hero-in > * { min-width: 0; }
   .bir-fx .bf-glance { grid-template-columns: repeat(2, 1fr); }
   .bir-fx .bf-glance > div:nth-child(3) { border-left: 0; }
   .bir-fx .bf-glance > div:nth-child(n+3) { border-top: 1px solid var(--fx-line); }

@@ -304,3 +304,18 @@
 .svc-fx .sla-h,
 .svc-fx .sla-tbl thead th,
 .svc-fx .lyr-sh{text-transform:none;letter-spacing:0}
+
+/* ---------------------------------------------------------------- demos on phones (<= 640px) (22 Oct 2026 review)
+   Segmented controls wrap instead of scrolling labels out of sight; kanban columns stack; names and notes keep whole words. */
+@media (max-width: 640px) {
+  .svc-fx .dm[data-demo] .dm-seg { flex-wrap: wrap; overflow: visible; max-width: 100%; width: 100%; border-radius: 22px; }
+  .svc-fx .dm[data-demo] .dm-seg button { flex: 1 1 auto; justify-content: center; white-space: normal; text-align: center; line-height: 1.2; }
+  /* pipeline: the four stage columns become one list */
+  .svc-fx .ppl-cols { grid-template-columns: minmax(0, 1fr); overflow: visible; padding-bottom: 0; }
+  .svc-fx .ppl-col { min-height: 0; }
+  .svc-fx .ppl-card b, .svc-fx .ppl-card small, .svc-fx .ppl-ch b, .svc-fx .ppl-ch small, .svc-fx .ppl-rules em, .svc-fx .ppl-act { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+  .svc-fx .ppl-row { flex-wrap: wrap; row-gap: 4px; }
+  .svc-fx .dm-log li span { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+  /* layers */
+  .svc-fx .lyr-pick b, .svc-fx .lyr-pick small, .svc-fx .lyr-slot .lyr-pick b { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+}

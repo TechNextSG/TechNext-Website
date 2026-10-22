@@ -46,7 +46,7 @@
 
   /* countdown pill */
   var days = $('[data-bt-days]');
-  if (days) { var left = Math.max(0, Math.ceil((Date.parse('2026-12-31T23:59:59+08:00') - Date.now()) / 864e5)); days.textContent = left + ' days left'; }
+  if (days) { var left = Math.max(0, Math.floor((Date.parse('2026-12-31T23:59:59+08:00') - Date.now()) / 864e5)); days.textContent = left + ' days left'; }
 
   /* ring layout */
   var flat = function () { return window.innerWidth <= 900; };

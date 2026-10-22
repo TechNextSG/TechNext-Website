@@ -474,3 +474,11 @@
 .mk-stand .sbd-queue li, .mk-stand .sbd-acts li, .mk-stand .ccp-leads li, .mk-stand .ccp-post { border-left-width: 1px; }
 .mk-stand .bkt-em { border-left: 1px solid var(--line); }
 .mk-stand .sbd-box>p, .mk-stand .ccp-lh, .mk-stand .bkt-h, .mk-stand .bkt-tl, .mk-stand .snk-h, .mk-stand .snk-tab caption { text-transform: none; letter-spacing: 0; font-size: 13px; }
+
+/* ---------------------------------------------------------------- demos on phones (<= 640px) (22 Oct 2026 review) */
+@media (max-width: 640px) {
+  .mk-stand [data-demo] .dm-seg { flex-wrap: wrap; overflow: visible; max-width: 100%; width: 100%; border-radius: 22px; }
+  .mk-stand [data-demo] .dm-seg button { flex: 1 1 auto; justify-content: center; white-space: normal; text-align: center; line-height: 1.2; }
+  .mk-stand .ccp-log li span, .mk-stand .ccp-states span, .mk-stand .ccp-leads b, .mk-stand .ccp-leads small, .mk-stand .bkt-em .bkt-who small,
+  .mk-stand .sbd-queue li > *, .mk-stand .sbd-acts li > * { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+}

@@ -196,3 +196,17 @@ main > section.fx-sec.aix-one-sec { padding: 64px 0 0 !important; }
   .aix-grp [data-at] { transition: none; }
   .aix-chips a, .aix-pill, .aix-mod { transition: none; }
 }
+
+/* ---------------------------------------------------------------- demos on phones (<= 640px) (22 Oct 2026 review)
+   Segmented controls wrap instead of scrolling labels out of sight; labels keep whole words and never drop under 12px. */
+@media (max-width: 640px) {
+  .aix-stand [data-demo] .dm-seg { flex-wrap: wrap; overflow: visible; max-width: 100%; width: 100%; border-radius: 22px; }
+  .aix-stand [data-demo] .dm-seg button { flex: 1 1 auto; justify-content: center; white-space: normal; text-align: center; line-height: 1.2; }
+  .aix-stand .arn-ch small, .aix-stand .arn-bh span, .aix-stand .arn-fields b, .aix-stand .arn-je div span, .aix-stand .arn-rh span, .aix-stand .obx-snip
+    { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: normal; }
+  .aix-stand .obx-items { max-height: none; overflow: visible; }
+  .aix-stand .umx-q, .aix-stand .umx-tick, .aix-stand .umx-lab, .aix-stand .umx-lab.is-wrap,
+  .aix-stand .arn-ch small, .aix-stand .obx-h b, .aix-stand .obx-h small, .aix-stand .obx-tags i, .aix-stand .obx-br em, .aix-stand [data-demo="inbox"] dt,
+  .aix-stand .cns-nv, .aix-stand .cns-sw span, .aix-stand .cns-tbl, .aix-stand .cns-tbl caption, .aix-stand .cns-tbl th, .aix-stand .cns-tbl td, .aix-stand .cns-en,
+  .aix-stand .dra-l span { font-size: 12px !important; }
+}

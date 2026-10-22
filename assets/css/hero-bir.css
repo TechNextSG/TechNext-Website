@@ -23,9 +23,9 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
 .bt-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font: 700 12.5px/1 var(--font-body); color: var(--bt-ink); white-space: nowrap; }
 .bt-bar .oi { width: 18px; height: 18px; }
-.bt-days { flex: none; margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 999px; background: #1F1F3D; color: #fff; font: 700 11.5px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+.bt-days { flex: none; margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 999px; background: #1F1F3D; color: #fff; font: 700 12px/1 var(--font-body); font-variant-numeric: tabular-nums; }
 .bt-days i { width: 6px; height: 6px; border-radius: 50%; background: #6FA0F5; box-shadow: 0 0 0 3px rgba(111,160,245,.25); }
-.bt-sample { flex: none; padding: 4px 8px; border-radius: 999px; background: #FDF3E1; color: #8F5A00; font: 700 11px/1 var(--font-body); }
+.bt-sample { flex: none; padding: 4px 8px; border-radius: 999px; background: #FDF3E1; color: #8F5A00; font: 700 12px/1 var(--font-body); }
 .bt-doc { border-radius: 14px; background: #fff; border: 1px solid #E3E9F5; padding: 12px 12px 10px; position: relative; overflow: hidden; }
 .bt-doc::before { content: ""; position: absolute; left: 12px; right: 12px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--bt-blue); }
 .bt-doc-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
@@ -58,7 +58,7 @@
   transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%) scale(var(--s, 1)); opacity: var(--o, 1);
   transition: border-color .3s var(--bt-ease), box-shadow .3s var(--bt-ease), background-color .3s; will-change: transform; }
 .bt-node b { font: 800 14px/1 var(--font-display); letter-spacing: -.01em; }
-.bt-node small { font: 600 11.5px/1.2 var(--font-body); color: #4C4C63; white-space: nowrap; }
+.bt-node small { font: 600 12px/1.2 var(--font-body); color: #4C4C63; white-space: nowrap; }
 .bt-node:hover { border-color: var(--bt-blue); }
 .bt-node:focus-visible { outline: 3px solid #6FA0F5; outline-offset: 3px; }
 .bt-node[aria-pressed="true"] { background: var(--bt-blue); border-color: var(--bt-blue); color: #fff; box-shadow: 0 0 0 4px rgba(49,103,202,.16), 0 18px 30px -14px rgba(49,103,202,.85); }
@@ -133,4 +133,10 @@
   .fx-check .fx-count b { font-size: 24px; }
   .fx-check .fx-r-say { margin: 10px 0 12px; font-size: .98rem; }
   .fx-check .fx-result { padding: 18px 16px 14px; }
+}
+
+/* hero buttons stack on small phones (all slides): no clipped button text at 360-480px */
+@media (max-width: 480px) {
+  .hero .slide .actions { flex-wrap: wrap; gap: 10px; }
+  .hero .slide .actions .btn { flex: 1 1 100%; justify-content: center; white-space: normal; overflow: visible; text-overflow: clip; }
 }

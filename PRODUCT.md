@@ -35,7 +35,7 @@ technext.asia is TechNext Pte. Ltd.'s company website. It positions TechNext as 
 - No WhatsApp links or phone numbers on the site.
 - Light theme only.
 - Removed pages stay removed (offices, Technology, RAG page, careers, events, life, advisers); their redirects stay.
-- **Open:** named adviser/employee profiles (name, role, skills, companies worked on) await the owner's data; placeholders only on previews, never live.
+- Team profiles on the home page (22 Oct 2026): five real people from the owner's CVs and notes (`_src/advisors.py`): name, role, office, bio, stats and grouped skills. No company or client names (owner: "remove company worked on"), no contact details, no pronouns in bios; initials until the owner sends photos.
 
 ## Brand Commitments
 
@@ -48,7 +48,7 @@ technext.asia is TechNext Pte. Ltd.'s company website. It positions TechNext as 
 - Odoo Ready Partner (Odoo partner directory listing); clients in 10+ countries; 11+ enterprise clients; 3 offices; 4 AI disciplines.
 - Named clients (owner-approved 21 Oct 2026, delivered/in progress only): `_src/sitedata.py` CLIENTS (11).
 - BIR sample reports with fictitious data (`assets/docs/technext-sample-bir-reports.pdf`), BIR articles, Services Catalogue (50 pp).
-- **Absent, never fabricate:** testimonials, result metrics, case-study outcomes, adviser names/skills/photos (pending), accreditation claims.
+- **Absent, never fabricate:** testimonials, result metrics, case-study outcomes, team photos (pending), accreditation claims.
 
 ## Product Principles
 

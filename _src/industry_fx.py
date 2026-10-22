@@ -120,7 +120,7 @@ PANEL = {
             ("Materials", "₱3.4M of ₱4.8M", 0, .71, "a"),
             ("Labour", "₱1.9M of ₱3.1M", 0, .61, "a"),
             ("Subcontract", "₱2.6M of ₱4.5M", 0, .58, "a")]),
-        post=dict(app="accountant", title="Subcontractor bill", ref="BILL/2026/0318 · Reyes Steelworks", rows=[("Dr", "Project cost, JOB-0231", "480,000.00"), ("Cr", "Withholding tax, 2307", "9,600.00"), ("Cr", "Payables", "470,400.00")]),
+        post=dict(app="accountant", title="Subcontractor bill", ref="BILL/2026/0318 · Reyes Steelworks Inc.", rows=[("Dr", "Project cost, JOB-0231", "480,000.00"), ("Cr", "Withholding tax, 2307", "9,600.00"), ("Cr", "Payables", "470,400.00")]),
         chips=["Progress claim", "Retention held", "2307 per payee"]),
     "medical": dict(
         app="stock", title="Inventory", sub="Branch A · Saline 0.9%", steps=["Received", "Alert", "Picked", "Billed"],
@@ -219,24 +219,7 @@ def hero_html(key: str) -> str:
       <div class="actions ixf-act">{MEET}{QUOTE}</div>
       <div class="ixf-apps" aria-label="Apps we switch on">{apps}</div>
     </div>
-    <div class="ixf-panel" data-ixf-panel role="group" aria-label="{esc(label)}">
-      <i class="fx-result-glow" aria-hidden="true"></i>
-      <div class="ixf-top">
-        <p class="ixf-t">{odoo(p["app"], 22)}<span><b>{p["title"]}</b><small>{p["sub"]}</small></span></p>
-        <span class="fx-tag">Sample data</span>
-      </div>
-      <ol class="ixf-bar" aria-label="Record status">{steps}</ol>
-      <div class="ixf-body">
-        <dl class="ixf-kpis">{kpis}</dl>
-        <div class="ixf-mid">{_mid_html(p["mid"])}</div>
-      </div>
-      <div class="ixf-wire" aria-hidden="true"><i></i><i></i></div>
-      <div class="ixf-post">
-        <p class="ixf-post-h">{odoo(post["app"], 20)}<span><b>{post["title"]}</b><small>{post["ref"]}</small></span><em class="ixf-bal">Dr = Cr</em></p>
-        <ul class="ixf-led">{led}</ul>
-      </div>
-      <ul class="ixf-chips" aria-label="What this posts">{chips}</ul>
-    </div>
+    {panel_html(key)}
   </div>
 </section>
 
@@ -337,12 +320,11 @@ def flow_html(key: str) -> str:
         items += f'''
       <li class="ixf-step" style="--k:{k}">
         <div class="ixf-info">
-          <p class="ixf-no">Step {k + 1} of {n} · {st["t"]}</p>
-          <h3>{st["h"]}</h3>
+          <h3><span class="sr-only">Step {k + 1} of {n}, {st["t"]}: </span>{st["h"]}</h3>
           <p>{st["p"]}</p>
           <dl class="ixf-meta"><div><dt>In Odoo</dt><dd>{app_ic(st, 22)}<span>{st["odoo"]}</span></dd></div><div><dt>{d.get("lab_was", "What it replaces")}</dt><dd class="ixf-was">{st["was"]}</dd></div></dl>
         </div>
-        <span class="ixf-node" aria-hidden="true"><i></i></span>
+        <span class="ixf-node" aria-hidden="true"><i>{k + 1}</i></span>
         <article class="ixf-rec" aria-label="Sample record: {esc(doc)}">
           <header>{app_ic(st, 22)}<span><b>{doc}</b><small>{kind}</small></span><em class="ixf-pill" data-tone="{tone}">{stat}</em></header>
           <dl>{fl}</dl>
@@ -355,5 +337,69 @@ def flow_html(key: str) -> str:
     <ol class="ixf-chain" data-ixf-chain style="--n:{n}" aria-label="{esc(d["name"])} workflow in Odoo, step by step">
 {items}
     </ol>
+  </div>
+</section>'''
+
+
+
+def panel_html(key: str, extra: str = "") -> str:
+    """The live sample Odoo panel of one industry (its hero panel), reusable on the home page."""
+    return panel_markup(PANEL[key], extra)
+
+
+def panel_markup(p: dict, extra: str = "") -> str:
+    """A live sample Odoo panel from a PANEL-shaped dict (app, title, sub, steps, kpis, mid, post, chips; post may carry
+    "bal", the badge on the posted record, default "Dr = Cr"). Also used by the free-website lander's BIR needs (_src/fw_needs.py)."""
+    kpis = "".join(
+        f'<div class="ixf-k" style="--r:{i}"><dt>{lab}</dt><dd data-count="{v}" data-pre="{esc(pre)}" data-suf="{esc(suf)}" data-dec="{dec}">{esc(pre)}{_fmt(v, dec)}{esc(suf)}</dd></div>'
+        for i, (lab, v, pre, suf, dec) in enumerate(p["kpis"]))
+    steps = "".join(f'<li class="ixf-seg" style="--r:{i}">{s_}</li>' for i, s_ in enumerate(p["steps"]))
+    post = p["post"]
+    led = "".join(f'<li style="--r:{i}"><i>{dc}</i><span>{lab}</span><b>{amt}</b></li>' for i, (dc, lab, amt) in enumerate(post["rows"]))
+    chips = "".join(f'<li style="--r:{i}">{c}</li>' for i, c in enumerate(p["chips"]))
+    label = f'Sample Odoo screen: {p["title"]}, {p["sub"]}'
+    return f'''    <div class="ixf-panel" data-ixf-panel{extra} role="group" aria-label="{esc(label)}">
+      <i class="fx-result-glow" aria-hidden="true"></i>
+      <div class="ixf-top">
+        <p class="ixf-t">{odoo(p["app"], 22)}<span><b>{p["title"]}</b><small>{p["sub"]}</small></span></p>
+        <span class="fx-tag">Sample data</span>
+      </div>
+      <ol class="ixf-bar" aria-label="Record status">{steps}</ol>
+      <div class="ixf-body">
+        <dl class="ixf-kpis">{kpis}</dl>
+        <div class="ixf-mid">{_mid_html(p["mid"])}</div>
+      </div>
+      <div class="ixf-wire" aria-hidden="true"><i></i><i></i></div>
+      <div class="ixf-post">
+        <p class="ixf-post-h">{odoo(post["app"], 20)}<span><b>{post["title"]}</b><small>{post["ref"]}</small></span><em class="ixf-bal">{post.get("bal", "Dr = Cr")}</em></p>
+        <ul class="ixf-led">{led}</ul>
+      </div>
+      <ul class="ixf-chips" aria-label="What this posts">{chips}</ul>
+    </div>'''
+
+
+# home: one tab per industry; the selected industry's panel runs (only the visible panel animates)
+SWITCH = [("retail", "bag", "POS, shared stock, EOPT invoices per store"), ("ecommerce", "cart", "Online sellers in the first e-invoicing group"),
+          ("fnb", "utensils", "Outlet POS to kitchen to the books"), ("construction", "hardhat", "Job costing, 2307 on subcontractor payments"),
+          ("manufacturing", "gear", "Bills of materials and real unit cost"), ("medical", "pulse", "Clinic groups, one set of books per branch"),
+          ("travel", "plane", "Bookings, supplier costs, margins per trip"), ("health-wellness", "heart", "Memberships, packages and retail")]
+
+
+def switch_html() -> str:
+    tabs, panels = "", ""
+    for i, (key, ic, line) in enumerate(SWITCH):
+        d = IX.IND[key]
+        on = i == 0
+        tabs += (f'<button class="fx-ind" type="button" role="tab" id="ixs-t-{key}" aria-controls="ixs-p-{key}" aria-selected="{"true" if on else "false"}"'
+                 f' tabindex="{0 if on else -1}" data-ixs="{key}">{icon(ic)}<span><b>{d["name"]}</b><small>{line}</small></span></button>')
+        panels += (f'<div class="ixs-pane" role="tabpanel" id="ixs-p-{key}" aria-labelledby="ixs-t-{key}"{"" if on else " hidden"}>'
+                   f'{panel_html(key)}<a class="btn-link ixs-go" href="{{{{ROOT}}}}industries/{key}.html">See Odoo for {d["noun"]} {icon("arrow")}</a></div>')
+    return f'''<section class="section fx-sec fx-sec--alt" id="industries" aria-labelledby="fx-ind-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="fx-ind-h">Set up for how your industry runs, and how the BIR sees it.</h2><p class="lead">Pick your industry to see the Odoo record it runs on, from the first step to the journal entry behind your BIR reports.</p></div>
+    <div class="ixs" data-ixs-root>
+      <div class="ixs-tabs" role="tablist" aria-label="Industries">{tabs}</div>
+      <div class="ixs-stage">{panels}</div>
+    </div>
   </div>
 </section>'''

@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Partner Philippines & Singapore: Books Set Up for BIR", "desc": "Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.", "out": "index.html", "nav": "home", "body": "is-home fx-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/hero-bir.js", "assets/js/showcase.js", "assets/js/nexi.js", "assets/js/bir-check.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero-bir.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/catalogue.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Partner Philippines & Singapore: Books Set Up for BIR", "desc": "Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.", "out": "index.html", "nav": "home", "body": "is-home fx-home", "scripts": ["assets/js/nexi-voice.js", "assets/js/hero.js", "assets/js/hero-scenes.js", "assets/js/hero-bir.js", "assets/js/showcase.js", "assets/js/nexi.js", "assets/js/bir-check.js", "assets/js/pages/industry-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/hero-bir.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/catalogue.css?v={ASSET_V}\">"} -->
 <!-- Home (21 Oct 2026 redesign): the 2-slide hero, then what Odoo produces for the BIR, the advisers,
      proof, practices, industries, catalogue, articles, FAQ and the discovery call. Futuristic glass on the light
      TechNext system; no illustrations. Behaviour: assets/js/bir-check.js. Styles: assets/css/home-fx.css. -->
@@ -185,7 +185,7 @@
             <span class="kw" style="--i:1"><span>straight from</span></span><br>
             <span class="kw" style="--i:2"><span class="hl">your Odoo books.</span></span>
           </h2>
-          <p class="lead up" style="--d:480ms">2307s, SLSP, SAWT, QAP and the 2550Q come from the invoices and bills you already post, and your e-invoicing is ready before 31 December 2026. Our advisers set Odoo up for BIR requirements and stay on after go-live.</p>
+          <p class="lead up" style="--d:480ms">2307s, SLSP, SAWT, QAP and the 2550Q come from the invoices and bills you already post, and we plan your e-invoicing set-up so you can apply for your Permit to Issue in time for 31 December 2026. Our advisers set Odoo up for BIR requirements and stay on after go-live.</p>
           <div class="actions up" style="--d:580ms">
             <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
             <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports</a>
@@ -240,8 +240,8 @@
           <legend><span class="fx-qn">1</span>Your gross annual sales</legend>
           <div class="fx-chips">
             <label><input type="radio" name="size" value="micro"><span>Under ₱3M</span></label>
-            <label><input type="radio" name="size" value="small"><span>₱3M to ₱20M</span></label>
-            <label><input type="radio" name="size" value="medium"><span>₱20M to ₱1B</span></label>
+            <label><input type="radio" name="size" value="small"><span>₱3M to under ₱20M</span></label>
+            <label><input type="radio" name="size" value="medium"><span>₱20M to under ₱1B</span></label>
             <label><input type="radio" name="size" value="large"><span>₱1B and up</span></label>
           </div>
         </fieldset>
@@ -364,7 +364,7 @@
         <div class="fx-beam" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="fx-sheet" data-sheet role="tabpanel" aria-live="polite">
           <div class="fx-sheet-top"><span class="fx-sheet-t" data-sheet-t>BIR 2307 · Q3 2026</span><span class="fx-tag">Sample data</span></div>
-          <div class="fx-tbl-wrap"><table class="fx-tbl" data-sheet-tbl><thead></thead><tbody></tbody></table></div>
+          <p class="fx-swipe" aria-hidden="true">Swipe the table sideways to see every column</p><div class="fx-tbl-wrap"><table class="fx-tbl" data-sheet-tbl><thead></thead><tbody></tbody></table></div>
           <p class="fx-sheet-foot" data-sheet-foot></p>
         </div>
       </div>
@@ -427,21 +427,7 @@
 </section>
 
 <!-- ============================================================ INDUSTRIES -->
-<section class="section fx-sec fx-sec--alt" id="industries" aria-labelledby="fx-ind-h">
-  <div class="container">
-    <div class="sec-head reveal"><h2 id="fx-ind-h">Set up for how your industry runs, and how the BIR sees it.</h2></div>
-    <div class="fx-inds">
-      <a class="fx-ind reveal" style="--i:0" href="{{ROOT}}industries/retail.html">{{icon:bag}}<span><b>Retail</b><small>POS, shared stock, EOPT invoices per store</small></span></a>
-      <a class="fx-ind reveal" style="--i:1" href="{{ROOT}}industries/ecommerce.html">{{icon:cart}}<span><b>Ecommerce</b><small>Online sellers in the first e-invoicing group</small></span></a>
-      <a class="fx-ind reveal" style="--i:2" href="{{ROOT}}industries/fnb.html">{{icon:utensils}}<span><b>F&amp;B</b><small>Outlet POS to kitchen to the books</small></span></a>
-      <a class="fx-ind reveal" style="--i:3" href="{{ROOT}}industries/construction.html">{{icon:hardhat}}<span><b>Construction</b><small>Job costing, 2307 on subcontractor payments</small></span></a>
-      <a class="fx-ind reveal" style="--i:4" href="{{ROOT}}industries/manufacturing.html">{{icon:gear}}<span><b>Manufacturing</b><small>Bills of materials and real unit cost</small></span></a>
-      <a class="fx-ind reveal" style="--i:5" href="{{ROOT}}industries/medical.html">{{icon:pulse}}<span><b>Medical</b><small>Clinic groups, one set of books per branch</small></span></a>
-      <a class="fx-ind reveal" style="--i:6" href="{{ROOT}}industries/travel.html">{{icon:plane}}<span><b>Travel</b><small>Bookings, supplier costs, margins per trip</small></span></a>
-      <a class="fx-ind reveal" style="--i:7" href="{{ROOT}}industries/health-wellness.html">{{icon:heart}}<span><b>Health &amp; Wellness</b><small>Memberships, packages and retail</small></span></a>
-    </div>
-  </div>
-</section>
+{{INDUSTRY_SWITCH}}
 
 <!-- ============================================================ SERVICES CATALOGUE -->
 <section class="section cat-home" id="catalogue" aria-labelledby="cat-home-h">

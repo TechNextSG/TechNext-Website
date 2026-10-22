@@ -69,7 +69,7 @@
   transition: background-color .25s var(--fx-ease), color .25s var(--fx-ease), border-color .25s var(--fx-ease), box-shadow .25s var(--fx-ease), transform .25s var(--fx-ease); }
 .fx-chips label:hover span { border-color: var(--blue-300); transform: translateY(-1px); }
 .fx-chips input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 10px 22px -12px rgba(49,103,202,.75), inset 0 1px 0 rgba(255,255,255,.25); }
-.fx-chips input:focus-visible + span { outline: 3px solid var(--blue-300); outline-offset: 3px; }
+.fx-chips input:focus-visible + span { outline: 3px solid var(--blue); outline-offset: 3px; }
 
 /* ---------------------------------------------------------------- hero: result panel */
 .fx-result { position: sticky; top: calc(var(--header-h) + 20px); border-radius: 24px; padding: 28px 28px 22px;
@@ -99,7 +99,7 @@
   background: linear-gradient(135deg, #1F1F3D, #1E2F66 70%, #1E4691); color: #fff; box-shadow: 0 18px 34px -22px rgba(30,70,145,.8), inset 0 1px 0 rgba(255,255,255,.12); }
 .fx-count div { display: grid; }
 .fx-count b { color: #fff; font: 800 30px/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
-.fx-count small { font: 600 11.5px/1.2 var(--font-body); color: rgba(255,255,255,.72); margin-top: 4px; }
+.fx-count small { font: 600 12px/1.2 var(--font-body); color: rgba(255,255,255,.72); margin-top: 4px; }
 .fx-count p { margin: 0; align-self: center; font: 500 13px/1.35 var(--font-body); color: rgba(255,255,255,.8); }
 
 .fx-steps { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 4px; position: relative; }
@@ -133,7 +133,7 @@
 .fx-rep-tabs button:hover { border-color: var(--blue-300); transform: translateY(-2px); }
 .fx-rep-tabs button[aria-selected="true"] { background: #fff; border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue), 0 18px 34px -22px rgba(49,103,202,.7); }
 .fx-rep-tabs button[aria-selected="true"] b { color: var(--blue); }
-.fx-rep-tabs button:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 3px; }
+.fx-rep-tabs button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 
 .fx-rep-stage { display: grid; grid-template-columns: minmax(0,.82fr) 72px minmax(0,1.5fr); align-items: center; gap: 0; }
 .fx-ledger { border-radius: 20px; padding: 18px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth);
@@ -178,7 +178,7 @@
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); }
 .pf-card:hover { transform: translateY(-4px); box-shadow: var(--fx-depth-h); }
 .pf-card[data-ph] { border-style: dashed; border-color: var(--blue-300); }
-.pf-card[data-ph]::after { content: "Placeholder"; position: absolute; top: 14px; right: 14px; padding: 4px 9px; border-radius: 999px; background: #FDF3E1; color: var(--fx-amber); font: 700 11.5px/1 var(--font-body); }
+.pf-card[data-ph]::after { content: "Placeholder"; position: absolute; top: 14px; right: 14px; padding: 4px 9px; border-radius: 999px; background: #FDF3E1; color: var(--fx-amber); font: 700 12px/1 var(--font-body); }
 .pf-card[data-ph] .pf-top { padding-right: 78px; }
 .pf-top { display: grid; grid-template-columns: 76px 1fr; gap: 16px; align-items: center; margin-bottom: 14px; }
 .pf-ava { position: relative; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--blue-050), #fff); }
@@ -193,9 +193,8 @@
 .pf-office .ic { width: 14px; height: 14px; color: var(--blue); }
 .pf-bio { margin: 0 0 14px; font-size: 14.5px; line-height: 1.55; color: var(--body); }
 .pf-h { margin: 14px 0 8px; font: 700 12.5px/1 var(--font-body); color: var(--ink); }
-.pf-skills, .pf-cos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pf-skills, .pf-apps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .pf-skills li { padding: 6px 11px; border-radius: 999px; background: var(--blue-050); color: var(--blue-700); font: 600 13px/1.2 var(--font-body); }
-.pf-cos li { padding: 6px 11px; border-radius: 8px; border: 1px solid var(--line); background: #fff; color: var(--ink); font: 600 13px/1.2 var(--font-body); }
 .pf-note { display: flex; align-items: center; gap: 8px; margin: 22px 0 0; font-size: 14px; color: var(--fx-amber); }
 .pf-note .ic { width: 18px; height: 18px; }
 
@@ -254,7 +253,8 @@
   .fx-hero-in { grid-template-columns: 1fr; gap: 32px; }
   .fx-result { position: relative; top: 0; }
   .fx-rep-tabs { grid-template-columns: repeat(3, minmax(0,1fr)); }
-  .fx-rep-stage { grid-template-columns: 1fr; gap: 16px; }
+  .fx-rep-stage { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .fx-ledger, .fx-sheet, .fx-rep-tabs { min-width: 0; }
   .fx-beam { display: none; }
   .fx-ledger ul { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .fx-who { grid-template-columns: 1fr; gap: 32px; }
@@ -296,3 +296,90 @@
 .fx-home main section .fx-h { color: var(--ink) !important; }
 .fx-home main section .fx-h .fx-hl { color: var(--blue) !important; }
 @media (max-width: 600px) { .fx-hero--sec { padding: 64px 0 72px; } }
+
+/* report viewer on phones: the table scrolls inside its card, with a hint */
+.fx-swipe { display: none; margin: 0 0 8px; font: 600 12.5px/1.3 var(--font-body); color: var(--body); }
+@media (max-width: 600px) {
+  .fx-swipe { display: block; }
+  .fx-tbl { min-width: 520px; }
+}
+
+/* industries: pick an industry, its sample Odoo panel runs beside the tabs (panel styles: pages/industry-fx.css) */
+#industries .sec-head .lead { max-width: 62ch; }
+.ixs { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 28px; align-items: start; }
+.ixs-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.ixs-tabs .fx-ind { width: 100%; text-align: left; font: inherit; cursor: pointer; padding: 12px 16px; }
+.ixs-tabs .fx-ind small { font-size: 13px; }
+.ixs-tabs .fx-ind[aria-selected="true"] { border-color: var(--blue); background: linear-gradient(180deg, rgba(234,241,252,.95), rgba(255,255,255,.9)); box-shadow: 0 0 0 3px rgba(49,103,202,.14), 0 18px 34px -24px rgba(49,103,202,.6); }
+.ixs-tabs .fx-ind[aria-selected="true"] b { color: var(--blue-700); }
+.ixs-tabs .fx-ind:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.ixs-stage { min-width: 0; }
+.ixs-pane { display: grid; gap: 14px; animation: ixsIn .5s var(--fx-ease) both; }
+.ixs-pane[hidden] { display: none; }
+.ixs-go { justify-self: start; }
+.ixf-panel.fx-off .ixf-wire i, .ixf-panel.fx-off .ixf-seg::before { animation-play-state: paused !important; }
+@keyframes ixsIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1080px) {
+  .ixs { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .ixs-tabs { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; padding: 4px 2px 10px; scrollbar-width: thin; }
+  .ixs-tabs .fx-ind { flex: 0 0 auto; width: auto; grid-template-columns: 20px auto; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; scroll-snap-align: start; }
+  .ixs-tabs .fx-ind .ic { width: 20px; height: 20px; margin: 0; }
+  .ixs-tabs .fx-ind b { font-size: 14.5px; white-space: nowrap; }
+  .ixs-tabs .fx-ind small { display: none; }
+  .ixs-tabs .fx-ind:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ixs-pane { animation: none; } }
+
+/* adviser cards: grouped skills (owner 22 Oct 2026: no company list, more on skills) */
+.pf-sk { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--line); }
+.pf-n { margin: 0 0 2px; font: 600 13px/1.2 var(--font-body); color: var(--body); }
+.pf-n b { font: 800 20px/1 var(--font-display); color: var(--blue); margin-right: 3px; font-variant-numeric: tabular-nums; }
+.pf-g .pf-h { margin: 12px 0 7px; }
+.pf-apps li { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px 5px 7px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font: 600 13px/1.2 var(--font-body); }
+.pf-apps li .oi { width: 18px; height: 18px; }
+.pf-skills--bir li { background: #E8F5EE; color: #17633B; }
+.pf-skills--ind li { background: #F1F3F8; color: var(--ink); }
+.pf-skills--cred li { background: #FDF3E1; color: var(--fx-amber); }
+.pf-skills li, .pf-apps li { font-size: 12.5px; }
+.pf-skills li { padding: 5px 10px; }
+@media (max-width: 600px) {
+  /* phones: adviser cards become a swipeable row, one card and a peek of the next */
+  .pf-grid { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 14px; scrollbar-width: thin; }
+  .pf-card { flex: 0 0 86%; scroll-snap-align: center; padding: 20px; }
+  .pf-card:hover { transform: none; }
+  .pf-top { grid-template-columns: 60px 1fr; gap: 12px; }
+  .pf-ava { width: 60px; height: 60px; }
+  .pf-ini { font-size: 20px; }
+  .pf-card[data-ph] .pf-top { padding-right: 0; padding-top: 22px; }
+}
+/* team profiles (22 Oct 2026): stats, two skill groups, the rest behind "See all N skills", a closing call card */
+.pf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+.pf-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px; margin: 0 0 4px; }
+.pf-stats > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 3px; padding: 10px 12px; border-radius: 14px; background: rgba(234,240,251,.7); border: 1px solid #E3E9F5; }
+.pf-stats dd { margin: 0; font: 800 20px/1 var(--font-display); color: var(--blue); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.pf-stats dt { font: 600 12px/1.3 var(--font-body); color: var(--body); }
+.pf-more { margin-top: 12px; }
+.pf-more summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--blue-300); color: var(--blue-700); font: 700 13px/1 var(--font-body); background: #fff; transition: background .2s var(--fx-ease), border-color .2s var(--fx-ease); }
+.pf-more summary::-webkit-details-marker { display: none; }
+.pf-more summary:hover { background: var(--blue-050); border-color: var(--blue); }
+.pf-more summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.pf-more summary .ic { width: 14px; height: 14px; transition: transform .3s var(--fx-ease); }
+.pf-more[open] summary .ic { transform: rotate(180deg); }
+.pf-more[open] summary span::after { content: ""; }
+.pf-more[open] .pf-g { animation: pfIn .45s var(--fx-ease) both; }
+.pf-more[open] .pf-g:nth-of-type(2) { animation-delay: .05s; } .pf-more[open] .pf-g:nth-of-type(3) { animation-delay: .1s; }
+.pf-more[open] .pf-g:nth-of-type(4) { animation-delay: .15s; } .pf-more[open] .pf-g:nth-of-type(n+5) { animation-delay: .2s; }
+@keyframes pfIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.pf-cta { display: grid; align-content: center; align-self: stretch; gap: 12px; min-height: 260px; background: linear-gradient(160deg, rgba(234,240,251,.95), rgba(255,255,255,.85)); }
+.pf-cta h3 { font-size: 22px; }
+.pf-cta p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--body); }
+.pf-cta .btn { justify-self: start; }
+@media (max-width: 1080px) { .pf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .pf-cta { min-height: 0; } .pf-stats dd { font-size: 18px; } }
+@media (prefers-reduced-motion: reduce) { .pf-more[open] .pf-g { animation: none; } }
+
+/* phones: status steps and record sub-lines wrap instead of ending in an ellipsis */
+@media (max-width: 600px) {
+  .ixs-pane .ixf-seg { display: flex; align-items: center; justify-content: center; min-height: 40px; padding-top: 5px; padding-bottom: 5px; line-height: 1.15; white-space: normal; overflow: visible; text-overflow: clip; }
+  .ixs-pane .ixf-t small, .ixs-pane .ixf-post-h small { white-space: normal; overflow: visible; text-overflow: clip; }
+}

@@ -684,3 +684,12 @@ document.addEventListener('click', function (e) {
   function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1200); })(warm, { timeout: 5000 }); }
   if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
 })();
+
+/* phones: mark the body once the first screen has been scrolled (the catalogue button waits for it) */
+(function () {
+  'use strict';
+  var on = false, t = 0;
+  function check() { t = 0; var v = window.scrollY > window.innerHeight * 0.8; if (v !== on) { on = v; document.body.classList.toggle('past-fold', v); } }
+  window.addEventListener('scroll', function () { if (!t) t = requestAnimationFrame(check); }, { passive: true });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', check); else check();
+})();

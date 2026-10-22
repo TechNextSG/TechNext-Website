@@ -30,10 +30,9 @@
 .apx-copy { min-width: 0; }
 .apx-hero .crumbs { margin-bottom: 18px; }
 .apx-hero h1 { max-width: 19ch; font-size: clamp(2rem, 1.15rem + 2.6vw, 3.3rem); }
-.apx-app-pill { gap: 10px; padding: 6px 16px 6px 8px; }
-.apx-app-pill .oi { width: 28px; height: 28px; height: 28px; }
 .apx-hero .app-sub { margin: 18px 0 0; max-width: 40ch; color: var(--blue-700); }
-.apx-hero .fx-lead { margin: 10px 0 0; max-width: 54ch; }
+.apx-hero .fx-lead { margin: 20px 0 0; max-width: 54ch; }
+.apx-hero .app-sub + .fx-lead { margin-top: 10px; }
 .apx-hero .pill-row { margin-top: 20px; }
 .apx-act { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .apx-works { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0 0; }
@@ -366,7 +365,6 @@
   .apps-fx main > section.apx-bir-sec { padding: 0 0 56px !important; }
   .apps-fx main > section.apx-birline-sec { padding: 0 0 48px !important; }
   .apps-fx main > section.apx-led-sec { padding: 56px 0 !important; }
-  .apx-app-pill span { display: inline; font-size: 13px; }
   .apx-act .btn { flex: 1 1 100%; justify-content: center; }
   .apx-panel { padding: 10px; border-radius: 22px; }
   .apx-win { border-radius: 14px; }

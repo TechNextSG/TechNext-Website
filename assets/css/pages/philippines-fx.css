@@ -202,3 +202,11 @@
   .ph-guides a:hover, .ph-stand-a:hover { transform: none; }
 }
 .ph-fx .tag--warn { color: var(--fx-amber); }
+
+/* BIR board text at 12px (22 Oct 2026 craft floor): labels, row names, cadence pills and the ledger notes; the month and
+   cell grid keep their compact size so 12 columns still fit */
+.ph-fx .bir-h { font-size: 12px; }
+.ph-fx .bir-h small, .ph-fx .bir-rh small, .ph-fx .bir-n small { font-size: 12px; }
+.ph-fx .bir-rh b, .ph-fx .bir-lh, .ph-fx .bir-n b { font-size: 12.5px; }
+.ph-fx .bir-row--h .bir-rh, .ph-fx .bir-cad { font-size: 12px; }
+.ph-fx .bir-mh, .ph-fx .bir-mh.is-ye, .ph-fx .bir-c { font-size: 11.5px; }
