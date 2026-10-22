@@ -22,14 +22,14 @@
 
   /* ---------------------------------------------------------------- profile cards */
   var wrap = document.querySelector('[data-eh-people]');
-  var cards = wrap ? [].slice.call(wrap.querySelectorAll('.th-person')) : [];
+  var cards = wrap ? [].slice.call(wrap.querySelectorAll('.th-person, .tm-card')) : [];
   var people = cards.map(function (el) {
-    var h = el.querySelector('h3'), role = el.querySelector('.th-role'), mail = el.querySelector('.th-mail');
+    var h = el.querySelector('h3'), role = el.querySelector('.th-role, .tm-role'), mail = el.querySelector('.th-mail');
     return { el: el, name: h ? h.textContent.trim() : '', role: role ? role.textContent.trim() : '', email: mail ? mail.textContent.trim() : '' };
   }).filter(function (p) { return p.name; });
 
   people.forEach(function (p, i) {
-    var foot = p.el.querySelector('.ef-foot');
+    var foot = p.el.querySelector('.tm-actions, .ef-foot');   // the team card's action row
     if (!foot) { foot = document.createElement('p'); foot.className = 'ef-foot'; p.el.appendChild(foot); }
     foot.innerHTML = (p.email ? '<a class="eh-act2 eh-act2--main" href="mailto:' + esc(p.email) + '">' + ic('mail') + 'Email ' + esc(p.name.split(/\s+/)[0]) + '</a>' : '') +
       '<button type="button" class="eh-act2" data-eh-vcf="' + i + '">' + ic('vcf') + 'Save contact (.vcf)</button>';

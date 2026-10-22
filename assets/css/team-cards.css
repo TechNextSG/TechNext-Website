@@ -1,0 +1,148 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Team cards (22 Oct 2026, owner: "spotlight + quick view"): one lit glass portrait card for the home team section and the
+   Team Directory, plus the quick view panel. Brief: .impeccable/surfaces/src-pages-employee-hub-html.md. Sits on home-fx.css
+   (glass tokens, .pf-stats, .pf-skills chips). Behaviour: assets/js/team-cards.js sets --mx/--my (light) and --rx/--ry
+   (tilt) on .tm-face. Light theme only; reduced motion: no tilt, no ring turn, the panel fades. */
+
+/* ---------------------------------------------------------------- grid */
+.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.tm-card { position: relative; display: flex; min-width: 0; perspective: 1200px; }
+.tm-card[hidden] { display: none; }
+
+/* ---------------------------------------------------------------- the lit glass portrait */
+.tm-face { --mx: 50%; --my: 20%; --rx: 0deg; --ry: 0deg; --lit: 0;
+  position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+  min-width: 0; padding: 32px 24px 24px; border-radius: 24px; cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.66)); border: 1px solid var(--fx-edge);
+  box-shadow: 0 1px 2px rgba(31,31,61,.04), 0 24px 48px -32px rgba(30,70,145,.45);
+  transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d;
+  transition: transform .7s var(--fx-ease), box-shadow .45s var(--fx-ease), border-color .45s var(--fx-ease); }
+.tm-face.is-live { transition: transform .14s linear, box-shadow .45s var(--fx-ease), border-color .45s var(--fx-ease); }
+.tm-card:hover .tm-face, .tm-face:focus-within { --lit: 1; border-color: rgba(111,160,245,.6);
+  box-shadow: 0 2px 4px rgba(31,31,61,.04), 0 34px 64px -30px rgba(30,70,145,.55); }
+
+/* the light: a soft spotlight under the cursor and a bright rim where it meets the edge */
+.tm-light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: var(--lit);
+  transition: opacity .45s var(--fx-ease);
+  background: radial-gradient(340px circle at var(--mx) var(--my), rgba(111,160,245,.28), rgba(111,160,245,.08) 45%, transparent 72%); }
+.tm-light::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px;
+  background: radial-gradient(240px circle at var(--mx) var(--my), rgba(49,103,202,.95), rgba(49,103,202,0) 70%);
+  -webkit-mask: linear-gradient(var(--ink) 0 0) content-box, linear-gradient(var(--ink) 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(var(--ink) 0 0) content-box exclude, linear-gradient(var(--ink) 0 0); }
+
+/* the portrait and its ring */
+.tm-ava { position: relative; flex: none; width: 150px; height: 150px; margin-bottom: 18px; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(120% 120% at 30% 20%, #fff, var(--blue-050) 55%, #DCE7FA);
+  box-shadow: 0 18px 34px -22px rgba(30,70,145,.6); transform: translateZ(36px);
+  transition: box-shadow .5s var(--fx-ease), transform .7s var(--fx-ease); }
+.tm-ava img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.tm-ini { font: 800 48px/1 var(--font-display); letter-spacing: -.03em; color: var(--blue-700); }
+.tm-ring { position: absolute; inset: -7px; border-radius: 50%; padding: 3px; pointer-events: none; opacity: .45;
+  background: conic-gradient(from 0deg, var(--blue), rgba(111,160,245,.12) 30%, var(--blue-300) 55%, rgba(111,160,245,.12) 80%, var(--blue));
+  -webkit-mask: linear-gradient(var(--ink) 0 0) content-box, linear-gradient(var(--ink) 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(var(--ink) 0 0) content-box exclude, linear-gradient(var(--ink) 0 0);
+  transition: opacity .45s var(--fx-ease), filter .45s var(--fx-ease); }
+.tm-card:hover .tm-ring, .tm-face:focus-within .tm-ring { opacity: 1; filter: drop-shadow(0 0 8px rgba(111,160,245,.85)); animation: tmTurn 5s linear infinite; }
+.tm-card:hover .tm-ava, .tm-face:focus-within .tm-ava { box-shadow: 0 0 0 10px rgba(111,160,245,.12), 0 26px 46px -18px rgba(30,70,145,.6); }
+@keyframes tmTurn { to { transform: rotate(1turn); } }
+
+/* who */
+.tm-name { margin: 0; font: 800 1.3rem/1.2 var(--font-display); letter-spacing: -.015em; color: var(--ink); }   /* no transform: the link's ::after must cover the whole card */
+.tm-name a { color: inherit; text-decoration: none; }
+.tm-name a::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }   /* the whole card is the target */
+.tm-name a:focus-visible { outline: none; }
+.tm-face:has(.tm-name a:focus-visible) { outline: 3px solid var(--blue); outline-offset: 4px; }
+.tm-role { margin: 5px 0 0; font: 650 15px/1.35 var(--font-body); color: var(--blue-700); }
+.tm-office { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 0; font-size: 14px; line-height: 1.3; color: var(--body); }
+.tm-office .ic { width: 15px; height: 15px; color: var(--blue); }
+
+/* home: one line and the numbers */
+.tm-sum { margin: 14px 0 0; max-width: 34ch; font-size: 15px; line-height: 1.55; color: var(--body); }
+.tm-face .tm-stats { width: 100%; margin: 18px 0 0; text-align: left; }
+
+/* directory: email, top skills, actions */
+.tm-mail { position: relative; z-index: 2; margin: 10px 0 0; }
+.tm-mail .th-mail { font: 650 15px/1.3 var(--font-body); color: var(--blue); overflow-wrap: anywhere; text-decoration: none; }
+.tm-mail .th-mail:hover { text-decoration: underline; text-underline-offset: 3px; }
+.tm-skills { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; }
+.tm-skills li { padding: 5px 10px; border-radius: 999px; background: var(--blue-050); font: 600 12.5px/1.25 var(--font-body); color: var(--blue-700); }
+.tm-actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; margin: 18px 0 0; }
+.tm-actions:empty { display: none; }
+
+/* the way in: a quick-view pill and the profile link (above the card's stretched link) */
+.tm-qv-hint { position: absolute; top: 14px; right: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px;
+  border-radius: 999px; border: 1px solid rgba(111,160,245,.55); background: rgba(255,255,255,.9); cursor: pointer;
+  font: 700 12.5px/1 var(--font-body); color: var(--blue-700); opacity: 0; transform: translateY(-4px);
+  transition: opacity .3s var(--fx-ease), transform .3s var(--fx-ease), background .2s var(--fx-ease); }
+.tm-qv-hint .ic { width: 14px; height: 14px; }
+.tm-card:hover .tm-qv-hint, .tm-face:focus-within .tm-qv-hint { opacity: 1; transform: none; }
+.tm-qv-hint:hover { background: var(--blue-050); }
+.tm-qv-hint:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.tm-link { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 18px;
+  font: 700 14px/1.2 var(--font-body); color: var(--blue-700); text-decoration: none; }
+.tm-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.tm-link .ic { width: 16px; height: 16px; transition: transform .25s var(--fx-ease); }
+.tm-link:hover .ic { transform: translateX(3px); }
+.tm-link:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+@media (hover: none) { .tm-qv-hint { opacity: 1; transform: none; } }
+
+/* ---------------------------------------------------------------- quick view */
+html.tm-lock { overflow: hidden; }
+.tm-qv { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: transparent; overflow: hidden; color: var(--ink); }
+.tm-qv::backdrop { background: rgba(31,31,61,.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.tm-qv[open]::backdrop { animation: tmFade .4s var(--fx-ease); }
+@keyframes tmFade { from { opacity: 0; } }
+.tm-qv-panel { position: absolute; top: 12px; right: 12px; bottom: 12px; width: min(500px, calc(100% - 24px)); display: flex; flex-direction: column;
+  border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.96); border: 1px solid var(--fx-edge);
+  box-shadow: 0 40px 90px -36px rgba(30,70,145,.6), 0 2px 6px rgba(31,31,61,.06); }
+.tm-qv-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #E3E9F5; }
+.tm-qv-bar button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--blue-100); background: #fff;
+  color: var(--ink); cursor: pointer; transition: border-color .2s var(--fx-ease), background .2s var(--fx-ease); }
+.tm-qv-bar button:hover { border-color: var(--blue); background: var(--blue-050); }
+.tm-qv-bar button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.tm-qv-bar svg { width: 18px; height: 18px; }
+.tm-qv-prev svg { transform: rotate(180deg); }
+.tm-qv-count { flex: 1; font: 600 13.5px/1 var(--font-body); color: var(--body); font-variant-numeric: tabular-nums; }
+.tm-qv-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 26px 28px 30px; scrollbar-width: thin; scrollbar-color: #C9D4EA transparent; }
+.tm-qv-body:focus { outline: none; }
+.tm-qv-head { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 20px; align-items: center; }
+.tm-ava--qv { width: 116px; height: 116px; margin: 0; transform: none; }
+.tm-ava--qv .tm-ring { opacity: 1; animation: tmTurn 6s linear infinite; }
+.tm-ava--qv .tm-ini { font-size: 38px; }
+.tm-qv-name { margin: 0; font: 800 1.65rem/1.12 var(--font-display); letter-spacing: -.025em; color: var(--ink); }
+.tm-qv-bio { margin: 20px 0 0; font-size: 15.5px; line-height: 1.62; color: var(--body); }
+.tm-qv-stats { margin-top: 18px; }
+.tm-qv-groups { margin-top: 6px; }
+.tm-qv-g { margin-top: 18px; }
+.tm-qv-g h3 { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 9px; font: 800 15px/1.3 var(--font-display); color: var(--ink); }
+.tm-qv-g h3 span { padding: 4px 8px; border-radius: 999px; background: var(--blue-050); font: 700 12px/1 var(--font-body); color: var(--blue-700); font-variant-numeric: tabular-nums; }
+.tm-qv-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 28px 20px; border-top: 1px solid #E3E9F5; background: #fff; }
+.tm-qv-act { display: contents; }
+.tm-qv-page { margin-left: auto; }
+.tm-qv ::selection { background: var(--blue-100); color: var(--ink); }
+
+.tm-grid.eh-people { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }   /* the directory's older grid rule loads later */
+@media (max-width: 1080px) { .tm-grid, .tm-grid.eh-people { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .tm-grid, .tm-grid.eh-people { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  /* home: one card and a peek of the next, swiped sideways */
+  .tm-grid--home { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 16px; scrollbar-width: thin; }
+  .tm-grid--home .tm-card { flex: 0 0 86%; scroll-snap-align: center; }
+  .tm-face { padding: 28px 18px 20px; }
+  .tm-ava { width: 128px; height: 128px; }
+  .tm-ini { font-size: 40px; }
+  .tm-qv-panel { top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 90vh; border-radius: 24px 24px 0 0; }
+  .tm-qv-body { padding: 22px 18px 24px; }
+  .tm-qv-head { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; }
+  .tm-ava--qv { width: 88px; height: 88px; }
+  .tm-qv-name { font-size: 1.35rem; }
+  .tm-qv-foot { padding: 14px 18px 18px; }
+  .tm-qv-foot .btn, .tm-qv-foot .eh-act2 { flex: 1 1 100%; justify-content: center; }
+  .tm-qv-page { margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tm-face, .tm-face.is-live, .tm-ava, .tm-light, .tm-qv-hint, .tm-link .ic { transition: none; }
+  .tm-card:hover .tm-ring, .tm-face:focus-within .tm-ring, .tm-ava--qv .tm-ring { animation: none; }
+  .tm-qv[open]::backdrop { animation: none; }
+}

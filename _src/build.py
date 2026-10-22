@@ -1007,6 +1007,8 @@ def advisor_cards_html() -> str:
     no company list, and no skills on the card (owner 22 Oct 2026: skills live on each profile page, team/<slug>.html).
     Empty list = no section (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked placeholders instead,
     for design previews only; never set it for a production build."""
+    if ADV.ADVISORS:   # the shared spotlight card + quick view (team_pages.py, assets/css/team-cards.css, assets/js/team-cards.js)
+        return TP.home_section_html()
     esc = lambda t: html_mod.escape(t, quote=False)
     people, preview = ADV.ADVISORS, False
     if not people and os.environ.get("TN_PREVIEW_PROFILES") == "1":

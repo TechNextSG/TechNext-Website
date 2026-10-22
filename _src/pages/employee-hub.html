@@ -1,4 +1,4 @@
-<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: a professional profile for each person with their role and work email, and a vCard to save the contact.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "fx-page eh-page", "scripts": ["assets/js/pages/employee-hub-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/employee-hub-fx.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: a professional profile for each person with their role and work email, and a vCard to save the contact.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "fx-page eh-page", "scripts": ["assets/js/pages/employee-hub-fx.js", "assets/js/team-cards.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/team-cards.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/employee-hub-fx.css?v={ASSET_V}\">"} -->
 <!-- Team Directory (22 Oct 2026 redesign): a staff page, noindex. Glass hero with the directory panel (profile count, search,
      live office time), one professional glass profile card per person (cards come from _src/team.py via build.py {{TEAM_CARDS}};
      the markup is restyled by CSS only), the three offices, discovery call. No ID-card world, no lanyards.
@@ -34,7 +34,7 @@
 <section class="section fx-sec" id="team" aria-labelledby="eh-team-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="eh-team-h">The team.</h2><p class="lead">Write to anyone directly, or save the contact as a vCard (.vcf). One team scopes, builds and supports your project, from Singapore, Taguig City and Ho Chi Minh City.</p></div>
-    <div class="th-people eh-people" data-eh-people>{{TEAM_CARDS}}</div>
+    <div class="tm-grid tm-grid--dir eh-people" data-eh-people>{{TEAM_CARDS}}</div>
     <p class="eh-none" data-eh-none hidden>No one matches that search. Clear it to see the whole team.</p>
   </div>
 </section>

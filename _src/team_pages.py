@@ -152,28 +152,82 @@ def pages() -> list:
     return [page(p, ADV.ADVISORS) for p in ADV.ADVISORS]
 
 
+# ---------------------------------------------------------------------------------------------------------- team cards
+# One card for the home team section and the Team Directory (owner 22 Oct 2026: "spotlight + quick view"). The card is a
+# lit glass portrait (assets/css/team-cards.css); assets/js/team-cards.js moves a light and a gentle tilt with the cursor
+# and opens the quick view, a slide-in panel cloned from the card's own <template>. Without JS the name links to the
+# profile page. The home quick view carries no email (indexed page); the directory one carries email and the vCard.
+def _quick_view(p: dict, ctx: str) -> str:
+    office = _office(p)
+    stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
+    groups = "".join(
+        f'<section class="tm-qv-g"><h3>{lab}<span>{len(items)}</span></h3><ul class="{css}">{"".join(f"<li>{i}</li>" for i in items)}</ul></section>'
+        for lab, items, css in groups_of(p))
+    if ctx == "directory":
+        act = ((f'<a class="eh-act2 eh-act2--main" href="mailto:{esc(p["email"])}">{{{{icon:mail}}}}Email {esc(p["name"].split()[0])}</a>' if p.get("email") else "")
+               + '<button type="button" class="eh-act2" data-qv-vcf>Save contact (.vcf)</button>')
+    else:
+        act = f'<a class="btn btn-primary" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>'
+    office_line = f'<p class="tm-office">{{{{icon:pin}}}}{office}</p>' if office else ""
+    stats_dl = f'<dl class="pf-stats tm-qv-stats">{stats}</dl>' if stats else ""
+    pic = avatar(p) if p.get("photo") else f'<span class="tm-ini" aria-hidden="true">{initials(p["name"])}</span>'
+    return (f'<template class="tm-qv-src"><div class="tm-qv-main">'
+            f'<div class="tm-qv-head"><div class="tm-ava tm-ava--qv">{pic}<i class="tm-ring" aria-hidden="true"></i></div>'
+            f'<div><h2 class="tm-qv-name">{esc(p["name"])}</h2><p class="tm-role">{esc(p["role"])}</p>{office_line}</div></div>'
+            f'<p class="tm-qv-bio">{esc(p.get("bio", ""))}</p>{stats_dl}'
+            f'<div class="tm-qv-groups">{groups}</div></div>'
+            f'<div class="tm-qv-act">{act}<a class="btn-link tm-qv-page" href="{{{{ROOT}}}}{profile_url(p)}">Open full profile {{{{icon:arrow}}}}</a></div></template>')
+
+
+def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
+    """ctx "home": photo, name, role, office, one-line summary, stats. ctx "directory": photo, name, role, office, email,
+    top skills, Email / Save contact (filled by employee-hub-fx.js). profile=False (no profile page): no quick view."""
+    name, office = p["name"], _office(p)
+    pic = avatar(p) if p.get("photo") else f'<span class="tm-ini" aria-hidden="true">{initials(name)}</span>'
+    title = (f'<a href="{{{{ROOT}}}}{profile_url(p)}" data-tm-open>{esc(name)}</a>' if profile else esc(name))
+    parts = [f'<div class="tm-ava">{pic}<i class="tm-ring" aria-hidden="true"></i></div>',
+             f'<h3 class="tm-name">{title}</h3>', f'<p class="tm-role">{esc(p["role"])}</p>']
+    if office:
+        parts.append(f'<p class="tm-office">{{{{icon:pin}}}}{office}</p>')
+    if ctx == "home":
+        if p.get("summary") or p.get("bio"):
+            parts.append(f'<p class="tm-sum">{esc(p.get("summary") or p["bio"])}</p>')
+        stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
+        if stats:
+            parts.append(f'<dl class="pf-stats tm-stats">{stats}</dl>')
+    else:
+        if p.get("email"):
+            parts.append(f'<p class="tm-mail"><a class="th-mail" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></p>')
+        top = [i for _, items in (p.get("groups") or [])[:1] for i in items][:3]
+        if top:
+            parts.append(f'<ul class="tm-skills" aria-label="Top skills">{"".join(f"<li>{esc(i)}</li>" for i in top)}</ul>')
+        parts.append('<p class="tm-actions"></p>')
+    if profile:
+        parts.append(f'<a class="tm-link" href="{{{{ROOT}}}}{profile_url(p)}">View full profile {{{{icon:arrow}}}}</a>')
+    hint = (f'<button type="button" class="tm-qv-hint" data-tm-open aria-haspopup="dialog" aria-label="Quick view: {esc(name)}">'
+            f'{{{{icon:expand}}}}<span>Quick view</span></button>' if profile else "")
+    hay = " ".join(i for _, items in (p.get("groups") or []) for i in items)
+    return (f'<article class="tm-card reveal" style="--i:{k % 6}" data-tm-card data-skills="{esc(hay)}">'
+            f'<div class="tm-face"><span class="tm-light" aria-hidden="true"></span>{hint}{"".join(parts)}</div>'
+            f'{_quick_view(p, ctx) if profile else ""}</article>')
+
+
+def home_section_html() -> str:
+    """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
+    cards = "".join(card_html(p, k, "home") for k, p in enumerate(ADV.ADVISORS))
+    return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="pf-h">Meet the experts.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
+    <div class="tm-grid tm-grid--home">{cards}</div>
+    <div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}employee-hub.html">{{{{icon:users}}}}Meet the whole team {{{{icon:arrow}}}}</a><a class="btn btn-ghost btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call</a></div>
+  </div>
+</section>'''
+
+
 # ---------------------------------------------------------------------------------------------------------- directory
 def directory_html() -> str:
-    """Team Directory cards in the page's existing employee-sheet markup (restyled by employee-hub-fx.css). The page script
-    reads h3, .th-role and .th-mail for the vCard and search; data-skills widens the search to skills."""
-    rows = [dict(p, _profile=True) for p in ADV.ADVISORS] + [dict(t, _profile=False) for t in TM.TEAM]
-    out = []
-    for k, p in enumerate(rows):
-        mail = f'<a class="th-mail" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a>' if p.get("email") else "&mdash;"
-        office = _office(p) or "&mdash;"
-        top = [i for _, items in (p.get("groups") or [])[:1] for i in items][:3]
-        skills = "".join(f"<li>{esc(i)}</li>" for i in top)
-        hay = " ".join(i for _, items in (p.get("groups") or []) for i in items)
-        link = (f'<a class="eh-profile" href="{{{{ROOT}}}}{profile_url(p)}">View {esc(p["name"].split()[0])}\'s profile {{{{icon:arrow}}}}</a>'
-                if p["_profile"] else "")
-        pic = avatar(p) if p.get("photo") else f'<span class="th-ini" aria-hidden="true">{initials(p["name"])}</span>'
-        top_ul = f'<ul class="eh-top-skills" aria-label="Top skills">{skills}</ul>' if skills else ""
-        out.append(
-            f'<article class="th-person ef-sheet th-tone-{k % 4} reveal" style="--i:{k % 6}" data-skills="{esc(hay)}"><span class="ef-tab" aria-hidden="true">201</span>'
-            f'<p class="ef-head"><img class="th-plane" src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="40" height="34"><span>TechNext · Team profile</span><b>{k + 1:02d}</b></p>'
-            f'<div class="ef-body"><div class="th-ava ef-photo">{pic}</div>'
-            f'<dl class="ef-fields"><div><dt>Name</dt><dd><h3>{esc(p["name"])}</h3></dd></div><div><dt>Position</dt><dd class="th-role">{esc(p["role"])}</dd></div>'
-            f'<div><dt>Office</dt><dd>{office}</dd></div><div><dt>Work email</dt><dd>{mail}</dd></div></dl></div>'
-            f'{top_ul}{link}'
-            f'<p class="ef-foot"><span class="ef-id">{{{{icon:users}}}}TechNext ID</span><span class="ef-stamp">On file</span></p></article>')
-    return "".join(out)
+    """Team Directory cards: everyone with a profile first, then the rest of team.TEAM (no profile page, no quick view).
+    employee-hub-fx.js reads h3, .tm-role and .th-mail for the vCard and search, and fills .tm-actions; data-skills
+    widens the search to skills."""
+    rows = [(p, True) for p in ADV.ADVISORS] + [(t, False) for t in TM.TEAM]
+    return "".join(card_html(p, k, "directory", profile=has) for k, (p, has) in enumerate(rows))
