@@ -17,7 +17,7 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
-    {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": None,
+    {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": "clement-kho.webp",
      "summary": "Clement builds companies across borders and has hired and trained more than 1,000 people.",
      "bio": "Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong. Along the way Clement has hired and trained more than 1,000 people, and led automation projects where thousands of everyday tasks now run by themselves. Ask Clement about running several companies on one system.",
      "stats": [("1,000+", "staff hired and trained"), ("724", "staff in one BPO set-up"), ("10+", "Wi-Fi and network security projects")],
