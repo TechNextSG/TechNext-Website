@@ -133,6 +133,7 @@ Last updated: 2026-10-21
 - https://technext.asia/team/jett-balanza — Jett Balanza, Business Systems Analyst | TechNext Odoo Partner: Jett sits between your team and our developers, turning what you need into a working Odoo set-up.
 - https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19.
 - https://technext.asia/team/pia-cachola — Pia Cachola, General Manager | TechNext Odoo Partner: Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver.
+- https://technext.asia/team/rex-polintang — Rex Polintang, IT Specialist | TechNext Odoo Partner: Rex keeps the systems and networks behind a business running.
 - https://technext.asia/team/rico-duque — Rico Duque, Marketing Officer | TechNext Odoo Partner: Rico runs marketing end to end, from website design, structure and SEO to social media and brand design.
 - https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite.
 

@@ -228,7 +228,7 @@ NAV = [
         ],
     },
     # drawn as Nexi's speech bubble (build.py nav_html, site.css .nav-bubble)
-    {"label": "Nexi Explains", "href": "nexi-explains.html", "id": "nexi-explains", "bubble": True},
+    # owner 22 Oct 2026: the Nexi Explains bubble left the header (the page stays)
 ]
 
 # ---------------------------------------------------------------- Odoo apps
