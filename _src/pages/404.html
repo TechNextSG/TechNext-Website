@@ -1,26 +1,33 @@
-<!--meta {"title": "Page not found — back to TechNext", "desc": "That page is not here. Jump back to the TechNext home page, Odoo ERP, the app catalogue or the quotation builder.", "out": "404.html", "nav": "", "head": "<meta name=\"robots\" content=\"noindex\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Page not found — back to TechNext", "desc": "That page is not here. Jump back to the TechNext home page, BIR e-invoicing, Odoo ERP, the Odoo apps or the quotation builder.", "out": "404.html", "nav": "", "body": "fx-page nf-page", "scripts": ["assets/js/pages/notfound-fx.js"], "head": "<meta name=\"robots\" content=\"noindex\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/notfound-fx.css?v={ASSET_V}\">"} -->
+<!-- 404 (22 Oct 2026 restyle): glass hero, a route-lookup panel that shows the address that was not found and the pages most people
+     were heading to. Assets and links use {ROOT} like every page: on Vercel a nested missing address (/blog/old-post) resolves them
+     against /blog/, so build.py should render 404.html with ROOT = "/" (see the report). No illustrations. -->
 
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <div class="two two--stage">
-    <div>
-    <span class="hand">404</span>
-    <h1>That page isn't here.</h1>
-    <p class="lead">The link may be old, or the address mistyped. Here's where most people were heading.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="{{ROOT}}index.html">Home</a>
-      <a class="btn btn-ghost" href="{{ROOT}}quotation.html">Get a quotation</a>
+<section class="fx-hero nf-hero" aria-labelledby="nf-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fx-hero-in">
+    <div class="nf-copy">
+      <h1 id="nf-h1">That page <span class="fx-hl">isn't here</span>.</h1>
+      <p class="fx-lead">The link may be old, or the address mistyped. Here is where most people were heading, or you can talk to an adviser about what you were looking for.</p>
+      <div class="actions nf-act">
+        <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-ghost btn-lg" href="{{ROOT}}index.html">{{icon:layout}}Back to the home page</a>
+      </div>
     </div>
-    <p class="nf-links"><a class="btn-link" href="{{ROOT}}solutions/odoo-erp.html">Odoo ERP {{icon:arrow}}</a><a class="btn-link" href="{{ROOT}}odoo/apps.html">Odoo apps {{icon:arrow}}</a></p>
-    </div>
-    <div class="stage stage--404" aria-hidden="true">
-      <svg class="nf-svg st-anim" viewBox="0 0 440 300" focusable="false">
-        <path id="nfp" class="nf-path" d="M30,240 C110,40 230,260 290,130 S430,40 400,170 C372,290 220,250 250,150 S160,70 120,120"/>
-        <circle class="nf-dot" cx="30" cy="240" r="6"/>
-        <path class="co-plane" d="M-13,-9 L14,0 L-13,9 L-8,0 Z" opacity="0"><animateMotion dur="7s" begin=".6s" fill="freeze" repeatCount="1" rotate="auto"><mpath href="#nfp" xlink:href="#nfp"/></animateMotion><animate attributeName="opacity" values="0;1;1" keyTimes="0;.06;1" dur="7s" begin=".6s" repeatCount="1" fill="freeze"/></path>
-      </svg>
-    </div>
-    </div>
+
+    <aside class="nf-panel" data-nf-panel aria-label="Where to go next">
+      <div class="fx-result-glow" aria-hidden="true"></div>
+      <div class="nf-top"><p class="fx-r-label">Route lookup</p><p class="nf-status"><i aria-hidden="true"></i>404 Not found</p></div>
+      <p class="nf-req"><span>Requested</span><code data-nf-path>the address you typed</code></p>
+      <p class="nf-found">Closest pages</p>
+      <ul class="nf-routes">
+        <li style="--i:0"><a href="{{ROOT}}bir-e-invoicing.html"><span><b>BIR e-invoicing</b><small>What changes by 31 December 2026</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:1"><a href="{{ROOT}}odoo/philippines.html"><span><b>Odoo in the Philippines</b><small>Books and reports set up for BIR requirements</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:2"><a href="{{ROOT}}solutions/odoo-erp.html"><span><b>Odoo ERP</b><small>Implementation by our own experts</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:3"><a href="{{ROOT}}odoo/apps.html"><span><b>Odoo apps</b><small>Every app, in plain language</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:4"><a href="{{ROOT}}blog.html"><span><b>Blog</b><small>BIR compliance, Odoo 20 and ERP guides</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:5"><a href="{{ROOT}}quotation.html"><span><b>Get a quotation</b><small>Tell us what you need</small></span>{{icon:arrow}}</a></li>
+      </ul>
+    </aside>
   </div>
 </section>

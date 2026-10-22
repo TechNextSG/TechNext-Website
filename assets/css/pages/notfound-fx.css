@@ -1,0 +1,58 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* 404 (22 Oct 2026): futuro glass layer. A route-lookup panel: the address that was not found, then the pages most people were
+   heading to, joined by a glowing line. Builds on home-fx.css tokens. Motion: transform/opacity only, off under reduced motion. */
+
+.nf-hero { padding: 72px 0 96px; min-height: calc(100vh - var(--header-h) - 80px); display: flex; align-items: center; }
+.nf-hero > .container { width: 100%; }
+.nf-hero .fx-hero-in { align-items: center; }
+.nf-hero .fx-hero-in > * { min-width: 0; }
+.nf-hero h1 { max-width: 11ch; font-size: clamp(2.6rem, 1.5rem + 3.6vw, 4.4rem); }
+.nf-act { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.nf-panel { position: relative; border-radius: 24px; padding: 22px 22px 20px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+.nf-panel .fx-result-glow { opacity: 1; }
+.nf-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.nf-status { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 7px 12px; border-radius: 999px; background: #FDF3E1; color: var(--fx-amber); font: 700 12.5px/1 var(--font-body); }
+.nf-status i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 rgba(143,90,0,.5); animation: nfPing 2s var(--fx-ease) infinite; }
+@keyframes nfPing { to { box-shadow: 0 0 0 9px rgba(143,90,0,0); } }
+.nf-req { display: grid; gap: 6px; margin: 16px 0 0; padding: 14px 16px; border-radius: 14px; background: #1F1F3D; color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.1); }
+.nf-req span { font: 700 12px/1 var(--font-body); color: rgba(255,255,255,.72); }
+.nf-req code { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 600 15px/1.4 ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace; color: #fff; background: none; padding: 0; }
+.nf-found { margin: 18px 0 8px; font: 700 12.5px/1 var(--font-body); color: var(--blue-700); }
+
+.nf-routes { list-style: none; margin: 0; padding: 0 0 0 18px; display: grid; gap: 6px; position: relative; }
+.nf-routes::before { content: ""; position: absolute; left: 5px; top: 18px; bottom: 18px; width: 2px; border-radius: 2px; background: var(--fx-line); }
+.nf-routes::after { content: ""; position: absolute; left: 3px; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 12px 3px rgba(49,103,202,.6); animation: nfPkt 3.6s var(--fx-ease) infinite; }
+@keyframes nfPkt { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateY(var(--nf-run, 240px)); opacity: 0; } }
+.nf-routes li { position: relative; }
+.nf-routes li::before { content: ""; position: absolute; left: -17px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: #fff; border: 2px solid var(--blue-300); transition: background-color .3s var(--fx-ease), border-color .3s var(--fx-ease), box-shadow .3s var(--fx-ease); }
+.nf-routes li:hover::before, .nf-routes li:focus-within::before { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 0 4px rgba(49,103,202,.16), 0 0 12px rgba(49,103,202,.5); }
+.nf-routes a { display: grid; grid-template-columns: minmax(0,1fr) 18px; gap: 12px; align-items: center; min-height: 52px; padding: 8px 14px; border-radius: 12px; background: #fff; border: 1px solid #EEF1F7; text-decoration: none; color: inherit;
+  transition: border-color .3s var(--fx-ease), transform .3s var(--fx-ease), box-shadow .3s var(--fx-ease); }
+.nf-routes a:hover { border-color: var(--blue-300); transform: translateX(4px); box-shadow: 0 14px 28px -20px rgba(49,103,202,.6); text-decoration: none; }
+.nf-routes a:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 2px; }
+.nf-routes span { display: grid; gap: 2px; min-width: 0; }
+.nf-routes b { font: 700 15px/1.2 var(--font-body); color: var(--ink); }
+.nf-routes small { font-size: 13px; line-height: 1.35; color: var(--body); }
+.nf-routes .ic { width: 16px; height: 16px; color: var(--blue); transition: transform .3s var(--fx-ease); }
+.nf-routes a:hover .ic { transform: translateX(3px); }
+.fx-off .nf-status i, .fx-off .nf-routes::after { animation-play-state: paused !important; }
+
+@media (max-width: 1080px) {
+  .nf-hero { min-height: 0; padding: 48px 0 64px; }
+  .nf-hero h1 { max-width: 14ch; }
+}
+@media (max-width: 600px) {
+  .nf-hero { padding: 28px 0 48px; }
+  .nf-act .btn { flex: 1 1 100%; justify-content: center; }
+  .nf-panel { padding: 18px 14px 16px; }
+  .nf-routes { padding-left: 16px; }
+  .nf-routes small { font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf-status i, .nf-routes::after { animation: none; }
+  .nf-routes::after { display: none; }
+  .nf-routes a, .nf-routes li::before { transition: none; }
+  .nf-routes a:hover { transform: none; }
+}

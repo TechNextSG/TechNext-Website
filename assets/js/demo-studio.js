@@ -205,6 +205,7 @@ TN.demo('studio', function (root, K) {
       chart.appendChild(K.svg('rect', { x: x, y: Y2(r[0]), width: w, height: Y2(0) - Y2(r[0]), 'class': 'wsd-new' + f, rx: 1.5 }));
       chart.appendChild(K.svg('rect', { x: x, y: Y2(r[0] + r[1]), width: w, height: Y2(r[0]) - Y2(r[0] + r[1]), 'class': 'wsd-exp' + f, rx: 1.5 }));
       chart.appendChild(K.svg('rect', { x: x, y: y0, width: w, height: Math.max(0, Y2(-r[2]) - y0), 'class': 'wsd-chu' + f, rx: 1.5 }));
+      if (W < 520 && i % 2 === 0 && i !== 11) return;   // phones: every second month, so the 12px labels do not collide
       var t = K.svg('text', { x: X(i), y: H - 5, 'class': 'wsd-ax' + (i === 11 ? ' is-now' : ''), 'text-anchor': 'middle' }); t.textContent = MONTHS[i]; chart.appendChild(t);
     });
     var d = '', a = '';

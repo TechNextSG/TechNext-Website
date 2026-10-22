@@ -1351,3 +1351,14 @@ body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
 @media (max-width:1000px){.who-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){.cw-item{flex-basis:calc((100% - 20px) / 3)}}
 @media (max-width:560px){.who-grid{grid-template-columns:1fr}.cw-item{flex-basis:calc((100% - 10px) / 2);padding:12px}}
+
+/* phones: the catalogue button waits until the first screen is scrolled, so it never covers hero panels */
+@media (max-width: 600px) { body:not(.past-fold) .cat-float { opacity: 0; pointer-events: none; scale: .6; } }
+
+/* catalogue button, bigger (owner 22 Oct 2026) */
+.cat-float{width:64px;height:64px;right:24px;bottom:24px}
+.cat-float .ic{width:30px;height:30px}
+@media (max-width:960px){
+  .cat-float{width:56px;height:56px;right:16px}
+  .cat-float .ic{width:26px;height:26px}
+}

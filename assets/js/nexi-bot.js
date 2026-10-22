@@ -568,7 +568,8 @@
        the page margin), and failing that the spot that covers the least. */
     /* a bubble pops a little larger and (roaming) drifts 28 px up as it fades: never place one closer to the
        hero's top edge than that, or the hero clips it */
-    var YMIN = 36;
+    var hdr0 = document.querySelector('[data-header]');
+    var YMIN = Math.max(36, hdr0 ? Math.round(hdr0.getBoundingClientRect().bottom) + 8 : 36);   // bubbles stay below the header
     function word(text, life, optional, o) {
       o = o || {};
       /* one speech bubble at a time: a new line replaces the one still showing */

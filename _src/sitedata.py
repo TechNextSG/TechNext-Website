@@ -8,8 +8,8 @@ SITE_NAME = "TechNext"
 ORG_DESC = ("TechNext is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, "
             "with its main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. Our own experts "
             "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, set it up to meet government requirements "
-            "(BIR in the Philippines, GST and InvoiceNow in Singapore), build enterprise AI, websites and brands, and deliver IoT, app "
-            "and network services as one team, so growing companies in 10+ countries don't need to hire their own.")
+            "(set up for BIR requirements in the Philippines; GST and InvoiceNow in Singapore), build enterprise AI, websites and brands "
+            "as one team, so growing companies in 10+ countries don't need to hire their own.")
 
 # Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
 # never proposal-only prospects or anything under NDA. (name, what they do, where)
@@ -77,7 +77,7 @@ OFFICES = [
      "maps": "https://maps.google.com/?cid=3474088819422984887", "geo": (1.2989163, 103.8519697),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
     {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines development hub",
-     "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing. Our open roles are here.",
+     "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing.",
      "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines", "office": "",
      "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
@@ -94,17 +94,20 @@ OFFICES = [
 ]
 
 # ---------------------------------------------------------------- automated access
-# Search engines and AI answer engines may read the site (so TechNext can be found and cited);
-# crawlers that collect content to TRAIN AI models may not. robots.txt is generated from these
-# lists, and vercel.json redirects the listed user agents to /denied at the edge for crawlers
-# that ignore robots.txt. Robots-only tokens never appear in a user agent, so they are not in
-# the edge list.
+# 21 Oct 2026 (owner): search engines, answer engines AND the major AI model crawlers may read
+# the site, so TechNext can be found and cited by ChatGPT, Claude, Gemini, Perplexity and others
+# (GEO). Only data-harvesting crawlers, scrapers and site copiers stay blocked. robots.txt is
+# generated from these lists, and vercel.json redirects the blocked user agents to /denied at the
+# edge for crawlers that ignore robots.txt. Robots-only tokens never appear in a user agent, so
+# they are not in the edge list.
 AI_ALLOW = ["Googlebot", "Bingbot", "Applebot", "DuckDuckBot", "OAI-SearchBot", "ChatGPT-User",
             "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User", "DuckAssistBot",
-            "MistralAI-User", "meta-externalfetcher"]
-AI_TRAINING = ["GPTBot", "ClaudeBot", "anthropic-ai", "Claude-Web", "CCBot", "Google-Extended",
-               "Applebot-Extended", "Bytespider", "meta-externalagent", "FacebookBot", "Amazonbot",
-               "cohere-ai", "cohere-training-data-crawler", "Diffbot", "Omgilibot", "omgili",
+            "MistralAI-User", "meta-externalfetcher",
+            # AI model crawlers, allowed since 21 Oct 2026
+            "GPTBot", "ClaudeBot", "anthropic-ai", "Claude-Web", "Google-Extended", "Applebot-Extended",
+            "CCBot", "Amazonbot", "meta-externalagent", "cohere-ai"]
+# still blocked: bulk data harvesters and scrapers
+AI_TRAINING = ["Bytespider", "FacebookBot", "cohere-training-data-crawler", "Diffbot", "Omgilibot", "omgili",
                "img2dataset", "AI2Bot", "PanguBot", "Timpibot", "ImagesiftBot", "Kangaroo Bot",
                "webzio-extended", "FirecrawlAgent"]
 ROBOTS_ONLY = {"Google-Extended", "Applebot-Extended", "Claude-Web"}

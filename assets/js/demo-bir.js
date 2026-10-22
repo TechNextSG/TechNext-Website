@@ -31,7 +31,7 @@ TN.demo('bir', function (root, K) {
      ['Bill paid', function (m) { var t = V2307[m] + V2306[m]; return m > 11 ? '\u2014' : t - LATE[m] + ' paid' + (LATE[m] ? ' \u00b7 ' + LATE[m] + ' next month' : ''); }],
      ['Sent to the vendor', function (m) { return m > 11 ? '\u2014' : 'with the payment, if requested'; }]],
     [['1600-VT report', function (m) { return m > 11 ? '\u2014' : FVAT[m] ? 'final VAT on ' + FVAT[m] + ' payment' : 'no final VAT withheld'; }],
-     ['BIR- and CAS-compliant invoices', function (m) { return m > 11 ? 'Book of Accounts for the year' : INV[m] + ' invoices'; }],
+     ['Invoices set up for CAS requirements', function (m) { return m > 11 ? 'Book of Accounts for the year' : INV[m] + ' invoices'; }],
      ['2551Q report', function (m) { return vat ? 'not for VAT-registered companies' : m > 11 ? '\u2014' : m % 3 === 2 ? 'Q' + (m / 3 + 1 | 0) + ', from the quarter\u2019s invoices' : 'next at quarter end'; }]],
     [['Payroll run', function (m) { return m > 11 ? 'the year closed' : EMP[m] + ' employees'; }],
      ['1601-C items', function (m) { return m > 11 ? '12 months of items' : 'monthly payroll reporting'; }],

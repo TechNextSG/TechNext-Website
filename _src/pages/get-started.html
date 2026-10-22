@@ -1,23 +1,26 @@
-<!--meta {"title": "Free website design and setup on Odoo — TechNext", "desc": "We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.", "out": "get-started.html", "nav": "", "body": "gs-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Free website design and setup on Odoo — TechNext", "desc": "We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.", "out": "get-started.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js"], "body": "fx-page gs-page gs-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\">"} -->
+<!-- /get-started (22 Oct 2026 redesign): the focused ads lander, restyled in the glass system. Owner rule kept: cut, not add. Hidden header menu,
+     the form is the only action, no client showcase. Eyebrow labels and icon tiles removed; no sections added. The "leaving already?"
+     pop-up and its script are unchanged (inline, at the end of this file). Styles: assets/css/pages/get-started-fx.css. -->
 
-<section class="gs-hero">
+<section class="fx-hero gs-hero">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container gs-hero-grid">
     <div class="gs-copy">
-      <span class="gs-offer-pill"><b>Free design</b> Live in as little as 3 days</span>
       <h1>We design your website on Odoo. <em>Free.</em></h1>
-      <p class="lead">Our designers build a full multi-page website around your brand and set it up at no charge. You pay only your Odoo subscription.</p>
+      <p class="lead">Our designers build a full multi-page website around your brand and set it up at no charge, live in as little as 3 days. You pay only your Odoo subscription.</p>
       <ul class="gs-ticks">
         <li>{{icon:check}} A multi-page website, custom-designed in the style you choose</li>
         <li>{{icon:check}} Runs on your own Odoo subscription, ready for more apps</li>
         <li>{{icon:check}} Every cost in writing before we start</li>
       </ul>
-      <p class="gs-hero-proof">Odoo partner with offices in Singapore, the Philippines and Vietnam</p>
+      <p class="gs-hero-proof"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Odoo partner with offices in Singapore, the Philippines and Vietnam</span></p>
     </div>
 
-    <form class="form gs-form card card--static" id="gs-form" novalidate data-endpoint="/api/lead">
+    <form class="form gs-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead">
+      <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="Get started page (free website design offer)">
-      <span class="gs-form-tag">{{icon:sparkle}} Free design</span>
       <h2 class="gs-form-h">Claim your free website design</h2>
       <p class="gs-form-sub">Takes a minute. We reply within one working day from sales@technext.asia.</p>
       <div class="form-row">
@@ -35,7 +38,6 @@
           <option>Full Odoo ERP</option>
           <option>AI solutions</option>
           <option>Social media or branding</option>
-          <option>IoT, apps or networks</option>
           <option>Not sure yet</option>
         </select>
       </div>
@@ -67,19 +69,19 @@
   <div class="container gs-proof-in">
     <span class="gs-proof-h">Businesses we set up</span>
     <ul class="gs-proof-list">
-      <li><span class="card-ic">{{icon:ind-retail}}</span>Retail</li>
-      <li><span class="card-ic">{{icon:ind-fnb}}</span>Food &amp; beverage</li>
-      <li><span class="card-ic">{{icon:ind-manufacturing}}</span>Manufacturing</li>
-      <li><span class="card-ic">{{icon:ind-medical}}</span>Medical</li>
-      <li><span class="card-ic">{{icon:ind-travel}}</span>Travel</li>
-      <li><span class="card-ic">{{icon:ind-construction}}</span>Construction</li>
+      <li>{{icon:ind-retail}}Retail</li>
+      <li>{{icon:ind-fnb}}Food &amp; beverage</li>
+      <li>{{icon:ind-manufacturing}}Manufacturing</li>
+      <li>{{icon:ind-medical}}Medical</li>
+      <li>{{icon:ind-travel}}Travel</li>
+      <li>{{icon:ind-construction}}Construction</li>
     </ul>
   </div>
 </section>
 
-<section class="section gs-get">
+<section class="section fx-sec gs-get">
   <div class="container gs-get-grid">
-    <div class="gs-mock reveal" aria-hidden="true">
+    <div class="gs-mock reveal" aria-hidden="true" data-loop>
       <div class="gs-mock-site">
         <div class="gs-mock-bar"><i></i><i></i><i></i><span>yourcompany.com</span></div>
         <div class="gs-mock-body">
@@ -99,7 +101,7 @@
       </div>
     </div>
     <div class="gs-get-copy">
-      <div class="sec-head reveal"><span class="hand">what you get</span><h2>What's free, and what you pay for.</h2></div>
+      <div class="sec-head reveal"><h2>What's free, and what you pay for.</h2></div>
       <div class="gs-incl reveal">
         <div class="gs-incl-col gs-incl-free">
           <h3>{{icon:check}} Free from TechNext (our work)</h3>
@@ -126,20 +128,20 @@
   </div>
 </section>
 
-<section class="section section--alt gs-how">
+<section class="section fx-sec fx-sec--alt gs-how">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">how it works</span><h2>Live in as little as 3 days.</h2></div>
-    <ol class="gs-steps">
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><span class="gs-when">Day 1</span><h3>Claim your free design</h3><p>Send the form. We reply within one working day and book a 20-minute call about your business and the style you like.</p></li>
-      <li class="reveal" style="--i:1"><span class="gs-n">2</span><span class="gs-when">Day 2–3</span><h3>We build it</h3><p>We design your website and set it up in your Odoo. You review it and ask for changes.</p></li>
-      <li class="reveal" style="--i:2"><span class="gs-n">3</span><span class="gs-when">When you're ready</span><h3>Grow on the same system</h3><p>Add CRM, invoicing or inventory later. No moving data, no second system.</p></li>
+    <div class="sec-head reveal"><h2>Live in as little as 3 days.</h2></div>
+    <ol class="gs-steps" data-loop>
+      <li class="reveal"><span class="gs-n">1</span><span class="gs-when">Day 1</span><h3>Claim your free design</h3><p>Send the form. We reply within one working day and book a 20-minute call about your business and the style you like.</p></li>
+      <li class="reveal"><span class="gs-n">2</span><span class="gs-when">Day 2–3</span><h3>We build it</h3><p>We design your website and set it up in your Odoo. You review it and ask for changes.</p></li>
+      <li class="reveal"><span class="gs-n">3</span><span class="gs-when">When you're ready</span><h3>Grow on the same system</h3><p>Add CRM, invoicing or inventory later. No moving data, no second system.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="section gs-faq">
+<section class="section fx-sec gs-faq">
   <div class="container gs-faq-in">
-    <div class="sec-head reveal"><span class="hand">questions</span><h2>Quick answers.</h2></div>
+    <div class="sec-head reveal"><h2>Quick answers.</h2></div>
     <div class="gs-qas reveal">
       <div class="gs-qa"><h3>What exactly is free?</h3><p>Our work: designing your website and setting it up in Odoo. We don't charge for it. Odoo itself is not free. Your website runs on your own Odoo subscription, which you pay to Odoo. We do this because many businesses that start with a website on Odoo later ask us to set up more apps. If you never do, that's fine.</p></div>
       <div class="gs-qa"><h3>Who owns the website and the data?</h3><p>You do. The Odoo subscription and database are in your name, and you can export your data or move to another partner at any time.</p></div>
@@ -150,10 +152,11 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section fx-close-sec">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">ready in days</span><h2>Get your website designed free.</h2><p>Fill out the short form. We reply within one working day from sales@technext.asia.</p></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>Get your website designed free.</h2><p>Fill out the short form. We reply within one working day from sales@technext.asia.</p></div>
       <div class="actions"><a class="btn btn-white btn-lg" href="#gs-form" data-to-form>Claim my free design {{icon:arrow}}</a></div>
     </div>
   </div>

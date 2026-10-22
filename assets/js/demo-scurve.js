@@ -79,7 +79,7 @@ TN.demo('scurve', function (root, K) {
   function el(tag, attrs, parent) { var n = K.svg(tag, attrs); (parent || svg).appendChild(n); return n; }
   function draw() {
     W = chart.clientWidth; H = chart.clientHeight;
-    var narrow = W < 560; L = narrow ? 44 : 58; RP = narrow ? 34 : 44; B = narrow ? 84 : 96;
+    var narrow = W < 560; L = narrow ? 60 : 66; RP = narrow ? 40 : 48;   // room for 12px axis labels B = narrow ? 84 : 96;
     PW = W - L - RP; PH = H - T - B; SY = H - 24;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.textContent = '';
     var defs = el('defs', {}), clip = el('clipPath', { id: 'scv-past' }, defs);

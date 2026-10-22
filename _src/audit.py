@@ -23,6 +23,7 @@ class Page(HTMLParser):
         self.imgs_noalt = 0; self.btn_noname = 0; self.ext_norel = 0; self.empty_href = 0
         self.cur_btn = None; self.in_title = False; self.title = ""; self.desc = ""
         self.labels = set(); self.inputs = []; self.lang = False; self.canon = False; self.og = 0
+        self.in_label = 0   # inputs wrapped in a <label> are labelled implicitly
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -39,9 +40,11 @@ class Page(HTMLParser):
         if tag == "meta" and a.get("name") == "description": self.desc = a.get("content", "")
         if tag == "meta" and (a.get("property") or "").startswith("og:"): self.og += 1
         if tag == "link" and a.get("rel") == "canonical": self.canon = True
-        if tag == "label" and a.get("for"): self.labels.add(a["for"])
+        if tag == "label":
+            self.in_label += 1
+            if a.get("for"): self.labels.add(a["for"])
         if tag in ("input", "select", "textarea") and a.get("type") not in ("hidden", "submit") and "aria-hidden" not in a:
-            self.inputs.append((a.get("id"), a.get("aria-label"), a.get("type")))
+            self.inputs.append((a.get("id"), a.get("aria-label") or ("(wrapped)" if self.in_label else None), a.get("type")))
         if tag == "title": self.in_title = True
 
     def handle_data(self, d):
@@ -50,6 +53,7 @@ class Page(HTMLParser):
 
     def handle_endtag(self, tag):
         if tag == "title": self.in_title = False
+        if tag == "label" and self.in_label: self.in_label -= 1
         if tag == "button" and self.cur_btn is not None:
             if not self.cur_btn["name"] and not self.cur_btn["text"].strip(): self.btn_noname += 1
             self.cur_btn = None
@@ -68,7 +72,9 @@ def main():
             # The site is served with Vercel `cleanUrls`, so internal links are
             # extensionless: /company resolves to company.html and /odoo/ to
             # odoo/index.html. Accept either spelling before calling a ref broken.
-            _t = (p.parent / urllib.parse.unquote(url.split("?")[0].split("#")[0])).resolve()
+            _rel = urllib.parse.unquote(url.split("?")[0].split("#")[0])
+            # root-relative refs (the 404 page uses them so it works at any missing path) resolve from the site root
+            _t = ((ROOT / _rel.lstrip("/")) if _rel.startswith("/") else (p.parent / _rel)).resolve()
             if not (_t.exists() or _t.with_suffix(".html").exists()
                     or (_t / "index.html").exists()):
                 issues[key].append(f"broken ref {url}")

@@ -1,0 +1,66 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /solutions/enterprise (22 Oct 2026): multi-company consolidation hero panel, scope tags on the capability rows, the rollout
+   dots, and the group consolidation demo (demo-consol) as glass. Shared parts live in aix-fx.css; behaviour in aix-fx.js. */
+
+/* ---------------------------------------------------------------- hero panel: companies into one group P&L */
+.aix-cons .aix-grp { display: grid; gap: 6px; }
+.aix-ent { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(0,.85fr) minmax(0,.8fr); gap: 10px; align-items: center; padding: 9px 14px; border-radius: 14px; background: rgba(255,255,255,.92); border: 1px solid #E3E9F5; }
+.aix-ent--h { padding: 0 14px 2px; background: none; border: 0; font: 700 12px/1.2 var(--font-body); color: var(--body); }
+.aix-ent--h span:last-child { text-align: right; }
+.aix-ent-n { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.aix-ent-n > .ic { width: 16px; height: 16px; color: var(--ok); flex: none; }
+.aix-ent-n b { display: block; font: 700 14px/1.25 var(--font-body); color: var(--ink); }
+.aix-ent-n small { display: block; font: 500 12px/1.3 var(--font-body); color: var(--body); }
+.aix-ent-f { font: 600 12.5px/1.3 var(--font-body); color: var(--blue-700); }
+.aix-ent-v { text-align: right; font: 800 15px/1.2 var(--font-display); color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.aix-ent--elim { background: #FFF8EA; border-color: #F1D8A8; }
+.aix-ent--elim .aix-ent-n > .ic { color: var(--amber); }
+.aix-ent--elim .aix-ent-f, .aix-ent--elim .aix-ent-v { color: var(--amber); }
+.aix-ent--sum { background: var(--blue-050); border-color: var(--blue-300); }
+.aix-ent--sum .aix-ent-n > .ic { color: var(--blue); }
+.aix-ent--sum .aix-ent-v { font-size: 20px; color: var(--blue-700); }
+.aix-cons .aix-panel-foot { margin-top: 8px; }
+.aix-fxnote { margin: 0; font: 500 12px/1.3 var(--font-body); color: var(--body); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- scope tags and rollout dots */
+.aix-scope-t { display: inline-block; margin-left: 10px; padding: 3px 10px; border-radius: 999px; background: var(--blue-050); color: var(--blue-700); font: 700 12px/1.3 var(--font-body); font-style: normal; letter-spacing: 0; vertical-align: 2px; white-space: nowrap; }
+.aix-ents { display: flex; gap: 8px; margin-top: 14px; }
+.aix-ents i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--blue-300); background: #fff; }
+.aix-ents i.on { background: var(--blue); border-color: var(--blue); }
+
+/* ---------------------------------------------------------------- group consolidation (demo-consol) as glass */
+.aix-enterprise .cns-bar { background: rgba(255,255,255,.5); border-bottom-color: var(--fx-line); }
+.aix-enterprise .cns-steps li { font-size: 12px; height: 32px; }
+.aix-enterprise .cns-steps li::before { font-size: 12px; width: 20px; height: 20px; }
+.aix-enterprise .cns-rate label { font-size: 12.5px; }
+.aix-enterprise .cns-rate small { font-size: 12px; }
+.aix-enterprise .cns-wrap { border-bottom-color: var(--fx-line); }
+.aix-enterprise .cns-tree { background: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.95), rgba(236,243,254,.7)); }
+.aix-enterprise .cns-n { border-radius: 14px; border-color: #E3E9F5; width: 176px; }
+.aix-enterprise .cns-nt b { font-size: 13px; }
+.aix-enterprise .cns-nt em { font-size: 12px; padding: 2px 7px; }
+.aix-enterprise .cns-nc, .aix-enterprise .cns-nv, .aix-enterprise .cns-sw { font-size: 12px; }
+.aix-enterprise .cns-fl { font-size: 12px; max-width: 190px; }
+.aix-enterprise .cns-fleg li { font-size: 12px; }
+.aix-enterprise .cns-ws { border-left-color: var(--fx-line); }
+.aix-enterprise .cns-scroll { border-radius: 14px; border-color: #E3E9F5; background: rgba(255,255,255,.9); padding: 4px; }
+.aix-enterprise .cns-tbl { font-size: 12.5px; }
+.aix-enterprise .cns-tbl caption { font-size: 12.5px; letter-spacing: 0; text-transform: none; color: var(--body); }
+.aix-enterprise .cns-tbl thead th { font-size: 12px; letter-spacing: 0; text-transform: none; }
+.aix-enterprise .cns-check { font-size: 12.5px; }
+.aix-enterprise .cns-e { border: 1px solid #F1D8A8; background: #FFFCF5; border-radius: 14px; }
+.aix-enterprise .cns-e.is-out { border-color: var(--line); background: #fff; }
+.aix-enterprise .cns-eh { font-size: 12.5px; }
+.aix-enterprise .cns-eh b { font-size: 12px; }
+.aix-enterprise .cns-el { font-size: 12px; }
+.aix-enterprise .cns-en { font-size: 12px; }
+
+@media (max-width: 600px) {
+  .aix-ent { grid-template-columns: minmax(0,1.6fr) minmax(0,.7fr); gap: 4px 10px; padding: 9px 12px; }
+  .aix-ent--h span:nth-child(2), .aix-ent-f { display: none; }
+  .aix-ent--h { grid-template-columns: minmax(0,1.6fr) minmax(0,.7fr); }
+  .aix-ent--elim .aix-ent-f { display: none; }
+  .aix-scope-t { display: table; margin: 8px 0 0; }
+  .aix-enterprise .cns-n { width: 156px; padding: 8px 10px; }
+  .aix-enterprise .cns-tree { min-height: 730px; }
+}

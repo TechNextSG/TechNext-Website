@@ -1,0 +1,163 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /odoo/discovery (22 Oct 2026): glass discovery workspace in the hero (an order map that turns into an Odoo app plan),
+   the three flow chains and the BIR block. Builds on home-fx.css and svc-fx.css. Transform/opacity motion, paused off-screen. */
+
+/* ---------------------------------------------------------------- hero panel */
+.dv-panel { --c: #D2433B; gap: 14px; }
+.dv-panel.is-b { --c: var(--blue); }
+.dv-ctl { display: flex; align-items: center; justify-content: space-between; gap: 8px 14px; flex-wrap: wrap; }
+.dv-cap { margin: 0; font: 500 13px/1.3 var(--font-body); color: var(--body); min-width: 0; }
+
+.dv-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; position: relative; }
+.dv-steps::before { content: ""; position: absolute; left: 12px; top: 14px; bottom: 14px; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, transparent, var(--c), transparent) 0 -150% / 100% 40% no-repeat, var(--fx-line); animation: dvLine 3.2s linear infinite; }
+@keyframes dvLine { to { background-position: 0 250%; } }
+.dv-steps::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(180deg, transparent, rgba(49,103,202,.2), transparent) 0 -150% / 100% 40% no-repeat; }
+.dv-steps.is-scan::after { opacity: 1; animation: dvScan 1s var(--fx-ease) both; }
+@keyframes dvScan { from { background-position: 0 -150%; } to { background-position: 0 250%; } }
+.dv-steps li { position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr); gap: 10px; align-items: center; }
+.dv-n { position: relative; z-index: 1; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1.5px solid color-mix(in srgb, var(--c) 45%, #fff); color: var(--c);
+  font: 800 12.5px/1 var(--font-display); font-variant-numeric: tabular-nums; transition: color .5s var(--fx-ease), border-color .5s var(--fx-ease); }
+.dv-cell { position: relative; display: grid; overflow: hidden; border-radius: 12px; background: #fff; border: 1px solid #EEF1F7; min-height: 54px; transition: border-color .5s var(--fx-ease), background-color .5s var(--fx-ease); }
+.dv-panel.is-b .dv-cell { border-color: var(--blue-300); background: rgba(240,245,254,.8); }
+.dv-a, .dv-b { grid-area: 1 / 1; display: flex; align-items: center; gap: 11px; margin: 0; padding: 8px 12px; min-width: 0;
+  transition: opacity .55s var(--fx-ease) calc(var(--k, 0) * 70ms), transform .55s var(--fx-ease) calc(var(--k, 0) * 70ms); }
+.dv-cell { --k: 0; }
+.dv-steps li:nth-child(1) .dv-a, .dv-steps li:nth-child(1) .dv-b { --k: 0; }
+.dv-steps li:nth-child(2) .dv-a, .dv-steps li:nth-child(2) .dv-b { --k: 1; }
+.dv-steps li:nth-child(3) .dv-a, .dv-steps li:nth-child(3) .dv-b { --k: 2; }
+.dv-steps li:nth-child(4) .dv-a, .dv-steps li:nth-child(4) .dv-b { --k: 3; }
+.dv-steps li:nth-child(5) .dv-a, .dv-steps li:nth-child(5) .dv-b { --k: 4; }
+.dv-a .ic, .dv-b .oi, .dv-b .ic { width: 22px; height: 22px; flex: none; }
+.dv-a .ic { color: #B5502C; }
+.dv-b .ic { color: var(--blue); }
+.dv-a span, .dv-b span { display: grid; gap: 1px; min-width: 0; }
+.dv-a b, .dv-b b { font: 700 13.5px/1.25 var(--font-body); color: var(--ink); }
+.dv-a small, .dv-b small { font: 500 12.5px/1.3 var(--font-body); color: var(--body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dv-b { opacity: 0; transform: translateY(70%); }
+.dv-panel.is-b .dv-a { opacity: 0; transform: translateY(-70%); }
+.dv-panel.is-b .dv-b { opacity: 1; transform: none; }
+
+.dv-kpis dd { transition: color .4s; }
+.dv-rec { position: relative; display: grid; align-content: start; gap: 8px; padding: 14px 16px 16px; border-radius: 14px; background: #fff; border: 1px solid #EEF1F7; min-height: 126px; }
+.dv-rec .sv-h { justify-content: flex-start; align-items: center; gap: 8px; margin: 0; }
+.dv-rec .sv-h .ic { width: 18px; height: 18px; color: var(--blue); flex: none; }
+.dv-rec .sv-h small { margin-left: auto; }
+.dv-rec-a, .dv-rec-b { grid-area: 2 / 1; margin: 0; font-size: 14px; line-height: 1.55; color: var(--body); transition: opacity .5s var(--fx-ease); }
+.dv-rec-b span { display: inline; opacity: 0; transition: opacity .6s var(--fx-ease); }
+.dv-rec-b span:nth-child(1) { transition-delay: .35s; } .dv-rec-b span:nth-child(2) { transition-delay: .85s; } .dv-rec-b span:nth-child(3) { transition-delay: 1.35s; }
+.dv-rec-b { opacity: 0; }
+.dv-panel.is-b .dv-rec-a { opacity: 0; }
+.dv-panel.is-b .dv-rec-b { opacity: 1; color: var(--ink); }
+.dv-panel.is-b .dv-rec-b span { opacity: 1; }
+.dv-bir { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0; padding-top: 12px; border-top: 1px solid var(--fx-line); font-size: 13px; line-height: 1.3; color: var(--body); }
+.dv-bir b { color: var(--ink); }
+.dv-bir em { padding: 5px 10px; border-radius: 999px; background: var(--blue-050); color: var(--blue-700); font: 700 12px/1 var(--font-body); font-style: normal; }
+.dv-panel.fx-off .dv-steps::before { animation-play-state: paused; }
+
+/* ---------------------------------------------------------------- the three flows */
+.dv-flows { display: grid; gap: 16px; }
+.dv-flow { display: grid; grid-template-columns: minmax(0,.42fr) minmax(0,.58fr); grid-template-areas: "h p" "c c"; gap: 18px 40px; align-items: center; padding: 26px 30px 30px; }
+.dv-flow-h { grid-area: h; } .dv-flow > p { grid-area: p; } .dv-flow .dv-chain { grid-area: c; }
+.dv-flow-h { display: flex; align-items: center; gap: 12px; }
+.dv-flow-h .oi { width: 28px; height: 28px; flex: none; }
+.dv-flow h3 { margin: 0; font: 800 21px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.015em; }
+.dv-flow > p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--body); }
+.dv-chain { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 0; min-width: 0; }
+.dv-chain li { position: relative; flex: 1 1 0; min-width: 0; padding: 12px 8px; text-align: center; font: 650 13.5px/1.25 var(--font-body); color: var(--ink);
+  background: #fff; border: 1px solid #E3E9F5; border-radius: 12px; margin-right: 18px; opacity: .55; transform: translateY(4px);
+  transition: opacity .5s var(--fx-ease) calc(var(--k, 0) * 140ms), transform .5s var(--fx-ease) calc(var(--k, 0) * 140ms), border-color .5s var(--fx-ease) calc(var(--k, 0) * 140ms), box-shadow .5s var(--fx-ease) calc(var(--k, 0) * 140ms); }
+.dv-chain li:last-child { margin-right: 0; }
+.dv-chain li:not(:last-child)::after { content: ""; position: absolute; left: 100%; top: 50%; width: 18px; height: 2px; margin-top: -1px; background: var(--fx-line); }
+.dv-chain li:not(:last-child)::before { content: ""; position: absolute; left: calc(100% + 18px); top: 50%; width: 6px; height: 6px; margin-top: -3px; border-top: 2px solid var(--blue-300); border-right: 2px solid var(--blue-300); transform: translateX(-7px) rotate(45deg); }
+.dv-flow.is-in .dv-chain li { opacity: 1; transform: none; border-color: var(--blue-300); box-shadow: 0 0 0 3px rgba(49,103,202,.08), 0 10px 20px -16px rgba(49,103,202,.6); }
+.dv-more { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); margin: 16px 0 0; }
+.dv-more > div { display: grid; grid-template-columns: 24px minmax(0,1fr); gap: 4px 14px; align-content: start; padding: 26px 28px; }
+.dv-more > div + div { border-left: 1px solid var(--fx-line); }
+.dv-more .ic { grid-row: 1 / span 2; width: 24px; height: 24px; color: var(--blue); margin-top: 2px; }
+.dv-more dt { font: 800 18px/1.25 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.dv-more dd { grid-column: 2; margin: 4px 0 0; font-size: 15px; line-height: 1.6; color: var(--body); }
+
+/* ---------------------------------------------------------------- how it runs: the path gets a lit line from home-fx's sv-path */
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 900px) {
+  .dv-flow { grid-template-columns: minmax(0,1fr); grid-template-areas: "h" "p" "c"; gap: 14px; }
+}
+@media (max-width: 900px) {
+  .dv-more { grid-template-columns: 1fr; }
+  .dv-more > div + div { border-left: 0; border-top: 1px solid var(--fx-line); }
+}
+@media (max-width: 760px) {
+  .dv-chain { flex-direction: column; align-items: stretch; gap: 14px; }
+  .dv-chain li { margin-right: 0; padding: 10px 12px; text-align: left; }
+  .dv-chain li:not(:last-child)::after { left: 50%; top: 100%; width: 2px; height: 14px; margin: 0 0 0 -1px; }
+  .dv-chain li:not(:last-child)::before { left: 50%; top: calc(100% + 8px); margin: 0 0 0 -3px; transform: translateY(-7px) rotate(135deg); }
+}
+@media (max-width: 600px) {
+  .dv-flow { padding: 22px 18px; }
+  .dv-more > div { padding: 22px 18px; }
+  .dv-a, .dv-b { padding: 8px 10px; gap: 9px; }
+  .dv-a small, .dv-b small { white-space: normal; }
+  .dv-cell { min-height: 60px; }
+  .dv-rec { padding: 14px; min-height: 150px; }
+  .dv-ctl .sv-seg { width: 100%; }
+  .dv-ctl .sv-seg button { flex: 1; justify-content: center; min-height: 44px; }
+  .dv-bir { gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dv-steps::before, .dv-steps.is-scan::after { animation: none; }
+  .dv-a, .dv-b, .dv-cell, .dv-n, .dv-rec-a, .dv-rec-b, .dv-rec-b span, .dv-chain li { transition: none; }
+  .dv-chain li { opacity: 1; transform: none; border-color: var(--blue-300); }
+}
+
+/* ---------------------------------------------------------------- as-is map on phones (<= 640px): one-column list
+   The absolutely placed map cannot hold readable text at this width (22 Oct 2026 review: "Handwritt|en", "Quote.doc|x").
+   The same cards stay in the DOM, in process order; lines, pins and labels are hidden; text is 13px+, whole words, no ellipsis. */
+@media (max-width: 640px) {
+  .dv-fx .dm-asis .asis-wrap .asis-stage, .dv-fx .dm-asis.is-narrow .asis-wrap .asis-stage { height: auto; padding: 12px; background: none; overflow: visible; }
+  .dv-fx .dm-asis .asis-svg, .dv-fx .dm-asis .asis-pills, .dv-fx .dm-asis .asis-badges, .dv-fx .dm-asis .asis-db, .dv-fx .dm-asis .dm-tip { display: none !important; }
+  .dv-fx .dm-asis .asis-nodes { position: static; display: grid; gap: 8px; }
+  .dv-fx .dm-asis .asis-node { position: static; width: auto; transform: none !important; opacity: 1 !important; will-change: auto; }
+  /* with Odoo, price list / order log / paper DO / month-end fold into the app that replaces them */
+  .dv-fx .dm-asis.is-b .asis-node[data-n="price"], .dv-fx .dm-asis.is-b .asis-node[data-n="log"],
+  .dv-fx .dm-asis.is-b .asis-node[data-n="dockt"], .dv-fx .dm-asis.is-b .asis-node[data-n="rep"] { display: none; }
+  .dv-fx .dm-asis .asis-card { grid-template-columns: minmax(0, 1fr); border-radius: 14px; }
+  .dv-fx .dm-asis .asis-fa, .dv-fx .dm-asis .asis-fb { gap: 12px; padding: 11px 14px; align-items: flex-start; }
+  .dv-fx .dm-asis .asis-fa .ic, .dv-fx .dm-asis .asis-fb .ic, .dv-fx .dm-asis .asis-fb .oi { width: 24px; height: 24px; padding: 0; border-radius: 0; background: none; margin-top: 1px; }
+  .dv-fx .dm-asis .asis-fa b, .dv-fx .dm-asis .asis-fb b { display: block; overflow: visible; -webkit-line-clamp: unset; font-size: 14px !important; line-height: 1.25;
+    overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  .dv-fx .dm-asis .asis-fa small, .dv-fx .dm-asis .asis-fb small { display: block; overflow: visible; -webkit-line-clamp: unset; font-size: 13px !important; line-height: 1.35; color: var(--body);
+    overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  /* the step tags sit in the flow, under the text, only while a walk-through step shows them */
+  .dv-fx .dm-asis .asis-team, .dv-fx .dm-asis .asis-app, .dv-fx .dm-asis .asis-gap { position: static; display: none; justify-self: start; max-width: calc(100% - 28px); height: auto; min-height: 24px;
+    margin: 0 14px 10px; padding: 4px 10px; font-size: 12px !important; line-height: 1.25; white-space: normal; translate: none; }
+  .dv-fx .dm-asis .asis-app .oi { width: 14px; height: 14px; flex: none; }
+  .dv-fx .dm-asis.is-team .asis-team, .dv-fx .dm-asis.is-map .asis-app, .dv-fx .dm-asis.is-walk.is-gap .asis-gap,
+  .dv-fx .dm-asis.is-b-done:not(.is-walk) .asis-gap, .dv-fx .dm-asis.is-walk.is-b-done .asis-gap { display: inline-flex; }
+  .dv-fx .dm-asis.is-map .asis-team { display: none; }
+  /* header controls: 44px targets, step names whole */
+  .dv-fx .dm-asis .dm-seg { max-width: none; width: 100%; overflow: visible; flex-wrap: nowrap; }
+  .dv-fx .dm-asis .dm-seg button { flex: 1 1 0; justify-content: center; min-height: 44px; font-size: 13px !important; }
+  .dv-fx .dm-asis .dm-btn { min-height: 44px; font-size: 13px !important; }
+  .dv-fx .dm-asis .dm-title b { font-size: 15px !important; }
+  .dv-fx .dm-asis .dm-title small { font-size: 12.5px !important; color: var(--body); }
+  /* side panel and footer */
+  .dv-fx .dm-asis .asis-side { padding: 14px 12px; gap: 10px; }
+  .dv-fx .dm-asis .asis-side .dm-kpis dt { font-size: 12px !important; letter-spacing: .02em; }
+  .dv-fx .dm-asis .asis-sh { font-size: 12px !important; letter-spacing: .03em; text-transform: none; color: var(--body); }
+  .dv-fx .dm-asis .asis-pains { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .dv-fx .dm-asis .asis-p { min-height: 44px; padding: 8px 10px; gap: 10px; grid-template-columns: 22px minmax(0, 1fr); }
+  .dv-fx .dm-asis .asis-p i { width: 22px; height: 22px; font-size: 12px !important; }
+  .dv-fx .dm-asis .asis-p b, .dv-fx .dm-asis .asis-p small { font-size: 13px !important; line-height: 1.35; overflow-wrap: normal; word-break: normal; hyphens: auto; }
+  .dv-fx .dm-asis .asis-scope ol { grid-template-columns: minmax(0, 1fr); }
+  .dv-fx .dm-asis .asis-scope li, .dv-fx .dm-asis .asis-scope li b { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-sf { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-cap b { font-size: 13px !important; }
+  .dv-fx .dm-asis .asis-cap span { font-size: 13px !important; color: var(--body); }
+  .dv-fx .dm-asis .asis-walk { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; overflow: visible; max-width: none; flex: 1 1 100%; width: 100%; }
+  .dv-fx .dm-asis .asis-ws { flex: none; min-height: 44px; height: auto; font-size: 13px !important; padding: 4px 10px 4px 6px; white-space: normal; text-align: left; }
+  .dv-fx .dm-asis .asis-ws i { width: 22px; height: 22px; font-size: 12px !important; flex: none; }
+  .dv-fx .dm-asis .asis-ws:last-child { grid-column: 1 / -1; }
+}

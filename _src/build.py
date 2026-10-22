@@ -23,13 +23,17 @@ sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
+import industry_fx as IFX  # noqa: E402  (the eight industry pages: glass hero, intro, workflow chain)
+import fw_needs as FW  # noqa: E402  (/free-website-with-odoo: the needs picker, live panels and the data the page script reads)
 import app_flows as AF  # noqa: E402
+import app_leads as AL  # noqa: E402   (the app pages' hero leads in TechNext's own voice)
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
+import team_pages as TP  # noqa: E402  (one profile page per person, the Team Directory cards)
 import advisors as ADV  # noqa: E402
 import worlds as WD  # noqa: E402
 import company_pages as CP
-import app_worlds as AW  # noqa: E402
+import app_fx as AW  # noqa: E402   (the app pages' glass ledgers and BIR panels; replaced app_worlds, the cartoon world heroes)
 import hero_skins  # noqa: E402
 hero_skins.write()   # the homepage industries slide's skins, before the asset version is taken
 import backdrops  # noqa: E402
@@ -216,7 +220,7 @@ def mobile_nav_html() -> str:
     out.append(f'''
 <div class="mnav-cta">
   <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}company.html#offices">{{{{icon:chat-send}}}} All the ways to reach us</a>
   <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
@@ -248,7 +252,6 @@ def talk_panel_html() -> str:
     <button class="icon-btn" type="button" data-talk-close aria-label="Close">{{{{icon:x}}}}</button>
   </div>
   <div class="talk-body">
-    <p class="hand">let's talk</p>
     <h2 id="talk-title">Tell us what slows you down.</h2>
     <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>.</p>
 
@@ -274,9 +277,6 @@ def talk_panel_html() -> str:
           <option>Odoo training or support</option>
           <option>Website</option>
           <option>Social media management</option>
-          <option>IoT solutions</option>
-          <option>App development</option>
-          <option>Networks</option>
           <option>Something else</option>
         </select>
       </div>
@@ -304,7 +304,7 @@ LAYOUT = '''<!doctype html>
 <meta name="description" content="{DESC}">
 {ROBOTS}<link rel="canonical" href="{CANONICAL}">
 <meta name="copyright" content="© {YEAR} TechNext Pte. Ltd. All rights reserved.">
-<meta name="tdm-reservation" content="1">
+<meta name="tdm-reservation" content="0">
 <meta name="tdm-policy" content="{SITE_URL}terms#content-use">
 <meta property="og:type" content="{OG_TYPE}">
 <meta property="og:site_name" content="TechNext">
@@ -388,7 +388,7 @@ SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html
 AREA_SERVED = ["Singapore", "Philippines", "Vietnam", "Southeast Asia", "Worldwide"]
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
-_FAQ = re.compile(r'<details>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)
+_FAQ = re.compile(r'<details[^>]*>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)   # <details open> too
 
 
 def _text(fragment: str) -> str:
@@ -463,7 +463,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     org_id, site_id, page_id = S.SITE_URL + "#organization", S.SITE_URL + "#website", canonical + "#webpage"
     graph = [
         {
-            "@type": "ProfessionalService", "@id": org_id,
+            "@type": ["Organization", "ProfessionalService"], "@id": org_id,
             "name": c["short"], "legalName": c["legal"], "alternateName": ["TechNext Asia", "TechNext Pte Ltd"], "url": S.SITE_URL,
             "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
             "image": S.SITE_URL + "assets/img/og-image.png",
@@ -483,7 +483,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
                            "AI workflow automation", "AI chatbots", "Website development", "Business consultation",
-                           "Internet of Things (IoT)", "Mobile and web app development", "Network infrastructure"],
+                           "BIR compliance (Philippines)", "Computerized Accounting System (CAS) registration",
+                           "BIR e-invoicing (EIS)", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow"],
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "publisher": {"@id": org_id}, "inLanguage": "en"},
@@ -523,6 +524,18 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                     "datePublished": a["date"]} for a in ARTICLES]})
     if out_rel == "nexi-explains.html":
         graph.extend(nxe_jsonld(org_id, page_id))
+    person = meta.get("person")
+    if person:
+        page["@type"] = ["WebPage", "ProfilePage"]
+        page["mainEntity"] = {"@id": canonical + "#person"}
+        ld = {"@type": "Person", "@id": canonical + "#person", "name": person["name"], "jobTitle": person["jobTitle"],
+              "worksFor": {"@id": org_id}, "url": canonical, "description": person["description"],
+              "knowsAbout": person["knowsAbout"]}
+        if person.get("office"):
+            ld["workLocation"] = {"@type": "Place", "name": f"TechNext, {person['office']}"}
+        if person.get("credentials"):
+            ld["hasCredential"] = [{"@type": "EducationalOccupationalCredential", "name": c} for c in person["credentials"]]
+        graph.append(ld)
     if out_rel.startswith(SERVICE_PAGES):
         name = _base_title(meta["title"])
         graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
@@ -922,7 +935,12 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
 
 
 def team_cards_html() -> str:
-    """One card per employee (_src/team.py) on the client-facing team page."""
+    """The Team Directory cards (_src/team_pages.py): everyone with a profile page first, then the rest of _src/team.py."""
+    return TP.directory_html()
+
+
+def _team_cards_legacy() -> str:
+    """Before 22 Oct 2026: one sheet per _src/team.py entry (kept for reference; not called)."""
     out = []
     for k, p in enumerate(TEAM.TEAM):
         initials = "".join(w[0] for w in p["name"].split()[:3:2] if w).upper() if len(p["name"].split()) > 2 else "".join(w[0] for w in p["name"].split()[:2]).upper()
@@ -958,12 +976,12 @@ def expertise_cards_html() -> str:
 WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="hand">who we are</span>
+      
       <h2>Your trusted expert adviser for ERP and compliance.</h2>
       <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, and we set it up to meet the government's rules from day one.</p>
     </div>
     <div class="who-grid">
-      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" href="{{ROOT}}case-studies.html">See our case studies {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>Government compliance, built in.</h3><p>BIR in the Philippines: books for CAS/CBA, 2307 certificates and your e-invoicing plan. GST and InvoiceNow in Singapore. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR compliance in Odoo {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
@@ -985,32 +1003,49 @@ def client_wall_html() -> str:
 
 
 def advisor_cards_html() -> str:
-    """Named advisors (_src/advisors.py ADVISORS). Empty list = no section at all (nothing invented)."""
-    if not ADV.ADVISORS:
+    """Team profiles on the home page (_src/advisors.py ADVISORS): photo, name, role, office, a one-line summary and stats;
+    no company list, and no skills on the card (owner 22 Oct 2026: skills live on each profile page, team/<slug>.html).
+    Empty list = no section (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked placeholders instead,
+    for design previews only; never set it for a production build."""
+    if ADV.ADVISORS:   # the shared spotlight card + quick view (team_pages.py, assets/css/team-cards.css, assets/js/team-cards.js)
+        return TP.home_section_html()
+    esc = lambda t: html_mod.escape(t, quote=False)
+    people, preview = ADV.ADVISORS, False
+    if not people and os.environ.get("TN_PREVIEW_PROFILES") == "1":
+        people, preview = ADV.PREVIEW_PLACEHOLDERS, True
+    if not people:
         return ""
-    roles = {e["key"]: e["role"].replace(" adviser", "") for e in ADV.EXPERTISE}
+
     cards = []
-    for k, p in enumerate(ADV.ADVISORS):
+    for k, p in enumerate(people):
         words = p["name"].split()
         ini = (words[0][0] + (words[-1][0] if len(words) > 1 else "")).upper()
         pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="{html_mod.escape(p["name"])}" width="600" height="600" loading="lazy" decoding="async">'
-               if p.get("photo") else f'<span class="adv-ini" aria-hidden="true">{ini}</span>')
-        meta = [ADV.OFFICES.get(p.get("office"), "")]
-        if p.get("years"):
-            meta.append(f'{p["years"]}+ years')
-        tags = "".join(f'<span class="tag">{roles.get(f, f)}</span>' for f in p.get("focus", []))
-        creds = "".join(f"<li>{{{{icon:check}}}}{c}</li>" for c in p.get("creds", []))
-        li = (f'<a class="btn-link" href="{p["linkedin"]}" target="_blank" rel="noopener">LinkedIn {{{{icon:arrow}}}}</a>' if p.get("linkedin") else "")
-        cards.append(f'<article class="adv-person reveal" style="--i:{k}"><div class="adv-ava">{pic}</div>'
-                     f'<div class="adv-body"><h3>{p["name"]}</h3><p class="adv-role">{p["role"]}</p>'
-                     f'<p class="adv-meta">{" · ".join(m for m in meta if m)}</p>'
-                     f'{f"<p>{p['bio']}</p>" if p.get("bio") else ""}'
-                     f'{f"<ul class=\"checks adv-creds\">{creds}</ul>" if creds else ""}'
-                     f'<div class="pill-row">{tags}</div>{li}</div></article>')
-    return f'''<section class="section section--alt" id="meet">
+               if p.get("photo") else f'<span class="pf-ini" aria-hidden="true">{ini}</span>')
+        office = ADV.OFFICES.get(p.get("office"), "")
+        stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
+        ph = ' data-ph' if preview else ''
+        blurb = p.get("summary") or p.get("bio", "")   # one line on the card; the full bio is on the profile page
+        url = TP.profile_url(p)   # team/<slug>.html
+        name_html = esc(p["name"]) if preview else f'<a href="{{{{ROOT}}}}{url}">{esc(p["name"])}</a>'
+        link_html = "" if preview else f'<a class="pf-link" href="{{{{ROOT}}}}{url}">View full profile {{{{icon:arrow}}}}</a>'
+        cards.append(f'<article class="pf-card reveal" style="--i:{k}"{ph}>'
+                     f'<div class="pf-top"><div class="pf-ava">{pic}<i class="pf-ring" aria-hidden="true"></i></div>'
+                     f'<div><h3>{name_html}</h3><p class="pf-role">{esc(p["role"])}</p>'
+                     f'{f"<p class=\"pf-office\">{{{{icon:pin}}}}{office}</p>" if office else ""}</div></div>'
+                     f'{f"<p class=\"pf-bio\">{esc(blurb)}</p>" if blurb else ""}'
+                     f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
+                     f'{link_html}</article>')
+    more_act = ('<div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{ROOT}}employee-hub.html">{{icon:users}}Meet the whole team {{icon:arrow}}</a>'
+                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a></div>')
+    note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'
+            if preview else "")
+    return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">meet the trusted advisers</span><h2>The people you'll actually talk to.</h2><p class="lead">The adviser on your first call is the one who leads your project, and the one who answers after go-live.</p></div>
-    <div class="adv-people">{"".join(cards)}</div>
+    <div class="sec-head reveal"><h2 id="pf-h">The people who set up your Odoo for BIR.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
+    <div class="pf-grid">{"".join(cards)}</div>
+    {more_act}
+    {note}
   </div>
 </section>'''
 
@@ -1038,24 +1073,37 @@ def apps_nav_html() -> str:
 
 
 def apps_cats_html() -> str:
+    """The catalogue on /odoo/apps: one block per category (sticky heading left, the apps as link rows right), bare icons only."""
     out = []
     for c in S.APP_CATEGORIES:
         cards = []
         for app in c["apps"]:
             tag = ' <span class="tag">Focus</span>' if app["focus"] else ""
-            cards.append(f'<a class="app{" is-focus" if app["focus"] else ""}" data-app="{app["mod"]}" href="apps/{S.app_slug(app["mod"])}.html">'
-                         f'{{{{odoo:{app["mod"]}:40}}}}<div><b>{app["name"]}{tag}</b><small>{app["desc"]}</small></div>{{{{icon:arrow}}}}</a>')
+            cards.append(f'<a class="apx-app{" is-focus" if app["focus"] else ""}" href="apps/{S.app_slug(app["mod"])}.html">'
+                         f'{{{{odoo:{app["mod"]}:36}}}}<span><b>{app["name"]}{tag}</b><small>{app["desc"]}</small></span>{{{{icon:arrow}}}}</a>')
         focus_note = (' <span class="tag tag--ok">{{icon:check}} Our focus area</span>' if c.get("focus") else "")
-        out.append(f'''<section class="apps-cat" id="{c["id"]}">
-  <div class="container">
-    <div class="apps-cat-head">
-      <h2><span class="card-ic">{{{{icon:{c["icon"]}}}}}</span>{c["title"]}</h2>
-      <p>{len(c["apps"])} apps{focus_note}</p>
-    </div>
-    <div class="apps-grid">{"".join(cards)}</div>
-  </div>
-</section>''')
-    return "\n".join(out)
+        out.append(f'''<div class="apx-cat reveal" id="{c["id"]}">
+      <div class="apx-cat-h">
+        <h2>{{{{icon:{c["icon"]}}}}}{c["title"]}</h2>
+        <p>{len(c["apps"])} apps{focus_note}</p>
+      </div>
+      <div class="apx-grid">{"".join(cards)}</div>
+    </div>''')
+    return "\n    ".join(out)
+
+
+def apps_panel_html() -> str:
+    """The /odoo/apps hero panel: a glass Odoo window with the eight categories as rows of bare app icons; the rows light up in turn
+    (assets/js/pages/apps-fx.js) over one database line."""
+    rows = []
+    for ci, c in enumerate(S.APP_CATEGORIES):
+        ics = "".join(f'<a class="aph-i" href="apps/{S.app_slug(a["mod"])}.html" tabindex="-1" style="--i:{i}">{{{{odoo:{a["mod"]}:24}}}}</a>' for i, a in enumerate(c["apps"]))
+        rows.append(f'<li class="aph-row{" is-focus" if c.get("focus") else ""}" style="--c:{ci}"><span class="aph-lab">{{{{icon:{c["icon"]}}}}}<b>{c["title"]}</b><small>{len(c["apps"])}</small></span><span class="aph-ics">{ics}</span></li>')
+    n = sum(len(c["apps"]) for c in S.APP_CATEGORIES)
+    return (f'<div class="apx-panel aph-panel" data-apx-panel data-aph aria-hidden="true"><i class="fx-result-glow apx-glow"></i>'
+            f'<div class="apx-bar"><span class="apx-dots"><i></i><i></i><i></i></span>{{{{icon:grid}}}}<b>Odoo · Apps</b><span class="fx-tag">{n} apps</span></div>'
+            f'<ul class="aph-rows">{"".join(rows)}</ul>'
+            f'<div class="aph-db"><span class="aph-line"><i></i><i></i><i></i></span><p>{{{{icon:database}}}}<b>One database</b> for every app</p><span class="tag tag--ok">{{{{icon:check}}}}Focus: Finance, Sales, Supply Chain</span></div></div>')
 
 
 STAGE_BG = ('<div class="ph-bg" aria-hidden="true"><div class="ph-aurora au1"></div><div class="ph-aurora au2"></div>'
@@ -1341,7 +1389,9 @@ def _nice_top(v: float) -> float:
 
 def _fmt(v: float, unit: str) -> str:
     if unit == "S$k":
-        return f"S${v:g}k"
+        if v == 0:
+            return "S$0"
+        return f"S${round(v / 1000, 2):g}M" if v >= 1000 else f"S${v:g}k"
     if unit == "%":
         return f"{v:g}%"
     return f"{v:,.0f}"
@@ -1364,8 +1414,9 @@ def chart_html(ch: dict) -> str:
         grid = "".join(f'<span style="--y:{f:.2f}"><em>{_fmt(top * f, unit)}</em></span>' for f in (1, .5, 0))
         if "pairs" in v:
             cols = "".join(
-                f'<div class="ix-col"><div class="ix-pair"><span class="ix-bar s1" style="--h:{a / top:.3f};--i:{j}"><i>{_fmt(a, unit)}</i></span>'
-                f'<span class="ix-bar s2" style="--h:{b / top:.3f};--i:{j}"><i>{_fmt(b, unit)}</i></span></div><small>{lab}</small></div>'
+                f'<div class="ix-col"><div class="ix-pair" style="--hm:{max(a, b) / top:.3f}"><span class="ix-bar s1" style="--h:{a / top:.3f};--i:{j}"><i>{_fmt(a, unit)}</i></span>'
+                f'<span class="ix-bar s2" style="--h:{b / top:.3f};--i:{j}"><i>{_fmt(b, unit)}</i></span>'
+                f'<span class="ix-pv" style="--i:{j}"><b class="s1">{_fmt(a, unit)}</b><b class="s2">{_fmt(b, unit)}</b></span></div><small>{lab}</small></div>'
                 for j, (lab, a, b) in enumerate(v["pairs"]))
             legend = (f'<div class="ix-legend"><span class="s1">{v["legend"][0]}</span><span class="s2">{v["legend"][1]}</span></div>')
             rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(a, unit)}</td><td>{_fmt(b, unit)}</td></tr>" for lab, a, b in v["pairs"])
@@ -1378,8 +1429,10 @@ def chart_html(ch: dict) -> str:
             rows = "".join(f"<tr><th scope=\"row\">{lab}</th><td>{_fmt(val, unit)}</td></tr>" for lab, val in v["bars"])
             head = f'<tr><th scope="col">{ch["title"]}</th><th scope="col">{v["label"]}</th></tr>'
             n = len(v["bars"])
-        blocks.append(f'<div class="ix-plot" data-plot="{k}"{"" if k == 0 else " hidden"}><div class="ix-grid" aria-hidden="true">{grid}</div>'
-                      f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div>{legend}</div>')
+        # the legend sits in normal flow above the plot (it used to float over the view toggle); data-plot is on the wrapper
+        blocks.append(f'<div class="ix-view{" ix-view--pair" if "pairs" in v else ""}" data-plot="{k}"{"" if k == 0 else " hidden"}>{legend}'
+                      f'<div class="ix-plot"><div class="ix-grid" aria-hidden="true">{grid}</div>'
+                      f'<div class="ix-cols" style="--n:{n}" aria-hidden="true">{cols}</div></div></div>')
         # a table ignores width:1px, so the sr-only box is a wrapper div (else phones scroll sideways)
         tables.append(f'<div class="sr-only"><table><caption>{ch["title"]}, {v["label"].lower()} (sample data)</caption>{head}{rows}</table></div>')
     kpis = "".join(f'<div class="ix-kpi"><small>{lab}</small><b>{val}</b></div>' for lab, val in ch["kpis"])
@@ -1394,10 +1447,8 @@ def _app_ic(step: dict, size: int) -> str:
 
 def industry_intro_html(key: str) -> str:
     d = IX.IND[key]
-    if key in WD.WORLDS:   # a world page: the paragraph is Nexi's caption card
-        return (f'<section class="section section--tight ix-intro-sec"><div class="container">'
-                f'<div class="ix-intro ixw-say reveal"><span class="ixw-av" aria-hidden="true">{WD.avatar(WD.WORLDS[key]["img"])}</span>'
-                f'<div><p class="ix-intro-h">Nexi · in one paragraph</p><p>{mshort(d["intro"], WD.WORLDS[key]["m"].get("intro", ""))}</p></div></div></div></section>')
+    if key in IFX.PANEL:   # the eight industry pages: a glass card (22 Oct 2026 redesign)
+        return IFX.intro_html(key)
     return (f'<section class="section section--tight ix-intro-sec"><div class="container">'
             f'<div class="ix-intro reveal"><p class="ix-intro-h">In one paragraph</p><p>{d["intro"]}</p></div></div></section>')
 
@@ -1420,6 +1471,8 @@ WORLD_SHORT = {   # phone copy for the generated sections of every world page
 def world_flow_html(key: str) -> str:
     """The workflow of a world page: a clinic day (or a shop day, a site day...) as stations on a route. Each station has
     an animated vignette, a caption card whose text types in, the Odoo app, what it replaces and a sample record."""
+    if key in IFX.PANEL:   # the eight industry pages: a scroll-revealed chain of glass Odoo record cards (22 Oct 2026 redesign)
+        return IFX.flow_html(key)
     d, w = IX.IND.get(key) or WD.module(key).FLOW, WD.WORLDS[key]   # a Company page is not an industry: its module carries FLOW
     steps, n = d["flow"], len(d["flow"])
     office = getattr(WD.module(key), "OFFICE", None)
@@ -1470,23 +1523,65 @@ def world_flow_html(key: str) -> str:
 </section>'''
 
 
+# ---------------------------------------------------------------- BIR block (money pages)
+BIR_MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
+            'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
+BIR_POST = {"medical": "bir-multi-branch-odoo", "travel": "expanded-withholding-tax-atc-codes-odoo",
+            "retail": "eopt-invoice-requirements-odoo", "ecommerce": "eopt-invoice-requirements-odoo",
+            "construction": "expanded-withholding-tax-atc-codes-odoo", "fnb": "eopt-invoice-requirements-odoo",
+            "manufacturing": "bir-slsp-summary-list-sales-purchases-odoo", "health-wellness": "bir-form-2307-odoo"}
+BIR_APP = {
+    "accountant": ("Odoo Accounting for Philippine companies",
+                   "TechNext sets up Odoo Accounting for BIR requirements: books ready for CAS or CBA registration, 2307 and 2306 certificates, and SLSP, SAWT, QAP and 2550Q reports from your own entries. No software is BIR-accredited, so we first check which rules apply to your company.",
+                   "register-odoo-cas-cba-bir", "How to register Odoo as your CAS or CBA"),
+    "account": ("Odoo Invoicing for Philippine companies",
+                "Invoices set up for the BIR invoice rules under the EOPT Act, with a series per branch, and prepared for e-invoicing if you are a covered taxpayer (deadline 31 December 2026). Connecting to the BIR's EIS is a project we scope with you.",
+                "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
+    "hr_payroll": ("Odoo Payroll for Philippine companies",
+                   "Odoo 20's Philippine payroll package covers the BIR payroll forms 1601-C, 2316 and 1604-C. TechNext checks the 2026 tax tables, de minimis limits and contributions with you before go-live.",
+                   "philippine-payroll-bir-forms-odoo-20", "Philippine payroll and BIR forms in Odoo 20"),
+    "point_of_sale": ("Odoo Point of Sale for Philippine companies",
+                      "POS invoices set up for the EOPT invoice rules, with the day's takings posting to Odoo Accounting. For covered taxpayers we also plan for BIR e-invoicing by 31 December 2026.",
+                      "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
+}
+
+
+def bir_block(text: str, post: str, post_label: str) -> str:
+    return f'''<section class="section section--tight bir-block" id="bir">
+  <div class="container">
+    <div class="answer-box reveal">
+      <p class="answer-h">For Philippine companies: BIR</p>
+      <p>{text}</p>
+      <p class="small">Read <a href="{{{{ROOT}}}}odoo/philippines.html">Odoo in the Philippines</a> and <a href="{{{{ROOT}}}}blog/{post}.html">{post_label}</a>.</p>
+      <div class="actions">{BIR_MEET}</div>
+    </div>
+  </div>
+</section>'''
+
+
+def bir_industry_block(key: str, name: str, low: str) -> str:
+    text = (f"For {low} in the Philippines, TechNext sets up Odoo Accounting for BIR requirements: books ready for CAS or CBA registration, "
+            "2307 certificates, SLSP, SAWT and QAP reports, and invoices prepared for e-invoicing if you are a covered taxpayer (deadline 31 December 2026). "
+            + ("Online sellers classed as small, medium or large are among the covered groups. " if key == "ecommerce" else "")
+            + "Your company registers its own books with the BIR, so we first check which rules apply to you.")
+    return bir_block(text, BIR_POST[key], {"bir-multi-branch-odoo": "BIR compliance for multi-branch businesses",
+                                           "expanded-withholding-tax-atc-codes-odoo": "Expanded withholding tax and ATC codes in Odoo",
+                                           "eopt-invoice-requirements-odoo": "What a BIR invoice must show",
+                                           "bir-slsp-summary-list-sales-purchases-odoo": "The BIR SLSP and how Odoo exports it",
+                                           "bir-form-2307-odoo": "BIR Form 2307 explained"}[BIR_POST[key]])
+
+
+def bir_industry_faqs(low: str) -> list:
+    return [("Is Odoo BIR-accredited?",
+             "No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company."),
+            (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
+             "Yes. Our Taguig City team configures Odoo Accounting for CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, e-invoicing preparation. Book a discovery call and an adviser reviews your current invoicing and books first.")]
+
+
 def industry_html(key: str) -> str:
     d = IX.IND[key]
     name, low = d["name"], d["noun"]
-    world = key in WD.WORLDS
-
-    def ms(full: str, short_key: str) -> str:
-        return mshort(full, WORLD_SHORT[short_key]) if world else full
-    steps = d["flow"]
-    tabs = "".join(
-        f'<button class="ix-step{" is-on" if k == 0 else ""}" type="button" role="tab" id="ixs-{k}" aria-selected="{"true" if k == 0 else "false"}" '
-        f'aria-controls="ixp-{k}" tabindex="{"0" if k == 0 else "-1"}" style="--i:{k}"><span class="ix-node">{_app_ic(st, 28)}</span>'
-        f'<span class="ix-t"><small>{k + 1:02d}</small>{st["t"]}</span></button>' for k, st in enumerate(steps))
-    panels = "".join(
-        f'<article class="ix-panel{" is-on" if k == 0 else ""}" role="tabpanel" id="ixp-{k}" aria-labelledby="ixs-{k}">'
-        f'<div class="ix-p-head">{_app_ic(st, 44)}<div><span class="ix-kick">Step {k + 1} of {len(steps)} · {st["odoo"]}</span><h3>{st["h"]}</h3></div></div>'
-        f'<p>{st["p"]}</p><dl class="ix-p-meta"><div><dt>In Odoo</dt><dd>{st["odoo"]}</dd></div><div><dt>What it replaces</dt><dd>{st["was"]}</dd></div></dl></article>'
-        for k, st in enumerate(steps))
+    # (22 Oct 2026) the workflow is {{INDUSTRY_FLOW:key}} (industry_fx.flow_html); these are the page's other generated sections, in the glass system
     ba = "".join(
         f'<li class="ix-row" style="--i:{k}"><b class="ix-task">{t}</b><span class="ix-faces">'
         f'<span class="ix-face ix-before">{{{{icon:x}}}}<span><span class="sr-only">Today: </span>{b}</span></span>'
@@ -1501,31 +1596,20 @@ def industry_html(key: str) -> str:
         f'<div class="ix-ph-apps">{"".join(f"{{{{odoo:{a}:28}}}}" for a in p["apps"])}</div>'
         f'<ul class="checks">{"".join(f"<li>{{{{icon:check}}}}{i}</li>" for i in p["items"])}</ul></li>' for k, p in enumerate(d["phases"]))
     ints = "".join(f'<span class="ix-chip">{{{{icon:{ic}}}}}{lab}</span>' for ic, lab in d["integrations"])
-    faqs = "".join(f'<details><summary>{q} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{a}</p></div></details>' for q, a in d["faqs"])
+    faqs = "".join(f'<details><summary>{q} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{a}</p></div></details>' for q, a in d["faqs"] + bir_industry_faqs(low))
+    bir = bir_industry_block(key, name, low)
     by_out = {a["out"]: a for a in ARTICLES}
     reads = "".join(blog_card(by_out[r], k) for k, r in enumerate(d["reading"]) if r in by_out)
     others = "".join(f'<a href="{{{{ROOT}}}}industries/{k2}.html">{{{{icon:{ic}}}}}{IX.IND[k2]["name"]}</a>'
                      for k2, ic in (("medical", "pulse"), ("travel", "plane"), ("retail", "bag"), ("ecommerce", "cart"),
                                     ("construction", "hardhat"), ("fnb", "utensils"), ("manufacturing", "gear"), ("health-wellness", "heart"))
                      if k2 != key)
-    flow_sec = "" if key in WD.WORLDS else f'''<section class="section" id="flow">
+    return f'''<section class="section fx-sec fx-sec--alt ixf-ba-sec" id="before-after">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">how it flows</span><h2>{d["flow_title"]}</h2><p class="lead">{d["flow_lead"]}</p></div>
-    <div class="ix-flow reveal" data-ixflow>
-      <div class="ix-track" role="tablist" aria-label="{attr(name)} workflow in Odoo, step by step"><span class="ix-rail" aria-hidden="true"><i></i></span>{tabs}</div>
-      <div class="ix-panels">{panels}</div>
-    </div>
-  </div>
-</section>'''
-    return f'''{flow_sec}
-
-<section class="section section--alt">
-  <div class="container">
-    <div class="two two--top ix-ba-wrap">
+    <div class="ixf-two ix-ba-wrap">
       <div class="reveal">
-        <span class="hand">before and after</span>
         <h2>What changes on day one.</h2>
-        <p class="lead">{ms("The same six jobs, done today and done in Odoo. Switch between them.", "ba")}</p>
+        <p class="lead">The same six jobs, done today and done in Odoo. Switch between them.</p>
         <div class="ix-switch" role="group" aria-label="Compare"><button type="button" data-ba="before" aria-pressed="false">Today</button><button type="button" data-ba="after" aria-pressed="true">With Odoo</button></div>
       </div>
       <ul class="ix-ba reveal" data-ixba data-state="after">{ba}</ul>
@@ -1533,13 +1617,12 @@ def industry_html(key: str) -> str:
   </div>
 </section>
 
-<section class="section">
+<section class="section fx-sec ixf-dash-sec">
   <div class="container">
-    <div class="two two--top ix-dash-wrap">
+    <div class="ixf-two ix-dash-wrap">
       <div class="reveal">
-        <span class="hand">the numbers you'll see</span>
         <h2>{d["chart"]["title"]}, on one screen.</h2>
-        <p class="lead">{ms(f"Every figure comes from the transactions your team already records in Odoo. These are the reports we set up first for {low}.", "dash")}</p>
+        <p class="lead">Every figure comes from the transactions your team already records in Odoo. These are the reports we set up first for {low}.</p>
         <ul class="checks">{reports}</ul>
       </div>
       <figure class="ix-dash reveal" data-ixchart>
@@ -1551,9 +1634,9 @@ def industry_html(key: str) -> str:
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section fx-sec fx-sec--alt ixf-media-sec">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">see it in odoo</span><h2>What your team will use.</h2><p class="lead">{ms("An official Odoo video and screenshots of the apps in this setup. Press a screenshot to see it full size.", "media")}</p></div>
+    <div class="sec-head reveal"><h2>What your team will use.</h2><p class="lead">An official Odoo video and screenshots of the apps in this setup. Press a screenshot to see it full size.</p></div>
     <div class="ix-media">
       <div class="ix-video reveal">{yt_facade(vid, vtitle)}<p class="ix-cap">{vtitle} · official Odoo video</p></div>
       <div class="ix-shots">{shots}</div>
@@ -1562,34 +1645,36 @@ def industry_html(key: str) -> str:
   </div>
 </section>
 
-<section class="section">
+<section class="section fx-sec ixf-new-sec">
   <div class="container">
     <div class="ix-new reveal">
-      <div class="ix-new-head">{{{{odoo:ai_app:44}}}}<div><span class="hand">new in odoo 20</span><h2>What Odoo 20 adds for {low}.</h2></div></div>
+      <div class="ix-new-head">{{{{odoo:ai_app:44}}}}<div><h2>What Odoo 20 adds for {low}.</h2></div></div>
       <ul class="checks">{new20}</ul>
       <a class="btn-link" href="{{{{ROOT}}}}blog/odoo-20-whats-new.html">Odoo 20, explained {{{{icon:arrow}}}}</a>
     </div>
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section fx-sec fx-sec--alt ixf-phases-sec">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">how we roll it out</span><h2>Three phases, one database.</h2><p class="lead">{ms("Each phase goes live before the next one starts, so your team learns Odoo on work that already matters.", "phases")}</p></div>
-    <ol class="ix-phases"{" data-ixw-in" if world else ""}>{phases}</ol>
+    <div class="sec-head reveal"><h2>Three phases, one database.</h2><p class="lead">Each phase goes live before the next one starts, so your team learns Odoo on work that already matters.</p></div>
+    <ol class="ix-phases">{phases}</ol>
     <div class="ix-int reveal"><b>Connects to</b><div>{ints}</div></div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="sec-head reveal"><span class="hand">common questions</span><h2>Odoo for {low}, answered.</h2></div>
+{bir}
+
+<section class="section fx-sec" id="faq">
+  <div class="container fx-faq">
+    <div class="sec-head reveal"><h2>Odoo for {low}, answered.</h2></div>
     <div class="faq reveal">{faqs}</div>
   </div>
 </section>
 
-<section class="section section--alt section--tight">
+<section class="section fx-sec fx-sec--alt ixf-read-sec">
   <div class="container">
-    <div class="sec-head sec-head--row reveal"><div><span class="hand">keep reading</span><h2 style="margin:0">Guides for this decision.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
+    <div class="sec-head sec-head--row reveal"><h2>Guides for this decision.</h2><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
     <div class="post-cards post-cards--two">{reads}</div>
     <div class="ix-others reveal"><b>Other industries</b><div>{others}</div></div>
   </div>
@@ -1600,10 +1685,6 @@ def yt_facade(vid: str, title: str) -> str:
     return (f'<button class="yt" type="button" data-yt="{vid}" aria-label="Play video: {title}">'
             f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" decoding="async" fetchpriority="low" data-onerror="remove">'
             f'<span class="yt-play">{{{{icon:play}}}}</span><span class="yt-cap">Official Odoo video · YouTube</span></button>')
-
-
-LIFE_KICKER = {"rail": "follow a record", "ladder": "step by step", "ring": "the whole cycle", "funnel": "from first touch",
-               "lanes": "on the timeline", "hub": "around the record", "journey": "the visitor's path"}
 
 
 def lifecycle_html(mod: str, name: str, cat: dict) -> str:
@@ -1630,10 +1711,10 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
     joined = ", ".join(seen[:-1]) + (" and " + seen[-1] if len(seen) > 1 else (seen[0] if seen else ""))
     path_txt = " → ".join(label[k] for k in f["path"])
     n = len(f["states"])
-    return f'''<section class="section demo-sec" id="lifecycle">
+    return f'''<section class="section fx-sec fx-sec--alt demo-sec apx-life-sec" id="lifecycle">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">{LIFE_KICKER[layout]}</span><h2>How {art} {rec} moves through Odoo {name}.</h2>
-      <p class="lead">Sample {rec}s run through Odoo {name} the way TechNext sets it up: {n} states, the exceptions and loops that really happen, and the hand-offs into {joined or "the rest of Odoo"}. Hover a state to see what happens there.</p></div>
+    <div class="sec-head reveal"><h2>How {art} {rec} moves through Odoo {name}.</h2>
+      <p class="lead">Sample {rec[:-1] + "ies" if rec.endswith("y") else rec + "s"} run through Odoo {name} the way TechNext sets it up: {n} states, the exceptions and loops that really happen, and the hand-offs into {joined or "the rest of Odoo"}. Hover a state to see what happens there.</p></div>
     <div class="dm dm-life lf--{layout} reveal" data-demo="life" data-layout="{layout}" data-cat="{cat["id"]}" data-mod="{mod}" data-record="{attr(rec)}" data-path="{",".join(f["path"])}" style="--n:{n};--hn:{len(f["handoffs"])}">
       <div class="dm-head">
         <div class="dm-title"><b>Odoo {name} · {rec} lifecycle</b><small>Sample records · {n} states · {len(f["handoffs"])} hand-offs</small></div>
@@ -1681,6 +1762,10 @@ APP_TITLES = {
     "point_of_sale": "Odoo POS for Shops — Singapore & Philippines",  # vs /industries/retail
     "pos_restaurant": "Odoo Restaurant POS — Singapore & Philippines",  # vs /industries/fnb
     "voip": "Odoo Phone (VoIP) — Singapore & Philippines",          # Odoo's name for VoIP
+    "accountant": "Odoo Accounting Philippines: BIR Reports Set Up | TechNext",
+}
+APP_DESCS = {
+    "accountant": "Odoo Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.",
 }
 
 
@@ -1688,8 +1773,9 @@ def app_page(mod: str) -> tuple:
     app, cat = APP_BY_MOD[mod], CAT_BY_MOD[mod]
     c = APP_CONTENT.get(mod, {})
     name = app["name"]
-    lead = c.get("lead") or c.get("description") or app["desc"]
-    headline = c.get("headline") or f"{name} in Odoo"
+    # hero lead: TechNext's own adviser-voice copy (_src/app_leads.py); odoo.com's slogan and lead are only a fallback
+    lead = AL.LEADS.get(mod) or c.get("lead") or c.get("description") or app["desc"]
+    headline = "" if mod in AL.LEADS else (c.get("headline") or f"{name} in Odoo")
     odoo_url = c.get("url", "https://www.odoo.com/")
     focus = ' <span class="tag tag--ok">{{icon:check}} TechNext focus app</span>' if app["focus"] else ""
     images = [i for i in c.get("images", []) if not i.endswith(".svg") and not is_strip(i)]
@@ -1711,9 +1797,9 @@ def app_page(mod: str) -> tuple:
     videos = ""
     if vids:
         items = "".join(f'<div class="video reveal" style="--i:{k}">{v}</div>' for k, v in enumerate(vids))
-        videos = f'''<section class="section section--tight" id="watch">
+        videos = f'''<section class="section fx-sec apx-watch-sec" id="watch">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">watch</span><h2>{name} in action.</h2><p class="lead">Official Odoo videos. Nothing loads until you press play.</p></div>
+    <div class="sec-head reveal"><h2>{name} in action.</h2><p class="lead">Official Odoo videos. Nothing loads until you press play.</p></div>
     <div class="{"videos videos--one" if len(vids) == 1 else "videos"}">{items}</div>
   </div>
 </section>'''
@@ -1729,14 +1815,14 @@ def app_page(mod: str) -> tuple:
             label = attr(f"Odoo {name} — {s['h']}")
             rows.append(f'''<div class="feat reveal{flip}">
       <div class="feat-media {fr}" style="--ar:{ar}"><a class="zoom" href="{s["img"]}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot: {label}"><img src="{s["img"]}" alt="{label}" decoding="async" fetchpriority="low" data-onerror="feat">{{{{icon:expand}}}}</a></div>
-      <div class="feat-copy"><span class="card-kicker">{k + 1:02d} · {name}</span><h3>{s["h"]}</h3><p>{s["p"]}</p>{feats_html}</div>
+      <div class="feat-copy"><h3>{s["h"]}</h3><p>{s["p"]}</p>{feats_html}</div>
     </div>''')
-        else:
-            cards.append(f'<article class="card reveal" style="--i:{len(cards)}"><div class="card-ic">{{{{odoo:{mod}:36}}}}</div><h3>{s["h"]}</h3><p>{s["p"]}</p>{feats_html}</article>')
+        else:   # no screenshot: a spec-sheet row (bare app icon, heading left, copy right), never a grid of same-size icon cards
+            cards.append(f'<article class="apx-cap reveal" style="--i:{len(cards)}"><h3>{{{{odoo:{mod}:28}}}}<span>{s["h"]}</span></h3><div><p>{s["p"]}</p>{feats_html}</div></article>')
     if not rows and not cards:
-        cards.append(f'<article class="card reveal"><div class="card-ic">{{{{odoo:{mod}:36}}}}</div><h3>{name}</h3><p>{app["desc"]}</p></article>')
+        cards.append(f'<article class="apx-cap reveal"><h3>{{{{odoo:{mod}:28}}}}<span>{name}</span></h3><div><p>{app["desc"]}</p></div></article>')
     what = (f'<div class="feats">{"".join(rows)}</div>' if rows else "") + \
-           (f'<div class="grid-3{" mt-56" if rows else ""}">{"".join(cards)}</div>' if cards else "")
+           (f'<div class="apx-caps{" apx-caps--after" if rows else ""}">{"".join(cards)}</div>' if cards else "")
 
     # remaining screenshots not already shown
     shots = [i for i in images if i not in used][:6]
@@ -1745,9 +1831,9 @@ def app_page(mod: str) -> tuple:
         f'<a class="zoom" href="{u}" target="_blank" rel="noopener" data-zoom aria-label="Enlarge screenshot {k + 1} of Odoo {attr(name)}">'
         f'<img src="{u}" alt="Odoo {attr(name)} screenshot {k + 1}" decoding="async" fetchpriority="low" data-onerror="closest:figure">{{{{icon:expand}}}}</a>'
         f'<figcaption>Odoo {name} · screenshot from odoo.com</figcaption></figure>' for k, u in enumerate(shots))
-    screens = f'''<section class="section section--alt section--tight">
+    screens = f'''<section class="section fx-sec fx-sec--alt apx-shots-sec">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">screens</span><h2>Inside the app.</h2></div>
+    <div class="sec-head reveal"><h2>Inside the app.</h2></div>
     <div class="shots">{gallery}</div>
   </div>
 </section>''' if gallery else ""
@@ -1759,22 +1845,34 @@ def app_page(mod: str) -> tuple:
     for extra in ("accountant", "sale", "stock"):
         if extra != mod and extra not in rel_mods and len(rel_mods) < 6:
             rel_mods.append(extra)
-    shot = (f'<img class="aw-shot" src="{hero_img}" alt="Odoo {name}" loading="eager" decoding="async" data-onerror="remove">'
+    # hero panel (22 Oct 2026 redesign): a glass Odoo window (the odoo.com screen, or the app's own icon and summary) with a
+    # live sample record that walks the app's main path (states, notes and hand-offs from _src/app_flows.py; assets/js/pages/apps-fx.js)
+    shot = (f'<img class="apx-shot" src="{hero_img}" alt="Odoo {name}" loading="eager" decoding="async" data-onerror="remove">'
             if hero_img else "")
     works = " &amp; ".join(APP_BY_MOD[m]["name"] for m in rel_mods[:2])
-    rel_icons = "".join(f'{{{{odoo:{m}:24}}}}' for m in rel_mods[:3])
-    hero_stage = f'''<div class="stage stage--app" aria-hidden="true">
-        <div class="st-card aw dp" style="--d:6">
-          <div class="st-bar"><i></i><i></i><i></i>{{{{odoo:{mod}:16}}}}<span>Odoo · {name}</span></div>
-          <div class="aw-body"><div class="aw-fallback">{{{{odoo:{mod}:64}}}}{name}<span>{app["desc"]}</span></div>{shot}</div>
+    work_chips = "".join(f'<a href="{S.app_slug(m)}.html">{{{{odoo:{m}:20}}}}{APP_BY_MOD[m]["name"]}</a>' for m in rel_mods[:4])
+    flow = AF.FLOWS.get(mod)
+    rec_html = ""
+    if flow:
+        lab = {k: (l, n) for k, l, n in flow["states"]}
+        steps = "".join(f'<li data-note="{attr(lab[k][1])}"><i aria-hidden="true"></i><b>{lab[k][0]}</b></li>' for k in flow["path"])
+        hos = "".join(f'<p class="apx-ho" data-at="{flow["path"].index(st)}">{{{{odoo:{hm}:22}}}}<span><b>{APP_BY_MOD[hm]["name"]}</b><small>{ht}</small></span></p>'
+                      for st, hm, ht in flow["handoffs"] if st in flow["path"] and hm in APP_BY_MOD)
+        rec_html = (f'<div class="apx-rec" data-apx-rec><p class="apx-rec-t"><span>Sample {flow["record"]}</span><span class="fx-tag">Sample data</span></p>'
+                    f'<ol class="apx-rail" style="--n:{len(flow["path"])}">{steps}</ol>'
+                    f'<div class="apx-live"><p class="apx-rec-note" data-apx-note>{lab[flow["path"][0]][1]}</p><div class="apx-hos">{hos}</div></div></div>')
+    hero_panel = f'''<div class="apx-panel" data-apx-panel aria-hidden="true">
+        <i class="fx-result-glow apx-glow"></i>
+        <div class="apx-win">
+          <div class="apx-bar"><span class="apx-dots"><i></i><i></i><i></i></span>{{{{odoo:{mod}:18}}}}<b>Odoo · {name}</b>{'<span class="fx-tag">Screen from odoo.com</span>' if hero_img else ""}</div>
+          <div class="apx-screen"><div class="apx-fallback">{{{{odoo:{mod}:64}}}}<b>{name}</b><span>{app["desc"]}</span></div>{shot}<i class="apx-sweep"></i></div>
         </div>
-        <span class="aw-launch dp" style="--d:16">{{{{odoo:{mod}:52}}}}</span>
-        <span class="st-chip aw-c1 dp" style="--d:12">{{{{icon:check}}}}Configured on a staging copy first</span>
-        <span class="st-chip aw-c2 dp" style="--d:9">{{{{icon:layers}}}}Shares data with {works}</span>
-        <div class="aw-rel dp" style="--d:10">Works with {rel_icons}</div>
+        {rec_html}
+        <span class="apx-chip apx-chip--a">{{{{icon:check}}}}Configured on a staging copy first</span>
+        <span class="apx-chip apx-chip--b">{{{{icon:layers}}}}Shares data with {works}</span>
       </div>'''
-    related = "".join(f'<a class="app" href="{S.app_slug(m)}.html">{{{{odoo:{m}:40}}}}<div><b>{APP_BY_MOD[m]["name"]}</b><small>{APP_BY_MOD[m]["desc"]}</small></div>{{{{icon:arrow}}}}</a>' for m in rel_mods)
-    impl = "".join(f'<li>{{{{icon:check}}}}{p}</li>' for p in IMPLEMENT.get(mod, DEFAULT_IMPLEMENT))
+    related = "".join(f'<a class="apx-app" href="{S.app_slug(m)}.html">{{{{odoo:{m}:36}}}}<span><b>{APP_BY_MOD[m]["name"]}</b><small>{APP_BY_MOD[m]["desc"]}</small></span>{{{{icon:arrow}}}}</a>' for m in rel_mods)
+    impl = "".join(f'<li><i class="apx-dot" aria-hidden="true"></i><span>{p}</span></li>' for p in IMPLEMENT.get(mod, DEFAULT_IMPLEMENT))
     # Original copy only: the old description was odoo.com's own marketing text, which made
     # these pages near-duplicates of Odoo's.
     short = app["desc"].rstrip(".")
@@ -1785,93 +1883,93 @@ def app_page(mod: str) -> tuple:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
         desc_meta += " Book a free discovery call."
+    desc_meta = APP_DESCS.get(mod, desc_meta)
     h1name = name.replace(" — ", " (") + ")" if " — " in name else name
     note = APP_NOTES.get(mod, "")
     d0 = app["desc"]
     d0 = d0[0].lower() + d0[1:] if len(d0) > 1 and d0[1].islower() else d0
-    answer = (f'<section class="section section--tight answer-sec"><div class="container"><div class="answer-box reveal">'
-              f'<p class="answer-h">In one paragraph</p><p>Odoo {name}: {d0} TechNext, an Odoo Ready Partner '
+    answer = (f'<section class="section fx-sec apx-one-sec answer-sec"><div class="container"><div class="apx-one reveal">'
+              f'<h2 class="sr-only">Odoo {name} in one paragraph</h2><p>Odoo {name}: {d0} TechNext, an Odoo Ready Partner '
               f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
-              + (f'<p class="answer-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
+              + (f'<p class="apx-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
     meta = {"title": APP_TITLES.get(mod, f"Odoo {name} in Singapore & the Philippines"), "desc": desc_meta,
             "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo", "og_icon": str(ODOO_DIR / f"{mod}.svg")}
     life = lifecycle_html(mod, name, cat)
-    meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else [])
-    if life:
-        meta["head"] = ('<link rel="stylesheet" href="{ROOT}assets/css/demo-kit.css?v={ASSET_V}">'
-                        '<link rel="stylesheet" href="{ROOT}assets/css/demo-life.css?v={ASSET_V}">')
+    bir = AW.bir_panel_html(mod, BIR_APP[mod][1], BIR_APP[mod][2], BIR_APP[mod][3]) if mod in BIR_APP else ""   # accounting, invoicing, payroll, POS: the full block under the intro
+    bir_line = AW.bir_line_html(mod)                                                                        # restaurant POS, eCommerce, Purchase, Expenses: one factual line
+    ledger = AW.ledger_html(mod)   # Accounting, Sales, Inventory: the animated glass posting ledger ("" for the rest)
+    meta["scripts"] = (["assets/js/zoom.js"] if rows or gallery else []) + (["assets/js/demo-kit.js", "assets/js/demo-life.js"] if life else []) + ["assets/js/pages/apps-fx.js"]
+    meta["head"] = ('<link rel="stylesheet" href="{ROOT}assets/css/home-fx.css?v={ASSET_V}">'
+                    + ('<link rel="stylesheet" href="{ROOT}assets/css/demo-kit.css?v={ASSET_V}">'
+                       '<link rel="stylesheet" href="{ROOT}assets/css/demo-life.css?v={ASSET_V}">' if life else "")
+                    + '<link rel="stylesheet" href="{ROOT}assets/css/pages/apps-fx.css?v={ASSET_V}">')
+    meta["body"] = "fx-page apps-fx"
     content = f'''
-<section class="page-hero page-hero--split page-hero--stage" data-stage-hero>
-  {{{{STAGE_BG}}}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span>Odoo</span><span><a href="{{{{ROOT}}}}odoo/apps.html">Apps</a></span><span><a href="{{{{ROOT}}}}odoo/apps.html#{cat["id"]}">{cat["title"]}</a></span><span>{name}</span></nav>
-    <div class="two two--stage">
-      <div>
-        <div class="app-hero-head">{{{{odoo:{mod}:56}}}}<span class="hand">odoo · {cat["title"].lower()}</span></div>
-        <h1>Odoo {h1name} in Singapore &amp; the Philippines</h1>
-        <p class="app-sub">{headline}</p>
-        <p class="lead">{lead}</p>
-        <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
-        <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}contact.html">{{{{icon:chat-send}}}} All the ways to reach us</a>
-          <a class="btn btn-ghost btn-lg" href="#talk">Talk to us</a>
-        </div>
+<section class="fx-hero apx-hero" aria-labelledby="apx-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fx-hero-in apx-hero-in">
+    <div class="apx-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span>Odoo</span><span><a href="{{{{ROOT}}}}odoo/apps.html">Apps</a></span><span><a href="{{{{ROOT}}}}odoo/apps.html#{cat["id"]}">{cat["title"]}</a></span><span>{name}</span></nav>
+      <h1 id="apx-h1">Odoo {h1name} in Singapore &amp; the Philippines</h1>
+      {f'<p class="app-sub">{headline}</p>' if headline else ""}
+      <p class="fx-lead">{lead}</p>
+      <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
+      <div class="actions apx-act">
+        {AW.MEET}
+        <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a>
       </div>
-      {hero_stage}
+      <p class="apx-works"><span>Works with</span>{work_chips}</p>
     </div>
+    {hero_panel}
   </div>
 </section>
 
 {answer}
 
+{bir}
+
+{ledger}
+
 {life}
 
 {videos}
 
-<section class="section">
+<section class="section fx-sec apx-what-sec">
   <div class="container">
-    <div class="sec-head reveal"><span class="hand">what it does</span><h2>{name}, section by section.</h2><p class="lead">The product as Odoo presents it. TechNext configures each part to your process.</p></div>
+    <div class="sec-head reveal"><h2>{name}, section by section.</h2><p class="lead">The product as Odoo presents it. TechNext configures each part to your process.</p></div>
     {what}
   </div>
 </section>
 
 {screens}
 
-<section class="section section--alt">
-  <div class="container">
-    <div class="two two--top">
-      <div class="reveal"><span class="hand">how technext implements it</span><h2>{name}, configured to how you work.</h2><p class="lead">Standard Odoo first. We set it up on a staging database, migrate your data, train your team and stay on after go-live.</p><div class="actions"><a class="btn btn-primary" href="{{{{ROOT}}}}odoo/discovery.html">Start with discovery {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}odoo/support.html">Support plans {{{{icon:arrow}}}}</a></div></div>
-      <ul class="checks" style="margin:0">{impl}</ul>
-    </div>
+<section class="section fx-sec fx-sec--alt apx-impl-sec">
+  <div class="container apx-impl">
+    <div class="sec-head reveal"><h2>{name}, configured to how you work.</h2><p class="lead">Standard Odoo first. We set it up on a staging database, migrate your data, train your team and stay on after go-live.</p><div class="actions"><a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}odoo/discovery.html">Start with discovery {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}odoo/support.html">Support plans {{{{icon:arrow}}}}</a></div></div>
+    <ol class="apx-steps reveal">{impl}</ol>
   </div>
 </section>
 
-<section class="section">
+{bir_line}
+
+<section class="section fx-sec apx-with-sec">
   <div class="container">
-    <div class="sec-head sec-head--row reveal"><div><span class="hand">works with</span><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn-link" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
-    <div class="apps-grid">{related}</div>
-    <p class="small muted mt-24">Product descriptions, screenshots and videos are © Odoo S.A., reproduced for reference from <a href="{odoo_url}" target="_blank" rel="noopener">odoo.com</a>. TechNext is an Odoo Partner; we implement and support Odoo.</p>
+    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn-link" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
+    <div class="apx-with reveal">{related}</div>
+    <p class="small muted apx-credit">Product descriptions, screenshots and videos are © Odoo S.A., reproduced for reference from <a href="{odoo_url}" target="_blank" rel="noopener">odoo.com</a>. TechNext is an Odoo Partner; we implement and support Odoo.</p>
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section fx-close-sec" id="next">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">next step</span><h2>Want {name} running in your company?</h2><p>Tell us how the process works today. We'll say what to switch on first and what it takes.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>Want {name} running in your company?</h2><p>Tell us how the process works today. We'll say what to switch on first and what it takes.</p></div>
+      <div class="actions">{AW.MEET_WHITE}<a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
     </div>
   </div>
 </section>'''
-    if mod in AW.WORLD:   # Accounting, Sales and Inventory: their own world hero instead of the generated stage
-        w = AW.WORLD[mod]
-        i0 = content.index('<section class="page-hero'); i1 = content.index("</section>", i0) + len("</section>")
-        content = content[:i0] + AW.hero(mod, h1name, headline, lead) + content[i1:]
-        content = AW.dress(mod, content)   # themed sections and the two bands for these three apps
-        meta["scripts"] = meta.get("scripts", []) + ["assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", f"assets/js/worlds/{w}.js"]
-        meta["head"] = meta.get("head", "") + "".join(f'<link rel="stylesheet" href="{{ROOT}}assets/css/{c}?v={{ASSET_V}}">' for c in ("industry.css", "industry-world.css", "odoo-walk.css", f"worlds/{w}.css"))
-        meta["body"] = f"ixw ixw--{w} ow-page"
     return meta, content
 
 # ---------------------------------------------------------------- blog
@@ -1879,8 +1977,8 @@ def app_page(mod: str) -> tuple:
 # build.py adds the article header, contents list, author box, related posts and CTA, and the
 # BlogPosting structured data; blog.html lists them all ({{BLOG_CARDS}}) and the home page shows
 # the newest three ({{BLOG_LATEST}}).
-BLOG_CATS = {"odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
-BLOG_ICON = {"odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
+BLOG_CATS = {"bir": "BIR compliance", "odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
+BLOG_ICON = {"bir": "receipt", "odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
 ARTICLES = []
 _H2 = re.compile(r"<h2(\s[^>]*)?>(.*?)</h2>", re.S)
 
@@ -1936,7 +2034,7 @@ def cover_html(a: dict) -> str:
         for k, ref in enumerate(c[6:].split(",")):
             kind, _, name = ref.partition(":")
             inner = f"{{{{odoo:{name}:34}}}}" if kind == "odoo" else f"{{{{icon:{name}}}}}"
-            ics.append(f'<span style="--i:{k}">{inner}</span>')
+            ics.append(f'<i style="--i:{k}">{inner}</i>')   # bare icons, never tiles (an <i>, not a <span>: stage.css boxes the spans)
         return f'<div class="post-cover post-cover--gen post-cover--{a["cat"]}" aria-hidden="true"><div class="pc-ics">{"".join(ics)}</div></div>'
     fit = "photo" if (c in PHOTO_COVERS or a.get("cover_fit") == "photo") else "shot"
     return (f'<div class="post-cover post-cover--{fit}" aria-hidden="true"><img src="{cover_url(a)}" alt="" '
@@ -1987,6 +2085,9 @@ def blog_filters() -> str:
     return "".join(btns)
 
 
+PREPARED_BY = '<p class="small muted post-prep">Prepared by the TechNext Philippines Odoo and finance team, Taguig City.</p>'
+
+
 def article_html(meta: dict, body: str) -> str:
     art = meta["article"]
     ids = set()
@@ -2014,22 +2115,42 @@ def article_html(meta: dict, body: str) -> str:
     ic = f"{{{{odoo:{icon[5:]}:22}}}}" if icon.startswith("odoo:") else f"{{{{icon:{icon}}}}}"
     if cover_url(art):
         meta["og_image"] = cover_url(art)
-    meta["head"] = (meta.get("head", "") + f'<meta property="article:published_time" content="{art["date"]}">'
-                    f'<meta property="article:section" content="{BLOG_CATS[art["cat"]]}">')
-    return f'''<section class="page-hero page-hero--stage page-hero--post" data-stage-hero>
-  {{{{STAGE_BG}}}}
-  <div class="container post-head">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span><a href="{{{{ROOT}}}}blog.html">Blog</a></span><span>{art["h1"]}</span></nav>
-    <a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a>
-    <h1>{art["h1"]}</h1>
-    <p class="lead">{art["lede"]}</p>
-    <p class="post-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span></p>
+    # glass article chrome (22 Oct 2026): home-fx.css + article-fx.css (blog-fx.css is the blog index's); page-calm.css (the old plain-page layer) is dropped for articles
+    head = meta.get("head", "").replace('<link rel="stylesheet" href="{ROOT}assets/css/page-calm.css?v={ASSET_V}">', "")
+    meta["head"] = ('<link rel="stylesheet" href="{ROOT}assets/css/home-fx.css?v={ASSET_V}">' + head
+                    + f'<meta property="article:published_time" content="{art["date"]}">'
+                    f'<meta property="article:section" content="{BLOG_CATS[art["cat"]]}">'
+                    '<link rel="stylesheet" href="{ROOT}assets/css/pages/article-fx.css?v={ASSET_V}">')
+    meta["body"] = "fx-page art-fx"
+    meta["scripts"] = meta.get("scripts", []) + ["assets/js/pages/article-fx.js"]
+    key = re.search(r'<div class="post-key">.*?</div>', body, re.S)
+    n_key = len(re.findall(r"<li\b", key.group(0))) if key else 0
+    chip = f'<span class="blg-chip">{{{{icon:check}}}}{n_key} key takeaways</span>' if n_key else ""
+    return f'''<section class="fx-hero blg-hero" aria-labelledby="blg-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fx-hero-in blg-hero-in">
+    <div class="blg-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{{{ROOT}}}}index.html">Home</a><span><a href="{{{{ROOT}}}}blog.html">Blog</a></span><span>{art["h1"]}</span></nav>
+      <h1 id="blg-h1">{art["h1"]}</h1>
+      <p class="fx-lead">{art["lede"]}</p>
+      {PREPARED_BY if art["cat"] == "bir" else ""}<p class="post-by blg-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span><a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a></p>
+    </div>
+    <div class="blg-panel" data-blg-panel aria-hidden="true">
+      <i class="fx-result-glow blg-glow"></i>
+      <div class="blg-win">
+        <div class="blg-bar"><span class="blg-dots"><i></i><i></i><i></i></span>{ic}<b>{BLOG_CATS[art["cat"]]}</b><span class="blg-tag">{art["read"]} min read</span></div>
+        <div class="blg-cover">{cover_html(art)}</div>
+      </div>
+      {chip}
+    </div>
   </div>
 </section>
 
-<section class="section section--post">
+<div class="blg-progress" aria-hidden="true"><i data-blg-bar></i></div>
+
+<section class="section fx-sec section--post">
   <div class="container post-grid">
-    <aside class="post-toc" aria-label="On this page"><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
+    <aside class="post-toc" aria-label="On this page" data-blg-toc><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
     <div class="prose">
 {body}
       <div class="post-about">
@@ -2040,18 +2161,19 @@ def article_html(meta: dict, body: str) -> str:
   </div>
 </section>
 
-<section class="section section--alt section--tight">
+<section class="section fx-sec fx-sec--alt blg-more-sec">
   <div class="container">
-    <div class="sec-head sec-head--row reveal"><div><span class="hand">keep reading</span><h2 style="margin:0">More from the blog.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
+    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">More from the blog.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
     <div class="post-cards">{cards}</div>
   </div>
 </section>
 
-<section class="section">
+<section class="section fx-close-sec" id="next">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">next step</span><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, builds your website and brand with it, and stays on after go-live, in Singapore and the Philippines.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Let's talk</a></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, builds your website and brand with it, and stays on after go-live, in Singapore and the Philippines. An adviser reviews your situation first.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a><a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
     </div>
   </div>
 </section>'''
@@ -2204,7 +2326,7 @@ def calm_hero(html: str) -> str:
 
 def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{APPS_NAV}}" in content:
-        content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html())
+        content = content.replace("{{APPS_NAV}}", apps_nav_html()).replace("{{APPS_CATS}}", apps_cats_html()).replace("{{APPS_PANEL}}", apps_panel_html())
     if "{{APPS_STAGE}}" in content:
         content = content.replace("{{APPS_STAGE}}", apps_stage_html())
     if "{{STAGE_BG}}" in content:
@@ -2230,6 +2352,11 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
     if "{{TEAM_OFFICES}}" in content:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
+    content = re.sub(r"\{\{INDUSTRY_HERO:([a-z-]+)\}\}", lambda m: IFX.hero_html(m.group(1)), content)
+    if "{{INDUSTRY_SWITCH}}" in content:   # home: pick an industry, its sample Odoo panel runs
+        content = content.replace("{{INDUSTRY_SWITCH}}", IFX.switch_html())
+    if "{{FW_NEEDS" in content:   # /free-website-with-odoo: picker chips, the seven live sample panels, the form options, the JSON block
+        content = FW.tokens(content)
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
     if "{{IND_SHOWCASE}}" in content:   # the homepage hero's industries slide
@@ -2253,6 +2380,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     out_rel = meta["out"]
     depth = out_rel.count("/")
     root = "../" * depth
+    if out_rel == "404.html":
+        root = "/"   # Vercel serves the 404 at any missing path (/blog/old-post): relative assets would resolve under /blog/
     active = meta.get("nav", "")
     if active not in nav_cache:
         nav_cache[active] = nav_html(active)
@@ -2275,7 +2404,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if home:
         heads = re.findall(r'<(?:div|article|section)\b[^>]*\bclass="slide(?:\s[^"]*)?"[^>]*>', content)
         nxs = next((k for k, t in enumerate(heads) if "data-slide-circle" in t), -1)
-        intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs))
+        intro_head = INTRO_HEAD + HERO_FIRST_HEAD.replace("{HERO_N}", str(len(heads))).replace("{HERO_NXS}", str(nxs) if nxs >= 0 else "-99")   # no Nexi slide: never the blue intro
     wk = re.match(r"ixw ixw--([a-z-]+)", meta.get("body", "") or "")      # a world page plays its own short intro
     w_head, w_body = (WD.INTRO_HEAD, WD.intro_html(wk.group(1))) if wk else ("", "")
     if CALM and out_rel not in CALM_SKIP:
@@ -2348,6 +2477,8 @@ def git_date(paths) -> str:
 
 
 def page_source(out_rel: str):
+    if out_rel.startswith("team/"):
+        return ["_src/advisors.py", "_src/team_pages.py"]
     if out_rel.startswith("odoo/apps/"):
         return ["_src/apps_content.json"]
     return ["_src/pages/" + out_rel]
@@ -2373,7 +2504,11 @@ def write_sitemap(pages):
         + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
 
 
+BIR_BLOG = re.compile(r"bir|cas-cba|2307|slsp|sawt|qap|eopt|withholding|payroll")
+
 LLMS_GROUPS = [
+    ("BIR compliance (Philippines)", lambda u: u in ("bir-e-invoicing", "odoo/philippines")
+                                               or (u.startswith("blog/") and BIR_BLOG.search(u[5:]) is not None)),
     ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
                                     or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
     ("AI solutions", lambda u: u.startswith("solutions/ai")),
@@ -2381,7 +2516,7 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "quotation", "contact", "nexi-explains")),
+    ("Company", lambda u: u in ("", "company", "free-website-with-odoo", "get-started", "quotation", "nexi-explains")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 
@@ -2393,10 +2528,12 @@ def write_llms():
     strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
-        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner. We implement Odoo ERP end to end "
-        "(accounting, sales, inventory, POS, HR and more), build enterprise AI (RAG knowledge assistants, "
-        "AI inside Odoo, workflow automation agents, chatbots), run websites and social media, and deliver IoT, "
-        "app development and network services for growing companies.",
+        "Last updated: 2026-10-21", "",
+        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. "
+        "We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), set it up for BIR requirements "
+        "in the Philippines (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for GST and InvoiceNow in Singapore, build "
+        "enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing "
+        "companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
         f"- Headquarters: {', '.join(c['address'])}",
@@ -2436,14 +2573,15 @@ def write_llms():
 
 
 def write_robots():
-    """robots.txt: search and answer engines in, AI-training crawlers out (lists in sitedata)."""
-    lines = ["# technext.asia — © TechNext Pte. Ltd. Content, design and code are not licensed for AI training",
-             "# or reuse. Text and data mining rights are reserved: see /.well-known/tdmrep.json and",
-             f"# {S.SITE_URL}terms#content-use", ""]
-    for ua in S.AI_TRAINING:
-        lines += [f"User-agent: {ua}", "Disallow: /", ""]
+    """robots.txt: search engines, answer engines and AI model crawlers in; scrapers and harvesters out (lists in sitedata)."""
+    lines = ["# technext.asia — © TechNext Pte. Ltd. Search engines, answer engines and the major AI model crawlers",
+             "# (GPTBot, ClaudeBot, Google-Extended, PerplexityBot and others) may read this site so TechNext can be",
+             "# found and cited. Bulk scrapers, site copiers and data harvesters are blocked. Design and code are not",
+             f"# licensed for copying: see {S.SITE_URL}terms#content-use", ""]
     for ua in S.AI_ALLOW:
         lines += [f"User-agent: {ua}", "Allow: /", "Disallow: /denied", ""]
+    for ua in S.AI_TRAINING:
+        lines += [f"User-agent: {ua}", "Disallow: /", ""]
     lines += ["User-agent: *", "Allow: /", "Disallow: /denied", "", f"Sitemap: {S.SITE_URL}sitemap.xml", ""]
     (ROOT / "robots.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
@@ -2452,7 +2590,7 @@ def write_well_known():
     """TDMRep (W3C community spec): text and data mining rights reserved, plus security.txt."""
     wk = ROOT / ".well-known"
     wk.mkdir(exist_ok=True)
-    (wk / "tdmrep.json").write_text(json.dumps([{"location": "/*", "tdm-reservation": 1,
+    (wk / "tdmrep.json").write_text(json.dumps([{"location": "/*", "tdm-reservation": 0,
                                                  "tdm-policy": S.SITE_URL + "terms#content-use"}], indent=2) + "\n",
                                     encoding="utf-8", newline="\n")
     expires = date.today().replace(year=date.today().year + 1).isoformat()
@@ -2468,7 +2606,7 @@ DENIED = """<!doctype html>
 <meta name="robots" content="noindex, nofollow"><title>Automated access not permitted · TechNext</title>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.6 system-ui,sans-serif;color:#1F1F3D;background:#fff}main{max-width:560px;padding:32px}h1{font-size:1.4rem;margin:0 0 .5em}a{color:#3167CA}</style>
 </head><body><main><h1>Automated access to this site is not permitted.</h1>
-<p>This site does not allow automated copying, scraping or collection of its content, design or code, including for AI training. See <a href="/terms#content-use">our terms</a>.</p>
+<p>This site does not allow automated copying, scraping or bulk collection of its content, design or code. See <a href="/terms#content-use">our terms</a>.</p>
 <p>If you are a person and landed here by mistake, go to <a href="/">technext.asia</a>. For permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
 </main></body></html>
 """
@@ -2483,9 +2621,12 @@ def write_llms_full():
     can quote TechNext accurately without parsing the design."""
     c = S.COMPANY
     out = ["# TechNext — full reference", "",
+           "Last updated: 2026-10-21", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end and builds "
-           "enterprise AI, websites and social media for growing companies. Clients in 10+ countries; 11+ enterprise clients.", "",
+           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, "
+           "sets it up for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds "
+           "enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). "
+           "Clients in 10+ countries; 11+ enterprise clients.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:
@@ -2496,7 +2637,7 @@ def write_llms_full():
     out += ["", "## Questions and answers", ""]
     seen = set()
     for url, q, a in FAQ_INDEX:
-        if (q, a) in seen:
+        if (q, a) in seen or re.search(r"hiring|careers?\b|job opening|open roles|vacanc", q + " " + a, re.I):
             continue
         seen.add((q, a))
         out += [f"### {q}", "", a, "", f"Source: {url}", ""]
@@ -2516,6 +2657,8 @@ def main():
         built.append(build_page(path, nav_cache))
     for mod in APP_BY_MOD:
         meta, content = app_page(mod)
+        built.append(render(meta, content, nav_cache))
+    for meta, content in TP.pages():   # team/<slug>.html, one per person
         built.append(render(meta, content, nav_cache))
     if UNMEASURED:
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"

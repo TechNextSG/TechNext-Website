@@ -1,0 +1,79 @@
+{
+  "title": "New home page structure",
+  "question": "Three ways to build the new technext.asia home page in today's colours and fonts, futuristic and animated, BIR first. Pick one (or steer / re-roll).",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Spreadsheet to Odoo",
+      "kicker": "THE ROLL",
+      "lineage": "before/after ledger morph",
+      "thesis": "The page is one long transformation: a messy BIR spreadsheet re-assembles into Odoo records and BIR reports as you scroll.",
+      "palette": ["#3167CA", "#1F1F3D", "#FFFFFF", "#EAF0FB", "#C2410C"],
+      "materials": ["glass Odoo panels", "glowing data lines", "scroll-pinned morph"],
+      "viewport": "Split hero: left a glitching Excel 2307/SLSP sheet with red error cells; right a glass Odoo console where rows snap in and '2307 generated · SLSP ready · e-invoice sent' lights up. Headline 'BIR compliance, handled in your Odoo.' Primary: Book a discovery call.",
+      "risk": "Strong for finance heads; needs care so the 'mess' never reads as mocking the visitor.",
+      "wireframe": {"cols": 12, "rows": 12, "regions": [
+        {"label": "nav", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "headline + Book a call", "x": 0, "y": 1, "w": 5, "h": 3, "accent": true},
+        {"label": "Excel sheet morphing", "x": 5, "y": 1, "w": 3, "h": 3},
+        {"label": "glass Odoo console + BIR status", "x": 8, "y": 1, "w": 4, "h": 3, "accent": true},
+        {"label": "deadline + am I covered", "x": 0, "y": 4, "w": 12, "h": 1},
+        {"label": "pinned scroll: 2307 > SLSP > SAWT/QAP > e-invoice", "x": 0, "y": 5, "w": 12, "h": 2, "accent": true},
+        {"label": "adviser profiles: name, skills, companies", "x": 0, "y": 7, "w": 12, "h": 2},
+        {"label": "clients wall", "x": 0, "y": 9, "w": 6, "h": 1},
+        {"label": "3 practices", "x": 6, "y": 9, "w": 6, "h": 1},
+        {"label": "FAQ (BIR first)", "x": 0, "y": 10, "w": 7, "h": 1},
+        {"label": "close: Book a call", "x": 7, "y": 10, "w": 5, "h": 1, "accent": true},
+        {"label": "footer", "x": 0, "y": 11, "w": 12, "h": 1}
+      ]},
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "readiness-check",
+      "label": "BIR readiness check",
+      "lineage": "interactive diagnostic",
+      "thesis": "The hero is a 4-question BIR check; the page answers 'am I covered, and what do I need?' before it sells anything.",
+      "palette": ["#3167CA", "#1F1F3D", "#FFFFFF", "#EAF0FB", "#A96B00"],
+      "materials": ["glass result panel", "live status pills", "count-down"],
+      "viewport": "Left: four tap-to-answer questions (taxpayer size, sell online?, on CAS/CBA?, branches). Right: a glass result panel that updates live: 'Covered by 31 Dec 2026', the steps you need (PTI, EIS certification, books in ORUS) and a deadline countdown. Primary: Book a discovery call with your answers attached.",
+      "risk": "The answers must stay general guidance with 'confirm with your accountant', never tax advice.",
+      "wireframe": {"cols": 12, "rows": 12, "regions": [
+        {"label": "nav", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "headline + 4 questions", "x": 0, "y": 1, "w": 6, "h": 3, "accent": true},
+        {"label": "live result panel + countdown", "x": 6, "y": 1, "w": 6, "h": 3, "accent": true},
+        {"label": "what Odoo produces: 2307, SLSP, SAWT, QAP, 2550Q", "x": 0, "y": 4, "w": 12, "h": 2},
+        {"label": "adviser profiles", "x": 0, "y": 6, "w": 12, "h": 2},
+        {"label": "clients + partner proof", "x": 0, "y": 8, "w": 12, "h": 1},
+        {"label": "3 practices", "x": 0, "y": 9, "w": 12, "h": 1},
+        {"label": "FAQ + close", "x": 0, "y": 10, "w": 12, "h": 1, "accent": true},
+        {"label": "footer", "x": 0, "y": 11, "w": 12, "h": 1}
+      ]},
+      "comp": ".impeccable/mocks/decision/readiness.webp"
+    },
+    {
+      "id": "adviser-first",
+      "label": "Advisers first",
+      "lineage": "people-led holographic profiles",
+      "thesis": "Lead with the people: the experts who will set up your BIR books, their skills and the companies they've worked on.",
+      "palette": ["#3167CA", "#1F1F3D", "#FFFFFF", "#EAF0FB", "#6FA0F5"],
+      "materials": ["holographic profile cards", "skill chips", "client logos-as-text"],
+      "viewport": "A fanned stack of glass adviser cards (placeholders until real data) with name, role, BIR/Odoo skills and companies worked on; the front card flips on hover. Headline 'Your BIR and Odoo advisers, in-house.' Primary: Book a discovery call.",
+      "risk": "Until real names and photos arrive, the hero runs on placeholders, so it cannot go live until you send them.",
+      "wireframe": {"cols": 12, "rows": 12, "regions": [
+        {"label": "nav", "x": 0, "y": 0, "w": 12, "h": 1},
+        {"label": "headline + Book a call", "x": 0, "y": 1, "w": 5, "h": 3, "accent": true},
+        {"label": "fanned adviser card stack", "x": 5, "y": 1, "w": 7, "h": 3, "accent": true},
+        {"label": "BIR deadline band", "x": 0, "y": 4, "w": 12, "h": 1},
+        {"label": "Odoo BIR console demo", "x": 0, "y": 5, "w": 12, "h": 2},
+        {"label": "clients wall", "x": 0, "y": 7, "w": 12, "h": 1},
+        {"label": "3 practices", "x": 0, "y": 8, "w": 12, "h": 2},
+        {"label": "FAQ + close", "x": 0, "y": 10, "w": 12, "h": 1, "accent": true},
+        {"label": "footer", "x": 0, "y": 11, "w": 12, "h": 1}
+      ]},
+      "comp": ".impeccable/mocks/decision/adviser.webp"
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": {"value": "code"}
+}

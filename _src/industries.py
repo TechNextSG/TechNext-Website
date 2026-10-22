@@ -36,7 +36,7 @@ IND = {
         "name": "Retail", "noun": "retailers",
         "intro": "Odoo for retail connects the till, stock, purchasing, the online store and accounting in one database. Every sale at any store moves stock, reorders are raised from minimum levels, and each day's takings post to the books without a spreadsheet in between.",
         "flow_title": "From supplier to till to the books, in one system.",
-        "flow_lead": "Six steps every retailer runs, and where each one lives in Odoo. Pick a step to see what changes.",
+        "flow_lead": "Six steps every retailer runs, and where each one lives in Odoo. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "purchase", "t": "Buy", "h": "Suppliers ordered from stock rules", "p": "Minimum-stock rules at each store raise purchase orders with the vendor's price and lead time, so buyers approve orders instead of walking the shelves.", "odoo": "Purchase · reordering rules, vendor pricelists", "was": "A weekly stock walk and a reorder spreadsheet"},
             {"app": "stock", "t": "Receive", "h": "Goods scanned in, stock live", "p": "Receipts are scanned with a barcode device. Stock at that store updates at once, and the vendor bill is matched to what actually arrived.", "odoo": "Inventory + Barcode · receipts, three-way match", "was": "Delivery notes filed, stock updated later"},
@@ -91,7 +91,7 @@ IND = {
         "name": "F&amp;B", "noun": "restaurants and cafés",
         "intro": "Odoo for F&amp;B runs the front and back of a restaurant on one system: Point of Sale for tables, takeaway and self-ordering, a kitchen display, recipes that deduct ingredients, purchasing for the central kitchen, and each outlet's takings posted to Accounting.",
         "flow_title": "From the supplier to the table to the books.",
-        "flow_lead": "How an order and its ingredients move through a restaurant group in Odoo. Pick a step to see what changes.",
+        "flow_lead": "How an order and its ingredients move through a restaurant group in Odoo. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "purchase", "t": "Buy", "h": "Ingredients ordered from par levels", "p": "Reordering rules at each outlet and the central kitchen raise purchase orders from par levels, with each supplier's prices and delivery days.", "odoo": "Purchase · reordering rules, supplier pricelists", "was": "Daily orders phoned or messaged to suppliers"},
             {"app": "mrp", "t": "Prep", "h": "Central kitchen batches", "p": "Sauces, doughs and prepared items run as manufacturing orders from recipes (bills of materials), so ingredient use and cost are recorded.", "odoo": "Manufacturing · recipes and batch production", "was": "Prep sheets on paper, costs guessed"},
@@ -146,7 +146,7 @@ IND = {
         "name": "Manufacturing", "noun": "manufacturers",
         "intro": "Odoo for manufacturing connects bills of materials, work orders, the shop floor, quality checks, maintenance and purchasing to Inventory and Accounting, so every finished unit carries its real cost and every component can be traced back to its supplier.",
         "flow_title": "From sales order to finished goods, costed.",
-        "flow_lead": "How an order becomes a product in Odoo, and what each step replaces. Pick a step to see the detail.",
+        "flow_lead": "How an order becomes a product in Odoo, and what each step replaces. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "sale", "t": "Order", "h": "Sales order in", "p": "A confirmed sales order reserves stock or triggers production, depending on the route you choose for the product: make to order or make to stock.", "odoo": "Sales · make-to-order and make-to-stock routes", "was": "Orders printed and walked to production"},
             {"app": "mrp", "t": "Plan", "h": "Production planned on capacity", "p": "Manufacturing orders are scheduled against work center capacity, and the Master Production Schedule plans ahead from forecasts.", "odoo": "Manufacturing · work centers, MPS", "was": "A whiteboard and a spreadsheet"},
@@ -184,7 +184,7 @@ IND = {
             {"h": "Shop floor and quality", "apps": ["mrp", "quality_control", "maintenance"], "items": ["Shop Floor tablets at each work center", "Quality control points and worksheets", "Preventive maintenance for key equipment"]},
             {"h": "Costing and planning", "apps": ["accountant", "spreadsheet_dashboard", "mrp_plm"], "items": ["Actual costing and stock valuation in Accounting", "Master Production Schedule from forecasts", "Engineering changes managed in PLM"]},
         ],
-        "integrations": [("gear", "Barcode scanners and shop floor tablets"), ("cpu", "IoT devices: scales, measuring tools, printers"), ("truck", "Subcontractors through subcontracting routes"),
+        "integrations": [("gear", "Barcode scanners and shop floor tablets"), ("cpu", "Connected devices: scales, measuring tools, printers"), ("truck", "Subcontractors through subcontracting routes"),
                          ("file", "Drawings and specifications in PLM and Documents"), ("bank", "Bank feeds"), ("layers", "Multi-company for group entities")],
         "faqs": [
             ("Does Odoo handle multi-level bills of materials?", "Yes. Odoo supports multi-level bills of materials, kits, by-products and operations on work centers, and Odoo 20 adds BoM comparison in PLM."),
@@ -201,7 +201,7 @@ IND = {
         "name": "Construction", "noun": "contractors",
         "intro": "Odoo for construction runs each job as a project with its own budget, purchases, timesheets and progress billing, so you see cost to date against budget and invoice milestones without rebuilding spreadsheets. Site teams work from their phones, and in Odoo 20 even offline.",
         "flow_title": "From tender to final claim, job by job.",
-        "flow_lead": "How a contract runs through Odoo, from winning it to billing it. Pick a step to see what changes.",
+        "flow_lead": "How a contract runs through Odoo, from winning it to billing it. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "crm", "t": "Win", "h": "Tender to contract", "p": "Opportunities track tenders. The accepted quotation becomes the contract value, with milestones for progress billing.", "odoo": "CRM + Sales · quotations with milestones", "was": "Tender files in folders, values in email"},
             {"app": "project", "t": "Set up", "h": "Each job becomes a project", "p": "Every job gets a project with stages, tasks and an analytic budget, so every cost and hour lands against the right job.", "odoo": "Project · analytic budget per job", "was": "A job spreadsheet per project"},
@@ -256,7 +256,7 @@ IND = {
         "name": "Medical", "noun": "clinics",
         "intro": "Odoo for clinics runs the business side of healthcare: online appointments, staff rosters, medicine and consumable stock with lot and expiry tracking, purchasing, the retail counter and accounting per branch. Clinical records stay in your medical record system; Odoo handles everything around them.",
         "flow_title": "From booking to billing, branch by branch.",
-        "flow_lead": "The business flow of a clinic group in Odoo. Pick a step to see what changes.",
+        "flow_lead": "The business flow of a clinic group in Odoo. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "appointment", "t": "Book", "h": "Online booking", "p": "Patients book online by doctor, service or branch. Reminders go out automatically and staff calendars stay in sync.", "odoo": "Appointments · booking pages, reminders", "was": "Phone bookings in a paper diary"},
             {"app": "planning", "t": "Roster", "h": "Staff rosters", "p": "Doctors, nurses and front-desk staff are rostered per branch, so bookable slots match who is actually on duty.", "odoo": "Planning · shifts per branch", "was": "Rosters in a spreadsheet"},
@@ -311,7 +311,7 @@ IND = {
         "name": "Travel", "noun": "travel businesses",
         "intro": "Odoo for travel businesses keeps enquiries, itineraries, supplier costs, deposits and margin in one place. Each booking is a quotation built from supplier services, confirmed with a deposit, paid to suppliers from purchase orders and closed with its real margin, in any currency.",
         "flow_title": "From enquiry to margin, trip by trip.",
-        "flow_lead": "How a booking moves through a travel business in Odoo. Pick a step to see what changes.",
+        "flow_lead": "How a booking moves through a travel business in Odoo. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "crm", "t": "Enquire", "h": "Enquiry in", "p": "Enquiries from the website, email or WhatsApp land in CRM with travel dates and group size, so nothing lives only in an inbox.", "odoo": "CRM · pipeline with activities", "was": "Enquiries scattered across inboxes"},
             {"app": "sale", "t": "Quote", "h": "The itinerary as a quotation", "p": "Flights, hotels, transfers and tours are products with supplier costs. The quotation shows the client the trip, while your margin stays visible internally.", "odoo": "Sales · quotation templates, optional extras", "was": "Itineraries in Word, costs in Excel"},
@@ -365,7 +365,7 @@ IND = {
         "name": "Ecommerce", "noun": "online sellers",
         "intro": "Odoo for ecommerce runs the online store, marketplaces, stock, fulfilment, customer service and accounting on one database. An order placed anywhere reserves stock, ships from the right warehouse and reconciles to its payment without re-keying.",
         "flow_title": "From checkout to payout, on one stock.",
-        "flow_lead": "How an online order moves through Odoo, whichever channel it came from. Pick a step to see what changes.",
+        "flow_lead": "How an online order moves through Odoo, whichever channel it came from. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "website_sale", "t": "Order", "h": "Orders from every channel", "p": "The Odoo store takes orders with live stock, pricelists and promotions, and marketplace orders from Lazada and TikTok arrive in the same place.", "odoo": "eCommerce · marketplace connectors", "was": "Orders exported from each channel"},
             {"app": "account", "t": "Pay", "h": "Payment captured", "p": "Online payments are captured by the payment provider and recorded against the order, and payouts are reconciled in Accounting.", "odoo": "Payment providers · Accounting", "was": "Payouts matched by hand"},
@@ -419,7 +419,7 @@ IND = {
         "name": "Health &amp; Wellness", "noun": "studios, spas and gyms",
         "intro": "Odoo for health and wellness businesses runs bookings, memberships and retail on one system. Clients book classes or treatments online, memberships renew and bill automatically, the front desk sells products and packages at the Point of Sale, and every payment lands in Accounting.",
         "flow_title": "From first booking to renewal.",
-        "flow_lead": "How a client moves through a studio, spa or gym in Odoo. Pick a step to see what changes.",
+        "flow_lead": "How a client moves through a studio, spa or gym in Odoo. Each step is a record you would see in Odoo.",
         "flow": [
             {"app": "appointment", "t": "Book", "h": "Online booking", "p": "Clients book classes, treatments or rooms online by staff member or resource, with capacity limits and reminders.", "odoo": "Appointments · resources, capacity, reminders", "was": "Bookings by message"},
             {"app": "sale_subscription", "t": "Join", "h": "Memberships that renew", "p": "Memberships and class packs run as subscriptions that renew and bill automatically, with upgrades handled on the contract.", "odoo": "Subscriptions · recurring billing", "was": "Renewals chased one by one"},

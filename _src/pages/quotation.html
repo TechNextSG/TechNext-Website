@@ -1,21 +1,48 @@
-<!--meta {"title": "Odoo Implementation Cost — get a written quote", "desc": "Tell us which Odoo apps, how many users and which services you need. We reply with a written quotation from sales@technext.asia.", "out": "quotation.html", "nav": "", "scripts": ["assets/js/quote.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo Implementation Quote Philippines & SG | TechNext", "desc": "Get a written Odoo implementation quotation: choose apps, users, hosting and services, including BIR setup. No price list; an adviser replies by email.", "out": "quotation.html", "nav": "", "scripts": ["assets/js/quote.js", "assets/js/pages/get-started-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/quotation-fx.css?v={ASSET_V}\">", "body": "fx-page qt-fx"} -->
+<!-- /quotation (22 Oct 2026 redesign): the quotation builder restyled as glass. The builder logic (assets/js/quote.js, form ids and names,
+     summary hooks) is unchanged. Eyebrow labels removed (the step number now sits in the heading). "Book a discovery call" is the
+     secondary action near the top. BIR set-up is one more option in the existing services list; no prices anywhere.
+     Styles: assets/css/pages/quotation-fx.css. -->
 
-<section class="page-hero page-hero--stage page-hero--plain" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Quotation</span></nav>
-    <h1><span class="hand h1-hand">odoo implementation cost</span>Get a written Odoo quotation.</h1>
-    <p class="lead">Pick the apps, users and services. We turn it into a quotation and send it from <a href="mailto:sales@technext.asia">sales@technext.asia</a>. Nothing here commits you to anything.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="#quote-form">Start with your apps {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="mailto:sales@technext.asia">{{icon:mail}}Email sales</a></div>
+<!-- ============================================================ HERO -->
+<section class="fx-hero qt-hero" aria-labelledby="qt-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fx-hero-in">
+    <div class="qt-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Quotation</span></nav>
+      <h1 id="qt-h1">Get a written <span class="fx-hl">Odoo quotation.</span></h1>
+      <p class="fx-lead">Pick the apps, users and services. We turn it into a quotation and send it from <a href="mailto:sales@technext.asia">sales@technext.asia</a>. Nothing here commits you to anything.</p>
+      <div class="actions qt-act">
+        <a class="btn btn-primary btn-lg" href="#quote-form">Start with your apps {{icon:arrow}}</a>
+        <a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
+      </div>
+      <p class="qt-mail">{{icon:mail}}<span>Prefer email? <a href="mailto:sales@technext.asia">Email sales</a></span></p>
+    </div>
+
+    <div class="qt-flow" data-loop aria-label="How a quotation comes together">
+      <i class="fx-result-glow qt-glow" aria-hidden="true"></i>
+      <p class="qt-flow-t">{{icon:file}}<b>From your picks to a quotation</b></p>
+      <ol class="qt-steps">
+        <li><span class="qt-n">1</span><div><b>You pick the scope</b><small>Apps, users, hosting, services and go-live. Accounting, Sales and Inventory are where most companies start.</small></div></li>
+        <li><span class="qt-n">2</span><div><b>An adviser reviews it</b><small>Data to migrate, integrations, and the BIR or IRAS filings you owe, confirmed with you before anything is priced.</small></div></li>
+        <li><span class="qt-n">3</span><div><b>A written quotation arrives by email</b><small>From sales@technext.asia, stating what is included and what is not.</small></div></li>
+      </ol>
+    </div>
   </div>
 </section>
 
-<section class="section section--tight answer-sec">
-  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>An Odoo project has two costs: Odoo subscription licences, priced per user per month by Odoo, and TechNext's implementation work, quoted separately. The implementation quote depends on the apps, number of users, data to migrate, integrations, custom modules and training. Pick them below and we reply with a written quotation.</p></div></div>
+<!-- ============================================================ IN ONE PARAGRAPH -->
+<section class="section fx-sec qt-one-sec">
+  <div class="container">
+    <div class="qt-one reveal">
+      <h2>What goes into a quotation</h2>
+      <p>An Odoo project has two costs: Odoo subscription licences, priced per user per month by Odoo, and TechNext's implementation work, quoted separately. The implementation quote depends on the apps, number of users, data to migrate, integrations, custom modules and training. Pick them below and we reply with a written quotation.</p>
+    </div>
+  </div>
 </section>
 
-
-<section class="section section--tight">
+<!-- ============================================================ BUILDER -->
+<section class="section qt-build-sec" id="builder">
   <div class="container">
     <form class="form qb" id="quote-form" novalidate data-endpoint="/api/lead" data-before-send="tnQuoteBeforeSend">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -24,9 +51,8 @@
 
       <div>
         <!-- 1 apps -->
-        <div class="card card--static qb-step">
-          <div class="card-kicker"><i>1</i> Odoo apps</div>
-          <h2 class="step-title">Which apps do you need?</h2>
+        <div class="qb-step">
+          <h2 class="step-title"><span class="qb-n">1</span>Which apps do you need?</h2>
           <p>Accounting, Sales and Inventory are where most companies start. Pick as many as apply.</p>
           <div class="choices">
             <div class="choice choice--core"><input type="checkbox" id="a1" name="apps" data-mod="accountant" value="Accounting" checked><label for="a1">{{odoo:accountant:28}}<span>Accounting<small>Journals, bank, tax, reports</small></span><span class="ck">{{icon:check}}</span></label></div>
@@ -47,9 +73,8 @@
         </div>
 
         <!-- 2 users -->
-        <div class="card card--static qb-step">
-          <div class="card-kicker"><i>2</i> Users</div>
-          <h2 class="step-title">How many people will log in?</h2>
+        <div class="qb-step">
+          <h2 class="step-title"><span class="qb-n">2</span>How many people will log in?</h2>
           <p>Count everyone who needs a screen — finance, sales, warehouse, management.</p>
           <div class="range">
             <label for="q-users" class="sr-only">Number of users</label>
@@ -59,9 +84,8 @@
         </div>
 
         <!-- 3 hosting -->
-        <div class="card card--static qb-step">
-          <div class="card-kicker"><i>3</i> Hosting</div>
-          <h2 class="step-title">Where should Odoo run?</h2>
+        <div class="qb-step">
+          <h2 class="step-title"><span class="qb-n">3</span>Where should Odoo run?</h2>
           <p>We'll advise if you're unsure — it depends on customisation and data requirements.</p>
           <div class="choices">
             <div class="choice choice--radio"><input type="radio" id="h1" name="hosting" value="Odoo Online (SaaS)" checked><label for="h1"><span class="ck">{{icon:check}}</span><span>Odoo Online<small>Odoo's cloud, standard apps</small></span></label></div>
@@ -72,9 +96,8 @@
         </div>
 
         <!-- 4 services -->
-        <div class="card card--static qb-step">
-          <div class="card-kicker"><i>4</i> Services</div>
-          <h2 class="step-title">What should TechNext do?</h2>
+        <div class="qb-step">
+          <h2 class="step-title"><span class="qb-n">4</span>What should TechNext do?</h2>
           <div class="choices">
             <div class="choice"><input type="checkbox" id="s1" name="services" value="Discovery & scoping" checked><label for="s1"><span class="ck">{{icon:check}}</span><span>Discovery &amp; scoping</span></label></div>
             <div class="choice"><input type="checkbox" id="s2" name="services" value="Configuration & setup" checked><label for="s2"><span class="ck">{{icon:check}}</span><span>Configuration &amp; setup</span></label></div>
@@ -84,14 +107,13 @@
             <div class="choice"><input type="checkbox" id="s6" name="services" value="Custom development"><label for="s6"><span class="ck">{{icon:check}}</span><span>Custom development</span></label></div>
             <div class="choice"><input type="checkbox" id="s7" name="services" value="Ongoing support plan"><label for="s7"><span class="ck">{{icon:check}}</span><span>Ongoing support plan</span></label></div>
             <div class="choice"><input type="checkbox" id="s8" name="services" value="Website / social media"><label for="s8"><span class="ck">{{icon:check}}</span><span>Website / social media</span></label></div>
-            <div class="choice"><input type="checkbox" id="s9" name="services" value="IoT, apps or networks"><label for="s9"><span class="ck">{{icon:check}}</span><span>IoT, apps or networks</span></label></div>
+            <div class="choice"><input type="checkbox" id="s9" name="services" value="BIR set-up (Philippines)"><label for="s9"><span class="ck">{{icon:check}}</span><span>BIR set-up<small>Philippines: books and BIR reports</small></span></label></div>
           </div>
         </div>
 
         <!-- 5 timeline -->
-        <div class="card card--static qb-step">
-          <div class="card-kicker"><i>5</i> Timeline</div>
-          <h2 class="step-title">When do you want to go live?</h2>
+        <div class="qb-step">
+          <h2 class="step-title"><span class="qb-n">5</span>When do you want to go live?</h2>
           <div class="choices">
             <div class="choice choice--radio"><input type="radio" id="t1" name="timeline" value="As soon as possible"><label for="t1"><span class="ck">{{icon:check}}</span><span>As soon as possible</span></label></div>
             <div class="choice choice--radio"><input type="radio" id="t2" name="timeline" value="Within 3 months" checked><label for="t2"><span class="ck">{{icon:check}}</span><span>Within 3 months</span></label></div>
@@ -102,7 +124,8 @@
       </div>
 
       <!-- summary + contact -->
-      <aside class="card card--static qb-summary">
+      <aside class="qb-summary" data-loop>
+        <i class="fx-result-glow qt-glow" aria-hidden="true"></i>
         <h2 class="step-title">Your scope <span class="tag" data-sum="count">1 app</span></h2>
         <dl class="sum-list">
           <div><dt>Apps</dt><dd data-sum="apps"></dd></div>
@@ -123,16 +146,33 @@
         </div>
         <p class="form-status" role="status" aria-live="polite"></p>
         <div class="form-sent"><h3>Request received.</h3><p>Your scope is on its way to sales@technext.asia. We'll reply from that address with a written quotation and any questions we need answered first.</p></div>
-        <p class="small muted" style="margin-top:14px">Sent to sales@technext.asia. We use your details only to reply — see the <a href="{{ROOT}}privacy.html">privacy policy</a>.</p>
+        <p class="small muted qt-fine">Sent to sales@technext.asia. We use your details only to reply — see the <a href="{{ROOT}}privacy.html">privacy policy</a>.</p>
       </aside>
     </form>
   </div>
 </section>
 
-<section class="section section--alt">
-  <div class="container">
-    <div class="sec-head reveal"><span class="hand">common questions</span><h2>Odoo pricing, answered.</h2></div>
-    <div class="faq reveal"><details><summary>How much does Odoo cost? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are priced per user per month by Odoo, with a free plan for a single app. Prices differ by country and currency, so check odoo.com/pricing for your market.</p></div></details><details><summary>What does an Odoo implementation cost? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on the scope: which apps, how many users, how much data to migrate, which integrations and custom modules, and how much training. TechNext quotes the implementation in writing once the scope is clear.</p></div></details><details><summary>What is included in a TechNext quotation? {{icon:chevron}}</summary><div class="faq-a"><p>The implementation work for the scope you choose: configuration, data migration, training and integration, with support options for after go-live. The quotation states what is included and what is not.</p></div></details><details><summary>Can we start small? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Most companies start with Accounting, Sales and Inventory, then add apps on the same database once the first phase is running.</p></div></details></div>
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="qt-faq-h">
+  <div class="container fx-faq">
+    <div class="sec-head reveal"><h2 id="qt-faq-h">Odoo pricing, answered.</h2></div>
+    <div class="faq reveal"><details><summary>How much does Odoo cost? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are priced per user per month by Odoo. Prices differ by country and currency, so check odoo.com/pricing for your market.</p></div></details><details><summary>What does an Odoo implementation cost? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on the scope: which apps, how many users, how much data to migrate, which integrations and custom modules, and how much training. TechNext quotes the implementation in writing once the scope is clear.</p></div></details><details><summary>What is included in a TechNext quotation? {{icon:chevron}}</summary><div class="faq-a"><p>The implementation work for the scope you choose: configuration, data migration, training and integration, with support options for after go-live. The quotation states what is included and what is not.</p></div></details><details><summary>Can we start small? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Most companies start with Accounting, Sales and Inventory, then add apps on the same database once the first phase is running.</p></div></details></div>
   </div>
 </section>
 
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec" id="talk">
+  <div class="container">
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div>
+        <h2>Prefer to talk it through first?</h2>
+        <p>An adviser will say which apps to switch on first, what your BIR or GST filings need, and what it takes.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" href="#quote-form">Back to the builder</a>
+      </div>
+    </div>
+  </div>
+</section>

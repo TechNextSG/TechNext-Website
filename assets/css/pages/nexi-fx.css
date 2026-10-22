@@ -1,0 +1,10 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /nexi: only the compact closing band under the Nexi stage (the stage and the page head are unchanged). Builds on home-fx.css. */
+.is-nexi .nx-page { padding-bottom: 28px !important; }
+.is-nexi .nx-close { padding: 0 0 72px !important; }
+.is-nexi .nx-close .fx-close { padding: 36px 40px; border-radius: 24px; }
+.is-nexi .nx-close .fx-close h2 { color: #fff !important; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+.is-nexi .nx-close .fx-close p { font-size: 1rem; }
+html.nx-solo .nx-close, html.nx-full-start .nx-close { display: none; }
+@media (max-width: 1080px) { .is-nexi .nx-close .fx-close { padding: 32px 28px; } }
+@media (max-width: 600px) { .is-nexi .nx-close { padding-bottom: 56px !important; } .is-nexi .nx-close .fx-close { padding: 26px 20px; } }

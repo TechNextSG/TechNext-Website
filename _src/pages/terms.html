@@ -1,15 +1,24 @@
-<!--meta {"title": "Terms of Service — TechNext Pte. Ltd.", "desc": "Terms governing use of the TechNext Pte. Ltd. website and the basis on which Odoo ERP, AI and website service engagements are quoted and agreed.", "out": "terms.html", "nav": ""} -->
+<!--meta {"title": "Terms of Service — TechNext Pte. Ltd.", "desc": "Terms governing use of the TechNext Pte. Ltd. website and the basis on which Odoo ERP, AI and website service engagements are quoted and agreed.", "out": "terms.html", "nav": "", "body": "fx-page lg-page", "scripts": ["assets/js/pages/legal-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/legal-fx.css?v={ASSET_V}\">"} -->
+<!-- Terms (22 Oct 2026 restyle): glass header block, readable legal typography, a contents list that follows the reader (built
+     from the h2s by legal-fx.js), a discovery-call line. The terms text is unchanged. -->
 
-<section class="page-hero">
+<section class="fx-hero lg-hero" aria-labelledby="lg-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Terms of Service</span></nav>
-    <h1>Terms of Service</h1>
-    <p class="legal-meta">TechNext Pte. Ltd. (UEN 202699888G) · Last updated {{YEAR}}</p>
+    <div class="lg-head">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Terms of Service</span></nav>
+      <h1 id="lg-h1">Terms of Service</h1>
+      <p class="lg-lead">The terms for using this website, and the basis on which our Odoo ERP, AI and website engagements are quoted and agreed.</p>
+      <p class="legal-meta">TechNext Pte. Ltd. (UEN 202699888G) · Last updated {{YEAR}}</p>
+    </div>
   </div>
 </section>
 
-<section class="section section--tight">
-  <div class="container prose">
+<section class="section lg-sec">
+  <div class="container lg-wrap" data-lg-wrap>
+    <nav class="lg-toc" data-lg-toc aria-label="On this page"></nav>
+    <div class="lg-col">
+    <div class="prose lg-prose" data-lg-prose>
     <h2>About this website</h2>
     <p>This website is operated by TechNext Pte. Ltd. ("TechNext", "we"). It describes our services and lets you contact us. By using the site you accept these terms.</p>
 
@@ -26,7 +35,7 @@
     <p>The text, visual design, layout, animations, illustrations, code and branding of this website belong to TechNext Pte. Ltd. unless stated otherwise, and are protected by copyright. Odoo product screenshots and videos belong to Odoo S.A. and are shown for reference. You may link to and quote short passages from this site with attribution. You may not copy, reproduce, adapt or imitate the site's design, code or content, in whole or in substantial part, for your own website, product or commercial use without our written permission.</p>
 
     <h2 id="content-use">Automated access, scraping and AI</h2>
-    <p>You may not scrape, crawl, download in bulk or otherwise collect the content, design or code of this site by automated means, except for search engines and answer engines that index it so people can find TechNext. You may not use any part of the site to train, fine-tune or build artificial intelligence or machine learning models, or to generate copies or look-alikes of the site. We reserve text and data mining rights to the extent the law allows, and signal this in <a href="{{ROOT}}robots.txt">robots.txt</a> and in the site's TDM Reservation Protocol files. To ask for permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
+    <p>You may not scrape, crawl, download in bulk or otherwise collect the content, design or code of this site by automated means, except for search engines, answer engines and AI assistants that read it so people can find and cite TechNext; the crawlers we allow are listed in <a href="{{ROOT}}robots.txt">robots.txt</a>. You may not copy the site's design or code, or generate copies or look-alikes of the site. To ask for permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
 
     <h2>Acceptable use</h2>
     <p>Do not use the forms on this site to send unsolicited marketing, abusive content or automated submissions, and do not attempt to probe, disrupt or bypass the site's security.</p>
@@ -39,5 +48,11 @@
 
     <h2>Contact</h2>
     <p>TechNext Pte. Ltd., 261 Waterloo Street #03-36, Singapore 180261 · <a href="mailto:sales@technext.asia">sales@technext.asia</a></p>
+    </div>
+    <div class="lg-ask">
+      <p><b>Questions about a quotation or an engagement?</b> A discovery call is a conversation with an adviser, not a sales form.</p>
+      <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+    </div>
+    </div>
   </div>
 </section>

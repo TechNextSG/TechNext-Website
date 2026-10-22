@@ -1,0 +1,73 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /odoo/ai-integration (22 Oct 2026): AI-inside-a-record hero panel, the Odoo-style list of AI tasks, and the record demo
+   (demo-recordai) as glass. Shared parts live in aix-fx.css; behaviour in assets/js/pages/aix-fx.js. */
+
+/* ---------------------------------------------------------------- hero panel: a vendor bill and a ticket */
+.aix-form { display: grid; gap: 10px; padding: 14px 14px 12px; border-radius: 16px; background: rgba(255,255,255,.92); outline: 1px solid #DCE5F5; outline-offset: -1px; }
+.aix-form + .aix-form { margin-top: 10px; }
+.aix-form-h { display: flex; align-items: center; gap: 8px; margin: 0; min-width: 0; }
+.aix-form-h .oi { width: 20px; height: 20px; flex: none; }
+.aix-form-h b { font: 800 14.5px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.aix-draftst { margin-left: auto; padding: 3px 10px; border-radius: 999px; background: #F1F2F6; color: var(--body); font: 600 12px/1.3 var(--font-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aix-fields { margin: 0; display: grid; }
+.aix-fields > div { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 10px; align-items: baseline; min-height: 33px; padding: 7px 0; border-top: 1px solid #EEF1F7; }
+.aix-fields dt { font: 500 12.5px/1.3 var(--font-body); color: var(--body); }
+.aix-fields dd { margin: 0; min-width: 0; font: 600 13.5px/1.35 var(--font-body); color: var(--ink); }
+.aix-okv { color: var(--ok); }
+.aix-scope { display: flex; align-items: center; gap: 8px; margin: 0; font: 500 12px/1.3 var(--font-body); color: var(--body); }
+.aix-scope .ic { width: 14px; height: 14px; color: var(--blue); flex: none; }
+.aix-recp .aix-panel-foot { margin-top: 12px; }
+.aix-chain--lead { margin-top: 22px; }
+.aix-chain--lead li { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 13px; }
+.aix-chain--lead .ic { width: 16px; height: 16px; }
+.aix-chain--lead li.is-ok { background: var(--ok-050); color: var(--ok); }
+
+/* ---------------------------------------------------------------- Odoo-style list of AI tasks */
+.aix-olist { border-radius: 22px; overflow: hidden; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.aix-olist-head { display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: 28px; padding: 12px 28px; background: rgba(236,240,248,.85); border-bottom: 1px solid var(--fx-line); font: 700 13px/1 var(--font-body); color: var(--body); }
+.aix-olist-row { display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: 28px; align-items: center; padding: 20px 28px; transition: background-color .3s var(--fx-ease); }
+.aix-olist-row + .aix-olist-row { border-top: 1px solid var(--fx-line); }
+.aix-olist-row:hover { background: rgba(255,255,255,.7); }
+.aix-olist-row > div { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.aix-olist-row .ic { width: 26px; height: 26px; color: var(--blue); flex: none; }
+.aix-olist-row .oi { width: 28px; height: 28px; flex: none; }
+.aix-olist-row b { font: 800 17px/1.3 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.aix-olist-row p { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--body); }
+
+/* ---------------------------------------------------------------- what you get: three boards */
+.aix-boards { display: grid; gap: 22px; }
+.aix-boards > div + div { padding-top: 20px; border-top: 1px solid var(--fx-line); }
+.aix-boards h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font: 800 16px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.aix-boards h3 .ic { width: 18px; height: 18px; color: var(--blue); }
+.aix-list--one { grid-template-columns: 1fr; gap: 10px; }
+
+/* ---------------------------------------------------------------- AI-in-a-record demo (demo-recordai) as glass */
+.aix-integration .dra-rec { border-right-color: var(--fx-line); }
+.aix-integration .dra-side { background: rgba(255,255,255,.5); }
+.aix-integration .dra-rt { font-size: 15px; }
+.aix-integration .dra-scope { font-size: 12.5px; background: rgba(255,255,255,.7); }
+.aix-integration .dra-f { border-radius: 12px; border-color: #E3E9F5; }
+.aix-integration .dra-fl { font-size: 12px; letter-spacing: 0; text-transform: none; }
+.aix-integration .dra-fv { font-size: 13.5px; }
+.aix-integration .dra-h { font-size: 12.5px; letter-spacing: 0; text-transform: none; color: var(--body); }
+.aix-integration .dra-act { border-radius: 12px; border-color: #E3E9F5; font-size: 13px; min-height: 44px; }
+.aix-integration .dra-act i { width: 26px; height: 26px; background: none; border: 1.5px solid var(--blue); color: var(--blue); font-size: 12px; }
+.aix-integration .dra-act.is-done i { background: var(--ok); border-color: var(--ok); color: #fff; }
+.aix-integration .dra-act em { font-size: 12px; }
+.aix-integration .dra-gate { border-width: 1px; border-radius: 14px; }
+.aix-integration .dra-gate p { font-size: 13px; }
+.aix-integration .dra-gate button { min-height: 40px; font-size: 13px; padding: 0 18px; }
+.aix-integration .dra-l { font-size: 12.5px; border-radius: 10px; border-color: #E3E9F5; }
+.aix-integration .dra-l time { font-size: 12px; }
+.aix-integration .dra-rec.is-busy .dra-rh::after { font-size: 12px; }
+.aix-integration .dm-seg .oi { width: 18px; height: 18px; }
+
+@media (max-width: 760px) {
+  .aix-olist-head { display: none; }
+  .aix-olist-row { grid-template-columns: 1fr; gap: 8px; padding: 20px 18px; }
+  .aix-integration .dra-gate button { min-height: 44px; }
+}
+@media (max-width: 600px) {
+  .aix-fields > div { grid-template-columns: 96px minmax(0,1fr); gap: 8px; }
+  .aix-draftst { max-width: 56%; }
+}

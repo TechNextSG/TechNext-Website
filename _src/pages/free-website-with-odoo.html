@@ -1,71 +1,186 @@
-<!--meta {"title": "Free Website & Brand Design with Your Odoo | TechNext", "desc": "Start your Odoo with TechNext and your website and brand design come with it, connected to your CRM, sales and stock. You don't need to hire your own team.", "out": "free-website-with-odoo.html", "nav": "", "body": "gs-page fw-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/free-website.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Ready for BIR E-Invoicing? Get Your Website Free with Odoo", "desc": "Is your business ready for BIR e-invoicing by 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.", "out": "free-website-with-odoo.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\">"} -->
+<!-- /free-website-with-odoo (22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
+     The H1 is a question. Picking a need ("What do you need most?") swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
+     sample Odoo panel in place, and sets the form's "Biggest BIR headache". ?need=<key> opens the page on that need (ads link to it).
+     Copy, panel data and the form options come from _src/fw_needs.py (the FW_NEEDS_* tokens, rendered for the default need); behaviour:
+     assets/js/pages/fw-needs.js (no inline script here). Styles: assets/css/pages/free-website-fx.css on get-started-fx.css, industry-fx.css (the panel) and home-fx.css. -->
 
-<section class="gs-hero">
-  <div class="container gs-hero-grid">
-    <div class="gs-copy">
-      <span class="hand">free with your Odoo</span>
-      <h1>Your website and brand, built free. <em>You don't need to hire your own team.</em></h1>
-      <p class="lead">Start Odoo with TechNext and we build your website and brand kit inside it, connected to your CRM, sales and stock. After go-live, we stay on as your team.</p>
-      <ul class="gs-ticks">
-        <li>{{icon:check}} Website and brand design, on us</li>
-        <li>{{icon:check}} Built in Odoo, so every enquiry lands in your CRM</li>
-        <li>{{icon:check}} Odoo Ready Partner · Singapore, Philippines, Vietnam</li>
-      </ul>
+<!-- ============================================================ HERO -->
+<section class="fx-hero fw-hero">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fw-hero-in">
+    <div class="fw-copy">
+      <p class="fw-deadline">{{icon:calendar}}<span data-fw-dl-static>BIR e-invoicing deadline: 31 December 2026</span><span data-fw-dl-live hidden><b data-fw-days>&hellip;</b> <span data-fw-days-word>days</span> to the BIR e-invoicing deadline, 31 December 2026</span></p>
+      <h1 id="fw-h1" data-fw="h1"><span class="fw-q">{{FW_NEEDS_H1}}</span> <em data-fw="answer">{{FW_NEEDS_ANSWER}}</em></h1>
+      <p class="lead fw-hero-lead"><span data-fw="lead">{{FW_NEEDS_LEAD}}</span> <span class="fw-offer">{{FW_NEEDS_OFFER}}</span></p>
+      <fieldset class="fw-pick">
+        <legend>What do you need most?</legend>
+        <div class="fx-chips">{{FW_NEEDS_CHIPS}}</div>
+      </fieldset>
+      <div class="actions fw-act">
+        <a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
+      </div>
+      <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
     </div>
 
-    <form class="form gs-form card card--static" id="gs-form" novalidate data-endpoint="/api/lead">
+    <div class="fw-side fw-side--form" id="claim">
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
+      <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="source" value="Free website with Odoo page">
-      <h2 class="gs-form-h">Claim your free website</h2>
-      <p class="gs-form-sub">We'll book a short call and show you a first idea for your homepage.</p>
-      <div class="form-row">
-        <div class="field"><label for="gs-name">Name</label><input id="gs-name" name="name" type="text" required autocomplete="name"></div>
-        <div class="field"><label for="gs-company">Company</label><input id="gs-company" name="company" type="text" autocomplete="organization"></div>
+      <input type="hidden" name="source" value="Free website with Odoo page (BIR)">
+      <input type="hidden" name="need" value="{{FW_NEEDS_KEY}}" data-fw-need>
+      <input type="hidden" name="topic" value="BIR check: {{FW_NEEDS_CHIP}}" data-fw-topic>
+      <div class="fw-fhead">
+        <h2 class="gs-form-h">Book your free BIR check</h2>
+        <p class="gs-form-sub fw-fsub">Three short steps, about a minute. Fields marked <span class="fw-req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
+        <ol class="fw-progress" aria-label="Form steps">
+          <li><button type="button" data-step-tab="1"><span>1</span>About you</button></li>
+          <li><button type="button" data-step-tab="2"><span>2</span>Your company</button></li>
+          <li><button type="button" data-step-tab="3"><span>3</span>Your BIR needs</button></li>
+        </ol>
+        <div class="fw-bar" aria-hidden="true"><i></i></div>
       </div>
-      <div class="form-row">
-        <div class="field"><label for="gs-email">Work email</label><input id="gs-email" name="email" type="email" required autocomplete="email"></div>
-        <div class="field"><label for="gs-phone">Phone</label><input id="gs-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
-      </div>
-      <div class="form-row">
-        <div class="field">
-          <label for="gs-country">Country</label>
-          <select id="gs-country" name="country" required>
-            <option value="">Choose one</option>
-            <option>Singapore</option>
-            <option>Philippines</option>
-            <option>Vietnam</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="gs-site">Website today</label>
-          <select id="gs-site" name="current_website" required>
-            <option value="">Choose one</option>
-            <option>No website yet</option>
-            <option>Have one, needs a refresh</option>
-            <option>Have one, happy with it</option>
-          </select>
-        </div>
-      </div>
-      <div class="field"><label for="gs-msg">How do you run sales, stock and invoices today? <span class="opt">(optional)</span></label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. Excel and Xero, 12 staff, 2 outlets"></textarea></div>
-      <div class="form-foot">
-        <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Claim my free website</span><span class="btn-busy" aria-hidden="true"></span></button>
+      <fieldset class="fw-step" data-step="1"><legend class="fw-step-h"><span class="sr-only">Step 1 of 3: </span>About you</legend><div class="form-row"><div class="field"><label for="gs-name">Full name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-name" name="name" type="text" required autocomplete="name" aria-describedby="gs-name-err" data-err="Please enter your name."><p class="fw-err" id="gs-name-err" hidden></p></div><div class="field"><label for="gs-role">Your role <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-role" name="job_title" required aria-describedby="gs-role-err" data-err="Please choose your role."><option value="">Choose one</option><option>Owner or director</option><option>Finance head or CFO</option><option>Accountant or bookkeeper</option><option>Operations or IT</option><option>Other</option></select><p class="fw-err" id="gs-role-err" hidden></p></div></div><div class="form-row"><div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required autocomplete="email" aria-describedby="gs-email-err" data-err="Please enter an email we can reply to, like name@company.com." inputmode="email" placeholder="name@company.com"><p class="fw-err" id="gs-email-err" hidden></p></div><div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required autocomplete="tel" aria-describedby="gs-phone-err" data-err="Please enter a number we can call, with at least 7 digits." inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX"><p class="fw-err" id="gs-phone-err" hidden></p></div></div></fieldset>
+      <fieldset class="fw-step" data-step="2"><legend class="fw-step-h"><span class="sr-only">Step 2 of 3: </span>Your company</legend><div class="form-row"><div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" required autocomplete="organization" aria-describedby="gs-company-err" data-err="Please enter your company name."><p class="fw-err" id="gs-company-err" hidden></p></div><div class="field"><label for="gs-country">Country <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-country" name="country" required aria-describedby="gs-country-err" data-err="Please choose a country."><option value="">Choose one</option><option>Philippines</option><option>Singapore</option><option>Vietnam</option><option>Other</option></select><p class="fw-err" id="gs-country-err" hidden></p></div></div><div class="form-row"><div class="field"><label for="gs-industry">Industry <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-industry" name="industry" required aria-describedby="gs-industry-err" data-err="Please choose your industry."><option value="">Choose one</option><option>Retail</option><option>E-commerce</option><option>Food and beverage</option><option>Construction</option><option>Manufacturing</option><option>Distribution and trading</option><option>Medical and clinics</option><option>Travel</option><option>Health and wellness</option><option>Professional services</option><option>Other</option></select><p class="fw-err" id="gs-industry-err" hidden></p></div><div class="field"><label for="gs-branches">Branches <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-branches" name="branches" required aria-describedby="gs-branches-err" data-err="Please choose how many branches you have."><option value="">Choose one</option><option>Head office only</option><option>2 to 5</option><option>6 to 20</option><option>More than 20</option></select><p class="fw-err" id="gs-branches-err" hidden></p></div></div><div class="field"><label for="gs-sales">Gross annual sales <span class="opt">(optional)</span></label><select id="gs-sales" name="annual_sales"><option value="">Choose one</option><option>Under ₱3M</option><option>₱3M to under ₱20M</option><option>₱20M to under ₱1B</option><option>₱1B and up</option><option>Not sure</option></select></div><p class="fw-hint">This decides your BIR taxpayer group. Micro taxpayers are exempt from e-invoicing.</p></fieldset>
+      <fieldset class="fw-step" data-step="3"><legend class="fw-step-h"><span class="sr-only">Step 3 of 3: </span>Your BIR needs</legend><div class="form-row"><div class="field"><label for="gs-pain">Biggest BIR headache <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-pain" name="bir_pain" required data-fw-pain aria-describedby="gs-pain-err" data-err="Please choose your biggest BIR headache.">{{FW_NEEDS_OPTIONS}}</select><p class="fw-err" id="gs-pain-err" hidden></p></div><div class="field"><label for="gs-acct">Accounting system today <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-acct" name="accounting_system" required aria-describedby="gs-acct-err" data-err="Please choose what you use today."><option value="">Choose one</option><option>Excel or manual books</option><option>QuickBooks</option><option>Xero</option><option>SAP Business One</option><option>Odoo</option><option>Another ERP</option><option>Not sure</option></select><p class="fw-err" id="gs-acct-err" hidden></p></div></div><div class="form-row"><div class="field"><label for="gs-site">Website today <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-site" name="current_website" required aria-describedby="gs-site-err" data-err="Please tell us about your current website."><option value="">Choose one</option><option>No website yet</option><option>Have one, needs a refresh</option><option>Have one, happy with it</option></select><p class="fw-err" id="gs-site-err" hidden></p></div><fieldset class="fw-mini"><legend>Registered for CAS or CBA? <span class="opt">(optional)</span></legend><div class="fx-chips"><label><input type="radio" name="cas_status" value="Yes"><span>Yes</span></label><label><input type="radio" name="cas_status" value="No"><span>No</span></label><label><input type="radio" name="cas_status" value="Not sure"><span>Not sure</span></label></div></fieldset></div><div class="field"><label for="gs-msg">Anything else we should know? <span class="opt">(optional)</span></label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel for 2307s, 2 branches, CAS from 2019"></textarea></div><fieldset class="fw-mini"><legend>Best time to call <span class="opt">(optional)</span></legend><div class="fx-chips"><label><input type="radio" name="call_time" value="Morning"><span>Morning</span></label><label><input type="radio" name="call_time" value="Afternoon"><span>Afternoon</span></label><label><input type="radio" name="call_time" value="Any time"><span>Any time</span></label></div></fieldset><div class="field fw-consent-f"><label class="fw-consent"><input type="checkbox" id="gs-consent" name="consent" value="Agreed to be contacted (privacy policy)" required aria-describedby="gs-consent-err" data-err="Please tick the box so we can reply."><span>I agree that TechNext may use these details to reply to my enquiry and keep a record of it, as set out in the <a href="{{ROOT}}privacy.html" target="_blank" rel="noopener">privacy policy</a>. <span class="fw-req" aria-hidden="true">*</span></span></label><p class="fw-err" id="gs-consent-err" hidden></p></div></fieldset>
+      <div class="form-foot fw-nav">
+        <button type="button" class="btn btn-ghost fw-back" data-step-back>Back</button>
+        <button type="button" class="btn btn-primary btn-lg fw-next" data-step-next><span data-next-label>Next: Your company</span> {{icon:arrow}}</button>
+        <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Book my free BIR check</span><span class="btn-busy" aria-hidden="true"></span></button>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
-      <div class="form-sent"><h3>Thanks, we have it.</h3><p>It's on its way to sales@technext.asia. We'll reply from that address to book your call.</p></div>
-      <p class="small muted gs-privacy">We use your details only to reply. See the <a href="{{ROOT}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
+      <div class="form-sent"><h3>Thanks, we have it.</h3><p>An adviser will reply from sales@technext.asia to book your BIR check.</p></div>
+      <p class="small muted gs-privacy">We use your details to reply and keep a record of your enquiry. See the <a href="{{ROOT}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ IN ODOO: the live sample panel follows the picked need -->
+<section class="section fx-sec fx-sec--alt fw-claim fw-answer" id="in-odoo" aria-labelledby="fw-ans-h">
+  <div class="container fw-claim-grid">
+    <div class="fw-claim-copy reveal">
+      <h2 id="fw-ans-h">What it looks like in your Odoo.</h2>
+      <p class="lead">The sample record follows the need you picked above. On the call, an adviser walks you through the same screens for your own business.</p>
+      <ul class="gs-ticks">
+        <li>{{icon:check}} An adviser checks your BIR group with you</li>
+        <li>{{icon:check}} A plan: the Odoo apps to start with, and why</li>
+        <li>{{icon:check}} A first idea for your homepage</li>
+        <li>{{icon:check}} Website and brand kit come with your Odoo</li>
+      </ul>
+    </div>
+    <div class="fw-side">
+      <div class="fw-stage" data-fw-stage>
+{{FW_NEEDS_PANES}}
+      </div>
+      <div class="fw-pair">
+        <p class="fw-now"><b>Today</b> <span data-fw="today">{{FW_NEEDS_TODAY}}</span></p>
+        <p class="fw-then"><b>In Odoo</b> <span data-fw="odoo">{{FW_NEEDS_ODOO}}</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SELF-CHECK -->
+<section class="section fx-sec fw-check-sec" id="self-check" aria-labelledby="fw-check-h">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">what's free</span><h2>Two things you'd normally pay for.</h2><p class="lead">Both come with your Odoo, designed by the same team that sets it up.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-check-h">How many of these happen in your company today?</h2><p class="lead">Tick the ones that sound familiar.</p></div>
+    <div class="fw-check reveal">
+      <ul class="fw-check-list" id="fw-check">
+        <li><label><input type="checkbox" value="Invoices go out as printed or emailed PDFs"><span class="fw-box">{{icon:check}}</span><span><b>Invoices go out as printed or emailed PDFs.</b> The BIR's e-invoicing system can't receive those.</span></label></li>
+        <li><label><input type="checkbox" value="2307s re-typed every quarter"><span class="fw-box">{{icon:check}}</span><span><b>Someone re-types 2307 certificates every quarter</b> and chases suppliers for the ones that went missing.</span></label></li>
+        <li><label><input type="checkbox" value="SLSP, SAWT, QAP rebuilt in Excel"><span class="fw-box">{{icon:check}}</span><span><b>SLSP, SAWT and QAP are rebuilt in Excel</b> the week they are due, and the totals never match the first time.</span></label></li>
+        <li><label><input type="checkbox" value="Sales, stock and books in separate systems"><span class="fw-box">{{icon:check}}</span><span><b>Sales, stock and the books live in separate systems,</b> so month-end starts with reconciling them.</span></label></li>
+        <li><label><input type="checkbox" value="Branches invoice their own way"><span class="fw-box">{{icon:check}}</span><span><b>Each branch issues invoices its own way,</b> with its own series, layout or spreadsheet.</span></label></li>
+        <li><label><input type="checkbox" value="CAS/CBA paperwork stuck"><span class="fw-box">{{icon:check}}</span><span><b>Your CAS or CBA paperwork keeps stalling</b> on the system description and sample outputs.</span></label></li>
+        <li><label><input type="checkbox" value="Audit/LOA documents take days to find"><span class="fw-box">{{icon:check}}</span><span><b>A Letter of Authority means days of digging</b> through folders, emails and old files for the documents.</span></label></li>
+        <li><label><input type="checkbox" value="Only one person knows the month-end file"><span class="fw-box">{{icon:check}}</span><span><b>Only one person knows how the month-end file works,</b> and filing stops when they are on leave.</span></label></li>
+      </ul>
+      <aside class="fw-score" aria-live="polite">
+        <p class="fw-score-k">Your score</p>
+        <p class="fw-score-n"><span id="fw-count">0</span><small>/ 8</small></p>
+        <div class="fw-meter"><span id="fw-meter"></span></div>
+        <p class="fw-score-msg" id="fw-msg">Tick what sounds familiar. Your answers stay on this page unless you add them to the form.</p>
+        <a class="btn btn-primary fw-score-btn" href="#claim" data-to-form data-carry-check>Talk to an adviser about these {{icon:arrow}}</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT THE BIR ASKS -->
+<section class="section fx-sec fx-sec--alt fw-rules-sec" aria-labelledby="fw-rules-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="fw-rules-h">What does the BIR ask for?</h2><p class="lead">RMC 98-2026 kept the 31 December 2026 date and set the working rules. These are the ones that shape your Odoo set-up.</p></div>
+    <ol class="fw-rules">
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Permit to Issue (PTI)</h3><p>Needed before you issue any e-invoice.</p></li>
+      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>EIS Certification</h3><p>Completed within six months of getting the PTI.</p></li>
+      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>A system that transmits</h3><p>Your system sends the required sales data to the BIR's EIS.</p></li>
+      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>No edits after issue</h3><p>A credit note covers a decrease; a new e-invoice covers an increase.</p></li>
+      <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>A plan for downtime</h3><p>A BIR-authorised manual invoice, replaced later by an e-invoice that references it.</p></li>
+      <li class="reveal" style="--i:5"><span class="gs-n">6</span><h3>Every branch</h3><p>Head office and all branches; different systems may need separate PTIs.</p></li>
+    </ol>
+    <div class="fw-who reveal">
+      <div class="fw-who-box">
+        <h3>Who must comply by 31 December 2026</h3>
+        <ul class="fw-list">
+          <li>{{icon:check}} Small, medium and large taxpayers selling through e-commerce</li>
+          <li>{{icon:check}} Taxpayers under the Large Taxpayers Service, and large taxpayers under RA 11976</li>
+          <li>{{icon:check}} Businesses on CAS or CBA with e-invoicing or other invoicing software</li>
+        </ul>
+        <p class="small muted">Micro taxpayers are exempt. Not sure which group you are in? We check it with your accountant or Revenue District Office during discovery.</p>
+      </div>
+      <div class="fw-note">
+        <h3>A word of caution</h3>
+        <p>The BIR said on 14 September 2026 that it has not accredited or endorsed any software or e-invoicing provider, so we don't claim to be "BIR-accredited". We set up your Odoo for the BIR's requirements, build and test the link, and support your PTI application.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ODOO 20 vs WHAT WE ADD -->
+<section class="section fx-sec fw-o20-sec" aria-labelledby="fw-o20-h">
+  <div class="container fw-split">
+    <div class="fw-split-copy reveal">
+      <h2 id="fw-o20-h">What does Odoo 20 already do for BIR?</h2>
+      <p class="lead">The Philippine localisation handles your BIR reports from the entries you post. The e-invoicing link is the part we build.</p>
+      <p class="fw-links"><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports from Odoo {{icon:arrow}}</a></p>
+    </div>
+    <div class="fw-cols reveal">
+      <div class="fw-colcard">
+        <h3>{{odoo:accountant:28}} In Odoo 20</h3>
+        <ul class="fw-list">
+          <li>{{icon:check}} Invoices set up for BIR and CAS requirements, and a Book of Accounts for CAS and CBA</li>
+          <li>{{icon:check}} BIR 2306 and 2307 certificates, generated on vendor bills</li>
+          <li>{{icon:check}} SLSP, SAWT and QAP with DAT exports, and the 2550Q VAT summary</li>
+          <li>{{icon:check}} Payroll with the 1601-C, 2316 and 1604-C</li>
+        </ul>
+      </div>
+      <div class="fw-colcard fw-colcard--tn">
+        <h3><img class="fw-logo" src="{{ROOT}}assets/img/logo-horizontal.png" alt="TechNext" width="110" height="22"> What we add</h3>
+        <ul class="fw-list">
+          <li>{{icon:check}} The connection to the BIR's EIS, built and tested on a copy of your database</li>
+          <li>{{icon:check}} Invoice layouts and branch flows checked against the guidelines</li>
+          <li>{{icon:check}} Credit-note and manual-invoice catch-up ready before go-live</li>
+          <li>{{icon:check}} Process flow and sample outputs for your PTI application</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT COMES WITH IT -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="fw-with-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="fw-with-h">What comes with your Odoo?</h2><p class="lead">Your website and brand kit, designed by the same team that sets up your BIR books.</p></div>
     <div class="fw-free">
-      <article class="card card--static fw-free-card reveal" style="--i:0">
-        <span class="card-ic">{{icon:sol-brand}}</span>
+      <article class="fw-free-card reveal">
+        <div class="fw-pv fw-pv--brand" aria-hidden="true" data-loop>
+          <span class="fw-sw"><i style="--c:#3167CA"></i><i style="--c:#1F1F3D"></i><i style="--c:#6FA0F5"></i><i style="--c:#EAF0FB"></i></span>
+          <span class="fw-aa"><b>Aa</b><small>Colours and fonts</small></span>
+          <span class="fw-mk">{{icon:sparkle}}</span>
+        </div>
         <h3>Brand kit</h3>
-        <p>A clean, consistent look your team can use every day.</p>
+        <p>Logo, colours and templates your team can reuse without a designer.</p>
         <ul class="fw-list">
           <li>{{icon:check}} Logo clean-up for web, print and social</li>
           <li>{{icon:check}} Brand colours and fonts</li>
@@ -73,8 +188,12 @@
           <li>{{icon:check}} Business card and email signature design</li>
         </ul>
       </article>
-      <article class="card card--static fw-free-card reveal" style="--i:1">
-        <span class="card-ic">{{icon:sol-web}}</span>
+      <article class="fw-free-card reveal">
+        <div class="fw-pv fw-pv--site" aria-hidden="true" data-loop>
+          <span class="fw-bar"><i></i><i></i><i></i><em>yourcompany.com</em></span>
+          <span class="fw-lines"><b></b><b class="s"></b></span>
+          <span class="fw-lead">{{odoo:crm:20}}<em>New lead from the website form</em></span>
+        </div>
         <h3>Website, built in Odoo</h3>
         <p>Your company website on Odoo's own website builder, set up by us.</p>
         <ul class="fw-list">
@@ -88,80 +207,84 @@
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ FLOW: website to BIR reports -->
+<section class="section fx-sec" aria-labelledby="fw-flow-h">
   <div class="container">
-    <div class="two fw-why">
+    <div class="fw-why">
       <div class="reveal">
-        <span class="hand">why build it in Odoo</span>
-        <h2>One system behind your website and your business.</h2>
-        <p class="lead">A website on its own is a brochure. Built in Odoo, it becomes part of how you sell.</p>
+        <h2 id="fw-flow-h">From your website form to your BIR reports, one system.</h2>
+        <p class="lead">A website on its own is a brochure. Built in Odoo, every enquiry becomes a lead, every sale becomes an invoice set up for the BIR, and every invoice feeds the reports you file. Nothing is typed twice.</p>
       </div>
-      <ol class="fw-flow reveal" aria-label="What happens when a customer fills in your website form">
-        <li><span class="fw-flow-ic">{{icon:globe}}</span><b>A customer fills in your website form</b><small>Website</small></li>
-        <li><span class="fw-flow-ic">{{icon:target}}</span><b>A lead appears in Odoo CRM, assigned to your salesperson</b><small>CRM</small></li>
-        <li><span class="fw-flow-ic">{{icon:file}}</span><b>The quotation is sent from the same record</b><small>Sales</small></li>
-        <li><span class="fw-flow-ic">{{icon:receipt}}</span><b>Stock is reserved and the invoice is ready</b><small>Inventory · Accounting</small></li>
+      <ol class="fw-flow reveal" data-loop aria-label="From a website enquiry to BIR reports">
+        <li>{{odoo:website:26}}<span><b>A customer fills in your website form</b><small>Website</small></span></li>
+        <li>{{odoo:crm:26}}<span><b>A lead appears in Odoo CRM for your salesperson</b><small>CRM</small></span></li>
+        <li>{{odoo:sale:26}}<span><b>The quotation goes out from the same record</b><small>Sales</small></span></li>
+        <li>{{odoo:stock:26}}<span><b>Stock is reserved and the invoice is issued</b><small>Inventory &middot; Accounting</small></span></li>
+        <li>{{odoo:accountant:26}}<span><b>SLSP, VAT summary and e-invoice data come from that entry</b><small>BIR</small></span></li>
       </ol>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ ONE TEAM -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="fw-team-h">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">you don't need to hire your own team</span><h2>One team instead of four hires.</h2><p class="lead">Most growing companies end up looking for an ERP admin, a web designer, a developer and an IT person. TechNext covers all of it.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-team-h">One team instead of four hires.</h2><p class="lead">Getting BIR-ready usually means looking for an ERP admin, a systems accountant, a web designer and a developer. Our own experts cover all of it, and we can show you similar projects on the call.</p></div>
     <div class="fw-compare reveal">
       <div class="fw-col fw-col--diy">
         <h3>Hiring your own</h3>
         <ul>
           <li>{{icon:x}} Recruit, train and keep several specialists</li>
-          <li>{{icon:x}} Work stops when one person is on leave or quits</li>
-          <li>{{icon:x}} Website, ERP and IT done by different people who don't talk</li>
-          <li>{{icon:x}} You manage the tech yourself</li>
+          <li>{{icon:x}} Filing stops when one person is on leave or quits</li>
+          <li>{{icon:x}} Books, website and invoicing set up by people who never work together</li>
+          <li>{{icon:x}} You track every BIR change yourself</li>
         </ul>
       </div>
       <div class="fw-col fw-col--tn">
         <h3>TechNext as your team</h3>
         <ul>
-          <li>{{icon:check}} Odoo, website, brand, AI and networks from one team</li>
+          <li>{{icon:check}} Odoo, BIR set-up, website, brand and AI from one team</li>
           <li>{{icon:check}} The people who set up your system support it</li>
           <li>{{icon:check}} One channel for every request, tracked to done</li>
-          <li>{{icon:check}} Offices in Singapore, the Philippines and Vietnam</li>
+          <li>{{icon:check}} ERP experts in 10+ countries, and growing</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section--alt" id="care">
+<!-- ============================================================ CARE -->
+<section class="section fx-sec" id="care" aria-labelledby="fw-care-h">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">after go-live</span><h2>TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo, your website and your tech running. Sized to your users and apps.</p></div>
-    <div class="grid-3 fw-care">
-      <article class="card card--static fw-tier reveal" style="--i:0">
-        <p class="fw-tier-name">Essentials</p>
-        <h3>Keep it running</h3>
+    <div class="sec-head reveal"><h2 id="fw-care-h">TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo, your BIR set-up and your website running. Sized to your users and apps.</p></div>
+    <div class="fw-care">
+      <article class="fw-tier reveal">
+        <h3>Essentials</h3>
+        <p class="fw-tier-sub">Keep it running</p>
         <ul class="fw-list">
           <li>{{icon:check}} Odoo fixes and month-end help</li>
           <li>{{icon:check}} Website updates and small edits</li>
-          <li>{{icon:check}} Odoo version upgrades, tested first</li>
+          <li>{{icon:check}} Odoo version upgrades, with BIR reports re-tested first</li>
         </ul>
       </article>
-      <article class="card card--static fw-tier fw-tier--pick reveal" style="--i:1">
-        <p class="fw-tier-name">Growth <span>most picked</span></p>
-        <h3>Keep improving</h3>
+      <article class="fw-tier fw-tier--pick reveal" data-loop>
+        <i class="fx-result-glow fw-glow" aria-hidden="true"></i>
+        <h3>Growth <span class="fx-tag fw-most">Recommended</span></h3>
+        <p class="fw-tier-sub">Keep improving</p>
         <ul class="fw-list">
           <li>{{icon:check}} Everything in Essentials</li>
           <li>{{icon:check}} New reports, automations and small features</li>
           <li>{{icon:check}} New website pages and SEO checks</li>
-          <li>{{icon:check}} An AI chatbot on your website or WhatsApp</li>
+          <li>{{icon:check}} An AI chatbot on your website</li>
         </ul>
       </article>
-      <article class="card card--static fw-tier reveal" style="--i:2">
-        <p class="fw-tier-name">Full team</p>
-        <h3>Your whole tech team</h3>
+      <article class="fw-tier reveal">
+        <h3>Full team</h3>
+        <p class="fw-tier-sub">Your whole Odoo team</p>
         <ul class="fw-list">
           <li>{{icon:check}} Everything in Growth</li>
-          <li>{{icon:check}} Office networks and Wi-Fi</li>
-          <li>{{icon:check}} Devices, IoT and apps connected to Odoo</li>
+          <li>{{icon:check}} Help with quarter-end runs: 2307, SLSP, SAWT, QAP</li>
+          <li>{{icon:check}} Set-up changes when the BIR issues new rules</li>
           <li>{{icon:check}} A quarterly review and roadmap</li>
         </ul>
       </article>
@@ -169,56 +292,48 @@
   </div>
 </section>
 
-<section class="section gs-how">
+<!-- ============================================================ STEPS -->
+<section class="section fx-sec fx-sec--alt gs-how" aria-labelledby="fw-steps-h">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">how it works</span><h2>Four steps.</h2></div>
-    <ol class="gs-steps fw-steps">
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Tell us</h3><p>Send the form. We book a short call about how you sell, stock and invoice today.</p></li>
-      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>See your homepage</h3><p>On the call we show a first idea for your new homepage and the Odoo apps to start with.</p></li>
-      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Go live together</h3><p>Odoo, website and brand kit launch together, with your team trained.</p></li>
-      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>We stay on</h3><p>TechNext Care keeps everything running and improving every month.</p></li>
+    <div class="sec-head reveal"><h2 id="fw-steps-h">From "are we covered?" to live in Odoo.</h2></div>
+    <ol class="gs-steps fw-steps" data-loop>
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>BIR check</h3><p>A short call with an adviser: your BIR group, how you invoice today, and where it hurts.</p></li>
+      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>See your plan</h3><p>We recommend the Odoo apps to start with, say why, and show a first idea for your homepage.</p></li>
+      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Set up and test</h3><p>Taxes, withholding, BIR reports and the e-invoicing link, tested on a copy of your data.</p></li>
+      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>Go live together</h3><p>Odoo, website and brand kit launch together, with your team trained and PTI papers ready.</p></li>
+      <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>We stay on</h3><p>TechNext Care keeps your books, filings and website running every month.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="section section--alt">
-  <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">common questions</span><h2>The offer, answered.</h2></div>
-    <div class="faq reveal fw-faq">
-      <details><summary>Is the website really free? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team.</p></div></details>
-      <details><summary>Who can claim it? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in Singapore, the Philippines and Vietnam that run their Odoo with TechNext. We confirm the details on the first call.</p></div></details>
-      <details><summary>Why build the website in Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>Because the website then shares one database with your CRM, sales, stock and accounting. Website enquiries become leads, and online orders reserve stock, without copying anything between systems.</p></div></details>
-      <details><summary>We already have a website. Can we still join? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll suggest the better option on the call.</p></div></details>
-      <details><summary>We are claiming a government grant. Does that change anything? {{icon:chevron}}</summary><div class="faq-a"><p>Grant rules can limit free items. Tell us on the first call and we'll keep your claim within the scheme's rules.</p></div></details>
-      <details><summary>What is TechNext Care? {{icon:chevron}}</summary><div class="faq-a"><p>Our monthly plan after go-live. It covers Odoo support and upgrades, website updates and, on larger plans, improvements, AI chatbots, networks and devices. It is sized to your users and apps.</p></div></details>
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec" aria-labelledby="fw-faq-h">
+  <div class="container fx-faq">
+    <div class="sec-head reveal"><h2 id="fw-faq-h">BIR and the offer, answered.</h2></div>
+    <div class="faq reveal">
+      <details><summary>What is the BIR e-invoicing deadline? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.</p></div></details>
+      <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, build and test the e-invoicing link, and prepare the process flow and sample outputs for your PTI application.</p></div></details>
+      <details><summary>Can Odoo produce our 2307s, SLSP, SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.</p></div></details>
+      <details><summary>We already have a CAS permit for our current system. What happens? {{icon:chevron}}</summary><div class="faq-a"><p>A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.</p></div></details>
+      <details><summary>Is the website really free? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team. Your Odoo subscription stays in your company's name.</p></div></details>
+      <details><summary>We already have a website. Can we still join? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll recommend the better option on the call, and say why.</p></div></details>
+      <details><summary>Who can claim it? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST and InvoiceNow instead of BIR. We confirm the details on the first call.</p></div></details>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">ready when you are</span><h2>Get your website free with Odoo.</h2><p>Fill out the short form. It takes about a minute, and we reply from sales@technext.asia.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="#gs-form" data-to-form>Claim my free website {{icon:arrow}}</a></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>Ready before 31 December?</h2><p>Fill in the short form. It takes about a minute, and an adviser replies from sales@technext.asia.</p></div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" href="#claim" data-to-form>Book my BIR check {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
+      </div>
     </div>
   </div>
 </section>
 
-<script>
-/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
-/* /free-website-with-odoo: "Claim my free website" scrolls up to the form and puts the cursor in the first field. */
-(function () {
-  var form = document.getElementById('gs-form');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-to-form]');
-    if (!t || !form) return;
-    e.preventDefault();
-    form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    setTimeout(function () {
-      var f = form.querySelector('#gs-name'); if (f) f.focus({ preventScroll: true });
-      form.classList.remove('is-flash'); void form.offsetWidth; form.classList.add('is-flash');
-    }, reduce ? 0 : 600);
-  });
-})();
-</script>
+{{FW_NEEDS_DATA}}
