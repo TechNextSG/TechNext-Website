@@ -396,7 +396,7 @@ def switch_html() -> str:
                    f'{panel_html(key)}<a class="btn-link ixs-go" href="{{{{ROOT}}}}industries/{key}.html">See Odoo for {d["noun"]} {icon("arrow")}</a></div>')
     return f'''<section class="section fx-sec fx-sec--alt" id="industries" aria-labelledby="fx-ind-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fx-ind-h">Set up for how your industry runs, and how the BIR sees it.</h2><p class="lead">Pick your industry to see the Odoo record it runs on, from the first step to the journal entry behind your BIR reports.</p></div>
+    <div class="sec-head reveal"><h2 id="fx-ind-h">Set up for how your industry runs, and for the BIR reports you file.</h2><p class="lead">Pick your industry to see the Odoo record it runs on, from the first step to the journal entry behind your BIR reports.</p></div>
     <div class="ixs" data-ixs-root>
       <div class="ixs-tabs" role="tablist" aria-label="Industries">{tabs}</div>
       <div class="ixs-stage">{panels}</div>

@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-22
 
-> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up as a business's BIR Computerized Accounting System (CAS) or CBA, prepare the samples for its registration, and set up 2307, SLSP, SAWT, QAP and e-invoicing from our Taguig City hub; in Singapore, GST and InvoiceNow. We also build enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.
+> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it (the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned separately (Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one); in Singapore, GST, and InvoiceNow with the Access Point the client chooses. We also build enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.
 
 - Registered name: TechNext Pte. Ltd. (UEN 202699888G)
 - Headquarters: 261 Waterloo Street #03-36, Singapore 180261
@@ -10,7 +10,7 @@ Last updated: 2026-10-22
 - Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City
 - Contact: sales@technext.asia
 - Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines
-- Positioning: trusted expert adviser for ERP and government compliance (BIR in the Philippines; GST and InvoiceNow in Singapore); our own experts implement
+- Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement
 - Companies we've worked with: BHD Asia (Coaching & HR consulting, Singapore); HummingBeing (TRE™ & somatic coaching, Singapore); TRE™ in Singapore (TRE™ community, Singapore); Casa Escondida Anilao (Dive resort, Philippines); Immaculate Connections (Travel agency, Philippines); St. Clare College of Caloocan (Education, Philippines); JR-Tech Solution (Commercial kitchens, Malaysia); TRE Worldwide Conference 2027 (International conference, Indonesia); nivellipso® (Clear aligners & brackets, Switzerland); HDH AG (Dental & medical OEM, Switzerland); Saymara B. Ryon (Holistic coaching, Romania)
 - Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
 - Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it
@@ -21,8 +21,8 @@ Last updated: 2026-10-22
 
 ## BIR compliance (Philippines)
 
-- [BIR CAS Registration: Computerized Accounting System in Odoo](https://technext.asia/bir-cas): Register Odoo as your BIR Computerized Accounting System (CAS) or CBA: we set it up, prepare the samples for your Acknowledgement Certificate, then e-invoicing.
-- [BIR E-Invoicing Set-Up in Odoo: 31 Dec 2026 Deadline](https://technext.asia/bir-e-invoicing): BIR e-invoicing set-up in Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and how TechNext builds and tests the EIS link.
+- [BIR CAS Set-Up in Odoo: Prepare for Your CAS Registration](https://technext.asia/bir-cas): Use Odoo as your BIR CAS or CBA: we set it up and prepare the sample printouts with you; you file at your RDO.
+- [BIR E-Invoicing and Odoo: Preparing for 31 Dec 2026](https://technext.asia/bir-e-invoicing): BIR e-invoicing and Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and what an EIS connection would need for your Odoo.
 - [BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records](https://technext.asia/blog/bir-audit-readiness-odoo): How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
 - [BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS](https://technext.asia/blog/bir-e-invoicing-odoo): BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the Odoo steps.
 - [BIR Form 2307: Issue, Collect and Claim It in Odoo (2026)](https://technext.asia/blog/bir-form-2307-odoo): BIR Form 2307 explained: who issues it, the 20-day rule, why creditable withholding credits get disallowed, and how Odoo 19 and 20 produce the certificate.
@@ -35,7 +35,7 @@ Last updated: 2026-10-22
 - [Expanded Withholding Tax Philippines: ATC Codes and Odoo](https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo): Expanded withholding tax in the Philippines: 0619-E, 1601-EQ and 1604-E deadlines, common BIR ATC codes and rates, top withholding agents and Odoo set-up.
 - [Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C](https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20): Philippine payroll in Odoo 20: BIR Forms 1601-C, 2316 and 1604-C, alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
 - [CAS Registration Requirements: BIR Steps and Documents](https://technext.asia/blog/register-odoo-cas-cba-bir): How to register a Computerized Accounting System (CAS) or CBA with the BIR: the Acknowledgement Certificate, documents, system checks, ORUS and the PTI.
-- [Odoo Philippines: BIR Compliance Set-Up](https://technext.asia/odoo/philippines): Odoo service provider in the Philippines, based in Taguig City. We set Odoo up for BIR requirements: CAS/CBA, 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing.
+- [Odoo Philippines: Set Up for BIR Requirements](https://technext.asia/odoo/philippines): Odoo service provider in the Philippines, based in Taguig City. We set Odoo up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and 2550Q.
 
 ## Odoo ERP services
 
@@ -85,9 +85,9 @@ Last updated: 2026-10-22
 
 ## Company
 
-- [Odoo Partner Philippines & Singapore: BIR CAS Set-Up](https://technext.asia/): Odoo Ready Partner in the Philippines (Taguig City) and Singapore. We set Odoo up as your BIR CAS, with 2307, SLSP, SAWT, QAP and e-invoicing.
+- [Odoo Partner Philippines & Singapore: BIR CAS Set-Up](https://technext.asia/): Odoo Ready Partner in the Philippines (Taguig City) and Singapore. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
 - [About TechNext: Odoo Ready Partner, Singapore & Taguig](https://technext.asia/company): TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 11+ clients, 10+ countries.
-- [Ready for BIR E-Invoicing? Get Your Website Free with Odoo](https://technext.asia/free-website-with-odoo): Is your business ready for BIR e-invoicing by 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
+- [BIR E-Invoicing: Are You Covered? Website Free with Your Odoo](https://technext.asia/free-website-with-odoo): Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
 - [Free website design and setup on Odoo — TechNext](https://technext.asia/get-started): We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - [Nexi, TechNext's AI companion for Odoo, AI and websites](https://technext.asia/nexi): Meet Nexi, TechNext's AI companion. Ask about Odoo, AI and websites, take a short 3D tour, and get to a quotation, a meeting or the team in a few taps.
 - [Nexi Explains: Odoo, AI and tech videos by TechNext](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
@@ -157,7 +157,7 @@ Last updated: 2026-10-22
 - [Odoo Referrals in Singapore & the Philippines](https://technext.asia/odoo/apps/referrals): Odoo Referrals implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Employee referral programme. Set up for you.
 - [Odoo Rental in Singapore & the Philippines](https://technext.asia/odoo/apps/rental): Odoo Rental implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Book, pick up and return assets. Set up for you.
 - [Odoo Restaurant POS — Singapore & Philippines](https://technext.asia/odoo/apps/restaurant-pos): Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Tables, kitchen printing, bills. Set up for you.
-- [Odoo Sign in Singapore & the Philippines](https://technext.asia/odoo/apps/sign): Odoo Sign implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Legally binding e-signatures. Set up for you.
+- [Odoo Sign in Singapore & the Philippines](https://technext.asia/odoo/apps/sign): Odoo Sign implemented by TechNext, an Odoo Partner in Singapore and the Philippines. E-signatures with an audit trail. Set up for you.
 - [Odoo SMS Marketing in Singapore & the Philippines](https://technext.asia/odoo/apps/sms-marketing): Odoo SMS Marketing implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Text campaigns with tracking. Set up for you.
 - [Odoo Social Marketing in Singapore & the Philippines](https://technext.asia/odoo/apps/social-marketing): Odoo Social Marketing implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Schedule and track posts. Set up for you.
 - [Odoo Spreadsheet (BI) in Singapore & the Philippines](https://technext.asia/odoo/apps/spreadsheet): Odoo Spreadsheet (BI) implemented by TechNext, an Odoo Partner in Singapore and the Philippines. Live pivots and dashboards on Odoo data. Set up for you.

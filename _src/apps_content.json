@@ -318,7 +318,7 @@
     "feats": []
    },
    {
-    "h": "Never miss out on a follow-up",
+    "h": "Keep track of every follow-up",
     "p": "Schedule calls, meetings, mailings, or quotations in a few clicks in the contact management software. Odoo automatically plans the next activity based on your sales script.",
     "img": "",
     "feats": []
@@ -527,7 +527,7 @@
   "sections": [
    {
     "h": "Focus on selling great services",
-    "p": "Concentrate on services and relationships while Odoo's automated features handle your recurring sales and subscriptions. Quickly provide clear contracts and flawless, automated invoices; take care of taxes with no stress; and deal with payments - all done automatically according to your settings.",
+    "p": "Concentrate on services and relationships while Odoo's automated features handle your recurring sales and subscriptions. Quickly provide clear contracts and flawless, automated invoices; apply the right taxes to each invoice; and deal with payments - all done automatically according to your settings.",
     "img": "",
     "feats": [
      "Simple features to manage subscriptions automatically."
@@ -635,7 +635,7 @@
    },
    {
     "h": "Your dream website easy as 123...4!",
-    "p": "No coding skills? No problem. Odoo's AI-powered website configurator allows you to build a sleek website tailored to your business needs in just four easy steps. Dream it today, go live in minutes!",
+    "p": "No coding skills? No problem. Odoo's AI-powered website configurator allows you to build a sleek website tailored to your business needs in just four easy steps.",
     "img": "https://odoocdn.com/openerp_website/static/src/img/apps/website/website-configurator-business.webp",
     "feats": []
    },
@@ -803,8 +803,8 @@
     "feats": []
    },
    {
-    "h": "Never miss a message again",
-    "p": "Receive notifications and open a chat window no matter what Odoo app you are working in. Your conversations follow you across the database so you will never miss a chance to connect.",
+    "h": "See new chats wherever you work",
+    "p": "Receive notifications and open a chat window no matter what Odoo app you are working in. Your conversations follow you across the database so you can reply from whichever app you are in.",
     "img": "",
     "feats": []
    },
@@ -2084,7 +2084,7 @@
     "feats": []
    },
    {
-    "h": "Never miss out on an opportunity!",
+    "h": "Meet customers by video call",
     "p": "Use super convenient video conferencing to connect with your customers and land more sales, hands down.",
     "img": "https://odoocdn.com/openerp_website/static/src/img/apps/appointments/appointment-video-conference.webp",
     "feats": []
@@ -2151,7 +2151,7 @@
    },
    {
     "h": "One inbox for everything",
-    "p": "Messages, mentions, activities, approvals, and notifications all in one place. Stay focused on what needs attention and never miss an important update.",
+    "p": "Messages, mentions, activities, approvals, and notifications all in one place. Stay focused on what needs attention, with important updates in one list.",
     "img": "https://odoocdn.com/openerp_website/static/src/img/apps/discuss/inbox.webp",
     "feats": []
    },
@@ -2460,7 +2460,7 @@
   "sections": [
    {
     "h": "Local payroll rules, set up for you.",
-    "p": "Choose your country and Odoo loads that country's payroll rules where a localisation exists. For the Philippines, TechNext checks them against your payroll with you and sets up the BIR forms, so you start from a system built for BIR requirements.",
+    "p": "Choose your country and Odoo loads that country's payroll rules where a localisation exists. For the Philippines, Odoo 20 adds a 2316 report, 1601-C items and 1604-C worksheets; TechNext checks them with you against your payroll and the BIR forms you file.",
     "img": "",
     "feats": []
    },
@@ -2472,7 +2472,7 @@
    },
    {
     "h": "Effortless reporting",
-    "p": "Generate clear, organized reports for any period, so sending payroll data to accountants or tax authorities is fast, accurate, and stress-free.",
+    "p": "Generate clear, organized reports for any period, to share payroll data with your accountant.",
     "img": "",
     "feats": []
    },

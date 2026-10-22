@@ -8,15 +8,15 @@ still quote Odoo's own feature descriptions as feature facts; only the hero is o
 Rules: 1-2 sentences, plain British English, what the app does for a growing company and what we set
 up (configure, migrate, train, support). No prices, Odoo is never "free", no accreditation claims.
 BIR clauses (Accounting, Invoicing, Sales, Point of Sale, Payroll) use only: Odoo PH localisation
-produces 2307 per payee, SLSP/SAWT/QAP as DAT files and the 2550Q; Odoo 20 PH payroll covers 1601-C,
-2316 and 1604-C; EOPT invoice rules; e-invoicing by 31 Dec 2026 for covered taxpayers (the EIS link is
-project work). HTML-safe: write & as &amp;.
+produces 2307 per payee, SLSP/SAWT/QAP as DAT files and the 2550Q; Odoo 20 PH payroll adds 1601-C items,
+a 2316 report and 1604-C worksheets; EOPT invoice rules; e-invoicing by 31 Dec 2026 for covered taxpayers (Odoo
+has no built-in EIS connection and TechNext has not built one: assessed and quoted separately). HTML-safe: write & as &amp;.
 """
 
 LEADS = {
     # Finance
     "accountant": "Odoo Accounting keeps books, bank reconciliation, tax reports and month-end close in one database. We configure it, migrate your opening balances and train your team, and for Philippine companies we set it up for BIR requirements: 2307 per payee, SLSP, SAWT and QAP as DAT files, and the 2550Q.",
-    "account": "Odoo Invoicing sends invoices from your own templates, takes payment online and reminds customers about overdue ones. We set it up, and for Philippine companies the invoices follow the EOPT rules; for covered taxpayers we plan e-invoicing ahead of 31 December 2026, including the link to the BIR's EIS.",
+    "account": "Odoo Invoicing sends invoices from your own templates, takes payment online and reminds customers about overdue ones. We set it up, and for Philippine companies the invoices follow the EOPT rules; for covered taxpayers we plan e-invoicing ahead of 31 December 2026. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one; if you are covered, we assess the options with you and quote any connection separately.",
     "hr_expense": "Receipts arrive from a phone or an email, managers approve the claim, and approved expenses move on to your accounts. We set up your expense categories and approval rules, train your staff and support you after go-live.",
     "spreadsheet_dashboard": "Pivots, charts and dashboards read live from your Odoo data, so reports no longer depend on exports to a spreadsheet. We build the first dashboards with your managers, then train your team to edit them.",
     "documents": "Odoo Documents gives company files one home, with workspaces, access rules and OCR, instead of inboxes and shared drives. We set up the workspaces, move your existing files in and train your team.",
@@ -53,7 +53,7 @@ LEADS = {
     "hr_appraisal": "Reviews are scheduled, feedback is collected through your own survey templates and goals are tracked. We build your review cycles and templates and train managers and HR.",
     "hr_referral": "Staff share open jobs and follow their referrals through hiring, earning points as candidates progress. We set up the job board and rewards with you and train HR.",
     "fleet": "Each vehicle is recorded with its drivers, contracts, services and running costs, and you are warned before a contract expires. We load your vehicle list, set up cost and contract types and train whoever looks after the fleet.",
-    "hr_payroll": "Odoo Payroll turns attendance, time off and expenses into payslips and pay runs. We configure your salary rules, migrate employee pay records and train your payroll team, and for Philippine companies Odoo 20 covers the BIR payroll forms 1601-C, 2316 and 1604-C.",
+    "hr_payroll": "Odoo Payroll turns attendance, time off and expenses into payslips and pay runs. We configure your salary rules, migrate employee pay records and train your payroll team, and for Philippine companies Odoo 20 adds a 2316 report, 1601-C items and 1604-C worksheets.",
 
     # Marketing
     "social": "One team plans, publishes and tracks posts for several social accounts from a single screen. We connect your accounts, set up scheduling and tracking and train your marketers.",

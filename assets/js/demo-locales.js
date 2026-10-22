@@ -12,25 +12,25 @@ TN.demo('locales', function (root, K) {
   var STL = { ok: 'In Odoo 20', part: 'Groundwork', none: 'Not in these notes', gap: 'Not mentioned' };
   var D = {
     sg: [["GST taxes are refined to match current government requirements and, in Odoo's words, to prepare for future GST InvoiceNow document compliance."],
-      ['New tax invoice, credit note and customer accounting PDF reports comply with IRAS GST requirements.'],
+      ["In Odoo's words, new tax invoice, credit note and customer accounting PDF reports comply with IRAS GST requirements."],
       ['The chart of accounts, balance sheet and profit and loss statement are improved to comply with SFRS.'],
       ['Payroll is not in the Odoo 20 notes for Singapore.'],
-      ['The notes describe preparation, not a finished InvoiceNow transmission feature: confirm how your database will send invoice data before your date.']],
-    ph: [['BIR 2306 and 2307 withholding tax certificates as official PDFs for a partner and date range, generated on vendor bills and sent to the vendor when a bill is paid.', 'BIR 1600-VT covers final withholding VAT; 2551Q is available for non-VAT-registered companies.'],
-      ['Invoices are BIR- and CAS-compliant, with statutory senior citizen and PWD discounts on invoices and credit notes.', 'An Entity type field, names split into first, middle and last for BIR reports, and a disbursement voucher for internal use.'],
-      ["The partner ledger follows BIR's format, and a Book of Accounts is added for CBA and CAS compliance."],
-      ['A basic payroll package: basic pay, benefits, taxes and overtime.', '1601-C items, the yearly BIR Form 2316, and 1604-C worksheets with Alphalist DAT exports to BIR eSubmission standards.', 'Automatic SSS and Pag-IBIG loan deductions.'],
-      ["The notes do not mention the BIR's Electronic Invoicing System (EIS): if EIS covers your company, plan that connection as its own piece of work."]],
+      ['The notes describe preparation, not a finished InvoiceNow transmission feature. Invoices reach InvoiceNow through an IMDA-accredited Access Point you choose; TechNext is not an Access Point.']],
+    ph: [['BIR 2306 and 2307 withholding tax certificates as PDFs in the BIR layout for a partner and date range, generated on vendor bills and sent to the vendor when a bill is paid.', 'BIR 1600-VT covers final withholding VAT; 2551Q is available for non-VAT-registered companies.'],
+      ["Odoo's release notes: invoices updated for BIR and CAS requirements, with statutory senior citizen and PWD discounts on invoices and credit notes.", 'An Entity type field, names split into first, middle and last for BIR reports, and a disbursement voucher for internal use.'],
+      ["Per Odoo's notes, the partner ledger follows the BIR's format, and a Book of Accounts is added for CBA and CAS requirements."],
+      ['A basic payroll package: basic pay, benefits, taxes and overtime.', '1601-C items, the yearly BIR Form 2316, and 1604-C worksheets with Alphalist DAT files in the BIR eSubmission format, to check in the BIR’s module.', 'Automatic SSS and Pag-IBIG loan deductions.'],
+      ["The notes do not mention the BIR's Electronic Invoicing System (EIS). Odoo has no built-in connection to the EIS, and TechNext has not built one: if you are covered, we assess the options with you and quote any connection separately."]],
     vn: [['Tax Declaration Form 01/GTGT and its Appendix 142, both exporting to XML for import into HTKK or direct submission on the tax portal.'],
       ['Electronic internal transfer notes through SInvoice, and SInvoice e-invoices for POS orders.'],
-      ['Chart of accounts and balance sheet under Circular 99/2025/TT-BTC, with parent accounts grouping child accounts.', 'General Journal (S03a-DN) and General Ledger (S03b-DN) with counterpart accounts, compliant with Circular 99/2025/TT-BTC.'],
+      ['Chart of accounts and balance sheet under Circular 99/2025/TT-BTC, with parent accounts grouping child accounts.', 'General Journal (S03a-DN) and General Ledger (S03b-DN) now show counterpart accounts, under Circular 99/2025/TT-BTC.'],
       ['Payroll is not in the Odoo 20 notes for Vietnam.'],
       ['SInvoice, for transfer notes and POS orders.']]
   };
   // the article's side-by-side table supplies the short cell texts (fallbacks mirror it)
   var FALL = {
-    sg: ['GST taxes refined', 'IRAS-compliant tax invoice and credit note', 'SFRS chart of accounts, balance sheet, P&L', 'Not in these notes', 'Groundwork for GST InvoiceNow'],
-    ph: ['2306/2307 certificates, 1600-VT, 2551Q', 'BIR- and CAS-compliant invoices', 'Book of Accounts, BIR partner ledger', 'Basic package, 1601-C, 2316, 1604-C', 'EIS not mentioned'],
+    sg: ['GST taxes refined', 'Tax invoice and credit note for IRAS GST', 'SFRS chart of accounts, balance sheet, P&L', 'Not in these notes', 'Groundwork for GST InvoiceNow'],
+    ph: ['2306/2307 certificates, 1600-VT, 2551Q', 'Invoices updated for BIR and CAS', 'Book of Accounts, BIR partner ledger', 'Basic package, 1601-C, 2316, 1604-C', 'EIS not mentioned'],
     vn: ['01/GTGT with Appendix 142, XML export', 'SInvoice for transfer notes and POS', 'Circular 99 chart of accounts, S03a/S03b-DN', 'Not in these notes', 'SInvoice']
   };
   var trs = K.$$('tr', document.querySelector('[data-lc-table] table') || document.createElement('table'));

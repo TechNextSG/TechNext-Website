@@ -10,7 +10,7 @@
     <div class="erp-copy">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Solution</span><span>ERP</span><span>Odoo Implementation</span></nav>
       <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Singapore · Taguig City · Ho Chi Minh City</span></p>
-      <h1 id="erp-h1">Odoo implementation in the Philippines and Singapore, with <span class="fx-hl">BIR and GST</span> set up from day one</h1>
+      <h1 id="erp-h1">Odoo implementation in the Philippines and Singapore, with <span class="fx-hl">BIR and GST</span> requirements set up in Odoo</h1>
       <p class="fx-lead">We implement Odoo 20 around how your company runs: Accounting, Sales and Inventory first, your data migrated, each team trained, and dedicated support on your team after go-live. You don't need to hire your own ERP team.</p>
       <div class="actions erp-act">
         <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
@@ -46,7 +46,7 @@
         </article>
       </div>
       <div class="erp-db-foot">
-        <p class="erp-bir" data-erp-bir><i></i><b>BIR reports ready</b></p>
+        <p class="erp-bir" data-erp-bir><i></i><b>BIR reports (sample)</b></p>
         <ul class="erp-reps" aria-label="Sample reports"><li>2307</li><li>SLSP</li><li>SAWT</li><li>QAP</li><li>2550Q</li></ul>
       </div>
     </div>
@@ -194,8 +194,8 @@
           <p>The ledger, bank feeds, tax and reporting, configured for how you actually close the month, and for the filings you owe: GST or VAT in Singapore, BIR in the Philippines.</p>
           <ul class="fx-points">
             <li>{{icon:check}}<span><b>Books and reconciliation</b>Journals, bank sync and one-click reconciliation; P&amp;L, balance sheet, aged receivables, cash forecast.</span></li>
-            <li>{{icon:check}}<span><b>GST and VAT</b>GST / VAT returns, multi-currency and multi-company; InvoiceNow for Singapore.</span></li>
-            <li>{{icon:check}}<span><b>BIR set-up for the Philippines</b>CAS / CBA books, the 2307 per payee, SLSP, SAWT and QAP as DAT files, the 2550Q VAT summary, and invoices set up for BIR e-invoicing requirements.</span></li>
+            <li>{{icon:check}}<span><b>GST and VAT</b>GST / VAT returns, multi-currency and multi-company; in Singapore, InvoiceNow through the Access Point you choose.</span></li>
+            <li>{{icon:check}}<span><b>BIR set-up for the Philippines</b>CAS / CBA books, the 2307 per payee, SLSP, SAWT and QAP as DAT files, the 2550Q VAT summary, and invoices set up for the EOPT rules; e-invoicing (EIS) assessed separately.</span></li>
           </ul>
           <a class="btn-link" href="{{ROOT}}odoo/apps/accountant.html">Odoo Accounting {{icon:arrow}}</a>
         </div>
@@ -250,21 +250,21 @@
     <div class="erp-ph reveal">
       <div class="erp-ph-l">
         <h2>For Philippine companies: your books set up for the BIR.</h2>
-        <p class="lead">If you file with the BIR, the implementation starts from the reports you must produce and works back to how invoices, bills and payments are recorded. E-invoicing is due by 31 December 2026 for covered taxpayer groups; we confirm whether you are in the first group on the discovery call.</p>
+        <p class="lead">If you file with the BIR, the implementation starts from the reports you must produce and works back to how invoices, bills and payments are recorded. E-invoicing is due by 31 December 2026 for covered taxpayer groups. On the discovery call we talk through whether you are likely to be in the first group, and your accountant confirms it.</p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{ROOT}}odoo/philippines.html">Odoo for the Philippines {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-cas.html">BIR CAS registration</a>
+          <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-cas.html">BIR CAS set-up</a>
           <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-e-invoicing.html">BIR e-invoicing guide</a>
         </div>
       </div>
       <div class="erp-ph-r">
         <p class="fx-mini-h">What Odoo's Philippine set-up produces <span class="fx-tag">Sample data</span></p>
         <ul class="erp-ph-list">
-          <li><b><a href="{{ROOT}}bir-cas.html">CAS / CBA books</a></b><span>Computerised books set up for BIR registration</span></li>
+          <li><b><a href="{{ROOT}}bir-cas.html">CAS / CBA books</a></b><span>Computerised books set up for your own BIR registration</span></li>
           <li><b>2307</b><span>Certificate of creditable tax withheld, per payee</span></li>
           <li><b>SLSP, SAWT, QAP</b><span>DAT files for the BIR's tools</span></li>
           <li><b>2550Q</b><span>Quarterly VAT summary from posted invoices and bills</span></li>
-          <li><b>E-invoicing</b><span>Electronic invoices set up for BIR requirements; the EIS connection is project work</span></li>
+          <li><b>E-invoicing</b><span>Invoices set up for BIR requirements; Odoo has no built-in EIS connection, so it is assessed separately</span></li>
         </ul>
       </div>
     </div>
@@ -317,7 +317,7 @@
   <div class="container fx-faq">
     <div class="sec-head reveal"><h2 id="erp-faq-h">Before you commit.</h2></div>
     <div class="faq reveal">
-      <details open><summary>Can Odoo handle BIR reporting? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, with the Philippine localisation set up for your company. Odoo produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post, and it can serve as your computerised books. Which reports you file, and the connection to the BIR's EIS for e-invoicing, are scoped in discovery and built and tested on a copy of your database.</p></div></details>
+      <details open><summary>Can Odoo handle BIR reporting? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, with the Philippine localisation set up for your company. Odoo produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post, and it can serve as your computerised books. Which reports you file is scoped in discovery. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.</p></div></details>
       <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
       <details><summary>How long does an Odoo implementation take? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on scope: how many apps, how much data has to be migrated, how many entities, branches and integrations, and whether any custom module is needed. We set the timeline in discovery and write it into the quotation, so you plan against an agreed schedule rather than a guess.</p></div></details>
       <details><summary>Which apps should we start with? {{icon:chevron}}</summary><div class="faq-a"><p>Usually the ones causing the most manual work today. For many companies that is Accounting, Sales and Inventory, because they share the same products, partners and journals. We confirm the order in discovery.</p></div></details>

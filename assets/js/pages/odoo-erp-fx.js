@@ -1,5 +1,5 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
-/* Odoo implementation page: hero database panel (data lines + sample flow Sales -> Inventory -> Accounting -> BIR reports ready)
+/* Odoo implementation page: hero database panel (data lines + sample flow Sales -> Inventory -> Accounting -> BIR reports (sample))
    and the focus-app tabs. Loops pause off-screen; reduced motion shows the finished state. */
 (function () {
   'use strict';

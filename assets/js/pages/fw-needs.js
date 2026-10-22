@@ -61,7 +61,7 @@
       radios.forEach(function (r) { r.checked = r.value === n.key; });
       if (sel) sel.value = n.option;
       if (hid) hid.value = n.key;
-      if (topic) topic.value = 'BIR check: ' + n.chip;   // the CRM lead is named after it
+      if (topic) topic.value = 'Need: ' + n.chip;   // the CRM lead is named after it
     }
     function syncUrl(key) {
       try {
@@ -173,7 +173,7 @@
   /* ------------------------------------------------------------ self-check */
   var MSG = [
     'Tick what sounds familiar. Your answers stay on this page unless you add them to the form.',
-    'A good start. One fix in Odoo usually takes care of this.',
+    'A good start. Ask an adviser how Odoo handles this.',
     'This is where most finance teams are. These all come from one cause: books, sales and BIR work in separate places.',
     'Your team is doing the system’s job by hand. Worth a call before the 31 December deadline.'
   ];

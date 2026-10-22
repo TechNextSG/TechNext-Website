@@ -7,9 +7,9 @@ SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, "
             "with its main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. Our own experts "
-            "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, set it up to meet government requirements "
-            "(in the Philippines: BIR Computerized Accounting System (CAS) set-up and registration support, 2307, SLSP, SAWT, QAP and "
-            "e-invoicing; in Singapore: GST and InvoiceNow), build enterprise AI, websites and brands "
+            "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, configure it for local tax and invoicing rules "
+            "(in the Philippines: Odoo set up for your own BIR Computerized Accounting System (CAS) or CBA application, 2307, SLSP, SAWT, QAP and "
+            "e-invoicing planning; in Singapore: GST and InvoiceNow, with the Access Point you choose), build enterprise AI, websites and brands "
             "as one team, so growing companies in 10+ countries don't need to hire their own.")
 
 # Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
@@ -143,10 +143,10 @@ NAV = [
                  "desc": "Pipelines built around how you sell."},
                 {"label": "Enterprise Solution", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
                  "desc": "Multi-company, multi-country Odoo at scale."},
-                {"label": "BIR CAS Registration", "href": "bir-cas.html", "icon": "shield",
-                 "desc": "Odoo set up as your Computerized Accounting System."},
+                {"label": "BIR CAS Set-Up", "href": "bir-cas.html", "icon": "shield",
+                 "desc": "Odoo set up for your own CAS or CBA application."},
                 {"label": "BIR E-Invoicing", "href": "bir-e-invoicing.html", "icon": "receipt",
-                 "desc": "Ready for the 31 Dec 2026 deadline."},
+                 "desc": "Who is covered by 31 Dec 2026, and how to prepare."},
             ]},
             {"title": "AI Solution", "href": "solutions/ai.html", "links": [
                 {"label": "Odoo + AI integrations", "href": "odoo/ai-integration.html", "icon": "wk-ai",
@@ -278,7 +278,7 @@ APP_CATEGORIES = [
          _a("Expenses", "Capture receipts and approve claims.", "hr_expense"),
          _a("Spreadsheet (BI)", "Live pivots and dashboards on Odoo data.", "spreadsheet_dashboard"),
          _a("Documents", "File storage with workflows and OCR.", "documents"),
-         _a("Sign", "Legally binding e-signatures.", "sign"),
+         _a("Sign", "E-signatures with an audit trail.", "sign"),
      ]},
     {"id": "sales", "title": "Sales", "icon": "trend", "focus": True,
      "apps": [

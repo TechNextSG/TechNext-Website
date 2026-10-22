@@ -121,13 +121,13 @@ var KB = [
     a:'<b>Odoo Inventory</b> shows real stock across warehouses, with barcode operations and reordering rules that create purchase orders before you run out.<ul><li>'+oi('stock')+'<span>Multi-warehouse, lots, serials and expiry</span></li><li>'+oi('purchase')+'<span>RFQs and bills matched to receipts</span></li><li>'+oi('mrp')+'<span>Manufacturing when you build to order</span></li></ul>',
     actions:[['link','odoo/apps#supply-chain','Supply chain apps']] },
   { id:'price', kw:['price','prices','pricing','pricin','prise','cost','costs','costing','how much','how much does it cost','how much is it','fee','fees','budget','quote','rate','rates','expensive','cheap','affordable','ballpark','estimate','proposal','payment plan','instalment','roi','value','per user','per month','odoo expensive','is it expensive','odoo cost','odoo price','price of odoo','odoo pricing','how much is odoo','cost of odoo'],
-    a:'Pricing follows the scope: which apps, how many users, hosting, data migration and training. Two ways to get a number:<ol><li><span>Build a quick scope in the <b>quotation builder</b> (2 minutes). We reply with a written quotation.</span></li><li><span>Message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant follows up.</span></li></ol>',
+    a:'Pricing follows the scope: which apps, how many users, hosting, data migration and training. Two ways to get a number:<ol><li><span>Build a quick scope in the <b>quotation builder</b> (2 minutes). We reply with a written quotation.</span></li><li><span>Book a call with the team or email <b>sales@technext.asia</b>, and a consultant follows up.</span></li></ol>',
     actions:[['quote'],['wa']] },
   { id:'how', kw:['how do you work','how does it work','how it works','process','implementation','implement','implementing','deploy','deployment','rollout','roll out','setup','set up','get started','getting started','begin','kickoff','kick off','onboarding','onboard','how long','duration','timeline','timeframe','time frame','steps','stages','phases','discovery','go live','go-live','golive','methodology','approach','plan','configure','configuration'],
     a:'Four steps, one team:<ol><li><span><b>Discovery</b>: we map how orders, stock and money move, match each step to an Odoo app and write a scope.</span></li><li><span><b>Training</b>: role-based sessions on your own data.</span></li><li><span><b>Integration</b>: banks, payments, stores and tools connected.</span></li><li><span><b>Support</b>: fixes, month-end help, upgrades and small changes after go-live.</span></li></ol>',
     actions:[['link','odoo/discovery','Discovery'],['link','odoo/support','Support plans']] },
   { id:'migration', kw:['migration','migrate','migrating','data migration','import','importing','transfer data','move data','existing data','legacy','legacy system','switch','switch from','move from','coming from','quickbooks','xero','myob','sap','zoho','tally','excel','spreadsheet','spreadsheets','csv','opening balance','opening balances'],
-    a:'We migrate your <b>master data</b> (customers, vendors, products, chart of accounts) and <b>opening balances and open items</b> from spreadsheets or your current system: QuickBooks, Xero, SAP, Tally, MYOB and others. Everything is loaded on a staging database and reconciled before cut-over, so day one balances match.',
+    a:'We migrate your <b>master data</b> (customers, vendors, products, chart of accounts) and <b>opening balances and open items</b> from spreadsheets or your current system: QuickBooks, Xero, SAP, Tally, MYOB and others. Everything is loaded on a staging database and reconciled before cut-over, so you can check the opening balances against your old system.',
     actions:[['link','odoo/discovery','Discovery']] },
   { id:'integration', kw:['integration','integrate','integrating','connect','connection','api','apis','webhook','sync','synchronise','synchronize','third party','third-party','shopify','woocommerce','wordpress','magento','lazada','shopee','amazon','payment gateway','stripe','paypal','payment','bank feed','whatsapp api','outlook','gmail','ecommerce connector','marketplace'],
     a:'Odoo connects to the tools around it, so nothing is re-keyed:<ul><li><span><b>Online stores</b>: Shopify, WooCommerce and marketplaces</span></li><li><span><b>Payment gateways</b> and <b>bank feeds</b></span></li><li><span>Email, calendar and internal systems over API</span></li></ul>',
@@ -205,23 +205,23 @@ var KB = [
     a:'Here\'s how to reach the team:<ul><li>'+icon('i_mail')+'<span>Email <span class="mail">sales@technext.asia</span></span></li><li>'+icon('i_pin')+'<span>261 Waterloo Street #03-36, Singapore 180261</span></li></ul>Headquartered in Singapore, with teams in Taguig City and Ho Chi Minh City.',
     actions:[['wa'],['email']] },
   { id:'human', kw:['human','person','real person','someone','somebody','talk to','talk to someone','speak','speak to','consultant','expert','specialist','advisor','sales team','sales rep','representative','account manager','meeting','call me','callback','call back','get in touch with someone'],
-    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
+    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, book a call with the team or email <b>sales@technext.asia</b>, and a consultant replies.',
     actions:[['talkform'],['wa'],['email']] },
   { id:'thanks', kw:['thank','thanks','thankyou','thank you','thx','ty','cheers','appreciate','great','perfect','awesome','nice','ok','okay','k','cool','got it','understood','bye','goodbye','see you'], a:'You\'re welcome! Anything else? Odoo, AI, websites, pricing or how we work?', actions:[] },
   { id:'hello', kw:['hi','hii','hello','helo','hey','heya','hiya','yo','sup','good morning','good afternoon','good evening','greetings','morning','evening'], a:'Hello! Ask me about Odoo, AI, websites, pricing, or where our teams are.', actions:[] },
   /* goals */
   { id:'schedule', goal:true, kw:['schedule','book','booking','appointment','calendar','discovery call','book a call','set up a call','book a meeting','schedule a call','arrange a call','book discovery','schedule a meeting','arrange a meeting','set a meeting','set up a meeting','meet you','book a slot','meeting with sales','meeting with your team','meet the team'],
-    a:'Let\'s get you on the calendar! A short <b>discovery call</b> walks through the apps that fit your business and answers pricing. Pick a time in the booking calendar, or message the team on WhatsApp.',
+    a:'Let\'s get you on the calendar! A short <b>discovery call</b> walks through the apps that fit your business and answers pricing. Pick a time in the booking calendar, or email <b>sales@technext.asia</b>.',
     actions:[['meet'],['wabook']] },
   { id:'quote', goal:true, kw:['request a quotation','request quotation','request a quote','get a quote','get a quotation','quotation builder','send me a quote','written quotation','quote','quote please','written quote','formal quote','quotation please'],
     a:'Pricing follows the scope: which apps, how many users, hosting, data migration and training. Build a quick scope in the <b>quotation builder</b> (2 minutes) and we reply with a written quotation.',
     actions:[['quote'],['wa']] },
   { id:'talk', goal:true, kw:["let's talk",'lets talk','talk to the team','talk to sales','contact sales','speak to the team','chat with the team'],
-    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, message the team on WhatsApp or email <b>sales@technext.asia</b>, and a consultant replies.',
+    a:'Happy to connect you. Send the <b>Let\'s Talk</b> form, book a call with the team or email <b>sales@technext.asia</b>, and a consultant replies.',
     actions:[['talkform'],['wa'],['email']] }
 ];
 var LABEL = { iot:'Do you do IoT?', apps:'Can you build our app?', network:'Can you set up our network?', odoo:'What is Odoo?', accounting:'What does Odoo Accounting cover?', sales:'How do Sales and CRM work?', inventory:'Can Odoo track my stock?', price:'How much does it cost?', how:'How does a rollout work?', migration:'Can you move my old data?', integration:'Does it connect to my other tools?', hosting:'Where is Odoo hosted?', security:'Is my data safe?', industries:'Which industries do you work with?', partner:'Who is TechNext?', offices:'Where are your offices?', marketing:'What marketing do you do?', website:'Do you build websites?', social:'Can you run our social media?', brand:'Can you design our brand?', ai:'How can AI help my team?', hr:'Does Odoo handle HR and payroll?', projects:'Can Odoo run projects and support?', odoo20:'What\'s new in Odoo 20?', custom:'Can you customise Odoo?', enterprise:'Can Odoo run a group of companies?', invoicenow:'What is InvoiceNow?', support:'What support do you give after go-live?', training:'Do you train our team?', careers:'Are you hiring?', demo:'Can I see a demo?', contact:'How do I contact you?', human:'Can I talk to a person?', schedule:'Book a discovery call', quote:'Request a quotation', talk:"Let's talk" };
-var CHIP_ICON = { iot:'i_cpu', apps:'i_layers', network:'i_plug', accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', website:'o_website', offices:'i_pin', partner:'i_star', schedule:'i_calendar', quote:'i_receipt', talk:'i_whatsapp' };
+var CHIP_ICON = { iot:'i_cpu', apps:'i_layers', network:'i_plug', accounting:'o_accountant', sales:'o_sale', inventory:'o_stock', ai:'o_ai_app', marketing:'o_website', website:'o_website', offices:'i_pin', partner:'i_star', schedule:'i_calendar', quote:'i_receipt', talk:'i_calendar' };
 /* related questions after each answer. The last one is always a step toward a goal. */
 var FOLLOW = {
   start:['odoo','price','offices'],
@@ -270,13 +270,13 @@ var TOPIC = {
   training:{ icon:'i_users', react:'clap', intro:'Class is in session!' },
   careers:{ icon:'i_briefcase', react:'gift', intro:'Ooh, want to be my teammate?', shot:'punchIn' },
   demo:{ icon:'i_play', react:'knock', intro:'Let\'s show you around!', shot:'aerialDrop' },
-  contact:{ icon:'i_whatsapp', react:'wave', intro:'Here\'s where to find my humans.', shot:'closeUp' },
+  contact:{ icon:'i_mail', react:'wave', intro:'Here\'s where to find my humans.', shot:'closeUp' },
   human:{ icon:'i_users', react:'wave', intro:'My human friends would love to help!', shot:'closeUp' },
   thanks:{ icon:'i_heart', react:'catchLove', intro:'Aww!', shot:'punchIn' },
   hello:{ icon:'i_smile', react:'hello', intro:'Hi hi!', shot:'closeUp' },
   schedule:{ icon:'i_calendar', react:'celebrate', intro:'Yay, a meeting!', shot:'closeUp' },
   quote:{ icon:'i_receipt', react:'clap', intro:'Ooh, a quotation! Numbers incoming.', shot:'punchIn' },
-  talk:{ icon:'i_whatsapp', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' },
+  talk:{ icon:'i_calendar', react:'wave', intro:'My human friends would love to meet you!', shot:'closeUp' },
   iot:{ icon:'i_cpu', react:'bounce', intro:'Beep boop, a fellow device!', shot:'sweep' },
   apps:{ icon:'i_layers', react:'clap', intro:'Ooh, an app! Let\'s build it.', shot:'punchIn' },
   network:{ icon:'i_plug', react:'nod', intro:'Let\'s get everyone connected.', shot:'aerialDrop' }
@@ -362,7 +362,7 @@ function understand(text){
 
 [].forEach.call(document.querySelectorAll("[data-name]"),function(el){ el.textContent = BOT_NAME; });
 $("#q").placeholder = "Ask " + BOT_NAME + " anything…";
-$("#wa").insertAdjacentHTML("afterbegin",icon("i_whatsapp"));
+$("#wa").insertAdjacentHTML("afterbegin",icon("i_calendar"));
 $("#mail").insertAdjacentHTML("afterbegin",icon("i_mail"));
 $("#send").innerHTML = icon("i_send");
 
@@ -2656,7 +2656,7 @@ function answerUnknown(text){
     say(vary("unk1",["Hmm, I'm not 100% sure I got that. Did you mean one of these? Or ask my human teammates.","My circuits are 80% sure you mean one of these. Close? If not, my humans can help."]),{ delay:900, acts:[['wa'],['email']] });
     chipsAfter(queue,null,null,near.concat(['talk']));
   } else {
-    say(vary("unk0",["Hmm, I don't have an answer for that one yet. My human teammates do! Message them on WhatsApp or email sales@technext.asia.","That one's outside my little robot brain. Try asking about Odoo, AI, websites or pricing, or ping my humans!"]),{ delay:900, acts:[['wa'],['email']] });
+    say(vary("unk0",["Hmm, I don't have an answer for that one yet. My human teammates do! Book a call or email sales@technext.asia.","That one's outside my little robot brain. Try asking about Odoo, AI, websites or pricing, or ping my humans!"]),{ delay:900, acts:[['wa'],['email']] });
     chipsAfter(queue,"unknown");
   }
 }

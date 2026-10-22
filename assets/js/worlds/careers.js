@@ -214,7 +214,7 @@
   var CREW = [
     { front: true, x0: -420, x1: 60, y: 664, spd: 14, ph: 0.2, label: 'A candidate', lines: ['Here for the **Odoo consultant** role!', 'CV printed, nerves steady.'], acts: ['wave', 'jump', 'cheer'],
       P: W({ s: 0.58, skin: 0, hair: 2, style: 'pony', outfit: 'shirt', top: TEAL, id: PASS, hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
-    { front: true, x0: 1040, x1: 1300, y: 700, spd: 16, ph: 0.6, label: 'A candidate', lines: ['Accountant here. **BIR filings** are my thing.', 'Is the HR role still open?'], acts: ['nod', 'jump', 'wave'],
+    { front: true, x0: 1040, x1: 1300, y: 700, spd: 16, ph: 0.6, label: 'A candidate', lines: ['Accountant here. **BIR reports in Odoo** are my thing.', 'Is the HR role still open?'], acts: ['nod', 'jump', 'wave'],
       P: W({ s: 0.58, skin: 2, hair: 0, style: 'short', outfit: 'polo', top: '#2A3550', top2: Y, id: PASS, glasses: true, hold: 'clipboard', hands: [[-60, -212], [70, -150]] }) },
     { x0: -900, x1: -540, y: 500, spd: 18, ph: 0.5, label: 'TechNext developer', lines: ['Restocking the **goodie bags**!', 'I started at a fair like this one.'], acts: ['id', 'wave', 'dance'],
       P: W({ s: 0.5, skin: 4, hair: 1, style: 'short', outfit: 'polo', top: TEAL, glasses: true, hold: 'box', hands: [[-60, -212], [64, -216]] }) },
