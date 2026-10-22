@@ -18,39 +18,13 @@
         <div class="fx-chips">{{FW_NEEDS_CHIPS}}</div>
       </fieldset>
       <div class="actions fw-act">
-        <a class="btn btn-primary btn-lg" href="#claim" data-to-form>Book my BIR check {{icon:arrow}}</a>
         <a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
       </div>
       <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
     </div>
 
-    <div class="fw-side">
-      <div class="fw-stage" data-fw-stage>
-{{FW_NEEDS_PANES}}
-      </div>
-      <div class="fw-pair">
-        <p class="fw-now"><b>Today</b> <span data-fw="today">{{FW_NEEDS_TODAY}}</span></p>
-        <p class="fw-then"><b>In Odoo</b> <span data-fw="odoo">{{FW_NEEDS_ODOO}}</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ CLAIM: the form -->
-<section class="section fx-sec fx-sec--alt fw-claim" id="claim" aria-labelledby="fw-claim-h">
-  <div class="container fw-claim-grid">
-    <div class="fw-claim-copy reveal">
-      <h2 id="fw-claim-h">Get a free BIR check and your website.</h2>
-      <p class="lead">A short call with an adviser: your BIR group, where the work hurts today, what to set up first, and a first idea for your homepage.</p>
-      <ul class="gs-ticks">
-        <li>{{icon:check}} An adviser checks your BIR group with you</li>
-        <li>{{icon:check}} A plan: the Odoo apps to start with, and why</li>
-        <li>{{icon:check}} A first idea for your homepage</li>
-        <li>{{icon:check}} Website and brand kit come with your Odoo</li>
-      </ul>
-    </div>
-
-    <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
+    <div class="fw-side fw-side--form" id="claim">
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="Free website with Odoo page (BIR)">
@@ -78,6 +52,32 @@
       <div class="form-sent"><h3>Thanks, we have it.</h3><p>An adviser will reply from sales@technext.asia to book your BIR check.</p></div>
       <p class="small muted gs-privacy">We use your details to reply and keep a record of your enquiry. See the <a href="{{ROOT}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ IN ODOO: the live sample panel follows the picked need -->
+<section class="section fx-sec fx-sec--alt fw-claim fw-answer" id="in-odoo" aria-labelledby="fw-ans-h">
+  <div class="container fw-claim-grid">
+    <div class="fw-claim-copy reveal">
+      <h2 id="fw-ans-h">What it looks like in your Odoo.</h2>
+      <p class="lead">The sample record follows the need you picked above. On the call, an adviser walks you through the same screens for your own business.</p>
+      <ul class="gs-ticks">
+        <li>{{icon:check}} An adviser checks your BIR group with you</li>
+        <li>{{icon:check}} A plan: the Odoo apps to start with, and why</li>
+        <li>{{icon:check}} A first idea for your homepage</li>
+        <li>{{icon:check}} Website and brand kit come with your Odoo</li>
+      </ul>
+    </div>
+    <div class="fw-side">
+      <div class="fw-stage" data-fw-stage>
+{{FW_NEEDS_PANES}}
+      </div>
+      <div class="fw-pair">
+        <p class="fw-now"><b>Today</b> <span data-fw="today">{{FW_NEEDS_TODAY}}</span></p>
+        <p class="fw-then"><b>In Odoo</b> <span data-fw="odoo">{{FW_NEEDS_ODOO}}</span></p>
+      </div>
+    </div>
   </div>
 </section>
 

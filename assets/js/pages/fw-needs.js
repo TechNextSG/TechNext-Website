@@ -40,10 +40,10 @@
     var radios = $$('input[name="fw-need"]', hero);
     var sel = document.getElementById('gs-pain'), hid = $('[data-fw-need]'), topic = $('[data-fw-topic]');
     var status = $('[data-fw-status]', hero);
-    var panes = $$('.fw-pane', hero);
+    var panes = $$('.fw-pane');                       // the live panels sit in the section under the hero
     var els = {
       h1: $('[data-fw="h1"] .fw-q', hero), answer: $('[data-fw="answer"]', hero), lead: $('[data-fw="lead"]', hero),
-      today: $('[data-fw="today"]', hero), odoo: $('[data-fw="odoo"]', hero)
+      today: $('[data-fw="today"]'), odoo: $('[data-fw="odoo"]')
     };
     var order = ['h1', 'answer', 'lead', 'today', 'odoo'];
     var token = 0, timers = [], cur = NEEDS[0].key;

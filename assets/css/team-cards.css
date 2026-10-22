@@ -13,13 +13,14 @@
 .tm-face { --mx: 50%; --my: 20%; --rx: 0deg; --ry: 0deg; --lit: 0;
   position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
   min-width: 0; padding: 32px 24px 24px; border-radius: 24px; cursor: pointer;
-  background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.66)); border: 1px solid var(--fx-edge);
-  box-shadow: 0 1px 2px rgba(31,31,61,.04), 0 24px 48px -32px rgba(30,70,145,.45);
-  transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d;
+  background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform .7s var(--fx-ease), box-shadow .45s var(--fx-ease), border-color .45s var(--fx-ease); }
 .tm-face.is-live { transition: transform .14s linear, box-shadow .45s var(--fx-ease), border-color .45s var(--fx-ease); }
 .tm-card:hover .tm-face, .tm-face:focus-within { --lit: 1; border-color: rgba(111,160,245,.6);
-  box-shadow: 0 2px 4px rgba(31,31,61,.04), 0 34px 64px -30px rgba(30,70,145,.55); }
+  box-shadow: var(--fx-depth-h), inset 0 1px 0 #fff; }
 
 /* the light: a soft spotlight under the cursor and a bright rim where it meets the edge */
 .tm-light { position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: var(--lit);
@@ -33,8 +34,8 @@
 /* the portrait and its ring */
 .tm-ava { position: relative; flex: none; width: 150px; height: 150px; margin-bottom: 18px; border-radius: 50%; display: grid; place-items: center;
   background: radial-gradient(120% 120% at 30% 20%, #fff, var(--blue-050) 55%, #DCE7FA);
-  box-shadow: 0 18px 34px -22px rgba(30,70,145,.6); transform: translateZ(36px);
-  transition: box-shadow .5s var(--fx-ease), transform .7s var(--fx-ease); }
+  box-shadow: 0 18px 34px -22px rgba(30,70,145,.6);
+  transition: box-shadow .5s var(--fx-ease); }
 .tm-ava img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .tm-ini { font: 800 48px/1 var(--font-display); letter-spacing: -.03em; color: var(--blue-700); }
 .tm-ring { position: absolute; inset: -7px; border-radius: 50%; padding: 3px; pointer-events: none; opacity: .45;
@@ -57,7 +58,7 @@
 .tm-office .ic { width: 15px; height: 15px; color: var(--blue); }
 
 /* home: one line and the numbers */
-.tm-sum { margin: 14px 0 0; max-width: 34ch; font-size: 15px; line-height: 1.55; color: var(--body); }
+.tm-sum { margin: 14px 0 0; font-size: 15px; line-height: 1.55; color: var(--body); }
 .tm-face .tm-stats { width: 100%; margin: 18px 0 0; text-align: left; }
 
 /* directory: email, top skills, actions */
@@ -94,8 +95,9 @@ html.tm-lock { overflow: hidden; }
 .tm-qv[open]::backdrop { animation: tmFade .4s var(--fx-ease); }
 @keyframes tmFade { from { opacity: 0; } }
 .tm-qv-panel { position: absolute; top: 12px; right: 12px; bottom: 12px; width: min(500px, calc(100% - 24px)); display: flex; flex-direction: column;
-  border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.96); border: 1px solid var(--fx-edge);
-  box-shadow: 0 40px 90px -36px rgba(30,70,145,.6), 0 2px 6px rgba(31,31,61,.06); }
+  border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.86); border: 1px solid var(--fx-edge);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 40px 90px -36px rgba(30,70,145,.6), 0 2px 6px rgba(31,31,61,.06), inset 0 1px 0 #fff; }
 .tm-qv-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #E3E9F5; }
 .tm-qv-bar button { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--blue-100); background: #fff;
   color: var(--ink); cursor: pointer; transition: border-color .2s var(--fx-ease), background .2s var(--fx-ease); }
@@ -127,7 +129,7 @@ html.tm-lock { overflow: hidden; }
 @media (max-width: 600px) {
   .tm-grid, .tm-grid.eh-people { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   /* home: one card and a peek of the next, swiped sideways */
-  .tm-grid--home { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 4px 16px 16px; scrollbar-width: thin; }
+  .tm-grid--home { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: -6px -16px -32px; padding: 10px 16px 48px; scrollbar-width: thin; }   /* room for the shadow and focus ring */
   .tm-grid--home .tm-card { flex: 0 0 86%; scroll-snap-align: center; }
   .tm-face { padding: 28px 18px 20px; }
   .tm-ava { width: 128px; height: 128px; }
@@ -145,4 +147,47 @@ html.tm-lock { overflow: hidden; }
   .tm-face, .tm-face.is-live, .tm-ava, .tm-light, .tm-qv-hint, .tm-link .ic { transition: none; }
   .tm-card:hover .tm-ring, .tm-face:focus-within .tm-ring, .tm-ava--qv .tm-ring { animation: none; }
   .tm-qv[open]::backdrop { animation: none; }
+}
+
+/* ---------------------------------------------------------------- review fix batch (22 Oct 2026) */
+/* the blue grid field the glass sits on (DESIGN.md Field Rule), faded at both ends into the neighbouring sections */
+section.fx-sec.tm-field { position: relative; isolation: isolate; }
+section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { content: "" !important; display: block !important; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--fx-grid) 1px, transparent 1px), linear-gradient(90deg, var(--fx-grid) 1px, transparent 1px), linear-gradient(180deg, #F5F8FE, #FBFCFE);
+  background-size: 56px 56px, 56px 56px, auto;
+  -webkit-mask: linear-gradient(transparent, var(--ink) 18%, var(--ink) 82%, transparent); mask: linear-gradient(transparent, var(--ink) 18%, var(--ink) 82%, transparent); }
+/* directory card actions: full-width and quiet, so the person leads; the filled Email lives in the quick view */
+.tm-actions .eh-act2 { flex: 1 1 100%; justify-content: center; }
+.tm-actions .eh-act2--main { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-100); }
+.tm-actions .eh-act2--main:hover { background: var(--blue-100); color: var(--blue-700); border-color: var(--blue-300); }
+/* home: summaries hold three lines so the stats and links line up across a row */
+@media (min-width: 601px) { .tm-grid--home .tm-sum { min-height: calc(2em * 1.55); } }
+/* directory quick view footer: Email and Save contact share a row; the profile link centres under them */
+.tm-qv-foot .eh-act2 .ic { width: 18px; height: 18px; }
+@media (min-width: 601px) {
+  .tm-qv-foot:has(.eh-act2) .eh-act2 { flex: 1 1 0; justify-content: center; }
+  .tm-qv-foot:has(.eh-act2) .tm-qv-page { flex-basis: 100%; margin: 0; display: flex; justify-content: center; }
+}
+/* an incomplete last row sits centred (7 people on home, 8 cards in the directory) */
+@media (min-width: 601px) {
+  .tm-grid, .tm-grid.eh-people { display: flex; flex-wrap: wrap; justify-content: center; }
+  .tm-grid .tm-card { flex: 0 1 calc((100% - 40px) / 3); }
+}
+@media (min-width: 601px) and (max-width: 1080px) { .tm-grid .tm-card { flex-basis: calc((100% - 20px) / 2); } }
+/* phones (owner 22 Oct 2026: "proper viewing so we can showcase the team"): the whole home team at a glance, two portraits
+   a row; a tap opens the quick view with the summary, numbers and every skill */
+@media (max-width: 600px) {
+  .tm-grid--home { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; overflow: visible; scroll-snap-type: none; margin: 0; padding: 0; }
+  .tm-grid--home .tm-card { flex: none; }
+  .tm-grid--home .tm-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 6px); }
+  .tm-grid--home .tm-face { padding: 20px 10px 16px; border-radius: 20px; }
+  .tm-grid--home .tm-ava { width: 108px; height: 108px; margin-bottom: 12px; }
+  .tm-grid--home .tm-ini { font-size: 34px; }
+  .tm-grid--home .tm-ring { inset: -5px; }
+  .tm-grid--home .tm-name { font-size: 1rem; line-height: 1.2; }
+  .tm-grid--home .tm-role { margin-top: 3px; font-size: 12.5px; line-height: 1.3; }
+  .tm-grid--home .tm-office { margin-top: 5px; font-size: 12px; }
+  .tm-grid--home .tm-office .ic { width: 13px; height: 13px; }
+  .tm-grid--home .tm-sum, .tm-grid--home .tm-stats, .tm-grid--home .tm-link, .tm-grid--home .tm-qv-hint { display: none; }
+  .tm-grid--home .tm-face::after { content: "View profile"; margin-top: auto; padding-top: 10px; font: 700 12.5px/1.2 var(--font-body); color: var(--blue-700); }
 }

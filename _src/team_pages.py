@@ -165,7 +165,7 @@ def _quick_view(p: dict, ctx: str) -> str:
         for lab, items, css in groups_of(p))
     if ctx == "directory":
         act = ((f'<a class="eh-act2 eh-act2--main" href="mailto:{esc(p["email"])}">{{{{icon:mail}}}}Email {esc(p["name"].split()[0])}</a>' if p.get("email") else "")
-               + '<button type="button" class="eh-act2" data-qv-vcf>Save contact (.vcf)</button>')
+               + '<button type="button" class="eh-act2" data-qv-vcf><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Save contact (.vcf)</button>')
     else:
         act = f'<a class="btn btn-primary" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>'
     office_line = f'<p class="tm-office">{{{{icon:pin}}}}{office}</p>' if office else ""
@@ -215,7 +215,7 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 def home_section_html() -> str:
     """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
     cards = "".join(card_html(p, k, "home") for k, p in enumerate(ADV.ADVISORS))
-    return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
+    return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="pf-h">Meet the experts.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
     <div class="tm-grid tm-grid--home">{cards}</div>

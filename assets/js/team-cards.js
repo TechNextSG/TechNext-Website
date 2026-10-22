@@ -43,7 +43,7 @@
   if (!people.length || typeof window.HTMLDialogElement === 'undefined') return;
   var SVG = function (d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
   var ARROW = '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>', CROSS = '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>';
-  var dlg, panel, body, foot, count, cur = -1, opener = null, busy = false;
+  var dlg, panel, body, foot, count, cur = -1, opener = null, busy = false, list = people;   // list: the people the directory search shows
   var phone = function () { return mq('(max-width: 600px)'); };
 
   function build() {
@@ -69,19 +69,20 @@
       if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
     });
-    if (people.length < 2) { dlg.querySelector('.tm-qv-prev').hidden = true; dlg.querySelector('.tm-qv-next').hidden = true; }
   }
 
   function fill(i) {
-    var src = people[i].querySelector('template.tm-qv-src').content.cloneNode(true);
+    var src = list[i].querySelector('template.tm-qv-src').content.cloneNode(true);
     var main = src.querySelector('.tm-qv-main'), act = src.querySelector('.tm-qv-act');
     body.replaceChildren(main); foot.replaceChildren(act || document.createTextNode(''));
     var h = body.querySelector('h2'); if (h) h.id = 'tm-qv-title';
-    count.textContent = (i + 1) + ' of ' + people.length;
+    count.innerHTML = '';                                                                     // "Astroneil Matan, 2 of 6" for screen readers
+    var who = document.createElement('span'); who.className = 'sr-only'; who.textContent = (h ? h.textContent : '') + ', ';
+    count.appendChild(who); count.appendChild(document.createTextNode((i + 1) + ' of ' + list.length));
     body.scrollTop = 0; cur = i;
     var vcf = foot.querySelector('[data-qv-vcf]');                                          // the directory card's own vCard button
     if (vcf) {
-      var real = people[i].querySelector('[data-eh-vcf]');
+      var real = list[i].querySelector('[data-eh-vcf]');
       if (real) vcf.addEventListener('click', function () { real.click(); }); else vcf.remove();
     }
     if (!reduce) [].slice.call(main.children).forEach(function (el, k) {
@@ -90,10 +91,14 @@
     });
   }
 
-  function open(i, from) {
+  function open(card, from) {
     if (!dlg) build();
+    list = people.filter(function (c) { return !c.hidden; });
+    if (list.indexOf(card) < 0) list = [card];
+    var solo = list.length < 2;
+    dlg.querySelector('.tm-qv-prev').hidden = solo; dlg.querySelector('.tm-qv-next').hidden = solo;
     opener = from || null;
-    fill(i);
+    fill(list.indexOf(card));
     document.documentElement.classList.add('tm-lock');
     dlg.showModal();
     body.focus({ preventScroll: true });
@@ -111,28 +116,29 @@
     a.onfinish = function () {
       dlg.close(); a.cancel(); busy = false;
       document.documentElement.classList.remove('tm-lock');
-      if (opener && opener.focus) opener.focus({ preventScroll: true });
+      if (opener && opener.focus) opener.focus();                                            // a card reached by stepping scrolls into view
     };
   }
 
   function step(d) {
-    if (busy || people.length < 2) return;
-    var n = (cur + d + people.length) % people.length;
+    if (busy || list.length < 2) return;
+    var n = (cur + d + list.length) % list.length;
     if (reduce) { fill(n); return; }
     busy = true;
     var out = body.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(' + (d > 0 ? -24 : 24) + 'px)' }],
                            { duration: 160, easing: 'ease-in', fill: 'forwards' });
-    out.onfinish = function () { fill(n); out.cancel(); busy = false; opener = people[n].querySelector('[data-tm-open]') || opener; };
+    out.onfinish = function () { fill(n); out.cancel(); busy = false; opener = list[n].querySelector('[data-tm-open]') || opener; };
   }
 
-  people.forEach(function (card, i) {
+  people.forEach(function (card) {
     var face = card.querySelector('.tm-face');
     var name = card.querySelector('.tm-name a'); if (name) name.setAttribute('aria-haspopup', 'dialog');
     face.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;        // new-tab clicks open the profile page
       var t = e.target.closest('a, button, input, label');
       if (t && !t.hasAttribute('data-tm-open')) return;                                     // email, vCard, full profile keep their job
       e.preventDefault();
-      open(i, t || name || face);
+      open(card, t || name || face);
     });
   });
 })();

@@ -309,3 +309,8 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
   .fw-nav .fw-back { order: 2; flex: 1 1 100%; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .fw-form.is-steps .fw-step.is-cur { animation: none; } .fw-bar i { transition: none; } }
+/* form first (owner 22 Oct 2026): the form is the hero's right column; the live panel sits in the next section */
+.fw-side--form { min-width: 0; scroll-margin-top: 96px; }
+.fw-side--form .fw-form { margin: 0; }
+.fw-answer .fw-side { min-width: 0; }
+@media (min-width: 961px) { .fw-hero-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); } }

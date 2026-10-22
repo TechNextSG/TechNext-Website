@@ -92,6 +92,19 @@ ADVISORS = [
          ("Tools", ["CRM software", "Microsoft Office", "Data mining"]),
      ],
      "creds": ["BS Information Technology"]},
+    {"name": "Rico Duque", "role": "Marketing Officer", "office": "ph", "photo": "rico-duque.webp",
+     "summary": "Rico designs, structures and optimises websites, runs social media and keeps every brand consistent.",
+     "bio": "Rico runs marketing end to end, from website design, structure and SEO to social media and brand design. Since 2019 Rico has planned social media strategies, written SEO-driven articles and reported campaigns from analytics, and now brings AI tools such as Claude, Gemini and Luma AI into the content workflow so more gets made, faster.",
+     "stats": [("2019", "in social media since"), ("15", "digital and AI tools"), ("5", "social accounts at once")],
+     "groups": [
+         ("Website design & SEO", ["Website design and management", "Site structure and navigation", "On-page SEO", "SEO-driven articles and blogs", "Content optimisation", "User experience improvements", "Google Analytics reporting"]),
+         ("AI integration & workflow", ["AI in marketing workflows", "AI prompt engineering (GPT-based models)", "Generative AI: Claude, Gemini, Luma AI", "Workflow management", "Project tracking (ShotGrid)", "Google Workspace"]),
+         ("Branding & design", ["Brand identity and consistency", "Marketing graphics (Canva, Photoshop)", "Campaign visuals and presentations", "Reels, GIFs and animated video", "Video editing (CapCut, Filmora, Premiere Pro)"]),
+         ("Social media management", ["Social media strategy", "Content calendars and scheduling (Buffer)", "Meta Business Suite", "Facebook ads", "Performance analytics and reporting", "Community engagement"]),
+         ("Email & campaigns", ["Email marketing (Brevo)", "Facebook and email campaigns", "Data-driven marketing strategy", "Event planning and coordination"]),
+         ("Industries", ["Travel", "Animation and media", "Data services"]),
+     ],
+     "creds": ["BS Business Administration, Operations Management"]},
 ]
 
 OFFICES = {"sg": "Singapore HQ", "ph": "Taguig City hub", "vn": "Ho Chi Minh City hub"}
