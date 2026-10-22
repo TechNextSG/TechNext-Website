@@ -14,7 +14,8 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # Home-page profiles (owner 22 Oct 2026: skills only, no companies; photos come later, initials until then).
 # Sources: CVs of AJ Cubilla, Jeric Bulayungan and RJ (Raphael John) Sarreal; names and roles as the owner gave them; Philip Gallan's skill list and Clement Kho's
 # profile as sent by the owner. Fields: name, role, office (sg | ph | vn | None), photo (assets/img/team/, 600x600 WebP),
-# email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
+# bir (BIR-related skills, only what the CV or notes support) and bir_rank (1 = strongest; owner 22 Oct:
+# BIR-strong people come first after the featured card), email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
     {"name": "Clement Kho", "role": "CEO", "featured": True, "office": "sg", "email": "sky@technext.asia", "photo": "clement-kho.webp",
@@ -39,7 +40,8 @@ ADVISORS = [
          ("Strategy deployment & operational excellence", ["Turning corporate objectives into operating plans", "Accountability systems", "Workflow design", "Measurable outcomes"]),
          ("Corporate governance & management systems", ["Management frameworks", "Decision-making structures", "Organisational accountability", "Business performance systems"]),
      ]},
-    {"name": "Astroneil Matan", "role": "Senior Functional Lead", "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
+    {"name": "Astroneil Matan", "role": "Senior Functional Lead", "bir_rank": 2,
+     "bir": ["Local tax set-up in ERP", "Regulatory reporting", "Accounting and financial management"], "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
      "summary": "Astroneil has helped companies move onto ERP for 24 years, ten of them on Odoo.",
      "bio": "Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Astroneil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Astroneil about moving off another ERP without losing your history.",
      "stats": [("24+", "years in ERP and CRM"), ("10", "years on Odoo"), ("30", "projects in the portfolio")],
@@ -52,7 +54,8 @@ ADVISORS = [
          ("Technical", ["Python, C# and SQL", "AWS, Azure and Google Cloud", "Power BI and Tableau"]),
      ],
      "creds": ["Accredited Project Manager (IO4PM)", "Accredited Scrum Master (International Scrum Institute)", "Six Sigma Green Belt (International Six Sigma Institute)", "Agile Project Management Practitioner (HP LIFE)", "BS Computer Science", "BS Business Administration"]},
-    {"name": "RJ Sarreal", "role": "Project Manager", "office": "ph", "photo": "rj-sarreal.webp", "email": "rj@technext.asia",
+    {"name": "RJ Sarreal", "role": "Project Manager", "bir_rank": 1,
+     "bir": ["POS accreditation applications to the BIR", "POS accreditation for Philippine malls", "General ledger, payables and receivables set-up"], "office": "ph", "photo": "rj-sarreal.webp", "email": "rj@technext.asia",
      "summary": "RJ has run ERP projects for 17 years and keeps every sprint on track.",
      "bio": "RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. RJ writes down exactly what you need, agrees the scope and timeline with you, and keeps every sprint on track, so you always know where your project stands. RJ has also prepared POS accreditation applications for the BIR and Philippine malls.",
      "stats": [("17", "years in ERP"), ("4", "NetSuite certificates"), ("20+", "client projects")],
@@ -106,7 +109,8 @@ ADVISORS = [
          ("Ways of working", ["Agile and Scrum", "Lean Six Sigma", "ITIL", "ISO 9000", "Jira, GitLab and OpenProject", "Microsoft 365"]),
      ],
      "creds": ["BS Business Administration, Dean's Lister"]},
-    {"name": "Jeric Bulayungan", "role": "Business Development", "office": "ph", "photo": "jeric-bulayungan.webp", "email": "jeric@technext.asia",
+    {"name": "Jeric Bulayungan", "role": "Business Development", "bir_rank": 3,
+     "bir": ["Accounting systems: QuickBooks, Sage 50, SAP Business One", "Payroll systems", "POS systems"], "office": "ph", "photo": "jeric-bulayungan.webp", "email": "jeric@technext.asia",
      "summary": "Jeric has helped Philippine businesses choose their software since 2016.",
      "bio": "Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems. Jeric is often your first conversation with TechNext: listening to how your business runs today, then bringing in the right people from the team.",
      "stats": [("2016", "in B2B software sales since"), ("10+", "software products sold")],
