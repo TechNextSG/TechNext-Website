@@ -147,6 +147,13 @@
     show('2307');
   }
 
+  /* ---------------------------------------------------------------- hero slide 4: keep Nexi clear of the result panel */
+  var chk = $('.slide--check');
+  if (chk && 'MutationObserver' in window) {
+    var mark = function () { document.body.classList.toggle('fx-check-on', chk.classList.contains('is-active')); };
+    new MutationObserver(mark).observe(chk, { attributes: true, attributeFilter: ['class'] }); mark();
+  }
+
   /* ---------------------------------------------------------------- pause off-screen motion */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('fx-off', !e.isIntersecting); }); }, { rootMargin: '80px' });

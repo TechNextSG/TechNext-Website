@@ -107,3 +107,30 @@
    ran ~27px past the screen and clipped its buttons; clamp the column to the hero's width */
 .hero-track { grid-template-columns: minmax(0, 1fr); }
 .hero-track > .slide, .hero .slide-inner > * { min-width: 0; }
+
+/* slide 4: the BIR readiness check inside the hero (questions left, live result right) */
+.fx-check .fx-q { gap: 12px; margin-top: 22px; }
+.fx-check .fx-row legend { margin-bottom: 8px; font-size: 14.5px; }
+.fx-check .fx-chips span { min-height: 40px; padding: 0 15px; font-size: 14px; }
+.fx-check-side { align-self: center; min-width: 0; }
+.fx-check .fx-result { position: relative; top: 0; }
+.fx-check .fx-r-say { min-height: 0; }
+.fx-check .fx-steps li { padding: 6px 0; }
+@media (max-width: 900px) {
+  .fx-check-side { margin-top: 24px; }
+  .fx-check .fx-chips span { min-height: 44px; }
+}
+@media (max-width: 600px) {
+  .fx-check .fx-steps { display: none; }
+  .fx-check .fx-r-act .btn { flex: 1 1 100%; justify-content: center; }
+}
+.fx-nowrap { white-space: nowrap; }
+.fx-check-on .nexi, .fx-check-on #nexi-card { opacity: 0 !important; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
+@media (max-width: 600px) {
+  .slide--check .lead { display: none; }
+  .fx-check .fx-q { margin-top: 16px; gap: 10px; }
+  .fx-check .fx-count { padding: 10px 14px; margin-bottom: 12px; }
+  .fx-check .fx-count b { font-size: 24px; }
+  .fx-check .fx-r-say { margin: 10px 0 12px; font-size: .98rem; }
+  .fx-check .fx-result { padding: 18px 16px 14px; }
+}
