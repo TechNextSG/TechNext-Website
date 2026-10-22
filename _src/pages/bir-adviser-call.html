@@ -1,5 +1,5 @@
-<!--meta {"title": "BIR E-Invoicing: Are You Covered? Website Free with Your Odoo", "desc": "Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.", "out": "free-website-with-odoo.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\">"} -->
-<!-- /free-website-with-odoo (22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
+<!--meta {"title": "BIR E-Invoicing: Are You Covered? Website Free with Your Odoo", "desc": "Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\">"} -->
+<!-- /bir-adviser-call (was /bir-adviser-call until 23 Oct 2026; 22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
      The H1 is a question. Picking a need ("What do you need most?") swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
      sample Odoo panel in place, and sets the form's "Biggest BIR headache". ?need=<key> opens the page on that need (ads link to it).
      Copy, panel data and the form options come from _src/fw_needs.py (the FW_NEEDS_* tokens, rendered for the default need); behaviour:
@@ -23,7 +23,7 @@
       <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
     </div>
 
-    <div class="fw-side fw-side--form" id="claim">
+    <div class="fw-side fw-side--form" id="book"><span id="claim" aria-hidden="true"></span>
   <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -101,7 +101,7 @@
         <p class="fw-score-n"><span id="fw-count">0</span><small>/ 8</small></p>
         <div class="fw-meter"><span id="fw-meter"></span></div>
         <p class="fw-score-msg" id="fw-msg">Tick what sounds familiar. Your answers stay on this page unless you add them to the form.</p>
-        <a class="btn btn-primary fw-score-btn" href="#claim" data-to-form data-carry-check>Talk to an adviser about these {{icon:arrow}}</a>
+        <a class="btn btn-primary fw-score-btn" href="#book" data-to-form data-carry-check>Talk to an adviser about these {{icon:arrow}}</a>
       </aside>
     </div>
   </div>
@@ -329,7 +329,7 @@
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div><h2>Planning for 31 December?</h2><p>Fill in the short form. It takes about a minute, and an adviser replies from sales@technext.asia.</p></div>
       <div class="actions">
-        <a class="btn btn-white btn-lg" href="#claim" data-to-form>Book my adviser call {{icon:arrow}}</a>
+        <a class="btn btn-white btn-lg" href="#book" data-to-form>Book my adviser call {{icon:arrow}}</a>
         <a class="btn btn-outline-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
       </div>
     </div>

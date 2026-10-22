@@ -18,6 +18,7 @@ Last updated: 2026-10-23
 ## Pages
 
 - https://technext.asia/ — Odoo Partner Philippines & Singapore: BIR CAS Set-Up: Odoo Ready Partner in the Philippines (Taguig City) and Singapore. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
+- https://technext.asia/bir-adviser-call — BIR E-Invoicing: Are You Covered? Website Free with Your Odoo: Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
 - https://technext.asia/bir-cas — BIR CAS Set-Up in Odoo: Prepare for Your CAS Registration: Use Odoo as your BIR CAS or CBA: we set it up and prepare the sample printouts with you; you file at your RDO.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing and Odoo: Preparing for 31 Dec 2026: BIR e-invoicing and Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and what an EIS connection would need for your Odoo.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.
@@ -45,7 +46,6 @@ Last updated: 2026-10-23
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
 - https://technext.asia/company — About TechNext: Odoo Ready Partner, Singapore & Taguig: TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 11+ clients, 10+ countries.
-- https://technext.asia/free-website-with-odoo — BIR E-Invoicing: Are You Covered? Website Free with Your Odoo: Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
 - https://technext.asia/get-started — Free website design and setup on Odoo — TechNext: We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - https://technext.asia/industries/construction — Odoo for Construction — Singapore & Philippines: Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/ecommerce — Odoo for Ecommerce — Singapore & Philippines: Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting. By TechNext, Odoo Partner.
@@ -140,6 +140,48 @@ Last updated: 2026-10-23
 
 ## Questions and answers
 
+### What is the BIR e-invoicing deadline?
+
+Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Is TechNext BIR-accredited?
+
+No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, assess the EIS connection separately, and prepare with you the process flow and sample outputs for the PTI you file.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Can Odoo produce our 2307s, SLSP, SAWT and QAP?
+
+Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
+
+Source: https://technext.asia/bir-adviser-call
+
+### We already have a CAS permit for our current system. What happens?
+
+A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Is the website really free?
+
+Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team. Your Odoo subscription stays in your company's name.
+
+Source: https://technext.asia/bir-adviser-call
+
+### We already have a website. Can we still join?
+
+Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll recommend the better option on the call, and say why.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Who can claim it?
+
+Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.
+
+Source: https://technext.asia/bir-adviser-call
+
 ### What is a BIR Computerized Accounting System (CAS)?
 
 A CAS is a computerised system that records a business's transactions, generates its invoices and produces its books of accounts and financial reports. Under RMO 9-2021 a business registers its CAS with the BIR at its Revenue District Office (RDO) or Large Taxpayers office. If the system issues invoices by hand, it counts as Computerized Books of Accounts (CBA) instead.
@@ -187,12 +229,6 @@ Source: https://technext.asia/bir-cas
 Your business files at its RDO or Large Taxpayers office, in person or by email. We set up the system, prepare the sample printouts, the audit trail and the system description with you, and stay on call for the RDO's questions. The registration decision is the BIR's.
 
 Source: https://technext.asia/bir-cas
-
-### What is the BIR e-invoicing deadline?
-
-Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
-
-Source: https://technext.asia/bir-e-invoicing
 
 ### Are micro taxpayers covered by BIR e-invoicing?
 
@@ -811,42 +847,6 @@ Source: https://technext.asia/company
 Book a discovery call, or tell us how your process runs today by email to sales@technext.asia or through the quotation form. Most Odoo projects start with a discovery session that maps your processes to Odoo apps.
 
 Source: https://technext.asia/company
-
-### Is TechNext BIR-accredited?
-
-No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, assess the EIS connection separately, and prepare with you the process flow and sample outputs for the PTI you file.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### Can Odoo produce our 2307s, SLSP, SAWT and QAP?
-
-Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### We already have a CAS permit for our current system. What happens?
-
-A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### Is the website really free?
-
-Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team. Your Odoo subscription stays in your company's name.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### We already have a website. Can we still join?
-
-Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll recommend the better option on the call, and say why.
-
-Source: https://technext.asia/free-website-with-odoo
-
-### Who can claim it?
-
-Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.
-
-Source: https://technext.asia/free-website-with-odoo
 
 ### Who must issue BIR e-invoices by 31 December 2026?
 
