@@ -207,6 +207,11 @@
 .fx-points .ic { width: 22px; height: 22px; color: var(--blue); margin-top: 2px; }
 .fx-points b { display: block; font: 700 15.5px/1.35 var(--font-body); color: var(--ink); }
 .fx-points span { font-size: 14.5px; line-height: 1.5; color: var(--body); }
+/* owner 23 Oct 2026: no client list beside it; the copy takes the full row, points in two columns */
+.fx-who--solo { grid-template-columns: minmax(0, 1fr); }
+.fx-who--solo h2, .fx-who--solo .lead { max-width: 820px; }
+.fx-who--solo .fx-points { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 48px; }
+@media (max-width: 760px) { .fx-who--solo .fx-points { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
 .fx-clients { border-radius: 22px; padding: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .fx-mini-h { margin: 0 0 14px; font: 700 13px/1.2 var(--font-body); color: var(--ink); }
 .fx-clients .cw-list { justify-content: flex-start; }
