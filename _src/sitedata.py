@@ -80,7 +80,7 @@ OFFICES = [
     {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines development hub",
      "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing.",
      "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines", "office": "",
-     "lines": ["Level 9, IP Center", "Taguig City, Metro Manila"],
+     "lines": ["Level 9, IP Center", "Taguig City, Metro Manila 1634, Philippines"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
      "maps": "https://maps.google.com/?cid=12500824038992408388", "geo": (14.5350092, 121.0509849),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},

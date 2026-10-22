@@ -224,7 +224,10 @@ def bot_block():
     libraries. robots.txt, /.well-known and /denied stay reachable so the policy can be read."""
     agents = [a for a in S.AI_TRAINING if a not in S.ROBOTS_ONLY] + S.SCRAPERS
     pattern = ".*(" + "|".join(re.escape(a).replace("\\ ", " ").replace("\\-", "-").replace("\\/", "/") for a in agents) + ").*"
-    rule = {"source": "/((?!denied|robots\\.txt|\\.well-known).*)", "destination": "/denied", "permanent": False}
+    # robots.txt, llms.txt, llms-full.txt, sitemap.xml and the IndexNow key stay readable for every client (AI fetch tools often use
+    # generic HTTP libraries); the pages themselves stay behind the block
+    rule = {"source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|" + S.INDEXNOW_KEY + "\\.txt|\\.well-known).*)",
+            "destination": "/denied", "permanent": False}
     return [
         {**rule, "has": [{"type": "header", "key": "user-agent", "value": pattern}]},
         # every browser, search engine and link-preview fetcher sends a user agent; only scripts omit or blank it
@@ -276,6 +279,8 @@ def write_vercel():
             # staff-only page (Company menu): never indexed, also when reached as /employee-hub.html
             {"source": "/employee-hub(\\.html)?",
              "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
+            {"source": "/(robots|llms|llms-full)\\.txt",
+             "headers": [{"key": "Content-Type", "value": "text/plain; charset=utf-8"}]},
             {"source": "/.well-known/tdmrep.json",
              "headers": [{"key": "Content-Type", "value": "application/json; charset=utf-8"}]},
         ],

@@ -246,3 +246,13 @@
 .art-fx .post-svc span { font-size: 13.5px; line-height: 1.45; color: var(--body); }
 @media (max-width: 760px) { .art-fx .post-svc ul { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .art-fx .post-svc a { transition: none; } .art-fx .post-svc a:hover { transform: none; } }
+
+/* BIR articles: the series list after the services box (22 Oct 2026) */
+.art-fx .post-series { margin: 16px 0 0; padding: 20px 22px; border-radius: 20px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff; }
+.art-fx .post-series ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 24px; }
+.art-fx .post-series li { margin: 0; }
+.art-fx .post-series a { display: flex; align-items: center; min-height: 40px; padding: 4px 0; border-bottom: 1px solid var(--fx-line); color: var(--blue-700);
+  font-weight: 600; font-size: 14.5px; line-height: 1.35; text-decoration: none; }
+.art-fx .post-series a:hover { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 600px) { .art-fx .post-series ul { grid-template-columns: minmax(0, 1fr); } }

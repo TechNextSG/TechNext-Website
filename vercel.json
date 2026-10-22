@@ -6,7 +6,7 @@
   ],
   "redirects": [
     {
-      "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "has": [
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "missing": [
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/((?!denied|robots\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "has": [
@@ -1301,6 +1301,15 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/(robots|llms|llms-full)\\.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
         }
       ]
     },

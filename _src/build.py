@@ -1596,7 +1596,7 @@ def bir_industry_block(key: str, name: str, low: str) -> str:
 
 def bir_industry_faqs(low: str) -> list:
     return [("Is Odoo BIR-accredited?",
-             "No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company."),
+             "No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
             (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
              "Yes. Our Taguig City team configures Odoo Accounting for CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, e-invoicing preparation. Book a discovery call and an adviser reviews your current invoicing and books first.")]
 
@@ -2109,6 +2109,32 @@ def blog_filters() -> str:
 
 
 PREPARED_BY = '<p class="small muted post-prep">Prepared by the TechNext Philippines Odoo and finance team, Taguig City.</p>'
+# BIR guides series (22 Oct 2026 SEO pass): every BIR article lists the others, and its three related cards are its nearest topics
+BIR_SERIES = [("register-odoo-cas-cba-bir", "CAS registration requirements"), ("bir-rules-for-your-accounting-system", "Is any accounting software BIR-accredited?"),
+              ("bir-e-invoicing-odoo", "BIR e-invoicing requirements"), ("eopt-invoice-requirements-odoo", "EOPT invoice requirements"),
+              ("bir-form-2307-odoo", "BIR Form 2307"), ("expanded-withholding-tax-atc-codes-odoo", "Expanded withholding tax and ATC codes"),
+              ("bir-slsp-summary-list-sales-purchases-odoo", "SLSP"), ("bir-sawt-qap-alphalist-odoo", "SAWT and QAP"),
+              ("bir-form-2550q-quarterly-vat-odoo", "BIR Form 2550Q"), ("bir-multi-branch-odoo", "Multi-branch rules"),
+              ("bir-audit-readiness-odoo", "BIR audit 2026"), ("philippine-payroll-bir-forms-odoo-20", "Payroll: 1601-C, 2316, 1604-C")]
+BIR_SIB = {"bir-rules-for-your-accounting-system": ["register-odoo-cas-cba-bir", "bir-e-invoicing-odoo", "bir-audit-readiness-odoo"],
+           "register-odoo-cas-cba-bir": ["bir-rules-for-your-accounting-system", "bir-e-invoicing-odoo", "bir-multi-branch-odoo"],
+           "bir-e-invoicing-odoo": ["eopt-invoice-requirements-odoo", "register-odoo-cas-cba-bir", "bir-multi-branch-odoo"],
+           "eopt-invoice-requirements-odoo": ["bir-e-invoicing-odoo", "bir-form-2307-odoo", "bir-form-2550q-quarterly-vat-odoo"],
+           "bir-form-2307-odoo": ["expanded-withholding-tax-atc-codes-odoo", "bir-sawt-qap-alphalist-odoo", "bir-rules-for-your-accounting-system"],
+           "expanded-withholding-tax-atc-codes-odoo": ["bir-form-2307-odoo", "bir-sawt-qap-alphalist-odoo", "philippine-payroll-bir-forms-odoo-20"],
+           "bir-sawt-qap-alphalist-odoo": ["bir-slsp-summary-list-sales-purchases-odoo", "bir-form-2307-odoo", "bir-audit-readiness-odoo"],
+           "bir-slsp-summary-list-sales-purchases-odoo": ["bir-sawt-qap-alphalist-odoo", "bir-form-2550q-quarterly-vat-odoo", "bir-multi-branch-odoo"],
+           "bir-form-2550q-quarterly-vat-odoo": ["bir-slsp-summary-list-sales-purchases-odoo", "eopt-invoice-requirements-odoo", "bir-multi-branch-odoo"],
+           "bir-multi-branch-odoo": ["bir-slsp-summary-list-sales-purchases-odoo", "register-odoo-cas-cba-bir", "bir-e-invoicing-odoo"],
+           "bir-audit-readiness-odoo": ["bir-rules-for-your-accounting-system", "bir-sawt-qap-alphalist-odoo", "philippine-payroll-bir-forms-odoo-20"],
+           "philippine-payroll-bir-forms-odoo-20": ["expanded-withholding-tax-atc-codes-odoo", "bir-sawt-qap-alphalist-odoo", "bir-audit-readiness-odoo"]}
+
+
+def bir_series_html(out: str) -> str:
+    items = "".join(f'<li><a href="{{{{ROOT}}}}blog/{s}.html">{t}</a></li>' for s, t in BIR_SERIES if f"blog/{s}.html" != out)
+    return f'<nav class="post-series" aria-label="BIR guides"><p class="post-svc-h">All BIR guides</p><ul>{items}</ul></nav>'
+
+
 # BIR articles close with the three BIR services (owner 22 Oct 2026: lean on the BIR CAS service)
 BIR_SERVICES = ('<nav class="post-svc" aria-label="BIR services"><p class="post-svc-h">Need this set up in your Odoo?</p><ul>'
                 '<li><a href="{{ROOT}}bir-cas.html">{{icon:shield}}<b>BIR CAS registration</b><span>Odoo set up as your Computerized Accounting System</span></a></li>'
@@ -2134,7 +2160,9 @@ def article_html(meta: dict, body: str) -> str:
     toc = []
     body = _H2.sub(anchor, body)
     toc_html = "".join(f'<li><a href="#{h}">{t}</a></li>' for h, t in toc)
-    related = [a for a in ARTICLES if a["out"] != meta["out"] and a["cat"] == art["cat"]]
+    sib = BIR_SIB.get(meta["out"][5:-5], [])
+    related = [a for s in sib for a in ARTICLES if a["out"] == f"blog/{s}.html"]
+    related += [a for a in ARTICLES if a["out"] != meta["out"] and a["cat"] == art["cat"] and a not in related]
     related += [a for a in ARTICLES if a["out"] != meta["out"] and a not in related]
     cards = "".join(blog_card(a, k) for k, a in enumerate(related[:3]))
     updated = ""
@@ -2182,7 +2210,7 @@ def article_html(meta: dict, body: str) -> str:
     <aside class="post-toc" aria-label="On this page" data-blg-toc><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
     <div class="prose">
 {body}
-      {BIR_SERVICES if art["cat"] == "bir" else ""}<div class="post-about">
+      {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
         <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up for BIR, GST and InvoiceNow, for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
       </div>
@@ -2213,6 +2241,10 @@ def build_page(path: Path, nav_cache: dict) -> str:
     if meta.get("article"):
         art = next(a for a in ARTICLES if a["out"] == meta["out"])
         meta["article"].update(words=art["words"], read=art["read"])
+        # dateModified and the visible "Updated" line follow the source's last change, the same date as the sitemap <lastmod>
+        upd = git_date(page_source(meta["out"]))
+        if upd > meta["article"].get("updated", meta["article"]["date"]):
+            meta["article"]["updated"] = upd
         content = article_html(meta, content)
     return render(meta, content, nav_cache)
 
@@ -2545,7 +2577,8 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "free-website-with-odoo", "get-started", "quotation", "nexi-explains")),
+    ("Company", lambda u: u in ("", "company", "free-website-with-odoo", "get-started", "quotation", "nexi-explains", "nexi")),
+    ("People (TechNext advisers and team)", lambda u: u.startswith("team/")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
 

@@ -253,13 +253,14 @@
         <p class="lead">If you file with the BIR, the implementation starts from the reports you must produce and works back to how invoices, bills and payments are recorded. E-invoicing is due by 31 December 2026 for covered taxpayer groups; we confirm whether you are in the first group on the discovery call.</p>
         <div class="actions">
           <a class="btn btn-primary btn-lg" href="{{ROOT}}odoo/philippines.html">Odoo for the Philippines {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-cas.html">BIR CAS registration</a>
           <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-e-invoicing.html">BIR e-invoicing guide</a>
         </div>
       </div>
       <div class="erp-ph-r">
         <p class="fx-mini-h">What Odoo's Philippine set-up produces <span class="fx-tag">Sample data</span></p>
         <ul class="erp-ph-list">
-          <li><b>CAS / CBA books</b><span>Computerised books set up for BIR registration</span></li>
+          <li><b><a href="{{ROOT}}bir-cas.html">CAS / CBA books</a></b><span>Computerised books set up for BIR registration</span></li>
           <li><b>2307</b><span>Certificate of creditable tax withheld, per payee</span></li>
           <li><b>SLSP, SAWT, QAP</b><span>DAT files for the BIR's tools</span></li>
           <li><b>2550Q</b><span>Quarterly VAT summary from posted invoices and bills</span></li>
@@ -317,7 +318,7 @@
     <div class="sec-head reveal"><h2 id="erp-faq-h">Before you commit.</h2></div>
     <div class="faq reveal">
       <details open><summary>Can Odoo handle BIR reporting? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, with the Philippine localisation set up for your company. Odoo produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post, and it can serve as your computerised books. Which reports you file, and the connection to the BIR's EIS for e-invoicing, are scoped in discovery and built and tested on a copy of your database.</p></div></details>
-      <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books.</p></div></details>
+      <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
       <details><summary>How long does an Odoo implementation take? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on scope: how many apps, how much data has to be migrated, how many entities, branches and integrations, and whether any custom module is needed. We set the timeline in discovery and write it into the quotation, so you plan against an agreed schedule rather than a guess.</p></div></details>
       <details><summary>Which apps should we start with? {{icon:chevron}}</summary><div class="faq-a"><p>Usually the ones causing the most manual work today. For many companies that is Accounting, Sales and Inventory, because they share the same products, partners and journals. We confirm the order in discovery.</p></div></details>
       <details><summary>Can we keep some of our existing systems? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. If a system works and your team likes it, we connect it through a standard connector or the Odoo API instead of replacing it.</p></div></details>
