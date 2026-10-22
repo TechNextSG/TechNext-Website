@@ -68,3 +68,8 @@
   .tp-page .tp-ava { width: 120px; height: 120px; }
   .tp-page .tp-ava .pf-ini { font-size: 40px; }
 }
+
+/* "For BIR compliance" panel leads the skills (owner 22 Oct 2026) */
+.tp-group:has(.pf-skills--bir) { background: linear-gradient(180deg, rgba(232,245,238,.95), rgba(255,255,255,.85)); border-color: rgba(19,122,74,.25); }
+.tp-group:has(.pf-skills--bir) h3 { color: #0F5C38; }
+.tp-group:has(.pf-skills--bir) h3 span { background: #fff; color: #0F5C38; }

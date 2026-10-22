@@ -236,3 +236,17 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
 .tm-card--lead .tm-qv-hint { background: rgba(255,255,255,.95); }
 .tm-face:has(.tm-name a:focus-visible) { outline-color: var(--blue-700); }
 @media (max-width: 600px) { .tm-grid--home .tm-card--lead .tm-face::after { color: #fff; } }
+
+/* BIR compliance row (owner 22 Oct 2026: "always highlight the skills with bir compliance"): green, a shield, up to three skills */
+.tm-bir { width: 100%; margin: 14px 0 0; padding: 12px 12px 12px; border-radius: 16px; text-align: left;
+  background: linear-gradient(180deg, rgba(232,245,238,.95), rgba(232,245,238,.7)); border: 1px solid rgba(19,122,74,.22); }
+.tm-bir-h { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font: 800 12.5px/1.2 var(--font-body); color: #0F5C38; letter-spacing: .01em; }
+.tm-bir-h .ic { width: 15px; height: 15px; color: #137A4A; }
+.tm-bir ul { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.tm-bir li { padding: 5px 9px; border-radius: 999px; background: #fff; border: 1px solid rgba(19,122,74,.2); font: 600 12px/1.3 var(--font-body); color: #0F5C38; }
+.tm-card--lead .tm-bir { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
+.tm-card--lead .tm-bir-h, .tm-card--lead .tm-bir-h .ic { color: #fff; }
+.tm-card--lead .tm-bir li { background: rgba(255,255,255,.92); color: #0F5C38; }
+@media (max-width: 600px) { .tm-grid--home .tm-bir { display: none; } }   /* phones: the photo grid stays clean; the quick view leads with BIR */
+.tm-qv-g:has(.pf-skills--bir) { padding: 14px 14px 12px; border-radius: 16px; background: rgba(232,245,238,.8); border: 1px solid rgba(19,122,74,.22); }   /* quick view BIR group */
+.tm-qv-g:has(.pf-skills--bir) h3 { color: #0F5C38; }

@@ -43,9 +43,26 @@ def avatar(p: dict, size: int = 600) -> str:
     return f'<span class="pf-ini" aria-hidden="true">{initials(p["name"])}</span>'
 
 
+def ordered() -> list:
+    """Owner 22 Oct 2026: the featured card first, then the strongest for BIR compliance (bir_rank), then everyone else."""
+    return sorted(ADV.ADVISORS, key=lambda p: (not p.get("featured"), p.get("bir_rank") or 99))
+
+
+def bir_row(p: dict, n: int = 3) -> str:
+    """The green "BIR compliance" row on a card (nothing when the person has no BIR-related skill on record)."""
+    items = (p.get("bir") or [])[:n]
+    if not items:
+        return ""
+    return (f'<div class="tm-bir"><p class="tm-bir-h">{{{{icon:shield}}}}BIR compliance</p>'
+            f'<ul>{"".join(f"<li>{esc(i)}</li>" for i in items)}</ul></div>')
+
+
 def groups_of(p: dict) -> list:
-    """(label, items, css) for every skill group, Odoo apps first (with their flat icons), certifications last."""
+    """(label, items, css) for every skill group: BIR compliance first (highlighted), then Odoo apps (with their flat icons),
+    the skill groups, certifications last."""
     out = []
+    if p.get("bir"):
+        out.append(("For BIR compliance", [esc(i) for i in p["bir"]], "pf-skills pf-skills--bir"))
     if p.get("apps"):
         out.append(("Odoo apps", [f'{{{{odoo:{a}:18}}}}{esc(ADV.APP_NAMES.get(a, a))}' for a in p["apps"]], "pf-apps"))
     out += [(lab, [esc(i) for i in items], "pf-skills") for lab, items in (p.get("groups") or []) if items]
@@ -150,7 +167,7 @@ def page(p: dict, everyone: list) -> tuple:
 
 
 def pages() -> list:
-    return [page(p, ADV.ADVISORS) for p in ADV.ADVISORS]
+    return [page(p, ordered()) for p in ordered()]
 
 
 # ---------------------------------------------------------------------------------------------------------- team cards
@@ -193,12 +210,16 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
     if ctx == "home":
         if p.get("summary") or p.get("bio"):
             parts.append(f'<p class="tm-sum">{esc(p.get("summary") or p["bio"])}</p>')
+        if p.get("bir"):
+            parts.append(bir_row(p))
         stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
         if stats:
             parts.append(f'<dl class="pf-stats tm-stats">{stats}</dl>')
     else:
         if p.get("email"):
             parts.append(f'<p class="tm-mail"><a class="th-mail" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></p>')
+        if p.get("bir"):
+            parts.append(bir_row(p))
         top = [i for _, items in (p.get("groups") or [])[:1] for i in items][:3]
         if top:
             parts.append(f'<ul class="tm-skills" aria-label="Top skills">{"".join(f"<li>{esc(i)}</li>" for i in top)}</ul>')
@@ -216,7 +237,7 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 
 def home_section_html() -> str:
     """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
-    cards = "".join(card_html(p, k, "home") for k, p in enumerate(ADV.ADVISORS))
+    cards = "".join(card_html(p, k, "home") for k, p in enumerate(ordered()))
     return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="pf-h">Meet the experts.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
@@ -231,5 +252,5 @@ def directory_html() -> str:
     """Team Directory cards: everyone with a profile first, then the rest of team.TEAM (no profile page, no quick view).
     employee-hub-fx.js reads h3, .tm-role and .th-mail for the vCard and search, and fills .tm-actions; data-skills
     widens the search to skills."""
-    rows = [(p, True) for p in ADV.ADVISORS] + [(t, False) for t in TM.TEAM]
+    rows = [(p, True) for p in ordered()] + [(t, False) for t in TM.TEAM]
     return "".join(card_html(p, k, "directory", profile=has) for k, (p, has) in enumerate(rows))
