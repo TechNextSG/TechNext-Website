@@ -147,6 +147,8 @@ REDIRECTS = [
     ("/terms/", "/terms"),
     # --- old pages with a v2 equivalent ----------------------------------------------
     ("/contact", "/company"), ("/contact/", "/company"),
+    # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
+    ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),
     ("/ai-automation-vietnam", "/solutions/ai-automation"), ("/ai-automation-vietnam/", "/solutions/ai-automation"),
     ("/about", "/company"), ("/about/", "/company"),

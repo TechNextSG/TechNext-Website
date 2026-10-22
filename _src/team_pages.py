@@ -150,7 +150,7 @@ def page(p: dict, everyone: list) -> tuple:
       <div><h2>Work with {esc(first)} and the team.</h2><p>Book a discovery call. We look at how your company invoices, files and closes the month today, and what to set up first in Odoo.</p></div>
       <div class="actions">
         <a class="btn btn-white btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>
-        <a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Book a free adviser call</a>
+        <a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}bir-adviser-call.html">Book a free adviser call</a>
       </div>
     </div>
   </div>

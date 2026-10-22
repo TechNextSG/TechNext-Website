@@ -1136,6 +1136,21 @@
       "permanent": true
     },
     {
+      "source": "/free-website-with-odoo",
+      "destination": "/bir-adviser-call",
+      "permanent": true
+    },
+    {
+      "source": "/free-website-with-odoo/",
+      "destination": "/bir-adviser-call",
+      "permanent": true
+    },
+    {
+      "source": "/free-website-with-odoo.html",
+      "destination": "/bir-adviser-call",
+      "permanent": true
+    },
+    {
       "source": "/odoo-erp-singapore",
       "destination": "/solutions/odoo-erp",
       "permanent": true

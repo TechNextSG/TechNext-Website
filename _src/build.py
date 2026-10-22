@@ -24,7 +24,7 @@ import sitedata as S  # noqa: E402
 import make_nexi  # noqa: E402
 import industries as IX  # noqa: E402
 import industry_fx as IFX  # noqa: E402  (the eight industry pages: glass hero, intro, workflow chain)
-import fw_needs as FW  # noqa: E402  (/free-website-with-odoo: the needs picker, live panels and the data the page script reads)
+import fw_needs as FW  # noqa: E402  (/bir-adviser-call: the needs picker, live panels and the data the page script reads)
 import app_flows as AF  # noqa: E402
 import app_leads as AL  # noqa: E402   (the app pages' hero leads in TechNext's own voice)
 import nexi_explains as NXE  # noqa: E402
@@ -344,7 +344,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}free-website-with-odoo.html#claim" aria-label="Contact us">{{icon:chat-send}}<span>Contact Us</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}bir-adviser-call.html#book" aria-label="Contact us">{{icon:chat-send}}<span>Contact Us</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -2448,7 +2448,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     content = re.sub(r"\{\{INDUSTRY_HERO:([a-z-]+)\}\}", lambda m: IFX.hero_html(m.group(1)), content)
     if "{{INDUSTRY_SWITCH}}" in content:   # home: pick an industry, its sample Odoo panel runs
         content = content.replace("{{INDUSTRY_SWITCH}}", IFX.switch_html())
-    if "{{FW_NEEDS" in content:   # /free-website-with-odoo: picker chips, the seven live sample panels, the form options, the JSON block
+    if "{{FW_NEEDS" in content:   # /bir-adviser-call: picker chips, the seven live sample panels, the form options, the JSON block
         content = FW.tokens(content)
     content = _IX_INTRO.sub(lambda m: industry_intro_html(m.group(1)), content)
     content = re.sub(r"\{\{INDUSTRY_FLOW:([a-z-]+)\}\}", lambda m: world_flow_html(m.group(1)), content)
@@ -2609,7 +2609,7 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "free-website-with-odoo", "get-started", "quotation", "nexi-explains", "nexi")),
+    ("Company", lambda u: u in ("", "company", "bir-adviser-call", "get-started", "quotation", "nexi-explains", "nexi")),
     ("People (TechNext advisers and team)", lambda u: u.startswith("team/")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]

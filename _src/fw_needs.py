@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""/free-website-with-odoo (owner 22 Oct 2026): "more lean on BIR, title should be a question hook to viewer, the content
+"""/bir-adviser-call (owner 22 Oct 2026): "more lean on BIR, title should be a question hook to viewer, the content
 will change base on clients needs".
 
 NEEDS: one entry per client need, in picker order. The first is the default (what crawlers and visitors without ?need=
@@ -130,7 +130,7 @@ NEEDS = [
 
 
 # ---------------------------------------------------------------------------------------------- rendering (build.py -> tokens())
-# The page template (_src/pages/free-website-with-odoo.html) carries {{FW_NEEDS_*}} tokens; build.py hands the content to tokens().
+# The page template (_src/pages/bir-adviser-call.html) carries {{FW_NEEDS_*}} tokens; build.py hands the content to tokens().
 # The static HTML is rendered for NEEDS[0] (what crawlers and no-JS visitors see); assets/js/pages/fw-needs.js swaps the rest.
 import html as _html
 import json as _json

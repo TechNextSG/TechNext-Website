@@ -1,5 +1,5 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
-/* /get-started and /free-website-with-odoo: loops (conic form edge, step rail, previews) pause while off-screen. Reduced motion is handled in CSS. */
+/* /get-started and /bir-adviser-call: loops (conic form edge, step rail, previews) pause while off-screen. Reduced motion is handled in CSS. */
 (function () {
   'use strict';
   if (!('IntersectionObserver' in window)) return;
