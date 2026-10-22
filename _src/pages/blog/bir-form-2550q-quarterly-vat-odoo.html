@@ -9,7 +9,7 @@
   </ul>
 </div>
 
-<p>For most Philippine companies, the quarterly VAT return is the BIR deadline that touches the most transactions. Every sales invoice, every vendor bill and every withholding certificate from a government customer ends up in one number on the 2550Q. When those transactions live in spreadsheets, the return is a reconciliation exercise. When they live in one system, it is a report. This guide covers the rules as they stand in October 2026 and how Odoo prepares the figures.</p>
+<p>For most Philippine companies, the quarterly VAT return is the BIR deadline that touches the most transactions. Every sales invoice, every vendor bill and every withholding certificate from a government customer ends up in one number on the 2550Q. When those transactions live in spreadsheets, the return is a reconciliation exercise. When they live in one system, most of the figures come from a report. This guide covers the rules as they stand in October 2026 and how Odoo prepares the figures.</p>
 
 <h2>From monthly to quarterly</h2>
 <p>The TRAIN Law (RA 10963, Section 37) amended Section 114(A) of the Tax Code so that VAT is filed and paid <strong>within 25 days following the close of each taxable quarter</strong>, starting 1 January 2023. RMC 5-2023 set the transition, and the monthly 2550M stopped being mandatory.</p>
@@ -49,7 +49,7 @@
   <li><strong>Fiscal positions</strong> that switch the taxes on a partner's invoices to match their registration (for example, an export customer).</li>
   <li><strong>The 2550Q report</strong>, under Accounting &gt; Reporting &gt; Tax Report, which Odoo describes as summarising sales, purchases, output VAT, input VAT and the resulting VAT payable or refundable.</li>
 </ul>
-<p>Because the report reads your posted invoices and bills, the figures match your books by design. You still file the return itself on the BIR's platform (eBIRForms or eFPS, the BIR's online filing systems), keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2550Q.</p>
+<p>Because the report reads your posted invoices and bills, the figures come from your books; review them before you file. You still file the return itself on the BIR's platform (eBIRForms or eFPS, the BIR's online filing systems), keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2550Q.</p>
 <p>Odoo 20 adds two related reports for the Philippines, according to its <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a>: <strong>BIR 1600-VT</strong> for final withholding VAT, and <strong>2551Q</strong> for non-VAT registered companies that pay percentage tax.</p>
 
 {{SHOT:accounting/accounting-bill.webp|Vendor bills in Odoo Accounting carry the input VAT that flows into the 2550Q (screenshot: odoo.com)}}
@@ -62,7 +62,7 @@
   <li><strong>Run the 2550Q report</strong> and the SLSP for the same period, and check that they agree.</li>
   <li><strong>Lock the period</strong> in Odoo once filed, so nothing changes the figures you reported.</li>
 </ol>
-<p>You don't need to hire your own team. A TechNext adviser reviews how your VAT is set up today, then our team in Taguig City configures Odoo so the quarter-end is a report, not a reconciliation. <a href="{{ROOT}}bir-e-invoicing.html">See BIR compliance in Odoo</a>.</p>
+<p>You don't need to hire your own team. A TechNext adviser reviews how your VAT is set up today, then our team in Taguig City configures Odoo so most of the 2550Q figures come from a report for you to review before you file. <a href="{{ROOT}}bir-e-invoicing.html">See how we set up Odoo for BIR requirements</a>.</p>
 
 <div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by TRAIN and the EOPT Act, and BIR issuances available on 21 October 2026, read from the law text and published tax alerts. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
 

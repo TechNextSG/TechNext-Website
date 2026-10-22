@@ -44,25 +44,25 @@ def avatar(p: dict, size: int = 600) -> str:
 
 
 def ordered() -> list:
-    """Owner 22 Oct 2026: the featured card first, then the strongest for BIR compliance (bir_rank), then everyone else."""
+    """Owner 22 Oct 2026: the featured card first, then the strongest BIR-related experience (bir_rank), then everyone else."""
     return sorted(ADV.ADVISORS, key=lambda p: (not p.get("featured"), p.get("bir_rank") or 99))
 
 
 def bir_row(p: dict, n: int = 3) -> str:
-    """The green "BIR compliance" row on a card (nothing when the person has no BIR-related skill on record)."""
+    """The green "BIR-related experience" row on a card (nothing when the person has no BIR-related skill on record)."""
     items = (p.get("bir") or [])[:n]
     if not items:
         return ""
-    return (f'<div class="tm-bir"><p class="tm-bir-h">{{{{icon:shield}}}}BIR compliance</p>'
+    return (f'<div class="tm-bir"><p class="tm-bir-h">{{{{icon:shield}}}}BIR-related experience</p>'
             f'<ul>{"".join(f"<li>{esc(i)}</li>" for i in items)}</ul></div>')
 
 
 def groups_of(p: dict) -> list:
-    """(label, items, css) for every skill group: BIR compliance first (highlighted), then Odoo apps (with their flat icons),
+    """(label, items, css) for every skill group: BIR-related experience first (highlighted), then Odoo apps (with their flat icons),
     the skill groups, certifications last."""
     out = []
     if p.get("bir"):
-        out.append(("For BIR compliance", [esc(i) for i in p["bir"]], "pf-skills pf-skills--bir"))
+        out.append(("BIR-related experience", [esc(i) for i in p["bir"]], "pf-skills pf-skills--bir"))
     if p.get("apps"):
         out.append(("Odoo apps", [f'{{{{odoo:{a}:18}}}}{esc(ADV.APP_NAMES.get(a, a))}' for a in p["apps"]], "pf-apps"))
     out += [(lab, [esc(i) for i in items], "pf-skills") for lab, items in (p.get("groups") or []) if items]
@@ -150,7 +150,7 @@ def page(p: dict, everyone: list) -> tuple:
       <div><h2>Work with {esc(first)} and the team.</h2><p>Book a discovery call. We look at how your company invoices, files and closes the month today, and what to set up first in Odoo.</p></div>
       <div class="actions">
         <a class="btn btn-white btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>
-        <a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Get a free BIR check</a>
+        <a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}free-website-with-odoo.html">Book a free adviser call</a>
       </div>
     </div>
   </div>
@@ -241,7 +241,7 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 
 def home_section_html() -> str:
     """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
-    # owner 22 Oct 2026: the home section shows only the three strongest for BIR compliance (bir_rank 1-3), best first
+    # owner 22 Oct 2026: the home section shows only the three ranked for BIR-related experience (bir_rank 1-3), best first
     people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:3]
     cards = "".join(card_html(p, k, "home") for k, p in enumerate(people))
     return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">

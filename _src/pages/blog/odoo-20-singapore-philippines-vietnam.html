@@ -3,7 +3,7 @@
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
-    <li><strong>Singapore:</strong> GST taxes refined, IRAS-compliant tax invoice and credit note PDFs, SFRS-aligned statements, and groundwork for GST InvoiceNow.</li>
+    <li><strong>Singapore:</strong> GST taxes refined, tax invoice and credit note PDFs for IRAS GST requirements, SFRS-aligned statements, and groundwork for GST InvoiceNow.</li>
     <li><strong>Philippines:</strong> BIR 2306 and 2307 certificates from vendor bills, invoices set up for BIR and CAS requirements, 2551Q and 1600-VT reports, and a basic payroll package with 1601-C, 2316 and 1604-C.</li>
     <li><strong>Vietnam:</strong> chart of accounts under Circular 99/2025/TT-BTC, the 01/GTGT declaration with XML export, S03a-DN and S03b-DN reports, and SInvoice for POS orders.</li>
   </ul>
@@ -17,7 +17,7 @@
 <p>Odoo 20 makes three changes to Singapore accounting:</p>
 <ul>
   <li><strong>GST taxes</strong> are refined to match current government requirements and, in Odoo's words, to prepare for future GST InvoiceNow document compliance.</li>
-  <li>New <strong>tax invoice, credit note and customer accounting PDF</strong> reports comply with the Inland Revenue Authority of Singapore (IRAS) GST requirements.</li>
+  <li>New <strong>tax invoice, credit note and customer accounting PDF</strong> reports which, according to the release notes, comply with the Inland Revenue Authority of Singapore (IRAS) GST requirements.</li>
   <li>The <strong>chart of accounts, balance sheet and profit and loss</strong> statement are improved to comply with Singapore Financial Reporting Standards (SFRS).</li>
 </ul>
 <p>Read the InvoiceNow line carefully: the release notes describe preparation, not a finished InvoiceNow transmission feature. InvoiceNow is becoming mandatory for GST-registered businesses in phases between 2025 and 2031, so if you are GST-registered, confirm how your Odoo database will send invoice data before your date. Our <a href="{{ROOT}}blog/invoicenow-singapore-gst-timeline.html">InvoiceNow timeline guide</a> lists every phase.</p>
@@ -26,7 +26,7 @@
 <p>The Philippine package gets the longest list of the three, in both accounting and payroll.</p>
 <h3>Accounting</h3>
 <ul>
-  <li><strong>BIR 2306 and BIR 2307</strong> withholding tax certificates (final and expanded withholding tax) can be generated as official PDFs for a partner and date range, generated on vendor bills, and sent to the vendor when a bill is paid.</li>
+  <li><strong>BIR 2306 and BIR 2307</strong> withholding tax certificates (final and expanded withholding tax) can be generated as PDFs in the BIR layout for a partner and date range, generated on vendor bills, and sent to the vendor when a bill is paid.</li>
   <li><strong>Invoices are set up for BIR and CAS requirements</strong>, the partner ledger follows BIR's format, and a Book of Accounts is added for CBA and CAS registration.</li>
   <li>The <strong>BIR 1600-VT</strong> report covers final withholding VAT, and the <strong>2551Q</strong> report is available for non-VAT-registered companies.</li>
   <li>Statutory <strong>senior citizen and PWD discounts</strong> work on invoices and credit notes.</li>
@@ -38,7 +38,7 @@
   <li>Form <strong>1601-C</strong> items for monthly BIR payroll reporting, the yearly <strong>BIR Form 2316</strong>, and <strong>1604-C</strong> summary worksheets with Alphalist DAT exports that follow BIR eSubmission standards.</li>
   <li>Automatic loan deductions for SSS salary and calamity loans and Pag-IBIG multi-purpose, calamity and housing loans.</li>
 </ul>
-<p>The release notes do not mention the BIR's Electronic Invoicing System (EIS). If your company is covered by EIS, plan that connection as its own piece of work.</p>
+<p>The release notes do not mention the BIR's Electronic Invoicing System (EIS). Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.</p>
 
 <h2>Vietnam: Circular 99, 01/GTGT and SInvoice</h2>
 <ul>
@@ -65,7 +65,7 @@
       <div class="lc-panel" aria-live="polite"></div>
     </div>
     <div class="dm-static">
-      <p>Singapore: GST taxes refined, IRAS-compliant tax invoice and credit note reports, SFRS-aligned statements and groundwork for GST InvoiceNow. Philippines: BIR 2306 and 2307 certificates, invoices set up for BIR and CAS requirements, 1600-VT and 2551Q, and a basic payroll package with 1601-C, 2316 and 1604-C. Vietnam: Circular 99 chart of accounts, the 01/GTGT declaration with XML export, S03a-DN and S03b-DN, and SInvoice.</p>
+      <p>Singapore: GST taxes refined, tax invoice and credit note reports for IRAS GST requirements, SFRS-aligned statements and groundwork for GST InvoiceNow. Philippines: BIR 2306 and 2307 certificates, invoices set up for BIR and CAS requirements, 1600-VT and 2551Q, and a basic payroll package with 1601-C, 2316 and 1604-C. Vietnam: Circular 99 chart of accounts, the 01/GTGT declaration with XML export, S03a-DN and S03b-DN, and SInvoice.</p>
     </div>
   </div>
   <figcaption class="dm-note">{{icon:check}} From the Odoo 20 release notes as covered in this article; the map is stylised and marks TechNext's three offices.</figcaption>
@@ -77,7 +77,7 @@
   <thead><tr><th>Area</th><th>Singapore</th><th>Philippines</th><th>Vietnam</th></tr></thead>
   <tbody>
     <tr><td>Tax</td><td>GST taxes refined</td><td>2306/2307 certificates, 1600-VT, 2551Q</td><td>01/GTGT with Appendix 142, XML export</td></tr>
-    <tr><td>Documents</td><td>IRAS-compliant tax invoice and credit note</td><td>Invoices set up for BIR and CAS requirements</td><td>SInvoice for transfer notes and POS</td></tr>
+    <tr><td>Documents</td><td>Tax invoice and credit note for IRAS GST requirements</td><td>Invoices set up for BIR and CAS requirements</td><td>SInvoice for transfer notes and POS</td></tr>
     <tr><td>Statements</td><td>SFRS chart of accounts, balance sheet, P&amp;L</td><td>Book of Accounts, BIR partner ledger</td><td>Circular 99 chart of accounts, S03a/S03b-DN</td></tr>
     <tr><td>Payroll</td><td>Not in these notes</td><td>Basic package, 1601-C, 2316, 1604-C</td><td>Not in these notes</td></tr>
     <tr><td>E-invoicing</td><td>Groundwork for GST InvoiceNow</td><td>EIS not mentioned</td><td>SInvoice</td></tr>
@@ -97,7 +97,7 @@
 <h2>Common questions</h2>
 <div class="faq">
   <details><summary>Does Odoo 20 support InvoiceNow in Singapore? {{icon:chevron}}</summary><div class="faq-a"><p>The Odoo 20 release notes say Singapore GST taxes were refined to prepare for future GST InvoiceNow document compliance. They describe groundwork, so confirm the transmission path for your database with your Odoo partner before your InvoiceNow date.</p></div></details>
-  <details><summary>Can Odoo generate BIR Form 2307? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo 20 adds report variants that produce official BIR 2306 and BIR 2307 withholding tax certificates as PDFs, generated from vendor bills and optionally sent to the vendor when a bill is paid.</p></div></details>
-  <details><summary>Does Odoo 20 follow Circular 99 in Vietnam? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. The Vietnamese chart of accounts and balance sheet follow Circular 99/2025/TT-BTC, and the S03a-DN general journal and S03b-DN general ledger reports comply with it.</p></div></details>
+  <details><summary>Can Odoo generate BIR Form 2307? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo 20 adds report variants that produce BIR 2306 and BIR 2307 withholding tax certificates as PDFs in the BIR layout, generated from vendor bills and optionally sent to the vendor when a bill is paid.</p></div></details>
+  <details><summary>Does Odoo 20 follow Circular 99 in Vietnam? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. The Vietnamese chart of accounts and balance sheet follow Circular 99/2025/TT-BTC, and the release notes say the S03a-DN general journal and S03b-DN general ledger reports, with counterpart accounts, comply with it.</p></div></details>
   <details><summary>Does Odoo 20 include Philippine payroll? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo 20 adds a basic Philippine payroll package with basic pay, benefits, taxes and overtime, plus BIR Forms 1601-C, 2316 and 1604-C and automatic SSS and Pag-IBIG loan deductions.</p></div></details>
 </div>

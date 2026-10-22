@@ -1,6 +1,7 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
-/* BIR e-invoicing page: deadline countdown, sample e-invoice transmit timeline, rail progress, report-sheet parallax.
-   Loops pause off-screen; reduced motion shows the final state. */
+/* BIR e-invoicing page: deadline countdown, sample invoice timeline in Odoo, rail progress, report-sheet parallax.
+   The timeline stops at "Locked" in Odoo: the last step (the BIR's EIS) stays dimmed and neutral, because Odoo has no
+   built-in EIS connection and TechNext has not built one. Loops pause off-screen; reduced motion shows the final state. */
 (function () {
   'use strict';
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,17 +19,18 @@
     tick(); setInterval(tick, 20000);
   }
 
-  /* e-invoice record: Draft -> Validated -> Sent to EIS -> Accepted, loops */
+  /* invoice record: Draft -> Posted -> Locked in Odoo, then a neutral "EIS: assessed separately" (never lit, never green), loops */
   var rec = $('[data-bf-rec]'), tl = $('[data-bf-tl]');
   if (rec && tl) {
     var steps = $$('li', tl), pill = $('[data-bf-status]'), pt = $('[data-bf-status-t]');
-    var names = ['Draft', 'Validated', 'Sent to EIS', 'Accepted'], verd = ['pending', 'likely', 'later', 'covered'];
+    var names = ['Draft', 'Posted', 'Locked', 'EIS: assessed separately'], verd = ['pending', 'likely', 'later', 'pending'];
     var i = -1, timer = null;
     var show = function (n) {
-      steps.forEach(function (li, k) { li.classList.toggle('is-on', k <= n); li.classList.toggle('is-now', k === n && n < 3); });
-      tl.style.setProperty('--bf-s', n);
+      var m = Math.min(n, 2);                                   // the EIS step (index 3) is never switched on
+      steps.forEach(function (li, k) { li.classList.toggle('is-on', k <= m); li.classList.toggle('is-now', k === n && n < 3); });
+      tl.style.setProperty('--bf-s', m);
       pt.textContent = names[n]; pill.setAttribute('data-verdict', verd[n]);
-      rec.classList.toggle('is-live', n === 3);
+      rec.classList.toggle('is-live', n === 2);
     };
     if (reduce) { show(3); }
     else {

@@ -1,13 +1,15 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
-/* Home (21 Oct 2026): the BIR readiness check, the e-invoicing countdown, the BIR report viewer, and pausing the
+/* Home (22 Oct 2026): the e-invoicing group check, the e-invoicing countdown, the BIR report viewer, and pausing the
    decorative motion of any home section that is off screen. General guidance from RR 26-2025 and RMC 98-2026;
-   the page says so next to the result. Sample report data matches assets/docs/technext-sample-bir-reports.pdf. */
+   the page says so next to the result, and every result asks the visitor to confirm with their accountant or RDO.
+   Sample report data matches assets/docs/technext-sample-bir-reports.pdf. The e-invoice tab shows invoices posted in
+   Odoo only: Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---------------------------------------------------------------- readiness check */
+  /* ---------------------------------------------------------------- e-invoicing group check */
   var form = $('[data-bircheck]'), panel = $('[data-birresult]');
   if (form && panel) {
     var pill = $('.fx-pill', panel), pillT = $('[data-verdict-t]', panel), say = $('[data-say]', panel);
@@ -17,9 +19,9 @@
 
     var TXT = {
       pending: ['Answer the questions', 'Your answers decide whether you are in the first e-invoicing group, and what to prepare.'],
-      covered: ['Covered by 31 Dec 2026', 'You are in the first group that must issue e-invoices by 31 December 2026. Here is what has to be ready.'],
-      likely: ['Likely covered: confirm', 'You may be in the first e-invoicing group. Confirm with your accountant, and plan as if you are.'],
-      later: ['Not in the first group', 'You are not in the first group named in RR 26-2025. Later phases follow, and your books and BIR reports apply now.'],
+      covered: ['Likely covered by 31 Dec 2026', 'Your answers suggest you are in the first group that must issue e-invoices by 31 December 2026. Confirm with your accountant or RDO; these are the steps that group faces.'],
+      likely: ['Possibly covered: confirm', 'You may be in the first e-invoicing group. Confirm with your accountant or RDO, and plan as if you are.'],
+      later: ['Likely not in the first group', 'Your answers suggest you are not in the first group named in RR 26-2025; confirm with your accountant. Later phases follow, and your books and BIR reports apply now.'],
       exempt: ['Exempt: micro taxpayer', 'Micro taxpayers are exempt from mandatory e-invoicing. Your books, 2307s and returns still apply.']
     };
     var STEPS = { covered: ['pti', 'eis', 'books', 'reports', 'branches'], likely: ['pti', 'eis', 'books', 'reports', 'branches'],
@@ -57,7 +59,7 @@
       });
       if (book && BOOK) {
         var bits = Object.keys(a).filter(function (k) { return a[k]; }).map(function (k) { return LABEL[k][a[k]]; });
-        var msg = 'BIR readiness check: ' + (bits.length ? bits.join(', ') : 'not answered') + '. Result: ' + TXT[v][0] + '.';
+        var msg = 'E-invoicing group check: ' + (bits.length ? bits.join(', ') : 'not answered') + '. Result: ' + TXT[v][0] + '.';
         book.setAttribute('href', BOOK + (BOOK.indexOf('?') > -1 ? '&' : '?') + 'message=' + encodeURIComponent(msg));
       }
     }
@@ -116,13 +118,13 @@
                ['Purchases', 'Services', '240,000.00', '28,800.00']],
         total: ['Net', 'VAT payable', '', '54,102.00'],
         foot: 'Drill into any line in Odoo to see the invoices and bills behind it.' },
-      einv: { t: 'E-invoices sent · today', feed: [1, 3, 5],
-        head: ['Invoice', 'Customer', 'Amount', 'Status'], num: [2],
-        rows: [['INV/2026/1142', 'Azure Bay Hotels', '943,040.00', '<span class="fx-ok">Accepted</span>'],
-               ['INV/2026/1157', 'Pinecrest Clinics', '472,760.00', '<span class="fx-ok">Accepted</span>'],
-               ['INV/2026/1163', 'Lumen Export Co.', '560,000.00', '<span class="fx-ok">Accepted</span>'],
-               ['CN/2026/0042', 'Kalye Foods Corp.', '-12,000.00', '<span class="fx-ok">Accepted</span>']],
-        foot: 'Illustrative. The connection to the BIR’s EIS is project work we build and test on a copy of your database.' }
+      einv: { t: 'Invoices posted in Odoo · Q3 2026', feed: [1, 3, 5],
+        head: ['Invoice', 'Customer', 'Amount', 'In Odoo', 'BIR’s EIS'], num: [2],
+        rows: [['INV/2026/1142', 'Azure Bay Hotels', '943,040.00', 'Posted · locked', 'Assessed separately'],
+               ['INV/2026/1157', 'Pinecrest Clinics', '472,760.00', 'Posted · locked', 'Assessed separately'],
+               ['INV/2026/1163', 'Lumen Export Co.', '560,000.00', 'Posted · locked', 'Assessed separately'],
+               ['CN/2026/0042', 'Kalye Foods Corp.', '-12,000.00', 'Credit note, posted', 'Assessed separately']],
+        foot: 'Illustrative. Odoo has no built-in connection to the BIR’s EIS, and TechNext has not built one; we assess the options with you.' }
     };
     var tabs = $$('[data-rep]', rep), tblH = $('[data-sheet-tbl] thead', rep), tblB = $('[data-sheet-tbl] tbody', rep);
     var title = $('[data-sheet-t]', rep), foot = $('[data-sheet-foot]', rep), ledger = $$('[data-ledger] li', rep);

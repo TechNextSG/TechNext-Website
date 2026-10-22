@@ -47,7 +47,7 @@
     li.querySelector('span').appendChild(document.createTextNode(ev[1]));
     feed.insertBefore(li, feed.firstChild);
     while (feed.children.length > 3) feed.removeChild(feed.lastChild);
-    if (runSt && step === 2) { runSt.className = 'ph-st is-ok'; runSt.textContent = 'Validated'; }
+    if (runSt && step === 2) { runSt.className = 'ph-st is-ok'; runSt.textContent = 'Generated'; }   // the DAT is generated in Odoo; the BIR's module checks it
   }
 
   function loop() { if (timer || reduce) return; timer = setInterval(push, 3400); }

@@ -10,7 +10,7 @@ TN.demo('rolematch', function (root, K) {
     fin: { w: { proc: .6, acct: 1 }, steps: ['Discovery: how the client closes the books', 'Odoo Accounting, Expenses, Assets, Analytic, Budgets', 'Tax and e-invoicing: VAT/GST, withholding, BIR', 'Opening balances, UAT and training'] },
     sales: { w: { sales: 1, proc: .4 }, steps: ['Discovery with buyers in the US, Singapore and the EU', 'Qualification', 'Proposal and negotiation', 'Close'] },
     mkt: { w: { content: 1, sales: .3 }, steps: ['Content calendar and gated assets', 'Landing pages and campaigns for the US, Singapore and EU', 'Nurture email sequences', 'Hand-off to sales, tracked from visitor to lead'] },
-    cpa: { w: { acct: 1 }, steps: ['Bookkeeping, reconciliations, AP and AR', 'Month-end and year-end close', 'BIR filings: VAT, withholding and income tax', 'Philippine and Singapore entities, in Odoo'] },
+    cpa: { w: { acct: 1 }, steps: ['Bookkeeping, reconciliations, AP and AR', 'Month-end and year-end close', 'TechNext's own BIR filings: VAT, withholding and income tax', 'Philippine and Singapore entities, in Odoo'] },
     hr: { w: { people: 1 }, steps: ['Policies and HR systems from the ground up', 'Recruitment for developers and consultants', 'Onboarding and performance reviews', 'Employee relations across a hybrid team'] }
   };
   function scores() {

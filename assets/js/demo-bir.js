@@ -36,7 +36,7 @@ TN.demo('bir', function (root, K) {
     [['Payroll run', function (m) { return m > 11 ? 'the year closed' : EMP[m] + ' employees'; }],
      ['1601-C items', function (m) { return m > 11 ? '12 months of items' : 'monthly payroll reporting'; }],
      ['BIR 2316', function (m) { return m > 11 ? YEAR_EMP + ' certificates, one per employee' : 'yearly'; }],
-     ['1604-C and Alphalist DAT', function (m) { return m > 11 ? 'worksheets and the DAT for eSubmission' : 'yearly'; }]]
+     ['1604-C and Alphalist DAT', function (m) { return m > 11 ? 'worksheets and a DAT file in the BIR eSubmission format' : 'yearly'; }]]
   ];
 
   var grid = K.$('.bir-grid', root), scrub = K.$('.bir-scrub input', root), moEl = K.$('.bir-mo', root), kMonth = K.$('[data-k="month"]', root);
@@ -89,7 +89,7 @@ TN.demo('bir', function (root, K) {
         for (var i = 0; i < 12; i++) row.appendChild(cell('', 'is-none', i, i, function () { return [r.n, 'Yearly: produced once the year closes']; }));
         row.appendChild(cell(r.k === '2316' ? String(YEAR_EMP) : 'DAT', 'is-y', 12, 12, function () {
           return r.k === '2316' ? ['Year-end · BIR 2316', 'One certificate for each of the ' + YEAR_EMP + ' employees on the payroll during the year']
-                                : ['Year-end · 1604-C', 'Summary worksheets and a validated Alphalist DAT file for eSubmission'];
+                                : ['Year-end · 1604-C', 'Summary worksheets and an Alphalist DAT file in the BIR eSubmission format, to check in the BIR’s module'];
         }));
       }
       grid.appendChild(row);
@@ -148,7 +148,7 @@ TN.demo('bir', function (root, K) {
     } else {
       items.push(['BIR 2316', YEAR_EMP + ' yearly certificates, one per employee', 'var(--tok-make)']);
       items.push(['1604-C', 'summary worksheets from the year’s payroll', 'var(--tok-make)']);
-      items.push(['Alphalist DAT', 'validated file for BIR eSubmission', 'var(--ok)']);
+      items.push(['Alphalist DAT', 'DAT file in the BIR eSubmission format, to check in the BIR’s module', 'var(--tok-make)']);
     }
     items.forEach(function (x) {
       var li = K.el('li'); li.style.setProperty('--c', x[2]); li.appendChild(K.el('i'));
