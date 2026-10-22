@@ -1,73 +1,74 @@
-<!--meta {"title": "Odoo Customization — Singapore & Philippines", "desc": "Odoo customization in Singapore and the Philippines: upgrade-safe modules, reports and workflows built by TechNext, without hiring your own developers.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/custom.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/custom.css?v={ASSET_V}\">", "body": "ixw ixw--custom ow-page"} -->
+<!--meta {"title": "Odoo Customization — Singapore & Philippines", "desc": "Odoo customization in Singapore and the Philippines: upgrade-safe modules, reports and workflows built by TechNext, so you need no developers of your own.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js", "assets/js/pages/svc-fx.js", "assets/js/pages/erp-system-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/erp-system-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx cst-fx"} -->
+<!-- /odoo/erp-system (22 Oct 2026 futuristic redesign): the atelier world hero, the Nexi Explains tag, the price-tag cards and the tailoring
+     verbs are gone. Hero = glass layer stack (requirements climbing from standard to configuration, Studio, a custom module and an
+     integration, sample data). The layers demo is kept and restyled as glass. Styles: assets/css/pages/erp-system-fx.css,
+     behaviour: assets/js/pages/erp-system-fx.js. -->
 
-<section class="ixw-hero" data-ixw-hero data-world="custom" data-home="915,150" aria-labelledby="ixw-h1">
-  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
-  <div class="container ixw-hero-in">
-    <div class="ixw-copy">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span><span>ERP System</span></nav>
-      <p class="ixw-ep"><a class="ixw-ep-tag" href="{{ROOT}}nexi-explains.html">{{icon:play}}Nexi Explains</a><span>Odoo customization</span></p>
-      <h1 id="ixw-h1">Odoo shaped to how you work, safe for the next upgrade.</h1>
-      <p class="lead"><span class="m-full">Standard Odoo first. It's one database across every department, with modules switched on as you need them. Where your process genuinely differs, we build the Odoo 20 module, workflow or report you need, in a way that survives version upgrades and that another developer could maintain.</span><span class="m-short">Standard Odoo first; custom modules only where your process differs, built to survive upgrades.</span></p>
-      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
-      <p class="ixw-hint">{{icon:sparkle}}<span>Tap the tailors, the client, the rack, the mirror or the boxed module.</span></p>
-    </div>
-  </div>
-  <div class="ixw-set" data-ixw-set>
-    <div class="ixw-front" data-ixw-front>
-      <button class="ixw-cast" type="button" data-cast="dv1" data-near="405,150" data-who="TechNext developer" data-role="pattern drafter · illustration" data-say="The pattern inherits the standard order and adds **one approval step**. Nothing more." style="--x:545;--y:318;--w:84;--h:100" aria-label="Say hi to the pattern drafter (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b><i>drafts the pattern</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="dv2" data-near="915,150" data-who="TechNext developer" data-role="sews the module · illustration" data-say="Cut and sewn as a **separate module**, and the tests pass on the next version too." style="--x:866;--y:318;--w:70;--h:100" aria-label="Say hi to the developer at the sewing machine (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Developer</b><i>sews the module</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="cli" data-near="405,150" data-who="Client" data-role="Client team · illustration" data-say="Off the rack it already fit **most** of our business. Now it fits our approvals too." style="--x:680;--y:330;--w:90;--h:236" aria-label="Say hi to the client on the podium (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Client</b><i>being fitted</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="tai" data-near="915,150" data-who="TechNext lead consultant" data-role="head tailor · illustration" data-say="Could **configuration** or Studio do it? Then we don't write code. Measure twice, code once." style="--x:776;--y:358;--w:88;--h:226" aria-label="Say hi to the head tailor (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Head tailor</b><i>measures</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="fc" data-near="260,150" data-who="TechNext consultant" data-role="fitter · illustration" data-say="Pinned, chalked, tried on: it **fits**. Standard where it can be, tailored only where it must." style="--x:-60;--y:350;--w:96;--h:240" aria-label="Say hi to the fitter at the dress form (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Fitter</b><i>TechNext</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="ac" data-near="260,150" data-who="Visitor · client" data-role="waiting for a fitting · illustration" data-say="I came in for a custom suit. Turns out most of it was **ready-to-wear**, with one tailored piece." style="--x:-330;--y:500;--w:110;--h:190" aria-label="Say hi to the client in the armchair (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Client</b><i>visitor</i></span></button>
-
-      <button class="ixw-hot" type="button" data-hot="standard" data-nx="405,150" data-pose="point-left" data-rec="Standard apps · one database, switched on as needed" data-say="**Standard Odoo first**, off the rack: one database for every department, apps switched on as you need them." style="--x:260;--y:250;--w:168;--h:300" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:accountant:18}}<b>Off the rack</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="fit" data-nx="405,150" data-pose="point-right" data-rec="Configuration · Studio · fields, views, approvals" data-say="Then **configuration and Studio**: settings, new fields, views and approvals, pinned in place without code." style="--x:556;--y:8;--w:150;--h:100" aria-pressed="false"><span class="ixw-hot-lab">{{odoo:web_studio:18}}<b>Pinned, not cut</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="module" data-nx="915,150" data-pose="present" data-rec="Custom module · only where it earns its place" data-say="A **custom module** only where your process genuinely differs, cut and sewn as a separate piece." style="--x:952;--y:350;--w:96;--h:100" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>Custom module</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="code" data-nx="405,150" data-pose="present" data-rec="custom_approvals · models/sale_order.py" data-say="The pattern is clean **code** that inherits Odoo, so another developer could maintain it." style="--x:443;--y:350;--w:120;--h:84" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>The pattern</b></span></button>
-      <button class="ixw-hot ixw-hot--below" type="button" data-hot="upgrade" data-nx="915,150" data-pose="wow" data-rec="Upgrade check · this version → next version" data-say="Every module is tried on the **next version** before it ships, so it still fits after the upgrade." style="--x:825;--y:-64;--w:330;--h:152" aria-pressed="false"><span class="ixw-hot-lab">{{icon:check}}<b>Still fits next season</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="editions" data-nx="405,150" data-pose="point-left" data-rec="Odoo Online · Odoo.sh · On-premise" data-say="It runs on **Odoo Online, Odoo.sh or on-premise**; custom code needs Odoo.sh or your own servers." style="--x:260;--y:-44;--w:168;--h:172" aria-pressed="false"><span class="ixw-hot-lab">{{icon:globe}}<b>Where it's worn</b></span></button>
-
-      <button class="ixw-toy" type="button" data-toy="box" data-near="405,150" data-pose="wow" data-say="Unboxing **custom_approvals**: one tidy, separate module." style="--x:607;--y:371;--w:52;--h:48" aria-label="Open the boxed module"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Open the box</b></span></button>
-
-      <div class="ixw-nexi" data-ixw-nexi style="--nx:915;--ny:150" data-reacts="wow::Off the rack **and** a perfect fit!|love::Standard first. I **love** a house rule.|celebrate::Still fits after the upgrade. **Yay!**|think::Hmm… could **Studio** pin it without cutting?">
-        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:custom}}</span></button></div>
-      </div>
-    </div>
-    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. Welcome to the **atelier**: standard Odoo off the rack, tailored only where it must fit." data-outro="Off the rack first, tailored where it counts, and it **still fits** after the upgrade. That's customization.">
-      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:custom}}<b data-for="dv1" style="--c:#3167CA">D</b><b data-for="dv2" style="--c:#2E9C7E">D</b><b data-for="cli" style="--c:#714B67">C</b><b data-for="tai" style="--c:#5A6B8C">T</b><b data-for="fc" style="--c:#2E9C7E">F</b><b data-for="ac" style="--c:#3167CA">C</b></span>
-      <div class="ixw-cap-body">
-        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · the Odoo atelier">assistant · the Odoo atelier</small></p>
-        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. Welcome to the <b>atelier</b>: standard Odoo off the rack, tailored only where it must fit.</span><i class="ixw-caret"></i></p>
-        <p class="sr-only" aria-live="polite" data-ixw-live></p>
-        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
-      </div>
-      <div class="ixw-cap-side">
-        <div class="ixw-cap-ctl">
-          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
-          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
-          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
-        </div>
-        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: off the rack"></button><button type="button" data-ixw-dot aria-label="Stop 3: configuration and Studio"></button><button type="button" data-ixw-dot aria-label="Stop 4: custom module"></button><button type="button" data-ixw-dot aria-label="Stop 5: the pattern"></button><button type="button" data-ixw-dot aria-label="Stop 6: upgrade-safe"></button><button type="button" data-ixw-dot aria-label="Stop 7: where it runs"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="container ixw-credits-wrap">
-  <h2 class="sr-only">At a glance</h2>
-  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:database}}What it is</dt><dd>One Odoo database, all departments</dd></div><div><dt>{{icon:layers}}Modules</dt><dd>Switched on as you need them</dd></div><div><dt>{{icon:globe}}Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div><div><dt>{{icon:check}}Approach</dt><dd>Standard first, custom where it earns its place</dd></div><div><dt>{{icon:trend}}Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div></dl>
-</div>
-
-<section class="section section--tight answer-sec">
-  <div class="container"><div class="answer-box reveal"><p class="answer-h">In one paragraph</p><p>Odoo customization at TechNext starts from standard Odoo: one database across every department, with apps switched on as you need them. Where your process genuinely differs, we build the module, workflow, report or approval you need, in a way that survives version upgrades and that another developer could maintain.</p></div></div>
-</section>
-
-<section class="section demo-sec" id="customisation-layers">
+<!-- ============================================================ HERO -->
+<section class="fx-hero sv-hero cst-hero" aria-labelledby="cst-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container">
-    <div class="cu-demo-top">
-    <div class="sec-head reveal"><span class="hand">standard first</span><h2>Upgrade-safe Odoo customisation: start at standard, climb only when you must.</h2><p class="lead">Every change TechNext makes to Odoo lives on the lowest layer that can carry it: standard features, then configuration, then Studio, and only then a custom module on Odoo.sh or an integration. Drag a requirement onto a layer, or press Suggest to run the decision tree, and watch the upgrade risk, effort and maintenance move.</p></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Customization</span></nav>
+    <div class="fx-hero-in">
+      <div class="sv-copy">
+        <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Singapore · Taguig City · Ho Chi Minh City</span></p>
+        <h1 id="cst-h1">Odoo shaped to how you work, safe for the next upgrade.</h1>
+        <p class="fx-lead">Standard Odoo first. It's one database across every department, with modules switched on as you need them. Where your process genuinely differs, we build the Odoo 20 module, workflow or report you need, in a way that survives version upgrades and that another developer could maintain.</p>
+        <div class="actions sv-act">
+          <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        </div>
+        <ul class="sv-chips" aria-label="Where Odoo runs">
+          <li><span>{{icon:globe}} Odoo Online</span></li>
+          <li><span>{{icon:code}} Odoo.sh</span></li>
+          <li><span>{{icon:database}} On-premise</span></li>
+        </ul>
+      </div>
+
+      <div class="sv-side">
+        <div class="sv-panel cst-panel" data-cst aria-label="Sample requirements placed on the lowest Odoo layer that can carry them. Sample data.">
+          <i class="fx-result-glow" aria-hidden="true"></i>
+          <div class="sv-bar">{{icon:layers}}<b>Where each change lives</b><span class="fx-tag">Sample data</span></div>
+          <p class="cst-req" aria-live="polite"><span>Requirement</span><b data-req>Five sample requirements, placed</b></p>
+
+          <ol class="cst-stack" data-stack aria-label="Customisation layers, top to bottom">
+            <li data-l="int"><span class="cst-lh">{{icon:plug}}<b>Integrations</b></span><span class="cst-slot" data-slot><span class="cst-pill">Nightly legacy sync</span></span><span class="cst-gate"><em data-g>Another system?</em></span></li>
+            <li data-l="mod"><span class="cst-lh">{{icon:code}}<b>Custom module</b></span><span class="cst-slot" data-slot><span class="cst-pill">Tiered sales commission</span></span><span class="cst-gate"><em data-g>Another system?</em></span></li>
+            <li data-l="stu"><span class="cst-lh">{{odoo:web_studio:22}}<b>Studio</b></span><span class="cst-slot" data-slot><span class="cst-pill">Gate code on the delivery slip</span></span><span class="cst-gate"><em data-g>Studio can?</em></span></li>
+            <li data-l="cfg"><span class="cst-lh">{{icon:gear}}<b>Configuration</b></span><span class="cst-slot" data-slot><span class="cst-pill">Purchase approval above S$5,000</span></span><span class="cst-gate"><em data-g>Settings can?</em></span></li>
+            <li data-l="std"><span class="cst-lh">{{icon:grid}}<b>Odoo standard</b></span><span class="cst-slot" data-slot><span class="cst-pill">Customer portal report</span></span><span class="cst-gate"><em data-g>Standard does it?</em></span></li>
+          </ol>
+
+          <div class="cst-meters" aria-label="Relative meters">
+            <div class="cst-m"><p><b>Upgrade risk</b><em data-mt="risk">Low</em></p><span class="cst-bar"><i data-m="risk" style="--w:.3"></i></span></div>
+            <div class="cst-m"><p><b>Effort</b><em data-mt="effort">Moderate</em></p><span class="cst-bar"><i data-m="effort" style="--w:.5"></i></span></div>
+            <div class="cst-m"><p><b>Maintenance</b><em data-mt="maint">Low</em></p><span class="cst-bar"><i data-m="maint" style="--w:.35"></i></span></div>
+          </div>
+          <p class="cst-verdict" data-verdict aria-live="polite">{{icon:check}}<span>Each change sits on the lowest layer that can carry it. Upgrade test passed on the next version.</span></p>
+        </div>
+        <p class="sv-fine">Sample requirements. The meters are relative, not estimates.</p>
+      </div>
     </div>
+
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="sv-glance">
+      <div><dt>What it is</dt><dd>One Odoo database, all departments</dd></div>
+      <div><dt>Modules</dt><dd>Switched on as you need them</dd></div>
+      <div><dt>Editions</dt><dd>Odoo Online · Odoo.sh · On-premise</dd></div>
+      <div><dt>Approach</dt><dd>Standard first, custom where it earns its place</dd></div>
+      <div><dt>Delivered</dt><dd>11+ enterprise clients · 10+ countries</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section section--tight sv-answer-sec">
+  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>Odoo customization at TechNext starts from standard Odoo: one database across every department, with apps switched on as you need them. Where your process genuinely differs, we build the module, workflow, report or approval you need, in a way that survives version upgrades and that another developer could maintain.</p></div></div>
+</section>
+
+<!-- ============================================================ LAYERS DEMO -->
+<section class="section fx-sec demo-sec" id="customisation-layers">
+  <div class="container">
+    <div class="sec-head reveal"><h2>Upgrade-safe Odoo customisation: start at standard, climb only when you must.</h2><p class="lead">Every change TechNext makes to Odoo lives on the lowest layer that can carry it: standard features, then configuration, then Studio, and only then a custom module on Odoo.sh or an integration. Drag a requirement onto a layer, or press Suggest to run the decision tree, and watch the upgrade risk, effort and maintenance move.</p></div>
     <div class="dm dm-layers reveal" data-demo="layers">
       <div class="dm-head">
         <div class="dm-title"><b>Where should each change live?</b><small>8 sample requirements · drag one onto a layer, or select it and choose</small></div>
@@ -128,98 +129,106 @@
   </div>
 </section>
 
-
-<section class="section cu-tags-sec">
+<!-- ============================================================ ALL-IN-ONE ERP -->
+<section class="section fx-sec fx-sec--alt" id="gives">
   <div class="container">
-    <div class="sec-head cu-head reveal"><span class="hand">what an all-in-one ERP gives you</span><h2>One system, tailored where it counts.</h2><p class="lead">Off the rack first: each piece below is altered only where your process genuinely differs.</p></div>
-    <div class="cu-tags">
-      <article class="cu-tag reveal" style="--i:0;--sw:#2E9C7E"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:database}}</span><span class="cu-tag-no">No. 01</span></div><h3>One database</h3><p>Sales, stock, purchasing and accounting share the same products, partners and journals — so a quote, a stock move and a ledger entry are the same data, not three copies.</p></article>
-      <article class="cu-tag reveal" style="--i:1;--sw:#3167CA"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:grid}}</span><span class="cu-tag-no">No. 02</span></div><h3>Modules on as needed</h3><p>Switch on Accounting, Sales, Inventory, Purchase, CRM and more only when you need them. The core stays the same as you grow.</p></article>
-      <article class="cu-tag reveal" style="--i:2;--sw:#E0456B"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:layout}}</span><span class="cu-tag-no">No. 03</span></div><h3>Fields, views &amp; documents</h3><p>Extra fields, tidier screen layouts, and quotation and invoice templates in your branding — plus the regulatory print-outs you have to produce.</p></article>
-      <article class="cu-tag reveal" style="--i:3;--sw:#E9A23B"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:refresh}}</span><span class="cu-tag-no">No. 04</span></div><h3>Workflows &amp; approvals</h3><p>Multi-level approvals, automated actions and validations that stop a wrong entry before it posts, not after.</p></article>
-      <article class="cu-tag reveal" style="--i:4;--sw:#5A6B8C"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:bars}}</span><span class="cu-tag-no">No. 05</span></div><h3>Reports &amp; dashboards</h3><p>Management reports, margin analyses and dashboards on live Odoo data, so leadership reads one set of numbers.</p></article>
-      <article class="cu-tag reveal" style="--i:5;--sw:#714B67"><div class="cu-tag-top"><span class="cu-btn-ic">{{icon:factory}}</span><span class="cu-tag-no">No. 06</span></div><h3>Industry modules</h3><p>Processes standard Odoo doesn't model, built as a separate module so the core stays clean and upgradable.</p></article>
+    <div class="sec-head reveal"><h2>One system, tailored where it counts.</h2><p class="lead">Standard first: each piece below is altered only where your process genuinely differs.</p></div>
+    <div class="cst-bento">
+      <article class="cst-b cst-b--wide sv-glass reveal"><h3>One database</h3><p>Sales, stock, purchasing and accounting share the same products, partners and journals, so a quote, a stock move and a ledger entry are the same data, not three copies.</p><ul class="cst-apps" aria-hidden="true"><li>{{odoo:sale:22}}Sales</li><li>{{odoo:stock:22}}Inventory</li><li>{{odoo:purchase:22}}Purchase</li><li>{{odoo:accountant:22}}Accounting</li></ul></article>
+      <article class="cst-b sv-glass reveal"><h3>Modules on as needed</h3><p>Switch on Accounting, Sales, Inventory, Purchase, CRM and more only when you need them. The core stays the same as you grow.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Fields, views and documents</h3><p>Extra fields, tidier screen layouts, and quotation and invoice templates in your branding, plus the regulatory print-outs you have to produce.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Workflows and approvals</h3><p>Multi-level approvals, automated actions and validations that stop a wrong entry before it posts, not after.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Reports and dashboards</h3><p>Management reports, margin analyses and dashboards on live Odoo data, so leadership reads one set of numbers.</p></article>
+      <article class="cst-b cst-b--wide sv-glass reveal"><h3>Industry modules</h3><p>Processes standard Odoo doesn't model, built as a separate module so the core stays clean and upgradable.</p></article>
     </div>
   </div>
 </section>
 
-<section class="section section--alt cu-fit-sec">
+<!-- ============================================================ HOW WE DELIVER IT -->
+<section class="section fx-sec" id="how">
   <div class="container">
-    <div class="sec-head cu-head reveal"><span class="hand">how we deliver it</span><h2>Standard first, custom where it earns its place.</h2><p class="lead">Measured, pinned, sewn and delivered: four fittings, in this order.</p></div>
-    <ol class="cu-fit" data-ixw-in>
-      <li class="cu-fit-step" style="--i:0"><p class="cu-fit-verb">{{icon:search}}<span>Measure</span><em>01</em></p><h3>Discovery &amp; fit</h3><p>Map your flows and decide what standard Odoo covers and what genuinely differs.</p></li>
-      <li class="cu-fit-step" style="--i:1"><p class="cu-fit-verb">{{icon:gear}}<span>Pin</span><em>02</em></p><h3>Configure standard</h3><p>Chart of accounts, taxes, warehouses, pricelists and approvals set in Odoo's own features.</p></li>
-      <li class="cu-fit-step" style="--i:2"><p class="cu-fit-verb">{{icon:code}}<span>Sew</span><em>03</em></p><h3>Build what's missing</h3><p>Separate modules, workflows and reports — version-controlled, reviewed and tested.</p></li>
-      <li class="cu-fit-step" style="--i:3"><p class="cu-fit-verb">{{icon:check}}<span>Deliver</span><em>04</em></p><h3>Edition, hosting &amp; go-live</h3><p>Choose Odoo Online, Odoo.sh or on-premise; then migrate, train and support.</p></li>
+    <div class="sec-head reveal"><h2>Standard first, custom where it earns its place.</h2><p class="lead">Four steps, in this order. Each one climbs only as far as the last one showed it must.</p></div>
+    <ol class="cst-climb reveal" data-climb>
+      <li style="--k:0"><span class="cst-kn">1</span><h3>Discovery and fit</h3><p>Map your flows and decide what standard Odoo covers and what genuinely differs.</p></li>
+      <li style="--k:1"><span class="cst-kn">2</span><h3>Configure standard</h3><p>Chart of accounts, taxes, warehouses, pricelists and approvals set in Odoo's own features.</p></li>
+      <li style="--k:2"><span class="cst-kn">3</span><h3>Build what's missing</h3><p>Separate modules, workflows and reports, version-controlled, reviewed and tested.</p></li>
+      <li style="--k:3"><span class="cst-kn">4</span><h3>Edition, hosting and go-live</h3><p>Choose Odoo Online, Odoo.sh or on-premise; then migrate, train and support.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="section cu-worn-sec">
-  <div class="container">
-    <div class="cu-worn">
-      <div class="cu-worn-copy reveal"><span class="hand">editions &amp; hosting</span><h2>One system, running where it should.</h2><p class="lead">Where Odoo runs is a scoping decision, not a default. We size the edition and hosting with you, then keep every customisation upgrade-safe — because custom code is a liability we deliberately keep small.</p>
-        <ul class="cu-bags" aria-label="Where Odoo runs">
-          <li class="cu-bag" style="--b:#3167CA;--bl:#E3ECFB"><span class="cu-bag-ic">{{icon:globe}}</span><b>Odoo Online</b><span>Odoo's cloud, automatic upgrades</span></li>
-          <li class="cu-bag" style="--b:#714B67;--bl:#F1E6EE"><span class="cu-bag-ic">{{icon:code}}</span><b>Odoo.sh</b><span>Staging branches, backups, version control</span></li>
-          <li class="cu-bag" style="--b:#23284A;--bl:#E3E6EE"><span class="cu-bag-ic">{{icon:database}}</span><b>On-premise</b><span>Or your own cloud where data residency decides it</span></li>
-        </ul>
-      </div>
-      <div class="cu-card reveal">
-        <p class="cu-card-h"><span>Fitting card</span><em>standard first · upgrade-safe</em></p>
-        <ul class="cu-checks">
-          <li>{{icon:check}}One Odoo database across departments</li>
-          <li>{{icon:check}}Modules switched on as your needs grow</li>
-          <li>{{icon:check}}Odoo Online — Odoo's cloud, automatic upgrades</li>
-          <li>{{icon:check}}Odoo.sh — staging branches, backups, version control</li>
-          <li>{{icon:check}}On-premise or your own cloud where data residency decides it</li>
-          <li>{{icon:check}}Standard configuration wherever it fits</li>
-          <li>{{icon:check}}Custom work as separate modules — never edits to Odoo's core</li>
-          <li>{{icon:check}}Version control, staging database and code review</li>
-          <li>{{icon:check}}Automated tests for anything that posts to accounting</li>
-          <li>{{icon:check}}Documentation and hand-over — you own the code</li>
-          <li>{{icon:check}}An upgrade path kept predictable</li>
-          <li>{{icon:check}}Migration, training and support included in delivery</li>
-        </ul>
-      </div>
+<!-- ============================================================ EDITIONS + DELIVERY CHECKLIST -->
+<section class="section fx-sec fx-sec--alt" id="deliverables">
+  <div class="container sv-get">
+    <div class="sv-get-l reveal">
+      <h2>One system, running where it should.</h2>
+      <p class="lead">Where Odoo runs is a scoping decision, not a default. We size the edition and hosting with you, then keep every customisation upgrade-safe, because custom code is a liability we deliberately keep small.</p>
+      <ul class="cst-host" aria-label="Where Odoo runs">
+        <li>{{icon:globe}}<span><b>Odoo Online</b><small>Odoo's cloud, automatic upgrades</small></span></li>
+        <li>{{icon:code}}<span><b>Odoo.sh</b><small>Staging branches, backups, version control</small></span></li>
+        <li>{{icon:database}}<span><b>On-premise</b><small>Or your own cloud where data residency decides it</small></span></li>
+      </ul>
+    </div>
+    <div class="sv-doc reveal">
+      <div class="sv-doc-bar"><b>Delivery checklist</b><em>12 / 12</em></div>
+      <ul class="sv-ticks">
+        <li>{{icon:check}}<span>One Odoo database across departments</span></li>
+        <li>{{icon:check}}<span>Modules switched on as your needs grow</span></li>
+        <li>{{icon:check}}<span>Odoo Online: Odoo's cloud, automatic upgrades</span></li>
+        <li>{{icon:check}}<span>Odoo.sh: staging branches, backups, version control</span></li>
+        <li>{{icon:check}}<span>On-premise or your own cloud where data residency decides it</span></li>
+        <li>{{icon:check}}<span>Standard configuration wherever it fits</span></li>
+        <li>{{icon:check}}<span>Custom work as separate modules, never edits to Odoo's core</span></li>
+        <li>{{icon:check}}<span>Version control, staging database and code review</span></li>
+        <li>{{icon:check}}<span>Automated tests for anything that posts to accounting</span></li>
+        <li>{{icon:check}}<span>Documentation and hand-over: you own the code</span></li>
+        <li>{{icon:check}}<span>An upgrade path kept predictable</span></li>
+        <li>{{icon:check}}<span>Migration, training and support included in delivery</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="section section--alt cu-faq-sec">
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec">
   <div class="container">
-    <div class="cu-faq-wrap">
-      <aside class="cu-faq-side reveal">
-        <span class="hand">common questions</span><h2>Odoo ERP, answered.</h2>
-      </aside>
-      <div class="faq cu-faq reveal">
-        <details><summary>What is an all-in-one ERP? {{icon:chevron}}</summary><div class="faq-a"><p>One database where sales, stock, purchasing and accounting share the same records, instead of separate apps that don't talk to each other and have to be reconciled by hand.</p></div></details>
-        <details><summary>Do we need every module at once? {{icon:chevron}}</summary><div class="faq-a"><p>No. Modules are switched on as you need them. Most companies start with Accounting, Sales and Inventory and add more as they grow.</p></div></details>
-        <details><summary>Where does Odoo run? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo Online for the fastest start on standard apps, Odoo.sh when you need custom development, or on-premise / your own cloud when data residency or existing infrastructure decides it. We help you choose.</p></div></details>
-        <details><summary>Will customisation break future upgrades? {{icon:chevron}}</summary><div class="faq-a"><p>Not the way we build it. Customisations live in separate modules, are tested and documented, and never edit Odoo's own code — so the upgrade path stays predictable.</p></div></details>
-        <details><summary>Do the licences cost extra? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are billed by Odoo per user per month. Our implementation and customisation work is quoted separately, so you can see each part clearly.</p></div></details>
-        <details><summary>How is it priced? {{icon:chevron}}</summary><div class="faq-a"><p>On quotation, scoped to the apps, data and customisation you need — <a href="{{ROOT}}quotation.html">request a quotation</a>.</p></div></details>
+    <div class="sec-head reveal"><h2>Odoo ERP, answered.</h2></div>
+    <div class="faq fx-faq reveal">
+      <details><summary>What is an all-in-one ERP? {{icon:chevron}}</summary><div class="faq-a"><p>One database where sales, stock, purchasing and accounting share the same records, instead of separate apps that don't talk to each other and have to be reconciled by hand.</p></div></details>
+      <details><summary>Do we need every module at once? {{icon:chevron}}</summary><div class="faq-a"><p>No. Modules are switched on as you need them. Most companies start with Accounting, Sales and Inventory and add more as they grow.</p></div></details>
+      <details><summary>Where does Odoo run? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo Online for the fastest start on standard apps, Odoo.sh when you need custom development, or on-premise / your own cloud when data residency or existing infrastructure decides it. We help you choose.</p></div></details>
+      <details><summary>Will customisation break future upgrades? {{icon:chevron}}</summary><div class="faq-a"><p>Not the way we build it. Customisations live in separate modules, are tested and documented, and never edit Odoo's own code, so the upgrade path stays predictable.</p></div></details>
+      <details><summary>Do the licences cost extra? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are billed by Odoo per user per month. Our implementation and customisation work is quoted separately, so you can see each part clearly.</p></div></details>
+      <details><summary>How is it priced? {{icon:chevron}}</summary><div class="faq-a"><p>On quotation, scoped to the apps, data and customisation you need: <a href="{{ROOT}}quotation.html">request a quotation</a>.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ RELATED -->
+<section class="section fx-sec fx-sec--alt">
+  <div class="container">
+    <div class="sec-head reveal"><h2>Explore further.</h2></div>
+    <div class="sv-rel reveal">
+      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP Development</b><small>How we implement Odoo end to end: configure, migrate, train and support on one database.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Map your flows and match each step to an Odoo app before deciding what to build.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/apps.html">{{icon:grid}}<span><b>All Odoo apps</b><small>Every Odoo app, by department, with what each one does and where it fits.</small></span><em>Learn more {{icon:arrow}}</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec" id="talk">
+  <div class="container">
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div>
+        <h2>Tell us what's manual today.</h2>
+        <p>We'll say which apps to switch on first, what standard Odoo already covers, and what genuinely needs building.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section cu-rel-sec">
-  <div class="container">
-    <div class="sec-head cu-head reveal"><span class="hand">related services</span><h2>Explore further.</h2></div>
-    <div class="cu-swatches">
-      <a class="cu-swatch reveal" style="--i:0;--sw:#3167CA" href="{{ROOT}}solutions/odoo-erp.html"><span class="cu-btn-ic">{{icon:layers}}</span><h3>Odoo ERP Development</h3><p>How we implement Odoo end to end — configure, migrate, train and support on one database.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="cu-swatch reveal" style="--i:1;--sw:#2E9C7E" href="{{ROOT}}odoo/discovery.html"><span class="cu-btn-ic">{{icon:search}}</span><h3>Odoo Discovery</h3><p>Map your flows and match each step to an Odoo app before deciding what to build.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="cu-swatch reveal" style="--i:2;--sw:#714B67" href="{{ROOT}}odoo/apps.html"><span class="cu-btn-ic">{{icon:grid}}</span><h3>All Odoo apps</h3><p>Every Odoo app, by department, with what each one does and where it fits.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-    </div>
-  </div>
-</section>
-
-<section class="section section--alt cu-cta-sec">
-  <div class="container">
-    <div class="cta ixw-cta cu-cta reveal" data-ixw-burst>
-      <div><span class="hand">next step</span><h2>Tell us what's manual today.</h2><p>We'll say which apps to switch on first, what standard Odoo already covers, and what genuinely needs building.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Talk to us</a></div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+      </div>
     </div>
   </div>
 </section>

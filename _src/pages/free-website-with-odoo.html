@@ -1,9 +1,12 @@
-<!--meta {"title": "Free Website & Brand Design with Your Odoo | TechNext", "desc": "Start your Odoo with TechNext and your website and brand design come with it, connected to your CRM, sales and stock. You don't need to hire your own team.", "out": "free-website-with-odoo.html", "nav": "", "body": "gs-page fw-page", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/get-started.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/free-website.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Free Website & Brand Design with Your Odoo | TechNext", "desc": "Start your Odoo with TechNext and your website and brand design come with it, connected to your CRM, sales and stock. You don't need to hire your own team.", "out": "free-website-with-odoo.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\">"} -->
+<!-- /free-website-with-odoo (22 Oct 2026 redesign): the offer lander in the glass system. Eyebrow labels and icon tiles removed. The
+     free-website form stays the primary action; "Book a discovery call" is the secondary. Shares assets/css/pages/get-started-fx.css
+     (focused header, hero + form) and adds assets/css/pages/free-website-fx.css. -->
 
-<section class="gs-hero">
+<section class="fx-hero gs-hero">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container gs-hero-grid">
     <div class="gs-copy">
-      <span class="hand">free with your Odoo</span>
       <h1>Your website and brand, built free. <em>You don't need to hire your own team.</em></h1>
       <p class="lead">Start Odoo with TechNext and we build your website and brand kit inside it, connected to your CRM, sales and stock. After go-live, we stay on as your team.</p>
       <ul class="gs-ticks">
@@ -11,9 +14,13 @@
         <li>{{icon:check}} Built in Odoo, so every enquiry lands in your CRM</li>
         <li>{{icon:check}} Odoo Ready Partner · Singapore, Philippines, Vietnam</li>
       </ul>
+      <div class="actions fw-hero-act">
+        <a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+      </div>
     </div>
 
-    <form class="form gs-form card card--static" id="gs-form" novalidate data-endpoint="/api/lead">
+    <form class="form gs-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead">
+      <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="Free website with Odoo page">
       <h2 class="gs-form-h">Claim your free website</h2>
@@ -58,12 +65,17 @@
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ WHAT'S FREE -->
+<section class="section fx-sec">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">what's free</span><h2>Two things you'd normally pay for.</h2><p class="lead">Both come with your Odoo, designed by the same team that sets it up.</p></div>
+    <div class="sec-head reveal"><h2>Two things you'd normally pay for.</h2><p class="lead">Both come with your Odoo, designed by the same team that sets it up.</p></div>
     <div class="fw-free">
-      <article class="card card--static fw-free-card reveal" style="--i:0">
-        <span class="card-ic">{{icon:sol-brand}}</span>
+      <article class="fw-free-card reveal">
+        <div class="fw-pv fw-pv--brand" aria-hidden="true" data-loop>
+          <span class="fw-sw"><i style="--c:#3167CA"></i><i style="--c:#1F1F3D"></i><i style="--c:#6FA0F5"></i><i style="--c:#EAF0FB"></i></span>
+          <span class="fw-aa"><b>Aa</b><small>Colours and fonts</small></span>
+          <span class="fw-mk">{{icon:sparkle}}</span>
+        </div>
         <h3>Brand kit</h3>
         <p>A clean, consistent look your team can use every day.</p>
         <ul class="fw-list">
@@ -73,8 +85,12 @@
           <li>{{icon:check}} Business card and email signature design</li>
         </ul>
       </article>
-      <article class="card card--static fw-free-card reveal" style="--i:1">
-        <span class="card-ic">{{icon:sol-web}}</span>
+      <article class="fw-free-card reveal">
+        <div class="fw-pv fw-pv--site" aria-hidden="true" data-loop>
+          <span class="fw-bar"><i></i><i></i><i></i><em>yourcompany.com</em></span>
+          <span class="fw-lines"><b></b><b class="s"></b></span>
+          <span class="fw-lead">{{odoo:crm:20}}<em>New lead from the website form</em></span>
+        </div>
         <h3>Website, built in Odoo</h3>
         <p>Your company website on Odoo's own website builder, set up by us.</p>
         <ul class="fw-list">
@@ -88,27 +104,28 @@
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ WHY ODOO -->
+<section class="section fx-sec fx-sec--alt">
   <div class="container">
-    <div class="two fw-why">
+    <div class="fw-why">
       <div class="reveal">
-        <span class="hand">why build it in Odoo</span>
         <h2>One system behind your website and your business.</h2>
         <p class="lead">A website on its own is a brochure. Built in Odoo, it becomes part of how you sell.</p>
       </div>
-      <ol class="fw-flow reveal" aria-label="What happens when a customer fills in your website form">
-        <li><span class="fw-flow-ic">{{icon:globe}}</span><b>A customer fills in your website form</b><small>Website</small></li>
-        <li><span class="fw-flow-ic">{{icon:target}}</span><b>A lead appears in Odoo CRM, assigned to your salesperson</b><small>CRM</small></li>
-        <li><span class="fw-flow-ic">{{icon:file}}</span><b>The quotation is sent from the same record</b><small>Sales</small></li>
-        <li><span class="fw-flow-ic">{{icon:receipt}}</span><b>Stock is reserved and the invoice is ready</b><small>Inventory · Accounting</small></li>
+      <ol class="fw-flow reveal" data-loop aria-label="What happens when a customer fills in your website form">
+        <li>{{icon:globe}}<span><b>A customer fills in your website form</b><small>Website</small></span></li>
+        <li>{{icon:target}}<span><b>A lead appears in Odoo CRM, assigned to your salesperson</b><small>CRM</small></span></li>
+        <li>{{icon:file}}<span><b>The quotation is sent from the same record</b><small>Sales</small></span></li>
+        <li>{{icon:receipt}}<span><b>Stock is reserved and the invoice is ready</b><small>Inventory · Accounting</small></span></li>
       </ol>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ ONE TEAM -->
+<section class="section fx-sec">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">you don't need to hire your own team</span><h2>One team instead of four hires.</h2><p class="lead">Most growing companies end up looking for an ERP admin, a web designer, a developer and an IT person. TechNext covers all of it.</p></div>
+    <div class="sec-head reveal"><h2>One team instead of four hires.</h2><p class="lead">Most growing companies end up looking for an ERP admin, a web designer, a developer and an IT person. TechNext covers all of it.</p></div>
     <div class="fw-compare reveal">
       <div class="fw-col fw-col--diy">
         <h3>Hiring your own</h3>
@@ -132,22 +149,24 @@
   </div>
 </section>
 
-<section class="section section--alt" id="care">
+<!-- ============================================================ CARE -->
+<section class="section fx-sec fx-sec--alt" id="care">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">after go-live</span><h2>TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo and your website running. Sized to your users and apps.</p></div>
-    <div class="grid-3 fw-care">
-      <article class="card card--static fw-tier reveal" style="--i:0">
-        <p class="fw-tier-name">Essentials</p>
-        <h3>Keep it running</h3>
+    <div class="sec-head reveal"><h2>TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo and your website running. Sized to your users and apps.</p></div>
+    <div class="fw-care">
+      <article class="fw-tier reveal">
+        <h3>Essentials</h3>
+        <p class="fw-tier-sub">Keep it running</p>
         <ul class="fw-list">
           <li>{{icon:check}} Odoo fixes and month-end help</li>
           <li>{{icon:check}} Website updates and small edits</li>
           <li>{{icon:check}} Odoo version upgrades, tested first</li>
         </ul>
       </article>
-      <article class="card card--static fw-tier fw-tier--pick reveal" style="--i:1">
-        <p class="fw-tier-name">Growth <span>most picked</span></p>
-        <h3>Keep improving</h3>
+      <article class="fw-tier fw-tier--pick reveal" data-loop>
+        <i class="fx-result-glow fw-glow" aria-hidden="true"></i>
+        <h3>Growth <span class="fx-tag fw-pick">Most picked</span></h3>
+        <p class="fw-tier-sub">Keep improving</p>
         <ul class="fw-list">
           <li>{{icon:check}} Everything in Essentials</li>
           <li>{{icon:check}} New reports, automations and small features</li>
@@ -155,9 +174,9 @@
           <li>{{icon:check}} An AI chatbot on your website or WhatsApp</li>
         </ul>
       </article>
-      <article class="card card--static fw-tier reveal" style="--i:2">
-        <p class="fw-tier-name">Full team</p>
-        <h3>Your whole tech team</h3>
+      <article class="fw-tier reveal">
+        <h3>Full team</h3>
+        <p class="fw-tier-sub">Your whole tech team</p>
         <ul class="fw-list">
           <li>{{icon:check}} Everything in Growth</li>
           <li>{{icon:check}} A quarterly review and roadmap</li>
@@ -167,22 +186,24 @@
   </div>
 </section>
 
-<section class="section gs-how">
+<!-- ============================================================ HOW IT WORKS -->
+<section class="section fx-sec gs-how">
   <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">how it works</span><h2>Four steps.</h2></div>
-    <ol class="gs-steps fw-steps">
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Tell us</h3><p>Send the form. We book a short call about how you sell, stock and invoice today.</p></li>
-      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>See your homepage</h3><p>On the call we show a first idea for your new homepage and the Odoo apps to start with.</p></li>
-      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Go live together</h3><p>Odoo, website and brand kit launch together, with your team trained.</p></li>
-      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>We stay on</h3><p>TechNext Care keeps everything running and improving every month.</p></li>
+    <div class="sec-head reveal"><h2>Four steps.</h2></div>
+    <ol class="gs-steps fw-steps" data-loop>
+      <li class="reveal"><span class="gs-n">1</span><h3>Tell us</h3><p>Send the form. We book a short call about how you sell, stock and invoice today.</p></li>
+      <li class="reveal"><span class="gs-n">2</span><h3>See your homepage</h3><p>On the call we show a first idea for your new homepage and the Odoo apps to start with.</p></li>
+      <li class="reveal"><span class="gs-n">3</span><h3>Go live together</h3><p>Odoo, website and brand kit launch together, with your team trained.</p></li>
+      <li class="reveal"><span class="gs-n">4</span><h3>We stay on</h3><p>TechNext Care keeps everything running and improving every month.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="section section--alt">
-  <div class="container">
-    <div class="sec-head sec-head--center reveal"><span class="hand">common questions</span><h2>The offer, answered.</h2></div>
-    <div class="faq reveal fw-faq">
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="fw-faq-h">
+  <div class="container fx-faq">
+    <div class="sec-head reveal"><h2 id="fw-faq-h">The offer, answered.</h2></div>
+    <div class="faq reveal">
       <details><summary>Is the website really free? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team.</p></div></details>
       <details><summary>Who can claim it? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in Singapore, the Philippines and Vietnam that run their Odoo with TechNext. We confirm the details on the first call.</p></div></details>
       <details><summary>Why build the website in Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>Because the website then shares one database with your CRM, sales, stock and accounting. Website enquiries become leads, and online orders reserve stock, without copying anything between systems.</p></div></details>
@@ -193,11 +214,16 @@
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">ready when you are</span><h2>Get your website free with Odoo.</h2><p>Fill out the short form. It takes about a minute, and we reply from sales@technext.asia.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="#gs-form" data-to-form>Claim my free website {{icon:arrow}}</a></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>Get your website free with Odoo.</h2><p>Fill out the short form. It takes about a minute, and we reply from sales@technext.asia.</p></div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" href="#gs-form" data-to-form>Claim my free website {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
+      </div>
     </div>
   </div>
 </section>

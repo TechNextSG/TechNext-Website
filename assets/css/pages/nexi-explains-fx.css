@@ -1,0 +1,8 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /nexi-explains: only the closing band gets a third button (Book a discovery call first). The comic look is untouched;
+   this keeps the three buttons together instead of squeezing the headline. */
+@media (min-width: 961px) {
+  .nxe-cta .cta { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .nxe-cta .cta .actions { flex-wrap: wrap; justify-content: flex-start; }
+  .nxe-cta .cta .actions .btn:first-child { flex: 1 1 100%; justify-content: center; }
+}

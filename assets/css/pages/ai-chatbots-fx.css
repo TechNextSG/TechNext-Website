@@ -1,0 +1,88 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* /solutions/ai-chatbots (22 Oct 2026): one-inbox hero panel, the "what customers say" table, and the omnichannel inbox
+   (demo-inbox) as glass. Shared parts live in aix-fx.css; behaviour in assets/js/pages/aix-fx.js. */
+
+/* ---------------------------------------------------------------- hero panel: channels and a live conversation */
+.aix-tabs { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 12px; padding: 4px; width: fit-content; max-width: 100%; border-radius: 999px; background: rgba(255,255,255,.85); border: 1px solid var(--line); }
+.aix-tab { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border-radius: 999px; font: 600 13px/1 var(--font-body); color: var(--body);
+  transition: background-color .35s var(--fx-ease), color .35s var(--fx-ease); }
+.aix-tab .ic { width: 16px; height: 16px; flex: none; }
+.aix-tab .oi { width: 18px; height: 18px; flex: none; }
+.aix-grp.is-run .aix-tab[data-at]:not(.is-on) { opacity: 1; transform: none; }
+.aix-tab.is-on, .aix-grp:not(.is-run) .aix-tab.aix-fin-on { background: var(--blue); color: #fff; }
+.aix-convs { padding: 14px; border-radius: 16px; background: rgba(255,255,255,.92); outline: 1px solid #DCE5F5; outline-offset: -1px; min-height: 286px; align-content: start; }
+.aix-conv { display: grid; gap: 8px; align-content: start; }
+.aix-conv-h { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; padding-bottom: 10px; border-bottom: 1px solid #EEF1F7; }
+.aix-av { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--blue-050); color: var(--blue-700); font: 800 12px/1 var(--font-display); }
+.aix-conv-h b { font: 700 14px/1.2 var(--font-body); color: var(--ink); }
+.aix-conv-h small { margin-left: auto; font: 500 12px/1.2 var(--font-body); color: var(--body); }
+.aix-conv .aix-src .oi { width: 14px; height: 14px; flex: none; }
+.aix-inbox .aix-panel-foot { margin-top: 12px; }
+
+/* ---------------------------------------------------------------- what customers say, and what the chatbot does */
+.aix-ask { border-radius: 24px; overflow: hidden; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.aix-ask-head { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px; padding: 14px 32px; border-bottom: 1px solid var(--fx-line); background: rgba(255,255,255,.5); font: 700 13px/1 var(--font-body); color: var(--body); }
+.aix-ask-row { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px; align-items: center; padding: 22px 32px; }
+.aix-ask-row + .aix-ask-row { border-top: 1px solid var(--fx-line); }
+.aix-ask-row .aix-bub { justify-self: start; max-width: 340px; font-size: 15px; line-height: 1.45; padding: 11px 16px; border-bottom-right-radius: 14px; border-bottom-left-radius: 5px; }
+.aix-ask-row > div { display: grid; grid-template-columns: 28px minmax(0,1fr); gap: 16px; align-items: start; }
+.aix-ask-row .ic { width: 26px; height: 26px; color: var(--blue); margin-top: 2px; }
+.aix-ask-row h3 { margin: 0 0 4px; font: 800 18px/1.25 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.aix-ask-row p:not(.aix-bub) { margin: 0; font-size: 15px; line-height: 1.6; color: var(--body); }
+
+/* ---------------------------------------------------------------- omnichannel inbox (demo-inbox) as glass */
+.aix-chatbots .obx-list, .aix-chatbots .obx-side { background: rgba(255,255,255,.5); border-color: var(--fx-line); }
+.aix-chatbots .obx-mid { background: radial-gradient(60% 70% at 50% 45%, rgba(49,103,202,.1), transparent 70%); }
+.aix-chatbots .obx-h { font-size: 12.5px; letter-spacing: 0; text-transform: none; color: var(--body); }
+.aix-chatbots .obx-h small { font-size: 12px; }
+.aix-chatbots .obx-item { padding: 10px; border-radius: 14px; }
+.aix-chatbots .obx-item[aria-pressed="true"] { background: #fff; border-color: var(--blue-300); }
+.aix-chatbots .obx-av { width: 30px; height: 30px; background: none; border-radius: 0; color: #15704B; }
+.aix-chatbots .obx-item--web .obx-av { background: none; color: var(--blue); }
+.aix-chatbots .obx-item--mail .obx-av { background: none; color: var(--ink); }
+.aix-chatbots .obx-av .ic { width: 22px; height: 22px; }
+.aix-chatbots .obx-top b { font-size: 13px; }
+.aix-chatbots .obx-sla { font-size: 12px; }
+.aix-chatbots .obx-snip { font-size: 12.5px; }
+.aix-chatbots .obx-tags i { font-size: 12px; padding: 1px 7px; }
+.aix-chatbots .obx-phone[data-ch="wa"] { --pc: #15704B; }
+.aix-chatbots .obx-phone { border: 6px solid #26345F; border-radius: 32px; box-shadow: 0 30px 56px -30px rgba(30,70,145,.6); }
+.aix-chatbots .obx-pn b { font-size: 13.5px; }
+.aix-chatbots .obx-pn small { font-size: 12px; }
+.aix-chatbots .obx-pav { font-size: 12px; }
+.aix-chatbots .obx-pch { background: none; }
+.aix-chatbots .obx-mt { font-size: 13px; line-height: 1.45; }
+.aix-chatbots .obx-from { font-size: 12px; }
+.aix-chatbots .obx-sysl { font-size: 12px; }
+.aix-chatbots .obx-rech { font-size: 12.5px; }
+.aix-chatbots .obx-rec dl div { font-size: 12px; }
+.aix-chatbots .obx-handh { font-size: 12.5px; }
+.aix-chatbots .obx-hand li { font-size: 12px; }
+.aix-chatbots .obx-handd { font-size: 12px; }
+.aix-chatbots .obx-typing span { font-size: 12px; }
+.aix-chatbots .obx-comp span { font-size: 12.5px; color: #5F6784; }
+.aix-chatbots .obx-root span { font-size: 12px; }
+.aix-chatbots .obx-leaf { font-size: 12.5px; min-height: 30px; }
+.aix-chatbots .obx-br li > span:not(.obx-leaf) { font-size: 12px; }
+.aix-chatbots .obx-br em { font-size: 12px; }
+.aix-chatbots .obx-n { font-size: 12px; line-height: 18px; min-width: 18px; height: 18px; }
+.aix-chatbots .obx-leg li { font-size: 12.5px; }
+.aix-chatbots .obx-kpis dt { font-size: 12px; }
+.aix-chatbots .obx-br li { border-radius: 12px; }
+
+@media (max-width: 1080px) {
+  .aix-ask-head, .aix-ask-row { gap: 24px; padding-left: 24px; padding-right: 24px; }
+}
+@media (max-width: 760px) {
+  .aix-ask-head { display: none; }
+  .aix-ask-row { grid-template-columns: 1fr; gap: 14px; padding: 20px 18px; }
+  .aix-ask-row .aix-bub { max-width: 100%; }
+}
+@media (max-width: 760px) {
+  .aix-chatbots .obx-leaf { min-height: 44px; display: inline-flex; align-items: center; }
+  .aix-chatbots .obx-item { min-height: 44px; }
+}
+@media (max-width: 600px) {
+  .aix-tab { padding: 0 11px; font-size: 12.5px; }
+  .aix-convs { min-height: 300px; }
+}

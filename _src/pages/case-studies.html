@@ -1,109 +1,154 @@
-<!--meta {"title": "Odoo case studies — engagements by industry", "desc": "TechNext Odoo case studies: representative engagements by industry, the starting point, the apps we implement and the scope. References on request.", "out": "case-studies.html", "nav": "case-study", "head": "<meta name=\"robots\" content=\"noindex, nofollow\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Odoo case studies: engagements by industry", "desc": "TechNext Odoo case studies: representative engagements by industry, the starting point, the apps we implement and the scope. References on request.", "out": "case-studies.html", "nav": "case-study", "body": "fx-page cs-page", "scripts": ["assets/js/pages/case-studies-fx.js"], "head": "<meta name=\"robots\" content=\"noindex, nofollow\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/case-studies-fx.css?v={ASSET_V}\">"} -->
+<!-- Case studies (22 Oct 2026 redesign): noindex. Glass hero with a delivery panel (real facts only: 11+ enterprise clients, 10+ countries,
+     4 AI disciplines, the five representative industries), the named client wall, the engagements as a ledger, what every published
+     case study includes, a BIR line, discovery call. Representative engagements only: no invented outcomes, results published once the
+     client approves. Styles: assets/css/pages/case-studies-fx.css. Behaviour: assets/js/pages/case-studies-fx.js. -->
 
-<section class="page-hero page-hero--stage page-hero--plain" data-stage-hero>
-  {{STAGE_BG}}
-  <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Case Study</span></nav>
-    <span class="hand">proof, not promises</span>
-    <h1>Case studies.</h1>
-    <p class="lead">Where a client started, the Odoo apps we implemented and what changed. The engagements below are representative of our delivery across sectors — named clients and measured results are shared on request, and published here as each client approves.</p>
-    <div class="actions"><a class="btn btn-primary btn-lg" href="#talk">Ask for a reference {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+<!-- ============================================================ HERO -->
+<section class="fx-hero cs-hero" aria-labelledby="cs-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container fx-hero-in">
+    <div class="cs-copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Case Study</span></nav>
+      <h1 id="cs-h1">Odoo case studies, <span class="fx-hl">by industry</span></h1>
+      <p class="fx-lead">Where a client started, the Odoo apps we implemented and the scope of the work. The engagements below are representative of our delivery across sectors. The companies we have worked with are listed on this page; measured results are shared on request and published here as each client approves.</p>
+      <div class="actions cs-act"><a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:users}}Ask for a reference</a></div>
+    </div>
+
+    <aside class="cs-panel" data-cs-panel aria-label="TechNext delivery at a glance">
+      <div class="fx-result-glow" aria-hidden="true"></div>
+      <div class="cs-top"><p class="fx-r-label">TechNext delivery</p><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"></div>
+      <div class="cs-stats">
+        <p><b data-count="11" data-plus>11+</b><span>enterprise clients</span></p>
+        <p><b data-count="10" data-plus>10+</b><span>countries</span></p>
+        <p><b data-count="4">4</b><span>AI disciplines</span></p>
+      </div>
+      <p class="cs-live"><i aria-hidden="true"></i>Representative engagements, by industry</p>
+      <ul class="cs-rows">
+        <li style="--i:0"><a href="#cs-medical"><span class="trio">{{odoo:stock:28}}{{odoo:purchase:28}}{{odoo:accountant:28}}</span><b>Medical</b>{{icon:arrow}}</a></li>
+        <li style="--i:1"><a href="#cs-retail"><span class="trio">{{odoo:point_of_sale:28}}{{odoo:stock:28}}{{odoo:accountant:28}}</span><b>Retail</b>{{icon:arrow}}</a></li>
+        <li style="--i:2"><a href="#cs-travel"><span class="trio">{{odoo:crm:28}}{{odoo:sale:28}}{{odoo:accountant:28}}</span><b>Travel</b>{{icon:arrow}}</a></li>
+        <li style="--i:3"><a href="#cs-ecommerce"><span class="trio">{{odoo:website_sale:28}}{{odoo:stock:28}}{{odoo:accountant:28}}</span><b>Ecommerce</b>{{icon:arrow}}</a></li>
+        <li style="--i:4"><a href="#cs-marketing"><span class="trio trio--ic">{{icon:globe}}{{icon:megaphone}}{{icon:sparkle}}</span><b>Marketing</b>{{icon:arrow}}</a></li>
+      </ul>
+    </aside>
   </div>
 </section>
 
-<section class="section section--tight">
+<!-- ============================================================ CLIENT WALL -->
+<section class="section fx-sec cs-wall-sec" aria-labelledby="cs-wall-h">
   <div class="container">
-    <div class="strip reveal">
-      <img class="strip-badge" src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Partner" width="91" height="40">
-      <span class="strip-item">{{icon:globe}} Clients in <b>10+ countries</b></span>
-      <span class="strip-item">{{icon:users}} <b>11+</b> enterprise clients transformed</span>
-      <span class="strip-item">{{icon:sparkle}} <b>4</b> AI disciplines</span>
-    </div>
-    <div class="cw reveal">
-      <h2 class="cw-h">Companies we've worked with</h2>
+    <div class="cs-wall reveal">
+      <div class="cs-wall-head">
+        <h2 id="cs-wall-h">Companies we've worked with.</h2>
+        <p>Delivered and in-progress projects. Ask us to walk you through one like yours.</p>
+      </div>
       {{CLIENT_WALL}}
-      <p class="cw-note">Delivered and in-progress projects. Ask us to walk you through one like yours.</p>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ ENGAGEMENTS -->
+<section class="section fx-sec fx-sec--alt" id="engagements" aria-labelledby="cs-eng-h">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="hand">the shape of the work</span>
-      <h2>What a TechNext rollout looks like, by industry.</h2>
-      <p class="lead">Representative engagements drawn from our delivery. Each shows the starting point, the apps we switch on and the scope — the outcomes are added once the client approves publication.</p>
-    </div>
-    <div class="grid-3">
-      <article class="card cs-card reveal" style="--i:0">
-        <div class="cs-head"><span class="tag">Medical</span><span class="trio">{{odoo:stock:32}}{{odoo:purchase:32}}{{odoo:accountant:32}}</span></div>
-        <h3>Multi-branch clinic group moves purchasing and books to Odoo</h3>
-        <dl class="meta">
-          <div><dt>Apps</dt><dd>Inventory · Purchase · Accounting · POS</dd></div>
-          <div><dt>Scope</dt><dd>Consumables by lot and expiry, central purchasing, one set of accounts across branches</dd></div>
-        </dl>
+    <div class="sec-head reveal"><h2 id="cs-eng-h">What a TechNext rollout looks like, by industry.</h2><p class="lead">Representative engagements drawn from our delivery. Each shows the starting point, the apps we switch on and the scope. The outcomes are added once the client approves publication.</p></div>
+    <div class="cs-ledger">
+      <article class="cs-eng reveal" id="cs-medical" style="--i:0">
+        <div class="cs-eng-id"><span class="fx-tag cs-tag">Medical</span><span class="trio">{{odoo:stock:34}}{{odoo:purchase:34}}{{odoo:accountant:34}}</span></div>
+        <div class="cs-eng-b">
+          <h3>Multi-branch clinic group moves purchasing and books to Odoo</h3>
+          <dl class="meta">
+            <div><dt>Apps</dt><dd>Inventory · Purchase · Accounting · POS</dd></div>
+            <div><dt>Scope</dt><dd>Consumables by lot and expiry, central purchasing, one set of accounts across branches</dd></div>
+          </dl>
+        </div>
         <a class="btn-link cs-link" href="#talk">Ask for a healthcare reference {{icon:arrow}}</a>
       </article>
 
-      <article class="card cs-card reveal" style="--i:1">
-        <div class="cs-head"><span class="tag">Retail</span><span class="trio">{{odoo:point_of_sale:32}}{{odoo:stock:32}}{{odoo:accountant:32}}</span></div>
-        <h3>Retailer connects POS, stock and accounting</h3>
-        <dl class="meta">
-          <div><dt>Apps</dt><dd>Point of Sale · Inventory · Accounting · eCommerce</dd></div>
-          <div><dt>Scope</dt><dd>Shared stock across stores and online; daily takings posted automatically</dd></div>
-        </dl>
+      <article class="cs-eng reveal" id="cs-retail" style="--i:1">
+        <div class="cs-eng-id"><span class="fx-tag cs-tag">Retail</span><span class="trio">{{odoo:point_of_sale:34}}{{odoo:stock:34}}{{odoo:accountant:34}}</span></div>
+        <div class="cs-eng-b">
+          <h3>Retailer connects POS, stock and accounting</h3>
+          <dl class="meta">
+            <div><dt>Apps</dt><dd>Point of Sale · Inventory · Accounting · eCommerce</dd></div>
+            <div><dt>Scope</dt><dd>Shared stock across stores and online; daily takings posted automatically</dd></div>
+          </dl>
+        </div>
         <a class="btn-link cs-link" href="#talk">Ask for a retail reference {{icon:arrow}}</a>
       </article>
 
-      <article class="card cs-card reveal" style="--i:2">
-        <div class="cs-head"><span class="tag">Travel</span><span class="trio">{{odoo:crm:32}}{{odoo:sale:32}}{{odoo:accountant:32}}</span></div>
-        <h3>Tour operator tracks margin per booking</h3>
-        <dl class="meta">
-          <div><dt>Apps</dt><dd>CRM · Sales · Purchase · Accounting</dd></div>
-          <div><dt>Scope</dt><dd>Quotation templates, supplier costs per booking, multi-currency invoicing</dd></div>
-        </dl>
+      <article class="cs-eng reveal" id="cs-travel" style="--i:2">
+        <div class="cs-eng-id"><span class="fx-tag cs-tag">Travel</span><span class="trio">{{odoo:crm:34}}{{odoo:sale:34}}{{odoo:accountant:34}}</span></div>
+        <div class="cs-eng-b">
+          <h3>Tour operator tracks margin per booking</h3>
+          <dl class="meta">
+            <div><dt>Apps</dt><dd>CRM · Sales · Purchase · Accounting</dd></div>
+            <div><dt>Scope</dt><dd>Quotation templates, supplier costs per booking, multi-currency invoicing</dd></div>
+          </dl>
+        </div>
         <a class="btn-link cs-link" href="#talk">Ask for a travel reference {{icon:arrow}}</a>
       </article>
 
-      <article class="card cs-card reveal" style="--i:3">
-        <div class="cs-head"><span class="tag">Ecommerce</span><span class="trio">{{odoo:website_sale:32}}{{odoo:stock:32}}{{odoo:accountant:32}}</span></div>
-        <h3>Online seller reconciles marketplace payouts</h3>
-        <dl class="meta">
-          <div><dt>Apps</dt><dd>eCommerce connector · Inventory · Accounting</dd></div>
-          <div><dt>Scope</dt><dd>Orders synced, barcode picking, payouts matched net of fees</dd></div>
-        </dl>
+      <article class="cs-eng reveal" id="cs-ecommerce" style="--i:3">
+        <div class="cs-eng-id"><span class="fx-tag cs-tag">Ecommerce</span><span class="trio">{{odoo:website_sale:34}}{{odoo:stock:34}}{{odoo:accountant:34}}</span></div>
+        <div class="cs-eng-b">
+          <h3>Online seller reconciles marketplace payouts</h3>
+          <dl class="meta">
+            <div><dt>Apps</dt><dd>eCommerce connector · Inventory · Accounting</dd></div>
+            <div><dt>Scope</dt><dd>Orders synced, barcode picking, payouts matched net of fees</dd></div>
+          </dl>
+        </div>
         <a class="btn-link cs-link" href="#talk">Ask for an ecommerce reference {{icon:arrow}}</a>
       </article>
 
-      <article class="card cs-card reveal" style="--i:4">
-        <div class="cs-head"><span class="tag">Marketing</span><span class="trio trio--ic">{{icon:globe}}{{icon:megaphone}}{{icon:sparkle}}</span></div>
-        <h3>Company website rebuilt, inquiries routed to sales</h3>
-        <dl class="meta">
-          <div><dt>Service</dt><dd>Web design &amp; development · social media · brand assets</dd></div>
-          <div><dt>Scope</dt><dd>New site, inquiry routing to the right inbox, a one-page monthly report</dd></div>
-        </dl>
+      <article class="cs-eng reveal" id="cs-marketing" style="--i:4">
+        <div class="cs-eng-id"><span class="fx-tag cs-tag">Marketing</span><span class="trio trio--ic">{{icon:globe}}{{icon:megaphone}}{{icon:sparkle}}</span></div>
+        <div class="cs-eng-b">
+          <h3>Company website rebuilt, inquiries routed to sales</h3>
+          <dl class="meta">
+            <div><dt>Service</dt><dd>Web design &amp; development · social media · brand assets</dd></div>
+            <div><dt>Scope</dt><dd>New site, inquiry routing to the right inbox, a one-page monthly report</dd></div>
+          </dl>
+        </div>
         <a class="btn-link cs-link" href="#talk">Ask for a marketing reference {{icon:arrow}}</a>
-      </article>
-
-      <article class="card card--blue cs-card cs-card--sum card--static reveal" style="--i:5">
-        <div class="card-ic">{{icon:file}}</div>
-        <h3>What every published case study includes</h3>
-        <ul class="checks">
-          <li>{{icon:check}}The starting point, in the client's words</li>
-          <li>{{icon:check}}Apps implemented and in what order</li>
-          <li>{{icon:check}}What was configured vs. customised</li>
-          <li>{{icon:check}}Measured results, approved by the client</li>
-        </ul>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ WHAT EVERY ONE INCLUDES + BIR -->
+<section class="section fx-sec" aria-labelledby="cs-inc-h">
+  <div class="container cs-split">
+    <div class="cs-inc reveal">
+      <h2 id="cs-inc-h">What every published case study includes.</h2>
+      <ul class="fx-points">
+        <li>{{icon:check}}<span><b>The starting point</b>In the client's words.</span></li>
+        <li>{{icon:check}}<span><b>Apps implemented</b>And in what order.</span></li>
+        <li>{{icon:check}}<span><b>Configured vs. customised</b>What stayed standard Odoo, and what did not.</span></li>
+        <li>{{icon:check}}<span><b>Measured results</b>Approved by the client before we publish them.</span></li>
+      </ul>
+    </div>
+    <div class="cs-bir reveal">
+      <p class="cs-bir-h">{{icon:receipt}}Working in the Philippines?</p>
+      <p>Accounting, invoicing and point of sale are set up for BIR requirements: form 2307 per payee, SLSP, SAWT and QAP DAT files, and the 2550Q. E-invoicing is due by 31 December 2026 for covered taxpayers.</p>
+      <div class="cs-bir-act"><a class="btn btn-ghost" href="{{ROOT}}odoo/philippines.html">Odoo in the Philippines {{icon:arrow}}</a><a class="btn btn-ghost" href="{{ROOT}}bir-e-invoicing.html">BIR e-invoicing {{icon:arrow}}</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec">
   <div class="container">
-    <div class="cta reveal">
-      <div><span class="hand">want references now?</span><h2>Ask us directly.</h2><p>We can put you in touch with clients in your industry on request, before anything is published.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="#talk">Let's talk</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a></div>
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div>
+        <h2>Want references now? Ask us directly.</h2>
+        <p>We can put you in touch with clients in your industry on request, before anything is published. A short discovery call is the quickest way to start.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+      </div>
     </div>
   </div>
 </section>

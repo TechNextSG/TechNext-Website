@@ -1,0 +1,107 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Case studies (22 Oct 2026): futuro glass layer. A delivery panel in the hero (real facts only), the named client wall in glass,
+   the representative engagements as a ledger, a BIR block. Builds on home-fx.css tokens. No icon tiles: Odoo icons sit bare.
+   Motion: transform/opacity only, paused off-screen (.fx-off) and under reduced motion. */
+
+/* the Odoo icon trios sit bare (site.css puts them on white tiles) */
+.cs-page .trio { gap: 10px; }
+.cs-page .trio .oi { margin-left: 0; padding: 0; border-radius: 0; background: none; box-shadow: none; }
+.cs-page .trio--ic .ic { width: 24px; height: 24px; color: var(--blue); }
+
+/* ---------------------------------------------------------------- hero */
+.cs-hero .fx-hero-in { align-items: center; }
+.cs-hero .fx-hero-in > * { min-width: 0; }
+.cs-hero .crumbs { margin-bottom: 18px; }
+.cs-hero h1 { max-width: 14ch; font-size: clamp(2.3rem, 1.3rem + 3.2vw, 3.9rem); }
+.cs-act { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.cs-panel { position: relative; border-radius: 24px; padding: 22px 22px 18px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+.cs-panel .fx-result-glow { opacity: 1; }
+.cs-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.cs-top img { height: 32px; width: auto; }
+.cs-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin: 16px 0 6px; padding: 16px 18px; border-radius: 16px;
+  background: linear-gradient(135deg, #1F1F3D, #1E2F66 70%, #1E4691); box-shadow: 0 18px 34px -22px rgba(30,70,145,.8), inset 0 1px 0 rgba(255,255,255,.12); }
+.cs-stats p { display: grid; gap: 4px; margin: 0; }
+.cs-stats b { color: #fff; font: 800 clamp(1.7rem, 1.3rem + 1vw, 2.2rem)/1 var(--font-display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.cs-stats span { font: 600 12.5px/1.25 var(--font-body); color: rgba(255,255,255,.78); }
+.cs-live { display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 8px; font: 700 12.5px/1 var(--font-body); color: var(--blue-700); }
+.cs-live i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 0 rgba(49,103,202,.5); animation: csPing 2s var(--fx-ease) infinite; }
+@keyframes csPing { to { box-shadow: 0 0 0 9px rgba(49,103,202,0); } }
+.cs-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; position: relative; }
+.cs-rows a { position: relative; display: grid; grid-template-columns: 108px minmax(0,1fr) 18px; gap: 14px; align-items: center; min-height: 52px; padding: 8px 14px; border-radius: 12px; background: #fff; border: 1px solid #EEF1F7;
+  text-decoration: none; color: inherit; overflow: hidden; transition: border-color .3s var(--fx-ease), transform .3s var(--fx-ease), box-shadow .3s var(--fx-ease); animation: csRow 10s var(--fx-ease) calc(var(--i) * 2s) infinite; }
+.cs-rows a:hover { border-color: var(--blue-300); transform: translateX(4px); box-shadow: 0 14px 28px -20px rgba(49,103,202,.6); text-decoration: none; }
+.cs-rows a:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 2px; }
+.cs-rows .trio { gap: 4px; }
+.cs-rows .trio .oi { width: 28px; height: 28px; }
+.cs-rows .trio--ic .ic { width: 22px; height: 22px; }
+.cs-rows b { font: 700 15px/1.2 var(--font-body); color: var(--ink); }
+.cs-rows .ic:last-child { width: 16px; height: 16px; color: var(--blue); transition: transform .3s var(--fx-ease); }
+.cs-rows a:hover .ic:last-child { transform: translateX(3px); }
+@keyframes csRow { 0%, 22%, 100% { border-color: #EEF1F7; box-shadow: none; } 4%, 16% { border-color: var(--blue-300); box-shadow: 0 0 0 3px rgba(49,103,202,.1), 0 0 22px -6px rgba(49,103,202,.45); } }
+.fx-off .cs-live i, .fx-off .cs-rows a { animation-play-state: paused !important; }
+
+/* ---------------------------------------------------------------- client wall */
+.cs-wall-sec { padding: 72px 0 24px !important; }
+.cs-wall { border-radius: 26px; padding: 30px 30px 26px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.cs-wall-head { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px 32px; align-items: end; margin-bottom: 22px; }
+.cs-wall-head h2 { margin: 0; font: 800 clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem)/1.15 var(--font-display); letter-spacing: -.025em; color: var(--ink); }
+.cs-wall-head p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--body); }
+.cs-page .cw-list { justify-content: flex-start; gap: 10px; }
+.cs-page .cw-item { flex: 0 0 calc((100% - 30px) / 4); background: #fff; border: 1px solid #E9EEF8; border-radius: 14px; transition: border-color .3s var(--fx-ease), transform .3s var(--fx-ease), box-shadow .3s var(--fx-ease); }
+.cs-page .cw-item:hover { border-color: var(--blue-300); transform: translateY(-2px); box-shadow: 0 14px 28px -20px rgba(49,103,202,.6); }
+
+/* ---------------------------------------------------------------- the engagement ledger */
+.cs-ledger { display: grid; gap: 14px; }
+.cs-eng { position: relative; display: grid; grid-template-columns: 200px minmax(0,1fr) auto; gap: 18px 36px; align-items: center; padding: 26px 30px; border-radius: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); scroll-margin-top: calc(var(--header-h) + 24px); }
+.cs-eng:hover { transform: translateX(6px); box-shadow: var(--fx-depth-h); }
+.cs-eng-id { display: grid; gap: 14px; justify-items: start; }
+.cs-page .cs-tag { background: var(--blue-050); color: var(--blue-700); font-size: 12.5px; padding: 6px 12px; }
+.cs-eng h3 { margin: 0; font: 800 clamp(1.1rem, 1rem + .5vw, 1.3rem)/1.28 var(--font-display); letter-spacing: -.015em; color: var(--ink); max-width: 40ch; }
+.cs-eng .meta { margin: 14px 0 0; gap: 8px; font-size: 14.5px; }
+.cs-eng .meta div { grid-template-columns: 70px minmax(0,1fr); }
+.cs-eng .meta dt { color: var(--body); font-weight: 650; }
+.cs-eng .meta dd { color: var(--ink); line-height: 1.5; }
+.cs-eng .cs-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: 0; padding: 0; white-space: nowrap; font: 650 14.5px/1.2 var(--font-body); color: var(--blue); }
+
+/* ---------------------------------------------------------------- what every case study includes + BIR */
+.cs-split { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 56px; align-items: start; }
+.cs-inc h2 { margin: 0 0 24px; font: 800 clamp(1.9rem, 1.2rem + 2vw, 2.6rem)/1.1 var(--font-display); letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.cs-bir { position: relative; padding: 30px 32px; border-radius: 26px; background: linear-gradient(135deg, rgba(234,240,251,.95), rgba(255,255,255,.88)); border: 1px solid rgba(49,103,202,.3);
+  box-shadow: 0 0 0 1px rgba(49,103,202,.08), var(--fx-depth); }
+.cs-bir p { margin: 0 0 18px; font-size: 1.02rem; line-height: 1.6; color: var(--body); }
+.cs-bir .cs-bir-h { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font: 800 1.3rem/1.2 var(--font-display); letter-spacing: -.015em; color: var(--ink); }
+.cs-bir .cs-bir-h .ic { width: 26px; height: 26px; color: var(--blue); flex: none; }
+.cs-bir-act { display: flex; flex-wrap: wrap; gap: 10px; }
+.cs-bir-act .btn { height: auto; min-height: 48px; padding-top: 8px; padding-bottom: 8px; }
+
+.cs-page .fx-close h2 { color: #fff !important; }
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 1080px) {
+  .cs-eng { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .cs-eng:hover { transform: none; }
+  .cs-split { grid-template-columns: 1fr; gap: 32px; }
+  .cs-page .cw-item { flex-basis: calc((100% - 20px) / 3); }
+  .cs-wall-head { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) { .cs-page .cw-item { flex-basis: calc((100% - 10px) / 2); } }
+@media (max-width: 600px) {
+  .cs-act .btn { flex: 1 1 100%; justify-content: center; }
+  .cs-panel { padding: 18px 14px 14px; }
+  .cs-stats { padding: 14px; gap: 6px; }
+  .cs-rows a { grid-template-columns: 96px minmax(0,1fr) 18px; gap: 10px; padding: 8px 12px; }
+  .cs-wall { padding: 22px 16px 18px; border-radius: 22px; }
+  .cs-page .cw-item { flex-basis: 100%; }
+  .cs-eng { padding: 22px 18px; border-radius: 22px; }
+  .cs-eng .meta div { grid-template-columns: 1fr; gap: 2px; }
+  .cs-bir { padding: 24px 20px; border-radius: 22px; }
+  .cs-bir-act .btn { flex: 1 1 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-live i, .cs-rows a { animation: none; }
+  .cs-rows a, .cs-eng, .cs-page .cw-item { transition: none; }
+  .cs-rows a:hover, .cs-eng:hover, .cs-page .cw-item:hover { transform: none; }
+}

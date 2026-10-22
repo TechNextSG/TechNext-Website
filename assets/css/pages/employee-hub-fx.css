@@ -1,0 +1,112 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Team Directory (22 Oct 2026): futuro glass layer. A directory panel in the hero, one professional glass profile card per
+   person (the markup is build.py's team_cards_html(): restyled here by CSS only), glass office cards.
+   Builds on home-fx.css tokens. Motion: transform/opacity only, paused off-screen (.fx-off) and under reduced motion. */
+
+/* ---------------------------------------------------------------- hero */
+.eh-hero .fx-hero-in { align-items: center; }
+.eh-hero .fx-hero-in > * { min-width: 0; }
+.eh-hero .crumbs { margin-bottom: 18px; }
+.eh-hero h1 { max-width: 14ch; font-size: clamp(2.3rem, 1.3rem + 3.2vw, 3.9rem); }
+.eh-act { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.eh-panel { position: relative; border-radius: 24px; padding: 22px 22px 20px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); }
+.eh-panel .fx-result-glow { opacity: 1; }
+.eh-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.eh-lock { display: inline-flex; align-items: center; gap: 7px; margin: 0; padding: 6px 11px; border-radius: 999px; background: #FDF3E1; color: var(--fx-amber); font: 700 12px/1 var(--font-body); }
+.eh-lock .ic { width: 14px; height: 14px; }
+.eh-count { display: flex; align-items: baseline; gap: 12px; margin: 16px 0 14px; }
+.eh-count b { font: 800 clamp(3.2rem, 2.4rem + 2vw, 4.2rem)/1 var(--font-display); letter-spacing: -.04em; color: var(--blue); font-variant-numeric: tabular-nums; }
+.eh-count span { font: 650 1.05rem/1.2 var(--font-body); color: var(--ink); }
+.eh-search { position: relative; display: block; }
+.eh-search .ic { position: absolute; left: 16px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--blue); pointer-events: none; }
+.eh-search input { width: 100%; min-height: 48px; padding: 0 16px 0 44px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.9); color: var(--ink); font: 500 15px/1.2 var(--font-body);
+  transition: border-color .25s var(--fx-ease), box-shadow .25s var(--fx-ease); -webkit-appearance: none; appearance: none; }
+.eh-search input::placeholder { color: #5C6B7A; opacity: 1; }
+.eh-search input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(49,103,202,.16); }
+.eh-live { display: inline-flex; align-items: center; gap: 8px; margin: 18px 0 8px; font: 700 12.5px/1 var(--font-body); color: var(--blue-700); }
+.eh-live i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 0 rgba(49,103,202,.5); animation: ehPing 2s var(--fx-ease) infinite; }
+@keyframes ehPing { to { box-shadow: 0 0 0 9px rgba(49,103,202,0); } }
+.eh-clocks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.eh-clocks li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; background: #fff; border: 1px solid #EEF1F7; }
+.eh-clocks span { display: grid; gap: 2px; min-width: 0; }
+.eh-clocks b { font: 700 14.5px/1.2 var(--font-body); color: var(--ink); }
+.eh-clocks small { font-size: 12.5px; line-height: 1.3; color: var(--body); }
+.eh-clocks time { font: 800 22px/1 var(--font-display); letter-spacing: -.01em; color: var(--blue); font-variant-numeric: tabular-nums; }
+.fx-off .eh-live i { animation-play-state: paused !important; }
+
+/* ---------------------------------------------------------------- profile cards (build.py markup, restyled) */
+.eh-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: 20px; }
+.eh-page .th-person { position: relative; display: flex; flex-direction: column; gap: 22px; padding: 28px 28px 22px; border-radius: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); }
+.eh-page .th-person:hover { transform: translateY(-4px); box-shadow: var(--fx-depth-h); }
+.eh-page .th-person[hidden] { display: none; }
+.eh-page .ef-tab, .eh-page .ef-stamp, .eh-page .ef-id, .eh-page .ef-head span, .eh-page .ef-head b { display: none; }
+.eh-page .ef-head { position: absolute; top: 22px; right: 24px; margin: 0; }
+.eh-page .ef-head .th-plane { display: block; width: 30px; height: auto; opacity: .9; }
+.eh-page .ef-body { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 24px; align-items: center; padding-right: 36px; }
+.eh-page .ef-photo { position: relative; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--blue-050), #fff); }
+.eh-page .ef-photo::before { content: ""; position: absolute; inset: -5px; border-radius: 50%; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--fx-a), var(--blue), rgba(111,160,245,.2), var(--blue));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.eh-page .th-person:hover .ef-photo::before { animation: fxSpin 3s linear infinite; }
+.eh-page .ef-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.eh-page .th-ini { display: grid; place-items: center; width: 100%; height: 100%; font: 800 32px/1 var(--font-display); letter-spacing: -.02em; color: var(--blue-700); }
+.eh-page .ef-fields { display: grid; gap: 10px; margin: 0; min-width: 0; }
+.eh-page .ef-fields > div { display: grid; gap: 2px; min-width: 0; }
+.eh-page .ef-fields dd { margin: 0; min-width: 0; }
+/* the Name and Position labels are for screen readers; the card reads as a profile */
+.eh-page .ef-fields > div:nth-child(-n+2) dt { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.eh-page .ef-fields h3 { margin: 0; font: 800 clamp(1.35rem, 1.15rem + .6vw, 1.65rem)/1.15 var(--font-display); letter-spacing: -.02em; color: var(--ink); overflow-wrap: anywhere; }
+.eh-page .th-role { font: 650 15.5px/1.35 var(--font-body); color: var(--blue-700); }
+.eh-page .ef-fields > div:nth-child(3) { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--fx-line); }
+.eh-page .ef-fields > div:nth-child(3) dt { font: 700 12.5px/1.2 var(--font-body); color: var(--body); }
+.eh-page .th-mail { display: inline-flex; align-items: center; min-height: 44px; font: 650 15.5px/1.3 var(--font-body); color: var(--blue); overflow-wrap: anywhere; }
+.eh-page .ef-foot { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--fx-line); }
+.eh-act2 { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 12px; cursor: pointer; text-decoration: none;
+  font: 650 14.5px/1 var(--font-body); background: #fff; color: var(--blue-700); border: 1px solid #C9D7F1;
+  transition: border-color .25s var(--fx-ease), background-color .25s var(--fx-ease), transform .25s var(--fx-ease); }
+.eh-act2:hover { background: #F7F9FD; border-color: var(--blue); text-decoration: none; transform: translateY(-1px); }
+.eh-act2--main { background: var(--blue); border-color: var(--blue); color: #fff; }
+.eh-act2--main:hover { background: var(--blue-700); border-color: var(--blue-700); }
+.eh-act2 .ic { width: 18px; height: 18px; }
+.eh-act2:focus-visible, .eh-page .th-mail:focus-visible, .eh-search input:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 3px; }
+.eh-none { margin: 20px 0 0; padding: 16px 20px; border-radius: 16px; background: var(--fx-glass); border: 1px dashed var(--blue-300); font: 600 15px/1.5 var(--font-body); color: var(--body); }
+.eh-none[hidden] { display: none; }
+
+/* ---------------------------------------------------------------- offices */
+.eh-offices { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+.eh-page .th-office { position: relative; display: flex; flex-direction: column; border-radius: 24px; padding: 26px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); }
+.eh-page .th-office:hover { transform: translateY(-4px); box-shadow: var(--fx-depth-h); }
+.eh-page .th-office[data-o="ph"] { background: linear-gradient(160deg, rgba(255,255,255,.92), rgba(234,240,251,.9)); border-color: rgba(49,103,202,.35); box-shadow: 0 0 0 1px rgba(49,103,202,.12), var(--fx-depth-h); }
+.eh-page .th-cc { align-self: flex-start; display: inline-grid; place-items: center; height: 26px; padding: 0 11px; margin-bottom: 14px; border-radius: 999px; background: var(--blue-050); color: var(--blue-700); font: 700 12px/1 var(--font-body); letter-spacing: .04em; }
+.eh-page .th-office h3 { margin: 0 0 8px; font: 800 20px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.015em; }
+.eh-page .th-office p { margin: 0 0 16px; font-size: 14.5px; line-height: 1.55; color: var(--body); }
+.eh-page .th-office address { margin: auto 0 0; padding-top: 14px; border-top: 1px solid var(--fx-line); font: 600 14.5px/1.5 var(--font-body); font-style: normal; color: var(--ink); }
+
+.eh-page .fx-close h2 { color: #fff !important; }
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 1080px) {
+  .eh-offices { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .eh-act .btn { flex: 1 1 100%; justify-content: center; }
+  .eh-panel { padding: 18px 16px 16px; }
+  .eh-clocks time { font-size: 19px; }
+  .eh-page .th-person { padding: 22px 18px 18px; gap: 18px; }
+  .eh-page .ef-body { grid-template-columns: 76px minmax(0,1fr); gap: 16px; padding-right: 30px; }
+  .eh-page .ef-photo { width: 76px; height: 76px; }
+  .eh-page .th-ini { font-size: 26px; }
+  .eh-page .ef-head { top: 18px; right: 18px; }
+  .eh-page .ef-head .th-plane { width: 24px; }
+  .eh-act2 { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eh-live i { animation: none; }
+  .eh-page .th-person:hover .ef-photo::before { animation: none; }
+  .eh-page .th-person, .eh-page .th-office, .eh-act2 { transition: none; }
+  .eh-page .th-person:hover, .eh-page .th-office:hover, .eh-act2:hover { transform: none; }
+}

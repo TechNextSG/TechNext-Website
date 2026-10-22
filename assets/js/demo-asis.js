@@ -274,7 +274,7 @@ TN.demo('asis', function (root, K) {
       n.x = K.lerp(n.pa[0], b[0], q); n.y = K.lerp(n.pa[1], b[1], q);
       var s = 1, o = 1;
       if (n.into) { var f = sm(.4, 1, q); s = 1 - .55 * f; o = 1 - f; }
-      n.el.style.transform = 'translate3d(' + (n.x - n.w / 2).toFixed(1) + 'px,' + (n.y - n.h / 2).toFixed(1) + 'px,0) rotate(' + (n.r * (1 - q)).toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')';
+      n.el.style.transform = 'translate3d(' + (n.x - n.w / 2).toFixed(1) + 'px,' + (n.y - n.h / 2).toFixed(1) + 'px,0) rotate(0deg) scale(' + s.toFixed(3) + ')';
       n.el.style.opacity = o.toFixed(3);
       n.el.style.pointerEvents = o < .5 ? 'none' : '';
       if (n.fb) { var f2 = sm(.35, .65, q); n.fa.style.opacity = (1 - f2).toFixed(3); n.fb.style.opacity = f2.toFixed(3); }

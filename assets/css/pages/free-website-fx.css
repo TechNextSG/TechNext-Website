@@ -1,0 +1,102 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This design and code are not licensed for copying, reuse or AI training. */
+/* /free-website-with-odoo (22 Oct 2026): the offer lander. Loaded after get-started-fx.css (focused header, hero + form, steps).
+   Adds the "what's free" pair with live previews, the website-to-invoice flow, the hire-vs-TechNext comparison and the TechNext Care tiers.
+   Replaces free-website.css for this page. */
+
+.fw-hero-act { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.fw-fx .gs-copy h1 { font-size: clamp(2.1rem, 1.2rem + 2.6vw, 3.3rem); }
+.fw-fx .sec-head .lead { max-width: 60ch; }
+.fw-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 11px; }
+.fw-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: var(--body); }
+.fw-list .ic { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--blue); stroke-width: 2.6; }
+
+/* ---------------------------------------------------------------- what's free */
+.fw-free { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fw-free-card { padding: 26px 28px 30px; border-radius: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); }
+.fw-free-card:hover { transform: translateY(-4px); box-shadow: var(--fx-depth-h); }
+.fw-free-card h3 { margin: 20px 0 6px; font: 800 1.35rem/1.3 var(--font-display); color: var(--ink); letter-spacing: -.02em; }
+.fw-free-card > p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--body); }
+.fw-pv { position: relative; display: flex; align-items: center; gap: 14px; min-height: 104px; padding: 14px 16px; border-radius: 16px; background: linear-gradient(135deg, #F3F7FE, #fff); border: 1px solid #E3E9F5; overflow: hidden; }
+/* brand kit preview: swatches, type specimen, mark */
+.fw-sw { display: flex; gap: 6px; }
+.fw-sw i { width: 28px; height: 28px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); animation: fwSw 3.6s var(--fx-ease) infinite; }
+.fw-sw i:nth-child(2) { animation-delay: .25s; } .fw-sw i:nth-child(3) { animation-delay: .5s; } .fw-sw i:nth-child(4) { animation-delay: .75s; }
+@keyframes fwSw { 0%, 70%, 100% { transform: none; } 35% { transform: translateY(-5px); } }
+.fw-aa { display: grid; gap: 2px; }
+.fw-aa b { font: 800 30px/1 var(--font-display); color: var(--ink); }
+.fw-aa small { font-size: 12px; color: var(--body); }
+.fw-mk { margin-left: auto; }
+.fw-mk .ic { width: 34px; height: 34px; color: var(--blue); animation: fwSpin 12s linear infinite; }
+@keyframes fwSpin { to { transform: rotate(360deg); } }
+/* website preview: browser, skeleton, and a lead arriving in Odoo CRM */
+.fw-pv--site { display: grid; gap: 8px; align-content: center; }
+.fw-bar { display: flex; align-items: center; gap: 5px; }
+.fw-bar i { width: 8px; height: 8px; border-radius: 50%; background: #D5DAE5; }
+.fw-bar em { margin-left: 8px; padding: 2px 10px; border-radius: 999px; background: #fff; font: 500 12px/1.4 var(--font-body); font-style: normal; color: var(--body); }
+.fw-lines { display: grid; gap: 5px; }
+.fw-lines b { height: 7px; width: 70%; border-radius: 4px; background: #D5DCEC; }
+.fw-lines b.s { width: 44%; }
+.fw-lead { position: absolute; right: 12px; bottom: 10px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--blue-300); box-shadow: 0 10px 22px -14px rgba(49,103,202,.6);
+  font: 600 12px/1.3 var(--font-body); color: var(--ink); animation: fwLead 5s var(--fx-ease) infinite; }
+.fw-lead .oi { width: 20px; height: 20px; }
+.fw-lead em { font-style: normal; }
+@keyframes fwLead { 0%, 12% { opacity: 0; transform: translateY(10px); } 25%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+
+/* ---------------------------------------------------------------- why Odoo: the website-to-invoice flow */
+.fw-why { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.fw-why h2 { margin: 0; font: 800 clamp(1.9rem, 1.2rem + 2vw, 2.85rem)/1.1 var(--font-display); letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.fw-why .lead { margin: 16px 0 0; font-size: 1.08rem; line-height: 1.65; color: var(--body); max-width: 44ch; }
+.fw-flow { list-style: none; margin: 0; padding: 14px 26px; border-radius: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.fw-flow li { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start; padding: 16px 0; }
+.fw-flow li .ic { width: 26px; height: 26px; color: var(--blue); margin-top: 1px; }
+.fw-flow li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 48px; bottom: -12px; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, transparent, var(--blue), transparent) 0 -60% / 100% 50% no-repeat, var(--fx-line); animation: fwFlow 2.6s var(--fx-ease) infinite; }
+.fw-flow li:nth-child(2)::after { animation-delay: .5s; } .fw-flow li:nth-child(3)::after { animation-delay: 1s; }
+@keyframes fwFlow { to { background-position: 0 160%, 0 0; } }
+.fw-flow b { display: block; font: 700 1.04rem/1.35 var(--font-display); color: var(--ink); }
+.fw-flow small { display: block; margin-top: 3px; font-size: 13px; color: var(--body); }
+
+/* ---------------------------------------------------------------- one team vs four hires */
+.fw-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fw-col { border-radius: 24px; padding: 28px; border: 1px solid var(--fx-edge); background: var(--fx-glass); box-shadow: var(--fx-depth); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.fw-col h3 { margin: 0 0 16px; font: 800 1.2rem/1.3 var(--font-display); color: var(--ink); }
+.fw-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
+.fw-col li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: var(--body); }
+.fw-col .ic { flex: none; width: 18px; height: 18px; margin-top: 2px; stroke-width: 2.6; }
+.fw-col--diy { background: rgba(246,247,250,.7); border-style: dashed; border-color: #D5DBE8; box-shadow: none; }
+.fw-col--diy .ic { color: #8A93A8; }
+.fw-col--tn { border-color: rgba(49,103,202,.4); box-shadow: 0 0 0 1px rgba(49,103,202,.1), var(--fx-depth-h); }
+.fw-col--tn .ic { color: var(--blue); }
+
+/* ---------------------------------------------------------------- TechNext Care */
+.fw-care { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.fw-tier { position: relative; display: flex; flex-direction: column; padding: 28px; border-radius: 24px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease); }
+.fw-tier:hover { transform: translateY(-4px); box-shadow: var(--fx-depth-h); }
+.fw-tier h3 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0; font: 800 1.35rem/1.3 var(--font-display); color: var(--ink); letter-spacing: -.02em; }
+.fw-tier-sub { margin: 4px 0 0; font: 600 15px/1.4 var(--font-body); color: var(--blue-700); }
+.fw-pick { background: var(--blue); color: #fff; font-size: 12px; }
+.fw-tier--pick { border-color: rgba(49,103,202,.4); background: linear-gradient(170deg, rgba(255,255,255,.95), rgba(234,240,251,.9)); box-shadow: 0 0 0 1px rgba(49,103,202,.12), var(--fx-depth-h); }
+.fw-glow { opacity: 1; }
+
+.fw-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fw-fx .fx-faq { max-width: 860px; }
+
+@media (max-width: 1000px) {
+  .fw-steps { grid-template-columns: 1fr 1fr; }
+  .fw-why { grid-template-columns: 1fr; gap: 32px; }
+  .fw-care { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .fw-free, .fw-compare { grid-template-columns: 1fr; gap: 16px; }
+  .fw-free-card, .fw-col, .fw-tier { padding: 22px 18px; }
+  .fw-steps { grid-template-columns: 1fr; }
+  .fw-flow { padding: 8px 18px; }
+  .fw-hero-act .btn { flex: 1 1 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fw-sw i, .fw-mk .ic, .fw-lead, .fw-flow li::after { animation: none !important; }
+  .fw-lead { opacity: 1; transform: none; }
+  .fw-free-card, .fw-tier { transition: none; }
+  .fw-free-card:hover, .fw-tier:hover { transform: none; }
+}

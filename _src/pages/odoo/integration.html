@@ -1,73 +1,82 @@
-<!--meta {"title": "Odoo Integration — Banks, Payments & Stores", "desc": "Odoo integration by TechNext in Singapore and the Philippines: banks, payment gateways, online stores and marketplaces connected so nothing is typed twice.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js", "assets/js/industry-world.js", "assets/js/company/react.js", "assets/js/company/office.js", "assets/js/worlds/integration.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/industry-world.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/odoo-walk.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/worlds/integration.css?v={ASSET_V}\">", "body": "ixw ixw--integration ow-page"} -->
+<!--meta {"title": "Odoo Integration — Banks, Payments & Stores", "desc": "Odoo integration by TechNext in Singapore and the Philippines: banks, payment gateways, online stores and marketplaces connected so nothing is typed twice.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js", "assets/js/pages/svc-fx.js", "assets/js/pages/integration-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/integration-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx itg-fx"} -->
+<!-- /odoo/integration (22 Oct 2026 futuristic redesign): the Odoo Central train-station world hero and the signal-box captions are gone.
+     Hero = glass connections panel (bank feed, payment gateway, marketplace and online store syncing into Odoo with live status, sample data).
+     The sync map demo is kept and restyled as glass. Styles: assets/css/pages/integration-fx.css, behaviour: assets/js/pages/integration-fx.js. -->
 
-<section class="ixw-hero" data-ixw-hero data-world="integration" data-home="760,236" aria-labelledby="ixw-h1">
-  <canvas class="ixw-cv" data-ixw-cv aria-hidden="true"></canvas>
-  <div class="container ixw-hero-in">
-    <div class="ixw-copy">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Walkthrough</span><span>Integration</span></nav>
-      <ol class="ow-rail" aria-label="Step 3 of 4"><li><a href="{{ROOT}}odoo/discovery.html"><b>1</b>Discovery</a></li><li><a href="{{ROOT}}odoo/training.html"><b>2</b>Training</a></li><li class="is-on"><b>3</b>Integration</li><li><a href="{{ROOT}}odoo/support.html"><b>4</b>Support</a></li></ol>
-      <h1 id="ixw-h1">Connect Odoo to the tools you keep.</h1>
-      <p class="lead"><span class="m-full">Odoo replaces a lot, but not everything. Banks, payment gateways, online stores, carriers and specialist tools stay, and talk to Odoo 20 over standard connectors or its API, so orders, stock and payouts flow across without anyone re-typing between systems.</span><span class="m-short">Banks, payments, online stores and your own tools, connected to Odoo 20 so nobody re-types between systems.</span></p>
-      <div class="actions"><a class="btn btn-primary btn-lg" href="{{ROOT}}quotation.html">Get a quotation {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="#talk">{{icon:chat}}Talk to us</a></div>
-      <p class="ixw-hint">{{icon:sparkle}}<span>Welcome to Odoo Central. Tap a line, the crew, the trains or the signal lever.</span></p>
-    </div>
-  </div>
-  <div class="ixw-set" data-ixw-set>
-    <div class="ixw-front" data-ixw-front>
-      <button class="ixw-cast" type="button" data-cast="en1" data-near="760,236" data-who="TechNext engineer" data-role="Signal desk · illustration" data-say="Every event lands in the **sync log**. If one fails, it retries on its own, then I stamp it **synced**." style="--x:584;--y:324;--w:84;--h:80" aria-label="Say hi to the engineer at the signal desk (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Engineer</b><i>signal desk</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="en2" data-near="760,236" data-who="TechNext developer" data-role="Dispatcher · illustration" data-say="Standard connector first, the **API** only where we really need it. Now, all aboard!" style="--x:930;--y:358;--w:90;--h:230" aria-label="Say hi to the dispatcher (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Dispatcher</b><i>TechNext</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="cn" data-near="760,236" data-who="TechNext consultant" data-role="Connector engineer · illustration" data-say="A new system to connect? We **map the data field by field**, then plug in a new line." style="--x:222;--y:358;--w:96;--h:230" aria-label="Say hi to the connector engineer (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Connector</b><i>new line</i></span></button>
-
-      <button class="ixw-cast" type="button" data-cast="ps" data-near="860,236" data-who="Visitor · client" data-role="Waiting on platform 6 · illustration" data-say="Our orders, stock and payouts arrive on their own now, so I just **read the paper**. Whee!" style="--x:938;--y:470;--w:100;--h:200" aria-label="Say hi to the passenger reading on the bench (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Passenger</b><i>visitor</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="gd" data-near="250,250" data-who="TechNext consultant" data-role="Station guide · illustration" data-say="Not sure which line your system needs? Here's the **line map**: standard connector first, the API where we must." style="--x:-64;--y:448;--w:96;--h:226" aria-label="Say hi to the station guide at the help point (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Guide</b><i>help point</i></span></button>
-      <button class="ixw-cast" type="button" data-cast="tv" data-near="250,250" data-who="Visitor · client" data-role="Traveller on the concourse · illustration" data-say="Ping! A web order just became a **sales order** in Odoo while I sat here." style="--x:-300;--y:492;--w:100;--h:190" aria-label="Say hi to the traveller on the bench (illustration)"><span class="ixw-hot-lab" aria-hidden="true">{{icon:smile}}<b>Traveller</b><i>visitor</i></span></button>
-
-      <button class="ixw-hot" type="button" data-hot="store" data-nx="760,236" data-pose="point-left" data-rec="Line 1 · online store · web order → sales order" data-say="Line 1, your **online store** (Shopify, WooCommerce): web orders arrive as sales orders." style="--x:386;--y:-66;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:cart}}<b>Online store</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="market" data-nx="760,236" data-pose="point-left" data-rec="Line 2 · marketplaces · orders in, stock out" data-say="Line 2, **marketplaces**: orders come in, stock levels go back out." style="--x:386;--y:26;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:bag}}<b>Marketplaces</b></span></button>
-      <button class="ixw-hot ixw-hot--below" type="button" data-hot="pay" data-nx="760,236" data-pose="point-left" data-rec="Line 3 · payments · payouts matched in Accounting" data-say="Line 3, **payment gateways**: each payout is matched in Accounting, line by line." style="--x:386;--y:118;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:receipt}}<b>Payments</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="bank" data-nx="740,236" data-pose="point-right" data-rec="Line 4 · bank feeds · statements imported and matched" data-say="Line 4, **bank feeds**: statements come in every day and are matched for you." style="--x:904;--y:-66;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:bank}}<b>Bank feeds</b></span></button>
-      <button class="ixw-hot" type="button" data-hot="mail" data-nx="740,236" data-pose="point-right" data-rec="Line 5 · email &amp; calendar · threads and meetings on the record" data-say="Line 5, **email and calendar**: threads and meetings sit on the customer's record." style="--x:904;--y:26;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:mail}}<b>Email &amp; calendar</b></span></button>
-      <button class="ixw-hot ixw-hot--below" type="button" data-hot="api" data-nx="740,236" data-pose="point-right" data-rec="Line 6 · your systems · over the Odoo API" data-say="Line 6, **your own systems** talk to Odoo over its API: webhooks, scheduled jobs and retries." style="--x:904;--y:118;--w:150;--h:54" aria-pressed="false"><span class="ixw-hot-lab">{{icon:code}}<b>Your systems</b></span></button>
-
-      <button class="ixw-toy" type="button" data-toy="lever" data-near="760,236" data-pose="wow" data-say="Signal at red: a line dropped! Watch it **retry with backoff**, then recover. Nothing is booked twice." style="--x:780;--y:416;--w:104;--h:112" aria-label="Pull the signal lever"><span class="ixw-hot-lab" aria-hidden="true">{{icon:sparkle}}<b>Pull the lever</b></span></button>
-
-      <div class="ixw-nexi" data-ixw-nexi style="--nx:760;--ny:236" data-reacts="wow::Look at all those **trains** go!|love::Every line runs to **one Odoo**. I love it.|celebrate::All lines on time, all systems synced. **Yay!**|think::Hmm… which system do you still **re-type** into today?">
-        <div class="ixw-nexi-y"><button class="ixw-nexi-b" type="button" aria-label="Say hi to Nexi"><span class="ixw-nexi-bob"><span class="ixw-aura" aria-hidden="true"></span>{{IXW_NEXI:integration}}</span></button></div>
-      </div>
-    </div>
-    <div class="ixw-cap" data-ixw-cap data-intro="Hi! I'm **Nexi**. Welcome to **Odoo Central**: every system you keep runs on its own line into one Odoo. Tap around!" data-outro="Connected once, synced every day, **no re-typing**. That's integration.">
-      <span class="ixw-cap-av" data-ixw-av data-av="nexi" aria-hidden="true">{{IXW_AV:integration}}<b data-for="en1" style="--c:#14A38B">E</b><b data-for="en2" style="--c:#3167CA">D</b><b data-for="cn" style="--c:#714B67">C</b><b data-for="ps" style="--c:#E0456B">P</b><b data-for="gd" style="--c:#F2B233">G</b><b data-for="tv" style="--c:#7DAE38">T</b></span>
-      <div class="ixw-cap-body">
-        <p class="ixw-cap-who"><b data-ixw-who>Nexi</b><small data-ixw-role data-default="assistant · Odoo integration">assistant · Odoo integration</small></p>
-        <p class="ixw-cap-txt" aria-hidden="true"><span data-ixw-type>Hi! I'm <b>Nexi</b>. Welcome to <b>Odoo Central</b>: every system you keep runs on its own line into one Odoo. Tap around!</span><i class="ixw-caret"></i></p>
-        <p class="sr-only" aria-live="polite" data-ixw-live></p>
-        <p class="ixw-cap-rec" data-ixw-rec aria-hidden="true"></p>
-      </div>
-      <div class="ixw-cap-side">
-        <div class="ixw-cap-ctl">
-          <button class="ixw-ibtn ixw-ibtn--prev" type="button" data-ixw-prev aria-label="Previous stop">{{icon:chevron}}</button>
-          <button class="ixw-ibtn ixw-ibtn--play is-on" type="button" data-ixw-play aria-pressed="true" aria-label="Pause the tour">{{icon:pause}}{{icon:play}}</button>
-          <button class="ixw-ibtn ixw-ibtn--next" type="button" data-ixw-next aria-label="Next stop">{{icon:chevron}}</button>
-        </div>
-        <div class="ixw-dots"><button type="button" data-ixw-dot aria-label="Stop 1: welcome"></button><button type="button" data-ixw-dot aria-label="Stop 2: online store"></button><button type="button" data-ixw-dot aria-label="Stop 3: marketplaces"></button><button type="button" data-ixw-dot aria-label="Stop 4: payments"></button><button type="button" data-ixw-dot aria-label="Stop 5: bank feeds"></button><button type="button" data-ixw-dot aria-label="Stop 6: email and calendar"></button><button type="button" data-ixw-dot aria-label="Stop 7: your systems"></button><button type="button" data-ixw-dot aria-label="Stop 8: summary"></button></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="container ixw-credits-wrap">
-  <h2 class="sr-only">At a glance</h2>
-  <dl class="glance glance--ind ixw-credits ow-strip"><div><dt>{{icon:layers}}Phase</dt><dd>Step 3 of 4</dd></div><div><dt>{{icon:plug}}Connects</dt><dd>Stores · payments · banks · email</dd></div><div><dt>{{icon:code}}Method</dt><dd>Standard connectors first, API where needed</dd></div><div><dt>{{icon:check}}Goal</dt><dd>No re-keying between systems</dd></div><div><dt>{{icon:users}}Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div></dl>
-</div>
-
-<section class="section section--tight answer-sec">
-  <div class="container"><div class="answer-box ig-notice reveal"><p class="answer-h">In one paragraph</p><p>Odoo integration connects the systems you keep to your Odoo database: banks, payment gateways, online stores such as Shopify and WooCommerce, marketplaces, carriers and specialist tools. TechNext uses standard connectors or the Odoo API, so orders, stock levels and payouts flow across without anyone re-typing them between systems.</p></div></div>
-</section>
-
-<section class="section demo-sec" id="sync-map">
+<!-- ============================================================ HERO -->
+<section class="fx-hero sv-hero itg-hero" aria-labelledby="itg-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container">
-    <div class="ig-head-row"><div class="sec-head ig-head reveal"><span class="hand">under the hood</span><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div></div>
-    <div class="ig-board-cap" aria-hidden="true"><span><i></i>Signal box · live network</span><em>sample traffic</em></div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Integration</span></nav>
+    <div class="fx-hero-in">
+      <div class="sv-copy">
+        <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Singapore · Taguig City · Ho Chi Minh City</span></p>
+        <h1 id="itg-h1">Connect Odoo to the tools you keep.</h1>
+        <p class="fx-lead">Odoo replaces a lot, but not everything. Banks, payment gateways, online stores, carriers and specialist tools stay, and talk to Odoo 20 over standard connectors or its API, so orders, stock and payouts flow across without anyone re-typing between systems.</p>
+        <div class="actions sv-act">
+          <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        </div>
+        <ol class="sv-journey" aria-label="Where this sits in an Odoo project: step 3 of 4">
+          <li><a href="{{ROOT}}odoo/discovery.html"><i>1</i>Discovery</a></li>
+          <li><a href="{{ROOT}}odoo/training.html"><i>2</i>Training</a></li>
+          <li class="is-on"><span class="sv-j" aria-current="step"><i>3</i>Integration</span></li>
+          <li><a href="{{ROOT}}odoo/support.html"><i>4</i>Support</a></li>
+        </ol>
+      </div>
+
+      <div class="sv-side">
+        <div class="sv-panel itg-panel" data-ig aria-label="Sample connections syncing into Odoo with live status. Sample data.">
+          <i class="fx-result-glow" aria-hidden="true"></i>
+          <div class="sv-bar">{{icon:plug}}<b>Connections to Odoo</b><span class="fx-tag">Sample data</span></div>
+          <p class="sv-sub">Four connectors, one Odoo database</p>
+
+          <ul class="itg-rows" data-rows>
+            <li data-r="bank">{{icon:bank}}<span class="itg-n"><b>Bank feed</b><small>Statement lines in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>38</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="pay">{{icon:receipt}}<span class="itg-n"><b>Payment gateway</b><small>Payment events in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>12</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="mkt">{{icon:bag}}<span class="itg-n"><b>Marketplace</b><small>Orders in, stock out</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>6</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="shop">{{odoo:website_sale:22}}<span class="itg-n"><b>Online store</b><small>Web orders to sales orders</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>4</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+          </ul>
+          <div class="itg-hub">{{odoo:sale:22}}{{odoo:stock:22}}{{odoo:accountant:22}}<b>Your Odoo</b><small>one database</small></div>
+
+          <div class="itg-rec">
+            <p class="sv-h">Bank lines matched to invoices and bills <small data-rect>38 of 41</small></p>
+            <span class="itg-bar" aria-hidden="true"><i data-bar></i></span>
+          </div>
+
+          <dl class="sv-kpis itg-kpis" aria-label="Sync counters">
+            <div><dt>Synced today</dt><dd data-k="proc" data-base="1240">1,240</dd></div>
+            <div><dt>Retries</dt><dd data-k="retry" data-base="0">0</dd></div>
+            <div><dt>Duplicates blocked</dt><dd data-k="dup" data-base="0">0</dd></div>
+          </dl>
+          <ol class="sv-feed" data-feed aria-live="off">
+            <li><i></i><span><b>Bank feed</b> 38 statement lines imported</span></li>
+            <li><i></i><span><b>Gateway</b> payout of 12 payments matched</span></li>
+            <li><i></i><span><b>Marketplace</b> 6 orders in, stock levels out</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sr-only">At a glance</h2>
+    <dl class="sv-glance">
+      <div><dt>Phase</dt><dd>Step 3 of 4</dd></div>
+      <div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div>
+      <div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div>
+      <div><dt>Goal</dt><dd>No re-keying between systems</dd></div>
+      <div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section section--tight sv-answer-sec">
+  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>Odoo integration connects the systems you keep to your Odoo database: banks, payment gateways, online stores such as Shopify and WooCommerce, marketplaces, carriers and specialist tools. TechNext uses standard connectors or the Odoo API, so orders, stock levels and payouts flow across without anyone re-typing them between systems.</p></div></div>
+</section>
+
+<!-- ============================================================ SYNC MAP DEMO -->
+<section class="section fx-sec demo-sec" id="sync-map">
+  <div class="container">
+    <div class="sec-head reveal"><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div>
     <div class="dm dm-syncmap reveal" data-demo="syncmap">
       <div class="dm-head">
         <div class="dm-title"><b>Integration sync map</b><small>Sample connectors · <span data-k="clock">09:00:00</span> · timings sped up</small></div>
@@ -120,87 +129,127 @@
   </div>
 </section>
 
-
-<section class="section">
+<!-- ============================================================ WHAT WE CONNECT -->
+<section class="section fx-sec fx-sec--alt" id="connect">
   <div class="container">
-    <div class="sec-head ig-head reveal"><span class="hand">what we usually connect</span><h2>The systems around your Odoo.</h2></div>
-    <div class="grid-3 ig-lines">
-      <article class="card ig-line reveal" style="--i:0;--lc:#7DAE38"><p class="ig-line-no" aria-hidden="true"><b>L1</b>Line 1</p><div class="card-ic">{{odoo:website_sale}}</div><h3>Online stores</h3><p>Shopify, WooCommerce and other platforms — orders in, stock levels out, tracking synced, so the web store and Odoo never disagree.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
-      <article class="card ig-line reveal" style="--i:1;--lc:#F08A24"><p class="ig-line-no" aria-hidden="true"><b>L2</b>Line 2</p><div class="card-ic">{{icon:cart}}</div><h3>Marketplaces</h3><p>Marketplace accounts kept in step with Odoo stock and orders, so a sale in one place isn't oversold in another.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
-      <article class="card ig-line reveal" style="--i:2;--lc:#635BFF"><p class="ig-line-no" aria-hidden="true"><b>L3</b>Line 3</p><div class="card-ic">{{icon:receipt}}</div><h3>Payment gateways</h3><p>Card and e-wallet payments on invoices and the web store, with payouts and fees reconciled against your books.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
-      <article class="card ig-line reveal" style="--i:3;--lc:#3167CA"><p class="ig-line-no" aria-hidden="true"><b>L4</b>Line 4</p><div class="card-ic">{{icon:bank}}</div><h3>Bank feeds</h3><p>Statement feeds into Accounting for daily reconciliation; payment files out for supplier runs.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
-      <article class="card ig-line reveal" style="--i:4;--lc:#E0456B"><p class="ig-line-no" aria-hidden="true"><b>L5</b>Line 5</p><div class="card-ic">{{icon:mail}}</div><h3>Email &amp; calendar</h3><p>Shared inboxes, send-as addresses and calendar sync, so conversations and activities live inside Odoo.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
-      <article class="card ig-line reveal" style="--i:5;--lc:#1B2A4A"><p class="ig-line-no" aria-hidden="true"><b>L6</b>Line 6</p><div class="card-ic">{{icon:plug}}</div><h3>Internal systems (API)</h3><p>HR systems, BI tools, POS hardware and industry software. If it has an API, it can be connected.</p><p class="ig-line-route" aria-hidden="true"><i></i><i></i><i></i><b>Odoo Central</b></p></article>
+    <div class="sec-head reveal"><h2>The systems around your Odoo.</h2><p class="lead">Six kinds of system we usually connect, and what flows between each one and Odoo.</p></div>
+    <div class="itg-sys sv-glass reveal">
+      <article>{{odoo:website_sale:28}}<div><h3>Online stores</h3><p>Shopify, WooCommerce and other platforms: orders in, stock levels out, tracking synced, so the web store and Odoo never disagree.</p><ul><li>Orders in</li><li>Stock out</li><li>Tracking</li></ul></div></article>
+      <article>{{icon:bag}}<div><h3>Marketplaces</h3><p>Marketplace accounts kept in step with Odoo stock and orders, so a sale in one place isn't oversold in another.</p><ul><li>Orders in</li><li>Stock out</li></ul></div></article>
+      <article>{{icon:receipt}}<div><h3>Payment gateways</h3><p>Card and e-wallet payments on invoices and the web store, with payouts and fees reconciled against your books.</p><ul><li>Payments in</li><li>Payouts and fees</li></ul></div></article>
+      <article>{{icon:bank}}<div><h3>Bank feeds</h3><p>Statement feeds into Accounting for daily reconciliation; payment files out for supplier runs.</p><ul><li>Statements in</li><li>Payment files out</li></ul></div></article>
+      <article>{{icon:mail}}<div><h3>Email and calendar</h3><p>Shared inboxes, send-as addresses and calendar sync, so conversations and activities live inside Odoo.</p><ul><li>Shared inboxes</li><li>Calendar sync</li></ul></div></article>
+      <article>{{icon:plug}}<div><h3>Internal systems (API)</h3><p>HR systems, BI tools, POS hardware and industry software. If it has an API, it can be connected.</p><ul><li>HR</li><li>BI</li><li>POS hardware</li></ul></div></article>
     </div>
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ BIR (PHILIPPINES) -->
+<section class="section fx-sec sv-dark-sec" id="bir">
   <div class="container">
-    <div class="sec-head ig-head reveal"><span class="hand">how we do it</span><h2>Standard connectors first, custom code last.</h2></div>
-    <div class="steps ig-steps reveal">
-      <div class="step reveal" style="--i:0"><div class="step-n">1</div><div><h3>Map the data</h3><p>Agree which records flow, in which direction, field by field, before anything is switched on.</p></div></div>
-      <div class="step reveal" style="--i:1"><div class="step-n">2</div><div><h3>Choose the connector</h3><p>A standard, maintained connector wherever one exists; custom code only where none does.</p></div></div>
-      <div class="step reveal" style="--i:2"><div class="step-n">3</div><div><h3>Test on staging</h3><p>Run real records end-to-end and reconcile the totals before go-live.</p></div></div>
-      <div class="step reveal" style="--i:3"><div class="step-n">4</div><div><h3>Go live &amp; monitor</h3><p>Cut over with error handling that alerts a person, and documentation for the next developer.</p></div></div>
+    <div class="sv-dark itg-bir-block reveal">
+      <div>
+        <h2>In the Philippines, integration keeps your BIR books current.</h2>
+        <p class="lead">Bank lines that reconcile every day keep the books behind your BIR reports (SLSP, SAWT, QAP and the 2550Q) current, and 2307 certificates come from the vendor bills you post with withholding tax. If you are a covered taxpayer, connecting Odoo to the BIR's EIS is integration work we plan with you.</p>
+        <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}odoo/philippines.html">Odoo in the Philippines {{icon:arrow}}</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}bir-e-invoicing.html">E-invoicing deadline</a></div>
+      </div>
+      <div class="sv-dark-r">
+        <p class="fx-mini-h">Where it touches the BIR <span class="fx-tag">Philippines</span></p>
+        <ul class="sv-dark-list">
+          <li><b>Bank feeds</b><span>Statement lines matched to invoices and bills every day, so the books stay current between filings.</span></li>
+          <li><b>Payment gateways</b><span>Payouts and fees reconciled, so the books match what the gateway actually paid.</span></li>
+          <li><b>BIR EIS</b><span>The link to the BIR's Electronic Invoicing System is project work. Covered taxpayers must issue e-invoices by 31 December 2026.</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ============================================================ HOW WE DO IT -->
+<section class="section fx-sec" id="how">
   <div class="container">
-    <div class="two two--top">
-      <div class="reveal ig-get-copy ig-head"><span class="hand">what you get</span><h2>Systems that agree with each other.</h2><p class="lead">Odoo and its app store already cover most connections. We only write code where no maintained connector exists — and we document it so the next upgrade stays predictable.</p><ul class="ig-chips" aria-label="In short"><li><b>6</b>kinds of system on the map</li><li><b>1</b>Odoo database</li><li><b>API</b>only where needed</li></ul></div>
-      <div class="ig-timetable reveal"><p class="ig-tt-h" aria-hidden="true"><span>Service</span><span>Status</span></p><ul class="spec-cols" style="margin:0">
-        <li>{{icon:check}}Field-by-field mapping agreed before anything syncs</li>
-        <li>{{icon:check}}Direction of each flow defined — one-way or two-way</li>
-        <li>{{icon:check}}Store and marketplace order, stock and tracking sync</li>
-        <li>{{icon:check}}Payment capture with payouts and fees reconciled</li>
-        <li>{{icon:check}}Bank statement import and outgoing payment files</li>
-        <li>{{icon:check}}Email and calendar connected to Odoo</li>
-        <li>{{icon:check}}Standard connectors used wherever maintained</li>
-        <li>{{icon:check}}Custom API code only where no connector exists</li>
-        <li>{{icon:check}}Tested on staging with real records</li>
-        <li>{{icon:check}}Error handling that alerts a person, not just a log</li>
-        <li>{{icon:check}}Documentation so upgrades stay predictable</li>
-        <li>{{icon:check}}A reconciliation check before go-live</li>
-      </ul></div>
+    <div class="sec-head reveal"><h2>Standard connectors first, custom code last.</h2></div>
+    <ol class="itg-flow reveal" data-flow>
+      <li><b>Map the data</b><p>Agree which records flow, in which direction, field by field, before anything is switched on.</p></li>
+      <li><b>Choose the connector</b><p>A standard, maintained connector wherever one exists; custom code only where none does.</p></li>
+      <li><b>Test on staging</b><p>Run real records end-to-end and reconcile the totals before go-live.</p></li>
+      <li><b>Go live and monitor</b><p>Cut over with error handling that alerts a person, and documentation for the next developer.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT YOU GET -->
+<section class="section fx-sec fx-sec--alt" id="deliverables">
+  <div class="container sv-get">
+    <div class="sv-get-l reveal">
+      <h2>Systems that agree with each other.</h2>
+      <p class="lead">Odoo and its app store already cover most connections. We only write code where no maintained connector exists, and we document it so the next upgrade stays predictable.</p>
+      <ul class="itg-short" aria-label="In short">
+        <li><b data-count="6">6</b><span>kinds of system on the map</span></li>
+        <li><b data-count="1">1</b><span>Odoo database</span></li>
+        <li><b>API</b><span>only where needed</span></li>
+      </ul>
+    </div>
+    <div class="sv-doc reveal">
+      <div class="sv-doc-bar"><b>Integration checklist</b><em>12 / 12</em></div>
+      <ul class="sv-ticks">
+        <li>{{icon:check}}<span>Field-by-field mapping agreed before anything syncs</span></li>
+        <li>{{icon:check}}<span>Direction of each flow defined: one-way or two-way</span></li>
+        <li>{{icon:check}}<span>Store and marketplace order, stock and tracking sync</span></li>
+        <li>{{icon:check}}<span>Payment capture with payouts and fees reconciled</span></li>
+        <li>{{icon:check}}<span>Bank statement import and outgoing payment files</span></li>
+        <li>{{icon:check}}<span>Email and calendar connected to Odoo</span></li>
+        <li>{{icon:check}}<span>Standard connectors used wherever maintained</span></li>
+        <li>{{icon:check}}<span>Custom API code only where no connector exists</span></li>
+        <li>{{icon:check}}<span>Tested on staging with real records</span></li>
+        <li>{{icon:check}}<span>Error handling that alerts a person, not just a log</span></li>
+        <li>{{icon:check}}<span>Documentation so upgrades stay predictable</span></li>
+        <li>{{icon:check}}<span>A reconciliation check before go-live</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec">
   <div class="container">
-    <div class="sec-head ig-head reveal"><span class="hand">common questions</span><h2>Integration, answered.</h2></div>
-    <div class="ig-desk">
-    <div class="faq reveal">
+    <div class="sec-head reveal"><h2>Integration, answered.</h2></div>
+    <div class="faq fx-faq reveal">
       <details><summary>Will Odoo replace our online store? {{icon:chevron}}</summary><div class="faq-a"><p>Only if you want it to. Otherwise we connect your existing Shopify, WooCommerce or marketplace store so orders and stock stay in step both ways.</p></div></details>
       <details><summary>Do you build custom connectors? {{icon:chevron}}</summary><div class="faq-a"><p>Only where no maintained connector exists. We prefer standard connectors from Odoo and its app store, and we document any custom code we write.</p></div></details>
       <details><summary>One-way or two-way sync? {{icon:chevron}}</summary><div class="faq-a"><p>Either. We agree the direction of every flow up front, field by field, so both systems hold the version of the truth you expect.</p></div></details>
-      <details><summary>What about payment fees and payouts? {{icon:chevron}}</summary><div class="faq-a"><p>They are captured and reconciled, so your books match what the gateway actually paid out — fees included.</p></div></details>
+      <details><summary>What about payment fees and payouts? {{icon:chevron}}</summary><div class="faq-a"><p>They are captured and reconciled, so your books match what the gateway actually paid out, fees included.</p></div></details>
       <details><summary>What happens if a sync fails? {{icon:chevron}}</summary><div class="faq-a"><p>Error handling alerts a person rather than failing silently, and everything is tested on staging with real records before it goes live.</p></div></details>
-      <details><summary>How is integration priced? {{icon:chevron}}</summary><div class="faq-a"><p>On quotation, based on the systems and flows involved — <a href="{{ROOT}}quotation.html">request a quotation</a>.</p></div></details>
-    </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="sec-head ig-head reveal"><span class="hand">related services</span><h2>Around integration.</h2></div>
-    <div class="grid-3 ig-change">
-      <a class="card reveal" style="--i:0" href="{{ROOT}}solutions/odoo-erp.html"><div class="card-ic">{{icon:layers}}</div><h3>Odoo ERP Development</h3><p>The implementation these integrations plug into — one database for orders, stock and money.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card reveal" style="--i:1" href="{{ROOT}}solutions/enterprise.html"><div class="card-ic">{{icon:globe}}</div><h3>Enterprise Solution</h3><p>Multi-company, multi-country groups on one Odoo, with inter-company flows and consolidation.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
-      <a class="card reveal" style="--i:2" href="{{ROOT}}odoo/discovery.html"><div class="card-ic">{{icon:search}}</div><h3>Odoo Discovery</h3><p>Where the systems that stay get flagged for connecting, before a line of code is written.</p><span class="btn-link">Learn more {{icon:arrow}}</span></a>
+      <details><summary>How is integration priced? {{icon:chevron}}</summary><div class="faq-a"><p>On quotation, based on the systems and flows involved: <a href="{{ROOT}}quotation.html">request a quotation</a>.</p></div></details>
     </div>
   </div>
 </section>
 
-<section class="section section--alt">
+<!-- ============================================================ RELATED -->
+<section class="section fx-sec fx-sec--alt">
   <div class="container">
-    <div class="cta ig-cta reveal">
-      <div><span class="hand">next step</span><h2>Stop re-typing between systems.</h2><p>Tell us the store, gateway, bank or tool you need connected. We will map the flow and come back with a quotation.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}free-website-with-odoo.html">Get your free website</a><a class="btn btn-outline-white btn-lg" href="#talk">Talk to us</a></div>
+    <div class="sec-head reveal"><h2>Around integration.</h2></div>
+    <div class="sv-rel reveal">
+      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP Development</b><small>The implementation these integrations plug into: one database for orders, stock and money.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}solutions/enterprise.html">{{icon:globe}}<span><b>Enterprise Solution</b><small>Multi-company, multi-country groups on one Odoo, with inter-company flows and consolidation.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Where the systems that stay get flagged for connecting, before a line of code is written.</small></span><em>Step 1 of 4 {{icon:arrow}}</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CLOSE -->
+<section class="section fx-close-sec" id="talk">
+  <div class="container">
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div>
+        <h2>Stop re-typing between systems.</h2>
+        <p>Tell us the store, gateway, bank or tool you need connected. We will map the flow and come back with a quotation.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+      </div>
     </div>
   </div>
 </section>

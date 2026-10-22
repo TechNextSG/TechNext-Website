@@ -68,7 +68,9 @@ def main():
             # The site is served with Vercel `cleanUrls`, so internal links are
             # extensionless: /company resolves to company.html and /odoo/ to
             # odoo/index.html. Accept either spelling before calling a ref broken.
-            _t = (p.parent / urllib.parse.unquote(url.split("?")[0].split("#")[0])).resolve()
+            _rel = urllib.parse.unquote(url.split("?")[0].split("#")[0])
+            # root-relative refs (the 404 page uses them so it works at any missing path) resolve from the site root
+            _t = ((ROOT / _rel.lstrip("/")) if _rel.startswith("/") else (p.parent / _rel)).resolve()
             if not (_t.exists() or _t.with_suffix(".html").exists()
                     or (_t / "index.html").exists()):
                 issues[key].append(f"broken ref {url}")
