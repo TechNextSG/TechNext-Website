@@ -342,7 +342,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}free-website-with-odoo.html" aria-label="Book your free BIR check">{{icon:chat-send}}<span>Free BIR check</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}free-website-with-odoo.html#claim" aria-label="Contact us">{{icon:chat-send}}<span>Contact Us</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
