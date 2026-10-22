@@ -1,8 +1,8 @@
 # TechNext (TechNext Pte. Ltd., Singapore)
 
-Last updated: 2026-10-21
+Last updated: 2026-10-22
 
-> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), set it up for BIR requirements in the Philippines (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for GST and InvoiceNow in Singapore, build enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.
+> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up as a business's BIR Computerized Accounting System (CAS) or CBA, prepare the samples for its registration, and set up 2307, SLSP, SAWT, QAP and e-invoicing from our Taguig City hub; in Singapore, GST and InvoiceNow. We also build enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.
 
 - Registered name: TechNext Pte. Ltd. (UEN 202699888G)
 - Headquarters: 261 Waterloo Street #03-36, Singapore 180261
@@ -21,6 +21,7 @@ Last updated: 2026-10-21
 
 ## BIR compliance (Philippines)
 
+- [BIR CAS Registration: Computerized Accounting System in Odoo](https://technext.asia/bir-cas): Register Odoo as your BIR Computerized Accounting System (CAS) or CBA: we set it up, prepare the samples for your Acknowledgement Certificate, then e-invoicing.
 - [BIR E-Invoicing Setup in Odoo: 31 December 2026 Deadline](https://technext.asia/bir-e-invoicing): Covered by BIR e-invoicing? Who must issue e-invoices by 31 Dec 2026, the PTI and EIS steps, and how TechNext sets up Odoo for them. Book a call.
 - [BIR Audit Readiness: eLA Rules 2026 and Your Odoo Records](https://technext.asia/blog/bir-audit-readiness-odoo): How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record keeping, and Odoo features that keep books ready.
 - [BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS](https://technext.asia/blog/bir-e-invoicing-odoo): BIR e-invoicing explained: RR 26-2025 coverage, the 31 Dec 2026 deadline, the Permit to Issue, EIS certification and RMC 110-2026, plus Odoo steps.

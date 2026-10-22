@@ -325,12 +325,14 @@ LAYOUT = '''<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
+<script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
 <script type="application/ld+json">{JSONLD}</script>
 </head>
 <body class="{BODY_CLASS}">
 {TAGS_BODY}
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
+<div class="bn" role="region" aria-label="BIR notice"><div class="container bn-in"><p><b>BIR notice</b><span class="bn-long">E-invoicing is due by 31 December 2026 for covered taxpayers, including businesses on a CAS or CBA with invoicing software.</span><span class="bn-short">E-invoicing is due by 31 Dec 2026 for covered taxpayers.</span></p><a class="bn-link" href="{ROOT}bir-cas.html">Is your CAS ready?<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><button class="bn-x" type="button" data-bn-x aria-label="Hide the BIR notice"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
 
 <header class="header" data-header>
   <div class="container header-inner">
@@ -384,8 +386,17 @@ LAYOUT = '''<!doctype html>
 SERVICE_PAGES = ("solutions/", "industries/", "odoo/apps/", "odoo/discovery.html", "odoo/training.html",
                  "odoo/integration.html", "odoo/support.html", "odoo/erp-system.html",
                  "odoo/crm-development.html", "odoo/ai-integration.html", "odoo/philippines.html",
-                 "odoo/vietnam.html", "bir-e-invoicing.html")
+                 "odoo/vietnam.html", "bir-e-invoicing.html", "bir-cas.html")
 AREA_SERVED = ["Singapore", "Philippines", "Vietnam", "Southeast Asia", "Worldwide"]
+# Philippine BIR pages: the service area is the Philippines and the page is about the BIR and Odoo (entity links for answer engines)
+PH_BIR_PAGES = ("bir-cas.html", "bir-e-invoicing.html", "odoo/philippines.html")
+PH_AREA = {"@type": "Country", "name": "Philippines"}
+BIR_ENTITY = {"@type": "GovernmentOrganization", "name": "Bureau of Internal Revenue", "alternateName": "BIR",
+              "url": "https://www.bir.gov.ph/", "areaServed": PH_AREA}
+ODOO_ENTITY = {"@type": "SoftwareApplication", "name": "Odoo", "applicationCategory": "BusinessApplication",
+               "url": "https://www.odoo.com/", "sameAs": ["https://en.wikipedia.org/wiki/Odoo"]}
+SERVICE_TYPE = {"bir-cas.html": "BIR Computerized Accounting System (CAS) registration",
+                "bir-e-invoicing.html": "BIR e-invoicing (EIS) set-up", "odoo/philippines.html": "Odoo implementation in the Philippines"}
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
 _FAQ = re.compile(r'<details[^>]*>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)   # <details open> too
@@ -494,6 +505,10 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "inLanguage": "en"}
     if out_rel in ("index.html", "company.html"):
         page["about"] = {"@id": org_id}
+    if out_rel in PH_BIR_PAGES or (meta.get("article") or {}).get("cat") == "bir":
+        page["about"] = [BIR_ENTITY, ODOO_ENTITY]
+        page["audience"] = {"@type": "BusinessAudience", "audienceType": "Philippine businesses registered with the BIR",
+                            "geographicArea": PH_AREA}
     crumb = _breadcrumb(canonical, content)
     if crumb:
         page["breadcrumb"] = {"@id": crumb["@id"]}
@@ -515,6 +530,11 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "author": {"@id": org_id}, "publisher": {"@id": org_id},
                       "image": cover_url(art) or S.SITE_URL + "assets/img/og-image.png",
                       "mainEntityOfPage": {"@id": page_id}, "isPartOf": {"@id": S.SITE_URL + "blog#blog"}})
+        if art.get("keywords"):
+            graph[-1]["keywords"] = art["keywords"]
+        if art["cat"] == "bir":
+            graph[-1]["about"] = [BIR_ENTITY, ODOO_ENTITY]
+            graph[-1]["contentLocation"] = PH_AREA
     if out_rel == "blog.html":
         graph.append({"@type": "Blog", "@id": S.SITE_URL + "blog#blog", "url": canonical,
                       "name": "TechNext blog", "description": meta.get("desc", "").strip(),
@@ -538,9 +558,12 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append(ld)
     if out_rel.startswith(SERVICE_PAGES):
         name = _base_title(meta["title"])
-        graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
+        ph = out_rel in PH_BIR_PAGES
+        graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": SERVICE_TYPE.get(out_rel, name),
                       "description": meta.get("desc", "").strip(), "url": canonical,
-                      "provider": {"@id": org_id}, "areaServed": AREA_SERVED})
+                      "provider": {"@id": org_id}, "areaServed": PH_AREA if ph else AREA_SERVED})
+        if ph:
+            graph[-1]["audience"] = page["audience"]
     # a "</" inside a JSON string would end the <script> element early
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
@@ -2086,6 +2109,12 @@ def blog_filters() -> str:
 
 
 PREPARED_BY = '<p class="small muted post-prep">Prepared by the TechNext Philippines Odoo and finance team, Taguig City.</p>'
+# BIR articles close with the three BIR services (owner 22 Oct 2026: lean on the BIR CAS service)
+BIR_SERVICES = ('<nav class="post-svc" aria-label="BIR services"><p class="post-svc-h">Need this set up in your Odoo?</p><ul>'
+                '<li><a href="{{ROOT}}bir-cas.html">{{icon:shield}}<b>BIR CAS registration</b><span>Odoo set up as your Computerized Accounting System</span></a></li>'
+                '<li><a href="{{ROOT}}bir-e-invoicing.html">{{icon:receipt}}<b>BIR e-invoicing</b><span>Ready for the 31 December 2026 deadline</span></a></li>'
+                '<li><a href="{{ROOT}}odoo/philippines.html">{{icon:co-ph}}<b>Odoo for the Philippines</b><span>2307, SLSP, SAWT, QAP and 2550Q from your books</span></a></li>'
+                '</ul></nav>')
 
 
 def article_html(meta: dict, body: str) -> str:
@@ -2153,7 +2182,7 @@ def article_html(meta: dict, body: str) -> str:
     <aside class="post-toc" aria-label="On this page" data-blg-toc><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
     <div class="prose">
 {body}
-      <div class="post-about">
+      {BIR_SERVICES if art["cat"] == "bir" else ""}<div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
         <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up for BIR, GST and InvoiceNow, for clients in 10+ countries. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
       </div>
@@ -2507,7 +2536,7 @@ def write_sitemap(pages):
 BIR_BLOG = re.compile(r"bir|cas-cba|2307|slsp|sawt|qap|eopt|withholding|payroll")
 
 LLMS_GROUPS = [
-    ("BIR compliance (Philippines)", lambda u: u in ("bir-e-invoicing", "odoo/philippines")
+    ("BIR compliance (Philippines)", lambda u: u in ("bir-cas", "bir-e-invoicing", "odoo/philippines")
                                                or (u.startswith("blog/") and BIR_BLOG.search(u[5:]) is not None)),
     ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
                                     or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
@@ -2528,10 +2557,11 @@ def write_llms():
     strip = lambda t: re.sub(r"\s*[|·]\s*TechNext$", "", t).strip()
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
-        "Last updated: 2026-10-21", "",
+        f"Last updated: {date.today().isoformat()}", "",
         "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. "
-        "We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more), set it up for BIR requirements "
-        "in the Philippines (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for GST and InvoiceNow in Singapore, build "
+        "We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up "
+        "as a business's BIR Computerized Accounting System (CAS) or CBA, prepare the samples for its registration, and set up "
+        "2307, SLSP, SAWT, QAP and e-invoicing from our Taguig City hub; in Singapore, GST and InvoiceNow. We also build "
         "enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing "
         "companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements.",
         "",
@@ -2621,10 +2651,11 @@ def write_llms_full():
     can quote TechNext accurately without parsing the design."""
     c = S.COMPANY
     out = ["# TechNext — full reference", "",
-           "Last updated: 2026-10-21", "",
+           f"Last updated: {date.today().isoformat()}", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
            "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, "
-           "sets it up for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds "
+           "sets it up for BIR requirements (BIR Computerized Accounting System (CAS) or CBA set-up and registration samples, 2307, SLSP, "
+           "SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds "
            "enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). "
            "Clients in 10+ countries; 11+ enterprise clients.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
@@ -2673,6 +2704,7 @@ def main():
     write_sitemap(built)
     write_robots()
     write_well_known()
+    (ROOT / f"{S.INDEXNOW_KEY}.txt").write_text(S.INDEXNOW_KEY, encoding="utf-8", newline="")
     write_denied()
     make_nexi.write_page(ASSET_V, INDEX, S.SITE_URL)
     print(f"llms.txt: {write_llms()} pages")

@@ -1,0 +1,253 @@
+<!--meta {"title": "BIR CAS Registration: Computerized Accounting System in Odoo", "desc": "Register Odoo as your BIR Computerized Accounting System (CAS) or CBA: we set it up, prepare the samples for your Acknowledgement Certificate, then e-invoicing.", "out": "bir-cas.html", "nav": "solution", "body": "fx-page bir-fx cas-fx", "scripts": ["assets/js/pages/bir-e-invoicing-fx.js", "assets/js/pages/bir-cas-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/bir-e-invoicing-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/bir-cas-fx.css?v={ASSET_V}\">"} -->
+<!-- BIR CAS service page (owner 22 Oct 2026: "the website more lean on BIR Computerized Accounting System (CAS) service").
+     Built on the BIR e-invoicing page's glass system (bir-e-invoicing-fx.css/.js) plus a CAS readiness panel
+     (assets/css/pages/bir-cas-fx.css, assets/js/pages/bir-cas-fx.js). Every rule here comes from the sourced article
+     blog/register-odoo-cas-cba-bir (RMO 9-2021, RMC 5-2021 and its annexes, RR 11-2024, RMC 4-2026, RMC 98-2026).
+     Never claim that Odoo or TechNext is BIR-accredited, certified or compliant. -->
+
+<!-- ============================================================ HERO -->
+<section class="fx-hero bf-hero" aria-labelledby="cs-h1">
+  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><a href="{{ROOT}}odoo/philippines.html">Philippines</a><span>BIR CAS registration</span></nav>
+    <div class="fx-hero-in bf-hero-in">
+      <div class="bf-copy">
+        <h1 id="cs-h1">Your BIR Computerized Accounting System, set up in Odoo and ready to register</h1>
+        <p class="fx-lead">A Computerized Accounting System (CAS) is the system your business registers with the BIR to issue invoices and keep its books. We set Odoo up as your CAS or CBA, prepare the samples your Revenue District Office asks for, and stay on for the yearly books and e-invoicing.</p>
+        <div class="bf-act">
+          <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="#cas-steps">See how it works</a>
+        </div>
+        <ul class="bf-chips" aria-label="Key facts">
+          <li>{{icon:shield}}CAS or CBA, head office and branches</li>
+          <li>{{icon:file}}Samples taken from your own Odoo</li>
+          <li>{{icon:check}}Odoo Ready Partner</li>
+        </ul>
+      </div>
+
+      <aside class="fx-result bf-rec cs-panel" data-cs-panel aria-label="Sample CAS readiness check in Odoo against the BIR's functional and technical requirements">
+        <div class="fx-result-glow" aria-hidden="true"></div>
+        <div class="bf-rec-bar">
+          <span class="bf-rec-app">{{odoo:accountant:20}}<b>Accounting</b><small>CAS readiness</small></span>
+          <span class="bf-sample">Sample data</span>
+        </div>
+        <div class="bf-rec-head">
+          <div><p class="bf-inv">Sample Trading Corp.</p><p class="bf-cust">TIN 000-000-000-00000 · Head office</p></div>
+          <p class="fx-pill bf-status" data-cs-status data-verdict="pending"><i aria-hidden="true"></i><span data-cs-status-t>Checking</span></p>
+        </div>
+        <div class="cs-meter"><span class="cs-meter-bar" aria-hidden="true"><i data-cs-meter></i></span><p><b data-cs-n>0</b> of 8 requirements set up</p></div>
+        <ul class="cs-checks" data-cs-checks>
+          <li>{{icon:check}}<span>Audit trail, printable and protected</span></li>
+          <li>{{icon:check}}<span>Posted entries voided, never edited</span></li>
+          <li>{{icon:check}}<span>System-generated invoice numbers</span></li>
+          <li>{{icon:check}}<span>User stamp on every record</span></li>
+          <li>{{icon:check}}<span>Report headers with TIN and branch code</span></li>
+          <li>{{icon:check}}<span>CSV or DAT exports; 2306, 2307, 2316</span></li>
+          <li>{{icon:check}}<span>Unique user IDs and logged changes</span></li>
+          <li>{{icon:check}}<span>Backups kept for ten years</span></li>
+        </ul>
+        <ol class="bf-tl" data-cs-tl aria-label="Registration timeline">
+          <li><span class="bf-dot" aria-hidden="true"></span><b>Set up</b><small>Odoo configured</small></li>
+          <li><span class="bf-dot" aria-hidden="true"></span><b>Samples</b><small>Printed from Odoo</small></li>
+          <li><span class="bf-dot" aria-hidden="true"></span><b>Filed</b><small>At your RDO</small></li>
+          <li><span class="bf-dot" aria-hidden="true"></span><b>AC issued</b><small>By the BIR</small></li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ AT A GLANCE + DEFINITION -->
+<section class="bf-glance-sec" aria-labelledby="cs-glance-h">
+  <div class="container">
+    <h2 class="sr-only" id="cs-glance-h">BIR CAS registration at a glance</h2>
+    <dl class="bf-glance reveal">
+      <div><dt>What you register</dt><dd>Your use of a system, at your RDO, not a software brand</dd></div>
+      <div><dt>What you receive</dt><dd>An Acknowledgement Certificate (AC) with an AC control number</dd></div>
+      <div><dt>How long</dt><dd>Within three working days of a complete application</dd></div>
+      <div><dt>Every year</dt><dd>Computerised books registered online in ORUS</dd></div>
+    </dl>
+    <div class="bf-one reveal"><p>A Computerized Accounting System (CAS) records your transactions, generates your invoices and produces your books of accounts and BIR reports. Large taxpayers must use one; other businesses may choose a CAS or Computerized Books of Accounts (CBA). Since RMC 5-2021 there is no Permit to Use: your Revenue District Office (RDO) issues an Acknowledgement Certificate within three working days of a complete application and evaluates the system afterwards. TechNext sets Odoo up as your CAS or CBA, prepares the sample printouts and audit trail your application needs, and plans the yearly ORUS books and the e-invoicing permit with you.</p></div>
+    <!-- the BIR notice sits in the same section as the definition (calm.css gives every section 96px of padding) -->
+    <div class="cs-notice reveal" id="notice" role="note" aria-labelledby="cs-notice-h">
+      {{icon:shield}}
+      <div>
+        <h2 id="cs-notice-h">BIR notice: no software is BIR-accredited</h2>
+        <p>The BIR registers your business's use of a system; it does not approve software brands. In a public advisory dated 14 September 2026 it said it has not accredited, certified or endorsed any e-invoicing service provider, and warned against claims such as "BIR-accredited". RMC 110-2026 (12 October 2026) sets the accreditation rules for e-invoicing service providers; no list had been published when we wrote this. We set Odoo up for BIR requirements and prepare your samples. The registration decision is the BIR's.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CAS OR CBA -->
+<section class="section fx-sec" id="cas-or-cba" aria-labelledby="cs-vs-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="cs-vs-h">CAS or CBA: which one you register.</h2><p class="lead">RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS.</p></div>
+    <div class="bf-cov cs-vs reveal">
+      <table class="bf-cov-t">
+        <thead><tr><th scope="col"><span class="sr-only">Compared</span></th><th scope="col">CAS (Computerized Accounting System)</th><th scope="col">CBA (Computerized Books of Accounts)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">What it covers</th><td>The full cycle, from the transaction and the invoice to the financial reports</td><td>Books of accounts only: journals, ledger, sales and purchase books, inventory book</td></tr>
+          <tr><th scope="row">Invoices</th><td>System-generated</td><td>Issued manually (a system that issues invoices by hand counts as a CBA)</td></tr>
+          <tr><th scope="row">Who must use it</th><td>Large taxpayers must maintain or use a CAS (RR 9-2009, restated in RMO 9-2021)</td><td>Optional for non-large taxpayers, who may choose a CAS or a CBA</td></tr>
+          <tr><th scope="row">Cloud set-ups</th><td colspan="2">Registered too. Odoo Online or Odoo.sh needs a joint sworn statement with the provider that the system cannot suppress sales.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT THE BIR CHECKS + WHAT ODOO HAS -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="cs-req-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="cs-req-h">What the BIR checks in your system, and what Odoo already has.</h2><p class="lead">Annex B of RMC 5-2021 lists the functional and technical requirements. The RDO evaluates them after it issues your certificate, so they have to be right before you file.</p></div>
+    <div class="bf-duo">
+      <div class="bf-glass bf-in reveal">
+        <p class="bf-bar">{{odoo:accountant:20}}<b>In Odoo 20</b></p>
+        <ul class="bf-checks">
+          <li>{{icon:check}}An audit trail that logs changes to accounting records</li>
+          <li>{{icon:check}}Posted entries secured with a hash chain, and irreversible hard lock dates</li>
+          <li>{{icon:check}}A Book of Accounts for CAS and CBA, and Philippine invoices updated for BIR and CAS requirements</li>
+          <li>{{icon:check}}The Philippine localisation's reports: 2307, SLSP, SAWT, QAP and the 2550Q summary</li>
+        </ul>
+      </div>
+      <div class="bf-glass bf-add reveal" style="--i:1">
+        <p class="bf-bar">{{icon:wrench}}<b>What TechNext sets up</b></p>
+        <ul class="bf-checks">
+          <li>{{icon:check}}Every Annex B item checked against your configuration and hosting</li>
+          <li>{{icon:check}}Invoice layout and series: six running digits, your AC control number, "REPRINT" on copies</li>
+          <li>{{icon:check}}User roles, password rules and report headers with TIN, branch code and software version</li>
+          <li>{{icon:check}}A backup plan that keeps your records for ten years</li>
+        </ul>
+      </div>
+    </div>
+    <p class="bf-note reveal">Sources: <a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%205-2021%20Annex%20B.pdf" target="_blank" rel="noopener">RMC 5-2021 Annex B</a>, the <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> and Odoo's documentation on <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">data inalterability</a>. Whether a set-up meets every item depends on its configuration and hosting, which we check before you apply.</p>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT GOES IN THE APPLICATION (rail) -->
+<section class="section fx-sec" aria-labelledby="cs-app-h">
+  <div class="container">
+    <div class="bf-split bf-split--sticky">
+      <div class="bf-split-l reveal">
+        <h2 id="cs-app-h" class="bf-h2">What goes in your CAS application.</h2>
+        <p class="bf-lead">The checklist in RMC 5-2021 Annex A. Every sample comes from the Odoo you will actually use, so what the RDO sees is what you run.</p>
+        <a class="btn-link" href="{{ROOT}}blog/register-odoo-cas-cba-bir.html">Read the full CAS and CBA guide {{icon:arrow}}</a>
+      </div>
+      <ol class="bf-rail" data-bf-rail>
+        <li class="reveal"><span class="bf-n">1</span><div><b>A sworn statement</b><p>Or a joint sworn statement for a cloud or outsourced system, with a description of the system, your invoices and the forms, records and reports it produces.</p></div></li>
+        <li class="reveal"><span class="bf-n">2</span><div><b>Sample invoices</b><p>Printouts of your invoices and supplementary documents, as Odoo generates them.</p></div></li>
+        <li class="reveal"><span class="bf-n">3</span><div><b>Sample books and reports</b><p>Your books of accounts and the other system reports, printed from Odoo.</p></div></li>
+        <li class="reveal"><span class="bf-n">4</span><div><b>An audit trail printout</b><p>Printed from the system, showing who did what and when.</p></div></li>
+        <li class="reveal"><span class="bf-n">5</span><div><b>The signed requirements checklist</b><p>The functional and technical requirements in Annex B. Ask your RDO for its current templates, as annex labels differ between issuances.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW WE DO IT -->
+<section class="section fx-sec fx-sec--alt" id="cas-steps" aria-labelledby="cs-steps-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="cs-steps-h">From "which do we need?" to an Acknowledgement Certificate.</h2><p class="lead">You don't need to hire your own team. An adviser maps your registration path first, then our team in Taguig City sets up Odoo and stays on after go-live.</p></div>
+    <ol class="bf-flow">
+      <li class="bf-glass reveal" style="--i:0"><span class="bf-n">1</span><b>Map your registration path</b><p>CAS or CBA, head office and branches, any old Permit to Use, and with your accountant, whether e-invoicing applies to you now.</p></li>
+      <li class="bf-glass reveal" style="--i:1"><span class="bf-n">2</span><b>Set up Odoo</b><p>Philippine localisation, audit trail, secured journals, lock dates, user roles, invoice layout and series.</p></li>
+      <li class="bf-glass reveal" style="--i:2"><span class="bf-n">3</span><b>Prepare the samples</b><p>Invoices, books, reports and the audit trail printout, taken straight from your Odoo.</p></li>
+      <li class="bf-glass reveal" style="--i:3"><span class="bf-n">4</span><b>You file at your RDO</b><p>In person or by email. We stay on call for the RDO's questions, and your invoices carry the AC control number.</p></li>
+      <li class="bf-glass reveal" style="--i:4"><span class="bf-n">5</span><b>ORUS every year</b><p>Computerised books registered online through ORUS, with the QR code kept on file.</p></li>
+      <li class="bf-glass reveal" style="--i:5"><span class="bf-n">6</span><b>E-invoicing and upgrades</b><p>A <a href="{{ROOT}}bir-e-invoicing.html">Permit to Issue and EIS Certification</a> if you are covered, and every major upgrade planned with your RDO.</p></li>
+    </ol>
+    <div class="bf-links reveal"><a class="btn btn-primary" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a><a class="btn btn-ghost" href="{{ROOT}}free-website-with-odoo.html?need=cas#claim">Get a free BIR check</a></div>
+  </div>
+</section>
+
+<!-- ============================================================ ALREADY ON A CAS (ledger) -->
+<section class="section fx-sec" aria-labelledby="cs-change-h">
+  <div class="container">
+    <div class="bf-split">
+      <div class="bf-split-l reveal">
+        <h2 id="cs-change-h" class="bf-h2">Already registered? When your CAS needs updating.</h2>
+        <p class="bf-lead">Changes to a registered system have their own rules. These are the ones we plan around.</p>
+        <a class="btn-link" href="{{ROOT}}blog/odoo-20-upgrade-checklist.html">Odoo 20 upgrade checklist {{icon:arrow}}</a>
+      </div>
+      <ul class="bf-ledger">
+        <li class="reveal" style="--i:0">{{icon:refresh}}<div><b>Major enhancements</b><p>Adding or removing financial modules, or a version change that affects the financial side, needs an updated registration before you use it. Skip it and the registration has no effect from the date you adopt the change.</p></div></li>
+        <li class="reveal" style="--i:1">{{icon:file}}<div><b>Minor enhancements</b><p>Screen changes, bug fixes and performance improvements need only a written notice.</p></div></li>
+        <li class="reveal" style="--i:2">{{icon:receipt}}<div><b>EOPT invoice changes</b><p>RR 11-2024 treated the EOPT invoicing changes to a registered CAS or CBA as a major enhancement, with an updated registration and a new Acknowledgement Certificate.</p></div></li>
+        <li class="reveal" style="--i:3">{{icon:shield}}<div><b>An old Permit to Use</b><p>A PTU stays valid unless it is revoked or the system has a major enhancement.</p></div></li>
+        <li class="reveal" style="--i:4">{{icon:layers}}<div><b>Sister companies and branches</b><p>Affiliates register separately, even on a shared system. Read <a href="{{ROOT}}blog/bir-multi-branch-odoo.html">BIR compliance for multi-branch businesses</a>.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FAQ -->
+<section class="section fx-sec fx-sec--alt" aria-labelledby="cs-faq-h">
+  <div class="container">
+    <div class="bf-split">
+      <div class="bf-split-l reveal"><h2 id="cs-faq-h" class="bf-h2">BIR CAS registration, answered.</h2><p class="bf-lead">The questions Philippine finance teams ask us before an Odoo project.</p></div>
+      <div class="faq bf-faq reveal">
+        <details><summary>What is a BIR Computerized Accounting System (CAS)? {{icon:chevron}}</summary><div class="faq-a"><p>A CAS is a computerised system that records a business's transactions, generates its invoices and produces its books of accounts and financial reports. Under RMO 9-2021 a business registers its CAS with the BIR at its Revenue District Office (RDO) or Large Taxpayers office. If the system issues invoices by hand, it counts as Computerized Books of Accounts (CBA) instead.</p></div></details>
+        <details><summary>Is there BIR-accredited accounting software? {{icon:chevron}}</summary><div class="faq-a"><p>No. The BIR registers each taxpayer's use of a system, not a software brand. In its public advisory of 14 September 2026 it said it has not accredited any e-invoicing service provider and warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA and receives an Acknowledgement Certificate.</p></div></details>
+        <details><summary>Do I still need a Permit to Use (PTU)? {{icon:chevron}}</summary><div class="faq-a"><p>No. RMC 5-2021 replaced the Permit to Use with registration and an Acknowledgement Certificate (AC). Existing PTUs stay valid unless revoked or the system has a major enhancement.</p></div></details>
+        <details><summary>How long does CAS registration take? {{icon:chevron}}</summary><div class="faq-a"><p>The RDO issues the Acknowledgement Certificate within three working days of a complete application. There is no demonstration before you start: the RDO evaluates the system afterwards and can revoke the certificate if it finds gaps, which is why we check the requirements before you file.</p></div></details>
+        <details><summary>Can Odoo Online or Odoo.sh be registered as a CAS? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. RMO 9-2021 covers cloud and third-party systems. You and the provider sign a joint sworn statement that the system cannot suppress sales, and the registration is cancelled if the provider contract ends.</p></div></details>
+        <details><summary>Does my Acknowledgement Certificate let me issue e-invoices? {{icon:chevron}}</summary><div class="faq-a"><p>No. Under RMC 98-2026 the AC authorises the system but not e-invoicing. Covered taxpayers also need a Permit to Issue (PTI), then EIS Certification within six months, and the covered groups must issue e-invoices by 31 December 2026.</p></div></details>
+        <details><summary>Do I need to re-register after upgrading Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes, such as screen changes or bug fixes, need only a written notice. We plan the update with your RDO alongside the upgrade.</p></div></details>
+        <details><summary>Does TechNext file the CAS application for us? {{icon:chevron}}</summary><div class="faq-a"><p>Your business files at its RDO or Large Taxpayers office, in person or by email. We set up the system, prepare the sample printouts, the audit trail and the system description with you, and stay on call for the RDO's questions. The registration decision is the BIR's.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ BIR GUIDES (internal hub) -->
+<section class="section fx-sec" id="bir-guides" aria-labelledby="cs-guides-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="cs-guides-h">BIR guides from our advisers.</h2><p class="lead">Each one names its sources and the date it was checked.</p></div>
+    <ul class="cs-guides">
+      <li class="reveal" style="--i:0"><a href="{{ROOT}}blog/register-odoo-cas-cba-bir.html"><b>Registering Odoo as your CAS or CBA</b><span>The Acknowledgement Certificate, the documents and what comes after</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:1"><a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html"><b>BIR rules for your accounting system</b><span>The RRs, RMCs and RMOs behind CAS, books and e-invoicing</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:2"><a href="{{ROOT}}blog/bir-e-invoicing-odoo.html"><b>BIR e-invoicing requirements 2026</b><span>Who is covered, the PTI and EIS Certification</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:3"><a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html"><b>EOPT invoice requirements</b><span>What every invoice must show under the EOPT Act</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:4"><a href="{{ROOT}}blog/bir-audit-readiness-odoo.html"><b>BIR audit readiness</b><span>eLA rules and the records an examiner asks for</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:5"><a href="{{ROOT}}blog/bir-form-2307-odoo.html"><b>BIR Form 2307 in Odoo</b><span>Issue, collect and claim withholding certificates</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:6"><a href="{{ROOT}}blog/expanded-withholding-tax-atc-codes-odoo.html"><b>Expanded withholding tax and ATC codes</b><span>Rates and codes set up in Odoo</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:7"><a href="{{ROOT}}blog/bir-slsp-summary-list-sales-purchases-odoo.html"><b>SLSP: summary list of sales and purchases</b><span>Quarterly DAT files from your entries</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:8"><a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html"><b>SAWT, QAP and alphalists</b><span>Withholding lists for the BIR's tools</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:9"><a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html"><b>BIR Form 2550Q quarterly VAT</b><span>Output against input VAT, ready for the return</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:10"><a href="{{ROOT}}blog/bir-multi-branch-odoo.html"><b>Multi-branch businesses</b><span>Branch codes, invoice series and PTIs per branch</span>{{icon:arrow}}</a></li>
+      <li class="reveal" style="--i:11"><a href="{{ROOT}}blog/philippine-payroll-bir-forms-odoo-20.html"><b>Philippine payroll BIR forms</b><span>1601-C, 2316 and 1604-C in Odoo 20</span>{{icon:arrow}}</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ SOURCES -->
+<section class="section fx-sec fx-sec--alt bf-src-sec" id="sources" aria-labelledby="cs-src-h">
+  <div class="container">
+    <div class="bf-src reveal">
+      <div class="bf-src-head"><h2 id="cs-src-h">Sources</h2><p class="bf-upd">Updated 22 October 2026</p></div>
+      <ul class="bf-src-list">
+        <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/03.02.2021/rmo-no.-9-2021.pdf" target="_blank" rel="noopener">Revenue Memorandum Order (RMO) No. 9-2021</a></li>
+        <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/01.13.2021/rmc-no.-5-2021.pdf" target="_blank" rel="noopener">Revenue Memorandum Circular (RMC) No. 5-2021</a></li>
+        <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%205-2021%20Annex%20A.pdf" target="_blank" rel="noopener">RMC 5-2021 Annex A: application checklist</a></li>
+        <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RMC%20No.%205-2021%20Annex%20B.pdf" target="_blank" rel="noopener">RMC 5-2021 Annex B: functional and technical requirements</a></li>
+        <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">Revenue Regulations (RR) No. 11-2024</a></li>
+        <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%204-2026.pdf" target="_blank" rel="noopener">Revenue Memorandum Circular (RMC) No. 4-2026</a></li>
+        <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2098-2026%20redacted.pdf" target="_blank" rel="noopener">Revenue Memorandum Circular (RMC) No. 98-2026</a></li>
+        <li><a href="https://assets.kpmg.com/content/dam/kpmgsites/ph/pdf/InTAX/2026/EIS-Public-Advisory-Sep-2026-redacted.pdf" target="_blank" rel="noopener">BIR public advisory, 14 September 2026</a></li>
+      </ul>
+      <p class="bf-note">Registration is done by each taxpayer at its own RDO; TechNext prepares the system and samples, not the BIR's decision. General guidance, not tax advice. Rules change: confirm with your accountant or RDO before you act.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CLOSE -->
+<section class="fx-close-sec">
+  <div class="container">
+    <div class="fx-close reveal">
+      <div class="fx-close-glow" aria-hidden="true"></div>
+      <div><h2>Is your system ready to register as a CAS?</h2><p>Tell us how you invoice and keep your books today. An adviser will say whether you need a CAS or a CBA, what Odoo covers, and what it takes to file.</p></div>
+      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}free-website-with-odoo.html?need=cas#claim">Get a free BIR check</a></div>
+    </div>
+  </div>
+</section>

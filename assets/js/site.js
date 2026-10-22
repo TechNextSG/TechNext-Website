@@ -693,3 +693,14 @@ document.addEventListener('click', function (e) {
   window.addEventListener('scroll', function () { if (!t) t = requestAnimationFrame(check); }, { passive: true });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', check); else check();
 })();
+
+/* BIR notice bar: the close button hides it for 7 days (the head gate reads the same key) */
+(function () {
+  var x = document.querySelector('[data-bn-x]');
+  if (!x) return;
+  x.addEventListener('click', function () {
+    try { localStorage.setItem('tn_bn_off', String(Date.now())); } catch (e) {}
+    document.documentElement.classList.add('bn-off');
+    var m = document.getElementById('main'); if (m && m.focus) { m.setAttribute('tabindex', '-1'); m.focus({ preventScroll: true }); }
+  });
+})();

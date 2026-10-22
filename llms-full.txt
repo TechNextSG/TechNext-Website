@@ -1,8 +1,8 @@
 # TechNext — full reference
 
-Last updated: 2026-10-21
+Last updated: 2026-10-22
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). Clients in 10+ countries; 11+ enterprise clients.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (BIR Computerized Accounting System (CAS) or CBA set-up and registration samples, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). Clients in 10+ countries; 11+ enterprise clients.
 
 ## Contact
 
@@ -18,6 +18,7 @@ Last updated: 2026-10-21
 ## Pages
 
 - https://technext.asia/ — Odoo Partner Philippines & Singapore: Books Set Up for BIR: Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.
+- https://technext.asia/bir-cas — BIR CAS Registration: Computerized Accounting System in Odoo: Register Odoo as your BIR Computerized Accounting System (CAS) or CBA: we set it up, prepare the samples for your Acknowledgement Certificate, then e-invoicing.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing Setup in Odoo: 31 December 2026 Deadline: Covered by BIR e-invoicing? Who must issue e-invoices by 31 Dec 2026, the PTI and EIS steps, and how TechNext sets up Odoo for them. Book a call.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit Readiness: eLA Rules 2026 and Your Odoo Records: How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record keeping, and Odoo features that keep books ready.
@@ -138,6 +139,54 @@ Last updated: 2026-10-21
 - https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite.
 
 ## Questions and answers
+
+### What is a BIR Computerized Accounting System (CAS)?
+
+A CAS is a computerised system that records a business's transactions, generates its invoices and produces its books of accounts and financial reports. Under RMO 9-2021 a business registers its CAS with the BIR at its Revenue District Office (RDO) or Large Taxpayers office. If the system issues invoices by hand, it counts as Computerized Books of Accounts (CBA) instead.
+
+Source: https://technext.asia/bir-cas
+
+### Is there BIR-accredited accounting software?
+
+No. The BIR registers each taxpayer's use of a system, not a software brand. In its public advisory of 14 September 2026 it said it has not accredited any e-invoicing service provider and warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA and receives an Acknowledgement Certificate.
+
+Source: https://technext.asia/bir-cas
+
+### Do I still need a Permit to Use (PTU)?
+
+No. RMC 5-2021 replaced the Permit to Use with registration and an Acknowledgement Certificate (AC). Existing PTUs stay valid unless revoked or the system has a major enhancement.
+
+Source: https://technext.asia/bir-cas
+
+### How long does CAS registration take?
+
+The RDO issues the Acknowledgement Certificate within three working days of a complete application. There is no demonstration before you start: the RDO evaluates the system afterwards and can revoke the certificate if it finds gaps, which is why we check the requirements before you file.
+
+Source: https://technext.asia/bir-cas
+
+### Can Odoo Online or Odoo.sh be registered as a CAS?
+
+Yes. RMO 9-2021 covers cloud and third-party systems. You and the provider sign a joint sworn statement that the system cannot suppress sales, and the registration is cancelled if the provider contract ends.
+
+Source: https://technext.asia/bir-cas
+
+### Does my Acknowledgement Certificate let me issue e-invoices?
+
+No. Under RMC 98-2026 the AC authorises the system but not e-invoicing. Covered taxpayers also need a Permit to Issue (PTI), then EIS Certification within six months, and the covered groups must issue e-invoices by 31 December 2026.
+
+Source: https://technext.asia/bir-cas
+
+### Do I need to re-register after upgrading Odoo?
+
+A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes, such as screen changes or bug fixes, need only a written notice. We plan the update with your RDO alongside the upgrade.
+
+Source: https://technext.asia/bir-cas
+
+### Does TechNext file the CAS application for us?
+
+Your business files at its RDO or Large Taxpayers office, in person or by email. We set up the system, prepare the sample printouts, the audit trail and the system description with you, and stay on call for the RDO's questions. The registration decision is the BIR's.
+
+Source: https://technext.asia/bir-cas
 
 ### What is the BIR e-invoicing deadline?
 
@@ -808,6 +857,12 @@ Source: https://technext.asia/
 ### Is Odoo BIR-accredited?
 
 No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and use it for its PTI application.
+
+Source: https://technext.asia/
+
+### Can TechNext set Odoo up as our BIR CAS?
+
+Yes. We set Odoo up as your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) and prepare the sample invoices, books, reports and audit trail printout your application needs. Your business files at its Revenue District Office, which issues an Acknowledgement Certificate within three working days of a complete application. How BIR CAS registration works .
 
 Source: https://technext.asia/
 

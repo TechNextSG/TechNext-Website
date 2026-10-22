@@ -8,7 +8,8 @@ SITE_NAME = "TechNext"
 ORG_DESC = ("TechNext is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, "
             "with its main development and consulting hub in Taguig City and an AI engineering hub in Ho Chi Minh City. Our own experts "
             "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, set it up to meet government requirements "
-            "(set up for BIR requirements in the Philippines; GST and InvoiceNow in Singapore), build enterprise AI, websites and brands "
+            "(in the Philippines: BIR Computerized Accounting System (CAS) set-up and registration support, 2307, SLSP, SAWT, QAP and "
+            "e-invoicing; in Singapore: GST and InvoiceNow), build enterprise AI, websites and brands "
             "as one team, so growing companies in 10+ countries don't need to hire their own.")
 
 # Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
@@ -105,7 +106,13 @@ AI_ALLOW = ["Googlebot", "Bingbot", "Applebot", "DuckDuckBot", "OAI-SearchBot", 
             "MistralAI-User", "meta-externalfetcher",
             # AI model crawlers, allowed since 21 Oct 2026
             "GPTBot", "ClaudeBot", "anthropic-ai", "Claude-Web", "Google-Extended", "Applebot-Extended",
-            "CCBot", "Amazonbot", "meta-externalagent", "cohere-ai"]
+            "CCBot", "Amazonbot", "meta-externalagent", "cohere-ai",
+            # AI search indexes with official docs (22 Oct 2026): Meta AI citations, Alexa/Amazon search, Le Chat, You.com
+            "Meta-WebIndexer", "Amzn-SearchBot", "Amzn-User", "MistralAI-Index", "YouBot",
+            # Grok and DeepSeek publish no crawler name; these come from third-party bot lists (`*` allows them anyway)
+            "GrokBot", "xAI-Grok", "DeepSeekBot"]
+# IndexNow (Bing, Yandex, Seznam, Naver, Yep): public by design; build.py writes /<key>.txt, _src/indexnow.py pings after a deploy
+INDEXNOW_KEY = "a9448b9a717e08d7c365ce419d2a8c19"
 # still blocked: bulk data harvesters and scrapers
 AI_TRAINING = ["Bytespider", "FacebookBot", "cohere-training-data-crawler", "Diffbot", "Omgilibot", "omgili",
                "img2dataset", "AI2Bot", "PanguBot", "Timpibot", "ImagesiftBot", "Kangaroo Bot",
@@ -136,8 +143,10 @@ NAV = [
                  "desc": "Pipelines built around how you sell."},
                 {"label": "Enterprise Solution", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
                  "desc": "Multi-company, multi-country Odoo at scale."},
-                {"label": "BIR Compliance", "href": "bir-e-invoicing.html", "icon": "receipt",
-                 "desc": "Philippine e-invoicing and BIR forms in Odoo."},
+                {"label": "BIR CAS Registration", "href": "bir-cas.html", "icon": "shield",
+                 "desc": "Odoo set up as your Computerized Accounting System."},
+                {"label": "BIR E-Invoicing", "href": "bir-e-invoicing.html", "icon": "receipt",
+                 "desc": "Ready for the 31 Dec 2026 deadline."},
             ]},
             {"title": "AI Solution", "href": "solutions/ai.html", "links": [
                 {"label": "Odoo + AI integrations", "href": "odoo/ai-integration.html", "icon": "wk-ai",
