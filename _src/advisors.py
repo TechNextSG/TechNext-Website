@@ -14,7 +14,7 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # Home-page profiles (owner 22 Oct 2026: skills only, no companies; photos come later, initials until then).
 # Sources: CVs of AJ Cubilla, Jeric Bulayungan and RJ (Raphael John) Sarreal; names and roles as the owner gave them; Philip Gallan's skill list and Clement Kho's
 # profile as sent by the owner. Fields: name, role, office (sg | ph | vn | None), photo (assets/img/team/, 600x600 WebP),
-# bio (no pronouns), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
+# email (work address, shown on the Team Directory only), bio (no pronouns), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
     {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": None,
@@ -27,7 +27,19 @@ ADVISORS = [
          ("Infrastructure", ["Wi-Fi networks", "Network security", "Server racks, home lab and NAS"]),
      ],
      "creds": ["MSc Marketing", "Cybersecurity and data protection certification"]},
-    {"name": "RJ Sarreal", "role": "Project Manager", "office": "ph", "photo": None,
+    {"name": "Astroneil Matan", "role": "Senior Functional Lead", "office": "ph", "photo": None, "email": "astroneil@technext.asia",
+     "bio": "Senior functional lead with 24 years in ERP and CRM, including 10 years on Odoo alongside Acumatica, SAP, Microsoft Dynamics and Oracle NetSuite. Leads discovery workshops, process redesign and data migration, and has run multi-regional roll-outs with local tax and multi-currency set-ups.",
+     "stats": [("24+", "years in ERP and CRM"), ("10", "years on Odoo"), ("30", "projects in the portfolio")],
+     "groups": [
+         ("Functional leadership", ["Discovery workshops and scoping", "Business process re-engineering", "Finance and supply chain workflows", "Data migration strategy", "Localisation: tax, currency, multi-entity", "Change management and user adoption", "UAT and quality assurance"]),
+         ("ERP & CRM platforms", ["Odoo ERP (10 years)", "Acumatica ERP (14 years)", "SAP Business One, ECC and S/4HANA", "Microsoft Dynamics 365 BC, AX, NAV and SL", "Oracle NetSuite and Fusion", "Salesforce and ServiceNow", "Shopify"]),
+         ("Project delivery", ["Agile and Scrum delivery", "Multi-regional roll-outs", "Vendor and SLA management", "Jira, Confluence, Asana and Microsoft Project"]),
+         ("Governance & compliance", ["BSP regulatory reporting", "SOX, AMLC and PCI-DSS controls", "GDPR data privacy"]),
+         ("Industries", ["Manufacturing", "Food processing and restaurants", "Retail and distribution", "Construction", "Property management", "Hospitality", "Banking and lending", "Audit and accounting firms"]),
+         ("Technical", ["Python, C# and SQL", "AWS, Azure and Google Cloud", "Power BI and Tableau"]),
+     ],
+     "creds": ["Accredited Project Manager (IO4PM)", "Accredited Scrum Master (International Scrum Institute)", "Six Sigma Green Belt (International Six Sigma Institute)", "Agile Project Management Practitioner (HP LIFE)", "BS Computer Science", "BS Business Administration"]},
+    {"name": "RJ Sarreal", "role": "Project Manager", "office": "ph", "photo": None, "email": "rj@technext.asia",
      "bio": "Project manager with 17 years in ERP, from Microsoft Dynamics SL and NAV to Oracle Fusion and NetSuite. Writes the requirements, scope and timeline, keeps each sprint on target, and has prepared POS accreditation applications for the BIR and Philippine malls.",
      "stats": [("17", "years in ERP"), ("4", "NetSuite certificates"), ("20+", "client projects")],
      "groups": [
@@ -64,7 +76,7 @@ ADVISORS = [
          ("Working style", ["Time management and organisation", "Client communication", "Eye for detail"]),
      ],
      "creds": ["BS Computer Science, Dean's Lister"]},
-    {"name": "Jeric Bulayungan", "role": "Business Development", "office": "ph", "photo": None,
+    {"name": "Jeric Bulayungan", "role": "Business Development", "office": "ph", "photo": None, "email": "jeric@technext.asia",
      "bio": "B2B solution seller since 2016 across ERP, POS, accounting and CRM systems, from SAP S/4HANA and SAP Business One to QuickBooks and Retail Pro. Builds the pipeline, looks after key accounts and trains sales teams.",
      "stats": [("2016", "in B2B software sales since"), ("10+", "software products sold")],
      "groups": [

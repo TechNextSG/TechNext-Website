@@ -33,7 +33,7 @@
     if (!foot) { foot = document.createElement('p'); foot.className = 'ef-foot'; p.el.appendChild(foot); }
     foot.innerHTML = (p.email ? '<a class="eh-act2 eh-act2--main" href="mailto:' + esc(p.email) + '">' + ic('mail') + 'Email ' + esc(p.name.split(/\s+/)[0]) + '</a>' : '') +
       '<button type="button" class="eh-act2" data-eh-vcf="' + i + '">' + ic('vcf') + 'Save contact (.vcf)</button>';
-    p.hay = (p.name + ' ' + p.role + ' ' + p.email).toLowerCase();
+    p.hay = (p.name + ' ' + p.role + ' ' + p.email + ' ' + (p.el.getAttribute('data-skills') || '')).toLowerCase();   // skills too
   });
   if (wrap) wrap.addEventListener('click', function (e) {
     var b = e.target.closest('[data-eh-vcf]');

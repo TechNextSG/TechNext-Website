@@ -29,6 +29,7 @@ import app_flows as AF  # noqa: E402
 import app_leads as AL  # noqa: E402   (the app pages' hero leads in TechNext's own voice)
 import nexi_explains as NXE  # noqa: E402
 import team as TEAM  # noqa: E402
+import team_pages as TP  # noqa: E402  (one profile page per person, the Team Directory cards)
 import advisors as ADV  # noqa: E402
 import worlds as WD  # noqa: E402
 import company_pages as CP
@@ -523,6 +524,18 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                     "datePublished": a["date"]} for a in ARTICLES]})
     if out_rel == "nexi-explains.html":
         graph.extend(nxe_jsonld(org_id, page_id))
+    person = meta.get("person")
+    if person:
+        page["@type"] = ["WebPage", "ProfilePage"]
+        page["mainEntity"] = {"@id": canonical + "#person"}
+        ld = {"@type": "Person", "@id": canonical + "#person", "name": person["name"], "jobTitle": person["jobTitle"],
+              "worksFor": {"@id": org_id}, "url": canonical, "description": person["description"],
+              "knowsAbout": person["knowsAbout"]}
+        if person.get("office"):
+            ld["workLocation"] = {"@type": "Place", "name": f"TechNext, {person['office']}"}
+        if person.get("credentials"):
+            ld["hasCredential"] = [{"@type": "EducationalOccupationalCredential", "name": c} for c in person["credentials"]]
+        graph.append(ld)
     if out_rel.startswith(SERVICE_PAGES):
         name = _base_title(meta["title"])
         graph.append({"@type": "Service", "@id": canonical + "#service", "name": name, "serviceType": name,
@@ -922,7 +935,12 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
 
 
 def team_cards_html() -> str:
-    """One card per employee (_src/team.py) on the client-facing team page."""
+    """The Team Directory cards (_src/team_pages.py): everyone with a profile page first, then the rest of _src/team.py."""
+    return TP.directory_html()
+
+
+def _team_cards_legacy() -> str:
+    """Before 22 Oct 2026: one sheet per _src/team.py entry (kept for reference; not called)."""
     out = []
     for k, p in enumerate(TEAM.TEAM):
         initials = "".join(w[0] for w in p["name"].split()[:3:2] if w).upper() if len(p["name"].split()) > 2 else "".join(w[0] for w in p["name"].split()[:2]).upper()
@@ -1016,24 +1034,27 @@ def advisor_cards_html() -> str:
         more = shown[1:] + ([group("Certifications and education", p["creds"], "pf-skills pf-skills--cred")] if p.get("creds") else [])
         stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
         ph = ' data-ph' if preview else ''
+        url = TP.profile_url(p)   # team/<slug>.html
+        name_html = esc(p["name"]) if preview else f'<a href="{{{{ROOT}}}}{url}">{esc(p["name"])}</a>'
+        link_html = "" if preview else f'<a class="pf-link" href="{{{{ROOT}}}}{url}">View full profile {{{{icon:arrow}}}}</a>'
         cards.append(f'<article class="pf-card reveal" style="--i:{k}"{ph}>'
                      f'<div class="pf-top"><div class="pf-ava">{pic}<i class="pf-ring" aria-hidden="true"></i></div>'
-                     f'<div><h3>{esc(p["name"])}</h3><p class="pf-role">{esc(p["role"])}</p>'
+                     f'<div><h3>{name_html}</h3><p class="pf-role">{esc(p["role"])}</p>'
                      f'{f"<p class=\"pf-office\">{{{{icon:pin}}}}{office}</p>" if office else ""}</div></div>'
                      f'{f"<p class=\"pf-bio\">{esc(p['bio'])}</p>" if p.get("bio") else ""}'
                      f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
                      f'<div class="pf-sk">{shown[0] if shown else ""}'
                      f'{f"<details class=\"pf-more\"><summary><span>See all {n} skills</span>{{{{icon:chevron}}}}</summary>{"".join(more)}</details>" if more else ""}'
-                     f'</div></article>')
-    cards.append('<article class="pf-card pf-cta reveal" style="--i:%d"><h3>Talk to the team</h3>'
-                 '<p>Tell us how you invoice, file and close the month today. The team plans the work with you from the first call.</p>'
-                 '<a class="btn btn-primary" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a></article>' % len(people))
+                     f'</div>{link_html}</article>')
+    more_act = ('<div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{ROOT}}employee-hub.html">{{icon:users}}Meet the whole team {{icon:arrow}}</a>'
+                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a></div>')
     note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'
             if preview else "")
     return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="pf-h">The people who set up your Odoo for BIR.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
     <div class="pf-grid">{"".join(cards)}</div>
+    {more_act}
     {note}
   </div>
 </section>'''
@@ -2466,6 +2487,8 @@ def git_date(paths) -> str:
 
 
 def page_source(out_rel: str):
+    if out_rel.startswith("team/"):
+        return ["_src/advisors.py", "_src/team_pages.py"]
     if out_rel.startswith("odoo/apps/"):
         return ["_src/apps_content.json"]
     return ["_src/pages/" + out_rel]
@@ -2644,6 +2667,8 @@ def main():
         built.append(build_page(path, nav_cache))
     for mod in APP_BY_MOD:
         meta, content = app_page(mod)
+        built.append(render(meta, content, nav_cache))
+    for meta, content in TP.pages():   # team/<slug>.html, one per person
         built.append(render(meta, content, nav_cache))
     if UNMEASURED:
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"

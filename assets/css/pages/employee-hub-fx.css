@@ -110,3 +110,10 @@
   .eh-page .th-person, .eh-page .th-office, .eh-act2 { transition: none; }
   .eh-page .th-person:hover, .eh-page .th-office:hover, .eh-act2:hover { transform: none; }
 }
+
+/* directory cards (22 Oct 2026): top skills and a profile link (team/<slug>.html) */
+.eh-page .eh-top-skills { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eh-page .eh-top-skills li { padding: 5px 10px; border-radius: 999px; background: var(--blue-050); font: 600 12.5px/1.2 var(--font-body); color: var(--blue-700); }
+.eh-page .eh-profile { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font: 700 14px/1.2 var(--font-body); color: var(--blue-700); text-decoration: none; }
+.eh-page .eh-profile:hover { text-decoration: underline; text-underline-offset: 3px; }
+.eh-page .eh-profile .ic { width: 16px; height: 16px; }
