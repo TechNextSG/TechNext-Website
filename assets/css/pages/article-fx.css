@@ -60,7 +60,8 @@
 .blg-progress i { display: block; height: 100%; transform-origin: left; transform: scaleX(0); background: var(--blue); box-shadow: 0 0 12px rgba(49,103,202,.7); }
 
 /* ---------------------------------------------------------------- contents list */
-.art-fx .post-grid { grid-template-columns: 250px minmax(0, 1fr); gap: 56px; max-width: none; }
+/* 23 Oct 2026: back to a centred block (max-width: none had let the grid span the whole screen and pushed the contents box into the corner) */
+.art-fx .post-grid { grid-template-columns: 250px minmax(0, 1fr); gap: 56px; max-width: 1110px; }
 .art-fx .post-toc { top: calc(var(--header-h) + 28px); padding: 18px 14px 14px; border-radius: 22px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 .art-fx .post-toc-h { margin: 0 0 8px 10px; font: 800 15px/1.2 var(--font-display); letter-spacing: -.01em; text-transform: none; color: var(--ink); }
