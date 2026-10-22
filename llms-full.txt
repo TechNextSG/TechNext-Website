@@ -1,8 +1,8 @@
 # TechNext — full reference
 
-Last updated: 2026-10-21
+Last updated: 2026-10-22
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). Clients in 10+ countries; 11+ enterprise clients.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (BIR Computerized Accounting System (CAS) or CBA set-up and registration samples, 2307, SLSP, SAWT, QAP, e-invoicing) and for Singapore GST and InvoiceNow, and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). Clients in 10+ countries; 11+ enterprise clients.
 
 ## Contact
 
@@ -12,25 +12,26 @@ Last updated: 2026-10-21
 ## Offices
 
 - Singapore HQ: 261 Waterloo Street #03-36, Singapore 180261 — Headquarters. Sales, discovery and on-site work in Singapore.
-- Philippines development hub: Level 9, IP Center, Taguig City, Metro Manila — Our main hub for Odoo development and consulting, with finance, sales and marketing.
+- Philippines development hub: Level 9, IP Center, Taguig City, Metro Manila 1634, Philippines — Our main hub for Odoo development and consulting, with finance, sales and marketing.
 - Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City — AI engineering. The enterprise AI behind our solutions.
 
 ## Pages
 
-- https://technext.asia/ — Odoo Partner Philippines & Singapore: Books Set Up for BIR: Odoo ERP set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP and e-invoicing. Odoo Ready Partner in Taguig City and Singapore.
-- https://technext.asia/bir-e-invoicing — BIR E-Invoicing Setup in Odoo: 31 December 2026 Deadline: Covered by BIR e-invoicing? Who must issue e-invoices by 31 Dec 2026, the PTI and EIS steps, and how TechNext sets up Odoo for them. Book a call.
+- https://technext.asia/ — Odoo Partner Philippines & Singapore: BIR CAS Set-Up: Odoo Ready Partner in the Philippines (Taguig City) and Singapore. We set Odoo up as your BIR CAS, with 2307, SLSP, SAWT, QAP and e-invoicing.
+- https://technext.asia/bir-cas — BIR CAS Registration: Computerized Accounting System in Odoo: Register Odoo as your BIR Computerized Accounting System (CAS) or CBA: we set it up, prepare the samples for your Acknowledgement Certificate, then e-invoicing.
+- https://technext.asia/bir-e-invoicing — BIR E-Invoicing Set-Up in Odoo: 31 Dec 2026 Deadline: BIR e-invoicing set-up in Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and how TechNext builds and tests the EIS link.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.
-- https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit Readiness: eLA Rules 2026 and Your Odoo Records: How BIR audits work in 2026 (eLA, RMO 1-2026, RMO 22-2026), the 10-day document rule, 5-year record keeping, and Odoo features that keep books ready.
-- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing explained: RR 26-2025 coverage, the 31 Dec 2026 deadline, the Permit to Issue, EIS certification and RMC 110-2026, plus Odoo steps.
-- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307 in Odoo: Issue, Collect and Claim (2026 Guide): BIR Form 2307 explained: who issues it, the 20-day rule, why credits get disallowed, and how Odoo 19 (XLS) and Odoo 20 (PDF) produce certificates.
-- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q: Quarterly VAT Return Guide with Odoo (2026): How the BIR 2550Q quarterly VAT return works after TRAIN and EOPT: the 25-day deadline, output vs input VAT, invoice basis for services, and Odoo's report.
-- https://technext.asia/blog/bir-multi-branch-odoo — BIR Compliance for Multi-Branch Businesses in Odoo: Branch codes, a COR per branch, invoice series, consolidated VAT and e-invoicing PTIs: how Philippine branches work with the BIR and in Odoo.
-- https://technext.asia/blog/bir-rules-for-your-accounting-system — BIR Rules for Accounting Systems: CAS, CBA, Odoo (2026): Is Odoo BIR-accredited? No software is. The RRs, RMCs and RMOs for CAS, books of accounts, e-invoicing, 2307 and SLSP, and where Odoo fits, in plain words.
-- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — SAWT and QAP Explained: BIR Alphalists and Odoo: SAWT and QAP in plain English: who files them, deadlines under RMC 55-2026, DAT file naming, why the BIR rejects files, and how Odoo exports SAWT and QAP.
-- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — BIR SLSP Guide: Summary List of Sales and Purchases in Odoo: Who files the BIR Summary List of Sales and Purchases (SLSP), when it is due, what goes in it, common rejection causes, and how Odoo exports the DAT files.
+- https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
+- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the Odoo steps.
+- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Issue, Collect and Claim It in Odoo (2026): BIR Form 2307 explained: who issues it, the 20-day rule, why creditable withholding credits get disallowed, and how Odoo 19 and 20 produce the certificate.
+- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q: Quarterly VAT Return Guide with Odoo (2026): BIR Form 2550Q, the quarterly VAT return, after TRAIN and EOPT: the 25-day deadline, output vs input VAT, invoice basis for services, and Odoo's report.
+- https://technext.asia/blog/bir-multi-branch-odoo — BIR Multi-Branch Rules: Branch Codes, COR, VAT and Odoo: BIR rules for multi-branch businesses: branch codes, a COR per branch, invoice series, one consolidated VAT return, e-invoicing PTIs, and branches in Odoo.
+- https://technext.asia/blog/bir-rules-for-your-accounting-system — Is Any Accounting Software BIR-Accredited? The 2026 Rules: No accounting software is BIR-accredited. The BIR registers your CAS or CBA, your books in ORUS and your e-invoicing PTI. The RRs and RMCs in plain words.
+- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — SAWT and QAP: BIR Alphalist Guide, Deadlines and Odoo: SAWT and QAP explained: who files each BIR alphalist, deadlines under RMC 55-2026, DAT file naming, why files are rejected, and how Odoo exports both.
+- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — BIR SLSP Guide: Summary List of Sales and Purchases in Odoo: Who files the BIR SLSP (Summary List of Sales and Purchases), when it is due, what goes in it, common rejection causes, and how Odoo exports the DAT files.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
-- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoice Requirements: What Your Odoo Invoice Must Show: Under the EOPT Act the invoice replaced the OR. The fields RR 7-2024 requires, the P1,000 buyer-TIN rule, the RR 6-2026 withholding line and Odoo set-up.
-- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — Expanded Withholding Tax and ATC Codes in Odoo (PH): Philippine expanded withholding tax in Odoo: 0619-E, 1601-EQ and 1604-E deadlines, common ATC codes, top withholding agent rules, and tax set-up.
+- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoice Requirements: What a BIR Invoice Must Show: EOPT invoice requirements under RR 7-2024: the fields a BIR invoice must show, the P1,000 buyer-TIN rule, the RR 6-2026 withholding line and Odoo set-up.
+- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — Expanded Withholding Tax Philippines: ATC Codes and Odoo: Expanded withholding tax in the Philippines: 0619-E, 1601-EQ and 1604-E deadlines, common BIR ATC codes and rates, top withholding agents and Odoo set-up.
 - https://technext.asia/blog/how-an-odoo-implementation-works — Odoo implementation process, step by step: How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support, step by step.
 - https://technext.asia/blog/invoicenow-singapore-gst-timeline — Singapore GST InvoiceNow requirement: all dates to 2031: Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
 - https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — Odoo 20 in Singapore, the Philippines and Vietnam: The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
@@ -38,8 +39,8 @@ Last updated: 2026-10-21
 - https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: New Features & Upgrade Checklist: Odoo 20 release notes explained by TechNext, an Odoo Partner: AI agents, MCP, offline mode, Field Service in Planning, pricing and an upgrade checklist.
 - https://technext.asia/blog/odoo-experience-2026-takeaways — Odoo Experience 2026: five takeaways for Odoo users: Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
 - https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Odoo Online vs Odoo.sh vs on-premise: which fits?: Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
-- https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C: What Odoo 20's Philippine payroll covers: 1601-C, 2316, 1604-C and alphalist files, plus the 2026 rules on tax tables, de minimis and contributions.
-- https://technext.asia/blog/register-odoo-cas-cba-bir — Registering Odoo as CAS or CBA with the BIR: 2026 Guide: How to register Odoo as your CAS or CBA with the BIR: the Acknowledgement Certificate, documents, system requirements, ORUS and the e-invoicing PTI.
+- https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C: Philippine payroll in Odoo 20: BIR Forms 1601-C, 2316 and 1604-C, alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
+- https://technext.asia/blog/register-odoo-cas-cba-bir — CAS Registration Requirements: BIR Steps and Documents: How to register a Computerized Accounting System (CAS) or CBA with the BIR: the Acknowledgement Certificate, documents, system checks, ORUS and the PTI.
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
@@ -112,7 +113,7 @@ Last updated: 2026-10-21
 - https://technext.asia/odoo/discovery — Odoo Consultant — Singapore & Philippines: Odoo consultation in Singapore and the Philippines: TechNext maps how your business runs and what to set up first, before any configuration starts.
 - https://technext.asia/odoo/erp-system — Odoo Customization — Singapore & Philippines: Odoo customization in Singapore and the Philippines: upgrade-safe modules, reports and workflows built by TechNext, so you need no developers of your own.
 - https://technext.asia/odoo/integration — Odoo Integration — Banks, Payments & Stores: Odoo integration by TechNext in Singapore and the Philippines: banks, payment gateways, online stores and marketplaces connected so nothing is typed twice.
-- https://technext.asia/odoo/philippines — Odoo Philippines: BIR Accounting Set Up for You: Odoo for Philippine companies, set up for BIR requirements: CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q, payroll forms and e-invoicing. Taguig City.
+- https://technext.asia/odoo/philippines — Odoo Philippines: BIR Compliance Set-Up: Odoo service provider in the Philippines, based in Taguig City. We set Odoo up for BIR requirements: CAS/CBA, 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing.
 - https://technext.asia/odoo/support — Odoo Support & Maintenance — TechNext Care: Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
 - https://technext.asia/odoo/training — Odoo Training on Your Own Data — SG & PH: Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so you go live without Odoo experts of your own.
 - https://technext.asia/odoo/vietnam — Odoo Partner Vietnam — Circular 99, SInvoice and 01/GTGT: TechNext sets up Odoo for companies in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, so you don't need your own Odoo team.
@@ -127,17 +128,65 @@ Last updated: 2026-10-21
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
 - https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
-- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead | TechNext Odoo Partner: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo.
+- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/clement-kho — Clement Kho, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
-- https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development | TechNext Odoo Partner: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
-- https://technext.asia/team/jett-balanza — Jett Balanza, Business Systems Analyst | TechNext Odoo Partner: Jett sits between your team and our developers, turning what you need into a working Odoo set-up.
-- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19.
-- https://technext.asia/team/pia-cachola — Pia Cachola, General Manager | TechNext Odoo Partner: Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver.
-- https://technext.asia/team/rex-polintang — Rex Polintang, IT Specialist | TechNext Odoo Partner: Rex keeps the systems and networks behind a business running.
-- https://technext.asia/team/rico-duque — Rico Duque, Marketing Officer | TechNext Odoo Partner: Rico runs marketing end to end, from website design, structure and SEO to social media and brand design.
-- https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite.
+- https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
+- https://technext.asia/team/jett-balanza — Jett Balanza, Business Systems Analyst: Jett sits between your team and our developers, turning what you need into a working Odoo set-up. Business Systems Analyst at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. Odoo Developer Expert at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/pia-cachola — Pia Cachola, General Manager | TechNext Odoo Partner: Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver. General Manager at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/rex-polintang — Rex Polintang, IT Specialist | TechNext Odoo Partner: Rex keeps the systems and networks behind a business running. IT Specialist at TechNext, an Odoo Ready Partner in the Philippines and Singapore.
+- https://technext.asia/team/rico-duque — Rico Duque, Marketing Officer | TechNext Odoo Partner: Rico runs marketing end to end, from website design, structure and SEO to social media and brand design. Marketing Officer at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. Project Manager at TechNext, an Odoo Ready Partner.
 
 ## Questions and answers
+
+### What is a BIR Computerized Accounting System (CAS)?
+
+A CAS is a computerised system that records a business's transactions, generates its invoices and produces its books of accounts and financial reports. Under RMO 9-2021 a business registers its CAS with the BIR at its Revenue District Office (RDO) or Large Taxpayers office. If the system issues invoices by hand, it counts as Computerized Books of Accounts (CBA) instead.
+
+Source: https://technext.asia/bir-cas
+
+### Is there BIR-accredited accounting software?
+
+No. The BIR registers each taxpayer's use of a system, not a software brand. In its public advisory of 14 September 2026 it said it has not accredited any e-invoicing service provider and warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA and receives an Acknowledgement Certificate. See BIR rules for your accounting system .
+
+Source: https://technext.asia/bir-cas
+
+### Do I still need a Permit to Use (PTU)?
+
+No. RMC 5-2021 replaced the Permit to Use with registration and an Acknowledgement Certificate (AC). Existing PTUs stay valid unless revoked or the system has a major enhancement.
+
+Source: https://technext.asia/bir-cas
+
+### How long does CAS registration take?
+
+The RDO issues the Acknowledgement Certificate within three working days of a complete application. There is no demonstration before you start: the RDO evaluates the system afterwards and can revoke the certificate if it finds gaps, which is why we check the requirements before you file.
+
+Source: https://technext.asia/bir-cas
+
+### Can Odoo Online or Odoo.sh be registered as a CAS?
+
+Yes. RMO 9-2021 covers cloud and third-party systems. You and the provider sign a joint sworn statement that the system cannot suppress sales, and the registration is cancelled if the provider contract ends.
+
+Source: https://technext.asia/bir-cas
+
+### Does my Acknowledgement Certificate let me issue e-invoices?
+
+No. Under RMC 98-2026 the AC authorises the system but not e-invoicing. Covered taxpayers also need a Permit to Issue (PTI), then EIS Certification within six months, and the covered groups must issue e-invoices by 31 December 2026.
+
+Source: https://technext.asia/bir-cas
+
+### Do I need to re-register after upgrading Odoo?
+
+A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes, such as screen changes or bug fixes, need only a written notice. We plan the update with your RDO alongside the upgrade.
+
+Source: https://technext.asia/bir-cas
+
+### Does TechNext file the CAS application for us?
+
+Your business files at its RDO or Large Taxpayers office, in person or by email. We set up the system, prepare the sample printouts, the audit trail and the system description with you, and stay on call for the RDO's questions. The registration decision is the BIR's.
+
+Source: https://technext.asia/bir-cas
 
 ### What is the BIR e-invoicing deadline?
 
@@ -145,21 +194,21 @@ Covered taxpayers must issue compliant electronic invoices on or before 31 Decem
 
 Source: https://technext.asia/bir-e-invoicing
 
-### Are micro taxpayers covered?
+### Are micro taxpayers covered by BIR e-invoicing?
 
-No. Micro taxpayers are exempt from the mandatory e-invoicing requirement, and e-commerce coverage applies to sellers classed as small, medium or large.
+No. Micro taxpayers are exempt from mandatory BIR e-invoicing, and e-commerce coverage applies to sellers classed as small, medium or large.
 
 Source: https://technext.asia/bir-e-invoicing
 
 ### What is a Permit to Issue (PTI)?
 
-The BIR permit you need before issuing any e-invoice. EIS Certification must then be completed within six months of the PTI.
+A Permit to Issue (PTI) Electronic Invoice is the BIR permit a covered taxpayer needs before issuing any e-invoice. EIS Certification must then be completed within six months of the PTI.
 
 Source: https://technext.asia/bir-e-invoicing
 
 ### Is Odoo BIR compliant?
 
-Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover the EIS connection, so TechNext builds and tests that as part of your project. Your CAS and e-invoicing applications are still filed with the BIR. The BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register.
+No software is certified as BIR compliant: the BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), and the permit is issued to your business for the system you register. Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover the EIS connection, so TechNext builds and tests that as part of your project. Your CAS and e-invoicing applications are still filed with the BIR. See BIR rules for your accounting system .
 
 Source: https://technext.asia/bir-e-invoicing
 
@@ -169,9 +218,9 @@ No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decr
 
 Source: https://technext.asia/bir-e-invoicing
 
-### Does the rule cover our branches?
+### Does BIR e-invoicing cover our branches?
 
-Yes. Head office and all branches must issue e-invoices, and branches on different invoicing systems may need separate PTIs.
+Yes. BIR e-invoicing covers head office and all branches, and branches on different invoicing systems may need separate PTIs. See BIR rules for multi-branch businesses .
 
 Source: https://technext.asia/bir-e-invoicing
 
@@ -183,7 +232,7 @@ Source: https://technext.asia/blog/bir-audit-readiness-odoo
 
 ### How many days do I have to submit documents in a BIR audit?
 
-Ten calendar days from the request, under RMO 22-2026.
+You have ten calendar days from the BIR's request to submit the documents, under RMO 22-2026.
 
 Source: https://technext.asia/blog/bir-audit-readiness-odoo
 
@@ -213,7 +262,7 @@ Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
 ### Is my CAS permit enough to issue e-invoices?
 
-Plan for a Permit to Issue (PTI) Electronic Invoice. Under RMC 98-2026 you need a PTI before you issue any e-invoice, and EIS Certification within six months of the PTI. Check with your accountant or BIR revenue district office how your existing CAS registration fits in.
+No. Under RMC 98-2026 the registration of your CAS authorises the system, not e-invoicing: you also need a Permit to Issue (PTI) Electronic Invoice before you issue any e-invoice, and EIS Certification within six months of the PTI. See BIR CAS registration .
 
 Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
@@ -231,7 +280,7 @@ Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
 ### When must I issue Form 2307 to my suppliers?
 
-Within 20 days after the close of each quarter, or at the time of payment if the supplier asks, under RR 2-98 as amended by RR 11-2018.
+Issue Form 2307 to your suppliers within 20 days after the close of each quarter, or at the time of payment if the supplier asks, under RR 2-98 as amended by RR 11-2018.
 
 Source: https://technext.asia/blog/bir-form-2307-odoo
 
@@ -273,7 +322,7 @@ Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
 
 ### When do I declare VAT on a service I invoiced but have not been paid for?
 
-In the quarter of the invoice. Since RR 3-2024 under the EOPT Act, VAT on services is recognised when you invoice, the same as for goods.
+Declare it in the quarter of the invoice, even if you have not been paid. Since RR 3-2024 under the EOPT Act, VAT on services is recognised when you invoice, the same as for goods.
 
 Source: https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
 
@@ -369,7 +418,7 @@ Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
 
 ### What if a customer has no TIN?
 
-Collect it when you can, and keep the customer record complete. Missing and placeholder TINs are among the most common reasons for SLSP problems.
+Collect the customer's TIN when you can and keep the customer record complete: missing and placeholder TINs are among the most common reasons for SLSP problems. If you cannot get one, ask your accountant or RDO how to report that sale in the SLSP.
 
 Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
 
@@ -669,7 +718,7 @@ Source: https://technext.asia/blog/register-odoo-cas-cba-bir
 
 ### Do I need to re-register after upgrading Odoo?
 
-A version change that affects the financial side counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice.
+Yes, if the upgrade changes the financial side. Under the BIR's CAS registration rules, a version change that affects the financial side of a registered CAS or CBA counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice.
 
 Source: https://technext.asia/blog/register-odoo-cas-cba-bir
 
@@ -807,13 +856,19 @@ Source: https://technext.asia/
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and use it for its PTI application.
+No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and use it for its PTI application. See BIR rules for your accounting system .
+
+Source: https://technext.asia/
+
+### Can TechNext set Odoo up as our BIR CAS?
+
+Yes. We set Odoo up as your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) and prepare the sample invoices, books, reports and audit trail printout your application needs. Your business files at its Revenue District Office, which issues an Acknowledgement Certificate within three working days of a complete application. How BIR CAS registration works .
 
 Source: https://technext.asia/
 
 ### What does Odoo produce for the BIR?
 
-Odoo's Philippine localisation produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post. The connection to the BIR's EIS is project work that we build and test on a copy of your database.
+Odoo's Philippine localisation produces the 2307 per payee, the SLSP , SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post. The connection to the BIR's EIS is project work that we build and test on a copy of your database.
 
 Source: https://technext.asia/
 
@@ -867,7 +922,7 @@ Source: https://technext.asia/industries/construction
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company.
+No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See BIR rules for your accounting system .
 
 Source: https://technext.asia/industries/construction
 
@@ -1335,7 +1390,7 @@ Source: https://technext.asia/odoo/philippines
 
 ### Is Odoo BIR-accredited?
 
-No, and no software is. Odoo 20's Philippine localisation covers the day-to-day BIR work: invoices set up for BIR and CAS requirements, a Book of Accounts for CAS and CBA, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. It is not a BIR registration in itself: your CAS and e-invoicing applications are still filed with the BIR, and TechNext helps you prepare them from your own Odoo. The BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register.
+No, and no software is. Odoo 20's Philippine localisation covers the day-to-day BIR work: invoices set up for BIR and CAS requirements, a Book of Accounts for CAS and CBA, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. It is not a BIR registration in itself: your CAS and e-invoicing applications are still filed with the BIR, and TechNext helps you prepare them from your own Odoo. The BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register. See BIR rules for your accounting system .
 
 Source: https://technext.asia/odoo/philippines
 
@@ -1725,7 +1780,7 @@ Source: https://technext.asia/solutions/odoo-erp
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books.
+No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books. See BIR rules for your accounting system .
 
 Source: https://technext.asia/solutions/odoo-erp
 

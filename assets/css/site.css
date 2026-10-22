@@ -1362,3 +1362,22 @@ body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
   .cat-float{width:56px;height:56px;right:16px}
   .cat-float .ic{width:26px;height:26px}
 }
+/* site-wide BIR notice (owner 22 Oct 2026): a slim amber bar above the header that scrolls away; dismissing hides it for
+   7 days (the head gate adds html.bn-off before paint, so a dismissed bar never flashes) */
+.bn{position:relative;z-index:61;background:#FFF4DF;border-bottom:1px solid #F0D7A8;color:#4A3410;font:500 13.5px/1.4 var(--font-body)}
+.bn-in{display:flex;align-items:center;gap:8px 16px;min-height:40px;padding-top:6px;padding-bottom:6px}
+.bn p{margin:0;flex:1 1 auto;min-width:0}
+.bn p b{display:inline-block;margin-right:10px;padding:2px 8px;border-radius:999px;background:#9A5B00;color:#fff;font:700 11.5px/1.4 var(--font-body);letter-spacing:.02em;vertical-align:1px}
+.bn-short{display:none}
+.bn-link{display:inline-flex;align-items:center;gap:6px;min-height:32px;flex:none;color:#5C3A00;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.bn-link:hover{color:#3D2600}
+.bn-link .ic{width:16px;height:16px;transition:transform .2s ease}
+.bn-link:hover .ic{transform:translateX(2px)}
+.bn-x{display:grid;place-items:center;flex:none;width:32px;height:32px;margin-right:-6px;border:0;border-radius:8px;background:transparent;color:#5C3A00;cursor:pointer}
+.bn-x:hover{background:rgba(154,91,0,.12)}
+.bn-x .ic{width:16px;height:16px}
+.bn-link:focus-visible,.bn-x:focus-visible{outline:3px solid #C77700;outline-offset:2px}
+html.bn-off .bn,html.intro .bn{display:none}
+@media (max-width:760px){.bn{font-size:13px}.bn-long{display:none}.bn-short{display:inline}.bn-in{gap:4px 10px}}
+@media (max-width:420px){.bn p b{margin-right:6px}.bn-link{font-size:12.5px}}
+@media print{.bn{display:none}}

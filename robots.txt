@@ -95,6 +95,38 @@ User-agent: cohere-ai
 Allow: /
 Disallow: /denied
 
+User-agent: Meta-WebIndexer
+Allow: /
+Disallow: /denied
+
+User-agent: Amzn-SearchBot
+Allow: /
+Disallow: /denied
+
+User-agent: Amzn-User
+Allow: /
+Disallow: /denied
+
+User-agent: MistralAI-Index
+Allow: /
+Disallow: /denied
+
+User-agent: YouBot
+Allow: /
+Disallow: /denied
+
+User-agent: GrokBot
+Allow: /
+Disallow: /denied
+
+User-agent: xAI-Grok
+Allow: /
+Disallow: /denied
+
+User-agent: DeepSeekBot
+Allow: /
+Disallow: /denied
+
 User-agent: Bytespider
 Disallow: /
 

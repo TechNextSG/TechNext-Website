@@ -1,0 +1,68 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* BIR CAS page (22 Oct 2026): sits on bir-e-invoicing-fx.css. Adds the CAS readiness panel (requirements tick in, meter fills,
+   timeline advances), the BIR notice card, the CAS-vs-CBA table and the BIR guides hub. Reduced motion shows the final state. */
+
+/* ---------- readiness panel */
+.cas-fx .cs-meter { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; margin: 2px 0 12px; }
+.cas-fx .cs-meter-bar { position: relative; height: 8px; border-radius: 8px; background: var(--blue-050); border: 1px solid var(--blue-100); overflow: hidden; }
+.cas-fx .cs-meter-bar i { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, var(--blue), #137A4A);
+  transform-origin: left; transform: scaleX(var(--cs-p, 0)); transition: transform .5s var(--fx-ease); box-shadow: 0 0 10px rgba(49,103,202,.45); }
+.cas-fx .cs-meter p { margin: 0; font: 600 13px/1.2 var(--font-body); color: var(--body); white-space: nowrap; }
+.cas-fx .cs-meter b { font: 800 15px/1 var(--font-display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.cas-fx .cs-checks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.cas-fx .cs-checks li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; align-items: center; padding: 7px 9px; border-radius: 10px;
+  background: #fff; border: 1px solid var(--blue-100); font: 600 12.5px/1.3 var(--font-body); color: var(--body);
+  transition: border-color .35s var(--fx-ease), color .35s var(--fx-ease), background-color .35s var(--fx-ease); }
+.cas-fx .cs-checks .ic { width: 20px; height: 20px; padding: 3px; border-radius: 50%; background: var(--blue-100); color: #fff; transition: background-color .35s var(--fx-ease), transform .35s var(--fx-ease); }
+.cas-fx .cs-checks li.is-on { color: #0F5C38; border-color: rgba(19,122,74,.28); background: #F4FBF7; }
+.cas-fx .cs-checks li.is-on .ic { background: #137A4A; animation: csPop .45s var(--fx-ease); }
+@keyframes csPop { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.cas-fx .cs-panel .bf-tl { margin: 18px 0 2px; }
+.cas-fx .cs-panel .bf-status { white-space: nowrap; flex: none; }
+
+/* ---------- BIR notice */
+.cas-fx .cs-notice { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 16px; max-width: 980px; margin-top: 32px; padding: 22px 26px; border-radius: 20px;
+  background: linear-gradient(135deg, #FFF8EC, #FFFDF8); border: 1px solid #F0D7A8; box-shadow: 0 18px 40px -30px rgba(166,107,0,.45), inset 0 1px 0 #fff; }
+.cas-fx .cs-notice > .ic { width: 28px; height: 28px; color: #9A5B00; margin-top: 2px; }
+.cas-fx .cs-notice h2 { margin: 0 0 6px; font: 800 1.15rem/1.3 var(--font-display); letter-spacing: -.01em; color: #5C3A00; }
+.cas-fx .cs-notice p { margin: 0; font-size: 15px; line-height: 1.65; color: #4A3410; max-width: 82ch; }
+
+/* ---------- CAS vs CBA */
+.cas-fx .cs-vs .bf-cov-t thead th:first-child { width: 18%; }
+.cas-fx .cs-vs .bf-cov-t tbody th { padding: 20px 24px; border-top: 1px solid var(--fx-line); background: transparent; font: 700 13px/1.35 var(--font-body);
+  letter-spacing: .02em; text-transform: none; color: var(--blue-700); vertical-align: top; }
+.cas-fx .cs-vs .bf-cov-t td { font-weight: 500; vertical-align: top; }
+.cas-fx .cs-vs .bf-cov-t td:last-child { width: auto; white-space: normal; }
+
+/* ---------- BIR guides hub */
+.cas-fx .cs-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.cas-fx .cs-guides a { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 20px; grid-template-rows: auto auto; align-content: start; column-gap: 12px; row-gap: 4px; height: 100%;
+  padding: 18px 20px; border-radius: 18px; text-decoration: none; background: var(--fx-glass); border: 1px solid var(--fx-edge);
+  box-shadow: var(--fx-depth), inset 0 1px 0 #fff; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: transform .4s var(--fx-ease), box-shadow .4s var(--fx-ease), border-color .3s; }
+.cas-fx .cs-guides a:hover { transform: translateY(-3px); border-color: var(--blue-300); box-shadow: var(--fx-depth-h), inset 0 1px 0 #fff; }
+.cas-fx .cs-guides a:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 3px; }
+.cas-fx .cs-guides b { font: 700 1rem/1.3 var(--font-display); color: var(--ink); }
+.cas-fx .cs-guides span { grid-column: 1; font-size: 14px; line-height: 1.5; color: var(--body); }
+.cas-fx .cs-guides .ic { grid-column: 2; grid-row: 1 / span 2; align-self: center; width: 20px; height: 20px; color: var(--blue); transition: transform .3s var(--fx-ease); }
+.cas-fx .cs-guides a:hover .ic { transform: translateX(3px); }
+
+@media (max-width: 1000px) { .cas-fx .cs-guides { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .cas-fx .cs-checks { grid-template-columns: minmax(0, 1fr); }
+  .cas-fx .cs-meter { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .cas-fx .cs-notice { grid-template-columns: minmax(0, 1fr); padding: 20px 18px; gap: 10px; }
+  .cas-fx .cs-guides { grid-template-columns: minmax(0, 1fr); }
+  .cas-fx .cs-vs .bf-cov-t thead { display: none; }
+  .cas-fx .cs-vs .bf-cov-t, .cas-fx .cs-vs .bf-cov-t tbody, .cas-fx .cs-vs .bf-cov-t tr, .cas-fx .cs-vs .bf-cov-t th, .cas-fx .cs-vs .bf-cov-t td { display: block; width: auto; }
+  .cas-fx .cs-vs .bf-cov-t tbody th { padding: 18px 18px 6px; }
+  .cas-fx .cs-vs .bf-cov-t td { padding: 4px 18px 10px; border-top: 0; }
+  .cas-fx .cs-vs .bf-cov-t td::before { display: block; margin-bottom: 2px; font: 700 12px/1.3 var(--font-body); color: var(--body); }
+  .cas-fx .cs-vs .bf-cov-t td:nth-of-type(1)::before { content: "CAS"; }
+  .cas-fx .cs-vs .bf-cov-t td:nth-of-type(2)::before { content: "CBA"; }
+  .cas-fx .cs-vs .bf-cov-t td[colspan]::before { content: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cas-fx .cs-meter-bar i, .cas-fx .cs-checks li, .cas-fx .cs-checks .ic, .cas-fx .cs-guides a, .cas-fx .cs-guides .ic { transition: none; animation: none; }
+  .cas-fx .cs-guides a:hover { transform: none; }
+}
