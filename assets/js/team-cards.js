@@ -10,6 +10,34 @@
   var reduce = mq('(prefers-reduced-motion: reduce)');
   var fine = mq('(hover: hover) and (pointer: fine)');
   var EASE = 'cubic-bezier(.16,1,.3,1)';
+  /* ---------------------------------------------------------------- stats count up once in view (years like 2016 stay as they are) */
+  function countUp(dd) {
+    var raw = dd.textContent, m = raw.match(/^(\D*)([\d,]+)(.*)$/);
+    if (!m) return;
+    var to = parseInt(m[2].replace(/,/g, ''), 10), comma = m[2].indexOf(',') > -1;
+    if (!to || /^(19|20)\d\d$/.test(m[2])) return;
+    var t0 = null, dur = 900 + Math.min(to, 1000) * .4;
+    function fmt(n) { return comma ? n.toLocaleString('en-US') : String(n); }
+    function tick(t) {
+      if (t0 === null) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(2, -10 * p);
+      dd.textContent = m[1] + fmt(Math.round(to * (p === 1 ? 1 : e))) + m[3];
+      if (p < 1) requestAnimationFrame(tick); else dd.textContent = raw;
+    }
+    dd.textContent = m[1] + '0' + m[3];
+    requestAnimationFrame(tick);
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var statIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        statIO.unobserve(e.target);
+        [].forEach.call(e.target.querySelectorAll('dd'), countUp);
+      });
+    }, { threshold: .6 });
+    [].forEach.call(document.querySelectorAll('.pf-stats'), function (dl) { statIO.observe(dl); });
+  }
+
   var cards = [].slice.call(document.querySelectorAll('[data-tm-card]'));
   if (!cards.length) return;
 

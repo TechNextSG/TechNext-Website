@@ -140,6 +140,7 @@ def page(p: dict, everyone: list) -> tuple:
         "out": profile_url(p),
         "nav": "company",
         "body": "fx-page tp-page",
+        "scripts": ["assets/js/team-cards.js"],
         "head": '<link rel="stylesheet" href="{ROOT}assets/css/home-fx.css?v={ASSET_V}"><link rel="stylesheet" href="{ROOT}assets/css/pages/team-fx.css?v={ASSET_V}">',
         "person": {"name": name, "jobTitle": role, "office": office, "description": p.get("bio", ""),
                    "knowsAbout": [i for _, items in (p.get("groups") or []) for i in items][:40],
