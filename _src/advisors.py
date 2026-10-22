@@ -18,7 +18,7 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
     {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": None,
-     "bio": "Global strategist for Singapore regional headquarters and multi-company operations, from Europe-centred businesses to manufacturing in China and Hong Kong. Has delivered office automation and digital-twin projects with thousands of automations, and hired and trained more than 1,000 staff.",
+     "bio": "Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong. Along the way Clement has hired and trained more than 1,000 people, and led automation projects where thousands of everyday tasks now run by themselves. Ask Clement about running several companies on one system.",
      "stats": [("1,000+", "staff hired and trained"), ("724", "staff in one BPO set-up"), ("10+", "Wi-Fi and network security projects")],
      "groups": [
          ("Strategy & operations", ["Global strategy", "Singapore regional headquarters", "Multi-company operations", "Europe-centred operations", "China and Hong Kong manufacturing"]),
@@ -28,7 +28,7 @@ ADVISORS = [
      ],
      "creds": ["MSc Marketing", "Cybersecurity and data protection certification"]},
     {"name": "Astroneil Matan", "role": "Senior Functional Lead", "office": "ph", "photo": None, "email": "astroneil@technext.asia",
-     "bio": "Senior functional lead with 24 years in ERP and CRM, including 10 years on Odoo alongside Acumatica, SAP, Microsoft Dynamics and Oracle NetSuite. Leads discovery workshops, process redesign and data migration, and has run multi-regional roll-outs with local tax and multi-currency set-ups.",
+     "bio": "Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Astroneil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Astroneil about moving off another ERP without losing your history.",
      "stats": [("24+", "years in ERP and CRM"), ("10", "years on Odoo"), ("30", "projects in the portfolio")],
      "groups": [
          ("Functional leadership", ["Discovery workshops and scoping", "Business process re-engineering", "Finance and supply chain workflows", "Data migration strategy", "Localisation: tax, currency, multi-entity", "Change management and user adoption", "UAT and quality assurance"]),
@@ -40,7 +40,7 @@ ADVISORS = [
      ],
      "creds": ["Accredited Project Manager (IO4PM)", "Accredited Scrum Master (International Scrum Institute)", "Six Sigma Green Belt (International Six Sigma Institute)", "Agile Project Management Practitioner (HP LIFE)", "BS Computer Science", "BS Business Administration"]},
     {"name": "RJ Sarreal", "role": "Project Manager", "office": "ph", "photo": None, "email": "rj@technext.asia",
-     "bio": "Project manager with 17 years in ERP, from Microsoft Dynamics SL and NAV to Oracle Fusion and NetSuite. Writes the requirements, scope and timeline, keeps each sprint on target, and has prepared POS accreditation applications for the BIR and Philippine malls.",
+     "bio": "RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. RJ writes down exactly what you need, agrees the scope and timeline with you, and keeps every sprint on track, so you always know where your project stands. RJ has also prepared POS accreditation applications for the BIR and Philippine malls.",
      "stats": [("17", "years in ERP"), ("4", "NetSuite certificates"), ("20+", "client projects")],
      "groups": [
          ("BIR & POS", ["POS accreditation applications to the BIR", "POS accreditation for Philippine malls", "POS functional and technical support"]),
@@ -52,7 +52,7 @@ ADVISORS = [
      ],
      "creds": ["NetSuite ERP Fundamentals", "NetSuite WMS Fundamentals", "NetSuite Essentials", "NetSuite Administrator Essentials", "BS Business Administration"]},
     {"name": "Philip Gallan", "role": "Odoo Developer", "office": "ph", "photo": None,
-     "bio": "Odoo developer across versions 14 to 19, working with Owl components, the ORM and the Odoo API. Also builds integrations, deployments and automations, from REST and GraphQL APIs to EDI over SFTP.",
+     "bio": "Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. When your Odoo needs to talk to another system, through an API or an EDI feed, Philip connects it, deploys it and keeps it running.",
      "stats": [("6", "Odoo versions"), ("4", "databases"), ("9", "languages and frameworks")],
      "groups": [
          ("Odoo", ["Odoo 14, 15, 16, 17, 18 and 19", "Owl components", "Odoo ORM", "Odoo API"]),
@@ -67,7 +67,7 @@ ADVISORS = [
      ],
      "creds": []},
     {"name": "AJ Cubilla", "role": "Odoo Development Expert", "office": "ph", "photo": None,
-     "bio": "Odoo development expert who designs, supports and maintains solutions for Odoo clients across many industries and company sizes, and trains partner teams. Codes front end and back end in Python, JavaScript and PostgreSQL.",
+     "bio": "AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it. AJ codes in Python, JavaScript and PostgreSQL, and trains partner teams to run their systems day to day.",
      "stats": [("2022", "with Odoo clients since"), ("3", "core technologies")],
      "groups": [
          ("Odoo client work", ["Solution design for clients", "Needs analysis", "Client support and maintenance", "Database administration", "Partner network training"]),
@@ -77,7 +77,7 @@ ADVISORS = [
      ],
      "creds": ["BS Computer Science, Dean's Lister"]},
     {"name": "Jeric Bulayungan", "role": "Business Development", "office": "ph", "photo": None, "email": "jeric@technext.asia",
-     "bio": "B2B solution seller since 2016 across ERP, POS, accounting and CRM systems, from SAP S/4HANA and SAP Business One to QuickBooks and Retail Pro. Builds the pipeline, looks after key accounts and trains sales teams.",
+     "bio": "Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems. Jeric is often your first conversation with TechNext: listening to how your business runs today, then bringing in the right people from the team.",
      "stats": [("2016", "in B2B software sales since"), ("10+", "software products sold")],
      "groups": [
          ("Sales", ["B2B solution selling", "Pipeline management", "Lead generation", "Account management and development", "Revenue forecasting", "Sales reporting", "Online seminars and demos", "Outbound prospecting"]),

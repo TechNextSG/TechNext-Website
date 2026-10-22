@@ -117,3 +117,13 @@
 .eh-page .eh-profile { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font: 700 14px/1.2 var(--font-body); color: var(--blue-700); text-decoration: none; }
 .eh-page .eh-profile:hover { text-decoration: underline; text-underline-offset: 3px; }
 .eh-page .eh-profile .ic { width: 16px; height: 16px; }
+
+/* bigger directory circle (owner 22 Oct 2026) */
+.eh-page .ef-body { grid-template-columns: 140px minmax(0, 1fr); }
+.eh-page .ef-photo { width: 140px; height: 140px; }
+.eh-page .th-ini { font-size: 46px; }
+@media (max-width: 600px) {
+  .eh-page .ef-body { grid-template-columns: 112px minmax(0, 1fr); }
+  .eh-page .ef-photo { width: 112px; height: 112px; }
+  .eh-page .th-ini { font-size: 36px; }
+}

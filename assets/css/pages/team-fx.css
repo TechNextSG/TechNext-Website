@@ -58,3 +58,13 @@
   .tp-act .btn { flex: 1 1 100%; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .tp-mate, .tp-areas a { transition: none; } .tp-mate:hover { transform: none; } }
+
+/* bigger profile circle (owner 22 Oct 2026) */
+.tp-head { grid-template-columns: 180px minmax(0, 1fr); }
+.tp-page .tp-ava { width: 180px; height: 180px; }
+.tp-page .tp-ava .pf-ini { font-size: 60px; }
+@media (max-width: 600px) {
+  .tp-head { grid-template-columns: 120px minmax(0, 1fr); }
+  .tp-page .tp-ava { width: 120px; height: 120px; }
+  .tp-page .tp-ava .pf-ini { font-size: 40px; }
+}

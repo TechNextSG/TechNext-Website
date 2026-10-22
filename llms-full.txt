@@ -126,12 +126,12 @@ Last updated: 2026-10-21
 - https://technext.asia/solutions/odoo-erp — Odoo Implementation Philippines & Singapore: Odoo implementation by an Odoo Ready Partner: Accounting, Sales and Inventory set up for BIR or IRAS rules, data migrated, teams trained, supported.
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
-- https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Development Expert | TechNext Odoo Partner: Odoo development expert who designs, supports and maintains solutions for Odoo clients across many industries and company sizes, and trains partner teams.
-- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead | TechNext Odoo Partner: Senior functional lead with 24 years in ERP and CRM, including 10 years on Odoo alongside Acumatica, SAP, Microsoft Dynamics and Oracle NetSuite.
-- https://technext.asia/team/clement-kho — Clement Kho, CEO | TechNext Odoo Partner: Global strategist for Singapore regional headquarters and multi-company operations, from Europe-centred businesses to manufacturing in China and Hong Kong.
-- https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development | TechNext Odoo Partner: B2B solution seller since 2016 across ERP, POS, accounting and CRM systems, from SAP S/4HANA and SAP Business One to QuickBooks and Retail Pro.
-- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer | TechNext Odoo Partner: Odoo developer across versions 14 to 19, working with Owl components, the ORM and the Odoo API.
-- https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: Project manager with 17 years in ERP, from Microsoft Dynamics SL and NAV to Oracle Fusion and NetSuite.
+- https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Development Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
+- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead | TechNext Odoo Partner: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo.
+- https://technext.asia/team/clement-kho — Clement Kho, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
+- https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development | TechNext Odoo Partner: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
+- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19.
+- https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite.
 
 ## Questions and answers
 
