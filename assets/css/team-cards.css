@@ -192,24 +192,24 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
   /* no "View profile" label on the home cards (owner 22 Oct 2026); the whole card opens the quick view */
 }
 
-/* home: four columns (owner 22 Oct 2026); a touch more compact so the numbers still sit in one strip */
+/* home: four columns when four or more cards (owner 22 Oct 2026); a touch more compact */
 @media (min-width: 1200px) {
-  .tm-grid--home .tm-card { flex-basis: calc((100% - 60px) / 4); }
-  .tm-grid--home .tm-face { padding: 28px 18px 20px; }
-  .tm-grid--home .tm-ava { width: 128px; height: 128px; margin-bottom: 16px; }
-  .tm-grid--home .tm-ini { font-size: 40px; }
-  .tm-grid--home .tm-name { font-size: 1.18rem; }
-  .tm-grid--home .tm-role { font-size: 14px; }
-  .tm-grid--home .tm-sum { font-size: 14px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-card { flex-basis: calc((100% - 60px) / 4); }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-face { padding: 28px 18px 20px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-ava { width: 128px; height: 128px; margin-bottom: 16px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-ini { font-size: 40px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-name { font-size: 1.18rem; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-role { font-size: 14px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-sum { font-size: 14px; }
   /* narrow cards: the numbers stack as rows (number left, label beside it) so nothing collides */
-  .tm-grid--home .pf-stats { grid-auto-flow: row; grid-auto-columns: auto; }
-  .tm-grid--home .pf-stats > div { flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 12px; padding: 10px 14px 10px 16px; }
-  .tm-grid--home .pf-stats > div + div { box-shadow: inset 0 1px 0 var(--blue-100); }
-  .tm-grid--home .tm-card--lead .pf-stats > div + div { box-shadow: inset 0 1px 0 rgba(255,255,255,.22); }
-  .tm-grid--home .pf-stats > div::before { top: 50%; left: 0; width: 3px; height: 18px; margin-top: -9px; border-radius: 0 3px 3px 0; transition: height .45s var(--fx-ease), margin-top .45s var(--fx-ease); }
-  .tm-grid--home .pf-stats > div:hover::before { width: 3px; height: 28px; margin-top: -14px; }
-  .tm-grid--home .pf-stats dd { flex: none; width: 68px; font-size: 20px; }   /* one number column, so labels line up */
-  .tm-grid--home .pf-stats dt { font-size: 12.5px; text-align: left; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats { grid-auto-flow: row; grid-auto-columns: auto; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div { flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 12px; padding: 10px 14px 10px 16px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div + div { box-shadow: inset 0 1px 0 var(--blue-100); }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .tm-card--lead .pf-stats > div + div { box-shadow: inset 0 1px 0 rgba(255,255,255,.22); }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div::before { top: 50%; left: 0; width: 3px; height: 18px; margin-top: -9px; border-radius: 0 3px 3px 0; transition: height .45s var(--fx-ease), margin-top .45s var(--fx-ease); }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div:hover::before { width: 3px; height: 28px; margin-top: -14px; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats dd { flex: none; width: 68px; font-size: 20px; }   /* one number column, so labels line up */
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats dt { font-size: 12.5px; text-align: left; }
 }
 
 /* the highlighted card (Clement, CEO): TechNext blue, white type, white ring and a light stats strip */
@@ -250,3 +250,19 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
 @media (max-width: 600px) { .tm-grid--home .tm-bir { display: none; } }   /* phones: the photo grid stays clean; the quick view leads with BIR */
 .tm-qv-g:has(.pf-skills--bir) { padding: 14px 14px 12px; border-radius: 16px; background: rgba(232,245,238,.8); border: 1px solid rgba(19,122,74,.22); }   /* quick view BIR group */
 .tm-qv-g:has(.pf-skills--bir) h3 { color: #0F5C38; }
+
+/* home with three cards (the three BIR experts): three wide columns, the stats strip side by side */
+@media (min-width: 1081px) { .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-card { flex-basis: calc((100% - 40px) / 3); max-width: 380px; } }
+/* phones, three experts: full cards one per row, so the BIR panel and numbers stay visible */
+@media (max-width: 600px) {
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-card:last-child:nth-child(odd) { grid-column: auto; justify-self: stretch; width: auto; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-face { padding: 26px 18px 20px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-ava { width: 128px; height: 128px; margin-bottom: 16px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-name { font-size: 1.25rem; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-role { font-size: 14px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-office { font-size: 13.5px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-sum, .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-bir { display: block; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-stats { display: grid; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-qv-hint { display: inline-flex; }
+}

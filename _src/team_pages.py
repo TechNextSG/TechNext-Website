@@ -237,7 +237,8 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 
 def home_section_html() -> str:
     """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
-    people = [p for p in ordered() if p.get("home", True)]   # "home": False keeps a person off the home section only
+    # owner 22 Oct 2026: the home section shows only the three strongest for BIR compliance (bir_rank 1-3), best first
+    people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:3]
     cards = "".join(card_html(p, k, "home") for k, p in enumerate(people))
     return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">
   <div class="container">
