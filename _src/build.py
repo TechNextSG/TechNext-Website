@@ -281,6 +281,7 @@ def talk_panel_html() -> str:
         </select>
       </div>
       <div class="field"><label for="tf-msg">Message</label><textarea id="tf-msg" name="message" rows="4" required></textarea></div>
+      <div class="field"><label class="form-optin"><input type="checkbox" name="email_optin" value="Yes"><span>Email me BIR and Odoo updates. Unsubscribe any time. <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">Privacy policy</a></span></label></div>
       <div class="form-foot">
         <button class="btn btn-primary" type="submit"><span class="btn-label">Send inquiry</span><span class="btn-busy" aria-hidden="true"></span></button>
         <a class="btn-link" href="{{{{ROOT}}}}quotation.html">Need a written quotation? {{{{icon:arrow}}}}</a>
