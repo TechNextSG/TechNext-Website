@@ -363,7 +363,7 @@ LAYOUT = '''<!doctype html>
 <footer class="footer">
   <div class="container footer-inner">
     <span>© {YEAR} {LEGAL} All rights reserved.</span>
-    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
+    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}nexi-explains.html">Nexi Explains</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
 
