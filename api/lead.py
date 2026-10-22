@@ -51,6 +51,7 @@ LABELS = {"name": "Name", "company": "Company", "email": "Email", "phone": "Phon
           "job_title": "Role", "industry": "Industry", "branches": "Branches", "annual_sales": "Gross annual sales",
           "bir_pain": "Biggest BIR headache", "need": "Landing page need", "accounting_system": "Books today",
           "cas_status": "Registered for CAS or CBA", "call_time": "Best time to call", "consent": "Privacy consent"}
+OPTIN_TAG = "Email opt-in"              # only leads with this tag may go into Brevo campaigns
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse"}
 
@@ -153,12 +154,18 @@ def make_lead(p):
     name, email, phone, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "phone", "company"))
     form = form_tag(p.get("source"))
     what = clean(p.get("topic") or form, 80)
-    skip = SKIP | ({"scope_summary"} if any(p.get(k) for k in QUOTE_FIELDS) else set())  # summary repeats them
+    skip = SKIP | {"email_optin"} | ({"scope_summary"} if any(p.get(k) for k in QUOTE_FIELDS) else set())  # summary repeats them
     lines = [f"{LABELS.get(k, k.replace('_', ' ').capitalize())}: {clean(v)}"
              for k, v in p.items() if k not in skip and str(v).strip()]
     lines = [part for line in lines for part in line.split("\n") if part.strip()]
+    # the unticked-by-default "Email me BIR and Odoo updates" box: the record of consent the email team relies on
+    optin = clean(p.get("email_optin", ""), 10).lower() in ("yes", "on", "true", "1")
+    if optin:
+        when = time.strftime("%Y-%m-%d %H:%M", time.gmtime(time.time() + 8 * 3600))
+        lines.append(f"{OPTIN_TAG}: ticked {when} (Manila time) on the {form}")
     # one at a time: parallel calls trip odoo.com's rate limit (429)
     tag_web, tag_form = find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)
+    tags = [tag_web, tag_form] + ([find_or_create("crm.tag", OPTIN_TAG)] if optin else [])
     paid = any(AD_CLICK.search(str(p.get(k, ""))) for k in ("landing", "page"))
     source = find_or_create("utm.source", "Paid Ads" if paid else "Website")
     medium = find_or_create("utm.medium", MEDIUM_NAME)
@@ -170,7 +177,7 @@ def make_lead(p):
         "name": f"Website: {what} - {company or name or email}"[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
         "description": "".join(f"<p>{html.escape(line)}</p>" for line in lines),  # html field: one line per field
-        "tag_ids": [[6, 0, [tag_web, tag_form]]],
+        "tag_ids": [[6, 0, tags]],
         "source_id": source,
         "medium_id": medium,
     }
