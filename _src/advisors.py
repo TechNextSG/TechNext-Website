@@ -17,7 +17,7 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
-    {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": "clement-kho.webp",
+    {"name": "Clement Kho", "role": "CEO", "office": "sg", "email": "sky@technext.asia", "photo": "clement-kho.webp",
      "summary": "Clement builds companies across borders and has hired and trained more than 1,000 people.",
      "bio": "Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong. Along the way Clement has hired and trained more than 1,000 people, and led automation projects where thousands of everyday tasks now run by themselves. Ask Clement about running several companies on one system.",
      "stats": [("1,000+", "staff hired and trained"), ("724", "staff in one BPO set-up"), ("10+", "Wi-Fi and network security projects")],
@@ -54,7 +54,7 @@ ADVISORS = [
          ("Industries", ["Energy and utilities", "Banking", "Retail", "Food and consumer goods", "Manufacturing", "Education", "Automotive"]),
      ],
      "creds": ["NetSuite ERP Fundamentals", "NetSuite WMS Fundamentals", "NetSuite Essentials", "NetSuite Administrator Essentials", "BS Business Administration"]},
-    {"name": "Philip Gallan", "role": "Odoo Developer Expert", "office": "ph", "photo": "philip-gallan.webp",
+    {"name": "Philip Gallan", "role": "Odoo Developer Expert", "office": "ph", "email": "phillip@technext.asia", "photo": "philip-gallan.webp",
      "summary": "Philip builds and connects Odoo on every version from 14 to 19.",
      "bio": "Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. When your Odoo needs to talk to another system, through an API or an EDI feed, Philip connects it, deploys it and keeps it running.",
      "stats": [("6", "Odoo versions"), ("4", "databases"), ("9", "languages and frameworks")],
@@ -70,7 +70,7 @@ ADVISORS = [
          ("Design & media", ["Photoshop", "Illustrator", "Premiere Pro", "After Effects"]),
      ],
      "creds": []},
-    {"name": "AJ Cubilla", "role": "Odoo Developer Expert", "office": "ph", "photo": "aj-cubilla.webp",
+    {"name": "AJ Cubilla", "role": "Odoo Developer Expert", "office": "ph", "email": "dev@technext.asia", "photo": "aj-cubilla.webp",
      "summary": "AJ builds and supports Odoo solutions for clients across many industries.",
      "bio": "AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it. AJ codes in Python, JavaScript and PostgreSQL, and trains partner teams to run their systems day to day.",
      "stats": [("2022", "with Odoo clients since"), ("3", "core technologies")],
