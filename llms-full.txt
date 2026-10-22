@@ -126,11 +126,11 @@ Last updated: 2026-10-21
 - https://technext.asia/solutions/odoo-erp — Odoo Implementation Philippines & Singapore: Odoo implementation by an Odoo Ready Partner: Accounting, Sales and Inventory set up for BIR or IRAS rules, data migrated, teams trained, supported.
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
-- https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Development Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
+- https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
 - https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead | TechNext Odoo Partner: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo.
 - https://technext.asia/team/clement-kho — Clement Kho, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development | TechNext Odoo Partner: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
-- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19.
+- https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19.
 - https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite.
 
 ## Questions and answers
@@ -794,6 +794,12 @@ Source: https://technext.asia/free-website-with-odoo
 Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST and InvoiceNow instead of BIR. We confirm the details on the first call.
 
 Source: https://technext.asia/free-website-with-odoo
+
+### Who must issue BIR e-invoices by 31 December 2026?
+
+Under RR 26-2025: e-commerce and internet sellers that are small, medium or large; taxpayers under the Large Taxpayers Service; large taxpayers under RA 11976; and businesses on a CAS or CBA with invoicing software. Micro taxpayers are exempt. Exporters, POS users and incentive-registered enterprises join later. Confirm your group with your accountant.
+
+Source: https://technext.asia/
 
 ### Is Odoo BIR-accredited?
 

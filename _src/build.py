@@ -1003,8 +1003,8 @@ def client_wall_html() -> str:
 
 
 def advisor_cards_html() -> str:
-    """Team profiles on the home page (_src/advisors.py ADVISORS): name, role, office, bio, stats and grouped skills; no
-    company list (owner 22 Oct 2026). The first skill group shows; the rest open under "See all N skills".
+    """Team profiles on the home page (_src/advisors.py ADVISORS): photo, name, role, office, a one-line summary and stats;
+    no company list, and no skills on the card (owner 22 Oct 2026: skills live on each profile page, team/<slug>.html).
     Empty list = no section (nothing invented). TN_PREVIEW_PROFILES=1 renders the clearly marked placeholders instead,
     for design previews only; never set it for a production build."""
     esc = lambda t: html_mod.escape(t, quote=False)
@@ -1014,9 +1014,6 @@ def advisor_cards_html() -> str:
     if not people:
         return ""
 
-    def group(lab, items, cls="pf-skills"):
-        return f'<div class="pf-g"><p class="pf-h">{esc(lab)}</p><ul class="{cls}">{"".join(f"<li>{esc(i)}</li>" for i in items)}</ul></div>'
-
     cards = []
     for k, p in enumerate(people):
         words = p["name"].split()
@@ -1024,16 +1021,9 @@ def advisor_cards_html() -> str:
         pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="{html_mod.escape(p["name"])}" width="600" height="600" loading="lazy" decoding="async">'
                if p.get("photo") else f'<span class="pf-ini" aria-hidden="true">{ini}</span>')
         office = ADV.OFFICES.get(p.get("office"), "")
-        groups = list(p.get("groups") or [])
-        if not groups:   # older placeholder shape
-            groups = [(lab, p.get(key, [])) for lab, key in (("BIR & compliance", "bir"), ("Implementation", "skills"), ("Industries", "industries"))]
-        groups = [(lab, items) for lab, items in groups if items]
-        apps = "".join(f'<li>{{{{odoo:{a}:18}}}}{ADV.APP_NAMES.get(a, a)}</li>' for a in p.get("apps", []))
-        n = sum(len(items) for _, items in groups) + len(p.get("apps", []))
-        shown = ([f'<div class="pf-g"><p class="pf-h">Odoo apps</p><ul class="pf-apps">{apps}</ul></div>'] if apps else []) + [group(l, i) for l, i in groups]
-        more = shown[1:] + ([group("Certifications and education", p["creds"], "pf-skills pf-skills--cred")] if p.get("creds") else [])
         stats = "".join(f'<div><dt>{esc(lab)}</dt><dd>{esc(v)}</dd></div>' for v, lab in p.get("stats", []))
         ph = ' data-ph' if preview else ''
+        blurb = p.get("summary") or p.get("bio", "")   # one line on the card; the full bio is on the profile page
         url = TP.profile_url(p)   # team/<slug>.html
         name_html = esc(p["name"]) if preview else f'<a href="{{{{ROOT}}}}{url}">{esc(p["name"])}</a>'
         link_html = "" if preview else f'<a class="pf-link" href="{{{{ROOT}}}}{url}">View full profile {{{{icon:arrow}}}}</a>'
@@ -1041,11 +1031,9 @@ def advisor_cards_html() -> str:
                      f'<div class="pf-top"><div class="pf-ava">{pic}<i class="pf-ring" aria-hidden="true"></i></div>'
                      f'<div><h3>{name_html}</h3><p class="pf-role">{esc(p["role"])}</p>'
                      f'{f"<p class=\"pf-office\">{{{{icon:pin}}}}{office}</p>" if office else ""}</div></div>'
-                     f'{f"<p class=\"pf-bio\">{esc(p['bio'])}</p>" if p.get("bio") else ""}'
+                     f'{f"<p class=\"pf-bio\">{esc(blurb)}</p>" if blurb else ""}'
                      f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
-                     f'<div class="pf-sk">{shown[0] if shown else ""}'
-                     f'{f"<details class=\"pf-more\"><summary><span>See all {n} skills</span>{{{{icon:chevron}}}}</summary>{"".join(more)}</details>" if more else ""}'
-                     f'</div>{link_html}</article>')
+                     f'{link_html}</article>')
     more_act = ('<div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{ROOT}}employee-hub.html">{{icon:users}}Meet the whole team {{icon:arrow}}</a>'
                 '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a></div>')
     note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'

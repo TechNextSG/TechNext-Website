@@ -14,10 +14,11 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 # Home-page profiles (owner 22 Oct 2026: skills only, no companies; photos come later, initials until then).
 # Sources: CVs of AJ Cubilla, Jeric Bulayungan and RJ (Raphael John) Sarreal; names and roles as the owner gave them; Philip Gallan's skill list and Clement Kho's
 # profile as sent by the owner. Fields: name, role, office (sg | ph | vn | None), photo (assets/img/team/, 600x600 WebP),
-# email (work address, shown on the Team Directory only), bio (no pronouns), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
+# email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
     {"name": "Clement Kho", "role": "CEO", "office": "sg", "photo": None,
+     "summary": "Clement builds companies across borders and has hired and trained more than 1,000 people.",
      "bio": "Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong. Along the way Clement has hired and trained more than 1,000 people, and led automation projects where thousands of everyday tasks now run by themselves. Ask Clement about running several companies on one system.",
      "stats": [("1,000+", "staff hired and trained"), ("724", "staff in one BPO set-up"), ("10+", "Wi-Fi and network security projects")],
      "groups": [
@@ -28,6 +29,7 @@ ADVISORS = [
      ],
      "creds": ["MSc Marketing", "Cybersecurity and data protection certification"]},
     {"name": "Astroneil Matan", "role": "Senior Functional Lead", "office": "ph", "photo": None, "email": "astroneil@technext.asia",
+     "summary": "Astroneil has helped companies move onto ERP for 24 years, ten of them on Odoo.",
      "bio": "Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Astroneil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Astroneil about moving off another ERP without losing your history.",
      "stats": [("24+", "years in ERP and CRM"), ("10", "years on Odoo"), ("30", "projects in the portfolio")],
      "groups": [
@@ -40,6 +42,7 @@ ADVISORS = [
      ],
      "creds": ["Accredited Project Manager (IO4PM)", "Accredited Scrum Master (International Scrum Institute)", "Six Sigma Green Belt (International Six Sigma Institute)", "Agile Project Management Practitioner (HP LIFE)", "BS Computer Science", "BS Business Administration"]},
     {"name": "RJ Sarreal", "role": "Project Manager", "office": "ph", "photo": None, "email": "rj@technext.asia",
+     "summary": "RJ has run ERP projects for 17 years and keeps every sprint on track.",
      "bio": "RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. RJ writes down exactly what you need, agrees the scope and timeline with you, and keeps every sprint on track, so you always know where your project stands. RJ has also prepared POS accreditation applications for the BIR and Philippine malls.",
      "stats": [("17", "years in ERP"), ("4", "NetSuite certificates"), ("20+", "client projects")],
      "groups": [
@@ -51,7 +54,8 @@ ADVISORS = [
          ("Industries", ["Energy and utilities", "Banking", "Retail", "Food and consumer goods", "Manufacturing", "Education", "Automotive"]),
      ],
      "creds": ["NetSuite ERP Fundamentals", "NetSuite WMS Fundamentals", "NetSuite Essentials", "NetSuite Administrator Essentials", "BS Business Administration"]},
-    {"name": "Philip Gallan", "role": "Odoo Developer", "office": "ph", "photo": None,
+    {"name": "Philip Gallan", "role": "Odoo Developer Expert", "office": "ph", "photo": None,
+     "summary": "Philip builds and connects Odoo on every version from 14 to 19.",
      "bio": "Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. When your Odoo needs to talk to another system, through an API or an EDI feed, Philip connects it, deploys it and keeps it running.",
      "stats": [("6", "Odoo versions"), ("4", "databases"), ("9", "languages and frameworks")],
      "groups": [
@@ -66,7 +70,8 @@ ADVISORS = [
          ("Design & media", ["Photoshop", "Illustrator", "Premiere Pro", "After Effects"]),
      ],
      "creds": []},
-    {"name": "AJ Cubilla", "role": "Odoo Development Expert", "office": "ph", "photo": None,
+    {"name": "AJ Cubilla", "role": "Odoo Developer Expert", "office": "ph", "photo": None,
+     "summary": "AJ builds and supports Odoo solutions for clients across many industries.",
      "bio": "AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it. AJ codes in Python, JavaScript and PostgreSQL, and trains partner teams to run their systems day to day.",
      "stats": [("2022", "with Odoo clients since"), ("3", "core technologies")],
      "groups": [
@@ -77,6 +82,7 @@ ADVISORS = [
      ],
      "creds": ["BS Computer Science, Dean's Lister"]},
     {"name": "Jeric Bulayungan", "role": "Business Development", "office": "ph", "photo": None, "email": "jeric@technext.asia",
+     "summary": "Jeric has helped Philippine businesses choose their software since 2016.",
      "bio": "Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems. Jeric is often your first conversation with TechNext: listening to how your business runs today, then bringing in the right people from the team.",
      "stats": [("2016", "in B2B software sales since"), ("10+", "software products sold")],
      "groups": [
