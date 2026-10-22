@@ -189,7 +189,7 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
   .tm-grid--home .tm-office { margin-top: 5px; font-size: 12px; }
   .tm-grid--home .tm-office .ic { width: 13px; height: 13px; }
   .tm-grid--home .tm-sum, .tm-grid--home .tm-stats, .tm-grid--home .tm-link, .tm-grid--home .tm-qv-hint { display: none; }
-  .tm-grid--home .tm-face::after { content: "View profile"; margin-top: auto; padding-top: 10px; font: 700 12.5px/1.2 var(--font-body); color: var(--blue-700); }
+  /* no "View profile" label on the home cards (owner 22 Oct 2026); the whole card opens the quick view */
 }
 
 /* home: four columns (owner 22 Oct 2026); a touch more compact so the numbers still sit in one strip */

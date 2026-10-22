@@ -224,7 +224,7 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
         if top:
             parts.append(f'<ul class="tm-skills" aria-label="Top skills">{"".join(f"<li>{esc(i)}</li>" for i in top)}</ul>')
         parts.append('<p class="tm-actions"></p>')
-    if profile:
+    if profile and ctx != "home":   # owner 22 Oct 2026: no View full profile link on the home cards
         parts.append(f'<a class="tm-link" href="{{{{ROOT}}}}{profile_url(p)}">View full profile {{{{icon:arrow}}}}</a>')
     hint = (f'<button type="button" class="tm-qv-hint" data-tm-open aria-haspopup="dialog" aria-label="Quick view: {esc(name)}">'
             f'{{{{icon:expand}}}}<span>Quick view</span></button>' if profile else "")
@@ -237,7 +237,8 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 
 def home_section_html() -> str:
     """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
-    cards = "".join(card_html(p, k, "home") for k, p in enumerate(ordered()))
+    people = [p for p in ordered() if p.get("home", True)]   # "home": False keeps a person off the home section only
+    cards = "".join(card_html(p, k, "home") for k, p in enumerate(people))
     return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="pf-h">Meet the experts.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
