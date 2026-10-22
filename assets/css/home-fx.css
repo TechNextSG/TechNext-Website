@@ -486,10 +486,17 @@
 .vp-card.is-in .vp-steps li::before { animation: vpLight .6s var(--fx-ease) both; animation-delay: calc(.35s + var(--k) * .25s); }
 @keyframes vpLight { from { background: var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 0 rgba(49,103,202,.4); } 60% { box-shadow: 0 0 0 8px rgba(49,103,202,0); } }
 
+/* 3. the team in numbers (owner 22 Oct 2026), figures from _src/advisors.py profiles */
+.vp-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; align-content: center; padding: 10px; }
+.vp-stats li { display: flex; flex-direction: column; gap: 3px; padding: 8px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--blue-100); }
+.vp-stats b { font: 800 30px/1 var(--font-display); letter-spacing: -.03em; color: var(--blue); font-variant-numeric: tabular-nums; }
+.vp-stats span { font: 600 12px/1.28 var(--font-body); color: var(--body); }
+.vp-card.is-in .vp-stats li { animation: vpTick .5s var(--fx-ease) both; animation-delay: calc(.25s + var(--k) * .18s); }
+
 @media (max-width: 1080px) { .vp-grid { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin: 0 auto; } .vp-demo { min-height: 0; } }
 @media (max-width: 600px) { .vp-card { padding: 18px 16px 22px; } .vp-days-n b { font-size: 52px; } .vp-act .btn { flex: 1 1 100%; justify-content: center; } }
 @media (prefers-reduced-motion: reduce) {
-  .vp-card, .vp-card.is-in .vp-check li, .vp-card.is-in .vp-check .ic, .vp-card.is-in .vp-track li::before, .vp-card.is-in .vp-steps li, .vp-card.is-in .vp-steps li::before { animation: none; transition: none; }
+  .vp-card, .vp-card.is-in .vp-check li, .vp-card.is-in .vp-check .ic, .vp-card.is-in .vp-track li::before, .vp-card.is-in .vp-steps li, .vp-card.is-in .vp-steps li::before, .vp-card.is-in .vp-stats li { animation: none; transition: none; }
   .vp-card:hover { transform: none; }
 }
 
