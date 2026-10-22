@@ -9,5 +9,4 @@ People with a full profile page (_src/advisors.py ADVISORS) are listed first on 
 """
 
 TEAM = [
-    {"name": "Pia Cachola", "role": "General Manager", "email": "admin@technext.asia", "photo": "pia-cachola.webp"},
 ]
