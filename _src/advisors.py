@@ -134,7 +134,7 @@ ADVISORS = [
          ("Industries", ["Travel", "Animation and media", "Data services"]),
      ],
      "creds": ["BS Business Administration, Operations Management"]},
-    {"name": "Rex Polintang", "role": "IT Specialist", "office": "ph", "photo": "rex-polintang.webp",
+    {"name": "Rex Polintang", "role": "IT Developer Expert", "office": "ph", "photo": "rex-polintang.webp",
      "summary": "Rex keeps the systems and networks behind the business running, backed by CCNA training and a cum laude IT degree.",
      "bio": "Rex keeps the systems and networks behind a business running. A cum laude graduate in IT, networking and administration, Rex has handled a retail branch's IT day to day since 2023, completed the Cisco CCNA routing and switching courses, and documented maintenance work for 105 cell sites. Rex's motto is simple: learn things, adapt to things, innovate things.",
      "stats": [("105", "cell sites documented"), ("4", "CCNA courses completed"), ("2023", "in branch IT since")],
