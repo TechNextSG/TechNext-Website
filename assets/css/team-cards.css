@@ -191,3 +191,48 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
   .tm-grid--home .tm-sum, .tm-grid--home .tm-stats, .tm-grid--home .tm-link, .tm-grid--home .tm-qv-hint { display: none; }
   .tm-grid--home .tm-face::after { content: "View profile"; margin-top: auto; padding-top: 10px; font: 700 12.5px/1.2 var(--font-body); color: var(--blue-700); }
 }
+
+/* home: four columns (owner 22 Oct 2026); a touch more compact so the numbers still sit in one strip */
+@media (min-width: 1200px) {
+  .tm-grid--home .tm-card { flex-basis: calc((100% - 60px) / 4); }
+  .tm-grid--home .tm-face { padding: 28px 18px 20px; }
+  .tm-grid--home .tm-ava { width: 128px; height: 128px; margin-bottom: 16px; }
+  .tm-grid--home .tm-ini { font-size: 40px; }
+  .tm-grid--home .tm-name { font-size: 1.18rem; }
+  .tm-grid--home .tm-role { font-size: 14px; }
+  .tm-grid--home .tm-sum { font-size: 14px; }
+  /* narrow cards: the numbers stack as rows (number left, label beside it) so nothing collides */
+  .tm-grid--home .pf-stats { grid-auto-flow: row; grid-auto-columns: auto; }
+  .tm-grid--home .pf-stats > div { flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 12px; padding: 10px 14px 10px 16px; }
+  .tm-grid--home .pf-stats > div + div { box-shadow: inset 0 1px 0 var(--blue-100); }
+  .tm-grid--home .tm-card--lead .pf-stats > div + div { box-shadow: inset 0 1px 0 rgba(255,255,255,.22); }
+  .tm-grid--home .pf-stats > div::before { top: 50%; left: 0; width: 3px; height: 18px; margin-top: -9px; border-radius: 0 3px 3px 0; transition: height .45s var(--fx-ease), margin-top .45s var(--fx-ease); }
+  .tm-grid--home .pf-stats > div:hover::before { width: 3px; height: 28px; margin-top: -14px; }
+  .tm-grid--home .pf-stats dd { flex: none; width: 68px; font-size: 20px; }   /* one number column, so labels line up */
+  .tm-grid--home .pf-stats dt { font-size: 12.5px; text-align: left; }
+}
+
+/* the highlighted card (Clement, CEO): TechNext blue, white type, white ring and a light stats strip */
+.tm-card--lead .tm-face { background: linear-gradient(160deg, #3A72D6 0%, var(--blue) 45%, var(--blue-700) 100%); border-color: rgba(255,255,255,.28);
+  box-shadow: 0 2px 6px rgba(30,70,145,.25), 0 34px 60px -28px rgba(30,70,145,.75), inset 0 1px 0 rgba(255,255,255,.35); }
+.tm-card--lead:hover .tm-face, .tm-card--lead .tm-face:focus-within { border-color: rgba(255,255,255,.55);
+  box-shadow: 0 2px 6px rgba(30,70,145,.25), 0 40px 70px -26px rgba(30,70,145,.85), inset 0 1px 0 rgba(255,255,255,.4); }
+.tm-card--lead .tm-light { background: radial-gradient(340px circle at var(--mx) var(--my), rgba(255,255,255,.22), rgba(255,255,255,.06) 45%, transparent 72%); }
+.tm-card--lead .tm-light::after { background: radial-gradient(240px circle at var(--mx) var(--my), rgba(255,255,255,.95), rgba(255,255,255,0) 70%); }
+.tm-card--lead .tm-ava { background: rgba(255,255,255,.18); box-shadow: 0 18px 34px -20px rgba(10,30,80,.8); }
+.tm-card--lead .tm-ring { background: conic-gradient(from 0deg, #fff, rgba(255,255,255,.2) 30%, #DDE7F8 55%, rgba(255,255,255,.2) 80%, #fff); opacity: .7; }
+.tm-card--lead:hover .tm-ring, .tm-card--lead .tm-face:focus-within .tm-ring { filter: drop-shadow(0 0 8px rgba(255,255,255,.8)); }
+.tm-card--lead .tm-name, .tm-card--lead .tm-name a { color: #fff; }
+.tm-card--lead .tm-role { color: #fff; }
+.tm-card--lead .tm-office, .tm-card--lead .tm-office .ic { color: rgba(255,255,255,.92); }
+.tm-card--lead .tm-sum { color: rgba(255,255,255,.92); }
+.tm-card--lead .pf-stats { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+.tm-card--lead .pf-stats > div + div { box-shadow: inset 1px 0 0 rgba(255,255,255,.22); }
+.tm-card--lead .pf-stats > div::before { background: #fff; }
+.tm-card--lead .pf-stats dd { color: #fff; }
+.tm-card--lead .pf-stats dt { color: rgba(255,255,255,.88); }
+.tm-card--lead .tm-link { color: #fff; }
+.tm-card--lead .tm-link:focus-visible, .tm-card--lead .tm-qv-hint:focus-visible { outline-color: #fff; }
+.tm-card--lead .tm-qv-hint { background: rgba(255,255,255,.95); }
+.tm-face:has(.tm-name a:focus-visible) { outline-color: var(--blue-700); }
+@media (max-width: 600px) { .tm-grid--home .tm-card--lead .tm-face::after { color: #fff; } }

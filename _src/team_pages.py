@@ -208,7 +208,8 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
     hint = (f'<button type="button" class="tm-qv-hint" data-tm-open aria-haspopup="dialog" aria-label="Quick view: {esc(name)}">'
             f'{{{{icon:expand}}}}<span>Quick view</span></button>' if profile else "")
     hay = " ".join(i for _, items in (p.get("groups") or []) for i in items)
-    return (f'<article class="tm-card reveal" style="--i:{k % 6}" data-tm-card data-skills="{esc(hay)}">'
+    lead = " tm-card--lead" if (p.get("featured") and ctx == "home") else ""   # the highlighted (blue) card on home
+    return (f'<article class="tm-card{lead} reveal" style="--i:{k % 6}" data-tm-card data-skills="{esc(hay)}">'
             f'<div class="tm-face"><span class="tm-light" aria-hidden="true"></span>{hint}{"".join(parts)}</div>'
             f'{_quick_view(p, ctx) if profile else ""}</article>')
 
