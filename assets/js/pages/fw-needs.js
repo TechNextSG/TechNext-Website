@@ -215,7 +215,7 @@
     });
   }
 
-  /* ------------------------------------------------------------ the form in three steps */
+  /* ------------------------------------------------------------ the form (one step since 23 Oct 2026; still works with several) */
   /* Without this script the three fieldsets show as one form and the browser validates on submit. With it: one step at a
      time, Next checks the step and writes an inline message under each field that needs fixing (aria-invalid, focus on
      the first one), the progress tabs go back to any step already reached, and Send re-checks every step first. */
@@ -257,9 +257,9 @@
         if (k === cur) t.setAttribute('aria-current', 'step'); else t.removeAttribute('aria-current');
       });
       if (bar) bar.style.width = (cur / steps.length * 100) + '%';
-      back.hidden = cur === 1;
-      next.hidden = cur === steps.length;
-      send.hidden = cur !== steps.length;
+      if (back) back.hidden = cur === 1;
+      if (next) next.hidden = cur === steps.length;
+      if (send) send.hidden = cur !== steps.length;
       if (nextLabel && cur < steps.length) nextLabel.textContent = 'Next: ' + NAMES[cur];
       if (focus) {
         var top = form.getBoundingClientRect().top;
@@ -267,12 +267,12 @@
         var f = fields(steps[cur - 1])[0]; if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, reduce ? 0 : 250);
       }
     }
-    next.addEventListener('click', function () {
+    if (next) next.addEventListener('click', function () {
       var bad = check(steps[cur - 1]);
       if (bad) { bad.focus(); return; }
       go(cur + 1, true);
     });
-    back.addEventListener('click', function () { go(cur - 1, true); });
+    if (back) back.addEventListener('click', function () { go(cur - 1, true); });
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         var k = +t.getAttribute('data-step-tab');
