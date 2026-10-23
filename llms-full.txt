@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-23
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 40+ years of excellence; 18+ enterprise clients in 11+ countries.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 40+ years of excellence; 90+ enterprise clients in 25+ countries.
 
 ## Contact
 
@@ -45,7 +45,7 @@ Last updated: 2026-10-23
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
-- https://technext.asia/company — About TechNext: Odoo Ready Partner, Singapore & Taguig: TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 11+ clients, 11+ countries.
+- https://technext.asia/company — About TechNext: Odoo Ready Partner, Singapore & Taguig: TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 90+ clients, 25+ countries.
 - https://technext.asia/get-started — Free website design and setup on Odoo — TechNext: We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - https://technext.asia/industries/construction — Odoo for Construction — Singapore & Philippines: Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/ecommerce — Odoo for Ecommerce — Singapore & Philippines: Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting. By TechNext, Odoo Partner.
@@ -129,7 +129,7 @@ Last updated: 2026-10-23
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
 - https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
 - https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
-- https://technext.asia/team/clement-kho — Clement Kho, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
+- https://technext.asia/team/clement-koh — Clement Koh, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
 - https://technext.asia/team/jett-balanza — Jett Balanza, Business Systems Analyst: Jett sits between your team and our developers, turning what you need into a working Odoo set-up. Business Systems Analyst at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. Odoo Developer Expert at TechNext, an Odoo Ready Partner.
@@ -820,7 +820,7 @@ Source: https://technext.asia/blog/what-is-erp
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is at Level 9, IP Center, Taguig City, Metro Manila, and our AI engineering hub is at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 11+ countries.
+Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is at Level 9, IP Center, Taguig City, Metro Manila, and our AI engineering hub is at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 25+ countries.
 
 Source: https://technext.asia/company
 
@@ -886,7 +886,7 @@ Source: https://technext.asia/
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore. Our main consulting and development hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We work with clients in 11+ countries.
+Our headquarters is at 261 Waterloo Street #03-36, Singapore. Our main consulting and development hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We work with clients in 25+ countries.
 
 Source: https://technext.asia/
 
@@ -1768,7 +1768,7 @@ Source: https://technext.asia/solutions/marketing
 
 ### Where is the team based?
 
-Singapore is home base, with a global production team. We have worked with clients across 11+ countries and transformed 18+ enterprise clients.
+Singapore is home base, with a global production team. We have worked with clients across 25+ countries and transformed 90+ enterprise clients.
 
 Source: https://technext.asia/solutions/marketing
 

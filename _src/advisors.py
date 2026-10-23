@@ -12,13 +12,13 @@ EXPERTISE: the advisory practices, shown as role cards whether or not named advi
 """
 
 # Home-page profiles (owner 22 Oct 2026: skills only, no companies; photos come later, initials until then).
-# Sources: CVs of AJ Cubilla, Jeric Bulayungan and RJ (Raphael John) Sarreal; names and roles as the owner gave them; Philip Gallan's skill list and Clement Kho's
+# Sources: CVs of AJ Cubilla, Jeric Bulayungan and RJ (Raphael John) Sarreal; names and roles as the owner gave them; Philip Gallan's skill list and Clement Koh's
 # profile as sent by the owner. Fields: name, role, office (sg | ph | vn | None), photo (assets/img/team/, 600x600 WebP),
 # bir (BIR-related skills, only what the CV or notes support) and bir_rank (1 = strongest; owner 22 Oct:
 # BIR-strong people come first after the featured card), email (work address, shown on the Team Directory only), summary (one line for the home card), bio (no pronouns; the profile page), stats [(value, label)], groups [(label, [skills])] (the first shows, the rest open under
 # "See all N skills"), apps (Odoo app keys, flat icons), creds (certifications and degrees). Plain text; build.py escapes it.
 ADVISORS = [
-    {"name": "Clement Kho", "role": "CEO", "featured": True, "home": False, "office": "sg", "email": "sky@technext.asia", "photo": "clement-kho.webp",
+    {"name": "Clement Koh", "role": "CEO", "featured": True, "home": False, "office": "sg", "email": "sky@technext.asia", "photo": "clement-koh.webp",
      "summary": "Clement builds companies across borders and has hired and trained more than 1,000 people.",
      "bio": "Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong. Along the way Clement has hired and trained more than 1,000 people, and led automation projects where thousands of everyday tasks now run by themselves. Ask Clement about running several companies on one system.",
      "stats": [("1,000+", "staff hired and trained"), ("724", "staff in one BPO set-up"), ("10+", "Wi-Fi and network security projects")],

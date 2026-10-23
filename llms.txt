@@ -9,7 +9,7 @@ Last updated: 2026-10-23
 - Philippines development hub: Level 9, IP Center, Taguig City, Metro Manila 1634, Philippines
 - Vietnam AI engineering hub: 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City
 - Contact: sales@technext.asia
-- 142 ERP projects; 40+ years of excellence; 18+ enterprise clients; clients in 11+ countries; 4 core AI disciplines
+- 142 ERP projects; 40+ years of excellence; 90+ enterprise clients; clients in 25+ countries; 4 core AI disciplines
 - Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement
 - Companies we've worked with: BHD Asia (Coaching & HR consulting, Singapore); HummingBeing (TRE™ & somatic coaching, Singapore); TRE™ in Singapore (TRE™ community, Singapore); Casa Escondida Anilao (Dive resort, Philippines); Immaculate Connections (Travel agency, Philippines); St. Clare College of Caloocan (Education, Philippines); JR-Tech Solution (Commercial kitchens, Malaysia); TRE Worldwide Conference 2027 (International conference, Indonesia); nivellipso® (Clear aligners & brackets, Switzerland); HDH AG (Dental & medical OEM, Switzerland); Saymara B. Ryon (Holistic coaching, Romania)
 - Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
@@ -87,7 +87,7 @@ Last updated: 2026-10-23
 
 - [Odoo Partner Philippines & Singapore: BIR CAS Set-Up](https://technext.asia/): Odoo Ready Partner in the Philippines (Taguig City) and Singapore. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
 - [BIR E-Invoicing: Are You Covered? Website Free with Your Odoo](https://technext.asia/bir-adviser-call): Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
-- [About TechNext: Odoo Ready Partner, Singapore & Taguig](https://technext.asia/company): TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 11+ clients, 11+ countries.
+- [About TechNext: Odoo Ready Partner, Singapore & Taguig](https://technext.asia/company): TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 90+ clients, 25+ countries.
 - [Free website design and setup on Odoo — TechNext](https://technext.asia/get-started): We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - [Nexi, TechNext's AI companion for Odoo, AI and websites](https://technext.asia/nexi): Meet Nexi, TechNext's AI companion. Ask about Odoo, AI and websites, take a short 3D tour, and get to a quotation, a meeting or the team in a few taps.
 - [Nexi Explains: Odoo, AI and tech videos by TechNext](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
@@ -97,7 +97,7 @@ Last updated: 2026-10-23
 
 - [AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner](https://technext.asia/team/aj-cubilla): AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
 - [Astroneil Matan, Senior Functional Lead](https://technext.asia/team/astroneil-matan): Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
-- [Clement Kho, CEO | TechNext Odoo Partner](https://technext.asia/team/clement-kho): Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
+- [Clement Koh, CEO | TechNext Odoo Partner](https://technext.asia/team/clement-koh): Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - [Jeric Bulayungan, Business Development](https://technext.asia/team/jeric-bulayungan): Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
 - [Jett Balanza, Business Systems Analyst](https://technext.asia/team/jett-balanza): Jett sits between your team and our developers, turning what you need into a working Odoo set-up. Business Systems Analyst at TechNext, an Odoo Ready Partner.
 - [Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner](https://technext.asia/team/philip-gallan): Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. Odoo Developer Expert at TechNext, an Odoo Ready Partner.
