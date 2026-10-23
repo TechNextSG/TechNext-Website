@@ -10,7 +10,7 @@ ORG_DESC = ("TechNext is a trusted expert adviser for ERP and compliance: an Odo
             "implement Odoo ERP end to end, starting with Accounting, Sales and Inventory, configure it for local tax and invoicing rules "
             "(in the Philippines: Odoo set up for your own BIR Computerized Accounting System (CAS) or CBA application, 2307, SLSP, SAWT, QAP and "
             "e-invoicing planning; in Singapore: GST and InvoiceNow, with the Access Point you choose), build enterprise AI, websites and brands "
-            "as one team, so growing companies in 10+ countries don't need to hire their own.")
+            "as one team, so growing companies in 11+ countries don't need to hire their own.")
 
 # Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
 # never proposal-only prospects or anything under NDA. (name, what they do, where)
