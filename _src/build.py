@@ -1007,7 +1007,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 10+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 11+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <p class="small muted reveal">TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
     <div class="cw reveal">
@@ -2244,7 +2244,7 @@ def article_html(meta: dict, body: str) -> str:
 {body}
       {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 10+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 11+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
       </div>
     </div>
   </div>
@@ -2637,7 +2637,7 @@ def write_llms():
         f"- Headquarters: {', '.join(c['address'])}",
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']}",
-        "- Clients in 10+ countries; 11+ enterprise clients; 4 core AI disciplines",
+        "- 142 ERP projects; 40+ years of excellence; 18+ enterprise clients; clients in 11+ countries; 4 core AI disciplines",
         "- Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
         "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
@@ -2726,7 +2726,7 @@ def write_llms_full():
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "
            "the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. "
            "No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
-           "Clients in 10+ countries; 11+ enterprise clients.", "",
+           "142 ERP projects; 40+ years of excellence; 18+ enterprise clients in 11+ countries.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:

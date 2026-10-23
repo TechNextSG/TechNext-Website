@@ -365,7 +365,7 @@
     var tv = T.tv, sl = Math.floor(t / 3.2) % 3, sp2 = (t % 3.2) / 3.2; fillRR(g, tv.x, tv.y, tv.w, tv.h, 2, ['#EAF2FF', '#F6EEF4', '#E7F7F2'][sl]);
     if (sl === 0) { [['SG', 18, '#3167CA'], ['PH', 48, '#14A38B'], ['VN', 33, '#E07B12']].forEach(function (p, i) { var on = Math.floor(sp2 * 3) === i; fillE(g, tv.x + p[1], tv.y + 22 + (i === 2 ? -8 : 0), on ? 6 : 4, on ? 6 : 4, p[2]); text(g, p[0], tv.x + p[1], tv.y + 38 + (i === 2 ? -8 : 0), 6.5, 800, C.ink, 'center'); }); text(g, 'THREE OFFICES', tv.x + tv.w / 2, tv.y + 47, 5.6, 800, '#5C6B7A', 'center'); }
     else if (sl === 1) { text(g, '11+', tv.x + tv.w / 2, tv.y + 28, 18, 800, '#714B67', 'center'); text(g, 'enterprise', tv.x + tv.w / 2, tv.y + 38, 6.2, 800, C.ink, 'center'); text(g, 'clients', tv.x + tv.w / 2, tv.y + 46, 6.2, 800, C.ink, 'center'); }
-    else { g.strokeStyle = TEAL; g.lineWidth = 2; g.beginPath(); g.arc(tv.x + 33, tv.y + 20, 11, 0, 7); g.moveTo(tv.x + 22, tv.y + 20); g.lineTo(tv.x + 44, tv.y + 20); g.stroke(); g.beginPath(); g.ellipse(tv.x + 33, tv.y + 20, 5, 11, 0, 0, 7); g.stroke(); text(g, '10+ countries', tv.x + tv.w / 2, tv.y + 43, 6.6, 800, C.ink, 'center'); }
+    else { g.strokeStyle = TEAL; g.lineWidth = 2; g.beginPath(); g.arc(tv.x + 33, tv.y + 20, 11, 0, 7); g.moveTo(tv.x + 22, tv.y + 20); g.lineTo(tv.x + 44, tv.y + 20); g.stroke(); g.beginPath(); g.ellipse(tv.x + 33, tv.y + 20, 5, 11, 0, 0, 7); g.stroke(); text(g, '11+ countries', tv.x + tv.w / 2, tv.y + 43, 6.6, 800, C.ink, 'center'); }
     fillRR(g, tv.x + 4, tv.y + tv.h - 4, (tv.w - 8) * sp2, 2, 1, BLUE);
     /* balloons tied to the booth corners: bob; tapped, they bounce and a new one floats up */
     var pt = t - POP.t;
