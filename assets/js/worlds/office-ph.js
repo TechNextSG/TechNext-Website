@@ -169,7 +169,7 @@
         if (u >= 0 && X.k === 1) { var hl = COL.hand(P, 0); fillRR(g, hl[0] - 12, hl[1] - 26, 24, 24, 4, '#E8C394'); fillRR(g, hl[0] - 12, hl[1] - 26, 24, 5, 2, '#DDAF78'); fillE(g, hl[0] - 4, hl[1] - 28, 6, 4, '#E9B872'); fillE(g, hl[0] + 4, hl[1] - 29, 6, 4, '#E2A85C'); COL.bubble(g, hl[0], hl[1] - 34, 'Pandesal!', COL.bell(u) * 2, TEALD); } } },
     { P: W({ x: 1074, y: 470, s: 0.5, ph: 0.8, skin: 2, hair: 2, style: 'pony', outfit: 'shirt', top: '#14A38B', headset: '#F2B233' }), hands: [[-60, -170], [96, -270]],
       box: [1074, 320, 96, 280], who: 'Functional consultant', role: 'Phone booth · illustration', near: [880, 80], pose: 'wow', dur: [1.6, 1.8], fx: ['spark', 'star'],
-      lines: ['On a call with a client in **another country**. 10+ of them!', 'Walkthrough done. **Next step: training**.'],
+      lines: ['On a call with a client in **another country**. 25+ of them!', 'Walkthrough done. **Next step: training**.'],
       idle: function (P, t) { var c = t % 7; P.talk = c < 4.5; P.hands = [[-60, -170], [96 + Math.sin(t * 2.4) * 18, -270 + Math.sin(t * 3.1) * 16]]; P.look = Math.sin(t * 0.6) * 0.5; if (!P.talk) { P.hands[1] = [40, -330]; P.tilt = 0.05; } },
       moves: [function (P, u, t) { P.hands = [[-60, -170], [118 + Math.sin(t * 13) * 14, -400]]; P.look = 0.4; }, function (P, u) { P.hands = [[-90, -360], [90, -360]]; P.hop = COL.bell(u) * 12; }],
       after: function (g, P, t, S, X, u) { if (u >= 0 && X.k === 1) { var hd = COL.head(P); COL.pop(g, hd[0], hd[1] - 70, '✓ Next: training', u, TEALD); } } },

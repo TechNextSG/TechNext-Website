@@ -42,7 +42,7 @@ TN.demo('offices', function (root, K) {
       var el = K.svg('path', { d: d, 'class': 'dof-arc' + (p[0] === 'client' ? ' dof-arc--c' : '') });
       svg.appendChild(el); made.push([p, el]);
     });
-    // the 11+ countries TechNext delivers to, as rays from the client node (no names on purpose)
+    // the 25+ countries TechNext delivers to, drawn as 11 representative rays from the client node (no names on purpose)
     var c = pos('client');
     for (var i = 0; i < 11; i++) {
       var a2 = Math.PI * (.55 + i / 10 * .9), r = H * .36;

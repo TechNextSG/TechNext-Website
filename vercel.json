@@ -1136,6 +1136,16 @@
       "permanent": true
     },
     {
+      "source": "/team/clement-kho",
+      "destination": "/team/clement-koh",
+      "permanent": true
+    },
+    {
+      "source": "/team/clement-kho.html",
+      "destination": "/team/clement-koh",
+      "permanent": true
+    },
+    {
       "source": "/free-website-with-odoo",
       "destination": "/bir-adviser-call",
       "permanent": true

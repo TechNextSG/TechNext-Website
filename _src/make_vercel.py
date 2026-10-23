@@ -147,6 +147,8 @@ REDIRECTS = [
     ("/terms/", "/terms"),
     # --- old pages with a v2 equivalent ----------------------------------------------
     ("/contact", "/company"), ("/contact/", "/company"),
+    # 23 Oct 2026: the CEO's surname is Koh (was misspelt Kho)
+    ("/team/clement-kho", "/team/clement-koh"), ("/team/clement-kho.html", "/team/clement-koh"),
     # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
     ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),

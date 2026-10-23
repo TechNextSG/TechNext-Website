@@ -188,7 +188,7 @@
     [[34, 100, 26, 6, 0.75], [104, 92, 20, 15, 0], [92, 116, 24, 4, 0.08], [137, 40, 7, 15, 0.2], [148, 78, 10, 8, 0], [142, 60, 4, 3, 0], [152, 62, 4, 3, 0], [176, 92, 12, 10, 0.4]].forEach(function (e) { var q = mp(e[0], e[1]); g.beginPath(); g.ellipse(q[0], q[1], e[2] * 0.95, e[3] * 0.9, e[4], 0, Math.PI * 2); g.fill(); });
     g.strokeStyle = 'rgba(49,103,202,.08)'; g.lineWidth = 1; g.beginPath(); for (var gx = m.x + 20; gx < m.x + m.w; gx += 24) { g.moveTo(gx, m.y + 16); g.lineTo(gx, m.y + m.h); } for (var gy = m.y + 30; gy < m.y + m.h; gy += 24) { g.moveTo(m.x, gy); g.lineTo(m.x + m.w, gy); } g.stroke();
     g.restore();
-    text(g, 'clients in 11+ countries', m.x + m.w - 10, m.y + m.h - 9, 6.2, 800, C.blueD, 'right');
+    text(g, 'clients in 25+ countries', m.x + m.w - 10, m.y + m.h - 9, 6.2, 800, C.blueD, 'right');
   }
   /* the team wall over the hiring board: polaroids on a string, each a little scene from the three offices */
   function teamWall(g) {

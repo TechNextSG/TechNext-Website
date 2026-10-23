@@ -683,7 +683,7 @@
              ['want to chat with me?', 'my full self lives in Ask Nexi', 'the tab on the right →']],
       technext: [['TechNext is an Odoo Ready Partner', 'we set up Odoo for growing companies', 'Accounting, Sales, Inventory first'],
                  ['TechNext does Odoo, AI and websites', 'one team, discovery to support', 'pretty neat, huh?'],
-                 ['clients in 11+ countries', 'teams in Singapore, the Philippines and Vietnam', 'hello from all of us!']],
+                 ['clients in 25+ countries', 'teams in Singapore, the Philippines and Vietnam', 'hello from all of us!']],
       odoo: [['Odoo runs your whole business', 'on one database', 'no more spreadsheets!'],
              ['start with the apps you need', 'add the rest when you’re ready', 'it all stays connected'],
              ['with Odoo, nothing is typed twice', 'an order flows into the books', 'all by itself ✓']]
