@@ -127,6 +127,18 @@ User-agent: DeepSeekBot
 Allow: /
 Disallow: /denied
 
+User-agent: Google-CloudVertexBot
+Allow: /
+Disallow: /denied
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /denied
+
+User-agent: Gemini-Deep-Research
+Allow: /
+Disallow: /denied
+
 User-agent: Bytespider
 Disallow: /
 
