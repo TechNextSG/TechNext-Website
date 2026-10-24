@@ -325,12 +325,14 @@ LAYOUT = '''<!doctype html>
 <link rel="manifest" href="{ROOT}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" media="print" data-defer>
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
 <script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
 <script type="application/ld+json">{JSONLD}</script>
+<script>document.querySelectorAll('link[data-defer]').forEach(function(l){function on(){l.media='all'}if(l.sheet)on();else l.addEventListener('load',on)})</script>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 </head>
 <body class="{BODY_CLASS}">
 {TAGS_BODY}
@@ -2333,9 +2335,22 @@ def _gtag(tid):
 
 
 def tags_head(is_home: bool) -> str:
+    """Consent defaults and the gtag queue run at once; the ~740 KB of GTM/gtag scripts load on the visitor's first
+    interaction or 2.5 s after the page has loaded, so they no longer compete with the page's first paint (mobile LCP,
+    24 Oct 2026). Events pushed before that (gtag(), dataLayer) wait in the queue and are sent when the scripts arrive."""
     t = S.TRACKING
     ids = t["gtm"] + (t["gtm_home"] if is_home else [])
-    return "\n".join([CONSENT_DEFAULT] + [_gtm_head(c) for c in ids] + [_gtag(t["ga4"]), _gtag(t["ads"])])
+    srcs = ["https://www.googletagmanager.com/gtm.js?id=" + c for c in ids] + \
+           ["https://www.googletagmanager.com/gtag/js?id=" + x for x in (t["ga4"], t["ads"])]
+    loader = ("<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
+              "gtag('js',new Date());gtag('config','" + t["ga4"] + "');gtag('config','" + t["ads"] + "');"
+              "(function(){var done=false,S=" + json.dumps(srcs) + ";function go(){if(done)return;done=true;"
+              "dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
+              "S.forEach(function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)});"
+              "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){removeEventListener(e,go,true)})}"
+              "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,go,{capture:true,passive:true})});"
+              "addEventListener('load',function(){setTimeout(go,2500)})})();</script>")
+    return "\n".join([CONSENT_DEFAULT, loader])
 
 
 def tags_body(is_home: bool) -> str:
