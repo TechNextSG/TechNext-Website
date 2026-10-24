@@ -1,0 +1,107 @@
+<!--meta {"title": "BIR POS Accreditation and PTU Requirements (2026 Guide)", "desc": "What a POS needs for the BIR in the Philippines: supplier accreditation, a Permit to Use per machine, receipt fields, Z-readings, PTU cancellation and Odoo.", "out": "blog/bir-pos-accreditation-ptu-requirements.html", "nav": "company", "article": {"h1": "BIR POS accreditation and PTU: what your POS system needs in the Philippines", "cat": "bir", "date": "2026-10-24", "order": 28, "lede": "A Permit to Use (PTU) is the BIR's permit for one specific cash register or POS machine, and the business that uses the machine needs it, approved by its RDO, before the machine records a single sale. The POS software has its own, separate accreditation. Here is how the two fit together, what the receipts must show, and what happens when a machine is retired.", "card": "Accreditation of the POS software vs the Permit to Use for each machine, the eAccReg steps, receipt fields, Z-readings, PTU cancellation and where Odoo Point of Sale fits.", "cover": "icons:odoo:point_of_sale,odoo:account,icon:lock", "keywords": "BIR accredited POS system Philippines, BIR PTU requirements, BIR POS registration requirements, Permit to Use POS, RMO 24-2023, eAccReg, Odoo POS BIR"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>Two separate steps apply to a POS: <strong>accreditation</strong> of the machine or software version, and a <strong>Permit to Use (PTU)</strong> for each machine the business uses (RMO 24-2023).</li>
+    <li>The PTU is applied for online in the BIR's <strong>eAccReg</strong> system. For a CRM or POS, the BIR's 2026 Citizen's Charter says only the software supplier or provider account can file it on the taxpayer's behalf, so you need an accredited supplier for your exact POS version. The Charter lists two days and no fee.</li>
+    <li>A PTU <strong>does not expire</strong> when the software's accreditation expires (RMC 72-2025, citing RR 6-2022).</li>
+    <li>Retiring, moving or replacing a machine needs a <strong>PTU cancellation</strong>, backed by the last Z-reading, the back-end report and the original permit.</li>
+  </ul>
+</div>
+
+<p>"Is your POS BIR-accredited?" is often the first question a retailer or restaurant asks. It is only half the question. The BIR checks the POS software through accreditation, then gives the business a permit for each machine. Computerised books are registered separately, and since RMC 5-2021 a CAS gets an Acknowledgement Certificate rather than a PTU, as our guide to <a href="{{ROOT}}blog/register-odoo-cas-cba-bir.html">registering a CAS or CBA</a> explains. This guide covers sales machines as the rules stand in October 2026.</p>
+
+<h2>Accreditation and the Permit to Use are two different things</h2>
+<p>RMO 24-2023 sets the current rules for cash register machines (CRMs), POS systems and other sales machines or software that generate invoices. It covers bundled POS, POS software on its own, handheld devices linked to a server and vending machines. A computerised accounting system on its own is outside this order.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Accreditation</th><th>Permit to Use (PTU)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>What it covers</strong></td><td>A machine brand, model, system or software version</td><td>Each machine the business uses</td></tr>
+    <tr><td><strong>Who applies</strong></td><td>The supplier, developer or provider. Taxpayer-users and "pseudo" suppliers can also apply</td><td>Filed in eAccReg by the software supplier or provider account for the taxpayer-user</td></tr>
+    <tr><td><strong>What the BIR checks</strong></td><td>A sworn statement and a system demonstration to a technical working group</td><td>The online application, approved by the RDO or Large Taxpayers office</td></tr>
+    <tr><td><strong>Result</strong></td><td>A Certificate of Accreditation with an Accreditation Number</td><td>A PTU and a Machine Identification Number (MIN)</td></tr>
+    <tr><td><strong>Fee</strong></td><td>Free under RMO 24-2023</td><td>None, per the 2026 Citizen's Charter</td></tr>
+  </tbody>
+</table></div>
+<p>RMO 24-2023 also has a row for a <strong>POS that is a component of a CAS</strong>. That POS still needs both accreditation and registration. A registered accounting system does not cover the tills that feed it.</p>
+<p>Special purpose machines, such as ATMs, price checkers and ordering machines, need a PTU but no accreditation.</p>
+
+<h2>What the POS software must do</h2>
+<p>To be accredited, the machine or software must have the features listed in RMO 24-2023, declared in a notarised sworn statement. They include an <strong>accumulated grand total</strong> of sales, a <strong>tamper-free</strong> design with non-volatile memory, a <strong>transaction log and e-journal</strong>, <strong>sales readings and back-end reports</strong>, a <strong>sequential invoice series</strong> with a reprint function, data retention and sales data transmission.</p>
+<p>Accreditation is tied to a version. RMO 24-2023 treats version upgrades and system enhancements in general as major enhancements, which need a new accreditation. Minor changes, such as rearranging screen fields, only need a notice to the RDO. This matters for any POS that updates often, Odoo included.</p>
+
+<h2>What the receipt or invoice must show</h2>
+<p>RMO 24-2023 lists what a machine-generated invoice must carry. The main items:</p>
+<ul>
+  <li><strong>Header</strong>: registered name, business name or style, detailed address, "VAT REG TIN" or "NON VAT REG TIN" with the 9-digit TIN and 5-digit branch code, the MIN, and the machine's serial number (or, for a cloned machine, the hard disk serial or software licence number).</li>
+  <li><strong>A serial number</strong> of at least six digits, with a reset counter if applicable. If the system also creates transaction numbers, the invoice number must be a different series.</li>
+  <li><strong>The sale</strong>: date, quantity, description, unit cost, total and the VAT amount. Mixed sellers break sales into VATable, VAT-exempt and zero-rated.</li>
+  <li><strong>Buyer details</strong> where applicable, and senior citizen, PWD or solo parent discount details.</li>
+  <li><strong>Footer</strong>: the accredited supplier's name, address and TIN, the accreditation number and dates, and the <strong>PTU number and date issued</strong>.</li>
+  <li>Supplementary documents, such as order slips and void or refund slips, carry "THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX."</li>
+</ul>
+<p>Under the EOPT Act, RR 11-2024 let CRM and POS users change "Official Receipt" to "Invoice" or a similar name without first informing the RDO. It counted as a minor enhancement: no re-accreditation for the supplier and no new PTU for the user. The renamed invoices continue the last approved OR series, and a notice of the starting invoice number was due to the RDO within 30 days of the change or by 31 December 2024, whichever came first. The changeover itself was due by 31 December 2024, with extensions of up to six months only if approved.</p>
+<p>A newer change is coming. RR 6-2026 adds creditable withholding tax, where it applies, as a separate item on the invoice. RMC 112-2026, as reported by the Daily Tribune, gives existing CRMs and POS systems until 31 March 2027 to make the change. For the full field list, see our <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">EOPT invoice requirements guide</a>.</p>
+
+<h2>Getting the PTU: the steps</h2>
+<ol>
+  <li><strong>Choose an accredited system.</strong> Ask the supplier for its Certificate of Accreditation and check that it matches the version you will run.</li>
+  <li><strong>Have the supplier file the PTU.</strong> The 2026 Citizen's Charter says only the software supplier or provider account can apply for a CRM or POS PTU in eAccReg on behalf of the taxpayer-user. A taxpayer account can only apply for special purpose machines.</li>
+  <li><strong>RDO review.</strong> The RDO or LT office views and approves or denies the application. The Charter lists two days in total and no fee.</li>
+  <li><strong>Print the PTU yourself.</strong> The taxpayer prints the approved PTU from eAccReg. The supplier who filed it cannot print it.</li>
+  <li><strong>Add the PTU number</strong> and date issued to the receipt footer before go-live.</li>
+</ol>
+<p>RMC 72-2025 told suppliers whose accreditation ran to 31 July 2025 to apply again under RMO 24-2023. Citing RR 6-2022, it confirmed that PTUs do not expire when the software's accreditation does.</p>
+
+<h2>Sales readings, back-end reports and eSales</h2>
+<p>RMO 24-2023 expects a POS to produce sales readings and back-end reports. The Z-reading matters most when a machine is retired: a PTU cancellation asks for the Z-reading as of the last day of use, and the RDO officer evaluates the readings when inspecting the machine.</p>
+<p>On reporting, RMO 24-2023 refers to sales reported through the BIR's Electronic Sales (eSales) Reporting System, under RR 16-2018. Ask your accountant whether your registration requires it. RR 26-2025 says POS users will later issue e-invoices too, once the BIR has a system to store and process the data and issues a separate regulation. RMC 98-2026 adds that invoices a POS prints are not e-invoices unless the system can also send them to the buyer and report the sales data to the BIR. Our <a href="{{ROOT}}blog/bir-e-invoicing-odoo.html">BIR e-invoicing guide</a> covers who is covered now.</p>
+
+<h2>Cancelling a PTU</h2>
+<p>The 2026 Citizen's Charter lists PTU cancellation for retiring a machine, a new franchisee, a transfer to another branch, or closing the business or a branch. You file at the RDO or LT office where the machine is registered, with:</p>
+<ul>
+  <li>a letter requesting cancellation;</li>
+  <li>a notarised sworn statement with the machine's details and readings, if applicable;</li>
+  <li>the original PTU and the original decal;</li>
+  <li>the Z-reading as of the last day of use;</li>
+  <li>the back-end report as of the last day of use, or the cash register sales book;</li>
+  <li>a reprint of the last invoice issued.</li>
+</ul>
+<p>An RDO officer inspects the machine and its readings. RMC 69-2020 asks you to notify the office within five days of the machine's last use. If a supplier's accreditation is revoked, RMO 24-2023 says its users' PTUs are not automatically revoked, unless the violation was the user's own.</p>
+
+<h2>Where Odoo Point of Sale fits</h2>
+<p>From the Odoo 19 documentation:</p>
+<ul>
+  <li><strong>Receipts.</strong> Under Point of Sale &gt; Configuration &gt; Settings, Bills &amp; Receipts, a custom header and footer can be added. Receipts can show receipt and order numbers, cashier and customer names, discounts and payment methods. Paid orders can be reprinted.</li>
+  <li><strong>Invoices.</strong> An order can be invoiced at checkout or afterwards, once a customer is assigned to it.</li>
+  <li><strong>Closing.</strong> Closing the register shows the session's orders, total sales and expected amounts per payment method, then posts the accounting entries. Odoo advises closing the register at the end of each day.</li>
+</ul>
+<p>Odoo's <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a> in version 19 covers accounting: taxes, BIR reports and the 2307. Its documentation does not describe a Philippine POS receipt format, a MIN or PTU field, or BIR sales readings. The <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a> list Philippine changes for accounting invoices and payroll, but no BIR-related POS change. So any BIR receipt fields and readings on Odoo POS would come from configuration and customisation, and that alone does not make the POS usable for registered sales: the exact version you run still needs accreditation, and each machine a PTU. A later change to an accredited version can itself count as a major enhancement.</p>
+<p>Under the Citizen's Charter, only the software supplier or provider account in eAccReg can file a POS PTU, and the receipt footer must name the accredited supplier of that version. TechNext does not hold POS accreditation and does not file PTUs. Before go-live, settle with your accountant, your RDO and your POS supplier who holds the accreditation for the version you will run, who files each PTU, and how upgrades are handled. Our overview of <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a> shows how the POS sits next to your books.</p>
+
+{{SHOT:pos/interface.webp|The Odoo Point of Sale register, where each sale is recorded before it posts to the books (screenshot: odoo.com)}}
+
+<p>You don't need to hire your own team. A TechNext adviser reviews your stores, tills and current registrations, then our team in Taguig City configures Odoo POS, the receipt layout and the link to Accounting. The accreditation and the PTU are filed by your accredited POS supplier, not by TechNext. See how we work with <a href="{{ROOT}}industries/retail.html">retail</a> and <a href="{{ROOT}}industries/fnb.html">food and beverage</a> businesses, our <a href="{{ROOT}}bir-cas.html">BIR CAS set-up</a>, and <a href="{{ROOT}}odoo/philippines.html">Odoo in the Philippines</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects RMO 24-2023, RR 11-2024, RMC 69-2020, RMC 72-2025, RR 26-2025, RR 6-2026, RMC 98-2026, RMC 112-2026 (from press reports) and the BIR Citizen's Charter 2026 (1st edition), with the Odoo 19.0 documentation and Odoo 20 release notes, as available on 24 October 2026. Each business registers its own machines at its own RDO. TechNext is not affiliated with the BIR, does not file accreditation or PTU applications, and cannot promise a registration outcome. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://bir-cdn.bir.gov.ph/local/pdf/RMO%20No.%2024-2023%20Digest%20FINAL.pdf" target="_blank" rel="noopener">RMO 24-2023: accreditation of CRMs, POS and other sales machines (BIR digest)</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024: transitory rules for CRM and POS under the EOPT Act</a> (BIR)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2072-2025%20Digest.pdf" target="_blank" rel="noopener">RMC 72-2025: accreditation validity and PTUs (BIR digest)</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/BIR%20Citizen's%20Charter%20(2026%20Edition)%20final.pdf" target="_blank" rel="noopener">BIR Citizen's Charter 2026: PTU application and PTU cancellation</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/revised-procedures-for-cancelling-permit-to-use-cash-register-machines-pos-machines-other-similar-sales-machines-generating-receiptsinvoices/" target="_blank" rel="noopener">Grant Thornton: RMC 69-2020 on cancelling a PTU</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2026-2025.pdf" target="_blank" rel="noopener">RR 26-2025</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%206-2026.pdf" target="_blank" rel="noopener">RR 6-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2098-2026%20redacted.pdf" target="_blank" rel="noopener">RMC 98-2026</a> (BIR), with <a href="https://kpmg.com/ph/en/insights/2025/10/special-intax-october-2025-issue-1-volume-2.html" target="_blank" rel="noopener">KPMG's summary of RR 26-2025</a></li>
+  <li><a href="https://tribune.net.ph/2026/10/23/bir-extends-deadlines-for-new-cwt-invoicing-rules" target="_blank" rel="noopener">Daily Tribune: RMC 112-2026 deadlines for the withholding tax line</a></li>
+  <li><a href="https://www.odoo.com/documentation/19.0/applications/sales/point_of_sale/use/receipts.html" target="_blank" rel="noopener">Odoo documentation: POS receipts</a>, <a href="https://www.odoo.com/documentation/19.0/applications/sales/point_of_sale/use/pos_invoices.html" target="_blank" rel="noopener">POS invoices</a>, <a href="https://www.odoo.com/documentation/19.0/applications/sales/point_of_sale/use.html" target="_blank" rel="noopener">register opening and closing</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippines localisation</a> and <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>What is a BIR Permit to Use for a POS? {{icon:chevron}}</summary><div class="faq-a"><p>It is the BIR's permit for one specific CRM or POS machine used by one business. It comes with a Machine Identification Number, and the PTU number and date issued are printed on the machine's invoices.</p></div></details>
+  <details><summary>Is an accredited POS enough? {{icon:chevron}}</summary><div class="faq-a"><p>No. Accreditation covers the software version. Each machine the business uses still needs its own PTU, filed in eAccReg by the supplier on the business's behalf.</p></div></details>
+  <details><summary>Does my PTU expire when the supplier's accreditation expires? {{icon:chevron}}</summary><div class="faq-a"><p>No. RMC 72-2025, citing RR 6-2022, says PTUs do not expire and need not be cancelled when the software's accreditation expires.</p></div></details>
+  <details><summary>Does my CAS registration cover my POS? {{icon:chevron}}</summary><div class="faq-a"><p>No. RMO 24-2023 lists a POS that is a component of a CAS as needing both accreditation and registration. The CAS Acknowledgement Certificate covers the accounting system.</p></div></details>
+  <details><summary>Can Odoo Point of Sale be used for BIR-registered sales? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo POS receipts, invoices and register closing can be configured, but configuration alone does not make a POS usable for registered sales. The version you run still has to be accredited, and each machine needs its own PTU, filed by the accredited supplier. Settle who that is with your accountant, your RDO and your POS supplier before go-live.</p></div></details>
+</div>

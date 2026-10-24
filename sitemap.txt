@@ -3,6 +3,7 @@ https://technext.asia/bir-cas
 https://technext.asia/bir-e-invoicing
 https://technext.asia/blog
 https://technext.asia/blog/bir-accounting-software-philippines-odoo
+https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices
 https://technext.asia/blog/bir-audit-readiness-odoo
 https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo
 https://technext.asia/blog/bir-e-invoicing-odoo
@@ -10,6 +11,7 @@ https://technext.asia/blog/bir-form-2307-odoo
 https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo
 https://technext.asia/blog/bir-form-2551q-percentage-tax-odoo
 https://technext.asia/blog/bir-multi-branch-odoo
+https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
 https://technext.asia/blog/bir-rules-for-your-accounting-system
 https://technext.asia/blog/bir-sawt-qap-alphalist-odoo
 https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
@@ -24,7 +26,9 @@ https://technext.asia/blog/odoo-20-upgrade-checklist
 https://technext.asia/blog/odoo-20-whats-new
 https://technext.asia/blog/odoo-experience-2026-takeaways
 https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise
+https://technext.asia/blog/odoo-vs-quickbooks-philippines
 https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
+https://technext.asia/blog/register-books-of-accounts-orus-bir
 https://technext.asia/blog/register-odoo-cas-cba-bir
 https://technext.asia/blog/signs-you-have-outgrown-spreadsheets
 https://technext.asia/blog/standard-first-odoo-customisation
