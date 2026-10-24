@@ -312,14 +312,17 @@ LAYOUT = '''<!doctype html>
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{CANONICAL}">
 <meta property="og:image" content="{OG_IMAGE}">
-<meta property="og:image:alt" content="{TITLE}">
+{OG_DIMS}<meta property="og:image:alt" content="{TITLE}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{OG_IMAGE}">
+<meta name="twitter:image:alt" content="{TITLE}">
 <meta name="theme-color" content="#3167CA">
 <link rel="icon" href="{ROOT}favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="48x48" href="{ROOT}assets/img/favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="{ROOT}assets/img/favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{ROOT}assets/img/favicon-192.png">
 <link rel="apple-touch-icon" href="{ROOT}assets/img/apple-touch-icon.png">
+<link rel="manifest" href="{ROOT}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -477,8 +480,11 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         {
             "@type": ["Organization", "ProfessionalService"], "@id": org_id,
             "name": c["short"], "legalName": c["legal"], "alternateName": ["TechNext Asia", "TechNext Pte Ltd"], "url": S.SITE_URL,
-            "logo": {"@type": "ImageObject", "url": S.SITE_URL + "assets/img/logo-horizontal.png", "width": 1000, "height": 200},
-            "image": S.SITE_URL + "assets/img/og-image.png",
+            "logo": {"@type": "ImageObject", "@id": S.SITE_URL + "#logo", "url": S.SITE_URL + "assets/img/logo-square.png",
+                     "contentUrl": S.SITE_URL + "assets/img/logo-square.png", "width": 1024, "height": 1024, "caption": "TechNext"},
+            # square logo first: Google and AI answer engines crop a wide wordmark to a square
+            "image": [S.SITE_URL + "assets/img/logo-square.png", S.SITE_URL + "assets/img/og-image.png",
+                      S.SITE_URL + "assets/img/logo-horizontal.png"],
             "email": c["sales_email"],
             "address": {"@type": "PostalAddress", "streetAddress": c["address"][0],
                         "addressLocality": "Singapore", "postalCode": "180261", "addressCountry": "SG"},
@@ -2532,6 +2538,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                 .replace("{ROBOTS}", f'<meta name="robots" content="{attr(meta["robots"])}">\n' if meta.get("robots") else "")
                 .replace("{CANONICAL}", canonical)
                 .replace("{OG_TYPE}", "article" if meta.get("article") else "website")
+                # generated share cards are always 1200x630; a page's own og_image may be any size, so no dims for it
+                .replace("{OG_DIMS}", "" if meta.get("og_image") else
+                         '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + og_cards.card(out_rel, base_title, meta.get("og_icon")))
                 .replace("{SITE_URL}", S.SITE_URL)
                 .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))
@@ -2663,6 +2672,7 @@ def write_llms():
         f"- Headquarters: {', '.join(c['address'])}",
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']}",
+        f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
         "- 142 ERP projects; 40+ years of excellence; 90+ enterprise clients; clients in 25+ countries; 4 core AI disciplines",
         "- Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
         "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
