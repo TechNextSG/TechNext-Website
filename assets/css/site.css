@@ -1359,8 +1359,11 @@ body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
 .cat-float{width:64px;height:64px;right:24px;bottom:24px}
 .cat-float .ic{width:30px;height:30px}
 @media (max-width:960px){
-  .cat-float{width:56px;height:56px;right:16px}
+  /* stacked above the round contact button (52px, 16px from the corner) and centred on it, never on top of it
+     (24 Oct 2026: the bottom:24px above had dropped it onto the "+" button on phones) */
+  .cat-float{width:56px;height:56px;right:14px;bottom:80px}
   .cat-float .ic{width:26px;height:26px}
+  body.tabs-wait .cat-float,body.is-nexi .cat-float{bottom:16px}
 }
 /* site-wide BIR notice (owner 22 Oct 2026): a slim amber bar above the header that scrolls away; dismissing hides it for
    7 days (the head gate adds html.bn-off before paint, so a dismissed bar never flashes) */
