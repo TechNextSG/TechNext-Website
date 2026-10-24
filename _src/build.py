@@ -498,6 +498,10 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "areaServed": AREA_SERVED,
             "sameAs": [c["linkedin"], c["odoo_listing"]] + c.get("socials", []),
             "description": S.ORG_DESC,
+            # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
+            "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the Odoo Ready Partner "
+                                         "headquartered in Singapore with hubs in Taguig City and Ho Chi Minh City.",
+            "employee": [{"@id": S.SITE_URL + "team/" + TP.slug(p["name"]) + "#person"} for p in ADV.ADVISORS],
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
                            "AI workflow automation", "AI chatbots", "Website development", "Business consultation",
@@ -515,11 +519,13 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                         "Singapore GST, InvoiceNow, enterprise AI",
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
+         "alternateName": ["TechNext Asia", "technext.asia"],
          "publisher": {"@id": org_id}, "inLanguage": "en"},
     ]
+    # dateModified = the source's last commit, the same date as the sitemap <lastmod>
     page = {"@type": "WebPage", "@id": page_id, "url": canonical, "name": meta["title"],
             "description": meta.get("desc", S.DEFAULT_DESC).strip(), "isPartOf": {"@id": site_id},
-            "inLanguage": "en"}
+            "dateModified": git_date(page_source(out_rel)), "inLanguage": "en"}
     if out_rel in ("index.html", "company.html"):
         page["about"] = {"@id": org_id}
     if out_rel in PH_BIR_PAGES or (meta.get("article") or {}).get("cat") == "bir":
@@ -2672,6 +2678,8 @@ def write_llms():
         f"- Headquarters: {', '.join(c['address'])}",
         *[f"- {o['name']}: {', '.join(o['lines'])}" for o in S.OFFICES[1:]],
         f"- Contact: {c['sales_email']}",
+        "- Not to be confused with: technext.ng (Nigerian tech news), TechNext Inc. (US technology forecasting), "
+        "Technext Limited (Bangladesh), TechNext AB (Sweden), technext.ai, or the TechNExt festival (UK)",
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
         "- 142 ERP projects; 40+ years of excellence; 90+ enterprise clients; clients in 25+ countries; 4 core AI disciplines",
         "- Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
