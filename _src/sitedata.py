@@ -110,7 +110,9 @@ AI_ALLOW = ["Googlebot", "Bingbot", "Applebot", "DuckDuckBot", "OAI-SearchBot", 
             # AI search indexes with official docs (22 Oct 2026): Meta AI citations, Alexa/Amazon search, Le Chat, You.com
             "Meta-WebIndexer", "Amzn-SearchBot", "Amzn-User", "MistralAI-Index", "YouBot",
             # Grok and DeepSeek publish no crawler name; these come from third-party bot lists (`*` allows them anyway)
-            "GrokBot", "xAI-Grok", "DeepSeekBot"]
+            "GrokBot", "xAI-Grok", "DeepSeekBot",
+            # Google AI fetchers with official docs (24 Oct 2026): Vertex AI Search grounding, GoogleOther, Gemini Deep Research
+            "Google-CloudVertexBot", "GoogleOther", "Gemini-Deep-Research"]
 # IndexNow (Bing, Yandex, Seznam, Naver, Yep): public by design; build.py writes /<key>.txt, _src/indexnow.py pings after a deploy
 INDEXNOW_KEY = "a9448b9a717e08d7c365ce419d2a8c19"
 # still blocked: bulk data harvesters and scrapers
@@ -118,13 +120,14 @@ AI_TRAINING = ["Bytespider", "FacebookBot", "cohere-training-data-crawler", "Dif
                "img2dataset", "AI2Bot", "PanguBot", "Timpibot", "ImagesiftBot", "Kangaroo Bot",
                "webzio-extended", "FirecrawlAgent"]
 ROBOTS_ONLY = {"Google-Extended", "Applebot-Extended", "Claude-Web"}
-# Website copiers, headless browsers and scripting libraries: they don't read robots.txt, so
-# they are only handled at the edge. Social link previews (facebookexternalhit, LinkedInBot,
-# Twitterbot, WhatsApp, Slackbot, TelegramBot, Discordbot) are deliberately NOT listed.
+# Website copiers: they don't read robots.txt, so they are only handled at the edge. Social link
+# previews (facebookexternalhit, LinkedInBot, Twitterbot, WhatsApp, Slackbot, TelegramBot,
+# Discordbot) are deliberately NOT listed. 24 Oct 2026: headless browsers and scripting libraries
+# (HeadlessChrome, python-requests, httpx, aiohttp, axios, node-fetch, Go, curl, wget) are no
+# longer blocked: Grok, DeepSeek, Gemini URL fetches and most AI agents and GEO/AEO checkers read
+# pages with exactly these clients, so blocking them hid TechNext from those AI platforms.
 SCRAPERS = ["HTTrack", "SiteSucker", "WebCopier", "Offline Explorer", "Teleport Pro", "WebZIP",
-            "WebReaper", "HeadlessChrome", "PhantomJS", "python-requests", "Python-urllib",
-            "python-httpx", "aiohttp", "Go-http-client", "Scrapy", "node-fetch", "axios",
-            "libwww-perl", "Wget/", "curl/"]
+            "WebReaper", "PhantomJS", "Scrapy"]
 
 # Every form posts to /api/lead (api/lead.py), which files it as a lead in the Odoo CRM.
 FORM_ENDPOINT = "/api/lead"
