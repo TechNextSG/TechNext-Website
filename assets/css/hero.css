@@ -407,6 +407,11 @@
   .hero .is-active .kw>span{animation:rise .7s var(--ease-out) forwards;animation-delay:calc(var(--i,0)*60ms + 60ms)}
   .hero .up{opacity:0}
   .hero .is-active .up{animation:fadeUp .55s ease-out both;animation-delay:calc(var(--d,0ms) * .6)}
+  /* mobile LCP (24 Oct 2026): the headline words stay opaque (the .kw mask still hides them until they rise) and the
+     lead slides up without a fade, so the browser counts the hero text as painted at first render, not ~1.2 s later */
+  .hero .kw>span{opacity:1}
+  .hero .slide-copy .lead.up{opacity:1}
+  .hero .is-active .slide-copy .lead.up{animation-name:slideUp}
   .hero .rot>b{transition:transform .55s var(--spring),opacity .35s ease}
   /* slide 1: the orbit sits under the headline */
   .cine{width:100%;max-width:440px;margin:6px auto 0}
@@ -1440,3 +1445,4 @@ html.hxs-on .nexi:not(.nexi--lite),html.hxs-on .nexi-card:not(.nexi-card--lite){
    slide or switching industry restyles the one that shows, not all eight. Panels keep theirs: they share one grid
    cell, whose height must not jump. */
 .hxs-bg:not(.is-on):not(.is-out),.hxs-cast:not(.is-on):not(.is-out){content-visibility:hidden}
+@keyframes slideUp{from{transform:translateY(16px)}to{transform:none}}
