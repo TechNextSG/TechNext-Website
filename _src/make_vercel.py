@@ -230,7 +230,7 @@ def bot_block():
     pattern = ".*(" + "|".join(re.escape(a).replace("\\ ", " ").replace("\\-", "-").replace("\\/", "/") for a in agents) + ").*"
     # robots.txt, llms.txt, llms-full.txt, sitemap.xml and the IndexNow key stay readable for every client (AI fetch tools often use
     # generic HTTP libraries); the pages themselves stay behind the block
-    rule = {"source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|" + S.INDEXNOW_KEY + "\\.txt|\\.well-known).*)",
+    rule = {"source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap[\\w-]*\\.xml|sitemap\\.txt|" + S.INDEXNOW_KEY + "\\.txt|\\.well-known).*)",
             "destination": "/denied", "permanent": False}
     return [
         {**rule, "has": [{"type": "header", "key": "user-agent", "value": pattern}]},

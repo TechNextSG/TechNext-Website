@@ -2591,10 +2591,25 @@ def write_sitemap(pages):
         if p in ("404.html", "case-studies.html") or p in NOINDEX or redirected(p):
             continue
         loc = S.SITE_URL + clean_url(p)
-        urls.append(f"  <url><loc>{loc}</loc><lastmod>{git_date(page_source(p))}</lastmod></url>")
-    (ROOT / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
+        urls.append((loc, git_date(page_source(p))))
+
+    def urlset(rows):
+        return ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                + "\n".join(f"  <url><loc>{loc}</loc><lastmod>{d}</lastmod></url>" for loc, d in rows) + "\n</urlset>\n")
+    (ROOT / "sitemap.xml").write_text(urlset(urls), encoding="utf-8")
+    # Search Console never read /sitemap.xml (Sept-Oct 2026: "Couldn't fetch", 0 discovered while a Googlebot fetch is 200),
+    # so the same URLs are also published as an index of smaller sitemaps under fresh names, plus a plain-text list
+    split = {"sitemap-apps.xml": lambda u: "/odoo/apps/" in u, "sitemap-blog.xml": lambda u: "/blog/" in u}
+    parts = {name: [r for r in urls if test(r[0])] for name, test in split.items()}
+    parts["sitemap-pages.xml"] = [r for r in urls if not any(test(r[0]) for test in split.values())]
+    entries = []
+    for name, rows in sorted(parts.items()):
+        (ROOT / name).write_text(urlset(rows), encoding="utf-8")
+        entries.append(f"  <sitemap><loc>{S.SITE_URL}{name}</loc><lastmod>{max(d for _, d in rows)}</lastmod></sitemap>")
+    (ROOT / "sitemap_index.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(entries) + "\n</sitemapindex>\n", encoding="utf-8")
+    (ROOT / "sitemap.txt").write_text("".join(loc + "\n" for loc, _ in urls), encoding="utf-8", newline="\n")
 
 
 BIR_BLOG = re.compile(r"bir|cas-cba|2307|slsp|sawt|qap|eopt|withholding|payroll")
@@ -2680,7 +2695,8 @@ def write_robots():
         lines += [f"User-agent: {ua}", "Allow: /", "Disallow: /denied", ""]
     for ua in S.AI_TRAINING:
         lines += [f"User-agent: {ua}", "Disallow: /", ""]
-    lines += ["User-agent: *", "Allow: /", "Disallow: /denied", "", f"Sitemap: {S.SITE_URL}sitemap.xml", ""]
+    lines += ["User-agent: *", "Allow: /", "Disallow: /denied", "", f"Sitemap: {S.SITE_URL}sitemap.xml",
+              f"Sitemap: {S.SITE_URL}sitemap_index.xml", ""]
     (ROOT / "robots.txt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
