@@ -2178,11 +2178,15 @@ BIR_SERIES = [("register-odoo-cas-cba-bir", "CAS registration requirements"), ("
               # 24 Oct 2026: accounting and finance questions PH businesses ask before choosing a system
               ("bir-accounting-software-philippines-odoo", "Accounting software for BIR"),
               ("bir-books-of-accounts-manual-loose-leaf-computerized-odoo", "Books of accounts: manual, loose-leaf, computerized"),
-              ("bir-tax-calendar-deadlines-odoo", "BIR tax calendar"), ("bir-form-2551q-percentage-tax-odoo", "BIR Form 2551Q percentage tax")]
+              ("bir-tax-calendar-deadlines-odoo", "BIR tax calendar"), ("bir-form-2551q-percentage-tax-odoo", "BIR Form 2551Q percentage tax"),
+              # 24 Oct 2026: 90-day SEO plan, weeks 1-2
+              ("bir-pos-accreditation-ptu-requirements", "POS accreditation and PTU"),
+              ("bir-atp-authority-to-print-vs-system-invoices", "Authority to Print vs system invoices"),
+              ("register-books-of-accounts-orus-bir", "Registering books of accounts in ORUS")]
 BIR_SIB = {"bir-rules-for-your-accounting-system": ["register-odoo-cas-cba-bir", "bir-e-invoicing-odoo", "bir-audit-readiness-odoo"],
            "register-odoo-cas-cba-bir": ["bir-rules-for-your-accounting-system", "bir-e-invoicing-odoo", "bir-multi-branch-odoo"],
            "bir-e-invoicing-odoo": ["eopt-invoice-requirements-odoo", "register-odoo-cas-cba-bir", "bir-multi-branch-odoo"],
-           "eopt-invoice-requirements-odoo": ["bir-e-invoicing-odoo", "bir-form-2307-odoo", "bir-form-2550q-quarterly-vat-odoo"],
+           "eopt-invoice-requirements-odoo": ["bir-e-invoicing-odoo", "bir-atp-authority-to-print-vs-system-invoices", "bir-pos-accreditation-ptu-requirements"],
            "bir-form-2307-odoo": ["expanded-withholding-tax-atc-codes-odoo", "bir-sawt-qap-alphalist-odoo", "bir-rules-for-your-accounting-system"],
            "expanded-withholding-tax-atc-codes-odoo": ["bir-form-2307-odoo", "bir-sawt-qap-alphalist-odoo", "philippine-payroll-bir-forms-odoo-20"],
            "bir-sawt-qap-alphalist-odoo": ["bir-slsp-summary-list-sales-purchases-odoo", "bir-form-2307-odoo", "bir-audit-readiness-odoo"],
@@ -2192,9 +2196,12 @@ BIR_SIB = {"bir-rules-for-your-accounting-system": ["register-odoo-cas-cba-bir",
            "bir-audit-readiness-odoo": ["bir-rules-for-your-accounting-system", "bir-sawt-qap-alphalist-odoo", "philippine-payroll-bir-forms-odoo-20"],
            "philippine-payroll-bir-forms-odoo-20": ["expanded-withholding-tax-atc-codes-odoo", "bir-sawt-qap-alphalist-odoo", "bir-audit-readiness-odoo"],
            "bir-accounting-software-philippines-odoo": ["bir-rules-for-your-accounting-system", "register-odoo-cas-cba-bir", "bir-books-of-accounts-manual-loose-leaf-computerized-odoo"],
-           "bir-books-of-accounts-manual-loose-leaf-computerized-odoo": ["register-odoo-cas-cba-bir", "bir-accounting-software-philippines-odoo", "bir-audit-readiness-odoo"],
+           "bir-books-of-accounts-manual-loose-leaf-computerized-odoo": ["register-books-of-accounts-orus-bir", "register-odoo-cas-cba-bir", "bir-accounting-software-philippines-odoo"],
            "bir-tax-calendar-deadlines-odoo": ["bir-form-2550q-quarterly-vat-odoo", "expanded-withholding-tax-atc-codes-odoo", "bir-sawt-qap-alphalist-odoo"],
-           "bir-form-2551q-percentage-tax-odoo": ["bir-form-2550q-quarterly-vat-odoo", "eopt-invoice-requirements-odoo", "bir-tax-calendar-deadlines-odoo"]}
+           "bir-form-2551q-percentage-tax-odoo": ["bir-form-2550q-quarterly-vat-odoo", "eopt-invoice-requirements-odoo", "bir-tax-calendar-deadlines-odoo"],
+           "bir-pos-accreditation-ptu-requirements": ["eopt-invoice-requirements-odoo", "register-odoo-cas-cba-bir", "bir-atp-authority-to-print-vs-system-invoices"],
+           "bir-atp-authority-to-print-vs-system-invoices": ["eopt-invoice-requirements-odoo", "register-odoo-cas-cba-bir", "bir-pos-accreditation-ptu-requirements"],
+           "register-books-of-accounts-orus-bir": ["bir-books-of-accounts-manual-loose-leaf-computerized-odoo", "register-odoo-cas-cba-bir", "bir-tax-calendar-deadlines-odoo"]}
 
 
 def bir_series_html(out: str) -> str:
