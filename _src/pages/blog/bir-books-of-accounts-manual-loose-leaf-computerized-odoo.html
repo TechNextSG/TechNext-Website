@@ -1,0 +1,101 @@
+<!--meta {"title": "BIR Books of Accounts: Manual, Loose-Leaf or Computerized", "desc": "Manual, loose-leaf or computerized books of accounts: who keeps which, how ORUS registration works, the year-end deadlines, retention, and where Odoo fits.", "out": "blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo.html", "nav": "company", "article": {"h1": "BIR books of accounts in 2026: manual, loose-leaf or computerized, and when to switch", "cat": "bir", "date": "2026-10-24", "order": 25, "lede": "Every business registered with the BIR keeps books of accounts. You can write them by hand, print them on loose leaves and bind them at year end, or keep them in a computerized system. Each type has its own registration timing and retention rule. Here is how the three compare, and how Odoo produces books for a CAS or CBA.", "card": "Manual, loose-leaf and computerized books compared: ORUS registration, year-end deadlines, retention, and where Odoo's Book of Accounts fits.", "cover": "accounting/accounting-vendor-bill.webp", "keywords": "books of accounts BIR, loose leaf books of accounts BIR, computerized books of accounts BIR, manual vs loose leaf vs computerized, ORUS books registration, Odoo Book of Accounts Philippines"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>There are three types of books: <strong>manual</strong>, <strong>loose-leaf</strong> (printed, then permanently bound) and <strong>computerized</strong> (a CAS or CBA). RMO 9-2021 says large taxpayers are mandated to use a CAS under RR 9-2009.</li>
+    <li>Loose-leaf and computerized books are <strong>registered online through ORUS</strong> (RMC 3-2023 and RMC 4-2026). Under RMC 3-2023, loose-leaf books are due within 15 days after the taxable year ends, computerized books within 30 days.</li>
+    <li>Books are kept for <strong>five years</strong> (Tax Code Section 235, as amended by the EOPT Act): paper books as hard copies, computerized books as electronic copies (RR 7-2024).</li>
+    <li>In Odoo, your journals and posted journal entries are the books. Odoo 20's release notes add a <strong>Book of Accounts</strong> for Philippine businesses on a CAS or CBA.</li>
+  </ul>
+</div>
+
+<p>The BIR expects every business to keep books of accounts, but it lets you choose how. A small shop can still write in columnar books bought from a bookstore. A growing company usually prints its journals from accounting software and binds them once a year. Larger companies keep the books in the system itself. The choice affects your year-end workload, how you register, and how you keep the records afterwards. This guide sets out the rules as they stand in October 2026.</p>
+
+<h2>The three types of books</h2>
+<ul>
+  <li><strong>Manual books</strong> are bound journals and ledgers you write in by hand. They are registered before you use them.</li>
+  <li><strong>Loose-leaf books</strong> are printed from a spreadsheet or software during the year, then <strong>permanently bound</strong> after the year closes and registered.</li>
+  <li><strong>Computerized books</strong> are kept in a system. RMO 9-2021 defines a <strong>CBA</strong> (Computerized Books of Accounts) as a system that generates books only, such as the general journal, general ledger, sales and purchase journals and inventory book. A <strong>CAS</strong> (Computerized Accounting System) covers the full cycle, including system-generated invoices.</li>
+</ul>
+<p>In Odoo, every invoice, bill, payment and adjustment is posted as a journal entry in a journal (sales, purchases, bank, cash or miscellaneous). The general ledger and partner ledger are reports over those same entries, so one Odoo database can print pages for loose-leaf books or hold the books as a CAS or CBA that you register.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Manual</th><th>Loose-leaf</th><th>Computerized (CAS or CBA)</th></tr></thead>
+  <tbody>
+    <tr><td>Form</td><td>Handwritten bound books</td><td>Printed pages, bound after year end</td><td>Electronic records in a system</td></tr>
+    <tr><td>Registration</td><td>Before use, with an ORUS QR stamp on the first page</td><td>Through ORUS, after binding; QR stamp on the first page</td><td>System registered at your RDO (Acknowledgement Certificate); books registered through ORUS each year</td></tr>
+    <tr><td>Annual deadline</td><td>None once registered; a new book before you use it</td><td>Within 15 days after the taxable year ends</td><td>Within 30 days after the taxable year ends</td></tr>
+    <tr><td>How kept</td><td>Hard copy</td><td>Hard copy</td><td>Electronic copy</td></tr>
+    <tr><td>Who it suits</td><td>Very small businesses with few transactions</td><td>Businesses already using software that want bound printouts</td><td>Large taxpayers (CAS required) and businesses with volume or several branches</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Who must keep which</h2>
+<p>Section 232 of the Tax Code, as amended by the TRAIN Law, requires every corporation, company, partnership or person required to pay internal revenue taxes to keep a relevant and appropriate set of bookkeeping records, authorised by the Secretary of Finance, from which the taxes due can be determined at any time. It also requires books to be audited yearly by an independent CPA once gross annual sales, earnings, receipts or output exceed P3,000,000.</p>
+<p>Beyond that, the type is largely your choice. RMO 9-2021 says <strong>large taxpayers</strong> are mandated to maintain or use a CAS under RR 9-2009. Non-large taxpayers may opt for a CAS, a CBA or manual and loose-leaf books. Whatever you use, RMO 9-2021 says the books must follow the bookkeeping requirements of RR 9-2009. In Odoo, TechNext sets up your chart of accounts and journals with you, and your accountant checks that the books Odoo prints carry the information RR 9-2009 asks for.</p>
+
+<h2>Registering your books through ORUS</h2>
+<p>ORUS is the BIR's Online Registration and Update System. Under RMC 3-2023, books are registered there and ORUS generates a QR stamp. RMC 4-2026 (15 January 2026) made it strict: permanently bound loose-leaf books and computerized books must be registered online through ORUS. Registration at the RDO is allowed only with an official advisory on ORUS downtime or a screenshot of the error.</p>
+<ul>
+  <li><strong>Manual books.</strong> New registrants register before the deadline of their first quarterly income tax return. Existing businesses register a new book before using it. The QR stamp goes on the first page.</li>
+  <li><strong>Loose-leaf books.</strong> Bind and register within 15 days after the end of each taxable year. The QR stamp goes on the first page of the bound book.</li>
+  <li><strong>Computerized books.</strong> Register within 30 days after the end of each taxable year, and print and keep the QR stamp for your records.</li>
+  <li><strong>Loose-leaf invoices and receipts</strong> are not yet in ORUS, so these are still processed at the RDO.</li>
+</ul>
+<p>For taxable year 2025, RMC 4-2026 extended the deadlines, citing ORUS log-in issues: from 15 January to 31 January 2026 for loose-leaf books, and from 30 January to 17 February 2026 for computerized books. Do not rely on an extension: plan for the 15- and 30-day rules.</p>
+<p>RMO 9-2021 also describes how computerized books were submitted: a soft copy in the BIR's Standard Audit File format, on a USB drive labelled with your name and the taxable year, with a transmittal letter listing the files. Firms' summaries of RMC 3-2023 describe attaching the QR stamp to that transmittal letter, while RMC 4-2026 says the stamp is printed and kept, so ask your RDO what it wants with your ORUS registration.</p>
+<p>In Odoo, the journal reports and the General Ledger export to PDF or XLSX. For loose-leaf books you print and bind those pages; for computerized books the same exports are the files you keep. TechNext prepares sample outputs from your own Odoo database with you before year end, and you register through ORUS yourself.</p>
+
+<h2>Registering the system itself</h2>
+<p>A CAS or CBA has a second registration. RMO 9-2021 replaced the old rules of RMO 29-2002, and RMC 5-2021 replaced the Permit to Use with an Acknowledgement Certificate from your RDO. The steps, documents and system requirements are in our guide to <a href="{{ROOT}}blog/register-odoo-cas-cba-bir.html">registering Odoo as your CAS or CBA</a>. If you also issue e-invoices, the BIR's issuances add a separate Permit to Issue; see <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">the BIR rules for your accounting system</a>. For an Odoo system, TechNext configures the database and prepares sample journals, ledgers and invoices with you for that application; your business files it at your RDO.</p>
+
+<h2>How long to keep the books</h2>
+<p>The EOPT Act amended Section 235: books and accounting records are kept for <strong>five years</strong> from the day after the filing deadline (or from the actual filing date, if late) for the taxable year of the last entry. RR 7-2024 adds that manual and loose-leaf books are kept as hard copies and computerized books as electronic copies. Records tied to a pending protest or refund claim are kept until the case is resolved. Our <a href="{{ROOT}}blog/bir-audit-readiness-odoo.html">BIR audit readiness guide</a> explains why many accountants keep records longer.</p>
+<p>In Odoo, posted entries stay in the database with the bills, receipts and other files attached to them. A hard lock date stops changes to closed years, and TechNext agrees with you how yearly PDF and XLSX exports of the books are archived as your electronic copies.</p>
+
+<h2>When moving to computerized books makes sense</h2>
+<p>Loose-leaf books suit many small businesses. The pressure shows in a few situations:</p>
+<ul>
+  <li><strong>You are, or are becoming, a large taxpayer.</strong> A CAS is then required.</li>
+  <li><strong>Year end is a printing project.</strong> Thousands of pages to print, check and bind in 15 days is a sign the volume has outgrown paper.</li>
+  <li><strong>Several branches or companies.</strong> Each registers separately, and consolidating spreadsheets adds errors.</li>
+  <li><strong>E-invoicing is coming.</strong> RMC 98-2026 names taxpayers using a CAS or CBA with electronic invoicing, and other invoicing software, among the groups that must issue e-invoices by 31 December 2026 (micro taxpayers excepted), so a system change and a permit change are best planned together.</li>
+  <li><strong>Audit requests.</strong> RMO 22-2026 gives you 10 calendar days to submit documents. Finding them in bound books is slow.</li>
+</ul>
+<p>In Odoo, several companies and branches can run in one database, each with its own journals and reports, and an Audit Trail report lists changes to entries when an examiner asks.</p>
+<p>Moving is not a quick switch. You register the system, prepare samples of the books and reports, and keep the old books for their full retention period.</p>
+
+<h2>How Odoo produces books for a CAS or CBA</h2>
+<p>Odoo keeps every journal entry in one ledger, so the journals and the general ledger come from the entries you already post. For the Philippines, Odoo 20's <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> list:</p>
+<ul>
+  <li><strong>A Book of Accounts</strong>, added for businesses on a CBA or CAS in the Philippines.</li>
+  <li><strong>A partner ledger</strong> reformatted to follow the BIR's requirements.</li>
+  <li><strong>Invoices</strong> updated for BIR and CAS requirements.</li>
+</ul>
+<p>Odoo's other accounting controls, as described in its version 19 documentation, support the records behind the books. In journals set to secure posted entries, each entry gets a SHA-256 hash chained to the entry before, and a Data Inalterability Check Report shows whether anything was altered. A hard lock date stops changes to a closed period and cannot be reversed. General ledger and other accounting reports export to PDF or XLSX. The <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a> also produces the SLSP, SAWT, QAP, 2550Q and 2307 from the same entries.</p>
+<p>Two limits are worth stating. Odoo's documentation does not describe how the Book of Accounts is laid out for ORUS or the RDO, so we review the output with you and your accountant before you register. And Odoo has no built-in connection to the BIR's EIS; TechNext has not built one.</p>
+<p>You don't need to hire your own team. A TechNext adviser reviews how you keep your books today, then our team in Taguig City sets up Odoo for BIR requirements and prepares the Book of Accounts output with you. You register your books and system with the BIR yourself. <a href="{{ROOT}}bir-cas.html">See how we set up Odoo as your CAS</a>.</p>
+
+<div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by TRAIN and the EOPT Act, RMO 9-2021, RMC 5-2021, RR 7-2024, RMC 3-2023, RMC 4-2026, RMC 98-2026 and RMO 22-2026 as available on 24 October 2026, read from the law text, BIR documents and published tax alerts. TechNext is not affiliated with the BIR or any government agency and does not file or register for clients. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2017/ra_10963_2017.html" target="_blank" rel="noopener">RA 10963 (TRAIN Law), Section 71 amending Tax Code Section 232</a></li>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act), Section 33 amending Tax Code Section 235</a></li>
+  <li><a href="https://www.grantthornton.com.ph/globalassets/1.-member-firms/philippines/tax-alerts/2021/03.02.2021/rmo-no.-9-2021.pdf" target="_blank" rel="noopener">RMO 9-2021 (copy hosted by Grant Thornton)</a>: CAS and CBA definitions, large taxpayers, RR 9-2009, soft-copy submission</li>
+  <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2021/streamlined-process-on-the-application-for-registration-of-cascba/" target="_blank" rel="noopener">Grant Thornton: RMC 5-2021, Permit to Use replaced by an Acknowledgement Certificate</a></li>
+  <li><a href="https://www.forvismazars.com/ph/en/insights/tax-alerts/bir-rmc-03-2023" target="_blank" rel="noopener">Forvis Mazars: RMC 3-2023, ORUS registration deadlines and QR stamps</a> and <a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/required-online-registration-of-books-of-accounts-via-orus/" target="_blank" rel="noopener">Grant Thornton: online registration of books via ORUS</a></li>
+  <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2025/clarification-on-the-mandatory-orus-registration-of-looseleaf-and-computerized-books-and-extension-of-deadlines/" target="_blank" rel="noopener">Grant Thornton: mandatory ORUS registration (RMC 4-2026)</a> and the <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%204-2026.pdf" target="_blank" rel="noopener">circular itself (BIR)</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/eopt-is-here-updates-on-the-preservation-of-book-of-accounts-and-changes-in-taxpayer-registration/" target="_blank" rel="noopener">Grant Thornton: preservation of books under RR 7-2024</a></li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2098-2026%20redacted.pdf" target="_blank" rel="noopener">RMC 98-2026 (BIR)</a> and <a href="https://kpmg.com/ph/en/insights/2026/09/special-intax-september-2026-issue-1-volume-1.html" target="_blank" rel="noopener">KPMG: RMO 22-2026</a></li>
+  <li><a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a>, and Odoo documentation: <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/data_inalterability.html" target="_blank" rel="noopener">data inalterability</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/year_end.html" target="_blank" rel="noopener">year-end closing and lock dates</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting.html" target="_blank" rel="noopener">reporting and PDF/XLSX export</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippines fiscal localisation</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>What is the difference between manual, loose-leaf and computerized books? {{icon:chevron}}</summary><div class="faq-a"><p>Manual books are written by hand in bound books. Loose-leaf books are printed during the year and permanently bound after it closes. Computerized books are kept in a registered system, either a CBA (books only) or a CAS (the full cycle, including invoices).</p></div></details>
+  <details><summary>When must loose-leaf books be bound and registered? {{icon:chevron}}</summary><div class="faq-a"><p>Within 15 days after the end of each taxable year, through ORUS. For taxable year 2025 the BIR extended this to 31 January 2026 under RMC 4-2026, so do not plan around an extension.</p></div></details>
+  <details><summary>When are computerized books registered? {{icon:chevron}}</summary><div class="faq-a"><p>Within 30 days after the end of each taxable year, through ORUS. For taxable year 2025 the deadline was extended to 17 February 2026. Ask your RDO whether it also wants the USB drive and transmittal letter.</p></div></details>
+  <details><summary>How long do I keep my books of accounts? {{icon:chevron}}</summary><div class="faq-a"><p>Five years from the day after the filing deadline, under Section 235 of the Tax Code as amended by the EOPT Act. Paper books are kept as hard copies and computerized books as electronic copies (RR 7-2024).</p></div></details>
+  <details><summary>Is Odoo registered with the BIR as computerized books? {{icon:chevron}}</summary><div class="faq-a"><p>The BIR registers each taxpayer's own system, not a software brand. Your business registers Odoo as its CAS or CBA at your RDO and registers its books through ORUS. Odoo 20 adds a Book of Accounts for Philippine CAS and CBA users, which we prepare with you.</p></div></details>
+</div>
