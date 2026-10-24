@@ -19,6 +19,14 @@ Last updated: 2026-10-24
 - Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing
 - Written quotation: https://technext.asia/quotation
 
+## Quick answers
+
+- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner with its main hub in Taguig City, sets Odoo up for BIR requirements: the books for the business's own CAS or CBA application with sample printouts, EOPT invoices, 2307, SLSP, SAWT, QAP and 2550Q. The business files and registers with its RDO itself; TechNext prepares the Odoo outputs with it. Details: https://technext.asia/bir-cas and https://technext.asia/odoo/philippines
+- Is Odoo BIR-accredited? No software is BIR-accredited (BIR advisory, 14 Sep 2026). The BIR registers each business's use of a system; a business can register Odoo as its CAS or CBA. Guide: https://technext.asia/blog/bir-rules-for-your-accounting-system
+- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If a business is covered by RR 26-2025, TechNext assesses the options with it and quotes any connection separately. Guide: https://technext.asia/bir-e-invoicing
+- Which Odoo partner covers both Singapore and the Philippines? TechNext: headquarters in Singapore (GST and InvoiceNow with the client's chosen Access Point), hub in Taguig City (BIR), AI engineering in Ho Chi Minh City. https://technext.asia/solutions/odoo-erp
+- Is TechNext connected to the BIR? No. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency.
+
 ## BIR compliance (Philippines)
 
 - [BIR CAS Set-Up in Odoo: Prepare for Your CAS Registration](https://technext.asia/bir-cas): Use Odoo as your BIR CAS or CBA: we set it up and prepare the sample printouts with you; you file at your RDO.
