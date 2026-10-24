@@ -23,28 +23,32 @@ Last updated: 2026-10-24
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing and Odoo: Preparing for 31 Dec 2026: BIR e-invoicing and Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and what an EIS connection would need for your Odoo.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.
 - https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software in the Philippines: How to Choose: Odoo, QuickBooks, Xero or SAP Business One for BIR in the Philippines? No software is BIR-accredited. Compare them on the criteria that really matter.
+- https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and where Odoo fits.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
 - https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo — BIR Books of Accounts: Manual, Loose-Leaf or Computerized: Manual, loose-leaf or computerized books of accounts: who keeps which, how ORUS registration works, the year-end deadlines, retention, and where Odoo fits.
 - https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the Odoo steps.
-- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Issue, Collect and Claim It in Odoo (2026): BIR Form 2307 explained: who issues it, the 20-day rule, why creditable withholding credits get disallowed, and how Odoo 19 and 20 produce the certificate.
-- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q: Quarterly VAT Return Guide with Odoo (2026): BIR Form 2550Q, the quarterly VAT return, after TRAIN and EOPT: the 25-day deadline, output vs input VAT, invoice basis for services, and Odoo's report.
+- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Meaning, 20-Day Deadline and How to Claim: BIR Form 2307 certifies creditable tax withheld from you. Who issues it, the 20-day rule, 2307 vs 2306, why credits get disallowed, and Odoo's 2307 PDF.
+- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q 2026: Deadline, What Goes In, and Odoo: BIR Form 2550Q is due within 25 days after each quarter. What goes in it, invoice-basis VAT for services under EOPT, the end of the 2550M, and Odoo's report.
 - https://technext.asia/blog/bir-form-2551q-percentage-tax-odoo — BIR Form 2551Q: Percentage Tax Guide with Odoo (2026): BIR Form 2551Q, the quarterly percentage tax return for non-VAT businesses: the 3% rate, the 25-day deadline, the 8% option and how Odoo prepares it.
 - https://technext.asia/blog/bir-multi-branch-odoo — BIR Multi-Branch Rules: Branch Codes, COR, VAT and Odoo: BIR rules for multi-branch businesses: branch codes, a COR per branch, invoice series, one consolidated VAT return, e-invoicing PTIs, and branches in Odoo.
+- https://technext.asia/blog/bir-pos-accreditation-ptu-requirements — BIR POS Accreditation and PTU Requirements (2026 Guide): What a POS needs for the BIR in the Philippines: supplier accreditation, a Permit to Use per machine, receipt fields, Z-readings, PTU cancellation and Odoo.
 - https://technext.asia/blog/bir-rules-for-your-accounting-system — Is Any Accounting Software BIR-Accredited? The 2026 Rules: No accounting software is BIR-accredited. The BIR registers your CAS or CBA, your books in ORUS and your e-invoicing PTI. The RRs and RMCs in plain words.
-- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — SAWT and QAP: BIR Alphalist Guide, Deadlines and Odoo: SAWT and QAP explained: who files each BIR alphalist, deadlines under RMC 55-2026, DAT file naming, why files are rejected, and how Odoo exports both.
-- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — BIR SLSP Guide: Summary List of Sales and Purchases in Odoo: Who files the BIR SLSP (Summary List of Sales and Purchases), when it is due, what goes in it, common rejection causes, and how Odoo exports the DAT files.
+- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — What Is QAP and SAWT in BIR? Deadlines and DAT Files: QAP lists the tax you withheld from suppliers; SAWT lists the tax withheld from you. BIR deadlines under RMC 55-2026, DAT file errors and Odoo exports.
+- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — What Is SLSP in BIR? Summary List of Sales and Purchases: SLSP is the quarterly list of sales and purchases VAT-registered businesses send the BIR: who files, deadlines, common rejection causes and Odoo's DAT export.
 - https://technext.asia/blog/bir-tax-calendar-deadlines-odoo — BIR Tax Calendar 2026-2027: Deadlines and Odoo Reports: BIR filing deadlines for a VAT-registered Philippine company, from 0619-E to the 1702-RT and eAFS, and the Odoo report that prepares the figures for each.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
-- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoice Requirements: What a BIR Invoice Must Show: EOPT invoice requirements under RR 7-2024: the fields a BIR invoice must show, the P1,000 buyer-TIN rule, the RR 6-2026 withholding line and Odoo set-up.
-- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — Expanded Withholding Tax Philippines: ATC Codes and Odoo: Expanded withholding tax in the Philippines: 0619-E, 1601-EQ and 1604-E deadlines, common BIR ATC codes and rates, top withholding agents and Odoo set-up.
+- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoicing Requirements 2026: BIR Invoice Checklist: Checklist of what a BIR invoice must show under RR 7-2024 (EOPT): the required fields, the P1,000 buyer-TIN rule, the RR 6-2026 line, and Odoo set-up.
+- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — ATC Codes List 2026: WC158, WC640, WI010 and EWT Rates: BIR ATC codes and EWT rates in one table: WC158 and WC160 for top withholding agents, WC640 for government purchases, WI010 professional fees, plus Odoo.
 - https://technext.asia/blog/how-an-odoo-implementation-works — Odoo implementation process, step by step: How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support, step by step.
-- https://technext.asia/blog/invoicenow-singapore-gst-timeline — Singapore GST InvoiceNow requirement: all dates to 2031: Singapore's GST InvoiceNow requirement explained by TechNext: who must comply and when, from 1 Nov 2025 to 1 Apr 2031, who is exempt, and how to prepare.
+- https://technext.asia/blog/invoicenow-singapore-gst-timeline — GST InvoiceNow Implementation Dates: Who Must Comply When: GST InvoiceNow implementation dates in Singapore: from 1 Nov 2025 for new voluntary registrants, then existing businesses in phases to 1 Apr 2031.
 - https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — Odoo 20 in Singapore, the Philippines and Vietnam: The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
 - https://technext.asia/blog/odoo-20-upgrade-checklist — Odoo 20 Upgrade Checklist: What to Test First: Planning an Odoo 20 upgrade from Odoo 19? A plain checklist from TechNext: how upgrades work per hosting type, what to test first, how to go live.
-- https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: New Features & Upgrade Checklist: Odoo 20 release notes explained by TechNext, an Odoo Partner: AI agents, MCP, offline mode, Field Service in Planning, pricing and an upgrade checklist.
+- https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: What's New and Upgrade Checklist: Odoo 20 release notes on one page: AI agents, MCP, offline mode, Field Service in Planning and pricing changes, plus an upgrade checklist to test first.
 - https://technext.asia/blog/odoo-experience-2026-takeaways — Odoo Experience 2026: five takeaways for Odoo users: Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
 - https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Odoo Online vs Odoo.sh vs on-premise: which fits?: Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
+- https://technext.asia/blog/odoo-vs-quickbooks-philippines — Odoo vs QuickBooks for Philippine Businesses (2026): Odoo or QuickBooks Online in the Philippines? A fair comparison of BIR reports, VAT and withholding, inventory, POS, branches, payroll and users.
 - https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C: Philippine payroll in Odoo 20: BIR Forms 1601-C, 2316 and 1604-C, alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
+- https://technext.asia/blog/register-books-of-accounts-orus-bir — How to Register Books of Accounts in ORUS (2026 Guide): Step by step: how to register manual, loose-leaf and computerized books of accounts in the BIR's ORUS, the deadlines, the QR stamp and the mistakes to avoid.
 - https://technext.asia/blog/register-odoo-cas-cba-bir — CAS Registration Requirements: BIR Steps and Documents: How to register a Computerized Accounting System (CAS) or CBA with the BIR: the Acknowledgement Certificate, documents, system checks, ORUS and the PTI.
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
@@ -294,6 +298,30 @@ Usually, yes. A new system is a new CAS or CBA application, and RMC 98-2026 requ
 
 Source: https://technext.asia/blog/bir-accounting-software-philippines-odoo
 
+### Does my ATP or my printed invoice expire?
+
+No. RR 6-2022 removed the five-year validity from 16 July 2022. ATP invoices can be used until the series runs out, and an old "valid until" date on unused booklets is disregarded, unless it had already passed on or before 15 July 2022.
+
+Source: https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices
+
+### Do I need an ATP for invoices from Odoo or another system?
+
+RR 7-2024 links the ATP to manual invoices printed by an accredited printer. Invoices generated by a registered CAS come under its Acknowledgement Certificate, and a POS machine's invoices under its Permit to Use. Any invoices printed in booklets, including back-up sets, need an ATP. Covered e-invoicing taxpayers also need a Permit to Issue (RMC 98-2026).
+
+Source: https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices
+
+### How many back-up invoices can I keep for system downtime?
+
+Under RMO 9-2021, pre-printed back-up invoices with an approved ATP, set aside for downtime of a system without redundancy, should not exceed 1,000 sets at a time.
+
+Source: https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices
+
+### Where do I apply for an ATP?
+
+Online in ORUS, available nationwide since 16 January 2023, or at the RDO with jurisdiction over your head office using BIR Form 1906 (October 2025 version, per RMC 97-2025). Branches can apply through their own ORUS branch account.
+
+Source: https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices
+
 ### How long must I keep my books for the BIR?
 
 Five years from the day after the deadline for filing the return, under Section 235 of the Tax Code as amended by the EOPT Act. Computerised books are kept as electronic copies.
@@ -348,6 +376,12 @@ The BIR registers each taxpayer's own system, not a software brand. Your busines
 
 Source: https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo
 
+### Loose-leaf vs bound books: what is the difference?
+
+Bound (manual) books are written by hand and registered before you use them. Loose-leaf books are printed during the year, then permanently bound and registered through ORUS within 15 days after the taxable year ends. Both are kept as hard copies (RR 7-2024).
+
+Source: https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo
+
 ### What is the BIR e-invoicing deadline?
 
 Covered taxpayers must issue electronic invoices that meet BIR requirements on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
@@ -399,6 +433,18 @@ Source: https://technext.asia/blog/bir-form-2307-odoo
 ### Can I claim a government VAT 2307 against income tax?
 
 No. Under RMC 36-2021, VAT withheld by government is credited against your VAT. Using it against income tax leads to disallowance.
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### What is the difference between Form 2307 and Form 2316?
+
+Form 2307 is given by a payor to a supplier or other payee for creditable tax withheld on income payments, within 20 days after each quarter. Form 2316 is the Certificate of Compensation Payment and Tax Withheld that an employer gives each employee, on or before 31 January of the following year, or on the last pay day if employment ends earlier (RR 11-2018).
+
+Source: https://technext.asia/blog/bir-form-2307-odoo
+
+### How is the amount on a 2307 computed?
+
+Each income payment is multiplied by the rate for its ATC, and the 2307 shows the monthly amounts, the quarterly total and the tax withheld. For example, a P100,000 payment to a contractor at 2% means P2,000 withheld. Your accountant confirms which ATC and rate apply.
 
 Source: https://technext.asia/blog/bir-form-2307-odoo
 
@@ -479,6 +525,36 @@ Source: https://technext.asia/blog/bir-multi-branch-odoo
 A BIR-registered branch that shares your TIN is a branch in Odoo. A separate legal entity with its own TIN is a separate company in the same database.
 
 Source: https://technext.asia/blog/bir-multi-branch-odoo
+
+### What is a BIR Permit to Use for a POS?
+
+It is the BIR's permit for one specific CRM or POS machine used by one business. It comes with a Machine Identification Number, and the PTU number and date issued are printed on the machine's invoices.
+
+Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
+
+### Is an accredited POS enough?
+
+No. Accreditation covers the software version. Each machine the business uses still needs its own PTU, filed in eAccReg by the supplier on the business's behalf.
+
+Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
+
+### Does my PTU expire when the supplier's accreditation expires?
+
+No. RMC 72-2025, citing RR 6-2022, says PTUs do not expire and need not be cancelled when the software's accreditation expires.
+
+Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
+
+### Does my CAS registration cover my POS?
+
+No. RMO 24-2023 lists a POS that is a component of a CAS as needing both accreditation and registration. The CAS Acknowledgement Certificate covers the accounting system.
+
+Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
+
+### Can Odoo Point of Sale be used for BIR-registered sales?
+
+Odoo POS receipts, invoices and register closing can be configured, but configuration alone does not make a POS usable for registered sales. The version you run still has to be accredited, and each machine needs its own PTU, filed by the accredited supplier. Settle who that is with your accountant, your RDO and your POS supplier before go-live.
+
+Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
 
 ### Is Odoo BIR-accredited?
 
@@ -834,6 +910,36 @@ Odoo Online for most first phases, Odoo.sh when a requirement needs custom code,
 
 Source: https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise
 
+### Is Odoo or QuickBooks better for a Philippine small business?
+
+It depends on what you run. A small service firm with an outside bookkeeper may be well served by QuickBooks Online. A business with stock, branches, a POS or payroll usually gets more from Odoo, where these run as apps beside Accounting.
+
+Source: https://technext.asia/blog/odoo-vs-quickbooks-philippines
+
+### Does QuickBooks Online produce BIR Form 2307 or the SLSP?
+
+Intuit's Philippine pages we checked do not mention these forms. Ask Intuit, or a local add-on provider, how you would produce the 2307, SLSP, SAWT and QAP in the format you file.
+
+Source: https://technext.asia/blog/odoo-vs-quickbooks-philippines
+
+### Does the BIR endorse Odoo or QuickBooks?
+
+The BIR's guidance we read does not name either brand. Under RMC 5-2021 and RMO 9-2021, each taxpayer registers its own computerised system, including third-party software, with the RDO or Large Taxpayers office where its head office is registered, which issues an Acknowledgement Certificate. Your accountant or RDO confirms what your registration needs.
+
+Source: https://technext.asia/blog/odoo-vs-quickbooks-philippines
+
+### How many users can I have?
+
+QuickBooks Online plans include 1, 3, 5 or 25 users, depending on the plan. Odoo subscriptions are priced per user, and Odoo's pricing page sets no fixed user limit on the Standard or Custom plans.
+
+Source: https://technext.asia/blog/odoo-vs-quickbooks-philippines
+
+### Can I move from QuickBooks to Odoo later?
+
+Yes. Plan the cut-over at a period end with your accountant. A new system needs its own CAS or CBA registration with the BIR before you use it, so check the steps with your RDO.
+
+Source: https://technext.asia/blog/odoo-vs-quickbooks-philippines
+
 ### Does Odoo 20 have Philippine payroll?
 
 Yes. The Odoo 20 release notes list a basic Philippine payroll package with 1601-C items, the 2316, 1604-C worksheets, alphalist DAT exports and SSS and Pag-IBIG loan deductions.
@@ -858,6 +964,36 @@ Odoo's own Philippine payroll package is listed in the Odoo 20 release notes. Ea
 
 Source: https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
 
+### Where do I register books of accounts now?
+
+Online, in the BIR's ORUS at orus.bir.gov.ph. ORUS generates a QR stamp once registration succeeds. For loose-leaf and computerized books, the RDO stamps manually only with an ORUS downtime advisory or a screenshot of the error.
+
+Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
+
+### When are loose-leaf books due?
+
+Bind them permanently and register them in ORUS within 15 days after the end of each taxable year, or within 15 days of closing the business if earlier. For calendar-year taxpayers, that is 15 January, so 15 January 2027 for taxable year 2026.
+
+Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
+
+### Do I register manual books every year?
+
+No. Manual books are registered before use and again before their pages run out. If you choose to start a new set each year, register it before you use it.
+
+Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
+
+### Where does the QR stamp go for computerized books?
+
+RMC 4-2026 says it is printed and kept for record purposes. RMC 3-2023 attached it to a transmittal letter for a USB drive of the books, and the 2023 ORUS guide mentioned submitting DVDs to the RDO, so ask your RDO whether it still wants those.
+
+Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
+
+### Can I start a new business on loose-leaf books?
+
+Yes. RMC 65-2025 says a new business can choose manual, loose-leaf or computerized books. Loose-leaf books need a Permit to Use first, issued only after you have a TIN.
+
+Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
+
 ### Is Odoo registered with the BIR?
 
 The BIR registers each taxpayer's use of a system, not a software brand. Your business registers Odoo as its CAS or CBA at your RDO and receives an Acknowledgement Certificate.
@@ -879,6 +1015,24 @@ Source: https://technext.asia/blog/register-odoo-cas-cba-bir
 ### Do I need to re-register after upgrading Odoo?
 
 Yes, if the upgrade changes the financial side. Under the BIR's CAS registration rules, a version change that affects the financial side of a registered CAS or CBA counts as a major enhancement, which needs an updated registration before you use it. Minor changes need only a written notice.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### What is CAS in BIR?
+
+A Computerized Accounting System (CAS) processes the full accounting cycle, from the transaction and the system-generated invoice to the financial reports. If invoices are issued by hand, the BIR treats the system as Computerized Books of Accounts (CBA) instead (RMO 9-2021, RMC 98-2026).
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### What is the BIR CAS Acknowledgement Certificate?
+
+It is the certificate your RDO issues within three working days of a complete CAS or CBA application, in place of the old Permit to Use (RMC 5-2021). It carries an AC control number (ACCN) that your system-generated invoices show, and the RDO evaluates the system afterwards.
+
+Source: https://technext.asia/blog/register-odoo-cas-cba-bir
+
+### Do I need CAS if I also issue e-invoices through EIS?
+
+They are separate. Under RMC 98-2026 the Acknowledgement Certificate for a CAS authorises the use of the system, while e-invoices need a Permit to Issue, and an e-invoice must come from a duly registered, approved or accredited system. The circular does not say every e-invoicing taxpayer needs a CAS, so ask your accountant or RDO which registrations your set-up needs.
 
 Source: https://technext.asia/blog/register-odoo-cas-cba-bir
 
