@@ -13,7 +13,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(Bytespider|FacebookBot|cohere-training-data-crawler|Diffbot|Omgilibot|omgili|img2dataset|AI2Bot|PanguBot|Timpibot|ImagesiftBot|Kangaroo Bot|webzio-extended|FirecrawlAgent|HTTrack|SiteSucker|WebCopier|Offline Explorer|Teleport Pro|WebZIP|WebReaper|HeadlessChrome|PhantomJS|python-requests|Python-urllib|python-httpx|aiohttp|Go-http-client|Scrapy|node-fetch|axios|libwww-perl|Wget/|curl/).*"
+          "value": ".*(Bytespider|FacebookBot|cohere-training-data-crawler|Diffbot|Omgilibot|omgili|img2dataset|AI2Bot|PanguBot|Timpibot|ImagesiftBot|Kangaroo Bot|webzio-extended|FirecrawlAgent|HTTrack|SiteSucker|WebCopier|Offline Explorer|Teleport Pro|WebZIP|WebReaper|PhantomJS|Scrapy).*"
         }
       ]
     },
