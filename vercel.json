@@ -6,7 +6,7 @@
   ],
   "redirects": [
     {
-      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap[\\w-]*\\.xml|sitemap\\.txt|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "has": [
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap[\\w-]*\\.xml|sitemap\\.txt|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "missing": [
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap\\.xml|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
+      "source": "/((?!denied|robots\\.txt|llms\\.txt|llms-full\\.txt|sitemap[\\w-]*\\.xml|sitemap\\.txt|a9448b9a717e08d7c365ce419d2a8c19\\.txt|\\.well-known).*)",
       "destination": "/denied",
       "permanent": false,
       "has": [

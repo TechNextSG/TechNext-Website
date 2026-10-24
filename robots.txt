@@ -174,3 +174,4 @@ Allow: /
 Disallow: /denied
 
 Sitemap: https://technext.asia/sitemap.xml
+Sitemap: https://technext.asia/sitemap_index.xml
