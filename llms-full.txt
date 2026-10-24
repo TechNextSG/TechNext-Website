@@ -536,7 +536,7 @@ Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
 
 ### When is the SLSP due?
 
-It follows the quarterly VAT return. RMO 4-2003 ties it to the VAT return due date, now the 25th day after the quarter closes.
+It follows the quarterly VAT return. RMO 4-2003 ties it to the VAT return due date, now the 25th day after the quarter closes. Published 2026 tax calendars give eFPS filers until the 30th day of the month after the quarter to e-submit it.
 
 Source: https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo
 
