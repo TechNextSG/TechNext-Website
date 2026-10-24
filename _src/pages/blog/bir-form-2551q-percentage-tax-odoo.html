@@ -1,0 +1,90 @@
+<!--meta {"title": "BIR Form 2551Q: Percentage Tax Guide with Odoo (2026)", "desc": "BIR Form 2551Q, the quarterly percentage tax return for non-VAT businesses: the 3% rate, the 25-day deadline, the 8% option and how Odoo prepares it.", "out": "blog/bir-form-2551q-percentage-tax-odoo.html", "nav": "company", "article": {"h1": "BIR Form 2551Q: quarterly percentage tax for non-VAT businesses, and how Odoo prepares it", "cat": "bir", "date": "2026-10-24", "order": 27, "lede": "If your business is not VAT-registered and your sales stay within the VAT threshold, you usually pay percentage tax instead of VAT, and you declare it on BIR Form 2551Q every quarter. Here is who files it, the rate and deadline, how the 8% income tax option changes things, and how Odoo builds the figures from your invoices.", "card": "The 2551Q quarterly percentage tax return: who files, the 3% rate, the 25-day deadline, the 8% option and the 2551Q report in Odoo 20.", "cover": "invoicing/invoicing-hero-image.webp", "keywords": "BIR Form 2551Q, percentage tax Philippines, 2551Q deadline, non-VAT percentage tax, Odoo 2551Q report"}, "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/page-calm.css?v={ASSET_V}\">"} -->
+<div class="post-key">
+  <p class="post-key-h">Key takeaways</p>
+  <ul>
+    <li>Non-VAT businesses whose sales are VAT-exempt under the threshold pay <strong>3% percentage tax</strong> on gross quarterly sales, under Section 116 of the Tax Code. The temporary 1% rate under the CREATE Act ended on 30 June 2023.</li>
+    <li>Percentage tax payers file <strong>BIR Form 2551Q within 25 days after each quarter closes</strong>.</li>
+    <li>Self-employed individuals and professionals who elect the <strong>8% income tax</strong> pay it in place of both the graduated income tax and the Section 116 percentage tax.</li>
+    <li>Odoo 20 adds a <strong>2551Q report</strong> for non-VAT registered companies in the Philippines, according to its release notes.</li>
+  </ul>
+</div>
+
+<p>Not every Philippine business charges VAT. Many small companies, sole proprietors and professionals stay below the VAT threshold and are not VAT-registered. They still owe a business tax on their sales: percentage tax. It is simpler than VAT, because there is no input tax to track. But it is still a quarterly return, and the figure on it should match your sales books. This guide covers the rules as they stand in October 2026 and how Odoo prepares the figures.</p>
+
+<h2>Who files BIR Form 2551Q</h2>
+<p>Section 116 of the Tax Code covers any person whose sales are exempt from VAT under the threshold in Section 109 and who is not VAT-registered. That person pays percentage tax on gross quarterly sales. In practice, this is the usual tax for a small non-VAT business. Section 116 also exempts cooperatives, and self-employed individuals and professionals whose total annual gross sales do not exceed P500,000.</p>
+<p>The VAT threshold is <strong>P3,000,000</strong> of gross sales a year. Under the EOPT Act, it is to be adjusted to its present value every three years using the consumer price index, so check the current figure with your accountant.</p>
+<p>In Odoo, your non-VAT status lives in the tax set-up. Taxes are records under Accounting &gt; Configuration &gt; Taxes, and the default sales tax for new products is set under Accounting &gt; Configuration &gt; Settings. TechNext configures a non-VAT company so its invoices carry the right tax from the first sale.</p>
+<p>Section 116 is not the only percentage tax. Other sections of the Tax Code set percentage taxes for specific industries. A 2018 BIR advisory, summarised by Grant Thornton, says <strong>all percentage tax taxpayers</strong> file a quarterly return on Form 2551Q, including those who moved from VAT to non-VAT registration.</p>
+
+<h2>The rate: back to 3%</h2>
+<p>The TRAIN Law (RA 10963, Section 38) set the Section 116 rate at <strong>3% of gross quarterly sales or receipts</strong>. The CREATE Act (RA 11534, Section 13) then cut it to <strong>1% from 1 July 2020 until 30 June 2023</strong>. That relief has ended. From 1 July 2023 the rate is 3% again.</p>
+<p>Under the EOPT Act, RR 3-2024 changed the wording of the percentage tax rules. References to gross receipts now read as <strong>gross sales</strong>, recognised when you bill, for goods and services alike. So a service you invoice in March belongs in the first-quarter 2551Q, even if the client pays in May. This is the same shift that applies to VAT, covered in our <a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html">2550Q quarterly VAT guide</a>.</p>
+<p>Odoo fits this billing basis: its tax reports are built from posted invoices and filtered by period, so each sale lands in the quarter of its invoice date, not its payment date.</p>
+
+<h2>VAT and percentage tax side by side</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Topic</th><th>VAT (Form 2550Q)</th><th>Percentage tax (Form 2551Q)</th></tr></thead>
+  <tbody>
+    <tr><td>Who pays</td><td>VAT-registered businesses</td><td>Non-VAT businesses under the threshold, and other percentage tax payers</td></tr>
+    <tr><td>Rate</td><td>12% of gross sales</td><td>3% of gross quarterly sales (Section 116)</td></tr>
+    <tr><td>Input tax credit</td><td>Input VAT on purchases is credited</td><td>No credit for tax on purchases</td></tr>
+    <tr><td>Deadline</td><td>Within 25 days after quarter-end</td><td>Within 25 days after quarter-end</td></tr>
+    <tr><td>Basis</td><td>Gross sales, recognised on the invoice (RR 3-2024)</td><td>Gross sales, recognised on billing (RR 3-2024)</td></tr>
+  </tbody>
+</table></div>
+<p>Odoo's Philippine localisation uses fiscal positions for automated tax adjustments based on a customer's or supplier's registration status, set under Accounting &gt; Configuration &gt; Fiscal Positions. TechNext maps them so VAT and non-VAT partners get the right taxes on each invoice and bill.</p>
+
+<h2>The deadline</h2>
+<p>The 2551Q is due <strong>within 25 days after the end of each taxable quarter</strong>. For a calendar-year business, that means late April, late July, late October and late January. Under the EOPT rules, returns are filed electronically, with manual filing only if the electronic platforms are unavailable. Tax can be paid electronically or manually at authorised agent banks and revenue collection officers.</p>
+<p>In Odoo, the Tax Return Periodicity section under Accounting &gt; Configuration &gt; Settings sets how often your return is due and when Odoo reminds you to submit it. TechNext sets it to quarterly for 2551Q filers.</p>
+<p>The quarterly return is not the only paperwork. Your sales still need proper invoices, as explained in our <a href="{{ROOT}}blog/eopt-invoice-requirements-odoo.html">EOPT invoice requirements guide</a>.</p>
+
+<h2>The 8% option for individuals</h2>
+<p>Self-employed individuals and professionals whose gross sales and other non-operating income stay within the VAT threshold can choose an <strong>8% income tax</strong> on gross sales above P250,000. Under Section 24(A)(2)(b), as amended by TRAIN, the 8% is paid <strong>in lieu of</strong> the graduated income tax rates <strong>and the percentage tax under Section 116</strong>.</p>
+<p>Two practical points follow from RR 8-2018:</p>
+<ul>
+  <li><strong>Timing.</strong> You elect the 8% in your first-quarter income tax return, or the first return after you start business. The election is irrevocable for that year.</li>
+  <li><strong>Crossing P3,000,000.</strong> If your gross sales pass the threshold during the year, you move automatically to the graduated rates. The 8% payments already made can be credited against the income tax due.</li>
+</ul>
+<p>The 8% option is for individuals only, and RR 8-2018 does not extend it to taxpayers subject to other percentage taxes. Corporations that are not VAT-registered stay on percentage tax.</p>
+<p>In Odoo, the same posted invoices give you the gross sales total for each quarter, so you can track it against P3,000,000 through the year. Its SAWT report lists customer invoices with withholding taxes for Forms 1701Q and 1701. TechNext sets up both from your sales data.</p>
+
+<h2>When you cross the VAT threshold</h2>
+<p>Section 236(G) of the Tax Code requires VAT registration when gross sales over the past twelve months have exceeded P3,000,000, or when you reasonably expect them to exceed P3,000,000 over the next twelve months. Once you register, you move from the 2551Q to the 2550Q, and you start issuing VAT invoices. Talk to your accountant and your RDO before the switch. The exact timing of the change affects which quarter goes on which return.</p>
+<p>In Odoo, the switch is a change to the same company's tax set-up, not a new system. TechNext sets a tax lock date on your last non-VAT period, changes the default sales tax to 12% VAT, updates the taxes on your products and partners, and checks that the 2550Q report picks up sales from the registration date.</p>
+
+<h2>How Odoo prepares the 2551Q figures</h2>
+<p>Odoo's <a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Philippine localisation</a> in version 19 ships default taxes for 12% VAT, zero-rated and VAT-exempt sales, plus withholding taxes. Its documentation lists a 2550Q report but no 2551Q report. Odoo 20 closes that gap: its <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">release notes</a> say the 2551Q report is now available for non-VAT registered companies.</p>
+<p>How you get there depends on your version:</p>
+<ul>
+  <li><strong>Odoo 20.</strong> Run the 2551Q report for the quarter and review it against your sales.</li>
+  <li><strong>Odoo 19 and earlier.</strong> Taxes live under Accounting &gt; Configuration &gt; Taxes. Odoo builds its tax reports from the <strong>tax grids</strong> set on each tax, which tag the base and tax amounts on the journal items. If your non-VAT sales carry a tax with its own grid, the tax report totals the quarter's gross sales, and the 3% is worked out from that base.</li>
+</ul>
+<p>Either way, the figures come from your posted invoices, so review them before you file. You file the return yourself on the BIR's platform, keying in the figures from the report. Odoo's documentation does not describe a direct filing link for the 2551Q. Once filed, set the Lock Tax Return date under Accounting &gt; Accounting &gt; Lock Dates, so entries dated in a reported period move to the next open tax period instead of changing the figures you filed.</p>
+<p>If you keep computerised books, the same entries also feed your books of accounts. Odoo 20 adds a Book of Accounts for CBA and CAS users in the Philippines. Our <a href="{{ROOT}}bir-cas.html">BIR CAS page</a> explains how we set that up.</p>
+
+{{SHOT:invoicing/invoicing-hero-image.webp|Customer invoices in Odoo carry the sales figures that feed the quarterly percentage tax (screenshot: odoo.com)}}
+
+<p>You don't need to hire your own team. A TechNext adviser reviews how your sales and taxes are set up today, then our team in Taguig City configures Odoo so the 2551Q figures come from a report for you to review before you file.</p>
+
+<div class="post-note"><p>Rules change. This article reflects the Tax Code as amended by TRAIN, CREATE and the EOPT Act, and BIR issuances available on 24 October 2026, read from the law text and published tax alerts. TechNext is not affiliated with the BIR and does not file returns for clients. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2017/ra_10963_2017.html" target="_blank" rel="noopener">RA 10963 (TRAIN Law), Sections 5 and 38, and amended Section 236(G)</a></li>
+  <li><a href="https://lawphil.net/statutes/repacts/ra2021/ra_11534_2021.html" target="_blank" rel="noopener">RA 11534 (CREATE Act), Section 13 on the temporary 1% percentage tax</a></li>
+  <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/bir-advisory-on-percentage-tax-filing/" target="_blank" rel="noopener">Grant Thornton: BIR advisory on quarterly percentage tax filing (2551Q)</a></li>
+  <li><a href="https://grantthornton.com.ph/insights/articles-and-updates1/lets-talk-tax/revenue-regulations-no.-08-2018-for-individual-taxpayers" target="_blank" rel="noopener">Grant Thornton: RR 8-2018 and the 8% income tax option</a></li>
+  <li><a href="https://www.grantthornton.com.ph/alerts-and-publications/technical-alerts/tax-alert/2024/implementation-of-the-amendments-introduced-by-eopt-act-on-vat-and-percentage-tax/" target="_blank" rel="noopener">Grant Thornton: EOPT amendments on VAT and percentage tax (RR 3-2024)</a></li>
+  <li><a href="https://www.odoo.com/documentation/19.0/applications/finance/fiscal_localizations/philippines.html" target="_blank" rel="noopener">Odoo documentation: Philippines fiscal localisation</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/taxes.html" target="_blank" rel="noopener">taxes</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/taxes/fiscal_positions.html" target="_blank" rel="noopener">fiscal positions</a>, <a href="https://www.odoo.com/documentation/19.0/applications/finance/accounting/reporting/tax_returns.html" target="_blank" rel="noopener">tax returns</a> and <a href="https://www.odoo.com/odoo-20-release-notes" target="_blank" rel="noopener">Odoo 20 release notes</a></li>
+</ul>
+
+<h2>Common questions</h2>
+<div class="faq">
+  <details><summary>When is the 2551Q due? {{icon:chevron}}</summary><div class="faq-a"><p>Within 25 days after the end of each taxable quarter. For a calendar-year business, that is late April, July, October and January.</p></div></details>
+  <details><summary>Is percentage tax still 1%? {{icon:chevron}}</summary><div class="faq-a"><p>No. The 1% rate under the CREATE Act ran from 1 July 2020 to 30 June 2023. The Section 116 rate is back to 3% of gross quarterly sales.</p></div></details>
+  <details><summary>I chose the 8% income tax. Do I still file the 2551Q? {{icon:chevron}}</summary><div class="faq-a"><p>Under Section 24(A)(2)(b), the 8% is paid in place of the graduated income tax and the Section 116 percentage tax. Ask your accountant to confirm what your registration requires, especially if your sales may pass P3,000,000 during the year.</p></div></details>
+  <details><summary>What happens when my sales pass P3,000,000? {{icon:chevron}}</summary><div class="faq-a"><p>Section 236(G) requires you to register for VAT. You then file the 2550Q instead of the 2551Q. Plan the switch with your accountant and RDO.</p></div></details>
+  <details><summary>Does Odoo file the 2551Q with the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>No. Odoo prepares the figures from your posted invoices, through the 2551Q report in Odoo 20 or a tax report in earlier versions. You file the return on the BIR's platform yourself.</p></div></details>
+</div>
