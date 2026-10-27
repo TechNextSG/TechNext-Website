@@ -1,6 +1,6 @@
 # TechNext — full reference
 
-Last updated: 2026-10-24
+Last updated: 2026-10-27
 
 > TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 40+ years of excellence; 90+ enterprise clients in 25+ countries.
 
@@ -139,7 +139,7 @@ Last updated: 2026-10-24
 - https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/clement-koh — Clement Koh, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
-- https://technext.asia/team/jett-balanza — Jett Balanza, Business Systems Analyst: Jett sits between your team and our developers, turning what you need into a working Odoo set-up. Business Systems Analyst at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/jett-balanza — Jett Balanza, Functional ERP Consultant: Jett sits between your team and our developers, turning what you need into a working Odoo set-up.
 - https://technext.asia/team/philip-gallan — Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner: Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. Odoo Developer Expert at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/pia-cachola — Pia Cachola, General Manager | TechNext Odoo Partner: Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver. General Manager at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/rex-polintang — Rex Polintang, IT Developer Expert | TechNext Odoo Partner: Rex keeps the systems and networks behind a business running. IT Developer Expert at TechNext, an Odoo Ready Partner in the Philippines and Singapore.

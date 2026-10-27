@@ -95,7 +95,7 @@ ADVISORS = [
          ("Working style", ["Time management and organisation", "Client communication", "Eye for detail"]),
      ],
      "creds": ["BS Computer Science, Dean's Lister"]},
-    {"name": "Jett Balanza", "role": "Business Systems Analyst", "office": "ph", "email": "jett@technext.asia", "photo": "jett-balanza.webp",
+    {"name": "Jett Balanza", "role": "Functional ERP Consultant", "office": "ph", "email": "jett@technext.asia", "photo": "jett-balanza.webp",
      "summary": "Jett turns what your team needs into a working Odoo set-up, documented, tested and ready for go-live.",
      "bio": "Jett sits between your team and our developers, turning what you need into a working Odoo set-up. Jett gathers the requirements, writes the process documents and configuration guides, configures and customises Odoo, runs user acceptance testing and trains your people before go-live. Jett also builds Python automations that cut manual configuration time, and has helped design and train an HR AI agent.",
      "stats": [("8", "weeks per roll-out, from 12"), ("40%", "less manual configuration time"), ("50%", "faster team onboarding")],
