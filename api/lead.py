@@ -54,12 +54,21 @@ FORMS = [
 ]
 SHORT = {"Free website offer (/get-started)": "Free website offer", "Let's Talk panel": "Let's Talk",
          "Free website offer (/free-website-with-odoo)": "Free website offer", "Quotation builder": "Quotation"}
-LABELS = {"topic": "Interested in", "bir_pain": "Needs", "message": "Message", "apps": "Odoo apps", "users": "Users",
-          "hosting": "Hosting", "services": "Services", "timeline": "Timeline", "scope_summary": "Quotation scope",
+# each answer is shown as "<the form's question>: <answer>"; FORM_LABELS has the wording a form asks differently
+LABELS = {"name": "Name", "company": "Company", "email": "Work email", "phone": "Phone",
+          "topic": "I'm interested in", "bir_pain": "What do you need most?", "message": "Message",
+          "apps": "Which Odoo apps?", "users": "How many users?", "hosting": "Hosting", "services": "Services needed",
+          "timeline": "Timeline", "scope_summary": "Quotation scope",
           "team_size": "Team size", "current_website": "Current website", "call_time": "Best time to call",
           "slot": "Meeting time", "job_title": "Role", "industry": "Industry", "branches": "Branches",
           "annual_sales": "Gross annual sales", "accounting_system": "Books today",
           "cas_status": "Registered for CAS or CBA", "country": "Country", "consent": "Privacy consent"}
+FORM_LABELS = {
+    "BIR adviser call": {"name": "Full name", "phone": "Mobile number",
+                         "message": "How do you invoice and keep your books today?"},
+    "Free website offer (/get-started)": {"topic": "I want", "message": "Your current website"},
+    "Quotation builder": {"message": "Anything else"},
+}
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
         "team_size", "current_website", "call_time", "slot")
 ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system", "cas_status", "country")
@@ -178,8 +187,9 @@ def visit(p):
         how = (f"Referred by {ref_host}" if ref_host and "technext" not in ref_host else "Website visit")
     if src == "Website" and ("google." in ref_host or "bing." in ref_host):
         how = "Search (" + ref_host.replace("www.", "") + ")"
-    bits = [b for b in (uc and f'"{uc}"', um and um != med.lower() and um, q.get("utm_content", "")[:60]) if b]
-    return src, med, uc, how + (" - " + ", ".join(bits) if bits else "")
+    rows = [("Came from", how), ("Campaign", uc), ("Channel", um if um != med.lower() else ""),
+            ("Link clicked", q.get("utm_content", "")[:60])]
+    return src, med, uc, [(k, v) for k, v in rows if v]
 
 
 def short_url(url):
@@ -222,39 +232,43 @@ def booking_lead(email, tries=8, wait=1.5):
     return False
 
 
-def summary(p, form):
-    """The answers in three groups, as (heading, [(label, value)]) - same order in the notes and the @Jeric note."""
+def summary(p, form, contact):
+    """Everything as bulleted groups, (heading, [(label, value)]): contact / what they need / about them / how they
+    found us / full links - same order in the notes and the @Jeric note (which leaves out the full links)."""
     vals = {k: clean(v) for k, v in p.items() if k not in SKIP and str(v).strip()}
+    vals.pop("job_title", None)                            # in the contact group
+    vals.pop("country", None)
     if any(vals.get(k) for k in QUOTE_FIELDS):
         vals.pop("scope_summary", None)                    # the summary repeats them
     if vals.get("bir_pain"):
         vals.pop("topic", None)                            # the BIR page's topic is the same need, shorter
     elif vals.get("topic"):
         vals["topic"] = re.sub(r"^Need:\s*", "", vals["topic"])
-    if vals.get("country", "").lower() == "other":
-        vals.pop("country")
-    label = lambda k: LABELS.get(k, k.replace("_", " ").capitalize())
+    label = lambda k: question(form, k)
     need = [(label(k), vals.pop(k)) for k in NEED if k in vals]
     about = [(label(k), vals.pop(k)) for k in ABOUT if k in vals]
     consent = vals.pop("consent", "")
     need += [(label(k), v) for k, v in vals.items()]       # any field added to a form later still shows up
-    src, med, campaign, how = visit(p)
-    found = [("Came from", how)]
+    src, med, campaign, found = visit(p)
     page, land = clean(p.get("page", ""), 600), clean(p.get("landing", ""), 600)
-    found.append(("Form on", f"{form} - {short_url(page)}" if page else form))
+    found += [("Form", form)] + [("Page", short_url(page))] * bool(page)
     if land and short_url(land) != short_url(page):
         found.append(("First page", short_url(land)))
     links = [(k, v) for k, v in (("Page", page), ("First page of the visit", land),
                                  ("Referrer", clean(p.get("referrer", ""), 600)), ("Privacy consent", consent)) if v]
-    return [("What they need", need), ("About them", about), ("How they found us", found)], links, (src, med, campaign)
+    groups = [("Contact", contact), ("What they need", need), ("About them", about), ("How they found us", found),
+              ("Full links", links)]
+    return groups, (src, med, campaign)
 
 
-def as_html(groups, links=()):
-    out = "".join(f"<p><b>{html.escape(h)}</b></p><ul>" + "".join(
-        f"<li>{html.escape(k)}: {html.escape(v)}</li>" for k, v in rows) + "</ul>" for h, rows in groups if rows)
-    if links:
-        out += "<p><small>Full links: " + " | ".join(f"{html.escape(k)}: {html.escape(v)}" for k, v in links) + "</small></p>"
-    return out
+def question(form, key):
+    return FORM_LABELS.get(form, {}).get(key) or LABELS.get(key) or key.replace("_", " ").capitalize()
+
+
+def as_html(groups):
+    """Each group as a bold heading with one "Question: Answer" bullet per answer; empty groups are left out."""
+    return "".join(f"<p><b>{html.escape(h)}</b></p><ul>" + "".join(
+        f"<li><b>{html.escape(k)}:</b> {html.escape(v)}</li>" for k, v in rows) + "</ul>" for h, rows in groups if rows)
 
 
 def make_lead(p):
@@ -263,8 +277,10 @@ def make_lead(p):
     phone = phone_format(clean(p.get("phone", ""), 200), country)
     country = "" if country.lower() == "other" else country
     form = form_tag(p.get("source"), p.get("page"))
-    groups, links, (src_name, med_name, campaign) = summary(p, form)
-    need = next((v for k, v in groups[0][1] if k in ("Needs", "Interested in")), "")
+    contact = [(question(form, k), v) for k, v in (("name", name), ("company", company), ("job_title", clean(p.get("job_title", ""), 120)),
+                                                  ("email", email), ("phone", phone), ("country", country)) if v]
+    groups, (src_name, med_name, campaign) = summary(p, form, contact)
+    need = re.sub(r"^Need:\s*", "", clean(p.get("bir_pain") or p.get("topic") or "", 60))
     spam = spam_reason(p, name, email, company)
     title = " - ".join(x for x in (SHORT.get(form, form), need[:60], company or name or email) if x)
     # one at a time: parallel calls trip odoo.com's rate limit (429)
@@ -278,7 +294,7 @@ def make_lead(p):
         "team_id": team,
         "name": title[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
-        "description": as_html(groups, links),             # html field, shown as Internal Notes
+        "description": as_html(groups),                    # html field, shown as Internal Notes
         "tag_ids": [[6, 0, tags]],
         "source_id": find_or_create("utm.source", src_name),
         "medium_id": find_or_create("utm.medium", med_name),
@@ -292,7 +308,7 @@ def make_lead(p):
             vals["campaign_id"] = find_or_create("utm.campaign", campaign)
         except Exception as e:
             print("campaign not set:", repr(e)[:300])
-    info = (form, name, email, phone, company, country, groups, spam)
+    info = (form, groups, spam)
     if form == "Discovery call booking" and email:
         # Odoo's appointment app files the booking itself: enrich that opportunity instead of adding a second lead
         def after():
@@ -302,7 +318,7 @@ def make_lead(p):
                        if k in ("partner_name", "tag_ids", "source_id", "medium_id", "campaign_id", "country_id", "team_id") and v}
                 rpc("crm.lead", "write", ids=[found], vals=upd)
                 rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
-                    subtype_xmlid="mail.mt_note", body="<p>Booking form details:</p>" + as_html(groups, links))
+                    subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
                 lead = found
             else:                                          # not visible to the API user: file it as a lead of its own
                 lead = rpc("crm.lead", "create", vals_list=[vals])[0]
@@ -317,19 +333,16 @@ def make_lead(p):
     return lead, after
 
 
-def follow_up(lead, form, name, email, phone, company, country, groups, spam):
+def follow_up(lead, form, groups, spam):
     """The @Jeric note + emails (and a salesperson, if set). Runs after the visitor has their answer."""
     people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
     if people or copies:                                   # @mention Jeric; Jeric + copies get the summary by email
         at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
                       f'data-oe-model="res.partner">@{html.escape(p["name"])}</a> ({html.escape(p["email"])})'
                       for p in people)
-        who = " &middot; ".join(html.escape(x) for x in (company, country) if x)
-        reach = " &middot; ".join(html.escape(x) for x in (email, phone) if x)
-        flag = f"<p><b>Looks like spam:</b> {html.escape(spam)}. Check before replying.</p>" if spam else ""
-        body = (f"<p>{at} New lead from the <b>{html.escape(form)}</b>. Please follow up.</p>{flag}"
-                f"<p><b>{html.escape(name or email)}</b>{' &middot; ' + who if who else ''}<br>{reach}</p>"
-                + as_html([(h, [r for r in rows if r[0] != "Country"]) for h, rows in groups]))  # country is up top
+        flag = [("Check first", [("Possible spam", spam)])] if spam else []
+        body = (f"<p>{at} New lead from the <b>{html.escape(form)}</b>. Please follow up.</p>"
+                + as_html(flag + [g for g in groups if g[0] != "Full links"]))      # full links stay in the notes
         rpc("crm.lead", "message_post", ids=[lead], partner_ids=list({p["id"] for p in people + copies}),
             message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
             context={"mail_notify_author": True},          # the copy goes to Rico, who is also the API user
