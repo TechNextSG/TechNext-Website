@@ -1,12 +1,16 @@
 """Vercel function: every form on technext.asia becomes a lead in the Odoo CRM (technext.odoo.com).
 
 POST /api/lead with the form's fields as JSON (site.js tnPostForm; the only place a form goes).
-The lead is tagged "Website" plus the form it came from, gets source "Website" ("Paid Ads" when the visit
-came from an ad click) / medium "Website", department (sales team) "Marketing Dept", and stays UNASSIGNED
-(ODOO_SALESPERSON empty) so everyone with Sales access sees it; Jeric picks it up by setting himself as
-salesperson. Every lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS), and Jeric plus ODOO_COPY_EMAILS
-(hello@technext.asia) get an email with the full details. The Odoo API key lives only in the Vercel env var
-ODOO_API_KEY, never in this public repo.
+The lead is named "<form> - <what they need> - <company>", tagged "Website" plus the form it came from, and
+filled in field by field: contact, company, email, phone in +63 / +65 form, country, job position. Source /
+medium / campaign come from where the visit started (utm_* tags, ad click ids, the referrer): "Paid Ads",
+"Email" (newsletters), the social network, otherwise "Website". Department (sales team) is "Marketing Dept",
+or "Sales Team" until that exists. The lead stays UNASSIGNED (ODOO_SALESPERSON empty) so everyone with
+Sales access sees it; Jeric picks it up by setting himself as salesperson. Internal notes hold the answers in
+three short groups (what they need / about them / how they found us) plus the full links at the bottom; every
+lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS) with a short summary, and Jeric plus ODOO_COPY_EMAILS
+(hello@technext.asia) get it by email. Likely spam is tagged "Possible spam", never dropped. The Odoo API key
+lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
 import html
 import http.client
@@ -29,13 +33,18 @@ COPY_EMAILS = [x.strip() for x in os.environ.get("ODOO_COPY_EMAILS", "hello@tech
 # login every lead is assigned to; empty = unassigned. Rico (the API user, Sales "Own Documents Only") cannot
 # see a lead assigned to someone else, so leads stay unassigned until Rico gets "All Documents" access.
 SALESPERSON = os.environ.get("ODOO_SALESPERSON", "")
-DEPARTMENT = "Marketing Dept"          # website + social leads; direct / referral / messaging go to "Sales Dept"
-MEDIUM_NAME = "Website"
-# an ad click leaves one of these in the landing URL -> source "Paid Ads", otherwise "Website"
-AD_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid|utm_medium=(cpc|ppc|paid[a-z_]*|ads?))(=|&|$)", re.I)
+# first active sales team that exists ("Website" team is archived); direct / referral / messaging -> "Sales Dept"
+DEPARTMENTS = ("Marketing Dept", "Sales Team")
+SPAM_TAG = "Possible spam"
+# an ad click leaves one of these in the landing URL -> source "Paid Ads"
+AD_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid|fbclid_ad|msclkid|utm_medium=(cpc|ppc|paid[a-z_]*|ads?))(=|&|$)", re.I)
+EMAIL_HINT = re.compile(r"e-?mail|newsletter|brevo|sendinblue|mailchimp|sendibm|edm", re.I)
+SOCIAL = (("facebook", "Facebook"), ("fb.", "Facebook"), ("instagram", "Instagram"), ("linkedin", "LinkedIn"),
+          ("lnkd.in", "LinkedIn"), ("youtube", "YouTube"), ("youtu.be", "YouTube"))
 
-# form "source" field -> short tag name
+# form "source" field (or the page) -> form name, used for the tag "Web form: <name>" and the lead title
 FORMS = [
+    ("bir", "BIR adviser call"),                   # older copies of the page still say "Free website with Odoo page (BIR)"
     ("quotation", "Quotation builder"),
     ("get started", "Free website offer (/get-started)"),
     ("free website", "Free website offer (/free-website-with-odoo)"),
@@ -43,16 +52,25 @@ FORMS = [
     ("let's talk", "Let's Talk panel"),
     ("discovery call", "Discovery call booking"),
 ]
-LABELS = {"name": "Name", "company": "Company", "email": "Email", "phone": "Phone", "topic": "Interested in",
-          "message": "Message", "team_size": "Team size", "country": "Country", "current_website": "Current website",
-          "scope_summary": "Quotation scope", "apps": "Odoo apps", "users": "Users", "hosting": "Hosting",
-          "services": "Services", "timeline": "Timeline", "source": "Form", "page": "Page",
-          "referrer": "Came from", "landing": "First page of the visit", "slot": "Meeting time",
-          "job_title": "Role", "industry": "Industry", "branches": "Branches", "annual_sales": "Gross annual sales",
-          "bir_pain": "Biggest BIR headache", "need": "Landing page need", "accounting_system": "Books today",
-          "cas_status": "Registered for CAS or CBA", "call_time": "Best time to call", "consent": "Privacy consent"}
+SHORT = {"Free website offer (/get-started)": "Free website offer", "Let's Talk panel": "Let's Talk",
+         "Free website offer (/free-website-with-odoo)": "Free website offer", "Quotation builder": "Quotation"}
+LABELS = {"topic": "Interested in", "bir_pain": "Needs", "message": "Message", "apps": "Odoo apps", "users": "Users",
+          "hosting": "Hosting", "services": "Services", "timeline": "Timeline", "scope_summary": "Quotation scope",
+          "team_size": "Team size", "current_website": "Current website", "call_time": "Best time to call",
+          "slot": "Meeting time", "job_title": "Role", "industry": "Industry", "branches": "Branches",
+          "annual_sales": "Gross annual sales", "accounting_system": "Books today",
+          "cas_status": "Registered for CAS or CBA", "country": "Country", "consent": "Privacy consent"}
+NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
+        "team_size", "current_website", "call_time", "slot")
+ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system", "cas_status", "country")
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
-SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse"}
+# kept out of the notes: in their own lead fields already, internal codes, or the tracking group
+SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
+        "company", "source", "need", "page", "landing", "referrer"}
+# pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
+SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
+                       r"followers|first page of google|crypto|casino|loan offer", re.I)
+FAKE_COMPANY = re.compile(r"^[A-Z][a-z]+, [A-Z][a-z]+ and [A-Z][a-z]+$")
 
 
 _CONN = None  # one HTTPS connection to Odoo, reused while the instance is warm (no new TLS handshake per call)
@@ -120,9 +138,64 @@ def clean(v, n=2000):
     return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", str(v)).strip()[:n]
 
 
-def form_tag(source):
+def form_tag(source, page=""):
     s = (source or "").lower()
+    if "/bir-adviser-call" in (page or ""):
+        return "BIR adviser call"
     return next((tag for key, tag in FORMS if key in s), "Other form")
+
+
+def phone_format(phone, country):
+    """Typed number -> international form: 0995 390 4694 (PH) -> +63 995 390 4694, 9123 4567 (SG) -> +65 9123 4567.
+    Anything it cannot read for sure is kept exactly as typed."""
+    d = re.sub(r"\D", "", phone)
+    c = (country or "").lower()
+    if re.fullmatch(r"(63|0)?9\d{9}", d) and (c in ("", "philippines") or phone.lstrip().startswith(("+63", "09", "63"))):
+        n = d[-10:]
+        return f"+63 {n[:3]} {n[3:6]} {n[6:]}"
+    if re.fullmatch(r"(65)?[689]\d{7}", d) and (c == "singapore" or phone.lstrip().startswith("+65")):
+        n = d[-8:]
+        return f"+65 {n[:4]} {n[4:]}"
+    return re.sub(r"\s+", " ", phone).strip()
+
+
+def visit(p):
+    """Where the visit started: (source name, medium name, campaign or "", one-line summary for the notes)."""
+    land, page, ref = (clean(p.get(k, ""), 600) for k in ("landing", "page", "referrer"))
+    q = {}
+    for url in (page, land):                               # the first page of the visit wins
+        q.update({k: v[0] for k, v in urllib.parse.parse_qs(urllib.parse.urlsplit(url).query).items()})
+    us, um, uc = (q.get(k, "").strip()[:80] for k in ("utm_source", "utm_medium", "utm_campaign"))
+    ref_host = urllib.parse.urlsplit(ref).netloc.lower()
+    if any(AD_CLICK.search(u) for u in (land, page)):
+        src, med, how = "Paid Ads", "Website", "Ad click"
+    elif EMAIL_HINT.search(f"{us} {um}") or (not us and EMAIL_HINT.search(ref_host)):
+        src, med, how = "Email", "Email", "Email campaign"
+    elif (net := next((n for k, n in SOCIAL if k in f"{us.lower()} {ref_host}"), None)):
+        src, med, how = net, "Social Media", net
+    else:
+        src, med = "Website", "Website"
+        how = (f"Referred by {ref_host}" if ref_host and "technext" not in ref_host else "Website visit")
+    if src == "Website" and ("google." in ref_host or "bing." in ref_host):
+        how = "Search (" + ref_host.replace("www.", "") + ")"
+    bits = [b for b in (uc and f'"{uc}"', um and um != med.lower() and um, q.get("utm_content", "")[:60]) if b]
+    return src, med, uc, how + (" - " + ", ".join(bits) if bits else "")
+
+
+def short_url(url):
+    u = urllib.parse.urlsplit(url)
+    return (u.netloc.replace("www.", "") + u.path) if u.netloc else url
+
+
+def spam_reason(p, name, email, company):
+    text = " ".join(clean(p.get(k, "")) for k in ("message", "topic", "company"))
+    if SPAM_TEXT.search(text):
+        return "sales pitch (" + SPAM_TEXT.search(text).group(0) + ")"
+    if FAKE_COMPANY.match(company) and email.split("@")[-1].lower() in ("hotmail.com", "gmail.com", "yahoo.com", "outlook.com"):
+        return "made-up company name with a free email address"
+    if len(re.findall(r"https?://", text)) >= 3:
+        return "message full of links"
+    return ""
 
 
 def keep_typed(lead, name, phone):
@@ -149,70 +222,118 @@ def booking_lead(email, tries=8, wait=1.5):
     return False
 
 
+def summary(p, form):
+    """The answers in three groups, as (heading, [(label, value)]) - same order in the notes and the @Jeric note."""
+    vals = {k: clean(v) for k, v in p.items() if k not in SKIP and str(v).strip()}
+    if any(vals.get(k) for k in QUOTE_FIELDS):
+        vals.pop("scope_summary", None)                    # the summary repeats them
+    if vals.get("bir_pain"):
+        vals.pop("topic", None)                            # the BIR page's topic is the same need, shorter
+    elif vals.get("topic"):
+        vals["topic"] = re.sub(r"^Need:\s*", "", vals["topic"])
+    if vals.get("country", "").lower() == "other":
+        vals.pop("country")
+    label = lambda k: LABELS.get(k, k.replace("_", " ").capitalize())
+    need = [(label(k), vals.pop(k)) for k in NEED if k in vals]
+    about = [(label(k), vals.pop(k)) for k in ABOUT if k in vals]
+    consent = vals.pop("consent", "")
+    need += [(label(k), v) for k, v in vals.items()]       # any field added to a form later still shows up
+    src, med, campaign, how = visit(p)
+    found = [("Came from", how)]
+    page, land = clean(p.get("page", ""), 600), clean(p.get("landing", ""), 600)
+    found.append(("Form on", f"{form} - {short_url(page)}" if page else form))
+    if land and short_url(land) != short_url(page):
+        found.append(("First page", short_url(land)))
+    links = [(k, v) for k, v in (("Page", page), ("First page of the visit", land),
+                                 ("Referrer", clean(p.get("referrer", ""), 600)), ("Privacy consent", consent)) if v]
+    return [("What they need", need), ("About them", about), ("How they found us", found)], links, (src, med, campaign)
+
+
+def as_html(groups, links=()):
+    out = "".join(f"<p><b>{html.escape(h)}</b></p><ul>" + "".join(
+        f"<li>{html.escape(k)}: {html.escape(v)}</li>" for k, v in rows) + "</ul>" for h, rows in groups if rows)
+    if links:
+        out += "<p><small>Full links: " + " | ".join(f"{html.escape(k)}: {html.escape(v)}" for k, v in links) + "</small></p>"
+    return out
+
+
 def make_lead(p):
-    name, email, phone, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "phone", "company"))
-    form = form_tag(p.get("source"))
-    what = clean(p.get("topic") or form, 80)
-    skip = SKIP | ({"scope_summary"} if any(p.get(k) for k in QUOTE_FIELDS) else set())  # summary repeats them
-    lines = [f"{LABELS.get(k, k.replace('_', ' ').capitalize())}: {clean(v)}"
-             for k, v in p.items() if k not in skip and str(v).strip()]
-    lines = [part for line in lines for part in line.split("\n") if part.strip()]
+    name, email, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "company"))
+    country = clean(p.get("country", ""), 80)
+    phone = phone_format(clean(p.get("phone", ""), 200), country)
+    country = "" if country.lower() == "other" else country
+    form = form_tag(p.get("source"), p.get("page"))
+    groups, links, (src_name, med_name, campaign) = summary(p, form)
+    need = next((v for k, v in groups[0][1] if k in ("Needs", "Interested in")), "")
+    spam = spam_reason(p, name, email, company)
+    title = " - ".join(x for x in (SHORT.get(form, form), need[:60], company or name or email) if x)
     # one at a time: parallel calls trip odoo.com's rate limit (429)
-    tag_web, tag_form = find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)
-    paid = any(AD_CLICK.search(str(p.get(k, ""))) for k in ("landing", "page"))
-    source = find_or_create("utm.source", "Paid Ads" if paid else "Website")
-    medium = find_or_create("utm.medium", MEDIUM_NAME)
-    team = lookup("crm.team", [["name", "=", DEPARTMENT]])
+    tags = [find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)]
+    if spam:
+        tags.append(find_or_create("crm.tag", SPAM_TAG))
+    team = next((t for t in (lookup("crm.team", [["name", "=", d]]) for d in DEPARTMENTS) if t), False)
     vals = {
         "type": "lead",
         "user_id": False,                                  # a salesperson, if any, is set last (see below)
         "team_id": team,
-        "name": f"Website: {what} - {company or name or email}"[:200],
+        "name": title[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
-        "description": "".join(f"<p>{html.escape(line)}</p>" for line in lines),  # html field: one line per field
-        "tag_ids": [[6, 0, [tag_web, tag_form]]],
-        "source_id": source,
-        "medium_id": medium,
+        "description": as_html(groups, links),             # html field, shown as Internal Notes
+        "tag_ids": [[6, 0, tags]],
+        "source_id": find_or_create("utm.source", src_name),
+        "medium_id": find_or_create("utm.medium", med_name),
     }
+    if p.get("job_title"):
+        vals["function"] = clean(p["job_title"], 120)
+    if country:
+        vals["country_id"] = lookup("res.country", [["name", "=ilike", country]])
+    if campaign:
+        try:                                               # a campaign the API user cannot create never blocks the lead
+            vals["campaign_id"] = find_or_create("utm.campaign", campaign)
+        except Exception as e:
+            print("campaign not set:", repr(e)[:300])
+    info = (form, name, email, phone, company, country, groups, spam)
     if form == "Discovery call booking" and email:
         # Odoo's appointment app files the booking itself: enrich that opportunity instead of adding a second lead
         def after():
             found = booking_lead(email)
             if found:
-                upd = {k: v for k, v in vals.items() if k in ("partner_name", "tag_ids", "source_id", "medium_id") and v}
-                if vals["team_id"]:
-                    upd["team_id"] = vals["team_id"]
+                upd = {k: v for k, v in vals.items()
+                       if k in ("partner_name", "tag_ids", "source_id", "medium_id", "campaign_id", "country_id", "team_id") and v}
                 rpc("crm.lead", "write", ids=[found], vals=upd)
                 rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
-                    subtype_xmlid="mail.mt_note",
-                    body="<p>Booking form details:</p><ul>" + "".join(f"<li>{html.escape(l)}</li>" for l in lines) + "</ul>")
+                    subtype_xmlid="mail.mt_note", body="<p>Booking form details:</p>" + as_html(groups, links))
                 lead = found
             else:                                          # not visible to the API user: file it as a lead of its own
                 lead = rpc("crm.lead", "create", vals_list=[vals])[0]
             keep_typed(lead, name, phone)
-            follow_up(lead, form, name, email, phone, company, lines)
+            follow_up(lead, *info)
         return None, after
     lead = rpc("crm.lead", "create", vals_list=[vals])[0]
 
     def after():
         keep_typed(lead, name, phone)
-        follow_up(lead, form, name, email, phone, company, lines)
+        follow_up(lead, *info)
     return lead, after
 
 
-def follow_up(lead, form, name, email, phone, company, lines):
+def follow_up(lead, form, name, email, phone, company, country, groups, spam):
     """The @Jeric note + emails (and a salesperson, if set). Runs after the visitor has their answer."""
     people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
-    if people or copies:                                   # @mention Jeric; Jeric + copies get the details by email
+    if people or copies:                                   # @mention Jeric; Jeric + copies get the summary by email
         at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
                       f'data-oe-model="res.partner">@{html.escape(p["name"])}</a> ({html.escape(p["email"])})'
                       for p in people)
-        who = html.escape(f"{company or name} ({email or phone})")
-        details = "".join(f"<li>{html.escape(line)}</li>" for line in lines)
+        who = " &middot; ".join(html.escape(x) for x in (company, country) if x)
+        reach = " &middot; ".join(html.escape(x) for x in (email, phone) if x)
+        flag = f"<p><b>Looks like spam:</b> {html.escape(spam)}. Check before replying.</p>" if spam else ""
+        body = (f"<p>{at} New lead from the <b>{html.escape(form)}</b>. Please follow up.</p>{flag}"
+                f"<p><b>{html.escape(name or email)}</b>{' &middot; ' + who if who else ''}<br>{reach}</p>"
+                + as_html([(h, [r for r in rows if r[0] != "Country"]) for h, rows in groups]))  # country is up top
         rpc("crm.lead", "message_post", ids=[lead], partner_ids=list({p["id"] for p in people + copies}),
             message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
             context={"mail_notify_author": True},          # the copy goes to Rico, who is also the API user
-            body=f"<p>{at} New website lead from the {html.escape(form)}: {who}. Please follow up.</p><ul>{details}</ul>")
+            body=body)
     # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
     if SALESPERSON:
         try:
