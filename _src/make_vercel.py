@@ -198,19 +198,21 @@ def csp(hashes):
         # checked on 2026-09-26: they hold no Custom HTML tags, so no 'unsafe-inline'.
         "script-src 'self' " + " ".join(hashes) + " https://*.googletagmanager.com "
         "https://www.googleadservices.com https://googleads.g.doubleclick.net "
-        "https://www.google.com https://pagead2.googlesyndication.com",
+        "https://www.google.com https://pagead2.googlesyndication.com https://connect.facebook.net",
         # JS-built markup carries style="--i:n" stagger attributes, and the consent banner
         # is styled inline, so inline styles stay allowed
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
         "font-src 'self' https://fonts.gstatic.com",
         # odoocdn: official app screenshots on the Odoo pages;
         # i.ytimg: YouTube facade thumbnails; the rest: Google Analytics / Ads pixels
-        "img-src 'self' data: https://odoocdn.com https://i.ytimg.com "
+        "img-src 'self' data: https://odoocdn.com https://i.ytimg.com https://www.facebook.com "
         + " ".join(google_img),
         "connect-src 'self' https://*.google-analytics.com "
         "https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com "
         "https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net "
         "https://pagead2.googlesyndication.com https://www.googleadservices.com "
+        # Meta Pixel: fbevents.js from connect.facebook.net, hits to www.facebook.com/tr
+        "https://connect.facebook.net https://www.facebook.com "
         + " ".join(GOOGLE_REGIONAL),
         # 'self': /nexi shows the Nexi companion (nexi-app.html) in a same-origin frame
         "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net",

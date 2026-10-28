@@ -62,6 +62,7 @@
       var g = function () { window.dataLayer.push(arguments); };
       var v = granted ? 'granted' : 'denied';
       g('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
+      if (typeof window.fbq === 'function') window.fbq('consent', granted ? 'grant' : 'revoke');
     } catch (e) { /* consent plumbing must never break the page */ }
   }
 
@@ -111,7 +112,7 @@
     b.setAttribute('aria-label', 'Cookie notice');
     b.innerHTML =
       '<div class="tn-cc-text"><strong>Cookie notice</strong>' +
-      '<p>We use Google Analytics and Google Ads cookies to understand how the site is used and whether our ads work. ' +
+      '<p>We use Google Analytics, Google Ads and Meta Pixel cookies to understand how the site is used and whether our ads work. ' +
       'They are only set if you accept. See our <a href="/privacy">Privacy Policy</a>.</p></div>' +
       '<div class="tn-cc-actions">' +
       '<button type="button" id="tn-cookie-accept">Accept</button>' +

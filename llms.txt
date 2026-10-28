@@ -1,6 +1,6 @@
 # TechNext (TechNext Pte. Ltd., Singapore)
 
-Last updated: 2026-10-27
+Last updated: 2026-10-28
 
 > TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it (the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned separately (Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one); in Singapore, GST, and InvoiceNow with the Access Point the client chooses. We also build enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.
 

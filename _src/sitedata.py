@@ -480,4 +480,7 @@ TRACKING = {
     "ads": "AW-18068724830",
     # Google Ads "lead" conversion - fired on an accepted form submission (site.js)
     "ads_lead": "AW-18068724830/dBpuCLul3bQcEN6466dD",
+    # Meta Pixel = Events Manager dataset 1959782781295555 (business Technext 882421411244161), added 28 Oct 2026
+    # so the Facebook/Instagram ads can optimise for Lead instead of landing page views.
+    "meta_pixel": "1959782781295555",
 }
