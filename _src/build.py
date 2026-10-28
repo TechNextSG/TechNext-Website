@@ -2303,7 +2303,7 @@ def article_html(meta: dict, body: str) -> str:
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, builds your website and brand with it, and stays on after go-live, in Singapore and the Philippines. An adviser reviews your situation first.</p></div>
+      <div><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, can build your website and brand on it, and stays on after go-live, in Singapore and the Philippines. An adviser reviews your situation first.</p></div>
       <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a><a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
     </div>
   </div>
@@ -2696,7 +2696,7 @@ LLMS_GROUPS = [
                                                 "solutions/social-media", "solutions/brand-assets")),
     ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "bir-adviser-call", "get-started", "quotation", "nexi-explains", "nexi")),
+    ("Company", lambda u: u in ("", "company", "bir-adviser-call", "quotation", "nexi-explains", "nexi")),
     ("People (TechNext advisers and team)", lambda u: u.startswith("team/")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
