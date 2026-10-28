@@ -314,3 +314,16 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .fw-side--form .fw-form { margin: 0; }
 .fw-answer .fw-side { min-width: 0; }
 @media (min-width: 961px) { .fw-hero-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); } }
+
+/* /bir-call (Google Ads variant B, 28 Oct 2026): no BIR notice bar; on one-column screens the form follows the H1 straight away */
+.fw-fast .bn { display: none; }
+@media (max-width: 1000px) {
+  .fw-fast .fw-copy { display: contents; }
+  .fw-fast .fw-deadline { order: 1; }
+  .fw-fast .fw-hero-in > .fw-copy > h1 { order: 2; margin-bottom: 0; }
+  .fw-fast .fw-side--form { order: 3; }
+  .fw-fast .fw-hero-lead { order: 4; }
+  .fw-fast .fw-pick { order: 5; }
+  .fw-fast .fw-act { order: 6; }
+  .fw-fast .fw-hero-in { row-gap: 18px; }
+}

@@ -291,7 +291,7 @@
     var country = document.getElementById('gs-country'), pain = document.getElementById('gs-pain');
     function countryRule() {
       if (!country || !pain) return;
-      var ph = !country.value || country.value === 'Philippines';
+      var ph = (!country.value || country.value === 'Philippines') && !pain.hasAttribute('data-fw-optional');   // /bir-call keeps it optional
       pain.required = ph;
       var req = pain.closest('.field') && $('.fw-req', pain.closest('.field'));
       if (req) req.hidden = !ph;
