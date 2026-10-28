@@ -77,7 +77,7 @@ ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
-        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig"}
+        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -86,6 +86,8 @@ FAKE_COMPANY = re.compile(r"^[A-Z][a-z]+, [A-Z][a-z]+ and [A-Z][a-z]+$")
 
 _CONN = None  # one HTTPS connection to Odoo, reused while the instance is warm (no new TLS handshake per call)
 HOST = urllib.parse.urlsplit(ODOO).netloc
+TIMES = []    # this request's Odoo calls: [name, status, ms]; sent back only when the request asks (_timing)
+WARM = False  # False on the first request a fresh instance serves (a cold start)
 
 
 def rpc(model, method, **kw):
@@ -95,18 +97,22 @@ def rpc(model, method, **kw):
                "User-Agent": "technext-website-forms/1.0"}
     for wait in (1.5, 3, 0):                              # odoo.com answers bursts with 429: back off and retry
         for attempt in (1, 2):                            # Odoo may have closed the idle connection: reconnect once
+            t0 = time.monotonic()
             try:
                 if _CONN is None:
                     _CONN = http.client.HTTPSConnection(HOST, timeout=15)
                 _CONN.request("POST", f"/json/2/{model}/{method}", body, headers)
                 r = _CONN.getresponse()
                 data = r.read()
+                TIMES.append([f"{model}.{method}", r.status, round((time.monotonic() - t0) * 1000)])
                 break
             except (http.client.HTTPException, OSError):
+                TIMES.append([f"{model}.{method}", "reconnect", round((time.monotonic() - t0) * 1000)])
                 _CONN = None
                 if attempt == 2:
                     raise
         if r.status == 429 and wait:
+            TIMES.append(["sleep (429)", 0, round(wait * 1000)])
             time.sleep(wait)
             continue
         if r.status >= 400:
@@ -387,6 +393,9 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def _send(self, code, obj):
+        if getattr(self, "_timing", False):              # where the time went (diagnostics; no lead data in it)
+            obj = dict(obj, t={"cold": self._cold, "total_ms": round((time.monotonic() - self._t0) * 1000),
+                               "calls": list(TIMES)})
         body = json.dumps(obj).encode()
         self.send_response(code)
         self._cors()
@@ -398,6 +407,9 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.flush()
 
     def do_POST(self):
+        global WARM
+        self._t0, self._cold, WARM = time.monotonic(), not WARM, True
+        TIMES.clear()
         if self.headers.get("Origin", "") not in ORIGINS + CORS_ORIGINS:
             return self._send(403, {"ok": False, "error": "origin"})
         n = int(self.headers.get("Content-Length") or 0)
@@ -408,6 +420,7 @@ class handler(BaseHTTPRequestHandler):
             assert isinstance(p, dict)
         except Exception:
             return self._send(400, {"ok": False, "error": "json"})
+        self._timing = bool(p.get("_timing"))
         if p.get("_honey"):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
         if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", ""))) and not str(p.get("phone", "")).strip():
