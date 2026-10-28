@@ -20,7 +20,7 @@ Never "BIR-accredited", "compliant" or "certified" for software; no prices; Odoo
 """
 
 # 28 Oct 2026, owner: no more free website offer.
-OFFER = "An adviser checks your BIR group with you on a short call."
+OFFER = "The adviser call is free, with no obligation."
 
 NEEDS = [
     dict(key="covered", chip="Am I covered?", option="Not sure if we're covered",
