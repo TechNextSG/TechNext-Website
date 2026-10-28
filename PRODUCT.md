@@ -13,14 +13,14 @@ web
 
 ## Product Purpose
 
-technext.asia is TechNext Pte. Ltd.'s company website. It positions TechNext as a trusted expert adviser for ERP and government compliance and turns visitors into a **discovery call with an adviser** (Odoo booking calendar). Secondary routes: the inquiry form, the free website offer (/free-website-with-odoo, /get-started), the Services Catalogue.
+technext.asia is TechNext Pte. Ltd.'s company website. It positions TechNext as a trusted expert adviser for ERP and government compliance and turns visitors into a **discovery call with an adviser** (Odoo booking calendar). Secondary routes: the inquiry form, the BIR adviser call (/bir-adviser-call), the quotation builder, the Services Catalogue. The free website offer ended on 28 Oct 2026; /get-started and /free-website-with-odoo redirect to /bir-adviser-call.
 
 ## Positioning
 
 - Trusted expert adviser for ERP and compliance: we advise first, then our own experts implement (Singapore HQ, consulting/development hub in Taguig City, AI engineers in Ho Chi Minh City). Not just business vision: implementation, support after go-live, dedicated support on your team.
 - BIR compliance handled in your Odoo is the lead message for the Philippines.
 - Already delivered similar projects; can show the work.
-- Website and brand design come with your Odoo (word play; the client always pays their own Odoo subscription).
+- Website and brand design are services on quotation (no free website since 28 Oct 2026); the client always pays their own Odoo subscription.
 
 ## Operating Context
 

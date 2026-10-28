@@ -151,6 +151,8 @@ REDIRECTS = [
     ("/team/clement-kho", "/team/clement-koh"), ("/team/clement-kho.html", "/team/clement-koh"),
     # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
     ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
+    # 28 Oct 2026, owner: the free website offer ended; its /get-started lander goes to the adviser call
+    ("/get-started", "/bir-adviser-call"), ("/get-started/", "/bir-adviser-call"), ("/get-started.html", "/bir-adviser-call"),
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),
     ("/ai-automation-vietnam", "/solutions/ai-automation"), ("/ai-automation-vietnam/", "/solutions/ai-automation"),
     ("/about", "/company"), ("/about/", "/company"),

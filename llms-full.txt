@@ -18,7 +18,7 @@ Last updated: 2026-10-28
 ## Pages
 
 - https://technext.asia/ — Odoo for BIR Compliance in the Philippines: Odoo Ready Partner in Singapore with a team in Taguig City. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
-- https://technext.asia/bir-adviser-call — BIR E-Invoicing: Are You Covered? Website Free with Odoo: Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and your website and brand kit come with it.
+- https://technext.asia/bir-adviser-call — BIR E-Invoicing: Are You Covered? Talk to an Adviser: Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.
 - https://technext.asia/bir-cas — BIR CAS Set-Up in Odoo: Prepare for Your CAS Registration: Use Odoo as your BIR CAS or CBA: we set it up and prepare the sample printouts with you; you file at your RDO.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing and Odoo: Preparing for 31 Dec 2026: BIR e-invoicing and Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and what an EIS connection would need for your Odoo.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.
@@ -54,7 +54,6 @@ Last updated: 2026-10-28
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
 - https://technext.asia/company — About TechNext: Odoo Ready Partner, Singapore & Taguig: TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 90+ clients, 25+ countries.
-- https://technext.asia/get-started — Free website design and setup on Odoo — TechNext: We custom-design and set up your multi-page Odoo website, free. Live in as little as 3 days and ready for more Odoo apps. Singapore & the Philippines.
 - https://technext.asia/industries/construction — Odoo for Construction — Singapore & Philippines: Odoo for contractors and builders: job costing per project, subcontractor claims, retention and progress invoicing — implemented by TechNext, Odoo Partner.
 - https://technext.asia/industries/ecommerce — Odoo for Ecommerce — Singapore & Philippines: Odoo for online sellers: web and marketplace orders, fulfilment tied to real stock, payouts reconciled in Accounting. By TechNext, Odoo Partner.
 - https://technext.asia/industries/fnb — Odoo for F&B and Restaurants — Singapore & Philippines: Odoo for F&B: restaurant POS with kitchen display, recipes and food cost, central kitchen, purchasing and books per outlet — by TechNext, Odoo Partner.
@@ -134,7 +133,7 @@ Last updated: 2026-10-28
 - https://technext.asia/solutions/marketing — Website & Social Media Marketing for SMEs: Website and social media marketing for SMEs in Singapore and the Philippines: be easy to find and contact, without hiring your own marketing team.
 - https://technext.asia/solutions/odoo-erp — Odoo Implementation Philippines & Singapore: Odoo implementation by an Odoo Ready Partner: Accounting, Sales and Inventory set up for BIR or IRAS rules, data migrated, teams trained, supported.
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
-- https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM. Your website can come with your Odoo.
+- https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM.
 - https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
 - https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/clement-koh — Clement Koh, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
@@ -172,19 +171,7 @@ A new accounting system usually needs its own BIR registration. Check the detail
 
 Source: https://technext.asia/bir-adviser-call
 
-### Is the website really free?
-
-Yes. Start your Odoo with TechNext and your website and brand design come with it, set up by the same team. Your Odoo subscription stays in your company's name.
-
-Source: https://technext.asia/bir-adviser-call
-
-### We already have a website. Can we still join?
-
-Yes. We can rebuild it in Odoo with your current content, or keep your site and connect its forms to Odoo. We'll recommend the better option on the call, and say why.
-
-Source: https://technext.asia/bir-adviser-call
-
-### Who can claim it?
+### Who do you work with?
 
 Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.
 
@@ -1152,7 +1139,7 @@ Source: https://technext.asia/
 
 ### What does TechNext do?
 
-TechNext is an Odoo Ready Partner. Our own experts implement Odoo ERP end to end (discovery, configuration, migration, training and support), set up for BIR requirements in the Philippines and GST in Singapore. We also build enterprise AI on your Odoo data, and your website and brand come with your Odoo.
+TechNext is an Odoo Ready Partner. Our own experts implement Odoo ERP end to end (discovery, configuration, migration, training and support), set up for BIR requirements in the Philippines and GST in Singapore. We also build enterprise AI on your Odoo data, and design websites and brands on Odoo.
 
 Source: https://technext.asia/
 

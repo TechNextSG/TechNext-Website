@@ -10,7 +10,7 @@ Today / In Odoo pair and the live sample Odoo panel, and sets "Biggest BIR heada
   option   the form's "Biggest BIR headache" option (must match an <option> exactly)
   h1       the question hook (plain text, no markup)
   answer   the short answer under it (the <em> line)
-  lead     two sentences on what we do for this need (the website offer sentence is added after it, see OFFER)
+  lead     two sentences on what we do for this need (OFFER, a short adviser-call line, is added after it)
   today    the pain, one sentence
   odoo     the same thing in Odoo, one sentence
   panel    a PANEL-shaped dict for industry_fx.panel_markup(): sample data, labelled "Sample data" on screen
@@ -19,7 +19,8 @@ months, head office and every branch, micro taxpayers exempt, the 14 Sep 2026 ad
 Never "BIR-accredited", "compliant" or "certified" for software; no prices; Odoo is never free.
 """
 
-OFFER = "Start Odoo with TechNext and your website and brand kit come with it."
+# 28 Oct 2026, owner: no more free website offer.
+OFFER = "An adviser checks your BIR group with you on a short call."
 
 NEEDS = [
     dict(key="covered", chip="Am I covered?", option="Not sure if we're covered",
