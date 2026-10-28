@@ -122,6 +122,9 @@ def rpc(model, method, **kw):
 
 
 _IDS = {}  # tag / utm ids, kept while the function instance stays warm
+# creating a lead the normal way took ~8 s (timed 28 Oct): Odoo logs "Lead created", subscribes the API user and
+# sends follower mails inside the call. The lead, its notes and the @Jeric note are the same without them.
+QUIET = {"tracking_disable": True, "mail_create_nolog": True, "mail_create_nosubscribe": True, "mail_notrack": True}
 
 
 def find_or_create(model, name):
@@ -340,11 +343,11 @@ def make_lead(p):
                     subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
                 lead = found
             else:                                          # not visible to the API user: file it as a lead of its own
-                lead = rpc("crm.lead", "create", vals_list=[vals])[0]
+                lead = rpc("crm.lead", "create", vals_list=[vals], context=QUIET)[0]
             keep_typed(lead, name, phone)
             follow_up(lead, *info)
         return None, after
-    lead = rpc("crm.lead", "create", vals_list=[vals])[0]
+    lead = rpc("crm.lead", "create", vals_list=[vals], context=QUIET)[0]
 
     def after():
         keep_typed(lead, name, phone)
@@ -364,7 +367,8 @@ def follow_up(lead, form, groups, spam):
                 + as_html(flag + [g for g in groups if g[0] != "Full links"]))      # full links stay in the notes
         rpc("crm.lead", "message_post", ids=[lead], partner_ids=list({p["id"] for p in people + copies}),
             message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
-            context={"mail_notify_author": True},          # the copy goes to Rico, who is also the API user
+            context={"mail_notify_author": True,          # the copy goes to Rico, who is also the API user
+                     "mail_notify_force_send": False},  # emails go to the mail queue (~10 s saved, timed 28 Oct)
             body=body)
     # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
     if SALESPERSON:
