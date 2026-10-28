@@ -2357,7 +2357,9 @@ def tags_head(is_home: bool) -> str:
     24 Oct 2026). Events pushed before that (gtag(), dataLayer) wait in the queue and are sent when the scripts arrive.
     Internal traffic (27 Oct 2026): off technext.asia (localhost, Vercel previews) the scripts never load, so nothing
     reaches GA4/Ads; a team browser opened once with ?internal=1 (undo: ?internal=0) tags its hits traffic_type=internal,
-    which the GA4 "Internal Traffic" data filter drops."""
+    which the GA4 "Internal Traffic" data filter drops.
+    Meta Pixel (28 Oct 2026): queued like gtag and loaded with the same deferred scripts; held at consent 'revoke' until
+    the cookie notice is accepted (consent.js grants it), and never started in a browser flagged internal."""
     t = S.TRACKING
     ids = t["gtm"] + (t["gtm_home"] if is_home else [])
     srcs = ["https://www.googletagmanager.com/gtm.js?id=" + c for c in ids] + \
@@ -2367,7 +2369,12 @@ def tags_head(is_home: bool) -> str:
               "if(/[?&]internal=0(&|$)/.test(q))localStorage.removeItem('tn_internal');"
               "if(localStorage.getItem('tn_internal')==='1')tnC.traffic_type='internal'}catch(e){}"
               "gtag('js',new Date());gtag('config','" + t["ga4"] + "',tnC);gtag('config','" + t["ads"] + "');"
+              "!function(w){if(w.fbq)return;var n=w.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};"
+              "w._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window);"
+              "if(!tnC.traffic_type){fbq('consent',document.cookie.indexOf('tn_consent=yes')>-1?'grant':'revoke');"
+              "fbq('init','" + t["meta_pixel"] + "');fbq('track','PageView')}"
               "(function(){var done=!/(^|\\.)technext\\.asia$/.test(location.hostname),S=" + json.dumps(srcs) + ";"
+              "if(!tnC.traffic_type)S.push('https://connect.facebook.net/en_US/fbevents.js');"
               "function go(){if(done)return;done=true;"
               "dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
               "S.forEach(function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)});"

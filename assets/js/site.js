@@ -458,6 +458,7 @@
             window.gtag('event', 'conversion', { send_to: 'AW-18068724830/dBpuCLul3bQcEN6466dD' });
             window.gtag('event', 'generate_lead', { form: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
           }
+          if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
         } catch (e) { /* analytics must never break a submission */ }
         return res.j;
       });
@@ -571,6 +572,7 @@
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('[data-meet]');
   if (a && typeof window.gtag === 'function') window.gtag('event', 'book_meeting_click', { link: 'odoo_appointment' });
+  if (a && typeof window.fbq === 'function') window.fbq('trackCustom', 'BookMeetingClick', { link: 'odoo_appointment' });
 });
 
 /* ---------------- image fallbacks (replaces the generated inline onerror= handlers) ----------------
