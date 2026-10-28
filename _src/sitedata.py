@@ -27,7 +27,7 @@ CLIENTS = [
     ("HDH AG", "Dental &amp; medical OEM", "Switzerland"),
     ("Saymara B. Ryon", "Holistic coaching", "Romania"),
 ]
-DEFAULT_DESC = ("TechNext is an Odoo Ready Partner in Singapore and the Philippines: Odoo ERP implementation, Odoo set up "
+DEFAULT_DESC = ("TechNext is an Odoo Ready Partner in Singapore with a team in Taguig City: Odoo ERP implementation, Odoo set up "
                 "for BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP), Singapore GST and InvoiceNow, and enterprise AI.")
 
 # The four positioning pillars (used in structured data and the home "what we stand for" strip).

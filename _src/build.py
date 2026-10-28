@@ -517,8 +517,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "BIR multi-branch set-up in Odoo", "Philippine payroll BIR forms (1601-C, 2316, 1604-C)",
                            "BIR books of accounts (manual, loose-leaf, computerized)", "BIR Form 2551Q percentage tax",
                            "BIR tax calendar and filing deadlines", "Accounting software for BIR requirements (Philippines)",
-                           "Odoo Partner Philippines", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20"],
-            "keywords": "BIR compliance, Odoo Philippines, Odoo partner Philippines, Odoo partner Singapore, BIR CAS, CBA, "
+                           "Odoo implementation Philippines (BIR)", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20"],
+            "keywords": "BIR compliance, Odoo Philippines, Odoo implementation Philippines, Odoo partner Singapore, BIR CAS, CBA, "
                         "BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, Odoo ERP implementation, Odoo 20, "
                         "Singapore GST, InvoiceNow, enterprise AI",
         },
@@ -1958,9 +1958,9 @@ def app_page(mod: str) -> tuple:
     # Original copy only: the old description was odoo.com's own marketing text, which made
     # these pages near-duplicates of Odoo's.
     short = app["desc"].rstrip(".")
-    desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore and the Philippines. {short}. Set up for you."
+    desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}. Set up for you."
     if len(desc_meta) > 160:
-        desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore and the Philippines. {short}."
+        desc_meta = f"Odoo {name} implemented by TechNext, an Odoo Partner in Singapore. {short}."
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
@@ -2739,7 +2739,7 @@ def write_llms():
         "",
         "## Quick answers",
         "",
-        "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner with its main hub in Taguig City, "
+        "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main hub in Taguig City, "
         "sets Odoo up for BIR requirements: the books for the business's own CAS or CBA application with sample printouts, EOPT invoices, "
         "2307, SLSP, SAWT, QAP and 2550Q. The business files and registers with its RDO itself; TechNext prepares the Odoo outputs with it. "
         f"Details: {S.SITE_URL}bir-cas and {S.SITE_URL}odoo/philippines",
@@ -2747,7 +2747,7 @@ def write_llms():
         f"a business can register Odoo as its CAS or CBA. Guide: {S.SITE_URL}blog/bir-rules-for-your-accounting-system",
         "- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. "
         f"If a business is covered by RR 26-2025, TechNext assesses the options with it and quotes any connection separately. Guide: {S.SITE_URL}bir-e-invoicing",
-        "- Which Odoo partner covers both Singapore and the Philippines? TechNext: headquarters in Singapore (GST and InvoiceNow with the "
+        "- Who implements Odoo in both Singapore and the Philippines? TechNext, an Odoo Ready Partner in Singapore: headquarters in Singapore (GST and InvoiceNow with the "
         f"client's chosen Access Point), hub in Taguig City (BIR), AI engineering in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
         "- Is TechNext connected to the BIR? No. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency.",
         # 24 Oct 2026: the accounting and finance questions people ask AI assistants before choosing a system or partner

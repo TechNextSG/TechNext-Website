@@ -98,7 +98,7 @@ def page(p: dict, everyone: list) -> tuple:
     office_line = f'<p class="pf-office">{{{{icon:pin}}}}{office}</p>' if office else ""
     bio = esc(p.get("bio", ""))
     desc = (p.get("bio", "").split(". ")[0] + ".")[:155]
-    for tail in (f" {p['role']} at TechNext, an Odoo Ready Partner in the Philippines and Singapore.", f" {p['role']} at TechNext, an Odoo Ready Partner."):
+    for tail in (f" {p['role']} at TechNext, an Odoo Ready Partner in Singapore.", f" {p['role']} at TechNext, an Odoo Ready Partner."):
         if len(desc) < 110 and len(desc + tail) <= 158:   # search snippets: 110-160 characters
             desc += tail
             break
