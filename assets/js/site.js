@@ -444,6 +444,7 @@
       if (land && land !== p.page) p.landing = land;
       if (ref) p.referrer = ref;
     } catch (e) {}
+    p._split = 1;   // the lead is saved and answered first; the @Jeric note and emails follow as a second request
     return fetch(endpoint || '/api/lead', {
       method: 'POST', keepalive: true,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -452,6 +453,18 @@
             function () { return { ok: false, j: {} }; })
       .then(function (res) {
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
+        if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
+          var q = {};
+          Object.keys(p).forEach(function (k) { q[k] = p[k]; });
+          q._followup = res.j.lead; q._sig = res.j.f;
+          try {
+            fetch(endpoint || '/api/lead', {
+              method: 'POST', keepalive: true,
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify(q)
+            }).catch(function () {});
+          } catch (e) {}
+        }
         // Lead conversions fire only on a submission the CRM accepted.
         try {
           if (typeof window.gtag === 'function') {

@@ -12,6 +12,8 @@ lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS) with a short summary, an
 (hello@technext.asia) get it by email. Likely spam is tagged "Possible spam", never dropped. The Odoo API key
 lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
+import hashlib
+import hmac
 import html
 import http.client
 import json
@@ -75,7 +77,7 @@ ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
-        "company", "source", "need", "page", "landing", "referrer"}
+        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -271,7 +273,8 @@ def as_html(groups):
         f"<li><b>{html.escape(k)}:</b> {html.escape(v)}</li>" for k, v in rows) + "</ul>" for h, rows in groups if rows)
 
 
-def make_lead(p):
+def parse(p):
+    """The form's answers, worked out without calling Odoo (make_lead and the follow-up request both use it)."""
     name, email, company = (clean(p.get(k, ""), 200) for k in ("name", "email", "company"))
     country = clean(p.get("country", ""), 80)
     phone = phone_format(clean(p.get("phone", ""), 200), country)
@@ -282,6 +285,16 @@ def make_lead(p):
     groups, (src_name, med_name, campaign) = summary(p, form, contact)
     need = re.sub(r"^Need:\s*", "", clean(p.get("bir_pain") or p.get("topic") or "", 60))
     spam = spam_reason(p, name, email, company)
+    return name, email, company, country, phone, form, groups, src_name, med_name, campaign, need, spam
+
+
+def sign(lead):
+    """Proof that this server filed the lead, so only the visitor's own follow-up request can add the note."""
+    return hmac.new(KEY.encode(), f"lead:{lead}".encode(), hashlib.sha256).hexdigest()[:32]
+
+
+def make_lead(p):
+    name, email, company, country, phone, form, groups, src_name, med_name, campaign, need, spam = parse(p)
     title = " - ".join(x for x in (SHORT.get(form, form), need[:60], company or name or email) if x)
     # one at a time: parallel calls trip odoo.com's rate limit (429)
     tags = [find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)]
@@ -401,11 +414,30 @@ class handler(BaseHTTPRequestHandler):
             return self._send(400, {"ok": False, "error": "contact"})
         if not KEY:
             return self._send(503, {"ok": False, "error": "not configured"})
+        if p.get("_followup"):                             # step 2 of a split submit: the @Jeric note, emails, typed name
+            try:
+                lead = int(p["_followup"])
+            except (TypeError, ValueError):
+                return self._send(400, {"ok": False, "error": "lead"})
+            if not hmac.compare_digest(str(p.get("_sig", "")), sign(lead)):
+                return self._send(403, {"ok": False, "error": "sig"})
+            name, _, _, _, phone, form, groups, _, _, _, _, spam = parse(p)
+            try:
+                keep_typed(lead, name, phone)
+                follow_up(lead, form, groups, spam)
+            except Exception as e:
+                print("odoo follow-up failed:", repr(e)[:500])
+                return self._send(502, {"ok": False, "error": "crm"})
+            return self._send(200, {"ok": True})
         try:
             lead, after = make_lead(p)
         except Exception as e:                             # the visitor is shown sales@technext.asia to email instead
             print("odoo lead failed:", repr(e)[:500])
             return self._send(502, {"ok": False, "error": "crm"})
+        if lead and p.get("_split"):
+            # Vercel only sends the reply once this function returns, so the note and emails (several seconds)
+            # would keep the visitor on "Sending...". site.js sends them as a second request instead.
+            return self._send(200, {"ok": True, "lead": lead, "f": sign(lead)})
         self._send(200, {"ok": True, "lead": lead})        # the lead is saved: thank the visitor now
         try:
             after()
