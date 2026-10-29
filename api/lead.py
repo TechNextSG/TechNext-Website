@@ -77,7 +77,8 @@ ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
-        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing"}
+        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
+        "_eid", "_fbc", "_fbp", "_consent"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -297,6 +298,41 @@ def parse(p):
     return name, email, company, country, phone, form, groups, src_name, med_name, campaign, need, spam
 
 
+# Meta Conversions API: the booking page (technext.odoo.com) fires the browser Lead only after cookie consent, so the
+# server sends the same Lead too (same event_id = Meta counts it once). Only requests that carry "_eid" (the booking
+# page) are sent; hashed email/phone only with cookie consent, otherwise just the ad click id (fbc) + IP/UA.
+# Off until META_CAPI_TOKEN (Events Manager > dataset > Settings > Conversions API > Generate access token) is set.
+CAPI_PIXEL = os.environ.get("META_PIXEL_ID", "1959782781295555")
+CAPI_TOKEN = os.environ.get("META_CAPI_TOKEN", "")
+
+
+def capi_lead(p, email, phone, ip, ua):
+    eid = clean(p.get("_eid", ""), 80)
+    if not (CAPI_TOKEN and eid):
+        return
+    sha = lambda v: hashlib.sha256(v.strip().lower().encode()).hexdigest()
+    user = {"client_ip_address": ip[:64], "client_user_agent": ua[:400]}
+    fbc = clean(p.get("_fbc", ""), 300)
+    if re.match(r"fb\.1\.\d+\.[\w-]+$", fbc):
+        user["fbc"] = fbc
+    if p.get("_consent") == "yes":
+        if email:
+            user["em"] = [sha(email)]
+        digits = re.sub(r"\D", "", phone or "")
+        if digits:
+            user["ph"] = [sha("63" + digits[1:] if digits.startswith("0") else digits)]
+        if re.match(r"fb\.1\.\d+\.\d+$", clean(p.get("_fbp", ""), 80)):
+            user["fbp"] = p["_fbp"]
+    event = {"event_name": "Lead", "event_time": int(time.time()), "event_id": eid, "action_source": "website",
+             "event_source_url": clean(p.get("page", ""), 600), "user_data": user,
+             "custom_data": {"content_name": clean(p.get("source", ""), 80)}}
+    body = urllib.parse.urlencode({"data": json.dumps([event]), "access_token": CAPI_TOKEN}).encode()
+    try:
+        urllib.request.urlopen(f"https://graph.facebook.com/v21.0/{CAPI_PIXEL}/events", data=body, timeout=4).read()
+    except Exception as e:                                 # measurement only: never blocks the lead
+        print("capi failed:", repr(e)[:300])
+
+
 def sign(lead):
     """Proof that this server filed the lead, so only the visitor's own follow-up request can add the note."""
     return hmac.new(KEY.encode(), f"lead:{lead}".encode(), hashlib.sha256).hexdigest()[:32]
@@ -456,6 +492,8 @@ class handler(BaseHTTPRequestHandler):
             # would keep the visitor on "Sending...". site.js sends them as a second request instead.
             return self._send(200, {"ok": True, "lead": lead, "f": sign(lead)})
         self._send(200, {"ok": True, "lead": lead})        # the lead is saved: thank the visitor now
+        ip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
+        capi_lead(p, clean(p.get("email", ""), 200), clean(p.get("phone", ""), 60), ip, self.headers.get("User-Agent", ""))
         try:
             after()
         except Exception as e:                             # the lead exists; only the note / emails are missing
