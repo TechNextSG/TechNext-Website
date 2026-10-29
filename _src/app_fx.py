@@ -5,7 +5,7 @@ animated glass posting ledgers (same facts the world sections carried), the Phil
 Styles: assets/css/pages/apps-fx.css. Behaviour: assets/js/pages/apps-fx.js. Tokens ({{icon:x}}, {{odoo:m:n}}, {{ROOT}})
 are expanded by build.render()."""
 
-MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
+MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" '
         'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
 MEET_WHITE = MEET.replace("btn btn-primary btn-lg", "btn btn-white btn-lg")
 
