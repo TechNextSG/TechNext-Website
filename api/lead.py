@@ -67,7 +67,7 @@ LABELS = {"name": "Name", "company": "Company", "email": "Work email", "phone": 
           "cas_status": "Registered for CAS or CBA", "country": "Country", "consent": "Privacy consent"}
 FORM_LABELS = {
     "BIR adviser call": {"name": "Full name", "phone": "Mobile number",
-                         "message": "How do you invoice and keep your books today?"},
+                         "message": "Message"},
     "Free website offer (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"message": "Anything else"},
 }

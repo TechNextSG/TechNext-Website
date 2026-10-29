@@ -298,12 +298,28 @@
       if (!ph) mark(pain, false);
     }
     if (country) { if (!country.value) country.value = 'Philippines'; country.addEventListener('change', countryRule); countryRule(); }
+    /* data-fw-one-contact (/bir-adviser-call, 29 Oct 2026: no field is compulsory): only an email or a mobile number is
+       needed, so an adviser can reply; /api/lead refuses a lead with neither */
+    var em = document.getElementById('gs-email'), ph = document.getElementById('gs-phone');
+    var oneContact = form.hasAttribute('data-fw-one-contact') && em && ph;
+    function noContact() {
+      if (!oneContact || em.value.trim() || ph.value.trim()) return false;
+      var f = em.closest('.field'), e = errEl(em);
+      if (f) f.classList.add('is-err');
+      em.setAttribute('aria-invalid', 'true');
+      if (e) { e.textContent = 'Please add an email or a mobile number so an adviser can reply.'; e.hidden = false; }
+      return true;
+    }
+    if (oneContact) form.addEventListener('input', function (e) {
+      if ((e.target === em || e.target === ph) && e.target.value.trim() && em.checkValidity()) mark(em, false);
+    });
     /* Send: every step is checked first (runs before the site's form handler, which posts to /api/lead) */
     form.addEventListener('submit', function (e) {
       for (var i = 0; i < steps.length; i++) {
         var bad = check(steps[i]);
         if (bad) { e.preventDefault(); e.stopImmediatePropagation(); go(i + 1, false); bad.focus(); return; }
       }
+      if (noContact()) { e.preventDefault(); e.stopImmediatePropagation(); em.focus(); }
     }, true);
     go(1, false);
   }
