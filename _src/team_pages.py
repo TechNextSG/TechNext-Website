@@ -16,7 +16,7 @@ import re as _re
 import advisors as ADV
 import team as TM
 
-BOOK = "https://technext.odoo.com/book/c82cf8a9"
+BOOK = "https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&"
 
 
 def esc(t: str) -> str:

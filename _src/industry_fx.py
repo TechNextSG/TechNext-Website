@@ -15,7 +15,7 @@ import html as _html
 
 import industries as IX
 
-MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">'
+MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" target="_blank" rel="noopener">'
         'Book a discovery call {{icon:arrow}}</a>')
 QUOTE = '<a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>'
 
