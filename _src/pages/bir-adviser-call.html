@@ -1,6 +1,6 @@
-<!--meta {"title": "BIR E-Invoicing: Are You Covered? Talk to an Adviser", "desc": "Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "BIR E-Invoicing: Are You Covered? Talk to an Adviser", "desc": "Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js", "assets/js/team-cards.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/free-website-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/team-cards.css?v={ASSET_V}\">"} -->
 <!-- /bir-adviser-call (was /bir-adviser-call until 23 Oct 2026; 22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
-     The H1 is a question. Picking a need ("What do you need most?") swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
+     The H1 is a question. The need (chips + form select removed 29 Oct 2026, owner) swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
      sample Odoo panel in place, and sets the form's "Biggest BIR headache". ?need=<key> opens the page on that need (ads link to it).
      Copy, panel data and the form options come from _src/fw_needs.py (the FW_NEEDS_* tokens, rendered for the default need); behaviour:
      assets/js/pages/fw-needs.js (no inline script here). Styles: assets/css/pages/free-website-fx.css on get-started-fx.css, industry-fx.css (the panel) and home-fx.css. -->
@@ -13,10 +13,6 @@
       <p class="fw-deadline">{{icon:calendar}}<span data-fw-dl-static>BIR e-invoicing deadline: 31 December 2026</span><span data-fw-dl-live hidden><b data-fw-days>&hellip;</b> <span data-fw-days-word>days</span> to the BIR e-invoicing deadline, 31 December 2026</span></p>
       <h1 id="fw-h1" data-fw="h1"><span class="fw-q">{{FW_NEEDS_H1}}</span> <em data-fw="answer">{{FW_NEEDS_ANSWER}}</em></h1>
       <p class="lead fw-hero-lead"><span data-fw="lead">{{FW_NEEDS_LEAD}}</span> <span class="fw-offer">{{FW_NEEDS_OFFER}}</span></p>
-      <fieldset class="fw-pick">
-        <legend>What do you need most?</legend>
-        <div class="fx-chips">{{FW_NEEDS_CHIPS}}</div>
-      </fieldset>
       <div class="actions fw-act">
         <a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
       </div>
@@ -24,7 +20,7 @@
     </div>
 
     <div class="fw-side fw-side--form" id="book"><span id="claim" aria-hidden="true"></span>
-  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-fw-one-contact>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="BIR adviser call">
@@ -36,18 +32,14 @@
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
         <div class="form-row">
-          <div class="field"><label for="gs-name">Full name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-name" name="name" type="text" required autocomplete="name" aria-describedby="gs-name-err" data-err="Please enter your name."><p class="fw-err" id="gs-name-err" hidden></p></div>
-          <div class="field"><label for="gs-company">Company <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" required autocomplete="organization" aria-describedby="gs-company-err" data-err="Please enter your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
+          <div class="field"><label for="gs-name">Full name</label><input id="gs-name" name="name" type="text" autocomplete="name"></div>
+          <div class="field"><label for="gs-company">Company</label><input id="gs-company" name="company" type="text" autocomplete="organization"></div>
         </div>
         <div class="form-row">
-          <div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please enter an email we can reply to, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
-          <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please enter a number we can call, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
+          <div class="field"><label for="gs-email">Work email</label><input id="gs-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
+          <div class="field"><label for="gs-phone">Mobile number</label><input id="gs-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please check the number, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
-        <div class="form-row">
-          <div class="field"><label for="gs-country">Country <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-country" name="country" required aria-describedby="gs-country-err" data-err="Please choose a country."><option value="">Choose one</option><option>Philippines</option><option>Singapore</option><option>Vietnam</option><option>Other</option></select><p class="fw-err" id="gs-country-err" hidden></p></div>
-          <div class="field"><label for="gs-pain">What do you need most? <span class="fw-req" aria-hidden="true">*</span></label><select id="gs-pain" name="bir_pain" required data-fw-pain aria-describedby="gs-pain-err" data-err="Please choose what you need most.">{{FW_NEEDS_OPTIONS}}</select><p class="fw-err" id="gs-pain-err" hidden></p></div>
-        </div>
-        <div class="field"><label for="gs-msg">How do you invoice and keep your books today? <span class="opt">(optional)</span></label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel for 2307s, 2 branches"></textarea></div>
+        <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel for 2307s, 2 branches"></textarea></div>
       </fieldset>
       <div class="form-foot">
         <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Book my free adviser call</span><span class="btn-busy" aria-hidden="true"></span></button>
@@ -59,6 +51,9 @@
     </div>
   </div>
 </section>
+
+<!-- ============================================================ THE EXPERTS (owner 29 Oct 2026: RJ, Astroneil, Jeric; the home section's three BIR-ranked cards) -->
+{{ADVISOR_CARDS}}
 
 <!-- ============================================================ IN ODOO: the live sample panel follows the picked need -->
 <section class="section fx-sec fx-sec--alt fw-claim fw-answer" id="in-odoo" aria-labelledby="fw-ans-h">
@@ -141,17 +136,17 @@
   </div>
 </section>
 
-<!-- ============================================================ ODOO 20 vs WHAT WE ADD -->
+<!-- ============================================================ ODOO vs WHAT WE ADD -->
 <section class="section fx-sec fw-o20-sec" aria-labelledby="fw-o20-h">
   <div class="container fw-split">
     <div class="fw-split-copy reveal">
-      <h2 id="fw-o20-h">What does Odoo 20 already do for BIR?</h2>
+      <h2 id="fw-o20-h">What does Odoo already do for BIR?</h2>
       <p class="lead">The Philippine localisation produces your BIR reports from the entries you post. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one.</p>
       <p class="fw-links"><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports from Odoo {{icon:arrow}}</a></p>
     </div>
     <div class="fw-cols reveal">
       <div class="fw-colcard">
-        <h3>{{odoo:accountant:28}} In Odoo 20</h3>
+        <h3>{{odoo:accountant:28}} In Odoo</h3>
         <ul class="fw-list">
           <li>{{icon:check}} Invoices set up for BIR and CAS requirements, and a Book of Accounts for CAS and CBA</li>
           <li>{{icon:check}} BIR 2306 and 2307 certificates, generated on vendor bills</li>
@@ -278,7 +273,7 @@
     <div class="faq reveal">
       <details><summary>What is the BIR e-invoicing deadline? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.</p></div></details>
       <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, assess the EIS connection separately, and prepare with you the process flow and sample outputs for the PTI you file.</p></div></details>
-      <details><summary>Can Odoo produce our 2307s, SLSP, SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.</p></div></details>
+      <details><summary>Can Odoo produce our 2307s, SLSP, SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.</p></div></details>
       <details><summary>We already have a CAS permit for our current system. What happens? {{icon:chevron}}</summary><div class="faq-a"><p>A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.</p></div></details>
       <details><summary>Who do you work with? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.</p></div></details>
     </div>

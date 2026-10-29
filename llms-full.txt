@@ -1,6 +1,6 @@
 # TechNext — full reference
 
-Last updated: 2026-10-28
+Last updated: 2026-10-29
 
 > TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 40+ years of excellence; 90+ enterprise clients in 25+ countries.
 
@@ -161,7 +161,7 @@ Source: https://technext.asia/bir-adviser-call
 
 ### Can Odoo produce our 2307s, SLSP, SAWT and QAP?
 
-Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
+Yes. Odoo's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
 
 Source: https://technext.asia/bir-adviser-call
 
