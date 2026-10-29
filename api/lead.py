@@ -44,18 +44,18 @@ EMAIL_HINT = re.compile(r"e-?mail|newsletter|brevo|sendinblue|mailchimp|sendibm|
 SOCIAL = (("facebook", "Facebook"), ("fb.", "Facebook"), ("instagram", "Instagram"), ("linkedin", "LinkedIn"),
           ("lnkd.in", "LinkedIn"), ("youtube", "YouTube"), ("youtu.be", "YouTube"))
 
-# form "source" field (or the page) -> form name, used for the tag "Web form: <name>" and the lead title
+# form "source" field (or the page) -> form name (no free website offer since 28 Oct 2026: old copies are "Retired offer page"), used for the tag "Web form: <name>" and the lead title
 FORMS = [
     ("bir", "BIR adviser call"),                   # older copies of the page still say "Free website with Odoo page (BIR)"
     ("quotation", "Quotation builder"),
-    ("get started", "Free website offer (/get-started)"),
-    ("free website", "Free website offer (/free-website-with-odoo)"),
+    ("get started", "Retired offer page (/get-started)"),
+    ("free website", "Retired offer page (/free-website-with-odoo)"),
     ("contact", "Contact page"),
     ("let's talk", "Let's Talk panel"),
     ("discovery call", "Discovery call booking"),
 ]
-SHORT = {"Free website offer (/get-started)": "Free website offer", "Let's Talk panel": "Let's Talk",
-         "Free website offer (/free-website-with-odoo)": "Free website offer", "Quotation builder": "Quotation"}
+SHORT = {"Retired offer page (/get-started)": "Retired offer page", "Let's Talk panel": "Let's Talk",
+         "Retired offer page (/free-website-with-odoo)": "Retired offer page", "Quotation builder": "Quotation"}
 # each answer is shown as "<the form's question>: <answer>"; FORM_LABELS has the wording a form asks differently
 LABELS = {"name": "Name", "company": "Company", "email": "Work email", "phone": "Phone",
           "topic": "I'm interested in", "bir_pain": "What do you need most?", "message": "Message",
@@ -68,7 +68,7 @@ LABELS = {"name": "Name", "company": "Company", "email": "Work email", "phone": 
 FORM_LABELS = {
     "BIR adviser call": {"name": "Full name", "phone": "Mobile number",
                          "message": "Message"},
-    "Free website offer (/get-started)": {"topic": "I want", "message": "Your current website"},
+    "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"message": "Anything else"},
 }
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",

@@ -97,7 +97,12 @@ def page(p: dict, everyone: list) -> tuple:
         for k, o in enumerate(others))
     office_line = f'<p class="pf-office">{{{{icon:pin}}}}{office}</p>' if office else ""
     bio = esc(p.get("bio", ""))
-    desc = (p.get("bio", "").split(". ")[0] + ".")[:155]
+    desc = ""
+    for sentence in p.get("bio", "").split(". "):  # whole sentences up to 155 chars, so short first lines aren't thin
+        nxt = (desc + " " + sentence.rstrip(".") + ".").strip()
+        if desc and len(nxt) > 155:
+            break
+        desc = nxt[:155]
     for tail in (f" {p['role']} at TechNext, an Odoo Ready Partner in Singapore.", f" {p['role']} at TechNext, an Odoo Ready Partner."):
         if len(desc) < 110 and len(desc + tail) <= 158:   # search snippets: 110-160 characters
             desc += tail
