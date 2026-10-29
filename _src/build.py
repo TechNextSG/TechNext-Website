@@ -1031,7 +1031,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
       <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, with Odoo set up for BIR requirements in the Philippines and GST in Singapore.</p>
     </div>
     <div class="who-grid">
-      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
@@ -1088,7 +1088,7 @@ def advisor_cards_html() -> str:
                      f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
                      f'{link_html}</article>')
     more_act = ('<div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{ROOT}}employee-hub.html">{{icon:users}}Meet the whole team {{icon:arrow}}</a>'
-                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" target="_blank" rel="noopener">Book a discovery call</a></div>')
+                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a></div>')
     note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'
             if preview else "")
     return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
@@ -1606,7 +1606,7 @@ def world_flow_html(key: str) -> str:
 
 
 # ---------------------------------------------------------------- BIR block (money pages)
-BIR_MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" '
+BIR_MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
             'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
 BIR_POST = {"medical": "bir-multi-branch-odoo", "travel": "expanded-withholding-tax-atc-codes-odoo",
             "retail": "eopt-invoice-requirements-odoo", "ecommerce": "eopt-invoice-requirements-odoo",
@@ -2304,7 +2304,7 @@ def article_html(meta: dict, body: str) -> str:
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, can build your website and brand on it, and stays on after go-live, in Singapore and the Philippines. An adviser reviews your situation first.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/appointment/discovery-call-with-technext-2?invite_token=914012541b1242c1ae832faa66a6efdc&filter_appointment_type_ids=%5B2%5D&" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a><a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
+      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a><a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
     </div>
   </div>
 </section>'''
