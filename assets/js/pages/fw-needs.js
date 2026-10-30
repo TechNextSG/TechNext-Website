@@ -235,7 +235,7 @@
       var f = el.closest('.field'), e = errEl(el);
       if (f) f.classList.toggle('is-err', bad);
       if (bad) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
-      if (e) { e.textContent = bad ? (el.getAttribute('data-err') || el.validationMessage) : ''; e.hidden = !bad; }
+      if (e) { e.textContent = bad ? ((el.validity.valueMissing && el.getAttribute('data-missing')) || el.getAttribute('data-err') || el.validationMessage) : ''; e.hidden = !bad; }
     }
     function check(step) {
       var first = null;
@@ -298,7 +298,7 @@
       if (!ph) mark(pain, false);
     }
     if (country) { if (!country.value) country.value = 'Philippines'; country.addEventListener('change', countryRule); countryRule(); }
-    /* data-fw-one-contact (/bir-adviser-call, 29 Oct 2026: no field is compulsory): only an email or a mobile number is
+    /* data-fw-one-contact (was on /bir-adviser-call 29 Oct 2026; since 30 Oct company, email and mobile are all required there): only an email or a mobile number is
        needed, so an adviser can reply; /api/lead refuses a lead with neither */
     var em = document.getElementById('gs-email'), ph = document.getElementById('gs-phone');
     var oneContact = form.hasAttribute('data-fw-one-contact') && em && ph;

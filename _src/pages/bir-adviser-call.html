@@ -20,7 +20,7 @@
     </div>
 
     <div class="fw-side fw-side--form" id="book"><span id="claim" aria-hidden="true"></span>
-  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-fw-one-contact>
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="BIR adviser call">
@@ -33,11 +33,11 @@
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
         <div class="form-row">
           <div class="field"><label for="gs-name">Full name</label><input id="gs-name" name="name" type="text" autocomplete="name"></div>
-          <div class="field"><label for="gs-company">Company</label><input id="gs-company" name="company" type="text" autocomplete="organization"></div>
+          <div class="field"><label for="gs-company">Company <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
         <div class="form-row">
-          <div class="field"><label for="gs-email">Work email</label><input id="gs-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
-          <div class="field"><label for="gs-phone">Mobile number</label><input id="gs-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please check the number, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
+          <div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required data-missing="Please add your work email." autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
+          <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please check the number, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
         <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel for 2307s, 2 branches"></textarea></div>
       </fieldset>
