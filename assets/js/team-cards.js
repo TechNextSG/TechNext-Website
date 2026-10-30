@@ -104,7 +104,7 @@
     var main = src.querySelector('.tm-qv-main'), act = src.querySelector('.tm-qv-act');
     body.replaceChildren(main); foot.replaceChildren(act || document.createTextNode(''));
     var h = body.querySelector('h2'); if (h) h.id = 'tm-qv-title';
-    count.innerHTML = '';                                                                     // "Astroneil Matan, 2 of 6" for screen readers
+    count.innerHTML = '';                                                                     // "Neil Matan, 2 of 6" for screen readers
     var who = document.createElement('span'); who.className = 'sr-only'; who.textContent = (h ? h.textContent : '') + ', ';
     count.appendChild(who); count.appendChild(document.createTextNode((i + 1) + ' of ' + list.length));
     body.scrollTop = 0; cur = i;

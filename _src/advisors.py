@@ -40,16 +40,16 @@ ADVISORS = [
          ("Strategy deployment & operational excellence", ["Turning corporate objectives into operating plans", "Accountability systems", "Workflow design", "Measurable outcomes"]),
          ("Corporate governance & management systems", ["Management frameworks", "Decision-making structures", "Organisational accountability", "Business performance systems"]),
      ]},
-    {"name": "Astroneil Matan", "role": "Senior Functional Lead", "bir_rank": 2,
+    {"name": "Neil Matan", "role": "Senior Functional Lead", "bir_rank": 2,
      "bir": ["Local tax set-up in ERP roll-outs", "Multi-tax, multi-entity reporting", "Built an HR and payroll system with statutory rules", "Built and rolled out a point-of-sale (POS) system"], "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
-     "summary": "Astroneil has led ERP projects for 80+ companies over 24 years, ten of them on Odoo.",
-     "bio": "Astroneil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo. Astroneil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Astroneil about moving off another ERP without losing your history.",
+     "summary": "Neil has moved 80+ companies onto ERP and CRM over 24 years, ten of them on Odoo, from discovery to go-live.",
+     "bio": "Neil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo. Neil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Neil about moving off another ERP without losing your history.",
      # Profile page only (owner 30 Oct: "make it detailed"). From the résumé: no employer or client names, no personal data.
      "about": [
-         "Astroneil holds a computer science degree on top of a business one, and has worked on both sides of every project since: the finance and operations people who use the system, and the developers who build it. That is why discovery workshops with Astroneil end with a process map your accountants recognise, not a feature list.",
-         "For ten years Astroneil co-founded and ran an ERP consultancy as President and CTO, leading pre-sales, scoping, solution design and delivery teams across Acumatica, Odoo, SAP, Oracle and Microsoft Dynamics. The same company built its own point-of-sale system, an HR and payroll system and a core banking and lending platform.",
-         "Since then Astroneil has run global roll-outs of SAP S/4HANA, Dynamics 365, Salesforce and ServiceNow, led core banking integrations under BSP, SOX and AMLC rules, served as a CTO, and headed delivery for NetSuite and Acumatica programmes. Each roll-out meant setting up local tax, currency, language and multi-entity reporting, and moving years of legacy data across intact.",
-         "Outside work Astroneil has served the Rotary Club of Metro Antipolo since 2017, as a director and as president from 2022 to 2024.",
+         "Neil holds a computer science degree on top of a business one, and has worked on both sides of every project since: the finance and operations people who use the system, and the developers who build it. That is why discovery workshops with Neil end with a process map your accountants recognise, not a feature list.",
+         "For ten years Neil co-founded and ran an ERP consultancy as President and CTO, leading pre-sales, scoping, solution design and delivery teams across Acumatica, Odoo, SAP, Oracle and Microsoft Dynamics. The same company built its own point-of-sale system, an HR and payroll system and a core banking and lending platform.",
+         "Since then Neil has run global roll-outs of SAP S/4HANA, Dynamics 365, Salesforce and ServiceNow, led core banking integrations under BSP, SOX and AMLC rules, served as a CTO, and headed delivery for NetSuite and Acumatica programmes. Each roll-out meant setting up local tax, currency, language and multi-entity reporting, and moving years of legacy data across intact.",
+         "Outside work Neil has served the Rotary Club of Metro Antipolo since 2017, as a director and as president from 2022 to 2024.",
      ],
      "career": [
          ("Now", "Senior Functional Lead, TechNext", "Leads Odoo discovery, process design, data migration and local tax set-up for clients in the Philippines."),
