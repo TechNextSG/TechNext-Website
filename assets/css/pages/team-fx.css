@@ -73,3 +73,18 @@
 .tp-group:has(.pf-skills--bir) { background: linear-gradient(180deg, rgba(232,245,238,.95), rgba(255,255,255,.85)); border-color: rgba(19,122,74,.25); }
 .tp-group:has(.pf-skills--bir) h3 { color: #0F5C38; }
 .tp-group:has(.pf-skills--bir) h3 span { background: #fff; color: #0F5C38; }
+
+/* ---------------------------------------------------------------- optional detail: about + career timeline, selected projects */
+.tp-story { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.tp-about p { margin: 0 0 18px; max-width: 64ch; font-size: 17px; line-height: 1.65; color: var(--body); }
+.tp-about p:first-child { font-size: 18.5px; color: var(--ink); }
+.tp-time { position: relative; margin: 0; padding: 0 0 0 26px; list-style: none; }
+.tp-time::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: linear-gradient(180deg, var(--blue), var(--blue-050)); }
+.tp-time li { position: relative; margin: 0 0 14px; padding: 16px 18px; border-radius: 18px; background: var(--fx-glass); border: 1px solid var(--fx-edge); box-shadow: var(--fx-depth); }
+.tp-time li::before { content: ""; position: absolute; left: -26px; top: 22px; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--blue); }
+.tp-time li:first-child::before { background: var(--blue); }
+.tp-when { display: inline-block; margin-bottom: 6px; padding: 4px 9px; border-radius: 999px; background: var(--blue-050); font: 700 12.5px/1 var(--font-body); color: var(--blue-700); font-variant-numeric: tabular-nums; }
+.tp-time b { display: block; font: 800 16px/1.3 var(--font-display); color: var(--ink); }
+.tp-time p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+@media (max-width: 960px) { .tp-story { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 600px) { .tp-about p, .tp-about p:first-child { font-size: 16px; } .tp-time li { padding: 14px 15px; } }

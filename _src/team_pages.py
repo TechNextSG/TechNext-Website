@@ -96,6 +96,39 @@ def page(p: dict, everyone: list) -> tuple:
         f'<span><b>{esc(o["name"])}</b><small>{esc(o["role"])}</small></span>{{{{icon:arrow}}}}</a>'
         for k, o in enumerate(others))
     office_line = f'<p class="pf-office">{{{{icon:pin}}}}{office}</p>' if office else ""
+    # optional detail sections (about + career, projects): only people whose entry has them
+    story = ""
+    if p.get("about") or p.get("career"):
+        paras = "".join(f"<p>{esc(t)}</p>" for t in p.get("about") or [])
+        steps = "".join(
+            f'<li class="reveal" style="--i:{k % 6}"><span class="tp-when">{esc(when)}</span><b>{esc(what)}</b><p>{esc(note)}</p></li>'
+            for k, (when, what, note) in enumerate(p.get("career") or []))
+        story = f'''
+<section class="section fx-sec tp-story-sec" id="tp-story" aria-labelledby="tp-story-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="tp-story-h">About {esc(first)}.</h2><p class="lead">How {esc(first)} works, and where the experience comes from.</p></div>
+    <div class="tp-story">
+      {f'<div class="tp-about reveal">{paras}</div>' if paras else ""}
+      {f'<ol class="tp-time" aria-label="Career">{steps}</ol>' if steps else ""}
+    </div>
+  </div>
+</section>
+'''
+    projects = ""
+    if p.get("projects"):
+        n = sum(len(i) for _, i in p["projects"])
+        cards = "".join(
+            f'<article class="tp-group reveal" style="--i:{k % 6}"><h3>{esc(lab)}<span>{len(items)}</span></h3>'
+            f'<ul class="pf-skills tp-proj">{"".join(f"<li>{esc(i)}</li>" for i in items)}</ul></article>'
+            for k, (lab, items) in enumerate(p["projects"]))
+        projects = f'''
+<section class="section fx-sec fx-sec--alt tp-proj-sec" id="tp-projects" aria-labelledby="tp-proj-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="tp-proj-h">Selected projects.</h2><p class="lead">{n} implementations, migrations and builds {esc(first)} has delivered, end to end. Client names stay private.</p></div>
+    <div class="tp-groups">{cards}</div>
+  </div>
+</section>
+'''
     bio = esc(p.get("bio", ""))
     desc = ""
     for sentence in p.get("bio", "").split(". "):  # whole sentences up to 155 chars, so short first lines aren't thin
@@ -132,14 +165,14 @@ def page(p: dict, everyone: list) -> tuple:
     </aside>
   </div>
 </section>
-
+{story}
 <section class="section fx-sec tp-skills-sec" id="tp-skills" aria-labelledby="tp-skills-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-skills-h">Skills.</h2><p class="lead">What {esc(first)} brings to your project, grouped by area.</p></div>
     <div class="tp-groups">{panels}</div>
   </div>
 </section>
-
+{projects}
 <section class="section fx-sec fx-sec--alt tp-team-sec" aria-labelledby="tp-team-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-team-h">The rest of the team.</h2><p class="lead">One team scopes, builds and supports your project, from Singapore, Taguig City and Ho Chi Minh City.</p></div>
