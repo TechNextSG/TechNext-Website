@@ -1,6 +1,6 @@
 # TechNext — full reference
 
-Last updated: 2026-10-29
+Last updated: 2026-10-30
 
 > TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 40+ years of excellence; 90+ enterprise clients in 25+ countries.
 
@@ -135,7 +135,7 @@ Last updated: 2026-10-29
 - https://technext.asia/solutions/social-media — Social Media Management — Singapore & Philippines: Social media management in Singapore and the Philippines: planned, designed and posted for you, so your channels stay active while you run the business.
 - https://technext.asia/solutions/website — Website Design with Odoo CRM — Singapore & Philippines: Website design and development in Singapore and the Philippines, built in Odoo so every enquiry lands in your CRM.
 - https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
-- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years helping companies move onto ERP and CRM systems, ten of them on Odoo. Senior Functional Lead at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/astroneil-matan — Astroneil Matan, Senior Functional Lead: Astroneil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo.
 - https://technext.asia/team/clement-koh — Clement Koh, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
 - https://technext.asia/team/jett-balanza — Jett Balanza, Functional ERP Consultant: Jett sits between your team and our developers, turning what you need into a working Odoo set-up.
