@@ -149,6 +149,7 @@ REDIRECTS = [
     ("/contact", "/company"), ("/contact/", "/company"),
     # 23 Oct 2026: the CEO's surname is Koh (was misspelt Kho)
     ("/team/clement-kho", "/team/clement-koh"), ("/team/clement-kho.html", "/team/clement-koh"),
+    ("/team/astroneil-matan", "/team/neil-matan"), ("/team/astroneil-matan.html", "/team/neil-matan"),  # owner 30 Oct: goes by Neil
     # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
     ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
     # 28 Oct 2026, owner: the free website offer ended; its /get-started lander goes to the adviser call

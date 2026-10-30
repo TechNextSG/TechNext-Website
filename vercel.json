@@ -1146,6 +1146,16 @@
       "permanent": true
     },
     {
+      "source": "/team/astroneil-matan",
+      "destination": "/team/neil-matan",
+      "permanent": true
+    },
+    {
+      "source": "/team/astroneil-matan.html",
+      "destination": "/team/neil-matan",
+      "permanent": true
+    },
+    {
       "source": "/free-website-with-odoo",
       "destination": "/bir-adviser-call",
       "permanent": true
