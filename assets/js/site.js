@@ -452,6 +452,7 @@
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.ok, j: j }; }, function () { return { ok: false, j: {} }; }); },
             function () { return { ok: false, j: {} }; })
       .then(function (res) {
+        if (!res.ok && res.j.error === 'captcha') { var ce = new Error('captcha'); ce.captcha = true; throw ce; }
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
           var q = {};
@@ -494,24 +495,83 @@
       if ($('input[name=_honey]', form) && $('input[name=_honey]', form).value) return;
       if (!form.checkValidity()) { form.reportValidity(); return; }
       if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
+      if (cap) { cap.open(); return; }
+      send(btn);
+    });
+    function send(button, extra) {
       if (form.dataset.beforeSend) { try { window[form.dataset.beforeSend](form); } catch (_) {} }
       var payload = serialize(form);
-      btn.classList.add('is-busy'); btn.disabled = true;
+      Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
+      button.classList.add('is-busy'); button.disabled = true;
       status.className = 'form-status'; status.textContent = 'Sending…';
       window.tnPostForm(form.dataset.endpoint, payload)
         .then(function () {
+          form.classList.remove('is-captcha');
           form.classList.add('is-sent');
           status.className = 'form-status is-ok'; status.textContent = '';
         })
         .catch(function (err) {
+          if (err && err.captcha && cap) { status.className = 'form-status'; status.textContent = ''; cap.wrong(); return; }
           status.className = 'form-status is-err';
           status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at ';
           var mail = document.createElement('a'); mail.href = 'mailto:sales@technext.asia'; mail.textContent = 'sales@technext.asia';
           status.appendChild(mail); status.appendChild(document.createTextNode('.'));
         })
-        .finally(function () { btn.classList.remove('is-busy'); btn.disabled = false; });
-    });
+        .finally(function () { button.classList.remove('is-busy'); button.disabled = false; });
+    }
+    /* data-captcha (31 Oct 2026): once the form is filled in, the button opens a typed security code instead of
+       sending. /api/lead?captcha=1 hands out the code image and a signed token; /api/lead checks both with the lead. */
+    var cap = form.hasAttribute('data-captcha') ? captchaStep(form, send) : null;
   });
+  function captchaStep(form, send) {
+    var box = document.createElement('div'), token = '';
+    box.className = 'form-captcha';
+    box.innerHTML = '<p class="fc-h">One last step</p><p class="fc-sub">Type the 5 characters you see, so we know you are not a bot.</p>' +
+      '<div class="fc-row"><div class="fc-img"></div>' +
+      '<button type="button" class="fc-new">New code</button></div>' +
+      '<div class="field"><label for="' + form.id + '-cap">Security code</label>' +
+      '<input id="' + form.id + '-cap" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="8" aria-describedby="' + form.id + '-cap-err">' +
+      '<p class="fw-err fc-err" id="' + form.id + '-cap-err" hidden></p></div>' +
+      '<div class="fc-actions"><button type="button" class="btn btn-primary btn-lg fc-send"><span class="btn-label">Confirm and send</span><span class="btn-busy" aria-hidden="true"></span></button>' +
+      '<button type="button" class="fc-back">Back to the form</button></div>';
+    var foot = $('.form-foot', form);
+    foot.parentNode.insertBefore(box, foot.nextSibling);
+    var img = $('.fc-img', box), input = $('input', box), err = $('.fc-err', box), go = $('.fc-send', box);
+    function say(msg) {
+      err.textContent = msg; err.hidden = !msg;
+      if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
+    }
+    function load() {
+      token = ''; input.value = ''; img.textContent = 'Loading…';
+      return fetch((form.dataset.endpoint || '/api/lead') + '?captcha=1', { cache: 'no-store', headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { token = j.token; img.innerHTML = j.svg; })
+        .catch(function () { img.textContent = 'The code did not load. Tap "New code".'; });
+    }
+    function submit() {
+      var a = input.value.replace(/\s+/g, '').toUpperCase();
+      if (!token) { load(); return; }
+      if (a.length < 5) { say('Please type all 5 characters.'); input.focus(); return; }
+      say('');
+      send(go, { _cap: token, _cap_a: a });
+    }
+    $('.fc-new', box).addEventListener('click', function () { say(''); load().then(function () { input.focus(); }); });
+    $('.fc-back', box).addEventListener('click', function () {
+      form.classList.remove('is-captcha'); say('');
+      var f = $('.field input:not([type=hidden]), .field textarea', form); if (f) f.focus();
+    });
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); submit(); } });
+    input.addEventListener('input', function () { if (!err.hidden) say(''); });
+    return {
+      open: function () {
+        form.classList.add('is-captcha'); say('');
+        if (form.getBoundingClientRect().top < 0) form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        load().then(function () { input.focus({ preventScroll: true }); });
+      },
+      wrong: function () { load().then(function () { say('That code did not match. Please try this new one.'); input.focus(); }); }
+    };
+  }
 
   /* ---------------- YouTube facades: load the player only on click ---------------- */
   document.addEventListener('click', function (e) {

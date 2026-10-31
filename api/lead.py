@@ -78,7 +78,7 @@ QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
         "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
-        "_eid", "_fbc", "_fbp", "_consent"}
+        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -333,6 +333,53 @@ def capi_lead(p, email, phone, ip, ua):
         print("capi failed:", repr(e)[:300])
 
 
+# CAPTCHA (31 Oct 2026, owner): forms with data-captcha (/bir-adviser-call) ask for a typed code after the form is
+# filled. GET /api/lead?captcha=1 returns the code as a distorted SVG plus a signed token; nothing is stored, the
+# token carries its expiry and an HMAC of the answer. CAPTCHA_FORMS must send a valid token + answer with the lead.
+CAP_CHARS = "ACDEFHJKMNPRTUVWXY34679"     # no look-alikes (0/O, 1/I/L, 2/Z, 5/S, 8/B)
+CAP_TTL = 600
+CAPTCHA_FORMS = ("BIR adviser call",)
+
+
+def _cap_mac(exp, nonce, answer):
+    secret = (os.environ.get("CAPTCHA_SECRET") or KEY or "dev").encode()
+    return hmac.new(secret, f"cap:{exp}:{nonce}:{answer.upper()}".encode(), hashlib.sha256).hexdigest()[:32]
+
+
+def captcha():
+    rnd = __import__("secrets").SystemRandom()
+    answer = "".join(rnd.choice(CAP_CHARS) for _ in range(5))
+    exp, nonce = int(time.time()) + CAP_TTL, __import__("secrets").token_hex(6)
+    parts = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" width="200" height="64" role="img" '
+             'aria-label="Security code image"><rect width="200" height="64" rx="10" fill="#eef3fb"/>']
+    for _ in range(5):                                   # noise curves under the letters
+        y1, y2, cy = rnd.randint(8, 56), rnd.randint(8, 56), rnd.randint(0, 64)
+        parts.append(f'<path d="M0 {y1} Q100 {cy} 200 {y2}" stroke="#{rnd.choice(["9db4dc", "b9c8e4", "7f9bcf"])}" '
+                     f'stroke-width="{rnd.choice([1, 1.5, 2])}" fill="none"/>')
+    for i, ch in enumerate(answer):
+        x, y, r = 18 + i * 35 + rnd.randint(-3, 3), 44 + rnd.randint(-6, 6), rnd.randint(-28, 28)
+        parts.append(f'<text x="{x}" y="{y}" transform="rotate({r} {x} {y - 12})" font-family="Georgia,serif" '
+                     f'font-size="{rnd.randint(30, 36)}" font-weight="700" fill="#{rnd.choice(["123b7a", "1d4f9e", "0b2a5c", "2f62b8"])}">{ch}</text>')
+    for _ in range(2):                                   # two lines across the letters
+        parts.append(f'<path d="M{rnd.randint(0, 30)} {rnd.randint(14, 50)} C70 {rnd.randint(0, 64)} 130 {rnd.randint(0, 64)} '
+                     f'{rnd.randint(170, 200)} {rnd.randint(14, 50)}" stroke="#2f62b8" stroke-width="1.6" fill="none" opacity=".7"/>')
+    for _ in range(40):                                  # speckles
+        parts.append(f'<circle cx="{rnd.randint(0, 200)}" cy="{rnd.randint(0, 64)}" r="{rnd.choice([.8, 1, 1.3])}" fill="#5a7fc0" opacity=".5"/>')
+    parts.append("</svg>")
+    return {"ok": True, "svg": "".join(parts), "token": f"{exp}.{nonce}.{_cap_mac(exp, nonce, answer)}"}
+
+
+def captcha_ok(token, answer):
+    try:
+        exp, nonce, mac = str(token).split(".")
+        if int(exp) < time.time():
+            return False
+    except ValueError:
+        return False
+    answer = re.sub(r"\s+", "", str(answer or ""))[:12]
+    return bool(answer) and hmac.compare_digest(mac, _cap_mac(exp, nonce, answer))
+
+
 def sign(lead):
     """Proof that this server filed the lead, so only the visitor's own follow-up request can add the note."""
     return hmac.new(KEY.encode(), f"lead:{lead}".encode(), hashlib.sha256).hexdigest()[:32]
@@ -465,6 +512,9 @@ class handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
         if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", ""))) and not str(p.get("phone", "")).strip():
             return self._send(400, {"ok": False, "error": "contact"})
+        if (not p.get("_followup") and form_tag(str(p.get("source", "")), str(p.get("page", ""))) in CAPTCHA_FORMS
+                and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
+            return self._send(400, {"ok": False, "error": "captcha"})
         if not KEY:
             return self._send(503, {"ok": False, "error": "not configured"})
         if p.get("_followup"):                             # step 2 of a split submit: the @Jeric note, emails, typed name
@@ -500,4 +550,6 @@ class handler(BaseHTTPRequestHandler):
             print("odoo follow-up failed:", repr(e)[:500])
 
     def do_GET(self):
+        if "captcha=" in urllib.parse.urlsplit(self.path).query:
+            return self._send(200, captcha())
         self._send(405, {"ok": False})
