@@ -333,12 +333,14 @@ def capi_lead(p, email, phone, ip, ua):
         print("capi failed:", repr(e)[:300])
 
 
-# CAPTCHA (31 Oct 2026, owner): forms with data-captcha (/bir-adviser-call) ask for a typed code after the form is
-# filled. GET /api/lead?captcha=1 returns the code as a distorted SVG plus a signed token; nothing is stored, the
-# token carries its expiry and an HMAC of the answer. CAPTCHA_FORMS must send a valid token + answer with the lead.
+# CAPTCHA (31 Oct 2026, owner): every site form asks for a typed code after it is filled in (site.js captchaStep).
+# GET /api/lead?captcha=1 returns the code as a distorted SVG plus a signed token; nothing is stored, the token
+# carries its expiry and an HMAC of the answer. Every lead must send a valid token + answer, except NO_CAPTCHA_FORMS:
+# the discovery-call booking (tn-booking.js on technext.odoo.com), where Odoo's appointment app has filed it already.
+# The technext.odoo.com copy of the site falls back to Odoo's own form when refused (odoo-bridge.js), until re-synced.
 CAP_CHARS = "ACDEFHJKMNPRTUVWXY34679"     # no look-alikes (0/O, 1/I/L, 2/Z, 5/S, 8/B)
 CAP_TTL = 600
-CAPTCHA_FORMS = ("BIR adviser call",)
+NO_CAPTCHA_FORMS = ("Discovery call booking",)
 
 
 def _cap_mac(exp, nonce, answer):
@@ -512,7 +514,9 @@ class handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
         if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", ""))) and not str(p.get("phone", "")).strip():
             return self._send(400, {"ok": False, "error": "contact"})
-        if (not p.get("_followup") and form_tag(str(p.get("source", "")), str(p.get("page", ""))) in CAPTCHA_FORMS
+        booking = (form_tag(str(p.get("source", "")), str(p.get("page", ""))) in NO_CAPTCHA_FORMS
+                   and self.headers.get("Origin", "") in CORS_ORIGINS)
+        if (not p.get("_followup") and not booking
                 and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
             return self._send(400, {"ok": False, "error": "captcha"})
         if not KEY:

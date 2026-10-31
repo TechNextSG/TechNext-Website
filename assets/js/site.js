@@ -519,9 +519,9 @@
         })
         .finally(function () { button.classList.remove('is-busy'); button.disabled = false; });
     }
-    /* data-captcha (31 Oct 2026): once the form is filled in, the button opens a typed security code instead of
+    /* security code (31 Oct 2026, every form): once the form is filled in, the button opens a typed code instead of
        sending. /api/lead?captcha=1 hands out the code image and a signed token; /api/lead checks both with the lead. */
-    var cap = form.hasAttribute('data-captcha') ? captchaStep(form, send) : null;
+    var cap = captchaStep(form, send);
   });
   function captchaStep(form, send) {
     var box = document.createElement('div'), token = '';
@@ -566,7 +566,8 @@
     return {
       open: function () {
         form.classList.add('is-captcha'); say('');
-        if (form.getBoundingClientRect().top < 0) form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        var r = box.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > innerHeight) box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
         load().then(function () { input.focus({ preventScroll: true }); });
       },
       wrong: function () { load().then(function () { say('That code did not match. Please try this new one.'); input.focus(); }); }
