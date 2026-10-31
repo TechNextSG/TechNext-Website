@@ -338,9 +338,42 @@ def capi_lead(p, email, phone, ip, ua):
 # carries its expiry and an HMAC of the answer. Every lead must send a valid token + answer, except NO_CAPTCHA_FORMS:
 # the discovery-call booking (tn-booking.js on technext.odoo.com), where Odoo's appointment app has filed it already.
 # The technext.odoo.com copy of the site falls back to Odoo's own form when refused (odoo-bridge.js), until re-synced.
+# 31 Oct later: a bot read the answer out of the first version (the letters were SVG <text>) and reused one solved
+# token for a burst of leads. Now the letters are drawn as jittered strokes in a shuffled path (no text to read),
+# a token works once, each sender IP may file LEAD_RATE leads per LEAD_WINDOW, and a post that names none of our
+# forms ("Other form") is answered OK but never filed.
 CAP_CHARS = "ACDEFHJKMNPRTUVWXY34679"     # no look-alikes (0/O, 1/I/L, 2/Z, 5/S, 8/B)
 CAP_TTL = 600
 NO_CAPTCHA_FORMS = ("Discovery call booking",)
+LEAD_RATE, LEAD_WINDOW = 3, 600
+USED_TOKENS = {}   # nonce -> expiry, this warm instance
+RECENT = {}        # sender ip -> [lead times], this warm instance
+# stroke font on a 10 x 14 grid (y down): each character is a list of polylines
+GLYPHS = {
+    "A": [[(0, 14), (5, 0), (10, 14)], [(2.5, 8), (7.5, 8)]],
+    "C": [[(10, 2), (7, 0), (3, 0), (0, 4), (0, 10), (3, 14), (7, 14), (10, 12)]],
+    "D": [[(0, 0), (0, 14), (6, 14), (10, 10), (10, 4), (6, 0), (0, 0)]],
+    "E": [[(10, 0), (0, 0), (0, 14), (10, 14)], [(0, 7), (7, 7)]],
+    "F": [[(10, 0), (0, 0), (0, 14)], [(0, 7), (7, 7)]],
+    "H": [[(0, 0), (0, 14)], [(10, 0), (10, 14)], [(0, 7), (10, 7)]],
+    "J": [[(10, 0), (10, 10), (7, 14), (3, 14), (0, 11)]],
+    "K": [[(0, 0), (0, 14)], [(10, 0), (0, 8)], [(3, 6), (10, 14)]],
+    "M": [[(0, 14), (0, 0), (5, 8), (10, 0), (10, 14)]],
+    "N": [[(0, 14), (0, 0), (10, 14), (10, 0)]],
+    "P": [[(0, 14), (0, 0), (7, 0), (10, 2), (10, 5), (7, 7), (0, 7)]],
+    "R": [[(0, 14), (0, 0), (7, 0), (10, 2), (10, 5), (7, 7), (0, 7)], [(5, 7), (10, 14)]],
+    "T": [[(0, 0), (10, 0)], [(5, 0), (5, 14)]],
+    "U": [[(0, 0), (0, 10), (3, 14), (7, 14), (10, 10), (10, 0)]],
+    "V": [[(0, 0), (5, 14), (10, 0)]],
+    "W": [[(0, 0), (2.5, 14), (5, 5), (7.5, 14), (10, 0)]],
+    "X": [[(0, 0), (10, 14)], [(10, 0), (0, 14)]],
+    "Y": [[(0, 0), (5, 7), (10, 0)], [(5, 7), (5, 14)]],
+    "3": [[(0, 1), (3, 0), (8, 0), (10, 2), (10, 5), (7, 7), (3, 7)], [(7, 7), (10, 9), (10, 12), (8, 14), (3, 14), (0, 13)]],
+    "4": [[(7, 14), (7, 0), (0, 10), (10, 10)]],
+    "6": [[(9, 1), (6, 0), (3, 0), (0, 4), (0, 11), (3, 14), (7, 14), (10, 11), (10, 9), (7, 7), (3, 7), (0, 9)]],
+    "7": [[(0, 0), (10, 0), (4, 14)]],
+    "9": [[(10, 5), (7, 7), (3, 7), (0, 5), (0, 3), (3, 0), (7, 0), (10, 3), (10, 10), (7, 14), (3, 14), (1, 13)]],
+}
 
 
 def _cap_mac(exp, nonce, answer):
@@ -349,22 +382,33 @@ def _cap_mac(exp, nonce, answer):
 
 
 def captcha():
-    rnd = __import__("secrets").SystemRandom()
+    import math, secrets
+    rnd = secrets.SystemRandom()
     answer = "".join(rnd.choice(CAP_CHARS) for _ in range(5))
-    exp, nonce = int(time.time()) + CAP_TTL, __import__("secrets").token_hex(6)
+    exp, nonce = int(time.time()) + CAP_TTL, secrets.token_hex(8)
+    strokes = []
+    for i, ch in enumerate(answer):                      # each letter: own size, slant, turn, jittered points
+        s = rnd.uniform(2.3, 2.7)
+        a, k = math.radians(rnd.uniform(-22, 22)), rnd.uniform(-0.25, 0.25)
+        ox, oy = 14 + i * 36 + rnd.uniform(-3, 3), 14 + rnd.uniform(-5, 5)
+        for line in GLYPHS[ch]:
+            pts = []
+            for x, y in line:
+                x, y = (x - 5 + k * (y - 7)) * s, (y - 7) * s
+                x, y = x * math.cos(a) - y * math.sin(a), x * math.sin(a) + y * math.cos(a)
+                pts.append((ox + 12 + x + rnd.uniform(-1, 1), oy + 17 + y + rnd.uniform(-1, 1)))
+            strokes.append(pts)
+    for _ in range(4):                                   # short stray strokes in the same ink
+        x, y = rnd.uniform(0, 190), rnd.choice([rnd.uniform(3, 9), rnd.uniform(55, 61)])
+        strokes.append([(x, y), (x + rnd.uniform(-8, 8), y + rnd.uniform(-3, 3))])
+    rnd.shuffle(strokes)                                 # drawing order says nothing about reading order
+    d = " ".join("M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts) for pts in strokes)
     parts = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" width="200" height="64" role="img" '
              'aria-label="Security code image"><rect width="200" height="64" rx="10" fill="#eef3fb"/>']
-    for _ in range(5):                                   # noise curves under the letters
-        y1, y2, cy = rnd.randint(8, 56), rnd.randint(8, 56), rnd.randint(0, 64)
-        parts.append(f'<path d="M0 {y1} Q100 {cy} 200 {y2}" stroke="#{rnd.choice(["9db4dc", "b9c8e4", "7f9bcf"])}" '
-                     f'stroke-width="{rnd.choice([1, 1.5, 2])}" fill="none"/>')
-    for i, ch in enumerate(answer):
-        x, y, r = 18 + i * 35 + rnd.randint(-3, 3), 44 + rnd.randint(-6, 6), rnd.randint(-28, 28)
-        parts.append(f'<text x="{x}" y="{y}" transform="rotate({r} {x} {y - 12})" font-family="Georgia,serif" '
-                     f'font-size="{rnd.randint(30, 36)}" font-weight="700" fill="#{rnd.choice(["123b7a", "1d4f9e", "0b2a5c", "2f62b8"])}">{ch}</text>')
-    for _ in range(2):                                   # two lines across the letters
-        parts.append(f'<path d="M{rnd.randint(0, 30)} {rnd.randint(14, 50)} C70 {rnd.randint(0, 64)} 130 {rnd.randint(0, 64)} '
-                     f'{rnd.randint(170, 200)} {rnd.randint(14, 50)}" stroke="#2f62b8" stroke-width="1.6" fill="none" opacity=".7"/>')
+    for _ in range(6):                                   # light noise curves
+        parts.append(f'<path d="M0 {rnd.randint(6, 58)} Q100 {rnd.randint(0, 64)} 200 {rnd.randint(6, 58)}" '
+                     f'stroke="#{rnd.choice(["9db4dc", "b9c8e4", "7f9bcf"])}" stroke-width="{rnd.choice([1, 1.5, 2])}" fill="none"/>')
+    parts.append(f'<path d="{d}" stroke="#1d4f9e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>')
     for _ in range(40):                                  # speckles
         parts.append(f'<circle cx="{rnd.randint(0, 200)}" cy="{rnd.randint(0, 64)}" r="{rnd.choice([.8, 1, 1.3])}" fill="#5a7fc0" opacity=".5"/>')
     parts.append("</svg>")
@@ -374,12 +418,30 @@ def captcha():
 def captcha_ok(token, answer):
     try:
         exp, nonce, mac = str(token).split(".")
-        if int(exp) < time.time():
+        if int(exp) < time.time() or nonce in USED_TOKENS:
             return False
     except ValueError:
         return False
     answer = re.sub(r"\s+", "", str(answer or ""))[:12]
-    return bool(answer) and hmac.compare_digest(mac, _cap_mac(exp, nonce, answer))
+    if not (answer and hmac.compare_digest(mac, _cap_mac(exp, nonce, answer))):
+        return False
+    now = time.time()
+    for n in [n for n, e in USED_TOKENS.items() if e < now]:
+        del USED_TOKENS[n]
+    USED_TOKENS[nonce] = int(exp)
+    return True
+
+
+def rate_ok(ip):
+    now = time.time()
+    hits = [t for t in RECENT.get(ip, []) if t > now - LEAD_WINDOW]
+    if len(hits) >= LEAD_RATE:
+        RECENT[ip] = hits
+        return False
+    RECENT[ip] = hits + [now]
+    if len(RECENT) > 5000:
+        RECENT.clear()
+    return True
 
 
 def sign(lead):
@@ -514,11 +576,18 @@ class handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
         if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", ""))) and not str(p.get("phone", "")).strip():
             return self._send(400, {"ok": False, "error": "contact"})
-        booking = (form_tag(str(p.get("source", "")), str(p.get("page", ""))) in NO_CAPTCHA_FORMS
-                   and self.headers.get("Origin", "") in CORS_ORIGINS)
-        if (not p.get("_followup") and not booking
-                and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
-            return self._send(400, {"ok": False, "error": "captcha"})
+        tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
+        ip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
+        if not p.get("_followup"):
+            if tag == "Other form":                        # none of our forms sent it: a script; nothing is filed
+                print("dropped unknown form from", ip[:64], sorted(p)[:12])
+                return self._send(200, {"ok": True})
+            booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
+            if not booking and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", "")):
+                return self._send(400, {"ok": False, "error": "captcha"})
+            if not rate_ok(ip):
+                print("rate limited", ip[:64])
+                return self._send(429, {"ok": False, "error": "rate"})
         if not KEY:
             return self._send(503, {"ok": False, "error": "not configured"})
         if p.get("_followup"):                             # step 2 of a split submit: the @Jeric note, emails, typed name
