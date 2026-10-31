@@ -374,13 +374,19 @@ def capi_lead(p, email, phone, ip, ua):
 # 31 Oct later: a bot read the answer out of the first version (the letters were SVG <text>) and reused one solved
 # token for a burst of leads. Now the letters are drawn as jittered strokes in a shuffled path (no text to read),
 # a token works once, each sender IP may file LEAD_RATE leads per LEAD_WINDOW, and a post that names none of our
-# forms ("Other form") is answered OK but never filed.
+# forms ("Other form") is answered OK but never filed. A shared flood breaker (flood_ok) caps leads for all instances.
 CAP_CHARS = "ACDEFHJKMNPRTUVWXY34679"     # no look-alikes (0/O, 1/I/L, 2/Z, 5/S, 8/B)
 CAP_TTL = 600
 NO_CAPTCHA_FORMS = ("Discovery call booking",)
 LEAD_RATE, LEAD_WINDOW = 3, 600
 USED_TOKENS = {}   # nonce -> expiry, this warm instance
 RECENT = {}        # sender ip -> [lead times], this warm instance
+# The two limits above live in one warm instance; a flood spread over many instances (15,816 fake leads on 31 Oct)
+# passes them. Odoo is the one place every instance shares, so it is the circuit breaker: when FLOOD_MAX "Website"
+# leads were filed in the last FLOOD_WINDOW seconds, new posts are refused (the visitor is shown the email address).
+# Busiest real hour so far (Facebook ads, 29 Oct) filed 6 in 10 minutes.
+FLOOD_MAX, FLOOD_WINDOW = int(os.environ.get("LEAD_FLOOD_MAX", "15")), 600
+FLOOD = {"until": 0}  # this instance remembers a tripped breaker for a minute (no Odoo call per bot post)
 # stroke font on a 10 x 14 grid (y down): each character is a list of polylines
 GLYPHS = {
     "A": [[(0, 14), (5, 0), (10, 14)], [(2.5, 8), (7.5, 8)]],
@@ -474,6 +480,19 @@ def rate_ok(ip):
     RECENT[ip] = hits + [now]
     if len(RECENT) > 5000:
         RECENT.clear()
+    return True
+
+
+def flood_ok():
+    """False while too many website leads were filed in the last FLOOD_WINDOW seconds (all instances, via Odoo)."""
+    if time.time() < FLOOD["until"]:
+        return False
+    since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - FLOOD_WINDOW))
+    n = rpc("crm.lead", "search_count", domain=[["create_date", ">=", since], ["tag_ids", "in", [find_or_create("crm.tag", "Website")]]],
+            context={"active_test": False})             # leads archived as spam still count
+    if n >= FLOOD_MAX:
+        FLOOD["until"] = time.time() + 60
+        return False
     return True
 
 
@@ -633,6 +652,15 @@ class handler(BaseHTTPRequestHandler):
                 return self._send(429, {"ok": False, "error": "rate"})
         if not KEY:
             return self._send(503, {"ok": False, "error": "not configured"})
+        if not p.get("_followup"):
+            try:
+                busy = not flood_ok()
+            except Exception as e:                         # Odoo unreachable: make_lead reports it below
+                print("flood check failed:", repr(e)[:300])
+                busy = False
+            if busy:
+                print("flood breaker: refused", ip[:64])
+                return self._send(429, {"ok": False, "error": "busy"})
         if p.get("_followup"):                             # step 2 of a split submit: the @Jeric note, emails, typed name
             try:
                 lead = int(p["_followup"])
