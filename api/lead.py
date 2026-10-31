@@ -131,6 +131,8 @@ _IDS = {}  # tag / utm ids, kept while the function instance stays warm
 # creating a lead the normal way took ~8 s (timed 28 Oct): Odoo logs "Lead created", subscribes the API user and
 # sends follower mails inside the call. The lead, its notes and the @Jeric note are the same without them.
 QUIET = {"tracking_disable": True, "mail_create_nolog": True, "mail_create_nosubscribe": True, "mail_notrack": True}
+# fields our booking form may fill on the opportunity Odoo files for a booking (only where Odoo left them empty)
+BOOKING_FILL = ("partner_name", "source_id", "medium_id", "campaign_id", "country_id", "team_id")
 
 
 def find_or_create(model, name):
@@ -251,13 +253,24 @@ def keep_typed(lead, name, phone):
         rpc("crm.lead", "write", ids=[lead], vals=want)
 
 
-def booking_lead(email, tries=8, wait=1.5):
+def booking_lead(email, phone="", name="", tries=8, wait=1.5):
     """The opportunity Odoo's appointment app creates for a discovery-call booking (it appears a moment
-    after the booking form is sent). False when it never shows up or the API user cannot see it."""
+    after the booking form is sent). Odoo often leaves its email empty, so the phone (last 9 digits) and the
+    name match too. False when it never shows up (the booking was not confirmed in Odoo)."""
+    match = [["email_from", "=ilike", email], ["partner_id.email", "=ilike", email]] if email else []
+    digits = re.sub(r"\D", "", phone)[-9:]
+    if len(digits) == 9:
+        match.append(["phone_sanitized", "=like", "%" + digits])
+    if name:
+        match.append(["contact_name", "=ilike", name])
+    if not match:
+        return False
+    domain = ["|"] * (len(match) - 1) + match
     for i in range(tries):
         since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
-        ids = rpc("crm.lead", "search", domain=[["email_from", "=ilike", email], ["create_date", ">=", since],
-                                                ["name", "ilike", "Booking"]], order="id desc", limit=1)
+        # Odoo names it "<name> - Discovery Call with TechNext Booking"; ours are "Discovery call booking - ..."
+        ids = rpc("crm.lead", "search", domain=[["create_date", ">=", since], ["name", "=ilike", "% Booking"]] + domain,
+                  order="id desc", limit=1)
         if ids:
             return ids[0]
         time.sleep(wait)
@@ -498,21 +511,27 @@ def make_lead(p):
         except Exception as e:
             print("campaign not set:", repr(e)[:300])
     info = (form, groups, spam)
-    if form == "Discovery call booking" and email:
+    if form == "Discovery call booking" and (email or phone or name):
         # Odoo's appointment app files the booking itself: enrich that opportunity instead of adding a second lead
         def after():
-            found = booking_lead(email)
+            found = booking_lead(email, phone, name)
             if found:
-                upd = {k: v for k, v in vals.items()
-                       if k in ("partner_name", "tag_ids", "source_id", "medium_id", "campaign_id", "country_id", "team_id") and v}
+                have = rpc("crm.lead", "read", ids=[found], fields=list(BOOKING_FILL))[0]
+                upd = {k: v for k, v in vals.items() if k in BOOKING_FILL and v and not have.get(k)}
+                upd["tag_ids"] = [[4, t] for t in tags]    # added to Odoo's own tags, never replacing them
                 rpc("crm.lead", "write", ids=[found], vals=upd)
                 rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
                     subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
-                lead = found
-            else:                                          # not visible to the API user: file it as a lead of its own
-                lead = rpc("crm.lead", "create", vals_list=[vals], context=QUIET)[0]
+                lead, done = found, info
+            else:                                          # Odoo never confirmed the booking: Jeric calls them instead
+                flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
+                                                     "Please contact them to set the call time.")])]
+                lead = rpc("crm.lead", "create", vals_list=[dict(
+                    vals, description=as_html(flag + groups),
+                    tag_ids=[[6, 0, tags + [find_or_create("crm.tag", "Booking not confirmed")]]])], context=QUIET)[0]
+                done = (form, flag + groups, spam)
             keep_typed(lead, name, phone)
-            follow_up(lead, *info)
+            follow_up(lead, *done)
         return None, after
     lead = rpc("crm.lead", "create", vals_list=[vals], context=QUIET)[0]
 
