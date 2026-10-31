@@ -83,6 +83,11 @@ SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autores
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
 FAKE_COMPANY = re.compile(r"^[A-Z][a-z]+, [A-Z][a-z]+ and [A-Z][a-z]+$")
+# 31 Oct: a bot in a real browser (it solves the security code) files made-up Vietnamese leads, also as forged
+# discovery-call bookings. TechNext sells in PH and SG only, so Vietnamese text, +84 phones and .vn emails are dropped.
+VIET_CHARS = re.compile("[ăđơưĂĐƠƯẠ-ỹ]")
+VIET_WORDS = re.compile(r"\b(cong ty|tnhh|toi muon|chung toi|bao gia|giai phap|doanh nghiep|nguoi dung|"
+                        r"vui long|xin chao|cho toi|tim hieu|nguyen van)\b", re.I)
 
 
 _CONN = None  # one HTTPS connection to Odoo, reused while the instance is warm (no new TLS handshake per call)
@@ -217,6 +222,21 @@ def spam_reason(p, name, email, company):
         return "made-up company name with a free email address"
     if len(re.findall(r"https?://", text)) >= 3:
         return "message full of links"
+    return ""
+
+
+def bot_lead(p):
+    """Why this post is the Vietnamese lead bot (nothing is filed), or "" for a real visitor."""
+    text = " ".join(str(v) for k, v in p.items() if k not in SKIP and isinstance(v, (str, int, float)))
+    if VIET_CHARS.search(text):
+        return "vietnamese text"
+    if VIET_WORDS.search(text):
+        return "vietnamese words"
+    if re.sub(r"[^\d+]", "", str(p.get("phone", ""))).startswith(("+84", "0084", "84")) and \
+            len(re.sub(r"\D", "", str(p.get("phone", "")))) == 11:
+        return "+84 phone"
+    if str(p.get("email", "")).strip().lower().endswith(".vn"):
+        return ".vn email"
     return ""
 
 
@@ -581,6 +601,10 @@ class handler(BaseHTTPRequestHandler):
         if not p.get("_followup"):
             if tag == "Other form":                        # none of our forms sent it: a script; nothing is filed
                 print("dropped unknown form from", ip[:64], sorted(p)[:12])
+                return self._send(200, {"ok": True})
+            why = bot_lead(p)
+            if why:                                        # the bot gets the normal answer, nothing is filed
+                print("dropped bot lead:", why, ip[:64])
                 return self._send(200, {"ok": True})
             booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
             if not booking and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", "")):
