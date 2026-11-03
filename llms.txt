@@ -107,7 +107,7 @@ Last updated: 2026-11-03
 ## Company
 
 - [Odoo for BIR Compliance in the Philippines](https://technext.asia/): Odoo Ready Partner in Singapore with a team in Taguig City. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
-- [BIR E-Invoicing: Are You Covered? Talk to an Adviser](https://technext.asia/bir-adviser-call): Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.
+- [BIR CAS Registration: Set Up Odoo First, Talk to an Adviser](https://technext.asia/bir-adviser-call): Registering your CAS or CBA with the BIR? We set up Odoo with you first, so your process flow, sample books and outputs come from it. You file at your RDO.
 - [About TechNext: Odoo Ready Partner, Singapore & Taguig](https://technext.asia/company): TechNext Pte. Ltd. (UEN 202699888G): Odoo Ready Partner, HQ in Singapore, Odoo hub in Taguig City, AI team in Ho Chi Minh City. 90+ clients, 25+ countries.
 - [Nexi, TechNext's AI companion for Odoo, AI and websites](https://technext.asia/nexi): Meet Nexi, TechNext's AI companion. Ask about Odoo, AI and websites, take a short 3D tour, and get to a quotation, a meeting or the team in a few taps.
 - [Nexi Explains: Odoo, AI and tech videos by TechNext](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
