@@ -18,7 +18,7 @@ Last updated: 2026-11-03
 ## Pages
 
 - https://technext.asia/ — Odoo for BIR Compliance in the Philippines: Odoo Ready Partner in Singapore with a team in Taguig City. We set Odoo up for your BIR CAS registration, with 2307, SLSP, SAWT and QAP reports.
-- https://technext.asia/bir-adviser-call — BIR E-Invoicing: Are You Covered? Talk to an Adviser: Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.
+- https://technext.asia/bir-adviser-call — BIR CAS Registration: Set Up Odoo First, Talk to an Adviser: Registering your CAS or CBA with the BIR? We set up Odoo with you first, so your process flow, sample books and outputs come from it. You file at your RDO.
 - https://technext.asia/bir-cas — BIR CAS Set-Up in Odoo: Prepare for Your CAS Registration: Use Odoo as your BIR CAS or CBA: we set it up and prepare the sample printouts with you; you file at your RDO.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing and Odoo: Preparing for 31 Dec 2026: BIR e-invoicing and Odoo before 31 December 2026: who is covered, the Permit to Issue and EIS steps, and what an EIS connection would need for your Odoo.
 - https://technext.asia/blog — Blog: BIR compliance, Odoo 20 and ERP guides: BIR compliance guides for Odoo (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain-language ERP guides from TechNext, an Odoo Ready Partner.

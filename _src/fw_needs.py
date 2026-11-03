@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """/bir-adviser-call (owner 22 Oct 2026): "more lean on BIR, title should be a question hook to viewer, the content
-will change base on clients needs".
+will change base on clients needs". 3 Nov 2026, owner: "more focus on bir cas" - CAS / CBA is the default need (first).
 
 NEEDS: one entry per client need, in picker order. The first is the default (what crawlers and visitors without ?need=
 see). Picking a need (or arriving with ?need=<key> from an ad) swaps the H1 question, the answer line, the lead, the
@@ -23,6 +23,20 @@ Never "BIR-accredited", "compliant" or "certified" for software; no prices; Odoo
 OFFER = "The adviser call is free, with no obligation."
 
 NEEDS = [
+    dict(key="cas", chip="CAS / CBA", option="CAS / CBA registration",
+         h1="Registering your CAS with the BIR?",
+         answer="Set up Odoo first, then print your CAS papers from it.",
+         lead="A computerized accounting system (CAS) or computerized books of accounts (CBA) needs its own BIR registration, with a process flow, sample books and sample outputs. We set Odoo up with you first, so every paper comes from the system you will actually use, and go through the details with your accountant. You register your CAS at your RDO.",
+         today="A system description and sample outputs to prepare, often for software you are about to replace.",
+         odoo="The process flow, sample invoices and Books of Accounts print from your configured Odoo.",
+         panel=dict(app="documents", title="CAS / CBA application pack", sub="Prepared from your configured Odoo", steps=["Odoo set up", "Samples printed", "Checked with accountant", "You file at your RDO"],
+                    kpis=[("Sample outputs", 12, "", "", 0), ("Books of Accounts", 6, "", "", 0), ("Process flows", 5, "", "", 0)],
+                    mid=("table", ["Document", "Source", "Status"], [
+                        ("Process flow", "Your Odoo set-up", ("Drafting", "Done", "warn")),
+                        ("Sample invoices", "Printed from Odoo", ("Drafting", "Done", "warn")),
+                        ("Books of Accounts", "Journals and ledger", ("Drafting", "Done", "warn"))]),
+                    post=dict(app="accountant", title="Cash receipts book", ref="Sample output · October 2026", rows=[("Dr", "Cash in bank", "56,000.00"), ("Cr", "Receivable", "56,000.00")]),
+                    chips=["Process flow", "Sample outputs", "Books of Accounts"])),
     dict(key="covered", chip="Am I covered?", option="Not sure if we're covered",
          h1="Not sure if BIR e-invoicing covers your business?",
          answer="Find out with an adviser, before 31 December.",
@@ -83,20 +97,6 @@ NEEDS = [
                     post=dict(app="accountant", title="2550Q VAT summary", ref="Q3 2026 · from the same entries", bal="Built from your books",
                               rows=[("+", "Output VAT", "912,480.00"), ("−", "Input VAT", "604,320.00"), ("=", "VAT payable", "308,160.00")]),
                     chips=["SLSP, SAWT, QAP as DAT", "2550Q summary", "Built from your books"])),
-    dict(key="cas", chip="CAS / CBA", option="CAS / CBA registration",
-         h1="Is your CAS application stuck on the paperwork?",
-         answer="Set up Odoo first, then print the papers from it.",
-         lead="A new accounting system usually needs its own BIR registration, with a process flow and sample outputs. We set Odoo up first, so the papers come from the system you will actually use, and we check the details with your accountant; you file the application at your RDO.",
-         today="A system description and sample outputs to prepare, often for software you are about to replace.",
-         odoo="The process flow, sample invoices and Books of Accounts print from your configured Odoo.",
-         panel=dict(app="documents", title="CAS / CBA application pack", sub="Prepared from your configured Odoo", steps=["Odoo set up", "Samples printed", "Checked with accountant", "You file at your RDO"],
-                    kpis=[("Sample outputs", 12, "", "", 0), ("Books of Accounts", 6, "", "", 0), ("Process flows", 5, "", "", 0)],
-                    mid=("table", ["Document", "Source", "Status"], [
-                        ("Process flow", "Your Odoo set-up", ("Drafting", "Done", "warn")),
-                        ("Sample invoices", "Printed from Odoo", ("Drafting", "Done", "warn")),
-                        ("Books of Accounts", "Journals and ledger", ("Drafting", "Done", "warn"))]),
-                    post=dict(app="accountant", title="Cash receipts book", ref="Sample output · October 2026", rows=[("Dr", "Cash in bank", "56,000.00"), ("Cr", "Receivable", "56,000.00")]),
-                    chips=["Process flow", "Sample outputs", "Books of Accounts"])),
     dict(key="branches", chip="Branches", option="Branches invoicing differently",
          h1="Does every branch invoice its own way?",
          answer="One Odoo, one invoice flow for every branch.",

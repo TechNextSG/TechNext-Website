@@ -1,4 +1,4 @@
-<!--meta {"title": "BIR E-Invoicing: Are You Covered? Talk to an Adviser", "desc": "Is your business covered by BIR e-invoicing on 31 December 2026? We set up Odoo for BIR requirements, and an adviser plans the set-up with you.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js", "assets/js/team-cards.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/adviser-call-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/team-cards.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "BIR CAS Registration: Set Up Odoo First, Talk to an Adviser", "desc": "Registering your CAS or CBA with the BIR? We set up Odoo with you first, so your process flow, sample books and outputs come from it. You file at your RDO.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js", "assets/js/team-cards.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/adviser-call-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/team-cards.css?v={ASSET_V}\">"} -->
 <!-- /bir-adviser-call (was /bir-adviser-call until 23 Oct 2026; 22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
      The H1 is a question. The need (chips + form select removed 29 Oct 2026, owner) swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
      sample Odoo panel in place, and sets the form's "Biggest BIR headache". ?need=<key> opens the page on that need (ads link to it).
@@ -10,7 +10,7 @@
   <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container fw-hero-in">
     <div class="fw-copy">
-      <p class="fw-deadline">{{icon:calendar}}<span data-fw-dl-static>BIR e-invoicing deadline: 31 December 2026</span><span data-fw-dl-live hidden><b data-fw-days>&hellip;</b> <span data-fw-days-word>days</span> to the BIR e-invoicing deadline, 31 December 2026</span></p>
+      <p class="fw-deadline">{{icon:file}}<span><b>BIR CAS / CBA</b> registration papers, prepared from your Odoo</span></p>
       <h1 id="fw-h1" data-fw="h1"><span class="fw-q">{{FW_NEEDS_H1}}</span> <em data-fw="answer">{{FW_NEEDS_ANSWER}}</em></h1>
       <p class="lead fw-hero-lead"><span data-fw="lead">{{FW_NEEDS_LEAD}}</span> <span class="fw-offer">{{FW_NEEDS_OFFER}}</span></p>
       <div class="actions fw-act">
@@ -28,7 +28,7 @@
       <input type="hidden" name="topic" value="Need: {{FW_NEEDS_CHIP}}" data-fw-topic>
       <div class="fw-fhead">
         <h2 class="gs-form-h">Book your free adviser call</h2>
-        <p class="gs-form-sub fw-fsub">One short form. An adviser replies to book a call about your BIR needs and what Odoo covers.</p>
+        <p class="gs-form-sub fw-fsub">One short form. An adviser replies to book a call about your CAS set-up and what Odoo covers.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
         <div class="form-row">
@@ -39,7 +39,7 @@
           <div class="field"><label for="gs-name">Full name <span class="opt">(optional)</span></label><input id="gs-name" name="name" type="text" autocomplete="name"></div>
           <div class="field"><label for="gs-company">Company <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
-        <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel for 2307s, 2 branches"></textarea></div>
+        <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel today, 2 branches, new system to register as a CAS"></textarea></div>
       </fieldset>
       <div class="form-foot">
         <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Book my free adviser call</span><span class="btn-busy" aria-hidden="true"></span></button>
