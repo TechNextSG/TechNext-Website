@@ -673,6 +673,8 @@ def make_lead(p):
                     rpc("crm.lead", "write", ids=[opp], vals=upd)
                     rpc("crm.lead", "message_post", ids=[opp], body_is_html=True, message_type="comment",
                         subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
+                if opp:
+                    send_now(opp, email)                   # the client's "We have your call request" email + @Jeric note
                 return
             # Odoo never filed the booking: a lead for Jeric to call, and the auto-reply (rule 11) tells the visitor
             flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
@@ -691,6 +693,20 @@ def make_lead(p):
     return lead, after
 
 
+def send_now(lead, email=""):
+    """Send this lead's queued emails now. Odoo's mail queue runs hourly, and on 3 Nov 2026 its "run now" trigger
+    waited 20+ minutes, so the visitor's auto-reply sat unsent. Runs after the visitor has their answer; a failure
+    only leaves the emails for the queue. email: also the visitor's own queued email (a booking assigned to a host
+    the API user cannot see)."""
+    try:
+        mine = [["res_id", "=", lead]] if not email else ["|", ["res_id", "=", lead], ["email_to", "=ilike", email]]
+        ids = rpc("mail.mail", "search", domain=[["model", "=", "crm.lead"], ["state", "=", "outgoing"]] + mine)
+        if ids:
+            rpc("mail.mail", "send", ids=ids)
+    except Exception as e:
+        print("send now failed:", lead, repr(e)[:300])
+
+
 def follow_up(lead, form, groups, spam):
     """The @Jeric note + emails (and a salesperson, if set). Runs after the visitor has their answer."""
     people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
@@ -706,6 +722,7 @@ def follow_up(lead, form, groups, spam):
             context={"mail_notify_author": True,          # the copy goes to Rico, who is also the API user
                      "mail_notify_force_send": False},  # emails go to the mail queue (~10 s saved, timed 28 Oct)
             body=body)
+    send_now(lead)                                         # the visitor's auto-reply (rule 11) and the note above
     # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
     if SALESPERSON:
         try:
