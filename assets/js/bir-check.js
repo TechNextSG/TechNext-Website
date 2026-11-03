@@ -1,15 +1,14 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
-/* Home (22 Oct 2026): the e-invoicing group check, the e-invoicing countdown, the BIR report viewer, and pausing the
-   decorative motion of any home section that is off screen. General guidance from RR 26-2025 and RMC 98-2026;
-   the page says so next to the result, and every result asks the visitor to confirm with their accountant or RDO.
-   Sample report data matches assets/docs/technext-sample-bir-reports.pdf. The e-invoice tab shows invoices posted in
-   Odoo only: Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. */
+/* Home (22 Oct 2026; 3 Nov 2026 CAS is the priority): the CAS or CBA check, the countdown to the computerised books
+   deadline in ORUS, the BIR report viewer, and pausing the decorative motion of any home section that is off screen.
+   General guidance from RMO 9-2021 and RMC 5-2021; the page says so next to the result, and every result asks the
+   visitor to confirm with their accountant or RDO. Sample report data matches assets/docs/technext-sample-bir-reports.pdf. */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---------------------------------------------------------------- e-invoicing group check */
+  /* ---------------------------------------------------------------- CAS or CBA check */
   var form = $('[data-bircheck]'), panel = $('[data-birresult]');
   if (form && panel) {
     var pill = $('.fx-pill', panel), pillT = $('[data-verdict-t]', panel), say = $('[data-say]', panel);
@@ -18,32 +17,32 @@
     steps.forEach(function (li, k) { li.style.setProperty('--k', k); });
 
     var TXT = {
-      pending: ['Answer the questions', 'Your answers decide whether you are in the first e-invoicing group, and what to prepare.'],
-      covered: ['Likely covered by 31 Dec 2026', 'Your answers suggest you are in the first group that must issue e-invoices by 31 December 2026. Confirm with your accountant or RDO; these are the steps that group faces.'],
-      likely: ['Possibly covered: confirm', 'You may be in the first e-invoicing group. Confirm with your accountant or RDO, and plan as if you are.'],
-      later: ['Likely not in the first group', 'Your answers suggest you are not in the first group named in RR 26-2025; confirm with your accountant. Later phases follow, and your books and BIR reports apply now.'],
-      exempt: ['Exempt: micro taxpayer', 'Micro taxpayers are exempt from mandatory e-invoicing. Your books, 2307s and returns still apply.']
+      pending: ['Answer the questions', 'Your answers suggest which registration fits, and what to prepare from your Odoo.'],
+      cas: ['Likely a CAS', 'Your answers point to a Computerized Accounting System (CAS): the system issues your invoices, or you are a large taxpayer. Confirm with your accountant or RDO; these are the steps.'],
+      cba: ['Likely a CBA', 'Invoices issued by hand, with your books kept in Odoo, point to Computerized Books of Accounts (CBA). Confirm with your accountant or RDO; these are the steps.'],
+      unsure: ['Confirm with your accountant', 'RMO 9-2021 draws the line at invoices: if the system issues them, it is a CAS. Go through it with your accountant; these are the steps either way.']
     };
-    var STEPS = { covered: ['pti', 'eis', 'books', 'reports', 'branches'], likely: ['pti', 'eis', 'books', 'reports', 'branches'],
-      later: ['books', 'reports'], exempt: ['books', 'reports'], pending: [] };
-    var LABEL = { size: { micro: 'under PHP 3M', small: 'PHP 3M-20M', medium: 'PHP 20M-1B', large: 'PHP 1B and up' },
-      online: { yes: 'sells online', no: 'no online sales' }, system: { cas: 'CAS/CBA or invoicing software', manual: 'manual or loose-leaf', unsure: 'invoicing system not sure' },
-      lts: { yes: 'under LTS', no: 'not under LTS', unsure: 'LTS not sure' } };
+    var STEPS = { cas: ['sworn', 'samples', 'audit', 'books'], cba: ['sworn', 'samples', 'audit', 'books'],
+      unsure: ['sworn', 'samples', 'audit', 'books'], pending: [] };
+    var LABEL = { lts: { yes: 'under LTS', no: 'not under LTS', unsure: 'LTS not sure' },
+      inv: { system: 'invoices from Odoo', manual: 'invoices by hand', unsure: 'invoicing not sure' },
+      host: { cloud: 'Odoo Online or Odoo.sh', own: 'own server', unsure: 'hosting not decided' },
+      reg: { no: 'no registered system', yes: 'current system registered', unsure: 'registration not sure' } };
 
     var val = function (n) { var i = $('input[name="' + n + '"]:checked', form); return i ? i.value : ''; };
     function verdict(a) {
-      if (!a.size) return 'pending';
-      if (a.size === 'micro') return 'exempt';
-      if (a.size === 'large' || a.lts === 'yes' || a.online === 'yes' || a.system === 'cas') return 'covered';
-      if (a.lts === 'unsure' || a.system === 'unsure') return 'likely';
-      if (a.online && a.system && a.lts) return 'later';
+      if (a.lts === 'yes' || a.inv === 'system') return 'cas';
+      if (a.inv === 'manual' && a.lts === 'no') return 'cba';
+      if (a.inv && a.lts) return 'unsure';
       return 'pending';
     }
     var last = '';
     function update() {
-      var a = { size: val('size'), online: val('online'), system: val('system'), lts: val('lts') };
+      var a = { lts: val('lts'), inv: val('inv'), host: val('host'), reg: val('reg') };
       $$('.fx-row', form).forEach(function (row) { row.classList.toggle('is-done', !!$('input:checked', row)); });
       var v = verdict(a);
+      var on = STEPS[v].slice();
+      if (v !== 'pending' && (a.reg === 'yes' || a.reg === 'unsure')) on.splice(3, 0, 'new');   // moving from a registered system
       pill.setAttribute('data-verdict', v);
       pillT.textContent = TXT[v][0];
       if (v !== last) {
@@ -53,13 +52,13 @@
       }
       panel.classList.toggle('is-live', v !== 'pending');
       steps.forEach(function (li) {
-        var on = STEPS[v].indexOf(li.getAttribute('data-step')) > -1;
-        li.classList.toggle('is-on', on);
-        li.classList.toggle('is-off', v !== 'pending' && !on);
+        var hit = on.indexOf(li.getAttribute('data-step')) > -1;
+        li.classList.toggle('is-on', hit);
+        li.classList.toggle('is-off', v !== 'pending' && !hit);
       });
       if (book && BOOK) {
         var bits = Object.keys(a).filter(function (k) { return a[k]; }).map(function (k) { return LABEL[k][a[k]]; });
-        var msg = 'E-invoicing group check: ' + (bits.length ? bits.join(', ') : 'not answered') + '. Result: ' + TXT[v][0] + '.';
+        var msg = 'CAS or CBA check: ' + (bits.length ? bits.join(', ') : 'not answered') + '. Result: ' + TXT[v][0] + '.';
         book.setAttribute('href', BOOK + (BOOK.indexOf('?') > -1 ? '&' : '?') + 'message=' + encodeURIComponent(msg));
       }
     }
@@ -67,10 +66,10 @@
     update();
   }
 
-  /* ---------------------------------------------------------------- countdown to 31 Dec 2026 (Manila) */
+  /* ---------------------------------------------------------------- countdown to 30 Jan 2027 (Manila): computerised books in ORUS */
   var cd = $$('[data-cd]');
   if (cd.length) {
-    var END = Date.parse('2026-12-31T23:59:59+08:00'), timer = null;
+    var END = Date.parse('2027-01-30T23:59:59+08:00'), timer = null;
     var pad = function (n) { return (n < 10 ? '0' : '') + n; };
     var tick = function () {
       var ms = Math.max(0, END - Date.now());
@@ -118,13 +117,14 @@
                ['Purchases', 'Services', '240,000.00', '28,800.00']],
         total: ['Net', 'VAT payable', '', '54,102.00'],
         foot: 'Drill into any line in Odoo to see the invoices and bills behind it.' },
-      einv: { t: 'Invoices posted in Odoo · Q3 2026', feed: [1, 3, 5],
-        head: ['Invoice', 'Customer', 'Amount', 'In Odoo', 'BIR’s EIS'], num: [2],
-        rows: [['INV/2026/1142', 'Azure Bay Hotels', '943,040.00', 'Posted · locked', 'Assessed separately'],
-               ['INV/2026/1157', 'Pinecrest Clinics', '472,760.00', 'Posted · locked', 'Assessed separately'],
-               ['INV/2026/1163', 'Lumen Export Co.', '560,000.00', 'Posted · locked', 'Assessed separately'],
-               ['CN/2026/0042', 'Kalye Foods Corp.', '-12,000.00', 'Credit note, posted', 'Assessed separately']],
-        foot: 'Illustrative. Odoo has no built-in connection to the BIR’s EIS, and TechNext has not built one; we assess the options with you.' }
+      orus: { t: 'Books of Accounts · 2026', feed: [0, 1, 2, 3, 4, 5],
+        head: ['Book', 'Period', 'Entries', 'Export'], num: [2],
+        rows: [['General journal', 'Jan to Dec 2026', '1,248', 'Exported from Odoo'],
+               ['General ledger', 'Jan to Dec 2026', '3,912', 'Exported from Odoo'],
+               ['Sales journal', 'Jan to Dec 2026', '1,284', 'Exported from Odoo'],
+               ['Purchase journal', 'Jan to Dec 2026', '642', 'Exported from Odoo'],
+               ['Cash receipts and disbursements', 'Jan to Dec 2026', '2,106', 'Exported from Odoo']],
+        foot: 'Computerised books for your own ORUS registration, due within 30 days after year-end. Exported from Odoo; you register them.' }
     };
     var tabs = $$('[data-rep]', rep), tblH = $('[data-sheet-tbl] thead', rep), tblB = $('[data-sheet-tbl] tbody', rep);
     var title = $('[data-sheet-t]', rep), foot = $('[data-sheet-foot]', rep), ledger = $$('[data-ledger] li', rep);
