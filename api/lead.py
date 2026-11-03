@@ -79,7 +79,7 @@ QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
         "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
-        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a"}
+        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -501,6 +501,36 @@ def captcha_ok(token, answer):
     return True
 
 
+# Cloudflare Turnstile (3 Nov 2026, owner): once TURNSTILE_SECRET_KEY is set on Vercel (sensitive), every lead must
+# carry a Turnstile token (_ts) that Cloudflare's siteverify accepts, and the typed code above is no longer asked
+# for. GET /api/lead?guard=1 tells site.js which check is on, so the secret alone switches it (no rebuild); without
+# it the typed code stays in force. Cloudflare makes a token single-use and valid for 5 minutes.
+# GET /api/lead?tscheck=<token> verifies one token and files nothing (live check of the secret).
+# Widget "technext.asia lead forms" (Managed) in the hello@technext.asia Cloudflare account; the site key is public.
+TS_SITE = os.environ.get("TURNSTILE_SITE_KEY", "0x4AAAAAAFxetF_H5fXzGUJj")
+TS_SECRET = os.environ.get("TURNSTILE_SECRET_KEY", "")
+TS_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+
+def turnstile_ok(token, ip=""):
+    token = str(token or "")
+    if not token or len(token) > 2048:
+        return False
+    body = {"secret": TS_SECRET, "response": token}
+    if ip:
+        body["remoteip"] = ip
+    try:
+        with urllib.request.urlopen(TS_VERIFY, data=urllib.parse.urlencode(body).encode(), timeout=6) as r:
+            j = json.loads(r.read())
+    except Exception as e:     # Cloudflare unreachable (a sender can't cause this): rate limit + flood breaker still apply
+        print("turnstile verify failed:", repr(e)[:300])
+        return True
+    if not j.get("success") or j.get("action") not in (None, "", "lead"):
+        print("turnstile refused:", j.get("error-codes"), j.get("action"), ip[:64])
+        return False
+    return True
+
+
 def rate_ok(ip):
     now = time.time()
     hits = [t for t in RECENT.get(ip, []) if t > now - LEAD_WINDOW]
@@ -678,7 +708,8 @@ class handler(BaseHTTPRequestHandler):
                 print("dropped bot lead:", why, ip[:64])
                 return self._send(200, {"ok": True})
             booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
-            if not booking and not captcha_ok(p.get("_cap", ""), p.get("_cap_a", "")):
+            if not booking and not (turnstile_ok(p.get("_ts", ""), ip) if TS_SECRET and TS_SITE
+                                    else captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
                 return self._send(400, {"ok": False, "error": "captcha"})
             if not rate_ok(ip):
                 print("rate limited", ip[:64])
@@ -727,6 +758,12 @@ class handler(BaseHTTPRequestHandler):
             print("odoo follow-up failed:", repr(e)[:500])
 
     def do_GET(self):
-        if "captcha=" in urllib.parse.urlsplit(self.path).query:
+        q = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
+        on = bool(TS_SECRET and TS_SITE)
+        if "guard" in q:
+            return self._send(200, {"ok": True, "turnstile": TS_SITE if on else ""})
+        if "tscheck" in q and on:
+            return self._send(200, {"ok": turnstile_ok(q["tscheck"][0])})
+        if "captcha" in q:
             return self._send(200, captcha())
         self._send(405, {"ok": False})

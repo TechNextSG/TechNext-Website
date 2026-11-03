@@ -201,7 +201,9 @@ def csp(hashes):
         # checked on 2026-09-26: they hold no Custom HTML tags, so no 'unsafe-inline'.
         "script-src 'self' " + " ".join(hashes) + " https://*.googletagmanager.com "
         "https://www.googleadservices.com https://googleads.g.doubleclick.net "
-        "https://www.google.com https://pagead2.googlesyndication.com https://connect.facebook.net",
+        "https://www.google.com https://pagead2.googlesyndication.com https://connect.facebook.net "
+        # Cloudflare Turnstile on the lead forms (site.js tsGuard)
+        "https://challenges.cloudflare.com",
         # JS-built markup carries style="--i:n" stagger attributes, and the consent banner
         # is styled inline, so inline styles stay allowed
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -218,7 +220,8 @@ def csp(hashes):
         "https://connect.facebook.net https://www.facebook.com "
         + " ".join(GOOGLE_REGIONAL),
         # 'self': /nexi shows the Nexi companion (nexi-app.html) in a same-origin frame
-        "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net",
+        "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net "
+        "https://challenges.cloudflare.com",
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",

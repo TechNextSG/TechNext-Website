@@ -488,16 +488,31 @@
     }
     // time trap: a person needs a few seconds between first touching the form and sending it;
     // scripts post instantly (or never focus a field). They see the normal thank-you, nothing is sent.
-    var startedAt = 0;
-    form.addEventListener('focusin', function () { if (!startedAt) startedAt = Date.now(); });
+    var startedAt = 0, guard = null, ts = null;
+    form.addEventListener('focusin', function () {
+      if (!startedAt) startedAt = Date.now();
+      if (!guard) guard = guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
+    });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if ($('input[name=_honey]', form) && $('input[name=_honey]', form).value) return;
       if (!form.checkValidity()) { form.reportValidity(); return; }
       if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
-      if (cap) { cap.open(); return; }
-      send(btn);
+      guard.then(function (g) {
+        if (!g) { cap.open(); return; }
+        var nope = function () { oops(new Error('The security check could not load.')); };
+        if (g.failed()) { nope(); return; }
+        status.className = 'form-status';
+        status.textContent = g.asking() ? 'Please complete the Cloudflare check above. Your message sends right after.' : 'Sending…';
+        g.take(function (t) { send(btn, { _ts: t }); }, nope);
+      });
     });
+    function oops(err) {
+      status.className = 'form-status is-err';
+      status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at ';
+      var mail = document.createElement('a'); mail.href = 'mailto:sales@technext.asia'; mail.textContent = 'sales@technext.asia';
+      status.appendChild(mail); status.appendChild(document.createTextNode('.'));
+    }
     function send(button, extra) {
       if (form.dataset.beforeSend) { try { window[form.dataset.beforeSend](form); } catch (_) {} }
       var payload = serialize(form);
@@ -511,11 +526,10 @@
           status.className = 'form-status is-ok'; status.textContent = '';
         })
         .catch(function (err) {
-          if (err && err.captcha && cap) { status.className = 'form-status'; status.textContent = ''; cap.wrong(); return; }
-          status.className = 'form-status is-err';
-          status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at ';
-          var mail = document.createElement('a'); mail.href = 'mailto:sales@technext.asia'; mail.textContent = 'sales@technext.asia';
-          status.appendChild(mail); status.appendChild(document.createTextNode('.'));
+          if (ts) ts.reset();   // a Turnstile token works once: get a fresh one for the next try
+          if (err && err.captcha && ts) { oops(new Error('The security check did not go through. Please press send again.')); return; }
+          if (err && err.captcha) { status.className = 'form-status'; status.textContent = ''; cap.wrong(); return; }
+          oops(err);
         })
         .finally(function () { button.classList.remove('is-busy'); button.disabled = false; });
     }
@@ -523,6 +537,55 @@
        sending. /api/lead?captcha=1 hands out the code image and a signed token; /api/lead checks both with the lead. */
     var cap = captchaStep(form, send);
   });
+  /* Cloudflare Turnstile (3 Nov 2026, owner): once /api/lead?guard=1 names a site key, the Cloudflare check runs in
+     the background from the first touch of a form (a box shows only when Cloudflare is unsure) and its token goes
+     with the lead instead of the typed code. No key (secret not set on Vercel) -> the typed code step stays. */
+  var guardCfg = null, tsLoad = null;
+  function guardMode(endpoint) {
+    if (!guardCfg) {
+      guardCfg = fetch((endpoint || '/api/lead') + '?guard=1', { cache: 'no-store', headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { return (j && j.turnstile) || ''; }, function () { guardCfg = null; return ''; });
+    }
+    return guardCfg;
+  }
+  function turnstileApi() {
+    if (!tsLoad) {
+      tsLoad = new Promise(function (ok, no) {
+        if (window.turnstile) { ok(window.turnstile); return; }
+        window.tnTsReady = function () { ok(window.turnstile); };
+        var s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=tnTsReady';
+        s.onerror = function () { tsLoad = null; no(new Error('turnstile')); };
+        document.head.appendChild(s);
+      });
+    }
+    return tsLoad;
+  }
+  function tsGuard(form, sitekey) {
+    var box = document.createElement('div'), id = null, token = '', waiting = null, broken = false, asking = false;
+    box.className = 'form-ts';
+    var foot = $('.form-foot', form);
+    foot.parentNode.insertBefore(box, foot);
+    function got(t) { token = t; broken = false; if (waiting) { var w = waiting; waiting = null; token = ''; w.ok(t); } }
+    function bad() { token = ''; broken = true; if (waiting) { var w = waiting; waiting = null; w.no(); } }
+    turnstileApi().then(function (api) {
+      id = api.render(box, {
+        sitekey: sitekey, action: 'lead', appearance: 'interaction-only', theme: 'light', size: 'flexible',
+        callback: got,
+        'expired-callback': function () { token = ''; },
+        'error-callback': bad,
+        'before-interactive-callback': function () { asking = true; box.classList.add('is-on'); },
+        'after-interactive-callback': function () { asking = false; box.classList.remove('is-on'); }
+      });
+    }, bad);
+    return {
+      failed: function () { return broken && !token; },
+      asking: function () { return asking; },
+      take: function (ok, no) { if (token) { var t = token; token = ''; ok(t); } else waiting = { ok: ok, no: no }; },
+      reset: function () { token = ''; waiting = null; if (id !== null && window.turnstile) window.turnstile.reset(id); }
+    };
+  }
   function captchaStep(form, send) {
     var box = document.createElement('div'), token = '';
     box.className = 'form-captcha';
