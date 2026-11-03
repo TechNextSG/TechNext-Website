@@ -573,13 +573,24 @@
     }
     return tsLoad;
   }
+  /* 3 Nov owner test: a form sent more than 5 minutes after the box said Success sat on "Sending..." - the token had
+     expired and no new one was coming. take() now asks the widget for its current token and, when there is none
+     (expired, or the last one was already sent), resets the box so Cloudflare issues a new one at once. */
   function tsGuard(form, sitekey) {
-    var box = document.createElement('div'), id = null, token = '', waiting = null, broken = false, asking = false;
+    var box = document.createElement('div'), id = null, token = '', spent = '', waiting = null, broken = false, asking = false;
     box.className = 'form-ts';
     var foot = $('.form-foot', form);
     foot.parentNode.insertBefore(box, foot);
-    function got(t) { token = t; broken = false; if (waiting) { var w = waiting; waiting = null; token = ''; w.ok(t); } }
+    function give(ok, t) { token = ''; spent = t; ok(t); }
+    function got(t) { token = t; broken = false; if (waiting) { var w = waiting; waiting = null; give(w.ok, t); } }
     function bad() { token = ''; broken = true; if (waiting) { var w = waiting; waiting = null; w.no(); } }
+    function current() {                         // the box's live token, unless it expired or was sent already
+      var t = token, api = window.turnstile;
+      if (id !== null && api) {
+        try { t = api.isExpired(id) ? '' : (api.getResponse(id) || t); } catch (e) { /* older api: keep ours */ }
+      }
+      return t && t !== spent ? t : '';
+    }
     turnstileApi().then(function (api) {
       box.classList.add('is-on');
       id = api.render(box, {
@@ -595,8 +606,10 @@
       failed: function () { return broken && !token; },
       asking: function () { return asking; },
       take: function (ok, no) {
-        if (token) { var t = token; token = ''; ok(t); return; }
+        var t = current();
+        if (t) { give(ok, t); return; }
         var w = waiting = { ok: ok, no: no };
+        if (id !== null && window.turnstile && !asking) { token = ''; window.turnstile.reset(id); }   // fetch a new one now
         setTimeout(function () { if (waiting === w && !asking) { waiting = null; no(); } }, 20000);
       },
       reset: function () { token = ''; waiting = null; if (id !== null && window.turnstile) window.turnstile.reset(id); }
