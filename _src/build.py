@@ -264,7 +264,7 @@ def talk_panel_html() -> str:
       </div>
       <div class="form-row">
         <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
-        <div class="field"><label for="tf-company">Company <span class="opt">(optional)</span></label><input id="tf-company" name="company" type="text" autocomplete="organization"></div>
+        <div class="field"><label for="tf-company">Company name <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
       </div>
       <div class="field">
         <label for="tf-topic">I'm interested in</label>
