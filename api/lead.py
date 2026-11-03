@@ -766,6 +766,7 @@ class handler(BaseHTTPRequestHandler):
         # owner rule (3 Nov 2026): email AND mobile number are the priority - every form needs both
         if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", "")).strip()) or \
                 not 7 <= len(re.sub(r"\D", "", str(p.get("phone", "")))) <= 15:
+            print("refused contact: email or phone missing", str(p.get("source", ""))[:40])
             return self._send(400, {"ok": False, "error": "contact"})
         tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
         ip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
@@ -780,6 +781,7 @@ class handler(BaseHTTPRequestHandler):
             booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
             if not booking and not (turnstile_ok(p.get("_ts", ""), ip) if TS_SECRET and TS_SITE
                                     else captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
+                print("refused captcha:", "turnstile" if TS_SECRET and TS_SITE else "code", "token" if p.get("_ts") else "no token", tag)
                 return self._send(400, {"ok": False, "error": "captcha"})
             if not rate_ok(ip):
                 print("rate limited", ip[:64])
@@ -836,4 +838,7 @@ class handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": turnstile_ok(q["tscheck"][0])})
         if "captcha" in q:
             return self._send(200, captcha())
+        if "diag" in q:                                    # site.js tnDiag: why a send stopped in the browser (no lead data)
+            print("form diag:", q["diag"][0][:60], "| form", q.get("f", [""])[0][:30], "| page", q.get("p", [""])[0][:60])
+            return self._send(200, {"ok": True})
         self._send(405, {"ok": False})

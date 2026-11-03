@@ -313,14 +313,26 @@
     if (oneContact) form.addEventListener('input', function (e) {
       if ((e.target === em || e.target === ph) && e.target.value.trim() && em.checkValidity()) mark(em, false);
     });
-    /* Send: every step is checked first (runs before the site's form handler, which posts to /api/lead) */
+    /* Send: every step is checked first (runs before the site's form handler, which posts to /api/lead). 3 Nov 2026:
+       the reason also shows under the send button and the field scrolls into view - the owner saw "nothing happen"
+       with only the small message next to Company, two rows above the button. */
+    function stop(e, el) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      var msg = (errEl(el) && errEl(el).textContent) || el.validationMessage || 'Please check the form above.';
+      if (window.tnFormSay) window.tnFormSay(form, msg, el, 'invalid ' + el.name); else el.focus();
+    }
     form.addEventListener('submit', function (e) {
       for (var i = 0; i < steps.length; i++) {
         var bad = check(steps[i]);
-        if (bad) { e.preventDefault(); e.stopImmediatePropagation(); go(i + 1, false); bad.focus(); return; }
+        if (bad) { go(i + 1, false); stop(e, bad); return; }
       }
-      if (noContact()) { e.preventDefault(); e.stopImmediatePropagation(); em.focus(); }
+      if (noContact()) stop(e, em);
     }, true);
+    /* the reason under the button goes as soon as the visitor edits the form again */
+    form.addEventListener('input', function () {
+      var st = $('.form-status', form);
+      if (st && st.classList.contains('is-err')) { st.className = 'form-status'; st.textContent = ''; }
+    });
     go(1, false);
   }
 
