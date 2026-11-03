@@ -94,7 +94,7 @@
     <div class="sec-head reveal"><h2 id="fw-check-h">How many of these happen in your company today?</h2><p class="lead">Tick the ones that sound familiar.</p></div>
     <div class="fw-check reveal">
       <ul class="fw-check-list" id="fw-check">
-        <li><label><input type="checkbox" value="Invoices go out as printed or emailed PDFs"><span class="fw-box">{{icon:check}}</span><span><b>Invoices go out as printed or emailed PDFs.</b> The BIR's e-invoicing system can't receive those.</span></label></li>
+        <li><label><input type="checkbox" value="Invoices typed in Word or Excel"><span class="fw-box">{{icon:check}}</span><span><b>Invoices are typed in Word or Excel,</b> with no audit trail behind them.</span></label></li>
         <li><label><input type="checkbox" value="2307s re-typed every quarter"><span class="fw-box">{{icon:check}}</span><span><b>Someone re-types 2307 certificates every quarter</b> and chases suppliers for the ones that went missing.</span></label></li>
         <li><label><input type="checkbox" value="SLSP, SAWT, QAP rebuilt in Excel"><span class="fw-box">{{icon:check}}</span><span><b>SLSP, SAWT and QAP are rebuilt in Excel</b> the week they are due, and the totals never match the first time.</span></label></li>
         <li><label><input type="checkbox" value="Sales, stock and books in separate systems"><span class="fw-box">{{icon:check}}</span><span><b>Sales, stock and the books live in separate systems,</b> so month-end starts with reconciling them.</span></label></li>
@@ -117,28 +117,28 @@
 <!-- ============================================================ WHAT THE BIR ASKS -->
 <section class="section fx-sec fx-sec--alt fw-rules-sec" aria-labelledby="fw-rules-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-rules-h">What does the BIR ask for?</h2><p class="lead">RMC 98-2026 kept the 31 December 2026 date and set the working rules. These are the ones that shape your Odoo set-up.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-rules-h">What does the BIR ask for?</h2><p class="lead">RMC 5-2021 lists what goes in a CAS or CBA application and what the system must do. These are the parts that shape your Odoo set-up.</p></div>
     <ol class="fw-rules">
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Permit to Issue (PTI)</h3><p>Needed before you issue any e-invoice.</p></li>
-      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>EIS Certification</h3><p>Completed within six months of getting the PTI.</p></li>
-      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>A system that transmits</h3><p>Your system sends the required sales data to the BIR's EIS.</p></li>
-      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>No edits after issue</h3><p>A credit note covers a decrease; a new e-invoice covers an increase.</p></li>
-      <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>A plan for downtime</h3><p>A BIR-authorised manual invoice, replaced later by an e-invoice that references it.</p></li>
-      <li class="reveal" style="--i:5"><span class="gs-n">6</span><h3>Every branch</h3><p>Head office and all branches; different systems may need separate PTIs.</p></li>
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>A sworn statement</h3><p>A description of the system and the invoices and reports it produces; a joint one for a cloud system.</p></li>
+      <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>Sample invoices</h3><p>Printed from the system you will actually use.</p></li>
+      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Sample books and reports</h3><p>Your books of accounts and the other system reports.</p></li>
+      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>An audit trail printout</h3><p>From the system, showing who did what and when.</p></li>
+      <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>The requirements checklist</h3><p>The functional and technical requirements in Annex B, signed.</p></li>
+      <li class="reveal" style="--i:5"><span class="gs-n">6</span><h3>Your books, every year</h3><p>Computerised books registered online through ORUS within 30 days after year-end.</p></li>
     </ol>
     <div class="fw-who reveal">
       <div class="fw-who-box">
-        <h3>Who must comply by 31 December 2026</h3>
+        <h3>CAS or CBA: which one you register</h3>
         <ul class="fw-list">
-          <li>{{icon:check}} Small, medium and large taxpayers selling through e-commerce</li>
-          <li>{{icon:check}} Taxpayers under the Large Taxpayers Service, and large taxpayers under RA 11976</li>
-          <li>{{icon:check}} Businesses on CAS or CBA with e-invoicing or other invoicing software</li>
+          <li>{{icon:check}} Large taxpayers must use a CAS (RR 9-2009, restated in RMO 9-2021)</li>
+          <li>{{icon:check}} Your system issues the invoices: a Computerized Accounting System (CAS)</li>
+          <li>{{icon:check}} Invoices issued by hand, books kept in the system: Computerized Books of Accounts (CBA)</li>
         </ul>
-        <p class="small muted">Micro taxpayers are exempt. Not sure which group you are in? We go through it with your accountant during discovery; your Revenue District Office can confirm it.</p>
+        <p class="small muted">Odoo Online and Odoo.sh are registered too, with a joint sworn statement with the provider. Not sure which one you need? We go through it with your accountant during discovery; your Revenue District Office can confirm it.</p>
       </div>
       <div class="fw-note">
         <h3>A word of caution</h3>
-        <p>The BIR said on 14 September 2026 that it has not accredited or endorsed any software or e-invoicing provider, so we don't claim to be "BIR-accredited". We set up your Odoo for the BIR's requirements and prepare with you the papers for the PTI you file. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately. TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
+        <p>The BIR registers your business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims, so we don't make them. We set up your Odoo for the BIR's requirements and prepare with you the samples for the CAS or CBA application you file at your RDO; the decision is the RDO's. TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
       </div>
     </div>
   </div>
@@ -149,8 +149,8 @@
   <div class="container fw-split">
     <div class="fw-split-copy reveal">
       <h2 id="fw-o20-h">What does Odoo 20 already do for BIR?</h2>
-      <p class="lead">The Philippine localisation produces your BIR reports from the entries you post. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one.</p>
-      <p class="fw-links"><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports from Odoo {{icon:arrow}}</a></p>
+      <p class="lead">The Philippine localisation produces your BIR reports from the entries you post. Odoo 20 also logs changes in an audit trail and secures posted entries, which a CAS application has to show.</p>
+      <p class="fw-links"><a class="btn-link" href="{{ROOT}}bir-cas.html#cas-steps">See how a CAS set-up works {{icon:arrow}}</a></p>
     </div>
     <div class="fw-cols reveal">
       <div class="fw-colcard">
@@ -165,10 +165,10 @@
       <div class="fw-colcard fw-colcard--tn">
         <h3><img class="fw-logo" src="{{ROOT}}assets/img/logo-horizontal.png" alt="TechNext" width="110" height="22"> What we add</h3>
         <ul class="fw-list">
-          <li>{{icon:check}} An assessment of the EIS connection options if you are covered; any connection work is quoted separately</li>
-          <li>{{icon:check}} Invoice layouts and branch flows checked against the guidelines</li>
-          <li>{{icon:check}} Credit-note and manual-invoice catch-up set up before go-live</li>
-          <li>{{icon:check}} Process flow and sample outputs for the PTI you apply for</li>
+          <li>{{icon:check}} Every Annex B requirement checked against your configuration and hosting</li>
+          <li>{{icon:check}} Invoice layout and series set up for your Acknowledgement Certificate</li>
+          <li>{{icon:check}} User roles, report headers with TIN and branch code, and a ten-year backup plan</li>
+          <li>{{icon:check}} Sample invoices, books, reports and the audit trail printout for your application</li>
         </ul>
       </div>
     </div>
@@ -263,12 +263,12 @@
 <!-- ============================================================ STEPS -->
 <section class="section fx-sec fx-sec--alt gs-how" aria-labelledby="fw-steps-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-steps-h">From "are we covered?" to live in Odoo.</h2></div>
+    <div class="sec-head reveal"><h2 id="fw-steps-h">From "CAS or CBA?" to live in Odoo.</h2></div>
     <ol class="gs-steps fw-steps" data-loop>
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Adviser call</h3><p>A short call with an adviser: your BIR group, how you invoice today, and where it hurts.</p></li>
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Adviser call</h3><p>A short call with an adviser: CAS or CBA, head office and branches, how you invoice today, and where it hurts.</p></li>
       <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>See your plan</h3><p>We recommend the Odoo apps to start with and say why, with a written quotation.</p></li>
-      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Set up and test</h3><p>Taxes, withholding and BIR reports, tested on a copy of your data; the EIS connection is assessed separately.</p></li>
-      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>Go live together</h3><p>Your Odoo goes live, with your team trained and the papers for your PTI application prepared with you.</p></li>
+      <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Set up and test</h3><p>Taxes, withholding, the audit trail and BIR reports, tested on a copy of your data.</p></li>
+      <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>Go live together</h3><p>You file your CAS or CBA application with the samples we prepared together; your Odoo goes live with your team trained.</p></li>
       <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>We stay on</h3><p>TechNext Care keeps your Odoo, BIR reports and website running every month; you file with the BIR.</p></li>
     </ol>
   </div>
@@ -279,8 +279,8 @@
   <div class="container fx-faq">
     <div class="sec-head reveal"><h2 id="fw-faq-h">BIR and Odoo, answered.</h2></div>
     <div class="faq reveal">
-      <details><summary>What is the BIR e-invoicing deadline? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.</p></div></details>
-      <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, assess the EIS connection separately, and prepare with you the process flow and sample outputs for the PTI you file.</p></div></details>
+      <details><summary>Do we need a CAS or a CBA? {{icon:chevron}}</summary><div class="faq-a"><p>RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant on the first call, and your RDO can confirm it.</p></div></details>
+      <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and no software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.</p></div></details>
       <details><summary>Can Odoo produce our 2307s, SLSP, SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo 20's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.</p></div></details>
       <details><summary>We already have a CAS permit for our current system. What happens? {{icon:chevron}}</summary><div class="faq-a"><p>A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.</p></div></details>
       <details><summary>Who do you work with? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.</p></div></details>
@@ -293,7 +293,7 @@
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>Planning for 31 December?</h2><p>Fill in the short form. It takes about a minute, and an adviser replies from sales@technext.asia.</p></div>
+      <div><h2>Registering your CAS or CBA?</h2><p>Fill in the short form. It takes about a minute, and an adviser replies from sales@technext.asia.</p></div>
       <div class="actions">
         <a class="btn btn-white btn-lg" href="#book" data-to-form>Book my adviser call {{icon:arrow}}</a>
         <a class="btn btn-outline-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a>
