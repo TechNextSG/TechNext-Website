@@ -500,7 +500,7 @@
       if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
       guard.then(function (g) {
         if (!g) { cap.open(); return; }
-        var nope = function () { oops(new Error('The security check could not load.')); };
+        var nope = function () { g.reset(); oops(new Error('The security check did not finish. Please press send again.')); };
         if (g.failed()) { nope(); return; }
         status.className = 'form-status';
         status.textContent = g.asking() ? 'Please complete the Cloudflare check above. Your message sends right after.' : 'Sending…';
@@ -528,7 +528,17 @@
         .catch(function (err) {
           if (ts) ts.reset();   // a Turnstile token works once: get a fresh one for the next try
           if (err && err.captcha && ts) { oops(new Error('The security check did not go through. Please press send again.')); return; }
-          if (err && err.captcha) { status.className = 'form-status'; status.textContent = ''; cap.wrong(); return; }
+          if (err && err.captcha) {   // typed code refused: the page may predate Turnstile being switched on, so ask again
+            guardCfg = null;
+            guard = guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
+            guard.then(function (g) {
+              status.className = 'form-status'; status.textContent = '';
+              if (!g) { cap.wrong(); return; }
+              form.classList.remove('is-captcha');
+              status.textContent = 'One more check: please press send again once the box above shows Success.';
+            });
+            return;
+          }
           oops(err);
         })
         .finally(function () { button.classList.remove('is-busy'); button.disabled = false; });
@@ -537,9 +547,10 @@
        sending. /api/lead?captcha=1 hands out the code image and a signed token; /api/lead checks both with the lead. */
     var cap = captchaStep(form, send);
   });
-  /* Cloudflare Turnstile (3 Nov 2026, owner): once /api/lead?guard=1 names a site key, the Cloudflare check runs in
-     the background from the first touch of a form (a box shows only when Cloudflare is unsure) and its token goes
-     with the lead instead of the typed code. No key (secret not set on Vercel) -> the typed code step stays. */
+  /* Cloudflare Turnstile (3 Nov 2026, owner): once /api/lead?guard=1 names a site key, the Cloudflare box appears
+     above the send button from the first touch of a form (it ticks itself for most visitors; owner wants to see it)
+     and its token goes with the lead instead of the typed code. No key (no secret on Vercel) -> the typed code stays.
+     A send waiting on the box gives up after 20 s unless Cloudflare is asking the visitor to tick it. */
   var guardCfg = null, tsLoad = null;
   function guardMode(endpoint) {
     if (!guardCfg) {
@@ -570,19 +581,24 @@
     function got(t) { token = t; broken = false; if (waiting) { var w = waiting; waiting = null; token = ''; w.ok(t); } }
     function bad() { token = ''; broken = true; if (waiting) { var w = waiting; waiting = null; w.no(); } }
     turnstileApi().then(function (api) {
+      box.classList.add('is-on');
       id = api.render(box, {
-        sitekey: sitekey, action: 'lead', appearance: 'interaction-only', theme: 'light', size: 'flexible',
+        sitekey: sitekey, action: 'lead', theme: 'light', size: 'flexible',
         callback: got,
         'expired-callback': function () { token = ''; },
         'error-callback': bad,
-        'before-interactive-callback': function () { asking = true; box.classList.add('is-on'); },
-        'after-interactive-callback': function () { asking = false; box.classList.remove('is-on'); }
+        'before-interactive-callback': function () { asking = true; },
+        'after-interactive-callback': function () { asking = false; }
       });
     }, bad);
     return {
       failed: function () { return broken && !token; },
       asking: function () { return asking; },
-      take: function (ok, no) { if (token) { var t = token; token = ''; ok(t); } else waiting = { ok: ok, no: no }; },
+      take: function (ok, no) {
+        if (token) { var t = token; token = ''; ok(t); return; }
+        var w = waiting = { ok: ok, no: no };
+        setTimeout(function () { if (waiting === w && !asking) { waiting = null; no(); } }, 20000);
+      },
       reset: function () { token = ''; waiting = null; if (id !== null && window.turnstile) window.turnstile.reset(id); }
     };
   }
