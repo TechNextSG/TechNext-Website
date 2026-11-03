@@ -305,6 +305,23 @@ def booking_lead(email, phone="", name="", tries=8, wait=1.5):
     return False
 
 
+def booking_event(email, phone="", name=""):
+    """Odoo's calendar event for the booking. 3 Nov: a real booking (event 7895) left no opportunity the API user
+    can see, so booking_lead() alone flagged it 'not confirmed'. Some bookings leave no visible event either."""
+    match = [["partner_ids.email", "=ilike", email]] if email else []
+    digits = re.sub(r"\D", "", phone)[-9:]
+    if len(digits) == 9:
+        match.append(["partner_ids.phone_sanitized", "=like", "%" + digits])
+    if name:
+        match.append(["name", "=ilike", name + " - %"])   # Odoo names it "<name> - Discovery Call with TechNext Booking"
+    if not match:
+        return False
+    since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
+    ids = rpc("calendar.event", "search", domain=[["create_date", ">=", since], ["appointment_type_id", "!=", False]]
+              + ["|"] * (len(match) - 1) + match, order="id desc", limit=1)
+    return ids[0] if ids else False
+
+
 def summary(p, form, contact):
     """Everything as bulleted groups, (heading, [(label, value)]): contact / what they need / about them / how they
     found us / full links - same order in the notes and the @Jeric note (which leaves out the full links)."""
@@ -615,6 +632,11 @@ def make_lead(p):
                 rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
                     subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
                 lead, done = found, info
+            elif booking_event(email, phone, name):        # booked, but Odoo's opportunity is not visible to the key
+                note = [("Booking", [("Status", "Booked: the call is in the Odoo calendar.")])]
+                lead = rpc("crm.lead", "create", vals_list=[dict(vals, description=as_html(note + groups))],
+                           context=QUIET)[0]
+                done = (form, note + groups, spam)
             else:                                          # Odoo never confirmed the booking: Jeric calls them instead
                 flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
                                                      "Please contact them to set the call time.")])]
