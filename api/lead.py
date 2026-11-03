@@ -510,12 +510,22 @@ def captcha_ok(token, answer):
 TS_SITE = os.environ.get("TURNSTILE_SITE_KEY", "0x4AAAAAAFxetF_H5fXzGUJj")
 TS_SECRET = os.environ.get("TURNSTILE_SECRET_KEY", "")
 TS_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+# 3 Nov live check: siteverify said success twice for the same token a minute apart, so a token is also kept here
+# (hash -> expiry, this warm instance) and refused the second time.
+TS_USED = {}
 
 
 def turnstile_ok(token, ip=""):
     token = str(token or "")
     if not token or len(token) > 2048:
         return False
+    now, key = time.time(), hashlib.sha256(token.encode()).hexdigest()[:32]
+    for k in [k for k, e in TS_USED.items() if e < now]:
+        del TS_USED[k]
+    if key in TS_USED:
+        print("turnstile reused", ip[:64])
+        return False
+    TS_USED[key] = now + 600
     body = {"secret": TS_SECRET, "response": token}
     if ip:
         body["remoteip"] = ip
