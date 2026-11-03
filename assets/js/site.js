@@ -500,10 +500,14 @@
       if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
       guard.then(function (g) {
         if (!g) { cap.open(); return; }
-        var nope = function () { g.reset(); oops(new Error('The security check did not finish. Please press send again.')); };
+        var nope = function () {
+          btn.classList.remove('is-busy'); btn.disabled = false;
+          g.reset(); oops(new Error('The security check did not finish. Please press send again.'));
+        };
         if (g.failed()) { nope(); return; }
         status.className = 'form-status';
         status.textContent = g.asking() ? 'Please complete the Cloudflare check above. Your message sends right after.' : 'Sending…';
+        btn.classList.add('is-busy'); btn.disabled = true;   // the button shows progress while Cloudflare finishes, too
         g.take(function (t) { send(btn, { _ts: t }); }, nope);
       });
     });
