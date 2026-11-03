@@ -76,7 +76,7 @@ FORMS = [
 SHORT = {"Retired offer page (/get-started)": "Retired offer page", "Let's Talk panel": "Let's Talk",
          "Retired offer page (/free-website-with-odoo)": "Retired offer page", "Quotation builder": "Quotation"}
 # each answer is shown as "<the form's question>: <answer>"; FORM_LABELS has the wording a form asks differently
-LABELS = {"name": "Name", "company": "Company", "email": "Work email", "phone": "Phone",
+LABELS = {"name": "Name", "company": "Company name","email": "Work email", "phone": "Phone",
           "topic": "I'm interested in", "bir_pain": "What do you need most?", "message": "Message",
           "apps": "Which Odoo apps?", "users": "How many users?", "hosting": "Hosting", "services": "Services needed",
           "timeline": "Timeline", "scope_summary": "Quotation scope",
@@ -786,7 +786,11 @@ class handler(BaseHTTPRequestHandler):
             print("refused contact: email or phone missing", str(p.get("source", ""))[:40])
             return self._send(400, {"ok": False, "error": "contact"})
         tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
-        ip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
+        # owner rule (3 Nov 2026): the company name is required too. Not for a booking: Odoo has filed it already
+        if not clean(p.get("company", "")) and tag not in NO_CAPTCHA_FORMS:
+            print("refused company: no company name", str(p.get("source", ""))[:40])
+            return self._send(400, {"ok": False, "error": "company"})
+        ip =(self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
         if not p.get("_followup"):
             if tag == "Other form":                        # none of our forms sent it: a script; nothing is filed
                 print("dropped unknown form from", ip[:64], sorted(p)[:12])

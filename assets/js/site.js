@@ -454,6 +454,7 @@
       .then(function (res) {
         if (!res.ok && res.j.error === 'captcha') { var ce = new Error('captcha'); ce.captcha = true; throw ce; }
         if (!res.ok && res.j.error === 'contact') throw new Error('Please add both your email and your mobile number.');
+        if (!res.ok && res.j.error === 'company') throw new Error('Please add your company name.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
           var q = {};
