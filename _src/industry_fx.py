@@ -150,7 +150,7 @@ PANEL = {
             ("#LZ-88123 · 1 × Shirt", "Lazada", ("Paid", "Shipped", "info")),
             ("#TT-55021 · 3 × Tote", "TikTok Shop", ("Paid", "Shipped", "info"))]),
         post=dict(app="account", title="Invoice", ref="INV/2026/1042 · issued", rows=[("Dr", "Payment received", "49.80"), ("Cr", "Sales", "45.69"), ("Cr", "GST", "4.11")]),
-        chips=["Stock reserved", "Payout matched", "Locked after issue", "PH: e-invoice by 31 Dec 2026"]),
+        chips=["Stock reserved", "Payout matched", "Locked after issue", "Books of Accounts in Odoo"]),
     "health-wellness": dict(
         app="sale_subscription", title="Subscriptions", sub="Willow &amp; Stone · SUB/0186 · Gold", steps=["Booked", "Checked in", "Renewed", "Posted"],
         kpis=[("Active members", 1240, "", "", 0), ("Renewals this month", 186, "", "", 0), ("Retail sales today", 2.3, "S$ ", "k", 1)],
@@ -379,7 +379,7 @@ def panel_markup(p: dict, extra: str = "") -> str:
 
 
 # home: one tab per industry; the selected industry's panel runs (only the visible panel animates)
-SWITCH = [("retail", "bag", "POS, shared stock, EOPT invoices per store"), ("ecommerce", "cart", "Online sellers in the first e-invoicing group"),
+SWITCH = [("retail", "bag", "POS, shared stock, EOPT invoices per store"), ("ecommerce", "cart", "Web store and marketplace orders, one set of books"),
           ("fnb", "utensils", "Outlet POS to kitchen to the books"), ("construction", "hardhat", "Job costing, 2307 on subcontractor payments"),
           ("manufacturing", "gear", "Bills of materials and real unit cost"), ("medical", "pulse", "Clinic groups, one set of books per branch"),
           ("travel", "plane", "Bookings, supplier costs, margins per trip"), ("health-wellness", "heart", "Memberships, packages and retail")]

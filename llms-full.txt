@@ -1119,15 +1119,15 @@ Book a discovery call, or tell us how your process runs today by email to sales@
 
 Source: https://technext.asia/company
 
-### Who must issue BIR e-invoices by 31 December 2026?
+### Do we need a CAS or a CBA?
 
-Under RR 26-2025: e-commerce and internet sellers that are small, medium or large; taxpayers under the Large Taxpayers Service; large taxpayers under RA 11976; and businesses on a CAS or CBA with invoicing software. Micro taxpayers are exempt. Exporters, POS users and incentive-registered enterprises join later. Confirm your group with your accountant.
+RMO 9-2021 draws the line at invoices. If your system issues them, it is a Computerized Accounting System (CAS); if invoices are issued by hand and the system keeps your books, it is Computerized Books of Accounts (CBA). Large taxpayers must use a CAS. Odoo Online and Odoo.sh are registered too, with a joint sworn statement with the provider. Confirm with your accountant or RDO.
 
 Source: https://technext.asia/
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and name it in its own PTI application. TechNext is an Odoo Ready Partner, not affiliated with or acting for the BIR. See BIR rules for your accounting system .
+No software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business can register Odoo as its CAS or CBA at its Revenue District Office. TechNext is an Odoo Ready Partner, not affiliated with or acting for the BIR. See BIR rules for your accounting system .
 
 Source: https://technext.asia/
 
@@ -1139,7 +1139,7 @@ Source: https://technext.asia/
 
 ### What does Odoo produce for the BIR?
 
-Odoo's Philippine localisation produces the 2307 per payee, the SLSP , SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.
+Odoo's Philippine localisation produces the 2307 per payee, the SLSP , SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post. Your Books of Accounts export from the same entries for your yearly ORUS registration.
 
 Source: https://technext.asia/
 

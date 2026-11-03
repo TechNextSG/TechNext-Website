@@ -86,9 +86,9 @@
 .fx-pill { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 14px; border-radius: 999px; font: 700 13.5px/1.1 var(--font-body);
   background: #F1F2F6; color: var(--body); transition: background-color .4s var(--fx-ease), color .4s var(--fx-ease); }
 .fx-pill i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-.fx-pill[data-verdict="covered"] { background: var(--blue); color: #fff; }
+.fx-pill[data-verdict="covered"], .fx-pill[data-verdict="cas"], .fx-pill[data-verdict="cba"] { background: var(--blue); color: #fff; }
 .fx-pill[data-verdict="covered"] i { box-shadow: 0 0 0 0 rgba(255,255,255,.7); animation: fxPing 1.6s var(--fx-ease) 2; }
-.fx-pill[data-verdict="likely"] { background: #FDF3E1; color: var(--fx-amber); }
+.fx-pill[data-verdict="likely"], .fx-pill[data-verdict="unsure"] { background: #FDF3E1; color: var(--fx-amber); }
 .fx-pill[data-verdict="later"], .fx-pill[data-verdict="exempt"] { background: var(--ok-050); color: var(--ok); }
 @keyframes fxPing { to { box-shadow: 0 0 0 10px rgba(255,255,255,0); } }
 .fx-r-say { margin: 16px 0 18px; font: 600 1.06rem/1.5 var(--font-display); color: var(--ink); min-height: 3em; }

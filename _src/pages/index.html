@@ -175,8 +175,8 @@
     </article>
 
     <!-- Slide 3 · BIR reports console (21 Oct 2026; honest-claims pass 22 Oct): BIR reports orbit an Odoo "Accounting · BIR"
-         console; drag to spin, select a report to see a sample. EIS is shown as a separate project, not a live
-         connection. assets/js/hero-bir.js, assets/css/hero-bir.css -->
+         console; drag to spin, select a report to see a sample. 3 Nov 2026: the EIS node is gone (CAS is the priority);
+         the countdown is to 30 January 2027, computerised books in ORUS. assets/js/hero-bir.js, assets/css/hero-bir.css -->
     <article class="slide slide--bir" data-slide-bir data-title="Odoo, set up for BIR requirements" aria-roledescription="slide">
       <div class="container slide-inner si-cine">
         <div class="slide-copy">
@@ -186,7 +186,7 @@
             <span class="kw" style="--i:1"><span>straight from</span></span><br>
             <span class="kw" style="--i:2"><span class="hl">your Odoo books.</span></span>
           </h2>
-          <p class="lead up" style="--d:480ms">We set Odoo up for your BIR Computerized Accounting System (CAS) registration: 2307s, SLSP, SAWT, QAP and the 2550Q come from the invoices and bills you already post. For e-invoicing, we assess what your Odoo version needs and plan it with you; you apply for your Permit to Issue. Our advisers stay on after go-live.</p>
+          <p class="lead up" style="--d:480ms">We set Odoo up for your BIR Computerized Accounting System (CAS) registration: 2307s, SLSP, SAWT, QAP and the 2550Q come from the invoices and bills you already post. Your Books of Accounts export from the same entries for your yearly ORUS registration. Our advisers stay on after go-live.</p>
           <div class="actions up" style="--d:580ms">
             <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
             <a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports</a>
@@ -194,7 +194,7 @@
           <div class="bt-strip up" style="--d:700ms" role="group" aria-label="Show a BIR form in the console">
             <button type="button" data-form="2307" aria-pressed="true"><b>2307</b><span>Per payee, per quarter</span></button>
             <button type="button" data-form="slsp" aria-pressed="false"><b>SLSP</b><span>DAT file for the BIR</span></button>
-            <button type="button" data-form="eis" aria-pressed="false"><b>EIS</b><span>Separate project</span></button>
+            <button type="button" data-form="orus" aria-pressed="false"><b>ORUS</b><span>Books for your filing</span></button>
           </div>
         </div>
 
@@ -207,7 +207,6 @@
               <div class="bt-doc-h"><b data-bt-title>BIR 2307 · Q3 2026</b><small data-bt-sub>4 certificates</small></div>
               <ul class="bt-rows" data-bt-rows></ul>
               <p class="bt-gen" data-bt-gen></p>
-              <div class="bt-send" data-bt-send hidden><button type="button" data-bt-fire>{{icon:send}}Post sample invoices</button><span data-bt-sent>0 posted · locked in Odoo</span></div>
             </div>
           </div>
           <div class="bt-nodes" role="group" aria-label="BIR forms Odoo produces: select one">
@@ -216,7 +215,6 @@
             <button class="bt-node" type="button" data-form="sawt" aria-pressed="false" aria-label="SAWT: Withheld from you"><b>SAWT</b><small>Withheld from you</small></button>
             <button class="bt-node" type="button" data-form="qap" aria-pressed="false" aria-label="QAP: Payees you withheld"><b>QAP</b><small>Payees you withheld</small></button>
             <button class="bt-node" type="button" data-form="2550q" aria-pressed="false" aria-label="2550Q: Quarterly VAT"><b>2550Q</b><small>Quarterly VAT</small></button>
-            <button class="bt-node" type="button" data-form="eis" aria-pressed="false" aria-label="E-invoice: EIS, separate project"><b>E-invoice</b><small>EIS: separate project</small></button>
             <button class="bt-node" type="button" data-form="orus" aria-pressed="false" aria-label="ORUS: Books of Accounts for your own ORUS registration"><b>ORUS</b><small>Books for your ORUS filing</small></button>
           </div>
           <p class="bt-hint" aria-hidden="true">{{icon:refresh}}Drag to spin · select a form</p>
@@ -224,80 +222,82 @@
       </div>
     </article>
 
-    <!-- Slide 4 · BIR e-invoicing group check (owner, 21 Oct 2026): four questions, a live result with the steps and the
-         31 Dec 2026 countdown; "Book a discovery call" carries the answers. assets/js/bir-check.js -->
-    <article class="slide slide--check" data-slide-check data-title="Is your business covered by BIR e-invoicing?" aria-roledescription="slide">
+    <!-- Slide 4 · BIR CAS or CBA check (owner, 3 Nov 2026: CAS is the priority; was the e-invoicing group check): four
+         questions, a live result with the steps from RMO 9-2021 and RMC 5-2021, and the countdown to the computerised
+         books deadline in ORUS (30 January 2027, calendar year); "Book a discovery call" carries the answers.
+         assets/js/bir-check.js -->
+    <article class="slide slide--check" data-slide-check data-title="CAS or CBA for your Odoo?" aria-roledescription="slide">
       <div class="container slide-inner si-cine fx-check">
         <div class="slide-copy">
-          <span class="slide-tag up" style="--d:0ms">{{icon:target}} BIR e-invoicing group check</span>
+          <span class="slide-tag up" style="--d:0ms">{{icon:target}} BIR CAS or CBA check</span>
           <h2 class="as-h1">
-            <span class="kw" style="--i:0"><span>Covered by</span></span><br>
-            <span class="kw" style="--i:1"><span class="hl fx-nowrap">BIR e&#8209;invoicing?</span></span>
+            <span class="kw" style="--i:0"><span>CAS or CBA</span></span><br>
+            <span class="kw" style="--i:1"><span class="hl fx-nowrap">for your Odoo?</span></span>
           </h2>
-          <p class="lead up" style="--d:420ms">Four questions. See whether you are likely to be covered by 31 December 2026, and what to prepare in Odoo.</p>
+          <p class="lead up" style="--d:420ms">Four questions. See which registration fits your business, and what to prepare from your Odoo.</p>
           <div class="up" style="--d:520ms">
-      <form class="fx-q" data-bircheck novalidate aria-label="BIR e-invoicing group check">
+      <form class="fx-q" data-bircheck novalidate aria-label="BIR CAS or CBA check">
         <fieldset class="fx-row">
-          <legend><span class="fx-qn">1</span>Your gross annual sales</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="size" value="micro"><span>Under ₱3M</span></label>
-            <label><input type="radio" name="size" value="small"><span>₱3M to under ₱20M</span></label>
-            <label><input type="radio" name="size" value="medium"><span>₱20M to under ₱1B</span></label>
-            <label><input type="radio" name="size" value="large"><span>₱1B and up</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">2</span>Do you sell online (a store, a marketplace or social commerce)?</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="online" value="yes"><span>Yes</span></label>
-            <label><input type="radio" name="online" value="no"><span>No</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">3</span>How are your invoices made today?</legend>
-          <div class="fx-chips">
-            <label><input type="radio" name="system" value="cas"><span>CAS / CBA or invoicing software</span></label>
-            <label><input type="radio" name="system" value="manual"><span>Manual or loose-leaf</span></label>
-            <label><input type="radio" name="system" value="unsure"><span>Not sure</span></label>
-          </div>
-        </fieldset>
-        <fieldset class="fx-row">
-          <legend><span class="fx-qn">4</span>Are you under the Large Taxpayers Service?</legend>
+          <legend><span class="fx-qn">1</span>Are you under the Large Taxpayers Service?</legend>
           <div class="fx-chips">
             <label><input type="radio" name="lts" value="yes"><span>Yes</span></label>
             <label><input type="radio" name="lts" value="no"><span>No</span></label>
             <label><input type="radio" name="lts" value="unsure"><span>Not sure</span></label>
           </div>
         </fieldset>
+        <fieldset class="fx-row">
+          <legend><span class="fx-qn">2</span>Will Odoo issue your invoices?</legend>
+          <div class="fx-chips">
+            <label><input type="radio" name="inv" value="system"><span>Yes, from Odoo</span></label>
+            <label><input type="radio" name="inv" value="manual"><span>No, by hand</span></label>
+            <label><input type="radio" name="inv" value="unsure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="fx-row">
+          <legend><span class="fx-qn">3</span>Where will your Odoo run?</legend>
+          <div class="fx-chips">
+            <label><input type="radio" name="host" value="cloud"><span>Odoo Online or Odoo.sh</span></label>
+            <label><input type="radio" name="host" value="own"><span>Our own server</span></label>
+            <label><input type="radio" name="host" value="unsure"><span>Not decided</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="fx-row">
+          <legend><span class="fx-qn">4</span>Is your current system registered with the BIR?</legend>
+          <div class="fx-chips">
+            <label><input type="radio" name="reg" value="no"><span>No</span></label>
+            <label><input type="radio" name="reg" value="yes"><span>Yes</span></label>
+            <label><input type="radio" name="reg" value="unsure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
       </form>
           </div>
         </div>
         <div class="fx-check-side up" style="--d:160ms">
-    <aside class="fx-result" data-birresult aria-live="polite" aria-label="Your e-invoicing group result">
+    <aside class="fx-result" data-birresult aria-live="polite" aria-label="Your CAS or CBA result">
       <div class="fx-result-glow" aria-hidden="true"></div>
       <div class="fx-result-top">
         <p class="fx-r-label">Your result</p>
         <p class="fx-pill" data-verdict="pending"><i aria-hidden="true"></i><span data-verdict-t>Answer the questions</span></p>
       </div>
-      <p class="fx-r-say" data-say>Your answers decide whether you are in the first e-invoicing group, and what to prepare.</p>
-      <div class="fx-count" aria-label="Time left until 31 December 2026">
+      <p class="fx-r-say" data-say>Your answers suggest which registration fits, and what to prepare from your Odoo.</p>
+      <div class="fx-count" aria-label="Time left until 30 January 2027">
         <div><b data-cd="d">--</b><small>days</small></div>
         <div><b data-cd="h">--</b><small>hours</small></div>
         <div><b data-cd="m">--</b><small>minutes</small></div>
-        <p>until the 31 December 2026 e-invoicing deadline</p>
+        <p>until 30 January 2027, when computerised books are due in ORUS (calendar year)</p>
       </div>
       <ol class="fx-steps" data-steps>
-        <li data-step="pti"><span class="fx-dot" aria-hidden="true"></span><span><b>Permit to Issue (PTI) e-invoice</b>Apply before you issue any e-invoice.</span></li>
-        <li data-step="eis"><span class="fx-dot" aria-hidden="true"></span><span><b>EIS certification</b>Within six months of your PTI.</span></li>
-        <li data-step="books"><span class="fx-dot" aria-hidden="true"></span><span><b>Books of Accounts for your ORUS registration (you register)</b>Loose-leaf or computerised, on time each year.</span></li>
-        <li data-step="reports"><span class="fx-dot" aria-hidden="true"></span><span><b>2307, SLSP, SAWT, QAP, 2550Q</b>From your Odoo entries, not spreadsheets.</span></li>
-        <li data-step="branches"><span class="fx-dot" aria-hidden="true"></span><span><b>Every branch and a downtime plan</b>Credit notes, not edits; manual invoices replaced later.</span></li>
+        <li data-step="sworn"><span class="fx-dot" aria-hidden="true"></span><span><b>A sworn statement</b>With a description of the system; a joint one with the provider for Odoo Online or Odoo.sh.</span></li>
+        <li data-step="samples"><span class="fx-dot" aria-hidden="true"></span><span><b>Sample outputs from Odoo</b>Invoices (for a CAS), books and reports, printed from the Odoo you will use.</span></li>
+        <li data-step="audit"><span class="fx-dot" aria-hidden="true"></span><span><b>Audit trail and the Annex B checklist</b>Who did what and when, and the requirements, signed.</span></li>
+        <li data-step="new"><span class="fx-dot" aria-hidden="true"></span><span><b>A registration for the new system</b>A new system usually needs its own; check with your accountant.</span></li>
+        <li data-step="books"><span class="fx-dot" aria-hidden="true"></span><span><b>Books in ORUS every year</b>Computerised books within 30 days after year-end.</span></li>
       </ol>
       <div class="fx-r-act">
         <a class="btn btn-primary btn-lg" data-meet data-bookcall href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-        <a class="btn btn-ghost" href="{{ROOT}}bir-e-invoicing.html#sample-reports">See sample BIR reports</a>
+        <a class="btn btn-ghost" href="{{ROOT}}bir-cas.html#cas-steps">How CAS set-up works</a>
       </div>
-      <p class="fx-fine">General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Confirm your group with your accountant or RDO.</p>
+      <p class="fx-fine">General guidance from RMO 9-2021 and RMC 5-2021, not tax advice. Confirm with your accountant or RDO.</p>
     </aside>
         </div>
       </div>
@@ -317,7 +317,7 @@
       <button class="dot" type="button" role="tab" aria-selected="true" aria-label="Slide 1: Odoo ERP, implemented"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: One flow from quotation to cash"></button>
       <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: BIR reports in Odoo"></button>
-      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: BIR e-invoicing group check"></button>
+      <button class="dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: BIR CAS or CBA check"></button>
     </div>
     <button class="icon-btn hero-arrow" type="button" data-hero-next aria-label="Next slide">{{icon:arrow}}</button>
     <button class="icon-btn hero-arrow hero-pp" type="button" data-hero-pp aria-pressed="false" aria-label="Pause the slides">{{icon:pause}}{{icon:play}}</button>
@@ -392,7 +392,7 @@
         <a class="vp-more" href="#advisers">Meet the experts {{icon:arrow}}</a>
       </article>
     </div>
-    <div class="actions vp-act reveal"><a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-adviser-call.html">Check your e-invoicing group</a></div>
+    <div class="actions vp-act reveal"><a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}bir-adviser-call.html">Talk to us about your CAS</a></div>
   </div>
 </section>
 
@@ -408,7 +408,7 @@
         <button type="button" role="tab" aria-selected="false" data-rep="slsp"><b>SLSP</b><small>Sales and purchases</small></button>
         <button type="button" role="tab" aria-selected="false" data-rep="qap"><b>QAP · SAWT</b><small>Withheld by and from you</small></button>
         <button type="button" role="tab" aria-selected="false" data-rep="2550q"><b>2550Q</b><small>Quarterly VAT</small></button>
-        <button type="button" role="tab" aria-selected="false" data-rep="einv"><b>E-invoice</b><small>EIS assessed separately</small></button>
+        <button type="button" role="tab" aria-selected="false" data-rep="orus"><b>Books</b><small>For your ORUS registration</small></button>
       </div>
       <div class="fx-rep-stage">
         <div class="fx-ledger" aria-hidden="true">
@@ -446,7 +446,7 @@
       <ul class="fx-points">
         <li>{{icon:check}}<span><b>Delivered before, and we can show you.</b>Ask for a walkthrough of a project like yours.</span></li>
         <li>{{icon:users}}<span><b>Our experts implement it, in-house.</b>Consultants and developers in Taguig City, AI engineers in Ho Chi Minh City.</span></li>
-        <li>{{icon:shield}}<span><b>Set up for BIR requirements.</b>Odoo prepared for your <a href="{{ROOT}}bir-cas.html">CAS or CBA registration</a>, plus 2307, SLSP, SAWT and QAP; EIS assessed separately.</span></li>
+        <li>{{icon:shield}}<span><b>Set up for BIR requirements.</b>Odoo prepared for your <a href="{{ROOT}}bir-cas.html">CAS or CBA registration</a>, plus 2307, SLSP, SAWT and QAP, and the books for your yearly ORUS registration.</span></li>
         <li>{{icon:lifebuoy}}<span><b>Dedicated support on your team.</b>Month-end, upgrades and small changes stay with us.</span></li>
       </ul>
     </div>
@@ -489,7 +489,7 @@
   <div class="container cat-grid">
     <div class="cat-copy reveal">
       <h2 id="cat-home-h">BIR requirements first, then every service in one catalogue.</h2>
-      <p class="lead">Our Services Catalogue 2026/27 is a 108-page digital flip-book, sized to read easily on a laptop or phone, that opens with the BIR side of Odoo: planning for e-invoicing, Odoo set-up for your CAS or CBA registration, 2307s and alphalists, and audit requests, with a twelve-question self-check. It then covers our Odoo ERP, Enterprise AI and Websites &amp; Marketing services, with a sheet for each industry.</p>
+      <p class="lead">Our Services Catalogue 2026/27 is a 108-page digital flip-book, sized to read easily on a laptop or phone, that opens with the BIR side of Odoo: Odoo set-up for your CAS or CBA registration, 2307s and alphalists, and audit requests, with a twelve-question self-check. It then covers our Odoo ERP, Enterprise AI and Websites &amp; Marketing services, with a sheet for each industry.</p>
       <div class="actions">
         <a class="btn btn-primary" href="{{ROOT}}services-catalogue" target="_blank" rel="noopener">Open the catalogue {{icon:arrow}}</a>
         <a class="btn btn-ghost" href="{{ROOT}}services-catalogue/TechNext-Services-Catalogue-2026-27.pdf" target="_blank" rel="noopener">Download the PDF</a>
@@ -518,10 +518,10 @@
   <div class="container fx-faq">
     <div class="sec-head reveal"><h2 id="fx-faq-h">BIR, Odoo and TechNext, answered.</h2></div>
     <div class="faq reveal">
-      <details open><summary>Who must issue BIR e-invoices by 31 December 2026? {{icon:chevron}}</summary><div class="faq-a"><p>Under RR 26-2025: e-commerce and internet sellers that are small, medium or large; taxpayers under the Large Taxpayers Service; large taxpayers under RA 11976; and businesses on a CAS or CBA with invoicing software. Micro taxpayers are exempt. Exporters, POS users and incentive-registered enterprises join later. Confirm your group with your accountant.</p></div></details>
-      <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. Your business can register Odoo as its computerised books and name it in its own PTI application. TechNext is an Odoo Ready Partner, not affiliated with or acting for the BIR. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
+      <details open><summary>Do we need a CAS or a CBA? {{icon:chevron}}</summary><div class="faq-a"><p>RMO 9-2021 draws the line at invoices. If your system issues them, it is a Computerized Accounting System (CAS); if invoices are issued by hand and the system keeps your books, it is Computerized Books of Accounts (CBA). Large taxpayers must use a CAS. Odoo Online and Odoo.sh are registered too, with a joint sworn statement with the provider. Confirm with your accountant or RDO.</p></div></details>
+      <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business can register Odoo as its CAS or CBA at its Revenue District Office. TechNext is an Odoo Ready Partner, not affiliated with or acting for the BIR. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
       <details><summary>Can TechNext set Odoo up for our BIR CAS registration? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, on the Odoo side. We set Odoo up for your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) application and prepare the sample invoices, books, reports and audit trail printout with you. You register your system at your Revenue District Office; the decision, and any Acknowledgement Certificate, is the BIR's. <a href="{{ROOT}}bir-cas.html">How BIR CAS set-up works</a>.</p></div></details>
-      <details><summary>What does Odoo produce for the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo's Philippine localisation produces the <a href="{{ROOT}}blog/bir-form-2307-odoo.html">2307</a> per payee, the <a href="{{ROOT}}blog/bir-slsp-summary-list-sales-purchases-odoo.html">SLSP</a>, <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT and QAP</a> as DAT files for the BIR's tools, and the <a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html">2550Q</a> VAT summary, from the invoices and bills you post. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.</p></div></details>
+      <details><summary>What does Odoo produce for the BIR? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo's Philippine localisation produces the <a href="{{ROOT}}blog/bir-form-2307-odoo.html">2307</a> per payee, the <a href="{{ROOT}}blog/bir-slsp-summary-list-sales-purchases-odoo.html">SLSP</a>, <a href="{{ROOT}}blog/bir-sawt-qap-alphalist-odoo.html">SAWT and QAP</a> as DAT files for the BIR's tools, and the <a href="{{ROOT}}blog/bir-form-2550q-quarterly-vat-odoo.html">2550Q</a> VAT summary, from the invoices and bills you post. Your Books of Accounts export from the same entries for your yearly ORUS registration.</p></div></details>
       <details><summary>What does TechNext do? {{icon:chevron}}</summary><div class="faq-a"><p>TechNext is an Odoo Ready Partner. Our own experts implement Odoo ERP end to end (discovery, configuration, migration, training and support), set up for BIR requirements in the Philippines and GST in Singapore. We also build enterprise AI on your Odoo data, and design websites and brands on Odoo.</p></div></details>
       <details><summary>How does a project start? {{icon:chevron}}</summary><div class="faq-a"><p>With a discovery call. An adviser maps how your sales, purchases, stock and money move today, which BIR reports you file, and which dates apply to you. You get a written recommendation and a quotation that follows that scope.</p></div></details>
       <details><summary>Where is TechNext based? {{icon:chevron}}</summary><div class="faq-a"><p>Our headquarters is at 261 Waterloo Street #03-36, Singapore. Our main consulting and development hub is in Taguig City, Metro Manila, and our AI engineers are in Ho Chi Minh City. We work with clients in 25+ countries.</p></div></details>
@@ -535,8 +535,8 @@
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div>
-        <h2>Bring your BIR deadline to an adviser.</h2>
-        <p>A short discovery call is enough to talk through whether you're likely to be in the first e-invoicing group (confirm with your accountant), which Odoo apps you need, in what order, and what it will take.</p>
+        <h2>Bring your CAS registration to an adviser.</h2>
+        <p>A short discovery call is enough to talk through whether you need a CAS or a CBA (confirm with your accountant), which Odoo apps you need, in what order, and what it will take.</p>
       </div>
       <div class="actions">
         <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
