@@ -1,11 +1,12 @@
 """Vercel function: every form on technext.asia becomes a lead in the Odoo CRM (technext.odoo.com).
 
 POST /api/lead with the form's fields as JSON (site.js tnPostForm; the only place a form goes).
-The lead is named "<form> - <what they need> - <company>", tagged "Website" plus the form it came from, and
+The lead is named "<form> - <what they need> - <company>", tagged "Website", the form it came from, the channel
+(Facebook Ads, Google Ads, Search, ...) and, when the form asked, what they are interested in; and
 filled in field by field: contact, company, email, phone in +63 / +65 form, country, job position. Source /
 medium / campaign come from where the visit started (utm_* tags, ad click ids, the referrer): "Paid Ads",
-"Email" (newsletters), the social network, otherwise "Website". Department (sales team) is "Marketing Dept",
-or "Sales Team" until that exists. The lead stays UNASSIGNED (ODOO_SALESPERSON empty) so everyone with
+"Email" (newsletters), the social network, otherwise "Website". Every form needs an email AND a mobile number.
+Department (sales team) is "Marketing Dept", or "Sales Team" until that exists. The lead stays UNASSIGNED (ODOO_SALESPERSON empty) so everyone with
 Sales access sees it; Jeric picks it up by setting himself as salesperson. Internal notes hold the answers in
 three short groups (what they need / about them / how they found us) plus the full links at the bottom; every
 lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS) with a short summary, and Jeric plus ODOO_COPY_EMAILS
@@ -44,6 +45,23 @@ AD_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid|fbclid_ad|msclkid|utm_medium=(c
 EMAIL_HINT = re.compile(r"e-?mail|newsletter|brevo|sendinblue|mailchimp|sendibm|edm", re.I)
 SOCIAL = (("facebook", "Facebook"), ("fb.", "Facebook"), ("instagram", "Instagram"), ("linkedin", "LinkedIn"),
           ("lnkd.in", "LinkedIn"), ("youtube", "YouTube"), ("youtu.be", "YouTube"))
+# 3 Nov 2026 (owner: "proper tag of leads"): every lead also gets ONE channel tag (where the visit came from) and, when
+# the form asked, ONE interest tag. Only these fixed names are ever created, so free text never turns into a tag.
+# The Odoo automation "Discovery Call: thank the client + tag the lead" uses the same channel names for bookings.
+CHANNEL_TAGS = ("Facebook Ads", "Google Ads", "Paid Ads", "Social media", "Email campaign", "Search", "Direct / website")
+META_SOURCES = ("facebook", "fb", "ig", "instagram", "meta")
+GOOGLE_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid)=", re.I)
+# /bir-adviser-call need key (_src/fw_needs.py) -> interest tag
+BIR_NEEDS = {"covered": "BIR: Am I covered?", "einvoicing": "BIR: E-invoicing", "2307": "BIR: 2307s",
+             "reports": "BIR: SLSP, SAWT, QAP", "cas": "BIR: CAS / CBA", "branches": "BIR: Branches",
+             "audit": "BIR: Audit / LOA"}
+# Let's Talk "I'm interested in" options and the booking page's "What do you need help with?" answers -> interest tag
+TOPICS = {"Odoo Accounting": "Interest: Odoo Accounting", "Odoo Sales & CRM": "Interest: Odoo Sales & CRM",
+          "Odoo Inventory": "Interest: Odoo Inventory", "Full Odoo ERP implementation": "Interest: Odoo implementation",
+          "Odoo training or support": "Interest: Odoo training or support", "Website": "Interest: Website",
+          "Social media management": "Interest: Social media", "Business Process Consultation": "Interest: Business process",
+          "ERP Consultation": "Interest: ERP consultation", "BIR CAS Consultation": "BIR: CAS / CBA",
+          "5-Day Express (BIR compliance)": "BIR: 5-Day Express", "Odoo Implementation": "Interest: Odoo implementation"}
 
 # form "source" field (or the page) -> form name (no free website offer since 28 Oct 2026: old copies are "Retired offer page"), used for the tag "Web form: <name>" and the lead title
 FORMS = [
@@ -70,7 +88,8 @@ FORM_LABELS = {
     "BIR adviser call": {"name": "Full name", "phone": "Mobile number",
                          "message": "Message"},
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
-    "Quotation builder": {"message": "Anything else"},
+    "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
+    "Let's Talk panel": {"phone": "Mobile number"},
 }
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
         "team_size", "current_website", "call_time", "slot")
@@ -230,6 +249,38 @@ def visit(p):
     return src, med, uc, [(k, v) for k, v in rows if v]
 
 
+def channel(p, src):
+    """The one CHANNEL_TAGS name for this visit (src = the source visit() worked out)."""
+    land, page, ref = (clean(p.get(k, ""), 600) for k in ("landing", "page", "referrer"))
+    q = {}
+    for url in (page, land):
+        q.update({k: v[0] for k, v in urllib.parse.parse_qs(urllib.parse.urlsplit(url).query).items()})
+    us = q.get("utm_source", "").strip().lower()
+    if src == "Paid Ads":
+        if us in META_SOURCES or "fbclid=" in f"{land} {page}":
+            return "Facebook Ads"
+        if us.startswith("google") or any(GOOGLE_CLICK.search(u) for u in (land, page)):
+            return "Google Ads"
+        return "Paid Ads"
+    if src == "Email":
+        return "Email campaign"
+    if src in ("Facebook", "Instagram", "LinkedIn", "YouTube"):
+        return "Social media"
+    ref_host = urllib.parse.urlsplit(ref).netloc.lower()
+    return "Search" if ("google." in ref_host or "bing." in ref_host) else "Direct / website"
+
+
+def interest(p):
+    """The interest tag for what the visitor picked, or "" (only fixed options become tags)."""
+    need = clean(p.get("need", ""), 40)
+    if need in BIR_NEEDS:
+        return BIR_NEEDS[need]
+    topic = clean(p.get("topic", ""), 80)
+    if not topic and str(p.get("message", "")).startswith("Needs help with: "):   # the booking page's topic
+        topic = clean(p["message"], 120)[len("Needs help with: "):]
+    return TOPICS.get(topic, "")
+
+
 def short_url(url):
     u = urllib.parse.urlsplit(url)
     return (u.netloc.replace("www.", "") + u.path) if u.netloc else url
@@ -281,33 +332,9 @@ def keep_typed(lead, name, phone):
         rpc("crm.lead", "write", ids=[lead], vals=want)
 
 
-def booking_lead(email, phone="", name="", tries=8, wait=1.5):
-    """The opportunity Odoo's appointment app creates for a discovery-call booking (it appears a moment
-    after the booking form is sent). Odoo often leaves its email empty, so the phone (last 9 digits) and the
-    name match too. False when it never shows up (the booking was not confirmed in Odoo)."""
-    match = [["email_from", "=ilike", email], ["partner_id.email", "=ilike", email]] if email else []
-    digits = re.sub(r"\D", "", phone)[-9:]
-    if len(digits) == 9:
-        match.append(["phone_sanitized", "=like", "%" + digits])
-    if name:
-        match.append(["contact_name", "=ilike", name])
-    if not match:
-        return False
-    domain = ["|"] * (len(match) - 1) + match
-    for i in range(tries):
-        since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
-        # Odoo names it "<name> - Discovery Call with TechNext Booking"; ours are "Discovery call booking - ..."
-        ids = rpc("crm.lead", "search", domain=[["create_date", ">=", since], ["name", "=ilike", "% Booking"]] + domain,
-                  order="id desc", limit=1)
-        if ids:
-            return ids[0]
-        time.sleep(wait)
-    return False
-
-
-def booking_event(email, phone="", name=""):
-    """Odoo's calendar event for the booking. 3 Nov: a real booking (event 7895) left no opportunity the API user
-    can see, so booking_lead() alone flagged it 'not confirmed'. Some bookings leave no visible event either."""
+def booking_event(email, phone="", name="", tries=8, wait=1.5):
+    """Odoo's calendar event for the booking (it appears a moment after the booking form is sent), or False when Odoo
+    never filed it (the booking did not go through). The event links the opportunity Odoo filed for it."""
     match = [["partner_ids.email", "=ilike", email]] if email else []
     digits = re.sub(r"\D", "", phone)[-9:]
     if len(digits) == 9:
@@ -316,10 +343,14 @@ def booking_event(email, phone="", name=""):
         match.append(["name", "=ilike", name + " - %"])   # Odoo names it "<name> - Discovery Call with TechNext Booking"
     if not match:
         return False
-    since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
-    ids = rpc("calendar.event", "search", domain=[["create_date", ">=", since], ["appointment_type_id", "!=", False]]
-              + ["|"] * (len(match) - 1) + match, order="id desc", limit=1)
-    return ids[0] if ids else False
+    for i in range(tries):                                 # Odoo files it a moment after the booking form is sent
+        since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 600))
+        ids = rpc("calendar.event", "search", domain=[["create_date", ">=", since], ["appointment_type_id", "!=", False]]
+                  + ["|"] * (len(match) - 1) + match, order="id desc", limit=1)
+        if ids:
+            return ids[0]
+        time.sleep(wait)
+    return False
 
 
 def summary(p, form, contact):
@@ -596,6 +627,8 @@ def make_lead(p):
     title = " - ".join(x for x in (SHORT.get(form, form), need[:60], company or name or email) if x)
     # one at a time: parallel calls trip odoo.com's rate limit (429)
     tags = [find_or_create("crm.tag", "Website"), find_or_create("crm.tag", "Web form: " + form)]
+    chan, want = channel(p, src_name), interest(p)
+    extra = [find_or_create("crm.tag", t) for t in (chan, want) if t]
     if spam:
         tags.append(find_or_create("crm.tag", SPAM_TAG))
     team = next((t for t in (lookup("crm.team", [["name", "=", d]]) for d in DEPARTMENTS) if t), False)
@@ -606,7 +639,7 @@ def make_lead(p):
         "name": title[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
         "description": as_html(groups),                    # html field, shown as Internal Notes
-        "tag_ids": [[6, 0, tags]],
+        "tag_ids": [[6, 0, tags + extra]],
         "source_id": find_or_create("utm.source", src_name),
         "medium_id": find_or_create("utm.medium", med_name),
     }
@@ -621,31 +654,34 @@ def make_lead(p):
             print("campaign not set:", repr(e)[:300])
     info = (form, groups, spam)
     if form == "Discovery call booking" and (email or phone or name):
-        # Odoo's appointment app files the booking itself: enrich that opportunity instead of adding a second lead
+        # Odoo's appointment app files the booking itself, as an opportunity linked to the calendar event. The Odoo
+        # automation "Discovery Call: thank the client + tag the lead" tags it, @mentions Jeric and emails the client
+        # (3 Nov 2026). Here: add this form's details to it, and never file a second lead for the same booking.
         def after():
-            found = booking_lead(email, phone, name)
-            if found:
-                have = rpc("crm.lead", "read", ids=[found], fields=list(BOOKING_FILL))[0]
-                upd = {k: v for k, v in vals.items() if k in BOOKING_FILL and v and not have.get(k)}
-                upd["tag_ids"] = [[4, t] for t in tags]    # added to Odoo's own tags, never replacing them
-                rpc("crm.lead", "write", ids=[found], vals=upd)
-                rpc("crm.lead", "message_post", ids=[found], body_is_html=True, message_type="comment",
-                    subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
-                lead, done = found, info
-            elif booking_event(email, phone, name):        # booked, but Odoo's opportunity is not visible to the key
-                note = [("Booking", [("Status", "Booked: the call is in the Odoo calendar.")])]
-                lead = rpc("crm.lead", "create", vals_list=[dict(vals, description=as_html(note + groups))],
-                           context=QUIET)[0]
-                done = (form, note + groups, spam)
-            else:                                          # Odoo never confirmed the booking: Jeric calls them instead
-                flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
-                                                     "Please contact them to set the call time.")])]
-                lead = rpc("crm.lead", "create", vals_list=[dict(
-                    vals, description=as_html(flag + groups),
-                    tag_ids=[[6, 0, tags + [find_or_create("crm.tag", "Booking not confirmed")]]])], context=QUIET)[0]
-                done = (form, flag + groups, spam)
+            event = booking_event(email, phone, name)
+            if event:
+                opp = (rpc("calendar.event", "read", ids=[event], fields=["opportunity_id"])[0]["opportunity_id"] or [0])[0]
+                try:
+                    have = rpc("crm.lead", "read", ids=[opp], fields=list(BOOKING_FILL))[0] if opp else None
+                except urllib.error.HTTPError as e:    # assigned to a host the API user cannot see (Jeric): Odoo has it all
+                    print("booking opportunity not visible:", opp, e.code)
+                    have = None
+                if have is not None:
+                    upd = {k: v for k, v in vals.items() if k in BOOKING_FILL and v and not have.get(k)}
+                    # added to Odoo's own tags; the channel tag is the automation's (from Odoo's own source / medium)
+                    upd["tag_ids"] = [[4, t] for t in tags + [find_or_create("crm.tag", want)] * bool(want)]
+                    rpc("crm.lead", "write", ids=[opp], vals=upd)
+                    rpc("crm.lead", "message_post", ids=[opp], body_is_html=True, message_type="comment",
+                        subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
+                return
+            # Odoo never filed the booking: a lead for Jeric to call, and the auto-reply (rule 11) tells the visitor
+            flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
+                                                 "Please contact them to set the call time.")])]
+            lead = rpc("crm.lead", "create", vals_list=[dict(
+                vals, description=as_html(flag + groups),
+                tag_ids=[[6, 0, tags + extra + [find_or_create("crm.tag", "Booking not confirmed")]]])], context=QUIET)[0]
             keep_typed(lead, name, phone)
-            follow_up(lead, *done)
+            follow_up(lead, form, flag + groups, spam)
         return None, after
     lead = rpc("crm.lead", "create", vals_list=[vals], context=QUIET)[0]
 
@@ -727,7 +763,9 @@ class handler(BaseHTTPRequestHandler):
         self._timing = bool(p.get("_timing"))
         if p.get("_honey"):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
-        if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", ""))) and not str(p.get("phone", "")).strip():
+        # owner rule (3 Nov 2026): email AND mobile number are the priority - every form needs both
+        if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", "")).strip()) or \
+                not 7 <= len(re.sub(r"\D", "", str(p.get("phone", "")))) <= 15:
             return self._send(400, {"ok": False, "error": "contact"})
         tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
         ip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()

@@ -208,7 +208,7 @@
       }
       form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
       setTimeout(function () {
-        var f = form.querySelector('.fw-step.is-cur input:not([type=hidden]), .fw-step.is-cur select') || document.getElementById('gs-name');   // the step the visitor is on
+        var f = form.querySelector('.fw-step.is-cur input:not([type=hidden]), .fw-step.is-cur select') || document.getElementById('gs-email');   // the step the visitor is on
         if (f) f.focus({ preventScroll: true });
         form.classList.remove('is-flash'); void form.offsetWidth; form.classList.add('is-flash');
       }, reduce ? 0 : 600);

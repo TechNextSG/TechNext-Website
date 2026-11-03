@@ -310,7 +310,7 @@
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(function () {
       panel.classList.add('is-open'); tOverlay.classList.add('is-open');
-      var f = $('#tf-name'); if (f && fine) f.focus({ preventScroll: true });
+      var f = $('#tf-email'); if (f && fine) f.focus({ preventScroll: true });   // email + mobile come first (3 Nov 2026)
     });
   }
   function closeTalk() {
@@ -453,6 +453,7 @@
             function () { return { ok: false, j: {} }; })
       .then(function (res) {
         if (!res.ok && res.j.error === 'captcha') { var ce = new Error('captcha'); ce.captcha = true; throw ce; }
+        if (!res.ok && res.j.error === 'contact') throw new Error('Please add both your email and your mobile number.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
           var q = {};

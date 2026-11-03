@@ -259,12 +259,12 @@ def talk_panel_html() -> str:
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="Let's Talk panel">
       <div class="form-row">
-        <div class="field"><label for="tf-name">Name</label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
-        <div class="field"><label for="tf-company">Company</label><input id="tf-company" name="company" type="text" autocomplete="organization"></div>
+        <div class="field"><label for="tf-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com"></div>
+        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="+63 9XX XXX XXXX" title="A number we can call, with at least 7 digits"></div>
       </div>
       <div class="form-row">
-        <div class="field"><label for="tf-email">Work email</label><input id="tf-email" name="email" type="email" required autocomplete="email"></div>
-        <div class="field"><label for="tf-phone">Phone</label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+        <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="tf-company">Company <span class="opt">(optional)</span></label><input id="tf-company" name="company" type="text" autocomplete="organization"></div>
       </div>
       <div class="field">
         <label for="tf-topic">I'm interested in</label>
