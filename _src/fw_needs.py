@@ -14,8 +14,8 @@ Today / In Odoo pair and the live sample Odoo panel, and sets "Biggest BIR heada
   today    the pain, one sentence
   odoo     the same thing in Odoo, one sentence
   panel    a PANEL-shaped dict for industry_fx.panel_markup(): sample data, labelled "Sample data" on screen
-Facts follow the BIR page (bir-e-invoicing.html): RR 26-2025 and RMC 98-2026, PTI then EIS certification within six
-months, head office and every branch, micro taxpayers exempt, the 14 Sep 2026 advisory (no provider accredited).
+Facts follow the BIR CAS page (bir-cas.html) and its sources (RMO 9-2021, RMC 5-2021). 3 Nov 2026, owner: CAS is the
+priority, no e-invoicing - the "Am I covered?" and "E-invoicing" needs were removed (old ?need= links fall back to cas).
 Never "BIR-accredited", "compliant" or "certified" for software; no prices; Odoo is never free.
 """
 
@@ -37,37 +37,6 @@ NEEDS = [
                         ("Books of Accounts", "Journals and ledger", ("Drafting", "Done", "warn"))]),
                     post=dict(app="accountant", title="Cash receipts book", ref="Sample output · October 2026", rows=[("Dr", "Cash in bank", "56,000.00"), ("Cr", "Receivable", "56,000.00")]),
                     chips=["Process flow", "Sample outputs", "Books of Accounts"])),
-    dict(key="covered", chip="Am I covered?", option="Not sure if we're covered",
-         h1="Not sure if BIR e-invoicing covers your business?",
-         answer="Find out with an adviser, before 31 December.",
-         lead="Covered businesses must issue e-invoices by 31 December 2026, and micro taxpayers are exempt. An adviser checks your group with you and your accountant, shows what Odoo does for BIR requirements, and plans the rest with you.",
-         today="You are not sure which BIR group you are in, or what changes on 31 December.",
-         odoo="We confirm your group with your accountant and map each BIR task to the Odoo app that does it.",
-         panel=dict(app="accountant", title="BIR e-invoicing coverage", sub="RR 26-2025 · RMC 98-2026", steps=["Your group", "Your system", "PTI", "EIS certification"],
-                    kpis=[("Covered groups", 4, "", "", 0), ("Exempt group", 1, "", "", 0), ("Months allowed for EIS certification after the PTI", 6, "", "", 0)],
-                    mid=("table", ["Group", "Who", "By 31 Dec 2026"], [
-                        ("E-commerce sellers", "Small, medium and large", ("Covered", None, "warn")),
-                        ("Large Taxpayers Service", "LTS accounts", ("Covered", None, "warn")),
-                        ("Large taxpayers", "Under RA 11976", ("Covered", None, "warn")),
-                        ("CAS or CBA users", "With invoicing software", ("Covered", None, "warn")),
-                        ("Micro taxpayers", "Any channel", ("Exempt", None, "ok"))]),
-                    post=dict(app="accountant", title="Your next steps", ref="Planned on the discovery call", bal="Plan agreed",
-                              rows=[("1", "Confirm your group with your accountant", ""), ("2", "Apply for your Permit to Issue", "PTI"), ("3", "EIS certification within six months", "EIS")]),
-                    chips=["Head office and every branch", "Micro taxpayers exempt", "No provider is BIR-accredited"])),
-    dict(key="einvoicing", chip="E-invoicing", option="E-invoicing deadline (31 Dec 2026)",
-         h1="Are you covered by BIR e-invoicing on 31 December?",
-         answer="Set up Odoo's invoices now and plan the EIS step.",
-         lead="A PDF from your printer or email is not an e-invoice, and Odoo has no built-in connection to the BIR's EIS (TechNext has not built one). We set up Odoo's invoices for BIR requirements, assess and quote any EIS connection separately, and prepare with you the papers for the Permit to Issue you apply for.",
-         today="Invoices go out as printed or emailed PDFs, and nothing sends your sales data to the BIR.",
-         odoo="Invoices are set up for BIR requirements; the EIS connection is assessed and quoted as a separate project.",
-         panel=dict(app="account", title="Customer invoice", sub="INV/2026/0412 · Sample Trading Corp.", steps=["Draft", "Posted", "Locked", "Emailed"],
-                    kpis=[("Invoice total", 56000, "₱", "", 0), ("Output VAT 12%", 6000, "₱", "", 0), ("Lines", 3, "", "", 0)],
-                    mid=("table", ["E-invoice data", "Value", "Status"], [
-                        ("Seller TIN and branch", "000-123-456-00000", ("Checked", None, "ok")),
-                        ("Buyer TIN", "000-987-654-00000", ("Checked", None, "ok")),
-                        ("EIS transmission", "Separate project", ("Not in standard Odoo", None, "info"))]),
-                    post=dict(app="accountant", title="Journal entry", ref="INV/2026/0412", rows=[("Dr", "Receivable", "56,000.00"), ("Cr", "Sales", "50,000.00"), ("Cr", "Output VAT", "6,000.00")]),
-                    chips=["EOPT invoice fields", "EIS transmission: separate project", "Credit note for decreases"])),
     dict(key="2307", chip="2307s", option="2307s and withholding",
          h1="Still typing 2307 certificates every quarter?",
          answer="Odoo makes them from the bills you already post.",
@@ -100,7 +69,7 @@ NEEDS = [
     dict(key="branches", chip="Branches", option="Branches invoicing differently",
          h1="Does every branch invoice its own way?",
          answer="One Odoo, one invoice flow for every branch.",
-         lead="The e-invoicing rule covers head office and every branch. In one Odoo database each branch keeps its own invoice series, and head office sees every branch in one set of books.",
+         lead="Every branch has its own BIR branch code. In one Odoo database each branch keeps its own invoice series, and head office sees every branch in one set of books.",
          today="Each outlet has its own series, layout or spreadsheet, and head office merges them.",
          odoo="Every branch uses the same invoice flow with its own series, in one set of books.",
          panel=dict(app="account", title="Invoices by branch", sub="One database · head office and two branches", steps=["Head office", "Cebu", "Davao", "Consolidated"],
