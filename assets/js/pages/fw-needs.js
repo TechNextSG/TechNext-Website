@@ -2,7 +2,7 @@
 /* /bir-adviser-call (22 Oct 2026): the page's behaviour, in one file (no inline script on the page).
    1. Needs picker: "What do you need most?" swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live sample Odoo
       panel in place, sets the form's "Biggest BIR headache" and a hidden need field, and keeps ?need=<key> in the address (ads link to it).
-      The static HTML is the default need (covered); a valid ?need= opens the page on that need without animation. Text out: 160ms, in:
+      The static HTML is the default need (cas); a valid ?need= opens the page on that need without animation. Text out: 160ms, in:
       360ms on the house ease; reduced motion = instant. It never moves focus or scrolls.
    2. The form's select drives the picker too.
    3. [data-to-form] buttons scroll to the form, put the cursor in the first field and flash it; data-carry-check adds ticked self-check items.
