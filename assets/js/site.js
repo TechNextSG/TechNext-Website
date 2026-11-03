@@ -478,6 +478,27 @@
         return res.j;
       });
   };
+  /* What stopped a send, without the visitor's details (form id + a short reason): GET /api/lead?diag= prints it in the
+     Vercel function log, so a "nothing happens" report can be checked while the visitor tries (3 Nov 2026). */
+  function tnDiag(form, why) {
+    try {
+      fetch((form.dataset.endpoint || '/api/lead') + '?diag=' + encodeURIComponent(String(why).slice(0, 60)) +
+            '&f=' + encodeURIComponent(form.id || '') + '&p=' + encodeURIComponent(location.pathname.slice(0, 60)),
+            { cache: 'no-store', keepalive: true }).catch(function () {});
+    } catch (e) {}
+  }
+  /* A send that cannot go ahead says why right under the button, and brings the field to fix into view (the message
+     next to a field alone was easy to miss two rows above the button). Also used by pages/fw-needs.js. */
+  function tnFormSay(form, msg, el, why) {
+    var st = $('.form-status', form);
+    if (st) { st.className = 'form-status is-err'; st.textContent = msg; }
+    if (el) {
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      try { el.focus({ preventScroll: true }); } catch (e) {}
+    }
+    tnDiag(form, why || msg);
+  }
+  window.tnFormSay = tnFormSay;
   $$('form[data-endpoint]').forEach(function (form) {
     var status = $('.form-status', form);
     var btn = $('button[type=submit]', form);
@@ -487,31 +508,50 @@
       sent.innerHTML = '<h3>Thanks — we have it.</h3><p>Your message is with our team. We reply from sales@technext.asia.</p>';
       form.appendChild(sent);
     }
-    // time trap: a person needs a few seconds between first touching the form and sending it;
-    // scripts post instantly (or never focus a field). They see the normal thank-you, nothing is sent.
+    // a send waits until 3 s after the first touch of the form. It used to show a fake thank-you instead, which also
+    // swallowed real visitors (a reloaded page with the answers restored, autofill + a quick click). 3 Nov 2026:
+    // Cloudflare Turnstile is the bot check now, and a send that cannot go ahead always says why under the button.
     var startedAt = 0, guard = null, ts = null;
-    form.addEventListener('focusin', function () {
+    function arm() {
       if (!startedAt) startedAt = Date.now();
       if (!guard) guard = guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
-    });
+    }
+    form.addEventListener('focusin', arm);
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if ($('input[name=_honey]', form) && $('input[name=_honey]', form).value) return;
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      if (!startedAt || Date.now() - startedAt < 3000) { form.classList.add('is-sent'); return; }
-      guard.then(function (g) {
-        if (!g) { cap.open(); return; }
-        var nope = function () {
-          btn.classList.remove('is-busy'); btn.disabled = false;
-          g.reset(); oops(new Error('The security check did not finish. Please press send again.'));
-        };
-        if (g.failed()) { nope(); return; }
-        status.className = 'form-status';
-        status.textContent = g.asking() ? 'Please complete the Cloudflare check above. Your message sends right after.' : 'Sending…';
-        btn.classList.add('is-busy'); btn.disabled = true;   // the button shows progress while Cloudflare finishes, too
-        g.take(function (t) { send(btn, { _ts: t }); }, nope);
-      });
+      arm();
+      var hp = $('input[name=_honey]', form);
+      if (hp && hp.value) { hp.value = ''; tnDiag(form, 'honeypot filled'); }   // browser autofill can fill it; it used to stop the send silently
+      if (!form.checkValidity()) {
+        var bad = form.querySelector('input:invalid, select:invalid, textarea:invalid');
+        tnFormSay(form, fieldMsg(bad), bad, 'invalid ' + (bad ? bad.name : '?'));
+        return;
+      }
+      var wait = Math.max(0, 3000 - (Date.now() - startedAt));
+      status.className = 'form-status'; status.textContent = 'Sending…';
+      btn.classList.add('is-busy'); btn.disabled = true;
+      setTimeout(function () { guard.then(go, function () { btn.classList.remove('is-busy'); btn.disabled = false; oops(null); tnDiag(form, 'guard failed'); }); }, wait);
     });
+    function go(g) {
+      btn.classList.remove('is-busy'); btn.disabled = false; status.textContent = '';
+      if (!g) { cap.open(); return; }
+      var nope = function () {
+        btn.classList.remove('is-busy'); btn.disabled = false;
+        g.reset(); oops(new Error('The security check did not finish. Please press send again.'));
+        tnDiag(form, 'turnstile no token');
+      };
+      if (g.failed()) { nope(); return; }
+      status.className = 'form-status';
+      status.textContent = g.asking() ? 'Please complete the Cloudflare check above. Your message sends right after.' : 'Sending…';
+      btn.classList.add('is-busy'); btn.disabled = true;   // the button shows progress while Cloudflare finishes, too
+      g.take(function (t) { send(btn, { _ts: t }); }, nope);
+    }
+    function fieldMsg(el) {   // the field's own message ("Please add your company name.") or "Please check: <label>."
+      if (!el) return 'Please check the form above.';
+      var own = (el.validity.valueMissing && el.getAttribute('data-missing')) || el.getAttribute('data-err');
+      var label = el.labels && el.labels[0] ? el.labels[0].textContent.replace(/\*|\(optional\)/g, '').trim() : '';
+      return own || ('Please check: ' + (label || el.name) + '.');
+    }
     function oops(err) {
       status.className = 'form-status is-err';
       status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at ';
@@ -531,6 +571,7 @@
           status.className = 'form-status is-ok'; status.textContent = '';
         })
         .catch(function (err) {
+          tnDiag(form, 'send failed: ' + (err && err.captcha ? 'captcha' : String(err && err.message || '').slice(0, 40)));
           if (ts) ts.reset();   // a Turnstile token works once: get a fresh one for the next try
           if (err && err.captcha && ts) { oops(new Error('The security check did not go through. Please press send again.')); return; }
           if (err && err.captcha) {   // typed code refused: the page may predate Turnstile being switched on, so ask again
