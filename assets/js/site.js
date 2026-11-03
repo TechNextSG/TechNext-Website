@@ -421,7 +421,7 @@
   function serialize(form) {
     var data = {};
     new FormData(form).forEach(function (v, k) {
-      if (k === '_honey') return;
+      if (k === '_honey' || k === 'cf-turnstile-response') return;   // Cloudflare's own copy of the token; _ts carries it
       data[k] = data[k] ? data[k] + ', ' + v : v;
     });
     return data;
