@@ -316,6 +316,8 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .form-sent h3{color:var(--ok);margin-bottom:6px}
 .form-sent p{color:#0f5c38;font-size:15px}
 .form.is-sent .form-sent{display:block}
+.form-ts.is-on{margin:4px 0 14px}
+.form.is-sent .form-ts{display:none}
 .form-captcha{display:none;animation:popIn .45s var(--spring)}
 .form.is-captcha .form-captcha{display:block}
 .form.is-captcha .fw-step,.form.is-captcha .form-foot,.form.is-captcha>.form-row,.form.is-captcha>.field,.form.is-sent .form-captcha{display:none}
