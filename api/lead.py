@@ -20,6 +20,7 @@ import json
 import os
 import re
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -85,9 +86,27 @@ SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post
 FAKE_COMPANY = re.compile(r"^[A-Z][a-z]+, [A-Z][a-z]+ and [A-Z][a-z]+$")
 # 31 Oct: a bot in a real browser (it solves the security code) files made-up Vietnamese leads, also as forged
 # discovery-call bookings. TechNext sells in PH and SG only, so Vietnamese text, +84 phones and .vn emails are dropped.
-VIET_CHARS = re.compile("[ăđơưĂĐƠƯẠ-ỹ]")
+# 2 Nov it came back (430 leads): the check skipped the name, email and phone fields, and missed letters such as the
+# "u" with a tilde in "Vu". Every field is checked now, and Vietnamese names typed without accents are caught too.
+VIET_CHARS = re.compile("[ăđơưĩũĂĐƠƯĨŨẠ-ỹ]")
 VIET_WORDS = re.compile(r"\b(cong ty|tnhh|toi muon|chung toi|bao gia|giai phap|doanh nghiep|nguoi dung|"
                         r"vui long|xin chao|cho toi|tim hieu|nguyen van)\b", re.I)
+# Vietnamese name words. A post is the bot when its name and email together hold a surname plus one more name word
+# ("Nguyen Van Test", "Linh Mai" + hmai@...), or when an accented name holds any of them ("Phúc Lê", "Vi Hoàng").
+VIET_SURNAMES = {"nguyen", "tran", "pham", "hoang", "huynh", "phan", "vu", "vo", "dang", "bui", "duong", "ngo", "trinh",
+                 "le", "mai"}
+VIET_NAME_WORDS = VIET_SURNAMES | {
+    "van", "thi", "anh", "tung", "hung", "dung", "quang", "hanh", "thao", "trung", "khoa", "nhat", "ngoc", "xuan",
+    "thanh", "quy", "minh", "tuan", "huong", "phuong", "trang", "linh", "thu", "hoa", "bao", "lam", "lan", "chi", "co",
+    "bac", "hai", "nam", "son", "long", "ly", "do", "ong", "kim", "viet", "duc", "hieu", "khanh", "thuy", "phuc", "huy",
+    "tri", "trong", "ha", "ba"}
+VIET_COMPANY = re.compile(r"\b(vn|viet ?nam|viet|an phat|phat dat|dai nam|viet nhat)\b", re.I)
+
+
+def fold(text):
+    """Lower case without accents: "Anh Tùng Nguyễn" -> "anh tung nguyen"."""
+    text = unicodedata.normalize("NFKD", str(text).replace("đ", "d").replace("Đ", "D"))
+    return "".join(c for c in text if not unicodedata.combining(c)).lower()
 
 
 _CONN = None  # one HTTPS connection to Odoo, reused while the instance is warm (no new TLS handshake per call)
@@ -229,11 +248,20 @@ def spam_reason(p, name, email, company):
 
 def bot_lead(p):
     """Why this post is the Vietnamese lead bot (nothing is filed), or "" for a real visitor."""
-    text = " ".join(str(v) for k, v in p.items() if k not in SKIP and isinstance(v, (str, int, float)))
+    text = unicodedata.normalize("NFC", " ".join(str(v) for k, v in p.items()
+                                                 if not k.startswith("_") and isinstance(v, (str, int, float))))
     if VIET_CHARS.search(text):
         return "vietnamese text"
-    if VIET_WORDS.search(text):
+    if VIET_WORDS.search(fold(text)):
         return "vietnamese words"
+    name = str(p.get("name", ""))
+    words = set(re.findall(r"[a-z]+", fold(name) + " " + fold(str(p.get("email", "")).split("@")[0])))
+    if words & VIET_SURNAMES and len(words & VIET_NAME_WORDS) >= 2:
+        return "vietnamese name"
+    if fold(name) != name.lower() and set(re.findall(r"[a-z]+", fold(name))) & VIET_NAME_WORDS:
+        return "vietnamese name"
+    if VIET_COMPANY.search(fold(p.get("company", ""))):
+        return "vietnamese company"
     if re.sub(r"[^\d+]", "", str(p.get("phone", ""))).startswith(("+84", "0084", "84")) and \
             len(re.sub(r"\D", "", str(p.get("phone", "")))) == 11:
         return "+84 phone"
@@ -384,8 +412,10 @@ RECENT = {}        # sender ip -> [lead times], this warm instance
 # The two limits above live in one warm instance; a flood spread over many instances (15,816 fake leads on 31 Oct)
 # passes them. Odoo is the one place every instance shares, so it is the circuit breaker: when FLOOD_MAX "Website"
 # leads were filed in the last FLOOD_WINDOW seconds, new posts are refused (the visitor is shown the email address).
-# Busiest real hour so far (Facebook ads, 29 Oct) filed 6 in 10 minutes.
+# Busiest real hour so far (Facebook ads, 29 Oct) filed 6 in 10 minutes. 2 Nov the bot paced itself just under the
+# 10-minute cap (430 leads in 7 hours), so an hourly cap (FLOOD_HOUR_MAX) sits on top of it.
 FLOOD_MAX, FLOOD_WINDOW = int(os.environ.get("LEAD_FLOOD_MAX", "15")), 600
+FLOOD_HOUR_MAX = int(os.environ.get("LEAD_FLOOD_HOUR_MAX", "20"))
 FLOOD = {"until": 0}  # this instance remembers a tripped breaker for a minute (no Odoo call per bot post)
 # stroke font on a 10 x 14 grid (y down): each character is a list of polylines
 GLYPHS = {
@@ -484,13 +514,16 @@ def rate_ok(ip):
 
 
 def flood_ok():
-    """False while too many website leads were filed in the last FLOOD_WINDOW seconds (all instances, via Odoo)."""
+    """False while too many website leads were filed in the last FLOOD_WINDOW seconds or the last hour
+    (all instances, via Odoo)."""
     if time.time() < FLOOD["until"]:
         return False
+    hour = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - 3600))
     since = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(time.time() - FLOOD_WINDOW))
-    n = rpc("crm.lead", "search_count", domain=[["create_date", ">=", since], ["tag_ids", "in", [find_or_create("crm.tag", "Website")]]],
-            context={"active_test": False})             # leads archived as spam still count
-    if n >= FLOOD_MAX:
+    got = rpc("crm.lead", "search_read", domain=[["create_date", ">=", hour], ["tag_ids", "in", [find_or_create("crm.tag", "Website")]]],
+              fields=["create_date"], limit=FLOOD_HOUR_MAX, context={"active_test": False})  # archived spam still counts
+    n = sum(x["create_date"] >= since for x in got)
+    if n >= FLOOD_MAX or len(got) >= FLOOD_HOUR_MAX:
         FLOOD["until"] = time.time() + 60
         return False
     return True
