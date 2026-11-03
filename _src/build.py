@@ -328,7 +328,7 @@ LAYOUT = '''<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" media="print" data-defer>
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
-<script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
+<script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off2')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
 <script type="application/ld+json">{JSONLD}</script>
 <script>document.querySelectorAll('link[data-defer]').forEach(function(l){function on(){l.media='all'}if(l.sheet)on();else l.addEventListener('load',on)})</script>
@@ -337,7 +337,7 @@ LAYOUT = '''<!doctype html>
 <body class="{BODY_CLASS}">
 {TAGS_BODY}
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
-<div class="bn" role="region" aria-label="BIR notice"><div class="container bn-in"><p><b>BIR notice</b><span class="bn-long">E-invoicing is due by 31 December 2026 for covered taxpayers, including businesses on a CAS or CBA with invoicing software.</span><span class="bn-short">E-invoicing is due by 31 Dec 2026 for covered taxpayers.</span></p><a class="bn-link" href="{ROOT}bir-cas.html">CAS set-up in Odoo<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><button class="bn-x" type="button" data-bn-x aria-label="Hide the BIR notice"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+<div class="bn" role="region" aria-label="BIR notice"><div class="container bn-in"><p><b>BIR notice</b><span class="bn-long">CAS and CBA users register their 2026 computerised books online through ORUS by 30 January 2027 (calendar-year taxpayers).</span><span class="bn-short">Computerised books: register in ORUS by 30 Jan 2027.</span></p><a class="bn-link" href="{ROOT}bir-cas.html">CAS set-up in Odoo<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><button class="bn-x" type="button" data-bn-x aria-label="Hide the BIR notice"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
 
 <header class="header" data-header>
   <div class="container header-inner">

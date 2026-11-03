@@ -147,15 +147,15 @@ Last updated: 2026-11-03
 
 ## Questions and answers
 
-### What is the BIR e-invoicing deadline?
+### Do we need a CAS or a CBA?
 
-Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
+RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant on the first call, and your RDO can confirm it.
 
 Source: https://technext.asia/bir-adviser-call
 
 ### Is TechNext BIR-accredited?
 
-No, and the BIR has said it has not accredited any e-invoicing provider. What we do is set up your Odoo for the BIR's requirements, assess the EIS connection separately, and prepare with you the process flow and sample outputs for the PTI you file.
+No, and no software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.
 
 Source: https://technext.asia/bir-adviser-call
 
@@ -224,6 +224,12 @@ Source: https://technext.asia/bir-cas
 Your business files at its RDO or Large Taxpayers office, in person or by email. We set up the system, prepare the sample printouts, the audit trail and the system description with you, and stay on call for the RDO's questions. The registration decision is the BIR's.
 
 Source: https://technext.asia/bir-cas
+
+### What is the BIR e-invoicing deadline?
+
+Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
+
+Source: https://technext.asia/bir-e-invoicing
 
 ### Are micro taxpayers covered by BIR e-invoicing?
 
