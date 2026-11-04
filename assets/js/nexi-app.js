@@ -2243,12 +2243,6 @@ function typeOut(content,opts,g){
     }, g!==gen ? 0 : (opts.delay==null?650:opts.delay));
   });
 }
-function copyEmail(btn){
-  var mail="sales@technext.asia", label=btn.querySelector("span");
-  function done(t){ label.textContent=t; setTimeout(function(){ label.textContent=mail; },1600); }
-  try{ navigator.clipboard.writeText(mail).then(function(){ done("Copied"); },function(){ selectText(label); }); }catch(e){ selectText(label); }
-}
-function selectText(el){ try{ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); }catch(e){} }
 function addActs(rowEl,acts){
   var seen={}, html=acts.map(function(a){
     var k=a[0]==="link"?a[1]:a[0]; if(seen[k]) return ""; seen[k]=1;
@@ -2257,8 +2251,9 @@ function addActs(rowEl,acts){
     if(a[0]==="meet") return '<a class="act primary" href="'+MEET+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Pick a meeting time</a>';
     if(a[0]==="talkform") return '<button class="act primary" type="button" data-talk>'+icon("i_send")+'Open the Let’s Talk form</button>';
     if(a[0]==="wabook") return '<a class="act primary" href="'+WA+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Book a discovery call</a>';
-    if(a[0]==="wa"||a[0]==="human") return '<a class="act" href="mailto:sales@technext.asia">'+icon("i_mail")+'Email the team</a>';
-    if(a[0]==="email") return '<button class="act" type="button" data-copy>'+icon("i_mail")+'<span>sales@technext.asia</span></button>';
+    if(a[0]==="wa"||a[0]==="human") return '<a class="act" href="'+WA+'" target="_blank" rel="noopener">'+icon("i_calendar")+'Book a call with the team</a>';
+    /* the sales address is shown as plain text only: never a mailto link or a click-to-copy button */
+    if(a[0]==="email") return '<span class="act act-mail">'+icon("i_mail")+'<span>sales@technext.asia</span></span>';
     if(a[0]==="tour"){ var q=byId(a[1]); return q?'<button class="act" type="button" data-ask="'+q.id+'">'+icon("i_play")+'Mini tour: '+esc(q.short)+'</button>':''; }
     return "";
   }).join("");
@@ -2266,7 +2261,6 @@ function addActs(rowEl,acts){
   var d=document.createElement("div"); d.className="acts"; d.innerHTML=html; rowEl.after(d);
 }
 log.addEventListener("click",function(e){
-  var b=e.target.closest("[data-copy]"); if(b){ copyEmail(b); return; }
   if(e.target.closest("[data-talk]")){ try{ parent.postMessage({ tn:"nexi-talk" }, location.origin); }catch(err){} return; }
   var t=e.target.closest("[data-ask]"); if(t){ ask(byId(t.dataset.ask)); }
 });

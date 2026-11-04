@@ -102,7 +102,7 @@
 .cx-reach { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 20px; padding: 14px 20px; border-radius: 18px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
   box-shadow: var(--fx-depth); scroll-margin-top: calc(var(--header-h) + 24px); }
 .cx-reach-h { margin: 0 8px 0 0; font: 700 13px/1 var(--font-body); color: var(--ink); }
-.cx-reach a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 14px; border-radius: 12px; background: #fff; border: 1px solid var(--line); color: inherit; transition: border-color .3s var(--fx-ease), transform .3s var(--fx-ease); }
+.cx-reach a, .cx-reach-item { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 14px; border-radius: 12px; background: #fff; border: 1px solid var(--line); color: inherit; transition: border-color .3s var(--fx-ease), transform .3s var(--fx-ease); }
 .cx-reach a:hover { border-color: var(--blue-300); transform: translateY(-2px); text-decoration: none; }
 .cx-reach .ic { width: 18px; height: 18px; color: var(--blue); flex: none; }
 .cx-reach small { display: block; font-size: 12px; color: var(--body); }
