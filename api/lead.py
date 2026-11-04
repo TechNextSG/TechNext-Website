@@ -6,12 +6,12 @@ The lead is named "<form> - <what they need> - <company>", tagged "Website", the
 filled in field by field: contact, company, email, phone in +63 / +65 form, country, job position. Source /
 medium / campaign come from where the visit started (utm_* tags, ad click ids, the referrer): "Paid Ads",
 "Email" (newsletters), the social network, otherwise "Website". Every form needs an email AND a mobile number.
-Department (sales team) is "Marketing Dept", or "Sales Team" until that exists. The lead stays UNASSIGNED (ODOO_SALESPERSON empty) so everyone with
-Sales access sees it; Jeric picks it up by setting himself as salesperson. Internal notes hold the answers in
-three short groups (what they need / about them / how they found us) plus the full links at the bottom; every
-lead @mentions jeric@technext.asia (ODOO_NOTIFY_EMAILS) with a short summary, and Jeric plus ODOO_COPY_EMAILS
-(hello@technext.asia) get it by email. Likely spam is tagged "Possible spam", never dropped. The Odoo API key
-lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
+Department (sales team) is "Marketing Dept", or "Sales Team" until that exists. The lead is NEVER assigned: no
+salesperson, so everyone with Sales access sees it and whoever takes it sets the salesperson. Internal notes hold
+the answers in three short groups (what they need / about them / how they found us) plus the full links at the
+bottom. 4 Nov 2026 (owner): no @mention of anyone and nothing to Jeric - each new lead is emailed straight to
+hello@technext.asia (LEAD_EMAILS) as an internal note with the summary. Likely spam is tagged "Possible spam",
+never dropped. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
 import hashlib
 import hmac
@@ -29,14 +29,12 @@ from http.server import BaseHTTPRequestHandler
 
 ODOO = os.environ.get("ODOO_URL", "https://technext.odoo.com").rstrip("/")
 KEY = os.environ.get("ODOO_API_KEY", "")
-NOTIFY_EMAILS = [x.strip() for x in os.environ.get("ODOO_NOTIFY_EMAILS", "jeric@technext.asia").split(",") if x.strip()]
 ORIGINS = ("https://technext.asia", "https://www.technext.asia")
 # technext.odoo.com hosts a copy of the site and the discovery-call booking page; both post here (CORS)
 CORS_ORIGINS = ("https://technext.odoo.com",)
-COPY_EMAILS = [x.strip() for x in os.environ.get("ODOO_COPY_EMAILS", "hello@technext.asia").split(",") if x.strip()]
-# login every lead is assigned to; empty = unassigned. Rico (the API user, Sales "Own Documents Only") cannot
-# see a lead assigned to someone else, so leads stay unassigned until Rico gets "All Documents" access.
-SALESPERSON = os.environ.get("ODOO_SALESPERSON", "")
+# where every new lead is emailed (4 Nov 2026: hello@technext.asia only, nobody @mentioned, never Jeric). The old
+# ODOO_NOTIFY_EMAILS / ODOO_COPY_EMAILS / ODOO_SALESPERSON env vars are ignored on purpose.
+LEAD_EMAILS = ("hello@technext.asia",)
 # first active sales team that exists ("Website" team is archived); direct / referral / messaging -> "Sales Dept"
 DEPARTMENTS = ("Marketing Dept", "Sales Team")
 SPAM_TAG = "Possible spam"
@@ -167,7 +165,7 @@ def rpc(model, method, **kw):
 
 _IDS = {}  # tag / utm ids, kept while the function instance stays warm
 # creating a lead the normal way took ~8 s (timed 28 Oct): Odoo logs "Lead created", subscribes the API user and
-# sends follower mails inside the call. The lead, its notes and the @Jeric note are the same without them.
+# sends follower mails inside the call. The lead, its notes and the hello@ note are the same without them.
 QUIET = {"tracking_disable": True, "mail_create_nolog": True, "mail_create_nosubscribe": True, "mail_notrack": True}
 # fields our booking form may fill on the opportunity Odoo files for a booking (only where Odoo left them empty)
 BOOKING_FILL = ("partner_name", "source_id", "medium_id", "campaign_id", "country_id", "team_id")
@@ -184,8 +182,8 @@ def partners(emails):
     """Odoo partners for these emails, looked up once per warm instance."""
     key = ("partners",) + tuple(emails)
     if key not in _IDS:
-        _IDS[key] = [p for e in emails for p in rpc(
-            "res.partner", "search_read", domain=[["email", "=ilike", e]], fields=["name", "email"], limit=1)]
+        _IDS[key] = [p for e in emails for p in rpc(     # oldest first: hello@ = partner 43 (Rico's own user)
+            "res.partner", "search_read", domain=[["email", "=ilike", e]], fields=["name", "email"], order="id", limit=1)]
     return _IDS[key]
 
 
@@ -355,7 +353,7 @@ def booking_event(email, phone="", name="", tries=8, wait=1.5):
 
 def summary(p, form, contact):
     """Everything as bulleted groups, (heading, [(label, value)]): contact / what they need / about them / how they
-    found us / full links - same order in the notes and the @Jeric note (which leaves out the full links)."""
+    found us / full links - same order in the notes and the hello@ note (which leaves out the full links)."""
     vals = {k: clean(v) for k, v in p.items() if k not in SKIP and str(v).strip()}
     vals.pop("job_title", None)                            # in the contact group
     vals.pop("country", None)
@@ -634,7 +632,7 @@ def make_lead(p):
     team = next((t for t in (lookup("crm.team", [["name", "=", d]]) for d in DEPARTMENTS) if t), False)
     vals = {
         "type": "lead",
-        "user_id": False,                                  # a salesperson, if any, is set last (see below)
+        "user_id": False,                                  # never auto-assigned (owner, 4 Nov 2026)
         "team_id": team,
         "name": title[:200],
         "contact_name": name, "partner_name": company, "email_from": email, "phone": phone,
@@ -655,15 +653,16 @@ def make_lead(p):
     info = (form, groups, spam)
     if form == "Discovery call booking" and (email or phone or name):
         # Odoo's appointment app files the booking itself, as an opportunity linked to the calendar event. The Odoo
-        # automation "Discovery Call: thank the client + tag the lead" tags it, @mentions Jeric and emails the client
-        # (3 Nov 2026). Here: add this form's details to it, and never file a second lead for the same booking.
+        # automation "Discovery Call: thank the client + tag the lead" tags it, clears the salesperson, emails the
+        # lead to hello@ and emails the client (3-4 Nov 2026). Here: add this form's details to it, and never file a
+        # second lead for the same booking.
         def after():
             event = booking_event(email, phone, name)
             if event:
                 opp = (rpc("calendar.event", "read", ids=[event], fields=["opportunity_id"])[0]["opportunity_id"] or [0])[0]
                 try:
                     have = rpc("crm.lead", "read", ids=[opp], fields=list(BOOKING_FILL))[0] if opp else None
-                except urllib.error.HTTPError as e:    # assigned to a host the API user cannot see (Jeric): Odoo has it all
+                except urllib.error.HTTPError as e:    # still assigned to a host the API user cannot see: Odoo has it all
                     print("booking opportunity not visible:", opp, e.code)
                     have = None
                 if have is not None:
@@ -674,9 +673,9 @@ def make_lead(p):
                     rpc("crm.lead", "message_post", ids=[opp], body_is_html=True, message_type="comment",
                         subtype_xmlid="mail.mt_note", body="<p><b>Booking form details</b></p>" + as_html(groups))
                 if opp:
-                    send_now(opp, email)                   # the client's "We have your call request" email + @Jeric note
+                    send_now(opp, email)                   # the client's "We have your call request" email + hello@ note
                 return
-            # Odoo never filed the booking: a lead for Jeric to call, and the auto-reply (rule 11) tells the visitor
+            # Odoo never filed the booking: a lead for the team to call, and the auto-reply (rule 11) tells the visitor
             flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
                                                  "Please contact them to set the call time.")])]
             lead = rpc("crm.lead", "create", vals_list=[dict(
@@ -708,29 +707,20 @@ def send_now(lead, email=""):
 
 
 def follow_up(lead, form, groups, spam):
-    """The @Jeric note + emails (and a salesperson, if set). Runs after the visitor has their answer."""
-    people, copies = partners(NOTIFY_EMAILS), partners(COPY_EMAILS)
-    if people or copies:                                   # @mention Jeric; Jeric + copies get the summary by email
-        at = " ".join(f'<a href="/odoo/res.partner/{p["id"]}" class="o_mail_redirect" data-oe-id="{p["id"]}" '
-                      f'data-oe-model="res.partner">@{html.escape(p["name"])}</a> ({html.escape(p["email"])})'
-                      for p in people)
+    """Email the new lead to hello@technext.asia: an internal note with the summary, no @mention, no salesperson.
+    Runs after the visitor has their answer."""
+    to = partners(LEAD_EMAILS)
+    if to:
         flag = [("Check first", [("Possible spam", spam)])] if spam else []
-        body = (f"<p>{at} New lead from the <b>{html.escape(form)}</b>. Please follow up.</p>"
+        body = (f"<p>New lead from the <b>{html.escape(form)}</b>.</p>"
                 + as_html(flag + [g for g in groups if g[0] != "Full links"]))      # full links stay in the notes
-        rpc("crm.lead", "message_post", ids=[lead], partner_ids=list({p["id"] for p in people + copies}),
-            message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
-            context={"mail_notify_author": True,          # the copy goes to Rico, who is also the API user
+        # an internal note reaches only the partners listed here, never followers
+        rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in to],
+            message_type="comment", subtype_xmlid="mail.mt_note", body_is_html=True,
+            context={"mail_notify_author": True,          # hello@ is Rico, who is also the API user
                      "mail_notify_force_send": False},  # emails go to the mail queue (~10 s saved, timed 28 Oct)
             body=body)
     send_now(lead)                                         # the visitor's auto-reply (rule 11) and the note above
-    # salesperson last: the API user may only see its own / unassigned leads, so it hands the lead over at the end
-    if SALESPERSON:
-        try:
-            user = lookup("res.users", [["login", "=ilike", SALESPERSON]])
-            if user:
-                rpc("crm.lead", "write", ids=[lead], vals={"user_id": user})
-        except Exception as e:                             # the lead is filed and Jeric notified either way
-            print("salesperson not set:", repr(e)[:300])
 
 
 class handler(BaseHTTPRequestHandler):
@@ -818,7 +808,7 @@ class handler(BaseHTTPRequestHandler):
             if busy:
                 print("flood breaker: refused", ip[:64])
                 return self._send(429, {"ok": False, "error": "busy"})
-        if p.get("_followup"):                             # step 2 of a split submit: the @Jeric note, emails, typed name
+        if p.get("_followup"):                             # step 2 of a split submit: the hello@ note, emails, typed name
             try:
                 lead = int(p["_followup"])
             except (TypeError, ValueError):

@@ -155,11 +155,11 @@ Worlds so far: Medical (clinic), Travel (airport terminal), Retail (shop floor),
 Every form (the Let's Talk panel on every page — Nexi on /nexi opens it too — /get-started,
 /free-website-with-odoo and the quotation builder) posts only to `/api/lead` (`api/lead.py`, a Vercel Python
 function); FormSubmit was removed on 16 Oct 2026 (with sales@ feeding the CRM it would have made duplicate leads).
-The function files a lead in the Odoo CRM at technext.odoo.com: salesperson Jeric (`ODOO_SALESPERSON`),
+The function files a lead in the Odoo CRM at technext.odoo.com: no salesperson (leads are never auto-assigned),
 department (sales team) `Marketing Dept`, source `Website` (or `Paid Ads` after an ad click), medium `Website`,
-tags `Website` + `Web form: <form>`, and a chatter note that @mentions jeric@technext.asia (`ODOO_NOTIFY_EMAILS`).
-Vercel env vars: `ODOO_API_KEY` (required, never commit it — the repo is public), `ODOO_URL`,
-`ODOO_SALESPERSON`, `ODOO_NOTIFY_EMAILS`. The thank-you shows only once the CRM accepted the lead; on failure
+tags `Website` + `Web form: <form>`, and an internal note with the summary emailed to hello@technext.asia only
+(no @mentions; 4 Nov 2026). Vercel env vars: `ODOO_API_KEY` (required, never commit it — the repo is public),
+`ODOO_URL`. The thank-you shows only once the CRM accepted the lead; on failure
 the visitor is shown sales@technext.asia to email. An accepted submission fires the Google Ads lead conversion
 and a GA4 `generate_lead` event (only if the visitor accepted cookies — Consent Mode).
 
