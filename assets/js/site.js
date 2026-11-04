@@ -555,9 +555,7 @@
     }
     function oops(err) {
       status.className = 'form-status is-err';
-      status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at ';
-      var mail = document.createElement('a'); mail.href = 'mailto:sales@technext.asia'; mail.textContent = 'sales@technext.asia';
-      status.appendChild(mail); status.appendChild(document.createTextNode('.'));
+      status.textContent = (err && err.message ? err.message + ' ' : '') + 'You can also email us directly at sales@technext.asia.';   // plain text, never a mailto link
     }
     function send(button, extra) {
       if (form.dataset.beforeSend) { try { window[form.dataset.beforeSend](form); } catch (_) {} }

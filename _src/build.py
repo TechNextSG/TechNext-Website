@@ -225,7 +225,7 @@ def mobile_nav_html() -> str:
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
 </div>
 <div class="mnav-contact">
-  <a href="mailto:{c["sales_email"]}">{{{{icon:mail}}}} {c["sales_email"]}</a>
+  <span>{{{{icon:mail}}}} {c["sales_email"]}</span>
   <span>{{{{icon:pin}}}} {c["hubs"]}</span>
 </div>''')
     return "\n".join(out)
@@ -253,7 +253,7 @@ def talk_panel_html() -> str:
   </div>
   <div class="talk-body">
     <h2 id="talk-title">Tell us what slows you down.</h2>
-    <p class="talk-lead">We reply from <a href="mailto:{c["sales_email"]}">{c["sales_email"]}</a>.</p>
+    <p class="talk-lead">We reply from {c["sales_email"]}.</p>
 
     <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -2821,7 +2821,7 @@ DENIED = """<!doctype html>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.6 system-ui,sans-serif;color:#1F1F3D;background:#fff}main{max-width:560px;padding:32px}h1{font-size:1.4rem;margin:0 0 .5em}a{color:#3167CA}</style>
 </head><body><main><h1>Automated access to this site is not permitted.</h1>
 <p>This site does not allow automated copying, scraping or bulk collection of its content, design or code. See <a href="/terms#content-use">our terms</a>.</p>
-<p>If you are a person and landed here by mistake, go to <a href="/">technext.asia</a>. For permission, write to <a href="mailto:sales@technext.asia">sales@technext.asia</a>.</p>
+<p>If you are a person and landed here by mistake, go to <a href="/">technext.asia</a>. For permission, write to sales@technext.asia.</p>
 </main></body></html>
 """
 
