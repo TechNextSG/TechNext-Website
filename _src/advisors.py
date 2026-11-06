@@ -83,7 +83,7 @@ ADVISORS = [
      "bir": ["Earlier roles: clients' POS accreditation applications to the BIR", "Earlier roles: POS accreditation for Philippine malls"], "office": "ph", "photo": "rj-sarreal.webp", "email": "rj@technext.asia",
      "summary": "RJ has run ERP projects for 17 years and keeps every sprint on track.",
      "bio": "RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. RJ writes down exactly what you need, agrees the scope and timeline with you, and keeps every sprint on track, so you always know where your project stands. In earlier roles, RJ prepared clients' POS accreditation applications to the BIR and Philippine malls.",
-     "stats": [("17", "years in ERP"), ("4", "NetSuite certificates"), ("20+", "client projects")],
+     "stats": [("17", "years in ERP"), ("4", "ERP systems before Odoo"), ("20+", "companies served")],   # CV: Dynamics SL, NAV, Oracle Fusion, NetSuite; 22 client companies named
      "groups": [
          ("BIR & POS (earlier roles)", ["Clients' POS accreditation applications to the BIR", "POS accreditation for Philippine malls", "POS functional and technical support"]),
          ("ERP platforms", ["Microsoft Dynamics SL (Solomon)", "Microsoft Dynamics NAV", "Oracle Fusion", "Oracle NetSuite", "SAP Workforce time and attendance"]),
@@ -112,7 +112,7 @@ ADVISORS = [
     {"name": "AJ Cubilla", "role": "Odoo Developer Expert", "office": "ph", "email": "dev@technext.asia", "photo": "aj-cubilla.webp",
      "summary": "AJ builds and supports Odoo solutions for clients across many industries.",
      "bio": "AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it. AJ codes in Python, JavaScript and PostgreSQL, and trains partner teams to run their systems day to day.",
-     "stats": [("2022", "with Odoo clients since"), ("3", "core technologies")],
+     "stats": [("3+", "years with Odoo clients"), ("3", "core technologies")],   # CV: Odoo clients 2022 - present
      "groups": [
          ("Odoo client work", ["Solution design for clients", "Needs analysis", "Client support and maintenance", "Database administration", "Partner network training"]),
          ("Development", ["Python", "JavaScript", "PostgreSQL", "Front-end and back-end coding", "Web design and landing pages", "Feature testing"]),
@@ -138,7 +138,7 @@ ADVISORS = [
      "bir": ["Accounting, payroll and POS systems for Philippine businesses (sales)"], "office": "ph", "photo": "jeric-bulayungan.webp", "email": "jeric@technext.asia",   # 22 Oct 2026: sales experience only, not BIR filing skills
      "summary": "Jeric has helped Philippine businesses choose their software since 2016.",
      "bio": "Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems. Jeric is often your first conversation with TechNext: listening to how your business runs today, then bringing in the right people from the team.",
-     "stats": [("2016", "in B2B software sales since"), ("10+", "software products sold")],
+     "stats": [("8+", "years in B2B software sales"), ("10+", "systems sold before Odoo"), ("4", "years leading a sales team")],   # CV: sales roles 03/2016 on; team lead 2016-2020
      "groups": [
          ("Sales", ["B2B solution selling", "Pipeline management", "Lead generation", "Account management and development", "Revenue forecasting", "Sales reporting", "Online seminars and demos", "Outbound prospecting"]),
          ("Systems sold", ["SAP S/4HANA", "SAP Business One", "QuickBooks", "ABSS (MYOB)", "Sage 50", "Retail Pro", "Aloha POS", "Freshworks", "monday.com", "WASP warehouse and asset management", "Payroll systems", "IT infrastructure"]),
@@ -162,7 +162,7 @@ ADVISORS = [
     {"name": "Rex Polintang", "role": "IT Developer Expert", "office": "ph", "photo": "rex-polintang.webp",
      "summary": "Rex keeps the systems and networks behind the business running, backed by CCNA training and a cum laude IT degree.",
      "bio": "Rex keeps the systems and networks behind a business running. A cum laude graduate in IT, networking and administration, Rex has handled a retail branch's IT day to day since 2023, completed the Cisco CCNA routing and switching courses, and documented maintenance work for 105 cell sites. Rex's motto is simple: learn things, adapt to things, innovate things.",
-     "stats": [("105", "cell sites documented"), ("4", "CCNA courses completed"), ("2023", "in branch IT since")],
+     "stats": [("3+", "years in branch IT"), ("4", "CCNA courses completed"), ("105", "cell sites documented")],   # CV: branch IT June 2023 - present
      "groups": [
          ("IT support & networking", ["Branch IT support", "Network administration", "Routing and switching (CCNA)", "Scaling and connecting networks", "Hardware and user support"]),
          ("Systems administration", ["Linux essentials", "Red Hat system administration (RH124, RH134)"]),
