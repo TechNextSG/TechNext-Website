@@ -160,8 +160,14 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
 .tm-actions .eh-act2 { flex: 1 1 100%; justify-content: center; }
 .tm-actions .eh-act2--main { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-100); }
 .tm-actions .eh-act2--main:hover { background: var(--blue-100); color: var(--blue-700); border-color: var(--blue-300); }
-/* home: summaries hold three lines so the stats and links line up across a row */
-@media (min-width: 601px) { .tm-grid--home .tm-sum { min-height: calc(2em * 1.55); } }
+/* home (owner 6 Nov 2026, "properly align this"): cards in a row line up part by part. Summaries hold three lines, so the
+   BIR panels start level; the BIR panel takes the spare height, so the stats strips sit on one line at the foot of every card */
+@media (min-width: 601px) {
+  .tm-grid--home .tm-sum { min-height: calc(3em * 1.55); }
+  .tm-grid--home .tm-bir { flex: 1 0 auto; }
+  .tm-grid--home .tm-face:not(:has(.tm-bir)) .tm-stats { margin-top: auto; }
+  .tm-grid--home .tm-face:not(:has(.tm-bir)) .tm-sum { margin-bottom: 18px; }
+}
 /* directory quick view footer: Email and Save contact share a row; the profile link centres under them */
 .tm-qv-foot .eh-act2 .ic { width: 18px; height: 18px; }
 @media (min-width: 601px) {
@@ -209,7 +215,7 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
   .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div::before { top: 50%; left: 0; width: 3px; height: 18px; margin-top: -9px; border-radius: 0 3px 3px 0; transition: height .45s var(--fx-ease), margin-top .45s var(--fx-ease); }
   .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats > div:hover::before { width: 3px; height: 28px; margin-top: -14px; }
   .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats dd { flex: none; width: 68px; font-size: 20px; }   /* one number column, so labels line up */
-  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats dt { font-size: 12.5px; text-align: left; }
+  .tm-grid--home:has(> .tm-card:nth-child(4)) .pf-stats dt { min-height: 0; font-size: 12.5px; text-align: left; }
 }
 
 /* the highlighted card (Clement, CEO): TechNext blue, white type, white ring and a light stats strip */
@@ -252,7 +258,10 @@ section.fx-sec.tm-field::before, main > section.fx-sec.tm-field::before { conten
 .tm-qv-g:has(.pf-skills--bir) h3 { color: #0F5C38; }
 
 /* home with three cards (the three BIR experts): three wide columns, the stats strip side by side */
-@media (min-width: 1081px) { .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-card { flex-basis: calc((100% - 40px) / 3); max-width: 380px; } }
+@media (min-width: 1081px) {
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .tm-card { flex-basis: calc((100% - 40px) / 3); max-width: 380px; }
+  .tm-grid--home:not(:has(> .tm-card:nth-child(4))) .pf-stats dt { min-height: calc(3em * 1.35); }   /* narrow cells: room for three label lines in every strip */
+}
 /* phones, three experts: full cards one per row, so the BIR panel and numbers stay visible */
 @media (max-width: 600px) {
   .tm-grid--home:not(:has(> .tm-card:nth-child(4))) { grid-template-columns: minmax(0, 1fr); gap: 14px; }
