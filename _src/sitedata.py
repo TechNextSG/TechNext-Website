@@ -138,7 +138,6 @@ FORM_ENDPOINT = "/api/lead"
 NAV = [
     # 8 Nov 2026, owner: fewer pages, Odoo first, "Odoo as a plug-in to your existing company system". The AI, Marketing
     # and Industries menus (and their pages) are gone; the header button is "Set up a meeting" (LAYOUT in build.py).
-    {"label": "Odoo Plug-in", "id": "plugin", "href": "odoo/integration.html"},
     {"label": "BIR CAS", "id": "bir-cas", "href": "bir-cas.html"},
     {"label": "E-Invoicing", "id": "bir-einv", "href": "bir-e-invoicing.html"},
     {

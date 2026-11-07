@@ -1,0 +1,47 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Experts spotlight (home + ad lander), 8 Nov 2026: one wide card per expert - tall portrait on the left, the story,
+   three stats, the systems they know and a meeting button on the right. Built by team_pages.home_section_html(). */
+.xp-sec{background:linear-gradient(180deg,#F5F8FE 0%,#FFFFFF 100%);border-block:1px solid var(--line)}
+.xp-head{max-width:720px;margin:0 0 36px}
+.xp-kicker{font:700 13px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin:0 0 10px}
+.xp-head h2{font:800 clamp(28px,3.2vw,40px)/1.15 var(--font-display);letter-spacing:-.02em;color:var(--ink);margin:0 0 12px}
+.xp-lead{font-size:17px;margin:0;color:var(--body)}
+.xp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+.xp-card{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(31,31,61,.05),0 24px 48px -32px rgba(31,31,61,.4);transition:box-shadow .25s ease,translate .25s var(--ease-out)}
+.xp-card:hover{translate:0 -3px;box-shadow:0 2px 6px rgba(31,31,61,.06),0 32px 56px -30px rgba(49,103,202,.45)}
+.xp-photo{position:relative;min-height:100%;background:var(--blue-050)}
+.xp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.xp-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:42%;background:linear-gradient(180deg,transparent,rgba(20,30,70,.55))}
+.xp-badge{position:absolute;left:14px;bottom:14px;z-index:1;display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;
+  background:rgba(255,255,255,.92);font:600 12px/1.2 var(--font-body);color:var(--ink)}
+.xp-badge .ic{width:13px;height:13px;color:var(--blue)}
+
+.xp-body{padding:26px 26px 22px;display:flex;flex-direction:column}
+.xp-role{display:inline-block;align-self:flex-start;margin:0 0 8px;padding:4px 10px;border-radius:8px;background:var(--blue-050);font:700 12px/1.3 var(--font-body);color:var(--blue-700);letter-spacing:.02em}
+.xp-name{font:800 26px/1.15 var(--font-display);letter-spacing:-.015em;color:var(--ink);margin:0 0 10px}
+.xp-sum{font-size:15.5px;line-height:1.55;margin:0 0 16px;color:var(--body)}
+.xp-stats{list-style:none;margin:0 0 16px;padding:12px 0;display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line)}
+.xp-stats li{padding:0 10px;border-left:1px solid var(--line)}
+.xp-stats li:first-child{padding-left:0;border-left:0}
+.xp-stats b{display:block;font:800 24px/1.1 var(--font-display);color:var(--blue);letter-spacing:-.01em}
+.xp-stats span{display:block;font-size:12.5px;line-height:1.35;color:var(--muted);margin-top:3px}
+.xp-sys-h{font:700 12px/1.2 var(--font-body);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+.xp-sys{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.xp-sys li{padding:4px 10px;border-radius:999px;border:1px solid var(--blue-100);background:#fff;font:600 12.5px/1.3 var(--font-body);color:var(--ink)}
+.xp-ask{display:flex;gap:8px;align-items:flex-start;margin:0 0 18px;padding:10px 12px;border-radius:12px;background:var(--ok-050);font-size:14.5px;line-height:1.45;color:#0f5c38}
+.xp-ask .ic{flex:none;width:17px;height:17px;margin-top:2px;color:var(--ok)}
+.xp-act{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+
+@media (max-width:1180px){
+  .xp-grid{grid-template-columns:1fr;max-width:760px}
+}
+@media (max-width:640px){
+  .xp-card{grid-template-columns:1fr}
+  .xp-photo{min-height:0;aspect-ratio:4/3}
+  .xp-body{padding:20px 18px 18px}
+  .xp-name{font-size:23px}
+  .xp-stats b{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){.xp-card,.xp-card:hover{transition:none;translate:none}}
