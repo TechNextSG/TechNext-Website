@@ -453,7 +453,8 @@
             function () { return { ok: false, j: {} }; })
       .then(function (res) {
         if (!res.ok && res.j.error === 'captcha') { var ce = new Error('captcha'); ce.captcha = true; throw ce; }
-        if (!res.ok && res.j.error === 'contact') throw new Error('Please add both your email and your mobile number.');
+        if (!res.ok && res.j.error === 'contact') throw new Error(res.j.field === 'phone' ? 'Please check your mobile number.' :
+          res.j.field === 'email' ? 'Please check your email address.' : 'Please add both your email and your mobile number.');
         if (!res.ok && res.j.error === 'company') throw new Error('Please add your company name.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
@@ -500,6 +501,28 @@
     tnDiag(form, why || msg);
   }
   window.tnFormSay = tnFormSay;
+  /* Email and mobile number, checked the way api/lead.py checks them (7 Nov 2026 lead audit: gmail.com0, mail.con and
+     a 9-digit number got through, and Filipino mobiles came in after a wrong +1 or +44). A wrong +1/+44 in front of a
+     Philippine mobile is corrected in the field; anything else wrong returns { el, msg } and nothing is sent. */
+  var WRONG_CC = /^(?:(?:1|44|63)0(9\d{9})|(?:1|44)63(9\d{9})|44(9\d{9}))$/;
+  var TYPO_TLDS = /\.(con|cmo|cpm|comm|coom|comn|vom|xom|ocm|cim|cm)$/i;
+  var TYPO_DOMAINS = /@(gmail\.co|gmial\.com|gmai\.com|gmal\.com|gamil\.com|gnail\.com|gmaill\.com|gmail\.om|yaho\.com|yahooo\.com|yahoo\.co|hotmial\.com|hotmai\.com|outlok\.com)$/i;
+  function tnContactCheck(form) {
+    var em = form.elements.email, ph = form.elements.phone, co = form.elements.country;
+    if (em && em.value) {
+      var e = String(em.value).trim();
+      if (!/^[^@\s]+@(?:[^@\s.]+\.)+[A-Za-z]{2,24}$/.test(e) || TYPO_TLDS.test(e) || TYPO_DOMAINS.test(e))
+        return { el: em, msg: 'Please check your email address. It should look like name@company.com.' };
+    }
+    if (ph && ph.value) {
+      var d = String(ph.value).replace(/\D/g, ''), m = d.match(WRONG_CC);
+      if (m) { d = '63' + (m[1] || m[2] || m[3]); ph.value = '+63 ' + d.slice(2, 5) + ' ' + d.slice(5, 8) + ' ' + d.slice(8); }
+      var phOnly = !co || !co.value || /^philippines$/i.test(String(co.value).trim());
+      if (d.length < 8 || d.length > 15 || (phOnly && (/^09/.test(d) && d.length !== 11 || /^639/.test(d) && d.length !== 12)))
+        return { el: ph, msg: 'Please check your mobile number. A Philippine mobile has 11 digits, like 0917 123 4567.' };
+    }
+    return null;
+  }
   $$('form[data-endpoint]').forEach(function (form) {
     var status = $('.form-status', form);
     var btn = $('button[type=submit]', form);
@@ -523,6 +546,8 @@
       arm();
       var hp = $('input[name=_honey]', form);
       if (hp && hp.value) { hp.value = ''; tnDiag(form, 'honeypot filled'); }   // browser autofill can fill it; it used to stop the send silently
+      var typo = tnContactCheck(form);
+      if (typo) { tnFormSay(form, typo.msg, typo.el, 'mistyped ' + typo.el.name); return; }
       if (!form.checkValidity()) {
         var bad = form.querySelector('input:invalid, select:invalid, textarea:invalid');
         tnFormSay(form, fieldMsg(bad), bad, 'invalid ' + (bad ? bad.name : '?'));

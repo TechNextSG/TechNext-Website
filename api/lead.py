@@ -209,18 +209,71 @@ def form_tag(source, page=""):
     return next((tag for key, tag in FORMS if key in s), "Other form")
 
 
+# Odoo's booking page showed "e.g. +1 555-555-5555" as its example number, so Filipino clients typed their mobile after
+# a +1 or +44: +1 0955 253 2192, +1 639 480 179 865, +44 995 521 6786 (7 Nov 2026 lead audit, 9 records).
+# Only shapes no real US or UK number has: +1/+44 then 09..., +1/+44 then 639..., +44 then 9 (UK has no 9 mobiles).
+WRONG_CC = re.compile(r"(?:1|44|63)0(9\d{9})|(?:1|44)63(9\d{9})|44(9\d{9})")
+
+
+def phone_digits(phone):
+    """The number's digits, with a wrong country code taken off a Philippine mobile: +1 0955 253 2192 -> 639552532192."""
+    d = re.sub(r"\D", "", str(phone or ""))
+    m = WRONG_CC.fullmatch(d)
+    return "63" + next(g for g in m.groups() if g) if m else d
+
+
 def phone_format(phone, country):
     """Typed number -> international form: 0995 390 4694 (PH) -> +63 995 390 4694, 9123 4567 (SG) -> +65 9123 4567.
     Anything it cannot read for sure is kept exactly as typed."""
-    d = re.sub(r"\D", "", phone)
+    d = phone_digits(phone)
+    fixed = d != re.sub(r"\D", "", phone)
     c = (country or "").lower()
-    if re.fullmatch(r"(63|0)?9\d{9}", d) and (c in ("", "philippines") or phone.lstrip().startswith(("+63", "09", "63"))):
+    if re.fullmatch(r"(63|0)?9\d{9}", d) and (fixed or c in ("", "philippines") or phone.lstrip().startswith(("+63", "09", "63"))):
         n = d[-10:]
         return f"+63 {n[:3]} {n[3:6]} {n[6:]}"
     if re.fullmatch(r"(65)?[689]\d{7}", d) and (c == "singapore" or phone.lstrip().startswith("+65")):
         n = d[-8:]
         return f"+65 {n[:4]} {n[4:]}"
     return re.sub(r"\s+", " ", phone).strip()
+
+
+# 7 Nov 2026 lead audit: bunyemaryann07@gmail.com0, ...@mail.con and the 9-digit 093689122 were filed, so the
+# auto-reply and the call could never reach them. site.js and tn-booking.js run the same checks in the browser.
+EMAIL_RX = re.compile(r"[^@\s]+@(?:[^@\s.]+\.)+[A-Za-z]{2,24}")
+TYPO_TLDS = {"con", "cmo", "cpm", "comm", "coom", "comn", "vom", "xom", "ocm", "cim", "cm"}
+TYPO_DOMAINS = {"gmail.co", "gmial.com", "gmai.com", "gmal.com", "gamil.com", "gnail.com", "gmaill.com", "gmail.om",
+                "yaho.com", "yahooo.com", "yahoo.co", "hotmial.com", "hotmai.com", "outlok.com"}
+
+
+def email_ok(email):
+    e = str(email or "").strip()
+    if not EMAIL_RX.fullmatch(e):
+        return False
+    dom = e.rsplit("@", 1)[1].lower()
+    return dom.rsplit(".", 1)[1] not in TYPO_TLDS and dom not in TYPO_DOMAINS
+
+
+def phone_ok(phone, country=""):
+    """8-15 digits; for the Philippines (or no country given) a mobile must be whole: 09 + 9 digits or 63 9 + 9 digits."""
+    d = phone_digits(phone)
+    if not 8 <= len(d) <= 15:
+        return False
+    if (country or "").strip().lower() in ("", "philippines"):
+        if d.startswith("09") and len(d) != 11 or d.startswith("639") and len(d) != 12:
+            return False
+    return True
+
+
+def contact_problem(p, lenient=False):
+    """"email" or "phone" when that detail is missing or mistyped, else "".
+    lenient = a booking: the booking page has checked it already, and a booking lead is never dropped over a typo."""
+    email, phone = str(p.get("email", "")).strip(), str(p.get("phone", ""))
+    if lenient:
+        return ("email" if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", email) else
+                "phone" if not 7 <= len(re.sub(r"\D", "", phone)) <= 15 else "")
+    if not email_ok(email):
+        return "email"
+    return "" if phone_ok(phone, clean(p.get("country", ""), 80)) else "phone"
 
 
 def visit(p):
@@ -770,12 +823,12 @@ class handler(BaseHTTPRequestHandler):
         self._timing = bool(p.get("_timing"))
         if p.get("_honey"):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
-        # owner rule (3 Nov 2026): email AND mobile number are the priority - every form needs both
-        if not re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+$", str(p.get("email", "")).strip()) or \
-                not 7 <= len(re.sub(r"\D", "", str(p.get("phone", "")))) <= 15:
-            print("refused contact: email or phone missing", str(p.get("source", ""))[:40])
-            return self._send(400, {"ok": False, "error": "contact"})
         tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
+        # owner rule (3 Nov 2026): email AND mobile number are the priority - every form needs both, typed right
+        bad = contact_problem(p, lenient=tag in NO_CAPTCHA_FORMS)
+        if bad:
+            print("refused contact:", bad, "missing or mistyped", str(p.get("source", ""))[:40])
+            return self._send(400, {"ok": False, "error": "contact", "field": bad})
         # owner rule (3 Nov 2026): the company name is required too. Not for a booking: Odoo has filed it already
         if not clean(p.get("company", "")) and tag not in NO_CAPTCHA_FORMS:
             print("refused company: no company name", str(p.get("source", ""))[:40])
