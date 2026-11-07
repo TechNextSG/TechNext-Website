@@ -171,6 +171,24 @@ REDIRECTS = [
     ("/landing_page", "/"), ("/landing_page/", "/"), ("/landing_page/:path*", "/"),
 ]
 
+# 8 Nov 2026, owner: "lessen the pages, more focus on Odoo" - the AI, marketing and industry pages, the quotation builder,
+# the Nexi chat and RJ's profile were removed. Each old URL lands on the closest page that is left.
+REMOVED = {
+    **{f"/solutions/{p}": "/" for p in ("ai", "ai-automation", "ai-chatbots", "marketing", "website", "social-media", "brand-assets")},
+    "/odoo/ai-integration": "/odoo/integration",
+    **{f"/industries/{p}": "/" for p in ("medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness")},
+    "/quotation": "/#start", "/nexi": "/", "/nexi-app": "/", "/team/rj-sarreal": "/company",
+}
+
+
+def _final(dest):
+    base, _, frag = dest.partition("#")
+    return REMOVED.get(base, dest) if base in REMOVED else dest
+
+
+REDIRECTS = [(s, _final(d)) for s, d in REDIRECTS] + [(f"{src}{ext}", dst) for src, dst in REMOVED.items() for ext in ("", ".html")]
+REDIRECTS = [r for r in REDIRECTS if r[0] != "/industries"] + [("/industries", "/")]
+
 
 def inline_script_hashes():
     """sha256 of every distinct executable inline <script> across the built site."""

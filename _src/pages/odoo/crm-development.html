@@ -1,5 +1,5 @@
 <!--meta {"title": "Odoo CRM Customization — Pipelines & Lead Routing", "desc": "Odoo CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups shaped around how you sell, so no enquiry goes cold.", "out": "odoo/crm-development.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-pipeline.js", "assets/js/pages/svc-fx.js", "assets/js/pages/crm-development-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-pipeline.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/crm-development-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx crd-fx"} -->
-<!-- /odoo/crm-development (22 Oct 2026 futuristic redesign): the pipeline-relay world hero, the Nexi Explains tag, the tron frame and the
+<!-- /odoo/crm-development (22 Oct 2026 futuristic redesign): the pipeline-relay world hero, the tron frame and the
      bib/medal/ticket metaphors are gone. Hero = glass CRM pipeline with a quotation going through approval (sample data). The pipeline
      demo is kept and restyled as glass. Styles: assets/css/pages/crm-development-fx.css, behaviour: assets/js/pages/crm-development-fx.js. -->
 
@@ -12,10 +12,9 @@
       <div class="sv-copy">
         <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Partner in Singapore · teams in Taguig City &amp; Ho Chi Minh City</span></p>
         <h1 id="crd-h1">Every lead followed up, automatically.</h1>
-        <p class="fx-lead">Odoo 20 CRM out of the box is a good pipeline. We adapt stages, routing, scoring and hand-offs to your sales process, and connect it to Sales so a won deal becomes a quotation without re-entry.</p>
+        <p class="fx-lead">Odoo 20 CRM out of the box is a good pipeline. We adapt stages, routing, scoring and hand-offs to your sales process, and connect it to Sales and Accounting so a won deal becomes a quotation without re-entry. Odoo plugs in beside the system you already run.</p>
         <div class="actions sv-act">
-          <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+          <a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
         </div>
         <ul class="sv-chips" aria-label="Apps involved">
           <li><a href="{{ROOT}}odoo/apps/crm.html">{{odoo:crm:20}} CRM</a></li>
@@ -189,7 +188,7 @@
     <div class="sv-get-l reveal">
       <h2>A pipeline your team actually uses.</h2>
       <p class="lead">Configured around your process, connected to Sales, and reporting on live data, so the forecast reflects reality, not a spreadsheet exported last week.</p>
-      <div class="actions"><a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a></div>
+      <div class="actions"><a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a></div>
     </div>
     <div class="sv-doc reveal">
       <div class="sv-doc-bar"><b>Pipeline checklist</b><em>12 / 12</em></div>
@@ -203,7 +202,6 @@
         <li>{{icon:check}}<span>One customer record from first lead to paid invoice.</span></li>
         <li>{{icon:check}}<span>Customer portal for quotations, orders and invoices.</span></li>
         <li>{{icon:check}}<span>Forecasting and team reports on live data, not exports.</span></li>
-        <li>{{icon:check}}<span>Optional AI-drafted follow-ups and enriched contacts, reviewed before sending: see <a href="{{ROOT}}odoo/ai-integration.html">AI Integration</a>.</span></li>
         <li>{{icon:check}}<span>Role-based training and written steps your team keeps.</span></li>
         <li>{{icon:check}}<span>A support plan for changes as your process evolves.</span></li>
       </ul>
@@ -220,8 +218,7 @@
       <details><summary>Where do leads come from? {{icon:chevron}}</summary><div class="faq-a"><p>Website forms, email aliases, WhatsApp and social can all create leads automatically. We set up capture for the channels you use and route each lead by your rules.</p></div></details>
       <details><summary>How are leads assigned? {{icon:chevron}}</summary><div class="faq-a"><p>By whatever rule fits: round-robin, territory, product or deal value. Scheduled activities then make sure every opportunity has an owner and a next step.</p></div></details>
       <details><summary>What happens when a deal is won? {{icon:chevron}}</summary><div class="faq-a"><p>The won opportunity opens a quotation with the customer, products and pricelist already filled in. From there it flows into Sales, Inventory and Accounting on the same record.</p></div></details>
-      <details><summary>Can we use AI in the pipeline? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, optionally. Odoo can draft follow-ups and enrich contacts for your team to review before anything is sent. See <a href="{{ROOT}}odoo/ai-integration.html">AI Integration</a>.</p></div></details>
-      <details><summary>How is this priced? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on your pipeline, lead sources and integrations, so it's scoped and quoted. Walk us through your last ten deals and we'll come back with a plan: pricing is <a href="{{ROOT}}quotation.html">on quotation</a>.</p></div></details>
+      <details><summary>How is this priced? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on your pipeline, lead sources and integrations, so it's scoped first. Walk us through your last ten deals in a meeting and we'll come back with a plan and a fixed, written quote before any work starts.</p></div></details>
     </div>
   </div>
 </section>
@@ -245,11 +242,10 @@
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div>
         <h2>Walk us through your last ten deals.</h2>
-        <p>That's usually enough to design the pipeline. Tell us how you sell and we'll show you the setup.</p>
+        <p>That's usually enough to design the pipeline. Tell us how you sell and we'll show you the setup, with a fixed, written quote.</p>
       </div>
       <div class="actions">
-        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        <a class="btn btn-white btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@
 """Futuristic template of the eight industry pages (22 Oct 2026 redesign).
 
 The cartoon "world" heroes, Nexi's in-content poses and the vignette flow are gone. Each industry page now has:
-  hero_html(key)    H1 + lead + "Book a discovery call" on the left, a live glass Odoo-style panel on the right
+  hero_html(key)    H1 + lead + "Set up a meeting" on the left, a live glass Odoo-style panel on the right
                     (sample data: a record, its status bar, count-ups, lines or bars, and the journal entry it posts)
   proof_html(key)   one strip under the hero: Odoo Ready Partner, the first phase, where we deliver from
   intro_html(key)   the "in one paragraph" answer as a glass card
@@ -16,7 +16,7 @@ import html as _html
 import industries as IX
 
 MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">'
-        'Book a discovery call {{icon:arrow}}</a>')
+        'Set up a meeting {{icon:arrow}}</a>')
 QUOTE = '<a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>'
 
 

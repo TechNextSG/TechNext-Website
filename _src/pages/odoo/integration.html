@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Integration — Banks, Payments & Stores", "desc": "Odoo integration by TechNext in Singapore and the Philippines: banks, payment gateways, online stores and marketplaces connected so nothing is typed twice.", "out": "odoo/integration.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js", "assets/js/pages/svc-fx.js", "assets/js/pages/integration-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/integration-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx itg-fx"} -->
+<!--meta {"title": "Odoo Plug-in: Keep Your System, Add Odoo for BIR", "desc": "Keep QuickBooks, Xero, SAP B1 or Excel. TechNext plugs Odoo in beside it for accounting and BIR outputs, with a fixed written quote first.", "out": "odoo/integration.html", "nav": "plugin", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-syncmap.js", "assets/js/pages/svc-fx.js", "assets/js/pages/integration-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-syncmap.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/integration-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx itg-fx"} -->
 <!-- /odoo/integration (22 Oct 2026 futuristic redesign): the Odoo Central train-station world hero and the signal-box captions are gone.
      Hero = glass connections panel (bank feed, payment gateway, marketplace and online store syncing into Odoo with live status, sample data).
      The sync map demo is kept and restyled as glass. Styles: assets/css/pages/integration-fx.css, behaviour: assets/js/pages/integration-fx.js. -->
@@ -7,35 +7,28 @@
 <section class="fx-hero sv-hero itg-hero" aria-labelledby="itg-h1">
   <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Integration</span></nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span>Odoo</span><span>Odoo Plug-in</span></nav>
     <div class="fx-hero-in">
       <div class="sv-copy">
         <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Partner in Singapore · teams in Taguig City &amp; Ho Chi Minh City</span></p>
-        <h1 id="itg-h1">Connect Odoo to the tools you keep.</h1>
-        <p class="fx-lead">Odoo replaces a lot, but not everything. Banks, payment gateways, online stores, carriers and specialist tools stay, and talk to Odoo 20 over standard connectors or its API, so orders, stock and payouts flow across without anyone re-typing between systems.</p>
+        <h1 id="itg-h1">Keep your system. Plug Odoo in beside it.</h1>
+        <p class="fx-lead">You do not have to replace QuickBooks, Xero, SAP Business One, Excel or your in-house system. TechNext plugs Odoo in beside it, starting with accounting and the BIR outputs, so your invoices, bills and payments reach Odoo without anyone re-typing them. Start with Accounting only, add apps later, and get a fixed written quote before any work starts.</p>
         <div class="actions sv-act">
-          <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-          <a class="btn btn-ghost btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+          <a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
         </div>
-        <ol class="sv-journey" aria-label="Where this sits in an Odoo project: step 3 of 4">
-          <li><a href="{{ROOT}}odoo/discovery.html"><i>1</i>Discovery</a></li>
-          <li><a href="{{ROOT}}odoo/training.html"><i>2</i>Training</a></li>
-          <li class="is-on"><span class="sv-j" aria-current="step"><i>3</i>Integration</span></li>
-          <li><a href="{{ROOT}}odoo/support.html"><i>4</i>Support</a></li>
-        </ol>
       </div>
 
       <div class="sv-side">
         <div class="sv-panel itg-panel" data-ig aria-label="Sample connections syncing into Odoo with live status. Sample data.">
           <i class="fx-result-glow" aria-hidden="true"></i>
-          <div class="sv-bar">{{icon:plug}}<b>Connections to Odoo</b><span class="fx-tag">Sample data</span></div>
-          <p class="sv-sub">Four connectors, one Odoo database</p>
+          <div class="sv-bar">{{icon:plug}}<b>What plugs into Odoo</b><span class="fx-tag">Sample data</span></div>
+          <p class="sv-sub">Your system stays. Odoo sits beside it.</p>
 
           <ul class="itg-rows" data-rows>
             <li data-r="bank">{{icon:bank}}<span class="itg-n"><b>Bank feed</b><small>Statement lines in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>38</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
-            <li data-r="pay">{{icon:receipt}}<span class="itg-n"><b>Payment gateway</b><small>Payment events in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>12</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
-            <li data-r="mkt">{{icon:bag}}<span class="itg-n"><b>Marketplace</b><small>Orders in, stock out</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>6</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
-            <li data-r="shop">{{odoo:website_sale:22}}<span class="itg-n"><b>Online store</b><small>Web orders to sales orders</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>4</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="pay">{{icon:receipt}}<span class="itg-n"><b>Payments</b><small>Payments in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>12</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="mkt">{{icon:bag}}<span class="itg-n"><b>Your current system</b><small>Invoices and bills in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>6</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
+            <li data-r="shop">{{icon:file}}<span class="itg-n"><b>Excel or POS</b><small>Imports in</small></span><span class="itg-beam" aria-hidden="true"><i></i></span><span class="itg-end"><em data-n>4</em><span class="sv-st is-ok" data-s>Synced</span></span></li>
           </ul>
           <div class="itg-hub">{{odoo:sale:22}}{{odoo:stock:22}}{{odoo:accountant:22}}<b>Your Odoo</b><small>one database</small></div>
 
@@ -51,8 +44,8 @@
           </dl>
           <ol class="sv-feed" data-feed aria-live="off">
             <li><i></i><span><b>Bank feed</b> 38 statement lines imported</span></li>
-            <li><i></i><span><b>Gateway</b> payout of 12 payments matched</span></li>
-            <li><i></i><span><b>Marketplace</b> 6 orders in, stock levels out</span></li>
+            <li><i></i><span><b>Payments</b> 12 payments matched</span></li>
+            <li><i></i><span><b>Your system</b> 6 invoices imported</span></li>
           </ol>
         </div>
       </div>
@@ -60,23 +53,23 @@
 
     <h2 class="sr-only">At a glance</h2>
     <dl class="sv-glance">
-      <div><dt>Phase</dt><dd>Step 3 of 4</dd></div>
-      <div><dt>Connects</dt><dd>Stores · payments · banks · email</dd></div>
-      <div><dt>Method</dt><dd>Standard connectors first, API where needed</dd></div>
-      <div><dt>Goal</dt><dd>No re-keying between systems</dd></div>
+      <div><dt>Start with</dt><dd>Accounting + BIR outputs</dd></div>
+      <div><dt>Brings in</dt><dd>Invoices · bills · payments · bank lines</dd></div>
+      <div><dt>Method</dt><dd>Import, sync or API, agreed in writing</dd></div>
+      <div><dt>Cost</dt><dd>Fixed written quote first</dd></div>
       <div><dt>Team</dt><dd>Singapore HQ · Philippines · Vietnam</dd></div>
     </dl>
   </div>
 </section>
 
 <section class="section section--tight sv-answer-sec">
-  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>Odoo integration connects the systems you keep to your Odoo database: banks, payment gateways, online stores such as Shopify and WooCommerce, marketplaces, carriers and specialist tools. TechNext uses standard connectors or the Odoo API, so orders, stock levels and payouts flow across without anyone re-typing them between systems.</p></div></div>
+  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>The Odoo plug-in from TechNext lets you keep the system you already run and add Odoo beside it for accounting and BIR outputs. Invoices, bills and payments move into Odoo by import, sync or API, bank feeds are added, and everything else stays where it is. You can start with Accounting only and add apps later, on a fixed, written quote agreed before work starts.</p></div></div>
 </section>
 
 <!-- ============================================================ SYNC MAP DEMO -->
 <section class="section fx-sec demo-sec" id="sync-map">
   <div class="container">
-    <div class="sec-head reveal"><h2>Odoo integration you can watch: webhooks, scheduled jobs, retries and a dead-letter queue.</h2><p class="lead">A TechNext Odoo integration is more than a connector. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div>
+    <div class="sec-head reveal"><h2>How the data gets in: sync, import and API, with retries.</h2><p class="lead">Your invoices, bills and payments can reach Odoo by file import, scheduled sync or the Odoo API, and the demo below shows the safeguards we agree for each flow. Webhooks push events in seconds, scheduled jobs sync in batches, every message carries an idempotency key so nothing is booked twice, and failures retry with exponential backoff before a person is alerted. Take a connector down and watch the retries, the backlog and the recovery.</p></div>
     <div class="dm dm-syncmap reveal" data-demo="syncmap">
       <div class="dm-head">
         <div class="dm-title"><b>Integration sync map</b><small>Sample connectors · <span data-k="clock">09:00:00</span> · timings sped up</small></div>
@@ -132,14 +125,14 @@
 <!-- ============================================================ WHAT WE CONNECT -->
 <section class="section fx-sec fx-sec--alt" id="connect">
   <div class="container">
-    <div class="sec-head reveal"><h2>The systems around your Odoo.</h2><p class="lead">Six kinds of system we usually connect, and what flows between each one and Odoo.</p></div>
+    <div class="sec-head reveal"><h2>What stays in your system, and what plugs into Odoo.</h2><p class="lead">Your current system keeps doing its job. These are the kinds of source we usually bring data in from, and what flows between each one and Odoo.</p></div>
     <div class="itg-sys sv-glass reveal">
-      <article>{{odoo:website_sale:28}}<div><h3>Online stores</h3><p>Shopify, WooCommerce and other platforms: orders in, stock levels out, tracking synced, so the web store and Odoo never disagree.</p><ul><li>Orders in</li><li>Stock out</li><li>Tracking</li></ul></div></article>
-      <article>{{icon:bag}}<div><h3>Marketplaces</h3><p>Marketplace accounts kept in step with Odoo stock and orders, so a sale in one place isn't oversold in another.</p><ul><li>Orders in</li><li>Stock out</li></ul></div></article>
-      <article>{{icon:receipt}}<div><h3>Payment gateways</h3><p>Card and e-wallet payments on invoices and the web store, with payouts and fees reconciled against your books.</p><ul><li>Payments in</li><li>Payouts and fees</li></ul></div></article>
+      <article>{{icon:file}}<div><h3>Your current accounting system</h3><p>Invoices, bills, payments and your chart of accounts come into Odoo by import, sync or API, so the BIR outputs are produced from one set of books. The system you run today stays in place.</p><ul><li>Invoices in</li><li>Bills in</li><li>Payments in</li></ul></div></article>
+      <article>{{icon:bag}}<div><h3>Excel files and POS exports</h3><p>Sales and purchase lists from spreadsheets or a POS are imported into Odoo on a schedule you agree, so nothing is typed twice.</p><ul><li>Imports in</li><li>Agreed schedule</li></ul></div></article>
+      <article>{{icon:receipt}}<div><h3>Payment gateways</h3><p>Card and e-wallet payments on invoices, with payouts and fees reconciled against your books.</p><ul><li>Payments in</li><li>Payouts and fees</li></ul></div></article>
       <article>{{icon:bank}}<div><h3>Bank feeds</h3><p>Statement feeds into Accounting for daily reconciliation; payment files out for supplier runs.</p><ul><li>Statements in</li><li>Payment files out</li></ul></div></article>
       <article>{{icon:mail}}<div><h3>Email and calendar</h3><p>Shared inboxes, send-as addresses and calendar sync, so conversations and activities live inside Odoo.</p><ul><li>Shared inboxes</li><li>Calendar sync</li></ul></div></article>
-      <article>{{icon:plug}}<div><h3>Internal systems (API)</h3><p>HR systems, BI tools, POS hardware and industry software. If it has an API, it can be connected.</p><ul><li>HR</li><li>BI</li><li>POS hardware</li></ul></div></article>
+      <article>{{icon:plug}}<div><h3>Internal systems (API)</h3><p>HR systems, BI tools, POS hardware and industry software. Odoo has an API, so a system that can export data or call an API can usually be brought in, scoped and quoted first.</p><ul><li>HR</li><li>BI</li><li>POS hardware</li></ul></div></article>
     </div>
   </div>
 </section>
@@ -149,7 +142,7 @@
   <div class="container">
     <div class="sv-dark itg-bir-block reveal">
       <div>
-        <h2>In the Philippines, integration keeps your BIR books current.</h2>
+        <h2>In the Philippines, the plug-in keeps your BIR books current.</h2>
         <p class="lead">Bank lines that reconcile every day keep the books behind your BIR reports (SLSP, SAWT, QAP and the 2550Q) current, and 2307 certificates come from the vendor bills you post with withholding tax. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.</p>
         <div class="actions"><a class="btn btn-white btn-lg" href="{{ROOT}}odoo/philippines.html">Odoo in the Philippines {{icon:arrow}}</a><a class="btn btn-outline-white btn-lg" href="{{ROOT}}bir-e-invoicing.html">E-invoicing deadline</a></div>
       </div>
@@ -168,12 +161,12 @@
 <!-- ============================================================ HOW WE DO IT -->
 <section class="section fx-sec" id="how">
   <div class="container">
-    <div class="sec-head reveal"><h2>Standard connectors first, custom code last.</h2></div>
+    <div class="sec-head reveal"><h2>Start small. Add apps later.</h2></div>
     <ol class="itg-flow reveal" data-flow>
       <li><b>Map the data</b><p>Agree which records flow, in which direction, field by field, before anything is switched on.</p></li>
-      <li><b>Choose the connector</b><p>A standard, maintained connector wherever one exists; custom code only where none does.</p></li>
+      <li><b>Choose the method</b><p>File import, scheduled sync or the Odoo API, whichever is simplest for your current system. Custom code only where nothing simpler works.</p></li>
       <li><b>Test on staging</b><p>Run real records end-to-end and reconcile the totals before go-live.</p></li>
-      <li><b>Go live and monitor</b><p>Cut over with error handling that alerts a person, and documentation for the next developer.</p></li>
+      <li><b>Go live, then add apps</b><p>Cut over with error handling that alerts a person. Add Sales, Inventory or Purchase later on the same database, when you are ready.</p></li>
     </ol>
   </div>
 </section>
@@ -182,25 +175,25 @@
 <section class="section fx-sec fx-sec--alt" id="deliverables">
   <div class="container sv-get">
     <div class="sv-get-l reveal">
-      <h2>Systems that agree with each other.</h2>
-      <p class="lead">Odoo and its app store already cover most connections. We only write code where no maintained connector exists, and we document it so the next upgrade stays predictable.</p>
+      <h2>Two systems that agree with each other.</h2>
+      <p class="lead">Your system keeps running and Odoo carries the accounting and BIR outputs beside it. We write code only where an import or standard Odoo feature will not do, and we document it so the next upgrade stays predictable.</p>
       <ul class="itg-short" aria-label="In short">
-        <li><b data-count="6">6</b><span>kinds of system on the map</span></li>
+        <li><b data-count="6">6</b><span>kinds of source on the map</span></li>
         <li><b data-count="1">1</b><span>Odoo database</span></li>
         <li><b>API</b><span>only where needed</span></li>
       </ul>
     </div>
     <div class="sv-doc reveal">
-      <div class="sv-doc-bar"><b>Integration checklist</b><em>12 / 12</em></div>
+      <div class="sv-doc-bar"><b>Plug-in checklist</b><em>12 / 12</em></div>
       <ul class="sv-ticks">
         <li>{{icon:check}}<span>Field-by-field mapping agreed before anything syncs</span></li>
         <li>{{icon:check}}<span>Direction of each flow defined: one-way or two-way</span></li>
-        <li>{{icon:check}}<span>Store and marketplace order, stock and tracking sync</span></li>
+        <li>{{icon:check}}<span>Invoices, bills and payments brought in from your system</span></li>
         <li>{{icon:check}}<span>Payment capture with payouts and fees reconciled</span></li>
         <li>{{icon:check}}<span>Bank statement import and outgoing payment files</span></li>
-        <li>{{icon:check}}<span>Email and calendar connected to Odoo</span></li>
-        <li>{{icon:check}}<span>Standard connectors used wherever maintained</span></li>
-        <li>{{icon:check}}<span>Custom API code only where no connector exists</span></li>
+        <li>{{icon:check}}<span>A fixed, written quote before any work starts</span></li>
+        <li>{{icon:check}}<span>Standard Odoo imports and features used first</span></li>
+        <li>{{icon:check}}<span>Custom API code only where nothing simpler works</span></li>
         <li>{{icon:check}}<span>Tested on staging with real records</span></li>
         <li>{{icon:check}}<span>Error handling that alerts a person, not just a log</span></li>
         <li>{{icon:check}}<span>Documentation so upgrades stay predictable</span></li>
@@ -213,14 +206,13 @@
 <!-- ============================================================ FAQ -->
 <section class="section fx-sec">
   <div class="container">
-    <div class="sec-head reveal"><h2>Integration, answered.</h2></div>
+    <div class="sec-head reveal"><h2>The Odoo plug-in, answered.</h2></div>
     <div class="faq fx-faq reveal">
-      <details><summary>Will Odoo replace our online store? {{icon:chevron}}</summary><div class="faq-a"><p>Only if you want it to. Otherwise we connect your existing Shopify, WooCommerce or marketplace store so orders and stock stay in step both ways.</p></div></details>
-      <details><summary>Do you build custom connectors? {{icon:chevron}}</summary><div class="faq-a"><p>Only where no maintained connector exists. We prefer standard connectors from Odoo and its app store, and we document any custom code we write.</p></div></details>
-      <details><summary>One-way or two-way sync? {{icon:chevron}}</summary><div class="faq-a"><p>Either. We agree the direction of every flow up front, field by field, so both systems hold the version of the truth you expect.</p></div></details>
-      <details><summary>What about payment fees and payouts? {{icon:chevron}}</summary><div class="faq-a"><p>They are captured and reconciled, so your books match what the gateway actually paid out, fees included.</p></div></details>
-      <details><summary>What happens if a sync fails? {{icon:chevron}}</summary><div class="faq-a"><p>Error handling alerts a person rather than failing silently, and everything is tested on staging with real records before it goes live.</p></div></details>
-      <details><summary>How is integration priced? {{icon:chevron}}</summary><div class="faq-a"><p>On quotation, based on the systems and flows involved: <a href="{{ROOT}}quotation.html">request a quotation</a>.</p></div></details>
+      <details open><summary>Do we have to replace QuickBooks, Xero or our current system? {{icon:chevron}}</summary><div class="faq-a"><p>No. TechNext plugs Odoo in beside the system you already run, so your team keeps working in it while Odoo takes over accounting and the BIR outputs. You can move more across later, or never.</p></div></details>
+      <details><summary>What data moves into Odoo? {{icon:chevron}}</summary><div class="faq-a"><p>Usually invoices, bills, payments, customers, vendors and your chart of accounts, plus bank statement lines through a bank feed. We map each flow field by field and agree its direction in writing before anything is switched on.</p></div></details>
+      <details><summary>What stays in our own system? {{icon:chevron}}</summary><div class="faq-a"><p>Anything you want to keep there: day-to-day entry, specialist tools, POS or in-house software. TechNext only brings in the records Odoo needs for accounting and BIR.</p></div></details>
+      <details><summary>How long does the plug-in take? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on your current system, how much data comes across and which outputs you need first. TechNext sets the schedule in a short adviser meeting and writes it into the quote, so you plan against an agreed timeline.</p></div></details>
+      <details><summary>Is the Odoo plug-in affordable for an SME? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. TechNext is an affordable Odoo partner for SMEs: you can start with Accounting only and get a fixed, written quote before any work starts. Odoo's own subscription is paid to Odoo.</p></div></details>
     </div>
   </div>
 </section>
@@ -228,11 +220,11 @@
 <!-- ============================================================ RELATED -->
 <section class="section fx-sec fx-sec--alt">
   <div class="container">
-    <div class="sec-head reveal"><h2>Around integration.</h2></div>
+    <div class="sec-head reveal"><h2>Where the plug-in leads.</h2></div>
     <div class="sv-rel reveal">
-      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP Development</b><small>The implementation these integrations plug into: one database for orders, stock and money.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP</b><small>The full ERP, when you are ready to move more across: one database for orders, stock and money.</small></span><em>Learn more {{icon:arrow}}</em></a>
       <a href="{{ROOT}}solutions/enterprise.html">{{icon:globe}}<span><b>Enterprise Solution</b><small>Multi-company, multi-country groups on one Odoo, with inter-company flows and consolidation.</small></span><em>Learn more {{icon:arrow}}</em></a>
-      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Where the systems that stay get flagged for connecting, before a line of code is written.</small></span><em>Step 1 of 4 {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Where the systems that stay are flagged for plugging in, before a line of code is written.</small></span><em>Step 1 of 4 {{icon:arrow}}</em></a>
     </div>
   </div>
 </section>
@@ -243,12 +235,11 @@
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div>
-        <h2>Stop re-typing between systems.</h2>
-        <p>Tell us the store, gateway, bank or tool you need connected. We will map the flow and come back with a quotation.</p>
+        <h2>Keep your system. Add Odoo beside it.</h2>
+        <p>Tell us what you run today. An adviser will say what plugs in first and come back with a fixed, written quote.</p>
       </div>
       <div class="actions">
-        <a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
-        <a class="btn btn-outline-white btn-lg" href="{{ROOT}}quotation.html">Get a quotation</a>
+        <a class="btn btn-white btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
       </div>
     </div>
   </div>

@@ -942,3 +942,18 @@ document.addEventListener('click', function (e) {
     var m = document.getElementById('main'); if (m && m.focus) { m.setAttribute('tabindex', '-1'); m.focus({ preventScroll: true }); }
   });
 })();
+
+/* ---------------- "Set up a meeting" buttons (8 Nov 2026): they open the meeting request form (home #start) ---------------- */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('[data-meet-cta]');
+  if (!a) return;
+  if (typeof window.gtag === 'function') window.gtag('event', 'meeting_cta_click', { page: location.pathname });
+  var h = a.getAttribute('href') || '', f = h.charAt(0) === '#' ? document.querySelector(h) : null;
+  if (f) {   // same page: scroll to the form and put the cursor in the first field
+    e.preventDefault();
+    f.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    var first = f.querySelector('input:not([type=hidden]):not(.hp)');
+    if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (_) {} }, 450);
+    if (history.replaceState) history.replaceState(null, '', h);
+  }
+});
