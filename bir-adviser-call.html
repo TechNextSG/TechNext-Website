@@ -132,7 +132,7 @@ try{if(document.cookie.indexOf('tn_consent=yes')>-1){gtag('consent','update',{'a
           <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please check the number, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
         <div class="form-row">
-          <div class="field"><label for="gs-name">Full name <span class="opt">(optional)</span></label><input id="gs-name" name="name" type="text" autocomplete="name"></div>
+          <div class="field"><label for="gs-name">Full name <span class="req" aria-hidden="true">*</span></label><input id="gs-name" name="name" type="text" required autocomplete="name" data-missing="Please add your full name."></div>
           <div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
         <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. spreadsheets and our current accounting software today, 2 branches, new system to register as a CAS"></textarea></div>
