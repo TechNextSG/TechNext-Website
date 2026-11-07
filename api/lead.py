@@ -103,7 +103,7 @@ QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
         "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
-        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "cf-turnstile-response"}
+        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "_pass", "cf-turnstile-response"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -609,6 +609,26 @@ def captcha_ok(token, answer):
     return True
 
 
+def make_pass():
+    """A signed, single-use pass (10 min) handed to the booking panel after its typed code was right (?capcheck)."""
+    import secrets
+    exp, nonce = int(time.time()) + CAP_TTL, secrets.token_hex(8)
+    return f"{exp}.{nonce}.{_cap_mac(exp, nonce, 'BOOKING-PASS')}"
+
+
+def pass_ok(token):
+    try:
+        exp, nonce, mac = str(token).split(".")
+        if int(exp) < time.time() or ("p" + nonce) in USED_TOKENS:
+            return False
+    except ValueError:
+        return False
+    if not hmac.compare_digest(mac, _cap_mac(exp, nonce, "BOOKING-PASS")):
+        return False
+    USED_TOKENS["p" + nonce] = int(exp)
+    return True
+
+
 # Cloudflare Turnstile (3 Nov 2026, owner): once TURNSTILE_SECRET_KEY is set on Vercel (sensitive), every lead must
 # carry a Turnstile token (_ts) that Cloudflare's siteverify accepts, and the typed code above is no longer asked
 # for. GET /api/lead?guard=1 tells site.js which check is on, so the secret alone switches it (no rebuild); without
@@ -617,6 +637,9 @@ def captcha_ok(token, answer):
 # Widget "technext.asia lead forms" (Managed) in the hello@technext.asia Cloudflare account; the site key is public.
 TS_SITE = os.environ.get("TURNSTILE_SITE_KEY", "0x4AAAAAAFxetF_H5fXzGUJj")
 TS_SECRET = os.environ.get("TURNSTILE_SECRET_KEY", "")
+# 8 Nov 2026, owner: "don't do automatic verify, do captcha security code" - the typed code is the check on every form,
+# even with the Turnstile secret set; CAPTCHA_MODE=turnstile on Vercel switches back to Cloudflare.
+TS_ON = bool(TS_SECRET and TS_SITE) and os.environ.get("CAPTCHA_MODE", "code").strip().lower() == "turnstile"
 TS_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 # 3 Nov live check: siteverify said success twice for the same token a minute apart, so a token is also kept here
 # (hash -> expiry, this warm instance) and refused the second time.
@@ -852,9 +875,12 @@ class handler(BaseHTTPRequestHandler):
                 print("dropped bot lead:", why, ip[:64])
                 return self._send(200, {"ok": True})
             booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
-            if not booking and not (turnstile_ok(p.get("_ts", ""), ip) if TS_SECRET and TS_SITE
+            if booking and not pass_ok(p.get("_pass", "")):   # 8 Nov 2026: the booking panel's typed code, checked via ?capcheck
+                print("refused captcha: booking without a valid code pass")
+                return self._send(400, {"ok": False, "error": "captcha"})
+            if not booking and not (turnstile_ok(p.get("_ts", ""), ip) if TS_ON
                                     else captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
-                print("refused captcha:", "turnstile" if TS_SECRET and TS_SITE else "code", "token" if p.get("_ts") else "no token", tag)
+                print("refused captcha:", "turnstile" if TS_ON else "code", "token" if p.get("_ts") else "no token", tag)
                 return self._send(400, {"ok": False, "error": "captcha"})
             if not rate_ok(ip):
                 print("rate limited", ip[:64])
@@ -904,7 +930,10 @@ class handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         q = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
-        on = bool(TS_SECRET and TS_SITE)
+        on = TS_ON
+        if "capcheck" in q:                                # booking panel: check the typed code once, get a signed pass
+            ok = captcha_ok(q["capcheck"][0], q.get("a", [""])[0])
+            return self._send(200 if ok else 400, {"ok": ok, "pass": make_pass() if ok else ""})
         if "guard" in q:
             return self._send(200, {"ok": True, "turnstile": TS_SITE if on else ""})
         if "tscheck" in q and on:
