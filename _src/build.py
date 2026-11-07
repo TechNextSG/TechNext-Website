@@ -96,7 +96,9 @@ ODOO_DIR = ROOT / "assets" / "img" / "odoo"
 # replaced everywhere; stroke glyphs are replaced only as feature icons (card icons, facts-row labels), while icons
 # inside buttons, links, bullets and FAQ chevrons stay stroke glyphs. /nexi-explains keeps its own look.
 FLAT = json.loads((Path(__file__).parent / "flat_icons.json").read_text(encoding="utf-8")) if (Path(__file__).parent / "flat_icons.json").exists() else {}
-FEATURE_CTX = re.compile(r'(<dt[^>]*>\s*|class="(?:card-ic|ix-ic)[^"]*"[^>]*>\s*)\{\{icon:([a-z0-9_-]+)\}\}')
+FEATURE_CTX = re.compile(r'(<dt[^>]*>\s*|<h[234]\b[^>]*>\s*|class="(?:card-ic|ix-ic|who-card|cx-rule|hc-card|fx-node-ic|cx-reach-item|cst-lh|lyr-lh|xp-badge|'
+     r'ph-cov-h|vnm-cov-h|smap-n|mnav-ci|talk-ci)\b[^"]*"[^>]*>\s*)\{\{icon:([a-z0-9_-]+)\}\}')
+FLAT_TOKEN = re.compile(r"\{\{flat:([a-z0-9_-]+)\}\}")   # {{flat:name}} forces the flat icon anywhere
 
 
 _FLAT_N = [0]
@@ -116,10 +118,17 @@ def flat_icons(html: str) -> str:
     def rep(m):
         name = m.group(2)
         return m.group(1) + flat_svg(name) if name in FLAT else m.group(0)
-    return FEATURE_CTX.sub(rep, html)
+
+    def tok(m):
+        if m.group(1) not in FLAT:
+            raise KeyError(f"no flat icon {m.group(1)!r} in _src/flat_icons.json")
+        return flat_svg(m.group(1))
+    return FLAT_TOKEN.sub(tok, FEATURE_CTX.sub(rep, html))
 
 
 def icons(html: str) -> str:
+    html = FLAT_TOKEN.sub(lambda m: flat_svg(m.group(1)), html)
+
     def rep(m):
         name = m.group(1)
         if name not in S.ICONS:
@@ -217,8 +226,8 @@ def mobile_nav_html() -> str:
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}services-catalogue" target="_blank" rel="noopener">{{{{icon:book}}}} Services catalogue</a>
 </div>
 <div class="mnav-contact">
-  <span>{{{{icon:mail}}}} {c["sales_email"]}</span>
-  <span>{{{{icon:pin}}}} {c["hubs"]}</span>
+  <span class="mnav-ci">{{{{icon:mail}}}} {c["sales_email"]}</span>
+  <span class="mnav-ci">{{{{icon:pin}}}} {c["hubs"]}</span>
 </div>''')
     return "\n".join(out)
 
@@ -270,7 +279,7 @@ def talk_panel_html() -> str:
     </form>
   </div>
   <div class="talk-foot">
-    <span>{{{{icon:pin}}}} {c["hubs"]}</span>
+    <span class="talk-ci">{{{{icon:pin}}}} {c["hubs"]}</span>
   </div>
 </aside>'''
 
@@ -1685,7 +1694,7 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
       <div class="dm-static"><p><b>Main path:</b> {path_txt}.</p></div>
     </div>
     <p class="dm-note">{{{{icon:check}}}} Sample records. Your stages, rules and hand-offs are configured in discovery.</p>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="#setup">How we set it up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''
 
@@ -1770,7 +1779,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>Inside the app.</h2></div>
     <div class="shots">{gallery}</div>
-    <p class="sec-next reveal"><a class="btn btn-ghost" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-ghost" href="#setup">How we set it up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>''' if gallery else ""
 
@@ -1877,7 +1886,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name}, section by section.</h2><p class="lead">The product as Odoo presents it. TechNext configures each part to your process.</p></div>
     {what}
-    <p class="sec-next reveal"><a class="btn-link" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn-link" href="#setup">How we set it up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 

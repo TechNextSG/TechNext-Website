@@ -57,7 +57,8 @@
 .bx-btn { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; background: rgba(255,255,255,.85); border: 1px solid var(--line); color: var(--ink);
   transition: border-color .25s var(--fx-ease), transform .25s var(--fx-ease); }
 .bx-btn:hover { border-color: var(--blue-300); transform: translateY(-1px); }
-.bx-btn .ic { width: 18px; height: 18px; }
+.bx-btn { flex: none; min-width: 44px; }
+.bx-btn .ic { width: 18px; height: 18px; flex: none; }
 .bx-btn:first-child .ic { transform: rotate(180deg); }
 .bx-btn--pp .ic:last-child { display: none; }
 .bx-btn--pp[aria-pressed="true"] .ic:first-child { display: none; }

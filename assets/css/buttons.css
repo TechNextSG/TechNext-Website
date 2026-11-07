@@ -92,6 +92,11 @@ html body .btn-link:hover{color:var(--bt-700)}
 
 /* ---------- header ---------- */
 html body .header .header-cta .btn{height:44px!important;padding:0 16px!important;font-size:14.5px!important}
+/* phones and tablets: icon-only square buttons; the 16px side padding squashed the calendar icon to 9px (8 Nov) */
+@media (max-width:1100px){html body .header .header-cta .btn{width:44px!important;min-width:44px!important;padding:0!important;justify-content:center!important;gap:0!important}
+  html body .header .header-cta .btn>span:not(.ripple){position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap}
+  html body .header .header-cta .btn .ic{width:22px!important;height:22px!important;flex:none!important}
+  html body .header .header-cta .btn-primary[data-meet]{animation:none!important}}
 
 /* ---------- pop-in when a button scrolls into view (site.js adds .btn-pre then .btn-in; no JS = no hidden buttons) ---------- */
 html body .btn-pre{opacity:0;transform:translateY(10px) scale(.96)}
@@ -121,3 +126,15 @@ html body .header .header-cta .btn.hdr-contact,html body .header .header-cta .bt
 html body .header .header-cta .btn.hdr-contact:hover,html body .header .header-cta .btn-primary:hover{background:var(--bt-700)!important;border-color:var(--bt-700)!important}
 html body #tn-cookie-accept{background:var(--bt)!important;color:#fff!important;border-radius:9px!important;transition:background-color .2s ease,transform .25s var(--btn-spring)!important}
 html body #tn-cookie-accept:hover,html body #tn-cookie-accept:focus-visible{background:var(--bt-700)!important;transform:translateY(-1px)}
+
+/* ---------- phones: button rows stack into equal full-width buttons (8 Nov 2026, mobile audit) ---------- */
+@media (max-width:560px){
+  html body main :is(.cv-act,.actions,.sec-next,.xp-act){display:flex;flex-direction:column;align-items:stretch;gap:10px}
+  html body main :is(.cv-act,.actions,.sec-next,.xp-act)>:is(.btn,.btn-link){flex:0 0 auto!important;width:100%;justify-content:center;text-align:center}
+  /* a long label wraps onto two centred lines instead of being cut off */
+  html body main .btn{max-width:100%;white-space:normal!important;height:auto!important;min-height:48px;padding-top:11px!important;padding-bottom:11px!important;line-height:1.3!important}
+  html body main .btn-lg{min-height:52px}
+  html body main .btn .btn-label{white-space:normal;text-align:center}
+  html body main :is(.cv-act,.actions,.sec-next,.xp-act)>.btn-link{white-space:normal!important;height:auto!important;min-height:48px;padding-top:11px!important;padding-bottom:11px!important;line-height:1.3!important;text-align:center}
+  html body main :is(.btn,.btn-lg){padding-left:16px!important;padding-right:16px!important;font-size:15px!important}
+}
