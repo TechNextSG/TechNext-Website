@@ -1,64 +1,33 @@
-<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: a professional profile for each person with their role and work email, and a vCard to save the contact.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "fx-page eh-page", "scripts": ["assets/js/pages/employee-hub-fx.js", "assets/js/team-cards.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/team-cards.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/employee-hub-fx.css?v={ASSET_V}\">"} -->
-<!-- Team Directory (22 Oct 2026 redesign): a staff page, noindex. Glass hero with the directory panel (profile count, search,
-     live office time), one professional glass profile card per person (cards come from _src/team.py via build.py {{TEAM_CARDS}};
-     the markup is restyled by CSS only), the three offices, discovery call. No ID-card world, no lanyards.
-     Styles: assets/css/pages/employee-hub-fx.css. Behaviour: assets/js/pages/employee-hub-fx.js (vCard, search, clocks). -->
+<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: a professional profile for each person with their role and work email, and a vCard to save the contact.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "ed-page", "scripts": ["assets/js/pages/team-dir.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/team-dir.css?v={ASSET_V}\">"} -->
+<!-- Team Directory, 8 Nov 2026 (owner: "make it compact and interactive"; RJ back on the directory). A staff page, noindex.
+     Compact header with search + team filters, small person cards, one detail panel (sticky on desktop, bottom sheet on
+     phones) with email, vCard and the full profile link. Cards + JSON: team_pages.directory_compact_html() via {{TEAM_DIR}}.
+     Styles: assets/css/pages/team-dir.css. Behaviour: assets/js/pages/team-dir.js. -->
 
-<!-- ============================================================ HERO -->
-<section class="fx-hero eh-hero" aria-labelledby="eh-h1">
-  <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
-  <div class="container fx-hero-in">
-    <div class="eh-copy">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Team Directory</span></nav>
-      <h1 id="eh-h1">Meet the <span class="fx-hl">TechNext team</span></h1>
-      <p class="fx-lead">The people behind TechNext, with their role, office and top skills. Open a profile for the full skill set, write to them, or save the contact as a vCard. Work details only.</p>
-      <div class="actions eh-act"><a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a><a class="btn btn-ghost btn-lg" href="{{ROOT}}company.html">{{icon:users}}About TechNext</a></div>
+<section class="ed-head" aria-labelledby="ed-h1">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Team Directory</span></nav>
+    <div class="ed-title">
+      <h1 id="ed-h1">Team Directory</h1>
+      <p>The people behind your Odoo, in Singapore, Taguig City and Ho Chi Minh City. Pick someone to see their skills, write to them or save their contact.</p>
     </div>
-
-    <aside class="eh-panel" data-eh-panel aria-label="Team directory summary">
-      <div class="fx-result-glow" aria-hidden="true"></div>
-      <div class="eh-top"><p class="fx-r-label">TechNext team directory</p><p class="eh-lock">{{icon:lock}}Staff page, not indexed</p></div>
-      <p class="eh-count"><b data-eh-count>0</b><span data-eh-count-l>profiles</span></p>
-      <label class="eh-search">{{icon:search}}<span class="sr-only">Find a colleague by name, role or skill</span><input type="search" data-eh-search aria-label="Find a colleague by name, role or skill" placeholder="Find a colleague by name, role or skill" autocomplete="off" spellcheck="false"></label>
-      <p class="eh-live"><i aria-hidden="true"></i>Offices, live local time</p>
-      <ul class="eh-clocks">
-        <li><span><b>Singapore</b><small>Headquarters</small></span><time data-tz="Asia/Singapore">--:--:--</time></li>
-        <li><span><b>Taguig City</b><small>Odoo consulting and development</small></span><time data-tz="Asia/Manila">--:--:--</time></li>
-        <li><span><b>Ho Chi Minh City</b><small>Engineering hub</small></span><time data-tz="Asia/Ho_Chi_Minh">--:--:--</time></li>
-      </ul>
-    </aside>
+    {{TEAM_DIR}}
   </div>
 </section>
 
-<!-- ============================================================ PROFILES -->
-<section class="section fx-sec tm-field" id="team" aria-labelledby="eh-team-h">
+<section class="ed-offices" aria-label="Offices and local time">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="eh-team-h">The team.</h2><p class="lead">Write to anyone directly, or save the contact as a vCard (.vcf). One team scopes, builds and supports your project, from Singapore, Taguig City and Ho Chi Minh City.</p></div>
-    <div class="tm-grid tm-grid--dir eh-people" data-eh-people>{{TEAM_CARDS}}</div>
-    <p class="eh-none" data-eh-none hidden>No one matches that search. Clear it to see the whole team.</p>
+    <ul class="ed-clocks">
+      <li><span><b>Singapore</b><small>Headquarters</small></span><time data-tz="Asia/Singapore">--:--</time></li>
+      <li><span><b>Taguig City</b><small>Odoo consulting and development</small></span><time data-tz="Asia/Manila">--:--</time></li>
+      <li><span><b>Ho Chi Minh City</b><small>Engineering hub</small></span><time data-tz="Asia/Ho_Chi_Minh">--:--</time></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============================================================ OFFICES -->
-<section class="section fx-sec fx-sec--alt" id="offices" aria-labelledby="eh-off-h">
-  <div class="container">
-    <div class="sec-head reveal"><h2 id="eh-off-h">Three offices, one team.</h2><p class="lead">Projects are run from Singapore, built in Taguig City and supported by our engineers in Ho Chi Minh City.</p></div>
-    <div class="th-offices eh-offices">{{TEAM_OFFICES}}</div>
-  </div>
-</section>
-
-<!-- ============================================================ CLOSE -->
-<section class="section fx-close-sec">
-  <div class="container">
-    <div class="fx-close reveal">
-      <div class="fx-close-glow" aria-hidden="true"></div>
-      <div>
-        <h2>Talk to the team.</h2>
-        <p>Set up a meeting and an adviser will walk through the system you run today, and how Odoo plugs in beside it for accounting and BIR. You get a fixed, written quote, and you do not need to hire your own team.</p>
-      </div>
-      <div class="actions">
-        <a class="btn btn-white btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
-      </div>
-    </div>
+<section class="ed-close">
+  <div class="container ed-close-in">
+    <div><h2>Want to talk to the team?</h2><p>Set up a meeting: we look at the system you run today and how Odoo plugs in beside it for accounting and BIR.</p></div>
+    <a class="btn btn-primary btn-lg" href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
   </div>
 </section>

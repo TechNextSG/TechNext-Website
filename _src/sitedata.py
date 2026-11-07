@@ -7,7 +7,7 @@ SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is an affordable Odoo ERP partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main "
             "consulting and development team in Taguig City, Metro Manila. We plug Odoo into the company system a business already runs "
-            "(QuickBooks, Xero, SAP Business One, Excel, POS or in-house systems), so it does not have to replace it, and set Odoo up for "
+            "(accounting software, ERP, POS, spreadsheets or in-house systems), so it does not have to replace it, and set Odoo up for "
             "accounting and BIR requirements first: the books for the business's own Computerized Accounting System (CAS) or CBA application, "
             "2307, SLSP, SAWT, QAP, 2550Q and e-invoicing planning. In Singapore: GST and InvoiceNow. Clients start with Odoo Accounting "
             "and get a fixed, written quote before any work starts.")
@@ -144,7 +144,7 @@ NAV = [
         "label": "Odoo", "id": "odoo",
         "columns": [
             {"title": "Set up", "links": [
-                {"label": "Odoo Plug-in", "href": "odoo/integration.html", "icon": "wk-integration",
+                {"label": "Odoo as a Plug-in", "href": "odoo/integration.html", "icon": "wk-integration",
                  "desc": "Keep your system. Odoo runs beside it."},
                 {"label": "Odoo ERP Implementation", "href": "solutions/odoo-erp.html", "icon": "sol-erp",
                  "desc": "The full ERP, when you are ready for it."},

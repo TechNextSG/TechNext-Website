@@ -1461,16 +1461,6 @@
       "permanent": true
     },
     {
-      "source": "/team/rj-sarreal",
-      "destination": "/company",
-      "permanent": true
-    },
-    {
-      "source": "/team/rj-sarreal.html",
-      "destination": "/company",
-      "permanent": true
-    },
-    {
       "source": "/industries",
       "destination": "/",
       "permanent": true

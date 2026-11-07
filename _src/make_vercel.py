@@ -177,7 +177,7 @@ REMOVED = {
     **{f"/solutions/{p}": "/" for p in ("ai", "ai-automation", "ai-chatbots", "marketing", "website", "social-media", "brand-assets")},
     "/odoo/ai-integration": "/odoo/integration",
     **{f"/industries/{p}": "/" for p in ("medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness")},
-    "/quotation": "/#start", "/nexi": "/", "/nexi-app": "/", "/team/rj-sarreal": "/company",
+    "/quotation": "/#start", "/nexi": "/", "/nexi-app": "/",
 }
 
 

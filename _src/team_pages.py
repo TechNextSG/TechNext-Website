@@ -286,46 +286,37 @@ def home_section_html() -> str:
     cards = "".join(_expert_card(p, k) for k, p in enumerate(people))
     return f'''<section class="section xp-sec" id="advisers" aria-labelledby="xp-h">
   <div class="container">
-    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">Talk to the people who set it up.</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
+    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">Your BIR CAS set-up, led by people who have done it.</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
     <div class="xp-grid">{cards}</div>
   </div>
 </section>'''
 
 
-# the systems each expert has worked with (from their CVs: advisors.py "about" / "groups"), and the line that invites a question
+# owner 8 Nov 2026: "simplify this, focus on Odoo, don't mention other brands, make the text smaller" -> one Odoo-focused
+# line per expert, three stats, the meeting button. No list of other software.
 EXPERT_EXTRA = {
-    "Neil Matan": {"ask": "Ask Neil how to move your books into Odoo without losing your history.",
-                   "systems": ["Odoo", "SAP", "Oracle", "Microsoft Dynamics", "NetSuite", "Acumatica"]},
-    "Jeric Bulayungan": {"ask": "Ask Jeric which Odoo set-up fits the system you run today.",
-                         "systems": ["SAP Business One", "QuickBooks", "ABSS (MYOB)", "Sage 50", "SAP S/4HANA"]},
+    "Neil Matan": {"sum": "Neil has led ERP projects for 24 years, ten of them on Odoo, and has moved 80+ companies from discovery to go-live."},
+    "Jeric Bulayungan": {"sum": "Jeric is often your first call: listening to how your business runs today, then planning how Odoo fits in beside it.",
+                         "stats": [("8+", "years in business software sales"), ("2016", "helping PH businesses since"), ("4", "years leading a sales team")]},
 }
 
 
 def _expert_card(p: dict, k: int) -> str:
     x = EXPERT_EXTRA.get(p["name"], {})
-    first = p["name"].split()[0]
     R = "{{ROOT}}"
     pic = ""
     if p.get("photo"):
         pic = (f'<img src="{R}assets/img/team/{p["photo"]}" alt="{esc(p["name"])}, {esc(p["role"])} at TechNext" '
                'width="600" height="600" loading="lazy" decoding="async">')
-    stats = "".join(f"<li><b>{esc(v)}</b><span>{esc(lab)}</span></li>" for v, lab in p.get("stats", [])[:3])
-    chips = "".join(f"<li>{esc(t)}</li>" for t in x.get("systems", []))
+    stats = "".join(f"<li><b>{esc(v)}</b><span>{esc(lab)}</span></li>" for v, lab in (x.get("stats") or p.get("stats", []))[:3])
     office = _office(p) or "Taguig City"
-    parts = [f'<article class="xp-card reveal" style="--i:{k}">',
-             f'<div class="xp-photo">{pic}<span class="xp-badge">{{{{icon:pin}}}}{office}</span></div>',
-             '<div class="xp-body">',
-             f'<p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>',
-             f'<p class="xp-sum">{esc(p.get("summary") or p.get("bio", ""))}</p>']
-    if stats:
-        parts.append(f'<ul class="xp-stats">{stats}</ul>')
-    if chips:
-        parts.append(f'<p class="xp-sys-h">Systems {first} knows</p><ul class="xp-sys">{chips}</ul>')
-    if x.get("ask"):
-        parts.append(f'<p class="xp-ask">{{{{icon:chat-send}}}}{esc(x["ask"])}</p>')
-    parts.append(f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting {{{{icon:arrow}}}}</a>'
-                 f'<a class="btn-link" href="{R}{profile_url(p)}">Full profile {{{{icon:arrow}}}}</a></div></div></article>')
-    return "".join(parts)
+    return (f'<article class="xp-card reveal" style="--i:{k}">'
+            f'<div class="xp-photo">{pic}<span class="xp-badge">{{{{icon:pin}}}}{office}</span></div>'
+            f'<div class="xp-body"><p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>'
+            f'<p class="xp-sum">{esc(x.get("sum") or p.get("summary") or "")}</p>'
+            + (f'<ul class="xp-stats">{stats}</ul>' if stats else "") +
+            f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting {{{{icon:arrow}}}}</a></div>'
+            f'</div></article>')   # owner 8 Nov 2026: no "Full profile" link on these cards
 
 
 # ---------------------------------------------------------------------------------------------------------- directory
@@ -335,3 +326,43 @@ def directory_html() -> str:
     widens the search to skills."""
     rows = [(p, True) for p in ordered()] + [(t, False) for t in TM.TEAM]
     return "".join(card_html(p, k, "directory", profile=has) for k, (p, has) in enumerate(rows))
+
+
+# ---------------------------------------------------------------------------------------------------------- compact directory
+# Owner 8 Nov 2026: "make it compact and interactive". Small cards in a filterable grid + one detail panel (sticky on desktop,
+# a bottom sheet on phones) filled by assets/js/pages/team-dir.js from the JSON block. Without JS each card links to the profile.
+DIR_GROUP = {"CEO": "Leadership", "General Manager": "Leadership", "Senior Functional Lead": "Odoo consulting",
+             "Project Manager": "Odoo consulting", "Functional ERP Consultant": "Odoo consulting",
+             "Odoo Developer Expert": "Development & IT", "IT Developer Expert": "Development & IT",
+             "Business Development": "Sales & marketing", "Marketing Officer": "Sales & marketing"}
+DIR_GROUPS = ["Leadership", "Odoo consulting", "Development & IT", "Sales & marketing"]
+
+
+def directory_compact_html() -> str:
+    import json as _json
+    people = ordered()
+    data, cards = [], []
+    for k, p in enumerate(people):
+        grp = DIR_GROUP.get(p["role"], "Odoo consulting")
+        skills = [i for _, items in (p.get("groups") or []) for i in items][:8]
+        data.append({"name": p["name"], "role": p["role"], "group": grp, "office": _office(p), "email": p.get("email", ""),
+                     "photo": p.get("photo", ""), "url": profile_url(p).replace(".html", ""),
+                     "sum": p.get("summary") or p.get("bio", ""), "stats": p.get("stats", [])[:3], "skills": skills,
+                     "bir": p.get("bir", [])[:2], "hay": " ".join([p["name"], p["role"], grp] + [i for _, it in (p.get("groups") or []) for i in it]).lower()})
+        pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="" width="96" height="96" loading="lazy" decoding="async">'
+               if p.get("photo") else f'<span class="ed-ini">{initials(p["name"])}</span>')
+        cards.append(f'<li><a class="ed-card" href="{{{{ROOT}}}}{profile_url(p)}" data-ed="{k}" data-group="{esc(grp)}">'
+                     f'<span class="ed-ava">{pic}</span><span class="ed-txt"><b>{esc(p["name"])}</b><span>{esc(p["role"])}</span>'
+                     f'<small>{{{{icon:pin}}}}{esc(_office(p))}</small></span><span class="ed-go" aria-hidden="true">{{{{icon:chevron}}}}</span></a></li>')
+    counts = {g: sum(1 for d in data if d["group"] == g) for g in DIR_GROUPS}
+    chips = (f'<button type="button" class="ed-chip is-on" data-ed-filter="" aria-pressed="true">All <i>{len(data)}</i></button>'
+             + "".join(f'<button type="button" class="ed-chip" data-ed-filter="{esc(g)}" aria-pressed="false">{esc(g)} <i>{n}</i></button>'
+                       for g, n in counts.items() if n))
+    blob = _json.dumps(data, ensure_ascii=False).replace("</", "<" + chr(92) + "/")   # no "</script>" inside the JSON block
+    return (f'<div class="ed-tools"><label class="ed-search">{{{{icon:search}}}}<span class="sr-only">Find a colleague</span>'
+            f'<input type="search" data-ed-search placeholder="Search name, role or skill (e.g. SAP, payroll)" autocomplete="off"></label>'
+            f'<div class="ed-chips" role="group" aria-label="Filter by team">{chips}</div></div>'
+            f'<div class="ed-layout"><div><ul class="ed-grid" data-ed-grid>{"".join(cards)}</ul>'
+            f'<p class="ed-none" data-ed-none hidden>No one matches. Clear the search to see the whole team.</p></div>'
+            f'<aside class="ed-panel" data-ed-panel aria-live="polite" aria-label="Selected profile"></aside></div>'
+            f'<script type="application/json" id="ed-data">{blob}</script>')
