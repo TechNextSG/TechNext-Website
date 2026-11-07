@@ -1,4 +1,4 @@
-<!--meta {"title": "Page not found — back to TechNext", "desc": "That page is not here. Jump back to the TechNext home page, BIR e-invoicing, Odoo ERP, the Odoo apps or the quotation builder.", "out": "404.html", "nav": "", "body": "fx-page nf-page", "scripts": ["assets/js/pages/notfound-fx.js"], "head": "<meta name=\"robots\" content=\"noindex\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/notfound-fx.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Page not found — back to TechNext", "desc": "That page is not here. Jump back to the TechNext home page, BIR e-invoicing, Odoo ERP, the Odoo apps or set up a meeting with an adviser.", "out": "404.html", "nav": "", "body": "fx-page nf-page", "scripts": ["assets/js/pages/notfound-fx.js"], "head": "<meta name=\"robots\" content=\"noindex\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/notfound-fx.css?v={ASSET_V}\">"} -->
 <!-- 404 (22 Oct 2026 restyle): glass hero, a route-lookup panel that shows the address that was not found and the pages most people
      were heading to. Assets and links use {ROOT} like every page: on Vercel a nested missing address (/blog/old-post) resolves them
      against /blog/, so build.py should render 404.html with ROOT = "/" (see the report). No illustrations. -->
@@ -10,7 +10,7 @@
       <h1 id="nf-h1">That page <span class="fx-hl">isn't here</span>.</h1>
       <p class="fx-lead">The link may be old, or the address mistyped. Here is where most people were heading, or you can talk to an adviser about what you were looking for.</p>
       <div class="actions nf-act">
-        <a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>
+        <a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
         <a class="btn btn-ghost btn-lg" href="{{ROOT}}index.html">{{icon:layout}}Back to the home page</a>
       </div>
     </div>
@@ -26,7 +26,7 @@
         <li style="--i:2"><a href="{{ROOT}}solutions/odoo-erp.html"><span><b>Odoo ERP</b><small>Implementation by our own experts</small></span>{{icon:arrow}}</a></li>
         <li style="--i:3"><a href="{{ROOT}}odoo/apps.html"><span><b>Odoo apps</b><small>Every app, in plain language</small></span>{{icon:arrow}}</a></li>
         <li style="--i:4"><a href="{{ROOT}}blog.html"><span><b>Blog</b><small>BIR compliance, Odoo 20 and ERP guides</small></span>{{icon:arrow}}</a></li>
-        <li style="--i:5"><a href="{{ROOT}}quotation.html"><span><b>Get a quotation</b><small>Tell us what you need</small></span>{{icon:arrow}}</a></li>
+        <li style="--i:5"><a href="{{ROOT}}index.html#start"><span><b>Set up a meeting</b><small>30 minutes with an Odoo adviser</small></span>{{icon:arrow}}</a></li>
       </ul>
     </aside>
   </div>

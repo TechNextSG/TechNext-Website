@@ -40,7 +40,7 @@ ADVISORS = [
          ("Strategy deployment & operational excellence", ["Turning corporate objectives into operating plans", "Accountability systems", "Workflow design", "Measurable outcomes"]),
          ("Corporate governance & management systems", ["Management frameworks", "Decision-making structures", "Organisational accountability", "Business performance systems"]),
      ]},
-    {"name": "Neil Matan", "role": "Senior Functional Lead", "bir_rank": 2,
+    {"name": "Neil Matan", "role": "Senior Functional Lead", "bir_rank": 1,   # owner 8 Nov 2026: RJ off the site; Neil + Jeric are the experts
      "bir": ["Local tax set-up in ERP roll-outs", "Multi-tax, multi-entity reporting", "Built an HR and payroll system with statutory rules", "Built and rolled out a point-of-sale (POS) system"], "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
      "summary": "Neil has moved 80+ companies onto ERP and CRM over 24 years, ten of them on Odoo, from discovery to go-live.",
      "bio": "Neil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo. Neil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Neil about moving off another ERP without losing your history.",
@@ -79,20 +79,6 @@ ADVISORS = [
          ("Leadership & languages", ["Built and mentored consulting and engineering teams", "C-suite advisory (CEO, CFO, CIO)", "Liaison between finance, supply chain and IT", "English and Filipino"]),
      ],
      "creds": ["Accredited Project Manager (IO4PM, 2026)", "Accredited Scrum Master (International Scrum Institute, 2026)", "Six Sigma Green Belt (International Six Sigma Institute, 2026)", "Agile Project Management Practitioner (HP LIFE, 2026)", "AI for Business Professionals (HP LIFE)", "Data Science & Analytics (HP LIFE)", "Introduction to Cybersecurity Awareness (HP LIFE)", "Strategic Planning (HP LIFE)", "Effective Leadership (HP LIFE)", "Customer Experience for Business Success (HP LIFE)", "BS Computer Science", "BS Business Administration"]},
-    {"name": "RJ Sarreal", "role": "Project Manager", "bir_rank": 1,
-     "bir": ["Earlier roles: clients' POS accreditation applications to the BIR", "Earlier roles: POS accreditation for Philippine malls"], "office": "ph", "photo": "rj-sarreal.webp", "email": "rj@technext.asia",
-     "summary": "RJ has run ERP projects for 17 years and keeps every sprint on track.",
-     "bio": "RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. RJ writes down exactly what you need, agrees the scope and timeline with you, and keeps every sprint on track, so you always know where your project stands. In earlier roles, RJ prepared clients' POS accreditation applications to the BIR and Philippine malls.",
-     "stats": [("17", "years in ERP"), ("4", "ERP systems before Odoo"), ("20+", "companies served")],   # CV: Dynamics SL, NAV, Oracle Fusion, NetSuite; 22 client companies named
-     "groups": [
-         ("BIR & POS (earlier roles)", ["Clients' POS accreditation applications to the BIR", "POS accreditation for Philippine malls", "POS functional and technical support"]),
-         ("ERP platforms", ["Microsoft Dynamics SL (Solomon)", "Microsoft Dynamics NAV", "Oracle Fusion", "Oracle NetSuite", "SAP Workforce time and attendance"]),
-         ("Project management", ["Feature estimates", "Business requirements (BRD)", "Proposals and kick-off", "Timelines and weekly updates", "Sprints and backlog (Jira, Backlog)", "Change-request control", "Meeting minutes"]),
-         ("ERP modules", ["General ledger", "Accounts payable", "Accounts receivable", "Cash", "Inventory", "Requisitions and purchasing", "Order management", "Sales orders"]),
-         ("Custom work", ["Custom reports", "Custom screens", "Functional and technical support"]),
-         ("Industries", ["Energy and utilities", "Banking", "Retail", "Food and consumer goods", "Manufacturing", "Education", "Automotive"]),
-     ],
-     "creds": ["NetSuite ERP Fundamentals", "NetSuite WMS Fundamentals", "NetSuite Essentials", "NetSuite Administrator Essentials", "BS Business Administration"]},
     {"name": "Philip Gallan", "role": "Odoo Developer Expert", "office": "ph", "email": "phillip@technext.asia", "photo": "philip-gallan.webp",
      "summary": "Philip builds and connects Odoo on every version from 14 to 19.",
      "bio": "Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. When your Odoo needs to talk to another system, through an API or an EDI feed, Philip connects it, deploys it and keeps it running.",
@@ -134,7 +120,7 @@ ADVISORS = [
          ("Ways of working", ["Agile and Scrum", "Lean Six Sigma", "ITIL", "ISO 9000", "Jira, GitLab and OpenProject", "Microsoft 365"]),
      ],
      "creds": ["BS Business Administration, Dean's Lister"]},
-    {"name": "Jeric Bulayungan", "role": "Business Development", "bir_rank": 3,
+    {"name": "Jeric Bulayungan", "role": "Business Development", "bir_rank": 2,
      "bir": ["Accounting, payroll and POS systems for Philippine businesses (sales)"], "office": "ph", "photo": "jeric-bulayungan.webp", "email": "jeric@technext.asia",   # 22 Oct 2026: sales experience only, not BIR filing skills
      "summary": "Jeric has helped Philippine businesses choose their software since 2016.",
      "bio": "Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems. Jeric is often your first conversation with TechNext: listening to how your business runs today, then bringing in the right people from the team.",

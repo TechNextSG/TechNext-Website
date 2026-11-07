@@ -152,7 +152,7 @@ def page(p: dict, everyone: list) -> tuple:
       </div>
       <p class="fx-lead tp-bio">{bio}</p>
       <div class="actions tp-act">
-        <a class="btn btn-primary btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>
+        <a class="btn btn-primary btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Set up a meeting {{{{icon:arrow}}}}</a>
         <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}employee-hub.html">{{{{icon:users}}}}Team Directory</a>
       </div>
     </div>
@@ -185,9 +185,9 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>Work with {esc(first)} and the team.</h2><p>Book a discovery call. We look at how your company invoices, files and closes the month today, and what to set up first in Odoo.</p></div>
+      <div><h2>Work with {esc(first)} and the team.</h2><p>Set up a meeting. We look at how your company invoices, files and closes the month today, and what to set up first in Odoo.</p></div>
       <div class="actions">
-        <a class="btn btn-white btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>
+        <a class="btn btn-white btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Set up a meeting {{{{icon:arrow}}}}</a>
         <a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}bir-adviser-call.html">Book a free adviser call</a>
       </div>
     </div>
@@ -227,7 +227,7 @@ def _quick_view(p: dict, ctx: str) -> str:
         act = ((f'<a class="eh-act2 eh-act2--main" href="mailto:{esc(p["email"])}">{{{{icon:mail}}}}Email {esc(p["name"].split()[0])}</a>' if p.get("email") else "")
                + '<button type="button" class="eh-act2" data-qv-vcf><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Save contact (.vcf)</button>')
     else:
-        act = f'<a class="btn btn-primary" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a>'
+        act = f'<a class="btn btn-primary" data-meet href="{BOOK}" target="_blank" rel="noopener">Set up a meeting {{{{icon:arrow}}}}</a>'
     office_line = f'<p class="tm-office">{{{{icon:pin}}}}{office}</p>' if office else ""
     stats_dl = f'<dl class="pf-stats tm-qv-stats">{stats}</dl>' if stats else ""
     pic = avatar(p) if p.get("photo") else f'<span class="tm-ini" aria-hidden="true">{initials(p["name"])}</span>'
@@ -278,17 +278,54 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 
 
 def home_section_html() -> str:
-    """The home team section: heading, the cards, Meet the whole team / Book a discovery call."""
-    # owner 22 Oct 2026: the home section shows only the three ranked for BIR-related experience (bir_rank 1-3), best first
-    people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:3]
-    cards = "".join(card_html(p, k, "home") for k, p in enumerate(people))
-    return f'''<section class="section fx-sec tm-field" id="advisers" aria-labelledby="pf-h">
+    """Home + ad-lander experts section (owner 8 Nov 2026: "use a different style of card showcasing experts").
+    One wide spotlight card per expert: tall portrait, name and role, an "ask me about" line, three stats, the systems
+    they know (ties to the plug-in voice: we work beside the system you run) and a meeting button. Styles:
+    assets/css/experts.css. RJ is off the site; Neil and Jeric are the two experts (bir_rank 1-2)."""
+    people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:2]
+    cards = "".join(_expert_card(p, k) for k, p in enumerate(people))
+    return f'''<section class="section xp-sec" id="advisers" aria-labelledby="xp-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="pf-h">Meet the experts.</h2><p class="lead">Your first call is with one of them. They scope the work, our own team builds it, and the same people support it after go-live.</p></div>
-    <div class="tm-grid tm-grid--home">{cards}</div>
-    <div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}employee-hub.html">{{{{icon:users}}}}Meet the whole team {{{{icon:arrow}}}}</a><a class="btn btn-ghost btn-lg" data-meet href="{BOOK}" target="_blank" rel="noopener">Book a discovery call</a></div>
+    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">Talk to the people who set it up.</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
+    <div class="xp-grid">{cards}</div>
   </div>
 </section>'''
+
+
+# the systems each expert has worked with (from their CVs: advisors.py "about" / "groups"), and the line that invites a question
+EXPERT_EXTRA = {
+    "Neil Matan": {"ask": "Ask Neil how to move your books into Odoo without losing your history.",
+                   "systems": ["Odoo", "SAP", "Oracle", "Microsoft Dynamics", "NetSuite", "Acumatica"]},
+    "Jeric Bulayungan": {"ask": "Ask Jeric which Odoo set-up fits the system you run today.",
+                         "systems": ["SAP Business One", "QuickBooks", "ABSS (MYOB)", "Sage 50", "SAP S/4HANA"]},
+}
+
+
+def _expert_card(p: dict, k: int) -> str:
+    x = EXPERT_EXTRA.get(p["name"], {})
+    first = p["name"].split()[0]
+    R = "{{ROOT}}"
+    pic = ""
+    if p.get("photo"):
+        pic = (f'<img src="{R}assets/img/team/{p["photo"]}" alt="{esc(p["name"])}, {esc(p["role"])} at TechNext" '
+               'width="600" height="600" loading="lazy" decoding="async">')
+    stats = "".join(f"<li><b>{esc(v)}</b><span>{esc(lab)}</span></li>" for v, lab in p.get("stats", [])[:3])
+    chips = "".join(f"<li>{esc(t)}</li>" for t in x.get("systems", []))
+    office = _office(p) or "Taguig City"
+    parts = [f'<article class="xp-card reveal" style="--i:{k}">',
+             f'<div class="xp-photo">{pic}<span class="xp-badge">{{{{icon:pin}}}}{office}</span></div>',
+             '<div class="xp-body">',
+             f'<p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>',
+             f'<p class="xp-sum">{esc(p.get("summary") or p.get("bio", ""))}</p>']
+    if stats:
+        parts.append(f'<ul class="xp-stats">{stats}</ul>')
+    if chips:
+        parts.append(f'<p class="xp-sys-h">Systems {first} knows</p><ul class="xp-sys">{chips}</ul>')
+    if x.get("ask"):
+        parts.append(f'<p class="xp-ask">{{{{icon:chat-send}}}}{esc(x["ask"])}</p>')
+    parts.append(f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting {{{{icon:arrow}}}}</a>'
+                 f'<a class="btn-link" href="{R}{profile_url(p)}">Full profile {{{{icon:arrow}}}}</a></div></div></article>')
+    return "".join(parts)
 
 
 # ---------------------------------------------------------------------------------------------------------- directory

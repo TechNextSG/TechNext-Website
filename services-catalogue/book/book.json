@@ -11,8 +11,8 @@
   "orderEmail": ""
  },
  "shop": {
-  "shopUrl": "https://technext.asia/quotation",
-  "label": "Get a quotation"
+  "shopUrl": "https://technext.asia/#start",
+  "label": "Set up a meeting"
  },
  "settings": {
   "flipSound": true,
@@ -35,215 +35,127 @@
   ],
   [
    "How we engage",
-   7
+   6
   ]
  ],
  "back": [
   [
    "Back cover · contact",
-   108
+   54
   ]
  ],
  "pageLabels": {
   "1": "Cover",
   "2": "About TechNext",
   "4": "Contents",
-  "7": "How we engage",
-  "108": "Back cover",
-  "9": "Practice 01 · BIR Compliance",
-  "24": "Practice 02 · Odoo ERP",
-  "49": "Practice 03 · Enterprise AI",
-  "60": "Practice 04 · Websites & Marketing"
+  "6": "How we engage",
+  "54": "Back cover",
+  "8": "Practice 01 · BIR Compliance",
+  "23": "Practice 02 · Odoo ERP"
  },
  "chapters": [
   {
    "no": "01",
    "title": "BIR Compliance",
-   "page": 9,
+   "page": 8,
    "sections": [
     [
      "Where BIR compliance hurts",
-     10
+     9
     ],
     [
      "BIR self-check",
-     12
+     11
     ],
     [
      "BIR-01 · BIR E-invoicing Preparation",
-     14
+     13
     ],
     [
      "BIR-02 · CAS & CBA Registration Support",
-     16
+     15
     ],
     [
      "BIR-03 · BIR Forms & Withholding in Odoo",
-     18
+     17
     ],
     [
      "BIR-04 · BIR Audit Records",
-     20
+     19
     ],
     [
      "The BIR rules and what Odoo covers",
-     22
+     21
     ]
    ]
   },
   {
    "no": "02",
    "title": "Odoo ERP",
-   "page": 24,
+   "page": 23,
    "sections": [
     [
      "ERP-01 · Odoo ERP Implementation",
-     25
+     24
     ],
     [
      "ERP-02 · Odoo Consultation & Discovery",
-     27
+     26
     ],
     [
      "ERP-03 · Odoo Customisation",
-     29
+     28
     ],
     [
      "ERP-04 · Odoo Integration",
-     31
+     30
     ],
     [
      "ERP-05 · Odoo CRM Customisation",
-     33
+     32
     ],
     [
      "ERP-06 · Odoo Training",
-     35
+     34
     ],
     [
      "ERP-07 · Odoo Support & Upgrades",
-     37
+     36
     ],
     [
      "ERP-08 · Multi-Company ERP for Groups",
-     39
+     38
     ],
     [
      "Odoo apps we implement",
-     41
+     40
     ],
     [
      "Our implementation method",
-     45
+     44
     ],
     [
      "Where Odoo runs",
-     47
+     46
     ]
    ]
   },
   {
    "no": "03",
-   "title": "Enterprise AI",
-   "page": 49,
+   "title": "Reference",
+   "page": 48,
    "sections": [
-    [
-     "How our AI stays in control",
-     50
-    ],
-    [
-     "AI-01 · RAG Knowledge Assistants",
-     52
-    ],
-    [
-     "AI-02 · AI inside Odoo",
-     54
-    ],
-    [
-     "AI-03 · AI Workflow Automation",
-     56
-    ],
-    [
-     "AI-04 · AI Chatbots",
-     58
-    ]
-   ]
-  },
-  {
-   "no": "04",
-   "title": "Websites & Marketing",
-   "page": 60,
-   "sections": [
-    [
-     "MKT-01 · Web Design & Development",
-     61
-    ],
-    [
-     "MKT-02 · Social Media Management",
-     63
-    ],
-    [
-     "MKT-03 · Graphic Design & Brand Assets",
-     65
-    ],
-    [
-     "Website design with your Odoo",
-     67
-    ]
-   ]
-  },
-  {
-   "no": "05",
-   "title": "Industries & reference",
-   "page": 69,
-   "sections": [
-    [
-     "Odoo by industry",
-     69
-    ],
-    [
-     "Retail: modules and rollout",
-     70
-    ],
-    [
-     "Food & beverage: modules and rollout",
-     74
-    ],
-    [
-     "Manufacturing: modules and rollout",
-     78
-    ],
-    [
-     "Ecommerce: modules and rollout",
-     82
-    ],
-    [
-     "Construction: modules and rollout",
-     86
-    ],
-    [
-     "Clinics & healthcare: modules and rollout",
-     90
-    ],
-    [
-     "Travel & tours: modules and rollout",
-     94
-    ],
-    [
-     "Health & wellness: modules and rollout",
-     98
-    ],
     [
      "Localisation: SG, PH, VN",
-     102
+     48
     ],
     [
      "Where we work",
-     104
+     50
     ],
     [
      "How to start",
-     106
+     52
     ]
    ]
   }

@@ -106,7 +106,7 @@ def main():
         for x in v: print("   -", x)
     if not issues: print("no structural / SEO / accessibility issues found")
     print("--- asset weights ---")
-    for f in ["assets/css/site.css", "assets/js/site.js", "assets/js/hero.js", "assets/js/quote.js", "index.html", "odoo/apps.html", "quotation.html"]:
+    for f in ["assets/css/site.css", "assets/js/site.js", "assets/js/hero.js", "assets/js/quote.js", "index.html", "odoo/apps.html"]:
         print(f"{f:26} {(ROOT / f).stat().st_size // 1024:4d} KB")
     svgs = list((ROOT / "assets/img/odoo").glob("*.svg"))
     print(f"{'assets/img/odoo (' + str(len(svgs)) + ' svg)':26} {sum(f.stat().st_size for f in svgs) // 1024:4d} KB")

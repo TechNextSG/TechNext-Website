@@ -52,14 +52,18 @@ GOOGLE_CLICK = re.compile(r"[?&](gclid|gbraid|wbraid)=", re.I)
 # /bir-adviser-call need key (_src/fw_needs.py) -> interest tag
 BIR_NEEDS = {"covered": "BIR: Am I covered?", "einvoicing": "BIR: E-invoicing", "2307": "BIR: 2307s",
              "reports": "BIR: SLSP, SAWT, QAP", "cas": "BIR: CAS / CBA", "branches": "BIR: Branches",
-             "audit": "BIR: Audit / LOA"}
+             "audit": "BIR: Audit / LOA", "plugin": "Interest: Odoo plug-in", "accounting": "Interest: Odoo Accounting"}
+# the home meeting form's "What do you need first?" keys, as the visitor saw them (8 Nov 2026)
+MEETING_NEEDS = {"cas": "BIR CAS or CBA set-up", "plugin": "Connect Odoo to our system", "reports": "2307, SLSP, SAWT, QAP",
+                 "einvoicing": "E-invoicing readiness", "accounting": "Odoo Accounting", "covered": "Not sure yet"}
 # Let's Talk "I'm interested in" options and the booking page's "What do you need help with?" answers -> interest tag
 TOPICS = {"Odoo Accounting": "Interest: Odoo Accounting", "Odoo Sales & CRM": "Interest: Odoo Sales & CRM",
           "Odoo Inventory": "Interest: Odoo Inventory", "Full Odoo ERP implementation": "Interest: Odoo implementation",
           "Odoo training or support": "Interest: Odoo training or support", "Website": "Interest: Website",
           "Social media management": "Interest: Social media", "Business Process Consultation": "Interest: Business process",
           "ERP Consultation": "Interest: ERP consultation", "BIR CAS Consultation": "BIR: CAS / CBA",
-          "5-Day Express (BIR compliance)": "BIR: 5-Day Express", "Odoo Implementation": "Interest: Odoo implementation"}
+          "5-Day Express (BIR compliance)": "BIR: 5-Day Express", "Odoo Implementation": "Interest: Odoo implementation",
+          "Connect Odoo to our current system": "Interest: Odoo plug-in"}
 
 # form "source" field (or the page) -> form name (no free website offer since 28 Oct 2026: old copies are "Retired offer page"), used for the tag "Web form: <name>" and the lead title
 FORMS = [
@@ -70,6 +74,7 @@ FORMS = [
     ("contact", "Contact page"),
     ("let's talk", "Let's Talk panel"),
     ("discovery call", "Discovery call booking"),
+    ("meeting request", "Meeting request"),        # 8 Nov 2026: the home hero form + "Set up a meeting" (technext.asia/#start)
 ]
 SHORT = {"Retired offer page (/get-started)": "Retired offer page", "Let's Talk panel": "Let's Talk",
          "Retired offer page (/free-website-with-odoo)": "Retired offer page", "Quotation builder": "Quotation"}
@@ -88,6 +93,8 @@ FORM_LABELS = {
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
+    "Meeting request": {"phone": "Mobile number", "accounting_system": "Current company system", "slot": "Preferred day",
+                        "call_time": "Best time to call", "message": "Anything we should know"},
 }
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
         "team_size", "current_website", "call_time", "slot")
@@ -418,6 +425,8 @@ def summary(p, form, contact):
         vals["topic"] = re.sub(r"^Need:\s*", "", vals["topic"])
     label = lambda k: question(form, k)
     need = [(label(k), vals.pop(k)) for k in NEED if k in vals]
+    if form == "Meeting request" and p.get("need"):          # the home form's "What do you need first?" (a fixed key)
+        need.insert(0, ("What do you need first?", MEETING_NEEDS.get(clean(p["need"], 40), clean(p["need"], 40))))
     about = [(label(k), vals.pop(k)) for k in ABOUT if k in vals]
     consent = vals.pop("consent", "")
     need += [(label(k), v) for k, v in vals.items()]       # any field added to a form later still shows up

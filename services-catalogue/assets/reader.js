@@ -20,7 +20,7 @@
   const mqOverlay = matchMedia('(max-width: 1180px)');
   // phones read the sheets as one scrolling column - no flip-book, no view switcher (tablets and desktop keep all views).
   // A narrow desktop window (half-screen, or a laptop at 125-150% scaling) is not a phone: it keeps the book.
-  const mqPhone = matchMedia('(max-width: 520px), (pointer: coarse) and (max-width: 760px), (pointer: coarse) and (max-height: 500px)');
+  const mqPhone = matchMedia('(max-width: 520px), (pointer: coarse) and (max-width: 1024px), (pointer: coarse) and (max-height: 500px)');
   const phone = () => mqPhone.matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isTouch = matchMedia('(hover: none)').matches;
@@ -1399,10 +1399,10 @@
   // the bar button follows the page: product details on a product sheet, the online shop elsewhere
   function updateCta() {
     const prods = S.visible.filter(n => productOf(n));
-    const label = 'Get a quotation';
+    const label = 'Set up a meeting';
     if (el.ctaLabel.textContent !== label) el.ctaLabel.textContent = label;
     el.btnProduct.querySelector('use').setAttribute('href', '#i-mail');
-    el.btnProduct.title = 'Ask for a written quotation on technext.asia';
+    el.btnProduct.title = 'Set up a meeting with TechNext';
   }
 
   // ------------------------------------------------------------------ settings

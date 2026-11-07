@@ -422,62 +422,62 @@
     },
     {
       "source": "/blog/ai-agents-enterprise-automation",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/ai-agents-enterprise-automation.html",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-agents-enterprise-automation",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-agents-enterprise-automation.html",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/ai-agent-governance-2025",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/ai-agent-governance-2025.html",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-agent-governance-2025",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-agent-governance-2025.html",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/odoo-ai-integration-guide",
-      "destination": "/odoo/ai-integration",
+      "destination": "/odoo/integration",
       "permanent": true
     },
     {
       "source": "/blog/odoo-ai-integration-guide.html",
-      "destination": "/odoo/ai-integration",
+      "destination": "/odoo/integration",
       "permanent": true
     },
     {
       "source": "/ai-article/odoo-ai-integration-guide",
-      "destination": "/odoo/ai-integration",
+      "destination": "/odoo/integration",
       "permanent": true
     },
     {
       "source": "/ai-article/odoo-ai-integration-guide.html",
-      "destination": "/odoo/ai-integration",
+      "destination": "/odoo/integration",
       "permanent": true
     },
     {
@@ -542,182 +542,182 @@
     },
     {
       "source": "/blog/big-tech-ai-infrastructure-2026",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/big-tech-ai-infrastructure-2026.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/big-tech-ai-infrastructure-2026",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/big-tech-ai-infrastructure-2026.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/context-engineering-new-discipline",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/context-engineering-new-discipline.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/context-engineering-new-discipline",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/context-engineering-new-discipline.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/github-copilot-per-token-pricing",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/github-copilot-per-token-pricing.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/github-copilot-per-token-pricing",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/github-copilot-per-token-pricing.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/gpt5-openai-agentic-ai-2025",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/gpt5-openai-agentic-ai-2025.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/gpt5-openai-agentic-ai-2025",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/gpt5-openai-agentic-ai-2025.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/lg-nvidia-physical-ai-era",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/lg-nvidia-physical-ai-era.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/lg-nvidia-physical-ai-era",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/lg-nvidia-physical-ai-era.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/local-llm-on-premise-enterprise",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/local-llm-on-premise-enterprise.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/local-llm-on-premise-enterprise",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/local-llm-on-premise-enterprise.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/philippines-bpo-ai-revolution",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/philippines-bpo-ai-revolution.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/philippines-bpo-ai-revolution",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/philippines-bpo-ai-revolution.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/singapore-national-ai-strategy-2026",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/singapore-national-ai-strategy-2026.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/singapore-national-ai-strategy-2026",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/singapore-national-ai-strategy-2026.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/singapore-smart-nation-enterprise-ai",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/singapore-smart-nation-enterprise-ai.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/singapore-smart-nation-enterprise-ai",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/singapore-smart-nation-enterprise-ai.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -802,72 +802,72 @@
     },
     {
       "source": "/blog/agentic-ai-workflows-and-enterprise-operations",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/agentic-ai-workflows-and-enterprise-operations",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/agentic-workflows-patterns-and-best-practices-for-enterprise-teams",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/agentic-workflows-patterns-and-best-practices-for-enterprise-teams",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/ai-agents-workflow-automation-enterprise-apac-playbook",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-agents-workflow-automation-enterprise-apac-playbook",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/ai-workflow-automation-case-study",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/ai-workflow-automation-case-study",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/the-ultimate-guide-to-enterprise-agentic-ai",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/the-ultimate-guide-to-enterprise-agentic-ai",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/strategic-ai-in-2026-unlocking-enterprise-value-in-southeast-asia",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/strategic-ai-in-2026-unlocking-enterprise-value-in-southeast-asia",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/blog/will-the-corporate-investment-in-ai-pay-off",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-article/will-the-corporate-investment-in-ai-pay-off",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -1052,12 +1052,12 @@
     },
     {
       "source": "/solutions/ai-knowledge",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/solutions/ai-knowledge.html",
-      "destination": "/solutions/ai",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -1108,11 +1108,6 @@
     {
       "source": "/solutions",
       "destination": "/#solutions",
-      "permanent": true
-    },
-    {
-      "source": "/industries",
-      "destination": "/#industries",
       "permanent": true
     },
     {
@@ -1197,12 +1192,12 @@
     },
     {
       "source": "/ai-automation-vietnam",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/ai-automation-vietnam/",
-      "destination": "/solutions/ai-automation",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -1227,7 +1222,7 @@
     },
     {
       "source": "/:line(What\\+if\\+your\\+hotel.*)",
-      "destination": "/solutions/ai-chatbots",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -1274,6 +1269,211 @@
       "source": "/landing_page/:path*",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/solutions/ai",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ai.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ai-automation",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ai-automation.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ai-chatbots",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/ai-chatbots.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/marketing",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/marketing.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/website",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/website.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/social-media",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/social-media.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/brand-assets",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/brand-assets.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/ai-integration",
+      "destination": "/odoo/integration",
+      "permanent": true
+    },
+    {
+      "source": "/odoo/ai-integration.html",
+      "destination": "/odoo/integration",
+      "permanent": true
+    },
+    {
+      "source": "/industries/medical",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/medical.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/travel",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/travel.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/retail",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/retail.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/ecommerce",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/ecommerce.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/construction",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/construction.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/fnb",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/fnb.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/manufacturing",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/manufacturing.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/health-wellness",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/health-wellness.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/quotation",
+      "destination": "/#start",
+      "permanent": true
+    },
+    {
+      "source": "/quotation.html",
+      "destination": "/#start",
+      "permanent": true
+    },
+    {
+      "source": "/nexi",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/nexi.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/nexi-app",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/nexi-app.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/team/rj-sarreal",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/team/rj-sarreal.html",
+      "destination": "/company",
+      "permanent": true
+    },
+    {
+      "source": "/industries",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
@@ -1282,7 +1482,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'sha256-Aiwucuat5x7cQgsmT3Hw+V0NNrjOqGp4dW8HPfDWU3A=' 'sha256-FGlObgG5nO/WHykqh7WdaFege+OrnmLQQspYaJO5q98=' 'sha256-JHIEUGD1ET3kKzc7Wdd9pec4wvEesBWtAJ1Vg7KFI2o=' 'sha256-KOlZQt3al2g/Knqboxjs1j+EkAycRC8fCK4QkiksKW8=' 'sha256-aZgjwr3laNiSsjpPz5Hp1JNsJWt5Nq+KrnbwrWda0No=' 'sha256-gMCDGpFo1a7HZVm8xFwabv8lsJJLBR/l1Dj+606bJpI=' 'sha256-hMTMyv5QJBQqN7SoUEn0jL4KuTzHe0EGljFYEftJ+vI=' 'sha256-hja2gNVPgAdX6xhFPtSTgVd44B4dY4xAu9tKbSde8os=' 'sha256-otghNyPrY7u/HJO5E0vrWLmeSyFcdv9Dl1fkNQKTltc=' 'sha256-q0BcyciQa34zA1AnKBPZCduQLzct+3NEaeTeNloFxdU=' 'sha256-tp30jp3RVBpHoMx4IdN7Ks8KN8HBkakiTEC3hq6FOVo=' 'sha256-v4+icUWhSJWSObVnTOdW2TQecrOizKuulDLIuNFl6uE=' https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://connect.facebook.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://odoocdn.com https://i.ytimg.com https://www.facebook.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://connect.facebook.net https://www.facebook.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net https://challenges.cloudflare.com; media-src 'self' https://download.odoocdn.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'sha256-Aiwucuat5x7cQgsmT3Hw+V0NNrjOqGp4dW8HPfDWU3A=' 'sha256-JHIEUGD1ET3kKzc7Wdd9pec4wvEesBWtAJ1Vg7KFI2o=' 'sha256-KOlZQt3al2g/Knqboxjs1j+EkAycRC8fCK4QkiksKW8=' 'sha256-aZgjwr3laNiSsjpPz5Hp1JNsJWt5Nq+KrnbwrWda0No=' 'sha256-gMCDGpFo1a7HZVm8xFwabv8lsJJLBR/l1Dj+606bJpI=' 'sha256-hMTMyv5QJBQqN7SoUEn0jL4KuTzHe0EGljFYEftJ+vI=' 'sha256-otghNyPrY7u/HJO5E0vrWLmeSyFcdv9Dl1fkNQKTltc=' 'sha256-q0BcyciQa34zA1AnKBPZCduQLzct+3NEaeTeNloFxdU=' 'sha256-v4+icUWhSJWSObVnTOdW2TQecrOizKuulDLIuNFl6uE=' https://*.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://connect.facebook.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://odoocdn.com https://i.ytimg.com https://www.facebook.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://pagead2.googlesyndication.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://google.com https://www.google.com https://*.g.doubleclick.net https://ad.doubleclick.net https://pagead2.googlesyndication.com https://www.googleadservices.com https://connect.facebook.net https://www.facebook.com https://www.google.com.sg https://www.google.com.vn https://www.google.com.ph https://www.google.de; frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net https://challenges.cloudflare.com; media-src 'self' https://download.odoocdn.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "Strict-Transport-Security",

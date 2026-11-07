@@ -6,7 +6,7 @@ Styles: assets/css/pages/apps-fx.css. Behaviour: assets/js/pages/apps-fx.js. Tok
 are expanded by build.render()."""
 
 MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
-        'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
+        'target="_blank" rel="noopener">Set up a meeting {{icon:arrow}}</a>')
 MEET_WHITE = MEET.replace("btn btn-primary btn-lg", "btn btn-white btn-lg")
 
 

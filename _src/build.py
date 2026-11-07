@@ -47,7 +47,7 @@ backdrops.write()    # the industries slide's illustrated backdrops (assets/img/
 CALM = True
 import calm_css  # noqa: E402
 import og_cards  # noqa: E402
-from make_vercel import REDIRECTS  # noqa: E402
+from make_vercel import REDIRECTS, REMOVED  # noqa: E402
 if CALM:
     calm_css.build()   # before the asset version is taken
 
@@ -219,10 +219,7 @@ def mobile_nav_html() -> str:
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
     out.append(f'''
 <div class="mnav-cta">
-  <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation {{{{icon:arrow}}}}</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}company.html#offices">{{{{icon:chat-send}}}} All the ways to reach us</a>
-  <a class="btn btn-ghost btn-lg" href="#talk">{{{{icon:send}}}} Let's talk</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}nexi#full">{{{{icon:bot}}}} Ask Nexi</a>
+  <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}index.html#start" data-meet-cta>{{{{icon:calendar}}}} Set up a meeting</a>
 </div>
 <div class="mnav-contact">
   <span>{{{{icon:mail}}}} {c["sales_email"]}</span>
@@ -234,17 +231,6 @@ def mobile_nav_html() -> str:
 def talk_panel_html() -> str:
     c = S.COMPANY
     return f'''
-<div class="side-tabs">
-  <a class="side-tab meet-tab" href="{c["meeting_link"]}" target="_blank" rel="noopener" data-meet>
-    {{{{icon:calendar}}}}<span>Set up meeting</span>
-  </a>
-  <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
-    {{{{icon:send}}}}<span>Let's Talk</span>
-  </button>
-  <a class="side-tab nexi-tab" href="{{{{ROOT}}}}nexi#full" aria-label="Ask Nexi, TechNext's AI companion">
-    {{{{icon:bot}}}}<span>Ask Nexi</span>
-  </a>
-</div>
 <div class="talk-overlay" data-talk-close hidden></div>
 <aside class="talk-panel" id="talk-panel" role="dialog" aria-modal="true" aria-labelledby="talk-title" hidden>
   <div class="talk-head">
@@ -270,20 +256,20 @@ def talk_panel_html() -> str:
         <label for="tf-topic">I'm interested in</label>
         <select id="tf-topic" name="topic" required>
           <option value="">Choose one</option>
+          <option>Connect Odoo to our current system</option>
+          <option>BIR CAS Consultation</option>
           <option>Odoo Accounting</option>
           <option>Odoo Sales &amp; CRM</option>
           <option>Odoo Inventory</option>
           <option>Full Odoo ERP implementation</option>
           <option>Odoo training or support</option>
-          <option>Website</option>
-          <option>Social media management</option>
           <option>Something else</option>
         </select>
       </div>
       <div class="field"><label for="tf-msg">Message</label><textarea id="tf-msg" name="message" rows="4" required></textarea></div>
       <div class="form-foot">
         <button class="btn btn-primary" type="submit"><span class="btn-label">Send inquiry</span><span class="btn-busy" aria-hidden="true"></span></button>
-        <a class="btn-link" href="{{{{ROOT}}}}quotation.html">Need a written quotation? {{{{icon:arrow}}}}</a>
+        <a class="btn-link" href="{{{{ROOT}}}}quotation.html">Prefer to talk it through? Set up a meeting {{{{icon:arrow}}}}</a>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -349,7 +335,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}bir-adviser-call.html#book" aria-label="Contact us">{{icon:chat-send}}<span>Contact Us</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}index.html#start" data-meet-cta aria-label="Set up a meeting">{{icon:calendar}}<span>Set up a meeting</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -370,12 +356,11 @@ LAYOUT = '''<!doctype html>
 <footer class="footer">
   <div class="container footer-inner">
     <span>© {YEAR} {LEGAL} All rights reserved.</span>
-    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}nexi-explains.html">Nexi Explains</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
+    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}services-catalogue" target="_blank" rel="noopener">Services catalogue</a><a href="{ROOT}nexi-explains.html">Nexi Explains</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
 
 {TALK}
-<a class="cat-float" href="{ROOT}services-catalogue" target="_blank" rel="noopener" aria-label="Open the TechNext Services Catalogue (opens in a new tab)">{{icon:book}}<span class="wa-float-tip">Services catalogue</span></a>
 
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
@@ -502,11 +487,14 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "description": S.ORG_DESC,
             # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
             "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the Odoo Ready Partner "
-                                         "headquartered in Singapore with hubs in Taguig City and Ho Chi Minh City.",
+                                         "headquartered in Singapore with its main team in Taguig City: an affordable Odoo ERP partner "
+                                         "for SMEs that plugs Odoo into the system a business already runs.",
+            "slogan": "Keep your system. Plug in Odoo for BIR.",
             "employee": [{"@id": S.SITE_URL + "team/" + TP.slug(p["name"]) + "#person"} for p in ADV.ADVISORS],
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
-                           "Enterprise Resource Planning", "Enterprise AI", "Retrieval-augmented generation (RAG)",
-                           "AI workflow automation", "AI chatbots", "Website development", "Business consultation",
+                           "Enterprise Resource Planning", "Affordable Odoo implementation for SMEs",
+                           "Odoo integration with existing accounting systems (QuickBooks, Xero, SAP Business One)",
+                           "Odoo as a plug-in to an existing ERP or company system", "Business consultation",
                            "BIR requirements in Odoo (Philippines)", "Odoo set-up for BIR CAS requirements",
                            "BIR e-invoicing preparation in Odoo", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow",
                            # 24 Oct 2026 (GEO/AEO): one entry per BIR topic the site has its own page or guide for
@@ -520,7 +508,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "Odoo implementation Philippines (BIR)", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20"],
             "keywords": "BIR compliance, Odoo Philippines, Odoo implementation Philippines, Odoo partner Singapore, BIR CAS, CBA, "
                         "BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, Odoo ERP implementation, Odoo 20, "
-                        "Singapore GST, InvoiceNow, enterprise AI",
+                        "Singapore GST, InvoiceNow, affordable Odoo partner, Odoo for SMEs Philippines, Odoo plug-in, "
+                        "Odoo integration QuickBooks, Odoo integration Xero",
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "alternateName": ["TechNext Asia", "technext.asia"],
@@ -602,7 +591,7 @@ SGT = timezone(timedelta(hours=8))
 NXE_IMG = "{{ROOT}}assets/img/nexi-explains/"
 # drawn cards (Season 2 has no thumbnails yet): the Nexi renders' sizes at 520 px tall
 NXE_POSE_W = {"hello": 432, "wow": 347, "love": 336, "celebrate": 530, "think": 375, "point-left": 509, "jump": 456, "clap": 347}
-NXE_PAGE_LABELS = {"nexi.html": "Chat with Nexi", "odoo/apps.html": "All Odoo apps", "quotation.html": "Get a quotation",
+NXE_PAGE_LABELS = {"nexi.html": "Chat with Nexi", "odoo/apps.html": "All Odoo apps", "quotation.html": "Set up a meeting",
 }
 
 
@@ -632,6 +621,8 @@ def _nxe_page_label(href: str) -> str:
         app = APP_BY_MOD.get(href[len("odoo/apps/"):-len(".html")])
         if app:
             return "Odoo " + app["name"]
+    if "/" + href[:-5] in REMOVED:          # the page was removed (8 Nov 2026): the link goes where the page redirects
+        return "Talk to an Odoo adviser"
     raise KeyError(f"nexi_explains: no label for page {href}")
 
 
@@ -771,24 +762,7 @@ def _nxe_characters() -> str:
                   '<div class="nxe-arc-h"><h3>Nexi’s Season 1 wardrobe</h3><span>Season 1</span></div>'
                   '<p class="nxe-tips-sub">A new role and a new costume in every episode, rendered from Nexi’s own 3D model.</p>'
                   f'<ol class="nxe-chars nxe-chars--wd">{"".join(wcards)}</ol></div>')
-    links = {l["href"]: l for it in S.NAV for col in it.get("columns", []) for l in col["links"]}
-    cos = []
-    for i, key in enumerate(NXE.COSTUMES):
-        l = links[f"industries/{key}.html"]
-        lab = l["label"].replace("&", "&amp;")
-        acc, ink, light = WD.SHOW_SKIN[key]
-        p1, p2 = NXE.COSTUME_POSES[key]
-        src = "{{ROOT}}assets/img/industries/" + key + "/nexi-"
-        cos.append(f'<li class="nxe-ch nxe-ch--cos" style="--c1:{acc};--c2:{light};--ci:{ink}"><div class="nxe-ch-art">'
-                   f'<img class="nxe-ch-p1" src="{src}{p1}.webp" alt="" loading="lazy" decoding="async">'
-                   f'<img class="nxe-ch-p2" src="{src}{p2}.webp" alt="" loading="lazy" decoding="async"></div>'
-                   f'<div class="nxe-ch-body"><span class="nxe-kick">Industry costume</span><h4>{lab} Nexi</h4>'
-                   f'<p class="nxe-ch-line">“{l["desc"]}”</p><a class="nxe-more" href="{{{{ROOT}}}}{l["href"]}">{lab} {{{{icon:arrow}}}}</a></div></li>')
-    opts.append(("cast-costumes", "Industry costumes", f"{len(cos)} looks"))
-    groups.append('<div class="nxe-group" id="cast-costumes" data-nxe-group="cast-costumes">'
-                  '<div class="nxe-arc-h"><h3>Nexi’s industry costumes</h3><span>Around technext.asia</span></div>'
-                  '<p class="nxe-tips-sub">Off screen, Nexi dresses for each industry TechNext works with. Each look leads its industry page.</p>'
-                  f'<ol class="nxe-chars nxe-chars--cos">{"".join(cos)}</ol></div>')
+    # 8 Nov 2026: the industry pages were removed, so the "industry costumes" group (one card per industry page) went too
     return _nxe_filter("Characters by season", opts) + "".join(groups)
 
 
@@ -1027,14 +1001,14 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
   <div class="container">
     <div class="sec-head reveal">
       
-      <h2>Your trusted expert adviser for ERP and compliance.</h2>
-      <p class="lead">This is our company, and our own experts do the work. We don't stop at a business vision: we implement it, with Odoo set up for BIR requirements in the Philippines and GST in Singapore.</p>
+      <h2>An Odoo partner that plugs into your system.</h2>
+      <p class="lead">Keep the system your team already runs. Our own experts plug Odoo in beside it for accounting and BIR requirements, quote it in writing first, and stay with you after go-live.</p>
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and AI engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <p class="small muted reveal">TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
     <div class="cw reveal">
@@ -1088,7 +1062,7 @@ def advisor_cards_html() -> str:
                      f'{f"<dl class=\"pf-stats\">{stats}</dl>" if stats else ""}'
                      f'{link_html}</article>')
     more_act = ('<div class="actions pf-act reveal"><a class="btn btn-primary btn-lg" href="{{ROOT}}employee-hub.html">{{icon:users}}Meet the whole team {{icon:arrow}}</a>'
-                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call</a></div>')
+                '<a class="btn btn-ghost btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Set up a meeting</a></div>')
     note = ('<p class="pf-note">{{icon:shield}}Preview: placeholder profiles. Real names, photos, roles and skills replace them before this goes live.</p>'
             if preview else "")
     return f'''<section class="section fx-sec" id="advisers" aria-labelledby="pf-h">
@@ -1607,7 +1581,7 @@ def world_flow_html(key: str) -> str:
 
 # ---------------------------------------------------------------- BIR block (money pages)
 BIR_MEET = ('<a class="btn btn-primary btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" '
-            'target="_blank" rel="noopener">Book a discovery call {{icon:arrow}}</a>')
+            'target="_blank" rel="noopener">Set up a meeting {{icon:arrow}}</a>')
 BIR_POST = {"medical": "bir-multi-branch-odoo", "travel": "expanded-withholding-tax-atc-codes-odoo",
             "retail": "eopt-invoice-requirements-odoo", "ecommerce": "eopt-invoice-requirements-odoo",
             "construction": "expanded-withholding-tax-atc-codes-odoo", "fnb": "eopt-invoice-requirements-odoo",
@@ -1657,7 +1631,7 @@ def bir_industry_faqs(low: str) -> list:
     return [("Is Odoo BIR-accredited?",
              "No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
             (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
-             "Yes. Our Taguig City team configures Odoo Accounting for your own CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, plans e-invoicing with you (any EIS connection is assessed and quoted separately). You file and register with the BIR yourself. Book a discovery call and an adviser reviews your current invoicing and books first.")]
+             "Yes. Our Taguig City team configures Odoo Accounting for your own CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, plans e-invoicing with you (any EIS connection is assessed and quoted separately). You file and register with the BIR yourself. Set up a meeting and an adviser reviews your current invoicing and books first.")]
 
 
 def industry_html(key: str) -> str:
@@ -1999,7 +1973,7 @@ def app_page(mod: str) -> tuple:
       <div class="pill-row"><span class="tag tag--odoo">Odoo Ready Partner</span>{focus}</div>
       <div class="actions apx-act">
         {AW.MEET}
-        <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a>
+        
       </div>
       <p class="apx-works"><span>Works with</span>{work_chips}</p>
     </div>
@@ -2039,7 +2013,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn-link" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
     <div class="apx-with reveal">{related}</div>
-    <p class="small muted apx-credit">Product descriptions, screenshots and videos are © Odoo S.A., reproduced for reference from <a href="{odoo_url}" target="_blank" rel="noopener">odoo.com</a>. TechNext is an Odoo Partner; we implement and support Odoo.</p>
+    <p class="small muted apx-credit">Product descriptions, screenshots and videos are © Odoo S.A., reproduced for reference from <a href="{odoo_url}" target="_blank" rel="noopener">odoo.com</a>. TechNext is an Odoo Ready Partner; we implement and support Odoo.</p>
   </div>
 </section>
 
@@ -2047,8 +2021,8 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>Want {name} running in your company?</h2><p>Tell us how the process works today. We'll say what to switch on first and what it takes.</p></div>
-      <div class="actions">{AW.MEET_WHITE}<a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
+      <div><h2>Want {name} running in your company?</h2><p>Keep the system you run today: we plug {name} in beside it, start small and quote it in writing first.</p></div>
+      <div class="actions">{AW.MEET_WHITE}</div>
     </div>
   </div>
 </section>'''
@@ -2286,7 +2260,7 @@ def article_html(meta: dict, body: str) -> str:
 {body}
       {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is a trusted expert adviser for ERP and compliance: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. Our own experts implement Odoo end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Get a quotation</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>
     </div>
   </div>
@@ -2304,7 +2278,7 @@ def article_html(meta: dict, body: str) -> str:
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div><h2>You don't need to hire your own team.</h2><p>TechNext sets up your Odoo, can build your website and brand on it, and stays on after go-live, in Singapore and the Philippines. An adviser reviews your situation first.</p></div>
-      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Book a discovery call {{{{icon:arrow}}}}</a><a class="btn btn-outline-white btn-lg" href="{{{{ROOT}}}}quotation.html">Get a quotation</a></div>
+      <div class="actions"><a class="btn btn-white btn-lg" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Set up a meeting {{{{icon:arrow}}}}</a></div>
     </div>
   </div>
 </section>'''
@@ -2413,10 +2387,27 @@ def clean_links(html: str) -> str:
     """Drop the .html from internal hrefs so links land on the canonical URL directly
     instead of taking a 308 through Vercel's cleanUrls redirect. index.html collapses to
     its directory -- "index" on its own is not a real URL."""
+    html = _REMOVED_HREF.sub(lambda m: f'href="{REMOVED["/" + m.group(2)]}', html)   # links to removed pages go where they redirect
     html = _INTERNAL_INDEX.sub(lambda m: m.group(1) + ("./" if m.group(1) == 'href="' else ""), html)
     return _INTERNAL_HTML.sub(r"\1", html)
 
 
+
+# 8 Nov 2026, owner: "set up a meeting" + a smooth funnel. Every meeting button on the site opens the meeting request form
+# (home #start, or the page's own form on the ad landers) instead of the Odoo booking page: the form always lands in the CRM,
+# while most Odoo bookings were rolling back (7 Nov lead audit). Neil or Jeric calls back and sends the Google Meet link.
+_BOOK_A = re.compile(r'(<a[^>]*?)\s*data-meet([^>]*?)href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"([^>]*?)\s*target="_blank"\s*rel="noopener"')
+_BOOK_B = re.compile(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"(\s*target="_blank")?(\s*rel="noopener")?')
+OWN_FORM = {"bir-adviser-call.html": "#book", "bir-call.html": "#book", "index.html": "#start"}
+
+
+def meeting_ctas(html: str, out_rel: str) -> str:
+    dest = OWN_FORM.get(out_rel, "/#start")
+    html = _BOOK_A.sub(lambda m: f'{m.group(1)} data-meet-cta{m.group(2)}href="{dest}"{m.group(3)}', html)
+    html = _BOOK_B.sub(f'href="{dest}" data-meet-cta', html)
+    return re.sub(r'\sdata-meet(?=[\s>])', '', html)   # the old booking-click tag: those links are gone
+
+_REMOVED_HREF = re.compile(r'href="((?:\.\./)*|/)(' + '|'.join(sorted((re.escape(k[1:]) for k in REMOVED), key=len, reverse=True)) + r')(?:\.html)?(?=["#?])')
 _IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")
 _IX_BODY = re.compile(r"\{\{INDUSTRY:([a-z-]+)\}\}")
 
@@ -2582,7 +2573,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         w_head = (INTRO_HEAD.replace("(nav.type==='navigate'&&internal)||", "")
                   + "<script>document.documentElement.classList.add('intro-nxe')</script>\n")
         w_body = INTRO_BODY
-    html =(LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)
+    html =(LAYOUT.replace("{INTRO_HEAD}", w_head).replace("{INTRO_BODY}", w_body)   # 8 Nov 2026: no home intro splash
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
@@ -2613,6 +2604,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         html = flat_icons(html)
     html = icons(html)
     html = clean_links(html)
+    html = meeting_ctas(html, out_rel)
     html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
     html = _APP_LINK.sub(lambda m: m.group(1) + S.APP_SLUG[m.group(2)], html)   # any link still written with the module name
     if CALM:
@@ -2691,12 +2683,8 @@ LLMS_GROUPS = [
                                                or (u.startswith("blog/") and BIR_BLOG.search(u[5:]) is not None)),
     ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
                                     or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
-    ("AI solutions", lambda u: u.startswith("solutions/ai")),
-    ("Websites and marketing", lambda u: u in ("solutions/marketing", "solutions/website",
-                                                "solutions/social-media", "solutions/brand-assets")),
-    ("Odoo by industry", lambda u: u.startswith("industries/")),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
-    ("Company", lambda u: u in ("", "company", "bir-adviser-call", "quotation", "nexi-explains", "nexi")),
+    ("Company", lambda u: u in ("", "company", "bir-adviser-call", "nexi-explains")),
     ("People (TechNext advisers and team)", lambda u: u.startswith("team/")),
     ("Blog", lambda u: u == "blog" or u.startswith("blog/")),
 ]
@@ -2710,14 +2698,15 @@ def write_llms():
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         f"Last updated: {date.today().isoformat()}", "",
-        "> TechNext Pte. Ltd. is a Singapore-based Odoo Ready Partner and trusted expert adviser for ERP and compliance. "
-        "We implement Odoo ERP end to end (accounting, sales, inventory, POS, HR and more). In the Philippines we set Odoo up "
+        "> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: a Singapore-based Odoo Ready Partner with its main team in "
+        "Taguig City. We plug Odoo into the company system a business already runs (QuickBooks, Xero, SAP Business One, Excel, POS "
+        "or an in-house system), so it does not have to replace it, starting with accounting and BIR. Clients can start with Odoo "
+        "Accounting only and get a fixed, written quote before any work starts. In the Philippines we set Odoo up "
         "for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it "
         "(the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned "
         "separately (Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one); in Singapore, GST, and "
-        "InvoiceNow with the Access Point the client chooses. We also build "
-        "enterprise AI (AI inside Odoo, workflow automation agents, chatbots) and run websites and social media for growing "
-        "companies. No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
+        "InvoiceNow with the Access Point the client chooses. When a business is ready, we implement the full Odoo ERP "
+        "(sales, inventory, POS, HR and more). No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
         "TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
@@ -2727,18 +2716,25 @@ def write_llms():
         "- Not to be confused with: technext.ng (Nigerian tech news), TechNext Inc. (US technology forecasting), "
         "Technext Limited (Bangladesh), TechNext AB (Sweden), technext.ai, or the TechNExt festival (UK)",
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
-        "- 142 ERP projects; 40+ years of excellence; 90+ enterprise clients; clients in 25+ countries; 4 core AI disciplines",
-        "- Positioning: trusted expert adviser for ERP and compliance in Odoo (BIR requirements in the Philippines; GST and InvoiceNow in Singapore); our own experts implement",
+        "- 142 ERP projects; 90+ enterprise clients; clients in 25+ countries",
+        "- Positioning: affordable Odoo ERP partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement",
+        "- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)",
         "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
         "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
         "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
-        f"- Written quotation: {S.SITE_URL}quotation",
+        f"- Set up a meeting with an Odoo adviser: {S.SITE_URL}#start",
         "",
         "## Quick answers",
         "",
+        "- Who is an affordable Odoo partner for SMEs in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
+        "SMEs can start with Odoo Accounting only, keep their current system, and get a fixed, written quote before any work starts. "
+        f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}#start",
+        "- Can we add Odoo without replacing QuickBooks, Xero, SAP Business One or our in-house system? Yes. TechNext plugs Odoo in beside the "
+        "system a business already runs and brings in the invoices, bills and payments the books need, so Odoo produces the Books of Accounts "
+        f"and BIR forms. Details: {S.SITE_URL}odoo/integration",
         "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main hub in Taguig City, "
         "sets Odoo up for BIR requirements: the books for the business's own CAS or CBA application with sample printouts, EOPT invoices, "
         "2307, SLSP, SAWT, QAP and 2550Q. The business files and registers with its RDO itself; TechNext prepares the Odoo outputs with it. "
@@ -2748,7 +2744,7 @@ def write_llms():
         "- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. "
         f"If a business is covered by RR 26-2025, TechNext assesses the options with it and quotes any connection separately. Guide: {S.SITE_URL}bir-e-invoicing",
         "- Who implements Odoo in both Singapore and the Philippines? TechNext, an Odoo Ready Partner in Singapore: headquarters in Singapore (GST and InvoiceNow with the "
-        f"client's chosen Access Point), hub in Taguig City (BIR), AI engineering in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
+        f"client's chosen Access Point), hub in Taguig City (BIR), engineering hub in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
         "- Is TechNext connected to the BIR? No. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency.",
         # 24 Oct 2026: the accounting and finance questions people ask AI assistants before choosing a system or partner
         "- What accounting software can a Philippine business use for BIR requirements? Any system the business registers with its RDO as its CAS or CBA; "
@@ -2837,12 +2833,13 @@ def write_llms_full():
     out = ["# TechNext — full reference", "",
            f"Last updated: {date.today().isoformat()}", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-           "consulting hub in Taguig City, Metro Manila and an AI engineering hub in Ho Chi Minh City. It implements Odoo ERP end to end, "
+           "consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business "
+           "already runs (QuickBooks, Xero, SAP Business One, Excel, POS or in-house), starting with accounting, gives a fixed written quote first, "
            "sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, "
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "
-           "the client's chosen Access Point), and builds enterprise AI, websites and social media for growing companies. "
+           "the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. "
            "No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
-           "142 ERP projects; 40+ years of excellence; 90+ enterprise clients in 25+ countries.", "",
+           "142 ERP projects; 90+ enterprise clients in 25+ countries.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:
@@ -2891,7 +2888,7 @@ def main():
     write_well_known()
     (ROOT / f"{S.INDEXNOW_KEY}.txt").write_text(S.INDEXNOW_KEY, encoding="utf-8", newline="")
     write_denied()
-    make_nexi.write_page(ASSET_V, INDEX, S.SITE_URL)
+    # make_nexi.write_page(...): the Nexi chat (/nexi-app) was removed 8 Nov 2026 (owner: no Nexi robot)
     print(f"llms.txt: {write_llms()} pages")
     print(f"llms-full.txt: {write_llms_full()} answers")
     # security headers: hashes every inline script of the pages just built
