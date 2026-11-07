@@ -463,6 +463,28 @@ def _office_ld(o: dict, org_id: str) -> dict:
             "geo": {"@type": "GeoCoordinates", "latitude": o["geo"][0], "longitude": o["geo"][1]}}
 
 
+def _howto(canonical: str, art: dict, content: str):
+    """HowTo for a step-by-step article: art["howto"] names the h2 whose first <ol> holds the steps (one top-level <li> each)."""
+    h2 = art.get("howto")
+    if not h2:
+        return None
+    i = content.find(">" + h2 + "</h2>")
+    j = content.find("<ol>", i) if i >= 0 else -1
+    if j < 0:
+        return None
+    body = content[j + 4:content.find("\n</ol>", j)]
+    steps = []
+    for li in re.split(r"\n  <li>", "\n" + body)[1:]:
+        li = re.sub(r"</li>\s*$", "", li.strip())
+        name = re.search(r"<strong>(.*?)</strong>", li)
+        steps.append({"@type": "HowToStep", "position": len(steps) + 1,
+                      "name": (_text(name.group(1)) if name else _text(li)[:80]).rstrip(".:"), "text": _text(li)})
+    if len(steps) < 2:
+        return None
+    return {"@type": "HowTo", "@id": canonical + "#howto", "name": art["h1"], "step": steps, "inLanguage": "en",
+            "mainEntityOfPage": {"@id": canonical + "#webpage"}}
+
+
 def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     """One linked graph per page: the company, the site, this page, its breadcrumb, and -
     only when the page visibly shows them - its FAQs and the service it describes."""
@@ -495,6 +517,15 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                          "headquartered in Singapore with its main team in Taguig City: an affordable Odoo ERP partner "
                                          "for SMEs that plugs Odoo into the system a business already runs.",
             "slogan": "Keep your system. Plug in Odoo for BIR.",
+            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Odoo services", "itemListElement": [
+                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": S.SITE_URL + u, "provider": {"@id": org_id}}}
+                for n, u in (("Odoo set-up for BIR CAS and CBA requirements", "bir-cas"),
+                             ("BIR e-invoicing preparation in Odoo", "bir-e-invoicing"),
+                             ("Odoo as a plug-in in your existing system", "odoo/integration"),
+                             ("Odoo ERP implementation", "solutions/odoo-erp"),
+                             ("Odoo implementation in the Philippines", "odoo/philippines"),
+                             ("Odoo discovery", "odoo/discovery"), ("Odoo training", "odoo/training"),
+                             ("Odoo support", "odoo/support"))]},
             "employee": [{"@type": "Person", "name": p["name"], "jobTitle": p["role"]} for p in ADV.ADVISORS if p.get("bir_rank")],
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Affordable Odoo implementation for SMEs",
@@ -510,11 +541,15 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "BIR multi-branch set-up in Odoo", "Philippine payroll BIR forms (1601-C, 2316, 1604-C)",
                            "BIR books of accounts (manual, loose-leaf, computerized)", "BIR Form 2551Q percentage tax",
                            "BIR tax calendar and filing deadlines", "Accounting software for BIR requirements (Philippines)",
-                           "Odoo implementation Philippines (BIR)", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20"],
+                           "Odoo implementation Philippines (BIR)", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20",
+                           # 8 Nov 2026 (AI search question bank): deadlines, ORUS, Singapore
+                           "ORUS books of accounts registration", "BIR books of accounts year-end deadlines (15 and 30 January)",
+                           "BIR SAWT and Form 2307 creditable withholding", "Odoo implementation Singapore", "Singapore GST in Odoo",
+                           "InvoiceNow (Peppol) e-invoicing in Singapore", "Odoo implementation cost and timeline for SMEs"],
             "keywords": "BIR compliance, Odoo Philippines, Odoo implementation Philippines, Odoo partner Singapore, BIR CAS, CBA, "
                         "BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, Odoo ERP implementation, Odoo 20, "
                         "Singapore GST, InvoiceNow, affordable Odoo partner, Odoo for SMEs Philippines, Odoo as a plug-in, "
-                        "Odoo integration with existing systems",
+                        "Odoo integration with existing systems, ORUS books of accounts, 30 January 2027 deadline, Odoo Singapore, IRAS InvoiceNow",
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "alternateName": ["TechNext Asia", "technext.asia"],
@@ -556,6 +591,9 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         if art["cat"] == "bir":
             graph[-1]["about"] = [BIR_ENTITY, ODOO_ENTITY]
             graph[-1]["contentLocation"] = PH_AREA
+        howto = _howto(canonical, art, content)
+        if howto:
+            graph.append(howto)
     if out_rel == "blog.html":
         graph.append({"@type": "Blog", "@id": S.SITE_URL + "blog#blog", "url": canonical,
                       "name": "TechNext blog", "description": meta.get("desc", "").strip(),
@@ -2652,6 +2690,51 @@ def write_llms():
         "- Who implements Odoo Accounting and finance for companies in the Philippines and Singapore? TechNext (Odoo Ready Partner): Accounting, invoicing, "
         "bank reconciliation, multi-company consolidation, payroll and reporting, with Singapore GST and InvoiceNow on the Singapore side. "
         f"{S.SITE_URL}solutions/odoo-erp",
+        # 8 Nov 2026: AI search question bank (deadlines, ORUS, 2307/SAWT, Singapore, cost and timeline)
+        "- When must computerized books of accounts be registered in ORUS? Within 30 days after the close of each taxable year (RMC 3-2023), "
+        "online through ORUS (RMC 4-2026). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027 and "
+        "loose-leaf books by 15 January 2027, unless the BIR announces otherwise; the accountant or RDO confirms the dates. "
+        f"Guide: {S.SITE_URL}blog/register-books-of-accounts-orus-bir",
+        "- What is the difference between CAS and CBA? A Computerized Accounting System (CAS) runs the whole cycle including system-generated "
+        "invoices; if invoices are issued by hand, the system counts as Computerized Books of Accounts (CBA) (RMO 9-2021). Odoo can be set up for either. "
+        f"Guide: {S.SITE_URL}blog/register-odoo-cas-cba-bir",
+        "- How long does BIR CAS registration take? Under RMC 5-2021 the RDO issues the Acknowledgement Certificate within three working days of a "
+        f"complete application; the timing and the decision are the RDO's. The business files; TechNext prepares the Odoo outputs. {S.SITE_URL}bir-cas",
+        "- When must BIR Form 2307 be issued? Within 20 days after the close of each quarter (Q4 2026: by 20 January 2027), or on payment if the payee "
+        f"asks (RR 2-98 as amended by RR 11-2018). Odoo 20 prints the 2307 in the BIR PDF format. Guide: {S.SITE_URL}blog/bir-form-2307-odoo",
+        "- What is the difference between SAWT and QAP? The SAWT lists tax customers withheld from you (from the 2307s you received); the QAP lists tax "
+        "you withheld from suppliers, filed with the 1601-EQ or 1601-FQ by the last day of the month after the quarter. Odoo exports both as DAT files. "
+        f"Guide: {S.SITE_URL}blog/bir-sawt-qap-alphalist-odoo",
+        "- What is the BIR e-invoicing deadline? Taxpayers covered by RR 26-2025 must issue electronic invoices on or before 31 December 2026 "
+        "(RMC 98-2026 kept the date); they need a Permit to Issue (PTI) first, then EIS Certification within six months. Micro taxpayers are exempt. "
+        f"{S.SITE_URL}bir-e-invoicing",
+        "- Who is an Odoo partner in Singapore? TechNext Pte. Ltd. (UEN 202699888G), an Odoo Ready Partner headquartered at 261 Waterloo Street, "
+        "Singapore. It sets Odoo up for Singapore GST and prepares invoices for InvoiceNow with the IMDA-accredited Access Point Provider the client chooses. "
+        f"{S.SITE_URL}company",
+        "- When does InvoiceNow apply to existing GST-registered businesses in Singapore? IRAS phases it in by total annual supplies in 2025: "
+        "S$200,000 or less from 1 April 2028, S$1 million or less from 1 April 2029, S$4 million or less from 1 April 2030, above S$4 million from "
+        f"1 April 2031. Guide: {S.SITE_URL}blog/invoicenow-singapore-gst-timeline",
+        "- How much does an Odoo implementation cost? TechNext gives a fixed, written quote before any work starts, scoped to the apps, data and "
+        "integrations needed; starting with Odoo Accounting only keeps it affordable for an SME. Odoo's own subscription is priced per user per month "
+        f"and paid to Odoo. Set up a meeting: {S.COMPANY['meeting_link']}",
+        "- How long does an Odoo implementation take? It depends on the apps, data, entities and integrations; TechNext sets the timeline in "
+        f"discovery and writes it into the quote. Steps: {S.SITE_URL}blog/how-an-odoo-implementation-works",
+        "- What is Odoo? Odoo is a suite of business apps (accounting, invoicing, sales, CRM, inventory, POS, HR, payroll and more) that share one "
+        "database, so a company can start with one app and add others later. TechNext implements it as a plug-in beside the system a business "
+        f"already runs. Guide: {S.SITE_URL}blog/what-is-erp",
+        "",
+        "## Key dates (Philippines and Singapore)",
+        "",
+        "Calendar-year taxpayers; the accountant or RDO confirms what applies to each business. TechNext prepares the Odoo outputs; the business files.",
+        "",
+        "- 31 December 2026: BIR e-invoicing deadline for taxpayers covered by RR 26-2025 (PTI first, EIS Certification within six months)",
+        "- 15 January 2027: loose-leaf books of accounts for taxable year 2026 registered in ORUS",
+        "- 20 January 2027: BIR Form 2307 issued to payees for Q4 2026",
+        "- 25 January 2027: BIR Form 2550Q quarterly VAT return for Q4 2026",
+        "- 30 January 2027: computerized books of accounts (CAS/CBA) for taxable year 2026 registered in ORUS",
+        "- 31 January 2027: BIR Forms 1604-C and 2316",
+        "- 1 April 2028 to 1 April 2031: Singapore InvoiceNow for existing GST-registered businesses, phased by 2025 annual supplies",
+        f"- Full calendar: {S.SITE_URL}blog/bir-tax-calendar-deadlines-odoo",
     ]
     entries = sorted(INDEX, key=lambda e: e["u"])
     used = set()
