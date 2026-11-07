@@ -455,7 +455,8 @@
         if (!res.ok && res.j.error === 'captcha') { var ce = new Error('captcha'); ce.captcha = true; throw ce; }
         if (!res.ok && res.j.error === 'contact') throw new Error(res.j.field === 'phone' ? 'Please check your mobile number.' :
           res.j.field === 'email' ? 'Please check your email address.' : 'Please add both your email and your mobile number.');
-        if (!res.ok && res.j.error === 'company') throw new Error('Please add your company name.');
+        if (!res.ok && res.j.error === 'company') throw new Error('Please add your real company name.');
+        if (!res.ok && res.j.error === 'name') throw new Error('Please add your full name.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
           var q = {};
@@ -521,7 +522,21 @@
       if (d.length < 8 || d.length > 15 || (phOnly && (/^09/.test(d) && d.length !== 11 || /^639/.test(d) && d.length !== 12)))
         return { el: ph, msg: 'Please check your mobile number. A Philippine mobile has 11 digits, like 0917 123 4567.' };
     }
+    /* 8 Nov 2026 (owner: no more half-filled leads): a real name and company name, same rules as api/lead.py */
+    var nm = form.elements.name, cn = form.elements.company;
+    if (cn && !tnCompanyOk(cn.value)) return { el: cn, msg: cn.value.trim() ? 'Please add your real company or business name.' : 'Please add your company name.' };
+    if (nm && !tnNameOk(nm.value)) return { el: nm, msg: 'Please add your full name.' };
     return null;
+  }
+  var NO_ANSWER = /^(none|nothing|null|nil|n\.?\s*\/?\s*a\.?|na|not applicable|no company|wala|test(ing)?|asdf+|qwerty|abc|xxx+|sample|unknown|private|personal|self|me|ako|-+|\.+|\?+|0+)$/i;
+  function tnLetters(v) { return (v.match(/\p{L}/gu) || []).length; }
+  function tnNameOk(v) {
+    v = String(v || '').trim();
+    return tnLetters(v) >= 2 && v.indexOf('@') < 0 && !/https?:\/\/|www\./i.test(v) && (v.match(/\d/g) || []).length <= 2 && !NO_ANSWER.test(v);
+  }
+  function tnCompanyOk(v) {
+    v = String(v || '').trim();
+    return tnLetters(v) >= 2 && !/\S+@\S+\.\S+|https?:\/\/|www\./i.test(v) && !NO_ANSWER.test(v) && !/^\p{L}+\d{3,}$/u.test(v);
   }
   $$('form[data-endpoint]').forEach(function (form) {
     var status = $('.form-status', form);
