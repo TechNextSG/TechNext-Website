@@ -149,5 +149,6 @@ def bir_line_html(mod: str) -> str:
       {{{{icon:receipt}}}}
       <p><b>For Philippine companies.</b> {text} Read <a href="{{{{ROOT}}}}odoo/philippines.html">Odoo in the Philippines</a> and <a href="{{{{ROOT}}}}blog/{post}.html">{label}</a>.</p>
     </div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''

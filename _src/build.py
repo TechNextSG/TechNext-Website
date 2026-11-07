@@ -311,6 +311,7 @@ LAYOUT = '''<!doctype html>
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
 <script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off2')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
+<link rel="stylesheet" href="{ROOT}assets/css/buttons.css?v={ASSET_V}">
 <script type="application/ld+json">{JSONLD}</script>
 <script>document.querySelectorAll('link[data-defer]').forEach(function(l){function on(){l.media='all'}if(l.sheet)on();else l.addEventListener('load',on)})</script>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
@@ -1646,6 +1647,7 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
       <div class="dm-static"><p><b>Main path:</b> {path_txt}.</p></div>
     </div>
     <p class="dm-note">{{{{icon:check}}}} Sample records. Your stages, rules and hand-offs are configured in discovery.</p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''
 
@@ -1730,6 +1732,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>Inside the app.</h2></div>
     <div class="shots">{gallery}</div>
+    <p class="sec-next reveal"><a class="btn btn-ghost" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>''' if gallery else ""
 
@@ -1787,7 +1790,9 @@ def app_page(mod: str) -> tuple:
               f'<h2 class="sr-only">Odoo {name} in one paragraph</h2><p>Odoo {name}: {d0} TechNext, an Odoo Ready Partner '
               f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
-              + (f'<p class="apx-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "") + '</div></div></section>')
+              + (f'<p class="apx-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "")
+              + f'<p class="sec-next"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a>'
+              f'<a class="btn btn-ghost" href="#setup">How we set it up {{{{icon:arrow}}}}</a></p></div></div></section>')
     meta = {"title": APP_TITLES.get(mod, f"Odoo {name} in Singapore & the Philippines"), "desc": desc_meta,
             "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo", "og_icon": str(ODOO_DIR / f"{mod}.svg")}
     life = lifecycle_html(mod, name, cat)
@@ -1851,7 +1856,7 @@ def app_page(mod: str) -> tuple:
 
 <section class="section fx-sec apx-with-sec">
   <div class="container">
-    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn-link" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
+    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">Apps that share the same database.</h2></div><a class="btn btn-ghost btn-sm" href="{{{{ROOT}}}}odoo/apps.html">All Odoo apps {{{{icon:arrow}}}}</a></div>
     <div class="apx-with reveal">{related}</div>
     <p class="small muted apx-credit">Product descriptions, screenshots and videos are © Odoo S.A., reproduced for reference from <a href="{odoo_url}" target="_blank" rel="noopener">odoo.com</a>. TechNext is an Odoo Ready Partner; we implement and support Odoo.</p>
   </div>
@@ -2079,6 +2084,7 @@ def article_html(meta: dict, body: str) -> str:
       <h1 id="blg-h1">{art["h1"]}</h1>
       <p class="fx-lead">{art["lede"]}</p>
       {PREPARED_BY if art["cat"] == "bir" else ""}<p class="post-by blg-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span><a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a></p>
+      <div class="actions blg-act"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></div>
     </div>
     <div class="blg-panel" data-blg-panel aria-hidden="true">
       <i class="fx-result-glow blg-glow"></i>
@@ -2102,13 +2108,14 @@ def article_html(meta: dict, body: str) -> str:
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
         <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>
+      <p class="actions post-act"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
     </div>
   </div>
 </section>
 
 <section class="section fx-sec fx-sec--alt blg-more-sec">
   <div class="container">
-    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">More from the blog.</h2></div><a class="btn-link" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
+    <div class="sec-head sec-head--row reveal"><div><h2 style="margin:0">More from the blog.</h2></div><a class="btn btn-ghost btn-sm" href="{{{{ROOT}}}}blog.html">All articles {{{{icon:arrow}}}}</a></div>
     <div class="post-cards">{cards}</div>
   </div>
 </section>
