@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo Customisation for SMEs: Plug-in, Upgrade-safe", "desc": "Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and reports, plugged in beside your current system. Fixed written quote.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js", "assets/js/pages/svc-fx.js", "assets/js/pages/erp-system-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/erp-system-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx cst-fx"} -->
+<!--meta {"title": "Odoo Customisation for SMEs: Build It Upgrade-safe", "desc": "Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, with Odoo as a plug-in in your system. Fixed written quote.", "out": "odoo/erp-system.html", "nav": "odoo", "scripts": ["assets/js/demo-kit.js", "assets/js/demo-layers.js", "assets/js/pages/svc-fx.js", "assets/js/pages/erp-system-fx.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-kit.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/demo-layers.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/svc-demos-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/erp-system-fx.css?v={ASSET_V}\">", "body": "fx-page svc-fx cst-fx"} -->
 <!-- /odoo/erp-system (22 Oct 2026 futuristic redesign): the atelier world hero, the price-tag cards and the tailoring
      verbs are gone. Hero = glass layer stack (requirements climbing from standard to configuration, Studio, a custom module and an
      integration, sample data). The layers demo is kept and restyled as glass. Styles: assets/css/pages/erp-system-fx.css,
@@ -12,10 +12,11 @@
     <div class="fx-hero-in">
       <div class="sv-copy">
         <p class="fx-partner"><img src="{{ROOT}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40"><span>Partner in Singapore · teams in Taguig City &amp; Ho Chi Minh City</span></p>
-        <h1 id="cst-h1">Odoo shaped to how you work, safe for the next upgrade.</h1>
-        <p class="fx-lead">Standard Odoo first, plugged in beside the system you already run. It's one database across every department, with modules switched on as you need them. Where your process genuinely differs, we build the Odoo 20 module, workflow or report you need, in a way that survives version upgrades and that another developer could maintain.</p>
+        <h1 id="cst-h1">Customise Odoo to your process and your BIR reports, upgrade-safe.</h1>
+        <p class="fx-lead"><strong>Standard Odoo first</strong>, as a plug-in in your system, then the module, workflow or BIR report you need, built to survive upgrades. Our own in-house team, <strong>142 ERP projects</strong> in, on a fixed written quote.</p>
         <div class="actions sv-act">
           <a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>
+          <a class="btn btn-ghost btn-lg" href="{{ROOT}}odoo/discovery.html">See how discovery works</a>
         </div>
         <ul class="sv-chips" aria-label="Where Odoo runs">
           <li><span>{{icon:globe}} Odoo Online</span></li>
@@ -61,13 +62,13 @@
 </section>
 
 <section class="section section--tight sv-answer-sec">
-  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>Odoo customization at TechNext starts from standard Odoo: one database across every department, with apps switched on as you need them. Where your process genuinely differs, we build the module, workflow, report or approval you need, in a way that survives version upgrades and that another developer could maintain.</p></div></div>
+  <div class="container"><div class="sv-answer reveal"><h2 class="sr-only">In one paragraph</h2><p>TechNext starts from <strong>standard Odoo</strong>: one database, apps switched on as you need them. Where your process genuinely differs, we build the module, report or approval you need, so it survives version upgrades.</p><p><a class="btn-link" href="#customisation-layers">Try the layers demo {{icon:arrow}}</a></p></div></div>
 </section>
 
 <!-- ============================================================ LAYERS DEMO -->
 <section class="section fx-sec demo-sec" id="customisation-layers">
   <div class="container">
-    <div class="sec-head reveal"><h2>Upgrade-safe Odoo customisation: start at standard, climb only when you must.</h2><p class="lead">Every change TechNext makes to Odoo lives on the lowest layer that can carry it: standard features, then configuration, then Studio, and only then a custom module on Odoo.sh or an integration. Drag a requirement onto a layer, or press Suggest to run the decision tree, and watch the upgrade risk, effort and maintenance move.</p></div>
+    <div class="sec-head reveal"><h2>Upgrade-safe Odoo customisation: start at standard, climb only when you must.</h2><p class="lead">Every change lives on the <strong>lowest layer that can carry it</strong>: standard, configuration, Studio, then a custom module. Drag a requirement onto a layer and watch the upgrade risk move.</p></div>
     <div class="dm dm-layers reveal" data-demo="layers">
       <div class="dm-head">
         <div class="dm-title"><b>Where should each change live?</b><small>8 sample requirements · drag one onto a layer, or select it and choose</small></div>
@@ -125,34 +126,37 @@
       </div>
     </div>
     <p class="dm-note">{{icon:check}} Sample requirements. The meters are relative, not estimates; the right layer for your case is confirmed in discovery, for your version and edition.</p>
+    <p class="sec-next"><a class="btn-link" href="{{ROOT}}odoo/discovery.html">Start with Odoo Discovery {{icon:arrow}}</a></p>
   </div>
 </section>
 
 <!-- ============================================================ ALL-IN-ONE ERP -->
 <section class="section fx-sec fx-sec--alt" id="gives">
   <div class="container">
-    <div class="sec-head reveal"><h2>One system, tailored where it counts.</h2><p class="lead">Standard first: each piece below is altered only where your process genuinely differs.</p></div>
+    <div class="sec-head reveal"><h2>One system, tailored where it counts.</h2><p class="lead">Standard first: <strong>altered only where your process genuinely differs</strong>.</p></div>
     <div class="cst-bento">
-      <article class="cst-b cst-b--wide sv-glass reveal"><h3>One database</h3><p>Sales, stock, purchasing and accounting share the same products, partners and journals, so a quote, a stock move and a ledger entry are the same data, not three copies.</p><ul class="cst-apps" aria-hidden="true"><li>{{odoo:sale:22}}Sales</li><li>{{odoo:stock:22}}Inventory</li><li>{{odoo:purchase:22}}Purchase</li><li>{{odoo:accountant:22}}Accounting</li></ul></article>
-      <article class="cst-b sv-glass reveal"><h3>Modules on as needed</h3><p>Switch on Accounting, Sales, Inventory, Purchase, CRM and more only when you need them. The core stays the same as you grow.</p></article>
-      <article class="cst-b sv-glass reveal"><h3>Fields, views and documents</h3><p>Extra fields, tidier screen layouts, and quotation and invoice templates in your branding, plus the regulatory print-outs you have to produce.</p></article>
-      <article class="cst-b sv-glass reveal"><h3>Workflows and approvals</h3><p>Multi-level approvals, automated actions and validations that stop a wrong entry before it posts, not after.</p></article>
-      <article class="cst-b sv-glass reveal"><h3>Reports and dashboards</h3><p>Management reports, margin analyses and dashboards on live Odoo data, so leadership reads one set of numbers.</p></article>
-      <article class="cst-b cst-b--wide sv-glass reveal"><h3>Process-specific modules</h3><p>Processes standard Odoo doesn't model, built as a separate module so the core stays clean and upgradable.</p></article>
+      <article class="cst-b cst-b--wide sv-glass reveal"><h3>One database</h3><p>Sales, stock, purchasing and accounting share the same records, not three copies.</p><ul class="cst-apps" aria-hidden="true"><li>{{odoo:sale:22}}Sales</li><li>{{odoo:stock:22}}Inventory</li><li>{{odoo:purchase:22}}Purchase</li><li>{{odoo:accountant:22}}Accounting</li></ul></article>
+      <article class="cst-b sv-glass reveal"><h3>Modules on as needed</h3><p>Switch on Accounting, Sales, Inventory, Purchase or CRM only when you need them.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Fields, views and documents</h3><p>Extra fields, tidier screens, branded templates and the regulatory print-outs you must produce.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Workflows and approvals</h3><p>Multi-level approvals and validations that stop a wrong entry before it posts.</p></article>
+      <article class="cst-b sv-glass reveal"><h3>Reports and dashboards</h3><p>Management reports and dashboards on live data: one set of numbers.</p></article>
+      <article class="cst-b cst-b--wide sv-glass reveal"><h3>Process-specific modules</h3><p>Processes standard Odoo does not model, built as a separate module so the core stays upgradable.</p></article>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="{{ROOT}}odoo/apps.html">Browse all Odoo apps {{icon:arrow}}</a></p>
   </div>
 </section>
 
 <!-- ============================================================ HOW WE DELIVER IT -->
 <section class="section fx-sec" id="how">
   <div class="container">
-    <div class="sec-head reveal"><h2>Standard first, custom where it earns its place.</h2><p class="lead">Four steps, in this order. Each one climbs only as far as the last one showed it must.</p></div>
+    <div class="sec-head reveal"><h2>Standard first, custom where it earns its place.</h2><p class="lead">Four steps, in order. <strong>Each climbs only as far as it must.</strong></p></div>
     <ol class="cst-climb reveal" data-climb>
       <li style="--k:0"><span class="cst-kn">1</span><h3>Discovery and fit</h3><p>Map your flows and decide what standard Odoo covers and what genuinely differs.</p></li>
       <li style="--k:1"><span class="cst-kn">2</span><h3>Configure standard</h3><p>Chart of accounts, taxes, warehouses, pricelists and approvals set in Odoo's own features.</p></li>
       <li style="--k:2"><span class="cst-kn">3</span><h3>Build what's missing</h3><p>Separate modules, workflows and reports, version-controlled, reviewed and tested.</p></li>
       <li style="--k:3"><span class="cst-kn">4</span><h3>Edition, hosting and go-live</h3><p>Choose Odoo Online, Odoo.sh or on-premise; then migrate, train and support.</p></li>
     </ol>
+    <p class="sec-next reveal"><a class="btn-link" href="{{ROOT}}solutions/odoo-erp.html">See Odoo ERP implementation {{icon:arrow}}</a></p>
   </div>
 </section>
 
@@ -161,7 +165,8 @@
   <div class="container sv-get">
     <div class="sv-get-l reveal">
       <h2>One system, running where it should.</h2>
-      <p class="lead">Where Odoo runs is a scoping decision, not a default. We size the edition and hosting with you, then keep every customisation upgrade-safe, because custom code is a liability we deliberately keep small.</p>
+      <p class="lead">Where Odoo runs is a scoping decision. We keep every customisation <strong>upgrade-safe</strong> and custom code small.</p>
+      <p><a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a></p>
       <ul class="cst-host" aria-label="Where Odoo runs">
         <li>{{icon:globe}}<span><b>Odoo Online</b><small>Odoo's cloud, automatic upgrades</small></span></li>
         <li>{{icon:code}}<span><b>Odoo.sh</b><small>Staging branches, backups, version control</small></span></li>
@@ -193,12 +198,12 @@
   <div class="container">
     <div class="sec-head reveal"><h2>Odoo ERP, answered.</h2></div>
     <div class="faq fx-faq reveal">
-      <details><summary>What is an all-in-one ERP? {{icon:chevron}}</summary><div class="faq-a"><p>One database where sales, stock, purchasing and accounting share the same records, instead of separate apps that don't talk to each other and have to be reconciled by hand.</p></div></details>
-      <details><summary>Do we need every module at once? {{icon:chevron}}</summary><div class="faq-a"><p>No. Modules are switched on as you need them. Most companies start with Accounting, Sales and Inventory and add more as they grow.</p></div></details>
-      <details><summary>Where does Odoo run? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo Online for the fastest start on standard apps, Odoo.sh when you need custom development, or on-premise / your own cloud when data residency or existing infrastructure decides it. We help you choose.</p></div></details>
-      <details><summary>Will customisation break future upgrades? {{icon:chevron}}</summary><div class="faq-a"><p>We build to keep upgrades manageable; each upgrade is still tested on staging. Customisations live in separate modules, are tested and documented, and never edit Odoo's own code, so the upgrade path is easier to plan.</p></div></details>
-      <details><summary>Do the licences cost extra? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are billed by Odoo per user per month. Our implementation and customisation work is quoted separately, so you can see each part clearly.</p></div></details>
-      <details><summary>How is it priced? {{icon:chevron}}</summary><div class="faq-a"><p>It is scoped to the apps, data and customisation you need, and you get a fixed, written quote before any work starts. <a href="{{ROOT}}index.html#start">Set up a meeting</a> to get it.</p></div></details>
+      <details><summary>What is an all-in-one ERP? {{icon:chevron}}</summary><div class="faq-a"><p>One database where sales, stock, purchasing and accounting share the same records, so nothing is reconciled by hand.</p></div></details>
+      <details><summary>Do we need every module at once? {{icon:chevron}}</summary><div class="faq-a"><p>No. Most companies <strong>start with Accounting</strong>, Sales and Inventory and add more as they grow.</p></div></details>
+      <details><summary>Where does Odoo run? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo Online for the fastest start, Odoo.sh for custom development, or on-premise when data residency decides. We help you choose.</p></div></details>
+      <details><summary>Will customisation break future upgrades? {{icon:chevron}}</summary><div class="faq-a"><p>We build to keep upgrades manageable. Customisations live in separate modules and never edit Odoo's own code; each upgrade is still tested on staging.</p></div></details>
+      <details><summary>Do the licences cost extra? {{icon:chevron}}</summary><div class="faq-a"><p>Odoo licences are billed by Odoo per user per month. TechNext's work is quoted separately.</p></div></details>
+      <details><summary>How is it priced? {{icon:chevron}}</summary><div class="faq-a"><p>You get a <strong>fixed, written quote</strong> before any work starts, scoped to your apps and customisation. <a href="{{ROOT}}index.html#start">Set up a meeting</a> to get it.</p></div></details>
     </div>
   </div>
 </section>
@@ -208,9 +213,9 @@
   <div class="container">
     <div class="sec-head reveal"><h2>Explore further.</h2></div>
     <div class="sv-rel reveal">
-      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP Development</b><small>How we implement Odoo end to end: configure, migrate, train and support on one database.</small></span><em>Learn more {{icon:arrow}}</em></a>
-      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Map your flows and match each step to an Odoo app before deciding what to build.</small></span><em>Learn more {{icon:arrow}}</em></a>
-      <a href="{{ROOT}}odoo/apps.html">{{icon:grid}}<span><b>All Odoo apps</b><small>Every Odoo app, by department, with what each one does and where it fits.</small></span><em>Learn more {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}solutions/odoo-erp.html">{{icon:layers}}<span><b>Odoo ERP Development</b><small>How we implement Odoo end to end.</small></span><em>See Odoo ERP {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/discovery.html">{{icon:search}}<span><b>Odoo Discovery</b><small>Map your flows before deciding what to build.</small></span><em>Start with discovery {{icon:arrow}}</em></a>
+      <a href="{{ROOT}}odoo/apps.html">{{icon:grid}}<span><b>All Odoo apps</b><small>Every Odoo app, by department.</small></span><em>Browse the apps {{icon:arrow}}</em></a>
     </div>
   </div>
 </section>
@@ -221,8 +226,8 @@
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div>
-        <h2>Tell us what's manual today.</h2>
-        <p>We'll say which apps to switch on first, what standard Odoo already covers, and what genuinely needs building, in a fixed, written quote.</p>
+        <h2>Start customising Odoo today, safely.</h2>
+        <p>Tell us what is manual today. We say which apps to switch on first and what to build, in a fixed, written quote.</p>
       </div>
       <div class="actions">
         <a class="btn btn-white btn-lg" data-meet href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a>

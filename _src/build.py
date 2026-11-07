@@ -219,7 +219,8 @@ def mobile_nav_html() -> str:
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
     out.append(f'''
 <div class="mnav-cta">
-  <a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}index.html#start" data-meet-cta>{{{{icon:calendar}}}} Set up a meeting</a>
+  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>{{{{icon:calendar}}}} Set up a meeting</a>
+  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}services-catalogue" target="_blank" rel="noopener">{{{{icon:book}}}} Services catalogue</a>
 </div>
 <div class="mnav-contact">
   <span>{{{{icon:mail}}}} {c["sales_email"]}</span>
@@ -335,7 +336,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="{ROOT}index.html#start" data-meet-cta aria-label="Set up a meeting">{{icon:calendar}}<span>Set up a meeting</span></a></div>
+    <div class="header-cta"><a class="btn btn-ghost hdr-cat" href="{ROOT}services-catalogue" target="_blank" rel="noopener" aria-label="Services catalogue (opens in a new tab)">{{icon:book}}<span>Services catalogue</span></a><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet aria-label="Set up a meeting (opens our booking page)">{{icon:calendar}}<span>Set up a meeting</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -493,7 +494,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "employee": [{"@id": S.SITE_URL + "team/" + TP.slug(p["name"]) + "#person"} for p in ADV.ADVISORS],
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Affordable Odoo implementation for SMEs",
-                           "Odoo integration with existing accounting systems (QuickBooks, Xero, SAP Business One)",
+                           "Odoo integration with existing accounting software and ERP systems",
                            "Odoo as a plug-in to an existing ERP or company system", "Business consultation",
                            "BIR requirements in Odoo (Philippines)", "Odoo set-up for BIR CAS requirements",
                            "BIR e-invoicing preparation in Odoo", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow",
@@ -508,8 +509,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "Odoo implementation Philippines (BIR)", "Odoo Partner Singapore", "Odoo implementation Vietnam (Circular 99)", "Odoo 20"],
             "keywords": "BIR compliance, Odoo Philippines, Odoo implementation Philippines, Odoo partner Singapore, BIR CAS, CBA, "
                         "BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, Odoo ERP implementation, Odoo 20, "
-                        "Singapore GST, InvoiceNow, affordable Odoo partner, Odoo for SMEs Philippines, Odoo plug-in, "
-                        "Odoo integration QuickBooks, Odoo integration Xero",
+                        "Singapore GST, InvoiceNow, affordable Odoo partner, Odoo for SMEs Philippines, Odoo as a plug-in, "
+                        "Odoo integration with existing systems",
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "alternateName": ["TechNext Asia", "technext.asia"],
@@ -1588,7 +1589,7 @@ BIR_POST = {"medical": "bir-multi-branch-odoo", "travel": "expanded-withholding-
             "manufacturing": "bir-slsp-summary-list-sales-purchases-odoo", "health-wellness": "bir-form-2307-odoo"}
 BIR_APP = {
     "accountant": ("Odoo Accounting for Philippine companies",
-                   "TechNext sets up Odoo Accounting for BIR requirements: books set up for your own CAS or CBA registration, 2307 and 2306 certificates, and SLSP, SAWT, QAP and 2550Q reports from your own entries. No software is BIR-accredited, so we first check which rules apply to your company.",
+                   "TechNext sets up Odoo Accounting for BIR requirements: books set up for your own CAS or CBA registration, 2307 and 2306 certificates, and SLSP, SAWT, QAP and 2550Q reports from your own entries. No accounting software is BIR-accredited, so we first check which rules apply to your company.",
                    "register-odoo-cas-cba-bir", "How to register Odoo as your CAS or CBA"),
     "account": ("Odoo Invoicing for Philippine companies",
                 "Invoices set up for the BIR invoice rules under the EOPT Act, with a series per branch, and, if you are a covered taxpayer (deadline 31 December 2026), a plan for e-invoicing. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.",
@@ -1629,7 +1630,7 @@ def bir_industry_block(key: str, name: str, low: str) -> str:
 
 def bir_industry_faqs(low: str) -> list:
     return [("Is Odoo BIR-accredited?",
-             "No software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
+             "No accounting software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
             (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
              "Yes. Our Taguig City team configures Odoo Accounting for your own CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, plans e-invoicing with you (any EIS connection is assessed and quoted separately). You file and register with the BIR yourself. Set up a meeting and an adviser reviews your current invoicing and books first.")]
 
@@ -1857,6 +1858,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name} in action.</h2><p class="lead">Official Odoo videos. Nothing loads until you press play.</p></div>
     <div class="{"videos videos--one" if len(vids) == 1 else "videos"}">{items}</div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><span class="muted">See {name} on your own data, as a plug-in in your system.</span></p>
   </div>
 </section>'''
 
@@ -1995,12 +1997,13 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name}, section by section.</h2><p class="lead">The product as Odoo presents it. TechNext configures each part to your process.</p></div>
     {what}
+    <p class="sec-next reveal"><a class="btn-link" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 
 {screens}
 
-<section class="section fx-sec fx-sec--alt apx-impl-sec">
+<section class="section fx-sec fx-sec--alt apx-impl-sec" id="setup">
   <div class="container apx-impl">
     <div class="sec-head reveal"><h2>{name}, configured to how you work.</h2><p class="lead">Standard Odoo first. We set it up on a staging database, migrate your data, train your team and stay on after go-live.</p><div class="actions"><a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}odoo/discovery.html">Start with discovery {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}odoo/support.html">Support plans {{{{icon:arrow}}}}</a></div></div>
     <ol class="apx-steps reveal">{impl}</ol>
@@ -2021,7 +2024,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>Want {name} running in your company?</h2><p>Keep the system you run today: we plug {name} in beside it, start small and quote it in writing first.</p></div>
+      <div><h2>Put {name} to work for your BIR requirements.</h2><p>Keep the system you run today. Our own experts add {name} as a plug-in in your system and quote it in writing first.</p></div>
       <div class="actions">{AW.MEET_WHITE}</div>
     </div>
   </div>
@@ -2393,19 +2396,22 @@ def clean_links(html: str) -> str:
 
 
 
-# 8 Nov 2026, owner: "set up a meeting" + a smooth funnel. Every meeting button on the site opens the meeting request form
-# (home #start, or the page's own form on the ad landers) instead of the Odoo booking page: the form always lands in the CRM,
-# while most Odoo bookings were rolling back (7 Nov lead audit). Neil or Jeric calls back and sends the Google Meet link.
-_BOOK_A = re.compile(r'(<a[^>]*?)\s*data-meet([^>]*?)href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"([^>]*?)\s*target="_blank"\s*rel="noopener"')
-_BOOK_B = re.compile(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"(\s*target="_blank")?(\s*rel="noopener")?')
-OWN_FORM = {"bir-adviser-call.html": "#book", "bir-call.html": "#book", "index.html": "#start"}
+# 8 Nov 2026, owner (final): every "Set up a meeting" button opens the TechNext Odoo appointment page (new tab, data-meet for
+# the GA4/Meta click event). The home hero form stays as the "request a call" option (#start) and the ad landers keep their
+# own #book form; only buttons whose label is "Set up a meeting" are pointed at the appointment page.
+BOOK_URL = "https://technext.odoo.com/book/c82cf8a9"
+_MEET_A = re.compile(r'<a\b([^>]*)>(\s*(?:<svg[^>]*>.*?</svg>\s*)?Set up a meeting\b)', re.S)
+_HREF = re.compile(r'\shref="[^"]*"')
 
 
 def meeting_ctas(html: str, out_rel: str) -> str:
-    dest = OWN_FORM.get(out_rel, "/#start")
-    html = _BOOK_A.sub(lambda m: f'{m.group(1)} data-meet-cta{m.group(2)}href="{dest}"{m.group(3)}', html)
-    html = _BOOK_B.sub(f'href="{dest}" data-meet-cta', html)
-    return re.sub(r'\sdata-meet(?=[\s>])', '', html)   # the old booking-click tag: those links are gone
+    html = re.sub(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"', f'href="{BOOK_URL}"', html)
+
+    def fix(m):
+        attrs = _HREF.sub("", m.group(1))
+        attrs = re.sub(r'\s(?:target|rel)="[^"]*"|\sdata-meet(?:-cta)?(?=[\s>]|$)', "", attrs)
+        return f'<a{attrs} href="{BOOK_URL}" target="_blank" rel="noopener" data-meet>{m.group(2)}'
+    return _MEET_A.sub(fix, html)
 
 _REMOVED_HREF = re.compile(r'href="((?:\.\./)*|/)(' + '|'.join(sorted((re.escape(k[1:]) for k in REMOVED), key=len, reverse=True)) + r')(?:\.html)?(?=["#?])')
 _IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")
@@ -2494,6 +2500,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{PILLARS}}", pillars_html())
     if "{{NXE_" in content:
         content = nxe_tokens(content)
+    if "{{TEAM_DIR}}" in content:   # the compact Team Directory (8 Nov 2026)
+        content = content.replace("{{TEAM_DIR}}", TP.directory_compact_html())
     if "{{TEAM_CARDS}}" in content:
         content = content.replace("{{TEAM_CARDS}}", team_cards_html())
     if "{{EXPERTISE_CARDS}}" in content:
@@ -2699,14 +2707,14 @@ def write_llms():
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         f"Last updated: {date.today().isoformat()}", "",
         "> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: a Singapore-based Odoo Ready Partner with its main team in "
-        "Taguig City. We plug Odoo into the company system a business already runs (QuickBooks, Xero, SAP Business One, Excel, POS "
+        "Taguig City. We plug Odoo into the company system a business already runs (accounting software, ERP, POS, spreadsheets "
         "or an in-house system), so it does not have to replace it, starting with accounting and BIR. Clients can start with Odoo "
         "Accounting only and get a fixed, written quote before any work starts. In the Philippines we set Odoo up "
         "for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it "
         "(the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned "
         "separately (Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one); in Singapore, GST, and "
         "InvoiceNow with the Access Point the client chooses. When a business is ready, we implement the full Odoo ERP "
-        "(sales, inventory, POS, HR and more). No software is BIR-accredited (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
+        "(sales, inventory, POS, HR and more). No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
         "TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.",
         "",
         f"- Registered name: {c['legal']} (UEN {c['uen']})",
@@ -2732,14 +2740,14 @@ def write_llms():
         "- Who is an affordable Odoo partner for SMEs in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
         "SMEs can start with Odoo Accounting only, keep their current system, and get a fixed, written quote before any work starts. "
         f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}#start",
-        "- Can we add Odoo without replacing QuickBooks, Xero, SAP Business One or our in-house system? Yes. TechNext plugs Odoo in beside the "
+        "- Can we add Odoo without replacing our current accounting software, ERP or in-house system? Yes. TechNext plugs Odoo in beside the "
         "system a business already runs and brings in the invoices, bills and payments the books need, so Odoo produces the Books of Accounts "
         f"and BIR forms. Details: {S.SITE_URL}odoo/integration",
         "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main hub in Taguig City, "
         "sets Odoo up for BIR requirements: the books for the business's own CAS or CBA application with sample printouts, EOPT invoices, "
         "2307, SLSP, SAWT, QAP and 2550Q. The business files and registers with its RDO itself; TechNext prepares the Odoo outputs with it. "
         f"Details: {S.SITE_URL}bir-cas and {S.SITE_URL}odoo/philippines",
-        "- Is Odoo BIR-accredited? No software is BIR-accredited (BIR advisory, 14 Sep 2026). The BIR registers each business's use of a system; "
+        "- Is Odoo BIR-accredited? No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). The BIR registers each business's use of a system; "
         f"a business can register Odoo as its CAS or CBA. Guide: {S.SITE_URL}blog/bir-rules-for-your-accounting-system",
         "- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. "
         f"If a business is covered by RR 26-2025, TechNext assesses the options with it and quotes any connection separately. Guide: {S.SITE_URL}bir-e-invoicing",
@@ -2834,11 +2842,11 @@ def write_llms_full():
            f"Last updated: {date.today().isoformat()}", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
            "consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business "
-           "already runs (QuickBooks, Xero, SAP Business One, Excel, POS or in-house), starting with accounting, gives a fixed written quote first, "
+           "already runs (accounting software, ERP, POS or in-house), starting with accounting, gives a fixed written quote first, "
            "sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, "
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "
            "the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. "
-           "No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
+           "No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
            "142 ERP projects; 90+ enterprise clients in 25+ countries.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]

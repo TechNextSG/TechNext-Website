@@ -7,8 +7,9 @@
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const pad3 = n => String(n).padStart(3, '0');
-  const imgUrl = n => `/services-catalogue/book/pages/${pad3(n)}.webp`;
-  const thumbUrl = n => `/services-catalogue/book/thumbs/${pad3(n)}.webp`;
+  const BV = '20261108b';   // book data version: bump on every rebuild so browsers never mix old page images with a new book (8 Nov 2026: 108 -> 54 pages)
+  const imgUrl = n => `/services-catalogue/book/pages/${pad3(n)}.webp?v=${BV}`;
+  const thumbUrl = n => `/services-catalogue/book/thumbs/${pad3(n)}.webp?v=${BV}`;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
@@ -86,7 +87,7 @@
     data: new Map(),   // resolved copies, for synchronous hit-testing in book view
     get(n) {
       if (!this.cache.has(n)) {
-        this.cache.set(n, fetch(`/services-catalogue/book/words/${pad3(n)}.json`).then(r => r.json()).then(d => {
+        this.cache.set(n, fetch(`/services-catalogue/book/words/${pad3(n)}.json?v=${BV}`).then(r => r.json()).then(d => {
           const Q = 10000;
           const w = d.w.map(([t, x, y, ww, h, cw]) => {
             const c = (cw && cw.length === t.length) ? cw.map(v => v / Q) : Array(t.length).fill(ww / Q / Math.max(1, t.length));
@@ -218,8 +219,8 @@
   function ensureText() {
     if (!textPromise) {
       textPromise = Promise.all([
-        fetch('/services-catalogue/book/text.json').then(r => r.json()),
-        fetch('/services-catalogue/book/parts.json').then(r => r.json()).catch(() => ({})),
+        fetch(`/services-catalogue/book/text.json?v=${BV}`).then(r => r.json()),
+        fetch(`/services-catalogue/book/parts.json?v=${BV}`).then(r => r.json()).catch(() => ({})),
       ]).then(([t, parts]) => {
         S.text = t; S.ftext = t.map(fold);
         S.parts = parts;
@@ -367,7 +368,7 @@
   };
 
   // ------------------------------------------------------------------ images: no lazy loading - every page is fetched up front
-  const mdUrl = n => `/services-catalogue/book/md/${pad3(n)}.webp`;
+  const mdUrl = n => `/services-catalogue/book/md/${pad3(n)}.webp?v=${BV}`;
   const Images = {
     hi: false,            // high-DPI or very large screens get the full-resolution pages in the book too
     cache: new Map(),     // url -> HTMLImageElement (keeps the decoded bitmap warm)
@@ -1637,7 +1638,7 @@
   async function boot() {
     let cfg, man;
     try {
-      [cfg, man] = await Promise.all([fetch('/services-catalogue/book/book.json').then(r => r.json()), fetch('/services-catalogue/book/manifest.json').then(r => r.json())]);
+      [cfg, man] = await Promise.all([fetch(`/services-catalogue/book/book.json?v=${BV}`).then(r => r.json()), fetch(`/services-catalogue/book/manifest.json?v=${BV}`).then(r => r.json())]);
     } catch (e) {
       el.stage.innerHTML = '<p style="padding:40px;text-align:center;color:var(--ink-2)">The catalogue could not be loaded. Please reload the page.</p>';
       return;

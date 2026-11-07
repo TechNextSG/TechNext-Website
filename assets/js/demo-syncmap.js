@@ -1,6 +1,6 @@
 /* © TechNext Pte. Ltd. (technext.asia). All rights reserved. This code is not licensed for copying, reuse or AI training. */
 /* Odoo integration page: the sync map. Odoo is the hub; bank feeds, a payment gateway, a
-   marketplace connector, a courier, InvoiceNow (Peppol access point), a BI warehouse and a legacy
+   marketplace connector, a courier, e-invoicing (access provider), a BI warehouse and a legacy
    WMS are the spokes. Webhooks push single events, scheduled jobs move batches on a timer. Every
    message carries an idempotency key; failures retry with exponential backoff and end in a
    dead-letter queue that alerts a person. Take a connector down, watch the backlog, the retries
@@ -20,7 +20,7 @@ TN.demo('syncmap', function (root, K) {
     pay: { n: 'Payment gateway', c: '#3167CA', w: [50, 9], p: [74, 8], t: [['in', 'hook', 2.6, 'pay', 'payment registered against the invoice']] },
     mkt: { n: 'Marketplace connector', c: '#D97B12', w: [86, 16], p: [78, 30], t: [['in', 'hook', 2, 'ord', 'sales order created'], ['out', 'job', 6, 'stk', 'stock levels pushed', [1, 1]]] },
     cour: { n: 'Courier', c: '#7447D6', w: [88, 62], p: [76, 67], t: [['out', 'hook', 3, 'lbl', 'label and tracking number returned'], ['in', 'hook', 3.6, 'trk', 'delivery tracking updated']] },
-    inv: { n: 'InvoiceNow', c: '#1E4691', w: [66, 90], p: [74, 85], t: [['out', 'hook', 4.2, 'einv', 'e-invoice sent through the access point'], ['in', 'job', 10, 'sts', 'e-invoice delivery status updated', [1, 3]]] },
+    inv: { n: 'E-invoicing', c: '#1E4691', w: [66, 90], p: [74, 85], t: [['out', 'hook', 4.2, 'einv', 'e-invoice sent through the access point'], ['in', 'job', 10, 'sts', 'e-invoice delivery status updated', [1, 3]]] },
     bi: { n: 'BI / data warehouse', c: '#6E6E88', w: [34, 90], p: [26, 85], t: [['out', 'job', 12, 'bi', 'extract loaded into the warehouse', [1, 1]]] },
     wms: { n: 'Legacy WMS', c: '#A96B00', w: [12, 62], p: [24, 67], t: [['out', 'job', 7, 'pick', 'pick list sent', [1, 2]], ['in', 'job', 7, 'conf', 'pick confirmed, stock updated', [1, 3]]] }
   };

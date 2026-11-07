@@ -2,7 +2,7 @@
 
 Last updated: 2026-11-08
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business already runs (QuickBooks, Xero, SAP Business One, Excel, POS or in-house), starting with accounting, gives a fixed written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No software is BIR-accredited (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 90+ enterprise clients in 25+ countries.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, ERP, POS or in-house), starting with accounting, gives a fixed written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 90+ enterprise clients in 25+ countries.
 
 ## Contact
 
@@ -17,11 +17,11 @@ Last updated: 2026-11-08
 
 ## Pages
 
-- https://technext.asia/ — Odoo for BIR CAS: Keep Your System: Keep the system you run today. TechNext plugs Odoo Accounting into it for your BIR CAS or CBA books, 2307, SLSP, SAWT and QAP. Odoo Ready Partner.
-- https://technext.asia/bir-adviser-call — Odoo for BIR CAS, Plugged Into Your Current System: Odoo for BIR CAS and CBA in the Philippines. Keep your current system; we plug Odoo in, prepare your samples and quote in writing first.
-- https://technext.asia/bir-cas — Odoo for BIR CAS, Plugged Into Your Current System: Odoo for BIR CAS and CBA in the Philippines. Keep the system you run; we plug Odoo in, prepare your samples and quote in writing first.
-- https://technext.asia/bir-e-invoicing — BIR E-Invoicing and Odoo: Get Ready for 31 Dec 2026: Odoo plug-in for BIR e-invoicing readiness: who is covered, the Permit to Issue and EIS steps, and what it needs. Keep your current system.
-- https://technext.asia/blog — Odoo for BIR CAS: Guides and Odoo 20 News: Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo ERP partner for Philippine SMEs.
+- https://technext.asia/ — Start Your BIR CAS Requirements Today: Keep your system. TechNext adds Odoo as a plug-in in it for your BIR CAS books, 2307, SLSP, SAWT, QAP and e-invoicing. Our own experts, fixed written quote.
+- https://technext.asia/bir-adviser-call — Start Your BIR CAS Requirements: Request a Call: Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts. Request a call; fixed written quote first.
+- https://technext.asia/bir-cas — Start Your BIR CAS Requirements Today: Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
+- https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Get Ready Now, Not in December: Get ready for BIR e-invoicing before 31 Dec 2026. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
+- https://technext.asia/blog — Odoo for BIR CAS: Guides, E-invoicing, Odoo 20 News: Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo ERP partner for Philippine SMEs.
 - https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software PH: Odoo, QuickBooks, Xero, SAP: Odoo, QuickBooks, Xero and SAP Business One compared on what you file with the BIR: 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026.
 - https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and where Odoo fits.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
@@ -53,9 +53,9 @@ Last updated: 2026-11-08
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
-- https://technext.asia/company — About TechNext: Odoo ERP Partner for SMEs: TechNext Pte. Ltd. (UEN 202699888G) is an Odoo ERP partner for SMEs: Odoo plugged into your current system, set up for BIR. HQ Singapore, hub in Taguig.
+- https://technext.asia/company — TechNext: Your Odoo ERP Partner for BIR CAS: TechNext (UEN 202699888G): 142 ERP projects, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
 - https://technext.asia/nexi-explains — Nexi Explains: Odoo, AI and tech videos by TechNext: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
-- https://technext.asia/odoo/apps — Odoo Apps List — every module, by category: The full Odoo app catalogue by category — Finance, Sales, Websites, Supply Chain, HR, Marketing, Services and Productivity — with our focus apps marked.
+- https://technext.asia/odoo/apps — Odoo Apps List: Start With Accounting for BIR CAS: Every Odoo app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 ERP projects, fixed written quote.
 - https://technext.asia/odoo/apps/accounting — Odoo Accounting Philippines: BIR Reports Set Up: Odoo Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
 - https://technext.asia/odoo/apps/ai — Odoo AI App (built-in AI agents) — Singapore & PH: Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Set up for you.
 - https://technext.asia/odoo/apps/appointments — Odoo Appointments in Singapore & the Philippines: Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Set up for you.
@@ -106,16 +106,16 @@ Last updated: 2026-11-08
 - https://technext.asia/odoo/apps/voip — Odoo Phone (VoIP) — Singapore & Philippines: Odoo Phone implemented by TechNext, an Odoo Partner in Singapore. Calls over VoIP from inside Odoo. Set up for you.
 - https://technext.asia/odoo/apps/website-builder — Odoo Website Builder in Singapore & the Philippines: Odoo Website Builder implemented by TechNext, an Odoo Partner in Singapore. Drag-and-drop pages with SEO tools. Set up for you.
 - https://technext.asia/odoo/apps/whatsapp — Odoo WhatsApp in Singapore & the Philippines: Odoo WhatsApp implemented by TechNext, an Odoo Partner in Singapore. Templates and conversations. Set up for you.
-- https://technext.asia/odoo/crm-development — Odoo CRM Customization — Pipelines & Lead Routing: Odoo CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups shaped around how you sell, so no enquiry goes cold.
-- https://technext.asia/odoo/discovery — Odoo Discovery for SMEs: Scope and Fixed Quote: TechNext maps the system you run today and how Odoo plugs in beside it, accounting and BIR first, then gives a fixed, written quote before any work.
-- https://technext.asia/odoo/erp-system — Odoo Customisation for SMEs: Plug-in, Upgrade-safe: Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and reports, plugged in beside your current system. Fixed written quote.
-- https://technext.asia/odoo/integration — Odoo Plug-in: Keep Your System, Add Odoo for BIR: Keep QuickBooks, Xero, SAP B1 or Excel. TechNext plugs Odoo in beside it for accounting and BIR outputs, with a fixed written quote first.
-- https://technext.asia/odoo/philippines — Odoo Philippines: Plug-In for BIR CAS: Odoo for Philippine SMEs. Keep your current system; we plug Odoo in for CAS/CBA books, 2307, SLSP, SAWT, QAP and 2550Q. Fixed written quote first.
-- https://technext.asia/odoo/support — Odoo Support & Maintenance — TechNext Care: Odoo support and maintenance in Singapore and the Philippines: fixes, month-end help and upgrades from the team that set up your system. TechNext Care.
-- https://technext.asia/odoo/training — Odoo Training on Your Own Data — SG & PH: Odoo training in Singapore and the Philippines: each team learns its own screens on your own data, so you go live without Odoo experts of your own.
+- https://technext.asia/odoo/crm-development — Odoo CRM Customization: Never Lose a Lead Again: Odoo CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Fixed written quote, in-house team.
+- https://technext.asia/odoo/discovery — Odoo Discovery: Scope Your BIR CAS Set-up First: Start with an Odoo discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a fixed written quote. Keep your system.
+- https://technext.asia/odoo/erp-system — Odoo Customisation for SMEs: Build It Upgrade-safe: Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, with Odoo as a plug-in in your system. Fixed written quote.
+- https://technext.asia/odoo/integration — Odoo Integration for BIR CAS: Keep Your System: Keep your current system. TechNext, with 142 ERP projects behind it, adds Odoo as a plug-in in your system and starts your BIR CAS set-up. Fixed written quote.
+- https://technext.asia/odoo/philippines — Odoo Philippines: Start Your BIR CAS Set-Up Today: Odoo for Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, fixed written quote first.
+- https://technext.asia/odoo/support — Odoo Support: One Partner After Go-live: Odoo support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
+- https://technext.asia/odoo/training — Odoo Training: Team Ready for BIR CAS and Go-live: Odoo training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Fixed written quote.
 - https://technext.asia/odoo/vietnam — Odoo for Vietnam: Circular 99, SInvoice, 01/GTGT: Odoo for SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, plugged in beside your current system, with a fixed written quote.
-- https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP for Groups: Full Odoo ERP for groups, rolled out one entity at a time, or start as a plug-in beside your current system, on a fixed written quote.
-- https://technext.asia/solutions/odoo-erp — Odoo ERP for SMEs in the Philippines: A full Odoo ERP when you are ready, or start as a plug-in beside your current system, with a fixed written quote. Set up a meeting.
+- https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP: One Group, One Odoo: Run every company in your group on one Odoo, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Fixed written quote.
+- https://technext.asia/solutions/odoo-erp — Odoo ERP Philippines: Start With BIR CAS Today: Odoo ERP for SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 ERP projects, fixed written quote.
 - https://technext.asia/team/aj-cubilla — AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner: AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
 - https://technext.asia/team/clement-koh — Clement Koh, CEO | TechNext Odoo Partner: Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
 - https://technext.asia/team/jeric-bulayungan — Jeric Bulayungan, Business Development: Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
@@ -125,6 +125,7 @@ Last updated: 2026-11-08
 - https://technext.asia/team/pia-cachola — Pia Cachola, General Manager | TechNext Odoo Partner: Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver. General Manager at TechNext, an Odoo Ready Partner.
 - https://technext.asia/team/rex-polintang — Rex Polintang, IT Developer Expert | TechNext Odoo Partner: Rex keeps the systems and networks behind a business running. IT Developer Expert at TechNext, an Odoo Ready Partner in Singapore.
 - https://technext.asia/team/rico-duque — Rico Duque, Marketing Officer | TechNext Odoo Partner: Rico runs marketing end to end, from website design, structure and SEO to social media and brand design. Marketing Officer at TechNext, an Odoo Ready Partner.
+- https://technext.asia/team/rj-sarreal — RJ Sarreal, Project Manager | TechNext Odoo Partner: RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. Project Manager at TechNext, an Odoo Ready Partner in Singapore.
 
 ## Questions and answers
 
@@ -136,7 +137,7 @@ Source: https://technext.asia/bir-adviser-call
 
 ### Is TechNext BIR-accredited?
 
-No, and no software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.
+No, and no accounting software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.
 
 Source: https://technext.asia/bir-adviser-call
 
@@ -208,7 +209,7 @@ Source: https://technext.asia/bir-cas
 
 ### What is the BIR e-invoicing deadline?
 
-Covered taxpayers must issue compliant electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
+Covered taxpayers must issue electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
 
 Source: https://technext.asia/bir-e-invoicing
 
@@ -226,7 +227,7 @@ Source: https://technext.asia/bir-e-invoicing
 
 ### Is Odoo BIR compliant?
 
-No software is certified as BIR compliant: the BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), and the permit is issued to your business for the system you register. Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover an EIS connection, and TechNext has not built one; we assess what one needs and plan it as separate work. You file your CAS and e-invoicing applications with the BIR yourself. See BIR rules for your accounting system .
+No accounting software is certified as BIR compliant: the BIR does not accredit accounting software brands, it has not accredited or endorsed any e-invoicing service provider (BIR advisory, 14 September 2026), and the permit is issued to your business for the system you register. Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover an EIS connection, and TechNext has not built one; we assess what one needs and plan it as separate work. You file your CAS and e-invoicing applications with the BIR yourself. See BIR rules for your accounting system .
 
 Source: https://technext.asia/bir-e-invoicing
 
@@ -532,7 +533,7 @@ Source: https://technext.asia/blog/bir-pos-accreditation-ptu-requirements
 
 ### Is Odoo BIR-accredited?
 
-No software brand is "BIR-accredited" in the way the question suggests. The BIR registers your books and issues your PTI for the system you use, and as of its 14 September 2026 advisory it had not accredited any e-invoicing service provider. Your business can register Odoo as its computerised books and use it for its PTI application.
+No accounting software brand is "BIR-accredited" in the way the question suggests. The BIR registers your books and issues your PTI for the system you use, and as of its 14 September 2026 advisory it had not accredited any e-invoicing service provider. Your business can register Odoo as its computerised books and use it for its PTI application.
 
 Source: https://technext.asia/blog/bir-rules-for-your-accounting-system
 
@@ -1072,19 +1073,19 @@ Source: https://technext.asia/blog/what-is-erp
 
 ### Where is TechNext based?
 
-Our headquarters is at 261 Waterloo Street #03-36, Singapore 180261. Our main development and consulting hub is at Level 9, IP Center, Taguig City, Metro Manila, and our engineering hub is at 62 Nguyễn Thị Nhung, Phường Hiệp Bình, Ho Chi Minh City. We work on-site in Singapore and remotely with clients in 25+ countries.
+TechNext is headquartered at 261 Waterloo Street #03-36, Singapore 180261. Our main hub is at Level 9, IP Center, Taguig City, Metro Manila, and our engineering hub is in Ho Chi Minh City.
 
 Source: https://technext.asia/company
 
 ### Is TechNext an Odoo partner?
 
-Yes. TechNext Pte. Ltd. is an Odoo Ready Partner in Singapore, listed in Odoo's partner directory . We implement Odoo end to end: discovery, configuration, data migration, training, integration and support. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.
+Yes. TechNext Pte. Ltd. is an Odoo Ready Partner in Singapore, listed in Odoo's partner directory . We implement Odoo end to end. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.
 
 Source: https://technext.asia/company
 
 ### Do we have to replace our current system to use Odoo?
 
-No. TechNext plugs Odoo in beside the system you already run, such as QuickBooks, Xero, SAP Business One, Excel or a POS, and starts with Accounting and BIR set-up. You can add more Odoo apps later.
+No. TechNext sets up Odoo as a plug-in in your system, beside your current accounting software, ERP, POS or spreadsheets, and starts with Accounting and BIR set-up. You can add more Odoo apps later.
 
 Source: https://technext.asia/company
 
@@ -1102,7 +1103,7 @@ Source: https://technext.asia/company
 
 ### Do we have to replace our current system?
 
-No. Most clients keep the system they run today, such as QuickBooks, Xero, SAP Business One, a POS or an in-house system, and use Odoo for the books and BIR forms. We connect the two so the data you need lands in Odoo. If you later want more of your business in Odoo, it grows app by app.
+No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, ERP, POS or in-house system, and Odoo produces the books and BIR forms from the data we bring in. Later, Odoo can grow app by app.
 
 Source: https://technext.asia/
 
@@ -1114,7 +1115,7 @@ Source: https://technext.asia/
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA at its Revenue District Office. TechNext is not affiliated with or acting for the BIR. See BIR rules for your accounting system .
+No accounting software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA at its Revenue District Office. TechNext is not affiliated with or acting for the BIR. See BIR rules for your accounting system .
 
 Source: https://technext.asia/
 
@@ -1132,49 +1133,49 @@ Source: https://technext.asia/
 
 ### Which Odoo apps should we start with?
 
-Most companies start with Accounting, Sales and Inventory, the apps where money and stock move, and add the rest once the first phase is running.
+Most companies start with Accounting, then Sales and Inventory, the apps where money and stock move. In the Philippines, Accounting comes first for BIR CAS set-up.
 
 Source: https://technext.asia/odoo/apps
 
 ### Can we add Odoo apps later?
 
-Yes. Every Odoo app shares the same database, so adding an app later needs no integration project; it uses the customers, products and accounts already in Odoo.
+Yes. Every Odoo app shares one database, so adding an app later needs no integration project.
 
 Source: https://technext.asia/odoo/apps
 
 ### Does TechNext implement every Odoo app?
 
-We implement the full suite, and our first focus is Accounting, Sales and Inventory. Each app page explains how we set it up.
+TechNext implements the full suite, and our first focus is Accounting, Sales and Inventory. Each app page explains how we set it up.
 
 Source: https://technext.asia/odoo/apps
 
 ### Isn't Odoo CRM fine out of the box?
 
-It's a solid pipeline as-is. The value is in matching it to how you actually sell (your stages, your routing, your fields) and connecting it to Sales so nothing gets re-keyed.
+It is a solid pipeline as-is. TechNext's value is matching it to how you sell and connecting it to Sales so nothing is re-keyed.
 
 Source: https://technext.asia/odoo/crm-development
 
 ### Where do leads come from?
 
-Website forms, email aliases, WhatsApp and social can all create leads automatically. We set up capture for the channels you use and route each lead by your rules.
+Web forms, email, WhatsApp and social can all create leads. We set up the channels you use.
 
 Source: https://technext.asia/odoo/crm-development
 
 ### How are leads assigned?
 
-By whatever rule fits: round-robin, territory, product or deal value. Scheduled activities then make sure every opportunity has an owner and a next step.
+By round-robin, territory, product or deal value, so every opportunity has an owner and a next step.
 
 Source: https://technext.asia/odoo/crm-development
 
 ### What happens when a deal is won?
 
-The won opportunity opens a quotation with the customer, products and pricelist already filled in. From there it flows into Sales, Inventory and Accounting on the same record.
+It opens a quotation with the customer and products filled in, then flows into Sales, Inventory and Accounting.
 
 Source: https://technext.asia/odoo/crm-development
 
 ### How is this priced?
 
-It depends on your pipeline, lead sources and integrations, so it's scoped first. Walk us through your last ten deals in a meeting and we'll come back with a plan and a fixed, written quote before any work starts.
+It depends on your pipeline and lead sources. Walk TechNext through your last ten deals and get a fixed, written quote before any work starts.
 
 Source: https://technext.asia/odoo/crm-development
 
@@ -1210,55 +1211,55 @@ Source: https://technext.asia/odoo/discovery
 
 ### How much does discovery cost?
 
-It is sized to the flows and teams in scope, and affordable for SMEs. Tell us what you run in a meeting and we come back with a fixed, written quote before any work starts.
+It is sized to the flows and teams in scope, and affordable for SMEs. TechNext gives a fixed, written quote before any work starts.
 
 Source: https://technext.asia/odoo/discovery
 
 ### What is an all-in-one ERP?
 
-One database where sales, stock, purchasing and accounting share the same records, instead of separate apps that don't talk to each other and have to be reconciled by hand.
+One database where sales, stock, purchasing and accounting share the same records, so nothing is reconciled by hand.
 
 Source: https://technext.asia/odoo/erp-system
 
 ### Do we need every module at once?
 
-No. Modules are switched on as you need them. Most companies start with Accounting, Sales and Inventory and add more as they grow.
+No. Most companies start with Accounting , Sales and Inventory and add more as they grow.
 
 Source: https://technext.asia/odoo/erp-system
 
 ### Where does Odoo run?
 
-Odoo Online for the fastest start on standard apps, Odoo.sh when you need custom development, or on-premise / your own cloud when data residency or existing infrastructure decides it. We help you choose.
+Odoo Online for the fastest start, Odoo.sh for custom development, or on-premise when data residency decides. We help you choose.
 
 Source: https://technext.asia/odoo/erp-system
 
 ### Will customisation break future upgrades?
 
-We build to keep upgrades manageable; each upgrade is still tested on staging. Customisations live in separate modules, are tested and documented, and never edit Odoo's own code, so the upgrade path is easier to plan.
+We build to keep upgrades manageable. Customisations live in separate modules and never edit Odoo's own code; each upgrade is still tested on staging.
 
 Source: https://technext.asia/odoo/erp-system
 
 ### Do the licences cost extra?
 
-Odoo licences are billed by Odoo per user per month. Our implementation and customisation work is quoted separately, so you can see each part clearly.
+Odoo licences are billed by Odoo per user per month. TechNext's work is quoted separately.
 
 Source: https://technext.asia/odoo/erp-system
 
 ### How is it priced?
 
-It is scoped to the apps, data and customisation you need, and you get a fixed, written quote before any work starts. Set up a meeting to get it.
+You get a fixed, written quote before any work starts, scoped to your apps and customisation. Set up a meeting to get it.
 
 Source: https://technext.asia/odoo/erp-system
 
-### Do we have to replace QuickBooks, Xero or our current system?
+### Do we have to replace our current accounting software or system?
 
-No. TechNext plugs Odoo in beside the system you already run, so your team keeps working in it while Odoo takes over accounting and the BIR outputs. You can move more across later, or never.
+No. TechNext adds Odoo as a plug-in in your system , so your team keeps working as now while Odoo takes over accounting and the BIR outputs. You can move more across later, or never.
 
 Source: https://technext.asia/odoo/integration
 
 ### What data moves into Odoo?
 
-Usually invoices, bills, payments, customers, vendors and your chart of accounts, plus bank statement lines through a bank feed. We map each flow field by field and agree its direction in writing before anything is switched on.
+Usually invoices, bills, payments, customers, vendors, your chart of accounts and bank statement lines. We agree each flow in writing before anything is switched on.
 
 Source: https://technext.asia/odoo/integration
 
@@ -1268,15 +1269,15 @@ Anything you want to keep there: day-to-day entry, specialist tools, POS or in-h
 
 Source: https://technext.asia/odoo/integration
 
-### How long does the plug-in take?
+### How long does it take to add Odoo as a plug-in?
 
-It depends on your current system, how much data comes across and which outputs you need first. TechNext sets the schedule in a short adviser meeting and writes it into the quote, so you plan against an agreed timeline.
+It depends on your current system, the data and which outputs you need first. TechNext sets the schedule in a short adviser meeting and writes it into the quote.
 
 Source: https://technext.asia/odoo/integration
 
-### Is the Odoo plug-in affordable for an SME?
+### Is adding Odoo as a plug-in affordable for an SME?
 
-Yes. TechNext is an affordable Odoo partner for SMEs: you can start with Accounting only and get a fixed, written quote before any work starts. Odoo's own subscription is paid to Odoo.
+Yes. TechNext is an affordable Odoo partner for SMEs: you can start with Accounting only and get a fixed, written quote before any work starts. Odoo's own subscription is paid to Odoo. Set up a meeting to start.
 
 Source: https://technext.asia/odoo/integration
 
@@ -1288,7 +1289,7 @@ Source: https://technext.asia/odoo/philippines
 
 ### Is Odoo BIR-accredited?
 
-No, and no software is. Odoo 20's Philippine localisation produces the data for the recurring BIR reports: invoices set up for BIR and CAS requirements, a Book of Accounts for CAS and CBA, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. It is not a BIR registration in itself: you file your CAS and e-invoicing applications with the BIR yourself, and TechNext helps you prepare the Odoo outputs for them. The BIR has not accredited or endorsed any software or e-invoicing provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register. See BIR rules for your accounting system .
+No, and no accounting software is. Odoo 20's Philippine localisation produces the data for the recurring BIR reports: invoices set up for BIR and CAS requirements, a Book of Accounts for CAS and CBA, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. It is not a BIR registration in itself: you file your CAS and e-invoicing applications with the BIR yourself, and TechNext helps you prepare the Odoo outputs for them. The BIR does not accredit accounting software brands, and it has not accredited or endorsed any e-invoicing service provider (BIR advisory, 14 September 2026), so treat any "BIR-accredited" claim with care: the permit is issued to your business for the system you register. See BIR rules for your accounting system .
 
 Source: https://technext.asia/odoo/philippines
 
@@ -1348,7 +1349,7 @@ Source: https://technext.asia/odoo/support
 
 ### What is TechNext Care?
 
-Our monthly plan after go-live, in three levels. Essentials covers Odoo support and upgrades; Growth adds improvements, new reports and workflow changes; Full team adds a quarterly roadmap review. It means you don't need to hire your own team for any of it.
+TechNext Care is our monthly plan after go-live, in three levels: Essentials, Growth and Full team. You do not need to hire your own Odoo team.
 
 Source: https://technext.asia/odoo/support
 
@@ -1384,7 +1385,7 @@ Source: https://technext.asia/odoo/training
 
 ### How much does training cost?
 
-It is sized to the teams and sessions involved and kept affordable for SMEs. You get a fixed, written quote before any work starts. Set up a meeting to get it.
+Training is sized to the teams and sessions involved and kept affordable for SMEs. TechNext gives a fixed, written quote before any work starts.
 
 Source: https://technext.asia/odoo/training
 
@@ -1432,91 +1433,91 @@ Source: https://technext.asia/odoo/vietnam
 
 ### Do all entities have to go live at once?
 
-No. We implement a pilot entity first, then roll the template out company by company. Each entity goes live when it's ready.
+No. We implement a pilot entity first, then roll out company by company. Each entity goes live when ready.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### How does consolidation work?
 
-Group P&L, balance sheet and cash are produced from the same database, with inter-company eliminations handled by the system. There's no separate month of spreadsheet consolidation.
+Group P&L, balance sheet and cash come from the same database, with eliminations done in Odoo, so there is no spreadsheet consolidation.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### Can each country keep its own tax rules?
 
-Yes. Every entity uses its country's localisation for chart of accounts, tax and statutory reporting, while the group reports roll up in one currency.
+Yes. Every entity uses its own country localisation, and group reports roll up in one currency.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### Who can see what?
 
-Access is controlled by granular rights and record rules per entity, with approval chains and audit trails. People see their company's data and only the group views you grant.
+People see their own company's data and only the group views you grant, with approval chains and audit trails.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### Where does the group's data live?
 
-Usually on Odoo.sh, with staging and version control; on your own cloud where data residency requires it. We decide per region during discovery.
+Usually on Odoo.sh; on your own cloud where data residency requires it. We decide per region in discovery.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### How is a group project priced?
 
-By the entities, countries, integrations and custom work involved, so it's scoped and quoted rather than listed. Tell us how the group is structured and we'll come back with a phased, fixed written quote before any work starts.
+By the entities, countries and integrations involved. Tell us how the group is structured and TechNext will return a phased, fixed written quote before any work starts.
 
 Source: https://technext.asia/solutions/enterprise
 
 ### Can Odoo handle BIR reporting?
 
-Yes, with the Philippine localisation set up for your company. Odoo produces the 2307 per payee, the SLSP, SAWT and QAP as DAT files for the BIR's tools, and the 2550Q VAT summary, from the invoices and bills you post, and it can serve as your computerised books. Which reports you file is scoped in discovery. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.
+Yes, TechNext sets up Odoo's Philippine localisation for your company. Odoo produces the 2307, SLSP, SAWT, QAP and 2550Q from the invoices and bills you post, and can serve as your computerised books. Odoo has no built-in EIS connection, and TechNext has not built one; if you are covered, we assess options and quote separately.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### Is Odoo BIR-accredited?
 
-No software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use, and its 14 September 2026 advisory says it has not accredited any e-invoicing provider. We set Odoo up for BIR requirements; your business registers it as its books. See BIR rules for your accounting system .
+No accounting software is BIR-accredited in that sense. The BIR registers your books and issues your Permit to Issue for the system you use. We set Odoo up for BIR requirements; your business registers it as its books. See BIR rules for your accounting system .
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### How long does an Odoo implementation take?
 
-It depends on scope: how many apps, how much data has to be migrated, how many entities, branches and integrations, and whether any custom module is needed. We set the timeline in discovery and write it into the quote, so you plan against an agreed schedule rather than a guess.
+It depends on the apps, data, entities and integrations involved. We set the timeline in discovery and write it into the quote.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### Which apps should we start with?
 
-Usually the ones causing the most manual work today. For many companies that is Accounting, Sales and Inventory, because they share the same products, partners and journals. We confirm the order in discovery.
+Usually the ones causing the most manual work today, often Accounting, Sales and Inventory. We confirm the order in discovery.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### Can we keep some of our existing systems?
 
-Yes. If a system works and your team likes it, we connect it through a standard connector or the Odoo API instead of replacing it.
+Yes. That is the idea of Odoo as a plug-in in your system : if a system works, we connect Odoo to it instead of replacing it.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### What happens to our historical data?
 
-Master data (customers, vendors, products) comes across in full. For transactions we usually bring opening balances and open items, and keep the old system available for history. We agree the exact scope in discovery.
+Customers, vendors and products come across in full. For transactions we usually bring opening balances and open items, and keep the old system for history.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### Do you build custom features?
 
-Only when a real requirement can't be met by a standard feature. Custom work is built as a module on Odoo.sh, so it survives upgrades and stays version-controlled.
+Only when standard Odoo cannot meet a real need. Custom work is a separate module, so it survives upgrades.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### Where will Odoo run?
 
-On Odoo Online, Odoo.sh or your own infrastructure. It is a scoping decision driven by whether you need custom modules and any data-residency rules, not a default.
+On Odoo Online, Odoo.sh or your own infrastructure, depending on custom modules and data-residency rules.
 
 Source: https://technext.asia/solutions/odoo-erp
 
 ### What does an implementation cost?
 
-Every implementation is scoped to the apps, data and integrations you need, so TechNext gives you a fixed, written quote before any work starts. Starting with Accounting only keeps it affordable for an SME. Set up a meeting and tell us what is manual today.
+TechNext gives you a fixed, written quote before any work starts, scoped to the apps, data and integrations you need. Starting with Accounting only keeps it affordable for an SME. Set up a meeting and tell us what is manual today.
 
 Source: https://technext.asia/solutions/odoo-erp
 

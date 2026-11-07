@@ -1,4 +1,4 @@
-<!--meta {"title": "Odoo for BIR CAS, Plugged Into Your Current System", "desc": "Odoo for BIR CAS and CBA in the Philippines. Keep your current system; we plug Odoo in, prepare your samples and quote in writing first.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/adviser-call-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/experts.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Start Your BIR CAS Requirements: Request a Call", "desc": "Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts. Request a call; fixed written quote first.", "out": "bir-adviser-call.html", "nav": "", "scripts": ["assets/js/pages/get-started-fx.js", "assets/js/pages/industry-fx.js", "assets/js/pages/fw-needs.js"], "body": "fx-page gs-page gs-fx fw-fx", "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/get-started-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/industry-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/adviser-call-fx.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/experts.css?v={ASSET_V}\">"} -->
 <!-- /bir-adviser-call (was /bir-adviser-call until 23 Oct 2026; 22 Oct 2026, owner: "more lean on BIR, title should be a question hook to viewer, the content will change base on clients needs").
      The H1 is a question. The need (chips + form select removed 29 Oct 2026, owner) swaps the H1 question, the answer, the lead, the Today / In Odoo pair and the live
      sample Odoo panel in place, and sets the form's "Biggest BIR headache". ?need=<key> opens the page on that need (ads link to it).
@@ -10,11 +10,12 @@
   <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container fw-hero-in">
     <div class="fw-copy">
-      <p class="fw-deadline">{{icon:file}}<span><b>BIR CAS / CBA</b> registration papers, prepared from Odoo plugged into your system</span></p>
+      <p class="fw-deadline">{{icon:file}}<span><b>BIR CAS / CBA set-up</b> · Odoo as a plug-in in your system</span></p>
       <h1 id="fw-h1" data-fw="h1"><span class="fw-q">{{FW_NEEDS_H1}}</span> <em data-fw="answer">{{FW_NEEDS_ANSWER}}</em></h1>
       <p class="lead fw-hero-lead"><span data-fw="lead">{{FW_NEEDS_LEAD}}</span> <span class="fw-offer">{{FW_NEEDS_OFFER}}</span></p>
+      <p class="small muted fw-proof"><strong>142 ERP projects</strong> · 90+ enterprise clients · 25+ countries · own experts in Taguig City · fixed written quote · keep your current system</p>
       <div class="actions fw-act">
-        <a class="btn btn-ghost btn-lg" href="#book" data-to-form>Set up a meeting</a>
+        <a class="btn btn-ghost btn-lg" href="#book" data-to-form>Request a call</a>
       </div>
       <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
     </div>
@@ -39,10 +40,10 @@
           <div class="field"><label for="gs-name">Full name <span class="opt">(optional)</span></label><input id="gs-name" name="name" type="text" autocomplete="name"></div>
           <div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
-        <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. QuickBooks + Excel today, 2 branches, new system to register as a CAS"></textarea></div>
+        <div class="field"><label for="gs-msg">Message</label><textarea id="gs-msg" name="message" rows="3" placeholder="e.g. spreadsheets and our current accounting software today, 2 branches, new system to register as a CAS"></textarea></div>
       </fieldset>
       <div class="form-foot">
-        <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Set up a meeting</span><span class="btn-busy" aria-hidden="true"></span></button>
+        <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">Request my call</span><span class="btn-busy" aria-hidden="true"></span></button>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
       <div class="form-sent"><h3>Thanks, we have it.</h3><p>An adviser will reply from sales@technext.asia to book your adviser call.</p></div>
@@ -60,13 +61,14 @@
   <div class="container fw-claim-grid">
     <div class="fw-claim-copy reveal">
       <h2 id="fw-ans-h">What it looks like in your Odoo.</h2>
-      <p class="lead">The sample record follows the need you picked above. On the call, an adviser walks you through the same screens for your own business.</p>
+      <p class="lead">On the call, an adviser walks you through <strong>the same screens for your own business</strong>.</p>
       <ul class="gs-ticks">
         <li>{{icon:check}} An adviser talks through your likely BIR group with you</li>
         <li>{{icon:check}} A plan: how Odoo plugs in beside your current system, and where to start (Accounting only is fine)</li>
         <li>{{icon:check}} The BIR reports Odoo prepares for you</li>
         <li>{{icon:check}} A fixed written quote for your scope before any work starts</li>
       </ul>
+      <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
     </div>
     <div class="fw-side">
       <div class="fw-stage" data-fw-stage>
@@ -86,9 +88,9 @@
     <div class="sec-head reveal"><h2 id="fw-check-h">How many of these happen in your company today?</h2><p class="lead">Tick the ones that sound familiar.</p></div>
     <div class="fw-check reveal">
       <ul class="fw-check-list" id="fw-check">
-        <li><label><input type="checkbox" value="Invoices typed in Word or Excel"><span class="fw-box">{{icon:check}}</span><span><b>Invoices are typed in Word or Excel,</b> with no audit trail behind them.</span></label></li>
+        <li><label><input type="checkbox" value="Invoices typed in Word or spreadsheets"><span class="fw-box">{{icon:check}}</span><span><b>Invoices are typed in Word or spreadsheets,</b> with no audit trail behind them.</span></label></li>
         <li><label><input type="checkbox" value="2307s re-typed every quarter"><span class="fw-box">{{icon:check}}</span><span><b>Someone re-types 2307 certificates every quarter</b> and chases suppliers for the ones that went missing.</span></label></li>
-        <li><label><input type="checkbox" value="SLSP, SAWT, QAP rebuilt in Excel"><span class="fw-box">{{icon:check}}</span><span><b>SLSP, SAWT and QAP are rebuilt in Excel</b> the week they are due, and the totals never match the first time.</span></label></li>
+        <li><label><input type="checkbox" value="SLSP, SAWT, QAP rebuilt in spreadsheets"><span class="fw-box">{{icon:check}}</span><span><b>SLSP, SAWT and QAP are rebuilt in spreadsheets</b> the week they are due, and the totals never match.</span></label></li>
         <li><label><input type="checkbox" value="Sales, stock and books in separate systems"><span class="fw-box">{{icon:check}}</span><span><b>Sales, stock and the books live in separate systems,</b> so month-end starts with reconciling them.</span></label></li>
         <li><label><input type="checkbox" value="Branches invoice their own way"><span class="fw-box">{{icon:check}}</span><span><b>Each branch issues invoices its own way,</b> with its own series, layout or spreadsheet.</span></label></li>
         <li><label><input type="checkbox" value="CAS/CBA paperwork stuck"><span class="fw-box">{{icon:check}}</span><span><b>Your CAS or CBA paperwork keeps stalling</b> on the system description and sample outputs.</span></label></li>
@@ -100,7 +102,7 @@
         <p class="fw-score-n"><span id="fw-count">0</span><small>/ 8</small></p>
         <div class="fw-meter"><span id="fw-meter"></span></div>
         <p class="fw-score-msg" id="fw-msg">Tick what sounds familiar. Your answers stay on this page unless you add them to the form.</p>
-        <a class="btn btn-primary fw-score-btn" href="#book" data-to-form data-carry-check>Talk to an adviser about these {{icon:arrow}}</a>
+        <a class="btn btn-primary fw-score-btn" href="#book" data-to-form data-carry-check>Request a call {{icon:arrow}}</a>
       </aside>
     </div>
   </div>
@@ -109,7 +111,7 @@
 <!-- ============================================================ WHAT THE BIR ASKS -->
 <section class="section fx-sec fx-sec--alt fw-rules-sec" aria-labelledby="fw-rules-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-rules-h">What does the BIR ask for?</h2><p class="lead">RMC 5-2021 lists what goes in a CAS or CBA application and what the system must do. These are the parts that shape your Odoo set-up.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-rules-h">What does the BIR ask for?</h2><p class="lead">RMC 5-2021 lists what goes in a CAS or CBA application. These parts <strong>shape your Odoo set-up</strong>.</p></div>
     <ol class="fw-rules">
       <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>A sworn statement</h3><p>A description of the system and the invoices and reports it produces; a joint one for a cloud system.</p></li>
       <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>Sample invoices</h3><p>Printed from the system you will actually use.</p></li>
@@ -133,6 +135,7 @@
         <p>The BIR registers your business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims, so we don't make them. We set up your Odoo for the BIR's requirements and prepare with you the samples for the CAS or CBA application you file at your RDO; the decision is the RDO's. TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
       </div>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
   </div>
 </section>
 
@@ -141,7 +144,7 @@
   <div class="container fw-split">
     <div class="fw-split-copy reveal">
       <h2 id="fw-o20-h">What does Odoo already do for BIR?</h2>
-      <p class="lead">The Philippine localisation produces your BIR reports from the entries you post. Odoo 20 also logs changes in an audit trail and secures posted entries, which a CAS application has to show.</p>
+      <p class="lead">The Philippine localisation produces your <strong>BIR reports from the entries you post</strong>. It also logs changes in an audit trail and secures posted entries, which a CAS application has to show.</p>
       <p class="fw-links"><a class="btn-link" href="{{ROOT}}bir-cas.html#cas-steps">See how a CAS set-up works {{icon:arrow}}</a></p>
     </div>
     <div class="fw-cols reveal">
@@ -173,7 +176,8 @@
     <div class="fw-why">
       <div class="reveal">
         <h2 id="fw-flow-h">From your sale to your BIR reports, one system beside yours.</h2>
-        <p class="lead">You keep the system you already run. Plugged in beside it, Odoo turns every sale into an invoice set up for the BIR, and every invoice feeds the reports you file. Nothing is typed twice.</p>
+        <p class="lead">You keep the system you run. Odoo, plugged in beside it, turns every sale into an invoice set up for the BIR and feeds the reports you file. <strong>Nothing is typed twice.</strong></p>
+        <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
       </div>
       <ol class="fw-flow reveal" data-loop aria-label="From a sale to BIR reports">
         <li>{{odoo:crm:26}}<span><b>An order is recorded in Odoo, beside your current system</b><small>Sales</small></span></li>
@@ -188,7 +192,7 @@
 <!-- ============================================================ ONE TEAM -->
 <section class="section fx-sec fx-sec--alt" aria-labelledby="fw-team-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-team-h">One team instead of three hires.</h2><p class="lead">Setting Odoo up for the BIR usually means looking for an ERP admin, a systems accountant and a developer. Our own experts cover all of it, and the quote is fixed and written before any work starts.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-team-h">One team instead of three hires.</h2><p class="lead">Setting Odoo up for the BIR usually means hiring an ERP admin, a systems accountant and a developer. <strong>Our own in-house experts cover all of it</strong>, with a fixed written quote first.</p></div>
     <div class="fw-compare reveal">
       <div class="fw-col fw-col--diy">
         <h3>Hiring your own</h3>
@@ -202,20 +206,21 @@
       <div class="fw-col fw-col--tn">
         <h3>TechNext as your team</h3>
         <ul>
-          <li>{{icon:check}} Odoo and BIR set-up from one affordable team</li>
+          <li>{{icon:check}} Odoo and BIR set-up from one in-house team</li>
           <li>{{icon:check}} The people who set up your system support it</li>
           <li>{{icon:check}} One channel for every request, tracked to done</li>
           <li>{{icon:check}} ERP experts in 25+ countries, and growing</li>
         </ul>
       </div>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
   </div>
 </section>
 
 <!-- ============================================================ CARE -->
 <section class="section fx-sec" id="care" aria-labelledby="fw-care-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-care-h">TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo and your BIR set-up running beside your current system. Sized to your users and apps.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-care-h">TechNext Care: your team, every month.</h2><p class="lead">A monthly plan that keeps Odoo and your BIR set-up running, <strong>sized to your users and apps</strong>.</p></div>
     <div class="fw-care">
       <article class="fw-tier reveal">
         <h3>Essentials</h3>
@@ -248,6 +253,7 @@
         </ul>
       </article>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
   </div>
 </section>
 
@@ -256,12 +262,13 @@
   <div class="container">
     <div class="sec-head reveal"><h2 id="fw-steps-h">From "CAS or CBA?" to live in Odoo.</h2></div>
     <ol class="gs-steps fw-steps" data-loop>
-      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Adviser call</h3><p>A short call with an adviser: CAS or CBA, head office and branches, how you invoice today, and where it hurts.</p></li>
+      <li class="reveal" style="--i:0"><span class="gs-n">1</span><h3>Adviser call</h3><p>CAS or CBA, head office and branches, how you invoice today, and where it hurts.</p></li>
       <li class="reveal" style="--i:1"><span class="gs-n">2</span><h3>See your plan</h3><p>We recommend where to start (Accounting only is fine) and say why, with a fixed written quote.</p></li>
       <li class="reveal" style="--i:2"><span class="gs-n">3</span><h3>Set up and test</h3><p>Taxes, withholding, the audit trail and BIR reports, tested on a copy of your data.</p></li>
       <li class="reveal" style="--i:3"><span class="gs-n">4</span><h3>Go live together</h3><p>You file your CAS or CBA application with the samples we prepared together; your Odoo goes live with your team trained.</p></li>
       <li class="reveal" style="--i:4"><span class="gs-n">5</span><h3>We stay on</h3><p>TechNext Care keeps your Odoo and BIR reports running every month; you file with the BIR.</p></li>
     </ol>
+    <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
   </div>
 </section>
 
@@ -271,11 +278,12 @@
     <div class="sec-head reveal"><h2 id="fw-faq-h">BIR and Odoo, answered.</h2></div>
     <div class="faq reveal">
       <details><summary>Do we need a CAS or a CBA? {{icon:chevron}}</summary><div class="faq-a"><p>RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant on the first call, and your RDO can confirm it.</p></div></details>
-      <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and no software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.</p></div></details>
+      <details><summary>Is TechNext BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No, and no accounting software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.</p></div></details>
       <details><summary>Can Odoo produce our 2307s, SLSP, SAWT and QAP? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Odoo's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.</p></div></details>
       <details><summary>We already have a CAS permit for our current system. What happens? {{icon:chevron}}</summary><div class="faq-a"><p>A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.</p></div></details>
       <details><summary>Who do you work with? {{icon:chevron}}</summary><div class="faq-a"><p>Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.</p></div></details>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="#book" data-to-form>Request a call {{icon:arrow}}</a></p>
   </div>
 </section>
 
@@ -284,10 +292,9 @@
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>Registering your CAS or CBA?</h2><p>Keep your system; we plug Odoo in beside it. Fill in the short form (about a minute) and an adviser replies from sales@technext.asia. Any work starts with a fixed written quote.</p></div>
+      <div><h2>Don't wait for the deadline. Start your BIR CAS today.</h2><p>Keep your system; we plug Odoo in beside it. Fill in the short form (about a minute) and an adviser replies from sales@technext.asia. <strong>30 minutes, no charge.</strong> Any work starts with a fixed written quote.</p></div>
       <div class="actions">
-        <a class="btn btn-white btn-lg" href="#book" data-to-form>Book my adviser meeting {{icon:arrow}}</a>
-        <a class="btn btn-outline-white btn-lg" href="#book" data-to-form>Set up a meeting</a>
+        <a class="btn btn-white btn-lg" href="#book" data-to-form>Request a call {{icon:arrow}}</a>
       </div>
     </div>
   </div>

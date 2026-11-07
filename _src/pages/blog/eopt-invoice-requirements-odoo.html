@@ -4,7 +4,7 @@
   <ul>
     <li>Under the <strong>EOPT Act (RA 11976)</strong> and <strong>RR 7-2024</strong>, the <strong>invoice</strong> is the primary proof of sale for goods and services. Official receipts are supplementary.</li>
     <li>VAT-registered sellers issue an invoice for <strong>every sale</strong>. Sales of <strong>P1,000 or more to a VAT-registered buyer</strong> must show the buyer's name, address and TIN.</li>
-    <li>From <strong>16 October 2026</strong>, <strong>RR 6-2026</strong> requires creditable withholding tax, where applicable, to be shown as a separate item. Old invoice stock can be used if stamped <strong>"Less: Withholding Tax"</strong>.</li>
+    <li>From <strong>16 October 2026</strong>, <strong>RR 6-2026</strong> requires creditable withholding tax, where applicable, to be shown as a separate item. Old invoice stock can still be used: stamp <strong>"Less: Withholding Tax"</strong> and the amount only on sales subject to withholding (RMC 112-2026).</li>
     <li>System-generated invoices from a CAS or CBA show the <strong>ACCN, series range and date issued</strong> at the bottom (RR 7-2024 Section 6(B.21)).</li>
     <li>Odoo 20's release notes update Philippine invoices for BIR and CAS requirements. On earlier versions, the standard layout needs a Philippine customisation.</li>
   </ul>
@@ -63,7 +63,7 @@
 <p>Two more traps: a <strong>non-VAT seller</strong> that issues a VAT invoice owes the VAT anyway, and a VAT-exempt sale invoiced without the "VAT-Exempt" label can be taxed as if the exemption did not apply.</p>
 
 <h2>Old official receipts</h2>
-<p>RR 11-2024 gave two options for unused ORs. You can use them as <strong>supplementary documents</strong>, stamped "not valid for claim of input tax", or <strong>convert them into invoices</strong> by striking out "Official Receipt" and stamping "Invoice". Converted receipts can be used until they run out. System-generated "official receipts" issued after 31 December 2024 are not evidence of a sale. Under RR 6-2026, unused invoice stock without the new withholding line can still be used until it runs out if "Less: Withholding Tax" is stamped conspicuously on its face; invoices printed after that must already carry the phrase.</p>
+<p>RR 11-2024 gave two options for unused ORs. You can use them as <strong>supplementary documents</strong>, stamped "not valid for claim of input tax", or <strong>convert them into invoices</strong> by striking out "Official Receipt" and stamping "Invoice". Converted receipts can be used until they run out. System-generated "official receipts" issued after 31 December 2024 are not evidence of a sale. Under RR 6-2026, unused invoice stock without the new withholding line can still be used until it runs out. RMC 112-2026 (22 October 2026) clarifies that "Less: Withholding Tax" and the amount are stamped only on sales subject to withholding, that invoices printed under a new ATP must carry the line, and that systems have until 31 December 2026 (CAS and CBA covered by e-invoicing) or 31 March 2027 (POS, CRM and other invoicing systems) to add the field, with printed invoices stamped in the meantime.</p>
 
 <h2>Setting up the invoice in Odoo</h2>
 <p>Odoo's Philippine localisation already holds most of the data: your <strong>TIN with branch code</strong> and <strong>RDO</strong> on the company, the customer's TIN on the contact, and default taxes for <strong>12% VAT, zero-rated and exempt</strong> sales. What decides compliance is the printed layout.</p>
@@ -86,12 +86,12 @@
 </ol>
 <p>You don't need to hire your own team. A TechNext adviser reviews your invoices against the rules first, then our team in Taguig City sets up the Odoo layout and series, and we check sample invoices with you against the rules before go-live. <a href="{{ROOT}}bir-e-invoicing.html">See how we set up Odoo for BIR requirements</a>.</p>
 
-<div class="post-note"><p>Rules change. This article reflects RA 11976 (EOPT Act), RR 7-2024, RR 11-2024, RR 6-2026, RMC 77-2024 and RMC 98-2026, read from the law and the BIR's documents or official copies, and the Odoo 19.0 documentation and Odoo 20 release notes, as available on 21 October 2026. It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
+<div class="post-note"><p>Rules change. This article reflects RA 11976 (EOPT Act), RR 7-2024, RR 11-2024, RR 6-2026, RMC 77-2024, RMC 98-2026 and RMC 112-2026, read from the law and the BIR's documents or official copies, and the Odoo 19.0 documentation and Odoo 20 release notes, as available on 21 October 2026 (RMC 112-2026 added on 8 November 2026). It is not tax advice: confirm with your accountant or RDO before you act.</p></div>
 
 <h2>Sources</h2>
 <ul>
   <li><a href="https://lawphil.net/statutes/repacts/ra2024/ra_11976_2024.html" target="_blank" rel="noopener">RA 11976 (EOPT Act)</a>, amending Tax Code Sections 113, 237 and 238</li>
-  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%206-2026.pdf" target="_blank" rel="noopener">RR 6-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2077-2024%20Digest.pdf" target="_blank" rel="noopener">RMC 77-2024 digest</a> (BIR)</li>
+  <li><a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%2011-2024.pdf" target="_blank" rel="noopener">RR 11-2024</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RR%20No.%206-2026.pdf" target="_blank" rel="noopener">RR 6-2026</a>, <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%20112-2026_redacted.pdf" target="_blank" rel="noopener">RMC 112-2026</a> and <a href="https://bir-cdn.bir.gov.ph/BIR/pdf/RMC%20No.%2077-2024%20Digest.pdf" target="_blank" rel="noopener">RMC 77-2024 digest</a> (BIR)</li>
   <li><a href="https://www.grantthornton.com.ph/technical-alerts/tax-alert/2026/bir-issues-guidelines-on-electronic-invoicing-retains-31-dec-2026-deadline/" target="_blank" rel="noopener">Grant Thornton: RMC 98-2026 e-invoicing guidelines</a></li>
   <li><a href="https://kpmg.com/ph/en/insights/2024/04/special-intax-april-2024-issue-1-volume-3.html" target="_blank" rel="noopener">KPMG: RR 7-2024</a></li>
   <li><a href="https://www.grantthornton.com.ph/insights/articles-and-updates1/tax-notes/clarification-on-the-invoicing-requirements-per-rr-no-7-2024-as-amended-by-rr-no-11-2024/" target="_blank" rel="noopener">Grant Thornton: invoicing requirements under RR 7-2024 and RR 11-2024</a></li>
