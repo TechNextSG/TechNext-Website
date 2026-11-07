@@ -802,6 +802,11 @@ def send_now(lead, email=""):
 def follow_up(lead, form, groups, spam):
     """Email the new lead to hello@technext.asia: an internal note with the summary, no @mention, no salesperson.
     Runs after the visitor has their answer."""
+    # the Odoo "Lead gate" automation archives an incomplete lead the moment it is created (8 Nov 2026): no note,
+    # no emails for it (archived records are left out of a search)
+    if not rpc("crm.lead", "search_count", domain=[["id", "=", lead]]):
+        print("lead", lead, "archived by the Odoo lead gate: no note, no emails")
+        return
     to = partners(LEAD_EMAILS)
     if to:
         flag = [("Check first", [("Possible spam", spam)])] if spam else []
