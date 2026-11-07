@@ -197,6 +197,18 @@ Your business files at its RDO or Large Taxpayers office, in person or by email.
 
 Source: https://technext.asia/bir-cas
 
+### What is the difference between CAS and CBA?
+
+A Computerized Accounting System (CAS) runs the whole cycle, including system-generated invoices. If the system keeps the books but invoices are issued by hand, it counts as Computerized Books of Accounts (CBA) under RMO 9-2021. Odoo can be set up for either. See CAS registration requirements .
+
+Source: https://technext.asia/bir-cas
+
+### When must computerized books be registered in ORUS?
+
+Within 30 days after the close of each taxable year (RMC 3-2023), online through ORUS (RMC 4-2026). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027, and loose-leaf books by 15 January 2027, unless the BIR announces otherwise. Your accountant or RDO confirms the dates for your business. See how to register books in ORUS .
+
+Source: https://technext.asia/bir-cas
+
 ### What is the BIR e-invoicing deadline?
 
 Covered taxpayers must issue electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it.
@@ -1079,6 +1091,12 @@ No. TechNext sets up Odoo as a plug-in in your system, beside your current accou
 
 Source: https://technext.asia/company
 
+### Does TechNext implement Odoo in Singapore?
+
+Yes. TechNext is an Odoo Ready Partner headquartered in Singapore. We set Odoo up for Singapore GST and prepare your invoices for InvoiceNow, working with the IMDA-accredited Access Point Provider you choose. IRAS phases InvoiceNow in for existing GST-registered businesses from 1 April 2028 to 1 April 2031. See GST InvoiceNow dates .
+
+Source: https://technext.asia/company
+
 ### What is TechNext's registered name and UEN?
 
 TechNext Pte. Ltd., UEN 202699888G, registered in Singapore.
@@ -1112,6 +1130,12 @@ Source: https://technext.asia/
 ### Can TechNext set Odoo up for our BIR CAS registration?
 
 Yes, on the Odoo side. We set Odoo up for your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) application and prepare the sample invoices, books, reports and audit trail printout with you. You file at your RDO; the decision is the BIR's. How BIR CAS set-up works .
+
+Source: https://technext.asia/
+
+### How long does it take?
+
+It depends on your current system, your data and which outputs you need first. We agree the schedule in the first adviser meeting and write it into your fixed quote. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
 
 Source: https://technext.asia/
 
@@ -1304,6 +1328,12 @@ Source: https://technext.asia/odoo/philippines
 ### Can one Odoo database run our Philippine and Singapore companies?
 
 Yes. Odoo runs a company per country in one database, each with its own localisation, currencies and reports, with intercompany transactions between them.
+
+Source: https://technext.asia/odoo/philippines
+
+### Which BIR deadlines does Odoo help us prepare for?
+
+Odoo prepares the data; your business files. The next dates for calendar-year taxpayers: 2307 certificates within 20 days after the quarter (20 January 2027), the 2550Q within 25 days after the quarter (25 January 2027), computerized books registered in ORUS by 30 January 2027, and the 1604-C and 2316 by 31 January 2027. Covered taxpayers must issue e-invoices by 31 December 2026. Your accountant or RDO confirms what applies to you. See the BIR tax calendar .
 
 Source: https://technext.asia/odoo/philippines
 
