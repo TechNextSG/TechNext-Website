@@ -317,7 +317,7 @@ def _expert_card(p: dict, k: int) -> str:
             f'<div class="xp-body"><p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>'
             f'<p class="xp-sum">{esc(x.get("sum") or p.get("summary") or "")}</p>'
             + (f'<ul class="xp-stats">{stats}</ul>' if stats else "") +
-            f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting {{{{icon:arrow}}}}</a></div>'
+            f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting with {p["name"].split()[0]} {{{{icon:arrow}}}}</a></div>'
             f'</div></article>')   # owner 8 Nov 2026: no "Full profile" link on these cards
 
 

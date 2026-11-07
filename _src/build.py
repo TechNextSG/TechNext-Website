@@ -2404,6 +2404,29 @@ _MEET_A = re.compile(r'<a\b([^>]*)>(\s*(?:<svg[^>]*>.*?</svg>\s*)?Set up a meeti
 _HREF = re.compile(r'\shref="[^"]*"')
 
 
+# owner 8 Nov 2026: "make a variation of hook CTA, apply to all buttons across pages" - every meeting button inside <main>
+# gets a hook label by page topic and position (the last one on the page is the closer); all open the appointment page.
+# The header and the mobile menu keep "Set up a meeting".
+HOOKS = {
+    "cas": ["Start my BIR CAS set-up", "Get my BIR CAS plan", "Talk to an Odoo expert", "Plug Odoo into my system"],
+    "einv": ["Plan my e-invoicing set-up", "Talk to an Odoo expert", "Get my Odoo plan", "Book my free 30-min call"],
+    "app": ["See it on my data", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
+    "gen": ["Book my free 30-min call", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
+}
+HOOK_LAST = {"cas": "Start my BIR CAS today", "einv": "Start my e-invoicing plan today", "app": "Start my BIR CAS set-up",
+             "gen": "Start my BIR CAS today"}
+
+
+def _hook_topic(out_rel: str) -> str:
+    if "e-invoicing" in out_rel:
+        return "einv"
+    if out_rel.startswith("odoo/apps/"):
+        return "app"
+    if out_rel in ("index.html", "bir-cas.html", "odoo/philippines.html", "bir-adviser-call.html", "bir-call.html") or "bir" in out_rel:
+        return "cas"
+    return "gen"
+
+
 def meeting_ctas(html: str, out_rel: str) -> str:
     html = re.sub(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"', f'href="{BOOK_URL}"', html)
 
@@ -2411,7 +2434,26 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         attrs = _HREF.sub("", m.group(1))
         attrs = re.sub(r'\s(?:target|rel)="[^"]*"|\sdata-meet(?:-cta)?(?=[\s>]|$)', "", attrs)
         return f'<a{attrs} href="{BOOK_URL}" target="_blank" rel="noopener" data-meet>{m.group(2)}'
-    return _MEET_A.sub(fix, html)
+    html = _MEET_A.sub(fix, html)
+    i, j = html.find("<main"), html.rfind("</main>")
+    if i < 0 or j < 0:
+        return html
+    main = html[i:j]
+    topic = _hook_topic(out_rel)
+    found = list(re.finditer(r'(<a\b[^>]*data-meet[^>]*>\s*(?:<svg[^>]*>.*?</svg>\s*)?)Set up a meeting(?: with ([A-Z][a-z]+))?', main, re.S))
+    out, last, n = [], 0, len(found)
+    for k, m in enumerate(found):
+        if m.group(2):
+            label = f"Book a call with {m.group(2)}"
+        elif k == n - 1 and n > 1:
+            label = HOOK_LAST[topic]
+        else:
+            pool = HOOKS[topic]
+            label = pool[k % len(pool)]
+        out.append(main[last:m.start()] + m.group(1) + label)
+        last = m.end()
+    out.append(main[last:])
+    return html[:i] + "".join(out) + html[j:]
 
 _REMOVED_HREF = re.compile(r'href="((?:\.\./)*|/)(' + '|'.join(sorted((re.escape(k[1:]) for k in REMOVED), key=len, reverse=True)) + r')(?:\.html)?(?=["#?])')
 _IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")
