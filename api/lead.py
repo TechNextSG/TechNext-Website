@@ -283,6 +283,32 @@ def contact_problem(p, lenient=False):
     return "" if phone_ok(phone, clean(p.get("country", ""), 80)) else "phone"
 
 
+# 8 Nov 2026 owner: "why do I still receive leads even when the information is not complete?" Booking leads came in
+# with no name, or a company that was a surname, an email address, a link or "None". Every lead now needs a real name
+# and a real company name (site.js and tn-booking.js run the same check in the browser).
+NO_ANSWER = re.compile(r"(?i)^(none|nothing|null|nil|n\.?\s*/?\s*a\.?|na|not applicable|no company|wala|test(ing)?|"
+                       r"asdf+|qwerty|abc|xxx+|sample|unknown|private|personal|self|me|ako|-+|\.+|\?+|0+)$")
+
+
+def name_ok(v):
+    v = str(v or "").strip()
+    return (len(re.findall(r"[^\W\d_]", v)) >= 2 and "@" not in v and not re.search(r"https?://|www\.", v, re.I)
+            and len(re.findall(r"\d", v)) <= 2 and not NO_ANSWER.match(v))
+
+
+def company_ok(v, name=""):
+    v = str(v or "").strip()
+    return (len(re.findall(r"[^\W\d_]", v)) >= 2 and not re.search(r"\S+@\S+\.\S+|https?://|www\.", v, re.I)
+            and not NO_ANSWER.match(v) and not re.fullmatch(r"[^\W\d_]+\d{3,}", v))
+
+
+def details_problem(p):
+    """"name" or "company" when that answer is missing or is not a real answer, else ""."""
+    if not name_ok(p.get("name", "")):
+        return "name"
+    return "" if company_ok(p.get("company", "")) else "company"
+
+
 def visit(p):
     """Where the visit started: (source name, medium name, campaign or "", one-line summary for the notes)."""
     land, page, ref = (clean(p.get(k, ""), 600) for k in ("landing", "page", "referrer"))
@@ -737,7 +763,12 @@ def make_lead(p):
                 if opp:
                     send_now(opp, email)                   # the client's "We have your call request" email + hello@ note
                 return
-            # Odoo never filed the booking: a lead for the team to call, and the auto-reply (rule 11) tells the visitor
+            # Odoo never filed the booking: a lead for the team to call, and the auto-reply (rule 11) tells the visitor.
+            # Only with every detail the team needs (owner, 8 Nov 2026): a strict email + mobile, a name and a company.
+            miss = contact_problem(p) or details_problem(p)
+            if miss:
+                print("booking not filed, incomplete:", miss)
+                return
             flag = [("Check first", [("Booking", "Not confirmed in Odoo (no calendar event). "
                                                  "Please contact them to set the call time.")])]
             lead = rpc("crm.lead", "create", vals_list=[dict(
@@ -838,10 +869,12 @@ class handler(BaseHTTPRequestHandler):
         if bad:
             print("refused contact:", bad, "missing or mistyped", str(p.get("source", ""))[:40])
             return self._send(400, {"ok": False, "error": "contact", "field": bad})
-        # owner rule (3 Nov 2026): the company name is required too. Not for a booking: Odoo has filed it already
-        if not clean(p.get("company", "")) and tag not in NO_CAPTCHA_FORMS:
-            print("refused company: no company name", str(p.get("source", ""))[:40])
-            return self._send(400, {"ok": False, "error": "company"})
+        # owner rules: company name required (3 Nov 2026); a real name and company, never half-filled (8 Nov 2026).
+        # A booking is not refused (Odoo's own opportunity still gets the form details) but files no lead of its own.
+        miss = details_problem(p)
+        if miss and tag not in NO_CAPTCHA_FORMS:
+            print("refused incomplete:", miss, str(p.get("source", ""))[:40])
+            return self._send(400, {"ok": False, "error": miss, "field": miss})
         ip =(self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
         if not p.get("_followup"):
             if tag == "Other form":                        # none of our forms sent it: a script; nothing is filed
