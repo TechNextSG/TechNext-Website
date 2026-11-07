@@ -2237,7 +2237,7 @@ def clean_links(html: str) -> str:
 # the GA4/Meta click event). The home hero form stays as the "request a call" option (#start) and the ad landers keep their
 # own #book form; only buttons whose label is "Set up a meeting" are pointed at the appointment page.
 BOOK_URL = "https://technext.odoo.com/book/c82cf8a9"
-_MEET_A = re.compile(r'<a\b([^>]*)>(\s*(?:<svg[^>]*>.*?</svg>\s*)?Set up a meeting\b)', re.S)
+_MEET_A = re.compile(r'<a\b([^>]*)>(\s*(?:<svg[^>]*>(?:(?!</a>|<a\b).)*?</svg>\s*)?Set up a meeting\b)', re.S)   # never crosses into the next link (8 Nov fix)
 _HREF = re.compile(r'\shref="[^"]*"')
 
 
@@ -2277,7 +2277,7 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         return html
     main = html[i:j]
     topic = _hook_topic(out_rel)
-    found = list(re.finditer(r'(<a\b[^>]*data-meet[^>]*>\s*(?:<svg[^>]*>.*?</svg>\s*)?)Set up a meeting(?: with ([A-Z][a-z]+))?', main, re.S))
+    found = list(re.finditer(r'(<a\b[^>]*data-meet[^>]*>\s*(?:<svg[^>]*>(?:(?!</a>|<a\b).)*?</svg>\s*)?)Set up a meeting(?: with ([A-Z][a-z]+))?', main, re.S))
     out, last, n = [], 0, len(found)
     for k, m in enumerate(found):
         if m.group(2):
