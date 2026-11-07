@@ -126,6 +126,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-proj-h">Selected projects.</h2><p class="lead">{n} implementations, migrations and builds {esc(first)} has delivered, end to end. Client names stay private.</p></div>
     <div class="tp-groups">{cards}</div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 '''
@@ -170,6 +171,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-skills-h">Skills.</h2><p class="lead">What {esc(first)} brings to your project, grouped by area.</p></div>
     <div class="tp-groups">{panels}</div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 {projects}

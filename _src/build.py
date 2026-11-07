@@ -1858,6 +1858,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name} in action.</h2><p class="lead">Official Odoo videos. Nothing loads until you press play.</p></div>
     <div class="{"videos videos--one" if len(vids) == 1 else "videos"}">{items}</div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><span class="muted">See {name} on your own data, as a plug-in in your system.</span></p>
   </div>
 </section>'''
 
@@ -1996,12 +1997,13 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name}, section by section.</h2><p class="lead">The product as Odoo presents it. TechNext configures each part to your process.</p></div>
     {what}
+    <p class="sec-next reveal"><a class="btn-link" href="#setup">How we set {name} up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 
 {screens}
 
-<section class="section fx-sec fx-sec--alt apx-impl-sec">
+<section class="section fx-sec fx-sec--alt apx-impl-sec" id="setup">
   <div class="container apx-impl">
     <div class="sec-head reveal"><h2>{name}, configured to how you work.</h2><p class="lead">Standard Odoo first. We set it up on a staging database, migrate your data, train your team and stay on after go-live.</p><div class="actions"><a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}odoo/discovery.html">Start with discovery {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}odoo/support.html">Support plans {{{{icon:arrow}}}}</a></div></div>
     <ol class="apx-steps reveal">{impl}</ol>

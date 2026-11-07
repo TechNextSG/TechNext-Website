@@ -38,8 +38,8 @@ Last updated: 2026-11-08
 
 ## BIR compliance (Philippines)
 
-- [Odoo for BIR CAS, Plugged Into Your Current System](https://technext.asia/bir-cas): Odoo for BIR CAS and CBA in the Philippines. Keep the system you run; we plug Odoo in, prepare your samples and quote in writing first.
-- [BIR E-Invoicing and Odoo: Get Ready for 31 Dec 2026](https://technext.asia/bir-e-invoicing): Odoo as a plug-in in your system, for BIR e-invoicing readiness: who is covered, the Permit to Issue and EIS steps, and what it needs. Keep your current system.
+- [Start Your BIR CAS Requirements Today](https://technext.asia/bir-cas): Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
+- [BIR E-Invoicing: Get Ready Now, Not in December](https://technext.asia/bir-e-invoicing): Get ready for BIR e-invoicing before 31 Dec 2026. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
 - [BIR Accounting Software PH: Odoo, QuickBooks, Xero, SAP](https://technext.asia/blog/bir-accounting-software-philippines-odoo): Odoo, QuickBooks, Xero and SAP Business One compared on what you file with the BIR: 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026.
 - [BIR ATP (Form 1906) vs System-Generated Invoices](https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices): When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and where Odoo fits.
 - [BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records](https://technext.asia/blog/bir-audit-readiness-odoo): How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
@@ -59,7 +59,7 @@ Last updated: 2026-11-08
 - [Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C](https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20): Philippine payroll in Odoo 20: BIR Forms 1601-C, 2316 and 1604-C, alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
 - [How to Register Books of Accounts in ORUS (2026 Guide)](https://technext.asia/blog/register-books-of-accounts-orus-bir): Step by step: how to register manual, loose-leaf and computerized books of accounts in the BIR's ORUS, the deadlines, the QR stamp and the mistakes to avoid.
 - [CAS Registration Requirements: BIR Steps and Documents](https://technext.asia/blog/register-odoo-cas-cba-bir): How to register a Computerized Accounting System (CAS) or CBA with the BIR: the Acknowledgement Certificate, documents, system checks, ORUS and the PTI.
-- [Odoo Philippines: Plug-In for BIR CAS](https://technext.asia/odoo/philippines): Odoo for Philippine SMEs. Keep your current system; we plug Odoo in for CAS/CBA books, 2307, SLSP, SAWT, QAP and 2550Q. Fixed written quote first.
+- [Odoo Philippines: Start Your BIR CAS Set-Up Today](https://technext.asia/odoo/philippines): Odoo for Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, fixed written quote first.
 
 ## Odoo ERP services
 
@@ -85,7 +85,7 @@ Last updated: 2026-11-08
 ## Company
 
 - [Start Your BIR CAS Requirements Today](https://technext.asia/): Keep your system. TechNext adds Odoo as a plug-in in it for your BIR CAS books, 2307, SLSP, SAWT, QAP and e-invoicing. Our own experts, fixed written quote.
-- [Odoo for BIR CAS, Plugged Into Your Current System](https://technext.asia/bir-adviser-call): Odoo for BIR CAS and CBA in the Philippines. Keep your current system; we plug Odoo in, prepare your samples and quote in writing first.
+- [Start Your BIR CAS Requirements: Request a Call](https://technext.asia/bir-adviser-call): Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts. Request a call; fixed written quote first.
 - [TechNext: Your Odoo ERP Partner for BIR CAS](https://technext.asia/company): TechNext (UEN 202699888G): 142 ERP projects, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
 - [Nexi Explains: Odoo, AI and tech videos by TechNext](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
 
@@ -120,7 +120,7 @@ Last updated: 2026-11-08
 
 ## Optional
 
-- [Odoo Apps List: Start With Accounting for BIR CAS](https://technext.asia/odoo/apps): Every Odoo app by category. Start with Accounting for BIR CAS as Odoo as a plug-in in your system, then add apps. 142 ERP projects, fixed written quote.
+- [Odoo Apps List: Start With Accounting for BIR CAS](https://technext.asia/odoo/apps): Every Odoo app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 ERP projects, fixed written quote.
 - [Odoo AI App (built-in AI agents) — Singapore & PH](https://technext.asia/odoo/apps/ai): Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Set up for you.
 - [Odoo Appointments in Singapore & the Philippines](https://technext.asia/odoo/apps/appointments): Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Set up for you.
 - [Odoo Appraisals in Singapore & the Philippines](https://technext.asia/odoo/apps/appraisals): Odoo Appraisals implemented by TechNext, an Odoo Partner in Singapore. Reviews and goals. Set up for you. Book a free discovery call.

@@ -90,6 +90,7 @@ def ledger_html(mod: str) -> str:
       <ol class="apx-led-rows">{rows}</ol>
       <p class="apx-led-total"><span class="apx-led-bal"><i aria-hidden="true"></i>{d["total"]}</span><span>{_bold(d["outro"])}</span></p>
     </div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''
 

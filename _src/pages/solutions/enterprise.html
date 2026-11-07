@@ -143,7 +143,7 @@
       <li class="reveal">{{icon:globe}}<div><h3>Country localisations <em class="aix-scope-t">Per entity</em></h3><p>The right chart of accounts and tax reporting per country, rolled up in one currency.</p></div></li>
       <li class="reveal">{{icon:refresh}}<div><h3>Inter-company flows <em class="aix-scope-t">Between entities</em></h3><p>A sale in one entity raises the matching purchase in another.</p></div></li>
       <li class="reveal">{{icon:bank}}<div><h3>Multi-currency <em class="aix-scope-t">Entity to group</em></h3><p>Local currency in, group currency out, rates managed in one place.</p></div></li>
-      <li class="reveal">{{icon:bars}}<div><h3>Consolidation <em class="aix-scope-t">Group</em></h3><p>Group P&amp;L, balance sheet and cash on demand, with eliminations handled by Odoo.</p></div></li>
+      <li class="reveal">{{icon:bars}}<div><h3>Consolidation <em class="aix-scope-t">Group</em></h3><p>Group P&amp;L, balance sheet and cash on demand, with eliminations done in Odoo.</p></div></li>
       <li class="reveal">{{icon:shield}}<div><h3>Access and governance <em class="aix-scope-t">Entity and group</em></h3><p>Access rights, approval chains and audit trails per entity and group.</p></div></li>
     </ul>
     <p class="sec-next reveal"><a class="btn-link" href="{{ROOT}}odoo/discovery.html">See how group discovery works {{icon:arrow}}</a></p>
@@ -208,7 +208,7 @@
         <li>{{icon:check}}<span>Custom modules built, tested on staging and version-controlled.</span></li>
         <li>{{icon:check}}<span>Inter-company rules that post the matching document automatically.</span></li>
         <li>{{icon:check}}<span>Multi-currency with revaluation and group-currency reporting.</span></li>
-        <li>{{icon:check}}<span>Consolidated P&amp;L, balance sheet and cash with eliminations handled.</span></li>
+        <li>{{icon:check}}<span>Consolidated P&amp;L, balance sheet and cash with eliminations done in Odoo.</span></li>
         <li>{{icon:check}}<span>Country localisations for tax and statutory filing per entity.</span></li>
         <li>{{icon:check}}<span>Granular access rights and a role model per company.</span></li>
         <li>{{icon:check}}<span>Single sign-on across the group where you use it.</span></li>
@@ -226,12 +226,13 @@
     <div class="sec-head reveal"><h2 id="ent-faq-h">How groups usually ask it.</h2></div>
     <div class="faq reveal">
       <details><summary>Do all entities have to go live at once? {{icon:chevron}}</summary><div class="faq-a"><p>No. We implement a pilot entity first, then roll out company by company. Each entity goes live when ready.</p></div></details>
-      <details><summary>How does consolidation work? {{icon:chevron}}</summary><div class="faq-a"><p>Group P&amp;L, balance sheet and cash come from the same database, with eliminations handled by Odoo, so there is no spreadsheet consolidation.</p></div></details>
+      <details><summary>How does consolidation work? {{icon:chevron}}</summary><div class="faq-a"><p>Group P&amp;L, balance sheet and cash come from the same database, with eliminations done in Odoo, so there is no spreadsheet consolidation.</p></div></details>
       <details><summary>Can each country keep its own tax rules? {{icon:chevron}}</summary><div class="faq-a"><p>Yes. Every entity uses its own country localisation, and group reports roll up in one currency.</p></div></details>
       <details><summary>Who can see what? {{icon:chevron}}</summary><div class="faq-a"><p>People see their own company's data and only the group views you grant, with approval chains and audit trails.</p></div></details>
       <details><summary>Where does the group's data live? {{icon:chevron}}</summary><div class="faq-a"><p>Usually on Odoo.sh; on your own cloud where data residency requires it. We decide per region in discovery.</p></div></details>
       <details><summary>How is a group project priced? {{icon:chevron}}</summary><div class="faq-a"><p>By the entities, countries and integrations involved. Tell us how the group is structured and TechNext will return a phased, <strong>fixed written quote</strong> before any work starts.</p></div></details>
     </div>
+    <p class="sec-next reveal"><a class="btn-link" href="{{ROOT}}bir-cas.html">How BIR CAS set-up works per entity {{icon:arrow}}</a></p>
   </div>
 </section>
 
