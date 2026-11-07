@@ -347,15 +347,15 @@ def directory_compact_html() -> str:
     for k, p in enumerate(people):
         grp = DIR_GROUP.get(p["role"], "Odoo consulting")
         skills = [i for _, items in (p.get("groups") or []) for i in items][:8]
-        data.append({"name": p["name"], "role": p["role"], "group": grp, "office": _office(p), "email": p.get("email", ""),
-                     "photo": p.get("photo", ""), "url": profile_url(p).replace(".html", ""),
+        data.append({"name": p["name"], "role": p["role"], "group": grp, "office": _office(p),
+                     "photo": p.get("photo", ""),
                      "sum": p.get("summary") or p.get("bio", ""), "stats": p.get("stats", [])[:3], "skills": skills,
                      "bir": p.get("bir", [])[:2], "hay": " ".join([p["name"], p["role"], grp] + [i for _, it in (p.get("groups") or []) for i in it]).lower()})
         pic = (f'<img src="{{{{ROOT}}}}assets/img/team/{p["photo"]}" alt="" width="96" height="96" loading="lazy" decoding="async">'
                if p.get("photo") else f'<span class="ed-ini">{initials(p["name"])}</span>')
-        cards.append(f'<li><a class="ed-card" href="{{{{ROOT}}}}{profile_url(p)}" data-ed="{k}" data-group="{esc(grp)}">'
+        cards.append(f'<li><button type="button" class="ed-card" data-ed="{k}" data-group="{esc(grp)}">'
                      f'<span class="ed-ava">{pic}</span><span class="ed-txt"><b>{esc(p["name"])}</b><span>{esc(p["role"])}</span>'
-                     f'<small>{{{{icon:pin}}}}{esc(_office(p))}</small></span><span class="ed-go" aria-hidden="true">{{{{icon:chevron}}}}</span></a></li>')
+                     f'<small>{{{{icon:pin}}}}{esc(_office(p))}</small></span><span class="ed-go" aria-hidden="true">{{{{icon:chevron}}}}</span></button></li>')
     counts = {g: sum(1 for d in data if d["group"] == g) for g in DIR_GROUPS}
     chips = (f'<button type="button" class="ed-chip is-on" data-ed-filter="" aria-pressed="true">All <i>{len(data)}</i></button>'
              + "".join(f'<button type="button" class="ed-chip" data-ed-filter="{esc(g)}" aria-pressed="false">{esc(g)} <i>{n}</i></button>'

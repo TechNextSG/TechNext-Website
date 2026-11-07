@@ -27,9 +27,8 @@
       '<div class="ed-p-body">' + (p.sum ? '<p class="ed-p-sum">' + esc(p.sum) + '</p>' : '') +
       (stats ? '<ul class="ed-p-stats">' + stats + '</ul>' : '') +
       (skills ? '<p class="ed-p-h">Skills</p><ul class="ed-p-skills">' + skills + '</ul>' : '') +
-      '<div class="ed-p-act">' + (p.email ? '<a class="btn btn-primary" href="mailto:' + esc(p.email) + '">' + ic('mail') + 'Email ' + esc(p.name.split(/\s+/)[0]) + '</a>' : '') +
-      '<button type="button" class="btn btn-ghost" data-ed-vcf>' + ic('vcf') + 'Save contact</button>' +
-      '<a class="btn btn-ghost" href="' + ROOT + esc(p.url) + '">Full profile ' + ic('arrow') + '</a></div></div>';
+      /* owner 8 Nov 2026: no email, vCard, profile link, booking button or contact line per person (the page itself names sales@) */
+      '</div>';
   }
   function pick(i, open) {
     if (i < 0 || i >= D.length) return;
@@ -64,8 +63,7 @@
 
   grid.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ed]');
-    if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    e.preventDefault();
+    if (!a) return;
     pick(+a.getAttribute('data-ed'), true);
   });
   grid.addEventListener('keydown', function (e) {
@@ -76,14 +74,7 @@
     next.focus(); pick(+next.getAttribute('data-ed'), false);
   });
   panel.addEventListener('click', function (e) {
-    if (e.target.closest('[data-ed-close]')) { closeSheet(); return; }
-    if (!e.target.closest('[data-ed-vcf]')) return;
-    var p = D[cur], parts = p.name.trim().split(/\s+/), last = parts.length > 1 ? parts.pop() : '';
-    var v = ['BEGIN:VCARD', 'VERSION:3.0', 'N:' + last + ';' + parts.join(' ') + ';;;', 'FN:' + p.name, 'ORG:TechNext Pte. Ltd.', 'TITLE:' + p.role,
-      p.email ? 'EMAIL;TYPE=INTERNET,WORK:' + p.email : '', 'URL:https://technext.asia/', 'END:VCARD'].filter(Boolean).join('\r\n') + '\r\n';
-    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([v], { type: 'text/vcard;charset=utf-8' }));
-    a.download = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-technext.vcf'; document.body.appendChild(a); a.click();
-    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+    if (e.target.closest('[data-ed-close]')) closeSheet();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && panel.classList.contains('is-open')) closeSheet(); });
   document.querySelectorAll('[data-ed-filter]').forEach(function (b) {

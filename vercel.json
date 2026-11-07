@@ -1132,22 +1132,22 @@
     },
     {
       "source": "/team/clement-kho",
-      "destination": "/team/clement-koh",
+      "destination": "/employee-hub",
       "permanent": true
     },
     {
       "source": "/team/clement-kho.html",
-      "destination": "/team/clement-koh",
+      "destination": "/employee-hub",
       "permanent": true
     },
     {
       "source": "/team/astroneil-matan",
-      "destination": "/team/neil-matan",
+      "destination": "/employee-hub",
       "permanent": true
     },
     {
       "source": "/team/astroneil-matan.html",
-      "destination": "/team/neil-matan",
+      "destination": "/employee-hub",
       "permanent": true
     },
     {
@@ -1463,6 +1463,16 @@
     {
       "source": "/industries",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/team",
+      "destination": "/employee-hub",
+      "permanent": true
+    },
+    {
+      "source": "/team/:path*",
+      "destination": "/employee-hub",
       "permanent": true
     }
   ],

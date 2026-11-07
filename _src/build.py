@@ -491,7 +491,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                          "headquartered in Singapore with its main team in Taguig City: an affordable Odoo ERP partner "
                                          "for SMEs that plugs Odoo into the system a business already runs.",
             "slogan": "Keep your system. Plug in Odoo for BIR.",
-            "employee": [{"@id": S.SITE_URL + "team/" + TP.slug(p["name"]) + "#person"} for p in ADV.ADVISORS],
+            "employee": [{"@type": "Person", "name": p["name"], "jobTitle": p["role"]} for p in ADV.ADVISORS if p.get("bir_rank")],
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Affordable Odoo implementation for SMEs",
                            "Odoo integration with existing accounting software and ERP systems",
@@ -2921,8 +2921,7 @@ def main():
     for mod in APP_BY_MOD:
         meta, content = app_page(mod)
         built.append(render(meta, content, nav_cache))
-    for meta, content in TP.pages():   # team/<slug>.html, one per person
-        built.append(render(meta, content, nav_cache))
+    # owner 8 Nov 2026: "no more full profile" - the team/<slug> pages are gone (308 to the Team Directory, make_vercel.py)
     if UNMEASURED:
         print(f"WARNING: {len(UNMEASURED)} screenshot(s) have no recorded size and are framed as 16:10 -"
               " run: python -B _src/measure_images.py")

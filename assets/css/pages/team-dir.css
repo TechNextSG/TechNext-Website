@@ -88,3 +88,6 @@
 .ed-page main>section.ed-head{padding:28px 0 40px!important;margin:0!important;min-height:0!important}
 .ed-page main>section.ed-offices{padding:20px 0!important;margin:0!important;min-height:0!important}
 .ed-page main>section.ed-close{padding:40px 0 48px!important;margin:0!important;min-height:0!important}
+.ed-p-contact{margin:14px 0 0;font-size:13.5px;color:var(--body)}
+.ed-p-contact b{color:var(--ink);font-weight:600;user-select:all}
+button.ed-card{width:100%;text-align:left;font:inherit;cursor:pointer}

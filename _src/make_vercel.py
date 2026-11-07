@@ -188,6 +188,8 @@ def _final(dest):
 
 REDIRECTS = [(s, _final(d)) for s, d in REDIRECTS] + [(f"{src}{ext}", dst) for src, dst in REMOVED.items() for ext in ("", ".html")]
 REDIRECTS = [r for r in REDIRECTS if r[0] != "/industries"] + [("/industries", "/")]
+# owner 8 Nov 2026: no individual profile pages; the only contact is sales@technext.asia
+REDIRECTS = [(src, "/employee-hub" if dst.startswith("/team/") else dst) for src, dst in REDIRECTS] + [("/team", "/employee-hub"), ("/team/:path*", "/employee-hub")]
 
 
 def inline_script_hashes():
