@@ -1,7 +1,7 @@
-<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: a professional profile for each person with their role and work email, and a vCard to save the contact.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "ed-page", "scripts": ["assets/js/pages/team-dir.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/team-dir.css?v={ASSET_V}\">"} -->
+<!--meta {"title": "Team Directory: TechNext team profiles", "desc": "The TechNext team directory: who works on your Odoo set-up, their role, office and skills. Contact the team at sales@technext.asia.", "out": "employee-hub.html", "nav": "company", "robots": "noindex, nofollow", "body": "ed-page", "scripts": ["assets/js/pages/team-dir.js"], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/pages/team-dir.css?v={ASSET_V}\">"} -->
 <!-- Team Directory, 8 Nov 2026 (owner: "make it compact and interactive"; RJ back on the directory). A staff page, noindex.
      Compact header with search + team filters, small person cards, one detail panel (sticky on desktop, bottom sheet on
-     phones) with email, vCard and the full profile link. Cards + JSON: team_pages.directory_compact_html() via {{TEAM_DIR}}.
+     phones) with role, stats and skills only (owner 8 Nov: no email, vCard, profile, booking button or contact per person). Cards + JSON: team_pages.directory_compact_html() via {{TEAM_DIR}}.
      Styles: assets/css/pages/team-dir.css. Behaviour: assets/js/pages/team-dir.js. -->
 
 <section class="ed-head" aria-labelledby="ed-h1">
@@ -9,7 +9,7 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ROOT}}index.html">Home</a><span><a href="{{ROOT}}company.html">Company</a></span><span>Team Directory</span></nav>
     <div class="ed-title">
       <h1 id="ed-h1">Team Directory</h1>
-      <p>The people behind your Odoo, in Singapore, Taguig City and Ho Chi Minh City. Pick someone to see their skills, write to them or save their contact.</p>
+      <p>The people behind your Odoo, in Singapore, Taguig City and Ho Chi Minh City. Pick someone to see their role and skills. To reach the team, write to <b>sales@technext.asia</b> or set up a meeting.</p>
     </div>
     {{TEAM_DIR}}
   </div>

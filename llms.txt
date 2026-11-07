@@ -89,19 +89,6 @@ Last updated: 2026-11-08
 - [TechNext: Your Odoo ERP Partner for BIR CAS](https://technext.asia/company): TechNext (UEN 202699888G): 142 ERP projects, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
 - [Nexi Explains: Odoo, AI and tech videos by TechNext](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
 
-## People (TechNext advisers and team)
-
-- [AJ Cubilla, Odoo Developer Expert | TechNext Odoo Partner](https://technext.asia/team/aj-cubilla): AJ works hand in hand with Odoo clients across many industries, listening to what each team needs, building the solution, and staying on to support it.
-- [Clement Koh, CEO | TechNext Odoo Partner](https://technext.asia/team/clement-koh): Clement builds companies across borders, from regional headquarters in Singapore to European operations and manufacturing in China and Hong Kong.
-- [Jeric Bulayungan, Business Development](https://technext.asia/team/jeric-bulayungan): Jeric has helped Philippine businesses choose their business software since 2016, from SAP and QuickBooks to point-of-sale systems.
-- [Jett Balanza, Functional ERP Consultant](https://technext.asia/team/jett-balanza): Jett sits between your team and our developers, turning what you need into a working Odoo set-up.
-- [Neil Matan, Senior Functional Lead | TechNext Odoo Partner](https://technext.asia/team/neil-matan): Neil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo.
-- [Philip Gallan, Odoo Developer Expert | TechNext Odoo Partner](https://technext.asia/team/philip-gallan): Philip builds the parts of Odoo you can't get off the shelf, on every version from 14 to 19. Odoo Developer Expert at TechNext, an Odoo Ready Partner.
-- [Pia Cachola, General Manager | TechNext Odoo Partner](https://technext.asia/team/pia-cachola): Pia runs TechNext day to day as General Manager, turning strategy into plans the whole team can deliver. General Manager at TechNext, an Odoo Ready Partner.
-- [Rex Polintang, IT Developer Expert | TechNext Odoo Partner](https://technext.asia/team/rex-polintang): Rex keeps the systems and networks behind a business running. IT Developer Expert at TechNext, an Odoo Ready Partner in Singapore.
-- [Rico Duque, Marketing Officer | TechNext Odoo Partner](https://technext.asia/team/rico-duque): Rico runs marketing end to end, from website design, structure and SEO to social media and brand design. Marketing Officer at TechNext, an Odoo Ready Partner.
-- [RJ Sarreal, Project Manager | TechNext Odoo Partner](https://technext.asia/team/rj-sarreal): RJ has run ERP projects for 17 years, on Microsoft Dynamics, Oracle and NetSuite. Project Manager at TechNext, an Odoo Ready Partner in Singapore.
-
 ## Blog
 
 - [Odoo for BIR CAS: Guides, E-invoicing, Odoo 20 News](https://technext.asia/blog): Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo ERP partner for Philippine SMEs.
