@@ -775,7 +775,7 @@
 
   /* ---------------- buttons: ripple on press, magnetic pull on hover ---------------- */
   document.addEventListener('pointerdown', function (e) {
-    var btn = e.target.closest('.btn');
+    var btn = e.target.closest('.btn, .actions .btn-link, .cv-act .btn-link, .sec-next .btn-link, .xp-act .btn-link');
     if (!btn || reduce) return;
     var r = btn.getBoundingClientRect();
     var d = Math.max(r.width, r.height) * 1.6;
@@ -787,7 +787,7 @@
   });
   if (fine && !reduce) {
     // magnetic pull on large buttons only (never on the fixed side tabs — a moving fixed target flickers)
-    $$('.btn-lg').forEach(function (btn) {
+    $$('.btn, .actions .btn-link, .cv-act .btn-link, .sec-next .btn-link, .xp-act .btn-link').forEach(function (btn) {   // 8 Nov 2026: every button, Odoo style
       var raf = null;
       btn.addEventListener('pointermove', function (e) {
         var r = btn.getBoundingClientRect();
@@ -957,3 +957,21 @@ document.addEventListener('click', function (e) {
     if (history.replaceState) history.replaceState(null, '', h);
   }
 });
+
+
+/* ---------------- buttons pop in as they scroll into view (8 Nov 2026, Odoo-style buttons) ----------------
+   .btn-pre hides only buttons below the fold, and only once this script runs; a 10 s failsafe shows any that never meet the viewport. */
+(function () {
+  'use strict';
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var all = document.querySelectorAll('main .btn, main .sec-next .btn-link, main .actions .btn-link, main .cv-act .btn-link');
+  var list = Array.prototype.filter.call(all, function (b) { return b.getBoundingClientRect().top > innerHeight && b.type !== 'submit' && !b.closest('form'); });   // form buttons never hide
+  if (!list.length) return;
+  list.forEach(function (b, k) { b.classList.add('btn-pre'); b.style.setProperty('--btn-d', ((k % 3) * 70) + 'ms'); });
+  function show(b) { if (b.classList.contains('btn-pre')) { b.classList.replace('btn-pre', 'btn-in'); } }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  list.forEach(function (b) { io.observe(b); });
+  setTimeout(function () { list.forEach(show); }, 10000);
+})();

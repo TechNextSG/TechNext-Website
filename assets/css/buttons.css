@@ -1,0 +1,123 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Odoo-style buttons (owner 8 Nov 2026: "redesign all buttons, Odoo style, highly animated and interactive").
+   Loaded LAST on every page (build.py LAYOUT) so it wins over site.css, calm.css and the page stylesheets.
+   Odoo-style shapes and motion in TechNext blue: primary solid blue, secondary white with a blue outline, blue focus ring.
+   Motion: lift + magnetic pull (site.js), light sweep, arrow nudge, press squash, click ripple, pop-in on reveal,
+   a gradient ring that spins on hover and a soft glow pulse on the meeting buttons. Reduced motion keeps colour only. */
+:root{
+  /* owner 8 Nov 2026 (later): "bring back to technext colour branding" - Odoo-style buttons in TechNext blue */
+  --bt:#3167CA; --bt-700:#1E4691; --bt-800:#173A7A; --bt-050:#EAF0FB; --bt-100:#DDE7F8; --bt-200:#BFD1F2; --bt-300:#6FA0F5;
+  --btn-r:10px; --btn-ease:cubic-bezier(.2,.8,.2,1); --btn-spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ---------- base ---------- */
+html body .btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:48px!important;padding:0 22px!important;border-radius:var(--btn-r)!important;border:1.5px solid transparent;
+  font:700 15px/1 var(--font-display)!important;letter-spacing:.005em!important;white-space:nowrap;text-decoration:none!important;cursor:pointer;
+  transition:transform .32s var(--btn-spring),background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .3s ease!important;
+  -webkit-tap-highlight-color:transparent;will-change:transform}
+html body .btn-lg{height:54px!important;padding:0 26px!important;font-size:16px!important}
+html body .btn-sm{height:40px!important;padding:0 16px!important;font-size:14px!important;border-radius:9px!important}
+html body .btn .ic{width:18px;height:18px;flex:none;transition:transform .35s var(--btn-spring)}
+html body .btn:hover{transform:translateY(-2px)}
+html body .btn:hover .ic{transform:translateX(4px)}
+html body .btn:active{transform:translateY(0) scale(.965)!important;transition-duration:.1s!important}
+html body .btn:focus-visible{outline:3px solid rgba(111,160,245,.55)!important;outline-offset:3px}
+/* light sweep */
+html body .btn::after{content:"";position:absolute;inset:-2px;z-index:1;pointer-events:none;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.5) 48%,rgba(255,255,255,.08) 56%,transparent 70%);
+  transform:translateX(-140%) skewX(-12deg);transition:transform .75s var(--btn-ease)}
+html body .btn:hover::after{transform:translateX(140%) skewX(-12deg)}
+html body .btn>*:not(.ripple){position:relative;z-index:2}
+
+/* ---------- primary: TechNext blue ---------- */
+html body .btn-primary,html body main .btn-primary{background:var(--bt)!important;border-color:var(--bt)!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(30,70,145,.25),0 8px 18px -10px rgba(49,103,202,.75)!important}
+html body .btn-primary:hover,html body main .btn-primary:hover{background:var(--bt-700)!important;border-color:var(--bt-700)!important;color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 4px rgba(30,70,145,.25),0 16px 30px -12px rgba(49,103,202,.8),0 0 0 4px rgba(111,160,245,.14)!important}
+html body .btn-primary:active{background:var(--bt-800)!important}
+html body .btn-primary .btn-busy{border-color:rgba(255,255,255,.4);border-top-color:#fff}
+
+/* meeting buttons (open the Odoo appointment page): a gradient ring that spins on hover + a soft glow pulse */
+@property --btn-a{syntax:"<angle>";inherits:false;initial-value:0deg}
+html body .btn-primary[data-meet]::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;padding:2px;opacity:0;
+  background:conic-gradient(from var(--btn-a),transparent 0 58%,rgba(111,160,245,1) 74%,#fff 81%,transparent 92%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  animation:btnSpin 2.2s linear infinite paused;transition:opacity .3s ease}
+html body .btn-primary[data-meet]:hover::before{opacity:1;animation-play-state:running}
+html body .btn-primary[data-meet]{animation:btnGlow 3.6s ease-in-out infinite}
+html body .btn-primary[data-meet]:hover{animation:none}
+@keyframes btnSpin{to{--btn-a:360deg}}
+@keyframes btnGlow{0%,70%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(30,70,145,.25),0 8px 18px -10px rgba(49,103,202,.75),0 0 0 0 rgba(49,103,202,0)}
+  82%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(30,70,145,.25),0 8px 18px -10px rgba(49,103,202,.75),0 0 0 7px rgba(49,103,202,.13)}}
+/* the arrow on meeting buttons runs out and back in on hover */
+html body .btn[data-meet]:hover .ic:last-child{animation:btnArrow .55s var(--btn-ease)}
+@keyframes btnArrow{0%{transform:translateX(0)}45%{transform:translateX(14px);opacity:0}46%{transform:translateX(-12px);opacity:0}100%{transform:translateX(4px);opacity:1}}
+
+/* ---------- secondary: white, blue outline ---------- */
+html body .btn-ghost,html body main .btn-ghost{background:#fff!important;border-color:var(--bt-200)!important;color:var(--bt)!important;box-shadow:0 1px 2px rgba(31,31,61,.05)!important}
+html body .btn-ghost::before,html body .btn-outline-white::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:var(--bt-050);transform:scaleX(0);transform-origin:left;transition:transform .38s var(--btn-ease)}
+html body .btn-ghost:hover,html body main .btn-ghost:hover{border-color:var(--bt)!important;color:var(--bt-700)!important;box-shadow:0 10px 22px -14px rgba(49,103,202,.55)!important}
+html body .btn-ghost:hover::before{transform:scaleX(1)}
+html body .btn-ghost .ic{color:currentColor}
+
+/* on dark / blue bands */
+html body .btn-white,html body main .btn-white{background:#fff!important;border-color:#fff!important;color:var(--bt)!important;box-shadow:0 10px 24px -14px rgba(0,0,0,.45)!important}
+html body .btn-white:hover,html body main .btn-white:hover{background:var(--bt-050)!important;color:var(--bt-700)!important;box-shadow:0 18px 34px -16px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.18)!important}
+html body .btn-outline-white,html body main .btn-outline-white{background:transparent!important;border-color:rgba(255,255,255,.6)!important;color:#fff!important}
+html body .btn-outline-white::before{background:rgba(255,255,255,.14)}
+html body .btn-outline-white:hover{border-color:#fff!important}
+html body .btn-outline-white:hover::before{transform:scaleX(1)}
+
+/* ---------- "next step" text links inside action rows become Odoo secondary buttons ---------- */
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link{
+  position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:44px;padding:0 18px;border-radius:var(--btn-r);border:1.5px solid var(--bt-200);background:#fff;color:var(--bt)!important;
+  font:700 14.5px/1 var(--font-display);text-decoration:none!important;white-space:nowrap;
+  transition:transform .32s var(--btn-spring),border-color .2s ease,color .2s ease,box-shadow .3s ease}
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link::after{
+  content:"";position:absolute;inset:0;z-index:-1;height:auto;background:var(--bt-050);transform:scaleX(0);transform-origin:left;transition:transform .38s var(--btn-ease)}
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link:hover{
+  transform:translateY(-2px);border-color:var(--bt);color:var(--bt-700)!important;box-shadow:0 10px 22px -14px rgba(49,103,202,.55)}
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link:hover::after{transform:scaleX(1)}
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link:active{transform:scale(.965);transition-duration:.1s}
+html body :is(.actions,.cv-act,.sec-next,.xp-act,.vp-act,.pf-act,.eh-act,.cx-act,.cta .actions,.fx-close .actions,.form-foot) .btn-link:focus-visible{outline:3px solid rgba(111,160,245,.55);outline-offset:3px}
+/* on dark bands the outline button turns white */
+html body :is(.fx-close,.cv-close,.sv-dark-sec,.cta--dark) :is(.actions,.sec-next) .btn-link{background:transparent;border-color:rgba(255,255,255,.6);color:#fff!important}
+html body :is(.fx-close,.cv-close,.sv-dark-sec,.cta--dark) :is(.actions,.sec-next) .btn-link::after{background:rgba(255,255,255,.14)}
+
+/* ---------- plain in-text links keep the underline grow ---------- */
+html body .btn-link:hover{color:var(--bt-700)}
+
+/* ---------- header ---------- */
+html body .header .header-cta .btn{height:44px!important;padding:0 16px!important;font-size:14.5px!important}
+
+/* ---------- pop-in when a button scrolls into view (site.js adds .btn-pre then .btn-in; no JS = no hidden buttons) ---------- */
+html body .btn-pre{opacity:0;transform:translateY(10px) scale(.96)}
+html body .btn-in{animation:btnPop .55s var(--btn-spring) var(--btn-d,0ms) backwards}
+html body .btn-primary[data-meet].btn-in{animation:btnPop .55s var(--btn-spring) var(--btn-d,0ms) backwards,btnGlow 3.6s ease-in-out 1s infinite}
+html body .btn-primary[data-meet].btn-in:hover{animation:none}
+@keyframes btnPop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+
+/* ---------- ripple (site.js) ---------- */
+html body .btn .ripple{position:absolute;z-index:1;border-radius:50%;background:#fff;opacity:.35;transform:scale(0);animation:ripple .65s var(--btn-ease) forwards;pointer-events:none}
+html body .btn-ghost .ripple,html body .btn-white .ripple{background:var(--bt);opacity:.18}
+
+/* ---------- phones ---------- */
+@media (max-width:640px){
+  html body .btn-lg{height:52px!important;padding:0 22px!important}
+}
+@media (prefers-reduced-motion:reduce){
+  html body .btn,html body .btn .ic,html body .btn::after,html body .btn::before{transition:none!important;animation:none!important}
+  html body .btn:hover{transform:none}
+  html body .btn-pre{opacity:1;transform:none}
+  html body .btn-in{animation:none}
+}
+
+/* header button + the cookie banner's Accept: same button system */
+html body .header .header-cta .btn.hdr-contact,html body .header .header-cta .btn-primary{background:var(--bt)!important;border:1.5px solid var(--bt)!important;color:#fff!important;border-radius:var(--btn-r)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 18px -10px rgba(49,103,202,.75)!important}
+html body .header .header-cta .btn.hdr-contact:hover,html body .header .header-cta .btn-primary:hover{background:var(--bt-700)!important;border-color:var(--bt-700)!important}
+html body #tn-cookie-accept{background:var(--bt)!important;color:#fff!important;border-radius:9px!important;transition:background-color .2s ease,transform .25s var(--btn-spring)!important}
+html body #tn-cookie-accept:hover,html body #tn-cookie-accept:focus-visible{background:var(--bt-700)!important;transform:translateY(-1px)}
