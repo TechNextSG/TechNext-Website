@@ -255,7 +255,7 @@
 
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1080px) {
-  .fx-hero-in { grid-template-columns: 1fr; gap: 32px; }
+  .fx-hero-in { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .fx-result { position: relative; top: 0; }
   .fx-rep-tabs { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .fx-rep-stage { grid-template-columns: minmax(0, 1fr); gap: 16px; }

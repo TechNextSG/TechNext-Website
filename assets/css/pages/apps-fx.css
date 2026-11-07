@@ -336,7 +336,7 @@
 
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1080px) {
-  .apx-hero .fx-hero-in { grid-template-columns: 1fr; gap: 40px; }
+  .apx-hero .fx-hero-in { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .apx-panel { max-width: 680px; }
   .apx-chip--a { left: -8px; }
   .apx-bir { grid-template-columns: 1fr; gap: 32px; padding: 36px; }

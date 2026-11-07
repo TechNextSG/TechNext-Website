@@ -123,7 +123,7 @@
 
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1080px) {
-  .blg-hero .fx-hero-in { grid-template-columns: 1fr; gap: 40px; }
+  .blg-hero .fx-hero-in { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .blg-panel { max-width: 640px; }
   .art-fx .post-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .art-fx .post-toc { position: static; margin-bottom: 32px; padding: 16px 14px 12px; }

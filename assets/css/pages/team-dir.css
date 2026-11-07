@@ -80,8 +80,8 @@
 }
 @media (max-width:560px){
   .ed-grid{grid-template-columns:1fr}
-  .ed-chips{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}
-  .ed-chip{flex:none}
+  .ed-chips{flex-wrap:wrap;gap:8px}
+  .ed-chip{flex:none;min-height:40px;padding:0 12px;font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){.ed-card,.ed-panel{transition:none}}
 /* the site-wide calm layer pads every main > section; this page stays compact */

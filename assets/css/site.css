@@ -258,7 +258,7 @@ html.intro .header{visibility:hidden;opacity:0;transition:none;animation:hdrBack
 .mnav-cta .btn{width:100%}
 .mnav-contact{display:grid;gap:10px;font-size:14px;color:var(--muted)}
 .mnav-contact a,.mnav-contact span{display:flex;align-items:center;gap:10px;color:var(--body)}
-.mnav-contact .ic{width:18px;height:18px;color:var(--blue)}
+.mnav-contact .ic{width:22px;height:22px;flex:none;color:var(--blue)}
 
 /* ---------- side tabs: Let's Talk + Chat ---------- */
 .side-fab{display:none}
@@ -294,7 +294,7 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .talk-body h2{font-size:1.75rem;margin-bottom:10px}
 .talk-lead{font-size:15px;color:var(--body);margin-bottom:24px}
 .talk-foot{padding:14px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex:none}
-.talk-foot .ic{width:15px;height:15px}
+.talk-foot .ic{width:18px;height:18px;flex:none}
 
 /* ---------- forms ---------- */
 .form{display:block}
@@ -340,7 +340,7 @@ body.talk-open .side-tabs{opacity:0;pointer-events:none;transform:translateY(-50
 .footer{border-top:1px solid var(--line);padding:26px 0;font-size:14px;color:var(--muted)}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
-@media (max-width:960px){.footer-inner{padding-right:64px}
+@media (max-width:960px){
   body.tabs-wait .side-tabs{opacity:0;pointer-events:none;transform:translateY(130%);transition:opacity .25s ease,transform .3s var(--ease-out)}}
 .footer nav a{color:var(--muted)}
 .footer nav a:hover{color:var(--blue)}
@@ -1340,7 +1340,7 @@ body.talk-open .cat-float{opacity:0;pointer-events:none;scale:.6}
 
 /* R9 mobile audit: the floating Let's Talk "+" and WhatsApp buttons stack over the bottom-right corner; the footer
    ends with room for them, so the last lines of the page can scroll clear */
-@media (max-width:960px){.footer{padding-bottom:calc(26px + 140px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:960px){.footer{padding-bottom:calc(26px + env(safe-area-inset-bottom,0px))}}
 
 /* home BIR band (20 Oct 2026): one quiet line under the hero for Philippine visitors, links to /bir-e-invoicing */
 .bir-band{background:var(--amber-050);border-bottom:1px solid #F1E2C2}
@@ -1412,3 +1412,16 @@ html.bn-off .bn,html.intro .bn{display:none}
 /* button label with an icon stays on one line, centred (8 Nov 2026: "Request my call ->" wrapped its arrow) */
 .btn .btn-label{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
 .btn .btn-label .ic{flex:none}
+
+/* 8 Nov 2026: flat Odoo-style icons never sit on a tile or backdrop (owner rule, 9 Oct) */
+svg.ic-flat{background:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+/* 8 Nov 2026: phone footer, links in an even 2-column grid, copyright last */
+@media (max-width:600px){.footer{padding-top:22px}.footer-inner{align-items:stretch;text-align:center;gap:14px}
+  .footer nav{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .footer nav a{display:flex;align-items:center;justify-content:center;min-height:42px;padding:0 6px;border-radius:10px;background:#F5F8FD;border:1px solid var(--line);font-size:13.5px;font-weight:600;color:var(--body)}
+  .footer-inner>span{order:2;font-size:12.5px}}
+/* 8 Nov 2026: flat card icons read at a proper size (the stroke sizes were too small for the flat set) */
+.who-card>.ic-flat,.cx-rule>.ic-flat{width:38px!important;height:38px!important;flex:none}
+.cx-reach-item>.ic-flat,.cx-reach>a>.ic-flat,.ph-cov-h>.ic-flat,.vnm-cov-h>.ic-flat,.apx-cat-h h2 .ic-flat{width:32px!important;height:32px!important}
+.hc-card>.ic-flat{width:28px!important;height:28px!important}
+.fx-node-ic>.ic-flat{width:30px!important;height:30px!important}
