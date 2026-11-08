@@ -1054,11 +1054,6 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
       <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <p class="small muted reveal">TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
-    <div class="cw reveal">
-      <h3 class="cw-h">Companies we've worked with</h3>
-      {{CLIENT_WALL}}
-      <p class="cw-note">Delivered and in-progress projects in Singapore, the Philippines, Malaysia, Indonesia, Switzerland and Romania.</p>
-    </div>
   </div>
 </section>"""
 
@@ -2652,7 +2647,6 @@ def write_llms():
         "- 142 ERP projects; 90+ enterprise clients; clients in 25+ countries",
         "- Positioning: affordable Odoo ERP partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement",
         "- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)",
-        "- Companies we've worked with: " + "; ".join(html_mod.unescape(f"{n} ({ind}, {w})") for n, ind, w in S.CLIENTS),
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
