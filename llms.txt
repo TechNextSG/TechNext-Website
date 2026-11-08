@@ -14,7 +14,6 @@ Last updated: 2026-11-08
 - 142 ERP projects; 90+ enterprise clients; clients in 25+ countries
 - Positioning: affordable Odoo ERP partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement
 - Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)
-- Companies we've worked with: BHD Asia (Coaching & HR consulting, Singapore); HummingBeing (TRE™ & somatic coaching, Singapore); TRE™ in Singapore (TRE™ community, Singapore); Casa Escondida Anilao (Dive resort, Philippines); Immaculate Connections (Travel agency, Philippines); St. Clare College of Caloocan (Education, Philippines); JR-Tech Solution (Commercial kitchens, Malaysia); TRE Worldwide Conference 2027 (International conference, Indonesia); nivellipso® (Clear aligners & brackets, Switzerland); HDH AG (Dental & medical OEM, Switzerland); Saymara B. Ryon (Holistic coaching, Romania)
 - Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
 - Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it
 - Method: discovery, configuration on a staging copy, data migration, training, integration, support

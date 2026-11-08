@@ -1425,3 +1425,5 @@ svg.ic-flat{background:none!important;box-shadow:none!important;padding:0!import
 .cx-reach-item>.ic-flat,.cx-reach>a>.ic-flat,.ph-cov-h>.ic-flat,.vnm-cov-h>.ic-flat,.apx-cat-h h2 .ic-flat{width:32px!important;height:32px!important}
 .hc-card>.ic-flat{width:28px!important;height:28px!important}
 .fx-node-ic>.ic-flat{width:30px!important;height:30px!important}
+/* 8 Nov 2026: bold text in dark and blue sections stays light (was dark ink on navy) */
+:is(.fx-close,.cv-close,.cta-band,.fx-dark,.sec-dark,.bn-dark,.sv-dark,.aix-bir,.erp-ph) :is(strong,b){color:inherit!important}
