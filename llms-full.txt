@@ -1,8 +1,8 @@
 # TechNext — full reference
 
-Last updated: 2026-11-08
+Last updated: 2026-11-09
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, ERP, POS or in-house), starting with accounting, gives a fixed written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 ERP projects; 90+ enterprise clients in 25+ countries.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, POS or in-house), starting with accounting, gives a fixed written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 projects delivered; 90+ enterprise clients in 25+ countries.
 
 ## Contact
 
@@ -17,11 +17,11 @@ Last updated: 2026-11-08
 
 ## Pages
 
-- https://technext.asia/ — Start Your BIR CAS Requirements Today: Keep your system. TechNext adds Odoo as a plug-in in it for your BIR CAS books, 2307, SLSP, SAWT, QAP and e-invoicing. Our own experts, fixed written quote.
+- https://technext.asia/ — 5-Day Express BIR CAS Set-up in Odoo: The 5-Day Express: Odoo as a plug-in in your system, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a five-day sprint. Fixed written quote.
 - https://technext.asia/bir-adviser-call — Start Your BIR CAS Requirements: Request a Call: Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts. Request a call; fixed written quote first.
 - https://technext.asia/bir-cas — Start Your BIR CAS Requirements Today: Start your BIR CAS or CBA requirements today. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Get Ready Now, Not in December: Get ready for BIR e-invoicing before 31 Dec 2026. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
-- https://technext.asia/blog — Odoo for BIR CAS: Guides, E-invoicing, Odoo 20 News: Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo ERP partner for Philippine SMEs.
+- https://technext.asia/blog — Odoo for BIR CAS: Guides, E-invoicing, Odoo 20 News: Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo partner for Philippine SMEs.
 - https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software PH: Odoo, QuickBooks, Xero, SAP: Odoo, QuickBooks, Xero and SAP Business One compared on what you file with the BIR: 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026.
 - https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and where Odoo fits.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
@@ -53,9 +53,9 @@ Last updated: 2026-11-08
 - https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
 - https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
 - https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
-- https://technext.asia/company — TechNext: Your Odoo ERP Partner for BIR CAS: TechNext (UEN 202699888G): 142 ERP projects, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
+- https://technext.asia/company — TechNext: Your Odoo Partner for BIR CAS: TechNext (UEN 202699888G): 142 projects delivered, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
 - https://technext.asia/nexi-explains — Nexi Explains: Odoo, AI and tech videos by TechNext: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
-- https://technext.asia/odoo/apps — Odoo Apps List: Start With Accounting for BIR CAS: Every Odoo app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 ERP projects, fixed written quote.
+- https://technext.asia/odoo/apps — Odoo Apps List: Start With Accounting for BIR CAS: Every Odoo app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 projects delivered, fixed written quote.
 - https://technext.asia/odoo/apps/accounting — Odoo Accounting Philippines: BIR Reports Set Up: Odoo Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
 - https://technext.asia/odoo/apps/ai — Odoo AI App (built-in AI agents) — Singapore & PH: Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Set up for you.
 - https://technext.asia/odoo/apps/appointments — Odoo Appointments in Singapore & the Philippines: Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Set up for you.
@@ -109,13 +109,13 @@ Last updated: 2026-11-08
 - https://technext.asia/odoo/crm-development — Odoo CRM Customization: Never Lose a Lead Again: Odoo CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Fixed written quote, in-house team.
 - https://technext.asia/odoo/discovery — Odoo Discovery: Scope Your BIR CAS Set-up First: Start with an Odoo discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a fixed written quote. Keep your system.
 - https://technext.asia/odoo/erp-system — Odoo Customisation for SMEs: Build It Upgrade-safe: Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, with Odoo as a plug-in in your system. Fixed written quote.
-- https://technext.asia/odoo/integration — Odoo Integration for BIR CAS: Keep Your System: Keep your current system. TechNext, with 142 ERP projects behind it, adds Odoo as a plug-in in your system and starts your BIR CAS set-up. Fixed written quote.
+- https://technext.asia/odoo/integration — Odoo Integration for BIR CAS: Keep Your System: Keep your current system. TechNext, with 142 projects delivered behind it, adds Odoo as a plug-in in your system and starts your BIR CAS set-up. Fixed written quote.
 - https://technext.asia/odoo/philippines — Odoo Philippines: Start Your BIR CAS Set-Up Today: Odoo for Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, fixed written quote first.
 - https://technext.asia/odoo/support — Odoo Support: One Partner After Go-live: Odoo support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
 - https://technext.asia/odoo/training — Odoo Training: Team Ready for BIR CAS and Go-live: Odoo training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Fixed written quote.
 - https://technext.asia/odoo/vietnam — Odoo for Vietnam: Circular 99, SInvoice, 01/GTGT: Odoo for SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, plugged in beside your current system, with a fixed written quote.
-- https://technext.asia/solutions/enterprise — Odoo Multi-Company ERP: One Group, One Odoo: Run every company in your group on one Odoo, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Fixed written quote.
-- https://technext.asia/solutions/odoo-erp — Odoo ERP Philippines: Start With BIR CAS Today: Odoo ERP for SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 ERP projects, fixed written quote.
+- https://technext.asia/solutions/enterprise — Odoo Multi-Company: One Group, One Odoo: Run every company in your group on one Odoo, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Fixed written quote.
+- https://technext.asia/solutions/odoo-erp — Odoo ERP Philippines: Start With BIR CAS Today: Odoo ERP for SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 projects delivered, fixed written quote.
 
 ## Questions and answers
 
@@ -1087,7 +1087,7 @@ Source: https://technext.asia/company
 
 ### Do we have to replace our current system to use Odoo?
 
-No. TechNext sets up Odoo as a plug-in in your system, beside your current accounting software, ERP, POS or spreadsheets, and starts with Accounting and BIR set-up. You can add more Odoo apps later.
+No. TechNext sets up Odoo as a plug-in in your system, beside your current accounting software, POS or spreadsheets, and starts with Accounting and BIR set-up. You can add more Odoo apps later.
 
 Source: https://technext.asia/company
 
@@ -1111,7 +1111,7 @@ Source: https://technext.asia/company
 
 ### Do we have to replace our current system?
 
-No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, ERP, POS or in-house system, and Odoo produces the books and BIR forms from the data we bring in. Later, Odoo can grow app by app.
+No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, POS or in-house system, and Odoo produces the books and BIR forms from the data we bring in. Later, Odoo can grow app by app.
 
 Source: https://technext.asia/
 
@@ -1135,13 +1135,19 @@ Source: https://technext.asia/
 
 ### How long does it take?
 
-It depends on your current system, your data and which outputs you need first. We agree the schedule in the first adviser meeting and write it into your fixed quote. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
+The Odoo set-up runs as the 5-Day Express: five working days, after a call and a process map. Day 1 sets up Odoo, Day 2 the BIR settings, Day 3 loads your data, Day 4 tests every output and Day 5 is hand-over and training. The sprint starts once your data is ready; bigger scopes run as extra sprints, written into your fixed quote. Your RDO sets its own timeline for the CAS registration. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
+
+Source: https://technext.asia/
+
+### What is the NextSprint method?
+
+It is how TechNext runs every set-up: Agile daily sprints with a check-in at the end of each day, Lean scope (standard Odoo and only the BIR outputs you need first) and Six Sigma checks (a checklist for every output, tested against your sample books before hand-over). See the method .
 
 Source: https://technext.asia/
 
 ### Who is TechNext?
 
-TechNext is an affordable Odoo ERP partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main consulting and development team in Taguig City, Metro Manila. Our own experts plug Odoo into the system you run today and set it up for BIR requirements. About us .
+TechNext is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main consulting and development team in Taguig City, Metro Manila. Our own experts plug Odoo into the system you run today and set it up for BIR requirements. About us .
 
 Source: https://technext.asia/
 

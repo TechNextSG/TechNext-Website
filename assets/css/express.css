@@ -1,0 +1,66 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* 5-Day Express timeline + NextSprint method ({{EXPRESS}} in _src/build.py, 9 Nov 2026). Site tokens only. */
+.x5-sec{padding:84px 0;background:#fff;scroll-margin-top:var(--header-h,72px)}
+.x5-sec--method{background:var(--alt);border-block:1px solid var(--line)}
+.x5-head{max-width:760px;margin:0 0 40px}
+.x5-kicker{font:700 13px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin:0 0 10px}
+.x5-sec h2{font:800 clamp(28px,3.2vw,40px)/1.15 var(--font-display);letter-spacing:-.02em;color:var(--ink);margin:0 0 14px}
+.x5-sec h2 .hl{color:var(--blue)}
+.x5-intro{font-size:17px;line-height:1.6;color:var(--body);margin:0}
+
+/* the 5-Day Express mark */
+.x5-badge-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 14px}
+.x5-badge{white-space:nowrap;display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 10px;border-radius:999px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-700) 100%);color:#fff;font:800 14px/1 var(--font-display);letter-spacing:.01em;box-shadow:0 12px 28px -12px rgba(49,103,202,.55)}
+.x5-badge .ic{width:16px;height:16px;color:var(--yellow,#FFD23F);fill:currentColor;stroke:none}
+.x5-badge-sub{font:700 13px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em}
+
+/* day-by-day timeline: one rail, six stops */
+.x5-days{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;position:relative}
+.x5-days::before{content:"";position:absolute;left:32px;right:calc((100% - 80px) / 6 - 32px);top:31px;height:2px;background:linear-gradient(90deg,var(--blue-100),var(--blue) 18%,var(--blue) 82%,var(--blue-100))}
+.x5-day{position:relative;display:flex;flex-direction:column;align-items:flex-start}
+.x5-node{position:relative;z-index:1;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#fff;border:2px solid var(--blue-100);box-shadow:0 8px 20px -12px rgba(31,31,61,.35);margin:0 0 16px}
+.x5-node .ic{width:34px;height:34px}
+.x5-day:first-child .x5-node{border-style:dashed}
+.x5-day:last-child .x5-node{border-color:var(--blue);box-shadow:0 12px 28px -12px rgba(49,103,202,.55)}
+.x5-when{display:inline-block;font:700 12px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px}
+.x5-day:first-child .x5-when{color:var(--muted)}
+.x5-day h3{font:700 18px/1.3 var(--font-display);color:var(--ink);margin:0 0 6px}
+.x5-day p{margin:0;font-size:14.5px;line-height:1.55;color:var(--body)}
+.x5-note{margin:32px 0 0;padding:14px 18px;border-radius:var(--r,14px);background:var(--blue-050);border:1px solid var(--blue-100);font-size:13.5px;line-height:1.55;color:var(--body);max-width:900px}
+
+/* NextSprint method */
+.x5-split{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start}
+.x5-split .x5-head{margin:0}
+.x5-lead-by{display:flex;gap:10px;align-items:flex-start;margin:22px 0 0;font-size:15px;line-height:1.5;color:var(--ink);font-weight:600}
+.x5-lead-by .ic{flex:none;width:22px;height:22px;color:var(--blue);margin-top:1px}
+.x5-act{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin:26px 0 0}
+.x5-pillars{display:grid;gap:14px}
+.x5-pillar{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:var(--r,14px);padding:22px 24px;box-shadow:var(--shadow-sm,0 1px 3px rgba(31,31,61,.06))}
+.x5-pic{grid-row:1/4;display:block;width:44px;height:44px}
+.x5-pic .ic{width:44px;height:44px}
+.x5-tag{font:700 12px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin:2px 0 4px}
+.x5-pillar h3{font:700 18px/1.3 var(--font-display);color:var(--ink);margin:0 0 6px}
+.x5-pillar p{margin:0;font-size:15px;line-height:1.55;color:var(--body)}
+
+@media (max-width:1100px){
+  .x5-days{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:32px}
+  .x5-days::before{display:none}
+}
+@media (max-width:1000px){
+  .x5-split{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:640px){
+  .x5-sec{padding:56px 0}
+  .x5-head{margin-bottom:28px}
+  .x5-days{grid-template-columns:1fr;row-gap:0}
+  .x5-days::before{display:block;left:23px;right:auto;top:24px;bottom:24px;width:2px;height:auto;background:linear-gradient(180deg,var(--blue-100),var(--blue) 12%,var(--blue) 88%,var(--blue-100))}
+  .x5-day{display:grid;grid-template-columns:48px 1fr;column-gap:14px;padding:0 0 22px}
+  .x5-day:last-child{padding-bottom:0}
+  .x5-node{grid-row:1/4;width:48px;height:48px;margin:0}
+  .x5-node .ic{width:26px;height:26px}
+  .x5-when{margin-top:4px}
+  .x5-pillar{padding:18px;column-gap:14px}
+  .x5-pic,.x5-pic .ic{width:36px;height:36px}
+  .x5-act .btn{width:100%;justify-content:center}
+}
+.bf-chips a{color:inherit;text-decoration:none}.bf-chips a:hover{color:var(--blue)}
