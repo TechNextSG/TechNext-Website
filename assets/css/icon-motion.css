@@ -1,0 +1,50 @@
+/* © TechNext Pte. Ltd. (technext.asia). All rights reserved. */
+/* Interactive icon motion, site-wide (owner 9 Nov 2026: "make sure the icons in technext have interactive animations").
+   Three icon families, one feel:
+     - flat illustrated icons (svg.ic-flat): a springy hop + tilt, and the accent shape (last child) pops
+     - Odoo app icons (img.oi / img from assets/img/odoo/): lift + tilt + soft shadow while hovered, a hop on tap/in-view
+     - stroke glyphs (svg.ic) in chips, lists, notes and headings: a quick tick
+   assets/js/icon-motion.js decides WHEN: hover / keyboard focus of the nearest card, row or link that holds the
+   icon (never a whole grid), a tap on phones, and once when the icon scrolls into view on touch screens.
+   Classes: .icm-play (one-shot), .icm-lift (held while hovered). Buttons keep their own arrow motion. Off for reduced motion. */
+:root{--icm-spring:cubic-bezier(.34,1.56,.64,1);--icm-out:cubic-bezier(.16,1,.3,1)}
+
+@media (prefers-reduced-motion:no-preference){
+  .ic-flat,img.oi,img[src*="img/odoo/"]{transform-origin:50% 60%}
+  .ic-flat>:last-child{transform-box:fill-box;transform-origin:50% 50%}
+  img.oi,img[src*="img/odoo/"]{transition:transform .45s var(--icm-spring),filter .3s var(--icm-out)}
+
+  .ic-flat.icm-play,.ic-flat:hover{animation:icmJelly .72s var(--icm-out) both}
+  .ic-flat.icm-play>:last-child,.ic-flat:hover>:last-child{animation:icmPop .6s .12s var(--icm-out) both}
+
+  :is(img.oi,img[src*="img/odoo/"]):is(.icm-lift,:hover){transform:translateY(-3px) rotate(-5deg) scale(1.08);filter:drop-shadow(0 7px 8px rgba(31,31,61,.18))}
+  :is(img.oi,img[src*="img/odoo/"]).icm-play:not(.icm-lift){animation:icmHop .7s var(--icm-out) both}
+
+  .ic.icm-play:not(.ic-flat){animation:icmTick .5s var(--icm-out) both}
+}
+
+@keyframes icmJelly{
+  0%{transform:none}
+  26%{transform:translateY(-5px) rotate(-8deg) scale(1.12)}
+  52%{transform:translateY(0) rotate(5deg) scale(.97)}
+  74%{transform:rotate(-2deg) scale(1.03)}
+  100%{transform:none}
+}
+@keyframes icmPop{
+  0%{transform:none}
+  40%{transform:scale(1.18)}
+  70%{transform:scale(.95)}
+  100%{transform:none}
+}
+@keyframes icmHop{
+  0%{transform:none}
+  30%{transform:translateY(-6px) rotate(-6deg) scale(1.1)}
+  60%{transform:translateY(0) rotate(3deg) scale(.98)}
+  100%{transform:none}
+}
+@keyframes icmTick{
+  0%{transform:none}
+  35%{transform:rotate(-12deg) scale(1.2)}
+  70%{transform:rotate(4deg) scale(.98)}
+  100%{transform:none}
+}
