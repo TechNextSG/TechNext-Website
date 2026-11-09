@@ -37,7 +37,7 @@ S1 = [
         ep("EP03", "Before vs After: Order to Invoice", "Same order, typed three times? Before and after Odoo.", "2:17",
            thumb="s1-ep03", yt="7ouKgR1bj_M", premiere="2026-10-20T10:00:00Z", page="solutions/odoo-erp.html"),
         ep("EP04", "Myth-busting: ERP Is Only for Big Companies", "Too small for ERP? Myth busted.", "2:23", thumb="s1-ep04", yt="BxMuXLlDelw", premiere="2026-10-22T10:00:00Z", page="solutions/odoo-erp.html"),
-        ep("EP05", "Odoo ERP Implementation", "Spreadsheet chaos? How we implement Odoo ERP.", "2:30", thumb="s1-ep05", yt="oD2DQpoBNDg", premiere="2026-10-24T10:00:00Z", page="solutions/odoo-erp.html"),
+        ep("EP05", "Full Odoo Implementation", "Spreadsheet chaos? How we implement Odoo ERP.", "2:30", thumb="s1-ep05", yt="oD2DQpoBNDg", premiere="2026-10-24T10:00:00Z", page="solutions/odoo-erp.html"),
     ]),
     ("The core apps", [
         ep("EP06", "Odoo Accounting", "It’s a match! Bank lines meet their invoices.", "2:39", thumb="s1-ep06", yt="U3rIsKAfaOU", premiere="2026-10-27T10:00:00Z", page="odoo/apps/accountant.html"),

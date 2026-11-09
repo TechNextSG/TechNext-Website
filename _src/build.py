@@ -265,7 +265,7 @@ def talk_panel_html() -> str:
           <option>Odoo Accounting</option>
           <option>Odoo Sales &amp; CRM</option>
           <option>Odoo Inventory</option>
-          <option>Full Odoo ERP implementation</option>
+          <option>Full Odoo implementation</option>
           <option>Odoo training or support</option>
           <option>Something else</option>
         </select>
@@ -514,7 +514,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "description": S.ORG_DESC,
             # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
             "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the Odoo Ready Partner "
-                                         "headquartered in Singapore with its main team in Taguig City: an affordable Odoo ERP partner "
+                                         "headquartered in Singapore with its main team in Taguig City: an affordable Odoo partner "
                                          "for SMEs that plugs Odoo into the system a business already runs.",
             "slogan": "Keep your system. Plug in Odoo for BIR.",
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Odoo services", "itemListElement": [
@@ -522,7 +522,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                 for n, u in (("Odoo set-up for BIR CAS and CBA requirements", "bir-cas"),
                              ("BIR e-invoicing preparation in Odoo", "bir-e-invoicing"),
                              ("Odoo as a plug-in in your existing system", "odoo/integration"),
-                             ("Odoo ERP implementation", "solutions/odoo-erp"),
+                             ("Full Odoo implementation", "solutions/odoo-erp"),
                              ("Odoo implementation in the Philippines", "odoo/philippines"),
                              ("Odoo discovery", "odoo/discovery"), ("Odoo training", "odoo/training"),
                              ("Odoo support", "odoo/support"))]},
@@ -530,7 +530,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "knowsAbout": ["Odoo ERP", "Odoo implementation", "Odoo Accounting", "Odoo Sales", "Odoo Inventory",
                            "Enterprise Resource Planning", "Affordable Odoo implementation for SMEs",
                            "Odoo integration with existing accounting software and ERP systems",
-                           "Odoo as a plug-in to an existing ERP or company system", "Business consultation",
+                           "Odoo as a plug-in to an existing company system", "Business consultation",
                            "BIR requirements in Odoo (Philippines)", "Odoo set-up for BIR CAS requirements",
                            "BIR e-invoicing preparation in Odoo", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow",
                            # 24 Oct 2026 (GEO/AEO): one entry per BIR topic the site has its own page or guide for
@@ -1051,7 +1051,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>ERP experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>Odoo experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <p class="small muted reveal">TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
   </div>
@@ -1063,6 +1063,72 @@ def client_wall_html() -> str:
     lis = "".join(f'<li class="cw-item reveal" style="--i:{k % 6}"><b>{n}</b><span>{ind}</span><span class="cw-where">{where}</span></li>'
                   for k, (n, ind, where) in enumerate(S.CLIENTS))
     return f'<ul class="cw-list" aria-label="Companies we have worked with">{lis}</ul>'
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 5-Day Express + the NextSprint method (owner 9 Nov 2026: "fix technext website branding 5 day express. add methodology").
+# The 5-Day Express is TechNext's lead offer: a five-working-day Odoo set-up sprint for BIR CAS. Day flow fixed by the
+# owner 29 Oct 2026 (Before Day 1: call + process map; Day 1 set up, 2 BIR settings, 3 data, 4 test, 5 hand-over).
+# NextSprint method = Agile + Lean + Six Sigma (no TM until the owner confirms one). Never "BIR-compliant in 5 days" and
+# no go-live or registration guarantee: the sprint is the Odoo set-up; the RDO decides the registration.
+# Token {{EXPRESS}} renders both sections and adds assets/css/express.css to the page head.
+EXPRESS_DAYS = [
+    ("search", "Before Day 1", "Call and process map",
+     "A 30-minute call, then we map how you record <strong>sales, bills and payments</strong> today."),
+    ("plug", "Day 1", "Set up in Odoo",
+     "Your Odoo database, company details and chart of accounts, <strong>plugged in beside your system</strong>."),
+    ("receipt", "Day 2", "BIR settings",
+     "TIN and branch codes, taxes and ATCs, invoice series and the <strong>BIR report layouts</strong>."),
+    ("database", "Day 3", "Load your data",
+     "Customers, vendors, opening balances and <strong>recent invoices and bills</strong> brought in."),
+    ("shield", "Day 4", "Test",
+     "Sample invoices, books, 2307 and SLSP run end to end and <strong>checked with your accountant</strong>."),
+    ("graduation", "Day 5", "Hand-over",
+     "Training for your team, your <strong>CAS application documents</strong> prepared with you, and support."),
+]
+NEXTSPRINT = [
+    ("refresh", "Agile", "Short daily sprints",
+     "Every day ends with a check-in on what is done in your Odoo. You see progress daily and can change course early."),
+    ("target", "Lean", "Only what you need first",
+     "Standard Odoo before any custom work. We set up the BIR outputs you need now and leave the rest for later, so nothing slows the sprint."),
+    ("bars", "Six Sigma", "Measured and checked",
+     "A checklist for every BIR output. Each one is tested against your sample books and signed off before hand-over."),
+]
+
+
+def express_html() -> str:
+    days = "".join(
+        f'<li class="x5-day"><span class="x5-node">{{{{flat:{ic}}}}}</span><span class="x5-when">{when}</span>'
+        f'<h3>{h}</h3><p>{p}</p></li>' for ic, when, h, p in EXPRESS_DAYS)
+    pillars = "".join(
+        f'<div class="x5-pillar"><span class="x5-pic">{{{{flat:{ic}}}}}</span><span class="x5-tag">{tag}</span>'
+        f'<h3>{h}</h3><p>{p}</p></div>' for ic, tag, h, p in NEXTSPRINT)
+    return f'''<section class="x5-sec" id="express" aria-labelledby="xp5-h">
+  <div class="container">
+    <div class="x5-head">
+      <p class="x5-badge-row"><span class="x5-badge">{{{{icon:zap}}}}5-Day Express</span><span class="x5-badge-sub">BIR CAS set-up sprint in Odoo</span></p>
+      <h2 id="xp5-h">Your BIR CAS set-up, <span class="hl">in five working days.</span></h2>
+      <p class="x5-intro">One sprint, one team, a plan for every day. Odoo plugs in beside the system you run today, so nothing is swapped out while we work.</p>
+    </div>
+    <ol class="x5-days" aria-label="The 5-Day Express, day by day">{days}</ol>
+    <p class="x5-note">The sprint starts once your process map is agreed and your data is ready. Bigger scopes run as extra sprints, written into your fixed quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
+  </div>
+</section>
+
+<section class="x5-sec x5-sec--method" id="nextsprint" aria-labelledby="xp5-m-h">
+  <div class="container">
+    <div class="x5-split">
+      <div class="x5-head">
+        <p class="x5-kicker">Our methodology</p>
+        <h2 id="xp5-m-h">The <span class="hl">NextSprint</span> method.</h2>
+        <p class="x5-intro">How we fit a BIR CAS set-up into five days: <strong>Agile</strong> sprints, <strong>Lean</strong> scope and <strong>Six Sigma</strong> checks, run by our own team in Taguig City.</p>
+        <p class="x5-lead-by">{{{{icon:usercheck}}}}<span>Led by Neil Matan, Senior Functional Lead: Accredited Scrum Master and Six Sigma Green Belt.</span></p>
+        <div class="x5-act"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a></div>
+      </div>
+      <div class="x5-pillars">{pillars}</div>
+    </div>
+  </div>
+</section>'''
 
 
 def advisor_cards_html() -> str:
@@ -2148,7 +2214,7 @@ def article_html(meta: dict, body: str) -> str:
 {body}
       {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>
       <p class="actions post-act"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
     </div>
@@ -2294,13 +2360,13 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # gets a hook label by page topic and position (the last one on the page is the closer); all open the appointment page.
 # The header and the mobile menu keep "Set up a meeting".
 HOOKS = {
-    "cas": ["Start my BIR CAS set-up", "Get my BIR CAS plan", "Talk to an Odoo expert", "Plug Odoo into my system"],
+    "cas": ["Start my 5-Day Express", "Get my 5-day sprint plan", "Talk to an Odoo expert", "Plug Odoo into my system"],
     "einv": ["Plan my e-invoicing set-up", "Talk to an Odoo expert", "Get my Odoo plan", "Book my free 30-min call"],
     "app": ["See it on my data", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
     "gen": ["Book my free 30-min call", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
 }
-HOOK_LAST = {"cas": "Start my BIR CAS today", "einv": "Start my e-invoicing plan today", "app": "Start my BIR CAS set-up",
-             "gen": "Start my BIR CAS today"}
+HOOK_LAST = {"cas": "Start my 5-Day Express today", "einv": "Start my e-invoicing plan today", "app": "Start my 5-Day Express",
+             "gen": "Start my 5-Day Express today"}
 
 
 def _hook_topic(out_rel: str) -> str:
@@ -2439,6 +2505,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{CLIENT_WALL}}", client_wall_html())
     if "{{ADVISOR_CARDS}}" in content:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
+    if "{{EXPRESS}}" in content:   # 5-Day Express timeline + NextSprint method (9 Nov 2026)
+        content = content.replace("{{EXPRESS}}", express_html())
+        meta["head"] = meta.get("head", "") + '<link rel="stylesheet" href="{ROOT}assets/css/express.css?v={ASSET_V}">'
     if "{{TEAM_OFFICES}}" in content:
         content = content.replace("{{TEAM_OFFICES}}", team_offices_html())
     content = re.sub(r"\{\{INDUSTRY_HERO:([a-z-]+)\}\}", lambda m: IFX.hero_html(m.group(1)), content)
@@ -2626,8 +2695,8 @@ def write_llms():
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         f"Last updated: {date.today().isoformat()}", "",
-        "> TechNext Pte. Ltd. is an affordable Odoo ERP partner for SMEs: a Singapore-based Odoo Ready Partner with its main team in "
-        "Taguig City. We plug Odoo into the company system a business already runs (accounting software, ERP, POS, spreadsheets "
+        "> TechNext Pte. Ltd. is an affordable Odoo partner for SMEs: a Singapore-based Odoo Ready Partner with its main team in "
+        "Taguig City. We plug Odoo into the company system a business already runs (accounting software, POS, spreadsheets "
         "or an in-house system), so it does not have to replace it, starting with accounting and BIR. Clients can start with Odoo "
         "Accounting only and get a fixed, written quote before any work starts. In the Philippines we set Odoo up "
         "for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it "
@@ -2644,8 +2713,8 @@ def write_llms():
         "- Not to be confused with: technext.ng (Nigerian tech news), TechNext Inc. (US technology forecasting), "
         "Technext Limited (Bangladesh), TechNext AB (Sweden), technext.ai, or the TechNExt festival (UK)",
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
-        "- 142 ERP projects; 90+ enterprise clients; clients in 25+ countries",
-        "- Positioning: affordable Odoo ERP partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement",
+        "- 142 projects delivered; 90+ enterprise clients; clients in 25+ countries",
+        "- Positioning: affordable Odoo partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement",
         "- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)",
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
@@ -2805,13 +2874,13 @@ def write_llms_full():
     out = ["# TechNext — full reference", "",
            f"Last updated: {date.today().isoformat()}", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-           "consulting hub in Taguig City, Metro Manila. It is an affordable Odoo ERP partner for SMEs: it plugs Odoo into the system a business "
-           "already runs (accounting software, ERP, POS or in-house), starting with accounting, gives a fixed written quote first, "
+           "consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business "
+           "already runs (accounting software, POS or in-house), starting with accounting, gives a fixed written quote first, "
            "sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, "
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "
            "the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. "
            "No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
-           "142 ERP projects; 90+ enterprise clients in 25+ countries.", "",
+           "142 projects delivered; 90+ enterprise clients in 25+ countries.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",
            "## Offices", ""]
     for o in S.OFFICES:

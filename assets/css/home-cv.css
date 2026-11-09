@@ -11,6 +11,10 @@
 .cv-pitch{padding-top:18px}
 .cv-eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:6px 12px 6px 8px;border-radius:999px;background:#fff;border:1px solid var(--blue-100);font:600 13px/1.2 var(--font-body);color:var(--blue-700)}
 .cv-eyebrow img{width:20px;height:20px;object-fit:contain}
+.cv-eyebrow{padding:4px 14px 4px 4px;gap:10px}
+.cv-xp{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 9px;border-radius:999px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-700) 100%);color:#fff;font:800 13px/1 var(--font-display);letter-spacing:.01em;box-shadow:0 10px 22px -12px rgba(49,103,202,.6)}
+.cv-xp .ic{width:15px;height:15px;color:#FFD23F;fill:currentColor;stroke:none}
+.cv-checks a{color:var(--blue);font-weight:600}
 .cv-hero h1{font:800 clamp(36px,4.6vw,58px)/1.06 var(--font-display);letter-spacing:-.025em;color:var(--ink);margin:0 0 20px}
 .cv-hero h1 span{color:var(--blue)}
 .cv-lead{font-size:18px;line-height:1.6;color:var(--body);margin:0 0 22px;max-width:36em}
@@ -50,21 +54,7 @@
 .cv-p{font-size:17px;margin:16px 0 0}
 .cv-act{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-top:32px}
 
-.cv-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
-.cv-steps li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--shadow-sm)}
-.cv-ic{display:block;width:64px;height:64px;margin:0 0 14px}
-.cv-ic svg{width:100%;height:100%;overflow:visible}
-.cv-n{display:block;font:700 12px/1.2 var(--font-body);color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin:0 0 6px}
 /* step icons (8 Nov 2026): bare flat Odoo-style icons, a small loop each - the lens scans, the plug pushes in, the badge pops */
-.cv-ic .stk-lens{transform-box:fill-box;transform-origin:30% 30%;animation:stkScan 3.6s ease-in-out infinite}
-.cv-ic .stk-plug{animation:stkPlug 2.8s cubic-bezier(.5,0,.3,1) infinite}
-.cv-ic .stk-badge{transform-box:fill-box;transform-origin:50% 50%;animation:stkPop 3.2s var(--spring) infinite}
-@keyframes stkScan{0%,100%{transform:translate(0,0)}35%{transform:translate(-6px,-4px)}70%{transform:translate(-2px,-8px)}}
-@keyframes stkPlug{0%,20%{transform:translateX(-5px)}45%,85%{transform:translateX(0)}100%{transform:translateX(-5px)}}
-@keyframes stkPop{0%,55%,100%{transform:scale(1)}65%{transform:scale(1.14)}75%{transform:scale(.96)}}
-@media (prefers-reduced-motion:reduce){.cv-ic .stk-lens,.cv-ic .stk-plug,.cv-ic .stk-badge{animation:none}}
-.cv-steps h3{font:700 19px/1.3 var(--font-display);color:var(--ink);margin:0 0 8px}
-.cv-steps p{margin:0;font-size:15.5px}
 
 .cv-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center}
 .cv-outs{list-style:none;margin:0;padding:0;display:grid;gap:12px}
@@ -92,7 +82,7 @@
 @media (max-width:1000px){
   .cv-hero-in,.cv-split{grid-template-columns:1fr;gap:32px}
   .cv-pitch{padding-top:0}
-  .cv-steps,.cv-why{grid-template-columns:1fr}
+  .cv-why{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .cv-hero{padding:28px 0 40px}
