@@ -321,6 +321,7 @@ LAYOUT = '''<!doctype html>
 <script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off2')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
 <link rel="stylesheet" href="{ROOT}assets/css/buttons.css?v={ASSET_V}">
+<link rel="stylesheet" href="{ROOT}assets/css/icon-motion.css?v={ASSET_V}">
 <script type="application/ld+json">{JSONLD}</script>
 <script>document.querySelectorAll('link[data-defer]').forEach(function(l){function on(){l.media='all'}if(l.sheet)on();else l.addEventListener('load',on)})</script>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
@@ -370,6 +371,7 @@ LAYOUT = '''<!doctype html>
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
+<script src="{ROOT}assets/js/icon-motion.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/consent.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/stage.js?v={ASSET_V}" defer></script>
 {SCRIPTS}
