@@ -64,3 +64,8 @@
   .x5-act .btn{width:100%;justify-content:center}
 }
 .bf-chips a{color:inherit;text-decoration:none}.bf-chips a:hover{color:var(--blue)}
+/* 10 Nov 2026: Day 2-5 are teaser questions: a "?" in the node, answered in the planning meeting */
+.x5-node--q{font:800 30px/1 var(--font-display);color:var(--blue);background:var(--blue-050);border-style:dashed;border-color:var(--blue-300)}
+.x5-day--q h3{color:var(--blue-700)}
+.x5-day--q p{color:var(--muted)}
+@media (max-width:640px){.x5-node--q{font-size:22px}}

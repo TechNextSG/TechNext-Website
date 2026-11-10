@@ -1,8 +1,8 @@
 # TechNext — full reference
 
-Last updated: 2026-11-09
+Last updated: 2026-11-10
 
-> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, POS or in-house), starting with accounting, gives a fixed written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 projects delivered; 90+ enterprise clients in 25+ countries.
+> TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, POS or in-house), starting with accounting, gives a written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 projects delivered; 90+ enterprise clients in 25+ countries.
 
 ## Contact
 
@@ -17,105 +17,105 @@ Last updated: 2026-11-09
 
 ## Pages
 
-- https://technext.asia/ — 5-Day Express BIR CAS Set-up in Odoo: The 5-Day Express: Odoo as a plug-in in your system, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a five-day sprint. Fixed written quote.
-- https://technext.asia/bir-adviser-call — Talk to a BIR CAS Adviser: Request a Call: Request a call with a TechNext BIR CAS adviser in Taguig City. We map your process and plan your 5-Day Express sprint. Fixed written quote first.
-- https://technext.asia/bir-cas — BIR CAS Philippines: 5-Day CAS System Set-Up in Odoo: BIR CAS (Computerized Accounting System) set-up in the Philippines: Odoo as a plug-in in your system, run as a 5-Day Express sprint. Fixed written quote.
-- https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Get Ready Now, Not in December: Get ready for BIR e-invoicing before 31 Dec 2026. Odoo as a plug-in in your system, set up by our own Taguig experts, with a fixed written quote first.
-- https://technext.asia/blog — Odoo for BIR CAS: Guides, E-invoicing, Odoo 20 News: Guides to Odoo for BIR CAS (e-invoicing, 2307, SLSP, 2550Q), Odoo 20 news and plain ERP guides from TechNext, an Odoo partner for Philippine SMEs.
-- https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software PH: Odoo, QuickBooks, Xero, SAP: Odoo, QuickBooks, Xero and SAP Business One compared on what you file with the BIR: 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026.
-- https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and where Odoo fits.
-- https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Odoo Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and Odoo's audit trail.
-- https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo — BIR Books of Accounts: Manual, Loose-Leaf or Computerized: Manual, loose-leaf or computerized books of accounts: who keeps which, how ORUS registration works, the year-end deadlines, retention, and where Odoo fits.
-- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the Odoo steps.
-- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Meaning, 20-Day Deadline and How to Claim: BIR Form 2307 certifies creditable tax withheld from you. Who issues it, the 20-day rule, 2307 vs 2306, why credits get disallowed, and Odoo's 2307 PDF.
-- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q 2026: Deadline, What Goes In, and Odoo: BIR Form 2550Q is due within 25 days after each quarter. What goes in it, invoice-basis VAT for services under EOPT, the end of the 2550M, and Odoo's report.
-- https://technext.asia/blog/bir-form-2551q-percentage-tax-odoo — BIR Form 2551Q: 3% Rate, 25-Day Deadline, Who Files: 2551Q is the quarterly percentage tax return for non-VAT businesses: 3% of gross quarterly sales, due 25 days after the quarter. The 8% option and Odoo.
-- https://technext.asia/blog/bir-multi-branch-odoo — BIR Multi-Branch Rules: Branch Codes, COR, VAT and Odoo: BIR rules for multi-branch businesses: branch codes, a COR per branch, invoice series, one consolidated VAT return, e-invoicing PTIs, and branches in Odoo.
+- https://technext.asia/ — 5 Day Express BIR CAS Set-up: The 5 Day Express: a plug-in beside your current software, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a 5 day sprint. Written quote.
+- https://technext.asia/bir-adviser-call — Talk to a BIR CAS Adviser: Request a Call: Request a call with a TechNext BIR CAS adviser in Taguig City. We map your process and plan your 5 Day Express sprint. Written quote first.
+- https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS (Computerized Accounting System) set-up in the Philippines, as a plug-in beside your current software, run as a 5 Day Express sprint. Written quote.
+- https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Get Ready Now, Not in December: Get ready for BIR e-invoicing before 31 Dec 2026. A plug-in beside your current system, set up by our own Taguig experts, with a written quote first.
+- https://technext.asia/blog — BIR CAS Guides: E-invoicing, 2307, SLSP, 2550Q: Plain guides to BIR CAS, e-invoicing, 2307, SLSP and 2550Q from TechNext's BIR Compliance Experts, for Philippine SMEs and their accountants.
+- https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software Philippines: 4 Systems Compared: Four accounting systems compared on what you file with the BIR: 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026, QuickBooks, Xero and SAP B1 included.
+- https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and how system invoices fit.
+- https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Your Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and a ready audit trail.
+- https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo — BIR Books of Accounts: Manual, Loose-Leaf or Computerized: Manual, loose-leaf or computerized books of accounts: who keeps which, how ORUS registration works, the year-end deadlines and retention.
+- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the steps to get ready.
+- https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Meaning, 20-Day Deadline and How to Claim: BIR Form 2307 certifies creditable tax withheld from you. Who issues it, the 20-day rule, 2307 vs 2306, why credits get disallowed, and system-made 2307s.
+- https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q 2026: Deadline and What Goes In: BIR Form 2550Q is due within 25 days after each quarter. What goes in it, invoice-basis VAT for services under EOPT, and the end of the 2550M.
+- https://technext.asia/blog/bir-form-2551q-percentage-tax-odoo — BIR Form 2551Q: 3% Rate, 25-Day Deadline, Who Files: 2551Q is the quarterly percentage tax return for non-VAT businesses: 3% of gross quarterly sales, due 25 days after the quarter, and the 8% option.
+- https://technext.asia/blog/bir-multi-branch-odoo — BIR Multi-Branch Rules: Branch Codes, COR and VAT: BIR rules for multi-branch businesses: branch codes, a COR per branch, invoice series, one consolidated VAT return and e-invoicing PTIs.
 - https://technext.asia/blog/bir-pos-accreditation-ptu-requirements — What Is a PTU in BIR? Permit to Use for POS (2026): PTU means Permit to Use: the BIR permit for each POS or cash register. How it is filed in eAccReg, POS accreditation, receipt fields and PTU cancellation.
 - https://technext.asia/blog/bir-rules-for-your-accounting-system — Is Any Accounting Software BIR-Accredited? The 2026 Rules: No accounting software is BIR-accredited. The BIR registers your CAS or CBA, your books in ORUS and your e-invoicing PTI. The RRs and RMCs in plain words.
-- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — Odoo QAP and SAWT: What They Are, BIR Deadlines, DAT Files: QAP lists the tax you withheld from suppliers; SAWT lists the tax withheld from you. BIR deadlines under RMC 55-2026, DAT file errors and Odoo exports.
-- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — What Is SLSP in BIR? Summary List of Sales and Purchases: SLSP is the quarterly list of sales and purchases VAT-registered businesses send the BIR: who files, deadlines, common rejection causes and Odoo's DAT export.
-- https://technext.asia/blog/bir-tax-calendar-deadlines-odoo — BIR Tax Calendar 2026-2027: Every Deadline by Form: Next BIR deadlines: 0619-E and 1601-C on the 10th, 2307 by 20 Jan, 2550Q by 25 Jan, 1604-C and 2316 by 31 Jan 2027, 1702-RT by 15 Apr. Odoo report per form.
+- https://technext.asia/blog/bir-sawt-qap-alphalist-odoo — QAP and SAWT: What They Are, BIR Deadlines, DAT Files: QAP lists the tax you withheld from suppliers; SAWT lists the tax withheld from you. BIR deadlines under RMC 55-2026 and common DAT file errors.
+- https://technext.asia/blog/bir-slsp-summary-list-sales-purchases-odoo — What Is SLSP in BIR? Summary List of Sales and Purchases: SLSP is the quarterly list of sales and purchases VAT-registered businesses send the BIR: who files, deadlines, common rejection causes and the DAT export.
+- https://technext.asia/blog/bir-tax-calendar-deadlines-odoo — BIR Tax Calendar 2026-2027: Every Deadline by Form: Next BIR deadlines: 0619-E and 1601-C on the 10th, 2307 by 20 Jan, 2550Q by 25 Jan, 1604-C and 2316 by 31 Jan 2027, 1702-RT by 15 Apr. Every form listed.
 - https://technext.asia/blog/enterprise-rag-guide — Enterprise RAG Implementation Guide for Business: A plain-language enterprise RAG guide: reference architecture, build steps, best practices, failure points, quality checks and access control.
-- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoicing Requirements 2026: BIR Invoice Checklist: Checklist of what a BIR invoice must show under RR 7-2024 (EOPT): the required fields, the P1,000 buyer-TIN rule, the RR 6-2026 line, and Odoo set-up.
-- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — ATC Codes List 2026: WC158, WC640, WI010 and EWT Rates: BIR ATC codes and EWT rates in one table: WC158 and WC160 for top withholding agents, WC640 for government purchases, WI010 professional fees, plus Odoo.
-- https://technext.asia/blog/how-an-odoo-implementation-works — Odoo implementation process, step by step: How TechNext implements Odoo: discovery, configuration and data migration on staging, training, integration, go-live and support, step by step.
+- https://technext.asia/blog/eopt-invoice-requirements-odoo — EOPT Invoicing Requirements 2026: BIR Invoice Checklist: Checklist of what a BIR invoice must show under RR 7-2024 (EOPT): the required fields, the P1,000 buyer-TIN rule and the RR 6-2026 line.
+- https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo — ATC Codes List 2026: WC158, WC640, WI010 and EWT Rates: BIR ATC codes and EWT rates in one table: WC158 and WC160 for top withholding agents, WC640 for government purchases and WI010 professional fees.
+- https://technext.asia/blog/how-an-odoo-implementation-works — How a BIR CAS Set-up Works, Step by Step: How TechNext runs a set-up: discovery, configuration and data migration on staging, training, integration, go-live and support, step by step.
 - https://technext.asia/blog/invoicenow-singapore-gst-timeline — GST InvoiceNow Implementation Dates: Who Must Comply When: GST InvoiceNow implementation dates in Singapore: from 1 Nov 2025 for new voluntary registrants, then existing businesses in phases to 1 Apr 2031.
-- https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — Odoo 20 in Singapore, the Philippines and Vietnam: The Odoo 20 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
-- https://technext.asia/blog/odoo-20-upgrade-checklist — Odoo 20 Upgrade Checklist: What to Test First: Planning an Odoo 20 upgrade from Odoo 19? A plain checklist from TechNext: how upgrades work per hosting type, what to test first, how to go live.
-- https://technext.asia/blog/odoo-20-whats-new — Odoo 20 Release Notes: What's New and Upgrade Checklist: Odoo 20 release notes on one page: AI agents, MCP, offline mode, Field Service in Planning and pricing changes, plus an upgrade checklist to test first.
-- https://technext.asia/blog/odoo-experience-2026-takeaways — Odoo Experience 2026: five takeaways for Odoo users: Odoo Experience 2026 in five takeaways from TechNext: Odoo's growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for Odoo 20.
-- https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Odoo Online vs Odoo.sh vs on-premise: which fits?: Odoo Online, Odoo.sh or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
-- https://technext.asia/blog/odoo-vs-quickbooks-philippines — Odoo vs QuickBooks for Philippine Businesses (2026): Odoo or QuickBooks Online in the Philippines? A fair comparison of BIR reports, VAT and withholding, inventory, POS, branches, payroll and users.
-- https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll in Odoo 20: BIR 1601-C, 2316 and 1604-C: Philippine payroll in Odoo 20: BIR Forms 1601-C, 2316 and 1604-C, alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
+- https://technext.asia/blog/odoo-20-singapore-philippines-vietnam — 2026 Tax Localisation: Singapore, Philippines, Vietnam: The 2026 localisation changes for Singapore (GST, IRAS, SFRS), the Philippines (BIR 2306/2307, payroll) and Vietnam (Circular 99, 01/GTGT, SInvoice).
+- https://technext.asia/blog/odoo-20-upgrade-checklist — Version 20 Upgrade Checklist: What to Test First: Planning the version 20 upgrade from 19? A plain checklist from TechNext: how upgrades work per hosting type, what to test first and how to go live.
+- https://technext.asia/blog/odoo-20-whats-new — Version 20 Release Notes: What's New, in Plain Language: The version 20 release notes on one page: AI agents, MCP, offline mode, Field Service in Planning and pricing changes, plus an upgrade checklist.
+- https://technext.asia/blog/odoo-experience-2026-takeaways — Brussels 2026 Conference: Five Takeaways: Five takeaways from the 2026 Brussels conference: growth, AI agents and MCP, new pricing, a Philippine subsidiary, and what to plan for version 20.
+- https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise — Cloud, Managed or On-Premise Hosting: Which Fits?: Cloud, managed platform or on-premise? TechNext compares hosting, custom code, upgrades and plans, and explains which option suits which kind of company.
+- https://technext.asia/blog/odoo-vs-quickbooks-philippines — QuickBooks Alternative for Philippine Businesses (2026): Looking past QuickBooks Online in the Philippines? A fair comparison of BIR reports, VAT and withholding, inventory, POS, branches, payroll and users.
+- https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20 — Philippine Payroll: BIR 1601-C, 2316 and 1604-C (2026): Philippine payroll and BIR Forms 1601-C, 2316 and 1604-C: alphalist DAT files, and the 2026 rules on tax tables, de minimis and contributions.
 - https://technext.asia/blog/register-books-of-accounts-orus-bir — How to Register Books of Accounts in ORUS (2026 Guide): Step by step: how to register manual, loose-leaf and computerized books of accounts in the BIR's ORUS, the deadlines, the QR stamp and the mistakes to avoid.
 - https://technext.asia/blog/register-odoo-cas-cba-bir — CAS Registration Requirements: BIR Steps and Documents: How to register a Computerized Accounting System (CAS) or CBA with the BIR: the Acknowledgement Certificate, documents, system checks, ORUS and the PTI.
-- https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext, an Odoo Partner.
-- https://technext.asia/blog/standard-first-odoo-customisation — Odoo customisation vs configuration: when to build: When to customise Odoo and when to configure: configuration, Studio and custom modules, what each costs at upgrade, and how to decide. By TechNext.
-- https://technext.asia/blog/what-is-erp — What is ERP? A plain-language guide for growing companies: What ERP is, what it does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext, an Odoo Partner.
-- https://technext.asia/company — TechNext: Your Odoo Partner for BIR CAS: TechNext (UEN 202699888G): 142 projects delivered, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up in Odoo.
-- https://technext.asia/nexi-explains — Nexi Explains: Odoo, AI and tech videos by TechNext: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Odoo, AI and tech, made simple.
-- https://technext.asia/odoo/apps — Odoo Apps List: Start With Accounting for BIR CAS: Every Odoo app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 projects delivered, fixed written quote.
-- https://technext.asia/odoo/apps/accounting — Odoo Accounting Philippines: BIR Reports Set Up: Odoo Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
-- https://technext.asia/odoo/apps/ai — Odoo AI App (built-in AI agents) — Singapore & PH: Odoo AI implemented by TechNext, an Odoo Partner in Singapore. Assistants and agents inside Odoo. Set up for you.
-- https://technext.asia/odoo/apps/appointments — Odoo Appointments in Singapore & the Philippines: Odoo Appointments implemented by TechNext, an Odoo Partner in Singapore. Online booking calendars. Set up for you.
-- https://technext.asia/odoo/apps/appraisals — Odoo Appraisals in Singapore & the Philippines: Odoo Appraisals implemented by TechNext, an Odoo Partner in Singapore. Reviews and goals. Set up for you. Book a free discovery call.
-- https://technext.asia/odoo/apps/approvals — Odoo Approvals in Singapore & the Philippines: Odoo Approvals implemented by TechNext, an Odoo Partner in Singapore. Request and approve anything. Set up for you.
-- https://technext.asia/odoo/apps/blog — Odoo Blog in Singapore & the Philippines: Odoo Blog implemented by TechNext, an Odoo Partner in Singapore. Articles with scheduling and SEO. Set up for you.
-- https://technext.asia/odoo/apps/crm — Odoo CRM in Singapore & the Philippines: Odoo CRM implemented by TechNext, an Odoo Partner in Singapore. Leads, pipeline and activities. Set up for you.
-- https://technext.asia/odoo/apps/discuss — Odoo Discuss in Singapore & the Philippines: Odoo Discuss implemented by TechNext, an Odoo Partner in Singapore. Chat, channels and notifications. Set up for you.
-- https://technext.asia/odoo/apps/documents — Odoo Documents in Singapore & the Philippines: Odoo Documents implemented by TechNext, an Odoo Partner in Singapore. File storage with workflows and OCR. Set up for you.
-- https://technext.asia/odoo/apps/ecommerce — Odoo eCommerce in Singapore & the Philippines: Odoo eCommerce implemented by TechNext, an Odoo Partner in Singapore. Online store tied to stock and accounting. Set up for you.
-- https://technext.asia/odoo/apps/elearning — Odoo eLearning in Singapore & the Philippines: Odoo eLearning implemented by TechNext, an Odoo Partner in Singapore. Courses, quizzes and certifications. Set up for you.
-- https://technext.asia/odoo/apps/email-marketing — Odoo Email Marketing in Singapore & the Philippines: Odoo Email Marketing implemented by TechNext, an Odoo Partner in Singapore. Campaigns, lists and A/B tests. Set up for you.
-- https://technext.asia/odoo/apps/employees — Odoo Employees in Singapore & the Philippines: Odoo Employees implemented by TechNext, an Odoo Partner in Singapore. Directory, contracts and org chart. Set up for you.
-- https://technext.asia/odoo/apps/events — Odoo Events in Singapore & the Philippines: Odoo Events implemented by TechNext, an Odoo Partner in Singapore. Registrations, tickets and badges. Set up for you.
-- https://technext.asia/odoo/apps/expenses — Odoo Expenses in Singapore & the Philippines: Odoo Expenses implemented by TechNext, an Odoo Partner in Singapore. Capture receipts and approve claims. Set up for you.
-- https://technext.asia/odoo/apps/field-service — Odoo Field Service in Singapore & the Philippines: Odoo Field Service implemented by TechNext, an Odoo Partner in Singapore. On-site jobs, run in Planning from Odoo 20. Set up for you.
-- https://technext.asia/odoo/apps/fleet — Odoo Fleet in Singapore & the Philippines: Odoo Fleet implemented by TechNext, an Odoo Partner in Singapore. Vehicles, contracts and costs. Set up for you.
-- https://technext.asia/odoo/apps/forum — Odoo Forum in Singapore & the Philippines: Odoo Forum implemented by TechNext, an Odoo Partner in Singapore. Community Q&A. Set up for you. Book a free discovery call.
-- https://technext.asia/odoo/apps/helpdesk — Odoo Helpdesk in Singapore & the Philippines: Odoo Helpdesk implemented by TechNext, an Odoo Partner in Singapore. Tickets, SLAs and knowledge base. Set up for you.
-- https://technext.asia/odoo/apps/inventory — Odoo Inventory in Singapore & the Philippines: Odoo Inventory implemented by TechNext, an Odoo Partner in Singapore. Multi-warehouse stock, barcodes, replenishment. Set up for you.
-- https://technext.asia/odoo/apps/invoicing — Odoo Invoicing in Singapore & the Philippines: Odoo Invoicing implemented by TechNext, an Odoo Partner in Singapore. Send invoices and collect payments online. Set up for you.
-- https://technext.asia/odoo/apps/iot — Odoo IoT in Singapore & the Philippines: Odoo IoT implemented by TechNext, an Odoo Partner in Singapore. Connect scales, printers and devices. Set up for you.
-- https://technext.asia/odoo/apps/knowledge — Odoo Knowledge in Singapore & the Philippines: Odoo Knowledge implemented by TechNext, an Odoo Partner in Singapore. Wiki pages linked to records. Set up for you.
-- https://technext.asia/odoo/apps/live-chat — Odoo Live Chat in Singapore & the Philippines: Odoo Live Chat implemented by TechNext, an Odoo Partner in Singapore. Chat with visitors from Discuss. Set up for you.
-- https://technext.asia/odoo/apps/maintenance — Odoo Maintenance in Singapore & the Philippines: Odoo Maintenance implemented by TechNext, an Odoo Partner in Singapore. Preventive and corrective requests. Set up for you.
-- https://technext.asia/odoo/apps/manufacturing — Odoo Manufacturing in Singapore & the Philippines: Odoo Manufacturing implemented by TechNext, an Odoo Partner in Singapore. Bills of materials and work orders. Set up for you.
-- https://technext.asia/odoo/apps/marketing-automation — Odoo Marketing Automation in Singapore & the Philippines: Odoo Marketing Automation implemented by TechNext, an Odoo Partner in Singapore. Multi-step flows on triggers. Set up for you.
-- https://technext.asia/odoo/apps/payroll — Odoo Payroll in Singapore & the Philippines: Odoo Payroll implemented by TechNext, an Odoo Partner in Singapore. Salary rules and payslips. Set up for you.
-- https://technext.asia/odoo/apps/planning — Odoo Planning in Singapore & the Philippines: Odoo Planning implemented by TechNext, an Odoo Partner in Singapore. Shifts, resources and field service. Set up for you.
-- https://technext.asia/odoo/apps/plm — Odoo PLM in Singapore & the Philippines: Odoo PLM implemented by TechNext, an Odoo Partner in Singapore. Engineering changes and versions. Set up for you.
-- https://technext.asia/odoo/apps/point-of-sale — Odoo POS for Shops — Singapore & Philippines: Odoo Point of Sale — Shop implemented by TechNext, an Odoo Partner in Singapore. Offline-ready retail checkout. Set up for you.
-- https://technext.asia/odoo/apps/project — Odoo Project in Singapore & the Philippines: Odoo Project implemented by TechNext, an Odoo Partner in Singapore. Tasks, stages and milestones. Set up for you.
-- https://technext.asia/odoo/apps/purchase — Odoo Purchase in Singapore & the Philippines: Odoo Purchase implemented by TechNext, an Odoo Partner in Singapore. RFQs, vendor pricelists, receipts. Set up for you.
-- https://technext.asia/odoo/apps/quality — Odoo Quality in Singapore & the Philippines: Odoo Quality implemented by TechNext, an Odoo Partner in Singapore. Control points and quality alerts. Set up for you.
-- https://technext.asia/odoo/apps/recruitment — Odoo Recruitment in Singapore & the Philippines: Odoo Recruitment implemented by TechNext, an Odoo Partner in Singapore. Job posts, applicants and interviews. Set up for you.
-- https://technext.asia/odoo/apps/referrals — Odoo Referrals in Singapore & the Philippines: Odoo Referrals implemented by TechNext, an Odoo Partner in Singapore. Employee referral programme. Set up for you.
-- https://technext.asia/odoo/apps/rental — Odoo Rental in Singapore & the Philippines: Odoo Rental implemented by TechNext, an Odoo Partner in Singapore. Book, pick up and return assets. Set up for you.
-- https://technext.asia/odoo/apps/restaurant-pos — Odoo Restaurant POS — Singapore & Philippines: Odoo Point of Sale — Restaurant implemented by TechNext, an Odoo Partner in Singapore. Tables, kitchen printing, bills. Set up for you.
-- https://technext.asia/odoo/apps/sales — Odoo Sales in Singapore & the Philippines: Odoo Sales implemented by TechNext, an Odoo Partner in Singapore. Quotations, orders and upsells. Set up for you.
-- https://technext.asia/odoo/apps/sign — Odoo Sign in Singapore & the Philippines: Odoo Sign implemented by TechNext, an Odoo Partner in Singapore. E-signatures with an audit trail. Set up for you.
-- https://technext.asia/odoo/apps/sms-marketing — Odoo SMS Marketing in Singapore & the Philippines: Odoo SMS Marketing implemented by TechNext, an Odoo Partner in Singapore. Text campaigns with tracking. Set up for you.
-- https://technext.asia/odoo/apps/social-marketing — Odoo Social Marketing in Singapore & the Philippines: Odoo Social Marketing implemented by TechNext, an Odoo Partner in Singapore. Schedule and track posts. Set up for you.
-- https://technext.asia/odoo/apps/spreadsheet — Odoo Spreadsheet (BI) in Singapore & the Philippines: Odoo Spreadsheet (BI) implemented by TechNext, an Odoo Partner in Singapore. Live pivots and dashboards on Odoo data. Set up for you.
-- https://technext.asia/odoo/apps/subscriptions — Odoo Subscriptions in Singapore & the Philippines: Odoo Subscriptions implemented by TechNext, an Odoo Partner in Singapore. Recurring billing and renewals. Set up for you.
-- https://technext.asia/odoo/apps/surveys — Odoo Surveys in Singapore & the Philippines: Odoo Surveys implemented by TechNext, an Odoo Partner in Singapore. Forms, quizzes and feedback. Set up for you.
-- https://technext.asia/odoo/apps/time-off — Odoo Time Off in Singapore & the Philippines: Odoo Time Off implemented by TechNext, an Odoo Partner in Singapore. Leave requests and allocations. Set up for you.
-- https://technext.asia/odoo/apps/timesheets — Odoo Timesheets in Singapore & the Philippines: Odoo Timesheets implemented by TechNext, an Odoo Partner in Singapore. Time tracking billed to projects. Set up for you.
-- https://technext.asia/odoo/apps/voip — Odoo Phone (VoIP) — Singapore & Philippines: Odoo Phone implemented by TechNext, an Odoo Partner in Singapore. Calls over VoIP from inside Odoo. Set up for you.
-- https://technext.asia/odoo/apps/website-builder — Odoo Website Builder in Singapore & the Philippines: Odoo Website Builder implemented by TechNext, an Odoo Partner in Singapore. Drag-and-drop pages with SEO tools. Set up for you.
-- https://technext.asia/odoo/apps/whatsapp — Odoo WhatsApp in Singapore & the Philippines: Odoo WhatsApp implemented by TechNext, an Odoo Partner in Singapore. Templates and conversations. Set up for you.
-- https://technext.asia/odoo/crm-development — Odoo CRM Customization: Never Lose a Lead Again: Odoo CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Fixed written quote, in-house team.
-- https://technext.asia/odoo/discovery — Odoo Discovery: Scope Your BIR CAS Set-up First: Start with an Odoo discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a fixed written quote. Keep your system.
-- https://technext.asia/odoo/erp-system — Odoo Customisation for SMEs: Build It Upgrade-safe: Odoo customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, with Odoo as a plug-in in your system. Fixed written quote.
-- https://technext.asia/odoo/integration — Odoo Integration Philippines: Odoo as a Plug-in for BIR CAS: Odoo integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add Odoo as a plug-in for BIR CAS. 5-Day Express sprint.
-- https://technext.asia/odoo/philippines — Odoo Philippines: Start Your BIR CAS Set-Up Today: Odoo for Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, fixed written quote first.
-- https://technext.asia/odoo/support — Odoo Support: One Partner After Go-live: Odoo support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
-- https://technext.asia/odoo/training — Odoo Training: Team Ready for BIR CAS and Go-live: Odoo training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Fixed written quote.
-- https://technext.asia/odoo/vietnam — Odoo for Vietnam: Circular 99, SInvoice, 01/GTGT: Odoo for SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, plugged in beside your current system, with a fixed written quote.
-- https://technext.asia/solutions/enterprise — Odoo Multi-Company: One Group, One Odoo: Run every company in your group on one Odoo, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Fixed written quote.
-- https://technext.asia/solutions/odoo-erp — Odoo ERP Philippines: Start With BIR CAS Today: Odoo ERP for SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 projects delivered, fixed written quote.
+- https://technext.asia/blog/signs-you-have-outgrown-spreadsheets — Seven signs your business has outgrown spreadsheets: Seven signs your company has outgrown spreadsheets and disconnected tools, and what to do about it. A practical checklist from TechNext.
+- https://technext.asia/blog/standard-first-odoo-customisation — Customisation vs Configuration: When to Build: When to customise your system and when to configure: configuration, studio tools and custom modules, what each costs at upgrade, and how to decide.
+- https://technext.asia/blog/what-is-erp — One System for Your Whole Business: A Plain Guide: What an all-in-one business system does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext.
+- https://technext.asia/company — TechNext: Your Partner for BIR CAS Set-up: TechNext (UEN 202699888G): 142 projects delivered, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up.
+- https://technext.asia/nexi-explains — Nexi Explains: Business Software, AI and Tech Videos: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Business software, AI and tech, made simple.
+- https://technext.asia/odoo/apps — Business Apps List: Start With Accounting for BIR CAS: Every app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 projects delivered, written quote.
+- https://technext.asia/odoo/apps/accounting — Accounting Philippines: BIR Reports Set Up: Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
+- https://technext.asia/odoo/apps/ai — AI App (built-in AI agents) — Singapore & PH: AI set up by TechNext in Singapore and the Philippines. Assistants and agents. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/appointments — Appointments App in Singapore & the Philippines: Appointments set up by TechNext in Singapore and the Philippines. Online booking calendars. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/appraisals — Appraisals App in Singapore & the Philippines: Appraisals set up by TechNext in Singapore and the Philippines. Reviews and goals. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/approvals — Approvals App in Singapore & the Philippines: Approvals set up by TechNext in Singapore and the Philippines. Request and approve anything. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/blog — Blog App in Singapore & the Philippines: Blog set up by TechNext in Singapore and the Philippines. Articles with scheduling and SEO. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/crm — CRM App in Singapore & the Philippines: CRM set up by TechNext in Singapore and the Philippines. Leads, pipeline and activities. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/discuss — Discuss App in Singapore & the Philippines: Discuss set up by TechNext in Singapore and the Philippines. Chat, channels and notifications. Set up for you.
+- https://technext.asia/odoo/apps/documents — Documents App in Singapore & the Philippines: Documents set up by TechNext in Singapore and the Philippines. File storage with workflows and OCR. Set up for you.
+- https://technext.asia/odoo/apps/ecommerce — eCommerce App in Singapore & the Philippines: eCommerce set up by TechNext in Singapore and the Philippines. Online store tied to stock and accounting. Set up for you.
+- https://technext.asia/odoo/apps/elearning — eLearning App in Singapore & the Philippines: eLearning set up by TechNext in Singapore and the Philippines. Courses, quizzes and certifications. Set up for you.
+- https://technext.asia/odoo/apps/email-marketing — Email Marketing App in Singapore & the Philippines: Email Marketing set up by TechNext in Singapore and the Philippines. Campaigns, lists and A/B tests. Set up for you.
+- https://technext.asia/odoo/apps/employees — Employees App in Singapore & the Philippines: Employees set up by TechNext in Singapore and the Philippines. Directory, contracts and org chart. Set up for you.
+- https://technext.asia/odoo/apps/events — Events App in Singapore & the Philippines: Events set up by TechNext in Singapore and the Philippines. Registrations, tickets and badges. Set up for you.
+- https://technext.asia/odoo/apps/expenses — Expenses App in Singapore & the Philippines: Expenses set up by TechNext in Singapore and the Philippines. Capture receipts and approve claims. Set up for you.
+- https://technext.asia/odoo/apps/field-service — Field Service App in Singapore & the Philippines: Field Service set up by TechNext in Singapore and the Philippines. On-site jobs, run in Planning from version 20. Set up for you.
+- https://technext.asia/odoo/apps/fleet — Fleet App in Singapore & the Philippines: Fleet set up by TechNext in Singapore and the Philippines. Vehicles, contracts and costs. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/forum — Forum App in Singapore & the Philippines: Forum set up by TechNext in Singapore and the Philippines. Community Q&A. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/helpdesk — Helpdesk App in Singapore & the Philippines: Helpdesk set up by TechNext in Singapore and the Philippines. Tickets, SLAs and knowledge base. Set up for you.
+- https://technext.asia/odoo/apps/inventory — Inventory App in Singapore & the Philippines: Inventory set up by TechNext in Singapore and the Philippines. Multi-warehouse stock, barcodes, replenishment. Set up for you.
+- https://technext.asia/odoo/apps/invoicing — Invoicing App in Singapore & the Philippines: Invoicing set up by TechNext in Singapore and the Philippines. Send invoices and collect payments online. Set up for you.
+- https://technext.asia/odoo/apps/iot — IoT App in Singapore & the Philippines: IoT set up by TechNext in Singapore and the Philippines. Connect scales, printers and devices. Set up for you.
+- https://technext.asia/odoo/apps/knowledge — Knowledge App in Singapore & the Philippines: Knowledge set up by TechNext in Singapore and the Philippines. Wiki pages linked to records. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/live-chat — Live Chat App in Singapore & the Philippines: Live Chat set up by TechNext in Singapore and the Philippines. Chat with visitors from Discuss. Set up for you.
+- https://technext.asia/odoo/apps/maintenance — Maintenance App in Singapore & the Philippines: Maintenance set up by TechNext in Singapore and the Philippines. Preventive and corrective requests. Set up for you.
+- https://technext.asia/odoo/apps/manufacturing — Manufacturing App in Singapore & the Philippines: Manufacturing set up by TechNext in Singapore and the Philippines. Bills of materials and work orders. Set up for you.
+- https://technext.asia/odoo/apps/marketing-automation — Marketing Automation App in Singapore & the Philippines: Marketing Automation set up by TechNext in Singapore and the Philippines. Multi-step flows on triggers. Set up for you.
+- https://technext.asia/odoo/apps/payroll — Payroll App in Singapore & the Philippines: Payroll set up by TechNext in Singapore and the Philippines. Salary rules and payslips. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/planning — Planning App in Singapore & the Philippines: Planning set up by TechNext in Singapore and the Philippines. Shifts, resources and field service. Set up for you.
+- https://technext.asia/odoo/apps/plm — PLM App in Singapore & the Philippines: PLM set up by TechNext in Singapore and the Philippines. Engineering changes and versions. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/point-of-sale — POS for Shops — Singapore & Philippines: Point of Sale — Shop set up by TechNext in Singapore and the Philippines. Offline-ready retail checkout. Set up for you.
+- https://technext.asia/odoo/apps/project — Project App in Singapore & the Philippines: Project set up by TechNext in Singapore and the Philippines. Tasks, stages and milestones. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/purchase — Purchase App in Singapore & the Philippines: Purchase set up by TechNext in Singapore and the Philippines. RFQs, vendor pricelists, receipts. Set up for you.
+- https://technext.asia/odoo/apps/quality — Quality App in Singapore & the Philippines: Quality set up by TechNext in Singapore and the Philippines. Control points and quality alerts. Set up for you.
+- https://technext.asia/odoo/apps/recruitment — Recruitment App in Singapore & the Philippines: Recruitment set up by TechNext in Singapore and the Philippines. Job posts, applicants and interviews. Set up for you.
+- https://technext.asia/odoo/apps/referrals — Referrals App in Singapore & the Philippines: Referrals set up by TechNext in Singapore and the Philippines. Employee referral programme. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/rental — Rental App in Singapore & the Philippines: Rental set up by TechNext in Singapore and the Philippines. Book, pick up and return assets. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/restaurant-pos — Restaurant POS — Singapore & Philippines: Point of Sale — Restaurant set up by TechNext in Singapore and the Philippines. Tables, kitchen printing, bills. Set up for you.
+- https://technext.asia/odoo/apps/sales — Sales App in Singapore & the Philippines: Sales set up by TechNext in Singapore and the Philippines. Quotations, orders and upsells. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/sign — Sign App in Singapore & the Philippines: Sign set up by TechNext in Singapore and the Philippines. E-signatures with an audit trail. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/sms-marketing — SMS Marketing App in Singapore & the Philippines: SMS Marketing set up by TechNext in Singapore and the Philippines. Text campaigns with tracking. Set up for you.
+- https://technext.asia/odoo/apps/social-marketing — Social Marketing App in Singapore & the Philippines: Social Marketing set up by TechNext in Singapore and the Philippines. Schedule and track posts. Set up for you.
+- https://technext.asia/odoo/apps/spreadsheet — Spreadsheet (BI) App in Singapore & the Philippines: Spreadsheet (BI) set up by TechNext in Singapore and the Philippines. Live pivots and dashboards on your data. Set up for you.
+- https://technext.asia/odoo/apps/subscriptions — Subscriptions App in Singapore & the Philippines: Subscriptions set up by TechNext in Singapore and the Philippines. Recurring billing and renewals. Set up for you.
+- https://technext.asia/odoo/apps/surveys — Surveys App in Singapore & the Philippines: Surveys set up by TechNext in Singapore and the Philippines. Forms, quizzes and feedback. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/time-off — Time Off App in Singapore & the Philippines: Time Off set up by TechNext in Singapore and the Philippines. Leave requests and allocations. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/timesheets — Timesheets App in Singapore & the Philippines: Timesheets set up by TechNext in Singapore and the Philippines. Time tracking billed to projects. Set up for you.
+- https://technext.asia/odoo/apps/voip — Business Phone (VoIP) — Singapore & Philippines: Phone set up by TechNext in Singapore and the Philippines. Calls over VoIP. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/apps/website-builder — Website Builder App in Singapore & the Philippines: Website Builder set up by TechNext in Singapore and the Philippines. Drag-and-drop pages with SEO tools. Set up for you.
+- https://technext.asia/odoo/apps/whatsapp — WhatsApp App in Singapore & the Philippines: WhatsApp set up by TechNext in Singapore and the Philippines. Templates and conversations. Set up for you. Book a free 15 to 20 minute meeting.
+- https://technext.asia/odoo/crm-development — CRM Customization: Never Lose a Lead Again: CRM customization in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Written quote, in-house team.
+- https://technext.asia/odoo/discovery — Discovery: Scope Your BIR CAS Set-up First: Start with a discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a written quote. Keep your system.
+- https://technext.asia/odoo/erp-system — Business System Customisation for SMEs: Upgrade-safe: Customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, as a plug-in in your system. Written quote.
+- https://technext.asia/odoo/integration — Accounting Integration Philippines: A Plug-in for BIR CAS: Integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add a plug-in for BIR CAS. 5 Day Express sprint.
+- https://technext.asia/odoo/philippines — Accounting System for Philippine SMEs: BIR CAS: For Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, written quote first.
+- https://technext.asia/odoo/support — Support After Go-live: One Partner: Support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
+- https://technext.asia/odoo/training — Training: Your Team Ready for BIR CAS and Go-live: Training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Written quote.
+- https://technext.asia/odoo/vietnam — Vietnam Accounting: Circular 99, SInvoice, 01/GTGT: For SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, plugged in beside your current system, with a written quote.
+- https://technext.asia/solutions/enterprise — Multi-Company Accounting: One Group, One System: Run every company in your group on one system, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Written quote.
+- https://technext.asia/solutions/odoo-erp — Business System Philippines: Start With BIR CAS Today: For SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 projects delivered, written quote.
 
 ## Questions and answers
 
@@ -1105,7 +1105,7 @@ Source: https://technext.asia/company
 
 ### How do we start working with TechNext?
 
-Set up a meeting, or tell us how your process runs today by email to sales@technext.asia. Most projects start with a discovery session, then a fixed, written quote before any work begins.
+Set up a meeting, or tell us how your process runs today by email to sales@technext.asia. Most projects start with a discovery session, then a written quote before any work begins.
 
 Source: https://technext.asia/company
 
@@ -1117,7 +1117,7 @@ Source: https://technext.asia/
 
 ### How much does it cost?
 
-We keep it affordable for SMEs: you can start with Odoo Accounting only. After the call you get a fixed, written quote for your scope before any work starts. Odoo's subscription is separate and is paid to Odoo.
+We keep it affordable for SMEs: you can start with Odoo Accounting only. After the meeting you get a written quote for your scope before any work starts. Odoo's subscription is separate and is paid to Odoo.
 
 Source: https://technext.asia/
 
@@ -1135,13 +1135,13 @@ Source: https://technext.asia/
 
 ### How long does it take?
 
-The Odoo set-up runs as the 5-Day Express: five working days, after a call and a process map. Day 1 sets up Odoo, Day 2 the BIR settings, Day 3 loads your data, Day 4 tests every output and Day 5 is hand-over and training. The sprint starts once your data is ready; bigger scopes run as extra sprints, written into your fixed quote. Your RDO sets its own timeline for the CAS registration. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
+As quick as 5 working days for the set-up, once your process is mapped and your data is ready. In a free 15 to 20 minute meeting a BIR Compliance Expert looks at your books and gives you your 5 Day plan. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
 
 Source: https://technext.asia/
 
 ### What is the NextSprint method?
 
-It is how TechNext runs every set-up: Agile daily sprints with a check-in at the end of each day, Lean scope (standard Odoo and only the BIR outputs you need first) and Six Sigma checks (a checklist for every output, tested against your sample books before hand-over). See the method .
+It is our own way of fitting a BIR CAS set-up into days, not months, run by our BIR Compliance Experts and accounting workflow experts. We walk you through it in your free planning meeting. See the method .
 
 Source: https://technext.asia/
 
@@ -1195,7 +1195,7 @@ Source: https://technext.asia/odoo/crm-development
 
 ### How is this priced?
 
-It depends on your pipeline and lead sources. Walk TechNext through your last ten deals and get a fixed, written quote before any work starts.
+It depends on your pipeline and lead sources. Walk TechNext through your last ten deals and get a written quote before any work starts.
 
 Source: https://technext.asia/odoo/crm-development
 
@@ -1231,7 +1231,7 @@ Source: https://technext.asia/odoo/discovery
 
 ### How much does discovery cost?
 
-It is sized to the flows and teams in scope, and affordable for SMEs. TechNext gives a fixed, written quote before any work starts.
+It is sized to the flows and teams in scope, and affordable for SMEs. TechNext gives a written quote before any work starts.
 
 Source: https://technext.asia/odoo/discovery
 
@@ -1267,7 +1267,7 @@ Source: https://technext.asia/odoo/erp-system
 
 ### How is it priced?
 
-You get a fixed, written quote before any work starts, scoped to your apps and customisation. Set up a meeting to get it.
+You get a written quote before any work starts, scoped to your apps and customisation. Set up a meeting to get it.
 
 Source: https://technext.asia/odoo/erp-system
 
@@ -1297,7 +1297,7 @@ Source: https://technext.asia/odoo/integration
 
 ### Is adding Odoo as a plug-in affordable for an SME?
 
-Yes. TechNext is an affordable Odoo partner for SMEs: you can start with Accounting only and get a fixed, written quote before any work starts. Odoo's own subscription is paid to Odoo. Set up a meeting to start.
+Yes. TechNext is an affordable Odoo partner for SMEs: you can start with Accounting only and get a written quote before any work starts. Odoo's own subscription is paid to Odoo. Set up a meeting to start.
 
 Source: https://technext.asia/odoo/integration
 
@@ -1411,7 +1411,7 @@ Source: https://technext.asia/odoo/training
 
 ### How much does training cost?
 
-Training is sized to the teams and sessions involved and kept affordable for SMEs. TechNext gives a fixed, written quote before any work starts.
+Training is sized to the teams and sessions involved and kept affordable for SMEs. TechNext gives a written quote before any work starts.
 
 Source: https://technext.asia/odoo/training
 
@@ -1489,7 +1489,7 @@ Source: https://technext.asia/solutions/enterprise
 
 ### How is a group project priced?
 
-By the entities, countries and integrations involved. Tell us how the group is structured and TechNext will return a phased, fixed written quote before any work starts.
+By the entities, countries and integrations involved. Tell us how the group is structured and TechNext will return a phased, written quote before any work starts.
 
 Source: https://technext.asia/solutions/enterprise
 
@@ -1543,7 +1543,7 @@ Source: https://technext.asia/solutions/odoo-erp
 
 ### What does an implementation cost?
 
-TechNext gives you a fixed, written quote before any work starts, scoped to the apps, data and integrations you need. Starting with Accounting only keeps it affordable for an SME. Set up a meeting and tell us what is manual today.
+TechNext gives you a written quote before any work starts, scoped to the apps, data and integrations you need. Starting with Accounting only keeps it affordable for an SME. Set up a meeting and tell us what is manual today.
 
 Source: https://technext.asia/solutions/odoo-erp
 
