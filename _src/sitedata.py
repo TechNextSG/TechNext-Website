@@ -5,12 +5,12 @@
 SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
-ORG_DESC = ("TechNext is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main "
-            "consulting and development team in Taguig City, Metro Manila. We plug Odoo into the company system a business already runs "
-            "(accounting software, POS, spreadsheets or in-house systems), so it does not have to replace it, and set Odoo up for "
+ORG_DESC = ("TechNext is an affordable BIR CAS set-up partner for SMEs, headquartered in Singapore, with its main "
+            "consulting and development team in Taguig City, Metro Manila. We add a plug-in beside the company system a business already runs "
+            "(accounting software, POS, spreadsheets or in-house systems), so it does not have to replace it, and set it up for "
             "accounting and BIR requirements first: the books for the business's own Computerized Accounting System (CAS) or CBA application, "
-            "2307, SLSP, SAWT, QAP, 2550Q and e-invoicing planning. In Singapore: GST and InvoiceNow. Clients start with Odoo Accounting "
-            "and get a fixed, written quote before any work starts.")
+            "2307, SLSP, SAWT, QAP, 2550Q and e-invoicing planning. In Singapore: GST and InvoiceNow. Clients start with Accounting "
+            "and get a written quote before any work starts.")   # owner 10 Nov 2026: no Odoo/ERP in keywording, no fixed price
 
 # Companies we've worked with, named on the site (owner OK 21 Oct 2026): delivered or in-progress work only,
 # never proposal-only prospects or anything under NDA. (name, what they do, where)
