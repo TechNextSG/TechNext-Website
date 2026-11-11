@@ -979,7 +979,7 @@ def nxe_jsonld(org_id: str, page_id: str) -> list:
                         "numberOfEpisodes": len(eps),
                         "episode": [{"@type": "Episode", "episodeNumber": int(e["code"].split("EP")[-1]), "name": e["title"]} for e in eps]})
     out = [{"@type": "CreativeWorkSeries", "@id": url + "#series", "name": "Nexi Explains", "url": url,
-            "description": "Short animated videos starring Nexi, TechNext's AI companion, about Odoo, AI and technology for growing companies.",
+            "description": "Short animated videos starring Nexi, TechNext's AI companion, about business software, AI and technology for growing companies.",
             "inLanguage": "en", "creator": {"@id": org_id}, "publisher": {"@id": org_id}, "sameAs": [NXE.CHANNEL],
             "isPartOf": {"@id": page_id}, "hasPart": seasons}]
     now = datetime.now(timezone.utc)
