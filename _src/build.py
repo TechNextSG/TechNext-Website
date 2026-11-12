@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import sitedata as S  # noqa: E402
 import industries as IX  # noqa: E402
 import industry_fx as IFX  # noqa: E402  (the eight industry pages: glass hero, intro, workflow chain)
+import landers as LP  # noqa: E402  (12 Nov 2026: the campaign landing pages, one layout)
 import fw_needs as FW  # noqa: E402  (/bir-adviser-call: the needs picker, live panels and the data the page script reads)
 import app_flows as AF  # noqa: E402
 import app_leads as AL  # noqa: E402   (the app pages' hero leads in TechNext's own voice)
@@ -2524,6 +2525,9 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     content = content.replace("{{WHO_WE_ARE}}", WHO_WE_ARE)
     if "{{CLIENT_WALL}}" in content:
         content = content.replace("{{CLIENT_WALL}}", client_wall_html())
+    if "{{LANDER:" in content:   # 12 Nov 2026: campaign landing pages (_src/landers.py)
+        content = LP.tokens(content, advisor_cards_html(), express_html())
+        meta["head"] = meta.get("head", "") + '<link rel="stylesheet" href="{ROOT}assets/css/express.css?v={ASSET_V}">'
     if "{{ADVISOR_CARDS}}" in content:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
     if "{{ADVISOR_CARDS_HOME}}" in content:   # 11 Nov 2026: the same expert cards, TechNext-first heading (home only)
@@ -2606,11 +2610,11 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                          '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + og_cards.card(out_rel, base_title, meta.get("og_icon")))
                 .replace("{SITE_URL}", S.SITE_URL)
-                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home or out_rel == "get-started.html" else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))   # /get-started (the 8-11 Nov home) keeps the home style layer
+                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))   # /get-started (the 8-11 Nov home) keeps the home style layer
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
-                .replace("{TAGS_HEAD}", tags_head(out_rel in ("index.html", "get-started.html")))   # /get-started: the ad landing page keeps the home's tags
-                .replace("{TAGS_BODY}", tags_body(out_rel in ("index.html", "get-started.html")))
+                .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html" or out_rel[:-5] in LP.PAGES))   # /get-started: the ad landing page keeps the home's tags
+                .replace("{TAGS_BODY}", tags_body(out_rel == "index.html" or out_rel[:-5] in LP.PAGES))
                 .replace("{JSONLD}", jsonld(canonical, meta, content, out_rel))
                 .replace("{CONTENT}", content)
                 .replace("{LEGAL}", S.COMPANY["legal"])
