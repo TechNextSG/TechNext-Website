@@ -94,7 +94,7 @@ FORM_LABELS = {
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
-    "Audit guide download": {"phone": "Mobile number", "message": "Downloaded"},
+    "Audit guide download": {"phone": "Mobile number", "message": "Requested"},
     "Meeting request": {"phone": "Mobile number", "accounting_system": "Current company system", "slot": "Preferred day",
                         "call_time": "Best time to call", "message": "Anything we should know"},
 }

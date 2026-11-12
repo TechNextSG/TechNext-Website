@@ -12,9 +12,12 @@
 <script>(function(){function go(){if(location.hash==='#start')location.replace('/get-started'+location.search+'#start');}go();window.addEventListener('hashchange',go);})();</script>
 
 <!-- ============================================================ 1. HERO -->
-<section class="hv3-hero" aria-labelledby="hv3-h1">
+<!-- 13 Nov 2026 owner: "add another hero section in home page, make it 2 slide, randomly show every time refresh, use
+     different messaging based on target audience". Slide 1 = CPAs and accounting firms (their clients' books);
+     slide 2 = business owners and finance directors (their own company). One is picked at random on each load. -->
+<section class="hv3-hero" aria-labelledby="hv3-h1" data-hv3-hero>
   <div class="hv3-grid-bg" aria-hidden="true"></div>
-  <div class="container hv3-hero-in">
+  <div class="container hv3-hero-in hv3-slide" data-slide="firms">
     <div class="hv3-copy">
       <p class="hv3-kicker">{{icon:shield}}<span>For CPAs, accounting firms and finance teams <b>· 142+ projects delivered</b></span></p>
       <h1 id="hv3-h1">Automate Your Clients' BIR Compliance. <span class="hl">Keep Their Current System.</span></h1>
@@ -22,7 +25,7 @@
       <ul class="hv3-chips" aria-label="How it works"><li>{{icon:plug}}<span>Connects by API, batch or flat file</span></li><li>{{icon:refresh}}<span>No double entry</span></li><li>{{icon:lock}}<span>Audit-ready, locked entries</span></li></ul>
       <div class="actions hv3-actions">
         <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="home_hero_book_call">{{icon:calendar}} Book a Technical Readiness Call</a>
-        <a class="btn btn-ghost btn-lg" href="{{ROOT}}assets/docs/technext-2027-bir-audit-guide.pdf" download="TechNext 2027 BIR Audit Guide.pdf" data-guide-gate data-cta="home_hero_audit_guide">{{icon:file}} Download 2027 BIR Audit Guide</a>
+        <a class="btn btn-ghost btn-lg" href="#guide" data-guide-gate data-cta="home_hero_audit_guide">{{icon:file}} Get the 2027 BIR Audit Guide</a>
       </div>
       <p class="hv3-caveat">*Standard 5-day technical deployments available for clean, reconciled data ledgers.</p>
     </div>
@@ -62,6 +65,59 @@
       </figure>
     </div>
   </div>
+
+  <div class="container hv3-hero-in hv3-slide" data-slide="owners" hidden>
+    <div class="hv3-copy">
+      <p class="hv3-kicker">{{icon:briefcase}}<span>For business owners and finance directors <b>· 142+ projects delivered</b></span></p>
+      <h2 class="hv3-h1" id="hv3-h1b">Your Books Registered Before Jan&nbsp;30. <span class="hl">Your Team Keeps Its Software.</span></h2>
+      <p class="lead hv3-lead">No new system to learn. We connect the POS and accounting tools you run today, then set up your <strong>computerized books, e-invoicing and 2307s, SLSP, SAWT and QAP</strong> from the entries your team already posts, so quarter end stops being a rekeying job.</p>
+      <ul class="hv3-chips" aria-label="What you get"><li>{{icon:receipt}}<span>E-invoicing set up before Dec 31</span></li><li>{{icon:book}}<span>Books ready for ORUS by Jan 30</span></li><li>{{icon:users}}<span>Your team keeps its tools</span></li></ul>
+      <div class="actions hv3-actions">
+        <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="home_hero2_book_call">{{icon:calendar}} Book a Technical Readiness Call</a>
+        <a class="btn btn-ghost btn-lg" href="#guide" data-guide-gate data-cta="home_hero2_audit_guide">{{icon:file}} Get the 2027 BIR Audit Guide</a>
+      </div>
+      <p class="hv3-caveat">*Standard 5-day technical deployments available for clean, reconciled data ledgers.</p>
+    </div>
+
+    <div class="hv3-visual" aria-hidden="true">
+      <div class="hv3-dash">
+        <div class="hv3-bar"><i></i><i></i><i></i><span>Set up plan · Sample Trading Corp.</span><em>sample data</em></div>
+        <div class="hv3-dash-body">
+          <div class="hv3-status hv3-status--plan"><span class="hv3-dot"></span><span><small>Set up status</small><b>On track</b></span><span class="hv3-period">ORUS books due · 30 Jan 2027</span></div>
+          <ul class="hv3-checks">
+            <li><span>POS and accounting connected</span><b>2 sources</b><i class="ok">{{icon:check}}</i></li>
+            <li><span>Entries mapped to BIR forms</span><b>3,412</b><i class="ok">{{icon:check}}</i></li>
+            <li><span>Test e-invoice sent</span><b>Accepted</b><i class="ok">{{icon:check}}</i></li>
+            <li><span>Books of accounts generated</span><b>Q1 to Q3</b><i class="ok">{{icon:check}}</i></li>
+            <li><span>ORUS registration papers</span><b>Ready to file</b><i class="ok">{{icon:check}}</i></li>
+          </ul>
+        </div>
+      </div>
+      <figure class="hv3-cert hv3-einv">
+        <figcaption>{{icon:send}} E-invoice · issued <em>sample data</em></figcaption>
+        <div class="c23">
+          <div class="c23-top"><b>Sales Invoice No. SI-000482</b><span>12 Nov 2026</span></div>
+          <dl class="c23-pp">
+            <div><dt>Seller</dt><dd>Sample Trading Corp.<small>TIN 000-987-654-000</small></dd></div>
+            <div><dt>Buyer</dt><dd>Sample Retail Inc.<small>TIN 000-456-789-000</small></dd></div>
+          </dl>
+          <table class="c23-t">
+            <thead><tr><th>Item</th><th>Amount</th><th>VAT 12%</th></tr></thead>
+            <tbody>
+              <tr><td>Goods, 40 units</td><td>80,000.00</td><td>9,600.00</td></tr>
+              <tr><td>Delivery</td><td>2,500.00</td><td>300.00</td></tr>
+            </tbody>
+            <tfoot><tr><td>Total</td><td>82,500.00</td><td>9,900.00</td></tr></tfoot>
+          </table>
+          <p class="c23-foot">{{icon:lock}} Sent from the posted sale · same figures as the books</p>
+        </div>
+      </figure>
+    </div>
+  </div>
+  <script>(function(){var h=document.querySelector('[data-hv3-hero]');if(!h)return;var s=h.querySelectorAll('.hv3-slide'),k=Math.floor(Math.random()*s.length);
+    try{var q=(location.search.match(/[?&]hero=(\d)/)||[])[1];if(q&&s[q-1])k=q-1;}catch(e){}
+    for(var i=0;i<s.length;i++)s[i].hidden=i!==k;var t=s[k].querySelector('h1,h2');if(t)h.setAttribute('aria-labelledby',t.id);
+    h.setAttribute('data-hero',s[k].getAttribute('data-slide'));})();</script>
 </section>
 
 <!-- ============================================================ 2. PROOF (no client names or logos on technext.asia: the

@@ -30,3 +30,13 @@
     c.classList.add('is-tick'); setTimeout(function () { c.classList.remove('is-tick'); }, 700);
   }
 })();
+
+/* 13 Nov 2026: the hero runs up under the see-through header; keep --hv3-hdr = the header's real height (the deadline
+   bar wraps on small screens). */
+(function () {
+  var h = document.querySelector('[data-header]');
+  if (!h) return;
+  var set = function () { document.documentElement.style.setProperty('--hv3-hdr', h.offsetHeight + 'px'); };
+  set();
+  if ('ResizeObserver' in window) new ResizeObserver(set).observe(h); else window.addEventListener('resize', set);
+})();
