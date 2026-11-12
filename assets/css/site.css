@@ -1415,7 +1415,7 @@ html.bn-off .bn,html.intro .bn{display:none}
 .bn--dl .bn-link{color:#fff;padding:0 12px;border-radius:8px;background:#D93A30;text-decoration:none}
 .bn--dl .bn-link:hover{color:#fff;background:#B82E25}
 .bn--dl .bn-link:focus-visible{outline:3px solid #fff}
-@media (max-width:760px){.bn--dl .bn-in{min-height:36px}.bn--dl .bn-link{padding:0 10px;min-height:30px}.bn-cd{margin-left:4px;font-size:11.5px;padding:0 6px}}
+@media (max-width:760px){.bn--dl .bn-in{min-height:52px;height:52px;overflow:hidden}.bn--dl .bn-link{padding:0 10px;min-height:30px}.bn-cd{margin-left:4px;font-size:11.5px;padding:0 6px}}
 @media (max-width:420px){.bn--dl p b{display:none}}
 @media (max-width:1100px){.bn--dl .bn-long{display:none}.bn--dl .bn-short{display:inline}}
 
@@ -1488,3 +1488,9 @@ html.gg-on{overflow:hidden}
 
 /* 13 Nov 2026: while Cloudflare asks the visitor to tick its box, the cookie notice steps aside so it cannot cover it */
 html.ts-asking #tn-cookie-banner{display:none!important}
+
+/* 13 Nov 2026 speed audit: the banner height no longer depends on the web font (the swap re-wrapped it, +9px, CLS 0.14) */
+.header .bn--dl p{line-height:1.35}
+/* small phones (13 Nov 2026): one deadline per line, "left" dropped, compact button - always exactly two lines */
+@media (max-width:440px){.header .bn--dl .bn-g{display:block;white-space:nowrap}.header .bn--dl .bn-dot{display:none}.header .bn--dl p{font-size:12.5px}}
+@media (max-width:380px){.header .bn--dl .bn-l{display:none}.header .bn--dl .bn-link{font-size:12px;padding:0 9px}.header .bn--dl .bn-link .ic{display:none}}
