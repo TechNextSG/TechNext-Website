@@ -126,7 +126,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-proj-h">Selected projects.</h2><p class="lead">{n} implementations, migrations and builds {esc(first)} has delivered, end to end. Client names stay private.</p></div>
     <div class="tp-groups">{cards}</div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 '''
@@ -171,7 +171,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-skills-h">Skills.</h2><p class="lead">What {esc(first)} brings to your project, grouped by area.</p></div>
     <div class="tp-groups">{panels}</div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 {projects}
@@ -318,7 +318,7 @@ def _expert_card(p: dict, k: int) -> str:
             f'<div class="xp-body"><p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>'
             f'<p class="xp-sum">{esc(x.get("sum") or p.get("summary") or "")}</p>'
             + (f'<ul class="xp-stats">{stats}</ul>' if stats else "") +
-            f'<div class="xp-act"><a class="btn btn-primary" href="{R}index.html#start" data-meet-cta>Set up a meeting with {p["name"].split()[0]} {{{{icon:arrow}}}}</a></div>'
+            f'<div class="xp-act"><a class="btn btn-primary" href="{R}get-started.html#start" data-meet-cta>Set up a meeting with {p["name"].split()[0]} {{{{icon:arrow}}}}</a></div>'
             f'</div></article>')   # owner 8 Nov 2026: no "Full profile" link on these cards
 
 

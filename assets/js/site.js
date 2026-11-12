@@ -460,7 +460,11 @@
       var land = sessionStorage.getItem('tn_landing'), ref = sessionStorage.getItem('tn_referrer');
       if (land && land !== p.page) p.landing = land;
       if (ref) p.referrer = ref;
+      var cta = sessionStorage.getItem('tn_cta');            // 12 Nov 2026 funnel: the last button that led here
+      if (cta) p.cta = cta;
     } catch (e) {}
+    // the Let's Talk panel is on every page: its source names the page, so each CRM lead shows where it was sent from
+    if (p.source === "Let's Talk panel") p.source = "Let's Talk panel · " + (location.pathname.replace(/\/$/, '') || '/');
     p._split = 1;   // the lead is saved and answered first; the @Jeric note and emails follow as a second request
     return fetch(endpoint || '/api/lead', {
       method: 'POST', keepalive: true,
@@ -488,17 +492,18 @@
           } catch (e) {}
         }
         // Lead conversions fire only on a submission the CRM accepted.
+        try { if (window.tnTrack) window.tnTrack('form_submit', { form_source: String(p.source || '').slice(0, 80), form_page: location.pathname, cta: p.cta || '' }); } catch (e) {}
         try {
           if (typeof window.gtag === 'function') {
             window.gtag('event', 'conversion', { send_to: 'AW-18068724830/dBpuCLul3bQcEN6466dD' });
-            window.gtag('event', 'generate_lead', { form: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
+            window.gtag('event', 'generate_lead', { form: p.source ? String(p.source).slice(0, 60) : 'website' });
           }
           if (typeof window.fbq === 'function') {
             // Meta manual advanced matching (12 Nov 2026): re-init the pixel with what the visitor just typed, so the
             // Lead event carries it. The pixel hashes every value (SHA-256) in the browser before anything is sent.
             var am = pxMatch(p);
             if (am) window.fbq('init', PIXEL_ID, am);
-            window.fbq('track', 'Lead', { content_name: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
+            window.fbq('track', 'Lead', { content_name: p.source ? String(p.source).slice(0, 60) : 'website' });
           }
         } catch (e) { /* analytics must never break a submission */ }
         return res.j;
@@ -1012,4 +1017,61 @@ document.addEventListener('click', function (e) {
   }, { rootMargin: '0px 0px -8% 0px' });
   list.forEach(function (b) { io.observe(b); });
   setTimeout(function () { list.forEach(show); }, 10000);
+})();
+
+/* ---------------- Website funnel tracking (12 Nov 2026) ----------------
+   Home CTA -> landing page view -> form start -> form submit, as GTM dataLayer events (event: cta_click, landing_view,
+   form_start, form_submit) and the same GA4 events through gtag. The UTMs of the visit's first page ride along on links
+   into the five landing pages and to the Odoo booking page; every form also sends the first page and the last CTA. */
+(function () {
+  var LANDERS = /^\/(get-started|bir-cas|bir-e-invoicing|bir-adviser-call|bir-call)\/?$/;
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  var page = location.pathname.replace(/\/$/, '') || '/';
+  function get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function put(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+  window.tnTrack = function (name, params) {
+    var d = { event: name };
+    Object.keys(params || {}).forEach(function (k) { d[k] = params[k]; });
+    try { (window.dataLayer = window.dataLayer || []).push(d); } catch (e) {}
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch (e) {}
+  };
+  try {
+    var q = new URLSearchParams(location.search), u = {};
+    UTM.forEach(function (k) { if (q.get(k)) u[k] = q.get(k).slice(0, 100); });
+    if (Object.keys(u).length && !get('tn_utm')) put('tn_utm', JSON.stringify(u));
+  } catch (e) {}
+  function withUtm(a) {
+    var u; try { u = JSON.parse(get('tn_utm') || '{}'); } catch (e) { u = {}; }
+    if (!Object.keys(u).length) return;
+    try {
+      var url = new URL(a.href, location.href);
+      var keep = url.origin === location.origin ? LANDERS.test(url.pathname) : /(^|\.)technext\.odoo\.com$/.test(url.hostname);
+      if (!keep || (url.origin === location.origin && url.pathname === location.pathname)) return;
+      var changed = false;
+      Object.keys(u).forEach(function (k) { if (!url.searchParams.has(k)) { url.searchParams.set(k, u[k]); changed = true; } });
+      if (changed) a.href = url.href;
+    } catch (e) {}
+  }
+  function slug(t) { return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40); }
+  function onClick(e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    if (!(a.hasAttribute('data-cta') || a.hasAttribute('data-meet') || a.hasAttribute('data-meet-cta') ||
+          /(^|\s)(btn|btn-link|path-card|vp-more)(\s|$)/.test(a.className || ''))) return;
+    var href = a.getAttribute('href') || '', id = a.getAttribute('data-cta') || slug(a.textContent);
+    put('tn_cta', (page + ' > ' + id).slice(0, 120));
+    window.tnTrack('cta_click', { cta_id: id, cta_page: page, cta_dest: (href.charAt(0) === '#' ? page + href : href).slice(0, 120) });
+    if (href.charAt(0) !== '#') withUtm(a);
+  }
+  document.addEventListener('click', onClick, true);      // capture: the link gets its UTMs before the browser follows it
+  document.addEventListener('auxclick', onClick, true);   // middle-click / new tab
+  if (LANDERS.test(location.pathname)) window.tnTrack('landing_view', { landing_page: page, from_cta: get('tn_cta') || '(none)' });
+  var started = {};
+  document.addEventListener('focusin', function (e) {
+    var t = e.target, f = t && t.closest && t.closest('form[data-endpoint]');
+    if (!f || started[f.id] || !/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) || t.type === 'hidden') return;
+    started[f.id] = 1;
+    var s = f.querySelector('[name="source"]');
+    window.tnTrack('form_start', { form_id: f.id || '', form_source: s ? s.value : '', form_page: page });
+  });
 })();

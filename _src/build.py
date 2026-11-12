@@ -250,7 +250,7 @@ def talk_panel_html() -> str:
       <input type="hidden" name="source" value="Let's Talk panel">
       <div class="form-row">
         <div class="field"><label for="tf-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com"></div>
-        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="+63 9XX XXX XXXX" title="A number we can call, with at least 7 digits"></div>
+        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" title="A number we can call, with at least 7 digits"></div>
       </div>
       <div class="form-row">
         <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
@@ -273,7 +273,7 @@ def talk_panel_html() -> str:
       <div class="field"><label for="tf-msg">Message</label><textarea id="tf-msg" name="message" rows="4" required></textarea></div>
       <div class="form-foot">
         <button class="btn btn-primary" type="submit"><span class="btn-label">Send inquiry</span><span class="btn-busy" aria-hidden="true"></span></button>
-        <a class="btn-link" href="{{{{ROOT}}}}quotation.html">Prefer to talk it through? Set up a meeting {{{{icon:arrow}}}}</a>
+        <a class="btn-link" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="talk_prefer_meeting">Prefer to talk it through? Set up a meeting {{{{icon:arrow}}}}</a>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -487,6 +487,21 @@ def _howto(canonical: str, art: dict, content: str):
             "mainEntityOfPage": {"@id": canonical + "#webpage"}}
 
 
+# 12 Nov 2026 (10 Nov rule: no Odoo or ERP in site keywording, JSON-LD included): the company block on every page leaves
+# out the odoo.com listing and any /odoo/ or -erp URL; the home and the five landing pages also keep only the FAQ entries
+# and breadcrumbs without Odoo or ERP in their structured data (the visible page copy is unchanged).
+LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html"}
+_LD_BRAND = re.compile(r"odoo|erp", re.I)
+
+
+def _ld_hits(v):
+    if isinstance(v, dict):
+        return [h for x in v.values() for h in _ld_hits(x)]
+    if isinstance(v, list):
+        return [h for x in v for h in _ld_hits(x)]
+    return [v] if isinstance(v, str) and _LD_BRAND.search(v) else []
+
+
 def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     """One linked graph per page: the company, the site, this page, its breadcrumb, and -
     only when the page visibly shows them - its FAQs and the service it describes."""
@@ -512,7 +527,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                               "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
-            "sameAs": [c["linkedin"], c["odoo_listing"]] + c.get("socials", []),
+            "sameAs": [c["linkedin"]] + c.get("socials", []),
             "description": S.ORG_DESC,
             # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
             "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the BIR CAS set-up partner "
@@ -520,7 +535,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                          "a plug-in beside the system a business already runs.",
             "slogan": "Keep your system. Add a plug-in for BIR CAS.",
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": S.SITE_URL + u, "provider": {"@id": org_id}}}
+                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "provider": {"@id": org_id},
+                                                   **({} if _LD_BRAND.search(u) else {"url": S.SITE_URL + u})}}
                 for n, u in (("5 Day Express BIR CAS and CBA set-up", "bir-cas"),
                              ("BIR e-invoicing preparation", "bir-e-invoicing"),
                              ("Plug-in for your existing system", "odoo/integration"),
@@ -560,6 +576,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         page["audience"] = {"@type": "BusinessAudience", "audienceType": "Philippine businesses registered with the BIR",
                             "geographicArea": PH_AREA}
     crumb = _breadcrumb(canonical, content)
+    if crumb and out_rel in LD_CLEAN and _ld_hits(crumb):
+        crumb = None
     if crumb:
         page["breadcrumb"] = {"@id": crumb["@id"]}
     graph.append(page)
@@ -567,6 +585,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append(crumb)
     faqs = [(_text(q), _text(a)) for q, a in _FAQ.findall(content)]
     faqs = [(q, a) for q, a in faqs if q and a]
+    if out_rel in LD_CLEAN:
+        faqs = [(q, a) for q, a in faqs if not _LD_BRAND.search(q + " " + a)]
     if len(faqs) >= 2:
         graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
                       "mainEntity": [{"@type": "Question", "name": q,
@@ -617,6 +637,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "provider": {"@id": org_id}, "areaServed": PH_AREA if ph else AREA_SERVED})
         if ph:
             graph[-1]["audience"] = page["audience"]
+    if out_rel in LD_CLEAN and _ld_hits(graph):
+        print(f"  ! JSON-LD on {out_rel} still names Odoo/ERP:", _ld_hits(graph)[:3])
     # a "</" inside a JSON string would end the <script> element early
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
@@ -1113,7 +1135,7 @@ def express_html() -> str:
         <p class="x5-kicker">Our methodology</p>
         <h2 id="xp5-m-h"><span class="hl">NextSprint</span> method</h2>
         <p class="x5-intro">Our own way of fitting a BIR CAS set-up into days, not months. We walk you through it in your free planning meeting.</p>
-        <div class="x5-act"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}index.html#start">Get my 5 Day plan {{{{icon:arrow}}}}</a></div>
+        <div class="x5-act"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}get-started.html#start">Get my 5 Day plan {{{{icon:arrow}}}}</a></div>
       </div>
       <div class="x5-pillars">{pillars}</div>
     </div>
@@ -1745,7 +1767,7 @@ def lifecycle_html(mod: str, name: str, cat: dict) -> str:
       <div class="dm-static"><p><b>Main path:</b> {path_txt}.</p></div>
     </div>
     <p class="dm-note">{{{{icon:check}}}} Sample records. Your stages, rules and hand-offs are configured in discovery.</p>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="#setup">How we set it up for you {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="#setup">How we set it up for you {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''
 
@@ -1795,7 +1817,7 @@ def app_page(mod: str) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2>{name} in action.</h2><p class="lead">Official Odoo videos. Nothing loads until you press play.</p></div>
     <div class="{"videos videos--one" if len(vids) == 1 else "videos"}">{items}</div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><span class="muted">See {name} on your own data, as a plug-in in your system.</span></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><span class="muted">See {name} on your own data, as a plug-in in your system.</span></p>
   </div>
 </section>'''
 
@@ -1890,7 +1912,7 @@ def app_page(mod: str) -> tuple:
               f'headquartered in Singapore with teams in the Philippines and Vietnam, sets it up on a staging copy of your database, '
               f'migrates your data, trains the people who use it and supports it after go-live.</p>'
               + (f'<p class="apx-note">{{{{icon:sparkle}}}}<span>{note}</span></p>' if note else "")
-              + f'<p class="sec-next"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a>'
+              + f'<p class="sec-next"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a>'
               f'<a class="btn btn-ghost" href="#setup">How we set it up {{{{icon:arrow}}}}</a></p></div></div></section>')
     meta = {"title": APP_TITLES.get(mod, f"{name} App in Singapore & the Philippines"), "desc": desc_meta,
             "out": f"odoo/apps/{S.app_slug(mod)}.html", "nav": "odoo", "og_icon": str(ODOO_DIR / f"{mod}.svg")}
@@ -2183,7 +2205,7 @@ def article_html(meta: dict, body: str) -> str:
       <h1 id="blg-h1">{art["h1"]}</h1>
       <p class="fx-lead">{art["lede"]}</p>
       {PREPARED_BY if art["cat"] == "bir" else ""}<p class="post-by blg-by"><span class="post-av" aria-hidden="true"><img src="{{{{ROOT}}}}assets/img/logo-plane.png" alt="" width="22" height="19"></span><span>By <b>TechNext</b> · <time datetime="{art["date"]}">{_nice_date(art["date"])}</time>{updated} · {art["read"]} min read</span><a class="post-cat post-cat--{art["cat"]}" href="{{{{ROOT}}}}blog.html#{art["cat"]}">{ic}{BLOG_CATS[art["cat"]]}</a></p>
-      <div class="actions blg-act"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></div>
+      <div class="actions blg-act"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></div>
     </div>
     <div class="blg-panel" data-blg-panel aria-hidden="true">
       <i class="fx-result-glow blg-glow"></i>
@@ -2207,7 +2229,7 @@ def article_html(meta: dict, body: str) -> str:
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
         <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>
-      <p class="actions post-act"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
+      <p class="actions post-act"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
     </div>
   </div>
 </section>
@@ -2603,6 +2625,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     html = icons(html)
     html = clean_links(html)
     html = meeting_ctas(html, out_rel)
+    if out_rel == "get-started.html":   # 12 Nov 2026 funnel: its own form is on this page, so scroll to it (no reload, UTMs kept)
+        html = re.sub(r'href="(?:\./)?get-started#start"', 'href="#start"', html)
     html = _H1_SEAM.sub(r'\1<span class="sr-only"> — </span>', html)
     html = _APP_LINK.sub(lambda m: m.group(1) + S.APP_SLUG[m.group(2)], html)   # any link still written with the module name
     if CALM:
