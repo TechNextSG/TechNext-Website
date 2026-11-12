@@ -90,7 +90,7 @@ def ledger_html(mod: str) -> str:
       <ol class="apx-led-rows">{rows}</ol>
       <p class="apx-led-total"><span class="apx-led-bal"><i aria-hidden="true"></i>{d["total"]}</span><span>{_bold(d["outro"])}</span></p>
     </div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn-link" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''
 
@@ -149,6 +149,6 @@ def bir_line_html(mod: str) -> str:
       {{{{icon:receipt}}}}
       <p><b>For Philippine companies.</b> {text} Read <a href="{{{{ROOT}}}}odoo/philippines.html">Odoo in the Philippines</a> and <a href="{{{{ROOT}}}}blog/{post}.html">{label}</a>.</p>
     </div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}index.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
   </div>
 </section>'''

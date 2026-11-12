@@ -103,7 +103,7 @@ QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
         "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
-        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "cf-turnstile-response"}
+        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "cf-turnstile-response", "cta"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
@@ -211,6 +211,8 @@ def clean(v, n=2000):
 
 def form_tag(source, page=""):
     s = (source or "").lower()
+    if "let's talk" in s:                                  # 12 Nov 2026: "Let's Talk panel · /bir-cas" (the page is in it)
+        return "Let's Talk panel"
     if "/bir-adviser-call" in (page or ""):
         return "BIR adviser call"
     return next((tag for key, tag in FORMS if key in s), "Other form")
@@ -459,6 +461,8 @@ def summary(p, form, contact):
     src, med, campaign, found = visit(p)
     page, land = clean(p.get("page", ""), 600), clean(p.get("landing", ""), 600)
     found += [("Form", form)] + [("Page", short_url(page))] * bool(page)
+    if clean(p.get("cta", ""), 120):                       # 12 Nov 2026 funnel: the last button clicked before the form
+        found.append(("Button clicked", clean(p.get("cta", ""), 120)))
     if land and short_url(land) != short_url(page):
         found.append(("First page", short_url(land)))
     links = [(k, v) for k, v in (("Page", page), ("First page of the visit", land),
