@@ -492,7 +492,9 @@ def _close(p):
 
 def page_html(key: str) -> str:
     p = PAGES[key]
-    return "\n\n".join(x for x in [_hero(p), _check(p), _experts(p), _blueprint(p), _facts(p), _express(p), _faq(p), _close(p)] if x)
+    # owner 12 Nov 2026: "remove this part in all landing pages" - the Who you meet / expert cards block is off the landers
+    # (_experts stays defined in case it comes back; the FAQ still answers "Who do we meet?")
+    return "\n\n".join(x for x in [_hero(p), _check(p), _blueprint(p), _facts(p), _express(p), _faq(p), _close(p)] if x)
 
 
 _TOKEN = _re.compile(r"\{\{LANDER:([a-z0-9-]+)\}\}")
