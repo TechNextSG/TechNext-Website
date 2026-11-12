@@ -728,8 +728,19 @@
         callback: got,
         'expired-callback': function () { token = ''; },
         'error-callback': bad,
-        'before-interactive-callback': function () { asking = true; },
-        'after-interactive-callback': function () { asking = false; }
+        // 13 Nov 2026 audit: on /get-started the cookie notice covered the box when Cloudflare asked for a tick, and the
+        // button spun on "Sending..." forever. Now the box scrolls into view, the cookie notice steps aside, and the
+        // status says what to do.
+        'before-interactive-callback': function () {
+          asking = true;
+          document.documentElement.classList.add('ts-asking');
+          var st = $('.form-status', form);
+          if (waiting) {                               // only after send was pressed: never jump the page mid-typing
+            try { box.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { box.scrollIntoView(); }
+            if (st) { st.className = 'form-status'; st.textContent = 'Please tick the Cloudflare box above. Your request sends right after.'; }
+          }
+        },
+        'after-interactive-callback': function () { asking = false; document.documentElement.classList.remove('ts-asking'); }
       });
     }, bad);
     return {
@@ -739,6 +750,9 @@
         var t = current();
         if (t) { give(ok, t); return; }
         var w = waiting = { ok: ok, no: no };
+        if (asking) {                                  // Cloudflare is already asking: show the box, say so
+          try { box.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { box.scrollIntoView(); }
+        }
         if (id !== null && window.turnstile && !asking) { token = ''; window.turnstile.reset(id); }   // fetch a new one now
         setTimeout(function () { if (waiting === w && !asking) { waiting = null; no(); } }, 20000);
       },
