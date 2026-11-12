@@ -38,20 +38,21 @@ html body .btn-primary:hover,html body main .btn-primary:hover{background:var(--
 html body .btn-primary:active{background:var(--bt-800)!important}
 html body .btn-primary .btn-busy{border-color:rgba(255,255,255,.4);border-top-color:#fff}
 
-/* meeting buttons (open the Odoo appointment page): a gradient ring that spins on hover + a soft glow pulse */
+/* meeting buttons (open the Odoo appointment page) and, since 12 Nov 2026, the landing pages' main buttons (the form
+   button and the "to the form" buttons): a gradient ring that spins on hover + a soft glow pulse */
 @property --btn-a{syntax:"<angle>";inherits:false;initial-value:0deg}
-html body .btn-primary[data-meet]::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;padding:2px;opacity:0;
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit)::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;padding:2px;opacity:0;
   background:conic-gradient(from var(--btn-a),transparent 0 58%,rgba(111,160,245,1) 74%,#fff 81%,transparent 92%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
   animation:btnSpin 2.2s linear infinite paused;transition:opacity .3s ease}
-html body .btn-primary[data-meet]:hover::before{opacity:1;animation-play-state:running}
-html body .btn-primary[data-meet]{animation:btnGlow 3.6s ease-in-out infinite}
-html body .btn-primary[data-meet]:hover{animation:none}
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit):hover::before{opacity:1;animation-play-state:running}
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit){animation:btnGlow 3.6s ease-in-out infinite}
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit):hover{animation:none}
 @keyframes btnSpin{to{--btn-a:360deg}}
 @keyframes btnGlow{0%,70%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(30,70,145,.25),0 8px 18px -10px rgba(49,103,202,.75),0 0 0 0 rgba(49,103,202,0)}
   82%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(30,70,145,.25),0 8px 18px -10px rgba(49,103,202,.75),0 0 0 7px rgba(49,103,202,.13)}}
 /* the arrow on meeting buttons runs out and back in on hover */
-html body .btn[data-meet]:hover .ic:last-child{animation:btnArrow .55s var(--btn-ease)}
+html body .btn:is([data-meet],[data-to-form],.gs-submit):hover .ic:last-child{animation:btnArrow .55s var(--btn-ease)}
 @keyframes btnArrow{0%{transform:translateX(0)}45%{transform:translateX(14px);opacity:0}46%{transform:translateX(-12px);opacity:0}100%{transform:translateX(4px);opacity:1}}
 
 /* ---------- secondary: white, blue outline ---------- */
@@ -101,8 +102,8 @@ html body .header .header-cta .btn{height:44px!important;padding:0 16px!importan
 /* ---------- pop-in when a button scrolls into view (site.js adds .btn-pre then .btn-in; no JS = no hidden buttons) ---------- */
 html body .btn-pre{opacity:0;transform:translateY(10px) scale(.96)}
 html body .btn-in{animation:btnPop .55s var(--btn-spring) var(--btn-d,0ms) backwards}
-html body .btn-primary[data-meet].btn-in{animation:btnPop .55s var(--btn-spring) var(--btn-d,0ms) backwards,btnGlow 3.6s ease-in-out 1s infinite}
-html body .btn-primary[data-meet].btn-in:hover{animation:none}
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit).btn-in{animation:btnPop .55s var(--btn-spring) var(--btn-d,0ms) backwards,btnGlow 3.6s ease-in-out 1s infinite}
+html body .btn-primary:is([data-meet],[data-to-form],.gs-submit).btn-in:hover{animation:none}
 @keyframes btnPop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
 
 /* ---------- ripple (site.js) ---------- */
