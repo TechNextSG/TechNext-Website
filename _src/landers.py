@@ -265,6 +265,53 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         close_h='31 December 2026 is close. Start your <span class="hl">BIR e-invoicing</span> plan today.',
         close_p=CLOSE_P,
     ),
+    # 12 Nov 2026 (owner: "Yes, build it"): the "31 December Ready" campaign lander for accountants, accounting firms and
+    # consultants (Drive 02/32. TechNext CAS and E-Invoicing Deadline Campaign). Facts only from RR 26-2025 / RMC 98-2026
+    # as already cited on /bir-e-invoicing: no penalty figures, no PTI review days, no connector claims.
+    "bir-deadline": dict(
+        source="BIR adviser call (deadline campaign, accountants)",
+        pill=DL_EINV,
+        h1='<span class="hl">BIR CAS</span> and E-Invoicing by 31 December 2026. Your Plan in 20 Minutes.',
+        sub="A CAS registration doesn't cover e-invoicing. The first step is a Permit to Issue, then EIS Certification. "
+            "Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your Blueprint: who is covered, what "
+            "to file first, and a written quote.",
+        ticks=["<b>Your CAS and e-invoicing Blueprint</b> from the meeting: the order of work, for you or your client.",
+               "<b>Keep the accounting software.</b> We set up beside it; nothing is swapped out.",
+               "<b>A written quote</b> before any work starts."],
+        btn="Get my Blueprint", form_h="Get your CAS and e-invoicing Blueprint",
+        msg_ph="e.g. accounting firm, 12 clients on CAS, most still email PDF invoices",
+        order=["hero", "myths", "facts", "blueprint", "firm", "faq", "close"],
+        myths=("3 assumptions we hear from CAS users every week.",
+               "Each one is a reason your client's e-invoicing slips past 31 December.",
+               [("“Our CAS registration covers us.”",
+                 "It covers your computerised books. E-invoicing needs its own Permit to Issue first, then EIS Certification within six months."),
+                ("“We email PDF invoices, so we're electronic.”",
+                 "A printed or emailed PDF is not an e-invoice. Covered taxpayers need a system that sends sales data the BIR's system can read."),
+                ("“We'll sort it out in December.”",
+                 "December is year end close, 2026 books are due in ORUS by 30 January, and every RDO gets the same rush. The order of work is decided now.")]),
+        checks=None,
+        bp_h='Your Blueprint, in 15 to 20 minutes.',
+        bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client, not a sales pitch.",
+        bp=["Covered now, later or exempt: the group, checked against the rules",
+            "CAS or CBA, and what the 30 January ORUS books need",
+            "The e-invoicing order: Permit to Issue, set up, EIS Certification",
+            "What your 5 Day Express* covers, and a written quote"],
+        panel=EINV_PANEL, facts="cover", express=False,
+        firm=("We set up the system. You keep the client.",
+              "For accounting firms and consultants with clients facing the same deadline.",
+              ["<b>You stay the adviser.</b> We set up the system beside your client's software and report to you.",
+               "<b>One Blueprint per client.</b> Start with one case, then plan the rest in the same order.",
+               "<b>No surprises for the client.</b> A written quote before any work, agreed with you."]),
+        faq=[("Does our CAS registration cover e-invoicing?", "No. Under RMC 98-2026 a CAS or CBA registration doesn't give e-invoicing authority. You need a Permit to Issue (PTI) first, then EIS Certification within six months of the PTI."),
+             ("We're an accounting firm. Can we bring a client case?", "Yes. Book one meeting per client and join it with them. You leave with that client's Blueprint and a written quote."),
+             ("What is the BIR e-invoicing deadline?", "Covered taxpayers must issue electronic invoices on or before 31 December 2026. RR 26-2025 set the date and RMC 98-2026 kept it."),
+             ("Do you connect us to the EIS?", "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately."),
+             ("Do you file with the BIR for us?", "No. You or your client apply and file at the RDO. We set up the system and prepare the process flow and sample outputs with you."),
+             FAQ_COST],
+        close_h='Beat the December rush. Plan your <span class="hl">BIR CAS</span> and e-invoicing today.',
+        close_p="December is year end close. ORUS books are due by 30 January. <strong>15 to 20 minutes, online, no charge.</strong> "
+                "Any work starts with a written quote.",
+    ),
 }
 
 # ---------------------------------------------------------------------------------------------------------- page facts
@@ -301,6 +348,15 @@ _FACTS = {
               ("A plan for downtime", "A BIR-authorised manual invoice, then an e-invoice that references it."),
               ("Every branch", "Head office and all branches issue e-invoices."),
               ("Micro taxpayers exempt", "Your accountant confirms whether your business is covered.")]),
+    # bir-deadline: who must issue e-invoices by 31 Dec 2026 (same groups as /bir-e-invoicing, RR 26-2025 + RMC 98-2026)
+    "cover": ("Is your client covered by 31 December 2026?",
+              "General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Confirm the group with the RDO.",
+              [("CAS or CBA with invoicing software", "Covered by 31 December 2026."),
+               ("Large Taxpayers Service accounts", "Covered by 31 December 2026, with large taxpayers under RA 11976 and RR 8-2024."),
+               ("E-commerce and internet sellers", "Small, medium and large sellers: covered by 31 December 2026."),
+               ("Exporters, POS users, incentive-registered firms", "Later, once a separate regulation is issued."),
+               ("Micro taxpayers", "Exempt from mandatory e-invoicing."),
+               ("Not sure which group?", "We check it with you in the meeting, against the rules.")]),
 }
 
 _STEPS_EINV = [("15 to 20 minute meeting", "A BIR Compliance Expert checks whether you are covered and how you invoice today."),
@@ -315,7 +371,7 @@ def _cta(label, cls="btn-link", carry=False):
 
 
 def _form(p):
-    h = "Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint"
+    h = p.get("form_h") or ("Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint")
     return f'''    <div class="fw-side fw-side--form" id="book">
   <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
@@ -366,7 +422,40 @@ def _hero(p):
 </section>'''
 
 
+def _myths(p):
+    """bir-deadline: the 3 assumptions (reality check) cards."""
+    if not p.get("myths"):
+        return ""
+    h, lead, items = p["myths"]
+    lis = "".join(f'<li class="reveal" style="--i:{i}"><span class="gs-n">{i + 1}</span><h3>{a}</h3><p>{b}</p></li>'
+                  for i, (a, b) in enumerate(items))
+    return f'''<section class="section fx-sec fw-rules-sec lp-myths" aria-labelledby="lp-myths-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="lp-myths-h">{h}</h2><p class="lead">{lead}</p></div>
+    <ol class="fw-rules">{lis}</ol>
+    <p class="sec-next reveal">{_cta(p["btn"])}</p>
+  </div>
+</section>'''
+
+
+def _firm(p):
+    """bir-deadline: the section for accounting firms and consultants."""
+    if not p.get("firm"):
+        return ""
+    h, lead, items = p["firm"]
+    lis = "".join(f"<li>{{{{icon:check}}}}<span>{t}</span></li>" for t in items)
+    return f'''<section class="section fx-sec lp-firm" aria-labelledby="lp-firm-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="lp-firm-h">{h}</h2><p class="lead">{lead}</p></div>
+    <ul class="lp-ticks lp-firm-list reveal">{lis}</ul>
+    <p class="sec-next reveal">{_cta(p["btn"], "btn btn-primary")}</p>
+  </div>
+</section>'''
+
+
 def _check(p):
+    if not p.get("checks"):
+        return ""
     items = "".join(
         f'<li><label><input type="checkbox" value="{_e(v)}"><span class="fw-box">{{{{icon:check}}}}</span><span>{t}</span></label></li>'
         for v, t in p["checks"])
@@ -494,7 +583,10 @@ def page_html(key: str) -> str:
     p = PAGES[key]
     # owner 12 Nov 2026: "remove this part in all landing pages" - the Who you meet / expert cards block is off the landers
     # (_experts stays defined in case it comes back; the FAQ still answers "Who do we meet?")
-    return "\n\n".join(x for x in [_hero(p), _check(p), _blueprint(p), _facts(p), _express(p), _faq(p), _close(p)] if x)
+    parts = {"hero": _hero, "myths": _myths, "check": _check, "blueprint": _blueprint, "facts": _facts, "firm": _firm,
+             "express": _express, "faq": _faq, "close": _close}
+    order = p.get("order") or ["hero", "check", "blueprint", "facts", "express", "faq", "close"]
+    return "\n\n".join(x for x in (parts[k](p) for k in order) if x)
 
 
 _TOKEN = _re.compile(r"\{\{LANDER:([a-z0-9-]+)\}\}")
