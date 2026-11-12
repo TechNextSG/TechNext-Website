@@ -289,13 +289,13 @@ def talk_panel_html() -> str:
 <div class="gg-overlay" data-gg-close hidden></div>
 <div class="gg" id="guide-gate" role="dialog" aria-modal="true" aria-labelledby="gg-h" hidden>
   <button class="icon-btn gg-x" type="button" data-gg-close aria-label="Close">{{{{icon:x}}}}</button>
-  <p class="gg-k">{{{{icon:file}}}} 2027 BIR Audit Guide · PDF · 5 pages</p>
+  <p class="gg-k">{{{{icon:file}}}} 2027 BIR Audit Guide · sent by our team</p>
   <h2 id="gg-h">Where should we send your guide?</h2>
-  <p class="gg-lead">Four details and the download starts. The eLA rules, the 10-day document rule, what examiners ask for, and a routine for audit requests.</p>
+  <p class="gg-lead">Four details. A BIR Compliance Expert sends the guide to your work email within one business day. Inside: the eLA rules, the 10-day document rule, what examiners ask for, and a routine for audit requests.</p>
   <form class="form gg-form" id="gg-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
     <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
     <input type="hidden" name="source" value="Audit guide download">
-    <input type="hidden" name="message" value="2027 BIR Audit Guide (PDF)">
+    <input type="hidden" name="message" value="2027 BIR Audit Guide: send to their work email">
     <div class="form-row">
       <div class="field"><label for="gg-email">Work Email <span class="req" aria-hidden="true">*</span></label><input id="gg-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-missing="Please add your work email."></div>
       <div class="field"><label for="gg-phone">Mobile Number <span class="req" aria-hidden="true">*</span></label><input id="gg-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" data-missing="Please add your mobile number." data-err="Please enter a number we can call, with at least 7 digits."></div>
@@ -304,9 +304,9 @@ def talk_panel_html() -> str:
       <div class="field"><label for="gg-name">Name <span class="req" aria-hidden="true">*</span></label><input id="gg-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
       <div class="field"><label for="gg-company">Company <span class="req" aria-hidden="true">*</span></label><input id="gg-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
     </div>
-    <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Download the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
+    <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Send me the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
     <p class="form-status" role="status" aria-live="polite"></p>
-    <div class="form-sent"><h3>Your download has started.</h3><p>If it didn't, <a href="{{{{ROOT}}}}assets/docs/technext-2027-bir-audit-guide.pdf" download="TechNext 2027 BIR Audit Guide.pdf" data-gg-file>download the guide here</a>. Want to walk through it with an engineer? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a Technical Readiness Call</a>.</p></div>
+    <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a Technical Readiness Call</a>.</p></div>
     <p class="small muted gg-privacy">Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
   </form>
 </div>'''
@@ -2230,7 +2230,7 @@ def article_html(meta: dict, body: str) -> str:
     <aside class="post-toc" aria-label="On this page" data-blg-toc><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
     <div class="prose">
 {body}
-      {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<aside class="post-soft" aria-label="Download"><span class="post-soft-ic">{{{{icon:file}}}}</span><div class="post-soft-tx"><p class="post-soft-h">Download our 2027 BIR Audit Guide (PDF)</p><p>The eLA rules, the 10-day document rule, how long to keep records, what examiners ask for, and a routine for audit requests. 5 pages.</p></div><a class="btn btn-primary post-soft-btn" href="{{{{ROOT}}}}assets/docs/technext-2027-bir-audit-guide.pdf" download="TechNext 2027 BIR Audit Guide.pdf" data-guide-gate data-cta="blog_soft_audit_guide">Download the guide</a></aside><div class="post-about">
+      {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<aside class="post-soft" aria-label="Download"><span class="post-soft-ic">{{{{icon:file}}}}</span><div class="post-soft-tx"><p class="post-soft-h">Get our 2027 BIR Audit Guide</p><p>The eLA rules, the 10-day document rule, how long to keep records, what examiners ask for, and a routine for audit requests. 5 pages.</p></div><a class="btn btn-primary post-soft-btn" href="#guide" data-guide-gate data-cta="blog_soft_audit_guide">Get the guide</a></aside><div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
         <p><b>About TechNext.</b> TechNext Pte. Ltd. is a BIR compliance and integration partner for accounting firms and finance teams: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>

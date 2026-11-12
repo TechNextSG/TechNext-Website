@@ -198,3 +198,16 @@
   .hv3-tk[aria-hidden]{display:none}
   .hv3-tk{flex-wrap:wrap;justify-content:center}
 }
+
+/* 13 Nov 2026: header see-through at the top of the home page. The hero runs up under the whole header (deadline bar +
+   nav); --hv3-hdr is the header's measured height (home-v3.js), 117px until it is measured. */
+.hv3-home main{margin-top:calc(var(--hv3-hdr,117px) * -1)}
+.hv3-home .hv3-hero{padding-top:calc(var(--hv3-hdr,117px) + 56px)}
+.hv3-home .header:not(.is-scrolled):not(.is-open){background:transparent!important;border-bottom-color:transparent!important;box-shadow:none!important}
+/* two hero slides, one shown per load (inline script in index.html); the slide 2 title is an h2 styled as the h1 */
+.hv3-slide[hidden]{display:none!important}
+.hv3-hero .hv3-h1{margin:0 0 18px;font:800 clamp(30px,3.6vw,50px)/1.1 var(--font-display);letter-spacing:-.02em;color:var(--navy);text-wrap:balance}
+.hv3-hero .hv3-h1 .hl{color:var(--blue)}
+.hv3-einv .c23-top{background:#0B5A35}
+.hv3-einv .c23-foot{color:#0B5A35}
+@media (max-width:640px){.hv3-home .hv3-hero{padding-top:calc(var(--hv3-hdr,117px) + 36px)}}

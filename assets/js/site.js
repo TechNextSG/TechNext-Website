@@ -1144,16 +1144,14 @@ document.addEventListener('click', function (e) {
 })();
 
 /* Gated guide download (12 Nov 2026 overhaul plan: "capture the email first"). Any [data-guide-gate] link opens the
-   #guide-gate form; when the lead is sent (site.js adds .is-sent) the PDF downloads. A visitor who already sent it
-   downloads straight away next time. The link keeps its href, so it still works without JavaScript. */
+   #guide-gate form. 13 Nov 2026 owner: "once they fill out the form, don't share a downloadable file" - the form shows
+   a thank-you and a BIR Compliance Expert emails the guide; nothing downloads and no page links the PDF. */
 (function () {
   'use strict';
   var box = document.getElementById('guide-gate'), ov = document.querySelector('.gg-overlay');
   if (!box) return;
   var form = box.querySelector('form'), last = null, KEY = 'tn_guide_ok';
-  function ok() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
-  function grab() { var a = box.querySelector('[data-gg-file]'); if (a) a.click(); }
-  function open(from) {
+    function open(from) {
     last = from; box.hidden = false; ov.hidden = false;
     requestAnimationFrame(function () { box.classList.add('is-open'); ov.classList.add('is-open'); });
     document.documentElement.classList.add('gg-on');
@@ -1168,8 +1166,7 @@ document.addEventListener('click', function (e) {
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('[data-guide-gate]');
     if (!a) return;
-    if (ok()) return;                       // already shared their details: plain download
-    e.preventDefault(); open(a);
+    e.preventDefault(); open(a);            // 13 Nov 2026 owner: no file download; the team emails the guide
   });
   box.addEventListener('click', function (e) { if (e.target.closest('[data-gg-close]')) close(); });
   ov.addEventListener('click', close);
@@ -1178,7 +1175,6 @@ document.addEventListener('click', function (e) {
     if (form.classList.contains('is-sent') && !form.dataset.ggDone) {
       form.dataset.ggDone = '1';
       try { localStorage.setItem(KEY, '1'); } catch (e) {}
-      grab();
     }
   }).observe(form, { attributes: true, attributeFilter: ['class'] });
 })();
