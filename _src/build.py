@@ -2312,7 +2312,7 @@ def tags_head(is_home: bool) -> str:
     t = S.TRACKING
     ids = t["gtm"] + (t["gtm_home"] if is_home else [])
     srcs = ["https://www.googletagmanager.com/gtm.js?id=" + c for c in ids] + \
-           ["https://www.googletagmanager.com/gtag/js?id=" + x for x in (t["ga4"], t["ads"])]
+           ["https://www.googletagmanager.com/gtag/js?id=" + t["ga4"]]   # 13 Nov 2026: one gtag.js serves both config ids (GA4 + Ads); a second copy cost ~150-200 ms of phone CPU
     loader = ("<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
               "var tnC={};try{var q=location.search;if(/[?&]internal=1(&|$)/.test(q))localStorage.setItem('tn_internal','1');"
               "if(/[?&]internal=0(&|$)/.test(q))localStorage.removeItem('tn_internal');"
@@ -2326,7 +2326,8 @@ def tags_head(is_home: bool) -> str:
               "if(!tnC.traffic_type)S.push('https://connect.facebook.net/en_US/fbevents.js');"
               "function go(){if(done)return;done=true;"
               "dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
-              "S.forEach(function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)});"
+              "var add=function(){S.forEach(function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)})};"
+              "if(window.requestIdleCallback)requestIdleCallback(add,{timeout:1500});else setTimeout(add,1);"
               "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){removeEventListener(e,go,true)})}"
               "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,go,{capture:true,passive:true})});"
               "addEventListener('load',function(){setTimeout(go,2500)})})();</script>")
