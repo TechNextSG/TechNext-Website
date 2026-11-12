@@ -1024,7 +1024,7 @@ document.addEventListener('click', function (e) {
    form_start, form_submit) and the same GA4 events through gtag. The UTMs of the visit's first page ride along on links
    into the five landing pages and to the Odoo booking page; every form also sends the first page and the last CTA. */
 (function () {
-  var LANDERS = /^\/(get-started|bir-cas|bir-e-invoicing|bir-adviser-call|bir-call)\/?$/;
+  var LANDERS = /^\/(get-started|bir-cas|bir-e-invoicing|bir-adviser-call|bir-call|bir-cas-for-accountants|bir-e-invoicing-plan)\/?$/;
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   var page = location.pathname.replace(/\/$/, '') || '/';
   function get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }

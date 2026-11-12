@@ -334,7 +334,7 @@ def _form(p):
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
         <div class="form-row">
           <div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required data-missing="Please add your work email." autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
-          <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="+63 9XX XXX XXXX" aria-describedby="gs-phone-err" data-err="Please check the number, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
+          <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" aria-describedby="gs-phone-err" data-err="Please enter a number we can call, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
         <div class="form-row">
           <div class="field"><label for="gs-name">Full name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-name" name="name" type="text" required autocomplete="name" data-missing="Please add your full name."></div>
@@ -354,7 +354,7 @@ def _form(p):
 
 def _hero(p):
     ticks = "".join(f"<li>{{{{icon:check}}}}<span>{t}</span></li>" for t in p["ticks"])
-    return f'''<section class="fx-hero fw-hero lp-hero">
+    return f'''<section class="fx-hero fw-hero lp-hero" id="start">
   <div class="fx-field" aria-hidden="true"><i class="fx-orb fx-orb--a"></i><i class="fx-orb fx-orb--b"></i></div>
   <div class="container fw-hero-in">
     <div class="fw-copy">
