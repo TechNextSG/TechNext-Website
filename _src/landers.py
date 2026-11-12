@@ -106,7 +106,7 @@ CLOSE_P = ("Fill in the short form (about a minute). A BIR Compliance Expert rep
            "business day. <strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.")
 
 # ---------------------------------------------------------------------------------------------------------------- pages
-PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, the rest = set A). Do not change them.
+PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy doc below replaces four of them.
     # Meta ads 233 / 235 / 246 / 247. Form tag stays "Meeting request" (api/lead.py FORMS).
     "get-started": dict(
         source="Meeting request (get-started call-back form)",
@@ -314,6 +314,124 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
     ),
 }
 
+# ------------------------------------------------------------------------------ 13 Nov 2026 owner copy doc (firms angle)
+# Owner: "use this ... to update the landing page" = Google Doc 1pNryBz7b5olW3oQ1NoqgOugAM4ocZMha1d7QinH79c8
+# ("TechNext Landing Pages Update - 2026 BIR Deadlines", for accounting firms, consultants and accountants).
+# Applied to get-started + bir-adviser-call (section 1), bir-cas-for-accountants (2), bir-call (3), bir-e-invoicing-plan (4),
+# plus the universal FAQ and the "primary goal" question. Adapted to the house rules: no Odoo / ERP / "call" / Excel in
+# visible copy, no "compliant / BIR-ready / perfectly" claims, no penalty threats, no "download" (no checklist file exists),
+# no "partnership" or "dedicated channel" promises, 5 days always with an asterisk, no hyphens in set up / quarter end.
+DL_BOTH = "<b>Deadlines</b> · E-invoicing 31 Dec 2026 · ORUS books 30 Jan 2027"
+BTN_DOC = "Secure my Blueprint"
+GOALS = [("cas", "Registering CAS or CBA before 30 January"),
+         ("einv", "E-invoicing readiness before 31 December"),
+         ("quarter", "Automating quarter end reports (SLSP, 2307s)"),
+         ("firm", "Set ups for my clients (accounting firm or consultant)")]
+FAQ_U = [
+    ("Do we, or our clients, have to change our core accounting software?",
+     "No. Your current software stays exactly as it is. We add a plug-in beside it for the BIR books, reports and e-invoicing set up."),
+    ("Can the system produce the DAT files for the BIR's offline tools?",
+     "Yes. The Philippine set up exports SLSP, SAWT and QAP as DAT files from your posted entries, so the figures match your books."),
+    ("Are you connected to the BIR's EIS for e-invoicing?",
+     "Not directly. The system we set up prepares the groundwork: your Permit to Issue papers, branch mapping and a locked audit trail. "
+     "The BIR has not endorsed any e-invoicing service provider. If you are covered, we assess your EIS data transmission needs and "
+     "quote any connection separately."),
+    ("Is TechNext \"BIR-accredited\"?",
+     "No software brand is \"BIR-accredited\": the BIR registers a business's use of a system. We set the system up for the BIR's "
+     "requirements and help you prepare the sample outputs, audit trail and process flow for your CAS or CBA application at your RDO."),
+    FAQ_COST]
+
+_FIRM = dict(
+    pill=DL_BOTH, goal="firm", btn=BTN_DOC,
+    h1='<span class="hl">5 Days</span> to Your <span class="hl">BIR CAS</span> Setup.* No Disruption to Your Clients\' Software.',
+    sub="The plug-in that lets consultants and accounting firms fast track BIR CAS for their clients. Upgrading a client's "
+        "software for the BIR usually means a costly overhaul and months of disruption. We plug in beside their existing "
+        "software: they keep what they know, and you get the BIR books and reports their CAS application needs.",
+    ticks=["<b>No migration headaches.</b> We don't rip and replace; their core system stays untouched.",
+           "<b>The 5 Day Express*.</b> A fast set up, so you hit client deadlines with time to spare.",
+           "<b>Scale your firm.</b> One set up approach across your whole client portfolio."],
+    msg_ph="e.g. accounting firm, 8 clients due for CAS, sample outputs keep getting sent back",
+    check_h="The CAS application roadblock.",
+    check_lead="If your firm handles CAS applications, you know where it stalls. Which of these sounds familiar?",
+    checks=[("Software can't produce the sample outputs", "<b>The client's current software can't produce</b> the sample outputs the RDO asks for."),
+            ("Billable hours on process flows", "<b>You spend billable hours rebuilding process flows</b> the software should produce."),
+            ("No audit trail", "<b>The system has no audit trail</b> showing who did what, and when."),
+            ("LOA means digging through folders", "<b>A Letter of Authority sends everyone digging</b> through paper folders, because nothing is in one place.")],
+    bp_h="We build the Blueprint. You deliver the strategy.",
+    bp_lead="We handle the technical heavy lifting, so you can focus on advisory and tax strategy.",
+    bp=["<b>Sample outputs on demand:</b> the sample invoices and books of accounts the CAS or CBA application needs, printed from your client's real data",
+        "<b>Audit trail and system description:</b> posted entries locked, every change logged, checked against Annex B",
+        "<b>Direct access to our own team</b> of BIR Compliance Experts in Taguig City: no generic help desk, no hand-off",
+        "<b>A written quote</b> before any work starts"],
+    faq=FAQ_U,
+)
+PAGES["get-started"].update(_copy.deepcopy(_FIRM))
+PAGES["bir-adviser-call"].update(_copy.deepcopy(_FIRM))
+
+PAGES["bir-cas-for-accountants"].update(
+    pill=DL_BOTH, goal="quarter", btn=BTN_DOC,
+    h1='Reclaim Your Quarter End. Stop Rebuilding <span class="hl">SLSP</span> in Spreadsheets.',
+    sub="The plug-in built to give accountants and bookkeepers their weekends back. Every BIR report comes straight from the "
+        "entries you already post. You reconcile once, and the system handles the rest.",
+    ticks=["<b>Never type a 2307 again.</b> Generated from your vendor bills.",
+           "<b>No double entry.</b> DAT files come straight from the ledger.",
+           "<b>Built for accountants.</b> Reviewed by you, set up by us."],
+    check_h="Let's be honest: your quarter end is a mess of manual data entry.",
+    check_lead="Every hour spent re-typing is an hour not billed, and a mistake waiting to be filed.",
+    checks=[("2307s typed by hand", "<b>Typing 2307 certificates by hand</b> for every supplier, and chasing lost copies."),
+            ("SLSP, SAWT and QAP rebuilt", "<b>Rebuilding SLSP, SAWT and QAP</b> by hand the week they are due."),
+            ("Stock, sales and books in separate systems", "<b>Reconciling stock, sales and books</b> that live in different systems."),
+            ("Branch invoices in different layouts", "<b>Consolidating branch invoices</b> that use different layouts and series.")],
+    bp_h="Your quarter end, sorted.",
+    bp_lead="Set it up once. Every report comes from the entries you already post.",
+    bp=["<b>2307s on autopilot:</b> set your ATC codes once, and 2307 and 2306 certificates come from your vendor bills",
+        "<b>DAT file exports:</b> SLSP and QAP exported as DAT files from posted entries, so the figures match your books",
+        "<b>2550Q VAT summary:</b> output and input VAT from your posted entries, for your quarterly filing",
+        "<b>A written quote</b> before any work starts"],
+    facts=None, faq=FAQ_U,
+)
+
+PAGES["bir-call"].update(
+    goal="cas", btn=BTN_DOC,
+    h1='30 January ORUS Deadline. Are Your <span class="hl">BIR CAS</span> Books Ready?',
+    sub="Calendar-year CAS and CBA users register their 2026 computerised books online through ORUS by 30 January 2027. "
+        "We set the system up so your firm's and clients' books of accounts agree and are ready for you to review and register.",
+    ticks=["<b>Match before you print.</b> Journals and ledger that agree in the system.",
+           "<b>A fast set up.</b> As quick as 5 days* for a standard scope.",
+           "<b>Keep existing systems.</b> We add the reporting plug-in beside them."],
+    check_h="What needs to be in place by 30 January?",
+    check_lead="Are your clients ready for ORUS registration? Tick what is still open.",
+    checks=[("Books not from one system", "<b>Books from one system:</b> journals, general ledger and subsidiary books printed from the registered system."),
+            ("Entries don't agree", "<b>Entries that agree:</b> reconciling after printing is a red flag; they must match in the system."),
+            ("Year not closed", "<b>The year closed:</b> 2026 entries posted and locked."),
+            ("No time for review", "<b>Your review:</b> time to check the formats before you submit in ORUS.")],
+    facts=None,
+    faq=[PAGES["bir-call"]["faq"][0]] + FAQ_U,
+)
+
+PAGES["bir-e-invoicing-plan"].update(
+    goal="einv", btn=BTN_DOC,
+    h1='<span class="hl">BIR E-Invoicing</span> by 31 December. Get Your Blueprint Today.',
+    sub="Help your clients through the EIS rules with a structured, multi branch e-invoicing set up. Covered taxpayers must "
+        "issue e-invoices by 31 December 2026; RMC 98-2026 kept the date. We map your clients' invoice flows, prepare their "
+        "Permit to Issue papers with them, and set up the invoicing beside their current software.",
+    ticks=["<b>Permit to Issue papers.</b> We prepare the process flows and sample invoices; you apply.",
+           "<b>Multi branch.</b> Each branch on its own series, with head office seeing them together.",
+           "<b>EIS assessment.</b> Any connection quoted separately, in writing."],
+    check_h="The e-invoicing rules leave no room.",
+    check_lead="Can your client's current software handle RR 26-2025 and RMC 98-2026?",
+    checks=[("No lock after issue", "<b>No edits after issue:</b> does the system lock invoices and use credit notes for decreases?"),
+            ("No downtime plan", "<b>Downtime:</b> is there a plan for BIR-authorised manual invoices when the system is down?"),
+            ("Branches not in one view", "<b>Branches:</b> is every branch on its own series, feeding one view?"),
+            ("Not ready for EIS Certification", "<b>EIS Certification:</b> are you ready to complete it within six months of the PTI?")],
+    steps_h="From the first meeting to your PTI papers.",
+    steps=[("Map the invoice flows", "With your firm: customer invoices, credit notes and branch structures."),
+           ("Set up and test", "Taxes and invoice layouts, tested on a copy of your client's real data."),
+           ("Prepare the application", "Process flows and sample invoices from the system. You and your client apply for the PTI."),
+           ("Assess the EIS connection", "The BIR has not endorsed any e-invoicing service provider. We assess your client's data transmission needs and quote any EIS connection separately.")],
+    facts=None, faq=FAQ_U, form_h="Get your e-invoicing Blueprint",
+)
+
 # ---------------------------------------------------------------------------------------------------------- page facts
 _FACTS = {
     "rmc": ("What does the BIR ask for?",
@@ -370,6 +488,15 @@ def _cta(label, cls="btn-link", carry=False):
     return f'<a class="{cls}" href="#book" data-to-form{" data-carry-check" if carry else ""}>{label} {{{{icon:arrow}}}}</a>'
 
 
+def _goal(p):
+    """13 Nov 2026 owner doc: "What is your primary goal right now?" first in the form, pre-set per page (sent as topic)."""
+    if not p.get("goal"):
+        return ""
+    opts = "".join(f'<option value="{_e(t)}"{" selected" if k == p["goal"] else ""}>{_e(t)}</option>' for k, t in GOALS)
+    return (f'        <div class="field lp-goal"><label for="gs-goal">What is your primary goal right now?</label>'
+            f'<select id="gs-goal" name="topic">{opts}</select></div>\n')
+
+
 def _form(p):
     h = p.get("form_h") or ("Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint")
     return f'''    <div class="fw-side fw-side--form" id="book">
@@ -382,7 +509,7 @@ def _form(p):
         <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day to set your 15 to 20 minute online meeting. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
-        <div class="form-row">
+{_goal(p)}        <div class="form-row">
           <div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required data-missing="Please add your work email." autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
           <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" aria-describedby="gs-phone-err" data-err="Please enter a number we can call, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
@@ -461,7 +588,7 @@ def _check(p):
         for v, t in p["checks"])
     return f'''<section class="section fx-sec fw-check-sec lp-check-sec" id="self-check" aria-labelledby="fw-check-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-check-h">{p["check_h"]}</h2><p class="lead">Tick the ones that sound familiar. Your ticks go into the form, so your expert comes prepared.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-check-h">{p["check_h"]}</h2><p class="lead">{p.get("check_lead") or "Tick the ones that sound familiar."} Your ticks go into the form, so your expert comes prepared.</p></div>
     <div class="fw-check lp-check reveal">
       <ul class="fw-check-list" id="fw-check">{items}</ul>
       <p class="lp-check-act">{_cta(p["btn"], "btn btn-primary btn-lg", carry=True)}</p>
@@ -488,7 +615,7 @@ def _experts(p):
 
 
 def _blueprint(p):
-    items = "".join(f"<li>{{{{icon:check}}}} {t}</li>" for t in p["bp"])
+    items = "".join(f"<li>{{{{icon:check}}}} <span>{t}</span></li>" for t in p["bp"])   # span: bold lead-ins stay inline
     panel = _IFX.panel_markup(p["panel"])
     for x, y in (("Sample Odoo screen", "Sample screen"), ("Your Odoo set-up", "Your set up"), ("Printed from Odoo", "Printed from your system"),
                  ("By email from Odoo", "By email from your system")):   # no Odoo in visible copy (Sky, 12 Nov 2026)
@@ -541,10 +668,10 @@ def _facts(p):
 def _express(p):
     if not p["express"]:
         lis = "".join(f'<li class="reveal" style="--i:{i}"><span class="gs-n">{i + 1}</span><h3>{a}</h3><p>{b}</p></li>'
-                      for i, (a, b) in enumerate(_STEPS_EINV))
+                      for i, (a, b) in enumerate(p.get("steps") or _STEPS_EINV))
         return f'''<section class="section fx-sec fx-sec--alt gs-how" aria-labelledby="lp-steps-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="lp-steps-h">From the first meeting to your PTI papers.</h2></div>
+    <div class="sec-head reveal"><h2 id="lp-steps-h">{p.get("steps_h") or "From the first meeting to your PTI papers."}</h2></div>
     <ol class="gs-steps fw-steps" data-loop>{lis}</ol>
   </div>
 </section>'''

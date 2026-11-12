@@ -118,27 +118,27 @@ Last updated: 2026-11-12
 
 ## Questions and answers
 
-### Do we need a CAS or a CBA?
+### Do we, or our clients, have to change our core accounting software?
 
-RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant, and your RDO can confirm it.
-
-Source: https://technext.asia/bir-adviser-call
-
-### Is TechNext BIR-accredited?
-
-No, and no accounting software is. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. We set your system up for the BIR's requirements and prepare the sample outputs with you.
+No. Your current software stays exactly as it is. We add a plug-in beside it for the BIR books, reports and e-invoicing set up.
 
 Source: https://technext.asia/bir-adviser-call
 
-### We already have a CAS permit for our current system. What happens?
+### Can the system produce the DAT files for the BIR's offline tools?
 
-A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs from the system you will actually use.
+Yes. The Philippine set up exports SLSP, SAWT and QAP as DAT files from your posted entries, so the figures match your books.
 
 Source: https://technext.asia/bir-adviser-call
 
-### Do we have to change our accounting software?
+### Are you connected to the BIR's EIS for e-invoicing?
 
-No. Your current software stays. We add a plug-in beside your current software, set up for your BIR books and reports, so nothing is swapped out while we work.
+Not directly. The system we set up prepares the groundwork: your Permit to Issue papers, branch mapping and a locked audit trail. The BIR has not endorsed any e-invoicing service provider. If you are covered, we assess your EIS data transmission needs and quote any connection separately.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Is TechNext "BIR-accredited"?
+
+No software brand is "BIR-accredited": the BIR registers a business's use of a system. We set the system up for the BIR's requirements and help you prepare the sample outputs, audit trail and process flow for your CAS or CBA application at your RDO.
 
 Source: https://technext.asia/bir-adviser-call
 
