@@ -1404,7 +1404,7 @@ html.bn-off .bn,html.intro .bn{display:none}
 
 /* header: Services catalogue beside Set up a meeting (owner 8 Nov 2026) */
 .header-cta{display:flex;align-items:center;gap:10px}
-@media (max-width:1100px){/* section next step (8 Nov 2026 funnel pass): one link under a section, pointing to the next page */
+/* section next step (8 Nov 2026 funnel pass): one link under a section, pointing to the next page */
 .sec-next{margin:28px 0 0;display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center}
 /* button label with an icon stays on one line, centred (8 Nov 2026: "Request my call ->" wrapped its arrow) */
 .btn .btn-label{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}

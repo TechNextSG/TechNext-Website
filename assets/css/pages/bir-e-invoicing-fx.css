@@ -179,6 +179,9 @@
   .bir-fx .bf-act .btn { flex: 1 1 100%; justify-content: center; }
   .bir-fx .bf-rec { padding: 18px 16px; }
   .bir-fx .bf-rec-app small { display: none; }
+  /* 12 Nov 2026: the shared .fx-tbl min-width (520px) pushed the Amount column off-screen; this 3-column invoice fits the card */
+  .bir-fx .bf-lines { min-width: 0; font-size: 12.5px; }
+  .bir-fx .bf-lines td, .bir-fx .bf-lines th { padding: 9px 6px; }
   .bir-fx .bf-inv { font-size: 19px; }
   .bir-fx .bf-tl b { font-size: 12px; }
   .bir-fx .bf-tl small { display: none; }
