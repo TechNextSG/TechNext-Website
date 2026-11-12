@@ -1485,3 +1485,6 @@ svg.ic-flat{background:none!important;box-shadow:none!important;padding:0!import
 .gg-form.is-sent .form-row,.gg-form.is-sent .form-foot{display:none}
 html.gg-on{overflow:hidden}
 @media (max-width:520px){.gg{padding:22px 18px}.gg h2{font-size:21px}}
+
+/* 13 Nov 2026: while Cloudflare asks the visitor to tick its box, the cookie notice steps aside so it cannot cover it */
+html.ts-asking #tn-cookie-banner{display:none!important}
