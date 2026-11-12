@@ -88,8 +88,8 @@
       points: ['Bank feed payments matched to invoices', 'Follow-up levels with email reminders', 'Letters or call activities at later levels', 'Customer statements on demand'], trigger: 'Paid → reconcile · Overdue → reminder' },
     { id: 'recon', app: 'accountant', title: 'Bank reconciliation', lane: 'Finance', lead: 'Statement lines from the bank feed are matched by reconciliation rules, so receivables, payables and cash agree every day.',
       points: ['Bank synchronisation where your bank supports it', 'Reconciliation models match most lines', 'Partial and grouped payments handled', 'Cash position current the same day'], trigger: 'Reconciled → reports current' },
-    { id: 'reports', app: 'spreadsheet_dashboard', title: 'P&L, GST and cash', lane: 'Finance', lead: 'Every step posted as it happened, so the P&L, balance sheet, GST report and cash forecast are ready without a spreadsheet export.',
-      points: ['P&L and balance sheet at any date', 'GST report from posted entries', 'Aged receivables and payables', 'Cash forecast from open invoices and bills'], trigger: 'Month-end without re-keying' }
+    { id: 'reports', app: 'spreadsheet_dashboard', title: 'Books, 2307 and SLSP', lane: 'Finance', lead: 'Every step is posted as it happens, so your Books of Accounts, 2307 certificates, SLSP, SAWT and QAP and the VAT summary come from the same entries, with no spreadsheet export.',
+      points: ['Books of Accounts for your yearly ORUS registration', '2307 per payee from your bills', 'SLSP, SAWT and QAP as DAT files', 'VAT summary, P&L and cash from posted entries'], trigger: 'Month-end without re-keying' }
   ];
   var CAT_LABEL = { finance: 'Finance', sales: 'Sales', 'supply-chain': 'Supply Chain', websites: 'Websites', hr: 'Human Resources', marketing: 'Marketing', services: 'Services', productivity: 'Productivity' };
 

@@ -579,7 +579,7 @@
       vpay: 'Batch payment of bills due', pick: 'Barcode picking, packing, carrier label',
       ship: 'Validate → stock out, invoice ready', inv: 'From delivered quantities, with a payment link',
       g_paid: 'Bank feed match · overdue → follow-up level', recon: 'Reconciliation rules match the statement',
-      reports: 'P&L, GST and cash forecast, no exports'
+      reports: 'Books, 2307 and SLSP from posted entries'
     };
     var W = 1, H = 1, geoE = {}, tokens = [], raf = 0, last = 0, on = false, scen = 'all', nextSpawn = 0, hand = 0, revealing = null, panning = null, hotNode = null, leaveT = 0;
     ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { view.addEventListener(ev, function () { panning = null; }, { passive: true }); });
@@ -723,7 +723,7 @@
         case 'ship': say(k, '<b>WH/OUT/00' + d.OUT + '</b> delivered, invoice ready'); break;
         case 'g_paid': if (nextId === 'e21') say('late', '<b>INV/2026/0' + d.INV + '</b> overdue: reminder sent');
                        else if (nextId === 'e20') say(k, 'Payment matched from the <b>bank feed</b>'); break;
-        case 'reports': if (Math.random() < .5) say(k, 'P&amp;L and cash forecast <b>updated</b>'); break;
+        case 'reports': if (Math.random() < .5) say(k, 'Books and <b>2307</b> updated from posted entries'); break;
       }
     }
     function stepTokens(dt) {
