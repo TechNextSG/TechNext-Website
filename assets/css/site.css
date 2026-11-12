@@ -1494,3 +1494,19 @@ html.ts-asking #tn-cookie-banner{display:none!important}
 /* small phones (13 Nov 2026): one deadline per line, "left" dropped, compact button - always exactly two lines */
 @media (max-width:440px){.header .bn--dl .bn-g{display:block;white-space:nowrap}.header .bn--dl .bn-dot{display:none}.header .bn--dl p{font-size:12.5px}}
 @media (max-width:380px){.header .bn--dl .bn-l{display:none}.header .bn--dl .bn-link{font-size:12px;padding:0 9px}.header .bn--dl .bn-link .ic{display:none}}
+/* 13 Nov 2026 audit, phone landscape (e.g. 844x390): the sticky header + deadline banner took 110px (28% of the screen)
+   and the hero added 96px on top, so headlines started below the fold. On short landscape screens the header scrolls
+   away with the page and the vertical rhythm tightens. Portrait, tablet and desktop are unchanged. */
+@media (orientation:landscape) and (max-height:500px){
+  body:not(.is-home) .header{position:relative}   /* home keeps its see-through header: its hero is built around it */
+  html body:not(.is-home) main > section.fx-hero:first-child{padding-top:24px!important;padding-bottom:40px!important}   /* home: its hero runs under the see-through header and keeps its own padding */
+  html body:not(.is-home) main > section:not(.ixw-hero):not(.fx-hero),html body:not(.is-home) main > .section{padding-top:56px!important;padding-bottom:56px!important}
+}
+/* 13 Nov 2026 audit: tap targets on touch screens. Breadcrumbs, footer links and the banner button were 16-30px tall;
+   the tappable area grows (padding with a matching negative margin) so the layout looks the same. */
+@media (pointer:coarse){
+  .crumbs a{display:inline-flex;align-items:center;min-height:40px;padding:0 6px;margin:-12px -6px}
+  .footer nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px}
+  .header .bn--dl .bn-link{min-height:36px}
+  .header .brand{display:inline-flex;align-items:center;min-height:44px}
+}

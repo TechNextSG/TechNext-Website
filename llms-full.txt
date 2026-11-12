@@ -203,7 +203,7 @@ Source: https://technext.asia/bir-cas
 
 ### How do you handle the yearly ORUS books registration?
 
-We prepare the computerised book exports from Odoo; you register them online through ORUS (RMC 4-2026) within 30 days after the close of each taxable year (RMC 3-2023). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027, and loose-leaf books by 15 January 2027, unless the BIR announces otherwise. Your accountant or RDO confirms the dates for your business. See how to register books in ORUS .
+We prepare the computerised book exports from your system; you register them online through ORUS (RMC 4-2026) within 30 days after the close of each taxable year (RMC 3-2023). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027, and loose-leaf books by 15 January 2027, unless the BIR announces otherwise. Your accountant or RDO confirms the dates for your business. See how to register books in ORUS .
 
 Source: https://technext.asia/bir-cas
 
@@ -233,13 +233,13 @@ Source: https://technext.asia/bir-e-invoicing
 
 ### Can we fix an e-invoice after it is issued?
 
-No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decrease and a new e-invoice for an increase; we set both flows up in Odoo before go-live.
+No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decrease and a new e-invoice for an increase; we set both flows up in your system before go-live.
 
 Source: https://technext.asia/bir-e-invoicing
 
 ### How are our branches handled?
 
-BIR e-invoicing covers head office and all branches. Each branch runs its own invoice series in one Odoo database, and branches on different invoicing systems may need separate PTIs. See BIR rules for multi-branch businesses .
+BIR e-invoicing covers head office and all branches. Each branch runs its own invoice series in one database, and branches on different invoicing systems may need separate PTIs. See BIR rules for multi-branch businesses .
 
 Source: https://technext.asia/bir-e-invoicing
 
@@ -1223,7 +1223,7 @@ Source: https://technext.asia/odoo/integration
 
 ### What stays in our own system?
 
-Anything you want to keep there: day-to-day entry, specialist tools, POS or in-house software. TechNext only brings in the records Odoo needs for accounting and BIR.
+Anything you want to keep there: day-to-day entry, specialist tools, POS or in-house software. TechNext only brings in the records your accounting and BIR reports need.
 
 Source: https://technext.asia/odoo/integration
 

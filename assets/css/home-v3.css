@@ -176,7 +176,7 @@
 
 /* ---------- responsive */
 @media (max-width:1024px){
-  .hv3-hero-in,.hv3-feat,.hv3-price,.hv3-form-wrap{grid-template-columns:1fr;gap:36px}
+  .hv3-hero-in,.hv3-feat,.hv3-price,.hv3-form-wrap{grid-template-columns:minmax(0,1fr);gap:36px}   /* minmax(0,..): the UI mock-ups no longer push the column past a 360px screen */
   .hv3-feat--rev .hv3-ftext{order:0}
   .hv3-visual{max-width:620px}
   .hv3-flow{grid-template-columns:1fr;gap:30px}
@@ -213,3 +213,7 @@
 .hv3-einv .c23-top{background:#0B5A35}
 .hv3-einv .c23-foot{color:#0B5A35}
 @media (max-width:640px){.hv3-home .hv3-hero{padding-top:calc(var(--hv3-hdr,117px) + 36px)}}
+
+/* 13 Nov 2026 audit: small labels on the drawn 2307 stay legible (were 10.5px) */
+.c23-pp dt,.c23-pp small,.c23-t th,.c23-top span{font-size:11px}
+.hv3-fvis,.hv3-ftext{min-width:0}
