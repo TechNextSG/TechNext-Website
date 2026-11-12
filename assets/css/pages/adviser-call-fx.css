@@ -358,38 +358,8 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 /* under the form button */
 .lp-under { margin: 10px 0 0; font-size: 13px; line-height: 1.5; color: var(--body); text-align: center; }
 .gs-form.is-sent .lp-under { display: none; }
-/* the BIR CAS Blueprint document (what the reader takes away) */
-.lp-doc { position: relative; margin: 6px 0 22px; max-width: 520px; padding: 18px 20px 16px; background: #fff; border: 1px solid #DCE6F7;
-  border-radius: 14px; transform: rotate(-1.2deg);
-  box-shadow: 9px 10px 0 -1px #EEF3FC, 9px 10px 0 0 #DCE6F7, 0 26px 44px -24px rgba(31,56,110,.45), 0 2px 6px rgba(31,31,61,.05); }
-.lp-doc-top { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid var(--blue); }
-.lp-doc-top b { font: 800 18px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
-.lp-doc-k { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; background: #EAF1FD; color: var(--blue); font: 700 11px/1 var(--font-body); text-transform: uppercase; letter-spacing: .06em; }
-.lp-doc-k .ic { width: 13px; height: 13px; }
-.lp-doc-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px 0 12px; }
-.lp-doc-meta dt { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted, #5C5F78); }
-.lp-doc-meta dd { margin: 2px 0 0; font-size: 12.5px; font-weight: 600; color: var(--ink); }
-.lp-doc-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
-.lp-doc-steps li { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 1.35; color: var(--ink); }
-.lp-doc-n { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--blue); color: #fff; font: 700 11px/1 var(--font-body); }
-.lp-doc-checks { list-style: none; margin: 12px 0 0; padding: 10px 120px 0 0; border-top: 1px dashed #CFDBF1; display: flex; flex-wrap: wrap; gap: 6px 14px; }
-.lp-doc-checks li { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: #1F7A4D; }
-.lp-doc-checks .ic { width: 14px; height: 14px; }
-.lp-doc-stamp { position: absolute; right: 16px; bottom: 14px; padding: 5px 10px; border: 2px solid var(--blue); border-radius: 8px; color: var(--blue);
-  font: 800 11px/1 var(--font-display); text-transform: uppercase; letter-spacing: .08em; transform: rotate(-8deg); background: rgba(255,255,255,.9); }
-/* phone order: deadline, title, form, sub, ticks, document, proof, fine print */
-@media (max-width: 1000px) {
-  .fw-fast .lp-doc { order: 6; }
-  .lp-page .fw-fast .fw-proof { order: 7; }
-  .lp-doc { margin: 4px 4px 8px; transform: rotate(-.8deg); }
-}
-@media (max-width: 560px) {
-  .lp-doc-meta { grid-template-columns: 1fr 1fr; }
-  .lp-doc-meta > div:last-child { display: none; }
-  .lp-doc-steps { grid-template-columns: 1fr; }
-  .lp-doc-stamp { position: static; display: inline-block; margin-top: 10px; }
-  .lp-doc-checks { padding-right: 0; }
-}
+/* phone order: deadline, title, form, sub, ticks, proof, fine print (13 Nov 2026: the Blueprint document card was removed) */
+@media (max-width: 1000px) { .lp-page .fw-fast .fw-proof { order: 7; } }
 /* pain checklist straight after the hero: no score box, the button carries the ticks into the form */
 .lp-check { display: block !important; }
 .lp-check .fw-check-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }

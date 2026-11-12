@@ -3,14 +3,14 @@
 no header distraction, the content should be variant, all have a fill-out form, proper funnelling", in the new brand voice.
 
 12 Nov 2026 (evening), owner-approved fixes from the Sky review of /get-started (Drive 31./25-...-copy-review-sky):
-hero = H1 (owner pick, PR #351) + the meeting outcome + the deadline + a "BIR CAS Blueprint" document mock-up; buttons
+hero = H1 (owner pick, PR #351) + the meeting outcome + the deadline + buttons
 say what you get; the pain checklist sits straight after the hero (no score box); experts both "BIR Compliance Expert",
 no sales or Odoo wording; the Day 1-5 rail and NextSprint section are gone (one 5 Day Express line instead); proof =
 the BIR forms we set up; no Odoo in visible copy; "set up", "month end", "go live" without hyphens.
 
 One layout, five pages. A page in _src/pages/ holds only its meta and {{LANDER:<key>}}; this module writes the body.
 Funnel, top to bottom (every section ends on one action: scroll to the form, #book):
-  1 hero: H1, deadline chip, what the meeting gives you, Blueprint first, the Blueprint document, proof; the form
+  1 hero: H1, deadline chip, what the meeting gives you, Blueprint first, proof; the form
     (desktop: right column, above the fold; phone: straight after the title)
   2 pain checklist (ticked answers carry into the form)
   3 who you meet (two BIR Compliance Experts)
@@ -27,6 +27,7 @@ online, no charge, and ends with a Blueprint; no Odoo or ERP in visible copy, ti
 "a plug-in beside your current software"); no fixed price, no "free", no BIR link or guarantee, no "ready / compliant /
 accredited" claims, no other software brands, no Day 2-5 breakdown, no Lean / Agile / Six Sigma, British spelling,
 no exclamation marks, no hyphens in set up / month end / go live.
+13 Nov 2026 (owner): the hero Blueprint document card was removed from every lander ("not needed").
 """
 import copy as _copy
 import html as _html
@@ -84,16 +85,6 @@ EINV_PANEL = dict(app="account", title="Customer invoice", sub="INV/2026/00184 Â
                             rows=[("Dr", "Receivable", "122,000.00"), ("Cr", "Sales", "108,928.57"), ("Cr", "Output VAT", "13,071.43")]),
                   chips=["One series per branch", "No edits after posting", "Credit note for a decrease"])
 
-# The Blueprint document in the hero: (title, steps, checklist)
-DOC_CAS = ("BIR CAS Blueprint",
-           ["CAS or CBA: which one you register", "Books of accounts", "2307 certificates", "SLSP", "SAWT and QAP",
-            "Sample outputs for your application", "You file at your RDO"],
-           ["Your current software stays", "Order of work agreed"])
-DOC_EINV = ("BIR E-Invoicing Plan",
-            ["Covered or not: checked with your accountant", "Permit to Issue (PTI) papers", "Invoice flows and branches",
-             "Credit notes and manual invoices", "A plan for downtime", "EIS connection assessed", "You apply at the BIR"],
-            ["Your current software stays", "Order of work agreed"])
-
 CHECKS_MONTH = [
     ("Invoices typed in Word or spreadsheets", "<b>Invoices are typed in Word or spreadsheets,</b> with no audit trail behind them."),
     ("2307s re-typed every quarter", "<b>Someone re-types 2307 certificates every quarter</b> and chases suppliers for the missing ones."),
@@ -125,7 +116,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what to set up, in what order.",
                "<b>Keep your current software.</b> Nothing is swapped out.",
                "<b>A written quote</b> before any work starts."],
-        doc=DOC_CAS, btn=BTN_CAS,
+        btn=BTN_CAS,
         msg_ph="e.g. accounting software plus spreadsheets today, 2 branches, CAS registration due",
         check_h="How much of your month end is still done by hand?", checks=CHECKS_MONTH,
         bp_h='What you leave the meeting with.',
@@ -151,7 +142,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: which papers your application needs, and where each comes from.",
                "<b>Process flow, sample invoices and books,</b> prepared with you and checked against Annex B.",
                "<b>A written quote</b> before any work starts."],
-        doc=DOC_CAS, btn=BTN_CAS,
+        btn=BTN_CAS,
         msg_ph="e.g. new system to register as a CAS, head office and 2 branches",
         check_h="Where is your CAS application stuck?",
         checks=[("No system description yet", "<b>Nobody has written the system description</b> the sworn statement needs."),
@@ -184,7 +175,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what has to be in place before 30 January.",
                "<b>Journals, ledger and subsidiary books</b> printed from one system, reviewed by your accountant.",
                "<b>A written quote</b> before any work starts."],
-        doc=DOC_CAS, btn=BTN_CAS,
+        btn=BTN_CAS,
         msg_ph="e.g. books in spreadsheets today, CAS registered last year, 1 branch",
         check_h="How ready are your books for 30 January?",
         checks=[("Books kept in spreadsheets", "<b>Your books are kept in spreadsheets</b> and pasted together at year end."),
@@ -217,7 +208,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: 2307, SLSP, SAWT and QAP from the entries you already post.",
                "<b>Keep your current software.</b> Nothing is typed twice.",
                "<b>You and your accountant review,</b> we set it up."],
-        doc=DOC_CAS, btn=BTN_CAS,
+        btn=BTN_CAS,
         msg_ph="e.g. 40 payees a quarter, SLSP rebuilt in spreadsheets, CAS registration due",
         check_h="What does your quarter end look like?",
         checks=[("2307s typed by hand", "<b>2307 certificates are typed by hand</b> every quarter, one payee at a time."),
@@ -251,7 +242,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026, PR #351 (get-started = set B, t
         ticks=["<b>Your e-invoicing plan</b> from the meeting: PTI papers, invoice flows and branches, in order.",
                "<b>Keep your current software.</b> We add the invoicing beside it.",
                "<b>An EIS assessment,</b> quoted separately before any work."],
-        doc=DOC_EINV, btn=BTN_EINV,
+        btn=BTN_EINV,
         msg_ph="e.g. large taxpayer, invoices from our POS and spreadsheets, 3 branches",
         check_h="How do you invoice today?",
         checks=[("Invoices printed or emailed as PDF", "<b>Invoices are printed or emailed as PDFs,</b> which are not e-invoices."),
@@ -356,19 +347,6 @@ def _form(p):
     </div>'''
 
 
-def _doc(p):
-    title, steps, checks = p["doc"]
-    lis = "".join(f'<li><span class="lp-doc-n">{i + 1}</span>{_e(s)}</li>' for i, s in enumerate(steps))
-    cks = "".join(f'<li>{{{{icon:check}}}}{_e(c)}</li>' for c in checks)
-    return f'''      <figure class="lp-doc" aria-label="Sample {_e(title)}: what you take away from the meeting">
-        <div class="lp-doc-top"><span class="lp-doc-k">{{{{icon:file}}}}Sample</span><b>{_e(title)}</b></div>
-        <dl class="lp-doc-meta"><div><dt>Prepared for</dt><dd>Your company</dd></div><div><dt>Prepared by</dt><dd>BIR Compliance Expert</dd></div><div><dt>Meeting</dt><dd>15 to 20 minutes, online</dd></div></dl>
-        <ol class="lp-doc-steps">{lis}</ol>
-        <ul class="lp-doc-checks">{cks}</ul>
-        <span class="lp-doc-stamp">Written quote</span>
-      </figure>'''
-
-
 def _hero(p):
     ticks = "".join(f"<li>{{{{icon:check}}}}<span>{t}</span></li>" for t in p["ticks"])
     return f'''<section class="fx-hero fw-hero lp-hero" id="start">
@@ -379,7 +357,6 @@ def _hero(p):
       <h1 id="fw-h1">{p["h1"]}</h1>
       <p class="lead fw-hero-lead">{p["sub"]}</p>
       <ul class="lp-ticks">{ticks}</ul>
-{_doc(p)}
       <p class="small muted fw-proof">{PROOF}</p>
       <p class="lp-fine">{FINE}</p>
       <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
