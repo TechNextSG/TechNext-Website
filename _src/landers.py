@@ -432,6 +432,27 @@ PAGES["bir-e-invoicing-plan"].update(
     facts=None, faq=FAQ_U, form_h="Get your e-invoicing Blueprint",
 )
 
+# ------------------------------------------------------- section buttons (owner 13 Nov 2026: each speaks for its section)
+_ASK = "Ask a BIR Compliance Expert"
+# Funnel (owner 13 Nov 2026 "do a proper funneling"): every section ends on one button to the form, and the wording steps up
+# down the page: problem -> "Check / Clear" (diagnose), plan -> "Get my Blueprint", proof / how -> "Plan / Check",
+# objections -> "Ask", closing band -> "Book" with the deadline. The hero form button (p["btn"]) is the one action.
+_CAS_FIRM = dict(check="Clear my CAS roadblock", blueprint="Get my client's Blueprint", facts="Check my application papers",
+                 express="Plan my set up", faq=_ASK)
+CTAS = {
+    "get-started": dict(_CAS_FIRM, close="Book before 30 January"),
+    "bir-adviser-call": dict(_CAS_FIRM, close="Book my Blueprint meeting"),
+    "bir-call": dict(check="Check my books for ORUS", blueprint="Get my BIR CAS Blueprint", express="Plan my set up",
+                     faq=_ASK, close="Book before 30 January"),
+    "bir-cas-for-accountants": dict(check="Fix my quarter end", blueprint="See my quarter end set up", express="Plan my set up",
+                                    faq=_ASK, close="Book my Blueprint meeting"),
+    "bir-e-invoicing-plan": dict(check="Check my e-invoicing gaps", blueprint="Get my e-invoicing Blueprint",
+                                 express="Book the first meeting", faq=_ASK, close="Book before 31 December"),
+    "bir-deadline": dict(myths="Check what my client needs", facts="Check if my client is covered",
+                         blueprint="Get my client's Blueprint", firm="Bring a client case", faq=_ASK,
+                         close="Book before the December rush"),
+}
+
 # ---------------------------------------------------------------------------------------------------------- page facts
 _FACTS = {
     "rmc": ("What does the BIR ask for?",
@@ -486,6 +507,12 @@ _STEPS_EINV = [("15 to 20 minute meeting", "A BIR Compliance Expert checks wheth
 
 def _cta(label, cls="btn-link", carry=False):
     return f'<a class="{cls}" href="#book" data-to-form{" data-carry-check" if carry else ""}>{label} {{{{icon:arrow}}}}</a>'
+
+
+def _lbl(p, sec):
+    """Owner 13 Nov 2026: "make sure the cta button are speaking with the current section" - each section's button names
+    what that section is about (CTAS below); the hero form button keeps p["btn"]."""
+    return CTAS.get(p.get("_key"), {}).get(sec) or p["btn"]
 
 
 def _goal(p):
@@ -560,7 +587,7 @@ def _myths(p):
   <div class="container">
     <div class="sec-head reveal"><h2 id="lp-myths-h">{h}</h2><p class="lead">{lead}</p></div>
     <ol class="fw-rules">{lis}</ol>
-    <p class="sec-next reveal">{_cta(p["btn"])}</p>
+    <p class="sec-next reveal">{_cta(_lbl(p, "myths"))}</p>
   </div>
 </section>'''
 
@@ -575,7 +602,7 @@ def _firm(p):
   <div class="container">
     <div class="sec-head reveal"><h2 id="lp-firm-h">{h}</h2><p class="lead">{lead}</p></div>
     <ul class="lp-ticks lp-firm-list reveal">{lis}</ul>
-    <p class="sec-next reveal">{_cta(p["btn"], "btn btn-primary")}</p>
+    <p class="sec-next reveal">{_cta(_lbl(p, "firm"), "btn btn-primary")}</p>
   </div>
 </section>'''
 
@@ -591,7 +618,7 @@ def _check(p):
     <div class="sec-head reveal"><h2 id="fw-check-h">{p["check_h"]}</h2><p class="lead">{p.get("check_lead") or "Does any of this sound familiar?"}</p></div>
     <div class="fw-check lp-check reveal">
       <ul class="fw-check-list lp-points">{items}</ul>
-      <p class="lp-check-act">{_cta(p["btn"], "btn btn-primary btn-lg")}</p>
+      <p class="lp-check-act">{_cta(_lbl(p, "check"), "btn btn-primary btn-lg")}</p>
     </div>
   </div>
 </section>'''
@@ -626,7 +653,7 @@ def _blueprint(p):
       <h2 id="lp-bp-h">{p["bp_h"]}</h2>
       <p class="lead">{p["bp_lead"]}</p>
       <ul class="gs-ticks">{items}</ul>
-      <p class="sec-next reveal">{_cta(p["btn"], "btn btn-primary")}</p>
+      <p class="sec-next reveal">{_cta(_lbl(p, "blueprint"), "btn btn-primary")}</p>
     </div>
     <div class="fw-side">
       <div class="fw-stage">
@@ -660,7 +687,7 @@ def _facts(p):
     <div class="sec-head reveal"><h2 id="lp-facts-h">{h}</h2><p class="lead">{lead}</p></div>
     <ol class="fw-rules">{lis}</ol>
     {note}
-    <p class="sec-next reveal">{_cta(p["btn"])}</p>
+    <p class="sec-next reveal">{_cta(_lbl(p, "facts"))}</p>
   </div>
 </section>'''
 
@@ -674,11 +701,12 @@ def _express(p):
   <div class="container">
     <div class="sec-head reveal"><h2 id="lp-steps-h">{p.get("steps_h") or "From the first meeting to your PTI papers."}</h2></div>
     <ol class="gs-steps fw-steps lp-steps" style="--n:{len(steps)}" data-loop>{lis}</ol>
+    <p class="sec-next reveal">{_cta(_lbl(p, "express"))}</p>
   </div>
 </section>'''
     return f'''<section class="section lp-x5" aria-label="5 Day Express">
   <div class="container">
-    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Day Express*</span>Most standard set ups run as a 5 Day Express.* Your expert walks you through the plan in the meeting. {_cta(p["btn"])}</p>
+    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Day Express*</span>Most standard set ups run as a 5 Day Express.* Your expert walks you through the plan in the meeting. {_cta(_lbl(p, "express"))}</p>
   </div>
 </section>'''
 
@@ -690,7 +718,7 @@ def _faq(p):
   <div class="container fx-faq">
     <div class="sec-head reveal"><h2 id="lp-faq-h">Before you book, answered.</h2></div>
     <div class="faq reveal">{qs}</div>
-    <p class="sec-next reveal">{_cta(p["btn"])}</p>
+    <p class="sec-next reveal">{_cta(_lbl(p, "faq"))}</p>
   </div>
 </section>'''
 
@@ -701,14 +729,14 @@ def _close(p):
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
       <div><h2>{p["close_h"]}</h2><p>{p["close_p"]}</p></div>
-      <div class="actions">{_cta(p["btn"], "btn btn-white btn-lg")}</div>
+      <div class="actions">{_cta(_lbl(p, "close"), "btn btn-white btn-lg")}</div>
     </div>
   </div>
 </section>'''
 
 
 def page_html(key: str) -> str:
-    p = PAGES[key]
+    p = dict(PAGES[key], _key=key)
     # owner 12 Nov 2026: "remove this part in all landing pages" - the Who you meet / expert cards block is off the landers
     # (_experts stays defined in case it comes back; the FAQ still answers "Who do we meet?")
     parts = {"hero": _hero, "myths": _myths, "check": _check, "blueprint": _blueprint, "facts": _facts, "firm": _firm,
