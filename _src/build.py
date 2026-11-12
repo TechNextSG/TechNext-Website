@@ -425,7 +425,9 @@ SERVICE_TYPE = {"bir-cas.html": "BIR CAS set-up",   # owner 10 Nov 2026: no Odoo
                 "bir-e-invoicing.html": "BIR e-invoicing preparation", "odoo/philippines.html": "BIR CAS set-up in the Philippines"}
 _CRUMBS = re.compile(r'<nav class="crumbs"[^>]*>(.*?)</nav>', re.S)
 _CRUMB = re.compile(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>|<span\b[^>]*>(.*?)</span>', re.S)
-_FAQ = re.compile(r'<details[^>]*>\s*<summary>(.*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)   # <details open> too
+# 13 Nov 2026 audit: the question group may not cross a </summary> - the old (.*?) started at the phone menu's
+# <details><summary>Solutions and ran into the page's first FAQ, so every page lost its first question from FAQPage.
+_FAQ = re.compile(r'<details[^>]*>\s*<summary>((?:(?!</summary>).)*?)</summary>\s*<div class="faq-a">(.*?)</div>\s*</details>', re.S)   # <details open> too
 
 
 def _text(fragment: str) -> str:
@@ -2795,8 +2797,8 @@ def write_llms():
         "- What is the difference between CAS and CBA? A Computerized Accounting System (CAS) runs the whole cycle including system-generated "
         "invoices; if invoices are issued by hand, the system counts as Computerized Books of Accounts (CBA) (RMO 9-2021). Odoo can be set up for either. "
         f"Guide: {S.SITE_URL}blog/register-odoo-cas-cba-bir",
-        "- How long does BIR CAS registration take? Under RMC 5-2021 the RDO issues the Acknowledgement Certificate within three working days of a "
-        f"complete application; the timing and the decision are the RDO's. The business files; TechNext prepares the Odoo outputs. {S.SITE_URL}bir-cas",
+        "- How long does BIR CAS registration take? The RDO evaluates each complete application and issues the Acknowledgement Certificate "
+        f"(RMC 5-2021); the timing and the decision are the RDO's, and TechNext does not promise either. The business files; TechNext prepares the system outputs with it. {S.SITE_URL}bir-cas",
         "- When must BIR Form 2307 be issued? Within 20 days after the close of each quarter (Q4 2026: by 20 January 2027), or on payment if the payee "
         f"asks (RR 2-98 as amended by RR 11-2018). Odoo 20 prints the 2307 in the BIR PDF format. Guide: {S.SITE_URL}blog/bir-form-2307-odoo",
         "- What is the difference between SAWT and QAP? The SAWT lists tax customers withheld from you (from the 2307s you received); the QAP lists tax "
