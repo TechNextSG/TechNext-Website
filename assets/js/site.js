@@ -1017,7 +1017,7 @@ document.addEventListener('click', function (e) {
   var now = Date.now() + 8 * 3600e3, today = Math.floor(now / 864e5);
   els.forEach(function (el) {
     var d = Math.floor(Date.parse(el.getAttribute('data-bn-due') + 'T00:00:00Z') / 864e5) - today;
-    el.textContent = d > 1 ? d + ' days left' : d === 1 ? '1 day left' : d === 0 ? 'today' : '';
+    el.innerHTML = d > 1 ? d + ' days<span class="bn-l"> left</span>' : d === 1 ? '1 day<span class="bn-l"> left</span>' : d === 0 ? 'today' : '';   // numbers only, safe
   });
 })();
 
@@ -1043,9 +1043,11 @@ document.addEventListener('click', function (e) {
   'use strict';
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var all = document.querySelectorAll('main .btn, main .sec-next .btn-link, main .actions .btn-link, main .cv-act .btn-link');
-  var list = Array.prototype.filter.call(all, function (b) { return b.getBoundingClientRect().top > innerHeight && b.type !== 'submit' && !b.closest('form'); });   // form buttons never hide
-  if (!list.length) return;
-  list.forEach(function (b, k) { b.classList.add('btn-pre'); b.style.setProperty('--btn-d', ((k % 3) * 70) + 'ms'); });
+  // 13 Nov 2026 speed audit: positions come from a first IntersectionObserver pass (async) instead of getBoundingClientRect on
+  // every button at load, which forced a full layout mid-load (~100 ms on a mid-range phone).
+  var cand = Array.prototype.filter.call(all, function (b) { return b.type !== 'submit' && !b.closest('form'); });   // form buttons never hide
+  if (!cand.length) return;
+  var list = [];
   /* 12 Nov 2026: drop .btn-in once the pop-in has played. Hover switches the animation off, so leaving the button (e.g. after a
      click scrolls the page to the form) used to replay the pop-in from opacity 0 - the "glitch once clicked". */
   function done(e) { if (e.animationName === 'btnPop') { this.classList.remove('btn-in'); this.removeEventListener('animationend', done); } }
@@ -1058,7 +1060,17 @@ document.addEventListener('click', function (e) {
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px' });
-  list.forEach(function (b) { io.observe(b); });
+  var first = new IntersectionObserver(function (es) {
+    first.disconnect();
+    es.forEach(function (e) {
+      if (e.isIntersecting || e.boundingClientRect.top <= innerHeight) return;   // on screen or above: never hidden
+      var b = e.target;
+      b.style.setProperty('--btn-d', ((list.length % 3) * 70) + 'ms');
+      b.classList.add('btn-pre');
+      list.push(b); io.observe(b);
+    });
+  });
+  cand.forEach(function (b) { first.observe(b); });
   setTimeout(function () { list.forEach(show); }, 10000);
 })();
 
