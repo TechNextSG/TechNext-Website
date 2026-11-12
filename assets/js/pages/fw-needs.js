@@ -181,12 +181,13 @@
     var list = document.getElementById('fw-check');
     if (!list) return;
     var cnt = document.getElementById('fw-count'), bar = document.getElementById('fw-meter'), msg = document.getElementById('fw-msg');
+    var M = MSG; try { if (list.getAttribute('data-msgs')) M = JSON.parse(list.getAttribute('data-msgs')); } catch (e) {}   /* 12 Nov 2026: each landing page has its own */
     function ticked() { return $$('input:checked', list).map(function (i) { return i.value; }); }
     function update() {
       var k = ticked().length, total = $$('input', list).length || 8;
       if (cnt) cnt.textContent = k;
       if (bar) bar.style.width = (k / total * 100) + '%';
-      if (msg) msg.textContent = MSG[k === 0 ? 0 : k <= 2 ? 1 : k <= 5 ? 2 : 3];
+      if (msg) msg.textContent = M[k === 0 ? 0 : k <= 2 ? 1 : k <= 5 ? 2 : 3];
       list.parentNode.classList.toggle('is-high', k >= 6);
     }
     list.addEventListener('change', update);

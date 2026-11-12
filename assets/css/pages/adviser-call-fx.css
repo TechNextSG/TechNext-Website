@@ -323,8 +323,30 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
   .fw-fast .fw-hero-in > .fw-copy > h1 { order: 2; margin-bottom: 0; }
   .fw-fast .fw-side--form { order: 3; }
   .fw-fast .fw-hero-lead { order: 4; }
-  .fw-fast .fw-proof { order: 5; }   /* 12 Nov 2026: had no order, so it jumped above the deadline pill */
+  .fw-fast .lp-ticks { order: 5; }
+  .fw-fast .fw-proof { order: 6; }   /* 12 Nov 2026: had no order, so it jumped above the deadline pill */
+  .fw-fast .lp-fine { order: 8; }
   .fw-fast .fw-pick { order: 6; }
   .fw-fast .fw-act { order: 7; }
   .fw-fast .fw-hero-in { row-gap: 18px; }
 }
+
+/* ============================================================ campaign landing pages (12 Nov 2026, _src/landers.py)
+   One layout for every lander: logo-only header, no BIR notice bar, form in the hero, every CTA scrolls to #book. */
+.lp-page .bn, .lp-page .talk, .lp-page .side-tabs { display: none !important; }
+.lp-page .fw-hero h1 .hl, .lp-page .fx-sec h2 .hl { color: var(--blue); }
+.lp-page .fx-close h2 .hl { color: #9EC1FF !important; }
+.lp-ticks { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 10px; }
+.lp-ticks li { display: flex; gap: 10px; align-items: flex-start; color: var(--body); font-size: 1rem; line-height: 1.5; }
+.lp-ticks li .ic { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--blue); }
+.lp-ticks b { color: var(--ink); }
+.lp-fine { margin: 14px 0 0; max-width: 40em; font-size: 12px; line-height: 1.55; color: var(--muted, #5C5F78); }
+.lp-sample { margin: 10px 0 0; text-align: center; }
+.lp-note { margin-top: 28px; }
+.lp-page .gs-privacy .ic { display: inline-block !important; width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; }
+.lp-page .fw-deadline [data-fw-days] { font-variant-numeric: tabular-nums; }
+@media (max-width: 1000px) { .lp-page .fw-fast .lp-ticks { margin-bottom: 0; } }
+.lp-page .fw-hero-lead { margin-bottom: 18px; }
+.lp-page .gs-privacy { display: block; text-align: left; }
+.lp-page .fw-score-btn { white-space: normal; height: auto; min-height: 44px; }
+.lp-page .fw-score-btn .btn-label, .lp-page .fw-score-btn { text-wrap: balance; }

@@ -18,7 +18,7 @@ Last updated: 2026-11-12
 ## Pages
 
 - https://technext.asia/ — TechNext | Business Software Specialists, Singapore and PH: TechNext plugs one business system into the software you already run. 142 projects, 90+ enterprise clients in 25+ countries. Singapore HQ, team in Taguig City.
-- https://technext.asia/bir-adviser-call — Talk to a BIR CAS Adviser: Request a Call: Request a call with a TechNext BIR CAS adviser in Taguig City. We map your process and plan your 5 Day Express sprint. Written quote first.
+- https://technext.asia/bir-adviser-call — BIR CAS Setup: Get Your BIR CAS Blueprint: BIR CAS or CBA setup, beside your current software. Process flow, sample invoices and books prepared with you. 15 to 20 minute meeting with a BIR Compliance Expert.
 - https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS (Computerized Accounting System) set-up in the Philippines, as a plug-in beside your current software, run as a 5 Day Express sprint. Written quote.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Prepare Now, Not in December: Prepare for BIR e-invoicing before 31 Dec 2026. A plug-in beside your current system, set up by our own Taguig experts, with a written quote first.
 - https://technext.asia/blog — BIR CAS Guides: E-invoicing, 2307, SLSP, 2550Q: Plain guides to BIR CAS, e-invoicing, 2307, SLSP and 2550Q from TechNext's BIR Compliance Experts, for Philippine SMEs and their accountants.
@@ -120,31 +120,31 @@ Last updated: 2026-11-12
 
 ### Do we need a CAS or a CBA?
 
-RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant on the first call, and your RDO can confirm it.
+RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant, and your RDO can confirm it.
 
 Source: https://technext.asia/bir-adviser-call
 
 ### Is TechNext BIR-accredited?
 
-No, and no accounting software is: the BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. What we do is set up your Odoo for the BIR's requirements and prepare with you the sample outputs and audit trail printout for the CAS or CBA application you file.
-
-Source: https://technext.asia/bir-adviser-call
-
-### Can Odoo produce our 2307s, SLSP, SAWT and QAP?
-
-Yes. Odoo's Philippine localisation generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books.
+No, and no accounting software is. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. We set your system up for the BIR's requirements and prepare the sample outputs with you.
 
 Source: https://technext.asia/bir-adviser-call
 
 ### We already have a CAS permit for our current system. What happens?
 
-A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs straight from your Odoo, so the application reflects the system you will actually use.
+A new accounting system usually needs its own BIR registration. Check the details with your accountant; we prepare the process flow and sample outputs from the system you will actually use.
 
 Source: https://technext.asia/bir-adviser-call
 
-### Who do you work with?
+### Do we have to change our accounting software?
 
-Companies in the Philippines, Singapore and Vietnam that run their Odoo with TechNext. In Singapore we set up GST instead, and work with the InvoiceNow Access Point you choose. We confirm the details on the first call.
+No. We add a plug-in beside it (Odoo, set up for your BIR books and reports). Your current software stays.
+
+Source: https://technext.asia/bir-adviser-call
+
+### What does it cost?
+
+It depends on your scope, so we don't publish a price. The meeting has no charge, and you get a written quote before any work starts.
 
 Source: https://technext.asia/bir-adviser-call
 
