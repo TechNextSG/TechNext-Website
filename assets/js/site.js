@@ -435,6 +435,23 @@
   } catch (e) { /* storage blocked: the lead just lacks these lines */ }
   /* Every submission becomes a lead in the Odoo CRM through /api/lead (api/lead.py: salesperson Jeric,
      source, department, tags, Jeric @mentioned). Page, first page of the visit and referrer go along. */
+  /* Meta Pixel manual advanced matching: em, ph, fn, ln, country from a submitted form, in the formats Meta expects
+     (lower case, phone digits with country code). Pixel id = _src/sitedata.py TRACKING["meta_pixel"]. */
+  var PIXEL_ID = '1959782781295555';
+  function pxMatch(d) {
+    var am = {}, em = String(d.email || '').trim().toLowerCase(), ph = String(d.phone || '').replace(/[^0-9]/g, '');
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) am.em = em;
+    if (ph.length >= 7) {
+      if (ph.charAt(0) === '0' && ph.length === 11) ph = '63' + ph.slice(1);       // 0917 123 4567 -> 63 917 123 4567
+      else if (ph.charAt(0) === '9' && ph.length === 10) ph = '63' + ph;         // 917 123 4567
+      am.ph = ph;
+    }
+    var nm = String(d.name || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (nm.length) { am.fn = nm[0]; if (nm.length > 1) am.ln = nm[nm.length - 1]; }
+    var c = String(d.country || '').trim().toLowerCase();
+    if (c === 'philippines' || c === 'ph') am.country = 'ph'; else if (c === 'singapore' || c === 'sg') am.country = 'sg';
+    return Object.keys(am).length ? am : null;
+  }
   window.tnPostForm = function (endpoint, payload) {
     var p = {};
     Object.keys(payload || {}).forEach(function (k) { p[k] = payload[k]; });
@@ -476,7 +493,13 @@
             window.gtag('event', 'conversion', { send_to: 'AW-18068724830/dBpuCLul3bQcEN6466dD' });
             window.gtag('event', 'generate_lead', { form: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
           }
-          if (typeof window.fbq === 'function') window.fbq('track', 'Lead', { content_name: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
+          if (typeof window.fbq === 'function') {
+            // Meta manual advanced matching (12 Nov 2026): re-init the pixel with what the visitor just typed, so the
+            // Lead event carries it. The pixel hashes every value (SHA-256) in the browser before anything is sent.
+            var am = pxMatch(p);
+            if (am) window.fbq('init', PIXEL_ID, am);
+            window.fbq('track', 'Lead', { content_name: payload && payload.source ? String(payload.source).slice(0, 60) : 'website' });
+          }
         } catch (e) { /* analytics must never break a submission */ }
         return res.j;
       });
