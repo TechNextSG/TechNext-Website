@@ -436,7 +436,7 @@ PAGES["bir-e-invoicing-plan"].update(
 # ------------------------------------------------------------- 13 Nov 2026: one page per FB ad 265 / 266 / 267 (CPA overhaul)
 # User 13 Nov: "make sure everything properly linked (landing page)" + "Fix all 4". Each ad gets its own noindex page so the
 # message, deadline and button match the ad (scent trail) without touching the owner-approved landers above. Rules for these
-# pages (user 12-13 Nov): no Odoo / plug-in / ERP / Express / Instant in visible copy, every page names its deadline and
+# pages (user 12-13 Nov): no Odoo / plug-in / ERP / Instant in visible copy (user 13 Nov: hero sub names the 5 Day Express BIR Solution*), every page names its deadline and
 # urgency, 5 days always with an asterisk, no guarantees, not affiliated with the BIR.
 FAQ_KEEP = ("Do we, or our clients, have to change our core accounting software?",
             "No. Your current software stays exactly as it is. We connect to it by API, daily batch sync or flat-file upload, "
@@ -458,7 +458,7 @@ PAGES["bir-quarter-end"].update(
     h1='Automate BIR Compliance. <span class="hl">Keep Your Current System.</span>',
     sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Your clients' 2026 CAS books "
         "are due through ORUS by 30 January 2027: set up automated BIR reporting beside the software they already use, "
-        "before the holidays.",
+        "before the holidays. Our <b>5 Day Express BIR Solution*</b> sets it up for clean, reconciled ledgers.",
     ticks=["<b>Data in once.</b> From their POS or current system, no double entry.",
            "<b>Mapped to ATC codes.</b> Every transaction to the right tax code.",
            "<b>Reconciled to the ledger.</b> CAS journals, DAT files and 2307s from the same entries."],
@@ -491,7 +491,7 @@ PAGES["bir-firm-deadlines"].update(
     h1='CPA Partners: Two <span class="hl">BIR Deadlines</span>, 30 Days Apart.',
     sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS computerised books for calendar-year CAS "
         "users. Neither date is moving, and the holidays sit in between. We handle the technical heavy lifting across your "
-        "client portfolio; you keep the tax advisory.",
+        "client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
     ticks=["<b>We handle:</b> data ingestion, multi branch invoice sequencing and audit trails.",
            "<b>You handle:</b> the tax advisory for your clients. Your firm stays the adviser.",
            "<b>A written quote</b> per client before any work starts."],
@@ -510,7 +510,8 @@ PAGES["bir-audit-trail"].update(
     pill=DL_CAS, goal="cas",
     h1='Is Your Accounting Software <span class="hl">Actually Audit-Proof?</span>',
     sub="Your 2026 computerised books go to ORUS by 30 January 2027. Under RMC 5-2021, a CAS must keep an audit trail and "
-        "protect posted entries from changes. Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your plan.",
+        "protect posted entries from changes. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail for clean, reconciled "
+        "ledgers. Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your plan.",
     ticks=["<b>Posted entries locked.</b> Lock dates, and no edits after posting.",
            "<b>Every change logged.</b> Who did what, and when.",
            "<b>SLSP tied to the ledger.</b> Reports from the same posted entries."],
