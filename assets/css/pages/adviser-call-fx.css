@@ -372,3 +372,9 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .lp-x5-badge { display: inline-flex; align-items: center; gap: 6px; margin-right: 10px; padding: 4px 10px; border-radius: 999px; background: var(--blue); color: #fff; font: 700 12.5px/1.2 var(--font-body); vertical-align: 1px; }
 .lp-x5-badge .ic { width: 14px; height: 14px; }
 .lp-x5-line .btn-link { margin-left: 6px; white-space: nowrap; }
+
+/* 13 Nov 2026 (owner): lander pain checklist is a static list, not checkboxes - no pointer, no hover, no ticks */
+.lp-points .lp-point { display: flex; gap: 14px; align-items: flex-start; padding: 15px 18px; border-radius: 16px; font-size: 15px; line-height: 1.5; color: var(--body); cursor: default;
+  background: var(--fx-glass); border: 1px solid var(--fw-edge); box-shadow: 0 12px 26px -24px rgba(30,70,145,.5); }
+.lp-points .lp-point-mark { flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: var(--blue); }
+@media (max-width: 760px) { .lp-points .lp-point { padding: 14px; gap: 12px; } }
