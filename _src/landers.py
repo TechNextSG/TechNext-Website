@@ -667,12 +667,13 @@ def _facts(p):
 
 def _express(p):
     if not p["express"]:
+        steps = p.get("steps") or _STEPS_EINV
         lis = "".join(f'<li class="reveal" style="--i:{i}"><span class="gs-n">{i + 1}</span><h3>{a}</h3><p>{b}</p></li>'
-                      for i, (a, b) in enumerate(p.get("steps") or _STEPS_EINV))
+                      for i, (a, b) in enumerate(steps))
         return f'''<section class="section fx-sec fx-sec--alt gs-how" aria-labelledby="lp-steps-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="lp-steps-h">{p.get("steps_h") or "From the first meeting to your PTI papers."}</h2></div>
-    <ol class="gs-steps fw-steps" data-loop>{lis}</ol>
+    <ol class="gs-steps fw-steps lp-steps" style="--n:{len(steps)}" data-loop>{lis}</ol>
   </div>
 </section>'''
     return f'''<section class="section lp-x5" aria-label="5 Day Express">
