@@ -154,6 +154,8 @@ def odoo_icons(html: str) -> str:
 def link_icon(l: dict, size: int = 28) -> str:
     if l.get("odoo"):
         return f'{{{{odoo:{l["odoo"]}:{size}}}}}'
+    if l["icon"] in FLAT:   # 13 Nov 2026 owner: every menu icon uses the full-colour flat set, never the stroke glyph
+        return f'{{{{flat:{l["icon"]}}}}}'
     return f'{{{{icon:{l["icon"]}}}}}'
 
 
