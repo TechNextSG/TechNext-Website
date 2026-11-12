@@ -432,6 +432,118 @@ PAGES["bir-e-invoicing-plan"].update(
     facts=None, faq=FAQ_U, form_h="Get your e-invoicing Blueprint",
 )
 
+
+# ------------------------------------------------------------- 13 Nov 2026: one page per FB ad 265 / 266 / 267 (CPA overhaul)
+# User 13 Nov: "make sure everything properly linked (landing page)" + "Fix all 4". Each ad gets its own noindex page so the
+# message, deadline and button match the ad (scent trail) without touching the owner-approved landers above. Rules for these
+# pages (user 12-13 Nov): no Odoo / plug-in / ERP / Express / Instant in visible copy, every page names its deadline and
+# urgency, 5 days always with an asterisk, no guarantees, not affiliated with the BIR.
+FAQ_KEEP = ("Do we, or our clients, have to change our core accounting software?",
+            "No. Your current software stays exactly as it is. We connect to it by API, daily batch sync or flat-file upload, "
+            "and the BIR books and reports are built from that data. No rip-and-replace, no double entry.")
+FAQ_TIME = ("How long does the set up take?",
+            "For ledgers with clean, reconciled data, a standard technical deployment takes 5 days.* Bigger scopes, more "
+            "branches or messy data run longer, and your written quote says so before you agree to anything. Your RDO sets its "
+            "own timeline for any registration.")
+FAQ_ORUS = ("When are computerised books due in ORUS?",
+            "Within 30 days after the close of each taxable year (RMC 3-2023), online through ORUS (RMC 4-2026). For "
+            "calendar-year taxpayers, computerised books for 2026 are due by 30 January 2027, unless the BIR announces otherwise. "
+            "Your accountant or RDO confirms the dates for your business.")
+
+# FB ad 265 "Automate BIR Compliance. Keep Your Current System." (Quarter-End)
+PAGES["bir-quarter-end"] = dict(_copy.deepcopy(PAGES["bir-cas-for-accountants"]))
+PAGES["bir-quarter-end"].update(
+    source="BIR adviser call (FB ad 265 quarter end)",
+    pill=DL_CAS, goal="quarter",
+    h1='Automate BIR Compliance. <span class="hl">Keep Your Current System.</span>',
+    sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Your clients' 2026 CAS books "
+        "are due through ORUS by 30 January 2027: set up automated BIR reporting beside the software they already use, "
+        "before the holidays.",
+    ticks=["<b>Data in once.</b> From their POS or current system, no double entry.",
+           "<b>Mapped to ATC codes.</b> Every transaction to the right tax code.",
+           "<b>Reconciled to the ledger.</b> CAS journals, DAT files and 2307s from the same entries."],
+    btn="Book my workflow review", form_h="Book your workflow review",
+    msg_ph="e.g. 40 payees a quarter, SLSP rebuilt in spreadsheets, CAS books due 30 January",
+    express=False,
+    steps_h="How it works, before 30 January.",
+    steps=[("Ingest", "Data comes in from their POS or current accounting system."),
+           ("Map", "Each transaction is mapped to the correct Alphanumeric Tax Code (ATC)."),
+           ("Generate", "Matching CAS journals, DAT files and 2307s, reconciled to the general ledger."),
+           ("Review and file", "You and your accountant review the outputs; you file. 5 days* for clean, reconciled ledgers.")],
+    bp=["<b>2307s from vendor bills:</b> set your ATC codes once, and 2307 and 2306 certificates come from the bills",
+        "<b>DAT file exports:</b> SLSP, SAWT and QAP from posted entries, so the figures match your books",
+        "<b>What has to be ready by 30 January:</b> the books your clients register in ORUS",
+        "<b>A written quote</b> before any work starts"],
+    faq=[("Can the system produce our 2307s, SLSP, SAWT and QAP?",
+          "Yes. The set up generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, "
+          "from the same entries as your books."),
+         FAQ_KEEP, FAQ_TIME, FAQ_ORUS, FAQ_LINK, FAQ_COST],
+    close_h='CAS books are due 30 January 2027. Start before the holidays, <span class="hl">not in January</span>.',
+    close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
+            "<strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.",
+)
+
+# FB ad 266 "CPA Partners: Two BIR Deadlines, 30 Days Apart" (on hold in Meta, page ready)
+PAGES["bir-firm-deadlines"] = dict(_copy.deepcopy(PAGES["bir-deadline"]))
+PAGES["bir-firm-deadlines"].update(
+    source="BIR adviser call (FB ad 266 firm deadlines)",
+    pill=DL_BOTH, goal="firm",
+    h1='CPA Partners: Two <span class="hl">BIR Deadlines</span>, 30 Days Apart.',
+    sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS computerised books for calendar-year CAS "
+        "users. Neither date is moving, and the holidays sit in between. We handle the technical heavy lifting across your "
+        "client portfolio; you keep the tax advisory.",
+    ticks=["<b>We handle:</b> data ingestion, multi branch invoice sequencing and audit trails.",
+           "<b>You handle:</b> the tax advisory for your clients. Your firm stays the adviser.",
+           "<b>A written quote</b> per client before any work starts."],
+    btn="Book my partner meeting", form_h="Book your partner meeting",
+    bp=["Covered now, later or exempt: the group, checked against the rules",
+        "CAS or CBA, and what the 30 January ORUS books need",
+        "The e-invoicing order: Permit to Issue, set up, EIS Certification",
+        "What the set up covers for each client, and a written quote"],
+    close_h='31 December is weeks away. <span class="hl">Book before the December rush.</span>',
+)
+
+# FB ad 267 "CAS Books Due 30 Jan. Is Your System Audit-Proof?"
+PAGES["bir-audit-trail"] = dict(_copy.deepcopy(PAGES["bir-adviser-call"]))
+PAGES["bir-audit-trail"].update(
+    source="BIR adviser call (FB ad 267 audit trail)",
+    pill=DL_CAS, goal="cas",
+    h1='Is Your Accounting Software <span class="hl">Actually Audit-Proof?</span>',
+    sub="Your 2026 computerised books go to ORUS by 30 January 2027. Under RMC 5-2021, a CAS must keep an audit trail and "
+        "protect posted entries from changes. Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your plan.",
+    ticks=["<b>Posted entries locked.</b> Lock dates, and no edits after posting.",
+           "<b>Every change logged.</b> Who did what, and when.",
+           "<b>SLSP tied to the ledger.</b> Reports from the same posted entries."],
+    btn="Book my technical call", form_h="Book your technical call",
+    msg_ph="e.g. CAS registered, entries still edited after posting, books due 30 January",
+    check_h="Would your system pass an audit trail check?",
+    check_lead="Lock your books before year end. Which of these sounds familiar?",
+    checks=[("No audit trail printout", "<b>The system can't print an audit trail</b> showing who changed what, and when."),
+            ("Posted entries get edited", "<b>Posted entries get edited</b> after the period is closed."),
+            ("SLSP doesn't tie to the ledger", "<b>The SLSP doesn't tie to the general ledger</b> without fixes by hand."),
+            ("Annex B never checked", "<b>Nobody has checked the Annex B requirements</b> against your set up.")],
+    bp_h="What you leave the meeting with.",
+    bp_lead="One online meeting with a BIR Compliance Expert, before your books are due.",
+    bp=["Where your audit trail and lock dates stand against RMC 5-2021",
+        "CAS or CBA, and what your 30 January ORUS books need",
+        "How your SLSP ties to the general ledger",
+        "A written quote before any work starts"],
+    facts="rmc", express=False,
+    steps_h="From the first meeting to locked books.",
+    steps=[("15 to 20 minute meeting", "Our engineers map your workflow and check your audit trail and lock dates."),
+           ("Set up and test", "Journal locks, user change logs and BIR reports, tested on your real data."),
+           ("Tie the reports", "SLSP and books from the same posted entries as the general ledger."),
+           ("Review and register", "Your accountant reviews; you register your books in ORUS by 30 January.")],
+    faq=[("Do we need a CAS or a CBA?", "RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant, and your RDO can confirm it."),
+         ("Is TechNext BIR-accredited?", "No, and no accounting software is. The BIR registers each business's use of a system, not a software brand, and it has warned against \"BIR-accredited\" claims. We set your system up for the BIR's requirements and prepare the sample outputs with you."),
+         FAQ_ORUS, FAQ_KEEP, FAQ_TIME, FAQ_COST],
+    close_h='30 January 2027 is close. <span class="hl">Lock your books</span> before year end.',
+    close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
+            "<strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.",
+)
+for _k in ("bir-quarter-end", "bir-audit-trail"):
+    PAGES[_k].pop("order", None)
+
 # ------------------------------------------------------- section buttons (owner 13 Nov 2026: each speaks for its section)
 _ASK = "Ask a BIR Compliance Expert"
 # Funnel (owner 13 Nov 2026 "do a proper funneling"): every section ends on one button to the form, and the wording steps up
@@ -452,6 +564,16 @@ CTAS = {
                          blueprint="Get my client's Blueprint", firm="Bring a client case", faq=_ASK,
                          close="Book before the December rush"),
 }
+
+CTAS.update({
+    "bir-quarter-end": dict(check="Fix my quarter end", blueprint="Book my workflow review", express="Book my workflow review",
+                            faq=_ASK, close="Book before 30 January"),
+    "bir-firm-deadlines": dict(myths="Check what my client needs", facts="Check if my client is covered",
+                               blueprint="Book my partner meeting", firm="Bring a client case", faq=_ASK,
+                               close="Book before 31 December"),
+    "bir-audit-trail": dict(check="Check my audit trail", blueprint="Book my technical call", facts="Check my audit trail",
+                            express="Book my technical call", faq=_ASK, close="Book before 30 January"),
+})
 
 # ---------------------------------------------------------------------------------------------------------- page facts
 _FACTS = {
