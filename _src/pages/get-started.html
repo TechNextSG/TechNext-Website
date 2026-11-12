@@ -1,0 +1,136 @@
+<!--meta {"title": "5 Day Express BIR CAS Set-up | TechNext", "desc": "The 5 Day Express: a plug-in beside your current software, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a 5 day sprint. Written quote.", "out": "get-started.html", "nav": "", "body": "cv-home cv-lander", "scripts": [], "head": "<link rel=\"stylesheet\" href=\"{ROOT}assets/css/home-cv.css?v={ASSET_V}\"><link rel=\"stylesheet\" href=\"{ROOT}assets/css/experts.css?v={ASSET_V}\">"} -->
+<!-- /get-started: the 5 Day Express campaign landing page (11 Nov 2026). This is the 8-11 Nov form-first home, moved
+     here unchanged when the home went back to the 22 Oct design (owner + Sky, 11 Nov: campaigns run on their own landing
+     pages, the home stays put). Live Meta and Google ads land here and on /#start (home forwards #start here, UTMs kept).
+     One job: the call-back form (#start), posting to /api/lead with form tag "Meeting request" so leads reach the Odoo
+     CRM with their UTMs. Styles: assets/css/home-cv.css. -->
+
+<section class="cv-hero" id="start" aria-labelledby="cv-h1">
+  <div class="container cv-hero-in">
+    <div class="cv-pitch">
+      <p class="cv-eyebrow"><span class="cv-xp">{{icon:zap}}5 Day Express</span>BIR CAS set-up sprint</p>
+      <h1 id="cv-h1"><span>5 Day</span> Start Instantly*</h1>
+      <p class="cv-lead"><strong>BIR CAS set-up. BIR Compliance Experts. Starting today. As quick as 5 days.*</strong> Your books, 2307, SLSP, SAWT, QAP and e-invoicing, beside your current accounting software.</p>
+      <ul class="cv-checks">
+        <li>{{icon:check}}<span><b>5 Day Express,</b> run with our <a href="#nextsprint">NextSprint method</a>.</span></li>
+        <li>{{icon:check}}<span><b>Keep your current software.</b> Nothing is swapped out.</span></li>
+                <li>{{icon:check}}<span><b>E-invoicing set-up</b> for the 31 Dec 2026 BIR deadline.</span></li>
+      </ul>
+      <ul class="cv-proof" aria-label="TechNext in numbers"><li><b>142</b><span>projects delivered</span></li><li><b>90+</b><span>enterprise clients</span></li><li><b>25+</b><span>countries</span></li></ul>
+      <p class="cv-fine">*Timing depends on your scope and on your data being ready. Odoo Ready Partner in Singapore · team in Taguig City. TechNext is not affiliated with the BIR. You register your system at your RDO; we set Odoo up for it.</p>
+    </div>
+
+    <div class="cv-card">
+      <h2 class="cv-card-h">Start today</h2>
+      <p class="cv-card-sub">Leave your details and a BIR Compliance Expert contacts you within one business day to plan your sprint, at no charge. Prefer to pick a time? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a 15 to 20 minute meeting</a>.</p>
+      <form class="form cv-form" id="meet-form" novalidate data-endpoint="/api/lead">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="source" value="Meeting request (get-started call-back form)">
+        <div class="form-row">
+          <div class="field"><label for="mf-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="mf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com"></div>
+          <div class="field"><label for="mf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="mf-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+\(\)\-\s]{7,}" placeholder="0917 123 4567" title="A number we can call, with at least 7 digits"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="mf-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="mf-name" name="name" type="text" required autocomplete="name"></div>
+          <div class="field"><label for="mf-company">Company <span class="req" aria-hidden="true">*</span></label><input id="mf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="mf-system">Your system today</label>
+            <select id="mf-system" name="accounting_system">
+              <option value="">Choose one</option>
+              <option>Accounting software</option><option>An ERP system</option><option>A POS system</option>
+              <option>Spreadsheets or manual books</option><option>Our own in-house system</option><option>Nothing yet</option>
+            </select></div>
+          <div class="field"><label for="mf-need">What do you need first?</label>
+            <select id="mf-need" name="need">
+              <option value="">Choose one</option>
+              <option value="cas">BIR CAS or CBA set-up</option>
+              <option value="plugin">Connect Odoo to our system</option>
+              <option value="reports">2307, SLSP, SAWT, QAP</option>
+              <option value="einvoicing">E-invoicing readiness</option>
+              <option value="accounting">Odoo Accounting</option>
+              <option value="covered">Not sure yet</option>
+            </select></div>
+        </div>
+        <div class="field"><label for="mf-time">Best time to reach you</label>
+          <select id="mf-time" name="call_time">
+            <option>As soon as possible</option><option>Morning (9 AM to 12 NN)</option><option>Afternoon (1 to 5 PM)</option><option>Evening (6 to 9 PM)</option>
+          </select></div>
+        <div class="form-foot">
+          <button class="btn btn-primary btn-lg cv-submit" type="submit"><span class="btn-label">Start Instantly {{icon:arrow}}</span><span class="btn-busy" aria-hidden="true"></span></button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <div class="form-sent">
+          <h3>Thanks, your request is in.</h3>
+          <p>Neil or Jeric contacts you within one business day. A copy of your request is on its way to your email. Want a fixed time? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a meeting slot</a>.</p>
+        </div>
+      </form>
+      <p class="cv-card-fine">{{icon:shield}} Your details go only to our team. <a href="{{ROOT}}privacy.html">Privacy policy</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="cv-works" aria-label="Works with what you run today">
+  <div class="container cv-works-in">
+    <span>Odoo plugs in beside</span>
+    <ul><li>Accounting software</li><li>POS systems</li><li>Business systems</li><li>Spreadsheets</li><li>In-house systems</li></ul>
+  </div>
+</section>
+
+{{EXPRESS}}
+
+<section class="section cv-sec" id="bir" aria-labelledby="cv-bir-h">
+  <div class="container cv-split">
+    <div>
+      <p class="cv-kicker">What Odoo gives you for the BIR</p>
+      <h2 id="cv-bir-h">Your books and BIR forms, from one place.</h2>
+      <p class="cv-p">Odoo's Philippine localisation produces these from the invoices and bills you post. We set it up, check it with your accountant and <strong>prepare your CAS application documents with you</strong>.</p>
+      <div class="cv-act"><a class="btn btn-primary" href="{{ROOT}}bir-cas.html">How BIR CAS set-up works {{icon:arrow}}</a><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">Are you covered by e-invoicing? {{icon:arrow}}</a></div>
+    </div>
+    <ul class="cv-outs">
+      <li>{{odoo:accountant:32}}<span><b>Books of Accounts</b>Computerised books for your CAS or CBA application and yearly ORUS registration.</span></li>
+      <li>{{odoo:documents:32}}<span><b>2307 per payee</b>Certificates of creditable tax withheld, from your bills.</span></li>
+      <li>{{odoo:account:32}}<span><b>SLSP, SAWT and QAP</b>DAT files for the BIR's own tools.</span></li>
+      <li>{{odoo:spreadsheet_dashboard:32}}<span><b>2550Q VAT summary</b>Quarterly VAT figures from posted entries.</span></li>
+      <li>{{flat:receipt}}<span><b>E-invoicing readiness</b><a href="{{ROOT}}bir-e-invoicing.html">Who must e-invoice by 31 Dec 2026</a>, and how to prepare.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section cv-sec cv-sec--alt" id="why" aria-labelledby="cv-why-h">
+  <div class="container">
+    <div class="cv-head"><p class="cv-kicker">Why companies choose TechNext</p><h2 id="cv-why-h">The 5 Day Express that gets your BIR CAS moving.</h2></div>
+    <div class="cv-why">
+      <div><h3>{{icon:coins}}Start small, quoted in writing</h3><p>Start with Accounting only. You get a <strong>written quote</strong> before any work starts. Odoo's subscription is billed by Odoo.</p></div>
+      <div><h3>{{icon:users}}Our own team in Taguig City</h3><p>The BIR Compliance Expert in your first meeting <strong>works on your set-up</strong>. No hand-off.</p></div>
+      <div><h3>{{icon:shield}}Odoo Ready Partner</h3><p>Odoo Ready Partner in Singapore, with <strong>BIR know-how</strong> in our Taguig team.</p></div>
+    </div>
+    <div class="cv-act"><a class="btn btn-primary btn-lg" href="#start">Set up a meeting {{icon:arrow}}</a><a class="btn-link" href="#advisers">Meet your Odoo experts {{icon:arrow}}</a></div>
+  </div>
+</section>
+
+{{ADVISOR_CARDS}}
+
+<section class="section cv-sec" id="faq" aria-labelledby="cv-faq-h">
+  <div class="container cv-faq-wrap">
+    <h2 id="cv-faq-h">Questions we hear first</h2>
+    <div class="faq">
+      <details><summary>Do we have to replace our current system? {{icon:chevron}}</summary><div class="faq-a"><p>No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, POS or in-house system, and Odoo produces the books and BIR forms from the data we bring in. Later, Odoo can grow app by app.</p></div></details>
+      <details><summary>How much does it cost? {{icon:chevron}}</summary><div class="faq-a"><p>We keep it affordable for SMEs: you can start with Odoo Accounting only. After the meeting you get a written quote for your scope before any work starts. Odoo's subscription is separate and is paid to Odoo.</p></div></details>
+      <details><summary>Is Odoo BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No accounting software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA at its Revenue District Office. TechNext is not affiliated with or acting for the BIR. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
+      <details><summary>Can TechNext set Odoo up for our BIR CAS registration? {{icon:chevron}}</summary><div class="faq-a"><p>Yes, on the Odoo side. We set Odoo up for your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) application and prepare the sample invoices, books, reports and audit trail printout with you. You file at your RDO; the decision is the BIR's. <a href="{{ROOT}}bir-cas.html">How BIR CAS set-up works</a>.</p></div></details>
+      <details><summary>How long does it take? {{icon:chevron}}</summary><div class="faq-a"><p>As quick as 5 working days for the set-up, once your process is mapped and your data is ready. In a free 15 to 20 minute meeting a BIR Compliance Expert looks at your books and gives you your 5 Day plan. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration. If you need your books ready for ORUS registration by 30 January 2027, tell us early.</p></div></details>
+      <details><summary>What is the NextSprint method? {{icon:chevron}}</summary><div class="faq-a"><p>It is our own way of fitting a BIR CAS set-up into days, not months, run by our BIR Compliance Experts and accounting workflow experts. We walk you through it in your free planning meeting. <a href="#nextsprint">See the method</a>.</p></div></details>
+      <details><summary>Who is TechNext? {{icon:chevron}}</summary><div class="faq-a"><p>TechNext is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main consulting and development team in Taguig City, Metro Manila. Our own experts plug Odoo into the system you run today and set it up for BIR requirements. <a href="{{ROOT}}company.html">About us</a>.</p></div></details>
+    </div>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{ROOT}}index.html#start">Set up a meeting {{icon:arrow}}</a><a class="btn btn-ghost" href="{{ROOT}}bir-cas.html">Read the BIR CAS guide {{icon:arrow}}</a></p>
+  </div>
+</section>
+
+<section class="cv-close">
+  <div class="container cv-close-in">
+    <h2>5 Day Start Instantly*</h2>
+    <p>BIR Compliance Expert. Starting today. As quick as 5 days.* Free 15 to 20 minute online meeting.</p>
+    <a class="btn btn-white btn-lg" href="#start">Get my 5 Day plan {{icon:arrow}}</a>
+  </div>
+</section>
