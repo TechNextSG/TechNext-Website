@@ -250,7 +250,7 @@ def talk_panel_html() -> str:
       <input type="hidden" name="source" value="Let's Talk panel">
       <div class="form-row">
         <div class="field"><label for="tf-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com"></div>
-        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="+63 9XX XXX XXXX" title="A number we can call, with at least 7 digits"></div>
+        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" title="A number we can call, with at least 7 digits"></div>
       </div>
       <div class="form-row">
         <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
@@ -487,6 +487,21 @@ def _howto(canonical: str, art: dict, content: str):
             "mainEntityOfPage": {"@id": canonical + "#webpage"}}
 
 
+# 12 Nov 2026 (10 Nov rule: no Odoo or ERP in site keywording, JSON-LD included): the company block on every page leaves
+# out the odoo.com listing and any /odoo/ or -erp URL; the home and the five landing pages also keep only the FAQ entries
+# and breadcrumbs without Odoo or ERP in their structured data (the visible page copy is unchanged).
+LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html"}
+_LD_BRAND = re.compile(r"odoo|erp", re.I)
+
+
+def _ld_hits(v):
+    if isinstance(v, dict):
+        return [h for x in v.values() for h in _ld_hits(x)]
+    if isinstance(v, list):
+        return [h for x in v for h in _ld_hits(x)]
+    return [v] if isinstance(v, str) and _LD_BRAND.search(v) else []
+
+
 def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
     """One linked graph per page: the company, the site, this page, its breadcrumb, and -
     only when the page visibly shows them - its FAQs and the service it describes."""
@@ -512,7 +527,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                               "availableLanguage": ["English"]}],
             "department": [_office_ld(o, org_id) for o in S.OFFICES[1:]],
             "areaServed": AREA_SERVED,
-            "sameAs": [c["linkedin"], c["odoo_listing"]] + c.get("socials", []),
+            "sameAs": [c["linkedin"]] + c.get("socials", []),
             "description": S.ORG_DESC,
             # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
             "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the BIR CAS set-up partner "
@@ -520,7 +535,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                                          "a plug-in beside the system a business already runs.",
             "slogan": "Keep your system. Add a plug-in for BIR CAS.",
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
-                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": S.SITE_URL + u, "provider": {"@id": org_id}}}
+                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "provider": {"@id": org_id},
+                                                   **({} if _LD_BRAND.search(u) else {"url": S.SITE_URL + u})}}
                 for n, u in (("5 Day Express BIR CAS and CBA set-up", "bir-cas"),
                              ("BIR e-invoicing preparation", "bir-e-invoicing"),
                              ("Plug-in for your existing system", "odoo/integration"),
@@ -560,6 +576,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         page["audience"] = {"@type": "BusinessAudience", "audienceType": "Philippine businesses registered with the BIR",
                             "geographicArea": PH_AREA}
     crumb = _breadcrumb(canonical, content)
+    if crumb and out_rel in LD_CLEAN and _ld_hits(crumb):
+        crumb = None
     if crumb:
         page["breadcrumb"] = {"@id": crumb["@id"]}
     graph.append(page)
@@ -567,6 +585,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append(crumb)
     faqs = [(_text(q), _text(a)) for q, a in _FAQ.findall(content)]
     faqs = [(q, a) for q, a in faqs if q and a]
+    if out_rel in LD_CLEAN:
+        faqs = [(q, a) for q, a in faqs if not _LD_BRAND.search(q + " " + a)]
     if len(faqs) >= 2:
         graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
                       "mainEntity": [{"@type": "Question", "name": q,
@@ -617,6 +637,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "provider": {"@id": org_id}, "areaServed": PH_AREA if ph else AREA_SERVED})
         if ph:
             graph[-1]["audience"] = page["audience"]
+    if out_rel in LD_CLEAN and _ld_hits(graph):
+        print(f"  ! JSON-LD on {out_rel} still names Odoo/ERP:", _ld_hits(graph)[:3])
     # a "</" inside a JSON string would end the <script> element early
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
