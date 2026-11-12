@@ -54,12 +54,12 @@ EINV_PANEL = dict(app="account", title="Customer invoice", sub="INV/2026/00184 �
                   chips=["One series per branch", "No edits after posting", "Credit note for a decrease"])
 
 # ---------------------------------------------------------------------------------------------------------------- pages
-PAGES = {
+PAGES = {   # titles: owner pick 12 Nov 2026 (get-started = set B, the rest = set A)
     # Meta ads 233 / 235 / 246 / 247. Form tag stays "Meeting request" (api/lead.py FORMS).
     "get-started": dict(
         source="Meeting request (get-started call-back form)",
         pill="<b>5 Day Express</b> · BIR CAS setup sprint",
-        h1='<span class="hl">5 Day</span> <span class="hl">BIR CAS</span> Start Instantly*',
+        h1='Your <span class="hl">BIR CAS</span> Setup, Done in <span class="hl">5 Days</span>.*',
         lead="<strong>BIR Compliance Experts. Starting today. As quick as 5 days.*</strong> Your books of accounts, 2307, "
              "SLSP, SAWT and QAP, set up beside the accounting software you already use.",
         ticks=["<b>Keep your current software.</b> Nothing is swapped out.",
@@ -102,7 +102,7 @@ PAGES = {
     "bir-adviser-call": dict(
         source="BIR adviser call",
         pill="<b>BIR CAS / CBA setup</b> · keep your current software",
-        h1='<span class="hl">BIR CAS</span> setup. Your software stays.',
+        h1='<span class="hl">BIR CAS</span> Setup. Keep Your Software.',
         lead="A CAS or CBA needs its own BIR registration: a system description, sample books and sample outputs. We "
              "set it up with you, so every paper prints from the system you will actually use. <strong>As quick as 5 days.*</strong>",
         ticks=["<b>Process flow, sample invoices and books,</b> prepared with you",
@@ -145,7 +145,7 @@ PAGES = {
     "bir-call": dict(
         source="BIR adviser call (fast form B)",
         pill="<b>Computerised books</b> · ORUS by 30 January 2027",
-        h1='<span class="hl">BIR CAS</span> books. ORUS by 30 January 2027.',
+        h1='<span class="hl">BIR CAS</span> Books Due 30 January 2027.',
         lead="Calendar-year CAS and CBA users register their 2026 computerised books in ORUS by 30 January 2027. We set "
              "your books up so they come out of your system in the shape the BIR asks for. <strong>As quick as 5 days.*</strong>",
         ticks=["<b>Journals, ledger and subsidiary books</b> printed from one system",
@@ -188,7 +188,7 @@ PAGES = {
     "bir-cas-for-accountants": dict(
         source="BIR adviser call (accountants lander)",
         pill="<b>For accountants</b> · BIR CAS",
-        h1='<span class="hl">BIR CAS</span> for accountants. <span class="hl">5 Day</span> Start.*',
+        h1='<span class="hl">BIR CAS</span> for Accountants. <span class="hl">5 Day</span> Setup.*',
         lead="2307, SLSP, SAWT, QAP and your books of accounts, from the entries you already post. Nothing is typed twice, "
              "and your current software stays. <strong>As quick as 5 days.*</strong>",
         ticks=["<b>2307 certificates per payee,</b> made from the vendor bill",
@@ -232,7 +232,7 @@ PAGES = {
     "bir-e-invoicing-plan": dict(
         source="BIR adviser call (e-invoicing lander)",
         pill='<b>BIR e-invoicing</b> · <span data-fw-dl-static>due 31 December 2026</span><span data-fw-dl-live hidden><b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>',
-        h1='<span class="hl">BIR e-invoicing</span> plan. Before 31 December 2026.',
+        h1='<span class="hl">BIR E-Invoicing</span> Setup Before 31 December 2026.',
         lead="Covered taxpayers must issue e-invoices by 31 December 2026 (RR 26-2025, RMC 98-2026). A PDF from a printer "
              "is not one. We set up your invoicing beside your current software and assess what an EIS connection needs, "
              "as separate work with a written quote.",
