@@ -1628,8 +1628,8 @@
     ]
    },
    {
-    "h": "Starting from 0.01€/SMS",
-    "p": "There is something else about managing SMS Campaigns that you will love: the pricing. For example, sending an SMS to the United States costs 0.0333 credit. Just saying. The credits can be purchased directly from within the app.",
+    "h": "SMS credits, bought inside Odoo",
+    "p": "Campaigns use SMS credits that you buy from inside the app. The rate per message depends on the destination country and is set by Odoo, not by TechNext.",
     "img": "",
     "feats": []
    },
