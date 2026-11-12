@@ -2610,7 +2610,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                          '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + og_cards.card(out_rel, base_title, meta.get("og_icon")))
                 .replace("{SITE_URL}", S.SITE_URL)
-                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))   # /get-started (the 8-11 Nov home) keeps the home style layer
+                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home or out_rel[:-5] in LP.PAGES else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))   # /get-started (the 8-11 Nov home) keeps the home style layer
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
                 .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html" or out_rel[:-5] in LP.PAGES))   # /get-started: the ad landing page keeps the home's tags
