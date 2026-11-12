@@ -150,7 +150,7 @@ NAV = [
                  "desc": "Every Odoo app, when you are ready for it."},
                 {"label": "Multi-company Odoo", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
                  "desc": "Groups, branches and several entities."},
-                {"label": "Odoo Customization", "href": "odoo/erp-system.html", "odoo": "web_studio",
+                {"label": "Odoo Customisation", "href": "odoo/erp-system.html", "odoo": "web_studio",
                  "desc": "Fields, reports and workflows for you."},
             ]},
             {"title": "Odoo Apps", "href": "odoo/apps.html", "links": [

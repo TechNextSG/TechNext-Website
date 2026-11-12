@@ -1166,6 +1166,21 @@
       "permanent": true
     },
     {
+      "source": "/blog/odoo-vs-quickbooks-philippines",
+      "destination": "/blog/bir-accounting-software-philippines-odoo",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-vs-quickbooks-philippines/",
+      "destination": "/blog/bir-accounting-software-philippines-odoo",
+      "permanent": true
+    },
+    {
+      "source": "/blog/odoo-vs-quickbooks-philippines.html",
+      "destination": "/blog/bir-accounting-software-philippines-odoo",
+      "permanent": true
+    },
+    {
       "source": "/odoo-erp-singapore",
       "destination": "/solutions/odoo-erp",
       "permanent": true

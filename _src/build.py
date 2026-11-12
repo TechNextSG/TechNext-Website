@@ -1038,7 +1038,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
   <div class="container">
     <div class="sec-head reveal">
       
-      <h2>An Odoo partner that plugs into your system.</h2>
+      <h2>A team that plugs Odoo into your system.</h2>
       <p class="lead">Keep the system your team already runs. Our own experts plug Odoo in beside it for accounting and BIR requirements, quote it in writing first, and stay with you after go-live.</p>
     </div>
     <div class="who-grid">
@@ -2350,14 +2350,19 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # owner 8 Nov 2026: "make a variation of hook CTA, apply to all buttons across pages" - every meeting button inside <main>
 # gets a hook label by page topic and position (the last one on the page is the closer); all open the appointment page.
 # The header and the mobile menu keep "Set up a meeting".
+# 12 Nov 2026 (copy audit): "5 Day Express" labels only on BIR CAS pages and always with the "*" qualifier (the footnote is
+# added below when a page does not already carry it); other pages get Odoo-plan labels.
 HOOKS = {
-    "cas": ["Start my 5 Day Express", "Get my 5 Day plan", "Talk to an Odoo expert", "Plug Odoo into my system"],
+    "cas": ["Start my 5 Day Express*", "Get my 5 Day plan*", "Talk to an Odoo expert", "Plug Odoo into my system"],
     "einv": ["Plan my e-invoicing set-up", "Talk to an Odoo expert", "Get my Odoo plan", "Book my free 15 to 20 min meeting"],
     "app": ["See it on my data", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
     "gen": ["Book my free 15 to 20 min meeting", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
 }
-HOOK_LAST = {"cas": "Start my 5 Day Express today", "einv": "Start my e-invoicing plan today", "app": "Start my 5 Day Express",
-             "gen": "Start my 5 Day Express today"}
+HOOK_LAST = {"cas": "Start my 5 Day Express*", "einv": "Start my e-invoicing plan today", "app": "Plan my Odoo set-up",
+             "gen": "Plan my Odoo set-up today"}
+X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
+           '*5 Day Express: timing depends on your scope and on your data. Bigger scopes run as extra sprints, written into '
+           'your quote. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
 
 
 def _hook_topic(out_rel: str) -> str:
@@ -2396,7 +2401,10 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         out.append(main[last:m.start()] + m.group(1) + label)
         last = m.end()
     out.append(main[last:])
-    return html[:i] + "".join(out) + html[j:]
+    main = "".join(out)
+    if re.search(r'5 Day (?:Express|plan)\*', main) and not re.search(r'\*\s*(?:5 Day Express: t|T)iming depends', main):
+        main += X5_NOTE   # the qualifier for the "5 Day*" buttons, at the end of the page content
+    return html[:i] + main + html[j:]
 
 _REMOVED_HREF = re.compile(r'href="((?:\.\./)*|/)(' + '|'.join(sorted((re.escape(k[1:]) for k in REMOVED), key=len, reverse=True)) + r')(?:\.html)?(?=["#?])')
 _IX_INTRO = re.compile(r"\{\{INDUSTRY_INTRO:([a-z-]+)\}\}")

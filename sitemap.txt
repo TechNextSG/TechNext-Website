@@ -26,7 +26,6 @@ https://technext.asia/blog/odoo-20-upgrade-checklist
 https://technext.asia/blog/odoo-20-whats-new
 https://technext.asia/blog/odoo-experience-2026-takeaways
 https://technext.asia/blog/odoo-online-vs-odoo-sh-vs-on-premise
-https://technext.asia/blog/odoo-vs-quickbooks-philippines
 https://technext.asia/blog/philippine-payroll-bir-forms-odoo-20
 https://technext.asia/blog/register-books-of-accounts-orus-bir
 https://technext.asia/blog/register-odoo-cas-cba-bir

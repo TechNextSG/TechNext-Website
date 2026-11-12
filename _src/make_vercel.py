@@ -152,6 +152,9 @@ REDIRECTS = [
     ("/team/astroneil-matan", "/team/neil-matan"), ("/team/astroneil-matan.html", "/team/neil-matan"),  # owner 30 Oct: goes by Neil
     # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
     ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
+    # 12 Nov 2026 (owner rule 8 Nov: never name other software brands): the QuickBooks comparison is retired; the
+    # brand-free "how to choose" guide covers the same question
+    *[(f"/blog/odoo-vs-quickbooks-philippines{ext}", "/blog/bir-accounting-software-philippines-odoo") for ext in ("", "/", ".html")],
     # 28 Oct 2026: /get-started redirected to /bir-adviser-call. 11 Nov 2026: /get-started is a page again (the 5 Day
     # Express landing page, _src/pages/get-started.html), so it is no longer redirected.
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),
