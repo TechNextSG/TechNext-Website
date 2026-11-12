@@ -1,6 +1,6 @@
 # TechNext — full reference
 
-Last updated: 2026-11-11
+Last updated: 2026-11-12
 
 > TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business already runs (accounting software, POS or in-house), starting with accounting, gives a written quote first, sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. 142 projects delivered; 90+ enterprise clients in 25+ countries.
 
@@ -17,7 +17,7 @@ Last updated: 2026-11-11
 
 ## Pages
 
-- https://technext.asia/ — 5 Day Express BIR CAS Set-up: The 5 Day Express: a plug-in beside your current software, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a 5 day sprint. Written quote.
+- https://technext.asia/ — TechNext | Business Software Specialists, Singapore and PH: TechNext plugs one business system into the software you already run. 142 projects, 90+ enterprise clients in 25+ countries. Singapore HQ, team in Taguig City.
 - https://technext.asia/bir-adviser-call — Talk to a BIR CAS Adviser: Request a Call: Request a call with a TechNext BIR CAS adviser in Taguig City. We map your process and plan your 5 Day Express sprint. Written quote first.
 - https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS (Computerized Accounting System) set-up in the Philippines, as a plug-in beside your current software, run as a 5 Day Express sprint. Written quote.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Get Ready Now, Not in December: Get ready for BIR e-invoicing before 31 Dec 2026. A plug-in beside your current system, set up by our own Taguig experts, with a written quote first.
@@ -54,6 +54,7 @@ Last updated: 2026-11-11
 - https://technext.asia/blog/standard-first-odoo-customisation — Customisation vs Configuration: When to Build: When to customise your system and when to configure: configuration, studio tools and custom modules, what each costs at upgrade, and how to decide.
 - https://technext.asia/blog/what-is-erp — One System for Your Whole Business: A Plain Guide: What an all-in-one business system does, how it differs from accounting software, and when a growing company needs one. A plain guide from TechNext.
 - https://technext.asia/company — TechNext: Your Partner for BIR CAS Set-up: TechNext (UEN 202699888G): 142 projects delivered, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up.
+- https://technext.asia/get-started — 5 Day Express BIR CAS Set-up: The 5 Day Express: a plug-in beside your current software, set up for your BIR CAS books, 2307, SLSP and e-invoicing in a 5 day sprint. Written quote.
 - https://technext.asia/nexi-explains — Nexi Explains: Business Software, AI and Tech Videos: TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Business software, AI and tech, made simple.
 - https://technext.asia/odoo/apps — Business Apps List: Start With Accounting for BIR CAS: Every app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 projects delivered, written quote.
 - https://technext.asia/odoo/apps/accounting — Accounting Philippines: BIR Reports Set Up: Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
@@ -1113,41 +1114,77 @@ Source: https://technext.asia/company
 
 No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, POS or in-house system, and Odoo produces the books and BIR forms from the data we bring in. Later, Odoo can grow app by app.
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### How much does it cost?
 
 We keep it affordable for SMEs: you can start with Odoo Accounting only. After the meeting you get a written quote for your scope before any work starts. Odoo's subscription is separate and is paid to Odoo.
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### Is Odoo BIR-accredited?
 
 No accounting software is BIR-accredited in that sense. The BIR registers each business's use of a system, not a software brand, and it has warned against "BIR-accredited" claims. Your business registers Odoo as its CAS or CBA at its Revenue District Office. TechNext is not affiliated with or acting for the BIR. See BIR rules for your accounting system .
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### Can TechNext set Odoo up for our BIR CAS registration?
 
 Yes, on the Odoo side. We set Odoo up for your Computerized Accounting System (CAS) or Computerized Books of Accounts (CBA) application and prepare the sample invoices, books, reports and audit trail printout with you. You file at your RDO; the decision is the BIR's. How BIR CAS set-up works .
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### How long does it take?
 
 As quick as 5 working days for the set-up, once your process is mapped and your data is ready. In a free 15 to 20 minute meeting a BIR Compliance Expert looks at your books and gives you your 5 Day plan. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration. If you need your books ready for ORUS registration by 30 January 2027, tell us early.
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### What is the NextSprint method?
 
 It is our own way of fitting a BIR CAS set-up into days, not months, run by our BIR Compliance Experts and accounting workflow experts. We walk you through it in your free planning meeting. See the method .
 
-Source: https://technext.asia/
+Source: https://technext.asia/get-started
 
 ### Who is TechNext?
 
 TechNext is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main consulting and development team in Taguig City, Metro Manila. Our own experts plug Odoo into the system you run today and set it up for BIR requirements. About us .
+
+Source: https://technext.asia/get-started
+
+### What does TechNext do?
+
+TechNext is an Odoo Ready Partner in Singapore with its main team in Taguig City. Our own specialists plug Odoo into the system a company already runs and look after the whole project: discovery, set-up, data migration, training and support.
+
+Source: https://technext.asia/
+
+### Do we have to replace our current system?
+
+No. TechNext adds Odoo as a plug-in in your system: you keep your current accounting software, ERP, POS or in-house system, and Odoo works from the data we bring in. Later, Odoo can grow app by app.
+
+Source: https://technext.asia/
+
+### Who does the work?
+
+TechNext's own consultants and developers, based in Taguig City and Singapore. The expert in your first meeting works on your set-up, so nothing is lost in a hand-off. Meet the experts .
+
+Source: https://technext.asia/
+
+### How does a project start?
+
+With a 15 to 20 minute online meeting. A TechNext expert looks at how your business runs today and what Odoo would plug into. You then get a written recommendation and a quote for that scope before any work starts.
+
+Source: https://technext.asia/
+
+### How much does it cost?
+
+It depends on your scope. You can start with Odoo Accounting only, and you get a written quote before any work starts. Odoo's own subscription is separate and is paid to Odoo.
+
+Source: https://technext.asia/
+
+### Where is TechNext based?
+
+TechNext's headquarters is at 261 Waterloo Street #03-36, Singapore. Our main consulting and development hub is in Taguig City, Metro Manila, and our engineering hub is in Ho Chi Minh City. We work with clients in 25+ countries.
 
 Source: https://technext.asia/
 

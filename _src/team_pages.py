@@ -279,16 +279,17 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
             f'{_quick_view(p, ctx) if profile else ""}</article>')
 
 
-def home_section_html() -> str:
+def home_section_html(home: bool = False) -> str:
     """Home + ad-lander experts section (owner 8 Nov 2026: "use a different style of card showcasing experts").
     One wide spotlight card per expert: tall portrait, name and role, an "ask me about" line, three stats, the systems
     they know (ties to the plug-in voice: we work beside the system you run) and a meeting button. Styles:
     assets/css/experts.css. RJ is off the site; Neil and Jeric are the two experts (bir_rank 1-2)."""
     people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:2]
     cards = "".join(_expert_card(p, k) for k, p in enumerate(people))
+    h2 = ("Meet the experts who do the work." if home else "Your BIR CAS set-up, led by people who have done it.")   # home=True: 11 Nov 2026 TechNext-first home
     return f'''<section class="section xp-sec" id="advisers" aria-labelledby="xp-h">
   <div class="container">
-    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">Your BIR CAS set-up, led by people who have done it.</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
+    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">{h2}</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
     <div class="xp-grid">{cards}</div>
   </div>
 </section>'''

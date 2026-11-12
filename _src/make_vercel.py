@@ -152,8 +152,8 @@ REDIRECTS = [
     ("/team/astroneil-matan", "/team/neil-matan"), ("/team/astroneil-matan.html", "/team/neil-matan"),  # owner 30 Oct: goes by Neil
     # 23 Oct 2026: the BIR adviser-call lander moved off its old free-website address (ads keep ?need=)
     ("/free-website-with-odoo", "/bir-adviser-call"), ("/free-website-with-odoo/", "/bir-adviser-call"), ("/free-website-with-odoo.html", "/bir-adviser-call"),
-    # 28 Oct 2026, owner: the free website offer ended; its /get-started lander goes to the adviser call
-    ("/get-started", "/bir-adviser-call"), ("/get-started/", "/bir-adviser-call"), ("/get-started.html", "/bir-adviser-call"),
+    # 28 Oct 2026: /get-started redirected to /bir-adviser-call. 11 Nov 2026: /get-started is a page again (the 5 Day
+    # Express landing page, _src/pages/get-started.html), so it is no longer redirected.
     ("/odoo-erp-singapore", "/solutions/odoo-erp"), ("/odoo-erp-singapore/", "/solutions/odoo-erp"),
     ("/ai-automation-vietnam", "/solutions/ai-automation"), ("/ai-automation-vietnam/", "/solutions/ai-automation"),
     ("/about", "/company"), ("/about/", "/company"),

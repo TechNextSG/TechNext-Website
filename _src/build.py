@@ -2365,7 +2365,7 @@ def _hook_topic(out_rel: str) -> str:
         return "einv"
     if out_rel.startswith("odoo/apps/"):
         return "app"
-    if out_rel in ("index.html", "bir-cas.html", "odoo/philippines.html", "bir-adviser-call.html", "bir-call.html") or "bir" in out_rel:
+    if out_rel in ("get-started.html", "bir-cas.html", "odoo/philippines.html", "bir-adviser-call.html", "bir-call.html") or "bir" in out_rel:
         return "cas"
     return "gen"
 
@@ -2379,7 +2379,7 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         return f'<a{attrs} href="{BOOK_URL}" target="_blank" rel="noopener" data-meet>{m.group(2)}'
     html = _MEET_A.sub(fix, html)
     i, j = html.find("<main"), html.rfind("</main>")
-    if i < 0 or j < 0:
+    if i < 0 or j < 0 or out_rel == "index.html":   # 11 Nov 2026: the reverted home keeps the plain "Set up a meeting" label
         return html
     main = html[i:j]
     topic = _hook_topic(out_rel)
@@ -2496,6 +2496,8 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         content = content.replace("{{CLIENT_WALL}}", client_wall_html())
     if "{{ADVISOR_CARDS}}" in content:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
+    if "{{ADVISOR_CARDS_HOME}}" in content:   # 11 Nov 2026: the same expert cards, TechNext-first heading (home only)
+        content = content.replace("{{ADVISOR_CARDS_HOME}}", TP.home_section_html(home=True) if ADV.ADVISORS else "")
     if "{{EXPRESS}}" in content:   # 5 Day Express timeline + NextSprint method (9 Nov 2026)
         content = content.replace("{{EXPRESS}}", express_html())
         meta["head"] = meta.get("head", "") + '<link rel="stylesheet" href="{ROOT}assets/css/express.css?v={ASSET_V}">'
@@ -2574,11 +2576,11 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
                          '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
                 .replace("{OG_IMAGE}", meta.get("og_image") or S.SITE_URL + og_cards.card(out_rel, base_title, meta.get("og_icon")))
                 .replace("{SITE_URL}", S.SITE_URL)
-                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))
+                .replace("{HEAD_EXTRA}", meta.get("head", "") + ((CALM_HEAD_HOME if home or out_rel == "get-started.html" else CALM_HEAD) if CALM and out_rel not in CALM_SKIP else ""))   # /get-started (the 8-11 Nov home) keeps the home style layer
                 .replace("{ASSET_V}", ASSET_V)
                 .replace("{BODY_CLASS}", meta.get("body", ""))
-                .replace("{TAGS_HEAD}", tags_head(out_rel == "index.html"))
-                .replace("{TAGS_BODY}", tags_body(out_rel == "index.html"))
+                .replace("{TAGS_HEAD}", tags_head(out_rel in ("index.html", "get-started.html")))   # /get-started: the ad landing page keeps the home's tags
+                .replace("{TAGS_BODY}", tags_body(out_rel in ("index.html", "get-started.html")))
                 .replace("{JSONLD}", jsonld(canonical, meta, content, out_rel))
                 .replace("{CONTENT}", content)
                 .replace("{LEGAL}", S.COMPANY["legal"])
