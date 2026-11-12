@@ -378,3 +378,9 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
   background: var(--fx-glass); border: 1px solid var(--fw-edge); box-shadow: 0 12px 26px -24px rgba(30,70,145,.5); }
 .lp-points .lp-point-mark { flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: var(--blue); }
 @media (max-width: 760px) { .lp-points .lp-point { padding: 14px; gap: 12px; } }
+
+/* 13 Nov 2026 (owner "check this"): lander step rows fit their own count (4 steps no longer sit in 5 columns) */
+.fw-steps.lp-steps { grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); }
+@media (max-width: 1000px) { .fw-steps.lp-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fw-steps.lp-steps::before { display: none; } }
+@media (max-width: 760px) { .fw-steps.lp-steps { grid-template-columns: minmax(0, 1fr); } }
+.fw-steps.lp-steps::before { right: calc((100% - (var(--n, 5) - 1) * 24px) / var(--n, 5) - 20px); }
