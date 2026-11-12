@@ -833,6 +833,7 @@
     $$('.btn, .actions .btn-link, .cv-act .btn-link, .sec-next .btn-link, .xp-act .btn-link').forEach(function (btn) {   // 8 Nov 2026: every button, Odoo style
       var raf = null;
       btn.addEventListener('pointermove', function (e) {
+        if (e.buttons) return;   // 12 Nov 2026: no pull while pressed, so the press squash doesn't jump against it
         var r = btn.getBoundingClientRect();
         var x = (e.clientX - r.left - r.width / 2) / r.width, y = (e.clientY - r.top - r.height / 2) / r.height;
         if (raf) return;
@@ -841,7 +842,10 @@
           btn.style.transform = 'translate(' + (x * 6).toFixed(1) + 'px,' + (y * 4 - 2).toFixed(1) + 'px)';
         });
       });
-      btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
+      function reset() { if (raf) { cancelAnimationFrame(raf); raf = null; } btn.style.transform = ''; }
+      btn.addEventListener('pointerleave', reset);
+      btn.addEventListener('pointerdown', reset);   // press starts from rest: no snap from the pulled position to the squash
+      btn.addEventListener('click', reset);         // a click that scrolls the page leaves no pulled button behind
     });
   }
 })();
@@ -1011,7 +1015,15 @@ document.addEventListener('click', function (e) {
   var list = Array.prototype.filter.call(all, function (b) { return b.getBoundingClientRect().top > innerHeight && b.type !== 'submit' && !b.closest('form'); });   // form buttons never hide
   if (!list.length) return;
   list.forEach(function (b, k) { b.classList.add('btn-pre'); b.style.setProperty('--btn-d', ((k % 3) * 70) + 'ms'); });
-  function show(b) { if (b.classList.contains('btn-pre')) { b.classList.replace('btn-pre', 'btn-in'); } }
+  /* 12 Nov 2026: drop .btn-in once the pop-in has played. Hover switches the animation off, so leaving the button (e.g. after a
+     click scrolls the page to the form) used to replay the pop-in from opacity 0 - the "glitch once clicked". */
+  function done(e) { if (e.animationName === 'btnPop') { this.classList.remove('btn-in'); this.removeEventListener('animationend', done); } }
+  function show(b) {
+    if (!b.classList.contains('btn-pre')) return;
+    b.addEventListener('animationend', done);
+    b.classList.replace('btn-pre', 'btn-in');
+    setTimeout(function () { b.classList.remove('btn-in'); }, 900);   // fallback when animationend never fires (background tab)
+  }
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px' });
