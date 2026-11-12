@@ -100,13 +100,8 @@ FORM_LABELS = {
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
-<<<<<<< HEAD
     "Audit guide download": {"phone": "Mobile number", "message": "Requested"},
-    "Meeting request": {"phone": "Mobile number", "accounting_system": "Current company system", "slot": "Preferred day",
-=======
-    "Audit guide download": {"phone": "Mobile number", "message": "Downloaded"},
     "Meeting request": {"phone": "Mobile number", "topic": GOAL_Q, "accounting_system": "Current company system", "slot": "Preferred day",
->>>>>>> origin/master
                         "call_time": "Best time to call", "message": "Anything we should know"},
 }
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
