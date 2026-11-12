@@ -12,7 +12,7 @@
 .cs-hero .fx-hero-in { align-items: center; }
 .cs-hero .fx-hero-in > * { min-width: 0; }
 .cs-hero .crumbs { margin-bottom: 18px; }
-.cs-hero h1 { max-width: 14ch; font-size: clamp(2.3rem, 1.3rem + 3.2vw, 3.9rem); }
+.cs-hero h1 { max-width: 9.8em; font-size: clamp(2.3rem, 1.3rem + 3.2vw, 3.9rem); }
 .cs-act { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .cs-panel { position: relative; border-radius: 24px; padding: 22px 22px 18px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
@@ -59,7 +59,7 @@
 .cs-eng:hover { transform: translateX(6px); box-shadow: var(--fx-depth-h); }
 .cs-eng-id { display: grid; gap: 14px; justify-items: start; }
 .cs-page .cs-tag { background: var(--blue-050); color: var(--blue-700); font-size: 12.5px; padding: 6px 12px; }
-.cs-eng h3 { margin: 0; font: 800 clamp(1.1rem, 1rem + .5vw, 1.3rem)/1.28 var(--font-display); letter-spacing: -.015em; color: var(--ink); max-width: 40ch; }
+.cs-eng h3 { margin: 0; font: 800 clamp(1.1rem, 1rem + .5vw, 1.3rem)/1.28 var(--font-display); letter-spacing: -.015em; color: var(--ink); max-width: 28.0em; }
 .cs-eng .meta { margin: 14px 0 0; gap: 8px; font-size: 14.5px; }
 .cs-eng .meta div { grid-template-columns: 70px minmax(0,1fr); }
 .cs-eng .meta dt { color: var(--body); font-weight: 650; }

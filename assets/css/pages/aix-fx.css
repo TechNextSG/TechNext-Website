@@ -8,8 +8,8 @@
 main > section.fx-hero.aix-hero { padding: 40px 0 64px !important; }
 .aix-hero .fx-hero-in { align-items: center; }
 .aix-hero .crumbs { margin-bottom: 18px; }
-.aix-hero h1 { font-size: clamp(2rem, 1.2rem + 2.2vw, 3rem); max-width: 21ch; }
-.aix-hero .fx-lead { max-width: 54ch; }
+.aix-hero h1 { font-size: clamp(2rem, 1.2rem + 2.2vw, 3rem); max-width: 14.7em; }
+.aix-hero .fx-lead { max-width: 34.07em; }
 .aix-act { display: flex; flex-wrap: wrap; gap: 12px; }
 .aix-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; }
 .aix-chips a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 12px; border-radius: 999px; background: rgba(255,255,255,.8); border: 1px solid var(--line);

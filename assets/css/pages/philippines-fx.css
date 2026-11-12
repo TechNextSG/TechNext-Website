@@ -6,7 +6,7 @@
 /* ---------------------------------------------------------------- hero */
 .ph-hero { padding-top: 40px; }
 .ph-hero .crumbs { margin-bottom: 26px; }
-.ph-hero h1 { max-width: 18ch; font-size: clamp(2.1rem, 1.3rem + 2.7vw, 3.5rem); line-height: 1.06; }
+.ph-hero h1 { max-width: 12.6em; font-size: clamp(2.1rem, 1.3rem + 2.7vw, 3.5rem); line-height: 1.06; }
 .ph-ask .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .ph-pills { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
 .ph-pills .tag { min-height: 36px; display: inline-flex; align-items: center; gap: 6px; }
@@ -114,7 +114,7 @@
 .ph-cov-h > .ic { width: 28px; height: 28px; color: var(--blue); flex: none; }
 .ph-cov-h h3 { margin: 0; font: 800 20px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.015em; }
 .ph-cov .checks { margin: 0; }
-.ph-src { grid-column: 1 / -1; max-width: 80ch; margin: 0; }
+.ph-src { grid-column: 1 / -1; max-width: 50.47em; margin: 0; }
 .ph-split .ph-src { margin-top: 8px; }
 
 /* ---------------------------------------------------------------- glossary + guides */
@@ -147,7 +147,7 @@
 .ph-stand-a span { display: flex; align-items: center; gap: 10px; }
 .ph-stand-a span .ic { width: 24px; height: 24px; color: var(--blue); }
 .ph-stand-a b { font: 800 22px/1.2 var(--font-display); letter-spacing: -.02em; color: var(--ink); }
-.ph-stand-a em { font-style: normal; font-size: 15px; line-height: 1.55; color: var(--body); max-width: 52ch; }
+.ph-stand-a em { font-style: normal; font-size: 15px; line-height: 1.55; color: var(--body); max-width: 32.81em; }
 .ph-stand-a i { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 650 15px/1 var(--font-body); font-style: normal; color: var(--blue); }
 .ph-stand-a i .ic { width: 16px; height: 16px; transition: transform .35s var(--fx-ease); }
 .ph-stand-a:hover i .ic { transform: translateX(4px); }
@@ -159,7 +159,7 @@
 .ph-steps .fx-dot { margin-top: 4px; }
 .ph-steps li:hover .fx-dot { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 0 5px rgba(49,103,202,.16), 0 0 14px rgba(49,103,202,.55); }
 .ph-steps b { display: block; font: 800 18px/1.3 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
-.ph-steps p { margin: 4px 0 0; font-size: 15px; line-height: 1.6; color: var(--body); max-width: 56ch; }
+.ph-steps p { margin: 4px 0 0; font-size: 15px; line-height: 1.6; color: var(--body); max-width: 35.33em; }
 
 /* ---------------------------------------------------------------- faq */
 .ph-fx .fx-faq details { background: var(--fx-glass); border: 1px solid var(--fx-edge); border-radius: 18px; box-shadow: 0 1px 2px rgba(31,31,61,.04), 0 18px 34px -28px rgba(30,70,145,.4); }

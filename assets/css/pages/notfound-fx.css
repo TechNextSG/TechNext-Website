@@ -6,7 +6,7 @@
 .nf-hero > .container { width: 100%; }
 .nf-hero .fx-hero-in { align-items: center; }
 .nf-hero .fx-hero-in > * { min-width: 0; }
-.nf-hero h1 { max-width: 11ch; font-size: clamp(2.6rem, 1.5rem + 3.6vw, 4.4rem); }
+.nf-hero h1 { max-width: 7.7em; font-size: clamp(2.6rem, 1.5rem + 3.6vw, 4.4rem); }
 .nf-act { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .nf-panel { position: relative; border-radius: 24px; padding: 22px 22px 20px; background: var(--fx-glass); border: 1px solid var(--fx-edge);
@@ -41,7 +41,7 @@
 
 @media (max-width: 1080px) {
   .nf-hero { min-height: 0; padding: 48px 0 64px; }
-  .nf-hero h1 { max-width: 14ch; }
+  .nf-hero h1 { max-width: 9.8em; }
 }
 @media (max-width: 600px) {
   .nf-hero { padding: 28px 0 48px; }

@@ -29,9 +29,9 @@
 .apx-hero .fx-hero-in { grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 56px; align-items: center; }
 .apx-copy { min-width: 0; }
 .apx-hero .crumbs { margin-bottom: 18px; }
-.apx-hero h1 { max-width: 19ch; font-size: clamp(2rem, 1.15rem + 2.6vw, 3.3rem); }
+.apx-hero h1 { max-width: 13.3em; font-size: clamp(2rem, 1.15rem + 2.6vw, 3.3rem); }
 .apx-hero .app-sub { margin: 18px 0 0; max-width: 40ch; color: var(--blue-700); }
-.apx-hero .fx-lead { margin: 20px 0 0; max-width: 54ch; }
+.apx-hero .fx-lead { margin: 20px 0 0; max-width: 34.07em; }
 .apx-hero .app-sub + .fx-lead { margin-top: 10px; }
 .apx-hero .pill-row { margin-top: 20px; }
 .apx-act { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
@@ -63,7 +63,7 @@
 .apx-fallback { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 12px; padding: 24px; text-align: center; }
 .apx-fallback .oi { width: 64px; height: 64px; }
 .apx-fallback b { font: 800 22px/1.2 var(--font-display); color: var(--ink); }
-.apx-fallback span { max-width: 32ch; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+.apx-fallback span { max-width: 20.19em; font-size: 14.5px; line-height: 1.5; color: var(--body); }
 .apx-sweep { position: absolute; top: 0; bottom: 0; left: -30%; width: 26%; z-index: 2; pointer-events: none; opacity: 0;
   background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.7), rgba(255,255,255,0)); animation: apxSweep 8s var(--fx-ease) infinite; }
 @keyframes apxSweep { 0%, 58% { transform: translateX(0) skewX(-18deg); opacity: 0; } 64% { opacity: 1; } 100% { transform: translateX(640%) skewX(-18deg); opacity: 0; } }
@@ -277,7 +277,7 @@
 .apx-app small { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.45; color: var(--body); }
 .apx-app > .ic { width: 18px; height: 18px; color: var(--blue); transition: transform .3s var(--fx-ease); }
 .apx-app:hover > .ic { transform: translateX(3px); }
-.apx-credit { margin: 28px 0 0; max-width: 90ch; font-size: 13px; line-height: 1.55; color: var(--body); }
+.apx-credit { margin: 28px 0 0; max-width: 56.78em; font-size: 13px; line-height: 1.55; color: var(--body); }
 .apx-credit a { color: var(--blue); }
 .apx-with-sec .sec-head--row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; max-width: none; }
 

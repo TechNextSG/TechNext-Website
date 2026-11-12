@@ -145,7 +145,7 @@ html:not(.nxe-js) .nxe-slide:not(:first-child),html:not(.nxe-js) .nxe-ctl{displa
 .nxe-t1,.nxe-t2{display:inline-block;text-shadow:3px 0 0 var(--ink-c),-3px 0 0 var(--ink-c),0 3px 0 var(--ink-c),0 -3px 0 var(--ink-c),2.2px 2.2px 0 var(--ink-c),-2.2px 2.2px 0 var(--ink-c),2.2px -2.2px 0 var(--ink-c),-2.2px -2.2px 0 var(--ink-c),0 8px 0 var(--ink-c)}
 .nxe-t1{rotate:-3deg}
 .nxe-t2{color:var(--yel);rotate:-1.5deg;translate:0 4px}
-.nxe-copy .lead{max-width:56ch;color:rgba(255,255,255,.9);margin-bottom:26px;text-wrap:pretty}
+.nxe-copy .lead{max-width:35.33em;color:rgba(255,255,255,.9);margin-bottom:26px;text-wrap:pretty}
 .nxe-copy .actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px}
 /* comic buttons: ink outline, a lip the button presses into */
 .nxe-hero .btn,.nxe-shows .nxe-season-act .btn,.nxe-cta .btn,.nxe-recast{border:3px solid var(--ink-c);box-shadow:0 6px 0 var(--ink-c);transition:transform .2s var(--spring),box-shadow .2s ease,background-color .2s ease}
@@ -542,7 +542,7 @@ body.is-nxe .talk-panel .icon-btn{border:3px solid var(--ink-c);box-shadow:0 3px
 .nxe-season-head>*{position:relative}
 .nxe-season-head h2{margin:14px 0 10px;font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--ink-c)}
 .nxe-sn{display:inline-block;margin:0 10px 8px 0;padding:5px 12px 3px;border-radius:9px;background:var(--yel);border:2.5px solid var(--ink-c);font:400 20px/1 var(--comic);letter-spacing:.06em;color:var(--ink-c);transform:rotate(-2deg);vertical-align:middle}
-.nxe-season-head p{max-width:64ch;margin-bottom:16px}
+.nxe-season-head p{max-width:40.38em;margin-bottom:16px}
 .nxe-status{display:inline-flex;align-items:center;gap:7px;padding:6px 12px 4px;border-radius:9px;background:#fff;border:2.5px solid var(--ink-c);color:var(--ink-c);font:400 17px/1 var(--comic);letter-spacing:.06em;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--ink-c)}
 .nxe-status.is-live{background:var(--red);color:#fff}
 .nxe-status.is-live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:nxeBlinkDot 1.4s ease-in-out infinite}
@@ -881,7 +881,7 @@ button.nxe-thumb{cursor:pointer}
 .nxe-sp--3{background:var(--yel)}
 .nxe-sp--3 b{font:400 22px/1.1 var(--comic);letter-spacing:.05em;color:var(--ink-c);text-align:center;padding:0 10px}
 .nxe-soon-copy h2{margin:14px 0 10px;font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--ink-c)}
-.nxe-soon-copy p{max-width:52ch;margin-bottom:20px}
+.nxe-soon-copy p{max-width:32.81em;margin-bottom:20px}
 .nxe-soon-copy .actions{display:flex;flex-wrap:wrap;gap:12px}
 .nxe-shows .nxe-soon-copy .btn-ghost{background:#fff;color:var(--ink-c);border:2.5px solid var(--ink-c);box-shadow:3px 3px 0 var(--ink-c)}
 .nxe-shows .nxe-soon-copy .btn-ghost::before{display:none}
