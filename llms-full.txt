@@ -138,7 +138,7 @@ Source: https://technext.asia/bir-adviser-call
 
 ### Do we have to change our accounting software?
 
-No. We add a plug-in beside it (Odoo, set up for your BIR books and reports). Your current software stays.
+No. Your current software stays. We add a plug-in beside your current software, set up for your BIR books and reports, so nothing is swapped out while we work.
 
 Source: https://technext.asia/bir-adviser-call
 
