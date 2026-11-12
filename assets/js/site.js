@@ -466,6 +466,22 @@
     // the Let's Talk panel is on every page: its source names the page, so each CRM lead shows where it was sent from
     if (p.source === "Let's Talk panel") p.source = "Let's Talk panel · " + (location.pathname.replace(/\/$/, '') || '/');
     p._split = 1;   // the lead is saved and answered first; the @Jeric note and emails follow as a second request
+    /* 13 Nov 2026 Meta Conversions API: the pixel only sends after cookie Accept, so the server sends the same Lead too
+       (api/lead.py capi_lead, same event id = Meta counts it once). The ad click id (_fbc, from the _fbc cookie or the
+       fbclid on the first page of the visit) goes with every lead; the _fbp cookie and hashed contact details only with
+       consent (the server checks _consent). Nothing is sent to Meta until META_CAPI_TOKEN is set on Vercel. */
+    try {
+      p._eid = 'lead.' + Date.now().toString(36) + '.' + Math.random().toString(36).slice(2, 10);
+      var ck = function (n) { var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; };
+      var fbc = ck('_fbc');
+      if (!fbc) {
+        var src = (p.landing || '') + ' ' + p.page, fm = src.match(/[?&]fbclid=([\w-]+)/);
+        if (fm) fbc = 'fb.1.' + Date.now() + '.' + fm[1];
+      }
+      if (fbc) p._fbc = fbc;
+      if (ck('_fbp')) p._fbp = ck('_fbp');
+      p._consent = document.cookie.indexOf('tn_consent=yes') > -1 ? 'yes' : 'no';
+    } catch (e) { /* measurement only */ }
     return fetch(endpoint || '/api/lead', {
       method: 'POST', keepalive: true,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -503,7 +519,8 @@
             // Lead event carries it. The pixel hashes every value (SHA-256) in the browser before anything is sent.
             var am = pxMatch(p);
             if (am) window.fbq('init', PIXEL_ID, am);
-            window.fbq('track', 'Lead', { content_name: p.source ? String(p.source).slice(0, 60) : 'website' });
+            window.fbq('track', 'Lead', { content_name: p.source ? String(p.source).slice(0, 60) : 'website' },
+                       p._eid ? { eventID: p._eid } : undefined);
           }
         } catch (e) { /* analytics must never break a submission */ }
         return res.j;
@@ -1036,7 +1053,7 @@ document.addEventListener('click', function (e) {
    form_start, form_submit) and the same GA4 events through gtag. The UTMs of the visit's first page ride along on links
    into the five landing pages and to the Odoo booking page; every form also sends the first page and the last CTA. */
 (function () {
-  var LANDERS = /^\/(get-started|bir-cas|bir-e-invoicing|bir-adviser-call|bir-call|bir-cas-for-accountants|bir-e-invoicing-plan|bir-deadline)\/?$/;
+  var LANDERS = /^\/(get-started|bir-cas|bir-e-invoicing|bir-adviser-call|bir-call|bir-cas-for-accountants|bir-e-invoicing-plan|bir-deadline|bir-quarter-end|bir-firm-deadlines|bir-audit-trail)\/?$/;
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   var page = location.pathname.replace(/\/$/, '') || '/';
   function get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }

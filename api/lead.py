@@ -501,7 +501,7 @@ def parse(p):
 
 # Meta Conversions API: the booking page (technext.odoo.com) fires the browser Lead only after cookie consent, so the
 # server sends the same Lead too (same event_id = Meta counts it once). Only requests that carry "_eid" (the booking
-# page) are sent; hashed email/phone only with cookie consent, otherwise just the ad click id (fbc) + IP/UA.
+# page, and since 13 Nov 2026 every technext.asia form via site.js, sent on the split follow-up) are sent; hashed email/phone only with cookie consent, otherwise just the ad click id (fbc) + IP/UA.
 # Off until META_CAPI_TOKEN (Events Manager > dataset > Settings > Conversions API > Generate access token) is set.
 CAPI_PIXEL = os.environ.get("META_PIXEL_ID", "1959782781295555")
 CAPI_TOKEN = os.environ.get("META_CAPI_TOKEN", "")
@@ -921,14 +921,20 @@ class handler(BaseHTTPRequestHandler):
                 return self._send(400, {"ok": False, "error": "lead"})
             if not hmac.compare_digest(str(p.get("_sig", "")), sign(lead)):
                 return self._send(403, {"ok": False, "error": "sig"})
-            name, _, _, _, phone, form, groups, _, _, _, _, spam = parse(p)
+            name, email, _, _, phone, form, groups, _, _, _, _, spam = parse(p)
             try:
                 keep_typed(lead, name, phone)
                 follow_up(lead, form, groups, spam)
             except Exception as e:
                 print("odoo follow-up failed:", repr(e)[:500])
                 return self._send(502, {"ok": False, "error": "crm"})
-            return self._send(200, {"ok": True})
+            self._send(200, {"ok": True})
+            # 13 Nov 2026: site forms submit split, so step 1 returns before capi_lead; the server Lead goes here instead
+            # (once per lead, after the CRM accepted it; spam-flagged leads are not reported to Meta).
+            if not spam:
+                fip = (self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
+                capi_lead(p, clean(email or "", 200), clean(phone or "", 60), fip, self.headers.get("User-Agent", ""))
+            return
         try:
             lead, after = make_lead(p)
         except Exception as e:                             # the visitor is shown sales@technext.asia to email instead
