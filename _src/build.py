@@ -615,7 +615,8 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append(crumb)
     faqs = [(_text(q), _text(a)) for q, a in _FAQ.findall(content)]
     faqs = [(q, a) for q, a in faqs if q and a]
-    faqs = [(q, a) for q, a in faqs if not _LD_BRAND.search(q + " " + a)]   # every page (owner rule 10 Nov)
+    # 13 Nov 2026 owner ("Yes, allow in FAQs"): FAQPage is the one place Odoo/ERP may appear in JSON-LD, so answer engines
+    # can quote the FAQs on Odoo pages. Titles, descriptions, og, breadcrumbs and every other node stay brand-free (10 Nov rule).
     if len(faqs) >= 2:
         graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
                       "mainEntity": [{"@type": "Question", "name": q,
@@ -666,8 +667,9 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "provider": {"@id": org_id}, "areaServed": PH_AREA if ph else AREA_SERVED})
         if ph:
             graph[-1]["audience"] = page["audience"]
-    if out_rel in LD_CLEAN and _ld_hits(graph):
-        print(f"  ! JSON-LD on {out_rel} still names Odoo/ERP:", _ld_hits(graph)[:3])
+    rest = [n for n in graph if n.get("@type") != "FAQPage"]   # FAQPage is allowed to name Odoo (owner 13 Nov)
+    if out_rel in LD_CLEAN and _ld_hits(rest):
+        print(f"  ! JSON-LD on {out_rel} still names Odoo/ERP:", _ld_hits(rest)[:3])
     # a "</" inside a JSON string would end the <script> element early
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
 
