@@ -603,7 +603,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         page["audience"] = {"@type": "BusinessAudience", "audienceType": "Philippine businesses registered with the BIR",
                             "geographicArea": PH_AREA}
     crumb = _breadcrumb(canonical, content)
-    if crumb and out_rel in LD_CLEAN and _ld_hits(crumb):
+    if crumb and _ld_hits(crumb):                   # 13 Nov 2026 SEO audit: every page, not only LD_CLEAN
         crumb = None
     if crumb:
         page["breadcrumb"] = {"@id": crumb["@id"]}
@@ -612,18 +612,17 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
         graph.append(crumb)
     faqs = [(_text(q), _text(a)) for q, a in _FAQ.findall(content)]
     faqs = [(q, a) for q, a in faqs if q and a]
-    if out_rel in LD_CLEAN:
-        faqs = [(q, a) for q, a in faqs if not _LD_BRAND.search(q + " " + a)]
+    faqs = [(q, a) for q, a in faqs if not _LD_BRAND.search(q + " " + a)]   # every page (owner rule 10 Nov)
     if len(faqs) >= 2:
         graph.append({"@type": "FAQPage", "@id": canonical + "#faq", "isPartOf": {"@id": page_id},
                       "mainEntity": [{"@type": "Question", "name": q,
                                       "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]})
     art = meta.get("article")
     if art:
-        graph.append({"@type": "BlogPosting", "@id": canonical + "#article", "headline": art["h1"],
+        graph.append({"@type": "BlogPosting", "@id": canonical + "#article", "headline": _base_title(meta["title"]),
                       "description": meta.get("desc", "").strip(), "datePublished": art["date"],
                       "dateModified": art.get("updated", art["date"]), "inLanguage": "en",
-                      "articleSection": BLOG_CATS[art["cat"]], "wordCount": art.get("words"),
+                      "articleSection": LD_CATS.get(art["cat"], BLOG_CATS[art["cat"]]), "wordCount": art.get("words"),
                       "author": {"@id": org_id}, "publisher": {"@id": org_id},
                       "image": cover_url(art) or S.SITE_URL + "assets/img/og-image.png",
                       "mainEntityOfPage": {"@id": page_id}, "isPartOf": {"@id": S.SITE_URL + "blog#blog"}})
@@ -640,7 +639,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                       "name": "TechNext blog", "description": meta.get("desc", "").strip(),
                       "publisher": {"@id": org_id}, "inLanguage": "en",
                       "blogPost": [{"@type": "BlogPosting", "@id": S.SITE_URL + clean_url(a["out"]) + "#article",
-                                    "headline": a["h1"], "url": S.SITE_URL + clean_url(a["out"]),
+                                    "headline": _base_title(a["title"]), "url": S.SITE_URL + clean_url(a["out"]),
                                     "datePublished": a["date"]} for a in ARTICLES]})
     if out_rel == "nexi-explains.html":
         graph.extend(nxe_jsonld(org_id, page_id))
@@ -2004,6 +2003,8 @@ def app_page(mod: str) -> tuple:
 # build.py adds the article header, contents list, author box, related posts and CTA, and the
 # BlogPosting structured data; blog.html lists them all ({{BLOG_CARDS}}) and the home page shows
 # the newest three ({{BLOG_LATEST}}).
+# structured-data labels without Odoo/ERP (13 Nov 2026 SEO audit; the visible labels stay)
+LD_CATS = {"odoo-news": "Accounting software news", "technext-odoo": "Implementation", "erp": "Business systems"}
 BLOG_CATS = {"bir": "BIR compliance", "odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
 BLOG_ICON = {"bir": "receipt", "odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
 ARTICLES = []
@@ -2752,13 +2753,13 @@ def write_llms():
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
         "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
         "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
-        f"- Set up a meeting with an Odoo adviser: {S.SITE_URL}#start",
+        f"- Book a Technical Readiness Call: {S.SITE_URL}get-started",
         "",
         "## Quick answers",
         "",
         "- Who sets up BIR CAS reporting for accounting firms in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
         "SMEs can start with Odoo Accounting only, keep their current system, and get a written quote before any work starts. "
-        f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}#start",
+        f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}get-started",
         "- Can we add Odoo without replacing our current accounting software, ERP or in-house system? Yes. TechNext connects Odoo to the "
         "system a business already runs and brings in the invoices, bills and payments the books need, so Odoo produces the Books of Accounts "
         f"and BIR forms. Details: {S.SITE_URL}odoo/integration",

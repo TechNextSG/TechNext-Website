@@ -17,10 +17,10 @@ Last updated: 2026-11-13
 
 ## Pages
 
-- https://technext.asia/ — TechNext | BIR CAS and E-Invoicing Set-Up for Accountants, PH: Automate your clients' BIR compliance and keep their current software. Matched CAS journals, 2307s and SLSP DAT files from the data they already have. 142 projects.
-- https://technext.asia/bir-adviser-call — BIR CAS Setup. Keep Your Software.: BIR CAS or CBA setup, beside your current software. Process flow, sample invoices and books prepared with you. 15 to 20 minute meeting with a BIR Compliance Expert.
+- https://technext.asia/ — TechNext | BIR CAS and E-Invoicing Set-Up for Accountants: Automate your clients' BIR compliance and keep their current software. Matched CAS journals, 2307s and SLSP DAT files from the data they already have.
+- https://technext.asia/bir-adviser-call — BIR CAS Setup. Keep Your Software.: BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 to 20 minute meeting.
 - https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
-- https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Prepare Now, Not in December: BIR e-invoicing (EIS) set-up before 31 Dec 2026: sequenced branch series, locked invoices and transmission, connected to your current system by our Taguig engineers.
+- https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Prepare Now, Not in December: BIR e-invoicing (EIS) set-up before 31 Dec 2026: sequenced branch series, locked invoices and transmission, connected to your current system by our Taguig team.
 - https://technext.asia/blog — BIR CAS Guides: E-invoicing, 2307, SLSP, 2550Q: Plain guides to BIR CAS, e-invoicing, 2307, SLSP and 2550Q from TechNext's BIR Compliance Experts, for Philippine SMEs and their accountants.
 - https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software Philippines: How to Choose: Choosing accounting software for the BIR: compare 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026, with a checklist for SMEs.
 - https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and how system invoices fit.
@@ -111,7 +111,7 @@ Last updated: 2026-11-13
 - https://technext.asia/odoo/philippines — Accounting System for Philippine SMEs: BIR CAS: For Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, written quote first.
 - https://technext.asia/odoo/support — Support After Go-live: One Partner: Support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
 - https://technext.asia/odoo/training — Training: Prepare Your Team for BIR CAS and Go-live: Training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Written quote.
-- https://technext.asia/odoo/vietnam — Vietnam Accounting: Circular 99, SInvoice, 01/GTGT: For SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, connected to your current system by API, batch sync or flat file, with a written quote.
+- https://technext.asia/odoo/vietnam — Vietnam Circular 99, SInvoice, 01/GTGT: For SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, connected to your current system by API, batch or flat file.
 - https://technext.asia/solutions/enterprise — Multi-Company Accounting: One Group, One System: Run every company in your group on one system, one entity at a time, starting with BIR CAS. 90+ enterprise clients, 25+ countries. Written quote.
 - https://technext.asia/solutions/odoo-erp — Business System Philippines: Start With BIR CAS Today: For SMEs in the Philippines. Start with Accounting and your BIR CAS set-up today, add apps later. 142 projects delivered, written quote.
 
