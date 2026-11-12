@@ -303,7 +303,7 @@ IND = {
             ("How is access to data controlled in Odoo?", "Access rights limit each role to the records it needs, and TechNext sets them up with you. Clinical notes belong in your EMR, not in Odoo."),
             ("Can Odoo handle several clinic branches?", "Yes. Each branch can have its own stock locations, rosters and P&amp;L in one database, or its own company for separate legal entities."),
         ],
-        "reading": ["blog/what-is-erp.html", "blog/signs-you-have-outgrown-spreadsheets.html"],
+        "reading": ["blog/signs-you-have-outgrown-spreadsheets.html"],
     },
 
     # ------------------------------------------------------------------ TRAVEL
@@ -357,7 +357,7 @@ IND = {
             ("Does Odoo replace a GDS or booking engine?", "No. Odoo manages enquiries, quotations, suppliers, payments and accounting. Airline and hotel inventory still comes from your booking tools, and TechNext can connect them where an API exists."),
             ("Where does TechNext start with a travel business?", "With one recent booking, end to end: enquiry, quotation, deposit, supplier bookings, payments and margin."),
         ],
-        "reading": ["blog/how-an-odoo-implementation-works.html", "blog/what-is-erp.html"],
+        "reading": ["blog/how-an-odoo-implementation-works.html"],
     },
 
     # ------------------------------------------------------------------ ECOMMERCE

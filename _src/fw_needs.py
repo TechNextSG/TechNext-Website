@@ -20,7 +20,7 @@ Never "BIR-accredited", "compliant" or "certified" for software; no prices; Odoo
 """
 
 # 28 Oct 2026, owner: no more free website offer.
-OFFER = "Keep your current system: we plug Odoo in beside it, with a written quote first. The adviser meeting has no charge."
+OFFER = "Keep your current system: we connect it by API, daily batch sync or flat file, and pricing scales with your branch network and integration complexity. The readiness call has no charge."
 
 NEEDS = [
     dict(key="cas", chip="CAS / CBA", option="CAS / CBA registration",

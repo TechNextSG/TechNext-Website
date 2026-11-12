@@ -979,14 +979,14 @@ document.addEventListener('click', function (e) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', check); else check();
 })();
 
-/* BIR notice bar: the close button hides it for 7 days (the head gate reads the same key) */
+/* Deadline banner (12 Nov 2026): days left to each BIR deadline, counted in Manila time (UTC+8) */
 (function () {
-  var x = document.querySelector('[data-bn-x]');
-  if (!x) return;
-  x.addEventListener('click', function () {
-    try { localStorage.setItem('tn_bn_off2', String(Date.now())); } catch (e) {}
-    document.documentElement.classList.add('bn-off');
-    var m = document.getElementById('main'); if (m && m.focus) { m.setAttribute('tabindex', '-1'); m.focus({ preventScroll: true }); }
+  var els = document.querySelectorAll('.bn-cd[data-bn-due]');
+  if (!els.length) return;
+  var now = Date.now() + 8 * 3600e3, today = Math.floor(now / 864e5);
+  els.forEach(function (el) {
+    var d = Math.floor(Date.parse(el.getAttribute('data-bn-due') + 'T00:00:00Z') / 864e5) - today;
+    el.textContent = d > 1 ? d + ' days left' : d === 1 ? '1 day left' : d === 0 ? 'today' : '';
   });
 })();
 
@@ -1086,4 +1086,82 @@ document.addEventListener('click', function (e) {
     var s = f.querySelector('[name="source"]');
     window.tnTrack('form_start', { form_id: f.id || '', form_source: s ? s.value : '', form_page: page });
   });
+})();
+
+/* 2-step forms (12 Nov 2026 overhaul brief): step 1 roadblock, step 2 contact. Sending is the form[data-endpoint] code above. */
+(function () {
+  'use strict';
+  /* ---------- 2-step form */
+  document.querySelectorAll('form[data-hv3-steps]').forEach(function (form) {
+    var s1 = form.querySelector('[data-step="1"]'), s2 = form.querySelector('[data-step="2"]');
+    var label = form.querySelector('[data-step-label]'), status = form.querySelector('.form-status');
+    var show = function (n) {
+      s1.hidden = n !== 1; s2.hidden = n !== 2;
+      form.setAttribute('data-at', String(n));
+      if (label) label.textContent = 'Step ' + n + ' of 2';
+      if (status) { status.textContent = ''; status.className = 'form-status'; }
+      var first = (n === 1 ? s1 : s2).querySelector(n === 1 ? 'input:checked, input' : 'input:not([type=hidden])');
+      if (first) first.focus({ preventScroll: true });
+    };
+    form.setAttribute('data-at', '1');
+    form.querySelector('[data-next]').addEventListener('click', function () {
+      if (!form.querySelector('input[name=bir_pain]:checked')) {
+        if (status) { status.className = 'form-status is-err'; status.textContent = 'Please pick your main roadblock.'; }
+        return;
+      }
+      show(2);
+    });
+    form.querySelector('[data-back]').addEventListener('click', function () { show(1); });
+    // picking an option moves on by itself after a short beat (keyboard arrows only change the choice)
+    form.querySelectorAll('input[name=bir_pain]').forEach(function (r) {
+      r.addEventListener('click', function (e) { if (e.detail > 0) setTimeout(function () { show(2); }, 260); });
+    });
+    // Enter in step 1 goes to step 2 instead of submitting a half-empty form
+    s1.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); form.querySelector('[data-next]').click(); }
+    });
+    // ?roadblock=... or a link to #readiness from the deadline banner can pre-pick an option
+    var want = new URLSearchParams(location.search).get('roadblock');
+    if (want) form.querySelectorAll('input[name=bir_pain]').forEach(function (r) { if (r.value.toLowerCase().indexOf(want.toLowerCase()) >= 0) r.checked = true; });
+  });
+})();
+
+/* Gated guide download (12 Nov 2026 overhaul plan: "capture the email first"). Any [data-guide-gate] link opens the
+   #guide-gate form; when the lead is sent (site.js adds .is-sent) the PDF downloads. A visitor who already sent it
+   downloads straight away next time. The link keeps its href, so it still works without JavaScript. */
+(function () {
+  'use strict';
+  var box = document.getElementById('guide-gate'), ov = document.querySelector('.gg-overlay');
+  if (!box) return;
+  var form = box.querySelector('form'), last = null, KEY = 'tn_guide_ok';
+  function ok() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function grab() { var a = box.querySelector('[data-gg-file]'); if (a) a.click(); }
+  function open(from) {
+    last = from; box.hidden = false; ov.hidden = false;
+    requestAnimationFrame(function () { box.classList.add('is-open'); ov.classList.add('is-open'); });
+    document.documentElement.classList.add('gg-on');
+    var f = box.querySelector('#gg-email'); if (f) setTimeout(function () { f.focus(); }, 60);
+  }
+  function close() {
+    box.classList.remove('is-open'); ov.classList.remove('is-open');
+    document.documentElement.classList.remove('gg-on');
+    setTimeout(function () { box.hidden = true; ov.hidden = true; }, 200);
+    if (last && last.focus) last.focus({ preventScroll: true });
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-guide-gate]');
+    if (!a) return;
+    if (ok()) return;                       // already shared their details: plain download
+    e.preventDefault(); open(a);
+  });
+  box.addEventListener('click', function (e) { if (e.target.closest('[data-gg-close]')) close(); });
+  ov.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+  new MutationObserver(function () {
+    if (form.classList.contains('is-sent') && !form.dataset.ggDone) {
+      form.dataset.ggDone = '1';
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      grab();
+    }
+  }).observe(form, { attributes: true, attributeFilter: ['class'] });
 })();

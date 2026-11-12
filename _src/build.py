@@ -177,6 +177,8 @@ def nav_html(active: str) -> str:
                          f'<span class="nb-bg" aria-hidden="true"></span>{NEXI_FACE}<span class="nb-txt">{it["label"]}</span></a></li>')
             continue
         if "columns" not in it:
+            if it.get("hl"):   # 12 Nov 2026: the CPA Partner Program is highlighted in the header
+                cls += " nav-item--hl"
             items.append(f'<li class="{cls}"><a class="nav-link" href="{{{{ROOT}}}}{it["href"]}">{it["label"]}</a></li>')
             continue
         cols = []
@@ -223,7 +225,7 @@ def mobile_nav_html() -> str:
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
     out.append(f'''
 <div class="mnav-cta">
-  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>{{{{icon:calendar}}}} Set up a meeting</a>
+  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>{{{{icon:calendar}}}} Book a technical readiness call</a>
   <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}services-catalogue" target="_blank" rel="noopener">{{{{icon:book}}}} Services catalogue</a>
 </div>
 <div class="mnav-contact">
@@ -243,46 +245,69 @@ def talk_panel_html() -> str:
     <button class="icon-btn" type="button" data-talk-close aria-label="Close">{{{{icon:x}}}}</button>
   </div>
   <div class="talk-body">
-    <h2 id="talk-title">Tell us what slows you down.</h2>
+    <h2 id="talk-title">Book your technical call in two steps.</h2>
     <p class="talk-lead">We reply from {c["sales_email"]}.</p>
 
-    <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
+    <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}" data-hv3-steps>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="Let's Talk panel">
-      <div class="form-row">
-        <div class="field"><label for="tf-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com"></div>
-        <div class="field"><label for="tf-phone">Mobile number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" title="A number we can call, with at least 7 digits"></div>
-      </div>
-      <div class="form-row">
-        <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name"></div>
-        <div class="field"><label for="tf-company">Company name <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
-      </div>
-      <div class="field">
-        <label for="tf-topic">I'm interested in</label>
-        <select id="tf-topic" name="topic" required>
-          <option value="">Choose one</option>
-          <option>Connect Odoo to our current system</option>
-          <option>BIR CAS Consultation</option>
-          <option>Odoo Accounting</option>
-          <option>Odoo Sales &amp; CRM</option>
-          <option>Odoo Inventory</option>
-          <option>Full Odoo implementation</option>
-          <option>Odoo training or support</option>
-          <option>Something else</option>
-        </select>
-      </div>
-      <div class="field"><label for="tf-msg">Message</label><textarea id="tf-msg" name="message" rows="4" required></textarea></div>
-      <div class="form-foot">
-        <button class="btn btn-primary" type="submit"><span class="btn-label">Send inquiry</span><span class="btn-busy" aria-hidden="true"></span></button>
-        <a class="btn-link" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="talk_prefer_meeting">Prefer to talk it through? Set up a meeting {{{{icon:arrow}}}}</a>
-      </div>
+      <p class="hv3-stepnum"><span data-step-label>Step 1 of 2</span><i class="hv3-prog"><i></i></i></p>
+      <fieldset class="hv3-fs" data-step="1">
+        <legend><h3>What is your primary roadblock?</h3></legend>
+        <div class="hv3-opts">
+          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Jan 30 ORUS Deadline" required data-missing="Please pick your main roadblock."><span>{{{{icon:calendar}}}}<b>Jan 30 ORUS Deadline</b><small>2026 computerised books</small></span></label>
+          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Dec 31 E-Invoicing"><span>{{{{icon:send}}}}<b>Dec 31 E-Invoicing</b><small>EIS mandate</small></span></label>
+          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Quarter-End Automation"><span>{{{{icon:refresh}}}}<b>Quarter-End Automation</b><small>2307, SLSP, SAWT, QAP</small></span></label>
+        </div>
+        <button class="btn btn-primary btn-lg hv3-next" type="button" data-next>Next Step {{{{icon:arrow}}}}</button>
+      </fieldset>
+      <fieldset class="hv3-fs" data-step="2" hidden>
+        <legend><h3>Where should we send your custom blueprint?</h3></legend>
+        <div class="form-row">
+          <div class="field"><label for="tf-email">Work Email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-missing="Please add your work email."></div>
+          <div class="field"><label for="tf-phone">Mobile Number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" data-missing="Please add your mobile number." data-err="Please enter a number we can call, with at least 7 digits."></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
+          <div class="field"><label for="tf-company">Company <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
+        </div>
+        <div class="form-foot hv3-foot">
+          <button class="btn btn-ghost hv3-back" type="button" data-back>Back</button>
+          <button class="btn btn-primary" type="submit"><span class="btn-label">Secure My Technical Call {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>
+        </div>
+      </fieldset>
+      <p class="talk-book"><a class="btn-link" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="talk_prefer_meeting">Rather pick a time yourself? Book a Technical Readiness Call {{{{icon:arrow}}}}</a></p>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
   <div class="talk-foot">
     <span class="talk-ci">{{{{icon:pin}}}} {c["hubs"]}</span>
   </div>
-</aside>'''
+</aside>
+<div class="gg-overlay" data-gg-close hidden></div>
+<div class="gg" id="guide-gate" role="dialog" aria-modal="true" aria-labelledby="gg-h" hidden>
+  <button class="icon-btn gg-x" type="button" data-gg-close aria-label="Close">{{{{icon:x}}}}</button>
+  <p class="gg-k">{{{{icon:file}}}} 2027 BIR Audit Guide · PDF · 5 pages</p>
+  <h2 id="gg-h">Where should we send your guide?</h2>
+  <p class="gg-lead">Four details and the download starts. The eLA rules, the 10-day document rule, what examiners ask for, and a routine for audit requests.</p>
+  <form class="form gg-form" id="gg-form" novalidate data-endpoint="{S.FORM_ENDPOINT}">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="source" value="Audit guide download">
+    <input type="hidden" name="message" value="2027 BIR Audit Guide (PDF)">
+    <div class="form-row">
+      <div class="field"><label for="gg-email">Work Email <span class="req" aria-hidden="true">*</span></label><input id="gg-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-missing="Please add your work email."></div>
+      <div class="field"><label for="gg-phone">Mobile Number <span class="req" aria-hidden="true">*</span></label><input id="gg-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" data-missing="Please add your mobile number." data-err="Please enter a number we can call, with at least 7 digits."></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label for="gg-name">Name <span class="req" aria-hidden="true">*</span></label><input id="gg-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
+      <div class="field"><label for="gg-company">Company <span class="req" aria-hidden="true">*</span></label><input id="gg-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
+    </div>
+    <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Download the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
+    <p class="form-status" role="status" aria-live="polite"></p>
+    <div class="form-sent"><h3>Your download has started.</h3><p>If it didn't, <a href="{{{{ROOT}}}}assets/docs/technext-2027-bir-audit-guide.pdf" download="TechNext 2027 BIR Audit Guide.pdf" data-gg-file>download the guide here</a>. Want to walk through it with an engineer? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a Technical Readiness Call</a>.</p></div>
+    <p class="small muted gg-privacy">Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
+  </form>
+</div>'''
 
 
 LAYOUT = '''<!doctype html>
@@ -319,7 +344,6 @@ LAYOUT = '''<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" media="print" data-defer>
 <link rel="stylesheet" href="{ROOT}assets/css/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/stage.css?v={ASSET_V}">
-<script>try{if(Date.now()-(+localStorage.getItem('tn_bn_off2')||0)<6048e5)document.documentElement.classList.add('bn-off')}catch(e){}</script>
 {INTRO_HEAD}{HEAD_EXTRA}
 <link rel="stylesheet" href="{ROOT}assets/css/buttons.css?v={ASSET_V}">
 <link rel="stylesheet" href="{ROOT}assets/css/icon-motion.css?v={ASSET_V}">
@@ -330,9 +354,9 @@ LAYOUT = '''<!doctype html>
 <body class="{BODY_CLASS}">
 {TAGS_BODY}
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
-<div class="bn" role="region" aria-label="BIR notice"><div class="container bn-in"><p><b>BIR notice</b><span class="bn-long">CAS and CBA users register their 2026 computerised books online through ORUS by 30 January 2027 (calendar-year taxpayers).</span><span class="bn-short">Computerised books: register in ORUS by 30 Jan 2027.</span></p><a class="bn-link" href="{ROOT}bir-cas.html">CAS set-up in Odoo<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><button class="bn-x" type="button" data-bn-x aria-label="Hide the BIR notice"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
 
 <header class="header" data-header>
+<div class="bn bn--dl" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadlines</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i><span class="bn-sep" aria-hidden="true">|</span>2026 Computerized Books in ORUS by <strong>Jan 30, 2027</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span><span class="bn-short">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i> · ORUS <strong>Jan 30</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
   <div class="container header-inner">
     <a class="brand" href="{ROOT}index.html" aria-label="TechNext — home">
       <img src="{ROOT}assets/img/logo-horizontal.png" alt="TechNext" width="170" height="34">
@@ -342,7 +366,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet aria-label="Set up a meeting (opens our booking page)">{{icon:calendar}}<span>Set up a meeting</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="header_book_call" aria-label="Book a technical readiness call (opens our appointment booking page)">{{icon:calendar}}<span>Book a readiness call</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -363,7 +387,7 @@ LAYOUT = '''<!doctype html>
 <footer class="footer">
   <div class="container footer-inner">
     <span>© {YEAR} {LEGAL} All rights reserved.</span>
-    <nav aria-label="Footer"><a href="{ROOT}company.html">About</a><a href="{ROOT}blog.html">Blog</a><a href="{ROOT}services-catalogue" target="_blank" rel="noopener">Services catalogue</a><a href="{ROOT}nexi-explains.html">Nexi Explains</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
+    <nav aria-label="Footer"><a href="{ROOT}bir-cas.html">BIR CAS set-up</a><a href="{ROOT}bir-e-invoicing.html">E-invoicing (EIS)</a><a href="{ROOT}odoo/integration.html">Integration</a><a href="{ROOT}blog.html">Compliance blog</a><a href="{ROOT}company.html">About</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
 </footer>
 
@@ -533,7 +557,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             # several unrelated companies share the name (technext.ng, TechNext Inc. in the US, Technext Bangladesh...)
             "disambiguatingDescription": "TechNext Pte. Ltd. (technext.asia, UEN " + c["uen"] + "): the BIR CAS set-up partner "
                                          "headquartered in Singapore with its main team in Taguig City, for SMEs: "
-                                         "a plug-in beside the system a business already runs.",
+                                         "a compliance reporting plug-in connected to the system a business already runs.",
             "slogan": "Keep your system. Add a plug-in for BIR CAS.",
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
                 {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "provider": {"@id": org_id},
@@ -652,6 +676,10 @@ NXE_IMG = "{{ROOT}}assets/img/nexi-explains/"
 # drawn cards (Season 2 has no thumbnails yet): the Nexi renders' sizes at 520 px tall
 NXE_POSE_W = {"hello": 432, "wow": 347, "love": 336, "celebrate": 530, "think": 375, "point-left": 509, "jump": 456, "clap": 347}
 NXE_PAGE_LABELS = {"nexi.html": "Chat with Nexi", "odoo/apps.html": "All Odoo apps", "quotation.html": "Set up a meeting",
+    # pages that left the header menu in the 12 Nov 2026 overhaul keep their old link labels here
+    "solutions/odoo-erp.html": "Full Odoo Implementation", "odoo/erp-system.html": "Odoo Customisation",
+    "odoo/discovery.html": "Odoo Discovery", "odoo/training.html": "Odoo Training", "odoo/support.html": "Odoo Support",
+    "odoo/crm-development.html": "CRM", "employee-hub.html": "Team Directory", "odoo/integration.html": "Odoo as a Plug-in",
 }
 
 
@@ -1062,7 +1090,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
     <div class="sec-head reveal">
       
       <h2>A team that plugs Odoo into your system.</h2>
-      <p class="lead">Keep the system your team already runs. Our own experts plug Odoo in beside it for accounting and BIR requirements, quote it in writing first, and stay with you after go-live.</p>
+      <p class="lead">Your current POS, accounting software or legacy ERP stays. We connect it by API, daily batch sync or flat-file upload, map every transaction to the right ATC, and generate matched CAS journals, 2307s and SLSP DAT files. Our own engineers stay with you after go-live.</p>
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
@@ -1083,40 +1111,28 @@ def client_wall_html() -> str:
 
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 5 Day Express + the NextSprint method (owner 9 Nov 2026: "fix technext website branding 5 day express. add methodology").
+# 5 Day Express (12 Nov 2026 overhaul brief: the NextSprint / Agile / Lean / Six Sigma section is gone sitewide) (owner 9 Nov 2026: "fix technext website branding 5 day express. add methodology").
 # The 5 Day Express is TechNext's lead offer: a five-working-day Odoo set-up sprint for BIR CAS. Day flow fixed by the
 # owner 29 Oct 2026 (Before Day 1: call + process map; Day 1 set up, 2 BIR settings, 3 data, 4 test, 5 hand-over).
-# NextSprint method = Agile + Lean + Six Sigma (no TM until the owner confirms one). Never "BIR-compliant in 5 days" and
+# Never "BIR-compliant in 5 days" and
 # no go-live or registration guarantee: the sprint is the Odoo set-up; the RDO decides the registration.
 # Token {{EXPRESS}} renders both sections and adds assets/css/express.css to the page head.
 EXPRESS_DAYS = [   # 10 Nov 2026: Sky wants a teaser, owner chose the 6-stop rail with Day 2-5 as questions (icon None = "?" node)
     ("search", "Before Day 1", "A 15 to 20 minute meeting",
      "A BIR Compliance Expert looks at how you record <strong>sales, bills and payments</strong> today."),
     ("plug", "Day 1", "Set up",
-     "Your company details and chart of accounts, <strong>set up beside your current software</strong>."),
+     "Your chart of accounts and ATC mapping, <strong>connected to your current software by API, batch sync or flat file</strong>."),
     (None, "Day 2", "Your BIR set-up?", "We show you in your free planning meeting."),
     (None, "Day 3", "Your records?", "We show you in your free planning meeting."),
     (None, "Day 4", "Is it right?", "We show you in your free planning meeting."),
     (None, "Day 5", "Ready to go?", "We show you in your free planning meeting.*"),
 ]
-NEXTSPRINT = [   # 10 Nov 2026 (Sky): Agile / Lean / Six Sigma are internal; the client sees who does the work
-    ("receipt", "BIR Compliance Experts", "BIR CAS from the first day",
-     "They know the reports your books must produce: books of accounts, 2307, SLSP, SAWT and QAP."),
-    ("refresh", "Accounting workflow experts", "Your process, not ours",
-     "They map how you record sales, bills and payments today, so your month-end keeps working."),
-    ("shield", "Our own team", "142 projects delivered",
-     "Set up by our own team in Taguig City. No hand-off between the meeting and the work."),
-]
-
 
 def express_html() -> str:
     days = "".join(
         (f'<li class="x5-day"><span class="x5-node">{{{{flat:{ic}}}}}</span>' if ic else
          '<li class="x5-day x5-day--q"><span class="x5-node x5-node--q" aria-hidden="true">?</span>')
         + f'<span class="x5-when">{when}</span><h3>{h}</h3><p>{p}</p></li>' for ic, when, h, p in EXPRESS_DAYS)
-    pillars = "".join(
-        f'<div class="x5-pillar"><span class="x5-pic">{{{{flat:{ic}}}}}</span><span class="x5-tag">{tag}</span>'
-        f'<h3>{h}</h3><p>{p}</p></div>' for ic, tag, h, p in NEXTSPRINT)
     return f'''<section class="x5-sec" id="express" aria-labelledby="xp5-h">
   <div class="container">
     <div class="x5-head">
@@ -1125,21 +1141,7 @@ def express_html() -> str:
       <p class="x5-intro">Built for accountants and finance teams with a CAS deadline. You keep your current accounting software; nothing is swapped out while we work.</p>
     </div>
     <ol class="x5-days" aria-label="Your 5 Day Express, day by day">{days}</ol>
-    <p class="x5-note">*Timing depends on your scope and on your data being ready. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
-  </div>
-</section>
-
-<section class="x5-sec x5-sec--method" id="nextsprint" aria-labelledby="xp5-m-h">
-  <div class="container">
-    <div class="x5-split">
-      <div class="x5-head">
-        <p class="x5-kicker">Our methodology</p>
-        <h2 id="xp5-m-h"><span class="hl">NextSprint</span> method</h2>
-        <p class="x5-intro">Our own way of fitting a BIR CAS set-up into days, not months. We walk you through it in your free planning meeting.</p>
-        <div class="x5-act"><a class="btn btn-primary btn-lg" href="{{{{ROOT}}}}get-started.html#start">Get my 5 Day plan {{{{icon:arrow}}}}</a></div>
-      </div>
-      <div class="x5-pillars">{pillars}</div>
-    </div>
+    <p class="x5-note">*Standard 5-day technical deployments available for clean, reconciled data ledgers. Pricing scales with your branch network and integration complexity. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
   </div>
 </section>'''
 
@@ -1901,7 +1903,7 @@ def app_page(mod: str) -> tuple:
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
-        desc_meta += " Book a free 15 to 20 minute meeting."
+        desc_meta += " Book a technical readiness call."
     desc_meta = APP_DESCS.get(mod, desc_meta)
     desc_meta = re.sub(r"\s*(from )?inside Odoo", "", desc_meta).replace("on Odoo data", "on your data").replace("from Odoo 20", "from version 20")   # owner 10 Nov: no Odoo/ERP in keywording
     h1name = name.replace(" — ", " (") + ")" if " — " in name else name
@@ -2226,9 +2228,9 @@ def article_html(meta: dict, body: str) -> str:
     <aside class="post-toc" aria-label="On this page" data-blg-toc><p class="post-toc-h">On this page</p><ol>{toc_html}</ol></aside>
     <div class="prose">
 {body}
-      {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<div class="post-about">
+      {BIR_SERVICES + bir_series_html(meta["out"]) if art["cat"] == "bir" else ""}<aside class="post-soft" aria-label="Download"><span class="post-soft-ic">{{{{icon:file}}}}</span><div class="post-soft-tx"><p class="post-soft-h">Download our 2027 BIR Audit Guide (PDF)</p><p>The eLA rules, the 10-day document rule, how long to keep records, what examiners ask for, and a routine for audit requests. 5 pages.</p></div><a class="btn btn-primary post-soft-btn" href="{{{{ROOT}}}}assets/docs/technext-2027-bir-audit-guide.pdf" download="TechNext 2027 BIR Audit Guide.pdf" data-guide-gate data-cta="blog_soft_audit_guide">Download the guide</a></aside><div class="post-about">
         <img src="{{{{ROOT}}}}assets/img/odoo-ready-partner.png" alt="Odoo Ready Partner" width="91" height="40">
-        <p><b>About TechNext.</b> TechNext Pte. Ltd. is an affordable Odoo partner for SMEs: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
+        <p><b>About TechNext.</b> TechNext Pte. Ltd. is a BIR compliance and integration partner for accounting firms and finance teams: an Odoo Ready Partner headquartered in Singapore, with its main development and consulting hub in Taguig City, Metro Manila. We plug Odoo into the system you already run, and our own experts implement it end to end (discovery, configuration, data migration, training and support), set up with the Philippine (BIR) and Singapore (GST) localisations, for clients in 25+ countries. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. <a href="{{{{ROOT}}}}company.html">About us</a> · <a href="{{{{ROOT}}}}quotation.html">Set up a meeting</a></p>
       </div>
       <p class="actions post-act"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting {{{{icon:arrow}}}}</a><a class="btn btn-ghost" href="{{{{ROOT}}}}bir-cas.html">How BIR CAS set-up works {{{{icon:arrow}}}}</a></p>
     </div>
@@ -2375,17 +2377,16 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # The header and the mobile menu keep "Set up a meeting".
 # 12 Nov 2026 (copy audit): "5 Day Express" labels only on BIR CAS pages and always with the "*" qualifier (the footnote is
 # added below when a page does not already carry it); other pages get Odoo-plan labels.
-HOOKS = {
-    "cas": ["Start my 5 Day Express*", "Get my 5 Day plan*", "Talk to an Odoo expert", "Plug Odoo into my system"],
-    "einv": ["Plan my e-invoicing set-up", "Talk to an Odoo expert", "Get my Odoo plan", "Book my free 15 to 20 min meeting"],
-    "app": ["See it on my data", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
-    "gen": ["Book my free 15 to 20 min meeting", "Talk to an Odoo expert", "Get my Odoo plan", "Plug Odoo into my system"],
+HOOKS = {   # 12 Nov 2026 overhaul brief: every page leads with "Book a Technical Readiness Call"
+    "cas": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a compliance engineer", "Map my data to BIR outputs"],
+    "einv": ["Book a Technical Readiness Call", "Plan my EIS integration", "Talk to a compliance engineer", "Get my custom blueprint"],
+    "app": ["Book a Technical Readiness Call", "See it on my data", "Talk to a compliance engineer", "Get my custom blueprint"],
+    "gen": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a compliance engineer", "Map my data to BIR outputs"],
 }
-HOOK_LAST = {"cas": "Start my 5 Day Express*", "einv": "Start my e-invoicing plan today", "app": "Plan my Odoo set-up",
-             "gen": "Plan my Odoo set-up today"}
+HOOK_LAST = {k: "Book a Technical Readiness Call" for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
-           '*5 Day Express: timing depends on your scope and on your data. Bigger scopes run as extra sprints, written into '
-           'your quote. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
+           '*Standard 5-day technical deployments available for clean, reconciled data ledgers. Pricing scales with your branch '
+           'network and integration complexity. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
 
 
 def _hook_topic(out_rel: str) -> str:
@@ -2407,7 +2408,7 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         return f'<a{attrs} href="{BOOK_URL}" target="_blank" rel="noopener" data-meet>{m.group(2)}'
     html = _MEET_A.sub(fix, html)
     i, j = html.find("<main"), html.rfind("</main>")
-    if i < 0 or j < 0 or out_rel == "index.html":   # 11 Nov 2026: the reverted home keeps the plain "Set up a meeting" label
+    if i < 0 or j < 0:   # 12 Nov 2026: the home is included again (its expert buttons become "Book a call with <name>")
         return html
     main = html[i:j]
     topic = _hook_topic(out_rel)
@@ -2723,7 +2724,7 @@ def write_llms():
     lines = [
         "# TechNext (TechNext Pte. Ltd., Singapore)", "",
         f"Last updated: {date.today().isoformat()}", "",
-        "> TechNext Pte. Ltd. is an affordable Odoo partner for SMEs: a Singapore-based Odoo Ready Partner with its main team in "
+        "> TechNext Pte. Ltd. is a BIR compliance and integration partner: a Singapore-based Odoo Ready Partner with its main team in "
         "Taguig City. We plug Odoo into the company system a business already runs (accounting software, POS, spreadsheets "
         "or an in-house system), so it does not have to replace it, starting with accounting and BIR. Clients can start with Odoo "
         "Accounting only and get a written quote before any work starts. In the Philippines we set Odoo up "
@@ -2742,7 +2743,7 @@ def write_llms():
         "Technext Limited (Bangladesh), TechNext AB (Sweden), technext.ai, or the TechNExt festival (UK)",
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
         "- 142 projects delivered; 90+ enterprise clients; clients in 25+ countries",
-        "- Positioning: affordable Odoo partner for SMEs; Odoo as a plug-in to the system a business already runs; accounting and BIR CAS first; our own experts implement",
+        "- Positioning: BIR compliance and integration partner for CPAs, accounting firms and finance teams; Odoo as a reporting plug-in connected to the system a business already runs (API, daily batch sync or flat file); accounting and BIR CAS first; our own experts implement",
         "- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)",
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
@@ -2753,10 +2754,10 @@ def write_llms():
         "",
         "## Quick answers",
         "",
-        "- Who is an affordable Odoo partner for SMEs in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
+        "- Who sets up BIR CAS reporting for accounting firms in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
         "SMEs can start with Odoo Accounting only, keep their current system, and get a written quote before any work starts. "
         f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}#start",
-        "- Can we add Odoo without replacing our current accounting software, ERP or in-house system? Yes. TechNext plugs Odoo in beside the "
+        "- Can we add Odoo without replacing our current accounting software, ERP or in-house system? Yes. TechNext connects Odoo to the "
         "system a business already runs and brings in the invoices, bills and payments the books need, so Odoo produces the Books of Accounts "
         f"and BIR forms. Details: {S.SITE_URL}odoo/integration",
         "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main hub in Taguig City, "
@@ -2796,7 +2797,7 @@ def write_llms():
         "- What is the difference between SAWT and QAP? The SAWT lists tax customers withheld from you (from the 2307s you received); the QAP lists tax "
         "you withheld from suppliers, filed with the 1601-EQ or 1601-FQ by the last day of the month after the quarter. Odoo exports both as DAT files. "
         f"Guide: {S.SITE_URL}blog/bir-sawt-qap-alphalist-odoo",
-        "- What is the BIR e-invoicing deadline? Taxpayers covered by RR 26-2025 must issue electronic invoices on or before 31 December 2026 "
+        "- How does TechNext handle the BIR e-invoicing deadline? Taxpayers covered by RR 26-2025 must issue electronic invoices on or before 31 December 2026 "
         "(RMC 98-2026 kept the date); they need a Permit to Issue (PTI) first, then EIS Certification within six months. Micro taxpayers are exempt. "
         f"{S.SITE_URL}bir-e-invoicing",
         "- Who is an Odoo partner in Singapore? TechNext Pte. Ltd. (UEN 202699888G), an Odoo Ready Partner headquartered at 261 Waterloo Street, "
@@ -2806,13 +2807,13 @@ def write_llms():
         "S$200,000 or less from 1 April 2028, S$1 million or less from 1 April 2029, S$4 million or less from 1 April 2030, above S$4 million from "
         f"1 April 2031. Guide: {S.SITE_URL}blog/invoicenow-singapore-gst-timeline",
         "- How much does an Odoo implementation cost? TechNext gives a written quote before any work starts, scoped to the apps, data and "
-        "integrations needed; starting with Odoo Accounting only keeps it affordable for an SME. Odoo's own subscription is priced per user per month "
+        "integrations needed: pricing scales with the branch network and integration complexity. Odoo's own subscription is priced per user per month "
         f"and paid to Odoo. Set up a meeting: {S.COMPANY['meeting_link']}",
         "- How long does an Odoo implementation take? It depends on the apps, data, entities and integrations; TechNext sets the timeline in "
         f"discovery and writes it into the quote. Steps: {S.SITE_URL}blog/how-an-odoo-implementation-works",
         "- What is Odoo? Odoo is a suite of business apps (accounting, invoicing, sales, CRM, inventory, POS, HR, payroll and more) that share one "
-        "database, so a company can start with one app and add others later. TechNext implements it as a plug-in beside the system a business "
-        f"already runs. Guide: {S.SITE_URL}blog/what-is-erp",
+        "database, so a company can start with one app and add others later. TechNext implements it as a reporting plug-in connected to the system a business "
+        f"already runs. Guide: {S.SITE_URL}odoo/integration",
         "",
         "## Key dates (Philippines and Singapore)",
         "",
@@ -2902,7 +2903,7 @@ def write_llms_full():
     out = ["# TechNext — full reference", "",
            f"Last updated: {date.today().isoformat()}", "",
            "> TechNext Pte. Ltd. (UEN " + c["uen"] + ") is an Odoo Ready Partner headquartered in Singapore, with its main development and "
-           "consulting hub in Taguig City, Metro Manila. It is an affordable Odoo partner for SMEs: it plugs Odoo into the system a business "
+           "consulting hub in Taguig City, Metro Manila. It is a BIR compliance and integration partner: it connects Odoo to the system a business "
            "already runs (accounting software, POS or in-house), starting with accounting, gives a written quote first, "
            "sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, "
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "

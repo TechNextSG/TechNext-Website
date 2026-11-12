@@ -5,8 +5,8 @@
 SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
-ORG_DESC = ("TechNext is an affordable BIR CAS set-up partner for SMEs, headquartered in Singapore, with its main "
-            "consulting and development team in Taguig City, Metro Manila. We add a plug-in beside the company system a business already runs "
+ORG_DESC = ("TechNext is a BIR compliance and integration partner for accounting firms and finance teams, headquartered in Singapore, with its main "
+            "consulting and development team in Taguig City, Metro Manila. We connect a compliance reporting plug-in to the system a business already runs "
             "(accounting software, POS, spreadsheets or in-house systems), so it does not have to replace it, and set it up for "
             "accounting and BIR requirements first: the books for the business's own Computerized Accounting System (CAS) or CBA application, "
             "2307, SLSP, SAWT, QAP, 2550Q and e-invoicing planning. In Singapore: GST and InvoiceNow. Clients start with Accounting "
@@ -27,7 +27,7 @@ CLIENTS = [
     ("HDH AG", "Dental &amp; medical OEM", "Switzerland"),
     ("Saymara B. Ryon", "Holistic coaching", "Romania"),
 ]
-DEFAULT_DESC = ("TechNext is an affordable Odoo partner for SMEs: we plug Odoo into the system you already run for accounting and "
+DEFAULT_DESC = ("TechNext is a BIR compliance and integration partner: we connect the system you already run to a compliance engine for "
                 "BIR requirements (CAS/CBA, 2307, SLSP, SAWT, QAP). Odoo Ready Partner, team in Taguig City.")
 
 # The four positioning pillars (used in structured data and the home "what we stand for" strip).
@@ -136,40 +136,34 @@ FORM_ENDPOINT = "/api/lead"
 # `href` values are site-root relative; build.py prefixes {{ROOT}}.
 # A link shows either a stroke `icon` or an official Odoo app icon via `odoo`.
 NAV = [
-    # 8 Nov 2026, owner: fewer pages, Odoo first, "Odoo as a plug-in to your existing company system". The AI, Marketing
-    # and Industries menus (and their pages) are gone; the header button is "Set up a meeting" (LAYOUT in build.py).
-    {"label": "BIR CAS", "id": "bir-cas", "href": "bir-cas.html"},
-    {"label": "E-Invoicing", "id": "bir-einv", "href": "bir-e-invoicing.html"},
+    # 12 Nov 2026 overhaul brief (owner's Google Docs "Complete Section-by-Section Overhaul Brief" + "Website & Blog Messaging
+    # Overhaul Plan"), labels exactly as the brief: Solutions | Resources | Company. "Partnerships: CPA Partner Program" is
+    # held back (owner 12 Nov: "dont push cpa partner program at the moment"). No marketing, social media or web design.
     {
-        "label": "Odoo", "id": "odoo",
+        "label": "Solutions", "id": "solutions",
         "columns": [
-            {"title": "Set up", "links": [
-                {"label": "Odoo as a Plug-in", "href": "odoo/integration.html", "icon": "wk-integration",
-                 "desc": "Keep your system. Odoo runs beside it."},
-                {"label": "Full Odoo Implementation", "href": "solutions/odoo-erp.html", "icon": "sol-erp",
-                 "desc": "Every Odoo app, when you are ready for it."},
-                {"label": "Multi-company Odoo", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
-                 "desc": "Groups, branches and several entities."},
-                {"label": "Odoo Customisation", "href": "odoo/erp-system.html", "odoo": "web_studio",
-                 "desc": "Fields, reports and workflows for you."},
+            {"title": "Solutions", "row": True, "links": [
+                {"label": "BIR CAS Set-Up", "href": "bir-cas.html", "icon": "receipt",
+                 "desc": "Matched CAS journals, 2307s and SLSP DAT files."},
+                {"label": "E-Invoicing (EIS)", "href": "bir-e-invoicing.html", "icon": "send",
+                 "desc": "Your infrastructure for the Dec 31 EIS mandate."},
+                {"label": "Multi-Company ERP", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
+                 "desc": "Head office view, sequenced branch series."},
+                {"label": "AI Financial Automation", "href": "odoo/apps/ai.html", "icon": "sol-ai",
+                 "desc": "Bill scanning and bank matching, fewer keystrokes."},
             ]},
-            {"title": "Odoo Apps", "href": "odoo/apps.html", "links": [
-                {"label": "Accounting", "href": "odoo/apps/accountant.html", "odoo": "accountant",
-                 "desc": "Books, BIR forms and bank feeds."},
-                {"label": "Sales", "href": "odoo/apps/sale.html", "odoo": "sale",
-                 "desc": "Quotes to orders to invoices."},
-                {"label": "Inventory", "href": "odoo/apps/stock.html", "odoo": "stock",
-                 "desc": "Stock, warehouses and deliveries."},
-                {"label": "CRM", "href": "odoo/crm-development.html", "odoo": "crm",
-                 "desc": "Pipelines built around how you sell."},
-            ]},
-            {"title": "Working with us", "links": [
-                {"label": "Odoo Discovery", "href": "odoo/discovery.html", "icon": "wk-discovery",
-                 "desc": "We map your process first."},
-                {"label": "Odoo Training", "href": "odoo/training.html", "icon": "wk-training",
-                 "desc": "Your team learns on your own data."},
-                {"label": "Odoo Support", "href": "odoo/support.html", "icon": "wk-support",
-                 "desc": "Help after go-live."},
+        ],
+    },
+    {
+        "label": "Resources", "id": "resources",
+        "columns": [
+            {"title": "Resources", "row": True, "links": [
+                {"label": "Compliance Blog", "href": "blog.html", "icon": "co-blog",
+                 "desc": "2307, SLSP, ATC codes and audits, in depth."},
+                {"label": "Tech Guides", "href": "odoo/integration.html", "icon": "graduation",
+                 "desc": "How legacy POS and ledgers feed the BIR reports."},
+                {"label": "Video Demos", "href": "nexi-explains.html", "icon": "camera",
+                 "desc": "Short walkthroughs of the system at work."},
             ]},
         ],
     },
@@ -177,12 +171,10 @@ NAV = [
         "label": "Company", "id": "company",
         "columns": [
             {"title": "Company", "row": True, "links": [
-                {"label": "About TechNext", "href": "company.html", "icon": "co-about",
-                 "desc": "Who we are and where to find us."},
-                {"label": "Team Directory", "href": "employee-hub.html", "icon": "co-team", "nofollow": True,
-                 "desc": "The people behind your Odoo."},
-                {"label": "Blog", "href": "blog.html", "icon": "co-blog",
-                 "desc": "BIR and Odoo, in plain language."},
+                {"label": "Our Experts", "href": "index.html#advisers", "icon": "co-team",
+                 "desc": "The compliance engineers who do the work."},
+                {"label": "Contact", "href": "index.html#readiness", "icon": "mail",
+                 "desc": "Book a technical readiness call."},
             ]},
         ],
     },
