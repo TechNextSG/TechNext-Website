@@ -45,7 +45,7 @@
 .cst-b:nth-child(6) { grid-column: span 6; }
 .cst-b:hover { transform: translateY(-3px); box-shadow: var(--fx-depth-h), inset 0 1px 0 #fff; }
 .cst-b h3 { margin: 0 0 10px; font: 800 22px/1.2 var(--font-display); color: var(--ink); letter-spacing: -.02em; }
-.cst-b p { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--body); max-width: 64ch; }
+.cst-b p { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--body); max-width: 40.38em; }
 .cst-apps { list-style: none; margin: 20px 0 0; padding: 18px 0 0; border-top: 1px solid var(--fx-line); display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .cst-apps li { display: inline-flex; align-items: center; gap: 8px; font: 650 14.5px/1 var(--font-body); color: var(--ink); }
 .cst-apps .oi { width: 22px; height: 22px; }

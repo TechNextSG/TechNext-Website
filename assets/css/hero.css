@@ -120,7 +120,7 @@
 .sc-row{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:44px;align-items:end}
 .si-stack .as-h1{font-size:clamp(2rem,3.25vw,2.95rem);margin-bottom:0}
 .si-stack .slide-tag{margin-bottom:16px}
-.sc-side .lead{font-size:1rem;line-height:1.55;max-width:54ch}
+.sc-side .lead{font-size:1rem;line-height:1.55;max-width:34.07em}
 .sc-side .actions{margin-top:16px;align-items:center}
 .pmap{position:relative;--lw:92px;--pt:18px;--pb:16px}
 .pm-scen{position:absolute;top:-17px;left:50%;transform:translateX(-50%);z-index:8;display:flex;gap:2px;padding:4px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 24px -16px rgba(31,31,61,.45)}

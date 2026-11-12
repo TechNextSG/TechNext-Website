@@ -245,7 +245,9 @@
     function coreTarget() { return coreT; }          // measured in size()
     function startRush(now) {
       landed = 0; root.classList.remove('is-live'); packets = [];
-      if (reduce) { rush = null; landed = apps.length; root.classList.add('is-live'); return; }
+      // phones (<=960px): the apps start in orbit, no fly-in. The fly-in scales them up to 3.4x, which made a late,
+      // oversized app icon the page's Largest Contentful Paint on phones (5.6 s on slow 4G, 12 Nov 2026 audit).
+      if (reduce || phone.matches) { rush = null; landed = apps.length; apps.forEach(function (a) { a.fly = null; a.landed = true; }); root.classList.add('is-live'); return; }
       var order = apps.slice().sort(function () { return Math.random() - .5; });
       var warp = [];
       for (var i = 0; i < 46; i++) warp.push({ a: rnd(0, TAU), r: rnd(.75, 1.25) * W, v: rnd(1.2, 2.1) * W, len: rnd(40, 120), w: rnd(.6, 1.8) });
@@ -502,6 +504,7 @@
         if (fxDirty) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, fx.width, fx.height); fxDirty = false; }   // size() used to clear it
         var now = performance.now();
         if (reduce) { startRush(now); layout(now, 0); return; }
+        if (phone.matches) { startRush(now); layout(now, 0); wake(); return; }   // phones: no fly-in (see startRush)
         // hold the apps off-stage until the camera has nearly settled, then rush them in (phones have no camera move)
         apps.forEach(function (a) { a.fly = null; a.landed = false; setOp(a, '0'); });
         startRush(now + (first ? 900 : phone.matches ? 260 : 1250));

@@ -25,7 +25,7 @@
   background: linear-gradient(135deg, #FFF8EC, #FFFDF8); border: 1px solid #F0D7A8; box-shadow: 0 18px 40px -30px rgba(166,107,0,.45), inset 0 1px 0 #fff; }
 .cas-fx .cs-notice > .ic { width: 28px; height: 28px; color: #9A5B00; margin-top: 2px; }
 .cas-fx .cs-notice h2 { margin: 0 0 6px; font: 800 1.15rem/1.3 var(--font-display); letter-spacing: -.01em; color: #5C3A00; }
-.cas-fx .cs-notice p { margin: 0; font-size: 15px; line-height: 1.65; color: #4A3410; max-width: 82ch; }
+.cas-fx .cs-notice p { margin: 0; font-size: 15px; line-height: 1.65; color: #4A3410; max-width: 51.73em; }
 
 /* ---------- CAS vs CBA */
 .cas-fx .cs-vs .bf-cov-t thead th:first-child { width: 18%; }
