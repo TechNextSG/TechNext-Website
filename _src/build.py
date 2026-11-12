@@ -2526,8 +2526,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
     if "{{CLIENT_WALL}}" in content:
         content = content.replace("{{CLIENT_WALL}}", client_wall_html())
     if "{{LANDER:" in content:   # 12 Nov 2026: campaign landing pages (_src/landers.py)
-        content = LP.tokens(content, advisor_cards_html(), express_html())
-        meta["head"] = meta.get("head", "") + '<link rel="stylesheet" href="{ROOT}assets/css/express.css?v={ASSET_V}">'
+        content = LP.tokens(content)   # the landers write their own experts and 5 Day Express line (12 Nov 2026)
     if "{{ADVISOR_CARDS}}" in content:
         content = content.replace("{{ADVISOR_CARDS}}", advisor_cards_html())
     if "{{ADVISOR_CARDS_HOME}}" in content:   # 11 Nov 2026: the same expert cards, TechNext-first heading (home only)
