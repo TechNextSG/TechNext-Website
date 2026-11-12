@@ -181,6 +181,8 @@ REMOVED = {
     "/odoo/ai-integration": "/odoo/integration",
     **{f"/industries/{p}": "/" for p in ("medical", "travel", "retail", "ecommerce", "construction", "fnb", "manufacturing", "health-wellness")},
     "/quotation": "/#start", "/nexi": "/", "/nexi-app": "/",
+    # 12 Nov 2026 messaging overhaul plan: generic "What is an ERP?" posts are deleted
+    "/blog/what-is-erp": "/blog",
 }
 
 

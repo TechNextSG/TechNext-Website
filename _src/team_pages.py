@@ -126,7 +126,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-proj-h">Selected projects.</h2><p class="lead">{n} implementations, migrations and builds {esc(first)} has delivered, end to end. Client names stay private.</p></div>
     <div class="tp-groups">{cards}</div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Book a call with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 '''
@@ -171,7 +171,7 @@ def page(p: dict, everyone: list) -> tuple:
   <div class="container">
     <div class="sec-head reveal"><h2 id="tp-skills-h">Skills.</h2><p class="lead">What {esc(first)} brings to your project, grouped by area.</p></div>
     <div class="tp-groups">{panels}</div>
-    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Set up a meeting with {esc(first)} {{{{icon:arrow}}}}</a></p>
+    <p class="sec-next reveal"><a class="btn btn-primary" href="{{{{ROOT}}}}get-started.html#start">Book a call with {esc(first)} {{{{icon:arrow}}}}</a></p>
   </div>
 </section>
 {projects}
@@ -282,7 +282,7 @@ def card_html(p: dict, k: int, ctx: str, profile: bool = True) -> str:
 def home_section_html(home: bool = False) -> str:
     """Home + ad-lander experts section (owner 8 Nov 2026: "use a different style of card showcasing experts").
     One wide spotlight card per expert: tall portrait, name and role, an "ask me about" line, three stats, the systems
-    they know (ties to the plug-in voice: we work beside the system you run) and a meeting button. Styles:
+    they know (ties to the plug-in voice: we connect to the system you run) and a meeting button. Styles:
     assets/css/experts.css. RJ is off the site; Neil and Jeric are the two experts (bir_rank 1-2)."""
     people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:2]
     cards = "".join(_expert_card(p, k) for k, p in enumerate(people))
@@ -299,7 +299,7 @@ def home_section_html(home: bool = False) -> str:
 # line per expert, three stats, the meeting button. No list of other software.
 EXPERT_EXTRA = {
     "Neil Matan": {"sum": "Neil has led ERP projects for 24 years, ten of them on Odoo, and has moved 80+ companies from discovery to go-live."},
-    "Jeric Bulayungan": {"sum": "Jeric is often your first call: listening to how your business runs today, then planning how Odoo fits in beside it.",
+    "Jeric Bulayungan": {"sum": "Jeric is often your first call: listening to how your business runs today, then planning how their data connects to the compliance engine.",
                          "stats": [("8+", "years in business software sales"), ("2016", "helping PH businesses since"), ("4", "years leading a sales team")]},
 }
 
@@ -318,7 +318,7 @@ def _expert_card(p: dict, k: int) -> str:
             f'<div class="xp-body"><p class="xp-role">{esc(p["role"])}</p><h3 class="xp-name">{esc(p["name"])}</h3>'
             f'<p class="xp-sum">{esc(x.get("sum") or p.get("summary") or "")}</p>'
             + (f'<ul class="xp-stats">{stats}</ul>' if stats else "") +
-            f'<div class="xp-act"><a class="btn btn-primary" href="{R}get-started.html#start" data-meet-cta>Set up a meeting with {p["name"].split()[0]} {{{{icon:arrow}}}}</a></div>'
+            f'<div class="xp-act"><a class="btn btn-primary" href="{R}get-started.html#start" data-meet-cta>Book a call with {p["name"].split()[0]} {{{{icon:arrow}}}}</a></div>'
             f'</div></article>')   # owner 8 Nov 2026: no "Full profile" link on these cards
 
 

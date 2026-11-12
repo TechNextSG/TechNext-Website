@@ -67,6 +67,7 @@ TOPICS = {"Odoo Accounting": "Interest: Odoo Accounting", "Odoo Sales & CRM": "I
 
 # form "source" field (or the page) -> form name (no free website offer since 28 Oct 2026: old copies are "Retired offer page"), used for the tag "Web form: <name>" and the lead title
 FORMS = [
+    ("audit guide", "Audit guide download"),     # 12 Nov 2026: the 2027 BIR Audit Guide PDF, gated (home hero + every blog post)
     ("bir", "BIR adviser call"),                   # older copies of the page still say "Free website with Odoo page (BIR)"
     ("quotation", "Quotation builder"),
     ("get started", "Retired offer page (/get-started)"),
@@ -93,6 +94,7 @@ FORM_LABELS = {
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
+    "Audit guide download": {"phone": "Mobile number", "message": "Downloaded"},
     "Meeting request": {"phone": "Mobile number", "accounting_system": "Current company system", "slot": "Preferred day",
                         "call_time": "Best time to call", "message": "Anything we should know"},
 }
