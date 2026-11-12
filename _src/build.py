@@ -491,7 +491,7 @@ def _howto(canonical: str, art: dict, content: str):
 # 12 Nov 2026 (10 Nov rule: no Odoo or ERP in site keywording, JSON-LD included): the company block on every page leaves
 # out the odoo.com listing and any /odoo/ or -erp URL; the home and the five landing pages also keep only the FAQ entries
 # and breadcrumbs without Odoo or ERP in their structured data (the visible page copy is unchanged).
-LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html"}
+LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html", "bir-cas-for-accountants.html", "bir-e-invoicing-plan.html"}
 _LD_BRAND = re.compile(r"odoo|erp", re.I)
 
 
