@@ -63,7 +63,13 @@ TOPICS = {"Odoo Accounting": "Interest: Odoo Accounting", "Odoo Sales & CRM": "I
           "Social media management": "Interest: Social media", "Business Process Consultation": "Interest: Business process",
           "ERP Consultation": "Interest: ERP consultation", "BIR CAS Consultation": "BIR: CAS / CBA",
           "5-Day Express (BIR compliance)": "BIR: 5-Day Express", "Odoo Implementation": "Interest: Odoo implementation",
-          "Connect Odoo to our current system": "Interest: Odoo plug-in"}
+          "Connect Odoo to our current system": "Interest: Odoo plug-in",
+          # 13 Nov 2026: the landers' "What is your primary goal right now?" (GOALS in _src/landers.py, sent as topic)
+          "Registering CAS or CBA before 30 January": "BIR: CAS / CBA",
+          "E-invoicing readiness before 31 December": "BIR: E-invoicing",
+          "Automating quarter end reports (SLSP, 2307s)": "BIR: SLSP, SAWT, QAP",
+          "Set ups for my clients (accounting firm or consultant)": "BIR: Firm client set ups"}
+GOAL_Q = "What is your primary goal right now?"
 
 # form "source" field (or the page) -> form name (no free website offer since 28 Oct 2026: old copies are "Retired offer page"), used for the tag "Web form: <name>" and the lead title
 FORMS = [
@@ -89,13 +95,18 @@ LABELS = {"name": "Name", "company": "Company name","email": "Work email", "phon
           "annual_sales": "Gross annual sales", "accounting_system": "Books today",
           "cas_status": "Registered for CAS or CBA", "country": "Country", "consent": "Privacy consent"}
 FORM_LABELS = {
-    "BIR adviser call": {"name": "Full name", "phone": "Mobile number",
+    "BIR adviser call": {"name": "Full name", "phone": "Mobile number", "topic": GOAL_Q,
                          "message": "Message"},
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
+<<<<<<< HEAD
     "Audit guide download": {"phone": "Mobile number", "message": "Requested"},
     "Meeting request": {"phone": "Mobile number", "accounting_system": "Current company system", "slot": "Preferred day",
+=======
+    "Audit guide download": {"phone": "Mobile number", "message": "Downloaded"},
+    "Meeting request": {"phone": "Mobile number", "topic": GOAL_Q, "accounting_system": "Current company system", "slot": "Preferred day",
+>>>>>>> origin/master
                         "call_time": "Best time to call", "message": "Anything we should know"},
 }
 NEED = ("topic", "bir_pain", "message", "apps", "users", "hosting", "services", "timeline", "scope_summary",
