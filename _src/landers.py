@@ -12,7 +12,7 @@ One layout, five pages. A page in _src/pages/ holds only its meta and {{LANDER:<
 Funnel, top to bottom (every section ends on one action: scroll to the form, #book):
   1 hero: H1, deadline chip, what the meeting gives you, Blueprint first, proof; the form
     (desktop: right column, above the fold; phone: straight after the title)
-  2 pain checklist (ticked answers carry into the form)
+  2 pain checklist (static list since 13 Nov 2026, no checkboxes)
   3 who you meet (two BIR Compliance Experts)
   4 what you leave with, beside a sample screen
   5 the page's own facts
@@ -400,7 +400,7 @@ PAGES["bir-call"].update(
            "<b>A fast set up.</b> As quick as 5 days* for a standard scope.",
            "<b>Keep existing systems.</b> We connect the reporting plug-in to them."],
     check_h="What needs to be in place by 30 January?",
-    check_lead="Are your clients ready for ORUS registration? Tick what is still open.",
+    check_lead="Are your clients ready for ORUS registration? This is what has to be in place.",
     checks=[("Books not from one system", "<b>Books from one system:</b> journals, general ledger and subsidiary books printed from the registered system."),
             ("Entries don't agree", "<b>Entries that agree:</b> reconciling after printing is a red flag; they must match in the system."),
             ("Year not closed", "<b>The year closed:</b> 2026 entries posted and locked."),
@@ -584,14 +584,14 @@ def _check(p):
     if not p.get("checks"):
         return ""
     items = "".join(
-        f'<li><label><input type="checkbox" value="{_e(v)}"><span class="fw-box">{{{{icon:check}}}}</span><span>{t}</span></label></li>'
-        for v, t in p["checks"])
+        f'<li><div class="lp-point"><span class="lp-point-mark" aria-hidden="true"></span><span>{t}</span></div></li>'
+        for _v, t in p["checks"])   # owner 13 Nov 2026: static list, no checkboxes ("not interactive, remove distraction")
     return f'''<section class="section fx-sec fw-check-sec lp-check-sec" id="self-check" aria-labelledby="fw-check-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="fw-check-h">{p["check_h"]}</h2><p class="lead">{p.get("check_lead") or "Tick the ones that sound familiar."} Your ticks go into the form, so your expert comes prepared.</p></div>
+    <div class="sec-head reveal"><h2 id="fw-check-h">{p["check_h"]}</h2><p class="lead">{p.get("check_lead") or "Does any of this sound familiar?"}</p></div>
     <div class="fw-check lp-check reveal">
-      <ul class="fw-check-list" id="fw-check">{items}</ul>
-      <p class="lp-check-act">{_cta(p["btn"], "btn btn-primary btn-lg", carry=True)}</p>
+      <ul class="fw-check-list lp-points">{items}</ul>
+      <p class="lp-check-act">{_cta(p["btn"], "btn btn-primary btn-lg")}</p>
     </div>
   </div>
 </section>'''
