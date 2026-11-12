@@ -323,7 +323,8 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
   .fw-fast .fw-hero-in > .fw-copy > h1 { order: 2; margin-bottom: 0; }
   .fw-fast .fw-side--form { order: 3; }
   .fw-fast .fw-hero-lead { order: 4; }
-  .fw-fast .fw-pick { order: 5; }
-  .fw-fast .fw-act { order: 6; }
+  .fw-fast .fw-proof { order: 5; }   /* 12 Nov 2026: had no order, so it jumped above the deadline pill */
+  .fw-fast .fw-pick { order: 6; }
+  .fw-fast .fw-act { order: 7; }
   .fw-fast .fw-hero-in { row-gap: 18px; }
 }

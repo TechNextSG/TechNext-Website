@@ -29,7 +29,7 @@ NEEDS = [
          lead="A computerized accounting system (CAS) or computerized books of accounts (CBA) needs its own BIR registration, with a system description, sample books and sample outputs. We set Odoo up with you first, so every paper comes from the system you will actually use, and go through the details with your accountant. You register your CAS at your RDO.",
          today="A system description and sample outputs to prepare, from a system that was never set up for them.",
          odoo="The process flow, sample invoices and Books of Accounts print from your configured Odoo.",
-         panel=dict(app="documents", title="CAS / CBA application pack", sub="Prepared from your configured Odoo", steps=["Odoo set up", "Samples printed", "Checked with accountant", "You file at your RDO"],
+         panel=dict(app="documents", title="CAS / CBA application pack", sub="Prepared from your configured Odoo", steps=["Odoo set up", "Samples printed", "Accountant checks", "You file at your RDO"],
                     kpis=[("Sample outputs", 12, "", "", 0), ("Books of Accounts", 6, "", "", 0), ("Process flows", 5, "", "", 0)],
                     mid=("table", ["Document", "Source", "Status"], [
                         ("Process flow", "Your Odoo set-up", ("Drafting", "Done", "warn")),
