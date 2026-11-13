@@ -20,6 +20,7 @@ import http.client
 import json
 import os
 import re
+import secrets
 import time
 import unicodedata
 import urllib.error
@@ -552,6 +553,12 @@ def capi_lead(p, email, phone, ip, ua):
 CAP_CHARS = "ACDEFHJKMNPRTUVWXY34679"     # no look-alikes (0/O, 1/I/L, 2/Z, 5/S, 8/B)
 CAP_TTL = 600
 NO_CAPTCHA_FORMS = ("Discovery call booking",)
+# 13 Nov 2026 owner: "remove the cloudflare in landing pages". The lander forms (data-no-captcha) show no Cloudflare box
+# and no typed code. Instead the page silently fetches a signed ticket (GET ?ticket=1) on the first touch of the form;
+# the lead must bring it back at least TICKET_MIN s and at most TICKET_TTL s later, once only. Only these form tags may
+# use a ticket; rate_ok, flood_ok and bot_lead still apply to them.
+TICKET_FORMS = ("BIR adviser call", "Meeting request")
+TICKET_MIN, TICKET_TTL = 3, 3600
 LEAD_RATE, LEAD_WINDOW = 3, 600
 USED_TOKENS = {}   # nonce -> expiry, this warm instance
 RECENT = {}        # sender ip -> [lead times], this warm instance
@@ -628,6 +635,25 @@ def captcha():
         parts.append(f'<circle cx="{rnd.randint(0, 200)}" cy="{rnd.randint(0, 64)}" r="{rnd.choice([.8, 1, 1.3])}" fill="#5a7fc0" opacity=".5"/>')
     parts.append("</svg>")
     return {"ok": True, "svg": "".join(parts), "token": f"{exp}.{nonce}.{_cap_mac(exp, nonce, answer)}"}
+
+
+def ticket():
+    iat, nonce = int(time.time()), secrets.token_hex(8)
+    return {"ok": True, "ticket": f"{iat}.{nonce}.{_cap_mac(iat, nonce, 'TICKET')}"}
+
+
+def ticket_ok(tk):
+    try:
+        iat, nonce, mac = str(tk).split(".")
+        age = time.time() - int(iat)
+    except ValueError:
+        return False
+    if not (TICKET_MIN <= age <= TICKET_TTL) or nonce in USED_TOKENS:
+        return False
+    if not hmac.compare_digest(mac, _cap_mac(iat, nonce, "TICKET")):
+        return False
+    USED_TOKENS[nonce] = int(iat) + TICKET_TTL
+    return True
 
 
 def captcha_ok(token, answer):
@@ -902,8 +928,9 @@ class handler(BaseHTTPRequestHandler):
                 print("dropped bot lead:", why, ip[:64])
                 return self._send(200, {"ok": True})
             booking = tag in NO_CAPTCHA_FORMS and self.headers.get("Origin", "") in CORS_ORIGINS
-            if not booking and not (turnstile_ok(p.get("_ts", ""), ip) if TS_SECRET and TS_SITE
-                                    else captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
+            lander = tag in TICKET_FORMS and p.get("_tk") and ticket_ok(p.get("_tk"))
+            if not booking and not lander and not (turnstile_ok(p.get("_ts", ""), ip) if TS_SECRET and TS_SITE
+                                                   else captcha_ok(p.get("_cap", ""), p.get("_cap_a", ""))):
                 print("refused captcha:", "turnstile" if TS_SECRET and TS_SITE else "code", "token" if p.get("_ts") else "no token", tag)
                 return self._send(400, {"ok": False, "error": "captcha"})
             if not rate_ok(ip):
@@ -967,6 +994,8 @@ class handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": turnstile_ok(q["tscheck"][0])})
         if "captcha" in q:
             return self._send(200, captcha())
+        if "ticket" in q:
+            return self._send(200, ticket())
         if "diag" in q:                                    # site.js tnDiag: why a send stopped in the browser (no lead data)
             print("form diag:", q["diag"][0][:60], "| form", q.get("f", [""])[0][:30], "| page", q.get("p", [""])[0][:60])
             return self._send(200, {"ok": True})

@@ -596,9 +596,21 @@
     // swallowed real visitors (a reloaded page with the answers restored, autofill + a quick click). 3 Nov 2026:
     // Cloudflare Turnstile is the bot check now, and a send that cannot go ahead always says why under the button.
     var startedAt = 0, guard = null, ts = null;
+    // 13 Nov 2026 owner: no Cloudflare on the landing pages. Their forms (data-no-captcha) fetch a silent signed
+    // ticket instead; /api/lead accepts it for the lander form tags only.
+    var noCap = form.hasAttribute('data-no-captcha');
+    function ticketGuard() {
+      return fetch((form.dataset.endpoint || '/api/lead') + '?ticket=1', { cache: 'no-store', headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j || !j.ticket) throw new Error('ticket');
+          // the API takes a ticket from 3 s after it was issued: hold it that long (only matters on a fast retry)
+          return new Promise(function (ok) { setTimeout(function () { ok({ ticket: j.ticket }); }, 3200); });
+        });
+    }
     function arm() {
       if (!startedAt) startedAt = Date.now();
-      if (!guard) guard = guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
+      if (!guard) guard = noCap ? ticketGuard() : guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
     }
     form.addEventListener('focusin', arm);
     form.addEventListener('submit', function (e) {
@@ -616,10 +628,11 @@
       var wait = Math.max(0, 3000 - (Date.now() - startedAt));
       status.className = 'form-status'; status.textContent = 'Sending…';
       btn.classList.add('is-busy'); btn.disabled = true;
-      setTimeout(function () { guard.then(go, function () { btn.classList.remove('is-busy'); btn.disabled = false; oops(null); tnDiag(form, 'guard failed'); }); }, wait);
+      setTimeout(function () { guard.then(go, function () { guard = null; btn.classList.remove('is-busy'); btn.disabled = false; oops(null); tnDiag(form, 'guard failed'); }); }, wait);
     });
     function go(g) {
       btn.classList.remove('is-busy'); btn.disabled = false; status.textContent = '';
+      if (g && g.ticket) { var tk = g.ticket; guard = null; send(btn, { _tk: tk }); arm(); return; }   // a ticket works once: fetch the next
       if (!g) { cap.open(); return; }
       var nope = function () {
         btn.classList.remove('is-busy'); btn.disabled = false;
@@ -657,6 +670,7 @@
         .catch(function (err) {
           tnDiag(form, 'send failed: ' + (err && err.captcha ? 'captcha' : String(err && err.message || '').slice(0, 40)));
           if (ts) ts.reset();   // a Turnstile token works once: get a fresh one for the next try
+          if (noCap) { guard = null; arm(); oops(err && err.captcha ? new Error('That did not go through. Please press send again.') : err); return; }
           if (err && err.captcha && ts) { oops(new Error('The security check did not go through. Please press send again.')); return; }
           if (err && err.captcha) {   // typed code refused: the page may predate Turnstile being switched on, so ask again
             guardCfg = null;

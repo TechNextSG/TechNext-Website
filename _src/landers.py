@@ -650,7 +650,7 @@ def _goal(p):
 def _form(p):
     h = p.get("form_h") or ("Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint")
     return f'''    <div class="fw-side fw-side--form" id="book">
-  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form>
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-no-captcha>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="{_e(p["source"])}">
