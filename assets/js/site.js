@@ -706,6 +706,7 @@
   /* 3 Nov owner test: a form sent more than 5 minutes after the box said Success sat on "Sending..." - the token had
      expired and no new one was coming. take() now asks the widget for its current token and, when there is none
      (expired, or the last one was already sent), resets the box so Cloudflare issues a new one at once. */
+  var tsInView = new Set();
   function tsGuard(form, sitekey) {
     var box = document.createElement('div'), id = null, token = '', spent = '', waiting = null, broken = false, asking = false;
     box.className = 'form-ts';
@@ -723,6 +724,17 @@
     }
     turnstileApi().then(function (api) {
       box.classList.add('is-on');
+      // 13 Nov 2026 owner "check the cloudflare on landing page": the cookie notice still covered the box while it said
+      // "Verifying..." or "Success!" (ts-asking only covers the tick step). While the box is on screen the notice steps
+      // aside; it comes back once the box scrolls away. No cookie is set either way until the visitor accepts.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          // several forms per page (lander form, Let's Talk, guide pop-up) each have a box: count the ones on screen
+          var on = es[es.length - 1].isIntersecting;
+          tsInView[on ? 'add' : 'delete'](box);
+          document.documentElement.classList.toggle('ts-inview', tsInView.size > 0);
+        }).observe(box);
+      }
       id = api.render(box, {
         sitekey: sitekey, action: 'lead', theme: 'light', size: 'flexible',
         callback: got,

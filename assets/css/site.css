@@ -1487,7 +1487,7 @@ html.gg-on{overflow:hidden}
 @media (max-width:520px){.gg{padding:22px 18px}.gg h2{font-size:21px}}
 
 /* 13 Nov 2026: while Cloudflare asks the visitor to tick its box, the cookie notice steps aside so it cannot cover it */
-html.ts-asking #tn-cookie-banner{display:none!important}
+html.ts-asking #tn-cookie-banner,html.ts-inview #tn-cookie-banner{display:none!important}
 
 /* 13 Nov 2026 speed audit: the banner height no longer depends on the web font (the swap re-wrapped it, +9px, CLS 0.14) */
 .header .bn--dl p{line-height:1.35}
