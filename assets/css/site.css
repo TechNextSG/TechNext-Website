@@ -1510,3 +1510,8 @@ html.ts-asking #tn-cookie-banner,html.ts-inview #tn-cookie-banner{display:none!i
   .header .bn--dl .bn-link{min-height:36px}
   .header .brand{display:inline-flex;align-items:center;min-height:44px}
 }
+
+/* 13 Nov 2026 landing-page audit (Google Ads / Unbounce: one goal per page): ad landing pages keep the logo, the deadline
+   strip and the booking button, but drop the site menu (desktop mega menu, phone menu button) and the banner's
+   "Check Readiness" link, so the only way forward is the form. Hidden, not removed: site.js wires the menu button. */
+body.lp-page .header .nav,body.lp-page .header .menu-btn,body.lp-page .header .bn-link,body.lp-page .mnav,body.lp-page .mnav-overlay{display:none!important}
