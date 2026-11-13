@@ -99,6 +99,16 @@
       '#tn-cookie-accept:hover,#tn-cookie-accept:focus-visible{background:#1E4691}' +
       '#tn-cookie-decline{background:rgba(255,255,255,.08);color:#A7B0C0;border:1px solid rgba(255,255,255,.14)}' +
       '#tn-cookie-decline:hover,#tn-cookie-decline:focus-visible{background:rgba(255,255,255,.16);color:#fff}' +
+      '#' + ID + ' .tn-cc-short{display:none}' +
+      /* 13 Nov 2026 landing-page audit: on phones the notice covered the lander form (183px). Ad landing pages get a
+         slim bar flush with the bottom edge: one short line plus the two buttons (about 56px). */
+      '@media (max-width:640px){body.lp-page #' + ID + '{bottom:0;width:100%;max-width:none;border-radius:14px 14px 0 0;' +
+      'padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;flex-wrap:nowrap}' +
+      'body.lp-page #' + ID + ' .tn-cc-text{min-width:0}' +
+      'body.lp-page #' + ID + ' strong,body.lp-page #' + ID + ' .tn-cc-long{display:none}' +
+      'body.lp-page #' + ID + ' .tn-cc-short{display:inline}' +
+      'body.lp-page #' + ID + ' p{margin:0;font-size:12px;line-height:1.35;color:#C9D1DE}' +
+      'body.lp-page #' + ID + ' button{height:34px;padding:0 14px}}' +
       '@media (prefers-reduced-motion:reduce){#' + ID + '{transition:none}}';
     document.head.appendChild(s);
   }
@@ -112,8 +122,9 @@
     b.setAttribute('aria-label', 'Cookie notice');
     b.innerHTML =
       '<div class="tn-cc-text"><strong>Cookie notice</strong>' +
-      '<p>We use Google Analytics, Google Ads and Meta Pixel cookies to understand how the site is used and whether our ads work. ' +
-      'They are only set if you accept. See our <a href="/privacy">Privacy Policy</a>.</p></div>' +
+      '<p><span class="tn-cc-long">We use Google Analytics, Google Ads and Meta Pixel cookies to understand how the site is used and whether our ads work. ' +
+      'They are only set if you accept. See our <a href="/privacy">Privacy Policy</a>.</span>' +
+      '<span class="tn-cc-short">Analytics and ad cookies, only if you accept. <a href="/privacy">Privacy</a></span></p></div>' +
       '<div class="tn-cc-actions">' +
       '<button type="button" id="tn-cookie-accept">Accept</button>' +
       '<button type="button" id="tn-cookie-decline">Decline</button></div>';
