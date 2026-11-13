@@ -610,6 +610,18 @@
     }
     function arm() {
       if (!startedAt) startedAt = Date.now();
+      // with no Cloudflare box on the landers, the cookie notice covered the send button: it steps aside while the
+      // button is on screen (same html.ts-inview switch as the Cloudflare box)
+      if (noCap && !form.dataset.ioFoot && 'IntersectionObserver' in window) {
+        var foot = $('.form-foot', form);
+        if (foot) {
+          form.dataset.ioFoot = '1';
+          new IntersectionObserver(function (es) {
+            tsInView[es[es.length - 1].isIntersecting ? 'add' : 'delete'](foot);
+            document.documentElement.classList.toggle('ts-inview', tsInView.size > 0);
+          }).observe(foot);
+        }
+      }
       if (!guard) guard = noCap ? ticketGuard() : guardMode(form.dataset.endpoint).then(function (key) { return (ts = key ? tsGuard(form, key) : null); });
     }
     form.addEventListener('focusin', arm);

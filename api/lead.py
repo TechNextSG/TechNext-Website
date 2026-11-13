@@ -112,7 +112,7 @@ QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
         "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
-        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "cf-turnstile-response", "cta"}
+        "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "_tk", "cf-turnstile-response", "cta"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
                        r"followers|first page of google|crypto|casino|loan offer", re.I)
