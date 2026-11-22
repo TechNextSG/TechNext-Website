@@ -545,6 +545,168 @@ PAGES["bir-audit-trail"].update(
 for _k in ("bir-quarter-end", "bir-audit-trail"):
     PAGES[_k].pop("order", None)
 
+# ------------------------------------------------------------ 23 Nov 2026: owner "properly summarize, no too much explanation,
+# safe, no over promise, no redundant explanation". One short, safe layer over the copy above (headlines kept: they match
+# the live ads). The 5-day qualifier sits once in the hero (the bottom X5 note is skipped on landers, build.py), the BIR
+# disclaimer lives in the site-wide footer line, and "written quote" / "15 minutes" are said once under the button.
+FINE = "*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes take longer, as your quote shows."
+UNDER = "15 minutes, online, no charge. Written quote before any work."
+CLOSE_P = "<strong>15 minutes, online, no charge.</strong> A BIR Compliance Expert replies within one business day."
+
+S_SOFT = ("Do we have to change our accounting software?",
+          "No. Your current software stays, and we connect to it.")
+S_DAT = ("Can the system produce the BIR DAT files?",
+         "Yes. SLSP, SAWT and QAP export as DAT files from your posted entries.")
+S_EIS = ("Do you connect us to the BIR's EIS?",
+         "No. That connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). "
+         "We prepare your system and invoice data for it.")
+S_ACC = ("Is TechNext BIR-accredited?",
+         "No partner or software brand is. The BIR registers your business's use of a system, and you file at your RDO.")
+S_COST = ("What does it cost?",
+          "It depends on your branches and integrations. You get a written quote before any work, and the meeting has no charge.")
+S_TIME = ("How long does the set up take?",
+          "About 5 days* for a standard set up with clean, reconciled ledgers. Bigger scopes take longer, as your quote shows.")
+S_ORUS = ("When are computerised books due in ORUS?",
+          "For calendar-year taxpayers, 2026 books are due by 30 January 2027 (RMC 3-2023, RMC 4-2026). "
+          "Your accountant or RDO confirms your dates.")
+S_CASCBA = ("Do we need a CAS or a CBA?",
+            "If your system issues your invoices, it is a CAS; if invoices are written by hand, a CBA (RMO 9-2021). "
+            "Your accountant or RDO confirms it.")
+S_2307 = ("Can the system produce our 2307s, SLSP, SAWT and QAP?",
+          "Yes, from the same entries as your books: 2306 and 2307 certificates from vendor bills, and the lists as DAT files.")
+S_FILE = ("Do you file with the BIR for us?",
+          "No. You or your client file at the RDO. We set up the system and prepare the sample outputs with you.")
+S_EINVCAS = ("Does our CAS registration cover e-invoicing?",
+             "No. You need a Permit to Issue first, then EIS Certification within six months (RMC 98-2026).")
+S_CLIENT = ("We're an accounting firm. Can we bring a client case?",
+            "Yes. Book one meeting per client and join it. You leave with that client's Blueprint.")
+FAQ_S = [S_SOFT, S_DAT, S_EIS, S_ACC, S_COST]
+
+
+def _no_quote(items):
+    """'Written quote' is said once, under the form button."""
+    return [b for b in items if "written quote" not in b.lower() or "5 Day" in b]
+
+
+_FIRM_SIMPLE = dict(
+    sub="For accountants and firms: we connect a BIR reporting plug-in to your clients' current software, so their CAS "
+        "application has the books and reports it needs.",
+    ticks=["<b>Their software stays.</b> We connect to it; nothing is replaced.",
+           "<b>5 Day Express*.</b> A standard set up, planned around your client deadlines.",
+           "<b>One approach for every client.</b> The same set up across your portfolio."],
+    check_lead="Which of these sounds familiar?",
+    checks=[("Software can't produce the sample outputs", "<b>The client's software can't produce</b> the sample outputs the RDO asks for."),
+            ("Billable hours on process flows", "<b>Billable hours go into process flows</b> the system should produce."),
+            ("No audit trail", "<b>No audit trail</b> shows who changed what, and when."),
+            ("Records in paper folders", "<b>Records sit in paper folders,</b> so every request means digging.")],
+    bp_h="We set up the system. You keep the advisory.",
+    bp_lead="We handle the technical work for the CAS application.",
+    bp=["<b>Sample outputs:</b> the invoices and books the CAS or CBA application needs, from your client's data",
+        "<b>Audit trail and system description:</b> posted entries locked, changes logged, checked against Annex B",
+        "<b>Our BIR Compliance Experts,</b> Neil and Jeric, in Taguig City"],
+    faq=FAQ_S,
+)
+for _k in ("get-started", "bir-adviser-call"):
+    PAGES[_k].update(_copy.deepcopy(_FIRM_SIMPLE))
+PAGES["get-started"]["close_p"] = "2026 books are due in ORUS by 30 January 2027. " + CLOSE_P
+PAGES["bir-adviser-call"]["close_p"] = CLOSE_P
+
+PAGES["bir-cas-for-accountants"].update(
+    sub="Your BIR reports come from the entries you already post: 2307s, SLSP, SAWT, QAP and the 2550Q. "
+        "Your accountant reviews them before anything is filed.",
+    ticks=["<b>2307s from your vendor bills.</b> No retyping.",
+           "<b>DAT files from the ledger.</b> Figures match your books.",
+           "<b>Built for accountants.</b> Reviewed by you, set up by us."],
+    check_h="Is your quarter end still done by hand?",
+    check_lead="Which of these sounds familiar?",
+    bp_h="What the set up covers.",
+    bp_lead="Set up once, then every report comes from your posted entries.",
+    bp=["<b>2307 and 2306 certificates</b> from vendor bills, once your ATC codes are set",
+        "<b>SLSP, SAWT and QAP</b> as DAT files from posted entries",
+        "<b>2550Q VAT summary</b> from output and input VAT"],
+    faq=[S_2307, S_SOFT, S_TIME, S_ACC, S_COST],
+    close_p=CLOSE_P,
+)
+
+PAGES["bir-call"].update(
+    sub="2026 computerised books are due in ORUS by 30 January 2027. We set up the system so your books agree before you "
+        "review and register them.",
+    check_lead="What has to be in place before you register.",
+    bp=_no_quote(PAGES["bir-call"]["bp"]),
+    faq=[S_ORUS, S_SOFT, S_TIME, S_ACC, S_COST],
+    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+)
+
+PAGES["bir-e-invoicing-plan"].update(
+    sub="Covered taxpayers must issue e-invoices by 31 December 2026 (RMC 98-2026). We map your clients' invoice flows and "
+        "branches, prepare their Permit to Issue papers with them, and set up invoicing beside their current software.",
+    check_h="Can your client's software meet the e-invoicing rules?",
+    check_lead="Four points to check.",
+    bp=_no_quote(PAGES["bir-e-invoicing-plan"]["bp"]),
+    faq=[S_EINVCAS, S_EIS, ("What is a Permit to Issue (PTI)?",
+                           "The BIR permit you need before issuing any e-invoice. You apply; we prepare the process flow and sample invoices with you."),
+         S_SOFT, S_COST],
+    close_p="E-invoicing is due by 31 December 2026 for covered taxpayers. " + CLOSE_P,
+)
+
+for _k in ("bir-deadline", "bir-firm-deadlines"):
+    p = PAGES[_k]
+    p["myths"] = ("3 assumptions we often hear from CAS users.",
+                  "Each one can push e-invoicing past 31 December.",
+                  [("“Our CAS registration covers us.”",
+                    "It covers your computerised books. E-invoicing needs a Permit to Issue, then EIS Certification within six months."),
+                   ("“We email PDF invoices, so we're electronic.”",
+                    "A printed or emailed PDF is not an e-invoice."),
+                   ("“We'll sort it out in December.”",
+                    "December is year end close, and 2026 books are due in ORUS by 30 January. Plan the order of work now.")])
+    p["bp"] = ["Covered now, later or exempt (your accountant or RDO confirms)",
+               "CAS or CBA, and what the 30 January ORUS books need",
+               "The e-invoicing order: Permit to Issue, set up, EIS Certification",
+               "What the set up covers" + (" for each client" if _k == "bir-firm-deadlines" else ", with your 5 Day Express*")]
+    p["firm"] = ("We set up the system. You keep the client.",
+                 "For accounting firms and consultants.",
+                 ["<b>You stay the adviser.</b> We set up the system and report to you.",
+                  "<b>One Blueprint per client.</b> Start with one case.",
+                  "<b>Agreed with you</b> before any work starts."])
+    p["faq"] = [S_EINVCAS, S_CLIENT, S_EIS, S_FILE, S_COST]
+    p["close_p"] = "E-invoicing by 31 December 2026, ORUS books by 30 January 2027. " + CLOSE_P
+PAGES["bir-deadline"].update(
+    sub="A CAS registration doesn't cover e-invoicing: you need a Permit to Issue, then EIS Certification. "
+        "Leave the meeting with your Blueprint for you or your client.",
+    ticks=["<b>Your CAS and e-invoicing Blueprint:</b> the order of work.",
+           "<b>Keep the accounting software.</b> We connect to it.",
+           "<b>For you or your client,</b> one case at a time."],
+)
+PAGES["bir-firm-deadlines"].update(
+    sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS books for calendar-year CAS users. "
+        "We handle the technical work across your client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
+)
+
+PAGES["bir-quarter-end"].update(
+    sub="Stop rebuilding SLSP, SAWT, QAP and 2307s in spreadsheets. Set up BIR reporting beside your clients' current software "
+        "before the 30 January 2027 ORUS deadline, with our <b>5 Day Express BIR Solution*</b>.",
+    check_h="Is your quarter end still done by hand?",
+    check_lead="Which of these sounds familiar?",
+    bp_h="What the set up covers.",
+    bp_lead="Set up once, then every report comes from your posted entries.",
+    bp=["<b>2307 and 2306 certificates</b> from vendor bills, once your ATC codes are set",
+        "<b>SLSP, SAWT and QAP</b> as DAT files from posted entries",
+        "<b>The books</b> your clients register in ORUS by 30 January"],
+    faq=[S_2307, S_SOFT, S_TIME, S_ORUS, S_COST],
+    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+)
+
+PAGES["bir-audit-trail"].update(
+    sub="Your 2026 computerised books go to ORUS by 30 January 2027. RMC 5-2021 requires a CAS to keep an audit trail and "
+        "protect posted entries. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail.",
+    check_lead="Which of these sounds familiar?",
+    bp=["Where your audit trail and lock dates stand against RMC 5-2021",
+        "CAS or CBA, and what your 30 January ORUS books need",
+        "How your SLSP ties to the general ledger"],
+    faq=[S_CASCBA, S_ORUS, S_TIME, S_COST],
+    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+)
+
 # ------------------------------------------------------- section buttons (owner 13 Nov 2026: each speaks for its section)
 _ASK = "Ask a BIR Compliance Expert"
 # Funnel (owner 13 Nov 2026 "do a proper funneling"): every section ends on one button to the form, and the wording steps up
@@ -579,7 +741,7 @@ CTAS.update({
 # ---------------------------------------------------------------------------------------------------------- page facts
 _FACTS = {
     "rmc": ("What does the BIR ask for?",
-            "RMC 5-2021 lists what goes in a CAS or CBA application. Each part shapes your set up.",
+            "What a CAS or CBA application needs (RMC 5-2021).",
             [("A sworn statement", "A description of the system and the invoices and reports it produces."),
              ("Sample invoices", "Printed from the system you will actually use."),
              ("Sample books and reports", "Your books of accounts and the other system reports."),
@@ -587,7 +749,7 @@ _FACTS = {
              ("The requirements checklist", "The functional and technical requirements in Annex B, signed."),
              ("Your books, every year", "Computerised books registered online through ORUS within 30 days after year end.")]),
     "orus": ("What has to be in place by 30 January?",
-             "Computerised books are registered within 30 days after the close of each taxable year (RMC 3-2023), online through ORUS (RMC 4-2026).",
+             "Within 30 days after year end, online through ORUS (RMC 3-2023, RMC 4-2026).",
              [("Books from one system", "Journals, general ledger and subsidiary books, printed from the system you registered."),
               ("Entries that agree", "The journals and the ledger match before you print, not after."),
               ("The year closed", "Your 2026 entries posted and the year closed in the system."),
@@ -603,7 +765,7 @@ _FACTS = {
                  ("2550Q VAT summary", "Output and input VAT from the posted entries."),
                  ("Books of accounts", "Journals and ledger for your CAS or CBA, from the same system.")]),
     "einv": ("What the e-invoicing rules ask for.",
-             "From RR 26-2025 and RMC 98-2026. Your set up is built around them.",
+             "From RR 26-2025 and RMC 98-2026.",
              [("A Permit to Issue (PTI)", "You need a PTI Electronic Invoice before you issue any e-invoice."),
               ("EIS Certification", "Completed within six months of the PTI."),
               ("No edits after issue", "A credit note covers a decrease; a new e-invoice covers an increase."),
@@ -656,7 +818,7 @@ def _form(p):
       <input type="hidden" name="source" value="{_e(p["source"])}">
       <div class="fw-fhead">
         <h2 class="gs-form-h">{h}</h2>
-        <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day to set your 15 minute online meeting. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
+        <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
 {_goal(p)}        <div class="form-row">
@@ -674,7 +836,7 @@ def _form(p):
       </div>
       <p class="lp-under">{UNDER}</p>
       <p class="form-status" role="status" aria-live="polite"></p>
-      <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A confirmation email comes from sales@technext.asia, and a BIR Compliance Expert replies within one business day to set your 15 minute online meeting. Want to pick a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Choose a slot this week</a>.</p></div>
+      <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A confirmation email comes from sales@technext.asia, and a BIR Compliance Expert replies within one business day. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Choose a slot this week</a>.</p></div>
       <p class="small muted gs-privacy">{{{{icon:shield}}}} Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
     </div>'''
@@ -758,7 +920,7 @@ def _experts(p):
         f'</div></article>' for k, x in enumerate(EXPERTS))
     return f'''<section class="section xp-sec" id="advisers" aria-labelledby="xp-h">
   <div class="container">
-    <div class="xp-head reveal"><p class="xp-kicker">Who you meet</p><h2 id="xp-h">Your BIR Compliance Experts.</h2><p class="xp-lead">Your Blueprint meeting is with a BIR Compliance Expert who has set up the books your RDO asks for, not a salesperson.</p></div>
+    <div class="xp-head reveal"><p class="xp-kicker">Who you meet</p><h2 id="xp-h">Your BIR Compliance Experts.</h2><p class="xp-lead">Your Blueprint meeting is with a BIR Compliance Expert.</p></div>
     <div class="xp-grid">{cards}</div>
   </div>
 </section>'''
@@ -798,12 +960,10 @@ def _facts(p):
                   for i, (a, b) in enumerate(items))
     note = ""
     if p["facts"] in ("rmc", "einv"):
-        body = ("The BIR registers your business's use of a system, not a software brand, and it has warned against "
-                "\"BIR-accredited\" claims, so we don't make them. You file at your RDO; the decision is the RDO's."
+        body = ("The BIR registers your business's use of a system, not a software brand. You file at your RDO; the decision is the RDO's."
                 if p["facts"] == "rmc" else
-                "Under RMC 110-2026 (12 October 2026), e-invoicing service providers need BIR accreditation for each solution; no list had been published as of 23 November 2026. "
-                "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you "
-                "are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).")
+                "TechNext does not provide the EIS connection. It runs through a BIR-accredited e-invoicing service provider you "
+                "choose (RMC 110-2026).")
         note = f'<div class="fw-note lp-note reveal"><h3>A word of caution</h3><p>{body}</p></div>'
     return f'''<section class="section fx-sec fw-rules-sec" aria-labelledby="lp-facts-h">
   <div class="container">
@@ -829,7 +989,7 @@ def _express(p):
 </section>'''
     return f'''<section class="section lp-x5" aria-label="5 Day Express">
   <div class="container">
-    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Day Express*</span>Most standard set ups run as a 5 Day Express.* Your expert walks you through the plan in the meeting. {_cta(_lbl(p, "express"))}</p>
+    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Day Express*</span>A standard set up runs as a 5 Day Express.* We plan yours in the meeting. {_cta(_lbl(p, "express"))}</p>
   </div>
 </section>'''
 
