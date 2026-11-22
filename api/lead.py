@@ -989,7 +989,8 @@ class handler(BaseHTTPRequestHandler):
         q = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
         on = bool(TS_SECRET and TS_SITE)
         if "guard" in q:
-            return self._send(200, {"ok": True, "turnstile": TS_SITE if on else ""})
+            # capi (23 Nov 2026): whether the server-side Meta Lead is switched on (META_CAPI_TOKEN set) - a yes/no only
+            return self._send(200, {"ok": True, "turnstile": TS_SITE if on else "", "capi": bool(CAPI_TOKEN)})
         if "tscheck" in q and on:
             return self._send(200, {"ok": turnstile_ok(q["tscheck"][0])})
         if "captcha" in q:

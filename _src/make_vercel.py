@@ -245,12 +245,15 @@ def csp(hashes):
         "https://connect.facebook.net https://www.facebook.com "
         + " ".join(GOOGLE_REGIONAL),
         # 'self': /nexi shows the Nexi companion (nexi-app.html) in a same-origin frame
+        # www.facebook.com (23 Nov 2026): when a Meta Pixel hit is too large for a beacon (a Lead with matched contact
+        # details), fbevents.js posts it from a hidden frame with a form to www.facebook.com/tr - a headless test caught
+        # that Lead blocked by frame-src and form-action, so both allow it
         "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net "
-        "https://challenges.cloudflare.com",
+        "https://challenges.cloudflare.com https://www.facebook.com",
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",
-        "form-action 'self'",
+        "form-action 'self' https://www.facebook.com",
         "frame-ancestors 'self'",
         "upgrade-insecure-requests",
     ])
