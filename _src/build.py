@@ -2470,7 +2470,7 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         last = m.end()
     out.append(main[last:])
     main = "".join(out)
-    if re.search(r'5 Day (?:Express|plan)\*', main) and not re.search(r'\*\s*(?:5 Day Express: t|T)iming depends', main):
+    if 'lp-fine' not in main and re.search(r'5 Day (?:Express|plan)\*', main) and not re.search(r'\*\s*(?:5 Day Express: t|T)iming depends', main):
         main += X5_NOTE   # the qualifier for the "5 Day*" buttons, at the end of the page content
     return html[:i] + main + html[j:]
 

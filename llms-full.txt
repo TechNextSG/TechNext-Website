@@ -117,33 +117,33 @@ Last updated: 2026-11-23
 
 ## Questions and answers
 
-### Do we, or our clients, have to change our core accounting software?
+### Do we have to change our accounting software?
 
-No. Your current software stays exactly as it is. We connect a plug-in to it for the BIR books, reports and e-invoicing set up.
-
-Source: https://technext.asia/bir-adviser-call
-
-### Can the system produce the DAT files for the BIR's offline tools?
-
-Yes. The Philippine set up exports SLSP, SAWT and QAP as DAT files from your posted entries, so the figures match your books.
+No. Your current software stays, and we connect to it.
 
 Source: https://technext.asia/bir-adviser-call
 
-### Are you connected to the BIR's EIS for e-invoicing?
+### Can the system produce the BIR DAT files?
 
-Not directly. The system we set up prepares the groundwork: your Permit to Issue papers, branch mapping and a locked audit trail. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.
+Yes. SLSP, SAWT and QAP export as DAT files from your posted entries.
 
 Source: https://technext.asia/bir-adviser-call
 
-### Is TechNext "BIR-accredited"?
+### Do you connect us to the BIR's EIS?
 
-No software brand is "BIR-accredited": the BIR registers a business's use of a system. We set the system up for the BIR's requirements and help you prepare the sample outputs, audit trail and process flow for your CAS or CBA application at your RDO.
+No. That connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). We prepare your system and invoice data for it.
+
+Source: https://technext.asia/bir-adviser-call
+
+### Is TechNext BIR-accredited?
+
+No partner or software brand is. The BIR registers your business's use of a system, and you file at your RDO.
 
 Source: https://technext.asia/bir-adviser-call
 
 ### What does it cost?
 
-You don't need a million-peso system overhaul to meet BIR requirements. Pricing scales based on your branch network and integration complexity, and you get a written quote before any work starts. The meeting has no charge.
+It depends on your branches and integrations. You get a written quote before any work, and the meeting has no charge.
 
 Source: https://technext.asia/bir-adviser-call
 
