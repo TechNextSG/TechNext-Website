@@ -2325,8 +2325,12 @@ def tags_head(is_home: bool) -> str:
     Internal traffic (27 Oct 2026): off technext.asia (localhost, Vercel previews) the scripts never load, so nothing
     reaches GA4/Ads; a team browser opened once with ?internal=1 (undo: ?internal=0) tags its hits traffic_type=internal,
     which the GA4 "Internal Traffic" data filter drops.
-    Meta Pixel (28 Oct 2026): queued like gtag and loaded with the same deferred scripts; held at consent 'revoke' until
-    the cookie notice is accepted (consent.js grants it), and never started in a browser flagged internal."""
+    Meta Pixel (28 Oct 2026): queued like gtag, never started in a browser flagged internal.
+    23 Nov 2026 (Privacy Policy: "the Meta Pixel does not run" before Accept): fbevents.js itself is only fetched once
+    tn_consent=yes - with the deferred scripts for a visitor who accepted earlier, or at once by window.tnPx(), which
+    consent.js calls on Accept. Before that the page never contacts Facebook; queued PageView/Lead calls wait in fbq.
+    No fbq('consent','revoke') any more: a revoke queued before the script loads made fbevents drop the PageView and
+    every later event even after the grant (caught in a headless test the same day)."""
     t = S.TRACKING
     ids = t["gtm"] + (t["gtm_home"] if is_home else [])
     srcs = ["https://www.googletagmanager.com/gtm.js?id=" + c for c in ids] + \
@@ -2338,13 +2342,13 @@ def tags_head(is_home: bool) -> str:
               "gtag('js',new Date());gtag('config','" + t["ga4"] + "',tnC);gtag('config','" + t["ads"] + "');"
               "!function(w){if(w.fbq)return;var n=w.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};"
               "w._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window);"
-              "if(!tnC.traffic_type){fbq('consent',document.cookie.indexOf('tn_consent=yes')>-1?'grant':'revoke');"
-              "fbq('init','" + t["meta_pixel"] + "');fbq('track','PageView')}"
-              "(function(){var done=!/(^|\\.)technext\\.asia$/.test(location.hostname),S=" + json.dumps(srcs) + ";"
-              "if(!tnC.traffic_type)S.push('https://connect.facebook.net/en_US/fbevents.js');"
+              "if(!tnC.traffic_type){fbq('init','" + t["meta_pixel"] + "');fbq('track','PageView')}"
+              "(function(){var off=!/(^|\\.)technext\\.asia$/.test(location.hostname),done=off,px=off||!!tnC.traffic_type,S=" + json.dumps(srcs) + ";"
+              "var js=function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)};"
+              "window.tnPx=function(){if(px)return;px=true;js('https://connect.facebook.net/en_US/fbevents.js')};"
               "function go(){if(done)return;done=true;"
               "dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
-              "var add=function(){S.forEach(function(u){var j=document.createElement('script');j.async=true;j.src=u;document.head.appendChild(j)})};"
+              "var add=function(){S.forEach(js);if(document.cookie.indexOf('tn_consent=yes')>-1)tnPx()};"
               "if(window.requestIdleCallback)requestIdleCallback(add,{timeout:1500});else setTimeout(add,1);"
               "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){removeEventListener(e,go,true)})}"
               "['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,go,{capture:true,passive:true})});"
@@ -2358,6 +2362,23 @@ def tags_body(is_home: bool) -> str:
     return "\n".join('<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' + c +
                      '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
                      for c in ids)
+
+
+def tag_static_pages():
+    """23 Nov 2026 owner: "update the tags and Meta Pixel in all parts of the website". /services-catalogue (the flip-book
+    reader, kept by hand, not built from a template) had no tags. It gets the same consent-gated block as every built
+    page plus the cookie notice; the block sits between markers, so a rebuild replaces it instead of adding another."""
+    p = ROOT / "services-catalogue" / "index.html"
+    if not p.exists():
+        return
+    html = p.read_text(encoding="utf-8")
+    html = re.sub(r"\n?<!-- tn-tags -->.*?<!-- /tn-tags -->", "", html, flags=re.S)
+    head = "\n<!-- tn-tags -->\n" + tags_head(False) + "\n<!-- /tn-tags -->"
+    body = "\n<!-- tn-tags -->\n" + tags_body(False) + "\n<!-- /tn-tags -->"
+    foot = "<!-- tn-tags -->\n<script src=\"/assets/js/consent.js?v=" + ASSET_V + "\" defer></script>\n<!-- /tn-tags -->\n"
+    html = re.sub(r'(<meta name="viewport"[^>]*>)', lambda m: m.group(1) + head, html, count=1)
+    html = html.replace("<body>", "<body>" + body, 1).replace("</body>", foot + "</body>", 1)
+    p.write_text(html, encoding="utf-8", newline="\n")
 
 
 def clean_url(rel: str) -> str:
@@ -2980,6 +3001,7 @@ def main():
     write_well_known()
     (ROOT / f"{S.INDEXNOW_KEY}.txt").write_text(S.INDEXNOW_KEY, encoding="utf-8", newline="")
     write_denied()
+    tag_static_pages()
     # make_nexi.write_page(...): the Nexi chat (/nexi-app) was removed 8 Nov 2026 (owner: no Nexi robot)
     print(f"llms.txt: {write_llms()} pages")
     print(f"llms-full.txt: {write_llms_full()} answers")

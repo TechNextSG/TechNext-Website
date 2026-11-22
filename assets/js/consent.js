@@ -63,6 +63,8 @@
       var v = granted ? 'granted' : 'denied';
       g('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
       if (typeof window.fbq === 'function') window.fbq('consent', granted ? 'grant' : 'revoke');
+      // 23 Nov 2026: the Meta Pixel script is only fetched after Accept (build.py tags_head defines tnPx)
+      if (granted && typeof window.tnPx === 'function') window.tnPx();
     } catch (e) { /* consent plumbing must never break the page */ }
   }
 
