@@ -1531,3 +1531,9 @@ body.lp-page .side-tabs,body.lp-page .cat-float{display:none!important}
 /* 23 Nov 2026: site-wide legal line under the footer */
 .footer-legal{margin:14px auto 0;font-size:12px;line-height:1.55;color:var(--muted);max-width:none}
 @media (max-width:600px){.footer-legal{font-size:11.5px;text-align:center}}
+
+/* 23 Nov 2026: deadline bar hides once scrolled - the sticky header rises by the bar height (set by site.js) */
+.header{transition:background-color .25s ease,border-color .2s ease,box-shadow .2s ease,opacity .4s ease .1s,visibility 0s linear .1s,top .25s ease}
+.header.is-scrolled{top:calc(var(--bn-h,0px) * -1)}
+.header.is-scrolled .bn{visibility:hidden;transition:visibility 0s linear .25s}
+@media (prefers-reduced-motion:reduce){.header{transition:none}}
