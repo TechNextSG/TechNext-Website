@@ -255,6 +255,15 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  /* 23 Nov 2026 (owner): the deadline bar slides away once the page is scrolled. The sticky header moves up by the
+     bar's own height (measured, so phones and fonts are right), so nothing below it jumps. */
+  var hbn = header && header.querySelector('.bn');
+  if (hbn) {
+    var setBn = function () { header.style.setProperty('--bn-h', hbn.offsetHeight + 'px'); };
+    setBn();
+    if ('ResizeObserver' in window) new ResizeObserver(setBn).observe(hbn); else window.addEventListener('resize', setBn);
+  }
+
   function closeMegas(except) {
     megas.forEach(function (li) {
       if (li === except) return;
