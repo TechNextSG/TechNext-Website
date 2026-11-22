@@ -6,7 +6,7 @@ SITE_URL = "https://technext.asia/"
 SITE_NAME = "TechNext"
 # Plain, factual description for structured data and AI answer engines (the same words everywhere).
 ORG_DESC = ("TechNext is a BIR compliance and integration partner for accounting firms and finance teams, headquartered in Singapore, with its main "
-            "consulting and development team in Taguig City, Metro Manila. We connect a compliance reporting plug-in to the system a business already runs "
+            "team in Taguig City, Metro Manila. We connect a compliance reporting plug-in to the system a business already runs "
             "(accounting software, POS, spreadsheets or in-house systems), so it does not have to replace it, and set it up for "
             "accounting and BIR requirements first: the books for the business's own Computerized Accounting System (CAS) or CBA application, "
             "2307, SLSP, SAWT, QAP, 2550Q and e-invoicing planning. In Singapore: GST and InvoiceNow. Clients start with Accounting "
@@ -77,15 +77,15 @@ OFFICES = [
      "street": "261 Waterloo Street #03-36", "locality": "Singapore", "region": "", "postal": "180261",
      "maps": "https://maps.google.com/?cid=3474088819422984887", "geo": (1.2989163, 103.8519697),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=261+Waterloo+Street+%2303-36+Singapore+180261"},
-    {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines development hub",
-     "role": "Our main hub for Odoo development and consulting, with finance, sales and marketing.",
+    {"key": "ph", "cc": "PH", "country": "Philippines", "name": "Philippines hub",
+     "role": "Our Philippine team. BIR set-up work happens here.",
      "page": "odoo/philippines.html", "page_label": "Odoo in the Philippines", "office": "",
      "lines": ["Level 9, IP Center", "Taguig City, Metro Manila 1634, Philippines"],
      "street": "Level 9, IP Center (Intellectual Property Center)", "locality": "Taguig City", "region": "Metro Manila", "postal": "1634",
      "maps": "https://maps.google.com/?cid=12500824038992408388", "geo": (14.5350092, 121.0509849),
      "directions": "https://www.google.com/maps/dir/?api=1&destination=14.5349862%2C121.0513368"},
-    {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam engineering hub",
-     "role": "Engineering hub. Developers on the same Odoo projects.",
+    {"key": "vn", "cc": "VN", "country": "Vietnam", "name": "Vietnam office",
+     "role": "Our Ho Chi Minh City office.",
      "page": "odoo/vietnam.html", "page_label": "Odoo in Vietnam",
      "office": "",
      "lines": ["62 Nguyễn Thị Nhung, Phường Hiệp Bình", "Ho Chi Minh City"], "lang": "vi", "geo": (10.8440075, 106.7121703),
@@ -172,8 +172,8 @@ NAV = [
         "columns": [
             {"title": "Company", "row": True, "links": [
                 {"label": "Our Experts", "href": "index.html#advisers", "icon": "co-team",
-                 "desc": "The compliance engineers who do the work."},
-                {"label": "Contact", "href": "index.html#readiness", "icon": "mail",
+                 "desc": "The BIR Compliance Experts who do the work."},
+                {"label": "Contact", "href": "https://technext.odoo.com/book/c82cf8a9", "icon": "mail",
                  "desc": "Book a technical readiness call."},
             ]},
         ],

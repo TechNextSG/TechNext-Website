@@ -39,7 +39,7 @@ import industry_fx as _IFX
 _e = lambda s: _html.escape(s, quote=True)
 
 PROOF = ('<strong>BIR forms we set up:</strong> books of accounts, 2307, SLSP, SAWT, QAP · '
-         '<strong>142 projects delivered</strong> by our own team in Taguig City')
+         '<strong>142 projects delivered</strong>')
 FINE = ('*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes run as extra sprints, written into '
         'your quote. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do '
         'not file or register on your behalf.')
@@ -75,7 +75,7 @@ def _panel(key, **fix):
 CAS_PANEL = _panel("cas", sub="Prepared from your set up", steps=["System set up", "Samples printed", "Accountant checks", "You file at your RDO"])
 P2307_PANEL = _panel("2307")
 EINV_PANEL = dict(app="account", title="Customer invoice", sub="INV/2026/00184 · Sample Trading Corp.",
-                  steps=["Draft", "Posted", "Locked", "EIS assessed"],
+                  steps=["Draft", "Posted", "Locked", "To EIS provider"],
                   kpis=[("Invoice total", 122000, "₱", "", 0), ("Branches", 3, "", "", 0), ("Invoice layouts", 1, "", "", 0)],
                   mid=("table", ["Line", "Qty", "Amount"], [
                       ("Service retainer, October", "1", "₱80,000.00"),
@@ -96,7 +96,7 @@ CHECKS_MONTH = [
 FAQ_SOFTWARE = ("Do we have to change our accounting software?",
                 "No. Your current software stays. We connect it by API, daily batch sync or flat-file upload, and your BIR books and reports are built from that data. No rip-and-replace.")
 FAQ_COST = ("What does it cost?",
-            "You don't need a million-peso system overhaul to become BIR compliant. Pricing scales based on your branch network and integration complexity, and you get a written quote before any work starts. The meeting has no charge.")
+            "You don't need a million-peso system overhaul to meet BIR requirements. Pricing scales based on your branch network and integration complexity, and you get a written quote before any work starts. The meeting has no charge.")
 FAQ_LINK = ("Is TechNext linked to the BIR?",
             "No. We are not affiliated with or acting for the BIR. You register and file yourself; we set your system up and prepare the sample outputs with you.")
 FAQ_5DAY = ("How long does the 5 Day Express* take?",
@@ -241,7 +241,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
             "covered, what to set up, in what order, and a written quote.",
         ticks=["<b>Your e-invoicing plan</b> from the meeting: PTI papers, invoice flows and branches, in order.",
                "<b>Keep your current software.</b> We connect the invoicing to it.",
-               "<b>An EIS assessment,</b> quoted separately before any work."],
+               "<b>Your EIS route,</b> through a BIR-accredited e-invoicing service provider you choose."],
         btn=BTN_EINV,
         msg_ph="e.g. large taxpayer, invoices from our POS and spreadsheets, 3 branches",
         check_h="How do you invoice today?",
@@ -255,12 +255,12 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp_lead="One online meeting with a BIR Compliance Expert, before the deadline.",
         bp=["Whether your business is covered, checked with your accountant",
             "How your invoice flows and branches move into one system",
-            "What an EIS connection would need, and how we quote it",
+            "What your BIR-accredited e-invoicing provider will need from your system",
             "A written quote before any work starts"],
         panel=EINV_PANEL, facts="einv", express=False,
-        faq=[("How does the set-up meet the 31 December 2026 e-invoicing deadline?", "We set up sequenced invoice series per branch, lock issued invoices and prepare the transmission so your system issues e-invoices on or before 31 December 2026 (RR 26-2025, kept by RMC 98-2026). Your accountant or RDO confirms whether you are covered."),
+        faq=[("How does the set-up help with the 31 December 2026 e-invoicing deadline?", "We set up sequenced invoice series per branch and lock issued invoices, so the system follows the e-invoicing rules in RR 26-2025 (the date kept by RMC 98-2026). Any EIS connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). Your accountant or RDO confirms whether you are covered."),
              ("What is a Permit to Issue (PTI)?", "The BIR permit a covered taxpayer needs before issuing any e-invoice. EIS Certification must then be completed within six months of the PTI. You apply for it yourself; we prepare the process flow and sample invoices with you."),
-             ("Do you connect us to the EIS?", "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately."),
+             ("Do you connect us to the EIS?", "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it."),
              FAQ_SOFTWARE, FAQ_COST],
         close_h='31 December 2026 is close. Start your <span class="hl">BIR e-invoicing</span> plan today.',
         close_p=CLOSE_P,
@@ -271,9 +271,9 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
     "bir-deadline": dict(
         source="BIR adviser call (deadline campaign, accountants)",
         pill=DL_EINV,
-        h1='<span class="hl">BIR CAS</span> and E-Invoicing by 31 December 2026. Your Plan in 20 Minutes.',
+        h1='E-Invoicing for <span class="hl">BIR CAS</span> Users by 31 December 2026. Your Plan in 20 Minutes.',
         sub="A CAS registration doesn't cover e-invoicing. The first step is a Permit to Issue, then EIS Certification. "
-            "Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your Blueprint: who is covered, what "
+            "Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your Blueprint: the coverage rules (your accountant or RDO confirms), what "
             "to file first, and a written quote.",
         ticks=["<b>Your CAS and e-invoicing Blueprint</b> from the meeting: the order of work, for you or your client.",
                "<b>Keep the accounting software.</b> We connect to it by API, batch sync or flat file; nothing is swapped out.",
@@ -292,7 +292,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         checks=None,
         bp_h='Your Blueprint, in 15 to 20 minutes.',
         bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client, not a sales pitch.",
-        bp=["Covered now, later or exempt: the group, checked against the rules",
+        bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
             "CAS or CBA, and what the 30 January ORUS books need",
             "The e-invoicing order: Permit to Issue, set up, EIS Certification",
             "What your 5 Day Express* covers, and a written quote"],
@@ -304,8 +304,8 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
                "<b>No surprises for the client.</b> A written quote before any work, agreed with you."]),
         faq=[("Does our CAS registration cover e-invoicing?", "No. Under RMC 98-2026 a CAS or CBA registration doesn't give e-invoicing authority. You need a Permit to Issue (PTI) first, then EIS Certification within six months of the PTI."),
              ("We're an accounting firm. Can we bring a client case?", "Yes. Book one meeting per client and join it with them. You leave with that client's Blueprint and a written quote."),
-             ("How does the set-up meet the 31 December 2026 e-invoicing deadline?", "We set up sequenced invoice series per branch, lock issued invoices and prepare the transmission so your system issues e-invoices on or before 31 December 2026 (RR 26-2025, kept by RMC 98-2026). Your accountant or RDO confirms whether you are covered."),
-             ("Do you connect us to the EIS?", "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately."),
+             ("How does the set-up help with the 31 December 2026 e-invoicing deadline?", "We set up sequenced invoice series per branch and lock issued invoices, so the system follows the e-invoicing rules in RR 26-2025 (the date kept by RMC 98-2026). Any EIS connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). Your accountant or RDO confirms whether you are covered."),
+             ("Do you connect us to the EIS?", "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it."),
              ("Do you file with the BIR for us?", "No. You or your client apply and file at the RDO. We set up the system and prepare the process flow and sample outputs with you."),
              FAQ_COST],
         close_h='Beat the December rush. Plan your <span class="hl">BIR CAS</span> and e-invoicing today.',
@@ -334,8 +334,8 @@ FAQ_U = [
      "Yes. The Philippine set up exports SLSP, SAWT and QAP as DAT files from your posted entries, so the figures match your books."),
     ("Are you connected to the BIR's EIS for e-invoicing?",
      "Not directly. The system we set up prepares the groundwork: your Permit to Issue papers, branch mapping and a locked audit trail. "
-     "The BIR has not endorsed any e-invoicing service provider. If you are covered, we assess your EIS data transmission needs and "
-     "quote any connection separately."),
+     "If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); "
+     "TechNext does not provide it."),
     ("Is TechNext \"BIR-accredited\"?",
      "No software brand is \"BIR-accredited\": the BIR registers a business's use of a system. We set the system up for the BIR's "
      "requirements and help you prepare the sample outputs, audit trail and process flow for your CAS or CBA application at your RDO."),
@@ -361,7 +361,7 @@ _FIRM = dict(
     bp_lead="We handle the technical heavy lifting, so you can focus on advisory and tax strategy.",
     bp=["<b>Sample outputs on demand:</b> the sample invoices and books of accounts the CAS or CBA application needs, printed from your client's real data",
         "<b>Audit trail and system description:</b> posted entries locked, every change logged, checked against Annex B",
-        "<b>Direct access to our own team</b> of BIR Compliance Experts in Taguig City: no generic help desk, no hand-off",
+        "<b>Direct access to our BIR Compliance Experts</b>, Neil and Jeric, in Taguig City: no generic help desk, no hand-off",
         "<b>A written quote</b> before any work starts"],
     faq=FAQ_U,
 )
@@ -395,7 +395,7 @@ PAGES["bir-call"].update(
     goal="cas", btn=BTN_DOC,
     h1='30 January ORUS Deadline. Are Your <span class="hl">BIR CAS</span> Books Ready?',
     sub="Calendar-year CAS and CBA users register their 2026 computerised books online through ORUS by 30 January 2027. "
-        "We set the system up so your firm's and clients' books of accounts agree and are ready for you to review and register.",
+        "We set the system up so your firm's and clients' books of accounts agree before you review and register them.",
     ticks=["<b>Match before you print.</b> Journals and ledger that agree in the system.",
            "<b>A fast set up.</b> As quick as 5 days* for a standard scope.",
            "<b>Keep existing systems.</b> We connect the reporting plug-in to them."],
@@ -417,7 +417,7 @@ PAGES["bir-e-invoicing-plan"].update(
         "Permit to Issue papers with them, and connect the invoicing to their current software.",
     ticks=["<b>Permit to Issue papers.</b> We prepare the process flows and sample invoices; you apply.",
            "<b>Multi branch.</b> Each branch on its own series, with head office seeing them together.",
-           "<b>EIS assessment.</b> Any connection quoted separately, in writing."],
+           "<b>EIS connection.</b> Through a BIR-accredited e-invoicing service provider you choose."],
     check_h="The e-invoicing rules leave no room.",
     check_lead="Can your client's current software handle RR 26-2025 and RMC 98-2026?",
     checks=[("No lock after issue", "<b>No edits after issue:</b> does the system lock invoices and use credit notes for decreases?"),
@@ -428,7 +428,7 @@ PAGES["bir-e-invoicing-plan"].update(
     steps=[("Map the invoice flows", "With your firm: customer invoices, credit notes and branch structures."),
            ("Set up and test", "Taxes and invoice layouts, tested on a copy of your client's real data."),
            ("Prepare the application", "Process flows and sample invoices from the system. You and your client apply for the PTI."),
-           ("Assess the EIS connection", "The BIR has not endorsed any e-invoicing service provider. We assess your client's data transmission needs and quote any EIS connection separately.")],
+           ("Prepare for the EIS provider", "Your client's invoice data set up for the BIR-accredited e-invoicing service provider they choose (RMC 110-2026). TechNext does not provide the EIS connection.")],
     facts=None, faq=FAQ_U, form_h="Get your e-invoicing Blueprint",
 )
 
@@ -490,13 +490,13 @@ PAGES["bir-firm-deadlines"].update(
     pill=DL_BOTH, goal="firm",
     h1='CPA Partners: Two <span class="hl">BIR Deadlines</span>, 30 Days Apart.',
     sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS computerised books for calendar-year CAS "
-        "users. Neither date is moving, and the holidays sit in between. We handle the technical heavy lifting across your "
+        "users. RMC 98-2026 kept the e-invoicing date, and the holidays sit in between. We handle the technical heavy lifting across your "
         "client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
     ticks=["<b>We handle:</b> data ingestion, multi branch invoice sequencing and audit trails.",
            "<b>You handle:</b> the tax advisory for your clients. Your firm stays the adviser.",
            "<b>A written quote</b> per client before any work starts."],
     btn="Book my partner meeting", form_h="Book your partner meeting",
-    bp=["Covered now, later or exempt: the group, checked against the rules",
+    bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
         "CAS or CBA, and what the 30 January ORUS books need",
         "The e-invoicing order: Permit to Issue, set up, EIS Certification",
         "What the set up covers for each client, and a written quote"],
@@ -531,7 +531,7 @@ PAGES["bir-audit-trail"].update(
         "A written quote before any work starts"],
     facts="rmc", express=False,
     steps_h="From the first meeting to locked books.",
-    steps=[("15 to 20 minute meeting", "Our engineers map your workflow and check your audit trail and lock dates."),
+    steps=[("15 to 20 minute meeting", "Neil or Jeric maps your workflow and checks your audit trail and lock dates."),
            ("Set up and test", "Journal locks, user change logs and BIR reports, tested on your real data."),
            ("Tie the reports", "SLSP and books from the same posted entries as the general ledger."),
            ("Review and register", "Your accountant reviews; you register your books in ORUS by 30 January.")],
@@ -615,16 +615,16 @@ _FACTS = {
               "General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Confirm the group with the RDO.",
               [("CAS or CBA with invoicing software", "Covered by 31 December 2026."),
                ("Large Taxpayers Service accounts", "Covered by 31 December 2026, with large taxpayers under RA 11976 and RR 8-2024."),
-               ("E-commerce and internet sellers", "Small, medium and large sellers: covered by 31 December 2026."),
+               ("E-commerce and internet sellers", "Small, medium and large e-commerce sellers (not micro): covered by 31 December 2026."),
                ("Exporters, POS users, incentive-registered firms", "Later, once a separate regulation is issued."),
                ("Micro taxpayers", "Exempt from mandatory e-invoicing."),
-               ("Not sure which group?", "We check it with you in the meeting, against the rules.")]),
+               ("Not sure which group?", "We go through the rules with you in the meeting. Your accountant or RDO confirms it.")]),
 }
 
 _STEPS_EINV = [("15 to 20 minute meeting", "A BIR Compliance Expert checks whether you are covered and how you invoice today."),
                ("Map your invoice flows", "Customer invoices, credit notes, branches, anything issued outside your system."),
                ("Set it up and test", "Taxes, invoice layouts and BIR reports, tested on your real data."),
-               ("Assess the EIS connection", "What sending invoice data would need, quoted as separate work."),
+               ("Prepare for the EIS provider", "Your invoice data set up for the BIR-accredited e-invoicing service provider you choose."),
                ("Prepare your PTI papers", "Process flow and sample invoices, prepared with you. You apply.")]
 
 
@@ -801,9 +801,9 @@ def _facts(p):
         body = ("The BIR registers your business's use of a system, not a software brand, and it has warned against "
                 "\"BIR-accredited\" claims, so we don't make them. You file at your RDO; the decision is the RDO's."
                 if p["facts"] == "rmc" else
-                "The BIR has not accredited or endorsed any e-invoicing service provider (advisory, 14 September 2026). "
+                "Under RMC 110-2026 (12 October 2026), e-invoicing service providers need BIR accreditation for each solution; no list had been published as of 23 November 2026. "
                 "The system we set up has no built-in connection to the BIR's EIS, and TechNext has not built one. If you "
-                "are covered, we assess the options with you and quote any connection separately.")
+                "are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).")
         note = f'<div class="fw-note lp-note reveal"><h3>A word of caution</h3><p>{body}</p></div>'
     return f'''<section class="section fx-sec fw-rules-sec" aria-labelledby="lp-facts-h">
   <div class="container">

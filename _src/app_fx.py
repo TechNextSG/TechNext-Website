@@ -101,14 +101,14 @@ def ledger_html(mod: str) -> str:
 # separately; TechNext has not built one), Odoo 20 payroll: 1601-C items, 2316, 1604-C worksheets + Alphalist DAT.
 BIR_CHIPS = {
     "accountant": [("CAS / CBA books", "Books set up for your own registration"), ("2307 and 2306", "Withholding certificates"), ("SLSP, SAWT, QAP", "DAT files from your entries"), ("2550Q", "Quarterly VAT summary")],
-    "account": [("EOPT invoices", "Invoice rules, a series per branch"), ("E-invoicing", "Planned with covered taxpayers, 31 Dec 2026"), ("EIS connection", "Not built into Odoo; assessed and quoted separately")],
+    "account": [("EOPT invoices", "Invoice rules, a series per branch"), ("E-invoicing", "Planned with covered taxpayers, 31 Dec 2026"), ("EIS connection", "Not built into Odoo; through a BIR-accredited e-invoicing service provider")],
     "hr_payroll": [("1601-C", "Items for the monthly return of tax withheld on pay"), ("2316", "Certificate report for each employee"), ("1604-C", "Worksheets and the Alphalist DAT file")],
     "point_of_sale": [("EOPT invoices", "POS invoices can carry the EOPT fields"), ("Accounting", "The day's takings post to Odoo Accounting"), ("E-invoicing", "Planned for covered taxpayers, 31 Dec 2026")],
 }
 BIR_LINES = {
     "pos_restaurant": ("In the Philippines, restaurant POS invoices can carry the EOPT invoice fields, and the day's takings post to Odoo Accounting for your BIR reports. Your POS units need their own BIR registration, which you apply for. For covered taxpayers we also plan for e-invoicing by 31 December 2026.",
                        "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
-    "website_sale": ("Online orders in the Philippines become invoices set up for the BIR invoice rules under the EOPT Act, and covered taxpayers prepare for e-invoicing by 31 December 2026. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.",
+    "website_sale": ("Online orders in the Philippines become invoices set up for the BIR invoice rules under the EOPT Act, and covered taxpayers prepare for e-invoicing by 31 December 2026. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.",
                      "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
     "purchase": ("In the Philippines, vendor bills with withholding tax posted in Odoo are the source of the 2307 certificates you issue per payee and of the SLSP and QAP reports for the BIR.",
                  "bir-form-2307-odoo", "BIR Form 2307 explained"),

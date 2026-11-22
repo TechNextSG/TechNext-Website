@@ -468,7 +468,7 @@
     }
     var spot = $('.spotlight', hero), box = null, pmRaf = 0;
     function heroBox() { var r = hero.getBoundingClientRect(); box = { l: r.left, t: r.top + window.scrollY, w: r.width || 1, h: r.height || 1 }; }
-    function placeSpot() { if (spot) { spot.style.setProperty('--sx', (mx * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', (my * box.h).toFixed(1) + 'px'); } }
+    function placeSpot() { if (!box) heroBox(); if (spot) { spot.style.setProperty('--sx', (mx * box.w).toFixed(1) + 'px'); spot.style.setProperty('--sy', (my * box.h).toFixed(1) + 'px'); } }
     heroBox(); mx = .5; my = .3; placeSpot(); mx = .5; my = .4;
     window.addEventListener('resize', function () { box = null; }, { passive: true });
     hero.addEventListener('pointerenter', function () { box = null; });

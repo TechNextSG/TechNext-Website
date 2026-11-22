@@ -165,7 +165,13 @@ NEXI_FACE = '<span class="nb-face" aria-hidden="true"><i></i></span>'
 
 
 def _rel(l: dict) -> str:
+    if l["href"].startswith("http"):   # 23 Nov 2026: menu Contact opens the appointment booking page
+        return ' target="_blank" rel="noopener" data-meet data-cta="menu_contact"'
     return ' rel="nofollow"' if l.get("nofollow") else ""
+
+
+def _href(l: dict) -> str:
+    return l["href"] if l["href"].startswith("http") else "{{ROOT}}" + l["href"]
 
 
 def nav_html(active: str) -> str:
@@ -189,7 +195,7 @@ def nav_html(active: str) -> str:
             if col.get("href"):
                 head = f'<a href="{{{{ROOT}}}}{col["href"]}">{col["title"]} {{{{icon:arrow}}}}</a>'
             links = "".join(
-                f'<a class="mega-link" href="{{{{ROOT}}}}{l["href"]}"{_rel(l)}>'
+                f'<a class="mega-link" href="{_href(l)}"{_rel(l)}>'
                 f'<span class="mega-ic">{link_icon(l)}</span>'
                 f'<span><b>{l["label"]}</b><small>{l["desc"]}</small></span></a>'
                 for l in col["links"])
@@ -221,7 +227,7 @@ def mobile_nav_html() -> str:
         groups = []
         for col in it["columns"]:
             links = "".join(
-                f'<a href="{{{{ROOT}}}}{l["href"]}"{_rel(l)}><span class="mnav-ic">{link_icon(l, 24)}</span>{l["label"]}</a>'
+                f'<a href="{_href(l)}"{_rel(l)}><span class="mnav-ic">{link_icon(l, 24)}</span>{l["label"]}</a>'
                 for l in col["links"])
             groups.append(f'<div class="mnav-group"><div class="mnav-head">{col["title"]}</div>{links}</div>')
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
@@ -240,6 +246,14 @@ def mobile_nav_html() -> str:
 def talk_panel_html() -> str:
     c = S.COMPANY
     return f'''
+<div class="side-tabs">
+  <a class="side-tab meet-tab" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="side_tab_book">
+    {{{{icon:calendar}}}}<span>Set up meeting</span>
+  </a>
+  <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
+    {{{{icon:send}}}}<span>Let's Talk</span>
+  </button>
+</div>
 <div class="talk-overlay" data-talk-close hidden></div>
 <aside class="talk-panel" id="talk-panel" role="dialog" aria-modal="true" aria-labelledby="talk-title" hidden>
   <div class="talk-head">
@@ -358,7 +372,7 @@ LAYOUT = '''<!doctype html>
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
 
 <header class="header" data-header>
-<div class="bn bn--dl" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadlines</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i><span class="bn-sep" aria-hidden="true">|</span>2026 Computerized Books in ORUS by <strong>Jan 30, 2027</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-dot"> · </span><span class="bn-g">ORUS <strong>Jan 30</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+<div class="bn bn--dl bn--amber" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadlines</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i><span class="bn-sep" aria-hidden="true">|</span>2026 Computerized Books in ORUS by <strong>Jan 30, 2027</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-dot"> · </span><span class="bn-g">ORUS <strong>Jan 30</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
 <script>/* 13 Nov 2026: days left filled in before first paint (filling them later from site.js shifted the page, CLS 0.14) */(function(){var t=Math.floor((Date.now()+288e5)/864e5);document.querySelectorAll('.bn-cd[data-bn-due]').forEach(function(e){var d=Math.floor(Date.parse(e.getAttribute('data-bn-due')+'T00:00:00Z')/864e5)-t;e.innerHTML=d>1?d+' days<span class="bn-l"> left</span>':d===1?'1 day<span class="bn-l"> left</span>':d===0?'today':''})})()</script>
   <div class="container header-inner">
     <a class="brand" href="{ROOT}index.html" aria-label="TechNext — home">
@@ -392,10 +406,10 @@ LAYOUT = '''<!doctype html>
     <span>© {YEAR} {LEGAL} All rights reserved.</span>
     <nav aria-label="Footer"><a href="{ROOT}bir-cas.html">BIR CAS set-up</a><a href="{ROOT}bir-e-invoicing.html">E-invoicing (EIS)</a><a href="{ROOT}odoo/integration.html">Integration</a><a href="{ROOT}blog.html">Compliance blog</a><a href="{ROOT}company.html">About</a><a href="{ROOT}privacy.html">Privacy Policy</a><a href="{ROOT}terms.html">Terms of Service</a></nav>
   </div>
+  <p class="container footer-legal">TechNext Pte. Ltd. (UEN 202699888G) is an Odoo Ready Partner in Singapore. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf. Content on this site is general information, not tax or legal advice: confirm with your accountant or RDO. Odoo is a trademark of Odoo S.A.</p>
 </footer>
 
 {TALK}
-
 
 <script src="{ROOT}assets/js/app-slugs.js?v={ASSET_V}" defer></script>
 <script src="{ROOT}assets/js/site.js?v={ASSET_V}" defer></script>
@@ -1096,13 +1110,13 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
     <div class="sec-head reveal">
       
       <h2>A team that plugs Odoo into your system.</h2>
-      <p class="lead">Your current POS, accounting software or legacy ERP stays. We connect it by API, daily batch sync or flat-file upload, map every transaction to the right ATC, and generate matched CAS journals, 2307s and SLSP DAT files. Our own engineers stay with you after go-live.</p>
+      <p class="lead">Your current POS, accounting software or legacy ERP stays. We connect it by API, daily batch sync or flat-file upload, map every transaction to the right ATC, and generate matched CAS journals, 2307s and SLSP DAT files. Our experts stay with you after go-live.</p>
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Our experts implement it, in-house.</h3><p>The adviser who scopes your project works with our own consultants and developers in Taguig and Ho Chi Minh City. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Two experts, start to finish.</h3><p>Jeric is your first call; Neil, our Senior Functional Lead, plans and runs your set-up. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>Odoo experts in 25+ countries, and growing.</h3><p>Singapore HQ, a consulting hub in Taguig City and engineers in Ho Chi Minh City, growing with every project.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>Clients in 25+ countries.</h3><p>Our Singapore HQ and our team in Taguig City, Metro Manila.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
     <p class="small muted reveal">TechNext is an Odoo Ready Partner. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do not file or register on your behalf.</p>
   </div>
@@ -1661,7 +1675,7 @@ BIR_APP = {
                    "TechNext sets up Odoo Accounting for BIR requirements: books set up for your own CAS or CBA registration, 2307 and 2306 certificates, and SLSP, SAWT, QAP and 2550Q reports from your own entries. No accounting software is BIR-accredited, so we first check which rules apply to your company.",
                    "register-odoo-cas-cba-bir", "How to register Odoo as your CAS or CBA"),
     "account": ("Odoo Invoicing for Philippine companies",
-                "Invoices set up for the BIR invoice rules under the EOPT Act, with a series per branch, and, if you are a covered taxpayer (deadline 31 December 2026), a plan for e-invoicing. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, we assess the options with you and quote any connection separately.",
+                "Invoices set up for the BIR invoice rules under the EOPT Act, with a series per branch, and, if you are a covered taxpayer (deadline 31 December 2026), a plan for e-invoicing. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.",
                 "eopt-invoice-requirements-odoo", "What a BIR invoice must show"),
     "hr_payroll": ("Odoo Payroll for Philippine companies",
                    "Odoo 20's Philippine payroll package adds a 2316 report, 1601-C items and 1604-C worksheets with the Alphalist DAT file. TechNext checks the 2026 tax tables, de minimis limits and contributions with you before go-live.",
@@ -1699,9 +1713,9 @@ def bir_industry_block(key: str, name: str, low: str) -> str:
 
 def bir_industry_faqs(low: str) -> list:
     return [("Is Odoo BIR-accredited?",
-             "No accounting software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 says it has not accredited any e-invoicing service provider. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
+             "No accounting software is BIR-accredited in that sense: the BIR registers your books and issues your Permit to Issue for the system you use, and its advisory of 14 September 2026 warned against \"BIR-accredited\" claims. Since RMC 110-2026 (12 October 2026), e-invoicing service providers need BIR accreditation for each e-invoicing solution they offer; as of 23 November 2026 no list of accredited providers had been published. What matters is that your books, invoices and withholding meet BIR requirements. TechNext sets Odoo up for them and advises on what applies to your company. See <a href=\"{{ROOT}}blog/bir-rules-for-your-accounting-system.html\">BIR rules for your accounting system</a>."),
             (f"Can TechNext set up Odoo for BIR requirements for {low} in the Philippines?",
-             "Yes. Our Taguig City team configures Odoo Accounting for your own CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, plans e-invoicing with you (any EIS connection is assessed and quoted separately). You file and register with the BIR yourself. Set up a meeting and an adviser reviews your current invoicing and books first.")]
+             "Yes. Our Taguig City team configures Odoo Accounting for your own CAS or CBA registration, 2307 certificates, SLSP, SAWT and QAP reports and, for covered taxpayers, plans e-invoicing with you (any EIS connection runs through a BIR-accredited e-invoicing service provider the client chooses). You file and register with the BIR yourself. Set up a meeting and an adviser reviews your current invoicing and books first.")]
 
 
 
@@ -2387,10 +2401,10 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # 12 Nov 2026 (copy audit): "5 Day Express" labels only on BIR CAS pages and always with the "*" qualifier (the footnote is
 # added below when a page does not already carry it); other pages get Odoo-plan labels.
 HOOKS = {   # 12 Nov 2026 overhaul brief: every page leads with "Book a Technical Readiness Call"
-    "cas": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a compliance engineer", "Map my data to BIR outputs"],
-    "einv": ["Book a Technical Readiness Call", "Plan my EIS integration", "Talk to a compliance engineer", "Get my custom blueprint"],
-    "app": ["Book a Technical Readiness Call", "See it on my data", "Talk to a compliance engineer", "Get my custom blueprint"],
-    "gen": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a compliance engineer", "Map my data to BIR outputs"],
+    "cas": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
+    "einv": ["Book a Technical Readiness Call", "Plan my e-invoicing", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
+    "app": ["Book a Technical Readiness Call", "See it on my data", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
+    "gen": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
 }
 HOOK_LAST = {k: "Book a Technical Readiness Call" for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
@@ -2606,7 +2620,7 @@ def render(meta: dict, content: str, nav_cache: dict) -> str:
         w_head = (INTRO_HEAD.replace("(nav.type==='navigate'&&internal)||", "")
                   + "<script>document.documentElement.classList.add('intro-nxe')</script>\n")
         w_body = INTRO_BODY
-    html =(LAYOUT.replace("{INTRO_HEAD}", w_head).replace("{INTRO_BODY}", w_body)   # 8 Nov 2026: no home intro splash
+    html =(LAYOUT.replace("{INTRO_HEAD}", intro_head if home else w_head).replace("{INTRO_BODY}", INTRO_BODY if home else w_body)   # 22 Nov 2026: old design back, home intro splash on
                   .replace("{NAV}", nav_cache[active]).replace("{MNAV}", mobile_nav_html()).replace("{TALK}", talk_panel_html())
                   .replace("{LETTERS}", letters).replace("{LETTERS_W}", str(lw)).replace("{LETTERS_H}", str(lh)))
     html = (html.replace("{TITLE}", title)
@@ -2739,7 +2753,7 @@ def write_llms():
         "Accounting only and get a written quote before any work starts. In the Philippines we set Odoo up "
         "for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it "
         "(the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned "
-        "separately (Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one); in Singapore, GST, and "
+        "with it (the EIS connection runs through a BIR-accredited e-invoicing service provider it chooses); in Singapore, GST, and "
         "InvoiceNow with the Access Point the client chooses. When a business is ready, we implement the full Odoo ERP "
         "(sales, inventory, POS, HR and more). No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
         "TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.",
@@ -2776,9 +2790,9 @@ def write_llms():
         "- Is Odoo BIR-accredited? No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). The BIR registers each business's use of a system; "
         f"a business can register Odoo as its CAS or CBA. Guide: {S.SITE_URL}blog/bir-rules-for-your-accounting-system",
         "- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. "
-        f"If a business is covered by RR 26-2025, TechNext assesses the options with it and quotes any connection separately. Guide: {S.SITE_URL}bir-e-invoicing",
+        f"If a business is covered by RR 26-2025, the connection runs through a BIR-accredited e-invoicing service provider it chooses (RMC 110-2026); TechNext does not provide it. Guide: {S.SITE_URL}bir-e-invoicing",
         "- Who implements Odoo in both Singapore and the Philippines? TechNext, an Odoo Ready Partner in Singapore: headquarters in Singapore (GST and InvoiceNow with the "
-        f"client's chosen Access Point), hub in Taguig City (BIR), engineering hub in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
+        f"client's chosen Access Point), hub in Taguig City (BIR), office in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
         "- Is TechNext connected to the BIR? No. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency.",
         # 24 Oct 2026: the accounting and finance questions people ask AI assistants before choosing a system or partner
         "- What accounting software can a Philippine business use for BIR requirements? Any system the business registers with its RDO as its CAS or CBA; "
