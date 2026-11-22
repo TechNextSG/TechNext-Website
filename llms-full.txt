@@ -18,7 +18,7 @@ Last updated: 2026-11-23
 ## Pages
 
 - https://technext.asia/ — TechNext | BIR CAS and E-Invoicing Set-Up for Accountants: Automate your clients' BIR compliance and keep their current software. Matched CAS journals, 2307s and SLSP DAT files from the data they already have.
-- https://technext.asia/bir-adviser-call — BIR CAS Setup. Keep Your Software.: BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 to 20 minute meeting.
+- https://technext.asia/bir-adviser-call — BIR CAS Setup. Keep Your Software.: BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 minute meeting.
 - https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Prepare Now, Not in December: BIR e-invoicing (EIS) set-up before 31 Dec 2026: sequenced branch series, locked invoices and transmission, connected to your current system by our Taguig team.
 - https://technext.asia/blog — BIR CAS Guides: E-invoicing, 2307, SLSP, 2550Q: Plain guides to BIR CAS, e-invoicing, 2307, SLSP and 2550Q from TechNext's BIR Compliance Experts, for Philippine SMEs and their accountants.

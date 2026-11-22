@@ -22,7 +22,7 @@ Funnel, top to bottom (every section ends on one action: scroll to the form, #bo
 Header: logo only (gs-fx hides the menu, header buttons, floats and the BIR notice bar); no links out of the page.
 
 Brand voice (8-12 Nov 2026 owner + Sky rules): written for the accountant; 5 days always with an asterisk; titles name
-BIR CAS; "BIR Compliance Expert", never "adviser call" / "call" / "Google Meet"; the meeting is 15 to 20 minutes,
+BIR CAS; "BIR Compliance Expert", never "adviser call" / "call" / "Google Meet"; the meeting is 15 minutes,
 online, no charge, and ends with a Blueprint; no Odoo or ERP in visible copy, titles, meta or JSON-LD (the software is
 "a plug-in beside your current software"); no fixed price, no "free", no BIR link or guarantee, no "ready / compliant /
 accredited" claims, no other software brands, no Day 2-5 breakdown, no Lean / Agile / Six Sigma, British spelling,
@@ -44,11 +44,11 @@ FINE = ('*Standard 5-day technical deployments available for clean, reconciled d
         'your quote. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do '
         'not file or register on your behalf.')
 BOOK = "https://technext.odoo.com/book/c82cf8a9"
-UNDER = "15 to 20 minutes, online. Slots Monday to Saturday this week. Written quote before any work."
+UNDER = "15 minutes, online. Slots Monday to Saturday this week. Written quote before any work."
 DL_CAS = "<b>Deadline</b> · 2026 books in ORUS by 30 January 2027"
 DL_EINV = ('<b>Deadline</b> · <span data-fw-dl-static>e-invoices by 31 December 2026</span><span data-fw-dl-live hidden>'
            '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')
-SUB_CAS = ("Meet a BIR Compliance Expert online for 15 to 20 minutes. You leave with your BIR CAS Blueprint: what to set "
+SUB_CAS = ("Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: what to set "
            "up, in what order, and a written quote.")
 BTN_CAS = "Get my BIR CAS Blueprint"
 BTN_EINV = "Get my e-invoicing plan"
@@ -103,7 +103,7 @@ FAQ_5DAY = ("How long does the 5 Day Express* take?",
             "Standard 5-day technical deployments are available for clean, reconciled data ledgers.* Bigger scopes, more branches or messy data run as extra sprints, and your quote says so before you agree to anything. Your RDO sets its own timeline for the registration.")
 
 CLOSE_P = ("Fill in the short form (about a minute). A BIR Compliance Expert replies from sales@technext.asia within one "
-           "business day. <strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.")
+           "business day. <strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.")
 
 # ---------------------------------------------------------------------------------------------------------------- pages
 PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy doc below replaces four of them.
@@ -131,7 +131,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
              FAQ_LINK],
         close_h='30 January 2027 is close. Start your <span class="hl">BIR CAS</span> today.',
         close_p="Calendar-year CAS and CBA users register their 2026 computerised books in ORUS by 30 January 2027. "
-                "<strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.",
+                "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
     ),
     # Meta traffic ads 225 / 228 (3 Nov notes). Form tag "BIR adviser call".
     "bir-adviser-call": dict(
@@ -170,7 +170,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         source="BIR adviser call (fast form B)",
         pill=DL_CAS,
         h1='<span class="hl">BIR CAS</span> Books Due 30 January 2027.',
-        sub="Meet a BIR Compliance Expert online for 15 to 20 minutes. You leave with your BIR CAS Blueprint: which books "
+        sub="Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: which books "
             "you register, what to set up first, and a written quote.",
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what has to be in place before 30 January.",
                "<b>Journals, ledger and subsidiary books</b> printed from one system, reviewed by your accountant.",
@@ -203,7 +203,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         source="BIR adviser call (accountants lander)",
         pill=DL_CAS,
         h1='<span class="hl">BIR CAS</span> for Accountants. <span class="hl">5 Day</span> Setup.*',
-        sub="Meet a BIR Compliance Expert online for 15 to 20 minutes. You leave with your BIR CAS Blueprint: which reports "
+        sub="Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: which reports "
             "come straight from your books, in what order to set them up, and a written quote.",
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: 2307, SLSP, SAWT and QAP from the entries you already post.",
                "<b>Keep your current software.</b> Nothing is typed twice.",
@@ -237,7 +237,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         source="BIR adviser call (e-invoicing lander)",
         pill=DL_EINV,
         h1='<span class="hl">BIR E-Invoicing</span> Setup Before 31 December 2026.',
-        sub="Meet a BIR Compliance Expert online for 15 to 20 minutes. You leave with your e-invoicing plan: whether you are "
+        sub="Meet a BIR Compliance Expert online for 15 minutes. You leave with your e-invoicing plan: whether you are "
             "covered, what to set up, in what order, and a written quote.",
         ticks=["<b>Your e-invoicing plan</b> from the meeting: PTI papers, invoice flows and branches, in order.",
                "<b>Keep your current software.</b> We connect the invoicing to it.",
@@ -273,7 +273,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         pill=DL_EINV,
         h1='E-Invoicing for <span class="hl">BIR CAS</span> Users by 31 December 2026. Your Plan in 20 Minutes.',
         sub="A CAS registration doesn't cover e-invoicing. The first step is a Permit to Issue, then EIS Certification. "
-            "Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your Blueprint: the coverage rules (your accountant or RDO confirms), what "
+            "Meet a BIR Compliance Expert online for 15 minutes and leave with your Blueprint: the coverage rules (your accountant or RDO confirms), what "
             "to file first, and a written quote.",
         ticks=["<b>Your CAS and e-invoicing Blueprint</b> from the meeting: the order of work, for you or your client.",
                "<b>Keep the accounting software.</b> We connect to it by API, batch sync or flat file; nothing is swapped out.",
@@ -290,7 +290,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
                 ("“We'll sort it out in December.”",
                  "December is year end close, 2026 books are due in ORUS by 30 January, and every RDO gets the same rush. The order of work is decided now.")]),
         checks=None,
-        bp_h='Your Blueprint, in 15 to 20 minutes.',
+        bp_h='Your Blueprint, in 15 minutes.',
         bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client, not a sales pitch.",
         bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
             "CAS or CBA, and what the 30 January ORUS books need",
@@ -309,7 +309,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
              ("Do you file with the BIR for us?", "No. You or your client apply and file at the RDO. We set up the system and prepare the process flow and sample outputs with you."),
              FAQ_COST],
         close_h='Beat the December rush. Plan your <span class="hl">BIR CAS</span> and e-invoicing today.',
-        close_p="December is year end close. ORUS books are due by 30 January. <strong>15 to 20 minutes, online, no charge.</strong> "
+        close_p="December is year end close. ORUS books are due by 30 January. <strong>15 minutes, online, no charge.</strong> "
                 "Any work starts with a written quote.",
     ),
 }
@@ -480,7 +480,7 @@ PAGES["bir-quarter-end"].update(
          FAQ_KEEP, FAQ_TIME, FAQ_ORUS, FAQ_LINK, FAQ_COST],
     close_h='CAS books are due 30 January 2027. Start before the holidays, <span class="hl">not in January</span>.',
     close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
-            "<strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.",
+            "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
 )
 
 # FB ad 266 "CPA Partners: Two BIR Deadlines, 30 Days Apart" (on hold in Meta, page ready)
@@ -511,7 +511,7 @@ PAGES["bir-audit-trail"].update(
     h1='Is Your <span class="hl">BIR CAS</span> Software <span class="hl">Actually Audit-Proof?</span>',
     sub="Your 2026 computerised books go to ORUS by 30 January 2027. Under RMC 5-2021, a CAS must keep an audit trail and "
         "protect posted entries from changes. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail for clean, reconciled "
-        "ledgers. Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your plan.",
+        "ledgers. Meet a BIR Compliance Expert online for 15 minutes and leave with your plan.",
     ticks=["<b>Posted entries locked.</b> Lock dates, and no edits after posting.",
            "<b>Every change logged.</b> Who did what, and when.",
            "<b>SLSP tied to the ledger.</b> Reports from the same posted entries."],
@@ -531,7 +531,7 @@ PAGES["bir-audit-trail"].update(
         "A written quote before any work starts"],
     facts="rmc", express=False,
     steps_h="From the first meeting to locked books.",
-    steps=[("15 to 20 minute meeting", "Neil or Jeric maps your workflow and checks your audit trail and lock dates."),
+    steps=[("15 minute meeting", "Neil or Jeric maps your workflow and checks your audit trail and lock dates."),
            ("Set up and test", "Journal locks, user change logs and BIR reports, tested on your real data."),
            ("Tie the reports", "SLSP and books from the same posted entries as the general ledger."),
            ("Review and register", "Your accountant reviews; you register your books in ORUS by 30 January.")],
@@ -540,7 +540,7 @@ PAGES["bir-audit-trail"].update(
          FAQ_ORUS, FAQ_KEEP, FAQ_TIME, FAQ_COST],
     close_h='30 January 2027 is close. <span class="hl">Lock your books</span> before year end.',
     close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
-            "<strong>15 to 20 minutes, online, no charge.</strong> Any work starts with a written quote.",
+            "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
 )
 for _k in ("bir-quarter-end", "bir-audit-trail"):
     PAGES[_k].pop("order", None)
@@ -621,7 +621,7 @@ _FACTS = {
                ("Not sure which group?", "We go through the rules with you in the meeting. Your accountant or RDO confirms it.")]),
 }
 
-_STEPS_EINV = [("15 to 20 minute meeting", "A BIR Compliance Expert checks whether you are covered and how you invoice today."),
+_STEPS_EINV = [("15 minute meeting", "A BIR Compliance Expert checks whether you are covered and how you invoice today."),
                ("Map your invoice flows", "Customer invoices, credit notes, branches, anything issued outside your system."),
                ("Set it up and test", "Taxes, invoice layouts and BIR reports, tested on your real data."),
                ("Prepare for the EIS provider", "Your invoice data set up for the BIR-accredited e-invoicing service provider you choose."),
@@ -656,7 +656,7 @@ def _form(p):
       <input type="hidden" name="source" value="{_e(p["source"])}">
       <div class="fw-fhead">
         <h2 class="gs-form-h">{h}</h2>
-        <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day to set your 15 to 20 minute online meeting. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
+        <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day to set your 15 minute online meeting. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
 {_goal(p)}        <div class="form-row">
@@ -674,7 +674,7 @@ def _form(p):
       </div>
       <p class="lp-under">{UNDER}</p>
       <p class="form-status" role="status" aria-live="polite"></p>
-      <div class="form-sent"><h3>Thanks, your request is in.</h3><p>Neil or Jeric replies from sales@technext.asia within one business day to set your 15 to 20 minute online meeting. Want to pick a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Choose a slot this week</a>.</p></div>
+      <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A confirmation email comes from sales@technext.asia, and a BIR Compliance Expert replies within one business day to set your 15 minute online meeting. Want to pick a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Choose a slot this week</a>.</p></div>
       <p class="small muted gs-privacy">{{{{icon:shield}}}} Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
     </div>'''
