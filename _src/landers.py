@@ -370,7 +370,7 @@ PAGES["bir-adviser-call"].update(_copy.deepcopy(_FIRM))
 
 PAGES["bir-cas-for-accountants"].update(
     pill=DL_BOTH, goal="quarter", btn=BTN_DOC,
-    h1='Reclaim Your Quarter End. Stop Rebuilding <span class="hl">SLSP</span> in Spreadsheets.',
+    h1='Reclaim Your <span class="hl">BIR CAS</span> Quarter End. Stop Rebuilding <span class="hl">SLSP</span> in Spreadsheets.',
     sub="The plug-in built to give accountants and bookkeepers their weekends back. Every BIR report comes straight from the "
         "entries you already post. You reconcile once, and the system handles the rest.",
     ticks=["<b>Never type a 2307 again.</b> Generated from your vendor bills.",
@@ -455,7 +455,7 @@ PAGES["bir-quarter-end"] = dict(_copy.deepcopy(PAGES["bir-cas-for-accountants"])
 PAGES["bir-quarter-end"].update(
     source="BIR adviser call (FB ad 265 quarter end)",
     pill=DL_CAS, goal="quarter",
-    h1='Automate BIR Compliance. <span class="hl">Keep Your Current System.</span>',
+    h1='Automate <span class="hl">BIR Compliance</span>. <span class="hl">Keep Your Current System.</span>',
     sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Your clients' 2026 CAS books "
         "are due through ORUS by 30 January 2027: set up automated BIR reporting beside the software they already use, "
         "before the holidays. Our <b>5 Day Express BIR Solution*</b> sets it up for clean, reconciled ledgers.",
@@ -508,7 +508,7 @@ PAGES["bir-audit-trail"] = dict(_copy.deepcopy(PAGES["bir-adviser-call"]))
 PAGES["bir-audit-trail"].update(
     source="BIR adviser call (FB ad 267 audit trail)",
     pill=DL_CAS, goal="cas",
-    h1='Is Your Accounting Software <span class="hl">Actually Audit-Proof?</span>',
+    h1='Is Your <span class="hl">BIR CAS</span> Software <span class="hl">Actually Audit-Proof?</span>',
     sub="Your 2026 computerised books go to ORUS by 30 January 2027. Under RMC 5-2021, a CAS must keep an audit trail and "
         "protect posted entries from changes. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail for clean, reconciled "
         "ledgers. Meet a BIR Compliance Expert online for 15 to 20 minutes and leave with your plan.",
@@ -521,7 +521,7 @@ PAGES["bir-audit-trail"].update(
     check_lead="Lock your books before year end. Which of these sounds familiar?",
     checks=[("No audit trail printout", "<b>The system can't print an audit trail</b> showing who changed what, and when."),
             ("Posted entries get edited", "<b>Posted entries get edited</b> after the period is closed."),
-            ("SLSP doesn't tie to the ledger", "<b>The SLSP doesn't tie to the general ledger</b> without fixes by hand."),
+            ("SLSP doesn't tie to the ledger", "<b>The SLSP doesn't tie to the general ledger</b> without manual corrections."),
             ("Annex B never checked", "<b>Nobody has checked the Annex B requirements</b> against your set up.")],
     bp_h="What you leave the meeting with.",
     bp_lead="One online meeting with a BIR Compliance Expert, before your books are due.",
@@ -557,7 +557,7 @@ CTAS = {
     "bir-adviser-call": dict(_CAS_FIRM, close="Book my Blueprint meeting"),
     "bir-call": dict(check="Check my books for ORUS", blueprint="Get my BIR CAS Blueprint", express="Plan my set up",
                      faq=_ASK, close="Book before 30 January"),
-    "bir-cas-for-accountants": dict(check="Fix my quarter end", blueprint="See my quarter end set up", express="Plan my set up",
+    "bir-cas-for-accountants": dict(check="Solve my quarter end", blueprint="See my quarter end set up", express="Plan my set up",
                                     faq=_ASK, close="Book my Blueprint meeting"),
     "bir-e-invoicing-plan": dict(check="Check my e-invoicing gaps", blueprint="Get my e-invoicing Blueprint",
                                  express="Book the first meeting", faq=_ASK, close="Book before 31 December"),
@@ -567,7 +567,7 @@ CTAS = {
 }
 
 CTAS.update({
-    "bir-quarter-end": dict(check="Fix my quarter end", blueprint="Book my workflow review", express="Book my workflow review",
+    "bir-quarter-end": dict(check="Solve my quarter end", blueprint="Book my workflow review", express="Book my workflow review",
                             faq=_ASK, close="Book before 30 January"),
     "bir-firm-deadlines": dict(myths="Check what my client needs", facts="Check if my client is covered",
                                blueprint="Book my partner meeting", firm="Bring a client case", faq=_ASK,
