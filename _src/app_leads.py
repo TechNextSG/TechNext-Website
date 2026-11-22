@@ -10,13 +10,13 @@ up (configure, migrate, train, support). No prices, Odoo is never "free", no acc
 BIR clauses (Accounting, Invoicing, Sales, Point of Sale, Payroll) use only: Odoo PH localisation
 produces 2307 per payee, SLSP/SAWT/QAP as DAT files and the 2550Q; Odoo 20 PH payroll adds 1601-C items,
 a 2316 report and 1604-C worksheets; EOPT invoice rules; e-invoicing by 31 Dec 2026 for covered taxpayers (Odoo
-has no built-in EIS connection and TechNext has not built one: assessed and quoted separately). HTML-safe: write & as &amp;.
+has no built-in EIS connection and TechNext has not built one: through a BIR-accredited e-invoicing service provider the client chooses). HTML-safe: write & as &amp;.
 """
 
 LEADS = {
     # Finance
     "accountant": "Odoo Accounting keeps books, bank reconciliation, tax reports and month-end close in one database. We configure it, migrate your opening balances and train your team, and for Philippine companies we set it up for BIR requirements: 2307 per payee, SLSP, SAWT and QAP as DAT files, and the 2550Q.",
-    "account": "Odoo Invoicing sends invoices from your own templates, takes payment online and reminds customers about overdue ones. We set it up, and for Philippine companies the invoices follow the EOPT rules; for covered taxpayers we plan e-invoicing ahead of 31 December 2026. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one; if you are covered, we assess the options with you and quote any connection separately.",
+    "account": "Odoo Invoicing sends invoices from your own templates, takes payment online and reminds customers about overdue ones. We set it up, and for Philippine companies the invoices follow the EOPT rules; for covered taxpayers we plan e-invoicing ahead of 31 December 2026. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one; if you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.",
     "hr_expense": "Receipts arrive from a phone or an email, managers approve the claim, and approved expenses move on to your accounts. We set up your expense categories and approval rules, train your staff and support you after go-live.",
     "spreadsheet_dashboard": "Pivots, charts and dashboards read live from your Odoo data, so reports no longer depend on exports to a spreadsheet. We build the first dashboards with your managers, then train your team to edit them.",
     "documents": "Odoo Documents gives company files one home, with workspaces, access rules and OCR, instead of inboxes and shared drives. We set up the workspaces, move your existing files in and train your team.",

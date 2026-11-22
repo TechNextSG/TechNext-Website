@@ -393,7 +393,7 @@ def switch_html() -> str:
         tabs += (f'<button class="fx-ind" type="button" role="tab" id="ixs-t-{key}" aria-controls="ixs-p-{key}" aria-selected="{"true" if on else "false"}"'
                  f' tabindex="{0 if on else -1}" data-ixs="{key}">{icon(ic)}<span><b>{d["name"]}</b><small>{line}</small></span></button>')
         panels += (f'<div class="ixs-pane" role="tabpanel" id="ixs-p-{key}" aria-labelledby="ixs-t-{key}"{"" if on else " hidden"}>'
-                   f'{panel_html(key)}<a class="btn-link ixs-go" href="{{{{ROOT}}}}industries/{key}.html">See Odoo for {d["noun"]} {icon("arrow")}</a></div>')
+                   f'{panel_html(key)}</div>')   # 22 Nov 2026: the industry pages are gone, so no "See Odoo for ..." link
     return f'''<section class="section fx-sec fx-sec--alt" id="industries" aria-labelledby="fx-ind-h">
   <div class="container">
     <div class="sec-head reveal"><h2 id="fx-ind-h">Set up for how your industry runs, and for the BIR reports you file.</h2><p class="lead">Pick your industry to see the Odoo record it runs on, from the first step to the journal entry behind your BIR reports.</p></div>

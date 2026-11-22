@@ -2,7 +2,7 @@
 <div class="post-key">
   <p class="post-key-h">Key takeaways</p>
   <ul>
-    <li><strong>No accounting software is BIR-accredited.</strong> In a public advisory dated 14 September 2026, the BIR said it has not accredited or endorsed any e-invoicing provider.</li>
+    <li><strong>No accounting software is BIR-accredited.</strong> In a public advisory dated 14 September 2026, the BIR said it had not accredited or endorsed any e-invoicing provider. Since RMC 110-2026 (12 October 2026), e-invoicing service providers need BIR accreditation for each e-invoicing solution they offer; as of 23 November 2026 no list of accredited providers had been published.</li>
     <li>The BIR registers <strong>your</strong> system as a CAS or CBA at your RDO. Whichever software you pick, your business does the registering.</li>
     <li>Compare products on the outputs you file every quarter: <strong>2307, SLSP, SAWT and QAP</strong>, plus e-invoicing if you are covered by 31 December 2026.</li>
     <li>Odoo 19's Philippine localisation documents these outputs, and Odoo 20's release notes add PDF 2306 and 2307 certificates. TechNext sets them up in Odoo for you. For other products, check the Philippine features with the vendor or a local add-on.</li>
@@ -14,7 +14,7 @@
 <h2>First, what the BIR actually registers</h2>
 <ul>
   <li><strong>Your system, at your RDO.</strong> Under RMC 5-2021 you register your computerised accounting system (CAS) or computerised books of accounts (CBA) with the Revenue District Office where you are registered. There is no Permit to Use. The RDO issues an Acknowledgement Certificate within three working days of complete documents, and evaluates the system afterwards.</li>
-  <li><strong>Outsourced systems.</strong> If the system is outsourced, or used and maintained by a service provider instead of you, the application uses a <strong>joint sworn statement</strong> signed with that provider (RMC 5-2021, Annex A).</li>
+  <li><strong>Outsourced systems.</strong> If the system is outsourced, or used and maintained by a service provider instead of you, the application uses a <strong>joint sworn statement</strong> signed with that provider (Annex E of RMO 9-2021).</li>
   <li><strong>Major upgrades.</strong> A version change that affects the financial side, or adding or removing financial modules, needs a new application before you use it.</li>
   <li><strong>Books through ORUS.</strong> Computerised books and permanently bound loose-leaf books must be registered online through ORUS (RMC 4-2026).</li>
 </ul>
@@ -23,8 +23,8 @@
 
 <h2>E-invoicing changes the comparison</h2>
 <p>RMC 98-2026 requires covered taxpayers to issue electronic invoices <strong>on or before 31 December 2026</strong>. Covered taxpayers include CAS and CBA users with electronic invoicing, large taxpayers, and e-commerce sellers that are not micro taxpayers. Each needs a <strong>Permit to Issue</strong> that names the approved system, and an EIS Certification within six months of it.</p>
-<p>Two points matter when you choose software. Invoices made in Word, Excel, Google Docs or Google Sheets are <strong>not</strong> valid e-invoices. And changing or migrating your invoicing system needs a new or amended Permit to Issue. Choose once, and choose carefully. RMC 98-2026 also says invoices from a system that cannot transmit sales data to the BIR are treated as system-generated invoices, not electronic invoices.</p>
-<p><strong>In Odoo:</strong> customer invoices are created and numbered by the system in Accounting &gt; Customers &gt; Invoices and can be sent to the buyer by email. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If your business is covered, we assess the EIS work and quote it separately.</p>
+<p>Two points matter when you choose software. Invoices made in Word, Excel, Google Docs or Google Sheets are <strong>not</strong> valid e-invoices. And changing or migrating your invoicing system means new applications at your RDO, so check the Permit to Issue steps before you switch. Choose once, and choose carefully. RMC 98-2026 also says invoices from a system that cannot transmit sales data to the BIR are treated as system-generated invoices, not electronic invoices.</p>
+<p><strong>In Odoo:</strong> customer invoices are created and numbered by the system in Accounting &gt; Customers &gt; Invoices and can be sent to the buyer by email. Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If your business is covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.</p>
 
 <h2>The comparison</h2>
 <p>The Odoo column uses Odoo's own documentation. The other columns describe what that kind of product usually offers; editions differ, so where a Philippine feature depends on the vendor, we say check rather than guess.</p>
@@ -38,7 +38,7 @@
     <tr><td>SLSP, SAWT and QAP</td><td>Compiled by hand</td><td>Reports under Accounting &gt; Reporting that export DAT files for the BIR's ReLiEf module (SLSP) and Alpha module (SAWT, QAP)</td><td>Check with the vendor or a local add-on</td><td>Check with your reseller or a local add-on</td></tr>
     <tr><td>BIR 2550Q (VAT return)</td><td>Compiled by hand</td><td>2550Q (PH) report under Accounting &gt; Reporting &gt; Tax Report</td><td>Check with the vendor or a local add-on</td><td>Check with your reseller or a local add-on</td></tr>
     <tr><td>Beyond accounting</td><td>Separate files per process</td><td>Inventory, purchase, sales, CRM, manufacturing, payroll and more on one database</td><td>Basic inventory and an app marketplace</td><td>Financials, inventory and production planning</td></tr>
-    <tr><td>Connection to the BIR's EIS</td><td>Not possible: spreadsheet invoices are not e-invoices</td><td>No built-in connection; assessed and quoted separately</td><td>Ask the vendor how it connects to the EIS</td><td>Ask your reseller how it connects to the EIS</td></tr>
+    <tr><td>Connection to the BIR's EIS</td><td>Not possible: spreadsheet invoices are not e-invoices</td><td>No built-in connection; through a BIR-accredited e-invoicing service provider</td><td>Ask the vendor how it connects to the EIS</td><td>Ask your reseller how it connects to the EIS</td></tr>
   </tbody>
 </table></div>
 <p>Every kind of system in the table is used by Philippine businesses, and each can be a sensible choice. A sole trader with a few invoices a month has different needs from a distributor with three branches and a warehouse. The table is a starting point for questions, not a verdict.</p>
@@ -65,7 +65,7 @@
 <p>If you have already outgrown spreadsheets, our article on <a href="{{ROOT}}blog/signs-you-have-outgrown-spreadsheets.html">the signs you have outgrown spreadsheets</a> may help you decide when to move.</p>
 
 <h2>How TechNext sets up Odoo</h2>
-<p>TechNext is an Odoo Ready Partner in Singapore with a team in Taguig City. We set up Odoo for BIR requirements: the Philippine localisation, your company TIN, branch and RDO codes, your taxes and ATC codes, contact TINs, secured journals and lock dates, invoice layouts, and the 2307, SLSP, SAWT, QAP and 2550Q reports. We then prepare the Odoo outputs with you for your CAS or CBA application. Your business files the application at its RDO; we do not file returns or registrations on your behalf. Any EIS connection is assessed and quoted separately. <a href="{{ROOT}}bir-cas.html">See how we prepare Odoo for CAS registration</a>.</p>
+<p>TechNext is an Odoo Ready Partner in Singapore with a team in Taguig City. We set up Odoo for BIR requirements: the Philippine localisation, your company TIN, branch and RDO codes, your taxes and ATC codes, contact TINs, secured journals and lock dates, invoice layouts, and the 2307, SLSP, SAWT, QAP and 2550Q reports. We then prepare the Odoo outputs with you for your CAS or CBA application. Your business files the application at its RDO; we do not file returns or registrations on your behalf. Any EIS connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). <a href="{{ROOT}}bir-cas.html">See how we prepare Odoo for CAS registration</a>.</p>
 <p>TechNext is not affiliated with the BIR or any government agency.</p>
 
 <div class="post-note"><p>Rules and products change. This article reflects BIR issuances and published product information available on 24 October 2026. Descriptions of other kinds of software are general and may not cover every product, edition or add-on. It is not tax advice: confirm with your accountant or the BIR before you act.</p></div>
@@ -83,9 +83,9 @@
 
 <h2>Common questions</h2>
 <div class="faq">
-  <details><summary>Is any accounting software BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No. In its 14 September 2026 advisory, the BIR said it has not accredited, certified or endorsed any e-invoicing service provider, and warned against such claims. The BIR registers each business's own CAS or CBA instead.</p></div></details>
+  <details><summary>Is any accounting software BIR-accredited? {{icon:chevron}}</summary><div class="faq-a"><p>No. In its 14 September 2026 advisory, the BIR said it has not accredited, certified or endorsed any e-invoicing service provider, and warned against such claims. The BIR registers each business's own CAS or CBA instead. Since RMC 110-2026 (12 October 2026), e-invoicing service providers need BIR accreditation for each e-invoicing solution they offer; as of 23 November 2026 no list of accredited providers had been published.</p></div></details>
   <details><summary>Odoo or cloud accounting software for a Philippine small business? {{icon:chevron}}</summary><div class="faq-a"><p>It depends on what you need beyond accounting and how you will produce your BIR lists. Odoo's Philippine localisation documents the 2307, SLSP, SAWT and QAP outputs. For any other accounting software, ask the vendor or a local add-on provider how it produces them.</p></div></details>
   <details><summary>Can I keep using Excel for invoices? {{icon:chevron}}</summary><div class="faq-a"><p>If you are covered by e-invoicing, no. RMC 98-2026 says invoices made in Word, Excel, Google Docs or Google Sheets are not valid electronic invoices. Covered taxpayers must issue e-invoices on or before 31 December 2026.</p></div></details>
-  <details><summary>Does Odoo connect to the BIR's EIS? {{icon:chevron}}</summary><div class="faq-a"><p>Not out of the box. Odoo has no built-in EIS connection, and TechNext has not built one. If your business needs it, we assess the work and quote it separately.</p></div></details>
-  <details><summary>Do I need to re-register if I switch software? {{icon:chevron}}</summary><div class="faq-a"><p>Usually, yes. A new system is a new CAS or CBA application, and RMC 98-2026 requires a new or amended Permit to Issue when you migrate e-invoicing systems. Check the steps with your RDO.</p></div></details>
+  <details><summary>Does Odoo connect to the BIR's EIS? {{icon:chevron}}</summary><div class="faq-a"><p>Not out of the box. Odoo has no built-in EIS connection, and TechNext has not built one. If your business needs it, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.</p></div></details>
+  <details><summary>Do I need to re-register if I switch software? {{icon:chevron}}</summary><div class="faq-a"><p>Usually, yes. A new system is a new CAS or CBA application, and an e-invoicing system that is not the one on your Permit to Issue needs its own PTI. Check the steps with your RDO.</p></div></details>
 </div>

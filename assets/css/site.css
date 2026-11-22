@@ -1515,3 +1515,19 @@ html.ts-asking #tn-cookie-banner,html.ts-inview #tn-cookie-banner{display:none!i
    strip and the booking button, but drop the site menu (desktop mega menu, phone menu button) and the banner's
    "Check Readiness" link, so the only way forward is the form. Hidden, not removed: site.js wires the menu button. */
 body.lp-page .header .nav,body.lp-page .header .menu-btn,body.lp-page .header .bn-link,body.lp-page .mnav,body.lp-page .mnav-overlay{display:none!important}
+
+/* 22 Nov 2026: old design back - landers stay one goal per page (no side tabs, no catalogue button) */
+body.lp-page .side-tabs,body.lp-page .cat-float{display:none!important}
+/* 22 Nov 2026: the deadline banner in the old amber BIR-notice colours (layout from .bn--dl kept) */
+.header .bn--dl.bn--amber{background:#FFF4DF;border-bottom:1px solid #F0D7A8;color:#4A3410}
+.bn--amber p b{background:#9A5B00;color:#fff}
+.bn--amber strong{color:#3D2600}
+.bn--amber .bn-sep{color:#C9A66B}
+.bn--amber .bn-cd{background:#F6E2BB;color:#5C3A00}
+.bn--amber .bn-link,.header .bn--dl.bn--amber .bn-link{color:#5C3A00;background:transparent;padding:0;text-decoration:underline;text-underline-offset:3px}
+.bn--amber .bn-link:hover,.header .bn--dl.bn--amber .bn-link:hover{color:#3D2600;background:transparent}
+.bn--amber .bn-link:focus-visible{outline:3px solid #9A5B00}
+
+/* 23 Nov 2026: site-wide legal line under the footer */
+.footer-legal{margin:14px auto 0;font-size:12px;line-height:1.55;color:var(--muted);max-width:none}
+@media (max-width:600px){.footer-legal{font-size:11.5px;text-align:center}}
