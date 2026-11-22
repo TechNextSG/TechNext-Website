@@ -1138,7 +1138,7 @@ def client_wall_html() -> str:
 # no go-live or registration guarantee: the sprint is the Odoo set-up; the RDO decides the registration.
 # Token {{EXPRESS}} renders both sections and adds assets/css/express.css to the page head.
 EXPRESS_DAYS = [   # 10 Nov 2026: Sky wants a teaser, owner chose the 6-stop rail with Day 2-5 as questions (icon None = "?" node)
-    ("search", "Before Day 1", "A 15 to 20 minute meeting",
+    ("search", "Before Day 1", "A 15 minute meeting",
      "A BIR Compliance Expert looks at how you record <strong>sales, bills and payments</strong> today."),
     ("plug", "Day 1", "Set up",
      "Your chart of accounts and ATC mapping, <strong>connected to your current software by API, batch sync or flat file</strong>."),

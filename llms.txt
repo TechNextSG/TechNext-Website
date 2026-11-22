@@ -108,7 +108,7 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 ## Company
 
 - [TechNext | BIR CAS and E-Invoicing Set-Up for Accountants](https://technext.asia/): Automate your clients' BIR compliance and keep their current software. Matched CAS journals, 2307s and SLSP DAT files from the data they already have.
-- [BIR CAS Setup. Keep Your Software.](https://technext.asia/bir-adviser-call): BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 to 20 minute meeting.
+- [BIR CAS Setup. Keep Your Software.](https://technext.asia/bir-adviser-call): BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 minute meeting.
 - [TechNext: Your Partner for BIR CAS Set-up](https://technext.asia/company): TechNext (UEN 202699888G): 142 projects delivered, 90+ enterprise clients, 25+ countries. Our own experts in Taguig City start your BIR CAS set-up.
 - [Nexi Explains: Business Software, AI and Tech Videos](https://technext.asia/nexi-explains): TechNext's animated series starring Nexi, our AI companion: every episode and Quick Tip, season by season. Business software, AI and tech, made simple.
 
