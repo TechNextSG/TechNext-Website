@@ -1034,3 +1034,156 @@ _TOKEN = _re.compile(r"\{\{LANDER:([a-z0-9-]+)\}\}")
 def tokens(content: str, experts: str = "", express: str = "") -> str:
     """experts / express: the site-wide blocks build.py passes in; the landers write their own (12 Nov 2026 Sky fixes)."""
     return _TOKEN.sub(lambda m: page_html(m.group(1)), content)
+
+
+
+# -------------------------------------------------------------------- 23 Nov 2026 (later): one page per FB ad 275-278
+# Owner: "make sure all ads have a proper own landing page related to the ads ... just revise 4 that we didn't use"
+# (bir-cas-for-accountants, bir-call, bir-e-invoicing-plan, bir-deadline). Each page now repeats its ad: same title, same
+# promise, same button words. Owner 23 Nov: "not EIS expert, but BIR experts"; buyers are accountants, finance staff and
+# owners (no code or tech words). Added AFTER the 13 Nov copies of these pages (bir-quarter-end / bir-firm-deadlines /
+# bir-audit-trail), so the live CPA Overhaul ads 265-267 keep their pages exactly as they are.
+_BTN_BIR = "Talk to Our BIR Experts"
+_EXP = "Ask our BIR experts"
+
+# Ad 275 - "Start Your 5 Days BIR CAS Set-Up Today!" (Start button poster)
+PAGES["bir-cas-for-accountants"].update(
+    pill=DL_CAS, goal="cas", btn="Book My 5 Days Set-Up", form_h="Book your 5 Days BIR CAS Set-Up*",
+    h1='Start Your <span class="hl">5 Days</span> <span class="hl">BIR CAS Set-Up</span>* Today.',
+    sub="For accountants and finance teams: our BIR experts set up your books of accounts, CAS papers and BIR report "
+        "formats (SLSP, 2307, SAWT) with you, from the data you already keep. One short project, with a walkthrough for "
+        "your team at the end.",
+    ticks=["<b>Books of accounts and CAS papers,</b> prepared with you.",
+           "<b>SLSP, 2307 and SAWT</b> from the entries you already post.",
+           "<b>No big system change.</b> Your current software stays."],
+    msg_ph="e.g. accounting software plus spreadsheets today, 1 branch, CAS registration pending",
+    check_h="Where does your BIR CAS set-up stand?",
+    check_lead="Which of these sounds familiar?",
+    checks=[("No system description yet", "<b>Nobody has written the system description</b> the application needs."),
+            ("Sample outputs from the wrong system", "<b>Your sample invoices and books</b> come from a system never set up for them."),
+            ("Reports rebuilt by hand", "<b>SLSP, SAWT and 2307s</b> are rebuilt by hand every quarter."),
+            ("Team not walked through it", "<b>Your team is not sure</b> how the set-up works day to day.")],
+    bp_h="What your 5 Days BIR CAS Set-Up* covers.",
+    bp_lead="One short project, done with you.",
+    bp=["<b>Books of accounts</b> from your posted entries",
+        "<b>CAS papers:</b> system description, process flow and sample outputs, prepared with you",
+        "<b>BIR report formats:</b> SLSP, 2307 and SAWT",
+        "<b>A walkthrough</b> for your team at the end"],
+    panel=CAS_PANEL, facts="rmc", express=True,
+    order=["hero", "check", "blueprint", "facts", "faq", "close"],   # no "5 Day Express" block: the ads say "5 Days BIR CAS Set-Up"
+    faq=[S_CASCBA, S_SOFT, S_TIME, S_ACC, S_COST],
+    close_h='Start your <span class="hl">BIR CAS</span> set-up this week.',
+    close_p=CLOSE_P,
+)
+
+# Ad 278 - "Let our BIR experts handle your CAS set-up" (Stopwatch poster, button "Book a BIR CAS Meeting")
+PAGES["bir-call"].update(
+    pill=DL_CAS, goal="cas", btn="Book a BIR CAS Meeting", form_h="Book your BIR CAS meeting",
+    h1='Let Our <span class="hl">BIR Experts</span> Handle Your <span class="hl">CAS Set-Up</span>.',
+    sub="You bring your current books and sales data. We prepare the CAS papers with you (system description, process "
+        "flow, books of accounts and BIR report formats) and walk your staff through the result, in a "
+        "<b>5 Days BIR CAS Set-Up*</b>.",
+    ticks=["<b>You bring</b> your current books and sales data.",
+           "<b>We prepare with you</b> the CAS papers and report formats.",
+           "<b>Your staff get a walkthrough</b> at the end."],
+    msg_ph="e.g. we keep books in spreadsheets, sales in a POS, CAS papers not started",
+    check_h="What our BIR experts take off your desk.",
+    check_lead="The parts that usually stall a CAS set-up.",
+    checks=[("System description", "<b>The system description</b> the sworn statement needs."),
+            ("Process flow", "<b>The process flow</b> of how you record sales, purchases and payments."),
+            ("Sample books and invoices", "<b>Sample books and invoices</b> printed from the system you will use."),
+            ("BIR report formats", "<b>SLSP, 2307 and SAWT formats</b> that match your books.")],
+    bp_h="How the set-up runs.",
+    bp_lead="You stay in control; we do the technical work.",
+    bp=["<b>A 15 minute online meeting</b> to see your books and sales data",
+        "<b>CAS papers prepared with you,</b> from your real data",
+        "<b>Your staff walked through</b> the set-up before you file at your RDO"],
+    panel=CAS_PANEL, facts="rmc", express=True,
+    order=["hero", "check", "blueprint", "facts", "faq", "close"],   # no "5 Day Express" block: the ads say "5 Days BIR CAS Set-Up"
+    faq=[S_CASCBA, S_FILE, S_TIME, S_ACC, S_COST],
+    close_h='Let our <span class="hl">BIR experts</span> handle it.',
+    close_p=CLOSE_P,
+)
+
+# Ad 276 - "Is every invoice ready for the BIR EIS?" (magnifier poster)
+PAGES["bir-e-invoicing-plan"].update(
+    pill=DL_EINV, goal="einv", btn=_BTN_BIR, form_h="Talk to our BIR experts",
+    h1='Is Every Invoice Ready for the <span class="hl">BIR EIS</span>?',
+    sub="Before e-invoicing, each sales invoice needs the right customer TIN, an invoice number in series and VAT 12% "
+        "computed correctly. Our BIR experts check and set this up with you in a <b>5 Days BIR EIS Set-Up*</b>, from "
+        "the data you already keep.",
+    ticks=["<b>Customer TINs</b> checked and on file.",
+           "<b>Invoice numbers in series,</b> per branch.",
+           "<b>VAT 12%</b> computed correctly on every invoice."],
+    msg_ph="e.g. invoices from our accounting software and spreadsheets, 2 branches",
+    check_h="What every invoice needs before e-invoicing.",
+    check_lead="Which of these do you still fix by hand?",
+    checks=[("Missing customer TINs", "<b>Customer TINs</b> are missing or typed differently each time."),
+            ("Numbering gaps", "<b>Invoice numbers</b> skip or repeat across branches."),
+            ("VAT mixed up", "<b>VAT 12%, zero-rated and exempt sales</b> get mixed up on the same invoice."),
+            ("Invoices edited after issue", "<b>Issued invoices get edited</b> instead of a credit note.")],
+    bp_h="What your 5 Days BIR EIS Set-Up* covers.",
+    bp_lead="Your team keeps invoicing as usual while we set it up with you.",
+    bp=["<b>Customer TINs</b> checked against your records",
+        "<b>Invoice series</b> per branch, locked after issue",
+        "<b>VAT 12%, zero-rated and exempt</b> codes set up",
+        "<b>Sample invoices</b> for your Permit to Issue papers"],
+    panel=EINV_PANEL, facts="einv", express=False,
+    faq=[S_EINVCAS, S_EIS, ("What is a Permit to Issue (PTI)?",
+                           "The BIR permit you need before issuing any e-invoice. You apply; we prepare the process flow and sample invoices with you."),
+         S_SOFT, S_COST],
+    close_h='Get every invoice ready for the <span class="hl">BIR EIS</span>.',
+    close_p=CLOSE_P,
+)
+
+# Ad 277 - "From invoice booklet to e-invoice" (booklet poster). Business-owner voice, so its coverage block says "your
+# business" (the firm-voice "cover" block stays for bir-firm-deadlines).
+_FACTS["cover_me"] = ("Is your business covered by 31 December 2026?",
+                      "General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Your accountant or RDO confirms it.",
+                      [("CAS or CBA with invoicing software", "Covered by 31 December 2026."),
+                       ("Large Taxpayers Service accounts", "Covered by 31 December 2026."),
+                       ("E-commerce and internet sellers", "Small, medium and large sellers (not micro): covered by 31 December 2026."),
+                       ("Exporters, POS users, incentive-registered firms", "Later, once a separate regulation is issued."),
+                       ("Micro taxpayers", "Exempt from mandatory e-invoicing."),
+                       ("Not sure which group?", "Our BIR experts go through the rules with you in the meeting.")])
+PAGES["bir-deadline"].update(
+    pill=DL_EINV, goal="einv", btn=_BTN_BIR, form_h="Talk to our BIR experts",
+    h1='From Invoice Booklet to <span class="hl">E-Invoice</span>.',
+    sub="Today it is the invoice booklet, carbon copies and retyping at month end. After your "
+        "<b>5 Days BIR EIS Set-Up*</b>, the same invoice is an e-invoice: customer TIN, invoice number and VAT 12% in "
+        "place, ready for the BIR EIS. Our BIR experts set it up with you, from the data you already keep.",
+    ticks=["<b>No more retyping</b> handwritten invoices at month end.",
+           "<b>Customer TIN, invoice number and VAT 12%</b> on every invoice.",
+           "<b>No big system change.</b> We set it up beside what you use today."],
+    msg_ph="e.g. we write sales invoices in a booklet and retype them into spreadsheets",
+    order=["hero", "check", "blueprint", "facts", "faq", "close"],
+    myths=None, firm=None,
+    check_h="Still writing sales invoices by hand?",
+    check_lead="Which of these sounds familiar?",
+    checks=[("Booklets and carbon copies", "<b>Sales invoices are written by hand</b> in a booklet with carbon copies."),
+            ("Retyping at month end", "<b>Someone retypes every invoice</b> into spreadsheets at month end."),
+            ("TINs and VAT checked by hand", "<b>TINs and VAT 12%</b> are checked by hand, one invoice at a time."),
+            ("Booklets run out", "<b>New booklets</b> have to be ordered and tracked.")],
+    bp_h="After your 5 Days BIR EIS Set-Up*.",
+    bp_lead="The same invoice, issued as an e-invoice.",
+    bp=["<b>Invoices issued from one system,</b> numbered in series",
+        "<b>Customer TIN and VAT 12%</b> filled in on every invoice",
+        "<b>Sample invoices</b> for your Permit to Issue papers",
+        "<b>A walkthrough</b> for whoever issues your invoices"],
+    panel=EINV_PANEL, facts="cover_me", express=False,
+    faq=[("Is a printed or emailed PDF an e-invoice?", "No. A printed or emailed PDF is not an e-invoice."),
+         S_EINVCAS, S_EIS, S_FILE, S_COST],
+    close_h='Swap the booklet for <span class="hl">e-invoices</span>.',
+    close_p=CLOSE_P,
+)
+
+CTAS.update({
+    "bir-cas-for-accountants": dict(check="Start my CAS set-up", blueprint="Book My 5 Days Set-Up", facts="Check my CAS papers",
+                                    express="Plan my set up", faq=_EXP, close="Book My 5 Days Set-Up"),
+    "bir-call": dict(check="Hand it to our BIR experts", blueprint="Book a BIR CAS Meeting", facts="Check my CAS papers",
+                     express="Plan my set up", faq=_EXP, close="Book a BIR CAS Meeting"),
+    "bir-e-invoicing-plan": dict(check="Check my invoices", blueprint=_BTN_BIR, facts="Check what I need",
+                                 express=_BTN_BIR, faq=_EXP, close=_BTN_BIR),
+    "bir-deadline": dict(check="Swap my booklet", blueprint=_BTN_BIR, facts="Check if I am covered",
+                         faq=_EXP, close=_BTN_BIR),
+})
