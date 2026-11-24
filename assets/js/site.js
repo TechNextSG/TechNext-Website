@@ -431,6 +431,7 @@
     var data = {};
     new FormData(form).forEach(function (v, k) {
       if (k === '_honey' || k === 'cf-turnstile-response') return;   // Cloudflare's own copy of the token; _ts carries it
+      if (k === 'website') v = String(v).trim();   // "Company website" (required, 24 Nov 2026): sent trimmed
       data[k] = data[k] ? data[k] + ', ' + v : v;
     });
     return data;
@@ -503,6 +504,7 @@
           res.j.field === 'email' ? 'Please check your email address.' : 'Please add both your email and your mobile number.');
         if (!res.ok && res.j.error === 'company') throw new Error('Please add your real company name.');
         if (!res.ok && res.j.error === 'name') throw new Error('Please add your full name.');
+        if (!res.ok && res.j.error === 'website') throw new Error(String(p.website || '').trim() ? 'Check the website, like yourcompany.com.' : 'Add your company website, like yourcompany.com.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
           var q = {};

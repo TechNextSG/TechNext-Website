@@ -287,6 +287,7 @@ def talk_panel_html() -> str:
           <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
           <div class="field"><label for="tf-company">Company <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
         </div>
+        <div class="field"><label for="tf-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="tf-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="{S.WEBSITE_MISSING}" data-err="{S.WEBSITE_ERR}"></div>
         <div class="form-foot hv3-foot">
           <button class="btn btn-ghost hv3-back" type="button" data-back>Back</button>
           <button class="btn btn-primary" type="submit"><span class="btn-label">Secure My Technical Call {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>
@@ -318,6 +319,7 @@ def talk_panel_html() -> str:
       <div class="field"><label for="gg-name">Name <span class="req" aria-hidden="true">*</span></label><input id="gg-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
       <div class="field"><label for="gg-company">Company <span class="req" aria-hidden="true">*</span></label><input id="gg-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
     </div>
+    <div class="field"><label for="gg-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="gg-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="{S.WEBSITE_MISSING}" data-err="{S.WEBSITE_ERR}"></div>
     <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Send me the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
     <p class="form-status" role="status" aria-live="polite"></p>
     <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a Technical Readiness Call</a>.</p></div>

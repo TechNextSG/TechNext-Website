@@ -35,6 +35,7 @@ import re as _re
 
 import fw_needs as _FW
 import industry_fx as _IFX
+import sitedata as _S
 
 _e = lambda s: _html.escape(s, quote=True)
 
@@ -829,6 +830,7 @@ def _form(p):
           <div class="field"><label for="gs-name">Full name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-name" name="name" type="text" required autocomplete="name" data-missing="Please add your full name."></div>
           <div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
+        <div class="field"><label for="gs-website">Company website <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{_S.WEBSITE_PATTERN}" aria-describedby="gs-website-err" data-missing="{_S.WEBSITE_MISSING}" data-err="{_S.WEBSITE_ERR}"><p class="fw-err" id="gs-website-err" hidden></p></div>
         <div class="field"><label for="gs-msg">Anything we should know?</label><textarea id="gs-msg" name="message" rows="3" placeholder="{_e(p["msg_ph"])}"></textarea></div>
       </fieldset>
       <div class="form-foot">
