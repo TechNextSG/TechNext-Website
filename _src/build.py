@@ -287,7 +287,7 @@ def talk_panel_html() -> str:
           <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
           <div class="field"><label for="tf-company">Company <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
         </div>
-        <div class="field"><label for="tf-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="tf-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="{S.WEBSITE_MISSING}" data-err="{S.WEBSITE_ERR}"></div>
+        <div class="field"><label for="tf-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="tf-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="Please add your company website." data-err="{S.WEBSITE_ERR}"></div>
         <div class="form-foot hv3-foot">
           <button class="btn btn-ghost hv3-back" type="button" data-back>Back</button>
           <button class="btn btn-primary" type="submit"><span class="btn-label">Secure My Technical Call {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>

@@ -938,6 +938,35 @@ document.addEventListener('click', function (e) {
   if (a && typeof window.fbq === 'function') window.fbq('trackCustom', 'BookMeetingClick', { link: 'odoo_appointment' });
 });
 
+/* ---------------- booking links inside a form carry what the visitor typed (24 Nov 2026, owner) ----------------
+   e.g. the Let's Talk panel's "Book a Technical Readiness Call": the Odoo booking page (tn-booking.js) pre-fills
+   from the plain params name / email / phone / company / website. Empty fields are left off the link. */
+(function () {
+  'use strict';
+  var KEYS = ['name', 'email', 'phone', 'company', 'website'];
+  Array.prototype.forEach.call(document.querySelectorAll('form[data-endpoint]'), function (form) {
+    var links = Array.prototype.filter.call(form.querySelectorAll('a[data-meet][href]'), function (a) {
+      try { return /(^|\.)technext\.odoo\.com$/.test(new URL(a.href, location.href).hostname); } catch (e) { return false; }
+    });
+    if (!links.length) return;
+    function sync() {
+      links.forEach(function (a) {
+        try {
+          var url = new URL(a.href, location.href);
+          KEYS.forEach(function (k) {
+            var el = form.elements[k], v = el && el.value ? String(el.value).trim().slice(0, 200) : '';
+            if (v) url.searchParams.set(k, v); else url.searchParams.delete(k);
+          });
+          a.href = url.href;
+        } catch (e) {}
+      });
+    }
+    form.addEventListener('input', sync);
+    form.addEventListener('change', sync);
+    form.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a[data-meet]')) sync(); }, true);
+  });
+})();
+
 /* ---------------- image fallbacks (replaces the generated inline onerror= handlers) ----------------
    `error` does not bubble, so listen in the capture phase. Images that failed before this
    script ran (eager ones above the fold) are swept on DOMContentLoaded. */
