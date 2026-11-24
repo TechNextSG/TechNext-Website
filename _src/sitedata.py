@@ -131,6 +131,12 @@ SCRAPERS = ["HTTrack", "SiteSucker", "WebCopier", "Offline Explorer", "Teleport 
 
 # Every form posts to /api/lead (api/lead.py), which files it as a lead in the Odoo CRM.
 FORM_ENDPOINT = "/api/lead"
+# 24 Nov 2026: "Company website" on every lead form, REQUIRED (owner, same day) (name="website", type text + inputmode url, so "abc.com"
+# without https is fine). Light check only: no spaces and a dot between two characters (abc.com,
+# www.abc.com.ph, https://abc.com/about). api/lead.py WEBSITE_RX runs the same rule on the trimmed value.
+WEBSITE_PATTERN = r"\s*\S*[^\s.]\.[^\s.]\S*\s*"
+WEBSITE_MISSING = "Add your company website, like yourcompany.com."
+WEBSITE_ERR = "Check the website, like yourcompany.com."
 
 # ---------------------------------------------------------------- navigation
 # `href` values are site-root relative; build.py prefixes {{ROOT}}.

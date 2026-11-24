@@ -3,7 +3,7 @@
 POST /api/lead with the form's fields as JSON (site.js tnPostForm; the only place a form goes).
 The lead is named "<form> - <what they need> - <company>", tagged "Website", the form it came from, the channel
 (Facebook Ads, Google Ads, Search, ...) and, when the form asked, what they are interested in; and
-filled in field by field: contact, company, email, phone in +63 / +65 form, country, job position. Source /
+filled in field by field: contact, company, website, email, phone in +63 / +65 form, country, job position. Source /
 medium / campaign come from where the visit started (utm_* tags, ad click ids, the referrer): "Paid Ads",
 "Email" (newsletters), the social network, otherwise "Website". Every form needs an email AND a mobile number.
 Department (sales team) is "Marketing Dept", or "Sales Team" until that exists. The lead is NEVER assigned: no
@@ -87,7 +87,7 @@ FORMS = [
 SHORT = {"Retired offer page (/get-started)": "Retired offer page", "Let's Talk panel": "Let's Talk",
          "Retired offer page (/free-website-with-odoo)": "Retired offer page", "Quotation builder": "Quotation"}
 # each answer is shown as "<the form's question>: <answer>"; FORM_LABELS has the wording a form asks differently
-LABELS = {"name": "Name", "company": "Company name","email": "Work email", "phone": "Phone",
+LABELS = {"name": "Name", "company": "Company name", "website": "Website", "email": "Work email", "phone": "Phone",
           "topic": "I'm interested in", "bir_pain": "What do you need most?", "message": "Message",
           "apps": "Which Odoo apps?", "users": "How many users?", "hosting": "Hosting", "services": "Services needed",
           "timeline": "Timeline", "scope_summary": "Quotation scope",
@@ -111,7 +111,7 @@ ABOUT = ("job_title", "industry", "branches", "annual_sales", "accounting_system
 QUOTE_FIELDS = ("apps", "users", "hosting", "services", "timeline")
 # kept out of the notes: in their own lead fields already, internal codes, or the tracking group
 SKIP = {"_subject", "_template", "_captcha", "_honey", "_next", "_cc", "_autoresponse", "name", "email", "phone",
-        "company", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
+        "company", "website", "source", "need", "page", "landing", "referrer", "_split", "_followup", "_sig", "_timing",
         "_eid", "_fbc", "_fbp", "_consent", "_cap", "_cap_a", "_ts", "_tk", "cf-turnstile-response", "cta"}
 # pitches that arrive through the forms (paid features, SEO / followers sellers) and faker-style test data
 SPAM_TEXT = re.compile(r"cover story|paid (feature|placement|article)|guest post|backlinks?|\bSEO (services|package)|"
@@ -184,7 +184,7 @@ _IDS = {}  # tag / utm ids, kept while the function instance stays warm
 # sends follower mails inside the call. The lead, its notes and the hello@ note are the same without them.
 QUIET = {"tracking_disable": True, "mail_create_nolog": True, "mail_create_nosubscribe": True, "mail_notrack": True}
 # fields our booking form may fill on the opportunity Odoo files for a booking (only where Odoo left them empty)
-BOOKING_FILL = ("partner_name", "source_id", "medium_id", "campaign_id", "country_id", "team_id")
+BOOKING_FILL = ("partner_name", "website", "source_id", "medium_id", "campaign_id", "country_id", "team_id")
 
 
 def find_or_create(model, name):
@@ -311,6 +311,23 @@ def company_ok(v, name=""):
     v = str(v or "").strip()
     return (len(re.findall(r"[^\W\d_]", v)) >= 2 and not re.search(r"\S+@\S+\.\S+|https?://|www\.", v, re.I)
             and not NO_ANSWER.match(v) and not re.fullmatch(r"[^\W\d_]+\d{3,}", v))
+
+
+# 24 Nov 2026 (owner): "Company website" on every form, and on the booking page (tn-booking.js), as "website".
+# REQUIRED on every site form; the booking backup lead stays lenient (never dropped over it). Light check, the same
+# rule as the forms' pattern (_src/sitedata.py WEBSITE_PATTERN): trimmed, no spaces, a dot between two characters
+# (abc.com, www.abc.com.ph, https://abc.com/about).
+WEBSITE_RX = re.compile(r"\S*[^\s.]\.[^\s.]\S*")
+
+
+def website_of(p):
+    """The typed website, trimmed ("" when not given)."""
+    return clean(p.get("website", "") or "", 200)
+
+
+def website_ok(v):
+    """True when v looks like a domain (an empty value is not)."""
+    return bool(v) and bool(WEBSITE_RX.fullmatch(v))
 
 
 def details_problem(p):
@@ -498,7 +515,9 @@ def parse(p):
     phone = phone_format(clean(p.get("phone", ""), 200), country)
     country = "" if country.lower() == "other" else country
     form = form_tag(p.get("source"), p.get("page"))
-    contact = [(question(form, k), v) for k, v in (("name", name), ("company", company), ("job_title", clean(p.get("job_title", ""), 120)),
+    website = website_of(p)                                # shown as typed, next to the company name
+    contact = [(question(form, k), v) for k, v in (("name", name), ("company", company), ("website", website),
+                                                  ("job_title", clean(p.get("job_title", ""), 120)),
                                                   ("email", email), ("phone", phone), ("country", country)) if v]
     groups, (src_name, med_name, campaign) = summary(p, form, contact)
     need = re.sub(r"^Need:\s*", "", clean(p.get("bir_pain") or p.get("topic") or "", 60))
@@ -767,6 +786,9 @@ def make_lead(p):
         "source_id": find_or_create("utm.source", src_name),
         "medium_id": find_or_create("utm.medium", med_name),
     }
+    website = website_of(p)
+    if website_ok(website):                                # crm.lead's own Website field (a booking's odd value: notes only)
+        vals["website"] = website
     if p.get("job_title"):
         vals["function"] = clean(p["job_title"], 120)
     if country:
@@ -918,6 +940,10 @@ class handler(BaseHTTPRequestHandler):
         if miss and tag not in NO_CAPTCHA_FORMS:
             print("refused incomplete:", miss, str(p.get("source", ""))[:40])
             return self._send(400, {"ok": False, "error": miss, "field": miss})
+        # owner 24 Nov 2026: a company website is required too and must look like a domain (a booking is never refused)
+        if not website_ok(website_of(p)) and tag not in NO_CAPTCHA_FORMS:
+            print("refused website:", "missing" if not website_of(p) else "malformed", str(p.get("source", ""))[:40])
+            return self._send(400, {"ok": False, "error": "website", "field": "website"})
         ip =(self.headers.get("X-Forwarded-For") or self.client_address[0] or "").split(",")[0].strip()
         if not p.get("_followup"):
             if tag == "Other form":                        # none of our forms sent it: a script; nothing is filed
