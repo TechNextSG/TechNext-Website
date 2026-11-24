@@ -802,7 +802,9 @@ def _lbl(p, sec):
 
 
 def _goal(p):
-    """13 Nov 2026 owner doc: "What is your primary goal right now?" first in the form, pre-set per page (sent as topic)."""
+    """13 Nov 2026 owner doc: "What is your primary goal right now?", pre-set per page (sent as topic). 24 Nov 2026 owner
+    ("apply to all fill out form"): same order as the Odoo booking form - email, mobile, name, company, website, THEN the
+    goal, then the optional note."""
     if not p.get("goal"):
         return ""
     opts = "".join(f'<option value="{_e(t)}"{" selected" if k == p["goal"] else ""}>{_e(t)}</option>' for k, t in GOALS)
@@ -822,7 +824,7 @@ def _form(p):
         <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
-{_goal(p)}        <div class="form-row">
+        <div class="form-row">
           <div class="field"><label for="gs-email">Work email <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-email" name="email" type="email" required data-missing="Please add your work email." autocomplete="email" inputmode="email" placeholder="name@company.com" aria-describedby="gs-email-err" data-err="Please check the email, like name@company.com."><p class="fw-err" id="gs-email-err" hidden></p></div>
           <div class="field"><label for="gs-phone">Mobile number <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-phone" name="phone" type="tel" required data-missing="Please add your mobile number." autocomplete="tel" inputmode="tel" pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" aria-describedby="gs-phone-err" data-err="Please enter a number we can call, with at least 7 digits."><p class="fw-err" id="gs-phone-err" hidden></p></div>
         </div>
@@ -831,7 +833,7 @@ def _form(p):
           <div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
         <div class="field"><label for="gs-website">Company website <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{_S.WEBSITE_PATTERN}" aria-describedby="gs-website-err" data-missing="{_S.WEBSITE_MISSING}" data-err="{_S.WEBSITE_ERR}"><p class="fw-err" id="gs-website-err" hidden></p></div>
-        <div class="field"><label for="gs-msg">Anything we should know?</label><textarea id="gs-msg" name="message" rows="3" placeholder="{_e(p["msg_ph"])}"></textarea></div>
+{_goal(p)}        <div class="field"><label for="gs-msg">Anything we should know?</label><textarea id="gs-msg" name="message" rows="3" placeholder="{_e(p["msg_ph"])}"></textarea></div>
       </fieldset>
       <div class="form-foot">
         <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">{p["btn"]} {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>
