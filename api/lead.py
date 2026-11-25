@@ -466,6 +466,137 @@ def booking_event(email, phone="", name="", tries=8, wait=1.5):
     return False
 
 
+# 25 Nov 2026 (owner: "first fill out the form, 2nd the calendar, after selecting complete the process" and "remove the
+# cloudflare, dont add cloudflare in landers"; /bir-audit-trail only). Odoo's own booking form needs a Cloudflare token,
+# so the lander books here instead: the visitor's lead was already filed (and signed) by this server, the time comes
+# from Odoo's calendar in the lander frame, and the event is created like Odoo's booking form makes it (same type,
+# invite, staff, guests, answers, reminders, Google Meet, "request" status, booking line), so the same emails go out.
+BOOK_TYPE, BOOK_INVITE, BOOK_TZ = 2, 3, "Asia/Manila"
+BOOK_PAGES = ("/bir-audit-trail",)
+BOOKED = {}   # lead -> {"event", "token", "partner"}, this warm instance (a double click books once)
+BOOK_NEEDS = ("Registering CAS/CBA Books", "EIS / E-Invoicing Readiness (Dec 31 Deadline)",
+              "Automating SLSP, 2307s, and Quarter-End reporting", "Exploring an Accounting Firm Partnership")
+
+
+def _utc(local, tz):
+    from datetime import timedelta, timezone
+    try:
+        from zoneinfo import ZoneInfo
+        z = ZoneInfo(tz)
+    except Exception:
+        z = timezone(timedelta(hours=8))                  # Asia/Manila, no daylight saving
+    return local.replace(tzinfo=z).astimezone(timezone.utc).replace(tzinfo=None)
+
+
+def book_slot(lead, p):
+    """Book the picked time for an already-filed lander lead. Returns (result dict, None) or (None, error code)."""
+    from datetime import datetime, timedelta
+    if lead in BOOKED:
+        return BOOKED[lead], None
+    m = re.fullmatch(r"(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d)(?::00)?", str(p.get("date_time", "")).strip())
+    if not m:
+        return None, "slot"
+    tz = str(p.get("tz") or BOOK_TZ)[:64]
+    start = _utc(datetime(*map(int, m.groups())), tz)
+    t = rpc("appointment.type", "read", ids=[BOOK_TYPE], fields=[
+        "name", "staff_user_ids", "appointment_duration", "min_schedule_hours", "max_schedule_days", "reminder_ids",
+        "event_videocall_source", "auto_confirm", "question_ids"])[0]
+    try:
+        staff = int(p.get("staff_user_id") or 0)
+    except (TypeError, ValueError):
+        staff = 0
+    if staff not in t["staff_user_ids"]:
+        return None, "slot"
+    now = datetime.utcnow()
+    if start.minute % 15 or not (now + timedelta(hours=t["min_schedule_hours"] or 0) <= start
+                                 <= now + timedelta(days=t["max_schedule_days"] or 15)):
+        return None, "slot"
+    stop = start + timedelta(hours=t["appointment_duration"] or 0.25)
+    fmt = "%Y-%m-%d %H:%M:%S"
+    staff_partner = rpc("res.users", "read", ids=[staff], fields=["partner_id"])[0]["partner_id"][0]
+    ld = rpc("crm.lead", "read", ids=[lead], fields=["contact_name", "email_from", "phone", "partner_name", "website"])
+    if not ld:
+        return None, "lead"
+    ld = ld[0]
+    name, email, phone = (ld["contact_name"] or "").strip(), (ld["email_from"] or "").strip(), (ld["phone"] or "").strip()
+    company, website = (ld["partner_name"] or "").strip(), (ld["website"] or "").strip()
+    software, need = clean(p.get("software", ""), 200), str(p.get("need", "")).strip()
+    if not (name and email_ok(email) and phone):
+        return None, "lead"
+    if need not in BOOK_NEEDS:
+        need = BOOK_NEEDS[1]                                 # the lander's default goal: 31 December e-invoicing
+    # this lead booked already (another instance, or a reload): hand back that booking
+    old = rpc("calendar.event", "search_read", domain=[["appointment_type_id", "=", BOOK_TYPE], ["start", ">=", now.strftime(fmt)],
+                                                      ["appointment_booker_id.email", "=ilike", email],
+                                                      ["create_date", ">=", (now - timedelta(hours=2)).strftime(fmt)]],
+              fields=["access_token", "appointment_booker_id"], limit=1)
+    if old:
+        BOOKED[lead] = {"event": old[0]["id"], "token": old[0]["access_token"], "partner": old[0]["appointment_booker_id"][0]}
+        return BOOKED[lead], None
+    # the time is still free (another booking, or a meeting synced from the staff member's Google calendar)
+    if rpc("calendar.event", "search_count", domain=[["partner_ids", "in", [staff_partner]], ["show_as", "=", "busy"],
+                                                     ["start", "<", stop.strftime(fmt)], ["stop", ">", start.strftime(fmt)]]):
+        return None, "taken"
+    found = rpc("res.partner", "search", domain=[["email", "=ilike", email]], order="id desc", limit=1)
+    partner = found[0] if found else rpc("res.partner", "create", vals_list=[{"name": name, "email": email, "phone": phone}])[0]
+    # guests Odoo adds to every booking of this type (Jeric, Neil): copied from its latest booking made on the website
+    last = rpc("calendar.event", "search_read", domain=[["appointment_type_id", "=", BOOK_TYPE], ["create_uid.share", "=", True]],
+               fields=["partner_ids", "appointment_booker_id", "user_id"], order="id desc", limit=1, context={"active_test": False})
+    guests = []
+    if last:
+        skip = {(last[0]["appointment_booker_id"] or [0])[0]}
+        lu = (last[0]["user_id"] or [0])[0]
+        if lu:
+            skip.add(rpc("res.users", "read", ids=[lu], fields=["partner_id"])[0]["partner_id"][0])
+        guests = [g for g in last[0]["partner_ids"] if g not in skip]
+    qs = rpc("appointment.question", "read", ids=t["question_ids"], fields=["name", "question_type", "answer_ids"])
+    answers, lines = [], []
+    for q in qs:
+        label = q["name"].lower()
+        if q["question_type"] in ("select", "radio", "checkbox"):
+            opts = rpc("appointment.answer", "read", ids=q["answer_ids"], fields=["name"]) if q["answer_ids"] else []
+            hit = next((o for o in opts if o["name"].strip() == need), None)
+            if hit:
+                answers.append({"question_id": q["id"], "value_answer_id": hit["id"], "partner_id": partner, "appointment_type_id": BOOK_TYPE})
+                lines.append((q["name"], hit["name"]))
+            continue
+        val = (phone if "phone" in label else company if "company" in label else website if "website" in label
+               else software if "software" in label else "")
+        if val:
+            answers.append({"question_id": q["id"], "value_text_box": val, "partner_id": partner, "appointment_type_id": BOOK_TYPE})
+            lines.append((q["name"], val))
+    e = html.escape
+    desc = ("<span><strong>Contact Details</strong><br>" + e(name) + f'<br><a href="mailto:{e(email)}">{e(email)}</a>'
+            + f'<br><a href="tel:{e(phone)}">{e(phone)}</a><br><br><strong>Questions</strong>'
+            + "".join(f"<br><span>{e(a)}: {e(b)}</span>" for a, b in lines) + "</span>")
+    vals = {
+        "name": f"{name} - {t['name']} Booking", "appointment_type_id": BOOK_TYPE, "appointment_invite_id": BOOK_INVITE,
+        "user_id": staff, "partner_ids": [[6, 0, list(dict.fromkeys([staff_partner] + guests + [partner]))]],
+        "start": start.strftime(fmt), "stop": stop.strftime(fmt), "duration": t["appointment_duration"],
+        "alarm_ids": [[6, 0, t["reminder_ids"]]], "appointment_booker_id": partner,
+        "appointment_status": "booked" if t["auto_confirm"] else "request", "videocall_source": t["event_videocall_source"],
+        "appointment_answer_input_ids": [[0, 0, a] for a in answers], "description": desc, "show_as": "busy",
+        "booking_line_ids": [[0, 0, {"appointment_user_id": staff, "capacity_reserved": 1, "capacity_used": 1}]],
+    }
+    ctx = {"mail_notify_author": True, "mail_create_nolog": True, "mail_create_nosubscribe": True}
+    ev = rpc("calendar.event", "create", vals_list=[vals], context=ctx)[0]
+    tok = rpc("calendar.event", "read", ids=[ev], fields=["access_token"])[0]["access_token"]
+    BOOKED[lead] = {"event": ev, "token": tok, "partner": partner}
+    try:   # as Odoo's form does: the booker has accepted, and the host gets "Appointment Requested" (hello@ = Rico)
+        att = rpc("calendar.attendee", "search", domain=[["event_id", "=", ev], ["partner_id", "=", partner]])
+        if att:
+            rpc("calendar.attendee", "write", ids=att, vals={"state": "accepted"})
+        when = (start + timedelta(hours=8)).strftime("%a %d %b %Y, %I:%M %p").replace(" 0", " ")
+        rpc("calendar.event", "message_post", ids=[ev], subject=f"Appointment Requested: {t['name']}",
+            body=(f"<p><strong>{e(name)}</strong> booked {e(t['name'])} for <strong>{e(when)}</strong> (Manila time) "
+                  f"on technext.asia/bir-audit-trail.</p><p>{e(company)} · {e(email)} · {e(phone)}</p>"),
+            partner_ids=[staff_partner], message_type="comment", subtype_xmlid="mail.mt_comment")
+    except Exception as x:                                   # the booking stands; only the notice is missing
+        print("booking notice failed:", repr(x)[:300])
+    print("booked from lander: event", ev, "lead", lead)
+    return BOOKED[lead], None
+
+
 def summary(p, form, contact):
     """Everything as bulleted groups, (heading, [(label, value)]): contact / what they need / about them / how they
     found us / full links - same order in the notes and the hello@ note (which leaves out the full links)."""
@@ -929,6 +1060,26 @@ class handler(BaseHTTPRequestHandler):
         self._timing = bool(p.get("_timing"))
         if p.get("_honey"):
             return self._send(200, {"ok": True})            # bots get the normal answer, nothing is filed
+        if p.get("_book"):                                 # the lander's picked time (book_slot above)
+            try:
+                lead = int(p["_book"])
+            except (TypeError, ValueError):
+                return self._send(400, {"ok": False, "error": "lead"})
+            if not KEY:
+                return self._send(503, {"ok": False, "error": "not configured"})
+            if not hmac.compare_digest(str(p.get("_sig", "")), sign(lead)):
+                return self._send(403, {"ok": False, "error": "sig"})
+            if urllib.parse.urlsplit(str(p.get("page", ""))).path.rstrip("/") not in BOOK_PAGES:
+                return self._send(403, {"ok": False, "error": "page"})
+            try:
+                got, err = book_slot(lead, p)
+            except Exception as e:
+                print("lander booking failed:", repr(e)[:500])
+                return self._send(502, {"ok": False, "error": "crm"})
+            if err:
+                return self._send(409 if err == "taken" else 400, {"ok": False, "error": err})
+            return self._send(200, {"ok": True, "event": got["event"],
+                                    "view": f"{ODOO}/calendar/view/{got['token']}?partner_id={got['partner']}"})
         tag = form_tag(str(p.get("source", "")), str(p.get("page", "")))
         # owner rule (3 Nov 2026): email AND mobile number are the priority - every form needs both, typed right
         bad = contact_problem(p, lenient=tag in NO_CAPTCHA_FORMS)

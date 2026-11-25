@@ -507,6 +507,7 @@
         if (!res.ok && res.j.error === 'website') throw new Error(String(p.website || '').trim() ? 'Check the website, like yourcompany.com.' : 'Add your company website, like yourcompany.com.');
         if (!res.ok) throw new Error('Sorry, your message could not be sent just now.');
         if (res.j.lead && res.j.f) {   // step 2 in the background: keepalive lets it finish even if the visitor leaves
+          window.tnLead = { lead: res.j.lead, f: res.j.f };   // 25 Nov 2026: the lander books its picked time with it
           var q = {};
           Object.keys(p).forEach(function (k) { q[k] = p[k]; });
           q._followup = res.j.lead; q._sig = res.j.f;
@@ -999,12 +1000,60 @@ document.addEventListener('click', function (e) {
       if (box) {   // 25 Nov 2026 (owner): the Odoo calendar right here, details carried in the URL; Odoo sends its height
         var src; try { src = new URL(to); src.searchParams.set('tnb_embed', '1'); } catch (e) { src = null; }
         if (src) {
+          /* 25 Nov 2026 (owner: "remove the cloudflare, dont add cloudflare in landers"): tnb_direct=1 = the frame only
+             hands back the picked time; this page books it via /api/lead with the lead it just filed (signed), so there
+             is no second form and no Cloudflare check. Form -> calendar -> booked. */
+          src.searchParams.set('tnb_direct', '1');
           var fr = document.createElement('iframe');
           fr.className = 'lp-cal-frame'; fr.title = 'Pick your 15-minute BIR Blueprint meeting'; fr.src = src.href;
           box.appendChild(fr);
+          var sent = form.querySelector('.lp-sent-cal'), busy = false;
+          var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+          var status = document.createElement('div');
+          status.className = 'lp-book-status'; status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); status.hidden = true;
+          box.parentNode.insertBefore(status, box);
+          var book = function (d) {
+            var lead = window.tnLead;
+            if (busy) return;
+            if (!lead) {
+              status.hidden = false; status.className = 'lp-book-status is-err';
+              status.innerHTML = '<p><strong>We have your details.</strong> Our team will call you today to set the time.</p>';
+              return;
+            }
+            busy = true;
+            status.hidden = false; status.className = 'lp-book-status is-busy';
+            status.innerHTML = '<span class="lp-book-spin" aria-hidden="true"></span><p class="lp-book-k">Booking your meeting</p><strong>' + esc(d.label) + '</strong>';
+            box.hidden = true;
+            if (sent) Array.prototype.forEach.call(sent.querySelectorAll(':scope > h3, :scope > p'), function (n) { n.hidden = true; });
+            fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({ _book: lead.lead, _sig: lead.f, date_time: d.date_time, staff_user_id: d.staff_user_id, tz: d.tz,
+                need: d.need, software: d.software, page: location.href }) })
+              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.ok, j: j }; }, function () { return { ok: false, j: {} }; }); },
+                    function () { return { ok: false, j: {} }; })
+              .then(function (res) {
+                busy = false;
+                if (res.ok) {
+                  status.className = 'lp-book-status is-done';
+                  status.innerHTML = '<p class="lp-book-k">You are booked</p><strong>' + esc(d.label) + '</strong>' +
+                    '<p>15 minutes, online, with a BIR Compliance Expert. The calendar invite with the Google Meet link comes to your email once we confirm the time.</p>' +
+                    (res.j.view ? '<p class="small"><a href="' + esc(res.j.view) + '" target="_blank" rel="noopener">See or change your booking</a></p>' : '');
+                  if (typeof window.gtag === 'function') window.gtag('event', 'booking_complete', { via: 'lander_direct' });
+                  return;
+                }
+                if (res.j.error === 'taken' || res.j.error === 'slot') {   // pick again: fresh calendar
+                  status.className = 'lp-book-status is-err';
+                  status.innerHTML = '<p>That time was just taken. Please pick another time below.</p>';
+                  box.hidden = false; fr.src = src.href;
+                  return;
+                }
+                status.className = 'lp-book-status is-err';
+                status.innerHTML = '<p><strong>We have your details.</strong> We could not lock that time just now, so our team will call you today to set it.</p>';
+              });
+          };
           window.addEventListener('message', function (e) {
-            if (e.origin !== 'https://technext.odoo.com' || !e.data || e.data.tnb !== 'height') return;
-            var h = +e.data.h; if (h > 240 && h < 6000) fr.style.height = h + 'px';
+            if (e.origin !== 'https://technext.odoo.com' || !e.data) return;
+            if (e.data.tnb === 'height') { var h = +e.data.h; if (h > 240 && h < 6000) fr.style.height = h + 'px'; }
+            else if (e.data.tnb === 'pick' && e.source === fr.contentWindow) book(e.data);
           });
           var card = form.closest('.fw-side') || form;
           setTimeout(function () { var t = card.getBoundingClientRect().top; if (t < 0 || t > innerHeight * 0.4) window.scrollBy({ top: t - 90, behavior: 'smooth' }); }, 150);

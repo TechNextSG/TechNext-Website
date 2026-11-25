@@ -800,9 +800,9 @@ SOFTWARE_FIELD = ('        <div class="field"><label for="gs-software">Accountin
 def _sent(p):
     """After the form: open the calendar (redirect), or show it right in the card (book_embed, 25 Nov 2026 owner)."""
     if p.get("book_embed"):
-        return ('<div class="form-sent lp-sent-cal"><h3>Thanks. Now pick your time.</h3><p>Choose a day and a time below. '
-                'Your details are already filled in.</p><div class="lp-cal" data-lp-cal></div><p class="small muted lp-cal-alt">'
-                f'Calendar not showing? <a href="{BOOK}" class="lp-book-now" data-meet target="_blank" rel="noopener">Open it in a new tab</a>.</p></div>')
+        return ('<div class="form-sent lp-sent-cal"><h3>Thanks. Now pick your time.</h3><p>Choose a day, then a time. '
+                'Picking a time books your call. No more forms.</p><div class="lp-cal" data-lp-cal></div>'
+                '<p class="small muted lp-cal-alt">Calendar not showing? We have your details and will call you to set the time.</p></div>')
     return ('<div class="form-sent"><h3>Thanks. Now pick your time.</h3><p>Opening the calendar with your details filled in. '
             f'If it does not open, <a href="{BOOK}" class="lp-book-now" data-meet>choose your 15-minute slot here</a>.</p></div>')
 
