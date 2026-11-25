@@ -271,7 +271,7 @@ def talk_panel_html() -> str:
       <fieldset class="hv3-fs" data-step="1">
         <legend><h3>What is your primary roadblock?</h3></legend>
         <div class="hv3-opts">
-          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Jan 30 ORUS Deadline" required data-missing="Please pick your main roadblock."><span>{{{{icon:calendar}}}}<b>Jan 30 ORUS Deadline</b><small>2026 computerised books</small></span></label>
+          <label class="hv3-opt"><input type="radio" name="bir_pain" value="BIR CAS / CBA Set-Up" required data-missing="Please pick your main roadblock."><span>{{{{icon:calendar}}}}<b>BIR CAS / CBA Set-Up</b><small>Books, sample outputs, audit trail</small></span></label>
           <label class="hv3-opt"><input type="radio" name="bir_pain" value="Dec 31 E-Invoicing"><span>{{{{icon:send}}}}<b>Dec 31 E-Invoicing</b><small>EIS mandate</small></span></label>
           <label class="hv3-opt"><input type="radio" name="bir_pain" value="Quarter-End Automation"><span>{{{{icon:refresh}}}}<b>Quarter-End Automation</b><small>2307, SLSP, SAWT, QAP</small></span></label>
         </div>
@@ -374,7 +374,7 @@ LAYOUT = '''<!doctype html>
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
 
 <header class="header" data-header>
-<div class="bn bn--dl bn--amber" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadlines</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i><span class="bn-sep" aria-hidden="true">|</span>2026 Computerized Books in ORUS by <strong>Jan 30, 2027</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-dot"> · </span><span class="bn-g">ORUS <strong>Jan 30</strong><i class="bn-cd" data-bn-due="2027-01-30"></i></span></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+<div class="bn bn--dl bn--amber" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadline</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
 <script>/* 13 Nov 2026: days left filled in before first paint (filling them later from site.js shifted the page, CLS 0.14) */(function(){var t=Math.floor((Date.now()+288e5)/864e5);document.querySelectorAll('.bn-cd[data-bn-due]').forEach(function(e){var d=Math.floor(Date.parse(e.getAttribute('data-bn-due')+'T00:00:00Z')/864e5)-t;e.innerHTML=d>1?d+' days<span class="bn-l"> left</span>':d===1?'1 day<span class="bn-l"> left</span>':d===0?'today':''})})()</script>
   <div class="container header-inner">
     <a class="brand" href="{ROOT}index.html" aria-label="TechNext — home">
@@ -604,13 +604,17 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "InvoiceNow (Peppol) e-invoicing in Singapore", "BIR CAS set-up for accounting teams",
                            "Accounting system integration with existing software", "Accounting system set-up in Singapore"],
             "keywords": "BIR compliance, BIR CAS, CBA, BIR CAS set-up, 5 Day Express, BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, "
-                        "Singapore GST, InvoiceNow, ORUS books of accounts, 30 January 2027 deadline, IRAS InvoiceNow, accounting system for BIR, "
+                        "Singapore GST, InvoiceNow, ORUS books of accounts, IRAS InvoiceNow, accounting system for BIR, "
                         "BIR Compliance Expert Philippines",
         },
         {"@type": "WebSite", "@id": site_id, "url": S.SITE_URL, "name": c["short"],
          "alternateName": ["TechNext Asia", "technext.asia"],
          "publisher": {"@id": org_id}, "inLanguage": "en"},
     ]
+    if "lp-page" in meta.get("body", ""):   # 25 Nov 2026 owner: landers name one deadline only (31 Dec), no ORUS / 30 January
+        org = graph[0]
+        org["knowsAbout"] = [k for k in org["knowsAbout"] if "ORUS" not in k and "January" not in k]
+        org["keywords"] = org["keywords"].replace("ORUS books of accounts, ", "")
     # dateModified = the source's last commit, the same date as the sitemap <lastmod>
     page = {"@type": "WebPage", "@id": page_id, "url": canonical, "name": meta["title"],
             "description": meta.get("desc", S.DEFAULT_DESC).strip(), "isPartOf": {"@id": site_id},

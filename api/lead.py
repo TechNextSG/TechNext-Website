@@ -66,7 +66,8 @@ TOPICS = {"Odoo Accounting": "Interest: Odoo Accounting", "Odoo Sales & CRM": "I
           "5-Day Express (BIR compliance)": "BIR: 5-Day Express", "Odoo Implementation": "Interest: Odoo implementation",
           "Connect Odoo to our current system": "Interest: Odoo plug-in",
           # 13 Nov 2026: the landers' "What is your primary goal right now?" (GOALS in _src/landers.py, sent as topic)
-          "Registering CAS or CBA before 30 January": "BIR: CAS / CBA",
+          "Registering CAS or CBA": "BIR: CAS / CBA",
+          "Registering CAS or CBA before 30 January": "BIR: CAS / CBA",   # pages cached before 25 Nov 2026
           "E-invoicing readiness before 31 December": "BIR: E-invoicing",
           "Automating quarter end reports (SLSP, 2307s)": "BIR: SLSP, SAWT, QAP",
           "Set ups for my clients (accounting firm or consultant)": "BIR: Firm client set ups"}

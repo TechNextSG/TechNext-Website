@@ -46,7 +46,8 @@ FINE = ('*Standard 5-day technical deployments available for clean, reconciled d
         'not file or register on your behalf.')
 BOOK = "https://technext.odoo.com/book/c82cf8a9"
 UNDER = "15 minutes, online. Slots Monday to Saturday this week. Written quote before any work."
-DL_CAS = "<b>Deadline</b> · 2026 books in ORUS by 30 January 2027"
+DL_CAS = ('<b>BIR CAS Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
+          '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')   # 25 Nov 2026 owner: "dont mention about jan 30. the only deadline is dec 31"
 DL_EINV = ('<b>Deadline</b> · <span data-fw-dl-static>e-invoices by 31 December 2026</span><span data-fw-dl-live hidden>'
            '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')
 SUB_CAS = ("Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: what to set "
@@ -130,9 +131,8 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         faq=[FAQ_5DAY, FAQ_SOFTWARE, FAQ_COST,
              ("Who do we meet?", "A BIR Compliance Expert from our own team in Taguig City, Neil or Jeric. They look at how you record sales, bills and payments today and stay with you after go live."),
              FAQ_LINK],
-        close_h='30 January 2027 is close. Start your <span class="hl">BIR CAS</span> today.',
-        close_p="Calendar-year CAS and CBA users register their 2026 computerised books in ORUS by 30 January 2027. "
-                "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
+        close_h='31 December 2026 is close. Start your <span class="hl">BIR CAS</span> today.',
+        close_p="<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
     ),
     # Meta traffic ads 225 / 228 (3 Nov notes). Form tag "BIR adviser call".
     "bir-adviser-call": dict(
@@ -166,37 +166,35 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         close_h='Don\'t wait for the deadline. Start your <span class="hl">BIR CAS</span> today.',
         close_p=CLOSE_P,
     ),
-    # Google Ads test page (variant B, noindex). Angle: the ORUS date.
+    # Google Ads test page (variant B, noindex).
     "bir-call": dict(
         source="BIR adviser call (fast form B)",
         pill=DL_CAS,
-        h1='<span class="hl">BIR CAS</span> Books Due 30 January 2027.',
+        h1='<span class="hl">BIR CAS</span> Books. Set Up Before 31 December 2026.',
         sub="Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: which books "
             "you register, what to set up first, and a written quote.",
-        ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what has to be in place before 30 January.",
+        ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what has to be in place first.",
                "<b>Journals, ledger and subsidiary books</b> printed from one system, reviewed by your accountant.",
                "<b>A written quote</b> before any work starts."],
         btn=BTN_CAS,
         msg_ph="e.g. books in spreadsheets today, CAS registered last year, 1 branch",
-        check_h="How ready are your books for 30 January?",
+        check_h="How ready are your books?",
         checks=[("Books kept in spreadsheets", "<b>Your books are kept in spreadsheets</b> and pasted together at year end."),
                 ("Journals don't match the ledger", "<b>The journals and the general ledger</b> don't agree until someone fixes them by hand."),
                 ("Year end close takes weeks", "<b>Closing the year takes weeks,</b> not days."),
                 ("Books printed from several systems", "<b>Your books print from several systems</b> with different layouts."),
-                ("Never registered in ORUS", "<b>You have never registered books in ORUS</b> and don't know what it expects."),
                 ("Only one person knows the year end file", "<b>Only one person knows the year end file,</b> and January is their busiest month.")],
         bp_h='What you leave the meeting with.',
         bp_lead="One online meeting with a BIR Compliance Expert, before your books are due.",
         bp=["Which books you register, and in what format",
-            "What has to be in place before 30 January 2027",
+            "What has to be in place first",
             "What your 5 Day Express* covers for your scope",
             "A written quote before any work starts"],
-        panel=CAS_PANEL, facts="orus", express=True,
-        faq=[("When are computerised books due in ORUS?", "Within 30 days after the close of each taxable year (RMC 3-2023), online through ORUS (RMC 4-2026). For calendar-year taxpayers, computerised books for 2026 are due by 30 January 2027, and loose-leaf books by 15 January 2027, unless the BIR announces otherwise. Your accountant or RDO confirms the dates for your business."),
-             FAQ_SOFTWARE, FAQ_5DAY,
-             ("Do you register the books for us?", "No. You register in ORUS yourself. We set up the system your books come from and prepare them with you and your accountant."),
+        panel=CAS_PANEL, facts="rmc", express=True,
+        faq=[FAQ_SOFTWARE, FAQ_5DAY,
+             ("Do you register the books for us?", "No. You register them yourself. We set up the system your books come from and prepare them with you and your accountant."),
              FAQ_COST],
-        close_h='30 January 2027 is close. Start your <span class="hl">BIR CAS</span> books today.',
+        close_h='31 December 2026 is close. Start your <span class="hl">BIR CAS</span> books today.',
         close_p=CLOSE_P,
     ),
     # 12 Nov 2026: the BIR CAS topic lander (the /bir-cas page stays the menu / Google page).
@@ -289,12 +287,12 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
                 ("“We email PDF invoices, so we're electronic.”",
                  "A printed or emailed PDF is not an e-invoice. Covered taxpayers need a system that sends sales data the BIR's system can read."),
                 ("“We'll sort it out in December.”",
-                 "December is year end close, 2026 books are due in ORUS by 30 January, and every RDO gets the same rush. The order of work is decided now.")]),
+                 "December is year end close, and every RDO gets the same rush. The order of work is decided now.")]),
         checks=None,
         bp_h='Your Blueprint, in 15 minutes.',
         bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client, not a sales pitch.",
         bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
-            "CAS or CBA, and what the 30 January ORUS books need",
+            "CAS or CBA, and what your books need",
             "The e-invoicing order: Permit to Issue, set up, EIS Certification",
             "What your 5 Day Express* covers, and a written quote"],
         panel=EINV_PANEL, facts="cover", express=False,
@@ -310,7 +308,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
              ("Do you file with the BIR for us?", "No. You or your client apply and file at the RDO. We set up the system and prepare the process flow and sample outputs with you."),
              FAQ_COST],
         close_h='Beat the December rush. Plan your <span class="hl">BIR CAS</span> and e-invoicing today.',
-        close_p="December is year end close. ORUS books are due by 30 January. <strong>15 minutes, online, no charge.</strong> "
+        close_p="December is year end close. <strong>15 minutes, online, no charge.</strong> "
                 "Any work starts with a written quote.",
     ),
 }
@@ -322,9 +320,9 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
 # plus the universal FAQ and the "primary goal" question. Adapted to the house rules: no Odoo / ERP / "call" / Excel in
 # visible copy, no "compliant / BIR-ready / perfectly" claims, no penalty threats, no "download" (no checklist file exists),
 # no "partnership" or "dedicated channel" promises, 5 days always with an asterisk, no hyphens in set up / quarter end.
-DL_BOTH = "<b>Deadlines</b> · E-invoicing 31 Dec 2026 · ORUS books 30 Jan 2027"
+DL_BOTH = DL_EINV   # 25 Nov 2026: 31 December only
 BTN_DOC = "Secure my Blueprint"
-GOALS = [("cas", "Registering CAS or CBA before 30 January"),
+GOALS = [("cas", "Registering CAS or CBA"),   # 25 Nov 2026: no 30 January (site.js NEED, api/lead.py TOPICS)
          ("einv", "E-invoicing readiness before 31 December"),
          ("quarter", "Automating quarter end reports (SLSP, 2307s)"),
          ("firm", "Set ups for my clients (accounting firm or consultant)")]
@@ -394,20 +392,19 @@ PAGES["bir-cas-for-accountants"].update(
 
 PAGES["bir-call"].update(
     goal="cas", btn=BTN_DOC,
-    h1='30 January ORUS Deadline. Are Your <span class="hl">BIR CAS</span> Books Ready?',
-    sub="Calendar-year CAS and CBA users register their 2026 computerised books online through ORUS by 30 January 2027. "
-        "We set the system up so your firm's and clients' books of accounts agree before you review and register them.",
+    h1='Are Your <span class="hl">BIR CAS</span> Books Ready?',
+    sub="We set the system up so your firm's and clients' books of accounts agree before you review and register them.",
     ticks=["<b>Match before you print.</b> Journals and ledger that agree in the system.",
            "<b>A fast set up.</b> As quick as 5 days* for a standard scope.",
            "<b>Keep existing systems.</b> We connect the reporting plug-in to them."],
-    check_h="What needs to be in place by 30 January?",
-    check_lead="Are your clients ready for ORUS registration? This is what has to be in place.",
+    check_h="What needs to be in place?",
+    check_lead="This is what has to be in place before your clients register.",
     checks=[("Books not from one system", "<b>Books from one system:</b> journals, general ledger and subsidiary books printed from the registered system."),
             ("Entries don't agree", "<b>Entries that agree:</b> reconciling after printing is a red flag; they must match in the system."),
             ("Year not closed", "<b>The year closed:</b> 2026 entries posted and locked."),
-            ("No time for review", "<b>Your review:</b> time to check the formats before you submit in ORUS.")],
+            ("No time for review", "<b>Your review:</b> time to check the formats before you register.")],
     facts=None,
-    faq=[PAGES["bir-call"]["faq"][0]] + FAQ_U,
+    faq=FAQ_U,
 )
 
 PAGES["bir-e-invoicing-plan"].update(
@@ -446,10 +443,6 @@ FAQ_TIME = ("How long does the set up take?",
             "For ledgers with clean, reconciled data, a standard technical deployment takes 5 days.* Bigger scopes, more "
             "branches or messy data run longer, and your written quote says so before you agree to anything. Your RDO sets its "
             "own timeline for any registration.")
-FAQ_ORUS = ("When are computerised books due in ORUS?",
-            "Within 30 days after the close of each taxable year (RMC 3-2023), online through ORUS (RMC 4-2026). For "
-            "calendar-year taxpayers, computerised books for 2026 are due by 30 January 2027, unless the BIR announces otherwise. "
-            "Your accountant or RDO confirms the dates for your business.")
 
 # FB ad 265 "Automate BIR Compliance. Keep Your Current System." (Quarter-End)
 PAGES["bir-quarter-end"] = dict(_copy.deepcopy(PAGES["bir-cas-for-accountants"]))
@@ -457,31 +450,28 @@ PAGES["bir-quarter-end"].update(
     source="BIR adviser call (FB ad 265 quarter end)",
     pill=DL_CAS, goal="quarter",
     h1='Automate <span class="hl">BIR Compliance</span>. <span class="hl">Keep Your Current System.</span>',
-    sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Your clients' 2026 CAS books "
-        "are due through ORUS by 30 January 2027: set up automated BIR reporting beside the software they already use, "
-        "before the holidays. Our <b>5 Day Express BIR Solution*</b> sets it up for clean, reconciled ledgers.",
+    sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Set up automated BIR "
+        "reporting beside the software they already use, before the holidays. Our <b>5 Day Express BIR Solution*</b> sets it up for clean, reconciled ledgers.",
     ticks=["<b>Data in once.</b> From their POS or current system, no double entry.",
            "<b>Mapped to ATC codes.</b> Every transaction to the right tax code.",
            "<b>Reconciled to the ledger.</b> CAS journals, DAT files and 2307s from the same entries."],
     btn="Book my workflow review", form_h="Book your workflow review",
-    msg_ph="e.g. 40 payees a quarter, SLSP rebuilt in spreadsheets, CAS books due 30 January",
+    msg_ph="e.g. 40 payees a quarter, SLSP rebuilt in spreadsheets",
     express=False,
-    steps_h="How it works, before 30 January.",
+    steps_h="How it works.",
     steps=[("Ingest", "Data comes in from their POS or current accounting system."),
            ("Map", "Each transaction is mapped to the correct Alphanumeric Tax Code (ATC)."),
            ("Generate", "Matching CAS journals, DAT files and 2307s, reconciled to the general ledger."),
            ("Review and file", "You and your accountant review the outputs; you file. 5 days* for clean, reconciled ledgers.")],
     bp=["<b>2307s from vendor bills:</b> set your ATC codes once, and 2307 and 2306 certificates come from the bills",
         "<b>DAT file exports:</b> SLSP, SAWT and QAP from posted entries, so the figures match your books",
-        "<b>What has to be ready by 30 January:</b> the books your clients register in ORUS",
         "<b>A written quote</b> before any work starts"],
     faq=[("Can the system produce our 2307s, SLSP, SAWT and QAP?",
           "Yes. The set up generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, "
           "from the same entries as your books."),
-         FAQ_KEEP, FAQ_TIME, FAQ_ORUS, FAQ_LINK, FAQ_COST],
-    close_h='CAS books are due 30 January 2027. Start before the holidays, <span class="hl">not in January</span>.',
-    close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
-            "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
+         FAQ_KEEP, FAQ_TIME, FAQ_LINK, FAQ_COST],
+    close_h='31 December 2026 is close. <span class="hl">Start before the holidays</span>.',
+    close_p="<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
 )
 
 # FB ad 266 "CPA Partners: Two BIR Deadlines, 30 Days Apart" (on hold in Meta, page ready)
@@ -489,35 +479,34 @@ PAGES["bir-firm-deadlines"] = dict(_copy.deepcopy(PAGES["bir-deadline"]))
 PAGES["bir-firm-deadlines"].update(
     source="BIR adviser call (FB ad 266 firm deadlines)",
     pill=DL_BOTH, goal="firm",
-    h1='CPA Partners: Two <span class="hl">BIR Deadlines</span>, 30 Days Apart.',
-    sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS computerised books for calendar-year CAS "
-        "users. RMC 98-2026 kept the e-invoicing date, and the holidays sit in between. We handle the technical heavy lifting across your "
+    h1='CPA Partners: The <span class="hl">BIR Deadline</span> Is 31 December 2026.',
+    sub="31 December 2026: e-invoicing for covered taxpayers. RMC 98-2026 kept the date, and the holidays come first. We handle the technical heavy lifting across your "
         "client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
     ticks=["<b>We handle:</b> data ingestion, multi branch invoice sequencing and audit trails.",
            "<b>You handle:</b> the tax advisory for your clients. Your firm stays the adviser.",
            "<b>A written quote</b> per client before any work starts."],
     btn="Book my partner meeting", form_h="Book your partner meeting",
     bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
-        "CAS or CBA, and what the 30 January ORUS books need",
+        "CAS or CBA, and what each client's books need",
         "The e-invoicing order: Permit to Issue, set up, EIS Certification",
         "What the set up covers for each client, and a written quote"],
     close_h='31 December is weeks away. <span class="hl">Book before the December rush.</span>',
 )
 
-# FB ad 267 "CAS Books Due 30 Jan. Is Your System Audit-Proof?"
+# FB ad 267 (CPA Overhaul) audit trail lander
 PAGES["bir-audit-trail"] = dict(_copy.deepcopy(PAGES["bir-adviser-call"]))
 PAGES["bir-audit-trail"].update(
     source="BIR adviser call (FB ad 267 audit trail)",
     pill=DL_CAS, goal="cas",
     h1='Is Your <span class="hl">BIR CAS</span> Software <span class="hl">Actually Audit-Proof?</span>',
-    sub="Your 2026 computerised books go to ORUS by 30 January 2027. Under RMC 5-2021, a CAS must keep an audit trail and "
+    sub="Under RMC 5-2021, a CAS must keep an audit trail and "
         "protect posted entries from changes. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail for clean, reconciled "
         "ledgers. Meet a BIR Compliance Expert online for 15 minutes and leave with your plan.",
     ticks=["<b>Posted entries locked.</b> Lock dates, and no edits after posting.",
            "<b>Every change logged.</b> Who did what, and when.",
            "<b>SLSP tied to the ledger.</b> Reports from the same posted entries."],
     btn="Book my technical call", form_h="Book your technical call",
-    msg_ph="e.g. CAS registered, entries still edited after posting, books due 30 January",
+    msg_ph="e.g. CAS registered, entries still edited after posting",
     check_h="Would your system pass an audit trail check?",
     check_lead="Lock your books before year end. Which of these sounds familiar?",
     checks=[("No audit trail printout", "<b>The system can't print an audit trail</b> showing who changed what, and when."),
@@ -527,7 +516,7 @@ PAGES["bir-audit-trail"].update(
     bp_h="What you leave the meeting with.",
     bp_lead="One online meeting with a BIR Compliance Expert, before your books are due.",
     bp=["Where your audit trail and lock dates stand against RMC 5-2021",
-        "CAS or CBA, and what your 30 January ORUS books need",
+        "CAS or CBA, and what your books need",
         "How your SLSP ties to the general ledger",
         "A written quote before any work starts"],
     facts="rmc", express=False,
@@ -535,13 +524,12 @@ PAGES["bir-audit-trail"].update(
     steps=[("15 minute meeting", "Neil or Jeric maps your workflow and checks your audit trail and lock dates."),
            ("Set up and test", "Journal locks, user change logs and BIR reports, tested on your real data."),
            ("Tie the reports", "SLSP and books from the same posted entries as the general ledger."),
-           ("Review and register", "Your accountant reviews; you register your books in ORUS by 30 January.")],
+           ("Review and register", "Your accountant reviews; you register your books.")],
     faq=[("Do we need a CAS or a CBA?", "RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant, and your RDO can confirm it."),
          ("Is TechNext BIR-accredited?", "No, and no accounting software is. The BIR registers each business's use of a system, not a software brand, and it has warned against \"BIR-accredited\" claims. We set your system up for the BIR's requirements and prepare the sample outputs with you."),
-         FAQ_ORUS, FAQ_KEEP, FAQ_TIME, FAQ_COST],
-    close_h='30 January 2027 is close. <span class="hl">Lock your books</span> before year end.',
-    close_p="Calendar-year CAS users register their 2026 computerised books in ORUS by 30 January 2027. "
-            "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
+         FAQ_KEEP, FAQ_TIME, FAQ_COST],
+    close_h='31 December 2026 is close. <span class="hl">Lock your books</span> before year end.',
+    close_p="<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
 )
 for _k in ("bir-quarter-end", "bir-audit-trail"):
     PAGES[_k].pop("order", None)
@@ -567,9 +555,6 @@ S_COST = ("What does it cost?",
           "It depends on your branches and integrations. You get a written quote before any work, and the meeting has no charge.")
 S_TIME = ("How long does the set up take?",
           "About 5 days* for a standard set up with clean, reconciled ledgers. Bigger scopes take longer, as your quote shows.")
-S_ORUS = ("When are computerised books due in ORUS?",
-          "For calendar-year taxpayers, 2026 books are due by 30 January 2027 (RMC 3-2023, RMC 4-2026). "
-          "Your accountant or RDO confirms your dates.")
 S_CASCBA = ("Do we need a CAS or a CBA?",
             "If your system issues your invoices, it is a CAS; if invoices are written by hand, a CBA (RMO 9-2021). "
             "Your accountant or RDO confirms it.")
@@ -609,7 +594,7 @@ _FIRM_SIMPLE = dict(
 )
 for _k in ("get-started", "bir-adviser-call"):
     PAGES[_k].update(_copy.deepcopy(_FIRM_SIMPLE))
-PAGES["get-started"]["close_p"] = "2026 books are due in ORUS by 30 January 2027. " + CLOSE_P
+PAGES["get-started"]["close_p"] = CLOSE_P
 PAGES["bir-adviser-call"]["close_p"] = CLOSE_P
 
 PAGES["bir-cas-for-accountants"].update(
@@ -630,12 +615,11 @@ PAGES["bir-cas-for-accountants"].update(
 )
 
 PAGES["bir-call"].update(
-    sub="2026 computerised books are due in ORUS by 30 January 2027. We set up the system so your books agree before you "
-        "review and register them.",
+    sub="We set up the system so your books agree before you review and register them.",
     check_lead="What has to be in place before you register.",
     bp=_no_quote(PAGES["bir-call"]["bp"]),
-    faq=[S_ORUS, S_SOFT, S_TIME, S_ACC, S_COST],
-    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+    faq=[S_SOFT, S_TIME, S_ACC, S_COST],
+    close_p=CLOSE_P,
 )
 
 PAGES["bir-e-invoicing-plan"].update(
@@ -659,9 +643,9 @@ for _k in ("bir-deadline", "bir-firm-deadlines"):
                    ("“We email PDF invoices, so we're electronic.”",
                     "A printed or emailed PDF is not an e-invoice."),
                    ("“We'll sort it out in December.”",
-                    "December is year end close, and 2026 books are due in ORUS by 30 January. Plan the order of work now.")])
+                    "December is year end close. Plan the order of work now.")])
     p["bp"] = ["Covered now, later or exempt (your accountant or RDO confirms)",
-               "CAS or CBA, and what the 30 January ORUS books need",
+               "CAS or CBA, and what your books need",
                "The e-invoicing order: Permit to Issue, set up, EIS Certification",
                "What the set up covers" + (" for each client" if _k == "bir-firm-deadlines" else ", with your 5 Day Express*")]
     p["firm"] = ("We set up the system. You keep the client.",
@@ -670,7 +654,7 @@ for _k in ("bir-deadline", "bir-firm-deadlines"):
                   "<b>One Blueprint per client.</b> Start with one case.",
                   "<b>Agreed with you</b> before any work starts."])
     p["faq"] = [S_EINVCAS, S_CLIENT, S_EIS, S_FILE, S_COST]
-    p["close_p"] = "E-invoicing by 31 December 2026, ORUS books by 30 January 2027. " + CLOSE_P
+    p["close_p"] = "E-invoicing by 31 December 2026. " + CLOSE_P
 PAGES["bir-deadline"].update(
     sub="A CAS registration doesn't cover e-invoicing: you need a Permit to Issue, then EIS Certification. "
         "Leave the meeting with your Blueprint for you or your client.",
@@ -679,33 +663,33 @@ PAGES["bir-deadline"].update(
            "<b>For you or your client,</b> one case at a time."],
 )
 PAGES["bir-firm-deadlines"].update(
-    sub="31 December 2026: e-invoicing for covered taxpayers. 30 January 2027: ORUS books for calendar-year CAS users. "
+    sub="31 December 2026: e-invoicing for covered taxpayers. "
         "We handle the technical work across your client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
 )
 
 PAGES["bir-quarter-end"].update(
     sub="Stop rebuilding SLSP, SAWT, QAP and 2307s in spreadsheets. Set up BIR reporting beside your clients' current software "
-        "before the 30 January 2027 ORUS deadline, with our <b>5 Day Express BIR Solution*</b>.",
+        "with our <b>5 Day Express BIR Solution*</b>.",
     check_h="Is your quarter end still done by hand?",
     check_lead="Which of these sounds familiar?",
     bp_h="What the set up covers.",
     bp_lead="Set up once, then every report comes from your posted entries.",
     bp=["<b>2307 and 2306 certificates</b> from vendor bills, once your ATC codes are set",
         "<b>SLSP, SAWT and QAP</b> as DAT files from posted entries",
-        "<b>The books</b> your clients register in ORUS by 30 January"],
-    faq=[S_2307, S_SOFT, S_TIME, S_ORUS, S_COST],
-    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+        "<b>Books of accounts</b> for your clients, from the same entries"],
+    faq=[S_2307, S_SOFT, S_TIME, S_COST],
+    close_p=CLOSE_P,
 )
 
 PAGES["bir-audit-trail"].update(
-    sub="Your 2026 computerised books go to ORUS by 30 January 2027. RMC 5-2021 requires a CAS to keep an audit trail and "
+    sub="RMC 5-2021 requires a CAS to keep an audit trail and "
         "protect posted entries. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail.",
     check_lead="Which of these sounds familiar?",
     bp=["Where your audit trail and lock dates stand against RMC 5-2021",
-        "CAS or CBA, and what your 30 January ORUS books need",
+        "CAS or CBA, and what your books need",
         "How your SLSP ties to the general ledger"],
-    faq=[S_CASCBA, S_ORUS, S_TIME, S_COST],
-    close_p="2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+    faq=[S_CASCBA, S_TIME, S_COST],
+    close_p=CLOSE_P,
 )
 
 # ------------------------------------------------------- section buttons (owner 13 Nov 2026: each speaks for its section)
@@ -716,10 +700,10 @@ _ASK = "Ask a BIR Compliance Expert"
 _CAS_FIRM = dict(check="Clear my CAS roadblock", blueprint="Get my client's Blueprint", facts="Check my application papers",
                  express="Plan my set up", faq=_ASK)
 CTAS = {
-    "get-started": dict(_CAS_FIRM, close="Book before 30 January"),
+    "get-started": dict(_CAS_FIRM, close="Book before 31 December"),
     "bir-adviser-call": dict(_CAS_FIRM, close="Book my Blueprint meeting"),
-    "bir-call": dict(check="Check my books for ORUS", blueprint="Get my BIR CAS Blueprint", express="Plan my set up",
-                     faq=_ASK, close="Book before 30 January"),
+    "bir-call": dict(check="Check my books", blueprint="Get my BIR CAS Blueprint", express="Plan my set up",
+                     faq=_ASK, close="Book before 31 December"),
     "bir-cas-for-accountants": dict(check="Solve my quarter end", blueprint="See my quarter end set up", express="Plan my set up",
                                     faq=_ASK, close="Book my Blueprint meeting"),
     "bir-e-invoicing-plan": dict(check="Check my e-invoicing gaps", blueprint="Get my e-invoicing Blueprint",
@@ -731,12 +715,12 @@ CTAS = {
 
 CTAS.update({
     "bir-quarter-end": dict(check="Solve my quarter end", blueprint="Book my workflow review", express="Book my workflow review",
-                            faq=_ASK, close="Book before 30 January"),
+                            faq=_ASK, close="Book before 31 December"),
     "bir-firm-deadlines": dict(myths="Check what my client needs", facts="Check if my client is covered",
                                blueprint="Book my partner meeting", firm="Bring a client case", faq=_ASK,
                                close="Book before 31 December"),
     "bir-audit-trail": dict(check="Check my audit trail", blueprint="Book my technical call", facts="Check my audit trail",
-                            express="Book my technical call", faq=_ASK, close="Book before 30 January"),
+                            express="Book my technical call", faq=_ASK, close="Book before 31 December"),
 })
 
 # ---------------------------------------------------------------------------------------------------------- page facts
@@ -748,15 +732,7 @@ _FACTS = {
              ("Sample books and reports", "Your books of accounts and the other system reports."),
              ("An audit trail printout", "From the system, showing who did what and when."),
              ("The requirements checklist", "The functional and technical requirements in Annex B, signed."),
-             ("Your books, every year", "Computerised books registered online through ORUS within 30 days after year end.")]),
-    "orus": ("What has to be in place by 30 January?",
-             "Within 30 days after year end, online through ORUS (RMC 3-2023, RMC 4-2026).",
-             [("Books from one system", "Journals, general ledger and subsidiary books, printed from the system you registered."),
-              ("Entries that agree", "The journals and the ledger match before you print, not after."),
-              ("The year closed", "Your 2026 entries posted and the year closed in the system."),
-              ("Your accountant's review", "Your accountant checks the books before you register them."),
-              ("Loose-leaf books, if any", "Due earlier: 15 January 2027 for calendar-year taxpayers."),
-              ("Your RDO's dates", "Your accountant or RDO confirms the dates for your business.")]),
+             ("E-invoicing from 31 December 2026", "CAS and CBA users issue e-invoices, after a Permit to Issue (RR 26-2025, RMC 98-2026).")]),
     "quarter": ("Your quarter end, from one set of books.",
                 "Every report comes from the entries you already post, so you reconcile once.",
                 [("2307 per payee", "Generated from each vendor bill with withholding, ready to send."),
@@ -1077,17 +1053,17 @@ PAGES["bir-audit-trail"].update(
     h1='<span class="dl1">BIR CAS DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
     h1_cls="lp-dt",
     sub="From 31 December 2026, BIR CAS and CBA users must issue e-invoices, and your Permit to Issue (PTI) comes first. "
-        "Your 2026 books then go to ORUS by 30 January 2027. Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
+        "Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
         "and a full audit trail.",
     btn="Secure my BIR Blueprint", form_h="Secure your BIR Blueprint",
     bp_h="Your BIR Blueprint: what you leave the meeting with.",
-    bp=["Where you stand against 31 December and 30 January",
+    bp=["Where you stand against 31 December",
         "Where your audit trail and lock dates stand",
-        "CAS or CBA, and what your 30 January ORUS books need",
+        "CAS or CBA, and what your books need",
         "How your SLSP ties to the general ledger"],
     close_h='31 December 2026 is weeks away. <span class="hl">Secure your BIR Blueprint</span> now.',
     close_p="From 31 December 2026, CAS and CBA users must issue e-invoices (RR 26-2025, RMC 98-2026; micro taxpayers are "
-            "exempt). 2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+            "exempt). " + CLOSE_P,
 )
 PAGES["bir-audit-trail"]["book_embed"] = True
 PAGES["bir-audit-trail"]["goal"] = "einv"   # December focus (owner 25 Nov): pre-picks the 31 Dec option, carried to the booking   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
@@ -1256,14 +1232,14 @@ CTAS.update({
 })
 
 # ------------------------------------------------------------------ 25 Nov 2026: FB ad 266 lander overhaul (owner approved)
-# /bir-firm-deadlines leads with the 30 January 2027 books date and the cost of filing late (ad 266 title, caps). The
+# /bir-firm-deadlines leads with the deadline and the cost of filing late (ad 266 title, caps; 31 December only since the
+# owner's 25 Nov "the only deadline is dec 31"). The
 # 5-day footnote and every "Express" / "handle" word are off this page; the 3 assumptions and "Is your client covered"
 # sections stay as they were. Penalty figures: NIRC Sec. 248-250 as amended by RA 11976 (EOPT), small print on the page.
 PAGES["bir-firm-deadlines"].update(
-    pill="<b>Deadlines</b> · BIR CAS books 30 Jan 2027 · E-invoicing 31 Dec 2026",
-    h1='BIR CAS BOOKS DUE 30 JAN 2027. <span class="hl lp-red">FILE LATE: 25% SURCHARGE&nbsp;+ 12% INTEREST.*</span>',
-    sub="Your clients' 2026 computerised books go to ORUS by 30 January 2027. Covered CAS and CBA users must also issue "
-        "e-invoices from 31 December 2026. We set up the system side across your client portfolio. Your firm keeps the tax "
+    pill=DL_CAS,
+    h1='BIR CAS DEADLINE: 31 DEC 2026. <span class="hl lp-red">IS EVERY CLIENT SET UP TO E-INVOICE?</span>',
+    sub="Covered CAS and CBA users must issue e-invoices from 31 December 2026. We set up the system side across your client portfolio. Your firm keeps the tax "
         "advisory, and each client files at its own RDO.",
     ticks=["<b>We set up:</b> CAS books, sample outputs, branch invoice series and audit trails.",
            "<b>You keep:</b> the tax advisory and the client relationship.",
@@ -1274,13 +1250,12 @@ PAGES["bir-firm-deadlines"].update(
            ["<b>25% surcharge</b> on the tax due (10% for micro and small taxpayers)",
             "<b>12% interest</b> a year (6% for micro and small taxpayers)",
             "<b>Information returns:</b> P1,000 per failure, up to P25,000 a year (P500 / P12,500 for micro and small)"],
-           "*Late filing of BIR returns, NIRC Sec. 248, 249 and 250 as amended by RA 11976 (Ease of Paying Taxes Act). Books "
-           "deadline counted from RMC 91-2024 (30 days after year end); last cycle it moved because of ORUS problems, so plan "
-           "for 30 January anyway. E-invoicing per RR 26-2025 and RMC 98-2026. General guidance, not tax advice. TechNext is "
+           "*Late filing of BIR returns, NIRC Sec. 248, 249 and 250 as amended by RA 11976 (Ease of Paying Taxes Act). "
+           "E-invoicing per RR 26-2025 and RMC 98-2026. General guidance, not tax advice. TechNext is "
            "not affiliated with the BIR. Confirm with your RDO."),
     bp_h="What you leave the meeting with.",
     bp_lead="A 15 minute online meeting with a BIR Compliance Expert.",
-    bp=["Where each client stands against 31 December and 30 January",
+    bp=["Where each client stands against 31 December",
         "What each client's CAS or CBA application pack needs",
         "A written quote per client"],
 )
