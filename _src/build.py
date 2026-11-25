@@ -583,7 +583,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [
                 {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "provider": {"@id": org_id},
                                                    **({} if _LD_BRAND.search(u) else {"url": S.SITE_URL + u})}}
-                for n, u in (("5 Day Express BIR CAS and CBA set-up", "bir-cas"),
+                for n, u in (("5 Days BIR CAS and CBA set-up", "bir-cas"),
                              ("BIR e-invoicing preparation", "bir-e-invoicing"),
                              ("Plug-in for your existing system", "odoo/integration"),
                              ("Full business system set-up", "solutions/odoo-erp"),
@@ -603,7 +603,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "BIR SAWT and Form 2307 creditable withholding",
                            "InvoiceNow (Peppol) e-invoicing in Singapore", "BIR CAS set-up for accounting teams",
                            "Accounting system integration with existing software", "Accounting system set-up in Singapore"],
-            "keywords": "BIR compliance, BIR CAS, CBA, BIR CAS set-up, 5 Day Express, BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, "
+            "keywords": "BIR compliance, BIR CAS, CBA, BIR CAS set-up, 5 Days BIR CAS Set-Up, BIR e-invoicing, EIS, EOPT, BIR Form 2307, 2550Q, SLSP, SAWT, QAP, "
                         "Singapore GST, InvoiceNow, ORUS books of accounts, IRAS InvoiceNow, accounting system for BIR, "
                         "BIR Compliance Expert Philippines",
         },
@@ -1162,12 +1162,12 @@ def express_html() -> str:
     return f'''<section class="x5-sec" id="express" aria-labelledby="xp5-h">
   <div class="container">
     <div class="x5-head">
-      <p class="x5-badge-row"><span class="x5-badge">{{{{icon:zap}}}}5 Day Express</span><span class="x5-badge-sub">BIR CAS set-up sprint</span></p>
-      <h2 id="xp5-h">BIR CAS set-up. <span class="hl">As quick as 5 days.*</span></h2>
+      <p class="x5-badge-row"><span class="x5-badge">{{{{icon:zap}}}}5 Days*</span><span class="x5-badge-sub">BIR CAS set-up sprint</span></p>
+      <h2 id="xp5-h">BIR CAS set-up. <span class="hl">As quick as 5 Days*.</span></h2>
       <p class="x5-intro">Built for accountants and finance teams ahead of the 31 December 2026 e-invoicing (EIS) deadline. You keep your current accounting software; nothing is swapped out while we work.</p>
     </div>
-    <ol class="x5-days" aria-label="Your 5 Day Express, day by day">{days}</ol>
-    <p class="x5-note">*Standard 5-day technical deployments available for clean, reconciled data ledgers. Pricing scales with your branch network and integration complexity. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
+    <ol class="x5-days" aria-label="Your 5 Days, day by day">{days}</ol>
+    <p class="x5-note">*5 Days is for standard technical deployments with clean, reconciled data ledgers. Pricing scales with your branch network and integration complexity. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
   </div>
 </section>'''
 
@@ -2435,7 +2435,7 @@ HOOKS = {   # 12 Nov 2026 overhaul brief: every page leads with "Book a Technica
 }
 HOOK_LAST = {k: "Book a Technical Readiness Call" for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
-           '*Standard 5-day technical deployments available for clean, reconciled data ledgers. Pricing scales with your branch '
+           '*5 Days is for standard technical deployments with clean, reconciled data ledgers. Pricing scales with your branch '
            'network and integration complexity. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
 
 
@@ -2476,7 +2476,7 @@ def meeting_ctas(html: str, out_rel: str) -> str:
         last = m.end()
     out.append(main[last:])
     main = "".join(out)
-    if 'lp-fine' not in main and re.search(r'5 Day (?:Express|plan)\*', main) and not re.search(r'\*\s*(?:5 Day Express: t|T)iming depends', main):
+    if 'lp-fine' not in main and re.search(r'5 Days?(?: Express| plan)?\*', main) and not re.search(r'\*\s*(?:5 Day Express: t|T)iming depends|\*5 Days is for|5 Days\* is for', main):
         main += X5_NOTE   # the qualifier for the "5 Day*" buttons, at the end of the page content
     return html[:i] + main + html[j:]
 
