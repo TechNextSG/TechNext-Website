@@ -103,8 +103,8 @@ FAQ_LINK = ("Is TechNext linked to the BIR?",
 FAQ_5DAY = ("How long does the 5 Day Express* take?",
             "Standard 5-day technical deployments are available for clean, reconciled data ledgers.* Bigger scopes, more branches or messy data run as extra sprints, and your quote says so before you agree to anything. Your RDO sets its own timeline for the registration.")
 
-CLOSE_P = ("Fill in the short form (about a minute). A BIR Compliance Expert replies from sales@technext.asia within one "
-           "business day. <strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.")
+CLOSE_P = ("Fill in the short form (about a minute), then pick your time in the calendar. "
+           "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.")
 
 # ---------------------------------------------------------------------------------------------------------------- pages
 PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy doc below replaces four of them.
@@ -552,7 +552,7 @@ for _k in ("bir-quarter-end", "bir-audit-trail"):
 # disclaimer lives in the site-wide footer line, and "written quote" / "15 minutes" are said once under the button.
 FINE = "*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes take longer, as your quote shows."
 UNDER = "15 minutes, online, no charge. Written quote before any work."
-CLOSE_P = "<strong>15 minutes, online, no charge.</strong> A BIR Compliance Expert replies within one business day."
+CLOSE_P = "<strong>15 minutes, online, no charge.</strong> Fill in the short form, then pick your time in the calendar."   # 25 Nov 2026 (Sky): book direct
 
 S_SOFT = ("Do we have to change our accounting software?",
           "No. Your current software stays, and we connect to it.")
@@ -812,16 +812,25 @@ def _goal(p):
             f'<select id="gs-goal" name="topic">{opts}</select></div>\n')
 
 
+# 25 Nov 2026 (Sky): one required question that real buyers answer and spam bots do not ("Excel", "none yet" are fine);
+# it rides to the booking page with the other details. After the send, site.js opens the calendar (data-then-book):
+# ad -> lander form -> calendar, no waiting for a call back (Sky: 230 leads -> 7 meetings with the call-back form).
+SOFTWARE_FIELD = ('        <div class="field"><label for="gs-software">Accounting software you (or your clients) use '
+                  '<span class="fw-req" aria-hidden="true">*</span></label><input id="gs-software" name="accounting_system" type="text" '
+                  'required minlength="2" maxlength="120" autocomplete="off" placeholder="e.g. QuickBooks, Xero, Excel, none yet" '
+                  'data-missing="Add the accounting software you use, or none yet." data-err="Add the accounting software you use, or none yet."></div>\n')
+
+
 def _form(p):
     h = p.get("form_h") or ("Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint")
     return f'''    <div class="fw-side fw-side--form" id="book">
-  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-no-captcha>
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-no-captcha data-then-book="{BOOK}">
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="{_e(p["source"])}">
       <div class="fw-fhead">
         <h2 class="gs-form-h">{h}</h2>
-        <p class="gs-form-sub fw-fsub">Four details. A BIR Compliance Expert replies within one business day. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Pick a slot this week</a>.</p>
+        <p class="gs-form-sub fw-fsub">Your details first, then pick a 15-minute time this week on the next screen.</p>
       </div>
       <fieldset class="fw-step" data-step="1"><legend class="sr-only">Your details</legend>
         <div class="form-row">
@@ -833,14 +842,14 @@ def _form(p):
           <div class="field"><label for="gs-company">Company name <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-company" name="company" type="text" autocomplete="organization" required aria-describedby="gs-company-err" data-missing="Please add your company name."><p class="fw-err" id="gs-company-err" hidden></p></div>
         </div>
         <div class="field"><label for="gs-website">Company website <span class="fw-req" aria-hidden="true">*</span></label><input id="gs-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{_S.WEBSITE_PATTERN}" aria-describedby="gs-website-err" data-missing="{_S.WEBSITE_MISSING}" data-err="{_S.WEBSITE_ERR}"><p class="fw-err" id="gs-website-err" hidden></p></div>
-{_goal(p)}        <div class="field"><label for="gs-msg">Anything we should know?</label><textarea id="gs-msg" name="message" rows="3" placeholder="{_e(p["msg_ph"])}"></textarea></div>
+{_goal(p)}{SOFTWARE_FIELD}        <div class="field"><label for="gs-msg">Anything we should know?</label><textarea id="gs-msg" name="message" rows="3" placeholder="{_e(p["msg_ph"])}"></textarea></div>
       </fieldset>
       <div class="form-foot">
         <button class="btn btn-primary btn-lg gs-submit" type="submit"><span class="btn-label">{p["btn"]} {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>
       </div>
       <p class="lp-under">{UNDER}</p>
       <p class="form-status" role="status" aria-live="polite"></p>
-      <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A confirmation email comes from sales@technext.asia, and a BIR Compliance Expert replies within one business day. Want a time now? <a href="{BOOK}" target="_blank" rel="noopener" data-meet>Choose a slot this week</a>.</p></div>
+      <div class="form-sent"><h3>Thanks. Now pick your time.</h3><p>Opening the calendar with your details filled in. If it does not open, <a href="{BOOK}" class="lp-book-now" data-meet>choose your 15-minute slot here</a>.</p></div>
       <p class="small muted gs-privacy">{{{{icon:shield}}}} Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
     </div>'''
