@@ -525,8 +525,9 @@ def book_slot(lead, p):
         return None, "lead"
     if need not in BOOK_NEEDS:
         need = BOOK_NEEDS[1]                                 # the lander's default goal: 31 December e-invoicing
-    # this lead booked already (another instance, or a reload): hand back that booking
-    old = rpc("calendar.event", "search_read", domain=[["appointment_type_id", "=", BOOK_TYPE], ["start", ">=", now.strftime(fmt)],
+    # this lead booked THIS time already (another instance, or a reload): hand back that booking. Same start only
+    # (25 Nov 2026 lead check): matching any booking by email showed the picked time while handing back an older one.
+    old = rpc("calendar.event", "search_read", domain=[["appointment_type_id", "=", BOOK_TYPE], ["start", "=", start.strftime(fmt)],
                                                       ["appointment_booker_id.email", "=ilike", email],
                                                       ["create_date", ">=", (now - timedelta(hours=2)).strftime(fmt)]],
               fields=["access_token", "appointment_booker_id"], limit=1)
