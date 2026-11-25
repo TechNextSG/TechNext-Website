@@ -261,6 +261,20 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
   .fw-pane .ixf-t small, .fw-pane .ixf-post-h small { white-space: normal; overflow: visible; text-overflow: clip; }
 }
 
+/* 26 Nov 2026 (audit): phones - step labels keep clear of the arrow points (text was running under the 8px notch);
+   segments size to their label so "Accountant checks" gets the room */
+@media (max-width: 600px) {
+  .fw-pane .ixf-seg { flex: 1 1 auto; font-size: 11px; letter-spacing: -.005em; padding-left: 11px; padding-right: 9px; }
+  .fw-pane .ixf-seg:first-child { padding-left: 7px; }
+  .fw-pane .ixf-seg:last-child { padding-right: 6px; }
+}
+/* 26 Nov 2026 (audit): the deadline badge breaks into two clean lines on narrow phones, not mid-date */
+@media (max-width: 430px) {
+  .fw-deadline > span:has(> .dl-sep--wrap) { display: grid; }
+  .fw-deadline .dl-sep--wrap { display: none; }
+  .fw-deadline > span:has(> .dl-sep--wrap) > [data-fw-dl-static], .fw-deadline > span:has(> .dl-sep--wrap) > [data-fw-dl-live] { white-space: nowrap; }
+}
+
 /* phones: panes collapse (the stage follows the picked need instead of holding the tallest one); smaller KPI figures */
 @media (max-width: 600px) {
   .fw-pane[hidden] { display: none !important; }
