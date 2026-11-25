@@ -821,10 +821,20 @@ SOFTWARE_FIELD = ('        <div class="field"><label for="gs-software">Accountin
                   'data-missing="Add the accounting software you use, or none yet." data-err="Add the accounting software you use, or none yet."></div>\n')
 
 
+def _sent(p):
+    """After the form: open the calendar (redirect), or show it right in the card (book_embed, 25 Nov 2026 owner)."""
+    if p.get("book_embed"):
+        return ('<div class="form-sent lp-sent-cal"><h3>Thanks. Now pick your time.</h3><p>Choose a day and a time below. '
+                'Your details are already filled in.</p><div class="lp-cal" data-lp-cal></div><p class="small muted lp-cal-alt">'
+                f'Calendar not showing? <a href="{BOOK}" class="lp-book-now" data-meet target="_blank" rel="noopener">Open it in a new tab</a>.</p></div>')
+    return ('<div class="form-sent"><h3>Thanks. Now pick your time.</h3><p>Opening the calendar with your details filled in. '
+            f'If it does not open, <a href="{BOOK}" class="lp-book-now" data-meet>choose your 15-minute slot here</a>.</p></div>')
+
+
 def _form(p):
     h = p.get("form_h") or ("Get your e-invoicing plan" if p["btn"] == BTN_EINV else "Get your BIR CAS Blueprint")
     return f'''    <div class="fw-side fw-side--form" id="book">
-  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-no-captcha data-then-book="{BOOK}">
+  <form class="form gs-form fw-form" id="gs-form" data-loop novalidate data-endpoint="/api/lead" data-fw-form data-no-captcha data-then-book="{BOOK}"{' data-book-embed' if p.get("book_embed") else ''}>
       <i class="fx-result-glow gs-glow" aria-hidden="true"></i>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="{_e(p["source"])}">
@@ -849,7 +859,7 @@ def _form(p):
       </div>
       <p class="lp-under">{UNDER}</p>
       <p class="form-status" role="status" aria-live="polite"></p>
-      <div class="form-sent"><h3>Thanks. Now pick your time.</h3><p>Opening the calendar with your details filled in. If it does not open, <a href="{BOOK}" class="lp-book-now" data-meet>choose your 15-minute slot here</a>.</p></div>
+      {_sent(p)}
       <p class="small muted gs-privacy">{{{{icon:shield}}}} Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
     </form>
     </div>'''
@@ -1079,6 +1089,7 @@ PAGES["bir-audit-trail"].update(
     close_p="From 31 December 2026, CAS and CBA users must issue e-invoices (RR 26-2025, RMC 98-2026; micro taxpayers are "
             "exempt). 2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
 )
+PAGES["bir-audit-trail"]["book_embed"] = True   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
 CTAS["bir-audit-trail"] = dict(check="Get my audit trail Blueprint", blueprint="Secure my BIR Blueprint",
                                facts="Get my BIR CAS Blueprint", express="Secure my BIR Blueprint",
                                faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")

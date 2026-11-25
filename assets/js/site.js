@@ -995,6 +995,22 @@ document.addEventListener('click', function (e) {
       var to = url(); if (!to) return;
       Array.prototype.forEach.call(form.querySelectorAll('.lp-book-now'), function (a) { a.href = to; });
       if (typeof window.gtag === 'function') window.gtag('event', 'book_meeting_click', { link: 'odoo_appointment', via: 'lander_form' });
+      var box = form.hasAttribute('data-book-embed') && form.querySelector('[data-lp-cal]');
+      if (box) {   // 25 Nov 2026 (owner): the Odoo calendar right here, details carried in the URL; Odoo sends its height
+        var src; try { src = new URL(to); src.searchParams.set('tnb_embed', '1'); } catch (e) { src = null; }
+        if (src) {
+          var fr = document.createElement('iframe');
+          fr.className = 'lp-cal-frame'; fr.title = 'Pick your 15-minute BIR Blueprint meeting'; fr.src = src.href;
+          box.appendChild(fr);
+          window.addEventListener('message', function (e) {
+            if (e.origin !== 'https://technext.odoo.com' || !e.data || e.data.tnb !== 'height') return;
+            var h = +e.data.h; if (h > 240 && h < 6000) fr.style.height = h + 'px';
+          });
+          var card = form.closest('.fw-side') || form;
+          setTimeout(function () { var t = card.getBoundingClientRect().top; if (t < 0 || t > innerHeight * 0.4) window.scrollBy({ top: t - 90, behavior: 'smooth' }); }, 150);
+          return;
+        }
+      }
       setTimeout(function () { location.href = to; }, 1400);   // lets the Lead pixel / GA4 requests leave first
     }
     new MutationObserver(function () { if (form.classList.contains('is-sent')) go(); })
