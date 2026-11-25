@@ -39,14 +39,14 @@ import sitedata as _S
 
 _e = lambda s: _html.escape(s, quote=True)
 
-PROOF = ('<strong>BIR forms we set up:</strong> books of accounts, 2307, SLSP, SAWT, QAP · '
+PROOF = ('<strong>Part of your BIR CAS set-up:</strong> books of accounts, 2307, SLSP, SAWT, QAP · '
          '<strong>142 projects delivered</strong>')
 FINE = ('*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes run as extra sprints, written into '
         'your quote. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do '
         'not file or register on your behalf.')
 BOOK = "https://technext.odoo.com/book/c82cf8a9"
 UNDER = "15 minutes, online. Slots Monday to Saturday this week. Written quote before any work."
-DL_CAS = ('<b>BIR CAS Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
+DL_CAS = ('<b>BIR EIS (E-Invoicing) Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
           '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')   # 25 Nov 2026 owner: "dont mention about jan 30. the only deadline is dec 31"
 DL_EINV = ('<b>Deadline</b> · <span data-fw-dl-static>e-invoices by 31 December 2026</span><span data-fw-dl-live hidden>'
            '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')
@@ -417,7 +417,7 @@ PAGES["bir-e-invoicing-plan"].update(
            "<b>Multi branch.</b> Each branch on its own series, with head office seeing them together.",
            "<b>EIS connection.</b> Through a BIR-accredited e-invoicing service provider you choose."],
     check_h="The e-invoicing rules leave no room.",
-    check_lead="Can your client's current software handle RR 26-2025 and RMC 98-2026?",
+    check_lead="Can your client's current software handle RR 11-2025 (as amended by RR 26-2025) and RMC 98-2026?",
     checks=[("No lock after issue", "<b>No edits after issue:</b> does the system lock invoices and use credit notes for decreases?"),
             ("No downtime plan", "<b>Downtime:</b> is there a plan for BIR-authorised manual invoices when the system is down?"),
             ("Branches not in one view", "<b>Branches:</b> is every branch on its own series, feeding one view?"),
@@ -732,7 +732,7 @@ _FACTS = {
              ("Sample books and reports", "Your books of accounts and the other system reports."),
              ("An audit trail printout", "From the system, showing who did what and when."),
              ("The requirements checklist", "The functional and technical requirements in Annex B, signed."),
-             ("E-invoicing from 31 December 2026", "CAS and CBA users issue e-invoices, after a Permit to Issue (RR 26-2025, RMC 98-2026).")]),
+             ("E-invoicing from 31 December 2026", "CAS and CBA users issue e-invoices, after a Permit to Issue (RR 11-2025 as amended by RR 26-2025, RMC 98-2026).")]),
     "quarter": ("Your quarter end, from one set of books.",
                 "Every report comes from the entries you already post, so you reconcile once.",
                 [("2307 per payee", "Generated from each vendor bill with withholding, ready to send."),
@@ -742,7 +742,7 @@ _FACTS = {
                  ("2550Q VAT summary", "Output and input VAT from the posted entries."),
                  ("Books of accounts", "Journals and ledger for your CAS or CBA, from the same system.")]),
     "einv": ("What the e-invoicing rules ask for.",
-             "From RR 26-2025 and RMC 98-2026.",
+             "From RR 11-2025 as amended by RR 26-2025, and RMC 98-2026.",
              [("A Permit to Issue (PTI)", "You need a PTI Electronic Invoice before you issue any e-invoice."),
               ("EIS Certification", "Completed within six months of the PTI."),
               ("No edits after issue", "A credit note covers a decrease; a new e-invoice covers an increase."),
@@ -751,7 +751,7 @@ _FACTS = {
               ("Micro taxpayers exempt", "Your accountant confirms whether your business is covered.")]),
     # bir-deadline: who must issue e-invoices by 31 Dec 2026 (same groups as /bir-e-invoicing, RR 26-2025 + RMC 98-2026)
     "cover": ("Is your client covered by 31 December 2026?",
-              "General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Confirm the group with the RDO.",
+              "General guidance from RR 11-2025 as amended by RR 26-2025, and RMC 98-2026, not tax advice. Confirm the group with the RDO.",
               [("CAS or CBA with invoicing software", "Covered by 31 December 2026."),
                ("Large Taxpayers Service accounts", "Covered by 31 December 2026, with large taxpayers under RA 11976 and RR 8-2024."),
                ("E-commerce and internet sellers", "Small, medium and large e-commerce sellers (not micro): covered by 31 December 2026."),
@@ -1046,11 +1046,11 @@ def page_html(key: str) -> str:
 
 # ------------------------------------------------- 25 Nov 2026: FB ad 267 lander, 31 Dec deadline + Blueprint buttons (owner)
 # Owner: "make sure those link mention in title about the deadline" (December) + "on button, make sure mention about
-# blueprint". Matches the revised ad 267 image (red "BIR CAS DEADLINE: 31 DEC 2026!" row, "Secure my BIR Blueprint").
+# blueprint". Matches the revised ad 267 image (red deadline row; 26 Nov 2026 Jeric: label it "BIR EIS (E-Invoicing) Deadline", not CAS, "Secure my BIR Blueprint").
 PAGES["bir-audit-trail"].update(
-    pill=('<b>BIR CAS Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
+    pill=('<b>BIR EIS (E-Invoicing) Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
           '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>'),
-    h1='<span class="dl1">BIR CAS DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
+    h1='<span class="dl1">BIR EIS <span class="nw">(E-INVOICING)</span> DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
     h1_cls="lp-dt",
     sub="From 31 December 2026, BIR CAS and CBA users must issue e-invoices, and your Permit to Issue (PTI) comes first. "
         "Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
@@ -1181,7 +1181,7 @@ PAGES["bir-e-invoicing-plan"].update(
 # Ad 277 - "From invoice booklet to e-invoice" (booklet poster). Business-owner voice, so its coverage block says "your
 # business" (the firm-voice "cover" block stays for bir-firm-deadlines).
 _FACTS["cover_me"] = ("Is your business covered by 31 December 2026?",
-                      "General guidance from RR 26-2025 and RMC 98-2026, not tax advice. Your accountant or RDO confirms it.",
+                      "General guidance from RR 11-2025 as amended by RR 26-2025, and RMC 98-2026, not tax advice. Your accountant or RDO confirms it.",
                       [("CAS or CBA with invoicing software", "Covered by 31 December 2026."),
                        ("Large Taxpayers Service accounts", "Covered by 31 December 2026."),
                        ("E-commerce and internet sellers", "Small, medium and large sellers (not micro): covered by 31 December 2026."),
@@ -1237,7 +1237,7 @@ CTAS.update({
 # sections stay as they were. Penalty figures: NIRC Sec. 248-250 as amended by RA 11976 (EOPT), small print on the page.
 PAGES["bir-firm-deadlines"].update(
     pill=DL_CAS,
-    h1='BIR CAS DEADLINE: 31 DEC 2026. <span class="hl lp-red">IS EVERY CLIENT SET UP TO E-INVOICE?</span>',
+    h1='BIR EIS (E-INVOICING) DEADLINE: 31 DEC 2026. <span class="hl lp-red">IS EVERY CLIENT SET UP TO E-INVOICE?</span>',
     sub="Covered CAS and CBA users must issue e-invoices from 31 December 2026. We set up the system side across your client portfolio. Your firm keeps the tax "
         "advisory, and each client files at its own RDO.",
     ticks=["<b>We set up:</b> CAS books, sample outputs, branch invoice series and audit trails.",
@@ -1250,7 +1250,7 @@ PAGES["bir-firm-deadlines"].update(
             "<b>12% interest</b> a year (6% for micro and small taxpayers)",
             "<b>Information returns:</b> P1,000 per failure, up to P25,000 a year (P500 / P12,500 for micro and small)"],
            "*Late filing of BIR returns, NIRC Sec. 248, 249 and 250 as amended by RA 11976 (Ease of Paying Taxes Act). "
-           "E-invoicing per RR 26-2025 and RMC 98-2026. General guidance, not tax advice. TechNext is "
+           "E-invoicing per RR 11-2025 as amended by RR 26-2025, and RMC 98-2026. General guidance, not tax advice. TechNext is "
            "not affiliated with the BIR. Confirm with your RDO."),
     bp_h="What you leave the meeting with.",
     bp_lead="A 15 minute online meeting with a BIR Compliance Expert.",
