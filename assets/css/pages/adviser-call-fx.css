@@ -418,6 +418,9 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .lp-page.fw-fx .fw-hero h1.lp-dt { text-wrap: initial; letter-spacing: -.03em; }
 .lp-page .fw-hero h1.lp-dt span { display: block; white-space: nowrap; }
 .lp-page .fw-hero h1.lp-dt .dl1 { font-size: clamp(28px, 20px + 1.9vw, 46px); line-height: 1.04; color: var(--ink); }
+/* 26 Nov 2026: longer "BIR EIS (E-INVOICING) DEADLINE:" row wraps (balanced) instead of clipping */
+.lp-page .fw-hero h1.lp-dt .dl1 { white-space: normal; text-wrap: balance; }
+.lp-page .fw-hero h1.lp-dt .dl1 .nw { display: inline; white-space: nowrap; }
 .lp-page .fw-hero h1.lp-dt .dl2 { font-size: clamp(46px, 30px + 3.4vw, 76px); line-height: 1; color: var(--red, #D93A30); letter-spacing: -.04em; }
 .lp-page .fw-hero h1.lp-dt .dl3 { margin: .3em 0 .2em; font-size: clamp(23px, 17px + 1.2vw, 34px); line-height: 1.1; color: var(--ink); letter-spacing: -.025em; }
 
