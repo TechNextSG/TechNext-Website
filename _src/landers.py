@@ -1089,7 +1089,8 @@ PAGES["bir-audit-trail"].update(
     close_p="From 31 December 2026, CAS and CBA users must issue e-invoices (RR 26-2025, RMC 98-2026; micro taxpayers are "
             "exempt). 2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
 )
-PAGES["bir-audit-trail"]["book_embed"] = True   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
+PAGES["bir-audit-trail"]["book_embed"] = True
+PAGES["bir-audit-trail"]["goal"] = "einv"   # December focus (owner 25 Nov): pre-picks the 31 Dec option, carried to the booking   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
 CTAS["bir-audit-trail"] = dict(check="Get my audit trail Blueprint", blueprint="Secure my BIR Blueprint",
                                facts="Get my BIR CAS Blueprint", express="Secure my BIR Blueprint",
                                faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")
