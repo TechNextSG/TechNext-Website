@@ -203,7 +203,7 @@ Source: https://technext.asia/bir-cas
 
 ### How do you handle the yearly ORUS books registration?
 
-We prepare the computerised book exports from your system; you register them online through ORUS (RMC 4-2026) within 30 days after the close of each taxable year (RMC 3-2023). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027, and loose-leaf books by 15 January 2027, unless the BIR announces otherwise. Your accountant or RDO confirms the dates for your business. See how to register books in ORUS .
+We prepare the computerised book exports from your system; you register them online through ORUS (RMC 4-2026). Your accountant or RDO confirms the timing for your business. See how to register books in ORUS .
 
 Source: https://technext.asia/bir-cas
 
@@ -917,7 +917,7 @@ Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
 
 ### When are loose-leaf books due?
 
-Bind them permanently and register them in ORUS within 15 days after the end of each taxable year, or within 15 days of closing the business if earlier. For calendar-year taxpayers, that is 15 January, so 15 January 2027 for taxable year 2026.
+Bind them permanently and register them in ORUS within 15 days after the end of each taxable year, or within 15 days of closing the business if earlier.
 
 Source: https://technext.asia/blog/register-books-of-accounts-orus-bir
 
@@ -1283,7 +1283,7 @@ Source: https://technext.asia/odoo/philippines
 
 ### Which BIR deadlines does Odoo help us prepare for?
 
-Odoo prepares the data; your business files. The next dates for calendar-year taxpayers: 2307 certificates within 20 days after the quarter (20 January 2027), the 2550Q within 25 days after the quarter (25 January 2027), computerized books registered in ORUS by 30 January 2027, and the 1604-C and 2316 by 31 January 2027. Covered taxpayers must issue e-invoices by 31 December 2026. Your accountant or RDO confirms what applies to you. See the BIR tax calendar .
+The deadline to plan for now is 31 December 2026 : covered taxpayers must issue e-invoices by then. Odoo prepares the data for it and for your regular filings (2307, SLSP, SAWT, QAP and the 2550Q); your business files. Your accountant or RDO confirms what applies to you. See the BIR tax calendar .
 
 Source: https://technext.asia/odoo/philippines
 

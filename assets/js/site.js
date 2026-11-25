@@ -975,7 +975,7 @@ document.addEventListener('click', function (e) {
 (function () {
   'use strict';
   var NEED = {   // lander goal (GOALS in _src/landers.py) -> the booking page's focus answer (NEEDS in tn-booking.js)
-    'Registering CAS or CBA': 'Registering CAS/CBA Books',   // 25 Nov 2026: no 30 January (owner)
+    'Registering CAS or CBA': 'Registering CAS/CBA Books',   // 25 Nov 2026: 31 Dec is the only deadline (owner)
     'E-invoicing readiness before 31 December': 'EIS / E-Invoicing Readiness (Dec 31 Deadline)',
     'Automating quarter end reports (SLSP, 2307s)': 'Automating SLSP, 2307s, and Quarter-End reporting',
     'Set ups for my clients (accounting firm or consultant)': 'Exploring an Accounting Firm Partnership'
