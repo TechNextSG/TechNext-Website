@@ -514,7 +514,7 @@ def book_slot(lead, p):
     stop = start + timedelta(hours=t["appointment_duration"] or 0.25)
     fmt = "%Y-%m-%d %H:%M:%S"
     staff_partner = rpc("res.users", "read", ids=[staff], fields=["partner_id"])[0]["partner_id"][0]
-    ld = rpc("crm.lead", "read", ids=[lead], fields=["contact_name", "email_from", "phone", "partner_name", "website"])
+    ld = rpc("crm.lead", "read", ids=[lead], fields=["contact_name", "email_from", "phone", "partner_name", "website", "partner_id"])
     if not ld:
         return None, "lead"
     ld = ld[0]
@@ -578,9 +578,30 @@ def book_slot(lead, p):
         "appointment_status": "booked" if t["auto_confirm"] else "request", "videocall_source": t["event_videocall_source"],
         "appointment_answer_input_ids": [[0, 0, a] for a in answers], "description": desc, "show_as": "busy",
         "booking_line_ids": [[0, 0, {"appointment_user_id": staff, "capacity_reserved": 1, "capacity_used": 1}]],
+        "opportunity_id": lead,                              # one CRM record per booking (see below)
     }
     ctx = {"mail_notify_author": True, "mail_create_nolog": True, "mail_create_nosubscribe": True}
     ev = rpc("calendar.event", "create", vals_list=[vals], context=ctx)[0]
+    # 25 Nov 2026 (owner "merge them"): ONE CRM record per lander booking. The lander's own lead (campaign, source,
+    # tags, the full note) becomes the opportunity the booking hangs on. If Odoo's appointment app still files its own
+    # opportunity (its customer came out as the first guest, Jeric), its tags move over and it is archived.
+    try:
+        got = rpc("calendar.event", "read", ids=[ev], fields=["opportunity_id"])[0]["opportunity_id"]
+        auto = got[0] if got and got[0] != lead else 0
+        upd = {"type": "opportunity", "name": vals["name"], "contact_name": name, "email_from": email, "phone": phone}
+        if not ld.get("partner_id"):
+            upd["partner_id"] = partner
+        if auto:
+            a = rpc("crm.lead", "read", ids=[auto], fields=["tag_ids", "team_id"])[0]
+            if a["tag_ids"]:
+                upd["tag_ids"] = [[4, x] for x in a["tag_ids"]]
+            if a["team_id"]:
+                upd["team_id"] = a["team_id"][0]
+            rpc("calendar.event", "write", ids=[ev], vals={"opportunity_id": lead})
+            rpc("crm.lead", "write", ids=[auto], vals={"active": False})
+        rpc("crm.lead", "write", ids=[lead], vals=upd)
+    except Exception as x:                                   # the booking stands either way
+        print("booking -> lead merge failed:", repr(x)[:300])
     tok = rpc("calendar.event", "read", ids=[ev], fields=["access_token"])[0]["access_token"]
     BOOKED[lead] = {"event": ev, "token": tok, "partner": partner}
     try:   # as Odoo's form does: the booker has accepted, and the host gets "Appointment Requested" (hello@ = Rico)
