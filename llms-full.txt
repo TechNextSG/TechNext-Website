@@ -26,7 +26,7 @@ Last updated: 2026-11-26
 - https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices — BIR ATP (Form 1906) vs System-Generated Invoices: When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and how system invoices fit.
 - https://technext.asia/blog/bir-audit-readiness-odoo — BIR Audit 2026: eLA Rules, the 10-Day Rule and Your Records: How a BIR audit works in 2026: the eLA rules (RMO 1-2026, RMO 22-2026), 10 days to submit documents, five-year record keeping, and a ready audit trail.
 - https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-computerized-odoo — BIR Books of Accounts: Manual, Loose-Leaf or Computerized: Manual, loose-leaf or computerized books of accounts: who keeps which, how ORUS registration works, the year-end deadlines and retention.
-- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 26-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the steps to get ready.
+- https://technext.asia/blog/bir-e-invoicing-odoo — BIR E-Invoicing Requirements 2026: Who Is Covered, PTI, EIS: BIR e-invoicing requirements explained: who RR 11-2025 covers, the 31 December 2026 deadline, the Permit to Issue, EIS certification and the steps to get ready.
 - https://technext.asia/blog/bir-form-2307-odoo — BIR Form 2307: Meaning, 20-Day Deadline and How to Claim: BIR Form 2307 certifies creditable tax withheld from you. Who issues it, the 20-day rule, 2307 vs 2306, why credits get disallowed, and system-made 2307s.
 - https://technext.asia/blog/bir-form-2550q-quarterly-vat-odoo — BIR Form 2550Q 2026: Deadline and What Goes In: BIR Form 2550Q is due within 25 days after each quarter. What goes in it, invoice-basis VAT for services under EOPT, and the end of the 2550M.
 - https://technext.asia/blog/bir-form-2551q-percentage-tax-odoo — BIR Form 2551Q: 3% Rate, 25-Day Deadline, Who Files: 2551Q is the quarterly percentage tax return for non-VAT businesses: 3% of gross quarterly sales, due 25 days after the quarter, and the 8% option.
@@ -359,7 +359,7 @@ Source: https://technext.asia/blog/bir-books-of-accounts-manual-loose-leaf-compu
 
 ### How does the set-up help with the 31 December 2026 e-invoicing deadline?
 
-We set up sequenced invoice series per branch and lock issued invoices, so the system follows the e-invoicing rules in RR 26-2025 (the date kept by RMC 98-2026). Any EIS connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). Your accountant or RDO confirms whether you are covered.
+We set up sequenced invoice series per branch and lock issued invoices, so the system follows the e-invoicing rules in RR 11-2025 as amended by RR 26-2025 (the date kept by RMC 98-2026). Any EIS connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). Your accountant or RDO confirms whether you are covered.
 
 Source: https://technext.asia/blog/bir-e-invoicing-odoo
 
