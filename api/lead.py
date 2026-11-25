@@ -599,6 +599,10 @@ def book_slot(lead, p):
                 upd["team_id"] = a["team_id"][0]
             rpc("calendar.event", "write", ids=[ev], vals={"opportunity_id": lead})
             rpc("crm.lead", "write", ids=[auto], vals={"active": False})
+        if "team_id" not in upd:                             # Odoo's own booking opportunities sit in the Sales team
+            team = rpc("crm.team", "search", domain=[["name", "=", "Sales"]], limit=1)
+            if team:
+                upd["team_id"] = team[0]
         rpc("crm.lead", "write", ids=[lead], vals=upd)
     except Exception as x:                                   # the booking stands either way
         print("booking -> lead merge failed:", repr(x)[:300])
