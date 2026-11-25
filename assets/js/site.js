@@ -1024,6 +1024,7 @@ document.addEventListener('click', function (e) {
             status.hidden = false; status.className = 'lp-book-status is-busy';
             status.innerHTML = '<span class="lp-book-spin" aria-hidden="true"></span><p class="lp-book-k">Booking your meeting</p><strong>' + esc(d.label) + '</strong>';
             box.hidden = true;
+            status.scrollIntoView({ block: 'center', behavior: 'smooth' });   // the card just got much shorter
             if (sent) Array.prototype.forEach.call(sent.querySelectorAll(':scope > h3, :scope > p'), function (n) { n.hidden = true; });
             fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
               body: JSON.stringify({ _book: lead.lead, _sig: lead.f, date_time: d.date_time, staff_user_id: d.staff_user_id, tz: d.tz,
@@ -1044,6 +1045,7 @@ document.addEventListener('click', function (e) {
                   status.className = 'lp-book-status is-err';
                   status.innerHTML = '<p>That time was just taken. Please pick another time below.</p>';
                   box.hidden = false; fr.src = src.href;
+                  status.scrollIntoView({ block: 'center', behavior: 'smooth' });
                   return;
                 }
                 status.className = 'lp-book-status is-err';
