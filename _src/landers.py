@@ -862,12 +862,11 @@ def _hero(p):
   <div class="container fw-hero-in">
     <div class="fw-copy">
       <p class="fw-deadline lp-dl">{{{{icon:calendar}}}}<span>{p["pill"]}</span></p>
-      <h1 id="fw-h1">{p["h1"]}</h1>
+      <h1 id="fw-h1"{f' class="{p["h1_cls"]}"' if p.get("h1_cls") else ""}>{p["h1"]}</h1>
       <p class="lead fw-hero-lead">{p["sub"]}</p>
       <ul class="lp-ticks">{ticks}</ul>
       <p class="small muted fw-proof">{PROOF}</p>
-      <p class="lp-fine">{FINE}</p>
-      <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
+{f'      <p class="lp-fine">{p.get("fine", FINE)}</p>' + chr(10) if p.get("fine", FINE) else ""}      <p class="sr-only" role="status" aria-live="polite" data-fw-status></p>
     </div>
 {_form(p)}
   </div>
@@ -1031,12 +1030,30 @@ def _close(p):
 </section>'''
 
 
+def _costs(p):
+    """25 Nov 2026 (owner, FB ad 266): the "What late filing costs" box. Only pages that set p["costs"] show it."""
+    if not p.get("costs"):
+        return ""
+    h, rows, fine = p["costs"]
+    lis = "".join(f'<li><span class="lp-cost-mark" aria-hidden="true"></span><span>{t}</span></li>' for t in rows)
+    return f'''<section class="section fx-sec lp-costs-sec" aria-labelledby="lp-costs-h">
+  <div class="container">
+    <div class="fw-note lp-costs reveal">
+      <h2 id="lp-costs-h">{h}</h2>
+      <ul class="lp-costs-list">{lis}</ul>
+      <p class="lp-costs-fine">{fine}</p>
+    </div>
+    <p class="sec-next reveal">{_cta(_lbl(p, "costs"))}</p>
+  </div>
+</section>'''
+
+
 def page_html(key: str) -> str:
     p = dict(PAGES[key], _key=key)
     # owner 12 Nov 2026: "remove this part in all landing pages" - the Who you meet / expert cards block is off the landers
     # (_experts stays defined in case it comes back; the FAQ still answers "Who do we meet?")
     parts = {"hero": _hero, "myths": _myths, "check": _check, "blueprint": _blueprint, "facts": _facts, "firm": _firm,
-             "express": _express, "faq": _faq, "close": _close}
+             "express": _express, "faq": _faq, "close": _close, "costs": _costs}
     order = p.get("order") or ["hero", "check", "blueprint", "facts", "express", "faq", "close"]
     return "\n\n".join(x for x in (parts[k](p) for k in order) if x)
 
@@ -1200,3 +1217,34 @@ CTAS.update({
     "bir-deadline": dict(check="Swap my booklet", blueprint=_BTN_BIR, facts="Check if I am covered",
                          faq=_EXP, close=_BTN_BIR),
 })
+
+# ------------------------------------------------------------------ 25 Nov 2026: FB ad 266 lander overhaul (owner approved)
+# /bir-firm-deadlines leads with the 30 January 2027 books date and the cost of filing late (ad 266 title, caps). The
+# 5-day footnote and every "Express" / "handle" word are off this page; the 3 assumptions and "Is your client covered"
+# sections stay as they were. Penalty figures: NIRC Sec. 248-250 as amended by RA 11976 (EOPT), small print on the page.
+PAGES["bir-firm-deadlines"].update(
+    pill="<b>Deadlines</b> · BIR CAS books 30 Jan 2027 · E-invoicing 31 Dec 2026",
+    h1='BIR CAS BOOKS DUE 30 JAN 2027. <span class="hl lp-red">FILE LATE: 25% SURCHARGE&nbsp;+ 12% INTEREST.*</span>',
+    sub="Your clients' 2026 computerised books go to ORUS by 30 January 2027. Covered CAS and CBA users must also issue "
+        "e-invoices from 31 December 2026. We set up the system side across your client portfolio. Your firm keeps the tax "
+        "advisory, and each client files at its own RDO.",
+    ticks=["<b>We set up:</b> CAS books, sample outputs, branch invoice series and audit trails.",
+           "<b>You keep:</b> the tax advisory and the client relationship.",
+           "<b>A written quote</b> per client before any work starts."],
+    fine="", h1_cls="lp-caps",
+    order=["hero", "costs", "myths", "facts", "blueprint", "firm", "faq", "close"],
+    costs=("What late filing costs",
+           ["<b>25% surcharge</b> on the tax due (10% for micro and small taxpayers)",
+            "<b>12% interest</b> a year (6% for micro and small taxpayers)",
+            "<b>Information returns:</b> P1,000 per failure, up to P25,000 a year (P500 / P12,500 for micro and small)"],
+           "*Late filing of BIR returns, NIRC Sec. 248, 249 and 250 as amended by RA 11976 (Ease of Paying Taxes Act). Books "
+           "deadline counted from RMC 91-2024 (30 days after year end); last cycle it moved because of ORUS problems, so plan "
+           "for 30 January anyway. E-invoicing per RR 26-2025 and RMC 98-2026. General guidance, not tax advice. TechNext is "
+           "not affiliated with the BIR. Confirm with your RDO."),
+    bp_h="What you leave the meeting with.",
+    bp_lead="A 15 minute online meeting with a BIR Compliance Expert.",
+    bp=["Where each client stands against 31 December and 30 January",
+        "What each client's CAS or CBA application pack needs",
+        "A written quote per client"],
+)
+CTAS["bir-firm-deadlines"]["costs"] = "Book my partner meeting"

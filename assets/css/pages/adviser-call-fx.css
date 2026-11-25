@@ -399,3 +399,17 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .fw-fx .fx-faq summary { min-height: 58px; padding: 16px 20px; font-size: 16px; }
 .fw-fx .fx-faq .faq-a { padding: 0 20px 18px; }
 @media (max-width: 640px) { .lp-x5 { padding: 24px 0 48px !important; } .lp-x5-line { padding: 22px 18px; font-size: 16px; } }
+
+/* 25 Nov 2026 (FB ad 266, /bir-firm-deadlines): red second title line + the "What late filing costs" box */
+.lp-page .fw-hero h1 .lp-red { display: block; color: var(--red, #D93A30); }
+.lp-costs-sec { padding-top: 40px !important; padding-bottom: 40px !important; }
+.lp-costs { max-width: 920px; margin: 0 auto; border-color: rgba(217,58,48,.35); box-shadow: 0 0 0 1px rgba(217,58,48,.08), var(--fx-depth-h); }
+.lp-costs h2 { margin: 0 0 14px; font: 800 1.5rem/1.25 var(--font-display); color: var(--ink); letter-spacing: -.01em; }
+.lp-costs-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.lp-costs-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.5; color: var(--body); }
+.lp-costs-list b { color: var(--ink); }
+.lp-cost-mark { flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: var(--red, #D93A30); }
+.lp-costs .lp-costs-fine { margin: 16px 0 0; font-size: 12px; line-height: 1.55; color: var(--muted, #5C5F78); }
+.lp-costs-sec .sec-next { max-width: 920px; margin-left: auto; margin-right: auto; display: flex; justify-content: center; text-align: center; }
+/* the caps title stays at 3 rows from phone to desktop (owner rule: titles 2-3 rows) */
+.lp-page.fw-fx .fw-hero h1.lp-caps { font-size: clamp(20px, 16px + 1vw, 31px); line-height: 1.12; letter-spacing: -.02em; }
