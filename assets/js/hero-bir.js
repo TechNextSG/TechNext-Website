@@ -2,7 +2,7 @@
 /* Home hero slide 3: the BIR control tower. The BIR forms orbit an "Accounting · BIR" console on a tilted ring:
    drag to spin, select a form (on the ring, with the keyboard, or from the copy strip) to generate it in the console,
    a beam follows the selected form. 3 Nov 2026 (CAS is the priority): the EIS node and the post button are gone; the
-   pill counts down to 30 January 2027, when computerised books are due in ORUS (calendar year).
+   pill counts down to 31 December 2026, the BIR e-invoicing deadline (25 Nov 2026 owner: the only deadline).
    Runs only while its slide is active and the page is visible; static under reduced motion and on narrow screens.
    All figures are sample data (the same set as assets/docs/technext-sample-bir-reports.pdf). */
 (function () {
@@ -46,7 +46,7 @@
 
   /* countdown pill */
   var days = $('[data-bt-days]');
-  if (days) { var left = Math.max(0, Math.floor((Date.parse('2027-01-30T23:59:59+08:00') - Date.now()) / 864e5)); days.textContent = left + ' days to 30 Jan'; }
+  if (days) { var left = Math.max(0, Math.floor((Date.parse('2026-12-31T23:59:59+08:00') - Date.now()) / 864e5)); days.textContent = left + ' days to 31 Dec'; }
 
   /* ring layout */
   var flat = function () { return window.innerWidth <= 900; };

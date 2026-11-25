@@ -599,7 +599,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                            "BIR books of accounts (manual, loose-leaf, computerized)", "BIR Form 2551Q percentage tax",
                            "BIR tax calendar and filing deadlines", "Accounting software for BIR requirements (Philippines)",
                            # 8 Nov 2026 (AI search question bank): deadlines, ORUS, Singapore
-                           "ORUS books of accounts registration", "BIR books of accounts year-end deadlines (15 and 30 January)",
+                           "ORUS books of accounts registration",
                            "BIR SAWT and Form 2307 creditable withholding",
                            "InvoiceNow (Peppol) e-invoicing in Singapore", "BIR CAS set-up for accounting teams",
                            "Accounting system integration with existing software", "Accounting system set-up in Singapore"],
@@ -2833,10 +2833,6 @@ def write_llms():
         "bank reconciliation, multi-company consolidation, payroll and reporting, with Singapore GST and InvoiceNow on the Singapore side. "
         f"{S.SITE_URL}solutions/odoo-erp",
         # 8 Nov 2026: AI search question bank (deadlines, ORUS, 2307/SAWT, Singapore, cost and timeline)
-        "- When must computerized books of accounts be registered in ORUS? Within 30 days after the close of each taxable year (RMC 3-2023), "
-        "online through ORUS (RMC 4-2026). For calendar-year taxpayers, computerized books for taxable year 2026 are due by 30 January 2027 and "
-        "loose-leaf books by 15 January 2027, unless the BIR announces otherwise; the accountant or RDO confirms the dates. "
-        f"Guide: {S.SITE_URL}blog/register-books-of-accounts-orus-bir",
         "- What is the difference between CAS and CBA? A Computerized Accounting System (CAS) runs the whole cycle including system-generated "
         "invoices; if invoices are issued by hand, the system counts as Computerized Books of Accounts (CBA) (RMO 9-2021). Odoo can be set up for either. "
         f"Guide: {S.SITE_URL}blog/register-odoo-cas-cba-bir",
@@ -2870,10 +2866,8 @@ def write_llms():
         "Calendar-year taxpayers; the accountant or RDO confirms what applies to each business. TechNext prepares the Odoo outputs; the business files.",
         "",
         "- 31 December 2026: BIR e-invoicing deadline for taxpayers covered by RR 26-2025 (PTI first, EIS Certification within six months)",
-        "- 15 January 2027: loose-leaf books of accounts for taxable year 2026 registered in ORUS",
         "- 20 January 2027: BIR Form 2307 issued to payees for Q4 2026",
         "- 25 January 2027: BIR Form 2550Q quarterly VAT return for Q4 2026",
-        "- 30 January 2027: computerized books of accounts (CAS/CBA) for taxable year 2026 registered in ORUS",
         "- 31 January 2027: BIR Forms 1604-C and 2316",
         "- 1 April 2028 to 1 April 2031: Singapore InvoiceNow for existing GST-registered businesses, phased by 2025 annual supplies",
         f"- Full calendar: {S.SITE_URL}blog/bir-tax-calendar-deadlines-odoo",
