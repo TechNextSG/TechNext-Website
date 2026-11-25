@@ -19,7 +19,7 @@ Last updated: 2026-11-26
 
 - https://technext.asia/ — TechNext | BIR CAS and E-Invoicing Set-Up for Accountants: Automate your clients' BIR compliance and keep their current software. Matched CAS journals, 2307s and SLSP DAT files from the data they already have.
 - https://technext.asia/bir-adviser-call — BIR CAS Setup. Keep Your Software.: BIR CAS or CBA setup beside your current software. Process flow, sample invoices and books prepared with you in a 15 minute meeting.
-- https://technext.asia/bir-cas — BIR CAS Philippines: 5 Day CAS System Set-Up: BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
+- https://technext.asia/bir-cas — BIR CAS Philippines: 5 Days* CAS System Set-Up: BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
 - https://technext.asia/bir-e-invoicing — BIR E-Invoicing: Prepare Now, Not in December: BIR e-invoicing (EIS) set-up before 31 Dec 2026: sequenced branch series, locked invoices and transmission, connected to your current system by our Taguig team.
 - https://technext.asia/blog — BIR CAS Guides: E-invoicing, 2307, SLSP, 2550Q: Plain guides to BIR CAS, e-invoicing, 2307, SLSP and 2550Q from TechNext's BIR Compliance Experts, for Philippine SMEs and their accountants.
 - https://technext.asia/blog/bir-accounting-software-philippines-odoo — BIR Accounting Software Philippines: How to Choose: Choosing accounting software for the BIR: compare 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026, with a checklist for SMEs.
@@ -107,7 +107,7 @@ Last updated: 2026-11-26
 - https://technext.asia/odoo/crm-development — CRM Customisation: Never Lose a Lead Again: CRM customisation in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Written quote, in-house team.
 - https://technext.asia/odoo/discovery — Discovery: Scope Your BIR CAS Set-up First: Start with a discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a written quote. Keep your system.
 - https://technext.asia/odoo/erp-system — Business System Customisation for SMEs: Upgrade-safe: Customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, as a plug-in in your system. Written quote.
-- https://technext.asia/odoo/integration — Accounting Integration Philippines: A Plug-in for BIR CAS: Integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add a plug-in for BIR CAS. 5 Day Express sprint.
+- https://technext.asia/odoo/integration — Accounting Integration Philippines: A Plug-in for BIR CAS: Integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add a plug-in for BIR CAS. 5 Days* set-up.
 - https://technext.asia/odoo/philippines — Accounting System for Philippine SMEs: BIR CAS: For Philippine SMEs, as a plug-in in your system: BIR CAS/CBA books, 2307, SLSP, SAWT, QAP, 2550Q. Own experts in Taguig City, written quote first.
 - https://technext.asia/odoo/support — Support After Go-live: One Partner: Support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
 - https://technext.asia/odoo/training — Training: Prepare Your Team for BIR CAS and Go-live: Training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Written quote.
@@ -713,7 +713,7 @@ Source: https://technext.asia/blog/expanded-withholding-tax-atc-codes-odoo
 
 ### How long does an Odoo implementation take?
 
-It scales with your branch network and integration complexity, the number of companies, and how clean your data is. Standard 5-day technical deployments are available for clean, reconciled data ledgers. TechNext agrees the timeline in the written scope at the end of discovery, and keeps the first phase focused so it goes live sooner.
+It scales with your branch network and integration complexity, the number of companies, and how clean your data is. 5 Days* is for standard technical deployments with clean, reconciled data ledgers. TechNext agrees the timeline in the written scope at the end of discovery, and keeps the first phase focused so it goes live sooner.
 
 Source: https://technext.asia/blog/how-an-odoo-implementation-works
 

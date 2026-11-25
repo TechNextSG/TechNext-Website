@@ -41,7 +41,7 @@ _e = lambda s: _html.escape(s, quote=True)
 
 PROOF = ('<strong>Part of your BIR CAS set-up:</strong> books of accounts, 2307, SLSP, SAWT, QAP · '
          '<strong>142 projects delivered</strong>')
-FINE = ('*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes run as extra sprints, written into '
+FINE = ('*5 Days is for standard technical deployments with clean, reconciled data ledgers. Bigger scopes run as extra sprints, written into '
         'your quote. We are not affiliated with, accredited by or acting for the BIR or any government agency, and we do '
         'not file or register on your behalf.')
 BOOK = "https://technext.odoo.com/book/c82cf8a9"
@@ -101,8 +101,8 @@ FAQ_COST = ("What does it cost?",
             "You don't need a million-peso system overhaul to meet BIR requirements. Pricing scales based on your branch network and integration complexity, and you get a written quote before any work starts. The meeting has no charge.")
 FAQ_LINK = ("Is TechNext linked to the BIR?",
             "No. We are not affiliated with or acting for the BIR. You register and file yourself; we set your system up and prepare the sample outputs with you.")
-FAQ_5DAY = ("How long does the 5 Day Express* take?",
-            "Standard 5-day technical deployments are available for clean, reconciled data ledgers.* Bigger scopes, more branches or messy data run as extra sprints, and your quote says so before you agree to anything. Your RDO sets its own timeline for the registration.")
+FAQ_5DAY = ("How long does the 5 Days* BIR CAS Set-Up take?",
+            "5 Days* is for standard technical deployments with clean, reconciled data ledgers. Bigger scopes, more branches or messy data run as extra sprints, and your quote says so before you agree to anything. Your RDO sets its own timeline for the registration.")
 
 CLOSE_P = ("Fill in the short form (about a minute), then pick your time in the calendar. "
            "<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.")
@@ -113,7 +113,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
     "get-started": dict(
         source="Meeting request (get-started call-back form)",
         pill=DL_CAS,
-        h1='Your <span class="hl">BIR CAS</span> Setup, Done in <span class="hl">5 Days</span>.*',
+        h1='Your <span class="hl">BIR CAS</span> Setup, Done in <span class="hl">5 Days*</span>.',
         sub=SUB_CAS,
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: what to set up, in what order.",
                "<b>Keep your current software.</b> Nothing is swapped out.",
@@ -125,7 +125,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan.",
         bp=["Where your books stand against the BIR CAS requirements",
             "CAS or CBA: which one you register, checked with your accountant",
-            "What your 5 Day Express* covers for your scope",
+            "What your 5 Days* BIR CAS Set-Up covers for your scope",
             "A written quote before any work starts"],
         panel=CAS_PANEL, facts=None, express=True,
         faq=[FAQ_5DAY, FAQ_SOFTWARE, FAQ_COST,
@@ -156,7 +156,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp_lead="One online meeting with a BIR Compliance Expert. You leave knowing what to file and how to get there.",
         bp=["CAS or CBA: which one you register",
             "Which papers your application needs, and where each one comes from",
-            "What your 5 Day Express* covers for your scope",
+            "What your 5 Days* BIR CAS Set-Up covers for your scope",
             "A written quote before any work starts"],
         panel=CAS_PANEL, facts="rmc", express=True,
         faq=[("Do we need a CAS or a CBA?", "RMO 9-2021 draws the line at invoices. If your system issues them, it is a CAS; if invoices are issued by hand and the system keeps your books, it is a CBA. Large taxpayers must use a CAS. We go through it with your accountant, and your RDO can confirm it."),
@@ -188,7 +188,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp_lead="One online meeting with a BIR Compliance Expert, before your books are due.",
         bp=["Which books you register, and in what format",
             "What has to be in place first",
-            "What your 5 Day Express* covers for your scope",
+            "What your 5 Days* BIR CAS Set-Up covers for your scope",
             "A written quote before any work starts"],
         panel=CAS_PANEL, facts="rmc", express=True,
         faq=[FAQ_SOFTWARE, FAQ_5DAY,
@@ -201,7 +201,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
     "bir-cas-for-accountants": dict(
         source="BIR adviser call (accountants lander)",
         pill=DL_CAS,
-        h1='<span class="hl">BIR CAS</span> for Accountants. <span class="hl">5 Day</span> Setup.*',
+        h1='<span class="hl">BIR CAS</span> for Accountants. <span class="hl">5 Days*</span> Setup.',
         sub="Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: which reports "
             "come straight from your books, in what order to set them up, and a written quote.",
         ticks=["<b>Your BIR CAS Blueprint</b> from the meeting: 2307, SLSP, SAWT and QAP from the entries you already post.",
@@ -220,7 +220,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp_lead="One online meeting with a BIR Compliance Expert who speaks accountant.",
         bp=["Which of your reports can come straight from the books",
             "How your ATC codes and withholding taxes are set up",
-            "What your 5 Day Express* covers for your scope",
+            "What your 5 Days* BIR CAS Set-Up covers for your scope",
             "A written quote before any work starts"],
         panel=P2307_PANEL, facts="quarter", express=True,
         faq=[("Can the system produce our 2307s, SLSP, SAWT and QAP?", "Yes. The plug-in we connect to your current software generates 2306 and 2307 certificates from vendor bills, and SLSP, SAWT and QAP with DAT exports, from the same entries as your books."),
@@ -294,7 +294,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
             "CAS or CBA, and what your books need",
             "The e-invoicing order: Permit to Issue, set up, EIS Certification",
-            "What your 5 Day Express* covers, and a written quote"],
+            "What your 5 Days* BIR CAS Set-Up covers, and a written quote"],
         panel=EINV_PANEL, facts="cover", express=False,
         firm=("We set up the system. You keep the client.",
               "For accounting firms and consultants with clients facing the same deadline.",
@@ -346,12 +346,12 @@ FAQ_U = [
 
 _FIRM = dict(
     pill=DL_BOTH, goal="firm", btn=BTN_DOC,
-    h1='<span class="hl">5 Days</span> to Your <span class="hl">BIR CAS</span> Setup.* No Disruption to Your Clients\' Software.',
+    h1='<span class="hl">5 Days*</span> to Your <span class="hl">BIR CAS</span> Setup. No Disruption to Your Clients\' Software.',
     sub="The plug-in that lets consultants and accounting firms fast track BIR CAS for their clients. Upgrading a client's "
         "software for the BIR usually means a costly overhaul and months of disruption. We connect to their existing "
         "software by API, batch sync or flat file: they keep what they know, and you get the BIR books and reports their CAS application needs.",
     ticks=["<b>No migration headaches.</b> We don't rip and replace; their core system stays untouched.",
-           "<b>The 5 Day Express*.</b> A fast set up, so you hit client deadlines with time to spare.",
+           "<b>5 Days*.</b> A fast set up, so you hit client deadlines with time to spare.",
            "<b>Scale your firm.</b> One set up approach across your whole client portfolio."],
     msg_ph="e.g. accounting firm, 8 clients due for CAS, sample outputs keep getting sent back",
     check_h="The CAS application roadblock.",
@@ -399,7 +399,7 @@ PAGES["bir-call"].update(
     h1='Are Your <span class="hl">BIR CAS</span> Books Ready?',
     sub="We set the system up so your firm's and clients' books of accounts agree before you review and register them.",
     ticks=["<b>Match before you print.</b> Journals and ledger that agree in the system.",
-           "<b>A fast set up.</b> As quick as 5 days* for a standard scope.",
+           "<b>A fast set up.</b> As quick as 5 Days* for a standard scope.",
            "<b>Keep existing systems.</b> We connect the reporting plug-in to them."],
     check_h="What needs to be in place?",
     check_lead="This is what has to be in place before your clients register.",
@@ -444,7 +444,7 @@ FAQ_KEEP = ("Do we, or our clients, have to change our core accounting software?
             "No. Your current software stays exactly as it is. We connect to it by API, daily batch sync or flat-file upload, "
             "and the BIR books and reports are built from that data. No rip-and-replace, no double entry.")
 FAQ_TIME = ("How long does the set up take?",
-            "For ledgers with clean, reconciled data, a standard technical deployment takes 5 days.* Bigger scopes, more "
+            "For ledgers with clean, reconciled data, a standard technical deployment takes 5 Days*. Bigger scopes, more "
             "branches or messy data run longer, and your written quote says so before you agree to anything. Your RDO sets its "
             "own timeline for any registration.")
 
@@ -455,7 +455,7 @@ PAGES["bir-quarter-end"].update(
     pill=DL_CAS, goal="quarter",
     h1='Automate <span class="hl">BIR Compliance</span>. <span class="hl">Keep Your Current System.</span>',
     sub="Stop rebuilding your clients' SLSP, SAWT, QAP and 2307s in spreadsheets every quarter. Set up automated BIR "
-        "reporting beside the software they already use, before the holidays. Our <b>5 Day Express BIR Solution*</b> sets it up for clean, reconciled ledgers.",
+        "reporting beside the software they already use, before the holidays. Our <b>5 Days* BIR CAS Set-Up</b> covers it for clean, reconciled ledgers.",
     ticks=["<b>Data in once.</b> From their POS or current system, no double entry.",
            "<b>Mapped to ATC codes.</b> Every transaction to the right tax code.",
            "<b>Reconciled to the ledger.</b> CAS journals, DAT files and 2307s from the same entries."],
@@ -466,7 +466,7 @@ PAGES["bir-quarter-end"].update(
     steps=[("Ingest", "Data comes in from their POS or current accounting system."),
            ("Map", "Each transaction is mapped to the correct Alphanumeric Tax Code (ATC)."),
            ("Generate", "Matching CAS journals, DAT files and 2307s, reconciled to the general ledger."),
-           ("Review and file", "You and your accountant review the outputs; you file. 5 days* for clean, reconciled ledgers.")],
+           ("Review and file", "You and your accountant review the outputs; you file. 5 Days* for clean, reconciled ledgers.")],
     bp=["<b>2307s from vendor bills:</b> set your ATC codes once, and 2307 and 2306 certificates come from the bills",
         "<b>DAT file exports:</b> SLSP, SAWT and QAP from posted entries, so the figures match your books",
         "<b>A written quote</b> before any work starts"],
@@ -485,7 +485,7 @@ PAGES["bir-firm-deadlines"].update(
     pill=DL_BOTH, goal="firm",
     h1='CPA Partners: The <span class="hl">BIR Deadline</span> Is 31 December 2026.',
     sub="31 December 2026: e-invoicing for covered taxpayers. RMC 98-2026 kept the date, and the holidays come first. We handle the technical heavy lifting across your "
-        "client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
+        "client portfolio with our <b>5 Days* BIR CAS Set-Up</b>; you keep the tax advisory.",
     ticks=["<b>We handle:</b> data ingestion, multi branch invoice sequencing and audit trails.",
            "<b>You handle:</b> the tax advisory for your clients. Your firm stays the adviser.",
            "<b>A written quote</b> per client before any work starts."],
@@ -504,7 +504,7 @@ PAGES["bir-audit-trail"].update(
     pill=DL_CAS, goal="cas",
     h1='Is Your <span class="hl">BIR CAS</span> Software <span class="hl">Actually Audit-Proof?</span>',
     sub="Under RMC 5-2021, a CAS must keep an audit trail and "
-        "protect posted entries from changes. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail for clean, reconciled "
+        "protect posted entries from changes. Our <b>5 Days* BIR CAS Set-Up</b> puts in locked entries and a full audit trail for clean, reconciled "
         "ledgers. Meet a BIR Compliance Expert online for 15 minutes and leave with your plan.",
     ticks=["<b>Posted entries locked.</b> Lock dates, and no edits after posting.",
            "<b>Every change logged.</b> Who did what, and when.",
@@ -542,7 +542,7 @@ for _k in ("bir-quarter-end", "bir-audit-trail"):
 # safe, no over promise, no redundant explanation". One short, safe layer over the copy above (headlines kept: they match
 # the live ads). The 5-day qualifier sits once in the hero (the bottom X5 note is skipped on landers, build.py), the BIR
 # disclaimer lives in the site-wide footer line, and "written quote" / "15 minutes" are said once under the button.
-FINE = "*Standard 5-day technical deployments available for clean, reconciled data ledgers. Bigger scopes take longer, as your quote shows."
+FINE = "*5 Days is for standard technical deployments with clean, reconciled data ledgers. Bigger scopes take longer, as your quote shows."
 UNDER = "15 minutes, online, no charge. Written quote before any work."
 CLOSE_P = "<strong>15 minutes, online, no charge.</strong> Fill in the short form, then pick your time in the calendar."   # 25 Nov 2026 (Sky): book direct
 
@@ -558,7 +558,7 @@ S_ACC = ("Is TechNext BIR-accredited?",
 S_COST = ("What does it cost?",
           "It depends on your branches and integrations. You get a written quote before any work, and the meeting has no charge.")
 S_TIME = ("How long does the set up take?",
-          "About 5 days* for a standard set up with clean, reconciled ledgers. Bigger scopes take longer, as your quote shows.")
+          "About 5 Days* for a standard set up with clean, reconciled ledgers. Bigger scopes take longer, as your quote shows.")
 S_CASCBA = ("Do we need a CAS or a CBA?",
             "If your system issues your invoices, it is a CAS; if invoices are written by hand, a CBA (RMO 9-2021). "
             "Your accountant or RDO confirms it.")
@@ -582,7 +582,7 @@ _FIRM_SIMPLE = dict(
     sub="For accountants and firms: we connect a BIR reporting plug-in to your clients' current software, so their CAS "
         "application has the books and reports it needs.",
     ticks=["<b>Their software stays.</b> We connect to it; nothing is replaced.",
-           "<b>5 Day Express*.</b> A standard set up, planned around your client deadlines.",
+           "<b>5 Days*.</b> A standard set up, planned around your client deadlines.",
            "<b>One approach for every client.</b> The same set up across your portfolio."],
     check_lead="Which of these sounds familiar?",
     checks=[("Software can't produce the sample outputs", "<b>The client's software can't produce</b> the sample outputs the RDO asks for."),
@@ -651,7 +651,7 @@ for _k in ("bir-deadline", "bir-firm-deadlines"):
     p["bp"] = ["Covered now, later or exempt (your accountant or RDO confirms)",
                "CAS or CBA, and what your books need",
                "The e-invoicing order: Permit to Issue, set up, EIS Certification",
-               "What the set up covers" + (" for each client" if _k == "bir-firm-deadlines" else ", with your 5 Day Express*")]
+               "What the set up covers" + (" for each client" if _k == "bir-firm-deadlines" else ", as quick as 5 Days*")]
     p["firm"] = ("We set up the system. You keep the client.",
                  "For accounting firms and consultants.",
                  ["<b>You stay the adviser.</b> We set up the system and report to you.",
@@ -668,12 +668,12 @@ PAGES["bir-deadline"].update(
 )
 PAGES["bir-firm-deadlines"].update(
     sub="31 December 2026: e-invoicing for covered taxpayers. "
-        "We handle the technical work across your client portfolio with our <b>5 Day Express BIR Solution*</b>; you keep the tax advisory.",
+        "We handle the technical work across your client portfolio with our <b>5 Days* BIR CAS Set-Up</b>; you keep the tax advisory.",
 )
 
 PAGES["bir-quarter-end"].update(
     sub="Stop rebuilding SLSP, SAWT, QAP and 2307s in spreadsheets. Set up BIR reporting beside your clients' current software "
-        "with our <b>5 Day Express BIR Solution*</b>.",
+        "with our <b>5 Days* BIR CAS Set-Up</b>.",
     check_h="Is your quarter end still done by hand?",
     check_lead="Which of these sounds familiar?",
     bp_h="What the set up covers.",
@@ -687,7 +687,7 @@ PAGES["bir-quarter-end"].update(
 
 PAGES["bir-audit-trail"].update(
     sub="RMC 5-2021 requires a CAS to keep an audit trail and "
-        "protect posted entries. Our <b>5 Day Express BIR Solution*</b> sets up locked entries and a full audit trail.",
+        "protect posted entries. Our <b>5 Days* BIR CAS Set-Up</b> puts in locked entries and a full audit trail.",
     check_lead="Which of these sounds familiar?",
     bp=["Where your audit trail and lock dates stand against RMC 5-2021",
         "CAS or CBA, and what your books need",
@@ -990,9 +990,9 @@ def _express(p):
     <p class="sec-next reveal">{_cta(_lbl(p, "express"))}</p>
   </div>
 </section>'''
-    return f'''<section class="section lp-x5" aria-label="5 Day Express">
+    return f'''<section class="section lp-x5" aria-label="5 Days set up">
   <div class="container">
-    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Day Express*</span>A standard set up runs as a 5 Day Express.* We plan yours in the meeting. {_cta(_lbl(p, "express"))}</p>
+    <p class="lp-x5-line reveal"><span class="lp-x5-badge">{{{{icon:zap}}}}5 Days*</span>A standard set up takes 5 Days*. We plan yours in the meeting. {_cta(_lbl(p, "express"))}</p>
   </div>
 </section>'''
 
@@ -1095,8 +1095,8 @@ _EXP = "Ask our BIR experts"
 
 # Ad 275 - "Start Your 5 Days BIR CAS Set-Up Today!" (Start button poster)
 PAGES["bir-cas-for-accountants"].update(
-    pill=DL_CAS, goal="cas", btn="Book My 5 Days Set-Up", form_h="Book your 5 Days* BIR CAS Set-Up",
-    h1='Start Your <span class="hl">5 Days</span> <span class="hl">BIR CAS Set-Up</span>* Today.',
+    pill=DL_CAS, goal="cas", btn="Book My 5 Days* Set-Up", form_h="Book your 5 Days* BIR CAS Set-Up",
+    h1='Start Your <span class="hl">5 Days*</span> <span class="hl">BIR CAS Set-Up</span> Today.',
     sub="For accountants and finance teams: our BIR experts set up your books of accounts, CAS papers and BIR report "
         "formats (SLSP, 2307, SAWT) with you, from the data you already keep. One short project, with a walkthrough for "
         "your team at the end.",
@@ -1225,8 +1225,8 @@ PAGES["bir-deadline"].update(
 )
 
 CTAS.update({
-    "bir-cas-for-accountants": dict(check="Start my CAS set-up", blueprint="Book My 5 Days Set-Up", facts="Check my CAS papers",
-                                    express="Plan my set up", faq=_EXP, close="Book My 5 Days Set-Up"),
+    "bir-cas-for-accountants": dict(check="Start my CAS set-up", blueprint="Book My 5 Days* Set-Up", facts="Check my CAS papers",
+                                    express="Plan my set up", faq=_EXP, close="Book My 5 Days* Set-Up"),
     "bir-call": dict(check="Hand it to our BIR experts", blueprint="Book a BIR CAS Meeting", facts="Check my CAS papers",
                      express="Plan my set up", faq=_EXP, close="Book a BIR CAS Meeting"),
     "bir-e-invoicing-plan": dict(check="Check my invoices", blueprint=_BTN_BIR, facts="Check what I need",

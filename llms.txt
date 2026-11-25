@@ -58,7 +58,7 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 
 ## BIR compliance (Philippines)
 
-- [BIR CAS Philippines: 5 Day CAS System Set-Up](https://technext.asia/bir-cas): BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
+- [BIR CAS Philippines: 5 Days* CAS System Set-Up](https://technext.asia/bir-cas): BIR CAS set-up in the Philippines for accountants: connect your current POS or accounting software and generate matched CAS journals, 2307s and SLSP DAT files.
 - [BIR E-Invoicing: Prepare Now, Not in December](https://technext.asia/bir-e-invoicing): BIR e-invoicing (EIS) set-up before 31 Dec 2026: sequenced branch series, locked invoices and transmission, connected to your current system by our Taguig team.
 - [BIR Accounting Software Philippines: How to Choose](https://technext.asia/blog/bir-accounting-software-philippines-odoo): Choosing accounting software for the BIR: compare 2307, SLSP, SAWT, QAP, 2550Q and e-invoicing by 31 December 2026, with a checklist for SMEs.
 - [BIR ATP (Form 1906) vs System-Generated Invoices](https://technext.asia/blog/bir-atp-authority-to-print-vs-system-invoices): When you still need a BIR Authority to Print: printed invoice booklets, back-up sets for a CAS, no expiry since RR 6-2022, and how system invoices fit.
@@ -86,7 +86,7 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 - [CRM Customisation: Never Lose a Lead Again](https://technext.asia/odoo/crm-development): CRM customisation in Singapore and the Philippines: pipelines, lead routing and follow-ups built around how you sell. Written quote, in-house team.
 - [Discovery: Scope Your BIR CAS Set-up First](https://technext.asia/odoo/discovery): Start with a discovery: TechNext maps your current system, scopes your BIR CAS and e-invoicing set-up and sends a written quote. Keep your system.
 - [Business System Customisation for SMEs: Upgrade-safe](https://technext.asia/odoo/erp-system): Customisation for SMEs in Singapore and the Philippines: upgrade-safe modules and BIR reports, as a plug-in in your system. Written quote.
-- [Accounting Integration Philippines: A Plug-in for BIR CAS](https://technext.asia/odoo/integration): Integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add a plug-in for BIR CAS. 5 Day Express sprint.
+- [Accounting Integration Philippines: A Plug-in for BIR CAS](https://technext.asia/odoo/integration): Integration for Philippine businesses: keep your accounting software, POS or spreadsheets and add a plug-in for BIR CAS. 5 Days* set-up.
 - [Support After Go-live: One Partner](https://technext.asia/odoo/support): Support and maintenance in Singapore and the Philippines: BIR month-end help, fixes and upgrades from the team that set it up. TechNext Care.
 - [Training: Prepare Your Team for BIR CAS and Go-live](https://technext.asia/odoo/training): Training on your own data in Singapore and the Philippines. Finance learns BIR CAS and invoicing first, from our own experts. Written quote.
 - [Vietnam Circular 99, SInvoice, 01/GTGT](https://technext.asia/odoo/vietnam): For SMEs in Vietnam: Circular 99 accounts, the 01/GTGT return and SInvoice e-invoices, connected to your current system by API, batch or flat file.
