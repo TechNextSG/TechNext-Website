@@ -425,3 +425,15 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .lp-sent-cal .lp-cal { margin: 14px -6px 0; }
 .lp-cal-frame { display: block; width: 100%; height: 980px; border: 0; border-radius: 14px; background: #fff; }
 .lp-cal-alt { margin: 10px 0 0; font-size: 13px; }
+/* 25 Nov 2026 (owner: form -> calendar -> booked, no Cloudflare): the lander books the picked time itself */
+.lp-book-status { display: grid; justify-items: start; gap: 6px; margin: 14px 0 0; padding: 22px 20px; border-radius: 14px; background: #fff; border: 1px solid rgba(49,103,202,.16); }
+.lp-book-status p { margin: 0; color: var(--body); }
+.lp-book-status strong { font: 700 clamp(20px, 16px + 1vw, 26px)/1.2 var(--font-display); color: var(--ink); }
+.lp-book-status .lp-book-k { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.lp-book-status.is-done { border-color: rgba(33,183,153,.45); background: #F3FBF8; }
+.lp-book-status.is-done .lp-book-k { color: #15876F; }
+.lp-book-status.is-err { border-color: rgba(217,58,48,.3); background: #FFF7F6; }
+.lp-book-status.is-err strong { font: inherit; font-weight: 700; }
+.lp-book-spin { width: 24px; height: 24px; margin-bottom: 4px; border-radius: 50%; border: 3px solid rgba(49,103,202,.18); border-top-color: var(--blue); animation: lpBookSpin .8s linear infinite; }
+@keyframes lpBookSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .lp-book-spin { animation-duration: 2.4s; } }
