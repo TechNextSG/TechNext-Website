@@ -967,6 +967,41 @@ document.addEventListener('click', function (e) {
   });
 })();
 
+/* ---------------- landers: after the form is saved, open the booking calendar (25 Nov 2026, Sky) ----------------
+   Sky's funnel review: 230 lander leads -> 7 meetings, because the form ended in "we will call you back". Now the lead is
+   saved first (nothing is lost if they stop), then the visitor goes straight to the Odoo booking calendar with what they
+   typed filled in (tn-booking.js reads these plain params), so they pick a time instead of waiting for a call. */
+(function () {
+  'use strict';
+  var NEED = {   // lander goal (GOALS in _src/landers.py) -> the booking page's focus answer (NEEDS in tn-booking.js)
+    'Registering CAS or CBA before 30 January': 'Registering CAS/CBA Books (Jan 30 Deadline)',
+    'E-invoicing readiness before 31 December': 'EIS / E-Invoicing Readiness (Dec 31 Deadline)',
+    'Automating quarter end reports (SLSP, 2307s)': 'Automating SLSP, 2307s, and Quarter-End reporting',
+    'Set ups for my clients (accounting firm or consultant)': 'Exploring an Accounting Firm Partnership'
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('form[data-then-book]'), function (form) {
+    var gone = false;
+    function url() {
+      var u;
+      try { u = new URL(form.getAttribute('data-then-book'), location.href); } catch (e) { return ''; }
+      var val = function (n) { var el = form.elements[n]; return el && el.value ? String(el.value).trim().slice(0, 200) : ''; };
+      [['name', 'name'], ['email', 'email'], ['phone', 'phone'], ['company', 'company'], ['website', 'website'],
+       ['accounting_system', 'software']].forEach(function (k) { var v = val(k[0]); if (v) u.searchParams.set(k[1], v); });
+      var need = NEED[val('topic')]; if (need) u.searchParams.set('tnb_need', need);
+      return u.href;
+    }
+    function go() {
+      if (gone) return; gone = true;
+      var to = url(); if (!to) return;
+      Array.prototype.forEach.call(form.querySelectorAll('.lp-book-now'), function (a) { a.href = to; });
+      if (typeof window.gtag === 'function') window.gtag('event', 'book_meeting_click', { link: 'odoo_appointment', via: 'lander_form' });
+      setTimeout(function () { location.href = to; }, 1400);   // lets the Lead pixel / GA4 requests leave first
+    }
+    new MutationObserver(function () { if (form.classList.contains('is-sent')) go(); })
+      .observe(form, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+
 /* ---------------- image fallbacks (replaces the generated inline onerror= handlers) ----------------
    `error` does not bubble, so listen in the capture phase. Images that failed before this
    script ran (eager ones above the fold) are swept on DOMContentLoaded. */

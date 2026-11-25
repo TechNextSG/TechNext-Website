@@ -97,7 +97,7 @@ LABELS = {"name": "Name", "company": "Company name", "website": "Website", "emai
           "cas_status": "Registered for CAS or CBA", "country": "Country", "consent": "Privacy consent"}
 FORM_LABELS = {
     "BIR adviser call": {"name": "Full name", "phone": "Mobile number", "topic": GOAL_Q,
-                         "message": "Message"},
+                         "accounting_system": "Accounting software", "message": "Message"},   # software: 25 Nov 2026 (Sky)
     "Retired offer page (/get-started)": {"topic": "I want", "message": "Your current website"},
     "Quotation builder": {"phone": "Mobile number", "message": "Anything else"},
     "Let's Talk panel": {"phone": "Mobile number"},
