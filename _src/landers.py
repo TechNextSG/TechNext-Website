@@ -46,9 +46,9 @@ FINE = ('*Standard 5-day technical deployments available for clean, reconciled d
         'not file or register on your behalf.')
 BOOK = "https://technext.odoo.com/book/c82cf8a9"
 UNDER = "15 minutes, online. Slots Monday to Saturday this week. Written quote before any work."
-DL_CAS = ('<b>BIR EIS (E-Invoicing) Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
+DL_CAS = ('<b>BIR EIS (E-Invoicing) Deadline</b><span class="dl-sep dl-sep--wrap"> · </span><span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
           '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')   # 25 Nov 2026 owner: "dont mention about jan 30. the only deadline is dec 31"
-DL_EINV = ('<b>Deadline</b> · <span data-fw-dl-static>e-invoices by 31 December 2026</span><span data-fw-dl-live hidden>'
+DL_EINV = ('<b>Deadline</b><span class="dl-sep"> · </span><span data-fw-dl-static>e-invoices by 31 December 2026</span><span data-fw-dl-live hidden>'
            '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>')
 SUB_CAS = ("Meet a BIR Compliance Expert online for 15 minutes. You leave with your BIR CAS Blueprint: what to set "
            "up, in what order, and a written quote.")
@@ -326,6 +326,10 @@ GOALS = [("cas", "Registering CAS or CBA"),   # 25 Nov 2026: no 30 January (site
          ("einv", "E-invoicing readiness before 31 December"),
          ("quarter", "Automating quarter end reports (SLSP, 2307s)"),
          ("firm", "Set ups for my clients (accounting firm or consultant)")]
+# 26 Nov 2026 (audit): shorter text SHOWN in the select so it fits a phone; the sent value stays the long text above,
+# so site.js NEED, api/lead.py TOPICS and the CRM tags are unchanged
+GOAL_SHOW = {"einv": "E-invoicing before 31 December", "quarter": "Quarter end SLSP and 2307s",
+             "firm": "Set ups for my clients"}
 FAQ_U = [
     ("Do we, or our clients, have to change our core accounting software?",
      "No. Your current software stays exactly as it is. We connect a plug-in to it for the BIR books, reports and e-invoicing set up."),
@@ -783,7 +787,8 @@ def _goal(p):
     goal, then the optional note."""
     if not p.get("goal"):
         return ""
-    opts = "".join(f'<option value="{_e(t)}"{" selected" if k == p["goal"] else ""}>{_e(t)}</option>' for k, t in GOALS)
+    opts = "".join(f'<option value="{_e(t)}"{" selected" if k == p["goal"] else ""}>{_e(GOAL_SHOW.get(k, t))}</option>'
+                   for k, t in GOALS)
     return (f'        <div class="field lp-goal"><label for="gs-goal">What is your primary goal right now?</label>'
             f'<select id="gs-goal" name="topic">{opts}</select></div>\n')
 
@@ -1048,7 +1053,7 @@ def page_html(key: str) -> str:
 # Owner: "make sure those link mention in title about the deadline" (December) + "on button, make sure mention about
 # blueprint". Matches the revised ad 267 image (red deadline row; 26 Nov 2026 Jeric: label it "BIR EIS (E-Invoicing) Deadline", not CAS, "Secure my BIR Blueprint").
 PAGES["bir-audit-trail"].update(
-    pill=('<b>BIR EIS (E-Invoicing) Deadline</b> · <span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
+    pill=('<b>BIR EIS (E-Invoicing) Deadline</b><span class="dl-sep dl-sep--wrap"> · </span><span data-fw-dl-static>31 December 2026</span><span data-fw-dl-live hidden>'
           '<b data-fw-days>--</b> <span data-fw-days-word>days</span> to 31 December 2026</span>'),
     h1='<span class="dl1">BIR EIS <span class="nw">(E-INVOICING)</span> DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
     h1_cls="lp-dt",
@@ -1068,7 +1073,7 @@ PAGES["bir-audit-trail"]["book_embed"] = True
 PAGES["bir-audit-trail"]["goal"] = "einv"   # December focus (owner 25 Nov): pre-picks the 31 Dec option, carried to the booking   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
 CTAS["bir-audit-trail"] = dict(check="Get my audit trail Blueprint", blueprint="Secure my BIR Blueprint",
                                facts="Get my BIR CAS Blueprint", express="Secure my BIR Blueprint",
-                               faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")
+                               faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")   # 26 Nov 2026: phones break only after "Blueprint"
 
 _TOKEN = _re.compile(r"\{\{LANDER:([a-z0-9-]+)\}\}")
 
