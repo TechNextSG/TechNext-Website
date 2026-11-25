@@ -249,7 +249,9 @@ def csp(hashes):
         # details), fbevents.js posts it from a hidden frame with a form to www.facebook.com/tr - a headless test caught
         # that Lead blocked by frame-src and form-action, so both allow it
         "frame-src 'self' https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net "
-        "https://challenges.cloudflare.com https://www.facebook.com",
+        "https://challenges.cloudflare.com https://www.facebook.com "
+        # technext.odoo.com (25 Nov 2026): the landers show the Odoo booking calendar in a frame after the form
+        "https://technext.odoo.com",
         "media-src 'self' https://download.odoocdn.com",
         "object-src 'none'",
         "base-uri 'self'",
