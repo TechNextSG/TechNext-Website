@@ -1063,8 +1063,8 @@ def page_html(key: str) -> str:
 # blueprint". Matches the revised ad 267 image (red "BIR CAS DEADLINE: 31 DEC 2026!" row, "Secure my BIR Blueprint").
 PAGES["bir-audit-trail"].update(
     pill="<b>Deadlines</b> · E-invoicing 31 Dec 2026 · BIR CAS books 30 Jan 2027",
-    h1='BIR CAS DEADLINE: <span class="hl lp-red">31 DEC 2026!</span> IS YOUR SOFTWARE AUDIT-PROOF?',
-    h1_cls="lp-caps",
+    h1='<span class="dl1">BIR CAS DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
+    h1_cls="lp-dl",
     sub="From 31 December 2026, BIR CAS and CBA users must issue e-invoices, and your Permit to Issue (PTI) comes first. "
         "Your 2026 books then go to ORUS by 30 January 2027. Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
         "and a full audit trail.",
