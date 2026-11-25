@@ -593,7 +593,7 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
             "employee": [{"@type": "Person", "name": p["name"], "jobTitle": p["role"]} for p in ADV.ADVISORS if p.get("bir_rank")],
             "knowsAbout": ["Business consultation", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow",
                            # 24 Oct 2026 (GEO/AEO): one entry per BIR topic the site has its own page or guide for
-                           "BIR Computerized Accounting System (CAS) and CBA registration", "BIR e-invoicing (RR 26-2025)",
+                           "BIR Computerized Accounting System (CAS) and CBA registration", "BIR e-invoicing (RR 11-2025 as amended by RR 26-2025)",
                            "EOPT invoice requirements (RR 7-2024)", "BIR Form 2550Q quarterly VAT", "BIR SLSP (Summary List of Sales and Purchases)",
                            "BIR SAWT and QAP alphalists", "Expanded withholding tax (ATC codes)", "BIR audit records (eLA)", "Philippine payroll BIR forms (1601-C, 2316, 1604-C)",
                            "BIR books of accounts (manual, loose-leaf, computerized)", "BIR Form 2551Q percentage tax",
@@ -1164,7 +1164,7 @@ def express_html() -> str:
     <div class="x5-head">
       <p class="x5-badge-row"><span class="x5-badge">{{{{icon:zap}}}}5 Day Express</span><span class="x5-badge-sub">BIR CAS set-up sprint</span></p>
       <h2 id="xp5-h">BIR CAS set-up. <span class="hl">As quick as 5 days.*</span></h2>
-      <p class="x5-intro">Built for accountants and finance teams with a CAS deadline. You keep your current accounting software; nothing is swapped out while we work.</p>
+      <p class="x5-intro">Built for accountants and finance teams ahead of the 31 December 2026 e-invoicing (EIS) deadline. You keep your current accounting software; nothing is swapped out while we work.</p>
     </div>
     <ol class="x5-days" aria-label="Your 5 Day Express, day by day">{days}</ol>
     <p class="x5-note">*Standard 5-day technical deployments available for clean, reconciled data ledgers. Pricing scales with your branch network and integration complexity. Bigger scopes run as extra sprints, written into your quote. Your RDO sets its own timeline for the CAS registration; TechNext is not affiliated with the BIR.</p>
@@ -2817,7 +2817,7 @@ def write_llms():
         "- Is Odoo BIR-accredited? No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). The BIR registers each business's use of a system; "
         f"a business can register Odoo as its CAS or CBA. Guide: {S.SITE_URL}blog/bir-rules-for-your-accounting-system",
         "- Does Odoo connect to the BIR's EIS for e-invoicing? Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. "
-        f"If a business is covered by RR 26-2025, the connection runs through a BIR-accredited e-invoicing service provider it chooses (RMC 110-2026); TechNext does not provide it. Guide: {S.SITE_URL}bir-e-invoicing",
+        f"If a business is covered by RR 11-2025 (as amended by RR 26-2025), the connection runs through a BIR-accredited e-invoicing service provider it chooses (RMC 110-2026); TechNext does not provide it. Guide: {S.SITE_URL}bir-e-invoicing",
         "- Who implements Odoo in both Singapore and the Philippines? TechNext, an Odoo Ready Partner in Singapore: headquarters in Singapore (GST and InvoiceNow with the "
         f"client's chosen Access Point), hub in Taguig City (BIR), office in Ho Chi Minh City. {S.SITE_URL}solutions/odoo-erp",
         "- Is TechNext connected to the BIR? No. TechNext is not affiliated with, accredited by or acting for the BIR or any government agency.",
@@ -2843,7 +2843,7 @@ def write_llms():
         "- What is the difference between SAWT and QAP? The SAWT lists tax customers withheld from you (from the 2307s you received); the QAP lists tax "
         "you withheld from suppliers, filed with the 1601-EQ or 1601-FQ by the last day of the month after the quarter. Odoo exports both as DAT files. "
         f"Guide: {S.SITE_URL}blog/bir-sawt-qap-alphalist-odoo",
-        "- How does TechNext handle the BIR e-invoicing deadline? Taxpayers covered by RR 26-2025 must issue electronic invoices on or before 31 December 2026 "
+        "- How does TechNext handle the BIR e-invoicing deadline? Taxpayers covered by RR 11-2025 (as amended by RR 26-2025) must issue electronic invoices on or before 31 December 2026 "
         "(RMC 98-2026 kept the date); they need a Permit to Issue (PTI) first, then EIS Certification within six months. Micro taxpayers are exempt. "
         f"{S.SITE_URL}bir-e-invoicing",
         "- Who is an Odoo partner in Singapore? TechNext Pte. Ltd. (UEN 202699888G), an Odoo Ready Partner headquartered at 261 Waterloo Street, "
@@ -2865,7 +2865,7 @@ def write_llms():
         "",
         "Calendar-year taxpayers; the accountant or RDO confirms what applies to each business. TechNext prepares the Odoo outputs; the business files.",
         "",
-        "- 31 December 2026: BIR e-invoicing deadline for taxpayers covered by RR 26-2025 (PTI first, EIS Certification within six months)",
+        "- 31 December 2026: BIR e-invoicing deadline for taxpayers covered by RR 11-2025 as amended by RR 26-2025 (PTI first, EIS Certification within six months)",
         "- 20 January 2027: BIR Form 2307 issued to payees for Q4 2026",
         "- 25 January 2027: BIR Form 2550Q quarterly VAT return for Q4 2026",
         "- 31 January 2027: BIR Forms 1604-C and 2316",
