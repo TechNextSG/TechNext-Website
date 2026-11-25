@@ -122,7 +122,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
         msg_ph="e.g. accounting software plus spreadsheets today, 2 branches, CAS registration due",
         check_h="How much of your month end is still done by hand?", checks=CHECKS_MONTH,
         bp_h='What you leave the meeting with.',
-        bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan, not a sales pitch.",
+        bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan.",
         bp=["Where your books stand against the BIR CAS requirements",
             "CAS or CBA: which one you register, checked with your accountant",
             "What your 5 Day Express* covers for your scope",
@@ -290,7 +290,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
                  "December is year end close, and every RDO gets the same rush. The order of work is decided now.")]),
         checks=None,
         bp_h='Your Blueprint, in 15 minutes.',
-        bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client, not a sales pitch.",
+        bp_lead="One online meeting with a BIR Compliance Expert. You leave with a plan for you or your client.",
         bp=["Covered now, later or exempt: the rules, gone through with you; your accountant or RDO confirms",
             "CAS or CBA, and what your books need",
             "The e-invoicing order: Permit to Issue, set up, EIS Certification",
@@ -1062,8 +1062,7 @@ PAGES["bir-audit-trail"].update(
         "CAS or CBA, and what your books need",
         "How your SLSP ties to the general ledger"],
     close_h='31 December 2026 is weeks away. <span class="hl">Secure your BIR Blueprint</span> now.',
-    close_p="From 31 December 2026, CAS and CBA users must issue e-invoices (RR 26-2025, RMC 98-2026; micro taxpayers are "
-            "exempt). " + CLOSE_P,
+    close_p="From 31 December 2026, CAS and CBA users must issue e-invoices. " + CLOSE_P,
 )
 PAGES["bir-audit-trail"]["book_embed"] = True
 PAGES["bir-audit-trail"]["goal"] = "einv"   # December focus (owner 25 Nov): pre-picks the 31 Dec option, carried to the booking   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
@@ -1091,7 +1090,7 @@ _EXP = "Ask our BIR experts"
 
 # Ad 275 - "Start Your 5 Days BIR CAS Set-Up Today!" (Start button poster)
 PAGES["bir-cas-for-accountants"].update(
-    pill=DL_CAS, goal="cas", btn="Book My 5 Days Set-Up", form_h="Book your 5 Days BIR CAS Set-Up*",
+    pill=DL_CAS, goal="cas", btn="Book My 5 Days Set-Up", form_h="Book your 5 Days* BIR CAS Set-Up",
     h1='Start Your <span class="hl">5 Days</span> <span class="hl">BIR CAS Set-Up</span>* Today.',
     sub="For accountants and finance teams: our BIR experts set up your books of accounts, CAS papers and BIR report "
         "formats (SLSP, 2307, SAWT) with you, from the data you already keep. One short project, with a walkthrough for "
@@ -1106,7 +1105,7 @@ PAGES["bir-cas-for-accountants"].update(
             ("Sample outputs from the wrong system", "<b>Your sample invoices and books</b> come from a system never set up for them."),
             ("Reports rebuilt by hand", "<b>SLSP, SAWT and 2307s</b> are rebuilt by hand every quarter."),
             ("Team not walked through it", "<b>Your team is not sure</b> how the set-up works day to day.")],
-    bp_h="What your 5 Days BIR CAS Set-Up* covers.",
+    bp_h="What your 5 Days* BIR CAS Set-Up covers.",
     bp_lead="One short project, done with you.",
     bp=["<b>Books of accounts</b> from your posted entries",
         "<b>CAS papers:</b> system description, process flow and sample outputs, prepared with you",
@@ -1125,7 +1124,7 @@ PAGES["bir-call"].update(
     h1='Let Our <span class="hl">BIR Experts</span> Handle Your <span class="hl">CAS Set-Up</span>.',
     sub="You bring your current books and sales data. We prepare the CAS papers with you (system description, process "
         "flow, books of accounts and BIR report formats) and walk your staff through the result, in a "
-        "<b>5 Days BIR CAS Set-Up*</b>.",
+        "<b>5 Days* BIR CAS Set-Up</b>.",
     ticks=["<b>You bring</b> your current books and sales data.",
            "<b>We prepare with you</b> the CAS papers and report formats.",
            "<b>Your staff get a walkthrough</b> at the end."],
@@ -1153,7 +1152,7 @@ PAGES["bir-e-invoicing-plan"].update(
     pill=DL_EINV, goal="einv", btn=_BTN_BIR, form_h="Talk to our BIR experts",
     h1='Is Every Invoice Ready for the <span class="hl">BIR EIS</span>?',
     sub="Before e-invoicing, each sales invoice needs the right customer TIN, an invoice number in series and VAT 12% "
-        "computed correctly. Our BIR experts check and set this up with you in a <b>5 Days BIR EIS Set-Up*</b>, from "
+        "computed correctly. Our BIR experts check and set this up with you in a <b>5 Days* BIR EIS Set-Up</b>, from "
         "the data you already keep.",
     ticks=["<b>Customer TINs</b> checked and on file.",
            "<b>Invoice numbers in series,</b> per branch.",
@@ -1165,7 +1164,7 @@ PAGES["bir-e-invoicing-plan"].update(
             ("Numbering gaps", "<b>Invoice numbers</b> skip or repeat across branches."),
             ("VAT mixed up", "<b>VAT 12%, zero-rated and exempt sales</b> get mixed up on the same invoice."),
             ("Invoices edited after issue", "<b>Issued invoices get edited</b> instead of a credit note.")],
-    bp_h="What your 5 Days BIR EIS Set-Up* covers.",
+    bp_h="What your 5 Days* BIR EIS Set-Up covers.",
     bp_lead="Your team keeps invoicing as usual while we set it up with you.",
     bp=["<b>Customer TINs</b> checked against your records",
         "<b>Invoice series</b> per branch, locked after issue",
@@ -1193,7 +1192,7 @@ PAGES["bir-deadline"].update(
     pill=DL_EINV, goal="einv", btn=_BTN_BIR, form_h="Talk to our BIR experts",
     h1='From Invoice Booklet to <span class="hl">E-Invoice</span>.',
     sub="Today it is the invoice booklet, carbon copies and retyping at month end. After your "
-        "<b>5 Days BIR EIS Set-Up*</b>, the same invoice is an e-invoice: customer TIN, invoice number and VAT 12% in "
+        "<b>5 Days* BIR EIS Set-Up</b>, the same invoice is an e-invoice: customer TIN, invoice number and VAT 12% in "
         "place, ready for the BIR EIS. Our BIR experts set it up with you, from the data you already keep.",
     ticks=["<b>No more retyping</b> handwritten invoices at month end.",
            "<b>Customer TIN, invoice number and VAT 12%</b> on every invoice.",
@@ -1207,7 +1206,7 @@ PAGES["bir-deadline"].update(
             ("Retyping at month end", "<b>Someone retypes every invoice</b> into spreadsheets at month end."),
             ("TINs and VAT checked by hand", "<b>TINs and VAT 12%</b> are checked by hand, one invoice at a time."),
             ("Booklets run out", "<b>New booklets</b> have to be ordered and tracked.")],
-    bp_h="After your 5 Days BIR EIS Set-Up*.",
+    bp_h="After your 5 Days* BIR EIS Set-Up.",
     bp_lead="The same invoice, issued as an e-invoice.",
     bp=["<b>Invoices issued from one system,</b> numbered in series",
         "<b>Customer TIN and VAT 12%</b> filled in on every invoice",
