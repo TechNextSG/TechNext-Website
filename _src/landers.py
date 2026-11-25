@@ -1058,6 +1058,30 @@ def page_html(key: str) -> str:
     return "\n\n".join(x for x in (parts[k](p) for k in order) if x)
 
 
+# ------------------------------------------------- 25 Nov 2026: FB ad 267 lander, 31 Dec deadline + Blueprint buttons (owner)
+# Owner: "make sure those link mention in title about the deadline" (December) + "on button, make sure mention about
+# blueprint". Matches the revised ad 267 image (red "BIR CAS DEADLINE: 31 DEC 2026!" row, "Secure my BIR Blueprint").
+PAGES["bir-audit-trail"].update(
+    pill="<b>Deadlines</b> · E-invoicing 31 Dec 2026 · BIR CAS books 30 Jan 2027",
+    h1='BIR CAS DEADLINE: <span class="hl lp-red">31 DEC 2026!</span> IS YOUR SOFTWARE AUDIT-PROOF?',
+    h1_cls="lp-caps",
+    sub="From 31 December 2026, BIR CAS and CBA users must issue e-invoices, and your Permit to Issue (PTI) comes first. "
+        "Your 2026 books then go to ORUS by 30 January 2027. Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
+        "and a full audit trail.",
+    btn="Secure my BIR Blueprint", form_h="Secure your BIR Blueprint",
+    bp_h="Your BIR Blueprint: what you leave the meeting with.",
+    bp=["Where you stand against 31 December and 30 January",
+        "Where your audit trail and lock dates stand",
+        "CAS or CBA, and what your 30 January ORUS books need",
+        "How your SLSP ties to the general ledger"],
+    close_h='31 December 2026 is weeks away. <span class="hl">Secure your BIR Blueprint</span> now.',
+    close_p="From 31 December 2026, CAS and CBA users must issue e-invoices (RR 26-2025, RMC 98-2026; micro taxpayers are "
+            "exempt). 2026 books are due in ORUS by 30 January 2027. " + CLOSE_P,
+)
+CTAS["bir-audit-trail"] = dict(check="Get my audit trail Blueprint", blueprint="Secure my BIR Blueprint",
+                               facts="Get my BIR CAS Blueprint", express="Secure my BIR Blueprint",
+                               faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")
+
 _TOKEN = _re.compile(r"\{\{LANDER:([a-z0-9-]+)\}\}")
 
 
