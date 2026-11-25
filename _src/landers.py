@@ -1058,7 +1058,7 @@ PAGES["bir-audit-trail"].update(
     h1='<span class="dl1">BIR EIS <span class="nw">(E-INVOICING)</span> DEADLINE:</span> <span class="dl2">31 DEC 2026!</span> <span class="dl3">Is Your Software Audit-Proof?</span>',
     h1_cls="lp-dt",
     sub="From 31 December 2026, BIR CAS and CBA users must issue e-invoices, and your Permit to Issue (PTI) comes first. "
-        "Our <b>5 Day Express BIR Solution*</b> sets up locked entries "
+        "With our <b>5 Days* BIR CAS Set-Up</b>, you get locked entries "   # 26 Nov 2026: same name as the booking page
         "and a full audit trail.",
     btn="Secure my BIR Blueprint", form_h="Secure your BIR Blueprint",
     bp_h="Your BIR Blueprint: what you leave the meeting with.",
