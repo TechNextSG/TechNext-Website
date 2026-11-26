@@ -997,6 +997,25 @@ def _express(p):
 </section>'''
 
 
+def _intro(p):
+    """Owner 26 Nov 2026: the 60-second intro film v2 ("Paper to Plane") sits straight below the booking form. Poster +
+    yellow play pill (site.js [data-intro-video]), loads only on play, English captions; styles from home-fx.css."""
+    return f'''<section class="section fx-sec fx-intro lp-intro" id="intro-video" aria-labelledby="lp-intro-h">
+  <div class="container">
+    <div class="sec-head reveal"><h2 id="lp-intro-h">Meet TechNext in 60 seconds.</h2><p class="lead">Who we are, what we set up, and how your BIR CAS set-up plugs into the software you already use.</p></div>
+    <div class="fx-intro-player reveal" data-intro-video>
+      <video controls preload="none" playsinline width="1920" height="1080" poster="{{{{ROOT}}}}assets/video/technext-intro-v2-poster.webp" aria-label="TechNext introduction video, 60 seconds">
+        <source src="{{{{ROOT}}}}assets/video/technext-intro-v2.mp4" type="video/mp4">
+        <track kind="captions" src="{{{{ROOT}}}}assets/video/technext-intro-v2.en.vtt" srclang="en" label="English">
+      </video>
+      <button type="button" class="fx-intro-play" aria-label="Play the TechNext introduction video (60 seconds)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span>Play the film</span><small>1:00</small></button>
+    </div>
+    <p class="fx-intro-cap">Sound on. English captions in the player menu.</p>
+    <p class="sec-next reveal">{_cta(_lbl(p, "blueprint"))}</p>
+  </div>
+</section>'''
+
+
 def _faq(p):
     qs = "".join(f'<details><summary>{_e(q)} {{{{icon:chevron}}}}</summary><div class="faq-a"><p>{_e(a)}</p></div></details>'
                  for q, a in p["faq"])
@@ -1043,7 +1062,7 @@ def page_html(key: str) -> str:
     p = dict(PAGES[key], _key=key)
     # owner 12 Nov 2026: "remove this part in all landing pages" - the Who you meet / expert cards block is off the landers
     # (_experts stays defined in case it comes back; the FAQ still answers "Who do we meet?")
-    parts = {"hero": _hero, "myths": _myths, "check": _check, "blueprint": _blueprint, "facts": _facts, "firm": _firm,
+    parts = {"hero": _hero, "intro": _intro, "myths": _myths, "check": _check, "blueprint": _blueprint, "facts": _facts, "firm": _firm,
              "express": _express, "faq": _faq, "close": _close, "costs": _costs}
     order = p.get("order") or ["hero", "check", "blueprint", "facts", "express", "faq", "close"]
     return "\n\n".join(x for x in (parts[k](p) for k in order) if x)
@@ -1071,6 +1090,7 @@ PAGES["bir-audit-trail"].update(
 )
 PAGES["bir-audit-trail"]["book_embed"] = True
 PAGES["bir-audit-trail"]["goal"] = "einv"   # December focus (owner 25 Nov): pre-picks the 31 Dec option, carried to the booking   # 25 Nov 2026 owner: show the Odoo calendar on this page after the form
+PAGES["bir-audit-trail"]["order"] = ["hero", "intro", "check", "blueprint", "facts", "express", "faq", "close"]   # 26 Nov 2026 owner: intro film below the booking form
 CTAS["bir-audit-trail"] = dict(check="Get my audit trail Blueprint", blueprint="Secure my BIR Blueprint",
                                facts="Get my BIR CAS Blueprint", express="Secure my BIR Blueprint",
                                faq="Ask about my BIR Blueprint", close="Secure my Blueprint before 31 Dec")   # 26 Nov 2026: phones break only after "Blueprint"
