@@ -1018,7 +1018,7 @@ def send_now(lead, email=""):
 
 
 def follow_up(lead, form, groups, spam):
-    """Email the new lead to hello@technext.asia: an internal note with the summary, no @mention, no salesperson.
+    """Email the new lead to hello@technext.asia: an internal note with the summary that @mentions Rico (26 Nov 2026).
     Runs after the visitor has their answer."""
     # the Odoo "Lead gate" automation archives an incomplete lead the moment it is created (8 Nov 2026): no note,
     # no emails for it (archived records are left out of a search)
@@ -1028,7 +1028,11 @@ def follow_up(lead, form, groups, spam):
     to = partners(LEAD_EMAILS)
     if to:
         flag = [("Check first", [("Possible spam", spam)])] if spam else []
-        body = (f"<p>New lead from the <b>{html.escape(form)}</b>.</p>"
+        # 26 Nov 2026 (owner): "still mention me if there's new leads" - every lead note @mentions Rico (hello@);
+        # Jeric is the salesperson (Odoo automation 17), Rico has Sales: All Documents so he can open the lead
+        mention = ('<a href="/odoo/res.partner/43" class="o_mail_redirect" data-oe-id="43" '
+                   'data-oe-model="res.partner" target="_blank">@Rico</a> ')
+        body = (f"<p>{mention}New lead from the <b>{html.escape(form)}</b>.</p>"
                 + as_html(flag + [g for g in groups if g[0] != "Full links"]))      # full links stay in the notes
         # an internal note reaches only the partners listed here, never followers
         rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in to],
