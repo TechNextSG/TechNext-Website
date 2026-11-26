@@ -1037,7 +1037,8 @@ document.addEventListener('click', function (e) {
                   status.className = 'lp-book-status is-done';
                   status.innerHTML = '<p class="lp-book-k">You are booked</p><strong>' + esc(d.label) + '</strong>' +
                     '<p>15 minutes, online, with a BIR Compliance Expert. The calendar invite with the Google Meet link comes to your email once we confirm the time.</p>' +
-                    (res.j.view ? '<p class="small"><a href="' + esc(res.j.view) + '" target="_blank" rel="noopener">See or change your booking</a></p>' : '');
+                    (res.j.view ? '<p class="small"><a href="' + esc(res.j.view) + '" target="_blank" rel="noopener">See or change your booking</a></p>' : '')
+                    (document.getElementById('intro-video') ? '<p class="small"><a href="#intro-video">While you wait: meet TechNext in 60 seconds</a></p>' : '');
                   if (typeof window.gtag === 'function') window.gtag('event', 'booking_complete', { via: 'lander_direct' });
                   return;
                 }

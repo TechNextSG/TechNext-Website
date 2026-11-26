@@ -454,3 +454,13 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .lp-book-spin { width: 24px; height: 24px; margin-bottom: 4px; border-radius: 50%; border: 3px solid rgba(49,103,202,.18); border-top-color: var(--blue); animation: lpBookSpin .8s linear infinite; }
 @keyframes lpBookSpin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .lp-book-spin { animation-duration: 2.4s; } }
+
+/* 26 Nov 2026: intro film below the lander form - play pill sits under the poster's plane, clear of its footnote */
+.lp-intro .fx-intro-play { left: auto; right: 5%; bottom: 17%; transform: none; }
+.lp-intro .fx-intro-play:hover { transform: translateY(-2px); }
+.lp-intro .sec-next { margin-top: 18px; text-align: center; }
+@media (max-width: 600px) {
+  .lp-intro .fx-intro-play { right: 4%; bottom: 20%; padding: 8px 12px 8px 8px; gap: 8px; }
+  .lp-intro .fx-intro-play span { display: none; }
+  .lp-intro .fx-intro-play svg { width: 28px; height: 28px; padding: 6px; }
+}
