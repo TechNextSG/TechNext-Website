@@ -443,8 +443,8 @@
       sessionStorage.setItem('tn_referrer', (document.referrer || '').slice(0, 300));
     }
   } catch (e) { /* storage blocked: the lead just lacks these lines */ }
-  /* Every submission becomes a lead in the Odoo CRM through /api/lead (api/lead.py: salesperson Jeric,
-     source, department, tags, Jeric @mentioned). Page, first page of the visit and referrer go along. */
+  /* Every submission becomes a lead in the Odoo CRM through /api/lead (api/lead.py: salesperson,
+     source, department, tags, @mention). Page, first page of the visit and referrer go along. */
   /* Meta Pixel manual advanced matching: em, ph, fn, ln, country from a submitted form, in the formats Meta expects
      (lower case, phone digits with country code). Pixel id = _src/sitedata.py TRACKING["meta_pixel"]. */
   var PIXEL_ID = '1959782781295555';
@@ -475,7 +475,7 @@
     } catch (e) {}
     // the Let's Talk panel is on every page: its source names the page, so each CRM lead shows where it was sent from
     if (p.source === "Let's Talk panel") p.source = "Let's Talk panel · " + (location.pathname.replace(/\/$/, '') || '/');
-    p._split = 1;   // the lead is saved and answered first; the @Jeric note and emails follow as a second request
+    p._split = 1;   // the lead is saved and answered first; the @mention note and emails follow as a second request
     /* 13 Nov 2026 Meta Conversions API: the pixel only sends after cookie Accept, so the server sends the same Lead too
        (api/lead.py capi_lead, same event id = Meta counts it once). The ad click id (_fbc, from the _fbc cookie or the
        fbclid on the first page of the visit) goes with every lead; the _fbp cookie and hashed contact details only with

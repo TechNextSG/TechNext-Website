@@ -129,7 +129,7 @@ PAGES = {   # H1 titles: owner pick 12 Nov 2026 (PR #351); 13 Nov the owner copy
             "A written quote before any work starts"],
         panel=CAS_PANEL, facts=None, express=True,
         faq=[FAQ_5DAY, FAQ_SOFTWARE, FAQ_COST,
-             ("Who do we meet?", "A BIR Compliance Expert from our own team in Taguig City, Neil or Jeric. They look at how you record sales, bills and payments today and stay with you after go live."),
+             ("Who do we meet?", "A BIR Compliance Expert from our own team in Taguig City. They look at how you record sales, bills and payments today and stay with you after go live."),
              FAQ_LINK],
         close_h='31 December 2026 is close. Start your <span class="hl">BIR CAS</span> today.',
         close_p="<strong>15 minutes, online, no charge.</strong> Any work starts with a written quote.",
@@ -364,7 +364,7 @@ _FIRM = dict(
     bp_lead="We handle the technical heavy lifting, so you can focus on advisory and tax strategy.",
     bp=["<b>Sample outputs on demand:</b> the sample invoices and books of accounts the CAS or CBA application needs, printed from your client's real data",
         "<b>Audit trail and system description:</b> posted entries locked, every change logged, checked against Annex B",
-        "<b>Direct access to our BIR Compliance Experts</b>, Neil and Jeric, in Taguig City: no generic help desk, no hand-off",
+        "<b>Direct access to our BIR Compliance Experts</b> in Taguig City: no generic help desk, no hand-off",
         "<b>A written quote</b> before any work starts"],
     faq=FAQ_U,
 )
@@ -525,7 +525,7 @@ PAGES["bir-audit-trail"].update(
         "A written quote before any work starts"],
     facts="rmc", express=False,
     steps_h="From the first meeting to locked books.",
-    steps=[("15 minute meeting", "Neil or Jeric maps your workflow and checks your audit trail and lock dates."),
+    steps=[("15 minute meeting", "A BIR Compliance Expert maps your workflow and checks your audit trail and lock dates."),
            ("Set up and test", "Journal locks, user change logs and BIR reports, tested on your real data."),
            ("Tie the reports", "SLSP and books from the same posted entries as the general ledger."),
            ("Review and register", "Your accountant reviews; you register your books.")],
@@ -593,7 +593,7 @@ _FIRM_SIMPLE = dict(
     bp_lead="We handle the technical work for the CAS application.",
     bp=["<b>Sample outputs:</b> the invoices and books the CAS or CBA application needs, from your client's data",
         "<b>Audit trail and system description:</b> posted entries locked, changes logged, checked against Annex B",
-        "<b>Our BIR Compliance Experts,</b> Neil and Jeric, in Taguig City"],
+        "<b>Our BIR Compliance Experts</b> in Taguig City"],
     faq=FAQ_S,
 )
 for _k in ("get-started", "bir-adviser-call"):

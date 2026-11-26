@@ -13,7 +13,7 @@ Last updated: 2026-11-26
 - Logo: https://technext.asia/assets/img/logo-square.png (square), https://technext.asia/assets/img/logo-horizontal.png (horizontal)
 - 142 projects delivered; 90+ enterprise clients; clients in 25+ countries
 - Positioning: BIR compliance and integration partner for CPAs, accounting firms and finance teams; Odoo as a reporting plug-in connected to the system a business already runs (API, daily batch sync or flat file); accounting and BIR CAS first; our own experts implement
-- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)
+- Experts: BIR Compliance Experts in Taguig City (Senior Functional Lead with 80+ companies moved onto ERP and CRM)
 - Odoo partner tier: Odoo Ready Partner (listing: https://www.odoo.com/partners/technext-pte-ltd-28073844)
 - Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it
 - Method: discovery, configuration on a staging copy, data migration, training, integration, support

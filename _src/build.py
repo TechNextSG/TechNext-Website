@@ -590,7 +590,9 @@ def jsonld(canonical: str, meta: dict, content: str, out_rel: str) -> str:
                              ("BIR CAS set-up in the Philippines", "odoo/philippines"),
                              ("Discovery", "odoo/discovery"), ("Training", "odoo/training"),
                              ("Support", "odoo/support"))]},
-            "employee": [{"@type": "Person", "name": p["name"], "jobTitle": p["role"]} for p in ADV.ADVISORS if p.get("bir_rank")],
+            # owner 26 Nov 2026: staff names only on the home page, not in other pages' schema (keeps AI/search off internal names)
+            **({"employee": [{"@type": "Person", "name": p["name"], "jobTitle": p["role"]} for p in ADV.ADVISORS if p.get("bir_rank")]}
+               if out_rel == "index.html" else {}),
             "knowsAbout": ["Business consultation", "Withholding tax (BIR Form 2307)", "Singapore GST InvoiceNow",
                            # 24 Oct 2026 (GEO/AEO): one entry per BIR topic the site has its own page or guide for
                            "BIR Computerized Accounting System (CAS) and CBA registration", "BIR e-invoicing (RR 11-2025 as amended by RR 26-2025)",
@@ -1120,7 +1122,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
-      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Two experts, start to finish.</h3><p>Jeric is your first call; Neil, our Senior Functional Lead, plans and runs your set-up. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
+      <article class="who-card reveal" style="--i:1">{{icon:users}}<h3>Two experts, start to finish.</h3><p>Your first call and your set-up stay with the same BIR Compliance Experts. No hand-off to strangers.</p><a class="btn-link" href="{{ROOT}}company.html">About TechNext {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:2">{{icon:shield}}<h3>BIR and GST set-up, built in.</h3><p>BIR in the Philippines: books for your own CAS or CBA application, 2307 certificates and your e-invoicing plan. GST in Singapore, and InvoiceNow with the Access Point you choose. Set up in your Odoo, not added later.</p><a class="btn-link" href="{{ROOT}}bir-e-invoicing.html">BIR set-up in Odoo {{icon:arrow}}</a></article>
       <article class="who-card reveal" style="--i:3">{{icon:globe}}<h3>Clients in 25+ countries.</h3><p>Our Singapore HQ and our team in Taguig City, Metro Manila.</p><a class="btn-link" href="{{ROOT}}company.html#offices">Our three offices {{icon:arrow}}</a></article>
     </div>
@@ -2794,7 +2796,7 @@ def write_llms():
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
         "- 142 projects delivered; 90+ enterprise clients; clients in 25+ countries",
         "- Positioning: BIR compliance and integration partner for CPAs, accounting firms and finance teams; Odoo as a reporting plug-in connected to the system a business already runs (API, daily batch sync or flat file); accounting and BIR CAS first; our own experts implement",
-        "- Experts: Neil Matan (Senior Functional Lead, 80+ companies moved onto ERP and CRM) and Jeric Bulayungan (Business Development)",
+        "- Experts: BIR Compliance Experts in Taguig City (Senior Functional Lead with 80+ companies moved onto ERP and CRM)",
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
@@ -2967,6 +2969,7 @@ def write_llms_full():
         if (q, a) in seen or re.search(r"hiring|careers?\b|job opening|open roles|vacanc", q + " " + a, re.I):
             continue
         seen.add((q, a))
+        a = re.sub(r"\b(Neil|Jeric) or (Neil|Jeric)\b", "A BIR Compliance Expert", a)   # owner 26 Nov 2026: no staff names outside the home page
         out += [f"### {q}", "", a, "", f"Source: {url}", ""]
     out += ["---", "© TechNext Pte. Ltd. Quote with attribution and a link. Not licensed for AI training or bulk reuse.", ""]
     (ROOT / "llms-full.txt").write_text("\n".join(out), encoding="utf-8", newline="\n")
