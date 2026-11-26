@@ -1384,3 +1384,15 @@ document.addEventListener('click', function (e) {
     }
   }).observe(form, { attributes: true, attributeFilter: ['class'] });
 })();
+
+// home intro film (26 Nov 2026): poster + yellow play pill; native controls appear once it plays
+(function () {
+  document.querySelectorAll('[data-intro-video]').forEach(function (w) {
+    var v = w.querySelector('video'), b = w.querySelector('.fx-intro-play');
+    if (!v || !b) return;
+    v.removeAttribute('controls');
+    function on() { w.classList.add('is-playing'); v.setAttribute('controls', ''); }
+    b.addEventListener('click', function () { on(); var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+    v.addEventListener('play', on);
+  });
+})();

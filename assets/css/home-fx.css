@@ -533,3 +533,24 @@
 .path-card--main:hover { border-color: transparent; }
 @media (max-width: 960px) { .path-grid { grid-template-columns: 1fr; gap: 14px; } .path-card { padding: 20px 18px 16px; } }
 @media (prefers-reduced-motion: reduce) { .path-card, .path-go .ic { transition: none; } .path-card:hover { transform: none; } }
+
+/* ---------- intro film (26 Nov 2026) ---------- */
+.fx-intro .sec-head { text-align: center; margin-left: auto; margin-right: auto; }
+.fx-intro-player { position: relative; max-width: 1040px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden; background: #1e4691;
+  box-shadow: 0 40px 80px -40px rgba(20, 30, 70, 0.55), 0 16px 32px -16px rgba(49, 103, 202, 0.4); }
+.fx-intro-player video { display: block; width: 100%; height: 100%; object-fit: cover; background: #1e4691; }
+.fx-intro-play { position: absolute; left: 50%; bottom: 9%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px 14px 16px;
+  border: 0; border-radius: 999px; background: #ffd23f; color: #101c45; font: 700 17px/1 "Plus Jakarta Sans", sans-serif; white-space: nowrap; cursor: pointer;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.5); transition: transform .2s ease, box-shadow .2s ease; }
+.fx-intro-play svg { width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: #101c45; color: #ffd23f; }
+.fx-intro-play small { font: 600 14px/1 "Inter", sans-serif; opacity: .75; }
+.fx-intro-play:hover { transform: translateX(-50%) translateY(-2px); box-shadow: 0 18px 36px -12px rgba(0, 0, 0, 0.55); }
+.fx-intro-play:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.fx-intro-player.is-playing .fx-intro-play { display: none; }
+.fx-intro-cap { margin: 14px auto 0; text-align: center; font-size: 14px; color: var(--muted); }
+@media (max-width: 640px) {
+  .fx-intro-player { border-radius: 14px; }
+  .fx-intro-play { bottom: 6%; gap: 8px; padding: 6px 14px 6px 6px; font-size: 14px; }
+  .fx-intro-play svg { width: 24px; height: 24px; padding: 5px; }
+  .fx-intro-play small { font-size: 12px; }
+}
