@@ -1386,14 +1386,55 @@ document.addEventListener('click', function (e) {
   }).observe(form, { attributes: true, attributeFilter: ['class'] });
 })();
 
-// home intro film (26 Nov 2026): poster + yellow play pill; native controls appear once it plays
+// intro films (home + landers). 27 Nov 2026 owner: "auto play and auto max volume".
+// Browsers only allow sound without a click once the visitor has interacted with the site, so: when the film is half
+// on screen it starts at full volume; if the browser blocks that, it plays muted with a "Tap for sound" pill, and the
+// first tap/click/key anywhere on the page turns the sound on at full volume. Loads only when it comes into view.
 (function () {
-  document.querySelectorAll('[data-intro-video]').forEach(function (w) {
+  var films = document.querySelectorAll('[data-intro-video]');
+  if (!films.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SND = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  films.forEach(function (w) {
     var v = w.querySelector('video'), b = w.querySelector('.fx-intro-play');
     if (!v || !b) return;
     v.removeAttribute('controls');
-    function on() { w.classList.add('is-playing'); v.setAttribute('controls', ''); }
-    b.addEventListener('click', function () { on(); var p = v.play(); if (p && p.catch) p.catch(function () {}); });
-    v.addEventListener('play', on);
+    var s = document.createElement('button');
+    s.type = 'button'; s.className = 'fx-intro-sound'; s.setAttribute('aria-label', 'Turn the sound on');
+    s.innerHTML = SND + '<span>Tap for sound</span>';
+    w.appendChild(s);
+    function shown() { w.classList.add('is-playing'); v.setAttribute('controls', ''); }
+    function loud() { v.muted = false; v.volume = 1; if (w.classList.contains('is-muted')) { w.classList.remove('is-muted'); v.setAttribute('controls', ''); } }
+    function start(auto) {
+      loud();
+      var p = v.play();
+      if (!p || !p.then) { shown(); return; }
+      p.then(shown, function () {
+        if (!auto) return;
+        v.muted = true;   // blocked with sound: play muted and offer the sound pill
+        var q = v.play();
+        if (q && q.then) q.then(function () { w.classList.add('is-playing', 'is-muted'); }, function () {});   // no native bar while muted: the pill is the control
+      });
+    }
+    b.addEventListener('click', function () { start(false); });
+    s.addEventListener('click', function (e) { e.stopPropagation(); loud(); shown(); });
+    v.addEventListener('play', function () { if (!v.muted) shown(); });
+    v.addEventListener('volumechange', function () { if (!v.muted) w.classList.remove('is-muted'); });
+    function firstTouch() {
+      if (w.classList.contains('is-muted')) loud();
+    }
+    ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { document.addEventListener(ev, firstTouch, true); });
+    if (reduce || !('IntersectionObserver' in window)) return;   // reduced motion: no autoplay, the play pill stays
+    var played = false;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.intersectionRatio >= 0.5) {
+          if (!played) { played = true; v.preload = 'auto'; start(true); }
+          else if (v.paused && w.classList.contains('is-muted')) v.play();
+        } else if (e.intersectionRatio < 0.15 && w.classList.contains('is-muted') && !v.paused) {
+          v.pause();   // muted autoplay pauses when scrolled away; played-with-sound keeps going
+        }
+      });
+    }, { threshold: [0, 0.15, 0.5] }).observe(w);
   });
 })();
