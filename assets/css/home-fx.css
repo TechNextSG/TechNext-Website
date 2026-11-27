@@ -554,3 +554,11 @@
   .fx-intro-play svg { width: 24px; height: 24px; padding: 5px; }
   .fx-intro-play small { font-size: 12px; }
 }
+
+/* 27 Nov 2026: intro film autoplay - "Tap for sound" pill while it plays muted */
+.fx-intro-sound { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); z-index: 3; display: none; align-items: center; gap: 10px; padding: 12px 20px 12px 12px; border: 0; border-radius: 999px;
+  background: #ffd23f; color: #101c45; font: 800 16px/1 "Plus Jakarta Sans", sans-serif; cursor: pointer; box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.5); }
+.fx-intro-sound svg { width: 32px; height: 32px; padding: 6px; border-radius: 50%; background: #101c45; color: #ffd23f; }
+.fx-intro-sound:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.fx-intro-player.is-muted .fx-intro-sound { display: inline-flex; }
+@media (max-width: 600px) { .fx-intro-sound { padding: 8px 14px 8px 8px; font-size: 14px; gap: 8px; } .fx-intro-sound svg { width: 26px; height: 26px; padding: 5px; } }
