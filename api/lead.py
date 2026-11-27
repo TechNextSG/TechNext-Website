@@ -534,8 +534,11 @@ def book_slot(lead, p):
     if old:
         BOOKED[lead] = {"event": old[0]["id"], "token": old[0]["access_token"], "partner": old[0]["appointment_booker_id"][0]}
         return BOOKED[lead], None
-    # the time is still free (another booking, or a meeting synced from the staff member's Google calendar)
+    # the time is still free of the staff member's OWN meetings (synced from Google, lunch, focus time). Other
+    # bookings of this type never close a time (owner 27 Nov 2026: "always availability, don't close the booking
+    # even if a person books the same time"); Odoo matches it with manage_capacity on appointment type 2.
     if rpc("calendar.event", "search_count", domain=[["partner_ids", "in", [staff_partner]], ["show_as", "=", "busy"],
+                                                     ["appointment_type_id", "!=", BOOK_TYPE],
                                                      ["start", "<", stop.strftime(fmt)], ["stop", ">", start.strftime(fmt)]]):
         return None, "taken"
     found = rpc("res.partner", "search", domain=[["email", "=ilike", email]], order="id desc", limit=1)
