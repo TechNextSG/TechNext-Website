@@ -442,6 +442,16 @@ body.fw-fx main .faq summary { background: none !important; min-height: 56px; }
 .lp-sent-cal .lp-cal { margin: 14px -6px 0; }
 .lp-cal-frame { display: block; width: 100%; height: 980px; border: 0; border-radius: 14px; background: #fff; }
 .lp-cal-alt { margin: 10px 0 0; font-size: 13px; }
+/* 27 Nov 2026 (Sky: "the padding/margins squeezes the calendar"): on phones the calendar gets the card's full width -
+   form card + green box padding shrink and the calendar frame runs edge to edge inside the green box */
+@media (max-width: 640px) {
+  .form.is-sent:has(.lp-sent-cal) { padding: 8px; }
+  .lp-sent-cal { padding: 18px 12px 12px; }
+  .lp-sent-cal > h3, .lp-sent-cal > p:not(.lp-cal-alt) { padding: 0 6px; }
+  .lp-sent-cal .lp-cal { margin: 12px -12px 0; }
+  .lp-sent-cal .lp-cal-frame { border-radius: 12px; }
+  .lp-sent-cal .lp-cal-alt { padding: 0 6px; }
+}
 /* 25 Nov 2026 (owner: form -> calendar -> booked, no Cloudflare): the lander books the picked time itself */
 .lp-book-status { display: grid; justify-items: start; gap: 6px; margin: 14px 0 0; padding: 22px 20px; border-radius: 14px; background: #fff; border: 1px solid rgba(49,103,202,.16); }
 .lp-book-status p { margin: 0; color: var(--body); }
