@@ -472,7 +472,9 @@ def booking_event(email, phone="", name="", tries=8, wait=1.5):
 # from Odoo's calendar in the lander frame, and the event is created like Odoo's booking form makes it (same type,
 # invite, staff, guests, answers, reminders, Google Meet, "request" status, booking line), so the same emails go out.
 BOOK_TYPE, BOOK_INVITE, BOOK_TZ = 2, 3, "Asia/Manila"
-BOOK_PAGES = ("/bir-audit-trail",)
+# 28 Nov 2026 (owner, Sky CTA audit): the in-page calendar runs on every lander, so every lander books here.
+BOOK_PAGES = ("/bir-audit-trail", "/get-started", "/bir-adviser-call", "/bir-call", "/bir-cas-for-accountants",
+              "/bir-e-invoicing-plan", "/bir-deadline", "/bir-quarter-end", "/bir-firm-deadlines")
 BOOKED = {}   # lead -> {"event", "token", "partner"}, this warm instance (a double click books once)
 BOOK_NEEDS = ("Registering CAS/CBA Books", "EIS / E-Invoicing Readiness (Dec 31 Deadline)",
               "Automating SLSP, 2307s, and Quarter-End reporting", "Exploring an Accounting Firm Partnership")
