@@ -308,7 +308,16 @@
   /* ---------------- Let's Talk panel ---------------- */
   var panel = $('#talk-panel'), tOverlay = $('.talk-overlay');
   var lastFocus = null;
+  /* 28 Nov 2026 (owner, Sky CTA audit): the Let's Talk panel is gone; anything that opened it (old #talk links, Nexi)
+     opens the booking calendar instead, through a data-meet link so the usual UTM / pre-fill handlers run. */
+  function openBook() {
+    var a = document.createElement('a');
+    a.href = 'https://technext.odoo.com/book/c82cf8a9'; a.target = '_blank'; a.rel = 'noopener';
+    a.setAttribute('data-meet', ''); a.setAttribute('data-cta', 'talk_link_book'); a.hidden = true;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
   function openTalk() {
+    if (!panel) { openBook(); return; }
     lastFocus = document.activeElement;
     closeMnav();
     // exit animation on the tab: the plane flies off, then both tabs slide out behind the panel
@@ -323,7 +332,7 @@
     });
   }
   function closeTalk() {
-    if (panel.hidden) return;
+    if (!panel || panel.hidden) return;
     panel.classList.remove('is-open'); tOverlay.classList.remove('is-open');
     document.body.classList.remove('talk-open');
     document.body.style.overflow = '';
@@ -411,9 +420,9 @@
     var a = e.target.closest('a[href$="#talk"]');
     if (a) { e.preventDefault(); openTalk(); }
   });
-  if (location.hash === '#talk') setTimeout(openTalk, 300);
+  if (location.hash === '#talk' && panel) setTimeout(openTalk, 300);
 
-  panel.addEventListener('keydown', function (e) {
+  if (panel) panel.addEventListener('keydown', function (e) {
     if (e.key !== 'Tab') return;
     var f = $$('button, [href], input, select, textarea', panel).filter(function (el) { return !el.disabled && el.offsetParent !== null; });
     if (!f.length) return;

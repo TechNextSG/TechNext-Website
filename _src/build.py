@@ -233,8 +233,7 @@ def mobile_nav_html() -> str:
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
     out.append(f'''
 <div class="mnav-cta">
-  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>{{{{icon:calendar}}}} Book a technical readiness call</a>
-  <a class="btn btn-ghost btn-lg" href="{{{{ROOT}}}}services-catalogue" target="_blank" rel="noopener">{{{{icon:book}}}} Services catalogue</a>
+  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="mnav_book">{{{{icon:calendar}}}} Talk to a BIR Compliance Expert</a>
 </div>
 <div class="mnav-contact">
   <span class="mnav-ci">{{{{icon:mail}}}} {c["sales_email"]}</span>
@@ -246,61 +245,13 @@ def mobile_nav_html() -> str:
 def talk_panel_html() -> str:
     c = S.COMPANY
     return f'''
+<!-- 28 Nov 2026 (owner, Sky CTA audit): the Let's Talk call-back panel is removed (1 real lead since 5 Nov); one side tab
+     opens the booking calendar. Old #talk links open the calendar too (site.js). -->
 <div class="side-tabs">
   <a class="side-tab meet-tab" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="side_tab_book">
-    {{{{icon:calendar}}}}<span>Set up meeting</span>
+    {{{{icon:calendar}}}}<span>Talk to an expert</span>
   </a>
-  <button class="side-tab talk-tab" type="button" data-talk-open aria-haspopup="dialog" aria-controls="talk-panel">
-    {{{{icon:send}}}}<span>Let's Talk</span>
-  </button>
 </div>
-<div class="talk-overlay" data-talk-close hidden></div>
-<aside class="talk-panel" id="talk-panel" role="dialog" aria-modal="true" aria-labelledby="talk-title" hidden>
-  <div class="talk-head">
-    <img src="{{{{ROOT}}}}assets/img/logo-horizontal.png" alt="TechNext" width="140" height="28" data-eager>
-    <button class="icon-btn" type="button" data-talk-close aria-label="Close">{{{{icon:x}}}}</button>
-  </div>
-  <div class="talk-body">
-    <h2 id="talk-title">Book your technical call in two steps.</h2>
-    <p class="talk-lead">We reply from {c["sales_email"]}.</p>
-
-    <form class="form" id="talk-form" novalidate data-endpoint="{S.FORM_ENDPOINT}" data-hv3-steps>
-      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="source" value="Let's Talk panel">
-      <p class="hv3-stepnum"><span data-step-label>Step 1 of 2</span><i class="hv3-prog"><i></i></i></p>
-      <fieldset class="hv3-fs" data-step="1">
-        <legend><h3>What is your primary roadblock?</h3></legend>
-        <div class="hv3-opts">
-          <label class="hv3-opt"><input type="radio" name="bir_pain" value="BIR CAS / CBA Set-Up" required data-missing="Please pick your main roadblock."><span>{{{{icon:calendar}}}}<b>BIR CAS / CBA Set-Up</b><small>Books, sample outputs, audit trail</small></span></label>
-          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Dec 31 E-Invoicing"><span>{{{{icon:send}}}}<b>Dec 31 E-Invoicing</b><small>EIS mandate</small></span></label>
-          <label class="hv3-opt"><input type="radio" name="bir_pain" value="Quarter-End Automation"><span>{{{{icon:refresh}}}}<b>Quarter-End Automation</b><small>2307, SLSP, SAWT, QAP</small></span></label>
-        </div>
-        <button class="btn btn-primary btn-lg hv3-next" type="button" data-next>Next Step {{{{icon:arrow}}}}</button>
-      </fieldset>
-      <fieldset class="hv3-fs" data-step="2" hidden>
-        <legend><h3>Where should we send your custom blueprint?</h3></legend>
-        <div class="form-row">
-          <div class="field"><label for="tf-email">Work Email <span class="req" aria-hidden="true">*</span></label><input id="tf-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="name@company.com" data-missing="Please add your work email."></div>
-          <div class="field"><label for="tf-phone">Mobile Number <span class="req" aria-hidden="true">*</span></label><input id="tf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\\(\\)\\-\\s]{{7,}}" placeholder="0917 123 4567" data-missing="Please add your mobile number." data-err="Please enter a number we can call, with at least 7 digits."></div>
-        </div>
-        <div class="form-row">
-          <div class="field"><label for="tf-name">Name <span class="req" aria-hidden="true">*</span></label><input id="tf-name" name="name" type="text" required autocomplete="name" data-missing="Please add your name."></div>
-          <div class="field"><label for="tf-company">Company <span class="req" aria-hidden="true">*</span></label><input id="tf-company" name="company" type="text" required autocomplete="organization" data-missing="Please add your company name."></div>
-        </div>
-        <div class="field"><label for="tf-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="tf-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="Please add your company website." data-err="{S.WEBSITE_ERR}"></div>
-        <div class="form-foot hv3-foot">
-          <button class="btn btn-ghost hv3-back" type="button" data-back>Back</button>
-          <button class="btn btn-primary" type="submit"><span class="btn-label">Secure My Technical Call {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button>
-        </div>
-      </fieldset>
-      <p class="talk-book"><a class="btn-link" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="talk_prefer_meeting">Rather pick a time yourself? Book a Technical Readiness Call {{{{icon:arrow}}}}</a></p>
-      <p class="form-status" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-  <div class="talk-foot">
-    <span class="talk-ci">{{{{icon:pin}}}} {c["hubs"]}</span>
-  </div>
-</aside>
 <div class="gg-overlay" data-gg-close hidden></div>
 <div class="gg" id="guide-gate" role="dialog" aria-modal="true" aria-labelledby="gg-h" hidden>
   <button class="icon-btn gg-x" type="button" data-gg-close aria-label="Close">{{{{icon:x}}}}</button>
@@ -322,7 +273,7 @@ def talk_panel_html() -> str:
     <div class="field"><label for="gg-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="gg-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="{S.WEBSITE_MISSING}" data-err="{S.WEBSITE_ERR}"></div>
     <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Send me the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
     <p class="form-status" role="status" aria-live="polite"></p>
-    <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Book a Technical Readiness Call</a>.</p></div>
+    <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Talk to a BIR Compliance Expert</a>.</p></div>
     <p class="small muted gg-privacy">Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
   </form>
 </div>'''
@@ -374,7 +325,7 @@ LAYOUT = '''<!doctype html>
 {INTRO_BODY}<a class="skip" href="#main">Skip to content</a>
 
 <header class="header" data-header>
-<div class="bn bn--dl bn--amber" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadline</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span></span></p><a class="bn-link" href="{ROOT}bir-deadline.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+<div class="bn bn--dl bn--amber" role="region" aria-label="BIR deadlines"><div class="container bn-in"><p><b>Deadline</b><span class="bn-long">E-Invoicing by <strong>Dec 31, 2026</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span><span class="bn-short"><span class="bn-g">E-Invoicing <strong>Dec 31</strong><i class="bn-cd" data-bn-due="2026-12-31"></i></span></span></p><a class="bn-link" href="{ROOT}bir-e-invoicing.html" data-cta="banner_check_readiness">Check Readiness<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
 <script>/* 13 Nov 2026: days left filled in before first paint (filling them later from site.js shifted the page, CLS 0.14) */(function(){var t=Math.floor((Date.now()+288e5)/864e5);document.querySelectorAll('.bn-cd[data-bn-due]').forEach(function(e){var d=Math.floor(Date.parse(e.getAttribute('data-bn-due')+'T00:00:00Z')/864e5)-t;e.innerHTML=d>1?d+' days<span class="bn-l"> left</span>':d===1?'1 day<span class="bn-l"> left</span>':d===0?'today':''})})()</script>
   <div class="container header-inner">
     <a class="brand" href="{ROOT}index.html" aria-label="TechNext — home">
@@ -385,7 +336,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="header_book_call" aria-label="Book a technical readiness call (opens our appointment booking page)">{{icon:calendar}}<span>Book a readiness call</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="header_book_call" aria-label="Talk to a BIR Compliance Expert (opens our appointment booking page)">{{icon:calendar}}<span>Talk to a BIR Compliance Expert</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -537,7 +488,7 @@ def _howto(canonical: str, art: dict, content: str):
 # out the odoo.com listing and any /odoo/ or -erp URL; the home and the five landing pages also keep only the FAQ entries
 # and breadcrumbs without Odoo or ERP in their structured data (the visible page copy is unchanged).
 LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html", "bir-cas-for-accountants.html", "bir-e-invoicing-plan.html", "bir-deadline.html", "bir-quarter-end.html", "bir-firm-deadlines.html", "bir-audit-trail.html"}
-_LD_BRAND = re.compile(r"odoo|erp", re.I)
+_LD_BRAND = re.compile(r"odoo|\berp\b", re.I)
 
 
 def _ld_hits(v):
@@ -1931,7 +1882,7 @@ def app_page(mod: str) -> tuple:
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
-        desc_meta += " Book a technical readiness call."
+        desc_meta += " Talk to a BIR Compliance Expert."
     desc_meta = APP_DESCS.get(mod, desc_meta)
     desc_meta = re.sub(r"\s*(from )?inside Odoo", "", desc_meta).replace("on Odoo data", "on your data").replace("from Odoo 20", "from version 20")   # owner 10 Nov: no Odoo/ERP in keywording
     h1name = name.replace(" — ", " (") + ")" if " — " in name else name
@@ -2429,13 +2380,11 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # The header and the mobile menu keep "Set up a meeting".
 # 12 Nov 2026 (copy audit): "5 Day Express" labels only on BIR CAS pages and always with the "*" qualifier (the footnote is
 # added below when a page does not already carry it); other pages get Odoo-plan labels.
-HOOKS = {   # 12 Nov 2026 overhaul brief: every page leads with "Book a Technical Readiness Call"
-    "cas": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
-    "einv": ["Book a Technical Readiness Call", "Plan my e-invoicing", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
-    "app": ["Book a Technical Readiness Call", "See it on my data", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
-    "gen": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
-}
-HOOK_LAST = {k: "Book a Technical Readiness Call" for k in HOOKS}
+# 28 Nov 2026 (owner, Sky CTA audit: "follow what Sky wants"): one main button label everywhere. The old rotation
+# (Technical Readiness Call / custom blueprint / see it on my data / map my data) said the same action four ways.
+MAIN_CTA = "Talk to a BIR Compliance Expert"
+HOOKS = {k: [MAIN_CTA] for k in ("cas", "einv", "app", "gen")}
+HOOK_LAST = {k: MAIN_CTA for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
            '*5 Days is for standard technical deployments with clean, reconciled data ledgers. Pricing scales with your branch '
            'network and integration complexity. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
@@ -2453,6 +2402,15 @@ def _hook_topic(out_rel: str) -> str:
 
 def meeting_ctas(html: str, out_rel: str) -> str:
     html = re.sub(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"', f'href="{BOOK_URL}"', html)
+    # 28 Nov 2026 (Sky CTA audit): meeting buttons go straight to the calendar, never via the /get-started ad lander, and
+    # the old meeting name becomes the one main label. /get-started keeps its own #start links (its form is on the page).
+    if out_rel != "get-started.html":
+        html = re.sub(r'(<a\b[^>]*?)\shref="(?:\.\./|\./|/)*get-started(?:\.html)?#start"([^>]*\bdata-meet(?:-cta)?\b[^>]*>)',
+                      lambda m: m.group(1) + f' href="{BOOK_URL}" target="_blank" rel="noopener"' + m.group(2), html)
+        html = re.sub(r'(<a\b[^>]*\bdata-meet(?:-cta)?\b[^>]*?)\shref="(?:\.\./|\./|/)*get-started(?:\.html)?#start"([^>]*>)',
+                      lambda m: m.group(1) + f' href="{BOOK_URL}" target="_blank" rel="noopener"' + m.group(2), html)
+    html = re.sub(r'(>\s*(?:<svg[^>]*>(?:(?!</a>|<a\b).)*?</svg>\s*)?)Book a [Tt]echnical [Rr]eadiness [Cc]all(?=\s*(?:<svg|\{\{icon|</a>|<span|$))',
+                  lambda m: m.group(1) + MAIN_CTA, html, flags=re.S)
 
     def fix(m):
         attrs = _HREF.sub("", m.group(1))
@@ -2802,7 +2760,7 @@ def write_llms():
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
         "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
         "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
-        f"- Book a Technical Readiness Call: {S.SITE_URL}get-started",
+        f"- Talk to a BIR Compliance Expert: {BOOK_URL}",
         "",
         "## Quick answers",
         "",
