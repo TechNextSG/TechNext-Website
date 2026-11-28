@@ -631,7 +631,7 @@ def book_slot(lead, p):
         rpc("calendar.event", "message_post", ids=[ev], subject=f"Appointment Requested: {name} - {when}",
             body=(f"<p><strong>{e(name)}</strong> booked a {e(t['name'])}.</p><ul>"
                   + "".join(f"<li><b>{e(k)}:</b> {e(v)}</li>" for k, v in rows if v) + "</ul>"),
-            partner_ids=[HELLO_PARTNER], message_type="comment", subtype_xmlid="mail.mt_comment",
+            partner_ids=[HELLO_PARTNER], message_type="comment", subtype_xmlid="mail.mt_comment", body_is_html=True,
             context={"mail_notify_author": True})
     except Exception as x:                                   # the booking stands; only the notice is missing
         print("booking notice failed:", repr(x)[:300])
