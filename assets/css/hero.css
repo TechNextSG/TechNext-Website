@@ -1470,3 +1470,9 @@ html.hxs-on .nexi:not(.nexi--lite),html.hxs-on .nexi-card:not(.nexi-card--lite){
   .is-home .hero .spec .oi{width:30px;height:30px}
   .is-home .hero .bt-strip{margin-top:20px}
 }
+/* Home slide 2 (owner 28 Nov 2026: "fix this part"): the headline wrapped onto five lines; keep its three phrases on
+   three lines. Tag and form strip removed from this slide the same day. */
+@media (min-width:961px){
+  .is-home .hero .slide--bir .as-h1{font-size:clamp(2.3rem,4.4vw,3.9rem)}
+  .is-home .hero .slide--bir .as-h1 .kw{white-space:nowrap}
+}
