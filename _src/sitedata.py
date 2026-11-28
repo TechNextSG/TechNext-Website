@@ -153,7 +153,7 @@ NAV = [
                  "desc": "Matched CAS journals, 2307s and SLSP DAT files."},
                 {"label": "E-Invoicing (EIS)", "href": "bir-e-invoicing.html", "icon": "send",
                  "desc": "Your infrastructure for the Dec 31 EIS mandate."},
-                {"label": "Multi-Company ERP", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
+                {"label": "Multi-Company Business Suite", "href": "solutions/enterprise.html", "icon": "sol-enterprise",
                  "desc": "Head office view, sequenced branch series."},
                 {"label": "AI Financial Automation", "href": "odoo/apps/ai.html", "icon": "sol-ai",
                  "desc": "Bill scanning and bank matching, fewer keystrokes."},
