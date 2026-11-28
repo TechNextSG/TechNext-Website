@@ -19,7 +19,7 @@ Last updated: 2026-11-28
 - Method: discovery, configuration on a staging copy, data migration, training, integration, support
 - Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery
 - Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing
-- Book a Technical Readiness Call: https://technext.asia/get-started
+- Talk to a BIR Compliance Expert: https://technext.odoo.com/book/c82cf8a9
 
 ## Quick answers
 

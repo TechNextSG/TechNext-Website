@@ -180,7 +180,7 @@ NAV = [
                 {"label": "Our Experts", "href": "index.html#advisers", "icon": "co-team",
                  "desc": "The BIR Compliance Experts who do the work."},
                 {"label": "Contact", "href": "https://technext.odoo.com/book/c82cf8a9", "icon": "mail",
-                 "desc": "Book a technical readiness call."},
+                 "desc": "Talk to a BIR Compliance Expert."},
             ]},
         ],
     },

@@ -488,7 +488,7 @@ def _howto(canonical: str, art: dict, content: str):
 # out the odoo.com listing and any /odoo/ or -erp URL; the home and the five landing pages also keep only the FAQ entries
 # and breadcrumbs without Odoo or ERP in their structured data (the visible page copy is unchanged).
 LD_CLEAN = {"index.html", "get-started.html", "bir-adviser-call.html", "bir-call.html", "bir-cas.html", "bir-e-invoicing.html", "bir-cas-for-accountants.html", "bir-e-invoicing-plan.html", "bir-deadline.html", "bir-quarter-end.html", "bir-firm-deadlines.html", "bir-audit-trail.html"}
-_LD_BRAND = re.compile(r"odoo|erp", re.I)
+_LD_BRAND = re.compile(r"odoo|\berp\b", re.I)
 
 
 def _ld_hits(v):
@@ -2380,13 +2380,11 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # The header and the mobile menu keep "Set up a meeting".
 # 12 Nov 2026 (copy audit): "5 Day Express" labels only on BIR CAS pages and always with the "*" qualifier (the footnote is
 # added below when a page does not already carry it); other pages get Odoo-plan labels.
-HOOKS = {   # 12 Nov 2026 overhaul brief: every page leads with "Book a Technical Readiness Call"
-    "cas": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
-    "einv": ["Book a Technical Readiness Call", "Plan my e-invoicing", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
-    "app": ["Book a Technical Readiness Call", "See it on my data", "Talk to a BIR Compliance Expert", "Get my custom blueprint"],
-    "gen": ["Book a Technical Readiness Call", "Get my custom blueprint", "Talk to a BIR Compliance Expert", "Map my data to BIR outputs"],
-}
-HOOK_LAST = {k: "Book a Technical Readiness Call" for k in HOOKS}
+# 28 Nov 2026 (owner, Sky CTA audit: "follow what Sky wants"): one main button label everywhere. The old rotation
+# (Technical Readiness Call / custom blueprint / see it on my data / map my data) said the same action four ways.
+MAIN_CTA = "Talk to a BIR Compliance Expert"
+HOOKS = {k: [MAIN_CTA] for k in ("cas", "einv", "app", "gen")}
+HOOK_LAST = {k: MAIN_CTA for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
            '*5 Days is for standard technical deployments with clean, reconciled data ledgers. Pricing scales with your branch '
            'network and integration complexity. TechNext is not affiliated with the BIR; your RDO sets its own timeline for your registration.</p>')
@@ -2404,6 +2402,15 @@ def _hook_topic(out_rel: str) -> str:
 
 def meeting_ctas(html: str, out_rel: str) -> str:
     html = re.sub(r'href="https://technext\.odoo\.com/book/c82cf8a9[^"]*"', f'href="{BOOK_URL}"', html)
+    # 28 Nov 2026 (Sky CTA audit): meeting buttons go straight to the calendar, never via the /get-started ad lander, and
+    # the old meeting name becomes the one main label. /get-started keeps its own #start links (its form is on the page).
+    if out_rel != "get-started.html":
+        html = re.sub(r'(<a\b[^>]*?)\shref="(?:\.\./|\./|/)*get-started(?:\.html)?#start"([^>]*\bdata-meet(?:-cta)?\b[^>]*>)',
+                      lambda m: m.group(1) + f' href="{BOOK_URL}" target="_blank" rel="noopener"' + m.group(2), html)
+        html = re.sub(r'(<a\b[^>]*\bdata-meet(?:-cta)?\b[^>]*?)\shref="(?:\.\./|\./|/)*get-started(?:\.html)?#start"([^>]*>)',
+                      lambda m: m.group(1) + f' href="{BOOK_URL}" target="_blank" rel="noopener"' + m.group(2), html)
+    html = re.sub(r'(>\s*(?:<svg[^>]*>(?:(?!</a>|<a\b).)*?</svg>\s*)?)Book a [Tt]echnical [Rr]eadiness [Cc]all(?=\s*(?:<svg|\{\{icon|</a>|<span|$))',
+                  lambda m: m.group(1) + MAIN_CTA, html, flags=re.S)
 
     def fix(m):
         attrs = _HREF.sub("", m.group(1))
@@ -2753,7 +2760,7 @@ def write_llms():
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
         "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
         "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
-        f"- Book a Technical Readiness Call: {S.SITE_URL}get-started",
+        f"- Talk to a BIR Compliance Expert: {BOOK_URL}",
         "",
         "## Quick answers",
         "",
