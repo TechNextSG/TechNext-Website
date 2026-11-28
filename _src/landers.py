@@ -1286,11 +1286,11 @@ PAGES["bir-firm-deadlines"].update(
 CTAS["bir-firm-deadlines"]["costs"] = "Book my partner meeting"
 
 # ------------------------------------------- 28 Nov 2026: Sky CTA audit, owner decisions (one main button, one booking route)
-# Owner 28 Nov: "follow what Sky wants" -> the main action reads "Talk to a BIR Compliance Expert" on every lander: the
+# Owner 28 Nov: one main action label on every lander, "Talk to BIR Expert Adviser" (owner wording, replaces Sky's "Talk to a BIR Compliance Expert") on every lander: the
 # hero form button and the closing band. Section buttons keep their own wording (owner 13 Nov "each speaks for its
 # section"). Owner "YES" to the in-page calendar on all landers: the /bir-audit-trail flow (form -> Odoo calendar in the
 # card -> picking a time books it, api/lead.py BOOK_PAGES) now runs on every lander, no jump to technext.odoo.com.
-MAIN_CTA = "Talk to a BIR Compliance Expert"
+MAIN_CTA = "Talk to BIR Expert Adviser"
 for _slug, _p in PAGES.items():
     _p["btn"] = MAIN_CTA
     _p["book_embed"] = True
