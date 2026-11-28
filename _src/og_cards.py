@@ -25,7 +25,7 @@ SECTIONS = [                      # (out_rel prefix, label)
     ("odoo/apps/", "Odoo app"),
     ("industries/", "Odoo for your industry"),
     ("solutions/", "TechNext solution"),
-    ("odoo/", "Odoo ERP"),
+    ("odoo/", "Odoo business suite"),
     ("blog/", "TechNext blog"),
     ("offices/", "TechNext offices"),
     ("", "TechNext"),

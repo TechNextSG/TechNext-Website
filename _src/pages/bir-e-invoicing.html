@@ -10,7 +10,7 @@
     <div class="fx-hero-in bf-hero-in">
       <div class="bf-copy">
         <h1 id="bf-h1">Prepare for BIR e-invoicing now, not in December.</h1>
-        <p class="fx-lead">The <strong>31 December 2026</strong> EIS mandate (RR 11-2025 as amended by RR 26-2025, RMC 98-2026) needs invoices generated, numbered per branch and locked in a system that can transmit. A PDF from a printer is not one. We connect your current POS, accounting software or legacy ERP to <strong>Odoo</strong> by API, daily batch sync or flat-file upload: each sale posts once, in its branch series, mapped to the correct ATC, with no double entry. Standard Odoo has no EIS connection and TechNext does not provide one: transmission runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).</p>
+        <p class="fx-lead">The <strong>31 December 2026</strong> EIS mandate (RR 11-2025 as amended by RR 26-2025, RMC 98-2026) needs invoices generated, numbered per branch and locked in a system that can transmit. A PDF from a printer is not one. We connect your current POS, accounting software or legacy business system to <strong>a BIR compliance engine</strong> by API, daily batch sync or flat-file upload: each sale posts once, in its branch series, mapped to the correct ATC, with no double entry. The engine has no built-in EIS connection and TechNext does not provide one: transmission runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).</p>
         <p class="small muted"><strong>142 projects delivered</strong> · 90+ enterprise clients · 25+ countries · own experts in Taguig City · no rip-and-replace</p>
         <div class="bf-act">
           <a class="btn btn-primary btn-lg" data-meet href="{{ROOT}}get-started.html#start">Book a Technical Readiness Call {{icon:arrow}}</a>
@@ -19,11 +19,11 @@
         <ul class="bf-chips" aria-label="Key facts">
           <li>{{icon:calendar}}Deadline: 31 Dec 2026</li>
           <li>{{icon:receipt}}Invoices set up for BIR and CAS requirements</li>
-          <li>{{icon:check}}Odoo Ready Partner</li>
+          <li>{{icon:check}}Odoo Ready Partner in Singapore</li>
         </ul>
       </div>
 
-      <aside class="fx-result bf-rec" data-bf-rec aria-label="Sample Odoo customer invoice with invoice timeline and deadline countdown">
+      <aside class="fx-result bf-rec" data-bf-rec aria-label="Sample customer invoice with invoice timeline and deadline countdown">
         <div class="fx-result-glow" aria-hidden="true"></div>
         <div class="bf-rec-bar">
           <span class="bf-rec-app">{{odoo:accountant:20}}<b>Accounting</b><small>Customer invoice</small></span>
@@ -41,11 +41,11 @@
             <tr class="is-total"><td>Total (VAT inclusive)</td><td class="n"></td><td class="n">₱ 122,000.00</td></tr>
           </tbody>
         </table></div>
-        <ol class="bf-tl" data-bf-tl aria-label="Invoice timeline in Odoo">
-          <li data-s="0"><span class="bf-dot" aria-hidden="true"></span><b>Draft</b><small>Entered in Odoo</small></li>
+        <ol class="bf-tl" data-bf-tl aria-label="Invoice timeline">
+          <li data-s="0"><span class="bf-dot" aria-hidden="true"></span><b>Draft</b><small>Entered in your system</small></li>
           <li data-s="1"><span class="bf-dot" aria-hidden="true"></span><b>Posted</b><small>Numbered, in your books</small></li>
           <li data-s="2"><span class="bf-dot" aria-hidden="true"></span><b>Locked</b><small>No edits after</small></li>
-          <li data-s="3"><span class="bf-dot" aria-hidden="true"></span><b>EIS</b><small>Through an accredited provider, not in standard Odoo</small></li>
+          <li data-s="3"><span class="bf-dot" aria-hidden="true"></span><b>EIS</b><small>Through an accredited provider, not built in</small></li>
         </ol>
         <div class="fx-count" role="timer" aria-label="Time left until 31 December 2026">
           <div><b data-cd="d">--</b><small>days</small></div>
@@ -66,9 +66,9 @@
       <div><dt>Deadline</dt><dd>31 December 2026, under RR 11-2025 as amended by RR 26-2025, and RMC 98-2026</dd></div>
       <div><dt>Sequencing</dt><dd>System-generated numbers on posting, per branch series</dd></div>
       <div><dt>After issue</dt><dd>Posted invoices locked; credit note or new e-invoice for changes</dd></div>
-      <div><dt>Transmission</dt><dd>Through a BIR-accredited e-invoicing service provider you choose; not in standard Odoo</dd></div>
+      <div><dt>Transmission</dt><dd>Through a BIR-accredited e-invoicing service provider you choose; not built into the system</dd></div>
     </dl>
-    <div class="bf-one reveal"><p>Whether your business is covered is confirmed by your accountant or RDO, never by us. What we engineer is the issuing side: every invoice generated from your source data in the system you register as your <a href="{{ROOT}}bir-cas.html">CAS</a> or CBA, numbered in its branch series, posted once and locked, with credit-note and manual-invoice catch-up flows set up before go-live. The <strong>Permit to Issue</strong> comes first, then EIS Certification within six months; we prepare the process flow and sample invoices for the PTI you apply for.</p><p>Odoo has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.</p></div>
+    <div class="bf-one reveal"><p>Whether your business is covered is confirmed by your accountant or RDO, never by us. What we engineer is the issuing side: every invoice generated from your source data in the system you register as your <a href="{{ROOT}}bir-cas.html">CAS</a> or CBA, numbered in its branch series, posted once and locked, with credit-note and manual-invoice catch-up flows set up before go-live. The <strong>Permit to Issue</strong> comes first, then EIS Certification within six months; we prepare the process flow and sample invoices for the PTI you apply for.</p><p>The system has no built-in connection to the BIR's EIS, and TechNext has not built one. If you are covered, the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026); TechNext does not provide it.</p></div>
     <p class="sec-next reveal"><a class="btn-link" href="#covered">See how invoices get issued and sent {{icon:arrow}}</a></p>
   </div>
 </section>
@@ -80,14 +80,14 @@
       <div class="bf-split-l reveal">
         <h2 id="bf-pain-h" class="bf-h2">Where BIR requirements hurt today.</h2>
         <p class="bf-lead">The quarter-end grind finance teams describe, and what changes once every BIR output comes from <strong>one set of journal entries</strong>.</p>
-        <a class="btn-link" href="{{ROOT}}odoo/philippines.html">See Odoo for the Philippines (BIR) {{icon:arrow}}</a>
+        <a class="btn-link" href="{{ROOT}}odoo/philippines.html">See our Philippine BIR set-up {{icon:arrow}}</a>
       </div>
       <ul class="bf-ledger">
-        <li class="reveal" style="--i:0">{{icon:receipt}}<div><b>Invoices that can't be sent</b><p>A printed or emailed PDF is not an e-invoice. Covered taxpayers need a system that can transmit sales data to the BIR. Standard Odoo does not include that connection, so it runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).</p></div></li>
-        <li class="reveal" style="--i:1">{{icon:file}}<div><b>2307s typed by hand</b><p>Chasing and re-typing withholding certificates every quarter. Odoo 20 generates BIR 2306 and 2307 certificates from vendor bills.</p></div></li>
-        <li class="reveal" style="--i:2">{{icon:calendar}}<div><b>Month-end in spreadsheets</b><p>SLSP, SAWT and QAP rebuilt from spreadsheets. In Odoo they come from the same entries, with DAT exports for the BIR's tools.</p></div></li>
-        <li class="reveal" style="--i:3">{{icon:shield}}<div><b>CAS paperwork</b><p>A system description and sample outputs for your application. With Odoo set up first, the outputs come from the system you will actually use.</p></div></li>
-        <li class="reveal" style="--i:4">{{icon:layers}}<div><b>Branches doing it differently</b><p>Each branch keeps its own POS or ledger and its own invoice series, fed into one Odoo database with the same invoice flow.</p></div></li>
+        <li class="reveal" style="--i:0">{{icon:receipt}}<div><b>Invoices that can't be sent</b><p>A printed or emailed PDF is not an e-invoice. Covered taxpayers need a system that can transmit sales data to the BIR. The system does not include that connection as standard, so it runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).</p></div></li>
+        <li class="reveal" style="--i:1">{{icon:file}}<div><b>2307s typed by hand</b><p>Chasing and re-typing withholding certificates every quarter. The system generates BIR 2306 and 2307 certificates from vendor bills.</p></div></li>
+        <li class="reveal" style="--i:2">{{icon:calendar}}<div><b>Month-end in spreadsheets</b><p>SLSP, SAWT and QAP rebuilt from spreadsheets. In the system they come from the same entries, with DAT exports for the BIR's tools.</p></div></li>
+        <li class="reveal" style="--i:3">{{icon:shield}}<div><b>CAS paperwork</b><p>A system description and sample outputs for your application. With the system set up first, the outputs come from the configuration you will actually use.</p></div></li>
+        <li class="reveal" style="--i:4">{{icon:layers}}<div><b>Branches doing it differently</b><p>Each branch keeps its own POS or ledger and its own invoice series, fed into one database with the same invoice flow.</p></div></li>
         <li class="reveal" style="--i:5">{{icon:search}}<div><b>Digging for an audit</b><p>Posted entries keep their history and attachments, so the documents an examiner asks for are easier to find.</p></div></li>
       </ul>
     </div>
@@ -102,11 +102,11 @@
       <table class="bf-cov-t">
         <thead><tr><th scope="col">Stage</th><th scope="col">How the system handles it</th></tr></thead>
         <tbody>
-          <tr><td>Ingestion</td><td>Sales from your POS, accounting software or legacy ERP arrive by API, daily batch sync or flat-file upload, mapped to the correct ATC with no double entry</td></tr>
+          <tr><td>Ingestion</td><td>Sales from your POS, accounting software or legacy business system arrive by API, daily batch sync or flat-file upload, mapped to the correct ATC with no double entry</td></tr>
           <tr><td>Sequencing</td><td>Each invoice is numbered by the system when it is posted, never typed in</td></tr>
           <tr><td>Branch series</td><td>Head office and every branch on its own invoice series; branches on different invoicing systems may need separate PTIs</td></tr>
           <tr><td>Locking</td><td>Posted invoices are hashed and lock-dated; a credit note covers a decrease and a new e-invoice an increase</td></tr>
-          <tr><td>Transmission</td><td>Sending sales data to the BIR's EIS is not in standard Odoo; it runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026)</td></tr>
+          <tr><td>Transmission</td><td>Sending sales data to the BIR's EIS is not built into the system; it runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026)</td></tr>
         </tbody>
       </table>
     </div>
@@ -139,10 +139,10 @@
 <!-- ============================================================ WHAT ODOO COVERS -->
 <section class="section fx-sec fx-sec--alt" aria-labelledby="bf-odoo-h">
   <div class="container">
-    <div class="sec-head reveal"><h2 id="bf-odoo-h">What Odoo 20 already does for the BIR.</h2><p class="lead">The Philippine localisation produces the data for your <strong>recurring BIR reports</strong>. It has no built-in EIS connection, and TechNext has not built one.</p></div>
+    <div class="sec-head reveal"><h2 id="bf-odoo-h">What the system already does for the BIR.</h2><p class="lead">The Philippine localisation produces the data for your <strong>recurring BIR reports</strong>. It has no built-in EIS connection, and TechNext has not built one.</p></div>
     <div class="bf-duo">
       <div class="bf-glass bf-in reveal">
-        <p class="bf-bar">{{odoo:accountant:20}}<b>In Odoo 20</b></p>
+        <p class="bf-bar">{{odoo:accountant:20}}<b>Built into the system</b></p>
         <ul class="bf-checks">
           <li>{{icon:check}}Invoices set up for BIR and CAS requirements, and a Book of Accounts for CAS and CBA</li>
           <li>{{icon:check}}BIR 2306 and 2307 certificates as PDFs, generated on vendor bills</li>
@@ -153,8 +153,8 @@
       <div class="bf-glass bf-add reveal" style="--i:1">
         <p class="bf-bar">{{icon:plug}}<b>What TechNext adds</b></p>
         <ul class="bf-checks">
-          <li>{{icon:check}}Ingestion from your POS, accounting software or legacy ERP by API, daily batch sync or flat-file upload, mapped to ATCs with no double entry</li>
-          <li>{{icon:check}}If you are covered, what your BIR-accredited e-invoicing service provider will need from your Odoo</li>
+          <li>{{icon:check}}Ingestion from your POS, accounting software or legacy business system by API, daily batch sync or flat-file upload, mapped to ATCs with no double entry</li>
+          <li>{{icon:check}}If you are covered, what your BIR-accredited e-invoicing service provider will need from your system</li>
           <li>{{icon:check}}Invoice layouts and branch flows checked against the guidelines</li>
           <li>{{icon:check}}Credit-note and manual-invoice catch-up set up before go-live</li>
           <li>{{icon:check}}Sample outputs and process flow for the PTI you apply for</li>
@@ -170,7 +170,7 @@
 <section class="section fx-sec bf-rep" id="sample-reports" aria-labelledby="bf-rep-h">
   <div class="bf-rep-bg" aria-hidden="true"></div>
   <div class="container">
-    <div class="sec-head reveal"><h2 id="bf-rep-h">Sample BIR reports from Odoo.</h2><p class="lead">Your 2307, SLSP, QAP, SAWT and VAT summary, <strong>from the same entries as your books</strong>. Fictitious company and figures.</p></div>
+    <div class="sec-head reveal"><h2 id="bf-rep-h">Sample BIR reports.</h2><p class="lead">Your 2307, SLSP, QAP, SAWT and VAT summary, <strong>from the same entries as your books</strong>. Fictitious company and figures.</p></div>
     <div class="bf-sheets" data-bf-sheets>
       <a class="bf-sheet reveal" style="--i:0;--p:.06" data-par href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=1" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/2307.webp" alt="Sample 2307 certificate data report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>2307 certificate data</b><small>Per payee and quarter, from posted vendor bills</small></span><em class="bf-tag">Sample data</em></a>
       <a class="bf-sheet reveal" style="--i:1;--p:-.04" data-par href="{{ROOT}}assets/docs/technext-sample-bir-reports.pdf#page=2" target="_blank" rel="noopener"><img src="{{ROOT}}assets/img/bir-samples/slsp.webp" alt="Sample SLSP: sales and purchases report with fictitious data" width="960" height="430" loading="lazy" decoding="async"><span><b>SLSP: sales and purchases</b><small>Quarterly summary list, exported as a DAT file</small></span><em class="bf-tag">Sample data</em></a>
@@ -190,8 +190,8 @@
       <li class="bf-glass reveal" style="--i:1"><span class="bf-n">2</span><b>Map your invoice flows</b><p>Customer invoices, credit notes, branches, anything issued outside your system today, and the POS or ledger each one comes from.</p></li>
       <li class="bf-glass reveal" style="--i:2"><span class="bf-n">3</span><b>Build ingestion and the localisation</b><p>API, batch sync or flat-file feeds; taxes, ATCs, withholding, BIR reports and invoice layouts, tested on your real data.</p></li>
       <li class="bf-glass reveal" style="--i:3"><span class="bf-n">4</span><b>Prepare for your EIS provider</b><p>Your invoice data set up for a BIR-accredited e-invoicing service provider you choose (RMC 110-2026).</p></li>
-      <li class="bf-glass reveal" style="--i:4"><span class="bf-n">5</span><b>Prepare your PTI papers (you apply)</b><p>Process flow and sample invoices from your Odoo, prepared with you.</p></li>
-      <li class="bf-glass reveal" style="--i:5"><span class="bf-n">6</span><b>Go live and stay on</b><p>Downtime and correction flows set up and tested before go-live, then <a href="{{ROOT}}odoo/support.html">Odoo support</a> from the team that set it up.</p></li>
+      <li class="bf-glass reveal" style="--i:4"><span class="bf-n">5</span><b>Prepare your PTI papers (you apply)</b><p>Process flow and sample invoices from your system, prepared with you.</p></li>
+      <li class="bf-glass reveal" style="--i:5"><span class="bf-n">6</span><b>Go live and stay on</b><p>Downtime and correction flows set up and tested before go-live, then <a href="{{ROOT}}odoo/support.html">ongoing support</a> from the team that set it up.</p></li>
     </ol>
     <div class="bf-links reveal"><a class="btn btn-primary" data-meet href="{{ROOT}}get-started.html#start">Book a Technical Readiness Call {{icon:arrow}}</a><a class="btn-link" href="{{ROOT}}blog/bir-e-invoicing-odoo.html">Read the full e-invoicing guide {{icon:arrow}}</a></div>
   </div>
@@ -203,9 +203,9 @@
     <div class="bf-split">
       <div class="bf-split-l reveal"><h2 id="bf-faq-h" class="bf-h2">BIR e-invoicing, answered.</h2><a class="btn-link" href="#covered">See how invoices get issued and sent {{icon:arrow}}</a></div>
       <div class="faq bf-faq reveal">
-        <details><summary>What has to be working by 31 December 2026? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue electronic invoices on or before 31 December 2026; RR 26-2025 set the date and RMC 98-2026 kept it. On the system side that means invoices numbered per branch series, locked once issued, credit-note and downtime flows in place, and a route to transmit sales data to the EIS, which standard Odoo does not include and we assess and quote separately.</p></div></details>
+        <details><summary>What has to be working by 31 December 2026? {{icon:chevron}}</summary><div class="faq-a"><p>Covered taxpayers must issue electronic invoices on or before 31 December 2026; RR 26-2025 set the date and RMC 98-2026 kept it. On the system side that means invoices numbered per branch series, locked once issued, credit-note and downtime flows in place, and a route to transmit sales data to the EIS, which the system does not include as standard and we assess and quote separately.</p></div></details>
         <details><summary>Who confirms whether we are covered? {{icon:chevron}}</summary><div class="faq-a"><p>Your accountant or RDO, never TechNext. Micro taxpayers are exempt from mandatory BIR e-invoicing, e-commerce coverage applies to sellers classed as small, medium or large, and the BIR Commissioner can require other taxpayers to comply. We map your invoice flows with you once coverage is confirmed.</p></div></details>
-        <details><summary>How do you prepare for the Permit to Issue (PTI)? {{icon:chevron}}</summary><div class="faq-a"><p>You apply for the PTI Electronic Invoice before issuing any e-invoice, then complete EIS Certification within six months of the PTI. We prepare the process flow and sample invoices from your Odoo with you; the permit decision is the BIR's.</p></div></details>
+        <details><summary>How do you prepare for the Permit to Issue (PTI)? {{icon:chevron}}</summary><div class="faq-a"><p>You apply for the PTI Electronic Invoice before issuing any e-invoice, then complete EIS Certification within six months of the PTI. We prepare the process flow and sample invoices from your system with you; the permit decision is the BIR's.</p></div></details>
         <details><summary>Is Odoo BIR compliant? {{icon:chevron}}</summary><div class="faq-a"><p>No accounting software is certified as BIR compliant: the BIR does not accredit accounting software brands, e-invoicing service providers now need BIR accreditation for their solutions under RMC 110-2026 (12 October 2026), with no list published as of 23 November 2026, and the permit is issued to your business for the system you register. Odoo 20's Philippine localisation covers invoices set up for BIR and CAS requirements, a Book of Accounts, 2306 and 2307 certificates, SLSP, SAWT, QAP and 2550Q. Its release notes do not cover an EIS connection, and TechNext has not built one; the connection runs through a BIR-accredited e-invoicing service provider you choose (RMC 110-2026). You file your <a href="{{ROOT}}bir-cas.html">CAS</a> and e-invoicing applications with the BIR yourself. See <a href="{{ROOT}}blog/bir-rules-for-your-accounting-system.html">BIR rules for your accounting system</a>.</p></div></details>
         <details><summary>Can we fix an e-invoice after it is issued? {{icon:chevron}}</summary><div class="faq-a"><p>No. Issued e-invoices cannot be deleted or changed. Use a credit note for a decrease and a new e-invoice for an increase; we set both flows up in your system before go-live.</p></div></details>
         <details><summary>How are our branches handled? {{icon:chevron}}</summary><div class="faq-a"><p>BIR e-invoicing covers head office and all branches. Each branch runs its own invoice series in one database, and branches on different invoicing systems may need separate PTIs. See <a href="{{ROOT}}blog/bir-multi-branch-odoo.html">BIR rules for multi-branch businesses</a>.</p></div></details>
@@ -236,7 +236,7 @@
   <div class="container">
     <div class="fx-close reveal">
       <div class="fx-close-glow" aria-hidden="true"></div>
-      <div><h2>31 December 2026 is close. Start your BIR e-invoicing plan today.</h2><p>Tell us how you invoice today, from which POS or ledger, across how many branches, and which BIR forms you file. We walk you through how your data is ingested, sequenced per branch and locked, and what transmission to the EIS would need. <strong>15 minutes, no charge.</strong> Pricing scales based on your branch network and integration complexity; you don't need a million-peso ERP overhaul to meet BIR requirements. Any work starts with a written quote.</p></div>
+      <div><h2>31 December 2026 is close. Start your BIR e-invoicing plan today.</h2><p>Tell us how you invoice today, from which POS or ledger, across how many branches, and which BIR forms you file. We walk you through how your data is ingested, sequenced per branch and locked, and what transmission to the EIS would need. <strong>15 minutes, no charge.</strong> Pricing scales based on your branch network and integration complexity; you don't need a million-peso system overhaul to meet BIR requirements. Any work starts with a written quote.</p></div>
       <div class="actions"><a class="btn btn-white btn-lg" data-meet href="{{ROOT}}get-started.html#start">Book a Technical Readiness Call</a></div>
     </div>
   </div>

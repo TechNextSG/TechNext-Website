@@ -1118,7 +1118,7 @@ WHO_WE_ARE = """<section class="section section--alt who-home" id="who-we-are">
     <div class="sec-head reveal">
       
       <h2>A team that plugs Odoo into your system.</h2>
-      <p class="lead">Your current POS, accounting software or legacy ERP stays. We connect it by API, daily batch sync or flat-file upload, map every transaction to the right ATC, and generate matched CAS journals, 2307s and SLSP DAT files. Our experts stay with you after go-live.</p>
+      <p class="lead">Your current POS, accounting software or legacy business system stays. We connect it by API, daily batch sync or flat-file upload, map every transaction to the right ATC, and generate matched CAS journals, 2307s and SLSP DAT files. Our experts stay with you after go-live.</p>
     </div>
     <div class="who-grid">
       <article class="who-card reveal" style="--i:0">{{icon:check}}<h3>Already delivered. We can show you.</h3><p>We have done projects like yours before. Ask us and we'll walk you through the real work, not a slide of promises.</p><a class="btn-link" data-meet href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener">Ask for a walkthrough {{icon:arrow}}</a></article>
@@ -2032,7 +2032,7 @@ def app_page(mod: str) -> tuple:
 # the newest three ({{BLOG_LATEST}}).
 # structured-data labels without Odoo/ERP (13 Nov 2026 SEO audit; the visible labels stay)
 LD_CATS = {"odoo-news": "Accounting software news", "technext-odoo": "Implementation", "erp": "Business systems"}
-BLOG_CATS = {"bir": "BIR compliance", "odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "ERP essentials"}
+BLOG_CATS = {"bir": "BIR compliance", "odoo-news": "Odoo news", "technext-odoo": "TechNext & Odoo", "erp": "Business apps essentials"}
 BLOG_ICON = {"bir": "receipt", "odoo-news": "odoo:ai_app", "technext-odoo": "odoo:accountant", "erp": "database"}
 ARTICLES = []
 _H2 = re.compile(r"<h2(\s[^>]*)?>(.*?)</h2>", re.S)
@@ -2759,7 +2759,7 @@ BIR_BLOG = re.compile(r"bir|cas-cba|2307|slsp|sawt|qap|eopt|withholding|payroll"
 LLMS_GROUPS = [
     ("BIR compliance (Philippines)", lambda u: u in ("bir-cas", "bir-e-invoicing", "odoo/philippines")
                                                or (u.startswith("blog/") and BIR_BLOG.search(u[5:]) is not None)),
-    ("Odoo ERP services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
+    ("Odoo business suite services", lambda u: u.startswith(("solutions/odoo-erp", "solutions/enterprise"))
                                     or (u.startswith("odoo/") and not u.startswith("odoo/apps"))),
     ("Odoo apps we implement", lambda u: u.startswith("odoo/apps/") and APP_BY_MOD.get(S.APP_MOD.get(u[10:], u[10:]), {}).get("focus")),
     ("Company", lambda u: u in ("", "company", "bir-adviser-call", "nexi-explains")),
@@ -2783,7 +2783,7 @@ def write_llms():
         "for a business's own BIR Computerized Accounting System (CAS) or CBA application, prepare the sample printouts with it "
         "(the business registers at its RDO), and set up 2307, SLSP, SAWT and QAP from our Taguig City hub, with e-invoicing planned "
         "with it (the EIS connection runs through a BIR-accredited e-invoicing service provider it chooses); in Singapore, GST, and "
-        "InvoiceNow with the Access Point the client chooses. When a business is ready, we implement the full Odoo ERP "
+        "InvoiceNow with the Access Point the client chooses. When a business is ready, we implement the full Odoo business suite "
         "(sales, inventory, POS, HR and more). No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026): we set Odoo up for BIR requirements. "
         "TechNext is not affiliated with, accredited by or acting for the BIR or any government agency, and does not file or register on a client's behalf.",
         "",
@@ -2796,7 +2796,7 @@ def write_llms():
         f"- Logo: {S.SITE_URL}assets/img/logo-square.png (square), {S.SITE_URL}assets/img/logo-horizontal.png (horizontal)",
         "- 142 projects delivered; 90+ enterprise clients; clients in 25+ countries",
         "- Positioning: BIR compliance and integration partner for CPAs, accounting firms and finance teams; Odoo as a reporting plug-in connected to the system a business already runs (API, daily batch sync or flat file); accounting and BIR CAS first; our own experts implement",
-        "- Experts: BIR Compliance Experts in Taguig City (Senior Functional Lead with 80+ companies moved onto ERP and CRM)",
+        "- Experts: BIR Compliance Experts in Taguig City (a BIR Compliance Expert who has moved 80+ companies onto new business systems)",
         f"- Odoo partner tier: Odoo Ready Partner (listing: {c['odoo_listing']})",
         "- Focus apps: Accounting, Sales and Inventory first; the rest of the Odoo suite as the business needs it",
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
@@ -2809,7 +2809,7 @@ def write_llms():
         "- Who sets up BIR CAS reporting for accounting firms in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main team in Taguig City. "
         "SMEs can start with Odoo Accounting only, keep their current system, and get a written quote before any work starts. "
         f"Odoo's subscription is paid to Odoo. Meeting: {S.SITE_URL}get-started",
-        "- Can we add Odoo without replacing our current accounting software, ERP or in-house system? Yes. TechNext connects Odoo to the "
+        "- Can we add Odoo without replacing our current accounting software, business suite or in-house system? Yes. TechNext connects Odoo to the "
         "system a business already runs and brings in the invoices, bills and payments the books need, so Odoo produces the Books of Accounts "
         f"and BIR forms. Details: {S.SITE_URL}odoo/integration",
         "- Who sets up Odoo for BIR compliance in the Philippines? TechNext, an Odoo Ready Partner in Singapore with its main hub in Taguig City, "
@@ -2953,7 +2953,7 @@ def write_llms_full():
            "already runs (accounting software, POS or in-house), starting with accounting, gives a written quote first, "
            "sets it up for BIR requirements (Odoo set up for the client's own BIR Computerized Accounting System (CAS) or CBA application, "
            "with sample printouts, 2307, SLSP, SAWT and QAP; e-invoicing planned separately) and for Singapore GST and InvoiceNow (with "
-           "the client's chosen Access Point), and implements the full Odoo ERP when a business is ready. "
+           "the client's chosen Access Point), and implements the full Odoo business suite when a business is ready. "
            "No accounting software is BIR-accredited, and the BIR has accredited no e-invoicing service provider (BIR advisory, 14 Sep 2026). It is not affiliated with, accredited by or acting for the BIR or any government agency, and it does not file or register on a client's behalf. "
            "142 projects delivered; 90+ enterprise clients in 25+ countries.", "",
            "## Contact", "", f"- Sales: {c['sales_email']}", f"- LinkedIn: {c['linkedin']}", "",

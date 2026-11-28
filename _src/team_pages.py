@@ -285,11 +285,16 @@ def home_section_html(home: bool = False) -> str:
     they know (ties to the plug-in voice: we connect to the system you run) and a meeting button. Styles:
     assets/css/experts.css. RJ is off the site; Neil and Jeric are the two experts (bir_rank 1-2)."""
     people = sorted([p for p in ADV.ADVISORS if p.get("bir_rank")], key=lambda p: p["bir_rank"])[:2]
-    cards = "".join(_expert_card(p, k) for k, p in enumerate(people))
+    cards = "".join(_expert_card(p, k, home) for k, p in enumerate(people))
     h2 = ("Meet the experts who do the work." if home else "Your BIR CAS set-up, led by people who have done it.")   # home=True: 11 Nov 2026 TechNext-first home
+    # Sky 28 Nov 2026: "This section does not need to mention odoo ... mention: your BIR Compliance expert. The reader
+    # might not know or care about odoo" -> owner: sitewide (home + landers), no Odoo or ERP in this section.
+    kicker = "Your BIR Compliance experts"
+    lead = ("Your meeting is with Neil or Jeric. They look at the system you run today, plan your BIR CAS set-up around it, "
+            "and stay with you after go-live.")
     return f'''<section class="section xp-sec" id="advisers" aria-labelledby="xp-h">
   <div class="container">
-    <div class="xp-head reveal"><p class="xp-kicker">Your Odoo experts</p><h2 id="xp-h">{h2}</h2><p class="xp-lead">Your meeting is with Neil or Jeric. They look at the system you run today, plan how Odoo plugs into it, and stay with you after go-live.</p></div>
+    <div class="xp-head reveal"><p class="xp-kicker">{kicker}</p><h2 id="xp-h">{h2}</h2><p class="xp-lead">{lead}</p></div>
     <div class="xp-grid">{cards}</div>
   </div>
 </section>'''
@@ -298,13 +303,13 @@ def home_section_html(home: bool = False) -> str:
 # owner 8 Nov 2026: "simplify this, focus on Odoo, don't mention other brands, make the text smaller" -> one Odoo-focused
 # line per expert, three stats, the meeting button. No list of other software.
 EXPERT_EXTRA = {
-    "Neil Matan": {"sum": "Neil has led ERP projects for 24 years, ten of them on Odoo, and has moved 80+ companies from discovery to go-live."},
+    "Neil Matan": {"sum": "Neil has led business system projects for 24 years, local tax set-up included, and has moved 80+ companies from discovery to go-live."},   # 28 Nov 2026: no Odoo/ERP (Sky)
     "Jeric Bulayungan": {"sum": "Jeric is often your first call: listening to how your business runs today, then planning how their data connects to the compliance engine.",
                          "stats": [("8+", "years in business software sales"), ("2016", "helping PH businesses since"), ("4", "years leading a sales team")]},
 }
 
 
-def _expert_card(p: dict, k: int) -> str:
+def _expert_card(p: dict, k: int, home: bool = False) -> str:
     x = EXPERT_EXTRA.get(p["name"], {})
     R = "{{ROOT}}"
     pic = ""
@@ -334,7 +339,7 @@ def directory_html() -> str:
 # ---------------------------------------------------------------------------------------------------------- compact directory
 # Owner 8 Nov 2026: "make it compact and interactive". Small cards in a filterable grid + one detail panel (sticky on desktop,
 # a bottom sheet on phones) filled by assets/js/pages/team-dir.js from the JSON block. Without JS each card links to the profile.
-DIR_GROUP = {"CEO": "Leadership", "General Manager": "Leadership", "Senior Functional Lead": "Odoo consulting",
+DIR_GROUP = {"CEO": "Leadership", "General Manager": "Leadership", "BIR Compliance Expert": "Odoo consulting",
              "Project Manager": "Odoo consulting", "Functional ERP Consultant": "Odoo consulting",
              "Odoo Developer Expert": "Development & IT", "IT Developer Expert": "Development & IT",
              "Business Development": "Sales & marketing", "Marketing Officer": "Sales & marketing"}

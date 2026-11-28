@@ -40,10 +40,11 @@ ADVISORS = [
          ("Strategy deployment & operational excellence", ["Turning corporate objectives into operating plans", "Accountability systems", "Workflow design", "Measurable outcomes"]),
          ("Corporate governance & management systems", ["Management frameworks", "Decision-making structures", "Organisational accountability", "Business performance systems"]),
      ]},
-    {"name": "Neil Matan", "role": "Senior Functional Lead", "bir_rank": 1,   # owner 8 Nov 2026: RJ off the site; Neil + Jeric are the experts
-     "bir": ["Local tax set-up in ERP roll-outs", "Multi-tax, multi-entity reporting", "Built an HR and payroll system with statutory rules", "Built and rolled out a point-of-sale (POS) system"], "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
-     "summary": "Neil has moved 80+ companies onto ERP and CRM over 24 years, ten of them on Odoo, from discovery to go-live.",
-     "bio": "Neil has spent 24 years moving companies onto ERP and CRM systems, more than 80 of them, ten years of it on Odoo. Neil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Neil about moving off another ERP without losing your history.",
+    {"name": "Neil Matan", "role": "BIR Compliance Expert", "bir_rank": 1,   # 28 Nov 2026 owner (Sky): was "Senior Functional Lead"
+       # owner 8 Nov 2026: RJ off the site; Neil + Jeric are the experts
+     "bir": ["Local tax set-up in business system roll-outs", "Multi-tax, multi-entity reporting", "Built an HR and payroll system with statutory rules", "Built and rolled out a point-of-sale (POS) system"], "office": "ph", "photo": "astroneil-matan.webp", "email": "astroneil@technext.asia",
+     "summary": "Neil has moved 80+ companies onto new business systems over 24 years, from discovery to go-live.",
+     "bio": "Neil has spent 24 years moving companies onto new business systems, more than 80 of them. Neil sits down with your finance and operations teams, maps how the work really happens, and turns it into a set-up that fits, from data migration to local tax and multi-currency. Ask Neil about moving off another ERP without losing your history.",
      # Profile page only (owner 30 Oct: "make it detailed"). From the résumé: no employer or client names, no personal data.
      "about": [
          "Neil holds a computer science degree on top of a business one, and has worked on both sides of every project since: the finance and operations people who use the system, and the developers who build it. That is why discovery workshops with Neil end with a process map your accountants recognise, not a feature list.",
@@ -52,7 +53,7 @@ ADVISORS = [
          "Outside work Neil has served the Rotary Club of Metro Antipolo since 2017, as a director and as president from 2022 to 2024.",
      ],
      "career": [
-         ("Now", "Senior Functional Lead, TechNext", "Leads Odoo discovery, process design, data migration and local tax set-up for clients in the Philippines."),
+         ("Now", "BIR Compliance Expert, TechNext", "Leads discovery, process design, data migration and local tax set-up for clients in the Philippines."),
          ("2025 – 2026", "Project Delivery Head / Senior Techno-Functional Consultant", "Set the ERP direction for international NetSuite and Acumatica programmes, including a full NetSuite-to-Acumatica migration and Salesforce, VersaPay and Shopify integrations."),
          ("2025", "ERP Subject Matter Expert / Solutions Architect", "Ran vendor-neutral platform selection for companies moving to SAP S/4HANA or Microsoft Dynamics 365, and redesigned their finance and supply chain workflows."),
          ("2025", "Chief Technology Officer / Technology Lead", "Owned the technology roadmap and budget; delivered NetSuite with Salesforce for a mid-market retailer and a full Odoo implementation."),
@@ -67,7 +68,7 @@ ADVISORS = [
          ("SAP, Oracle & NetSuite", ["Oracle Fusion for an audit and accounting firm", "Oracle Fusion with Aloha POS for a multi-branch restaurant group", "Oracle NetSuite for an auditing firm", "NetSuite with Salesforce for a mid-market retailer", "SAP Business One for a food retail and distribution company", "SAP Business One with payroll for a BPO", "SAP ECC for a plastic packaging manufacturer", "SAP S/4HANA with Dynamics 365 dealer management and Salesforce"]),
          ("Built from scratch", ["Point-of-sale (POS) system, developed and rolled out", "HR and payroll system with automated pay rules", "Core banking and lending platform", "Flight monitoring system", "Enterprise data centre: design, hardware and build", "VersaPay payments integration"]),
      ],
-     "stats": [("24+", "years in ERP and CRM"), ("10", "years on Odoo"), ("80+", "companies served")],
+     "stats": [("24+", "years in business systems"), ("10", "years on business apps"), ("80+", "companies served")],   # 28 Nov: labels only, numbers unchanged
      "groups": [
          ("Functional leadership", ["Discovery workshops and scoping", "Business process re-engineering", "Finance and supply chain workflows", "Data migration strategy", "Localisation: tax, currency, language, multi-entity", "Change management and user adoption", "Training programmes", "UAT and quality assurance"]),
          ("Advisory & architecture", ["Vendor-neutral ERP selection", "System consolidation after mergers and acquisitions", "B2B and B2C integrations", "Replacing heavily customised legacy systems", "API-driven, cloud-first design", "Total cost of ownership reviews", "Pre-sales solution design and estimates"]),

@@ -25,7 +25,7 @@
 <p>A weekend demo needs a few files and a chatbot. A system your team relies on every day needs each of these parts, and each one affects answer quality.</p>
 <div class="post-flow" aria-hidden="true"><span>{{icon:file}}<b>Ingest</b></span><i></i><span>{{icon:layers}}<b>Chunk &amp; embed</b></span><i></i><span>{{icon:database}}<b>Index</b></span><i></i><span>{{icon:search}}<b>Retrieve &amp; rerank</b></span><i></i><span>{{icon:chat}}<b>Answer with citations</b></span></div>
 <ol>
-  <li><strong>Ingestion.</strong> Connectors pull content from where it lives: shared drives, wikis, PDFs, email archives, your ERP. Text is extracted, tables are kept readable, and each item keeps its metadata (owner, date, department, who may see it).</li>
+  <li><strong>Ingestion.</strong> Connectors pull content from where it lives: shared drives, wikis, PDFs, email archives, your business system. Text is extracted, tables are kept readable, and each item keeps its metadata (owner, date, department, who may see it).</li>
   <li><strong>Chunking.</strong> Long documents are split into passages. Too small and a chunk loses its meaning; too large and it carries noise. Splitting on headings and sections usually beats cutting every few hundred words.</li>
   <li><strong>Embeddings.</strong> An embedding model turns each chunk into a list of numbers that captures its meaning, so "annual leave" and "vacation days" land close together.</li>
   <li><strong>Vector store.</strong> A database built to search those numbers quickly, alongside the chunk text and its metadata.</li>
@@ -93,7 +93,7 @@
 
 <h2>When RAG is the wrong tool</h2>
 <ul>
-  <li><strong>Live numbers and transactions.</strong> "What is our stock of item X right now?" should be answered by querying your ERP directly, not by searching documents. For Odoo, see our <a href="{{ROOT}}odoo/ai-integration.html">Odoo AI integration</a> work.</li>
+  <li><strong>Live numbers and transactions.</strong> "What is our stock of item X right now?" should be answered by querying your business system directly, not by searching documents. For Odoo, see our <a href="{{ROOT}}odoo/ai-integration.html">Odoo AI integration</a> work.</li>
   <li><strong>Small, stable knowledge.</strong> A ten-page FAQ can simply go in the prompt.</li>
   <li><strong>Calculations and strict rules.</strong> Tax, pricing and approvals belong in proper logic, not in a generated paragraph.</li>
   <li><strong>Sources nobody maintains.</strong> RAG makes good documents easy to use. It does not make bad documents correct.</li>

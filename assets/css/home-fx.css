@@ -481,6 +481,37 @@
 .vp-card.is-in .vp-track li::before { animation: vpFill .5s var(--fx-ease) both; animation-delay: calc(.3s + var(--k) * .22s); }
 @keyframes vpFill { from { transform: scaleX(0); background: var(--blue-100); } }
 
+/* 2b. speed (Sky 28 Nov 2026): stopwatch sweep + one racing bar; replaces the five-stage track on home */
+.vp-speed { display: grid; grid-template-columns: 132px minmax(0, 1fr); grid-template-rows: 1fr auto; column-gap: 14px; row-gap: 16px; align-items: center; }
+.vp-sw { position: relative; width: 132px; }
+.vp-sw-dial { display: block; width: 100%; height: auto; overflow: visible; }
+.vp-sw-crown, .vp-sw-stem { fill: var(--blue-700); }
+.vp-sw-bg { fill: #fff; stroke: var(--blue-100); stroke-width: 8; }
+.vp-sw-arc { fill: none; stroke: var(--blue); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 0;
+  transform: rotate(-90deg); transform-origin: 60px 72px; }
+.vp-sw-ticks line { stroke: #9FB3D9; stroke-width: 3; stroke-linecap: round; }
+.vp-sw-n { position: absolute; left: 0; right: 0; top: 54.5%; transform: translateY(-50%); margin: 0; display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.vp-sw-n b { font: 800 46px/1 var(--font-display); letter-spacing: -.04em; color: var(--blue); font-variant-numeric: tabular-nums; }
+.vp-sw-n span { margin-top: 2px; font: 800 13px/1.2 var(--font-display); color: var(--ink); }
+.vp-sw-k { margin: 0; font: 800 12px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: #137A4A; }
+.vp-sw-t { margin: 6px 0 0; font: 700 15px/1.35 var(--font-body); color: var(--ink); }
+.vp-race { grid-column: 1 / -1; }
+.vp-race-bar { position: relative; display: block; height: 10px; border-radius: 10px; background: var(--blue-100); overflow: hidden; }
+.vp-race-bar i { position: absolute; inset: 0; border-radius: inherit; transform-origin: left;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--blue) 70%, #137A4A 100%); }
+.vp-race-bar i::after { content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,.0) 0 10px, rgba(255,255,255,.35) 10px 14px); }
+.vp-race-l { display: flex; justify-content: space-between; margin-top: 8px; font: 600 12px/1.2 var(--font-body); color: var(--body); }
+.vp-race-l span:last-child { display: inline-flex; align-items: center; gap: 4px; color: #137A4A; font-weight: 800; }
+.vp-race-l .ic { width: 14px; height: 14px; }
+.vp-card.is-in .vp-sw-arc { animation: vpSweep 1.1s cubic-bezier(.2,.7,.2,1) .3s both; }
+.vp-card.is-in .vp-race-bar i { animation: vpRace .8s cubic-bezier(.3,.6,.1,1) .55s both; }
+.vp-card.is-in .vp-race-bar i::after { animation: vpStreak .6s linear 3 .55s; }
+@keyframes vpSweep { from { stroke-dashoffset: 100; } }
+@keyframes vpRace { from { transform: scaleX(0); } }
+@keyframes vpStreak { from { background-position: 0 0; } to { background-position: 28px 0; } }
+@media (max-width: 600px) { .vp-speed { grid-template-columns: 112px minmax(0, 1fr); } .vp-sw { width: 112px; } .vp-sw-n b { font-size: 40px; } }
+
 /* 3. advise > map > install */
 .vp-steps { display: grid; gap: 8px; align-content: center; counter-reset: vp; }
 .vp-steps li { position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px;
@@ -503,7 +534,7 @@
 @media (max-width: 1080px) { .vp-grid { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin: 0 auto; } .vp-demo { min-height: 0; } }
 @media (max-width: 600px) { .vp-card { padding: 18px 16px 22px; } .vp-days-n b { font-size: 52px; } .vp-act .btn { flex: 1 1 100%; justify-content: center; } }
 @media (prefers-reduced-motion: reduce) {
-  .vp-card, .vp-card.is-in .vp-check li, .vp-card.is-in .vp-check .ic, .vp-card.is-in .vp-track li::before, .vp-card.is-in .vp-steps li, .vp-card.is-in .vp-steps li::before, .vp-card.is-in .vp-stats li { animation: none; transition: none; }
+  .vp-card, .vp-card.is-in .vp-check li, .vp-card.is-in .vp-check .ic, .vp-card.is-in .vp-track li::before, .vp-card.is-in .vp-steps li, .vp-card.is-in .vp-steps li::before, .vp-card.is-in .vp-stats li, .vp-card.is-in .vp-sw-arc, .vp-card.is-in .vp-race-bar i, .vp-card.is-in .vp-race-bar i::after { animation: none; transition: none; }
   .vp-card:hover { transform: none; }
 }
 
@@ -562,3 +593,37 @@
 .fx-intro-sound:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .fx-intro-player.is-muted .fx-intro-sound { display: inline-flex; }
 @media (max-width: 600px) { .fx-intro-sound { padding: 8px 14px 8px 8px; font-size: 14px; gap: 8px; } .fx-intro-sound svg { width: 26px; height: 26px; padding: 5px; } }
+
+
+/* ============================================================ URGENCY (Sky 28 Nov 2026) */
+.fx-urg { padding-top: clamp(48px, 7vw, 88px); padding-bottom: clamp(48px, 7vw, 88px); }
+.urg { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: stretch; padding: clamp(18px, 2.4vw, 28px);
+  border-radius: 28px; background: rgba(255,255,255,.92); border: 1px solid var(--blue-100); box-shadow: var(--fx-depth, 0 24px 60px -32px rgba(31,31,61,.35)); }
+.urg-clock { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: clamp(22px, 3vw, 34px); border-radius: 22px; overflow: hidden;
+  color: #fff; background: radial-gradient(120% 90% at 0% 0%, #3E7BE6 0%, var(--blue) 45%, #1F3F8F 100%); }
+.urg-clock::after { content: ""; position: absolute; right: -60px; bottom: -60px; width: 220px; height: 220px; border-radius: 50%; border: 18px solid rgba(255,255,255,.08); }
+.urg-k { margin: 0; font: 800 12px/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: #FFD9A0; }
+.urg-date { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; }
+.urg-date b { font: 800 clamp(52px, 5.4vw, 76px)/1 var(--font-display); letter-spacing: -.04em; padding-bottom: .06em; white-space: nowrap; }
+.urg-clock b { color: #fff; }
+.urg-date span { font: 800 22px/1 var(--font-display); opacity: .8; }
+.urg-left { display: inline-flex; align-items: baseline; gap: 8px; align-self: flex-start; margin: 4px 0 0; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.14); }
+.urg-left b { font: 800 24px/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.urg-left span { font: 700 14px/1.2 var(--font-body); }
+.urg-src { margin: 6px 0 0; font: 500 12px/1.45 var(--font-body); color: rgba(255,255,255,.75); }
+.urg-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 6px 4px; }
+.urg-copy h2 { margin: 0; font: 800 clamp(1.7rem, 2.8vw, 2.4rem)/1.18 var(--font-display); letter-spacing: -.02em; color: var(--ink); padding-bottom: .04em; }
+.urg-copy .lead { margin: 12px 0 0; }
+.urg-list { display: grid; gap: 14px; margin: 22px 0 0; padding: 0; list-style: none; counter-reset: urg; }
+.urg-list li { position: relative; display: grid; gap: 2px; padding-left: 44px; }
+.urg-list li::before { counter-increment: urg; content: counter(urg); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: #FCE9E7; color: #B42318; font: 800 14px/1 var(--font-display); }
+.urg-list b { font: 800 16px/1.35 var(--font-display); color: var(--ink); }
+.urg-list span { font-size: 15px; line-height: 1.55; color: var(--body); }
+.urg-list a { color: var(--blue-700); }
+.urg-act { margin-top: 24px; }
+.urg-note { margin: 14px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.urg.is-in .urg-list li { animation: vpTick .5s var(--fx-ease) both; animation-delay: calc(.2s + var(--k) * .15s); }
+@media (max-width: 900px) { .urg { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { .urg { padding: 14px; border-radius: 22px; } .urg-act .btn { flex: 1 1 100%; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .urg.is-in .urg-list li { animation: none; } }
