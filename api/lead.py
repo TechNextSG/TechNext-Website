@@ -10,7 +10,8 @@ Department (sales team) is "Marketing Dept", or "Sales Team" until that exists. 
 salesperson, so everyone with Sales access sees it and whoever takes it sets the salesperson. Internal notes hold
 the answers in three short groups (what they need / about them / how they found us) plus the full links at the
 bottom. 4 Nov 2026 (owner): no @mention of anyone and nothing to Jeric - each new lead is emailed straight to
-hello@technext.asia (LEAD_EMAILS) as an internal note with the summary. Likely spam is tagged "Possible spam",
+hello@technext.asia (LEAD_EMAILS) as an internal note with the summary. 28 Nov 2026 (owner): the note is now only
+logged; hello@ gets ONE email per successful booking (book_slot). Likely spam is tagged "Possible spam",
 never dropped. The Odoo API key lives only in the Vercel env var ODOO_API_KEY, never in this public repo.
 """
 import hashlib
@@ -36,6 +37,7 @@ CORS_ORIGINS = ("https://technext.odoo.com",)
 # where every new lead is emailed (4 Nov 2026: hello@technext.asia only, nobody @mentioned, never Jeric). The old
 # ODOO_NOTIFY_EMAILS / ODOO_COPY_EMAILS / ODOO_SALESPERSON env vars are ignored on purpose.
 LEAD_EMAILS = ("hello@technext.asia",)
+HELLO_PARTNER = 43        # Rico Duque in Odoo = hello@technext.asia: gets the one "Appointment Requested" email per booking
 # first active sales team that exists ("Website" team is archived); direct / referral / messaging -> "Sales Dept"
 DEPARTMENTS = ("Marketing Dept", "Sales Team")
 SPAM_TAG = "Possible spam"
@@ -614,15 +616,23 @@ def book_slot(lead, p):
         print("booking -> lead merge failed:", repr(x)[:300])
     tok = rpc("calendar.event", "read", ids=[ev], fields=["access_token"])[0]["access_token"]
     BOOKED[lead] = {"event": ev, "token": tok, "partner": partner}
-    try:   # as Odoo's form does: the booker has accepted, and the host gets "Appointment Requested" (hello@ = Rico)
+    try:   # as Odoo's form does: the booker has accepted, and hello@ gets "Appointment Requested"
         att = rpc("calendar.attendee", "search", domain=[["event_id", "=", ev], ["partner_id", "=", partner]])
         if att:
             rpc("calendar.attendee", "write", ids=att, vals={"state": "accepted"})
         when = (start + timedelta(hours=8)).strftime("%a %d %b %Y, %I:%M %p").replace(" 0", " ")
-        rpc("calendar.event", "message_post", ids=[ev], subject=f"Appointment Requested: {t['name']}",
-            body=(f"<p><strong>{e(name)}</strong> booked {e(t['name'])} for <strong>{e(when)}</strong> (Manila time) "
-                  f"on technext.asia/bir-audit-trail.</p><p>{e(company)} · {e(email)} · {e(phone)}</p>"),
-            partner_ids=[staff_partner], message_type="comment", subtype_xmlid="mail.mt_comment")
+        host = rpc("res.users", "read", ids=[staff], fields=["name"])[0]["name"]
+        page = clean(p.get("page", ""), 300).split("?")[0] or "technext.asia"
+        rows = [("Call time", f"{when} (Manila time), 15 minutes"), ("Host", f"{host}, with Jeric Bulayungan and Neil Matan"),
+                ("Name", name), ("Company", company), ("Email", email), ("Phone", phone), ("Website", website),
+                ("Focus", need), ("Accounting software", software), ("Booked on", page)]
+        # 28 Nov 2026 owner: hello@ gets ONE email per booking, only once it is booked, with everything the client filled
+        # in (the form-submit note no longer emails). hello@ is Rico, the API user, so the author must be notified too.
+        rpc("calendar.event", "message_post", ids=[ev], subject=f"Appointment Requested: {name} - {when}",
+            body=(f"<p><strong>{e(name)}</strong> booked a {e(t['name'])}.</p><ul>"
+                  + "".join(f"<li><b>{e(k)}:</b> {e(v)}</li>" for k, v in rows if v) + "</ul>"),
+            partner_ids=[HELLO_PARTNER], message_type="comment", subtype_xmlid="mail.mt_comment",
+            context={"mail_notify_author": True})
     except Exception as x:                                   # the booking stands; only the notice is missing
         print("booking notice failed:", repr(x)[:300])
     print("booked from lander: event", ev, "lead", lead)
@@ -1031,22 +1041,15 @@ def follow_up(lead, form, groups, spam):
     if not rpc("crm.lead", "search_count", domain=[["id", "=", lead]]):
         print("lead", lead, "archived by the Odoo lead gate: no note, no emails")
         return
-    to = partners(LEAD_EMAILS)
-    if to:
-        flag = [("Check first", [("Possible spam", spam)])] if spam else []
-        # 26 Nov 2026 (owner): "still mention me if there's new leads" - every lead note @mentions Rico (hello@);
-        # Jeric is the salesperson (Odoo automation 17), Rico has Sales: All Documents so he can open the lead
-        mention = ('<a href="/odoo/res.partner/43" class="o_mail_redirect" data-oe-id="43" '
-                   'data-oe-model="res.partner" target="_blank">@Rico</a> ')
-        body = (f"<p>{mention}New lead from the <b>{html.escape(form)}</b>.</p>"
-                + as_html(flag + [g for g in groups if g[0] != "Full links"]))      # full links stay in the notes
-        # an internal note reaches only the partners listed here, never followers
-        rpc("crm.lead", "message_post", ids=[lead], partner_ids=[p["id"] for p in to],
-            message_type="comment", subtype_xmlid="mail.mt_note", body_is_html=True,
-            context={"mail_notify_author": True,          # hello@ is Rico, who is also the API user
-                     "mail_notify_force_send": False},  # emails go to the mail queue (~10 s saved, timed 28 Oct)
-            body=body)
-    send_now(lead)                                         # the visitor's auto-reply (rule 11) and the note above
+    flag = [("Check first", [("Possible spam", spam)])] if spam else []
+    # 28 Nov 2026 (owner "the only thing I should receive is the successful booking with the client's details"):
+    # the summary note is still logged on the lead, but it no longer emails hello@ - hello@ gets one email when the
+    # client actually books (book_slot / Odoo's "Appointment Requested"). Jeric is the salesperson (automation 17).
+    body = (f"<p>New lead from the <b>{html.escape(form)}</b>.</p>"
+            + as_html(flag + [g for g in groups if g[0] != "Full links"]))          # full links stay in the notes
+    rpc("crm.lead", "message_post", ids=[lead], message_type="comment", subtype_xmlid="mail.mt_note",
+        body_is_html=True, body=body)                      # an internal note with no partners notifies nobody
+    send_now(lead)                                         # the visitor's auto-reply (rule 11)
 
 
 class handler(BaseHTTPRequestHandler):
