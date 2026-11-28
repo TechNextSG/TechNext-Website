@@ -233,7 +233,7 @@ def mobile_nav_html() -> str:
         out.append(f'<details class="mnav-sec"><summary>{it["label"]} {{{{icon:chevron}}}}</summary>{"".join(groups)}</details>')
     out.append(f'''
 <div class="mnav-cta">
-  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="mnav_book">{{{{icon:calendar}}}} Talk to a BIR Compliance Expert</a>
+  <a class="btn btn-primary btn-lg" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="mnav_book">{{{{icon:calendar}}}} Talk to BIR Expert Adviser</a>
 </div>
 <div class="mnav-contact">
   <span class="mnav-ci">{{{{icon:mail}}}} {c["sales_email"]}</span>
@@ -249,7 +249,7 @@ def talk_panel_html() -> str:
      opens the booking calendar. Old #talk links open the calendar too (site.js). -->
 <div class="side-tabs">
   <a class="side-tab meet-tab" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="side_tab_book">
-    {{{{icon:calendar}}}}<span>Talk to an expert</span>
+    {{{{icon:calendar}}}}<span>Talk to BIR Expert Adviser</span>
   </a>
 </div>
 <div class="gg-overlay" data-gg-close hidden></div>
@@ -273,7 +273,7 @@ def talk_panel_html() -> str:
     <div class="field"><label for="gg-website">Company website <span class="req" aria-hidden="true">*</span></label><input id="gg-website" name="website" type="text" required inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="e.g. yourcompany.com" pattern="{S.WEBSITE_PATTERN}" data-missing="{S.WEBSITE_MISSING}" data-err="{S.WEBSITE_ERR}"></div>
     <div class="form-foot"><button class="btn btn-primary btn-lg gg-go" type="submit"><span class="btn-label">Send me the guide {{{{icon:arrow}}}}</span><span class="btn-busy" aria-hidden="true"></span></button></div>
     <p class="form-status" role="status" aria-live="polite"></p>
-    <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Talk to a BIR Compliance Expert</a>.</p></div>
+    <div class="form-sent"><h3>Thanks, your request is in.</h3><p>A BIR Compliance Expert sends the 2027 BIR Audit Guide to your work email within one business day and can walk you through what it means for your books. Want to talk sooner? <a href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet>Talk to BIR Expert Adviser</a>.</p></div>
     <p class="small muted gg-privacy">Your details go only to our team. See the <a href="{{{{ROOT}}}}privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
   </form>
 </div>'''
@@ -336,7 +336,7 @@ LAYOUT = '''<!doctype html>
 {NAV}
       </ul>
     </nav>
-    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="header_book_call" aria-label="Talk to a BIR Compliance Expert (opens our appointment booking page)">{{icon:calendar}}<span>Talk to a BIR Compliance Expert</span></a></div>
+    <div class="header-cta"><a class="btn btn-primary hdr-contact" href="https://technext.odoo.com/book/c82cf8a9" target="_blank" rel="noopener" data-meet data-cta="header_book_call" aria-label="Talk to BIR Expert Adviser (opens our appointment booking page)">{{icon:calendar}}<span>Talk to BIR Expert Adviser</span></a></div>
     <button class="icon-btn menu-btn" type="button" data-mnav-open aria-label="Open menu" aria-expanded="false" aria-controls="mnav">{{icon:menu}}</button>
   </div>
 </header>
@@ -1882,7 +1882,7 @@ def app_page(mod: str) -> tuple:
     if len(desc_meta) > 160:
         desc_meta = desc_meta[:157].rsplit(" ", 1)[0] + "…"
     if len(desc_meta) < 110:
-        desc_meta += " Talk to a BIR Compliance Expert."
+        desc_meta += " Talk to BIR Expert Adviser."
     desc_meta = APP_DESCS.get(mod, desc_meta)
     desc_meta = re.sub(r"\s*(from )?inside Odoo", "", desc_meta).replace("on Odoo data", "on your data").replace("from Odoo 20", "from version 20")   # owner 10 Nov: no Odoo/ERP in keywording
     h1name = name.replace(" — ", " (") + ")" if " — " in name else name
@@ -2382,7 +2382,7 @@ _HREF = re.compile(r'\shref="[^"]*"')
 # added below when a page does not already carry it); other pages get Odoo-plan labels.
 # 28 Nov 2026 (owner, Sky CTA audit: "follow what Sky wants"): one main button label everywhere. The old rotation
 # (Technical Readiness Call / custom blueprint / see it on my data / map my data) said the same action four ways.
-MAIN_CTA = "Talk to a BIR Compliance Expert"
+MAIN_CTA = "Talk to BIR Expert Adviser"
 HOOKS = {k: [MAIN_CTA] for k in ("cas", "einv", "app", "gen")}
 HOOK_LAST = {k: MAIN_CTA for k in HOOKS}
 X5_NOTE = ('<p class="container x5-hook-note" style="font-size:12px;line-height:1.5;color:var(--muted);margin:8px auto 28px">'
@@ -2760,7 +2760,7 @@ def write_llms():
         "- Method: discovery, configuration on a staging copy, data migration, training, integration, support",
         "- Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery",
         "- Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing",
-        f"- Talk to a BIR Compliance Expert: {BOOK_URL}",
+        f"- Talk to BIR Expert Adviser: {BOOK_URL}",
         "",
         "## Quick answers",
         "",

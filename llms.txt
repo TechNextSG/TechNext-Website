@@ -19,7 +19,7 @@ Last updated: 2026-11-28
 - Method: discovery, configuration on a staging copy, data migration, training, integration, support
 - Hosting: Odoo Online, Odoo.sh or on-premise, chosen during discovery
 - Pricing: Odoo licences are priced per user per month by Odoo; TechNext quotes implementation in writing
-- Talk to a BIR Compliance Expert: https://technext.odoo.com/book/c82cf8a9
+- Talk to BIR Expert Adviser: https://technext.odoo.com/book/c82cf8a9
 
 ## Quick answers
 
@@ -96,11 +96,11 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 ## Odoo apps we implement
 
 - [Accounting Philippines: BIR Reports Set Up](https://technext.asia/odoo/apps/accounting): Accounting set up for BIR requirements: CAS/CBA books, 2307 and 2306, SLSP, SAWT, QAP and 2550Q from your entries, plus bank sync and closing.
-- [CRM App in Singapore & the Philippines](https://technext.asia/odoo/apps/crm): CRM set up by TechNext in Singapore and the Philippines. Leads, pipeline and activities. Set up for you. Talk to a BIR Compliance Expert.
+- [CRM App in Singapore & the Philippines](https://technext.asia/odoo/apps/crm): CRM set up by TechNext in Singapore and the Philippines. Leads, pipeline and activities. Set up for you. Talk to BIR Expert Adviser.
 - [Inventory App in Singapore & the Philippines](https://technext.asia/odoo/apps/inventory): Inventory set up by TechNext in Singapore and the Philippines. Multi-warehouse stock, barcodes, replenishment. Set up for you.
 - [Invoicing App in Singapore & the Philippines](https://technext.asia/odoo/apps/invoicing): Invoicing set up by TechNext in Singapore and the Philippines. Send invoices and collect payments online. Set up for you.
 - [Purchase App in Singapore & the Philippines](https://technext.asia/odoo/apps/purchase): Purchase set up by TechNext in Singapore and the Philippines. RFQs, vendor pricelists, receipts. Set up for you.
-- [Sales App in Singapore & the Philippines](https://technext.asia/odoo/apps/sales): Sales set up by TechNext in Singapore and the Philippines. Quotations, orders and upsells. Set up for you. Talk to a BIR Compliance Expert.
+- [Sales App in Singapore & the Philippines](https://technext.asia/odoo/apps/sales): Sales set up by TechNext in Singapore and the Philippines. Quotations, orders and upsells. Set up for you. Talk to BIR Expert Adviser.
 
 ## Company
 
@@ -126,11 +126,11 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 ## Optional
 
 - [Business Apps List: Start With Accounting for BIR CAS](https://technext.asia/odoo/apps): Every app by category. Start with Accounting for BIR CAS, added as a plug-in in your system, then add apps. 142 projects delivered, written quote.
-- [AI App (built-in AI agents) — Singapore & PH](https://technext.asia/odoo/apps/ai): AI set up by TechNext in Singapore and the Philippines. Assistants and agents. Set up for you. Talk to a BIR Compliance Expert.
-- [Appointments App in Singapore & the Philippines](https://technext.asia/odoo/apps/appointments): Appointments set up by TechNext in Singapore and the Philippines. Online booking calendars. Set up for you. Talk to a BIR Compliance Expert.
-- [Appraisals App in Singapore & the Philippines](https://technext.asia/odoo/apps/appraisals): Appraisals set up by TechNext in Singapore and the Philippines. Reviews and goals. Set up for you. Talk to a BIR Compliance Expert.
-- [Approvals App in Singapore & the Philippines](https://technext.asia/odoo/apps/approvals): Approvals set up by TechNext in Singapore and the Philippines. Request and approve anything. Set up for you. Talk to a BIR Compliance Expert.
-- [Blog App in Singapore & the Philippines](https://technext.asia/odoo/apps/blog): Blog set up by TechNext in Singapore and the Philippines. Articles with scheduling and SEO. Set up for you. Talk to a BIR Compliance Expert.
+- [AI App (built-in AI agents) — Singapore & PH](https://technext.asia/odoo/apps/ai): AI set up by TechNext in Singapore and the Philippines. Assistants and agents. Set up for you. Talk to BIR Expert Adviser.
+- [Appointments App in Singapore & the Philippines](https://technext.asia/odoo/apps/appointments): Appointments set up by TechNext in Singapore and the Philippines. Online booking calendars. Set up for you. Talk to BIR Expert Adviser.
+- [Appraisals App in Singapore & the Philippines](https://technext.asia/odoo/apps/appraisals): Appraisals set up by TechNext in Singapore and the Philippines. Reviews and goals. Set up for you. Talk to BIR Expert Adviser.
+- [Approvals App in Singapore & the Philippines](https://technext.asia/odoo/apps/approvals): Approvals set up by TechNext in Singapore and the Philippines. Request and approve anything. Set up for you. Talk to BIR Expert Adviser.
+- [Blog App in Singapore & the Philippines](https://technext.asia/odoo/apps/blog): Blog set up by TechNext in Singapore and the Philippines. Articles with scheduling and SEO. Set up for you. Talk to BIR Expert Adviser.
 - [Discuss App in Singapore & the Philippines](https://technext.asia/odoo/apps/discuss): Discuss set up by TechNext in Singapore and the Philippines. Chat, channels and notifications. Set up for you.
 - [Documents App in Singapore & the Philippines](https://technext.asia/odoo/apps/documents): Documents set up by TechNext in Singapore and the Philippines. File storage with workflows and OCR. Set up for you.
 - [eCommerce App in Singapore & the Philippines](https://technext.asia/odoo/apps/ecommerce): eCommerce set up by TechNext in Singapore and the Philippines. Online store tied to stock and accounting. Set up for you.
@@ -140,36 +140,36 @@ Calendar-year taxpayers; the accountant or RDO confirms what applies to each bus
 - [Events App in Singapore & the Philippines](https://technext.asia/odoo/apps/events): Events set up by TechNext in Singapore and the Philippines. Registrations, tickets and badges. Set up for you.
 - [Expenses App in Singapore & the Philippines](https://technext.asia/odoo/apps/expenses): Expenses set up by TechNext in Singapore and the Philippines. Capture receipts and approve claims. Set up for you.
 - [Field Service App in Singapore & the Philippines](https://technext.asia/odoo/apps/field-service): Field Service set up by TechNext in Singapore and the Philippines. On-site jobs, run in Planning from version 20. Set up for you.
-- [Fleet App in Singapore & the Philippines](https://technext.asia/odoo/apps/fleet): Fleet set up by TechNext in Singapore and the Philippines. Vehicles, contracts and costs. Set up for you. Talk to a BIR Compliance Expert.
-- [Forum App in Singapore & the Philippines](https://technext.asia/odoo/apps/forum): Forum set up by TechNext in Singapore and the Philippines. Community Q&A. Set up for you. Talk to a BIR Compliance Expert.
+- [Fleet App in Singapore & the Philippines](https://technext.asia/odoo/apps/fleet): Fleet set up by TechNext in Singapore and the Philippines. Vehicles, contracts and costs. Set up for you. Talk to BIR Expert Adviser.
+- [Forum App in Singapore & the Philippines](https://technext.asia/odoo/apps/forum): Forum set up by TechNext in Singapore and the Philippines. Community Q&A. Set up for you. Talk to BIR Expert Adviser.
 - [Helpdesk App in Singapore & the Philippines](https://technext.asia/odoo/apps/helpdesk): Helpdesk set up by TechNext in Singapore and the Philippines. Tickets, SLAs and knowledge base. Set up for you.
 - [IoT App in Singapore & the Philippines](https://technext.asia/odoo/apps/iot): IoT set up by TechNext in Singapore and the Philippines. Connect scales, printers and devices. Set up for you.
-- [Knowledge App in Singapore & the Philippines](https://technext.asia/odoo/apps/knowledge): Knowledge set up by TechNext in Singapore and the Philippines. Wiki pages linked to records. Set up for you. Talk to a BIR Compliance Expert.
+- [Knowledge App in Singapore & the Philippines](https://technext.asia/odoo/apps/knowledge): Knowledge set up by TechNext in Singapore and the Philippines. Wiki pages linked to records. Set up for you. Talk to BIR Expert Adviser.
 - [Live Chat App in Singapore & the Philippines](https://technext.asia/odoo/apps/live-chat): Live Chat set up by TechNext in Singapore and the Philippines. Chat with visitors from Discuss. Set up for you.
 - [Maintenance App in Singapore & the Philippines](https://technext.asia/odoo/apps/maintenance): Maintenance set up by TechNext in Singapore and the Philippines. Preventive and corrective requests. Set up for you.
 - [Manufacturing App in Singapore & the Philippines](https://technext.asia/odoo/apps/manufacturing): Manufacturing set up by TechNext in Singapore and the Philippines. Bills of materials and work orders. Set up for you.
 - [Marketing Automation App in Singapore & the Philippines](https://technext.asia/odoo/apps/marketing-automation): Marketing Automation set up by TechNext in Singapore and the Philippines. Multi-step flows on triggers. Set up for you.
-- [Payroll App in Singapore & the Philippines](https://technext.asia/odoo/apps/payroll): Payroll set up by TechNext in Singapore and the Philippines. Salary rules and payslips. Set up for you. Talk to a BIR Compliance Expert.
+- [Payroll App in Singapore & the Philippines](https://technext.asia/odoo/apps/payroll): Payroll set up by TechNext in Singapore and the Philippines. Salary rules and payslips. Set up for you. Talk to BIR Expert Adviser.
 - [Planning App in Singapore & the Philippines](https://technext.asia/odoo/apps/planning): Planning set up by TechNext in Singapore and the Philippines. Shifts, resources and field service. Set up for you.
-- [PLM App in Singapore & the Philippines](https://technext.asia/odoo/apps/plm): PLM set up by TechNext in Singapore and the Philippines. Engineering changes and versions. Set up for you. Talk to a BIR Compliance Expert.
+- [PLM App in Singapore & the Philippines](https://technext.asia/odoo/apps/plm): PLM set up by TechNext in Singapore and the Philippines. Engineering changes and versions. Set up for you. Talk to BIR Expert Adviser.
 - [POS for Shops — Singapore & Philippines](https://technext.asia/odoo/apps/point-of-sale): Point of Sale — Shop set up by TechNext in Singapore and the Philippines. Offline-ready retail checkout. Set up for you.
-- [Project App in Singapore & the Philippines](https://technext.asia/odoo/apps/project): Project set up by TechNext in Singapore and the Philippines. Tasks, stages and milestones. Set up for you. Talk to a BIR Compliance Expert.
+- [Project App in Singapore & the Philippines](https://technext.asia/odoo/apps/project): Project set up by TechNext in Singapore and the Philippines. Tasks, stages and milestones. Set up for you. Talk to BIR Expert Adviser.
 - [Quality App in Singapore & the Philippines](https://technext.asia/odoo/apps/quality): Quality set up by TechNext in Singapore and the Philippines. Control points and quality alerts. Set up for you.
 - [Recruitment App in Singapore & the Philippines](https://technext.asia/odoo/apps/recruitment): Recruitment set up by TechNext in Singapore and the Philippines. Job posts, applicants and interviews. Set up for you.
-- [Referrals App in Singapore & the Philippines](https://technext.asia/odoo/apps/referrals): Referrals set up by TechNext in Singapore and the Philippines. Employee referral programme. Set up for you. Talk to a BIR Compliance Expert.
-- [Rental App in Singapore & the Philippines](https://technext.asia/odoo/apps/rental): Rental set up by TechNext in Singapore and the Philippines. Book, pick up and return assets. Set up for you. Talk to a BIR Compliance Expert.
+- [Referrals App in Singapore & the Philippines](https://technext.asia/odoo/apps/referrals): Referrals set up by TechNext in Singapore and the Philippines. Employee referral programme. Set up for you. Talk to BIR Expert Adviser.
+- [Rental App in Singapore & the Philippines](https://technext.asia/odoo/apps/rental): Rental set up by TechNext in Singapore and the Philippines. Book, pick up and return assets. Set up for you. Talk to BIR Expert Adviser.
 - [Restaurant POS — Singapore & Philippines](https://technext.asia/odoo/apps/restaurant-pos): Point of Sale — Restaurant set up by TechNext in Singapore and the Philippines. Tables, kitchen printing, bills. Set up for you.
-- [Sign App in Singapore & the Philippines](https://technext.asia/odoo/apps/sign): Sign set up by TechNext in Singapore and the Philippines. E-signatures with an audit trail. Set up for you. Talk to a BIR Compliance Expert.
+- [Sign App in Singapore & the Philippines](https://technext.asia/odoo/apps/sign): Sign set up by TechNext in Singapore and the Philippines. E-signatures with an audit trail. Set up for you. Talk to BIR Expert Adviser.
 - [SMS Marketing App in Singapore & the Philippines](https://technext.asia/odoo/apps/sms-marketing): SMS Marketing set up by TechNext in Singapore and the Philippines. Text campaigns with tracking. Set up for you.
 - [Social Marketing App in Singapore & the Philippines](https://technext.asia/odoo/apps/social-marketing): Social Marketing set up by TechNext in Singapore and the Philippines. Schedule and track posts. Set up for you.
 - [Spreadsheet (BI) App in Singapore & the Philippines](https://technext.asia/odoo/apps/spreadsheet): Spreadsheet (BI) set up by TechNext in Singapore and the Philippines. Live pivots and dashboards on your data. Set up for you.
 - [Subscriptions App in Singapore & the Philippines](https://technext.asia/odoo/apps/subscriptions): Subscriptions set up by TechNext in Singapore and the Philippines. Recurring billing and renewals. Set up for you.
-- [Surveys App in Singapore & the Philippines](https://technext.asia/odoo/apps/surveys): Surveys set up by TechNext in Singapore and the Philippines. Forms, quizzes and feedback. Set up for you. Talk to a BIR Compliance Expert.
-- [Time Off App in Singapore & the Philippines](https://technext.asia/odoo/apps/time-off): Time Off set up by TechNext in Singapore and the Philippines. Leave requests and allocations. Set up for you. Talk to a BIR Compliance Expert.
+- [Surveys App in Singapore & the Philippines](https://technext.asia/odoo/apps/surveys): Surveys set up by TechNext in Singapore and the Philippines. Forms, quizzes and feedback. Set up for you. Talk to BIR Expert Adviser.
+- [Time Off App in Singapore & the Philippines](https://technext.asia/odoo/apps/time-off): Time Off set up by TechNext in Singapore and the Philippines. Leave requests and allocations. Set up for you. Talk to BIR Expert Adviser.
 - [Timesheets App in Singapore & the Philippines](https://technext.asia/odoo/apps/timesheets): Timesheets set up by TechNext in Singapore and the Philippines. Time tracking billed to projects. Set up for you.
-- [Business Phone (VoIP) — Singapore & Philippines](https://technext.asia/odoo/apps/voip): Phone set up by TechNext in Singapore and the Philippines. Calls over VoIP. Set up for you. Talk to a BIR Compliance Expert.
+- [Business Phone (VoIP) — Singapore & Philippines](https://technext.asia/odoo/apps/voip): Phone set up by TechNext in Singapore and the Philippines. Calls over VoIP. Set up for you. Talk to BIR Expert Adviser.
 - [Website Builder App in Singapore & the Philippines](https://technext.asia/odoo/apps/website-builder): Website Builder set up by TechNext in Singapore and the Philippines. Drag-and-drop pages with SEO tools. Set up for you.
-- [WhatsApp App in Singapore & the Philippines](https://technext.asia/odoo/apps/whatsapp): WhatsApp set up by TechNext in Singapore and the Philippines. Templates and conversations. Set up for you. Talk to a BIR Compliance Expert.
+- [WhatsApp App in Singapore & the Philippines](https://technext.asia/odoo/apps/whatsapp): WhatsApp set up by TechNext in Singapore and the Philippines. Templates and conversations. Set up for you. Talk to BIR Expert Adviser.
 - [Full text for AI assistants](https://technext.asia/llms-full.txt): every page summary and every FAQ answer on the site
 - [Privacy Policy](https://technext.asia/privacy): how personal data and cookies are handled
 - [Terms of Service](https://technext.asia/terms): website terms and how engagements are agreed
