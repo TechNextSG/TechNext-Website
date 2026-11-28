@@ -543,12 +543,13 @@ def book_slot(lead, p):
         return None, "taken"
     found = rpc("res.partner", "search", domain=[["email", "=ilike", email]], order="id desc", limit=1)
     partner = found[0] if found else rpc("res.partner", "create", vals_list=[{"name": name, "email": email, "phone": phone}])[0]
-    # guests Odoo adds to every booking of this type (Jeric, Neil): copied from its latest booking made on the website
+    # guests Odoo adds to every booking of this type (Jeric, Neil; automation 10 adds them too): copied from its latest booking made on the website
     last = rpc("calendar.event", "search_read", domain=[["appointment_type_id", "=", BOOK_TYPE], ["create_uid.share", "=", True]],
                fields=["partner_ids", "appointment_booker_id", "user_id"], order="id desc", limit=1, context={"active_test": False})
     guests = []
     if last:
-        skip = {(last[0]["appointment_booker_id"] or [0])[0]}
+        # 28 Nov 2026 owner: Pia (partner 24) is no longer on Blueprint bookings - never copy her from an older one
+        skip = {(last[0]["appointment_booker_id"] or [0])[0], 24}
         lu = (last[0]["user_id"] or [0])[0]
         if lu:
             skip.add(rpc("res.users", "read", ids=[lu], fields=["partner_id"])[0]["partner_id"][0])
